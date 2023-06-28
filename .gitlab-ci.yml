@@ -1,0 +1,95 @@
+stages: 
+  - development 
+  - staging 
+  - production 
+
+default:
+  before_script:
+    - export PATH="$PATH:/Users/sonny/Documents/flutter/bin"
+
+variables:
+  LC_ALL: "en_US.UTF-8"
+  LANG: "en_US.UTF-8"
+
+
+
+# ✅ WORKS
+run-the-unit-tests:
+  stage: development
+  script:
+    - touch .env
+    - flutter pub get
+    - flutter test
+  only:
+    - development
+
+pre-build-check:
+  stage: development
+  script: 
+    - touch .env
+    - flutter build ios && flutter build appbundle
+  only:
+    - development
+  when: manual
+
+
+# ✅ WORKS
+internal-ios-staging:
+  stage: staging
+  tags:
+    - shell
+  script:
+    - echo "PROD_SUPABASE_URL=$STAGING_SUPABASE_URL" >> .env
+    - echo "PROD_SUPABASE_ANON_KEY=$STAGING_SUPABASE_ANON_KEY" >> .env
+    - chmod u+x ./scripts/ios/*.sh
+    - ./scripts/ios/build_ios.sh
+    - ./scripts/ios/distribute_ios_beta.sh
+  only:
+    - staging
+  when: manual
+
+#  ✅ WORKS
+internal-android-staging:
+  stage: staging
+  tags:
+    - shell
+  script: 
+    - echo "PROD_SUPABASE_URL=$STAGING_SUPABASE_URL" >> .env
+    - echo "PROD_SUPABASE_ANON_KEY=$STAGING_SUPABASE_ANON_KEY" >> .env
+    - chmod u+x ./scripts/android/*.sh
+    - ./scripts/android/build_android.sh
+    - ./scripts/android/distribute_android_staging.sh
+  only:
+    - staging
+  when: manual
+
+
+# 🌊 Pretty Sure This Works 
+external-ios-beta-build:
+  stage: production
+  tags:
+    - shell
+  script:
+    - echo "PROD_SUPABASE_URL=$PROD_SUPABASE_URL" >> .env
+    - echo "PROD_SUPABASE_ANON_KEY=$PROD_SUPABASE_ANON_KEY" >> .env
+    - chmod u+x ./scripts/ios/*.sh
+    - ./scripts/ios/build_ios.sh
+    - ./scripts/ios/distribute_ios_beta.sh
+  only:
+    - staging
+  when: manual
+
+# 🌊 Pretty Sure This Works 
+external-android-beta-build:
+  stage: production 
+  tags:
+    - shell
+  script: 
+    - echo "PROD_SUPABASE_URL=$PROD_SUPABASE_URL" >> .env
+    - echo "PROD_SUPABASE_ANON_KEY=$PROD_SUPABASE_ANON_KEY" >> .env
+    - chmod u+x ./scripts/android/*.sh
+    - ./scripts/android/build_android.sh
+    - ./scripts/android/distribute_android_production.sh
+  only:
+    - staging
+  when: manual

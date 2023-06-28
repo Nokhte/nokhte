@@ -1,0 +1,2 @@
+cd ios
+bundle exec fastlane generic_ios_beta_build
