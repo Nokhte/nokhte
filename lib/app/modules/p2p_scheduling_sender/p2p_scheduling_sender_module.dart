@@ -71,8 +71,8 @@ class P2PSchedulingSenderModule extends Module {
 
         Bind.singleton<OrderSpiralColors>(
           (i) => OrderSpiralColors(
-            presentMoment: DateTime.now(),
-            // presentMoment: DateTime(2023, 6, 19, 8, 48),
+            // presentMoment: DateTime.now(),
+            presentMoment: DateTime(2023, 6, 19, 3, 0),
           ),
         ),
 

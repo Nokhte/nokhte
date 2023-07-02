@@ -4750,7 +4750,7 @@ class SpiralPaths {
             return path_52;
           },
 
-          // % Circle 0
+          // % Circle 00
           fillInformation: (
             Size size,
             Either<IndividualSpiralCircleFill, IndividualSpiralCircleGradient>
@@ -4854,7 +4854,7 @@ class SpiralPaths {
             path_53.close();
             return path_53;
           },
-          // % Circle 0 Border
+          // % Circle 00 Border
           fillInformation: (Size size) {
             final rect = Rect.fromLTRB(156.8, 156.8, 215.5, 215.5);
             Paint paint_53_fill = Paint()..style = PaintingStyle.fill;

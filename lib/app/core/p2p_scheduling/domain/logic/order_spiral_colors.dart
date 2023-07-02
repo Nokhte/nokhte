@@ -1,6 +1,7 @@
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/p2p_scheduling/domain/entities/p2p_scheduling_ordered_times_entity.dart';
 
+// So this needs to be modified
 class OrderSpiralColors extends AbstractSyncNoFailureLogic<
     P2PSchedulingOrderedTimesEntity, NoParams> {
   DateTime presentMoment;
@@ -13,9 +14,13 @@ class OrderSpiralColors extends AbstractSyncNoFailureLogic<
     late int minute;
     late int hour = startTime.hour;
 
-// if it's 8:00-8:29 it should be 8:00
-// if it's 8:30-8:59 it should be 8:30
-    minute = startTime.minute >= 0 && startTime.minute < 29 ? 0 : 30;
+    minute = startTime.minute >= 0 && startTime.minute < 29
+        ? startTime.minute < 15
+            ? 0
+            : 15
+        : startTime.minute < 45
+            ? 30
+            : 45;
 
     startTime =
         DateTime(startTime.year, startTime.month, startTime.day, hour, minute);
@@ -33,7 +38,7 @@ class OrderSpiralColors extends AbstractSyncNoFailureLogic<
       timeArray.add(time);
 
       // Increment the time by 30 minutes
-      startTime = startTime.add(const Duration(minutes: 30));
+      startTime = startTime.add(const Duration(minutes: 15));
 
       // Increment the time by 30 minutes
     }
