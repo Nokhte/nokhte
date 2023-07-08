@@ -13,9 +13,10 @@ variables:
 
 # $ Backend-CI/CD JOBS START
 test-the-db-rules:
-  stage: development 
+  stage: development
   script:
-    - export PATH="$PATH:/Users/sonny/Documents/flutter/bin"
+    - melos bs
+    - cd packages/backend/dart
     - echo "APPLE_CLIENT_SECRET='$APPLE_CLIENT_SECRET'" >> .env
     - echo "GOOGLE_CLIENT_ID='$GOOGLE_CLIENT_ID'" >> .env
     - echo "GOOGLE_CLIENT_SECRET='$GOOGLE_CLIENT_SECRET'" >> .env
@@ -31,6 +32,7 @@ test-the-db-rules:
 deploy-to-staging-db:
   stage: staging
   script:
+    - cd packages/backend
     - supabase link --project-ref $SUPABASE_STAGING_PROJECT_ID --password $SUPABASE_STAGING_DB_PASSWORD
     - supabase db push
   only:
@@ -56,6 +58,8 @@ deploy-to-prod-db:
 run-the-unit-tests:
   stage: development
   script:
+    - melos bs
+    - cd packages/client
     - touch .env
     - flutter pub get
     - flutter test
@@ -65,6 +69,7 @@ run-the-unit-tests:
 pre-build-check:
   stage: development
   script: 
+    - melos bs
     - touch .env
     - flutter build ios && flutter build appbundle
   only:
@@ -78,6 +83,8 @@ internal-ios-staging:
   tags:
     - shell
   script:
+    - melos bs
+    - cd packages/client
     - echo "PROD_SUPABASE_URL=$STAGING_SUPABASE_URL" >> .env
     - echo "PROD_SUPABASE_ANON_KEY=$STAGING_SUPABASE_ANON_KEY" >> .env
     - chmod u+x ./scripts/ios/*.sh
@@ -93,6 +100,8 @@ internal-android-staging:
   tags:
     - shell
   script: 
+    - melos bs
+    - cd packages/client
     - echo "PROD_SUPABASE_URL=$STAGING_SUPABASE_URL" >> .env
     - echo "PROD_SUPABASE_ANON_KEY=$STAGING_SUPABASE_ANON_KEY" >> .env
     - chmod u+x ./scripts/android/*.sh
@@ -109,6 +118,8 @@ external-ios-beta-build:
   tags:
     - shell
   script:
+    - melos bs
+    - cd packages/client
     - echo "PROD_SUPABASE_URL=$PROD_SUPABASE_URL" >> .env
     - echo "PROD_SUPABASE_ANON_KEY=$PROD_SUPABASE_ANON_KEY" >> .env
     - chmod u+x ./scripts/ios/*.sh
@@ -124,6 +135,8 @@ external-android-beta-build:
   tags:
     - shell
   script: 
+    - melos bs
+    - cd packages/client
     - echo "PROD_SUPABASE_URL=$PROD_SUPABASE_URL" >> .env
     - echo "PROD_SUPABASE_ANON_KEY=$PROD_SUPABASE_ANON_KEY" >> .env
     - chmod u+x ./scripts/android/*.sh
