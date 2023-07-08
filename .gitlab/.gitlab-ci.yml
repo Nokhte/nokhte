@@ -1,3 +1,0 @@
-include:
-  - local: '.backend-ci.yml'
-  - local: '.client-ci.yml'

@@ -1,0 +1,39 @@
+# stages:
+#   - development
+#   - staging
+#   - production
+
+
+# test-the-db-rules:
+#   stage: development 
+#   script:
+#     - export PATH="$PATH:/Users/sonny/Documents/flutter/bin"
+#     - echo "APPLE_CLIENT_SECRET='$APPLE_CLIENT_SECRET'" >> .env
+#     - echo "GOOGLE_CLIENT_ID='$GOOGLE_CLIENT_ID'" >> .env
+#     - echo "GOOGLE_CLIENT_SECRET='$GOOGLE_CLIENT_SECRET'" >> .env
+#     - supabase stop
+#     - supabase start
+#     - cd tests
+#     - flutter pub get
+#     - chmod u+x ./scripts/test.sh
+#     - ./scripts/test.sh
+#   only:
+#     - development
+    
+# deploy-to-staging-db:
+#   stage: staging
+#   script:
+#     - supabase link --project-ref $SUPABASE_STAGING_PROJECT_ID --password $SUPABASE_STAGING_DB_PASSWORD
+#     - supabase db push
+#   only:
+#     - staging
+#   when: manual
+
+# deploy-to-prod-db:
+#   stage: production 
+#   script:
+#     - supabase link --project-ref $SUPABASE_PROD_PROJECT_ID --password $SUPABASE_PROD_DB_PASSWORD
+#     - supabase db push
+#   only:
+#     - production 
+#   when: manual
