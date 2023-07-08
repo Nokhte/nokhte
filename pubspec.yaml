@@ -19,22 +19,25 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 0.0.8+87449015
 
 environment:
-  sdk: ">=2.19.6 <3.0.0"
+  sdk: ">=3.0.5 <4.0.0"
 
 dependencies:
-  connectivity_plus: ^4.0.0
-  cupertino_icons: ^1.0.2
+  connectivity_plus: ^4.0.1
+  crypto: ^3.0.3
+  cupertino_icons: ^1.0.5
   dartz: ^0.10.1
   equatable: ^2.0.5
   flutter:
     sdk: flutter
-  flutter_dotenv: ^5.0.2
+  flutter_dotenv: ^5.1.0
   flutter_mobx: ^2.0.6+5
   flutter_modular: ^5.0.3
-  flutter_platform_widgets: ^3.3.2
+  flutter_platform_widgets: ^3.3.5
   intl: ^0.18.1
-  mobx: ^2.1.4
-  supabase_flutter: ^1.8.1
+  melos: ^3.1.0
+  mobx: ^2.2.0
+  sign_in_with_apple: ^4.3.0
+  supabase_flutter: ^1.10.7
   touchable: ^1.0.2
 
 dev_dependencies:

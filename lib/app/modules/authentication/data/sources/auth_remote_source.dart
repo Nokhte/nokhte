@@ -1,8 +1,13 @@
+import 'dart:convert';
+
 import 'package:primala/app/modules/authentication/data/models/auth_state_model.dart';
 import 'package:primala/app/modules/authentication/data/models/auth_provider_model.dart';
 import 'package:primala/app/core/interfaces/auth_providers.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter/foundation.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:primala/app/core/utilities/generate_random_string.dart';
+import 'package:crypto/crypto.dart';
 
 abstract class AuthenticationRemoteSource {
   Future<AuthProviderModel> signInWithGoogle();
@@ -10,6 +15,11 @@ abstract class AuthenticationRemoteSource {
   Future<AuthProviderModel> signInWithApple();
 
   AuthModel getAuthState();
+
+  Future<List<dynamic>> addNameToBackend({
+    required String lastName,
+    required String firstName,
+  });
 }
 
 class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
@@ -31,12 +41,39 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
 
   @override
   Future<AuthProviderModel> signInWithApple() async {
-    final res = supabase.auth.signInWithApple();
+    // Generate a random string
+    final rawNonce = GenerateSomeRandom.string();
+    final hashedNonce = sha256.convert(utf8.encode(rawNonce)).toString();
+
+    final credential = await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+      nonce: hashedNonce,
+    );
+    final firstName = credential.givenName;
+    final lastName = credential.familyName;
+    final idToken = credential.identityToken ?? '';
+
+    final res = await supabase.auth.signInWithIdToken(
+      provider: Provider.apple,
+      idToken: idToken,
+      nonce: rawNonce,
+    );
     return await AuthProviderModel.fromSupabase(res);
   }
 
   @override
   AuthModel getAuthState() {
     return AuthModel.fromSupabase(supabase.auth.onAuthStateChange);
+  }
+
+  @override
+  Future<List<dynamic>> addNameToBackend({
+    required String firstName,
+    required String lastName,
+  }) {
+    return Future.value([]);
   }
 }

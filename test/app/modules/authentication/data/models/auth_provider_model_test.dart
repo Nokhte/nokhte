@@ -12,7 +12,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() {
   late AuthProviderModel tAuthProvider;
-  late Future<AuthResponse> tAuthResponse;
+  late AuthResponse tAuthResponse;
 
   group(
       'Apple Conversion Tests (Note: Native Apple Sign only runs conversion logic)',
@@ -24,11 +24,9 @@ void main() {
             authProvider: AuthProvider.apple, authProviderStatus: true);
         final AuthState authState =
             await SupabaseAuthFixture.authenticated().first;
-        tAuthResponse = Future.value(
-          AuthResponse(
-            session: authState.session,
-            user: SupabaseAuthFixture.returnAuthenticatedUser(),
-          ),
+        tAuthResponse = AuthResponse(
+          session: authState.session,
+          user: SupabaseAuthFixture.returnAuthenticatedUser(),
         );
       });
       test("should be a subclass of AuthProvider Entity", () async {
@@ -53,11 +51,9 @@ void main() {
             authProvider: AuthProvider.apple, authProviderStatus: false);
         final AuthState authState =
             await SupabaseAuthFixture.unauthenticated().first;
-        tAuthResponse = Future.value(
-          AuthResponse(
-            session: authState.session,
-            user: SupabaseAuthFixture.returnUnauthenticatedUser(),
-          ),
+        tAuthResponse = AuthResponse(
+          session: authState.session,
+          user: SupabaseAuthFixture.returnUnauthenticatedUser(),
         );
       });
     });

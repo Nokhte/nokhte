@@ -39,20 +39,20 @@ class AppModule extends Module {
           module: UsernameModule(),
         ),
         // TODO change back later
-        // ModuleRoute(
-        //   '/home/',
-        //   module: HomeModule(),
-        // ),
+        ModuleRoute(
+          '/home/',
+          module: HomeModule(),
+        ),
         ModuleRoute(
           '/send-request/',
           module: P2PRequestSenderModule(),
         ),
-        ModuleRoute(
-          '/home/',
-          // '/send-scheduling-request/',
-          // ^^ Add back in prod
-          module: P2PSchedulingSenderModule(),
-        )
+        // ModuleRoute(
+        //   '/home/',
+        //   // '/send-scheduling-request/',
+        //   // ^^ Add back in prod
+        //   module: P2PSchedulingSenderModule(),
+        // )
       ];
 }
 // TODO: MAKE SURE U TEST & IMPLEMENT ROUTING
