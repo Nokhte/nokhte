@@ -24,7 +24,6 @@ test-the-db-rules:
     - echo "GOOGLE_CLIENT_SECRET='$GOOGLE_CLIENT_SECRET'" >> .env
     - supabase stop
     - supabase start
-    - cd tests
     - flutter pub get
     - chmod u+x ./scripts/test.sh
     - ./scripts/test.sh
