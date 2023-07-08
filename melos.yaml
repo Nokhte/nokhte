@@ -1,0 +1,12 @@
+name: primala_core
+
+
+packages:
+  - packages/client
+  - packages/backend/dart
+
+
+command:
+  bootstrap:
+    runPubGetInParallel: false
+    usePubspecOverrides: true
