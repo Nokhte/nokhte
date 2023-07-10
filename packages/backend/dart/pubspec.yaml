@@ -8,9 +8,11 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
+  flutter:
+    sdk: flutter
   dotenv: ^4.1.0
   equatable: ^2.0.5
-  supabase: ^1.9.0
+  supabase_flutter: ^1.10.7
 
 dev_dependencies:
   lints: ^2.0.0

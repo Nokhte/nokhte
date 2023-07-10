@@ -4,8 +4,12 @@ environment:
     sdk: ">=3.0.0 <4.0.0"
 
 
-# dependencies:
-#     supabase_0[0[0[0[0[0[0[flutter: ^1.10.7
+dependencies:
+    yaml: any
+    yaml_edit: ^2.1.0
+#     flutter:
+#         sdk: flutter
+#     supabase_flutter: ^1.10.7
 
 dev_dependencies:
     melos: ^3.1.0

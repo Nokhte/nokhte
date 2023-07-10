@@ -61,10 +61,10 @@ packages:
     dependency: transitive
     description:
       name: collection
-      sha256: f092b211a4319e98e5ff58223576de6c2803db36221657b46c82574721240687
+      sha256: "4a07be6cb69c84d677a6c3096fcf960cc3285a8330b4603e0d463d15d9bd934c"
       url: "https://pub.dev"
     source: hosted
-    version: "1.17.2"
+    version: "1.17.1"
   conventional_commit:
     dependency: transitive
     description:
@@ -298,7 +298,7 @@ packages:
     source: hosted
     version: "1.0.0"
   yaml:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: yaml
       sha256: "75769501ea3489fca56601ff33454fe45507ea3bfb014161abc3b43ae25989d5"
@@ -306,7 +306,7 @@ packages:
     source: hosted
     version: "3.1.2"
   yaml_edit:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: yaml_edit
       sha256: "1579d4a0340a83cf9e4d580ea51a16329c916973bffd5bd4b45e911b25d46bfd"

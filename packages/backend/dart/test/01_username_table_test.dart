@@ -44,7 +44,7 @@ void main() {
       await supabase.auth
           .signInWithPassword(email: 'test@example.com', password: 'test123');
       await supabase.from('user_names').insert(
-        {"uid": supabase.auth.currentUser?.id, "username": "tester"},
+        {"uid": supabase.auth.currentUser?.id, "first_name": "tester"},
       );
       await supabase.auth.signOut();
       await supabase.auth
