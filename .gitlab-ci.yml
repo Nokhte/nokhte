@@ -26,9 +26,8 @@ test-the-db-rules:
     - supabase stop
     - supabase start
     - flutter pub get
-    - flutter test
-    # - chmod u+x ./scripts/test.sh
-    # - ./scripts/test.sh
+    - chmod u+x ./scripts/test.sh
+    - ./scripts/test.sh
   only:
     - development
     
