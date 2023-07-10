@@ -8,6 +8,7 @@ default:
     - export PATH="$PATH:/Users/sonny/Documents/flutter/bin"
     - dart pub global activate melos
     - export PATH="$PATH":"$HOME/.pub-cache/bin"
+    - flutter pub get
 
 variables:
   LC_ALL: "en_US.UTF-8"
