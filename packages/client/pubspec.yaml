@@ -24,6 +24,8 @@ dependencies:
   sign_in_with_apple: ^4.3.0
   supabase_flutter: ^1.10.7
   touchable: ^1.0.2
+  primala_backend:
+    path: ../backend/dart
 
 dev_dependencies:
   build_runner: ^2.3.3

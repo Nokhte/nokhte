@@ -1,4 +1,4 @@
-import 'package:supabase/supabase.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// the most common ones are
 /// user1InitialSchedulingRequest
@@ -8,7 +8,7 @@ class CommonP2PSchedulingQueries {
       {required SupabaseClient supabase,
       required String firstUserUID,
       required String secondUserUID}) async {
-    final res = await supabase
+    return await supabase
         .from('p2p_scheduling')
         .update({
           'response_timestampz': DateTime.now().toIso8601String(),
@@ -16,7 +16,6 @@ class CommonP2PSchedulingQueries {
         })
         .eq('sender_id', firstUserUID)
         .eq('receiver_id', secondUserUID);
-    return res;
   }
 
   static Future<dynamic> successfulUser1ConfirmationRes(

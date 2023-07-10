@@ -1,4 +1,4 @@
-import '../../util/usernames/supabase_user_row.dart';
+import '/util/usernames/supabase_user_row.dart';
 import '../general/user_data_constants.dart';
 
 class FraudulentUserData {

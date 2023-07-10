@@ -1,14 +1,14 @@
 // ignore_for_file: file_names
 
-import 'package:supabase/supabase.dart';
-import 'package:test/test.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter_test/flutter_test.dart';
 
-import 'constants/general/supabase_client_constants.dart';
-import 'constants/general/user_setup_constants.dart';
-import './util/p2p_scheduling/p2p_scheduling_row_request.dart';
-import './constants/general/timestampz.dart';
-import 'util/p2p_requests/supabase_p2p_request_row_response.dart';
-import 'util/p2p_scheduling/common_p2p_scheduling_queries.dart';
+import '../lib/constants/general/supabase_client_constants.dart';
+import '../lib/constants/general/user_setup_constants.dart';
+import '../lib/util/p2p_scheduling/p2p_scheduling_row_request.dart';
+import '../lib/constants/general/timestampz.dart';
+import '../lib/util/p2p_requests/supabase_p2p_request_row_response.dart';
+import '../lib/util/p2p_scheduling/common_p2p_scheduling_queries.dart';
 
 void main() {
   late SupabaseClient supabase;

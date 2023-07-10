@@ -33,4 +33,3 @@ void main() {
     expect(networkInfo, isA<NetworkInfoImpl>());
   });
 }
-// TODO test routing

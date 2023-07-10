@@ -1,11 +1,11 @@
 // ignore_for_file: file_names
 
-import 'package:test/test.dart';
-import 'package:supabase/supabase.dart';
-import 'constants/general/supabase_client_constants.dart';
-import 'constants/general/user_data_constants.dart';
-import 'constants/p2p_requests/p2p_request_row_constants.dart';
-import 'constants/general/user_setup_constants.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:primala_backend/constants/general/supabase_client_constants.dart';
+import 'package:primala_backend/constants/general/user_data_constants.dart';
+import 'package:primala_backend/constants/p2p_requests/p2p_request_row_constants.dart';
+import 'package:primala_backend/constants/general/user_setup_constants.dart';
 
 void main() {
   late SupabaseClient supabase;
