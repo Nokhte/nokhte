@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names, prefer_const_constructors
+// ignore_for_file: non_constant_identifier_names, prefer_const_constructors, unused_local_variable
 import 'dart:math';
 
 import 'package:dartz/dartz.dart';

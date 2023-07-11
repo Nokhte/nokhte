@@ -4,7 +4,7 @@ import 'package:primala/app/core/network/network_info.dart';
 import 'package:primala/app/modules/authentication/authentication_module.dart';
 import 'package:primala/app/modules/home/home_module.dart';
 import 'package:primala/app/modules/p2p_request_sender/p2p_request_sender_module.dart';
-import 'package:primala/app/modules/p2p_scheduling_sender/p2p_scheduling_sender_module.dart';
+// import 'package:primala/app/modules/p2p_scheduling_sender/p2p_scheduling_sender_module.dart';
 import 'package:primala/app/modules/username/username_module.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
