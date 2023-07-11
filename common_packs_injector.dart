@@ -63,7 +63,6 @@ Future<void> main() async {
 
   final packagesPath = p.join(Directory.current.path, 'packages');
   final packageDirs = await getSubfolder(Directory(packagesPath));
-  print('PACKAGE DIRS =======> $packageDirs');
   await update(commonPackages, packageDirs, 'dependencies');
   await update(commonPackages, packageDirs, 'dev_dependencies');
 }

@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:primala_backend/constants/general/supabase_client_constants.dart';
 import 'package:primala_backend/constants/general/user_data_constants.dart';
-import 'package:primala_backend/constants/p2p_requests/p2p_request_row_constants.dart';
+import 'package:primala_backend/constants/deprecated/p2p_requests/p2p_request_row_constants.dart';
 import 'package:primala_backend/constants/general/user_setup_constants.dart';
 
 void main() {

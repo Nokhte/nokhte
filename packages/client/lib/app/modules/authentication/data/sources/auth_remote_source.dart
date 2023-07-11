@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:primala/app/core/utilities/generate_random_string.dart';
 import 'package:crypto/crypto.dart';
+import 'package:primala_backend/user_names.dart';
 
 abstract class AuthenticationRemoteSource {
   Future<AuthProviderModel> signInWithGoogle();
@@ -28,6 +29,8 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
   AuthenticationRemoteSourceImpl({required this.supabase});
 
   @override
+  // $ Look here for changing this one to get the names 'n all that
+  // $ https://supabase.com/docs/guides/auth/social-login/auth-google#using-native-sign-in
   Future<AuthProviderModel> signInWithGoogle() async {
     final res = await supabase.auth.signInWithOAuth(
       Provider.google,
@@ -35,6 +38,7 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
       // authScreenLaunchMode: LaunchMode.inAppWebView, // <=== gives us issues
       redirectTo: kIsWeb ? null : 'com.primala.primala://login-callback',
     );
+  
     return AuthProviderModel(
         authProvider: AuthProvider.google, authProviderStatus: res);
   }
@@ -52,16 +56,24 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
       ],
       nonce: hashedNonce,
     );
-    final firstName = credential.givenName;
-    final lastName = credential.familyName;
+    final firstName = credential.givenName ?? '';
+    final lastName = credential.familyName ?? '';
     final idToken = credential.identityToken ?? '';
 
-    final res = await supabase.auth.signInWithIdToken(
+    final authRes = await supabase.auth.signInWithIdToken(
       provider: Provider.apple,
       idToken: idToken,
       nonce: rawNonce,
     );
-    return await AuthProviderModel.fromSupabase(res);
+
+    final dbRes = await CommonUserNamesQueries.insertUserInfo(
+      supabase: supabase,
+      userUID: supabase.auth.currentUser?.id,
+      firstName: firstName,
+      lastName: lastName,
+    );
+
+    return await AuthProviderModel.fromSupabase(authRes, dbRes);
   }
 
   @override

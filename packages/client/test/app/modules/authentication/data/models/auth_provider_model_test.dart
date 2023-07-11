@@ -13,6 +13,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 void main() {
   late AuthProviderModel tAuthProvider;
   late AuthResponse tAuthResponse;
+  late List<dynamic> tDBResponse;
 
   group(
       'Apple Conversion Tests (Note: Native Apple Sign only runs conversion logic)',
@@ -22,6 +23,7 @@ void main() {
         // * arrange
         tAuthProvider = const AuthProviderModel(
             authProvider: AuthProvider.apple, authProviderStatus: true);
+        tDBResponse = [{}];
         final AuthState authState =
             await SupabaseAuthFixture.authenticated().first;
         tAuthResponse = AuthResponse(
@@ -37,8 +39,10 @@ void main() {
           "should return a valid model when user has fully completed apple authentication",
           () async {
         // * act
-        final AuthProviderModel result =
-            await AuthProviderModel.fromSupabase(tAuthResponse);
+        final AuthProviderModel result = await AuthProviderModel.fromSupabase(
+          tAuthResponse,
+          tDBResponse,
+        );
 
         // * assert
         expect(result, tAuthProvider);
@@ -49,6 +53,7 @@ void main() {
         // * arrange
         tAuthProvider = const AuthProviderModel(
             authProvider: AuthProvider.apple, authProviderStatus: false);
+        tDBResponse = [];
         final AuthState authState =
             await SupabaseAuthFixture.unauthenticated().first;
         tAuthResponse = AuthResponse(
@@ -62,8 +67,10 @@ void main() {
         "should return a valid model when user hasn't fully completed apple authentication",
         () async {
       // * act
-      final AuthProviderModel result =
-          await AuthProviderModel.fromSupabase(tAuthResponse);
+      final AuthProviderModel result = await AuthProviderModel.fromSupabase(
+        tAuthResponse,
+        tDBResponse,
+      );
       // * assert
       expect(result, tAuthProvider);
     });

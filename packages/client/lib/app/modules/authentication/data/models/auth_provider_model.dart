@@ -11,8 +11,8 @@ class AuthProviderModel extends AuthProviderEntity {
         );
 
   static Future<AuthProviderModel> fromSupabase(
-      AuthResponse appleAuthResponse) async {
-    if (appleAuthResponse.user?.email?.isNotEmpty == true) {
+      AuthResponse appleAuthResponse, List<dynamic> dbRes) async {
+    if (appleAuthResponse.user?.email?.isNotEmpty == true && dbRes.isNotEmpty) {
       return const AuthProviderModel(
           authProvider: AuthProvider.apple, authProviderStatus: true);
     } else {
