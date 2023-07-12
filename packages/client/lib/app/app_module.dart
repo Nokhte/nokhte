@@ -3,11 +3,9 @@ import 'package:primala/app/core/modules/connectivity/connectivity_module.dart';
 import 'package:primala/app/core/network/network_info.dart';
 import 'package:primala/app/modules/authentication/authentication_module.dart';
 import 'package:primala/app/modules/home/home_module.dart';
-import 'package:primala/app/modules/p2p_request_sender/p2p_request_sender_module.dart';
 // import 'package:primala/app/modules/p2p_scheduling_sender/p2p_scheduling_sender_module.dart';
-import 'package:primala/app/modules/username/username_module.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AppModule extends Module {
   final SupabaseClient supabase;
@@ -34,25 +32,10 @@ class AppModule extends Module {
           '/',
           module: AuthenticationModule(),
         ),
-        ModuleRoute(
-          '/username/',
-          module: UsernameModule(),
-        ),
-        // TODO change back later
-        ModuleRoute(
-          '/home/',
-          module: HomeModule(),
-        ),
-        ModuleRoute(
-          '/send-request/',
-          module: P2PRequestSenderModule(),
-        ),
         // ModuleRoute(
         //   '/home/',
-        //   // '/send-scheduling-request/',
-        //   // ^^ Add back in prod
-        //   module: P2PSchedulingSenderModule(),
-        // )
+        //   module: HomeModule(),
+        // ),
       ];
 }
 // TODO: MAKE SURE U TEST & IMPLEMENT ROUTING

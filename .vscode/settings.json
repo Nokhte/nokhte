@@ -1,0 +1,7 @@
+{
+    "files.exclude": {
+        "**/packages/client/lib/app/modules/deprecated/**": true,
+        "**/packages/client/test/app/modules/deprecated/**": true,
+        "**/packages/client/android/**": true,
+    }
+}

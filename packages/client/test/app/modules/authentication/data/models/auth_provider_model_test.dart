@@ -42,6 +42,7 @@ void main() {
         final AuthProviderModel result = await AuthProviderModel.fromSupabase(
           tAuthResponse,
           tDBResponse,
+          AuthProvider.apple,
         );
 
         // * assert
@@ -70,6 +71,7 @@ void main() {
       final AuthProviderModel result = await AuthProviderModel.fromSupabase(
         tAuthResponse,
         tDBResponse,
+        AuthProvider.apple,
       );
       // * assert
       expect(result, tAuthProvider);

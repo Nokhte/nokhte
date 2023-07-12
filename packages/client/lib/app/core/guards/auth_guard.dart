@@ -20,5 +20,5 @@ class AuthGuard extends RouteGuard {
   }
 
   @override
-  String get redirectTo => '/username';
+  String get redirectTo => '/home/';
 }

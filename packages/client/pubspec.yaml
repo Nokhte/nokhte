@@ -1,6 +1,6 @@
 name: primala
 description: A new Flutter project.
-publish_to: "none" 
+publish_to: "none"
 
 version: 0.0.8+87449015
 
@@ -15,17 +15,19 @@ dependencies:
   equatable: ^2.0.5
   flutter:
     sdk: flutter
+  flutter_appauth: ^6.0.0
   flutter_dotenv: ^5.1.0
   flutter_mobx: ^2.0.6+5
   flutter_modular: ^5.0.3
   flutter_platform_widgets: ^3.3.5
+  google_sign_in: ^6.1.4
   intl: ^0.18.1
   mobx: ^2.2.0
+  primala_backend:
+    path: ../backend/dart
   sign_in_with_apple: ^4.3.0
   supabase_flutter: ^1.10.7
   touchable: ^1.0.2
-  primala_backend:
-    path: ../backend/dart
 
 dev_dependencies:
   build_runner: ^2.3.3
@@ -43,7 +45,6 @@ flutter:
   uses-material-design: true
   assets:
     - .env
-
 
 patrol:
   app_name: primala

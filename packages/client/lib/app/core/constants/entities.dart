@@ -1,15 +1,15 @@
 import 'package:dartz/dartz.dart';
 import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/modules/p2p_request_recipient/domain/entities/p2p_recipient_request_entity.dart';
-import 'package:primala/app/modules/p2p_request_recipient/domain/entities/p2p_recipient_request_presentational_entity.dart';
-import 'package:primala/app/modules/p2p_request_recipient/domain/entities/p2p_recipient_response_status_entity.dart';
-import 'package:primala/app/modules/p2p_request_sender/domain/entities/p2p_request_recipient_entity.dart';
-import 'package:primala/app/modules/p2p_request_sender/domain/entities/p2p_request_sender_status_entity.dart';
-import 'package:primala/app/modules/p2p_scheduling_recipient/domain/entities/p2p_scheduling_response_status_entity.dart';
-import 'package:primala/app/modules/p2p_scheduling_sender/domain/entities/confirm_p2p_scheduling_time_status_entity.dart';
-import 'package:primala/app/modules/p2p_scheduling_sender/domain/entities/p2p_scheduling_request_status_entity.dart';
-import 'package:primala/app/modules/username/domain/entities/default_username_entity.dart';
-import 'package:primala/app/modules/username/domain/entities/username_status_entity.dart';
+import 'package:primala/app/modules/deprecated/p2p_request_recipient/domain/entities/p2p_recipient_request_entity.dart';
+import 'package:primala/app/modules/deprecated/p2p_request_recipient/domain/entities/p2p_recipient_request_presentational_entity.dart';
+import 'package:primala/app/modules/deprecated/p2p_request_recipient/domain/entities/p2p_recipient_response_status_entity.dart';
+import 'package:primala/app/modules/deprecated/p2p_request_sender/domain/entities/p2p_request_recipient_entity.dart';
+import 'package:primala/app/modules/deprecated/p2p_request_sender/domain/entities/p2p_request_sender_status_entity.dart';
+import 'package:primala/app/modules/deprecated/p2p_scheduling_recipient/domain/entities/p2p_scheduling_response_status_entity.dart';
+import 'package:primala/app/modules/deprecated/p2p_scheduling_sender/domain/entities/confirm_p2p_scheduling_time_status_entity.dart';
+import 'package:primala/app/modules/deprecated/p2p_scheduling_sender/domain/entities/p2p_scheduling_request_status_entity.dart';
+import 'package:primala/app/modules/deprecated/username/domain/entities/default_username_entity.dart';
+import 'package:primala/app/modules/deprecated/username/domain/entities/username_status_entity.dart';
 
 class DefaultEntities {
   static Either<Failure, UsernameStatusEntity> get usernameStatusEntity =>

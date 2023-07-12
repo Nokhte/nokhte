@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:math';
+import 'package:crypto/crypto.dart';
 
 class GenerateSomeRandom {
   static String string({int length = 32}) {
@@ -10,5 +12,11 @@ class GenerateSomeRandom {
     });
 
     return String.fromCharCodes(codeUnits);
+  }
+
+  static List<String> rawAndHashedNonce() {
+    final rawNonce = GenerateSomeRandom.string();
+    final hashedNonce = sha256.convert(utf8.encode(rawNonce)).toString();
+    return [rawNonce, hashedNonce];
   }
 }
