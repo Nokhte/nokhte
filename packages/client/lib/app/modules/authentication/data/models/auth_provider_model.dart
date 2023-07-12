@@ -11,13 +11,13 @@ class AuthProviderModel extends AuthProviderEntity {
         );
 
   static Future<AuthProviderModel> fromSupabase(
-      AuthResponse appleAuthResponse, List<dynamic> dbRes, AuthProvider authProvider) async {
-    if (appleAuthResponse.user?.email?.isNotEmpty == true && dbRes.isNotEmpty) {
-      return  AuthProviderModel(
-          authProvider: authProvider, authProviderStatus: true);
+      AuthResponse appleAuthResponse) async {
+    if (appleAuthResponse.user?.email?.isNotEmpty == true) {
+      return const AuthProviderModel(
+          authProvider: AuthProvider.apple, authProviderStatus: true);
     } else {
-      return AuthProviderModel(
-          authProvider: authProvider, authProviderStatus: false);
+      return const AuthProviderModel(
+          authProvider: AuthProvider.apple, authProviderStatus: false);
     }
   }
   // any conversion methods? look at the contract

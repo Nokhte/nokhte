@@ -13,7 +13,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 void main() {
   late AuthProviderModel tAuthProvider;
   late AuthResponse tAuthResponse;
-  late List<dynamic> tDBResponse;
 
   group(
       'Apple Conversion Tests (Note: Native Apple Sign only runs conversion logic)',
@@ -23,7 +22,6 @@ void main() {
         // * arrange
         tAuthProvider = const AuthProviderModel(
             authProvider: AuthProvider.apple, authProviderStatus: true);
-        tDBResponse = [{}];
         final AuthState authState =
             await SupabaseAuthFixture.authenticated().first;
         tAuthResponse = AuthResponse(
@@ -41,8 +39,6 @@ void main() {
         // * act
         final AuthProviderModel result = await AuthProviderModel.fromSupabase(
           tAuthResponse,
-          tDBResponse,
-          AuthProvider.apple,
         );
 
         // * assert
@@ -54,7 +50,6 @@ void main() {
         // * arrange
         tAuthProvider = const AuthProviderModel(
             authProvider: AuthProvider.apple, authProviderStatus: false);
-        tDBResponse = [];
         final AuthState authState =
             await SupabaseAuthFixture.unauthenticated().first;
         tAuthResponse = AuthResponse(
@@ -70,8 +65,6 @@ void main() {
       // * act
       final AuthProviderModel result = await AuthProviderModel.fromSupabase(
         tAuthResponse,
-        tDBResponse,
-        AuthProvider.apple,
       );
       // * assert
       expect(result, tAuthProvider);
