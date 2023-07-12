@@ -3,10 +3,10 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HomeScreen extends StatelessWidget {
-  // final SupabaseClient supabase;
+  final SupabaseClient supabase;
   const HomeScreen({
     Key? key,
-    // required this.supabase,
+    required this.supabase,
   }) : super(key: key);
 
   @override
@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
           child: Center(
               child: PlatformElevatedButton(
                   onPressed: () async {
-                    // await supabase.auth.signOut();
+                    await supabase.auth.signOut();
                   },
                   child: PlatformText("Log OUT")))),
     );

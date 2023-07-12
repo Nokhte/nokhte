@@ -32,10 +32,10 @@ class AppModule extends Module {
           '/',
           module: AuthenticationModule(),
         ),
-        // ModuleRoute(
-        //   '/home/',
-        //   module: HomeModule(),
-        // ),
+        ModuleRoute(
+          '/home/',
+          module: HomeModule(),
+        ),
       ];
 }
 // TODO: MAKE SURE U TEST & IMPLEMENT ROUTING
