@@ -1,5 +1,6 @@
 {
     "files.exclude": {
+        // * CLIENT RELATED
         "**/packages/client/lib/app/modules/deprecated/**": true,
         "**/packages/client/test/app/modules/deprecated/**": true,
         "**/packages/client/android/**": true,
@@ -14,10 +15,16 @@
         "**/packages/client/.metadata": true,
         "**/packages/client/**.iml": true,
         "**/packages/client/.dart_tool": true,
+        // * ROOT RELATED
         "**/common_packs_injector.dart": true,
         "**/common_packs.yaml": true,
         "**/**.iml": true,
+        "**/**.gitignore": true,
         "**/.dart_tool": true,
         "**/deprecated_gitlab_ci": true,
+        // * BACKEND RELATED
+        "**/packages/backend/local_supabase_primala.code-workspace": true,
+        "**/.gitignore": true,
+        "**/**.lock": true,
     }
 }
