@@ -6,7 +6,6 @@ import 'package:primala/app/core/interfaces/auth_providers.dart';
 import 'package:primala/app/modules/authentication/presentation/mobx/main/auth_provider_store.dart';
 import 'package:primala/app/modules/authentication/presentation/mobx/main/auth_state_store.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:primala/keys.dart';
 
 class LoginScreen extends StatefulWidget {
   final AuthProviderStore authProviderStore;
@@ -46,7 +45,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   PlatformElevatedButton(
-                    key: K.signInWithAppleButton,
                     child: const Text("Sign in With Apple"),
                     onPressed: () => authProviderStore.routeAuthProviderRequest(
                       AuthProvider.apple,
@@ -54,7 +52,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 20),
                   PlatformElevatedButton(
-                    key: K.signInWithGoogleButton,
                     child: const Text("Sign in With Google"),
                     onPressed: () => authProviderStore.routeAuthProviderRequest(
                       AuthProvider.google,
