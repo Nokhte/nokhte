@@ -14,6 +14,16 @@ class CommonUserNamesQueries {
     }).select();
   }
 
+  static Future<dynamic> fetchUserInfo({
+    required SupabaseClient supabase,
+    required String? userUID,
+  }) async {
+    return await supabase.from('user_names').select().eq(
+          'uid',
+          userUID,
+        );
+  }
+
   static Future<dynamic> deleteUserInfo({
     required SupabaseClient supabase,
     required String? userUID,

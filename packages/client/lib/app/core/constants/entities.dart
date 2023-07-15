@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/modules/deprecated/p2p_request_recipient/domain/entities/p2p_recipient_request_entity.dart';
+import 'package:primala/app/modules/authentication/domain/entities/name_creation_status_entity.dart';
 import 'package:primala/app/modules/deprecated/p2p_request_recipient/domain/entities/p2p_recipient_request_presentational_entity.dart';
 import 'package:primala/app/modules/deprecated/p2p_request_recipient/domain/entities/p2p_recipient_response_status_entity.dart';
 import 'package:primala/app/modules/deprecated/p2p_request_sender/domain/entities/p2p_request_recipient_entity.dart';
@@ -16,6 +17,10 @@ class DefaultEntities {
       const Right(UsernameStatusEntity(isCreated: false));
   static Either<Failure, DefaultUsernameEntity> get defaultUsernameEntity =>
       const Right(DefaultUsernameEntity(defaultUsername: ''));
+
+  static Either<Failure, NameCreationStatusEntity>
+      get nameCreationStatusEntity =>
+          const Right(NameCreationStatusEntity(isSent: false));
 
   static Either<Failure, P2PRequestRecipientEntity>
       get p2pRequestRecipientEntity => const Right(P2PRequestRecipientEntity(

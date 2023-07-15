@@ -4,20 +4,22 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthProviderModel extends AuthProviderEntity {
   const AuthProviderModel(
-      {required AuthProvider authProvider, required authProviderStatus})
+      {required AuthProvider authProvider, required bool authProviderStatus})
       : super(
           authProvider: authProvider,
           authProviderStatus: authProviderStatus,
         );
 
   static Future<AuthProviderModel> fromSupabase(
-      AuthResponse appleAuthResponse) async {
-    if (appleAuthResponse.user?.email?.isNotEmpty == true) {
-      return const AuthProviderModel(
-          authProvider: AuthProvider.apple, authProviderStatus: true);
+    AuthProvider authProvider,
+    AuthResponse authResponse,
+  ) async {
+    if (authResponse.user?.email?.isNotEmpty == true) {
+      return AuthProviderModel(
+          authProvider: authProvider, authProviderStatus: true);
     } else {
-      return const AuthProviderModel(
-          authProvider: AuthProvider.apple, authProviderStatus: false);
+      return AuthProviderModel(
+          authProvider: authProvider, authProviderStatus: false);
     }
   }
   // any conversion methods? look at the contract

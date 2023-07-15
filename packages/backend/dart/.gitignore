@@ -3,3 +3,5 @@
 .dart_tool/
 /.env
 /build
+/.flutter-plugins-dependencies
+/.flutter-plugins

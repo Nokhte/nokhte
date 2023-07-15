@@ -1,6 +1,7 @@
 import 'package:primala/app/core/error/failure.dart';
 
 class FailureConstants {
+  static String get androidPlatformFailureMsg => 'Not Available on Android';
   static String get authFailureMsg =>
       "Authentication Failure, Please Try Again.";
   static String get internetConnectionFailureMsg =>
@@ -21,4 +22,8 @@ class FailureConstants {
       message: "Authentication Failure", failureCode: "AUTH_FAILURE");
   static DatabaseFailure get dbFailure => const DatabaseFailure(
       message: "Database Failure", failureCode: "DATABASE_FAILURE");
+  static AndroidPlatformFailure get androidPlatformFailure =>
+      AndroidPlatformFailure(
+          failureCode: 'NOT_AVAILABLE_ON_ANDROID_ERROR',
+          message: androidPlatformFailureMsg);
 }

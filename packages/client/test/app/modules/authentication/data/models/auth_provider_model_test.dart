@@ -38,6 +38,7 @@ void main() {
           () async {
         // * act
         final AuthProviderModel result = await AuthProviderModel.fromSupabase(
+          AuthProvider.apple,
           tAuthResponse,
         );
 
@@ -64,6 +65,7 @@ void main() {
         () async {
       // * act
       final AuthProviderModel result = await AuthProviderModel.fromSupabase(
+        AuthProvider.apple,
         tAuthResponse,
       );
       // * assert

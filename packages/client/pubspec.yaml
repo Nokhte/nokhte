@@ -25,8 +25,8 @@ dependencies:
   mobx: ^2.2.0
   primala_backend:
     path: ../backend/dart
-  sign_in_with_apple: ^4.3.0
-  supabase_flutter: ^1.10.7
+  sign_in_with_apple: '>=4.3.0 <6.0.0'
+  supabase_flutter: ^1.10.9
   touchable: ^1.0.2
 
 dev_dependencies:

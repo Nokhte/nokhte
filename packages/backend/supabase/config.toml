@@ -61,16 +61,18 @@ enable_confirmations = false
 # Use an external OAuth provider. The full list of providers are: `apple`, `azure`, `bitbucket`,
 # `discord`, `facebook`, `github`, `gitlab`, `google`, `keycloak`, `linkedin`, `notion`, `twitch`,
 # `twitter`, `slack`, `spotify`, `workos`, `zoom`.
-[auth.external.apple]
-enabled =  true
-client_id = "com.primala.primala"
-secret = "env(APPLE_CLIENT_SECRET)"
+
+# [auth.external.apple]
+# enabled =  true
+# client_id = "com.primala.primala"
+# secret = "env(APPLE_CLIENT_SECRET)"
 
 [auth.external.google]
 enabled = true
 client_id = "env(GOOGLE_CLIENT_ID)"
 secret = "env(GOOGLE_CLIENT_SECRET)"
 # redirect_uri="com.primala.primala://auth/v1/callback"
+
 
 
 [analytics]

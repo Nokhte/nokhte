@@ -9,15 +9,18 @@ import 'package:primala/app/modules/authentication/data/contracts/authentication
 //   * DOMAIN Layer Imports
 //          * Contract Interfaces
 import 'package:primala/app/modules/authentication/domain/contracts/authentication_contract.dart';
+import 'package:primala/app/modules/authentication/domain/logic/add_name_to_database.dart';
 //          * Logic
 import 'package:primala/app/modules/authentication/domain/logic/get_auth_state.dart';
 import 'package:primala/app/modules/authentication/domain/logic/sign_in_with_apple.dart';
 import 'package:primala/app/modules/authentication/domain/logic/sign_in_with_google.dart';
+import 'package:primala/app/modules/authentication/presentation/mobx/getters/add_name_to_database_getter_store.dart';
 //          * Entities
 ///   * Presentation Layer Imports
 //          * MobX
-import 'package:primala/app/modules/authentication/presentation/mobx/getters/get_auth_provider_store.dart';
-import 'package:primala/app/modules/authentication/presentation/mobx/getters/get_auth_state_store.dart';
+import 'package:primala/app/modules/authentication/presentation/mobx/getters/get_auth_provider_getter_store.dart';
+import 'package:primala/app/modules/authentication/presentation/mobx/getters/get_auth_state_getter_store.dart';
+import 'package:primala/app/modules/authentication/presentation/mobx/main/add_name_to_database_store.dart';
 import 'package:primala/app/modules/authentication/presentation/mobx/main/auth_provider_store.dart';
 import 'package:primala/app/modules/authentication/presentation/mobx/main/auth_state_store.dart';
 //          * Views
@@ -48,6 +51,11 @@ class AuthenticationModule extends Module {
           ),
         ),
         // & Logic
+        Bind.singleton<AddNameToDatabase>(
+          (i) => AddNameToDatabase(
+            contract: i<AuthenticationContract>(),
+          ),
+        ),
         Bind.singleton<GetAuthState>(
             (i) => GetAuthState(contract: i<AuthenticationContract>())),
         Bind.singleton<SignInWithApple>(
@@ -55,6 +63,11 @@ class AuthenticationModule extends Module {
         Bind.singleton<SignInWithGoogle>(
             (i) => SignInWithGoogle(contract: i<AuthenticationContract>())),
         // & MobX Getter Stores
+        Bind.singleton<AddNameToDatabaseGetterStore>(
+          (i) => AddNameToDatabaseGetterStore(
+            addNameLogic: i<AddNameToDatabase>(),
+          ),
+        ),
         Bind.singleton<GetAuthStateStore>(
             (i) => GetAuthStateStore(i<GetAuthState>())),
         Bind.singleton<GetAuthProviderStateStore>(
@@ -64,6 +77,11 @@ class AuthenticationModule extends Module {
           ),
         ),
         // & Mobx Mother Stores
+        Bind.singleton<AddNameToDatabaseStore>(
+          (i) => AddNameToDatabaseStore(
+            addNameGetterStore: i<AddNameToDatabaseGetterStore>(),
+          ),
+        ),
         Bind.singleton<AuthProviderStore>(
           (i) => AuthProviderStore(
             authProviderGetterStore: i<GetAuthProviderStateStore>(),
@@ -82,7 +100,9 @@ class AuthenticationModule extends Module {
           "/",
           child: (context, args) => LoginScreen(
             authStateStore: Modular.get<AuthStateStore>(),
+            addNameToDatabaseStore: Modular.get<AddNameToDatabaseStore>(),
             authProviderStore: Modular.get<AuthProviderStore>(),
+            supabase: Modular.get<SupabaseClient>(),
           ),
           guards: [
             AuthGuard(

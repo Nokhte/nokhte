@@ -2,6 +2,7 @@
 import 'package:flutter_test/flutter_test.dart';
 // * mocking lib
 import 'package:mockito/mockito.dart';
+import 'package:primala/app/core/constants/failure_constants.dart';
 import 'package:primala/app/core/error/exceptions.dart';
 import 'package:primala/app/core/error/failure.dart';
 // * primala data imports
@@ -11,6 +12,7 @@ import 'package:primala/app/modules/authentication/data/models/auth_state_model.
 // * primala core imports
 import 'package:primala/app/core/interfaces/auth_providers.dart';
 // * mock import
+import '../../constants/models.dart';
 import '../../fixtures/authentication_stack_mock_gen.mocks.dart';
 import '../../../_module_helpers/shared_mocks_gen.mocks.dart'
     show MockMNetworkInfo;
@@ -84,24 +86,12 @@ void main() {
       test("Should fail gracefully when thrown an Authentication Failure",
           () async {
         //arrange
-        when(mockRemoteSource.signInWithGoogle()).thenThrow(
-          AuthenticationException(
-            message: 'Authentication Error',
-            exceptionCode: 'AUTHENTICATION_ERROR',
-          ),
-        );
+        when(mockRemoteSource.signInWithGoogle())
+            .thenThrow(FailureConstants.authFailure);
         //act
         final result = await authContract.googleSignIn();
         //assert
-        expect(
-          result,
-          const Left(
-            AuthenticationFailure(
-              message: 'Authentication Error',
-              failureCode: 'AUTHENTICATION_ERROR',
-            ),
-          ),
-        );
+        expect(result, Left(FailureConstants.authFailure));
       });
     });
     runTestsOffline(AuthProvider.google, () {
@@ -113,15 +103,7 @@ void main() {
 
           //assert
 
-          expect(
-            result,
-            const Left(
-              NetworkConnectionFailure(
-                message: "Internet Connection Error",
-                failureCode: 'INTERNET_CONNECTION_ERROR',
-              ),
-            ),
-          );
+          expect(result, Left(FailureConstants.internetConnectionFailure));
         },
       );
     });
@@ -168,12 +150,7 @@ void main() {
         //assert
         expect(
           result,
-          const Left(
-            AuthenticationFailure(
-              message: 'Authentication Error',
-              failureCode: 'AUTHENTICATION_ERROR',
-            ),
-          ),
+          Left(FailureConstants.authFailure),
         );
       });
     });
@@ -186,15 +163,7 @@ void main() {
 
           //assert
 
-          expect(
-            result,
-            const Left(
-              NetworkConnectionFailure(
-                message: "Internet Connection Error",
-                failureCode: 'INTERNET_CONNECTION_ERROR',
-              ),
-            ),
-          );
+          expect(result, Left(FailureConstants.internetConnectionFailure));
         },
       );
     });
@@ -209,6 +178,42 @@ void main() {
       final result = authContract.getAuthState();
       //assert
       expect(result.isAuthenticated, emitsInOrder([true]));
+    });
+  });
+
+  group("Method No. 4: addNameToDatabase", () {
+    group("is Online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+      });
+      test("when online and non-empty should return a model", () async {
+        // arrange
+        when(mockRemoteSource.addNamesToDatabase())
+            .thenAnswer((realInvocation) async => [{}]);
+        // act
+        final res = await authContract.addNameToDatabase();
+        // assert
+        expect(res, ConstantNameCreationStatusModels.wrappedSuccessCase);
+      });
+      test("when online and empty should return a model", () async {
+        // arrange
+        when(mockRemoteSource.addNamesToDatabase())
+            .thenAnswer((realInvocation) async => []);
+        // act
+        final res = await authContract.addNameToDatabase();
+        // assert
+        expect(res, ConstantNameCreationStatusModels.wrappedNotSuccessCase);
+      });
+    });
+    group("is not Online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+      });
+
+      test("When offline should return an internet connection error", () async {
+        final res = await authContract.addNameToDatabase();
+        expect(res, Left(FailureConstants.internetConnectionFailure));
+      });
     });
   });
 }

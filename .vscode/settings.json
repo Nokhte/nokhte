@@ -3,6 +3,8 @@
         // * CLIENT RELATED
         "**/packages/client/lib/app/modules/deprecated/**": true,
         "**/packages/client/test/app/modules/deprecated/**": true,
+        "**/**.g.dart": true,
+        "**/**.mocks.dart": true,
         "**/packages/client/android/**": true,
         "**/packages/client/build/**": true,
         "**/packages/client/ios/**": true,
@@ -15,16 +17,18 @@
         "**/packages/client/.metadata": true,
         "**/packages/client/**.iml": true,
         "**/packages/client/.dart_tool": true,
+        // "**/**.gitignore": true,
+        "**/packages/client/pubspec_overrides.yaml": true,
         // * ROOT RELATED
         "**/common_packs_injector.dart": true,
-        "**/common_packs.yaml": true,
+        // "**/common_packs.yaml": true,
         "**/**.iml": true,
-        "**/**.gitignore": true,
         "**/.dart_tool": true,
         "**/deprecated_gitlab_ci": true,
+        "**/.idea": true,
         // * BACKEND RELATED
         "**/packages/backend/local_supabase_primala.code-workspace": true,
-        "**/.gitignore": true,
+        // "**/.gitignore": true,
         "**/**.lock": true,
     }
 }

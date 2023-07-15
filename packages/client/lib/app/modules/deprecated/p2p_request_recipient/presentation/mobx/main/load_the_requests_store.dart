@@ -57,7 +57,7 @@ abstract class _LoadTheRequestsStoreBase
     futureStore.unwrappedEntityOrFailure =
         await futureStore.entityOrFailureFuture;
     stateOrErrorUpdater(futureStore.unwrappedEntityOrFailure);
-    state = StoreState.loading;
+    state = StoreState.loaded;
   }
 
   @override

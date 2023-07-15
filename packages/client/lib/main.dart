@@ -14,6 +14,8 @@ void main() async {
   if (kDebugMode) {
     supabaseUrl = dotenv.env["DEV_SUPABASE_URL"] ?? '';
     supabaseAnonKey = dotenv.env["DEV_SUPABASE_ANON_KEY"] ?? '';
+    // supabaseUrl = dotenv.env["PROD_SUPABASE_URL"] ?? '';
+    // supabaseAnonKey = dotenv.env["PROD_SUPABASE_ANON_KEY"] ?? '';
   } else {
     supabaseUrl = dotenv.env["PROD_SUPABASE_URL"] ?? '';
     supabaseAnonKey = dotenv.env["PROD_SUPABASE_ANON_KEY"] ?? '';

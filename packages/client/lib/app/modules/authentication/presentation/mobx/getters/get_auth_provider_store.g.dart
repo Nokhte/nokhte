@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'get_auth_provider_store.dart';
+part of 'get_auth_provider_getter_store.dart';
 
 // **************************************************************************
 // StoreGenerator
