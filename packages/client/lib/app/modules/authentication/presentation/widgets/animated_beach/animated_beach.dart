@@ -16,13 +16,9 @@ class AnimatedBeach extends StatelessWidget {
     return CanvasTouchDetector(
         gesturesToOverride: const [],
         builder: (context) {
-          // final width = MediaQuery.of(context).size.width;
-          final width = double.infinity;
-          final padding = MediaQuery.of(context).padding;
-          final unrefinedHeight = MediaQuery.of(context).size.height;
-          // final height = unrefinedHeight - padding.top - padding.bottom;
-          final height = double.infinity;
-          Size size = Size(height, width);
+          const width = double.infinity;
+          const height = double.infinity;
+          const size = Size(height, width);
 
           return CustomPaint(
             size: size,
