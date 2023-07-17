@@ -2,7 +2,7 @@
 // * PRIMALA IMPORTS
 ///   * P2P Scheduling Shared CORE Imports
 //        * Constants Imports
-import 'package:primala/app/core/p2p_scheduling/constants/interaction_type.dart';
+import 'package:primala/app/core/canvas_widget_utils/interaction_type.dart';
 //        * Utils Imports
 import 'package:primala/app/core/p2p_scheduling/utils/time_converter.dart';
 //          * Logic
@@ -113,7 +113,7 @@ class P2PSchedulingSenderModule extends Module {
 
         Bind.singleton<SchedulingRequestTimesStore>(
           (i) => SchedulingRequestTimesStore(
-            interactionType: InteractionType.range,
+            interactionType: SpiralInteractionType.range,
             timeConverter: TimeConverter(
               presentMoment: DateTime.now(),
             ),

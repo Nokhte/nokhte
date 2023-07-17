@@ -1,3 +1,4 @@
+```dart
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primala/app/core/p2p_scheduling/utils/time_converter.dart';
 
@@ -25,3 +26,4 @@ void main() {
     expect(res2, ConstantEntities.june19th1030AM);
   });
 }
+```

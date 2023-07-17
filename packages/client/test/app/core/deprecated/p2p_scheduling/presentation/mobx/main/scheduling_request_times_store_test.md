@@ -1,4 +1,5 @@
-import 'package:primala/app/core/p2p_scheduling/constants/interaction_type.dart';
+```dart
+import 'package:primala/app/core/canvas_widget_utils/interaction_type.dart';
 import 'package:primala/app/core/p2p_scheduling/presentation/mobx/main/scheduling_request_times_store.dart';
 // * Testing & Mocking Libs
 import 'package:flutter_test/flutter_test.dart';
@@ -14,7 +15,8 @@ void main() {
     timeConverter =
         TimeConverter(presentMoment: DateTimeConstants.tPresentMoment);
     schedulingRequestTimesStore = SchedulingRequestTimesStore(
-        interactionType: InteractionType.range, timeConverter: timeConverter);
+        interactionType: SpiralInteractionType.range,
+        timeConverter: timeConverter);
   });
   test(
     "RANGE... updateState acts the way it should & tracks ranges based on the input",
@@ -74,3 +76,4 @@ void main() {
     });
   });
 }
+```

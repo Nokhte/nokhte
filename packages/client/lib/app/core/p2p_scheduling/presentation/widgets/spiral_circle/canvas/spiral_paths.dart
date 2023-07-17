@@ -7,10 +7,10 @@ import 'package:primala/app/core/p2p_scheduling/domain/entities/p2p_scheduling_c
 
 enum Circles { outerCircle, spiralCircle, spiralCircleBorder }
 
-class PathId {
+class PathId<T> {
   final bool isInteractable;
   final int indexIdentifier;
-  final Circles circleType;
+  final T circleType;
   final Function pathInformation;
   final Function fillInformation;
 
@@ -24,7 +24,7 @@ class PathId {
 }
 
 class SpiralPaths {
-  static List<PathId> get list => [
+  static List<PathId<Circles>> get list => [
         PathId(
           indexIdentifier: 0,
           isInteractable: false,

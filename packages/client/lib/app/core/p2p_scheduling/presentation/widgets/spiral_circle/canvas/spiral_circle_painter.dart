@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:primala/app/core/p2p_scheduling/constants/interaction_type.dart';
+import 'package:primala/app/core/canvas_widget_utils/interaction_type.dart';
 import 'package:primala/app/core/p2p_scheduling/constants/spiral_selection_state_type.dart';
 import 'package:primala/app/core/p2p_scheduling/presentation/mobx/main/scheduling_request_times_store.dart';
 import 'package:touchable/touchable.dart';
@@ -8,7 +8,7 @@ import 'spiral_circle_api.dart';
 class SpiralCirclePainter extends CustomPainter {
   BuildContext context;
   List<String> reverseOrderedTimes;
-  InteractionType interactionType;
+  SpiralInteractionType interactionType;
   SpiralSelectionState selectedState;
   SchedulingRequestTimesStore schedulingRequestTimesStore;
 

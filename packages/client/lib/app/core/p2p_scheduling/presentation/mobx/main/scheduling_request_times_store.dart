@@ -5,7 +5,7 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/p2p_scheduling/constants/default_entities.dart';
-import 'package:primala/app/core/p2p_scheduling/constants/interaction_type.dart';
+import 'package:primala/app/core/canvas_widget_utils/interaction_type.dart';
 import 'package:primala/app/core/p2p_scheduling/constants/spiral_selection_state_type.dart';
 import 'package:primala/app/core/p2p_scheduling/constants/touch_types.dart';
 import 'package:primala/app/core/p2p_scheduling/domain/entities/spiral_circle_entity.dart';
@@ -26,10 +26,10 @@ abstract class _SchedulingRequestTimesStoreBase extends Equatable with Store {
   TimeConverter timeConverter = DefaultP2PScheduling.timeConverter;
 
   _SchedulingRequestTimesStoreBase({
-    required InteractionType interactionType,
+    required SpiralInteractionType interactionType,
     required this.timeConverter,
   }) {
-    selectedState = interactionType == InteractionType.range
+    selectedState = interactionType == SpiralInteractionType.range
         ? DefaultP2PScheduling.rangeEntity
         : DefaultP2PScheduling.singleTimeEntity;
   }
