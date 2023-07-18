@@ -73,13 +73,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       AuthProvider.google,
                     ),
                   ),
-                  // const SizedBox(height: 20),
-                  // PlatformElevatedButton(
-                  //     child: const Text("List User Status"),
-                  //     onPressed: () {
-                  //       print(
-                  //           'PRINT CURRENT USER ${supabase.auth.currentUser}');
-                  //     }),
                 ],
               ),
             ),

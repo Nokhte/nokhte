@@ -24,8 +24,9 @@ import 'package:primala/app/modules/authentication/presentation/mobx/main/add_na
 import 'package:primala/app/modules/authentication/presentation/mobx/main/auth_provider_store.dart';
 import 'package:primala/app/modules/authentication/presentation/mobx/main/auth_state_store.dart';
 //          * Views
-// import 'package:primala/app/modules/authentication/presentation/screens/old_login_screen.dart';
+import 'package:primala/app/modules/authentication/presentation/screens/login_screen.dart';
 import 'package:primala/app/modules/authentication/presentation/screens/new_login_screen.dart';
+// import 'package:primala/app/modules/authentication/presentation/screens/new_login_screen.dart';
 // * 3rd Parties
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_modular/flutter_modular.dart';
