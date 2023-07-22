@@ -1,3 +1,23 @@
+/// water_painter.dart
+///
+/// Author: Sonny Vesali
+///
+/// This file defines the [WaterPainter] class, a custom painter used for drawing
+/// animated water waves on a canvas. The animation parameters can be adjusted to
+/// create different visual effects for the water waves. The [WaterPainter] class
+/// also includes a to-do list for potential future animation improvements.
+///
+/// [WaterPainter] extends [CustomPainter] and receives an [Animation] object as
+/// an argument, allowing the water waves to be animated over time.
+///
+/// The drawing of water waves is achieved through trigonometric calculations and
+/// cubic Bezier curves. The animation's value drives the phase of the waves, creating
+/// a smooth transition of the wave pattern.
+///
+/// To-do List:
+/// TODO 1. Implement horizontal wave movement to simulate 2D water movement visually.
+/// TODO 2. Add Randomness to Vertical and Horizontal Movement
+
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 

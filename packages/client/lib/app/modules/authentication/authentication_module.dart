@@ -1,40 +1,70 @@
-// ***************************************************
-// * PRIMALA IMPORTS
-///   * DATA Layer Imports
-//        * Sources Imports
+/// authentication_module.dart
+///
+/// Author: Sonny Vesali
+///
+/// This file defines the [AuthenticationModule], which is a module within the
+/// modular architecture of the Primala Flutter app. The module follows a Domain-Driven
+/// Design (DDD) approach to organize its components into different layers.
+///
+/// Module Overview:
+/// - [AuthenticationModule]: A module responsible for handling authentication-related
+///   functionality, including data sources, domain logic, and presentation views.
+///
+/// DDD Approach:
+/// The [AuthenticationModule] follows a Domain-Driven Design approach, dividing its
+/// components into the following layers:
+///
+/// 1. DATA Layer:
+///    - Sources: [AuthenticationRemoteSourceImpl] is the data source responsible for
+///               fetching data from the Supabase backend.
+///    - Model: (No specific models imported in this module)
+///    - Contract Implementation: [AuthenticationContractImpl] implements the contract
+///                               interface for the authentication data layer.
+///
+/// 2. DOMAIN Layer:
+///    - Contract Interfaces: [AuthenticationContract] defines the contract for the
+///                           authentication domain layer.
+///    - Logic: [AddNameToDatabase], [GetAuthState], [SignInWithApple], and
+///             [SignInWithGoogle] are domain logic classes that handle specific
+///             authentication operations.
+///
+/// 3. PRESENTATION Layer:
+///    - MobX Getter Stores: [AddNameToDatabaseGetterStore], [GetAuthStateStore], and
+///                          [GetAuthProviderStateStore] are MobX getter stores responsible
+///                          for retrieving and managing data for specific UI components.
+///    - MobX Mother Stores: [AddNameToDatabaseStore], [AuthProviderStore], and
+///                          [AuthStateStore] are MobX mother stores responsible for
+///                          coordinating data and actions between different getter stores
+///                          and UI components.
+///    - Views: The [NewLoginScreen] is the main presentation view of the authentication
+///             module. It displays the authentication UI and interacts with the MobX
+///             mother stores for handling user actions and state changes.
+///
+/// Additional Imports:
+/// - Third-Party: The module imports the `supabase_flutter` and `flutter_modular` packages
+///                to utilize Supabase client and modular-based routing and dependency injection.
+/// - Core: The module imports the `network_info.dart` file to use the [NetworkInfoImpl]
+///         for network connectivity checks.
+/// - Guard: The module imports the [AuthGuard] class to manage authentication guards.
+///
 import 'package:primala/app/modules/authentication/data/sources/auth_remote_source.dart';
-//        * Model Imports
-//        * Contract Implementation Import
 import 'package:primala/app/modules/authentication/data/contracts/authentication_contract_impl.dart';
-//   * DOMAIN Layer Imports
-//          * Contract Interfaces
 import 'package:primala/app/modules/authentication/domain/contracts/authentication_contract.dart';
 import 'package:primala/app/modules/authentication/domain/logic/add_name_to_database.dart';
-//          * Logic
 import 'package:primala/app/modules/authentication/domain/logic/get_auth_state.dart';
 import 'package:primala/app/modules/authentication/domain/logic/sign_in_with_apple.dart';
 import 'package:primala/app/modules/authentication/domain/logic/sign_in_with_google.dart';
 import 'package:primala/app/modules/authentication/presentation/mobx/getters/add_name_to_database_getter_store.dart';
-//          * Entities
-///   * Presentation Layer Imports
-//          * MobX
 import 'package:primala/app/modules/authentication/presentation/mobx/getters/get_auth_provider_getter_store.dart';
 import 'package:primala/app/modules/authentication/presentation/mobx/getters/get_auth_state_getter_store.dart';
 import 'package:primala/app/modules/authentication/presentation/mobx/main/add_name_to_database_store.dart';
 import 'package:primala/app/modules/authentication/presentation/mobx/main/auth_provider_store.dart';
 import 'package:primala/app/modules/authentication/presentation/mobx/main/auth_state_store.dart';
-//          * Views
-import 'package:primala/app/modules/authentication/presentation/screens/login_screen.dart';
 import 'package:primala/app/modules/authentication/presentation/screens/new_login_screen.dart';
-// import 'package:primala/app/modules/authentication/presentation/screens/new_login_screen.dart';
-// * 3rd Parties
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-//    * Core Imports
 import 'package:primala/app/core/network/network_info.dart';
-//          * Guard Import
 import 'package:primala/app/core/guards/auth_guard.dart';
-// ***************************************************
 
 class AuthenticationModule extends Module {
   @override
