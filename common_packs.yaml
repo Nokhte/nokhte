@@ -1,3 +1,2 @@
-# common package
 dependencies:
     supabase_flutter: ^1.10.9

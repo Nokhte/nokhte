@@ -24,7 +24,7 @@
 /// ```
 ///
 /// Note: Ensure you have the necessary packages 'path', 'yaml', and 'yaml_edit'
-/// in your pubspec.yaml file before running this script.
+/// in your root pubspec.yaml file before running this script.
 
 import 'dart:async';
 import 'dart:io' show Directory, File;
