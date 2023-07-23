@@ -2,7 +2,7 @@
 // in primala/test/app/modules/authentication/fixtures/authentication_stack_mock_gen.dart.
 // Do not manually edit this file.
 
-// ignore_for_file: no_leading_underscores_for_library_prefixes, must_be_immutable
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i17;
 
 import 'package:dartz/dartz.dart' as _i5;

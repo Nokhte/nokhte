@@ -2,25 +2,30 @@
 ///
 /// Author: Sonny Vesali
 ///
-/// This file defines the [AuthProviderStore] class, which is a MobX store responsible
-/// for handling the logic related to authentication providers. The store extends
-/// [_AuthProviderStoreBase] and interacts with the UI layer through the [GetAuthProviderStateStore].
+/// This file defines the [AuthProviderStore] class, which is a MobX store
+/// responsible for handling the logic related to authentication providers. The
+/// store extends [_AuthProviderStoreBase] and interacts with the UI layer
+/// through the [GetAuthProviderStateStore].
 ///
-/// The [AuthProviderStore] manages the state of authentication providers, including loading state
-/// and error messages. It contains an observable [state] variable to store the current store state,
-/// and an [errorMessage] variable to display any error messages during the authentication process.
+/// The [AuthProviderStore] manages the state of authentication providers,
+/// including loading state and error messages. It contains an observable
+/// [state] variable to store the current store state, and an [errorMessage]
+/// variable to display any error messages during the authentication process.
 ///
-/// The store provides a [mapFailureToMessage] method to map different [Failure] types to corresponding
-/// error messages, which are displayed in case of a failure during authentication.
+/// The store provides a [mapFailureToMessage] method to map different [Failure]
+/// types to corresponding error messages, which are displayed in case of a
+/// failure during authentication.
 ///
-/// The [routeAuthProviderRequest] method is responsible for handling authentication requests from
-/// different providers. When invoked, it sets the store state to [StoreState.loading], and calls the
-/// [authProviderGetterStore] function from the [GetAuthProviderStateStore] to perform the authentication
-/// operation. The result is then unwrapped from the [Either] type, and the [errorMessageUpdater] method
-/// is called to update the error message based on the result. Finally, the store state is set to [StoreState.loaded].
+/// The [routeAuthProviderRequest] method is responsible for handling
+/// authentication requests from different providers. When invoked, it sets the
+/// store state to [StoreState.loading], and calls the [authProviderGetterStore]
+/// function from the [GetAuthProviderStateStore] to perform the authentication
+/// operation. The result is then unwrapped from the [Either] type, and the
+/// [errorMessageUpdater] method is called to update the error message based on
+/// the result. Finally, the store state is set to [StoreState.loaded].
 ///
-/// Note: The ignore_for_file directive is used to suppress warnings about library_private_types_in_public_api
-/// and must_be_immutable.
+/// Note: The ignore_for_file directive is used to suppress warnings about
+/// library_private_types_in_public_api and must_be_immutable.
 
 // ignore_for_file: library_private_types_in_public_api, must_be_immutable
 
@@ -44,7 +49,7 @@ class AuthProviderStore = _AuthProviderStoreBase with _$AuthProviderStore;
 
 /// [_AuthProviderStoreBase] is the base class that extends [Equatable] and handles the logic for authentication providers.
 abstract class _AuthProviderStoreBase extends Equatable with Store {
-  final GetAuthProviderStateStore authProviderGetterStore;
+  final GetAuthProviderStateGetterStore authProviderGetterStore;
 
   _AuthProviderStoreBase({required this.authProviderGetterStore});
 

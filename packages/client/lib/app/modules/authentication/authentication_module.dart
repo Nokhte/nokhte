@@ -3,42 +3,48 @@
 /// Author: Sonny Vesali
 ///
 /// This file defines the [AuthenticationModule], which is a module within the
-/// modular architecture of the Primala Flutter app. The module follows a Domain-Driven
-/// Design (DDD) approach to organize its components into different layers.
+/// modular architecture of the Primala Flutter app. The module follows a
+/// Domain-Driven Design (DDD) approach to organize its components into
+/// different layers.
 ///
 /// Module Overview:
-/// - [AuthenticationModule]: A module responsible for handling authentication-related
-///   functionality, including data sources, domain logic, and presentation views.
+/// - [AuthenticationModule]: A module responsible for handling
+///   authentication-related functionality, including data sources, domain
+///   logic, and presentation views.
 ///
 /// DDD Approach:
-/// The [AuthenticationModule] follows a Domain-Driven Design approach, dividing its
-/// components into the following layers:
+/// The [AuthenticationModule] follows a Domain-Driven Design approach,
+/// dividing its components into the following layers:
 ///
 /// 1. DATA Layer:
-///    - Sources: [AuthenticationRemoteSourceImpl] is the data source responsible for
-///               fetching data from the Supabase backend.
-///    - Model: (No specific models imported in this module)
-///    - Contract Implementation: [AuthenticationContractImpl] implements the contract
-///                               interface for the authentication data layer.
+///    - Sources: [AuthenticationRemoteSourceImpl] is the data source
+///      responsible for fetching data from the Supabase backend.
+///    - Models: Not directly injected, The Models are returned from the
+///              [AuthenticationContractImpl] functions
+///    - Contract Implementation: [AuthenticationContractImpl] implements the
+///       contract interface for the authentication domain layer.
 ///
 /// 2. DOMAIN Layer:
-///    - Contract Interfaces: [AuthenticationContract] defines the contract for the
-///                           authentication domain layer.
+///    - Contract Interfaces: [AuthenticationContract] defines the contract
+///      signature for the authentication domain layer.
 ///    - Logic: [AddNameToDatabase], [GetAuthState], [SignInWithApple], and
 ///             [SignInWithGoogle] are domain logic classes that handle specific
 ///             authentication operations.
 ///
 /// 3. PRESENTATION Layer:
-///    - MobX Getter Stores: [AddNameToDatabaseGetterStore], [GetAuthStateStore], and
-///                          [GetAuthProviderStateStore] are MobX getter stores responsible
-///                          for retrieving and managing data for specific UI components.
+///    - MobX Getter Stores: [AddNameToDatabaseGetterStore],
+///                          [GetAuthStateStore], and
+///                          [GetAuthProviderStateStore] are MobX getter stores
+///                          responsible for retrieving and managing data for
+///                          specific UI components.
 ///    - MobX Mother Stores: [AddNameToDatabaseStore], [AuthProviderStore], and
-///                          [AuthStateStore] are MobX mother stores responsible for
-///                          coordinating data and actions between different getter stores
-///                          and UI components.
-///    - Views: The [NewLoginScreen] is the main presentation view of the authentication
-///             module. It displays the authentication UI and interacts with the MobX
-///             mother stores for handling user actions and state changes.
+///                          [AuthStateStore] are MobX mother stores responsible
+///                          for coordinating data and actions between different
+///                          getter stores and UI components.
+///    - Views: The [NewLoginScreen] is the main presentation view of the
+///             authentication module. It displays the authentication UI and
+///             interacts with the MobX mother stores for handling user actions
+///             and state changes.
 ///
 /// Additional Imports:
 /// - Third-Party: The module imports the `supabase_flutter` and `flutter_modular` packages
@@ -100,10 +106,10 @@ class AuthenticationModule extends Module {
             addNameLogic: i<AddNameToDatabase>(),
           ),
         ),
-        Bind.singleton<GetAuthStateStore>(
-            (i) => GetAuthStateStore(i<GetAuthState>())),
-        Bind.singleton<GetAuthProviderStateStore>(
-          (i) => GetAuthProviderStateStore(
+        Bind.singleton<GetAuthStateGetterStore>(
+            (i) => GetAuthStateGetterStore(i<GetAuthState>())),
+        Bind.singleton<GetAuthProviderStateGetterStore>(
+          (i) => GetAuthProviderStateGetterStore(
             apple: i<SignInWithApple>(),
             google: i<SignInWithGoogle>(),
           ),
@@ -116,12 +122,12 @@ class AuthenticationModule extends Module {
         ),
         Bind.singleton<AuthProviderStore>(
           (i) => AuthProviderStore(
-            authProviderGetterStore: i<GetAuthProviderStateStore>(),
+            authProviderGetterStore: i<GetAuthProviderStateGetterStore>(),
           ),
         ),
         Bind.singleton<AuthStateStore>(
           (i) => AuthStateStore(
-            authStateGetterStore: i<GetAuthStateStore>(),
+            authStateGetterStore: i<GetAuthStateGetterStore>(),
           ),
         ),
       ];

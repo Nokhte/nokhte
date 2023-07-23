@@ -30,14 +30,14 @@ class MSignInWithApple extends Mock implements SignInWithApple {}
 class MGetAuthState extends Mock implements GetAuthState {}
 
 class MGetAuthProviderStateStore extends Mock
-    implements GetAuthProviderStateStore {}
+    implements GetAuthProviderStateGetterStore {}
 
 class MAddNameToDatabaseGetterStore extends Mock
     implements AddNameToDatabaseGetterStore {}
 
 class MAddNameToDatabaseStore extends Mock implements AddNameToDatabaseStore {}
 
-class MGetAuthStateStore extends Mock implements GetAuthStateStore {}
+class MGetAuthStateStore extends Mock implements GetAuthStateGetterStore {}
 
 @GenerateMocks([
   MAuthenticationRemoteSourceImpl,

@@ -8,12 +8,12 @@ import '../../../fixtures/authentication_stack_mock_gen.mocks.dart';
 
 void main() {
   late MockMGetAuthState mockAuthStateGetter;
-  late GetAuthStateStore getAuthStateStore;
+  late GetAuthStateGetterStore getAuthStateStore;
   // late AuthEntity tAuthLogicResult;
 
   setUp(() {
     mockAuthStateGetter = MockMGetAuthState();
-    getAuthStateStore = GetAuthStateStore(mockAuthStateGetter);
+    getAuthStateStore = GetAuthStateGetterStore(mockAuthStateGetter);
   });
 
   test("should call the auth state logic and return the result", () {

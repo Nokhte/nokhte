@@ -2,30 +2,39 @@
 ///
 /// Author: Sonny Vesali
 ///
-/// This file defines the [AddNameToDatabaseStore] class, which is a main store responsible
-/// for handling the logic related to adding a name to the database during the authentication process.
-/// The [AddNameToDatabaseStore] extends [_AddNameToDatabaseStoreBase], which in turn extends
-/// [BaseMobxDBStore]. The store interacts with the UI layer and makes use of the [AddNameToDatabaseGetterStore].
+/// This file defines the [AddNameToDatabaseStore] class, which is a main store
+/// responsible for handling the logic related to adding a name to the database
+/// during the authentication process. The [AddNameToDatabaseStore] extends
+/// [_AddNameToDatabaseStoreBase], which in turn extends [BaseMobxDBStore].
+/// The store interacts with the UI layer and makes use of the
+/// [AddNameToDatabaseGetterStore].
 ///
-/// The [AddNameToDatabaseStore] manages the state of the name creation process, including loading state,
-/// error messages, and the resulting [NameCreationStatusEntity] when the process is completed.
-/// It contains an observable [nameCreationStatus] variable to store the status of name creation,
-/// and a [futureStore] variable to handle the asynchronous call to add the name to the database.
+/// The [AddNameToDatabaseStore] manages the state of the name creation process,
+/// including loading state,  error messages, and the resulting
+/// [NameCreationStatusEntity] when te process is completed. It contains an
+/// observable [nameCreationStatus] variable to store the satus of name
+/// creation,  and a [futureStore] variable to handle the asynchronous call to
+/// add the name to the database.
 ///
-/// The [AddNameToDatabaseStore] implements the [BaseMobxDBStore] interface, providing the necessary
-/// methods and properties for handling database operations. It overrides the [call] method to trigger the
-/// name creation process. When the [call] method is invoked, it sets the state to [StoreState.loading],
-/// and initiates the asynchronous database operation using the [addNameGetterStore] function from the
-/// [AddNameToDatabaseGetterStore]. The result of the database operation is wrapped in an [ObservableFuture],
-/// and the [stateOrErrorUpdater] method is called to update the state based on the operation's result.
-/// Upon completion, the state is set to [StoreState.loaded].
+/// The [AddNameToDatabaseStore] implements the [BaseMobxDBStore] interface,
+/// providing the necessary methods and properties for handling database
+/// operations. It overrides the [call] method to trigger the name creation
+/// process. When the [call] method is invoked, it sets the state to
+/// [StoreState.loading], and initiates the asynchronous database operation
+///  using the [addNameGetterStore] function from the
+/// [AddNameToDatabaseGetterStore]. The result of the database operation
+/// is wrapped in an [ObservableFuture], and the [stateOrErrorUpdater] method is
+/// called to update the state based on the operation's result. Upon completion,
+/// the state is set to [StoreState.loaded].
 ///
-/// The [AddNameToDatabaseStore] uses the [_computeStoreState] method to compute the current store state,
-/// based on the status of the [entityOrFailureFuture]. The [entityOrFailureFuture] holds an [Either] type,
-/// representing either a successful result or a [Failure] in case of an error.
+/// The [AddNameToDatabaseStore] uses the [_computeStoreState] method to compute
+/// the current store state, based on the status of the [entityOrFailureFuture].
+/// The [entityOrFailureFuture] holds an [Either] type, representing either a
+/// successful result or a [Failure] in case of an error.
 ///
-/// The store also provides a [mapFailureToMessage] method to map different [Failure] types to corresponding
-/// error messages, which are displayed in case of a failure.
+/// The store also provides a [mapFailureToMessage] method to map different
+/// [Failure] types to corresponding error messages, which are displayed in case
+/// of a failure.
 ///
 /// Note: The ignore_for_file directive is used to suppress warnings about library_private_types_in_public_api
 /// and must_be_immutable.

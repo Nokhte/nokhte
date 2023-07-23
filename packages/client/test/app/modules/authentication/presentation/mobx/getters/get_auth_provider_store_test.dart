@@ -15,13 +15,13 @@ void main() {
   // declare the mock classes, they will be the dependencies of the class...
   late MockMSignInWithGoogle mockGoogleSignInLogic;
   late MockMSignInWithApple mockAppleSignInLogic;
-  late GetAuthProviderStateStore getAuthProviderStore;
+  late GetAuthProviderStateGetterStore getAuthProviderStore;
   late Either<Failure, AuthProviderEntity> tEitherAuthProviderEntityOrFailure;
 
   setUp(() {
     mockGoogleSignInLogic = MockMSignInWithGoogle();
     mockAppleSignInLogic = MockMSignInWithApple();
-    getAuthProviderStore = GetAuthProviderStateStore(
+    getAuthProviderStore = GetAuthProviderStateGetterStore(
       apple: mockAppleSignInLogic,
       google: mockGoogleSignInLogic,
     );
