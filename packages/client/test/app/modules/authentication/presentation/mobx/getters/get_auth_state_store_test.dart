@@ -18,8 +18,8 @@ void main() {
 
   test("should call the auth state logic and return the result", () {
     // arrange
-    when(mockAuthStateGetter(NoParams())).thenAnswer(
-        (realInvocation) => AuthEntity(isAuthenticated: Stream.value(true)));
+    when(mockAuthStateGetter(NoParams())).thenAnswer((realInvocation) =>
+        AuthStateEntity(isAuthenticated: Stream.value(true)));
     // act
     final result = getAuthStateStore();
     expect(result, emitsInOrder([true]));

@@ -16,7 +16,7 @@ abstract class AuthenticationRemoteSource {
 
   Future<AuthProviderModel> signInWithApple();
 
-  AuthModel getAuthState();
+  AuthStateModel getAuthState();
 
   Future<List<dynamic>> addNamesToDatabase();
 }
@@ -65,8 +65,8 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
   }
 
   @override
-  AuthModel getAuthState() {
-    return AuthModel.fromSupabase(supabase.auth.onAuthStateChange);
+  AuthStateModel getAuthState() {
+    return AuthStateModel.fromSupabase(supabase.auth.onAuthStateChange);
   }
 
   @override

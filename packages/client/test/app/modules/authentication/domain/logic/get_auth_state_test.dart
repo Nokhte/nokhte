@@ -12,7 +12,7 @@ import '../../fixtures/authentication_stack_mock_gen.mocks.dart';
 void main() {
   late GetAuthState getAuthState;
   late MockMAuthenticationContract mockAuthenticationContract;
-  late AuthEntity tAuthEntity;
+  late AuthStateEntity tAuthEntity;
 
   setUp(() {
     mockAuthenticationContract = MockMAuthenticationContract();
@@ -21,7 +21,7 @@ void main() {
 
   group('Authenticated', () {
     setUp(() {
-      tAuthEntity = AuthEntity(isAuthenticated: Stream.value(true));
+      tAuthEntity = AuthStateEntity(isAuthenticated: Stream.value(true));
     });
     test('should return the AuthEntity with true from the AuthContract', () {
       // arrange
@@ -36,7 +36,7 @@ void main() {
 
   group('UnAuthenticated', () {
     setUp(() {
-      tAuthEntity = AuthEntity(isAuthenticated: Stream.value(false));
+      tAuthEntity = AuthStateEntity(isAuthenticated: Stream.value(false));
     });
     test(
         'should return stream of a false value from the mocked auth state contract',

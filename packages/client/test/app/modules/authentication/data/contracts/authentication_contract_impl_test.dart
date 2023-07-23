@@ -172,8 +172,8 @@ void main() {
     test("Properly Calls & Returns Auth State from the Remote Source",
         () async {
       // arrange
-      when(mockRemoteSource.getAuthState())
-          .thenAnswer((_) => AuthModel(isAuthenticated: Stream.value(true)));
+      when(mockRemoteSource.getAuthState()).thenAnswer(
+          (_) => AuthStateModel(isAuthenticated: Stream.value(true)));
       // act
       final result = authContract.getAuthState();
       //assert

@@ -9,15 +9,16 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() {
-  late AuthModel tAuthenticatedStateModel;
+  late AuthStateModel tAuthenticatedStateModel;
 
   setUp(() {
-    tAuthenticatedStateModel = AuthModel(isAuthenticated: Stream.value(true));
+    tAuthenticatedStateModel =
+        AuthStateModel(isAuthenticated: Stream.value(true));
   });
 
   test("should be a subclass of the Authentication Entity", () async {
     //assert
-    expect(tAuthenticatedStateModel, isA<AuthEntity>());
+    expect(tAuthenticatedStateModel, isA<AuthStateEntity>());
   });
   group("fromSupabaseTypes", () {
     test(
@@ -27,7 +28,8 @@ void main() {
       final Stream<AuthState> mockSupabaseSession =
           SupabaseAuthFixture.authenticated();
       //act
-      final AuthModel result = AuthModel.fromSupabase(mockSupabaseSession);
+      final AuthStateModel result =
+          AuthStateModel.fromSupabase(mockSupabaseSession);
       //assert
       expect(result.isAuthenticated, emitsInOrder([true]));
     });
@@ -37,7 +39,7 @@ void main() {
       //arrange
       final mockSupabaseSession = SupabaseAuthFixture.unauthenticated();
       //act
-      final result = AuthModel.fromSupabase(mockSupabaseSession);
+      final result = AuthStateModel.fromSupabase(mockSupabaseSession);
       //assert
       expect(result.isAuthenticated, emitsInOrder([false]));
     });

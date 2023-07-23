@@ -72,8 +72,9 @@ class _FakeAuthProviderModel_1 extends _i1.SmartFake
         );
 }
 
-class _FakeAuthModel_2 extends _i1.SmartFake implements _i4.AuthModel {
-  _FakeAuthModel_2(
+class _FakeAuthStateModel_2 extends _i1.SmartFake
+    implements _i4.AuthStateModel {
+  _FakeAuthStateModel_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -92,8 +93,9 @@ class _FakeEither_3<L, R> extends _i1.SmartFake implements _i5.Either<L, R> {
         );
 }
 
-class _FakeAuthEntity_4 extends _i1.SmartFake implements _i6.AuthEntity {
-  _FakeAuthEntity_4(
+class _FakeAuthStateEntity_4 extends _i1.SmartFake
+    implements _i6.AuthStateEntity {
+  _FakeAuthStateEntity_4(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -248,19 +250,19 @@ class MockMAuthenticationRemoteSourceImpl extends _i1.Mock
         )),
       ) as _i17.Future<_i3.AuthProviderModel>);
   @override
-  _i4.AuthModel getAuthState() => (super.noSuchMethod(
+  _i4.AuthStateModel getAuthState() => (super.noSuchMethod(
         Invocation.method(
           #getAuthState,
           [],
         ),
-        returnValue: _FakeAuthModel_2(
+        returnValue: _FakeAuthStateModel_2(
           this,
           Invocation.method(
             #getAuthState,
             [],
           ),
         ),
-      ) as _i4.AuthModel);
+      ) as _i4.AuthStateModel);
   @override
   _i17.Future<List<dynamic>> addNamesToDatabase() => (super.noSuchMethod(
         Invocation.method(
@@ -310,19 +312,19 @@ class MockMRemoteSource extends _i1.Mock implements _i16.MRemoteSource {
         )),
       ) as _i17.Future<_i3.AuthProviderModel>);
   @override
-  _i4.AuthModel getAuthState() => (super.noSuchMethod(
+  _i4.AuthStateModel getAuthState() => (super.noSuchMethod(
         Invocation.method(
           #getAuthState,
           [],
         ),
-        returnValue: _FakeAuthModel_2(
+        returnValue: _FakeAuthStateModel_2(
           this,
           Invocation.method(
             #getAuthState,
             [],
           ),
         ),
-      ) as _i4.AuthModel);
+      ) as _i4.AuthStateModel);
   @override
   _i17.Future<List<dynamic>> addNamesToDatabase() => (super.noSuchMethod(
         Invocation.method(
@@ -377,19 +379,19 @@ class MockMAuthenticationContract extends _i1.Mock
             )),
           ) as _i17.Future<_i5.Either<_i18.Failure, _i19.AuthProviderEntity>>);
   @override
-  _i6.AuthEntity getAuthState() => (super.noSuchMethod(
+  _i6.AuthStateEntity getAuthState() => (super.noSuchMethod(
         Invocation.method(
           #getAuthState,
           [],
         ),
-        returnValue: _FakeAuthEntity_4(
+        returnValue: _FakeAuthStateEntity_4(
           this,
           Invocation.method(
             #getAuthState,
             [],
           ),
         ),
-      ) as _i6.AuthEntity);
+      ) as _i6.AuthStateEntity);
   @override
   _i17.Future<_i5.Either<_i18.Failure, _i11.NameCreationStatusEntity>>
       addNameToDatabase() => (super.noSuchMethod(
@@ -538,19 +540,19 @@ class MockMGetAuthState extends _i1.Mock implements _i16.MGetAuthState {
         ),
       ) as _i7.AuthenticationContract);
   @override
-  _i6.AuthEntity call(_i20.NoParams? params) => (super.noSuchMethod(
+  _i6.AuthStateEntity call(_i20.NoParams? params) => (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _FakeAuthEntity_4(
+        returnValue: _FakeAuthStateEntity_4(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         ),
-      ) as _i6.AuthEntity);
+      ) as _i6.AuthStateEntity);
 }
 
 /// A class which mocks [MAddNameToDatabaseGetterStore].
