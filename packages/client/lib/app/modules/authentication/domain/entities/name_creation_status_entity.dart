@@ -1,4 +1,7 @@
 /// name_creation_status_entity.dart
+/// Proofreading Information:
+///   - Proofreader: Sonny Vesali
+///   - Date: July 23rd 2023
 ///
 /// Author: Sonny Vesali
 ///
@@ -8,11 +11,12 @@
 /// for common database call status representation.
 ///
 /// The [NameCreationStatusEntity] contains the following property:
-/// - [isSent]: A boolean value indicating whether the name creation data has been successfully
-///   sent to the database (true) or not (false).
+/// - [isSent]: A boolean value indicating whether the name creation data has
+///   been successfully sent to the database (true) or not (false).
 ///
-/// The [NameCreationStatusEntity] is an immutable class, and it extends [DefaultDBStatusEntity]
-/// to inherit the common status representation features.
+/// The [NameCreationStatusEntity] is an immutable class, and it extends
+/// [DefaultDBStatusEntity] to inherit the common status representation
+/// features.
 
 import 'package:primala/app/core/entities/default_db_status_entity.dart';
 

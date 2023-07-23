@@ -1,4 +1,7 @@
 /// sign_in_with_google.dart
+///  Proofreading Information:
+///   - Proofreader: Sonny Vesali
+///   - Date: July 23rd 2023
 ///
 /// Author: Sonny Vesali
 ///
@@ -27,6 +30,7 @@
 /// and takes a [NoParams] on the [Right]. Since the operation is asynchronous
 /// and may involve failures, we use [AbstractFutureLogic] for this logic
 /// function.
+
 // * Primala Domain Imports
 import 'package:primala/app/modules/authentication/domain/contracts/authentication_contract.dart';
 import 'package:primala/app/modules/authentication/domain/entities/auth_provider_entity.dart';

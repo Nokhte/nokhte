@@ -1,17 +1,20 @@
 /// auth_entity.dart
+///  Proofreading Information:
+///   - Proofreader: Sonny Vesali
+///   - Date: July 23rd 2023
 ///
 /// Author: Sonny Vesali
 ///
 /// This file defines the [AuthStateEntity] class, an entity that represents the
-/// authentication state in the application. It wraps the [Stream<bool>] provided
-/// by `supababase.auth.onAuthStateChange`, indicating whether a user is authenticated
-/// or not.
+/// authentication state in the application. It wraps the [Stream<bool>]
+/// provided by `supababase.auth.onAuthStateChange`, indicating whether a user
+/// is authenticated or not.
 ///
 /// The [AuthStateEntity] contains the following property:
 /// - [isAuthenticated]: A [Stream<bool>] representing the authentication state.
 ///   The stream emits a boolean value whenever the authentication state changes.
-///   A value of `true` indicates that a user is authenticated, while a value of `false`
-///   indicates that no user is authenticated.
+///   A value of `true` indicates that a user is authenticated, while a value of
+///   `false` indicates that no user is authenticated.
 ///
 /// The [AuthStateEntity] is an immutable class, and it extends [Equatable] to enable easy
 /// comparison of objects for equality.
