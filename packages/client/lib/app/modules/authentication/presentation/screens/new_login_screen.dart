@@ -1,4 +1,7 @@
 /// new_login_screen.dart
+///  Proofreading Information:
+///   - Proofreader: Sonny Vesali
+///   - Date: July 23rd 2023
 ///
 /// Author: Sonny Vesali
 ///
@@ -20,10 +23,10 @@
 ///
 /// The UI of the [NewLoginScreen] contains two main components:
 ///   1. A backdrop animation of water using the [WaterAnimation] widget, which
-///      adds an interactive and visually appealing effect to the login screen.
+///      as it sounds like, shows a water animation instead of ugly buttons.
 ///   2. A text prompt appearing at the bottom of the screen, guiding the user
 ///      to swipe up to log in with either Apple or Google, depending on the
-///      platform.
+///      platform, Google For Android & Apple for iOS.
 ///
 /// Note: The ignore_for_file directive is used to suppress warnings about logic
 /// being present in the createState method.

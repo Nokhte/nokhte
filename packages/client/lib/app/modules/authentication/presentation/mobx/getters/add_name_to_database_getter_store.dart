@@ -1,11 +1,14 @@
 /// add_name_to_database_getter_store.dart
+///  Proofreading Information:
+///   - Proofreader: Sonny Vesali
+///   - Date: July 23rd 2023
 ///
 /// Author: Sonny Vesali
 ///
 /// This file defines the [AddNameToDatabaseGetterStore] class, a MobX getter
 /// store that retrieves data from the domain layer. The store extends
 /// [_AddNameToDatabaseGetterStoreBase] and interacts with the
-///  [AddNameToDatabase] logic for the [AddNameToDatabaseStore]
+///  [AddNameToDatabase] logic for the [AddNameToDatabaseStore] mother store.
 ///
 /// The [AddNameToDatabaseGetterStore] contains an observable [addNameLogic]
 /// variable that holds the [AddNameToDatabase] logic instance. It provides a

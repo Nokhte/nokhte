@@ -1,4 +1,7 @@
 /// add_name_to_database_store.dart
+///  Proofreading Information:
+///   - Proofreader: Sonny Vesali
+///   - Date: July 23rd 2023
 ///
 /// Author: Sonny Vesali
 ///
@@ -7,7 +10,8 @@
 /// during the authentication process. The [AddNameToDatabaseStore] extends
 /// [_AddNameToDatabaseStoreBase], which in turn extends [BaseMobxDBStore].
 /// The store interacts with the UI layer and makes use of the
-/// [AddNameToDatabaseGetterStore].
+/// [AddNameToDatabaseGetterStore] which acts as an abstraction between this
+/// store and the logic.
 ///
 /// The [AddNameToDatabaseStore] manages the state of the name creation process,
 /// including loading state,  error messages, and the resulting
@@ -52,13 +56,13 @@ import 'package:primala/app/modules/authentication/domain/entities/name_creation
 import 'package:primala/app/modules/authentication/presentation/mobx/getters/add_name_to_database_getter_store.dart';
 part 'add_name_to_database_store.g.dart';
 
-/// [AddNameToDatabaseStore] is a main store that manages the logic for adding a name to the database
-/// during the authentication process.
+/// [AddNameToDatabaseStore] is a main store that manages the logic for adding a
+/// name to the database during the authentication process.
 class AddNameToDatabaseStore = _AddNameToDatabaseStoreBase
     with _$AddNameToDatabaseStore;
 
-/// [_AddNameToDatabaseStoreBase] extends [BaseMobxDBStore] and handles the asynchronous
-/// database operations for adding a name to the database.
+/// [_AddNameToDatabaseStoreBase] extends [BaseMobxDBStore] and handles the
+/// asynchronous database operations for adding a name to the database.
 abstract class _AddNameToDatabaseStoreBase
     extends BaseMobxDBStore<NoParams, NameCreationStatusEntity> with Store {
   final AddNameToDatabaseGetterStore addNameGetterStore;
@@ -70,8 +74,8 @@ abstract class _AddNameToDatabaseStoreBase
     isSent: false,
   );
 
-  /// [futureStore] is a BaseFutureStore that handles the asynchronous database operation
-  /// to add the name to the database.
+  /// [futureStore] is a BaseFutureStore that handles the asynchronous database
+  /// operation to add the name to the database.
   @observable
   BaseFutureStore<NameCreationStatusEntity> futureStore = BaseFutureStore(
     baseEntity: DefaultEntities.nameCreationStatusEntity,
@@ -80,8 +84,9 @@ abstract class _AddNameToDatabaseStoreBase
     ),
   );
 
-  /// [stateOrErrorUpdater] is a method that updates the store state and the [nameCreationStatus]
-  /// based on the result of the database operation, which is wrapped in an [Either] type.
+  /// [stateOrErrorUpdater] is a method that updates the store state and the
+  /// [nameCreationStatus]  based on the result of the database operation, which
+  /// is wrapped in an [Either] type.
   @override
   void stateOrErrorUpdater(Either<Failure, NameCreationStatusEntity> result) {
     return result.fold(
@@ -95,10 +100,12 @@ abstract class _AddNameToDatabaseStoreBase
     );
   }
 
-  /// [call] is the method responsible for initiating the name creation process. It sets the store state
-  /// to [StoreState.loading], and invokes the [addNameGetterStore] function to perform the asynchronous
-  /// database operation. The result is then unwrapped from the [ObservableFuture], and the [stateOrErrorUpdater]
-  /// method is called to update the state based on the result. Finally, the store state is set to [StoreState.loaded].
+  /// [call] is the method responsible for initiating the name creation process.
+  /// It sets the store state to [StoreState.loading], and invokes the
+  /// [addNameGetterStore] function to perform the asynchronous database
+  /// operation. The result is then unwrapped from the [ObservableFuture], and
+  /// the [stateOrErrorUpdater] method is called to update the state based on
+  /// the result. Finally, the store state is set to [StoreState.loaded].
   @override
   @action
   Future<void> call(NoParams params) async {

@@ -1,4 +1,7 @@
 /// get_auth_provider_getter_store.dart
+///  Proofreading Information:
+///   - Proofreader: Sonny Vesali
+///   - Date: July 23rd 2023
 ///
 /// Author: Sonny Vesali
 ///
@@ -39,8 +42,9 @@ import 'package:primala/app/core/interfaces/logic.dart';
 // * Mobx Codegen Import
 part 'get_auth_provider_getter_store.g.dart';
 
-/// [GetAuthProviderStateGetterStore] is a MobX getter store responsible for retrieving
-/// data from the domain layer related to the authentication providers.
+/// [GetAuthProviderStateGetterStore] is a MobX getter store responsible for
+/// retrieving data from the domain layer related to the authentication
+/// providers.
 class GetAuthProviderStateGetterStore = _GetAuthProviderGetterStateStoreBase
     with _$GetAuthProviderStateGetterStore;
 

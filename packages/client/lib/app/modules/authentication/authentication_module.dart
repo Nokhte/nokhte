@@ -1,6 +1,9 @@
 /// authentication_module.dart
 ///
 /// Author: Sonny Vesali
+///  Proofreading Information:
+///   - Proofreader: Sonny Vesali
+///   - Date: July 23rd 2023
 ///
 /// This file defines the [AuthenticationModule], which is a module within the
 /// modular architecture of the Primala Flutter app. The module follows a
@@ -18,15 +21,20 @@
 ///
 /// 1. DATA Layer:
 ///    - Sources: [AuthenticationRemoteSourceImpl] is the data source
-///      responsible for fetching data from the Supabase backend.
-///    - Models: Not directly injected, The Models are returned from the
-///              [AuthenticationContractImpl] functions
+///      responsible for fetching data from the Supabase backend and performing
+///      authentication via the external providers Google & Apple.
+///    - Models: Althought not directly injected, The Models are returned from
+///              the [AuthenticationContractImpl] functions
 ///    - Contract Implementation: [AuthenticationContractImpl] implements the
-///       contract interface for the authentication domain layer.
+///       contract interface for the authentication domain layer. It's the
+///       brain of our Data Layer, the implementation determines whether an
+///       Internet Connection Error or Some Other Error or Entity is
+///       returned.
 ///
 /// 2. DOMAIN Layer:
 ///    - Contract Interfaces: [AuthenticationContract] defines the contract
-///      signature for the authentication domain layer.
+///      signature for the authentication domain layer. Each Function defined
+///      here will have it's own Logic Function in the Domain Layer.
 ///    - Logic: [AddNameToDatabase], [GetAuthState], [SignInWithApple], and
 ///             [SignInWithGoogle] are domain logic classes that handle specific
 ///             authentication operations.
@@ -35,8 +43,8 @@
 ///    - MobX Getter Stores: [AddNameToDatabaseGetterStore],
 ///                          [GetAuthStateStore], and
 ///                          [GetAuthProviderStateStore] are MobX getter stores
-///                          responsible for retrieving and managing data for
-///                          specific UI components.
+///                          responsible for interacting with our Logic
+///                          functions for our Mother Stores.
 ///    - MobX Mother Stores: [AddNameToDatabaseStore], [AuthProviderStore], and
 ///                          [AuthStateStore] are MobX mother stores responsible
 ///                          for coordinating data and actions between different
@@ -50,9 +58,10 @@
 /// - Third-Party: The module imports the `supabase_flutter` and `flutter_modular` packages
 ///                to utilize Supabase client and modular-based routing and dependency injection.
 /// - Core: The module imports the `network_info.dart` file to use the [NetworkInfoImpl]
-///         for network connectivity checks.
-/// - Guard: The module imports the [AuthGuard] class to manage authentication guards.
-///
+///         for Internet Connection checks.
+/// - Guard: The module imports the [AuthGuard] class to manage authentication
+///          routing for authenticated or unauthenticated users.
+
 import 'package:primala/app/modules/authentication/data/sources/auth_remote_source.dart';
 import 'package:primala/app/modules/authentication/data/contracts/authentication_contract_impl.dart';
 import 'package:primala/app/modules/authentication/domain/contracts/authentication_contract.dart';

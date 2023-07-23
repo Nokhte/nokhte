@@ -1,11 +1,14 @@
 /// get_auth_state_store.dart
+///  Proofreading Information:
+///   - Proofreader: Sonny Vesali
+///   - Date: July 23rd 2023
 ///
 /// Author: Sonny Vesali
 ///
 /// This file defines the [GetAuthStateStore] class, a MobX getter store that
 /// retrieves data from the domain layer. The store extends
 /// [_GetAuthStateStoreBase] and interacts with the  [GetAuthState] logic for
-/// the [GetAuthStateStore]
+/// the [GetAuthStateStore] mother store.
 ///
 /// The [GetAuthStateStore] contains an observable [getAuthState]variable that
 /// holds the [GetAuthState] logic instance. It provides a [call] method that

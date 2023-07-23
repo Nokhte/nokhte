@@ -1,4 +1,7 @@
 /// auth_provider_store.dart
+///  Proofreading Information:
+///   - Proofreader: Sonny Vesali
+///   - Date: July 23rd 2023
 ///
 /// Author: Sonny Vesali
 ///
@@ -44,25 +47,30 @@ import 'package:primala/app/core/constants/failure_constants.dart';
 // * Mobx Codegen Inclusion
 part 'auth_provider_store.g.dart';
 
-/// [AuthProviderStore] is a MobX store that manages the logic for handling authentication providers.
+/// [AuthProviderStore] is a MobX store that manages the logic for handling
+/// authentication providers.
 class AuthProviderStore = _AuthProviderStoreBase with _$AuthProviderStore;
 
-/// [_AuthProviderStoreBase] is the base class that extends [Equatable] and handles the logic for authentication providers.
+/// [_AuthProviderStoreBase] is the base class that extends [Equatable] and
+/// handles the logic for authentication providers.
 abstract class _AuthProviderStoreBase extends Equatable with Store {
   final GetAuthProviderStateGetterStore authProviderGetterStore;
 
   _AuthProviderStoreBase({required this.authProviderGetterStore});
 
-  /// [state] holds the current store state, which includes loading and initial states.
+  /// [state] holds the current store state, which includes loading and initial
+  /// states.
   @observable
   StoreState state = StoreState.initial;
 
-  /// [errorMessage] holds the error message, if any, that occurred during the authentication process.
+  /// [errorMessage] holds the error message, if any, that occurred during the
+  /// authentication process.
   @observable
   String errorMessage = "";
 
-  /// [mapFailureToMessage] maps different [Failure] types to corresponding error messages,
-  /// which are displayed in case of a failure during authentication.
+  /// [mapFailureToMessage] maps different [Failure] types to corresponding
+  /// error messages, which are displayed in case of a failure during
+  /// authentication.
   String mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
       case AuthenticationFailure:
@@ -76,8 +84,8 @@ abstract class _AuthProviderStoreBase extends Equatable with Store {
     }
   }
 
-  /// [errorMessageUpdater] updates the [errorMessage] based on the result of the authentication operation,
-  /// which is wrapped in an [Either] type.
+  /// [errorMessageUpdater] updates the [errorMessage] based on the result of
+  /// the authentication operation, which is wrapped in an [Either] type.
   void errorMessageUpdater(Either<Failure, AuthProviderEntity> result) {
     return result.fold(
       (failure) {
@@ -87,11 +95,13 @@ abstract class _AuthProviderStoreBase extends Equatable with Store {
     );
   }
 
-  /// [routeAuthProviderRequest] is the method responsible for handling authentication requests from
-  /// different providers. It sets the store state to [StoreState.loading], and invokes the [authProviderGetterStore]
-  /// function to perform the authentication operation. The result is then unwrapped from the [Either] type,
-  /// and the [errorMessageUpdater] method is called to update the error message based on the result.
-  /// Finally, the store state is set to [StoreState.loaded].
+  /// [routeAuthProviderRequest] is the method responsible for handling
+  /// authentication requests from different providers. It sets the store state
+  /// to [StoreState.loading], and invokes the [authProviderGetterStore]
+  /// function to perform the authentication operation. The result is then
+  /// unwrapped from the [Either] type, and the [errorMessageUpdater] method is
+  /// called to update the error message based on the result. Finally, the store
+  /// state is set to [StoreState.loaded].
   @action
   Future<void> routeAuthProviderRequest(AuthProvider authProvider) async {
     state = StoreState.loading;
