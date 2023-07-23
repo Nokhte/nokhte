@@ -1,4 +1,7 @@
 /// common_packs_injector.dart
+///  Proofreading Information:
+///   - Proofreader: Sonny Vesali
+///   - Date: July 23rd 2023
 ///
 /// Author: Sonny Vesali
 /// This script reads a common_packs.yaml file and updates or adds dependencies
