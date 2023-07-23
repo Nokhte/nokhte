@@ -1,3 +1,18 @@
+/// authentication_remote_source.dart
+///
+/// Author: Sonny Vesali
+///
+/// This file defines the [AuthenticationRemoteSource] abstract class and its
+/// implementation, [AuthenticationRemoteSourceImpl]. The
+/// [AuthenticationRemoteSource] provides contract methods for interacting with
+/// external authentication providers and the Supabase authentication.
+///
+/// The implementation class, [AuthenticationRemoteSourceImpl], uses the
+/// Supabase client to perform authentication operations with Google and Apple.
+/// It also retrieves the authentication state and adds names to the database.
+///
+/// Note: The ignore_for_file directive is used to suppress warnings about
+/// depend_on_referenced_packages.
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:primala/app/modules/authentication/data/models/auth_state_model.dart';
@@ -11,19 +26,31 @@ import 'package:crypto/crypto.dart';
 import 'package:primala_backend/user_names.dart';
 import 'dart:convert';
 
+/// [AuthenticationRemoteSource] is an abstract class that defines contract
+/// methods for interacting with external authentication providers and Supabase
+/// authentication.
 abstract class AuthenticationRemoteSource {
+  /// Sign in with Google and return the corresponding [AuthProviderModel].
   Future<AuthProviderModel> signInWithGoogle();
 
+  /// Sign in with Apple and return the corresponding [AuthProviderModel].
   Future<AuthProviderModel> signInWithApple();
 
+  /// Get the authentication state and return the corresponding
+  /// [AuthStateModel].
   AuthStateModel getAuthState();
 
+  /// Add names to the database and return the result as a [Future] of
+  /// [List<dynamic>].
   Future<List<dynamic>> addNamesToDatabase();
 }
 
+/// [AuthenticationRemoteSourceImpl] is an implementation of [AuthenticationRemoteSource] that uses the Supabase client to perform authentication operations with Google and Apple.
 class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
   final SupabaseClient supabase;
 
+  /// Constructs an [AuthenticationRemoteSourceImpl] instance with the provided
+  /// [supabase] client.
   AuthenticationRemoteSourceImpl({required this.supabase});
 
   @override
