@@ -1,4 +1,7 @@
 /// auth_state_model.dart
+/// Proofreading Information:
+///   - Proofreader: Sonny Vesali
+///   - Date: July 23rd 2023
 ///
 /// Author: Sonny Vesali
 ///
@@ -13,7 +16,7 @@
 /// initialize the authentication state. It is designed to hold the
 /// [Stream<bool>], which will emit  a value whenever the authentication state
 /// changes. This allows us to track the user's authentication status
-/// dynamically.
+/// reactively.
 ///
 /// The [fromSupabase] factory method is used to create an [AuthStateModel]
 /// instance from a [Stream<AuthState>] provided by the Supabase library. It

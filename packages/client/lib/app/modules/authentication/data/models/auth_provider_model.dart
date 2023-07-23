@@ -1,4 +1,7 @@
 /// auth_provider_model.dart
+/// Proofreading Information:
+///   - Proofreader: Sonny Vesali
+///   - Date: July 23rd 2023
 ///
 /// Author: Sonny Vesali
 ///
@@ -13,7 +16,7 @@
 /// [authProvider], and a [bool] parameter, [authProviderStatus], and calls the
 /// constructor of [AuthProviderEntity] to initialize the authentication
 /// provider's sign-in status. The [authProvider] specifies the type of
-/// authentication provider (e.g., Google, Apple), and [authProviderStatus]
+/// authentication provider (Google or Apple), and [authProviderStatus]
 /// indicates whether the user is successfully signed in with the specified
 /// provider.
 ///

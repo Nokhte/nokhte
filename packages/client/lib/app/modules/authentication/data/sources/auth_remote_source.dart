@@ -1,11 +1,14 @@
 /// authentication_remote_source.dart
+/// Proofreading Information:
+///   - Proofreader: Sonny Vesali
+///   - Date: July 23rd 2023
 ///
 /// Author: Sonny Vesali
 ///
 /// This file defines the [AuthenticationRemoteSource] abstract class and its
 /// implementation, [AuthenticationRemoteSourceImpl]. The
 /// [AuthenticationRemoteSource] provides contract methods for interacting with
-/// external authentication providers and the Supabase authentication.
+/// external authentication providers through Supabase authentication.
 ///
 /// The implementation class, [AuthenticationRemoteSourceImpl], uses the
 /// Supabase client to perform authentication operations with Google and Apple.
