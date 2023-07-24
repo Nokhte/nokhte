@@ -5,7 +5,7 @@
 ///
 /// Author: Sonny Vesali
 /// This script reads a common_packs.yaml file and updates or adds dependencies
-/// to all packages under the packages directory using effective Dart conventions.
+/// to all packages under the packages directory.
 ///
 /// The script defines several utility functions to achieve this functionality,
 /// such as checking if a folder contains a Dart or Flutter project, retrieving
