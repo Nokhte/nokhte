@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:primala/app/modules/home/presentation/widgets/breathing_pentagons_button/canvas/pentagon_colors.dart';
 
 class PentagonData {
+  static double get radiusConstant => .01;
   static Paint getPentagon1Paint(
     double centerX,
     double centerY,
@@ -16,8 +17,8 @@ class PentagonData {
       ).createShader(
         Rect.fromCircle(
           center: Offset(
-            centerX - 100,
-            centerY - 100,
+            centerX * radiusConstant,
+            centerY * radiusConstant,
           ),
           radius: radius,
         ),
@@ -38,7 +39,10 @@ class PentagonData {
         colors: PentagonColors.secondPentagonRadGradient,
       ).createShader(
         Rect.fromCircle(
-          center: Offset(centerX - 100, centerY - 100),
+          center: Offset(
+            centerX * radiusConstant,
+            centerY * radiusConstant,
+          ),
           radius: radius,
         ),
       );
@@ -59,8 +63,8 @@ class PentagonData {
       ).createShader(
         Rect.fromCircle(
           center: Offset(
-            centerX - 100,
-            centerY - 100,
+            centerX * radiusConstant,
+            centerY * radiusConstant,
           ),
           radius: radius,
         ),
