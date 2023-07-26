@@ -1,21 +1,26 @@
 /// breathing_pentagons_button.dart
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, no_logic_in_create_state
 
 import 'package:flutter/material.dart';
-import 'breathing_pentagons_painter.dart';
+import 'canvas/breathing_pentagons_painter.dart';
 
 class BreathingPentagonsButton extends StatefulWidget {
-  const BreathingPentagonsButton({super.key});
+  final Size size;
+  const BreathingPentagonsButton({
+    super.key,
+    required this.size,
+  });
 
   @override
   _BreathingPentagonsAnimationState createState() =>
-      _BreathingPentagonsAnimationState();
+      _BreathingPentagonsAnimationState(size: size);
 }
 
 class _BreathingPentagonsAnimationState extends State<BreathingPentagonsButton>
     with SingleTickerProviderStateMixin {
+  final Size size;
   late AnimationController _controller;
-
+  _BreathingPentagonsAnimationState({required this.size});
   @override
   void initState() {
     super.initState();
@@ -40,13 +45,8 @@ class _BreathingPentagonsAnimationState extends State<BreathingPentagonsButton>
 
   @override
   Widget build(BuildContext context) {
-    // double width = MediaQuery.of(context).size.width;
-    // var padding = MediaQuery.of(context).padding;
-    // double unrefinedHeight = MediaQuery.of(context).size.height;
-    // double height = unrefinedHeight - padding.top - padding.bottom;
-    // double desiredSize = width < height ? width * .95 : height * .95;
-    // Size size = Size(desiredSize, desiredSize);
     return CustomPaint(
+      size: size,
       painter: BreathingPentagonsPainter(
         animation: _controller,
       ),

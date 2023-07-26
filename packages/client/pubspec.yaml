@@ -36,6 +36,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+  logger: ^1.4.0
   mobx_codegen: ^2.2.0
   mockito: ^5.4.0
   modular_test: ^2.0.0
