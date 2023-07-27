@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:primala/app/modules/home/presentation/widgets/breathing_pentagons_button/canvas/pentagon_colors.dart';
+import 'package:primala/app/core/breathing_pentagons_stack/presentation/widgets/breathing_pentagons_button/canvas/pentagon_colors.dart';
 
 class PentagonData {
   static double get radiusConstant => .01;

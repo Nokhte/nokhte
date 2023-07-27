@@ -12,7 +12,7 @@
 ///    `supabase_flutter` package. This integration allows the app to interact
 ///    with Supabase APIs and manage user authentication, data storage, and
 ///    real-time features. Note: There is a caveat when running on a local
-///    Supabase instance; native Apple authentication won't work as expected.
+///    Supabase instance; native Apple & Google authentication won't work as expected.
 ///
 /// 3. The `connectivity_plus` package is used to handle connectivity-related
 ///    operations. It allows the app to monitor network connectivity status and
