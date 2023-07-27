@@ -4,15 +4,13 @@ import 'pentagon_data.dart';
 import 'package:primala/app/core/canvas_widget_utils/draw_a.dart';
 
 class BreathingPentagonsPainter extends CustomPainter {
-  late double scale;
-  late double angle;
+  double scale;
+  double angle;
   BreathingPentagonsPainter({
-    required Animation<double> scaleParam,
-    required Animation<double> angleParam,
-  }) : super(repaint: scaleParam) {
-    scale = scaleParam.value;
-    angle = angleParam.value;
-  }
+    required this.scale,
+    required this.angle,
+  });
+  // : super(repaint: scale);
 
   @override
   void paint(Canvas canvas, Size size) {
