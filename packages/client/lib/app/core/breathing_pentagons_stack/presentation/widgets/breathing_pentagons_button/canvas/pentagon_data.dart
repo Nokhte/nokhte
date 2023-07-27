@@ -72,7 +72,7 @@ class PentagonData {
     return paint3;
   }
 
-  static double get pentagon1Angle => 0.0;
-  static double get pentagon2Angle => -24.5; // Rotate back to original angle
-  static double get pentagon3Angle => -47.5; // Rotate back to original angle
+  static double get pentagon1Angle => -0.3;
+  static double get pentagon2Angle => 1.35;
+  static double get pentagon3Angle => 1.75;
 }

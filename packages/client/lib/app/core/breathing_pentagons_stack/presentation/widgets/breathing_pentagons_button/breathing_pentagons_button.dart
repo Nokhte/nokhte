@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'canvas/breathing_pentagons_painter.dart';
+import 'package:simple_animations/simple_animations.dart';
 
 class BreathingPentagonsButton extends StatefulWidget {
   final Size size;
@@ -17,38 +18,35 @@ class BreathingPentagonsButton extends StatefulWidget {
 }
 
 class _BreathingPentagonsAnimationState extends State<BreathingPentagonsButton>
-    with SingleTickerProviderStateMixin {
+    with AnimationMixin {
   final Size size;
-  late AnimationController _controller;
+  late Animation<double> angle;
+  late Animation<double> scale;
+  // late AnimationController _controller;
   _BreathingPentagonsAnimationState({required this.size});
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      lowerBound: 0.6,
-      upperBound: .95,
-      duration: const Duration(
-        seconds: 7,
-        // milliseconds: 1,
-      ),
-    )..repeat(
-        reverse: true,
-      );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+    controller.duration = const Duration(seconds: 7);
+    angle = Tween<double>(
+      begin: 0.0,
+      end: 0.35,
+    ).animate(controller);
+    scale = Tween<double>(
+      begin: 0.6,
+      end: .95,
+    ).animate(controller);
+    controller.mirror();
   }
 
   @override
   Widget build(BuildContext context) {
+    // print(angle);
     return CustomPaint(
       size: size,
       painter: BreathingPentagonsPainter(
-        animation: _controller,
+        angleParam: angle,
+        scaleParam: scale,
       ),
     );
   }

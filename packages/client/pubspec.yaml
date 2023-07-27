@@ -25,6 +25,7 @@ dependencies:
   mobx: ^2.2.0
   primala_backend:
     path: ../backend/dart
+  simple_animations: ^5.0.2
   supabase_flutter: ^1.10.9
   swipe: ^0.0.1
   touchable: ^1.0.2
