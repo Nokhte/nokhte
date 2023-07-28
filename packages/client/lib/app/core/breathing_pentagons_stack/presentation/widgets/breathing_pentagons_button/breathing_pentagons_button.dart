@@ -47,12 +47,30 @@ class _BreathingPentagonsAnimationState
       return CustomAnimationBuilder<Movie>(
           tween: stateTrackerStore.movie,
           duration: stateTrackerStore.movie.duration,
-          startPosition: stateTrackerStore.startingPoint,
+          startPosition: 0,
           control: stateTrackerStore.controlType,
+          onStarted: () {
+            print('START  ${stateTrackerStore.movieCount}');
+          },
           onCompleted: () {
-            if (stateTrackerStore.isExpansionDone == false) {
-              stateTrackerStore.expansionIsDone();
-            }
+            // if (stateTrackerStore.movieCount == 1) {
+            if (stateTrackerStore.movieCount >= 1) return;
+            stateTrackerStore.expansionIsDone();
+            // }
+            // if (stateTrackerStore.movieCount == 0) {
+            //   stateTrackerStore.expansionIsDone();
+            // }
+            // print(
+            //     'END  ${stateTrackerStore.movieCount} ${stateTrackerStore.currentMovie}');
+            // if (stateTrackerStore.isExpansionDone == true &&
+            //     stateTrackerStore.areColorChangesDone == false) {
+            //   stateTrackerStore.colorChangesAreDone();
+            // }
+            // if (stateTrackerStore.isExpansionDone == false) {
+            //   stateTrackerStore.expansionIsDone();
+            // }
+            // print(
+            //     'expansion var ${stateTrackerStore.areColorChangesDone} color changes var ${stateTrackerStore.areColorChangesDone}');
           },
           builder: (context, value, child) {
             return CustomPaint(

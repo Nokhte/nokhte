@@ -10,40 +10,6 @@ part of 'breathing_pentagons_state_tracker_store.dart';
 
 mixin _$BreathingPentagonsStateTrackerStore
     on _BreathingPentagonsStateTrackerStoreBase, Store {
-  late final _$isCanvasSizeSetAtom = Atom(
-      name: '_BreathingPentagonsStateTrackerStoreBase.isCanvasSizeSet',
-      context: context);
-
-  @override
-  bool get isCanvasSizeSet {
-    _$isCanvasSizeSetAtom.reportRead();
-    return super.isCanvasSizeSet;
-  }
-
-  @override
-  set isCanvasSizeSet(bool value) {
-    _$isCanvasSizeSetAtom.reportWrite(value, super.isCanvasSizeSet, () {
-      super.isCanvasSizeSet = value;
-    });
-  }
-
-  late final _$canvasSizeAtom = Atom(
-      name: '_BreathingPentagonsStateTrackerStoreBase.canvasSize',
-      context: context);
-
-  @override
-  Size get canvasSize {
-    _$canvasSizeAtom.reportRead();
-    return super.canvasSize;
-  }
-
-  @override
-  set canvasSize(Size value) {
-    _$canvasSizeAtom.reportWrite(value, super.canvasSize, () {
-      super.canvasSize = value;
-    });
-  }
-
   late final _$movieAtom = Atom(
       name: '_BreathingPentagonsStateTrackerStoreBase.movie', context: context);
 
@@ -57,6 +23,40 @@ mixin _$BreathingPentagonsStateTrackerStore
   set movie(MovieTween value) {
     _$movieAtom.reportWrite(value, super.movie, () {
       super.movie = value;
+    });
+  }
+
+  late final _$movieCountAtom = Atom(
+      name: '_BreathingPentagonsStateTrackerStoreBase.movieCount',
+      context: context);
+
+  @override
+  int get movieCount {
+    _$movieCountAtom.reportRead();
+    return super.movieCount;
+  }
+
+  @override
+  set movieCount(int value) {
+    _$movieCountAtom.reportWrite(value, super.movieCount, () {
+      super.movieCount = value;
+    });
+  }
+
+  late final _$currentMovieAtom = Atom(
+      name: '_BreathingPentagonsStateTrackerStoreBase.currentMovie',
+      context: context);
+
+  @override
+  String get currentMovie {
+    _$currentMovieAtom.reportRead();
+    return super.currentMovie;
+  }
+
+  @override
+  set currentMovie(String value) {
+    _$currentMovieAtom.reportWrite(value, super.currentMovie, () {
+      super.currentMovie = value;
     });
   }
 
@@ -94,39 +94,26 @@ mixin _$BreathingPentagonsStateTrackerStore
     });
   }
 
-  late final _$startingPointAtom = Atom(
-      name: '_BreathingPentagonsStateTrackerStoreBase.startingPoint',
+  late final _$areColorChangesDoneAtom = Atom(
+      name: '_BreathingPentagonsStateTrackerStoreBase.areColorChangesDone',
       context: context);
 
   @override
-  double get startingPoint {
-    _$startingPointAtom.reportRead();
-    return super.startingPoint;
+  bool get areColorChangesDone {
+    _$areColorChangesDoneAtom.reportRead();
+    return super.areColorChangesDone;
   }
 
   @override
-  set startingPoint(double value) {
-    _$startingPointAtom.reportWrite(value, super.startingPoint, () {
-      super.startingPoint = value;
+  set areColorChangesDone(bool value) {
+    _$areColorChangesDoneAtom.reportWrite(value, super.areColorChangesDone, () {
+      super.areColorChangesDone = value;
     });
   }
 
   late final _$_BreathingPentagonsStateTrackerStoreBaseActionController =
       ActionController(
           name: '_BreathingPentagonsStateTrackerStoreBase', context: context);
-
-  @override
-  dynamic setCanvasSize(Size newSize) {
-    final _$actionInfo =
-        _$_BreathingPentagonsStateTrackerStoreBaseActionController.startAction(
-            name: '_BreathingPentagonsStateTrackerStoreBase.setCanvasSize');
-    try {
-      return super.setCanvasSize(newSize);
-    } finally {
-      _$_BreathingPentagonsStateTrackerStoreBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
 
   @override
   void expansionIsDone() {
@@ -144,12 +131,12 @@ mixin _$BreathingPentagonsStateTrackerStore
   @override
   String toString() {
     return '''
-isCanvasSizeSet: ${isCanvasSizeSet},
-canvasSize: ${canvasSize},
 movie: ${movie},
+movieCount: ${movieCount},
+currentMovie: ${currentMovie},
 controlType: ${controlType},
 isExpansionDone: ${isExpansionDone},
-startingPoint: ${startingPoint}
+areColorChangesDone: ${areColorChangesDone}
     ''';
   }
 }
