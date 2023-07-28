@@ -13,7 +13,7 @@ class PentagonData {
       ..shader = RadialGradient(
         center: Alignment.center,
         radius: radius,
-        colors: PentagonColors.firstPentagonRadGradient,
+        colors: PentagonColors.firstPentagonFourthIntervalRadGradient,
       ).createShader(
         Rect.fromCircle(
           center: Offset(
@@ -36,7 +36,7 @@ class PentagonData {
       ..shader = RadialGradient(
         center: Alignment.center,
         radius: radius,
-        colors: PentagonColors.secondPentagonRadGradient,
+        colors: PentagonColors.secondPentagonFourthIntervalRadGradient,
       ).createShader(
         Rect.fromCircle(
           center: Offset(
@@ -59,7 +59,7 @@ class PentagonData {
       ..shader = RadialGradient(
         center: Alignment.center,
         radius: radius,
-        colors: PentagonColors.thirdPentagonRadGradient,
+        colors: PentagonColors.thirdPentagonFourthIntervalRadGradient,
       ).createShader(
         Rect.fromCircle(
           center: Offset(
