@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:primala/app/core/breathing_pentagons_stack/presentation/widgets/breathing_pentagons_button/canvas/pentagon_colors.dart';
+import 'package:primala/app/core/breathing_pentagons_stack/constants/pentagon_colors.dart';
 
 class PentagonData {
   static double get radiusConstant => .01;
@@ -13,7 +13,7 @@ class PentagonData {
       ..shader = RadialGradient(
         center: Alignment.center,
         radius: radius,
-        colors: PentagonColors.firstPentagonFourthIntervalRadGradient,
+        colors: PentagonColors.firstPentagonSecondIntervalRadGradient,
       ).createShader(
         Rect.fromCircle(
           center: Offset(
@@ -21,6 +21,30 @@ class PentagonData {
             centerY * radiusConstant,
           ),
           radius: radius,
+        ),
+      );
+    return paint1;
+  }
+
+  static Paint getPentagonPaint(
+    double centerX,
+    double centerY,
+    double radius,
+    List<Color> colors,
+  ) {
+    final Paint paint1 = Paint()
+      ..style = PaintingStyle.fill
+      ..shader = RadialGradient(
+        center: Alignment.center,
+        radius: radius,
+        colors: colors,
+      ).createShader(
+        Rect.fromCircle(
+          center: Offset(
+            centerX * radiusConstant,
+            centerY * radiusConstant,
+          ),
+          radius: radius + 3,
         ),
       );
     return paint1;
@@ -36,7 +60,7 @@ class PentagonData {
       ..shader = RadialGradient(
         center: Alignment.center,
         radius: radius,
-        colors: PentagonColors.secondPentagonFourthIntervalRadGradient,
+        colors: PentagonColors.secondPentagonSecondIntervalRadGradient,
       ).createShader(
         Rect.fromCircle(
           center: Offset(
@@ -59,7 +83,7 @@ class PentagonData {
       ..shader = RadialGradient(
         center: Alignment.center,
         radius: radius,
-        colors: PentagonColors.thirdPentagonFourthIntervalRadGradient,
+        colors: PentagonColors.thirdPentagonSecondIntervalRadGradient,
       ).createShader(
         Rect.fromCircle(
           center: Offset(

@@ -43,13 +43,6 @@ class _BreathingPentagonsAnimationState
 
   @override
   Widget build(BuildContext context) {
-    // print(angle);
-    // we need to return a MoveBuilder I think and then we will be able to do
-    //
-    // ultimately we'll have to see if multiple movies or
-    // starting point but I lean towards two movies, but things
-    // aren't changing but we've dealt with this before so I think we'll be fine
-
     return Observer(builder: (context) {
       return CustomAnimationBuilder<Movie>(
           tween: stateTrackerStore.movie,
@@ -70,6 +63,24 @@ class _BreathingPentagonsAnimationState
                 ),
                 scale: value.get(
                   'scale',
+                ),
+                firstPentagonFirstGradient: value.get(
+                  '1st Pentagon > 1st Gradient Color',
+                ),
+                firstPentagonSecondGradient: value.get(
+                  '1st Pentagon > 2nd Gradient Color',
+                ),
+                secondPentagonFirstGradient: value.get(
+                  '2nd Pentagon > 1st Gradient Color',
+                ),
+                secondPentagonSecondGradient: value.get(
+                  '2nd Pentagon > 2nd Gradient Color',
+                ),
+                thirdPentagonFirstGradient: value.get(
+                  '3rd Pentagon > 1st Gradient Color',
+                ),
+                thirdPentagonSecondGradient: value.get(
+                  '3rd Pentagon > 2nd Gradient Color',
                 ),
               ),
             );

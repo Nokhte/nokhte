@@ -21,9 +21,11 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = CanvasSizeCalculator.squareCanvas(
-      context: context,
-      percentageLength: .50,
+    stateTrackerStore.setCanvasSize(
+      CanvasSizeCalculator.squareCanvas(
+        context: context,
+        percentageLength: .50,
+      ),
     );
     return LayoutBuilder(builder: (context, constraints) {
       // change back to platform scaffold later
@@ -59,13 +61,13 @@ class HomeScreen extends StatelessWidget {
                     },
                     child: Container(
                       // color: Colors.blue.withOpacity(.4),
-                      height: size.height,
-                      width: size.width,
+                      height: stateTrackerStore.canvasSize.height,
+                      width: stateTrackerStore.canvasSize.width,
                       child: Center(
                         widthFactor: 1.0,
                         heightFactor: 1.0,
                         child: BreathingPentagonsButton(
-                          size: size,
+                          size: stateTrackerStore.canvasSize,
                           stateTrackerStore: stateTrackerStore,
                         ),
                       ),
