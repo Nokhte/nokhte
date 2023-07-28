@@ -60,13 +60,13 @@ abstract class _BreathingPentagonsStateTrackerStoreBase extends Equatable
     ..scene(
       begin: const Duration(seconds: 0),
       // 6 seconds 1.25
-      end: const Duration(seconds: 36),
+      end: const Duration(seconds: 30),
     )
         .tween(
           'angle',
           Tween<double>(
             begin: 0,
-            end: 7.5,
+            end: 6.25,
           ),
         )
         .tween(
