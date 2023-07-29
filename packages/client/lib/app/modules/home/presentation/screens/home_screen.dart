@@ -4,9 +4,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:primala/app/core/breathing_pentagons_stack/constants/types/types.dart';
 import 'package:primala/app/core/canvas_widget_utils/canvas_size_calculator.dart';
 import 'package:primala/app/core/breathing_pentagons_stack/presentation/widgets/widgets.dart';
-import 'package:simple_animations/simple_animations.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:primala/app/core/breathing_pentagons_stack/presentation/mobx/main/breathing_pentagons_state_tracker_store.dart';
 // import 'package:flutter_modular/flutter_modular.dart';
@@ -55,7 +55,15 @@ class HomeScreen extends StatelessWidget {
                 return SafeArea(
                   child: GestureDetector(
                     onTap: () {
-                      stateTrackerStore.controlType = Control.play;
+                      if (stateTrackerStore.mode ==
+                              MovieModes.aggressiveExpansion ||
+                          stateTrackerStore.mode ==
+                              MovieModes.infiniteRotation) {
+                        stateTrackerStore.mode = MovieModes.windDown;
+                      } else if (stateTrackerStore.mode == MovieModes.idle) {
+                        stateTrackerStore.initiateAggressiveExpansion();
+                      }
+                      print('AFTER: ${stateTrackerStore.mode}');
                     },
                     child: Container(
                       // color: Colors.blue.withOpacity(.4),

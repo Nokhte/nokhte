@@ -26,37 +26,19 @@ mixin _$BreathingPentagonsStateTrackerStore
     });
   }
 
-  late final _$movieCountAtom = Atom(
-      name: '_BreathingPentagonsStateTrackerStoreBase.movieCount',
-      context: context);
+  late final _$modeAtom = Atom(
+      name: '_BreathingPentagonsStateTrackerStoreBase.mode', context: context);
 
   @override
-  int get movieCount {
-    _$movieCountAtom.reportRead();
-    return super.movieCount;
+  MovieModes get mode {
+    _$modeAtom.reportRead();
+    return super.mode;
   }
 
   @override
-  set movieCount(int value) {
-    _$movieCountAtom.reportWrite(value, super.movieCount, () {
-      super.movieCount = value;
-    });
-  }
-
-  late final _$currentMovieAtom = Atom(
-      name: '_BreathingPentagonsStateTrackerStoreBase.currentMovie',
-      context: context);
-
-  @override
-  String get currentMovie {
-    _$currentMovieAtom.reportRead();
-    return super.currentMovie;
-  }
-
-  @override
-  set currentMovie(String value) {
-    _$currentMovieAtom.reportWrite(value, super.currentMovie, () {
-      super.currentMovie = value;
+  set mode(MovieModes value) {
+    _$modeAtom.reportWrite(value, super.mode, () {
+      super.mode = value;
     });
   }
 
@@ -77,51 +59,74 @@ mixin _$BreathingPentagonsStateTrackerStore
     });
   }
 
-  late final _$isExpansionDoneAtom = Atom(
-      name: '_BreathingPentagonsStateTrackerStoreBase.isExpansionDone',
-      context: context);
-
-  @override
-  bool get isExpansionDone {
-    _$isExpansionDoneAtom.reportRead();
-    return super.isExpansionDone;
-  }
-
-  @override
-  set isExpansionDone(bool value) {
-    _$isExpansionDoneAtom.reportWrite(value, super.isExpansionDone, () {
-      super.isExpansionDone = value;
-    });
-  }
-
-  late final _$areColorChangesDoneAtom = Atom(
-      name: '_BreathingPentagonsStateTrackerStoreBase.areColorChangesDone',
-      context: context);
-
-  @override
-  bool get areColorChangesDone {
-    _$areColorChangesDoneAtom.reportRead();
-    return super.areColorChangesDone;
-  }
-
-  @override
-  set areColorChangesDone(bool value) {
-    _$areColorChangesDoneAtom.reportWrite(value, super.areColorChangesDone, () {
-      super.areColorChangesDone = value;
-    });
-  }
-
   late final _$_BreathingPentagonsStateTrackerStoreBaseActionController =
       ActionController(
           name: '_BreathingPentagonsStateTrackerStoreBase', context: context);
 
   @override
-  void expansionIsDone() {
+  dynamic teeReverseMovieUp(
+      {required double angle,
+      required double scale,
+      required Color firstPentagonFirstGradient,
+      required Color firstPentagonSecondGradient,
+      required Color secondPentagonFirstGradient,
+      required Color secondPentagonSecondGradient,
+      required Color thirdPentagonFirstGradient,
+      required Color thirdPentagonSecondGradient}) {
     final _$actionInfo =
         _$_BreathingPentagonsStateTrackerStoreBaseActionController.startAction(
-            name: '_BreathingPentagonsStateTrackerStoreBase.expansionIsDone');
+            name: '_BreathingPentagonsStateTrackerStoreBase.teeReverseMovieUp');
     try {
-      return super.expansionIsDone();
+      return super.teeReverseMovieUp(
+          angle: angle,
+          scale: scale,
+          firstPentagonFirstGradient: firstPentagonFirstGradient,
+          firstPentagonSecondGradient: firstPentagonSecondGradient,
+          secondPentagonFirstGradient: secondPentagonFirstGradient,
+          secondPentagonSecondGradient: secondPentagonSecondGradient,
+          thirdPentagonFirstGradient: thirdPentagonFirstGradient,
+          thirdPentagonSecondGradient: thirdPentagonSecondGradient);
+    } finally {
+      _$_BreathingPentagonsStateTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic runReverseMovie() {
+    final _$actionInfo =
+        _$_BreathingPentagonsStateTrackerStoreBaseActionController.startAction(
+            name: '_BreathingPentagonsStateTrackerStoreBase.runReverseMovie');
+    try {
+      return super.runReverseMovie();
+    } finally {
+      _$_BreathingPentagonsStateTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic initiateAggressiveExpansion() {
+    final _$actionInfo =
+        _$_BreathingPentagonsStateTrackerStoreBaseActionController.startAction(
+            name:
+                '_BreathingPentagonsStateTrackerStoreBase.initiateAggressiveExpansion');
+    try {
+      return super.initiateAggressiveExpansion();
+    } finally {
+      _$_BreathingPentagonsStateTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void initiateInfiniteRotation() {
+    final _$actionInfo =
+        _$_BreathingPentagonsStateTrackerStoreBaseActionController.startAction(
+            name:
+                '_BreathingPentagonsStateTrackerStoreBase.initiateInfiniteRotation');
+    try {
+      return super.initiateInfiniteRotation();
     } finally {
       _$_BreathingPentagonsStateTrackerStoreBaseActionController
           .endAction(_$actionInfo);
@@ -132,11 +137,8 @@ mixin _$BreathingPentagonsStateTrackerStore
   String toString() {
     return '''
 movie: ${movie},
-movieCount: ${movieCount},
-currentMovie: ${currentMovie},
-controlType: ${controlType},
-isExpansionDone: ${isExpansionDone},
-areColorChangesDone: ${areColorChangesDone}
+mode: ${mode},
+controlType: ${controlType}
     ''';
   }
 }
