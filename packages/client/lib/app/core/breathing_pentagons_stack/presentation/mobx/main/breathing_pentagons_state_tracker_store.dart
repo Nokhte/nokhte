@@ -51,6 +51,25 @@ abstract class _BreathingPentagonsStateTrackerStoreBase extends Equatable
   }
 
   @action
+  gestureFunctionRouter() {
+    if (mode == MovieModes.aggressiveExpansion ||
+        mode == MovieModes.infiniteRotation) {
+      mode = MovieModes.windDown;
+    } else if (mode == MovieModes.idle) {
+      initiateAggressiveExpansion();
+    }
+  }
+
+  @action
+  widgetAnimationController() {
+    if (mode == MovieModes.windDown) {
+      runReverseMovie();
+    } else if (mode == MovieModes.aggressiveExpansion) {
+      initiateInfiniteRotation();
+    }
+  }
+
+  @action
   runReverseMovie() {
     controlType = Control.play;
     mode = MovieModes.idle;

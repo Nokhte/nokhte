@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:primala/app/core/breathing_pentagons_stack/constants/types/types.dart';
 import 'package:primala/app/core/breathing_pentagons_stack/presentation/mobx/main/breathing_pentagons_state_tracker_store.dart';
+import 'package:primala/app/core/breathing_pentagons_stack/utils/utils.dart';
 import 'canvas/breathing_pentagons_painter.dart';
 import 'package:simple_animations/simple_animations.dart';
 
@@ -48,57 +49,34 @@ class _BreathingPentagonsAnimationState
       return CustomAnimationBuilder<Movie>(
           tween: stateTrackerStore.movie,
           duration: stateTrackerStore.movie.duration,
-          // startPosition: 0.0,
           control: stateTrackerStore.controlType,
-          onCompleted: () {
-            if (stateTrackerStore.mode == MovieModes.windDown) {
-              stateTrackerStore.runReverseMovie();
-            } else if (stateTrackerStore.mode ==
-                MovieModes.aggressiveExpansion) {
-              stateTrackerStore.initiateInfiniteRotation();
-            }
-          },
+          onCompleted: () => stateTrackerStore.widgetAnimationController(),
           builder: (context, value, child) {
-            final currentAngle = value.get('angle');
-            final currentScale = value.get('scale');
-            final currentFirstPentagonFirstGradient =
-                value.get('1st Pentagon > 1st Gradient Color');
-            final currentFirstPentagonSecondGradient =
-                value.get('1st Pentagon > 2nd Gradient Color');
-            final currentSecondPentagonFirstGradient =
-                value.get('2nd Pentagon > 1st Gradient Color');
-            final currentSecondPentagonSecondGradient =
-                value.get('2nd Pentagon > 2nd Gradient Color');
-            final currentThirdPentagonFirstGradient =
-                value.get('3rd Pentagon > 1st Gradient Color');
-            final currentThirdPentagonSecondGradient =
-                value.get('3rd Pentagon > 2nd Gradient Color');
+            final currentAnimationValues = GetCurrentAnimation.values(value);
             if (stateTrackerStore.mode == MovieModes.windDown) {
               stateTrackerStore.teeReverseMovieUp(
-                angle: currentAngle,
-                scale: currentScale,
-                firstPentagonFirstGradient: currentFirstPentagonFirstGradient,
-                firstPentagonSecondGradient: currentFirstPentagonSecondGradient,
-                secondPentagonFirstGradient: currentSecondPentagonFirstGradient,
-                secondPentagonSecondGradient:
-                    currentSecondPentagonSecondGradient,
-                thirdPentagonFirstGradient: currentThirdPentagonFirstGradient,
-                thirdPentagonSecondGradient: currentThirdPentagonSecondGradient,
+                angle: currentAnimationValues[0],
+                scale: currentAnimationValues[1],
+                firstPentagonFirstGradient: currentAnimationValues[2],
+                firstPentagonSecondGradient: currentAnimationValues[3],
+                secondPentagonFirstGradient: currentAnimationValues[4],
+                secondPentagonSecondGradient: currentAnimationValues[5],
+                thirdPentagonFirstGradient: currentAnimationValues[6],
+                thirdPentagonSecondGradient: currentAnimationValues[7],
               );
             }
 
             return CustomPaint(
               size: size,
               painter: BreathingPentagonsPainter(
-                angle: currentAngle,
-                scale: currentScale,
-                firstPentagonFirstGradient: currentFirstPentagonFirstGradient,
-                firstPentagonSecondGradient: currentFirstPentagonSecondGradient,
-                secondPentagonFirstGradient: currentSecondPentagonFirstGradient,
-                secondPentagonSecondGradient:
-                    currentSecondPentagonSecondGradient,
-                thirdPentagonFirstGradient: currentThirdPentagonFirstGradient,
-                thirdPentagonSecondGradient: currentThirdPentagonSecondGradient,
+                angle: currentAnimationValues[0],
+                scale: currentAnimationValues[1],
+                firstPentagonFirstGradient: currentAnimationValues[2],
+                firstPentagonSecondGradient: currentAnimationValues[3],
+                secondPentagonFirstGradient: currentAnimationValues[4],
+                secondPentagonSecondGradient: currentAnimationValues[5],
+                thirdPentagonFirstGradient: currentAnimationValues[6],
+                thirdPentagonSecondGradient: currentAnimationValues[7],
               ),
             );
           });

@@ -93,6 +93,34 @@ mixin _$BreathingPentagonsStateTrackerStore
   }
 
   @override
+  dynamic gestureFunctionRouter() {
+    final _$actionInfo =
+        _$_BreathingPentagonsStateTrackerStoreBaseActionController.startAction(
+            name:
+                '_BreathingPentagonsStateTrackerStoreBase.gestureFunctionRouter');
+    try {
+      return super.gestureFunctionRouter();
+    } finally {
+      _$_BreathingPentagonsStateTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic widgetAnimationController() {
+    final _$actionInfo =
+        _$_BreathingPentagonsStateTrackerStoreBaseActionController.startAction(
+            name:
+                '_BreathingPentagonsStateTrackerStoreBase.widgetAnimationController');
+    try {
+      return super.widgetAnimationController();
+    } finally {
+      _$_BreathingPentagonsStateTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic runReverseMovie() {
     final _$actionInfo =
         _$_BreathingPentagonsStateTrackerStoreBaseActionController.startAction(
