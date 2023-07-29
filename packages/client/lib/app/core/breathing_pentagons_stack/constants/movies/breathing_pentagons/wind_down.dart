@@ -17,7 +17,7 @@ class WindDown {
     return MovieTween()
       ..scene(
         begin: const Duration(seconds: 0),
-        end: const Duration(seconds: 3),
+        end: const Duration(seconds: 1, milliseconds: 900),
       ).tween(
         'angle',
         Tween<double>(
@@ -26,8 +26,8 @@ class WindDown {
         ),
       )
       ..scene(
-        begin: const Duration(seconds: 3),
-        end: const Duration(seconds: 3),
+        begin: const Duration(seconds: 1, milliseconds: 900),
+        end: const Duration(seconds: 1, milliseconds: 900),
       ).tween(
         'angle',
         Tween<double>(
@@ -37,7 +37,7 @@ class WindDown {
       )
       ..scene(
               begin: const Duration(seconds: 0),
-              end: const Duration(seconds: 3))
+              end: const Duration(seconds: 1, milliseconds: 900))
           .tween(
         'scale',
         Tween<double>(
@@ -47,7 +47,7 @@ class WindDown {
       )
       ..scene(
         begin: const Duration(seconds: 0),
-        end: const Duration(seconds: 3),
+        end: const Duration(seconds: 1, milliseconds: 900),
       )
           .tween(
             '1st Pentagon > 1st Gradient Color',
