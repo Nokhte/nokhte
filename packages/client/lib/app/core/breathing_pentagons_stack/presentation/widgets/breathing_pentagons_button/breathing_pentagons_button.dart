@@ -3,7 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:primala/app/core/breathing_pentagons_stack/constants/types/types.dart';
+import 'package:primala/app/core/breathing_pentagons_stack/constants/constants.dart';
 import 'package:primala/app/core/breathing_pentagons_stack/presentation/mobx/main/breathing_pentagons_state_tracker_store.dart';
 import 'package:primala/app/core/breathing_pentagons_stack/utils/utils.dart';
 import 'canvas/breathing_pentagons_painter.dart';

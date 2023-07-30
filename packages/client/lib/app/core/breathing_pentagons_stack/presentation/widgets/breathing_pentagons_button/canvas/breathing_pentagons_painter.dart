@@ -1,6 +1,6 @@
 /// breathing_pentagons_painter.dart
 import 'package:flutter/material.dart';
-import '../../../../constants/pentagon_data.dart';
+import 'package:primala/app/core/breathing_pentagons_stack/constants/constants.dart';
 import 'package:primala/app/core/canvas_widget_utils/draw_a.dart';
 
 class BreathingPentagonsPainter extends CustomPainter {

@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/breathing_pentagons_stack/constants/movies/breathing_pentagons/wind_down.dart';
-import 'package:primala/app/core/breathing_pentagons_stack/constants/movies/movies.dart';
-import 'package:primala/app/core/breathing_pentagons_stack/constants/types/types.dart';
+import 'package:primala/app/core/breathing_pentagons_stack/constants/constants.dart';
 import 'package:simple_animations/simple_animations.dart';
 // * Mobx Codegen Inclusion
 part 'breathing_pentagons_state_tracker_store.g.dart';
