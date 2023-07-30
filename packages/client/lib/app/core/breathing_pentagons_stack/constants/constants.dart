@@ -15,9 +15,7 @@
 ///  - `pentagon_colors.dart`: This file contains the color constants used for
 ///    the pentagons' gradient colors during the animation.
 ///
-///  - `pentagon_painter_helper.dart`: This file contains utility methods to aid
-///    in painting pentagons, including obtaining radial gradient fills for the
-///    pentagons.
+///  - `pentagon_painter_helper.dart`:
 ///
 ///  - `pentagon_angles.dart`: This file contains constants related to the angles
 ///    used in the animation of the breathing pentagons.
@@ -36,7 +34,6 @@
 /// helper functions under a single entry point.
 
 export 'pentagon_colors.dart';
-export 'pentagon_painter_helper.dart';
 export 'pentagon_angles.dart';
 export 'types/types.dart';
 export 'movies/movies.dart';

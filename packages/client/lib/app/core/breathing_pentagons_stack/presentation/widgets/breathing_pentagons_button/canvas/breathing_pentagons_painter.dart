@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:primala/app/core/breathing_pentagons_stack/constants/constants.dart';
 import 'package:primala/app/core/canvas_widget_utils/draw_a.dart';
+import 'package:primala/app/core/breathing_pentagons_stack/utils/utils.dart';
 
 class BreathingPentagonsPainter extends CustomPainter {
   double scale;
