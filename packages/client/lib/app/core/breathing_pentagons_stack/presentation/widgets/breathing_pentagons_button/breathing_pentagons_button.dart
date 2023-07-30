@@ -50,7 +50,7 @@ class _BreathingPentagonsAnimationState
           tween: stateTrackerStore.movie,
           duration: stateTrackerStore.movie.duration,
           control: stateTrackerStore.controlType,
-          onCompleted: () => stateTrackerStore.widgetAnimationController(),
+          onCompleted: () => stateTrackerStore.onCompletedAnimationCallback(),
           builder: (context, value, child) {
             final currentAnimationValues = GetCurrentAnimation.values(value);
             if (stateTrackerStore.mode == MovieModes.windDown) {

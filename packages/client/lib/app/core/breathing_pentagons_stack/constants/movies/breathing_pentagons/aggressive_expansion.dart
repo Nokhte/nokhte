@@ -1,11 +1,12 @@
 /// aggressive_expansion.dart
 /// "Now our operation is small but there is a lot of potential for aggressive
 /// expansion."
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:primala/app/core/breathing_pentagons_stack/constants/pentagon_colors.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-class AggressiveExpansion {
+class AggressiveExpansion extends Equatable {
   static MovieTween get movie => MovieTween()
     ..scene(begin: const Duration(seconds: 0), end: const Duration(seconds: 36))
         .tween(
@@ -473,4 +474,7 @@ class AggressiveExpansion {
                 [PentagonColors.secondGradientColor],
           ),
         );
+
+  @override
+  List<Object> get props => [movie];
 }

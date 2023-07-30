@@ -107,13 +107,13 @@ mixin _$BreathingPentagonsStateTrackerStore
   }
 
   @override
-  dynamic widgetAnimationController() {
+  dynamic onCompletedAnimationCallback() {
     final _$actionInfo =
         _$_BreathingPentagonsStateTrackerStoreBaseActionController.startAction(
             name:
-                '_BreathingPentagonsStateTrackerStoreBase.widgetAnimationController');
+                '_BreathingPentagonsStateTrackerStoreBase.onCompletedAnimationCallback');
     try {
-      return super.widgetAnimationController();
+      return super.onCompletedAnimationCallback();
     } finally {
       _$_BreathingPentagonsStateTrackerStoreBaseActionController
           .endAction(_$actionInfo);
@@ -121,12 +121,13 @@ mixin _$BreathingPentagonsStateTrackerStore
   }
 
   @override
-  dynamic runReverseMovie() {
+  dynamic initiateReverseMovie() {
     final _$actionInfo =
         _$_BreathingPentagonsStateTrackerStoreBaseActionController.startAction(
-            name: '_BreathingPentagonsStateTrackerStoreBase.runReverseMovie');
+            name:
+                '_BreathingPentagonsStateTrackerStoreBase.initiateReverseMovie');
     try {
-      return super.runReverseMovie();
+      return super.initiateReverseMovie();
     } finally {
       _$_BreathingPentagonsStateTrackerStoreBaseActionController
           .endAction(_$actionInfo);

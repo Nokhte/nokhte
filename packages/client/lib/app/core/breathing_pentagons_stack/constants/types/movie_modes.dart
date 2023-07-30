@@ -3,5 +3,4 @@ enum MovieModes {
   infiniteRotation,
   windDown,
   idle,
-  completedWindDown
 }

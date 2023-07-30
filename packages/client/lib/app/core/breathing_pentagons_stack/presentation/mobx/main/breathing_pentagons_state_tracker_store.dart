@@ -61,16 +61,16 @@ abstract class _BreathingPentagonsStateTrackerStoreBase extends Equatable
   }
 
   @action
-  widgetAnimationController() {
+  onCompletedAnimationCallback() {
     if (mode == MovieModes.windDown) {
-      runReverseMovie();
+      initiateReverseMovie();
     } else if (mode == MovieModes.aggressiveExpansion) {
       initiateInfiniteRotation();
     }
   }
 
   @action
-  runReverseMovie() {
+  initiateReverseMovie() {
     controlType = Control.play;
     mode = MovieModes.idle;
   }
@@ -95,6 +95,8 @@ abstract class _BreathingPentagonsStateTrackerStoreBase extends Equatable
 
   @override
   List<Object> get props => [
-// some items
+        mode,
+        movie,
+        controlType,
       ];
 }
