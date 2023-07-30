@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class PentagonData {
+class PentagonPainterHelper {
   static double get radiusConstant => .01;
 
-  static Paint getPentagonPaint(
+  static Paint getRadialGradient(
     double centerX,
     double centerY,
     double radius,
@@ -26,8 +26,4 @@ class PentagonData {
       );
     return paint1;
   }
-
-  static double get pentagon1Angle => -0.3;
-  static double get pentagon2Angle => 1.35;
-  static double get pentagon3Angle => 1.75;
 }

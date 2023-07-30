@@ -32,17 +32,17 @@ class BreathingPentagonsPainter extends CustomPainter {
     const double rotationScalingConstant = 5.0;
 
     final Paint paint1 =
-        PentagonData.getPentagonPaint(centerX, centerY, radius, [
+        PentagonPainterHelper.getRadialGradient(centerX, centerY, radius, [
       firstPentagonFirstGradient,
       firstPentagonSecondGradient,
     ]);
     final Paint paint2 =
-        PentagonData.getPentagonPaint(centerX, centerY, radius, [
+        PentagonPainterHelper.getRadialGradient(centerX, centerY, radius, [
       secondPentagonFirstGradient,
       secondPentagonSecondGradient,
     ]);
     final Paint paint3 =
-        PentagonData.getPentagonPaint(centerX, centerY, radius, [
+        PentagonPainterHelper.getRadialGradient(centerX, centerY, radius, [
       thirdPentagonFirstGradient,
       thirdPentagonSecondGradient,
     ]);
@@ -53,9 +53,9 @@ class BreathingPentagonsPainter extends CustomPainter {
     ];
 
     final List<double> angleList = [
-      PentagonData.pentagon1Angle,
-      PentagonData.pentagon2Angle,
-      PentagonData.pentagon3Angle
+      PentagonAngles.pentagon1Angle,
+      PentagonAngles.pentagon2Angle,
+      PentagonAngles.pentagon3Angle
     ];
     for (int i = 0; i < paintList.length; i++) {
       canvas.save();
