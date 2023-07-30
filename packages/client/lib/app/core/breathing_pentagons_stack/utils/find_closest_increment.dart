@@ -1,7 +1,9 @@
 /// find_closest_increment.dart
+/// Proofreading Information:
+///   - Proofreader: Sonny Vesali
+///   - Date: July 30th 2023
 ///
 /// Author: Sonny Vesali
-/// Proofreading Date: July 30th 2023
 ///
 /// This utility class calculates the closest increment value to a given input
 /// based on a fixed increment of 1.25. Used in the windDown animation, each
