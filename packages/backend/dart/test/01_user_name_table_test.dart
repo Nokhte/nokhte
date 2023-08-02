@@ -32,7 +32,7 @@ void main() {
 
   tearDownAll(() async {
     await UserSetupConstants.setUpUserNamesTableForSubsequentTests(
-      supabase: supabase,
+      supabase: supabaseAdmin,
     );
   });
   test(
