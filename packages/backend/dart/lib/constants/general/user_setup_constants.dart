@@ -54,19 +54,31 @@ class UserSetupConstants {
     await supabase.auth
         .signInWithPassword(email: 'test@example.com', password: 'test123');
     await supabase.from('user_names').insert(
-      {"uid": supabase.auth.currentUser?.id, "first_name": "tester"},
+      {
+        "uid": supabase.auth.currentUser?.id,
+        "first_name": "tester",
+        "last_name": "one"
+      },
     );
     await supabase.auth.signOut();
     await supabase.auth
         .signInWithPassword(email: 'test2@example.com', password: 'test123');
-    await supabase.from('usernames').insert(
-      {"uid": supabase.auth.currentUser?.id, "username": "tester2"},
+    await supabase.from('user_names').insert(
+      {
+        "uid": supabase.auth.currentUser?.id,
+        "first_name": "tester",
+        "last_name": "two"
+      },
     );
     await supabase.auth.signOut();
     await supabase.auth
         .signInWithPassword(email: 'test3@example.com', password: 'test123');
-    await supabase.from('usernames').insert(
-      {"uid": supabase.auth.currentUser?.id, "username": "tester3"},
+    await supabase.from('user_names').insert(
+      {
+        "uid": supabase.auth.currentUser?.id,
+        "first_name": "tester",
+        "last_name": "three"
+      },
     );
   }
 

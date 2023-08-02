@@ -26,10 +26,12 @@ void main() {
   tearDown(() async {
     await CommonUserNamesQueries.deleteUserInfo(
         supabase: supabaseAdmin, userUID: currentUserUID);
+    await CommonUserNamesQueries.deleteCollaboratorPhraseInfo(
+        supabase: supabaseAdmin, userUID: currentUserUID);
   });
 
   tearDownAll(() async {
-    UserSetupConstants.setUpUserNamesTableForSubsequentTests(
+    await UserSetupConstants.setUpUserNamesTableForSubsequentTests(
       supabase: supabase,
     );
   });

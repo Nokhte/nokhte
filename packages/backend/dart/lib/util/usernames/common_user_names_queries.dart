@@ -24,6 +24,19 @@ class CommonUserNamesQueries {
         );
   }
 
+  static Future<dynamic> deleteCollaboratorPhraseInfo(
+      {required SupabaseClient supabase, required String? userUID}) async {
+    return await supabase
+        .from(
+          'collaborator_phrases',
+        )
+        .delete()
+        .eq(
+          'uid',
+          userUID,
+        );
+  }
+
   static Future<dynamic> deleteUserInfo({
     required SupabaseClient supabase,
     required String? userUID,
