@@ -23,7 +23,7 @@ test-the-db-rules:
     - echo "APPLE_CLIENT_SECRET='$APPLE_CLIENT_SECRET'" >> .env
     - echo "GOOGLE_CLIENT_ID='$GOOGLE_CLIENT_ID'" >> .env
     - echo "GOOGLE_CLIENT_SECRET='$GOOGLE_CLIENT_SECRET'" >> .env
-    - supabase stop
+    - supabase stop --no-backup
     - supabase start
     - flutter pub get
     - flutter test
