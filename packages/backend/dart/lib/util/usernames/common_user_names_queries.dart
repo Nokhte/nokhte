@@ -24,17 +24,22 @@ class CommonUserNamesQueries {
         );
   }
 
+  static Future<dynamic> fetchCollaboratorPhraseInfo({
+    required SupabaseClient supabase,
+    required String? userUID,
+  }) async {
+    return await supabase
+        .from('collaborator_phrases')
+        .select()
+        .eq('uid', userUID);
+  }
+
   static Future<dynamic> deleteCollaboratorPhraseInfo(
       {required SupabaseClient supabase, required String? userUID}) async {
     return await supabase
-        .from(
-          'collaborator_phrases',
-        )
+        .from('collaborator_phrases')
         .delete()
-        .eq(
-          'uid',
-          userUID,
-        );
+        .eq('uid', userUID);
   }
 
   static Future<dynamic> deleteUserInfo({
@@ -44,10 +49,7 @@ class CommonUserNamesQueries {
     return await supabase
         .from('user_names')
         .delete()
-        .eq(
-          'uid',
-          userUID,
-        )
+        .eq('uid', userUID)
         .select();
   }
 }

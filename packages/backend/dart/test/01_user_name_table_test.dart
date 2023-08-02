@@ -39,15 +39,32 @@ void main() {
       "✅ should be able to CREATE & READ a row in the table if their uid isn't present already",
       () async {
     // arrange + act
-    final res = await CommonUserNamesQueries.insertUserInfo(
+    final userNamesRes = await CommonUserNamesQueries.insertUserInfo(
       supabase: supabase,
       userUID: currentUserUID,
       firstName: UserDataConstants.user1FirstName,
       lastName: UserDataConstants.user1LastName,
     );
-    expect(res[0]['first_name'], UserDataConstants.user1FirstName);
-    expect(res[0]["last_name"], UserDataConstants.user1LastName);
-    expect(res[0]["uid"], currentUserUID);
+    final collaboratorPhraseRes =
+        await CommonUserNamesQueries.fetchCollaboratorPhraseInfo(
+      supabase: supabase,
+      userUID: currentUserUID,
+    );
+
+    /// user_names row checks
+    expect(userNamesRes[0]['first_name'], UserDataConstants.user1FirstName);
+    expect(userNamesRes[0]["last_name"], UserDataConstants.user1LastName);
+    expect(userNamesRes[0]["uid"], currentUserUID);
+
+    /// collaborator_phrases row checks
+    expect(collaboratorPhraseRes[0]["uid"], currentUserUID);
+    expect(collaboratorPhraseRes[0]["collaborator_phrase"], isNotEmpty);
+    expect(collaboratorPhraseRes[0]["adjective_id"], isA<int>());
+    expect(collaboratorPhraseRes[0]["noun_id"], isA<int>());
+    expect(collaboratorPhraseRes[0]["is_visible"], false);
+    expect(
+        collaboratorPhraseRes[0]["has_an_existing_collaborator_relationship"],
+        false);
   });
 
   test("❌ shouldn't be able to insert another row if they already have one",
