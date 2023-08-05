@@ -2,7 +2,7 @@
 // https://deno.land/manual/getting_started/setup_your_environment
 // This enables autocomplete, go to definition, etc.
 
-import * as postgres from "postgres";
+// import postgres from "postgres";
 import "std/server";
 
 /// Ok so the key thing here is that we need to define here is first
