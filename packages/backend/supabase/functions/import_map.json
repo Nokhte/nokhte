@@ -1,0 +1,6 @@
+{
+    "imports": {
+        "postgres": "https://deno.land/x/postgres@v0.17.0/mod.ts",
+        "std/server": "https://deno.land/std@0.197.0/http/server.ts"
+    }
+}

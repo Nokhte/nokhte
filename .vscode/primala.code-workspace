@@ -1,0 +1,35 @@
+{
+    "folders": [
+        {
+            "name": "primala-root",
+            "path": "../",
+        },
+        {
+            "name": "client",
+            "path": "../packages/client"
+        },
+        {
+            "name": "backend",
+            "path": "../packages/backend"
+        },
+        {
+            "name": "supabase-edge-functions",
+            "path": "../packages/backend/supabase/functions"
+        }
+    ],
+    "settings": 
+        {
+            "files.exclude": {
+                "packages/": true,
+                "**/**.iml": true,
+                "**/.dart_tool": true,
+                "**/deprecated_gitlab_ci": true,
+                "**/.idea": true,
+                "**/**.lock": true,
+            },
+            "deno.importMap": "./packages/backend/supabase/functions/import_map.json",
+            "deno.enable": true,
+            "deno.lint": true,
+            "deno.unstable": true
+        }
+}
