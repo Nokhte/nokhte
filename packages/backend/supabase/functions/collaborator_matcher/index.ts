@@ -2,12 +2,7 @@
 // https://deno.land/manual/getting_started/setup_your_environment
 // This enables autocomplete, go to definition, etc.
 
-// import postgres from "postgres";
-import "std/server";
-
-/// Ok so the key thing here is that we need to define here is first
-/// 1. the 
-
+import  "std/server"
 
 console.log("Hello from Functions!")
 
