@@ -13,8 +13,8 @@
             "path": "../packages/backend"
         },
         {
-            "name": "supabase-edge-functions",
-            "path": "../packages/backend/supabase/functions"
+            "name": "supabase",
+            "path": "../packages/backend/supabase"
         }
     ],
     "settings": 
