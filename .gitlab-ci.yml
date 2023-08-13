@@ -37,6 +37,7 @@ deploy-to-staging-db:
   script:
     - cd packages/backend
     - supabase link --project-ref $SUPABASE_STAGING_PROJECT_ID --password $SUPABASE_STAGING_DB_PASSWORD
+    - supabase functions deploy
     - supabase db push
   only:
     - staging
@@ -45,7 +46,9 @@ deploy-to-staging-db:
 deploy-to-prod-db:
   stage: production 
   script:
+    - cd packages/backend
     - supabase link --project-ref $SUPABASE_PROD_PROJECT_ID --password $SUPABASE_PROD_DB_PASSWORD
+    - supabase functions deploy
     - supabase db push
   only:
     - production 
