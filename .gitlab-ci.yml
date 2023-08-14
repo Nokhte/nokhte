@@ -31,6 +31,18 @@ test-the-db-rules:
     # - ./scripts/test.sh
   only:
     - development
+
+test-the-edge-functions:
+  stage: development
+  script:
+    - cd packages/backend/supabase
+    - supabase stop --no-backup
+    - supabase start
+    - supabase functions serve
+    - cd test
+    - deno test --allow-all initiate-collaborator-search-test.ts --import-map=../functions/import_map.json --allow-env
+  only:
+    - development
     
 deploy-to-staging-db:
   stage: staging
