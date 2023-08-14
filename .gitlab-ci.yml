@@ -26,8 +26,10 @@ test-the-db-rules-and-edge-functions:
     - supabase stop --no-backup
     - supabase start
     - supabase functions serve &
+    - SERVER_PID=$!
     - flutter pub get
     - flutter test
+    - kill $SERVER_PID
     # - chmod u+x ./scripts/test.sh
     # - ./scripts/test.sh
   only:
