@@ -4,7 +4,7 @@
 
 import { serve } from "std/server";
 import { supabaseAdmin } from "../constants/supabase.ts";
-import { isEmpty } from "../utils/array_utils.ts";
+import { isEmptyOrNull } from "../utils/array_utils.ts";
 
 serve(async (_res) => {
   const mostRecentEntrant = await supabaseAdmin
@@ -21,7 +21,7 @@ serve(async (_res) => {
     .eq("wayfarer_noun_id", queryNoun);
   let returnRes = wayfarerQueryRes.data;
   console.log(wayfarerQueryRes);
-  if (isEmpty(wayfarerQueryRes?.data ?? [])) {
+  if (isEmptyOrNull(wayfarerQueryRes?.data)) {
     const matchedUID = wayfarerQueryRes.data?.[0]?.["wayfarer_uid"];
     const matchedAdjectiveId = wayfarerQueryRes.data?.[0]
       ?.["wayfarer_adjective_id"];
@@ -40,3 +40,8 @@ serve(async (_res) => {
     { headers: { "Content-Type": "application/json" } },
   );
 });
+/*
+curl -i --location --request POST 'http://localhost:54321/functions/v1/collaborator_matcher' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0' \
+--header 'Content-Type: application/json' 
+*/
