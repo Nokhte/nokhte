@@ -1,2 +1,2 @@
 flutter test test/01_user_name_table_test.dart
-flutter test test/02_initiate_collaborator_search_edge_test.dart
+flutter test test/02_synchronous_search_test.dart

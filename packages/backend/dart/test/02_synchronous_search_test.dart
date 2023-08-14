@@ -1,6 +1,38 @@
-// ignore_for_file: file_names
+/// 02_synchronous_search_test.dart
+/// Proofreading Information
+///   - Proofreader: Sonny Vesali
+///   - Date: August 14th, 2023
+///
+/// Author: Sonny Vesali
+///
+/// This test file contains scenarios that validate the behavior of the
+/// collaborative phrase search system and the collaboration management in the
+/// application. It involves the interaction between various tables and custom
+/// Supabase functions.
+///
+/// Scenarios Covered:
+/// 1. User1 Enters & Gets Booted Out:
+///    This scenario simulates a user (User1) initiating a collaborative phrase search and
+///    then getting removed from the pool due to specific conditions. It verifies that the user
+///    is initially added to the pool and then removed after the search process.
+///    - Involved Edge functions: `initiate-collaborator-search`, `end-collaborator-search`
+///    - Involved Table: `p2p_collaborator_pool`
+///
+/// 2. User1 Enters, Then User2 Enters:
+///    This scenario simulates two users (User1 and User2) simultaneously initiating collaborative
+///    phrase searches. It validates that when multiple users initiate searches at the same time,
+///    they should not be matched with each other, and no collaboration should be formed.
+///    - Involved Supabase function: `initiate-collaborator-search`
+///    - Involved Tables: `existing_collaborations`, `p2p_collaborator_pool`
+///
+/// Note:
+/// - The Supabase functions `initiate-collaborator-search` and `end-collaborator-search` must be running
+///   for the tests to work correctly. Run `supabase functions serve` in the
+/// - Make sure that the Supabase functions service is active during testing.
 
-/// Let's do the test in dart
+/// 02_synchronous_search_test.dart
+
+// ignore_for_file: file_names
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primala_backend/constants/general/sign_in.dart';
 import 'package:primala_backend/constants/phrase_components/collaborator_phrase.dart';
@@ -15,9 +47,6 @@ void main() {
   late String secondUserUID;
   late CollaboratorPhraseIDs firstUserPhraseIDs;
   late CollaboratorPhraseIDs secondUserPhraseIDs;
-
-  /// we're going to need an easy way of dynamically storing the phrases
-  /// which is composed of 2 numbers and it's dynamic based on the instance
 
   setUpAll(() async {
     supabase = SupabaseClientConfigConstants.supabase;
