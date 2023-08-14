@@ -5,4 +5,23 @@ class UserDataConstants {
   static String get user2UID => "f47ac10b-58cc-4372-a567-0e02b2c3d479";
   static String get user2FirstName => "second";
   static String get user2LastName => "tester";
+  static String get universalPassword => "test123";
+  static List get usersData => const [
+        {
+          'firstName': 'tester',
+          'lastName': 'one',
+        },
+        {
+          'firstName': 'tester',
+          'lastName': 'two',
+        },
+        {
+          'firstName': 'tester',
+          'lastName': 'three',
+        },
+        {
+          'firstName': 'tester',
+          'lastName': 'four',
+        },
+      ];
 }

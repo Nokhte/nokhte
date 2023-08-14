@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:primala_backend/constants/general/sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -34,7 +35,7 @@ void main() {
           "ranges": Timestampz.juneTenthMorningRanges,
         },
       );
-      await UserSetupConstants.signInUser1(supabase: supabase);
+      await SignIn.user1(supabase: supabase);
     });
 
     tearDown(() async {
@@ -191,13 +192,13 @@ void main() {
         test(
             "❌ UPDATE: USER1 sends 👍🏽Scheduling Request, USER2 RESPONDS with 👍🏽 TIMESTAMPZ & USER1 Attempts a 👎🏽 UPDATE",
             () async {
-          await UserSetupConstants.signInUser2(supabase: supabase);
+          await SignIn.user2(supabase: supabase);
           // @ from user 2
           await CommonP2PSchedulingQueries.successfulUser2SchedulingRes(
               supabase: supabase,
               firstUserUID: firstUserUID,
               secondUserUID: secondUserUID);
-          await UserSetupConstants.signInUser1(supabase: supabase);
+          await SignIn.user1(supabase: supabase);
           try {
             final failedRes = await supabase
                 .from('p2p_scheduling')
@@ -220,14 +221,14 @@ void main() {
         test("INTEGRAION: ✅ Proper Scheduling Handshake between USER1 & USER2",
             () async {
           // @ from user 1
-          await UserSetupConstants.signInUser2(supabase: supabase);
+          await SignIn.user2(supabase: supabase);
           // @ from user 2
           await CommonP2PSchedulingQueries.successfulUser2SchedulingRes(
             supabase: supabase,
             firstUserUID: firstUserUID,
             secondUserUID: secondUserUID,
           );
-          await UserSetupConstants.signInUser1(supabase: supabase);
+          await SignIn.user1(supabase: supabase);
           await CommonP2PSchedulingQueries.successfulUser1ConfirmationRes(
             supabase: supabase,
             firstUserUID: firstUserUID,
@@ -244,7 +245,7 @@ void main() {
         test("✅ READ: USER 2 Can Only Select Requests they've Received",
             () async {
           // # Arrange
-          await UserSetupConstants.signInUser2(supabase: supabase);
+          await SignIn.user2(supabase: supabase);
           // # Act
           final res = await CommonP2PSchedulingQueries.readTheSchedulingRequest(
             firstUserUID: firstUserUID,

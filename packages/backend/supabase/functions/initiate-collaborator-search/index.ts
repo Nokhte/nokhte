@@ -2,6 +2,8 @@ import { serve } from "std/server";
 import { isNotEmptyOrNull } from "../utils/array_utils.ts";
 import { supabaseAdmin } from "../constants/supabase.ts";
 
+// a best practice we should do later is split this up into 2 different functions
+// and test them individually, but we can do that later
 serve(async (req) => {
   const { wayfarerUID, queryAdjectiveID, queryNounID } = await req.json();
   const phrasesRes = await supabaseAdmin.from("collaborator_phrases").select()
@@ -29,14 +31,21 @@ serve(async (req) => {
     const matchedAdjectiveId = wayfarerQueryRes.data?.[0]
       ?.["wayfarer_adjective_id"];
     const matchedNounId = wayfarerQueryRes.data?.[0]?.["wayfarer_noun_id"];
-    const updateRes = await supabaseAdmin.from("p2p_collaborator_pool").update({
+    await supabaseAdmin.from("p2p_collaborator_pool").update({
       "matched_uid": matchedUID,
       "matched_adjective_id": matchedAdjectiveId,
       "matched_noun_id": matchedNounId,
     })
-      .eq("wayfarer_uid", mostRecentEntrant.data?.[0]["wayfarer_uid"])
-      .select();
-    returnRes = updateRes.data;
+    .eq("wayfarer_uid", mostRecentEntrant.data?.[0]["wayfarer_uid"])
+    await supabaseAdmin.from('existing_collaborations').insert({
+      "collaborator_one": wayfarerUID,
+      "collaborator_two": matchedUID,
+    });
+    await supabaseAdmin.from("p2p_collaborator_pool").delete().eq('wayfarer_uid', wayfarerUID);
+    await supabaseAdmin.from("p2p_collaborator_pool").delete().eq('wayfarer_uid', matchedUID);
+    returnRes = [{"status": 200, "message": "collaboration successfully forged"}]
+
+
   }
   return new Response(
     JSON.stringify(returnRes),

@@ -15,7 +15,7 @@ variables:
   LANG: "en_US.UTF-8"
 
 # $ Backend-CI/CD JOBS START
-test-the-db-rules:
+test-the-db-rules-and-edge-functions:
   stage: development
   script:
     - melos bs
@@ -25,6 +25,7 @@ test-the-db-rules:
     - echo "GOOGLE_CLIENT_SECRET='$GOOGLE_CLIENT_SECRET'" >> .env
     - supabase stop --no-backup
     - supabase start
+    - supabase functions serve &
     - flutter pub get
     - flutter test
     # - chmod u+x ./scripts/test.sh
@@ -32,17 +33,17 @@ test-the-db-rules:
   only:
     - development
 
-test-the-edge-functions:
-  stage: development
-  script:
-    - cd packages/backend/supabase
-    - supabase stop --no-backup
-    - supabase start
-    - supabase functions serve  --env-file supabase/test/.env.local &
-    - cd test
-    - deno test --allow-all initiate-collaborator-search-test.ts --import-map=../functions/import_map.json --allow-env
-  only:
-    - development
+# test-the-edge-functions:
+#   stage: development
+#   script:
+#     - cd packages/backend/supabase
+#     - supabase stop --no-backup
+#     - supabase start
+#     - supabase functions serve  --env-file supabase/test/.env.local &
+#     - cd test
+#     - deno test --allow-all initiate-collaborator-search-test.ts --import-map=../functions/import_map.json --allow-env
+#   only:
+#     - development
     
 deploy-to-staging-db:
   stage: staging

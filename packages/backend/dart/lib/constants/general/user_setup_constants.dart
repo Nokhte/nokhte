@@ -1,110 +1,78 @@
+import 'package:primala_backend/constants/general/user_data_constants.dart';
+import 'package:primala_backend/constants/phrase_components/collaborator_phrase.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
+import 'sign_in.dart';
 import 'supabase_client_constants.dart';
 
 class UserSetupConstants {
   static Future<List<String>> fetchUIDs() async {
     final supabase = SupabaseClientConfigConstants.supabase;
+    final List<String> userUIDs = [];
     try {
-      await supabase.auth.signUp(
-        email: 'test3@example.com',
-        password: 'test123',
-      );
-      final thirdUserUID = supabase.auth.currentUser?.id ?? "";
-      await supabase.auth.signOut();
-      await supabase.auth.signUp(
-        email: 'test2@example.com',
-        password: 'test123',
-      );
-      final secondUserUID = supabase.auth.currentUser?.id ?? "";
-      await supabase.auth.signOut();
-      await supabase.auth.signUp(
-        email: 'test@example.com',
-        password: 'test123',
-      );
-      final firstUserUID = supabase.auth.currentUser?.id ?? "";
-      await supabase.auth.signOut();
-      return [firstUserUID, secondUserUID, thirdUserUID];
+      for (var i = 0; i < 4; i++) {
+        final email = 'test${i + 1}@example.com';
+        await supabase.auth.signUp(
+          email: email,
+          password: UserDataConstants.universalPassword,
+        );
+        userUIDs.add(supabase.auth.currentUser?.id ?? '');
+        await supabase.auth.signOut();
+      }
     } catch (e) {
-      await supabase.auth.signInWithPassword(
-        email: 'test3@example.com',
-        password: 'test123',
-      );
-      final thirdUserUID = supabase.auth.currentUser?.id ?? "";
-      await supabase.auth.signOut();
-      await supabase.auth.signInWithPassword(
-        email: 'test2@example.com',
-        password: 'test123',
-      );
-      final secondUserUID = supabase.auth.currentUser?.id ?? "";
-      await supabase.auth.signOut();
-      await supabase.auth.signInWithPassword(
-        email: 'test@example.com',
-        password: 'test123',
-      );
-      final firstUserUID = supabase.auth.currentUser?.id ?? "";
-      await supabase.auth.signOut();
-      return [firstUserUID, secondUserUID, thirdUserUID];
+      for (var i = 0; i < 4; i++) {
+        final email = 'test${i + 1}@example.com';
+        await supabase.auth.signInWithPassword(
+          email: email,
+          password: UserDataConstants.universalPassword,
+        );
+        userUIDs.add(supabase.auth.currentUser?.id ?? '');
+        await supabase.auth.signOut();
+      }
+    }
+    return userUIDs;
+  }
+
+  static Future<void> wipeUsernamesTable({
+    required SupabaseClient supabaseAdmin,
+  }) async {
+    final userUIDs = await fetchUIDs();
+    for (var userUID in userUIDs) {
+      await supabaseAdmin.from('user_names').delete().eq(
+            'uid',
+            userUID,
+          );
     }
   }
 
   static Future<void> setUpUserNamesTableForSubsequentTests(
       {required SupabaseClient supabase}) async {
-    await supabase.auth.signOut();
-    await supabase.auth
-        .signInWithPassword(email: 'test@example.com', password: 'test123');
-    await supabase.from('user_names').insert(
-      {
-        "uid": supabase.auth.currentUser?.id,
-        "first_name": "tester",
-        "last_name": "one"
-      },
-    );
-    await supabase.auth.signOut();
-    await supabase.auth
-        .signInWithPassword(email: 'test2@example.com', password: 'test123');
-    await supabase.from('user_names').insert(
-      {
-        "uid": supabase.auth.currentUser?.id,
-        "first_name": "tester",
-        "last_name": "two"
-      },
-    );
-    await supabase.auth.signOut();
-    await supabase.auth
-        .signInWithPassword(email: 'test3@example.com', password: 'test123');
-    await supabase.from('user_names').insert(
-      {
-        "uid": supabase.auth.currentUser?.id,
-        "first_name": "tester",
-        "last_name": "three"
-      },
-    );
+    final userUIDs = await fetchUIDs();
+    for (var i = 0; i < userUIDs.length; i++) {
+      await SignIn.callbackList(supabase: supabase)[i]();
+      await supabase.from('user_names').insert(
+        {
+          "uid": userUIDs[i],
+          "first_name": UserDataConstants.usersData[i]['firstName'],
+          "last_name": UserDataConstants.usersData[i]['lastName'],
+        },
+      );
+    }
   }
 
-  static Future<void> signInUser1({
-    required SupabaseClient supabase,
-  }) async {
-    await supabase.auth.signOut();
-    await supabase.auth.signInWithPassword(
-      email: 'test@example.com',
-      password: 'test123',
-    );
-  }
-
-  static Future<void> signInUser2({required SupabaseClient supabase}) async {
-    await supabase.auth.signOut();
-    await supabase.auth.signInWithPassword(
-      email: 'test2@example.com',
-      password: 'test123',
-    );
-  }
-
-  static Future<void> signInUser3({required SupabaseClient supabase}) async {
-    await supabase.auth.signOut();
-    await supabase.auth.signInWithPassword(
-      email: 'test3@example.com',
-      password: 'test123',
-    );
+  static Future<List<CollaboratorPhraseIDs>> fetchCollaboratorPhraseIDs(
+      {required SupabaseClient supabaseAdmin}) async {
+    final List<CollaboratorPhraseIDs> phraseIDs = [];
+    final userUIDs = await fetchUIDs();
+    for (var userUID in userUIDs) {
+      final collaboratorPhraseRes = await supabaseAdmin
+          .from('collaborator_phrases')
+          .select()
+          .eq('uid', userUID);
+      phraseIDs.add(CollaboratorPhraseIDs(
+        adjectiveID: collaboratorPhraseRes[0]["adjective_id"],
+        nounID: collaboratorPhraseRes[0]["noun_id"],
+      ));
+    }
+    return phraseIDs;
   }
 }

@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:primala_backend/constants/general/sign_in.dart';
 import 'package:primala_backend/constants/general/user_data_constants.dart';
 import 'package:primala_backend/util/usernames/common_user_names_queries.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -18,9 +19,10 @@ void main() {
   setUpAll(() async {
     supabase = SupabaseClientConfigConstants.supabase;
     supabaseAdmin = SupabaseClientConfigConstants.supabaseAdmin;
+    await UserSetupConstants.wipeUsernamesTable(supabaseAdmin: supabaseAdmin);
     final userIdResults = await UserSetupConstants.fetchUIDs();
     currentUserUID = userIdResults[0];
-    await UserSetupConstants.signInUser1(supabase: supabase);
+    await SignIn.user1(supabase: supabase);
   });
 
   tearDown(() async {
