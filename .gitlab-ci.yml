@@ -38,7 +38,7 @@ test-the-edge-functions:
     - cd packages/backend/supabase
     - supabase stop --no-backup
     - supabase start
-    - supabase functions serve
+    - supabase functions serve &
     - cd test
     - deno test --allow-all initiate-collaborator-search-test.ts --import-map=../functions/import_map.json --allow-env
   only:
