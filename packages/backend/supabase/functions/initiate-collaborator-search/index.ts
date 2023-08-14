@@ -46,11 +46,11 @@ serve(async (req) => {
 
 /* To invoke:
 # FIRST ONE
-curl -i --location --request POST 'http://localhost:54321/functions/v1/initiate_collaborator_search' \
+curl -i --location --request POST 'http://localhost:54321/functions/v1/initiate-collaborator-search' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0' \
 --header 'Content-Type: application/json' \
 --data '{"wayfarerUID":"f5fbf3a5-bb45-4bc4-99f0-97618930e6ad", "queryAdjectiveID": "79", "queryNounID": "43"}'
-curl -i --location --request POST 'http://localhost:54321/functions/v1/initiate_collaborator_search' \
+curl -i --location --request POST 'http://localhost:54321/functions/v1/initiate-collaborator-search' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0' \
 --header 'Content-Type: application/json' \
 --data '{"wayfarerUID":"0d7ce7b3-5b59-48ed-8015-a7c2fd4cb2ae", "queryAdjectiveID": "118", "queryNounID": "67"}'
