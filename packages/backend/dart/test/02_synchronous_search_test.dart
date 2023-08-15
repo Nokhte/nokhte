@@ -39,6 +39,7 @@ import 'package:primala_backend/constants/phrase_components/collaborator_phrase.
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:primala_backend/constants/general/user_setup_constants.dart';
 import 'package:primala_backend/constants/general/supabase_client_constants.dart';
+import 'package:primala_backend/edge_functions.dart';
 
 void main() {
   late SupabaseClient supabase;
@@ -70,39 +71,51 @@ void main() {
   });
 
   test("SCENARIO 1: User1 Enters & Gets Booted Out", () async {
-    // arrange
+    // arrange 1
     await SignIn.user1(supabase: supabase);
-    await supabase.functions.invoke("initiate-collaborator-search", body: {
-      'wayfarerUID': firstUserUID,
-      'queryAdjectiveID': secondUserPhraseIDs.adjectiveID,
-      'queryNounID': secondUserPhraseIDs.nounID,
-    });
-    // first wave of expects
+
+    /// act 1
+    await InitiateCollaboratorSearch.invoke(
+      supabase: supabase,
+      wayfarerUID: firstUserUID,
+      queryPhraseIDs: secondUserPhraseIDs,
+    );
     final firstPoolRes =
         await supabaseAdmin.from('p2p_collaborator_pool').select();
+
+    /// assert 1
     expect(firstPoolRes.length, 1);
-    // second setup
-    await supabase.functions.invoke("end-collaborator-search", body: {
-      'overstayingWayfarer': firstUserUID,
-    });
-    // second wave of asserts
+    // arrange 2
+    await EndCollaboratorSearch.invoke(
+      supabase: supabase,
+      firstUserUID: firstUserUID,
+    );
+
+    /// act 2
     final secondPoolRes =
         await supabaseAdmin.from('p2p_collaborator_pool').select();
+
+    /// assert 3
     expect(secondPoolRes.length, 0);
   });
 
   test("SCENARIO 2: User1 Enters, Then User2 Enters", () async {
+    /// arrange
     await SignIn.user1(supabase: supabase);
-    await supabase.functions.invoke("initiate-collaborator-search", body: {
-      'wayfarerUID': firstUserUID,
-      'queryAdjectiveID': secondUserPhraseIDs.adjectiveID,
-      'queryNounID': secondUserPhraseIDs.nounID,
-    });
-    await supabase.functions.invoke("initiate-collaborator-search", body: {
-      'wayfarerUID': secondUserUID,
-      'queryAdjectiveID': firstUserPhraseIDs.adjectiveID,
-      'queryNounID': firstUserPhraseIDs.nounID,
-    });
+
+    /// act
+    await InitiateCollaboratorSearch.invoke(
+      supabase: supabase,
+      wayfarerUID: firstUserUID,
+      queryPhraseIDs: secondUserPhraseIDs,
+    );
+    await InitiateCollaboratorSearch.invoke(
+      supabase: supabase,
+      wayfarerUID: secondUserUID,
+      queryPhraseIDs: firstUserPhraseIDs,
+    );
+
+    /// assert
     final poolRes = await supabaseAdmin.from('p2p_collaborator_pool').select();
     expect(poolRes.length, 0);
     final existingCollaboratorRes = await supabase
