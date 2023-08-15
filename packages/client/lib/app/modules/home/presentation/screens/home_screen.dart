@@ -1,82 +1,59 @@
 // home_screen.dart
-// ignore_for_file: sized_box_for_whitespace
-
+// ignore_for_file: sized_box_for_whitespace, no_logic_in_create_state
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:primala/app/core/canvas_widget_utils/canvas_size_calculator.dart';
-import 'package:primala/app/core/widgets/breathing_pentagons_stack/presentation/widgets/widgets.dart';
+import 'package:primala/app/core/widgets/beach_waves_stack/presentation/mobx/main/beach_waves_tracker_store.dart';
+import 'package:primala/app/core/widgets/beach_waves_stack/presentation/widget/beach_waves.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:primala/app/core/widgets/breathing_pentagons_stack/presentation/mobx/main/breathing_pentagons_state_tracker_store.dart';
-// import 'package:flutter_modular/flutter_modular.dart';
+import 'package:swipe/swipe.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   final SupabaseClient supabase;
-  final BreathingPentagonsStateTrackerStore stateTrackerStore;
+  final BeachWavesTrackerStore stateTrackerStore;
+  const HomeScreen({
+    Key? key,
+    required this.supabase,
+    required this.stateTrackerStore,
+  }) : super(key: key);
+  @override
+  State<HomeScreen> createState() => _HomeScreenState(
+        stateTrackerStore: stateTrackerStore,
+        supabase: supabase,
+      );
+}
 
-  const HomeScreen(
-      {Key? key, required this.supabase, required this.stateTrackerStore})
-      : super(key: key);
+class _HomeScreenState extends State<HomeScreen> {
+  final SupabaseClient supabase;
+  final BeachWavesTrackerStore stateTrackerStore;
+
+  _HomeScreenState({
+    required this.supabase,
+    required this.stateTrackerStore,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final size = CanvasSizeCalculator.squareCanvas(
-      context: context,
-      percentageLength: .50,
-    );
-    return LayoutBuilder(builder: (context, constraints) {
-      // change back to platform scaffold later
-      return PlatformScaffold(
-        body: Container(
-          width: constraints.maxWidth,
-          height: constraints.maxHeight,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color(0xFF66CF90),
-                Color(0xFF88C9B9),
-                Color(0xFF51A18D),
-                Color(0xFF3E8077),
-                Color(0xFF274D4F),
-                Color(0xFF1D3741),
-                Color(0xFF122430),
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
-          child: Column(
+    return LayoutBuilder(
+      // stream: authStateStore.authState,
+      builder: (context, constraints) {
+        return PlatformScaffold(
+          body: Stack(
             children: [
-              const Expanded(
-                child: SizedBox(), // Empty SizedBox to take up available space
-              ),
-              Observer(builder: (context) {
-                return SafeArea(
-                  child: GestureDetector(
-                    onTap: () => stateTrackerStore.gestureFunctionRouter(),
-                    child: Container(
-                      // color: Colors.blue.withOpacity(.4),
-                      height: size.height,
-                      width: size.width,
-                      child: Center(
-                        widthFactor: 1.0,
-                        heightFactor: 1.0,
-                        child: BreathingPentagonsButton(
-                          size: size,
-                          stateTrackerStore: stateTrackerStore,
-                        ),
-                      ),
-                    ),
+              Swipe(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: BeachWaves(
+                    size: Size(MediaQuery.of(context).size.width,
+                        MediaQuery.of(context).size.height),
+                    stateTrackerStore: stateTrackerStore,
                   ),
-                );
-              }),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 40),
+                ),
               ),
             ],
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }
