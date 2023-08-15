@@ -15,7 +15,7 @@
 /// the subsequent duration.
 
 import 'package:flutter/material.dart';
-import 'package:primala/app/core/breathing_pentagons_stack/constants/pentagon_colors.dart';
+import 'package:primala/app/core/widgets/breathing_pentagons_stack/constants/pentagon_colors.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class InfiniteSpinner {

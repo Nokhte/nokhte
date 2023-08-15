@@ -1,6 +1,6 @@
 // * Testing & Mocking Libs
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primala/app/core/breathing_pentagons_stack/utils/find_closest_increment.dart';
+import 'package:primala/app/core/widgets/breathing_pentagons_stack/utils/find_closest_increment.dart';
 
 void main() {
   test("Finds the closest increment accurately with a set of expected values",

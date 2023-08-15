@@ -1,8 +1,8 @@
 // * Testing & Mocking Libs
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primala/app/core/breathing_pentagons_stack/constants/types/types.dart';
-import 'package:primala/app/core/breathing_pentagons_stack/presentation/mobx/main/breathing_pentagons_state_tracker_store.dart';
+import 'package:primala/app/core/widgets/breathing_pentagons_stack/constants/types/types.dart';
+import 'package:primala/app/core/widgets/breathing_pentagons_stack/presentation/mobx/main/breathing_pentagons_state_tracker_store.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 void main() {

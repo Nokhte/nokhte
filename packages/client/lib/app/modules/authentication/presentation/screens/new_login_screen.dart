@@ -86,7 +86,7 @@ class _NewLoginScreenState extends State<NewLoginScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 1), () {
       setState(() {
         showText = true;
       });

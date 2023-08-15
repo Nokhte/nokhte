@@ -32,8 +32,8 @@
 /// of the third pentagon in the radial gradient.
 
 import 'package:flutter/material.dart';
-import 'package:primala/app/core/breathing_pentagons_stack/constants/pentagon_colors.dart';
-import 'package:primala/app/core/breathing_pentagons_stack/utils/find_closest_increment.dart';
+import 'package:primala/app/core/widgets/breathing_pentagons_stack/constants/pentagon_colors.dart';
+import 'package:primala/app/core/widgets/breathing_pentagons_stack/utils/find_closest_increment.dart';
 import 'package:simple_animations/movie_tween/movie_tween.dart';
 
 class WindDown {
