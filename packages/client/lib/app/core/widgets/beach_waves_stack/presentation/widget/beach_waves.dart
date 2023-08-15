@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:primala/app/core/widgets/beach_waves_stack/constants/types/types.dart';
 import 'package:primala/app/core/widgets/beach_waves_stack/presentation/mobx/main/beach_waves_tracker_store.dart';
 import 'package:primala/app/core/widgets/beach_waves_stack/utils/get_current_water_animation.dart';
 import 'canvas/beach_waves_painter.dart';
@@ -44,8 +45,19 @@ class _BeachWavesState extends State<BeachWaves>
         // animation: _controller,
         builder: (context, value, child) {
           final currentAnimationValues = GetCurrentWaterAnimation.values(value);
+          if (stateTrackerStore.movieMode == MovieModes.oceanDiveSetup) {
+            stateTrackerStore.teeOceanDiveMovieUp(
+                startingWaterMovement: currentAnimationValues[0]);
+          }
           return CustomPaint(
-            painter: BeachWavesPainter(waterValue: currentAnimationValues[0]),
+            painter: BeachWavesPainter(
+              waterValue: currentAnimationValues[0],
+              firstGradientColor: currentAnimationValues[1],
+              secondGradientColor: currentAnimationValues[2],
+              thirdGradientColor: currentAnimationValues[3],
+              fourthGradientColor: currentAnimationValues[4],
+              fifthGradientColor: currentAnimationValues[5],
+            ),
             size: MediaQuery.of(context).size,
           );
         },

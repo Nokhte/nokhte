@@ -25,6 +25,22 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
     });
   }
 
+  late final _$movieModeAtom =
+      Atom(name: '_BeachWavesTrackerStoreBase.movieMode', context: context);
+
+  @override
+  MovieModes get movieMode {
+    _$movieModeAtom.reportRead();
+    return super.movieMode;
+  }
+
+  @override
+  set movieMode(MovieModes value) {
+    _$movieModeAtom.reportWrite(value, super.movieMode, () {
+      super.movieMode = value;
+    });
+  }
+
   late final _$controlAtom =
       Atom(name: '_BeachWavesTrackerStoreBase.control', context: context);
 
@@ -41,10 +57,48 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
     });
   }
 
+  late final _$_BeachWavesTrackerStoreBaseActionController =
+      ActionController(name: '_BeachWavesTrackerStoreBase', context: context);
+
+  @override
+  dynamic gestureFunctionRouter() {
+    final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
+        .startAction(name: '_BeachWavesTrackerStoreBase.gestureFunctionRouter');
+    try {
+      return super.gestureFunctionRouter();
+    } finally {
+      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic teeOceanDiveMovieUp({required double startingWaterMovement}) {
+    final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
+        .startAction(name: '_BeachWavesTrackerStoreBase.teeOceanDiveMovieUp');
+    try {
+      return super
+          .teeOceanDiveMovieUp(startingWaterMovement: startingWaterMovement);
+    } finally {
+      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic initiateOceanDive() {
+    final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
+        .startAction(name: '_BeachWavesTrackerStoreBase.initiateOceanDive');
+    try {
+      return super.initiateOceanDive();
+    } finally {
+      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
 movie: ${movie},
+movieMode: ${movieMode},
 control: ${control}
     ''';
   }

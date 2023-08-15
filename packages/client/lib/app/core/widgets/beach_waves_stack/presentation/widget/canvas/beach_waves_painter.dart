@@ -1,29 +1,39 @@
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 
 class BeachWavesPainter extends CustomPainter {
   final double waterValue;
+  final Color firstGradientColor;
+  final Color secondGradientColor;
+  final Color thirdGradientColor;
+  final Color fourthGradientColor;
+  final Color fifthGradientColor;
 
-  BeachWavesPainter({required this.waterValue});
+  BeachWavesPainter({
+    required this.waterValue,
+    required this.firstGradientColor,
+    required this.secondGradientColor,
+    required this.thirdGradientColor,
+    required this.fourthGradientColor,
+    required this.fifthGradientColor,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
     // Define the water properties
     const waveCount = 3; // Number of waves
     const waveAmplitude = 20.0; // Maximum vertical displacement of waves
-    const wavePeriod = 1.0; // Duration of each wave cycle
 
     // Set up the paint for drawing the water waves
     // final wavePaint = Paint()..color = Colors.blue;
-    const waveGradient = LinearGradient(
+    final waveGradient = LinearGradient(
       colors: [
-        Color(0xFF0B2431),
-        Color(0xFF15484E),
-        Color(0xFF176257),
-        Color(0xFF1F8A7D),
-        Color(0xFF29A48D),
+        firstGradientColor,
+        secondGradientColor,
+        thirdGradientColor,
+        fourthGradientColor,
+        fifthGradientColor,
       ],
-      stops: [0, 0.1979, 0.4375, 0.5885, 0.7448],
+      stops: const [0, 0.1979, 0.4375, 0.5885, 0.7448],
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
     );
@@ -47,12 +57,13 @@ class BeachWavesPainter extends CustomPainter {
     canvas.drawRect(Offset.zero & size, sandGrandient);
 
     // Calculate the current phase based on the animation value
-    final phase = waterValue * 2.0 * math.pi;
+    final phase = waterValue;
 
     // Draw the water waves from the top
     for (int i = 0; i < waveCount; i++) {
       final waveOffset = size.height / (waveCount + 1) * (i + 1);
-      final yOffset = -math.sin(phase + i * wavePeriod) * waveAmplitude;
+      // final yOffset = -math.sin(phase + i * wavePeriod) * waveAmplitude;
+      final yOffset = phase * 3;
       final path = Path()
         ..moveTo(0, waveOffset + yOffset)
         ..cubicTo(
