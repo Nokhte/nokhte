@@ -9,13 +9,13 @@ class OceanDive extends Equatable {
       MovieTween()
         ..scene(
           begin: const Duration(seconds: 0),
-          end: const Duration(seconds: 5),
+          end: const Duration(seconds: 3),
         )
             .tween(
               'water movement',
               Tween<double>(
                 begin: startingWaterMovement,
-                end: 300,
+                end: 100,
               ),
             )
             .tween(
@@ -54,14 +54,14 @@ class OceanDive extends Equatable {
               ),
             )
         ..scene(
-          begin: const Duration(seconds: 5),
-          end: const Duration(seconds: 10),
+          begin: const Duration(seconds: 3),
+          end: const Duration(seconds: 5),
         )
             .tween(
               'water movement',
               Tween<double>(
-                begin: 300,
-                end: 300,
+                begin: 100,
+                end: 100,
               ),
             )
             .tween(
