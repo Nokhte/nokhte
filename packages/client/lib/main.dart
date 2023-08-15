@@ -1,4 +1,9 @@
 /// main.dart
+///  Proofreading Information:
+///   - Proofreader: Sonny Vesali
+///   - Date: August 15th 2023
+///
+/// Author: Sonny Vesali
 ///
 /// This is the entry point of the Primala Flutter app. It sets up the main
 /// components and dependencies required for the app's functionality.
@@ -80,14 +85,15 @@ void main() async {
   final String supabaseAnonKey;
   if (kDebugMode) {
     /// # Local Supabase Stack
-    // supabaseUrl = dotenv.env["DEV_SUPABASE_URL"] ?? '';
-    // supabaseAnonKey = dotenv.env["DEV_SUPABASE_ANON_KEY"] ?? '';
+    supabaseUrl = dotenv.env["DEV_SUPABASE_URL"] ?? '';
+    supabaseAnonKey = dotenv.env["DEV_SUPABASE_ANON_KEY"] ?? '';
+
     /// # PRODUCTION Supabase Stack
     // supabaseUrl = dotenv.env["PROD_SUPABASE_URL"] ?? '';
     // supabaseAnonKey = dotenv.env["PROD_SUPABASE_ANON_KEY"] ?? '';
     /// # STAGING Supabase Stack
-    supabaseUrl = dotenv.env["STAGING_SUPABASE_URL"] ?? '';
-    supabaseAnonKey = dotenv.env["STAGING_SUPABASE_ANON_KEY"] ?? '';
+    // supabaseUrl = dotenv.env["STAGING_SUPABASE_URL"] ?? '';
+    // supabaseAnonKey = dotenv.env["STAGING_SUPABASE_ANON_KEY"] ?? '';
   } else {
     supabaseUrl = dotenv.env["PROD_SUPABASE_URL"] ?? '';
     supabaseAnonKey = dotenv.env["PROD_SUPABASE_ANON_KEY"] ?? '';

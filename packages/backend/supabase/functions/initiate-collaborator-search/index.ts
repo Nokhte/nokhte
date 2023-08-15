@@ -2,10 +2,11 @@ import { serve } from "std/server";
 import { isNotEmptyOrNull } from "../utils/array_utils.ts";
 import { supabaseAdmin } from "../constants/supabase.ts";
 
-// a best practice we should do later is split this up into 2 different functions
-// and test them individually, but we can do that later
 serve(async (req) => {
   const { wayfarerUID, queryAdjectiveID, queryNounID } = await req.json();
+  await supabaseAdmin.from("p2p_collaborator_pool")
+   .delete()
+   .eq("wayfarer_uid", wayfarerUID);
   const phrasesRes = await supabaseAdmin.from("collaborator_phrases").select()
     .eq("uid", wayfarerUID);
   const wayfarerAdjectiveID: string = phrasesRes.data?.[0]?.["adjective_id"];
@@ -44,8 +45,6 @@ serve(async (req) => {
     await supabaseAdmin.from("p2p_collaborator_pool").delete().eq('wayfarer_uid', wayfarerUID);
     await supabaseAdmin.from("p2p_collaborator_pool").delete().eq('wayfarer_uid', matchedUID);
     returnRes = [{"status": 200, "message": "collaboration successfully forged"}]
-
-
   }
   return new Response(
     JSON.stringify(returnRes),
