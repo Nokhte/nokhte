@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 class BeachWavesPainter extends CustomPainter {
-  final Animation<double> animation;
+  final double waterValue;
 
-  BeachWavesPainter(this.animation) : super(repaint: animation);
+  BeachWavesPainter({required this.waterValue});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -47,7 +47,7 @@ class BeachWavesPainter extends CustomPainter {
     canvas.drawRect(Offset.zero & size, sandGrandient);
 
     // Calculate the current phase based on the animation value
-    final phase = animation.value * 2.0 * math.pi;
+    final phase = waterValue * 2.0 * math.pi;
 
     // Draw the water waves from the top
     for (int i = 0; i < waveCount; i++) {

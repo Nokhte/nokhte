@@ -1,0 +1,4 @@
+enum MovieModes {
+  onShore,
+  oceanDive,
+}

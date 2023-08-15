@@ -34,7 +34,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
-      // stream: authStateStore.authState,
       builder: (context, constraints) {
         return PlatformScaffold(
           body: Stack(
@@ -44,8 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   child: BeachWaves(
-                    size: Size(MediaQuery.of(context).size.width,
-                        MediaQuery.of(context).size.height),
                     stateTrackerStore: stateTrackerStore,
                   ),
                 ),
