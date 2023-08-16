@@ -1,4 +1,5 @@
 /// new_login_screen.dart
+/// TODO: UPDATE DOCS IT'S OUTDATED
 ///  Proofreading Information:
 ///   - Proofreader: Sonny Vesali
 ///   - Date: July 23rd 2023
@@ -39,12 +40,13 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/interfaces/auth_providers.dart';
 import 'dart:io';
 import 'package:primala/app/core/interfaces/logic.dart';
+import 'package:primala/app/core/widgets/beach_waves_stack/constants/movies/movies.dart';
+import 'package:primala/app/core/widgets/beach_waves_stack/presentation/widgets/widgets.dart';
 import 'package:primala/app/modules/authentication/presentation/mobx/main/add_name_to_database_store.dart';
 import 'package:primala/app/modules/authentication/presentation/mobx/main/auth_provider_store.dart';
 import 'package:primala/app/modules/authentication/presentation/mobx/main/auth_state_store.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:primala/app/modules/authentication/presentation/widgets/water_animation.dart';
 import 'package:swipe/swipe.dart';
 
 class NewLoginScreen extends StatefulWidget {
@@ -114,7 +116,7 @@ class _NewLoginScreenState extends State<NewLoginScreen> {
                   child: SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height,
-                      child: const WaterAnimation()),
+                      child: DumbBeachWaves(movie: OnShore.movie)),
                   onSwipeUp: () async {
                     await authProviderStore
                         .routeAuthProviderRequest(authProvider);

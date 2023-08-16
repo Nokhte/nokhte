@@ -8,28 +8,28 @@ import 'package:primala/app/core/widgets/beach_waves_stack/utils/get_current_wat
 import 'canvas/beach_waves_painter.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-class BeachWaves extends StatefulWidget {
+class SmartBeachWaves extends StatefulWidget {
   // final Size size;
   final BeachWavesTrackerStore stateTrackerStore;
-  const BeachWaves({
+  const SmartBeachWaves({
     super.key,
     // required this.size,
     required this.stateTrackerStore,
   });
 
   @override
-  _BeachWavesState createState() => _BeachWavesState(
+  _SmartBeachWavesState createState() => _SmartBeachWavesState(
         // size: size,
         stateTrackerStore: stateTrackerStore,
       );
 }
 
-class _BeachWavesState extends State<BeachWaves>
+class _SmartBeachWavesState extends State<SmartBeachWaves>
     with SingleTickerProviderStateMixin {
   // final Size size;
   final BeachWavesTrackerStore stateTrackerStore;
 
-  _BeachWavesState({
+  _SmartBeachWavesState({
     // required this.size,
     required this.stateTrackerStore,
   });
