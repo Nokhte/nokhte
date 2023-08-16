@@ -48,9 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
             body: Stack(
               children: [
                 Swipe(
-                  onSwipeUp: () {
-                    stateTrackerStore.gestureFunctionRouter();
-                  },
+                  onSwipeUp: () =>
+                      stateTrackerStore.homeScreenSwipeUpCallback(),
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,

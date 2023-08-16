@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // * Mobx Import
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
@@ -44,9 +45,19 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   Control control = Control.mirror;
 
   @action
-  gestureFunctionRouter() {
+  homeScreenSwipeUpCallback() {
     if (movieMode == MovieModes.onShore) {
       movieMode = MovieModes.oceanDiveSetup;
+    }
+  }
+
+  @action
+  onBeachWavesAnimationCompletion() {
+    if (movieMode == MovieModes.backToShore) {
+      Modular.to.navigate('/home/');
+    } else if (movieMode == MovieModes.oceanDive) {
+      movieMode = MovieModes.oceanDive;
+      animationStatus = AnimationStatus.idle;
     }
   }
 
@@ -64,14 +75,14 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
     control = Control.mirror;
     movieMode = MovieModes.onShore;
     animationStatus = AnimationStatus.idle;
-
-    // isReadyToTransition = true;
   }
 
   @action
-  onOceanDiveComplete() {
-    movieMode = MovieModes.oceanDive;
-    animationStatus = AnimationStatus.idle;
+  collaboratorPhraseSwipeDownCallback() {
+    if (animationStatus == AnimationStatus.idle &&
+        movieMode == MovieModes.oceanDive) {
+      initiateBackToShore();
+    }
   }
 
   @action
@@ -85,7 +96,7 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   }
 
   @action
-  makeNavigationChange({
+  teeUpHomeScreenToCollabPoolNavigation({
     required double startingWaterMovement,
   }) {
     isReadyToTransition = true;

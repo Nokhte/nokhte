@@ -2,7 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:primala/app/core/widgets/beach_waves_stack/constants/types/types.dart';
 import 'package:primala/app/core/widgets/beach_waves_stack/presentation/mobx/main/beach_waves_tracker_store.dart';
 import 'package:primala/app/core/widgets/beach_waves_stack/utils/get_current_water_animation.dart';
@@ -42,19 +41,11 @@ class _BeachWavesState extends State<BeachWaves>
         tween: stateTrackerStore.movie,
         duration: stateTrackerStore.movie.duration,
         control: stateTrackerStore.control,
-        onCompleted: () {
-          if (stateTrackerStore.movieMode == MovieModes.backToShore) {
-            Modular.to.navigate('/home/');
-          } else if (stateTrackerStore.movieMode == MovieModes.oceanDive) {
-            print("IS THIS BEACH WAVE SETUP BLOCK RUNNING??");
-            stateTrackerStore.onOceanDiveComplete();
-          }
-        },
+        onCompleted: () => stateTrackerStore.onBeachWavesAnimationCompletion(),
         builder: (context, value, child) {
           final currentAnimationValues = GetCurrentWaterAnimation.values(value);
           if (stateTrackerStore.movieMode == MovieModes.oceanDiveSetup) {
-            print("IS THIS BUILDER IN THE BEACH WAVE SETUP BLOCK RUNNING??");
-            stateTrackerStore.makeNavigationChange(
+            stateTrackerStore.teeUpHomeScreenToCollabPoolNavigation(
                 startingWaterMovement: currentAnimationValues[0]);
           }
           return CustomPaint(

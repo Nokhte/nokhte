@@ -110,11 +110,25 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
       ActionController(name: '_BeachWavesTrackerStoreBase', context: context);
 
   @override
-  dynamic gestureFunctionRouter() {
-    final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
-        .startAction(name: '_BeachWavesTrackerStoreBase.gestureFunctionRouter');
+  dynamic homeScreenSwipeUpCallback() {
+    final _$actionInfo =
+        _$_BeachWavesTrackerStoreBaseActionController.startAction(
+            name: '_BeachWavesTrackerStoreBase.homeScreenSwipeUpCallback');
     try {
-      return super.gestureFunctionRouter();
+      return super.homeScreenSwipeUpCallback();
+    } finally {
+      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onBeachWavesAnimationCompletion() {
+    final _$actionInfo =
+        _$_BeachWavesTrackerStoreBaseActionController.startAction(
+            name:
+                '_BeachWavesTrackerStoreBase.onBeachWavesAnimationCompletion');
+    try {
+      return super.onBeachWavesAnimationCompletion();
     } finally {
       _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -143,11 +157,12 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
   }
 
   @override
-  dynamic onOceanDiveComplete() {
-    final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
-        .startAction(name: '_BeachWavesTrackerStoreBase.onOceanDiveComplete');
+  dynamic collaboratorPhraseSwipeDownCallback() {
+    final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController.startAction(
+        name:
+            '_BeachWavesTrackerStoreBase.collaboratorPhraseSwipeDownCallback');
     try {
-      return super.onOceanDiveComplete();
+      return super.collaboratorPhraseSwipeDownCallback();
     } finally {
       _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -166,12 +181,14 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
   }
 
   @override
-  dynamic makeNavigationChange({required double startingWaterMovement}) {
-    final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
-        .startAction(name: '_BeachWavesTrackerStoreBase.makeNavigationChange');
+  dynamic teeUpHomeScreenToCollabPoolNavigation(
+      {required double startingWaterMovement}) {
+    final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController.startAction(
+        name:
+            '_BeachWavesTrackerStoreBase.teeUpHomeScreenToCollabPoolNavigation');
     try {
-      return super
-          .makeNavigationChange(startingWaterMovement: startingWaterMovement);
+      return super.teeUpHomeScreenToCollabPoolNavigation(
+          startingWaterMovement: startingWaterMovement);
     } finally {
       _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
     }
