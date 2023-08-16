@@ -21,6 +21,7 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
       movie = OceanDive.getOceanDiveMovie(startingWaterMovement: passingParam);
       initiateOceanDive();
       control = Control.stop;
+      animationStatus = AnimationStatus.inProgress;
     }
   }
 
@@ -29,6 +30,9 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
 
   @observable
   bool isReadyToTransition = false;
+
+  @observable
+  AnimationStatus animationStatus = AnimationStatus.inProgress;
 
   @observable
   double passingParam = -10.0;
@@ -53,8 +57,8 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   @action
   initiateBackToShore() {
     movie = BackToShore.movie;
-    // control = Control.stop;
     control = Control.playFromStart;
+    animationStatus = AnimationStatus.inProgress;
     movieMode = MovieModes.backToShore;
     print("IS THIS WORKING $movieMode $control");
   }
@@ -64,6 +68,17 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
     movie = OnShore.movie;
     control = Control.mirror;
     movieMode = MovieModes.onShore;
+    animationStatus = AnimationStatus.idle;
+    print("shore return complete run");
+
+    // isReadyToTransition = true;
+  }
+
+  @action
+  onOceanDiveComplete() {
+    movieMode = MovieModes.oceanDive;
+    animationStatus = AnimationStatus.idle;
+    print("ocean dive complete run");
   }
 
   @action

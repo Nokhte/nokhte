@@ -42,6 +42,22 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
     });
   }
 
+  late final _$animationStatusAtom = Atom(
+      name: '_BeachWavesTrackerStoreBase.animationStatus', context: context);
+
+  @override
+  AnimationStatus get animationStatus {
+    _$animationStatusAtom.reportRead();
+    return super.animationStatus;
+  }
+
+  @override
+  set animationStatus(AnimationStatus value) {
+    _$animationStatusAtom.reportWrite(value, super.animationStatus, () {
+      super.animationStatus = value;
+    });
+  }
+
   late final _$passingParamAtom =
       Atom(name: '_BeachWavesTrackerStoreBase.passingParam', context: context);
 
@@ -127,6 +143,17 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
   }
 
   @override
+  dynamic onOceanDiveComplete() {
+    final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
+        .startAction(name: '_BeachWavesTrackerStoreBase.onOceanDiveComplete');
+    try {
+      return super.onOceanDiveComplete();
+    } finally {
+      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic teeOceanDiveMovieUp({required double startingWaterMovement}) {
     final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
         .startAction(name: '_BeachWavesTrackerStoreBase.teeOceanDiveMovieUp');
@@ -177,6 +204,7 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
     return '''
 movie: ${movie},
 isReadyToTransition: ${isReadyToTransition},
+animationStatus: ${animationStatus},
 passingParam: ${passingParam},
 movieMode: ${movieMode},
 control: ${control}

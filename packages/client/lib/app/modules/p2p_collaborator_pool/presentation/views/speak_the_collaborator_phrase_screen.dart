@@ -1,8 +1,9 @@
 // speak_the_collaborator_phrase_screen.dart
 // ignore_for_file: sized_box_for_whitespace
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide AnimationStatus;
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:primala/app/core/widgets/beach_waves_stack/constants/types/types.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/widgets/beach_waves_stack/presentation/mobx/main/beach_waves_tracker_store.dart';
 import 'package:primala/app/core/widgets/beach_waves_stack/presentation/widget/beach_waves.dart';
@@ -42,7 +43,13 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                   // stateTrackerStore.gestureFunctionRouter();
                 },
                 onSwipeDown: () {
-                  stateTrackerStore.initiateBackToShore();
+                  print(
+                      "SWIPE DOWN!!!!!! =========+> ${stateTrackerStore.animationStatus} ${stateTrackerStore.movieMode}");
+                  if (stateTrackerStore.animationStatus ==
+                          AnimationStatus.idle &&
+                      stateTrackerStore.movieMode == MovieModes.oceanDive) {
+                    stateTrackerStore.initiateBackToShore();
+                  }
                   // print(
                   //     "SWIPE DOWN HAPPENED BEFORE ${stateTrackerStore.control} ${stateTrackerStore.movieMode}");
                 },

@@ -44,14 +44,16 @@ class _BeachWavesState extends State<BeachWaves>
         control: stateTrackerStore.control,
         onCompleted: () {
           if (stateTrackerStore.movieMode == MovieModes.backToShore) {
-            // stateTrackerStore.
             Modular.to.navigate('/home/');
-            print("IS THIS COMPLETE WORKING?");
+          } else if (stateTrackerStore.movieMode == MovieModes.oceanDive) {
+            print("IS THIS BEACH WAVE SETUP BLOCK RUNNING??");
+            stateTrackerStore.onOceanDiveComplete();
           }
         },
         builder: (context, value, child) {
           final currentAnimationValues = GetCurrentWaterAnimation.values(value);
           if (stateTrackerStore.movieMode == MovieModes.oceanDiveSetup) {
+            print("IS THIS BUILDER IN THE BEACH WAVE SETUP BLOCK RUNNING??");
             stateTrackerStore.makeNavigationChange(
                 startingWaterMovement: currentAnimationValues[0]);
           }
