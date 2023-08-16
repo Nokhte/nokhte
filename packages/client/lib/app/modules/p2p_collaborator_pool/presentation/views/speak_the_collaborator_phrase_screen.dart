@@ -2,6 +2,7 @@
 // ignore_for_file: sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/widgets/beach_waves_stack/presentation/mobx/main/beach_waves_tracker_store.dart';
 import 'package:primala/app/core/widgets/beach_waves_stack/presentation/widget/beach_waves.dart';
@@ -30,6 +31,7 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // return Observer(builder: (context) {
     return LayoutBuilder(
       builder: (context, constraints) {
         return PlatformScaffold(
@@ -37,7 +39,12 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
             children: [
               Swipe(
                 onSwipeUp: () {
-                  stateTrackerStore.gestureFunctionRouter();
+                  // stateTrackerStore.gestureFunctionRouter();
+                },
+                onSwipeDown: () {
+                  stateTrackerStore.initiateBackToShore();
+                  // print(
+                  //     "SWIPE DOWN HAPPENED BEFORE ${stateTrackerStore.control} ${stateTrackerStore.movieMode}");
                 },
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width,
@@ -52,5 +59,6 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
         );
       },
     );
+    // });
   }
 }

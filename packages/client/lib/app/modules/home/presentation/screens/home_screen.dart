@@ -37,8 +37,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
       if (stateTrackerStore.isReadyToTransition == true) {
-        Modular.to.navigate('/p2p_collaborator_pool/',
-            arguments: stateTrackerStore.passingParam);
+        Modular.to.navigate(
+          '/p2p_collaborator_pool/',
+          arguments: stateTrackerStore.passingParam,
+        );
       }
       return LayoutBuilder(
         builder: (context, constraints) {

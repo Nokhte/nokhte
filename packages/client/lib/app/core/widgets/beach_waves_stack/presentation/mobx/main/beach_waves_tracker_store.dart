@@ -3,8 +3,7 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/widgets/beach_waves_stack/constants/movies/ocean_dive.dart';
-import 'package:primala/app/core/widgets/beach_waves_stack/constants/movies/on_shore.dart';
+import 'package:primala/app/core/widgets/beach_waves_stack/constants/movies/movies.dart';
 import 'package:primala/app/core/widgets/beach_waves_stack/constants/types/types.dart';
 import 'package:simple_animations/simple_animations.dart';
 // * Mobx Codegen Inclusion
@@ -32,7 +31,7 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   bool isReadyToTransition = false;
 
   @observable
-  double passingParam = 0.0;
+  double passingParam = -10.0;
 
   @observable
   MovieModes movieMode = MovieModes.onShore;
@@ -45,6 +44,26 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
     if (movieMode == MovieModes.onShore) {
       movieMode = MovieModes.oceanDiveSetup;
     }
+  }
+
+  /// so it appears we need an on complete that takes into consideration that it
+  /// should only do a thing if the movie mode is back to shore and it should reset store to defaults
+  /// there should also probably be a function to trigger back to shore
+
+  @action
+  initiateBackToShore() {
+    movie = BackToShore.movie;
+    // control = Control.stop;
+    control = Control.playFromStart;
+    movieMode = MovieModes.backToShore;
+    print("IS THIS WORKING $movieMode $control");
+  }
+
+  @action
+  onShoreReturnComplete() {
+    movie = OnShore.movie;
+    control = Control.mirror;
+    movieMode = MovieModes.onShore;
   }
 
   @action

@@ -23,6 +23,7 @@ class HomeModule extends Module {
   List<ModularRoute> get routes => [
         ChildRoute(
           "/",
+          transition: TransitionType.noTransition,
           child: (context, args) => HomeScreen(
             stateTrackerStore: Modular.get<BeachWavesTrackerStore>(),
             supabase: Modular.get<SupabaseClient>(),
