@@ -1,6 +1,8 @@
 // home_screen.dart
 // ignore_for_file: sized_box_for_whitespace, no_logic_in_create_state
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/widgets/beach_waves_stack/presentation/mobx/main/beach_waves_tracker_store.dart';
 import 'package:primala/app/core/widgets/beach_waves_stack/presentation/widget/beach_waves.dart';
@@ -33,29 +35,33 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return PlatformScaffold(
-          body: Stack(
-            children: [
-              Swipe(
-                onSwipeUp: () {
-                  stateTrackerStore.gestureFunctionRouter();
-                  print(
-                      "UHHHHHH -> ${stateTrackerStore.movieMode} UHHHHHHhh => ${stateTrackerStore.control}");
-                },
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  child: BeachWaves(
-                    stateTrackerStore: stateTrackerStore,
+    return Observer(builder: (context) {
+      if (stateTrackerStore.isReadyToTransition == true) {
+        Modular.to.navigate('/p2p_collaborator_pool/',
+            arguments: stateTrackerStore.passingParam);
+      }
+      return LayoutBuilder(
+        builder: (context, constraints) {
+          return PlatformScaffold(
+            body: Stack(
+              children: [
+                Swipe(
+                  onSwipeUp: () {
+                    stateTrackerStore.gestureFunctionRouter();
+                  },
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child: BeachWaves(
+                      stateTrackerStore: stateTrackerStore,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
+              ],
+            ),
+          );
+        },
+      );
+    });
   }
 }

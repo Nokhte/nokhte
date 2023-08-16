@@ -14,8 +14,25 @@ class BeachWavesTrackerStore = _BeachWavesTrackerStoreBase
     with _$BeachWavesTrackerStore;
 
 abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
+  _BeachWavesTrackerStoreBase({
+    required MovieModes defaultMovieMode,
+  }) {
+    //
+    if (defaultMovieMode == MovieModes.oceanDiveSetup) {
+      movie = OceanDive.getOceanDiveMovie(startingWaterMovement: passingParam);
+      initiateOceanDive();
+      control = Control.stop;
+    }
+  }
+
   @observable
   MovieTween movie = OnShore.movie;
+
+  @observable
+  bool isReadyToTransition = false;
+
+  @observable
+  double passingParam = 0.0;
 
   @observable
   MovieModes movieMode = MovieModes.onShore;
@@ -41,10 +58,25 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   }
 
   @action
+  makeNavigationChange({
+    required double startingWaterMovement,
+  }) {
+    isReadyToTransition = true;
+    passingParam = startingWaterMovement;
+    // movie = OceanDive.getOceanDiveMovie(
+    //     startingWaterMovement: startingWaterMovement);
+    // control = Control.stop;
+    // initiateOceanDive();
+  }
+
+  @action
   initiateOceanDive() {
     movieMode = MovieModes.oceanDive;
     control = Control.playFromStart;
   }
+
+  @action
+  navigateProperly() {}
 
   @override
   List<Object> get props => [

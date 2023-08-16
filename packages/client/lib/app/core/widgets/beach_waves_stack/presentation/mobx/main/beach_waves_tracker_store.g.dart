@@ -25,6 +25,39 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
     });
   }
 
+  late final _$isReadyToTransitionAtom = Atom(
+      name: '_BeachWavesTrackerStoreBase.isReadyToTransition',
+      context: context);
+
+  @override
+  bool get isReadyToTransition {
+    _$isReadyToTransitionAtom.reportRead();
+    return super.isReadyToTransition;
+  }
+
+  @override
+  set isReadyToTransition(bool value) {
+    _$isReadyToTransitionAtom.reportWrite(value, super.isReadyToTransition, () {
+      super.isReadyToTransition = value;
+    });
+  }
+
+  late final _$passingParamAtom =
+      Atom(name: '_BeachWavesTrackerStoreBase.passingParam', context: context);
+
+  @override
+  double get passingParam {
+    _$passingParamAtom.reportRead();
+    return super.passingParam;
+  }
+
+  @override
+  set passingParam(double value) {
+    _$passingParamAtom.reportWrite(value, super.passingParam, () {
+      super.passingParam = value;
+    });
+  }
+
   late final _$movieModeAtom =
       Atom(name: '_BeachWavesTrackerStoreBase.movieMode', context: context);
 
@@ -84,6 +117,18 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
   }
 
   @override
+  dynamic makeNavigationChange({required double startingWaterMovement}) {
+    final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
+        .startAction(name: '_BeachWavesTrackerStoreBase.makeNavigationChange');
+    try {
+      return super
+          .makeNavigationChange(startingWaterMovement: startingWaterMovement);
+    } finally {
+      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic initiateOceanDive() {
     final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
         .startAction(name: '_BeachWavesTrackerStoreBase.initiateOceanDive');
@@ -95,9 +140,22 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
   }
 
   @override
+  dynamic navigateProperly() {
+    final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
+        .startAction(name: '_BeachWavesTrackerStoreBase.navigateProperly');
+    try {
+      return super.navigateProperly();
+    } finally {
+      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 movie: ${movie},
+isReadyToTransition: ${isReadyToTransition},
+passingParam: ${passingParam},
 movieMode: ${movieMode},
 control: ${control}
     ''';
