@@ -5,10 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/canvas_widget_utils/canvas_size_calculator.dart';
-import 'package:primala/app/core/widgets/breathing_pentagons/stack/presentation/widgets/widgets.dart';
+import 'package:primala/app/core/widgets/breathing_pentagons/breathing_pentagons.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:primala/app/core/widgets/breathing_pentagons/stack/presentation/mobx/main/breathing_pentagons_state_tracker_store.dart';
-// import 'package:flutter_modular/flutter_modular.dart';
 
 class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
   final SupabaseClient supabase;
