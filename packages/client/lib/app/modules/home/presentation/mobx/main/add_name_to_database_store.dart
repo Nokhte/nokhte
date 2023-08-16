@@ -52,8 +52,8 @@ import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/mobx/base_future_store.dart';
 import 'package:primala/app/core/mobx/base_mobx_db_store.dart';
 import 'package:primala/app/core/mobx/store_state.dart';
-import 'package:primala/app/modules/authentication/domain/entities/name_creation_status_entity.dart';
-import 'package:primala/app/modules/authentication/presentation/mobx/getters/add_name_to_database_getter_store.dart';
+import 'package:primala/app/modules/home/domain/entities/name_creation_status_entity.dart';
+import 'package:primala/app/modules/home/presentation/mobx/getter/add_name_to_database_getter_store.dart';
 part 'add_name_to_database_store.g.dart';
 
 /// [AddNameToDatabaseStore] is a main store that manages the logic for adding a

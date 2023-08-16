@@ -36,7 +36,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/interfaces/auth_providers.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/modules/authentication/presentation/mobx/main/add_name_to_database_store.dart';
+import 'package:primala/app/modules/home/presentation/mobx/main/add_name_to_database_store.dart';
 import 'package:primala/app/modules/authentication/presentation/mobx/main/auth_provider_store.dart';
 import 'package:primala/app/modules/authentication/presentation/mobx/main/auth_state_store.dart';
 import 'package:flutter_modular/flutter_modular.dart';

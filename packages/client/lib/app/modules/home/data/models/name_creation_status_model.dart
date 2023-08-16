@@ -27,7 +27,7 @@
 /// into terms controlled by our application, thereby enhancing code
 /// maintainability and flexibility.
 
-import 'package:primala/app/modules/authentication/domain/entities/name_creation_status_entity.dart';
+import 'package:primala/app/modules/home/domain/entities/name_creation_status_entity.dart';
 
 class NameCreationStatusModel extends NameCreationStatusEntity {
   /// Constructs a [NameCreationStatusModel] instance with the specified

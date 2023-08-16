@@ -39,10 +39,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/interfaces/auth_providers.dart';
 import 'dart:io';
-import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/widgets/beach_waves/stack/constants/movies/movies.dart';
 import 'package:primala/app/core/widgets/beach_waves/stack/presentation/widgets/widgets.dart';
-import 'package:primala/app/modules/authentication/presentation/mobx/main/add_name_to_database_store.dart';
+import 'package:primala/app/modules/home/presentation/mobx/main/add_name_to_database_store.dart';
 import 'package:primala/app/modules/authentication/presentation/mobx/main/auth_provider_store.dart';
 import 'package:primala/app/modules/authentication/presentation/mobx/main/auth_state_store.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -53,17 +52,17 @@ class NewLoginScreen extends StatefulWidget {
   final AuthProviderStore authProviderStore;
   final AuthStateStore authStateStore;
   final SupabaseClient supabase;
-  final AddNameToDatabaseStore addNameToDatabaseStore;
+  // final AddNameToDatabaseStore addNameToDatabaseStore;
   const NewLoginScreen({
     Key? key,
     required this.authProviderStore,
     required this.authStateStore,
     required this.supabase,
-    required this.addNameToDatabaseStore,
+    // required this.addNameToDatabaseStore,
   }) : super(key: key);
   @override
   State<NewLoginScreen> createState() => _NewLoginScreenState(
-        addNameToDatabaseStore: addNameToDatabaseStore,
+        // addNameToDatabaseStore: addNameToDatabaseStore,
         authProviderStore: authProviderStore,
         authStateStore: authStateStore,
         supabase: supabase,
@@ -74,12 +73,12 @@ class _NewLoginScreenState extends State<NewLoginScreen> {
   final AuthProviderStore authProviderStore;
   final AuthStateStore authStateStore;
   final SupabaseClient supabase;
-  final AddNameToDatabaseStore addNameToDatabaseStore;
+  // final AddNameToDatabaseStore addNameToDatabaseStore;
 
   _NewLoginScreenState({
     required this.authProviderStore,
     required this.authStateStore,
-    required this.addNameToDatabaseStore,
+    // required this.addNameToDatabaseStore,
     required this.supabase,
   });
 
@@ -106,33 +105,31 @@ class _NewLoginScreenState extends State<NewLoginScreen> {
         stream: authStateStore.authState,
         builder: (context, snapshot) {
           if (snapshot.data == true) {
-            addNameToDatabaseStore.call(NoParams());
             Modular.to.navigate('/home/');
           }
           return PlatformScaffold(
-            body: Stack(
-              children: [
-                Swipe(
-                  child: SizedBox(
+            body: Swipe(
+              onSwipeUp: () async {
+                await authProviderStore.routeAuthProviderRequest(authProvider);
+              },
+              child: Stack(
+                children: [
+                  SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height,
                       child: DumbBeachWaves(movie: OnShore.movie)),
-                  onSwipeUp: () async {
-                    await authProviderStore
-                        .routeAuthProviderRequest(authProvider);
-                  },
-                ),
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  padding: const EdgeInsets.all(30.0),
-                  child: AnimatedOpacity(
-                    opacity: showText ? 1 : 0,
-                    duration: const Duration(seconds: 1),
-                    child: PlatformText(
-                        "Swipe to Log In with ${authProvider.name[0].toUpperCase() + authProvider.name.substring(1)}"),
-                  ),
-                )
-              ],
+                  Container(
+                    alignment: Alignment.bottomCenter,
+                    padding: const EdgeInsets.all(30.0),
+                    child: AnimatedOpacity(
+                      opacity: showText ? 1 : 0,
+                      duration: const Duration(seconds: 1),
+                      child: PlatformText(
+                          "Swipe to Log In with ${authProvider.name[0].toUpperCase() + authProvider.name.substring(1)}"),
+                    ),
+                  )
+                ],
+              ),
             ),
           );
         });

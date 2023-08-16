@@ -5,11 +5,11 @@ import 'package:mockito/mockito.dart';
 import 'package:primala/app/core/constants/failure_constants.dart';
 import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/modules/authentication/domain/entities/name_creation_status_entity.dart';
-import 'package:primala/app/modules/authentication/presentation/mobx/getters/add_name_to_database_getter_store.dart';
+import 'package:primala/app/modules/home/domain/entities/name_creation_status_entity.dart';
+import 'package:primala/app/modules/home/presentation/mobx/getter/add_name_to_database_getter_store.dart';
 
-import '../../../constants/entities.dart';
-import '../../../fixtures/authentication_stack_mock_gen.mocks.dart';
+import '../../../constants/entities/entities.dart';
+import '../../../fixtures/home_stack_mock_gen.mocks.dart';
 
 void main() {
   late MockMAddNameToDatabase mockLogic;

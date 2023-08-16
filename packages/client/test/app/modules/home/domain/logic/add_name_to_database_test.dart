@@ -4,17 +4,17 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:primala/app/core/constants/failure_constants.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/modules/authentication/domain/logic/add_name_to_database.dart';
+import 'package:primala/app/modules/home/domain/logic/add_name_to_database.dart';
 
-import '../../constants/entities.dart';
-import '../../fixtures/authentication_stack_mock_gen.mocks.dart';
+import '../../constants/entities/entities.dart';
+import '../../fixtures/home_stack_mock_gen.mocks.dart';
 
 void main() {
-  late MockMAuthenticationContract mockContract;
+  late MockMHomeContract mockContract;
   late AddNameToDatabase logic;
 
   setUp(() {
-    mockContract = MockMAuthenticationContract();
+    mockContract = MockMHomeContract();
     logic = AddNameToDatabase(contract: mockContract);
   });
 

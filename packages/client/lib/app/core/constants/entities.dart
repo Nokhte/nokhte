@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/modules/deprecated/p2p_request_recipient/domain/entities/p2p_recipient_request_entity.dart';
-import 'package:primala/app/modules/authentication/domain/entities/name_creation_status_entity.dart';
+import 'package:primala/app/modules/home/domain/entities/name_creation_status_entity.dart';
 import 'package:primala/app/modules/deprecated/p2p_request_recipient/domain/entities/p2p_recipient_request_presentational_entity.dart';
 import 'package:primala/app/modules/deprecated/p2p_request_recipient/domain/entities/p2p_recipient_response_status_entity.dart';
 import 'package:primala/app/modules/deprecated/p2p_request_sender/domain/entities/p2p_request_recipient_entity.dart';

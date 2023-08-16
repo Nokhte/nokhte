@@ -17,7 +17,7 @@
 // * 3rd Party Libs
 import 'package:dartz/dartz.dart';
 import 'package:primala/app/core/constants/failure_constants.dart';
-import 'package:primala/app/modules/authentication/data/models/name_creation_status_model.dart';
+import 'package:primala/app/modules/home/data/models/name_creation_status_model.dart';
 // * Domain Imports
 import 'package:primala/app/modules/authentication/domain/entities/auth_provider_entity.dart';
 import 'package:primala/app/modules/authentication/domain/entities/auth_state_entity.dart';
@@ -27,7 +27,7 @@ import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/core/network/network_info.dart';
 // * Data Source Imports
 import 'package:primala/app/modules/authentication/data/sources/auth_remote_source.dart';
-import 'package:primala/app/modules/authentication/domain/entities/name_creation_status_entity.dart';
+import 'package:primala/app/modules/home/domain/entities/name_creation_status_entity.dart';
 
 /// [_AppleOrGoogleChooser] is a typedef for a function that returns a
 /// [Future<dynamic>].
