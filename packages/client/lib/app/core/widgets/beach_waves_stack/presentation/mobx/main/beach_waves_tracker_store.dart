@@ -50,17 +50,12 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
     }
   }
 
-  /// so it appears we need an on complete that takes into consideration that it
-  /// should only do a thing if the movie mode is back to shore and it should reset store to defaults
-  /// there should also probably be a function to trigger back to shore
-
   @action
   initiateBackToShore() {
     movie = BackToShore.movie;
     control = Control.playFromStart;
     animationStatus = AnimationStatus.inProgress;
     movieMode = MovieModes.backToShore;
-    print("IS THIS WORKING $movieMode $control");
   }
 
   @action
@@ -69,7 +64,6 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
     control = Control.mirror;
     movieMode = MovieModes.onShore;
     animationStatus = AnimationStatus.idle;
-    print("shore return complete run");
 
     // isReadyToTransition = true;
   }
@@ -78,7 +72,6 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   onOceanDiveComplete() {
     movieMode = MovieModes.oceanDive;
     animationStatus = AnimationStatus.idle;
-    print("ocean dive complete run");
   }
 
   @action
@@ -97,10 +90,6 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   }) {
     isReadyToTransition = true;
     passingParam = startingWaterMovement;
-    // movie = OceanDive.getOceanDiveMovie(
-    //     startingWaterMovement: startingWaterMovement);
-    // control = Control.stop;
-    // initiateOceanDive();
   }
 
   @action
