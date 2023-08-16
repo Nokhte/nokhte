@@ -7,7 +7,7 @@ class CommonUserNamesQueries {
     required String firstName,
     required String lastName,
   }) async {
-    return await supabase.from('user_names').upsert({
+    return await supabase.from('user_names').insert({
       "uid": userUID,
       "first_name": firstName,
       "last_name": lastName,

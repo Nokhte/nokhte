@@ -26,7 +26,6 @@ import 'package:flutter/foundation.dart';
 import 'package:primala/app/core/utilities/misc_algos.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:crypto/crypto.dart';
-import 'package:primala_backend/user_names.dart';
 import 'dart:convert';
 
 /// [AuthenticationRemoteSource] is an abstract class that defines contract
@@ -42,10 +41,6 @@ abstract class AuthenticationRemoteSource {
   /// Get the authentication state and return the corresponding
   /// [AuthStateModel].
   AuthStateModel getAuthState();
-
-  /// Add names to the database and return the result as a [Future] of
-  /// [List<dynamic>].
-  Future<List<dynamic>> addNamesToDatabase();
 }
 
 /// [AuthenticationRemoteSourceImpl] is an implementation of [AuthenticationRemoteSource] that uses the Supabase client to perform authentication operations with Google and Apple.
@@ -97,32 +92,5 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
   @override
   AuthStateModel getAuthState() {
     return AuthStateModel.fromSupabase(supabase.auth.onAuthStateChange);
-  }
-
-  @override
-  addNamesToDatabase() async {
-    final String fullName =
-        supabase.auth.currentUser?.userMetadata?["full_name"] ??
-            supabase.auth.currentUser?.userMetadata?["name"];
-    final [firstName, lastName] = MiscAlgos.returnSplitName(fullName);
-
-    final List nameCheck = await CommonUserNamesQueries.fetchUserInfo(
-      supabase: supabase,
-      userUID: supabase.auth.currentUser?.id ?? '',
-    );
-
-    // add check for if it already exists
-    List insertRes;
-    if (nameCheck.isEmpty) {
-      insertRes = await CommonUserNamesQueries.insertUserInfo(
-        supabase: supabase,
-        userUID: supabase.auth.currentUser?.id,
-        firstName: firstName,
-        lastName: lastName,
-      );
-    } else {
-      insertRes = [];
-    }
-    return nameCheck.isEmpty ? insertRes : nameCheck;
   }
 }

@@ -49,6 +49,4 @@ abstract class AuthenticationContract {
   Future<Either<Failure, AuthProviderEntity>> appleSignIn();
 
   AuthStateEntity getAuthState();
-
-  Future<Either<Failure, NameCreationStatusEntity>> addNameToDatabase();
 }

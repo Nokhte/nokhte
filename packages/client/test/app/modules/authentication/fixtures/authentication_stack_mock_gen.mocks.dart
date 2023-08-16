@@ -9,9 +9,9 @@ import 'package:dartz/dartz.dart' as _i5;
 import 'package:mobx/mobx.dart' as _i10;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:primala/app/core/error/failure.dart' as _i14;
-import 'package:primala/app/core/interfaces/auth_providers.dart' as _i19;
-import 'package:primala/app/core/interfaces/logic.dart' as _i17;
-import 'package:primala/app/core/mobx/store_state.dart' as _i18;
+import 'package:primala/app/core/interfaces/auth_providers.dart' as _i18;
+import 'package:primala/app/core/interfaces/logic.dart' as _i16;
+import 'package:primala/app/core/mobx/store_state.dart' as _i17;
 import 'package:primala/app/modules/authentication/data/models/auth_provider_model.dart'
     as _i3;
 import 'package:primala/app/modules/authentication/data/models/auth_state_model.dart'
@@ -28,8 +28,6 @@ import 'package:primala/app/modules/authentication/domain/logic/sign_in_with_app
     as _i8;
 import 'package:primala/app/modules/authentication/domain/logic/sign_in_with_google.dart'
     as _i9;
-import 'package:primala/app/modules/home/domain/entities/name_creation_status_entity.dart'
-    as _i16;
 import 'package:supabase_flutter/supabase_flutter.dart' as _i2;
 
 import 'authentication_stack_mock_gen.dart' as _i12;
@@ -214,14 +212,6 @@ class MockMAuthenticationRemoteSourceImpl extends _i1.Mock
           ),
         ),
       ) as _i4.AuthStateModel);
-  @override
-  _i13.Future<List<dynamic>> addNamesToDatabase() => (super.noSuchMethod(
-        Invocation.method(
-          #addNamesToDatabase,
-          [],
-        ),
-        returnValue: _i13.Future<List<dynamic>>.value(<dynamic>[]),
-      ) as _i13.Future<List<dynamic>>);
 }
 
 /// A class which mocks [MRemoteSource].
@@ -276,14 +266,6 @@ class MockMRemoteSource extends _i1.Mock implements _i12.MRemoteSource {
           ),
         ),
       ) as _i4.AuthStateModel);
-  @override
-  _i13.Future<List<dynamic>> addNamesToDatabase() => (super.noSuchMethod(
-        Invocation.method(
-          #addNamesToDatabase,
-          [],
-        ),
-        returnValue: _i13.Future<List<dynamic>>.value(<dynamic>[]),
-      ) as _i13.Future<List<dynamic>>);
 }
 
 /// A class which mocks [MAuthenticationContract].
@@ -343,25 +325,6 @@ class MockMAuthenticationContract extends _i1.Mock
           ),
         ),
       ) as _i6.AuthStateEntity);
-  @override
-  _i13.Future<_i5.Either<_i14.Failure, _i16.NameCreationStatusEntity>>
-      addNameToDatabase() => (super.noSuchMethod(
-            Invocation.method(
-              #addNameToDatabase,
-              [],
-            ),
-            returnValue: _i13.Future<
-                    _i5.Either<_i14.Failure,
-                        _i16.NameCreationStatusEntity>>.value(
-                _FakeEither_3<_i14.Failure, _i16.NameCreationStatusEntity>(
-              this,
-              Invocation.method(
-                #addNameToDatabase,
-                [],
-              ),
-            )),
-          ) as _i13
-              .Future<_i5.Either<_i14.Failure, _i16.NameCreationStatusEntity>>);
 }
 
 /// A class which mocks [MSignInWithGoogle].
@@ -382,7 +345,7 @@ class MockMSignInWithGoogle extends _i1.Mock implements _i12.MSignInWithGoogle {
       ) as _i7.AuthenticationContract);
   @override
   _i13.Future<_i5.Either<_i14.Failure, _i15.AuthProviderEntity>> call(
-          _i17.NoParams? params) =>
+          _i16.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
@@ -418,7 +381,7 @@ class MockMSignInWithApple extends _i1.Mock implements _i12.MSignInWithApple {
       ) as _i7.AuthenticationContract);
   @override
   _i13.Future<_i5.Either<_i14.Failure, _i15.AuthProviderEntity>> call(
-          _i17.NoParams? params) =>
+          _i16.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
@@ -453,7 +416,7 @@ class MockMGetAuthState extends _i1.Mock implements _i12.MGetAuthState {
         ),
       ) as _i7.AuthenticationContract);
   @override
-  _i6.AuthStateEntity call(_i17.NoParams? params) => (super.noSuchMethod(
+  _i6.AuthStateEntity call(_i16.NoParams? params) => (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
@@ -494,12 +457,12 @@ class MockMGetAuthProviderStateStore extends _i1.Mock
         ),
       ) as _i9.SignInWithGoogle);
   @override
-  _i18.StoreState get state => (super.noSuchMethod(
+  _i17.StoreState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i18.StoreState.initial,
-      ) as _i18.StoreState);
+        returnValue: _i17.StoreState.initial,
+      ) as _i17.StoreState);
   @override
-  set state(_i18.StoreState? value) => super.noSuchMethod(
+  set state(_i17.StoreState? value) => super.noSuchMethod(
         Invocation.setter(
           #state,
           value,
@@ -521,7 +484,7 @@ class MockMGetAuthProviderStateStore extends _i1.Mock
       ) as _i10.ReactiveContext);
   @override
   _i13.Future<_i5.Either<_i14.Failure, _i15.AuthProviderEntity>> call(
-          _i19.AuthProvider? authProvider) =>
+          _i18.AuthProvider? authProvider) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
