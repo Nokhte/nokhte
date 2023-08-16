@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:primala/app/core/p2p_scheduling/utils/time_converter.dart';
+import 'package:primala/app/core/deprecated/p2p_scheduling/utils/time_converter.dart';
 
 import 'spiral_selection_state_type.dart';
 

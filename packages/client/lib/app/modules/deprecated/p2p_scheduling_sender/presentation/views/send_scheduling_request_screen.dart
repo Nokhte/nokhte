@@ -4,9 +4,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/canvas_widget_utils/interaction_type.dart';
-import 'package:primala/app/core/p2p_scheduling/presentation/mobx/main/order_spiral_colors_store.dart';
-import 'package:primala/app/core/p2p_scheduling/presentation/mobx/main/scheduling_request_times_store.dart';
-import 'package:primala/app/core/p2p_scheduling/presentation/widgets/spiral_circle/spiral_circle.dart';
+import 'package:primala/app/core/deprecated/p2p_scheduling/presentation/mobx/main/order_spiral_colors_store.dart';
+import 'package:primala/app/core/deprecated/p2p_scheduling/presentation/mobx/main/scheduling_request_times_store.dart';
+import 'package:primala/app/core/deprecated/p2p_scheduling/presentation/widgets/spiral_circle/spiral_circle.dart';
 
 class SendScheduilngRequestScreen extends StatefulWidget {
   final OrderSpiralColorsStore orderSpiralColorsStore;

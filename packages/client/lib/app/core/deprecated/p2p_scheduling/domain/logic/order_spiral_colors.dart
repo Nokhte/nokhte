@@ -1,5 +1,5 @@
 import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/p2p_scheduling/domain/entities/p2p_scheduling_ordered_times_entity.dart';
+import 'package:primala/app/core/deprecated/p2p_scheduling/domain/entities/p2p_scheduling_ordered_times_entity.dart';
 
 // So this needs to be modified
 class OrderSpiralColors extends AbstractSyncNoFailureLogic<

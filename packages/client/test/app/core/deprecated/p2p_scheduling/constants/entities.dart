@@ -1,6 +1,6 @@
-import 'package:primala/app/core/p2p_scheduling/constants/touch_types.dart';
-import 'package:primala/app/core/p2p_scheduling/domain/entities/p2p_scheduling_ordered_times_entity.dart';
-import 'package:primala/app/core/p2p_scheduling/domain/entities/spiral_circle_entity.dart';
+import 'package:primala/app/core/deprecated/p2p_scheduling/constants/touch_types.dart';
+import 'package:primala/app/core/deprecated/p2p_scheduling/domain/entities/p2p_scheduling_ordered_times_entity.dart';
+import 'package:primala/app/core/deprecated/p2p_scheduling/domain/entities/spiral_circle_entity.dart';
 
 class ConstantEntities {
   static List<String> get orderedTimesArr => [

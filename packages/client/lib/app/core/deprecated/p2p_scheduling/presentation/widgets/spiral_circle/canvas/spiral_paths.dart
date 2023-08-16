@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:primala/app/core/p2p_scheduling/domain/entities/p2p_scheduling_canvas_entity.dart';
+import 'package:primala/app/core/deprecated/p2p_scheduling/domain/entities/p2p_scheduling_canvas_entity.dart';
 
 enum Circles { outerCircle, spiralCircle, spiralCircleBorder }
 

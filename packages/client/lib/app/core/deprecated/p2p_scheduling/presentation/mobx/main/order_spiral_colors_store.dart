@@ -4,7 +4,7 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/p2p_scheduling/presentation/mobx/getters/order_spiral_colors_getter_store.dart';
+import 'package:primala/app/core/deprecated/p2p_scheduling/presentation/mobx/getters/order_spiral_colors_getter_store.dart';
 // * Mobx Codegen Inclusion
 part 'order_spiral_colors_store.g.dart';
 

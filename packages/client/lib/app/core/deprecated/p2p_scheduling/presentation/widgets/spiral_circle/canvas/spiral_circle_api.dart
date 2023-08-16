@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:primala/app/core/p2p_scheduling/constants/spiral_selection_state_type.dart';
-import 'package:primala/app/core/p2p_scheduling/constants/touch_types.dart';
-import 'package:primala/app/core/p2p_scheduling/domain/entities/spiral_circle_entity.dart';
-import 'package:primala/app/core/p2p_scheduling/presentation/mobx/main/scheduling_request_times_store.dart';
+import 'package:primala/app/core/deprecated/p2p_scheduling/constants/spiral_selection_state_type.dart';
+import 'package:primala/app/core/deprecated/p2p_scheduling/constants/touch_types.dart';
+import 'package:primala/app/core/deprecated/p2p_scheduling/domain/entities/spiral_circle_entity.dart';
+import 'package:primala/app/core/deprecated/p2p_scheduling/presentation/mobx/main/scheduling_request_times_store.dart';
 import 'package:touchable/touchable.dart';
 import 'spiral_paths.dart';
-import 'package:primala/app/core/p2p_scheduling/constants/spiral_colors.dart';
+import 'package:primala/app/core/deprecated/p2p_scheduling/constants/spiral_colors.dart';
 import 'package:primala/app/core/canvas_widget_utils/interaction_type.dart';
 
 class SpiralCircleAPI {
