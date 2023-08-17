@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
 import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/presentation/mobx/smart_fading_animated_text_tracker_store.dart';
 
 class SmartFadingAnimatedText extends StatefulWidget {
@@ -25,69 +26,42 @@ class _SmartFadingAnimatedTextState extends State<SmartFadingAnimatedText> {
   @override
   void initState() {
     super.initState();
-    stateTrackerStore.startRotatingText(mounted);
+    stateTrackerStore.startRotatingText();
   }
-
-  // void _startRotatingText() async {
-  //   while (true) {
-  //     if (mounted) {
-  //       stateTrackerStore.moveToNextMessage();
-  //       await Future.delayed(const Duration(seconds: 1), () {
-  //         setState(() {
-  //           showText = true;
-  //         });
-  //       });
-  //       await Future.delayed(const Duration(seconds: 1), () {
-  //         setState(() {
-  //           showText = false;
-  //         });
-  //       });
-  //     }
-  //   }
-  // }
-  // void _startRotatingText() async {
-  //   while (!isPaused) {
-  //     if (!isPaused && mounted) {
-  //       print("IT IS NOT PAUSED");
-  //       stateTrackerStore.moveToNextMessage();
-  //       await Future.delayed(const Duration(seconds: 1), () {
-  //         setState(() {
-  //           showText = true;
-  //         });
-  //       });
-  //       await Future.delayed(const Duration(seconds: 1), () {
-  //         setState(() {
-  //           showText = false;
-  //         });
-  //       });
-  //     } else {
-  //       // If paused, delay without updating the text
-  //       await Future.delayed(const Duration(seconds: 2));
-  //     }
-  //   }
-  //   while (isPaused) {
-  //     print("IT IS PAUSED");
-  //   }
-  // }
-
-  // void togglePause() {
-  //   setState(() {
-  //     isPaused = !isPaused;
-  //   });
-  //   print("PAUSED? ====> $isPaused");
-  // }
 
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
       return GestureDetector(
-        onTap: () => stateTrackerStore.togglePause(mounted),
+        onDoubleTap: () =>
+            stateTrackerStore.togglePause(gestureType: Gestures.doubleTap),
+        onTap: () => stateTrackerStore.togglePause(gestureType: Gestures.tap),
         child: AnimatedOpacity(
           opacity: stateTrackerStore.showText ? 1 : 0,
           duration: const Duration(milliseconds: 500), // Adjust fade duration
-          child: Text(
-            stateTrackerStore.currentText,
-            style: const TextStyle(fontSize: 160.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Center(
+              // child:
+              Text(
+                stateTrackerStore.currentMainText,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                    fontSize: 50.0,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w300),
+              ),
+              Text(
+                stateTrackerStore.currentSubText,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                    fontSize: 25.0,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w300),
+              ),
+              // ),
+            ],
           ),
         ),
       );

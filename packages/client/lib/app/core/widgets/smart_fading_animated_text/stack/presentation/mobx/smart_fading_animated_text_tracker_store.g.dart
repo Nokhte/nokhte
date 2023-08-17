@@ -10,12 +10,42 @@ part of 'smart_fading_animated_text_tracker_store.dart';
 
 mixin _$SmartFadingAnimatedTextTrackerStore
     on _SmartFadingAnimatedTextTrackerStoreBase, Store {
-  Computed<String>? _$currentTextComputed;
+  Computed<bool>? _$shouldPauseHereComputed;
 
   @override
-  String get currentText =>
-      (_$currentTextComputed ??= Computed<String>(() => super.currentText,
-              name: '_SmartFadingAnimatedTextTrackerStoreBase.currentText'))
+  bool get shouldPauseHere =>
+      (_$shouldPauseHereComputed ??= Computed<bool>(() => super.shouldPauseHere,
+              name: '_SmartFadingAnimatedTextTrackerStoreBase.shouldPauseHere'))
+          .value;
+  Computed<Duration>? _$currentExtraDelayTimeComputed;
+
+  @override
+  Duration get currentExtraDelayTime => (_$currentExtraDelayTimeComputed ??=
+          Computed<Duration>(() => super.currentExtraDelayTime,
+              name:
+                  '_SmartFadingAnimatedTextTrackerStoreBase.currentExtraDelayTime'))
+      .value;
+  Computed<Gestures>? _$currentUnlockGestureComputed;
+
+  @override
+  Gestures get currentUnlockGesture => (_$currentUnlockGestureComputed ??=
+          Computed<Gestures>(() => super.currentUnlockGesture,
+              name:
+                  '_SmartFadingAnimatedTextTrackerStoreBase.currentUnlockGesture'))
+      .value;
+  Computed<String>? _$currentMainTextComputed;
+
+  @override
+  String get currentMainText => (_$currentMainTextComputed ??= Computed<String>(
+          () => super.currentMainText,
+          name: '_SmartFadingAnimatedTextTrackerStoreBase.currentMainText'))
+      .value;
+  Computed<String>? _$currentSubTextComputed;
+
+  @override
+  String get currentSubText =>
+      (_$currentSubTextComputed ??= Computed<String>(() => super.currentSubText,
+              name: '_SmartFadingAnimatedTextTrackerStoreBase.currentSubText'))
           .value;
 
   late final _$showTextAtom = Atom(
@@ -52,6 +82,57 @@ mixin _$SmartFadingAnimatedTextTrackerStore
     });
   }
 
+  late final _$hasJustBeenUnPausedAtom = Atom(
+      name: '_SmartFadingAnimatedTextTrackerStoreBase.hasJustBeenUnPaused',
+      context: context);
+
+  @override
+  bool get hasJustBeenUnPaused {
+    _$hasJustBeenUnPausedAtom.reportRead();
+    return super.hasJustBeenUnPaused;
+  }
+
+  @override
+  set hasJustBeenUnPaused(bool value) {
+    _$hasJustBeenUnPausedAtom.reportWrite(value, super.hasJustBeenUnPaused, () {
+      super.hasJustBeenUnPaused = value;
+    });
+  }
+
+  late final _$inProgressAtom = Atom(
+      name: '_SmartFadingAnimatedTextTrackerStoreBase.inProgress',
+      context: context);
+
+  @override
+  bool get inProgress {
+    _$inProgressAtom.reportRead();
+    return super.inProgress;
+  }
+
+  @override
+  set inProgress(bool value) {
+    _$inProgressAtom.reportWrite(value, super.inProgress, () {
+      super.inProgress = value;
+    });
+  }
+
+  late final _$statusAtom = Atom(
+      name: '_SmartFadingAnimatedTextTrackerStoreBase.status',
+      context: context);
+
+  @override
+  FadingTextStatus get status {
+    _$statusAtom.reportRead();
+    return super.status;
+  }
+
+  @override
+  set status(FadingTextStatus value) {
+    _$statusAtom.reportWrite(value, super.status, () {
+      super.status = value;
+    });
+  }
+
   late final _$currentIndexAtom = Atom(
       name: '_SmartFadingAnimatedTextTrackerStoreBase.currentIndex',
       context: context);
@@ -74,9 +155,8 @@ mixin _$SmartFadingAnimatedTextTrackerStore
       context: context);
 
   @override
-  Future startRotatingText(bool mounted) {
-    return _$startRotatingTextAsyncAction
-        .run(() => super.startRotatingText(mounted));
+  Future startRotatingText() {
+    return _$startRotatingTextAsyncAction.run(() => super.startRotatingText());
   }
 
   late final _$_SmartFadingAnimatedTextTrackerStoreBaseActionController =
@@ -84,12 +164,12 @@ mixin _$SmartFadingAnimatedTextTrackerStore
           name: '_SmartFadingAnimatedTextTrackerStoreBase', context: context);
 
   @override
-  dynamic togglePause(bool mounted) {
+  dynamic togglePause({required Gestures gestureType}) {
     final _$actionInfo =
         _$_SmartFadingAnimatedTextTrackerStoreBaseActionController.startAction(
             name: '_SmartFadingAnimatedTextTrackerStoreBase.togglePause');
     try {
-      return super.togglePause(mounted);
+      return super.togglePause(gestureType: gestureType);
     } finally {
       _$_SmartFadingAnimatedTextTrackerStoreBaseActionController
           .endAction(_$actionInfo);
@@ -114,8 +194,15 @@ mixin _$SmartFadingAnimatedTextTrackerStore
     return '''
 showText: ${showText},
 isPaused: ${isPaused},
+hasJustBeenUnPaused: ${hasJustBeenUnPaused},
+inProgress: ${inProgress},
+status: ${status},
 currentIndex: ${currentIndex},
-currentText: ${currentText}
+shouldPauseHere: ${shouldPauseHere},
+currentExtraDelayTime: ${currentExtraDelayTime},
+currentUnlockGesture: ${currentUnlockGesture},
+currentMainText: ${currentMainText},
+currentSubText: ${currentSubText}
     ''';
   }
 }

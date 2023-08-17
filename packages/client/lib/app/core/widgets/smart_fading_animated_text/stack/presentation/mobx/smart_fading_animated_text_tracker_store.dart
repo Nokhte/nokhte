@@ -3,6 +3,7 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
+import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
 // * Mobx Codegen Inclusion
 part 'smart_fading_animated_text_tracker_store.g.dart';
 
@@ -17,47 +18,103 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
   @observable
   bool isPaused = false;
 
+  @observable
+  bool hasJustBeenUnPaused = false;
+
+  @observable
+  bool inProgress = false;
+
+  @observable
+  FadingTextStatus status = FadingTextStatus.fadingOut;
+
+  oneSecondDelay(Function body) async {
+    await Future.delayed(const Duration(seconds: 1), () => body());
+  }
+
+  addADelay(Duration duration) async {
+    await Future.delayed(duration);
+  }
+
+  fadeTheTextOut() {
+    showText = false;
+  }
+
+  fadeTheTextIn() {
+    showText = true;
+  }
+
+  decideToPauseOrFadeOut() async {
+    if (shouldPauseHere) {
+      togglePause(gestureType: Gestures.none);
+      showText = true;
+    } else {
+      showText = false;
+      await oneSecondDelay(() => moveToNextMessage());
+    }
+  }
+
+  decideToSkipOrMoveToNextMessage() {
+    if (hasJustBeenUnPaused) {
+      hasJustBeenUnPaused = !hasJustBeenUnPaused;
+      return;
+    }
+    if (shouldPauseHere) return;
+    moveToNextMessage();
+  }
+
   @action
-  startRotatingText(bool mounted) async {
-    print("PAUSE STATUS $isPaused $mounted");
+  startRotatingText() async {
     while (!isPaused) {
-      if (mounted) {
-        await Future.delayed(const Duration(seconds: 1), () {
-          moveToNextMessage();
-        });
-        await Future.delayed(const Duration(seconds: 1), () {
-          showText = true;
-        });
-        await Future.delayed(const Duration(seconds: 1), () {
-          showText = false;
-        });
+      if (hasJustBeenUnPaused) {
+        await oneSecondDelay(() => fadeTheTextOut());
+        await oneSecondDelay(() => moveToNextMessage());
+        hasJustBeenUnPaused = false;
+      } else {
+        await oneSecondDelay(() => fadeTheTextIn());
+        await addADelay(currentExtraDelayTime);
+        await oneSecondDelay(() => decideToPauseOrFadeOut());
       }
     }
   }
 
   @action
-  togglePause(bool mounted) {
-    isPaused = !isPaused;
-    if (isPaused == false) {
-      startRotatingText(mounted);
+  togglePause({required Gestures gestureType}) {
+    if (gestureType == currentUnlockGesture || gestureType == Gestures.none) {
+      isPaused = !isPaused;
+      if (isPaused == false) {
+        hasJustBeenUnPaused = true;
+        startRotatingText();
+      }
+      print("paused $isPaused");
     }
-    print("PAUSE TOGGLED $isPaused");
   }
 
-  final List<String> messagesList = [
-    "Hi",
-    "Hi There",
-  ];
   @observable
   int currentIndex = 0;
 
   @action
   void moveToNextMessage() {
-    currentIndex = (currentIndex + 1) % messagesList.length;
+    print("$currentIndex before");
+    currentIndex = (currentIndex + 1) % MessagesData.list.length;
+    print("$currentIndex after");
   }
 
   @computed
-  String get currentText => messagesList[currentIndex];
+  bool get shouldPauseHere => MessagesData.list[currentIndex]['pauseHere'];
+
+  @computed
+  Duration get currentExtraDelayTime =>
+      MessagesData.list[currentIndex]["extraDelayTime"];
+
+  @computed
+  Gestures get currentUnlockGesture =>
+      MessagesData.list[currentIndex]["unlockGesture"];
+
+  @computed
+  String get currentMainText => MessagesData.list[currentIndex]["mainMessage"];
+
+  @computed
+  String get currentSubText => MessagesData.list[currentIndex]["subMessage"];
 
   @override
   List<Object> get props => [
