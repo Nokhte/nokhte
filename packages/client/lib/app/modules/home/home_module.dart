@@ -8,10 +8,9 @@ import 'package:primala/app/modules/home/domain/logic/add_name_to_database.dart'
 import 'package:primala/app/modules/home/presentation/mobx/getter/add_name_to_database_getter_store.dart';
 import 'package:primala/app/modules/home/presentation/mobx/main/add_name_to_database_store.dart';
 import 'package:primala/app/modules/home/presentation/screens/home_screen.dart';
-// import 'package:primala/app/core/widgets/breathing_pentagons_stack/presentation/mobx/main/breathing_pentagons_state_tracker_store.dart';
 import 'package:primala/app/core/widgets/beach_waves/stack/presentation/mobx/main/beach_waves_tracker_store.dart';
+import 'package:primala/app/core/widgets/smart_fading_animated_text/smart_fading_animated_text.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-// import 'package:primala/app/modules/home/presentation/screens/home_screen.dart';
 
 class HomeModule extends Module {
   @override
@@ -47,6 +46,9 @@ class HomeModule extends Module {
             addNameGetterStore: i<AddNameToDatabaseGetterStore>(),
           ),
         ),
+        Bind.singleton<SmartFadingAnimatedTextTrackerStore>(
+          (i) => SmartFadingAnimatedTextTrackerStore(),
+        ),
 
         Bind.singleton<BeachWavesTrackerStore>(
           (i) => BeachWavesTrackerStore(defaultMovieMode: MovieModes.onShore),
@@ -59,8 +61,10 @@ class HomeModule extends Module {
           "/",
           transition: TransitionType.noTransition,
           child: (context, args) => HomeScreen(
+            fadingTextStateTrackerStore:
+                Modular.get<SmartFadingAnimatedTextTrackerStore>(),
             addNameToDatabaseStore: Modular.get<AddNameToDatabaseStore>(),
-            stateTrackerStore: Modular.get<BeachWavesTrackerStore>(),
+            beachWaveStateTrackerStore: Modular.get<BeachWavesTrackerStore>(),
             supabase: Modular.get<SupabaseClient>(),
             //     Modular.get<BreathingPentagonsStateTrackerStore>(),
             // supabase: Modular.get<SupabaseClient>(),

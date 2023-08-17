@@ -1,6 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api, no_logic_in_create_state
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:primala/app/core/widgets/beach_waves/stack/constants/types/types.dart';
 import 'package:primala/app/core/widgets/beach_waves/stack/presentation/mobx/main/beach_waves_tracker_store.dart';
