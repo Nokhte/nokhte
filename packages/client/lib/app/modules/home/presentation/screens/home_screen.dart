@@ -9,6 +9,7 @@ import 'package:primala/app/core/widgets/beach_waves/stack/presentation/mobx/bea
 import 'package:primala/app/core/widgets/beach_waves/stack/presentation/widgets/smart_beach_waves.dart';
 import 'package:primala/app/core/widgets/smart_fading_animated_text/smart_fading_animated_text.dart';
 import 'package:primala/app/modules/home/presentation/mobx/main/add_name_to_database_store.dart';
+import 'package:primala/app/modules/home/presentation/mobx/mobx.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:swipe/swipe.dart';
 
@@ -17,12 +18,14 @@ class HomeScreen extends StatefulWidget {
   final BeachWavesTrackerStore beachWaveStateTrackerStore;
   final AddNameToDatabaseStore addNameToDatabaseStore;
   final SmartFadingAnimatedTextTrackerStore fadingTextStateTrackerStore;
+  final GetCollaboratorPhraseStore getCollaboratorPhraseStore;
   const HomeScreen({
     Key? key,
     required this.supabase,
     required this.beachWaveStateTrackerStore,
     required this.addNameToDatabaseStore,
     required this.fadingTextStateTrackerStore,
+    required this.getCollaboratorPhraseStore,
   }) : super(key: key);
   @override
   State<HomeScreen> createState() => _HomeScreenState(
@@ -30,6 +33,7 @@ class HomeScreen extends StatefulWidget {
         supabase: supabase,
         addNameToDatabaseStore: addNameToDatabaseStore,
         fadingTextStateTrackerStore: fadingTextStateTrackerStore,
+        getCollaboratorPhraseStore: getCollaboratorPhraseStore,
       );
 }
 
@@ -38,11 +42,17 @@ class _HomeScreenState extends State<HomeScreen> {
   final BeachWavesTrackerStore beachWaveStateTrackerStore;
   final AddNameToDatabaseStore addNameToDatabaseStore;
   final SmartFadingAnimatedTextTrackerStore fadingTextStateTrackerStore;
+  final GetCollaboratorPhraseStore getCollaboratorPhraseStore;
 
   @override
   void initState() {
     super.initState();
     addNameToDatabaseStore(NoParams());
+    getCollaboratorPhraseStore(NoParams()).then((_) {
+      fadingTextStateTrackerStore.setCollaboratorPhrase(
+        thePhrase: getCollaboratorPhraseStore.collaboratorPhrase,
+      );
+    });
   }
 
   _HomeScreenState({
@@ -50,6 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
     required this.beachWaveStateTrackerStore,
     required this.addNameToDatabaseStore,
     required this.fadingTextStateTrackerStore,
+    required this.getCollaboratorPhraseStore,
   });
 
   @override

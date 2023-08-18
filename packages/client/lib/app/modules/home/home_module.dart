@@ -76,6 +76,8 @@ class HomeModule extends Module {
           "/",
           transition: TransitionType.noTransition,
           child: (context, args) => HomeScreen(
+            getCollaboratorPhraseStore:
+                Modular.get<GetCollaboratorPhraseStore>(),
             fadingTextStateTrackerStore:
                 Modular.get<SmartFadingAnimatedTextTrackerStore>(),
             addNameToDatabaseStore: Modular.get<AddNameToDatabaseStore>(),

@@ -133,6 +133,23 @@ mixin _$SmartFadingAnimatedTextTrackerStore
     });
   }
 
+  late final _$messagesDataAtom = Atom(
+      name: '_SmartFadingAnimatedTextTrackerStoreBase.messagesData',
+      context: context);
+
+  @override
+  List<dynamic> get messagesData {
+    _$messagesDataAtom.reportRead();
+    return super.messagesData;
+  }
+
+  @override
+  set messagesData(List<dynamic> value) {
+    _$messagesDataAtom.reportWrite(value, super.messagesData, () {
+      super.messagesData = value;
+    });
+  }
+
   late final _$currentIndexAtom = Atom(
       name: '_SmartFadingAnimatedTextTrackerStoreBase.currentIndex',
       context: context);
@@ -177,6 +194,20 @@ mixin _$SmartFadingAnimatedTextTrackerStore
   }
 
   @override
+  dynamic setCollaboratorPhrase({required String thePhrase}) {
+    final _$actionInfo =
+        _$_SmartFadingAnimatedTextTrackerStoreBaseActionController.startAction(
+            name:
+                '_SmartFadingAnimatedTextTrackerStoreBase.setCollaboratorPhrase');
+    try {
+      return super.setCollaboratorPhrase(thePhrase: thePhrase);
+    } finally {
+      _$_SmartFadingAnimatedTextTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void moveToNextMessage() {
     final _$actionInfo =
         _$_SmartFadingAnimatedTextTrackerStoreBaseActionController.startAction(
@@ -197,6 +228,7 @@ isPaused: ${isPaused},
 hasJustBeenUnPaused: ${hasJustBeenUnPaused},
 inProgress: ${inProgress},
 status: ${status},
+messagesData: ${messagesData},
 currentIndex: ${currentIndex},
 shouldPauseHere: ${shouldPauseHere},
 currentExtraDelayTime: ${currentExtraDelayTime},

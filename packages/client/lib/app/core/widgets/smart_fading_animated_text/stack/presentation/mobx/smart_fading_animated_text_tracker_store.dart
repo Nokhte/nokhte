@@ -90,31 +90,75 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
   }
 
   @observable
+  List messagesData = [
+    {
+      "mainMessage": "Schedule A Time With Your Collaborator",
+      "subMessage": "",
+      "pauseHere": false,
+      "unlockGesture": Gestures.none,
+      "extraDelayTime": const Duration(seconds: 2),
+    },
+    {
+      "mainMessage": "Double Tap",
+      "subMessage": "",
+      "pauseHere": true,
+      "unlockGesture": Gestures.doubleTap,
+      "extraDelayTime": const Duration(seconds: 0),
+    },
+    {
+      "mainMessage": "",
+      "subMessage": "\n tap to copy",
+      "pauseHere": true,
+      "unlockGesture": Gestures.tap,
+      "extraDelayTime": const Duration(seconds: 0),
+    },
+    {
+      "mainMessage": "Share Your Word With Your Collaborator",
+      "subMessage": "",
+      "pauseHere": false,
+      "unlockGesture": Gestures.none,
+      "extraDelayTime": const Duration(seconds: 1, milliseconds: 500),
+    },
+    {
+      "mainMessage": "Swipe Up When You Are Both Ready",
+      "subMessage": "",
+      "pauseHere": false,
+      "unlockGesture": Gestures.none,
+      "extraDelayTime": const Duration(seconds: 1),
+    }
+  ];
+
+  @action
+  setCollaboratorPhrase({required String thePhrase}) {
+    messagesData[2]["mainMessage"] = thePhrase;
+  }
+
+  @observable
   int currentIndex = 0;
 
   @action
   void moveToNextMessage() {
     // print("$currentIndex before");
-    currentIndex = (currentIndex + 1) % MessagesData.list.length;
+    currentIndex = (currentIndex + 1) % messagesData.length;
     // print("$currentIndex after");
   }
 
   @computed
-  bool get shouldPauseHere => MessagesData.list[currentIndex]['pauseHere'];
+  bool get shouldPauseHere => messagesData[currentIndex]['pauseHere'];
 
   @computed
   Duration get currentExtraDelayTime =>
-      MessagesData.list[currentIndex]["extraDelayTime"];
+      messagesData[currentIndex]["extraDelayTime"];
 
   @computed
   Gestures get currentUnlockGesture =>
-      MessagesData.list[currentIndex]["unlockGesture"];
+      messagesData[currentIndex]["unlockGesture"];
 
   @computed
-  String get currentMainText => MessagesData.list[currentIndex]["mainMessage"];
+  String get currentMainText => messagesData[currentIndex]["mainMessage"];
 
   @computed
-  String get currentSubText => MessagesData.list[currentIndex]["subMessage"];
+  String get currentSubText => messagesData[currentIndex]["subMessage"];
 
   @override
   List<Object> get props => [
