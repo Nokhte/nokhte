@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:primala/app/core/widgets/beach_waves/stack/constants/types/types.dart';
-import 'package:primala/app/core/widgets/beach_waves/stack/presentation/mobx/main/beach_waves_tracker_store.dart';
+import 'package:primala/app/core/widgets/beach_waves/stack/presentation/mobx/beach_waves_tracker_store.dart';
 import 'package:primala/app/core/widgets/beach_waves/stack/utils/get_current_water_animation.dart';
 import 'canvas/beach_waves_painter.dart';
 import 'package:simple_animations/simple_animations.dart';

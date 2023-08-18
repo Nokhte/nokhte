@@ -14,17 +14,6 @@ class BeachWavesTrackerStore = _BeachWavesTrackerStoreBase
     with _$BeachWavesTrackerStore;
 
 abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
-  _BeachWavesTrackerStoreBase({
-    required MovieModes defaultMovieMode,
-  }) {
-    if (defaultMovieMode == MovieModes.oceanDiveSetup) {
-      movie = OceanDive.getOceanDiveMovie(startingWaterMovement: passingParam);
-      initiateOceanDive();
-      control = Control.stop;
-      animationStatus = AnimationStatus.inProgress;
-    }
-  }
-
   @observable
   MovieTween movie = OnShore.movie;
 
