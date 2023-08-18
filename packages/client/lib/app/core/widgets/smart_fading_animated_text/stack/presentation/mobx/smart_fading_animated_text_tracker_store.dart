@@ -85,7 +85,7 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
         hasJustBeenUnPaused = true;
         startRotatingText();
       }
-      print("paused $isPaused");
+      // print("paused $isPaused");
     }
   }
 
@@ -94,9 +94,9 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
 
   @action
   void moveToNextMessage() {
-    print("$currentIndex before");
+    // print("$currentIndex before");
     currentIndex = (currentIndex + 1) % MessagesData.list.length;
-    print("$currentIndex after");
+    // print("$currentIndex after");
   }
 
   @computed
