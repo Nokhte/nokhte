@@ -8,8 +8,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:primala_backend/constants/general/user_setup_constants.dart';
 import 'package:primala_backend/constants/general/supabase_client_constants.dart';
 
-/// @dev run this one first as all subsequent tests are dependent on the
-/// code that is run the `teardownAll` block
+/// @dev: run this one first as all subsequent tests are dependent on the
+/// @ code that is run the `teardownAll` block
 
 void main() {
   late SupabaseClient supabaseAdmin;
