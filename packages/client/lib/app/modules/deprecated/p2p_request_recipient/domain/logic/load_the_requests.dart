@@ -1,4 +1,4 @@
-import 'package:primala/app/core/constants/entities.dart';
+import 'package:primala/app/core/deprecated/constants/entities.dart';
 import 'package:primala/app/core/error/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'dart:async';

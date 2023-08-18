@@ -1,15 +1,18 @@
 import 'package:primala/app/core/utilities/misc_algos.dart';
 import 'package:primala_backend/user_names.dart';
+import 'package:primala_backend/collaborator_phrases.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class HomeRemoteSource {
-  Future<List<dynamic>> addNamesToDatabase();
+  Future<List> addNamesToDatabase();
+  Future<List> getCollaboratorPhrase();
 }
 
 class HomeRemoteSourceImpl implements HomeRemoteSource {
   final SupabaseClient supabase;
 
   HomeRemoteSourceImpl({required this.supabase});
+
   @override
   addNamesToDatabase() async {
     final String fullName =
@@ -35,5 +38,13 @@ class HomeRemoteSourceImpl implements HomeRemoteSource {
       insertRes = [];
     }
     return nameCheck.isEmpty ? insertRes : nameCheck;
+  }
+
+  @override
+  Future<List> getCollaboratorPhrase() async {
+    return await CollaboratorPhraseQueries.fetchUserInfo(
+      supabase: supabase,
+      userUID: supabase.auth.currentUser?.id,
+    );
   }
 }

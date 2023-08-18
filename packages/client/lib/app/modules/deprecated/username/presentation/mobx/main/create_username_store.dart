@@ -7,7 +7,7 @@ import 'package:primala/app/core/mobx/base_mobx_db_store.dart';
 import 'package:primala/app/core/mobx/store_state.dart';
 import 'package:primala/app/modules/deprecated/username/domain/entities/username_status_entity.dart';
 import 'package:primala/app/modules/deprecated/username/domain/logic/create_username.dart';
-import 'package:primala/app/core/constants/entities.dart';
+import 'package:primala/app/core/deprecated/constants/entities.dart';
 import 'package:primala/app/modules/deprecated/username/presentation/mobx/getters/create_username_getter_store.dart';
 // * Future Store
 import 'package:primala/app/core/mobx/base_future_store.dart';

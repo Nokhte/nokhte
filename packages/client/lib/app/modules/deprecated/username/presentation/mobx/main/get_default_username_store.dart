@@ -9,7 +9,7 @@ import 'package:primala/app/core/mobx/store_state.dart';
 import 'package:primala/app/modules/deprecated/username/domain/entities/default_username_entity.dart';
 import 'package:primala/app/modules/deprecated/username/presentation/mobx/getters/get_default_username_getter_store.dart';
 // * Constants
-import 'package:primala/app/core/constants/entities.dart';
+import 'package:primala/app/core/deprecated/constants/entities.dart';
 // * Future Store
 import 'package:primala/app/core/mobx/base_future_store.dart';
 // * Mobx Codegen Inclusion

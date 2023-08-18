@@ -3,7 +3,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
-import 'package:primala/app/core/constants/entities.dart';
+import 'package:primala/app/core/deprecated/constants/entities.dart';
 import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/core/mobx/base_future_store.dart';
 import 'package:primala/app/core/mobx/base_mobx_db_store.dart';

@@ -7,6 +7,7 @@ import 'package:primala/app/core/constants/failure_constants.dart';
 import 'package:primala/app/modules/home/data/contracts/home_contract_impl.dart';
 // * mock import
 import '../../constants/models/models.dart';
+import '../../constants/data/data.dart';
 import '../../fixtures/home_stack_mock_gen.mocks.dart';
 import '../../../_module_helpers/shared_mocks_gen.mocks.dart'
     show MockMNetworkInfo;
@@ -14,14 +15,14 @@ import '../../../_module_helpers/shared_mocks_gen.mocks.dart'
 import 'package:dartz/dartz.dart';
 
 void main() {
-  late HomeContractImpl authContract;
+  late HomeContractImpl homeContract;
   late MockMRemoteSource mockRemoteSource;
   late MockMNetworkInfo mockNetworkInfo;
 
   setUp(() {
     mockRemoteSource = MockMRemoteSource();
     mockNetworkInfo = MockMNetworkInfo();
-    authContract = HomeContractImpl(
+    homeContract = HomeContractImpl(
       remoteSource: mockRemoteSource,
       networkInfo: mockNetworkInfo,
     );
@@ -37,7 +38,7 @@ void main() {
         when(mockRemoteSource.addNamesToDatabase())
             .thenAnswer((realInvocation) async => [{}]);
         // act
-        final res = await authContract.addNameToDatabase();
+        final res = await homeContract.addNameToDatabase();
         // assert
         expect(res, ConstantNameCreationStatusModels.wrappedSuccessCase);
       });
@@ -46,7 +47,7 @@ void main() {
         when(mockRemoteSource.addNamesToDatabase())
             .thenAnswer((realInvocation) async => []);
         // act
-        final res = await authContract.addNameToDatabase();
+        final res = await homeContract.addNameToDatabase();
         // assert
         expect(res, ConstantNameCreationStatusModels.wrappedNotSuccessCase);
       });
@@ -57,7 +58,34 @@ void main() {
       });
 
       test("When offline should return an internet connection error", () async {
-        final res = await authContract.addNameToDatabase();
+        final res = await homeContract.addNameToDatabase();
+        expect(res, Left(FailureConstants.internetConnectionFailure));
+      });
+    });
+  });
+
+  group("Method No. 2: getCollaboratorPhrase", () {
+    group("is Online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+      });
+      test("when online and non-empty should return a model", () async {
+        // arrange
+        when(mockRemoteSource.getCollaboratorPhrase())
+            .thenAnswer((realInvocation) async => SampleSupabaseRes.res);
+        // act
+        final res = await homeContract.getCollaboratorPhrase();
+        // assert
+        expect(res, ConstantCollaboratorPhraseModels.wrappedSuccessCase);
+      });
+    });
+    group("is not Online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+      });
+
+      test("When offline should return an internet connection error", () async {
+        final res = await homeContract.getCollaboratorPhrase();
         expect(res, Left(FailureConstants.internetConnectionFailure));
       });
     });
