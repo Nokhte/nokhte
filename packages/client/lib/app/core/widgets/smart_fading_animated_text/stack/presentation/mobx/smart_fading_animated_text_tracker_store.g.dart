@@ -40,13 +40,6 @@ mixin _$SmartFadingAnimatedTextTrackerStore
           () => super.currentMainText,
           name: '_SmartFadingAnimatedTextTrackerStoreBase.currentMainText'))
       .value;
-  Computed<String>? _$currentSubTextComputed;
-
-  @override
-  String get currentSubText =>
-      (_$currentSubTextComputed ??= Computed<String>(() => super.currentSubText,
-              name: '_SmartFadingAnimatedTextTrackerStoreBase.currentSubText'))
-          .value;
 
   late final _$showTextAtom = Atom(
       name: '_SmartFadingAnimatedTextTrackerStoreBase.showText',
@@ -138,13 +131,13 @@ mixin _$SmartFadingAnimatedTextTrackerStore
       context: context);
 
   @override
-  List<dynamic> get messagesData {
+  ObservableList<RotatingTextData> get messagesData {
     _$messagesDataAtom.reportRead();
     return super.messagesData;
   }
 
   @override
-  set messagesData(List<dynamic> value) {
+  set messagesData(ObservableList<RotatingTextData> value) {
     _$messagesDataAtom.reportWrite(value, super.messagesData, () {
       super.messagesData = value;
     });
@@ -167,6 +160,32 @@ mixin _$SmartFadingAnimatedTextTrackerStore
     });
   }
 
+  late final _$currentSubTextAtom = Atom(
+      name: '_SmartFadingAnimatedTextTrackerStoreBase.currentSubText',
+      context: context);
+
+  @override
+  String get currentSubText {
+    _$currentSubTextAtom.reportRead();
+    return super.currentSubText;
+  }
+
+  @override
+  set currentSubText(String value) {
+    _$currentSubTextAtom.reportWrite(value, super.currentSubText, () {
+      super.currentSubText = value;
+    });
+  }
+
+  late final _$copyToClipboardAsyncAction = AsyncAction(
+      '_SmartFadingAnimatedTextTrackerStoreBase.copyToClipboard',
+      context: context);
+
+  @override
+  Future copyToClipboard() {
+    return _$copyToClipboardAsyncAction.run(() => super.copyToClipboard());
+  }
+
   late final _$startRotatingTextAsyncAction = AsyncAction(
       '_SmartFadingAnimatedTextTrackerStoreBase.startRotatingText',
       context: context);
@@ -176,17 +195,42 @@ mixin _$SmartFadingAnimatedTextTrackerStore
     return _$startRotatingTextAsyncAction.run(() => super.startRotatingText());
   }
 
+  late final _$togglePauseAsyncAction = AsyncAction(
+      '_SmartFadingAnimatedTextTrackerStoreBase.togglePause',
+      context: context);
+
+  @override
+  Future togglePause({required Gestures gestureType}) {
+    return _$togglePauseAsyncAction
+        .run(() => super.togglePause(gestureType: gestureType));
+  }
+
   late final _$_SmartFadingAnimatedTextTrackerStoreBaseActionController =
       ActionController(
           name: '_SmartFadingAnimatedTextTrackerStoreBase', context: context);
 
   @override
-  dynamic togglePause({required Gestures gestureType}) {
+  dynamic changeCurrrentSubMessage({required String message}) {
     final _$actionInfo =
         _$_SmartFadingAnimatedTextTrackerStoreBaseActionController.startAction(
-            name: '_SmartFadingAnimatedTextTrackerStoreBase.togglePause');
+            name:
+                '_SmartFadingAnimatedTextTrackerStoreBase.changeCurrrentSubMessage');
     try {
-      return super.togglePause(gestureType: gestureType);
+      return super.changeCurrrentSubMessage(message: message);
+    } finally {
+      _$_SmartFadingAnimatedTextTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic resetPastSubMessage({required String message}) {
+    final _$actionInfo =
+        _$_SmartFadingAnimatedTextTrackerStoreBaseActionController.startAction(
+            name:
+                '_SmartFadingAnimatedTextTrackerStoreBase.resetPastSubMessage');
+    try {
+      return super.resetPastSubMessage(message: message);
     } finally {
       _$_SmartFadingAnimatedTextTrackerStoreBaseActionController
           .endAction(_$actionInfo);
@@ -230,11 +274,11 @@ inProgress: ${inProgress},
 status: ${status},
 messagesData: ${messagesData},
 currentIndex: ${currentIndex},
+currentSubText: ${currentSubText},
 shouldPauseHere: ${shouldPauseHere},
 currentExtraDelayTime: ${currentExtraDelayTime},
 currentUnlockGesture: ${currentUnlockGesture},
-currentMainText: ${currentMainText},
-currentSubText: ${currentSubText}
+currentMainText: ${currentMainText}
     ''';
   }
 }

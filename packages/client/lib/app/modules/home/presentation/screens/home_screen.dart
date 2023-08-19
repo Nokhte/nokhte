@@ -47,11 +47,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    addNameToDatabaseStore(NoParams());
-    getCollaboratorPhraseStore(NoParams()).then((_) {
-      fadingTextStateTrackerStore.setCollaboratorPhrase(
-        thePhrase: getCollaboratorPhraseStore.collaboratorPhrase,
-      );
+    Future.delayed(const Duration(seconds: 0), () async {
+      addNameToDatabaseStore(NoParams());
+      getCollaboratorPhraseStore(NoParams()).then((_) {
+        fadingTextStateTrackerStore.setCollaboratorPhrase(
+          thePhrase: getCollaboratorPhraseStore.collaboratorPhrase,
+        );
+      });
     });
   }
 
