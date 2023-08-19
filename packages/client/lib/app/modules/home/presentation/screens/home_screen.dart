@@ -47,9 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 0), () async {
-      addNameToDatabaseStore(NoParams());
-      getCollaboratorPhraseStore(NoParams()).then((_) {
+    Future.delayed(const Duration(seconds: 1), () async {
+      await addNameToDatabaseStore(NoParams());
+      await getCollaboratorPhraseStore(NoParams()).then((_) {
         fadingTextStateTrackerStore.setCollaboratorPhrase(
           thePhrase: getCollaboratorPhraseStore.collaboratorPhrase,
         );

@@ -125,7 +125,13 @@ class _NewLoginScreenState extends State<NewLoginScreen> {
                       opacity: showText ? 1 : 0,
                       duration: const Duration(seconds: 1),
                       child: PlatformText(
-                          "Swipe to Log In with ${authProvider.name[0].toUpperCase() + authProvider.name.substring(1)}"),
+                        "Swipe to Log In with ${authProvider.name[0].toUpperCase() + authProvider.name.substring(1)}",
+                        style: const TextStyle(
+                          fontSize: 20.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
                   )
                 ],
