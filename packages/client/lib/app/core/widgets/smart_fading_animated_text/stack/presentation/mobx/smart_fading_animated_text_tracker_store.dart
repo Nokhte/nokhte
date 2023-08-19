@@ -96,9 +96,6 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
     }
   }
 
-  /// Ok so the text doesn't change but it does copy, figure this out when you
-  /// get back and home screen will be done
-
   @action
   togglePause({required Gestures gestureType}) async {
     if (gestureType == currentUnlockGesture || gestureType == Gestures.none) {
