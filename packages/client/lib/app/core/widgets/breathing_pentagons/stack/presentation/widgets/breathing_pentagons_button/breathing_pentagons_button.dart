@@ -69,10 +69,14 @@ import 'package:simple_animations/simple_animations.dart';
 class BreathingPentagonsButton extends StatefulWidget {
   final Size size;
   final BreathingPentagonsStateTrackerStore stateTrackerStore;
+  final Duration fadeInDuration;
+  final Duration fadeInDelay;
   const BreathingPentagonsButton({
     super.key,
     required this.size,
     required this.stateTrackerStore,
+    required this.fadeInDuration,
+    required this.fadeInDelay,
   });
 
   @override
@@ -80,24 +84,38 @@ class BreathingPentagonsButton extends StatefulWidget {
       _BreathingPentagonsAnimationState(
         size: size,
         stateTrackerStore: stateTrackerStore,
+        fadeInDuration: fadeInDuration,
+        fadeInDelay: fadeInDelay,
       );
 }
 
 class _BreathingPentagonsAnimationState
     extends State<BreathingPentagonsButton> {
   final Size size;
+  final Duration fadeInDuration;
+  final Duration fadeInDelay;
   final BreathingPentagonsStateTrackerStore stateTrackerStore;
   late Animation<double> angle;
   late Animation<double> scale;
   late Control control;
+  bool showWidget = false;
   double startPoint = 0.0;
-  _BreathingPentagonsAnimationState(
-      {required this.size, required this.stateTrackerStore});
+  _BreathingPentagonsAnimationState({
+    required this.size,
+    required this.stateTrackerStore,
+    required this.fadeInDuration,
+    required this.fadeInDelay,
+  });
 
   @override
   void initState() {
     super.initState();
     control = Control.play;
+    Future.delayed(fadeInDelay, () {
+      setState(() {
+        showWidget = true;
+      });
+    });
   }
 
   @override
@@ -123,17 +141,21 @@ class _BreathingPentagonsAnimationState
               );
             }
 
-            return CustomPaint(
-              size: size,
-              painter: BreathingPentagonsPainter(
-                angle: currentAnimationValues[0],
-                scale: currentAnimationValues[1],
-                firstPentagonFirstGradient: currentAnimationValues[2],
-                firstPentagonSecondGradient: currentAnimationValues[3],
-                secondPentagonFirstGradient: currentAnimationValues[4],
-                secondPentagonSecondGradient: currentAnimationValues[5],
-                thirdPentagonFirstGradient: currentAnimationValues[6],
-                thirdPentagonSecondGradient: currentAnimationValues[7],
+            return AnimatedOpacity(
+              opacity: showWidget ? 1 : 0,
+              duration: fadeInDuration,
+              child: CustomPaint(
+                size: size,
+                painter: BreathingPentagonsPainter(
+                  angle: currentAnimationValues[0],
+                  scale: currentAnimationValues[1],
+                  firstPentagonFirstGradient: currentAnimationValues[2],
+                  firstPentagonSecondGradient: currentAnimationValues[3],
+                  secondPentagonFirstGradient: currentAnimationValues[4],
+                  secondPentagonSecondGradient: currentAnimationValues[5],
+                  thirdPentagonFirstGradient: currentAnimationValues[6],
+                  thirdPentagonSecondGradient: currentAnimationValues[7],
+                ),
               ),
             );
           });

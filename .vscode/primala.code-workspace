@@ -26,6 +26,7 @@
                 "**/**.mocks.dart": true,
                 "**/.dart_tool": true,
                 "**/deprecated_gitlab_ci": true,
+                "**/deprecated/**": true,
                 "**/.idea": true,
                 "**/**.lock": true,
             },

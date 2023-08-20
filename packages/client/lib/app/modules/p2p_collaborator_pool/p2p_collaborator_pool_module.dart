@@ -23,8 +23,10 @@ class P2PCollaboratorPoolModule extends Module {
         ChildRoute(
           "/",
           child: (context, args) => SpeakTheCollaboratorPhraseScreen(
+            breathingPentagonsStateTrackerStore:
+                Modular.get<BreathingPentagonsStateTrackerStore>(),
             startingWaveMovement: args.data,
-            stateTrackerStore: Modular.get<BeachWavesTrackerStore>(),
+            beachWavesStateTrackerStore: Modular.get<BeachWavesTrackerStore>(),
             supabase: Modular.get<SupabaseClient>(),
           ),
           transition: TransitionType.noTransition,
