@@ -34,6 +34,7 @@ test-the-db-rules-and-edge-functions:
     - kill $SERVER_PID
   only:
     - development
+    - "packages/backend/**/**"
 
 # test-the-edge-functions:
 #   stage: development
@@ -86,6 +87,7 @@ run-the-unit-tests:
     - flutter test
   only:
     - development
+    - "packages/client/**/*"
 
 pre-build-check:
   stage: development
