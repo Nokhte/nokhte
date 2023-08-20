@@ -42,8 +42,11 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
           body: Stack(
             children: [
               Swipe(
-                onSwipeDown: () => beachWavesStateTrackerStore
-                    .collaboratorPhraseSwipeDownCallback(),
+                onSwipeDown: () {
+                  beachWavesStateTrackerStore
+                      .collaboratorPhraseSwipeDownCallback();
+                  breathingPentagonsStateTrackerStore.flipWidgetVisibility();
+                },
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,

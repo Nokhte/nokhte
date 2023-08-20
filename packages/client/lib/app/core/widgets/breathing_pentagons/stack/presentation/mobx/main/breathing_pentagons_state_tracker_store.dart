@@ -91,6 +91,14 @@ abstract class _BreathingPentagonsStateTrackerStoreBase extends Equatable
   @observable
   Control controlType = Control.stop;
 
+  @observable
+  bool showWidget = false;
+
+  @action
+  flipWidgetVisibility() {
+    showWidget = !showWidget;
+  }
+
   @action
   teeReverseMovieUp({
     required double angle,

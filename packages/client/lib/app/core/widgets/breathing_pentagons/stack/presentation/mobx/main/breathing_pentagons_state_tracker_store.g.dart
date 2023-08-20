@@ -59,9 +59,40 @@ mixin _$BreathingPentagonsStateTrackerStore
     });
   }
 
+  late final _$showWidgetAtom = Atom(
+      name: '_BreathingPentagonsStateTrackerStoreBase.showWidget',
+      context: context);
+
+  @override
+  bool get showWidget {
+    _$showWidgetAtom.reportRead();
+    return super.showWidget;
+  }
+
+  @override
+  set showWidget(bool value) {
+    _$showWidgetAtom.reportWrite(value, super.showWidget, () {
+      super.showWidget = value;
+    });
+  }
+
   late final _$_BreathingPentagonsStateTrackerStoreBaseActionController =
       ActionController(
           name: '_BreathingPentagonsStateTrackerStoreBase', context: context);
+
+  @override
+  dynamic flipWidgetVisibility() {
+    final _$actionInfo =
+        _$_BreathingPentagonsStateTrackerStoreBaseActionController.startAction(
+            name:
+                '_BreathingPentagonsStateTrackerStoreBase.flipWidgetVisibility');
+    try {
+      return super.flipWidgetVisibility();
+    } finally {
+      _$_BreathingPentagonsStateTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic teeReverseMovieUp(
@@ -167,7 +198,8 @@ mixin _$BreathingPentagonsStateTrackerStore
     return '''
 movie: ${movie},
 mode: ${mode},
-controlType: ${controlType}
+controlType: ${controlType},
+showWidget: ${showWidget}
     ''';
   }
 }

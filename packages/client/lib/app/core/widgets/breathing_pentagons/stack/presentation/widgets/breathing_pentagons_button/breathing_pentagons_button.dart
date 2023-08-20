@@ -113,36 +113,38 @@ class _BreathingPentagonsAnimationState
     control = Control.play;
     Future.delayed(fadeInDelay, () {
       setState(() {
-        showWidget = true;
+        stateTrackerStore.flipWidgetVisibility();
       });
+      print(stateTrackerStore.showWidget);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Observer(builder: (context) {
-      return CustomAnimationBuilder<Movie>(
-          tween: stateTrackerStore.movie,
-          duration: stateTrackerStore.movie.duration,
-          control: stateTrackerStore.controlType,
-          onCompleted: () => stateTrackerStore.onCompletedAnimationCallback(),
-          builder: (context, value, child) {
-            final currentAnimationValues = GetCurrentAnimation.values(value);
-            if (stateTrackerStore.mode == MovieModes.windDown) {
-              stateTrackerStore.teeReverseMovieUp(
-                angle: currentAnimationValues[0],
-                scale: currentAnimationValues[1],
-                firstPentagonFirstGradient: currentAnimationValues[2],
-                firstPentagonSecondGradient: currentAnimationValues[3],
-                secondPentagonFirstGradient: currentAnimationValues[4],
-                secondPentagonSecondGradient: currentAnimationValues[5],
-                thirdPentagonFirstGradient: currentAnimationValues[6],
-                thirdPentagonSecondGradient: currentAnimationValues[7],
-              );
-            }
+    // return Observer(builder: (context) {
+    return CustomAnimationBuilder<Movie>(
+        tween: stateTrackerStore.movie,
+        duration: stateTrackerStore.movie.duration,
+        control: stateTrackerStore.controlType,
+        onCompleted: () => stateTrackerStore.onCompletedAnimationCallback(),
+        builder: (context, value, child) {
+          final currentAnimationValues = GetCurrentAnimation.values(value);
+          if (stateTrackerStore.mode == MovieModes.windDown) {
+            stateTrackerStore.teeReverseMovieUp(
+              angle: currentAnimationValues[0],
+              scale: currentAnimationValues[1],
+              firstPentagonFirstGradient: currentAnimationValues[2],
+              firstPentagonSecondGradient: currentAnimationValues[3],
+              secondPentagonFirstGradient: currentAnimationValues[4],
+              secondPentagonSecondGradient: currentAnimationValues[5],
+              thirdPentagonFirstGradient: currentAnimationValues[6],
+              thirdPentagonSecondGradient: currentAnimationValues[7],
+            );
+          }
 
+          return Observer(builder: (context) {
             return AnimatedOpacity(
-              opacity: showWidget ? 1 : 0,
+              opacity: stateTrackerStore.showWidget ? 1 : 0,
               duration: fadeInDuration,
               child: CustomPaint(
                 size: size,
@@ -159,6 +161,7 @@ class _BreathingPentagonsAnimationState
               ),
             );
           });
-    });
+          // });
+        });
   }
 }
