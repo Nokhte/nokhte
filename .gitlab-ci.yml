@@ -34,10 +34,8 @@ test-the-db-rules-and-edge-functions:
     - kill $SERVER_PID
   rules:
     - if: '$CI_COMMIT_BRANCH == "development"'
-      when: always
-    - when: never
-    - changes:
-      - packages/backend/**/*
+      changes:
+        - packages/backend/**/*
       when: always
     - when: never
 
@@ -92,10 +90,8 @@ run-the-unit-tests:
     - flutter test
   rules:
     - if: '$CI_COMMIT_BRANCH == "development"'
-      when: always
-    - when: never
-    - changes:
-      - packages/client/**/*
+      changes: 
+        - packages/client/**/*
       when: always
     - when: never
 
