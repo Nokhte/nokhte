@@ -38,6 +38,8 @@ test-the-db-rules-and-edge-functions:
     - when: never
     - changes:
       - packages/backend/**/*
+        when: always
+      - when: never
 
 # test-the-edge-functions:
 #   stage: development
@@ -94,6 +96,8 @@ run-the-unit-tests:
     - when: never
     - changes:
       - packages/client/**/*
+        when: always
+      - when: never
 
 pre-build-check:
   stage: development
