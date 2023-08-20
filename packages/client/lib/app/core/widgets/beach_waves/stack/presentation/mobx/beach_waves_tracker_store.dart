@@ -65,13 +65,13 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
     animationStatus = AnimationStatus.idle;
   }
 
-  @action
-  collaboratorPhraseSwipeDownCallback() {
-    if (animationStatus == AnimationStatus.idle &&
-        movieMode == MovieModes.oceanDive) {
-      initiateBackToShore();
-    }
-  }
+  // @action
+  // collaboratorPhraseSwipeDownCallback() {
+  //   if (animationStatus == AnimationStatus.idle &&
+  //       movieMode == MovieModes.oceanDive) {
+  //     initiateBackToShore();
+  //   }
+  // }
 
   @action
   teeOceanDiveMovieUp({

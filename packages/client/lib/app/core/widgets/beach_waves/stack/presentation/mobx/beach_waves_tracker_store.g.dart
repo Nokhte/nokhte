@@ -157,18 +157,6 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
   }
 
   @override
-  dynamic collaboratorPhraseSwipeDownCallback() {
-    final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController.startAction(
-        name:
-            '_BeachWavesTrackerStoreBase.collaboratorPhraseSwipeDownCallback');
-    try {
-      return super.collaboratorPhraseSwipeDownCallback();
-    } finally {
-      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic teeOceanDiveMovieUp({required double startingWaterMovement}) {
     final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
         .startAction(name: '_BeachWavesTrackerStoreBase.teeOceanDiveMovieUp');

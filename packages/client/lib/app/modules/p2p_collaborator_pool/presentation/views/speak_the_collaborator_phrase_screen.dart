@@ -1,9 +1,10 @@
 // speak_the_collaborator_phrase_screen.dart
 // ignore_for_file: sized_box_for_whitespace
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide AnimationStatus;
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/canvas_widget_utils/canvas_size_calculator.dart';
+import 'package:primala/app/core/widgets/beach_waves/stack/constants/types/types.dart';
 import 'package:primala/app/core/widgets/beach_waves/stack/presentation/mobx/beach_waves_tracker_store.dart';
 import 'package:primala/app/core/widgets/beach_waves/stack/presentation/widgets/smart_beach_waves.dart';
 import 'package:primala/app/core/widgets/breathing_pentagons/stack/presentation/mobx/main/breathing_pentagons_state_tracker_store.dart';
@@ -43,9 +44,13 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
             children: [
               Swipe(
                 onSwipeDown: () {
-                  beachWavesStateTrackerStore
-                      .collaboratorPhraseSwipeDownCallback();
-                  breathingPentagonsStateTrackerStore.flipWidgetVisibility();
+                  if (beachWavesStateTrackerStore.animationStatus ==
+                          AnimationStatus.idle &&
+                      beachWavesStateTrackerStore.movieMode ==
+                          MovieModes.oceanDive) {
+                    beachWavesStateTrackerStore.initiateBackToShore();
+                    breathingPentagonsStateTrackerStore.flipWidgetVisibility();
+                  }
                 },
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width,
