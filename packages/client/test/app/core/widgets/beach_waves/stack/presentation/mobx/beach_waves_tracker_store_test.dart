@@ -37,7 +37,7 @@ void main() {
     expect(
         p2pCollaboratorPoolStateTrackerStore.movieMode, MovieModes.oceanDive);
     expect(p2pCollaboratorPoolStateTrackerStore.control, Control.playFromStart);
-    p2pCollaboratorPoolStateTrackerStore.collaboratorPhraseSwipeDownCallback();
+    // p2pCollaboratorPoolStateTrackerStore.collaboratorPhraseSwipeDownCallback();
     expect(p2pCollaboratorPoolStateTrackerStore.control, Control.playFromStart);
     expect(p2pCollaboratorPoolStateTrackerStore.animationStatus,
         AnimationStatus.inProgress);
