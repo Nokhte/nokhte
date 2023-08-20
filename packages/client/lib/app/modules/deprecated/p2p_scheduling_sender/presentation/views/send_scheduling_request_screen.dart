@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/canvas_widget_utils/interaction_type.dart';
+// import 'package:primala/app/core/canvas_widget_utils/interaction_type.dart';
 import 'package:primala/app/core/deprecated/p2p_scheduling/presentation/mobx/main/order_spiral_colors_store.dart';
 import 'package:primala/app/core/deprecated/p2p_scheduling/presentation/mobx/main/scheduling_request_times_store.dart';
-import 'package:primala/app/core/deprecated/p2p_scheduling/presentation/widgets/spiral_circle/spiral_circle.dart';
+// import 'package:primala/app/core/deprecated/p2p_scheduling/presentation/widgets/spiral_circle/spiral_circle.md';
 
 class SendScheduilngRequestScreen extends StatefulWidget {
   final OrderSpiralColorsStore orderSpiralColorsStore;
@@ -71,12 +71,13 @@ class _SendScheduilngRequestScreenState
           body: Center(
             child: Observer(
               builder: (context) {
-                return SpiralCircle(
-                  reverseOrderedTimes: orderSpiralColorsStore.orderedTimes,
-                  interactionType: SpiralInteractionType.range,
-                  selectedState: schedulingRequestTimesStore.selectedState,
-                  schedulingRequestTimesStore: schedulingRequestTimesStore,
-                );
+                return const Placeholder();
+                //   return SpiralCircle(
+                //     reverseOrderedTimes: orderSpiralColorsStore.orderedTimes,
+                //     interactionType: SpiralInteractionType.range,
+                //     selectedState: schedulingRequestTimesStore.selectedState,
+                //     schedulingRequestTimesStore: schedulingRequestTimesStore,
+                //   );
               },
             ),
           ),

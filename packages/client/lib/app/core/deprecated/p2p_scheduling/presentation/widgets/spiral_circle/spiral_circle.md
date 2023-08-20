@@ -3,7 +3,7 @@ import 'package:primala/app/core/canvas_widget_utils/interaction_type.dart';
 import 'package:primala/app/core/deprecated/p2p_scheduling/constants/spiral_selection_state_type.dart';
 import 'package:primala/app/core/deprecated/p2p_scheduling/presentation/mobx/main/scheduling_request_times_store.dart';
 import 'package:touchable/touchable.dart';
-import 'canvas/spiral_circle_painter.dart';
+import 'canvas/spiral_circle_painter.md';
 
 class SpiralCircle extends StatelessWidget {
   final List<String> reverseOrderedTimes;
