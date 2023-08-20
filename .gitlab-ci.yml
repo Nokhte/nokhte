@@ -32,9 +32,12 @@ test-the-db-rules-and-edge-functions:
     - chmod u+x ./scripts/test.sh
     - ./scripts/test.sh
     - kill $SERVER_PID
-  only:
-    - development
-    - "packages/backend/**/**"
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "development"'
+      when: always
+    - when: never
+    - changes:
+      - packages/backend/**/*
 
 # test-the-edge-functions:
 #   stage: development
@@ -85,9 +88,12 @@ run-the-unit-tests:
     - touch .env
     - flutter pub get
     - flutter test
-  only:
-    - development
-    - "packages/client/**/*"
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "development"'
+      when: always
+    - when: never
+    - changes:
+      - packages/client/**/*
 
 pre-build-check:
   stage: development
