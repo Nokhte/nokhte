@@ -132,7 +132,6 @@ class AuthenticationModule extends Module {
           "/",
           child: (context, args) => NewLoginScreen(
             authStateStore: Modular.get<AuthStateStore>(),
-            // addNameToDatabaseStore: Modular.get<AddNameToDatabaseStore>(),
             authProviderStore: Modular.get<AuthProviderStore>(),
             supabase: Modular.get<SupabaseClient>(),
           ),

@@ -6,7 +6,6 @@ import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/types/rotating_text_data.dart';
-// import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/utils/tracker_store_helpers.dart';
 // * Mobx Codegen Inclusion
 part 'smart_fading_animated_text_tracker_store.g.dart';
 
