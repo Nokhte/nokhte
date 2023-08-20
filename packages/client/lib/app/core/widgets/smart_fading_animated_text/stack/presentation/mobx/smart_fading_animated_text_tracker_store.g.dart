@@ -109,40 +109,6 @@ mixin _$SmartFadingAnimatedTextTrackerStore
     });
   }
 
-  late final _$statusAtom = Atom(
-      name: '_SmartFadingAnimatedTextTrackerStoreBase.status',
-      context: context);
-
-  @override
-  FadingTextStatus get status {
-    _$statusAtom.reportRead();
-    return super.status;
-  }
-
-  @override
-  set status(FadingTextStatus value) {
-    _$statusAtom.reportWrite(value, super.status, () {
-      super.status = value;
-    });
-  }
-
-  late final _$messagesDataAtom = Atom(
-      name: '_SmartFadingAnimatedTextTrackerStoreBase.messagesData',
-      context: context);
-
-  @override
-  ObservableList<RotatingTextData> get messagesData {
-    _$messagesDataAtom.reportRead();
-    return super.messagesData;
-  }
-
-  @override
-  set messagesData(ObservableList<RotatingTextData> value) {
-    _$messagesDataAtom.reportWrite(value, super.messagesData, () {
-      super.messagesData = value;
-    });
-  }
-
   late final _$currentIndexAtom = Atom(
       name: '_SmartFadingAnimatedTextTrackerStoreBase.currentIndex',
       context: context);
@@ -174,6 +140,23 @@ mixin _$SmartFadingAnimatedTextTrackerStore
   set currentSubText(String value) {
     _$currentSubTextAtom.reportWrite(value, super.currentSubText, () {
       super.currentSubText = value;
+    });
+  }
+
+  late final _$statusAtom = Atom(
+      name: '_SmartFadingAnimatedTextTrackerStoreBase.status',
+      context: context);
+
+  @override
+  FadingTextStatus get status {
+    _$statusAtom.reportRead();
+    return super.status;
+  }
+
+  @override
+  set status(FadingTextStatus value) {
+    _$statusAtom.reportWrite(value, super.status, () {
+      super.status = value;
     });
   }
 
@@ -271,10 +254,9 @@ showText: ${showText},
 isPaused: ${isPaused},
 hasJustBeenUnPaused: ${hasJustBeenUnPaused},
 inProgress: ${inProgress},
-status: ${status},
-messagesData: ${messagesData},
 currentIndex: ${currentIndex},
 currentSubText: ${currentSubText},
+status: ${status},
 shouldPauseHere: ${shouldPauseHere},
 currentExtraDelayTime: ${currentExtraDelayTime},
 currentUnlockGesture: ${currentUnlockGesture},

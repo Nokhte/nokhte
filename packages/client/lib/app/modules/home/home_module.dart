@@ -1,5 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:primala/app/core/network/network_info.dart';
+import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
 import 'package:primala/app/modules/home/data/contracts/home_contract_impl.dart';
 import 'package:primala/app/modules/home/data/sources/home_remote_source.dart';
 import 'package:primala/app/modules/home/domain/contracts/home_contract.dart';
@@ -62,7 +63,9 @@ class HomeModule extends Module {
         ),
         // & Widget State Management Stores
         Bind.singleton<SmartFadingAnimatedTextTrackerStore>(
-          (i) => SmartFadingAnimatedTextTrackerStore(),
+          (i) => SmartFadingAnimatedTextTrackerStore(
+            messagesData: MessagesData.homeList,
+          ),
         ),
 
         Bind.singleton<BeachWavesTrackerStore>(

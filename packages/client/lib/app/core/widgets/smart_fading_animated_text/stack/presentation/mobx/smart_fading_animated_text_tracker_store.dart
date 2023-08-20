@@ -6,6 +6,7 @@ import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/types/rotating_text_data.dart';
+// import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/utils/tracker_store_helpers.dart';
 // * Mobx Codegen Inclusion
 part 'smart_fading_animated_text_tracker_store.g.dart';
 
@@ -14,6 +15,10 @@ class SmartFadingAnimatedTextTrackerStore = _SmartFadingAnimatedTextTrackerStore
 
 abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
     with Store {
+  List<RotatingTextData> messagesData = [];
+
+  _SmartFadingAnimatedTextTrackerStoreBase({required this.messagesData});
+
   @observable
   bool showText = false;
 
@@ -25,6 +30,12 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
 
   @observable
   bool inProgress = false;
+
+  @observable
+  int currentIndex = 0;
+
+  @observable
+  String currentSubText = "";
 
   @observable
   FadingTextStatus status = FadingTextStatus.fadingOut;
@@ -111,52 +122,10 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
     }
   }
 
-  @observable
-  ObservableList<RotatingTextData> messagesData = ObservableList.of([
-    RotatingTextData(
-      mainMessage: "Schedule A Time With Your Collaborator",
-      subMessage: "",
-      pauseHere: false,
-      unlockGesture: Gestures.none,
-      extraDelayTime: const Duration(seconds: 2),
-    ),
-    RotatingTextData(
-      mainMessage: "Double Tap",
-      subMessage: "",
-      pauseHere: true,
-      unlockGesture: Gestures.doubleTap,
-      extraDelayTime: const Duration(seconds: 0),
-    ),
-    RotatingTextData(
-      mainMessage: "",
-      subMessage: "\n tap to copy",
-      pauseHere: true,
-      unlockGesture: Gestures.tap,
-      extraDelayTime: const Duration(seconds: 0),
-    ),
-    RotatingTextData(
-      mainMessage: "Share Your Word With Your Collaborator",
-      subMessage: "",
-      pauseHere: false,
-      unlockGesture: Gestures.none,
-      extraDelayTime: const Duration(seconds: 1, milliseconds: 500),
-    ),
-    RotatingTextData(
-      mainMessage: "Swipe Up When You Are Both Ready",
-      subMessage: "",
-      pauseHere: false,
-      unlockGesture: Gestures.none,
-      extraDelayTime: const Duration(seconds: 1),
-    ),
-  ]);
-
   @action
   setCollaboratorPhrase({required String thePhrase}) {
     messagesData[2].mainMessage = thePhrase;
   }
-
-  @observable
-  int currentIndex = 0;
 
   @action
   void moveToNextMessage() {
@@ -177,9 +146,6 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
 
   @computed
   String get currentMainText => messagesData[currentIndex].mainMessage;
-
-  @observable
-  String currentSubText = "";
 
   @override
   List<Object> get props => [
