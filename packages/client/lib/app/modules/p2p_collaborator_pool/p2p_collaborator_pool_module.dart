@@ -3,6 +3,7 @@ import 'package:primala/app/core/widgets/beach_waves/stack/presentation/mobx/bea
 import 'package:primala/app/core/widgets/breathing_pentagons/stack/presentation/mobx/main/breathing_pentagons_state_tracker_store.dart';
 import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
 import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/presentation/mobx/smart_fading_animated_text_tracker_store.dart';
+import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/main/speak_the_collaborator_phrase_custom_widgets_tracker_store.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/views/speak_the_collaborator_phrase_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -13,7 +14,6 @@ class P2PCollaboratorPoolModule extends Module {
         // & Contract Implementation
         // & Logic
         // & MobX Getter Stores
-        // & Mobx Mother Stores
         // & Widget State Management Stores
         Bind.singleton<SmartFadingAnimatedTextTrackerStore>((i) =>
             SmartFadingAnimatedTextTrackerStore(
@@ -23,6 +23,15 @@ class P2PCollaboratorPoolModule extends Module {
         ),
         Bind.singleton<BeachWavesTrackerStore>(
           (i) => BeachWavesTrackerStore(),
+        ),
+        // & Mobx Mother Stores
+        Bind.singleton<SpeakTheCollaboratorPhraseCustomWidgetsTrackerStore>(
+          (i) => SpeakTheCollaboratorPhraseCustomWidgetsTrackerStore(
+            smartFadingAnimatedTextStore:
+                i<SmartFadingAnimatedTextTrackerStore>(),
+            breathingPentagonsStore: i<BreathingPentagonsStateTrackerStore>(),
+            beachWavesStore: i<BeachWavesTrackerStore>(),
+          ),
         ),
       ];
 
@@ -34,12 +43,9 @@ class P2PCollaboratorPoolModule extends Module {
         ChildRoute(
           "/",
           child: (context, args) => SpeakTheCollaboratorPhraseScreen(
-            smartFadingAnimatedTextTrackerStore:
-                Modular.get<SmartFadingAnimatedTextTrackerStore>(),
-            breathingPentagonsStateTrackerStore:
-                Modular.get<BreathingPentagonsStateTrackerStore>(),
+            widgetsTrackerStore: Modular.get<
+                SpeakTheCollaboratorPhraseCustomWidgetsTrackerStore>(),
             startingWaveMovement: args.data,
-            beachWavesStateTrackerStore: Modular.get<BeachWavesTrackerStore>(),
             supabase: Modular.get<SupabaseClient>(),
           ),
           transition: TransitionType.noTransition,

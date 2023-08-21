@@ -5,11 +5,9 @@ import 'package:flutter/material.dart' hide AnimationStatus;
 // import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/canvas_widget_utils/canvas_size_calculator.dart';
-import 'package:primala/app/core/widgets/beach_waves/stack/constants/types/types.dart';
-import 'package:primala/app/core/widgets/beach_waves/stack/presentation/mobx/beach_waves_tracker_store.dart';
 import 'package:primala/app/core/widgets/beach_waves/stack/presentation/widgets/smart_beach_waves.dart';
-import 'package:primala/app/core/widgets/breathing_pentagons/stack/presentation/mobx/main/breathing_pentagons_state_tracker_store.dart';
 import 'package:primala/app/core/widgets/smart_fading_animated_text/smart_fading_animated_text.dart';
+import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/main/speak_the_collaborator_phrase_custom_widgets_tracker_store.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:swipe/swipe.dart';
 
@@ -18,21 +16,23 @@ import '../../../../core/widgets/breathing_pentagons/stack/presentation/widgets/
 
 class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
   final SupabaseClient supabase;
-  final BeachWavesTrackerStore beachWavesStateTrackerStore;
-  final BreathingPentagonsStateTrackerStore breathingPentagonsStateTrackerStore;
-  final SmartFadingAnimatedTextTrackerStore smartFadingAnimatedTextTrackerStore;
+  final SpeakTheCollaboratorPhraseCustomWidgetsTrackerStore widgetsTrackerStore;
+  // final BeachWavesTrackerStore beachWavesStateTrackerStore;
+  // final BreathingPentagonsStateTrackerStore breathingPentagonsStateTrackerStore;
+  // final SmartFadingAnimatedTextTrackerStore smartFadingAnimatedTextTrackerStore;
   final double startingWaveMovement;
 
   SpeakTheCollaboratorPhraseScreen({
     Key? key,
     required this.supabase,
-    required this.smartFadingAnimatedTextTrackerStore,
-    required this.beachWavesStateTrackerStore,
-    required this.breathingPentagonsStateTrackerStore,
+    required this.widgetsTrackerStore,
+    // required this.smartFadingAnimatedTextTrackerStore,
+    // required this.beachWavesStateTrackerStore,
+    // required this.breathingPentagonsStateTrackerStore,
     required this.startingWaveMovement,
   }) : super(key: key) {
-    beachWavesStateTrackerStore.teeOceanDiveMovieUp(
-        startingWaterMovement: startingWaveMovement);
+    widgetsTrackerStore.beachWavesStore
+        .teeOceanDiveMovieUp(startingWaterMovement: startingWaveMovement);
   }
 
   @override
@@ -47,20 +47,13 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
           body: Stack(
             children: [
               Swipe(
-                onSwipeDown: () {
-                  if (beachWavesStateTrackerStore.animationStatus ==
-                          AnimationStatus.idle &&
-                      beachWavesStateTrackerStore.movieMode ==
-                          MovieModes.oceanDive) {
-                    beachWavesStateTrackerStore.initiateBackToShore();
-                    breathingPentagonsStateTrackerStore.flipWidgetVisibility();
-                  }
-                },
+                onSwipeDown: () =>
+                    widgetsTrackerStore.collaboratorPhraseSwipeDownCallback(),
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   child: SmartBeachWaves(
-                    stateTrackerStore: beachWavesStateTrackerStore,
+                    stateTrackerStore: widgetsTrackerStore.beachWavesStore,
                   ),
                 ),
               ),
@@ -73,16 +66,14 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                         Container(), // Empty SizedBox to take up available space
                   ),
                   GestureDetector(
-                    onLongPressStart: (_) {
-                      print("Is this even working??$_");
-                      breathingPentagonsStateTrackerStore
-                          .gestureFunctionRouter();
-                    },
-                    onLongPressEnd: (_) {
-                      print("Is this even working?? END");
-                      breathingPentagonsStateTrackerStore
-                          .gestureFunctionRouter();
-                    },
+                    onLongPressStart: (_) => widgetsTrackerStore
+                        .breathingPentagonsStore
+                        .gestureFunctionRouter(),
+
+                    onLongPressEnd: (_) => widgetsTrackerStore
+                        .breathingPentagonsStore
+                        .gestureFunctionRouter(),
+
                     // onTap: () => breathingPentagonsStateTrackerStore .gestureFunctionRouter(),
                     child: Container(
                       height: size.height,
@@ -95,7 +86,7 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                           fadeInDuration: const Duration(seconds: 4),
                           size: size,
                           stateTrackerStore:
-                              breathingPentagonsStateTrackerStore,
+                              widgetsTrackerStore.breathingPentagonsStore,
                         ),
                       ),
                     ),
@@ -110,7 +101,8 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
               Center(
                   child: SmartFadingAnimatedText(
                 initialFadeInDelay: const Duration(seconds: 3),
-                stateTrackerStore: smartFadingAnimatedTextTrackerStore,
+                stateTrackerStore:
+                    widgetsTrackerStore.smartFadingAnimatedTextStore,
               )),
             ],
           ),
