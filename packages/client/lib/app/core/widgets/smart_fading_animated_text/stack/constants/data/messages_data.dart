@@ -48,7 +48,7 @@ class MessagesData {
           extraDelayTime: const Duration(seconds: 0),
         ),
         RotatingTextData(
-          mainMessage: "Speak Your Collaborators Phrase",
+          mainMessage: "Speak Your Collaborator's Phrase",
           subMessage: "",
           pauseHere: true,
           unlockGesture: Gestures.none,

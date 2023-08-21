@@ -31,6 +31,21 @@ mixin _$SpeakTheCollaboratorPhraseCustomWidgetsTrackerStore
   }
 
   @override
+  dynamic breathingPentagonsHoldCallback() {
+    final _$actionInfo =
+        _$_SpeakTheCollaboratorPhraseCustomWidgetsTrackerStoreBaseActionController
+            .startAction(
+                name:
+                    '_SpeakTheCollaboratorPhraseCustomWidgetsTrackerStoreBase.breathingPentagonsHoldCallback');
+    try {
+      return super.breathingPentagonsHoldCallback();
+    } finally {
+      _$_SpeakTheCollaboratorPhraseCustomWidgetsTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 

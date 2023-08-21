@@ -7,6 +7,7 @@ import 'package:primala/app/core/widgets/beach_waves/stack/constants/types/anima
 import 'package:primala/app/core/widgets/beach_waves/stack/constants/types/movie_modes.dart';
 import 'package:primala/app/core/widgets/beach_waves/stack/presentation/mobx/beach_waves_tracker_store.dart';
 import 'package:primala/app/core/widgets/breathing_pentagons/stack/presentation/mobx/main/breathing_pentagons_state_tracker_store.dart';
+import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/types/gestures.dart';
 import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/presentation/mobx/smart_fading_animated_text_tracker_store.dart';
 // * Mobx Codegen Inclusion
 part 'speak_the_collaborator_phrase_custom_widgets_tracker_store.g.dart';
@@ -33,6 +34,12 @@ abstract class _SpeakTheCollaboratorPhraseCustomWidgetsTrackerStoreBase
       beachWavesStore.initiateBackToShore();
       breathingPentagonsStore.flipWidgetVisibility();
     }
+  }
+
+  @action
+  breathingPentagonsHoldCallback() {
+    breathingPentagonsStore.gestureFunctionRouter();
+    smartFadingAnimatedTextStore.togglePause(gestureType: Gestures.hold);
   }
 
   @override

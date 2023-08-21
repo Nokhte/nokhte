@@ -5,30 +5,21 @@ import 'package:flutter/material.dart' hide AnimationStatus;
 // import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/canvas_widget_utils/canvas_size_calculator.dart';
-import 'package:primala/app/core/widgets/beach_waves/stack/presentation/widgets/smart_beach_waves.dart';
-import 'package:primala/app/core/widgets/smart_fading_animated_text/smart_fading_animated_text.dart';
+import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/main/speak_the_collaborator_phrase_custom_widgets_tracker_store.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:swipe/swipe.dart';
-
-import '../../../../core/widgets/breathing_pentagons/stack/presentation/widgets/breathing_pentagons_button/breathing_pentagons_button.dart';
 // import 'package:flutter_modular/flutter_modular.dart';
 
 class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
   final SupabaseClient supabase;
   final SpeakTheCollaboratorPhraseCustomWidgetsTrackerStore widgetsTrackerStore;
-  // final BeachWavesTrackerStore beachWavesStateTrackerStore;
-  // final BreathingPentagonsStateTrackerStore breathingPentagonsStateTrackerStore;
-  // final SmartFadingAnimatedTextTrackerStore smartFadingAnimatedTextTrackerStore;
   final double startingWaveMovement;
 
   SpeakTheCollaboratorPhraseScreen({
     Key? key,
     required this.supabase,
     required this.widgetsTrackerStore,
-    // required this.smartFadingAnimatedTextTrackerStore,
-    // required this.beachWavesStateTrackerStore,
-    // required this.breathingPentagonsStateTrackerStore,
     required this.startingWaveMovement,
   }) : super(key: key) {
     widgetsTrackerStore.beachWavesStore
@@ -66,13 +57,18 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                         Container(), // Empty SizedBox to take up available space
                   ),
                   GestureDetector(
-                    onLongPressStart: (_) => widgetsTrackerStore
-                        .breathingPentagonsStore
-                        .gestureFunctionRouter(),
+                    // onLongPressStart: (_) => widgetsTrackerStore
+                    //     .breathingPentagonsStore
+                    //     .gestureFunctionRouter(),
 
-                    onLongPressEnd: (_) => widgetsTrackerStore
-                        .breathingPentagonsStore
-                        .gestureFunctionRouter(),
+                    // onLongPressEnd: (_) => widgetsTrackerStore
+                    //     .breathingPentagonsStore
+                    //     .gestureFunctionRouter(),
+                    onLongPressStart: (_) =>
+                        widgetsTrackerStore.breathingPentagonsHoldCallback(),
+
+                    onLongPressEnd: (_) =>
+                        widgetsTrackerStore.breathingPentagonsHoldCallback(),
 
                     // onTap: () => breathingPentagonsStateTrackerStore .gestureFunctionRouter(),
                     child: Container(
