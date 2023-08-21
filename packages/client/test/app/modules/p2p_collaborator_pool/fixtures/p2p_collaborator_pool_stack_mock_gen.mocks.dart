@@ -85,25 +85,6 @@ class MockMockMP2PCollaboratorPoolContract extends _i1.Mock
       ) as _i4.Future<
           _i2.Either<_i5.Failure, _i6.SpeechToTextInitializerStatusEntity>>);
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.SpeechToTextResultEntity>>
-      onSpeechResult() => (super.noSuchMethod(
-            Invocation.method(
-              #onSpeechResult,
-              [],
-            ),
-            returnValue: _i4.Future<
-                    _i2.Either<_i5.Failure,
-                        _i6.SpeechToTextResultEntity>>.value(
-                _FakeEither_0<_i5.Failure, _i6.SpeechToTextResultEntity>(
-              this,
-              Invocation.method(
-                #onSpeechResult,
-                [],
-              ),
-            )),
-          ) as _i4
-              .Future<_i2.Either<_i5.Failure, _i6.SpeechToTextResultEntity>>);
-  @override
   _i4.Future<_i2.Either<_i5.Failure, _i6.ListeningStatusEntity>>
       startListening() => (super.noSuchMethod(
             Invocation.method(

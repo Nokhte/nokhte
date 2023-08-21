@@ -1,0 +1,54 @@
+import 'package:speech_to_text/speech_to_text.dart';
+import 'package:primala_backend/phrase_components.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+abstract class P2PCollaboratorPoolRemoteSource {
+  Future<bool> initiateSpeechToText();
+
+  Future startListening();
+
+  Future stopListening();
+
+  // Future onSpeechResult(SpeechRecognitionResult result);
+
+  Future<List> validateQuery({required String query});
+}
+
+class P2PCollaboratorPoolRemoteSourceImpl
+    implements P2PCollaboratorPoolRemoteSource {
+  final SpeechToText speechToText;
+  final SupabaseClient supabase;
+
+  P2PCollaboratorPoolRemoteSourceImpl({
+    required this.speechToText,
+    required this.supabase,
+  });
+
+  @override
+  Future<bool> initiateSpeechToText() async {
+    return await speechToText.initialize();
+  }
+
+  @override
+  Future startListening() async {
+    await speechToText.listen(
+        onResult: (result) => {print("result ==> $result")});
+  }
+
+  @override
+  Future stopListening() async {
+    await speechToText.stop();
+  }
+
+  @override
+  Future<List> validateQuery({required String query}) async {
+    final splitQuery = query.split(" ");
+    final adjectiveQuery = splitQuery[0];
+    final nounQuery = splitQuery[1];
+    final adjRes = await PhraseComponentsQueries.checkIfAdjectiveExists(
+        supabase: supabase, queryAdjective: adjectiveQuery);
+    final nounRes = await PhraseComponentsQueries.checkIfNounExists(
+        supabase: supabase, queryNoun: nounQuery);
+    return [adjRes, nounRes];
+  }
+}

@@ -8,7 +8,7 @@ abstract class P2PCollaboratorPoolContract {
   );
   Future<Either<Failure, SpeechToTextInitializerStatusEntity>>
       initializeSpeechToText();
-  Future<Either<Failure, SpeechToTextResultEntity>> onSpeechResult();
+  // Future<Either<Failure, SpeechToTextResultEntity>> onSpeechResult();
   Future<Either<Failure, ListeningStatusEntity>> startListening();
   Future<Either<Failure, ListeningStatusEntity>> stopListening();
 }
