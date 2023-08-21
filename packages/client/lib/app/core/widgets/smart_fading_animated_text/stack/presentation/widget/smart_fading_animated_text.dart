@@ -7,26 +7,35 @@ import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/presen
 
 class SmartFadingAnimatedText extends StatefulWidget {
   final SmartFadingAnimatedTextTrackerStore stateTrackerStore;
+  final Duration initialFadeInDelay;
   const SmartFadingAnimatedText({
     super.key,
     required this.stateTrackerStore,
+    required this.initialFadeInDelay,
   });
 
   @override
   State<SmartFadingAnimatedText> createState() => _SmartFadingAnimatedTextState(
         stateTrackerStore: stateTrackerStore,
+        initialFadeInDelay: initialFadeInDelay,
       );
 }
 
 class _SmartFadingAnimatedTextState extends State<SmartFadingAnimatedText> {
   final SmartFadingAnimatedTextTrackerStore stateTrackerStore;
+  final Duration initialFadeInDelay;
 
-  _SmartFadingAnimatedTextState({required this.stateTrackerStore});
+  _SmartFadingAnimatedTextState({
+    required this.stateTrackerStore,
+    required this.initialFadeInDelay,
+  });
 
   @override
   void initState() {
     super.initState();
-    stateTrackerStore.startRotatingText();
+    Future.delayed(initialFadeInDelay, () {
+      stateTrackerStore.startRotatingText();
+    });
   }
 
   @override
