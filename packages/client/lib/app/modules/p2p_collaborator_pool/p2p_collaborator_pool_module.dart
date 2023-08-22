@@ -81,12 +81,18 @@ class P2PCollaboratorPoolModule extends Module {
           (i) => BeachWavesTrackerStore(),
         ),
         // & Mobx Mother Stores
-        Bind.singleton<SpeakTheCollaboratorPhraseCustomWidgetsTrackerStore>(
-          (i) => SpeakTheCollaboratorPhraseCustomWidgetsTrackerStore(
+        Bind.singleton<CustomWidgetsTrackerStore>(
+          (i) => CustomWidgetsTrackerStore(
             smartFadingAnimatedTextStore:
                 i<SmartFadingAnimatedTextTrackerStore>(),
             breathingPentagonsStore: i<BreathingPentagonsStateTrackerStore>(),
             beachWavesStore: i<BeachWavesTrackerStore>(),
+          ),
+        ),
+        Bind.singleton<SpeakTheCollaboratorPhraseCoordiantorStore>(
+          (i) => SpeakTheCollaboratorPhraseCoordiantorStore(
+            speechToTextStore: i<SpeechToTextStore>(),
+            widgetStore: i<CustomWidgetsTrackerStore>(),
           ),
         ),
       ];
@@ -99,9 +105,11 @@ class P2PCollaboratorPoolModule extends Module {
         ChildRoute(
           "/",
           child: (context, args) => SpeakTheCollaboratorPhraseScreen(
-            speechToTextStore: Modular.get<SpeechToTextStore>(),
-            widgetsTrackerStore: Modular.get<
-                SpeakTheCollaboratorPhraseCustomWidgetsTrackerStore>(),
+            coordinatorStore:
+                Modular.get<SpeakTheCollaboratorPhraseCoordiantorStore>(),
+            // speechToTextStore: Modular.get<SpeechToTextStore>(),
+            // widgetsTrackerStore: Modular.get<
+            //     SpeakTheCollaboratorPhraseCustomWidgetsTrackerStore>(),
             startingWaveMovement: args.data,
             supabase: Modular.get<SupabaseClient>(),
           ),

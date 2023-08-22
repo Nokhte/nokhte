@@ -10,18 +10,17 @@ import 'package:primala/app/core/widgets/breathing_pentagons/stack/presentation/
 import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/types/gestures.dart';
 import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/presentation/mobx/smart_fading_animated_text_tracker_store.dart';
 // * Mobx Codegen Inclusion
-part 'speak_the_collaborator_phrase_custom_widgets_tracker_store.g.dart';
+part 'custom_widgets_tracker_store.g.dart';
 
-class SpeakTheCollaboratorPhraseCustomWidgetsTrackerStore = _SpeakTheCollaboratorPhraseCustomWidgetsTrackerStoreBase
-    with _$SpeakTheCollaboratorPhraseCustomWidgetsTrackerStore;
+class CustomWidgetsTrackerStore = _CustomWidgetsTrackerStoreBase
+    with _$CustomWidgetsTrackerStore;
 
-abstract class _SpeakTheCollaboratorPhraseCustomWidgetsTrackerStoreBase
-    extends Equatable with Store {
+abstract class _CustomWidgetsTrackerStoreBase extends Equatable with Store {
   final SmartFadingAnimatedTextTrackerStore smartFadingAnimatedTextStore;
   final BreathingPentagonsStateTrackerStore breathingPentagonsStore;
   final BeachWavesTrackerStore beachWavesStore;
 
-  _SpeakTheCollaboratorPhraseCustomWidgetsTrackerStoreBase({
+  _CustomWidgetsTrackerStoreBase({
     required this.smartFadingAnimatedTextStore,
     required this.breathingPentagonsStore,
     required this.beachWavesStore,

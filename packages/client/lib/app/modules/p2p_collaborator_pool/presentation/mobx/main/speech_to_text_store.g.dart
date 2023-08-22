@@ -97,30 +97,28 @@ mixin _$SpeechToTextStore on _SpeechToTextStoreBase, Store {
     });
   }
 
-  late final _$callInitSpeechAsyncAction =
-      AsyncAction('_SpeechToTextStoreBase.callInitSpeech', context: context);
+  late final _$initSpeechAsyncAction =
+      AsyncAction('_SpeechToTextStoreBase.initSpeech', context: context);
 
   @override
-  Future<void> callInitSpeech() {
-    return _$callInitSpeechAsyncAction.run(() => super.callInitSpeech());
+  Future<void> initSpeech() {
+    return _$initSpeechAsyncAction.run(() => super.initSpeech());
   }
 
-  late final _$callStartListeningAsyncAction = AsyncAction(
-      '_SpeechToTextStoreBase.callStartListening',
-      context: context);
+  late final _$startListeningAsyncAction =
+      AsyncAction('_SpeechToTextStoreBase.startListening', context: context);
 
   @override
-  Future<void> callStartListening() {
-    return _$callStartListeningAsyncAction
-        .run(() => super.callStartListening());
+  Future<void> startListening() {
+    return _$startListeningAsyncAction.run(() => super.startListening());
   }
 
-  late final _$callStopListeningAsyncAction =
-      AsyncAction('_SpeechToTextStoreBase.callStopListening', context: context);
+  late final _$stopListeningAsyncAction =
+      AsyncAction('_SpeechToTextStoreBase.stopListening', context: context);
 
   @override
-  Future<void> callStopListening() {
-    return _$callStopListeningAsyncAction.run(() => super.callStopListening());
+  Future<void> stopListening() {
+    return _$stopListeningAsyncAction.run(() => super.stopListening());
   }
 
   @override

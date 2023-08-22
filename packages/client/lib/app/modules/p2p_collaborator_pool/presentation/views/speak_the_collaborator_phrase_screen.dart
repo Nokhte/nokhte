@@ -13,18 +13,21 @@ import 'package:swipe/swipe.dart';
 
 class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
   final SupabaseClient supabase;
-  final SpeakTheCollaboratorPhraseCustomWidgetsTrackerStore widgetsTrackerStore;
-  final SpeechToTextStore speechToTextStore;
+  // final SpeakTheCollaboratorPhraseCustomWidgetsTrackerStore widgetsTrackerStore;
+  final SpeakTheCollaboratorPhraseCoordiantorStore coordinatorStore;
+  // final SpeechToTextStore speechToTextStore;
   final double startingWaveMovement;
 
   SpeakTheCollaboratorPhraseScreen({
     Key? key,
     required this.supabase,
-    required this.widgetsTrackerStore,
+    required this.coordinatorStore,
+    // required this.widgetsTrackerStore,
     required this.startingWaveMovement,
-    required this.speechToTextStore,
+    // required this.speechToTextStore,
   }) : super(key: key) {
-    widgetsTrackerStore.beachWavesStore
+    coordinatorStore.speechToTextStore.initSpeech();
+    coordinatorStore.widgetStore.beachWavesStore
         .teeOceanDiveMovieUp(startingWaterMovement: startingWaveMovement);
   }
 
@@ -40,13 +43,14 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
           body: Stack(
             children: [
               Swipe(
-                onSwipeDown: () =>
-                    widgetsTrackerStore.collaboratorPhraseSwipeDownCallback(),
+                onSwipeDown: () => coordinatorStore.widgetStore
+                    .collaboratorPhraseSwipeDownCallback(),
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   child: SmartBeachWaves(
-                    stateTrackerStore: widgetsTrackerStore.beachWavesStore,
+                    stateTrackerStore:
+                        coordinatorStore.widgetStore.beachWavesStore,
                   ),
                 ),
               ),
@@ -59,20 +63,10 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                         Container(), // Empty SizedBox to take up available space
                   ),
                   GestureDetector(
-                    // onLongPressStart: (_) => widgetsTrackerStore
-                    //     .breathingPentagonsStore
-                    //     .gestureFunctionRouter(),
-
-                    // onLongPressEnd: (_) => widgetsTrackerStore
-                    //     .breathingPentagonsStore
-                    //     .gestureFunctionRouter(),
                     onLongPressStart: (_) =>
-                        widgetsTrackerStore.breathingPentagonsHoldCallback(),
-
+                        coordinatorStore.breathingPentagonsHoldStartCallback(),
                     onLongPressEnd: (_) =>
-                        widgetsTrackerStore.breathingPentagonsHoldCallback(),
-
-                    // onTap: () => breathingPentagonsStateTrackerStore .gestureFunctionRouter(),
+                        coordinatorStore.breathingPentagonsHoldEndCallback(),
                     child: Container(
                       height: size.height,
                       width: size.width,
@@ -83,8 +77,8 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                           fadeInDelay: const Duration(seconds: 4),
                           fadeInDuration: const Duration(seconds: 4),
                           size: size,
-                          stateTrackerStore:
-                              widgetsTrackerStore.breathingPentagonsStore,
+                          stateTrackerStore: coordinatorStore
+                              .widgetStore.breathingPentagonsStore,
                         ),
                       ),
                     ),
@@ -100,7 +94,7 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                   child: SmartFadingAnimatedText(
                 initialFadeInDelay: const Duration(seconds: 3),
                 stateTrackerStore:
-                    widgetsTrackerStore.smartFadingAnimatedTextStore,
+                    coordinatorStore.widgetStore.smartFadingAnimatedTextStore,
               )),
             ],
           ),

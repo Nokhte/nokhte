@@ -84,7 +84,7 @@ abstract class _SpeechToTextStoreBase extends BaseMobxDBStore with Store {
   }
 
   @action
-  Future<void> callInitSpeech() async {
+  Future<void> initSpeech() async {
     state = StoreState.loading;
     speechToTextInitFutureStore.entityOrFailureFuture = ObservableFuture(
       initSpeechToTextGetterStore(),
@@ -98,7 +98,7 @@ abstract class _SpeechToTextStoreBase extends BaseMobxDBStore with Store {
   }
 
   @action
-  Future<void> callStartListening() async {
+  Future<void> startListening() async {
     state = StoreState.loading;
     startListeningFutureStore.entityOrFailureFuture = ObservableFuture(
       startListeningGetterStore(),
@@ -112,7 +112,7 @@ abstract class _SpeechToTextStoreBase extends BaseMobxDBStore with Store {
   }
 
   @action
-  Future<void> callStopListening() async {
+  Future<void> stopListening() async {
     state = StoreState.loading;
     startListeningFutureStore.entityOrFailureFuture = ObservableFuture(
       startListeningGetterStore(),
