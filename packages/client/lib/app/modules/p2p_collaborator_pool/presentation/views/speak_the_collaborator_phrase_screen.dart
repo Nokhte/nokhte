@@ -63,10 +63,16 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                         Container(), // Empty SizedBox to take up available space
                   ),
                   GestureDetector(
-                    onLongPressStart: (_) =>
-                        coordinatorStore.breathingPentagonsHoldStartCallback(),
-                    onLongPressEnd: (_) =>
-                        coordinatorStore.breathingPentagonsHoldEndCallback(),
+                    onLongPressStart: (_) {
+                      coordinatorStore.breathingPentagonsHoldStartCallback();
+                      // coordinatorStore.onSpeechResultStore
+                      //     .setSpeechResult(result: "");
+                    },
+                    onLongPressEnd: (_) {
+                      coordinatorStore.breathingPentagonsHoldEndCallback();
+                      coordinatorStore.onSpeechResultStore
+                          .setSpeechResult(result: "");
+                    },
                     child: Container(
                       height: size.height,
                       width: size.width,
@@ -93,8 +99,8 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
               Observer(builder: (context) {
                 if (coordinatorStore
                     .onSpeechResultStore.speechResult.isNotEmpty) {
-                  // print(
-                  //     "IT Works here is the word ${coordinatorStore.onSpeechResultStore.speechResult}");
+                  print(
+                      "IT Works here is the word ${coordinatorStore.onSpeechResultStore.speechResult}");
                   coordinatorStore.widgetStore.smartFadingAnimatedTextStore
                       .setMainMessage(
                     index: 2,

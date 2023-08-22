@@ -38,7 +38,9 @@ abstract class _CustomWidgetsTrackerStoreBase extends Equatable with Store {
   @action
   breathingPentagonsHoldCallback() {
     breathingPentagonsStore.gestureFunctionRouter();
+    // if (smartFadingAnimatedTextStore.currentIndex != 2) {
     smartFadingAnimatedTextStore.togglePause(gestureType: Gestures.hold);
+    // }
   }
 
   @override
