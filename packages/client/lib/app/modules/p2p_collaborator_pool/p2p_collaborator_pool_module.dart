@@ -1,23 +1,79 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:primala/app/core/network/network_info.dart';
 import 'package:primala/app/core/widgets/beach_waves/stack/presentation/mobx/beach_waves_tracker_store.dart';
 import 'package:primala/app/core/widgets/breathing_pentagons/stack/presentation/mobx/main/breathing_pentagons_state_tracker_store.dart';
 import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
 import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/presentation/mobx/smart_fading_animated_text_tracker_store.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/main/speak_the_collaborator_phrase_custom_widgets_tracker_store.dart';
+import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
+import 'package:primala/app/modules/p2p_collaborator_pool/domain/domain.dart';
+import 'package:primala/app/modules/p2p_collaborator_pool/data/data.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/views/speak_the_collaborator_phrase_screen.dart';
+import 'package:speech_to_text/speech_to_text.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class P2PCollaboratorPoolModule extends Module {
   @override
   List<Bind> get binds => [
+        Bind.singleton<SpeechToText>((i) => SpeechToText()),
         // & Remote Source
+        Bind.singleton<P2PCollaboratorPoolRemoteSourceImpl>(
+          (i) => P2PCollaboratorPoolRemoteSourceImpl(
+            speechToText: i<SpeechToText>(),
+            supabase: Modular.get<SupabaseClient>(),
+          ),
+        ),
         // & Contract Implementation
+        Bind.singleton<P2PCollaboratorPoolContractImpl>(
+          (i) => P2PCollaboratorPoolContractImpl(
+            remoteSource: i<P2PCollaboratorPoolRemoteSourceImpl>(),
+            networkInfo: Modular.get<NetworkInfo>(),
+          ),
+        ),
         // & Logic
+        Bind.singleton<InitiateSpeechToText>(
+          (i) => InitiateSpeechToText(
+            contract: i<P2PCollaboratorPoolContract>(),
+          ),
+        ),
+        Bind.singleton<StartListening>(
+          (i) => StartListening(
+            contract: i<P2PCollaboratorPoolContract>(),
+          ),
+        ),
+        Bind.singleton<StopListening>(
+          (i) => StopListening(
+            contract: i<P2PCollaboratorPoolContract>(),
+          ),
+        ),
         // & MobX Getter Stores
+        Bind.singleton<InitiateSpeechToTextGetterStore>(
+          (i) => InitiateSpeechToTextGetterStore(
+            initSpeechLogic: i<InitiateSpeechToText>(),
+          ),
+        ),
+        Bind.singleton<StartListeningGetterStore>(
+          (i) => StartListeningGetterStore(
+            startListeningLogic: i<StartListening>(),
+          ),
+        ),
+        Bind.singleton<StopListeningGetterStore>(
+          (i) => StopListeningGetterStore(
+            stopListeningLogic: i<StopListening>(),
+          ),
+        ),
         // & Widget State Management Stores
-        Bind.singleton<SmartFadingAnimatedTextTrackerStore>((i) =>
-            SmartFadingAnimatedTextTrackerStore(
-                messagesData: MessagesData.speakTheCollaboratorPhraseList)),
+        Bind.singleton<SpeechToTextStore>(
+          (i) => SpeechToTextStore(
+            initSpeechToTextGetterStore: i<InitiateSpeechToTextGetterStore>(),
+            startListeningGetterStore: i<StartListeningGetterStore>(),
+            stopListeningGetterStore: i<StopListeningGetterStore>(),
+          ),
+        ),
+        Bind.singleton<SmartFadingAnimatedTextTrackerStore>(
+          (i) => SmartFadingAnimatedTextTrackerStore(
+            messagesData: MessagesData.speakTheCollaboratorPhraseList,
+          ),
+        ),
         Bind.singleton<BreathingPentagonsStateTrackerStore>(
           (i) => BreathingPentagonsStateTrackerStore(),
         ),
@@ -43,6 +99,7 @@ class P2PCollaboratorPoolModule extends Module {
         ChildRoute(
           "/",
           child: (context, args) => SpeakTheCollaboratorPhraseScreen(
+            speechToTextStore: Modular.get<SpeechToTextStore>(),
             widgetsTrackerStore: Modular.get<
                 SpeakTheCollaboratorPhraseCustomWidgetsTrackerStore>(),
             startingWaveMovement: args.data,

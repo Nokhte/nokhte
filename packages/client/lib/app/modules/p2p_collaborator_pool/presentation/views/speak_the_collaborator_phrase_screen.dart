@@ -6,7 +6,7 @@ import 'package:flutter/material.dart' hide AnimationStatus;
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/canvas_widget_utils/canvas_size_calculator.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/main/speak_the_collaborator_phrase_custom_widgets_tracker_store.dart';
+import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:swipe/swipe.dart';
 // import 'package:flutter_modular/flutter_modular.dart';
@@ -14,6 +14,7 @@ import 'package:swipe/swipe.dart';
 class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
   final SupabaseClient supabase;
   final SpeakTheCollaboratorPhraseCustomWidgetsTrackerStore widgetsTrackerStore;
+  final SpeechToTextStore speechToTextStore;
   final double startingWaveMovement;
 
   SpeakTheCollaboratorPhraseScreen({
@@ -21,6 +22,7 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
     required this.supabase,
     required this.widgetsTrackerStore,
     required this.startingWaveMovement,
+    required this.speechToTextStore,
   }) : super(key: key) {
     widgetsTrackerStore.beachWavesStore
         .teeOceanDiveMovieUp(startingWaterMovement: startingWaveMovement);
