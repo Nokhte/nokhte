@@ -52,7 +52,7 @@ class MessagesData {
           subMessage: "",
           pauseHere: false,
           unlockGesture: Gestures.none,
-          extraDelayTime: const Duration(seconds: 1),
+          extraDelayTime: const Duration(seconds: 0),
         ),
         RotatingTextData(
           mainMessage: "",
