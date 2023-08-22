@@ -221,13 +221,12 @@ mixin _$SmartFadingAnimatedTextTrackerStore
   }
 
   @override
-  dynamic setCollaboratorPhrase({required String thePhrase}) {
+  dynamic setMainMessage({required int index, required String thePhrase}) {
     final _$actionInfo =
         _$_SmartFadingAnimatedTextTrackerStoreBaseActionController.startAction(
-            name:
-                '_SmartFadingAnimatedTextTrackerStoreBase.setCollaboratorPhrase');
+            name: '_SmartFadingAnimatedTextTrackerStoreBase.setMainMessage');
     try {
-      return super.setCollaboratorPhrase(thePhrase: thePhrase);
+      return super.setMainMessage(index: index, thePhrase: thePhrase);
     } finally {
       _$_SmartFadingAnimatedTextTrackerStoreBaseActionController
           .endAction(_$actionInfo);

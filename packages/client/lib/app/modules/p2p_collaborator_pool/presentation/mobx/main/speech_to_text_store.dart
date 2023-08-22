@@ -114,13 +114,13 @@ abstract class _SpeechToTextStoreBase extends BaseMobxDBStore with Store {
   @action
   Future<void> stopListening() async {
     state = StoreState.loading;
-    startListeningFutureStore.entityOrFailureFuture = ObservableFuture(
-      startListeningGetterStore(),
+    stopListeningFutureStore.entityOrFailureFuture = ObservableFuture(
+      stopListeningGetterStore(),
     );
-    startListeningFutureStore.unwrappedEntityOrFailure =
-        await startListeningFutureStore.entityOrFailureFuture;
+    stopListeningFutureStore.unwrappedEntityOrFailure =
+        await stopListeningFutureStore.entityOrFailureFuture;
     listeningStateOrErrorUpdater(
-      startListeningFutureStore.unwrappedEntityOrFailure,
+      stopListeningFutureStore.unwrappedEntityOrFailure,
     );
     state = StoreState.loaded;
   }

@@ -1,3 +1,4 @@
+import 'package:primala/app/modules/p2p_collaborator_pool/domain/logic/logic.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:primala_backend/phrase_components.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -9,8 +10,6 @@ abstract class P2PCollaboratorPoolRemoteSource {
 
   Future stopListening();
 
-  // Future onSpeechResult(SpeechRecognitionResult result);
-
   Future<List> validateQuery({required String query});
 }
 
@@ -18,10 +17,12 @@ class P2PCollaboratorPoolRemoteSourceImpl
     implements P2PCollaboratorPoolRemoteSource {
   final SpeechToText speechToText;
   final SupabaseClient supabase;
+  final OnSpeechResult onSpeechResult;
 
   P2PCollaboratorPoolRemoteSourceImpl({
     required this.speechToText,
     required this.supabase,
+    required this.onSpeechResult,
   });
 
   @override
@@ -32,12 +33,15 @@ class P2PCollaboratorPoolRemoteSourceImpl
   @override
   Future startListening() async {
     await speechToText.listen(
-        onResult: (result) => {print("result ==> $result")});
+      onResult: (result) => onSpeechResult(result),
+    );
+    return true;
   }
 
   @override
   Future stopListening() async {
     await speechToText.stop();
+    return true;
   }
 
   @override

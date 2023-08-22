@@ -54,6 +54,13 @@ class MessagesData {
           unlockGesture: Gestures.none,
           extraDelayTime: const Duration(seconds: 0),
         ),
+        RotatingTextData(
+          mainMessage: "",
+          subMessage: "",
+          pauseHere: true,
+          unlockGesture: Gestures.none,
+          extraDelayTime: const Duration(seconds: 0),
+        ),
       ];
   static List<RotatingTextData> get collaboratorPoolList => [
         RotatingTextData(

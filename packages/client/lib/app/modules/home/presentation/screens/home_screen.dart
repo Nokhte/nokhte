@@ -49,7 +49,8 @@ class _HomeScreenState extends State<HomeScreen> {
     Future.delayed(const Duration(seconds: 1), () async {
       await addNameToDatabaseStore(NoParams());
       await getCollaboratorPhraseStore(NoParams()).then((_) {
-        fadingTextStateTrackerStore.setCollaboratorPhrase(
+        fadingTextStateTrackerStore.setMainMessage(
+          index: 2,
           thePhrase: getCollaboratorPhraseStore.collaboratorPhrase,
         );
       });

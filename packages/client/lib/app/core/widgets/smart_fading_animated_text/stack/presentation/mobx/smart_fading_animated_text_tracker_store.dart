@@ -122,8 +122,8 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
   }
 
   @action
-  setCollaboratorPhrase({required String thePhrase}) {
-    messagesData[2].mainMessage = thePhrase;
+  setMainMessage({required int index, required String thePhrase}) {
+    messagesData[index].mainMessage = thePhrase;
   }
 
   @action

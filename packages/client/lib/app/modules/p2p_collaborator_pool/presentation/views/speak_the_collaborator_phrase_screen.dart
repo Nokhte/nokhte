@@ -2,6 +2,7 @@
 // ignore_for_file: sized_box_for_whitespace
 
 import 'package:flutter/material.dart' hide AnimationStatus;
+import 'package:flutter_mobx/flutter_mobx.dart';
 // import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/canvas_widget_utils/canvas_size_calculator.dart';
@@ -14,7 +15,7 @@ import 'package:swipe/swipe.dart';
 class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
   final SupabaseClient supabase;
   // final SpeakTheCollaboratorPhraseCustomWidgetsTrackerStore widgetsTrackerStore;
-  final SpeakTheCollaboratorPhraseCoordiantorStore coordinatorStore;
+  final SpeakTheCollaboratorPhraseCoordinatorStore coordinatorStore;
   // final SpeechToTextStore speechToTextStore;
   final double startingWaveMovement;
 
@@ -54,42 +55,46 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              // Observer(builder: (context) {
-              //   return
-              Column(
-                children: [
-                  Expanded(
-                    child:
-                        Container(), // Empty SizedBox to take up available space
-                  ),
-                  GestureDetector(
-                    onLongPressStart: (_) =>
-                        coordinatorStore.breathingPentagonsHoldStartCallback(),
-                    onLongPressEnd: (_) =>
-                        coordinatorStore.breathingPentagonsHoldEndCallback(),
-                    child: Container(
-                      height: size.height,
-                      width: size.width,
-                      child: Center(
-                        widthFactor: 1.0,
-                        heightFactor: 1.0,
-                        child: BreathingPentagonsButton(
-                          fadeInDelay: const Duration(seconds: 4),
-                          fadeInDuration: const Duration(seconds: 4),
-                          size: size,
-                          stateTrackerStore: coordinatorStore
-                              .widgetStore.breathingPentagonsStore,
+              Observer(builder: (context) {
+                if (coordinatorStore
+                    .onSpeechResultStore.speechResult.isNotEmpty) {
+                  print(
+                      "IT Works here is the word ${coordinatorStore.onSpeechResultStore.speechResult}");
+                }
+                return Column(
+                  children: [
+                    Expanded(
+                      child:
+                          Container(), // Empty SizedBox to take up available space
+                    ),
+                    GestureDetector(
+                      onLongPressStart: (_) => coordinatorStore
+                          .breathingPentagonsHoldStartCallback(),
+                      onLongPressEnd: (_) =>
+                          coordinatorStore.breathingPentagonsHoldEndCallback(),
+                      child: Container(
+                        height: size.height,
+                        width: size.width,
+                        child: Center(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: BreathingPentagonsButton(
+                            fadeInDelay: const Duration(seconds: 4),
+                            fadeInDuration: const Duration(seconds: 4),
+                            size: size,
+                            stateTrackerStore: coordinatorStore
+                                .widgetStore.breathingPentagonsStore,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 40),
-                  ),
-                ],
-              ),
-              // );
-              // }),
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 40),
+                    ),
+                  ],
+                  // ),
+                );
+              }),
               Center(
                   child: SmartFadingAnimatedText(
                 initialFadeInDelay: const Duration(seconds: 3),

@@ -14,10 +14,48 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class P2PCollaboratorPoolModule extends Module {
   @override
   List<Bind> get binds => [
+        /// & Shared Speech To Text Instance
         Bind.singleton<SpeechToText>((i) => SpeechToText()),
+
+        /// ^^ What's going to change is that this will now be dependent on the
+        /// ^^ coordinator store
+        ///Bind.singleton<SpeakTheCollaboratorPhraseCoordinatorStore>(
+        ///   (i) => SpeakTheCollaboratorPhraseCoordinatorStore(
+        ///     onSpeechResultStore: i<OnSpeechResultStore>(),
+        ///     speechToTextStore: i<SpeechToTextStore>(),
+        ///     widgetStore: i<CustomWidgetsTrackerStore>(),
+        ///   ),
+        /// ),
+        /// So here is what would change about that bind:
+        ///Bind.singleton<SpeakTheCollaboratorPhraseCoordinatorStore>(
+        ///   (i) => SpeakTheCollaboratorPhraseCoordinatorStore(
+        ///     speechToTextStore: i<SpeechToTextStore>(), ===> normal call stack dependency list
+        ///     widgetStore: i<CustomWidgetsTrackerStore>(), ===> no deps
+        ///   ),
+        /// ),
+        /// i guess a solution here would be to have the speechToText stack & widget & widget aggregator stores before the coordinator store
+        /// then instantiate the coordinator store
+
+        /// I think it would be easier to separate the on speech result out into
+
+        /// % Inverted Call Hierarchy START
+        /// # Mobx Mother Stores
+        Bind.singleton<OnSpeechResultStore>(
+          (i) => OnSpeechResultStore(),
+        ),
+
+        /// # Logic
+        Bind.singleton<OnSpeechResult>(
+          (i) => OnSpeechResult(
+            speechResultStore: i<OnSpeechResultStore>(),
+          ),
+        ),
+
+        /// % Inverted Call Hierarchy END
         // & Remote Source
         Bind.singleton<P2PCollaboratorPoolRemoteSourceImpl>(
           (i) => P2PCollaboratorPoolRemoteSourceImpl(
+            onSpeechResult: i<OnSpeechResult>(),
             speechToText: i<SpeechToText>(),
             supabase: Modular.get<SupabaseClient>(),
           ),
@@ -89,8 +127,9 @@ class P2PCollaboratorPoolModule extends Module {
             beachWavesStore: i<BeachWavesTrackerStore>(),
           ),
         ),
-        Bind.singleton<SpeakTheCollaboratorPhraseCoordiantorStore>(
-          (i) => SpeakTheCollaboratorPhraseCoordiantorStore(
+        Bind.singleton<SpeakTheCollaboratorPhraseCoordinatorStore>(
+          (i) => SpeakTheCollaboratorPhraseCoordinatorStore(
+            onSpeechResultStore: i<OnSpeechResultStore>(),
             speechToTextStore: i<SpeechToTextStore>(),
             widgetStore: i<CustomWidgetsTrackerStore>(),
           ),
@@ -106,10 +145,7 @@ class P2PCollaboratorPoolModule extends Module {
           "/",
           child: (context, args) => SpeakTheCollaboratorPhraseScreen(
             coordinatorStore:
-                Modular.get<SpeakTheCollaboratorPhraseCoordiantorStore>(),
-            // speechToTextStore: Modular.get<SpeechToTextStore>(),
-            // widgetsTrackerStore: Modular.get<
-            //     SpeakTheCollaboratorPhraseCustomWidgetsTrackerStore>(),
+                Modular.get<SpeakTheCollaboratorPhraseCoordinatorStore>(),
             startingWaveMovement: args.data,
             supabase: Modular.get<SupabaseClient>(),
           ),
