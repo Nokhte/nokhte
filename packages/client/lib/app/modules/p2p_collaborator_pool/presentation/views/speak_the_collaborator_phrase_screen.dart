@@ -55,52 +55,60 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Observer(builder: (context) {
-                if (coordinatorStore
-                    .onSpeechResultStore.speechResult.isNotEmpty) {
-                  print(
-                      "IT Works here is the word ${coordinatorStore.onSpeechResultStore.speechResult}");
-                }
-                return Column(
-                  children: [
-                    Expanded(
-                      child:
-                          Container(), // Empty SizedBox to take up available space
-                    ),
-                    GestureDetector(
-                      onLongPressStart: (_) => coordinatorStore
-                          .breathingPentagonsHoldStartCallback(),
-                      onLongPressEnd: (_) =>
-                          coordinatorStore.breathingPentagonsHoldEndCallback(),
-                      child: Container(
-                        height: size.height,
-                        width: size.width,
-                        child: Center(
-                          widthFactor: 1.0,
-                          heightFactor: 1.0,
-                          child: BreathingPentagonsButton(
-                            fadeInDelay: const Duration(seconds: 4),
-                            fadeInDuration: const Duration(seconds: 4),
-                            size: size,
-                            stateTrackerStore: coordinatorStore
-                                .widgetStore.breathingPentagonsStore,
-                          ),
+              // Observer(builder: (context) { return
+              Column(
+                children: [
+                  Expanded(
+                    child:
+                        Container(), // Empty SizedBox to take up available space
+                  ),
+                  GestureDetector(
+                    onLongPressStart: (_) =>
+                        coordinatorStore.breathingPentagonsHoldStartCallback(),
+                    onLongPressEnd: (_) =>
+                        coordinatorStore.breathingPentagonsHoldEndCallback(),
+                    child: Container(
+                      height: size.height,
+                      width: size.width,
+                      child: Center(
+                        widthFactor: 1.0,
+                        heightFactor: 1.0,
+                        child: BreathingPentagonsButton(
+                          fadeInDelay: const Duration(seconds: 4),
+                          fadeInDuration: const Duration(seconds: 4),
+                          size: size,
+                          stateTrackerStore: coordinatorStore
+                              .widgetStore.breathingPentagonsStore,
                         ),
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(bottom: 40),
-                    ),
-                  ],
-                  // ),
-                );
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 40),
+                  ),
+                ],
+              ),
+              //   );
+              // }),
+              Observer(builder: (context) {
+                if (coordinatorStore
+                    .onSpeechResultStore.speechResult.isNotEmpty) {
+                  // print(
+                  //     "IT Works here is the word ${coordinatorStore.onSpeechResultStore.speechResult}");
+                  coordinatorStore.widgetStore.smartFadingAnimatedTextStore
+                      .setMainMessage(
+                    index: 2,
+                    thePhrase:
+                        coordinatorStore.onSpeechResultStore.speechResult,
+                  );
+                }
+                return Center(
+                    child: SmartFadingAnimatedText(
+                  initialFadeInDelay: const Duration(seconds: 3),
+                  stateTrackerStore:
+                      coordinatorStore.widgetStore.smartFadingAnimatedTextStore,
+                ));
               }),
-              Center(
-                  child: SmartFadingAnimatedText(
-                initialFadeInDelay: const Duration(seconds: 3),
-                stateTrackerStore:
-                    coordinatorStore.widgetStore.smartFadingAnimatedTextStore,
-              )),
             ],
           ),
         );
