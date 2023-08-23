@@ -24,17 +24,13 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
 
   @action
   breathingPentagonsHoldStartCallback() {
-    widgetStore.breathingPentagonsHoldCallback();
+    widgetStore.breathingPentagonsHoldCallback(isHoldStart: true);
     speechToTextStore.startListening();
-    // widgetStore.smartFadingAnimatedTextStore.setMainMessage(
-    //   index: 2,
-    //   thePhrase: "",
-    // );
   }
 
   @action
   breathingPentagonsHoldEndCallback() {
-    widgetStore.breathingPentagonsHoldCallback();
+    widgetStore.breathingPentagonsHoldCallback(isHoldStart: false);
     speechToTextStore.stopListening();
   }
 

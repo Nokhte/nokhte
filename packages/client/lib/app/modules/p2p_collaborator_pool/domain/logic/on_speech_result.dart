@@ -8,9 +8,7 @@ class OnSpeechResult {
 
   // @override
   void call(SpeechRecognitionResult params) {
-    /// * TODO we are probably missing some error handling queues here, so come
-    /// * back if it flips out later
     final collaboratorPhrase = params.recognizedWords;
-    speechResultStore.setSpeechResult(result: collaboratorPhrase);
+    speechResultStore.addSpeechResult(result: collaboratorPhrase);
   }
 }

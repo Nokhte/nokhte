@@ -33,13 +33,23 @@ mixin _$SmartFadingAnimatedTextTrackerStore
               name:
                   '_SmartFadingAnimatedTextTrackerStoreBase.currentUnlockGesture'))
       .value;
-  Computed<String>? _$currentMainTextComputed;
+
+  late final _$isInfiniteAtom = Atom(
+      name: '_SmartFadingAnimatedTextTrackerStoreBase.isInfinite',
+      context: context);
 
   @override
-  String get currentMainText => (_$currentMainTextComputed ??= Computed<String>(
-          () => super.currentMainText,
-          name: '_SmartFadingAnimatedTextTrackerStoreBase.currentMainText'))
-      .value;
+  bool get isInfinite {
+    _$isInfiniteAtom.reportRead();
+    return super.isInfinite;
+  }
+
+  @override
+  set isInfinite(bool value) {
+    _$isInfiniteAtom.reportWrite(value, super.isInfinite, () {
+      super.isInfinite = value;
+    });
+  }
 
   late final _$showTextAtom = Atom(
       name: '_SmartFadingAnimatedTextTrackerStoreBase.showText',
@@ -140,6 +150,23 @@ mixin _$SmartFadingAnimatedTextTrackerStore
   set currentSubText(String value) {
     _$currentSubTextAtom.reportWrite(value, super.currentSubText, () {
       super.currentSubText = value;
+    });
+  }
+
+  late final _$currentMainTextAtom = Atom(
+      name: '_SmartFadingAnimatedTextTrackerStoreBase.currentMainText',
+      context: context);
+
+  @override
+  String get currentMainText {
+    _$currentMainTextAtom.reportRead();
+    return super.currentMainText;
+  }
+
+  @override
+  set currentMainText(String value) {
+    _$currentMainTextAtom.reportWrite(value, super.currentMainText, () {
+      super.currentMainText = value;
     });
   }
 
@@ -249,17 +276,18 @@ mixin _$SmartFadingAnimatedTextTrackerStore
   @override
   String toString() {
     return '''
+isInfinite: ${isInfinite},
 showText: ${showText},
 isPaused: ${isPaused},
 hasJustBeenUnPaused: ${hasJustBeenUnPaused},
 inProgress: ${inProgress},
 currentIndex: ${currentIndex},
 currentSubText: ${currentSubText},
+currentMainText: ${currentMainText},
 status: ${status},
 shouldPauseHere: ${shouldPauseHere},
 currentExtraDelayTime: ${currentExtraDelayTime},
-currentUnlockGesture: ${currentUnlockGesture},
-currentMainText: ${currentMainText}
+currentUnlockGesture: ${currentUnlockGesture}
     ''';
   }
 }

@@ -16,7 +16,13 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
     with Store {
   List<RotatingTextData> messagesData = [];
 
-  _SmartFadingAnimatedTextTrackerStoreBase({required this.messagesData});
+  _SmartFadingAnimatedTextTrackerStoreBase(
+      {required this.messagesData, required this.isInfinite})
+      : currentMainText = messagesData[0].mainMessage,
+        currentSubText = messagesData[0].subMessage;
+
+  @observable
+  bool isInfinite = false;
 
   @observable
   bool showText = false;
@@ -37,6 +43,9 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
   String currentSubText = "";
 
   @observable
+  String currentMainText = "";
+
+  @observable
   FadingTextStatus status = FadingTextStatus.fadingOut;
 
   oneSecondDelay(Function body) async {
@@ -55,16 +64,6 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
     showText = true;
   }
 
-  decideToPauseOrFadeOut() async {
-    if (shouldPauseHere) {
-      togglePause(gestureType: Gestures.none);
-      showText = true;
-    } else {
-      showText = false;
-      await oneSecondDelay(() => moveToNextMessage());
-    }
-  }
-
   decideToSkipOrMoveToNextMessage() {
     if (hasJustBeenUnPaused) {
       hasJustBeenUnPaused = !hasJustBeenUnPaused;
@@ -74,11 +73,57 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
     moveToNextMessage();
   }
 
+  addNewMessage({
+    required String mainMessage,
+    String subMessage = "",
+    bool pauseHere = true,
+    Gestures unlockGesture = Gestures.none,
+    Duration extraDelayTime = const Duration(seconds: 0),
+  }) {
+    messagesData.add(
+      RotatingTextData(
+          mainMessage: mainMessage,
+          subMessage: subMessage,
+          pauseHere: pauseHere,
+          unlockGesture: unlockGesture,
+          extraDelayTime: extraDelayTime),
+    );
+  }
+
+  addNewMessageInSecondToLastIndex({
+    required String mainMessage,
+    String subMessage = "",
+    bool pauseHere = true,
+    Gestures unlockGesture = Gestures.none,
+    Duration extraDelayTime = const Duration(seconds: 0),
+  }) {
+    messagesData.insert(
+      messagesData.length - 1,
+      RotatingTextData(
+          mainMessage: mainMessage,
+          subMessage: subMessage,
+          pauseHere: pauseHere,
+          unlockGesture: unlockGesture,
+          extraDelayTime: extraDelayTime),
+    );
+  }
+
   @action
   copyToClipboard() async {
     await FlutterClipboard.copy(messagesData[2].mainMessage);
     changeCurrrentSubMessage(message: "copied");
     // print("current sub text $currentSubText");
+  }
+
+  decideToPauseOrFadeOut() async {
+    if (shouldPauseHere) {
+      togglePause(gestureType: Gestures.none);
+      showText = true;
+    } else {
+      showText = false;
+      // if (currentIndex == messagesData.length - 1 && !isInfinite) return;
+      await oneSecondDelay(() => moveToNextMessage());
+    }
   }
 
   @action
@@ -93,8 +138,15 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
 
   @action
   startRotatingText() async {
+    // if (isInfinite) {
     while (!isPaused) {
       if (hasJustBeenUnPaused) {
+        print("$currentIndex ${messagesData.length - 1}");
+        // if (currentIndex == messagesData.length - 1 && !isInfinite) {
+        //   print("did the break happen");
+        //   break;
+        // }
+        // ;
         await oneSecondDelay(() => fadeTheTextOut());
         await oneSecondDelay(() => moveToNextMessage());
         hasJustBeenUnPaused = false;
@@ -102,8 +154,24 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
         await oneSecondDelay(() => fadeTheTextIn());
         await addADelay(currentExtraDelayTime);
         await oneSecondDelay(() => decideToPauseOrFadeOut());
+        // }
       }
     }
+    // } else if (!isInfinite) {
+    //   while (!isPaused
+    //       //  && currentIndex != messagesData.length - 1
+    //       ) {
+    //     if (hasJustBeenUnPaused) {
+    //       await oneSecondDelay(() => fadeTheTextOut());
+    //       await oneSecondDelay(() => moveToNextMessage());
+    //       hasJustBeenUnPaused = false;
+    //     } else {
+    //       await oneSecondDelay(() => fadeTheTextIn());
+    //       await addADelay(currentExtraDelayTime);
+    //       await oneSecondDelay(() => decideToPauseOrFadeOut());
+    //     }
+    //   }
+    // }
   }
 
   @action
@@ -128,8 +196,12 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
 
   @action
   void moveToNextMessage() {
-    // print("$currentIndex before");
-    currentIndex = (currentIndex + 1) % messagesData.length;
+    if (isInfinite) {
+      currentIndex = (currentIndex + 1) % messagesData.length;
+    } else if (currentIndex < messagesData.length - 1 && !isInfinite) {
+      currentIndex = currentIndex + 1;
+    }
+    currentMainText = messagesData[currentIndex].mainMessage;
     currentSubText = messagesData[currentIndex].subMessage;
   }
 
@@ -143,8 +215,8 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
   @computed
   Gestures get currentUnlockGesture => messagesData[currentIndex].unlockGesture;
 
-  @computed
-  String get currentMainText => messagesData[currentIndex].mainMessage;
+  // @computed
+  // String get currentMainText => messagesData[currentIndex].mainMessage;
 
   @override
   List<Object> get props => [

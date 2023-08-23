@@ -9,19 +9,51 @@ part of 'on_speech_result_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$OnSpeechResultStore on _OnSpeechResultStoreBase, Store {
-  late final _$speechResultAtom =
-      Atom(name: '_OnSpeechResultStoreBase.speechResult', context: context);
+  late final _$numberOfWordsAtom =
+      Atom(name: '_OnSpeechResultStoreBase.numberOfWords', context: context);
 
   @override
-  String get speechResult {
-    _$speechResultAtom.reportRead();
-    return super.speechResult;
+  int get numberOfWords {
+    _$numberOfWordsAtom.reportRead();
+    return super.numberOfWords;
   }
 
   @override
-  set speechResult(String value) {
-    _$speechResultAtom.reportWrite(value, super.speechResult, () {
-      super.speechResult = value;
+  set numberOfWords(int value) {
+    _$numberOfWordsAtom.reportWrite(value, super.numberOfWords, () {
+      super.numberOfWords = value;
+    });
+  }
+
+  late final _$currentPhraseIndexAtom = Atom(
+      name: '_OnSpeechResultStoreBase.currentPhraseIndex', context: context);
+
+  @override
+  int get currentPhraseIndex {
+    _$currentPhraseIndexAtom.reportRead();
+    return super.currentPhraseIndex;
+  }
+
+  @override
+  set currentPhraseIndex(int value) {
+    _$currentPhraseIndexAtom.reportWrite(value, super.currentPhraseIndex, () {
+      super.currentPhraseIndex = value;
+    });
+  }
+
+  late final _$currentSpeechResultAtom = Atom(
+      name: '_OnSpeechResultStoreBase.currentSpeechResult', context: context);
+
+  @override
+  String get currentSpeechResult {
+    _$currentSpeechResultAtom.reportRead();
+    return super.currentSpeechResult;
+  }
+
+  @override
+  set currentSpeechResult(String value) {
+    _$currentSpeechResultAtom.reportWrite(value, super.currentSpeechResult, () {
+      super.currentSpeechResult = value;
     });
   }
 
@@ -29,11 +61,11 @@ mixin _$OnSpeechResultStore on _OnSpeechResultStoreBase, Store {
       ActionController(name: '_OnSpeechResultStoreBase', context: context);
 
   @override
-  dynamic setSpeechResult({required String result}) {
+  dynamic addSpeechResult({required String result}) {
     final _$actionInfo = _$_OnSpeechResultStoreBaseActionController.startAction(
-        name: '_OnSpeechResultStoreBase.setSpeechResult');
+        name: '_OnSpeechResultStoreBase.addSpeechResult');
     try {
-      return super.setSpeechResult(result: result);
+      return super.addSpeechResult(result: result);
     } finally {
       _$_OnSpeechResultStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -42,7 +74,9 @@ mixin _$OnSpeechResultStore on _OnSpeechResultStoreBase, Store {
   @override
   String toString() {
     return '''
-speechResult: ${speechResult}
+numberOfWords: ${numberOfWords},
+currentPhraseIndex: ${currentPhraseIndex},
+currentSpeechResult: ${currentSpeechResult}
     ''';
   }
 }

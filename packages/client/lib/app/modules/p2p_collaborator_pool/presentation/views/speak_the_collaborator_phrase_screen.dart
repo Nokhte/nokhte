@@ -5,7 +5,10 @@ import 'package:flutter/material.dart' hide AnimationStatus;
 import 'package:flutter_mobx/flutter_mobx.dart';
 // import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:mobx/mobx.dart';
 import 'package:primala/app/core/canvas_widget_utils/canvas_size_calculator.dart';
+import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/types/gestures.dart';
+// import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/types/gestures.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -14,18 +17,14 @@ import 'package:swipe/swipe.dart';
 
 class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
   final SupabaseClient supabase;
-  // final SpeakTheCollaboratorPhraseCustomWidgetsTrackerStore widgetsTrackerStore;
   final SpeakTheCollaboratorPhraseCoordinatorStore coordinatorStore;
-  // final SpeechToTextStore speechToTextStore;
   final double startingWaveMovement;
 
   SpeakTheCollaboratorPhraseScreen({
     Key? key,
     required this.supabase,
     required this.coordinatorStore,
-    // required this.widgetsTrackerStore,
     required this.startingWaveMovement,
-    // required this.speechToTextStore,
   }) : super(key: key) {
     coordinatorStore.speechToTextStore.initSpeech();
     coordinatorStore.widgetStore.beachWavesStore
@@ -66,12 +65,12 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                     onLongPressStart: (_) {
                       coordinatorStore.breathingPentagonsHoldStartCallback();
                       // coordinatorStore.onSpeechResultStore
-                      //     .setSpeechResult(result: "");
+                      //     .addSpeechResult(result: "");
                     },
                     onLongPressEnd: (_) {
                       coordinatorStore.breathingPentagonsHoldEndCallback();
-                      coordinatorStore.onSpeechResultStore
-                          .setSpeechResult(result: "");
+                      // coordinatorStore.onSpeechResultStore
+                      //     .setSpeechResult(result: "");
                     },
                     child: Container(
                       height: size.height,
@@ -97,17 +96,38 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
               //   );
               // }),
               Observer(builder: (context) {
-                if (coordinatorStore
-                    .onSpeechResultStore.speechResult.isNotEmpty) {
-                  print(
-                      "IT Works here is the word ${coordinatorStore.onSpeechResultStore.speechResult}");
-                  coordinatorStore.widgetStore.smartFadingAnimatedTextStore
-                      .setMainMessage(
-                    index: 2,
-                    thePhrase:
-                        coordinatorStore.onSpeechResultStore.speechResult,
+                final onSpeechResStore = coordinatorStore.onSpeechResultStore;
+                // print(
+                //     "What's happening in the onSpeechRes Store ? ==> ${onSpeechResStore.currentSpeechResult} ${onSpeechResStore.currentSpeechResultIndex}");
+                final fadingTextStore =
+                    coordinatorStore.widgetStore.smartFadingAnimatedTextStore;
+                // final currentMsg = fadingTextStore
+                //     .messagesData[fadingTextStore.currentIndex].mainMessage;
+                reaction((p0) => onSpeechResStore.currentPhraseIndex, (p0) {
+                  // print("Is this reaction even working???? $p0");
+                  // if (onSpeechResStore.currentPhraseIndex == 1) {
+                  // so it lags behind 1 & then it starts cycling through
+                  // may be helpful to segment store into 2 modes
+                  fadingTextStore.togglePause(gestureType: Gestures.none);
+                  // infinite repeat and finite repeat...
+                  // }
+                  fadingTextStore.addNewMessageInSecondToLastIndex(
+                    mainMessage: onSpeechResStore.currentSpeechResult,
                   );
-                }
+
+                  // print("${fadingTextStore.messagesData}");
+                  // if (onSpeechResStore.currentPhraseIndex > 1) {
+                  //   // fadingTextStore.addNewMessageInSecondToLastIndex(
+                  //   //   mainMessage: onSpeechResStore.currentSpeechResult,
+                  //   // );
+                  //   // fadingTextStore.addNewMessage(
+                  //   //   mainMessage: "",
+                  //   // );
+                  //   fadingTextStore.togglePause(gestureType: Gestures.none);
+                  // }
+                });
+                // buggy behavior but works better, we definitely
+                // are closer
                 return Center(
                     child: SmartFadingAnimatedText(
                   initialFadeInDelay: const Duration(seconds: 3),

@@ -109,6 +109,7 @@ class P2PCollaboratorPoolModule extends Module {
         ),
         Bind.singleton<SmartFadingAnimatedTextTrackerStore>(
           (i) => SmartFadingAnimatedTextTrackerStore(
+            isInfinite: false,
             messagesData: MessagesData.speakTheCollaboratorPhraseList,
           ),
         ),

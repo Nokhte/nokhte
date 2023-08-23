@@ -9,14 +9,44 @@ part 'on_speech_result_store.g.dart';
 class OnSpeechResultStore = _OnSpeechResultStoreBase with _$OnSpeechResultStore;
 
 abstract class _OnSpeechResultStoreBase extends Equatable with Store {
-  @observable
-  String speechResult = "";
+  // @observable
+  // List<String> speechResults = [];
 
+  @observable
+  int numberOfWords = 0;
+
+  // this should be regulated in some way with a speech in progress enum
+  // this is only a temporary stand in solution this is not nearly as
+  // robust as it needs to be it should be able to let people know that
+  // phrases are only two words and display that they need to re-record
+
+  @observable
+  int currentPhraseIndex = 0;
+
+  // @observable
+  // int pastSpeechResultIndex = 0;
+
+  @observable
+  String currentSpeechResult = "";
+
+  /// the problem with this code is that it adds a new index
+  /// with each word, which is a problem?
+  // @action
+  // addSpeechResult({required String result}) {
+  //   print("WHATS HAPPENING IN THE STORE? $result");
+  //   speechResults.add(result);
+  //   currentSpeechResultIndex++;
+  //   currentSpeechResultIndex == 1 ? null : pastSpeechResultIndex++;
+  //   currentSpeechResult = speechResults[currentSpeechResultIndex];
+  // }
+  // called under the hood
   @action
-  setSpeechResult({required String result}) => speechResult = result;
+  addSpeechResult({required String result}) {
+    currentSpeechResult = result;
+    numberOfWords++;
+    if (numberOfWords % 2 == 0) currentPhraseIndex++;
+  }
 
   @override
   List<Object> get props => [];
 }
-
-/// so how is this injection scheme supposed to work exactly, let's say you have this all injected beforehand it still needs access

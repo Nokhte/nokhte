@@ -64,6 +64,7 @@ class HomeModule extends Module {
         // & Widget State Management Stores
         Bind.singleton<SmartFadingAnimatedTextTrackerStore>(
           (i) => SmartFadingAnimatedTextTrackerStore(
+            isInfinite: true,
             messagesData: MessagesData.homeList,
           ),
         ),
