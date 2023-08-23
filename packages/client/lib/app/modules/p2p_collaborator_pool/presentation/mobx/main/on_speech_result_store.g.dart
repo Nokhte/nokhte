@@ -27,22 +27,6 @@ mixin _$OnSpeechResultStore on _OnSpeechResultStoreBase, Store {
     });
   }
 
-  late final _$numberOfWordsAtom =
-      Atom(name: '_OnSpeechResultStoreBase.numberOfWords', context: context);
-
-  @override
-  int get numberOfWords {
-    _$numberOfWordsAtom.reportRead();
-    return super.numberOfWords;
-  }
-
-  @override
-  set numberOfWords(int value) {
-    _$numberOfWordsAtom.reportWrite(value, super.numberOfWords, () {
-      super.numberOfWords = value;
-    });
-  }
-
   late final _$currentPhraseIndexAtom = Atom(
       name: '_OnSpeechResultStoreBase.currentPhraseIndex', context: context);
 
@@ -93,7 +77,6 @@ mixin _$OnSpeechResultStore on _OnSpeechResultStoreBase, Store {
   String toString() {
     return '''
 isInTheMiddleOfTheirPhrase: ${isInTheMiddleOfTheirPhrase},
-numberOfWords: ${numberOfWords},
 currentPhraseIndex: ${currentPhraseIndex},
 currentSpeechResult: ${currentSpeechResult}
     ''';
