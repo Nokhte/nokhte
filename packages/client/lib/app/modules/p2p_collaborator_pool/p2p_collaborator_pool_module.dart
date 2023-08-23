@@ -62,6 +62,11 @@ class P2PCollaboratorPoolModule extends Module {
             contract: i<P2PCollaboratorPoolContract>(),
           ),
         ),
+        Bind.singleton<ValidateQuery>(
+          (i) => ValidateQuery(
+            contract: i<P2PCollaboratorPoolContract>(),
+          ),
+        ),
         // & MobX Getter Stores
         Bind.singleton<InitiateSpeechToTextGetterStore>(
           (i) => InitiateSpeechToTextGetterStore(
@@ -76,6 +81,11 @@ class P2PCollaboratorPoolModule extends Module {
         Bind.singleton<StopListeningGetterStore>(
           (i) => StopListeningGetterStore(
             stopListeningLogic: i<StopListening>(),
+          ),
+        ),
+        Bind.singleton<ValidateQueryGetterStore>(
+          (i) => ValidateQueryGetterStore(
+            validateQueryLogic: i<ValidateQuery>(),
           ),
         ),
         // & Widget State Management Stores
@@ -98,7 +108,7 @@ class P2PCollaboratorPoolModule extends Module {
         Bind.singleton<BeachWavesTrackerStore>(
           (i) => BeachWavesTrackerStore(),
         ),
-        // & Mobx Mother Stores
+        // & Widget Manager Store
         Bind.singleton<CustomWidgetsTrackerStore>(
           (i) => CustomWidgetsTrackerStore(
             smartFadingAnimatedTextStore:
@@ -107,8 +117,15 @@ class P2PCollaboratorPoolModule extends Module {
             beachWavesStore: i<BeachWavesTrackerStore>(),
           ),
         ),
+        // & Mobx Mother Stores
+        Bind.singleton<ValidateQueryStore>(
+          (i) => ValidateQueryStore(
+            validateQueryGetterStore: i<ValidateQueryGetterStore>(),
+          ),
+        ),
         Bind.singleton<SpeakTheCollaboratorPhraseCoordinatorStore>(
           (i) => SpeakTheCollaboratorPhraseCoordinatorStore(
+            validateQueryStore: i<ValidateQueryStore>(),
             onSpeechResultStore: i<OnSpeechResultStore>(),
             speechToTextStore: i<SpeechToTextStore>(),
             widgetStore: i<CustomWidgetsTrackerStore>(),

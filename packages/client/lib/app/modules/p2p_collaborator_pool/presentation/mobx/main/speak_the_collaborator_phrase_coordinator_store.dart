@@ -15,19 +15,19 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   final CustomWidgetsTrackerStore widgetStore;
   final SpeechToTextStore speechToTextStore;
   final OnSpeechResultStore onSpeechResultStore;
-  // final ValidateQueryStore validateQueryStore;
+  final ValidateQueryStore validateQueryStore;
 
   _SpeakTheCollaboratorPhraseCoordinatorStoreBase({
     required this.widgetStore,
     required this.speechToTextStore,
     required this.onSpeechResultStore,
+    required this.validateQueryStore,
   });
 
   @action
   breathingPentagonsHoldStartCallback() {
     widgetStore.breathingPentagonsHoldCallback(isHoldStart: true);
     speechToTextStore.startListening();
-    // onSpeechResultStore.isInTheMiddleOfTheirPhrase = true;
   }
 
   @action
@@ -35,7 +35,6 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
     widgetStore.breathingPentagonsHoldCallback(isHoldStart: false);
     speechToTextStore.stopListening();
     onSpeechResultStore.currentPhraseIndex++;
-    // onSpeechResultStore.isInTheMiddleOfTheirPhrase = false;
   }
 
   @override
