@@ -15,6 +15,7 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   final CustomWidgetsTrackerStore widgetStore;
   final SpeechToTextStore speechToTextStore;
   final OnSpeechResultStore onSpeechResultStore;
+  // final ValidateQueryStore validateQueryStore;
 
   _SpeakTheCollaboratorPhraseCoordinatorStoreBase({
     required this.widgetStore,

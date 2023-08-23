@@ -15,4 +15,7 @@ class DefaultEntities {
   static Either<Failure, SpeechToTextInitializerStatusEntity>
       get speechToTextInitializerStatusEntity =>
           const Right(SpeechToTextInitializerStatusEntity(isAllowed: false));
+  static Either<Failure, CollaboratorPhraseValidationEntity>
+      get collaboratorPhraseValidationEntity =>
+          const Right(CollaboratorPhraseValidationEntity(isValid: false));
 }
