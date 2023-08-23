@@ -26,12 +26,15 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   breathingPentagonsHoldStartCallback() {
     widgetStore.breathingPentagonsHoldCallback(isHoldStart: true);
     speechToTextStore.startListening();
+    // onSpeechResultStore.isInTheMiddleOfTheirPhrase = true;
   }
 
   @action
   breathingPentagonsHoldEndCallback() {
     widgetStore.breathingPentagonsHoldCallback(isHoldStart: false);
     speechToTextStore.stopListening();
+    onSpeechResultStore.currentPhraseIndex++;
+    // onSpeechResultStore.isInTheMiddleOfTheirPhrase = false;
   }
 
   @override

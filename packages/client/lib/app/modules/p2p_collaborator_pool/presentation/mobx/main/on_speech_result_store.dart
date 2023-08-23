@@ -13,6 +13,9 @@ abstract class _OnSpeechResultStoreBase extends Equatable with Store {
   // List<String> speechResults = [];
 
   @observable
+  bool isInTheMiddleOfTheirPhrase = false;
+
+  @observable
   int numberOfWords = 0;
 
   // this should be regulated in some way with a speech in progress enum
@@ -21,7 +24,7 @@ abstract class _OnSpeechResultStoreBase extends Equatable with Store {
   // phrases are only two words and display that they need to re-record
 
   @observable
-  int currentPhraseIndex = 0;
+  int currentPhraseIndex = 1;
 
   // @observable
   // int pastSpeechResultIndex = 0;
@@ -43,8 +46,8 @@ abstract class _OnSpeechResultStoreBase extends Equatable with Store {
   @action
   addSpeechResult({required String result}) {
     currentSpeechResult = result;
-    numberOfWords++;
-    if (numberOfWords % 2 == 0) currentPhraseIndex++;
+
+    // if (numberOfWords % 2 == 0) currentPhraseIndex++;
   }
 
   @override
