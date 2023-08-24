@@ -3,15 +3,29 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i8;
 
-import 'package:dartz/dartz.dart' as _i2;
+import 'package:dartz/dartz.dart' as _i3;
+import 'package:mobx/mobx.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:primala/app/core/error/failure.dart' as _i5;
+import 'package:primala/app/core/error/failure.dart' as _i10;
+import 'package:primala/app/core/interfaces/logic.dart' as _i12;
+import 'package:primala/app/modules/p2p_collaborator_pool/data/data.dart'
+    as _i15;
+import 'package:primala/app/modules/p2p_collaborator_pool/domain/contracts/p2p_collaborator_pool_contract.dart'
+    as _i2;
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/entities.dart'
-    as _i6;
+    as _i11;
+import 'package:primala/app/modules/p2p_collaborator_pool/domain/logic/logic.dart'
+    as _i14;
+import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/main/on_speech_result_store.dart'
+    as _i4;
+import 'package:speech_to_text/speech_recognition_result.dart' as _i13;
+import 'package:speech_to_text/speech_to_text.dart' as _i7;
+import 'package:speech_to_text_platform_interface/speech_to_text_platform_interface.dart'
+    as _i9;
 
-import 'p2p_collaborator_pool_stack_mock_gen.dart' as _i3;
+import 'p2p_collaborator_pool_stack_mock_gen.dart' as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -24,8 +38,9 @@ import 'p2p_collaborator_pool_stack_mock_gen.dart' as _i3;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
-  _FakeEither_0(
+class _FakeP2PCollaboratorPoolContract_0 extends _i1.SmartFake
+    implements _i2.P2PCollaboratorPoolContract {
+  _FakeP2PCollaboratorPoolContract_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -34,88 +49,571 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
         );
 }
 
-/// A class which mocks [MockMP2PCollaboratorPoolContract].
+class _FakeEither_1<L, R> extends _i1.SmartFake implements _i3.Either<L, R> {
+  _FakeEither_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeOnSpeechResultStore_2 extends _i1.SmartFake
+    implements _i4.OnSpeechResultStore {
+  _FakeOnSpeechResultStore_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeReactiveContext_3 extends _i1.SmartFake
+    implements _i5.ReactiveContext {
+  _FakeReactiveContext_3(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+/// A class which mocks [MSpeechToText].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMockMP2PCollaboratorPoolContract extends _i1.Mock
-    implements _i3.MockMP2PCollaboratorPoolContract {
-  MockMockMP2PCollaboratorPoolContract() {
+class MockMSpeechToText extends _i1.Mock implements _i6.MSpeechToText {
+  MockMSpeechToText() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.CollaboratorPhraseValidationEntity>>
+  set errorListener(_i7.SpeechErrorListener? _errorListener) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #errorListener,
+          _errorListener,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  set statusListener(_i7.SpeechStatusListener? _statusListener) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #statusListener,
+          _statusListener,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  bool get hasRecognized => (super.noSuchMethod(
+        Invocation.getter(#hasRecognized),
+        returnValue: false,
+      ) as bool);
+  @override
+  String get lastRecognizedWords => (super.noSuchMethod(
+        Invocation.getter(#lastRecognizedWords),
+        returnValue: '',
+      ) as String);
+  @override
+  String get lastStatus => (super.noSuchMethod(
+        Invocation.getter(#lastStatus),
+        returnValue: '',
+      ) as String);
+  @override
+  double get lastSoundLevel => (super.noSuchMethod(
+        Invocation.getter(#lastSoundLevel),
+        returnValue: 0.0,
+      ) as double);
+  @override
+  bool get isAvailable => (super.noSuchMethod(
+        Invocation.getter(#isAvailable),
+        returnValue: false,
+      ) as bool);
+  @override
+  bool get isListening => (super.noSuchMethod(
+        Invocation.getter(#isListening),
+        returnValue: false,
+      ) as bool);
+  @override
+  bool get isNotListening => (super.noSuchMethod(
+        Invocation.getter(#isNotListening),
+        returnValue: false,
+      ) as bool);
+  @override
+  bool get hasError => (super.noSuchMethod(
+        Invocation.getter(#hasError),
+        returnValue: false,
+      ) as bool);
+  @override
+  _i8.Future<bool> get hasPermission => (super.noSuchMethod(
+        Invocation.getter(#hasPermission),
+        returnValue: _i8.Future<bool>.value(false),
+      ) as _i8.Future<bool>);
+  @override
+  _i8.Future<bool> initialize({
+    _i7.SpeechErrorListener? onError,
+    _i7.SpeechStatusListener? onStatus,
+    dynamic debugLogging = false,
+    Duration? finalTimeout = const Duration(milliseconds: 2000),
+    List<_i9.SpeechConfigOption>? options,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #initialize,
+          [],
+          {
+            #onError: onError,
+            #onStatus: onStatus,
+            #debugLogging: debugLogging,
+            #finalTimeout: finalTimeout,
+            #options: options,
+          },
+        ),
+        returnValue: _i8.Future<bool>.value(false),
+      ) as _i8.Future<bool>);
+  @override
+  _i8.Future<void> stop() => (super.noSuchMethod(
+        Invocation.method(
+          #stop,
+          [],
+        ),
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
+  @override
+  _i8.Future<void> cancel() => (super.noSuchMethod(
+        Invocation.method(
+          #cancel,
+          [],
+        ),
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
+  @override
+  _i8.Future<dynamic> listen({
+    _i7.SpeechResultListener? onResult,
+    Duration? listenFor,
+    Duration? pauseFor,
+    String? localeId,
+    _i7.SpeechSoundLevelChange? onSoundLevelChange,
+    dynamic cancelOnError = false,
+    dynamic partialResults = true,
+    dynamic onDevice = false,
+    _i7.ListenMode? listenMode = _i7.ListenMode.confirmation,
+    dynamic sampleRate = 0,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #listen,
+          [],
+          {
+            #onResult: onResult,
+            #listenFor: listenFor,
+            #pauseFor: pauseFor,
+            #localeId: localeId,
+            #onSoundLevelChange: onSoundLevelChange,
+            #cancelOnError: cancelOnError,
+            #partialResults: partialResults,
+            #onDevice: onDevice,
+            #listenMode: listenMode,
+            #sampleRate: sampleRate,
+          },
+        ),
+        returnValue: _i8.Future<dynamic>.value(),
+      ) as _i8.Future<dynamic>);
+  @override
+  void changePauseFor(Duration? pauseFor) => super.noSuchMethod(
+        Invocation.method(
+          #changePauseFor,
+          [pauseFor],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i8.Future<List<_i7.LocaleName>> locales() => (super.noSuchMethod(
+        Invocation.method(
+          #locales,
+          [],
+        ),
+        returnValue: _i8.Future<List<_i7.LocaleName>>.value(<_i7.LocaleName>[]),
+      ) as _i8.Future<List<_i7.LocaleName>>);
+  @override
+  _i8.Future<_i7.LocaleName?> systemLocale() => (super.noSuchMethod(
+        Invocation.method(
+          #systemLocale,
+          [],
+        ),
+        returnValue: _i8.Future<_i7.LocaleName?>.value(),
+      ) as _i8.Future<_i7.LocaleName?>);
+}
+
+/// A class which mocks [MInitiateSpeechToText].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMInitiateSpeechToText extends _i1.Mock
+    implements _i6.MInitiateSpeechToText {
+  MockMInitiateSpeechToText() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.P2PCollaboratorPoolContract get contract => (super.noSuchMethod(
+        Invocation.getter(#contract),
+        returnValue: _FakeP2PCollaboratorPoolContract_0(
+          this,
+          Invocation.getter(#contract),
+        ),
+      ) as _i2.P2PCollaboratorPoolContract);
+  @override
+  _i8.Future<
+      _i3.Either<_i10.Failure, _i11.SpeechToTextInitializerStatusEntity>> call(
+          _i12.NoParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i8.Future<
+            _i3.Either<_i10.Failure,
+                _i11.SpeechToTextInitializerStatusEntity>>.value(_FakeEither_1<
+            _i10.Failure, _i11.SpeechToTextInitializerStatusEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i8.Future<
+          _i3.Either<_i10.Failure, _i11.SpeechToTextInitializerStatusEntity>>);
+}
+
+/// A class which mocks [MOnSpeechResult].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMOnSpeechResult extends _i1.Mock implements _i6.MOnSpeechResult {
+  MockMOnSpeechResult() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.OnSpeechResultStore get speechResultStore => (super.noSuchMethod(
+        Invocation.getter(#speechResultStore),
+        returnValue: _FakeOnSpeechResultStore_2(
+          this,
+          Invocation.getter(#speechResultStore),
+        ),
+      ) as _i4.OnSpeechResultStore);
+  @override
+  void call(_i13.SpeechRecognitionResult? params) => super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [MStartListening].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMStartListening extends _i1.Mock implements _i6.MStartListening {
+  MockMStartListening() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.P2PCollaboratorPoolContract get contract => (super.noSuchMethod(
+        Invocation.getter(#contract),
+        returnValue: _FakeP2PCollaboratorPoolContract_0(
+          this,
+          Invocation.getter(#contract),
+        ),
+      ) as _i2.P2PCollaboratorPoolContract);
+  @override
+  _i8.Future<_i3.Either<_i10.Failure, _i11.ListeningStatusEntity>> call(
+          _i12.NoParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i8.Future<
+                _i3.Either<_i10.Failure, _i11.ListeningStatusEntity>>.value(
+            _FakeEither_1<_i10.Failure, _i11.ListeningStatusEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i8.Future<_i3.Either<_i10.Failure, _i11.ListeningStatusEntity>>);
+}
+
+/// A class which mocks [MStopListening].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMStopListening extends _i1.Mock implements _i6.MStopListening {
+  MockMStopListening() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.P2PCollaboratorPoolContract get contract => (super.noSuchMethod(
+        Invocation.getter(#contract),
+        returnValue: _FakeP2PCollaboratorPoolContract_0(
+          this,
+          Invocation.getter(#contract),
+        ),
+      ) as _i2.P2PCollaboratorPoolContract);
+  @override
+  _i8.Future<_i3.Either<_i10.Failure, _i11.ListeningStatusEntity>> call(
+          _i12.NoParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i8.Future<
+                _i3.Either<_i10.Failure, _i11.ListeningStatusEntity>>.value(
+            _FakeEither_1<_i10.Failure, _i11.ListeningStatusEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i8.Future<_i3.Either<_i10.Failure, _i11.ListeningStatusEntity>>);
+}
+
+/// A class which mocks [MValidateQuery].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMValidateQuery extends _i1.Mock implements _i6.MValidateQuery {
+  MockMValidateQuery() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.P2PCollaboratorPoolContract get contract => (super.noSuchMethod(
+        Invocation.getter(#contract),
+        returnValue: _FakeP2PCollaboratorPoolContract_0(
+          this,
+          Invocation.getter(#contract),
+        ),
+      ) as _i2.P2PCollaboratorPoolContract);
+  @override
+  _i8.Future<
+      _i3.Either<_i10.Failure, _i11.CollaboratorPhraseValidationEntity>> call(
+          _i14.ValidateQueryParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i8.Future<
+            _i3.Either<_i10.Failure,
+                _i11.CollaboratorPhraseValidationEntity>>.value(_FakeEither_1<
+            _i10.Failure, _i11.CollaboratorPhraseValidationEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i8.Future<
+          _i3.Either<_i10.Failure, _i11.CollaboratorPhraseValidationEntity>>);
+}
+
+/// A class which mocks [MP2PCollaboratorPoolContract].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMP2PCollaboratorPoolContract extends _i1.Mock
+    implements _i6.MP2PCollaboratorPoolContract {
+  MockMP2PCollaboratorPoolContract() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i8.Future<_i3.Either<_i10.Failure, _i11.CollaboratorPhraseValidationEntity>>
       validateQuery(String? query) => (super.noSuchMethod(
             Invocation.method(
               #validateQuery,
               [query],
             ),
-            returnValue: _i4.Future<
-                    _i2.Either<_i5.Failure,
-                        _i6.CollaboratorPhraseValidationEntity>>.value(
-                _FakeEither_0<_i5.Failure,
-                    _i6.CollaboratorPhraseValidationEntity>(
+            returnValue: _i8.Future<
+                    _i3.Either<_i10.Failure,
+                        _i11.CollaboratorPhraseValidationEntity>>.value(
+                _FakeEither_1<_i10.Failure,
+                    _i11.CollaboratorPhraseValidationEntity>(
               this,
               Invocation.method(
                 #validateQuery,
                 [query],
               ),
             )),
-          ) as _i4.Future<
-              _i2.Either<_i5.Failure, _i6.CollaboratorPhraseValidationEntity>>);
+          ) as _i8.Future<
+              _i3.Either<_i10.Failure,
+                  _i11.CollaboratorPhraseValidationEntity>>);
   @override
-  _i4.Future<
-      _i2.Either<_i5.Failure,
-          _i6.SpeechToTextInitializerStatusEntity>> initializeSpeechToText() =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #initializeSpeechToText,
-          [],
-        ),
-        returnValue: _i4.Future<
-                _i2.Either<_i5.Failure,
-                    _i6.SpeechToTextInitializerStatusEntity>>.value(
-            _FakeEither_0<_i5.Failure, _i6.SpeechToTextInitializerStatusEntity>(
-          this,
-          Invocation.method(
-            #initializeSpeechToText,
-            [],
-          ),
-        )),
-      ) as _i4.Future<
-          _i2.Either<_i5.Failure, _i6.SpeechToTextInitializerStatusEntity>>);
+  _i8.Future<_i3.Either<_i10.Failure, _i11.SpeechToTextInitializerStatusEntity>>
+      initializeSpeechToText() => (super.noSuchMethod(
+            Invocation.method(
+              #initializeSpeechToText,
+              [],
+            ),
+            returnValue: _i8.Future<
+                    _i3.Either<_i10.Failure,
+                        _i11.SpeechToTextInitializerStatusEntity>>.value(
+                _FakeEither_1<_i10.Failure,
+                    _i11.SpeechToTextInitializerStatusEntity>(
+              this,
+              Invocation.method(
+                #initializeSpeechToText,
+                [],
+              ),
+            )),
+          ) as _i8.Future<
+              _i3.Either<_i10.Failure,
+                  _i11.SpeechToTextInitializerStatusEntity>>);
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.ListeningStatusEntity>>
+  _i8.Future<_i3.Either<_i10.Failure, _i11.ListeningStatusEntity>>
       startListening() => (super.noSuchMethod(
             Invocation.method(
               #startListening,
               [],
             ),
-            returnValue: _i4.Future<
-                    _i2.Either<_i5.Failure, _i6.ListeningStatusEntity>>.value(
-                _FakeEither_0<_i5.Failure, _i6.ListeningStatusEntity>(
+            returnValue: _i8.Future<
+                    _i3.Either<_i10.Failure, _i11.ListeningStatusEntity>>.value(
+                _FakeEither_1<_i10.Failure, _i11.ListeningStatusEntity>(
               this,
               Invocation.method(
                 #startListening,
                 [],
               ),
             )),
-          ) as _i4.Future<_i2.Either<_i5.Failure, _i6.ListeningStatusEntity>>);
+          ) as _i8
+              .Future<_i3.Either<_i10.Failure, _i11.ListeningStatusEntity>>);
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.ListeningStatusEntity>>
+  _i8.Future<_i3.Either<_i10.Failure, _i11.ListeningStatusEntity>>
       stopListening() => (super.noSuchMethod(
             Invocation.method(
               #stopListening,
               [],
             ),
-            returnValue: _i4.Future<
-                    _i2.Either<_i5.Failure, _i6.ListeningStatusEntity>>.value(
-                _FakeEither_0<_i5.Failure, _i6.ListeningStatusEntity>(
+            returnValue: _i8.Future<
+                    _i3.Either<_i10.Failure, _i11.ListeningStatusEntity>>.value(
+                _FakeEither_1<_i10.Failure, _i11.ListeningStatusEntity>(
               this,
               Invocation.method(
                 #stopListening,
                 [],
               ),
             )),
-          ) as _i4.Future<_i2.Either<_i5.Failure, _i6.ListeningStatusEntity>>);
+          ) as _i8
+              .Future<_i3.Either<_i10.Failure, _i11.ListeningStatusEntity>>);
+}
+
+/// A class which mocks [MOnSpeechResultStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMOnSpeechResultStore extends _i1.Mock
+    implements _i6.MOnSpeechResultStore {
+  MockMOnSpeechResultStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  int get currentPhraseIndex => (super.noSuchMethod(
+        Invocation.getter(#currentPhraseIndex),
+        returnValue: 0,
+      ) as int);
+  @override
+  set currentPhraseIndex(int? value) => super.noSuchMethod(
+        Invocation.setter(
+          #currentPhraseIndex,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  String get currentSpeechResult => (super.noSuchMethod(
+        Invocation.getter(#currentSpeechResult),
+        returnValue: '',
+      ) as String);
+  @override
+  set currentSpeechResult(String? value) => super.noSuchMethod(
+        Invocation.setter(
+          #currentSpeechResult,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i5.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_3(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i5.ReactiveContext);
+  @override
+  dynamic addSpeechResult({required String? result}) =>
+      super.noSuchMethod(Invocation.method(
+        #addSpeechResult,
+        [],
+        {#result: result},
+      ));
+}
+
+/// A class which mocks [P2PCollaboratorPoolRemoteSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockP2PCollaboratorPoolRemoteSource extends _i1.Mock
+    implements _i15.P2PCollaboratorPoolRemoteSource {
+  @override
+  _i8.Future<bool> initiateSpeechToText() => (super.noSuchMethod(
+        Invocation.method(
+          #initiateSpeechToText,
+          [],
+        ),
+        returnValue: _i8.Future<bool>.value(false),
+        returnValueForMissingStub: _i8.Future<bool>.value(false),
+      ) as _i8.Future<bool>);
+  @override
+  _i8.Future<dynamic> startListening() => (super.noSuchMethod(
+        Invocation.method(
+          #startListening,
+          [],
+        ),
+        returnValue: _i8.Future<dynamic>.value(),
+        returnValueForMissingStub: _i8.Future<dynamic>.value(),
+      ) as _i8.Future<dynamic>);
+  @override
+  _i8.Future<dynamic> stopListening() => (super.noSuchMethod(
+        Invocation.method(
+          #stopListening,
+          [],
+        ),
+        returnValue: _i8.Future<dynamic>.value(),
+        returnValueForMissingStub: _i8.Future<dynamic>.value(),
+      ) as _i8.Future<dynamic>);
+  @override
+  _i8.Future<List<dynamic>> validateQuery({required String? query}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #validateQuery,
+          [],
+          {#query: query},
+        ),
+        returnValue: _i8.Future<List<dynamic>>.value(<dynamic>[]),
+        returnValueForMissingStub: _i8.Future<List<dynamic>>.value(<dynamic>[]),
+      ) as _i8.Future<List<dynamic>>);
 }

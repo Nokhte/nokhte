@@ -1,0 +1,161 @@
+import 'package:dartz/dartz.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
+import 'package:primala/app/core/constants/failure_constants.dart';
+import 'package:primala/app/modules/p2p_collaborator_pool/data/data.dart';
+import '../../../_module_helpers/shared_mocks_gen.mocks.dart';
+import '../../constants/models/models.dart';
+import '../../fixtures/p2p_collaborator_pool_stack_mock_gen.mocks.dart';
+
+void main() {
+  late P2PCollaboratorPoolContractImpl p2pCollaboratorPoolContract;
+  late MockP2PCollaboratorPoolRemoteSource mockRemoteSource;
+  late MockMNetworkInfo mockNetworkInfo;
+
+  setUp(() {
+    mockNetworkInfo = MockMNetworkInfo();
+    mockRemoteSource = MockP2PCollaboratorPoolRemoteSource();
+    p2pCollaboratorPoolContract = P2PCollaboratorPoolContractImpl(
+        remoteSource: mockRemoteSource, networkInfo: mockNetworkInfo);
+  });
+
+  group("Method No. 1: initializeSpeechToText", () {
+    group("is Online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected)
+            .thenAnswer((realInvocation) async => true);
+      });
+      test("when online and approved should return a proper model", () async {
+        // arrange
+        when(mockRemoteSource.initiateSpeechToText())
+            .thenAnswer((realInvocation) async => Future.value(true));
+        // act
+        final res = await p2pCollaboratorPoolContract.initializeSpeechToText();
+        // assert
+        expect(
+            res, ConstantSpeechToTextInitializerStatusModel.wrappedSuccessCase);
+      });
+      test("when online and not approved should return a proper model",
+          () async {
+        // arrange
+        when(mockRemoteSource.initiateSpeechToText())
+            .thenAnswer((realInvocation) async => false);
+        // act
+        final res = await p2pCollaboratorPoolContract.initializeSpeechToText();
+        // assert
+        expect(res,
+            ConstantSpeechToTextInitializerStatusModel.wrappedNotSuccessCase);
+      });
+    });
+    group("is not online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected)
+            .thenAnswer((realInvocation) async => false);
+      });
+      test("When offline should return an internet connection error", () async {
+        final res = await p2pCollaboratorPoolContract.initializeSpeechToText();
+        expect(res, Left(FailureConstants.internetConnectionFailure));
+      });
+    });
+  });
+  group("Method No. 2: startListening", () {
+    group("is Online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected)
+            .thenAnswer((realInvocation) async => true);
+      });
+      test("when online and no errors are shown should return a proper model",
+          () async {
+        // arrange
+        when(mockRemoteSource.startListening())
+            .thenAnswer((realInvocation) async => true);
+        // act
+        final res = await p2pCollaboratorPoolContract.startListening();
+        // assert
+        expect(res, ConstantListeningStatusModel.wrappedSuccessCase);
+      });
+    });
+    group("is not online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected)
+            .thenAnswer((realInvocation) async => false);
+      });
+      test("When offline should return an internet connection error", () async {
+        final res = await p2pCollaboratorPoolContract.startListening();
+        expect(res, Left(FailureConstants.internetConnectionFailure));
+      });
+    });
+  });
+  group("Method No. 3: stopListening", () {
+    group("is Online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected)
+            .thenAnswer((realInvocation) async => true);
+      });
+
+      test("when online and no errors are shown should return a proper model",
+          () async {
+        // arrange
+        when(mockRemoteSource.stopListening())
+            .thenAnswer((realInvocation) async => true);
+        // act
+        final res = await p2pCollaboratorPoolContract.stopListening();
+        // assert
+        expect(res, ConstantListeningStatusModel.wrappedSuccessCase);
+      });
+    });
+    group("is not online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected)
+            .thenAnswer((realInvocation) async => false);
+      });
+      test("When offline should return an internet connection error", () async {
+        final res = await p2pCollaboratorPoolContract.stopListening();
+        expect(res, Left(FailureConstants.internetConnectionFailure));
+      });
+    });
+  });
+  group("Method No. 4: validateQuery", () {
+    group("is Online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected)
+            .thenAnswer((realInvocation) async => true);
+      });
+      test("when online and non-empty should return a model", () async {
+        // arrange
+        when(mockRemoteSource.validateQuery(query: "some phrase"))
+            .thenAnswer((realInvocation) async => [
+                  [{}],
+                  [{}]
+                ]);
+        // act
+        final res =
+            await p2pCollaboratorPoolContract.validateQuery("some phrase");
+        // assert
+        expect(
+            res, ConstantCollaboratorPhraseValidationModel.wrappedSuccessCase);
+      });
+      test("when online and empty should return a model", () async {
+        when(mockRemoteSource.validateQuery(query: "some phrase"))
+            .thenAnswer((realInvocation) async => [[], []]);
+        // act
+        final res =
+            await p2pCollaboratorPoolContract.validateQuery("some phrase");
+        // assert
+        expect(res,
+            ConstantCollaboratorPhraseValidationModel.wrappedNotSuccessCase);
+      });
+    });
+    group("is not online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected)
+            .thenAnswer((realInvocation) async => false);
+      });
+      test("When offline should return an internet connection error", () async {
+        final res = await p2pCollaboratorPoolContract
+            .validateQuery('something something');
+        expect(res, Left(FailureConstants.internetConnectionFailure));
+      });
+    });
+  });
+}

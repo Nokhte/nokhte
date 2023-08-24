@@ -49,7 +49,6 @@ class P2PCollaboratorPoolRemoteSourceImpl
     final splitQuery = query.split(" ");
     final adjectiveQuery = splitQuery[0];
     final nounQuery = splitQuery[1];
-    print("The split query ${splitQuery[0]} ${splitQuery[1]} 4rm The Source");
     final adjRes = await PhraseComponentsQueries.checkIfAdjectiveExists(
         supabase: supabase, queryAdjective: adjectiveQuery);
     final nounRes = await PhraseComponentsQueries.checkIfNounExists(

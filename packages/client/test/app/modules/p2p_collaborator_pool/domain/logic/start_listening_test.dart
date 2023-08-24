@@ -10,11 +10,11 @@ import '../../constants/entities/entities.dart';
 import '../../fixtures/p2p_collaborator_pool_stack_mock_gen.mocks.dart';
 
 void main() {
-  late MockMockMP2PCollaboratorPoolContract mockContract;
+  late MockMP2PCollaboratorPoolContract mockContract;
   late StartListening logic;
 
   setUp(() {
-    mockContract = MockMockMP2PCollaboratorPoolContract();
+    mockContract = MockMP2PCollaboratorPoolContract();
     logic = StartListening(contract: mockContract);
   });
 
