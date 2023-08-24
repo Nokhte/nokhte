@@ -16,6 +16,8 @@ class MInitiateSpeechToText extends Mock implements InitiateSpeechToText {}
 
 class MOnSpeechResult extends Mock implements OnSpeechResult {}
 
+class MEnterCollaboratorPool extends Mock implements EnterCollaboratorPool {}
+
 class MStartListening extends Mock implements StartListening {}
 
 class MStopListening extends Mock implements StopListening {}
@@ -27,6 +29,7 @@ class MOnSpeechResultStore extends Mock implements OnSpeechResultStore {}
 class MSpeechToText extends Mock implements SpeechToText {}
 
 @GenerateMocks([
+  MEnterCollaboratorPool,
   MSpeechToText,
   MInitiateSpeechToText,
   MOnSpeechResult,
