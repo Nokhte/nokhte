@@ -3,19 +3,12 @@
 
 import 'package:flutter/material.dart' hide AnimationStatus;
 import 'package:flutter_mobx/flutter_mobx.dart';
-// import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:mobx/mobx.dart';
 import 'package:primala/app/core/canvas_widget_utils/canvas_size_calculator.dart';
-import 'package:primala/app/core/types/validation_enum.dart';
-import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/types/gestures.dart';
-// import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/types/gestures.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/domain/logic/validate_query.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:swipe/swipe.dart';
-// import 'package:flutter_modular/flutter_modular.dart';
 
 class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
   final SupabaseClient supabase;
@@ -93,58 +86,6 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
               //   );
               // }),
               Observer(builder: (context) {
-                final onSpeechResStore = coordinatorStore.onSpeechResultStore;
-                final fadingTextStore =
-                    coordinatorStore.widgetStore.smartFadingAnimatedTextStore;
-                final validateQueryStore = coordinatorStore.validateQueryStore;
-                reaction((p0) => onSpeechResStore.currentPhraseIndex, (p0) {
-                  fadingTextStore.togglePause(gestureType: Gestures.none);
-                  fadingTextStore.addNewMessage(
-                    mainMessage: onSpeechResStore.currentSpeechResult,
-                  );
-                  validateQueryStore.validateTheLength(
-                    inputString: onSpeechResStore.currentSpeechResult,
-                  );
-                });
-                reaction((p0) => validateQueryStore.isProperLength, (p0) {
-                  print(fadingTextStore.messagesData);
-                  if (validateQueryStore.isProperLength ==
-                      ValidationStatus.invalid) {
-                    fadingTextStore.changeFutureSubMessage(
-                      amountOfMessagesForward:
-                          onSpeechResStore.currentPhraseIndex == 1 ? 2 : 1,
-                      message: "invalid length collaborator phrase",
-                    );
-                  } else {
-                    validateQueryStore.call(
-                      ValidateQueryParams(
-                        query: onSpeechResStore.currentSpeechResult,
-                      ),
-                    );
-                  }
-                });
-                reaction((p0) => validateQueryStore.isValidated, (p0) {
-                  if (validateQueryStore.isValidated ==
-                          ValidationStatus.valid &&
-                      validateQueryStore.isProperLength ==
-                          ValidationStatus.valid) {
-                    print(
-                        "YOU HAVE A VALID COLLABORATOR PHASE ${validateQueryStore.isProperLength} ${validateQueryStore.isValidated}");
-                    fadingTextStore.changeFutureSubMessage(
-                      amountOfMessagesForward:
-                          onSpeechResStore.currentPhraseIndex == 1 ? 2 : 1,
-                      message: "Swipe Up To Enter",
-                    );
-                  } else {
-                    print(
-                        "YOU DON'T HAVE A VALID COLLABORATOR PHASE ${validateQueryStore.isProperLength} ${validateQueryStore.isValidated}");
-                    fadingTextStore.changeFutureSubMessage(
-                      amountOfMessagesForward:
-                          onSpeechResStore.currentPhraseIndex == 1 ? 2 : 1,
-                      message: "invalid collaborator phrase",
-                    );
-                  }
-                });
                 return Center(
                     child: SmartFadingAnimatedText(
                   initialFadeInDelay: const Duration(seconds: 3),

@@ -3,6 +3,9 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
+import 'package:primala/app/core/types/validation_enum.dart';
+import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/types/gestures.dart';
+import 'package:primala/app/modules/p2p_collaborator_pool/domain/logic/validate_query.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
 // * Mobx Codegen Inclusion
 part 'speak_the_collaborator_phrase_coordinator_store.g.dart';
@@ -22,7 +25,50 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
     required this.speechToTextStore,
     required this.onSpeechResultStore,
     required this.validateQueryStore,
-  });
+  }) {
+    reaction((p0) => onSpeechResultStore.currentPhraseIndex, (p0) {
+      widgetStore.smartFadingAnimatedTextStore
+          .togglePause(gestureType: Gestures.none);
+      widgetStore.smartFadingAnimatedTextStore.addNewMessage(
+        mainMessage: onSpeechResultStore.currentSpeechResult,
+      );
+      validateQueryStore.validateTheLength(
+        inputString: onSpeechResultStore.currentSpeechResult,
+      );
+    });
+    reaction((p0) => validateQueryStore.isProperLength, (p0) {
+      if (validateQueryStore.isProperLength == ValidationStatus.invalid) {
+        widgetStore.smartFadingAnimatedTextStore.changeFutureSubMessage(
+          amountOfMessagesForward:
+              onSpeechResultStore.currentPhraseIndex == 1 ? 2 : 1,
+          message: "invalid length collaborator phrase",
+        );
+      } else if (validateQueryStore.isProperLength == ValidationStatus.valid) {
+        validateQueryStore.call(
+          ValidateQueryParams(
+            query: onSpeechResultStore.currentSpeechResult,
+          ),
+        );
+      }
+    });
+    reaction((p0) => validateQueryStore.isValidated, (p0) {
+      if (validateQueryStore.isValidated == ValidationStatus.valid &&
+          validateQueryStore.isProperLength == ValidationStatus.valid) {
+        widgetStore.smartFadingAnimatedTextStore.changeFutureSubMessage(
+          amountOfMessagesForward:
+              onSpeechResultStore.currentPhraseIndex == 1 ? 2 : 1,
+          message: "Swipe Up To Enter",
+        );
+      } else if (validateQueryStore.isValidated == ValidationStatus.invalid &&
+          validateQueryStore.isProperLength == ValidationStatus.valid) {
+        widgetStore.smartFadingAnimatedTextStore.changeFutureSubMessage(
+          amountOfMessagesForward:
+              onSpeechResultStore.currentPhraseIndex == 1 ? 2 : 1,
+          message: "invalid collaborator phrase",
+        );
+      }
+    });
+  }
 
   @action
   breathingPentagonsHoldStartCallback() {
