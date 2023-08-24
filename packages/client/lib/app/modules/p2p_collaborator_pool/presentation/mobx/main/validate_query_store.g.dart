@@ -9,6 +9,22 @@ part of 'validate_query_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$ValidateQueryStore on _ValidateQueryStoreBase, Store {
+  late final _$isNotProperLengthAtom =
+      Atom(name: '_ValidateQueryStoreBase.isNotProperLength', context: context);
+
+  @override
+  bool get isNotProperLength {
+    _$isNotProperLengthAtom.reportRead();
+    return super.isNotProperLength;
+  }
+
+  @override
+  set isNotProperLength(bool value) {
+    _$isNotProperLengthAtom.reportWrite(value, super.isNotProperLength, () {
+      super.isNotProperLength = value;
+    });
+  }
+
   late final _$isValidatedAtom =
       Atom(name: '_ValidateQueryStoreBase.isValidated', context: context);
 
@@ -49,9 +65,24 @@ mixin _$ValidateQueryStore on _ValidateQueryStoreBase, Store {
     return _$callAsyncAction.run(() => super.call(params));
   }
 
+  late final _$_ValidateQueryStoreBaseActionController =
+      ActionController(name: '_ValidateQueryStoreBase', context: context);
+
+  @override
+  dynamic validateTheLength({required String inputString}) {
+    final _$actionInfo = _$_ValidateQueryStoreBaseActionController.startAction(
+        name: '_ValidateQueryStoreBase.validateTheLength');
+    try {
+      return super.validateTheLength(inputString: inputString);
+    } finally {
+      _$_ValidateQueryStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
+isNotProperLength: ${isNotProperLength},
 isValidated: ${isValidated},
 futureStore: ${futureStore}
     ''';

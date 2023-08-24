@@ -54,4 +54,8 @@ class MiscAlgos {
     }
     return [firstName, lastName];
   }
+
+  static bool validateCollaboratorPhraseLength(String inputStr) {
+    return inputStr.split(" ").length != 2 ? true : false;
+  }
 }

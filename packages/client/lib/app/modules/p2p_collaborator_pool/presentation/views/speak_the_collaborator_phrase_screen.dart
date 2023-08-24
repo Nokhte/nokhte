@@ -62,15 +62,12 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                         Container(), // Empty SizedBox to take up available space
                   ),
                   GestureDetector(
-                    onLongPressStart: (_) {
-                      coordinatorStore.breathingPentagonsHoldStartCallback();
-                      // coordinatorStore.onSpeechResultStore
-                      //     .addSpeechResult(result: "");
-                    },
+                    onLongPressStart: (_) =>
+                        coordinatorStore.breathingPentagonsHoldStartCallback(),
                     onLongPressEnd: (_) {
                       coordinatorStore.breathingPentagonsHoldEndCallback();
-                      // coordinatorStore.onSpeechResultStore
-                      //     .setSpeechResult(result: "");
+
+                      // coordinatorStore.onSpeechResultStore.currentPhraseIndex++;
                     },
                     child: Container(
                       height: size.height,
@@ -97,37 +94,46 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
               // }),
               Observer(builder: (context) {
                 final onSpeechResStore = coordinatorStore.onSpeechResultStore;
-                // print(
-                //     "What's happening in the onSpeechRes Store ? ==> ${onSpeechResStore.currentSpeechResult} ${onSpeechResStore.currentSpeechResultIndex}");
                 final fadingTextStore =
                     coordinatorStore.widgetStore.smartFadingAnimatedTextStore;
-                // final currentMsg = fadingTextStore
-                //     .messagesData[fadingTextStore.currentIndex].mainMessage;
+                final validateQueryStore = coordinatorStore.validateQueryStore;
+                // reaction((p0) => fadingTextStore.currentIndex, (p0) {
+                //   // if (onSpeechResStore.currentPhraseIndex == 1) {
+                //   fadingTextStore.togglePause(gestureType: Gestures.none);
+                //   // }
+                // });
                 reaction((p0) => onSpeechResStore.currentPhraseIndex, (p0) {
-                  // print("Is this reaction even working???? $p0");
                   // if (onSpeechResStore.currentPhraseIndex == 1) {
-                  // so it lags behind 1 & then it starts cycling through
-                  // may be helpful to segment store into 2 modes
                   fadingTextStore.togglePause(gestureType: Gestures.none);
-                  // infinite repeat and finite repeat...
                   // }
-                  fadingTextStore.addNewMessageInSecondToLastIndex(
+                  // if (onSpeechResStore.currentSpeechResult.isNotEmpty) {
+                  fadingTextStore.addNewMessage(
                     mainMessage: onSpeechResStore.currentSpeechResult,
                   );
 
-                  // print("${fadingTextStore.messagesData}");
-                  // if (onSpeechResStore.currentPhraseIndex > 1) {
-                  //   // fadingTextStore.addNewMessageInSecondToLastIndex(
-                  //   //   mainMessage: onSpeechResStore.currentSpeechResult,
-                  //   // );
-                  //   // fadingTextStore.addNewMessage(
-                  //   //   mainMessage: "",
-                  //   // );
+                  print(fadingTextStore.messagesData);
+                  // }
+                  // if(fadingTextStore.cu)
+
+                  // if (onSpeechResStore.currentPhraseIndex == 1) {
                   //   fadingTextStore.togglePause(gestureType: Gestures.none);
                   // }
                 });
-                // buggy behavior but works better, we definitely
-                // are closer
+                reaction((p0) => validateQueryStore.isNotProperLength, (p0) {
+                  if (validateQueryStore.isNotProperLength == true) {
+                    print(onSpeechResStore.currentPhraseIndex);
+                    fadingTextStore.changeFutureSubMessage(
+                        amountOfMessagesForward:
+
+                            /// we have tried 1 : 2 ==> comes early on first one
+                            /// and it doesn't work
+                            /// 2:2 doesn't work ===> doesn't show up anywhere
+                            // onSpeechResStore.currentPhraseIndex == 1 ? 1 : 1,
+                            3,
+                        message: "collaborator phrases are only 2 words");
+                    print(fadingTextStore.messagesData);
+                  }
+                });
                 return Center(
                     child: SmartFadingAnimatedText(
                   initialFadeInDelay: const Duration(seconds: 3),

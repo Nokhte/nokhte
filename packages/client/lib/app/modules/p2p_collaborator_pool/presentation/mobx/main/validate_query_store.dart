@@ -5,7 +5,7 @@ import 'package:primala/app/core/constants/entities.dart';
 import 'package:primala/app/core/mobx/base_future_store.dart';
 import 'package:primala/app/core/mobx/store_state.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/domain.dart';
-// * Equatable Import
+import 'package:primala/app/core/utilities/utilities.dart';
 import 'package:primala/app/core/mobx/base_mobx_db_store.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
 // * Mobx Codegen Inclusion
@@ -17,9 +17,19 @@ abstract class _ValidateQueryStoreBase extends BaseMobxDBStore<
     ValidateQueryParams, CollaboratorPhraseValidationEntity> with Store {
   final ValidateQueryGetterStore validateQueryGetterStore;
 
+  @observable
+  bool isNotProperLength = false;
+
   _ValidateQueryStoreBase({
     required this.validateQueryGetterStore,
   });
+
+  @action
+  validateTheLength({required String inputString}) {
+    MiscAlgos.validateCollaboratorPhraseLength(inputString)
+        ? isNotProperLength = true
+        : isNotProperLength = false;
+  }
 
   @observable
   bool isValidated = false;

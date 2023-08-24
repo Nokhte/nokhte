@@ -128,25 +128,25 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
 
   @action
   changeCurrrentSubMessage({required String message}) {
-    // print(currentIndex);
     currentSubText = message;
-    // print("DID IT CHANGE? ${currentSubText}");
   }
 
   @action
-  resetPastSubMessage({required String message}) {}
+  changeFutureSubMessage(
+      {required int amountOfMessagesForward, required String message}) {
+    messagesData[currentIndex + amountOfMessagesForward].subMessage = message;
+  }
+
+  @action
+  changeFutureMainMessage(
+      {required int amountOfMessagesForward, required String message}) {
+    messagesData[currentIndex + amountOfMessagesForward].mainMessage = message;
+  }
 
   @action
   startRotatingText() async {
-    // if (isInfinite) {
     while (!isPaused) {
       if (hasJustBeenUnPaused) {
-        print("$currentIndex ${messagesData.length - 1}");
-        // if (currentIndex == messagesData.length - 1 && !isInfinite) {
-        //   print("did the break happen");
-        //   break;
-        // }
-        // ;
         await oneSecondDelay(() => fadeTheTextOut());
         await oneSecondDelay(() => moveToNextMessage());
         hasJustBeenUnPaused = false;
@@ -154,24 +154,8 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
         await oneSecondDelay(() => fadeTheTextIn());
         await addADelay(currentExtraDelayTime);
         await oneSecondDelay(() => decideToPauseOrFadeOut());
-        // }
       }
     }
-    // } else if (!isInfinite) {
-    //   while (!isPaused
-    //       //  && currentIndex != messagesData.length - 1
-    //       ) {
-    //     if (hasJustBeenUnPaused) {
-    //       await oneSecondDelay(() => fadeTheTextOut());
-    //       await oneSecondDelay(() => moveToNextMessage());
-    //       hasJustBeenUnPaused = false;
-    //     } else {
-    //       await oneSecondDelay(() => fadeTheTextIn());
-    //       await addADelay(currentExtraDelayTime);
-    //       await oneSecondDelay(() => decideToPauseOrFadeOut());
-    //     }
-    //   }
-    // }
   }
 
   @action
@@ -214,9 +198,6 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
 
   @computed
   Gestures get currentUnlockGesture => messagesData[currentIndex].unlockGesture;
-
-  // @computed
-  // String get currentMainText => messagesData[currentIndex].mainMessage;
 
   @override
   List<Object> get props => [

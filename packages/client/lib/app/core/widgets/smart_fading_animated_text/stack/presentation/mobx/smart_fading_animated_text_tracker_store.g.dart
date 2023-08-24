@@ -234,13 +234,31 @@ mixin _$SmartFadingAnimatedTextTrackerStore
   }
 
   @override
-  dynamic resetPastSubMessage({required String message}) {
+  dynamic changeFutureSubMessage(
+      {required int amountOfMessagesForward, required String message}) {
     final _$actionInfo =
         _$_SmartFadingAnimatedTextTrackerStoreBaseActionController.startAction(
             name:
-                '_SmartFadingAnimatedTextTrackerStoreBase.resetPastSubMessage');
+                '_SmartFadingAnimatedTextTrackerStoreBase.changeFutureSubMessage');
     try {
-      return super.resetPastSubMessage(message: message);
+      return super.changeFutureSubMessage(
+          amountOfMessagesForward: amountOfMessagesForward, message: message);
+    } finally {
+      _$_SmartFadingAnimatedTextTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic changeFutureMainMessage(
+      {required int amountOfMessagesForward, required String message}) {
+    final _$actionInfo =
+        _$_SmartFadingAnimatedTextTrackerStoreBaseActionController.startAction(
+            name:
+                '_SmartFadingAnimatedTextTrackerStoreBase.changeFutureMainMessage');
+    try {
+      return super.changeFutureMainMessage(
+          amountOfMessagesForward: amountOfMessagesForward, message: message);
     } finally {
       _$_SmartFadingAnimatedTextTrackerStoreBaseActionController
           .endAction(_$actionInfo);

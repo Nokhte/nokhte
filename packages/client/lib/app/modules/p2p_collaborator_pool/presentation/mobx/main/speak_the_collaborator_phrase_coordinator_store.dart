@@ -26,19 +26,20 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
 
   @action
   breathingPentagonsHoldStartCallback() {
-    widgetStore.breathingPentagonsHoldCallback(isHoldStart: true);
+    widgetStore.breathingPentagonsStore.gestureFunctionRouter();
     speechToTextStore.startListening();
   }
 
   @action
   breathingPentagonsHoldEndCallback() {
-    widgetStore.breathingPentagonsHoldCallback(isHoldStart: false);
+    widgetStore.breathingPentagonsStore.gestureFunctionRouter();
     speechToTextStore.stopListening();
     onSpeechResultStore.currentPhraseIndex++;
+    validateQueryStore.validateTheLength(
+      inputString: widgetStore.smartFadingAnimatedTextStore.currentMainText,
+    );
   }
 
   @override
-  List<Object> get props => [
-// some items
-      ];
+  List<Object> get props => [];
 }

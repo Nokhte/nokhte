@@ -10,10 +10,7 @@ class OnSpeechResultStore = _OnSpeechResultStoreBase with _$OnSpeechResultStore;
 
 abstract class _OnSpeechResultStoreBase extends Equatable with Store {
   @observable
-  bool isInTheMiddleOfTheirPhrase = false;
-
-  @observable
-  int currentPhraseIndex = 1;
+  int currentPhraseIndex = 0;
   @observable
   String currentSpeechResult = "";
 

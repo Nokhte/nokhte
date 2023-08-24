@@ -9,24 +9,6 @@ part of 'on_speech_result_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$OnSpeechResultStore on _OnSpeechResultStoreBase, Store {
-  late final _$isInTheMiddleOfTheirPhraseAtom = Atom(
-      name: '_OnSpeechResultStoreBase.isInTheMiddleOfTheirPhrase',
-      context: context);
-
-  @override
-  bool get isInTheMiddleOfTheirPhrase {
-    _$isInTheMiddleOfTheirPhraseAtom.reportRead();
-    return super.isInTheMiddleOfTheirPhrase;
-  }
-
-  @override
-  set isInTheMiddleOfTheirPhrase(bool value) {
-    _$isInTheMiddleOfTheirPhraseAtom
-        .reportWrite(value, super.isInTheMiddleOfTheirPhrase, () {
-      super.isInTheMiddleOfTheirPhrase = value;
-    });
-  }
-
   late final _$currentPhraseIndexAtom = Atom(
       name: '_OnSpeechResultStoreBase.currentPhraseIndex', context: context);
 
@@ -76,7 +58,6 @@ mixin _$OnSpeechResultStore on _OnSpeechResultStoreBase, Store {
   @override
   String toString() {
     return '''
-isInTheMiddleOfTheirPhrase: ${isInTheMiddleOfTheirPhrase},
 currentPhraseIndex: ${currentPhraseIndex},
 currentSpeechResult: ${currentSpeechResult}
     ''';

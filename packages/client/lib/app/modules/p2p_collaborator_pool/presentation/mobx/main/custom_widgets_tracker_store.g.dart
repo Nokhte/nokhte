@@ -27,19 +27,6 @@ mixin _$CustomWidgetsTrackerStore on _CustomWidgetsTrackerStoreBase, Store {
   }
 
   @override
-  dynamic breathingPentagonsHoldCallback({required bool isHoldStart}) {
-    final _$actionInfo =
-        _$_CustomWidgetsTrackerStoreBaseActionController.startAction(
-            name:
-                '_CustomWidgetsTrackerStoreBase.breathingPentagonsHoldCallback');
-    try {
-      return super.breathingPentagonsHoldCallback(isHoldStart: isHoldStart);
-    } finally {
-      _$_CustomWidgetsTrackerStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 

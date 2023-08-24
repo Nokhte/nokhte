@@ -34,16 +34,6 @@ abstract class _CustomWidgetsTrackerStoreBase extends Equatable with Store {
     }
   }
 
-  @action
-  breathingPentagonsHoldCallback({
-    required bool isHoldStart,
-  }) {
-    breathingPentagonsStore.gestureFunctionRouter();
-    // if (isHoldStart) {
-    //   smartFadingAnimatedTextStore.togglePause(gestureType: Gestures.hold);
-    // }
-  }
-
   @override
   List<Object> get props => [
 // some items
