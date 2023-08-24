@@ -31,6 +31,7 @@ abstract class _CustomWidgetsTrackerStoreBase extends Equatable with Store {
         beachWavesStore.movieMode == MovieModes.oceanDive) {
       beachWavesStore.initiateBackToShore();
       breathingPentagonsStore.flipWidgetVisibility();
+      smartFadingAnimatedTextStore.fadeTheTextOut();
     }
   }
 
