@@ -97,39 +97,20 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                 final fadingTextStore =
                     coordinatorStore.widgetStore.smartFadingAnimatedTextStore;
                 final validateQueryStore = coordinatorStore.validateQueryStore;
-                // reaction((p0) => fadingTextStore.currentIndex, (p0) {
-                //   // if (onSpeechResStore.currentPhraseIndex == 1) {
-                //   fadingTextStore.togglePause(gestureType: Gestures.none);
-                //   // }
-                // });
                 reaction((p0) => onSpeechResStore.currentPhraseIndex, (p0) {
-                  // if (onSpeechResStore.currentPhraseIndex == 1) {
                   fadingTextStore.togglePause(gestureType: Gestures.none);
-                  // }
-                  // if (onSpeechResStore.currentSpeechResult.isNotEmpty) {
                   fadingTextStore.addNewMessage(
                     mainMessage: onSpeechResStore.currentSpeechResult,
                   );
 
                   print(fadingTextStore.messagesData);
-                  // }
-                  // if(fadingTextStore.cu)
-
-                  // if (onSpeechResStore.currentPhraseIndex == 1) {
-                  //   fadingTextStore.togglePause(gestureType: Gestures.none);
-                  // }
                 });
                 reaction((p0) => validateQueryStore.isNotProperLength, (p0) {
+                  print("IS THIS THING RUNNING??");
                   if (validateQueryStore.isNotProperLength == true) {
-                    print(onSpeechResStore.currentPhraseIndex);
                     fadingTextStore.changeFutureSubMessage(
                         amountOfMessagesForward:
-
-                            /// we have tried 1 : 2 ==> comes early on first one
-                            /// and it doesn't work
-                            /// 2:2 doesn't work ===> doesn't show up anywhere
-                            // onSpeechResStore.currentPhraseIndex == 1 ? 1 : 1,
-                            3,
+                            onSpeechResStore.currentPhraseIndex == 1 ? 2 : 1,
                         message: "collaborator phrases are only 2 words");
                     print(fadingTextStore.messagesData);
                   }

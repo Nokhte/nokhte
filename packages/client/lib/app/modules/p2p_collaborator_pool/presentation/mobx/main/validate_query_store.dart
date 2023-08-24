@@ -25,6 +25,11 @@ abstract class _ValidateQueryStoreBase extends BaseMobxDBStore<
   });
 
   @action
+  resetLengthCheckerBool() {
+    isNotProperLength = false;
+  }
+
+  @action
   validateTheLength({required String inputString}) {
     MiscAlgos.validateCollaboratorPhraseLength(inputString)
         ? isNotProperLength = true

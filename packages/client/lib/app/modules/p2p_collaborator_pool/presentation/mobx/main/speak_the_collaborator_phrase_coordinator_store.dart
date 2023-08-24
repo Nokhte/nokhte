@@ -26,6 +26,7 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
 
   @action
   breathingPentagonsHoldStartCallback() {
+    validateQueryStore.resetLengthCheckerBool();
     widgetStore.breathingPentagonsStore.gestureFunctionRouter();
     speechToTextStore.startListening();
   }

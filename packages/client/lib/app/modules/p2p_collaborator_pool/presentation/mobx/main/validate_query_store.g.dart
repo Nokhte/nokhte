@@ -69,6 +69,17 @@ mixin _$ValidateQueryStore on _ValidateQueryStoreBase, Store {
       ActionController(name: '_ValidateQueryStoreBase', context: context);
 
   @override
+  dynamic resetLengthCheckerBool() {
+    final _$actionInfo = _$_ValidateQueryStoreBaseActionController.startAction(
+        name: '_ValidateQueryStoreBase.resetLengthCheckerBool');
+    try {
+      return super.resetLengthCheckerBool();
+    } finally {
+      _$_ValidateQueryStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic validateTheLength({required String inputString}) {
     final _$actionInfo = _$_ValidateQueryStoreBaseActionController.startAction(
         name: '_ValidateQueryStoreBase.validateTheLength');
