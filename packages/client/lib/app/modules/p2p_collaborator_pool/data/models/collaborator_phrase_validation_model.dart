@@ -7,6 +7,7 @@ class CollaboratorPhraseValidationModel
 
   static CollaboratorPhraseValidationModel fromSupabase(
       {required List adjectiveRes, required List nounRes}) {
+    print("FROM THA MODEL !!!!!!!!! ==========+> $adjectiveRes $nounRes");
     if (adjectiveRes.isEmpty | nounRes.isEmpty) {
       return const CollaboratorPhraseValidationModel(isValid: false);
     } else {

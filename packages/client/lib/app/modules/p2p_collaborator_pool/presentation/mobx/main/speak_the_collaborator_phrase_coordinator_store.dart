@@ -26,7 +26,7 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
 
   @action
   breathingPentagonsHoldStartCallback() {
-    validateQueryStore.resetLengthCheckerBool();
+    validateQueryStore.resetCheckerFields();
     widgetStore.breathingPentagonsStore.gestureFunctionRouter();
     speechToTextStore.startListening();
   }
@@ -36,9 +36,6 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
     widgetStore.breathingPentagonsStore.gestureFunctionRouter();
     speechToTextStore.stopListening();
     onSpeechResultStore.currentPhraseIndex++;
-    validateQueryStore.validateTheLength(
-      inputString: widgetStore.smartFadingAnimatedTextStore.currentMainText,
-    );
   }
 
   @override
