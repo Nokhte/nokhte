@@ -4,6 +4,7 @@ import 'package:primala/app/core/widgets/beach_waves/stack/presentation/mobx/bea
 import 'package:primala/app/core/widgets/breathing_pentagons/stack/presentation/mobx/main/breathing_pentagons_state_tracker_store.dart';
 import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
 import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/presentation/mobx/smart_fading_animated_text_tracker_store.dart';
+import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/getters/enter_collaborator_pool_getter_store.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/domain.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/data/data.dart';
@@ -47,6 +48,11 @@ class P2PCollaboratorPoolModule extends Module {
           ),
         ),
         // & Logic
+        Bind.singleton<EnterCollaboratorPool>(
+          (i) => EnterCollaboratorPool(
+            contract: i<P2PCollaboratorPoolContract>(),
+          ),
+        ),
         Bind.singleton<InitiateSpeechToText>(
           (i) => InitiateSpeechToText(
             contract: i<P2PCollaboratorPoolContract>(),
@@ -68,6 +74,11 @@ class P2PCollaboratorPoolModule extends Module {
           ),
         ),
         // & MobX Getter Stores
+        Bind.singleton<EnterCollaboratorPoolGetterStore>(
+          (i) => EnterCollaboratorPoolGetterStore(
+            enterPoolLogic: i<EnterCollaboratorPool>(),
+          ),
+        ),
         Bind.singleton<InitiateSpeechToTextGetterStore>(
           (i) => InitiateSpeechToTextGetterStore(
             initSpeechLogic: i<InitiateSpeechToText>(),
@@ -89,6 +100,12 @@ class P2PCollaboratorPoolModule extends Module {
           ),
         ),
         // & Widget State Management Stores
+        Bind.singleton<EnterCollaboratorPoolStore>(
+          (i) => EnterCollaboratorPoolStore(
+            enterCollaboratorPoolGetterStore:
+                i<EnterCollaboratorPoolGetterStore>(),
+          ),
+        ),
         Bind.singleton<SpeechToTextStore>(
           (i) => SpeechToTextStore(
             initSpeechToTextGetterStore: i<InitiateSpeechToTextGetterStore>(),
@@ -125,6 +142,7 @@ class P2PCollaboratorPoolModule extends Module {
         ),
         Bind.singleton<SpeakTheCollaboratorPhraseCoordinatorStore>(
           (i) => SpeakTheCollaboratorPhraseCoordinatorStore(
+            enterCollaboratorPoolStore: i<EnterCollaboratorPoolStore>(),
             validateQueryStore: i<ValidateQueryStore>(),
             onSpeechResultStore: i<OnSpeechResultStore>(),
             speechToTextStore: i<SpeechToTextStore>(),

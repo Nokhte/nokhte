@@ -5,6 +5,8 @@ import 'package:primala/app/core/network/network_info.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/data/models/models.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/data/sources/p2p_collaborator_pool_remote_source.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/contracts/p2p_collaborator_pool_contract.dart';
+import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/collaborator_pool_entry_status_entity.dart';
+import 'package:primala_backend/phrase_components.dart';
 
 class P2PCollaboratorPoolContractImpl implements P2PCollaboratorPoolContract {
   final P2PCollaboratorPoolRemoteSource remoteSource;
@@ -61,5 +63,21 @@ class P2PCollaboratorPoolContractImpl implements P2PCollaboratorPoolContract {
       return Left(FailureConstants.internetConnectionFailure);
     }
     //
+  }
+
+  @override
+  Future<Either<Failure, CollaboratorPoolEntryStatusEntity>>
+      enterTheCollaboratorPool(
+          {required CollaboratorPhraseIDs phraseIDs}) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.enterThePool(phraseIDs: phraseIDs);
+      return Right(
+        CollaboratorPoolEntryStatusModel.fromSupabase(
+          funcRes: res,
+        ),
+      );
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
   }
 }

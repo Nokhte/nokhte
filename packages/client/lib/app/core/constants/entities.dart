@@ -18,4 +18,7 @@ class DefaultEntities {
   static Either<Failure, CollaboratorPhraseValidationEntity>
       get collaboratorPhraseValidationEntity =>
           const Right(CollaboratorPhraseValidationEntity(isValid: false));
+  static Either<Failure, CollaboratorPoolEntryStatusEntity>
+      get collaboratorPoolEntryStatusEntity =>
+          const Right(CollaboratorPoolEntryStatusEntity(hasEntered: false));
 }

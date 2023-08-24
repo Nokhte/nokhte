@@ -4,6 +4,7 @@ import 'package:mockito/mockito.dart';
 import 'package:primala/app/core/constants/failure_constants.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/data/data.dart';
 import '../../../_module_helpers/shared_mocks_gen.mocks.dart';
+import '../../constants/responses/responses.dart';
 import '../../constants/models/models.dart';
 import '../../fixtures/p2p_collaborator_pool_stack_mock_gen.mocks.dart';
 
@@ -154,6 +155,49 @@ void main() {
       test("When offline should return an internet connection error", () async {
         final res = await p2pCollaboratorPoolContract
             .validateQuery('something something');
+        expect(res, Left(FailureConstants.internetConnectionFailure));
+      });
+    });
+  });
+
+  group("Method No. 5: EnterTheCollaboratorPool", () {
+    group("is Online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected)
+            .thenAnswer((realInvocation) async => true);
+      });
+      test("when online w/ a  200 should return a successful model", () async {
+        // arrange
+        when(mockRemoteSource.enterThePool(phraseIDs: PhraseIDs.phraseID))
+            .thenAnswer((realInvocation) async => FunctionResponses.successRes);
+        // act
+        final res = await p2pCollaboratorPoolContract.enterTheCollaboratorPool(
+            phraseIDs: PhraseIDs.phraseID);
+        // assert
+        expect(
+            res, ConstantCollaboratorPoolEntryStatusModel.wrappedSuccessCase);
+      });
+      test("when online w/ a non 200  should return a not successful model",
+          () async {
+        when(mockRemoteSource.enterThePool(phraseIDs: PhraseIDs.phraseID))
+            .thenAnswer(
+                (realInvocation) async => FunctionResponses.notSuccessRes);
+        // act
+        final res = await p2pCollaboratorPoolContract.enterTheCollaboratorPool(
+            phraseIDs: PhraseIDs.phraseID);
+        // assert
+        expect(res,
+            ConstantCollaboratorPoolEntryStatusModel.wrappedNotSuccessCase);
+      });
+    });
+    group("is not online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected)
+            .thenAnswer((realInvocation) async => false);
+      });
+      test("When offline should return an internet connection error", () async {
+        final res = await p2pCollaboratorPoolContract.enterTheCollaboratorPool(
+            phraseIDs: PhraseIDs.phraseID);
         expect(res, Left(FailureConstants.internetConnectionFailure));
       });
     });

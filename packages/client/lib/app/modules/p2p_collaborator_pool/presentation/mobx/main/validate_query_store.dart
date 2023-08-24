@@ -36,7 +36,7 @@ abstract class _ValidateQueryStoreBase extends BaseMobxDBStore<
 
   @action
   validateTheLength({required String inputString}) {
-    print('LENGTH CHECKER =========+> ${MiscAlgos.isTwoWords(inputString)}');
+    // print('LENGTH CHECKER =========+> ${MiscAlgos.isTwoWords(inputString)}');
     MiscAlgos.isTwoWords(inputString)
         ? isProperLength = ValidationStatus.valid
         : isProperLength = ValidationStatus.invalid;
@@ -57,8 +57,8 @@ abstract class _ValidateQueryStoreBase extends BaseMobxDBStore<
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
     }, (validationStatusEntity) {
-      print(
-          "${validationStatusEntity.isSent} THE STORE BOOL TRUE MEANS ITS VALID");
+      // print(
+      //     "${validationStatusEntity.isSent} THE STORE BOOL TRUE MEANS ITS VALID");
       if (validationStatusEntity.isSent) {
         isValidated = ValidationStatus.valid;
       } else {

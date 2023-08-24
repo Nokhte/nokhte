@@ -19,12 +19,14 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   final SpeechToTextStore speechToTextStore;
   final OnSpeechResultStore onSpeechResultStore;
   final ValidateQueryStore validateQueryStore;
+  final EnterCollaboratorPoolStore enterCollaboratorPoolStore;
 
   _SpeakTheCollaboratorPhraseCoordinatorStoreBase({
     required this.widgetStore,
     required this.speechToTextStore,
     required this.onSpeechResultStore,
     required this.validateQueryStore,
+    required this.enterCollaboratorPoolStore,
   }) {
     reaction((p0) => onSpeechResultStore.currentPhraseIndex, (p0) {
       widgetStore.smartFadingAnimatedTextStore

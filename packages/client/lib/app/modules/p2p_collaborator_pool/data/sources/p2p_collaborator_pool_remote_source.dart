@@ -1,6 +1,7 @@
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/logic/logic.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:primala_backend/phrase_components.dart';
+import 'package:primala_backend/edge_functions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class P2PCollaboratorPoolRemoteSource {
@@ -11,6 +12,9 @@ abstract class P2PCollaboratorPoolRemoteSource {
   Future stopListening();
 
   Future<List> validateQuery({required String query});
+
+  Future<FunctionResponse> enterThePool(
+      {required CollaboratorPhraseIDs phraseIDs});
 }
 
 class P2PCollaboratorPoolRemoteSourceImpl
@@ -54,5 +58,14 @@ class P2PCollaboratorPoolRemoteSourceImpl
     final nounRes = await PhraseComponentsQueries.checkIfNounExists(
         supabase: supabase, queryNoun: nounQuery);
     return [adjRes, nounRes];
+  }
+
+  @override
+  enterThePool({required CollaboratorPhraseIDs phraseIDs}) async {
+    return await InitiateCollaboratorSearch.invoke(
+      supabase: supabase,
+      wayfarerUID: supabase.auth.currentUser?.id ?? '',
+      queryPhraseIDs: phraseIDs,
+    );
   }
 }
