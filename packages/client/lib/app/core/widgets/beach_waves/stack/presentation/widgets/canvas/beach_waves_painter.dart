@@ -7,6 +7,17 @@ class BeachWavesPainter extends CustomPainter {
   final Color thirdGradientColor;
   final Color fourthGradientColor;
   final Color fifthGradientColor;
+  final Color sixthGradientColor;
+  final Color seventhGradientColor;
+  final Color eighthGradientColor;
+  final double firstGradientStop;
+  final double secondGradientStop;
+  final double thirdGradientStop;
+  final double fourthGradientStop;
+  final double fifthGradientStop;
+  final double sixthGradientStop;
+  final double seventhGradientStop;
+  final double eighthGradientStop;
 
   BeachWavesPainter({
     required this.waterValue,
@@ -15,6 +26,17 @@ class BeachWavesPainter extends CustomPainter {
     required this.thirdGradientColor,
     required this.fourthGradientColor,
     required this.fifthGradientColor,
+    required this.sixthGradientColor,
+    required this.seventhGradientColor,
+    required this.eighthGradientColor,
+    required this.firstGradientStop,
+    required this.secondGradientStop,
+    required this.thirdGradientStop,
+    required this.fourthGradientStop,
+    required this.fifthGradientStop,
+    required this.sixthGradientStop,
+    required this.seventhGradientStop,
+    required this.eighthGradientStop,
   });
 
   @override
@@ -32,8 +54,22 @@ class BeachWavesPainter extends CustomPainter {
         thirdGradientColor,
         fourthGradientColor,
         fifthGradientColor,
+        sixthGradientColor,
+        seventhGradientColor,
+        eighthGradientColor,
       ],
-      stops: const [0, 0.1979, 0.4375, 0.5885, 0.7448],
+      // background: linear-gradient(0, .1563, .3111, .4583, .5885, .7240, .8438, 1.00);
+      stops: [
+        firstGradientStop,
+        secondGradientStop,
+        thirdGradientStop,
+        fourthGradientStop,
+        fifthGradientStop,
+        sixthGradientStop,
+        seventhGradientStop,
+        eighthGradientStop,
+      ],
+      // [0, 0.1979, 0.4375, 0.5885, 0.7448],
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
     );
