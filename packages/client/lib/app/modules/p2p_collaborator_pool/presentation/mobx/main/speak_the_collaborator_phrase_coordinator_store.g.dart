@@ -64,14 +64,14 @@ mixin _$SpeakTheCollaboratorPhraseCoordinatorStore
   }
 
   @override
-  dynamic collaboratorPhraseSwipeDownCallback() {
+  dynamic swipeDownCallback() {
     final _$actionInfo =
         _$_SpeakTheCollaboratorPhraseCoordinatorStoreBaseActionController
             .startAction(
                 name:
-                    '_SpeakTheCollaboratorPhraseCoordinatorStoreBase.collaboratorPhraseSwipeDownCallback');
+                    '_SpeakTheCollaboratorPhraseCoordinatorStoreBase.swipeDownCallback');
     try {
-      return super.collaboratorPhraseSwipeDownCallback();
+      return super.swipeDownCallback();
     } finally {
       _$_SpeakTheCollaboratorPhraseCoordinatorStoreBaseActionController
           .endAction(_$actionInfo);
@@ -79,14 +79,14 @@ mixin _$SpeakTheCollaboratorPhraseCoordinatorStore
   }
 
   @override
-  dynamic speakTheCollaboratorPhraseSwipeUpCallback() {
+  dynamic swipeUpCallback() {
     final _$actionInfo =
         _$_SpeakTheCollaboratorPhraseCoordinatorStoreBaseActionController
             .startAction(
                 name:
-                    '_SpeakTheCollaboratorPhraseCoordinatorStoreBase.speakTheCollaboratorPhraseSwipeUpCallback');
+                    '_SpeakTheCollaboratorPhraseCoordinatorStoreBase.swipeUpCallback');
     try {
-      return super.speakTheCollaboratorPhraseSwipeUpCallback();
+      return super.swipeUpCallback();
     } finally {
       _$_SpeakTheCollaboratorPhraseCoordinatorStoreBaseActionController
           .endAction(_$actionInfo);

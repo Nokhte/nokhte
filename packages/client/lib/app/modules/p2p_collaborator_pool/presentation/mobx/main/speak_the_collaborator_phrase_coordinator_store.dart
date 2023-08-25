@@ -91,12 +91,12 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   }
 
   @action
-  collaboratorPhraseSwipeDownCallback() {
+  swipeDownCallback() {
     widgetStore.backToShoreWidgetChanges();
   }
 
   @action
-  speakTheCollaboratorPhraseSwipeUpCallback() {
+  swipeUpCallback() {
     // if (validateQueryStore.isValidated == ValidationStatus.valid) {
     // enterCollaboratorPoolStore(validateQueryStore.phraseIDs);
     isReadyToEnterPool = true;
@@ -113,7 +113,7 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
     // }
   }
 
-  speakTheCollaboratorPhraseScreenConstructorCallback({
+  screenConstructorCallback({
     required SpeakTheCollaboratorPhraseCoordinatorStore coordinatorStore,
     required double startingWaveMovement,
   }) {

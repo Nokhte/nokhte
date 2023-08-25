@@ -21,36 +21,36 @@ class OceanDive extends Equatable {
             .tween(
               '1st Water Gradient Color',
               ColorTween(
-                begin: WaterColors.firstWaterGradient[0],
-                end: WaterColors.firstWaterGradient[0],
+                begin: WaterColors.onShoreWaterGradient[0],
+                end: WaterColors.onShoreWaterGradient[0],
               ),
             )
             .tween(
               '2nd Water Gradient Color',
               ColorTween(
-                begin: WaterColors.firstWaterGradient[1],
-                end: WaterColors.firstWaterGradient[1],
+                begin: WaterColors.onShoreWaterGradient[1],
+                end: WaterColors.onShoreWaterGradient[1],
               ),
             )
             .tween(
               '3rd Water Gradient Color',
               ColorTween(
-                begin: WaterColors.firstWaterGradient[2],
-                end: WaterColors.firstWaterGradient[2],
+                begin: WaterColors.onShoreWaterGradient[2],
+                end: WaterColors.onShoreWaterGradient[2],
               ),
             )
             .tween(
               '4th Water Gradient Color',
               ColorTween(
-                begin: WaterColors.firstWaterGradient[3],
-                end: WaterColors.firstWaterGradient[3],
+                begin: WaterColors.onShoreWaterGradient[3],
+                end: WaterColors.onShoreWaterGradient[3],
               ),
             )
             .tween(
               '5th Water Gradient Color',
               ColorTween(
-                begin: WaterColors.firstWaterGradient[4],
-                end: WaterColors.firstWaterGradient[4],
+                begin: WaterColors.onShoreWaterGradient[4],
+                end: WaterColors.onShoreWaterGradient[4],
               ),
             )
         ..scene(
@@ -67,36 +67,36 @@ class OceanDive extends Equatable {
             .tween(
               '1st Water Gradient Color',
               ColorTween(
-                begin: WaterColors.firstWaterGradient[0],
-                end: WaterColors.secondWaterGradient[0],
+                begin: WaterColors.onShoreWaterGradient[0],
+                end: WaterColors.oceanDiveWaterGradient[0],
               ),
             )
             .tween(
               '2nd Water Gradient Color',
               ColorTween(
-                begin: WaterColors.firstWaterGradient[1],
-                end: WaterColors.secondWaterGradient[1],
+                begin: WaterColors.onShoreWaterGradient[1],
+                end: WaterColors.oceanDiveWaterGradient[1],
               ),
             )
             .tween(
               '3rd Water Gradient Color',
               ColorTween(
-                begin: WaterColors.firstWaterGradient[2],
-                end: WaterColors.secondWaterGradient[2],
+                begin: WaterColors.onShoreWaterGradient[2],
+                end: WaterColors.oceanDiveWaterGradient[2],
               ),
             )
             .tween(
               '4th Water Gradient Color',
               ColorTween(
-                begin: WaterColors.firstWaterGradient[3],
-                end: WaterColors.secondWaterGradient[3],
+                begin: WaterColors.onShoreWaterGradient[3],
+                end: WaterColors.oceanDiveWaterGradient[3],
               ),
             )
             .tween(
               '5th Water Gradient Color',
               ColorTween(
-                begin: WaterColors.firstWaterGradient[4],
-                end: WaterColors.secondWaterGradient[4],
+                begin: WaterColors.onShoreWaterGradient[4],
+                end: WaterColors.oceanDiveWaterGradient[4],
               ),
             );
 

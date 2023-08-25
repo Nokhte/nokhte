@@ -121,6 +121,17 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
   }
 
   @override
+  dynamic initiateToTheDepths() {
+    final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
+        .startAction(name: '_BeachWavesTrackerStoreBase.initiateToTheDepths');
+    try {
+      return super.initiateToTheDepths();
+    } finally {
+      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic onBeachWavesAnimationCompletion() {
     final _$actionInfo =
         _$_BeachWavesTrackerStoreBaseActionController.startAction(

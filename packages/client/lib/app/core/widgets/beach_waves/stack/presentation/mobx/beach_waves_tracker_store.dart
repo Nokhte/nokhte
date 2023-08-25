@@ -40,6 +40,14 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   }
 
   @action
+  initiateToTheDepths() {
+    movie = ToTheDepths.movie;
+    control = Control.playFromStart;
+    animationStatus = AnimationStatus.inProgress;
+    movieMode = MovieModes.toTheDepths;
+  }
+
+  @action
   onBeachWavesAnimationCompletion() {
     if (movieMode == MovieModes.backToShore) {
       Modular.to.navigate('/home/');
@@ -64,14 +72,6 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
     movieMode = MovieModes.onShore;
     animationStatus = AnimationStatus.idle;
   }
-
-  // @action
-  // collaboratorPhraseSwipeDownCallback() {
-  //   if (animationStatus == AnimationStatus.idle &&
-  //       movieMode == MovieModes.oceanDive) {
-  //     initiateBackToShore();
-  //   }
-  // }
 
   @action
   teeOceanDiveMovieUp({
@@ -101,7 +101,5 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   navigateProperly() {}
 
   @override
-  List<Object> get props => [
-// some items
-      ];
+  List<Object> get props => [];
 }

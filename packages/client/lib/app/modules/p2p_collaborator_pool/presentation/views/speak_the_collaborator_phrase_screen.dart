@@ -8,21 +8,18 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/canvas_widget_utils/canvas_size_calculator.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:swipe/swipe.dart';
 
 class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
-  final SupabaseClient supabase;
   final SpeakTheCollaboratorPhraseCoordinatorStore coordinatorStore;
   final double startingWaveMovement;
 
   SpeakTheCollaboratorPhraseScreen({
     Key? key,
-    required this.supabase,
     required this.coordinatorStore,
     required this.startingWaveMovement,
   }) : super(key: key) {
-    coordinatorStore.speakTheCollaboratorPhraseScreenConstructorCallback(
+    coordinatorStore.screenConstructorCallback(
       coordinatorStore: coordinatorStore,
       startingWaveMovement: startingWaveMovement,
     );
@@ -38,10 +35,8 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
       builder: (context, constraints) {
         return PlatformScaffold(
           body: Swipe(
-            onSwipeUp: () =>
-                coordinatorStore.speakTheCollaboratorPhraseSwipeUpCallback(),
-            onSwipeDown: () =>
-                coordinatorStore.collaboratorPhraseSwipeDownCallback(),
+            onSwipeUp: () => coordinatorStore.swipeUpCallback(),
+            onSwipeDown: () => coordinatorStore.swipeDownCallback(),
             child: Stack(
               children: [
                 SizedBox(

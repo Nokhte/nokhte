@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:primala/app/core/network/network_info.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/core/widgets/widget_constants.dart';
+import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/main/collaborator_pool_screen_coordinator_store.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/presentation.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/domain.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/data/data.dart';
@@ -51,6 +52,11 @@ class P2PCollaboratorPoolModule extends Module {
             contract: i<P2PCollaboratorPoolContract>(),
           ),
         ),
+        Bind.singleton<ExitCollaboratorPool>(
+          (i) => ExitCollaboratorPool(
+            contract: i<P2PCollaboratorPoolContract>(),
+          ),
+        ),
         Bind.singleton<InitiateSpeechToText>(
           (i) => InitiateSpeechToText(
             contract: i<P2PCollaboratorPoolContract>(),
@@ -77,6 +83,11 @@ class P2PCollaboratorPoolModule extends Module {
             enterPoolLogic: i<EnterCollaboratorPool>(),
           ),
         ),
+        Bind.singleton<ExitCollaboratorPoolGetterStore>(
+          (i) => ExitCollaboratorPoolGetterStore(
+            exitPoolLogic: i<ExitCollaboratorPool>(),
+          ),
+        ),
         Bind.singleton<InitiateSpeechToTextGetterStore>(
           (i) => InitiateSpeechToTextGetterStore(
             initSpeechLogic: i<InitiateSpeechToText>(),
@@ -97,20 +108,8 @@ class P2PCollaboratorPoolModule extends Module {
             validateQueryLogic: i<ValidateQuery>(),
           ),
         ),
+
         // & Widget State Management Stores
-        Bind.singleton<EnterCollaboratorPoolStore>(
-          (i) => EnterCollaboratorPoolStore(
-            enterCollaboratorPoolGetterStore:
-                i<EnterCollaboratorPoolGetterStore>(),
-          ),
-        ),
-        Bind.singleton<SpeechToTextStore>(
-          (i) => SpeechToTextStore(
-            initSpeechToTextGetterStore: i<InitiateSpeechToTextGetterStore>(),
-            startListeningGetterStore: i<StartListeningGetterStore>(),
-            stopListeningGetterStore: i<StopListeningGetterStore>(),
-          ),
-        ),
         Bind.singleton<SmartFadingAnimatedTextTrackerStore>(
           (i) => SmartFadingAnimatedTextTrackerStore(
             isInfinite: false,
@@ -133,11 +132,31 @@ class P2PCollaboratorPoolModule extends Module {
           ),
         ),
         // & Mobx Mother Stores
+        Bind.singleton<EnterCollaboratorPoolStore>(
+          (i) => EnterCollaboratorPoolStore(
+            enterCollaboratorPoolGetterStore:
+                i<EnterCollaboratorPoolGetterStore>(),
+          ),
+        ),
+        Bind.singleton<ExitCollaboratorPoolStore>(
+          (i) => ExitCollaboratorPoolStore(
+            exitCollaboratorPoolGetterStore:
+                i<ExitCollaboratorPoolGetterStore>(),
+          ),
+        ),
+        Bind.singleton<SpeechToTextStore>(
+          (i) => SpeechToTextStore(
+            initSpeechToTextGetterStore: i<InitiateSpeechToTextGetterStore>(),
+            startListeningGetterStore: i<StartListeningGetterStore>(),
+            stopListeningGetterStore: i<StopListeningGetterStore>(),
+          ),
+        ),
         Bind.singleton<ValidateQueryStore>(
           (i) => ValidateQueryStore(
             validateQueryGetterStore: i<ValidateQueryGetterStore>(),
           ),
         ),
+        // & Coordinator Stores
         Bind.singleton<SpeakTheCollaboratorPhraseCoordinatorStore>(
           (i) => SpeakTheCollaboratorPhraseCoordinatorStore(
             enterCollaboratorPoolStore: i<EnterCollaboratorPoolStore>(),
@@ -147,26 +166,32 @@ class P2PCollaboratorPoolModule extends Module {
             widgetStore: i<CustomWidgetsTrackerStore>(),
           ),
         ),
+        Bind.singleton<CollaboratorPoolScreenCoordinatorStore>(
+          (i) => CollaboratorPoolScreenCoordinatorStore(
+            exitCollaboratorPoolStore: i<ExitCollaboratorPoolStore>(),
+            widgetStore: i<CustomWidgetsTrackerStore>(),
+          ),
+        ),
       ];
 
   @override
   List<ModularRoute> get routes => [
-        /// Ok so here is where we actually can pass it, so I think this may
-        /// mean 2 separate stores or we have a store with a parameter as to which
-        /// movie to start with I think that should probably be the move here so what is the first step
         ChildRoute(
           "/",
           child: (context, args) => SpeakTheCollaboratorPhraseScreen(
             coordinatorStore:
                 Modular.get<SpeakTheCollaboratorPhraseCoordinatorStore>(),
             startingWaveMovement: args.data,
-            supabase: Modular.get<SupabaseClient>(),
           ),
           transition: TransitionType.noTransition,
         ),
         ChildRoute(
           "/pool/",
-          child: (context, args) => CollaboratorPoolScreen(),
+          child: (context, args) => CollaboratorPoolScreen(
+            coordinatorStore:
+                Modular.get<CollaboratorPoolScreenCoordinatorStore>(),
+          ),
+          transition: TransitionType.noTransition,
         )
       ];
 }
