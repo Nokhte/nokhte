@@ -164,6 +164,9 @@ class P2PCollaboratorPoolModule extends Module {
           ),
           transition: TransitionType.noTransition,
         ),
-        ChildRoute("/pool/", child: (context, args) => CollaboratorPoolScreen())
+        ChildRoute(
+          "/pool/",
+          child: (context, args) => CollaboratorPoolScreen(),
+        )
       ];
 }

@@ -4,7 +4,9 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/types/validation_enum.dart';
-import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/types/gestures.dart';
+import 'package:primala/app/core/widgets/widget_constants.dart';
+// import 'package:primala/app/core/widgets/widgets.dart';
+import './sub_stores/sub_stores.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/logic/validate_query.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
 // * Mobx Codegen Inclusion
@@ -96,10 +98,10 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
 
   @action
   speakTheCollaboratorPhraseSwipeUpCallback() {
-    if (validateQueryStore.isValidated == ValidationStatus.valid) {
-      enterCollaboratorPoolStore(validateQueryStore.phraseIDs);
-      isReadyToEnterPool = true;
-    }
+    // if (validateQueryStore.isValidated == ValidationStatus.valid) {
+    // enterCollaboratorPoolStore(validateQueryStore.phraseIDs);
+    isReadyToEnterPool = true;
+    // }
 
     /// so wrap it in an observer or put this in an observer and
     ///     if (homeScreenCoordinatorStore

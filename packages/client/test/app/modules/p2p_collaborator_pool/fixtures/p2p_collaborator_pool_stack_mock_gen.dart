@@ -4,9 +4,8 @@
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/data/data.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/domain/contracts/p2p_collaborator_pool_contract.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/domain/logic/logic.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/main/on_speech_result_store.dart';
+import 'package:primala/app/modules/p2p_collaborator_pool/domain/domain.dart';
+import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 class MP2PCollaboratorPoolContract extends Mock
