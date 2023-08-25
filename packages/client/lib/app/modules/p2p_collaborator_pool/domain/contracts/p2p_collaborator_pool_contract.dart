@@ -18,4 +18,7 @@ abstract class P2PCollaboratorPoolContract {
 
   Future<Either<Failure, CollaboratorPoolEntryStatusEntity>>
       enterTheCollaboratorPool({required CollaboratorPhraseIDs phraseIDs});
+
+  Future<Either<Failure, CollaboratorPoolExitStatusEntity>>
+      exitCollaboratorPool();
 }

@@ -406,6 +406,46 @@ class MockMStartListening extends _i1.Mock implements _i7.MStartListening {
       ) as _i8.Future<_i3.Either<_i9.Failure, _i10.ListeningStatusEntity>>);
 }
 
+/// A class which mocks [MExitCollaboratorPool].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMExitCollaboratorPool extends _i1.Mock
+    implements _i7.MExitCollaboratorPool {
+  MockMExitCollaboratorPool() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.P2PCollaboratorPoolContract get contract => (super.noSuchMethod(
+        Invocation.getter(#contract),
+        returnValue: _FakeP2PCollaboratorPoolContract_0(
+          this,
+          Invocation.getter(#contract),
+        ),
+      ) as _i2.P2PCollaboratorPoolContract);
+  @override
+  _i8.Future<
+      _i3.Either<_i9.Failure, _i10.CollaboratorPoolExitStatusEntity>> call(
+          _i14.NoParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i8.Future<
+                _i3.Either<_i9.Failure,
+                    _i10.CollaboratorPoolExitStatusEntity>>.value(
+            _FakeEither_1<_i9.Failure, _i10.CollaboratorPoolExitStatusEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i8.Future<
+          _i3.Either<_i9.Failure, _i10.CollaboratorPoolExitStatusEntity>>);
+}
+
 /// A class which mocks [MStopListening].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -593,6 +633,25 @@ class MockMP2PCollaboratorPoolContract extends _i1.Mock
             )),
           ) as _i8.Future<
               _i3.Either<_i9.Failure, _i10.CollaboratorPoolEntryStatusEntity>>);
+  @override
+  _i8.Future<_i3.Either<_i9.Failure, _i10.CollaboratorPoolExitStatusEntity>>
+      exitCollaboratorPool() => (super.noSuchMethod(
+            Invocation.method(
+              #exitCollaboratorPool,
+              [],
+            ),
+            returnValue: _i8.Future<
+                _i3.Either<_i9.Failure,
+                    _i10.CollaboratorPoolExitStatusEntity>>.value(_FakeEither_1<
+                _i9.Failure, _i10.CollaboratorPoolExitStatusEntity>(
+              this,
+              Invocation.method(
+                #exitCollaboratorPool,
+                [],
+              ),
+            )),
+          ) as _i8.Future<
+              _i3.Either<_i9.Failure, _i10.CollaboratorPoolExitStatusEntity>>);
 }
 
 /// A class which mocks [MOnSpeechResultStore].
@@ -720,6 +779,29 @@ class MockP2PCollaboratorPoolRemoteSource extends _i1.Mock
             #enterThePool,
             [],
             {#phraseIDs: phraseIDs},
+          ),
+        )),
+      ) as _i8.Future<_i6.FunctionResponse>);
+  @override
+  _i8.Future<_i6.FunctionResponse> exitThePool() => (super.noSuchMethod(
+        Invocation.method(
+          #exitThePool,
+          [],
+        ),
+        returnValue:
+            _i8.Future<_i6.FunctionResponse>.value(_FakeFunctionResponse_4(
+          this,
+          Invocation.method(
+            #exitThePool,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i8.Future<_i6.FunctionResponse>.value(_FakeFunctionResponse_4(
+          this,
+          Invocation.method(
+            #exitThePool,
+            [],
           ),
         )),
       ) as _i8.Future<_i6.FunctionResponse>);

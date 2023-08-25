@@ -202,4 +202,42 @@ void main() {
       });
     });
   });
+
+  group("Method No. 6: EnterTheCollaboratorPool", () {
+    group("is Online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected)
+            .thenAnswer((realInvocation) async => true);
+      });
+      test("when online w/ a  200 should return a successful model", () async {
+        // arrange
+        when(mockRemoteSource.exitThePool())
+            .thenAnswer((realInvocation) async => FunctionResponses.successRes);
+        // act
+        final res = await p2pCollaboratorPoolContract.exitCollaboratorPool();
+        // assert
+        expect(res, ConstantCollaboratorPoolExitStatusModel.wrappedSuccessCase);
+      });
+      test("when online w/ a non 200  should return a not successful model",
+          () async {
+        when(mockRemoteSource.exitThePool()).thenAnswer(
+            (realInvocation) async => FunctionResponses.notSuccessRes);
+        // act
+        final res = await p2pCollaboratorPoolContract.exitCollaboratorPool();
+        // assert
+        expect(
+            res, ConstantCollaboratorPoolExitStatusModel.wrappedNotSuccessCase);
+      });
+    });
+    group("is not online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected)
+            .thenAnswer((realInvocation) async => false);
+      });
+      test("When offline should return an internet connection error", () async {
+        final res = await p2pCollaboratorPoolContract.exitCollaboratorPool();
+        expect(res, Left(FailureConstants.internetConnectionFailure));
+      });
+    });
+  });
 }

@@ -15,6 +15,8 @@ abstract class P2PCollaboratorPoolRemoteSource {
 
   Future<FunctionResponse> enterThePool(
       {required CollaboratorPhraseIDs phraseIDs});
+
+  Future<FunctionResponse> exitThePool();
 }
 
 class P2PCollaboratorPoolRemoteSourceImpl
@@ -22,12 +24,13 @@ class P2PCollaboratorPoolRemoteSourceImpl
   final SpeechToText speechToText;
   final SupabaseClient supabase;
   final OnSpeechResult onSpeechResult;
+  final String currentUserUID;
 
   P2PCollaboratorPoolRemoteSourceImpl({
     required this.speechToText,
     required this.supabase,
     required this.onSpeechResult,
-  });
+  }) : currentUserUID = supabase.auth.currentUser?.id ?? '';
 
   @override
   Future<bool> initiateSpeechToText() async {
@@ -64,8 +67,16 @@ class P2PCollaboratorPoolRemoteSourceImpl
   enterThePool({required CollaboratorPhraseIDs phraseIDs}) async {
     return await InitiateCollaboratorSearch.invoke(
       supabase: supabase,
-      wayfarerUID: supabase.auth.currentUser?.id ?? '',
+      wayfarerUID: currentUserUID,
       queryPhraseIDs: phraseIDs,
+    );
+  }
+
+  @override
+  Future<FunctionResponse> exitThePool() async {
+    return await EndCollaboratorSearch.invoke(
+      supabase: supabase,
+      firstUserUID: currentUserUID,
     );
   }
 }

@@ -4,3 +4,4 @@ export './start_listening.dart';
 export './stop_listening.dart';
 export './validate_query.dart';
 export 'enter_collaborator_pool.dart';
+export './exit_collaborator_pool.dart';

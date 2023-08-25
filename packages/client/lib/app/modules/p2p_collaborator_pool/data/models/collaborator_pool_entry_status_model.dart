@@ -1,4 +1,4 @@
-import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/collaborator_pool_entry_status_entity.dart';
+import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/entities.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class CollaboratorPoolEntryStatusModel

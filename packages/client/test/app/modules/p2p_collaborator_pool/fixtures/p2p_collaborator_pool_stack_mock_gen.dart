@@ -24,6 +24,8 @@ class MStopListening extends Mock implements StopListening {}
 
 class MValidateQuery extends Mock implements ValidateQuery {}
 
+class MExitCollaboratorPool extends Mock implements ExitCollaboratorPool {}
+
 class MOnSpeechResultStore extends Mock implements OnSpeechResultStore {}
 
 class MSpeechToText extends Mock implements SpeechToText {}
@@ -34,6 +36,7 @@ class MSpeechToText extends Mock implements SpeechToText {}
   MInitiateSpeechToText,
   MOnSpeechResult,
   MStartListening,
+  MExitCollaboratorPool,
   MStopListening,
   MValidateQuery,
   MP2PCollaboratorPoolContract,

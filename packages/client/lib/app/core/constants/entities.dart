@@ -21,4 +21,7 @@ class DefaultEntities {
   static Either<Failure, CollaboratorPoolEntryStatusEntity>
       get collaboratorPoolEntryStatusEntity =>
           const Right(CollaboratorPoolEntryStatusEntity(hasEntered: false));
+  static Either<Failure, CollaboratorPoolExitStatusEntity>
+      get collaboratorPoolExitStatusEntity =>
+          const Right(CollaboratorPoolExitStatusEntity(hasLeft: false));
 }
