@@ -30,11 +30,7 @@ import 'package:mobx/mobx.dart';
 // * Type Imports Import
 import 'package:dartz/dartz.dart';
 import 'package:primala/app/core/interfaces/auth_providers.dart';
-// * Logic import
-import 'package:primala/app/modules/authentication/domain/logic/sign_in_with_google.dart';
-import 'package:primala/app/modules/authentication/domain/logic/sign_in_with_apple.dart';
-// * Entity import
-import 'package:primala/app/modules/authentication/domain/entities/auth_provider_entity.dart';
+import 'package:primala/app/modules/authentication/domain/domain.dart';
 // * Core imports
 import 'package:primala/app/core/mobx/store_state.dart';
 import 'package:primala/app/core/error/failure.dart';

@@ -31,9 +31,7 @@
 /// and may involve failures, we use [AbstractFutureLogic] for this logic
 /// function.
 
-// * Primala Domain Imports
-import 'package:primala/app/modules/authentication/domain/contracts/authentication_contract.dart';
-import 'package:primala/app/modules/authentication/domain/entities/auth_provider_entity.dart';
+import 'package:primala/app/modules/authentication/domain/domain.dart';
 // * Primala Core Imports
 import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/core/interfaces/logic.dart';

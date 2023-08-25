@@ -50,6 +50,17 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                   ),
                 ),
                 // Observer(builder: (context) { return
+                Observer(builder: (context) {
+                  if (coordinatorStore.isReadyToEnterPool) {
+                    // navigation work in here
+                  }
+                  return Center(
+                      child: SmartFadingAnimatedText(
+                    initialFadeInDelay: const Duration(seconds: 3),
+                    stateTrackerStore: coordinatorStore
+                        .widgetStore.smartFadingAnimatedTextStore,
+                  ));
+                }),
                 Column(
                   children: [
                     Expanded(
@@ -85,14 +96,6 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                 ),
                 //   );
                 // }),
-                Observer(builder: (context) {
-                  return Center(
-                      child: SmartFadingAnimatedText(
-                    initialFadeInDelay: const Duration(seconds: 3),
-                    stateTrackerStore: coordinatorStore
-                        .widgetStore.smartFadingAnimatedTextStore,
-                  ));
-                }),
               ],
             ),
           ),

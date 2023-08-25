@@ -27,8 +27,7 @@
 /// doesn't involve any failures, we use [AbstractSyncNoFailureLogic] for this
 /// logic function.
 // * Primala Domain Imports
-import 'package:primala/app/modules/authentication/domain/contracts/authentication_contract.dart';
-import 'package:primala/app/modules/authentication/domain/entities/auth_state_entity.dart';
+import 'package:primala/app/modules/authentication/domain/domain.dart';
 // * Primala Core Imports
 import 'package:primala/app/core/interfaces/logic.dart';
 

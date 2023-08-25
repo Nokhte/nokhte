@@ -62,20 +62,9 @@
 /// - Guard: The module imports the [AuthGuard] class to manage authentication
 ///          routing for authenticated or unauthenticated users.
 
-import 'package:primala/app/modules/authentication/data/sources/auth_remote_source.dart';
-import 'package:primala/app/modules/authentication/data/contracts/authentication_contract_impl.dart';
-import 'package:primala/app/modules/authentication/domain/contracts/authentication_contract.dart';
-import 'package:primala/app/modules/home/domain/logic/add_name_to_database.dart';
-import 'package:primala/app/modules/authentication/domain/logic/get_auth_state.dart';
-import 'package:primala/app/modules/authentication/domain/logic/sign_in_with_apple.dart';
-import 'package:primala/app/modules/authentication/domain/logic/sign_in_with_google.dart';
-import 'package:primala/app/modules/home/presentation/mobx/getter/add_name_to_database_getter_store.dart';
-import 'package:primala/app/modules/authentication/presentation/mobx/getters/get_auth_provider_getter_store.dart';
-import 'package:primala/app/modules/authentication/presentation/mobx/getters/get_auth_state_getter_store.dart';
-import 'package:primala/app/modules/home/presentation/mobx/main/add_name_to_database_store.dart';
-import 'package:primala/app/modules/authentication/presentation/mobx/main/auth_provider_store.dart';
-import 'package:primala/app/modules/authentication/presentation/mobx/main/auth_state_store.dart';
-import 'package:primala/app/modules/authentication/presentation/screens/new_login_screen.dart';
+import 'package:primala/app/modules/authentication/domain/domain.dart';
+import 'package:primala/app/modules/authentication/data/data.dart';
+import 'package:primala/app/modules/authentication/presentation/presentation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:primala/app/core/network/network_info.dart';
@@ -124,16 +113,21 @@ class AuthenticationModule extends Module {
             authStateGetterStore: i<GetAuthStateGetterStore>(),
           ),
         ),
+        // & Coordinator Stores
+        Bind.singleton<LoginScreenCoordinatorStore>(
+          (i) => LoginScreenCoordinatorStore(
+            authProviderStore: i<AuthProviderStore>(),
+            authStateStore: i<AuthStateStore>(),
+          ),
+        ),
       ];
 
   @override
   List<ChildRoute> get routes => [
         ChildRoute(
           "/",
-          child: (context, args) => NewLoginScreen(
-            authStateStore: Modular.get<AuthStateStore>(),
-            authProviderStore: Modular.get<AuthProviderStore>(),
-            supabase: Modular.get<SupabaseClient>(),
+          child: (context, args) => LoginScreen(
+            loginCoordinatorStore: Modular.get<LoginScreenCoordinatorStore>(),
           ),
           guards: [
             AuthGuard(

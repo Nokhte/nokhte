@@ -33,7 +33,8 @@
 /// abstraction of the authentication provider's sign-in status promote better
 /// code maintainability and flexibility.
 
-import 'package:primala/app/modules/authentication/domain/entities/auth_provider_entity.dart';
+// import 'package:primala/app/modules/authentication/domain/entities/auth_provider_entity.dart';
+import 'package:primala/app/modules/authentication/domain/domain.dart';
 import 'package:primala/app/core/interfaces/auth_providers.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

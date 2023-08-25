@@ -39,9 +39,7 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/modules/authentication/domain/entities/auth_state_entity.dart';
-import 'package:primala/app/modules/authentication/domain/entities/auth_provider_entity.dart';
-import 'package:primala/app/modules/home/domain/entities/name_creation_status_entity.dart';
+import 'package:primala/app/modules/authentication/domain/entities/entities.dart';
 
 abstract class AuthenticationContract {
   Future<Either<Failure, AuthProviderEntity>> googleSignIn();

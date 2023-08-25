@@ -32,8 +32,8 @@
 /// independent and only rely on intermediate abstractions, promoting better
 /// separation of concerns and maintainability.
 
-import 'package:primala/app/modules/authentication/domain/entities/auth_state_entity.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:primala/app/modules/authentication/domain/domain.dart';
 
 class AuthStateModel extends AuthStateEntity {
   /// Constructs an [AuthStateModel] instance with the specified [isAuthenticated] stream.

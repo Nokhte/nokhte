@@ -1,14 +1,12 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:primala/app/core/network/network_info.dart';
-import 'package:primala/app/core/widgets/beach_waves/stack/presentation/mobx/beach_waves_tracker_store.dart';
-import 'package:primala/app/core/widgets/breathing_pentagons/stack/presentation/mobx/breathing_pentagons_state_tracker_store.dart';
-import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
-import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/presentation/mobx/smart_fading_animated_text_tracker_store.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/getters/enter_collaborator_pool_getter_store.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
+import 'package:primala/app/core/widgets/widgets.dart';
+import 'package:primala/app/core/widgets/widget_constants.dart';
+import 'package:primala/app/modules/p2p_collaborator_pool/presentation/presentation.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/domain.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/data/data.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/presentation/views/speak_the_collaborator_phrase_screen.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -165,6 +163,7 @@ class P2PCollaboratorPoolModule extends Module {
             supabase: Modular.get<SupabaseClient>(),
           ),
           transition: TransitionType.noTransition,
-        )
+        ),
+        ChildRoute("/pool/", child: (context, args) => CollaboratorPoolScreen())
       ];
 }

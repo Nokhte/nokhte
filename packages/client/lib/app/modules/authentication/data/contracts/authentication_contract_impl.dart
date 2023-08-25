@@ -18,9 +18,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:primala/app/core/constants/failure_constants.dart';
 // * Domain Imports
-import 'package:primala/app/modules/authentication/domain/entities/auth_provider_entity.dart';
-import 'package:primala/app/modules/authentication/domain/entities/auth_state_entity.dart';
-import 'package:primala/app/modules/authentication/domain/contracts/authentication_contract.dart';
+import 'package:primala/app/modules/authentication/domain/domain.dart';
 // * Core Imports
 import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/core/network/network_info.dart';

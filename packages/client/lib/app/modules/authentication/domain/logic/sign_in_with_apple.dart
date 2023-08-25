@@ -31,11 +31,10 @@
 /// and may involve failures, we use [AbstractFutureLogic] for this logic
 /// function.
 
-import 'package:primala/app/modules/authentication/domain/contracts/authentication_contract.dart';
-import 'package:primala/app/modules/authentication/domain/entities/auth_provider_entity.dart';
 import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:dartz/dartz.dart';
+import 'package:primala/app/modules/authentication/domain/domain.dart';
 
 class SignInWithApple
     extends AbstractFutureLogic<AuthProviderEntity, NoParams> {

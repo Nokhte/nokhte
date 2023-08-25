@@ -18,8 +18,7 @@
 /// depend_on_referenced_packages.
 // ignore_for_file: depend_on_referenced_packages
 
-import 'package:primala/app/modules/authentication/data/models/auth_state_model.dart';
-import 'package:primala/app/modules/authentication/data/models/auth_provider_model.dart';
+import 'package:primala/app/modules/authentication/data/models/models.dart';
 import 'package:primala/app/core/interfaces/auth_providers.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter/foundation.dart';
