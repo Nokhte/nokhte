@@ -27,7 +27,7 @@ void main() {
       "INTERACTION No. 1: Swipe Up on Home Screen & Swipe Down in Speak The Collaborator Phrase Screen",
       () {
     // # User Swipes Up
-    homeModuleStateTrackerStore.homeScreenSwipeUpCallback();
+    homeModuleStateTrackerStore.teeUpOceanDive();
     expect(homeModuleStateTrackerStore.movieMode, MovieModes.oceanDiveSetup);
 
     /// # then navigation to p2p module happens and `teeOceanDiveMovieUp` is

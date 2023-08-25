@@ -100,6 +100,16 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
       enterCollaboratorPoolStore(validateQueryStore.phraseIDs);
       isReadyToEnterPool = true;
     }
+
+    /// so wrap it in an observer or put this in an observer and
+    ///     if (homeScreenCoordinatorStore
+    //         .beachWaveStateTrackerStore.isReadyToTransition ==
+    //     true) {
+    //   Modular.to.navigate(
+    //     '/p2p_collaborator_pool/',
+    //     arguments: beachWavesTrackerStore.passingParam,
+    //   );
+    // }
   }
 
   speakTheCollaboratorPhraseScreenConstructorCallback({

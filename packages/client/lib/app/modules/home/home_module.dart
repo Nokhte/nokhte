@@ -5,6 +5,7 @@ import 'package:primala/app/modules/home/data/contracts/home_contract_impl.dart'
 import 'package:primala/app/modules/home/data/sources/home_remote_source.dart';
 import 'package:primala/app/modules/home/domain/contracts/home_contract.dart';
 import 'package:primala/app/modules/home/domain/logic/logic.dart';
+import 'package:primala/app/modules/home/presentation/mobx/main/home_screen_coordinator_store.dart';
 import 'package:primala/app/modules/home/presentation/mobx/mobx.dart';
 import 'package:primala/app/modules/home/presentation/screens/home_screen.dart';
 import 'package:primala/app/core/widgets/beach_waves/stack/presentation/mobx/beach_waves_tracker_store.dart';
@@ -68,9 +69,18 @@ class HomeModule extends Module {
             messagesData: MessagesData.homeList,
           ),
         ),
-
         Bind.singleton<BeachWavesTrackerStore>(
           (i) => BeachWavesTrackerStore(),
+        ),
+        // & Coordinator Store
+        Bind.singleton<HomeScreenCoordinatorStore>(
+          (i) => HomeScreenCoordinatorStore(
+            beachWaveStateTrackerStore: i<BeachWavesTrackerStore>(),
+            addNameToDatabaseStore: i<AddNameToDatabaseStore>(),
+            fadingTextStateTrackerStore:
+                i<SmartFadingAnimatedTextTrackerStore>(),
+            getCollaboratorPhraseStore: i<GetCollaboratorPhraseStore>(),
+          ),
         ),
       ];
 
@@ -80,15 +90,8 @@ class HomeModule extends Module {
           "/",
           transition: TransitionType.noTransition,
           child: (context, args) => HomeScreen(
-            getCollaboratorPhraseStore:
-                Modular.get<GetCollaboratorPhraseStore>(),
-            fadingTextStateTrackerStore:
-                Modular.get<SmartFadingAnimatedTextTrackerStore>(),
-            addNameToDatabaseStore: Modular.get<AddNameToDatabaseStore>(),
-            beachWaveStateTrackerStore: Modular.get<BeachWavesTrackerStore>(),
-            supabase: Modular.get<SupabaseClient>(),
-            //     Modular.get<BreathingPentagonsStateTrackerStore>(),
-            // supabase: Modular.get<SupabaseClient>(),
+            homeScreenCoordinatorStore:
+                Modular.get<HomeScreenCoordinatorStore>(),
           ),
         )
       ];

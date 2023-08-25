@@ -110,12 +110,11 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
       ActionController(name: '_BeachWavesTrackerStoreBase', context: context);
 
   @override
-  dynamic homeScreenSwipeUpCallback() {
-    final _$actionInfo =
-        _$_BeachWavesTrackerStoreBaseActionController.startAction(
-            name: '_BeachWavesTrackerStoreBase.homeScreenSwipeUpCallback');
+  dynamic teeUpOceanDive() {
+    final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
+        .startAction(name: '_BeachWavesTrackerStoreBase.teeUpOceanDive');
     try {
-      return super.homeScreenSwipeUpCallback();
+      return super.teeUpOceanDive();
     } finally {
       _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
     }

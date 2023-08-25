@@ -33,7 +33,7 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   Control control = Control.mirror;
 
   @action
-  homeScreenSwipeUpCallback() {
+  teeUpOceanDive() {
     if (movieMode == MovieModes.onShore) {
       movieMode = MovieModes.oceanDiveSetup;
     }

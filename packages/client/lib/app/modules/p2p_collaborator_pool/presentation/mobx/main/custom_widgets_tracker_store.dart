@@ -6,7 +6,7 @@ import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/widgets/beach_waves/stack/constants/types/animation_status.dart';
 import 'package:primala/app/core/widgets/beach_waves/stack/constants/types/movie_modes.dart';
 import 'package:primala/app/core/widgets/beach_waves/stack/presentation/mobx/beach_waves_tracker_store.dart';
-import 'package:primala/app/core/widgets/breathing_pentagons/stack/presentation/mobx/main/breathing_pentagons_state_tracker_store.dart';
+import 'package:primala/app/core/widgets/breathing_pentagons/stack/presentation/mobx/breathing_pentagons_state_tracker_store.dart';
 import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/presentation/mobx/smart_fading_animated_text_tracker_store.dart';
 // * Mobx Codegen Inclusion
 part 'custom_widgets_tracker_store.g.dart';
