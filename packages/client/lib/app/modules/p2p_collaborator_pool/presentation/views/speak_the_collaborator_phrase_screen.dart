@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart' hide AnimationStatus;
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/canvas_widget_utils/canvas_size_calculator.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
@@ -39,8 +40,8 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
           body: Swipe(
             onSwipeUp: () =>
                 coordinatorStore.speakTheCollaboratorPhraseSwipeUpCallback(),
-            // onSwipeDown: () =>
-            //     coordinatorStore.collaboratorPhraseSwipeDownCallback(),
+            onSwipeDown: () =>
+                coordinatorStore.collaboratorPhraseSwipeDownCallback(),
             child: Stack(
               children: [
                 SizedBox(
@@ -55,6 +56,7 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                 Observer(builder: (context) {
                   if (coordinatorStore.isReadyToEnterPool) {
                     // navigation work in here
+                    Modular.to.navigate('/p2p_collaborator_pool/pool/');
                   }
                   return Center(
                       child: SmartFadingAnimatedText(

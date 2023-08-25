@@ -122,12 +122,16 @@ void main() {
         when(mockNetworkInfo.isConnected)
             .thenAnswer((realInvocation) async => true);
       });
-      test("when online and non-empty should return a model", () async {
+      test("when online and non-empty should return a false model", () async {
         // arrange
         when(mockRemoteSource.validateQuery(query: "some phrase"))
             .thenAnswer((realInvocation) async => [
-                  [{}],
-                  [{}]
+                  [
+                    {"id": 1}
+                  ],
+                  [
+                    {"id": 1}
+                  ]
                 ]);
         // act
         final res =
@@ -136,7 +140,7 @@ void main() {
         expect(
             res, ConstantCollaboratorPhraseValidationModel.wrappedSuccessCase);
       });
-      test("when online and empty should return a model", () async {
+      test("when online and empty should return a true model", () async {
         when(mockRemoteSource.validateQuery(query: "some phrase"))
             .thenAnswer((realInvocation) async => [[], []]);
         // act
