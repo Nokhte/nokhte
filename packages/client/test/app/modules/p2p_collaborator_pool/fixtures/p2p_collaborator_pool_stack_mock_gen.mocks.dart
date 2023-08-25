@@ -14,7 +14,7 @@ import 'package:primala/app/modules/p2p_collaborator_pool/data/data.dart'
     as _i15;
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/domain.dart'
     as _i2;
-import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart'
+import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/main/on_speech_result_store.dart'
     as _i4;
 import 'package:primala_backend/phrase_components.dart' as _i10;
 import 'package:speech_to_text/speech_recognition_result.dart' as _i14;
