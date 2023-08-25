@@ -9,9 +9,11 @@ import 'package:primala/app/modules/p2p_collaborator_pool/domain/domain.dart';
 import 'package:primala/app/core/utilities/utilities.dart';
 import 'package:primala/app/core/mobx/base_mobx_db_store.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
+import 'package:primala_backend/phrase_components.dart';
 // * Mobx Codegen Inclusion
 part 'validate_query_store.g.dart';
 
+/// TODO test this one this is high priority
 class ValidateQueryStore = _ValidateQueryStoreBase with _$ValidateQueryStore;
 
 abstract class _ValidateQueryStoreBase extends BaseMobxDBStore<
@@ -24,6 +26,12 @@ abstract class _ValidateQueryStoreBase extends BaseMobxDBStore<
   @observable
   ValidationStatus isValidated = ValidationStatus.idle;
 
+  CollaboratorPhraseIDs phraseIDs =
+      const CollaboratorPhraseIDs(adjectiveID: -1, nounID: -1);
+
+  /// these will need to be passed with the validation entity
+  /// so add that in the entity & the model infra
+
   _ValidateQueryStoreBase({
     required this.validateQueryGetterStore,
   });
@@ -32,11 +40,11 @@ abstract class _ValidateQueryStoreBase extends BaseMobxDBStore<
   resetCheckerFields() {
     isProperLength = ValidationStatus.idle;
     isValidated = ValidationStatus.idle;
+    phraseIDs = DefaultEntities.defaultCollaboratorPhraseIDs;
   }
 
   @action
   validateTheLength({required String inputString}) {
-    // print('LENGTH CHECKER =========+> ${MiscAlgos.isTwoWords(inputString)}');
     MiscAlgos.isTwoWords(inputString)
         ? isProperLength = ValidationStatus.valid
         : isProperLength = ValidationStatus.invalid;
@@ -57,10 +65,9 @@ abstract class _ValidateQueryStoreBase extends BaseMobxDBStore<
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
     }, (validationStatusEntity) {
-      // print(
-      //     "${validationStatusEntity.isSent} THE STORE BOOL TRUE MEANS ITS VALID");
       if (validationStatusEntity.isSent) {
         isValidated = ValidationStatus.valid;
+        phraseIDs = validationStatusEntity.phraseIDs;
       } else {
         isValidated = ValidationStatus.invalid;
       }

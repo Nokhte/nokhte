@@ -1,16 +1,25 @@
 import 'package:dartz/dartz.dart';
 import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/entities.dart';
+import 'package:primala_backend/phrase_components.dart';
 
 class ConstantCollaboratorPhraseValidationEntity {
+  static CollaboratorPhraseIDs get successfulCollaboratorPhraseIDs =>
+      const CollaboratorPhraseIDs(adjectiveID: -1, nounID: -1);
+  static CollaboratorPhraseIDs get notSuccessfulCollaboratorPhraseIDs =>
+      const CollaboratorPhraseIDs(adjectiveID: 1, nounID: 1);
   static CollaboratorPhraseValidationEntity get successCase =>
-      const CollaboratorPhraseValidationEntity(isValid: true);
+      CollaboratorPhraseValidationEntity(
+        isValid: true,
+        phraseIDs: successfulCollaboratorPhraseIDs,
+      );
   static CollaboratorPhraseValidationEntity get notSuccessCase =>
-      const CollaboratorPhraseValidationEntity(isValid: false);
+      CollaboratorPhraseValidationEntity(
+        isValid: false,
+        phraseIDs: notSuccessfulCollaboratorPhraseIDs,
+      );
   static Either<Failure, CollaboratorPhraseValidationEntity>
-      get wrappedSuccessCase =>
-          const Right(CollaboratorPhraseValidationEntity(isValid: true));
+      get wrappedSuccessCase => Right(successCase);
   static Either<Failure, CollaboratorPhraseValidationEntity>
-      get wrappedNotSuccessCase =>
-          const Right(CollaboratorPhraseValidationEntity(isValid: false));
+      get wrappedNotSuccessCase => Right(notSuccessCase);
 }

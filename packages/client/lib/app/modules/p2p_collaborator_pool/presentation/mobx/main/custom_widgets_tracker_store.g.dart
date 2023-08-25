@@ -14,13 +14,12 @@ mixin _$CustomWidgetsTrackerStore on _CustomWidgetsTrackerStoreBase, Store {
           name: '_CustomWidgetsTrackerStoreBase', context: context);
 
   @override
-  dynamic collaboratorPhraseSwipeDownCallback() {
+  dynamic backToShoreWidgetChanges() {
     final _$actionInfo =
         _$_CustomWidgetsTrackerStoreBaseActionController.startAction(
-            name:
-                '_CustomWidgetsTrackerStoreBase.collaboratorPhraseSwipeDownCallback');
+            name: '_CustomWidgetsTrackerStoreBase.backToShoreWidgetChanges');
     try {
-      return super.collaboratorPhraseSwipeDownCallback();
+      return super.backToShoreWidgetChanges();
     } finally {
       _$_CustomWidgetsTrackerStoreBaseActionController.endAction(_$actionInfo);
     }

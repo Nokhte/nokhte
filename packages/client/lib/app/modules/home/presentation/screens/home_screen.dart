@@ -77,26 +77,25 @@ class _HomeScreenState extends State<HomeScreen> {
       return LayoutBuilder(
         builder: (context, constraints) {
           return PlatformScaffold(
-            body: Stack(
-              children: [
-                Swipe(
-                  // onSwipeDown: () async => await supabase.auth.signOut(),
-                  onSwipeUp: () =>
-                      beachWaveStateTrackerStore.homeScreenSwipeUpCallback(),
-                  child: SizedBox(
+            body: Swipe(
+              onSwipeUp: () =>
+                  beachWaveStateTrackerStore.homeScreenSwipeUpCallback(),
+              child: Stack(
+                children: [
+                  SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     child: SmartBeachWaves(
                       stateTrackerStore: beachWaveStateTrackerStore,
                     ),
                   ),
-                ),
-                Center(
-                    child: SmartFadingAnimatedText(
-                  initialFadeInDelay: const Duration(seconds: 0),
-                  stateTrackerStore: fadingTextStateTrackerStore,
-                )),
-              ],
+                  Center(
+                      child: SmartFadingAnimatedText(
+                    initialFadeInDelay: const Duration(seconds: 0),
+                    stateTrackerStore: fadingTextStateTrackerStore,
+                  )),
+                ],
+              ),
             ),
           );
         },

@@ -8,9 +8,7 @@ class ConstantSpeechToTextInitializerStatusModel {
   static SpeechToTextInitializerStatusModel get notSuccessCase =>
       const SpeechToTextInitializerStatusModel(isAllowed: false);
   static Either<Failure, SpeechToTextInitializerStatusModel>
-      get wrappedSuccessCase =>
-          const Right(SpeechToTextInitializerStatusModel(isAllowed: true));
+      get wrappedSuccessCase => Right(successCase);
   static Either<Failure, SpeechToTextInitializerStatusModel>
-      get wrappedNotSuccessCase =>
-          const Right(SpeechToTextInitializerStatusModel(isAllowed: false));
+      get wrappedNotSuccessCase => Right(notSuccessCase);
 }

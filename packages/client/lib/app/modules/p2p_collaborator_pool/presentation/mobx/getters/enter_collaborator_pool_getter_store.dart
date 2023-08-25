@@ -11,6 +11,9 @@ import 'package:primala_backend/constants/phrase_components/collaborator_phrase.
 // * Mobx Codegen Inclusion
 part 'enter_collaborator_pool_getter_store.g.dart';
 
+/// % TODO this & the exit can probably be generalized into a single pool
+/// % but we can do that later
+
 class EnterCollaboratorPoolGetterStore = _EnterCollaboratorPoolGetterStoreBase
     with _$EnterCollaboratorPoolGetterStore;
 

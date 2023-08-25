@@ -21,6 +21,9 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   final ValidateQueryStore validateQueryStore;
   final EnterCollaboratorPoolStore enterCollaboratorPoolStore;
 
+  @observable
+  bool isReadyToEnterPool = false;
+
   _SpeakTheCollaboratorPhraseCoordinatorStoreBase({
     required this.widgetStore,
     required this.speechToTextStore,
@@ -84,6 +87,28 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
     widgetStore.breathingPentagonsStore.gestureFunctionRouter();
     speechToTextStore.stopListening();
     onSpeechResultStore.currentPhraseIndex++;
+  }
+
+  @action
+  collaboratorPhraseSwipeDownCallback() {
+    widgetStore.backToShoreWidgetChanges();
+  }
+
+  @action
+  speakTheCollaboratorPhraseSwipeUpCallback() {
+    if (validateQueryStore.isValidated == ValidationStatus.valid) {
+      enterCollaboratorPoolStore(validateQueryStore.phraseIDs);
+      isReadyToEnterPool = true;
+    }
+  }
+
+  speakTheCollaboratorPhraseScreenConstructorCallback({
+    required SpeakTheCollaboratorPhraseCoordinatorStore coordinatorStore,
+    required double startingWaveMovement,
+  }) {
+    coordinatorStore.speechToTextStore.initSpeech();
+    coordinatorStore.widgetStore.beachWavesStore
+        .teeOceanDiveMovieUp(startingWaterMovement: startingWaveMovement);
   }
 
   @override

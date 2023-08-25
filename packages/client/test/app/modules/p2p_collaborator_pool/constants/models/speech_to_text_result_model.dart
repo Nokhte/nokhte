@@ -8,7 +8,7 @@ class ConstantSpeechToTextResultModel {
   static SpeechToTextResultModel get notSuccessCase =>
       const SpeechToTextResultModel(speechResult: "");
   static Either<Failure, SpeechToTextResultModel> get wrappedSuccessCase =>
-      const Right(SpeechToTextResultModel(speechResult: "aromatic acid"));
+      Right(successCase);
   static Either<Failure, SpeechToTextResultModel> get wrappedNotSuccessCase =>
-      const Right(SpeechToTextResultModel(speechResult: ""));
+      Right(notSuccessCase);
 }

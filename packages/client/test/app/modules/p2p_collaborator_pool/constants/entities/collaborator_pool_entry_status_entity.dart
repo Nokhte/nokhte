@@ -8,9 +8,7 @@ class ConstantCollaboratorPoolEntryStatusEntity {
   static CollaboratorPoolEntryStatusEntity get notSuccessCase =>
       const CollaboratorPoolEntryStatusEntity(hasEntered: false);
   static Either<Failure, CollaboratorPoolEntryStatusEntity>
-      get wrappedSuccessCase =>
-          const Right(CollaboratorPoolEntryStatusEntity(hasEntered: true));
+      get wrappedSuccessCase => Right(successCase);
   static Either<Failure, CollaboratorPoolEntryStatusEntity>
-      get wrappedNotSuccessCase =>
-          const Right(CollaboratorPoolEntryStatusEntity(hasEntered: false));
+      get wrappedNotSuccessCase => Right(notSuccessCase);
 }

@@ -56,7 +56,7 @@ class P2PCollaboratorPoolContractImpl implements P2PCollaboratorPoolContract {
       final res = await remoteSource.validateQuery(query: query);
       return Right(
         CollaboratorPhraseValidationModel.fromSupabase(
-          adjectiveRes: res[0],
+          adjRes: res[0],
           nounRes: res[1],
         ),
       );

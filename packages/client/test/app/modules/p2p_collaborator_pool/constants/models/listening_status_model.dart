@@ -8,7 +8,7 @@ class ConstantListeningStatusModel {
   static ListeningStatusModel get notSuccessCase =>
       const ListeningStatusModel(isListening: false);
   static Either<Failure, ListeningStatusModel> get wrappedSuccessCase =>
-      const Right(ListeningStatusModel(isListening: true));
+      Right(successCase);
   static Either<Failure, ListeningStatusModel> get wrappedNotSuccessCase =>
-      const Right(ListeningStatusModel(isListening: false));
+      Right(notSuccessCase);
 }

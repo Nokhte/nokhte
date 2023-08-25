@@ -8,7 +8,7 @@ class ConstantListeningStatusEntity {
   static ListeningStatusEntity get notSuccessCase =>
       const ListeningStatusEntity(isListening: false);
   static Either<Failure, ListeningStatusEntity> get wrappedSuccessCase =>
-      const Right(ListeningStatusEntity(isListening: true));
+      Right(successCase);
   static Either<Failure, ListeningStatusEntity> get wrappedNotSuccessCase =>
-      const Right(ListeningStatusEntity(isListening: false));
+      Right(notSuccessCase);
 }

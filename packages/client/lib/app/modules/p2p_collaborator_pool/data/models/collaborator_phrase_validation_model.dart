@@ -1,17 +1,30 @@
+import 'package:primala/app/core/constants/entities.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/entities.dart';
+import 'package:primala_backend/phrase_components.dart';
 
 class CollaboratorPhraseValidationModel
     extends CollaboratorPhraseValidationEntity {
-  const CollaboratorPhraseValidationModel({required bool isValid})
-      : super(isValid: isValid);
+  const CollaboratorPhraseValidationModel(
+      {required bool isValid, required CollaboratorPhraseIDs phraseIDs})
+      : super(isValid: isValid, phraseIDs: phraseIDs);
 
   static CollaboratorPhraseValidationModel fromSupabase(
-      {required List adjectiveRes, required List nounRes}) {
-    print("FROM THA MODEL !!!!!!!!! ==========+> $adjectiveRes $nounRes");
-    if (adjectiveRes.isEmpty | nounRes.isEmpty) {
-      return const CollaboratorPhraseValidationModel(isValid: false);
+      {required List adjRes, required List nounRes}) {
+    if (adjRes.isNotEmpty && nounRes.isNotEmpty) {
+      final nounID = nounRes[0]["id"];
+      final adjectiveID = adjRes[0]["id"];
+      return CollaboratorPhraseValidationModel(
+        isValid: true,
+        phraseIDs: CollaboratorPhraseIDs(
+          adjectiveID: adjectiveID,
+          nounID: nounID,
+        ),
+      );
     } else {
-      return const CollaboratorPhraseValidationModel(isValid: true);
+      return CollaboratorPhraseValidationModel(
+        isValid: false,
+        phraseIDs: DefaultEntities.defaultCollaboratorPhraseIDs,
+      );
     }
   }
 }

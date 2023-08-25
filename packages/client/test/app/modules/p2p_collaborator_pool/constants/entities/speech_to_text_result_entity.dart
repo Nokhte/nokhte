@@ -8,7 +8,7 @@ class ConstantSpeechToTextResultEntity {
   static SpeechToTextResultEntity get notSuccessCase =>
       const SpeechToTextResultEntity(speechResult: "");
   static Either<Failure, SpeechToTextResultEntity> get wrappedSuccessCase =>
-      const Right(SpeechToTextResultEntity(speechResult: "aromatic acid"));
+      Right(successCase);
   static Either<Failure, SpeechToTextResultEntity> get wrappedNotSuccessCase =>
-      const Right(SpeechToTextResultEntity(speechResult: ""));
+      Right(notSuccessCase);
 }

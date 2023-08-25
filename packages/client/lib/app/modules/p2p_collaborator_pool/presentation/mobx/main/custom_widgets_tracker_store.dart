@@ -26,7 +26,7 @@ abstract class _CustomWidgetsTrackerStoreBase extends Equatable with Store {
   });
 
   @action
-  collaboratorPhraseSwipeDownCallback() {
+  backToShoreWidgetChanges() {
     if (beachWavesStore.animationStatus == AnimationStatus.idle &&
         beachWavesStore.movieMode == MovieModes.oceanDive) {
       beachWavesStore.initiateBackToShore();

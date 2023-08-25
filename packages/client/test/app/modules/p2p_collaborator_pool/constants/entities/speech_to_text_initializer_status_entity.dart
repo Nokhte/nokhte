@@ -8,9 +8,7 @@ class ConstantSpeechToTextInitializerStatusEntity {
   static SpeechToTextInitializerStatusEntity get notSuccessCase =>
       const SpeechToTextInitializerStatusEntity(isAllowed: false);
   static Either<Failure, SpeechToTextInitializerStatusEntity>
-      get wrappedSuccessCase =>
-          const Right(SpeechToTextInitializerStatusEntity(isAllowed: true));
+      get wrappedSuccessCase => Right(successCase);
   static Either<Failure, SpeechToTextInitializerStatusEntity>
-      get wrappedNotSuccessCase =>
-          const Right(SpeechToTextInitializerStatusEntity(isAllowed: false));
+      get wrappedNotSuccessCase => Right(notSuccessCase);
 }

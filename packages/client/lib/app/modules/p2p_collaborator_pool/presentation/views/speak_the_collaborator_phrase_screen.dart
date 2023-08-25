@@ -21,9 +21,10 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
     required this.coordinatorStore,
     required this.startingWaveMovement,
   }) : super(key: key) {
-    coordinatorStore.speechToTextStore.initSpeech();
-    coordinatorStore.widgetStore.beachWavesStore
-        .teeOceanDiveMovieUp(startingWaterMovement: startingWaveMovement);
+    coordinatorStore.speakTheCollaboratorPhraseScreenConstructorCallback(
+      coordinatorStore: coordinatorStore,
+      startingWaveMovement: startingWaveMovement,
+    );
   }
 
   @override
@@ -35,12 +36,12 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         return PlatformScaffold(
-          body: Stack(
-            children: [
-              Swipe(
-                onSwipeDown: () => coordinatorStore.widgetStore
-                    .collaboratorPhraseSwipeDownCallback(),
-                child: SizedBox(
+          body: Swipe(
+            onSwipeDown: () =>
+                coordinatorStore.collaboratorPhraseSwipeDownCallback(),
+            child: Stack(
+              children: [
+                SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   child: SmartBeachWaves(
@@ -48,52 +49,52 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                         coordinatorStore.widgetStore.beachWavesStore,
                   ),
                 ),
-              ),
-              // Observer(builder: (context) { return
-              Column(
-                children: [
-                  Expanded(
-                    child:
-                        Container(), // Empty SizedBox to take up available space
-                  ),
-                  GestureDetector(
-                    onLongPressStart: (_) =>
-                        coordinatorStore.breathingPentagonsHoldStartCallback(),
-                    onLongPressEnd: (_) {
-                      coordinatorStore.breathingPentagonsHoldEndCallback();
-                    },
-                    child: Container(
-                      height: size.height,
-                      width: size.width,
-                      child: Center(
-                        widthFactor: 1.0,
-                        heightFactor: 1.0,
-                        child: BreathingPentagonsButton(
-                          fadeInDelay: const Duration(seconds: 4),
-                          fadeInDuration: const Duration(seconds: 4),
-                          size: size,
-                          stateTrackerStore: coordinatorStore
-                              .widgetStore.breathingPentagonsStore,
+                // Observer(builder: (context) { return
+                Column(
+                  children: [
+                    Expanded(
+                      child:
+                          Container(), // Empty SizedBox to take up available space
+                    ),
+                    GestureDetector(
+                      onLongPressStart: (_) => coordinatorStore
+                          .breathingPentagonsHoldStartCallback(),
+                      onLongPressEnd: (_) {
+                        coordinatorStore.breathingPentagonsHoldEndCallback();
+                      },
+                      child: Container(
+                        height: size.height,
+                        width: size.width,
+                        child: Center(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: BreathingPentagonsButton(
+                            fadeInDelay: const Duration(seconds: 4),
+                            fadeInDuration: const Duration(seconds: 4),
+                            size: size,
+                            stateTrackerStore: coordinatorStore
+                                .widgetStore.breathingPentagonsStore,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 40),
-                  ),
-                ],
-              ),
-              //   );
-              // }),
-              Observer(builder: (context) {
-                return Center(
-                    child: SmartFadingAnimatedText(
-                  initialFadeInDelay: const Duration(seconds: 3),
-                  stateTrackerStore:
-                      coordinatorStore.widgetStore.smartFadingAnimatedTextStore,
-                ));
-              }),
-            ],
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 40),
+                    ),
+                  ],
+                ),
+                //   );
+                // }),
+                Observer(builder: (context) {
+                  return Center(
+                      child: SmartFadingAnimatedText(
+                    initialFadeInDelay: const Duration(seconds: 3),
+                    stateTrackerStore: coordinatorStore
+                        .widgetStore.smartFadingAnimatedTextStore,
+                  ));
+                }),
+              ],
+            ),
           ),
         );
       },
