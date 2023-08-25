@@ -37,8 +37,10 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
       builder: (context, constraints) {
         return PlatformScaffold(
           body: Swipe(
-            onSwipeDown: () =>
-                coordinatorStore.collaboratorPhraseSwipeDownCallback(),
+            onSwipeUp: () =>
+                coordinatorStore.speakTheCollaboratorPhraseSwipeUpCallback(),
+            // onSwipeDown: () =>
+            //     coordinatorStore.collaboratorPhraseSwipeDownCallback(),
             child: Stack(
               children: [
                 SizedBox(
