@@ -14,7 +14,7 @@ import 'package:primala/app/modules/p2p_collaborator_pool/data/data.dart'
     as _i15;
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/domain.dart'
     as _i2;
-import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/main/on_speech_result_store.dart'
+import 'package:primala/app/modules/p2p_collaborator_pool/presentation/presentation.dart'
     as _i4;
 import 'package:primala_backend/phrase_components.dart' as _i10;
 import 'package:speech_to_text/speech_recognition_result.dart' as _i14;
@@ -357,13 +357,11 @@ class MockMOnSpeechResult extends _i1.Mock implements _i7.MOnSpeechResult {
         ),
       ) as _i4.OnSpeechResultStore);
   @override
-  void call(_i14.SpeechRecognitionResult? params) => super.noSuchMethod(
-        Invocation.method(
-          #call,
-          [params],
-        ),
-        returnValueForMissingStub: null,
-      );
+  dynamic call(_i14.SpeechRecognitionResult? params) =>
+      super.noSuchMethod(Invocation.method(
+        #call,
+        [params],
+      ));
 }
 
 /// A class which mocks [MStartListening].
