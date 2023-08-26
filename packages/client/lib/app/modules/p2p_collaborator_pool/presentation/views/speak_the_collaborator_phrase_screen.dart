@@ -12,16 +12,17 @@ import 'package:swipe/swipe.dart';
 
 class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
   final SpeakTheCollaboratorPhraseCoordinatorStore coordinatorStore;
-  final double startingWaveMovement;
+  // final double startingWaveMovement;
 
   SpeakTheCollaboratorPhraseScreen({
     Key? key,
     required this.coordinatorStore,
-    required this.startingWaveMovement,
+    // required this.startingWaveMovement,
   }) : super(key: key) {
+    print("did this run twice?");
     coordinatorStore.screenConstructorCallback(
       coordinatorStore: coordinatorStore,
-      startingWaveMovement: startingWaveMovement,
+      // startingWaveMovement: startingWaveMovement,
     );
   }
 
@@ -55,7 +56,7 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                   }
                   return Center(
                       child: SmartFadingAnimatedText(
-                    initialFadeInDelay: const Duration(seconds: 3),
+                    initialFadeInDelay: const Duration(seconds: 0),
                     stateTrackerStore: coordinatorStore
                         .widgetStore.smartFadingAnimatedTextStore,
                   ));
@@ -79,8 +80,8 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                           widthFactor: 1.0,
                           heightFactor: 1.0,
                           child: BreathingPentagonsButton(
-                            fadeInDelay: const Duration(seconds: 4),
-                            fadeInDuration: const Duration(seconds: 4),
+                            fadeInDelay: const Duration(seconds: 1),
+                            fadeInDuration: const Duration(seconds: 1),
                             size: size,
                             stateTrackerStore: coordinatorStore
                                 .widgetStore.breathingPentagonsStore,

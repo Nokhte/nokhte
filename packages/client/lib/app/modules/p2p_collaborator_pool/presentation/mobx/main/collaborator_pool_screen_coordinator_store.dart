@@ -31,6 +31,7 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
     // widgetStore.beachWavesStore.initiateToTheDepths();
     beachWavesStore.initiateTimesUp(
       timerLength: const Duration(seconds: 45),
+      // timerLength: const Duration(seconds: 10),
     );
   }
 

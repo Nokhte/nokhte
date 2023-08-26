@@ -3,7 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+// import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/home/presentation/mobx/main/home_screen_coordinator_store.dart';
@@ -24,14 +24,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
-      if (homeScreenCoordinatorStore
-              .beachWaveStateTrackerStore.isReadyToTransition ==
-          true) {
-        Modular.to.navigate(
-          '/p2p_collaborator_pool/',
-          arguments: beachWavesTrackerStore.passingParam,
-        );
-      }
       return LayoutBuilder(
         builder: (context, constraints) {
           return PlatformScaffold(

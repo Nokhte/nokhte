@@ -40,7 +40,9 @@ class P2PCollaboratorPoolRemoteSourceImpl
   @override
   Future startListening() async {
     await speechToText.listen(
-      onResult: (result) => onSpeechResult(result),
+      onResult: (result) {
+        onSpeechResult(result);
+      },
     );
     return true;
   }

@@ -34,6 +34,23 @@ mixin _$SmartFadingAnimatedTextTrackerStore
                   '_SmartFadingAnimatedTextTrackerStoreBase.currentUnlockGesture'))
       .value;
 
+  late final _$firstTimeAtom = Atom(
+      name: '_SmartFadingAnimatedTextTrackerStoreBase.firstTime',
+      context: context);
+
+  @override
+  bool get firstTime {
+    _$firstTimeAtom.reportRead();
+    return super.firstTime;
+  }
+
+  @override
+  set firstTime(bool value) {
+    _$firstTimeAtom.reportWrite(value, super.firstTime, () {
+      super.firstTime = value;
+    });
+  }
+
   late final _$isInfiniteAtom = Atom(
       name: '_SmartFadingAnimatedTextTrackerStoreBase.isInfinite',
       context: context);
@@ -187,6 +204,15 @@ mixin _$SmartFadingAnimatedTextTrackerStore
     });
   }
 
+  late final _$resetToDefaultAsyncAction = AsyncAction(
+      '_SmartFadingAnimatedTextTrackerStoreBase.resetToDefault',
+      context: context);
+
+  @override
+  Future resetToDefault() {
+    return _$resetToDefaultAsyncAction.run(() => super.resetToDefault());
+  }
+
   late final _$copyToClipboardAsyncAction = AsyncAction(
       '_SmartFadingAnimatedTextTrackerStoreBase.copyToClipboard',
       context: context);
@@ -218,6 +244,32 @@ mixin _$SmartFadingAnimatedTextTrackerStore
   late final _$_SmartFadingAnimatedTextTrackerStoreBaseActionController =
       ActionController(
           name: '_SmartFadingAnimatedTextTrackerStoreBase', context: context);
+
+  @override
+  dynamic fadeTheTextOut() {
+    final _$actionInfo =
+        _$_SmartFadingAnimatedTextTrackerStoreBaseActionController.startAction(
+            name: '_SmartFadingAnimatedTextTrackerStoreBase.fadeTheTextOut');
+    try {
+      return super.fadeTheTextOut();
+    } finally {
+      _$_SmartFadingAnimatedTextTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic fadeTheTextIn() {
+    final _$actionInfo =
+        _$_SmartFadingAnimatedTextTrackerStoreBaseActionController.startAction(
+            name: '_SmartFadingAnimatedTextTrackerStoreBase.fadeTheTextIn');
+    try {
+      return super.fadeTheTextIn();
+    } finally {
+      _$_SmartFadingAnimatedTextTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic changeCurrrentSubMessage({required String message}) {
@@ -294,6 +346,7 @@ mixin _$SmartFadingAnimatedTextTrackerStore
   @override
   String toString() {
     return '''
+firstTime: ${firstTime},
 isInfinite: ${isInfinite},
 showText: ${showText},
 isPaused: ${isPaused},

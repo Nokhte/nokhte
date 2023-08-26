@@ -19,7 +19,11 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
   _SmartFadingAnimatedTextTrackerStoreBase(
       {required this.messagesData, required this.isInfinite})
       : currentMainText = messagesData[0].mainMessage,
-        currentSubText = messagesData[0].subMessage;
+        currentSubText = messagesData[0].subMessage,
+        firstTime = false;
+
+  @observable
+  bool firstTime = true;
 
   @observable
   bool isInfinite = false;
@@ -48,6 +52,18 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
   @observable
   FadingTextStatus status = FadingTextStatus.fadingOut;
 
+  @action
+  resetToDefault() async {
+    currentMainText = messagesData[currentIndex].mainMessage;
+    currentSubText = messagesData[currentIndex].subMessage;
+    await oneSecondDelay(() => fadeTheTextIn());
+    // fadeTheTextIn();
+    showText = true;
+    // isPaused = false;
+    // hasJustBeenUnPaused = false;
+    // inProgress = false;
+  }
+
   oneSecondDelay(Function body) async {
     await Future.delayed(const Duration(seconds: 1), () => body());
   }
@@ -56,10 +72,12 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
     await Future.delayed(duration);
   }
 
+  @action
   fadeTheTextOut() {
     showText = false;
   }
 
+  @action
   fadeTheTextIn() {
     showText = true;
   }

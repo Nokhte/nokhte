@@ -61,7 +61,7 @@ class TimesUpText extends Equatable {
         )
     ..scene(
       begin: const Duration(seconds: 25, milliseconds: 500),
-      end: const Duration(seconds: 45),
+      end: const Duration(seconds: 44),
     )
         .tween(
           'text color',
@@ -75,6 +75,24 @@ class TimesUpText extends Equatable {
           Tween<double>(
             begin: 1,
             end: 1,
+          ),
+        )
+    ..scene(
+      begin: const Duration(seconds: 44),
+      end: const Duration(seconds: 45),
+    )
+        .tween(
+          'text color',
+          ColorTween(
+            begin: ColorsSwatch.darkerPurple,
+            end: ColorsSwatch.darkerPurple,
+          ),
+        )
+        .tween(
+          'text opacity',
+          Tween<double>(
+            begin: 1,
+            end: 0,
           ),
         );
   @override

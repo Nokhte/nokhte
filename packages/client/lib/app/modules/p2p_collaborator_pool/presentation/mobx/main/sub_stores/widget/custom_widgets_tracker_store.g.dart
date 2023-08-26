@@ -26,6 +26,18 @@ mixin _$CustomWidgetsTrackerStore on _CustomWidgetsTrackerStoreBase, Store {
   }
 
   @override
+  dynamic toTheDepthsWidgetChanges() {
+    final _$actionInfo =
+        _$_CustomWidgetsTrackerStoreBaseActionController.startAction(
+            name: '_CustomWidgetsTrackerStoreBase.toTheDepthsWidgetChanges');
+    try {
+      return super.toTheDepthsWidgetChanges();
+    } finally {
+      _$_CustomWidgetsTrackerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 

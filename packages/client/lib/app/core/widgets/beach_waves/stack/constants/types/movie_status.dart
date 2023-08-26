@@ -1,4 +1,4 @@
-enum AnimationStatus {
+enum MovieStatus {
   idle,
   inProgress,
   finished,

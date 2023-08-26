@@ -21,7 +21,7 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   bool isReadyToTransition = false;
 
   @observable
-  AnimationStatus animationStatus = AnimationStatus.inProgress;
+  MovieStatus movieStatus = MovieStatus.inProgress;
 
   @observable
   double passingParam = -10.0;
@@ -32,6 +32,9 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   @observable
   Control control = Control.mirror;
 
+  @observable
+  int oceanDiveCount = 0;
+
   @action
   teeUpOceanDive() {
     if (movieMode == MovieModes.onShore) {
@@ -39,11 +42,19 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
     }
   }
 
+  // @action
+  initiateSuspendedAtSea() {
+    movie = SuspendedAtSea.movie;
+    control = Control.playFromStart;
+    movieMode = MovieModes.suspendedAtSea;
+    movieStatus = MovieStatus.idle;
+  }
+
   @action
   initiateToTheDepths() {
     movie = ToTheDepths.movie;
     control = Control.playFromStart;
-    animationStatus = AnimationStatus.inProgress;
+    movieStatus = MovieStatus.inProgress;
     movieMode = MovieModes.toTheDepths;
   }
 
@@ -53,25 +64,43 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
       timerLength: timerLength,
     );
     control = Control.playFromStart;
-    animationStatus = AnimationStatus.inProgress;
+    movieStatus = MovieStatus.inProgress;
     movieMode = MovieModes.timesUp;
   }
 
   @action
   onBeachWavesAnimationCompletion() {
+    print("$movieMode");
     if (movieMode == MovieModes.backToShore) {
       Modular.to.navigate('/home/');
     } else if (movieMode == MovieModes.oceanDive) {
-      movieMode = MovieModes.oceanDive;
-      animationStatus = AnimationStatus.idle;
+      oceanDiveCount != 0
+          ? Modular.to.navigate('/p2p_collaborator_pool/')
+          : oceanDiveCount++;
+    } else if (movieMode == MovieModes.toTheDepths) {
+      Modular.to.navigate('/p2p_collaborator_pool/pool/');
+      // movieStatus = MovieStatus.idle;
+    } else if (movieMode == MovieModes.timesUp) {
+      initiateBackToTheDepths();
+    } else if (movieMode == MovieModes.backToTheDepths) {
+      // print("DID THIS RUN?");
+      Modular.to.navigate('/p2p_collaborator_pool/');
     }
+  }
+
+  @action
+  initiateBackToTheDepths() {
+    movie = BackToTheDepths.movie;
+    control = Control.playFromStart;
+    movieStatus = MovieStatus.inProgress;
+    movieMode = MovieModes.backToTheDepths;
   }
 
   @action
   initiateBackToShore() {
     movie = BackToShore.movie;
     control = Control.playFromStart;
-    animationStatus = AnimationStatus.inProgress;
+    movieStatus = MovieStatus.inProgress;
     movieMode = MovieModes.backToShore;
   }
 
@@ -80,13 +109,14 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
     movie = OnShore.movie;
     control = Control.mirror;
     movieMode = MovieModes.onShore;
-    animationStatus = AnimationStatus.idle;
+    movieStatus = MovieStatus.idle;
   }
 
   @action
   teeOceanDiveMovieUp({
     required double startingWaterMovement,
   }) {
+    print("teeOceanDiveMovieUP runs");
     movie = OceanDive.getOceanDiveMovie(
         startingWaterMovement: startingWaterMovement);
     control = Control.stop;
@@ -94,21 +124,23 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   }
 
   @action
-  teeUpHomeScreenToCollabPoolNavigation({
+  teeUpOnShoreToOceanDiveTransition
+      // teeUpHomeScreenToCollabPoolNavigation
+      ({
     required double startingWaterMovement,
   }) {
-    isReadyToTransition = true;
+    print("teeUpOnShoreToOceanDiveTransition runs");
+    // isReadyToTransition = true;
     passingParam = startingWaterMovement;
   }
 
   @action
   initiateOceanDive() {
-    movieMode = MovieModes.oceanDive;
+    print("initiateOceanDive runs");
     control = Control.playFromStart;
+    // movieStatus = MovieStatus.inProgress;
+    movieMode = MovieModes.oceanDive;
   }
-
-  @action
-  navigateProperly() {}
 
   @override
   List<Object> get props => [];

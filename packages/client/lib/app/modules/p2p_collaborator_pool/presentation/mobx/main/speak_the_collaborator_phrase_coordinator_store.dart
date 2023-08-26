@@ -1,10 +1,14 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // * Mobx Import
+// import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/types/validation_enum.dart';
+// import 'package:primala/app/core/widgets/beach_waves/stack/constants/types/types.dart';
 import 'package:primala/app/core/widgets/widget_constants.dart';
+import 'package:primala/app/core/widgets/widgets.dart';
+// import 'package:primala/app/core/widgets/widgets.dart';
 // import 'package:primala/app/core/widgets/widgets.dart';
 import './sub_stores/sub_stores.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/logic/validate_query.dart';
@@ -21,6 +25,8 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   final OnSpeechResultStore onSpeechResultStore;
   final ValidateQueryStore validateQueryStore;
   final EnterCollaboratorPoolStore enterCollaboratorPoolStore;
+  late BeachWavesTrackerStore beachWavesStore;
+  late SmartFadingAnimatedTextTrackerStore fadingTextStore;
 
   @observable
   bool isReadyToEnterPool = false;
@@ -32,7 +38,11 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
     required this.validateQueryStore,
     required this.enterCollaboratorPoolStore,
   }) {
+    beachWavesStore = widgetStore.beachWavesStore;
+    fadingTextStore = widgetStore.smartFadingAnimatedTextStore;
     reaction((p0) => onSpeechResultStore.currentPhraseIndex, (p0) {
+      print(
+          "what is going on now?? ${onSpeechResultStore.currentSpeechResult}");
       widgetStore.smartFadingAnimatedTextStore
           .togglePause(gestureType: Gestures.none);
       widgetStore.smartFadingAnimatedTextStore.addNewMessage(
@@ -74,6 +84,14 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
         );
       }
     });
+    // reaction((p0) => widgetStore.beachWavesStore.movieStatus, (p0) {
+    //   if (beachWavesStore.movieStatus == MovieStatus.finished &&
+    //       beachWavesStore.movieMode == MovieModes.toTheDepths) {
+    //     isReadyToEnterPool = true;
+    //     print("is this running??");
+    //     // Modular.to.navigate('/p2p_collaborator_pool/pool/');
+    //   }
+    // });
   }
 
   @action
@@ -99,7 +117,7 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   swipeUpCallback() {
     // if (validateQueryStore.isValidated == ValidationStatus.valid) {
     // enterCollaboratorPoolStore(validateQueryStore.phraseIDs);
-    isReadyToEnterPool = true;
+    widgetStore.toTheDepthsWidgetChanges();
     // }
 
     /// so wrap it in an observer or put this in an observer and
@@ -115,11 +133,18 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
 
   screenConstructorCallback({
     required SpeakTheCollaboratorPhraseCoordinatorStore coordinatorStore,
-    required double startingWaveMovement,
+    //   required double startingWaveMovement,
   }) {
     coordinatorStore.speechToTextStore.initSpeech();
-    coordinatorStore.widgetStore.beachWavesStore
-        .teeOceanDiveMovieUp(startingWaterMovement: startingWaveMovement);
+    // coordinatorStore.widgetStore.smartFadingAnimatedTextStore.resetToDefault(
+    //     messagesDataParam: MessagesData.speakTheCollaboratorPhraseList);
+    if (!fadingTextStore.showText && !fadingTextStore.firstTime) {
+      fadingTextStore.resetToDefault();
+    }
+
+    beachWavesStore.initiateSuspendedAtSea();
+    // coordinatorStore.widgetStore.beachWavesStore
+    //     .teeOceanDiveMovieUp(startingWaterMovement: startingWaveMovement);
   }
 
   @override

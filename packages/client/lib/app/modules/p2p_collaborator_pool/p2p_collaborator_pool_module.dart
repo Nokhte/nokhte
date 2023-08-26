@@ -182,7 +182,7 @@ class P2PCollaboratorPoolModule extends Module {
           child: (context, args) => SpeakTheCollaboratorPhraseScreen(
             coordinatorStore:
                 Modular.get<SpeakTheCollaboratorPhraseCoordinatorStore>(),
-            startingWaveMovement: args.data,
+            // startingWaveMovement: args.data,
           ),
           transition: TransitionType.noTransition,
         ),

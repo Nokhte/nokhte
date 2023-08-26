@@ -42,19 +42,19 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
     });
   }
 
-  late final _$animationStatusAtom = Atom(
-      name: '_BeachWavesTrackerStoreBase.animationStatus', context: context);
+  late final _$movieStatusAtom =
+      Atom(name: '_BeachWavesTrackerStoreBase.movieStatus', context: context);
 
   @override
-  AnimationStatus get animationStatus {
-    _$animationStatusAtom.reportRead();
-    return super.animationStatus;
+  MovieStatus get movieStatus {
+    _$movieStatusAtom.reportRead();
+    return super.movieStatus;
   }
 
   @override
-  set animationStatus(AnimationStatus value) {
-    _$animationStatusAtom.reportWrite(value, super.animationStatus, () {
-      super.animationStatus = value;
+  set movieStatus(MovieStatus value) {
+    _$movieStatusAtom.reportWrite(value, super.movieStatus, () {
+      super.movieStatus = value;
     });
   }
 
@@ -103,6 +103,22 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
   set control(Control value) {
     _$controlAtom.reportWrite(value, super.control, () {
       super.control = value;
+    });
+  }
+
+  late final _$oceanDiveCountAtom = Atom(
+      name: '_BeachWavesTrackerStoreBase.oceanDiveCount', context: context);
+
+  @override
+  int get oceanDiveCount {
+    _$oceanDiveCountAtom.reportRead();
+    return super.oceanDiveCount;
+  }
+
+  @override
+  set oceanDiveCount(int value) {
+    _$oceanDiveCountAtom.reportWrite(value, super.oceanDiveCount, () {
+      super.oceanDiveCount = value;
     });
   }
 
@@ -156,6 +172,18 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
   }
 
   @override
+  dynamic initiateBackToTheDepths() {
+    final _$actionInfo =
+        _$_BeachWavesTrackerStoreBaseActionController.startAction(
+            name: '_BeachWavesTrackerStoreBase.initiateBackToTheDepths');
+    try {
+      return super.initiateBackToTheDepths();
+    } finally {
+      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic initiateBackToShore() {
     final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
         .startAction(name: '_BeachWavesTrackerStoreBase.initiateBackToShore');
@@ -190,13 +218,14 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
   }
 
   @override
-  dynamic teeUpHomeScreenToCollabPoolNavigation(
+  dynamic teeUpOnShoreToOceanDiveTransition(
       {required double startingWaterMovement}) {
-    final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController.startAction(
-        name:
-            '_BeachWavesTrackerStoreBase.teeUpHomeScreenToCollabPoolNavigation');
+    final _$actionInfo =
+        _$_BeachWavesTrackerStoreBaseActionController.startAction(
+            name:
+                '_BeachWavesTrackerStoreBase.teeUpOnShoreToOceanDiveTransition');
     try {
-      return super.teeUpHomeScreenToCollabPoolNavigation(
+      return super.teeUpOnShoreToOceanDiveTransition(
           startingWaterMovement: startingWaterMovement);
     } finally {
       _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
@@ -215,25 +244,15 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
   }
 
   @override
-  dynamic navigateProperly() {
-    final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
-        .startAction(name: '_BeachWavesTrackerStoreBase.navigateProperly');
-    try {
-      return super.navigateProperly();
-    } finally {
-      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 movie: ${movie},
 isReadyToTransition: ${isReadyToTransition},
-animationStatus: ${animationStatus},
+movieStatus: ${movieStatus},
 passingParam: ${passingParam},
 movieMode: ${movieMode},
-control: ${control}
+control: ${control},
+oceanDiveCount: ${oceanDiveCount}
     ''';
   }
 }

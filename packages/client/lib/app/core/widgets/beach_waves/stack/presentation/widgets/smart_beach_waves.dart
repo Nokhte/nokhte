@@ -45,7 +45,7 @@ class _SmartBeachWavesState extends State<SmartBeachWaves>
         builder: (context, value, child) {
           final currentAnimationValues = GetCurrentWaterAnimation.values(value);
           if (stateTrackerStore.movieMode == MovieModes.oceanDiveSetup) {
-            stateTrackerStore.teeUpHomeScreenToCollabPoolNavigation(
+            stateTrackerStore.teeUpOnShoreToOceanDiveTransition(
                 startingWaterMovement: currentAnimationValues[0]);
           }
           return CustomPaint(

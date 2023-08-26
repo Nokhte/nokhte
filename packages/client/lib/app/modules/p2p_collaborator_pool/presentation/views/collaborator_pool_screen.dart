@@ -35,11 +35,6 @@ class CollaboratorPoolScreen extends StatelessWidget {
                   child: FadeInAndChangeColorText(
                     movie: TimesUpText.movie,
                   ),
-                  //   child: SmartFadingAnimatedText(
-                  //     initialFadeInDelay: const Duration(seconds: 3),
-                  //     stateTrackerStore: coordinatorStore
-                  //         .widgetStore.smartFadingAnimatedTextStore,
-                  //   ),
                 ),
               ],
             ),

@@ -16,8 +16,7 @@ void main() {
   /// 2 setups 1. is onShore, other is OceanDive
   test("sets default values correctly", () {
     expect(homeModuleStateTrackerStore.isReadyToTransition, false);
-    expect(homeModuleStateTrackerStore.animationStatus,
-        AnimationStatus.inProgress);
+    expect(homeModuleStateTrackerStore.movieStatus, MovieStatus.inProgress);
     expect(homeModuleStateTrackerStore.passingParam, -10.0);
     expect(homeModuleStateTrackerStore.movieMode, MovieModes.onShore);
     expect(homeModuleStateTrackerStore.control, Control.mirror);
@@ -27,20 +26,20 @@ void main() {
       "INTERACTION No. 1: Swipe Up on Home Screen & Swipe Down in Speak The Collaborator Phrase Screen",
       () {
     // # User Swipes Up
-    homeModuleStateTrackerStore.teeUpOceanDive();
+    // homeModuleStateTrackerStore.teeUpOceanDive();
     expect(homeModuleStateTrackerStore.movieMode, MovieModes.oceanDiveSetup);
 
     /// # then navigation to p2p module happens and `teeOceanDiveMovieUp` is
     /// # called in the `SpeakTheCollaboratorPhraseScreen` constructor
-    p2pCollaboratorPoolStateTrackerStore.teeOceanDiveMovieUp(
-        startingWaterMovement: 0.0);
+    // p2pCollaboratorPoolStateTrackerStore.teeOceanDiveMovieUp(
+    // startingWaterMovement: 0.0);
     expect(
         p2pCollaboratorPoolStateTrackerStore.movieMode, MovieModes.oceanDive);
     expect(p2pCollaboratorPoolStateTrackerStore.control, Control.playFromStart);
     // p2pCollaboratorPoolStateTrackerStore.collaboratorPhraseSwipeDownCallback();
     expect(p2pCollaboratorPoolStateTrackerStore.control, Control.playFromStart);
-    expect(p2pCollaboratorPoolStateTrackerStore.animationStatus,
-        AnimationStatus.inProgress);
+    expect(p2pCollaboratorPoolStateTrackerStore.movieStatus,
+        MovieStatus.inProgress);
     p2pCollaboratorPoolStateTrackerStore.initiateBackToShore();
     expect(
         p2pCollaboratorPoolStateTrackerStore.movieMode, MovieModes.backToShore);
@@ -49,8 +48,7 @@ void main() {
     // # and store is re-instantiated when navigated back to the home module
     homeModuleStateTrackerStore = BeachWavesTrackerStore();
     expect(homeModuleStateTrackerStore.isReadyToTransition, false);
-    expect(homeModuleStateTrackerStore.animationStatus,
-        AnimationStatus.inProgress);
+    expect(homeModuleStateTrackerStore.movieStatus, MovieStatus.inProgress);
     expect(homeModuleStateTrackerStore.passingParam, -10.0);
     expect(homeModuleStateTrackerStore.movieMode, MovieModes.onShore);
     expect(homeModuleStateTrackerStore.control, Control.mirror);

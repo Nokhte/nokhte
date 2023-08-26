@@ -4,6 +4,7 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
+import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/types/gestures.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 
 import 'add_name_to_database_store.dart';
@@ -40,7 +41,15 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
   }
 
   homeScreenSwipeUpCallback() {
+    if (!fadingTextStateTrackerStore.isPaused) {
+      fadingTextStateTrackerStore.togglePause(gestureType: Gestures.none);
+    }
+    fadingTextStateTrackerStore.currentMainText = "";
+    fadingTextStateTrackerStore.currentSubText = "";
     beachWaveStateTrackerStore.teeUpOceanDive();
+    beachWaveStateTrackerStore.teeOceanDiveMovieUp(
+      startingWaterMovement: beachWaveStateTrackerStore.passingParam,
+    );
   }
 
   @override

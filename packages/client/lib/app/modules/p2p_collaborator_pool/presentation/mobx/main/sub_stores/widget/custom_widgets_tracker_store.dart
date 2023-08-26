@@ -3,7 +3,7 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/widgets/beach_waves/stack/constants/types/animation_status.dart';
+import 'package:primala/app/core/widgets/beach_waves/stack/constants/types/movie_status.dart';
 import 'package:primala/app/core/widgets/beach_waves/stack/constants/types/movie_modes.dart';
 import 'package:primala/app/core/widgets/beach_waves/stack/presentation/mobx/beach_waves_tracker_store.dart';
 import 'package:primala/app/core/widgets/breathing_pentagons/stack/presentation/mobx/breathing_pentagons_state_tracker_store.dart';
@@ -27,12 +27,24 @@ abstract class _CustomWidgetsTrackerStoreBase extends Equatable with Store {
 
   @action
   backToShoreWidgetChanges() {
-    if (beachWavesStore.animationStatus == AnimationStatus.idle &&
-        beachWavesStore.movieMode == MovieModes.oceanDive) {
+    if (beachWavesStore.movieStatus == MovieStatus.idle &&
+        beachWavesStore.movieMode == MovieModes.suspendedAtSea) {
       beachWavesStore.initiateBackToShore();
       breathingPentagonsStore.flipWidgetVisibility();
       smartFadingAnimatedTextStore.fadeTheTextOut();
     }
+  }
+
+  @action
+  toTheDepthsWidgetChanges() {
+    print("${beachWavesStore.movieStatus} ${beachWavesStore.movieMode}");
+    if (beachWavesStore.movieStatus == MovieStatus.idle &&
+        beachWavesStore.movieMode == MovieModes.suspendedAtSea) {
+      beachWavesStore.initiateToTheDepths();
+      breathingPentagonsStore.flipWidgetVisibility();
+      smartFadingAnimatedTextStore.fadeTheTextOut();
+    }
+    //
   }
 
   @override
