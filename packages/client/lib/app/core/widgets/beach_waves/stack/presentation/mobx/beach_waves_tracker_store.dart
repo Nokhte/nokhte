@@ -81,10 +81,14 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
       Modular.to.navigate('/p2p_collaborator_pool/pool/');
       // movieStatus = MovieStatus.idle;
     } else if (movieMode == MovieModes.timesUp) {
-      initiateBackToTheDepths();
+      initiateBackToOceanDive();
+    } else if (movieMode == MovieModes.backToOceanDive) {
+      Modular.to.navigate(
+        '/p2p_collaborator_pool/',
+      );
     } else if (movieMode == MovieModes.backToTheDepths) {
-      // print("DID THIS RUN?");
-      Modular.to.navigate('/p2p_collaborator_pool/');
+      // from timer to session
+      // initiateBackToTheDepths();
     }
   }
 
@@ -94,6 +98,14 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
     control = Control.playFromStart;
     movieStatus = MovieStatus.inProgress;
     movieMode = MovieModes.backToTheDepths;
+  }
+
+  @action
+  initiateBackToOceanDive() {
+    movie = BackToOceanDive.movie;
+    control = Control.playFromStart;
+    movieStatus = MovieStatus.inProgress;
+    movieMode = MovieModes.backToOceanDive;
   }
 
   @action
