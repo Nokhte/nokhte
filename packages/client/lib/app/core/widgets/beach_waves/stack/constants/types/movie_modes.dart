@@ -4,4 +4,5 @@ enum MovieModes {
   oceanDive,
   backToShore,
   toTheDepths,
+  timesUp,
 }

@@ -22,7 +22,8 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
 
   @action
   screenConstructorCallback() {
-    widgetStore.beachWavesStore.initiateToTheDepths();
+    // widgetStore.beachWavesStore.initiateToTheDepths();
+    widgetStore.beachWavesStore.initiateTimesUp();
   }
 
   @override

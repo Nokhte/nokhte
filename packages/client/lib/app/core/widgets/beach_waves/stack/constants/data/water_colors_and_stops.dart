@@ -2,28 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:primala/app/core/widgets/beach_waves/stack/constants/types/types.dart';
 
 class WaterColorsAndStops {
-  // static List<Color> get oldOnShoreWaterGradient => const [
-  //       Color(0xFF0B2431),
-  //       Color(0xFF15484E),
-  //       Color(0xFF176257),
-  //       Color(0xFF1F8A7D),
-  //       Color(0xFF29A48D),
-  //     ];
-  // static List<Color> get oldoceanDiveWaterGradient => const [
-  //       Color(0xFF29A48D),
-  //       Color(0xFF1F8A7D),
-  //       Color(0xFF176257),
-  //       Color(0xFF15484E),
-  //       Color(0xFF0B2431),
-  //     ];
-  // static List<Color> get toTheDepthsWaterGradient => const [
-  //       Color(0xFF66CF90),
-  //       Color(0xFF88C9B9),
-  //       Color(0xFF51A18D),
-  //       Color(0xFF274D4F),
-  //       Color(0xFF122430),
-  //     ];
-  // ================================
   static List<ColorAndStop> get onShoreWater => const [
         ColorAndStop(Color(0xFF51A18D), 0),
         ColorAndStop(Color(0xFF499384), .1563),
@@ -54,5 +32,87 @@ class WaterColorsAndStops {
         ColorAndStop(Color(0xFF274D4F), .7261),
         ColorAndStop(Color(0xFF1D3741), .8620),
         ColorAndStop(Color(0xFF122430), 1.00),
+      ];
+  static List<ColorAndStop> get timesUpPhase1 => const [
+        ColorAndStop(Color(0xFFFFFFE3), 0),
+        ColorAndStop(Color(0xFF66CF90), .1302),
+        ColorAndStop(Color(0xFF88C9B9), .2548),
+        ColorAndStop(Color(0xFF51A18D), .4357),
+        ColorAndStop(Color(0xFF3E8077), .5501),
+        ColorAndStop(Color(0xFF274D4F), .7248),
+        ColorAndStop(Color(0xFF1D3741), .8620),
+        ColorAndStop(Color(0xFF122430), 1.00),
+      ];
+  static List<ColorAndStop> get timesUpPhase2 => const [
+        ColorAndStop(Color(0xFFFFFFE3), 0),
+        ColorAndStop(Color(0xFFFFFFDC), .1302),
+        ColorAndStop(Color(0xFF66CF90), .2548),
+        ColorAndStop(Color(0xFF88C9B9), .3480),
+        ColorAndStop(Color(0xFF51A18D), .5501),
+        ColorAndStop(Color(0xFF3E8077), .7248),
+        ColorAndStop(Color(0xFF274D4F), .8620),
+        ColorAndStop(Color(0xFF1D3741), 1.00),
+      ];
+
+  static List<ColorAndStop> get timesUpPhase3 => const [
+        ColorAndStop(Color(0xFFFFFFE3), 0),
+        ColorAndStop(Color(0xFFFFFFDC), .1302),
+        ColorAndStop(Color(0xFFFAF2C3), .2548),
+        ColorAndStop(Color(0xFF66CF90), .3480),
+        ColorAndStop(Color(0xFF88C9B9), .5501),
+        ColorAndStop(Color(0xFF51A18D), .7248),
+        ColorAndStop(Color(0xFF3E8077), .8620),
+        ColorAndStop(Color(0xFF274D4F), 1.00),
+      ];
+
+  static List<ColorAndStop> get timesUpPhase4 => const [
+        ColorAndStop(Color(0xFFFFFFE3), 0),
+        ColorAndStop(Color(0xFFFFFFDC), .1302),
+        ColorAndStop(Color(0xFFFAF2C3), .2548),
+        ColorAndStop(Color(0xFFF9EFB7), .3480),
+        ColorAndStop(Color(0xFF66CF90), .5501),
+        ColorAndStop(Color(0xFF88C9B9), .7248),
+        ColorAndStop(Color(0xFF51A18D), .8620),
+        ColorAndStop(Color(0xFF3E8077), 1.00),
+      ];
+  static List<ColorAndStop> get timesUpPhase5 => const [
+        ColorAndStop(Color(0xFFFFFFE3), 0),
+        ColorAndStop(Color(0xFFFFFFDC), .1302),
+        ColorAndStop(Color(0xFFFAF2C3), .2548),
+        ColorAndStop(Color(0xFFF9EFB7), .3480),
+        ColorAndStop(Color(0xFFF6E4AD), .5501),
+        ColorAndStop(Color(0xFF66CF90), .7248),
+        ColorAndStop(Color(0xFF88C9B9), .8620),
+        ColorAndStop(Color(0xFF51A18D), 1.00),
+      ];
+  static List<ColorAndStop> get timesUpPhase6 => const [
+        ColorAndStop(Color(0xFFFFFFE3), 0),
+        ColorAndStop(Color(0xFFFFFFDC), .1302),
+        ColorAndStop(Color(0xFFFAF2C3), .2548),
+        ColorAndStop(Color(0xFFF9EFB7), .3480),
+        ColorAndStop(Color(0xFFF6E4AD), .5501),
+        ColorAndStop(Color(0xFFF6E2A5), .7248),
+        ColorAndStop(Color(0xFF66CF90), .8620),
+        ColorAndStop(Color(0xFF88C9B9), 1.00),
+      ];
+  static List<ColorAndStop> get timesUpPhase7 => const [
+        ColorAndStop(Color(0xFFFFFFE3), 0),
+        ColorAndStop(Color(0xFFFFFFDC), .1302),
+        ColorAndStop(Color(0xFFFAF2C3), .2548),
+        ColorAndStop(Color(0xFFF9EFB7), .3480),
+        ColorAndStop(Color(0xFFF6E4AD), .5501),
+        ColorAndStop(Color(0xFFF6E2A5), .7248),
+        ColorAndStop(Color(0xFFF4DD98), .8620),
+        ColorAndStop(Color(0xFF66CF90), 1.00),
+      ];
+  static List<ColorAndStop> get timesUpPhase8 => const [
+        ColorAndStop(Color(0xFFFFFFE3), 0),
+        ColorAndStop(Color(0xFFFFFFDC), .1302),
+        ColorAndStop(Color(0xFFFAF2C3), .2548),
+        ColorAndStop(Color(0xFFF9EFB7), .3480),
+        ColorAndStop(Color(0xFFF6E4AD), .5501),
+        ColorAndStop(Color(0xFFF6E2A5), .7248),
+        ColorAndStop(Color(0xFFF4DD98), .8620),
+        ColorAndStop(Color(0xFFF5DC91), 1.00),
       ];
 }

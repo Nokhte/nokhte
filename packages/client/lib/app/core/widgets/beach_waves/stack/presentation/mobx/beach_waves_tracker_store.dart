@@ -48,6 +48,16 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   }
 
   @action
+  initiateTimesUp() {
+    movie = TimesUp.getMovie(
+      timerLength: const Duration(seconds: 45),
+    );
+    control = Control.playFromStart;
+    animationStatus = AnimationStatus.inProgress;
+    movieMode = MovieModes.timesUp;
+  }
+
+  @action
   onBeachWavesAnimationCompletion() {
     if (movieMode == MovieModes.backToShore) {
       Modular.to.navigate('/home/');

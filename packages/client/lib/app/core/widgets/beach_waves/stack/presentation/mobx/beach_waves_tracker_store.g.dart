@@ -132,6 +132,17 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
   }
 
   @override
+  dynamic initiateTimesUp() {
+    final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
+        .startAction(name: '_BeachWavesTrackerStoreBase.initiateTimesUp');
+    try {
+      return super.initiateTimesUp();
+    } finally {
+      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic onBeachWavesAnimationCompletion() {
     final _$actionInfo =
         _$_BeachWavesTrackerStoreBaseActionController.startAction(
