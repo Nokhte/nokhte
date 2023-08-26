@@ -3,6 +3,8 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
+import 'package:primala/app/core/interfaces/logic.dart';
+import 'package:primala/app/core/widgets/beach_waves/stack/constants/types/movie_modes.dart';
 import 'package:primala/app/core/widgets/beach_waves/stack/presentation/mobx/beach_waves_tracker_store.dart';
 // import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
 import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/presentation/mobx/smart_fading_animated_text_tracker_store.dart';
@@ -17,18 +19,25 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
     with Store {
   final CustomWidgetsTrackerStore widgetStore;
   final ExitCollaboratorPoolStore exitCollaboratorPoolStore;
-  final BeachWavesTrackerStore beachWavesStore;
-  final SmartFadingAnimatedTextTrackerStore fadingTextStore;
+  late BeachWavesTrackerStore beachWavesStore;
+  late SmartFadingAnimatedTextTrackerStore fadingTextStore;
 
   _CollaboratorPoolScreenCoordinatorStoreBase({
     required this.widgetStore,
     required this.exitCollaboratorPoolStore,
-  })  : beachWavesStore = widgetStore.beachWavesStore,
-        fadingTextStore = widgetStore.smartFadingAnimatedTextStore;
+  }) {
+    beachWavesStore = widgetStore.beachWavesStore;
+    fadingTextStore = widgetStore.smartFadingAnimatedTextStore;
+    reaction((p0) => widgetStore.beachWavesStore.movieMode, (p0) {
+      if (widgetStore.beachWavesStore.movieMode == MovieModes.backToOceanDive) {
+        print("IT RAN");
+        exitCollaboratorPoolStore(NoParams());
+      }
+    });
+  }
 
   @action
   screenConstructorCallback() {
-    // widgetStore.beachWavesStore.initiateToTheDepths();
     beachWavesStore.initiateTimesUp(
       timerLength: const Duration(seconds: 45),
       // timerLength: const Duration(seconds: 10),

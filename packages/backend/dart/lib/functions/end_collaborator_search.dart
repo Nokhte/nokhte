@@ -5,7 +5,7 @@ class EndCollaboratorSearch {
     required SupabaseClient supabase,
     required String firstUserUID,
   }) async {
-    await supabase.functions.invoke("end-collaborator-search", body: {
+    return await supabase.functions.invoke("end-collaborator-search", body: {
       'overstayingWayfarer': firstUserUID,
     });
   }

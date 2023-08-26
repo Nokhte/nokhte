@@ -115,29 +115,17 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
 
   @action
   swipeUpCallback() {
-    // if (validateQueryStore.isValidated == ValidationStatus.valid) {
-    // enterCollaboratorPoolStore(validateQueryStore.phraseIDs);
-    widgetStore.toTheDepthsWidgetChanges();
-    // }
-
-    /// so wrap it in an observer or put this in an observer and
-    ///     if (homeScreenCoordinatorStore
-    //         .beachWaveStateTrackerStore.isReadyToTransition ==
-    //     true) {
-    //   Modular.to.navigate(
-    //     '/p2p_collaborator_pool/',
-    //     arguments: beachWavesTrackerStore.passingParam,
-    //   );
-    // }
+    if (validateQueryStore.isValidated == ValidationStatus.valid) {
+      enterCollaboratorPoolStore(validateQueryStore.phraseIDs);
+      enterCollaboratorPoolStore(validateQueryStore.phraseIDs);
+      widgetStore.toTheDepthsWidgetChanges();
+    }
   }
 
   screenConstructorCallback({
     required SpeakTheCollaboratorPhraseCoordinatorStore coordinatorStore,
-    //   required double startingWaveMovement,
   }) {
     coordinatorStore.speechToTextStore.initSpeech();
-    // coordinatorStore.widgetStore.smartFadingAnimatedTextStore.resetToDefault(
-    //     messagesDataParam: MessagesData.speakTheCollaboratorPhraseList);
     if (!fadingTextStore.showText && !fadingTextStore.firstTime) {
       fadingTextStore.resetToDefault();
     }

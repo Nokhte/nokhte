@@ -82,6 +82,7 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
       // movieStatus = MovieStatus.idle;
     } else if (movieMode == MovieModes.timesUp) {
       initiateBackToOceanDive();
+      // initiateBackToTheDepths();
     } else if (movieMode == MovieModes.backToOceanDive) {
       Modular.to.navigate(
         '/p2p_collaborator_pool/',
