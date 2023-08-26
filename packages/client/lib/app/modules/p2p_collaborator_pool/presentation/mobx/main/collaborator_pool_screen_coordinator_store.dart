@@ -23,7 +23,9 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
   @action
   screenConstructorCallback() {
     // widgetStore.beachWavesStore.initiateToTheDepths();
-    widgetStore.beachWavesStore.initiateTimesUp();
+    widgetStore.beachWavesStore.initiateTimesUp(
+      timerLength: const Duration(seconds: 60),
+    );
   }
 
   @override

@@ -48,9 +48,9 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   }
 
   @action
-  initiateTimesUp() {
+  initiateTimesUp({required Duration timerLength}) {
     movie = TimesUp.getMovie(
-      timerLength: const Duration(seconds: 45),
+      timerLength: timerLength,
     );
     control = Control.playFromStart;
     animationStatus = AnimationStatus.inProgress;

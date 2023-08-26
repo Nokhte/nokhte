@@ -132,11 +132,11 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
   }
 
   @override
-  dynamic initiateTimesUp() {
+  dynamic initiateTimesUp({required Duration timerLength}) {
     final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
         .startAction(name: '_BeachWavesTrackerStoreBase.initiateTimesUp');
     try {
-      return super.initiateTimesUp();
+      return super.initiateTimesUp(timerLength: timerLength);
     } finally {
       _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
     }
