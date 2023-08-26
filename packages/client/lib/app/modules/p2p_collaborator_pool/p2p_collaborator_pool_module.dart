@@ -110,25 +110,26 @@ class P2PCollaboratorPoolModule extends Module {
         ),
 
         // & Widget State Management Stores
-        Bind.singleton<SmartFadingAnimatedTextTrackerStore>(
+        Bind.factory<SmartFadingAnimatedTextTrackerStore>(
           (i) => SmartFadingAnimatedTextTrackerStore(
             isInfinite: false,
             messagesData: MessagesData.speakTheCollaboratorPhraseList,
           ),
         ),
-        Bind.singleton<BreathingPentagonsStateTrackerStore>(
+        Bind.factory<BreathingPentagonsStateTrackerStore>(
           (i) => BreathingPentagonsStateTrackerStore(),
         ),
-        Bind.singleton<BeachWavesTrackerStore>(
+        Bind.factory<BeachWavesTrackerStore>(
           (i) => BeachWavesTrackerStore(),
         ),
         // & Widget Manager Store
-        Bind.singleton<CustomWidgetsTrackerStore>(
+        Bind.factory<CustomWidgetsTrackerStore>(
           (i) => CustomWidgetsTrackerStore(
             smartFadingAnimatedTextStore:
-                i<SmartFadingAnimatedTextTrackerStore>(),
-            breathingPentagonsStore: i<BreathingPentagonsStateTrackerStore>(),
-            beachWavesStore: i<BeachWavesTrackerStore>(),
+                Modular.get<SmartFadingAnimatedTextTrackerStore>(),
+            breathingPentagonsStore:
+                Modular.get<BreathingPentagonsStateTrackerStore>(),
+            beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
           ),
         ),
         // & Mobx Mother Stores
@@ -163,13 +164,13 @@ class P2PCollaboratorPoolModule extends Module {
             validateQueryStore: i<ValidateQueryStore>(),
             onSpeechResultStore: i<OnSpeechResultStore>(),
             speechToTextStore: i<SpeechToTextStore>(),
-            widgetStore: i<CustomWidgetsTrackerStore>(),
+            widgetStore: Modular.get<CustomWidgetsTrackerStore>(),
           ),
         ),
         Bind.singleton<CollaboratorPoolScreenCoordinatorStore>(
           (i) => CollaboratorPoolScreenCoordinatorStore(
             exitCollaboratorPoolStore: i<ExitCollaboratorPoolStore>(),
-            widgetStore: i<CustomWidgetsTrackerStore>(),
+            widgetStore: Modular.get<CustomWidgetsTrackerStore>(),
           ),
         ),
       ];

@@ -28,7 +28,14 @@ class CollaboratorPoolScreen extends StatelessWidget {
                     stateTrackerStore:
                         coordinatorStore.widgetStore.beachWavesStore,
                   ),
-                )
+                ),
+                // Center(
+                //   child: SmartFadingAnimatedText(
+                //     initialFadeInDelay: const Duration(seconds: 3),
+                //     stateTrackerStore: coordinatorStore
+                //         .widgetStore.smartFadingAnimatedTextStore,
+                //   ),
+                // ),
               ],
             ),
           ))),

@@ -55,20 +55,4 @@ class MessagesData {
           extraDelayTime: const Duration(seconds: 0),
         ),
       ];
-  static List<RotatingTextData> get collaboratorPoolList => [
-        RotatingTextData(
-          mainMessage: "Waiting On Collaborator",
-          subMessage: "",
-          pauseHere: false,
-          unlockGesture: Gestures.none,
-          extraDelayTime: const Duration(seconds: 0),
-        ),
-        RotatingTextData(
-          mainMessage: "Is Your Collaborator Online?",
-          subMessage: "",
-          pauseHere: false,
-          unlockGesture: Gestures.none,
-          extraDelayTime: const Duration(seconds: 0),
-        ),
-      ];
 }
