@@ -41,6 +41,10 @@ class UserSetupConstants {
             'uid',
             userUID,
           );
+      await supabaseAdmin.from('collaborator_phrases').delete().eq(
+            'uid',
+            userUID,
+          );
     }
   }
 

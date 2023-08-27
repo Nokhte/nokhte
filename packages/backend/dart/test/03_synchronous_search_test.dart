@@ -106,14 +106,16 @@ void main() {
     supabase
         .from('existing_collaborations')
         .stream(primaryKey: ['id']).listen((event) {
-      if (event[0]["collaborator_one"] == firstUserUID ||
-          event[0]["collaborator_two"] == firstUserUID) {
-        collaborationForged = true;
+      if (event.isNotEmpty) {
+        if (event[0]["collaborator_one"] == firstUserUID ||
+            event[0]["collaborator_two"] == firstUserUID) {
+          collaborationForged = true;
+        }
+        print("event $event");
       }
-      print("event $event");
+      // print("tf?????");
     });
 
-    /// figure out why this isn't working, or
     /// act
     await InitiateCollaboratorSearch.invoke(
       supabase: supabase,
