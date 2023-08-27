@@ -109,18 +109,6 @@ void main() {
       userUID: firstUserUID,
       elseLogic: runTest,
     );
-    // supabase
-    //     .from('existing_collaborations')
-    //     .stream(primaryKey: ['id']).listen((event) {
-    //   if (event.isNotEmpty) {
-    //     if (event[0]["collaborator_one"] == firstUserUID ||
-    //         event[0]["collaborator_two"] == firstUserUID) {
-    //       collaborationForged = true;
-    //     } else {
-    //       runTest();
-    //     }
-    //   }
-    // });
 
     // Perform necessary actions
     await InitiateCollaboratorSearch.invoke(
