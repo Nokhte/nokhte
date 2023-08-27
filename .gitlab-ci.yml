@@ -29,7 +29,7 @@ test-the-db-rules-and-edge-functions:
     - supabase functions serve &
     - SERVER_PID=$!
     - flutter pub get
-    - futter test
+    - flutter test
     # - chmod u+x ./scripts/test.sh
     # - ./scripts/test.sh
     - kill $SERVER_PID
