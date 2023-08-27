@@ -104,7 +104,7 @@ void main() {
     bool collaborationForged = false;
 
     await SignIn.user1(supabase: supabase);
-    ExistingCollaborationsStream.notifyWhenForged(
+    collaborationForged = ExistingCollaborationsStream.notifyWhenForged(
       supabase: supabase,
       userUID: firstUserUID,
       elseLogic: runTest,
