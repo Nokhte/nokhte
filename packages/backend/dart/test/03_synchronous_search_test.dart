@@ -132,36 +132,7 @@ void main() {
   }
 
   test("SCENARIO 2: User1 Enters, Then User2 Enters", () async {
+    /// stupid bug: it takes multiple tries for some reason
     runTest();
   });
-
-  // test("SCENARIO 2: User1 Enters, Then User2 Enters", () async {
-  //   bool collaborationForged = false;
-
-  //   await SignIn.user1(supabase: supabase);
-  //   supabaseAdmin
-  //       .from('existing_collaborations')
-  //       .stream(primaryKey: ['id']).listen((event) {
-  //     print(event);
-  //     if (event.isNotEmpty) {
-  //       if (event[0]["collaborator_one"] == firstUserUID ||
-  //           event[0]["collaborator_two"] == firstUserUID) {
-  //         collaborationForged = true;
-  //       }
-  //     } else {}
-  //   });
-
-  //   /// act
-  //   await InitiateCollaboratorSearch.invoke(
-  //     supabase: supabase,
-  //     wayfarerUID: firstUserUID,
-  //     queryPhraseIDs: secondUserPhraseIDs,
-  //   );
-  //   await InitiateCollaboratorSearch.invoke(
-  //     supabase: supabase,
-  //     wayfarerUID: secondUserUID,
-  //     queryPhraseIDs: firstUserPhraseIDs,
-  //   );
-  //   expect(collaborationForged, true);
-  // });
 }
