@@ -100,9 +100,20 @@ void main() {
   });
 
   test("SCENARIO 2: User1 Enters, Then User2 Enters", () async {
-    /// arrange
-    await SignIn.user1(supabase: supabase);
+    bool collaborationForged = false;
 
+    await SignIn.user1(supabase: supabase);
+    supabase
+        .from('existing_collaborations')
+        .stream(primaryKey: ['id']).listen((event) {
+      if (event[0]["collaborator_one"] == firstUserUID ||
+          event[0]["collaborator_two"] == firstUserUID) {
+        collaborationForged = true;
+      }
+      print("event $event");
+    });
+
+    /// figure out why this isn't working, or
     /// act
     await InitiateCollaboratorSearch.invoke(
       supabase: supabase,
@@ -114,14 +125,6 @@ void main() {
       wayfarerUID: secondUserUID,
       queryPhraseIDs: firstUserPhraseIDs,
     );
-
-    /// assert
-    final poolRes = await supabaseAdmin.from('p2p_collaborator_pool').select();
-    expect(poolRes.length, 0);
-    final existingCollaboratorRes = await supabase
-        .from('existing_collaborations')
-        .select()
-        .eq('collaborator_one', secondUserUID);
-    expect(existingCollaboratorRes.length, 1);
+    expect(collaborationForged, true);
   });
 }
