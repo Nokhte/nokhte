@@ -27,6 +27,7 @@
                 "**/.dart_tool": true,
                 "**/deprecated_gitlab_ci": true,
                 "**/deprecated/**": true,
+                "**/build/**": true,
                 "**/_deprecated/**": true,
                 "**/.idea": true,
                 "**/**.lock": true,

@@ -25,10 +25,10 @@ test-the-db-rules-and-edge-functions:
     - echo "GOOGLE_CLIENT_SECRET='$GOOGLE_CLIENT_SECRET'" >> .env
     - supabase stop --no-backup
     - supabase start
-    # - trap "kill $SEVER_PID" EXIT
-    # - supabase functions serve &
-    # - SERVER_PID=$!
-    - flutter pub get
+    - trap "kill $SEVER_PID" EXIT
+    - supabase functions serve &
+    - SERVER_PID=$!
+    # - flutter pub get
     # - flutter test || kill $SERVER_PID
     - chmod u+x ./scripts/test.sh
     - ./scripts/test.sh 
