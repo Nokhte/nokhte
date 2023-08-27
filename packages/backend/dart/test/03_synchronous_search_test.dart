@@ -40,6 +40,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:primala_backend/constants/general/user_setup_constants.dart';
 import 'package:primala_backend/constants/general/supabase_client_constants.dart';
 import 'package:primala_backend/edge_functions.dart';
+import 'package:primala_backend/streams.dart';
 
 void main() {
   late SupabaseClient supabase;
@@ -103,18 +104,23 @@ void main() {
     bool collaborationForged = false;
 
     await SignIn.user1(supabase: supabase);
-    supabase
-        .from('existing_collaborations')
-        .stream(primaryKey: ['id']).listen((event) {
-      if (event.isNotEmpty) {
-        if (event[0]["collaborator_one"] == firstUserUID ||
-            event[0]["collaborator_two"] == firstUserUID) {
-          collaborationForged = true;
-        } else {
-          runTest();
-        }
-      }
-    });
+    ExistingCollaborationsStream.notifyWhenForged(
+      supabase: supabase,
+      userUID: firstUserUID,
+      elseLogic: runTest,
+    );
+    // supabase
+    //     .from('existing_collaborations')
+    //     .stream(primaryKey: ['id']).listen((event) {
+    //   if (event.isNotEmpty) {
+    //     if (event[0]["collaborator_one"] == firstUserUID ||
+    //         event[0]["collaborator_two"] == firstUserUID) {
+    //       collaborationForged = true;
+    //     } else {
+    //       runTest();
+    //     }
+    //   }
+    // });
 
     // Perform necessary actions
     await InitiateCollaboratorSearch.invoke(
