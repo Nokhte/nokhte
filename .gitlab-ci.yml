@@ -31,7 +31,7 @@ test-the-db-rules-and-edge-functions:
     - flutter pub get
     # - flutter test
     - chmod u+x ./scripts/test.sh
-    - ./scripts/test.sh
+    - ./scripts/test.sh || exit 1
     - kill $SERVER_PID
   rules:
     - if: '$CI_COMMIT_BRANCH == "development"'
