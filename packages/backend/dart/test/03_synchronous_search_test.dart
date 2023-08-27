@@ -99,7 +99,9 @@ void main() {
     expect(secondPoolRes.length, 0);
   });
 
-  void runTest() async {
+  // void runTest() async {}
+
+  test("SCENARIO 2: User1 Enters, Then User2 Enters", () async {
     bool collaborationForged = false;
 
     await SignIn.user1(supabase: supabase);
@@ -112,9 +114,6 @@ void main() {
           collaborationForged = true;
           expect(collaborationForged, true);
         }
-      } else {
-        // Run the test again
-        // runTest();
       }
     });
 
@@ -129,10 +128,5 @@ void main() {
       wayfarerUID: secondUserUID,
       queryPhraseIDs: firstUserPhraseIDs,
     );
-  }
-
-  test("SCENARIO 2: User1 Enters, Then User2 Enters", () async {
-    /// stupid bug: it takes multiple tries for some reason
-    runTest();
   });
 }
