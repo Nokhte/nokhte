@@ -131,6 +131,8 @@ void main() {
   }
 
   test("SCENARIO 2: User1 Enters, Then User2 Enters", () {
+    /// stupid bug doesn't work without some repeats lets see if
+    /// this problem is encountered in production
     runTest();
   });
 }
