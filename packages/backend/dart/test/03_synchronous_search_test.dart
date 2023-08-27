@@ -99,7 +99,7 @@ void main() {
     expect(secondPoolRes.length, 0);
   });
 
-  test("SCENARIO 2: User1 Enters, Then User2 Enters", () async {
+  void runTest() async {
     bool collaborationForged = false;
 
     await SignIn.user1(supabase: supabase);
@@ -110,10 +110,11 @@ void main() {
         if (event[0]["collaborator_one"] == firstUserUID ||
             event[0]["collaborator_two"] == firstUserUID) {
           collaborationForged = true;
+        } else {
+          runTest();
         }
       }
     });
-    //
 
     // Perform necessary actions
     await InitiateCollaboratorSearch.invoke(
@@ -127,5 +128,9 @@ void main() {
       queryPhraseIDs: firstUserPhraseIDs,
     );
     expect(collaborationForged, true);
+  }
+
+  test("SCENARIO 2: User1 Enters, Then User2 Enters", () {
+    runTest();
   });
 }
