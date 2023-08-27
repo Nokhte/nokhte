@@ -106,14 +106,11 @@ void main() {
     supabase
         .from('existing_collaborations')
         .stream(primaryKey: ['id']).listen((event) {
-      if (event.isNotEmpty) {
-        if (event[0]["collaborator_one"] == firstUserUID ||
-            event[0]["collaborator_two"] == firstUserUID) {
-          collaborationForged = true;
-        }
-        print("event $event");
+      if (event[0]["collaborator_one"] == firstUserUID ||
+          event[0]["collaborator_two"] == firstUserUID) {
+        collaborationForged = true;
       }
-      // print("tf?????");
+      print("event $event");
     });
 
     /// act
