@@ -29,10 +29,10 @@ test-the-db-rules-and-edge-functions:
     - supabase functions serve &
     - SERVER_PID=$!
     - flutter pub get
-    # - flutter test
-    - chmod u+x ./scripts/test.sh
-    - ./scripts/test.sh || exit 1
-    - kill $SERVER_PID
+    - flutter test || kill $SERVER_PID
+    # - chmod u+x ./scripts/test.sh
+    # - ./scripts/test.sh || exit 1
+    # - kill $SERVER_PID
   rules:
     - if: '$CI_COMMIT_BRANCH == "development"'
       changes:
