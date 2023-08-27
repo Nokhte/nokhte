@@ -1,3 +1,4 @@
 .dart_tool
 .idea
 melos_primala_core.iml
+build/**

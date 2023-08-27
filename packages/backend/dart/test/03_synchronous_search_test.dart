@@ -99,8 +99,6 @@ void main() {
     expect(secondPoolRes.length, 0);
   });
 
-  // void runTest() async {}
-
   test("SCENARIO 2: User1 Enters, Then User2 Enters", () async {
     bool collaborationForged = false;
 
@@ -112,7 +110,6 @@ void main() {
         if (event[0]["collaborator_one"] == firstUserUID ||
             event[0]["collaborator_two"] == firstUserUID) {
           collaborationForged = true;
-          expect(collaborationForged, true);
         }
       }
     });
@@ -128,5 +125,6 @@ void main() {
       wayfarerUID: secondUserUID,
       queryPhraseIDs: firstUserPhraseIDs,
     );
+    expect(collaborationForged, true);
   });
 }
