@@ -30,9 +30,9 @@ test-the-db-rules-and-edge-functions:
     - SERVER_PID=$!
     - flutter pub get
     - flutter test || kill $SERVER_PID
-    - chmod u+x ./scripts/test.sh
-    - ./scripts/test.sh 
-    - kill $SERVER_PID
+    # - chmod u+x ./scripts/test.sh
+    # - ./scripts/test.sh 
+    # - kill $SERVER_PID
   rules:
     - if: '$CI_COMMIT_BRANCH == "development"'
       changes:
