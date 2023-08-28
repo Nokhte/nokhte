@@ -26,6 +26,9 @@ class DefaultEntities {
   static Either<Failure, CollaboratorPoolExitStatusEntity>
       get collaboratorPoolExitStatusEntity =>
           const Right(CollaboratorPoolExitStatusEntity(hasLeft: false));
+  static Either<Failure, CollaboratorStreamStatusEntity>
+      get collaboratorStreamStatusEntity =>
+          const Right(CollaboratorStreamStatusEntity(isSubscribed: false));
   static CollaboratorPhraseIDs get defaultCollaboratorPhraseIDs =>
       const CollaboratorPhraseIDs(adjectiveID: -1, nounID: -1);
 }

@@ -660,6 +660,25 @@ class MockMP2PCollaboratorPoolContract extends _i1.Mock
             )),
           ) as _i8.Future<
               _i3.Either<_i9.Failure, _i2.CollaboratorSearchStatusEntity>>);
+  @override
+  _i8.Future<_i3.Either<_i9.Failure, _i2.CollaboratorStreamStatusEntity>>
+      cancelCollaboratorStream() => (super.noSuchMethod(
+            Invocation.method(
+              #cancelCollaboratorStream,
+              [],
+            ),
+            returnValue: _i8.Future<
+                    _i3.Either<_i9.Failure,
+                        _i2.CollaboratorStreamStatusEntity>>.value(
+                _FakeEither_1<_i9.Failure, _i2.CollaboratorStreamStatusEntity>(
+              this,
+              Invocation.method(
+                #cancelCollaboratorStream,
+                [],
+              ),
+            )),
+          ) as _i8.Future<
+              _i3.Either<_i9.Failure, _i2.CollaboratorStreamStatusEntity>>);
 }
 
 /// A class which mocks [MOnSpeechResultStore].

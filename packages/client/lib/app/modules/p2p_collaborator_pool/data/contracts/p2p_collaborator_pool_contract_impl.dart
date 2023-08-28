@@ -8,6 +8,7 @@ import 'package:primala/app/modules/p2p_collaborator_pool/domain/contracts/p2p_c
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/collaborator_pool_entry_status_entity.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/collaborator_pool_exit_status_model.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/collaborator_search_status_entity.dart';
+import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/collaborator_stream_status_entity.dart';
 import 'package:primala_backend/phrase_components.dart';
 
 class P2PCollaboratorPoolContractImpl implements P2PCollaboratorPoolContract {
@@ -104,6 +105,21 @@ class P2PCollaboratorPoolContractImpl implements P2PCollaboratorPoolContract {
       final res = remoteSource.listenToCollaboratorMatchStatus();
       return Right(
         CollaboratorSearchStatusEntity(isFound: res),
+      );
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, CollaboratorStreamStatusEntity>>
+      cancelCollaboratorStream() async {
+    if (await networkInfo.isConnected) {
+      final res = remoteSource.listenToCollaboratorMatchStatus();
+      return Right(
+        CollaboratorStreamStatusEntity(
+          isSubscribed: res,
+        ),
       );
     } else {
       return Left(FailureConstants.internetConnectionFailure);

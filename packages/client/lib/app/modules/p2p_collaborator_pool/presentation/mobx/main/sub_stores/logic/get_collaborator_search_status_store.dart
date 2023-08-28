@@ -1,13 +1,12 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // * Mobx Import
-import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/constants/failure_constants.dart';
 import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/core/mobx/store_state.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/domain/domain.dart';
+import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/getters/getters.dart';
 // * Mobx Codegen Inclusion
 part 'get_collaborator_search_status_store.g.dart';
 
@@ -16,7 +15,7 @@ class GetCollaboratorSearchStatusStore = _GetCollaboratorSearchStatusStoreBase
 
 abstract class _GetCollaboratorSearchStatusStoreBase extends Equatable
     with Store {
-  final GetCollaboratorSearchStatusStore collaboratorSearchStatusGetter;
+  final GetCollaboratorSearchStatusGetterStore collaboratorSearchStatusGetter;
 
   @observable
   Stream<bool> searchStatus = Stream.value(false);
@@ -40,7 +39,8 @@ abstract class _GetCollaboratorSearchStatusStoreBase extends Equatable
     }
   }
 
-  void call(Either<Failure, CollaboratorSearchStatusEntity> result) {
+  void call() async {
+    final result = await collaboratorSearchStatusGetter();
     result.fold((failure) {
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;

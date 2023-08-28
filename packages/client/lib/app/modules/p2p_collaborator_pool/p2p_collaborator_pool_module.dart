@@ -4,7 +4,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:primala/app/core/network/network_info.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/core/widgets/widget_constants.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/main/collaborator_pool_screen_coordinator_store.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/presentation.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/domain.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/data/data.dart';
@@ -79,6 +78,16 @@ class P2PCollaboratorPoolModule extends Module {
             contract: i<P2PCollaboratorPoolContract>(),
           ),
         ),
+        Bind.singleton<GetCollaboratorSearchStatus>(
+          (i) => GetCollaboratorSearchStatus(
+            contract: i<P2PCollaboratorPoolContract>(),
+          ),
+        ),
+        Bind.singleton<CancelCollaboratorStream>(
+          (i) => CancelCollaboratorStream(
+            contract: i<P2PCollaboratorPoolContract>(),
+          ),
+        ),
         // & MobX Getter Stores
         Bind.singleton<EnterCollaboratorPoolGetterStore>(
           (i) => EnterCollaboratorPoolGetterStore(
@@ -110,28 +119,14 @@ class P2PCollaboratorPoolModule extends Module {
             validateQueryLogic: i<ValidateQuery>(),
           ),
         ),
-
-        // & Widget State Management Stores
-        Bind.factory<SmartFadingAnimatedTextTrackerStore>(
-          (i) => SmartFadingAnimatedTextTrackerStore(
-            isInfinite: false,
-            messagesData: MessagesData.speakTheCollaboratorPhraseList,
+        Bind.singleton<GetCollaboratorSearchStatusGetterStore>(
+          (i) => GetCollaboratorSearchStatusGetterStore(
+            collaboratorSearchStatusLogic: i<GetCollaboratorSearchStatus>(),
           ),
         ),
-        Bind.factory<BreathingPentagonsStateTrackerStore>(
-          (i) => BreathingPentagonsStateTrackerStore(),
-        ),
-        Bind.factory<BeachWavesTrackerStore>(
-          (i) => BeachWavesTrackerStore(),
-        ),
-        // & Widget Manager Store
-        Bind.factory<CustomWidgetsTrackerStore>(
-          (i) => CustomWidgetsTrackerStore(
-            smartFadingAnimatedTextStore:
-                Modular.get<SmartFadingAnimatedTextTrackerStore>(),
-            breathingPentagonsStore:
-                Modular.get<BreathingPentagonsStateTrackerStore>(),
-            beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
+        Bind.singleton<CancelCollaboratorStreamGetterStore>(
+          (i) => CancelCollaboratorStreamGetterStore(
+            cancelStreamLogic: i<CancelCollaboratorStream>(),
           ),
         ),
         // & Mobx Mother Stores
@@ -159,6 +154,40 @@ class P2PCollaboratorPoolModule extends Module {
             validateQueryGetterStore: i<ValidateQueryGetterStore>(),
           ),
         ),
+        Bind.singleton<GetCollaboratorSearchStatusStore>(
+          (i) => GetCollaboratorSearchStatusStore(
+            collaboratorSearchStatusGetter:
+                i<GetCollaboratorSearchStatusGetterStore>(),
+          ),
+        ),
+        Bind.singleton<CancelCollaboratorStreamStore>(
+          (i) => CancelCollaboratorStreamStore(
+            getterStore: i<CancelCollaboratorStreamGetterStore>(),
+          ),
+        ),
+        // & Widget State Management Stores
+        Bind.factory<SmartFadingAnimatedTextTrackerStore>(
+          (i) => SmartFadingAnimatedTextTrackerStore(
+            isInfinite: false,
+            messagesData: MessagesData.speakTheCollaboratorPhraseList,
+          ),
+        ),
+        Bind.factory<BreathingPentagonsStateTrackerStore>(
+          (i) => BreathingPentagonsStateTrackerStore(),
+        ),
+        Bind.factory<BeachWavesTrackerStore>(
+          (i) => BeachWavesTrackerStore(),
+        ),
+        // & Widget Manager Store
+        Bind.factory<CustomWidgetsTrackerStore>(
+          (i) => CustomWidgetsTrackerStore(
+            smartFadingAnimatedTextStore:
+                Modular.get<SmartFadingAnimatedTextTrackerStore>(),
+            breathingPentagonsStore:
+                Modular.get<BreathingPentagonsStateTrackerStore>(),
+            beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
+          ),
+        ),
         // & Coordinator Stores
         Bind.singleton<SpeakTheCollaboratorPhraseCoordinatorStore>(
           (i) => SpeakTheCollaboratorPhraseCoordinatorStore(
@@ -173,6 +202,9 @@ class P2PCollaboratorPoolModule extends Module {
           (i) => CollaboratorPoolScreenCoordinatorStore(
             exitCollaboratorPoolStore: i<ExitCollaboratorPoolStore>(),
             widgetStore: Modular.get<CustomWidgetsTrackerStore>(),
+            getCollaboratorSearchStatusStore:
+                i<GetCollaboratorSearchStatusStore>(),
+            cancelStreamStore: i<CancelCollaboratorStreamStore>(),
           ),
         ),
       ];
