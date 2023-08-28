@@ -19,7 +19,6 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
     required this.coordinatorStore,
     // required this.startingWaveMovement,
   }) : super(key: key) {
-    print("did this run twice?");
     coordinatorStore.screenConstructorCallback(
       coordinatorStore: coordinatorStore,
       // startingWaveMovement: startingWaveMovement,

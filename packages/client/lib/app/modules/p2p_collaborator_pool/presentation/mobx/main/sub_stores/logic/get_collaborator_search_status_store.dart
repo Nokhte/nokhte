@@ -18,7 +18,7 @@ abstract class _GetCollaboratorSearchStatusStoreBase extends Equatable
   final GetCollaboratorSearchStatusGetterStore collaboratorSearchStatusGetter;
 
   @observable
-  Stream<bool> searchStatus = Stream.value(false);
+  ObservableStream<bool> searchStatus = ObservableStream(Stream.value(false));
 
   @observable
   String errorMessage = "";
@@ -45,7 +45,8 @@ abstract class _GetCollaboratorSearchStatusStoreBase extends Equatable
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
     }, (searchStatusEntity) {
-      searchStatus = searchStatusEntity.isFound;
+      searchStatus = ObservableStream(searchStatusEntity.isFound);
+      print(searchStatus);
     });
   }
 

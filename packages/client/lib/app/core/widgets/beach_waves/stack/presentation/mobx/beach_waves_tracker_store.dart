@@ -70,7 +70,6 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
 
   @action
   onBeachWavesAnimationCompletion() {
-    print("$movieMode");
     if (movieMode == MovieModes.backToShore) {
       Modular.to.navigate('/home/');
     } else if (movieMode == MovieModes.oceanDive) {
@@ -129,7 +128,6 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   teeOceanDiveMovieUp({
     required double startingWaterMovement,
   }) {
-    print("teeOceanDiveMovieUP runs");
     movie = OceanDive.getOceanDiveMovie(
         startingWaterMovement: startingWaterMovement);
     control = Control.stop;
@@ -142,14 +140,12 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
       ({
     required double startingWaterMovement,
   }) {
-    print("teeUpOnShoreToOceanDiveTransition runs");
     // isReadyToTransition = true;
     passingParam = startingWaterMovement;
   }
 
   @action
   initiateOceanDive() {
-    print("initiateOceanDive runs");
     control = Control.playFromStart;
     // movieStatus = MovieStatus.inProgress;
     movieMode = MovieModes.oceanDive;

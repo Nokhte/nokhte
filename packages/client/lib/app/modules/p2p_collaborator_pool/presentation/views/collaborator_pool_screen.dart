@@ -18,6 +18,16 @@ class CollaboratorPoolScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // return StreamBuilder<bool>(
+    //     stream: coordinatorStore.getCollaboratorSearchStatusStore.searchStatus,
+    //     builder: (context, snapshot) {
+    //       if (snapshot.data == true) {
+    //         print("a match was made!!!");
+    //       } else {
+    //         print("a match isn't made");
+
+    //         /// our app convulses, but it kinda works, check
+    //       }
     return LayoutBuilder(
       builder: ((context, constraints) => PlatformScaffold(
               body: Swipe(
@@ -40,5 +50,6 @@ class CollaboratorPoolScreen extends StatelessWidget {
             ),
           ))),
     );
+    // });
   }
 }

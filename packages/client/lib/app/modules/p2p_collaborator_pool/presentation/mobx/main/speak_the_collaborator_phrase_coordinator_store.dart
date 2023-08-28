@@ -41,8 +41,8 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
     beachWavesStore = widgetStore.beachWavesStore;
     fadingTextStore = widgetStore.smartFadingAnimatedTextStore;
     reaction((p0) => onSpeechResultStore.currentPhraseIndex, (p0) {
-      print(
-          "what is going on now?? ${onSpeechResultStore.currentSpeechResult}");
+      // print(
+      //     "what is going on now?? ${onSpeechResultStore.currentSpeechResult}");
       widgetStore.smartFadingAnimatedTextStore
           .togglePause(gestureType: Gestures.none);
       widgetStore.smartFadingAnimatedTextStore.addNewMessage(

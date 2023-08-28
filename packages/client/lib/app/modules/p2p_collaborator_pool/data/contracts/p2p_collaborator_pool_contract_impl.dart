@@ -115,7 +115,7 @@ class P2PCollaboratorPoolContractImpl implements P2PCollaboratorPoolContract {
   Future<Either<Failure, CollaboratorStreamStatusEntity>>
       cancelCollaboratorStream() async {
     if (await networkInfo.isConnected) {
-      final res = remoteSource.listenToCollaboratorMatchStatus();
+      final res = remoteSource.cancelCollaboratorMatchStatusStream();
       return Right(
         CollaboratorStreamStatusEntity(
           isSubscribed: res,

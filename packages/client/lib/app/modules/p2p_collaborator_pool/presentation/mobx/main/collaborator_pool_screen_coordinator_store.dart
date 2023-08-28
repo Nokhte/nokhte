@@ -8,8 +8,6 @@ import 'package:primala/app/core/widgets/beach_waves/stack/constants/types/movie
 import 'package:primala/app/core/widgets/beach_waves/stack/presentation/mobx/beach_waves_tracker_store.dart';
 // import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
 import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/presentation/mobx/smart_fading_animated_text_tracker_store.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/main/sub_stores/logic/cancel_collaborator_stream_store.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/main/sub_stores/logic/get_collaborator_search_status_store.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
 // * Mobx Codegen Inclusion
 part 'collaborator_pool_screen_coordinator_store.g.dart';
@@ -35,22 +33,26 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
     beachWavesStore = widgetStore.beachWavesStore;
     fadingTextStore = widgetStore.smartFadingAnimatedTextStore;
     reaction((p0) => widgetStore.beachWavesStore.movieMode, (p0) {
-      print(
-          "what exactly is the moveMOde??? ${widgetStore.beachWavesStore.movieMode}");
       if (widgetStore.beachWavesStore.movieMode == MovieModes.backToOceanDive) {
         exitCollaboratorPoolStore(NoParams());
         cancelStreamStore(NoParams());
+        // I would suggest testing the infrastructure & getting to the bottom
+        // of it when u get
       }
     });
-
-    reaction((p0) => getCollaboratorSearchStatusStore.searchStatus, (p0) async {
-      if (await getCollaboratorSearchStatusStore.searchStatus.last) {
-        // do movie mode transition here
-        print("a match was indeed made!!");
-
-        /// if this works we can just have this trigger it
-        /// ohhh it wasn't called
+    reaction((p0) => getCollaboratorSearchStatusStore.searchStatus, (p0) {
+      if (p0.value == true) {
+        print("it's true");
       }
+      final disposer = p0.listen((value) {
+        if (value == true) {
+          print("it is true!!!!!!!");
+        }
+      });
+      disposer.cancel();
+      // if (getCollaboratorSearchStatusStore.searchStatus.value == true) {
+      //   print("it's true");
+      // }
     });
   }
 

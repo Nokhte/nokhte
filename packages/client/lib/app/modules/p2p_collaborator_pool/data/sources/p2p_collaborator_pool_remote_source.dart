@@ -100,6 +100,7 @@ class P2PCollaboratorPoolRemoteSourceImpl
   @override
   bool cancelCollaboratorMatchStatusStream() {
     existingCollaborationsStream.cancelStream();
+
     return existingCollaborationsStream.isListening;
   }
 }
