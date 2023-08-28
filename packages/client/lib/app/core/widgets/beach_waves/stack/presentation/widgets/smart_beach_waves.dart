@@ -47,6 +47,19 @@ class _SmartBeachWavesState extends State<SmartBeachWaves>
           if (stateTrackerStore.movieMode == MovieModes.oceanDiveSetup) {
             stateTrackerStore.teeUpOnShoreToOceanDiveTransition(
                 startingWaterMovement: currentAnimationValues[0]);
+          } else if (stateTrackerStore.movieMode ==
+              MovieModes.backToTheDepthsSetup) {
+            print("was this widget func running? ");
+            stateTrackerStore.teeUpBackToTheDepthsValues(colorGradientsList: [
+              currentAnimationValues[1],
+              currentAnimationValues[2],
+              currentAnimationValues[3],
+              currentAnimationValues[4],
+              currentAnimationValues[5],
+              currentAnimationValues[6],
+              currentAnimationValues[7],
+              currentAnimationValues[8],
+            ]);
           }
           return CustomPaint(
             painter: BeachWavesPainter(

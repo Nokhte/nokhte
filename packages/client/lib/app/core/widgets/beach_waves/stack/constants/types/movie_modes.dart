@@ -3,6 +3,7 @@ enum MovieModes {
   oceanDiveSetup,
   oceanDive,
   backToOceanDive,
+  backToTheDepthsSetup,
   suspendedAtSea,
   backToShore,
   toTheDepths,

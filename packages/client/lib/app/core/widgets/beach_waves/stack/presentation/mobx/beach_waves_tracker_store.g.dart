@@ -42,6 +42,23 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
     });
   }
 
+  late final _$pivotColorGradientsAtom = Atom(
+      name: '_BeachWavesTrackerStoreBase.pivotColorGradients',
+      context: context);
+
+  @override
+  List<Color> get pivotColorGradients {
+    _$pivotColorGradientsAtom.reportRead();
+    return super.pivotColorGradients;
+  }
+
+  @override
+  set pivotColorGradients(List<Color> value) {
+    _$pivotColorGradientsAtom.reportWrite(value, super.pivotColorGradients, () {
+      super.pivotColorGradients = value;
+    });
+  }
+
   late final _$movieStatusAtom =
       Atom(name: '_BeachWavesTrackerStoreBase.movieStatus', context: context);
 
@@ -122,6 +139,24 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
     });
   }
 
+  late final _$backToTheDepthsCountAtom = Atom(
+      name: '_BeachWavesTrackerStoreBase.backToTheDepthsCount',
+      context: context);
+
+  @override
+  int get backToTheDepthsCount {
+    _$backToTheDepthsCountAtom.reportRead();
+    return super.backToTheDepthsCount;
+  }
+
+  @override
+  set backToTheDepthsCount(int value) {
+    _$backToTheDepthsCountAtom.reportWrite(value, super.backToTheDepthsCount,
+        () {
+      super.backToTheDepthsCount = value;
+    });
+  }
+
   late final _$_BeachWavesTrackerStoreBaseActionController =
       ActionController(name: '_BeachWavesTrackerStoreBase', context: context);
 
@@ -131,6 +166,17 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
         .startAction(name: '_BeachWavesTrackerStoreBase.teeUpOceanDive');
     try {
       return super.teeUpOceanDive();
+    } finally {
+      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic teeUpBackToTheDepths() {
+    final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
+        .startAction(name: '_BeachWavesTrackerStoreBase.teeUpBackToTheDepths');
+    try {
+      return super.teeUpBackToTheDepths();
     } finally {
       _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -166,18 +212,6 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
                 '_BeachWavesTrackerStoreBase.onBeachWavesAnimationCompletion');
     try {
       return super.onBeachWavesAnimationCompletion();
-    } finally {
-      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic initiateBackToTheDepths() {
-    final _$actionInfo =
-        _$_BeachWavesTrackerStoreBaseActionController.startAction(
-            name: '_BeachWavesTrackerStoreBase.initiateBackToTheDepths');
-    try {
-      return super.initiateBackToTheDepths();
     } finally {
       _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -230,6 +264,32 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
   }
 
   @override
+  dynamic teeUpBackToTheDepthsValues(
+      {required List<Color> colorGradientsList}) {
+    final _$actionInfo =
+        _$_BeachWavesTrackerStoreBaseActionController.startAction(
+            name: '_BeachWavesTrackerStoreBase.teeUpBackToTheDepthsValues');
+    try {
+      return super
+          .teeUpBackToTheDepthsValues(colorGradientsList: colorGradientsList);
+    } finally {
+      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic initiateBackToTheDepths() {
+    final _$actionInfo =
+        _$_BeachWavesTrackerStoreBaseActionController.startAction(
+            name: '_BeachWavesTrackerStoreBase.initiateBackToTheDepths');
+    try {
+      return super.initiateBackToTheDepths();
+    } finally {
+      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic teeUpOnShoreToOceanDiveTransition(
       {required double startingWaterMovement}) {
     final _$actionInfo =
@@ -260,11 +320,13 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
     return '''
 movie: ${movie},
 isReadyToTransition: ${isReadyToTransition},
+pivotColorGradients: ${pivotColorGradients},
 movieStatus: ${movieStatus},
 passingParam: ${passingParam},
 movieMode: ${movieMode},
 control: ${control},
-oceanDiveCount: ${oceanDiveCount}
+oceanDiveCount: ${oceanDiveCount},
+backToTheDepthsCount: ${backToTheDepthsCount}
     ''';
   }
 }

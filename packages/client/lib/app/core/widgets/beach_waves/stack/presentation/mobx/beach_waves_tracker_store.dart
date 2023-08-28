@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // * Mobx Import
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
@@ -21,6 +22,9 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   bool isReadyToTransition = false;
 
   @observable
+  List<Color> pivotColorGradients = [];
+
+  @observable
   MovieStatus movieStatus = MovieStatus.inProgress;
 
   @observable
@@ -35,11 +39,19 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   @observable
   int oceanDiveCount = 0;
 
+  @observable
+  int backToTheDepthsCount = 0;
+
   @action
   teeUpOceanDive() {
     if (movieMode == MovieModes.onShore) {
       movieMode = MovieModes.oceanDiveSetup;
     }
+  }
+
+  @action
+  teeUpBackToTheDepths() {
+    movieMode = MovieModes.backToTheDepthsSetup;
   }
 
   // @action
@@ -87,17 +99,12 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
         '/p2p_collaborator_pool/',
       );
     } else if (movieMode == MovieModes.backToTheDepths) {
+      backToTheDepthsCount != 0
+          ? Modular.to.navigate('/p2p_collaborator_session/')
+          : backToTheDepthsCount++;
       // from timer to session
       // initiateBackToTheDepths();
     }
-  }
-
-  @action
-  initiateBackToTheDepths() {
-    movie = BackToTheDepths.movie;
-    control = Control.playFromStart;
-    movieStatus = MovieStatus.inProgress;
-    movieMode = MovieModes.backToTheDepths;
   }
 
   @action
@@ -132,6 +139,30 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
         startingWaterMovement: startingWaterMovement);
     control = Control.stop;
     initiateOceanDive();
+  }
+
+  @action
+  teeUpBackToTheDepthsValues({required List<Color> colorGradientsList}) {
+    pivotColorGradients = colorGradientsList;
+    initiateBackToTheDepths();
+  }
+
+  @action
+  initiateBackToTheDepths() {
+    print(pivotColorGradients.toString());
+    movie = BackToTheDepths.getMovie(
+      startingFirstGradient: pivotColorGradients[0],
+      startingSecondGradient: pivotColorGradients[1],
+      startingThirdGradient: pivotColorGradients[2],
+      startingFourthGradient: pivotColorGradients[3],
+      startingFifthGradient: pivotColorGradients[4],
+      startingSixthGradient: pivotColorGradients[5],
+      startingSeventhGradient: pivotColorGradients[6],
+      startingEighthGradient: pivotColorGradients[7],
+    );
+    control = Control.playFromStart;
+    movieStatus = MovieStatus.inProgress;
+    movieMode = MovieModes.backToTheDepths;
   }
 
   @action

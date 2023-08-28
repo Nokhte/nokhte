@@ -43,12 +43,12 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
     reaction((p0) => getCollaboratorSearchStatusStore.searchStatus, (p0) {
       p0.listen((value) {
         if (value == true) {
+          beachWavesStore.teeUpBackToTheDepths();
+          // beachWavesStore.initiateBackToTheDepths();
+          // print("did this run? ${beachWavesStore.pivotColorGradients}");
           // what do you want to do if it's true
         }
       });
-      // if (p0 == true) {
-      //   print("it's true");
-      // }
     });
   }
 
