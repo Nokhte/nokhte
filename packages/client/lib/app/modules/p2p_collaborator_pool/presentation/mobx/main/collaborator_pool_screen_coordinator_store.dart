@@ -35,6 +35,8 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
     beachWavesStore = widgetStore.beachWavesStore;
     fadingTextStore = widgetStore.smartFadingAnimatedTextStore;
     reaction((p0) => widgetStore.beachWavesStore.movieMode, (p0) {
+      print(
+          "what exactly is the moveMOde??? ${widgetStore.beachWavesStore.movieMode}");
       if (widgetStore.beachWavesStore.movieMode == MovieModes.backToOceanDive) {
         exitCollaboratorPoolStore(NoParams());
         cancelStreamStore(NoParams());
@@ -42,9 +44,12 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
     });
 
     reaction((p0) => getCollaboratorSearchStatusStore.searchStatus, (p0) async {
-      if (await getCollaboratorSearchStatusStore.searchStatus.first) {
+      if (await getCollaboratorSearchStatusStore.searchStatus.last) {
         // do movie mode transition here
         print("a match was indeed made!!");
+
+        /// if this works we can just have this trigger it
+        /// ohhh it wasn't called
       }
     });
   }
@@ -56,6 +61,8 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
       // timerLength: const Duration(seconds: 10),
     );
     getCollaboratorSearchStatusStore();
+    print(getCollaboratorSearchStatusStore.searchStatus);
+    // print(getCollaboratorSearchStatusStore.state);
   }
 
   @override
