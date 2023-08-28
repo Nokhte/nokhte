@@ -9,7 +9,7 @@ class OnSpeechResult {
   call(SpeechRecognitionResult params) {
     // if (params.finalResult) {
     final collaboratorPhrase = params.recognizedWords;
-    print(collaboratorPhrase);
+    // print(collaboratorPhrase);
     speechResultStore.addSpeechResult(result: collaboratorPhrase);
     // }
   }

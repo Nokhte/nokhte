@@ -46,7 +46,6 @@ abstract class _GetCollaboratorSearchStatusStoreBase extends Equatable
       state = StoreState.initial;
     }, (searchStatusEntity) {
       searchStatus = ObservableStream(searchStatusEntity.isFound);
-      print(searchStatus);
     });
   }
 

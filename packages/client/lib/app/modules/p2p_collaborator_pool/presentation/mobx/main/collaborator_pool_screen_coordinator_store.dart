@@ -41,16 +41,12 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
       }
     });
     reaction((p0) => getCollaboratorSearchStatusStore.searchStatus, (p0) {
-      if (p0.value == true) {
-        print("it's true");
-      }
-      final disposer = p0.listen((value) {
+      p0.listen((value) {
         if (value == true) {
-          print("it is true!!!!!!!");
+          // what do you want to do if it's true
         }
       });
-      disposer.cancel();
-      // if (getCollaboratorSearchStatusStore.searchStatus.value == true) {
+      // if (p0 == true) {
       //   print("it's true");
       // }
     });
@@ -63,8 +59,6 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
       // timerLength: const Duration(seconds: 10),
     );
     getCollaboratorSearchStatusStore();
-    print(getCollaboratorSearchStatusStore.searchStatus);
-    // print(getCollaboratorSearchStatusStore.state);
   }
 
   @override
