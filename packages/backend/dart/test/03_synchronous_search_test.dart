@@ -100,14 +100,14 @@ void main() {
     expect(secondPoolRes.length, 0);
   });
 
-  void runTest() async {
-    bool collaborationForged = false;
+  test("SCENARIO 2: User1 Enters, Then User2 Enters", () async {
+    Stream<bool> collaborationForged;
 
     await SignIn.user1(supabase: supabase);
     collaborationForged = ExistingCollaborationsStream.notifyWhenForged(
       supabase: supabase,
       userUID: firstUserUID,
-      elseLogic: runTest,
+      // elsLogic: runTest,
     );
 
     // Perform necessary actions
@@ -121,12 +121,6 @@ void main() {
       wayfarerUID: secondUserUID,
       queryPhraseIDs: firstUserPhraseIDs,
     );
-    expect(collaborationForged, true);
-  }
-
-  test("SCENARIO 2: User1 Enters, Then User2 Enters", () {
-    /// stupid bug doesn't work without some repeats lets see if
-    /// this problem is encountered in production
-    runTest();
+    expect(collaborationForged, emits(true));
   });
 }
