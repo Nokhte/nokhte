@@ -8,6 +8,7 @@ import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/main
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/presentation.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/domain.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/data/data.dart';
+import 'package:primala_backend/streams.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -34,6 +35,7 @@ class P2PCollaboratorPoolModule extends Module {
         // & Remote Source
         Bind.singleton<P2PCollaboratorPoolRemoteSourceImpl>(
           (i) => P2PCollaboratorPoolRemoteSourceImpl(
+            existingCollaborationsStream: ExistingCollaborationsStream(),
             onSpeechResult: i<OnSpeechResult>(),
             speechToText: i<SpeechToText>(),
             supabase: Modular.get<SupabaseClient>(),

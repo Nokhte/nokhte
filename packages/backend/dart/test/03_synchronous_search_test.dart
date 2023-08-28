@@ -104,7 +104,8 @@ void main() {
     Stream<bool> collaborationForged;
 
     await SignIn.user1(supabase: supabase);
-    collaborationForged = ExistingCollaborationsStream.notifyWhenForged(
+    final existingCollaborations = ExistingCollaborationsStream();
+    collaborationForged = existingCollaborations.notifyWhenForged(
       supabase: supabase,
       userUID: firstUserUID,
       // elsLogic: runTest,
@@ -122,5 +123,7 @@ void main() {
       queryPhraseIDs: firstUserPhraseIDs,
     );
     expect(collaborationForged, emits(true));
+    existingCollaborations.cancelStream();
+    expect(existingCollaborations.isListening, false);
   });
 }

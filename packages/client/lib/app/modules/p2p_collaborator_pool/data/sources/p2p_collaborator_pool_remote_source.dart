@@ -20,6 +20,8 @@ abstract class P2PCollaboratorPoolRemoteSource {
   Future<FunctionResponse> exitThePool();
 
   Stream<bool> listenToCollaboratorMatchStatus();
+
+  bool cancelCollaboratorMatchStatusStream();
 }
 
 class P2PCollaboratorPoolRemoteSourceImpl
@@ -28,11 +30,13 @@ class P2PCollaboratorPoolRemoteSourceImpl
   final SupabaseClient supabase;
   final OnSpeechResult onSpeechResult;
   final String currentUserUID;
+  final ExistingCollaborationsStream existingCollaborationsStream;
 
   P2PCollaboratorPoolRemoteSourceImpl({
     required this.speechToText,
     required this.supabase,
     required this.onSpeechResult,
+    required this.existingCollaborationsStream,
   }) : currentUserUID = supabase.auth.currentUser?.id ?? '';
 
   @override
@@ -87,9 +91,15 @@ class P2PCollaboratorPoolRemoteSourceImpl
 
   @override
   Stream<bool> listenToCollaboratorMatchStatus() {
-    return ExistingCollaborationsStream.notifyWhenForged(
+    return existingCollaborationsStream.notifyWhenForged(
       supabase: supabase,
       userUID: currentUserUID,
     );
+  }
+
+  @override
+  bool cancelCollaboratorMatchStatusStream() {
+    existingCollaborationsStream.cancelStream();
+    return existingCollaborationsStream.isListening;
   }
 }

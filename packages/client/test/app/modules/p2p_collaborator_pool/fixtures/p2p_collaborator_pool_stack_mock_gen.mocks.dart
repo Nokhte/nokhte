@@ -822,4 +822,13 @@ class MockP2PCollaboratorPoolRemoteSource extends _i1.Mock
         returnValue: _i8.Stream<bool>.empty(),
         returnValueForMissingStub: _i8.Stream<bool>.empty(),
       ) as _i8.Stream<bool>);
+  @override
+  bool cancelCollaboratorMatchStatusStream() => (super.noSuchMethod(
+        Invocation.method(
+          #cancelCollaboratorMatchStatusStream,
+          [],
+        ),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
 }
