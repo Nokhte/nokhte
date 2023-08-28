@@ -21,4 +21,6 @@ abstract class P2PCollaboratorPoolContract {
 
   Future<Either<Failure, CollaboratorPoolExitStatusEntity>>
       exitCollaboratorPool();
+
+  Future<Either<Failure, CollaboratorSearchStatusEntity>> getCollaboratorSearchStatus();
 }

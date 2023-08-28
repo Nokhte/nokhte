@@ -641,6 +641,25 @@ class MockMP2PCollaboratorPoolContract extends _i1.Mock
             )),
           ) as _i8.Future<
               _i3.Either<_i9.Failure, _i2.CollaboratorPoolExitStatusEntity>>);
+  @override
+  _i8.Future<_i3.Either<_i9.Failure, _i2.CollaboratorSearchStatusEntity>>
+      getCollaboratorSearchStatus() => (super.noSuchMethod(
+            Invocation.method(
+              #getCollaboratorSearchStatus,
+              [],
+            ),
+            returnValue: _i8.Future<
+                    _i3.Either<_i9.Failure,
+                        _i2.CollaboratorSearchStatusEntity>>.value(
+                _FakeEither_1<_i9.Failure, _i2.CollaboratorSearchStatusEntity>(
+              this,
+              Invocation.method(
+                #getCollaboratorSearchStatus,
+                [],
+              ),
+            )),
+          ) as _i8.Future<
+              _i3.Either<_i9.Failure, _i2.CollaboratorSearchStatusEntity>>);
 }
 
 /// A class which mocks [MOnSpeechResultStore].
@@ -794,4 +813,13 @@ class MockP2PCollaboratorPoolRemoteSource extends _i1.Mock
           ),
         )),
       ) as _i8.Future<_i6.FunctionResponse>);
+  @override
+  _i8.Stream<bool> listenToCollaboratorMatchStatus() => (super.noSuchMethod(
+        Invocation.method(
+          #listenToCollaboratorMatchStatus,
+          [],
+        ),
+        returnValue: _i8.Stream<bool>.empty(),
+        returnValueForMissingStub: _i8.Stream<bool>.empty(),
+      ) as _i8.Stream<bool>);
 }

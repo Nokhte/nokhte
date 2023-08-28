@@ -1,3 +1,10 @@
-// import 'package:primala/app/core/entities/default_db_status_entity.dart';
+import 'package:equatable/equatable.dart';
 
-// class CollaboratorSearchStatusEntity {}
+class CollaboratorSearchStatusEntity extends Equatable {
+  final Stream<bool> isFound;
+
+  const CollaboratorSearchStatusEntity({required this.isFound});
+
+  @override
+  List<Object> get props => [isFound];
+}

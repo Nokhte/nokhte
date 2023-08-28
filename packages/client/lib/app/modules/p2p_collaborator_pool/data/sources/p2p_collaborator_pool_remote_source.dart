@@ -2,6 +2,7 @@ import 'package:primala/app/modules/p2p_collaborator_pool/domain/logic/logic.dar
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:primala_backend/phrase_components.dart';
 import 'package:primala_backend/edge_functions.dart';
+import 'package:primala_backend/streams.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class P2PCollaboratorPoolRemoteSource {
@@ -17,6 +18,8 @@ abstract class P2PCollaboratorPoolRemoteSource {
       {required CollaboratorPhraseIDs phraseIDs});
 
   Future<FunctionResponse> exitThePool();
+
+  Stream<bool> listenToCollaboratorMatchStatus();
 }
 
 class P2PCollaboratorPoolRemoteSourceImpl
@@ -79,6 +82,14 @@ class P2PCollaboratorPoolRemoteSourceImpl
     return await EndCollaboratorSearch.invoke(
       supabase: supabase,
       firstUserUID: currentUserUID,
+    );
+  }
+
+  @override
+  Stream<bool> listenToCollaboratorMatchStatus() {
+    return ExistingCollaborationsStream.notifyWhenForged(
+      supabase: supabase,
+      userUID: currentUserUID,
     );
   }
 }
