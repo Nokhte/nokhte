@@ -8,6 +8,9 @@ import 'package:primala/app/modules/p2p_collaborator_pool/domain/domain.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/presentation.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
+class MP2PCollaboratorPoolRemoteSourceImpl extends Mock
+    implements P2PCollaboratorPoolRemoteSourceImpl {}
+
 class MP2PCollaboratorPoolContract extends Mock
     implements P2PCollaboratorPoolContract {}
 
@@ -30,6 +33,7 @@ class MOnSpeechResultStore extends Mock implements OnSpeechResultStore {}
 class MSpeechToText extends Mock implements SpeechToText {}
 
 @GenerateMocks([
+  MP2PCollaboratorPoolRemoteSourceImpl,
   MEnterCollaboratorPool,
   MSpeechToText,
   MInitiateSpeechToText,

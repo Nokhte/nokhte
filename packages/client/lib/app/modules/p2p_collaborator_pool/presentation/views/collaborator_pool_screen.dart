@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:primala/app/core/widgets/fade_in_and_change_color_text/stack/constants/movies/times_up_text.dart';
 import 'package:primala/app/core/widgets/fade_in_and_change_color_text/stack/widget/fade_in_and_change_color_text.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/main/collaborator_pool_screen_coordinator_store.dart';
@@ -18,16 +17,6 @@ class CollaboratorPoolScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return StreamBuilder<bool>(
-    //     stream: coordinatorStore.getCollaboratorSearchStatusStore.searchStatus,
-    //     builder: (context, snapshot) {
-    //       if (snapshot.data == true) {
-    //         print("a match was made!!!");
-    //       } else {
-    //         print("a match isn't made");
-
-    //         /// our app convulses, but it kinda works, check
-    //       }
     return LayoutBuilder(
       builder: ((context, constraints) => PlatformScaffold(
               body: Swipe(
@@ -43,7 +32,8 @@ class CollaboratorPoolScreen extends StatelessWidget {
                 ),
                 Center(
                   child: FadeInAndChangeColorText(
-                    movie: TimesUpText.movie,
+                    stateStore: coordinatorStore
+                        .widgetStore.fadeInAndChangeColorTextStore,
                   ),
                 ),
               ],

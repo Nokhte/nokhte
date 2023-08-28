@@ -6,6 +6,7 @@ import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/widgets/beach_waves/stack/constants/types/movie_modes.dart';
 import 'package:primala/app/core/widgets/beach_waves/stack/presentation/mobx/beach_waves_tracker_store.dart';
+import 'package:primala/app/core/widgets/mobx/custom_widgets_tracker_store.dart';
 // import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
 import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/presentation/mobx/smart_fading_animated_text_tracker_store.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
@@ -44,6 +45,7 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
       p0.listen((value) {
         if (value == true) {
           beachWavesStore.teeUpBackToTheDepths();
+          widgetStore.fadeInAndChangeColorTextStore.teeUpFadeOut();
           // beachWavesStore.initiateBackToTheDepths();
           // print("did this run? ${beachWavesStore.pivotColorGradients}");
           // what do you want to do if it's true

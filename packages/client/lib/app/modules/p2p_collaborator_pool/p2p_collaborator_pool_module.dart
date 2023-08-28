@@ -2,6 +2,8 @@
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:primala/app/core/network/network_info.dart';
+import 'package:primala/app/core/widgets/fade_in_and_change_color_text/stack/mobx/fade_in_and_change_color_text_store.dart';
+import 'package:primala/app/core/widgets/mobx/custom_widgets_tracker_store.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/core/widgets/widget_constants.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/presentation.dart';
@@ -172,6 +174,9 @@ class P2PCollaboratorPoolModule extends Module {
             messagesData: MessagesData.speakTheCollaboratorPhraseList,
           ),
         ),
+        Bind.factory<FadeInAndChangeColorTextStore>(
+          (i) => FadeInAndChangeColorTextStore(),
+        ),
         Bind.factory<BreathingPentagonsStateTrackerStore>(
           (i) => BreathingPentagonsStateTrackerStore(),
         ),
@@ -181,6 +186,8 @@ class P2PCollaboratorPoolModule extends Module {
         // & Widget Manager Store
         Bind.factory<CustomWidgetsTrackerStore>(
           (i) => CustomWidgetsTrackerStore(
+            fadeInAndChangeColorTextStore:
+                Modular.get<FadeInAndChangeColorTextStore>(),
             smartFadingAnimatedTextStore:
                 Modular.get<SmartFadingAnimatedTextTrackerStore>(),
             breathingPentagonsStore:

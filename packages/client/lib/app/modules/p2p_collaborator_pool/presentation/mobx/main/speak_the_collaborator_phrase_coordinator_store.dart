@@ -5,6 +5,7 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/types/validation_enum.dart';
+import 'package:primala/app/core/widgets/mobx/custom_widgets_tracker_store.dart';
 // import 'package:primala/app/core/widgets/beach_waves/stack/constants/types/types.dart';
 import 'package:primala/app/core/widgets/widget_constants.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
@@ -104,8 +105,9 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   @action
   breathingPentagonsHoldEndCallback() {
     widgetStore.breathingPentagonsStore.gestureFunctionRouter();
-    speechToTextStore.stopListening();
-    onSpeechResultStore.currentPhraseIndex++;
+    Future.delayed(const Duration(milliseconds: 500), () {
+      speechToTextStore.stopListening();
+    }).then((value) => onSpeechResultStore.currentPhraseIndex++);
   }
 
   @action

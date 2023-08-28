@@ -6,3 +6,4 @@ export 'times_up.dart';
 export 'back_to_ocean_dive.dart';
 export 'suspended_at_sea.dart';
 export 'back_to_the_depths.dart';
+export './suspended_at_the_depths.dart';

@@ -183,6 +183,30 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
   }
 
   @override
+  dynamic initiateSuspendedAtSea() {
+    final _$actionInfo =
+        _$_BeachWavesTrackerStoreBaseActionController.startAction(
+            name: '_BeachWavesTrackerStoreBase.initiateSuspendedAtSea');
+    try {
+      return super.initiateSuspendedAtSea();
+    } finally {
+      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic initiateSuspendedAtTheDepths() {
+    final _$actionInfo =
+        _$_BeachWavesTrackerStoreBaseActionController.startAction(
+            name: '_BeachWavesTrackerStoreBase.initiateSuspendedAtTheDepths');
+    try {
+      return super.initiateSuspendedAtTheDepths();
+    } finally {
+      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic initiateToTheDepths() {
     final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
         .startAction(name: '_BeachWavesTrackerStoreBase.initiateToTheDepths');

@@ -19,9 +19,9 @@ abstract class P2PCollaboratorPoolRemoteSource {
 
   Future<FunctionResponse> exitThePool();
 
-  Stream<bool> listenToCollaboratorMatchStatus();
+  Stream<bool> getCollaboratorSearchStatus();
 
-  bool cancelCollaboratorMatchStatusStream();
+  bool cancelStream();
 }
 
 class P2PCollaboratorPoolRemoteSourceImpl
@@ -90,7 +90,7 @@ class P2PCollaboratorPoolRemoteSourceImpl
   }
 
   @override
-  Stream<bool> listenToCollaboratorMatchStatus() {
+  Stream<bool> getCollaboratorSearchStatus() {
     return existingCollaborationsStream.notifyWhenForged(
       supabase: supabase,
       userUID: currentUserUID,
@@ -98,7 +98,7 @@ class P2PCollaboratorPoolRemoteSourceImpl
   }
 
   @override
-  bool cancelCollaboratorMatchStatusStream() {
+  bool cancelStream() {
     existingCollaborationsStream.cancelStream();
 
     return existingCollaborationsStream.isListening;

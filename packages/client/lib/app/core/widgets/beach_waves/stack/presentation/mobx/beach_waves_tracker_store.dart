@@ -54,9 +54,17 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
     movieMode = MovieModes.backToTheDepthsSetup;
   }
 
-  // @action
+  @action
   initiateSuspendedAtSea() {
     movie = SuspendedAtSea.movie;
+    control = Control.playFromStart;
+    movieMode = MovieModes.suspendedAtSea;
+    movieStatus = MovieStatus.idle;
+  }
+
+  @action
+  initiateSuspendedAtTheDepths() {
+    movie = SuspendedAtTheDepths.movie;
     control = Control.playFromStart;
     movieMode = MovieModes.suspendedAtSea;
     movieStatus = MovieStatus.idle;

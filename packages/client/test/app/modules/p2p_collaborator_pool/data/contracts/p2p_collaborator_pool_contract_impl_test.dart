@@ -10,12 +10,12 @@ import '../../fixtures/p2p_collaborator_pool_stack_mock_gen.mocks.dart';
 
 void main() {
   late P2PCollaboratorPoolContractImpl p2pCollaboratorPoolContract;
-  late MockP2PCollaboratorPoolRemoteSource mockRemoteSource;
+  late MockMP2PCollaboratorPoolRemoteSourceImpl mockRemoteSource;
   late MockMNetworkInfo mockNetworkInfo;
 
   setUp(() {
     mockNetworkInfo = MockMNetworkInfo();
-    mockRemoteSource = MockP2PCollaboratorPoolRemoteSource();
+    mockRemoteSource = MockMP2PCollaboratorPoolRemoteSourceImpl();
     p2pCollaboratorPoolContract = P2PCollaboratorPoolContractImpl(
         remoteSource: mockRemoteSource, networkInfo: mockNetworkInfo);
   });
@@ -207,7 +207,7 @@ void main() {
     });
   });
 
-  group("Method No. 6: EnterTheCollaboratorPool", () {
+  group("Method No. 6: ExitTheCollaboratorPool", () {
     group("is Online", () {
       setUp(() {
         when(mockNetworkInfo.isConnected)
@@ -240,6 +240,70 @@ void main() {
       });
       test("When offline should return an internet connection error", () async {
         final res = await p2pCollaboratorPoolContract.exitCollaboratorPool();
+        expect(res, Left(FailureConstants.internetConnectionFailure));
+      });
+    });
+  });
+
+  group("Method No. 7: getCollaboratorSearchStatus", () {
+    group("is Online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected)
+            .thenAnswer((realInvocation) async => true);
+      });
+      test(
+          "when online and no errors are shown should return a model w/ the right state",
+          () async {
+        when(mockRemoteSource.getCollaboratorSearchStatus())
+            .thenAnswer((realInvocation) => Stream.value(true));
+
+        final res =
+            await p2pCollaboratorPoolContract.getCollaboratorSearchStatus();
+        // expect(res, emits(true));
+        expect(
+            res.toString(),
+            ConstantCollaboratorSearchStatusStatusModel.wrappedSuccessCase
+                .toString());
+      });
+    });
+    group("is not online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected)
+            .thenAnswer((realInvocation) async => false);
+      });
+      test("When offline should return an internet connection error", () async {
+        final res =
+            await p2pCollaboratorPoolContract.getCollaboratorSearchStatus();
+        expect(res, Left(FailureConstants.internetConnectionFailure));
+      });
+    });
+  });
+  group("Method No. 8: cancelStream", () {
+    group("is Online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected)
+            .thenAnswer((realInvocation) async => true);
+      });
+      test("when online and no errors are shown should return a proper model",
+          () async {
+        // arrange
+        when(mockRemoteSource.cancelStream()).thenAnswer((_) => true);
+        // act
+        final res =
+            await p2pCollaboratorPoolContract.cancelCollaboratorStream();
+        // assert
+        expect(res, ConstantCollaboratorStreamStatusModel.wrappedSuccessCase);
+      });
+    });
+    group("is not online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected)
+            .thenAnswer((realInvocation) async => false);
+      });
+
+      test("When offline should return an internet connection error", () async {
+        final res =
+            await p2pCollaboratorPoolContract.getCollaboratorSearchStatus();
         expect(res, Left(FailureConstants.internetConnectionFailure));
       });
     });

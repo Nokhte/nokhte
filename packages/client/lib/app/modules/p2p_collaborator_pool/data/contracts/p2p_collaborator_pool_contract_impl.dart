@@ -2,13 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:primala/app/core/constants/failure_constants.dart';
 import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/core/network/network_info.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/data/models/models.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/data/sources/p2p_collaborator_pool_remote_source.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/domain/contracts/p2p_collaborator_pool_contract.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/collaborator_pool_entry_status_entity.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/collaborator_pool_exit_status_model.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/collaborator_search_status_entity.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/collaborator_stream_status_entity.dart';
+import 'package:primala/app/modules/p2p_collaborator_pool/data/data.dart';
+import 'package:primala/app/modules/p2p_collaborator_pool/domain/domain.dart';
 import 'package:primala_backend/phrase_components.dart';
 
 class P2PCollaboratorPoolContractImpl implements P2PCollaboratorPoolContract {
@@ -102,9 +97,9 @@ class P2PCollaboratorPoolContractImpl implements P2PCollaboratorPoolContract {
   Future<Either<Failure, CollaboratorSearchStatusEntity>>
       getCollaboratorSearchStatus() async {
     if (await networkInfo.isConnected) {
-      final res = remoteSource.listenToCollaboratorMatchStatus();
+      final res = remoteSource.getCollaboratorSearchStatus();
       return Right(
-        CollaboratorSearchStatusEntity(isFound: res),
+        CollaboratorSearchStatusModel(isFound: res),
       );
     } else {
       return Left(FailureConstants.internetConnectionFailure);
@@ -115,9 +110,9 @@ class P2PCollaboratorPoolContractImpl implements P2PCollaboratorPoolContract {
   Future<Either<Failure, CollaboratorStreamStatusEntity>>
       cancelCollaboratorStream() async {
     if (await networkInfo.isConnected) {
-      final res = remoteSource.cancelCollaboratorMatchStatusStream();
+      final res = remoteSource.cancelStream();
       return Right(
-        CollaboratorStreamStatusEntity(
+        CollaboratorStreamStatusModel(
           isSubscribed: res,
         ),
       );
