@@ -22,6 +22,7 @@ dependencies:
   flutter_modular: ^5.0.3
   flutter_platform_widgets: ^3.3.5
   google_sign_in: ^6.1.4
+  http: ^1.1.0
   intl: ^0.18.1
   mobx: ^2.2.0
   permission_handler: ^10.4.3
@@ -43,13 +44,11 @@ dev_dependencies:
   mobx_codegen: ^2.2.0
   mockito: ^5.4.0
   modular_test: ^2.0.0
-  # patrol: ^1.1.4
 
 flutter:
   uses-material-design: true
   assets:
     - .env
-
 # patrol:
 #   app_name: primala
 #   android:

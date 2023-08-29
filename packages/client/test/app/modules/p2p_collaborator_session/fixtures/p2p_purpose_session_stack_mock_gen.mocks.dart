@@ -44,13 +44,13 @@ class MockMP2PPurposeSessionContract extends _i1.Mock
   }
 
   @override
-  _i4.Future<
-      _i2
-          .Either<_i5.Failure, _i6.AgoraCallTokenEntity>> fetchAgoraToken() =>
+  _i4.Future<_i2.Either<_i5.Failure, _i6.AgoraCallTokenEntity>> fetchAgoraToken(
+          {required String? channelName}) =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchAgoraToken,
           [],
+          {#channelName: channelName},
         ),
         returnValue:
             _i4.Future<_i2.Either<_i5.Failure, _i6.AgoraCallTokenEntity>>.value(
@@ -59,6 +59,7 @@ class MockMP2PPurposeSessionContract extends _i1.Mock
           Invocation.method(
             #fetchAgoraToken,
             [],
+            {#channelName: channelName},
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, _i6.AgoraCallTokenEntity>>);
