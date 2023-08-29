@@ -43,16 +43,16 @@ dev_dependencies:
   mobx_codegen: ^2.2.0
   mockito: ^5.4.0
   modular_test: ^2.0.0
-  patrol: ^1.1.4
+  # patrol: ^1.1.4
 
 flutter:
   uses-material-design: true
   assets:
     - .env
 
-patrol:
-  app_name: primala
-  android:
-    package_name: com.primala.primala
-  ios:
-    bundle_id: com.primala.primala
+# patrol:
+#   app_name: primala
+#   android:
+#     package_name: com.primala.primala
+#   ios:
+#     bundle_id: com.primala.primala
