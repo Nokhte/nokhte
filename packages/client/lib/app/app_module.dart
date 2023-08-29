@@ -23,7 +23,7 @@ import 'package:primala/app/modules/authentication/authentication_module.dart';
 import 'package:primala/app/modules/home/home_module.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/p2p_collaborator_pool_module.dart';
-import 'package:primala/app/modules/p2p_collaborator_session/p2p_collaborator_session_module.dart';
+import 'package:primala/app/modules/p2p_purpose_session/p2p_purpose_session_module.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// The main app module that configures the dependency injection, routes, and
@@ -65,7 +65,7 @@ class AppModule extends Module {
           module: P2PCollaboratorPoolModule(),
         ),
         ModuleRoute(
-          '/p2p_collaborator_session/',
+          '/p2p_purpose_session/',
           module: P2PCollaboratorSessionModule(),
         ),
       ];

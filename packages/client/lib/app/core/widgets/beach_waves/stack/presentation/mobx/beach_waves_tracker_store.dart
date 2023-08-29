@@ -108,7 +108,7 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
       );
     } else if (movieMode == MovieModes.backToTheDepths) {
       backToTheDepthsCount != 0
-          ? Modular.to.navigate('/p2p_collaborator_session/')
+          ? Modular.to.navigate('/p2p_purpose_session/')
           : backToTheDepthsCount++;
       // from timer to session
       // initiateBackToTheDepths();

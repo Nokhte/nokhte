@@ -3,9 +3,9 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:swipe/swipe.dart';
 
-class P2PCollaboratorSessionScreen extends StatelessWidget {
+class P2PPurposeSessionScreen extends StatelessWidget {
   final BeachWavesTrackerStore beachWavesStore;
-  P2PCollaboratorSessionScreen({
+  P2PPurposeSessionScreen({
     super.key,
     required this.beachWavesStore,
   }) {
