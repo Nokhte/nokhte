@@ -8,6 +8,7 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
+  agora_rtc_engine: ^6.2.2
   clipboard: ^0.1.3
   connectivity_plus: ^4.0.1
   crypto: ^3.0.3
@@ -23,6 +24,7 @@ dependencies:
   google_sign_in: ^6.1.4
   intl: ^0.18.1
   mobx: ^2.2.0
+  permission_handler: ^10.4.3
   primala_backend:
     path: ../backend/dart
   simple_animations: ^5.0.2
