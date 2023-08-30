@@ -1,9 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primala_backend/constants/general/sign_in.dart';
-import 'package:primala_backend/constants/general/supabase_client_constants.dart';
-import 'package:primala_backend/constants/general/user_setup_constants.dart';
+import 'package:primala_backend/constants/general/general.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:primala_backend/collaborator_phrases.dart';
 

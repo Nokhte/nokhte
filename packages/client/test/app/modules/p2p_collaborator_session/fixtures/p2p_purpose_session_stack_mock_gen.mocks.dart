@@ -3,15 +3,17 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i6;
 
-import 'package:dartz/dartz.dart' as _i2;
+import 'package:dartz/dartz.dart' as _i4;
+import 'package:http/http.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:primala/app/core/error/failure.dart' as _i5;
+import 'package:primala/app/core/error/failure.dart' as _i7;
 import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart'
-    as _i6;
+    as _i8;
+import 'package:supabase_flutter/supabase_flutter.dart' as _i2;
 
-import 'p2p_purpose_session_stack_mock_gen.dart' as _i3;
+import 'p2p_purpose_session_stack_mock_gen.dart' as _i5;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -24,8 +26,9 @@ import 'p2p_purpose_session_stack_mock_gen.dart' as _i3;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
-  _FakeEither_0(
+class _FakeSupabaseClient_0 extends _i1.SmartFake
+    implements _i2.SupabaseClient {
+  _FakeSupabaseClient_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -34,17 +37,90 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
         );
 }
 
+class _FakeResponse_1 extends _i1.SmartFake implements _i3.Response {
+  _FakeResponse_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeEither_2<L, R> extends _i1.SmartFake implements _i4.Either<L, R> {
+  _FakeEither_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+/// A class which mocks [MP2PPurposeSessionRemoteSourceImpl].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMP2PPurposeSessionRemoteSourceImpl extends _i1.Mock
+    implements _i5.MP2PPurposeSessionRemoteSourceImpl {
+  MockMP2PPurposeSessionRemoteSourceImpl() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.SupabaseClient get supabase => (super.noSuchMethod(
+        Invocation.getter(#supabase),
+        returnValue: _FakeSupabaseClient_0(
+          this,
+          Invocation.getter(#supabase),
+        ),
+      ) as _i2.SupabaseClient);
+  @override
+  String get currentUserUID => (super.noSuchMethod(
+        Invocation.getter(#currentUserUID),
+        returnValue: '',
+      ) as String);
+  @override
+  _i6.Future<_i3.Response> fetchAgoraToken({
+    required String? channelName,
+    int? tokenRole = 1,
+    int? tokenExpireTime = 95,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetchAgoraToken,
+          [],
+          {
+            #channelName: channelName,
+            #tokenRole: tokenRole,
+            #tokenExpireTime: tokenExpireTime,
+          },
+        ),
+        returnValue: _i6.Future<_i3.Response>.value(_FakeResponse_1(
+          this,
+          Invocation.method(
+            #fetchAgoraToken,
+            [],
+            {
+              #channelName: channelName,
+              #tokenRole: tokenRole,
+              #tokenExpireTime: tokenExpireTime,
+            },
+          ),
+        )),
+      ) as _i6.Future<_i3.Response>);
+}
+
 /// A class which mocks [MP2PPurposeSessionContract].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMP2PPurposeSessionContract extends _i1.Mock
-    implements _i3.MP2PPurposeSessionContract {
+    implements _i5.MP2PPurposeSessionContract {
   MockMP2PPurposeSessionContract() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.AgoraCallTokenEntity>> fetchAgoraToken(
+  _i6.Future<_i4.Either<_i7.Failure, _i8.AgoraCallTokenEntity>> fetchAgoraToken(
           {required String? channelName}) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -53,8 +129,8 @@ class MockMP2PPurposeSessionContract extends _i1.Mock
           {#channelName: channelName},
         ),
         returnValue:
-            _i4.Future<_i2.Either<_i5.Failure, _i6.AgoraCallTokenEntity>>.value(
-                _FakeEither_0<_i5.Failure, _i6.AgoraCallTokenEntity>(
+            _i6.Future<_i4.Either<_i7.Failure, _i8.AgoraCallTokenEntity>>.value(
+                _FakeEither_2<_i7.Failure, _i8.AgoraCallTokenEntity>(
           this,
           Invocation.method(
             #fetchAgoraToken,
@@ -62,5 +138,5 @@ class MockMP2PPurposeSessionContract extends _i1.Mock
             {#channelName: channelName},
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.AgoraCallTokenEntity>>);
+      ) as _i6.Future<_i4.Either<_i7.Failure, _i8.AgoraCallTokenEntity>>);
 }

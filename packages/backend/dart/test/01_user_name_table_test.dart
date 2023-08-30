@@ -1,12 +1,9 @@
 // ignore_for_file: file_names
 
-import 'package:primala_backend/constants/general/sign_in.dart';
-import 'package:primala_backend/constants/general/user_data_constants.dart';
 import 'package:primala_backend/util/usernames/common_user_names_queries.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:primala_backend/constants/general/user_setup_constants.dart';
-import 'package:primala_backend/constants/general/supabase_client_constants.dart';
+import 'package:primala_backend/constants/general/general.dart';
 
 /// @dev: run this one first as all subsequent tests are dependent on the
 /// @ code that is run the `teardownAll` block

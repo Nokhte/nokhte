@@ -1,6 +1,7 @@
 name: primala_backend
 description: A sample command-line application.
 version: 1.0.0
+publish_to: none
 # repository: https://github.com/my_org/my_repo
 environment:
   # sdk: '>=2.19.6 <3.0.0'
@@ -13,8 +14,12 @@ dependencies:
   flutter:
     sdk: flutter
   supabase_flutter: ^1.10.9
+  primala:
+    path: ../../client
+  http: ^1.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   lints: ^2.0.0
+  mockito: ^5.4.0

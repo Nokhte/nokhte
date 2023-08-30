@@ -73,23 +73,47 @@ Future<List<Directory>> getSubfolder(Directory dir) async {
 /// provided list of folders based on the common dependencies defined in the
 /// commonPackages map. The targetNode parameter indicates whether to update
 /// 'dependencies' or 'dev_dependencies'.
-Future update(YamlMap commonDependencies, List<Directory> folders,
-    String targetNode) async {
-  for (var x in folders) {
-    final pubspecPath = File(p.joinAll([x.path, 'pubspec.yaml']));
+/// deprecated
+// Future update(YamlMap commonDependencies, List<Directory> folders,
+//     String targetNode) async {
+//   for (var x in folders) {
+//     final pubspecPath = File(p.joinAll([x.path, 'pubspec.yaml']));
+//     final yamlStr = await pubspecPath.readAsString();
+//     final editable = YamlEditor(yamlStr);
+//     for (var dep in commonDependencies.entries) {
+//       if (targetNode != dep.key) {
+//         return;
+//       }
+//       editable.update(
+//         [targetNode, dep.value.keys.toList()[0]],
+//         dep.value.values.toList()[0],
+//       );
+//       await pubspecPath.writeAsString(editable.toString());
+//       //
+//     }
+//   }
+// }
+
+Future updateDependencies(
+    YamlMap commonDependencies, List<Directory> folders) async {
+  for (var projectDir in folders) {
+    final pubspecPath = File(p.join(projectDir.path, 'pubspec.yaml'));
     final yamlStr = await pubspecPath.readAsString();
     final editable = YamlEditor(yamlStr);
-    for (var dep in commonDependencies.entries) {
-      if (targetNode != dep.key) {
-        return;
+
+    for (var depEntry in commonDependencies.entries) {
+      final depType = depEntry.key;
+      final depData = depEntry.value;
+
+      for (var dep in depData.entries) {
+        final targetDependency = dep.key;
+        final targetValue = dep.value;
+
+        editable.update([depType, targetDependency], targetValue);
       }
-      editable.update(
-        [targetNode, dep.value.keys.toList()[0]],
-        dep.value.values.toList()[0],
-      );
-      await pubspecPath.writeAsString(editable.toString());
-      //
     }
+
+    await pubspecPath.writeAsString(editable.toString());
   }
 }
 
@@ -103,6 +127,7 @@ Future<void> main() async {
 
   final packagesPath = p.join(Directory.current.path, 'packages');
   final packageDirs = await getSubfolder(Directory(packagesPath));
-  await update(commonPackages, packageDirs, 'dependencies');
-  await update(commonPackages, packageDirs, 'dev_dependencies');
+  await updateDependencies(commonPackages, packageDirs);
+  // await update(commonPackages, packageDirs, 'dependencies');
+  // await update(commonPackages, packageDirs, 'dev_dependencies');
 }

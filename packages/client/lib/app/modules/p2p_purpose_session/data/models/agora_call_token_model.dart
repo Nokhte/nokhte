@@ -9,8 +9,12 @@ class AgoraCallTokenModel extends AgoraCallTokenEntity {
   });
   // assumes it's already vetted
   static AgoraCallTokenModel fromTokenServer(Response res) {
-    Map<String, dynamic> json = jsonDecode(res.body);
-    String newToken = json['rtcToken'];
-    return AgoraCallTokenModel(returnedToken: newToken);
+    if (res.statusCode == 200) {
+      Map<String, dynamic> json = jsonDecode(res.body);
+      String newToken = json['rtcToken'];
+      return AgoraCallTokenModel(returnedToken: newToken);
+    } else {
+      return const AgoraCallTokenModel(returnedToken: '');
+    }
   }
 }
