@@ -3,7 +3,7 @@
 import 'package:primala_backend/tables/usernames/common_user_names_queries.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:primala_backend/constants/general/general.dart';
+import 'package:primala_backend/constants/constants.dart';
 
 /// @dev: run this one first as all subsequent tests are dependent on the
 /// @ code that is run the `teardownAll` block

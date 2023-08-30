@@ -34,11 +34,10 @@
 
 // ignore_for_file: file_names
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primala_backend/constants/phrase_components/collaborator_phrase.dart';
+import 'package:primala_backend/constants/constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:primala_backend/edge_functions.dart';
 import 'package:primala_backend/streams.dart';
-import 'package:primala_backend/constants/general/general.dart';
 
 void main() {
   late SupabaseClient supabase;
