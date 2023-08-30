@@ -14,8 +14,6 @@ dependencies:
   flutter:
     sdk: flutter
   supabase_flutter: ^1.10.9
-  primala:
-    path: ../../client
   http: ^1.1.0
 
 dev_dependencies:
