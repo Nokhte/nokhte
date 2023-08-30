@@ -5,6 +5,7 @@ import 'package:primala/app/core/utilities/utilities.dart';
 import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/main/agora_tracker_store.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:primala_backend/token_server.dart';
+import 'package:primala_backend/existing_collaborations.dart';
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 
 abstract class P2PPurposeSessionRemoteSource {
@@ -54,9 +55,6 @@ class P2PPurposeSessionRemoteSourceImpl
     await agoraEngine.leaveChannel();
   }
 
-  /// make another function for channel id which will involve querying
-  /// the existing_collaborators table and then making a concatenation
-
   @override
   Future joinCall({required String token, required String channelId}) async {
     ChannelMediaOptions options = const ChannelMediaOptions(
@@ -89,9 +87,10 @@ class P2PPurposeSessionRemoteSourceImpl
   }
 
   @override
-  Future<List> getChannelId() {
-    /// go to the back end compose the function with a test,
-    /// and then get this in here and then build the module...
-    throw UnimplementedError();
+  Future<List> getChannelId() async {
+    return await ExistingCollaborationsQueries.fetchCollaborationInfo(
+      supabase: supabase,
+      currentUserUID: currentUserUID,
+    );
   }
 }
