@@ -12,7 +12,7 @@ abstract class P2PPurposeSessionRemoteSource {
   Future<Response> fetchAgoraToken({required String channelName});
 
   /// needs logic & status entity
-  Future setupVoiceSDKEngine();
+  Future instantiateAgoraSDK();
 
   /// needs logic & status entity
   Future joinCall({required String token, required String channelId});
@@ -21,7 +21,7 @@ abstract class P2PPurposeSessionRemoteSource {
   Future leaveCall();
 
   /// needs logic & status entity
-  Future<List<dynamic>> getChannelId();
+  Future<List<dynamic>> fetchChannelId();
 }
 
 class P2PPurposeSessionRemoteSourceImpl
@@ -48,12 +48,13 @@ class P2PPurposeSessionRemoteSourceImpl
   }
 
   @override
-  Future joinCall({required String token, required String channelId}) async {
+  Future<void> joinCall(
+      {required String token, required String channelId}) async {
     ChannelMediaOptions options = const ChannelMediaOptions(
       clientRoleType: ClientRoleType.clientRoleBroadcaster,
       // channelProfile: ChannelProfileType.channelProfileCommunication,
     );
-    await agoraEngine.joinChannel(
+    return await agoraEngine.joinChannel(
         token: token,
         channelId: channelId,
         uid: MiscAlgos.postgresUIDToInt(currentUserUID),
@@ -61,25 +62,25 @@ class P2PPurposeSessionRemoteSourceImpl
   }
 
   @override
-  Future leaveCall() async {
-    await agoraEngine.leaveChannel();
+  Future<void> leaveCall() async {
+    return await agoraEngine.leaveChannel();
   }
 
   @override
-  Future setupVoiceSDKEngine() async {
-    await agoraEngine.initialize(const RtcEngineContext(
-      appId: '050b22b688f44464b2533fac484c7300',
-    ));
-
+  Future<void> instantiateAgoraSDK() async {
     RtcEngineEventHandler(onJoinChannelSuccess: (connection, elapsed) {
       agoraTrackerStore.joiningCall();
     }, onChannelMediaRelayStateChanged: (status, code) {
       agoraTrackerStore.leavingCall();
     });
+
+    return await agoraEngine.initialize(const RtcEngineContext(
+      appId: '050b22b688f44464b2533fac484c7300',
+    ));
   }
 
   @override
-  Future<List> getChannelId() async {
+  Future<List> fetchChannelId() async {
     return await ExistingCollaborationsQueries.fetchCollaborationInfo(
       supabase: supabase,
       currentUserUID: currentUserUID,

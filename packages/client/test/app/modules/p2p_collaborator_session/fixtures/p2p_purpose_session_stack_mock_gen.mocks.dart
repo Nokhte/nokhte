@@ -139,7 +139,7 @@ class MockMP2PPurposeSessionRemoteSourceImpl extends _i1.Mock
         )),
       ) as _i8.Future<_i5.Response>);
   @override
-  _i8.Future<dynamic> joinCall({
+  _i8.Future<void> joinCall({
     required String? token,
     required String? channelId,
   }) =>
@@ -152,28 +152,31 @@ class MockMP2PPurposeSessionRemoteSourceImpl extends _i1.Mock
             #channelId: channelId,
           },
         ),
-        returnValue: _i8.Future<dynamic>.value(),
-      ) as _i8.Future<dynamic>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
   @override
-  _i8.Future<dynamic> leaveCall() => (super.noSuchMethod(
+  _i8.Future<void> leaveCall() => (super.noSuchMethod(
         Invocation.method(
           #leaveCall,
           [],
         ),
-        returnValue: _i8.Future<dynamic>.value(),
-      ) as _i8.Future<dynamic>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
   @override
-  _i8.Future<dynamic> setupVoiceSDKEngine() => (super.noSuchMethod(
+  _i8.Future<void> instantiateAgoraSDK() => (super.noSuchMethod(
         Invocation.method(
-          #setupVoiceSDKEngine,
+          #instantiateAgoraSDK,
           [],
         ),
-        returnValue: _i8.Future<dynamic>.value(),
-      ) as _i8.Future<dynamic>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
   @override
-  _i8.Future<List<dynamic>> getChannelId() => (super.noSuchMethod(
+  _i8.Future<List<dynamic>> fetchChannelId() => (super.noSuchMethod(
         Invocation.method(
-          #getChannelId,
+          #fetchChannelId,
           [],
         ),
         returnValue: _i8.Future<List<dynamic>>.value(<dynamic>[]),
@@ -243,11 +246,17 @@ class MockMP2PPurposeSessionContract extends _i1.Mock
             )),
           ) as _i8.Future<_i6.Either<_i9.Failure, _i10.AgoraSdkStatusEntity>>);
   @override
-  _i8.Future<_i6.Either<_i9.Failure, _i10.CallStatusEntity>> joinCall() =>
+  _i8.Future<_i6.Either<_i9.Failure, _i10.CallStatusEntity>> joinCall(
+    String? token,
+    String? channelId,
+  ) =>
       (super.noSuchMethod(
         Invocation.method(
           #joinCall,
-          [],
+          [
+            token,
+            channelId,
+          ],
         ),
         returnValue:
             _i8.Future<_i6.Either<_i9.Failure, _i10.CallStatusEntity>>.value(
@@ -255,7 +264,10 @@ class MockMP2PPurposeSessionContract extends _i1.Mock
           this,
           Invocation.method(
             #joinCall,
-            [],
+            [
+              token,
+              channelId,
+            ],
           ),
         )),
       ) as _i8.Future<_i6.Either<_i9.Failure, _i10.CallStatusEntity>>);

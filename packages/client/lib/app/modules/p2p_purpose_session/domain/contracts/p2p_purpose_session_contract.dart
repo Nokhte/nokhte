@@ -7,6 +7,7 @@ abstract class P2PPurposeSessionContract {
       {required String channelName});
   Future<Either<Failure, ChannelIdEntity>> fetchChannelId();
   Future<Either<Failure, AgoraSdkStatusEntity>> instantiateAgoraSdk();
-  Future<Either<Failure, CallStatusEntity>> joinCall();
+  Future<Either<Failure, CallStatusEntity>> joinCall(
+      String token, String channelId);
   Future<Either<Failure, CallStatusEntity>> leaveCall();
 }
