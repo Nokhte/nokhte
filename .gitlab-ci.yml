@@ -18,6 +18,9 @@ variables:
 test-the-db-rules-and-edge-functions:
   stage: development
   script:
+    - cd packages/client
+    - touch .env
+    - cd ../..
     - melos bs
     - cd packages/backend/dart
     - echo "APPLE_CLIENT_SECRET='$APPLE_CLIENT_SECRET'" >> .env
