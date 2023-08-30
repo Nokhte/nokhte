@@ -24,4 +24,28 @@ class P2PPurposeSessionContractImpl implements P2PPurposeSessionContract {
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  Future<Either<Failure, ChannelIdEntity>> fetchChannelId() {
+    // TODO: implement fetchChannelId
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, AgoraSdkStatusEntity>> instantiateAgoraSdk() {
+    // TODO: implement instantiateAgoraSdk
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, CallStatusEntity>> joinCall() {
+    // TODO: implement joinCall
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, CallStatusEntity>> leaveCall() {
+    // TODO: implement leaveCall
+    throw UnimplementedError();
+  }
 }

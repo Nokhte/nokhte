@@ -8,7 +8,7 @@ class AgoraTrackerStore = _AgoraTrackerStoreBase with _$AgoraTrackerStore;
 
 abstract class _AgoraTrackerStoreBase extends Equatable with Store {
   @observable
-  CallStatus inCall = CallStatus.out;
+  CallStatus inCall = CallStatus.theDefault;
 
   @action
   joiningCall() {

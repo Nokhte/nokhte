@@ -5,4 +5,8 @@ import 'package:primala/app/modules/p2p_purpose_session/domain/entities/entities
 abstract class P2PPurposeSessionContract {
   Future<Either<Failure, AgoraCallTokenEntity>> fetchAgoraToken(
       {required String channelName});
+  Future<Either<Failure, ChannelIdEntity>> fetchChannelId();
+  Future<Either<Failure, AgoraSdkStatusEntity>> instantiateAgoraSdk();
+  Future<Either<Failure, CallStatusEntity>> joinCall();
+  Future<Either<Failure, CallStatusEntity>> leaveCall();
 }

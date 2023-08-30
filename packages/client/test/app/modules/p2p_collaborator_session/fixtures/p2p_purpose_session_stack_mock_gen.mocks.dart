@@ -139,14 +139,6 @@ class MockMP2PPurposeSessionRemoteSourceImpl extends _i1.Mock
         )),
       ) as _i8.Future<_i5.Response>);
   @override
-  _i8.Future<dynamic> dispose() => (super.noSuchMethod(
-        Invocation.method(
-          #dispose,
-          [],
-        ),
-        returnValue: _i8.Future<dynamic>.value(),
-      ) as _i8.Future<dynamic>);
-  @override
   _i8.Future<dynamic> joinCall({
     required String? token,
     required String? channelId,
@@ -216,4 +208,72 @@ class MockMP2PPurposeSessionContract extends _i1.Mock
               ),
             )),
           ) as _i8.Future<_i6.Either<_i9.Failure, _i10.AgoraCallTokenEntity>>);
+  @override
+  _i8.Future<_i6.Either<_i9.Failure, _i10.ChannelIdEntity>> fetchChannelId() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetchChannelId,
+          [],
+        ),
+        returnValue:
+            _i8.Future<_i6.Either<_i9.Failure, _i10.ChannelIdEntity>>.value(
+                _FakeEither_4<_i9.Failure, _i10.ChannelIdEntity>(
+          this,
+          Invocation.method(
+            #fetchChannelId,
+            [],
+          ),
+        )),
+      ) as _i8.Future<_i6.Either<_i9.Failure, _i10.ChannelIdEntity>>);
+  @override
+  _i8.Future<_i6.Either<_i9.Failure, _i10.AgoraSdkStatusEntity>>
+      instantiateAgoraSdk() => (super.noSuchMethod(
+            Invocation.method(
+              #instantiateAgoraSdk,
+              [],
+            ),
+            returnValue: _i8.Future<
+                    _i6.Either<_i9.Failure, _i10.AgoraSdkStatusEntity>>.value(
+                _FakeEither_4<_i9.Failure, _i10.AgoraSdkStatusEntity>(
+              this,
+              Invocation.method(
+                #instantiateAgoraSdk,
+                [],
+              ),
+            )),
+          ) as _i8.Future<_i6.Either<_i9.Failure, _i10.AgoraSdkStatusEntity>>);
+  @override
+  _i8.Future<_i6.Either<_i9.Failure, _i10.CallStatusEntity>> joinCall() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #joinCall,
+          [],
+        ),
+        returnValue:
+            _i8.Future<_i6.Either<_i9.Failure, _i10.CallStatusEntity>>.value(
+                _FakeEither_4<_i9.Failure, _i10.CallStatusEntity>(
+          this,
+          Invocation.method(
+            #joinCall,
+            [],
+          ),
+        )),
+      ) as _i8.Future<_i6.Either<_i9.Failure, _i10.CallStatusEntity>>);
+  @override
+  _i8.Future<_i6.Either<_i9.Failure, _i10.CallStatusEntity>> leaveCall() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #leaveCall,
+          [],
+        ),
+        returnValue:
+            _i8.Future<_i6.Either<_i9.Failure, _i10.CallStatusEntity>>.value(
+                _FakeEither_4<_i9.Failure, _i10.CallStatusEntity>(
+          this,
+          Invocation.method(
+            #leaveCall,
+            [],
+          ),
+        )),
+      ) as _i8.Future<_i6.Either<_i9.Failure, _i10.CallStatusEntity>>);
 }

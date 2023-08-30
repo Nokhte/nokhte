@@ -9,21 +9,18 @@ import 'package:primala_backend/existing_collaborations.dart';
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 
 abstract class P2PPurposeSessionRemoteSource {
-  Future<Response> fetchAgoraToken({
-    required String channelName,
-  });
+  Future<Response> fetchAgoraToken({required String channelName});
 
+  /// needs logic & status entity
   Future setupVoiceSDKEngine();
 
-  Future joinCall({
-    required String token,
-    required String channelId,
-  });
+  /// needs logic & status entity
+  Future joinCall({required String token, required String channelId});
 
+  /// needs logic & status entity
   Future leaveCall();
 
-  Future dispose();
-
+  /// needs logic & status entity
   Future<List<dynamic>> getChannelId();
 }
 
@@ -48,11 +45,6 @@ class P2PPurposeSessionRemoteSourceImpl
       currentUserUID: MiscAlgos.postgresUIDToInt(currentUserUID),
       channelName: channelName,
     );
-  }
-
-  @override
-  Future dispose() async {
-    await agoraEngine.leaveChannel();
   }
 
   @override

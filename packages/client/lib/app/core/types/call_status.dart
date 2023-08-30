@@ -1,6 +1,7 @@
 enum CallStatus {
-  out,
-  left,
-  joining,
+  theDefault,
   joined,
+  joining,
+  leaving,
+  left,
 }
