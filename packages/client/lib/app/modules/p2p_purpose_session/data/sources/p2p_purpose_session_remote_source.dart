@@ -2,7 +2,7 @@
 
 import 'package:http/http.dart';
 import 'package:primala/app/core/utilities/utilities.dart';
-import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/main/agora_tracker_store.dart';
+import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/main/sub_stores/agora_tracker_store.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:primala_backend/token_server.dart';
 import 'package:primala_backend/existing_collaborations.dart';

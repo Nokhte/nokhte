@@ -1,6 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:primala/app/core/widgets/beach_waves/stack/presentation/mobx/beach_waves_tracker_store.dart';
-import 'package:primala/app/modules/p2p_purpose_session/presentation/views/p2p_purpose_session_screen.dart';
+import 'package:primala/app/modules/p2p_purpose_session/presentation/views/p2p_purpose1_greeter_screen.dart';
 
 class P2PCollaboratorSessionModule extends Module {
   @override
@@ -21,7 +21,7 @@ class P2PCollaboratorSessionModule extends Module {
   List<ChildRoute> get routes => [
         ChildRoute(
           '/',
-          child: (context, args) => P2PPurposeSessionScreen(
+          child: (context, args) => P2PPurposeSessionPhase1GreeterScreen(
             beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
           ),
           transition: TransitionType.noTransition,

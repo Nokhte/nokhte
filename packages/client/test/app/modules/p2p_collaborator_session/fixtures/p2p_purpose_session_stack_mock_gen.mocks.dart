@@ -14,7 +14,7 @@ import 'package:mockito/mockito.dart' as _i1;
 import 'package:primala/app/core/error/failure.dart' as _i9;
 import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart'
     as _i10;
-import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/main/agora_tracker_store.dart'
+import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/main/sub_stores/agora_tracker_store.dart'
     as _i3;
 import 'package:supabase_flutter/supabase_flutter.dart' as _i2;
 
