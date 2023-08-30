@@ -5,12 +5,12 @@
             "path": "../",
         },
         {
-            "name": "client",
-            "path": "../packages/client"
-        },
-        {
             "name": "backend",
             "path": "../packages/backend"
+        },
+        {
+            "name": "client",
+            "path": "../packages/client"
         },
         {
             "name": "supabase",

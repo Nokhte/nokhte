@@ -58,4 +58,23 @@ class MiscAlgos {
   static bool isTwoWords(String inputStr) {
     return inputStr.split(" ").length == 2 ? true : false;
   }
+
+  static postgresUIDToInt(String inputUID) {
+    // Removing hyphens from the UUID string
+    String cleanUuid = inputUID.replaceAll('-', '');
+
+    // Converting the cleaned UUID to a 32-bit unsigned integer
+    int result = 0;
+    for (int i = 0; i < cleanUuid.length; i++) {
+      int hexValue = int.parse(cleanUuid[i], radix: 16);
+      result = (result << 4) | hexValue;
+    }
+
+    // Making sure the result is non-zero
+    if (result == 0) {
+      result = 1;
+    }
+
+    return result;
+  }
 }

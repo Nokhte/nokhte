@@ -4,7 +4,7 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/types/validation_enum.dart';
+import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/core/widgets/mobx/custom_widgets_tracker_store.dart';
 // import 'package:primala/app/core/widgets/beach_waves/stack/constants/types/types.dart';
 import 'package:primala/app/core/widgets/widget_constants.dart';

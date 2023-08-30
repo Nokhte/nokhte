@@ -4,7 +4,7 @@ import 'package:mobx/mobx.dart';
 import 'package:primala/app/core/constants/entities.dart';
 import 'package:primala/app/core/mobx/base_future_store.dart';
 import 'package:primala/app/core/mobx/store_state.dart';
-import 'package:primala/app/core/types/validation_enum.dart';
+import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/domain.dart';
 import 'package:primala/app/core/utilities/utilities.dart';
 import 'package:primala/app/core/mobx/base_mobx_db_store.dart';
