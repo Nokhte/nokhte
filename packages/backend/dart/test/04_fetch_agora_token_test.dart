@@ -19,7 +19,6 @@ void main() {
       channelName: 'hi',
       currentUserUID: currentUserUID,
     );
-    print("hey what's up here ${res.body.toString()}");
     expect(res.statusCode, 200);
   });
 }
