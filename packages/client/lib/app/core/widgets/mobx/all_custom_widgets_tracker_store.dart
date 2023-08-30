@@ -3,25 +3,24 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/widgets/beach_waves/stack/constants/types/movie_status.dart';
-import 'package:primala/app/core/widgets/beach_waves/stack/constants/types/movie_modes.dart';
-import 'package:primala/app/core/widgets/beach_waves/stack/presentation/mobx/beach_waves_tracker_store.dart';
-import 'package:primala/app/core/widgets/breathing_pentagons/stack/presentation/mobx/breathing_pentagons_state_tracker_store.dart';
-import 'package:primala/app/core/widgets/fade_in_and_change_color_text/stack/mobx/fade_in_and_change_color_text_store.dart';
-import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/presentation/mobx/smart_fading_animated_text_tracker_store.dart';
+
+import '../beach_waves/beach_waves.dart';
+import '../breathing_pentagons/breathing_pentagons.dart';
+import '../fade_in_and_change_color_text/fade_in_and_change_color.dart';
+import '../smart_fading_animated_text/smart_fading_animated_text.dart';
 // * Mobx Codegen Inclusion
-part 'custom_widgets_tracker_store.g.dart';
+part 'all_custom_widgets_tracker_store.g.dart';
 
-class CustomWidgetsTrackerStore = _CustomWidgetsTrackerStoreBase
-    with _$CustomWidgetsTrackerStore;
+class AllCustomWidgetsTrackerStore = _AllCustomWidgetsTrackerStoreBase
+    with _$AllCustomWidgetsTrackerStore;
 
-abstract class _CustomWidgetsTrackerStoreBase extends Equatable with Store {
+abstract class _AllCustomWidgetsTrackerStoreBase extends Equatable with Store {
   final FadeInAndChangeColorTextStore fadeInAndChangeColorTextStore;
   final SmartFadingAnimatedTextTrackerStore smartFadingAnimatedTextStore;
   final BreathingPentagonsStateTrackerStore breathingPentagonsStore;
   final BeachWavesTrackerStore beachWavesStore;
 
-  _CustomWidgetsTrackerStoreBase({
+  _AllCustomWidgetsTrackerStoreBase({
     required this.smartFadingAnimatedTextStore,
     required this.breathingPentagonsStore,
     required this.beachWavesStore,

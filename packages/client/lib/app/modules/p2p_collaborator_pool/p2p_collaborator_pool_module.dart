@@ -3,7 +3,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:primala/app/core/network/network_info.dart';
 import 'package:primala/app/core/widgets/fade_in_and_change_color_text/stack/mobx/fade_in_and_change_color_text_store.dart';
-import 'package:primala/app/core/widgets/mobx/custom_widgets_tracker_store.dart';
+import 'package:primala/app/core/widgets/mobx/all_custom_widgets_tracker_store.dart';
+import 'package:primala/app/core/widgets/mobx/beach_waves_and_both_text_widgets_tracker_store.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/core/widgets/widget_constants.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/presentation.dart';
@@ -183,15 +184,24 @@ class P2PCollaboratorPoolModule extends Module {
         Bind.factory<BeachWavesTrackerStore>(
           (i) => BeachWavesTrackerStore(),
         ),
-        // & Widget Manager Store
-        Bind.factory<CustomWidgetsTrackerStore>(
-          (i) => CustomWidgetsTrackerStore(
+        // & Widget Manager Stores
+        Bind.factory<AllCustomWidgetsTrackerStore>(
+          (i) => AllCustomWidgetsTrackerStore(
             fadeInAndChangeColorTextStore:
                 Modular.get<FadeInAndChangeColorTextStore>(),
             smartFadingAnimatedTextStore:
                 Modular.get<SmartFadingAnimatedTextTrackerStore>(),
             breathingPentagonsStore:
                 Modular.get<BreathingPentagonsStateTrackerStore>(),
+            beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
+          ),
+        ),
+        Bind.factory<BeachWavesAndBothTextWidgetsTrackerStore>(
+          (i) => BeachWavesAndBothTextWidgetsTrackerStore(
+            fadeInAndChangeColorTextStore:
+                Modular.get<FadeInAndChangeColorTextStore>(),
+            smartFadingAnimatedTextStore:
+                Modular.get<SmartFadingAnimatedTextTrackerStore>(),
             beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
           ),
         ),
@@ -202,13 +212,14 @@ class P2PCollaboratorPoolModule extends Module {
             validateQueryStore: i<ValidateQueryStore>(),
             onSpeechResultStore: i<OnSpeechResultStore>(),
             speechToTextStore: i<SpeechToTextStore>(),
-            widgetStore: Modular.get<CustomWidgetsTrackerStore>(),
+            widgetStore: Modular.get<AllCustomWidgetsTrackerStore>(),
           ),
         ),
         Bind.singleton<CollaboratorPoolScreenCoordinatorStore>(
           (i) => CollaboratorPoolScreenCoordinatorStore(
             exitCollaboratorPoolStore: i<ExitCollaboratorPoolStore>(),
-            widgetStore: Modular.get<CustomWidgetsTrackerStore>(),
+            widgetStore:
+                Modular.get<BeachWavesAndBothTextWidgetsTrackerStore>(),
             getCollaboratorSearchStatusStore:
                 i<GetCollaboratorSearchStatusStore>(),
             cancelStreamStore: i<CancelCollaboratorStreamStore>(),

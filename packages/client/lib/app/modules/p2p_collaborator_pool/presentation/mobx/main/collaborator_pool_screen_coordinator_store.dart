@@ -4,11 +4,9 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/widgets/beach_waves/stack/constants/types/movie_modes.dart';
-import 'package:primala/app/core/widgets/beach_waves/stack/presentation/mobx/beach_waves_tracker_store.dart';
-import 'package:primala/app/core/widgets/mobx/custom_widgets_tracker_store.dart';
-// import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
-import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/presentation/mobx/smart_fading_animated_text_tracker_store.dart';
+import 'package:primala/app/core/widgets/beach_waves/beach_waves.dart';
+import 'package:primala/app/core/widgets/mobx/beach_waves_and_both_text_widgets_tracker_store.dart';
+import 'package:primala/app/core/widgets/smart_fading_animated_text/smart_fading_animated_text.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
 // * Mobx Codegen Inclusion
 part 'collaborator_pool_screen_coordinator_store.g.dart';
@@ -18,7 +16,7 @@ class CollaboratorPoolScreenCoordinatorStore = _CollaboratorPoolScreenCoordinato
 
 abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
     with Store {
-  final CustomWidgetsTrackerStore widgetStore;
+  final BeachWavesAndBothTextWidgetsTrackerStore widgetStore;
   final ExitCollaboratorPoolStore exitCollaboratorPoolStore;
   final CancelCollaboratorStreamStore cancelStreamStore;
   final GetCollaboratorSearchStatusStore getCollaboratorSearchStatusStore;
