@@ -1,5 +1,5 @@
-import 'package:primala_backend/util/deprecated/p2p_requests/supabase_p2p_request_row_response.dart';
-import 'package:primala_backend/util/deprecated/p2p_requests/supabase_p2p_request_row_request.dart';
+import 'package:primala_backend/tables/deprecated/p2p_requests/supabase_p2p_request_row_response.dart';
+import 'package:primala_backend/tables/deprecated/p2p_requests/supabase_p2p_request_row_request.dart';
 import '../../general/user_data_constants.dart';
 
 class SupabaseP2PRequestRowConstants {

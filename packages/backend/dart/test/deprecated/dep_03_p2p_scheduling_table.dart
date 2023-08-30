@@ -6,10 +6,10 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:primala_backend/constants/general/supabase_client_constants.dart';
 import 'package:primala_backend/constants/general/user_setup_constants.dart';
-import 'package:primala_backend/util/deprecated/p2p_scheduling/p2p_scheduling_row_request.dart';
+import 'package:primala_backend/tables/deprecated/p2p_scheduling/p2p_scheduling_row_request.dart';
 import 'package:primala_backend/constants/general/timestampz.dart';
-import 'package:primala_backend/util/deprecated/p2p_requests/supabase_p2p_request_row_response.dart';
-import 'package:primala_backend/util/deprecated/p2p_scheduling/common_p2p_scheduling_queries.dart';
+import 'package:primala_backend/tables/deprecated/p2p_requests/supabase_p2p_request_row_response.dart';
+import 'package:primala_backend/tables/deprecated/p2p_scheduling/common_p2p_scheduling_queries.dart';
 
 void main() {
   late SupabaseClient supabase;
