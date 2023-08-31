@@ -11,7 +11,7 @@ class AgoraCallbacksStore = _AgoraCallbacksStoreBase with _$AgoraCallbacksStore;
 
 abstract class _AgoraCallbacksStoreBase extends Equatable with Store {
   @observable
-  CallStatus inCall = CallStatus.theDefault;
+  CallStatus inCall = CallStatus.initial;
 
   @action
   onCallJoined() {
