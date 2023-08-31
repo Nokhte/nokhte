@@ -10,6 +10,8 @@ import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
 import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/getters/join_call_getter_store.dart';
 import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/getters/leave_call_getter_store.dart';
+import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/getters/mute_local_audio_stream_getter_store.dart';
+import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/getters/unmute_local_audio_stream_getter_store.dart';
 // * Mobx Codegen Inclusion
 part 'voice_call_actions_store.g.dart';
 
@@ -21,10 +23,14 @@ abstract class _VoiceCallActionsStoreBase
     with Store {
   final JoinCallGetterStore joinCallGetterStore;
   final LeaveCallGetterStore leaveCallGetterStore;
+  final MuteLocalAudioStreamGetterStore muteAudioGetterStore;
+  final UnmuteLocalAudioStreamGetterStore unmuteAudioGetterStore;
 
   _VoiceCallActionsStoreBase({
     required this.joinCallGetterStore,
     required this.leaveCallGetterStore,
+    required this.muteAudioGetterStore,
+    required this.unmuteAudioGetterStore,
   });
 
   @observable
@@ -41,9 +47,17 @@ abstract class _VoiceCallActionsStoreBase
     });
   }
 
-  @override
   @action
-  Future<void> call(params) async {
+  Future<void> muteOrUnmuteAudio({required bool wantToMute}) async {
+    if (wantToMute) {
+      muteAudioGetterStore();
+    } else {
+      unmuteAudioGetterStore();
+    }
+  }
+
+  @action
+  Future<void> enterOrLeaveCall(Either<NoParams, JoinCallParams> params) async {
     params.fold((NoParams leaveCallParams) {
       leaveCallGetterStore();
     }, (JoinCallParams joinCallParams) {

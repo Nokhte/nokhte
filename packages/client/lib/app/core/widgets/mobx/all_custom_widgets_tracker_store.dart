@@ -27,6 +27,8 @@ abstract class _AllCustomWidgetsTrackerStoreBase extends Equatable with Store {
     required this.fadeInAndChangeColorTextStore,
   });
 
+  /// todo move these actions into a module specific extended class
+
   @action
   backToShoreWidgetChanges() {
     if (beachWavesStore.movieStatus == MovieStatus.idle &&

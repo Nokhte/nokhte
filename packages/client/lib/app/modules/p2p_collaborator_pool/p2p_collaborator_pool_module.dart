@@ -4,7 +4,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:primala/app/core/network/network_info.dart';
 import 'package:primala/app/core/widgets/fade_in_and_change_color_text/stack/mobx/fade_in_and_change_color_text_store.dart';
 import 'package:primala/app/core/widgets/mobx/all_custom_widgets_tracker_store.dart';
-import 'package:primala/app/core/widgets/mobx/beach_waves_and_both_text_widgets_tracker_store.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/core/widgets/widget_constants.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/presentation.dart';
@@ -196,15 +195,6 @@ class P2PCollaboratorPoolModule extends Module {
             beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
           ),
         ),
-        Bind.factory<BeachWavesAndBothTextWidgetsTrackerStore>(
-          (i) => BeachWavesAndBothTextWidgetsTrackerStore(
-            fadeInAndChangeColorTextStore:
-                Modular.get<FadeInAndChangeColorTextStore>(),
-            smartFadingAnimatedTextStore:
-                Modular.get<SmartFadingAnimatedTextTrackerStore>(),
-            beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
-          ),
-        ),
         // & Coordinator Stores
         Bind.singleton<SpeakTheCollaboratorPhraseCoordinatorStore>(
           (i) => SpeakTheCollaboratorPhraseCoordinatorStore(
@@ -218,8 +208,10 @@ class P2PCollaboratorPoolModule extends Module {
         Bind.singleton<CollaboratorPoolScreenCoordinatorStore>(
           (i) => CollaboratorPoolScreenCoordinatorStore(
             exitCollaboratorPoolStore: i<ExitCollaboratorPoolStore>(),
-            widgetStore:
-                Modular.get<BeachWavesAndBothTextWidgetsTrackerStore>(),
+            beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
+            fadeInAndColorTextStore:
+                Modular.get<FadeInAndChangeColorTextStore>(),
+            fadingTextStore: Modular.get<SmartFadingAnimatedTextTrackerStore>(),
             getCollaboratorSearchStatusStore:
                 i<GetCollaboratorSearchStatusStore>(),
             cancelStreamStore: i<CancelCollaboratorStreamStore>(),

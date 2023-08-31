@@ -25,12 +25,24 @@ mixin _$VoiceCallActionsStore on _VoiceCallActionsStoreBase, Store {
     });
   }
 
-  late final _$callAsyncAction =
-      AsyncAction('_VoiceCallActionsStoreBase.call', context: context);
+  late final _$muteOrUnmuteAudioAsyncAction = AsyncAction(
+      '_VoiceCallActionsStoreBase.muteOrUnmuteAudio',
+      context: context);
 
   @override
-  Future<void> call(Either<NoParams, JoinCallParams> params) {
-    return _$callAsyncAction.run(() => super.call(params));
+  Future<void> muteOrUnmuteAudio({required bool wantToMute}) {
+    return _$muteOrUnmuteAudioAsyncAction
+        .run(() => super.muteOrUnmuteAudio(wantToMute: wantToMute));
+  }
+
+  late final _$enterOrLeaveCallAsyncAction = AsyncAction(
+      '_VoiceCallActionsStoreBase.enterOrLeaveCall',
+      context: context);
+
+  @override
+  Future<void> enterOrLeaveCall(Either<NoParams, JoinCallParams> params) {
+    return _$enterOrLeaveCallAsyncAction
+        .run(() => super.enterOrLeaveCall(params));
   }
 
   @override

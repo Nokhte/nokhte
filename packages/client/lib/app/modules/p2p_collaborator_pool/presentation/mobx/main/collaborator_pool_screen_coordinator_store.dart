@@ -5,7 +5,7 @@ import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/widgets/beach_waves/beach_waves.dart';
-import 'package:primala/app/core/widgets/mobx/beach_waves_and_both_text_widgets_tracker_store.dart';
+import 'package:primala/app/core/widgets/fade_in_and_change_color_text/stack/mobx/fade_in_and_change_color_text_store.dart';
 import 'package:primala/app/core/widgets/smart_fading_animated_text/smart_fading_animated_text.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
 // * Mobx Codegen Inclusion
@@ -16,23 +16,23 @@ class CollaboratorPoolScreenCoordinatorStore = _CollaboratorPoolScreenCoordinato
 
 abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
     with Store {
-  final BeachWavesAndBothTextWidgetsTrackerStore widgetStore;
   final ExitCollaboratorPoolStore exitCollaboratorPoolStore;
   final CancelCollaboratorStreamStore cancelStreamStore;
   final GetCollaboratorSearchStatusStore getCollaboratorSearchStatusStore;
-  late BeachWavesTrackerStore beachWavesStore;
-  late SmartFadingAnimatedTextTrackerStore fadingTextStore;
+  final BeachWavesTrackerStore beachWavesStore;
+  final SmartFadingAnimatedTextTrackerStore fadingTextStore;
+  final FadeInAndChangeColorTextStore fadeInAndColorTextStore;
 
   _CollaboratorPoolScreenCoordinatorStoreBase({
-    required this.widgetStore,
     required this.exitCollaboratorPoolStore,
     required this.cancelStreamStore,
     required this.getCollaboratorSearchStatusStore,
+    required this.beachWavesStore,
+    required this.fadingTextStore,
+    required this.fadeInAndColorTextStore,
   }) {
-    beachWavesStore = widgetStore.beachWavesStore;
-    fadingTextStore = widgetStore.smartFadingAnimatedTextStore;
-    reaction((p0) => widgetStore.beachWavesStore.movieMode, (p0) {
-      if (widgetStore.beachWavesStore.movieMode == MovieModes.backToOceanDive) {
+    reaction((p0) => beachWavesStore.movieMode, (p0) {
+      if (beachWavesStore.movieMode == MovieModes.backToOceanDive) {
         exitCollaboratorPoolStore(NoParams());
         cancelStreamStore(NoParams());
         // I would suggest testing the infrastructure & getting to the bottom
@@ -43,7 +43,7 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
       p0.listen((value) {
         if (value == true) {
           beachWavesStore.teeUpBackToTheDepths();
-          widgetStore.fadeInAndChangeColorTextStore.teeUpFadeOut();
+          fadeInAndColorTextStore.teeUpFadeOut();
           // beachWavesStore.initiateBackToTheDepths();
           // print("did this run? ${beachWavesStore.pivotColorGradients}");
           // what do you want to do if it's true
