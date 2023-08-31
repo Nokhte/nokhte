@@ -2,7 +2,7 @@
 
 import 'package:http/http.dart';
 import 'package:primala/app/core/utilities/utilities.dart';
-import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/main/sub_stores/agora_tracker_store.dart';
+import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/main/sub_stores/agora_callbacks_store.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:primala_backend/token_server.dart';
 import 'package:primala_backend/existing_collaborations.dart';
@@ -27,13 +27,13 @@ abstract class P2PPurposeSessionRemoteSource {
 class P2PPurposeSessionRemoteSourceImpl
     implements P2PPurposeSessionRemoteSource {
   final SupabaseClient supabase;
-  final AgoraTrackerStore agoraTrackerStore;
+  final AgoraCallbacksStore agoraCallbacksStore;
   final String currentUserUID;
   final RtcEngine agoraEngine; // should call createAgoraRtcEngine() in module
 
   P2PPurposeSessionRemoteSourceImpl({
     required this.supabase,
-    required this.agoraTrackerStore,
+    required this.agoraCallbacksStore,
     required this.agoraEngine,
   }) : currentUserUID = supabase.auth.currentUser?.id ?? '';
 
@@ -69,9 +69,9 @@ class P2PPurposeSessionRemoteSourceImpl
   @override
   Future<void> instantiateAgoraSDK() async {
     RtcEngineEventHandler(onJoinChannelSuccess: (connection, elapsed) {
-      agoraTrackerStore.joiningCall();
-    }, onChannelMediaRelayStateChanged: (status, code) {
-      agoraTrackerStore.leavingCall();
+      agoraCallbacksStore.onCallJoined();
+    }, onLeaveChannel: (connection, elapsed) {
+      agoraCallbacksStore.onCallLeft();
     });
 
     return await agoraEngine.initialize(const RtcEngineContext(

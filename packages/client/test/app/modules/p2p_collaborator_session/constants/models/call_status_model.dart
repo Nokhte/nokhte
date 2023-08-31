@@ -9,7 +9,7 @@ class ConstantCallStatusModel {
   static CallStatusModel get inProgressCase =>
       const CallStatusModel(callStatus: CallStatus.joining);
   static CallStatusModel get notSuccessCase =>
-      const CallStatusModel(callStatus: CallStatus.theDefault);
+      const CallStatusModel(callStatus: CallStatus.initial);
   static CallStatusModel get leavingSuccessCase =>
       const CallStatusModel(callStatus: CallStatus.left);
   static CallStatusModel get leavingInProgressCase =>

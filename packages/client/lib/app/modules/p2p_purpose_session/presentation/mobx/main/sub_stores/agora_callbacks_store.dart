@@ -1,22 +1,25 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// * Mobx Import
 import 'package:mobx/mobx.dart';
+// * Equatable Import
 import 'package:primala/app/core/types/types.dart';
 import 'package:equatable/equatable.dart';
-part 'agora_tracker_store.g.dart';
+// * Mobx Codegen Inclusion
+part 'agora_callbacks_store.g.dart';
 
-class AgoraTrackerStore = _AgoraTrackerStoreBase with _$AgoraTrackerStore;
+class AgoraCallbacksStore = _AgoraCallbacksStoreBase with _$AgoraCallbacksStore;
 
-abstract class _AgoraTrackerStoreBase extends Equatable with Store {
+abstract class _AgoraCallbacksStoreBase extends Equatable with Store {
   @observable
   CallStatus inCall = CallStatus.theDefault;
 
   @action
-  joiningCall() {
+  onCallJoined() {
     inCall = CallStatus.joined;
   }
 
   @action
-  leavingCall() {
+  onCallLeft() {
     inCall = CallStatus.left;
   }
 

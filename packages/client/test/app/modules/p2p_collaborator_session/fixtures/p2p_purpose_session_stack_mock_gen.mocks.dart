@@ -14,7 +14,7 @@ import 'package:mockito/mockito.dart' as _i1;
 import 'package:primala/app/core/error/failure.dart' as _i9;
 import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart'
     as _i10;
-import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/main/sub_stores/agora_tracker_store.dart'
+import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/main/sub_stores/agora_callbacks_store.dart'
     as _i3;
 import 'package:supabase_flutter/supabase_flutter.dart' as _i2;
 
@@ -42,9 +42,9 @@ class _FakeSupabaseClient_0 extends _i1.SmartFake
         );
 }
 
-class _FakeAgoraTrackerStore_1 extends _i1.SmartFake
-    implements _i3.AgoraTrackerStore {
-  _FakeAgoraTrackerStore_1(
+class _FakeAgoraCallbacksStore_1 extends _i1.SmartFake
+    implements _i3.AgoraCallbacksStore {
+  _FakeAgoraCallbacksStore_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -101,13 +101,13 @@ class MockMP2PPurposeSessionRemoteSourceImpl extends _i1.Mock
         ),
       ) as _i2.SupabaseClient);
   @override
-  _i3.AgoraTrackerStore get agoraTrackerStore => (super.noSuchMethod(
-        Invocation.getter(#agoraTrackerStore),
-        returnValue: _FakeAgoraTrackerStore_1(
+  _i3.AgoraCallbacksStore get agoraCallbacksStore => (super.noSuchMethod(
+        Invocation.getter(#agoraCallbacksStore),
+        returnValue: _FakeAgoraCallbacksStore_1(
           this,
-          Invocation.getter(#agoraTrackerStore),
+          Invocation.getter(#agoraCallbacksStore),
         ),
-      ) as _i3.AgoraTrackerStore);
+      ) as _i3.AgoraCallbacksStore);
   @override
   String get currentUserUID => (super.noSuchMethod(
         Invocation.getter(#currentUserUID),

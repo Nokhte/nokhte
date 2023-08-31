@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'agora_tracker_store.dart';
+part of 'agora_callbacks_store.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,9 +8,9 @@ part of 'agora_tracker_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$AgoraTrackerStore on _AgoraTrackerStoreBase, Store {
+mixin _$AgoraCallbacksStore on _AgoraCallbacksStoreBase, Store {
   late final _$inCallAtom =
-      Atom(name: '_AgoraTrackerStoreBase.inCall', context: context);
+      Atom(name: '_AgoraCallbacksStoreBase.inCall', context: context);
 
   @override
   CallStatus get inCall {
@@ -25,28 +25,28 @@ mixin _$AgoraTrackerStore on _AgoraTrackerStoreBase, Store {
     });
   }
 
-  late final _$_AgoraTrackerStoreBaseActionController =
-      ActionController(name: '_AgoraTrackerStoreBase', context: context);
+  late final _$_AgoraCallbacksStoreBaseActionController =
+      ActionController(name: '_AgoraCallbacksStoreBase', context: context);
 
   @override
-  dynamic joiningCall() {
-    final _$actionInfo = _$_AgoraTrackerStoreBaseActionController.startAction(
-        name: '_AgoraTrackerStoreBase.joiningCall');
+  dynamic onCallJoined() {
+    final _$actionInfo = _$_AgoraCallbacksStoreBaseActionController.startAction(
+        name: '_AgoraCallbacksStoreBase.onCallJoined');
     try {
-      return super.joiningCall();
+      return super.onCallJoined();
     } finally {
-      _$_AgoraTrackerStoreBaseActionController.endAction(_$actionInfo);
+      _$_AgoraCallbacksStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic leavingCall() {
-    final _$actionInfo = _$_AgoraTrackerStoreBaseActionController.startAction(
-        name: '_AgoraTrackerStoreBase.leavingCall');
+  dynamic onCallLeft() {
+    final _$actionInfo = _$_AgoraCallbacksStoreBaseActionController.startAction(
+        name: '_AgoraCallbacksStoreBase.onCallLeft');
     try {
-      return super.leavingCall();
+      return super.onCallLeft();
     } finally {
-      _$_AgoraTrackerStoreBaseActionController.endAction(_$actionInfo);
+      _$_AgoraCallbacksStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 

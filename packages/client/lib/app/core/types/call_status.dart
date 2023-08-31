@@ -1,5 +1,5 @@
 enum CallStatus {
-  theDefault,
+  initial,
   joined,
   joining,
   leaving,

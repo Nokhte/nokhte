@@ -9,7 +9,7 @@ class ConstantCallStatusEntity {
   static CallStatusEntity get inProgressCase =>
       const CallStatusEntity(callStatus: CallStatus.joining);
   static CallStatusEntity get notSuccessCase =>
-      const CallStatusEntity(callStatus: CallStatus.theDefault);
+      const CallStatusEntity(callStatus: CallStatus.initial);
   static CallStatusEntity get leavingSuccessCase =>
       const CallStatusEntity(callStatus: CallStatus.joined);
   static CallStatusEntity get leavingInProgressCase =>
