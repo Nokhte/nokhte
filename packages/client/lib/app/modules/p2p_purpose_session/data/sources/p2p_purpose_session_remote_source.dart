@@ -20,6 +20,10 @@ abstract class P2PPurposeSessionRemoteSource {
   /// needs logic & status entity
   Future leaveCall();
 
+  Future muteLocalAudioStream();
+
+  Future unmuteLocalAudioStream();
+
   /// needs logic & status entity
   Future<List<dynamic>> fetchChannelId();
 }
@@ -86,4 +90,16 @@ class P2PPurposeSessionRemoteSourceImpl
       currentUserUID: currentUserUID,
     );
   }
+
+  @override
+  Future muteLocalAudioStream() async {
+    return await agoraEngine.muteLocalAudioStream(true);
+  }
+
+  @override
+  Future unmuteLocalAudioStream() async {
+    return await agoraEngine.muteLocalAudioStream(false);
+  }
+
+  ///! add entities & models from here once everything is working
 }

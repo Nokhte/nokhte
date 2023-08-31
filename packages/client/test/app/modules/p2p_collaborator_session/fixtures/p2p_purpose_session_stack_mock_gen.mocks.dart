@@ -181,6 +181,22 @@ class MockMP2PPurposeSessionRemoteSourceImpl extends _i1.Mock
         ),
         returnValue: _i8.Future<List<dynamic>>.value(<dynamic>[]),
       ) as _i8.Future<List<dynamic>>);
+  @override
+  _i8.Future<dynamic> muteLocalAudioStream() => (super.noSuchMethod(
+        Invocation.method(
+          #muteLocalAudioStream,
+          [],
+        ),
+        returnValue: _i8.Future<dynamic>.value(),
+      ) as _i8.Future<dynamic>);
+  @override
+  _i8.Future<dynamic> unmuteLocalAudioStream() => (super.noSuchMethod(
+        Invocation.method(
+          #unmuteLocalAudioStream,
+          [],
+        ),
+        returnValue: _i8.Future<dynamic>.value(),
+      ) as _i8.Future<dynamic>);
 }
 
 /// A class which mocks [MP2PPurposeSessionContract].
@@ -288,4 +304,42 @@ class MockMP2PPurposeSessionContract extends _i1.Mock
           ),
         )),
       ) as _i8.Future<_i6.Either<_i9.Failure, _i10.CallStatusEntity>>);
+  @override
+  _i8.Future<_i6.Either<_i9.Failure, _i10.LocalAudioStreamStatusEntity>>
+      muteLocalAudioStream() => (super.noSuchMethod(
+            Invocation.method(
+              #muteLocalAudioStream,
+              [],
+            ),
+            returnValue: _i8.Future<
+                    _i6.Either<_i9.Failure,
+                        _i10.LocalAudioStreamStatusEntity>>.value(
+                _FakeEither_4<_i9.Failure, _i10.LocalAudioStreamStatusEntity>(
+              this,
+              Invocation.method(
+                #muteLocalAudioStream,
+                [],
+              ),
+            )),
+          ) as _i8.Future<
+              _i6.Either<_i9.Failure, _i10.LocalAudioStreamStatusEntity>>);
+  @override
+  _i8.Future<_i6.Either<_i9.Failure, _i10.LocalAudioStreamStatusEntity>>
+      unmuteLocalAudioStream() => (super.noSuchMethod(
+            Invocation.method(
+              #unmuteLocalAudioStream,
+              [],
+            ),
+            returnValue: _i8.Future<
+                    _i6.Either<_i9.Failure,
+                        _i10.LocalAudioStreamStatusEntity>>.value(
+                _FakeEither_4<_i9.Failure, _i10.LocalAudioStreamStatusEntity>(
+              this,
+              Invocation.method(
+                #unmuteLocalAudioStream,
+                [],
+              ),
+            )),
+          ) as _i8.Future<
+              _i6.Either<_i9.Failure, _i10.LocalAudioStreamStatusEntity>>);
 }

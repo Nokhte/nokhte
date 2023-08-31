@@ -1,10 +1,36 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:primala/app/core/widgets/widgets.dart';
+import 'package:swipe/swipe.dart';
 
-class P2PPurposeSessionPhase2ConsultationScreen extends StatelessWidget {
-  const P2PPurposeSessionPhase2ConsultationScreen({super.key});
+class P2PPurpose2ConsultationScreen extends StatelessWidget {
+  final BeachWavesTrackerStore beachWavesStore;
+  P2PPurpose2ConsultationScreen({
+    super.key,
+    required this.beachWavesStore,
+  }) {
+    //
+    beachWavesStore.initiateSuspendedAtTheDepths();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return LayoutBuilder(
+      builder: ((context, constraints) => PlatformScaffold(
+              body: Swipe(
+            child: Stack(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: SmartBeachWaves(
+                    stateTrackerStore: beachWavesStore,
+                  ),
+                ),
+              ],
+            ),
+          ))),
+    );
+    // });
   }
 }
