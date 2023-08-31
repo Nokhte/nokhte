@@ -12,17 +12,17 @@ part 'join_call_getter_store.g.dart';
 class JoinCallGetterStore = _JoinCallGetterStoreBase with _$JoinCallGetterStore;
 
 abstract class _JoinCallGetterStoreBase extends Equatable with Store {
-  JoinCall joinCallLogic;
+  JoinCall logic;
 
   _JoinCallGetterStoreBase({
-    required this.joinCallLogic,
+    required this.logic,
   });
 
   Future<Either<Failure, CallStatusEntity>> call({
     required String token,
     required String channelId,
   }) async =>
-      await joinCallLogic(JoinCallParams(token: token, channelId: channelId));
+      await logic(JoinCallParams(token: token, channelId: channelId));
 
   @override
   List<Object> get props => [

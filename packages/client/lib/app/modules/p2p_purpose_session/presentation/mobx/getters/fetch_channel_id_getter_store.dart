@@ -14,14 +14,14 @@ class FetchChannelIdGetterStore = _FetchChannelIdGetterStoreBase
     with _$FetchChannelIdGetterStore;
 
 abstract class _FetchChannelIdGetterStoreBase extends Equatable with Store {
-  FetchChannelId fetchChannelIdLogic;
+  FetchChannelId logic;
 
   _FetchChannelIdGetterStoreBase({
-    required this.fetchChannelIdLogic,
+    required this.logic,
   });
 
   Future<Either<Failure, ChannelIdEntity>> call() async =>
-      await fetchChannelIdLogic(NoParams());
+      await logic(NoParams());
 
   @override
   List<Object> get props => [

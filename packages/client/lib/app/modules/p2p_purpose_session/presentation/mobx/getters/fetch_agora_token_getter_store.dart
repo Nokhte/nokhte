@@ -13,15 +13,15 @@ class FetchAgoraTokenGetterStore = _FetchAgoraTokenGetterStoreBase
     with _$FetchAgoraTokenGetterStore;
 
 abstract class _FetchAgoraTokenGetterStoreBase extends Equatable with Store {
-  FetchAgoraToken fetchAgoraTokenLogic;
+  FetchAgoraToken logic;
 
   _FetchAgoraTokenGetterStoreBase({
-    required this.fetchAgoraTokenLogic,
+    required this.logic,
   });
 
   Future<Either<Failure, AgoraCallTokenEntity>> call(
           FetchAgoraTokenParams params) async =>
-      await fetchAgoraTokenLogic(params);
+      await logic(params);
 
   @override
   List<Object> get props => [

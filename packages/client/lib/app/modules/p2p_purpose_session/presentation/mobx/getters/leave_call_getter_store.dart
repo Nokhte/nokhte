@@ -14,14 +14,14 @@ class LeaveCallGetterStore = _LeaveCallGetterStoreBase
     with _$LeaveCallGetterStore;
 
 abstract class _LeaveCallGetterStoreBase extends Equatable with Store {
-  LeaveCall leaveCallLogic;
+  LeaveCall logic;
 
   _LeaveCallGetterStoreBase({
-    required this.leaveCallLogic,
+    required this.logic,
   });
 
   Future<Either<Failure, CallStatusEntity>> call() async =>
-      await leaveCallLogic(NoParams());
+      await logic(NoParams());
 
   @override
   List<Object> get props => [

@@ -21,7 +21,7 @@ void main() {
 
   tearDown(() async {
     await supabaseAdmin.from('existing_collaborations').delete().or(
-        'collaborator_one.eq.$firstUserUID,collaborator_two.eq.$secondUserUID');
+        'collaborator_one.eq.$firstUserUID,collaborator_two.eq.$firstUserUID');
   });
 
   test(

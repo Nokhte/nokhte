@@ -15,13 +15,13 @@ class InstantiateAgoraSdkGetterStore = _InstantiateAgoraSdkGetterStoreBase
 
 abstract class _InstantiateAgoraSdkGetterStoreBase extends Equatable
     with Store {
-  InstantiateAgoraSdk instantiateAgoraSdkLogic;
+  InstantiateAgoraSdk logic;
   _InstantiateAgoraSdkGetterStoreBase({
-    required this.instantiateAgoraSdkLogic,
+    required this.logic,
   });
 
   Future<Either<Failure, AgoraSdkStatusEntity>> call() async =>
-      await instantiateAgoraSdkLogic(NoParams());
+      await logic(NoParams());
 
   @override
   List<Object> get props => [
