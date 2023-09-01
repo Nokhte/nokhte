@@ -175,7 +175,13 @@ class P2PCollaboratorPoolModule extends Module {
           ),
         ),
         Bind.factory<FadeInAndChangeColorTextStore>(
-          (i) => FadeInAndChangeColorTextStore(),
+          (i) => FadeInAndChangeColorTextStore(
+            chosenMovie: TimesUpText.movie,
+            messageData: FadeInMessageData(
+              fontSize: 50.0,
+              message: "Waiting On Collaborator",
+            ),
+          ),
         ),
         Bind.factory<BreathingPentagonsStateTrackerStore>(
           (i) => BreathingPentagonsStateTrackerStore(),

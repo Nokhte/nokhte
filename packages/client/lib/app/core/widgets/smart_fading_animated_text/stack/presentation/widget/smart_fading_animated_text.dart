@@ -56,18 +56,20 @@ class _SmartFadingAnimatedTextState extends State<SmartFadingAnimatedText> {
               Text(
                 stateTrackerStore.currentMainText,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                    fontSize: 50.0,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w300),
+                style: TextStyle(
+                  fontSize: stateTrackerStore.currentMainMessageFont,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w300,
+                ),
               ),
               Text(
                 stateTrackerStore.currentSubText,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                    fontSize: 25.0,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w300),
+                style: TextStyle(
+                  fontSize: stateTrackerStore.currentSubMessageFont,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w300,
+                ),
               ),
               // ),
             ],

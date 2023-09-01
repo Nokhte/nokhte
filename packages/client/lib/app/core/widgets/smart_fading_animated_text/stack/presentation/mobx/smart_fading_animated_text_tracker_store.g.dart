@@ -17,6 +17,22 @@ mixin _$SmartFadingAnimatedTextTrackerStore
       (_$shouldPauseHereComputed ??= Computed<bool>(() => super.shouldPauseHere,
               name: '_SmartFadingAnimatedTextTrackerStoreBase.shouldPauseHere'))
           .value;
+  Computed<double>? _$currentMainMessageFontComputed;
+
+  @override
+  double get currentMainMessageFont => (_$currentMainMessageFontComputed ??=
+          Computed<double>(() => super.currentMainMessageFont,
+              name:
+                  '_SmartFadingAnimatedTextTrackerStoreBase.currentMainMessageFont'))
+      .value;
+  Computed<double>? _$currentSubMessageFontComputed;
+
+  @override
+  double get currentSubMessageFont => (_$currentSubMessageFontComputed ??=
+          Computed<double>(() => super.currentSubMessageFont,
+              name:
+                  '_SmartFadingAnimatedTextTrackerStoreBase.currentSubMessageFont'))
+      .value;
   Computed<Duration>? _$currentExtraDelayTimeComputed;
 
   @override
@@ -357,6 +373,8 @@ currentSubText: ${currentSubText},
 currentMainText: ${currentMainText},
 status: ${status},
 shouldPauseHere: ${shouldPauseHere},
+currentMainMessageFont: ${currentMainMessageFont},
+currentSubMessageFont: ${currentSubMessageFont},
 currentExtraDelayTime: ${currentExtraDelayTime},
 currentUnlockGesture: ${currentUnlockGesture}
     ''';

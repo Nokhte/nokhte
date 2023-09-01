@@ -6,6 +6,8 @@ import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/consta
 class RotatingTextData extends Equatable {
   String mainMessage;
   String subMessage;
+  double mainMessageFontSize;
+  double subMessageFontSize;
   bool pauseHere;
   Gestures unlockGesture;
   Duration extraDelayTime;
@@ -13,6 +15,8 @@ class RotatingTextData extends Equatable {
   RotatingTextData({
     required this.mainMessage,
     required this.subMessage,
+    required this.mainMessageFontSize,
+    required this.subMessageFontSize,
     required this.pauseHere,
     required this.unlockGesture,
     required this.extraDelayTime,

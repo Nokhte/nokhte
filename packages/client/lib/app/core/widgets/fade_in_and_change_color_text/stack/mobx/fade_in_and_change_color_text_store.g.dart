@@ -30,13 +30,13 @@ mixin _$FadeInAndChangeColorTextStore
       name: '_FadeInAndChangeColorTextStoreBase.movieMode', context: context);
 
   @override
-  MovieModes get movieMode {
+  FadeInTextMovieModes get movieMode {
     _$movieModeAtom.reportRead();
     return super.movieMode;
   }
 
   @override
-  set movieMode(MovieModes value) {
+  set movieMode(FadeInTextMovieModes value) {
     _$movieModeAtom.reportWrite(value, super.movieMode, () {
       super.movieMode = value;
     });

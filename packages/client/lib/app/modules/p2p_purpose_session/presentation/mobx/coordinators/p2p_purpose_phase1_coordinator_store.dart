@@ -19,6 +19,7 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
     with Store {
   // Logic Stores
   final InstantiateAgoraSdkStore instantiateAgoraSdkStore;
+  final FadeInAndChangeColorTextStore fadeInColorText;
   final FetchAgoraTokenStore fetchAgoraTokenStore;
   final FetchChannelIdStore fetchChannelIdStore;
   final VoiceCallActionsStore voiceCallActionsStore;
@@ -35,6 +36,7 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
     required this.voiceCallActionsStore,
     required this.beachWaves,
     required this.fadingText,
+    required this.fadeInColorText,
   });
 
   @action

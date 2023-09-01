@@ -35,10 +35,12 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   Center(
-                      child: SmartFadingAnimatedText(
-                    initialFadeInDelay: const Duration(seconds: 0),
-                    stateTrackerStore: coordinator.fadingTextStateTrackerStore,
-                  )),
+                    child: SmartFadingAnimatedText(
+                      initialFadeInDelay: const Duration(seconds: 0),
+                      stateTrackerStore:
+                          coordinator.fadingTextStateTrackerStore,
+                    ),
+                  ),
                 ],
               ),
             ),

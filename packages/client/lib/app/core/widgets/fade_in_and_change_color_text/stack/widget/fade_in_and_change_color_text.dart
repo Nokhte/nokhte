@@ -18,17 +18,17 @@ class FadeInAndChangeColorText extends StatelessWidget {
           tween: stateStore.movie,
           duration: stateStore.movie.duration,
           builder: (context, value, child) {
-            if (stateStore.movieMode == MovieModes.fadeOutSetup) {
+            if (stateStore.movieMode == FadeInTextMovieModes.fadeOutSetup) {
               stateStore.currentColor = value.get('text color');
             }
             return Opacity(
               opacity: value.get('text opacity'),
               child: PlatformText(
-                'Waiting On Collaborator',
+                stateStore.messageData.message,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: value.get('text color'),
-                    fontSize: 50,
+                    fontSize: stateStore.messageData.fontSize,
                     fontWeight: FontWeight.w300),
               ),
             );

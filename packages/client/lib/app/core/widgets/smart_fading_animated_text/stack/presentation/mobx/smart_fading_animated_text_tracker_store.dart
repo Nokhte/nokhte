@@ -57,11 +57,7 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
     currentMainText = messagesData[currentIndex].mainMessage;
     currentSubText = messagesData[currentIndex].subMessage;
     await oneSecondDelay(() => fadeTheTextIn());
-    // fadeTheTextIn();
     showText = true;
-    // isPaused = false;
-    // hasJustBeenUnPaused = false;
-    // inProgress = false;
   }
 
   oneSecondDelay(Function body) async {
@@ -93,6 +89,8 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
 
   addNewMessage({
     required String mainMessage,
+    double mainMessageFontSize = 50.0,
+    double subMessageFontSize = 25.0,
     String subMessage = "",
     bool pauseHere = true,
     Gestures unlockGesture = Gestures.none,
@@ -100,16 +98,21 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
   }) {
     messagesData.add(
       RotatingTextData(
-          mainMessage: mainMessage,
-          subMessage: subMessage,
-          pauseHere: pauseHere,
-          unlockGesture: unlockGesture,
-          extraDelayTime: extraDelayTime),
+        mainMessage: mainMessage,
+        subMessage: subMessage,
+        pauseHere: pauseHere,
+        unlockGesture: unlockGesture,
+        extraDelayTime: extraDelayTime,
+        mainMessageFontSize: mainMessageFontSize,
+        subMessageFontSize: subMessageFontSize,
+      ),
     );
   }
 
   addNewMessageInSecondToLastIndex({
     required String mainMessage,
+    required double mainMessageFontSize,
+    required double subMessageFontSize,
     String subMessage = "",
     bool pauseHere = true,
     Gestures unlockGesture = Gestures.none,
@@ -118,11 +121,14 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
     messagesData.insert(
       messagesData.length - 1,
       RotatingTextData(
-          mainMessage: mainMessage,
-          subMessage: subMessage,
-          pauseHere: pauseHere,
-          unlockGesture: unlockGesture,
-          extraDelayTime: extraDelayTime),
+        mainMessage: mainMessage,
+        subMessage: subMessage,
+        pauseHere: pauseHere,
+        unlockGesture: unlockGesture,
+        extraDelayTime: extraDelayTime,
+        mainMessageFontSize: mainMessageFontSize,
+        subMessageFontSize: subMessageFontSize,
+      ),
     );
   }
 
@@ -208,6 +214,14 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
 
   @computed
   bool get shouldPauseHere => messagesData[currentIndex].pauseHere;
+
+  @computed
+  double get currentMainMessageFont =>
+      messagesData[currentIndex].mainMessageFontSize;
+
+  @computed
+  double get currentSubMessageFont =>
+      messagesData[currentIndex].subMessageFontSize;
 
   @computed
   Duration get currentExtraDelayTime =>

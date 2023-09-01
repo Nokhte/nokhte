@@ -149,13 +149,21 @@ class P2PCollaboratorSessionModule extends Module {
             messagesData: MessagesData.p2pPurposeSession,
           ),
         ),
+
         Bind.factory<FadeInAndChangeColorTextStore>(
-          (i) => FadeInAndChangeColorTextStore(),
+          (i) => FadeInAndChangeColorTextStore(
+            messageData: const FadeInMessageData(
+              fontSize: 25.0,
+              message: "swipe up to start call",
+            ),
+            chosenMovie: FadeInText.movie,
+          ),
         ),
         // & Coordinator Stores
         Bind.singleton<P2PPurposePhase1CoordinatorStore>(
           (i) => P2PPurposePhase1CoordinatorStore(
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
+            fadeInColorText: Modular.get<FadeInAndChangeColorTextStore>(),
             fadingText: Modular.get<SmartFadingAnimatedTextTrackerStore>(),
             instantiateAgoraSdkStore: i<InstantiateAgoraSdkStore>(),
             fetchAgoraTokenStore: i<FetchAgoraTokenStore>(),

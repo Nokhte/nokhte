@@ -18,20 +18,20 @@ class P2PPurpose1GreeterScreen extends StatelessWidget {
     return LayoutBuilder(
       builder: ((context, constraints) => PlatformScaffold(
               body: Swipe(
-            onSwipeLeft: () {
-              print('swipe left unmute callback');
-              coordinator.unmuteCallback();
-            },
-            onSwipeRight: () {
-              print('swipe right mute callback');
-              coordinator.muteCallback();
-            },
-            onSwipeUp: () async {
-              coordinator.swipeUpCallback();
-            },
-            onSwipeDown: () async {
-              await coordinator.swipeDownCallback();
-            },
+            // onSwipeLeft: () {
+            //   print('swipe left unmute callback');
+            //   coordinator.unmuteCallback();
+            // },
+            // onSwipeRight: () {
+            //   print('swipe right mute callback');
+            //   coordinator.muteCallback();
+            // },
+            // onSwipeUp: () async {
+            //   coordinator.swipeUpCallback();
+            // },
+            // onSwipeDown: () async {
+            //   await coordinator.swipeDownCallback();
+            // },
             child: Stack(
               children: [
                 SizedBox(
@@ -40,6 +40,22 @@ class P2PPurpose1GreeterScreen extends StatelessWidget {
                   child: SmartBeachWaves(
                     stateTrackerStore: coordinator.beachWaves,
                   ),
+                ),
+                Center(
+                  child: SmartFadingAnimatedText(
+                    initialFadeInDelay: const Duration(seconds: 0),
+                    stateTrackerStore: coordinator.fadingText,
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.only(bottom: 40.0),
+                  alignment: Alignment.bottomCenter,
+                  child: FadeInAndChangeColorText(
+                    stateStore: coordinator.fadeInColorText,
+                  ),
+                  // child: Center(
+                  //   child:
+                  // ),
                 ),
               ],
             ),

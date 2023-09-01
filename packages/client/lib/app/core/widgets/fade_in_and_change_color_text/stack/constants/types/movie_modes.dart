@@ -1,4 +1,4 @@
-enum MovieModes {
+enum FadeInTextMovieModes {
   timesUp,
   fadeOutSetup,
   fadeOut,

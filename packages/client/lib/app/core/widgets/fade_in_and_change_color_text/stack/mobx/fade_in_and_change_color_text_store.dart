@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/widgets/fade_in_and_change_color_text/stack/constants/movies/movies.dart';
-import 'package:primala/app/core/widgets/fade_in_and_change_color_text/stack/constants/types/movie_modes.dart';
+import 'package:primala/app/core/widgets/fade_in_and_change_color_text/stack/constants/constants.dart';
+import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 // * Mobx Codegen Inclusion
 part 'fade_in_and_change_color_text_store.g.dart';
@@ -14,12 +14,17 @@ class FadeInAndChangeColorTextStore = _FadeInAndChangeColorTextStoreBase
     with _$FadeInAndChangeColorTextStore;
 
 abstract class _FadeInAndChangeColorTextStoreBase extends Equatable with Store {
-  ///
+  final FadeInMessageData messageData;
+  _FadeInAndChangeColorTextStoreBase({
+    required this.messageData,
+    required MovieTween chosenMovie,
+  }) : movie = chosenMovie;
+
   @observable
   MovieTween movie = TimesUpText.movie;
 
   @observable
-  MovieModes movieMode = MovieModes.timesUp;
+  FadeInTextMovieModes movieMode = FadeInTextMovieModes.timesUp;
 
   @observable
   Control control = Control.playFromStart;
@@ -31,12 +36,12 @@ abstract class _FadeInAndChangeColorTextStoreBase extends Equatable with Store {
   initiateFadeOut() {
     movie = FadeOutText.getMovie(currentTextColor: currentColor);
     control = Control.playFromStart;
-    movieMode = MovieModes.fadeOut;
+    movieMode = FadeInTextMovieModes.fadeOut;
   }
 
   @action
   teeUpFadeOut() {
-    movieMode = MovieModes.fadeOutSetup;
+    movieMode = FadeInTextMovieModes.fadeOutSetup;
     initiateFadeOut();
   }
 
