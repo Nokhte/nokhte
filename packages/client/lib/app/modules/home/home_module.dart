@@ -5,7 +5,7 @@ import 'package:primala/app/modules/home/data/contracts/home_contract_impl.dart'
 import 'package:primala/app/modules/home/data/sources/home_remote_source.dart';
 import 'package:primala/app/modules/home/domain/contracts/home_contract.dart';
 import 'package:primala/app/modules/home/domain/logic/logic.dart';
-import 'package:primala/app/modules/home/presentation/mobx/main/home_screen_coordinator_store.dart';
+import 'package:primala/app/modules/home/presentation/mobx/coordinators/home_screen_coordinator_store.dart';
 import 'package:primala/app/modules/home/presentation/mobx/mobx.dart';
 import 'package:primala/app/modules/home/presentation/screens/home_screen.dart';
 import 'package:primala/app/core/widgets/beach_waves/stack/presentation/mobx/beach_waves_tracker_store.dart';

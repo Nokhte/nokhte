@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
-import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/main/coordinators/p2p_purpose_phase1_coordinator_store.dart';
+import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/coordinators/coordinators.dart';
 import 'package:swipe/swipe.dart';
 
 class P2PPurpose1GreeterScreen extends StatelessWidget {

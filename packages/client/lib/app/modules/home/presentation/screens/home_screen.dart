@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
-import 'package:primala/app/modules/home/presentation/mobx/main/home_screen_coordinator_store.dart';
+import 'package:primala/app/modules/home/presentation/mobx/coordinators/home_screen_coordinator_store.dart';
 import 'package:swipe/swipe.dart';
 
 class HomeScreen extends StatelessWidget {

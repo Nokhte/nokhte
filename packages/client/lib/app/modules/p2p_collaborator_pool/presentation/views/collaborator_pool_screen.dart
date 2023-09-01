@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/widgets/fade_in_and_change_color_text/stack/widget/fade_in_and_change_color_text.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/main/collaborator_pool_screen_coordinator_store.dart';
+import 'package:primala/app/modules/p2p_collaborator_pool/presentation/presentation.dart';
 import 'package:swipe/swipe.dart';
 
 class CollaboratorPoolScreen extends StatelessWidget {

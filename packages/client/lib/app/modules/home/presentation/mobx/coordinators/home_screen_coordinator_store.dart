@@ -5,11 +5,9 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/types/gestures.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
+import 'package:primala/app/modules/home/presentation/mobx/main/main.dart';
 
-import 'add_name_to_database_store.dart';
-import 'get_collaborator_phrase_store.dart';
 // * Mobx Codegen Inclusion
 part 'home_screen_coordinator_store.g.dart';
 
