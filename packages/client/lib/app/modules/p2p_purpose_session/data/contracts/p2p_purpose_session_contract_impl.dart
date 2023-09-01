@@ -75,7 +75,7 @@ class P2PPurposeSessionContractImpl implements P2PPurposeSessionContract {
   Future<Either<Failure, LocalAudioStreamStatusModel>>
       muteLocalAudioStream() async {
     if (await networkInfo.isConnected) {
-      await remoteSource.leaveCall();
+      await remoteSource.muteLocalAudioStream();
       return const Right(LocalAudioStreamStatusModel(isMuted: true));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
@@ -86,7 +86,7 @@ class P2PPurposeSessionContractImpl implements P2PPurposeSessionContract {
   Future<Either<Failure, LocalAudioStreamStatusModel>>
       unmuteLocalAudioStream() async {
     if (await networkInfo.isConnected) {
-      await remoteSource.leaveCall();
+      await remoteSource.unmuteLocalAudioStream();
       return const Right(LocalAudioStreamStatusModel(isMuted: false));
     } else {
       return Left(FailureConstants.internetConnectionFailure);

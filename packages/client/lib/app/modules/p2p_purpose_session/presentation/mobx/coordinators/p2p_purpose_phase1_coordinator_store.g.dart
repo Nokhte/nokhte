@@ -29,6 +29,24 @@ mixin _$P2PPurposePhase1CoordinatorStore
     return _$swipeDownCallbackAsyncAction.run(() => super.swipeDownCallback());
   }
 
+  late final _$unmuteCallbackAsyncAction = AsyncAction(
+      '_P2PPurposePhase1CoordinatorStoreBase.unmuteCallback',
+      context: context);
+
+  @override
+  Future unmuteCallback() {
+    return _$unmuteCallbackAsyncAction.run(() => super.unmuteCallback());
+  }
+
+  late final _$muteCallbackAsyncAction = AsyncAction(
+      '_P2PPurposePhase1CoordinatorStoreBase.muteCallback',
+      context: context);
+
+  @override
+  Future muteCallback() {
+    return _$muteCallbackAsyncAction.run(() => super.muteCallback());
+  }
+
   late final _$swipeUpCallbackAsyncAction = AsyncAction(
       '_P2PPurposePhase1CoordinatorStoreBase.swipeUpCallback',
       context: context);

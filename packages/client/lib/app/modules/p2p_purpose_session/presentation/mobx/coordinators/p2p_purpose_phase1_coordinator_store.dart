@@ -63,14 +63,17 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
   }
 
   @action
+  unmuteCallback() async {
+    await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);
+  }
+
+  @action
+  muteCallback() async {
+    await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
+  }
+
+  @action
   swipeUpCallback() async {
-    // print("uhh did this run??");
-    // await voiceCallActionsStore.joinCallGetterStore(
-    //   channelId: fetchChannelIdStore.channelId,
-    //   token: fetchAgoraTokenStore.token,
-    // );
-    // if (voiceCallActionsStore.callStatus == CallStatus.initial) {
-    // print('initial one');
     await voiceCallActionsStore.enterOrLeaveCall(
       Right(
         JoinCallParams(
@@ -79,9 +82,7 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
         ),
       ),
     );
-    // } else {
-    //   print('other one');
-    // }
+    await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
   }
 
   @override
