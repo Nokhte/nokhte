@@ -4,7 +4,8 @@
         "std/server": "https://deno.land/std@0.168.0/http/server.ts",
         "supabase": "https://esm.sh/@supabase/supabase-js@v2.24.0",
         "std/testing": "https://deno.land/std@0.168.0/testing/asserts.ts",
-        "delay": "https://deno.land/x/delay@v0.2.0/mod.ts"
+        "delay": "https://deno.land/x/delay@v0.2.0/mod.ts",
+        "random_number": "https://deno.land/x/random_number@2.0.0/mod.ts"
 
     }
 }

@@ -22,7 +22,7 @@ void main() {
     return realPersonUIDQuery[0]["uid"];
   }
 
-  test("put user 1 in the pool", () async {
+  test("put npc in the pool searching for user ", () async {
     final userIdResults = await UserSetupConstants.fetchUIDs();
     final npcUserUID = userIdResults[0];
     final realPersonUID = await returnNonNPCUID();
@@ -36,6 +36,23 @@ void main() {
       queryPhraseIDs: CollaboratorPhraseIDs(
         adjectiveID: realPersonPhraseIDRes[0]["adjective_id"],
         nounID: realPersonPhraseIDRes[0]["noun_id"],
+      ),
+    );
+  });
+  test("user 1 in the pool searching for npc ", () async {
+    final userIdResults = await UserSetupConstants.fetchUIDs();
+    final npcUserUID = userIdResults[0];
+    final realPersonUID = await returnNonNPCUID();
+    final npcPhraseRes = await supabaseAdmin
+        .from('collaborator_phrases')
+        .select()
+        .eq('uid', npcUserUID);
+    await InitiateCollaboratorSearch.invoke(
+      supabase: supabaseAdmin,
+      wayfarerUID: realPersonUID,
+      queryPhraseIDs: CollaboratorPhraseIDs(
+        adjectiveID: npcPhraseRes[0]["adjective_id"],
+        nounID: npcPhraseRes[0]["noun_id"],
       ),
     );
   });
