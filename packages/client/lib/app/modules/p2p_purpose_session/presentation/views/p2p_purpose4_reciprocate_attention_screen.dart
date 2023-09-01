@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
+import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 import 'package:swipe/swipe.dart';
 
 class P2PPurpose4ReciprocateAttentionScreen extends StatelessWidget {
-  final BeachWavesTrackerStore beachWavesStore;
+  final P2PPurposePhase4CoordinatorStore coordinator;
   P2PPurpose4ReciprocateAttentionScreen({
     super.key,
-    required this.beachWavesStore,
+    required this.coordinator,
   }) {
     //
-    beachWavesStore.initiateSuspendedAtTheDepths();
+    coordinator.beachWaves.initiateSuspendedAtTheDepths();
   }
 
   @override
@@ -24,7 +25,7 @@ class P2PPurpose4ReciprocateAttentionScreen extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   child: SmartBeachWaves(
-                    stateTrackerStore: beachWavesStore,
+                    stateTrackerStore: coordinator.beachWaves,
                   ),
                 ),
               ],

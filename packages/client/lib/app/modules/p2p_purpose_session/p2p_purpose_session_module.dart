@@ -180,13 +180,19 @@ class P2PCollaboratorSessionModule extends Module {
               voiceCallActionsStore: i<VoiceCallActionsStore>(),
             )),
         Bind.singleton<P2PPurposePhase3CoordinatorStore>(
-          (i) => P2PPurposePhase3CoordinatorStore(),
+          (i) => P2PPurposePhase3CoordinatorStore(
+            beachWaves: Modular.get<BeachWavesTrackerStore>(),
+          ),
         ),
         Bind.singleton<P2PPurposePhase4CoordinatorStore>(
-          (i) => P2PPurposePhase4CoordinatorStore(),
+          (i) => P2PPurposePhase4CoordinatorStore(
+            beachWaves: Modular.get<BeachWavesTrackerStore>(),
+          ),
         ),
         Bind.singleton<P2PPurposePhase5CoordinatorStore>(
-          (i) => P2PPurposePhase5CoordinatorStore(),
+          (i) => P2PPurposePhase5CoordinatorStore(
+            beachWaves: Modular.get<BeachWavesTrackerStore>(),
+          ),
         ),
       ];
   @override

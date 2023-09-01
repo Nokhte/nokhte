@@ -26,9 +26,9 @@ class P2PPurpose1GreeterScreen extends StatelessWidget {
             //   print('swipe right mute callback');
             //   coordinator.muteCallback();
             // },
-            // onSwipeUp: () async {
-            //   coordinator.swipeUpCallback();
-            // },
+            onSwipeUp: () async {
+              coordinator.swipeUpCallback();
+            },
             // onSwipeDown: () async {
             //   await coordinator.swipeDownCallback();
             // },
