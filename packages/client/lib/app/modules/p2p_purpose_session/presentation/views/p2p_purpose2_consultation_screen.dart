@@ -5,7 +5,7 @@ import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/mobx.d
 import 'package:swipe/swipe.dart';
 
 class P2PPurpose2ConsultationScreen extends StatelessWidget {
-  final P2PPurposePhase1CoordinatorStore coordinator;
+  final P2PPurposePhase2CoordinatorStore coordinator;
   P2PPurpose2ConsultationScreen({
     super.key,
     required this.coordinator,

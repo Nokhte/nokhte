@@ -205,33 +205,33 @@ class P2PCollaboratorSessionModule extends Module {
           ),
           transition: TransitionType.noTransition,
         ),
-        // ChildRoute(
-        //   '/phase-2',
-        //   child: (context, args) => P2PPurpose1GreeterScreen(
-        //     beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
-        //   ),
-        //   transition: TransitionType.noTransition,
-        // ),
-        // ChildRoute(
-        //   '/phase-3',
-        //   child: (context, args) => P2PPurpose1GreeterScreen(
-        //     beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
-        //   ),
-        //   transition: TransitionType.noTransition,
-        // ),
-        // ChildRoute(
-        //   '/phase-4',
-        //   child: (context, args) => P2PPurpose1GreeterScreen(
-        //     beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
-        //   ),
-        //   transition: TransitionType.noTransition,
-        // ),
-        // ChildRoute(
-        //   '/phase-5',
-        //   child: (context, args) => P2PPurpose1GreeterScreen(
-        //     beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
-        //   ),
-        //   transition: TransitionType.noTransition,
-        // ),
+        ChildRoute(
+          '/phase-2/',
+          child: (context, args) => P2PPurpose2ConsultationScreen(
+            coordinator: Modular.get<P2PPurposePhase2CoordinatorStore>(),
+          ),
+          transition: TransitionType.noTransition,
+        ),
+        ChildRoute(
+          '/phase-3/',
+          child: (context, args) => P2PPurpose3IndividualRefletionScreen(
+            coordinator: Modular.get<P2PPurposePhase3CoordinatorStore>(),
+          ),
+          transition: TransitionType.noTransition,
+        ),
+        ChildRoute(
+          '/phase-4/',
+          child: (context, args) => P2PPurpose4ReciprocateAttentionScreen(
+            coordinator: Modular.get<P2PPurposePhase4CoordinatorStore>(),
+          ),
+          transition: TransitionType.noTransition,
+        ),
+        ChildRoute(
+          '/phase-5/',
+          child: (context, args) => P2PPurpose5CollectiveCreation(
+            coordinator: Modular.get<P2PPurposePhase5CoordinatorStore>(),
+          ),
+          transition: TransitionType.noTransition,
+        ),
       ];
 }

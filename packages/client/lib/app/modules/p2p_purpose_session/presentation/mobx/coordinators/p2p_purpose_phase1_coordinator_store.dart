@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // * Mobx Import
-import 'package:dartz/dartz.dart';
+// import 'package:dartz/dartz.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
@@ -44,47 +45,43 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
     beachWaves.initiateSuspendedAtTheDepths();
     await instantiateAgoraSdkStore(NoParams());
     await fetchChannelIdStore(NoParams());
-    print(
-        "${fetchChannelIdStore.channelId} ${fetchChannelIdStore.channelId.runtimeType}");
-    // .then((_) async {});
     await fetchAgoraTokenStore(
       FetchAgoraTokenParams(
         channelName: fetchChannelIdStore.channelId,
-        // channelName: "hardcoded",
       ),
     );
-    // print(
-    //     "Let's see if this works, channel ID ==>  ${fetchChannelIdStore.channelId} Token ====> ${fetchAgoraTokenStore.token}");
   }
 
-  @action
-  swipeDownCallback() async {
-    await voiceCallActionsStore.enterOrLeaveCall(
-      Left(NoParams()),
-    );
-  }
+  // @action
+  // swipeDownCallback() async {
+  //   await voiceCallActionsStore.enterOrLeaveCall(
+  //     Left(NoParams()),
+  //   );
+  // }
 
-  @action
-  unmuteCallback() async {
-    await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);
-  }
+  // @action
+  // unmuteCallback() async {
+  //   await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);
+  // }
 
-  @action
-  muteCallback() async {
-    await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
-  }
+  // @action
+  // muteCallback() async {
+  //   await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
+  // }
 
   @action
   swipeUpCallback() async {
-    await voiceCallActionsStore.enterOrLeaveCall(
-      Right(
-        JoinCallParams(
-          token: fetchAgoraTokenStore.token,
-          channelId: fetchChannelIdStore.channelId,
-        ),
-      ),
-    );
-    await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
+    /// todo leave in for production
+    // await voiceCallActionsStore.enterOrLeaveCall(
+    //   Right(
+    //     JoinCallParams(
+    //       token: fetchAgoraTokenStore.token,
+    //       channelId: fetchChannelIdStore.channelId,
+    //     ),
+    //   ),
+    // );
+    // await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
+    Modular.to.navigate('/p2p_purpose_session/phase-2/');
   }
 
   @override
