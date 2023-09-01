@@ -44,9 +44,6 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
         if (value == true) {
           beachWavesStore.teeUpBackToTheDepths();
           fadeInAndColorTextStore.teeUpFadeOut();
-          // beachWavesStore.initiateBackToTheDepths();
-          // print("did this run? ${beachWavesStore.pivotColorGradients}");
-          // what do you want to do if it's true
         }
       });
     });

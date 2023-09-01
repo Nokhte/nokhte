@@ -13,14 +13,14 @@ class P2PPurposePhase2CoordinatorStore = _P2PPurposePhase2CoordinatorStoreBase
 
 abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
     with Store {
-  final VoiceCallActionsStore voiceActionsStore;
+  final VoiceCallActionsStore voiceCallActionsStore;
   // widget stores
   final BeachWavesTrackerStore beachWaves;
   final SmartFadingAnimatedTextTrackerStore fadingText;
   final BreathingPentagonsStateTrackerStore breathingPentagons;
 
   _P2PPurposePhase2CoordinatorStoreBase({
-    required this.voiceActionsStore,
+    required this.voiceCallActionsStore,
     required this.beachWaves,
     required this.fadingText,
     required this.breathingPentagons,

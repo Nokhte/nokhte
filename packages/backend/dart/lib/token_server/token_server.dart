@@ -9,7 +9,7 @@ class TokenServer {
   }) async {
     const serverUrl = 'https://agora-token-server-h5o3.onrender.com';
     String url =
-        '$serverUrl/rtc/$channelName/${tokenRole.toString()}/uid/$currentUserUID?expiry=${tokenExpireTime.toString()}';
+        '$serverUrl/rtc/$channelName/${tokenRole.toString()}/uid/${currentUserUID.toString()}?expiry=${tokenExpireTime.toString()}';
     return await get(Uri.parse(url));
   }
 }

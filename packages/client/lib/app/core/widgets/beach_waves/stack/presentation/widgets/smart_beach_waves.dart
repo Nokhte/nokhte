@@ -49,7 +49,6 @@ class _SmartBeachWavesState extends State<SmartBeachWaves>
                 startingWaterMovement: currentAnimationValues[0]);
           } else if (stateTrackerStore.movieMode ==
               MovieModes.backToTheDepthsSetup) {
-            print("was this widget func running? ");
             stateTrackerStore.teeUpBackToTheDepthsValues(colorGradientsList: [
               currentAnimationValues[1],
               currentAnimationValues[2],

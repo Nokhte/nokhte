@@ -41,7 +41,6 @@ abstract class _AllCustomWidgetsTrackerStoreBase extends Equatable with Store {
 
   @action
   toTheDepthsWidgetChanges() {
-    // print("${beachWavesStore.movieStatus} ${beachWavesStore.movieMode}");
     if (beachWavesStore.movieStatus == MovieStatus.idle &&
         beachWavesStore.movieMode == MovieModes.suspendedAtSea) {
       beachWavesStore.initiateToTheDepths();

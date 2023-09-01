@@ -153,43 +153,71 @@ class P2PCollaboratorSessionModule extends Module {
           (i) => FadeInAndChangeColorTextStore(),
         ),
         // & Coordinator Stores
+        Bind.singleton<P2PPurposePhase1CoordinatorStore>(
+          (i) => P2PPurposePhase1CoordinatorStore(
+            beachWaves: Modular.get<BeachWavesTrackerStore>(),
+            fadingText: Modular.get<SmartFadingAnimatedTextTrackerStore>(),
+            instantiateAgoraSdkStore: i<InstantiateAgoraSdkStore>(),
+            fetchAgoraTokenStore: i<FetchAgoraTokenStore>(),
+            fetchChannelIdStore: i<FetchChannelIdStore>(),
+            voiceCallActionsStore: i<VoiceCallActionsStore>(),
+          ),
+        ),
+        Bind.singleton<P2PPurposePhase2CoordinatorStore>((i) =>
+            P2PPurposePhase2CoordinatorStore(
+              beachWaves: Modular.get<BeachWavesTrackerStore>(),
+              fadingText: Modular.get<SmartFadingAnimatedTextTrackerStore>(),
+              breathingPentagons:
+                  Modular.get<BreathingPentagonsStateTrackerStore>(),
+              voiceCallActionsStore: i<VoiceCallActionsStore>(),
+            )),
+        Bind.singleton<P2PPurposePhase3CoordinatorStore>(
+          (i) => P2PPurposePhase3CoordinatorStore(),
+        ),
+        Bind.singleton<P2PPurposePhase4CoordinatorStore>(
+          (i) => P2PPurposePhase4CoordinatorStore(),
+        ),
+        Bind.singleton<P2PPurposePhase5CoordinatorStore>(
+          (i) => P2PPurposePhase5CoordinatorStore(),
+        ),
       ];
   @override
   List<ChildRoute> get routes => [
         ChildRoute(
           '/',
           child: (context, args) => P2PPurpose1GreeterScreen(
-            beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
+            coordinator: Modular.get<P2PPurposePhase1CoordinatorStore>(),
+            agoraEngine: Modular.get<RtcEngine>(),
           ),
           transition: TransitionType.noTransition,
         ),
-        ChildRoute(
-          '/phase-2',
-          child: (context, args) => P2PPurpose1GreeterScreen(
-            beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
-          ),
-          transition: TransitionType.noTransition,
-        ),
-        ChildRoute(
-          '/phase-3',
-          child: (context, args) => P2PPurpose1GreeterScreen(
-            beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
-          ),
-          transition: TransitionType.noTransition,
-        ),
-        ChildRoute(
-          '/phase-4',
-          child: (context, args) => P2PPurpose1GreeterScreen(
-            beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
-          ),
-          transition: TransitionType.noTransition,
-        ),
-        ChildRoute(
-          '/phase-5',
-          child: (context, args) => P2PPurpose1GreeterScreen(
-            beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
-          ),
-          transition: TransitionType.noTransition,
-        ),
+        // ChildRoute(
+        //   '/phase-2',
+        //   child: (context, args) => P2PPurpose1GreeterScreen(
+        //     beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
+        //   ),
+        //   transition: TransitionType.noTransition,
+        // ),
+        // ChildRoute(
+        //   '/phase-3',
+        //   child: (context, args) => P2PPurpose1GreeterScreen(
+        //     beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
+        //   ),
+        //   transition: TransitionType.noTransition,
+        // ),
+        // ChildRoute(
+        //   '/phase-4',
+        //   child: (context, args) => P2PPurpose1GreeterScreen(
+        //     beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
+        //   ),
+        //   transition: TransitionType.noTransition,
+        // ),
+        // ChildRoute(
+        //   '/phase-5',
+        //   child: (context, args) => P2PPurpose1GreeterScreen(
+        //     beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
+        //   ),
+        //   transition: TransitionType.noTransition,
+        // ),
       ];
 }

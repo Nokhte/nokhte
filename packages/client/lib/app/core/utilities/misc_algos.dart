@@ -73,6 +73,8 @@ class MiscAlgos {
     // Making sure the result is non-zero
     if (result == 0) {
       result = 1;
+    } else if (result < 0) {
+      result = result * -1;
     }
 
     return result;

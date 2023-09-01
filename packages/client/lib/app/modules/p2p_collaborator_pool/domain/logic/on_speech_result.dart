@@ -7,11 +7,8 @@ class OnSpeechResult {
   OnSpeechResult({required this.speechResultStore});
 
   call(SpeechRecognitionResult params) {
-    // if (params.finalResult) {
     final collaboratorPhrase = params.recognizedWords;
-    // print(collaboratorPhrase);
     speechResultStore.addSpeechResult(result: collaboratorPhrase);
-    // }
   }
 }
 // shit still not working I think it's adding empty strings

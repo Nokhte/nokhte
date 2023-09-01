@@ -15,6 +15,7 @@ abstract class _AgoraCallbacksStoreBase extends Equatable with Store {
 
   @action
   onCallJoined() {
+    print("holy shit the call was joined");
     inCall = CallStatus.joined;
   }
 

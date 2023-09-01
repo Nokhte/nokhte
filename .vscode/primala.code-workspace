@@ -6,7 +6,7 @@
         },
         {
             "name": "backend",
-            "path": "../packages/backend"
+            "path": "../packages/backend/dart"
         },
         {
             "name": "client",

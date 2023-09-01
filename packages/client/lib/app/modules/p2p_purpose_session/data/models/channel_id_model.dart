@@ -7,9 +7,10 @@ class ChannelIdModel extends ChannelIdEntity {
     if (sbQueryRes.isEmpty) {
       return const ChannelIdModel(channelId: '');
     } else {
-      final collaboratorOne = sbQueryRes[0]["collaborator_one"];
-      final collaboratorTwo = sbQueryRes[0]["collaborator_two"];
-      final channelId = "$collaboratorOne-$collaboratorTwo";
+      final String collaboratorOne = sbQueryRes[0]["collaborator_one"];
+      final String collaboratorTwo = sbQueryRes[0]["collaborator_two"];
+      final channelId =
+          "${collaboratorOne.substring(0, 4)}-${collaboratorTwo.substring(0, 4)}";
       return ChannelIdModel(channelId: channelId);
     }
   }

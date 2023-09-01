@@ -90,8 +90,7 @@ class HomeModule extends Module {
           "/",
           transition: TransitionType.noTransition,
           child: (context, args) => HomeScreen(
-            homeScreenCoordinatorStore:
-                Modular.get<HomeScreenCoordinatorStore>(),
+            coordinator: Modular.get<HomeScreenCoordinatorStore>(),
           ),
         )
       ];

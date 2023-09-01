@@ -10,6 +10,25 @@ part of 'p2p_purpose_phase1_coordinator_store.dart';
 
 mixin _$P2PPurposePhase1CoordinatorStore
     on _P2PPurposePhase1CoordinatorStoreBase, Store {
+  late final _$screenConstructorCallbackAsyncAction = AsyncAction(
+      '_P2PPurposePhase1CoordinatorStoreBase.screenConstructorCallback',
+      context: context);
+
+  @override
+  Future screenConstructorCallback() {
+    return _$screenConstructorCallbackAsyncAction
+        .run(() => super.screenConstructorCallback());
+  }
+
+  late final _$swipeUpCallbackAsyncAction = AsyncAction(
+      '_P2PPurposePhase1CoordinatorStoreBase.swipeUpCallback',
+      context: context);
+
+  @override
+  Future swipeUpCallback() {
+    return _$swipeUpCallbackAsyncAction.run(() => super.swipeUpCallback());
+  }
+
   @override
   String toString() {
     return '''

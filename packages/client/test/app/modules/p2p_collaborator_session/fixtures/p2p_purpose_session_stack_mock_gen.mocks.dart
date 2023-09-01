@@ -114,6 +114,11 @@ class MockMP2PPurposeSessionRemoteSourceImpl extends _i1.Mock
         returnValue: '',
       ) as String);
   @override
+  int get currentAgoraUID => (super.noSuchMethod(
+        Invocation.getter(#currentAgoraUID),
+        returnValue: 0,
+      ) as int);
+  @override
   _i4.RtcEngine get agoraEngine => (super.noSuchMethod(
         Invocation.getter(#agoraEngine),
         returnValue: _FakeRtcEngine_2(

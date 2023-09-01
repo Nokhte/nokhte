@@ -33,20 +33,26 @@ class P2PPurposeSessionRemoteSourceImpl
   final SupabaseClient supabase;
   final AgoraCallbacksStore agoraCallbacksStore;
   final String currentUserUID;
+  final int currentAgoraUID;
   final RtcEngine agoraEngine; // should call createAgoraRtcEngine() in module
 
   P2PPurposeSessionRemoteSourceImpl({
     required this.supabase,
     required this.agoraCallbacksStore,
     required this.agoraEngine,
-  }) : currentUserUID = supabase.auth.currentUser?.id ?? '';
+  })  : currentUserUID = supabase.auth.currentUser?.id ?? '',
+        currentAgoraUID = MiscAlgos.postgresUIDToInt(
+          supabase.auth.currentUser?.id ?? '',
+        );
 
   @override
   Future<Response> fetchAgoraToken({
     required String channelName,
   }) async {
+    print(
+        "\n \n \n \n username ${MiscAlgos.postgresUIDToInt(currentUserUID)} ${channelName} From RS");
     return await TokenServer.fetchAgoraToken(
-      currentUserUID: MiscAlgos.postgresUIDToInt(currentUserUID),
+      currentUserUID: currentAgoraUID,
       channelName: channelName,
     );
   }
@@ -56,13 +62,13 @@ class P2PPurposeSessionRemoteSourceImpl
       {required String token, required String channelId}) async {
     ChannelMediaOptions options = const ChannelMediaOptions(
       clientRoleType: ClientRoleType.clientRoleBroadcaster,
-      // channelProfile: ChannelProfileType.channelProfileCommunication,
     );
     return await agoraEngine.joinChannel(
-        token: token,
-        channelId: channelId,
-        uid: MiscAlgos.postgresUIDToInt(currentUserUID),
-        options: options);
+      token: token,
+      channelId: channelId,
+      uid: currentAgoraUID,
+      options: options,
+    );
   }
 
   @override
@@ -72,15 +78,23 @@ class P2PPurposeSessionRemoteSourceImpl
 
   @override
   Future<void> instantiateAgoraSDK() async {
-    RtcEngineEventHandler(onJoinChannelSuccess: (connection, elapsed) {
-      agoraCallbacksStore.onCallJoined();
-    }, onLeaveChannel: (connection, elapsed) {
-      agoraCallbacksStore.onCallLeft();
-    });
-
-    return await agoraEngine.initialize(const RtcEngineContext(
-      appId: '050b22b688f44464b2533fac484c7300',
-    ));
+    await agoraEngine.initialize(
+        const RtcEngineContext(appId: '050b22b688f44464b2533fac484c7300'));
+    agoraEngine.registerEventHandler(
+      RtcEngineEventHandler(
+        onJoinChannelSuccess: (connection, elapsed) {
+          print("A CALL WAS JOINED $connection, $elapsed");
+          agoraCallbacksStore.onCallJoined();
+        },
+        onLeaveChannel: (connection, elapsed) {
+          agoraCallbacksStore.onCallLeft();
+          print("A CALL WAS LEFT $connection ,$elapsed");
+        },
+        onConnectionStateChanged: (connection, state, reason) {
+          print("I WONDER WHAT THESE ARE $connection $state $reason");
+        },
+      ),
+    );
   }
 
   @override

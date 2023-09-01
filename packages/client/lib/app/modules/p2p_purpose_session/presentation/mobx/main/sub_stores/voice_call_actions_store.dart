@@ -58,10 +58,10 @@ abstract class _VoiceCallActionsStoreBase
 
   @action
   Future<void> enterOrLeaveCall(Either<NoParams, JoinCallParams> params) async {
-    params.fold((NoParams leaveCallParams) {
-      leaveCallGetterStore();
-    }, (JoinCallParams joinCallParams) {
-      joinCallGetterStore(
+    params.fold((NoParams leaveCallParams) async {
+      await leaveCallGetterStore();
+    }, (JoinCallParams joinCallParams) async {
+      await joinCallGetterStore(
         channelId: joinCallParams.channelId,
         token: joinCallParams.token,
       );
