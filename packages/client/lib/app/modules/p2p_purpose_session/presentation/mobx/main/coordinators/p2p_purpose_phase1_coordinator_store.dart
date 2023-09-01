@@ -56,28 +56,32 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
   }
 
   @action
+  swipeDownCallback() async {
+    await voiceCallActionsStore.enterOrLeaveCall(
+      Left(NoParams()),
+    );
+  }
+
+  @action
   swipeUpCallback() async {
     // print("uhh did this run??");
     // await voiceCallActionsStore.joinCallGetterStore(
     //   channelId: fetchChannelIdStore.channelId,
     //   token: fetchAgoraTokenStore.token,
     // );
-    if (voiceCallActionsStore.callStatus == CallStatus.initial) {
-      print('initial one');
-      await voiceCallActionsStore.enterOrLeaveCall(
-        Right(
-          JoinCallParams(
-            token: fetchAgoraTokenStore.token,
-            channelId: fetchChannelIdStore.channelId,
-          ),
+    // if (voiceCallActionsStore.callStatus == CallStatus.initial) {
+    // print('initial one');
+    await voiceCallActionsStore.enterOrLeaveCall(
+      Right(
+        JoinCallParams(
+          token: fetchAgoraTokenStore.token,
+          channelId: fetchChannelIdStore.channelId,
         ),
-      );
-    } else {
-      print('other one');
-      await voiceCallActionsStore.enterOrLeaveCall(
-        Left(NoParams()),
-      );
-    }
+      ),
+    );
+    // } else {
+    //   print('other one');
+    // }
   }
 
   @override

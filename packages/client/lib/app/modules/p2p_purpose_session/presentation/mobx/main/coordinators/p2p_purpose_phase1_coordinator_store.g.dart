@@ -20,6 +20,15 @@ mixin _$P2PPurposePhase1CoordinatorStore
         .run(() => super.screenConstructorCallback());
   }
 
+  late final _$swipeDownCallbackAsyncAction = AsyncAction(
+      '_P2PPurposePhase1CoordinatorStoreBase.swipeDownCallback',
+      context: context);
+
+  @override
+  Future swipeDownCallback() {
+    return _$swipeDownCallbackAsyncAction.run(() => super.swipeDownCallback());
+  }
+
   late final _$swipeUpCallbackAsyncAction = AsyncAction(
       '_P2PPurposePhase1CoordinatorStoreBase.swipeUpCallback',
       context: context);

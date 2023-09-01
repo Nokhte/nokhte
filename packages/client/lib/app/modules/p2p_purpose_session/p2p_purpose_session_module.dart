@@ -187,7 +187,7 @@ class P2PCollaboratorSessionModule extends Module {
           '/',
           child: (context, args) => P2PPurpose1GreeterScreen(
             coordinator: Modular.get<P2PPurposePhase1CoordinatorStore>(),
-            agoraEngine: Modular.get<RtcEngine>(),
+            // agoraEngine: Modular.get<RtcEngine>(),
           ),
           transition: TransitionType.noTransition,
         ),

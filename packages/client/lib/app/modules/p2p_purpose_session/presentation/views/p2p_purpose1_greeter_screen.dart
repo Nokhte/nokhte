@@ -1,121 +1,120 @@
-// import 'package:agora_rtc_engine/agora_rtc_engine.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:primala/app/core/widgets/widgets.dart';
+import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/main/coordinators/p2p_purpose_phase1_coordinator_store.dart';
+import 'package:swipe/swipe.dart';
+
+class P2PPurpose1GreeterScreen extends StatelessWidget {
+  final P2PPurposePhase1CoordinatorStore coordinator;
+  P2PPurpose1GreeterScreen({
+    super.key,
+    required this.coordinator,
+  }) {
+    coordinator.screenConstructorCallback();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: ((context, constraints) => PlatformScaffold(
+              body: Swipe(
+            onSwipeUp: () {
+              coordinator.swipeUpCallback();
+            },
+            onSwipeDown: () {
+              coordinator.swipeDownCallback();
+            },
+            child: Stack(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: SmartBeachWaves(
+                    stateTrackerStore: coordinator.beachWaves,
+                  ),
+                ),
+              ],
+            ),
+          ))),
+    );
+    // });
+  }
+}
+// ================================================================================
+// import 'dart:async';
 // import 'package:flutter/material.dart';
-// import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-// import 'package:primala/app/core/widgets/widgets.dart';
+// // import 'package:permission_handler/permission_handler.dart';
+
+// import 'package:agora_rtc_engine/agora_rtc_engine.dart';
+// import 'package:flutter_modular/flutter_modular.dart';
+// import 'package:primala/app/core/interfaces/logic.dart';
+// import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
 // import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/main/coordinators/p2p_purpose_phase1_coordinator_store.dart';
-// import 'package:swipe/swipe.dart';
 
-// class P2PPurpose1GreeterScreen extends StatelessWidget {
-//   final P2PPurposePhase1CoordinatorStore coordinator;
-//   P2PPurpose1GreeterScreen({
-//     super.key,
+// class P2PPurpose1GreeterScreen extends StatefulWidget {
+//   final RtcEngine agoraEngine;
+//   const P2PPurpose1GreeterScreen({
+//     Key? key,
 //     required this.coordinator,
-//   }) {
-//     coordinator.screenConstructorCallback();
-//   }
-
-// ignore_for_file: no_logic_in_create_state, library_private_types_in_public_api
+//     required this.agoraEngine,
+//   }) : super(key: key);
+//   final P2PPurposePhase1CoordinatorStore coordinator;
 
 //   @override
-//   Widget build(BuildContext context) {
-//     return LayoutBuilder(
-//       builder: ((context, constraints) => PlatformScaffold(
-//               body: Swipe(
-//             onSwipeUp: () {
-//               print("swipe up!!");
-//               coordinator.swipeUpCallback();
-//             },
-//             child: Stack(
-//               children: [
-//                 SizedBox(
-//                   width: MediaQuery.of(context).size.width,
-//                   height: MediaQuery.of(context).size.height,
-//                   child: SmartBeachWaves(
-//                     stateTrackerStore: coordinator.beachWaves,
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ))),
-//     );
-//     // });
-//   }
+//   _P2PPurpose1GreeterScreenState createState() =>
+//       _P2PPurpose1GreeterScreenState(
+//         coordinator: coordinator,
+//         agoraEngine: agoraEngine,
+//       );
 // }
-// ================================================================================
-import 'dart:async';
-import 'package:flutter/material.dart';
-// import 'package:permission_handler/permission_handler.dart';
 
-import 'package:agora_rtc_engine/agora_rtc_engine.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
-import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/main/coordinators/p2p_purpose_phase1_coordinator_store.dart';
+// class _P2PPurpose1GreeterScreenState extends State<P2PPurpose1GreeterScreen> {
+//   final P2PPurposePhase1CoordinatorStore coordinator;
+//   final RtcEngine agoraEngine;
 
-class P2PPurpose1GreeterScreen extends StatefulWidget {
-  final RtcEngine agoraEngine;
-  const P2PPurpose1GreeterScreen({
-    Key? key,
-    required this.coordinator,
-    required this.agoraEngine,
-  }) : super(key: key);
-  final P2PPurposePhase1CoordinatorStore coordinator;
+//   _P2PPurpose1GreeterScreenState({
+//     required this.coordinator,
+//     required this.agoraEngine,
+//   });
+//   String channelName = "80ea-fc0e";
 
-  @override
-  _P2PPurpose1GreeterScreenState createState() =>
-      _P2PPurpose1GreeterScreenState(
-        coordinator: coordinator,
-        agoraEngine: agoraEngine,
-      );
-}
+//   @override
+//   void initState() {
+//     super.initState();
 
-class _P2PPurpose1GreeterScreenState extends State<P2PPurpose1GreeterScreen> {
-  final P2PPurposePhase1CoordinatorStore coordinator;
-  final RtcEngine agoraEngine;
+//     // Set up an instance of Agora engine
+//     // setupVoiceSDKEngine();
 
-  _P2PPurpose1GreeterScreenState({
-    required this.coordinator,
-    required this.agoraEngine,
-  });
-  String channelName = "80ea-fc0e";
+//     Future.delayed(Duration(seconds: 0), () async {
+//       await coordinator.instantiateAgoraSdkStore(NoParams());
+//       await coordinator.fetchChannelIdStore(NoParams()).then((_) async {});
+//       await coordinator.fetchAgoraTokenStore(FetchAgoraTokenParams(
+//         channelName: channelName,
+//         // channelName: coordinator.fetchChannelIdStore.channelId,
+//       ));
+//       print(
+//           "DID IT WORK? channel id ==> ${coordinator.fetchChannelIdStore.channelId} \n token ===> ${coordinator.fetchAgoraTokenStore.token}");
+//     });
+//   }
 
-  @override
-  void initState() {
-    super.initState();
+//   String token =
+//       "007eJxTYEh4mbv/d2JDyd7Sf8a8LQLvDvepGSfeWX5eVFk0+OZeiY0KDAamBklGRklmFhZpJiYmZiZJRqbGxmmJySYWJsnmxgYGBrwfUxoCGRmEmB6yMjJAIIjPyWBhkJqom5ZskMrAAADb1R8/";
 
-    // Set up an instance of Agora engine
-    // setupVoiceSDKEngine();
+//   int uid = 8886465723192282204; // uid of the local user
 
-    Future.delayed(Duration(seconds: 0), () async {
-      await coordinator.instantiateAgoraSdkStore(NoParams());
-      await coordinator.fetchChannelIdStore(NoParams()).then((_) async {});
-      await coordinator.fetchAgoraTokenStore(FetchAgoraTokenParams(
-        channelName: channelName,
-        // channelName: coordinator.fetchChannelIdStore.channelId,
-      ));
-      print(
-          "DID IT WORK? channel id ==> ${coordinator.fetchChannelIdStore.channelId} \n token ===> ${coordinator.fetchAgoraTokenStore.token}");
-    });
-  }
+//   int? _remoteUid; // uid of the remote user
+//   bool _isJoined = false; // Indicates if the local user has joined the channel
+//   // late RtcEngine agoraEngine; // Agora engine instance
 
-  String token =
-      "007eJxTYEh4mbv/d2JDyd7Sf8a8LQLvDvepGSfeWX5eVFk0+OZeiY0KDAamBklGRklmFhZpJiYmZiZJRqbGxmmJySYWJsnmxgYGBrwfUxoCGRmEmB6yMjJAIIjPyWBhkJqom5ZskMrAAADb1R8/";
+//   final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
+//       GlobalKey<ScaffoldMessengerState>(); // Global key to access the scaffold
 
-  int uid = 8886465723192282204; // uid of the local user
-
-  int? _remoteUid; // uid of the remote user
-  bool _isJoined = false; // Indicates if the local user has joined the channel
-  // late RtcEngine agoraEngine; // Agora engine instance
-
-  final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
-      GlobalKey<ScaffoldMessengerState>(); // Global key to access the scaffold
-
-  // Clean up the resources when you leave
-  @override
-  void dispose() async {
-    await agoraEngine.leaveChannel();
-    super.dispose();
-  }
+//   // Clean up the resources when you leave
+//   @override
+//   void dispose() async {
+//     await agoraEngine.leaveChannel();
+//     super.dispose();
+//   }
 
   // void leave() {
   //   setState(() {
@@ -150,67 +149,67 @@ class _P2PPurpose1GreeterScreenState extends State<P2PPurpose1GreeterScreen> {
   // }
 
   // Build UI
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      scaffoldMessengerKey: scaffoldMessengerKey,
-      home: Scaffold(
-          appBar: AppBar(
-            title: const Text('Get started with Voice Calling'),
-          ),
-          body: ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            children: [
-              // Status text
-              Container(height: 40, child: Center(child: _status())),
-              // Button Row
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: ElevatedButton(
-                      child: const Text("Join"),
-                      onPressed: () => {
-                        coordinator.voiceCallActionsStore.joinCallGetterStore(
-                          channelId: coordinator.fetchChannelIdStore.channelId,
-                          token: coordinator.fetchAgoraTokenStore.token,
-                        ),
-                      },
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: ElevatedButton(
-                      child: const Text("Leave"),
-                      onPressed: () => {
-                        coordinator.voiceCallActionsStore
-                            .leaveCallGetterStore(),
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          )),
-    );
-  }
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       scaffoldMessengerKey: scaffoldMessengerKey,
+//       home: Scaffold(
+//           appBar: AppBar(
+//             title: const Text('Get started with Voice Calling'),
+//           ),
+//           body: ListView(
+//             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+//             children: [
+//               // Status text
+//               Container(height: 40, child: Center(child: _status())),
+//               // Button Row
+//               Row(
+//                 children: <Widget>[
+//                   Expanded(
+//                     child: ElevatedButton(
+//                       child: const Text("Join"),
+//                       onPressed: () => {
+//                         coordinator.voiceCallActionsStore.joinCallGetterStore(
+//                           channelId: coordinator.fetchChannelIdStore.channelId,
+//                           token: coordinator.fetchAgoraTokenStore.token,
+//                         ),
+//                       },
+//                     ),
+//                   ),
+//                   const SizedBox(width: 10),
+//                   Expanded(
+//                     child: ElevatedButton(
+//                       child: const Text("Leave"),
+//                       onPressed: () => {
+//                         coordinator.voiceCallActionsStore
+//                             .leaveCallGetterStore(),
+//                       },
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ],
+//           )),
+//     );
+//   }
 
-  Widget _status() {
-    String statusText;
+//   Widget _status() {
+//     String statusText;
 
-    if (!_isJoined)
-      statusText = 'Join a channel';
-    else if (_remoteUid == null)
-      statusText = 'Waiting for a remote user to join...';
-    else
-      statusText = 'Connected to remote user, uid:$_remoteUid';
+//     if (!_isJoined)
+//       statusText = 'Join a channel';
+//     else if (_remoteUid == null)
+//       statusText = 'Waiting for a remote user to join...';
+//     else
+//       statusText = 'Connected to remote user, uid:$_remoteUid';
 
-    return Text(
-      statusText,
-    );
-  }
+//     return Text(
+//       statusText,
+//     );
+//   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Placeholder();
-  // }
-}
+//   // @override
+//   // Widget build(BuildContext context) {
+//   //   return Placeholder();
+//   // }
+// }
