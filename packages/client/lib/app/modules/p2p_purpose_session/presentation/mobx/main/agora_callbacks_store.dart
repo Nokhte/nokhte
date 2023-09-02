@@ -13,10 +13,22 @@ abstract class _AgoraCallbacksStoreBase extends Equatable with Store {
   @observable
   CallStatus inCall = CallStatus.initial;
 
+  @observable
+  bool hasCollaboratorJoined = false;
+
   @action
   onCallJoined() {
-    print("holy shit the call was joined");
     inCall = CallStatus.joined;
+  }
+
+  @action
+  collaboratorHasJoined() {
+    hasCollaboratorJoined = true;
+  }
+
+  @action
+  collaboratorHasLeft() {
+    hasCollaboratorJoined = false;
   }
 
   @action

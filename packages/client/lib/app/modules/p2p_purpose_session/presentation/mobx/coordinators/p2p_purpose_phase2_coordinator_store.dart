@@ -13,13 +13,23 @@ class P2PPurposePhase2CoordinatorStore = _P2PPurposePhase2CoordinatorStoreBase
 
 abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
     with Store {
+  final AgoraCallbacksStore agoraCallbacksStore;
   final VoiceCallActionsStore voiceCallActionsStore;
   // widget stores
   final BeachWavesTrackerStore beachWaves;
   final SmartFadingAnimatedTextTrackerStore fadingText;
   final BreathingPentagonsStateTrackerStore breathingPentagons;
 
+  @action
+  screenConstructor() {}
+
+  /// make a reaction for on call joined to toggle
+  /// in both buttons & different text if they are
+  /// supposed to have the question first
+  /// and you will also need a remote source for that
+
   _P2PPurposePhase2CoordinatorStoreBase({
+    required this.agoraCallbacksStore,
     required this.voiceCallActionsStore,
     required this.beachWaves,
     required this.fadingText,

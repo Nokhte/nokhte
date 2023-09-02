@@ -81,7 +81,11 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
     //   ),
     // );
     // await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
-    Modular.to.navigate('/p2p_purpose_session/phase-2/');
+    // you then want to fade out the two texts
+    fadeInColorText.teeUpFadeOut();
+    fadingText.fadeTheTextOut();
+    Future.delayed(const Duration(seconds: 3),
+        () => Modular.to.navigate('/p2p_purpose_session/phase-2/'));
   }
 
   @override

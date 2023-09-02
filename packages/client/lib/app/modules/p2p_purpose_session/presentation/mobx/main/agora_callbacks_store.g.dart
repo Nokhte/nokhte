@@ -25,6 +25,23 @@ mixin _$AgoraCallbacksStore on _AgoraCallbacksStoreBase, Store {
     });
   }
 
+  late final _$hasCollaboratorJoinedAtom = Atom(
+      name: '_AgoraCallbacksStoreBase.hasCollaboratorJoined', context: context);
+
+  @override
+  bool get hasCollaboratorJoined {
+    _$hasCollaboratorJoinedAtom.reportRead();
+    return super.hasCollaboratorJoined;
+  }
+
+  @override
+  set hasCollaboratorJoined(bool value) {
+    _$hasCollaboratorJoinedAtom.reportWrite(value, super.hasCollaboratorJoined,
+        () {
+      super.hasCollaboratorJoined = value;
+    });
+  }
+
   late final _$_AgoraCallbacksStoreBaseActionController =
       ActionController(name: '_AgoraCallbacksStoreBase', context: context);
 
@@ -34,6 +51,28 @@ mixin _$AgoraCallbacksStore on _AgoraCallbacksStoreBase, Store {
         name: '_AgoraCallbacksStoreBase.onCallJoined');
     try {
       return super.onCallJoined();
+    } finally {
+      _$_AgoraCallbacksStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic collaboratorHasJoined() {
+    final _$actionInfo = _$_AgoraCallbacksStoreBaseActionController.startAction(
+        name: '_AgoraCallbacksStoreBase.collaboratorHasJoined');
+    try {
+      return super.collaboratorHasJoined();
+    } finally {
+      _$_AgoraCallbacksStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic collaboratorHasLeft() {
+    final _$actionInfo = _$_AgoraCallbacksStoreBaseActionController.startAction(
+        name: '_AgoraCallbacksStoreBase.collaboratorHasLeft');
+    try {
+      return super.collaboratorHasLeft();
     } finally {
       _$_AgoraCallbacksStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -53,7 +92,8 @@ mixin _$AgoraCallbacksStore on _AgoraCallbacksStoreBase, Store {
   @override
   String toString() {
     return '''
-inCall: ${inCall}
+inCall: ${inCall},
+hasCollaboratorJoined: ${hasCollaboratorJoined}
     ''';
   }
 }

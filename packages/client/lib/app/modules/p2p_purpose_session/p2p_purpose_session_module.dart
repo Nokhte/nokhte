@@ -1,7 +1,6 @@
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:primala/app/core/network/network_info.dart';
-import 'package:primala/app/core/widgets/fade_in_and_change_color_text/fade_in_and_change_color.dart';
 import 'package:primala/app/core/widgets/widget_constants.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/p2p_purpose_session/data/data.dart';
@@ -178,6 +177,7 @@ class P2PCollaboratorSessionModule extends Module {
               breathingPentagons:
                   Modular.get<BreathingPentagonsStateTrackerStore>(),
               voiceCallActionsStore: i<VoiceCallActionsStore>(),
+              agoraCallbacksStore: i<AgoraCallbacksStore>(),
             )),
         Bind.singleton<P2PPurposePhase3CoordinatorStore>(
           (i) => P2PPurposePhase3CoordinatorStore(
