@@ -191,7 +191,64 @@ void main() {
             .thenAnswer((realInvocation) async => false);
       });
       test("When offline should return an internet connection error", () async {
-        final res = await contractImpl.fetchAgoraToken(channelName: 'hi');
+        final res = await contractImpl.leaveCall();
+        expect(res, Left(FailureConstants.internetConnectionFailure));
+      });
+    });
+  });
+  group('Method No. 6:  `muteLocalAudioStream`', () {
+    group("is Online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected)
+            .thenAnswer((realInvocation) async => true);
+      });
+      test(
+          "when online & everything is valid should return a model w/ leaving status",
+          () async {
+        // arrange
+        when(mockRemoteSource.muteLocalAudioStream()).thenAnswer((_) async {});
+        // act
+        final res = await contractImpl.muteLocalAudioStream();
+        // assert
+        expect(res, ConstantLocalAudioStreamStatusModel.wrappedMutedCase);
+      });
+    });
+    group("is not online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected)
+            .thenAnswer((realInvocation) async => false);
+      });
+      test("When offline should return an internet connection error", () async {
+        final res = await contractImpl.muteLocalAudioStream();
+        expect(res, Left(FailureConstants.internetConnectionFailure));
+      });
+    });
+  });
+  group('Method No. 7:  `unmuteLocalAudioStream`', () {
+    group("is Online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected)
+            .thenAnswer((realInvocation) async => true);
+      });
+      test(
+          "when online & everything is valid should return a model w/ leaving status",
+          () async {
+        // arrange
+        when(mockRemoteSource.unmuteLocalAudioStream())
+            .thenAnswer((_) async {});
+        // act
+        final res = await contractImpl.unmuteLocalAudioStream();
+        // assert
+        expect(res, ConstantLocalAudioStreamStatusModel.wrappedUnmutedCase);
+      });
+    });
+    group("is not online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected)
+            .thenAnswer((realInvocation) async => false);
+      });
+      test("When offline should return an internet connection error", () async {
+        final res = await contractImpl.unmuteLocalAudioStream();
         expect(res, Left(FailureConstants.internetConnectionFailure));
       });
     });
