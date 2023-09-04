@@ -191,9 +191,9 @@ class MockMP2PPurposeSessionRemoteSourceImpl extends _i1.Mock
         returnValueForMissingStub: _i9.Future<void>.value(),
       ) as _i9.Future<void>);
   @override
-  _i9.Future<List<dynamic>> fetchChannelId() => (super.noSuchMethod(
+  _i9.Future<List<dynamic>> fetchCollaboratorInfo() => (super.noSuchMethod(
         Invocation.method(
-          #fetchChannelId,
+          #fetchCollaboratorInfo,
           [],
         ),
         returnValue: _i9.Future<List<dynamic>>.value(<dynamic>[]),
@@ -359,6 +359,25 @@ class MockMP2PPurposeSessionContract extends _i1.Mock
             )),
           ) as _i9.Future<
               _i6.Either<_i10.Failure, _i7.LocalAudioStreamStatusEntity>>);
+  @override
+  _i9.Future<_i6.Either<_i10.Failure, _i7.WhoGetsTheQuestionEntity>>
+      checkIfUserHasTheQuestion() => (super.noSuchMethod(
+            Invocation.method(
+              #checkIfUserHasTheQuestion,
+              [],
+            ),
+            returnValue: _i9.Future<
+                    _i6.Either<_i10.Failure,
+                        _i7.WhoGetsTheQuestionEntity>>.value(
+                _FakeEither_4<_i10.Failure, _i7.WhoGetsTheQuestionEntity>(
+              this,
+              Invocation.method(
+                #checkIfUserHasTheQuestion,
+                [],
+              ),
+            )),
+          ) as _i9
+              .Future<_i6.Either<_i10.Failure, _i7.WhoGetsTheQuestionEntity>>);
 }
 
 /// A class which mocks [MFetchAgoraToken].

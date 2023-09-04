@@ -21,12 +21,9 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
   final BreathingPentagonsStateTrackerStore breathingPentagons;
 
   @action
-  screenConstructor() {}
-
-  /// make a reaction for on call joined to toggle
-  /// in both buttons & different text if they are
-  /// supposed to have the question first
-  /// and you will also need a remote source for that
+  screenConstructor() {
+    beachWaves.initiateSuspendedAtTheDepths();
+  }
 
   _P2PPurposePhase2CoordinatorStoreBase({
     required this.agoraCallbacksStore,
@@ -36,8 +33,16 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
     required this.breathingPentagons,
   });
 
+  @action
+  breathingPentagonsHoldStartCallback() {
+    ///
+  }
+
+  @action
+  breathingPentagonsHoldEndCallback() {
+    ///
+  }
+
   @override
-  List<Object> get props => [
-// some items
-      ];
+  List<Object> get props => [];
 }

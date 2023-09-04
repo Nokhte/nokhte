@@ -28,6 +28,34 @@ mixin _$P2PPurposePhase2CoordinatorStore
   }
 
   @override
+  dynamic breathingPentagonsHoldStartCallback() {
+    final _$actionInfo =
+        _$_P2PPurposePhase2CoordinatorStoreBaseActionController.startAction(
+            name:
+                '_P2PPurposePhase2CoordinatorStoreBase.breathingPentagonsHoldStartCallback');
+    try {
+      return super.breathingPentagonsHoldStartCallback();
+    } finally {
+      _$_P2PPurposePhase2CoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic breathingPentagonsHoldEndCallback() {
+    final _$actionInfo =
+        _$_P2PPurposePhase2CoordinatorStoreBaseActionController.startAction(
+            name:
+                '_P2PPurposePhase2CoordinatorStoreBase.breathingPentagonsHoldEndCallback');
+    try {
+      return super.breathingPentagonsHoldEndCallback();
+    } finally {
+      _$_P2PPurposePhase2CoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 

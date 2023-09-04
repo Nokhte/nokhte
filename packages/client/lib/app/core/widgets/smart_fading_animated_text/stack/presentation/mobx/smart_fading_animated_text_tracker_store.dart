@@ -182,7 +182,7 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
   }
 
   @action
-  togglePause({required Gestures gestureType}) async {
+  togglePause({Gestures gestureType = Gestures.none}) async {
     if (gestureType == currentUnlockGesture || gestureType == Gestures.none) {
       isPaused = !isPaused;
       if (isPaused == false) {

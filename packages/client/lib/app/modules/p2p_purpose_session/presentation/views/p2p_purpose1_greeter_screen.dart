@@ -18,20 +18,7 @@ class P2PPurpose1GreeterScreen extends StatelessWidget {
     return LayoutBuilder(
       builder: ((context, constraints) => PlatformScaffold(
               body: Swipe(
-            // onSwipeLeft: () {
-            //   print('swipe left unmute callback');
-            //   coordinator.unmuteCallback();
-            // },
-            // onSwipeRight: () {
-            //   print('swipe right mute callback');
-            //   coordinator.muteCallback();
-            // },
-            onSwipeUp: () async {
-              coordinator.swipeUpCallback();
-            },
-            // onSwipeDown: () async {
-            //   await coordinator.swipeDownCallback();
-            // },
+            onSwipeUp: () async => coordinator.swipeUpCallback(),
             child: Stack(
               children: [
                 SizedBox(

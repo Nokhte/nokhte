@@ -32,6 +32,7 @@ void main() {
     await supabaseAdmin.from('existing_collaborations').insert({
       "collaborator_one": firstUserUID,
       "collaborator_two": secondUserUID,
+      "who_gets_the_question": 1,
     });
 
     /// act
@@ -42,6 +43,7 @@ void main() {
     expect(res, isNotEmpty);
     expect(res[0]["collaborator_one"], firstUserUID);
     expect(res[0]["collaborator_two"], secondUserUID);
+    expect(res[0]["who_gets_the_question"], 1);
   });
 
   test(
@@ -51,6 +53,7 @@ void main() {
     await supabaseAdmin.from('existing_collaborations').insert({
       "collaborator_one": secondUserUID,
       "collaborator_two": firstUserUID,
+      "who_gets_the_question": 2,
     });
     await SignIn.user1(supabase: supabase);
 
@@ -62,5 +65,6 @@ void main() {
     expect(res, isNotEmpty);
     expect(res[0]["collaborator_one"], secondUserUID);
     expect(res[0]["collaborator_two"], firstUserUID);
+    expect(res[0]["who_gets_the_question"], 2);
   });
 }

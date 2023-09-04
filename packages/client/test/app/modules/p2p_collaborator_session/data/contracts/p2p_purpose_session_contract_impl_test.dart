@@ -72,7 +72,7 @@ void main() {
       test("when online & collaboration exists should return the proper model",
           () async {
         // arrange
-        when(mockRemoteSource.fetchChannelId()).thenAnswer(
+        when(mockRemoteSource.fetchCollaboratorInfo()).thenAnswer(
           (realInvocation) async => ExistingCollaboratorsTable.response,
         );
         // act
@@ -85,7 +85,7 @@ void main() {
           "when online and collaboration doesn't exist should return empty model",
           () async {
         // arrange
-        when(mockRemoteSource.fetchChannelId())
+        when(mockRemoteSource.fetchCollaboratorInfo())
             .thenAnswer((realInvocation) async => []);
         // act
         final res = await contractImpl.fetchChannelId();
@@ -249,6 +249,47 @@ void main() {
       });
       test("When offline should return an internet connection error", () async {
         final res = await contractImpl.unmuteLocalAudioStream();
+        expect(res, Left(FailureConstants.internetConnectionFailure));
+      });
+    });
+  });
+  group('Method No. 8:  `checkifUserHasTheQuestion`', () {
+    group("is Online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected)
+            .thenAnswer((realInvocation) async => true);
+      });
+      test(
+          "when online & everything is valid should return a model w/ proper state",
+          () async {
+        // arrange
+        when(mockRemoteSource.fetchCollaboratorInfo()).thenAnswer(
+          (_) async => ExistingCollaboratorsTable.response,
+        );
+        // act
+        final res = await contractImpl.checkIfUserHasTheQuestion();
+        // assert
+        expect(res, ConstantWhoGetsTheQuestionModel.wrappedHasItCase);
+      });
+      test(
+          "when online & everything is in-valid should return a model w/ proper state",
+          () async {
+        // arrange
+        when(mockRemoteSource.fetchCollaboratorInfo())
+            .thenAnswer((_) async => []);
+        // act
+        final res = await contractImpl.checkIfUserHasTheQuestion();
+        // assert
+        expect(res, ConstantWhoGetsTheQuestionModel.wrappedDoesNotHaveItCase);
+      });
+    });
+    group("is not online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected)
+            .thenAnswer((realInvocation) async => false);
+      });
+      test("When offline should return an internet connection error", () async {
+        final res = await contractImpl.checkIfUserHasTheQuestion();
         expect(res, Left(FailureConstants.internetConnectionFailure));
       });
     });

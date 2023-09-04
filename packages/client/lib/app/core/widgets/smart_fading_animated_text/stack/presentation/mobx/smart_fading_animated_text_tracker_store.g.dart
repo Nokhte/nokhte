@@ -252,7 +252,7 @@ mixin _$SmartFadingAnimatedTextTrackerStore
       context: context);
 
   @override
-  Future togglePause({required Gestures gestureType}) {
+  Future togglePause({Gestures gestureType = Gestures.none}) {
     return _$togglePauseAsyncAction
         .run(() => super.togglePause(gestureType: gestureType));
   }

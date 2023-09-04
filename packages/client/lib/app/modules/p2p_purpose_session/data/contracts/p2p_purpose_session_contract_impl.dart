@@ -30,7 +30,7 @@ class P2PPurposeSessionContractImpl implements P2PPurposeSessionContract {
   Future<Either<Failure, ChannelIdEntity>> fetchChannelId() async {
     //
     if (await networkInfo.isConnected) {
-      final res = await remoteSource.fetchChannelId();
+      final res = await remoteSource.fetchCollaboratorInfo();
       return Right(ChannelIdModel.fromSupabase(res));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
@@ -88,6 +88,19 @@ class P2PPurposeSessionContractImpl implements P2PPurposeSessionContract {
     if (await networkInfo.isConnected) {
       await remoteSource.unmuteLocalAudioStream();
       return const Right(LocalAudioStreamStatusModel(isMuted: false));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, WhoGetsTheQuestionModel>>
+      checkIfUserHasTheQuestion() async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.fetchCollaboratorInfo();
+      return Right(
+        WhoGetsTheQuestionModel.fromSupabase(res),
+      );
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }

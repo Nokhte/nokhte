@@ -25,7 +25,9 @@ abstract class P2PPurposeSessionRemoteSource {
   Future unmuteLocalAudioStream();
 
   /// needs logic & status entity
-  Future<List<dynamic>> fetchChannelId();
+  // Future<List<dynamic>> fetchChannelId();
+  Future<List<dynamic>> fetchCollaboratorInfo();
+  // Future<List> fetchWhoGetsQuestion();
 }
 
 class P2PPurposeSessionRemoteSourceImpl
@@ -49,8 +51,8 @@ class P2PPurposeSessionRemoteSourceImpl
   Future<Response> fetchAgoraToken({
     required String channelName,
   }) async {
-    print(
-        "\n \n \n \n username ${MiscAlgos.postgresUIDToInt(currentUserUID)} ${channelName} From RS");
+    // print(
+    //     "\n \n \n \n username ${MiscAlgos.postgresUIDToInt(currentUserUID)} ${channelName} From RS");
     return await TokenServer.fetchAgoraToken(
       currentUserUID: currentAgoraUID,
       channelName: channelName,
@@ -95,11 +97,14 @@ class P2PPurposeSessionRemoteSourceImpl
   }
 
   @override
-  Future<List> fetchChannelId() async {
-    return await ExistingCollaborationsQueries.fetchCollaborationInfo(
-      supabase: supabase,
-      currentUserUID: currentUserUID,
-    );
+  Future<List> fetchCollaboratorInfo() async {
+    return [
+      await ExistingCollaborationsQueries.fetchCollaborationInfo(
+        supabase: supabase,
+        currentUserUID: currentUserUID,
+      ),
+      currentUserUID
+    ];
   }
 
   @override
@@ -111,6 +116,4 @@ class P2PPurposeSessionRemoteSourceImpl
   Future unmuteLocalAudioStream() async {
     return await agoraEngine.muteLocalAudioStream(false);
   }
-
-  ///! add entities & models from here once everything is working
 }
