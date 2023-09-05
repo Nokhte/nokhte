@@ -10,6 +10,9 @@ class MP2PPurposeSessionRemoteSourceImpl extends Mock
 class MP2PPurposeSessionContract extends Mock
     implements P2PPurposeSessionContract {}
 
+class MCheckIfUserHasTheQuestion extends Mock
+    implements CheckIfUserHasTheQuestion {}
+
 class MFetchAgoraToken extends Mock implements FetchAgoraToken {}
 
 class MFetchChannelId extends Mock implements FetchChannelId {}
@@ -27,6 +30,7 @@ class MUnmuteLocalAudioStream extends Mock implements UnmuteLocalAudioStream {}
 @GenerateMocks([
   MP2PPurposeSessionRemoteSourceImpl,
   MP2PPurposeSessionContract,
+  MCheckIfUserHasTheQuestion,
   MFetchAgoraToken,
   MFetchChannelId,
   MInstantiateAgoraSdk,

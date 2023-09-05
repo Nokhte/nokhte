@@ -380,6 +380,43 @@ class MockMP2PPurposeSessionContract extends _i1.Mock
               .Future<_i6.Either<_i10.Failure, _i7.WhoGetsTheQuestionEntity>>);
 }
 
+/// A class which mocks [MCheckIfUserHasTheQuestion].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMCheckIfUserHasTheQuestion extends _i1.Mock
+    implements _i8.MCheckIfUserHasTheQuestion {
+  MockMCheckIfUserHasTheQuestion() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.P2PPurposeSessionContract get contract => (super.noSuchMethod(
+        Invocation.getter(#contract),
+        returnValue: _FakeP2PPurposeSessionContract_5(
+          this,
+          Invocation.getter(#contract),
+        ),
+      ) as _i7.P2PPurposeSessionContract);
+  @override
+  _i9.Future<_i6.Either<_i10.Failure, _i7.WhoGetsTheQuestionEntity>> call(
+          _i11.NoParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i9.Future<
+                _i6.Either<_i10.Failure, _i7.WhoGetsTheQuestionEntity>>.value(
+            _FakeEither_4<_i10.Failure, _i7.WhoGetsTheQuestionEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i9.Future<_i6.Either<_i10.Failure, _i7.WhoGetsTheQuestionEntity>>);
+}
+
 /// A class which mocks [MFetchAgoraToken].
 ///
 /// See the documentation for Mockito's code generation for more information.

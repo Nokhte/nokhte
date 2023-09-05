@@ -39,4 +39,7 @@ class DefaultEntities {
   static Either<Failure, AgoraSdkStatusEntity>
       get defaultAgoraSdkStatusEntity =>
           const Right(AgoraSdkStatusEntity(isInstantiated: false));
+  static Either<Failure, WhoGetsTheQuestionEntity>
+      get defaultWhoGetsQuestionEntity =>
+          const Right(WhoGetsTheQuestionEntity(hasIt: false));
 }

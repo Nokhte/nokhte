@@ -5,8 +5,7 @@ import 'package:primala/app/core/widgets/widget_constants.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/p2p_purpose_session/data/data.dart';
 import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
-import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/getters/mute_local_audio_stream_getter_store.dart';
-import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/getters/unmute_local_audio_stream_getter_store.dart';
+import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/main/check_if_user_has_the_question_store.dart';
 import 'package:primala/app/modules/p2p_purpose_session/presentation/presentation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -40,6 +39,11 @@ class P2PCollaboratorSessionModule extends Module {
           ),
         ),
         // & Logic
+        Bind.singleton<CheckIfUserHasTheQuestion>(
+          (i) => CheckIfUserHasTheQuestion(
+            contract: i<P2PPurposeSessionContract>(),
+          ),
+        ),
         Bind.singleton<FetchAgoraToken>(
           (i) => FetchAgoraToken(
             contract: i<P2PPurposeSessionContract>(),
@@ -76,6 +80,11 @@ class P2PCollaboratorSessionModule extends Module {
           ),
         ),
         // & MobX Getter Stores
+        Bind.singleton<CheckIfUserHasTheQuestionGetterStore>(
+          (i) => CheckIfUserHasTheQuestionGetterStore(
+            logic: i<CheckIfUserHasTheQuestion>(),
+          ),
+        ),
         Bind.singleton<FetchAgoraTokenGetterStore>(
           (i) => FetchAgoraTokenGetterStore(
             logic: i<FetchAgoraToken>(),
@@ -111,7 +120,12 @@ class P2PCollaboratorSessionModule extends Module {
             logic: i<UnmuteLocalAudioStream>(),
           ),
         ),
-        // & Mobx Sub Stores
+        // & Mobx Logic Stores
+        Bind.singleton<CheckIfUserHasTheQuestionStore>(
+          (i) => CheckIfUserHasTheQuestionStore(
+            getterStore: i<CheckIfUserHasTheQuestionGetterStore>(),
+          ),
+        ),
         Bind.singleton<FetchAgoraTokenStore>(
           (i) => FetchAgoraTokenStore(
             getterStore: i<FetchAgoraTokenGetterStore>(),
@@ -178,6 +192,8 @@ class P2PCollaboratorSessionModule extends Module {
                   Modular.get<BreathingPentagonsStateTrackerStore>(),
               voiceCallActionsStore: i<VoiceCallActionsStore>(),
               agoraCallbacksStore: i<AgoraCallbacksStore>(),
+              checkIfUserHasTheQuestionStore:
+                  i<CheckIfUserHasTheQuestionStore>(),
             )),
         Bind.singleton<P2PPurposePhase3CoordinatorStore>(
           (i) => P2PPurposePhase3CoordinatorStore(
