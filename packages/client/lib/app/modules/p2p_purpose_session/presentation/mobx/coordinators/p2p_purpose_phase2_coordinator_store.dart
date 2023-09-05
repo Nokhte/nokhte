@@ -58,12 +58,15 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
 
   @action
   breathingPentagonsHoldStartCallback() {
-    ///
+    /// TODO comment out for production
+    // voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);
+    breathingPentagons.gestureFunctionRouter();
   }
 
   @action
   breathingPentagonsHoldEndCallback() {
-    ///
+    // voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
+    breathingPentagons.gestureFunctionRouter();
   }
 
   @override
