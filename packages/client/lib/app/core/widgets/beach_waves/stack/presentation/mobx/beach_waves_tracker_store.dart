@@ -36,11 +36,11 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   @observable
   Control control = Control.mirror;
 
-  @observable
   int oceanDiveCount = 0;
 
-  @observable
   int backToTheDepthsCount = 0;
+
+  int timesUpCount = 0;
 
   @action
   teeUpOceanDive() {
@@ -79,40 +79,74 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   }
 
   @action
-  initiateTimesUp({required Duration timerLength}) {
+  initiateTimesUp({
+    required Duration timerLength,
+    required MovieModes pMovieMode,
+  }) {
     movie = TimesUp.getMovie(
       timerLength: timerLength,
     );
     control = Control.playFromStart;
     movieStatus = MovieStatus.inProgress;
-    movieMode = MovieModes.timesUp;
+    movieMode = pMovieMode;
   }
 
+  /// I think the best way to do is probably to parameterize it
+  /// ??
   @action
   onBeachWavesAnimationCompletion() {
-    if (movieMode == MovieModes.backToShore) {
-      Modular.to.navigate('/home/');
-    } else if (movieMode == MovieModes.oceanDive) {
-      oceanDiveCount != 0
-          ? Modular.to.navigate('/p2p_collaborator_pool/')
-          : oceanDiveCount++;
-    } else if (movieMode == MovieModes.toTheDepths) {
-      Modular.to.navigate('/p2p_collaborator_pool/pool/');
-      // movieStatus = MovieStatus.idle;
-    } else if (movieMode == MovieModes.timesUp) {
-      initiateBackToOceanDive();
+    switch (movieMode) {
+      case MovieModes.backToShore:
+        Modular.to.navigate('/home/');
+        break;
+      case MovieModes.oceanDive:
+        oceanDiveCount != 0
+            ? Modular.to.navigate('/p2p_collaborator_pool/')
+            : oceanDiveCount++;
+        break;
+      case MovieModes.toTheDepths:
+        Modular.to.navigate('/p2p_collaborator_pool/pool/');
+        break;
+      case MovieModes.collaboratorPoolTimesUp:
+        initiateBackToOceanDive();
+        break;
+      case MovieModes.backToOceanDive:
+        Modular.to.navigate(
+          '/p2p_collaborator_pool/',
+        );
+        break;
+      case MovieModes.backToTheDepths:
+        backToTheDepthsCount != 0
+            ? Modular.to.navigate('/p2p_purpose_session/')
+            : backToTheDepthsCount++;
+        break;
+      case MovieModes.purposeCallTimesUp:
+        timesUpCount != 0 ? teeUpBackToTheDepths() : timesUpCount++;
+
       // initiateBackToTheDepths();
-    } else if (movieMode == MovieModes.backToOceanDive) {
-      Modular.to.navigate(
-        '/p2p_collaborator_pool/',
-      );
-    } else if (movieMode == MovieModes.backToTheDepths) {
-      backToTheDepthsCount != 0
-          ? Modular.to.navigate('/p2p_purpose_session/')
-          : backToTheDepthsCount++;
-      // from timer to session
-      // initiateBackToTheDepths();
+
+      default:
+        break;
     }
+    // if (movieMode == MovieModes.backToShore) {
+    //   Modular.to.navigate('/home/');
+    // } else if (movieMode == MovieModes.oceanDive) {
+    //   oceanDiveCount != 0
+    //       ? Modular.to.navigate('/p2p_collaborator_pool/')
+    //       : oceanDiveCount++;
+    // } else if (movieMode == MovieModes.toTheDepths) {
+    //   Modular.to.navigate('/p2p_collaborator_pool/pool/');
+    // } else if (movieMode == MovieModes.collaboratorPoolTimesUp) {
+    //   initiateBackToOceanDive();
+    // } else if (movieMode == MovieModes.backToOceanDive) {
+    //   Modular.to.navigate(
+    //     '/p2p_collaborator_pool/',
+    //   );
+    // } else if (movieMode == MovieModes.backToTheDepths) {
+    //   backToTheDepthsCount != 0
+    //       ? Modular.to.navigate('/p2p_purpose_session/')
+    //       : backToTheDepthsCount++;
+    // }
   }
 
   @action

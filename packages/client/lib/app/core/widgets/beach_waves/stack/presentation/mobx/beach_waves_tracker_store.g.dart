@@ -123,40 +123,6 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
     });
   }
 
-  late final _$oceanDiveCountAtom = Atom(
-      name: '_BeachWavesTrackerStoreBase.oceanDiveCount', context: context);
-
-  @override
-  int get oceanDiveCount {
-    _$oceanDiveCountAtom.reportRead();
-    return super.oceanDiveCount;
-  }
-
-  @override
-  set oceanDiveCount(int value) {
-    _$oceanDiveCountAtom.reportWrite(value, super.oceanDiveCount, () {
-      super.oceanDiveCount = value;
-    });
-  }
-
-  late final _$backToTheDepthsCountAtom = Atom(
-      name: '_BeachWavesTrackerStoreBase.backToTheDepthsCount',
-      context: context);
-
-  @override
-  int get backToTheDepthsCount {
-    _$backToTheDepthsCountAtom.reportRead();
-    return super.backToTheDepthsCount;
-  }
-
-  @override
-  set backToTheDepthsCount(int value) {
-    _$backToTheDepthsCountAtom.reportWrite(value, super.backToTheDepthsCount,
-        () {
-      super.backToTheDepthsCount = value;
-    });
-  }
-
   late final _$_BeachWavesTrackerStoreBaseActionController =
       ActionController(name: '_BeachWavesTrackerStoreBase', context: context);
 
@@ -218,11 +184,13 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
   }
 
   @override
-  dynamic initiateTimesUp({required Duration timerLength}) {
+  dynamic initiateTimesUp(
+      {required Duration timerLength, required MovieModes pMovieMode}) {
     final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
         .startAction(name: '_BeachWavesTrackerStoreBase.initiateTimesUp');
     try {
-      return super.initiateTimesUp(timerLength: timerLength);
+      return super
+          .initiateTimesUp(timerLength: timerLength, pMovieMode: pMovieMode);
     } finally {
       _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -348,9 +316,7 @@ pivotColorGradients: ${pivotColorGradients},
 movieStatus: ${movieStatus},
 passingParam: ${passingParam},
 movieMode: ${movieMode},
-control: ${control},
-oceanDiveCount: ${oceanDiveCount},
-backToTheDepthsCount: ${backToTheDepthsCount}
+control: ${control}
     ''';
   }
 }

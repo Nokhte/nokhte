@@ -41,7 +41,9 @@ class P2PCollaboratorPoolRemoteSourceImpl
 
   @override
   Future<bool> initiateSpeechToText() async {
-    return await speechToText.initialize();
+    return await speechToText.initialize(
+      onError: (errorNotification) => print("ERROR $errorNotification"),
+    );
   }
 
   @override

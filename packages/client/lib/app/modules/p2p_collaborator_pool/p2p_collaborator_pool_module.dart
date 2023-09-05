@@ -38,7 +38,7 @@ class P2PCollaboratorPoolModule extends Module {
           (i) => P2PCollaboratorPoolRemoteSourceImpl(
             existingCollaborationsStream: ExistingCollaborationsStream(),
             onSpeechResult: i<OnSpeechResult>(),
-            speechToText: i<SpeechToText>(),
+            speechToText: Modular.get<SpeechToText>(),
             supabase: Modular.get<SupabaseClient>(),
           ),
         ),

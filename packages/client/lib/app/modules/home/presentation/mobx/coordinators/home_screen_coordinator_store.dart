@@ -45,7 +45,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
 
   // homeScreenSwipeUpCallback() {
   //   if (!fadingTextStateTrackerStore.isPaused) {
-  //     fadingTextStateTrackerStore.togglePause(gestureType: Gestures.none);
+  //     fadingTextStateTrackerStore.togglePause();
   //   }
   //   fadingTextStateTrackerStore.currentMainText = "";
   //   fadingTextStateTrackerStore.currentSubText = "";

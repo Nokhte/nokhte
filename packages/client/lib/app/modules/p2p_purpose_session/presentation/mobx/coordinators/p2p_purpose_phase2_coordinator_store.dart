@@ -42,6 +42,10 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
       print(
           "2 ${fadingText.currentIndex} ${fadingText.currentMainMessageFont}");
       fadingText.togglePause();
+      beachWaves.initiateTimesUp(
+        timerLength: const Duration(minutes: 5),
+        pMovieMode: MovieModes.purposeCallTimesUp,
+      );
     });
 
     /// should it happen here probably, right?

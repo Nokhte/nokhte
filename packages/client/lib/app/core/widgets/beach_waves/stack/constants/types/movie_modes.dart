@@ -7,6 +7,7 @@ enum MovieModes {
   suspendedAtSea,
   backToShore,
   toTheDepths,
-  timesUp,
+  collaboratorPoolTimesUp,
+  purposeCallTimesUp,
   backToTheDepths,
 }
