@@ -9,5 +9,6 @@ enum MovieModes {
   toTheDepths,
   collaboratorPoolTimesUp,
   purposeCallTimesUp,
-  backToTheDepths,
+  enterThePurposeSessionDepths,
+  enterPhase3Depths,
 }

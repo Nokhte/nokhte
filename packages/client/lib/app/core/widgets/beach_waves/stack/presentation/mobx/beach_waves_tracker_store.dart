@@ -115,10 +115,13 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
           '/p2p_collaborator_pool/',
         );
         break;
-      case MovieModes.backToTheDepths:
+      case MovieModes.enterThePurposeSessionDepths:
         backToTheDepthsCount != 0
             ? Modular.to.navigate('/p2p_purpose_session/')
             : backToTheDepthsCount++;
+        break;
+      case MovieModes.enterPhase3Depths:
+        Modular.to.navigate('/p2p_purpose_session/phase-3/');
         break;
       case MovieModes.purposeCallTimesUp:
         timesUpCount != 0 ? teeUpBackToTheDepths() : timesUpCount++;
@@ -184,7 +187,9 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   }
 
   @action
-  teeUpBackToTheDepthsValues({required List<Color> colorGradientsList}) {
+  teeUpBackToTheDepthsValues({
+    required List<Color> colorGradientsList,
+  }) {
     pivotColorGradients = colorGradientsList;
     initiateBackToTheDepths();
   }
@@ -203,7 +208,10 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
     );
     control = Control.playFromStart;
     movieStatus = MovieStatus.inProgress;
-    movieMode = MovieModes.backToTheDepths;
+    movieMode = movieMode == MovieModes.enterThePurposeSessionDepths
+        ? MovieModes.enterThePurposeSessionDepths
+        : MovieModes.enterPhase3Depths;
+    // movieMode = MovieModes.backToTheDepths;
   }
 
   @action
