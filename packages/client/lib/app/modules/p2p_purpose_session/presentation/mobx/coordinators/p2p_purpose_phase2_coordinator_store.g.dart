@@ -10,22 +10,18 @@ part of 'p2p_purpose_phase2_coordinator_store.dart';
 
 mixin _$P2PPurposePhase2CoordinatorStore
     on _P2PPurposePhase2CoordinatorStoreBase, Store {
+  late final _$screenConstructorAsyncAction = AsyncAction(
+      '_P2PPurposePhase2CoordinatorStoreBase.screenConstructor',
+      context: context);
+
+  @override
+  Future screenConstructor() {
+    return _$screenConstructorAsyncAction.run(() => super.screenConstructor());
+  }
+
   late final _$_P2PPurposePhase2CoordinatorStoreBaseActionController =
       ActionController(
           name: '_P2PPurposePhase2CoordinatorStoreBase', context: context);
-
-  @override
-  dynamic screenConstructor() {
-    final _$actionInfo =
-        _$_P2PPurposePhase2CoordinatorStoreBaseActionController.startAction(
-            name: '_P2PPurposePhase2CoordinatorStoreBase.screenConstructor');
-    try {
-      return super.screenConstructor();
-    } finally {
-      _$_P2PPurposePhase2CoordinatorStoreBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
 
   @override
   dynamic breathingPentagonsHoldStartCallback() {

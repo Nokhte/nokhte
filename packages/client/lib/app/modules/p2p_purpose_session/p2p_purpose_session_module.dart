@@ -156,7 +156,7 @@ class P2PCollaboratorSessionModule extends Module {
         Bind.factory<BreathingPentagonsStateTrackerStore>(
           (i) => BreathingPentagonsStateTrackerStore(),
         ),
-        Bind.factory<SmartFadingAnimatedTextTrackerStore>(
+        Bind.singleton<SmartFadingAnimatedTextTrackerStore>(
           (i) => SmartFadingAnimatedTextTrackerStore(
             isInfinite: false,
             messagesData: MessagesData.p2pPurposeSession,
@@ -177,24 +177,23 @@ class P2PCollaboratorSessionModule extends Module {
           (i) => P2PPurposePhase1CoordinatorStore(
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
             fadeInColorText: Modular.get<FadeInAndChangeColorTextStore>(),
-            fadingText: Modular.get<SmartFadingAnimatedTextTrackerStore>(),
+            fadingText: i<SmartFadingAnimatedTextTrackerStore>(),
             instantiateAgoraSdkStore: i<InstantiateAgoraSdkStore>(),
             fetchAgoraTokenStore: i<FetchAgoraTokenStore>(),
             fetchChannelIdStore: i<FetchChannelIdStore>(),
             voiceCallActionsStore: i<VoiceCallActionsStore>(),
           ),
         ),
-        Bind.singleton<P2PPurposePhase2CoordinatorStore>((i) =>
-            P2PPurposePhase2CoordinatorStore(
-              beachWaves: Modular.get<BeachWavesTrackerStore>(),
-              fadingText: Modular.get<SmartFadingAnimatedTextTrackerStore>(),
-              breathingPentagons:
-                  Modular.get<BreathingPentagonsStateTrackerStore>(),
-              voiceCallActionsStore: i<VoiceCallActionsStore>(),
-              agoraCallbacksStore: i<AgoraCallbacksStore>(),
-              checkIfUserHasTheQuestionStore:
-                  i<CheckIfUserHasTheQuestionStore>(),
-            )),
+        Bind.singleton<P2PPurposePhase2CoordinatorStore>(
+            (i) => P2PPurposePhase2CoordinatorStore(
+                  beachWaves: Modular.get<BeachWavesTrackerStore>(),
+                  fadingText: i<SmartFadingAnimatedTextTrackerStore>(),
+                  breathingPentagons:
+                      Modular.get<BreathingPentagonsStateTrackerStore>(),
+                  voiceCallActionsStore: i<VoiceCallActionsStore>(),
+                  agoraCallbacksStore: i<AgoraCallbacksStore>(),
+                  questionCheckerStore: i<CheckIfUserHasTheQuestionStore>(),
+                )),
         Bind.singleton<P2PPurposePhase3CoordinatorStore>(
           (i) => P2PPurposePhase3CoordinatorStore(
             beachWaves: Modular.get<BeachWavesTrackerStore>(),

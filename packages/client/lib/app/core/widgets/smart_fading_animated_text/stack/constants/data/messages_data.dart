@@ -71,7 +71,7 @@ class MessagesData {
             mainMessageFontSize: 40.0,
             subMessageFontSize: 25.0),
         RotatingTextData(
-            mainMessage: "What Could We Collectively Create?",
+            mainMessage: "?",
             subMessage: "",
             pauseHere: true,
             unlockGesture: Gestures.none,

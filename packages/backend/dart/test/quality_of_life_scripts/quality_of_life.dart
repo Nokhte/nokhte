@@ -64,6 +64,7 @@ void main() {
     await supabaseAdmin.from('existing_collaborations').insert({
       'collaborator_one': npcUserUID,
       'collaborator_two': realPersonUID,
+      'who_gets_the_question': 2,
     });
   });
 }
