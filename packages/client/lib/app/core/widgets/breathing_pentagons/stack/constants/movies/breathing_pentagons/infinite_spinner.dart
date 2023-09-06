@@ -1,19 +1,3 @@
-/// infinite_spinner.dart
-///
-/// Proofreading Information:
-/// - Proofreader: Sonny Vesali
-/// - Date: July 30th, 2023
-///
-/// Author: Sonny Vesali
-///
-/// The InfiniteSpinner class provides a static [MovieTween] called movie
-/// that represents the animation of an infinite spinner for the
-/// BreathingPentagonsButton widget.
-///
-/// This animation involves rotating the pentagons indefinitely, resting on the
-/// final color for the first six seconds, and then repeating the rotation for
-/// the subsequent duration.
-
 import 'package:flutter/material.dart';
 import 'package:primala/app/core/widgets/breathing_pentagons/stack/constants/pentagon_colors.dart';
 import 'package:simple_animations/simple_animations.dart';

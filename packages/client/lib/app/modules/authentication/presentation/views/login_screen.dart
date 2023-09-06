@@ -1,37 +1,3 @@
-/// new_login_screen.dart
-/// TODO: UPDATE DOCS IT'S OUTDATED
-///  Proofreading Information:
-///   - Proofreader: Sonny Vesali
-///   - Date: July 23rd 2023
-///
-/// Author: Sonny Vesali
-///
-/// This file defines the [NewLoginScreen] widget, which serves as a login
-/// screen that allows platform-specific sign-in with Apple for iOS devices and
-/// Google for Android devices. The login screen uses [Swipe] to initiate the
-/// authentication process when the user swipes up on the screen.
-///
-/// [NewLoginScreen] extends [StatefulWidget] and receives several stores and a
-/// Supabase client as constructor parameters. The stores include
-/// [AuthProviderStore], [AuthStateStore], and [AddNameToDatabaseStore], which
-/// handle authentication provider selection, authentication state management,
-/// and adding user information to the database, respectively.
-///
-/// The [NewLoginScreen] widget listens to the [authStateStore.authState]
-/// stream. If the stream data becomes true, indicating that the user is
-/// authenticated, it calls the [addNameToDatabaseStore.call(NoParams())]
-/// method and navigates to the home screen.
-///
-/// The UI of the [NewLoginScreen] contains two main components:
-///   1. A backdrop animation of water using the [WaterAnimation] widget, which
-///      as it sounds like, shows a water animation instead of ugly buttons.
-///   2. A text prompt appearing at the bottom of the screen, guiding the user
-///      to swipe up to log in with either Apple or Google, depending on the
-///      platform, Google For Android & Apple for iOS.
-///
-/// Note: The ignore_for_file directive is used to suppress warnings about logic
-/// being present in the createState method.
-
 // ignore_for_file: no_logic_in_create_state
 
 import 'package:flutter/foundation.dart';

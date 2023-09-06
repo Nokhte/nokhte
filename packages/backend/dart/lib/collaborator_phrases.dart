@@ -1,1 +1,1 @@
-export 'tables/collaborator_phrases/collaborator_phrase_queries.dart';
+export 'tables/collaborator_phrases/queries.dart';

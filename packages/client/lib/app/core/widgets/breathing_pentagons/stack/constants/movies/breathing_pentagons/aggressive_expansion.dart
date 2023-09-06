@@ -1,19 +1,5 @@
-/// aggressive_expansion.dart
 /// "Now our operation is small but there is a lot of potential for aggressive
 /// expansion."
-///
-/// Proofreading Information:
-/// - Proofreader: Sonny Vesali
-/// - Date: July 30th, 2023
-///
-/// Author: Sonny Vesali
-/// The [AggressiveExpansion] class defines the movie [MovieTween] for the
-/// BreathingPentagonsButton widget animation.
-///
-/// The animation consists of various scenes with specific [tween] properties,
-/// such as 'angle', 'scale', and different pentagon gradient colors. The
-/// animation transitions between expanding and rotating the pentagons.
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:primala/app/core/widgets/breathing_pentagons/stack/constants/pentagon_colors.dart';
