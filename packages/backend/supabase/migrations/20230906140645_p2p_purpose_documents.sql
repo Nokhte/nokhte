@@ -174,3 +174,23 @@ for update
 to authenticated
 using (true)
 with check (true);
+
+drop policy "Only Owners Can Update Row Information" on "public"."solo_p2p_purpose_documents";
+
+drop policy "Users Can Read Their Own Documents" on "public"."solo_p2p_purpose_documents";
+
+create policy "Only Owners Can Update Row Information"
+on "public"."solo_p2p_purpose_documents"
+as permissive
+for update
+to authenticated
+using ((auth.uid() = owner_uid))
+with check (true);
+
+
+create policy "Users Can Read Their Own Documents"
+on "public"."solo_p2p_purpose_documents"
+as permissive
+for select
+to authenticated
+using ((auth.uid() = owner_uid));
