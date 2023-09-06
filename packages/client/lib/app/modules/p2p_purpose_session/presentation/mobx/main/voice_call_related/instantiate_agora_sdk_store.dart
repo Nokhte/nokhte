@@ -8,28 +8,30 @@ import 'package:primala/app/core/mobx/base_future_store.dart';
 import 'package:primala/app/core/mobx/base_mobx_db_store.dart';
 import 'package:primala/app/core/mobx/store_state.dart';
 import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
-import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/getters/fetch_channel_id_getter_store.dart';
+import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 // * Mobx Codegen Inclusion
-part 'fetch_channel_id_store.g.dart';
+part 'instantiate_agora_sdk_store.g.dart';
 
-class FetchChannelIdStore = _FetchChannelIdStoreBase with _$FetchChannelIdStore;
+class InstantiateAgoraSdkStore = _InstantiateAgoraSdkStoreBase
+    with _$InstantiateAgoraSdkStore;
 
-abstract class _FetchChannelIdStoreBase
-    extends BaseMobxDBStore<NoParams, ChannelIdEntity> with Store {
-  final FetchChannelIdGetterStore getterStore;
+abstract class _InstantiateAgoraSdkStoreBase
+    extends BaseMobxDBStore<NoParams, AgoraSdkStatusEntity> with Store {
+  ///
+  final InstantiateAgoraSdkGetterStore getterStore;
 
-  _FetchChannelIdStoreBase({
+  @observable
+  bool isInstantiated = false;
+
+  _InstantiateAgoraSdkStoreBase({
     required this.getterStore,
   });
 
   @observable
-  String channelId = '';
-
-  @observable
-  BaseFutureStore<ChannelIdEntity> futureStore = BaseFutureStore(
-    baseEntity: DefaultEntities.defaultChannelIdEntity,
+  BaseFutureStore<AgoraSdkStatusEntity> futureStore = BaseFutureStore(
+    baseEntity: DefaultEntities.defaultAgoraSdkStatusEntity,
     entityFutureParam: ObservableFuture(
-      Future.value(DefaultEntities.defaultChannelIdEntity),
+      Future.value(DefaultEntities.defaultAgoraSdkStatusEntity),
     ),
   );
 
@@ -38,8 +40,8 @@ abstract class _FetchChannelIdStoreBase
     result.fold((failure) {
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
-    }, (channelIdEntity) {
-      channelId = channelIdEntity.channelId;
+    }, (agoraSdkStatusEntity) {
+      isInstantiated = agoraSdkStatusEntity.isSent;
     });
   }
 

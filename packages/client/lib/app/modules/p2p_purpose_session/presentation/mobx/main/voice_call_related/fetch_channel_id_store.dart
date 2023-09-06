@@ -3,44 +3,43 @@
 import 'package:mobx/mobx.dart';
 import 'package:primala/app/core/constants/entities.dart';
 // * Equatable Import
+import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/mobx/base_future_store.dart';
 import 'package:primala/app/core/mobx/base_mobx_db_store.dart';
 import 'package:primala/app/core/mobx/store_state.dart';
 import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
-import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/getters/fetch_agora_token_getter_store.dart';
+import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 // * Mobx Codegen Inclusion
-part 'fetch_agora_token_store.g.dart';
+part 'fetch_channel_id_store.g.dart';
 
-class FetchAgoraTokenStore = _FetchAgoraTokenStoreBase
-    with _$FetchAgoraTokenStore;
+class FetchChannelIdStore = _FetchChannelIdStoreBase with _$FetchChannelIdStore;
 
-abstract class _FetchAgoraTokenStoreBase
-    extends BaseMobxDBStore<FetchAgoraTokenParams, AgoraCallTokenEntity>
-    with Store {
-  //
+abstract class _FetchChannelIdStoreBase
+    extends BaseMobxDBStore<NoParams, ChannelIdEntity> with Store {
+  final FetchChannelIdGetterStore getterStore;
 
-  final FetchAgoraTokenGetterStore getterStore;
-
-  _FetchAgoraTokenStoreBase({required this.getterStore});
+  _FetchChannelIdStoreBase({
+    required this.getterStore,
+  });
 
   @observable
-  BaseFutureStore<AgoraCallTokenEntity> futureStore = BaseFutureStore(
-    baseEntity: DefaultEntities.defaultCallTokenEntity,
+  String channelId = '';
+
+  @observable
+  BaseFutureStore<ChannelIdEntity> futureStore = BaseFutureStore(
+    baseEntity: DefaultEntities.defaultChannelIdEntity,
     entityFutureParam: ObservableFuture(
-      Future.value(DefaultEntities.defaultCallTokenEntity),
+      Future.value(DefaultEntities.defaultChannelIdEntity),
     ),
   );
-
-  @observable
-  String token = '';
 
   @override
   void stateOrErrorUpdater(result) {
     result.fold((failure) {
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
-    }, (tokenEntity) {
-      token = tokenEntity.returnedToken;
+    }, (channelIdEntity) {
+      channelId = channelIdEntity.channelId;
     });
   }
 
@@ -48,7 +47,7 @@ abstract class _FetchAgoraTokenStoreBase
   @action
   Future<void> call(params) async {
     state = StoreState.loading;
-    futureStore.entityOrFailureFuture = ObservableFuture(getterStore(params));
+    futureStore.entityOrFailureFuture = ObservableFuture(getterStore());
     futureStore.unwrappedEntityOrFailure =
         await futureStore.entityOrFailureFuture;
     stateOrErrorUpdater(futureStore.unwrappedEntityOrFailure);

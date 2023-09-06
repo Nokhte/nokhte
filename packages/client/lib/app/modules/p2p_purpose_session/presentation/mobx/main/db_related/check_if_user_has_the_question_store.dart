@@ -8,7 +8,7 @@ import 'package:primala/app/core/mobx/base_future_store.dart';
 import 'package:primala/app/core/mobx/base_mobx_db_store.dart';
 import 'package:primala/app/core/mobx/store_state.dart';
 import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
-import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/getters/check_if_user_has_the_question_getter_store.dart';
+import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 // * Mobx Codegen Inclusion
 part 'check_if_user_has_the_question_store.g.dart';
 

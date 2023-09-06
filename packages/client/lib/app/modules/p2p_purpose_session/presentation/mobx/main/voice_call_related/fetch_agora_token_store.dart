@@ -3,45 +3,44 @@
 import 'package:mobx/mobx.dart';
 import 'package:primala/app/core/constants/entities.dart';
 // * Equatable Import
-import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/mobx/base_future_store.dart';
 import 'package:primala/app/core/mobx/base_mobx_db_store.dart';
 import 'package:primala/app/core/mobx/store_state.dart';
 import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
-import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/getters/instantiate_agora_sdk_getter_store.dart';
+import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 // * Mobx Codegen Inclusion
-part 'instantiate_agora_sdk_store.g.dart';
+part 'fetch_agora_token_store.g.dart';
 
-class InstantiateAgoraSdkStore = _InstantiateAgoraSdkStoreBase
-    with _$InstantiateAgoraSdkStore;
+class FetchAgoraTokenStore = _FetchAgoraTokenStoreBase
+    with _$FetchAgoraTokenStore;
 
-abstract class _InstantiateAgoraSdkStoreBase
-    extends BaseMobxDBStore<NoParams, AgoraSdkStatusEntity> with Store {
-  ///
-  final InstantiateAgoraSdkGetterStore getterStore;
+abstract class _FetchAgoraTokenStoreBase
+    extends BaseMobxDBStore<FetchAgoraTokenParams, AgoraCallTokenEntity>
+    with Store {
+  //
 
-  @observable
-  bool isInstantiated = false;
+  final FetchAgoraTokenGetterStore getterStore;
 
-  _InstantiateAgoraSdkStoreBase({
-    required this.getterStore,
-  });
+  _FetchAgoraTokenStoreBase({required this.getterStore});
 
   @observable
-  BaseFutureStore<AgoraSdkStatusEntity> futureStore = BaseFutureStore(
-    baseEntity: DefaultEntities.defaultAgoraSdkStatusEntity,
+  BaseFutureStore<AgoraCallTokenEntity> futureStore = BaseFutureStore(
+    baseEntity: DefaultEntities.defaultCallTokenEntity,
     entityFutureParam: ObservableFuture(
-      Future.value(DefaultEntities.defaultAgoraSdkStatusEntity),
+      Future.value(DefaultEntities.defaultCallTokenEntity),
     ),
   );
+
+  @observable
+  String token = '';
 
   @override
   void stateOrErrorUpdater(result) {
     result.fold((failure) {
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
-    }, (agoraSdkStatusEntity) {
-      isInstantiated = agoraSdkStatusEntity.isSent;
+    }, (tokenEntity) {
+      token = tokenEntity.returnedToken;
     });
   }
 
@@ -49,7 +48,7 @@ abstract class _InstantiateAgoraSdkStoreBase
   @action
   Future<void> call(params) async {
     state = StoreState.loading;
-    futureStore.entityOrFailureFuture = ObservableFuture(getterStore());
+    futureStore.entityOrFailureFuture = ObservableFuture(getterStore(params));
     futureStore.unwrappedEntityOrFailure =
         await futureStore.entityOrFailureFuture;
     stateOrErrorUpdater(futureStore.unwrappedEntityOrFailure);
