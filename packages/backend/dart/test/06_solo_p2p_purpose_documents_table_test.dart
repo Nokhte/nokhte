@@ -1,7 +1,7 @@
+// ignore_for_file: file_names
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primala_backend/constants/constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:primala_backend/existing_collaborations.dart';
 
 void main() {
   late SupabaseClient supabase;
