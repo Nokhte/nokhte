@@ -40,9 +40,6 @@ class P2PPurpose1GreeterScreen extends StatelessWidget {
                   child: FadeInAndChangeColorText(
                     stateStore: coordinator.fadeInColorText,
                   ),
-                  // child: Center(
-                  //   child:
-                  // ),
                 ),
               ],
             ),

@@ -9,7 +9,7 @@ class UserSetupConstants {
     final supabase = SupabaseClientConfigConstants.supabase;
     final List<String> userUIDs = [];
     try {
-      for (var i = 0; i < 4; i++) {
+      for (var i = 0; i < 3; i++) {
         final email = 'test${i + 1}@example.com';
         await supabase.auth.signUp(
           email: email,
@@ -19,7 +19,7 @@ class UserSetupConstants {
         await supabase.auth.signOut();
       }
     } catch (e) {
-      for (var i = 0; i < 4; i++) {
+      for (var i = 0; i < 3; i++) {
         final email = 'test${i + 1}@example.com';
         await supabase.auth.signInWithPassword(
           email: email,

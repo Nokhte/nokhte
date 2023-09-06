@@ -1,6 +1,7 @@
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:primala/app/core/network/network_info.dart';
+import 'package:primala/app/core/widgets/mobx.dart';
 import 'package:primala/app/core/widgets/widget_constants.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/p2p_purpose_session/data/data.dart';
@@ -162,7 +163,6 @@ class P2PCollaboratorSessionModule extends Module {
             messagesData: MessagesData.p2pPurposeSession,
           ),
         ),
-
         Bind.factory<FadeInAndChangeColorTextStore>(
           (i) => FadeInAndChangeColorTextStore(
             messageData: const FadeInMessageData(
@@ -171,6 +171,9 @@ class P2PCollaboratorSessionModule extends Module {
             ),
             chosenMovie: FadeInText.movie,
           ),
+        ),
+        Bind.singleton<TextEditorTrackerStore>(
+          (i) => TextEditorTrackerStore(),
         ),
         // & Coordinator Stores
         Bind.singleton<P2PPurposePhase1CoordinatorStore>(
@@ -197,6 +200,7 @@ class P2PCollaboratorSessionModule extends Module {
         Bind.singleton<P2PPurposePhase3CoordinatorStore>(
           (i) => P2PPurposePhase3CoordinatorStore(
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
+            textEditor: Modular.get<TextEditorTrackerStore>(),
           ),
         ),
         Bind.singleton<P2PPurposePhase4CoordinatorStore>(
@@ -213,7 +217,8 @@ class P2PCollaboratorSessionModule extends Module {
   @override
   List<ChildRoute> get routes => [
         ChildRoute(
-          '/',
+          // '/',
+          '/phase-1',
           child: (context, args) => P2PPurpose1GreeterScreen(
             coordinator: Modular.get<P2PPurposePhase1CoordinatorStore>(),
             // agoraEngine: Modular.get<RtcEngine>(),
@@ -228,7 +233,8 @@ class P2PCollaboratorSessionModule extends Module {
           transition: TransitionType.noTransition,
         ),
         ChildRoute(
-          '/phase-3/',
+          // '/phase-3/',
+          '/',
           child: (context, args) => P2PPurpose3IndividualRefletionScreen(
             coordinator: Modular.get<P2PPurposePhase3CoordinatorStore>(),
           ),

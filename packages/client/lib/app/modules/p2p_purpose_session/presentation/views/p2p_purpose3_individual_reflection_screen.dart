@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:primala/app/core/widgets/text_editor/text_editor.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 import 'package:swipe/swipe.dart';
@@ -10,8 +11,7 @@ class P2PPurpose3IndividualRefletionScreen extends StatelessWidget {
     super.key,
     required this.coordinator,
   }) {
-    //
-    coordinator.beachWaves.initiateSuspendedAtTheDepths();
+    coordinator.screenConstructor();
   }
 
   @override
@@ -26,6 +26,12 @@ class P2PPurpose3IndividualRefletionScreen extends StatelessWidget {
                   height: MediaQuery.of(context).size.height,
                   child: SmartBeachWaves(
                     stateTrackerStore: coordinator.beachWaves,
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  child: TextEditor(
+                    trackerStore: coordinator.textEditor,
                   ),
                 ),
               ],
