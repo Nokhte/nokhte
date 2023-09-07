@@ -4,24 +4,24 @@ import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/modules/p2p_purpose_session/domain/entities/entities.dart';
 
 class ConstantCallStatusEntity {
-  static CallStatusEntity get successCase =>
+  static CallStatusEntity get joinedCase =>
       const CallStatusEntity(callStatus: CallStatus.joined);
-  static CallStatusEntity get inProgressCase =>
+  static CallStatusEntity get joiningCase =>
       const CallStatusEntity(callStatus: CallStatus.joining);
-  static CallStatusEntity get notSuccessCase =>
+  static CallStatusEntity get initialState =>
       const CallStatusEntity(callStatus: CallStatus.initial);
-  static CallStatusEntity get leavingSuccessCase =>
-      const CallStatusEntity(callStatus: CallStatus.joined);
-  static CallStatusEntity get leavingInProgressCase =>
-      const CallStatusEntity(callStatus: CallStatus.joining);
-  static Either<Failure, CallStatusEntity> get wrappedSuccessCase =>
-      Right(successCase);
-  static Either<Failure, CallStatusEntity> get wrappedInProgressCase =>
-      Right(successCase);
-  static Either<Failure, CallStatusEntity> get wrappedNotSuccessCase =>
-      Right(notSuccessCase);
-  static Either<Failure, CallStatusEntity> get wrappedLeavingSuccessCase =>
-      Right(leavingSuccessCase);
-  static Either<Failure, CallStatusEntity> get wrappedLeavingInProgressCase =>
-      Right(leavingInProgressCase);
+  static CallStatusEntity get leavingCase =>
+      const CallStatusEntity(callStatus: CallStatus.leaving);
+  static CallStatusEntity get leftCase =>
+      const CallStatusEntity(callStatus: CallStatus.left);
+  static Either<Failure, CallStatusEntity> get wrappedJoinedCase =>
+      Right(joinedCase);
+  static Either<Failure, CallStatusEntity> get wrappedJoiningCase =>
+      Right(joiningCase);
+  static Either<Failure, CallStatusEntity> get wrappedLeavingCase =>
+      Right(leavingCase);
+  static Either<Failure, CallStatusEntity> get wrappedLeftCase =>
+      Right(leftCase);
+  static Either<Failure, CallStatusEntity> get wrappedInitialState =>
+      Right(initialState);
 }

@@ -7,18 +7,17 @@ import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
 // * Mobx Codegen Inclusion
-part 'submit_solo_doc_content_getter_store.g.dart';
+part 'submit_solo_doc_getter_store.g.dart';
 
-class SubmitSoloDocContentGetterStore = _SubmitSoloDocContentGetterStoreBase
-    with _$SubmitSoloDocContentGetterStore;
+class SubmitSoloDocGetterStore = _SubmitSoloDocGetterStoreBase
+    with _$SubmitSoloDocGetterStore;
 
-abstract class _SubmitSoloDocContentGetterStoreBase extends Equatable
-    with Store {
-  final SubmitSoloDocContent logic;
-  _SubmitSoloDocContentGetterStoreBase({required this.logic});
+abstract class _SubmitSoloDocGetterStoreBase extends Equatable with Store {
+  final SubmitSoloDoc logic;
+  _SubmitSoloDocGetterStoreBase({required this.logic});
 
   Future<Either<Failure, SoloDocSubmissionStatusEntity>> call(
-          SubmitSoloDocContentParams params) =>
+          SubmitSoloDocParams params) =>
       logic(params);
   @override
   List<Object> get props => [

@@ -25,6 +25,22 @@ mixin _$VoiceCallActionsStore on _VoiceCallActionsStoreBase, Store {
     });
   }
 
+  late final _$isMutedAtom =
+      Atom(name: '_VoiceCallActionsStoreBase.isMuted', context: context);
+
+  @override
+  bool get isMuted {
+    _$isMutedAtom.reportRead();
+    return super.isMuted;
+  }
+
+  @override
+  set isMuted(bool value) {
+    _$isMutedAtom.reportWrite(value, super.isMuted, () {
+      super.isMuted = value;
+    });
+  }
+
   late final _$muteOrUnmuteAudioAsyncAction = AsyncAction(
       '_VoiceCallActionsStoreBase.muteOrUnmuteAudio',
       context: context);
@@ -48,7 +64,8 @@ mixin _$VoiceCallActionsStore on _VoiceCallActionsStoreBase, Store {
   @override
   String toString() {
     return '''
-callStatus: ${callStatus}
+callStatus: ${callStatus},
+isMuted: ${isMuted}
     ''';
   }
 }

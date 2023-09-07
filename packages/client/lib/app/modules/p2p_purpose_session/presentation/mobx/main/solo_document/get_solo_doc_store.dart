@@ -10,19 +10,18 @@ import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
 import 'package:primala/app/modules/p2p_purpose_session/presentation/presentation.dart';
 // * Equatable Import
 // * Mobx Codegen Inclusion
-part 'get_solo_doc_content_store.g.dart';
+part 'get_solo_doc_store.g.dart';
 
-class GetSoloDocContentStore = _GetSoloDocContentStoreBase
-    with _$GetSoloDocContentStore;
+class GetSoloDocStore = _GetSoloDocStoreBase with _$GetSoloDocStore;
 
-abstract class _GetSoloDocContentStoreBase
+abstract class _GetSoloDocStoreBase
     extends BaseMobxDBStore<NoParams, SoloDocContentEntity> with Store {
-  final GetSoloDocContentGetterStore getterStore;
+  final GetSoloDocGetterStore getterStore;
 
   @observable
   String docContent = "";
 
-  _GetSoloDocContentStoreBase({
+  _GetSoloDocStoreBase({
     required this.getterStore,
   });
 

@@ -8,15 +8,15 @@ import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
 // * Mobx Codegen Inclusion
-part 'get_solo_doc_content_getter_store.g.dart';
+part 'get_solo_doc_getter_store.g.dart';
 
-class GetSoloDocContentGetterStore = _GetSoloDocContentGetterStoreBase
-    with _$GetSoloDocContentGetterStore;
+class GetSoloDocGetterStore = _GetSoloDocGetterStoreBase
+    with _$GetSoloDocGetterStore;
 
-abstract class _GetSoloDocContentGetterStoreBase extends Equatable with Store {
+abstract class _GetSoloDocGetterStoreBase extends Equatable with Store {
   final GetSoloDoc logic;
 
-  _GetSoloDocContentGetterStoreBase({required this.logic});
+  _GetSoloDocGetterStoreBase({required this.logic});
 
   Future<Either<Failure, SoloDocContentEntity>> call(NoParams params) async =>
       logic(params);

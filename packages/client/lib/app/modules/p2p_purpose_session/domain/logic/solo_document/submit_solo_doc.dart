@@ -2,11 +2,11 @@ import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
 
-class SubmitSoloDocContent extends AbstractFutureLogic<
-    SoloDocSubmissionStatusEntity, SubmitSoloDocContentParams> {
+class SubmitSoloDoc extends AbstractFutureLogic<SoloDocSubmissionStatusEntity,
+    SubmitSoloDocParams> {
   final P2PPurposeSessionSoloDocContract contract;
 
-  SubmitSoloDocContent({
+  SubmitSoloDoc({
     required this.contract,
   });
 
@@ -16,10 +16,10 @@ class SubmitSoloDocContent extends AbstractFutureLogic<
       );
 }
 
-class SubmitSoloDocContentParams extends Equatable {
+class SubmitSoloDocParams extends Equatable {
   final String content;
 
-  const SubmitSoloDocContentParams({
+  const SubmitSoloDocParams({
     required this.content,
   });
 

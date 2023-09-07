@@ -19,12 +19,12 @@ void main() {
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
     when(mockContract.leaveCall()).thenAnswer(
-      (_) async => ConstantCallStatusEntity.wrappedLeavingSuccessCase,
+      (_) async => ConstantCallStatusEntity.wrappedLeavingCase,
     );
 
     final result = await logic(NoParams());
 
-    expect(result, ConstantCallStatusEntity.wrappedLeavingSuccessCase);
+    expect(result, ConstantCallStatusEntity.wrappedLeavingCase);
     verify(mockContract.leaveCall());
     verifyNoMoreInteractions(mockContract);
   });

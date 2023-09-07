@@ -5,21 +5,25 @@
 // @dart=2.19
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i9;
+import 'dart:async' as _i11;
 
 import 'package:agora_rtc_engine/agora_rtc_engine.dart' as _i4;
 import 'package:dartz/dartz.dart' as _i6;
 import 'package:http/http.dart' as _i5;
+import 'package:mobx/mobx.dart' as _i8;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:primala/app/core/error/failure.dart' as _i10;
-import 'package:primala/app/core/interfaces/logic.dart' as _i11;
+import 'package:primala/app/core/error/failure.dart' as _i12;
+import 'package:primala/app/core/interfaces/logic.dart' as _i13;
+import 'package:primala/app/core/mobx/base_future_store.dart' as _i9;
+import 'package:primala/app/core/mobx/store_state.dart' as _i14;
+import 'package:primala/app/core/types/types.dart' as _i15;
 import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart'
     as _i7;
-import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/main/main.dart'
+import 'package:primala/app/modules/p2p_purpose_session/presentation/presentation.dart'
     as _i3;
 import 'package:supabase_flutter/supabase_flutter.dart' as _i2;
 
-import 'p2p_purpose_session_stack_mock_gen.dart' as _i8;
+import 'p2p_purpose_session_stack_mock_gen.dart' as _i10;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -84,9 +88,321 @@ class _FakeEither_4<L, R> extends _i1.SmartFake implements _i6.Either<L, R> {
         );
 }
 
-class _FakeP2PPurposeSessionVoiceCallContract_5 extends _i1.SmartFake
+class _FakeP2PPurposeSessionSoloDocContract_5 extends _i1.SmartFake
+    implements _i7.P2PPurposeSessionSoloDocContract {
+  _FakeP2PPurposeSessionSoloDocContract_5(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeP2PPurposeSessionVoiceCallContract_6 extends _i1.SmartFake
     implements _i7.P2PPurposeSessionVoiceCallContract {
-  _FakeP2PPurposeSessionVoiceCallContract_5(
+  _FakeP2PPurposeSessionVoiceCallContract_6(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeCreateSoloDoc_7 extends _i1.SmartFake implements _i7.CreateSoloDoc {
+  _FakeCreateSoloDoc_7(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeReactiveContext_8 extends _i1.SmartFake
+    implements _i8.ReactiveContext {
+  _FakeReactiveContext_8(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeCreateSoloDocGetterStore_9 extends _i1.SmartFake
+    implements _i3.CreateSoloDocGetterStore {
+  _FakeCreateSoloDocGetterStore_9(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeBaseFutureStore_10<T> extends _i1.SmartFake
+    implements _i9.BaseFutureStore<T> {
+  _FakeBaseFutureStore_10(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeGetSoloDoc_11 extends _i1.SmartFake implements _i7.GetSoloDoc {
+  _FakeGetSoloDoc_11(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeGetSoloDocGetterStore_12 extends _i1.SmartFake
+    implements _i3.GetSoloDocGetterStore {
+  _FakeGetSoloDocGetterStore_12(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeSealSoloDoc_13 extends _i1.SmartFake implements _i7.SealSoloDoc {
+  _FakeSealSoloDoc_13(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeSealSoloDocGetterStore_14 extends _i1.SmartFake
+    implements _i3.SealSoloDocGetterStore {
+  _FakeSealSoloDocGetterStore_14(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeShareSoloDoc_15 extends _i1.SmartFake implements _i7.ShareSoloDoc {
+  _FakeShareSoloDoc_15(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeShareSoloDocGetterStore_16 extends _i1.SmartFake
+    implements _i3.ShareSoloDocGetterStore {
+  _FakeShareSoloDocGetterStore_16(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeSubmitSoloDoc_17 extends _i1.SmartFake implements _i7.SubmitSoloDoc {
+  _FakeSubmitSoloDoc_17(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeSubmitSoloDocGetterStore_18 extends _i1.SmartFake
+    implements _i3.SubmitSoloDocGetterStore {
+  _FakeSubmitSoloDocGetterStore_18(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeCheckIfUserHasTheQuestion_19 extends _i1.SmartFake
+    implements _i7.CheckIfUserHasTheQuestion {
+  _FakeCheckIfUserHasTheQuestion_19(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeCheckIfUserHasTheQuestionGetterStore_20 extends _i1.SmartFake
+    implements _i3.CheckIfUserHasTheQuestionGetterStore {
+  _FakeCheckIfUserHasTheQuestionGetterStore_20(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeFetchAgoraToken_21 extends _i1.SmartFake
+    implements _i7.FetchAgoraToken {
+  _FakeFetchAgoraToken_21(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeFetchAgoraTokenGetterStore_22 extends _i1.SmartFake
+    implements _i3.FetchAgoraTokenGetterStore {
+  _FakeFetchAgoraTokenGetterStore_22(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeFetchChannelId_23 extends _i1.SmartFake
+    implements _i7.FetchChannelId {
+  _FakeFetchChannelId_23(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeFetchChannelIdGetterStore_24 extends _i1.SmartFake
+    implements _i3.FetchChannelIdGetterStore {
+  _FakeFetchChannelIdGetterStore_24(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeInstantiateAgoraSdk_25 extends _i1.SmartFake
+    implements _i7.InstantiateAgoraSdk {
+  _FakeInstantiateAgoraSdk_25(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeInstantiateAgoraSdkGetterStore_26 extends _i1.SmartFake
+    implements _i3.InstantiateAgoraSdkGetterStore {
+  _FakeInstantiateAgoraSdkGetterStore_26(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeJoinCall_27 extends _i1.SmartFake implements _i7.JoinCall {
+  _FakeJoinCall_27(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeLeaveCall_28 extends _i1.SmartFake implements _i7.LeaveCall {
+  _FakeLeaveCall_28(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeMuteLocalAudioStream_29 extends _i1.SmartFake
+    implements _i7.MuteLocalAudioStream {
+  _FakeMuteLocalAudioStream_29(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeUnmuteLocalAudioStream_30 extends _i1.SmartFake
+    implements _i7.UnmuteLocalAudioStream {
+  _FakeUnmuteLocalAudioStream_30(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeJoinCallGetterStore_31 extends _i1.SmartFake
+    implements _i3.JoinCallGetterStore {
+  _FakeJoinCallGetterStore_31(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeLeaveCallGetterStore_32 extends _i1.SmartFake
+    implements _i3.LeaveCallGetterStore {
+  _FakeLeaveCallGetterStore_32(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeMuteLocalAudioStreamGetterStore_33 extends _i1.SmartFake
+    implements _i3.MuteLocalAudioStreamGetterStore {
+  _FakeMuteLocalAudioStreamGetterStore_33(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeUnmuteLocalAudioStreamGetterStore_34 extends _i1.SmartFake
+    implements _i3.UnmuteLocalAudioStreamGetterStore {
+  _FakeUnmuteLocalAudioStreamGetterStore_34(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -99,7 +415,7 @@ class _FakeP2PPurposeSessionVoiceCallContract_5 extends _i1.SmartFake
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMP2PPurposeSessionVoiceCallRemoteSourceImpl extends _i1.Mock
-    implements _i8.MP2PPurposeSessionVoiceCallRemoteSourceImpl {
+    implements _i10.MP2PPurposeSessionVoiceCallRemoteSourceImpl {
   MockMP2PPurposeSessionVoiceCallRemoteSourceImpl() {
     _i1.throwOnMissingStub(this);
   }
@@ -139,14 +455,14 @@ class MockMP2PPurposeSessionVoiceCallRemoteSourceImpl extends _i1.Mock
         ),
       ) as _i4.RtcEngine);
   @override
-  _i9.Future<_i5.Response> fetchAgoraToken({required String? channelName}) =>
+  _i11.Future<_i5.Response> fetchAgoraToken({required String? channelName}) =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchAgoraToken,
           [],
           {#channelName: channelName},
         ),
-        returnValue: _i9.Future<_i5.Response>.value(_FakeResponse_3(
+        returnValue: _i11.Future<_i5.Response>.value(_FakeResponse_3(
           this,
           Invocation.method(
             #fetchAgoraToken,
@@ -154,9 +470,9 @@ class MockMP2PPurposeSessionVoiceCallRemoteSourceImpl extends _i1.Mock
             {#channelName: channelName},
           ),
         )),
-      ) as _i9.Future<_i5.Response>);
+      ) as _i11.Future<_i5.Response>);
   @override
-  _i9.Future<void> joinCall({
+  _i11.Future<void> joinCall({
     required String? token,
     required String? channelId,
   }) =>
@@ -169,73 +485,73 @@ class MockMP2PPurposeSessionVoiceCallRemoteSourceImpl extends _i1.Mock
             #channelId: channelId,
           },
         ),
-        returnValue: _i9.Future<void>.value(),
-        returnValueForMissingStub: _i9.Future<void>.value(),
-      ) as _i9.Future<void>);
+        returnValue: _i11.Future<void>.value(),
+        returnValueForMissingStub: _i11.Future<void>.value(),
+      ) as _i11.Future<void>);
   @override
-  _i9.Future<void> leaveCall() => (super.noSuchMethod(
+  _i11.Future<void> leaveCall() => (super.noSuchMethod(
         Invocation.method(
           #leaveCall,
           [],
         ),
-        returnValue: _i9.Future<void>.value(),
-        returnValueForMissingStub: _i9.Future<void>.value(),
-      ) as _i9.Future<void>);
+        returnValue: _i11.Future<void>.value(),
+        returnValueForMissingStub: _i11.Future<void>.value(),
+      ) as _i11.Future<void>);
   @override
-  _i9.Future<void> instantiateAgoraSDK() => (super.noSuchMethod(
+  _i11.Future<void> instantiateAgoraSDK() => (super.noSuchMethod(
         Invocation.method(
           #instantiateAgoraSDK,
           [],
         ),
-        returnValue: _i9.Future<void>.value(),
-        returnValueForMissingStub: _i9.Future<void>.value(),
-      ) as _i9.Future<void>);
+        returnValue: _i11.Future<void>.value(),
+        returnValueForMissingStub: _i11.Future<void>.value(),
+      ) as _i11.Future<void>);
   @override
-  _i9.Future<List<dynamic>> fetchCollaboratorInfo() => (super.noSuchMethod(
+  _i11.Future<List<dynamic>> fetchCollaboratorInfo() => (super.noSuchMethod(
         Invocation.method(
           #fetchCollaboratorInfo,
           [],
         ),
-        returnValue: _i9.Future<List<dynamic>>.value(<dynamic>[]),
-      ) as _i9.Future<List<dynamic>>);
+        returnValue: _i11.Future<List<dynamic>>.value(<dynamic>[]),
+      ) as _i11.Future<List<dynamic>>);
   @override
-  _i9.Future<dynamic> muteLocalAudioStream() => (super.noSuchMethod(
+  _i11.Future<dynamic> muteLocalAudioStream() => (super.noSuchMethod(
         Invocation.method(
           #muteLocalAudioStream,
           [],
         ),
-        returnValue: _i9.Future<dynamic>.value(),
-      ) as _i9.Future<dynamic>);
+        returnValue: _i11.Future<dynamic>.value(),
+      ) as _i11.Future<dynamic>);
   @override
-  _i9.Future<dynamic> unmuteLocalAudioStream() => (super.noSuchMethod(
+  _i11.Future<dynamic> unmuteLocalAudioStream() => (super.noSuchMethod(
         Invocation.method(
           #unmuteLocalAudioStream,
           [],
         ),
-        returnValue: _i9.Future<dynamic>.value(),
-      ) as _i9.Future<dynamic>);
+        returnValue: _i11.Future<dynamic>.value(),
+      ) as _i11.Future<dynamic>);
 }
 
 /// A class which mocks [MP2PPurposeSessionVoiceCallContract].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMP2PPurposeSessionVoiceCallContract extends _i1.Mock
-    implements _i8.MP2PPurposeSessionVoiceCallContract {
+    implements _i10.MP2PPurposeSessionVoiceCallContract {
   MockMP2PPurposeSessionVoiceCallContract() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.AgoraCallTokenEntity>>
+  _i11.Future<_i6.Either<_i12.Failure, _i7.AgoraCallTokenEntity>>
       fetchAgoraToken({required String? channelName}) => (super.noSuchMethod(
             Invocation.method(
               #fetchAgoraToken,
               [],
               {#channelName: channelName},
             ),
-            returnValue: _i9.Future<
-                    _i6.Either<_i10.Failure, _i7.AgoraCallTokenEntity>>.value(
-                _FakeEither_4<_i10.Failure, _i7.AgoraCallTokenEntity>(
+            returnValue: _i11.Future<
+                    _i6.Either<_i12.Failure, _i7.AgoraCallTokenEntity>>.value(
+                _FakeEither_4<_i12.Failure, _i7.AgoraCallTokenEntity>(
               this,
               Invocation.method(
                 #fetchAgoraToken,
@@ -243,43 +559,43 @@ class MockMP2PPurposeSessionVoiceCallContract extends _i1.Mock
                 {#channelName: channelName},
               ),
             )),
-          ) as _i9.Future<_i6.Either<_i10.Failure, _i7.AgoraCallTokenEntity>>);
+          ) as _i11.Future<_i6.Either<_i12.Failure, _i7.AgoraCallTokenEntity>>);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.ChannelIdEntity>> fetchChannelId() =>
+  _i11.Future<_i6.Either<_i12.Failure, _i7.ChannelIdEntity>> fetchChannelId() =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchChannelId,
           [],
         ),
         returnValue:
-            _i9.Future<_i6.Either<_i10.Failure, _i7.ChannelIdEntity>>.value(
-                _FakeEither_4<_i10.Failure, _i7.ChannelIdEntity>(
+            _i11.Future<_i6.Either<_i12.Failure, _i7.ChannelIdEntity>>.value(
+                _FakeEither_4<_i12.Failure, _i7.ChannelIdEntity>(
           this,
           Invocation.method(
             #fetchChannelId,
             [],
           ),
         )),
-      ) as _i9.Future<_i6.Either<_i10.Failure, _i7.ChannelIdEntity>>);
+      ) as _i11.Future<_i6.Either<_i12.Failure, _i7.ChannelIdEntity>>);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.AgoraSdkStatusEntity>>
+  _i11.Future<_i6.Either<_i12.Failure, _i7.AgoraSdkStatusEntity>>
       instantiateAgoraSdk() => (super.noSuchMethod(
             Invocation.method(
               #instantiateAgoraSdk,
               [],
             ),
-            returnValue: _i9.Future<
-                    _i6.Either<_i10.Failure, _i7.AgoraSdkStatusEntity>>.value(
-                _FakeEither_4<_i10.Failure, _i7.AgoraSdkStatusEntity>(
+            returnValue: _i11.Future<
+                    _i6.Either<_i12.Failure, _i7.AgoraSdkStatusEntity>>.value(
+                _FakeEither_4<_i12.Failure, _i7.AgoraSdkStatusEntity>(
               this,
               Invocation.method(
                 #instantiateAgoraSdk,
                 [],
               ),
             )),
-          ) as _i9.Future<_i6.Either<_i10.Failure, _i7.AgoraSdkStatusEntity>>);
+          ) as _i11.Future<_i6.Either<_i12.Failure, _i7.AgoraSdkStatusEntity>>);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.CallStatusEntity>> joinCall(
+  _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>> joinCall(
     String? token,
     String? channelId,
   ) =>
@@ -292,8 +608,8 @@ class MockMP2PPurposeSessionVoiceCallContract extends _i1.Mock
           ],
         ),
         returnValue:
-            _i9.Future<_i6.Either<_i10.Failure, _i7.CallStatusEntity>>.value(
-                _FakeEither_4<_i10.Failure, _i7.CallStatusEntity>(
+            _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>>.value(
+                _FakeEither_4<_i12.Failure, _i7.CallStatusEntity>(
           this,
           Invocation.method(
             #joinCall,
@@ -303,88 +619,380 @@ class MockMP2PPurposeSessionVoiceCallContract extends _i1.Mock
             ],
           ),
         )),
-      ) as _i9.Future<_i6.Either<_i10.Failure, _i7.CallStatusEntity>>);
+      ) as _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>>);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.CallStatusEntity>> leaveCall() =>
+  _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>> leaveCall() =>
       (super.noSuchMethod(
         Invocation.method(
           #leaveCall,
           [],
         ),
         returnValue:
-            _i9.Future<_i6.Either<_i10.Failure, _i7.CallStatusEntity>>.value(
-                _FakeEither_4<_i10.Failure, _i7.CallStatusEntity>(
+            _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>>.value(
+                _FakeEither_4<_i12.Failure, _i7.CallStatusEntity>(
           this,
           Invocation.method(
             #leaveCall,
             [],
           ),
         )),
-      ) as _i9.Future<_i6.Either<_i10.Failure, _i7.CallStatusEntity>>);
+      ) as _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>>);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.LocalAudioStreamStatusEntity>>
+  _i11.Future<_i6.Either<_i12.Failure, _i7.LocalAudioStreamStatusEntity>>
       muteLocalAudioStream() => (super.noSuchMethod(
             Invocation.method(
               #muteLocalAudioStream,
               [],
             ),
-            returnValue: _i9.Future<
-                    _i6.Either<_i10.Failure,
+            returnValue: _i11.Future<
+                    _i6.Either<_i12.Failure,
                         _i7.LocalAudioStreamStatusEntity>>.value(
-                _FakeEither_4<_i10.Failure, _i7.LocalAudioStreamStatusEntity>(
+                _FakeEither_4<_i12.Failure, _i7.LocalAudioStreamStatusEntity>(
               this,
               Invocation.method(
                 #muteLocalAudioStream,
                 [],
               ),
             )),
-          ) as _i9.Future<
-              _i6.Either<_i10.Failure, _i7.LocalAudioStreamStatusEntity>>);
+          ) as _i11.Future<
+              _i6.Either<_i12.Failure, _i7.LocalAudioStreamStatusEntity>>);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.LocalAudioStreamStatusEntity>>
+  _i11.Future<_i6.Either<_i12.Failure, _i7.LocalAudioStreamStatusEntity>>
       unmuteLocalAudioStream() => (super.noSuchMethod(
             Invocation.method(
               #unmuteLocalAudioStream,
               [],
             ),
-            returnValue: _i9.Future<
-                    _i6.Either<_i10.Failure,
+            returnValue: _i11.Future<
+                    _i6.Either<_i12.Failure,
                         _i7.LocalAudioStreamStatusEntity>>.value(
-                _FakeEither_4<_i10.Failure, _i7.LocalAudioStreamStatusEntity>(
+                _FakeEither_4<_i12.Failure, _i7.LocalAudioStreamStatusEntity>(
               this,
               Invocation.method(
                 #unmuteLocalAudioStream,
                 [],
               ),
             )),
-          ) as _i9.Future<
-              _i6.Either<_i10.Failure, _i7.LocalAudioStreamStatusEntity>>);
+          ) as _i11.Future<
+              _i6.Either<_i12.Failure, _i7.LocalAudioStreamStatusEntity>>);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.WhoGetsTheQuestionEntity>>
+  _i11.Future<_i6.Either<_i12.Failure, _i7.WhoGetsTheQuestionEntity>>
       checkIfUserHasTheQuestion() => (super.noSuchMethod(
             Invocation.method(
               #checkIfUserHasTheQuestion,
               [],
             ),
-            returnValue: _i9.Future<
-                    _i6.Either<_i10.Failure,
+            returnValue: _i11.Future<
+                    _i6.Either<_i12.Failure,
                         _i7.WhoGetsTheQuestionEntity>>.value(
-                _FakeEither_4<_i10.Failure, _i7.WhoGetsTheQuestionEntity>(
+                _FakeEither_4<_i12.Failure, _i7.WhoGetsTheQuestionEntity>(
               this,
               Invocation.method(
                 #checkIfUserHasTheQuestion,
                 [],
               ),
             )),
-          ) as _i9
-              .Future<_i6.Either<_i10.Failure, _i7.WhoGetsTheQuestionEntity>>);
+          ) as _i11
+              .Future<_i6.Either<_i12.Failure, _i7.WhoGetsTheQuestionEntity>>);
+}
+
+/// A class which mocks [MP2PPurposeSessionSoloDocContract].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMP2PPurposeSessionSoloDocContract extends _i1.Mock
+    implements _i10.MP2PPurposeSessionSoloDocContract {
+  MockMP2PPurposeSessionSoloDocContract() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i11.Future<_i6.Either<_i12.Failure, _i7.SoloDocContentEntity>>
+      getSoloDocContent() => (super.noSuchMethod(
+            Invocation.method(
+              #getSoloDocContent,
+              [],
+            ),
+            returnValue: _i11.Future<
+                    _i6.Either<_i12.Failure, _i7.SoloDocContentEntity>>.value(
+                _FakeEither_4<_i12.Failure, _i7.SoloDocContentEntity>(
+              this,
+              Invocation.method(
+                #getSoloDocContent,
+                [],
+              ),
+            )),
+          ) as _i11.Future<_i6.Either<_i12.Failure, _i7.SoloDocContentEntity>>);
+  @override
+  _i11.Future<_i6.Either<_i12.Failure, _i7.SoloDocSubmissionStatusEntity>>
+      submitDocContent({required String? newContent}) => (super.noSuchMethod(
+            Invocation.method(
+              #submitDocContent,
+              [],
+              {#newContent: newContent},
+            ),
+            returnValue: _i11.Future<
+                    _i6.Either<_i12.Failure,
+                        _i7.SoloDocSubmissionStatusEntity>>.value(
+                _FakeEither_4<_i12.Failure, _i7.SoloDocSubmissionStatusEntity>(
+              this,
+              Invocation.method(
+                #submitDocContent,
+                [],
+                {#newContent: newContent},
+              ),
+            )),
+          ) as _i11.Future<
+              _i6.Either<_i12.Failure, _i7.SoloDocSubmissionStatusEntity>>);
+  @override
+  _i11.Future<_i6.Either<_i12.Failure, _i7.SoloDocCreationStatusEntity>>
+      createSoloDoc() => (super.noSuchMethod(
+            Invocation.method(
+              #createSoloDoc,
+              [],
+            ),
+            returnValue: _i11.Future<
+                    _i6.Either<_i12.Failure,
+                        _i7.SoloDocCreationStatusEntity>>.value(
+                _FakeEither_4<_i12.Failure, _i7.SoloDocCreationStatusEntity>(
+              this,
+              Invocation.method(
+                #createSoloDoc,
+                [],
+              ),
+            )),
+          ) as _i11.Future<
+              _i6.Either<_i12.Failure, _i7.SoloDocCreationStatusEntity>>);
+  @override
+  _i11.Future<_i6.Either<_i12.Failure, _i7.SoloDocSealingStatusEntity>>
+      sealSoloDoc() => (super.noSuchMethod(
+            Invocation.method(
+              #sealSoloDoc,
+              [],
+            ),
+            returnValue: _i11.Future<
+                    _i6.Either<_i12.Failure,
+                        _i7.SoloDocSealingStatusEntity>>.value(
+                _FakeEither_4<_i12.Failure, _i7.SoloDocSealingStatusEntity>(
+              this,
+              Invocation.method(
+                #sealSoloDoc,
+                [],
+              ),
+            )),
+          ) as _i11.Future<
+              _i6.Either<_i12.Failure, _i7.SoloDocSealingStatusEntity>>);
+  @override
+  _i11.Future<_i6.Either<_i12.Failure, _i7.SoloDocSharingStatusEntity>>
+      shareSoloDoc() => (super.noSuchMethod(
+            Invocation.method(
+              #shareSoloDoc,
+              [],
+            ),
+            returnValue: _i11.Future<
+                    _i6.Either<_i12.Failure,
+                        _i7.SoloDocSharingStatusEntity>>.value(
+                _FakeEither_4<_i12.Failure, _i7.SoloDocSharingStatusEntity>(
+              this,
+              Invocation.method(
+                #shareSoloDoc,
+                [],
+              ),
+            )),
+          ) as _i11.Future<
+              _i6.Either<_i12.Failure, _i7.SoloDocSharingStatusEntity>>);
+}
+
+/// A class which mocks [MCreateSoloDoc].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMCreateSoloDoc extends _i1.Mock implements _i10.MCreateSoloDoc {
+  MockMCreateSoloDoc() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.P2PPurposeSessionSoloDocContract get contract => (super.noSuchMethod(
+        Invocation.getter(#contract),
+        returnValue: _FakeP2PPurposeSessionSoloDocContract_5(
+          this,
+          Invocation.getter(#contract),
+        ),
+      ) as _i7.P2PPurposeSessionSoloDocContract);
+  @override
+  _i11.Future<_i6.Either<_i12.Failure, _i7.SoloDocCreationStatusEntity>> call(
+          _i13.NoParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i11.Future<
+                _i6.Either<_i12.Failure,
+                    _i7.SoloDocCreationStatusEntity>>.value(
+            _FakeEither_4<_i12.Failure, _i7.SoloDocCreationStatusEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i11
+          .Future<_i6.Either<_i12.Failure, _i7.SoloDocCreationStatusEntity>>);
+}
+
+/// A class which mocks [MGetSoloDoc].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMGetSoloDoc extends _i1.Mock implements _i10.MGetSoloDoc {
+  MockMGetSoloDoc() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.P2PPurposeSessionSoloDocContract get contract => (super.noSuchMethod(
+        Invocation.getter(#contract),
+        returnValue: _FakeP2PPurposeSessionSoloDocContract_5(
+          this,
+          Invocation.getter(#contract),
+        ),
+      ) as _i7.P2PPurposeSessionSoloDocContract);
+  @override
+  _i11.Future<_i6.Either<_i12.Failure, _i7.SoloDocContentEntity>> call(
+          _i13.NoParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i11.Future<
+                _i6.Either<_i12.Failure, _i7.SoloDocContentEntity>>.value(
+            _FakeEither_4<_i12.Failure, _i7.SoloDocContentEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i11.Future<_i6.Either<_i12.Failure, _i7.SoloDocContentEntity>>);
+}
+
+/// A class which mocks [MSealSoloDoc].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMSealSoloDoc extends _i1.Mock implements _i10.MSealSoloDoc {
+  MockMSealSoloDoc() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.P2PPurposeSessionSoloDocContract get contract => (super.noSuchMethod(
+        Invocation.getter(#contract),
+        returnValue: _FakeP2PPurposeSessionSoloDocContract_5(
+          this,
+          Invocation.getter(#contract),
+        ),
+      ) as _i7.P2PPurposeSessionSoloDocContract);
+  @override
+  _i11.Future<_i6.Either<_i12.Failure, _i7.SoloDocSealingStatusEntity>> call(
+          _i13.NoParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i11.Future<
+                _i6.Either<_i12.Failure, _i7.SoloDocSealingStatusEntity>>.value(
+            _FakeEither_4<_i12.Failure, _i7.SoloDocSealingStatusEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i11
+          .Future<_i6.Either<_i12.Failure, _i7.SoloDocSealingStatusEntity>>);
+}
+
+/// A class which mocks [MShareSoloDoc].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMShareSoloDoc extends _i1.Mock implements _i10.MShareSoloDoc {
+  MockMShareSoloDoc() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.P2PPurposeSessionSoloDocContract get contract => (super.noSuchMethod(
+        Invocation.getter(#contract),
+        returnValue: _FakeP2PPurposeSessionSoloDocContract_5(
+          this,
+          Invocation.getter(#contract),
+        ),
+      ) as _i7.P2PPurposeSessionSoloDocContract);
+  @override
+  _i11.Future<_i6.Either<_i12.Failure, _i7.SoloDocSharingStatusEntity>> call(
+          _i13.NoParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i11.Future<
+                _i6.Either<_i12.Failure, _i7.SoloDocSharingStatusEntity>>.value(
+            _FakeEither_4<_i12.Failure, _i7.SoloDocSharingStatusEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i11
+          .Future<_i6.Either<_i12.Failure, _i7.SoloDocSharingStatusEntity>>);
+}
+
+/// A class which mocks [MSubmitSoloDoc].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMSubmitSoloDoc extends _i1.Mock implements _i10.MSubmitSoloDoc {
+  MockMSubmitSoloDoc() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.P2PPurposeSessionSoloDocContract get contract => (super.noSuchMethod(
+        Invocation.getter(#contract),
+        returnValue: _FakeP2PPurposeSessionSoloDocContract_5(
+          this,
+          Invocation.getter(#contract),
+        ),
+      ) as _i7.P2PPurposeSessionSoloDocContract);
+  @override
+  _i11.Future<_i6.Either<_i12.Failure, _i7.SoloDocSubmissionStatusEntity>> call(
+          _i7.SubmitSoloDocParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i11.Future<
+                _i6.Either<_i12.Failure,
+                    _i7.SoloDocSubmissionStatusEntity>>.value(
+            _FakeEither_4<_i12.Failure, _i7.SoloDocSubmissionStatusEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i11
+          .Future<_i6.Either<_i12.Failure, _i7.SoloDocSubmissionStatusEntity>>);
 }
 
 /// A class which mocks [MCheckIfUserHasTheQuestion].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMCheckIfUserHasTheQuestion extends _i1.Mock
-    implements _i8.MCheckIfUserHasTheQuestion {
+    implements _i10.MCheckIfUserHasTheQuestion {
   MockMCheckIfUserHasTheQuestion() {
     _i1.throwOnMissingStub(this);
   }
@@ -392,35 +1000,35 @@ class MockMCheckIfUserHasTheQuestion extends _i1.Mock
   @override
   _i7.P2PPurposeSessionVoiceCallContract get contract => (super.noSuchMethod(
         Invocation.getter(#contract),
-        returnValue: _FakeP2PPurposeSessionVoiceCallContract_5(
+        returnValue: _FakeP2PPurposeSessionVoiceCallContract_6(
           this,
           Invocation.getter(#contract),
         ),
       ) as _i7.P2PPurposeSessionVoiceCallContract);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.WhoGetsTheQuestionEntity>> call(
-          _i11.NoParams? params) =>
+  _i11.Future<_i6.Either<_i12.Failure, _i7.WhoGetsTheQuestionEntity>> call(
+          _i13.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i9.Future<
-                _i6.Either<_i10.Failure, _i7.WhoGetsTheQuestionEntity>>.value(
-            _FakeEither_4<_i10.Failure, _i7.WhoGetsTheQuestionEntity>(
+        returnValue: _i11.Future<
+                _i6.Either<_i12.Failure, _i7.WhoGetsTheQuestionEntity>>.value(
+            _FakeEither_4<_i12.Failure, _i7.WhoGetsTheQuestionEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i9.Future<_i6.Either<_i10.Failure, _i7.WhoGetsTheQuestionEntity>>);
+      ) as _i11.Future<_i6.Either<_i12.Failure, _i7.WhoGetsTheQuestionEntity>>);
 }
 
 /// A class which mocks [MFetchAgoraToken].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMFetchAgoraToken extends _i1.Mock implements _i8.MFetchAgoraToken {
+class MockMFetchAgoraToken extends _i1.Mock implements _i10.MFetchAgoraToken {
   MockMFetchAgoraToken() {
     _i1.throwOnMissingStub(this);
   }
@@ -428,35 +1036,35 @@ class MockMFetchAgoraToken extends _i1.Mock implements _i8.MFetchAgoraToken {
   @override
   _i7.P2PPurposeSessionVoiceCallContract get contract => (super.noSuchMethod(
         Invocation.getter(#contract),
-        returnValue: _FakeP2PPurposeSessionVoiceCallContract_5(
+        returnValue: _FakeP2PPurposeSessionVoiceCallContract_6(
           this,
           Invocation.getter(#contract),
         ),
       ) as _i7.P2PPurposeSessionVoiceCallContract);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.AgoraCallTokenEntity>> call(
+  _i11.Future<_i6.Either<_i12.Failure, _i7.AgoraCallTokenEntity>> call(
           _i7.FetchAgoraTokenParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i9.Future<
-                _i6.Either<_i10.Failure, _i7.AgoraCallTokenEntity>>.value(
-            _FakeEither_4<_i10.Failure, _i7.AgoraCallTokenEntity>(
+        returnValue: _i11.Future<
+                _i6.Either<_i12.Failure, _i7.AgoraCallTokenEntity>>.value(
+            _FakeEither_4<_i12.Failure, _i7.AgoraCallTokenEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i9.Future<_i6.Either<_i10.Failure, _i7.AgoraCallTokenEntity>>);
+      ) as _i11.Future<_i6.Either<_i12.Failure, _i7.AgoraCallTokenEntity>>);
 }
 
 /// A class which mocks [MFetchChannelId].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMFetchChannelId extends _i1.Mock implements _i8.MFetchChannelId {
+class MockMFetchChannelId extends _i1.Mock implements _i10.MFetchChannelId {
   MockMFetchChannelId() {
     _i1.throwOnMissingStub(this);
   }
@@ -464,36 +1072,36 @@ class MockMFetchChannelId extends _i1.Mock implements _i8.MFetchChannelId {
   @override
   _i7.P2PPurposeSessionVoiceCallContract get contract => (super.noSuchMethod(
         Invocation.getter(#contract),
-        returnValue: _FakeP2PPurposeSessionVoiceCallContract_5(
+        returnValue: _FakeP2PPurposeSessionVoiceCallContract_6(
           this,
           Invocation.getter(#contract),
         ),
       ) as _i7.P2PPurposeSessionVoiceCallContract);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.ChannelIdEntity>> call(
-          _i11.NoParams? params) =>
+  _i11.Future<_i6.Either<_i12.Failure, _i7.ChannelIdEntity>> call(
+          _i13.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
         returnValue:
-            _i9.Future<_i6.Either<_i10.Failure, _i7.ChannelIdEntity>>.value(
-                _FakeEither_4<_i10.Failure, _i7.ChannelIdEntity>(
+            _i11.Future<_i6.Either<_i12.Failure, _i7.ChannelIdEntity>>.value(
+                _FakeEither_4<_i12.Failure, _i7.ChannelIdEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i9.Future<_i6.Either<_i10.Failure, _i7.ChannelIdEntity>>);
+      ) as _i11.Future<_i6.Either<_i12.Failure, _i7.ChannelIdEntity>>);
 }
 
 /// A class which mocks [MInstantiateAgoraSdk].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMInstantiateAgoraSdk extends _i1.Mock
-    implements _i8.MInstantiateAgoraSdk {
+    implements _i10.MInstantiateAgoraSdk {
   MockMInstantiateAgoraSdk() {
     _i1.throwOnMissingStub(this);
   }
@@ -501,35 +1109,35 @@ class MockMInstantiateAgoraSdk extends _i1.Mock
   @override
   _i7.P2PPurposeSessionVoiceCallContract get contract => (super.noSuchMethod(
         Invocation.getter(#contract),
-        returnValue: _FakeP2PPurposeSessionVoiceCallContract_5(
+        returnValue: _FakeP2PPurposeSessionVoiceCallContract_6(
           this,
           Invocation.getter(#contract),
         ),
       ) as _i7.P2PPurposeSessionVoiceCallContract);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.AgoraSdkStatusEntity>> call(
-          _i11.NoParams? params) =>
+  _i11.Future<_i6.Either<_i12.Failure, _i7.AgoraSdkStatusEntity>> call(
+          _i13.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i9.Future<
-                _i6.Either<_i10.Failure, _i7.AgoraSdkStatusEntity>>.value(
-            _FakeEither_4<_i10.Failure, _i7.AgoraSdkStatusEntity>(
+        returnValue: _i11.Future<
+                _i6.Either<_i12.Failure, _i7.AgoraSdkStatusEntity>>.value(
+            _FakeEither_4<_i12.Failure, _i7.AgoraSdkStatusEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i9.Future<_i6.Either<_i10.Failure, _i7.AgoraSdkStatusEntity>>);
+      ) as _i11.Future<_i6.Either<_i12.Failure, _i7.AgoraSdkStatusEntity>>);
 }
 
 /// A class which mocks [MJoinCall].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMJoinCall extends _i1.Mock implements _i8.MJoinCall {
+class MockMJoinCall extends _i1.Mock implements _i10.MJoinCall {
   MockMJoinCall() {
     _i1.throwOnMissingStub(this);
   }
@@ -537,13 +1145,13 @@ class MockMJoinCall extends _i1.Mock implements _i8.MJoinCall {
   @override
   _i7.P2PPurposeSessionVoiceCallContract get contract => (super.noSuchMethod(
         Invocation.getter(#contract),
-        returnValue: _FakeP2PPurposeSessionVoiceCallContract_5(
+        returnValue: _FakeP2PPurposeSessionVoiceCallContract_6(
           this,
           Invocation.getter(#contract),
         ),
       ) as _i7.P2PPurposeSessionVoiceCallContract);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.CallStatusEntity>> call(
+  _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>> call(
           _i7.JoinCallParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -551,21 +1159,21 @@ class MockMJoinCall extends _i1.Mock implements _i8.MJoinCall {
           [params],
         ),
         returnValue:
-            _i9.Future<_i6.Either<_i10.Failure, _i7.CallStatusEntity>>.value(
-                _FakeEither_4<_i10.Failure, _i7.CallStatusEntity>(
+            _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>>.value(
+                _FakeEither_4<_i12.Failure, _i7.CallStatusEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i9.Future<_i6.Either<_i10.Failure, _i7.CallStatusEntity>>);
+      ) as _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>>);
 }
 
 /// A class which mocks [MLeaveCall].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMLeaveCall extends _i1.Mock implements _i8.MLeaveCall {
+class MockMLeaveCall extends _i1.Mock implements _i10.MLeaveCall {
   MockMLeaveCall() {
     _i1.throwOnMissingStub(this);
   }
@@ -573,36 +1181,36 @@ class MockMLeaveCall extends _i1.Mock implements _i8.MLeaveCall {
   @override
   _i7.P2PPurposeSessionVoiceCallContract get contract => (super.noSuchMethod(
         Invocation.getter(#contract),
-        returnValue: _FakeP2PPurposeSessionVoiceCallContract_5(
+        returnValue: _FakeP2PPurposeSessionVoiceCallContract_6(
           this,
           Invocation.getter(#contract),
         ),
       ) as _i7.P2PPurposeSessionVoiceCallContract);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.CallStatusEntity>> call(
-          _i11.NoParams? params) =>
+  _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>> call(
+          _i13.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
         returnValue:
-            _i9.Future<_i6.Either<_i10.Failure, _i7.CallStatusEntity>>.value(
-                _FakeEither_4<_i10.Failure, _i7.CallStatusEntity>(
+            _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>>.value(
+                _FakeEither_4<_i12.Failure, _i7.CallStatusEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i9.Future<_i6.Either<_i10.Failure, _i7.CallStatusEntity>>);
+      ) as _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>>);
 }
 
 /// A class which mocks [MMuteLocalAudioStream].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMMuteLocalAudioStream extends _i1.Mock
-    implements _i8.MMuteLocalAudioStream {
+    implements _i10.MMuteLocalAudioStream {
   MockMMuteLocalAudioStream() {
     _i1.throwOnMissingStub(this);
   }
@@ -610,38 +1218,38 @@ class MockMMuteLocalAudioStream extends _i1.Mock
   @override
   _i7.P2PPurposeSessionVoiceCallContract get contract => (super.noSuchMethod(
         Invocation.getter(#contract),
-        returnValue: _FakeP2PPurposeSessionVoiceCallContract_5(
+        returnValue: _FakeP2PPurposeSessionVoiceCallContract_6(
           this,
           Invocation.getter(#contract),
         ),
       ) as _i7.P2PPurposeSessionVoiceCallContract);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.LocalAudioStreamStatusEntity>> call(
-          _i11.NoParams? params) =>
+  _i11.Future<_i6.Either<_i12.Failure, _i7.LocalAudioStreamStatusEntity>> call(
+          _i13.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i9.Future<
-                _i6.Either<_i10.Failure,
+        returnValue: _i11.Future<
+                _i6.Either<_i12.Failure,
                     _i7.LocalAudioStreamStatusEntity>>.value(
-            _FakeEither_4<_i10.Failure, _i7.LocalAudioStreamStatusEntity>(
+            _FakeEither_4<_i12.Failure, _i7.LocalAudioStreamStatusEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i9
-          .Future<_i6.Either<_i10.Failure, _i7.LocalAudioStreamStatusEntity>>);
+      ) as _i11
+          .Future<_i6.Either<_i12.Failure, _i7.LocalAudioStreamStatusEntity>>);
 }
 
 /// A class which mocks [MUnmuteLocalAudioStream].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMUnmuteLocalAudioStream extends _i1.Mock
-    implements _i8.MUnmuteLocalAudioStream {
+    implements _i10.MUnmuteLocalAudioStream {
   MockMUnmuteLocalAudioStream() {
     _i1.throwOnMissingStub(this);
   }
@@ -649,29 +1257,1976 @@ class MockMUnmuteLocalAudioStream extends _i1.Mock
   @override
   _i7.P2PPurposeSessionVoiceCallContract get contract => (super.noSuchMethod(
         Invocation.getter(#contract),
-        returnValue: _FakeP2PPurposeSessionVoiceCallContract_5(
+        returnValue: _FakeP2PPurposeSessionVoiceCallContract_6(
           this,
           Invocation.getter(#contract),
         ),
       ) as _i7.P2PPurposeSessionVoiceCallContract);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.LocalAudioStreamStatusEntity>> call(
-          _i11.NoParams? params) =>
+  _i11.Future<_i6.Either<_i12.Failure, _i7.LocalAudioStreamStatusEntity>> call(
+          _i13.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i9.Future<
-                _i6.Either<_i10.Failure,
+        returnValue: _i11.Future<
+                _i6.Either<_i12.Failure,
                     _i7.LocalAudioStreamStatusEntity>>.value(
-            _FakeEither_4<_i10.Failure, _i7.LocalAudioStreamStatusEntity>(
+            _FakeEither_4<_i12.Failure, _i7.LocalAudioStreamStatusEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i9
-          .Future<_i6.Either<_i10.Failure, _i7.LocalAudioStreamStatusEntity>>);
+      ) as _i11
+          .Future<_i6.Either<_i12.Failure, _i7.LocalAudioStreamStatusEntity>>);
+}
+
+/// A class which mocks [MCreateSoloDocGetterStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMCreateSoloDocGetterStore extends _i1.Mock
+    implements _i10.MCreateSoloDocGetterStore {
+  MockMCreateSoloDocGetterStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.CreateSoloDoc get logic => (super.noSuchMethod(
+        Invocation.getter(#logic),
+        returnValue: _FakeCreateSoloDoc_7(
+          this,
+          Invocation.getter(#logic),
+        ),
+      ) as _i7.CreateSoloDoc);
+  @override
+  set logic(_i7.CreateSoloDoc? _logic) => super.noSuchMethod(
+        Invocation.setter(
+          #logic,
+          _logic,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  _i11.Future<_i6.Either<_i12.Failure, _i7.SoloDocCreationStatusEntity>> call(
+          _i13.NoParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i11.Future<
+                _i6.Either<_i12.Failure,
+                    _i7.SoloDocCreationStatusEntity>>.value(
+            _FakeEither_4<_i12.Failure, _i7.SoloDocCreationStatusEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i11
+          .Future<_i6.Either<_i12.Failure, _i7.SoloDocCreationStatusEntity>>);
+}
+
+/// A class which mocks [MCreateSoloDocStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMCreateSoloDocStore extends _i1.Mock
+    implements _i10.MCreateSoloDocStore {
+  MockMCreateSoloDocStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.CreateSoloDocGetterStore get getterStore => (super.noSuchMethod(
+        Invocation.getter(#getterStore),
+        returnValue: _FakeCreateSoloDocGetterStore_9(
+          this,
+          Invocation.getter(#getterStore),
+        ),
+      ) as _i3.CreateSoloDocGetterStore);
+  @override
+  bool get isCreated => (super.noSuchMethod(
+        Invocation.getter(#isCreated),
+        returnValue: false,
+      ) as bool);
+  @override
+  set isCreated(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #isCreated,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i9.BaseFutureStore<_i7.SoloDocCreationStatusEntity> get futureStore =>
+      (super.noSuchMethod(
+        Invocation.getter(#futureStore),
+        returnValue: _FakeBaseFutureStore_10<_i7.SoloDocCreationStatusEntity>(
+          this,
+          Invocation.getter(#futureStore),
+        ),
+      ) as _i9.BaseFutureStore<_i7.SoloDocCreationStatusEntity>);
+  @override
+  set futureStore(
+          _i9.BaseFutureStore<_i7.SoloDocCreationStatusEntity>? value) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #futureStore,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i14.StoreState get state => (super.noSuchMethod(
+        Invocation.getter(#state),
+        returnValue: _i14.StoreState.initial,
+      ) as _i14.StoreState);
+  @override
+  set state(_i14.StoreState? value) => super.noSuchMethod(
+        Invocation.setter(
+          #state,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  String get errorMessage => (super.noSuchMethod(
+        Invocation.getter(#errorMessage),
+        returnValue: '',
+      ) as String);
+  @override
+  set errorMessage(String? value) => super.noSuchMethod(
+        Invocation.setter(
+          #errorMessage,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  void stateOrErrorUpdater(
+          _i6.Either<_i12.Failure, _i7.SoloDocCreationStatusEntity>? result) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #stateOrErrorUpdater,
+          [result],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i11.Future<void> call(_i13.NoParams? params) => (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i11.Future<void>.value(),
+        returnValueForMissingStub: _i11.Future<void>.value(),
+      ) as _i11.Future<void>);
+  @override
+  String mapFailureToMessage(_i12.Failure? failure) => (super.noSuchMethod(
+        Invocation.method(
+          #mapFailureToMessage,
+          [failure],
+        ),
+        returnValue: '',
+      ) as String);
+}
+
+/// A class which mocks [MGetSoloDocGetterStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMGetSoloDocGetterStore extends _i1.Mock
+    implements _i10.MGetSoloDocGetterStore {
+  MockMGetSoloDocGetterStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.GetSoloDoc get logic => (super.noSuchMethod(
+        Invocation.getter(#logic),
+        returnValue: _FakeGetSoloDoc_11(
+          this,
+          Invocation.getter(#logic),
+        ),
+      ) as _i7.GetSoloDoc);
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  _i11.Future<_i6.Either<_i12.Failure, _i7.SoloDocContentEntity>> call(
+          _i13.NoParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i11.Future<
+                _i6.Either<_i12.Failure, _i7.SoloDocContentEntity>>.value(
+            _FakeEither_4<_i12.Failure, _i7.SoloDocContentEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i11.Future<_i6.Either<_i12.Failure, _i7.SoloDocContentEntity>>);
+}
+
+/// A class which mocks [MGetSoloDocStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMGetSoloDocStore extends _i1.Mock implements _i10.MGetSoloDocStore {
+  MockMGetSoloDocStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.GetSoloDocGetterStore get getterStore => (super.noSuchMethod(
+        Invocation.getter(#getterStore),
+        returnValue: _FakeGetSoloDocGetterStore_12(
+          this,
+          Invocation.getter(#getterStore),
+        ),
+      ) as _i3.GetSoloDocGetterStore);
+  @override
+  String get docContent => (super.noSuchMethod(
+        Invocation.getter(#docContent),
+        returnValue: '',
+      ) as String);
+  @override
+  set docContent(String? value) => super.noSuchMethod(
+        Invocation.setter(
+          #docContent,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i9.BaseFutureStore<_i7.SoloDocContentEntity> get futureStore =>
+      (super.noSuchMethod(
+        Invocation.getter(#futureStore),
+        returnValue: _FakeBaseFutureStore_10<_i7.SoloDocContentEntity>(
+          this,
+          Invocation.getter(#futureStore),
+        ),
+      ) as _i9.BaseFutureStore<_i7.SoloDocContentEntity>);
+  @override
+  set futureStore(_i9.BaseFutureStore<_i7.SoloDocContentEntity>? value) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #futureStore,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i14.StoreState get state => (super.noSuchMethod(
+        Invocation.getter(#state),
+        returnValue: _i14.StoreState.initial,
+      ) as _i14.StoreState);
+  @override
+  set state(_i14.StoreState? value) => super.noSuchMethod(
+        Invocation.setter(
+          #state,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  String get errorMessage => (super.noSuchMethod(
+        Invocation.getter(#errorMessage),
+        returnValue: '',
+      ) as String);
+  @override
+  set errorMessage(String? value) => super.noSuchMethod(
+        Invocation.setter(
+          #errorMessage,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  void stateOrErrorUpdater(
+          _i6.Either<_i12.Failure, _i7.SoloDocContentEntity>? result) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #stateOrErrorUpdater,
+          [result],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i11.Future<void> call(_i13.NoParams? params) => (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i11.Future<void>.value(),
+        returnValueForMissingStub: _i11.Future<void>.value(),
+      ) as _i11.Future<void>);
+  @override
+  String mapFailureToMessage(_i12.Failure? failure) => (super.noSuchMethod(
+        Invocation.method(
+          #mapFailureToMessage,
+          [failure],
+        ),
+        returnValue: '',
+      ) as String);
+}
+
+/// A class which mocks [MSealSoloDocGetterStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMSealSoloDocGetterStore extends _i1.Mock
+    implements _i10.MSealSoloDocGetterStore {
+  MockMSealSoloDocGetterStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.SealSoloDoc get logic => (super.noSuchMethod(
+        Invocation.getter(#logic),
+        returnValue: _FakeSealSoloDoc_13(
+          this,
+          Invocation.getter(#logic),
+        ),
+      ) as _i7.SealSoloDoc);
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  _i11.Future<_i6.Either<_i12.Failure, _i7.SoloDocSealingStatusEntity>> call(
+          _i13.NoParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i11.Future<
+                _i6.Either<_i12.Failure, _i7.SoloDocSealingStatusEntity>>.value(
+            _FakeEither_4<_i12.Failure, _i7.SoloDocSealingStatusEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i11
+          .Future<_i6.Either<_i12.Failure, _i7.SoloDocSealingStatusEntity>>);
+}
+
+/// A class which mocks [MSealSoloDocStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMSealSoloDocStore extends _i1.Mock implements _i10.MSealSoloDocStore {
+  MockMSealSoloDocStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.SealSoloDocGetterStore get getterStore => (super.noSuchMethod(
+        Invocation.getter(#getterStore),
+        returnValue: _FakeSealSoloDocGetterStore_14(
+          this,
+          Invocation.getter(#getterStore),
+        ),
+      ) as _i3.SealSoloDocGetterStore);
+  @override
+  bool get isSealed => (super.noSuchMethod(
+        Invocation.getter(#isSealed),
+        returnValue: false,
+      ) as bool);
+  @override
+  set isSealed(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #isSealed,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i9.BaseFutureStore<_i7.SoloDocSealingStatusEntity> get futureStore =>
+      (super.noSuchMethod(
+        Invocation.getter(#futureStore),
+        returnValue: _FakeBaseFutureStore_10<_i7.SoloDocSealingStatusEntity>(
+          this,
+          Invocation.getter(#futureStore),
+        ),
+      ) as _i9.BaseFutureStore<_i7.SoloDocSealingStatusEntity>);
+  @override
+  set futureStore(_i9.BaseFutureStore<_i7.SoloDocSealingStatusEntity>? value) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #futureStore,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i14.StoreState get state => (super.noSuchMethod(
+        Invocation.getter(#state),
+        returnValue: _i14.StoreState.initial,
+      ) as _i14.StoreState);
+  @override
+  set state(_i14.StoreState? value) => super.noSuchMethod(
+        Invocation.setter(
+          #state,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  String get errorMessage => (super.noSuchMethod(
+        Invocation.getter(#errorMessage),
+        returnValue: '',
+      ) as String);
+  @override
+  set errorMessage(String? value) => super.noSuchMethod(
+        Invocation.setter(
+          #errorMessage,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  void stateOrErrorUpdater(
+          _i6.Either<_i12.Failure, _i7.SoloDocSealingStatusEntity>? result) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #stateOrErrorUpdater,
+          [result],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i11.Future<void> call(_i13.NoParams? params) => (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i11.Future<void>.value(),
+        returnValueForMissingStub: _i11.Future<void>.value(),
+      ) as _i11.Future<void>);
+  @override
+  String mapFailureToMessage(_i12.Failure? failure) => (super.noSuchMethod(
+        Invocation.method(
+          #mapFailureToMessage,
+          [failure],
+        ),
+        returnValue: '',
+      ) as String);
+}
+
+/// A class which mocks [MShareSoloDocGetterStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMShareSoloDocGetterStore extends _i1.Mock
+    implements _i10.MShareSoloDocGetterStore {
+  MockMShareSoloDocGetterStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.ShareSoloDoc get logic => (super.noSuchMethod(
+        Invocation.getter(#logic),
+        returnValue: _FakeShareSoloDoc_15(
+          this,
+          Invocation.getter(#logic),
+        ),
+      ) as _i7.ShareSoloDoc);
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  _i11.Future<_i6.Either<_i12.Failure, _i7.SoloDocSharingStatusEntity>> call(
+          _i13.NoParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i11.Future<
+                _i6.Either<_i12.Failure, _i7.SoloDocSharingStatusEntity>>.value(
+            _FakeEither_4<_i12.Failure, _i7.SoloDocSharingStatusEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i11
+          .Future<_i6.Either<_i12.Failure, _i7.SoloDocSharingStatusEntity>>);
+}
+
+/// A class which mocks [MShareSoloDocStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMShareSoloDocStore extends _i1.Mock
+    implements _i10.MShareSoloDocStore {
+  MockMShareSoloDocStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.ShareSoloDocGetterStore get getterStore => (super.noSuchMethod(
+        Invocation.getter(#getterStore),
+        returnValue: _FakeShareSoloDocGetterStore_16(
+          this,
+          Invocation.getter(#getterStore),
+        ),
+      ) as _i3.ShareSoloDocGetterStore);
+  @override
+  bool get isShared => (super.noSuchMethod(
+        Invocation.getter(#isShared),
+        returnValue: false,
+      ) as bool);
+  @override
+  set isShared(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #isShared,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i9.BaseFutureStore<_i7.SoloDocSharingStatusEntity> get futureStore =>
+      (super.noSuchMethod(
+        Invocation.getter(#futureStore),
+        returnValue: _FakeBaseFutureStore_10<_i7.SoloDocSharingStatusEntity>(
+          this,
+          Invocation.getter(#futureStore),
+        ),
+      ) as _i9.BaseFutureStore<_i7.SoloDocSharingStatusEntity>);
+  @override
+  set futureStore(_i9.BaseFutureStore<_i7.SoloDocSharingStatusEntity>? value) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #futureStore,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i14.StoreState get state => (super.noSuchMethod(
+        Invocation.getter(#state),
+        returnValue: _i14.StoreState.initial,
+      ) as _i14.StoreState);
+  @override
+  set state(_i14.StoreState? value) => super.noSuchMethod(
+        Invocation.setter(
+          #state,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  String get errorMessage => (super.noSuchMethod(
+        Invocation.getter(#errorMessage),
+        returnValue: '',
+      ) as String);
+  @override
+  set errorMessage(String? value) => super.noSuchMethod(
+        Invocation.setter(
+          #errorMessage,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  void stateOrErrorUpdater(
+          _i6.Either<_i12.Failure, _i7.SoloDocSharingStatusEntity>? result) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #stateOrErrorUpdater,
+          [result],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i11.Future<void> call(_i13.NoParams? params) => (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i11.Future<void>.value(),
+        returnValueForMissingStub: _i11.Future<void>.value(),
+      ) as _i11.Future<void>);
+  @override
+  String mapFailureToMessage(_i12.Failure? failure) => (super.noSuchMethod(
+        Invocation.method(
+          #mapFailureToMessage,
+          [failure],
+        ),
+        returnValue: '',
+      ) as String);
+}
+
+/// A class which mocks [MSubmitSoloDocGetterStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMSubmitSoloDocGetterStore extends _i1.Mock
+    implements _i10.MSubmitSoloDocGetterStore {
+  MockMSubmitSoloDocGetterStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.SubmitSoloDoc get logic => (super.noSuchMethod(
+        Invocation.getter(#logic),
+        returnValue: _FakeSubmitSoloDoc_17(
+          this,
+          Invocation.getter(#logic),
+        ),
+      ) as _i7.SubmitSoloDoc);
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  _i11.Future<_i6.Either<_i12.Failure, _i7.SoloDocSubmissionStatusEntity>> call(
+          _i7.SubmitSoloDocParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i11.Future<
+                _i6.Either<_i12.Failure,
+                    _i7.SoloDocSubmissionStatusEntity>>.value(
+            _FakeEither_4<_i12.Failure, _i7.SoloDocSubmissionStatusEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i11
+          .Future<_i6.Either<_i12.Failure, _i7.SoloDocSubmissionStatusEntity>>);
+}
+
+/// A class which mocks [MSubmitSoloDocStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMSubmitSoloDocStore extends _i1.Mock
+    implements _i10.MSubmitSoloDocStore {
+  MockMSubmitSoloDocStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.SubmitSoloDocGetterStore get getterStore => (super.noSuchMethod(
+        Invocation.getter(#getterStore),
+        returnValue: _FakeSubmitSoloDocGetterStore_18(
+          this,
+          Invocation.getter(#getterStore),
+        ),
+      ) as _i3.SubmitSoloDocGetterStore);
+  @override
+  bool get isSubmitted => (super.noSuchMethod(
+        Invocation.getter(#isSubmitted),
+        returnValue: false,
+      ) as bool);
+  @override
+  set isSubmitted(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #isSubmitted,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i9.BaseFutureStore<_i7.SoloDocSubmissionStatusEntity> get futureStore =>
+      (super.noSuchMethod(
+        Invocation.getter(#futureStore),
+        returnValue: _FakeBaseFutureStore_10<_i7.SoloDocSubmissionStatusEntity>(
+          this,
+          Invocation.getter(#futureStore),
+        ),
+      ) as _i9.BaseFutureStore<_i7.SoloDocSubmissionStatusEntity>);
+  @override
+  set futureStore(
+          _i9.BaseFutureStore<_i7.SoloDocSubmissionStatusEntity>? value) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #futureStore,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i14.StoreState get state => (super.noSuchMethod(
+        Invocation.getter(#state),
+        returnValue: _i14.StoreState.initial,
+      ) as _i14.StoreState);
+  @override
+  set state(_i14.StoreState? value) => super.noSuchMethod(
+        Invocation.setter(
+          #state,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  String get errorMessage => (super.noSuchMethod(
+        Invocation.getter(#errorMessage),
+        returnValue: '',
+      ) as String);
+  @override
+  set errorMessage(String? value) => super.noSuchMethod(
+        Invocation.setter(
+          #errorMessage,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  void stateOrErrorUpdater(
+          _i6.Either<_i12.Failure, _i7.SoloDocSubmissionStatusEntity>?
+              result) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #stateOrErrorUpdater,
+          [result],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i11.Future<void> call(_i7.SubmitSoloDocParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i11.Future<void>.value(),
+        returnValueForMissingStub: _i11.Future<void>.value(),
+      ) as _i11.Future<void>);
+  @override
+  String mapFailureToMessage(_i12.Failure? failure) => (super.noSuchMethod(
+        Invocation.method(
+          #mapFailureToMessage,
+          [failure],
+        ),
+        returnValue: '',
+      ) as String);
+}
+
+/// A class which mocks [MCheckIfUserHasTheQuestionGetterStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMCheckIfUserHasTheQuestionGetterStore extends _i1.Mock
+    implements _i10.MCheckIfUserHasTheQuestionGetterStore {
+  MockMCheckIfUserHasTheQuestionGetterStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.CheckIfUserHasTheQuestion get logic => (super.noSuchMethod(
+        Invocation.getter(#logic),
+        returnValue: _FakeCheckIfUserHasTheQuestion_19(
+          this,
+          Invocation.getter(#logic),
+        ),
+      ) as _i7.CheckIfUserHasTheQuestion);
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  _i11.Future<_i6.Either<_i12.Failure, _i7.WhoGetsTheQuestionEntity>> call() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [],
+        ),
+        returnValue: _i11.Future<
+                _i6.Either<_i12.Failure, _i7.WhoGetsTheQuestionEntity>>.value(
+            _FakeEither_4<_i12.Failure, _i7.WhoGetsTheQuestionEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [],
+          ),
+        )),
+      ) as _i11.Future<_i6.Either<_i12.Failure, _i7.WhoGetsTheQuestionEntity>>);
+}
+
+/// A class which mocks [MCheckIfUserHasTheQuestionStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMCheckIfUserHasTheQuestionStore extends _i1.Mock
+    implements _i10.MCheckIfUserHasTheQuestionStore {
+  MockMCheckIfUserHasTheQuestionStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.CheckIfUserHasTheQuestionGetterStore get getterStore =>
+      (super.noSuchMethod(
+        Invocation.getter(#getterStore),
+        returnValue: _FakeCheckIfUserHasTheQuestionGetterStore_20(
+          this,
+          Invocation.getter(#getterStore),
+        ),
+      ) as _i3.CheckIfUserHasTheQuestionGetterStore);
+  @override
+  _i9.BaseFutureStore<_i7.WhoGetsTheQuestionEntity> get futureStore =>
+      (super.noSuchMethod(
+        Invocation.getter(#futureStore),
+        returnValue: _FakeBaseFutureStore_10<_i7.WhoGetsTheQuestionEntity>(
+          this,
+          Invocation.getter(#futureStore),
+        ),
+      ) as _i9.BaseFutureStore<_i7.WhoGetsTheQuestionEntity>);
+  @override
+  set futureStore(_i9.BaseFutureStore<_i7.WhoGetsTheQuestionEntity>? value) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #futureStore,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  bool get hasTheQuestion => (super.noSuchMethod(
+        Invocation.getter(#hasTheQuestion),
+        returnValue: false,
+      ) as bool);
+  @override
+  set hasTheQuestion(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #hasTheQuestion,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i14.StoreState get state => (super.noSuchMethod(
+        Invocation.getter(#state),
+        returnValue: _i14.StoreState.initial,
+      ) as _i14.StoreState);
+  @override
+  set state(_i14.StoreState? value) => super.noSuchMethod(
+        Invocation.setter(
+          #state,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  String get errorMessage => (super.noSuchMethod(
+        Invocation.getter(#errorMessage),
+        returnValue: '',
+      ) as String);
+  @override
+  set errorMessage(String? value) => super.noSuchMethod(
+        Invocation.setter(
+          #errorMessage,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  void stateOrErrorUpdater(
+          _i6.Either<_i12.Failure, _i7.WhoGetsTheQuestionEntity>? result) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #stateOrErrorUpdater,
+          [result],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i11.Future<void> call(_i13.NoParams? params) => (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i11.Future<void>.value(),
+        returnValueForMissingStub: _i11.Future<void>.value(),
+      ) as _i11.Future<void>);
+  @override
+  String mapFailureToMessage(_i12.Failure? failure) => (super.noSuchMethod(
+        Invocation.method(
+          #mapFailureToMessage,
+          [failure],
+        ),
+        returnValue: '',
+      ) as String);
+}
+
+/// A class which mocks [MFetchAgoraTokenGetterStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMFetchAgoraTokenGetterStore extends _i1.Mock
+    implements _i10.MFetchAgoraTokenGetterStore {
+  MockMFetchAgoraTokenGetterStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.FetchAgoraToken get logic => (super.noSuchMethod(
+        Invocation.getter(#logic),
+        returnValue: _FakeFetchAgoraToken_21(
+          this,
+          Invocation.getter(#logic),
+        ),
+      ) as _i7.FetchAgoraToken);
+  @override
+  set logic(_i7.FetchAgoraToken? _logic) => super.noSuchMethod(
+        Invocation.setter(
+          #logic,
+          _logic,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  _i11.Future<_i6.Either<_i12.Failure, _i7.AgoraCallTokenEntity>> call(
+          _i7.FetchAgoraTokenParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i11.Future<
+                _i6.Either<_i12.Failure, _i7.AgoraCallTokenEntity>>.value(
+            _FakeEither_4<_i12.Failure, _i7.AgoraCallTokenEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i11.Future<_i6.Either<_i12.Failure, _i7.AgoraCallTokenEntity>>);
+}
+
+/// A class which mocks [MFetchAgoraTokenStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMFetchAgoraTokenStore extends _i1.Mock
+    implements _i10.MFetchAgoraTokenStore {
+  MockMFetchAgoraTokenStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.FetchAgoraTokenGetterStore get getterStore => (super.noSuchMethod(
+        Invocation.getter(#getterStore),
+        returnValue: _FakeFetchAgoraTokenGetterStore_22(
+          this,
+          Invocation.getter(#getterStore),
+        ),
+      ) as _i3.FetchAgoraTokenGetterStore);
+  @override
+  _i9.BaseFutureStore<_i7.AgoraCallTokenEntity> get futureStore =>
+      (super.noSuchMethod(
+        Invocation.getter(#futureStore),
+        returnValue: _FakeBaseFutureStore_10<_i7.AgoraCallTokenEntity>(
+          this,
+          Invocation.getter(#futureStore),
+        ),
+      ) as _i9.BaseFutureStore<_i7.AgoraCallTokenEntity>);
+  @override
+  set futureStore(_i9.BaseFutureStore<_i7.AgoraCallTokenEntity>? value) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #futureStore,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  String get token => (super.noSuchMethod(
+        Invocation.getter(#token),
+        returnValue: '',
+      ) as String);
+  @override
+  set token(String? value) => super.noSuchMethod(
+        Invocation.setter(
+          #token,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i14.StoreState get state => (super.noSuchMethod(
+        Invocation.getter(#state),
+        returnValue: _i14.StoreState.initial,
+      ) as _i14.StoreState);
+  @override
+  set state(_i14.StoreState? value) => super.noSuchMethod(
+        Invocation.setter(
+          #state,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  String get errorMessage => (super.noSuchMethod(
+        Invocation.getter(#errorMessage),
+        returnValue: '',
+      ) as String);
+  @override
+  set errorMessage(String? value) => super.noSuchMethod(
+        Invocation.setter(
+          #errorMessage,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  void stateOrErrorUpdater(
+          _i6.Either<_i12.Failure, _i7.AgoraCallTokenEntity>? result) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #stateOrErrorUpdater,
+          [result],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i11.Future<void> call(_i7.FetchAgoraTokenParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i11.Future<void>.value(),
+        returnValueForMissingStub: _i11.Future<void>.value(),
+      ) as _i11.Future<void>);
+  @override
+  String mapFailureToMessage(_i12.Failure? failure) => (super.noSuchMethod(
+        Invocation.method(
+          #mapFailureToMessage,
+          [failure],
+        ),
+        returnValue: '',
+      ) as String);
+}
+
+/// A class which mocks [MFetchChannelIdGetterStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMFetchChannelIdGetterStore extends _i1.Mock
+    implements _i10.MFetchChannelIdGetterStore {
+  MockMFetchChannelIdGetterStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.FetchChannelId get logic => (super.noSuchMethod(
+        Invocation.getter(#logic),
+        returnValue: _FakeFetchChannelId_23(
+          this,
+          Invocation.getter(#logic),
+        ),
+      ) as _i7.FetchChannelId);
+  @override
+  set logic(_i7.FetchChannelId? _logic) => super.noSuchMethod(
+        Invocation.setter(
+          #logic,
+          _logic,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  _i11.Future<_i6.Either<_i12.Failure, _i7.ChannelIdEntity>> call() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [],
+        ),
+        returnValue:
+            _i11.Future<_i6.Either<_i12.Failure, _i7.ChannelIdEntity>>.value(
+                _FakeEither_4<_i12.Failure, _i7.ChannelIdEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [],
+          ),
+        )),
+      ) as _i11.Future<_i6.Either<_i12.Failure, _i7.ChannelIdEntity>>);
+}
+
+/// A class which mocks [MFetchChannelIdStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMFetchChannelIdStore extends _i1.Mock
+    implements _i10.MFetchChannelIdStore {
+  MockMFetchChannelIdStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.FetchChannelIdGetterStore get getterStore => (super.noSuchMethod(
+        Invocation.getter(#getterStore),
+        returnValue: _FakeFetchChannelIdGetterStore_24(
+          this,
+          Invocation.getter(#getterStore),
+        ),
+      ) as _i3.FetchChannelIdGetterStore);
+  @override
+  String get channelId => (super.noSuchMethod(
+        Invocation.getter(#channelId),
+        returnValue: '',
+      ) as String);
+  @override
+  set channelId(String? value) => super.noSuchMethod(
+        Invocation.setter(
+          #channelId,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i9.BaseFutureStore<_i7.ChannelIdEntity> get futureStore =>
+      (super.noSuchMethod(
+        Invocation.getter(#futureStore),
+        returnValue: _FakeBaseFutureStore_10<_i7.ChannelIdEntity>(
+          this,
+          Invocation.getter(#futureStore),
+        ),
+      ) as _i9.BaseFutureStore<_i7.ChannelIdEntity>);
+  @override
+  set futureStore(_i9.BaseFutureStore<_i7.ChannelIdEntity>? value) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #futureStore,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i14.StoreState get state => (super.noSuchMethod(
+        Invocation.getter(#state),
+        returnValue: _i14.StoreState.initial,
+      ) as _i14.StoreState);
+  @override
+  set state(_i14.StoreState? value) => super.noSuchMethod(
+        Invocation.setter(
+          #state,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  String get errorMessage => (super.noSuchMethod(
+        Invocation.getter(#errorMessage),
+        returnValue: '',
+      ) as String);
+  @override
+  set errorMessage(String? value) => super.noSuchMethod(
+        Invocation.setter(
+          #errorMessage,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  void stateOrErrorUpdater(
+          _i6.Either<_i12.Failure, _i7.ChannelIdEntity>? result) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #stateOrErrorUpdater,
+          [result],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i11.Future<void> call(_i13.NoParams? params) => (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i11.Future<void>.value(),
+        returnValueForMissingStub: _i11.Future<void>.value(),
+      ) as _i11.Future<void>);
+  @override
+  String mapFailureToMessage(_i12.Failure? failure) => (super.noSuchMethod(
+        Invocation.method(
+          #mapFailureToMessage,
+          [failure],
+        ),
+        returnValue: '',
+      ) as String);
+}
+
+/// A class which mocks [MInstantiateAgoraSdkGetterStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMInstantiateAgoraSdkGetterStore extends _i1.Mock
+    implements _i10.MInstantiateAgoraSdkGetterStore {
+  MockMInstantiateAgoraSdkGetterStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.InstantiateAgoraSdk get logic => (super.noSuchMethod(
+        Invocation.getter(#logic),
+        returnValue: _FakeInstantiateAgoraSdk_25(
+          this,
+          Invocation.getter(#logic),
+        ),
+      ) as _i7.InstantiateAgoraSdk);
+  @override
+  set logic(_i7.InstantiateAgoraSdk? _logic) => super.noSuchMethod(
+        Invocation.setter(
+          #logic,
+          _logic,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  _i11.Future<_i6.Either<_i12.Failure, _i7.AgoraSdkStatusEntity>> call() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [],
+        ),
+        returnValue: _i11.Future<
+                _i6.Either<_i12.Failure, _i7.AgoraSdkStatusEntity>>.value(
+            _FakeEither_4<_i12.Failure, _i7.AgoraSdkStatusEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [],
+          ),
+        )),
+      ) as _i11.Future<_i6.Either<_i12.Failure, _i7.AgoraSdkStatusEntity>>);
+}
+
+/// A class which mocks [MInstantiateAgoraSdkStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMInstantiateAgoraSdkStore extends _i1.Mock
+    implements _i10.MInstantiateAgoraSdkStore {
+  MockMInstantiateAgoraSdkStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.InstantiateAgoraSdkGetterStore get getterStore => (super.noSuchMethod(
+        Invocation.getter(#getterStore),
+        returnValue: _FakeInstantiateAgoraSdkGetterStore_26(
+          this,
+          Invocation.getter(#getterStore),
+        ),
+      ) as _i3.InstantiateAgoraSdkGetterStore);
+  @override
+  bool get isInstantiated => (super.noSuchMethod(
+        Invocation.getter(#isInstantiated),
+        returnValue: false,
+      ) as bool);
+  @override
+  set isInstantiated(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #isInstantiated,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i9.BaseFutureStore<_i7.AgoraSdkStatusEntity> get futureStore =>
+      (super.noSuchMethod(
+        Invocation.getter(#futureStore),
+        returnValue: _FakeBaseFutureStore_10<_i7.AgoraSdkStatusEntity>(
+          this,
+          Invocation.getter(#futureStore),
+        ),
+      ) as _i9.BaseFutureStore<_i7.AgoraSdkStatusEntity>);
+  @override
+  set futureStore(_i9.BaseFutureStore<_i7.AgoraSdkStatusEntity>? value) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #futureStore,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i14.StoreState get state => (super.noSuchMethod(
+        Invocation.getter(#state),
+        returnValue: _i14.StoreState.initial,
+      ) as _i14.StoreState);
+  @override
+  set state(_i14.StoreState? value) => super.noSuchMethod(
+        Invocation.setter(
+          #state,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  String get errorMessage => (super.noSuchMethod(
+        Invocation.getter(#errorMessage),
+        returnValue: '',
+      ) as String);
+  @override
+  set errorMessage(String? value) => super.noSuchMethod(
+        Invocation.setter(
+          #errorMessage,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  void stateOrErrorUpdater(
+          _i6.Either<_i12.Failure, _i7.AgoraSdkStatusEntity>? result) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #stateOrErrorUpdater,
+          [result],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i11.Future<void> call(_i13.NoParams? params) => (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i11.Future<void>.value(),
+        returnValueForMissingStub: _i11.Future<void>.value(),
+      ) as _i11.Future<void>);
+  @override
+  String mapFailureToMessage(_i12.Failure? failure) => (super.noSuchMethod(
+        Invocation.method(
+          #mapFailureToMessage,
+          [failure],
+        ),
+        returnValue: '',
+      ) as String);
+}
+
+/// A class which mocks [MJoinCallGetterStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMJoinCallGetterStore extends _i1.Mock
+    implements _i10.MJoinCallGetterStore {
+  MockMJoinCallGetterStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.JoinCall get logic => (super.noSuchMethod(
+        Invocation.getter(#logic),
+        returnValue: _FakeJoinCall_27(
+          this,
+          Invocation.getter(#logic),
+        ),
+      ) as _i7.JoinCall);
+  @override
+  set logic(_i7.JoinCall? _logic) => super.noSuchMethod(
+        Invocation.setter(
+          #logic,
+          _logic,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>> call({
+    required String? token,
+    required String? channelId,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [],
+          {
+            #token: token,
+            #channelId: channelId,
+          },
+        ),
+        returnValue:
+            _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>>.value(
+                _FakeEither_4<_i12.Failure, _i7.CallStatusEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [],
+            {
+              #token: token,
+              #channelId: channelId,
+            },
+          ),
+        )),
+      ) as _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>>);
+}
+
+/// A class which mocks [MLeaveCallGetterStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMLeaveCallGetterStore extends _i1.Mock
+    implements _i10.MLeaveCallGetterStore {
+  MockMLeaveCallGetterStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.LeaveCall get logic => (super.noSuchMethod(
+        Invocation.getter(#logic),
+        returnValue: _FakeLeaveCall_28(
+          this,
+          Invocation.getter(#logic),
+        ),
+      ) as _i7.LeaveCall);
+  @override
+  set logic(_i7.LeaveCall? _logic) => super.noSuchMethod(
+        Invocation.setter(
+          #logic,
+          _logic,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>> call() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [],
+        ),
+        returnValue:
+            _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>>.value(
+                _FakeEither_4<_i12.Failure, _i7.CallStatusEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [],
+          ),
+        )),
+      ) as _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>>);
+}
+
+/// A class which mocks [MMuteLocalAudioStreamGetterStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMMuteLocalAudioStreamGetterStore extends _i1.Mock
+    implements _i10.MMuteLocalAudioStreamGetterStore {
+  MockMMuteLocalAudioStreamGetterStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.MuteLocalAudioStream get logic => (super.noSuchMethod(
+        Invocation.getter(#logic),
+        returnValue: _FakeMuteLocalAudioStream_29(
+          this,
+          Invocation.getter(#logic),
+        ),
+      ) as _i7.MuteLocalAudioStream);
+  @override
+  set logic(_i7.MuteLocalAudioStream? _logic) => super.noSuchMethod(
+        Invocation.setter(
+          #logic,
+          _logic,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  _i11.Future<_i6.Either<_i12.Failure, _i7.LocalAudioStreamStatusEntity>>
+      call() => (super.noSuchMethod(
+            Invocation.method(
+              #call,
+              [],
+            ),
+            returnValue: _i11.Future<
+                    _i6.Either<_i12.Failure,
+                        _i7.LocalAudioStreamStatusEntity>>.value(
+                _FakeEither_4<_i12.Failure, _i7.LocalAudioStreamStatusEntity>(
+              this,
+              Invocation.method(
+                #call,
+                [],
+              ),
+            )),
+          ) as _i11.Future<
+              _i6.Either<_i12.Failure, _i7.LocalAudioStreamStatusEntity>>);
+}
+
+/// A class which mocks [MUnmuteLocalAudioStreamGetterStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMUnmuteLocalAudioStreamGetterStore extends _i1.Mock
+    implements _i10.MUnmuteLocalAudioStreamGetterStore {
+  MockMUnmuteLocalAudioStreamGetterStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.UnmuteLocalAudioStream get logic => (super.noSuchMethod(
+        Invocation.getter(#logic),
+        returnValue: _FakeUnmuteLocalAudioStream_30(
+          this,
+          Invocation.getter(#logic),
+        ),
+      ) as _i7.UnmuteLocalAudioStream);
+  @override
+  set logic(_i7.UnmuteLocalAudioStream? _logic) => super.noSuchMethod(
+        Invocation.setter(
+          #logic,
+          _logic,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  _i11.Future<_i6.Either<_i12.Failure, _i7.LocalAudioStreamStatusEntity>>
+      call() => (super.noSuchMethod(
+            Invocation.method(
+              #call,
+              [],
+            ),
+            returnValue: _i11.Future<
+                    _i6.Either<_i12.Failure,
+                        _i7.LocalAudioStreamStatusEntity>>.value(
+                _FakeEither_4<_i12.Failure, _i7.LocalAudioStreamStatusEntity>(
+              this,
+              Invocation.method(
+                #call,
+                [],
+              ),
+            )),
+          ) as _i11.Future<
+              _i6.Either<_i12.Failure, _i7.LocalAudioStreamStatusEntity>>);
+}
+
+/// A class which mocks [MVoiceCallActions].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMVoiceCallActions extends _i1.Mock implements _i10.MVoiceCallActions {
+  MockMVoiceCallActions() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.JoinCallGetterStore get joinCallGetterStore => (super.noSuchMethod(
+        Invocation.getter(#joinCallGetterStore),
+        returnValue: _FakeJoinCallGetterStore_31(
+          this,
+          Invocation.getter(#joinCallGetterStore),
+        ),
+      ) as _i3.JoinCallGetterStore);
+  @override
+  _i3.LeaveCallGetterStore get leaveCallGetterStore => (super.noSuchMethod(
+        Invocation.getter(#leaveCallGetterStore),
+        returnValue: _FakeLeaveCallGetterStore_32(
+          this,
+          Invocation.getter(#leaveCallGetterStore),
+        ),
+      ) as _i3.LeaveCallGetterStore);
+  @override
+  _i3.MuteLocalAudioStreamGetterStore get muteAudioGetterStore =>
+      (super.noSuchMethod(
+        Invocation.getter(#muteAudioGetterStore),
+        returnValue: _FakeMuteLocalAudioStreamGetterStore_33(
+          this,
+          Invocation.getter(#muteAudioGetterStore),
+        ),
+      ) as _i3.MuteLocalAudioStreamGetterStore);
+  @override
+  _i3.UnmuteLocalAudioStreamGetterStore get unmuteAudioGetterStore =>
+      (super.noSuchMethod(
+        Invocation.getter(#unmuteAudioGetterStore),
+        returnValue: _FakeUnmuteLocalAudioStreamGetterStore_34(
+          this,
+          Invocation.getter(#unmuteAudioGetterStore),
+        ),
+      ) as _i3.UnmuteLocalAudioStreamGetterStore);
+  @override
+  _i15.CallStatus get callStatus => (super.noSuchMethod(
+        Invocation.getter(#callStatus),
+        returnValue: _i15.CallStatus.initial,
+      ) as _i15.CallStatus);
+  @override
+  set callStatus(_i15.CallStatus? value) => super.noSuchMethod(
+        Invocation.setter(
+          #callStatus,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  bool get isMuted => (super.noSuchMethod(
+        Invocation.getter(#isMuted),
+        returnValue: false,
+      ) as bool);
+  @override
+  set isMuted(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #isMuted,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i14.StoreState get state => (super.noSuchMethod(
+        Invocation.getter(#state),
+        returnValue: _i14.StoreState.initial,
+      ) as _i14.StoreState);
+  @override
+  set state(_i14.StoreState? value) => super.noSuchMethod(
+        Invocation.setter(
+          #state,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  String get errorMessage => (super.noSuchMethod(
+        Invocation.getter(#errorMessage),
+        returnValue: '',
+      ) as String);
+  @override
+  set errorMessage(String? value) => super.noSuchMethod(
+        Invocation.setter(
+          #errorMessage,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  dynamic audioStateOrErrorUpdater(
+          _i6.Either<_i12.Failure, _i7.LocalAudioStreamStatusEntity>? result) =>
+      super.noSuchMethod(Invocation.method(
+        #audioStateOrErrorUpdater,
+        [result],
+      ));
+  @override
+  dynamic callStateOrErrorUpdater(
+          _i6.Either<_i12.Failure, _i7.CallStatusEntity>? result) =>
+      super.noSuchMethod(Invocation.method(
+        #callStateOrErrorUpdater,
+        [result],
+      ));
+  @override
+  _i11.Future<void> muteOrUnmuteAudio({required bool? wantToMute}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #muteOrUnmuteAudio,
+          [],
+          {#wantToMute: wantToMute},
+        ),
+        returnValue: _i11.Future<void>.value(),
+        returnValueForMissingStub: _i11.Future<void>.value(),
+      ) as _i11.Future<void>);
+  @override
+  _i11.Future<void> enterOrLeaveCall(
+          _i6.Either<_i13.NoParams, _i7.JoinCallParams>? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #enterOrLeaveCall,
+          [params],
+        ),
+        returnValue: _i11.Future<void>.value(),
+        returnValueForMissingStub: _i11.Future<void>.value(),
+      ) as _i11.Future<void>);
+  @override
+  String mapFailureToMessage(_i12.Failure? failure) => (super.noSuchMethod(
+        Invocation.method(
+          #mapFailureToMessage,
+          [failure],
+        ),
+        returnValue: '',
+      ) as String);
+  @override
+  void stateOrErrorUpdater(_i6.Either<_i12.Failure, dynamic>? result) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #stateOrErrorUpdater,
+          [result],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i11.Future<void> call(dynamic params) => (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i11.Future<void>.value(),
+        returnValueForMissingStub: _i11.Future<void>.value(),
+      ) as _i11.Future<void>);
 }

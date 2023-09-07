@@ -8,37 +8,36 @@ import '../../../constants/entities/entities.dart';
 import '../../../fixtures/p2p_purpose_session_stack_mock_gen.mocks.dart';
 
 void main() {
-  late MockMP2PPurposeSessionVoiceCallContract mockContract;
-  late JoinCall logic;
-  const JoinCallParams tParams =
-      JoinCallParams(token: "someReturnToken", channelId: "someChannelId");
+  late MockMP2PPurposeSessionSoloDocContract mockContract;
+  late SubmitSoloDoc logic;
+  const tParams = SubmitSoloDocParams(content: "content");
 
   setUp(() {
-    mockContract = MockMP2PPurposeSessionVoiceCallContract();
-    logic = JoinCall(contract: mockContract);
+    mockContract = MockMP2PPurposeSessionSoloDocContract();
+    logic = SubmitSoloDoc(contract: mockContract);
   });
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
-    when(mockContract.joinCall(tParams.token, tParams.channelId)).thenAnswer(
-      (_) async => ConstantCallStatusEntity.wrappedJoiningCase,
+    when(mockContract.submitDocContent(newContent: tParams.content)).thenAnswer(
+      (_) async => ConstantSoloDocSubmissionStatusEntity.wrappedSuccessCase,
     );
 
     final result = await logic(tParams);
 
-    expect(result, ConstantCallStatusEntity.wrappedJoiningCase);
-    verify(mockContract.joinCall(tParams.token, tParams.channelId));
+    expect(result, ConstantSoloDocSubmissionStatusEntity.wrappedSuccessCase);
+    verify(mockContract.submitDocContent(newContent: tParams.content));
     verifyNoMoreInteractions(mockContract);
   });
 
   test("✅ should pass A Failure from Contract ==> Logic", () async {
-    when(mockContract.joinCall(tParams.token, tParams.channelId)).thenAnswer(
+    when(mockContract.submitDocContent(newContent: tParams.content)).thenAnswer(
       (_) async => Left(FailureConstants.dbFailure),
     );
 
     final result = await logic(tParams);
 
     expect(result, Left(FailureConstants.dbFailure));
-    verify(mockContract.joinCall(tParams.token, tParams.channelId));
+    verify(mockContract.submitDocContent(newContent: tParams.content));
     verifyNoMoreInteractions(mockContract);
   });
 }

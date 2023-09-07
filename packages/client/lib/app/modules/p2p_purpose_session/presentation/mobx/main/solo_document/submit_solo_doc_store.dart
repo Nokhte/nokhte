@@ -9,16 +9,16 @@ import 'package:primala/app/core/mobx/store_state.dart';
 import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
 import 'package:primala/app/modules/p2p_purpose_session/presentation/presentation.dart';
 // * Mobx Codegen Inclusion
-part 'submit_solo_doc_content_store.g.dart';
+part 'submit_solo_doc_store.g.dart';
 
-class SubmitSoloDocContentStore = _SubmitSoloDocContentStoreBase
-    with _$SubmitSoloDocContentStore;
+class SubmitSoloDocStore = _SubmitSoloDocStoreBase with _$SubmitSoloDocStore;
 
-abstract class _SubmitSoloDocContentStoreBase extends BaseMobxDBStore<
-    SubmitSoloDocContentParams, SoloDocSubmissionStatusEntity> with Store {
-  final SubmitSoloDocContentGetterStore getterStore;
+abstract class _SubmitSoloDocStoreBase
+    extends BaseMobxDBStore<SubmitSoloDocParams, SoloDocSubmissionStatusEntity>
+    with Store {
+  final SubmitSoloDocGetterStore getterStore;
 
-  _SubmitSoloDocContentStoreBase({required this.getterStore});
+  _SubmitSoloDocStoreBase({required this.getterStore});
 
   @observable
   bool isSubmitted = false;
