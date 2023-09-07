@@ -11,32 +11,32 @@ import '../../../../fixtures/p2p_purpose_session_stack_mock_gen.mocks.dart';
 
 void main() {
   late MockMFetchAgoraTokenGetterStore mockGetterStore;
-  late FetchAgoraTokenStore checkIfUserHasTheQuestionStore;
+  late FetchAgoraTokenStore fetchAgoraTokenStore;
   const tParams = FetchAgoraTokenParams(channelName: 'hi');
 
   setUp(() {
     mockGetterStore = MockMFetchAgoraTokenGetterStore();
-    checkIfUserHasTheQuestionStore = FetchAgoraTokenStore(
+    fetchAgoraTokenStore = FetchAgoraTokenStore(
       getterStore: mockGetterStore,
     );
   });
 
   group("stateOrErrorUpdater", () {
     test("✅ Success Case: should update accordingly if state is passed", () {
-      checkIfUserHasTheQuestionStore.stateOrErrorUpdater(
+      fetchAgoraTokenStore.stateOrErrorUpdater(
         ConstantAgoraCallTokenEntity.wrappedSuccessCase,
       );
       expect(
-        checkIfUserHasTheQuestionStore.token,
+        fetchAgoraTokenStore.token,
         'someReturnedToken',
       );
     });
     test("❌ Success Case: should update accordingly if failure is passed", () {
-      checkIfUserHasTheQuestionStore.stateOrErrorUpdater(
+      fetchAgoraTokenStore.stateOrErrorUpdater(
         Left(FailureConstants.dbFailure),
       );
-      expect(checkIfUserHasTheQuestionStore.token, "");
-      expect(checkIfUserHasTheQuestionStore.errorMessage,
+      expect(fetchAgoraTokenStore.token, "");
+      expect(fetchAgoraTokenStore.errorMessage,
           FailureConstants.genericFailureMsg);
     });
   });
@@ -46,21 +46,21 @@ void main() {
       when(mockGetterStore(tParams)).thenAnswer(
         (_) async => ConstantAgoraCallTokenEntity.wrappedNotSuccessCase,
       );
-      await checkIfUserHasTheQuestionStore(tParams);
+      await fetchAgoraTokenStore(tParams);
       expect(
-        checkIfUserHasTheQuestionStore.token,
+        fetchAgoraTokenStore.token,
         "",
       );
-      expect(checkIfUserHasTheQuestionStore.errorMessage, "");
+      expect(fetchAgoraTokenStore.errorMessage, "");
     });
     test("❌ Success Case: should update accordingly if failure is passed",
         () async {
       when(mockGetterStore(tParams)).thenAnswer(
         (_) async => Left(FailureConstants.dbFailure),
       );
-      await checkIfUserHasTheQuestionStore(tParams);
-      expect(checkIfUserHasTheQuestionStore.token, "");
-      expect(checkIfUserHasTheQuestionStore.errorMessage,
+      await fetchAgoraTokenStore(tParams);
+      expect(fetchAgoraTokenStore.token, "");
+      expect(fetchAgoraTokenStore.errorMessage,
           FailureConstants.genericFailureMsg);
     });
   });
