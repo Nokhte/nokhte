@@ -5,21 +5,23 @@
 // @dart=2.19
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i9;
+import 'dart:async' as _i10;
 
 import 'package:agora_rtc_engine/agora_rtc_engine.dart' as _i4;
 import 'package:dartz/dartz.dart' as _i6;
 import 'package:http/http.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:primala/app/core/error/failure.dart' as _i10;
-import 'package:primala/app/core/interfaces/logic.dart' as _i11;
+import 'package:primala/app/core/error/failure.dart' as _i11;
+import 'package:primala/app/core/interfaces/logic.dart' as _i12;
+import 'package:primala/app/modules/p2p_purpose_session/domain/contracts/p2p_purpose_session_voice_call_contract.dart'
+    as _i8;
 import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart'
     as _i7;
 import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/main/main.dart'
     as _i3;
 import 'package:supabase_flutter/supabase_flutter.dart' as _i2;
 
-import 'p2p_purpose_session_stack_mock_gen.dart' as _i8;
+import 'p2p_purpose_session_stack_mock_gen.dart' as _i9;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -95,11 +97,22 @@ class _FakeP2PPurposeSessionContract_5 extends _i1.SmartFake
         );
 }
 
+class _FakeP2PPurposeSessionContract_6 extends _i1.SmartFake
+    implements _i8.P2PPurposeSessionContract {
+  _FakeP2PPurposeSessionContract_6(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [MP2PPurposeSessionRemoteSourceImpl].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMP2PPurposeSessionRemoteSourceImpl extends _i1.Mock
-    implements _i8.MP2PPurposeSessionRemoteSourceImpl {
+    implements _i9.MP2PPurposeSessionRemoteSourceImpl {
   MockMP2PPurposeSessionRemoteSourceImpl() {
     _i1.throwOnMissingStub(this);
   }
@@ -139,14 +152,14 @@ class MockMP2PPurposeSessionRemoteSourceImpl extends _i1.Mock
         ),
       ) as _i4.RtcEngine);
   @override
-  _i9.Future<_i5.Response> fetchAgoraToken({required String? channelName}) =>
+  _i10.Future<_i5.Response> fetchAgoraToken({required String? channelName}) =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchAgoraToken,
           [],
           {#channelName: channelName},
         ),
-        returnValue: _i9.Future<_i5.Response>.value(_FakeResponse_3(
+        returnValue: _i10.Future<_i5.Response>.value(_FakeResponse_3(
           this,
           Invocation.method(
             #fetchAgoraToken,
@@ -154,9 +167,9 @@ class MockMP2PPurposeSessionRemoteSourceImpl extends _i1.Mock
             {#channelName: channelName},
           ),
         )),
-      ) as _i9.Future<_i5.Response>);
+      ) as _i10.Future<_i5.Response>);
   @override
-  _i9.Future<void> joinCall({
+  _i10.Future<void> joinCall({
     required String? token,
     required String? channelId,
   }) =>
@@ -169,73 +182,73 @@ class MockMP2PPurposeSessionRemoteSourceImpl extends _i1.Mock
             #channelId: channelId,
           },
         ),
-        returnValue: _i9.Future<void>.value(),
-        returnValueForMissingStub: _i9.Future<void>.value(),
-      ) as _i9.Future<void>);
+        returnValue: _i10.Future<void>.value(),
+        returnValueForMissingStub: _i10.Future<void>.value(),
+      ) as _i10.Future<void>);
   @override
-  _i9.Future<void> leaveCall() => (super.noSuchMethod(
+  _i10.Future<void> leaveCall() => (super.noSuchMethod(
         Invocation.method(
           #leaveCall,
           [],
         ),
-        returnValue: _i9.Future<void>.value(),
-        returnValueForMissingStub: _i9.Future<void>.value(),
-      ) as _i9.Future<void>);
+        returnValue: _i10.Future<void>.value(),
+        returnValueForMissingStub: _i10.Future<void>.value(),
+      ) as _i10.Future<void>);
   @override
-  _i9.Future<void> instantiateAgoraSDK() => (super.noSuchMethod(
+  _i10.Future<void> instantiateAgoraSDK() => (super.noSuchMethod(
         Invocation.method(
           #instantiateAgoraSDK,
           [],
         ),
-        returnValue: _i9.Future<void>.value(),
-        returnValueForMissingStub: _i9.Future<void>.value(),
-      ) as _i9.Future<void>);
+        returnValue: _i10.Future<void>.value(),
+        returnValueForMissingStub: _i10.Future<void>.value(),
+      ) as _i10.Future<void>);
   @override
-  _i9.Future<List<dynamic>> fetchCollaboratorInfo() => (super.noSuchMethod(
+  _i10.Future<List<dynamic>> fetchCollaboratorInfo() => (super.noSuchMethod(
         Invocation.method(
           #fetchCollaboratorInfo,
           [],
         ),
-        returnValue: _i9.Future<List<dynamic>>.value(<dynamic>[]),
-      ) as _i9.Future<List<dynamic>>);
+        returnValue: _i10.Future<List<dynamic>>.value(<dynamic>[]),
+      ) as _i10.Future<List<dynamic>>);
   @override
-  _i9.Future<dynamic> muteLocalAudioStream() => (super.noSuchMethod(
+  _i10.Future<dynamic> muteLocalAudioStream() => (super.noSuchMethod(
         Invocation.method(
           #muteLocalAudioStream,
           [],
         ),
-        returnValue: _i9.Future<dynamic>.value(),
-      ) as _i9.Future<dynamic>);
+        returnValue: _i10.Future<dynamic>.value(),
+      ) as _i10.Future<dynamic>);
   @override
-  _i9.Future<dynamic> unmuteLocalAudioStream() => (super.noSuchMethod(
+  _i10.Future<dynamic> unmuteLocalAudioStream() => (super.noSuchMethod(
         Invocation.method(
           #unmuteLocalAudioStream,
           [],
         ),
-        returnValue: _i9.Future<dynamic>.value(),
-      ) as _i9.Future<dynamic>);
+        returnValue: _i10.Future<dynamic>.value(),
+      ) as _i10.Future<dynamic>);
 }
 
 /// A class which mocks [MP2PPurposeSessionContract].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMP2PPurposeSessionContract extends _i1.Mock
-    implements _i8.MP2PPurposeSessionContract {
+    implements _i9.MP2PPurposeSessionContract {
   MockMP2PPurposeSessionContract() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.AgoraCallTokenEntity>>
+  _i10.Future<_i6.Either<_i11.Failure, _i7.AgoraCallTokenEntity>>
       fetchAgoraToken({required String? channelName}) => (super.noSuchMethod(
             Invocation.method(
               #fetchAgoraToken,
               [],
               {#channelName: channelName},
             ),
-            returnValue: _i9.Future<
-                    _i6.Either<_i10.Failure, _i7.AgoraCallTokenEntity>>.value(
-                _FakeEither_4<_i10.Failure, _i7.AgoraCallTokenEntity>(
+            returnValue: _i10.Future<
+                    _i6.Either<_i11.Failure, _i7.AgoraCallTokenEntity>>.value(
+                _FakeEither_4<_i11.Failure, _i7.AgoraCallTokenEntity>(
               this,
               Invocation.method(
                 #fetchAgoraToken,
@@ -243,43 +256,43 @@ class MockMP2PPurposeSessionContract extends _i1.Mock
                 {#channelName: channelName},
               ),
             )),
-          ) as _i9.Future<_i6.Either<_i10.Failure, _i7.AgoraCallTokenEntity>>);
+          ) as _i10.Future<_i6.Either<_i11.Failure, _i7.AgoraCallTokenEntity>>);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.ChannelIdEntity>> fetchChannelId() =>
+  _i10.Future<_i6.Either<_i11.Failure, _i7.ChannelIdEntity>> fetchChannelId() =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchChannelId,
           [],
         ),
         returnValue:
-            _i9.Future<_i6.Either<_i10.Failure, _i7.ChannelIdEntity>>.value(
-                _FakeEither_4<_i10.Failure, _i7.ChannelIdEntity>(
+            _i10.Future<_i6.Either<_i11.Failure, _i7.ChannelIdEntity>>.value(
+                _FakeEither_4<_i11.Failure, _i7.ChannelIdEntity>(
           this,
           Invocation.method(
             #fetchChannelId,
             [],
           ),
         )),
-      ) as _i9.Future<_i6.Either<_i10.Failure, _i7.ChannelIdEntity>>);
+      ) as _i10.Future<_i6.Either<_i11.Failure, _i7.ChannelIdEntity>>);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.AgoraSdkStatusEntity>>
+  _i10.Future<_i6.Either<_i11.Failure, _i7.AgoraSdkStatusEntity>>
       instantiateAgoraSdk() => (super.noSuchMethod(
             Invocation.method(
               #instantiateAgoraSdk,
               [],
             ),
-            returnValue: _i9.Future<
-                    _i6.Either<_i10.Failure, _i7.AgoraSdkStatusEntity>>.value(
-                _FakeEither_4<_i10.Failure, _i7.AgoraSdkStatusEntity>(
+            returnValue: _i10.Future<
+                    _i6.Either<_i11.Failure, _i7.AgoraSdkStatusEntity>>.value(
+                _FakeEither_4<_i11.Failure, _i7.AgoraSdkStatusEntity>(
               this,
               Invocation.method(
                 #instantiateAgoraSdk,
                 [],
               ),
             )),
-          ) as _i9.Future<_i6.Either<_i10.Failure, _i7.AgoraSdkStatusEntity>>);
+          ) as _i10.Future<_i6.Either<_i11.Failure, _i7.AgoraSdkStatusEntity>>);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.CallStatusEntity>> joinCall(
+  _i10.Future<_i6.Either<_i11.Failure, _i7.CallStatusEntity>> joinCall(
     String? token,
     String? channelId,
   ) =>
@@ -292,8 +305,8 @@ class MockMP2PPurposeSessionContract extends _i1.Mock
           ],
         ),
         returnValue:
-            _i9.Future<_i6.Either<_i10.Failure, _i7.CallStatusEntity>>.value(
-                _FakeEither_4<_i10.Failure, _i7.CallStatusEntity>(
+            _i10.Future<_i6.Either<_i11.Failure, _i7.CallStatusEntity>>.value(
+                _FakeEither_4<_i11.Failure, _i7.CallStatusEntity>(
           this,
           Invocation.method(
             #joinCall,
@@ -303,88 +316,88 @@ class MockMP2PPurposeSessionContract extends _i1.Mock
             ],
           ),
         )),
-      ) as _i9.Future<_i6.Either<_i10.Failure, _i7.CallStatusEntity>>);
+      ) as _i10.Future<_i6.Either<_i11.Failure, _i7.CallStatusEntity>>);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.CallStatusEntity>> leaveCall() =>
+  _i10.Future<_i6.Either<_i11.Failure, _i7.CallStatusEntity>> leaveCall() =>
       (super.noSuchMethod(
         Invocation.method(
           #leaveCall,
           [],
         ),
         returnValue:
-            _i9.Future<_i6.Either<_i10.Failure, _i7.CallStatusEntity>>.value(
-                _FakeEither_4<_i10.Failure, _i7.CallStatusEntity>(
+            _i10.Future<_i6.Either<_i11.Failure, _i7.CallStatusEntity>>.value(
+                _FakeEither_4<_i11.Failure, _i7.CallStatusEntity>(
           this,
           Invocation.method(
             #leaveCall,
             [],
           ),
         )),
-      ) as _i9.Future<_i6.Either<_i10.Failure, _i7.CallStatusEntity>>);
+      ) as _i10.Future<_i6.Either<_i11.Failure, _i7.CallStatusEntity>>);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.LocalAudioStreamStatusEntity>>
+  _i10.Future<_i6.Either<_i11.Failure, _i7.LocalAudioStreamStatusEntity>>
       muteLocalAudioStream() => (super.noSuchMethod(
             Invocation.method(
               #muteLocalAudioStream,
               [],
             ),
-            returnValue: _i9.Future<
-                    _i6.Either<_i10.Failure,
+            returnValue: _i10.Future<
+                    _i6.Either<_i11.Failure,
                         _i7.LocalAudioStreamStatusEntity>>.value(
-                _FakeEither_4<_i10.Failure, _i7.LocalAudioStreamStatusEntity>(
+                _FakeEither_4<_i11.Failure, _i7.LocalAudioStreamStatusEntity>(
               this,
               Invocation.method(
                 #muteLocalAudioStream,
                 [],
               ),
             )),
-          ) as _i9.Future<
-              _i6.Either<_i10.Failure, _i7.LocalAudioStreamStatusEntity>>);
+          ) as _i10.Future<
+              _i6.Either<_i11.Failure, _i7.LocalAudioStreamStatusEntity>>);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.LocalAudioStreamStatusEntity>>
+  _i10.Future<_i6.Either<_i11.Failure, _i7.LocalAudioStreamStatusEntity>>
       unmuteLocalAudioStream() => (super.noSuchMethod(
             Invocation.method(
               #unmuteLocalAudioStream,
               [],
             ),
-            returnValue: _i9.Future<
-                    _i6.Either<_i10.Failure,
+            returnValue: _i10.Future<
+                    _i6.Either<_i11.Failure,
                         _i7.LocalAudioStreamStatusEntity>>.value(
-                _FakeEither_4<_i10.Failure, _i7.LocalAudioStreamStatusEntity>(
+                _FakeEither_4<_i11.Failure, _i7.LocalAudioStreamStatusEntity>(
               this,
               Invocation.method(
                 #unmuteLocalAudioStream,
                 [],
               ),
             )),
-          ) as _i9.Future<
-              _i6.Either<_i10.Failure, _i7.LocalAudioStreamStatusEntity>>);
+          ) as _i10.Future<
+              _i6.Either<_i11.Failure, _i7.LocalAudioStreamStatusEntity>>);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.WhoGetsTheQuestionEntity>>
+  _i10.Future<_i6.Either<_i11.Failure, _i7.WhoGetsTheQuestionEntity>>
       checkIfUserHasTheQuestion() => (super.noSuchMethod(
             Invocation.method(
               #checkIfUserHasTheQuestion,
               [],
             ),
-            returnValue: _i9.Future<
-                    _i6.Either<_i10.Failure,
+            returnValue: _i10.Future<
+                    _i6.Either<_i11.Failure,
                         _i7.WhoGetsTheQuestionEntity>>.value(
-                _FakeEither_4<_i10.Failure, _i7.WhoGetsTheQuestionEntity>(
+                _FakeEither_4<_i11.Failure, _i7.WhoGetsTheQuestionEntity>(
               this,
               Invocation.method(
                 #checkIfUserHasTheQuestion,
                 [],
               ),
             )),
-          ) as _i9
-              .Future<_i6.Either<_i10.Failure, _i7.WhoGetsTheQuestionEntity>>);
+          ) as _i10
+              .Future<_i6.Either<_i11.Failure, _i7.WhoGetsTheQuestionEntity>>);
 }
 
 /// A class which mocks [MCheckIfUserHasTheQuestion].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMCheckIfUserHasTheQuestion extends _i1.Mock
-    implements _i8.MCheckIfUserHasTheQuestion {
+    implements _i9.MCheckIfUserHasTheQuestion {
   MockMCheckIfUserHasTheQuestion() {
     _i1.throwOnMissingStub(this);
   }
@@ -398,65 +411,65 @@ class MockMCheckIfUserHasTheQuestion extends _i1.Mock
         ),
       ) as _i7.P2PPurposeSessionContract);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.WhoGetsTheQuestionEntity>> call(
-          _i11.NoParams? params) =>
+  _i10.Future<_i6.Either<_i11.Failure, _i7.WhoGetsTheQuestionEntity>> call(
+          _i12.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i9.Future<
-                _i6.Either<_i10.Failure, _i7.WhoGetsTheQuestionEntity>>.value(
-            _FakeEither_4<_i10.Failure, _i7.WhoGetsTheQuestionEntity>(
+        returnValue: _i10.Future<
+                _i6.Either<_i11.Failure, _i7.WhoGetsTheQuestionEntity>>.value(
+            _FakeEither_4<_i11.Failure, _i7.WhoGetsTheQuestionEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i9.Future<_i6.Either<_i10.Failure, _i7.WhoGetsTheQuestionEntity>>);
+      ) as _i10.Future<_i6.Either<_i11.Failure, _i7.WhoGetsTheQuestionEntity>>);
 }
 
 /// A class which mocks [MFetchAgoraToken].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMFetchAgoraToken extends _i1.Mock implements _i8.MFetchAgoraToken {
+class MockMFetchAgoraToken extends _i1.Mock implements _i9.MFetchAgoraToken {
   MockMFetchAgoraToken() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i7.P2PPurposeSessionContract get contract => (super.noSuchMethod(
+  _i8.P2PPurposeSessionContract get contract => (super.noSuchMethod(
         Invocation.getter(#contract),
-        returnValue: _FakeP2PPurposeSessionContract_5(
+        returnValue: _FakeP2PPurposeSessionContract_6(
           this,
           Invocation.getter(#contract),
         ),
-      ) as _i7.P2PPurposeSessionContract);
+      ) as _i8.P2PPurposeSessionContract);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.AgoraCallTokenEntity>> call(
+  _i10.Future<_i6.Either<_i11.Failure, _i7.AgoraCallTokenEntity>> call(
           _i7.FetchAgoraTokenParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i9.Future<
-                _i6.Either<_i10.Failure, _i7.AgoraCallTokenEntity>>.value(
-            _FakeEither_4<_i10.Failure, _i7.AgoraCallTokenEntity>(
+        returnValue: _i10.Future<
+                _i6.Either<_i11.Failure, _i7.AgoraCallTokenEntity>>.value(
+            _FakeEither_4<_i11.Failure, _i7.AgoraCallTokenEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i9.Future<_i6.Either<_i10.Failure, _i7.AgoraCallTokenEntity>>);
+      ) as _i10.Future<_i6.Either<_i11.Failure, _i7.AgoraCallTokenEntity>>);
 }
 
 /// A class which mocks [MFetchChannelId].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMFetchChannelId extends _i1.Mock implements _i8.MFetchChannelId {
+class MockMFetchChannelId extends _i1.Mock implements _i9.MFetchChannelId {
   MockMFetchChannelId() {
     _i1.throwOnMissingStub(this);
   }
@@ -470,30 +483,30 @@ class MockMFetchChannelId extends _i1.Mock implements _i8.MFetchChannelId {
         ),
       ) as _i7.P2PPurposeSessionContract);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.ChannelIdEntity>> call(
-          _i11.NoParams? params) =>
+  _i10.Future<_i6.Either<_i11.Failure, _i7.ChannelIdEntity>> call(
+          _i12.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
         returnValue:
-            _i9.Future<_i6.Either<_i10.Failure, _i7.ChannelIdEntity>>.value(
-                _FakeEither_4<_i10.Failure, _i7.ChannelIdEntity>(
+            _i10.Future<_i6.Either<_i11.Failure, _i7.ChannelIdEntity>>.value(
+                _FakeEither_4<_i11.Failure, _i7.ChannelIdEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i9.Future<_i6.Either<_i10.Failure, _i7.ChannelIdEntity>>);
+      ) as _i10.Future<_i6.Either<_i11.Failure, _i7.ChannelIdEntity>>);
 }
 
 /// A class which mocks [MInstantiateAgoraSdk].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMInstantiateAgoraSdk extends _i1.Mock
-    implements _i8.MInstantiateAgoraSdk {
+    implements _i9.MInstantiateAgoraSdk {
   MockMInstantiateAgoraSdk() {
     _i1.throwOnMissingStub(this);
   }
@@ -507,29 +520,29 @@ class MockMInstantiateAgoraSdk extends _i1.Mock
         ),
       ) as _i7.P2PPurposeSessionContract);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.AgoraSdkStatusEntity>> call(
-          _i11.NoParams? params) =>
+  _i10.Future<_i6.Either<_i11.Failure, _i7.AgoraSdkStatusEntity>> call(
+          _i12.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i9.Future<
-                _i6.Either<_i10.Failure, _i7.AgoraSdkStatusEntity>>.value(
-            _FakeEither_4<_i10.Failure, _i7.AgoraSdkStatusEntity>(
+        returnValue: _i10.Future<
+                _i6.Either<_i11.Failure, _i7.AgoraSdkStatusEntity>>.value(
+            _FakeEither_4<_i11.Failure, _i7.AgoraSdkStatusEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i9.Future<_i6.Either<_i10.Failure, _i7.AgoraSdkStatusEntity>>);
+      ) as _i10.Future<_i6.Either<_i11.Failure, _i7.AgoraSdkStatusEntity>>);
 }
 
 /// A class which mocks [MJoinCall].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMJoinCall extends _i1.Mock implements _i8.MJoinCall {
+class MockMJoinCall extends _i1.Mock implements _i9.MJoinCall {
   MockMJoinCall() {
     _i1.throwOnMissingStub(this);
   }
@@ -543,7 +556,7 @@ class MockMJoinCall extends _i1.Mock implements _i8.MJoinCall {
         ),
       ) as _i7.P2PPurposeSessionContract);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.CallStatusEntity>> call(
+  _i10.Future<_i6.Either<_i11.Failure, _i7.CallStatusEntity>> call(
           _i7.JoinCallParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -551,21 +564,21 @@ class MockMJoinCall extends _i1.Mock implements _i8.MJoinCall {
           [params],
         ),
         returnValue:
-            _i9.Future<_i6.Either<_i10.Failure, _i7.CallStatusEntity>>.value(
-                _FakeEither_4<_i10.Failure, _i7.CallStatusEntity>(
+            _i10.Future<_i6.Either<_i11.Failure, _i7.CallStatusEntity>>.value(
+                _FakeEither_4<_i11.Failure, _i7.CallStatusEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i9.Future<_i6.Either<_i10.Failure, _i7.CallStatusEntity>>);
+      ) as _i10.Future<_i6.Either<_i11.Failure, _i7.CallStatusEntity>>);
 }
 
 /// A class which mocks [MLeaveCall].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMLeaveCall extends _i1.Mock implements _i8.MLeaveCall {
+class MockMLeaveCall extends _i1.Mock implements _i9.MLeaveCall {
   MockMLeaveCall() {
     _i1.throwOnMissingStub(this);
   }
@@ -579,30 +592,30 @@ class MockMLeaveCall extends _i1.Mock implements _i8.MLeaveCall {
         ),
       ) as _i7.P2PPurposeSessionContract);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.CallStatusEntity>> call(
-          _i11.NoParams? params) =>
+  _i10.Future<_i6.Either<_i11.Failure, _i7.CallStatusEntity>> call(
+          _i12.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
         returnValue:
-            _i9.Future<_i6.Either<_i10.Failure, _i7.CallStatusEntity>>.value(
-                _FakeEither_4<_i10.Failure, _i7.CallStatusEntity>(
+            _i10.Future<_i6.Either<_i11.Failure, _i7.CallStatusEntity>>.value(
+                _FakeEither_4<_i11.Failure, _i7.CallStatusEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i9.Future<_i6.Either<_i10.Failure, _i7.CallStatusEntity>>);
+      ) as _i10.Future<_i6.Either<_i11.Failure, _i7.CallStatusEntity>>);
 }
 
 /// A class which mocks [MMuteLocalAudioStream].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMMuteLocalAudioStream extends _i1.Mock
-    implements _i8.MMuteLocalAudioStream {
+    implements _i9.MMuteLocalAudioStream {
   MockMMuteLocalAudioStream() {
     _i1.throwOnMissingStub(this);
   }
@@ -616,32 +629,32 @@ class MockMMuteLocalAudioStream extends _i1.Mock
         ),
       ) as _i7.P2PPurposeSessionContract);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.LocalAudioStreamStatusEntity>> call(
-          _i11.NoParams? params) =>
+  _i10.Future<_i6.Either<_i11.Failure, _i7.LocalAudioStreamStatusEntity>> call(
+          _i12.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i9.Future<
-                _i6.Either<_i10.Failure,
+        returnValue: _i10.Future<
+                _i6.Either<_i11.Failure,
                     _i7.LocalAudioStreamStatusEntity>>.value(
-            _FakeEither_4<_i10.Failure, _i7.LocalAudioStreamStatusEntity>(
+            _FakeEither_4<_i11.Failure, _i7.LocalAudioStreamStatusEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i9
-          .Future<_i6.Either<_i10.Failure, _i7.LocalAudioStreamStatusEntity>>);
+      ) as _i10
+          .Future<_i6.Either<_i11.Failure, _i7.LocalAudioStreamStatusEntity>>);
 }
 
 /// A class which mocks [MUnmuteLocalAudioStream].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMUnmuteLocalAudioStream extends _i1.Mock
-    implements _i8.MUnmuteLocalAudioStream {
+    implements _i9.MUnmuteLocalAudioStream {
   MockMUnmuteLocalAudioStream() {
     _i1.throwOnMissingStub(this);
   }
@@ -655,23 +668,23 @@ class MockMUnmuteLocalAudioStream extends _i1.Mock
         ),
       ) as _i7.P2PPurposeSessionContract);
   @override
-  _i9.Future<_i6.Either<_i10.Failure, _i7.LocalAudioStreamStatusEntity>> call(
-          _i11.NoParams? params) =>
+  _i10.Future<_i6.Either<_i11.Failure, _i7.LocalAudioStreamStatusEntity>> call(
+          _i12.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i9.Future<
-                _i6.Either<_i10.Failure,
+        returnValue: _i10.Future<
+                _i6.Either<_i11.Failure,
                     _i7.LocalAudioStreamStatusEntity>>.value(
-            _FakeEither_4<_i10.Failure, _i7.LocalAudioStreamStatusEntity>(
+            _FakeEither_4<_i11.Failure, _i7.LocalAudioStreamStatusEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i9
-          .Future<_i6.Either<_i10.Failure, _i7.LocalAudioStreamStatusEntity>>);
+      ) as _i10
+          .Future<_i6.Either<_i11.Failure, _i7.LocalAudioStreamStatusEntity>>);
 }

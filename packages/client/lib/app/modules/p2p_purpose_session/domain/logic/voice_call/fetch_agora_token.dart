@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/modules/p2p_purpose_session/domain/contracts/p2p_purpose_session_contract.dart';
+import 'package:primala/app/modules/p2p_purpose_session/domain/contracts/p2p_purpose_session_voice_call_contract.dart';
 import 'package:primala/app/modules/p2p_purpose_session/domain/entities/entities.dart';
 
 class FetchAgoraToken
