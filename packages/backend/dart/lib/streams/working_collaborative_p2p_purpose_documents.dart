@@ -1,8 +1,10 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
-import './types/default_stream_class.dart';
 import 'package:primala_backend/existing_collaborations.dart';
 
-class WorkingCollaborativeP2PPurposeDocumentsStream extends DefaultStreamClass {
+class WorkingCollaborativeP2PPurposeDocumentsStream {
+  bool docContentListeningStatus = false;
+  bool collaboratorPresenceListeningStatus = false;
+  bool collaboratorDeltaListeningStatus = false;
   final SupabaseClient supabase;
   String userUID = '';
   String theCollaboratorToListenFor = '';
@@ -27,11 +29,11 @@ class WorkingCollaborativeP2PPurposeDocumentsStream extends DefaultStreamClass {
     required SupabaseClient supabase,
     required String userUID,
   }) async* {
-    isListening = true;
+    docContentListeningStatus = true;
     await for (var event in supabase
         .from('working_collaborative_p2p_purpose_documents')
         .stream(primaryKey: ['id'])) {
-      if (!isListening) {
+      if (!docContentListeningStatus) {
         break;
       }
       if (event.isEmpty) {
@@ -46,11 +48,11 @@ class WorkingCollaborativeP2PPurposeDocumentsStream extends DefaultStreamClass {
     required SupabaseClient supabase,
     required String userUID,
   }) async* {
-    isListening = true;
+    collaboratorPresenceListeningStatus = true;
     await for (var event in supabase
         .from('working_collaborative_p2p_purpose_documents')
         .stream(primaryKey: ['id'])) {
-      if (!isListening) {
+      if (!collaboratorPresenceListeningStatus) {
         break;
       }
       if (theCollaboratorToListenFor.isEmpty) {
@@ -68,11 +70,11 @@ class WorkingCollaborativeP2PPurposeDocumentsStream extends DefaultStreamClass {
     required SupabaseClient supabase,
     required String userUID,
   }) async* {
-    isListening = true;
+    collaboratorDeltaListeningStatus = true;
     await for (var event in supabase
         .from('working_collaborative_p2p_purpose_documents')
         .stream(primaryKey: ['id'])) {
-      if (!isListening) {
+      if (!collaboratorDeltaListeningStatus) {
         break;
       }
       if (theCollaboratorToListenFor.isEmpty) {
