@@ -6,7 +6,6 @@ import 'package:primala/app/core/widgets/widget_constants.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/p2p_purpose_session/data/data.dart';
 import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
-import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/main/db_related/check_if_user_has_the_question_store.dart';
 import 'package:primala/app/modules/p2p_purpose_session/presentation/presentation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

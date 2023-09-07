@@ -4,3 +4,5 @@ export './join_call.dart';
 export './leave_call.dart';
 export './mute_local_audio_stream.dart';
 export './unmute_local_audio_stream.dart';
+export './check_if_user_has_the_question.dart';
+export './fetch_channel_id.dart';
