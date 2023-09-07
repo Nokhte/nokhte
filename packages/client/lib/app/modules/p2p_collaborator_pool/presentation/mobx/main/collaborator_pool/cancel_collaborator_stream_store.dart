@@ -8,7 +8,7 @@ import 'package:primala/app/core/mobx/base_future_store.dart';
 import 'package:primala/app/core/mobx/base_mobx_db_store.dart';
 import 'package:primala/app/core/mobx/store_state.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/entities.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/getters/cancel_collaborator_stream_getter_store.dart';
+import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
 // * Mobx Codegen Inclusion
 part 'cancel_collaborator_stream_store.g.dart';
 

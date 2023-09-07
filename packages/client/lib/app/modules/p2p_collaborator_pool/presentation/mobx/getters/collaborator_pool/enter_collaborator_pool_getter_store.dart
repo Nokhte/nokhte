@@ -5,7 +5,7 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/collaborator_pool_entry_status_entity.dart';
+import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/collaborator_pool/collaborator_pool_entry_status_entity.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/logic/logic.dart';
 import 'package:primala_backend/constants/phrase_components/collaborator_phrase.dart';
 // * Mobx Codegen Inclusion
