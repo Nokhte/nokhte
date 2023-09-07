@@ -1,14 +1,13 @@
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
 
-class CreateSoloDoc
-    extends AbstractFutureLogic<SoloDocCreationStatusEntity, NoParams> {
+class GetSoloDoc extends AbstractFutureLogic<SoloDocContentEntity, NoParams> {
   final P2PPurposeSessionSoloDocContract contract;
 
-  CreateSoloDoc({
+  GetSoloDoc({
     required this.contract,
   });
 
   @override
-  call(params) async => await contract.createSoloDoc();
+  call(params) async => await contract.getSoloDocContent();
 }

@@ -42,4 +42,24 @@ class DefaultEntities {
   static Either<Failure, WhoGetsTheQuestionEntity>
       get defaultWhoGetsQuestionEntity =>
           const Right(WhoGetsTheQuestionEntity(hasIt: false));
+
+  static Either<Failure, SoloDocCreationStatusEntity>
+      get defaultSoloDocCreationStatusEntity =>
+          const Right(SoloDocCreationStatusEntity(isCreated: false));
+
+  static Either<Failure, SoloDocContentEntity>
+      get defaultSoloDocContentEntity =>
+          const Right(SoloDocContentEntity(content: ''));
+
+  static Either<Failure, SoloDocSubmissionStatusEntity>
+      get defaultSoloDocSubmissionStatusEntity =>
+          const Right(SoloDocSubmissionStatusEntity(isSubmitted: false));
+
+  static Either<Failure, SoloDocSealingStatusEntity>
+      get defaultSoloDocSealingStatusEntity =>
+          const Right(SoloDocSealingStatusEntity(isSealed: false));
+
+  static Either<Failure, SoloDocSharingStatusEntity>
+      get defaultSoloDocSharingStatusEntity =>
+          const Right(SoloDocSharingStatusEntity(isShared: false));
 }
