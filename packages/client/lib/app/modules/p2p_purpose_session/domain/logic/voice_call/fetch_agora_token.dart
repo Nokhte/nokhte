@@ -5,7 +5,7 @@ import 'package:primala/app/modules/p2p_purpose_session/domain/entities/entities
 
 class FetchAgoraToken
     extends AbstractFutureLogic<AgoraCallTokenEntity, FetchAgoraTokenParams> {
-  final P2PPurposeSessionContract contract;
+  final P2PPurposeSessionVoiceCallContract contract;
   FetchAgoraToken({required this.contract});
 
   @override

@@ -2,7 +2,7 @@ import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
 
 class LeaveCall extends AbstractFutureLogic<CallStatusEntity, NoParams> {
-  final P2PPurposeSessionContract contract;
+  final P2PPurposeSessionVoiceCallContract contract;
 
   LeaveCall({required this.contract});
 

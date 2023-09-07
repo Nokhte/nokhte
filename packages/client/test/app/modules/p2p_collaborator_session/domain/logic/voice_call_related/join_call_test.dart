@@ -8,13 +8,13 @@ import '../../../constants/entities/entities.dart';
 import '../../../fixtures/p2p_purpose_session_stack_mock_gen.mocks.dart';
 
 void main() {
-  late MockMP2PPurposeSessionContract mockContract;
+  late MockMP2PPurposeSessionVoiceCallContract mockContract;
   late JoinCall logic;
   const JoinCallParams tParams =
       JoinCallParams(token: "someReturnToken", channelId: "someChannelId");
 
   setUp(() {
-    mockContract = MockMP2PPurposeSessionContract();
+    mockContract = MockMP2PPurposeSessionVoiceCallContract();
     logic = JoinCall(contract: mockContract);
   });
 

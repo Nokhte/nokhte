@@ -8,7 +8,7 @@ import 'package:primala_backend/token_server.dart';
 import 'package:primala_backend/existing_collaborations.dart';
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 
-abstract class P2PPurposeSessionRemoteSource {
+abstract class P2PPurposeSessionVoiceCallRemoteSource {
   Future<Response> fetchAgoraToken({required String channelName});
 
   /// needs logic & status entity
@@ -30,15 +30,15 @@ abstract class P2PPurposeSessionRemoteSource {
   // Future<List> fetchWhoGetsQuestion();
 }
 
-class P2PPurposeSessionRemoteSourceImpl
-    implements P2PPurposeSessionRemoteSource {
+class P2PPurposeSessionVoiceCallRemoteSourceImpl
+    implements P2PPurposeSessionVoiceCallRemoteSource {
   final SupabaseClient supabase;
   final AgoraCallbacksStore agoraCallbacksStore;
   final String currentUserUID;
   final int currentAgoraUID;
   final RtcEngine agoraEngine; // should call createAgoraRtcEngine() in module
 
-  P2PPurposeSessionRemoteSourceImpl({
+  P2PPurposeSessionVoiceCallRemoteSourceImpl({
     required this.supabase,
     required this.agoraCallbacksStore,
     required this.agoraEngine,

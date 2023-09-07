@@ -10,14 +10,14 @@ import '../../fixtures/p2p_purpose_session_stack_mock_gen.mocks.dart';
 import '../../constants/response/response.dart';
 
 void main() {
-  late P2PPurposeSessionContractImpl contractImpl;
-  late MockMP2PPurposeSessionRemoteSourceImpl mockRemoteSource;
+  late P2PPurposeSessionVoiceCallContractImpl contractImpl;
+  late MockMP2PPurposeSessionVoiceCallRemoteSourceImpl mockRemoteSource;
   late MockMNetworkInfo mockNetworkInfo;
 
   setUp(() {
     mockNetworkInfo = MockMNetworkInfo();
-    mockRemoteSource = MockMP2PPurposeSessionRemoteSourceImpl();
-    contractImpl = P2PPurposeSessionContractImpl(
+    mockRemoteSource = MockMP2PPurposeSessionVoiceCallRemoteSourceImpl();
+    contractImpl = P2PPurposeSessionVoiceCallContractImpl(
       networkInfo: mockNetworkInfo,
       remoteSource: mockRemoteSource,
     );

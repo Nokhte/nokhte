@@ -24,59 +24,59 @@ class P2PCollaboratorSessionModule extends Module {
 
         /// % Agora Callback Stores END
         // & Remote Source
-        Bind.singleton<P2PPurposeSessionRemoteSourceImpl>(
-          (i) => P2PPurposeSessionRemoteSourceImpl(
+        Bind.singleton<P2PPurposeSessionVoiceCallRemoteSourceImpl>(
+          (i) => P2PPurposeSessionVoiceCallRemoteSourceImpl(
             supabase: Modular.get<SupabaseClient>(),
             agoraCallbacksStore: i<AgoraCallbacksStore>(),
             agoraEngine: i<RtcEngine>(),
           ),
         ),
         // & Contract Implementation
-        Bind.singleton<P2PPurposeSessionContractImpl>(
-          (i) => P2PPurposeSessionContractImpl(
+        Bind.singleton<P2PPurposeSessionVoiceCallContractImpl>(
+          (i) => P2PPurposeSessionVoiceCallContractImpl(
             networkInfo: Modular.get<NetworkInfo>(),
-            remoteSource: i<P2PPurposeSessionRemoteSource>(),
+            remoteSource: i<P2PPurposeSessionVoiceCallRemoteSource>(),
           ),
         ),
         // & Logic
         Bind.singleton<CheckIfUserHasTheQuestion>(
           (i) => CheckIfUserHasTheQuestion(
-            contract: i<P2PPurposeSessionContract>(),
+            contract: i<P2PPurposeSessionVoiceCallContract>(),
           ),
         ),
         Bind.singleton<FetchAgoraToken>(
           (i) => FetchAgoraToken(
-            contract: i<P2PPurposeSessionContract>(),
+            contract: i<P2PPurposeSessionVoiceCallContract>(),
           ),
         ),
         Bind.singleton<FetchChannelId>(
           (i) => FetchChannelId(
-            contract: i<P2PPurposeSessionContract>(),
+            contract: i<P2PPurposeSessionVoiceCallContract>(),
           ),
         ),
         Bind.singleton<InstantiateAgoraSdk>(
           (i) => InstantiateAgoraSdk(
-            contract: i<P2PPurposeSessionContract>(),
+            contract: i<P2PPurposeSessionVoiceCallContract>(),
           ),
         ),
         Bind.singleton<JoinCall>(
           (i) => JoinCall(
-            contract: i<P2PPurposeSessionContract>(),
+            contract: i<P2PPurposeSessionVoiceCallContract>(),
           ),
         ),
         Bind.singleton<LeaveCall>(
           (i) => LeaveCall(
-            contract: i<P2PPurposeSessionContract>(),
+            contract: i<P2PPurposeSessionVoiceCallContract>(),
           ),
         ),
         Bind.singleton<MuteLocalAudioStream>(
           (i) => MuteLocalAudioStream(
-            contract: i<P2PPurposeSessionContract>(),
+            contract: i<P2PPurposeSessionVoiceCallContract>(),
           ),
         ),
         Bind.singleton<UnmuteLocalAudioStream>(
           (i) => UnmuteLocalAudioStream(
-            contract: i<P2PPurposeSessionContract>(),
+            contract: i<P2PPurposeSessionVoiceCallContract>(),
           ),
         ),
         // & MobX Getter Stores

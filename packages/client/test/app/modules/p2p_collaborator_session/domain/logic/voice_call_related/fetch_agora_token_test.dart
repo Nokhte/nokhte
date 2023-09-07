@@ -8,12 +8,12 @@ import '../../../constants/entities/entities.dart';
 import '../../../fixtures/p2p_purpose_session_stack_mock_gen.mocks.dart';
 
 void main() {
-  late MockMP2PPurposeSessionContract mockContract;
+  late MockMP2PPurposeSessionVoiceCallContract mockContract;
   late FetchAgoraToken logic;
   const tParams = FetchAgoraTokenParams(channelName: 'hi');
 
   setUp(() {
-    mockContract = MockMP2PPurposeSessionContract();
+    mockContract = MockMP2PPurposeSessionVoiceCallContract();
     logic = FetchAgoraToken(contract: mockContract);
   });
 

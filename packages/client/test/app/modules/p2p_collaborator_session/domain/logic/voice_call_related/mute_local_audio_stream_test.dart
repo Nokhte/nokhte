@@ -9,11 +9,11 @@ import '../../../constants/entities/entities.dart';
 import '../../../fixtures/p2p_purpose_session_stack_mock_gen.mocks.dart';
 
 void main() {
-  late MockMP2PPurposeSessionContract mockContract;
+  late MockMP2PPurposeSessionVoiceCallContract mockContract;
   late MuteLocalAudioStream logic;
 
   setUp(() {
-    mockContract = MockMP2PPurposeSessionContract();
+    mockContract = MockMP2PPurposeSessionVoiceCallContract();
     logic = MuteLocalAudioStream(contract: mockContract);
   });
 

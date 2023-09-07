@@ -3,7 +3,7 @@ import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
 
 class InstantiateAgoraSdk
     extends AbstractFutureLogic<AgoraSdkStatusEntity, NoParams> {
-  final P2PPurposeSessionContract contract;
+  final P2PPurposeSessionVoiceCallContract contract;
 
   InstantiateAgoraSdk({required this.contract});
 

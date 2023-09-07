@@ -6,10 +6,11 @@ import 'package:primala/app/core/types/call_status.dart';
 import 'package:primala/app/modules/p2p_purpose_session/data/data.dart';
 import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
 
-class P2PPurposeSessionContractImpl implements P2PPurposeSessionContract {
-  final P2PPurposeSessionRemoteSource remoteSource;
+class P2PPurposeSessionVoiceCallContractImpl
+    implements P2PPurposeSessionVoiceCallContract {
+  final P2PPurposeSessionVoiceCallRemoteSource remoteSource;
   final NetworkInfo networkInfo;
-  P2PPurposeSessionContractImpl({
+  P2PPurposeSessionVoiceCallContractImpl({
     required this.remoteSource,
     required this.networkInfo,
   });
