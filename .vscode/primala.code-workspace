@@ -1,7 +1,7 @@
 {
     "folders": [
         {
-            "name": "primala-root",
+            "name": "primala root",
             "path": "../",
         },
         {
@@ -9,13 +9,30 @@
             "path": "../packages/backend/dart"
         },
         {
-            "name": "client",
-            "path": "../packages/client"
+            "name": "client code",
+            "path": "../packages/client/lib/app"
+        },
+        {
+            "name": "client tests",
+            "path": "../packages/client/test/app"
         },
         {
             "name": "supabase",
             "path": "../packages/backend/supabase"
-        }
+        },
+        // {
+        //     "name": "client ios",
+        //     "path": "../packages/client/ios"
+        // },
+        // {
+        //     "name": "client android",
+        //     "path": "../packages/client/android"
+        // },
+        // {
+        //     "name": "client root",
+        //     "path": "../packages/client/"
+        // },
+
     ],
     "settings": 
         {
@@ -31,6 +48,19 @@
                 "**/_deprecated/**": true,
                 "**/.idea": true,
                 "**/**.lock": true,
+                "**/analysis_options.yaml": true,
+                "**/.flutter-plugins": true,
+                "**/.flutter-plugins-dependencies": true,
+                "**/pubspec_overrides.yaml": true,
+                "**/version.yml": true,
+                "**/.metadata": true,
+                "**/flutter_01.log": true,
+                "**/.example.env": true,
+                "**/README.md": true,
+                "**/changelog.md": true,
+                "**/.env": true,
+                "**/.git": true
+                
             },
             "deno.importMap": "./packages/backend/supabase/functions/import_map.json",
             "deno.enable": true,
