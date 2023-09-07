@@ -7,17 +7,17 @@ import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/entities.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/getters/getters.dart';
-import '../../../constants/entities/entities.dart';
-import '../../../fixtures/p2p_collaborator_pool_stack_mock_gen.mocks.dart';
+import '../../../../constants/entities/entities.dart';
+import '../../../../fixtures/p2p_collaborator_pool_stack_mock_gen.mocks.dart';
 
 void main() {
-  late MockMStartListening mockLogic;
-  late StartListeningGetterStore getterStore;
+  late MockMStopListening mockLogic;
+  late StopListeningGetterStore getterStore;
   late Either<Failure, ListeningStatusEntity> tEitherStatusOrFailure;
 
   setUp(() {
-    mockLogic = MockMStartListening();
-    getterStore = StartListeningGetterStore(startListeningLogic: mockLogic);
+    mockLogic = MockMStopListening();
+    getterStore = StopListeningGetterStore(stopListeningLogic: mockLogic);
   });
 
   group("✅ Success Cases", () {

@@ -7,22 +7,24 @@ import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/entities.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/getters/getters.dart';
-import '../../../constants/entities/entities.dart';
-import '../../../fixtures/p2p_collaborator_pool_stack_mock_gen.mocks.dart';
+import '../../../../constants/entities/entities.dart';
+import '../../../../fixtures/p2p_collaborator_pool_stack_mock_gen.mocks.dart';
 
 void main() {
-  late MockMStopListening mockLogic;
-  late StopListeningGetterStore getterStore;
-  late Either<Failure, ListeningStatusEntity> tEitherStatusOrFailure;
+  late MockMInitiateSpeechToText mockLogic;
+  late InitiateSpeechToTextGetterStore getterStore;
+  late Either<Failure, SpeechToTextInitializerStatusEntity>
+      tEitherStatusOrFailure;
 
   setUp(() {
-    mockLogic = MockMStopListening();
-    getterStore = StopListeningGetterStore(stopListeningLogic: mockLogic);
+    mockLogic = MockMInitiateSpeechToText();
+    getterStore = InitiateSpeechToTextGetterStore(initSpeechLogic: mockLogic);
   });
 
   group("✅ Success Cases", () {
     setUp(() {
-      tEitherStatusOrFailure = ConstantListeningStatusEntity.wrappedSuccessCase;
+      tEitherStatusOrFailure =
+          ConstantSpeechToTextInitializerStatusEntity.wrappedSuccessCase;
     });
 
     test("should pass the right entity w/ the right state", () async {

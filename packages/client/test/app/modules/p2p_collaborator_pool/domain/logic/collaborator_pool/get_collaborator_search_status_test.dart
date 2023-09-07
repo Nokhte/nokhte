@@ -5,40 +5,40 @@ import 'package:mockito/mockito.dart';
 import 'package:primala/app/core/constants/failure_constants.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/logic/logic.dart';
-
-import '../../constants/entities/entities.dart';
-import '../../fixtures/p2p_collaborator_pool_stack_mock_gen.mocks.dart';
+import '../../../constants/entities/entities.dart';
+import '../../../fixtures/p2p_collaborator_pool_stack_mock_gen.mocks.dart';
 
 void main() {
   late MockMP2PCollaboratorPoolContract mockContract;
-  late ExitCollaboratorPool logic;
+  late GetCollaboratorSearchStatus logic;
 
   setUp(() {
     mockContract = MockMP2PCollaboratorPoolContract();
-    logic = ExitCollaboratorPool(contract: mockContract);
+    logic = GetCollaboratorSearchStatus(contract: mockContract);
   });
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
-    when(mockContract.exitCollaboratorPool()).thenAnswer(
-      (_) async => ConstantCollaboratorPoolExitStatusEntity.wrappedSuccessCase,
+    when(mockContract.getCollaboratorSearchStatus()).thenAnswer(
+      (_) async => ConstantCollaboratorSearchStatusEntity.wrappedSuccessCase,
     );
 
     final result = await logic(NoParams());
 
-    expect(result, ConstantCollaboratorPoolExitStatusEntity.wrappedSuccessCase);
-    verify(mockContract.exitCollaboratorPool());
+    expect(result.toString(),
+        ConstantCollaboratorSearchStatusEntity.wrappedSuccessCase.toString());
+    verify(mockContract.getCollaboratorSearchStatus());
     verifyNoMoreInteractions(mockContract);
   });
 
   test("✅ should pass A Failure from Contract ==> Logic", () async {
-    when(mockContract.exitCollaboratorPool()).thenAnswer(
+    when(mockContract.getCollaboratorSearchStatus()).thenAnswer(
       (_) async => Left(FailureConstants.dbFailure),
     );
 
     final result = await logic(NoParams());
 
     expect(result, Left(FailureConstants.dbFailure));
-    verify(mockContract.exitCollaboratorPool());
+    verify(mockContract.getCollaboratorSearchStatus());
     verifyNoMoreInteractions(mockContract);
   });
 }

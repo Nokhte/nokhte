@@ -5,39 +5,40 @@ import 'package:mockito/mockito.dart';
 import 'package:primala/app/core/constants/failure_constants.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/logic/logic.dart';
-import '../../constants/entities/entities.dart';
-import '../../fixtures/p2p_collaborator_pool_stack_mock_gen.mocks.dart';
+
+import '../../../constants/entities/entities.dart';
+import '../../../fixtures/p2p_collaborator_pool_stack_mock_gen.mocks.dart';
 
 void main() {
   late MockMP2PCollaboratorPoolContract mockContract;
-  late CancelCollaboratorStream logic;
+  late StopListening logic;
 
   setUp(() {
     mockContract = MockMP2PCollaboratorPoolContract();
-    logic = CancelCollaboratorStream(contract: mockContract);
+    logic = StopListening(contract: mockContract);
   });
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
-    when(mockContract.cancelCollaboratorStream()).thenAnswer(
-      (_) async => ConstantCollaboratorStreamStatusEntity.wrappedSuccessCase,
+    when(mockContract.stopListening()).thenAnswer(
+      (_) async => ConstantListeningStatusEntity.wrappedSuccessCase,
     );
 
     final result = await logic(NoParams());
 
-    expect(result, ConstantCollaboratorStreamStatusEntity.wrappedSuccessCase);
-    verify(mockContract.cancelCollaboratorStream());
+    expect(result, ConstantListeningStatusEntity.wrappedSuccessCase);
+    verify(mockContract.stopListening());
     verifyNoMoreInteractions(mockContract);
   });
 
   test("✅ should pass A Failure from Contract ==> Logic", () async {
-    when(mockContract.cancelCollaboratorStream()).thenAnswer(
+    when(mockContract.stopListening()).thenAnswer(
       (_) async => Left(FailureConstants.dbFailure),
     );
 
     final result = await logic(NoParams());
 
     expect(result, Left(FailureConstants.dbFailure));
-    verify(mockContract.cancelCollaboratorStream());
+    verify(mockContract.stopListening());
     verifyNoMoreInteractions(mockContract);
   });
 }

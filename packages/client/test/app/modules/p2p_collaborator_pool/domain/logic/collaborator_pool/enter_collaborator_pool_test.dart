@@ -6,8 +6,8 @@ import 'package:primala/app/core/constants/failure_constants.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/logic/logic.dart';
 import 'package:primala_backend/phrase_components.dart';
 
-import '../../constants/entities/entities.dart';
-import '../../fixtures/p2p_collaborator_pool_stack_mock_gen.mocks.dart';
+import '../../../constants/entities/entities.dart';
+import '../../../fixtures/p2p_collaborator_pool_stack_mock_gen.mocks.dart';
 
 void main() {
   late MockMP2PCollaboratorPoolContract mockContract;
