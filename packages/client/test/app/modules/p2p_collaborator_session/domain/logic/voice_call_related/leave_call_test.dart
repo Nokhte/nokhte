@@ -5,39 +5,39 @@ import 'package:mockito/mockito.dart';
 import 'package:primala/app/core/constants/failure_constants.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/modules/p2p_purpose_session/domain/logic/logic.dart';
-import '../../constants/entities/entities.dart';
-import '../../fixtures/p2p_purpose_session_stack_mock_gen.mocks.dart';
+import '../../../constants/entities/entities.dart';
+import '../../../fixtures/p2p_purpose_session_stack_mock_gen.mocks.dart';
 
 void main() {
   late MockMP2PPurposeSessionContract mockContract;
-  late MuteLocalAudioStream logic;
+  late LeaveCall logic;
 
   setUp(() {
     mockContract = MockMP2PPurposeSessionContract();
-    logic = MuteLocalAudioStream(contract: mockContract);
+    logic = LeaveCall(contract: mockContract);
   });
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
-    when(mockContract.muteLocalAudioStream()).thenAnswer(
-      (_) async => ConstantLocalAudioStreamStatusEntity.wrappedMutedCase,
+    when(mockContract.leaveCall()).thenAnswer(
+      (_) async => ConstantCallStatusEntity.wrappedLeavingSuccessCase,
     );
 
     final result = await logic(NoParams());
 
-    expect(result, ConstantLocalAudioStreamStatusEntity.wrappedMutedCase);
-    verify(mockContract.muteLocalAudioStream());
+    expect(result, ConstantCallStatusEntity.wrappedLeavingSuccessCase);
+    verify(mockContract.leaveCall());
     verifyNoMoreInteractions(mockContract);
   });
 
   test("✅ should pass A Failure from Contract ==> Logic", () async {
-    when(mockContract.muteLocalAudioStream()).thenAnswer(
+    when(mockContract.leaveCall()).thenAnswer(
       (_) async => Left(FailureConstants.dbFailure),
     );
 
     final result = await logic(NoParams());
 
     expect(result, Left(FailureConstants.dbFailure));
-    verify(mockContract.muteLocalAudioStream());
+    verify(mockContract.leaveCall());
     verifyNoMoreInteractions(mockContract);
   });
 }

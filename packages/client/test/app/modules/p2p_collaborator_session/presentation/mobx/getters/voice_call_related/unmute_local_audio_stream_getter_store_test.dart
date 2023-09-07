@@ -7,23 +7,24 @@ import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
 import 'package:primala/app/modules/p2p_purpose_session/presentation/presentation.dart';
-import '../../../constants/entities/entities.dart';
-import '../../../fixtures/p2p_purpose_session_stack_mock_gen.mocks.dart';
+import '../../../../constants/entities/entities.dart';
+import '../../../../fixtures/p2p_purpose_session_stack_mock_gen.mocks.dart';
 
 void main() {
-  late MockMLeaveCall mockLogic;
-  late LeaveCallGetterStore getterStore;
-  late Either<Failure, CallStatusEntity> tEitherStatusOrFailure;
+  late MockMUnmuteLocalAudioStream mockLogic;
+  late UnmuteLocalAudioStreamGetterStore getterStore;
+  late Either<Failure, LocalAudioStreamStatusEntity> tEitherStatusOrFailure;
   final tParams = NoParams();
 
   setUp(() {
-    mockLogic = MockMLeaveCall();
-    getterStore = LeaveCallGetterStore(logic: mockLogic);
+    mockLogic = MockMUnmuteLocalAudioStream();
+    getterStore = UnmuteLocalAudioStreamGetterStore(logic: mockLogic);
   });
 
   group("✅ Success Cases", () {
     setUp(() {
-      tEitherStatusOrFailure = ConstantCallStatusEntity.wrappedSuccessCase;
+      tEitherStatusOrFailure =
+          ConstantLocalAudioStreamStatusEntity.wrappedMutedCase;
     });
 
     test("should pass the right entity w/ the right state", () async {

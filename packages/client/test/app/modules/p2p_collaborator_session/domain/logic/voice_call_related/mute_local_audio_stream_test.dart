@@ -5,39 +5,39 @@ import 'package:mockito/mockito.dart';
 import 'package:primala/app/core/constants/failure_constants.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/modules/p2p_purpose_session/domain/logic/logic.dart';
-import '../../constants/entities/entities.dart';
-import '../../fixtures/p2p_purpose_session_stack_mock_gen.mocks.dart';
+import '../../../constants/entities/entities.dart';
+import '../../../fixtures/p2p_purpose_session_stack_mock_gen.mocks.dart';
 
 void main() {
   late MockMP2PPurposeSessionContract mockContract;
-  late InstantiateAgoraSdk logic;
+  late MuteLocalAudioStream logic;
 
   setUp(() {
     mockContract = MockMP2PPurposeSessionContract();
-    logic = InstantiateAgoraSdk(contract: mockContract);
+    logic = MuteLocalAudioStream(contract: mockContract);
   });
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
-    when(mockContract.instantiateAgoraSdk()).thenAnswer(
-      (_) async => ConstantAgoraSdkStatusEntity.wrappedSuccessCase,
+    when(mockContract.muteLocalAudioStream()).thenAnswer(
+      (_) async => ConstantLocalAudioStreamStatusEntity.wrappedMutedCase,
     );
 
     final result = await logic(NoParams());
 
-    expect(result, ConstantAgoraSdkStatusEntity.wrappedSuccessCase);
-    verify(mockContract.instantiateAgoraSdk());
+    expect(result, ConstantLocalAudioStreamStatusEntity.wrappedMutedCase);
+    verify(mockContract.muteLocalAudioStream());
     verifyNoMoreInteractions(mockContract);
   });
 
   test("✅ should pass A Failure from Contract ==> Logic", () async {
-    when(mockContract.instantiateAgoraSdk()).thenAnswer(
+    when(mockContract.muteLocalAudioStream()).thenAnswer(
       (_) async => Left(FailureConstants.dbFailure),
     );
 
     final result = await logic(NoParams());
 
     expect(result, Left(FailureConstants.dbFailure));
-    verify(mockContract.instantiateAgoraSdk());
+    verify(mockContract.muteLocalAudioStream());
     verifyNoMoreInteractions(mockContract);
   });
 }

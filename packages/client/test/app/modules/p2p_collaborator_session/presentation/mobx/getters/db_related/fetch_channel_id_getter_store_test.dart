@@ -7,22 +7,22 @@ import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
 import 'package:primala/app/modules/p2p_purpose_session/presentation/presentation.dart';
-import '../../../constants/entities/entities.dart';
-import '../../../fixtures/p2p_purpose_session_stack_mock_gen.mocks.dart';
+import '../../../../constants/entities/entities.dart';
+import '../../../../fixtures/p2p_purpose_session_stack_mock_gen.mocks.dart';
 
 void main() {
-  late MockMInstantiateAgoraSdk mockLogic;
-  late InstantiateAgoraSdkGetterStore getterStore;
-  late Either<Failure, AgoraSdkStatusEntity> tEitherStatusOrFailure;
+  late MockMFetchChannelId mockLogic;
+  late FetchChannelIdGetterStore getterStore;
+  late Either<Failure, ChannelIdEntity> tEitherStatusOrFailure;
 
   setUp(() {
-    mockLogic = MockMInstantiateAgoraSdk();
-    getterStore = InstantiateAgoraSdkGetterStore(logic: mockLogic);
+    mockLogic = MockMFetchChannelId();
+    getterStore = FetchChannelIdGetterStore(logic: mockLogic);
   });
 
   group("✅ Success Cases", () {
     setUp(() {
-      tEitherStatusOrFailure = ConstantAgoraSdkStatusEntity.wrappedSuccessCase;
+      tEitherStatusOrFailure = ConstantChannelIdEntity.wrappedSuccessCase;
     });
 
     test("should pass the right entity w/ the right state", () async {

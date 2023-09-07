@@ -4,32 +4,31 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:primala/app/core/constants/failure_constants.dart';
 import 'package:primala/app/core/error/failure.dart';
+import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
 import 'package:primala/app/modules/p2p_purpose_session/presentation/presentation.dart';
-import '../../../constants/entities/entities.dart';
-import '../../../fixtures/p2p_purpose_session_stack_mock_gen.mocks.dart';
+import '../../../../constants/entities/entities.dart';
+import '../../../../fixtures/p2p_purpose_session_stack_mock_gen.mocks.dart';
 
 void main() {
-  late MockMFetchAgoraToken mockLogic;
-  late FetchAgoraTokenGetterStore getterStore;
-  late Either<Failure, AgoraCallTokenEntity> tEitherStatusOrFailure;
-  const FetchAgoraTokenParams tParams =
-      FetchAgoraTokenParams(channelName: 'hi');
+  late MockMInstantiateAgoraSdk mockLogic;
+  late InstantiateAgoraSdkGetterStore getterStore;
+  late Either<Failure, AgoraSdkStatusEntity> tEitherStatusOrFailure;
 
   setUp(() {
-    mockLogic = MockMFetchAgoraToken();
-    getterStore = FetchAgoraTokenGetterStore(logic: mockLogic);
+    mockLogic = MockMInstantiateAgoraSdk();
+    getterStore = InstantiateAgoraSdkGetterStore(logic: mockLogic);
   });
 
   group("✅ Success Cases", () {
     setUp(() {
-      tEitherStatusOrFailure = ConstantAgoraCallTokenEntity.wrappedSuccessCase;
+      tEitherStatusOrFailure = ConstantAgoraSdkStatusEntity.wrappedSuccessCase;
     });
 
     test("should pass the right entity w/ the right state", () async {
-      when(mockLogic(tParams))
+      when(mockLogic(NoParams()))
           .thenAnswer((realInvocation) async => tEitherStatusOrFailure);
-      final res = await getterStore(tParams);
+      final res = await getterStore();
       expect(res, tEitherStatusOrFailure);
     });
   });
@@ -40,9 +39,9 @@ void main() {
     });
 
     test("should pass the right entity w/ the right state", () async {
-      when(mockLogic(tParams))
+      when(mockLogic(NoParams()))
           .thenAnswer((realInvocation) async => tEitherStatusOrFailure);
-      final res = await getterStore(tParams);
+      final res = await getterStore();
       expect(res, tEitherStatusOrFailure);
     });
   });
