@@ -122,9 +122,4 @@ abstract class _SpeechToTextStoreBase extends BaseMobxDBStore with Store {
     );
     state = StoreState.loaded;
   }
-
-  @override
-  List<Object> get props => [
-// some items
-      ];
 }

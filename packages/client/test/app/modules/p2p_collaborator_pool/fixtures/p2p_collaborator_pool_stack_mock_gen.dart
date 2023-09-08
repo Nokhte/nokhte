@@ -32,6 +32,30 @@ class MOnSpeechResultStore extends Mock implements OnSpeechResultStore {}
 
 class MSpeechToText extends Mock implements SpeechToText {}
 
+class MCancelCollaboratorStreamGetterStore extends Mock
+    implements CancelCollaboratorStreamGetterStore {}
+
+class MEnterCollaboratorPoolGetterStore extends Mock
+    implements EnterCollaboratorPoolGetterStore {}
+
+class MExitCollaboratorPoolGetterStore extends Mock
+    implements ExitCollaboratorPoolGetterStore {}
+
+class MGetCollaboratorSearchStatusGetterStore extends Mock
+    implements GetCollaboratorSearchStatusGetterStore {}
+
+class MInitiateSpeechToTextGetterStore extends Mock
+    implements InitiateSpeechToTextGetterStore {}
+
+class MStartListeningGetterStore extends Mock
+    implements StartListeningGetterStore {}
+
+class MStopListeningGetterStore extends Mock
+    implements StopListeningGetterStore {}
+
+class MValidateQueryGetterStore extends Mock
+    implements ValidateQueryGetterStore {}
+
 @GenerateMocks([
   MP2PCollaboratorPoolRemoteSourceImpl,
   MEnterCollaboratorPool,
@@ -44,6 +68,14 @@ class MSpeechToText extends Mock implements SpeechToText {}
   MValidateQuery,
   MP2PCollaboratorPoolContract,
   MOnSpeechResultStore,
+  MCancelCollaboratorStreamGetterStore,
+  MEnterCollaboratorPoolGetterStore,
+  MExitCollaboratorPoolGetterStore,
+  MGetCollaboratorSearchStatusGetterStore,
+  MInitiateSpeechToTextGetterStore,
+  MStartListeningGetterStore,
+  MStopListeningGetterStore,
+  MValidateQueryGetterStore,
 ])
 @GenerateNiceMocks([
   MockSpec<P2PCollaboratorPoolRemoteSource>(),

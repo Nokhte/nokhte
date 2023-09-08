@@ -136,6 +136,92 @@ class _FakeReactiveContext_8 extends _i1.SmartFake
         );
 }
 
+class _FakeCancelCollaboratorStream_9 extends _i1.SmartFake
+    implements _i4.CancelCollaboratorStream {
+  _FakeCancelCollaboratorStream_9(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeEnterCollaboratorPool_10 extends _i1.SmartFake
+    implements _i4.EnterCollaboratorPool {
+  _FakeEnterCollaboratorPool_10(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeExitCollaboratorPool_11 extends _i1.SmartFake
+    implements _i4.ExitCollaboratorPool {
+  _FakeExitCollaboratorPool_11(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeGetCollaboratorSearchStatus_12 extends _i1.SmartFake
+    implements _i4.GetCollaboratorSearchStatus {
+  _FakeGetCollaboratorSearchStatus_12(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeInitiateSpeechToText_13 extends _i1.SmartFake
+    implements _i4.InitiateSpeechToText {
+  _FakeInitiateSpeechToText_13(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeStartListening_14 extends _i1.SmartFake
+    implements _i4.StartListening {
+  _FakeStartListening_14(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeStopListening_15 extends _i1.SmartFake implements _i4.StopListening {
+  _FakeStopListening_15(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeValidateQuery_16 extends _i1.SmartFake implements _i4.ValidateQuery {
+  _FakeValidateQuery_16(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [MP2PCollaboratorPoolRemoteSourceImpl].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -921,6 +1007,430 @@ class MockMOnSpeechResultStore extends _i1.Mock
         [],
         {#result: result},
       ));
+}
+
+/// A class which mocks [MCancelCollaboratorStreamGetterStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMCancelCollaboratorStreamGetterStore extends _i1.Mock
+    implements _i9.MCancelCollaboratorStreamGetterStore {
+  MockMCancelCollaboratorStreamGetterStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.CancelCollaboratorStream get cancelStreamLogic => (super.noSuchMethod(
+        Invocation.getter(#cancelStreamLogic),
+        returnValue: _FakeCancelCollaboratorStream_9(
+          this,
+          Invocation.getter(#cancelStreamLogic),
+        ),
+      ) as _i4.CancelCollaboratorStream);
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  _i10.Future<_i6.Either<_i12.Failure, _i4.CollaboratorStreamStatusEntity>>
+      call() => (super.noSuchMethod(
+            Invocation.method(
+              #call,
+              [],
+            ),
+            returnValue: _i10.Future<
+                    _i6.Either<_i12.Failure,
+                        _i4.CollaboratorStreamStatusEntity>>.value(
+                _FakeEither_6<_i12.Failure, _i4.CollaboratorStreamStatusEntity>(
+              this,
+              Invocation.method(
+                #call,
+                [],
+              ),
+            )),
+          ) as _i10.Future<
+              _i6.Either<_i12.Failure, _i4.CollaboratorStreamStatusEntity>>);
+}
+
+/// A class which mocks [MEnterCollaboratorPoolGetterStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMEnterCollaboratorPoolGetterStore extends _i1.Mock
+    implements _i9.MEnterCollaboratorPoolGetterStore {
+  MockMEnterCollaboratorPoolGetterStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.EnterCollaboratorPool get enterPoolLogic => (super.noSuchMethod(
+        Invocation.getter(#enterPoolLogic),
+        returnValue: _FakeEnterCollaboratorPool_10(
+          this,
+          Invocation.getter(#enterPoolLogic),
+        ),
+      ) as _i4.EnterCollaboratorPool);
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  _i10.Future<
+      _i6.Either<_i12.Failure, _i4.CollaboratorPoolEntryStatusEntity>> call(
+          {required _i11.CollaboratorPhraseIDs? phraseIDs}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [],
+          {#phraseIDs: phraseIDs},
+        ),
+        returnValue: _i10.Future<
+                _i6.Either<_i12.Failure,
+                    _i4.CollaboratorPoolEntryStatusEntity>>.value(
+            _FakeEither_6<_i12.Failure, _i4.CollaboratorPoolEntryStatusEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [],
+            {#phraseIDs: phraseIDs},
+          ),
+        )),
+      ) as _i10.Future<
+          _i6.Either<_i12.Failure, _i4.CollaboratorPoolEntryStatusEntity>>);
+}
+
+/// A class which mocks [MExitCollaboratorPoolGetterStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMExitCollaboratorPoolGetterStore extends _i1.Mock
+    implements _i9.MExitCollaboratorPoolGetterStore {
+  MockMExitCollaboratorPoolGetterStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.ExitCollaboratorPool get exitPoolLogic => (super.noSuchMethod(
+        Invocation.getter(#exitPoolLogic),
+        returnValue: _FakeExitCollaboratorPool_11(
+          this,
+          Invocation.getter(#exitPoolLogic),
+        ),
+      ) as _i4.ExitCollaboratorPool);
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  _i10.Future<
+      _i6
+          .Either<_i12.Failure, _i4.CollaboratorPoolExitStatusEntity>> call() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [],
+        ),
+        returnValue: _i10.Future<
+                _i6.Either<_i12.Failure,
+                    _i4.CollaboratorPoolExitStatusEntity>>.value(
+            _FakeEither_6<_i12.Failure, _i4.CollaboratorPoolExitStatusEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [],
+          ),
+        )),
+      ) as _i10.Future<
+          _i6.Either<_i12.Failure, _i4.CollaboratorPoolExitStatusEntity>>);
+}
+
+/// A class which mocks [MGetCollaboratorSearchStatusGetterStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMGetCollaboratorSearchStatusGetterStore extends _i1.Mock
+    implements _i9.MGetCollaboratorSearchStatusGetterStore {
+  MockMGetCollaboratorSearchStatusGetterStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.GetCollaboratorSearchStatus get collaboratorSearchStatusLogic =>
+      (super.noSuchMethod(
+        Invocation.getter(#collaboratorSearchStatusLogic),
+        returnValue: _FakeGetCollaboratorSearchStatus_12(
+          this,
+          Invocation.getter(#collaboratorSearchStatusLogic),
+        ),
+      ) as _i4.GetCollaboratorSearchStatus);
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  _i10.Future<_i6.Either<_i12.Failure, _i4.CollaboratorSearchStatusEntity>>
+      call() => (super.noSuchMethod(
+            Invocation.method(
+              #call,
+              [],
+            ),
+            returnValue: _i10.Future<
+                    _i6.Either<_i12.Failure,
+                        _i4.CollaboratorSearchStatusEntity>>.value(
+                _FakeEither_6<_i12.Failure, _i4.CollaboratorSearchStatusEntity>(
+              this,
+              Invocation.method(
+                #call,
+                [],
+              ),
+            )),
+          ) as _i10.Future<
+              _i6.Either<_i12.Failure, _i4.CollaboratorSearchStatusEntity>>);
+}
+
+/// A class which mocks [MInitiateSpeechToTextGetterStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMInitiateSpeechToTextGetterStore extends _i1.Mock
+    implements _i9.MInitiateSpeechToTextGetterStore {
+  MockMInitiateSpeechToTextGetterStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.InitiateSpeechToText get initSpeechLogic => (super.noSuchMethod(
+        Invocation.getter(#initSpeechLogic),
+        returnValue: _FakeInitiateSpeechToText_13(
+          this,
+          Invocation.getter(#initSpeechLogic),
+        ),
+      ) as _i4.InitiateSpeechToText);
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  _i10.Future<_i6.Either<_i12.Failure, _i4.SpeechToTextInitializerStatusEntity>>
+      call() => (super.noSuchMethod(
+            Invocation.method(
+              #call,
+              [],
+            ),
+            returnValue: _i10.Future<
+                    _i6.Either<_i12.Failure,
+                        _i4.SpeechToTextInitializerStatusEntity>>.value(
+                _FakeEither_6<_i12.Failure,
+                    _i4.SpeechToTextInitializerStatusEntity>(
+              this,
+              Invocation.method(
+                #call,
+                [],
+              ),
+            )),
+          ) as _i10.Future<
+              _i6.Either<_i12.Failure,
+                  _i4.SpeechToTextInitializerStatusEntity>>);
+}
+
+/// A class which mocks [MStartListeningGetterStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMStartListeningGetterStore extends _i1.Mock
+    implements _i9.MStartListeningGetterStore {
+  MockMStartListeningGetterStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.StartListening get startListeningLogic => (super.noSuchMethod(
+        Invocation.getter(#startListeningLogic),
+        returnValue: _FakeStartListening_14(
+          this,
+          Invocation.getter(#startListeningLogic),
+        ),
+      ) as _i4.StartListening);
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  _i10.Future<_i6.Either<_i12.Failure, _i4.ListeningStatusEntity>> call() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [],
+        ),
+        returnValue: _i10.Future<
+                _i6.Either<_i12.Failure, _i4.ListeningStatusEntity>>.value(
+            _FakeEither_6<_i12.Failure, _i4.ListeningStatusEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [],
+          ),
+        )),
+      ) as _i10.Future<_i6.Either<_i12.Failure, _i4.ListeningStatusEntity>>);
+}
+
+/// A class which mocks [MStopListeningGetterStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMStopListeningGetterStore extends _i1.Mock
+    implements _i9.MStopListeningGetterStore {
+  MockMStopListeningGetterStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.StopListening get stopListeningLogic => (super.noSuchMethod(
+        Invocation.getter(#stopListeningLogic),
+        returnValue: _FakeStopListening_15(
+          this,
+          Invocation.getter(#stopListeningLogic),
+        ),
+      ) as _i4.StopListening);
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  _i10.Future<_i6.Either<_i12.Failure, _i4.ListeningStatusEntity>> call() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [],
+        ),
+        returnValue: _i10.Future<
+                _i6.Either<_i12.Failure, _i4.ListeningStatusEntity>>.value(
+            _FakeEither_6<_i12.Failure, _i4.ListeningStatusEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [],
+          ),
+        )),
+      ) as _i10.Future<_i6.Either<_i12.Failure, _i4.ListeningStatusEntity>>);
+}
+
+/// A class which mocks [MValidateQueryGetterStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMValidateQueryGetterStore extends _i1.Mock
+    implements _i9.MValidateQueryGetterStore {
+  MockMValidateQueryGetterStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.ValidateQuery get validateQueryLogic => (super.noSuchMethod(
+        Invocation.getter(#validateQueryLogic),
+        returnValue: _FakeValidateQuery_16(
+          this,
+          Invocation.getter(#validateQueryLogic),
+        ),
+      ) as _i4.ValidateQuery);
+  @override
+  set validateQueryLogic(_i4.ValidateQuery? _validateQueryLogic) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #validateQueryLogic,
+          _validateQueryLogic,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i8.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_8(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i8.ReactiveContext);
+  @override
+  _i10.Future<
+      _i6.Either<_i12.Failure, _i4.CollaboratorPhraseValidationEntity>> call(
+          _i4.ValidateQueryParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i10.Future<
+                _i6.Either<_i12.Failure,
+                    _i4.CollaboratorPhraseValidationEntity>>.value(
+            _FakeEither_6<_i12.Failure, _i4.CollaboratorPhraseValidationEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i10.Future<
+          _i6.Either<_i12.Failure, _i4.CollaboratorPhraseValidationEntity>>);
 }
 
 /// A class which mocks [P2PCollaboratorPoolRemoteSource].

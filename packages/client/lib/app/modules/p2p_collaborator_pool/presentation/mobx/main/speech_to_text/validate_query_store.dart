@@ -13,7 +13,6 @@ import 'package:primala_backend/phrase_components.dart';
 // * Mobx Codegen Inclusion
 part 'validate_query_store.g.dart';
 
-/// TODO test this one this is high priority
 class ValidateQueryStore = _ValidateQueryStoreBase with _$ValidateQueryStore;
 
 abstract class _ValidateQueryStoreBase extends BaseMobxDBStore<

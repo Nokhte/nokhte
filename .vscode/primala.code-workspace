@@ -41,7 +41,7 @@
             "files.exclude": {
                 "packages/": true,
                 "**/**.iml": true,
-                "**/**.g.dart": true,
+                // "**/**.g.dart": true,
                 "**/**.mocks.dart": true,
                 "**/.dart_tool": true,
                 "**/deprecated_gitlab_ci": true,

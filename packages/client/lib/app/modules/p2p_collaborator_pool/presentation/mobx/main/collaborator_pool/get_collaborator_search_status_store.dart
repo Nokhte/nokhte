@@ -39,7 +39,7 @@ abstract class _GetCollaboratorSearchStatusStoreBase extends Equatable
     }
   }
 
-  void call() async {
+  Future<void> call() async {
     final result = await collaboratorSearchStatusGetter();
     result.fold((failure) {
       errorMessage = mapFailureToMessage(failure);
