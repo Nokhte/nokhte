@@ -19,52 +19,105 @@ void main() {
     secondUserUID = userIdResults[1];
   });
 
-  tearDown(() async {
-    await supabaseAdmin.from('existing_collaborations').delete().or(
-        'collaborator_one.eq.$firstUserUID,collaborator_two.eq.$firstUserUID');
-  });
+  group("If they are collaborator_one...", () {
+    setUpAll(() async {
+      await supabaseAdmin.from('existing_collaborations').insert({
+        "collaborator_one": firstUserUID,
+        "collaborator_two": secondUserUID,
+        "who_gets_the_question": 1,
+      });
+    });
+    tearDownAll(() async {
+      await supabaseAdmin.from('existing_collaborations').delete().or(
+          'collaborator_one.eq.$firstUserUID,collaborator_two.eq.$firstUserUID');
+    });
+    test("should be able to read from the table", () async {
+      /// arrange
+      await SignIn.user1(supabase: supabase);
 
-  test(
-      "User if they are collaborator_one should be able to read from the table",
-      () async {
-    /// arrange
-    await SignIn.user1(supabase: supabase);
-    await supabaseAdmin.from('existing_collaborations').insert({
-      "collaborator_one": firstUserUID,
-      "collaborator_two": secondUserUID,
-      "who_gets_the_question": 1,
+      /// act
+      final res = await ExistingCollaborationsQueries.fetchCollaborationInfo(
+          supabase: supabase, currentUserUID: firstUserUID);
+
+      /// assert
+      expect(res, isNotEmpty);
+      expect(res[0]["collaborator_one"], firstUserUID);
+      expect(res[0]["collaborator_two"], secondUserUID);
+      expect(res[0]["who_gets_the_question"], 1);
     });
 
-    /// act
-    final res = await ExistingCollaborationsQueries.fetchCollaborationInfo(
-        supabase: supabase, currentUserUID: firstUserUID);
+    test("should be properly identified as collaborator_one", () async {
+      /// arrange
+      await SignIn.user1(supabase: supabase);
 
-    /// assert
-    expect(res, isNotEmpty);
-    expect(res[0]["collaborator_one"], firstUserUID);
-    expect(res[0]["collaborator_two"], secondUserUID);
-    expect(res[0]["who_gets_the_question"], 1);
+      /// act
+      final res =
+          await ExistingCollaborationsQueries.fetchCollaboratorsUIDAndNumber(
+              supabase: supabase, currentUserUID: firstUserUID);
+
+      /// assert
+      expect(res, isNotEmpty);
+      expect(res[0], secondUserUID);
+      expect(res[1], 2);
+    });
+    test("should be properly identified as collaborator_two", () async {
+      /// arrange
+      await SignIn.user2(supabase: supabase);
+
+      /// act
+      final res =
+          await ExistingCollaborationsQueries.fetchCollaboratorsUIDAndNumber(
+              supabase: supabase, currentUserUID: secondUserUID);
+
+      /// assert
+      expect(res, isNotEmpty);
+      expect(res[0], firstUserUID);
+      expect(res[1], 1);
+    });
   });
 
-  test(
-      "User if they are collaborator_one should be able to read from the table",
-      () async {
-    /// arrange
-    await supabaseAdmin.from('existing_collaborations').insert({
-      "collaborator_one": secondUserUID,
-      "collaborator_two": firstUserUID,
-      "who_gets_the_question": 2,
+  // test("if they are collaborator_one")
+
+  group("If they are collaborator_two...", () {
+    setUpAll(() async {
+      await supabaseAdmin.from('existing_collaborations').insert({
+        "collaborator_one": secondUserUID,
+        "collaborator_two": firstUserUID,
+        "who_gets_the_question": 2,
+      });
     });
-    await SignIn.user1(supabase: supabase);
+    tearDownAll(() async {
+      await supabaseAdmin.from('existing_collaborations').delete().or(
+          'collaborator_one.eq.$firstUserUID,collaborator_two.eq.$firstUserUID');
+    });
+    test("should be able to read from the table", () async {
+      /// arrange
+      await SignIn.user1(supabase: supabase);
 
-    /// act
-    final res = await ExistingCollaborationsQueries.fetchCollaborationInfo(
-        supabase: supabase, currentUserUID: firstUserUID);
+      /// act
+      final res = await ExistingCollaborationsQueries.fetchCollaborationInfo(
+          supabase: supabase, currentUserUID: firstUserUID);
 
-    /// assert
-    expect(res, isNotEmpty);
-    expect(res[0]["collaborator_one"], secondUserUID);
-    expect(res[0]["collaborator_two"], firstUserUID);
-    expect(res[0]["who_gets_the_question"], 2);
+      /// assert
+      expect(res, isNotEmpty);
+      expect(res[0]["collaborator_one"], secondUserUID);
+      expect(res[0]["collaborator_two"], firstUserUID);
+      expect(res[0]["who_gets_the_question"], 2);
+    });
+
+    test("should be properly identified as collaborator_one", () async {
+      /// arrange
+      await SignIn.user2(supabase: supabase);
+
+      /// act
+      final res =
+          await ExistingCollaborationsQueries.fetchCollaboratorsUIDAndNumber(
+              supabase: supabase, currentUserUID: secondUserUID);
+
+      /// assert
+      expect(res, isNotEmpty);
+      expect(res[0], firstUserUID);
+      expect(res[1], 2);
+    });
   });
 }

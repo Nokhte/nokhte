@@ -10,7 +10,12 @@ class FinishedCollaborativeP2PPurposeDocuments {
           .select()
           .or(
             'collaborator_one_uid.eq.$currentUserUID,collaborator_two_uid.eq.$currentUserUID',
-          );
+          )
+          .order(
+            'created_at',
+            ascending: false,
+          )
+          .limit(1);
   static Future<List> insertDoc({
     required SupabaseClient supabase,
     required String currentUserUID,

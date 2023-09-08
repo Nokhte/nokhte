@@ -15,14 +15,16 @@ class WorkingCollaborativeP2PPurposeDocumentsStream {
   }
 
   Future<void> figureOutTheCollaboratorToListenFor() async {
-    final res = await ExistingCollaborationsQueries.fetchCollaborationInfo(
+    final List collaboratorsUIDRes =
+        await ExistingCollaborationsQueries.fetchCollaboratorsUIDAndNumber(
       supabase: supabase,
       currentUserUID: userUID,
     );
-    final collaboratorOne = res[0]["collaborator_one"];
 
+    /// @ dev return Data Structue is ["someUID", `1` or `2`]
+    /// @ 1 indicates collaborator_one and 2 collaborator_two
     theCollaboratorToListenFor =
-        collaboratorOne == userUID ? "collaborator_two" : collaboratorOne;
+        collaboratorsUIDRes[1] == 1 ? "collaborator_one" : "collaborator_two";
   }
 
   Stream<String> docContentStream({

@@ -45,7 +45,7 @@ mixin _$GetSoloDocStore on _GetSoloDocStoreBase, Store {
       AsyncAction('_GetSoloDocStoreBase.call', context: context);
 
   @override
-  Future<void> call(NoParams params) {
+  Future<void> call(GetSoloDocParams params) {
     return _$callAsyncAction.run(() => super.call(params));
   }
 

@@ -15,7 +15,7 @@ part 'get_solo_doc_store.g.dart';
 class GetSoloDocStore = _GetSoloDocStoreBase with _$GetSoloDocStore;
 
 abstract class _GetSoloDocStoreBase
-    extends BaseMobxDBStore<NoParams, SoloDocContentEntity> with Store {
+    extends BaseMobxDBStore<GetSoloDocParams, SoloDocContentEntity> with Store {
   final GetSoloDocGetterStore getterStore;
 
   @observable

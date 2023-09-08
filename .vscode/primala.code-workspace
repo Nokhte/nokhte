@@ -1,11 +1,11 @@
 {
     "folders": [
         {
-            "name": "primala root",
+            "name": "🌶️ primala root",
             "path": "../",
         },
         {
-            "name": "backend",
+            "name": "🥬 backend",
             "path": "../packages/backend/dart"
         },
         {
@@ -17,7 +17,7 @@
             "path": "../packages/client"
         },
         {
-            "name": "supabase",
+            "name": "👹 supabase",
             "path": "../packages/backend/supabase",
         },
         // {
@@ -39,9 +39,7 @@
     
     
     {
-
             "files.exclude": {
-                "**/lib/": true,
                 "**/_scripts/": true,
                 "**/_templates/": true,
                 "packages/client/.vscode": true,

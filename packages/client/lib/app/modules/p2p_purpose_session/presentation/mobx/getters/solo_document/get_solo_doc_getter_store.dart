@@ -5,7 +5,6 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
 // * Mobx Codegen Inclusion
 part 'get_solo_doc_getter_store.g.dart';
@@ -18,7 +17,8 @@ abstract class _GetSoloDocGetterStoreBase extends Equatable with Store {
 
   _GetSoloDocGetterStoreBase({required this.logic});
 
-  Future<Either<Failure, SoloDocContentEntity>> call(NoParams params) async =>
+  Future<Either<Failure, SoloDocContentEntity>> call(
+          GetSoloDocParams params) async =>
       logic(params);
 
   @override

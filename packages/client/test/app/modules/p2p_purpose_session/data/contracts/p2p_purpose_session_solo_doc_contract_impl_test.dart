@@ -5,6 +5,7 @@ import 'package:mockito/mockito.dart';
 import 'package:primala/app/core/constants/failure_constants.dart';
 // * primala core imports
 import 'package:primala/app/modules/p2p_purpose_session/data/data.dart';
+import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
 // * mock import
 import '../../constants/models/models.dart';
 import '../../constants/response/response.dart';
@@ -18,6 +19,7 @@ void main() {
   late P2PPurposeSessionSoloDocContractImpl homeContract;
   late MockMP2PPurposeSessionSoloDocRemoteSource mockRemoteSource;
   late MockMNetworkInfo mockNetworkInfo;
+  const GetSoloDocParams tParams = GetSoloDocParams(getCollaboratorsDoc: true);
 
   setUp(() {
     mockRemoteSource = MockMP2PPurposeSessionSoloDocRemoteSource();
@@ -71,19 +73,24 @@ void main() {
       });
       test("when online and non-empty should return a model", () async {
         // arrange
-        when(mockRemoteSource.getSoloDocContent()).thenAnswer(
-            (realInvocation) async => SoloDocumentTableResponse.response);
+        when(mockRemoteSource.getSoloDocContent(
+                getCollaboratorsDoc: tParams.getCollaboratorsDoc))
+            .thenAnswer(
+                (realInvocation) async => SoloDocumentTableResponse.response);
         // act
-        final res = await homeContract.getSoloDocContent();
+        final res = await homeContract.getSoloDocContent(
+            getCollaboratorsDoc: tParams.getCollaboratorsDoc);
         // assert
         expect(res, ConstantSoloDocContentModel.wrappedSuccessCase);
       });
       test("when online and empty should return a model", () async {
         // arrange
-        when(mockRemoteSource.getSoloDocContent())
+        when(mockRemoteSource.getSoloDocContent(
+                getCollaboratorsDoc: tParams.getCollaboratorsDoc))
             .thenAnswer((realInvocation) async => []);
         // act
-        final res = await homeContract.getSoloDocContent();
+        final res = await homeContract.getSoloDocContent(
+            getCollaboratorsDoc: tParams.getCollaboratorsDoc);
         // assert
         expect(res, ConstantSoloDocContentModel.wrappedNotSuccessCase);
       });

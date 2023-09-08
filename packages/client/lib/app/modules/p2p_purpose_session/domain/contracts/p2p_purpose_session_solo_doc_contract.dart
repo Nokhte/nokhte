@@ -3,7 +3,9 @@ import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/modules/p2p_purpose_session/domain/entities/entities.dart';
 
 abstract class P2PPurposeSessionSoloDocContract {
-  Future<Either<Failure, SoloDocContentEntity>> getSoloDocContent();
+  Future<Either<Failure, SoloDocContentEntity>> getSoloDocContent({
+    required bool getCollaboratorsDoc,
+  });
   Future<Either<Failure, SoloDocSubmissionStatusEntity>> submitDocContent({
     required String newContent,
   });

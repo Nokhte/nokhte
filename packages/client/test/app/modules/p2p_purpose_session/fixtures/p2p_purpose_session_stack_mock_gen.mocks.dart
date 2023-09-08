@@ -429,10 +429,13 @@ class MockMP2PPurposeSessionSoloDocRemoteSource extends _i1.Mock
         returnValue: _i11.Future<List<dynamic>>.value(<dynamic>[]),
       ) as _i11.Future<List<dynamic>>);
   @override
-  _i11.Future<List<dynamic>> getSoloDocContent() => (super.noSuchMethod(
+  _i11.Future<List<dynamic>> getSoloDocContent(
+          {required bool? getCollaboratorsDoc}) =>
+      (super.noSuchMethod(
         Invocation.method(
           #getSoloDocContent,
           [],
+          {#getCollaboratorsDoc: getCollaboratorsDoc},
         ),
         returnValue: _i11.Future<List<dynamic>>.value(<dynamic>[]),
       ) as _i11.Future<List<dynamic>>);
@@ -760,10 +763,12 @@ class MockMP2PPurposeSessionSoloDocContract extends _i1.Mock
 
   @override
   _i11.Future<_i6.Either<_i12.Failure, _i7.SoloDocContentEntity>>
-      getSoloDocContent() => (super.noSuchMethod(
+      getSoloDocContent({required bool? getCollaboratorsDoc}) =>
+          (super.noSuchMethod(
             Invocation.method(
               #getSoloDocContent,
               [],
+              {#getCollaboratorsDoc: getCollaboratorsDoc},
             ),
             returnValue: _i11.Future<
                     _i6.Either<_i12.Failure, _i7.SoloDocContentEntity>>.value(
@@ -772,6 +777,7 @@ class MockMP2PPurposeSessionSoloDocContract extends _i1.Mock
               Invocation.method(
                 #getSoloDocContent,
                 [],
+                {#getCollaboratorsDoc: getCollaboratorsDoc},
               ),
             )),
           ) as _i11.Future<_i6.Either<_i12.Failure, _i7.SoloDocContentEntity>>);
@@ -911,7 +917,7 @@ class MockMGetSoloDoc extends _i1.Mock implements _i10.MGetSoloDoc {
       ) as _i7.P2PPurposeSessionSoloDocContract);
   @override
   _i11.Future<_i6.Either<_i12.Failure, _i7.SoloDocContentEntity>> call(
-          _i13.NoParams? params) =>
+          _i7.GetSoloDocParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
@@ -1546,7 +1552,7 @@ class MockMGetSoloDocGetterStore extends _i1.Mock
       ) as _i8.ReactiveContext);
   @override
   _i11.Future<_i6.Either<_i12.Failure, _i7.SoloDocContentEntity>> call(
-          _i13.NoParams? params) =>
+          _i7.GetSoloDocParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
@@ -1661,7 +1667,7 @@ class MockMGetSoloDocStore extends _i1.Mock implements _i10.MGetSoloDocStore {
         returnValueForMissingStub: null,
       );
   @override
-  _i11.Future<void> call(_i13.NoParams? params) => (super.noSuchMethod(
+  _i11.Future<void> call(_i7.GetSoloDocParams? params) => (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],

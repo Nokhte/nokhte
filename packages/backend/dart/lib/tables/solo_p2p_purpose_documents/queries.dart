@@ -20,10 +20,18 @@ class SoloP2PPurposeDocuments {
       throw ArgumentError(
           "You need either ownerUID or collaboratorUID to complete a query");
     }
-    return await supabase.from('solo_p2p_purpose_documents').select().eq(
+    return await supabase
+        .from('solo_p2p_purpose_documents')
+        .select()
+        .eq(
           ownerUID.isEmpty ? 'collaborator_uid' : 'owner_uid',
           ownerUID.isEmpty ? collaboratorUID : ownerUID,
-        );
+        )
+        .order(
+          'created_at',
+          ascending: false,
+        )
+        .limit(1);
   }
 
   static Future<List> updateDocContent({
@@ -37,6 +45,11 @@ class SoloP2PPurposeDocuments {
             'content': content,
           })
           .eq('owner_uid', ownerUID)
+          .order(
+            'created_at',
+            ascending: false,
+          )
+          .limit(1)
           .select();
 
   static Future<List> updateDocVisibility({
@@ -50,6 +63,11 @@ class SoloP2PPurposeDocuments {
             'is_visible_to_collaborator': visibility,
           })
           .eq('owner_uid', ownerUID)
+          .order(
+            'created_at',
+            ascending: false,
+          )
+          .limit(1)
           .select();
 
   static Future<List> sealDocument({
@@ -62,5 +80,10 @@ class SoloP2PPurposeDocuments {
             'session_is_completed': true,
           })
           .eq('owner_uid', ownerUID)
+          .order(
+            'created_at',
+            ascending: false,
+          )
+          .limit(1)
           .select();
 }

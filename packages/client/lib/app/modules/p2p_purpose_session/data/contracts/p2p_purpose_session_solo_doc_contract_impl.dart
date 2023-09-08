@@ -26,9 +26,11 @@ class P2PPurposeSessionSoloDocContractImpl
   }
 
   @override
-  Future<Either<Failure, SoloDocContentModel>> getSoloDocContent() async {
+  Future<Either<Failure, SoloDocContentModel>> getSoloDocContent(
+      {required bool getCollaboratorsDoc}) async {
     if (await networkInfo.isConnected) {
-      final res = await remoteSource.getSoloDocContent();
+      final res = await remoteSource.getSoloDocContent(
+          getCollaboratorsDoc: getCollaboratorsDoc);
       return Right(SoloDocContentModel.fromSupabase(res));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
