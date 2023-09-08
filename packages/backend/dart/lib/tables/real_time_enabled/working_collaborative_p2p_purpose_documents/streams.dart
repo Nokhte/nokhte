@@ -5,16 +5,17 @@ class WorkingCollaborativeP2PPurposeDocumentsStream {
   bool docContentListeningStatus = false;
   bool collaboratorPresenceListeningStatus = false;
   bool collaboratorDeltaListeningStatus = false;
+  int theUsersCollaboratorNumber = -1;
   final SupabaseClient supabase;
   String userUID = '';
   String theCollaboratorToListenFor = '';
 
   WorkingCollaborativeP2PPurposeDocumentsStream({required this.supabase}) {
     userUID = supabase.auth.currentUser?.id ?? '';
-    figureOutTheCollaboratorToListenFor();
+    figureOutCollaboratorInfo();
   }
 
-  Future<void> figureOutTheCollaboratorToListenFor() async {
+  Future<void> figureOutCollaboratorInfo() async {
     final List collaboratorsUIDRes =
         await ExistingCollaborationsQueries.fetchCollaboratorsUIDAndNumber(
       supabase: supabase,
@@ -25,16 +26,25 @@ class WorkingCollaborativeP2PPurposeDocumentsStream {
     /// @ 1 indicates collaborator_one and 2 collaborator_two
     theCollaboratorToListenFor =
         collaboratorsUIDRes[1] == 1 ? "collaborator_one" : "collaborator_two";
+    theUsersCollaboratorNumber = collaboratorsUIDRes[0] == 1 ? 2 : 1;
   }
 
   Stream<String> docContentStream({
     required SupabaseClient supabase,
     required String userUID,
   }) async* {
+    if (theCollaboratorToListenFor.isEmpty) {
+      await figureOutCollaboratorInfo();
+    }
     docContentListeningStatus = true;
     await for (var event in supabase
         .from('working_collaborative_p2p_purpose_documents')
-        .stream(primaryKey: ['id'])) {
+        .stream(primaryKey: ['id']).eq(
+      theUsersCollaboratorNumber == 1
+          ? 'collaborator_one_uid'
+          : 'collaborator_two_uid',
+      userUID,
+    )) {
       if (!docContentListeningStatus) {
         break;
       }
@@ -53,12 +63,17 @@ class WorkingCollaborativeP2PPurposeDocumentsStream {
     collaboratorPresenceListeningStatus = true;
     await for (var event in supabase
         .from('working_collaborative_p2p_purpose_documents')
-        .stream(primaryKey: ['id'])) {
+        .stream(primaryKey: ['id']).eq(
+      theUsersCollaboratorNumber == 1
+          ? 'collaborator_one_uid'
+          : 'collaborator_two_uid',
+      userUID,
+    )) {
       if (!collaboratorPresenceListeningStatus) {
         break;
       }
       if (theCollaboratorToListenFor.isEmpty) {
-        await figureOutTheCollaboratorToListenFor();
+        await figureOutCollaboratorInfo();
       }
       if (event.isEmpty) {
         yield false;
@@ -75,12 +90,17 @@ class WorkingCollaborativeP2PPurposeDocumentsStream {
     collaboratorDeltaListeningStatus = true;
     await for (var event in supabase
         .from('working_collaborative_p2p_purpose_documents')
-        .stream(primaryKey: ['id'])) {
+        .stream(primaryKey: ['id']).eq(
+      theUsersCollaboratorNumber == 1
+          ? 'collaborator_one_uid'
+          : 'collaborator_two_uid',
+      userUID,
+    )) {
       if (!collaboratorDeltaListeningStatus) {
         break;
       }
       if (theCollaboratorToListenFor.isEmpty) {
-        await figureOutTheCollaboratorToListenFor();
+        await figureOutCollaboratorInfo();
       }
       if (event.isEmpty) {
         yield -1;
