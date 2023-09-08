@@ -41,7 +41,7 @@
     {
             "files.exclude": {
                 "**/_scripts/": true,
-                "**/_templates/": true,
+                // "**/_templates/": true,
                 "packages/client/.vscode": true,
                 "**/android/": true,
                 "**/ios/": true,
