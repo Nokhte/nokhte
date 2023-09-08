@@ -411,6 +411,59 @@ class _FakeUnmuteLocalAudioStreamGetterStore_34 extends _i1.SmartFake
         );
 }
 
+/// A class which mocks [MP2PPurposeSessionSoloDocRemoteSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMP2PPurposeSessionSoloDocRemoteSource extends _i1.Mock
+    implements _i10.MP2PPurposeSessionSoloDocRemoteSource {
+  MockMP2PPurposeSessionSoloDocRemoteSource() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i11.Future<List<dynamic>> createSoloDoc() => (super.noSuchMethod(
+        Invocation.method(
+          #createSoloDoc,
+          [],
+        ),
+        returnValue: _i11.Future<List<dynamic>>.value(<dynamic>[]),
+      ) as _i11.Future<List<dynamic>>);
+  @override
+  _i11.Future<List<dynamic>> getSoloDocContent() => (super.noSuchMethod(
+        Invocation.method(
+          #getSoloDocContent,
+          [],
+        ),
+        returnValue: _i11.Future<List<dynamic>>.value(<dynamic>[]),
+      ) as _i11.Future<List<dynamic>>);
+  @override
+  _i11.Future<List<dynamic>> sealSoloDoc() => (super.noSuchMethod(
+        Invocation.method(
+          #sealSoloDoc,
+          [],
+        ),
+        returnValue: _i11.Future<List<dynamic>>.value(<dynamic>[]),
+      ) as _i11.Future<List<dynamic>>);
+  @override
+  _i11.Future<List<dynamic>> shareSoloDoc() => (super.noSuchMethod(
+        Invocation.method(
+          #shareSoloDoc,
+          [],
+        ),
+        returnValue: _i11.Future<List<dynamic>>.value(<dynamic>[]),
+      ) as _i11.Future<List<dynamic>>);
+  @override
+  _i11.Future<List<dynamic>> submitDocContent({required String? newContent}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #submitDocContent,
+          [],
+          {#newContent: newContent},
+        ),
+        returnValue: _i11.Future<List<dynamic>>.value(<dynamic>[]),
+      ) as _i11.Future<List<dynamic>>);
+}
+
 /// A class which mocks [MP2PPurposeSessionVoiceCallRemoteSourceImpl].
 ///
 /// See the documentation for Mockito's code generation for more information.

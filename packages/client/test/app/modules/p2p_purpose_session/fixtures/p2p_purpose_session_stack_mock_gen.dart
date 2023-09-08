@@ -7,6 +7,9 @@ import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
 import 'package:primala/app/modules/p2p_purpose_session/data/data.dart';
 import 'package:primala/app/modules/p2p_purpose_session/presentation/presentation.dart';
 
+class MP2PPurposeSessionSoloDocRemoteSource extends Mock
+    implements P2PPurposeSessionSoloDocRemoteSource {}
+
 class MP2PPurposeSessionVoiceCallRemoteSourceImpl extends Mock
     implements P2PPurposeSessionVoiceCallRemoteSourceImpl {}
 
@@ -102,6 +105,7 @@ class MUnmuteLocalAudioStreamGetterStore extends Mock
 class MVoiceCallActions extends Mock implements VoiceCallActionsStore {}
 
 @GenerateMocks([
+  MP2PPurposeSessionSoloDocRemoteSource,
   MP2PPurposeSessionVoiceCallRemoteSourceImpl,
   MP2PPurposeSessionVoiceCallContract,
   MP2PPurposeSessionSoloDocContract,
