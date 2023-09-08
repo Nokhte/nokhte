@@ -1,1 +1,1 @@
-export 'tables/solo_p2p_purpose_documents/queries.dart';
+export './tables/real_time_disabled/real_time_disabled.dart';

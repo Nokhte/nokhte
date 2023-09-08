@@ -1,1 +1,1 @@
-export './streams/existing_collaborations.dart';
+export 'tables/real_time_enabled/existing_collaborations/stream.dart';

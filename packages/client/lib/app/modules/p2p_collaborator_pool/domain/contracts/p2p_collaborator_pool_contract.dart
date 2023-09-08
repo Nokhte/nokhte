@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/entities.dart';
-import 'package:primala_backend/constants/phrase_components/collaborator_phrase.dart';
+import 'package:primala_backend/constants/types/types.dart';
 // import 'package:primala/app/modules/p2p_collaborator_pool/domain/logic/logic.dart';
 
 abstract class P2PCollaboratorPoolContract {

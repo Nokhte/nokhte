@@ -1,1 +1,1 @@
-export 'package:primala_backend/tables/usernames/queries.dart';
+export './tables/real_time_disabled/real_time_disabled.dart';

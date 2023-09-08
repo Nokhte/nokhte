@@ -1,4 +1,4 @@
-import 'package:primala_backend/phrase_components.dart';
+import 'package:primala_backend/constants/types/types.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class InitiateCollaboratorSearch {

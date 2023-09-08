@@ -1,1 +1,1 @@
-export 'tables/existing_collaborations/queries.dart';
+export './tables/real_time_disabled/real_time_disabled.dart';
