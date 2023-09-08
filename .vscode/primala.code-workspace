@@ -18,7 +18,7 @@
         },
         {
             "name": "supabase",
-            "path": "../packages/backend/supabase"
+            "path": "../packages/backend/supabase",
         },
         // {
         //     "name": "client ios",
@@ -37,11 +37,21 @@
     
     "settings": 
     
-        {
+    
+    {
+
             "files.exclude": {
+                "**/lib/": true,
+                "**/_scripts/": true,
+                "**/_templates/": true,
+                "**/.vscode/": true,
+                "**/android/": true,
+                "**/ios/": true,
                 "packages/": true,
                 "**/**.iml": true,
-                // "**/**.g.dart": true,
+                "**/**.g.dart": true,
+                "**/.gitignore": true,
+                // "**/pubspec.yaml": true,
                 "**/**.mocks.dart": true,
                 "**/.dart_tool": true,
                 "**/deprecated_gitlab_ci": true,
