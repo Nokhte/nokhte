@@ -1,7 +1,7 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:primala_backend/existing_collaborations.dart';
 
-class WorkingCollaborativeP2PPurposeDocumentsStream {
+class WorkingCollaborativeP2PPurposeDocumentsStreams {
   bool docContentListeningStatus = false;
   bool collaboratorPresenceListeningStatus = false;
   bool collaboratorDeltaListeningStatus = false;
@@ -10,7 +10,7 @@ class WorkingCollaborativeP2PPurposeDocumentsStream {
   String userUID = '';
   String theCollaboratorToListenFor = '';
 
-  WorkingCollaborativeP2PPurposeDocumentsStream({required this.supabase}) {
+  WorkingCollaborativeP2PPurposeDocumentsStreams({required this.supabase}) {
     userUID = supabase.auth.currentUser?.id ?? '';
     figureOutCollaboratorInfo();
   }
