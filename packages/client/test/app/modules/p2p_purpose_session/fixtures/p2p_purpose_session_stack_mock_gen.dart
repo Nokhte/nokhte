@@ -7,17 +7,24 @@ import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
 import 'package:primala/app/modules/p2p_purpose_session/data/data.dart';
 import 'package:primala/app/modules/p2p_purpose_session/presentation/presentation.dart';
 
+// remote sources
 class MP2PPurposeSessionSoloDocRemoteSource extends Mock
     implements P2PPurposeSessionSoloDocRemoteSource {}
 
 class MP2PPurposeSessionVoiceCallRemoteSourceImpl extends Mock
     implements P2PPurposeSessionVoiceCallRemoteSourceImpl {}
 
+// contracts
 class MP2PPurposeSessionVoiceCallContract extends Mock
     implements P2PPurposeSessionVoiceCallContract {}
 
 class MP2PPurposeSessionSoloDocContract extends Mock
     implements P2PPurposeSessionSoloDocContract {}
+
+class MP2PPurposeSessionCollaborativeDocContract extends Mock
+    implements P2PPurposeSessionCollaborativeDocContract {}
+
+// solo doc logic
 
 class MCreateSoloDoc extends Mock implements CreateSoloDoc {}
 
@@ -29,6 +36,7 @@ class MShareSoloDoc extends Mock implements ShareSoloDoc {}
 
 class MSubmitSoloDoc extends Mock implements SubmitSoloDoc {}
 
+// voice call logic
 class MCheckIfUserHasTheQuestion extends Mock
     implements CheckIfUserHasTheQuestion {}
 
@@ -46,51 +54,43 @@ class MMuteLocalAudioStream extends Mock implements MuteLocalAudioStream {}
 
 class MUnmuteLocalAudioStream extends Mock implements UnmuteLocalAudioStream {}
 
+// solo doc getter stores
 class MCreateSoloDocGetterStore extends Mock
     implements CreateSoloDocGetterStore {}
 
-class MCreateSoloDocStore extends Mock implements CreateSoloDocStore {}
-
 class MGetSoloDocGetterStore extends Mock implements GetSoloDocGetterStore {}
 
-class MGetSoloDocStore extends Mock implements GetSoloDocStore {}
-
 class MSealSoloDocGetterStore extends Mock implements SealSoloDocGetterStore {}
-
-class MSealSoloDocStore extends Mock implements SealSoloDocStore {}
 
 class MShareSoloDocGetterStore extends Mock
     implements ShareSoloDocGetterStore {}
 
-class MShareSoloDocStore extends Mock implements ShareSoloDocStore {}
-
 class MSubmitSoloDocGetterStore extends Mock
     implements SubmitSoloDocGetterStore {}
+// solo doc stores
+
+class MCreateSoloDocStore extends Mock implements CreateSoloDocStore {}
+
+class MGetSoloDocStore extends Mock implements GetSoloDocStore {}
+
+class MSealSoloDocStore extends Mock implements SealSoloDocStore {}
+
+class MShareSoloDocStore extends Mock implements ShareSoloDocStore {}
 
 class MSubmitSoloDocStore extends Mock implements SubmitSoloDocStore {}
-// voice stores
 
+// voice call getter stores
 class MCheckIfUserHasTheQuestionGetterStore extends Mock
     implements CheckIfUserHasTheQuestionGetterStore {}
-
-class MCheckIfUserHasTheQuestionStore extends Mock
-    implements CheckIfUserHasTheQuestionStore {}
 
 class MFetchAgoraTokenGetterStore extends Mock
     implements FetchAgoraTokenGetterStore {}
 
-class MFetchAgoraTokenStore extends Mock implements FetchAgoraTokenStore {}
-
 class MFetchChannelIdGetterStore extends Mock
     implements FetchChannelIdGetterStore {}
 
-class MFetchChannelIdStore extends Mock implements FetchChannelIdStore {}
-
 class MInstantiateAgoraSdkGetterStore extends Mock
     implements InstantiateAgoraSdkGetterStore {}
-
-class MInstantiateAgoraSdkStore extends Mock
-    implements InstantiateAgoraSdkStore {}
 
 class MJoinCallGetterStore extends Mock implements JoinCallGetterStore {}
 
@@ -102,12 +102,24 @@ class MMuteLocalAudioStreamGetterStore extends Mock
 class MUnmuteLocalAudioStreamGetterStore extends Mock
     implements UnmuteLocalAudioStreamGetterStore {}
 
+// voice call  stores
+class MCheckIfUserHasTheQuestionStore extends Mock
+    implements CheckIfUserHasTheQuestionStore {}
+
+class MFetchAgoraTokenStore extends Mock implements FetchAgoraTokenStore {}
+
+class MFetchChannelIdStore extends Mock implements FetchChannelIdStore {}
+
+class MInstantiateAgoraSdkStore extends Mock
+    implements InstantiateAgoraSdkStore {}
+
 class MVoiceCallActions extends Mock implements VoiceCallActionsStore {}
 
 @GenerateMocks([
   MP2PPurposeSessionSoloDocRemoteSource,
   MP2PPurposeSessionVoiceCallRemoteSourceImpl,
   MP2PPurposeSessionVoiceCallContract,
+  MP2PPurposeSessionCollaborativeDocContract,
   MP2PPurposeSessionSoloDocContract,
   MCreateSoloDoc,
   MGetSoloDoc,

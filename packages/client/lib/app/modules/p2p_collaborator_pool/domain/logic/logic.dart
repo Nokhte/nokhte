@@ -1,9 +1,2 @@
-export './initiate_speech_to_text.dart';
-export './on_speech_result.dart';
-export './start_listening.dart';
-export './stop_listening.dart';
-export './validate_query.dart';
-export 'enter_collaborator_pool.dart';
-export './exit_collaborator_pool.dart';
-export './cancel_collaborator_stream.dart';
-export './get_collaborator_search_status.dart';
+export 'speech_to_text/speech_to_text.dart';
+export 'collaborator_pool/collaborator_pool.dart';

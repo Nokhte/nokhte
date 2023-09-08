@@ -7,7 +7,7 @@ import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/entities.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/domain/logic/cancel_collaborator_stream.dart';
+import 'package:primala/app/modules/p2p_collaborator_pool/domain/logic/collaborator_pool/cancel_collaborator_stream.dart';
 // * Mobx Codegen Inclusion
 part 'cancel_collaborator_stream_getter_store.g.dart';
 

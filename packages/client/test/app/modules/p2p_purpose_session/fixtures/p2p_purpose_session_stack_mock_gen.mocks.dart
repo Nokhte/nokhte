@@ -752,6 +752,81 @@ class MockMP2PPurposeSessionVoiceCallContract extends _i1.Mock
               .Future<_i6.Either<_i12.Failure, _i7.WhoGetsTheQuestionEntity>>);
 }
 
+/// A class which mocks [MP2PPurposeSessionCollaborativeDocContract].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMP2PPurposeSessionCollaborativeDocContract extends _i1.Mock
+    implements _i10.MP2PPurposeSessionCollaborativeDocContract {
+  MockMP2PPurposeSessionCollaborativeDocContract() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i11.Future<_i6.Either<_i12.Failure, _i7.CollaborativeDocContentEntity>>
+      getCollaborativeDocContent() => (super.noSuchMethod(
+            Invocation.method(
+              #getCollaborativeDocContent,
+              [],
+            ),
+            returnValue: _i11.Future<
+                    _i6.Either<_i12.Failure,
+                        _i7.CollaborativeDocContentEntity>>.value(
+                _FakeEither_4<_i12.Failure, _i7.CollaborativeDocContentEntity>(
+              this,
+              Invocation.method(
+                #getCollaborativeDocContent,
+                [],
+              ),
+            )),
+          ) as _i11.Future<
+              _i6.Either<_i12.Failure, _i7.CollaborativeDocContentEntity>>);
+  @override
+  _i11.Future<
+          _i6.Either<_i12.Failure, _i7.CollaborativeDocCollaboratorDeltaEntity>>
+      getCollaboratorDelta() => (super.noSuchMethod(
+            Invocation.method(
+              #getCollaboratorDelta,
+              [],
+            ),
+            returnValue: _i11.Future<
+                    _i6.Either<_i12.Failure,
+                        _i7.CollaborativeDocCollaboratorDeltaEntity>>.value(
+                _FakeEither_4<_i12.Failure,
+                    _i7.CollaborativeDocCollaboratorDeltaEntity>(
+              this,
+              Invocation.method(
+                #getCollaboratorDelta,
+                [],
+              ),
+            )),
+          ) as _i11.Future<
+              _i6.Either<_i12.Failure,
+                  _i7.CollaborativeDocCollaboratorDeltaEntity>>);
+  @override
+  _i11.Future<
+          _i6.Either<_i12.Failure,
+              _i7.CollaborativeDocCollaboratorPresenceEntity>>
+      getCollaboratorPresence() => (super.noSuchMethod(
+            Invocation.method(
+              #getCollaboratorPresence,
+              [],
+            ),
+            returnValue: _i11.Future<
+                    _i6.Either<_i12.Failure,
+                        _i7.CollaborativeDocCollaboratorPresenceEntity>>.value(
+                _FakeEither_4<_i12.Failure,
+                    _i7.CollaborativeDocCollaboratorPresenceEntity>(
+              this,
+              Invocation.method(
+                #getCollaboratorPresence,
+                [],
+              ),
+            )),
+          ) as _i11.Future<
+              _i6.Either<_i12.Failure,
+                  _i7.CollaborativeDocCollaboratorPresenceEntity>>);
+}
+
 /// A class which mocks [MP2PPurposeSessionSoloDocContract].
 ///
 /// See the documentation for Mockito's code generation for more information.

@@ -8,7 +8,7 @@ import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/core/widgets/mobx/all_custom_widgets_tracker_store.dart';
 import 'package:primala/app/core/widgets/widget_constants.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/domain/logic/validate_query.dart';
+import 'package:primala/app/modules/p2p_collaborator_pool/domain/domain.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/main/main.dart';
 // * Mobx Codegen Inclusion
 part 'speak_the_collaborator_phrase_coordinator_store.g.dart';

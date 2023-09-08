@@ -63,7 +63,7 @@ class P2PCollaboratorPoolContractImpl implements P2PCollaboratorPoolContract {
   }
 
   @override
-  Future<Either<Failure, CollaboratorPoolEntryStatusEntity>>
+  Future<Either<Failure, CollaboratorPoolEntryStatusModel>>
       enterTheCollaboratorPool(
           {required CollaboratorPhraseIDs phraseIDs}) async {
     if (await networkInfo.isConnected) {
@@ -79,7 +79,7 @@ class P2PCollaboratorPoolContractImpl implements P2PCollaboratorPoolContract {
   }
 
   @override
-  Future<Either<Failure, CollaboratorPoolExitStatusEntity>>
+  Future<Either<Failure, CollaboratorPoolExitStatusModel>>
       exitCollaboratorPool() async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.exitThePool();
@@ -94,7 +94,7 @@ class P2PCollaboratorPoolContractImpl implements P2PCollaboratorPoolContract {
   }
 
   @override
-  Future<Either<Failure, CollaboratorSearchStatusEntity>>
+  Future<Either<Failure, CollaboratorSearchStatusModel>>
       getCollaboratorSearchStatus() async {
     if (await networkInfo.isConnected) {
       final res = remoteSource.getCollaboratorSearchStatus();
@@ -107,7 +107,7 @@ class P2PCollaboratorPoolContractImpl implements P2PCollaboratorPoolContract {
   }
 
   @override
-  Future<Either<Failure, CollaboratorStreamStatusEntity>>
+  Future<Either<Failure, CollaboratorStreamStatusModel>>
       cancelCollaboratorStream() async {
     if (await networkInfo.isConnected) {
       final res = remoteSource.cancelStream();
