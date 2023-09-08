@@ -9,11 +9,11 @@
             "path": "../packages/backend/dart"
         },
         {
-            "name": "☀️ client code",
+            "name": "🌝 client code",
             "path": "../packages/client/lib/app"
         },
         {
-            "name": "🧪 client tests",
+            "name": "🌚 client tests",
             "path": "../packages/client"
         },
         {
