@@ -35,7 +35,7 @@ abstract class _TextEditorTrackerStoreBase extends Equatable with Store {
       }
     });
     controller.addListener(() {
-      final selection = controller.selection;
+      // final selection = controller.selection;
       // print(controller.text); <=== wonderful this is how you push text
       // print('Cursor Start: ${selection.start}, Cursor End: ${selection.end}');
     });

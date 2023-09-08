@@ -2,7 +2,6 @@
 // * Mobx Import
 import 'package:mobx/mobx.dart';
 import 'package:primala/app/core/constants/entities.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/mobx/base_future_store.dart';
 import 'package:primala/app/core/mobx/base_mobx_db_store.dart';
 import 'package:primala/app/core/mobx/store_state.dart';
