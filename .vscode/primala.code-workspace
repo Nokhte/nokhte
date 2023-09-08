@@ -44,7 +44,7 @@
                 "**/lib/": true,
                 "**/_scripts/": true,
                 "**/_templates/": true,
-                "**/.vscode/": true,
+                "packages/client/.vscode": true,
                 "**/android/": true,
                 "**/ios/": true,
                 "packages/": true,
