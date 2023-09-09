@@ -171,8 +171,8 @@ class P2PCollaboratorSessionModule extends Module {
             chosenMovie: FadeInText.movie,
           ),
         ),
-        Bind.singleton<TextEditorTrackerStore>(
-          (i) => TextEditorTrackerStore(),
+        Bind.singleton<SoloTextEditorTrackerStore>(
+          (i) => SoloTextEditorTrackerStore(),
         ),
         // & Coordinator Stores
         Bind.singleton<P2PPurposePhase1CoordinatorStore>(
@@ -199,7 +199,7 @@ class P2PCollaboratorSessionModule extends Module {
         Bind.singleton<P2PPurposePhase3CoordinatorStore>(
           (i) => P2PPurposePhase3CoordinatorStore(
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
-            textEditor: Modular.get<TextEditorTrackerStore>(),
+            textEditor: Modular.get<SoloTextEditorTrackerStore>(),
           ),
         ),
         Bind.singleton<P2PPurposePhase4CoordinatorStore>(

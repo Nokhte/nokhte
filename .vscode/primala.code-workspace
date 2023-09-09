@@ -48,7 +48,7 @@
                 "packages/": true,
                 "**/**.iml": true,
                 "**/**.g.dart": true,
-                "**/.gitignore": true,
+                // "**/.gitignore": true,
                 // "**/pubspec.yaml": true,
                 "**/**.mocks.dart": true,
                 "**/.dart_tool": true,

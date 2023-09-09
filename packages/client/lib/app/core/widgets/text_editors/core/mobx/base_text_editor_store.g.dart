@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'text_editor_tracker_store.dart';
+part of 'base_text_editor_store.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,9 +8,9 @@ part of 'text_editor_tracker_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$TextEditorTrackerStore on _TextEditorTrackerStoreBase, Store {
+mixin _$BaseTextEditorStore on _BaseTextEditorStoreBase, Store {
   late final _$controllerAtom =
-      Atom(name: '_TextEditorTrackerStoreBase.controller', context: context);
+      Atom(name: '_BaseTextEditorStoreBase.controller', context: context);
 
   @override
   TextEditingController get controller {
@@ -26,7 +26,7 @@ mixin _$TextEditorTrackerStore on _TextEditorTrackerStoreBase, Store {
   }
 
   late final _$focusNodeAtom =
-      Atom(name: '_TextEditorTrackerStoreBase.focusNode', context: context);
+      Atom(name: '_BaseTextEditorStoreBase.focusNode', context: context);
 
   @override
   FocusNode get focusNode {
@@ -41,39 +41,39 @@ mixin _$TextEditorTrackerStore on _TextEditorTrackerStoreBase, Store {
     });
   }
 
-  late final _$_TextEditorTrackerStoreBaseActionController =
-      ActionController(name: '_TextEditorTrackerStoreBase', context: context);
+  late final _$_BaseTextEditorStoreBaseActionController =
+      ActionController(name: '_BaseTextEditorStoreBase', context: context);
 
   @override
   dynamic handleTap() {
-    final _$actionInfo = _$_TextEditorTrackerStoreBaseActionController
-        .startAction(name: '_TextEditorTrackerStoreBase.handleTap');
+    final _$actionInfo = _$_BaseTextEditorStoreBaseActionController.startAction(
+        name: '_BaseTextEditorStoreBase.handleTap');
     try {
       return super.handleTap();
     } finally {
-      _$_TextEditorTrackerStoreBaseActionController.endAction(_$actionInfo);
+      _$_BaseTextEditorStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic addEventListeners() {
-    final _$actionInfo = _$_TextEditorTrackerStoreBaseActionController
-        .startAction(name: '_TextEditorTrackerStoreBase.addEventListeners');
+    final _$actionInfo = _$_BaseTextEditorStoreBaseActionController.startAction(
+        name: '_BaseTextEditorStoreBase.addEventListeners');
     try {
       return super.addEventListeners();
     } finally {
-      _$_TextEditorTrackerStoreBaseActionController.endAction(_$actionInfo);
+      _$_BaseTextEditorStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic dispose() {
-    final _$actionInfo = _$_TextEditorTrackerStoreBaseActionController
-        .startAction(name: '_TextEditorTrackerStoreBase.dispose');
+    final _$actionInfo = _$_BaseTextEditorStoreBaseActionController.startAction(
+        name: '_BaseTextEditorStoreBase.dispose');
     try {
       return super.dispose();
     } finally {
-      _$_TextEditorTrackerStoreBaseActionController.endAction(_$actionInfo);
+      _$_BaseTextEditorStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 

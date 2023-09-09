@@ -3,20 +3,16 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
-import 'package:equatable/equatable.dart';
+import 'package:primala/app/core/widgets/text_editors/core/mobx/base_text_editor_store.dart';
 // * Mobx Codegen Inclusion
-part 'text_editor_tracker_store.g.dart';
+part 'solo_text_editor_tracker_store.g.dart';
 
-class TextEditorTrackerStore = _TextEditorTrackerStoreBase
-    with _$TextEditorTrackerStore;
+class SoloTextEditorTrackerStore = _SoloTextEditorTrackerStoreBase
+    with _$SoloTextEditorTrackerStore;
 
-abstract class _TextEditorTrackerStoreBase extends Equatable with Store {
-  @observable
-  TextEditingController controller = TextEditingController();
-
-  @observable
-  FocusNode focusNode = FocusNode();
-
+abstract class _SoloTextEditorTrackerStoreBase extends BaseTextEditorStore
+    with Store {
+  @override
   @action
   handleTap() {
     controller.selection = TextSelection.fromPosition(
@@ -25,6 +21,7 @@ abstract class _TextEditorTrackerStoreBase extends Equatable with Store {
     // }
   }
 
+  @override
   @action
   addEventListeners() {
     focusNode.addListener(() {
@@ -39,12 +36,6 @@ abstract class _TextEditorTrackerStoreBase extends Equatable with Store {
       // print(controller.text); <=== wonderful this is how you push text
       // print('Cursor Start: ${selection.start}, Cursor End: ${selection.end}');
     });
-  }
-
-  @action
-  dispose() {
-    controller.dispose();
-    focusNode.dispose();
   }
 
   @override
