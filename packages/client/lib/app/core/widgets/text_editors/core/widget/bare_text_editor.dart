@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/widgets/text_editors/core/mobx/base_text_editor_store.dart';
-import 'package:primala/app/core/widgets/text_editors/solo_text_editor/stack/constants/data/text_editor_constants.dart';
+import 'package:primala/app/core/widgets/text_editors/core/constants/data/text_editor_constants.dart';
 
 class BaseTextEditor extends StatefulWidget {
   final BaseTextEditorStore trackerStore;

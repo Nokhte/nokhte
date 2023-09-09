@@ -4,7 +4,6 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/widgets/mobx.dart';
-import 'package:primala/app/core/widgets/text_editors/core/mobx/base_text_editor_store.dart';
 // * Mobx Codegen Inclusion
 part 'p2p_purpose_phase3_coordinator_store.g.dart';
 
@@ -14,7 +13,7 @@ class P2PPurposePhase3CoordinatorStore = _P2PPurposePhase3CoordinatorStoreBase
 abstract class _P2PPurposePhase3CoordinatorStoreBase extends Equatable
     with Store {
   final BeachWavesTrackerStore beachWaves;
-  final BaseTextEditorStore textEditor;
+  final SoloTextEditorTrackerStore textEditor;
 
   _P2PPurposePhase3CoordinatorStoreBase({
     required this.beachWaves,

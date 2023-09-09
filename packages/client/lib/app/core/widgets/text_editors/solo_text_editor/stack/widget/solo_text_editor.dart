@@ -1,10 +1,10 @@
 // ignore_for_file: library_private_types_in_public_api, no_logic_in_create_state
 import 'package:flutter/material.dart';
-import 'package:primala/app/core/widgets/text_editors/core/mobx/base_text_editor_store.dart';
+import 'package:primala/app/core/widgets/text_editors/mobx.dart';
 import 'package:primala/app/core/widgets/text_editors/core/widget/bare_text_editor.dart';
 
 class SoloTextEditor extends StatefulWidget {
-  final BaseTextEditorStore trackerStore;
+  final SoloTextEditorTrackerStore trackerStore;
 
   const SoloTextEditor({
     super.key,
@@ -28,11 +28,8 @@ class _SoloTextEditorState extends State<SoloTextEditor> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0),
-      child: BaseTextEditor(
-        trackerStore: trackerStore,
-      ),
+    return BaseTextEditor(
+      trackerStore: trackerStore,
     );
   }
 }

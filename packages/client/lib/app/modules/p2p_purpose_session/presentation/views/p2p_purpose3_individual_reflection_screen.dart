@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:primala/app/core/widgets/text_editors/solo_text_editor/stack/presentation/widget/solo_text_editor.dart';
+import 'package:primala/app/core/widgets/text_editors/text_editors.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 import 'package:swipe/swipe.dart';
