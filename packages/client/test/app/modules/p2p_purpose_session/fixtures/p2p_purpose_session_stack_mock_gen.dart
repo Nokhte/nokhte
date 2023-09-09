@@ -24,6 +24,16 @@ class MP2PPurposeSessionSoloDocContract extends Mock
 class MP2PPurposeSessionCollaborativeDocContract extends Mock
     implements P2PPurposeSessionCollaborativeDocContract {}
 
+// collaborative doc logic
+
+class MGetCollaborativeDocContent extends Mock
+    implements GetCollaborativeDocContent {}
+
+class MGetCollaboratorDelta extends Mock implements GetCollaboratorDelta {}
+
+class MGetCollaboratorPresence extends Mock
+    implements GetCollaboratorPresence {}
+
 // solo doc logic
 
 class MCreateSoloDoc extends Mock implements CreateSoloDoc {}
@@ -53,6 +63,17 @@ class MLeaveCall extends Mock implements LeaveCall {}
 class MMuteLocalAudioStream extends Mock implements MuteLocalAudioStream {}
 
 class MUnmuteLocalAudioStream extends Mock implements UnmuteLocalAudioStream {}
+
+// collaborative doc getter stores
+
+class MGetCollaborativeDocContentGetterStore extends Mock
+    implements GetCollaborativeDocContentGetterStore {}
+
+class MGetCollaboratorDeltaGetterStore extends Mock
+    implements GetCollaboratorDeltaGetterStore {}
+
+class MGetCollaboratorPresenceGetterStore extends Mock
+    implements GetCollaboratorPresenceGetterStore {}
 
 // solo doc getter stores
 class MCreateSoloDocGetterStore extends Mock
@@ -113,19 +134,27 @@ class MFetchChannelIdStore extends Mock implements FetchChannelIdStore {}
 class MInstantiateAgoraSdkStore extends Mock
     implements InstantiateAgoraSdkStore {}
 
-class MVoiceCallActions extends Mock implements VoiceCallActionsStore {}
+class MVoiceCallActionsStore extends Mock implements VoiceCallActionsStore {}
 
 @GenerateMocks([
+  /// % REMOTE SOURCES
   MP2PPurposeSessionSoloDocRemoteSource,
   MP2PPurposeSessionVoiceCallRemoteSourceImpl,
+  // % CONTRACTS
   MP2PPurposeSessionVoiceCallContract,
   MP2PPurposeSessionCollaborativeDocContract,
   MP2PPurposeSessionSoloDocContract,
+  // % Collaborative Doc Logic
+  MGetCollaborativeDocContent,
+  MGetCollaboratorDelta,
+  MGetCollaboratorPresence,
+  // % Solo Doc Logic
   MCreateSoloDoc,
   MGetSoloDoc,
   MSealSoloDoc,
   MShareSoloDoc,
   MSubmitSoloDoc,
+  // % Voice Call Logic
   MCheckIfUserHasTheQuestion,
   MFetchAgoraToken,
   MFetchChannelId,
@@ -134,28 +163,37 @@ class MVoiceCallActions extends Mock implements VoiceCallActionsStore {}
   MLeaveCall,
   MMuteLocalAudioStream,
   MUnmuteLocalAudioStream,
+  // % Solo Doc Getter Stores
   MCreateSoloDocGetterStore,
-  MCreateSoloDocStore,
   MGetSoloDocGetterStore,
-  MGetSoloDocStore,
   MSealSoloDocGetterStore,
-  MSealSoloDocStore,
   MShareSoloDocGetterStore,
-  MShareSoloDocStore,
   MSubmitSoloDocGetterStore,
-  MSubmitSoloDocStore,
+  // % Collaborative Doc Getter Stores
+  MGetCollaborativeDocContentGetterStore,
+  MGetCollaboratorDeltaGetterStore,
+  MGetCollaboratorPresenceGetterStore,
+  // % Voice Call Getter Stores
   MCheckIfUserHasTheQuestionGetterStore,
-  MCheckIfUserHasTheQuestionStore,
   MFetchAgoraTokenGetterStore,
-  MFetchAgoraTokenStore,
   MFetchChannelIdGetterStore,
-  MFetchChannelIdStore,
   MInstantiateAgoraSdkGetterStore,
-  MInstantiateAgoraSdkStore,
   MJoinCallGetterStore,
   MLeaveCallGetterStore,
   MMuteLocalAudioStreamGetterStore,
   MUnmuteLocalAudioStreamGetterStore,
-  MVoiceCallActions,
+  // % Voice Call Stores
+  MCheckIfUserHasTheQuestionStore,
+  MFetchAgoraTokenStore,
+  MFetchChannelIdStore,
+  MInstantiateAgoraSdkStore,
+  MVoiceCallActionsStore,
+  // % Solo Doc Stores
+  MCreateSoloDocStore,
+  MGetSoloDocStore,
+  MSealSoloDocStore,
+  MShareSoloDocStore,
+  MSubmitSoloDocStore,
+  // % Collaborative Doc Stores
 ])
 void main() {}
