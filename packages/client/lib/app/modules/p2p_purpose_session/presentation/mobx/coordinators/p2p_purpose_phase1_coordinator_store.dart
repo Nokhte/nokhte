@@ -6,10 +6,9 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
-// import 'package:primala/app/core/types/call_status.dart';
+import 'package:primala/app/core/modules/voice_call/domain/domain.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
-import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
-import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
+import 'package:primala/app/core/modules/voice_call/mobx/mobx.dart';
 // * Mobx Codegen Inclusion
 part 'p2p_purpose_phase1_coordinator_store.g.dart';
 

@@ -3,9 +3,14 @@
 
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
-import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
-import 'package:primala/app/modules/p2p_purpose_session/data/data.dart';
-import 'package:primala/app/modules/p2p_purpose_session/presentation/presentation.dart';
+import 'package:primala/app/core/modules/solo_doc/data/data.dart';
+import 'package:primala/app/core/modules/solo_doc/domain/domain.dart';
+import 'package:primala/app/core/modules/solo_doc/mobx/mobx.dart';
+import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
+import 'package:primala/app/core/modules/collaborative_doc/mobx/mobx.dart';
+import 'package:primala/app/core/modules/voice_call/data/data.dart';
+import 'package:primala/app/core/modules/voice_call/domain/domain.dart';
+import 'package:primala/app/core/modules/voice_call/mobx/mobx.dart';
 
 // remote sources
 class MP2PPurposeSessionSoloDocRemoteSource extends Mock

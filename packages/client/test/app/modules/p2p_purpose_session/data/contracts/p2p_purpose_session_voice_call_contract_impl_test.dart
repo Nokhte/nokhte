@@ -2,8 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:primala/app/core/constants/failure_constants.dart';
-import 'package:primala/app/modules/p2p_purpose_session/data/data.dart';
-
+import 'package:primala/app/core/modules/voice_call/data/data.dart';
 import '../../../_module_helpers/shared_mocks_gen.mocks.dart';
 import '../../constants/models/models.dart';
 import '../../fixtures/p2p_purpose_session_stack_mock_gen.mocks.dart';

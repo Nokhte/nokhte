@@ -2,7 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/modules/home/domain/entities/entities.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/entities.dart';
-import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
+import 'package:primala/app/core/modules/voice_call/domain/domain.dart';
+import 'package:primala/app/core/modules/solo_doc/domain/domain.dart';
 import 'package:primala_backend/phrase_components.dart';
 
 class DefaultEntities {

@@ -4,8 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:primala/app/core/constants/failure_constants.dart';
 // * primala core imports
-import 'package:primala/app/modules/p2p_purpose_session/data/data.dart';
-import 'package:primala/app/modules/p2p_purpose_session/domain/domain.dart';
+import 'package:primala/app/core/modules/solo_doc/data/data.dart';
+import 'package:primala/app/core/modules/solo_doc/domain/domain.dart';
 // * mock import
 import '../../constants/models/models.dart';
 import '../../constants/response/response.dart';

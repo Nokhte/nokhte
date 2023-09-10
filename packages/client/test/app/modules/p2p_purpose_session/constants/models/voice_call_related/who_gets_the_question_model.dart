@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/modules/p2p_purpose_session/data/models/models.dart';
+import 'package:primala/app/core/modules/voice_call/data/data.dart';
 
 class ConstantWhoGetsTheQuestionModel {
   static WhoGetsTheQuestionModel get hasItCase =>

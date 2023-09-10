@@ -11,7 +11,7 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/modules/p2p_purpose_session/domain/entities/entities.dart';
+import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
 
 class ConstantCollaborativeDocCollaboratorPresenceEntity {
   static CollaborativeDocCollaboratorPresenceEntity get successCase =>

@@ -4,8 +4,8 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
+import 'package:primala/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
-import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 // * Mobx Codegen Inclusion
 part 'p2p_purpose_phase2_coordinator_store.g.dart';
 
