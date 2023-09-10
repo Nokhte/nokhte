@@ -20,10 +20,7 @@ void main() {
   });
 
   tearDown(() async {
-    await supabaseAdmin
-        .from('finished_collaborative_p2p_purpose_documents')
-        .delete()
-        .eq(
+    await supabaseAdmin.from('finished_collaborative_documents').delete().eq(
           'collaborator_one_uid',
           firstUserUID,
         );
