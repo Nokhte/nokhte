@@ -1,5 +1,6 @@
 import 'package:primala_backend/constants/constants.dart';
 import 'package:primala_backend/edge_functions.dart';
+import 'package:primala_backend/tables/real_time_enabled/real_time_enabled.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -22,49 +23,49 @@ void main() {
     return realPersonUIDQuery[0]["uid"];
   }
 
-  test("put npc in the pool searching for user ", () async {
-    final userIdResults = await UserSetupConstants.fetchUIDs();
-    final npcUserUID = userIdResults[0];
-    final realPersonUID = await returnNonNPCUID();
-    final realPersonPhraseIDRes = await supabaseAdmin
-        .from('collaborator_phrases')
-        .select()
-        .eq('uid', realPersonUID);
-    await InitiateCollaboratorSearch.invoke(
-      supabase: supabaseAdmin,
-      wayfarerUID: npcUserUID,
-      queryPhraseIDs: CollaboratorPhraseIDs(
-        adjectiveID: realPersonPhraseIDRes[0]["adjective_id"],
-        nounID: realPersonPhraseIDRes[0]["noun_id"],
-      ),
-    );
-  });
-  test("user 1 in the pool searching for npc ", () async {
-    final userIdResults = await UserSetupConstants.fetchUIDs();
-    final npcUserUID = userIdResults[0];
-    final realPersonUID = await returnNonNPCUID();
-    final npcPhraseRes = await supabaseAdmin
-        .from('collaborator_phrases')
-        .select()
-        .eq('uid', npcUserUID);
-    await InitiateCollaboratorSearch.invoke(
-      supabase: supabaseAdmin,
-      wayfarerUID: realPersonUID,
-      queryPhraseIDs: CollaboratorPhraseIDs(
-        adjectiveID: npcPhraseRes[0]["adjective_id"],
-        nounID: npcPhraseRes[0]["noun_id"],
-      ),
-    );
-  });
+  // test("put npc in the pool searching for user ", () async {
+  //   final userIdResults = await UserSetupConstants.fetchUIDs();
+  //   final npcUserUID = userIdResults[0];
+  //   final realPersonUID = await returnNonNPCUID();
+  //   final realPersonPhraseIDRes = await supabaseAdmin
+  //       .from('collaborator_phrases')
+  //       .select()
+  //       .eq('uid', realPersonUID);
+  //   await InitiateCollaboratorSearch.invoke(
+  //     supabase: supabaseAdmin,
+  //     wayfarerUID: npcUserUID,
+  //     queryPhraseIDs: CollaboratorPhraseIDs(
+  //       adjectiveID: realPersonPhraseIDRes[0]["adjective_id"],
+  //       nounID: realPersonPhraseIDRes[0]["noun_id"],
+  //     ),
+  //   );
+  // });
+  // test("user 1 in the pool searching for npc ", () async {
+  //   final userIdResults = await UserSetupConstants.fetchUIDs();
+  //   final npcUserUID = userIdResults[1];
+  //   final realPersonUID = await returnNonNPCUID();
+  //   final npcPhraseRes = await supabaseAdmin
+  //       .from('collaborator_phrases')
+  //       .select()
+  //       .eq('uid', npcUserUID);
+  //   await InitiateCollaboratorSearch.invoke(
+  //     supabase: supabaseAdmin,
+  //     wayfarerUID: realPersonUID,
+  //     queryPhraseIDs: CollaboratorPhraseIDs(
+  //       adjectiveID: npcPhraseRes[0]["adjective_id"],
+  //       nounID: npcPhraseRes[0]["noun_id"],
+  //     ),
+  //   );
+  // });
 
-  test("make a collaboration between real person & npc 1", () async {
+  test("make a collaboration between real person & npc 2", () async {
     final userIdResults = await UserSetupConstants.fetchUIDs();
-    final npcUserUID = userIdResults[0];
+    final npcUserUID = userIdResults[1];
     final realPersonUID = await returnNonNPCUID();
-    await supabaseAdmin.from('existing_collaborations').insert({
-      'collaborator_one': npcUserUID,
-      'collaborator_two': realPersonUID,
-      'who_gets_the_question': 2,
-    });
+    ExistingCollaborationsQueries.createNewCollaboration(
+      supabase: supabaseAdmin,
+      collaboratorOneUID: npcUserUID,
+      collaboratorTwoUID: realPersonUID,
+    );
   });
 }

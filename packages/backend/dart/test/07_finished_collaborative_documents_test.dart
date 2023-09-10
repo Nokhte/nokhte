@@ -3,7 +3,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primala_backend/constants/constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:primala_backend/finished_collaborative_p2p_purpose_documents.dart';
+import 'package:primala_backend/finished_collaborative_documents.dart';
 
 void main() {
   late SupabaseClient supabase;
@@ -20,10 +20,10 @@ void main() {
   });
 
   tearDown(() async {
-    await supabaseAdmin.from('finished_collaborative_documents').delete().eq(
-          'collaborator_one_uid',
-          firstUserUID,
-        );
+    await ExistingCollaborationsQueries.deleteExistingCollaboration(
+        supabase: supabaseAdmin,
+        collaboratorOneUID: firstUserUID,
+        collaboratorTwoUID: secondUserUID);
   });
 
   test("User Should be able to commit a message, add it here", () async {

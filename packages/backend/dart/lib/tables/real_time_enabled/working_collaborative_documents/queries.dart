@@ -16,7 +16,7 @@ class WorkingCollaborativeDocumentsQueries {
         collaboratorInfoRes[1] == 1 ? collaboratorInfoRes[0] : currentUserUID;
     final collaboratorTwoUID =
         collaboratorInfoRes[1] == 2 ? collaboratorInfoRes[0] : currentUserUID;
-    return await supabase.from('working_collaborative_documents').insert({
+    return await supabase.from('working_collaborative_documents').upsert({
       'collaborator_one_uid': collaboratorOneUID,
       'collaborator_two_uid': collaboratorTwoUID,
       'doc_type': docType,

@@ -18,8 +18,6 @@ class CollaborativeDocRemoteSourceImpl implements CollaborativeDocRemoteSource {
     required this.streams,
   }) : currentUserUID = supabase.auth.currentUser?.id ?? '';
 
-  // todo needs to be a method for creating the documents
-
   @override
   Stream<String> getCollaborativeDocContent() {
     return streams.docContentStream(

@@ -21,4 +21,28 @@ class ExistingCollaborationsQueries {
         ? [collaboratorTwo, 2]
         : [collaboratorOne, 1];
   }
+
+  static Future<List> createNewCollaboration({
+    required SupabaseClient supabase,
+    required String collaboratorOneUID,
+    required String collaboratorTwoUID,
+  }) async {
+    return await supabase.from('existing_collaborations').insert({
+      'collaborator_one': collaboratorOneUID,
+      'collaborator_two': collaboratorTwoUID,
+      'who_gets_the_question': 1,
+    }).select();
+  }
+
+  static Future<void> deleteExistingCollaboration({
+    required SupabaseClient supabase,
+    required String collaboratorOneUID,
+    required String collaboratorTwoUID,
+  }) async {
+    return await supabase
+        .from('existing_collaborations')
+        .delete()
+        .eq('collaborator_one', collaboratorOneUID)
+        .eq('collaborator_two', collaboratorTwoUID);
+  }
 }
