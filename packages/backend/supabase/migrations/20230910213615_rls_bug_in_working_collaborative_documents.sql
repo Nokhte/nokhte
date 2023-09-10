@@ -6,3 +6,6 @@ as permissive
 for insert
 to authenticated
 with check (true);
+
+alter
+  publication supabase_realtime add table public.working_collaborative_documents;

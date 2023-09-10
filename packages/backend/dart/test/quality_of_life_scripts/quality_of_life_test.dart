@@ -68,4 +68,12 @@ void main() {
       collaboratorTwoUID: realPersonUID,
     );
   });
+
+  // test("update the doc between user and npc 2", () async {
+  //   final userIdResults = await UserSetupConstants.fetchUIDs();
+  //   final npcUserUID = userIdResults[1];
+  //   final realPersonUID = await returnNonNPCUID();
+  //   await WorkingCollaborativeDocumentsQueries.updateExistingDocument(
+  //       supabase: supabaseAdmin, currentUserUID: realPersonUID);
+  // });
 }

@@ -33,24 +33,36 @@ class WorkingCollaborativeDocumentsStreams {
     required SupabaseClient supabase,
     required String userUID,
   }) async* {
+    supabase.channel('public:working_collaborative_documents').on(
+      RealtimeListenTypes.postgresChanges,
+      ChannelFilter(
+          event: '*',
+          schema: 'public',
+          table: 'working_collaborative_documents'),
+      (payload, [ref]) {
+        print('Change received: ${payload.toString()}');
+      },
+    ).subscribe();
     if (theCollaboratorToListenFor.isEmpty) {
       await figureOutCollaboratorInfo();
     }
+
     docContentListeningStatus = true;
     await for (var event in supabase
-        .from('working_collaborative_p2p_purpose_documents')
+        .from('working_collaborative_documents')
         .stream(primaryKey: ['id']).eq(
       theUsersCollaboratorNumber == 1
-          ? 'collaborator_one_uid'
-          : 'collaborator_two_uid',
+          ? 'collaborator_two_uid'
+          : 'collaborator_one_uid',
       userUID,
     )) {
-      if (!docContentListeningStatus) {
-        break;
-      }
+      // if (!docContentListeningStatus) {
+      //   break;
+      // }
       if (event.isEmpty) {
         yield "";
       } else {
+        print(event[0]["content"]);
         yield event[0]["content"] as String;
       }
     }
@@ -62,7 +74,7 @@ class WorkingCollaborativeDocumentsStreams {
   }) async* {
     collaboratorPresenceListeningStatus = true;
     await for (var event in supabase
-        .from('working_collaborative_p2p_purpose_documents')
+        .from('working_collaborative_documents')
         .stream(primaryKey: ['id']).eq(
       theUsersCollaboratorNumber == 1
           ? 'collaborator_one_uid'
@@ -89,7 +101,7 @@ class WorkingCollaborativeDocumentsStreams {
   }) async* {
     collaboratorDeltaListeningStatus = true;
     await for (var event in supabase
-        .from('working_collaborative_p2p_purpose_documents')
+        .from('working_collaborative_documents')
         .stream(primaryKey: ['id']).eq(
       theUsersCollaboratorNumber == 1
           ? 'collaborator_one_uid'

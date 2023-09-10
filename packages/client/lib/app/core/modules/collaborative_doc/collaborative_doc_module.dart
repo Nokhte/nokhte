@@ -108,5 +108,15 @@ class CollaborativeDocModule extends Module {
           ),
           export: true,
         ),
+        // & Mobx Coordinator Stores
+        Bind.singleton<CollaborativeDocCoordinatorStore>(
+          (i) => CollaborativeDocCoordinatorStore(
+            createDoc: i<CreateCollaborativeDocStore>(),
+            getContent: i<GetCollaborativeDocContentStore>(),
+            getDelta: i<GetCollaboratorDeltaStore>(),
+            getPresence: i<GetCollaboratorPresenceStore>(),
+          ),
+          export: true,
+        )
       ];
 }
