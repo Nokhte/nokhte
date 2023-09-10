@@ -7,30 +7,27 @@ import 'package:primala/app/core/modules/collaborative_doc/data/sources/collabor
 import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
 import 'package:primala/app/core/modules/collaborative_doc/mobx/mobx.dart';
 
-// remote sources
-
 class MCollaborativeDocRemoteSource extends Mock
     implements CollaborativeDocRemoteSource {}
 
-// contracts
-
 class MCollaborativeDocContract extends Mock
     implements CollaborativeDocContract {}
-
-// collaborative doc logic
 
 class MGetCollaborativeDocContent extends Mock
     implements GetCollaborativeDocContent {}
 
 class MGetCollaboratorDelta extends Mock implements GetCollaboratorDelta {}
 
+class MCreateCollaborativeDoc extends Mock implements CreateCollaborativeDoc {}
+
 class MGetCollaboratorPresence extends Mock
     implements GetCollaboratorPresence {}
 
-// collaborative doc getter stores
-
 class MGetCollaborativeDocContentGetterStore extends Mock
     implements GetCollaborativeDocContentGetterStore {}
+
+class MCreateCollaborativeDocGetterStore extends Mock
+    implements CreateCollaborativeDocGetterStore {}
 
 class MGetCollaboratorDeltaGetterStore extends Mock
     implements GetCollaboratorDeltaGetterStore {}
@@ -43,8 +40,10 @@ class MGetCollaboratorPresenceGetterStore extends Mock
   MCollaborativeDocContract,
   MGetCollaborativeDocContent,
   MGetCollaboratorDelta,
+  MCreateCollaborativeDoc,
   MGetCollaboratorPresence,
   MGetCollaborativeDocContentGetterStore,
+  MCreateCollaborativeDocGetterStore,
   MGetCollaboratorDeltaGetterStore,
   MGetCollaboratorPresenceGetterStore,
 ])

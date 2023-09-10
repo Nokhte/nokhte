@@ -6,6 +6,7 @@ import 'package:primala/app/core/constants/failure_constants.dart';
 import 'package:primala/app/core/modules/collaborative_doc/data/data.dart';
 // * primala core imports
 // * mock import
+import '../../constants/models/models.dart';
 import '../../fixtures/collaborative_doc_mock_gen.mocks.dart';
 import '../../../../../modules/_module_helpers/shared_mocks_gen.mocks.dart'
     show MockMNetworkInfo;
@@ -150,34 +151,39 @@ void main() {
       setUp(() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       });
-      // test("when online and non-empty should return a model", () async {
-      //   // arrange
-      //   when(mockRemoteSource.shareSoloDoc()).thenAnswer(
-      //       (realInvocation) async => SoloDocumentTableResponse.response);
-      //   // act
-      //   final res = await homeContract.shareSoloDoc();
-      //   // assert
-      //   expect(res, ConstantSoloDocSharingStatusModel.wrappedSuccessCase);
-      // });
-      // test("when online and empty should return a model", () async {
-      //   // arrange
-      //   when(mockRemoteSource.shareSoloDoc())
-      //       .thenAnswer((realInvocation) async => []);
-      //   // act
-      //   final res = await homeContract.shareSoloDoc();
-      //   // assert
-      //   expect(res, ConstantSoloDocSharingStatusModel.wrappedNotSuccessCase);
-      // });
+      test("when online and non-empty should return a model", () async {
+        // arrange
+        when(mockRemoteSource.createCollaborativeDoc(docType: 'purpose'))
+            .thenAnswer((realInvocation) async => [{}]);
+        // act
+        final res =
+            await homeContract.createCollaborativeDoc(docType: 'purpose');
+        // assert
+        expect(res,
+            ConstantCollaborativeDocCreationStatusModel.wrappedSuccessCase);
+      });
+      test("when online and empty should return a model", () async {
+        // arrange
+        when(mockRemoteSource.createCollaborativeDoc(docType: 'purpose'))
+            .thenAnswer((realInvocation) async => []);
+        // act
+        final res =
+            await homeContract.createCollaborativeDoc(docType: 'purpose');
+        // assert
+        expect(res,
+            ConstantCollaborativeDocCreationStatusModel.wrappedNotSuccessCase);
+      });
     });
     group("is not Online", () {
       setUp(() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
       });
 
-      // test("When offline should return an internet connection error", () async {
-      //   final res = await homeContract.shareSoloDoc();
-      //   expect(res, Left(FailureConstants.internetConnectionFailure));
-      // });
+      test("When offline should return an internet connection error", () async {
+        final res =
+            await homeContract.createCollaborativeDoc(docType: 'purpose');
+        expect(res, Left(FailureConstants.internetConnectionFailure));
+      });
     });
   });
 }

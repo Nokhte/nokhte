@@ -9,4 +9,6 @@ abstract class CollaborativeDocContract {
       getCollaboratorDelta();
   Future<Either<Failure, CollaborativeDocCollaboratorPresenceEntity>>
       getCollaboratorPresence();
+  Future<Either<Failure, CollaborativeDocCreationStatusEntity>>
+      createCollaborativeDoc({required String docType});
 }

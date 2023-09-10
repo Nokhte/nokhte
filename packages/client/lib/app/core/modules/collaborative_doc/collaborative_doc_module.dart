@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:primala/app/core/modules/collaborative_doc/domain/logic/create_collaborative_doc.dart';
 import 'package:primala/app/core/network/network_info.dart';
 import 'package:primala/app/core/modules/collaborative_doc/data/data.dart';
 import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
@@ -32,6 +33,12 @@ class CollaborativeDocModule extends Module {
         ),
         // & Logic
         // # Collaborative Doc
+        Bind.singleton<CreateCollaborativeDoc>(
+          (i) => CreateCollaborativeDoc(
+            contract: i<CollaborativeDocContract>(),
+          ),
+          export: true,
+        ),
         Bind.singleton<GetCollaborativeDocContent>(
           (i) => GetCollaborativeDocContent(
             contract: i<CollaborativeDocContract>(),
@@ -52,6 +59,12 @@ class CollaborativeDocModule extends Module {
         ),
         // & MobX Getter Stores
         // # Collaborative Doc
+        Bind.singleton<CreateCollaborativeDocGetterStore>(
+          (i) => CreateCollaborativeDocGetterStore(
+            logic: i<CreateCollaborativeDoc>(),
+          ),
+          export: true,
+        ),
         Bind.singleton<GetCollaborativeDocContentGetterStore>(
           (i) => GetCollaborativeDocContentGetterStore(
             logic: i<GetCollaborativeDocContent>(),
@@ -72,6 +85,12 @@ class CollaborativeDocModule extends Module {
         ),
         // & Mobx Logic Stores
         // # Collaborative Doc
+        Bind.singleton<CreateCollaborativeDocStore>(
+          (i) => CreateCollaborativeDocStore(
+            getterStore: i<CreateCollaborativeDocGetterStore>(),
+          ),
+          export: true,
+        ),
         Bind.singleton<GetCollaborativeDocContentStore>(
           (i) => GetCollaborativeDocContentStore(
             getterStore: i<GetCollaborativeDocContentGetterStore>(),

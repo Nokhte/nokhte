@@ -20,6 +20,6 @@ class WorkingCollaborativeDocumentsQueries {
       'collaborator_one_uid': collaboratorOneUID,
       'collaborator_two_uid': collaboratorTwoUID,
       'doc_type': docType,
-    });
+    }).select();
   }
 }

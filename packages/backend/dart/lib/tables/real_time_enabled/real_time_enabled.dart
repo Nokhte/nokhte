@@ -1,2 +1,2 @@
-export './existing_collaborations/stream.dart';
-export 'working_collaborative_documents/streams.dart';
+export './existing_collaborations/existing_collaborations.dart';
+export 'working_collaborative_documents/working_collaborative_documents.dart';

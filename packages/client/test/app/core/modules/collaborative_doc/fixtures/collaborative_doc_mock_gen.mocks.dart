@@ -71,9 +71,9 @@ class _FakeReactiveContext_3 extends _i1.SmartFake
         );
 }
 
-class _FakeGetCollaboratorDelta_4 extends _i1.SmartFake
-    implements _i3.GetCollaboratorDelta {
-  _FakeGetCollaboratorDelta_4(
+class _FakeCreateCollaborativeDoc_4 extends _i1.SmartFake
+    implements _i3.CreateCollaborativeDoc {
+  _FakeCreateCollaborativeDoc_4(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -82,9 +82,20 @@ class _FakeGetCollaboratorDelta_4 extends _i1.SmartFake
         );
 }
 
-class _FakeGetCollaboratorPresence_5 extends _i1.SmartFake
+class _FakeGetCollaboratorDelta_5 extends _i1.SmartFake
+    implements _i3.GetCollaboratorDelta {
+  _FakeGetCollaboratorDelta_5(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeGetCollaboratorPresence_6 extends _i1.SmartFake
     implements _i3.GetCollaboratorPresence {
-  _FakeGetCollaboratorPresence_5(
+  _FakeGetCollaboratorPresence_6(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -126,6 +137,17 @@ class MockMCollaborativeDocRemoteSource extends _i1.Mock
         ),
         returnValue: _i6.Stream<bool>.empty(),
       ) as _i6.Stream<bool>);
+  @override
+  _i6.Future<List<dynamic>> createCollaborativeDoc(
+          {required String? docType}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #createCollaborativeDoc,
+          [],
+          {#docType: docType},
+        ),
+        returnValue: _i6.Future<List<dynamic>>.value(<dynamic>[]),
+      ) as _i6.Future<List<dynamic>>);
 }
 
 /// A class which mocks [MCollaborativeDocContract].
@@ -201,6 +223,29 @@ class MockMCollaborativeDocContract extends _i1.Mock
           ) as _i6.Future<
               _i2.Either<_i7.Failure,
                   _i3.CollaborativeDocCollaboratorPresenceEntity>>);
+  @override
+  _i6.Future<_i2.Either<_i7.Failure, _i3.CollaborativeDocCreationStatusEntity>>
+      createCollaborativeDoc({required String? docType}) => (super.noSuchMethod(
+            Invocation.method(
+              #createCollaborativeDoc,
+              [],
+              {#docType: docType},
+            ),
+            returnValue: _i6.Future<
+                    _i2.Either<_i7.Failure,
+                        _i3.CollaborativeDocCreationStatusEntity>>.value(
+                _FakeEither_0<_i7.Failure,
+                    _i3.CollaborativeDocCreationStatusEntity>(
+              this,
+              Invocation.method(
+                #createCollaborativeDoc,
+                [],
+                {#docType: docType},
+              ),
+            )),
+          ) as _i6.Future<
+              _i2.Either<_i7.Failure,
+                  _i3.CollaborativeDocCreationStatusEntity>>);
 }
 
 /// A class which mocks [MGetCollaborativeDocContent].
@@ -281,6 +326,46 @@ class MockMGetCollaboratorDelta extends _i1.Mock
           ) as _i6.Future<
               _i2.Either<_i7.Failure,
                   _i3.CollaborativeDocCollaboratorDeltaEntity>>);
+}
+
+/// A class which mocks [MCreateCollaborativeDoc].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMCreateCollaborativeDoc extends _i1.Mock
+    implements _i5.MCreateCollaborativeDoc {
+  MockMCreateCollaborativeDoc() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.CollaborativeDocContract get contract => (super.noSuchMethod(
+        Invocation.getter(#contract),
+        returnValue: _FakeCollaborativeDocContract_1(
+          this,
+          Invocation.getter(#contract),
+        ),
+      ) as _i3.CollaborativeDocContract);
+  @override
+  _i6.Future<
+      _i2.Either<_i7.Failure, _i3.CollaborativeDocCreationStatusEntity>> call(
+          _i3.CreateCollaborativeDocParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i6.Future<
+            _i2.Either<_i7.Failure,
+                _i3.CollaborativeDocCreationStatusEntity>>.value(_FakeEither_0<
+            _i7.Failure, _i3.CollaborativeDocCreationStatusEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i6.Future<
+          _i2.Either<_i7.Failure, _i3.CollaborativeDocCreationStatusEntity>>);
 }
 
 /// A class which mocks [MGetCollaboratorPresence].
@@ -376,6 +461,59 @@ class MockMGetCollaborativeDocContentGetterStore extends _i1.Mock
               _i2.Either<_i7.Failure, _i3.CollaborativeDocContentEntity>>);
 }
 
+/// A class which mocks [MCreateCollaborativeDocGetterStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMCreateCollaborativeDocGetterStore extends _i1.Mock
+    implements _i5.MCreateCollaborativeDocGetterStore {
+  MockMCreateCollaborativeDocGetterStore() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.CreateCollaborativeDoc get logic => (super.noSuchMethod(
+        Invocation.getter(#logic),
+        returnValue: _FakeCreateCollaborativeDoc_4(
+          this,
+          Invocation.getter(#logic),
+        ),
+      ) as _i3.CreateCollaborativeDoc);
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+  @override
+  _i4.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_3(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i4.ReactiveContext);
+  @override
+  _i6.Future<
+      _i2.Either<_i7.Failure, _i3.CollaborativeDocCreationStatusEntity>> call(
+          _i3.CreateCollaborativeDocParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i6.Future<
+            _i2.Either<_i7.Failure,
+                _i3.CollaborativeDocCreationStatusEntity>>.value(_FakeEither_0<
+            _i7.Failure, _i3.CollaborativeDocCreationStatusEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i6.Future<
+          _i2.Either<_i7.Failure, _i3.CollaborativeDocCreationStatusEntity>>);
+}
+
 /// A class which mocks [MGetCollaboratorDeltaGetterStore].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -388,7 +526,7 @@ class MockMGetCollaboratorDeltaGetterStore extends _i1.Mock
   @override
   _i3.GetCollaboratorDelta get logic => (super.noSuchMethod(
         Invocation.getter(#logic),
-        returnValue: _FakeGetCollaboratorDelta_4(
+        returnValue: _FakeGetCollaboratorDelta_5(
           this,
           Invocation.getter(#logic),
         ),
@@ -442,7 +580,7 @@ class MockMGetCollaboratorPresenceGetterStore extends _i1.Mock
   @override
   _i3.GetCollaboratorPresence get logic => (super.noSuchMethod(
         Invocation.getter(#logic),
-        returnValue: _FakeGetCollaboratorPresence_5(
+        returnValue: _FakeGetCollaboratorPresence_6(
           this,
           Invocation.getter(#logic),
         ),

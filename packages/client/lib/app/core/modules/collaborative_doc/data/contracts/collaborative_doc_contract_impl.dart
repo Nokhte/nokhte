@@ -46,4 +46,15 @@ class CollaborativeDocContractImpl implements CollaborativeDocContract {
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  Future<Either<Failure, CollaborativeDocCreationStatusModel>>
+      createCollaborativeDoc({required String docType}) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.createCollaborativeDoc(docType: docType);
+      return Right(CollaborativeDocCreationStatusModel.fromSupabase(res));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
 }
