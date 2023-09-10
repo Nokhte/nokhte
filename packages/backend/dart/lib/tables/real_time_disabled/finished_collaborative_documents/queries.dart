@@ -7,7 +7,7 @@ class FinishedCollaborativeP2PPurposeDocuments {
     required String docType,
   }) async =>
       await supabase
-          .from('finished_collaborative_p2p_purpose_documents')
+          .from('finished_collaborative_documents')
           .select()
           .or(
             'collaborator_one_uid.eq.$currentUserUID,collaborator_two_uid.eq.$currentUserUID',
@@ -25,9 +25,7 @@ class FinishedCollaborativeP2PPurposeDocuments {
     required String docType,
     required String content,
   }) async =>
-      await supabase
-          .from('finished_collaborative_p2p_purpose_documents')
-          .insert({
+      await supabase.from('finished_collaborative_documents').insert({
         'collaborator_one_uid': currentUserUID,
         'collaborator_two_uid': collaboratorUserUID,
         'doc_type': docType,
