@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, no_logic_in_create_state
 import 'package:flutter/material.dart';
-import 'package:primala/app/core/widgets/text_editors/core/core.dart';
-import 'package:primala/app/core/widgets/text_editors/mobx.dart';
+import 'package:primala/app/core/widgets/text_editor/core/core.dart';
+import 'package:primala/app/core/modules/collaborative_doc/presentation/presentation.dart';
 
 class CollaborativeTextEditor extends StatefulWidget {
   final CollaborativeTextEditorTrackerStore trackerStore;

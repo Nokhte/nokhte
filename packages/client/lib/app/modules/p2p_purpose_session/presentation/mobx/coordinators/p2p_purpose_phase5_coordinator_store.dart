@@ -3,7 +3,8 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/widgets/widgets.dart';
+import 'package:primala/app/core/modules/collaborative_doc/presentation/presentation.dart';
+import 'package:primala/app/core/widgets/mobx.dart';
 // * Mobx Codegen Inclusion
 part 'p2p_purpose_phase5_coordinator_store.g.dart';
 
@@ -13,9 +14,17 @@ class P2PPurposePhase5CoordinatorStore = _P2PPurposePhase5CoordinatorStoreBase
 abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
     with Store {
   final BeachWavesTrackerStore beachWaves;
+  final CollaborativeTextEditorTrackerStore collaborativeText;
+
+  @action
+  screenConstructor() {
+    beachWaves.initiateSuspendedAtTheDepths();
+    // textEditor.addEventListeners();
+  }
 
   _P2PPurposePhase5CoordinatorStoreBase({
     required this.beachWaves,
+    required this.collaborativeText,
   });
 
   @override

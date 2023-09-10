@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, no_logic_in_create_state
 import 'package:flutter/material.dart';
-import 'package:primala/app/core/widgets/text_editors/mobx.dart';
-import 'package:primala/app/core/widgets/text_editors/core/widget/bare_text_editor.dart';
+import 'package:primala/app/core/widgets/text_editor/mobx.dart';
+import 'package:primala/app/core/widgets/text_editor/core/widget/bare_text_editor.dart';
 
 class SoloTextEditor extends StatefulWidget {
   final SoloTextEditorTrackerStore trackerStore;

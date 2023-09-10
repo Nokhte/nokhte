@@ -1,9 +1,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:primala/app/core/modules/collaborative_doc/domain/logic/create_collaborative_doc.dart';
 import 'package:primala/app/core/network/network_info.dart';
 import 'package:primala/app/core/modules/collaborative_doc/data/data.dart';
 import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
-import 'package:primala/app/core/modules/collaborative_doc/mobx/mobx.dart';
+import 'package:primala/app/core/modules/collaborative_doc/presentation/presentation.dart';
 import 'package:primala_backend/working_collaborative_documents.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

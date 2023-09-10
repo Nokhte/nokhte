@@ -5,7 +5,7 @@ import 'package:mockito/mockito.dart';
 import 'package:primala/app/core/constants/failure_constants.dart';
 import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
-import 'package:primala/app/core/modules/collaborative_doc/mobx/mobx.dart';
+import 'package:primala/app/core/modules/collaborative_doc/presentation/presentation.dart';
 import '../../constants/entities/entities.dart';
 import '../../fixtures/collaborative_doc_mock_gen.mocks.dart';
 

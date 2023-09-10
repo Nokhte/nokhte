@@ -1,9 +1,10 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:primala/app/core/modules/collaborative_doc/collaborative_doc_module.dart';
+import 'package:primala/app/core/modules/collaborative_doc/presentation/presentation.dart';
 import 'package:primala/app/core/modules/solo_doc/solo_doc_module.dart';
 import 'package:primala/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:primala/app/core/modules/voice_call/voice_call_module.dart';
-import 'package:primala/app/core/widgets/text_editors/solo_text_editor/stack/mobx/solo_text_editor_tracker_store.dart';
+import 'package:primala/app/core/widgets/mobx.dart';
 import 'package:primala/app/core/widgets/widget_constants.dart';
 import 'package:primala/app/modules/p2p_purpose_session/presentation/presentation.dart';
 
@@ -44,6 +45,18 @@ class P2PCollaboratorSessionModule extends Module {
         Bind.singleton<SoloTextEditorTrackerStore>(
           (i) => SoloTextEditorTrackerStore(),
         ),
+        Bind.singleton<CollaboratorTextEditorTrackerStore>(
+          (i) => CollaboratorTextEditorTrackerStore(),
+        ),
+        Bind.singleton<UserTextEditorTrackerStore>(
+          (i) => UserTextEditorTrackerStore(),
+        ),
+        Bind.singleton<CollaborativeTextEditorTrackerStore>(
+          (i) => CollaborativeTextEditorTrackerStore(
+            userStore: i<UserTextEditorTrackerStore>(),
+            collaboratorStore: i<CollaboratorTextEditorTrackerStore>(),
+          ),
+        ),
         // & Coordinator Stores
         Bind.singleton<P2PPurposePhase1CoordinatorStore>(
           (i) => P2PPurposePhase1CoordinatorStore(
@@ -80,6 +93,7 @@ class P2PCollaboratorSessionModule extends Module {
         Bind.singleton<P2PPurposePhase5CoordinatorStore>(
           (i) => P2PPurposePhase5CoordinatorStore(
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
+            collaborativeText: i<CollaborativeTextEditorTrackerStore>(),
           ),
         ),
       ];
@@ -102,8 +116,8 @@ class P2PCollaboratorSessionModule extends Module {
           transition: TransitionType.noTransition,
         ),
         ChildRoute(
-          // '/phase-3/',
-          '/',
+          '/phase-3/',
+          // '/',
           child: (context, args) => P2PPurpose3IndividualRefletionScreen(
             coordinator: Modular.get<P2PPurposePhase3CoordinatorStore>(),
           ),
@@ -117,7 +131,8 @@ class P2PCollaboratorSessionModule extends Module {
           transition: TransitionType.noTransition,
         ),
         ChildRoute(
-          '/phase-5/',
+          // '/phase-5/',
+          '/',
           child: (context, args) => P2PPurpose5CollectiveCreation(
             coordinator: Modular.get<P2PPurposePhase5CoordinatorStore>(),
           ),
