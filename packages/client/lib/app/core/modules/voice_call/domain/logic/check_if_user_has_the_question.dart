@@ -3,7 +3,7 @@ import 'package:primala/app/core/modules/voice_call/domain/domain.dart';
 
 class CheckIfUserHasTheQuestion
     extends AbstractFutureLogic<WhoGetsTheQuestionEntity, NoParams> {
-  final P2PPurposeSessionVoiceCallContract contract;
+  final VoiceCallContract contract;
 
   CheckIfUserHasTheQuestion({
     required this.contract,

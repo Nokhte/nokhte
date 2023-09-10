@@ -3,7 +3,7 @@ import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/modules/voice_call/domain/domain.dart';
 
 class JoinCall extends AbstractFutureLogic<CallStatusEntity, JoinCallParams> {
-  final P2PPurposeSessionVoiceCallContract contract;
+  final VoiceCallContract contract;
 
   JoinCall({required this.contract});
 

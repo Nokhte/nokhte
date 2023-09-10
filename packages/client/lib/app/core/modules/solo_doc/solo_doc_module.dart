@@ -16,42 +16,42 @@ class SoloDocModule extends Module {
   List<Bind> get binds => [
         // & Remotes Source
         // # Solo Doc
-        Bind.singleton<P2PPurposeSessionSoloDocRemoteSourceImpl>(
-          (i) => P2PPurposeSessionSoloDocRemoteSourceImpl(
+        Bind.singleton<SoloDocRemoteSourceImpl>(
+          (i) => SoloDocRemoteSourceImpl(
             supabase: Modular.get<SupabaseClient>(),
           ),
         ),
         // & Contract Implementation
-        Bind.singleton<P2PPurposeSessionSoloDocContractImpl>(
-          (i) => P2PPurposeSessionSoloDocContractImpl(
+        Bind.singleton<SoloDocContractImpl>(
+          (i) => SoloDocContractImpl(
             networkInfo: i<NetworkInfo>(),
-            remoteSource: i<P2PPurposeSessionSoloDocRemoteSourceImpl>(),
+            remoteSource: i<SoloDocRemoteSourceImpl>(),
           ),
         ),
         // & Logic
         Bind.singleton<CreateSoloDoc>(
           (i) => CreateSoloDoc(
-            contract: i<P2PPurposeSessionSoloDocContract>(),
+            contract: i<SoloDocContract>(),
           ),
         ),
         Bind.singleton<GetSoloDoc>(
           (i) => GetSoloDoc(
-            contract: i<P2PPurposeSessionSoloDocContract>(),
+            contract: i<SoloDocContract>(),
           ),
         ),
         Bind.singleton<SealSoloDoc>(
           (i) => SealSoloDoc(
-            contract: i<P2PPurposeSessionSoloDocContract>(),
+            contract: i<SoloDocContract>(),
           ),
         ),
         Bind.singleton<ShareSoloDoc>(
           (i) => ShareSoloDoc(
-            contract: i<P2PPurposeSessionSoloDocContract>(),
+            contract: i<SoloDocContract>(),
           ),
         ),
         Bind.singleton<SubmitSoloDoc>(
           (i) => SubmitSoloDoc(
-            contract: i<P2PPurposeSessionSoloDocContract>(),
+            contract: i<SoloDocContract>(),
           ),
         ),
         Bind.singleton<CreateSoloDocGetterStore>(

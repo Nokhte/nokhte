@@ -4,7 +4,7 @@ import 'package:primala/app/core/modules/voice_call/domain/domain.dart';
 
 class FetchAgoraToken
     extends AbstractFutureLogic<AgoraCallTokenEntity, FetchAgoraTokenParams> {
-  final P2PPurposeSessionVoiceCallContract contract;
+  final VoiceCallContract contract;
   FetchAgoraToken({required this.contract});
 
   @override

@@ -2,7 +2,7 @@ import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/modules/voice_call/domain/domain.dart';
 
 class FetchChannelId extends AbstractFutureLogic<ChannelIdEntity, NoParams> {
-  final P2PPurposeSessionVoiceCallContract contract;
+  final VoiceCallContract contract;
 
   FetchChannelId({
     required this.contract,

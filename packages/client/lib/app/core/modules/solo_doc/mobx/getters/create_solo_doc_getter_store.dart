@@ -5,7 +5,6 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/modules/solo_doc/domain/domain.dart';
 // * Mobx Codegen Inclusion
 part 'create_solo_doc_getter_store.g.dart';
@@ -21,8 +20,8 @@ abstract class _CreateSoloDocGetterStoreBase extends Equatable with Store {
   });
 
   Future<Either<Failure, SoloDocCreationStatusEntity>> call(
-          NoParams params) async =>
-      logic(NoParams());
+          CreateSoloDocParams params) async =>
+      logic(params);
 
   @override
   List<Object> get props => [];

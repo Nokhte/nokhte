@@ -3,7 +3,7 @@ import 'package:primala/app/core/network/network_info.dart';
 import 'package:primala/app/core/modules/collaborative_doc/data/data.dart';
 import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
 import 'package:primala/app/core/modules/collaborative_doc/mobx/mobx.dart';
-import 'package:primala_backend/working_collaborative_p2p_purpose_documents.dart';
+import 'package:primala_backend/working_collaborative_documents.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class CollaborativeDocModule extends Module {
@@ -11,10 +11,10 @@ class CollaborativeDocModule extends Module {
   List<Bind> get binds => [
         // & Remotes Source
         // # Collaborative Doc
-        Bind.singleton<P2PPurposeSessionCollaborativeDocRemoteSourceImpl>(
-          (i) => P2PPurposeSessionCollaborativeDocRemoteSourceImpl(
+        Bind.singleton<CollaborativeDocRemoteSourceImpl>(
+          (i) => CollaborativeDocRemoteSourceImpl(
             supabase: Modular.get<SupabaseClient>(),
-            streams: WorkingCollaborativeP2PPurposeDocumentsStreams(
+            streams: WorkingCollaborativeDocumentsStreams(
               supabase: Modular.get<SupabaseClient>(),
             ),
           ),
@@ -23,11 +23,10 @@ class CollaborativeDocModule extends Module {
         // & Contract Implementation
 
         // # Collaborative Doc
-        Bind.singleton<P2PPurposeSessionCollaborativeDocContractImpl>(
-          (i) => P2PPurposeSessionCollaborativeDocContractImpl(
+        Bind.singleton<CollaborativeDocContractImpl>(
+          (i) => CollaborativeDocContractImpl(
             networkInfo: i<NetworkInfo>(),
-            remoteSource:
-                i<P2PPurposeSessionCollaborativeDocRemoteSourceImpl>(),
+            remoteSource: i<CollaborativeDocRemoteSourceImpl>(),
           ),
           export: true,
         ),
@@ -35,19 +34,19 @@ class CollaborativeDocModule extends Module {
         // # Collaborative Doc
         Bind.singleton<GetCollaborativeDocContent>(
           (i) => GetCollaborativeDocContent(
-            contract: i<P2PPurposeSessionCollaborativeDocContract>(),
+            contract: i<CollaborativeDocContract>(),
           ),
           export: true,
         ),
         Bind.singleton<GetCollaboratorDelta>(
           (i) => GetCollaboratorDelta(
-            contract: i<P2PPurposeSessionCollaborativeDocContract>(),
+            contract: i<CollaborativeDocContract>(),
           ),
           export: true,
         ),
         Bind.singleton<GetCollaboratorPresence>(
           (i) => GetCollaboratorPresence(
-            contract: i<P2PPurposeSessionCollaborativeDocContract>(),
+            contract: i<CollaborativeDocContract>(),
           ),
           export: true,
         ),

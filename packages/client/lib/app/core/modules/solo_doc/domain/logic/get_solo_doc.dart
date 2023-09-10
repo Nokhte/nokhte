@@ -4,7 +4,7 @@ import 'package:primala/app/core/modules/solo_doc/domain/domain.dart';
 
 class GetSoloDoc
     extends AbstractFutureLogic<SoloDocContentEntity, GetSoloDocParams> {
-  final P2PPurposeSessionSoloDocContract contract;
+  final SoloDocContract contract;
 
   GetSoloDoc({
     required this.contract,

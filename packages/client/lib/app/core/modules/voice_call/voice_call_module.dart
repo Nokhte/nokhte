@@ -24,8 +24,8 @@ class VoiceCallModule extends Module {
         /// % Agora Callback Stores END
         // & Remotes Source
         // # Voice Call
-        Bind.singleton<P2PPurposeSessionVoiceCallRemoteSourceImpl>(
-          (i) => P2PPurposeSessionVoiceCallRemoteSourceImpl(
+        Bind.singleton<VoiceCallRemoteSourceImpl>(
+          (i) => VoiceCallRemoteSourceImpl(
             supabase: Modular.get<SupabaseClient>(),
             agoraCallbacksStore: i<AgoraCallbacksStore>(),
             agoraEngine: i<RtcEngine>(),
@@ -35,10 +35,10 @@ class VoiceCallModule extends Module {
         // & Contract Implementation
 
         // # Voice Call
-        Bind.singleton<P2PPurposeSessionVoiceCallContractImpl>(
-          (i) => P2PPurposeSessionVoiceCallContractImpl(
+        Bind.singleton<VoiceCallContractImpl>(
+          (i) => VoiceCallContractImpl(
             networkInfo: Modular.get<NetworkInfo>(),
-            remoteSource: i<P2PPurposeSessionVoiceCallRemoteSource>(),
+            remoteSource: i<VoiceCallRemoteSource>(),
           ),
           export: true,
         ),
@@ -46,49 +46,49 @@ class VoiceCallModule extends Module {
         // # Voice Call
         Bind.singleton<CheckIfUserHasTheQuestion>(
           (i) => CheckIfUserHasTheQuestion(
-            contract: i<P2PPurposeSessionVoiceCallContract>(),
+            contract: i<VoiceCallContract>(),
           ),
           export: true,
         ),
         Bind.singleton<FetchAgoraToken>(
           (i) => FetchAgoraToken(
-            contract: i<P2PPurposeSessionVoiceCallContract>(),
+            contract: i<VoiceCallContract>(),
           ),
           export: true,
         ),
         Bind.singleton<FetchChannelId>(
           (i) => FetchChannelId(
-            contract: i<P2PPurposeSessionVoiceCallContract>(),
+            contract: i<VoiceCallContract>(),
           ),
           export: true,
         ),
         Bind.singleton<InstantiateAgoraSdk>(
           (i) => InstantiateAgoraSdk(
-            contract: i<P2PPurposeSessionVoiceCallContract>(),
+            contract: i<VoiceCallContract>(),
           ),
           export: true,
         ),
         Bind.singleton<JoinCall>(
           (i) => JoinCall(
-            contract: i<P2PPurposeSessionVoiceCallContract>(),
+            contract: i<VoiceCallContract>(),
           ),
           export: true,
         ),
         Bind.singleton<LeaveCall>(
           (i) => LeaveCall(
-            contract: i<P2PPurposeSessionVoiceCallContract>(),
+            contract: i<VoiceCallContract>(),
           ),
           export: true,
         ),
         Bind.singleton<MuteLocalAudioStream>(
           (i) => MuteLocalAudioStream(
-            contract: i<P2PPurposeSessionVoiceCallContract>(),
+            contract: i<VoiceCallContract>(),
           ),
           export: true,
         ),
         Bind.singleton<UnmuteLocalAudioStream>(
           (i) => UnmuteLocalAudioStream(
-            contract: i<P2PPurposeSessionVoiceCallContract>(),
+            contract: i<VoiceCallContract>(),
           ),
           export: true,
         ),

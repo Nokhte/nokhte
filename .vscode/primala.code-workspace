@@ -50,7 +50,7 @@
                 "**/**.g.dart": true,
                 // "**/.gitignore": true,
                 // "**/pubspec.yaml": true,
-                "**/**.mocks.dart": true,
+                // "**/**.mocks.dart": true,
                 "**/.dart_tool": true,
                 "**/deprecated_gitlab_ci": true,
                 "**/deprecated/**": true,

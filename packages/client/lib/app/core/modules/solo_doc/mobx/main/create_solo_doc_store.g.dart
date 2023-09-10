@@ -45,7 +45,7 @@ mixin _$CreateSoloDocStore on _CreateSoloDocStoreBase, Store {
       AsyncAction('_CreateSoloDocStoreBase.call', context: context);
 
   @override
-  Future<void> call(NoParams params) {
+  Future<void> call(CreateSoloDocParams params) {
     return _$callAsyncAction.run(() => super.call(params));
   }
 

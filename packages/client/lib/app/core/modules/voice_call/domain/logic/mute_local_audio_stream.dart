@@ -3,7 +3,7 @@ import 'package:primala/app/core/modules/voice_call/domain/domain.dart';
 
 class MuteLocalAudioStream
     extends AbstractFutureLogic<LocalAudioStreamStatusEntity, NoParams> {
-  final P2PPurposeSessionVoiceCallContract contract;
+  final VoiceCallContract contract;
 
   MuteLocalAudioStream({required this.contract});
 

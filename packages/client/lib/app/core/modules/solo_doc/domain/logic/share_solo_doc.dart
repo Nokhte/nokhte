@@ -3,7 +3,7 @@ import 'package:primala/app/core/modules/solo_doc/domain/domain.dart';
 
 class ShareSoloDoc
     extends AbstractFutureLogic<SoloDocSharingStatusEntity, NoParams> {
-  final P2PPurposeSessionSoloDocContract contract;
+  final SoloDocContract contract;
 
   ShareSoloDoc({
     required this.contract,

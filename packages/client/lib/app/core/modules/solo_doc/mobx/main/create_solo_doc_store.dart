@@ -2,7 +2,6 @@
 // * Mobx Import
 import 'package:mobx/mobx.dart';
 import 'package:primala/app/core/constants/entities.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/mobx/base_future_store.dart';
 // * Equatable Import
 import 'package:primala/app/core/mobx/base_mobx_db_store.dart';
@@ -15,7 +14,8 @@ part 'create_solo_doc_store.g.dart';
 class CreateSoloDocStore = _CreateSoloDocStoreBase with _$CreateSoloDocStore;
 
 abstract class _CreateSoloDocStoreBase
-    extends BaseMobxDBStore<NoParams, SoloDocCreationStatusEntity> with Store {
+    extends BaseMobxDBStore<CreateSoloDocParams, SoloDocCreationStatusEntity>
+    with Store {
   final CreateSoloDocGetterStore getterStore;
 
   @observable

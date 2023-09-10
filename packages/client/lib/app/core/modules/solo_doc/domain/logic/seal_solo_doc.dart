@@ -3,7 +3,7 @@ import 'package:primala/app/core/modules/solo_doc/domain/domain.dart';
 
 class SealSoloDoc
     extends AbstractFutureLogic<SoloDocSealingStatusEntity, NoParams> {
-  final P2PPurposeSessionSoloDocContract contract;
+  final SoloDocContract contract;
 
   SealSoloDoc({
     required this.contract,
