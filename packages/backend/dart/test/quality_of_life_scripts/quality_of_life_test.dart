@@ -72,6 +72,8 @@ void main() {
   test("update the doc between user and npc 2", () async {
     final realPersonUID = await returnNonNPCUID();
     await WorkingCollaborativeDocumentsQueries.updateExistingDocument(
-        supabase: supabaseAdmin, currentUserUID: realPersonUID);
+        supabase: supabaseAdmin,
+        currentUserUID: realPersonUID,
+        newContent: "newcontent");
   });
 }

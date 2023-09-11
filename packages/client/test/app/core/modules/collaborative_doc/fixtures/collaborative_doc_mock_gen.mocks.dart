@@ -160,16 +160,16 @@ class MockMCollaborativeDocRemoteSource extends _i1.Mock
         returnValue: _i6.Future<List<dynamic>>.value(<dynamic>[]),
       ) as _i6.Future<List<dynamic>>);
   @override
-  _i6.Future<List<dynamic>> updateCollaborativeDoc(
-          {required String? newContent}) =>
+  _i6.Future<void> updateCollaborativeDoc({required String? newContent}) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateCollaborativeDoc,
           [],
           {#newContent: newContent},
         ),
-        returnValue: _i6.Future<List<dynamic>>.value(<dynamic>[]),
-      ) as _i6.Future<List<dynamic>>);
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
 }
 
 /// A class which mocks [MCollaborativeDocContract].

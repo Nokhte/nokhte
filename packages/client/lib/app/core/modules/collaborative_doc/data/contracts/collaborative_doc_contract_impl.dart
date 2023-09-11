@@ -62,9 +62,8 @@ class CollaborativeDocContractImpl implements CollaborativeDocContract {
   Future<Either<Failure, CollaborativeDocUpdateStatusModel>>
       updateCollaborativeDoc({required String newContent}) async {
     if (await networkInfo.isConnected) {
-      final res =
-          await remoteSource.updateCollaborativeDoc(newContent: newContent);
-      return Right(CollaborativeDocUpdateStatusModel.fromSupabase(res));
+      await remoteSource.updateCollaborativeDoc(newContent: newContent);
+      return Right(CollaborativeDocUpdateStatusModel.fromSupabase([{}]));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }

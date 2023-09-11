@@ -16,8 +16,10 @@ abstract class _CollaborativeDocCoordinatorStoreBase extends Equatable
   final GetCollaborativeDocContentStore getContent;
   final GetCollaboratorDeltaStore getDelta;
   final GetCollaboratorPresenceStore getPresence;
+  final UpdateCollaborativeDocStore updateDoc;
 
   _CollaborativeDocCoordinatorStoreBase({
+    required this.updateDoc,
     required this.createDoc,
     required this.getContent,
     required this.getDelta,

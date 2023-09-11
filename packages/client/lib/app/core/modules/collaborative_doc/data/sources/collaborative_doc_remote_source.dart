@@ -6,7 +6,7 @@ abstract class CollaborativeDocRemoteSource {
   Stream<int> getCollaboratorDelta();
   Stream<bool> getCollaboratorPresence();
   Future<List> createCollaborativeDoc({required String docType});
-  Future<List> updateCollaborativeDoc({required String newContent});
+  Future<void> updateCollaborativeDoc({required String newContent});
 }
 
 class CollaborativeDocRemoteSourceImpl implements CollaborativeDocRemoteSource {
@@ -48,8 +48,10 @@ class CollaborativeDocRemoteSourceImpl implements CollaborativeDocRemoteSource {
   }
 
   @override
-  Future<List> updateCollaborativeDoc({required String newContent}) async {
+  Future<void> updateCollaborativeDoc({required String newContent}) async {
     return await WorkingCollaborativeDocumentsQueries.updateExistingDocument(
-        supabase: supabase, currentUserUID: currentUserUID);
+        supabase: supabase,
+        currentUserUID: currentUserUID,
+        newContent: newContent);
   }
 }

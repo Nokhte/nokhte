@@ -56,6 +56,13 @@ class CollaborativeDocModule extends Module {
           ),
           export: true,
         ),
+        Bind.singleton<UpdateCollaborativeDoc>(
+          (i) => UpdateCollaborativeDoc(
+            contract: i<CollaborativeDocContract>(),
+          ),
+          export: true,
+        ),
+
         // & MobX Getter Stores
         // # Collaborative Doc
         Bind.singleton<CreateCollaborativeDocGetterStore>(
@@ -79,6 +86,12 @@ class CollaborativeDocModule extends Module {
         Bind.singleton<GetCollaboratorPresenceGetterStore>(
           (i) => GetCollaboratorPresenceGetterStore(
             logic: i<GetCollaboratorPresence>(),
+          ),
+          export: true,
+        ),
+        Bind.singleton<UpdateCollaborativeDocGetterStore>(
+          (i) => UpdateCollaborativeDocGetterStore(
+            logic: i<UpdateCollaborativeDoc>(),
           ),
           export: true,
         ),
@@ -108,9 +121,16 @@ class CollaborativeDocModule extends Module {
           ),
           export: true,
         ),
+        Bind.singleton<UpdateCollaborativeDocStore>(
+          (i) => UpdateCollaborativeDocStore(
+            getterStore: i<UpdateCollaborativeDocGetterStore>(),
+          ),
+          export: true,
+        ),
         // & Mobx Coordinator Stores
         Bind.singleton<CollaborativeDocCoordinatorStore>(
           (i) => CollaborativeDocCoordinatorStore(
+            updateDoc: i<UpdateCollaborativeDocStore>(),
             createDoc: i<CreateCollaborativeDocStore>(),
             getContent: i<GetCollaborativeDocContentStore>(),
             getDelta: i<GetCollaboratorDeltaStore>(),

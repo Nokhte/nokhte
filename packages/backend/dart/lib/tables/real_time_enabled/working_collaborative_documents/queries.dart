@@ -6,9 +6,10 @@ class WorkingCollaborativeDocumentsQueries {
   static Future updateExistingDocument({
     required SupabaseClient supabase,
     required String currentUserUID,
+    required String newContent,
   }) async {
     await supabase.from('working_collaborative_documents').update({
-      "content": "new update"
+      "content": newContent,
     }).or(
         'collaborator_two_uid.eq.$currentUserUID,collaborator_one_uid.eq.$currentUserUID');
   }

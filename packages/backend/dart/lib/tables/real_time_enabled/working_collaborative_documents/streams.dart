@@ -33,16 +33,16 @@ class WorkingCollaborativeDocumentsStreams {
     required SupabaseClient supabase,
     required String userUID,
   }) async* {
-    supabase.channel('public:working_collaborative_documents').on(
-      RealtimeListenTypes.postgresChanges,
-      ChannelFilter(
-          event: '*',
-          schema: 'public',
-          table: 'working_collaborative_documents'),
-      (payload, [ref]) {
-        print('Change received: ${payload.toString()}');
-      },
-    ).subscribe();
+    // supabase.channel('public:working_collaborative_documents').on(
+    //   RealtimeListenTypes.postgresChanges,
+    //   ChannelFilter(
+    //       event: '*',
+    //       schema: 'public',
+    //       table: 'working_collaborative_documents'),
+    //   (payload, [ref]) {
+    //     print('Change received: ${payload.toString()}');
+    //   },
+    // ).subscribe();
     if (theCollaboratorToListenFor.isEmpty) {
       await figureOutCollaboratorInfo();
     }
@@ -56,9 +56,9 @@ class WorkingCollaborativeDocumentsStreams {
           : 'collaborator_one_uid',
       userUID,
     )) {
-      // if (!docContentListeningStatus) {
-      //   break;
-      // }
+      if (!docContentListeningStatus) {
+        break;
+      }
       if (event.isEmpty) {
         yield "";
       } else {

@@ -28,17 +28,39 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
       ),
     );
 
-    collaborativeText.userStore.controller.addListener(() {
-      // for cursor changes & text changes
-    });
-
     await collaborativeDoc.getContent(NoParams());
     collaborativeDoc.getContent.docContent.listen((value) {
       collaborativeText.userStore.controller.text = value;
       collaborativeText.collaboratorStore.controller.text = value;
+      print(
+          "GET CONTENT CLB => ${collaborativeText.collaboratorStore.controller.text} USER => ${collaborativeText.userStore.controller.text}");
     });
 
+    collaborativeText.collaboratorStore.controller.addListener(() {
+      final newContent = collaborativeText.collaboratorStore.controller.text;
+      collaborativeText.userStore.controller.text = newContent;
+      print(
+          "CLB CTRLR => ${collaborativeText.collaboratorStore.controller.text} USER => ${collaborativeText.userStore.controller.text}");
+    });
+
+    collaborativeText.userStore.controller.addListener(() async {
+      await collaborativeDoc.updateDoc(UpdateCollaborativeDocParams(
+          newContent: collaborativeText.userStore.controller.text));
+      print(
+          "USER CTRLR => ${collaborativeText.collaboratorStore.controller.text} USER => ${collaborativeText.userStore.controller.text}");
+    });
+    // ok figure it out from here they are set now you need bilateral editing to work & concurrency & all that stuff.
     // textEditor.addEventListeners();
+    // we should have 2 of these one of these is for user changing
+    // and the other for the collaborator changing
+    // collaborativeText.userStore.controller.addListener(() async {
+    //   // final newContent = collaborativeText.userStore.controller.text;
+    //   await collaborativeDoc
+    //       .updateDoc(UpdateCollaborativeDocParams(newContent: 'uhhh'));
+    //   // collaborativeText.userStore.controller.text = newContent;
+    //   print("TIS UPDATED ");
+    //   // for cursor changes & text changes
+    // });
   }
 
   _P2PPurposePhase5CoordinatorStoreBase({
