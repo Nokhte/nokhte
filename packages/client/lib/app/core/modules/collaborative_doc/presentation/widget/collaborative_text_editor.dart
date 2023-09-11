@@ -30,9 +30,9 @@ class _CollaborativeTextEditorState extends State<CollaborativeTextEditor> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        // BaseTextEditor(
-        //   trackerStore: trackerStore.collaboratorStore,
-        // ),
+        BaseTextEditor(
+          trackerStore: trackerStore.collaboratorStore,
+        ),
         BaseTextEditor(
           trackerStore: trackerStore.userStore,
         ),

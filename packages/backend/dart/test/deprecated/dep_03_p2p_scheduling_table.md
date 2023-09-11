@@ -1,3 +1,5 @@
+```dart
+
 // ignore_for_file: file_names
 
 import 'package:primala_backend/constants/general/sign_in.dart';
@@ -262,3 +264,4 @@ void main() {
   });
   // @ END USER 1 Actions Group
 }
+```
