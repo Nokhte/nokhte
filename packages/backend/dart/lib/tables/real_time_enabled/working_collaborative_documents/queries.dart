@@ -2,12 +2,15 @@ import 'package:primala_backend/solo_sharable_documents.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class WorkingCollaborativeDocumentsQueries {
+  // this works b/c ppl will have 1 document in working at a time
   static Future updateExistingDocument({
     required SupabaseClient supabase,
     required String currentUserUID,
   }) async {
-    await supabase.from('working_collaborative_documents').update(
-        {"content": "new update"}).eq('collaborator_two_uid', currentUserUID);
+    await supabase.from('working_collaborative_documents').update({
+      "content": "new update"
+    }).or(
+        'collaborator_two_uid.eq.$currentUserUID,collaborator_one_uid.eq.$currentUserUID');
   }
 
   static Future<List> createCollaborativeDocument({

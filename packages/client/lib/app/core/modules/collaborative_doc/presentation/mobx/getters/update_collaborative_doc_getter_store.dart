@@ -7,21 +7,19 @@ import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
 // * Mobx Codegen Inclusion
-part 'create_collaborative_doc_getter_store.g.dart';
+part 'update_collaborative_doc_getter_store.g.dart';
 
-class CreateCollaborativeDocGetterStore = _CreateCollaborativeDocGetterStoreBase
-    with _$CreateCollaborativeDocGetterStore;
+class UpdateCollaborativeDocGetterStore = _UpdateCollaborativeDocGetterStoreBase
+    with _$UpdateCollaborativeDocGetterStore;
 
-abstract class _CreateCollaborativeDocGetterStoreBase extends Equatable
+abstract class _UpdateCollaborativeDocGetterStoreBase extends Equatable
     with Store {
-  final CreateCollaborativeDoc logic;
+  final UpdateCollaborativeDoc logic;
 
-  _CreateCollaborativeDocGetterStoreBase({
-    required this.logic,
-  });
+  _UpdateCollaborativeDocGetterStoreBase({required this.logic});
 
-  Future<Either<Failure, CollaborativeDocCreationStatusEntity>> call(
-          CreateCollaborativeDocParams params) async =>
+  Future<Either<Failure, CollaborativeDocUpdateStatusEntity>> call(
+          UpdateCollaborativeDocParams params) async =>
       await logic(params);
 
   @override

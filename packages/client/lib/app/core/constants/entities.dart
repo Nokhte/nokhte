@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/core/modules/collaborative_doc/domain/entities/collaborative_doc_creation_status_entity.dart';
+import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
 import 'package:primala/app/modules/home/domain/entities/entities.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/entities.dart';
 import 'package:primala/app/core/modules/voice_call/domain/domain.dart';
@@ -68,4 +68,8 @@ class DefaultEntities {
   static Either<Failure, CollaborativeDocCreationStatusEntity>
       get defaultCollaborativeDocCreationStatusEntity =>
           const Right(CollaborativeDocCreationStatusEntity(isCreated: false));
+
+  static Either<Failure, CollaborativeDocUpdateStatusEntity>
+      get defaultCollaborativeDocUpdateStatusEntity =>
+          const Right(CollaborativeDocUpdateStatusEntity(isUpdated: false));
 }

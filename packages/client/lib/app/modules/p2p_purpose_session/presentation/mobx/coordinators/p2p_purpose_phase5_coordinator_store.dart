@@ -28,9 +28,12 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
       ),
     );
 
+    collaborativeText.userStore.controller.addListener(() {
+      // for cursor changes & text changes
+    });
+
     await collaborativeDoc.getContent(NoParams());
     collaborativeDoc.getContent.docContent.listen((value) {
-      print("THE VALUE $value");
       collaborativeText.userStore.controller.text = value;
       collaborativeText.collaboratorStore.controller.text = value;
     });

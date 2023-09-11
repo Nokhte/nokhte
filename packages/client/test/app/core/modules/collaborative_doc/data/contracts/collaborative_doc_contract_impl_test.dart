@@ -186,4 +186,44 @@ void main() {
       });
     });
   });
+  group("Method No. 4: updateCollaborativeDoc", () {
+    group("is Online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+      });
+      test("when online and non-empty should return a model", () async {
+        // arrange
+        when(mockRemoteSource.updateCollaborativeDoc(newContent: 'newContent'))
+            .thenAnswer((realInvocation) async => [{}]);
+        // act
+        final res =
+            await homeContract.updateCollaborativeDoc(newContent: 'newContent');
+        // assert
+        expect(
+            res, ConstantCollaborativeDocUpdateStatusModel.wrappedSuccessCase);
+      });
+      test("when online and empty should return a model", () async {
+        // arrange
+        when(mockRemoteSource.updateCollaborativeDoc(newContent: 'newContent'))
+            .thenAnswer((realInvocation) async => []);
+        // act
+        final res =
+            await homeContract.updateCollaborativeDoc(newContent: 'newContent');
+        // assert
+        expect(res,
+            ConstantCollaborativeDocUpdateStatusModel.wrappedNotSuccessCase);
+      });
+    });
+    group("is not Online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+      });
+
+      test("When offline should return an internet connection error", () async {
+        final res =
+            await homeContract.updateCollaborativeDoc(newContent: 'newContent');
+        expect(res, Left(FailureConstants.internetConnectionFailure));
+      });
+    });
+  });
 }
