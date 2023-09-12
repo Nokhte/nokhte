@@ -13,4 +13,8 @@ abstract class CollaborativeDocContract {
       createCollaborativeDoc({required String docType});
   Future<Either<Failure, CollaborativeDocUpdateStatusEntity>>
       updateCollaborativeDoc({required String newContent});
+  Future<Either<Failure, CollaborativeDocDeltaUpdaterStatusEntity>>
+      updateUserDelta({required int newDelta});
+  Future<Either<Failure, CollaborativeDocPresenceUpdaterStatusEntity>>
+      updateUserPresence({required bool newPresence});
 }

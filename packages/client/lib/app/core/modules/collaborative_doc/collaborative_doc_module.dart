@@ -14,6 +14,9 @@ class CollaborativeDocModule extends Module {
         Bind.singleton<CollaborativeDocRemoteSourceImpl>(
           (i) => CollaborativeDocRemoteSourceImpl(
             supabase: Modular.get<SupabaseClient>(),
+            queries: WorkingCollaborativeDocumentsQueries(
+              supabase: Modular.get<SupabaseClient>(),
+            ),
             streams: WorkingCollaborativeDocumentsStreams(
               supabase: Modular.get<SupabaseClient>(),
             ),

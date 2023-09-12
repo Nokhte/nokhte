@@ -2,24 +2,26 @@
 // * Mobx Import
 import 'package:mobx/mobx.dart';
 import 'package:primala/app/core/constants/entities.dart';
-// * Equatable Import
 import 'package:primala/app/core/mobx/base_future_store.dart';
+// * Equatable Import
 import 'package:primala/app/core/mobx/base_mobx_db_store.dart';
 import 'package:primala/app/core/mobx/store_state.dart';
 import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
 import 'package:primala/app/core/modules/collaborative_doc/presentation/presentation.dart';
 // * Mobx Codegen Inclusion
-part 'update_collaborative_doc_store.g.dart';
+part 'update_user_presence_store.g.dart';
 
-class UpdateCollaborativeDocStore = _UpdateCollaborativeDocStoreBase
-    with _$UpdateCollaborativeDocStore;
+class UpdateUserPresenceStore = _UpdateUserPresenceStoreBase
+    with _$UpdateUserPresenceStore;
 
-abstract class _UpdateCollaborativeDocStoreBase extends BaseMobxDBStore<
-    UpdateCollaborativeDocParams,
-    CollaborativeDocUpdateStatusEntity> with Store {
-  final UpdateCollaborativeDocGetterStore getterStore;
+abstract class _UpdateUserPresenceStoreBase extends BaseMobxDBStore<
+    UpdateUserPresenceParams,
+    CollaborativeDocPresenceUpdaterStatusEntity> with Store {
+  final UpdateUserPresenceGetterStore getterStore;
 
-  _UpdateCollaborativeDocStoreBase({required this.getterStore});
+  _UpdateUserPresenceStoreBase({
+    required this.getterStore,
+  });
 
   @observable
   bool isUpdated = false;
@@ -31,12 +33,13 @@ abstract class _UpdateCollaborativeDocStoreBase extends BaseMobxDBStore<
   }
 
   @observable
-  BaseFutureStore<CollaborativeDocUpdateStatusEntity> futureStore =
+  BaseFutureStore<CollaborativeDocPresenceUpdaterStatusEntity> futureStore =
       BaseFutureStore(
-    baseEntity: DefaultEntities.defaultCollaborativeDocUpdateStatusEntity,
+    baseEntity:
+        DefaultEntities.defaultCollaborativeDocPresenceUpdaterStatusEntity,
     entityFutureParam: ObservableFuture(
       Future.value(
-        DefaultEntities.defaultCollaborativeDocUpdateStatusEntity,
+        DefaultEntities.defaultCollaborativeDocPresenceUpdaterStatusEntity,
       ),
     ),
   );
@@ -46,8 +49,8 @@ abstract class _UpdateCollaborativeDocStoreBase extends BaseMobxDBStore<
     return result.fold((failure) {
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
-    }, (updateStatusEntity) {
-      isUpdated = updateStatusEntity.isSent;
+    }, (deltaStatusEntity) {
+      isUpdated = deltaStatusEntity.isSent;
     });
   }
 

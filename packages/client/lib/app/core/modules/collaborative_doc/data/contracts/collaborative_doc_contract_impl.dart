@@ -68,4 +68,27 @@ class CollaborativeDocContractImpl implements CollaborativeDocContract {
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  Future<Either<Failure, CollaborativeDocDeltaUpdaterStatusModel>>
+      updateUserDelta({required int newDelta}) async {
+    if (await networkInfo.isConnected) {
+      await remoteSource.updateUserDelta(updatedDelta: newDelta);
+      return Right(CollaborativeDocDeltaUpdaterStatusModel.fromSupabase([{}]));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, CollaborativeDocPresenceUpdaterStatusModel>>
+      updateUserPresence({required bool newPresence}) async {
+    if (await networkInfo.isConnected) {
+      await remoteSource.updateUserPresence(updatedUserPresence: newPresence);
+      return Right(
+          CollaborativeDocPresenceUpdaterStatusModel.fromSupabase([{}]));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
 }

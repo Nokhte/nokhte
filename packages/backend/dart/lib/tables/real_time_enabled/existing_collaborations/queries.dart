@@ -1,4 +1,5 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
+import './types/types.dart';
 
 class ExistingCollaborationsQueries {
   static Future<List<dynamic>> fetchCollaborationInfo({
@@ -20,6 +21,29 @@ class ExistingCollaborationsQueries {
     return collaboratorOne == currentUserUID
         ? [collaboratorTwo, 2]
         : [collaboratorOne, 1];
+  }
+
+  static Future<CollaboratorInfo> computeCollaboratorInfo({
+    required SupabaseClient supabase,
+    required String currentUserUID,
+  }) async {
+    final res = await fetchCollaboratorsUIDAndNumber(
+      supabase: supabase,
+      currentUserUID: currentUserUID,
+    );
+    return res[1] == 1
+        ? CollaboratorInfo(
+            theCollaboratorsNumber: 'collaborator_one',
+            theCollaboratorsUID: res[0],
+            theUsersCollaboratorNumber: 'collaborator_two',
+            theUsersUID: currentUserUID,
+          )
+        : CollaboratorInfo(
+            theCollaboratorsNumber: 'collaborator_two',
+            theCollaboratorsUID: res[0],
+            theUsersCollaboratorNumber: 'collaborator_one',
+            theUsersUID: currentUserUID,
+          );
   }
 
   static Future<List> createNewCollaboration({

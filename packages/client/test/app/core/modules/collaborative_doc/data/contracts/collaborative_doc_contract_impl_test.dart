@@ -225,4 +225,63 @@ void main() {
       });
     });
   });
+  group("Method No. 6: updateUserDelta", () {
+    group("is Online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+      });
+      test("when online and non-empty should return a model", () async {
+        // arrange
+        when(mockRemoteSource.updateUserDelta(updatedDelta: 1))
+            .thenAnswer((realInvocation) async => [{}]);
+        // act
+        final res = await collaborativeDocContract.updateUserDelta(newDelta: 1);
+        // assert
+        expect(res,
+            ConstantCollaborativeDocDeltaUpdaterStatusModel.wrappedSuccessCase);
+      });
+    });
+    group("is not Online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+      });
+
+      test("When offline should return an internet connection error", () async {
+        final res = await collaborativeDocContract.updateUserDelta(newDelta: 1);
+        expect(res, Left(FailureConstants.internetConnectionFailure));
+      });
+    });
+  });
+  group("Method No. 7: updateUserPresence", () {
+    group("is Online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+      });
+      test("when online and non-empty should return a model", () async {
+        // arrange
+        when(mockRemoteSource.updateUserPresence(updatedUserPresence: false))
+            .thenAnswer((realInvocation) async => [{}]);
+        // act
+        final res = await collaborativeDocContract.updateUserPresence(
+          newPresence: false,
+        );
+        // assert
+        expect(
+          res,
+          ConstantCollaborativeDocPresenceUpdaterStatusModel.wrappedSuccessCase,
+        );
+      });
+    });
+    group("is not Online", () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+      });
+
+      test("When offline should return an internet connection error", () async {
+        final res = await collaborativeDocContract.updateCollaborativeDoc(
+            newContent: 'newContent');
+        expect(res, Left(FailureConstants.internetConnectionFailure));
+      });
+    });
+  });
 }

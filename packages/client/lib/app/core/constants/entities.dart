@@ -74,6 +74,14 @@ class DefaultEntities {
       get defaultCollaborativeDocUpdateStatusEntity =>
           const Right(CollaborativeDocUpdateStatusEntity(isUpdated: false));
 
+  static Either<Failure, CollaborativeDocPresenceUpdaterStatusEntity>
+      get defaultCollaborativeDocPresenceUpdaterStatusEntity => const Right(
+          CollaborativeDocPresenceUpdaterStatusEntity(isUpdated: false));
+
+  static Either<Failure, CollaborativeDocDeltaUpdaterStatusEntity>
+      get defaultCollaborativeDocDeltaUpdaterStatusEntity => const Right(
+          CollaborativeDocDeltaUpdaterStatusEntity(isUpdated: false));
+
   static Stream<DocInfoContent> get defaultDocContentEntity => Stream.value(
         DocInfoContent(
           currentUserUID: "",

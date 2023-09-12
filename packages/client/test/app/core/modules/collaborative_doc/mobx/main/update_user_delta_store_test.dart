@@ -9,13 +9,13 @@ import '../../constants/entities/entities.dart';
 import '../../fixtures/collaborative_doc_mock_gen.mocks.dart';
 
 void main() {
-  late MockMUpdateCollaborativeDocGetterStore mockGetterStore;
-  late UpdateCollaborativeDocStore fetchChannelIdStore;
-  const tParams = UpdateCollaborativeDocParams(newContent: 'newContent');
+  late MockMUpdateUserDeltaGetterStore mockGetterStore;
+  late UpdateUserDeltaStore fetchChannelIdStore;
+  const tParams = UpdateUserDeltaParams(newDelta: 1);
 
   setUp(() {
-    mockGetterStore = MockMUpdateCollaborativeDocGetterStore();
-    fetchChannelIdStore = UpdateCollaborativeDocStore(
+    mockGetterStore = MockMUpdateUserDeltaGetterStore();
+    fetchChannelIdStore = UpdateUserDeltaStore(
       getterStore: mockGetterStore,
     );
   });
@@ -23,7 +23,7 @@ void main() {
   group("stateOrErrorUpdater", () {
     test("✅ Success Case: should update accordingly if state is passed", () {
       fetchChannelIdStore.stateOrErrorUpdater(
-        ConstantCollaborativeDocUpdateStatusEntity.wrappedSuccessCase,
+        ConstantCollaborativeDocDeltaUpdaterStatusEntity.wrappedSuccessCase,
       );
       expect(
         fetchChannelIdStore.isUpdated,
@@ -43,8 +43,8 @@ void main() {
     test("✅ Success Case: should update accordingly if state is passed",
         () async {
       when(mockGetterStore(tParams)).thenAnswer(
-        (_) async =>
-            ConstantCollaborativeDocUpdateStatusEntity.wrappedNotSuccessCase,
+        (_) async => ConstantCollaborativeDocDeltaUpdaterStatusEntity
+            .wrappedNotSuccessCase,
       );
       await fetchChannelIdStore(tParams);
       expect(

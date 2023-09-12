@@ -2,24 +2,22 @@
 // * Mobx Import
 import 'package:mobx/mobx.dart';
 import 'package:primala/app/core/constants/entities.dart';
-// * Equatable Import
 import 'package:primala/app/core/mobx/base_future_store.dart';
 import 'package:primala/app/core/mobx/base_mobx_db_store.dart';
 import 'package:primala/app/core/mobx/store_state.dart';
 import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
 import 'package:primala/app/core/modules/collaborative_doc/presentation/presentation.dart';
+// * Equatable Import
 // * Mobx Codegen Inclusion
-part 'update_collaborative_doc_store.g.dart';
+part 'update_user_delta_store.g.dart';
 
-class UpdateCollaborativeDocStore = _UpdateCollaborativeDocStoreBase
-    with _$UpdateCollaborativeDocStore;
+class UpdateUserDeltaStore = _UpdateUserDeltaStoreBase
+    with _$UpdateUserDeltaStore;
 
-abstract class _UpdateCollaborativeDocStoreBase extends BaseMobxDBStore<
-    UpdateCollaborativeDocParams,
-    CollaborativeDocUpdateStatusEntity> with Store {
-  final UpdateCollaborativeDocGetterStore getterStore;
-
-  _UpdateCollaborativeDocStoreBase({required this.getterStore});
+abstract class _UpdateUserDeltaStoreBase extends BaseMobxDBStore<
+    UpdateUserDeltaParams,
+    CollaborativeDocDeltaUpdaterStatusEntity> with Store {
+  final UpdateUserDeltaGetterStore getterStore;
 
   @observable
   bool isUpdated = false;
@@ -30,13 +28,17 @@ abstract class _UpdateCollaborativeDocStoreBase extends BaseMobxDBStore<
     state = StoreState.initial;
   }
 
+  _UpdateUserDeltaStoreBase({
+    required this.getterStore,
+  });
+
   @observable
-  BaseFutureStore<CollaborativeDocUpdateStatusEntity> futureStore =
+  BaseFutureStore<CollaborativeDocDeltaUpdaterStatusEntity> futureStore =
       BaseFutureStore(
-    baseEntity: DefaultEntities.defaultCollaborativeDocUpdateStatusEntity,
+    baseEntity: DefaultEntities.defaultCollaborativeDocDeltaUpdaterStatusEntity,
     entityFutureParam: ObservableFuture(
       Future.value(
-        DefaultEntities.defaultCollaborativeDocUpdateStatusEntity,
+        DefaultEntities.defaultCollaborativeDocDeltaUpdaterStatusEntity,
       ),
     ),
   );
@@ -46,8 +48,8 @@ abstract class _UpdateCollaborativeDocStoreBase extends BaseMobxDBStore<
     return result.fold((failure) {
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
-    }, (updateStatusEntity) {
-      isUpdated = updateStatusEntity.isSent;
+    }, (deltaStatusEntity) {
+      isUpdated = deltaStatusEntity.isSent;
     });
   }
 

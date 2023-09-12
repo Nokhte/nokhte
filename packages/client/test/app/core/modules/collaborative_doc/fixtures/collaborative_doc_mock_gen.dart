@@ -25,6 +25,16 @@ class MUpdateCollaborativeDoc extends Mock implements UpdateCollaborativeDoc {}
 class MGetCollaboratorPresence extends Mock
     implements GetCollaboratorPresence {}
 
+class MUpdateUserDelta extends Mock implements UpdateUserDelta {}
+
+class MUpdateUserPresence extends Mock implements UpdateUserPresence {}
+
+class MUpdateUserDeltaGetterStore extends Mock
+    implements UpdateUserDeltaGetterStore {}
+
+class MUpdateUserPresenceGetterStore extends Mock
+    implements UpdateUserPresenceGetterStore {}
+
 class MGetCollaborativeDocContentGetterStore extends Mock
     implements GetCollaborativeDocContentGetterStore {}
 
@@ -48,6 +58,10 @@ class MGetCollaboratorPresenceGetterStore extends Mock
   MUpdateCollaborativeDoc,
   MCreateCollaborativeDoc,
   MGetCollaboratorPresence,
+  MUpdateUserDelta,
+  MUpdateUserPresence,
+  MUpdateUserDeltaGetterStore,
+  MUpdateUserPresenceGetterStore,
   MGetCollaborativeDocContentGetterStore,
   MUpdateCollaborativeDocGetterStore,
   MCreateCollaborativeDocGetterStore,
