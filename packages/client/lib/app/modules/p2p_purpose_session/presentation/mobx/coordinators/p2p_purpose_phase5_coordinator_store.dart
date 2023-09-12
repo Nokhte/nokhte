@@ -20,8 +20,8 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
   final BeachWavesTrackerStore beachWaves;
   final CollaborativeTextEditorTrackerStore collaborativeTextUI;
   final CollaborativeDocCoordinatorStore collaborativeDocDB;
-  final TextEditingController userController;
   final TextEditingController collaboratorController;
+  final TextEditingController userController;
   final FocusNode userFocusNode;
   final FocusNode collaboratorFocusNode;
 
@@ -59,21 +59,21 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
       }
     });
 
-    await collaborativeDocDB.getCollaboratorInfo(NoParams());
-    collaborativeDocDB.getCollaboratorInfo.collaboratorDocinfo
-        .listen((CollaboratorDocInfo value) {
-      print(value.toString());
-      if (value.isPresent == true && collaboratorController.text.isNotEmpty) {
-        collaboratorFocusNode.requestFocus();
-        collaboratorController.selection = TextSelection.collapsed(
-          // TextPosition(
-          offset: value.delta,
-          // ),
-        );
-      } else {
-        collaboratorFocusNode.unfocus();
-      }
-    });
+    // await collaborativeDocDB.getCollaboratorInfo(NoParams());
+    // collaborativeDocDB.getCollaboratorInfo.collaboratorDocinfo
+    //     .listen((CollaboratorDocInfo value) {
+    //   print(value.toString());
+    //   if (value.isPresent == true && collaboratorController.text.isNotEmpty) {
+    //     collaboratorFocusNode.requestFocus();
+    //     collaboratorController.selection = TextSelection.collapsed(
+    //       // TextPosition(
+    //       offset: value.delta,
+    //       // ),
+    //     );
+    //   } else {
+    //     collaboratorFocusNode.unfocus();
+    //   }
+    // });
 
     userController.addListener(() async {
       await collaborativeDocDB.updateDelta(
