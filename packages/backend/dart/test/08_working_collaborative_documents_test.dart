@@ -39,7 +39,7 @@ void main() {
     );
   });
 
-  test("User Should be able to create a document", () async {
+  test("User Should be able to create & edit a document", () async {
     final res = await queries.createCollaborativeDocument(
         currentUserUID: firstUserUID, docType: 'purpose');
     expect(res[0]["collaborator_one_uid"], firstUserUID);
@@ -50,9 +50,6 @@ void main() {
     expect(res[0]["collaborator_two_delta"], -1);
     expect(res[0]["collaborator_one_is_active"], false);
     expect(res[0]["collaborator_two_is_active"], false);
-  });
-
-  test("User should be able to create & update a doc", () async {
     final stream = WorkingCollaborativeDocumentsStreams(supabase: supabase);
     stream
         .docContentStream(supabase: supabase, userUID: firstUserUID)
