@@ -9,13 +9,13 @@ import '../../constants/entities/entities.dart';
 import '../../fixtures/collaborative_doc_mock_gen.mocks.dart';
 
 void main() {
-  late MockMGetCollaboratorPresenceGetterStore mockGetterStore;
-  late GetCollaboratorPresenceStore shareSoloDocStore;
+  late MockMGetCollaboratorDocInfoGetterStore mockGetterStore;
+  late GetCollaboratorDocInfoStore shareSoloDocStore;
   final tParams = NoParams();
 
   setUp(() {
-    mockGetterStore = MockMGetCollaboratorPresenceGetterStore();
-    shareSoloDocStore = GetCollaboratorPresenceStore(
+    mockGetterStore = MockMGetCollaboratorDocInfoGetterStore();
+    shareSoloDocStore = GetCollaboratorDocInfoStore(
       getterStore: mockGetterStore,
     );
   });
@@ -24,14 +24,14 @@ void main() {
     test("✅ Success Case: should update accordingly if state is passed",
         () async {
       when(mockGetterStore()).thenAnswer(
-        (_) async => ConstantCollaborativeDocCollaboratorPresenceEntity
-            .wrappedSuccessCase,
+        (_) async =>
+            ConstantCollaborativeDocCollaboratorInfoEntity.wrappedSuccessCase,
       );
       await shareSoloDocStore(tParams);
-      expect(
-        shareSoloDocStore.collaboratorPresence,
-        emits(true),
-      );
+      shareSoloDocStore.collaboratorDocinfo.listen((value) {
+        expect(value.isPresent, true);
+        expect(value.delta, 2);
+      });
       expect(shareSoloDocStore.errorMessage, "");
     });
     test("❌ Success Case: should update accordingly if failure is passed",
@@ -40,7 +40,10 @@ void main() {
         (_) async => Left(FailureConstants.dbFailure),
       );
       await shareSoloDocStore(tParams);
-      expect(shareSoloDocStore.collaboratorPresence, emits(false));
+      shareSoloDocStore.collaboratorDocinfo.listen((value) {
+        expect(value.isPresent, false);
+        expect(value.delta, -1);
+      });
       expect(
           shareSoloDocStore.errorMessage, FailureConstants.genericFailureMsg);
     });

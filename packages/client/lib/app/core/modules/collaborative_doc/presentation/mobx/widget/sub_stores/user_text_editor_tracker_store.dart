@@ -10,9 +10,4 @@ class UserTextEditorTrackerStore = _UserTextEditorTrackerStoreBase
     with _$UserTextEditorTrackerStore;
 
 abstract class _UserTextEditorTrackerStoreBase extends BaseTextEditorStore
-    with Store {
-  @override
-  List<Object> get props => [
-// some items
-      ];
-}
+    with Store {}

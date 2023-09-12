@@ -60,7 +60,7 @@ class WorkingCollaborativeDocumentsStreams {
     }
   }
 
-  Stream<bool> isCollaboratorOnDocument({
+  Stream<CollaboratorDocInfo> getCollaboratorDocumentInfo({
     required SupabaseClient supabase,
     required String userUID,
   }) async* {
@@ -78,34 +78,13 @@ class WorkingCollaborativeDocumentsStreams {
         break;
       }
       if (event.isEmpty) {
-        yield false;
+        yield CollaboratorDocInfo(isPresent: false, delta: -1);
       } else {
-        yield event[0]["${collaboratorInfo.theCollaboratorsNumber}_is_active"]
-            as bool;
-      }
-    }
-  }
-
-  Stream<int> getCollaboratorDelta({
-    required SupabaseClient supabase,
-    required String userUID,
-  }) async* {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutCollaboratorInfo();
-    }
-    collaboratorDeltaListeningStatus = true;
-    await for (var event in supabase
-        .from('working_collaborative_documents')
-        .stream(primaryKey: ['id']).eq(
-            "${collaboratorInfo.theUsersCollaboratorNumber}_uid", userUID)) {
-      if (!collaboratorDeltaListeningStatus) {
-        break;
-      }
-      if (event.isEmpty) {
-        yield -1;
-      } else {
-        yield event[0]["${collaboratorInfo.theCollaboratorsNumber}_delta"]
-            as int;
+        yield CollaboratorDocInfo(
+            isPresent: event[0]
+                ["${collaboratorInfo.theCollaboratorsNumber}_is_active"],
+            delta: event[0]
+                ["${collaboratorInfo.theCollaboratorsNumber}_delta"]);
       }
     }
   }

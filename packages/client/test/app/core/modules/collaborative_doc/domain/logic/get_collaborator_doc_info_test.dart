@@ -3,7 +3,6 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:primala/app/core/constants/failure_constants.dart';
-import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
 import '../../constants/entities/entities.dart';
@@ -11,41 +10,40 @@ import '../../fixtures/collaborative_doc_mock_gen.mocks.dart';
 
 void main() {
   late MockMCollaborativeDocContract mockContract;
-  late GetCollaboratorDelta logic;
+  late GetCollaboratorDocInfo logic;
   final tParams = NoParams();
 
   setUp(() {
     mockContract = MockMCollaborativeDocContract();
-    logic = GetCollaboratorDelta(contract: mockContract);
+    logic = GetCollaboratorDocInfo(contract: mockContract);
   });
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
-    when(mockContract.getCollaboratorDelta()).thenAnswer(
-      (_) async => ConstantCollaborativeDocDeltaEntity.wrappedSuccessCase,
+    when(mockContract.getCollaboratorDocInfo()).thenAnswer(
+      (_) async =>
+          ConstantCollaborativeDocCollaboratorInfoEntity.wrappedSuccessCase,
     );
 
     final result = await logic(tParams);
     result.fold((failure) {}, (entity) {
-      expect(entity.delta, emits(1));
+      entity.collaboratorDocInfo.listen((event) {
+        expect(event.delta, 2);
+        expect(event.isPresent, true);
+      });
     });
-    expect(
-        result,
-        const TypeMatcher<
-            Right<Failure, CollaborativeDocCollaboratorDeltaEntity>>());
-    // expect(result, emits(true));
-    verify(mockContract.getCollaboratorDelta());
+    verify(mockContract.getCollaboratorDocInfo());
     verifyNoMoreInteractions(mockContract);
   });
 
   test("✅ should pass A Failure from Contract ==> Logic", () async {
-    when(mockContract.getCollaboratorDelta()).thenAnswer(
+    when(mockContract.getCollaboratorDocInfo()).thenAnswer(
       (_) async => Left(FailureConstants.dbFailure),
     );
 
     final result = await logic(tParams);
 
     expect(result, Left(FailureConstants.dbFailure));
-    verify(mockContract.getCollaboratorDelta());
+    verify(mockContract.getCollaboratorDocInfo());
     verifyNoMoreInteractions(mockContract);
   });
 }

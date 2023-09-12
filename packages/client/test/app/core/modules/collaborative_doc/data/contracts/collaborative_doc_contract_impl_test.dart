@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:primala/app/core/constants/failure_constants.dart';
 import 'package:primala/app/core/modules/collaborative_doc/data/data.dart';
+import 'package:primala_backend/tables/real_time_enabled/real_time_enabled.dart';
 // * primala core imports
 // * mock import
 import '../../constants/models/models.dart';
@@ -77,32 +78,24 @@ void main() {
     });
   });
 
-  group("Method No. 2: getCollaboratorDelta", () {
+  group("Method No. 2: getCollaboratorDocInfo", () {
     group("is Online", () {
       setUp(() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       });
       test("when online and non-empty should return a model", () async {
         // arrange
-        when(mockRemoteSource.getCollaboratorDelta())
-            .thenAnswer((realInvocation) => Stream.value(1));
+        when(mockRemoteSource.getCollaboratorDocInfo()).thenAnswer(
+            (realInvocation) =>
+                Stream.value(CollaboratorDocInfo(delta: 1, isPresent: true)));
         // act
-        final res = await collaborativeDocContract.getCollaboratorDelta();
+        final res = await collaborativeDocContract.getCollaboratorDocInfo();
         // assert
-        res.fold((failure) {}, (deltaEntity) {
-          expect(deltaEntity.delta, emits(1));
-        });
-        // expect(res, ConstantCollaborativeDocDeltaModel.wrappedSuccessCase);
-      });
-      test("when online and empty should return a model", () async {
-        // arrange
-        when(mockRemoteSource.getCollaboratorDelta())
-            .thenAnswer((realInvocation) => Stream.value(-1));
-        // act
-        final res = await collaborativeDocContract.getCollaboratorDelta();
-        // assert
-        res.fold((failure) {}, (deltaEntity) {
-          expect(deltaEntity.delta, emits(-1));
+        res.fold((failure) {}, (docInfoEntity) {
+          docInfoEntity.collaboratorDocInfo.listen((event) {
+            expect(event.delta, 1);
+            expect(event.isPresent, true);
+          });
         });
       });
     });
@@ -112,51 +105,12 @@ void main() {
       });
 
       test("When offline should return an internet connection error", () async {
-        final res = await collaborativeDocContract.getCollaboratorDelta();
+        final res = await collaborativeDocContract.getCollaboratorDocInfo();
         expect(res, Left(FailureConstants.internetConnectionFailure));
       });
     });
   });
-  group("Method No. 3: getCollaboratorPresence", () {
-    group("is Online", () {
-      setUp(() {
-        when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-      });
-      test("when online and non-empty should return a model", () async {
-        // arrange
-        when(mockRemoteSource.getCollaboratorPresence())
-            .thenAnswer((realInvocation) => Stream.value(true));
-        // act
-        final res = await collaborativeDocContract.getCollaboratorPresence();
-        // assert
-        res.fold((failure) {}, (presenceEntity) {
-          expect(presenceEntity.isPresent, emits(true));
-        });
-      });
-      test("when online and empty should return a model", () async {
-        // arrange
-        when(mockRemoteSource.getCollaboratorPresence())
-            .thenAnswer((realInvocation) => Stream.value(false));
-        // act
-        final res = await collaborativeDocContract.getCollaboratorPresence();
-        // assert
-        res.fold((failure) {}, (presenceEntity) {
-          expect(presenceEntity.isPresent, emits(false));
-        });
-      });
-    });
-    group("is not Online", () {
-      setUp(() {
-        when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
-      });
-
-      test("When offline should return an internet connection error", () async {
-        final res = await collaborativeDocContract.getCollaboratorPresence();
-        expect(res, Left(FailureConstants.internetConnectionFailure));
-      });
-    });
-  });
-  group("Method No. 4: createCollaborativeDoc", () {
+  group("Method No. 3: createCollaborativeDoc", () {
     group("is Online", () {
       setUp(() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
@@ -196,7 +150,7 @@ void main() {
       });
     });
   });
-  group("Method No. 5: updateCollaborativeDoc", () {
+  group("Method No. 4: updateCollaborativeDoc", () {
     group("is Online", () {
       setUp(() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
@@ -225,7 +179,7 @@ void main() {
       });
     });
   });
-  group("Method No. 6: updateUserDelta", () {
+  group("Method No. 5: updateUserDelta", () {
     group("is Online", () {
       setUp(() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
@@ -252,7 +206,7 @@ void main() {
       });
     });
   });
-  group("Method No. 7: updateUserPresence", () {
+  group("Method No. 6: updateUserPresence", () {
     group("is Online", () {
       setUp(() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);

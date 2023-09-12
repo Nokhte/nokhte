@@ -11,21 +11,21 @@ import '../../constants/entities/entities.dart';
 import '../../fixtures/collaborative_doc_mock_gen.mocks.dart';
 
 void main() {
-  late MockMGetCollaboratorDelta mockLogic;
-  late GetCollaboratorDeltaGetterStore getterStore;
-  late Either<Failure, CollaborativeDocCollaboratorDeltaEntity>
+  late MockMGetCollaboratorDocInfo mockLogic;
+  late GetCollaboratorDocInfoGetterStore getterStore;
+  late Either<Failure, CollaborativeDocCollaboratorInfoEntity>
       tEitherStatusOrFailure;
   final tParams = NoParams();
 
   setUp(() {
-    mockLogic = MockMGetCollaboratorDelta();
-    getterStore = GetCollaboratorDeltaGetterStore(logic: mockLogic);
+    mockLogic = MockMGetCollaboratorDocInfo();
+    getterStore = GetCollaboratorDocInfoGetterStore(logic: mockLogic);
   });
 
   group("✅ Success Cases", () {
     setUp(() {
       tEitherStatusOrFailure =
-          ConstantCollaborativeDocDeltaEntity.wrappedSuccessCase;
+          ConstantCollaborativeDocCollaboratorInfoEntity.wrappedSuccessCase;
     });
 
     test("should pass the right entity w/ the right state", () async {

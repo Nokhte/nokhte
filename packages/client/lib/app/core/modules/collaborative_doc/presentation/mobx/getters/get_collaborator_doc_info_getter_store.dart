@@ -8,20 +8,18 @@ import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
 // * Mobx Codegen Inclusion
-part 'get_collaborator_presence_getter_store.g.dart';
+part 'get_collaborator_doc_info_getter_store.g.dart';
 
-class GetCollaboratorPresenceGetterStore = _GetCollaboratorPresenceGetterStoreBase
-    with _$GetCollaboratorPresenceGetterStore;
+class GetCollaboratorDocInfoGetterStore = _GetCollaboratorDocInfoGetterStoreBase
+    with _$GetCollaboratorDocInfoGetterStore;
 
-abstract class _GetCollaboratorPresenceGetterStoreBase extends Equatable
+abstract class _GetCollaboratorDocInfoGetterStoreBase extends Equatable
     with Store {
-  final GetCollaboratorPresence logic;
+  final GetCollaboratorDocInfo logic;
+  _GetCollaboratorDocInfoGetterStoreBase({required this.logic});
 
-  _GetCollaboratorPresenceGetterStoreBase({required this.logic});
-
-  Future<Either<Failure, CollaborativeDocCollaboratorPresenceEntity>>
+  Future<Either<Failure, CollaborativeDocCollaboratorInfoEntity>>
       call() async => await logic(NoParams());
-
   @override
   List<Object> get props => [
 // some items

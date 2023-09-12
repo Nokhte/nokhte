@@ -12,12 +12,6 @@ import 'package:primala_backend/working_collaborative_documents.dart';
 // * Mobx Codegen Inclusion
 part 'p2p_purpose_phase5_coordinator_store.g.dart';
 
-enum WhoDidIt {
-  initial,
-  user,
-  collaborator,
-}
-
 class P2PPurposePhase5CoordinatorStore = _P2PPurposePhase5CoordinatorStoreBase
     with _$P2PPurposePhase5CoordinatorStore;
 
@@ -28,14 +22,13 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
   final CollaborativeDocCoordinatorStore collaborativeDocDB;
   final TextEditingController userController;
   final TextEditingController collaboratorController;
+  final FocusNode userFocusNode;
+  final FocusNode collaboratorFocusNode;
 
   @observable
   String previousWord = "";
 
   bool isInitialLoad = true;
-
-  @observable
-  WhoDidIt whoIsEditingIt = WhoDidIt.initial;
 
   @action
   screenConstructor() async {
@@ -66,12 +59,44 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
       }
     });
 
+    await collaborativeDocDB.getCollaboratorInfo(NoParams());
+    collaborativeDocDB.getCollaboratorInfo.collaboratorDocinfo
+        .listen((CollaboratorDocInfo value) {
+      print(value.toString());
+      if (value.isPresent == true && collaboratorController.text.isNotEmpty) {
+        collaboratorFocusNode.requestFocus();
+        collaboratorController.selection = TextSelection.collapsed(
+          // TextPosition(
+          offset: value.delta,
+          // ),
+        );
+      } else {
+        collaboratorFocusNode.unfocus();
+      }
+    });
+
     userController.addListener(() async {
+      await collaborativeDocDB.updateDelta(
+          UpdateUserDeltaParams(newDelta: userController.selection.start));
       if (previousWord != userController.text && !isInitialLoad) {
         previousWord = userController.text;
         await collaborativeDocDB.updateDoc(
             UpdateCollaborativeDocParams(newContent: userController.text));
         collaboratorController.text = userController.text;
+      }
+    });
+
+    userFocusNode.addListener(() async {
+      if (userFocusNode.hasFocus) {
+        await collaborativeDocDB
+            .updatePresence(const UpdateUserPresenceParams(newPresence: true));
+        // print("A USER JUST WENT INTO THE TEXT DOC");
+      } else {
+        await collaborativeDocDB
+            .updatePresence(const UpdateUserPresenceParams(newPresence: false));
+        await collaborativeDocDB
+            .updateDelta(const UpdateUserDeltaParams(newDelta: -1));
+        // print("A USER JUST LEFT THE TEXT DOC");
       }
     });
   }
@@ -81,8 +106,10 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
     required this.collaborativeTextUI,
     required this.collaborativeDocDB,
   })  : userController = collaborativeTextUI.userStore.controller,
+        userFocusNode = collaborativeTextUI.userStore.focusNode,
         collaboratorController =
-            collaborativeTextUI.collaboratorStore.controller;
+            collaborativeTextUI.collaboratorStore.controller,
+        collaboratorFocusNode = collaborativeTextUI.collaboratorStore.focusNode;
 
   @override
   List<Object> get props => [

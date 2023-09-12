@@ -89,4 +89,11 @@ class DefaultEntities {
           lastEditedBy: "",
         ),
       );
+  static Stream<CollaboratorDocInfo> get defaultCollaboratorDocInfo =>
+      Stream.value(
+        CollaboratorDocInfo(
+          isPresent: false,
+          delta: -1,
+        ),
+      );
 }

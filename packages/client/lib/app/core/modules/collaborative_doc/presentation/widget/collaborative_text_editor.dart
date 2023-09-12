@@ -30,9 +30,13 @@ class _CollaborativeTextEditorState extends State<CollaborativeTextEditor> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        // Padding(
+        //   padding: const EdgeInsets.all(30.0),
+        //   child:
         BaseTextEditor(
           trackerStore: trackerStore.collaboratorStore,
         ),
+        // ),
         BaseTextEditor(
           trackerStore: trackerStore.userStore,
         ),

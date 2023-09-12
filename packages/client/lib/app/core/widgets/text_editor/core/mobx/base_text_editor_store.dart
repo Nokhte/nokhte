@@ -13,10 +13,6 @@ abstract class _BaseTextEditorStoreBase extends Equatable with Store {
   @observable
   TextEditingController controller = TextEditingController();
 
-  // _BaseTextEditorStoreBase() {
-  //   controller.text = "hih hihihi";
-  // }
-
   @observable
   FocusNode focusNode = FocusNode();
 

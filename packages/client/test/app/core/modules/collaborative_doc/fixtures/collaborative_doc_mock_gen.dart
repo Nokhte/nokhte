@@ -16,14 +16,11 @@ class MCollaborativeDocContract extends Mock
 class MGetCollaborativeDocContent extends Mock
     implements GetCollaborativeDocContent {}
 
-class MGetCollaboratorDelta extends Mock implements GetCollaboratorDelta {}
+class MGetCollaboratorDocInfo extends Mock implements GetCollaboratorDocInfo {}
 
 class MCreateCollaborativeDoc extends Mock implements CreateCollaborativeDoc {}
 
 class MUpdateCollaborativeDoc extends Mock implements UpdateCollaborativeDoc {}
-
-class MGetCollaboratorPresence extends Mock
-    implements GetCollaboratorPresence {}
 
 class MUpdateUserDelta extends Mock implements UpdateUserDelta {}
 
@@ -44,20 +41,16 @@ class MUpdateCollaborativeDocGetterStore extends Mock
 class MCreateCollaborativeDocGetterStore extends Mock
     implements CreateCollaborativeDocGetterStore {}
 
-class MGetCollaboratorDeltaGetterStore extends Mock
-    implements GetCollaboratorDeltaGetterStore {}
-
-class MGetCollaboratorPresenceGetterStore extends Mock
-    implements GetCollaboratorPresenceGetterStore {}
+class MGetCollaboratorDocInfoGetterStore extends Mock
+    implements GetCollaboratorDocInfoGetterStore {}
 
 @GenerateMocks([
   MCollaborativeDocRemoteSource,
   MCollaborativeDocContract,
   MGetCollaborativeDocContent,
-  MGetCollaboratorDelta,
+  MGetCollaboratorDocInfo,
   MUpdateCollaborativeDoc,
   MCreateCollaborativeDoc,
-  MGetCollaboratorPresence,
   MUpdateUserDelta,
   MUpdateUserPresence,
   MUpdateUserDeltaGetterStore,
@@ -65,7 +58,6 @@ class MGetCollaboratorPresenceGetterStore extends Mock
   MGetCollaborativeDocContentGetterStore,
   MUpdateCollaborativeDocGetterStore,
   MCreateCollaborativeDocGetterStore,
-  MGetCollaboratorDeltaGetterStore,
-  MGetCollaboratorPresenceGetterStore,
+  MGetCollaboratorDocInfoGetterStore,
 ])
 void main() {}

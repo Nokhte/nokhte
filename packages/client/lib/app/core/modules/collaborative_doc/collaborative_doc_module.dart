@@ -43,14 +43,8 @@ class CollaborativeDocModule extends Module {
           ),
           export: true,
         ),
-        Bind.singleton<GetCollaboratorDelta>(
-          (i) => GetCollaboratorDelta(
-            contract: i<CollaborativeDocContract>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<GetCollaboratorPresence>(
-          (i) => GetCollaboratorPresence(
+        Bind.singleton<GetCollaboratorDocInfo>(
+          (i) => GetCollaboratorDocInfo(
             contract: i<CollaborativeDocContract>(),
           ),
           export: true,
@@ -87,15 +81,9 @@ class CollaborativeDocModule extends Module {
           ),
           export: true,
         ),
-        Bind.singleton<GetCollaboratorDeltaGetterStore>(
-          (i) => GetCollaboratorDeltaGetterStore(
-            logic: i<GetCollaboratorDelta>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<GetCollaboratorPresenceGetterStore>(
-          (i) => GetCollaboratorPresenceGetterStore(
-            logic: i<GetCollaboratorPresence>(),
+        Bind.singleton<GetCollaboratorDocInfoGetterStore>(
+          (i) => GetCollaboratorDocInfoGetterStore(
+            logic: i<GetCollaboratorDocInfo>(),
           ),
           export: true,
         ),
@@ -130,15 +118,9 @@ class CollaborativeDocModule extends Module {
           ),
           export: true,
         ),
-        Bind.singleton<GetCollaboratorDeltaStore>(
-          (i) => GetCollaboratorDeltaStore(
-            getterStore: i<GetCollaboratorDeltaGetterStore>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<GetCollaboratorPresenceStore>(
-          (i) => GetCollaboratorPresenceStore(
-            getterStore: i<GetCollaboratorPresenceGetterStore>(),
+        Bind.singleton<GetCollaboratorDocInfoStore>(
+          (i) => GetCollaboratorDocInfoStore(
+            getterStore: i<GetCollaboratorDocInfoGetterStore>(),
           ),
           export: true,
         ),
@@ -166,8 +148,7 @@ class CollaborativeDocModule extends Module {
             updateDoc: i<UpdateCollaborativeDocStore>(),
             createDoc: i<CreateCollaborativeDocStore>(),
             getContent: i<GetCollaborativeDocContentStore>(),
-            getDelta: i<GetCollaboratorDeltaStore>(),
-            getPresence: i<GetCollaboratorPresenceStore>(),
+            getCollaboratorInfo: i<GetCollaboratorDocInfoStore>(),
             updateDelta: i<UpdateUserDeltaStore>(),
             updatePresence: i<UpdateUserPresenceStore>(),
           ),

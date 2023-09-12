@@ -5,10 +5,8 @@ import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
 abstract class CollaborativeDocContract {
   Future<Either<Failure, CollaborativeDocContentEntity>>
       getCollaborativeDocContent();
-  Future<Either<Failure, CollaborativeDocCollaboratorDeltaEntity>>
-      getCollaboratorDelta();
-  Future<Either<Failure, CollaborativeDocCollaboratorPresenceEntity>>
-      getCollaboratorPresence();
+  Future<Either<Failure, CollaborativeDocCollaboratorInfoEntity>>
+      getCollaboratorDocInfo();
   Future<Either<Failure, CollaborativeDocCreationStatusEntity>>
       createCollaborativeDoc({required String docType});
   Future<Either<Failure, CollaborativeDocUpdateStatusEntity>>

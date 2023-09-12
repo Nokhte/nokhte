@@ -27,23 +27,6 @@ mixin _$P2PPurposePhase5CoordinatorStore
     });
   }
 
-  late final _$whoIsEditingItAtom = Atom(
-      name: '_P2PPurposePhase5CoordinatorStoreBase.whoIsEditingIt',
-      context: context);
-
-  @override
-  WhoDidIt get whoIsEditingIt {
-    _$whoIsEditingItAtom.reportRead();
-    return super.whoIsEditingIt;
-  }
-
-  @override
-  set whoIsEditingIt(WhoDidIt value) {
-    _$whoIsEditingItAtom.reportWrite(value, super.whoIsEditingIt, () {
-      super.whoIsEditingIt = value;
-    });
-  }
-
   late final _$screenConstructorAsyncAction = AsyncAction(
       '_P2PPurposePhase5CoordinatorStoreBase.screenConstructor',
       context: context);
@@ -56,8 +39,7 @@ mixin _$P2PPurposePhase5CoordinatorStore
   @override
   String toString() {
     return '''
-previousWord: ${previousWord},
-whoIsEditingIt: ${whoIsEditingIt}
+previousWord: ${previousWord}
     ''';
   }
 }

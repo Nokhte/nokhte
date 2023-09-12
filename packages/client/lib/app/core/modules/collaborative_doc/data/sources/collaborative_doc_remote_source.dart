@@ -3,8 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class CollaborativeDocRemoteSource {
   Stream<DocInfoContent> getCollaborativeDocContent();
-  Stream<int> getCollaboratorDelta();
-  Stream<bool> getCollaboratorPresence();
+  Stream<CollaboratorDocInfo> getCollaboratorDocInfo();
   Future<List> createCollaborativeDoc({required String docType});
   Future<void> updateUserPresence({required bool updatedUserPresence});
   Future<void> updateUserDelta({required int updatedDelta});
@@ -30,14 +29,8 @@ class CollaborativeDocRemoteSourceImpl implements CollaborativeDocRemoteSource {
   }
 
   @override
-  Stream<int> getCollaboratorDelta() {
-    return streams.getCollaboratorDelta(
-        supabase: supabase, userUID: currentUserUID);
-  }
-
-  @override
-  Stream<bool> getCollaboratorPresence() {
-    return streams.isCollaboratorOnDocument(
+  Stream<CollaboratorDocInfo> getCollaboratorDocInfo() {
+    return streams.getCollaboratorDocumentInfo(
         supabase: supabase, userUID: currentUserUID);
   }
 

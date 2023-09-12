@@ -26,22 +26,12 @@ class CollaborativeDocContractImpl implements CollaborativeDocContract {
   }
 
   @override
-  Future<Either<Failure, CollaborativeDocCollaboratorDeltaModel>>
-      getCollaboratorDelta() async {
+  Future<Either<Failure, CollaborativeDocCollaboratorInfoModel>>
+      getCollaboratorDocInfo() async {
     if (await networkInfo.isConnected) {
-      final res = remoteSource.getCollaboratorDelta();
-      return Right(CollaborativeDocCollaboratorDeltaModel(delta: res));
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
-
-  @override
-  Future<Either<Failure, CollaborativeDocCollaboratorPresenceModel>>
-      getCollaboratorPresence() async {
-    if (await networkInfo.isConnected) {
-      final res = remoteSource.getCollaboratorPresence();
-      return Right(CollaborativeDocCollaboratorPresenceModel(isPresent: res));
+      final res = remoteSource.getCollaboratorDocInfo();
+      return Right(
+          CollaborativeDocCollaboratorInfoModel(collaboratorDocInfo: res));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
