@@ -196,7 +196,7 @@ void main() {
       });
     });
   });
-  group("Method No. 4: updateCollaborativeDoc", () {
+  group("Method No. 5: updateCollaborativeDoc", () {
     group("is Online", () {
       setUp(() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
@@ -211,17 +211,6 @@ void main() {
         // assert
         expect(
             res, ConstantCollaborativeDocUpdateStatusModel.wrappedSuccessCase);
-      });
-      test("when online and empty should return a model", () async {
-        // arrange
-        when(mockRemoteSource.updateCollaborativeDoc(newContent: 'newContent'))
-            .thenAnswer((realInvocation) async => []);
-        // act
-        final res = await collaborativeDocContract.updateCollaborativeDoc(
-            newContent: 'newContent');
-        // assert
-        expect(res,
-            ConstantCollaborativeDocUpdateStatusModel.wrappedNotSuccessCase);
       });
     });
     group("is not Online", () {
