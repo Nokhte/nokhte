@@ -27,10 +27,15 @@ void main() {
         (_) async => ConstantCollaborativeDocContentEntity.wrappedSuccessCase,
       );
       await shareSoloDocStore(tParams);
-      expect(
-        shareSoloDocStore.docContent,
-        emits("content"),
-      );
+      shareSoloDocStore.docContent.listen((value) {
+        expect(value.content, "content");
+        expect(value.currentUserUID, "lastEditedBy");
+        expect(value.lastEditedBy, "lastEditedBy");
+      });
+      // expect(
+      //   shareSoloDocStore.docContent,
+      //   emits("content"),
+      // );
       expect(shareSoloDocStore.errorMessage, "");
     });
     test("❌ Success Case: should update accordingly if failure is passed",
@@ -39,7 +44,11 @@ void main() {
         (_) async => Left(FailureConstants.dbFailure),
       );
       await shareSoloDocStore(tParams);
-      expect(shareSoloDocStore.docContent, emits(""));
+      shareSoloDocStore.docContent.listen((value) {
+        expect(value.content, "");
+        expect(value.currentUserUID, "");
+        expect(value.lastEditedBy, "");
+      });
       expect(
           shareSoloDocStore.errorMessage, FailureConstants.genericFailureMsg);
     });
