@@ -53,7 +53,6 @@ void main() {
     "STEP 2: Document is Then Shared, should have proper permissioning",
     () async {
       await SignIn.user1(supabase: supabase);
-      print('${supabase.auth.currentUser?.id == firstUserUID}');
       await SoloSharableDocuments.updateDocContent(
         supabase: supabase,
         ownerUID: firstUserUID,
@@ -69,7 +68,6 @@ void main() {
         supabase: supabase,
         collaboratorUID: secondUserUID,
       );
-      print(thirdRes);
       expect(thirdRes[0]["content"], "hi there collaborator 2");
     },
   );

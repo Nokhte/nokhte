@@ -51,7 +51,6 @@ class VoiceCallContractImpl implements VoiceCallContract {
   @override
   Future<Either<Failure, CallStatusModel>> joinCall(
       String token, String channelId) async {
-    print("is this being called?");
     if (await networkInfo.isConnected) {
       await remoteSource.joinCall(token: token, channelId: channelId);
       return const Right(CallStatusModel(callStatus: CallStatus.joining));

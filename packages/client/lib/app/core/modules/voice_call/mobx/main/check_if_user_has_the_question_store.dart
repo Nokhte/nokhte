@@ -44,7 +44,6 @@ abstract class _CheckIfUserHasTheQuestionStoreBase
         state = StoreState.initial;
       },
       (questionEntity) {
-        print("whats happening here? ${questionEntity.hasIt}");
         hasTheQuestion = questionEntity.hasIt;
       },
     );

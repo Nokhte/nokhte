@@ -50,8 +50,6 @@ class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
   Future<Response> fetchAgoraToken({
     required String channelName,
   }) async {
-    // print(
-    //     "\n \n \n \n username ${MiscAlgos.postgresUIDToInt(currentUserUID)} ${channelName} From RS");
     return await TokenServer.fetchAgoraToken(
       currentUserUID: currentAgoraUID,
       channelName: channelName,

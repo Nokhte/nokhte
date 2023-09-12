@@ -80,7 +80,6 @@ void main() {
     test(
         "✅ Success Leave Call Case: should update accordingly if state is passed",
         () {
-      print(voiceCallActionsStore.callStatus);
       voiceCallActionsStore.callStateOrErrorUpdater(
         ConstantCallStatusEntity.wrappedLeavingCase,
       );

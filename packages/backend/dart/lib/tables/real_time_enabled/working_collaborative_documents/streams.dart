@@ -37,8 +37,9 @@ class WorkingCollaborativeDocumentsStreams {
     await for (var event in supabase
         .from('working_collaborative_documents')
         .stream(primaryKey: ['id']).eq(
-            "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
-            collaboratorInfo.theUsersUID)) {
+      "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
+      collaboratorInfo.theUsersUID,
+    )) {
       // .eq("${collaboratorInfo.theCollaboratorsNumber}_uid", userUID)) {
       if (!docContentListeningStatus) {
         break;

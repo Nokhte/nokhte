@@ -18,6 +18,8 @@ void main() {
     final userIdResults = await UserSetupConstants.fetchUIDs();
     firstUserUID = userIdResults[0];
     secondUserUID = userIdResults[1];
+    await SignIn.user1(supabase: supabase);
+    queries = WorkingCollaborativeDocumentsQueries(supabase: supabase);
     await ExistingCollaborationsQueries.createNewCollaboration(
       supabase: supabaseAdmin,
       collaboratorOneUID: firstUserUID,
@@ -25,7 +27,7 @@ void main() {
     );
   });
 
-  tearDown(() async {
+  tearDownAll(() async {
     await supabaseAdmin.from('working_collaborative_documents').delete().eq(
           'collaborator_one_uid',
           firstUserUID,
@@ -38,8 +40,6 @@ void main() {
   });
 
   test("User Should be able to create a document", () async {
-    await SignIn.user1(supabase: supabase);
-    queries = WorkingCollaborativeDocumentsQueries(supabase: supabase);
     final res = await queries.createCollaborativeDocument(
         currentUserUID: firstUserUID, docType: 'purpose');
     expect(res[0]["collaborator_one_uid"], firstUserUID);
@@ -53,14 +53,6 @@ void main() {
   });
 
   test("User should be able to create & update a doc", () async {
-    await SignIn.user1(supabase: supabase);
-    await queries.createCollaborativeDocument(
-      currentUserUID: firstUserUID,
-      docType: 'purpose',
-    );
-    await queries.updateExistingDocument(
-      newContent: "newContent",
-    );
     final stream = WorkingCollaborativeDocumentsStreams(supabase: supabase);
     stream
         .docContentStream(supabase: supabase, userUID: firstUserUID)
@@ -69,5 +61,8 @@ void main() {
       expect(value.lastEditedBy, firstUserUID);
       expect(value.currentUserUID, firstUserUID);
     });
+    await queries.updateExistingDocument(
+      newContent: "newContent",
+    );
   });
 }

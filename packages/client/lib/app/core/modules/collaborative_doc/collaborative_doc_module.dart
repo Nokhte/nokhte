@@ -10,7 +10,6 @@ class CollaborativeDocModule extends Module {
   @override
   List<Bind> get binds => [
         // & Remotes Source
-        // # Collaborative Doc
         Bind.singleton<CollaborativeDocRemoteSourceImpl>(
           (i) => CollaborativeDocRemoteSourceImpl(
             supabase: Modular.get<SupabaseClient>(),
@@ -24,8 +23,6 @@ class CollaborativeDocModule extends Module {
           export: true,
         ),
         // & Contract Implementation
-
-        // # Collaborative Doc
         Bind.singleton<CollaborativeDocContractImpl>(
           (i) => CollaborativeDocContractImpl(
             networkInfo: i<NetworkInfo>(),
@@ -34,7 +31,6 @@ class CollaborativeDocModule extends Module {
           export: true,
         ),
         // & Logic
-        // # Collaborative Doc
         Bind.singleton<CreateCollaborativeDoc>(
           (i) => CreateCollaborativeDoc(
             contract: i<CollaborativeDocContract>(),
@@ -65,9 +61,20 @@ class CollaborativeDocModule extends Module {
           ),
           export: true,
         ),
+        Bind.singleton<UpdateUserDelta>(
+          (i) => UpdateUserDelta(
+            contract: i<CollaborativeDocContract>(),
+          ),
+          export: true,
+        ),
+        Bind.singleton<UpdateUserPresence>(
+          (i) => UpdateUserPresence(
+            contract: i<CollaborativeDocContract>(),
+          ),
+          export: true,
+        ),
 
         // & MobX Getter Stores
-        // # Collaborative Doc
         Bind.singleton<CreateCollaborativeDocGetterStore>(
           (i) => CreateCollaborativeDocGetterStore(
             logic: i<CreateCollaborativeDoc>(),
@@ -98,8 +105,19 @@ class CollaborativeDocModule extends Module {
           ),
           export: true,
         ),
+        Bind.singleton<UpdateUserDeltaGetterStore>(
+          (i) => UpdateUserDeltaGetterStore(
+            logic: i<UpdateUserDelta>(),
+          ),
+          export: true,
+        ),
+        Bind.singleton<UpdateUserPresenceGetterStore>(
+          (i) => UpdateUserPresenceGetterStore(
+            logic: i<UpdateUserPresence>(),
+          ),
+          export: true,
+        ),
         // & Mobx Logic Stores
-        // # Collaborative Doc
         Bind.singleton<CreateCollaborativeDocStore>(
           (i) => CreateCollaborativeDocStore(
             getterStore: i<CreateCollaborativeDocGetterStore>(),
@@ -130,6 +148,18 @@ class CollaborativeDocModule extends Module {
           ),
           export: true,
         ),
+        Bind.singleton<UpdateUserDeltaStore>(
+          (i) => UpdateUserDeltaStore(
+            getterStore: i<UpdateUserDeltaGetterStore>(),
+          ),
+          export: true,
+        ),
+        Bind.singleton<UpdateUserPresenceStore>(
+          (i) => UpdateUserPresenceStore(
+            getterStore: i<UpdateUserPresenceGetterStore>(),
+          ),
+          export: true,
+        ),
         // & Mobx Coordinator Stores
         Bind.singleton<CollaborativeDocCoordinatorStore>(
           (i) => CollaborativeDocCoordinatorStore(
@@ -138,6 +168,8 @@ class CollaborativeDocModule extends Module {
             getContent: i<GetCollaborativeDocContentStore>(),
             getDelta: i<GetCollaboratorDeltaStore>(),
             getPresence: i<GetCollaboratorPresenceStore>(),
+            updateDelta: i<UpdateUserDeltaStore>(),
+            updatePresence: i<UpdateUserPresenceStore>(),
           ),
           export: true,
         )

@@ -5,11 +5,15 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class WorkingCollaborativeDocumentsQueries {
   final SupabaseClient supabase;
   String currentUserUID = '';
-  late CollaboratorInfo collaboratorInfo;
+  CollaboratorInfo collaboratorInfo = CollaboratorInfo(
+    theCollaboratorsNumber: '',
+    theCollaboratorsUID: '',
+    theUsersCollaboratorNumber: '',
+    theUsersUID: '',
+  );
 
   WorkingCollaborativeDocumentsQueries({required this.supabase}) {
     currentUserUID = supabase.auth.currentUser?.id ?? '';
-    figureOutCollaboratorInfo();
   }
 
   Future<void> figureOutCollaboratorInfo() async {
@@ -85,8 +89,18 @@ class WorkingCollaborativeDocumentsQueries {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutCollaboratorInfo();
     }
-    final checkRes = await ExistingCollaborationsQueries.fetchCollaborationInfo(
-        supabase: supabase, currentUserUID: collaboratorInfo.theUsersUID);
+    final checkRes = await supabase
+        .from('working_collaborative_documents')
+        .select()
+        .eq(
+          "${collaboratorInfo.theCollaboratorsNumber}_uid",
+          collaboratorInfo.theCollaboratorsUID,
+        )
+        .eq(
+          "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
+          collaboratorInfo.theUsersUID,
+        );
+
     if (checkRes.isEmpty) {
       return await supabase.from('working_collaborative_documents').insert({
         "${collaboratorInfo.theCollaboratorsNumber}_uid":
