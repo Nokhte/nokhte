@@ -26,7 +26,11 @@ void main() {
 
     final result = await logic(tParams);
     result.fold((failure) {}, (entity) {
-      expect(entity.docContent, emits("content"));
+      entity.docContent.listen((value) {
+        expect(value.content, "content");
+        expect(value.lastEditedBy, "lastEditedBy");
+        expect(value.currentUserUID, "lastEditedBy");
+      });
     });
 
     expect(result,
