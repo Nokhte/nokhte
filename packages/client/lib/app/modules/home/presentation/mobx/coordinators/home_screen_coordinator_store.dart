@@ -39,21 +39,21 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
     });
   }
 
-  // homeScreenSwipeUpCallback() {
-  //   Modular.to.navigate('/p2p_purpose_session/');
-  // }
-
   homeScreenSwipeUpCallback() {
-    if (!fadingTextStateTrackerStore.isPaused) {
-      fadingTextStateTrackerStore.togglePause();
-    }
-    fadingTextStateTrackerStore.currentMainText = "";
-    fadingTextStateTrackerStore.currentSubText = "";
-    beachWaveStateTrackerStore.teeUpOceanDive();
-    beachWaveStateTrackerStore.teeOceanDiveMovieUp(
-      startingWaterMovement: beachWaveStateTrackerStore.passingParam,
-    );
+    Modular.to.navigate('/p2p_purpose_session/');
   }
+
+  // homeScreenSwipeUpCallback() {
+  //   if (!fadingTextStateTrackerStore.isPaused) {
+  //     fadingTextStateTrackerStore.togglePause();
+  //   }
+  //   fadingTextStateTrackerStore.currentMainText = "";
+  //   fadingTextStateTrackerStore.currentSubText = "";
+  //   beachWaveStateTrackerStore.teeUpOceanDive();
+  //   beachWaveStateTrackerStore.teeOceanDiveMovieUp(
+  //     startingWaterMovement: beachWaveStateTrackerStore.passingParam,
+  //   );
+  // }
 
   @override
   List<Object> get props => [

@@ -1,7 +1,8 @@
 import 'package:equatable/equatable.dart';
+import 'package:primala_backend/working_collaborative_documents.dart';
 
 class CollaborativeDocContentEntity extends Equatable {
-  final Stream<String> docContent;
+  final Stream<DocInfoContent> docContent;
 
   const CollaborativeDocContentEntity({required this.docContent});
 

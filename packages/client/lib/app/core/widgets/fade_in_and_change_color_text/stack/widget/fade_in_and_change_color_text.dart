@@ -24,7 +24,7 @@ class FadeInAndChangeColorText extends StatelessWidget {
             return Opacity(
               opacity: value.get('text opacity'),
               child: PlatformText(
-                stateStore.messageData.message,
+                stateStore.currentMessage,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: value.get('text color'),

@@ -15,13 +15,13 @@ mixin _$GetCollaborativeDocContentStore
       context: context);
 
   @override
-  ObservableStream<String> get docContent {
+  ObservableStream<DocInfoContent> get docContent {
     _$docContentAtom.reportRead();
     return super.docContent;
   }
 
   @override
-  set docContent(ObservableStream<String> value) {
+  set docContent(ObservableStream<DocInfoContent> value) {
     _$docContentAtom.reportWrite(value, super.docContent, () {
       super.docContent = value;
     });

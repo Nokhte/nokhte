@@ -1,5 +1,6 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:primala_backend/existing_collaborations.dart';
+import 'types/doc_info_content.dart';
 
 class WorkingCollaborativeDocumentsStreams {
   bool docContentListeningStatus = false;
@@ -29,20 +30,10 @@ class WorkingCollaborativeDocumentsStreams {
     theUsersCollaboratorNumber = collaboratorsUIDRes[0] == 1 ? 2 : 1;
   }
 
-  Stream<String> docContentStream({
+  Stream<DocInfoContent> docContentStream({
     required SupabaseClient supabase,
     required String userUID,
   }) async* {
-    // supabase.channel('public:working_collaborative_documents').on(
-    //   RealtimeListenTypes.postgresChanges,
-    //   ChannelFilter(
-    //       event: '*',
-    //       schema: 'public',
-    //       table: 'working_collaborative_documents'),
-    //   (payload, [ref]) {
-    //     print('Change received: ${payload.toString()}');
-    //   },
-    // ).subscribe();
     if (theCollaboratorToListenFor.isEmpty) {
       await figureOutCollaboratorInfo();
     }
@@ -60,10 +51,17 @@ class WorkingCollaborativeDocumentsStreams {
         break;
       }
       if (event.isEmpty) {
-        yield "";
+        yield DocInfoContent(
+          content: "",
+          lastEditedBy: "",
+          currentUserUID: "",
+        );
       } else {
-        print(event[0]["content"]);
-        yield event[0]["content"] as String;
+        yield DocInfoContent(
+          content: event[0]["content"],
+          lastEditedBy: event[0]["last_edited_by"] ?? '',
+          currentUserUID: userUID,
+        );
       }
     }
   }

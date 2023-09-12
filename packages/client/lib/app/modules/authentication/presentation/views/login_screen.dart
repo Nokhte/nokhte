@@ -14,11 +14,13 @@ import 'package:swipe/swipe.dart';
 
 class LoginScreen extends StatelessWidget {
   final LoginScreenCoordinatorStore loginCoordinatorStore;
+
   LoginScreen({
     super.key,
     required this.loginCoordinatorStore,
   }) {
-    loginCoordinatorStore.flipTextVisibility();
+    loginCoordinatorStore.screenConstructor();
+    // loginCoordinatorStore.flipTextVisibility();
   }
 
   @override
@@ -48,17 +50,8 @@ class LoginScreen extends StatelessWidget {
                     return Container(
                       alignment: Alignment.bottomCenter,
                       padding: const EdgeInsets.all(30.0),
-                      child: AnimatedOpacity(
-                        opacity: loginCoordinatorStore.showText ? 1 : 0,
-                        duration: const Duration(seconds: 1),
-                        child: PlatformText(
-                          "Swipe to Log In with ${authProvider.name[0].toUpperCase() + authProvider.name.substring(1)}",
-                          style: const TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
+                      child: FadeInAndChangeColorText(
+                        stateStore: loginCoordinatorStore.textStore,
                       ),
                     );
                   })

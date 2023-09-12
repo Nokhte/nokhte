@@ -10,6 +10,7 @@ class WorkingCollaborativeDocumentsQueries {
   }) async {
     await supabase.from('working_collaborative_documents').update({
       "content": newContent,
+      "last_edited_by": currentUserUID,
     }).or(
         'collaborator_two_uid.eq.$currentUserUID,collaborator_one_uid.eq.$currentUserUID');
   }

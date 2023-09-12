@@ -10,6 +10,23 @@ part of 'fade_in_and_change_color_text_store.dart';
 
 mixin _$FadeInAndChangeColorTextStore
     on _FadeInAndChangeColorTextStoreBase, Store {
+  late final _$currentMessageAtom = Atom(
+      name: '_FadeInAndChangeColorTextStoreBase.currentMessage',
+      context: context);
+
+  @override
+  String get currentMessage {
+    _$currentMessageAtom.reportRead();
+    return super.currentMessage;
+  }
+
+  @override
+  set currentMessage(String value) {
+    _$currentMessageAtom.reportWrite(value, super.currentMessage, () {
+      super.currentMessage = value;
+    });
+  }
+
   late final _$movieAtom =
       Atom(name: '_FadeInAndChangeColorTextStoreBase.movie', context: context);
 
@@ -80,6 +97,19 @@ mixin _$FadeInAndChangeColorTextStore
           name: '_FadeInAndChangeColorTextStoreBase', context: context);
 
   @override
+  dynamic setCurrentMessage(String newMessage) {
+    final _$actionInfo =
+        _$_FadeInAndChangeColorTextStoreBaseActionController.startAction(
+            name: '_FadeInAndChangeColorTextStoreBase.setCurrentMessage');
+    try {
+      return super.setCurrentMessage(newMessage);
+    } finally {
+      _$_FadeInAndChangeColorTextStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic initiateFadeOut() {
     final _$actionInfo =
         _$_FadeInAndChangeColorTextStoreBaseActionController.startAction(
@@ -107,6 +137,7 @@ mixin _$FadeInAndChangeColorTextStore
   @override
   String toString() {
     return '''
+currentMessage: ${currentMessage},
 movie: ${movie},
 movieMode: ${movieMode},
 control: ${control},

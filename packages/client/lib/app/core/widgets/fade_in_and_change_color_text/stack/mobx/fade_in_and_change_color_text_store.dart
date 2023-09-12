@@ -18,7 +18,16 @@ abstract class _FadeInAndChangeColorTextStoreBase extends Equatable with Store {
   _FadeInAndChangeColorTextStoreBase({
     required this.messageData,
     required MovieTween chosenMovie,
-  }) : movie = chosenMovie;
+  })  : movie = chosenMovie,
+        currentMessage = messageData.message;
+
+  @observable
+  String currentMessage = "";
+
+  @action
+  setCurrentMessage(String newMessage) {
+    currentMessage = newMessage;
+  }
 
   @observable
   MovieTween movie = TimesUpText.movie;

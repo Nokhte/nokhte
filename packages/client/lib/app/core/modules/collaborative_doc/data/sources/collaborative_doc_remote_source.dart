@@ -2,7 +2,7 @@ import 'package:primala_backend/working_collaborative_documents.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class CollaborativeDocRemoteSource {
-  Stream<String> getCollaborativeDocContent();
+  Stream<DocInfoContent> getCollaborativeDocContent();
   Stream<int> getCollaboratorDelta();
   Stream<bool> getCollaboratorPresence();
   Future<List> createCollaborativeDoc({required String docType});
@@ -20,7 +20,7 @@ class CollaborativeDocRemoteSourceImpl implements CollaborativeDocRemoteSource {
   }) : currentUserUID = supabase.auth.currentUser?.id ?? '';
 
   @override
-  Stream<String> getCollaborativeDocContent() {
+  Stream<DocInfoContent> getCollaborativeDocContent() {
     // return Stream.value("hi");
     return streams.docContentStream(
         supabase: supabase, userUID: currentUserUID);

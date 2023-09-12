@@ -10,10 +10,11 @@ import 'dart:async' as _i6;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mobx/mobx.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:primala/app/core/error/failure.dart' as _i7;
-import 'package:primala/app/core/interfaces/logic.dart' as _i8;
+import 'package:primala/app/core/error/failure.dart' as _i8;
+import 'package:primala/app/core/interfaces/logic.dart' as _i9;
 import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart'
     as _i3;
+import 'package:primala_backend/working_collaborative_documents.dart' as _i7;
 
 import 'collaborative_doc_mock_gen.dart' as _i5;
 
@@ -125,13 +126,14 @@ class MockMCollaborativeDocRemoteSource extends _i1.Mock
   }
 
   @override
-  _i6.Stream<String> getCollaborativeDocContent() => (super.noSuchMethod(
+  _i6.Stream<_i7.DocInfoContent> getCollaborativeDocContent() =>
+      (super.noSuchMethod(
         Invocation.method(
           #getCollaborativeDocContent,
           [],
         ),
-        returnValue: _i6.Stream<String>.empty(),
-      ) as _i6.Stream<String>);
+        returnValue: _i6.Stream<_i7.DocInfoContent>.empty(),
+      ) as _i6.Stream<_i7.DocInfoContent>);
   @override
   _i6.Stream<int> getCollaboratorDelta() => (super.noSuchMethod(
         Invocation.method(
@@ -182,16 +184,16 @@ class MockMCollaborativeDocContract extends _i1.Mock
   }
 
   @override
-  _i6.Future<_i2.Either<_i7.Failure, _i3.CollaborativeDocContentEntity>>
+  _i6.Future<_i2.Either<_i8.Failure, _i3.CollaborativeDocContentEntity>>
       getCollaborativeDocContent() => (super.noSuchMethod(
             Invocation.method(
               #getCollaborativeDocContent,
               [],
             ),
             returnValue: _i6.Future<
-                    _i2.Either<_i7.Failure,
+                    _i2.Either<_i8.Failure,
                         _i3.CollaborativeDocContentEntity>>.value(
-                _FakeEither_0<_i7.Failure, _i3.CollaborativeDocContentEntity>(
+                _FakeEither_0<_i8.Failure, _i3.CollaborativeDocContentEntity>(
               this,
               Invocation.method(
                 #getCollaborativeDocContent,
@@ -199,19 +201,19 @@ class MockMCollaborativeDocContract extends _i1.Mock
               ),
             )),
           ) as _i6.Future<
-              _i2.Either<_i7.Failure, _i3.CollaborativeDocContentEntity>>);
+              _i2.Either<_i8.Failure, _i3.CollaborativeDocContentEntity>>);
   @override
   _i6.Future<
-          _i2.Either<_i7.Failure, _i3.CollaborativeDocCollaboratorDeltaEntity>>
+          _i2.Either<_i8.Failure, _i3.CollaborativeDocCollaboratorDeltaEntity>>
       getCollaboratorDelta() => (super.noSuchMethod(
             Invocation.method(
               #getCollaboratorDelta,
               [],
             ),
             returnValue: _i6.Future<
-                    _i2.Either<_i7.Failure,
+                    _i2.Either<_i8.Failure,
                         _i3.CollaborativeDocCollaboratorDeltaEntity>>.value(
-                _FakeEither_0<_i7.Failure,
+                _FakeEither_0<_i8.Failure,
                     _i3.CollaborativeDocCollaboratorDeltaEntity>(
               this,
               Invocation.method(
@@ -220,11 +222,11 @@ class MockMCollaborativeDocContract extends _i1.Mock
               ),
             )),
           ) as _i6.Future<
-              _i2.Either<_i7.Failure,
+              _i2.Either<_i8.Failure,
                   _i3.CollaborativeDocCollaboratorDeltaEntity>>);
   @override
   _i6.Future<
-          _i2.Either<_i7.Failure,
+          _i2.Either<_i8.Failure,
               _i3.CollaborativeDocCollaboratorPresenceEntity>>
       getCollaboratorPresence() => (super.noSuchMethod(
             Invocation.method(
@@ -232,9 +234,9 @@ class MockMCollaborativeDocContract extends _i1.Mock
               [],
             ),
             returnValue: _i6.Future<
-                    _i2.Either<_i7.Failure,
+                    _i2.Either<_i8.Failure,
                         _i3.CollaborativeDocCollaboratorPresenceEntity>>.value(
-                _FakeEither_0<_i7.Failure,
+                _FakeEither_0<_i8.Failure,
                     _i3.CollaborativeDocCollaboratorPresenceEntity>(
               this,
               Invocation.method(
@@ -243,10 +245,10 @@ class MockMCollaborativeDocContract extends _i1.Mock
               ),
             )),
           ) as _i6.Future<
-              _i2.Either<_i7.Failure,
+              _i2.Either<_i8.Failure,
                   _i3.CollaborativeDocCollaboratorPresenceEntity>>);
   @override
-  _i6.Future<_i2.Either<_i7.Failure, _i3.CollaborativeDocCreationStatusEntity>>
+  _i6.Future<_i2.Either<_i8.Failure, _i3.CollaborativeDocCreationStatusEntity>>
       createCollaborativeDoc({required String? docType}) => (super.noSuchMethod(
             Invocation.method(
               #createCollaborativeDoc,
@@ -254,9 +256,9 @@ class MockMCollaborativeDocContract extends _i1.Mock
               {#docType: docType},
             ),
             returnValue: _i6.Future<
-                    _i2.Either<_i7.Failure,
+                    _i2.Either<_i8.Failure,
                         _i3.CollaborativeDocCreationStatusEntity>>.value(
-                _FakeEither_0<_i7.Failure,
+                _FakeEither_0<_i8.Failure,
                     _i3.CollaborativeDocCreationStatusEntity>(
               this,
               Invocation.method(
@@ -266,10 +268,10 @@ class MockMCollaborativeDocContract extends _i1.Mock
               ),
             )),
           ) as _i6.Future<
-              _i2.Either<_i7.Failure,
+              _i2.Either<_i8.Failure,
                   _i3.CollaborativeDocCreationStatusEntity>>);
   @override
-  _i6.Future<_i2.Either<_i7.Failure, _i3.CollaborativeDocUpdateStatusEntity>>
+  _i6.Future<_i2.Either<_i8.Failure, _i3.CollaborativeDocUpdateStatusEntity>>
       updateCollaborativeDoc({required String? newContent}) =>
           (super.noSuchMethod(
             Invocation.method(
@@ -278,9 +280,9 @@ class MockMCollaborativeDocContract extends _i1.Mock
               {#newContent: newContent},
             ),
             returnValue: _i6.Future<
-                    _i2.Either<_i7.Failure,
+                    _i2.Either<_i8.Failure,
                         _i3.CollaborativeDocUpdateStatusEntity>>.value(
-                _FakeEither_0<_i7.Failure,
+                _FakeEither_0<_i8.Failure,
                     _i3.CollaborativeDocUpdateStatusEntity>(
               this,
               Invocation.method(
@@ -290,7 +292,7 @@ class MockMCollaborativeDocContract extends _i1.Mock
               ),
             )),
           ) as _i6.Future<
-              _i2.Either<_i7.Failure, _i3.CollaborativeDocUpdateStatusEntity>>);
+              _i2.Either<_i8.Failure, _i3.CollaborativeDocUpdateStatusEntity>>);
 }
 
 /// A class which mocks [MGetCollaborativeDocContent].
@@ -311,17 +313,17 @@ class MockMGetCollaborativeDocContent extends _i1.Mock
         ),
       ) as _i3.CollaborativeDocContract);
   @override
-  _i6.Future<_i2.Either<_i7.Failure, _i3.CollaborativeDocContentEntity>> call(
-          _i8.NoParams? params) =>
+  _i6.Future<_i2.Either<_i8.Failure, _i3.CollaborativeDocContentEntity>> call(
+          _i9.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
         returnValue: _i6.Future<
-                _i2.Either<_i7.Failure,
+                _i2.Either<_i8.Failure,
                     _i3.CollaborativeDocContentEntity>>.value(
-            _FakeEither_0<_i7.Failure, _i3.CollaborativeDocContentEntity>(
+            _FakeEither_0<_i8.Failure, _i3.CollaborativeDocContentEntity>(
           this,
           Invocation.method(
             #call,
@@ -329,7 +331,7 @@ class MockMGetCollaborativeDocContent extends _i1.Mock
           ),
         )),
       ) as _i6
-          .Future<_i2.Either<_i7.Failure, _i3.CollaborativeDocContentEntity>>);
+          .Future<_i2.Either<_i8.Failure, _i3.CollaborativeDocContentEntity>>);
 }
 
 /// A class which mocks [MGetCollaboratorDelta].
@@ -351,16 +353,16 @@ class MockMGetCollaboratorDelta extends _i1.Mock
       ) as _i3.CollaborativeDocContract);
   @override
   _i6.Future<
-          _i2.Either<_i7.Failure, _i3.CollaborativeDocCollaboratorDeltaEntity>>
-      call(_i8.NoParams? params) => (super.noSuchMethod(
+          _i2.Either<_i8.Failure, _i3.CollaborativeDocCollaboratorDeltaEntity>>
+      call(_i9.NoParams? params) => (super.noSuchMethod(
             Invocation.method(
               #call,
               [params],
             ),
             returnValue: _i6.Future<
-                    _i2.Either<_i7.Failure,
+                    _i2.Either<_i8.Failure,
                         _i3.CollaborativeDocCollaboratorDeltaEntity>>.value(
-                _FakeEither_0<_i7.Failure,
+                _FakeEither_0<_i8.Failure,
                     _i3.CollaborativeDocCollaboratorDeltaEntity>(
               this,
               Invocation.method(
@@ -369,7 +371,7 @@ class MockMGetCollaboratorDelta extends _i1.Mock
               ),
             )),
           ) as _i6.Future<
-              _i2.Either<_i7.Failure,
+              _i2.Either<_i8.Failure,
                   _i3.CollaborativeDocCollaboratorDeltaEntity>>);
 }
 
@@ -392,7 +394,7 @@ class MockMUpdateCollaborativeDoc extends _i1.Mock
       ) as _i3.CollaborativeDocContract);
   @override
   _i6.Future<
-      _i2.Either<_i7.Failure, _i3.CollaborativeDocUpdateStatusEntity>> call(
+      _i2.Either<_i8.Failure, _i3.CollaborativeDocUpdateStatusEntity>> call(
           _i3.UpdateCollaborativeDocParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -400,9 +402,9 @@ class MockMUpdateCollaborativeDoc extends _i1.Mock
           [params],
         ),
         returnValue: _i6.Future<
-                _i2.Either<_i7.Failure,
+                _i2.Either<_i8.Failure,
                     _i3.CollaborativeDocUpdateStatusEntity>>.value(
-            _FakeEither_0<_i7.Failure, _i3.CollaborativeDocUpdateStatusEntity>(
+            _FakeEither_0<_i8.Failure, _i3.CollaborativeDocUpdateStatusEntity>(
           this,
           Invocation.method(
             #call,
@@ -410,7 +412,7 @@ class MockMUpdateCollaborativeDoc extends _i1.Mock
           ),
         )),
       ) as _i6.Future<
-          _i2.Either<_i7.Failure, _i3.CollaborativeDocUpdateStatusEntity>>);
+          _i2.Either<_i8.Failure, _i3.CollaborativeDocUpdateStatusEntity>>);
 }
 
 /// A class which mocks [MCreateCollaborativeDoc].
@@ -432,7 +434,7 @@ class MockMCreateCollaborativeDoc extends _i1.Mock
       ) as _i3.CollaborativeDocContract);
   @override
   _i6.Future<
-      _i2.Either<_i7.Failure, _i3.CollaborativeDocCreationStatusEntity>> call(
+      _i2.Either<_i8.Failure, _i3.CollaborativeDocCreationStatusEntity>> call(
           _i3.CreateCollaborativeDocParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -440,9 +442,9 @@ class MockMCreateCollaborativeDoc extends _i1.Mock
           [params],
         ),
         returnValue: _i6.Future<
-            _i2.Either<_i7.Failure,
+            _i2.Either<_i8.Failure,
                 _i3.CollaborativeDocCreationStatusEntity>>.value(_FakeEither_0<
-            _i7.Failure, _i3.CollaborativeDocCreationStatusEntity>(
+            _i8.Failure, _i3.CollaborativeDocCreationStatusEntity>(
           this,
           Invocation.method(
             #call,
@@ -450,7 +452,7 @@ class MockMCreateCollaborativeDoc extends _i1.Mock
           ),
         )),
       ) as _i6.Future<
-          _i2.Either<_i7.Failure, _i3.CollaborativeDocCreationStatusEntity>>);
+          _i2.Either<_i8.Failure, _i3.CollaborativeDocCreationStatusEntity>>);
 }
 
 /// A class which mocks [MGetCollaboratorPresence].
@@ -472,17 +474,17 @@ class MockMGetCollaboratorPresence extends _i1.Mock
       ) as _i3.CollaborativeDocContract);
   @override
   _i6.Future<
-          _i2.Either<_i7.Failure,
+          _i2.Either<_i8.Failure,
               _i3.CollaborativeDocCollaboratorPresenceEntity>>
-      call(_i8.NoParams? params) => (super.noSuchMethod(
+      call(_i9.NoParams? params) => (super.noSuchMethod(
             Invocation.method(
               #call,
               [params],
             ),
             returnValue: _i6.Future<
-                    _i2.Either<_i7.Failure,
+                    _i2.Either<_i8.Failure,
                         _i3.CollaborativeDocCollaboratorPresenceEntity>>.value(
-                _FakeEither_0<_i7.Failure,
+                _FakeEither_0<_i8.Failure,
                     _i3.CollaborativeDocCollaboratorPresenceEntity>(
               this,
               Invocation.method(
@@ -491,7 +493,7 @@ class MockMGetCollaboratorPresence extends _i1.Mock
               ),
             )),
           ) as _i6.Future<
-              _i2.Either<_i7.Failure,
+              _i2.Either<_i8.Failure,
                   _i3.CollaborativeDocCollaboratorPresenceEntity>>);
 }
 
@@ -526,16 +528,16 @@ class MockMGetCollaborativeDocContentGetterStore extends _i1.Mock
         ),
       ) as _i4.ReactiveContext);
   @override
-  _i6.Future<_i2.Either<_i7.Failure, _i3.CollaborativeDocContentEntity>>
+  _i6.Future<_i2.Either<_i8.Failure, _i3.CollaborativeDocContentEntity>>
       call() => (super.noSuchMethod(
             Invocation.method(
               #call,
               [],
             ),
             returnValue: _i6.Future<
-                    _i2.Either<_i7.Failure,
+                    _i2.Either<_i8.Failure,
                         _i3.CollaborativeDocContentEntity>>.value(
-                _FakeEither_0<_i7.Failure, _i3.CollaborativeDocContentEntity>(
+                _FakeEither_0<_i8.Failure, _i3.CollaborativeDocContentEntity>(
               this,
               Invocation.method(
                 #call,
@@ -543,7 +545,7 @@ class MockMGetCollaborativeDocContentGetterStore extends _i1.Mock
               ),
             )),
           ) as _i6.Future<
-              _i2.Either<_i7.Failure, _i3.CollaborativeDocContentEntity>>);
+              _i2.Either<_i8.Failure, _i3.CollaborativeDocContentEntity>>);
 }
 
 /// A class which mocks [MUpdateCollaborativeDocGetterStore].
@@ -578,7 +580,7 @@ class MockMUpdateCollaborativeDocGetterStore extends _i1.Mock
       ) as _i4.ReactiveContext);
   @override
   _i6.Future<
-      _i2.Either<_i7.Failure, _i3.CollaborativeDocUpdateStatusEntity>> call(
+      _i2.Either<_i8.Failure, _i3.CollaborativeDocUpdateStatusEntity>> call(
           _i3.UpdateCollaborativeDocParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -586,9 +588,9 @@ class MockMUpdateCollaborativeDocGetterStore extends _i1.Mock
           [params],
         ),
         returnValue: _i6.Future<
-                _i2.Either<_i7.Failure,
+                _i2.Either<_i8.Failure,
                     _i3.CollaborativeDocUpdateStatusEntity>>.value(
-            _FakeEither_0<_i7.Failure, _i3.CollaborativeDocUpdateStatusEntity>(
+            _FakeEither_0<_i8.Failure, _i3.CollaborativeDocUpdateStatusEntity>(
           this,
           Invocation.method(
             #call,
@@ -596,7 +598,7 @@ class MockMUpdateCollaborativeDocGetterStore extends _i1.Mock
           ),
         )),
       ) as _i6.Future<
-          _i2.Either<_i7.Failure, _i3.CollaborativeDocUpdateStatusEntity>>);
+          _i2.Either<_i8.Failure, _i3.CollaborativeDocUpdateStatusEntity>>);
 }
 
 /// A class which mocks [MCreateCollaborativeDocGetterStore].
@@ -631,7 +633,7 @@ class MockMCreateCollaborativeDocGetterStore extends _i1.Mock
       ) as _i4.ReactiveContext);
   @override
   _i6.Future<
-      _i2.Either<_i7.Failure, _i3.CollaborativeDocCreationStatusEntity>> call(
+      _i2.Either<_i8.Failure, _i3.CollaborativeDocCreationStatusEntity>> call(
           _i3.CreateCollaborativeDocParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -639,9 +641,9 @@ class MockMCreateCollaborativeDocGetterStore extends _i1.Mock
           [params],
         ),
         returnValue: _i6.Future<
-            _i2.Either<_i7.Failure,
+            _i2.Either<_i8.Failure,
                 _i3.CollaborativeDocCreationStatusEntity>>.value(_FakeEither_0<
-            _i7.Failure, _i3.CollaborativeDocCreationStatusEntity>(
+            _i8.Failure, _i3.CollaborativeDocCreationStatusEntity>(
           this,
           Invocation.method(
             #call,
@@ -649,7 +651,7 @@ class MockMCreateCollaborativeDocGetterStore extends _i1.Mock
           ),
         )),
       ) as _i6.Future<
-          _i2.Either<_i7.Failure, _i3.CollaborativeDocCreationStatusEntity>>);
+          _i2.Either<_i8.Failure, _i3.CollaborativeDocCreationStatusEntity>>);
 }
 
 /// A class which mocks [MGetCollaboratorDeltaGetterStore].
@@ -684,16 +686,16 @@ class MockMGetCollaboratorDeltaGetterStore extends _i1.Mock
       ) as _i4.ReactiveContext);
   @override
   _i6.Future<
-          _i2.Either<_i7.Failure, _i3.CollaborativeDocCollaboratorDeltaEntity>>
+          _i2.Either<_i8.Failure, _i3.CollaborativeDocCollaboratorDeltaEntity>>
       call() => (super.noSuchMethod(
             Invocation.method(
               #call,
               [],
             ),
             returnValue: _i6.Future<
-                    _i2.Either<_i7.Failure,
+                    _i2.Either<_i8.Failure,
                         _i3.CollaborativeDocCollaboratorDeltaEntity>>.value(
-                _FakeEither_0<_i7.Failure,
+                _FakeEither_0<_i8.Failure,
                     _i3.CollaborativeDocCollaboratorDeltaEntity>(
               this,
               Invocation.method(
@@ -702,7 +704,7 @@ class MockMGetCollaboratorDeltaGetterStore extends _i1.Mock
               ),
             )),
           ) as _i6.Future<
-              _i2.Either<_i7.Failure,
+              _i2.Either<_i8.Failure,
                   _i3.CollaborativeDocCollaboratorDeltaEntity>>);
 }
 
@@ -738,7 +740,7 @@ class MockMGetCollaboratorPresenceGetterStore extends _i1.Mock
       ) as _i4.ReactiveContext);
   @override
   _i6.Future<
-      _i2.Either<_i7.Failure,
+      _i2.Either<_i8.Failure,
           _i3.CollaborativeDocCollaboratorPresenceEntity>> call() =>
       (super.noSuchMethod(
         Invocation.method(
@@ -746,9 +748,9 @@ class MockMGetCollaboratorPresenceGetterStore extends _i1.Mock
           [],
         ),
         returnValue: _i6.Future<
-                _i2.Either<_i7.Failure,
+                _i2.Either<_i8.Failure,
                     _i3.CollaborativeDocCollaboratorPresenceEntity>>.value(
-            _FakeEither_0<_i7.Failure,
+            _FakeEither_0<_i8.Failure,
                 _i3.CollaborativeDocCollaboratorPresenceEntity>(
           this,
           Invocation.method(
@@ -757,6 +759,6 @@ class MockMGetCollaboratorPresenceGetterStore extends _i1.Mock
           ),
         )),
       ) as _i6.Future<
-          _i2.Either<_i7.Failure,
+          _i2.Either<_i8.Failure,
               _i3.CollaborativeDocCollaboratorPresenceEntity>>);
 }

@@ -10,6 +10,40 @@ part of 'p2p_purpose_phase5_coordinator_store.dart';
 
 mixin _$P2PPurposePhase5CoordinatorStore
     on _P2PPurposePhase5CoordinatorStoreBase, Store {
+  late final _$previousWordAtom = Atom(
+      name: '_P2PPurposePhase5CoordinatorStoreBase.previousWord',
+      context: context);
+
+  @override
+  String get previousWord {
+    _$previousWordAtom.reportRead();
+    return super.previousWord;
+  }
+
+  @override
+  set previousWord(String value) {
+    _$previousWordAtom.reportWrite(value, super.previousWord, () {
+      super.previousWord = value;
+    });
+  }
+
+  late final _$whoIsEditingItAtom = Atom(
+      name: '_P2PPurposePhase5CoordinatorStoreBase.whoIsEditingIt',
+      context: context);
+
+  @override
+  WhoDidIt get whoIsEditingIt {
+    _$whoIsEditingItAtom.reportRead();
+    return super.whoIsEditingIt;
+  }
+
+  @override
+  set whoIsEditingIt(WhoDidIt value) {
+    _$whoIsEditingItAtom.reportWrite(value, super.whoIsEditingIt, () {
+      super.whoIsEditingIt = value;
+    });
+  }
+
   late final _$screenConstructorAsyncAction = AsyncAction(
       '_P2PPurposePhase5CoordinatorStoreBase.screenConstructor',
       context: context);
@@ -22,7 +56,8 @@ mixin _$P2PPurposePhase5CoordinatorStore
   @override
   String toString() {
     return '''
-
+previousWord: ${previousWord},
+whoIsEditingIt: ${whoIsEditingIt}
     ''';
   }
 }

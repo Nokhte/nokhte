@@ -15,6 +15,19 @@ mixin _$CollaborativeTextEditorTrackerStore
           name: '_CollaborativeTextEditorTrackerStoreBase', context: context);
 
   @override
+  dynamic setText(String message) {
+    final _$actionInfo =
+        _$_CollaborativeTextEditorTrackerStoreBaseActionController.startAction(
+            name: '_CollaborativeTextEditorTrackerStoreBase.setText');
+    try {
+      return super.setText(message);
+    } finally {
+      _$_CollaborativeTextEditorTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic dispose() {
     final _$actionInfo =
         _$_CollaborativeTextEditorTrackerStoreBaseActionController.startAction(

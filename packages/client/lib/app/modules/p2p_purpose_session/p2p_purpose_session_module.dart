@@ -92,9 +92,9 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase5CoordinatorStore>(
           (i) => P2PPurposePhase5CoordinatorStore(
-            collaborativeDoc: Modular.get<CollaborativeDocCoordinatorStore>(),
+            collaborativeDocDB: Modular.get<CollaborativeDocCoordinatorStore>(),
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
-            collaborativeText: i<CollaborativeTextEditorTrackerStore>(),
+            collaborativeTextUI: i<CollaborativeTextEditorTrackerStore>(),
           ),
         ),
       ];

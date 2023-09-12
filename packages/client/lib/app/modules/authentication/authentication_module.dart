@@ -1,3 +1,6 @@
+import 'package:primala/app/core/widgets/fade_in_and_change_color_text/stack/constants/constants.dart';
+import 'package:primala/app/core/widgets/mobx.dart';
+import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
 import 'package:primala/app/modules/authentication/domain/domain.dart';
 import 'package:primala/app/modules/authentication/data/data.dart';
 import 'package:primala/app/modules/authentication/presentation/presentation.dart';
@@ -38,6 +41,16 @@ class AuthenticationModule extends Module {
             google: i<SignInWithGoogle>(),
           ),
         ),
+        // & Widget Stores
+        Bind.singleton<FadeInAndChangeColorTextStore>(
+          (i) => FadeInAndChangeColorTextStore(
+            chosenMovie: FadeInText.movie,
+            messageData: const FadeInMessageData(
+              fontSize: 25.0,
+              message: 'i',
+            ),
+          ),
+        ),
         // & Mobx Mother Stores
         Bind.singleton<AuthProviderStore>(
           (i) => AuthProviderStore(
@@ -54,6 +67,7 @@ class AuthenticationModule extends Module {
           (i) => LoginScreenCoordinatorStore(
             authProviderStore: i<AuthProviderStore>(),
             authStateStore: i<AuthStateStore>(),
+            textStore: i<FadeInAndChangeColorTextStore>(),
           ),
         ),
       ];

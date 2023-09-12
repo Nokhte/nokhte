@@ -20,6 +20,12 @@ abstract class _CollaborativeTextEditorTrackerStoreBase extends Equatable
   });
 
   @action
+  setText(String message) {
+    userStore.controller.text = message;
+    collaboratorStore.controller.text = message;
+  }
+
+  @action
   dispose() {
     userStore.dispose();
     collaboratorStore.dispose();

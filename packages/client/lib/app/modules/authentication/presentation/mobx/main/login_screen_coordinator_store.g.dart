@@ -40,6 +40,19 @@ mixin _$LoginScreenCoordinatorStore on _LoginScreenCoordinatorStoreBase, Store {
           name: '_LoginScreenCoordinatorStoreBase', context: context);
 
   @override
+  dynamic screenConstructor() {
+    final _$actionInfo =
+        _$_LoginScreenCoordinatorStoreBaseActionController.startAction(
+            name: '_LoginScreenCoordinatorStoreBase.screenConstructor');
+    try {
+      return super.screenConstructor();
+    } finally {
+      _$_LoginScreenCoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic flipTextVisibility() {
     final _$actionInfo =
         _$_LoginScreenCoordinatorStoreBaseActionController.startAction(
