@@ -7,6 +7,7 @@ import 'package:primala/app/core/modules/collaborative_doc/data/data.dart';
 // * primala core imports
 // * mock import
 import '../../constants/models/models.dart';
+import '../../constants/responses/responses.dart';
 import '../../fixtures/collaborative_doc_mock_gen.mocks.dart';
 import '../../../../../modules/_module_helpers/shared_mocks_gen.mocks.dart'
     show MockMNetworkInfo;
@@ -14,14 +15,14 @@ import '../../../../../modules/_module_helpers/shared_mocks_gen.mocks.dart'
 import 'package:dartz/dartz.dart';
 
 void main() {
-  late CollaborativeDocContractImpl homeContract;
+  late CollaborativeDocContractImpl collaborativeDocContract;
   late MockMCollaborativeDocRemoteSource mockRemoteSource;
   late MockMNetworkInfo mockNetworkInfo;
 
   setUp(() {
     mockRemoteSource = MockMCollaborativeDocRemoteSource();
     mockNetworkInfo = MockMNetworkInfo();
-    homeContract = CollaborativeDocContractImpl(
+    collaborativeDocContract = CollaborativeDocContractImpl(
       remoteSource: mockRemoteSource,
       networkInfo: mockNetworkInfo,
     );
@@ -34,24 +35,33 @@ void main() {
       });
       test("when online and non-empty should return a model", () async {
         // arrange
-        when(mockRemoteSource.getCollaborativeDocContent())
-            .thenAnswer((realInvocation) => Stream.value("content"));
+        when(mockRemoteSource.getCollaborativeDocContent()).thenAnswer(
+            (realInvocation) => DocContentResonse.successfulResponse);
         // act
-        final res = await homeContract.getCollaborativeDocContent();
+        final res = await collaborativeDocContract.getCollaborativeDocContent();
         // assert
         res.fold((failure) {}, (contentEntity) {
-          expect(contentEntity.docContent, emits("content"));
+          contentEntity.docContent.listen((value) {
+            expect(value.content, "content");
+            expect(value.lastEditedBy, "lastEditedBy");
+            expect(value.currentUserUID, 'lastEditedBy');
+          });
+          // expect(contentEntity.docContent, emits("content"));
         });
       });
       test("when online and empty should return a model", () async {
         // arrange
-        when(mockRemoteSource.getCollaborativeDocContent())
-            .thenAnswer((realInvocation) => Stream.value(""));
+        when(mockRemoteSource.getCollaborativeDocContent()).thenAnswer(
+            (realInvocation) => DocContentResonse.notSuccessfulResponse);
         // act
-        final res = await homeContract.getCollaborativeDocContent();
+        final res = await collaborativeDocContract.getCollaborativeDocContent();
         // assert
         res.fold((failure) {}, (contentEntity) {
-          expect(contentEntity.docContent, emits(""));
+          contentEntity.docContent.listen((value) {
+            expect(value.content, "");
+            expect(value.lastEditedBy, "");
+            expect(value.currentUserUID, '');
+          });
         });
       });
     });
@@ -61,7 +71,7 @@ void main() {
       });
 
       test("When offline should return an internet connection error", () async {
-        final res = await homeContract.getCollaborativeDocContent();
+        final res = await collaborativeDocContract.getCollaborativeDocContent();
         expect(res, Left(FailureConstants.internetConnectionFailure));
       });
     });
@@ -77,7 +87,7 @@ void main() {
         when(mockRemoteSource.getCollaboratorDelta())
             .thenAnswer((realInvocation) => Stream.value(1));
         // act
-        final res = await homeContract.getCollaboratorDelta();
+        final res = await collaborativeDocContract.getCollaboratorDelta();
         // assert
         res.fold((failure) {}, (deltaEntity) {
           expect(deltaEntity.delta, emits(1));
@@ -89,7 +99,7 @@ void main() {
         when(mockRemoteSource.getCollaboratorDelta())
             .thenAnswer((realInvocation) => Stream.value(-1));
         // act
-        final res = await homeContract.getCollaboratorDelta();
+        final res = await collaborativeDocContract.getCollaboratorDelta();
         // assert
         res.fold((failure) {}, (deltaEntity) {
           expect(deltaEntity.delta, emits(-1));
@@ -102,7 +112,7 @@ void main() {
       });
 
       test("When offline should return an internet connection error", () async {
-        final res = await homeContract.getCollaboratorDelta();
+        final res = await collaborativeDocContract.getCollaboratorDelta();
         expect(res, Left(FailureConstants.internetConnectionFailure));
       });
     });
@@ -117,7 +127,7 @@ void main() {
         when(mockRemoteSource.getCollaboratorPresence())
             .thenAnswer((realInvocation) => Stream.value(true));
         // act
-        final res = await homeContract.getCollaboratorPresence();
+        final res = await collaborativeDocContract.getCollaboratorPresence();
         // assert
         res.fold((failure) {}, (presenceEntity) {
           expect(presenceEntity.isPresent, emits(true));
@@ -128,7 +138,7 @@ void main() {
         when(mockRemoteSource.getCollaboratorPresence())
             .thenAnswer((realInvocation) => Stream.value(false));
         // act
-        final res = await homeContract.getCollaboratorPresence();
+        final res = await collaborativeDocContract.getCollaboratorPresence();
         // assert
         res.fold((failure) {}, (presenceEntity) {
           expect(presenceEntity.isPresent, emits(false));
@@ -141,7 +151,7 @@ void main() {
       });
 
       test("When offline should return an internet connection error", () async {
-        final res = await homeContract.getCollaboratorPresence();
+        final res = await collaborativeDocContract.getCollaboratorPresence();
         expect(res, Left(FailureConstants.internetConnectionFailure));
       });
     });
@@ -156,8 +166,8 @@ void main() {
         when(mockRemoteSource.createCollaborativeDoc(docType: 'purpose'))
             .thenAnswer((realInvocation) async => [{}]);
         // act
-        final res =
-            await homeContract.createCollaborativeDoc(docType: 'purpose');
+        final res = await collaborativeDocContract.createCollaborativeDoc(
+            docType: 'purpose');
         // assert
         expect(res,
             ConstantCollaborativeDocCreationStatusModel.wrappedSuccessCase);
@@ -167,8 +177,8 @@ void main() {
         when(mockRemoteSource.createCollaborativeDoc(docType: 'purpose'))
             .thenAnswer((realInvocation) async => []);
         // act
-        final res =
-            await homeContract.createCollaborativeDoc(docType: 'purpose');
+        final res = await collaborativeDocContract.createCollaborativeDoc(
+            docType: 'purpose');
         // assert
         expect(res,
             ConstantCollaborativeDocCreationStatusModel.wrappedNotSuccessCase);
@@ -180,8 +190,8 @@ void main() {
       });
 
       test("When offline should return an internet connection error", () async {
-        final res =
-            await homeContract.createCollaborativeDoc(docType: 'purpose');
+        final res = await collaborativeDocContract.createCollaborativeDoc(
+            docType: 'purpose');
         expect(res, Left(FailureConstants.internetConnectionFailure));
       });
     });
@@ -196,8 +206,8 @@ void main() {
         when(mockRemoteSource.updateCollaborativeDoc(newContent: 'newContent'))
             .thenAnswer((realInvocation) async => [{}]);
         // act
-        final res =
-            await homeContract.updateCollaborativeDoc(newContent: 'newContent');
+        final res = await collaborativeDocContract.updateCollaborativeDoc(
+            newContent: 'newContent');
         // assert
         expect(
             res, ConstantCollaborativeDocUpdateStatusModel.wrappedSuccessCase);
@@ -207,8 +217,8 @@ void main() {
         when(mockRemoteSource.updateCollaborativeDoc(newContent: 'newContent'))
             .thenAnswer((realInvocation) async => []);
         // act
-        final res =
-            await homeContract.updateCollaborativeDoc(newContent: 'newContent');
+        final res = await collaborativeDocContract.updateCollaborativeDoc(
+            newContent: 'newContent');
         // assert
         expect(res,
             ConstantCollaborativeDocUpdateStatusModel.wrappedNotSuccessCase);
@@ -220,8 +230,8 @@ void main() {
       });
 
       test("When offline should return an internet connection error", () async {
-        final res =
-            await homeContract.updateCollaborativeDoc(newContent: 'newContent');
+        final res = await collaborativeDocContract.updateCollaborativeDoc(
+            newContent: 'newContent');
         expect(res, Left(FailureConstants.internetConnectionFailure));
       });
     });
