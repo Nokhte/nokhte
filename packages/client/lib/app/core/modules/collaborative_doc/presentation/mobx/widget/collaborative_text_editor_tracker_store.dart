@@ -8,7 +8,6 @@ part 'collaborative_text_editor_tracker_store.g.dart';
 
 class CollaborativeTextEditorTrackerStore = _CollaborativeTextEditorTrackerStoreBase
     with _$CollaborativeTextEditorTrackerStore;
-// some test
 
 abstract class _CollaborativeTextEditorTrackerStoreBase extends Equatable
     with Store {
