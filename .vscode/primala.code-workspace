@@ -20,14 +20,14 @@
             "name": "👹 supabase",
             "path": "../packages/backend/supabase",
         },
-        // {
-        //     "name": "client ios",
-        //     "path": "../packages/client/ios"
-        // },
-        // {
-        //     "name": "client android",
-        //     "path": "../packages/client/android"
-        // },
+        {
+            "name": "client ios",
+            "path": "../packages/client/ios"
+        },
+        {
+            "name": "client android",
+            "path": "../packages/client/android"
+        },
         // {
         //     "name": "client root",
         //     "path": "../packages/client/"
@@ -68,7 +68,7 @@
                 "**/.example.env": true,
                 "**/README.md": true,
                 "**/changelog.md": true,
-                "**/.env": true,
+                // "**/.env": true,
                 "**/.git": true
                 
             },

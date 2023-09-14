@@ -45,6 +45,17 @@ class P2PCollaboratorPoolRemoteSourceImpl
       onError: (errorNotification) => print("ERROR $errorNotification"),
     );
   }
+  //   @override
+  // Future<bool> initiateSpeechToText() async {
+  //   final accessKey = dotenv.env["LEOPARD_ACCESS_KEY"] ?? '';
+  //   final modelPath = dotenv.env["LEOPARD_MODEL_PATH"] ?? '';
+  //   try {
+  //     await Leopard.create(accessKey, modelPath);
+  //     return true;
+  //   } on LeopardException {
+  //     return false;
+  //   }
+  // }
 
   @override
   Future startListening() async {

@@ -21,10 +21,13 @@ dependencies:
   flutter_mobx: ^2.0.6+5
   flutter_modular: ^5.0.3
   flutter_platform_widgets: ^3.3.5
+  flutter_voice_processor: ^1.1.0
   google_sign_in: ^6.1.4
   http: ^1.1.0
   intl: ^0.18.1
+  leopard_flutter: ^1.2.1
   mobx: ^2.2.0
+  path_provider: ^2.1.1
   permission_handler: ^10.4.3
   primala_backend:
     path: ../backend/dart
@@ -49,6 +52,7 @@ flutter:
   # uses-material-design: true
   assets:
     - .env
+    - assets/leopard_model.pv
 # patrol:
 #   app_name: primala
 #   android:
