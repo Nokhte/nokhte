@@ -19,12 +19,12 @@ void main() {
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
     when(mockContract.stopRecording(tParams)).thenAnswer(
-      (_) async => ConstantRecordingStatusEntity.wrappedSuccessCase,
+      (_) async => ConstantAudioProcessingEntity.wrappedSuccessCase,
     );
 
     final result = await logic(tParams);
 
-    expect(result, ConstantRecordingStatusEntity.wrappedSuccessCase);
+    expect(result, ConstantAudioProcessingEntity.wrappedSuccessCase);
     verify(mockContract.stopRecording(tParams));
     verifyNoMoreInteractions(mockContract);
   });

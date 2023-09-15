@@ -14,16 +14,11 @@ class MLocalSpeechToTextContract extends Mock
 
 class MInitLeopard extends Mock implements InitLeopard {}
 
-class MProcessAudio extends Mock implements ProcessAudio {}
-
 class MStartRecording extends Mock implements StartRecording {}
 
 class MStopRecording extends Mock implements StopRecording {}
 
 class MInitLeopardGetterStore extends Mock implements InitLeopardGetterStore {}
-
-class MProcessAudioGetterStore extends Mock
-    implements ProcessAudioGetterStore {}
 
 class MStartRecordingGetterStore extends Mock
     implements StartRecordingGetterStore {}
@@ -37,11 +32,9 @@ class MStopRecordingGetterStore extends Mock
   MInitLeopard,
   MStopRecording,
   MStartRecording,
-  MProcessAudio,
   MInitLeopardGetterStore,
   MStartRecordingGetterStore,
   MStopRecordingGetterStore,
-  MProcessAudioGetterStore,
 ])
 @GenerateNiceMocks([
   MockSpec<LocalSpeechToTextRemoteSource>(),

@@ -270,15 +270,6 @@ class MockMStartRecording extends _i1.Mock implements _i5.MStartRecording {
       ) as _i6.Future<_i2.Either<_i7.Failure, _i3.RecordingStatusEntity>>);
 }
 
-/// A class which mocks [MProcessAudio].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockMProcessAudio extends _i1.Mock implements _i5.MProcessAudio {
-  MockMProcessAudio() {
-    _i1.throwOnMissingStub(this);
-  }
-}
-
 /// A class which mocks [MInitLeopardGetterStore].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -427,16 +418,6 @@ class MockMStopRecordingGetterStore extends _i1.Mock
           ),
         )),
       ) as _i6.Future<_i2.Either<_i7.Failure, _i3.AudioProcessingEntity>>);
-}
-
-/// A class which mocks [MProcessAudioGetterStore].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockMProcessAudioGetterStore extends _i1.Mock
-    implements _i5.MProcessAudioGetterStore {
-  MockMProcessAudioGetterStore() {
-    _i1.throwOnMissingStub(this);
-  }
 }
 
 /// A class which mocks [LocalSpeechToTextRemoteSource].

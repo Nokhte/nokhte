@@ -20,7 +20,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:leopard_flutter/leopard_transcript.dart';
 import 'package:primala/app/core/modules/local_speech_to_text/data/data.dart';
-import '../../constants/models/models.dart';
+import '../../constants/constants.dart';
 
 void main() {
   test('`fromLeopard` should return entity w/ false if empty array is given',
@@ -30,12 +30,7 @@ void main() {
   });
   test('`fromLeopard` should return entity w/ true if non-empty array is given',
       () {
-    final res = AudioProcessingModel.fromLeopard(
-      [
-        LeopardWord('resulting', 0.0, 0.1, 1.00),
-        LeopardWord('words', 0.2, 0.3, 1.00),
-      ],
-    );
+    final res = AudioProcessingModel.fromLeopard(Leopard.response);
     expect(res, ConstantAudioProcessingModel.successCase);
   });
 }
