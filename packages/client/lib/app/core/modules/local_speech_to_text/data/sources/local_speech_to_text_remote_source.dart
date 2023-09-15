@@ -5,14 +5,15 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:leopard_flutter/leopard.dart';
 import 'package:leopard_flutter/leopard_error.dart';
 import 'package:leopard_flutter/leopard_transcript.dart';
+import 'package:primala/app/core/modules/local_speech_to_text/constants/constants.dart';
 import 'package:primala/app/core/modules/local_speech_to_text/domain/domain.dart';
 import 'package:primala/app/core/utilities/utilities.dart';
 
 abstract class LocalSpeechToTextRemoteSource {
   Future<bool> initLeopard();
   Future<List<LeopardWord>> processAudio(File recordedFile);
-  Future<bool> stopRecording();
-  Future<bool> startRecording();
+  Future<RecordingStatus> stopRecording();
+  Future<RecordingStatus> startRecording();
 }
 
 class LocalSpeechToTextRemoteSourceImpl
@@ -51,24 +52,24 @@ class LocalSpeechToTextRemoteSourceImpl
   }
 
   @override
-  Future<bool> stopRecording() async {
+  Future<RecordingStatus> stopRecording() async {
     try {
       File recordedFile = await micRecorder.stopRecord();
       await processAudio(recordedFile);
-      return true;
+      return RecordingStatus.stopped;
     } catch (e) {
-      return false;
+      return RecordingStatus.error;
     }
   }
 
   @override
-  Future<bool> startRecording() async {
+  Future<RecordingStatus> startRecording() async {
     try {
       await micRecorder.startRecord();
-      return true;
+      return RecordingStatus.started;
     } on LeopardException catch (ex) {
       onAudioRecorded(Left(ex));
-      return false;
+      return RecordingStatus.error;
     }
   }
 }

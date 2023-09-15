@@ -1,1 +1,1 @@
-enum RecordingStatus { initial, started, stopped }
+enum RecordingStatus { initial, started, stopped, error, processing }
