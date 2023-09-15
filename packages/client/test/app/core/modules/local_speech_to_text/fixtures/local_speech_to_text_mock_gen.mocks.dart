@@ -5,23 +5,23 @@
 // @dart=2.19
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i8;
-import 'dart:io' as _i10;
+import 'dart:async' as _i6;
+import 'dart:io' as _i11;
 
-import 'package:dartz/dartz.dart' as _i5;
-import 'package:leopard_flutter/leopard.dart' as _i3;
-import 'package:leopard_flutter/leopard_transcript.dart' as _i9;
-import 'package:mobx/mobx.dart' as _i6;
+import 'package:dartz/dartz.dart' as _i2;
+import 'package:leopard_flutter/leopard_transcript.dart' as _i10;
+import 'package:mobx/mobx.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:primala/app/core/error/failure.dart' as _i12;
-import 'package:primala/app/core/interfaces/logic.dart' as _i13;
+import 'package:primala/app/core/error/failure.dart' as _i7;
+import 'package:primala/app/core/interfaces/logic.dart' as _i8;
 import 'package:primala/app/core/modules/local_speech_to_text/constants/constants.dart'
-    as _i11;
+    as _i12;
+import 'package:primala/app/core/modules/local_speech_to_text/data/data.dart'
+    as _i9;
 import 'package:primala/app/core/modules/local_speech_to_text/domain/domain.dart'
-    as _i2;
-import 'package:primala/app/core/utilities/utilities.dart' as _i4;
+    as _i3;
 
-import 'local_speech_to_text_mock_gen.dart' as _i7;
+import 'local_speech_to_text_mock_gen.dart' as _i5;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -34,9 +34,8 @@ import 'local_speech_to_text_mock_gen.dart' as _i7;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeOnAudioRecorded_0 extends _i1.SmartFake
-    implements _i2.OnAudioRecorded {
-  _FakeOnAudioRecorded_0(
+class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
+  _FakeEither_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -45,8 +44,9 @@ class _FakeOnAudioRecorded_0 extends _i1.SmartFake
         );
 }
 
-class _FakeLeopard_1 extends _i1.SmartFake implements _i3.Leopard {
-  _FakeLeopard_1(
+class _FakeLocalSpeechToTextContract_1 extends _i1.SmartFake
+    implements _i3.LocalSpeechToTextContract {
+  _FakeLocalSpeechToTextContract_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -55,8 +55,8 @@ class _FakeLeopard_1 extends _i1.SmartFake implements _i3.Leopard {
         );
 }
 
-class _FakeMicRecorder_2 extends _i1.SmartFake implements _i4.MicRecorder {
-  _FakeMicRecorder_2(
+class _FakeInitLeopard_2 extends _i1.SmartFake implements _i3.InitLeopard {
+  _FakeInitLeopard_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -65,8 +65,9 @@ class _FakeMicRecorder_2 extends _i1.SmartFake implements _i4.MicRecorder {
         );
 }
 
-class _FakeEither_3<L, R> extends _i1.SmartFake implements _i5.Either<L, R> {
-  _FakeEither_3(
+class _FakeReactiveContext_3 extends _i1.SmartFake
+    implements _i4.ReactiveContext {
+  _FakeReactiveContext_3(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -75,9 +76,9 @@ class _FakeEither_3<L, R> extends _i1.SmartFake implements _i5.Either<L, R> {
         );
 }
 
-class _FakeLocalSpeechToTextContract_4 extends _i1.SmartFake
-    implements _i2.LocalSpeechToTextContract {
-  _FakeLocalSpeechToTextContract_4(
+class _FakeStartRecording_4 extends _i1.SmartFake
+    implements _i3.StartRecording {
+  _FakeStartRecording_4(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -86,8 +87,8 @@ class _FakeLocalSpeechToTextContract_4 extends _i1.SmartFake
         );
 }
 
-class _FakeInitLeopard_5 extends _i1.SmartFake implements _i2.InitLeopard {
-  _FakeInitLeopard_5(
+class _FakeStopRecording_5 extends _i1.SmartFake implements _i3.StopRecording {
+  _FakeStopRecording_5(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -96,557 +97,489 @@ class _FakeInitLeopard_5 extends _i1.SmartFake implements _i2.InitLeopard {
         );
 }
 
-class _FakeReactiveContext_6 extends _i1.SmartFake
-    implements _i6.ReactiveContext {
-  _FakeReactiveContext_6(
+class _FakeProcessAudio_6 extends _i1.SmartFake implements _i3.ProcessAudio {
+  _FakeProcessAudio_6(
     Object parent,
     Invocation parentInvocation,
   ) : super(
           parent,
           parentInvocation,
         );
-}
-
-class _FakeStartRecording_7 extends _i1.SmartFake
-    implements _i2.StartRecording {
-  _FakeStartRecording_7(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeStopRecording_8 extends _i1.SmartFake implements _i2.StopRecording {
-  _FakeStopRecording_8(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeProcessAudio_9 extends _i1.SmartFake implements _i2.ProcessAudio {
-  _FakeProcessAudio_9(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-/// A class which mocks [MLocalSpeechToTextRemoteSourceImpl].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockMLocalSpeechToTextRemoteSourceImpl extends _i1.Mock
-    implements _i7.MLocalSpeechToTextRemoteSourceImpl {
-  MockMLocalSpeechToTextRemoteSourceImpl() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i2.OnAudioRecorded get onAudioRecorded => (super.noSuchMethod(
-        Invocation.getter(#onAudioRecorded),
-        returnValue: _FakeOnAudioRecorded_0(
-          this,
-          Invocation.getter(#onAudioRecorded),
-        ),
-      ) as _i2.OnAudioRecorded);
-  @override
-  _i3.Leopard get leopard => (super.noSuchMethod(
-        Invocation.getter(#leopard),
-        returnValue: _FakeLeopard_1(
-          this,
-          Invocation.getter(#leopard),
-        ),
-      ) as _i3.Leopard);
-  @override
-  set leopard(_i3.Leopard? _leopard) => super.noSuchMethod(
-        Invocation.setter(
-          #leopard,
-          _leopard,
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
-  _i4.MicRecorder get micRecorder => (super.noSuchMethod(
-        Invocation.getter(#micRecorder),
-        returnValue: _FakeMicRecorder_2(
-          this,
-          Invocation.getter(#micRecorder),
-        ),
-      ) as _i4.MicRecorder);
-  @override
-  set micRecorder(_i4.MicRecorder? _micRecorder) => super.noSuchMethod(
-        Invocation.setter(
-          #micRecorder,
-          _micRecorder,
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
-  _i8.Future<bool> initLeopard() => (super.noSuchMethod(
-        Invocation.method(
-          #initLeopard,
-          [],
-        ),
-        returnValue: _i8.Future<bool>.value(false),
-      ) as _i8.Future<bool>);
-  @override
-  _i8.Future<List<_i9.LeopardWord>> processAudio(_i10.File? recordedFile) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #processAudio,
-          [recordedFile],
-        ),
-        returnValue:
-            _i8.Future<List<_i9.LeopardWord>>.value(<_i9.LeopardWord>[]),
-      ) as _i8.Future<List<_i9.LeopardWord>>);
-  @override
-  _i8.Future<_i11.RecordingStatus> stopRecording() => (super.noSuchMethod(
-        Invocation.method(
-          #stopRecording,
-          [],
-        ),
-        returnValue: _i8.Future<_i11.RecordingStatus>.value(
-            _i11.RecordingStatus.initial),
-      ) as _i8.Future<_i11.RecordingStatus>);
-  @override
-  _i8.Future<_i11.RecordingStatus> startRecording() => (super.noSuchMethod(
-        Invocation.method(
-          #startRecording,
-          [],
-        ),
-        returnValue: _i8.Future<_i11.RecordingStatus>.value(
-            _i11.RecordingStatus.initial),
-      ) as _i8.Future<_i11.RecordingStatus>);
 }
 
 /// A class which mocks [MLocalSpeechToTextContract].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMLocalSpeechToTextContract extends _i1.Mock
-    implements _i7.MLocalSpeechToTextContract {
+    implements _i5.MLocalSpeechToTextContract {
   MockMLocalSpeechToTextContract() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i8.Future<_i5.Either<_i12.Failure, _i2.AudioProcessingEntity>> processAudio(
-          _i2.ProcessAudioParams? params) =>
+  _i6.Future<_i2.Either<_i7.Failure, _i3.AudioProcessingEntity>> processAudio(
+          _i3.ProcessAudioParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #processAudio,
           [params],
         ),
-        returnValue: _i8.Future<
-                _i5.Either<_i12.Failure, _i2.AudioProcessingEntity>>.value(
-            _FakeEither_3<_i12.Failure, _i2.AudioProcessingEntity>(
+        returnValue: _i6.Future<
+                _i2.Either<_i7.Failure, _i3.AudioProcessingEntity>>.value(
+            _FakeEither_0<_i7.Failure, _i3.AudioProcessingEntity>(
           this,
           Invocation.method(
             #processAudio,
             [params],
           ),
         )),
-      ) as _i8.Future<_i5.Either<_i12.Failure, _i2.AudioProcessingEntity>>);
+      ) as _i6.Future<_i2.Either<_i7.Failure, _i3.AudioProcessingEntity>>);
   @override
-  _i8.Future<_i5.Either<_i12.Failure, _i2.RecordingStatusEntity>>
-      startRecording(_i13.NoParams? params) => (super.noSuchMethod(
-            Invocation.method(
-              #startRecording,
-              [params],
-            ),
-            returnValue: _i8.Future<
-                    _i5.Either<_i12.Failure, _i2.RecordingStatusEntity>>.value(
-                _FakeEither_3<_i12.Failure, _i2.RecordingStatusEntity>(
-              this,
-              Invocation.method(
-                #startRecording,
-                [params],
-              ),
-            )),
-          ) as _i8.Future<_i5.Either<_i12.Failure, _i2.RecordingStatusEntity>>);
+  _i6.Future<_i2.Either<_i7.Failure, _i3.RecordingStatusEntity>> startRecording(
+          _i8.NoParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #startRecording,
+          [params],
+        ),
+        returnValue: _i6.Future<
+                _i2.Either<_i7.Failure, _i3.RecordingStatusEntity>>.value(
+            _FakeEither_0<_i7.Failure, _i3.RecordingStatusEntity>(
+          this,
+          Invocation.method(
+            #startRecording,
+            [params],
+          ),
+        )),
+      ) as _i6.Future<_i2.Either<_i7.Failure, _i3.RecordingStatusEntity>>);
   @override
-  _i8.Future<_i5.Either<_i12.Failure, _i2.RecordingStatusEntity>> stopRecording(
-          _i13.NoParams? params) =>
+  _i6.Future<_i2.Either<_i7.Failure, _i3.RecordingStatusEntity>> stopRecording(
+          _i8.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #stopRecording,
           [params],
         ),
-        returnValue: _i8.Future<
-                _i5.Either<_i12.Failure, _i2.RecordingStatusEntity>>.value(
-            _FakeEither_3<_i12.Failure, _i2.RecordingStatusEntity>(
+        returnValue: _i6.Future<
+                _i2.Either<_i7.Failure, _i3.RecordingStatusEntity>>.value(
+            _FakeEither_0<_i7.Failure, _i3.RecordingStatusEntity>(
           this,
           Invocation.method(
             #stopRecording,
             [params],
           ),
         )),
-      ) as _i8.Future<_i5.Either<_i12.Failure, _i2.RecordingStatusEntity>>);
+      ) as _i6.Future<_i2.Either<_i7.Failure, _i3.RecordingStatusEntity>>);
   @override
-  _i8.Future<_i5.Either<_i12.Failure, _i2.InitLeopardStatusEntity>> initLeopard(
-          _i13.NoParams? params) =>
+  _i6.Future<_i2.Either<_i7.Failure, _i3.InitLeopardStatusEntity>> initLeopard(
+          _i8.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #initLeopard,
           [params],
         ),
-        returnValue: _i8.Future<
-                _i5.Either<_i12.Failure, _i2.InitLeopardStatusEntity>>.value(
-            _FakeEither_3<_i12.Failure, _i2.InitLeopardStatusEntity>(
+        returnValue: _i6.Future<
+                _i2.Either<_i7.Failure, _i3.InitLeopardStatusEntity>>.value(
+            _FakeEither_0<_i7.Failure, _i3.InitLeopardStatusEntity>(
           this,
           Invocation.method(
             #initLeopard,
             [params],
           ),
         )),
-      ) as _i8.Future<_i5.Either<_i12.Failure, _i2.InitLeopardStatusEntity>>);
+      ) as _i6.Future<_i2.Either<_i7.Failure, _i3.InitLeopardStatusEntity>>);
 }
 
 /// A class which mocks [MInitLeopard].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMInitLeopard extends _i1.Mock implements _i7.MInitLeopard {
+class MockMInitLeopard extends _i1.Mock implements _i5.MInitLeopard {
   MockMInitLeopard() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.LocalSpeechToTextContract get contract => (super.noSuchMethod(
+  _i3.LocalSpeechToTextContract get contract => (super.noSuchMethod(
         Invocation.getter(#contract),
-        returnValue: _FakeLocalSpeechToTextContract_4(
+        returnValue: _FakeLocalSpeechToTextContract_1(
           this,
           Invocation.getter(#contract),
         ),
-      ) as _i2.LocalSpeechToTextContract);
+      ) as _i3.LocalSpeechToTextContract);
   @override
-  _i8.Future<_i5.Either<_i12.Failure, _i2.InitLeopardStatusEntity>> call(
-          _i13.NoParams? params) =>
+  _i6.Future<_i2.Either<_i7.Failure, _i3.InitLeopardStatusEntity>> call(
+          _i8.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i8.Future<
-                _i5.Either<_i12.Failure, _i2.InitLeopardStatusEntity>>.value(
-            _FakeEither_3<_i12.Failure, _i2.InitLeopardStatusEntity>(
+        returnValue: _i6.Future<
+                _i2.Either<_i7.Failure, _i3.InitLeopardStatusEntity>>.value(
+            _FakeEither_0<_i7.Failure, _i3.InitLeopardStatusEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i8.Future<_i5.Either<_i12.Failure, _i2.InitLeopardStatusEntity>>);
+      ) as _i6.Future<_i2.Either<_i7.Failure, _i3.InitLeopardStatusEntity>>);
 }
 
 /// A class which mocks [MStopRecording].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMStopRecording extends _i1.Mock implements _i7.MStopRecording {
+class MockMStopRecording extends _i1.Mock implements _i5.MStopRecording {
   MockMStopRecording() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.LocalSpeechToTextContract get contract => (super.noSuchMethod(
+  _i3.LocalSpeechToTextContract get contract => (super.noSuchMethod(
         Invocation.getter(#contract),
-        returnValue: _FakeLocalSpeechToTextContract_4(
+        returnValue: _FakeLocalSpeechToTextContract_1(
           this,
           Invocation.getter(#contract),
         ),
-      ) as _i2.LocalSpeechToTextContract);
+      ) as _i3.LocalSpeechToTextContract);
   @override
-  _i8.Future<_i5.Either<_i12.Failure, _i2.RecordingStatusEntity>> call(
-          _i13.NoParams? params) =>
+  _i6.Future<_i2.Either<_i7.Failure, _i3.RecordingStatusEntity>> call(
+          _i8.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i8.Future<
-                _i5.Either<_i12.Failure, _i2.RecordingStatusEntity>>.value(
-            _FakeEither_3<_i12.Failure, _i2.RecordingStatusEntity>(
+        returnValue: _i6.Future<
+                _i2.Either<_i7.Failure, _i3.RecordingStatusEntity>>.value(
+            _FakeEither_0<_i7.Failure, _i3.RecordingStatusEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i8.Future<_i5.Either<_i12.Failure, _i2.RecordingStatusEntity>>);
+      ) as _i6.Future<_i2.Either<_i7.Failure, _i3.RecordingStatusEntity>>);
 }
 
 /// A class which mocks [MStartRecording].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMStartRecording extends _i1.Mock implements _i7.MStartRecording {
+class MockMStartRecording extends _i1.Mock implements _i5.MStartRecording {
   MockMStartRecording() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.LocalSpeechToTextContract get contract => (super.noSuchMethod(
+  _i3.LocalSpeechToTextContract get contract => (super.noSuchMethod(
         Invocation.getter(#contract),
-        returnValue: _FakeLocalSpeechToTextContract_4(
+        returnValue: _FakeLocalSpeechToTextContract_1(
           this,
           Invocation.getter(#contract),
         ),
-      ) as _i2.LocalSpeechToTextContract);
+      ) as _i3.LocalSpeechToTextContract);
   @override
-  _i8.Future<_i5.Either<_i12.Failure, _i2.RecordingStatusEntity>> call(
-          _i13.NoParams? params) =>
+  _i6.Future<_i2.Either<_i7.Failure, _i3.RecordingStatusEntity>> call(
+          _i8.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i8.Future<
-                _i5.Either<_i12.Failure, _i2.RecordingStatusEntity>>.value(
-            _FakeEither_3<_i12.Failure, _i2.RecordingStatusEntity>(
+        returnValue: _i6.Future<
+                _i2.Either<_i7.Failure, _i3.RecordingStatusEntity>>.value(
+            _FakeEither_0<_i7.Failure, _i3.RecordingStatusEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i8.Future<_i5.Either<_i12.Failure, _i2.RecordingStatusEntity>>);
+      ) as _i6.Future<_i2.Either<_i7.Failure, _i3.RecordingStatusEntity>>);
 }
 
 /// A class which mocks [MProcessAudio].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMProcessAudio extends _i1.Mock implements _i7.MProcessAudio {
+class MockMProcessAudio extends _i1.Mock implements _i5.MProcessAudio {
   MockMProcessAudio() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.LocalSpeechToTextContract get contract => (super.noSuchMethod(
+  _i3.LocalSpeechToTextContract get contract => (super.noSuchMethod(
         Invocation.getter(#contract),
-        returnValue: _FakeLocalSpeechToTextContract_4(
+        returnValue: _FakeLocalSpeechToTextContract_1(
           this,
           Invocation.getter(#contract),
         ),
-      ) as _i2.LocalSpeechToTextContract);
+      ) as _i3.LocalSpeechToTextContract);
   @override
-  _i8.Future<_i5.Either<_i12.Failure, _i2.AudioProcessingEntity>> call(
-          _i2.ProcessAudioParams? params) =>
+  _i6.Future<_i2.Either<_i7.Failure, _i3.AudioProcessingEntity>> call(
+          _i3.ProcessAudioParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i8.Future<
-                _i5.Either<_i12.Failure, _i2.AudioProcessingEntity>>.value(
-            _FakeEither_3<_i12.Failure, _i2.AudioProcessingEntity>(
+        returnValue: _i6.Future<
+                _i2.Either<_i7.Failure, _i3.AudioProcessingEntity>>.value(
+            _FakeEither_0<_i7.Failure, _i3.AudioProcessingEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i8.Future<_i5.Either<_i12.Failure, _i2.AudioProcessingEntity>>);
+      ) as _i6.Future<_i2.Either<_i7.Failure, _i3.AudioProcessingEntity>>);
 }
 
 /// A class which mocks [MInitLeopardGetterStore].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMInitLeopardGetterStore extends _i1.Mock
-    implements _i7.MInitLeopardGetterStore {
+    implements _i5.MInitLeopardGetterStore {
   MockMInitLeopardGetterStore() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.InitLeopard get logic => (super.noSuchMethod(
+  _i3.InitLeopard get logic => (super.noSuchMethod(
         Invocation.getter(#logic),
-        returnValue: _FakeInitLeopard_5(
+        returnValue: _FakeInitLeopard_2(
           this,
           Invocation.getter(#logic),
         ),
-      ) as _i2.InitLeopard);
+      ) as _i3.InitLeopard);
   @override
   List<Object> get props => (super.noSuchMethod(
         Invocation.getter(#props),
         returnValue: <Object>[],
       ) as List<Object>);
   @override
-  _i6.ReactiveContext get context => (super.noSuchMethod(
+  _i4.ReactiveContext get context => (super.noSuchMethod(
         Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_6(
+        returnValue: _FakeReactiveContext_3(
           this,
           Invocation.getter(#context),
         ),
-      ) as _i6.ReactiveContext);
+      ) as _i4.ReactiveContext);
   @override
-  _i8.Future<_i5.Either<_i12.Failure, _i2.InitLeopardStatusEntity>> call(
+  _i6.Future<_i2.Either<_i7.Failure, _i3.InitLeopardStatusEntity>> call(
           dynamic params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i8.Future<
-                _i5.Either<_i12.Failure, _i2.InitLeopardStatusEntity>>.value(
-            _FakeEither_3<_i12.Failure, _i2.InitLeopardStatusEntity>(
+        returnValue: _i6.Future<
+                _i2.Either<_i7.Failure, _i3.InitLeopardStatusEntity>>.value(
+            _FakeEither_0<_i7.Failure, _i3.InitLeopardStatusEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i8.Future<_i5.Either<_i12.Failure, _i2.InitLeopardStatusEntity>>);
+      ) as _i6.Future<_i2.Either<_i7.Failure, _i3.InitLeopardStatusEntity>>);
 }
 
 /// A class which mocks [MStartRecordingGetterStore].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMStartRecordingGetterStore extends _i1.Mock
-    implements _i7.MStartRecordingGetterStore {
+    implements _i5.MStartRecordingGetterStore {
   MockMStartRecordingGetterStore() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.StartRecording get logic => (super.noSuchMethod(
+  _i3.StartRecording get logic => (super.noSuchMethod(
         Invocation.getter(#logic),
-        returnValue: _FakeStartRecording_7(
+        returnValue: _FakeStartRecording_4(
           this,
           Invocation.getter(#logic),
         ),
-      ) as _i2.StartRecording);
+      ) as _i3.StartRecording);
   @override
   List<Object> get props => (super.noSuchMethod(
         Invocation.getter(#props),
         returnValue: <Object>[],
       ) as List<Object>);
   @override
-  _i6.ReactiveContext get context => (super.noSuchMethod(
+  _i4.ReactiveContext get context => (super.noSuchMethod(
         Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_6(
+        returnValue: _FakeReactiveContext_3(
           this,
           Invocation.getter(#context),
         ),
-      ) as _i6.ReactiveContext);
+      ) as _i4.ReactiveContext);
   @override
-  _i8.Future<_i5.Either<_i12.Failure, _i2.RecordingStatusEntity>> call(
+  _i6.Future<_i2.Either<_i7.Failure, _i3.RecordingStatusEntity>> call(
           dynamic params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i8.Future<
-                _i5.Either<_i12.Failure, _i2.RecordingStatusEntity>>.value(
-            _FakeEither_3<_i12.Failure, _i2.RecordingStatusEntity>(
+        returnValue: _i6.Future<
+                _i2.Either<_i7.Failure, _i3.RecordingStatusEntity>>.value(
+            _FakeEither_0<_i7.Failure, _i3.RecordingStatusEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i8.Future<_i5.Either<_i12.Failure, _i2.RecordingStatusEntity>>);
+      ) as _i6.Future<_i2.Either<_i7.Failure, _i3.RecordingStatusEntity>>);
 }
 
 /// A class which mocks [MStopRecordingGetterStore].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMStopRecordingGetterStore extends _i1.Mock
-    implements _i7.MStopRecordingGetterStore {
+    implements _i5.MStopRecordingGetterStore {
   MockMStopRecordingGetterStore() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.StopRecording get logic => (super.noSuchMethod(
+  _i3.StopRecording get logic => (super.noSuchMethod(
         Invocation.getter(#logic),
-        returnValue: _FakeStopRecording_8(
+        returnValue: _FakeStopRecording_5(
           this,
           Invocation.getter(#logic),
         ),
-      ) as _i2.StopRecording);
+      ) as _i3.StopRecording);
   @override
   List<Object> get props => (super.noSuchMethod(
         Invocation.getter(#props),
         returnValue: <Object>[],
       ) as List<Object>);
   @override
-  _i6.ReactiveContext get context => (super.noSuchMethod(
+  _i4.ReactiveContext get context => (super.noSuchMethod(
         Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_6(
+        returnValue: _FakeReactiveContext_3(
           this,
           Invocation.getter(#context),
         ),
-      ) as _i6.ReactiveContext);
+      ) as _i4.ReactiveContext);
   @override
-  _i8.Future<_i5.Either<_i12.Failure, _i2.RecordingStatusEntity>> call(
+  _i6.Future<_i2.Either<_i7.Failure, _i3.RecordingStatusEntity>> call(
           dynamic params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i8.Future<
-                _i5.Either<_i12.Failure, _i2.RecordingStatusEntity>>.value(
-            _FakeEither_3<_i12.Failure, _i2.RecordingStatusEntity>(
+        returnValue: _i6.Future<
+                _i2.Either<_i7.Failure, _i3.RecordingStatusEntity>>.value(
+            _FakeEither_0<_i7.Failure, _i3.RecordingStatusEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i8.Future<_i5.Either<_i12.Failure, _i2.RecordingStatusEntity>>);
+      ) as _i6.Future<_i2.Either<_i7.Failure, _i3.RecordingStatusEntity>>);
 }
 
 /// A class which mocks [MProcessAudioGetterStore].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMProcessAudioGetterStore extends _i1.Mock
-    implements _i7.MProcessAudioGetterStore {
+    implements _i5.MProcessAudioGetterStore {
   MockMProcessAudioGetterStore() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.ProcessAudio get logic => (super.noSuchMethod(
+  _i3.ProcessAudio get logic => (super.noSuchMethod(
         Invocation.getter(#logic),
-        returnValue: _FakeProcessAudio_9(
+        returnValue: _FakeProcessAudio_6(
           this,
           Invocation.getter(#logic),
         ),
-      ) as _i2.ProcessAudio);
+      ) as _i3.ProcessAudio);
   @override
   List<Object> get props => (super.noSuchMethod(
         Invocation.getter(#props),
         returnValue: <Object>[],
       ) as List<Object>);
   @override
-  _i6.ReactiveContext get context => (super.noSuchMethod(
+  _i4.ReactiveContext get context => (super.noSuchMethod(
         Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_6(
+        returnValue: _FakeReactiveContext_3(
           this,
           Invocation.getter(#context),
         ),
-      ) as _i6.ReactiveContext);
+      ) as _i4.ReactiveContext);
   @override
-  _i8.Future<_i5.Either<_i12.Failure, _i2.AudioProcessingEntity>> call(
+  _i6.Future<_i2.Either<_i7.Failure, _i3.AudioProcessingEntity>> call(
           dynamic params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i8.Future<
-                _i5.Either<_i12.Failure, _i2.AudioProcessingEntity>>.value(
-            _FakeEither_3<_i12.Failure, _i2.AudioProcessingEntity>(
+        returnValue: _i6.Future<
+                _i2.Either<_i7.Failure, _i3.AudioProcessingEntity>>.value(
+            _FakeEither_0<_i7.Failure, _i3.AudioProcessingEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i8.Future<_i5.Either<_i12.Failure, _i2.AudioProcessingEntity>>);
+      ) as _i6.Future<_i2.Either<_i7.Failure, _i3.AudioProcessingEntity>>);
+}
+
+/// A class which mocks [LocalSpeechToTextRemoteSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockLocalSpeechToTextRemoteSource extends _i1.Mock
+    implements _i9.LocalSpeechToTextRemoteSource {
+  @override
+  _i6.Future<bool> initLeopard() => (super.noSuchMethod(
+        Invocation.method(
+          #initLeopard,
+          [],
+        ),
+        returnValue: _i6.Future<bool>.value(false),
+        returnValueForMissingStub: _i6.Future<bool>.value(false),
+      ) as _i6.Future<bool>);
+  @override
+  _i6.Future<List<_i10.LeopardWord>> processAudio(_i11.File? recordedFile) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #processAudio,
+          [recordedFile],
+        ),
+        returnValue:
+            _i6.Future<List<_i10.LeopardWord>>.value(<_i10.LeopardWord>[]),
+        returnValueForMissingStub:
+            _i6.Future<List<_i10.LeopardWord>>.value(<_i10.LeopardWord>[]),
+      ) as _i6.Future<List<_i10.LeopardWord>>);
+  @override
+  _i6.Future<_i12.RecordingStatus> stopRecording() => (super.noSuchMethod(
+        Invocation.method(
+          #stopRecording,
+          [],
+        ),
+        returnValue: _i6.Future<_i12.RecordingStatus>.value(
+            _i12.RecordingStatus.initial),
+        returnValueForMissingStub: _i6.Future<_i12.RecordingStatus>.value(
+            _i12.RecordingStatus.initial),
+      ) as _i6.Future<_i12.RecordingStatus>);
+  @override
+  _i6.Future<_i12.RecordingStatus> startRecording() => (super.noSuchMethod(
+        Invocation.method(
+          #startRecording,
+          [],
+        ),
+        returnValue: _i6.Future<_i12.RecordingStatus>.value(
+            _i12.RecordingStatus.initial),
+        returnValueForMissingStub: _i6.Future<_i12.RecordingStatus>.value(
+            _i12.RecordingStatus.initial),
+      ) as _i6.Future<_i12.RecordingStatus>);
 }

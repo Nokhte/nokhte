@@ -9,9 +9,9 @@ class AudioProcessingModel extends AudioProcessingEntity {
       return const AudioProcessingModel(resultingWords: "");
     } else {
       final List<String> words = [];
-      leopardRes.map((value) {
-        return words.add(value.word);
-      });
+      for (int i = 0; i < leopardRes.length; i++) {
+        words.add(leopardRes[i].word);
+      }
       final wordsStr = words.join(' ');
       return AudioProcessingModel(resultingWords: wordsStr);
     }

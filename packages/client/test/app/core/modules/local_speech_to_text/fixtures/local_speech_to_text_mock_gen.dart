@@ -6,8 +6,8 @@ import 'package:primala/app/core/modules/local_speech_to_text/data/data.dart';
 import 'package:primala/app/core/modules/local_speech_to_text/domain/domain.dart';
 import 'package:primala/app/core/modules/local_speech_to_text/mobx/mobx.dart';
 
-class MLocalSpeechToTextRemoteSourceImpl extends Mock
-    implements LocalSpeechToTextRemoteSourceImpl {}
+// class MLocalSpeechToTextRemoteSourceImpl extends Mock
+//     implements LocalSpeechToTextRemoteSourceImpl {}
 
 class MLocalSpeechToTextContract extends Mock
     implements LocalSpeechToTextContract {}
@@ -32,7 +32,7 @@ class MStopRecordingGetterStore extends Mock
     implements StopRecordingGetterStore {}
 
 @GenerateMocks([
-  MLocalSpeechToTextRemoteSourceImpl,
+  // MLocalSpeechToTextRemoteSourceImpl,
   MLocalSpeechToTextContract,
   MInitLeopard,
   MStopRecording,
@@ -42,5 +42,8 @@ class MStopRecordingGetterStore extends Mock
   MStartRecordingGetterStore,
   MStopRecordingGetterStore,
   MProcessAudioGetterStore,
+])
+@GenerateNiceMocks([
+  MockSpec<LocalSpeechToTextRemoteSource>(),
 ])
 void main() {}

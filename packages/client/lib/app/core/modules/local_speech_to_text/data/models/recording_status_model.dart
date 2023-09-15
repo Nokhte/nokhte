@@ -8,9 +8,11 @@ class RecordingStatusModel extends RecordingStatusEntity {
     if (res == RecordingStatus.started) {
       return const RecordingStatusModel(
           recordingStatus: RecordingStatus.started);
-    } else {
+    } else if (res == RecordingStatus.stopped) {
       return const RecordingStatusModel(
           recordingStatus: RecordingStatus.stopped);
+    } else {
+      return const RecordingStatusModel(recordingStatus: RecordingStatus.error);
     }
   }
 }
