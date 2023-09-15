@@ -4,7 +4,7 @@ import 'package:primala/app/core/modules/local_speech_to_text/domain/domain.dart
 
 class ConstantAudioProcessingEntity {
   static AudioProcessingEntity get successCase =>
-      const AudioProcessingEntity(resultingWords: 'resultingWords');
+      const AudioProcessingEntity(resultingWords: 'resulting words');
   static AudioProcessingEntity get notSuccessCase =>
       const AudioProcessingEntity(resultingWords: '');
   static Either<Failure, AudioProcessingEntity> get wrappedSuccessCase =>
