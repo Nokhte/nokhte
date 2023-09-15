@@ -11,7 +11,6 @@ import 'package:primala/app/modules/p2p_collaborator_pool/presentation/presentat
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/domain.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/data/data.dart';
 import 'package:primala_backend/streams.dart';
-import 'package:speech_to_text/speech_to_text.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class P2PCollaboratorPoolModule extends Module {
@@ -22,29 +21,11 @@ class P2PCollaboratorPoolModule extends Module {
 
   @override
   List<Bind> get binds => [
-        /// & Shared Speech To Text Instance
-        Bind.singleton<SpeechToText>((i) => SpeechToText()),
-
-        /// % Inverted Call Hierarchy START
-        /// # Mobx Mother Stores
-        Bind.singleton<OnSpeechResultStore>(
-          (i) => OnSpeechResultStore(),
-        ),
-
-        /// # Logic
-        Bind.singleton<OnSpeechResult>(
-          (i) => OnSpeechResult(
-            speechResultStore: i<OnSpeechResultStore>(),
-          ),
-        ),
-
         /// % Inverted Call Hierarchy END
         // & Remote Source
         Bind.singleton<P2PCollaboratorPoolRemoteSourceImpl>(
           (i) => P2PCollaboratorPoolRemoteSourceImpl(
             existingCollaborationsStream: ExistingCollaborationsStream(),
-            onSpeechResult: i<OnSpeechResult>(),
-            speechToText: Modular.get<SpeechToText>(),
             supabase: Modular.get<SupabaseClient>(),
           ),
         ),
@@ -63,21 +44,6 @@ class P2PCollaboratorPoolModule extends Module {
         ),
         Bind.singleton<ExitCollaboratorPool>(
           (i) => ExitCollaboratorPool(
-            contract: i<P2PCollaboratorPoolContract>(),
-          ),
-        ),
-        Bind.singleton<InitiateSpeechToText>(
-          (i) => InitiateSpeechToText(
-            contract: i<P2PCollaboratorPoolContract>(),
-          ),
-        ),
-        Bind.singleton<StartListening>(
-          (i) => StartListening(
-            contract: i<P2PCollaboratorPoolContract>(),
-          ),
-        ),
-        Bind.singleton<StopListening>(
-          (i) => StopListening(
             contract: i<P2PCollaboratorPoolContract>(),
           ),
         ),
@@ -107,21 +73,6 @@ class P2PCollaboratorPoolModule extends Module {
             exitPoolLogic: i<ExitCollaboratorPool>(),
           ),
         ),
-        Bind.singleton<InitiateSpeechToTextGetterStore>(
-          (i) => InitiateSpeechToTextGetterStore(
-            initSpeechLogic: i<InitiateSpeechToText>(),
-          ),
-        ),
-        Bind.singleton<StartListeningGetterStore>(
-          (i) => StartListeningGetterStore(
-            startListeningLogic: i<StartListening>(),
-          ),
-        ),
-        Bind.singleton<StopListeningGetterStore>(
-          (i) => StopListeningGetterStore(
-            stopListeningLogic: i<StopListening>(),
-          ),
-        ),
         Bind.singleton<ValidateQueryGetterStore>(
           (i) => ValidateQueryGetterStore(
             validateQueryLogic: i<ValidateQuery>(),
@@ -148,13 +99,6 @@ class P2PCollaboratorPoolModule extends Module {
           (i) => ExitCollaboratorPoolStore(
             exitCollaboratorPoolGetterStore:
                 i<ExitCollaboratorPoolGetterStore>(),
-          ),
-        ),
-        Bind.singleton<SpeechToTextStore>(
-          (i) => SpeechToTextStore(
-            initSpeechToTextGetterStore: i<InitiateSpeechToTextGetterStore>(),
-            startListeningGetterStore: i<StartListeningGetterStore>(),
-            stopListeningGetterStore: i<StopListeningGetterStore>(),
           ),
         ),
         Bind.singleton<ValidateQueryStore>(

@@ -1,17 +1,9 @@
-import 'package:primala/app/modules/p2p_collaborator_pool/domain/logic/logic.dart';
-import 'package:speech_to_text/speech_to_text.dart';
 import 'package:primala_backend/phrase_components.dart';
 import 'package:primala_backend/edge_functions.dart';
 import 'package:primala_backend/streams.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class P2PCollaboratorPoolRemoteSource {
-  Future<bool> initiateSpeechToText();
-
-  Future startListening();
-
-  Future stopListening();
-
   Future<List> validateQuery({required String query});
 
   Future<FunctionResponse> enterThePool(
@@ -26,52 +18,14 @@ abstract class P2PCollaboratorPoolRemoteSource {
 
 class P2PCollaboratorPoolRemoteSourceImpl
     implements P2PCollaboratorPoolRemoteSource {
-  final SpeechToText speechToText;
   final SupabaseClient supabase;
-  final OnSpeechResult onSpeechResult;
   final String currentUserUID;
   final ExistingCollaborationsStream existingCollaborationsStream;
 
   P2PCollaboratorPoolRemoteSourceImpl({
-    required this.speechToText,
     required this.supabase,
-    required this.onSpeechResult,
     required this.existingCollaborationsStream,
   }) : currentUserUID = supabase.auth.currentUser?.id ?? '';
-
-  @override
-  Future<bool> initiateSpeechToText() async {
-    return await speechToText.initialize(
-      onError: (errorNotification) => print("ERROR $errorNotification"),
-    );
-  }
-  //   @override
-  // Future<bool> initiateSpeechToText() async {
-  //   final accessKey = dotenv.env["LEOPARD_ACCESS_KEY"] ?? '';
-  //   final modelPath = dotenv.env["LEOPARD_MODEL_PATH"] ?? '';
-  //   try {
-  //     await Leopard.create(accessKey, modelPath);
-  //     return true;
-  //   } on LeopardException {
-  //     return false;
-  //   }
-  // }
-
-  @override
-  Future startListening() async {
-    await speechToText.listen(
-      onResult: (result) {
-        onSpeechResult(result);
-      },
-    );
-    return true;
-  }
-
-  @override
-  Future stopListening() async {
-    await speechToText.stop();
-    return true;
-  }
 
   @override
   Future<List> validateQuery({required String query}) async {

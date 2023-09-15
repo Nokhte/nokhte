@@ -15,11 +15,13 @@ abstract class _LocalSpeechToTextCoordinatorStoreBase extends Equatable
   final InitLeopardStore initLeopardStore;
   final StartRecordingStore startRecordingStore;
   final StopRecordingStore stopRecordingStore;
+  final OnSpeechResultStore onSpeechResultStore;
 
   _LocalSpeechToTextCoordinatorStoreBase({
     required this.initLeopardStore,
     required this.startRecordingStore,
     required this.stopRecordingStore,
+    required this.onSpeechResultStore,
   });
   @override
   List<Object> get props => [

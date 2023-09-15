@@ -14,21 +14,11 @@ class MP2PCollaboratorPoolRemoteSourceImpl extends Mock
 class MP2PCollaboratorPoolContract extends Mock
     implements P2PCollaboratorPoolContract {}
 
-class MInitiateSpeechToText extends Mock implements InitiateSpeechToText {}
-
-class MOnSpeechResult extends Mock implements OnSpeechResult {}
-
 class MEnterCollaboratorPool extends Mock implements EnterCollaboratorPool {}
-
-class MStartListening extends Mock implements StartListening {}
-
-class MStopListening extends Mock implements StopListening {}
 
 class MValidateQuery extends Mock implements ValidateQuery {}
 
 class MExitCollaboratorPool extends Mock implements ExitCollaboratorPool {}
-
-class MOnSpeechResultStore extends Mock implements OnSpeechResultStore {}
 
 class MSpeechToText extends Mock implements SpeechToText {}
 
@@ -44,15 +34,6 @@ class MExitCollaboratorPoolGetterStore extends Mock
 class MGetCollaboratorSearchStatusGetterStore extends Mock
     implements GetCollaboratorSearchStatusGetterStore {}
 
-class MInitiateSpeechToTextGetterStore extends Mock
-    implements InitiateSpeechToTextGetterStore {}
-
-class MStartListeningGetterStore extends Mock
-    implements StartListeningGetterStore {}
-
-class MStopListeningGetterStore extends Mock
-    implements StopListeningGetterStore {}
-
 class MValidateQueryGetterStore extends Mock
     implements ValidateQueryGetterStore {}
 
@@ -60,21 +41,13 @@ class MValidateQueryGetterStore extends Mock
   MP2PCollaboratorPoolRemoteSourceImpl,
   MEnterCollaboratorPool,
   MSpeechToText,
-  MInitiateSpeechToText,
-  MOnSpeechResult,
-  MStartListening,
   MExitCollaboratorPool,
-  MStopListening,
   MValidateQuery,
   MP2PCollaboratorPoolContract,
-  MOnSpeechResultStore,
   MCancelCollaboratorStreamGetterStore,
   MEnterCollaboratorPoolGetterStore,
   MExitCollaboratorPoolGetterStore,
   MGetCollaboratorSearchStatusGetterStore,
-  MInitiateSpeechToTextGetterStore,
-  MStartListeningGetterStore,
-  MStopListeningGetterStore,
   MValidateQueryGetterStore,
 ])
 @GenerateNiceMocks([

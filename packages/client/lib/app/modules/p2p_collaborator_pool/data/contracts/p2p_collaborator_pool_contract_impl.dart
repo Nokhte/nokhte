@@ -16,37 +16,6 @@ class P2PCollaboratorPoolContractImpl implements P2PCollaboratorPoolContract {
   });
 
   @override
-  Future<Either<Failure, SpeechToTextInitializerStatusModel>>
-      initializeSpeechToText() async {
-    if (await networkInfo.isConnected) {
-      final res = await remoteSource.initiateSpeechToText();
-      return Right(SpeechToTextInitializerStatusModel(isAllowed: res));
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
-
-  @override
-  Future<Either<Failure, ListeningStatusModel>> startListening() async {
-    if (await networkInfo.isConnected) {
-      final res = await remoteSource.startListening();
-      return Right(ListeningStatusModel(isListening: res));
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
-
-  @override
-  Future<Either<Failure, ListeningStatusModel>> stopListening() async {
-    if (await networkInfo.isConnected) {
-      final res = await remoteSource.stopListening();
-      return Right(ListeningStatusModel(isListening: res));
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
-
-  @override
   Future<Either<Failure, CollaboratorPhraseValidationModel>> validateQuery(
       String query) async {
     if (await networkInfo.isConnected) {

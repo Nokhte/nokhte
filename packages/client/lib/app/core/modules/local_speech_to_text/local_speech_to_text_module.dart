@@ -7,12 +7,22 @@ import 'package:primala/app/core/network/network_info.dart';
 class LocalSpeechToTextModule extends Module {
   @override
   List<Bind> get binds => [
-        // & Callback Store
+        // & Callbacks Store
+        Bind.singleton<OnSpeechResultStore>(
+          (i) => OnSpeechResultStore(),
+          export: true,
+        ),
         Bind.singleton<OnAudioRecordedStore>(
           (i) => OnAudioRecordedStore(),
           export: true,
         ),
         // & Callback Logic
+        Bind.singleton<OnSpeechResult>(
+          (i) => OnSpeechResult(
+            speechResultStore: i<OnSpeechResultStore>(),
+          ),
+          export: true,
+        ),
         Bind.singleton<OnAudioRecorded>(
           (i) => OnAudioRecorded(
             onAudioRecordedStore: i<OnAudioRecordedStore>(),
@@ -94,6 +104,7 @@ class LocalSpeechToTextModule extends Module {
         // & Coordinator
         Bind.singleton<LocalSpeechToTextCoordinatorStore>(
           (i) => LocalSpeechToTextCoordinatorStore(
+            onSpeechResultStore: i<OnSpeechResultStore>(),
             initLeopardStore: i<InitLeopardStore>(),
             stopRecordingStore: i<StopRecordingStore>(),
             startRecordingStore: i<StartRecordingStore>(),
