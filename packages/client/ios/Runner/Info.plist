@@ -58,9 +58,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>Our app has a synchronous requests system where the user speaks a chosen phrase to make the request.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Our app needs access to the microphone for voice calls.</string>
+	<string>For Voice Calls &amp; Speech Recognition.</string>
 </dict>
 </plist>
