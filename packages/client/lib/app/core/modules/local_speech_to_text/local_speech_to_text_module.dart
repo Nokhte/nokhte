@@ -1,4 +1,3 @@
-import 'package:primala/app/core/modules/local_speech_to_text/data/contracts/local_speech_to_text_contract_impl.dart';
 import 'package:primala/app/core/modules/local_speech_to_text/data/data.dart';
 import 'package:primala/app/core/modules/local_speech_to_text/domain/domain.dart';
 import 'package:primala/app/core/modules/local_speech_to_text/mobx/mobx.dart';

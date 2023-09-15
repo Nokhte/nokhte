@@ -4,7 +4,6 @@ import 'package:mockito/mockito.dart';
 import 'package:primala/app/core/constants/failure_constants.dart';
 import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/data/data.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/entities.dart';
 import '../../../_module_helpers/shared_mocks_gen.mocks.dart';
 import '../../constants/responses/responses.dart';
 import '../../constants/models/models.dart';

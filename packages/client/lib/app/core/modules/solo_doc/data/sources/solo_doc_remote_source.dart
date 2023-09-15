@@ -1,5 +1,4 @@
 import 'package:primala_backend/solo_sharable_documents.dart';
-import 'package:primala_backend/existing_collaborations.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class SoloDocRemoteSource {

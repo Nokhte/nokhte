@@ -80,8 +80,8 @@ class MicRecorder {
   }
 
   Future<File> writeWavFile() async {
-    final int channelCount = 1;
-    final int bitDepth = 16;
+    const int channelCount = 1;
+    const int bitDepth = 16;
 
     final directory = await getApplicationDocumentsDirectory();
     final wavFile = File('${directory.path}/recording.wav');
