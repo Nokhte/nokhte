@@ -41,12 +41,6 @@ class LocalSpeechToTextModule extends Module {
           ),
           export: true,
         ),
-        Bind.singleton<ProcessAudio>(
-          (i) => ProcessAudio(
-            contract: i<LocalSpeechToTextContract>(),
-          ),
-          export: true,
-        ),
         Bind.singleton<StartRecording>(
           (i) => StartRecording(
             contract: i<LocalSpeechToTextContract>(),
@@ -63,13 +57,6 @@ class LocalSpeechToTextModule extends Module {
         Bind.singleton<InitLeopardGetterStore>(
           (i) => InitLeopardGetterStore(
             logic: i<InitLeopard>(),
-          ),
-          export: true,
-        ),
-
-        Bind.singleton<ProcessAudioGetterStore>(
-          (i) => ProcessAudioGetterStore(
-            logic: i<ProcessAudio>(),
           ),
           export: true,
         ),
@@ -92,13 +79,6 @@ class LocalSpeechToTextModule extends Module {
           ),
           export: true,
         ),
-
-        Bind.singleton<ProcessAudioStore>(
-          (i) => ProcessAudioStore(
-            getterStore: i<ProcessAudioGetterStore>(),
-          ),
-          export: true,
-        ),
         Bind.singleton<StopRecordingStore>(
           (i) => StopRecordingStore(
             getterStore: i<StopRecordingGetterStore>(),
@@ -115,7 +95,6 @@ class LocalSpeechToTextModule extends Module {
         Bind.singleton<LocalSpeechToTextCoordinatorStore>(
           (i) => LocalSpeechToTextCoordinatorStore(
             initLeopardStore: i<InitLeopardStore>(),
-            processAudioStore: i<ProcessAudioStore>(),
             stopRecordingStore: i<StopRecordingStore>(),
             startRecordingStore: i<StartRecordingStore>(),
           ),

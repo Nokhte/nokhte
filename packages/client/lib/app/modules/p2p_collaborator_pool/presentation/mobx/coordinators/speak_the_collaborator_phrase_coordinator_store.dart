@@ -4,11 +4,14 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
+import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/types/types.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:primala/app/core/widgets/mobx/all_custom_widgets_tracker_store.dart';
 import 'package:primala/app/core/widgets/widget_constants.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/domain.dart';
+import 'package:primala/app/core/modules/local_speech_to_text/mobx/mobx.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/main/main.dart';
 // * Mobx Codegen Inclusion
 part 'speak_the_collaborator_phrase_coordinator_store.g.dart';
@@ -19,7 +22,8 @@ class SpeakTheCollaboratorPhraseCoordinatorStore = _SpeakTheCollaboratorPhraseCo
 abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
     with Store {
   final AllCustomWidgetsTrackerStore widgetStore;
-  final SpeechToTextStore speechToTextStore;
+  final LocalSpeechToTextCoordinatorStore localSpeechToText;
+  // final SpeechToTextStore speechToTextStore;
   final OnSpeechResultStore onSpeechResultStore;
   final ValidateQueryStore validateQueryStore;
   final EnterCollaboratorPoolStore enterCollaboratorPoolStore;
@@ -32,7 +36,8 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
 
   _SpeakTheCollaboratorPhraseCoordinatorStoreBase({
     required this.widgetStore,
-    required this.speechToTextStore,
+    required this.localSpeechToText,
+    // required this.speechToTextStore,
     required this.onSpeechResultStore,
     required this.validateQueryStore,
     required this.enterCollaboratorPoolStore,
@@ -87,15 +92,17 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   breathingPentagonsHoldStartCallback() {
     validateQueryStore.resetCheckerFields();
     breathingPentagonsStore.gestureFunctionRouter();
-    speechToTextStore.startListening();
+    localSpeechToText.startRecordingStore(NoParams());
   }
 
   @action
-  breathingPentagonsHoldEndCallback() {
+  breathingPentagonsHoldEndCallback() async {
     breathingPentagonsStore.gestureFunctionRouter();
-    Future.delayed(const Duration(milliseconds: 500), () {
-      speechToTextStore.stopListening();
-    }).then((value) => onSpeechResultStore.currentPhraseIndex++);
+    await localSpeechToText.stopRecordingStore(NoParams()).then((value) {
+      onSpeechResultStore
+          .addSpeechResult(localSpeechToText.stopRecordingStore.resultingWords);
+      onSpeechResultStore.currentPhraseIndex++;
+    });
   }
 
   @action
@@ -114,8 +121,11 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
 
   screenConstructorCallback({
     required SpeakTheCollaboratorPhraseCoordinatorStore coordinatorStore,
-  }) {
-    coordinatorStore.speechToTextStore.initSpeech();
+  }) async {
+    localSpeechToText.initLeopardStore(NoParams());
+    if (await Permission.microphone.isDenied) {
+      await Permission.microphone.request();
+    }
     if (!fadingTextStore.showText && !fadingTextStore.firstTime) {
       fadingTextStore.resetToDefault();
     }

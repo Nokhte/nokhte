@@ -13,13 +13,11 @@ class LocalSpeechToTextCoordinatorStore = _LocalSpeechToTextCoordinatorStoreBase
 abstract class _LocalSpeechToTextCoordinatorStoreBase extends Equatable
     with Store {
   final InitLeopardStore initLeopardStore;
-  final ProcessAudioStore processAudioStore;
   final StartRecordingStore startRecordingStore;
   final StopRecordingStore stopRecordingStore;
 
   _LocalSpeechToTextCoordinatorStoreBase({
     required this.initLeopardStore,
-    required this.processAudioStore,
     required this.startRecordingStore,
     required this.stopRecordingStore,
   });

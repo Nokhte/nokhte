@@ -27,17 +27,6 @@ class LocalSpeechToTextContractImpl implements LocalSpeechToTextContract {
   }
 
   @override
-  Future<Either<Failure, AudioProcessingModel>> processAudio(
-      ProcessAudioParams params) async {
-    if (await networkInfo.isConnected) {
-      final res = await remoteSource.processAudio(params.recordedFile);
-      return Right(AudioProcessingModel.fromLeopard(res));
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
-
-  @override
   Future<Either<Failure, RecordingStatusModel>> startRecording(
       NoParams params) async {
     if (await networkInfo.isConnected) {
@@ -49,11 +38,11 @@ class LocalSpeechToTextContractImpl implements LocalSpeechToTextContract {
   }
 
   @override
-  Future<Either<Failure, RecordingStatusModel>> stopRecording(
+  Future<Either<Failure, AudioProcessingModel>> stopRecording(
       NoParams params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.stopRecording();
-      return Right(RecordingStatusModel.fromMicrophone(res));
+      return Right(AudioProcessingModel.fromLeopard(res));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }

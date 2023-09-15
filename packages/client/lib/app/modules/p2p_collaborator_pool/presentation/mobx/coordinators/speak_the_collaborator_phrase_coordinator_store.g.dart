@@ -28,6 +28,16 @@ mixin _$SpeakTheCollaboratorPhraseCoordinatorStore
     });
   }
 
+  late final _$breathingPentagonsHoldEndCallbackAsyncAction = AsyncAction(
+      '_SpeakTheCollaboratorPhraseCoordinatorStoreBase.breathingPentagonsHoldEndCallback',
+      context: context);
+
+  @override
+  Future breathingPentagonsHoldEndCallback() {
+    return _$breathingPentagonsHoldEndCallbackAsyncAction
+        .run(() => super.breathingPentagonsHoldEndCallback());
+  }
+
   late final _$_SpeakTheCollaboratorPhraseCoordinatorStoreBaseActionController =
       ActionController(
           name: '_SpeakTheCollaboratorPhraseCoordinatorStoreBase',
@@ -42,21 +52,6 @@ mixin _$SpeakTheCollaboratorPhraseCoordinatorStore
                     '_SpeakTheCollaboratorPhraseCoordinatorStoreBase.breathingPentagonsHoldStartCallback');
     try {
       return super.breathingPentagonsHoldStartCallback();
-    } finally {
-      _$_SpeakTheCollaboratorPhraseCoordinatorStoreBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic breathingPentagonsHoldEndCallback() {
-    final _$actionInfo =
-        _$_SpeakTheCollaboratorPhraseCoordinatorStoreBaseActionController
-            .startAction(
-                name:
-                    '_SpeakTheCollaboratorPhraseCoordinatorStoreBase.breathingPentagonsHoldEndCallback');
-    try {
-      return super.breathingPentagonsHoldEndCallback();
     } finally {
       _$_SpeakTheCollaboratorPhraseCoordinatorStoreBaseActionController
           .endAction(_$actionInfo);

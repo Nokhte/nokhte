@@ -15,7 +15,7 @@ abstract class _OnSpeechResultStoreBase extends Equatable with Store {
   String currentSpeechResult = "";
 
   @action
-  addSpeechResult({required String result}) {
+  addSpeechResult(String result) {
     currentSpeechResult = result.toLowerCase();
   }
 

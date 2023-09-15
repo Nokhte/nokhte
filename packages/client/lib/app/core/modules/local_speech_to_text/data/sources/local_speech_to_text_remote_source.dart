@@ -12,7 +12,7 @@ import 'package:primala/app/core/utilities/utilities.dart';
 abstract class LocalSpeechToTextRemoteSource {
   Future<bool> initLeopard();
   Future<List<LeopardWord>> processAudio(File recordedFile);
-  Future<RecordingStatus> stopRecording();
+  Future<List<LeopardWord>> stopRecording();
   Future<RecordingStatus> startRecording();
 }
 
@@ -52,14 +52,9 @@ class LocalSpeechToTextRemoteSourceImpl
   }
 
   @override
-  Future<RecordingStatus> stopRecording() async {
-    try {
-      File recordedFile = await micRecorder.stopRecord();
-      await processAudio(recordedFile);
-      return RecordingStatus.stopped;
-    } catch (e) {
-      return RecordingStatus.error;
-    }
+  Future<List<LeopardWord>> stopRecording() async {
+    File recordedFile = await micRecorder.stopRecord();
+    return await processAudio(recordedFile);
   }
 
   @override

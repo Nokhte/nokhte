@@ -45,11 +45,11 @@ mixin _$OnSpeechResultStore on _OnSpeechResultStoreBase, Store {
       ActionController(name: '_OnSpeechResultStoreBase', context: context);
 
   @override
-  dynamic addSpeechResult({required String result}) {
+  dynamic addSpeechResult(String result) {
     final _$actionInfo = _$_OnSpeechResultStoreBaseActionController.startAction(
         name: '_OnSpeechResultStoreBase.addSpeechResult');
     try {
-      return super.addSpeechResult(result: result);
+      return super.addSpeechResult(result);
     } finally {
       _$_OnSpeechResultStoreBaseActionController.endAction(_$actionInfo);
     }

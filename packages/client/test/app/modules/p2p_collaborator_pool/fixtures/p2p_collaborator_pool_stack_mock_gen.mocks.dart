@@ -1001,11 +1001,10 @@ class MockMOnSpeechResultStore extends _i1.Mock
         ),
       ) as _i8.ReactiveContext);
   @override
-  dynamic addSpeechResult({required String? result}) =>
+  dynamic addSpeechResult(String? result) =>
       super.noSuchMethod(Invocation.method(
         #addSpeechResult,
-        [],
-        {#result: result},
+        [result],
       ));
 }
 

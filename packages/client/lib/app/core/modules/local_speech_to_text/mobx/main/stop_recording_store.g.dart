@@ -9,19 +9,19 @@ part of 'stop_recording_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$StopRecordingStore on _StopRecordingStoreBase, Store {
-  late final _$recordingStatusAtom =
-      Atom(name: '_StopRecordingStoreBase.recordingStatus', context: context);
+  late final _$resultingWordsAtom =
+      Atom(name: '_StopRecordingStoreBase.resultingWords', context: context);
 
   @override
-  RecordingStatus get recordingStatus {
-    _$recordingStatusAtom.reportRead();
-    return super.recordingStatus;
+  String get resultingWords {
+    _$resultingWordsAtom.reportRead();
+    return super.resultingWords;
   }
 
   @override
-  set recordingStatus(RecordingStatus value) {
-    _$recordingStatusAtom.reportWrite(value, super.recordingStatus, () {
-      super.recordingStatus = value;
+  set resultingWords(String value) {
+    _$resultingWordsAtom.reportWrite(value, super.resultingWords, () {
+      super.resultingWords = value;
     });
   }
 
@@ -29,13 +29,13 @@ mixin _$StopRecordingStore on _StopRecordingStoreBase, Store {
       Atom(name: '_StopRecordingStoreBase.futureStore', context: context);
 
   @override
-  BaseFutureStore<RecordingStatusEntity> get futureStore {
+  BaseFutureStore<AudioProcessingEntity> get futureStore {
     _$futureStoreAtom.reportRead();
     return super.futureStore;
   }
 
   @override
-  set futureStore(BaseFutureStore<RecordingStatusEntity> value) {
+  set futureStore(BaseFutureStore<AudioProcessingEntity> value) {
     _$futureStoreAtom.reportWrite(value, super.futureStore, () {
       super.futureStore = value;
     });
@@ -52,7 +52,7 @@ mixin _$StopRecordingStore on _StopRecordingStoreBase, Store {
   @override
   String toString() {
     return '''
-recordingStatus: ${recordingStatus},
+resultingWords: ${resultingWords},
 futureStore: ${futureStore}
     ''';
   }

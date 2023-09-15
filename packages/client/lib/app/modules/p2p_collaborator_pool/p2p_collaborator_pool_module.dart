@@ -2,6 +2,7 @@
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:primala/app/core/modules/local_speech_to_text/local_speech_to_text_module.dart';
+import 'package:primala/app/core/modules/local_speech_to_text/mobx/mobx.dart';
 import 'package:primala/app/core/network/network_info.dart';
 import 'package:primala/app/core/widgets/mobx/all_custom_widgets_tracker_store.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
@@ -213,7 +214,8 @@ class P2PCollaboratorPoolModule extends Module {
             enterCollaboratorPoolStore: i<EnterCollaboratorPoolStore>(),
             validateQueryStore: i<ValidateQueryStore>(),
             onSpeechResultStore: i<OnSpeechResultStore>(),
-            speechToTextStore: i<SpeechToTextStore>(),
+            localSpeechToText: i<LocalSpeechToTextCoordinatorStore>(),
+            // speechToTextStore: i<SpeechToTextStore>(),
             widgetStore: Modular.get<AllCustomWidgetsTrackerStore>(),
           ),
         ),

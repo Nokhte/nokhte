@@ -19,7 +19,7 @@ abstract class _StopRecordingGetterStoreBase extends Equatable with Store {
     required this.logic,
   });
 
-  Future<Either<Failure, RecordingStatusEntity>> call(params) async =>
+  Future<Either<Failure, AudioProcessingEntity>> call(params) async =>
       await logic(params);
 
   @override
