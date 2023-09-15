@@ -1,3 +1,0 @@
-```dart
-void main() {}
-```

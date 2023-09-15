@@ -13,7 +13,6 @@ class AudioProcessingModel extends AudioProcessingEntity {
         words.add(leopardRes[i].word);
       }
       final wordsStr = words.join(' ');
-      print("WORDS FROM THE MODEL ======> $wordsStr");
       return AudioProcessingModel(resultingWords: wordsStr);
     }
   }
