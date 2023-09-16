@@ -51,23 +51,6 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
     );
   }
 
-  // @action
-  // swipeDownCallback() async {
-  //   await voiceCallActionsStore.enterOrLeaveCall(
-  //     Left(NoParams()),
-  //   );
-  // }
-
-  // @action
-  // unmuteCallback() async {
-  //   await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);
-  // }
-
-  // @action
-  // muteCallback() async {
-  //   await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
-  // }
-
   @action
   swipeUpCallback() async {
     /// todo leave in for production

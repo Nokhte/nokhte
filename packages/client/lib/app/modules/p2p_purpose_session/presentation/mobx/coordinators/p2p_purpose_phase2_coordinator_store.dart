@@ -22,6 +22,9 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
   final SmartFadingAnimatedTextTrackerStore fadingText;
   final BreathingPentagonsStateTrackerStore breathingPentagons;
 
+  @observable
+  bool isFirstTimeTalking = true;
+
   @action
   screenConstructor() async {
     beachWaves.initiateSuspendedAtTheDepths();
@@ -38,16 +41,9 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
             ? "Ask: What Could We Collectively Create?"
             : "Wait For Your Collaborator To Start The Conversation",
       );
-      print(
-          "2 ${fadingText.currentIndex} ${fadingText.currentMainMessageFont}");
+      // print( "2 ${fadingText.currentIndex} ${fadingText.currentMainMessageFont}");
       fadingText.togglePause();
-      beachWaves.initiateTimesUp(
-        timerLength: const Duration(minutes: 5),
-        pMovieMode: MovieModes.purposeCallTimesUp,
-      );
     });
-
-    /// should it happen here probably, right?
   }
 
   _P2PPurposePhase2CoordinatorStoreBase({
@@ -57,10 +53,29 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
     required this.beachWaves,
     required this.fadingText,
     required this.breathingPentagons,
-  });
+  }) {
+    reaction((p0) => beachWaves.movieMode, (p0) {
+      if (beachWaves.movieMode == MovieModes.backToTheDepthsSetup) {
+        breathingPentagons.flipWidgetVisibility();
+      }
+    });
+  }
 
   @action
   breathingPentagonsHoldStartCallback() {
+    if (isFirstTimeTalking) {
+      beachWaves.initiateTimesUp(
+        timerLength: const Duration(
+          seconds: 10,
+          // minutes: 5,
+          // TODO COMMENT OUT FOR PROD
+        ),
+        pMovieMode: MovieModes.purposeCallTimesUp,
+      );
+      fadingText.fadeTheTextOut();
+      isFirstTimeTalking = false;
+    }
+
     /// TODO comment out for production
     // voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);
     breathingPentagons.gestureFunctionRouter();

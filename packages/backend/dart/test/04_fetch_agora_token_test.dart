@@ -1,4 +1,6 @@
 // * Testing & Mocking Libs
+// ignore_for_file: file_names
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primala_backend/token_server.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';

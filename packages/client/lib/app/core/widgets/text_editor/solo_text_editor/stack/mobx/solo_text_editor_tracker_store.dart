@@ -12,34 +12,12 @@ class SoloTextEditorTrackerStore = _SoloTextEditorTrackerStoreBase
 
 abstract class _SoloTextEditorTrackerStoreBase extends BaseTextEditorStore
     with Store {
-  // @override
-  // @action
-  // handleTap() {
-  //   controller.selection = TextSelection.fromPosition(
-  //     TextPosition(offset: controller.text.length),
-  //   );
-  //   // }
-  // }
+  @observable
+  bool showWidget = false;
 
-  // @override
-  // @action
-  // addEventListeners() {
-  //   focusNode.addListener(() {
-  //     if (focusNode.hasFocus) {
-  //       print("A USER JUST WENT INTO THE TEXT DOC");
-  //     } else {
-  //       print("A USER JUST LEFT THE TEXT DOC");
-  //     }
-  //   });
-  //   controller.addListener(() {
-  //     // final selection = controller.selection;
-  //     // print(controller.text); <=== wonderful this is how you push text
-  //     // print('Cursor Start: ${selection.start}, Cursor End: ${selection.end}');
-  //   });
-  // }
-
-//   @override
-//   List<Object> get props => [
-// // some items
-//       ];
+  @action
+  flipWidgetVisibility() {
+    showWidget = !showWidget;
+    print("was this working??? $showWidget");
+  }
 }

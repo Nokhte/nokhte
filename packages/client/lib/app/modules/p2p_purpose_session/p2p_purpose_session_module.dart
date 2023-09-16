@@ -83,6 +83,7 @@ class P2PCollaboratorSessionModule extends Module {
           (i) => P2PPurposePhase3CoordinatorStore(
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
             textEditor: Modular.get<SoloTextEditorTrackerStore>(),
+            fadingText: i<SmartFadingAnimatedTextTrackerStore>(),
           ),
         ),
         Bind.singleton<P2PPurposePhase4CoordinatorStore>(
@@ -101,11 +102,10 @@ class P2PCollaboratorSessionModule extends Module {
   @override
   List<ChildRoute> get routes => [
         ChildRoute(
-          // '/',
-          '/phase-1',
+          '/',
+          // '/phase-1',
           child: (context, args) => P2PPurpose1GreeterScreen(
             coordinator: Modular.get<P2PPurposePhase1CoordinatorStore>(),
-            // agoraEngine: Modular.get<RtcEngine>(),
           ),
           transition: TransitionType.noTransition,
         ),
@@ -132,8 +132,8 @@ class P2PCollaboratorSessionModule extends Module {
           transition: TransitionType.noTransition,
         ),
         ChildRoute(
-          // '/phase-5/',
-          '/',
+          '/phase-5/',
+          // '/',
           child: (context, args) => P2PPurpose5CollectiveCreation(
             coordinator: Modular.get<P2PPurposePhase5CoordinatorStore>(),
           ),

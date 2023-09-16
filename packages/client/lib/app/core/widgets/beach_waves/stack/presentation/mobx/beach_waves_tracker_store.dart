@@ -124,32 +124,12 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
         Modular.to.navigate('/p2p_purpose_session/phase-3/');
         break;
       case MovieModes.purposeCallTimesUp:
-        timesUpCount != 0 ? teeUpBackToTheDepths() : timesUpCount++;
-
-      // initiateBackToTheDepths();
-
+        movieMode = MovieModes.backToTheDepthsSetup;
+        // initiateBackToTheDepths();
+        break;
       default:
         break;
     }
-    // if (movieMode == MovieModes.backToShore) {
-    //   Modular.to.navigate('/home/');
-    // } else if (movieMode == MovieModes.oceanDive) {
-    //   oceanDiveCount != 0
-    //       ? Modular.to.navigate('/p2p_collaborator_pool/')
-    //       : oceanDiveCount++;
-    // } else if (movieMode == MovieModes.toTheDepths) {
-    //   Modular.to.navigate('/p2p_collaborator_pool/pool/');
-    // } else if (movieMode == MovieModes.collaboratorPoolTimesUp) {
-    //   initiateBackToOceanDive();
-    // } else if (movieMode == MovieModes.backToOceanDive) {
-    //   Modular.to.navigate(
-    //     '/p2p_collaborator_pool/',
-    //   );
-    // } else if (movieMode == MovieModes.backToTheDepths) {
-    //   backToTheDepthsCount != 0
-    //       ? Modular.to.navigate('/p2p_purpose_session/')
-    //       : backToTheDepthsCount++;
-    // }
   }
 
   @action

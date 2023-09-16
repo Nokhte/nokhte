@@ -10,6 +10,23 @@ part of 'p2p_purpose_phase2_coordinator_store.dart';
 
 mixin _$P2PPurposePhase2CoordinatorStore
     on _P2PPurposePhase2CoordinatorStoreBase, Store {
+  late final _$isFirstTimeTalkingAtom = Atom(
+      name: '_P2PPurposePhase2CoordinatorStoreBase.isFirstTimeTalking',
+      context: context);
+
+  @override
+  bool get isFirstTimeTalking {
+    _$isFirstTimeTalkingAtom.reportRead();
+    return super.isFirstTimeTalking;
+  }
+
+  @override
+  set isFirstTimeTalking(bool value) {
+    _$isFirstTimeTalkingAtom.reportWrite(value, super.isFirstTimeTalking, () {
+      super.isFirstTimeTalking = value;
+    });
+  }
+
   late final _$screenConstructorAsyncAction = AsyncAction(
       '_P2PPurposePhase2CoordinatorStoreBase.screenConstructor',
       context: context);
@@ -54,7 +71,7 @@ mixin _$P2PPurposePhase2CoordinatorStore
   @override
   String toString() {
     return '''
-
+isFirstTimeTalking: ${isFirstTimeTalking}
     ''';
   }
 }

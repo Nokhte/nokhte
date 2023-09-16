@@ -28,9 +28,16 @@ class P2PPurpose3IndividualRefletionScreen extends StatelessWidget {
                     stateTrackerStore: coordinator.beachWaves,
                   ),
                 ),
+                Center(
+                  child: SmartFadingAnimatedText(
+                    initialFadeInDelay: const Duration(seconds: 0),
+                    stateTrackerStore: coordinator.fadingText,
+                  ),
+                ),
                 Container(
                   alignment: Alignment.center,
                   child: SoloTextEditor(
+                    fadeInDuration: const Duration(seconds: 2),
                     trackerStore: coordinator.textEditor,
                   ),
                 ),

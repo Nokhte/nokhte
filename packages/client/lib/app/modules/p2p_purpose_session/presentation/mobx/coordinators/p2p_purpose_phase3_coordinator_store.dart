@@ -14,16 +14,26 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends Equatable
     with Store {
   final BeachWavesTrackerStore beachWaves;
   final SoloTextEditorTrackerStore textEditor;
+  final SmartFadingAnimatedTextTrackerStore fadingText;
 
   _P2PPurposePhase3CoordinatorStoreBase({
     required this.beachWaves,
     required this.textEditor,
+    required this.fadingText,
   });
 
   @action
   screenConstructor() {
     beachWaves.initiateSuspendedAtTheDepths();
-    textEditor.addEventListeners();
+    fadingText.moveToNextMessage();
+    Future.delayed(const Duration(seconds: 1), () {
+      fadingText.fadeTheTextIn();
+    });
+    Future.delayed(const Duration(seconds: 3), () {
+      fadingText.fadeTheTextOut();
+      textEditor.flipWidgetVisibility();
+    });
+    // textEditor.addEventListeners();
   }
 
   @override
