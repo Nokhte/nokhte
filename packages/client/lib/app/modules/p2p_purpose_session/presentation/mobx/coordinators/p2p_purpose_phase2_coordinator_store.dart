@@ -29,22 +29,18 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
   @action
   screenConstructor() async {
     beachWaves.initiateSuspendedAtTheDepths();
+    await fadingText.oneSecondDelay(() => fadingText.fadeTheTextIn());
     await questionCheckerStore(NoParams()).then((_) {
-      // fadingText.changeFutureMainMessage(
-      //   amountOfMessagesForward: 1,
-      //   message: questionCheckerStore.hasTheQuestion
-      //       ? "Ask: What Could We Collectively Create?"
-      //       : "Wait For Your Collaborator To Start The Conversation",
-      // );
       fadingText.setMainMessage(
         index: 1,
         thePhrase: questionCheckerStore.hasTheQuestion
             ? "Ask: What Could We Collectively Create?"
             : "Wait For Your Collaborator To Start The Conversation",
       );
-      // print( "2 ${fadingText.currentIndex} ${fadingText.currentMainMessageFont}");
-      fadingText.togglePause();
-    });
+      // fadingText.fadeTheTextIn();
+    }).then((value) => Future.delayed(const Duration(seconds: 2), () {
+          fadingText.togglePause();
+        }));
   }
 
   _P2PPurposePhase2CoordinatorStoreBase({
@@ -67,7 +63,6 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
         beachWaves.backToTheDepthsCount++;
       } else if (beachWaves.movieStatus == MovieStatus.finished &&
           beachWaves.movieMode == MovieModes.backToTheDepths) {
-        print("did this part run??");
         Modular.to.navigate('/p2p_purpose_session/phase-3/');
       }
     });
