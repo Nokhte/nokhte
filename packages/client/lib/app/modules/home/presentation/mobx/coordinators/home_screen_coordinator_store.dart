@@ -15,17 +15,23 @@ class HomeScreenCoordinatorStore = _HomeScreenCoordinatorStoreBase
     with _$HomeScreenCoordinatorStore;
 
 abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
-  final BeachWavesTrackerStore beachWaveStateTrackerStore;
+  final BeachWavesTrackerStore beachWaves;
   final AddNameToDatabaseStore addNameToDatabaseStore;
   final SmartFadingAnimatedTextTrackerStore fadingTextStateTrackerStore;
   final GetCollaboratorPhraseStore getCollaboratorPhraseStore;
 
   _HomeScreenCoordinatorStoreBase({
-    required this.beachWaveStateTrackerStore,
+    required this.beachWaves,
     required this.addNameToDatabaseStore,
     required this.fadingTextStateTrackerStore,
     required this.getCollaboratorPhraseStore,
-  });
+  }) {
+    reaction((p0) => beachWaves.movieStatus, (p0) {
+      if (beachWaves.movieStatus == MovieStatus.finished) {
+        Modular.to.navigate('/p2p_collaborator_pool/');
+      }
+    });
+  }
 
   homeScreenConstructorCallback() {
     Future.delayed(const Duration(seconds: 1), () async {
@@ -49,9 +55,9 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
   //   }
   //   fadingTextStateTrackerStore.currentMainText = "";
   //   fadingTextStateTrackerStore.currentSubText = "";
-  //   beachWaveStateTrackerStore.teeUpOceanDive();
-  //   beachWaveStateTrackerStore.teeOceanDiveMovieUp(
-  //     startingWaterMovement: beachWaveStateTrackerStore.passingParam,
+  //   beachWaves.teeUpOceanDive();
+  //   beachWaves.teeOceanDiveMovieUp(
+  //     startingWaterMovement: beachWaves.passingParam,
   //   );
   // }
 

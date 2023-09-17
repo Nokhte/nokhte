@@ -12,16 +12,13 @@ import 'package:swipe/swipe.dart';
 
 class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
   final SpeakTheCollaboratorPhraseCoordinatorStore coordinatorStore;
-  // final double startingWaveMovement;
 
   SpeakTheCollaboratorPhraseScreen({
     Key? key,
     required this.coordinatorStore,
-    // required this.startingWaveMovement,
   }) : super(key: key) {
     coordinatorStore.screenConstructorCallback(
       coordinatorStore: coordinatorStore,
-      // startingWaveMovement: startingWaveMovement,
     );
   }
 
@@ -63,8 +60,7 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                 Column(
                   children: [
                     Expanded(
-                      child:
-                          Container(), // Empty SizedBox to take up available space
+                      child: Container(),
                     ),
                     GestureDetector(
                       onLongPressStart: (_) => coordinatorStore
@@ -93,14 +89,11 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                //   );
-                // }),
               ],
             ),
           ),
         );
       },
     );
-    // });
   }
 }

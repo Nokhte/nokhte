@@ -32,7 +32,7 @@ class _SoloTextEditorState extends State<SoloTextEditor> {
   @override
   void dispose() {
     super.dispose();
-    trackerStore.dispose();
+    // trackerStore.dispose();
   }
 
   @override

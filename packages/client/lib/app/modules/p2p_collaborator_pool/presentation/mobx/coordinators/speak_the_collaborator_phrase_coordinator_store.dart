@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // * Mobx Import
 // import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
@@ -27,9 +28,13 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   final OnSpeechResultStore onSpeechResultStore;
   final ValidateQueryStore validateQueryStore;
   final EnterCollaboratorPoolStore enterCollaboratorPoolStore;
-  late BeachWavesTrackerStore beachWavesStore;
+  late BeachWavesTrackerStore beachWaves;
   late BreathingPentagonsStateTrackerStore breathingPentagonsStore;
   late SmartFadingAnimatedTextTrackerStore fadingTextStore;
+  late bool backToOceanDiveIsFinished;
+  late bool toTheDepthsIsFinished;
+  late bool backToShoreIsFinished;
+  late bool movieIsFinished;
 
   @observable
   bool isReadyToEnterPool = false;
@@ -37,14 +42,28 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   _SpeakTheCollaboratorPhraseCoordinatorStoreBase({
     required this.widgetStore,
     required this.localSpeechToText,
-    // required this.speechToTextStore,
     required this.onSpeechResultStore,
     required this.validateQueryStore,
     required this.enterCollaboratorPoolStore,
   }) {
-    beachWavesStore = widgetStore.beachWavesStore;
+    beachWaves = widgetStore.beachWavesStore;
     fadingTextStore = widgetStore.smartFadingAnimatedTextStore;
     breathingPentagonsStore = widgetStore.breathingPentagonsStore;
+
+    reaction((p0) => beachWaves.movieStatus, (p0) {
+      movieIsFinished = beachWaves.movieStatus == MovieStatus.finished;
+      if (beachWaves.movieStatus == MovieStatus.finished &&
+          beachWaves.movieMode == MovieModes.backToOceanDive) {
+        Modular.to.navigate('/p2p_collaborator_pool/');
+      } else if (beachWaves.movieStatus == MovieStatus.finished &&
+          beachWaves.movieMode == MovieModes.toTheDepths) {
+        Modular.to.navigate('/p2p_collaborator_pool/pool/');
+      } else if (beachWaves.movieStatus == MovieStatus.finished &&
+          beachWaves.movieMode == MovieModes.backToShore) {
+        print("issssssssssssss dis running");
+        Modular.to.navigate('/home/');
+      }
+    });
     reaction((p0) => onSpeechResultStore.currentPhraseIndex, (p0) {
       fadingTextStore.togglePause(gestureType: Gestures.none);
       fadingTextStore.addNewMessage(
@@ -122,6 +141,7 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   screenConstructorCallback({
     required SpeakTheCollaboratorPhraseCoordinatorStore coordinatorStore,
   }) async {
+    beachWaves.initiateSuspendedAtSea();
     localSpeechToText.initLeopardStore(NoParams());
     if (await Permission.microphone.isDenied) {
       await Permission.microphone.request();
@@ -129,8 +149,6 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
     if (!fadingTextStore.showText && !fadingTextStore.firstTime) {
       fadingTextStore.resetToDefault();
     }
-
-    beachWavesStore.initiateSuspendedAtSea();
   }
 
   @override

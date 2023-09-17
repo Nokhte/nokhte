@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // * Mobx Import
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
@@ -59,6 +60,17 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
         breathingPentagons.flipWidgetVisibility();
       }
     });
+    reaction((p0) => beachWaves.movieStatus, (p0) {
+      if (beachWaves.movieStatus == MovieStatus.finished &&
+          beachWaves.movieMode == MovieModes.timesUp) {
+        beachWaves.teeUpBackToTheDepths();
+        beachWaves.backToTheDepthsCount++;
+      } else if (beachWaves.movieStatus == MovieStatus.finished &&
+          beachWaves.movieMode == MovieModes.backToTheDepths) {
+        print("did this part run??");
+        Modular.to.navigate('/p2p_purpose_session/phase-3/');
+      }
+    });
   }
 
   @action
@@ -70,7 +82,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
           // minutes: 5,
           // TODO COMMENT OUT FOR PROD
         ),
-        pMovieMode: MovieModes.purposeCallTimesUp,
+        // pMovieMode: MovieModes.purposeCallTimesUp,
       );
       fadingText.fadeTheTextOut();
       isFirstTimeTalking = false;

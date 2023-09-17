@@ -28,6 +28,7 @@ class P2PPurpose4ReciprocateAttentionScreen extends StatelessWidget {
                     stateTrackerStore: coordinator.beachWaves,
                   ),
                 ),
+                Center(child: PlatformText("hi phase 4")),
               ],
             ),
           ))),

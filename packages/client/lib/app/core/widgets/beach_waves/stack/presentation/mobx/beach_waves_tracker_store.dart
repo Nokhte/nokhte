@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // * Mobx Import
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+// import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
@@ -81,53 +81,31 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   @action
   initiateTimesUp({
     required Duration timerLength,
-    required MovieModes pMovieMode,
   }) {
     movie = TimesUp.getMovie(
       timerLength: timerLength,
     );
     control = Control.playFromStart;
     movieStatus = MovieStatus.inProgress;
-    movieMode = pMovieMode;
+    movieMode = MovieModes.timesUp;
   }
 
-  /// I think the best way to do is probably to parameterize it
-  /// ??
+  // what we should do is have state change
   @action
   onBeachWavesAnimationCompletion() {
     switch (movieMode) {
-      case MovieModes.backToShore:
-        Modular.to.navigate('/home/');
-        break;
       case MovieModes.oceanDive:
         oceanDiveCount != 0
-            ? Modular.to.navigate('/p2p_collaborator_pool/')
+            ? movieStatus = MovieStatus.finished
             : oceanDiveCount++;
         break;
-      case MovieModes.toTheDepths:
-        Modular.to.navigate('/p2p_collaborator_pool/pool/');
-        break;
-      case MovieModes.collaboratorPoolTimesUp:
-        initiateBackToOceanDive();
-        break;
-      case MovieModes.backToOceanDive:
-        Modular.to.navigate(
-          '/p2p_collaborator_pool/',
-        );
-        break;
-      case MovieModes.enterThePurposeSessionDepths:
+      case MovieModes.backToTheDepths:
         backToTheDepthsCount != 0
-            ? Modular.to.navigate('/p2p_purpose_session/')
+            ? movieStatus = MovieStatus.finished
             : backToTheDepthsCount++;
         break;
-      case MovieModes.enterPhase3Depths:
-        Modular.to.navigate('/p2p_purpose_session/phase-3/');
-        break;
-      case MovieModes.purposeCallTimesUp:
-        movieMode = MovieModes.backToTheDepthsSetup;
-        // initiateBackToTheDepths();
-        break;
       default:
+        movieStatus = MovieStatus.finished;
         break;
     }
   }
@@ -188,26 +166,20 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
     );
     control = Control.playFromStart;
     movieStatus = MovieStatus.inProgress;
-    movieMode = movieMode == MovieModes.enterThePurposeSessionDepths
-        ? MovieModes.enterThePurposeSessionDepths
-        : MovieModes.enterPhase3Depths;
-    // movieMode = MovieModes.backToTheDepths;
+    movieMode = MovieModes.backToTheDepths;
   }
 
   @action
-  teeUpOnShoreToOceanDiveTransition
-      // teeUpHomeScreenToCollabPoolNavigation
-      ({
+  teeUpOnShoreToOceanDiveTransition({
     required double startingWaterMovement,
   }) {
-    // isReadyToTransition = true;
     passingParam = startingWaterMovement;
   }
 
   @action
   initiateOceanDive() {
+    movieStatus = MovieStatus.inProgress;
     control = Control.playFromStart;
-    // movieStatus = MovieStatus.inProgress;
     movieMode = MovieModes.oceanDive;
   }
 
