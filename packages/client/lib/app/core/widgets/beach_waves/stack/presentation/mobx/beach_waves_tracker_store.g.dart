@@ -25,23 +25,6 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
     });
   }
 
-  late final _$isReadyToTransitionAtom = Atom(
-      name: '_BeachWavesTrackerStoreBase.isReadyToTransition',
-      context: context);
-
-  @override
-  bool get isReadyToTransition {
-    _$isReadyToTransitionAtom.reportRead();
-    return super.isReadyToTransition;
-  }
-
-  @override
-  set isReadyToTransition(bool value) {
-    _$isReadyToTransitionAtom.reportWrite(value, super.isReadyToTransition, () {
-      super.isReadyToTransition = value;
-    });
-  }
-
   late final _$pivotColorGradientsAtom = Atom(
       name: '_BeachWavesTrackerStoreBase.pivotColorGradients',
       context: context);
@@ -309,7 +292,6 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
   String toString() {
     return '''
 movie: ${movie},
-isReadyToTransition: ${isReadyToTransition},
 pivotColorGradients: ${pivotColorGradients},
 movieStatus: ${movieStatus},
 passingParam: ${passingParam},

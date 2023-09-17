@@ -19,9 +19,6 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   MovieTween movie = OnShore.movie;
 
   @observable
-  bool isReadyToTransition = false;
-
-  @observable
   List<Color> pivotColorGradients = [];
 
   @observable

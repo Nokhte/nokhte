@@ -15,7 +15,6 @@ void main() {
 
   /// 2 setups 1. is onShore, other is OceanDive
   test("sets default values correctly", () {
-    expect(homeModuleStateTrackerStore.isReadyToTransition, false);
     expect(homeModuleStateTrackerStore.movieStatus, MovieStatus.inProgress);
     expect(homeModuleStateTrackerStore.passingParam, -10.0);
     expect(homeModuleStateTrackerStore.movieMode, MovieModes.onShore);
@@ -47,7 +46,6 @@ void main() {
     p2pCollaboratorPoolStateTrackerStore.onBeachWavesAnimationCompletion();
     // # and store is re-instantiated when navigated back to the home module
     homeModuleStateTrackerStore = BeachWavesTrackerStore();
-    expect(homeModuleStateTrackerStore.isReadyToTransition, false);
     expect(homeModuleStateTrackerStore.movieStatus, MovieStatus.inProgress);
     expect(homeModuleStateTrackerStore.passingParam, -10.0);
     expect(homeModuleStateTrackerStore.movieMode, MovieModes.onShore);
