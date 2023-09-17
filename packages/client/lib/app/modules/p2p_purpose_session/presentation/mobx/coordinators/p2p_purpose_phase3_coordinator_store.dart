@@ -4,6 +4,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
+import 'package:primala/app/core/interfaces/logic.dart';
+import 'package:primala/app/core/modules/solo_doc/domain/domain.dart';
 import 'package:primala/app/core/modules/solo_doc/mobx/mobx.dart';
 import 'package:primala/app/core/widgets/mobx.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
@@ -25,15 +27,18 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends Equatable
     required this.fadingText,
     required this.soloDoc,
   }) {
-    reaction((p0) => beachWaves.movieStatus, (p0) {
+    reaction((p0) => beachWaves.movieStatus, (p0) async {
       if (beachWaves.movieStatus == MovieStatus.finished &&
           beachWaves.movieMode == MovieModes.timesUp) {
         beachWaves.teeUpBackToTheDepths();
         beachWaves.backToTheDepthsCount++;
       } else if (beachWaves.movieStatus == MovieStatus.finished &&
           beachWaves.movieMode == MovieModes.backToTheDepths) {
-        print("did this part run??");
-        // textEditor.dispose();
+        final currentText = textEditor.controller.text;
+        await soloDoc
+            .createSoloDoc(const CreateSoloDocParams(docType: 'purpose'));
+        await soloDoc.submitSoloDoc(SubmitSoloDocParams(content: currentText));
+        await soloDoc.shareSoloDoc(NoParams());
         Modular.to.navigate('/p2p_purpose_session/phase-4/');
       }
     });
@@ -44,8 +49,8 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends Equatable
     // beachWaves.initiateSuspendedAtTheDepths();
     beachWaves.initiateTimesUp(
       timerLength: const Duration(
-        seconds: 10,
-        // minutes: 5,
+        // seconds: 10,
+        minutes: 5,
         // TODO COMMENT OUT FOR PROD
       ),
       // pMovieMode: MovieModes.individualPurpose,
