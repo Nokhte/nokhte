@@ -34,10 +34,14 @@ class _CollaborativeTextEditorState extends State<CollaborativeTextEditor> {
         //   padding: const EdgeInsets.all(30.0),
         //   child:
         BaseTextEditor(
+          maxLength: 95,
+          maxLines: 5,
           trackerStore: trackerStore.collaboratorStore,
         ),
         // ),
         BaseTextEditor(
+          maxLength: 95,
+          maxLines: 5,
           trackerStore: trackerStore.userStore,
         ),
       ],

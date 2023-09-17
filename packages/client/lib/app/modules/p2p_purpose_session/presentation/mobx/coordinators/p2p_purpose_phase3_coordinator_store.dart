@@ -32,6 +32,7 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends Equatable
           beachWaves.movieMode == MovieModes.timesUp) {
         beachWaves.teeUpBackToTheDepths();
         beachWaves.backToTheDepthsCount++;
+        textEditor.flipWidgetVisibility();
       } else if (beachWaves.movieStatus == MovieStatus.finished &&
           beachWaves.movieMode == MovieModes.backToTheDepths) {
         final currentText = textEditor.controller.text;
@@ -46,15 +47,13 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends Equatable
 
   @action
   screenConstructor() {
-    // beachWaves.initiateSuspendedAtTheDepths();
+    beachWaves.initiateSuspendedAtTheDepths();
     beachWaves.initiateTimesUp(
-      timerLength: const Duration(
-        // seconds: 10,
-        minutes: 5,
-        // TODO COMMENT OUT FOR PROD
-      ),
-      // pMovieMode: MovieModes.individualPurpose,
-    );
+        timerLength: const Duration(
+      seconds: 10,
+      // minutes: 5,
+      // TODO COMMENT OUT FOR PROD
+    ));
     fadingText.moveToNextMessage();
     Future.delayed(const Duration(seconds: 1), () {
       fadingText.fadeTheTextIn();

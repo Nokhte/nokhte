@@ -5,27 +5,17 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/widgets/mobx.dart';
 import 'package:primala/app/core/widgets/widget_constants.dart';
 
-class BaseTextEditor extends StatefulWidget {
+class BaseTextEditor extends StatelessWidget {
   final BaseTextEditorStore trackerStore;
+  final int maxLines;
+  final int maxLength;
 
   const BaseTextEditor({
     super.key,
     required this.trackerStore,
+    required this.maxLength,
+    required this.maxLines,
   });
-
-  @override
-  State<StatefulWidget> createState() =>
-      _BaseTextEditorState(trackerStore: trackerStore);
-}
-
-class _BaseTextEditorState extends State<BaseTextEditor> {
-  final BaseTextEditorStore trackerStore;
-  _BaseTextEditorState({required this.trackerStore});
-  @override
-  void dispose() {
-    super.dispose();
-    trackerStore.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +26,8 @@ class _BaseTextEditorState extends State<BaseTextEditor> {
         onTap: () => trackerStore.handleTap(),
         controller: trackerStore.controller,
         focusNode: trackerStore.focusNode,
-        maxLength: TextEditorConstants.maxLength,
+        maxLines: maxLines,
+        maxLength: maxLength,
         maxLengthEnforcement: MaxLengthEnforcement.enforced,
         style: TextEditorConstants.mainTextStyle,
         cursorColor: TextEditorConstants.soloCursorColor,

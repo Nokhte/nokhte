@@ -7,32 +7,42 @@ import 'package:primala/app/core/widgets/text_editor/core/widget/bare_text_edito
 class SoloTextEditor extends StatefulWidget {
   final SoloTextEditorTrackerStore trackerStore;
   final Duration fadeInDuration;
+  final int maxLines;
+  final int maxLength;
 
   const SoloTextEditor({
     super.key,
     required this.trackerStore,
     required this.fadeInDuration,
+    required this.maxLength,
+    required this.maxLines,
   });
 
   @override
   State<StatefulWidget> createState() => _SoloTextEditorState(
         trackerStore: trackerStore,
         fadeInDuration: fadeInDuration,
+        maxLength: maxLength,
+        maxLines: maxLines,
       );
 }
 
 class _SoloTextEditorState extends State<SoloTextEditor> {
   final SoloTextEditorTrackerStore trackerStore;
   final Duration fadeInDuration;
+  final int maxLines;
+  final int maxLength;
 
   _SoloTextEditorState({
     required this.trackerStore,
     required this.fadeInDuration,
+    required this.maxLength,
+    required this.maxLines,
   });
   @override
   void dispose() {
     super.dispose();
-    // trackerStore.dispose();
+    trackerStore.dispose();
   }
 
   @override
@@ -42,6 +52,8 @@ class _SoloTextEditorState extends State<SoloTextEditor> {
         opacity: trackerStore.showWidget ? 1 : 0,
         duration: fadeInDuration,
         child: BaseTextEditor(
+          maxLines: maxLines,
+          maxLength: maxLength,
           trackerStore: trackerStore,
         ),
       );

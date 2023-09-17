@@ -37,6 +37,8 @@ class P2PPurpose3IndividualRefletionScreen extends StatelessWidget {
                 Container(
                   alignment: Alignment.center,
                   child: SoloTextEditor(
+                    maxLength: 55,
+                    maxLines: 5,
                     fadeInDuration: const Duration(seconds: 2),
                     trackerStore: coordinator.textEditor,
                   ),

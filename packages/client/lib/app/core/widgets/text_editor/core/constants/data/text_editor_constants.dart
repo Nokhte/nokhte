@@ -5,8 +5,8 @@ class TextEditorConstants {
         color: Colors.white,
         fontSize: 40.0,
       );
-  static int get maxLines => 4;
-  static int get maxLength => 38;
+  static int get maxLines => 5;
+  static int get maxLength => 48;
   static TextStyle get hintTextStyle => TextStyle(
           color: Colors.white.withOpacity(
         .30,
