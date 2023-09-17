@@ -1,6 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:primala/app/core/modules/collaborative_doc/collaborative_doc_module.dart';
 import 'package:primala/app/core/modules/collaborative_doc/presentation/presentation.dart';
+import 'package:primala/app/core/modules/solo_doc/mobx/mobx.dart';
 import 'package:primala/app/core/modules/solo_doc/solo_doc_module.dart';
 import 'package:primala/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:primala/app/core/modules/voice_call/voice_call_module.dart';
@@ -84,6 +85,7 @@ class P2PCollaboratorSessionModule extends Module {
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
             textEditor: Modular.get<SoloTextEditorTrackerStore>(),
             fadingText: i<SmartFadingAnimatedTextTrackerStore>(),
+            soloDoc: i<SoloDocCoordinatorStore>(),
           ),
         ),
         Bind.singleton<P2PPurposePhase4CoordinatorStore>(
@@ -99,6 +101,7 @@ class P2PCollaboratorSessionModule extends Module {
           ),
         ),
       ];
+
   @override
   List<ChildRoute> get routes => [
         ChildRoute(

@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
+import 'package:primala/app/core/modules/solo_doc/mobx/mobx.dart';
 import 'package:primala/app/core/widgets/mobx.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 // * Mobx Codegen Inclusion
@@ -17,11 +18,12 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends Equatable
   final BeachWavesTrackerStore beachWaves;
   final SoloTextEditorTrackerStore textEditor;
   final SmartFadingAnimatedTextTrackerStore fadingText;
-
+  final SoloDocCoordinatorStore soloDoc;
   _P2PPurposePhase3CoordinatorStoreBase({
     required this.beachWaves,
     required this.textEditor,
     required this.fadingText,
+    required this.soloDoc,
   }) {
     reaction((p0) => beachWaves.movieStatus, (p0) {
       if (beachWaves.movieStatus == MovieStatus.finished &&
