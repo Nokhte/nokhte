@@ -10,6 +10,15 @@ part of 'p2p_purpose_phase4_coordinator_store.dart';
 
 mixin _$P2PPurposePhase4CoordinatorStore
     on _P2PPurposePhase4CoordinatorStoreBase, Store {
+  late final _$screenConstructorAsyncAction = AsyncAction(
+      '_P2PPurposePhase4CoordinatorStoreBase.screenConstructor',
+      context: context);
+
+  @override
+  Future screenConstructor() {
+    return _$screenConstructorAsyncAction.run(() => super.screenConstructor());
+  }
+
   @override
   String toString() {
     return '''

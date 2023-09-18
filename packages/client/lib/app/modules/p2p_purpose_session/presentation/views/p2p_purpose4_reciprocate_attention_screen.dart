@@ -10,8 +10,7 @@ class P2PPurpose4ReciprocateAttentionScreen extends StatelessWidget {
     super.key,
     required this.coordinator,
   }) {
-    //
-    coordinator.beachWaves.initiateSuspendedAtTheDepths();
+    coordinator.screenConstructor();
   }
 
   @override
@@ -28,7 +27,12 @@ class P2PPurpose4ReciprocateAttentionScreen extends StatelessWidget {
                     stateTrackerStore: coordinator.beachWaves,
                   ),
                 ),
-                Center(child: PlatformText("hi phase 4")),
+                Center(
+                  child: SmartFadingAnimatedText(
+                    initialFadeInDelay: const Duration(seconds: 0),
+                    stateTrackerStore: coordinator.fadingText,
+                  ),
+                ),
               ],
             ),
           ))),

@@ -1,3 +1,4 @@
+import 'package:primala_backend/collaborator_phrases.dart';
 import 'package:primala_backend/constants/constants.dart';
 import 'package:primala_backend/edge_functions.dart';
 import 'package:primala_backend/tables/real_time_enabled/real_time_enabled.dart';
@@ -22,6 +23,27 @@ void main() {
         .filter('first_name', 'neq', 'tester');
     return realPersonUIDQuery[0]["uid"];
   }
+
+  test("make a solo npc-owned doc & share it with the user", () async {
+    final userIdResults = await UserSetupConstants.fetchUIDs();
+    final npcUserUID = userIdResults[0];
+    final realPersonUID = await returnNonNPCUID();
+    await SoloSharableDocuments.createSoloDoc(
+        supabase: supabaseAdmin,
+        ownerUID: npcUserUID,
+        collaboratorUID: realPersonUID,
+        docType: 'purpose');
+    await SoloSharableDocuments.updateDocContent(
+      supabase: supabaseAdmin,
+      ownerUID: npcUserUID,
+      content: 'npc content',
+    );
+    await SoloSharableDocuments.updateDocVisibility(
+      supabase: supabaseAdmin,
+      ownerUID: npcUserUID,
+      visibility: true,
+    );
+  });
 
   test("put npc in the pool searching for user ", () async {
     final userIdResults = await UserSetupConstants.fetchUIDs();

@@ -38,7 +38,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
             : "Wait For Your Collaborator To Start The Conversation",
       );
       // fadingText.fadeTheTextIn();
-    }).then((value) => Future.delayed(const Duration(seconds: 2), () {
+    }).then((value) => Future.delayed(const Duration(seconds: 1), () {
           fadingText.togglePause();
         }));
   }
