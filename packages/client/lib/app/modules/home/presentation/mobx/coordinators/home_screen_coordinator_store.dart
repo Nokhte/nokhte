@@ -7,6 +7,7 @@ import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/home/presentation/mobx/main/main.dart';
+import 'package:simple_animations/simple_animations.dart';
 
 // * Mobx Codegen Inclusion
 part 'home_screen_coordinator_store.g.dart';
@@ -45,21 +46,23 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
     });
   }
 
-  homeScreenSwipeUpCallback() {
-    Modular.to.navigate('/p2p_purpose_session/');
-  }
-
   // homeScreenSwipeUpCallback() {
-  //   if (!fadingTextStateTrackerStore.isPaused) {
-  //     fadingTextStateTrackerStore.togglePause();
-  //   }
-  //   fadingTextStateTrackerStore.currentMainText = "";
-  //   fadingTextStateTrackerStore.currentSubText = "";
-  //   beachWaves.teeUpOceanDive();
-  //   beachWaves.teeOceanDiveMovieUp(
-  //     startingWaterMovement: beachWaves.passingParam,
-  //   );
+  //   Modular.to.navigate('/p2p_purpose_session/');
   // }
+
+  homeScreenSwipeUpCallback() {
+    if (!fadingTextStateTrackerStore.isPaused) {
+      fadingTextStateTrackerStore.togglePause();
+    }
+    if (beachWaves.movieStatus != MovieStatus.inProgress) {
+      fadingTextStateTrackerStore.currentMainText = "";
+      fadingTextStateTrackerStore.currentSubText = "";
+      beachWaves.teeUpOceanDive();
+      beachWaves.teeOceanDiveMovieUp(
+        startingWaterMovement: beachWaves.passingParam,
+      );
+    }
+  }
 
   @override
   List<Object> get props => [

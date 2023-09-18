@@ -31,7 +31,7 @@ abstract class _AllCustomWidgetsTrackerStoreBase extends Equatable with Store {
 
   @action
   backToShoreWidgetChanges() {
-    if (beachWavesStore.movieStatus == MovieStatus.idle &&
+    if (beachWavesStore.movieStatus != MovieStatus.inProgress &&
         beachWavesStore.movieMode == MovieModes.suspendedAtSea) {
       beachWavesStore.initiateBackToShore();
       breathingPentagonsStore.flipWidgetVisibility();
@@ -41,7 +41,7 @@ abstract class _AllCustomWidgetsTrackerStoreBase extends Equatable with Store {
 
   @action
   toTheDepthsWidgetChanges() {
-    if (beachWavesStore.movieStatus == MovieStatus.idle &&
+    if (beachWavesStore.movieStatus != MovieStatus.inProgress &&
         beachWavesStore.movieMode == MovieModes.suspendedAtSea) {
       beachWavesStore.initiateToTheDepths();
       breathingPentagonsStore.flipWidgetVisibility();

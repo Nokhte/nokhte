@@ -31,10 +31,6 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   late BeachWavesTrackerStore beachWaves;
   late BreathingPentagonsStateTrackerStore breathingPentagonsStore;
   late SmartFadingAnimatedTextTrackerStore fadingTextStore;
-  late bool backToOceanDiveIsFinished;
-  late bool toTheDepthsIsFinished;
-  late bool backToShoreIsFinished;
-  late bool movieIsFinished;
 
   @observable
   bool isReadyToEnterPool = false;
@@ -51,7 +47,6 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
     breathingPentagonsStore = widgetStore.breathingPentagonsStore;
 
     reaction((p0) => beachWaves.movieStatus, (p0) {
-      movieIsFinished = beachWaves.movieStatus == MovieStatus.finished;
       if (beachWaves.movieStatus == MovieStatus.finished &&
           beachWaves.movieMode == MovieModes.backToOceanDive) {
         Modular.to.navigate('/p2p_collaborator_pool/');

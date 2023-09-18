@@ -22,7 +22,7 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   List<Color> pivotColorGradients = [];
 
   @observable
-  MovieStatus movieStatus = MovieStatus.inProgress;
+  MovieStatus movieStatus = MovieStatus.idle;
 
   @observable
   double passingParam = -10.0;
