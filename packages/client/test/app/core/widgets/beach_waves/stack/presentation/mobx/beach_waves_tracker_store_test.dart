@@ -15,7 +15,7 @@ void main() {
 
   /// 2 setups 1. is onShore, other is OceanDive
   test("sets default values correctly", () {
-    expect(homeModuleStateTrackerStore.movieStatus, MovieStatus.inProgress);
+    expect(homeModuleStateTrackerStore.movieStatus, MovieStatus.idle);
     expect(homeModuleStateTrackerStore.passingParam, -10.0);
     expect(homeModuleStateTrackerStore.movieMode, MovieModes.onShore);
     expect(homeModuleStateTrackerStore.control, Control.mirror);
@@ -35,7 +35,6 @@ void main() {
     expect(
         p2pCollaboratorPoolStateTrackerStore.movieMode, MovieModes.oceanDive);
     expect(p2pCollaboratorPoolStateTrackerStore.control, Control.playFromStart);
-    // p2pCollaboratorPoolStateTrackerStore.collaboratorPhraseSwipeDownCallback();
     expect(p2pCollaboratorPoolStateTrackerStore.control, Control.playFromStart);
     expect(p2pCollaboratorPoolStateTrackerStore.movieStatus,
         MovieStatus.inProgress);
@@ -46,7 +45,7 @@ void main() {
     p2pCollaboratorPoolStateTrackerStore.onBeachWavesAnimationCompletion();
     // # and store is re-instantiated when navigated back to the home module
     homeModuleStateTrackerStore = BeachWavesTrackerStore();
-    expect(homeModuleStateTrackerStore.movieStatus, MovieStatus.inProgress);
+    expect(homeModuleStateTrackerStore.movieStatus, MovieStatus.idle);
     expect(homeModuleStateTrackerStore.passingParam, -10.0);
     expect(homeModuleStateTrackerStore.movieMode, MovieModes.onShore);
     expect(homeModuleStateTrackerStore.control, Control.mirror);
