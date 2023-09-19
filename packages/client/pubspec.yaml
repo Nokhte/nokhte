@@ -29,6 +29,7 @@ dependencies:
   mobx: ^2.2.0
   path_provider: ^2.1.1
   permission_handler: ^11.0.0
+  posthog_flutter: ^3.1.0
   primala_backend:
     path: ../backend/dart
   simple_animations: ^5.0.2

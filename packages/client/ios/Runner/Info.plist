@@ -60,5 +60,11 @@
 	<false/>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>For Voice Calls &amp; Speech Recognition.</string>
+	<key>com.posthog.posthog.API_KEY</key>
+	<string>phc_qeWzqB1Jrx9cxa5mwr7HPsaeyHXzQcu59zBZdfY0riT</string>
+	<key>com.posthog.posthog.POSTHOG_HOST</key>
+	<string>https://app.posthog.com</string>
+	<key>com.posthog.posthog.TRACK_APPLICATION_LIFECYCLE_EVENTS</key>
+	<false/>
 </dict>
 </plist>

@@ -7,6 +7,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/home/presentation/mobx/coordinators/home_screen_coordinator_store.dart';
 import 'package:swipe/swipe.dart';
+// import 'package:posthog_flutter/posthog_flutter.dart';
 
 class HomeScreen extends StatelessWidget {
   final HomeScreenCoordinatorStore coordinator;
@@ -15,6 +16,7 @@ class HomeScreen extends StatelessWidget {
     required this.coordinator,
   }) {
     coordinator.homeScreenConstructorCallback();
+    // Posthog().screen(screenName: 'opener screen');
   }
 
   @override

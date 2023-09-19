@@ -71,6 +71,10 @@ PODS:
     - FlutterMacOS
   - permission_handler_apple (9.1.1):
     - Flutter
+  - PostHog (2.0.2)
+  - posthog_flutter (0.0.1):
+    - Flutter
+    - PostHog (~> 2.0)
   - ReachabilitySwift (5.0.0)
   - shared_preferences_foundation (0.0.1):
     - Flutter
@@ -97,6 +101,7 @@ DEPENDENCIES:
   - leopard_flutter (from `.symlinks/plugins/leopard_flutter/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
+  - posthog_flutter (from `.symlinks/plugins/posthog_flutter/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - sign_in_with_apple (from `.symlinks/plugins/sign_in_with_apple/ios`)
   - speech_to_text (from `.symlinks/plugins/speech_to_text/ios`)
@@ -113,6 +118,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - ios-voice-processor
     - Leopard-iOS
+    - PostHog
     - ReachabilitySwift
     - Try
 
@@ -137,6 +143,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
   permission_handler_apple:
     :path: ".symlinks/plugins/permission_handler_apple/ios"
+  posthog_flutter:
+    :path: ".symlinks/plugins/posthog_flutter/ios"
   shared_preferences_foundation:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
   sign_in_with_apple:
@@ -167,6 +175,8 @@ SPEC CHECKSUMS:
   leopard_flutter: ff034f74398123f3ac16ea21cd4b77dc81b92341
   path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
   permission_handler_apple: e76247795d700c14ea09e3a2d8855d41ee80a2e6
+  PostHog: f9e5c13ceea86bb5314218c85d16125b797eb332
+  posthog_flutter: 080dc6e4638a25095095965517ca84ce85581ef0
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
   sign_in_with_apple: f3bf75217ea4c2c8b91823f225d70230119b8440
