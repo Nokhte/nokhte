@@ -7,7 +7,6 @@ import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/home/presentation/mobx/main/main.dart';
-import 'package:simple_animations/simple_animations.dart';
 
 // * Mobx Codegen Inclusion
 part 'home_screen_coordinator_store.g.dart';
