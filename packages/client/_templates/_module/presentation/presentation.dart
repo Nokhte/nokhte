@@ -1,2 +1,2 @@
 export './mobx/mobx.dart';
-export '';
+export './views/module_screen.dart';

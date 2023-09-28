@@ -46,12 +46,12 @@ class HomeScreen extends StatelessWidget {
                           coordinator.fadingTextStateTrackerStore,
                     ),
                   ),
-                  // Center(
-                  //   child: GestureCross(
-                  //     size: size,
-                  //     stateTrackerStore: coordinator.gestureCross,
-                  //   ),
-                  // ),
+                  Center(
+                    child: GestureCross(
+                      size: size,
+                      stateTrackerStore: coordinator.gestureCross,
+                    ),
+                  ),
                 ],
               ),
             ),
