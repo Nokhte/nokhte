@@ -1,6 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:primala/app/core/network/network_info.dart';
 import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
+import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/home/data/contracts/home_contract_impl.dart';
 import 'package:primala/app/modules/home/data/sources/home_remote_source.dart';
 import 'package:primala/app/modules/home/domain/contracts/home_contract.dart';
@@ -72,9 +73,13 @@ class HomeModule extends Module {
         Bind.singleton<BeachWavesTrackerStore>(
           (i) => BeachWavesTrackerStore(),
         ),
+        Bind.singleton<GestureCrossStore>(
+          (i) => GestureCrossStore(),
+        ),
         // & Coordinator Store
         Bind.singleton<HomeScreenCoordinatorStore>(
           (i) => HomeScreenCoordinatorStore(
+            gestureCross: i<GestureCrossStore>(),
             beachWaves: i<BeachWavesTrackerStore>(),
             addNameToDatabaseStore: i<AddNameToDatabaseStore>(),
             fadingTextStateTrackerStore:

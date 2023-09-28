@@ -15,12 +15,14 @@ class HomeScreenCoordinatorStore = _HomeScreenCoordinatorStoreBase
     with _$HomeScreenCoordinatorStore;
 
 abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
+  final GestureCrossStore gestureCross;
   final BeachWavesTrackerStore beachWaves;
   final AddNameToDatabaseStore addNameToDatabaseStore;
   final SmartFadingAnimatedTextTrackerStore fadingTextStateTrackerStore;
   final GetCollaboratorPhraseStore getCollaboratorPhraseStore;
 
   _HomeScreenCoordinatorStoreBase({
+    required this.gestureCross,
     required this.beachWaves,
     required this.addNameToDatabaseStore,
     required this.fadingTextStateTrackerStore,
