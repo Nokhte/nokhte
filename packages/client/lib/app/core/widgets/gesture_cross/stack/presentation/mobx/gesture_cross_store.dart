@@ -24,26 +24,30 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
           endingPath,
         );
 
+  @observable
+  bool showWidget = true;
+
   @action
   startTheAnimation() {
     controller.play();
+    colorController = Control.play;
   }
 
   @observable
   MovieTween movie = CrossToCircle.movie;
 
   @observable
-  Control control = Control.stop;
+  Control colorController = Control.stop;
 
   @action
   animationRenderingCallback(int i, Offset z) {
-    // setState(() {
     animationPathData.shiftedPoints[i] = z;
-    // });
   }
 
-  @observable
-  bool showWidget = false;
+  @action
+  onAnimationCompleted() {
+    showWidget = false;
+  }
 
   @override
   List<Object> get props => [];

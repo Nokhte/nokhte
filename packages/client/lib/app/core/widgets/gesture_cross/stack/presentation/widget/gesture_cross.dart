@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:path_morph/path_morph.dart';
-import 'package:primala/app/core/canvas_widget_utils/canvas_size_calculator.dart';
 import 'package:primala/app/core/widgets/gesture_cross/gesture_cross.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'canvas/gesture_cross_painter.dart';
@@ -59,17 +58,22 @@ class _GestureCrossState extends State<GestureCross>
       builder: (context) => CustomAnimationBuilder(
         tween: stateTrackerStore.movie,
         duration: stateTrackerStore.movie.duration,
-        control: stateTrackerStore.control,
-        builder: (context, value, child) => SizedBox(
-          width: size.width,
-          height: size.height,
-          // color: Colors.green.withOpacity(1),
-          child: CustomPaint(
-            painter: GestureCrossPainter(
-              PathMorph.generatePath(
-                stateTrackerStore.animationPathData,
-              ),
-              size,
+        control: stateTrackerStore.colorController,
+        onCompleted: () => stateTrackerStore.onAnimationCompleted(),
+        builder: (context, value, child) => AnimatedOpacity(
+          opacity: stateTrackerStore.showWidget ? 1 : 0,
+          duration: const Duration(seconds: 1),
+          child: SizedBox(
+            width: size.width,
+            height: size.height,
+            child: CustomPaint(
+              painter: GestureCrossPainter(
+                  PathMorph.generatePath(
+                    stateTrackerStore.animationPathData,
+                  ),
+                  size,
+                  firstGradientColor: value.get('first gradient color'),
+                  secondGradientColor: value.get('second gradient color')),
             ),
           ),
         ),

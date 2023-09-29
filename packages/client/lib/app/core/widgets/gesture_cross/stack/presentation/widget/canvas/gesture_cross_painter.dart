@@ -2,19 +2,27 @@ import 'package:flutter/material.dart';
 
 class GestureCrossPainter extends CustomPainter {
   Path path;
-
   late Paint myPaint;
+  Color firstGradientColor;
+  Color secondGradientColor;
 
-  GestureCrossPainter(this.path, Size size) {
+  GestureCrossPainter(
+    this.path,
+    Size size, {
+    required this.firstGradientColor,
+    required this.secondGradientColor,
+  }) {
     path.getBounds();
     myPaint = Paint()
-      ..shader = RadialGradient(
-          colors: [Color(0xFF0A98FF), Color(0x00FFFFFF)],
-          stops: [0, 1.2]).createShader(
+      ..shader = RadialGradient(colors: [
+        firstGradientColor,
+        secondGradientColor,
+      ], stops: const [
+        0,
+        1.8,
+      ]).createShader(
         path.getBounds(),
       );
-    // myPaint.color = Colors.green.withOpacity(.5);
-    // myPaint.strokeWidth = 3.0;
   }
 
   @override
