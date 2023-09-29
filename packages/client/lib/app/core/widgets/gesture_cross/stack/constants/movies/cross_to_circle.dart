@@ -26,26 +26,6 @@ class CrossToCircle extends Equatable {
             end: const Color(0xFFFFFFFF),
           ),
         );
-  // ..scene(
-  //   begin: const Duration(
-  //     seconds: 1,
-  //   ),
-  //   end: const Duration(seconds: 2),
-  // )
-  //     .tween(
-  //       'first gradient color',
-  //       ColorTween(
-  //         begin: const Color(0xFFFFFFFF),
-  //         end: const Color(0x00FFFFFF),
-  //       ),
-  //     )
-  //     .tween(
-  //       'second gradient color',
-  //       ColorTween(
-  //         begin: const Color(0xFFFFFFFF),
-  //         end: const Color(0x00FFFFFF),
-  //       ),
-  //     );
 
   @override
   List<Object> get props => [movie];

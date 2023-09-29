@@ -23,6 +23,8 @@ class GestureCrossPainter extends CustomPainter {
       ]).createShader(
         path.getBounds(),
       );
+    // myPaint.color = Colors.green.withOpacity(.5);
+    // myPaint.strokeWidth = 3.0;
   }
 
   @override
