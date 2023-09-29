@@ -1,8 +1,10 @@
 // ignore_for_file: library_private_types_in_public_api, no_logic_in_create_state
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:path_morph/path_morph.dart';
 import 'package:primala/app/core/canvas_widget_utils/canvas_size_calculator.dart';
 import 'package:primala/app/core/widgets/gesture_cross/gesture_cross.dart';
+import 'package:simple_animations/simple_animations.dart';
 import 'canvas/gesture_cross_painter.dart';
 
 class GestureCross extends StatefulWidget {
@@ -53,18 +55,21 @@ class _GestureCrossState extends State<GestureCross>
 
   @override
   Widget build(BuildContext context) {
-    final size = CanvasSizeCalculator.squareCanvas(
-      context: context,
-      percentageLength: .8,
-    );
-    return FittedBox(
-      child: SizedBox(
-        width: size.width,
-        height: size.height,
-        child: CustomPaint(
-          painter: GestureCrossPainter(
-            PathMorph.generatePath(
-              stateTrackerStore.animationPathData,
+    return Observer(
+      builder: (context) => CustomAnimationBuilder(
+        tween: stateTrackerStore.movie,
+        duration: stateTrackerStore.movie.duration,
+        control: stateTrackerStore.control,
+        builder: (context, value, child) => SizedBox(
+          width: size.width,
+          height: size.height,
+          // color: Colors.green.withOpacity(1),
+          child: CustomPaint(
+            painter: GestureCrossPainter(
+              PathMorph.generatePath(
+                stateTrackerStore.animationPathData,
+              ),
+              size,
             ),
           ),
         ),

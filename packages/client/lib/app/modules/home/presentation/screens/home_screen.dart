@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = CanvasSizeCalculator.squareCanvas(
       context: context,
-      percentageLength: .50,
+      percentageLength: .20,
     );
     return Observer(builder: (context) {
       return LayoutBuilder(
@@ -46,11 +46,19 @@ class HomeScreen extends StatelessWidget {
                           coordinator.fadingTextStateTrackerStore,
                     ),
                   ),
-                  Center(
-                    child: GestureCross(
-                      size: size,
-                      stateTrackerStore: coordinator.gestureCross,
-                    ),
+                  Column(
+                    children: [
+                      Expanded(
+                        child: Container(),
+                      ),
+                      GestureCross(
+                        size: size,
+                        stateTrackerStore: coordinator.gestureCross,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 20),
+                      ),
+                    ],
                   ),
                 ],
               ),

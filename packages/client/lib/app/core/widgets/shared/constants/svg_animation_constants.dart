@@ -3,7 +3,7 @@ import 'package:path_drawing/path_drawing.dart';
 
 class SvgAnimtionCostants {
   //Scaling Value
-  static double get scalingRatio => 3.0;
+  static double get scalingRatio => 1.0;
   static Matrix4 get scalingMatrix =>
       Matrix4.identity()..scale(scalingRatio, scalingRatio);
   // Cross Values

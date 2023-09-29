@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:path_morph/path_morph.dart';
+import 'package:primala/app/core/widgets/gesture_cross/gesture_cross.dart';
 // import 'package:primala/app/core/widgets/gesture_cross/gesture_cross.dart';
 import 'package:primala/app/core/widgets/shared/constants/svg_animation_constants.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -27,6 +28,12 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
   startTheAnimation() {
     controller.play();
   }
+
+  @observable
+  MovieTween movie = CrossToCircle.movie;
+
+  @observable
+  Control control = Control.stop;
 
   @action
   animationRenderingCallback(int i, Offset z) {
