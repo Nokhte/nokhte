@@ -8,12 +8,13 @@ import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/types/types.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:primala/app/core/widgets/mobx/all_custom_widgets_tracker_store.dart';
 import 'package:primala/app/core/widgets/widget_constants.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/domain.dart';
 import 'package:primala/app/core/modules/local_speech_to_text/mobx/mobx.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/main/main.dart';
+
+import 'widget_coordinator_store.dart';
 // * Mobx Codegen Inclusion
 part 'speak_the_collaborator_phrase_coordinator_store.g.dart';
 
@@ -22,7 +23,7 @@ class SpeakTheCollaboratorPhraseCoordinatorStore = _SpeakTheCollaboratorPhraseCo
 
 abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
     with Store {
-  final AllCustomWidgetsTrackerStore widgetStore;
+  final WidgetCoordinatorStore widgetStore;
   final LocalSpeechToTextCoordinatorStore localSpeechToText;
   // final SpeechToTextStore speechToTextStore;
   final OnSpeechResultStore onSpeechResultStore;

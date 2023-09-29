@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:primala/app/core/canvas_widget_utils/canvas_size_calculator.dart';
+// import 'package:primala/app/core/canvas_widget_utils/canvas_size_calculator.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/home/presentation/mobx/coordinators/home_screen_coordinator_store.dart';
 import 'package:swipe/swipe.dart';
@@ -20,10 +20,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = CanvasSizeCalculator.squareCanvas(
-      context: context,
-      percentageLength: .50,
-    );
+    // final size = CanvasSizeCalculator.squareCanvas(
+    //   context: context,
+    //   percentageLength: .50,
+    // );
     return Observer(builder: (context) {
       return LayoutBuilder(
         builder: (context, constraints) {
@@ -46,12 +46,12 @@ class HomeScreen extends StatelessWidget {
                           coordinator.fadingTextStateTrackerStore,
                     ),
                   ),
-                  Center(
-                    child: GestureCross(
-                      size: size,
-                      stateTrackerStore: coordinator.gestureCross,
-                    ),
-                  ),
+                  // Center(
+                  //   child: GestureCross(
+                  //     size: size,
+                  //     stateTrackerStore: coordinator.gestureCross,
+                  //   ),
+                  // ),
                 ],
               ),
             ),
