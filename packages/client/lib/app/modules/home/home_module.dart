@@ -1,5 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:primala/app/core/network/network_info.dart';
+import 'package:primala/app/core/widgets/shared/constants/svg_animation_constants.dart';
 import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/home/data/contracts/home_contract_impl.dart';
@@ -74,7 +75,7 @@ class HomeModule extends Module {
           (i) => BeachWavesTrackerStore(),
         ),
         Bind.singleton<GestureCrossStore>(
-          (i) => GestureCrossStore(),
+          (i) => GestureCrossStore(endingPath: SvgAnimtionCostants.circlePath),
         ),
         // & Coordinator Store
         Bind.singleton<HomeScreenCoordinatorStore>(

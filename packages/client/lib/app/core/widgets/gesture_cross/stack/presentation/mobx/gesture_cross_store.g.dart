@@ -9,38 +9,6 @@ part of 'gesture_cross_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$GestureCrossStore on _GestureCrossStoreBase, Store {
-  late final _$movieAtom =
-      Atom(name: '_GestureCrossStoreBase.movie', context: context);
-
-  @override
-  MovieTween get movie {
-    _$movieAtom.reportRead();
-    return super.movie;
-  }
-
-  @override
-  set movie(MovieTween value) {
-    _$movieAtom.reportWrite(value, super.movie, () {
-      super.movie = value;
-    });
-  }
-
-  late final _$controlAtom =
-      Atom(name: '_GestureCrossStoreBase.control', context: context);
-
-  @override
-  Control get control {
-    _$controlAtom.reportRead();
-    return super.control;
-  }
-
-  @override
-  set control(Control value) {
-    _$controlAtom.reportWrite(value, super.control, () {
-      super.control = value;
-    });
-  }
-
   late final _$showWidgetAtom =
       Atom(name: '_GestureCrossStoreBase.showWidget', context: context);
 
@@ -57,11 +25,34 @@ mixin _$GestureCrossStore on _GestureCrossStoreBase, Store {
     });
   }
 
+  late final _$_GestureCrossStoreBaseActionController =
+      ActionController(name: '_GestureCrossStoreBase', context: context);
+
+  @override
+  dynamic startTheAnimation() {
+    final _$actionInfo = _$_GestureCrossStoreBaseActionController.startAction(
+        name: '_GestureCrossStoreBase.startTheAnimation');
+    try {
+      return super.startTheAnimation();
+    } finally {
+      _$_GestureCrossStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic animationRenderingCallback(int i, Offset z) {
+    final _$actionInfo = _$_GestureCrossStoreBaseActionController.startAction(
+        name: '_GestureCrossStoreBase.animationRenderingCallback');
+    try {
+      return super.animationRenderingCallback(i, z);
+    } finally {
+      _$_GestureCrossStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
-movie: ${movie},
-control: ${control},
 showWidget: ${showWidget}
     ''';
   }
