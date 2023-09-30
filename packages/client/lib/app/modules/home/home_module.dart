@@ -1,6 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:primala/app/core/network/network_info.dart';
-import 'package:primala/app/core/widgets/mesh_circle_button/stack/stack.dart';
 import 'package:primala/app/core/widgets/shared/constants/svg_animation_constants.dart';
 import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
@@ -11,8 +10,6 @@ import 'package:primala/app/modules/home/domain/logic/logic.dart';
 import 'package:primala/app/modules/home/presentation/mobx/coordinators/home_screen_coordinator_store.dart';
 import 'package:primala/app/modules/home/presentation/mobx/mobx.dart';
 import 'package:primala/app/modules/home/presentation/screens/home_screen.dart';
-import 'package:primala/app/core/widgets/beach_waves/stack/presentation/mobx/beach_waves_tracker_store.dart';
-import 'package:primala/app/core/widgets/smart_fading_animated_text/smart_fading_animated_text.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HomeModule extends Module {
@@ -78,13 +75,9 @@ class HomeModule extends Module {
         Bind.singleton<GesturePillStore>(
           (i) => GesturePillStore(endingPath: SvgAnimtionCostants.circlePath),
         ),
-        Bind.singleton<MeshCircleButtonStore>(
-          (i) => MeshCircleButtonStore(),
-        ),
         // & Coordinator Store
         Bind.singleton<HomeScreenCoordinatorStore>(
           (i) => HomeScreenCoordinatorStore(
-            meshCircleButton: i<MeshCircleButtonStore>(),
             gestureCross: i<GesturePillStore>(),
             beachWaves: i<BeachWavesTrackerStore>(),
             addNameToDatabaseStore: i<AddNameToDatabaseStore>(),

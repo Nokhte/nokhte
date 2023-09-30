@@ -5,7 +5,6 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/widgets/mesh_circle_button/stack/stack.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/home/presentation/mobx/main/main.dart';
 
@@ -16,7 +15,6 @@ class HomeScreenCoordinatorStore = _HomeScreenCoordinatorStoreBase
     with _$HomeScreenCoordinatorStore;
 
 abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
-  final MeshCircleButtonStore meshCircleButton;
   final GesturePillStore gestureCross;
   final BeachWavesTrackerStore beachWaves;
   final AddNameToDatabaseStore addNameToDatabaseStore;
@@ -29,7 +27,6 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
     required this.addNameToDatabaseStore,
     required this.fadingTextStateTrackerStore,
     required this.getCollaboratorPhraseStore,
-    required this.meshCircleButton,
   }) {
     reaction((p0) => beachWaves.movieStatus, (p0) {
       if (beachWaves.movieStatus == MovieStatus.finished) {

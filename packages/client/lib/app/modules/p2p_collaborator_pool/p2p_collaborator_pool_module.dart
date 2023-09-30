@@ -137,9 +137,14 @@ class P2PCollaboratorPoolModule extends Module {
         Bind.factory<BeachWavesTrackerStore>(
           (i) => BeachWavesTrackerStore(),
         ),
+
+        Bind.singleton<MeshCircleButtonStore>(
+          (i) => MeshCircleButtonStore(),
+        ),
         // & Widget Manager Stores
         Bind.factory<WidgetCoordinatorStore>(
           (i) => WidgetCoordinatorStore(
+            meshCircleButtonStore: i<MeshCircleButtonStore>(),
             fadeInAndChangeColorTextStore:
                 Modular.get<FadeInAndChangeColorTextStore>(),
             smartFadingAnimatedTextStore:
