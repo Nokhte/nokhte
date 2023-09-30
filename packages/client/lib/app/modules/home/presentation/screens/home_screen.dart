@@ -59,7 +59,7 @@ class HomeScreen extends StatelessWidget {
                           //   size: size,
                           //   trackerStore: coordinator.meshCircleButton,
                           // ),
-                          GestureCross(
+                          GesturePill(
                             size: size,
                             stateTrackerStore: coordinator.gestureCross,
                           ),

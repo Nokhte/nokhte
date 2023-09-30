@@ -17,7 +17,7 @@ class HomeScreenCoordinatorStore = _HomeScreenCoordinatorStoreBase
 
 abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
   final MeshCircleButtonStore meshCircleButton;
-  final GestureCrossStore gestureCross;
+  final GesturePillStore gestureCross;
   final BeachWavesTrackerStore beachWaves;
   final AddNameToDatabaseStore addNameToDatabaseStore;
   final SmartFadingAnimatedTextTrackerStore fadingTextStateTrackerStore;

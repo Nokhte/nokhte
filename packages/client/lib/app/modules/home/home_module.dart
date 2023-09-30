@@ -75,8 +75,8 @@ class HomeModule extends Module {
         Bind.singleton<BeachWavesTrackerStore>(
           (i) => BeachWavesTrackerStore(),
         ),
-        Bind.singleton<GestureCrossStore>(
-          (i) => GestureCrossStore(endingPath: SvgAnimtionCostants.circlePath),
+        Bind.singleton<GesturePillStore>(
+          (i) => GesturePillStore(endingPath: SvgAnimtionCostants.circlePath),
         ),
         Bind.singleton<MeshCircleButtonStore>(
           (i) => MeshCircleButtonStore(),
@@ -85,7 +85,7 @@ class HomeModule extends Module {
         Bind.singleton<HomeScreenCoordinatorStore>(
           (i) => HomeScreenCoordinatorStore(
             meshCircleButton: i<MeshCircleButtonStore>(),
-            gestureCross: i<GestureCrossStore>(),
+            gestureCross: i<GesturePillStore>(),
             beachWaves: i<BeachWavesTrackerStore>(),
             addNameToDatabaseStore: i<AddNameToDatabaseStore>(),
             fadingTextStateTrackerStore:

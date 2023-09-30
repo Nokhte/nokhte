@@ -3,24 +3,24 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:path_morph/path_morph.dart';
-import 'package:primala/app/core/widgets/gesture_cross/gesture_cross.dart';
+import 'package:primala/app/core/widgets/gesture_pill/gesture_pill.dart';
 // import 'package:primala/app/core/widgets/gesture_cross/gesture_cross.dart';
 import 'package:primala/app/core/widgets/shared/constants/svg_animation_constants.dart';
 import 'package:simple_animations/simple_animations.dart';
 // * Mobx Codegen Inclusion
-part 'gesture_cross_store.g.dart';
+part 'gesture_pill_store.g.dart';
 
-class GestureCrossStore = _GestureCrossStoreBase with _$GestureCrossStore;
+class GesturePillStore = _GesturePillStoreBase with _$GesturePillStore;
 
-abstract class _GestureCrossStoreBase extends Equatable with Store {
+abstract class _GesturePillStoreBase extends Equatable with Store {
   Path endingPath;
   SampledPathData animationPathData;
   late AnimationController controller;
 
-  _GestureCrossStoreBase({
+  _GesturePillStoreBase({
     required this.endingPath,
   }) : animationPathData = PathMorph.samplePaths(
-          SvgAnimtionCostants.crossPath,
+          SvgAnimtionCostants.pillPath,
           endingPath,
         );
 
@@ -34,7 +34,7 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
   }
 
   @observable
-  MovieTween movie = CrossToCircle.movie;
+  MovieTween movie = PillToCircle.movie;
 
   @observable
   Control colorController = Control.stop;

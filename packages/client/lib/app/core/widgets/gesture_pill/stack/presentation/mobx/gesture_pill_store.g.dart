@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'gesture_cross_store.dart';
+part of 'gesture_pill_store.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,9 +8,9 @@ part of 'gesture_cross_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$GestureCrossStore on _GestureCrossStoreBase, Store {
+mixin _$GesturePillStore on _GesturePillStoreBase, Store {
   late final _$showWidgetAtom =
-      Atom(name: '_GestureCrossStoreBase.showWidget', context: context);
+      Atom(name: '_GesturePillStoreBase.showWidget', context: context);
 
   @override
   bool get showWidget {
@@ -26,7 +26,7 @@ mixin _$GestureCrossStore on _GestureCrossStoreBase, Store {
   }
 
   late final _$movieAtom =
-      Atom(name: '_GestureCrossStoreBase.movie', context: context);
+      Atom(name: '_GesturePillStoreBase.movie', context: context);
 
   @override
   MovieTween get movie {
@@ -42,7 +42,7 @@ mixin _$GestureCrossStore on _GestureCrossStoreBase, Store {
   }
 
   late final _$colorControllerAtom =
-      Atom(name: '_GestureCrossStoreBase.colorController', context: context);
+      Atom(name: '_GesturePillStoreBase.colorController', context: context);
 
   @override
   Control get colorController {
@@ -57,39 +57,39 @@ mixin _$GestureCrossStore on _GestureCrossStoreBase, Store {
     });
   }
 
-  late final _$_GestureCrossStoreBaseActionController =
-      ActionController(name: '_GestureCrossStoreBase', context: context);
+  late final _$_GesturePillStoreBaseActionController =
+      ActionController(name: '_GesturePillStoreBase', context: context);
 
   @override
   dynamic startTheAnimation() {
-    final _$actionInfo = _$_GestureCrossStoreBaseActionController.startAction(
-        name: '_GestureCrossStoreBase.startTheAnimation');
+    final _$actionInfo = _$_GesturePillStoreBaseActionController.startAction(
+        name: '_GesturePillStoreBase.startTheAnimation');
     try {
       return super.startTheAnimation();
     } finally {
-      _$_GestureCrossStoreBaseActionController.endAction(_$actionInfo);
+      _$_GesturePillStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic animationRenderingCallback(int i, Offset z) {
-    final _$actionInfo = _$_GestureCrossStoreBaseActionController.startAction(
-        name: '_GestureCrossStoreBase.animationRenderingCallback');
+    final _$actionInfo = _$_GesturePillStoreBaseActionController.startAction(
+        name: '_GesturePillStoreBase.animationRenderingCallback');
     try {
       return super.animationRenderingCallback(i, z);
     } finally {
-      _$_GestureCrossStoreBaseActionController.endAction(_$actionInfo);
+      _$_GesturePillStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic onAnimationCompleted() {
-    final _$actionInfo = _$_GestureCrossStoreBaseActionController.startAction(
-        name: '_GestureCrossStoreBase.onAnimationCompleted');
+    final _$actionInfo = _$_GesturePillStoreBaseActionController.startAction(
+        name: '_GesturePillStoreBase.onAnimationCompleted');
     try {
       return super.onAnimationCompleted();
     } finally {
-      _$_GestureCrossStoreBaseActionController.endAction(_$actionInfo);
+      _$_GesturePillStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 

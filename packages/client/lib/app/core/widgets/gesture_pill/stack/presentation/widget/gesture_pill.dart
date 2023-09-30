@@ -2,14 +2,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:path_morph/path_morph.dart';
-import 'package:primala/app/core/widgets/gesture_cross/gesture_cross.dart';
+import 'package:primala/app/core/widgets/gesture_pill/gesture_pill.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'canvas/gesture_cross_painter.dart';
 
-class GestureCross extends StatefulWidget {
+class GesturePill extends StatefulWidget {
   final Size size;
-  final GestureCrossStore stateTrackerStore;
-  const GestureCross({
+  final GesturePillStore stateTrackerStore;
+  const GesturePill({
     super.key,
     required this.size,
     required this.stateTrackerStore,
@@ -22,10 +22,10 @@ class GestureCross extends StatefulWidget {
       );
 }
 
-class _GestureCrossState extends State<GestureCross>
+class _GestureCrossState extends State<GesturePill>
     with SingleTickerProviderStateMixin {
   final Size size;
-  final GestureCrossStore stateTrackerStore;
+  final GesturePillStore stateTrackerStore;
   late AnimationController controller;
 
   @override
