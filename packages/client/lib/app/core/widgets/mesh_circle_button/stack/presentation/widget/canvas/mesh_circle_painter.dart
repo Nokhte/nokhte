@@ -42,13 +42,13 @@ class MeshCirclePainter extends CustomPainter {
           radius:
               size.width / 2.5 + 1.0)); // Adjust the shadow radius as needed.
 
-    Paint shadowPaint = Paint()
-      ..color = const Color(0x3600FF75)
-          .withOpacity(0.5) // Adjust the shadow color and opacity.
-      ..maskFilter =
-          MaskFilter.blur(BlurStyle.normal, 5.0); // Adjust the blur radius.
+    // Paint shadowPaint = Paint()
+    //   ..color = const Color(0x3600FF75)
+    //       .withOpacity(0.5) // Adjust the shadow color and opacity.
+    //   ..maskFilter =
+    //       MaskFilter.blur(BlurStyle.normal, 5.0); // Adjust the blur radius.
 
-    canvas.drawPath(shadowPath, shadowPaint);
+    // canvas.drawPath(shadowPath, shadowPaint);
 
     canvas.drawPath(path, myPaint);
   }

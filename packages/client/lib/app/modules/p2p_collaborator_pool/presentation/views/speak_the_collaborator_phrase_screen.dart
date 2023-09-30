@@ -74,6 +74,10 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                         child: Center(
                           widthFactor: 1.0,
                           heightFactor: 1.0,
+                          // child: MeshCircleButton(
+                          //     trackerStore: coordinatorStore
+                          //         .widgetStore.meshCircleButtonStore,
+                          //     size: size)
                           child: BreathingPentagonsButton(
                             fadeInDelay: const Duration(seconds: 1),
                             fadeInDuration: const Duration(seconds: 1),
