@@ -29,7 +29,7 @@ abstract class _GesturePillStoreBase extends Equatable with Store {
 
   @action
   startTheAnimation() {
-    controller.play();
+    // controller.play();
     colorController = Control.play;
   }
 
@@ -46,7 +46,7 @@ abstract class _GesturePillStoreBase extends Equatable with Store {
 
   @action
   onAnimationCompleted() {
-    showWidget = false;
+    // showWidget = false;
   }
 
   @override

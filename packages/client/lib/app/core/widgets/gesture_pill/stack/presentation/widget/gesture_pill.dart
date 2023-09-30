@@ -68,12 +68,18 @@ class _GestureCrossState extends State<GesturePill>
             height: size.height,
             child: CustomPaint(
               painter: GestureCrossPainter(
-                  PathMorph.generatePath(
-                    stateTrackerStore.animationPathData,
-                  ),
-                  size,
-                  firstGradientColor: value.get('first gradient color'),
-                  secondGradientColor: value.get('second gradient color')),
+                PathMorph.generatePath(
+                  stateTrackerStore.animationPathData,
+                ),
+                size,
+                PathMorph.generatePath(
+                  stateTrackerStore.animationPathData,
+                ).getBounds(),
+                firstGradientColor: value.get('first gradient color'),
+                secondGradientColor: value.get('second gradient color'),
+                centerCircleAnimationConstant:
+                    value.get('center circle constant'),
+              ),
             ),
           ),
         ),

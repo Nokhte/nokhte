@@ -9,21 +9,61 @@ class PillToCircle extends Equatable {
         seconds: 0,
       ),
       end: const Duration(
-        seconds: 1,
+        milliseconds: 400,
       ),
     )
         .tween(
           'first gradient color',
           ColorTween(
             begin: const Color(0xFF0A98FF),
-            end: const Color(0xFFFFFFFF),
+            end: const Color(0xFF0A98FF),
+            // end: const Color(0xFFFFFFFF),
           ),
         )
         .tween(
           'second gradient color',
           ColorTween(
             begin: const Color(0x00FFFFFF),
-            end: const Color(0xFFFFFFFF),
+            end: const Color(0x00FFFFFF),
+            // end: const Color(0xFFFFFFFF),
+          ),
+        )
+        .tween(
+          'center circle constant',
+          Tween<double>(
+            begin: 0.0,
+            end: 28.0,
+          ),
+        )
+    ..scene(
+      begin: const Duration(
+        milliseconds: 400,
+      ),
+      end: const Duration(
+        milliseconds: 550,
+      ),
+    )
+        .tween(
+          'first gradient color',
+          ColorTween(
+            begin: const Color(0xFF0A98FF),
+            end: const Color(0xFF0A98FF),
+            // end: const Color(0xFFFFFFFF),
+          ),
+        )
+        .tween(
+          'second gradient color',
+          ColorTween(
+            begin: const Color(0x00FFFFFF),
+            end: const Color(0x00FFFFFF),
+            // end: const Color(0xFFFFFFFF),
+          ),
+        )
+        .tween(
+          'center circle constant',
+          Tween<double>(
+            begin: 28.0,
+            end: 25.0,
           ),
         );
 
