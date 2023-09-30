@@ -8,6 +8,7 @@ class GestureCrossPainter extends CustomPainter {
   late double width;
   late Paint myPaint;
   Color firstGradientColor;
+  List<Color> upperCircleLinearGradient;
   Color secondGradientColor;
 
   GestureCrossPainter(
@@ -17,6 +18,7 @@ class GestureCrossPainter extends CustomPainter {
     required this.firstGradientColor,
     required this.secondGradientColor,
     required this.centerCircleAnimationConstant,
+    required this.upperCircleLinearGradient,
   }) {
     height = pathBounds.height;
     width = pathBounds.width;
@@ -43,13 +45,26 @@ class GestureCrossPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     canvas.drawPath(path, myPaint);
     //
-    const circleRadius = 7.0; // Adjust the radius as needed
-    final circlePaint = Paint()..color = Colors.white;
+    const circleRadius = 6.0; // Adjust the radius as needed
+    final lowerCirclePaint = Paint()..color = Colors.white;
     final centerX = width / 2;
-    final centerY = (height - circleRadius * 2) -
+    final lowerCircleCenterY = (height - circleRadius * 2) -
         centerCircleAnimationConstant; // Position it near the bottom
+    final higherCircleCenterY = (height - circleRadius * 2) - 27;
+    final circleRect = Rect.fromCircle(
+        center: Offset(centerX, higherCircleCenterY), radius: circleRadius);
+    final upperCirclePaint = Paint()
+      ..shader = LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: upperCircleLinearGradient,
+      ).createShader(circleRect);
 
-    canvas.drawCircle(Offset(centerX, centerY), circleRadius, circlePaint);
+    canvas.drawCircle(
+        Offset(centerX, higherCircleCenterY), circleRadius, upperCirclePaint);
+    //
+    canvas.drawCircle(
+        Offset(centerX, lowerCircleCenterY), circleRadius, lowerCirclePaint);
   }
 
   @override

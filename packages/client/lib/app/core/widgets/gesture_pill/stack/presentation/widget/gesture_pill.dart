@@ -27,6 +27,7 @@ class _GestureCrossState extends State<GesturePill>
   final Size size;
   final GesturePillStore stateTrackerStore;
   late AnimationController controller;
+  late Path currentPath;
 
   @override
   initState() {
@@ -38,6 +39,9 @@ class _GestureCrossState extends State<GesturePill>
       controller,
       stateTrackerStore.animationPathData,
       animationRenderingCallback,
+    );
+    currentPath = PathMorph.generatePath(
+      stateTrackerStore.animationPathData,
     );
   }
 
@@ -63,22 +67,27 @@ class _GestureCrossState extends State<GesturePill>
         builder: (context, value, child) => AnimatedOpacity(
           opacity: stateTrackerStore.showWidget ? 1 : 0,
           duration: const Duration(seconds: 1),
-          child: SizedBox(
+          child: Container(
+            alignment: Alignment.topLeft,
+            // color: Colors.blue.withOpacity(.4),
             width: size.width,
             height: size.height,
-            child: CustomPaint(
-              painter: GestureCrossPainter(
-                PathMorph.generatePath(
-                  stateTrackerStore.animationPathData,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20.0),
+              child: CustomPaint(
+                painter: GestureCrossPainter(
+                  currentPath,
+                  size,
+                  currentPath.getBounds(),
+                  firstGradientColor: value.get('first gradient color'),
+                  secondGradientColor: value.get('second gradient color'),
+                  upperCircleLinearGradient: const [
+                    Color(0xFF41D2F8),
+                    Color(0xFF69E9BC),
+                  ],
+                  centerCircleAnimationConstant:
+                      value.get('center circle constant'),
                 ),
-                size,
-                PathMorph.generatePath(
-                  stateTrackerStore.animationPathData,
-                ).getBounds(),
-                firstGradientColor: value.get('first gradient color'),
-                secondGradientColor: value.get('second gradient color'),
-                centerCircleAnimationConstant:
-                    value.get('center circle constant'),
               ),
             ),
           ),

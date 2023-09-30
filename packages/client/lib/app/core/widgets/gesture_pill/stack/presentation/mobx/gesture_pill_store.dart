@@ -46,7 +46,7 @@ abstract class _GesturePillStoreBase extends Equatable with Store {
 
   @action
   onAnimationCompleted() {
-    // showWidget = false;
+    showWidget = false;
   }
 
   @override

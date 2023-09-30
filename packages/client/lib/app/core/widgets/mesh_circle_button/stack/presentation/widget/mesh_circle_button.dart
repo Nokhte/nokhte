@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:primala/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 // import 'package:flutter/widgets.dart';
 import 'package:primala/app/core/widgets/mesh_circle_button/stack/presentation/presentation.dart';
 import 'package:mesh_gradient/mesh_gradient.dart';
@@ -38,21 +39,5 @@ class MeshCircleButton extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class CustomPathClipper extends CustomClipper<Path> {
-  final Path customClipPath;
-
-  CustomPathClipper(this.customClipPath);
-
-  @override
-  Path getClip(Size size) {
-    return customClipPath;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return false;
   }
 }

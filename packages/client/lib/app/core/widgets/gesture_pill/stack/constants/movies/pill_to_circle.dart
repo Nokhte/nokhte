@@ -32,7 +32,7 @@ class PillToCircle extends Equatable {
           'center circle constant',
           Tween<double>(
             begin: 0.0,
-            end: 28.0,
+            end: 29.0,
           ),
         )
     ..scene(
@@ -62,8 +62,8 @@ class PillToCircle extends Equatable {
         .tween(
           'center circle constant',
           Tween<double>(
-            begin: 28.0,
-            end: 25.0,
+            begin: 29.0,
+            end: 27.0,
           ),
         );
 

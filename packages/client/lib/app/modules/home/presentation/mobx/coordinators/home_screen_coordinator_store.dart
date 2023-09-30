@@ -50,25 +50,25 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
     });
   }
 
-  homeScreenSwipeUpCallback() {
-    gestureCross.startTheAnimation();
-    // works!!
-    // Modular.to.navigate('/p2p_purpose_session/');
-  }
-
   // homeScreenSwipeUpCallback() {
-  //   if (!fadingTextStateTrackerStore.isPaused) {
-  //     fadingTextStateTrackerStore.togglePause();
-  //   }
-  //   if (beachWaves.movieStatus != MovieStatus.inProgress) {
-  //     fadingTextStateTrackerStore.currentMainText = "";
-  //     fadingTextStateTrackerStore.currentSubText = "";
-  //     beachWaves.teeUpOceanDive();
-  //     beachWaves.teeOceanDiveMovieUp(
-  //       startingWaterMovement: beachWaves.passingParam,
-  //     );
-  //   }
+  //   // works!!
+  //   // Modular.to.navigate('/p2p_purpose_session/');
   // }
+
+  homeScreenSwipeUpCallback() {
+    if (!fadingTextStateTrackerStore.isPaused) {
+      fadingTextStateTrackerStore.togglePause();
+    }
+    if (beachWaves.movieStatus != MovieStatus.inProgress) {
+      gestureCross.startTheAnimation();
+      fadingTextStateTrackerStore.currentMainText = "";
+      fadingTextStateTrackerStore.currentSubText = "";
+      beachWaves.teeUpOceanDive();
+      beachWaves.teeOceanDiveMovieUp(
+        startingWaterMovement: beachWaves.passingParam,
+      );
+    }
+  }
 
   @override
   List<Object> get props => [
