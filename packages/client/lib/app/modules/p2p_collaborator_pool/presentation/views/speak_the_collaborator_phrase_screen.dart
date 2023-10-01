@@ -26,7 +26,7 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = CanvasSizeCalculator.squareCanvas(
       context: context,
-      percentageLength: .50,
+      percentageLength: .20,
     );
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -40,8 +40,7 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   child: SmartBeachWaves(
-                    stateTrackerStore:
-                        coordinatorStore.widgetStore.beachWavesStore,
+                    stateTrackerStore: coordinatorStore.beachWaves,
                   ),
                 ),
                 // Observer(builder: (context) { return
@@ -53,8 +52,7 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                   return Center(
                       child: SmartFadingAnimatedText(
                     initialFadeInDelay: const Duration(seconds: 0),
-                    stateTrackerStore: coordinatorStore
-                        .widgetStore.smartFadingAnimatedTextStore,
+                    stateTrackerStore: coordinatorStore.fadingTextStore,
                   ));
                 }),
                 Column(
@@ -63,29 +61,14 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                       child: Container(),
                     ),
                     GestureDetector(
-                      onLongPressStart: (_) => coordinatorStore
-                          .breathingPentagonsHoldStartCallback(),
+                      onLongPressStart: (_) =>
+                          coordinatorStore.audioButtonHoldStartCallback(),
                       onLongPressEnd: (_) {
-                        coordinatorStore.breathingPentagonsHoldEndCallback();
+                        coordinatorStore.audioButtonHoldEndCallback();
                       },
-                      child: Container(
-                        height: size.height,
-                        width: size.width,
-                        child: Center(
-                          widthFactor: 1.0,
-                          heightFactor: 1.0,
-                          // child: MeshCircleButton(
-                          //     trackerStore: coordinatorStore
-                          //         .widgetStore.meshCircleButtonStore,
-                          //     size: size)
-                          child: BreathingPentagonsButton(
-                            fadeInDelay: const Duration(seconds: 1),
-                            fadeInDuration: const Duration(seconds: 1),
-                            size: size,
-                            stateTrackerStore: coordinatorStore
-                                .widgetStore.breathingPentagonsStore,
-                          ),
-                        ),
+                      child: MeshCircleButton(
+                        trackerStore: coordinatorStore.meshCircleStore,
+                        size: size,
                       ),
                     ),
                     const Padding(

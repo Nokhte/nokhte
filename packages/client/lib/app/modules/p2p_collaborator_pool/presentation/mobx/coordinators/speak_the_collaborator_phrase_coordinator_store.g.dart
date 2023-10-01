@@ -28,14 +28,14 @@ mixin _$SpeakTheCollaboratorPhraseCoordinatorStore
     });
   }
 
-  late final _$breathingPentagonsHoldEndCallbackAsyncAction = AsyncAction(
-      '_SpeakTheCollaboratorPhraseCoordinatorStoreBase.breathingPentagonsHoldEndCallback',
+  late final _$audioButtonHoldEndCallbackAsyncAction = AsyncAction(
+      '_SpeakTheCollaboratorPhraseCoordinatorStoreBase.audioButtonHoldEndCallback',
       context: context);
 
   @override
-  Future breathingPentagonsHoldEndCallback() {
-    return _$breathingPentagonsHoldEndCallbackAsyncAction
-        .run(() => super.breathingPentagonsHoldEndCallback());
+  Future audioButtonHoldEndCallback() {
+    return _$audioButtonHoldEndCallbackAsyncAction
+        .run(() => super.audioButtonHoldEndCallback());
   }
 
   late final _$_SpeakTheCollaboratorPhraseCoordinatorStoreBaseActionController =
@@ -44,14 +44,14 @@ mixin _$SpeakTheCollaboratorPhraseCoordinatorStore
           context: context);
 
   @override
-  dynamic breathingPentagonsHoldStartCallback() {
+  dynamic audioButtonHoldStartCallback() {
     final _$actionInfo =
         _$_SpeakTheCollaboratorPhraseCoordinatorStoreBaseActionController
             .startAction(
                 name:
-                    '_SpeakTheCollaboratorPhraseCoordinatorStoreBase.breathingPentagonsHoldStartCallback');
+                    '_SpeakTheCollaboratorPhraseCoordinatorStoreBase.audioButtonHoldStartCallback');
     try {
-      return super.breathingPentagonsHoldStartCallback();
+      return super.audioButtonHoldStartCallback();
     } finally {
       _$_SpeakTheCollaboratorPhraseCoordinatorStoreBaseActionController
           .endAction(_$actionInfo);

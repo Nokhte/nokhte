@@ -26,7 +26,7 @@ dependencies:
   http: ^1.1.0
   intl: ^0.18.1
   leopard_flutter: ^1.2.1
-  mesh_gradient: ^1.1.3
+  mesh_gradient: ^1.1.5
   mobx: ^2.2.0
   path_drawing: ^1.0.1
   path_morph: ^1.1.1

@@ -30,8 +30,9 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   final ValidateQueryStore validateQueryStore;
   final EnterCollaboratorPoolStore enterCollaboratorPoolStore;
   late BeachWavesTrackerStore beachWaves;
-  late BreathingPentagonsStateTrackerStore breathingPentagonsStore;
+  // late BreathingPentagonsStateTrackerStore breathingPentagonsStore;
   late SmartFadingAnimatedTextTrackerStore fadingTextStore;
+  late MeshCircleButtonStore meshCircleStore;
 
   @observable
   bool isReadyToEnterPool = false;
@@ -45,7 +46,8 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   }) {
     beachWaves = widgetStore.beachWavesStore;
     fadingTextStore = widgetStore.smartFadingAnimatedTextStore;
-    breathingPentagonsStore = widgetStore.breathingPentagonsStore;
+    // breathingPentagonsStore = widgetStore.breathingPentagonsStore;
+    meshCircleStore = widgetStore.meshCircleButtonStore;
 
     reaction((p0) => beachWaves.movieStatus, (p0) {
       if (beachWaves.movieStatus == MovieStatus.finished &&
@@ -104,15 +106,17 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   }
 
   @action
-  breathingPentagonsHoldStartCallback() {
+  audioButtonHoldStartCallback() {
     validateQueryStore.resetCheckerFields();
-    breathingPentagonsStore.gestureFunctionRouter();
+    meshCircleStore.toggleColorAnimation();
+    // breathingPentagonsStore.gestureFunctionRouter();
     localSpeechToText.startRecordingStore(NoParams());
   }
 
   @action
-  breathingPentagonsHoldEndCallback() async {
-    breathingPentagonsStore.gestureFunctionRouter();
+  audioButtonHoldEndCallback() async {
+    meshCircleStore.toggleColorAnimation();
+    // breathingPentagonsStore.gestureFunctionRouter();
     await localSpeechToText.stopRecordingStore(NoParams()).then((value) {
       onSpeechResultStore
           .addSpeechResult(localSpeechToText.stopRecordingStore.resultingWords);
@@ -137,6 +141,7 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   screenConstructorCallback({
     required SpeakTheCollaboratorPhraseCoordinatorStore coordinatorStore,
   }) async {
+    meshCircleStore.widgetConstructor();
     beachWaves.initiateSuspendedAtSea();
     localSpeechToText.initLeopardStore(NoParams());
     if (await Permission.microphone.isDenied) {

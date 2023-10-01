@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
@@ -24,57 +23,53 @@ class HomeScreen extends StatelessWidget {
       context: context,
       percentageLength: .20,
     );
-    return Observer(builder: (context) {
-      return LayoutBuilder(
-        builder: (context, constraints) {
-          return PlatformScaffold(
-            body: Swipe(
-              onSwipeUp: () => coordinator.homeScreenSwipeUpCallback(),
-              child: Stack(
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    child: SmartBeachWaves(
-                      stateTrackerStore: coordinator.beachWaves,
+    // return Observer(builder: (context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return PlatformScaffold(
+          body: Swipe(
+            onSwipeUp: () => coordinator.homeScreenSwipeUpCallback(),
+            child: Stack(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: SmartBeachWaves(
+                    stateTrackerStore: coordinator.beachWaves,
+                  ),
+                ),
+                Center(
+                  child: SmartFadingAnimatedText(
+                    initialFadeInDelay: const Duration(seconds: 0),
+                    stateTrackerStore: coordinator.fadingTextStateTrackerStore,
+                  ),
+                ),
+                Column(
+                  children: [
+                    Expanded(
+                      child: Container(),
                     ),
-                  ),
-                  Center(
-                    child: SmartFadingAnimatedText(
-                      initialFadeInDelay: const Duration(seconds: 0),
-                      stateTrackerStore:
-                          coordinator.fadingTextStateTrackerStore,
+                    Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        GesturePill(
+                          size: size,
+                          stateTrackerStore: coordinator.gestureCross,
+                        ),
+                      ],
                     ),
-                  ),
-                  Column(
-                    children: [
-                      Expanded(
-                        child: Container(),
-                      ),
-                      Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: [
-                          // MeshCircleButton(
-                          //   size: size,
-                          //   trackerStore: coordinator.meshCircleButton,
-                          // ),
-                          GesturePill(
-                            size: size,
-                            stateTrackerStore: coordinator.gestureCross,
-                          ),
-                        ],
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 20),
+                    ),
+                  ],
+                ),
+              ],
             ),
-          );
-        },
-      );
-    });
+          ),
+        );
+      },
+    );
+    // }
+    // );
   }
 }
