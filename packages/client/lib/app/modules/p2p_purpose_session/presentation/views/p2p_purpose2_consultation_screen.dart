@@ -21,7 +21,7 @@ class P2PPurpose2ConsultationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = CanvasSizeCalculator.squareCanvas(
       context: context,
-      percentageLength: .50,
+      percentageLength: .20,
     );
     return LayoutBuilder(
       builder: ((context, constraints) => PlatformScaffold(
@@ -61,16 +61,20 @@ class P2PPurpose2ConsultationScreen extends StatelessWidget {
                       child: Container(
                         height: size.height,
                         width: size.width,
-                        child: Center(
-                          widthFactor: 1.0,
-                          heightFactor: 1.0,
-                          child: BreathingPentagonsButton(
-                            fadeInDelay: const Duration(seconds: 1),
-                            fadeInDuration: const Duration(seconds: 1),
-                            size: size,
-                            stateTrackerStore: coordinator.breathingPentagons,
-                          ),
+                        child: MeshCircleButton(
+                          trackerStore: coordinator.meshCircleStore,
+                          size: size,
                         ),
+                        // child: Center(
+                        //   widthFactor: 1.0,
+                        //   heightFactor: 1.0,
+                        //   child: BreathingPentagonsButton(
+                        //     fadeInDelay: const Duration(seconds: 1),
+                        //     fadeInDuration: const Duration(seconds: 1),
+                        //     size: size,
+                        //     stateTrackerStore: coordinator.breathingPentagons,
+                        //   ),
+                        // ),
                       ),
                     ),
                     const Padding(

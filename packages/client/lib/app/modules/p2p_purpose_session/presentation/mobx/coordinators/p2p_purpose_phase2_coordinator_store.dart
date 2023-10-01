@@ -21,7 +21,8 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
   // widget stores
   final BeachWavesTrackerStore beachWaves;
   final SmartFadingAnimatedTextTrackerStore fadingText;
-  final BreathingPentagonsStateTrackerStore breathingPentagons;
+  final MeshCircleButtonStore meshCircleStore;
+  // final BreathingPentagonsStateTrackerStore breathingPentagons;
 
   @observable
   bool isFirstTimeTalking = true;
@@ -29,6 +30,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
   @action
   screenConstructor() async {
     beachWaves.initiateSuspendedAtTheDepths();
+    meshCircleStore.widgetConstructor();
     await fadingText.oneSecondDelay(() => fadingText.fadeTheTextIn());
     await questionCheckerStore(NoParams()).then((_) {
       fadingText.setMainMessage(
@@ -49,11 +51,11 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
     required this.voiceCallActionsStore,
     required this.beachWaves,
     required this.fadingText,
-    required this.breathingPentagons,
+    required this.meshCircleStore,
   }) {
     reaction((p0) => beachWaves.movieMode, (p0) {
       if (beachWaves.movieMode == MovieModes.backToTheDepthsSetup) {
-        breathingPentagons.flipWidgetVisibility();
+        meshCircleStore.toggleWidgetVisibility();
       }
     });
     reaction((p0) => beachWaves.movieStatus, (p0) {
@@ -85,13 +87,15 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
 
     /// TODO comment out for production
     // voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);
-    breathingPentagons.gestureFunctionRouter();
+    meshCircleStore.toggleColorAnimation();
+    // breathingPentagons.gestureFunctionRouter();
   }
 
   @action
   breathingPentagonsHoldEndCallback() {
     // voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
-    breathingPentagons.gestureFunctionRouter();
+    meshCircleStore.toggleColorAnimation();
+    // breathingPentagons.gestureFunctionRouter();
   }
 
   @override

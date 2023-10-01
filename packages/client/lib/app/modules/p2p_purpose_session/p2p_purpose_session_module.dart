@@ -25,9 +25,12 @@ class P2PCollaboratorSessionModule extends Module {
         Bind.factory<BeachWavesTrackerStore>(
           (i) => BeachWavesTrackerStore(),
         ),
-        Bind.factory<BreathingPentagonsStateTrackerStore>(
-          (i) => BreathingPentagonsStateTrackerStore(),
+        Bind.singleton<MeshCircleButtonStore>(
+          (i) => MeshCircleButtonStore(),
         ),
+        // Bind.factory<BreathingPentagonsStateTrackerStore>(
+        //   (i) => BreathingPentagonsStateTrackerStore(),
+        // ),
         Bind.singleton<SmartFadingAnimatedTextTrackerStore>(
           (i) => SmartFadingAnimatedTextTrackerStore(
             isInfinite: false,
@@ -74,8 +77,9 @@ class P2PCollaboratorSessionModule extends Module {
             (i) => P2PPurposePhase2CoordinatorStore(
                   beachWaves: Modular.get<BeachWavesTrackerStore>(),
                   fadingText: i<SmartFadingAnimatedTextTrackerStore>(),
-                  breathingPentagons:
-                      Modular.get<BreathingPentagonsStateTrackerStore>(),
+                  meshCircleStore: i<MeshCircleButtonStore>(),
+                  // breathingPentagons:
+                  //     Modular.get<BreathingPentagonsStateTrackerStore>(),
                   voiceCallActionsStore: i<VoiceCallActionsStore>(),
                   agoraCallbacksStore: i<AgoraCallbacksStore>(),
                   questionCheckerStore: i<CheckIfUserHasTheQuestionStore>(),
