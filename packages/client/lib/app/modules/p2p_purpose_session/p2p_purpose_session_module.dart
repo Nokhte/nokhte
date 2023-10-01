@@ -104,6 +104,11 @@ class P2PCollaboratorSessionModule extends Module {
             collaborativeDocDB: Modular.get<CollaborativeDocCoordinatorStore>(),
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
             collaborativeTextUI: i<CollaborativeTextEditorTrackerStore>(),
+            agoraCallbacksStore: i<AgoraCallbacksStore>(),
+            fetchAgoraTokenStore: i<FetchAgoraTokenStore>(),
+            fetchChannelIdStore: i<FetchChannelIdStore>(),
+            meshCircleStore: i<MeshCircleButtonStore>(),
+            voiceCallActionsStore: i<VoiceCallActionsStore>(),
           ),
         ),
       ];

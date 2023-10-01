@@ -71,7 +71,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
   }
 
   @action
-  breathingPentagonsHoldStartCallback() {
+  audioButtonHoldStartCallback() {
     if (isFirstTimeTalking) {
       beachWaves.initiateTimesUp(
         timerLength: const Duration(
@@ -92,7 +92,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
   }
 
   @action
-  breathingPentagonsHoldEndCallback() {
+  audioButtonHoldEndCallback() {
     // voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
     meshCircleStore.toggleColorAnimation();
     // breathingPentagons.gestureFunctionRouter();

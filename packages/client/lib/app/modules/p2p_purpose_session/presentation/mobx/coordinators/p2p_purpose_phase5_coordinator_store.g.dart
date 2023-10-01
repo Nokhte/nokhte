@@ -36,6 +36,38 @@ mixin _$P2PPurposePhase5CoordinatorStore
     return _$screenConstructorAsyncAction.run(() => super.screenConstructor());
   }
 
+  late final _$_P2PPurposePhase5CoordinatorStoreBaseActionController =
+      ActionController(
+          name: '_P2PPurposePhase5CoordinatorStoreBase', context: context);
+
+  @override
+  dynamic audioButtonHoldStartCallback() {
+    final _$actionInfo =
+        _$_P2PPurposePhase5CoordinatorStoreBaseActionController.startAction(
+            name:
+                '_P2PPurposePhase5CoordinatorStoreBase.audioButtonHoldStartCallback');
+    try {
+      return super.audioButtonHoldStartCallback();
+    } finally {
+      _$_P2PPurposePhase5CoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic audioButtonHoldEndCallback() {
+    final _$actionInfo =
+        _$_P2PPurposePhase5CoordinatorStoreBaseActionController.startAction(
+            name:
+                '_P2PPurposePhase5CoordinatorStoreBase.audioButtonHoldEndCallback');
+    try {
+      return super.audioButtonHoldEndCallback();
+    } finally {
+      _$_P2PPurposePhase5CoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

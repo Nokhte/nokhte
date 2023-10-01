@@ -54,7 +54,7 @@ abstract class _P2PPurposePhase4CoordinatorStoreBase extends Equatable
               fadingText.togglePause();
               beachWaves.initiateTimesUp(
                 timerLength: const Duration(
-                  seconds: 40,
+                  seconds: 10,
                   // minutes: 5,
                   // TODO COMMENT OUT FOR PROD
                 ),

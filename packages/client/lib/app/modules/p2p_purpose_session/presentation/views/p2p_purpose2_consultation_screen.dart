@@ -54,9 +54,9 @@ class P2PPurpose2ConsultationScreen extends StatelessWidget {
                     ),
                     GestureDetector(
                       onLongPressStart: (_) =>
-                          coordinator.breathingPentagonsHoldStartCallback(),
+                          coordinator.audioButtonHoldStartCallback(),
                       onLongPressEnd: (_) {
-                        coordinator.breathingPentagonsHoldEndCallback();
+                        coordinator.audioButtonHoldEndCallback();
                       },
                       child: Container(
                         height: size.height,
@@ -65,16 +65,6 @@ class P2PPurpose2ConsultationScreen extends StatelessWidget {
                           trackerStore: coordinator.meshCircleStore,
                           size: size,
                         ),
-                        // child: Center(
-                        //   widthFactor: 1.0,
-                        //   heightFactor: 1.0,
-                        //   child: BreathingPentagonsButton(
-                        //     fadeInDelay: const Duration(seconds: 1),
-                        //     fadeInDuration: const Duration(seconds: 1),
-                        //     size: size,
-                        //     stateTrackerStore: coordinator.breathingPentagons,
-                        //   ),
-                        // ),
                       ),
                     ),
                     const Padding(

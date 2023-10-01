@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // * Mobx Import
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
@@ -7,7 +8,9 @@ import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
 import 'package:primala/app/core/modules/collaborative_doc/presentation/presentation.dart';
-import 'package:primala/app/core/widgets/mobx.dart';
+import 'package:primala/app/core/modules/voice_call/domain/domain.dart';
+import 'package:primala/app/core/modules/voice_call/mobx/mobx.dart';
+import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala_backend/working_collaborative_documents.dart';
 // * Mobx Codegen Inclusion
 part 'p2p_purpose_phase5_coordinator_store.g.dart';
@@ -24,6 +27,26 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
   final TextEditingController userController;
   final FocusNode userFocusNode;
   final FocusNode collaboratorFocusNode;
+  final FetchAgoraTokenStore fetchAgoraTokenStore;
+  final FetchChannelIdStore fetchChannelIdStore;
+  final AgoraCallbacksStore agoraCallbacksStore;
+  final VoiceCallActionsStore voiceCallActionsStore;
+  final MeshCircleButtonStore meshCircleStore;
+
+  _P2PPurposePhase5CoordinatorStoreBase({
+    required this.beachWaves,
+    required this.collaborativeTextUI,
+    required this.collaborativeDocDB,
+    required this.agoraCallbacksStore,
+    required this.voiceCallActionsStore,
+    required this.fetchAgoraTokenStore,
+    required this.fetchChannelIdStore,
+    required this.meshCircleStore,
+  })  : userController = collaborativeTextUI.userStore.controller,
+        userFocusNode = collaborativeTextUI.userStore.focusNode,
+        collaboratorController =
+            collaborativeTextUI.collaboratorStore.controller,
+        collaboratorFocusNode = collaborativeTextUI.collaboratorStore.focusNode;
 
   @observable
   String previousWord = "";
@@ -33,6 +56,22 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
   @action
   screenConstructor() async {
     beachWaves.initiateSuspendedAtTheDepths();
+    meshCircleStore.widgetConstructor();
+    // await fetchChannelIdStore(NoParams());
+    // await fetchAgoraTokenStore(
+    //   FetchAgoraTokenParams(
+    //     channelName: fetchChannelIdStore.channelId,
+    //   ),
+    // );
+    await voiceCallActionsStore.enterOrLeaveCall(
+      Right(
+        JoinCallParams(
+          token: fetchAgoraTokenStore.token,
+          channelId: fetchChannelIdStore.channelId,
+        ),
+      ),
+    );
+    await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
     collaborativeDocDB.createDoc(
       const CreateCollaborativeDocParams(
         docType: 'purpose',
@@ -58,22 +97,6 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
         );
       }
     });
-
-    // await collaborativeDocDB.getCollaboratorInfo(NoParams());
-    // collaborativeDocDB.getCollaboratorInfo.collaboratorDocinfo
-    //     .listen((CollaboratorDocInfo value) {
-    //   print(value.toString());
-    //   if (value.isPresent == true && collaboratorController.text.isNotEmpty) {
-    //     collaboratorFocusNode.requestFocus();
-    //     collaboratorController.selection = TextSelection.collapsed(
-    //       // TextPosition(
-    //       offset: value.delta,
-    //       // ),
-    //     );
-    //   } else {
-    //     collaboratorFocusNode.unfocus();
-    //   }
-    // });
 
     userController.addListener(() async {
       await collaborativeDocDB.updateDelta(
@@ -101,15 +124,18 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
     });
   }
 
-  _P2PPurposePhase5CoordinatorStoreBase({
-    required this.beachWaves,
-    required this.collaborativeTextUI,
-    required this.collaborativeDocDB,
-  })  : userController = collaborativeTextUI.userStore.controller,
-        userFocusNode = collaborativeTextUI.userStore.focusNode,
-        collaboratorController =
-            collaborativeTextUI.collaboratorStore.controller,
-        collaboratorFocusNode = collaborativeTextUI.collaboratorStore.focusNode;
+  @action
+  audioButtonHoldStartCallback() {
+    /// TODO comment out for production
+    // voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);
+    meshCircleStore.toggleColorAnimation();
+  }
+
+  @action
+  audioButtonHoldEndCallback() {
+    // voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
+    meshCircleStore.toggleColorAnimation();
+  }
 
   @override
   List<Object> get props => [

@@ -41,13 +41,13 @@ mixin _$P2PPurposePhase2CoordinatorStore
           name: '_P2PPurposePhase2CoordinatorStoreBase', context: context);
 
   @override
-  dynamic breathingPentagonsHoldStartCallback() {
+  dynamic audioButtonHoldStartCallback() {
     final _$actionInfo =
         _$_P2PPurposePhase2CoordinatorStoreBaseActionController.startAction(
             name:
-                '_P2PPurposePhase2CoordinatorStoreBase.breathingPentagonsHoldStartCallback');
+                '_P2PPurposePhase2CoordinatorStoreBase.audioButtonHoldStartCallback');
     try {
-      return super.breathingPentagonsHoldStartCallback();
+      return super.audioButtonHoldStartCallback();
     } finally {
       _$_P2PPurposePhase2CoordinatorStoreBaseActionController
           .endAction(_$actionInfo);
@@ -55,13 +55,13 @@ mixin _$P2PPurposePhase2CoordinatorStore
   }
 
   @override
-  dynamic breathingPentagonsHoldEndCallback() {
+  dynamic audioButtonHoldEndCallback() {
     final _$actionInfo =
         _$_P2PPurposePhase2CoordinatorStoreBaseActionController.startAction(
             name:
-                '_P2PPurposePhase2CoordinatorStoreBase.breathingPentagonsHoldEndCallback');
+                '_P2PPurposePhase2CoordinatorStoreBase.audioButtonHoldEndCallback');
     try {
-      return super.breathingPentagonsHoldEndCallback();
+      return super.audioButtonHoldEndCallback();
     } finally {
       _$_P2PPurposePhase2CoordinatorStoreBaseActionController
           .endAction(_$actionInfo);
