@@ -138,6 +138,7 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
     }
   }
 
+  @action
   screenConstructorCallback({
     required SpeakTheCollaboratorPhraseCoordinatorStore coordinatorStore,
   }) async {

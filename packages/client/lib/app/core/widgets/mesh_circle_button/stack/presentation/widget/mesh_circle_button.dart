@@ -20,7 +20,7 @@ class MeshCircleButton extends StatelessWidget {
     return Observer(builder: (context) {
       return AnimatedOpacity(
         opacity: trackerStore.showWidget ? 1 : 0,
-        duration: const Duration(seconds: 5),
+        duration: const Duration(seconds: 1),
         child: SizedBox(
           width: size.width,
           height: size.height,

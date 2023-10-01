@@ -24,51 +24,54 @@ class HomeScreen extends StatelessWidget {
       percentageLength: .20,
     );
     // return Observer(builder: (context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return PlatformScaffold(
-          body: Swipe(
-            onSwipeUp: () => coordinator.homeScreenSwipeUpCallback(),
-            child: Stack(
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  child: SmartBeachWaves(
-                    stateTrackerStore: coordinator.beachWaves,
+    return Builder(builder: (context) {
+      return LayoutBuilder(
+        builder: (context, constraints) {
+          return PlatformScaffold(
+            body: Swipe(
+              onSwipeUp: () => coordinator.homeScreenSwipeUpCallback(),
+              child: Stack(
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child: SmartBeachWaves(
+                      stateTrackerStore: coordinator.beachWaves,
+                    ),
                   ),
-                ),
-                Center(
-                  child: SmartFadingAnimatedText(
-                    initialFadeInDelay: const Duration(seconds: 0),
-                    stateTrackerStore: coordinator.fadingTextStateTrackerStore,
+                  Center(
+                    child: SmartFadingAnimatedText(
+                      initialFadeInDelay: const Duration(seconds: 0),
+                      stateTrackerStore:
+                          coordinator.fadingTextStateTrackerStore,
+                    ),
                   ),
-                ),
-                Column(
-                  children: [
-                    Expanded(
-                      child: Container(),
-                    ),
-                    Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: [
-                        GesturePill(
-                          size: size,
-                          stateTrackerStore: coordinator.gestureCross,
-                        ),
-                      ],
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(bottom: 20),
-                    ),
-                  ],
-                ),
-              ],
+                  Column(
+                    children: [
+                      Expanded(
+                        child: Container(),
+                      ),
+                      Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          GesturePill(
+                            size: size,
+                            stateTrackerStore: coordinator.gestureCross,
+                          ),
+                        ],
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 20),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        );
-      },
-    );
+          );
+        },
+      );
+    });
     // }
     // );
   }

@@ -12,17 +12,19 @@ class MeshCircleButtonStore = _MeshCircleButtonStoreBase
     with _$MeshCircleButtonStore;
 
 abstract class _MeshCircleButtonStoreBase extends Equatable with Store {
-  @observable
+  // @observable
   AnimatedMeshGradientController meshGradientController =
       AnimatedMeshGradientController();
 
   @observable
   bool isAnimating = false;
 
-  @action
   widgetConstructor() {
-    toggleWidgetVisibility();
-    meshGradientController.stop();
+    Future.delayed(const Duration(seconds: 1), () {
+      // print('did this run?');
+      toggleWidgetVisibility();
+    });
+    // meshGradientController.stop();
   }
 
   @action

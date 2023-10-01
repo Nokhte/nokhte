@@ -38,6 +38,17 @@ mixin _$SpeakTheCollaboratorPhraseCoordinatorStore
         .run(() => super.audioButtonHoldEndCallback());
   }
 
+  late final _$screenConstructorCallbackAsyncAction = AsyncAction(
+      '_SpeakTheCollaboratorPhraseCoordinatorStoreBase.screenConstructorCallback',
+      context: context);
+
+  @override
+  Future screenConstructorCallback(
+      {required SpeakTheCollaboratorPhraseCoordinatorStore coordinatorStore}) {
+    return _$screenConstructorCallbackAsyncAction.run(() =>
+        super.screenConstructorCallback(coordinatorStore: coordinatorStore));
+  }
+
   late final _$_SpeakTheCollaboratorPhraseCoordinatorStoreBaseActionController =
       ActionController(
           name: '_SpeakTheCollaboratorPhraseCoordinatorStoreBase',
