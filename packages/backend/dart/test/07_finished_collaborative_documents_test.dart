@@ -10,20 +10,23 @@ void main() {
   late SupabaseClient supabaseAdmin;
   late String firstUserUID;
   late String secondUserUID;
+  late ExistingCollaborationsQueries existingCollaborationsQueries;
 
   setUpAll(() async {
     supabase = SupabaseClientConfigConstants.supabase;
     supabaseAdmin = SupabaseClientConfigConstants.supabaseAdmin;
+    existingCollaborationsQueries =
+        ExistingCollaborationsQueries(supabase: supabaseAdmin);
     final userIdResults = await UserSetupConstants.fetchUIDs();
     firstUserUID = userIdResults[0];
     secondUserUID = userIdResults[1];
   });
 
   tearDown(() async {
-    await ExistingCollaborationsQueries.deleteExistingCollaboration(
-        supabase: supabaseAdmin,
-        collaboratorOneUID: firstUserUID,
-        collaboratorTwoUID: secondUserUID);
+    await existingCollaborationsQueries.deleteExistingCollaboration(
+      collaboratorOneUID: firstUserUID,
+      collaboratorTwoUID: secondUserUID,
+    );
   });
 
   test("User Should be able to commit a message, add it here", () async {

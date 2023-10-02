@@ -1,0 +1,91 @@
+import 'package:primala_backend/tables/real_time_enabled/shared/shared.dart';
+import 'package:intl/intl.dart';
+
+class WorkingCollaborativeSchedulingQueries extends CollaborativeQueries {
+  static const table = 'working_collaborative_scheduling';
+  WorkingCollaborativeSchedulingQueries({required super.supabase});
+
+  Future<List> createSchedulingDocument() async {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutCollaboratorInfo();
+    }
+    final checkRes = await supabase
+        .from(table)
+        .select()
+        .eq(
+          "${collaboratorInfo.theCollaboratorsNumber}_uid",
+          collaboratorInfo.theCollaboratorsUID,
+        )
+        .eq(
+          "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
+          collaboratorInfo.theUsersUID,
+        );
+    if (checkRes.isEmpty) {
+      return await supabase.from(table).insert({
+        '${collaboratorInfo.theCollaboratorsNumber}_uid':
+            collaboratorInfo.theCollaboratorsUID,
+        "${collaboratorInfo.theUsersCollaboratorNumber}_uid":
+            collaboratorInfo.theUsersUID,
+      }).select();
+    } else {
+      return [];
+    }
+  }
+
+  Future<void> deleteSchedulingSession() async {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutCollaboratorInfo();
+    }
+    await supabase
+        .from(table)
+        .delete()
+        .eq(
+          '${collaboratorInfo.theCollaboratorsNumber}_uid',
+          collaboratorInfo.theCollaboratorsUID,
+        )
+        .eq(
+          "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
+          collaboratorInfo.theUsersUID,
+        );
+  }
+
+  Future<void> updateTimeOrDate(DateTime date,
+      {required bool updateDate}) async {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutCollaboratorInfo();
+    }
+    if (updateDate) {
+      final formattedDate = DateFormat('yyyy-MM-dd').format(date);
+      await supabase
+          .from(table)
+          .update({
+            '${collaboratorInfo.theCollaboratorsNumber}_chosen_day':
+                formattedDate,
+          })
+          .eq(
+            '${collaboratorInfo.theCollaboratorsNumber}_uid',
+            collaboratorInfo.theCollaboratorsUID,
+          )
+          .eq(
+            "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
+            collaboratorInfo.theUsersUID,
+          );
+    } else {
+      final formattedDate = date.toIso8601String();
+      await supabase
+          .from(table)
+          .update({
+            '${collaboratorInfo.theCollaboratorsNumber}_chosen_time':
+                formattedDate,
+          })
+          .eq(
+            '${collaboratorInfo.theCollaboratorsNumber}_uid',
+            collaboratorInfo.theCollaboratorsUID,
+          )
+          .eq(
+            "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
+            collaboratorInfo.theUsersUID,
+          );
+    }
+  }
+}

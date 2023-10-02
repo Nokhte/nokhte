@@ -3,14 +3,15 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primala_backend/constants/constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:primala_backend/working_collaborative_documents.dart';
+import 'package:primala_backend/working_collaborative_scheduling.dart';
 
 void main() {
+  // do a similar testing protocol
   late SupabaseClient supabase;
   late SupabaseClient supabaseAdmin;
   late String firstUserUID;
   late String secondUserUID;
-  late WorkingCollaborativeDocumentsQueries queries;
+  late WorkingCollaborativeSchedulingQueries queries;
   late ExistingCollaborationsQueries existingCollaborationsQueries;
 
   setUpAll(() async {
@@ -22,7 +23,7 @@ void main() {
     firstUserUID = userIdResults[0];
     secondUserUID = userIdResults[1];
     await SignIn.user1(supabase: supabase);
-    queries = WorkingCollaborativeDocumentsQueries(supabase: supabase);
+    queries = WorkingCollaborativeSchedulingQueries(supabase: supabase);
     await existingCollaborationsQueries.createNewCollaboration(
       collaboratorOneUID: firstUserUID,
       collaboratorTwoUID: secondUserUID,
@@ -30,35 +31,32 @@ void main() {
   });
 
   tearDownAll(() async {
-    await supabaseAdmin.from('working_collaborative_documents').delete().eq(
-          'collaborator_one_uid',
-          firstUserUID,
-        );
+    existingCollaborationsQueries.currentUserUID = firstUserUID;
     await existingCollaborationsQueries.deleteExistingCollaboration(
       collaboratorOneUID: firstUserUID,
       collaboratorTwoUID: secondUserUID,
     );
   });
 
-  test("User Should be able to create & edit a document", () async {
-    final res = await queries.createCollaborativeDocument(
-        currentUserUID: firstUserUID, docType: 'purpose');
+  tearDown(() async {
+    final queries =
+        WorkingCollaborativeSchedulingQueries(supabase: supabaseAdmin);
+    queries.currentUserUID = firstUserUID;
+    await queries.deleteSchedulingSession();
+  });
+
+  test(
+      "User should be able to create a scheduling session & update the document",
+      () async {
+    final theDateWeAreUsing = DateTime.now();
+    final res = await queries.createSchedulingDocument();
     expect(res[0]["collaborator_one_uid"], firstUserUID);
-    expect(res[0]["doc_type"], "purpose");
     expect(res[0]["collaborator_two_uid"], secondUserUID);
-    expect(res[0]["content"], isEmpty);
-    expect(res[0]["collaborator_one_delta"], -1);
-    expect(res[0]["collaborator_two_delta"], -1);
-    expect(res[0]["collaborator_one_is_active"], false);
-    expect(res[0]["collaborator_two_is_active"], false);
-    final stream = WorkingCollaborativeDocumentsStreams(supabase: supabase);
-    stream.docContentStream().listen((value) {
-      expect(value.content, "newContent");
-      expect(value.lastEditedBy, firstUserUID);
-      expect(value.currentUserUID, firstUserUID);
+    final stream = WorkingCollaborativeSchedulingStream(supabase: supabase);
+    stream.collaboratorsDateAndTimeStream().listen((value) {
+      expect(value.date, theDateWeAreUsing);
+      // second wave of expects
     });
-    await queries.updateExistingDocument(
-      newContent: "newContent",
-    );
+    await queries.updateTimeOrDate(theDateWeAreUsing, updateDate: true);
   });
 }

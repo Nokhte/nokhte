@@ -34,10 +34,11 @@ void main() {
     test("should be able to read from the table", () async {
       /// arrange
       await SignIn.user1(supabase: supabase);
+      final existingCollaborationsQueries =
+          ExistingCollaborationsQueries(supabase: supabase);
 
       /// act
-      final res = await ExistingCollaborationsQueries.fetchCollaborationInfo(
-          supabase: supabase, currentUserUID: firstUserUID);
+      final res = await existingCollaborationsQueries.fetchCollaborationInfo();
 
       /// assert
       expect(res, isNotEmpty);
@@ -49,11 +50,12 @@ void main() {
     test("should be properly identified as collaborator_one", () async {
       /// arrange
       await SignIn.user1(supabase: supabase);
+      final existingCollaborationsQueries =
+          ExistingCollaborationsQueries(supabase: supabase);
 
       /// act
       final res =
-          await ExistingCollaborationsQueries.fetchCollaboratorsUIDAndNumber(
-              supabase: supabase, currentUserUID: firstUserUID);
+          await existingCollaborationsQueries.fetchCollaboratorsUIDAndNumber();
 
       /// assert
       expect(res, isNotEmpty);
@@ -63,11 +65,12 @@ void main() {
     test("should be properly identified as collaborator_two", () async {
       /// arrange
       await SignIn.user2(supabase: supabase);
+      final existingCollaborationsQueries =
+          ExistingCollaborationsQueries(supabase: supabase);
 
       /// act
       final res =
-          await ExistingCollaborationsQueries.fetchCollaboratorsUIDAndNumber(
-              supabase: supabase, currentUserUID: secondUserUID);
+          await existingCollaborationsQueries.fetchCollaboratorsUIDAndNumber();
 
       /// assert
       expect(res, isNotEmpty);
@@ -93,10 +96,11 @@ void main() {
     test("should be able to read from the table", () async {
       /// arrange
       await SignIn.user1(supabase: supabase);
+      final existingCollaborationsQueries =
+          ExistingCollaborationsQueries(supabase: supabase);
 
       /// act
-      final res = await ExistingCollaborationsQueries.fetchCollaborationInfo(
-          supabase: supabase, currentUserUID: firstUserUID);
+      final res = await existingCollaborationsQueries.fetchCollaborationInfo();
 
       /// assert
       expect(res, isNotEmpty);
@@ -109,10 +113,12 @@ void main() {
       /// arrange
       await SignIn.user2(supabase: supabase);
 
+      final existingCollaborationsQueries =
+          ExistingCollaborationsQueries(supabase: supabase);
+
       /// act
       final res =
-          await ExistingCollaborationsQueries.fetchCollaboratorsUIDAndNumber(
-              supabase: supabase, currentUserUID: secondUserUID);
+          await existingCollaborationsQueries.fetchCollaboratorsUIDAndNumber();
 
       /// assert
       expect(res, isNotEmpty);

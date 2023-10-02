@@ -24,14 +24,12 @@ class CollaborativeDocRemoteSourceImpl implements CollaborativeDocRemoteSource {
 
   @override
   Stream<DocInfoContent> getCollaborativeDocContent() {
-    return streams.docContentStream(
-        supabase: supabase, userUID: currentUserUID);
+    return streams.docContentStream();
   }
 
   @override
   Stream<CollaboratorDocInfo> getCollaboratorDocInfo() {
-    return streams.getCollaboratorDocumentInfo(
-        supabase: supabase, userUID: currentUserUID);
+    return streams.getCollaboratorDocumentInfo();
   }
 
   @override

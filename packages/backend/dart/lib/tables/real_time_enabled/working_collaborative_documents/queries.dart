@@ -1,28 +1,9 @@
-import 'package:primala_backend/solo_sharable_documents.dart';
-import 'package:primala_backend/tables/real_time_enabled/existing_collaborations/types/types.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:primala_backend/tables/real_time_enabled/shared/shared.dart';
 
-class WorkingCollaborativeDocumentsQueries {
-  final SupabaseClient supabase;
-  String currentUserUID = '';
-  CollaboratorInfo collaboratorInfo = CollaboratorInfo(
-    theCollaboratorsNumber: '',
-    theCollaboratorsUID: '',
-    theUsersCollaboratorNumber: '',
-    theUsersUID: '',
-  );
-
-  WorkingCollaborativeDocumentsQueries({required this.supabase}) {
-    currentUserUID = supabase.auth.currentUser?.id ?? '';
-  }
-
-  Future<void> figureOutCollaboratorInfo() async {
-    collaboratorInfo =
-        await ExistingCollaborationsQueries.computeCollaboratorInfo(
-      currentUserUID: currentUserUID,
-      supabase: supabase,
-    );
-  }
+class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
+  WorkingCollaborativeDocumentsQueries({
+    required super.supabase,
+  });
 
   Future<void> updateExistingDocument({required String newContent}) async {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {

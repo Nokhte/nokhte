@@ -1,4 +1,5 @@
 import 'package:primala_backend/solo_sharable_documents.dart';
+import 'package:primala_backend/tables/real_time_enabled/existing_collaborations/types/types.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class SoloDocRemoteSource {
@@ -15,17 +16,17 @@ abstract class SoloDocRemoteSource {
 
 class SoloDocRemoteSourceImpl implements SoloDocRemoteSource {
   final SupabaseClient supabase;
-  late String currentUserUID;
-  late String collaboratorUID;
+  final ExistingCollaborationsQueries existingCollaborationsQueries;
+  late CollaboratorInfo collaborationInfo;
 
-  SoloDocRemoteSourceImpl({required this.supabase})
-      : currentUserUID = supabase.auth.currentUser?.id ?? '';
+  SoloDocRemoteSourceImpl({
+    required this.supabase,
+  }) : existingCollaborationsQueries =
+            ExistingCollaborationsQueries(supabase: supabase);
 
   Future getCollaboratorUID() async {
-    final res =
-        await ExistingCollaborationsQueries.fetchCollaboratorsUIDAndNumber(
-            supabase: supabase, currentUserUID: currentUserUID);
-    collaboratorUID = res[0];
+    await existingCollaborationsQueries.figureOutCollaboratorInfo();
+    collaborationInfo = existingCollaborationsQueries.collaboratorInfo;
   }
 
   @override
@@ -33,8 +34,8 @@ class SoloDocRemoteSourceImpl implements SoloDocRemoteSource {
     await getCollaboratorUID();
     return await SoloSharableDocuments.createSoloDoc(
       supabase: supabase,
-      ownerUID: currentUserUID,
-      collaboratorUID: collaboratorUID,
+      ownerUID: collaborationInfo.theUsersUID,
+      collaboratorUID: collaborationInfo.theCollaboratorsUID,
       docType: docType,
     );
   }
@@ -43,8 +44,12 @@ class SoloDocRemoteSourceImpl implements SoloDocRemoteSource {
   Future<List> getSoloDocContent({required bool getCollaboratorsDoc}) async {
     return await SoloSharableDocuments.fetchDocInfo(
       supabase: supabase,
-      ownerUID: getCollaboratorsDoc ? collaboratorUID : currentUserUID,
-      collaboratorUID: getCollaboratorsDoc ? currentUserUID : collaboratorUID,
+      ownerUID: getCollaboratorsDoc
+          ? collaborationInfo.theCollaboratorsUID
+          : collaborationInfo.theUsersUID,
+      collaboratorUID: getCollaboratorsDoc
+          ? collaborationInfo.theUsersUID
+          : collaborationInfo.theCollaboratorsUID,
     );
   }
 
@@ -52,7 +57,7 @@ class SoloDocRemoteSourceImpl implements SoloDocRemoteSource {
   Future<List> sealSoloDoc() async {
     return await SoloSharableDocuments.sealDocument(
       supabase: supabase,
-      ownerUID: currentUserUID,
+      ownerUID: collaborationInfo.theUsersUID,
     );
   }
 
@@ -60,7 +65,7 @@ class SoloDocRemoteSourceImpl implements SoloDocRemoteSource {
   Future<List> shareSoloDoc() async {
     return await SoloSharableDocuments.updateDocVisibility(
       supabase: supabase,
-      ownerUID: currentUserUID,
+      ownerUID: collaborationInfo.theUsersUID,
       visibility: true,
     );
   }
@@ -69,7 +74,7 @@ class SoloDocRemoteSourceImpl implements SoloDocRemoteSource {
   Future<List> submitDocContent({required String newContent}) async {
     return await SoloSharableDocuments.updateDocContent(
       supabase: supabase,
-      ownerUID: currentUserUID,
+      ownerUID: collaborationInfo.theUsersUID,
       content: newContent,
     );
   }

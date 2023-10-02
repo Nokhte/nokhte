@@ -15,6 +15,12 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   final SupabaseClient supabaseAdmin =
       SupabaseClientConfigConstants.supabaseAdmin;
+  late ExistingCollaborationsQueries existingCollaborationsQueries;
+
+  setUpAll(() {
+    existingCollaborationsQueries =
+        ExistingCollaborationsQueries(supabase: supabaseAdmin);
+  });
 
   Future returnNonNPCUID() async {
     final realPersonUIDQuery = await supabaseAdmin
@@ -84,8 +90,7 @@ void main() {
     final userIdResults = await UserSetupConstants.fetchUIDs();
     final npcUserUID = userIdResults[1];
     final realPersonUID = await returnNonNPCUID();
-    ExistingCollaborationsQueries.createNewCollaboration(
-      supabase: supabaseAdmin,
+    existingCollaborationsQueries.createNewCollaboration(
       collaboratorOneUID: npcUserUID,
       collaboratorTwoUID: realPersonUID,
     );

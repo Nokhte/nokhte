@@ -32,6 +32,7 @@ abstract class VoiceCallRemoteSource {
 
 class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
   final SupabaseClient supabase;
+  final ExistingCollaborationsQueries existingCollaborationsQueries;
   final AgoraCallbacksStore agoraCallbacksStore;
   final String currentUserUID;
   final int currentAgoraUID;
@@ -44,7 +45,9 @@ class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
   })  : currentUserUID = supabase.auth.currentUser?.id ?? '',
         currentAgoraUID = MiscAlgos.postgresUIDToInt(
           supabase.auth.currentUser?.id ?? '',
-        );
+        ),
+        existingCollaborationsQueries =
+            ExistingCollaborationsQueries(supabase: supabase);
 
   @override
   Future<Response> fetchAgoraToken({
@@ -96,10 +99,7 @@ class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
   @override
   Future<List> fetchCollaboratorInfo() async {
     return [
-      await ExistingCollaborationsQueries.fetchCollaborationInfo(
-        supabase: supabase,
-        currentUserUID: currentUserUID,
-      ),
+      await existingCollaborationsQueries.fetchCollaborationInfo(),
       currentUserUID
     ];
   }

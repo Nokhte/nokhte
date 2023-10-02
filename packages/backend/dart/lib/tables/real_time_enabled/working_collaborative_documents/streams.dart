@@ -1,35 +1,18 @@
-import 'package:primala_backend/tables/real_time_enabled/existing_collaborations/types/types.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:primala_backend/tables/real_time_enabled/shared/shared.dart';
 import 'package:primala_backend/existing_collaborations.dart';
 
-class WorkingCollaborativeDocumentsStreams {
+class WorkingCollaborativeDocumentsStreams extends CollaborativeQueries {
   bool docContentListeningStatus = false;
   bool collaboratorPresenceListeningStatus = false;
   bool collaboratorDeltaListeningStatus = false;
   String userUID = '';
-  final SupabaseClient supabase;
-  CollaboratorInfo collaboratorInfo = CollaboratorInfo(
-    theCollaboratorsNumber: '',
-    theCollaboratorsUID: '',
-    theUsersCollaboratorNumber: '',
-    theUsersUID: '',
-  );
-  WorkingCollaborativeDocumentsStreams({required this.supabase}) {
+  WorkingCollaborativeDocumentsStreams({
+    required super.supabase,
+  }) {
     userUID = supabase.auth.currentUser?.id ?? '';
   }
 
-  Future<void> figureOutCollaboratorInfo() async {
-    collaboratorInfo =
-        await ExistingCollaborationsQueries.computeCollaboratorInfo(
-      currentUserUID: userUID,
-      supabase: supabase,
-    );
-  }
-
-  Stream<DocInfoContent> docContentStream({
-    required SupabaseClient supabase,
-    required String userUID,
-  }) async* {
+  Stream<DocInfoContent> docContentStream() async* {
     docContentListeningStatus = true;
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutCollaboratorInfo();
@@ -60,10 +43,7 @@ class WorkingCollaborativeDocumentsStreams {
     }
   }
 
-  Stream<CollaboratorDocInfo> getCollaboratorDocumentInfo({
-    required SupabaseClient supabase,
-    required String userUID,
-  }) async* {
+  Stream<CollaboratorDocInfo> getCollaboratorDocumentInfo() async* {
     collaboratorPresenceListeningStatus = true;
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutCollaboratorInfo();
