@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, no_logic_in_create_state
+// ignore_for_file: library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:primala/app/core/widgets/text_editor/core/core.dart';
 import 'package:primala/app/core/modules/collaborative_doc/presentation/presentation.dart';
@@ -12,18 +12,14 @@ class CollaborativeTextEditor extends StatefulWidget {
   });
 
   @override
-  State<StatefulWidget> createState() => _CollaborativeTextEditorState(
-        trackerStore: trackerStore,
-      );
+  State<StatefulWidget> createState() => _CollaborativeTextEditorState();
 }
 
 class _CollaborativeTextEditorState extends State<CollaborativeTextEditor> {
-  final CollaborativeTextEditorTrackerStore trackerStore;
-  _CollaborativeTextEditorState({required this.trackerStore});
   @override
   void dispose() {
     super.dispose();
-    trackerStore.dispose();
+    widget.trackerStore.dispose();
   }
 
   @override
@@ -36,13 +32,13 @@ class _CollaborativeTextEditorState extends State<CollaborativeTextEditor> {
         BaseTextEditor(
           maxLength: 95,
           maxLines: 5,
-          trackerStore: trackerStore.collaboratorStore,
+          trackerStore: widget.trackerStore.collaboratorStore,
         ),
         // ),
         BaseTextEditor(
           maxLength: 95,
           maxLines: 5,
-          trackerStore: trackerStore.userStore,
+          trackerStore: widget.trackerStore.userStore,
         ),
       ],
     );

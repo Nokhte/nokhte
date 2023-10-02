@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, no_logic_in_create_state
+// ignore_for_file: library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:primala/app/core/widgets/breathing_pentagons/stack/constants/constants.dart';
@@ -22,39 +22,24 @@ class BreathingPentagonsButton extends StatefulWidget {
 
   @override
   _BreathingPentagonsAnimationState createState() =>
-      _BreathingPentagonsAnimationState(
-        size: size,
-        stateTrackerStore: stateTrackerStore,
-        fadeInDuration: fadeInDuration,
-        fadeInDelay: fadeInDelay,
-      );
+      _BreathingPentagonsAnimationState();
 }
 
 class _BreathingPentagonsAnimationState
     extends State<BreathingPentagonsButton> {
-  final Size size;
-  final Duration fadeInDuration;
-  final Duration fadeInDelay;
-  final BreathingPentagonsStateTrackerStore stateTrackerStore;
   late Animation<double> angle;
   late Animation<double> scale;
   late Control control;
   bool showWidget = false;
   double startPoint = 0.0;
-  _BreathingPentagonsAnimationState({
-    required this.size,
-    required this.stateTrackerStore,
-    required this.fadeInDuration,
-    required this.fadeInDelay,
-  });
 
   @override
   void initState() {
     super.initState();
     control = Control.play;
-    Future.delayed(fadeInDelay, () {
+    Future.delayed(widget.fadeInDelay, () {
       setState(() {
-        stateTrackerStore.flipWidgetVisibility();
+        widget.stateTrackerStore.flipWidgetVisibility();
       });
     });
   }
@@ -63,14 +48,15 @@ class _BreathingPentagonsAnimationState
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
       return CustomAnimationBuilder<Movie>(
-          tween: stateTrackerStore.movie,
-          duration: stateTrackerStore.movie.duration,
-          control: stateTrackerStore.controlType,
-          onCompleted: () => stateTrackerStore.onCompletedAnimationCallback(),
+          tween: widget.stateTrackerStore.movie,
+          duration: widget.stateTrackerStore.movie.duration,
+          control: widget.stateTrackerStore.controlType,
+          onCompleted: () =>
+              widget.stateTrackerStore.onCompletedAnimationCallback(),
           builder: (context, value, child) {
             final currentAnimationValues = GetCurrentAnimation.values(value);
-            if (stateTrackerStore.mode == MovieModes.windDown) {
-              stateTrackerStore.teeReverseMovieUp(
+            if (widget.stateTrackerStore.mode == MovieModes.windDown) {
+              widget.stateTrackerStore.teeReverseMovieUp(
                 angle: currentAnimationValues[0],
                 scale: currentAnimationValues[1],
                 firstPentagonFirstGradient: currentAnimationValues[2],
@@ -84,10 +70,10 @@ class _BreathingPentagonsAnimationState
 
             return Observer(builder: (context) {
               return AnimatedOpacity(
-                opacity: stateTrackerStore.showWidget ? 1 : 0,
-                duration: fadeInDuration,
+                opacity: widget.stateTrackerStore.showWidget ? 1 : 0,
+                duration: widget.fadeInDuration,
                 child: CustomPaint(
-                  size: size,
+                  size: widget.size,
                   painter: BreathingPentagonsPainter(
                     angle: currentAnimationValues[0],
                     scale: currentAnimationValues[1],

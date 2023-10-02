@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, no_logic_in_create_state
+// ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -18,38 +18,30 @@ class SmartBeachWaves extends StatefulWidget {
   });
 
   @override
-  _SmartBeachWavesState createState() => _SmartBeachWavesState(
-        // size: size,
-        stateTrackerStore: stateTrackerStore,
-      );
+  _SmartBeachWavesState createState() => _SmartBeachWavesState();
 }
 
 class _SmartBeachWavesState extends State<SmartBeachWaves>
     with SingleTickerProviderStateMixin {
   // final Size size;
-  final BeachWavesTrackerStore stateTrackerStore;
-
-  _SmartBeachWavesState({
-    // required this.size,
-    required this.stateTrackerStore,
-  });
-
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
       return CustomAnimationBuilder<Movie>(
-        tween: stateTrackerStore.movie,
-        duration: stateTrackerStore.movie.duration,
-        control: stateTrackerStore.control,
-        onCompleted: () => stateTrackerStore.onBeachWavesAnimationCompletion(),
+        tween: widget.stateTrackerStore.movie,
+        duration: widget.stateTrackerStore.movie.duration,
+        control: widget.stateTrackerStore.control,
+        onCompleted: () =>
+            widget.stateTrackerStore.onBeachWavesAnimationCompletion(),
         builder: (context, value, child) {
           final currentAnimationValues = GetCurrentWaterAnimation.values(value);
-          if (stateTrackerStore.movieMode == MovieModes.oceanDiveSetup) {
-            stateTrackerStore.teeUpOnShoreToOceanDiveTransition(
+          if (widget.stateTrackerStore.movieMode == MovieModes.oceanDiveSetup) {
+            widget.stateTrackerStore.teeUpOnShoreToOceanDiveTransition(
                 startingWaterMovement: currentAnimationValues[0]);
-          } else if (stateTrackerStore.movieMode ==
+          } else if (widget.stateTrackerStore.movieMode ==
               MovieModes.backToTheDepthsSetup) {
-            stateTrackerStore.teeUpBackToTheDepthsValues(colorGradientsList: [
+            widget.stateTrackerStore
+                .teeUpBackToTheDepthsValues(colorGradientsList: [
               currentAnimationValues[1],
               currentAnimationValues[2],
               currentAnimationValues[3],

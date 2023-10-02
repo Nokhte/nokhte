@@ -19,42 +19,26 @@ class SoloTextEditor extends StatefulWidget {
   });
 
   @override
-  State<StatefulWidget> createState() => _SoloTextEditorState(
-        trackerStore: trackerStore,
-        fadeInDuration: fadeInDuration,
-        maxLength: maxLength,
-        maxLines: maxLines,
-      );
+  State<StatefulWidget> createState() => _SoloTextEditorState();
 }
 
 class _SoloTextEditorState extends State<SoloTextEditor> {
-  final SoloTextEditorTrackerStore trackerStore;
-  final Duration fadeInDuration;
-  final int maxLines;
-  final int maxLength;
-
-  _SoloTextEditorState({
-    required this.trackerStore,
-    required this.fadeInDuration,
-    required this.maxLength,
-    required this.maxLines,
-  });
   @override
   void dispose() {
     super.dispose();
-    trackerStore.dispose();
+    widget.trackerStore.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
       return AnimatedOpacity(
-        opacity: trackerStore.showWidget ? 1 : 0,
-        duration: fadeInDuration,
+        opacity: widget.trackerStore.showWidget ? 1 : 0,
+        duration: widget.fadeInDuration,
         child: BaseTextEditor(
-          maxLines: maxLines,
-          maxLength: maxLength,
-          trackerStore: trackerStore,
+          maxLines: widget.maxLines,
+          maxLength: widget.maxLength,
+          trackerStore: widget.trackerStore,
         ),
       );
     });

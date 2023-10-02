@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, no_logic_in_create_state
+// ignore_for_file: library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:path_morph/path_morph.dart';
@@ -16,16 +16,11 @@ class GesturePill extends StatefulWidget {
   });
 
   @override
-  State<StatefulWidget> createState() => _GestureCrossState(
-        size: size,
-        stateTrackerStore: stateTrackerStore,
-      );
+  State<StatefulWidget> createState() => _GestureCrossState();
 }
 
 class _GestureCrossState extends State<GesturePill>
     with SingleTickerProviderStateMixin {
-  final Size size;
-  final GesturePillStore stateTrackerStore;
   late AnimationController controller;
   late Path currentPath;
 
@@ -34,50 +29,45 @@ class _GestureCrossState extends State<GesturePill>
     super.initState();
     controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 1));
-    stateTrackerStore.controller = controller;
+    widget.stateTrackerStore.controller = controller;
     PathMorph.generateAnimations(
       controller,
-      stateTrackerStore.animationPathData,
+      widget.stateTrackerStore.animationPathData,
       animationRenderingCallback,
     );
     currentPath = PathMorph.generatePath(
-      stateTrackerStore.animationPathData,
+      widget.stateTrackerStore.animationPathData,
     );
   }
 
   animationRenderingCallback(int i, Offset z) {
     setState(() {
-      stateTrackerStore.animationPathData.shiftedPoints[i] = z;
+      widget.stateTrackerStore.animationPathData.shiftedPoints[i] = z;
     });
   }
-
-  _GestureCrossState({
-    required this.size,
-    required this.stateTrackerStore,
-  });
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (context) => CustomAnimationBuilder(
-        tween: stateTrackerStore.movie,
-        duration: stateTrackerStore.movie.duration,
-        control: stateTrackerStore.colorController,
-        onCompleted: () => stateTrackerStore.onAnimationCompleted(),
+        tween: widget.stateTrackerStore.movie,
+        duration: widget.stateTrackerStore.movie.duration,
+        control: widget.stateTrackerStore.colorController,
+        onCompleted: () => widget.stateTrackerStore.onAnimationCompleted(),
         builder: (context, value, child) => AnimatedOpacity(
-          opacity: stateTrackerStore.showWidget ? 1 : 0,
+          opacity: widget.stateTrackerStore.showWidget ? 1 : 0,
           duration: const Duration(seconds: 1),
           child: Container(
             alignment: Alignment.topLeft,
             // color: Colors.blue.withOpacity(.4),
-            width: size.width,
-            height: size.height,
+            width: widget.size.width,
+            height: widget.size.height,
             child: Padding(
               padding: const EdgeInsets.only(left: 20.0),
               child: CustomPaint(
                 painter: GestureCrossPainter(
                   currentPath,
-                  size,
+                  widget.size,
                   currentPath.getBounds(),
                   firstGradientColor: value.get('first gradient color'),
                   secondGradientColor: value.get('second gradient color'),
