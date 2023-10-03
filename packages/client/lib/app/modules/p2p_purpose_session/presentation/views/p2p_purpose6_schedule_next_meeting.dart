@@ -3,6 +3,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 import 'package:swipe/swipe.dart';
+import 'package:sensors_plus/sensors_plus.dart';
 
 class P2PPupose6ScheduleNextMeeting extends StatelessWidget {
   final P2PPurposePhase6CoordinatorStore coordinator;
@@ -12,6 +13,15 @@ class P2PPupose6ScheduleNextMeeting extends StatelessWidget {
     required this.coordinator,
   }) {
     coordinator.screenConstructor();
+    gyroscopeEvents.listen(
+      (GyroscopeEvent event) {
+        print(event.toString());
+      },
+      onError: (error) {
+        //
+      },
+      cancelOnError: true,
+    );
   }
 
   @override
