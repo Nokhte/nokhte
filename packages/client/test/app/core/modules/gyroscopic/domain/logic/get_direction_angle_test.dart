@@ -20,7 +20,7 @@ void main() {
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
     when(mockContract.getDirectionAngle(tParams)).thenAnswer(
-      (_) async => ConstantDirectionagleEntity.wrappedSuccessCase,
+      (_) async => ConstantDirectionAngleEntity.wrappedSuccessCase,
     );
 
     final result = await logic(tParams);

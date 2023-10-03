@@ -2,12 +2,12 @@
 import 'package:flutter_compass/flutter_compass.dart';
 
 abstract class GyroscopicRemoteSource {
-  Stream<CompassEvent> fetchRawDirections();
+  Stream<CompassEvent> getDirectionAngle();
 }
 
 class GyroscopicRemoteSourceImpl implements GyroscopicRemoteSource {
   @override
-  Stream<CompassEvent> fetchRawDirections() {
-    return FlutterCompass.events ?? Stream.value(CompassEvent.fromList([0]));
+  Stream<CompassEvent> getDirectionAngle() {
+    return FlutterCompass.events ?? Stream.value(CompassEvent.fromList([-1]));
   }
 }

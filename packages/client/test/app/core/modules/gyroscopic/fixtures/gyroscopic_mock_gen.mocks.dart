@@ -8,6 +8,7 @@
 import 'dart:async' as _i4;
 
 import 'package:dartz/dartz.dart' as _i2;
+import 'package:flutter_compass/flutter_compass.dart' as _i8;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:primala/app/core/error/failure.dart' as _i5;
 import 'package:primala/app/core/interfaces/logic.dart' as _i7;
@@ -64,4 +65,23 @@ class MockMGyroscopicContract extends _i1.Mock
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, _i6.DirectionAngleEntity>>);
+}
+
+/// A class which mocks [MGyroscopicRemoteSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMGyroscopicRemoteSource extends _i1.Mock
+    implements _i3.MGyroscopicRemoteSource {
+  MockMGyroscopicRemoteSource() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.Stream<_i8.CompassEvent> getDirectionAngle() => (super.noSuchMethod(
+        Invocation.method(
+          #getDirectionAngle,
+          [],
+        ),
+        returnValue: _i4.Stream<_i8.CompassEvent>.empty(),
+      ) as _i4.Stream<_i8.CompassEvent>);
 }
