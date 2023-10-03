@@ -66,5 +66,9 @@
 	<string>https://app.posthog.com</string>
 	<key>com.posthog.posthog.TRACK_APPLICATION_LIFECYCLE_EVENTS</key>
 	<false/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Location needed for directional schedule setting</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Location is needed for directional schedule setting and perspectives mode.</string>
 </dict>
 </plist>

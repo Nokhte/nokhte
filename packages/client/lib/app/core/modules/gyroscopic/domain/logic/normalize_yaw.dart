@@ -25,7 +25,6 @@ class NormalizeYaw
       } else if (entity.yaw >= 360.0) {
         yaw -= 360.0;
       }
-      print("WHAT IS THIS YAW????? $yaw");
       // Return the normalized yaw angle
       return Right(NormalizedYawEntity(yaw: yaw));
     });
