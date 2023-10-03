@@ -1,12 +1,13 @@
-import 'package:sensors_plus/sensors_plus.dart';
+// import 'package:sensors_plus/sensors_plus.dart';
+import 'package:flutter_compass/flutter_compass.dart';
 
 abstract class GyroscopicRemoteSource {
-  Stream<GyroscopeEvent> fetchRawDirections();
+  Stream<CompassEvent> fetchRawDirections();
 }
 
 class GyroscopicRemoteSourceImpl implements GyroscopicRemoteSource {
   @override
-  Stream<GyroscopeEvent> fetchRawDirections() {
-    return gyroscopeEvents;
+  Stream<CompassEvent> fetchRawDirections() {
+    return FlutterCompass.events ?? Stream.value(CompassEvent.fromList([0]));
   }
 }

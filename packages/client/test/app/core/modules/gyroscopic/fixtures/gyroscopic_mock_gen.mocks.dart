@@ -10,6 +10,7 @@ import 'dart:async' as _i4;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:primala/app/core/error/failure.dart' as _i5;
+import 'package:primala/app/core/interfaces/logic.dart' as _i7;
 import 'package:primala/app/core/modules/gyroscopic/domain/domain.dart' as _i6;
 
 import 'gyroscopic_mock_gen.dart' as _i3;
@@ -45,23 +46,22 @@ class MockMGyroscopicContract extends _i1.Mock
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.GyroscopeDirectionsEntity>>
-      fetchRawDirections(_i6.FetchRawDirectionsParams? params) =>
-          (super.noSuchMethod(
-            Invocation.method(
-              #fetchRawDirections,
-              [params],
-            ),
-            returnValue: _i4.Future<
-                    _i2.Either<_i5.Failure,
-                        _i6.GyroscopeDirectionsEntity>>.value(
-                _FakeEither_0<_i5.Failure, _i6.GyroscopeDirectionsEntity>(
-              this,
-              Invocation.method(
-                #fetchRawDirections,
-                [params],
-              ),
-            )),
-          ) as _i4
-              .Future<_i2.Either<_i5.Failure, _i6.GyroscopeDirectionsEntity>>);
+  _i4.Future<
+      _i2.Either<_i5.Failure, _i6.DirectionAngleEntity>> getDirectionAngle(
+          _i7.NoParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getDirectionAngle,
+          [params],
+        ),
+        returnValue:
+            _i4.Future<_i2.Either<_i5.Failure, _i6.DirectionAngleEntity>>.value(
+                _FakeEither_0<_i5.Failure, _i6.DirectionAngleEntity>(
+          this,
+          Invocation.method(
+            #getDirectionAngle,
+            [params],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.DirectionAngleEntity>>);
 }

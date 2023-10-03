@@ -1,2 +1,1 @@
-export './gyroscope_directions_entity.dart';
-export './normalized_yaw_entity.dart';
+export 'direction_angle_entity.dart';

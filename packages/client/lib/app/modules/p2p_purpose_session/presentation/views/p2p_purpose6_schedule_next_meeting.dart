@@ -6,7 +6,6 @@ import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 import 'package:swipe/swipe.dart';
 import 'package:sensors_plus/sensors_plus.dart';
-import 'package:flutter_compass/flutter_compass.dart';
 
 class P2PPupose6ScheduleNextMeeting extends StatelessWidget {
   final P2PPurposePhase6CoordinatorStore coordinator;
