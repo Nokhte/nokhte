@@ -11,16 +11,13 @@ import 'package:dartz/dartz.dart' as _i5;
 import 'package:mobx/mobx.dart' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:primala/app/core/error/failure.dart' as _i10;
-import 'package:primala/app/core/interfaces/logic.dart' as _i13;
+import 'package:primala/app/core/interfaces/logic.dart' as _i11;
 import 'package:primala/app/modules/p2p_collaborator_pool/data/data.dart'
-    as _i14;
+    as _i12;
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/domain.dart'
     as _i4;
 import 'package:primala_backend/phrase_components.dart' as _i9;
 import 'package:primala_backend/streams.dart' as _i3;
-import 'package:speech_to_text/speech_to_text.dart' as _i11;
-import 'package:speech_to_text_platform_interface/speech_to_text_platform_interface.dart'
-    as _i12;
 import 'package:supabase_flutter/supabase_flutter.dart' as _i2;
 
 import 'p2p_collaborator_pool_stack_mock_gen.dart' as _i7;
@@ -288,176 +285,6 @@ class MockMEnterCollaboratorPool extends _i1.Mock
           _i5.Either<_i10.Failure, _i4.CollaboratorPoolEntryStatusEntity>>);
 }
 
-/// A class which mocks [MSpeechToText].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockMSpeechToText extends _i1.Mock implements _i7.MSpeechToText {
-  MockMSpeechToText() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  set errorListener(_i11.SpeechErrorListener? _errorListener) =>
-      super.noSuchMethod(
-        Invocation.setter(
-          #errorListener,
-          _errorListener,
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
-  set statusListener(_i11.SpeechStatusListener? _statusListener) =>
-      super.noSuchMethod(
-        Invocation.setter(
-          #statusListener,
-          _statusListener,
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
-  bool get hasRecognized => (super.noSuchMethod(
-        Invocation.getter(#hasRecognized),
-        returnValue: false,
-      ) as bool);
-  @override
-  String get lastRecognizedWords => (super.noSuchMethod(
-        Invocation.getter(#lastRecognizedWords),
-        returnValue: '',
-      ) as String);
-  @override
-  String get lastStatus => (super.noSuchMethod(
-        Invocation.getter(#lastStatus),
-        returnValue: '',
-      ) as String);
-  @override
-  double get lastSoundLevel => (super.noSuchMethod(
-        Invocation.getter(#lastSoundLevel),
-        returnValue: 0.0,
-      ) as double);
-  @override
-  bool get isAvailable => (super.noSuchMethod(
-        Invocation.getter(#isAvailable),
-        returnValue: false,
-      ) as bool);
-  @override
-  bool get isListening => (super.noSuchMethod(
-        Invocation.getter(#isListening),
-        returnValue: false,
-      ) as bool);
-  @override
-  bool get isNotListening => (super.noSuchMethod(
-        Invocation.getter(#isNotListening),
-        returnValue: false,
-      ) as bool);
-  @override
-  bool get hasError => (super.noSuchMethod(
-        Invocation.getter(#hasError),
-        returnValue: false,
-      ) as bool);
-  @override
-  _i8.Future<bool> get hasPermission => (super.noSuchMethod(
-        Invocation.getter(#hasPermission),
-        returnValue: _i8.Future<bool>.value(false),
-      ) as _i8.Future<bool>);
-  @override
-  _i8.Future<bool> initialize({
-    _i11.SpeechErrorListener? onError,
-    _i11.SpeechStatusListener? onStatus,
-    dynamic debugLogging = false,
-    Duration? finalTimeout = const Duration(milliseconds: 2000),
-    List<_i12.SpeechConfigOption>? options,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #initialize,
-          [],
-          {
-            #onError: onError,
-            #onStatus: onStatus,
-            #debugLogging: debugLogging,
-            #finalTimeout: finalTimeout,
-            #options: options,
-          },
-        ),
-        returnValue: _i8.Future<bool>.value(false),
-      ) as _i8.Future<bool>);
-  @override
-  _i8.Future<void> stop() => (super.noSuchMethod(
-        Invocation.method(
-          #stop,
-          [],
-        ),
-        returnValue: _i8.Future<void>.value(),
-        returnValueForMissingStub: _i8.Future<void>.value(),
-      ) as _i8.Future<void>);
-  @override
-  _i8.Future<void> cancel() => (super.noSuchMethod(
-        Invocation.method(
-          #cancel,
-          [],
-        ),
-        returnValue: _i8.Future<void>.value(),
-        returnValueForMissingStub: _i8.Future<void>.value(),
-      ) as _i8.Future<void>);
-  @override
-  _i8.Future<dynamic> listen({
-    _i11.SpeechResultListener? onResult,
-    Duration? listenFor,
-    Duration? pauseFor,
-    String? localeId,
-    _i11.SpeechSoundLevelChange? onSoundLevelChange,
-    dynamic cancelOnError = false,
-    dynamic partialResults = true,
-    dynamic onDevice = false,
-    _i11.ListenMode? listenMode = _i11.ListenMode.confirmation,
-    dynamic sampleRate = 0,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #listen,
-          [],
-          {
-            #onResult: onResult,
-            #listenFor: listenFor,
-            #pauseFor: pauseFor,
-            #localeId: localeId,
-            #onSoundLevelChange: onSoundLevelChange,
-            #cancelOnError: cancelOnError,
-            #partialResults: partialResults,
-            #onDevice: onDevice,
-            #listenMode: listenMode,
-            #sampleRate: sampleRate,
-          },
-        ),
-        returnValue: _i8.Future<dynamic>.value(),
-      ) as _i8.Future<dynamic>);
-  @override
-  void changePauseFor(Duration? pauseFor) => super.noSuchMethod(
-        Invocation.method(
-          #changePauseFor,
-          [pauseFor],
-        ),
-        returnValueForMissingStub: null,
-      );
-  @override
-  _i8.Future<List<_i11.LocaleName>> locales() => (super.noSuchMethod(
-        Invocation.method(
-          #locales,
-          [],
-        ),
-        returnValue:
-            _i8.Future<List<_i11.LocaleName>>.value(<_i11.LocaleName>[]),
-      ) as _i8.Future<List<_i11.LocaleName>>);
-  @override
-  _i8.Future<_i11.LocaleName?> systemLocale() => (super.noSuchMethod(
-        Invocation.method(
-          #systemLocale,
-          [],
-        ),
-        returnValue: _i8.Future<_i11.LocaleName?>.value(),
-      ) as _i8.Future<_i11.LocaleName?>);
-}
-
 /// A class which mocks [MExitCollaboratorPool].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -478,7 +305,7 @@ class MockMExitCollaboratorPool extends _i1.Mock
   @override
   _i8.Future<
       _i5.Either<_i10.Failure, _i4.CollaboratorPoolExitStatusEntity>> call(
-          _i13.NoParams? params) =>
+          _i11.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
@@ -929,7 +756,7 @@ class MockMValidateQueryGetterStore extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockP2PCollaboratorPoolRemoteSource extends _i1.Mock
-    implements _i14.P2PCollaboratorPoolRemoteSource {
+    implements _i12.P2PCollaboratorPoolRemoteSource {
   @override
   _i8.Future<List<dynamic>> validateQuery({required String? query}) =>
       (super.noSuchMethod(
