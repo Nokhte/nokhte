@@ -111,6 +111,11 @@ class P2PCollaboratorSessionModule extends Module {
             voiceCallActionsStore: i<VoiceCallActionsStore>(),
           ),
         ),
+        Bind.singleton<P2PPurposePhase6CoordinatorStore>(
+          (i) => P2PPurposePhase6CoordinatorStore(
+            beachWaves: Modular.get<BeachWavesTrackerStore>(),
+          ),
+        ),
       ];
 
   @override
@@ -153,5 +158,13 @@ class P2PCollaboratorSessionModule extends Module {
           ),
           transition: TransitionType.noTransition,
         ),
+        ChildRoute(
+          // '/phase-6/',
+          '/',
+          child: (context, args) => P2PPupose6ScheduleNextMeeting(
+            coordinator: Modular.get<P2PPurposePhase6CoordinatorStore>(),
+          ),
+          transition: TransitionType.noTransition,
+        )
       ];
 }

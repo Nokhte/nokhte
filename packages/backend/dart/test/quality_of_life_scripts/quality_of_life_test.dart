@@ -1,7 +1,6 @@
 import 'package:primala_backend/collaborator_phrases.dart';
 import 'package:primala_backend/constants/constants.dart';
 import 'package:primala_backend/edge_functions.dart';
-import 'package:primala_backend/tables/real_time_enabled/real_time_enabled.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -29,6 +28,16 @@ void main() {
         .filter('first_name', 'neq', 'tester');
     return realPersonUIDQuery[0]["uid"];
   }
+
+  test("make a collaboration between real person & npc 2", () async {
+    final userIdResults = await UserSetupConstants.fetchUIDs();
+    final npcUserUID = userIdResults[1];
+    final realPersonUID = await returnNonNPCUID();
+    existingCollaborationsQueries.createNewCollaboration(
+      collaboratorOneUID: npcUserUID,
+      collaboratorTwoUID: realPersonUID,
+    );
+  });
 
   test("make a solo npc-owned doc & share it with the user", () async {
     final userIdResults = await UserSetupConstants.fetchUIDs();
@@ -83,16 +92,6 @@ void main() {
         adjectiveID: npcPhraseRes[0]["adjective_id"],
         nounID: npcPhraseRes[0]["noun_id"],
       ),
-    );
-  });
-
-  test("make a collaboration between real person & npc 2", () async {
-    final userIdResults = await UserSetupConstants.fetchUIDs();
-    final npcUserUID = userIdResults[1];
-    final realPersonUID = await returnNonNPCUID();
-    existingCollaborationsQueries.createNewCollaboration(
-      collaboratorOneUID: npcUserUID,
-      collaboratorTwoUID: realPersonUID,
     );
   });
 }
