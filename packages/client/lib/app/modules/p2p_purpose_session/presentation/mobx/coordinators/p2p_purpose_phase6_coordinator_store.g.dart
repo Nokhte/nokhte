@@ -10,17 +10,34 @@ part of 'p2p_purpose_phase6_coordinator_store.dart';
 
 mixin _$P2PPurposePhase6CoordinatorStore
     on _P2PPurposePhase6CoordinatorStoreBase, Store {
+  late final _$directionAtom = Atom(
+      name: '_P2PPurposePhase6CoordinatorStoreBase.direction',
+      context: context);
+
+  @override
+  double get direction {
+    _$directionAtom.reportRead();
+    return super.direction;
+  }
+
+  @override
+  set direction(double value) {
+    _$directionAtom.reportWrite(value, super.direction, () {
+      super.direction = value;
+    });
+  }
+
   late final _$_P2PPurposePhase6CoordinatorStoreBaseActionController =
       ActionController(
           name: '_P2PPurposePhase6CoordinatorStoreBase', context: context);
 
   @override
-  dynamic screenConstructor() {
+  dynamic setDirection(double newValue) {
     final _$actionInfo =
         _$_P2PPurposePhase6CoordinatorStoreBaseActionController.startAction(
-            name: '_P2PPurposePhase6CoordinatorStoreBase.screenConstructor');
+            name: '_P2PPurposePhase6CoordinatorStoreBase.setDirection');
     try {
-      return super.screenConstructor();
+      return super.setDirection(newValue);
     } finally {
       _$_P2PPurposePhase6CoordinatorStoreBaseActionController
           .endAction(_$actionInfo);
@@ -30,7 +47,7 @@ mixin _$P2PPurposePhase6CoordinatorStore
   @override
   String toString() {
     return '''
-
+direction: ${direction}
     ''';
   }
 }

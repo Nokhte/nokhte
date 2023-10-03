@@ -8,6 +8,7 @@ abstract class GyroscopicRemoteSource {
 class GyroscopicRemoteSourceImpl implements GyroscopicRemoteSource {
   @override
   Stream<CompassEvent> getDirectionAngle() {
-    return FlutterCompass.events ?? Stream.value(CompassEvent.fromList([-1]));
+    return FlutterCompass.events ??
+        Stream.value(CompassEvent.fromList([-199, 0, 0]));
   }
 }

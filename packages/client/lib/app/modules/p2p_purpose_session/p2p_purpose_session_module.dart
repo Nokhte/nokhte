@@ -125,8 +125,8 @@ class P2PCollaboratorSessionModule extends Module {
   @override
   List<ChildRoute> get routes => [
         ChildRoute(
-          // '/',
-          '/phase-1',
+          '/',
+          // '/phase-1',
           child: (context, args) => P2PPurpose1GreeterScreen(
             coordinator: Modular.get<P2PPurposePhase1CoordinatorStore>(),
           ),

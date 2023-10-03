@@ -1,16 +1,10 @@
 import 'package:primala/app/core/modules/gyroscopic/data/data.dart';
 import 'package:primala/app/core/modules/gyroscopic/domain/domain.dart';
-import 'package:primala/app/core/modules/gyroscopic/presentation/mobx/main/get_direction_angle_store.dart';
 import 'package:primala/app/core/modules/gyroscopic/presentation/presentation.dart';
-
-///   * Presentation Layer Imports
-//          * MobX
-//          * Views
 // * 3rd Parties
 import 'package:flutter_modular/flutter_modular.dart';
 //    * Core Imports
 import 'package:primala/app/core/network/network_info.dart';
-//          * Guard Import
 // ***************************************************
 
 class GyroscopicModule extends Module {

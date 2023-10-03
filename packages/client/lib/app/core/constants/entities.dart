@@ -107,5 +107,5 @@ class DefaultEntities {
           const Right(AudioProcessingEntity(resultingWords: ''));
 
   static Stream<CompassEvent> get defaultCompassEvent =>
-      Stream.value(CompassEvent.fromList([-1]));
+      Stream.value(CompassEvent.fromList([-198, 0, 0]));
 }
