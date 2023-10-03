@@ -1,6 +1,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:primala/app/core/modules/collaborative_doc/collaborative_doc_module.dart';
 import 'package:primala/app/core/modules/collaborative_doc/presentation/presentation.dart';
+import 'package:primala/app/core/modules/gyroscopic/gyroscopic_module.dart';
+import 'package:primala/app/core/modules/gyroscopic/presentation/presentation.dart';
 import 'package:primala/app/core/modules/solo_doc/mobx/mobx.dart';
 import 'package:primala/app/core/modules/solo_doc/solo_doc_module.dart';
 import 'package:primala/app/core/modules/voice_call/mobx/mobx.dart';
@@ -17,6 +19,7 @@ class P2PCollaboratorSessionModule extends Module {
         VoiceCallModule(),
         CollaborativeDocModule(),
         SoloDocModule(),
+        GyroscopicModule(),
       ];
 
   @override
@@ -114,6 +117,7 @@ class P2PCollaboratorSessionModule extends Module {
         Bind.singleton<P2PPurposePhase6CoordinatorStore>(
           (i) => P2PPurposePhase6CoordinatorStore(
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
+            gyroscopeStore: i<GetDirectionAngleStore>(),
           ),
         ),
       ];
@@ -121,8 +125,8 @@ class P2PCollaboratorSessionModule extends Module {
   @override
   List<ChildRoute> get routes => [
         ChildRoute(
-          '/',
-          // '/phase-1',
+          // '/',
+          '/phase-1',
           child: (context, args) => P2PPurpose1GreeterScreen(
             coordinator: Modular.get<P2PPurposePhase1CoordinatorStore>(),
           ),
