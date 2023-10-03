@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter_compass/flutter_compass.dart';
 import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
+import 'package:primala/app/core/modules/gyroscopic/domain/domain.dart';
 import 'package:primala/app/core/modules/local_speech_to_text/constants/constants.dart';
 import 'package:primala/app/modules/home/domain/entities/entities.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/entities.dart';
@@ -103,4 +105,7 @@ class DefaultEntities {
   static Either<Failure, AudioProcessingEntity>
       get defaultAudioProcessingEntity =>
           const Right(AudioProcessingEntity(resultingWords: ''));
+
+  static Stream<CompassEvent> get defaultCompassEvent =>
+      Stream.value(CompassEvent.fromList([-1]));
 }

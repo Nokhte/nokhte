@@ -1,2 +1,2 @@
 export './mobx/mobx.dart';
-export './views/module_screen.dart';
+export 'widgets/scheduling_delta.dart';
