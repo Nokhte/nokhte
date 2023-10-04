@@ -23,4 +23,17 @@ class SchedulingContractImpl implements SchedulingContract {
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  Future<Either<Failure, SchedulingSessionUpdateTimeOrDateStatusModel>>
+      updateSchedulingTimeOrDate(
+          UpdateSchedulingTimeOrDateParams params) async {
+    if (await networkInfo.isConnected) {
+      await remoteSource.updateShedulingTimeOrDate(params);
+      return const Right(
+          SchedulingSessionUpdateTimeOrDateStatusModel(isUpdated: true));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
 }

@@ -1,0 +1,16 @@
+// import 'package:primala/app/core/entities/default_db_status_entity.dart';
+
+// class SchedulingSesesionUpdateTimeorDateStatusEntity
+//     extends DefaultDBStatusEntity {
+//   const SchedulingSesesionUpdateTimeorDateStatusEntity(
+//       {required bool isUpdated})
+//       : super(isSent: isUpdated);
+// }
+
+import 'package:primala/app/core/modules/scheduling/domain/domain.dart';
+
+class SchedulingSessionUpdateTimeOrDateStatusModel
+    extends SchedulingSesesionUpdateTimeOrDateStatusEntity {
+  const SchedulingSessionUpdateTimeOrDateStatusModel(
+      {required super.isUpdated});
+}
