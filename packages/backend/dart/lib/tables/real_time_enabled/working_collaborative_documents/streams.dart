@@ -12,6 +12,18 @@ class WorkingCollaborativeDocumentsStreams extends CollaborativeQueries {
     userUID = supabase.auth.currentUser?.id ?? '';
   }
 
+  docContentDispose() {
+    docContentListeningStatus = false;
+  }
+
+  collaboratorPresenceDispose() {
+    collaboratorPresenceListeningStatus = false;
+  }
+
+  collaboratorDeltaDispose() {
+    collaboratorDeltaListeningStatus = false;
+  }
+
   Stream<DocInfoContent> docContentStream() async* {
     docContentListeningStatus = true;
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {

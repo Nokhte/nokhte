@@ -3,10 +3,14 @@ import 'package:primala_backend/working_collaborative_scheduling.dart';
 
 class WorkingCollaborativeSchedulingStream extends CollaborativeQueries {
   WorkingCollaborativeSchedulingStream({required super.supabase});
-  bool collaboratorTimeListeningStatus = false;
-  bool collaboratorDateListeningStatus = false;
+  bool listeningStatus = false;
+
+  dispose() {
+    listeningStatus = false;
+  }
 
   Stream<CollaboratorsDateAndTime> collaboratorsDateAndTimeStream() async* {
+    listeningStatus = true;
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutActiveCollaboratorInfo();
     }
@@ -17,7 +21,7 @@ class WorkingCollaborativeSchedulingStream extends CollaborativeQueries {
       collaboratorInfo.theUsersUID,
     )) {
       //
-      if (!collaboratorDateListeningStatus) {
+      if (!listeningStatus) {
         break;
       }
       if (event.isEmpty) {

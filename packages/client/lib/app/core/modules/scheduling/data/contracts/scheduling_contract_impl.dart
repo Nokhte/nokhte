@@ -36,4 +36,15 @@ class SchedulingContractImpl implements SchedulingContract {
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  Future<Either<Failure, CollaboratorsChosenTimeAndDayModel>>
+      getCollaboratorsDateAndTime(NoParams params) async {
+    if (await networkInfo.isConnected) {
+      final res = remoteSource.getCollaboratorsDateAndTime();
+      return Right(CollaboratorsChosenTimeAndDayModel(dateAndTime: res));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
 }

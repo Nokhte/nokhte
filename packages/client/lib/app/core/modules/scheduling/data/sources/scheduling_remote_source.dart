@@ -7,13 +7,16 @@ abstract class SchedulingRemoteSource {
   Future<void> updateShedulingTimeOrDate(
     UpdateSchedulingTimeOrDateParams params,
   );
+  Stream<CollaboratorsDateAndTime> getCollaboratorsDateAndTime();
 }
 
 class SchedulingRemoteSourceImpl implements SchedulingRemoteSource {
   final SupabaseClient supabase;
   final WorkingCollaborativeSchedulingQueries queries;
+  final WorkingCollaborativeSchedulingStream stream;
   SchedulingRemoteSourceImpl({required this.supabase})
-      : queries = WorkingCollaborativeSchedulingQueries(supabase: supabase);
+      : queries = WorkingCollaborativeSchedulingQueries(supabase: supabase),
+        stream = WorkingCollaborativeSchedulingStream(supabase: supabase);
 
   @override
   Future<List> createSchedulingSession() async {
@@ -25,5 +28,10 @@ class SchedulingRemoteSourceImpl implements SchedulingRemoteSource {
   Future<void> updateShedulingTimeOrDate(params) async {
     return await queries.updateTimeOrDate(params.newDateOrTime,
         updateDate: params.updateDate);
+  }
+
+  @override
+  Stream<CollaboratorsDateAndTime> getCollaboratorsDateAndTime() {
+    return stream.collaboratorsDateAndTimeStream();
   }
 }
