@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
-import 'package:primala_backend/tables/tables.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:primala_backend/user_names.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:primala_backend/constants/constants.dart';
 

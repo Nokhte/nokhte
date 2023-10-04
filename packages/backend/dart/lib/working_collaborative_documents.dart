@@ -1,1 +1,1 @@
-export './tables/real_time_enabled/real_time_enabled.dart';
+export './tables/real_time_enabled/working_collaborative_documents/working_collaborative_documents.dart';

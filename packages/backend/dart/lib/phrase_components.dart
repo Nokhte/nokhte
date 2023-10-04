@@ -1,2 +1,2 @@
-export './tables/real_time_disabled/real_time_disabled.dart';
+export './tables/real_time_disabled/phrase_components/queries.dart';
 export './constants/types/types.dart';

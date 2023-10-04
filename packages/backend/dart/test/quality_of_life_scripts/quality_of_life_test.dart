@@ -1,6 +1,7 @@
-import 'package:primala_backend/collaborator_phrases.dart';
 import 'package:primala_backend/constants/constants.dart';
 import 'package:primala_backend/edge_functions.dart';
+import 'package:primala_backend/existing_collaborations.dart';
+import 'package:primala_backend/solo_sharable_documents.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 

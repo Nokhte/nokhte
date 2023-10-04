@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:primala/app/core/constants/failure_constants.dart';
 import 'package:primala/app/core/modules/collaborative_doc/data/data.dart';
-import 'package:primala_backend/tables/real_time_enabled/real_time_enabled.dart';
+import 'package:primala_backend/working_collaborative_documents.dart';
 // * primala core imports
 // * mock import
 import '../../constants/models/models.dart';

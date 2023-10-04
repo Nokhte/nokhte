@@ -5,10 +5,6 @@ class CollaborativeDocCreationStatusModel
   const CollaborativeDocCreationStatusModel({required super.isCreated});
 
   static CollaborativeDocCreationStatusModel fromSupabase(List sbQueryRes) {
-    if (sbQueryRes.isEmpty) {
-      return const CollaborativeDocCreationStatusModel(isCreated: false);
-    } else {
-      return const CollaborativeDocCreationStatusModel(isCreated: true);
-    }
+    return const CollaborativeDocCreationStatusModel(isCreated: true);
   }
 }

@@ -5,7 +5,7 @@ class WorkingCollaborativeSchedulingQueries extends CollaborativeQueries {
   static const table = 'working_collaborative_scheduling';
   WorkingCollaborativeSchedulingQueries({required super.supabase});
 
-  Future<List> createSchedulingDocument({
+  Future<List> createSchedulingSession({
     required String sessionTypeBeingPlanned,
   }) async {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {

@@ -14,7 +14,7 @@ class GyroscopicContractImpl implements GyroscopicContract {
       {required this.remoteSource, required this.networkInfo});
 
   @override
-  Future<Either<Failure, DirectionAngleEntity>> getDirectionAngle(
+  Future<Either<Failure, DirectionAngleModel>> getDirectionAngle(
       NoParams params) async {
     if (await networkInfo.isConnected) {
       final res = remoteSource.getDirectionAngle();

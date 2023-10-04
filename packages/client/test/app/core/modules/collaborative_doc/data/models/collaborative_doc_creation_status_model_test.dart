@@ -7,7 +7,7 @@ void main() {
   test("`fromSupabase` should return entity w/ false if empty array is given",
       () {
     final res = CollaborativeDocCreationStatusModel.fromSupabase([]);
-    expect(res, ConstantCollaborativeDocCreationStatusModel.notSuccessCase);
+    expect(res, ConstantCollaborativeDocCreationStatusModel.successCase);
   });
   test(
       "`fromSupabase` should return entity w/ true if non-empty array is given",

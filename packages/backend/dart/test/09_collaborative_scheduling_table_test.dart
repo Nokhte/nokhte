@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:primala_backend/constants/constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:primala_backend/working_collaborative_scheduling.dart';
+import 'package:primala_backend/existing_collaborations.dart';
 
 void main() {
   // do a similar testing protocol
@@ -49,7 +50,7 @@ void main() {
       "User should be able to create a scheduling session & update the document",
       () async {
     final theDateWeAreUsing = DateTime.now();
-    final res = await queries.createSchedulingDocument(
+    final res = await queries.createSchedulingSession(
       sessionTypeBeingPlanned: "collective",
     );
     expect(res[0]["collaborator_one_uid"], firstUserUID);

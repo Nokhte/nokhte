@@ -1,5 +1,5 @@
 import 'package:primala_backend/tables/real_time_enabled/shared/shared.dart';
-import 'package:primala_backend/existing_collaborations.dart';
+import 'types/types.dart';
 
 class WorkingCollaborativeDocumentsStreams extends CollaborativeQueries {
   bool docContentListeningStatus = false;
