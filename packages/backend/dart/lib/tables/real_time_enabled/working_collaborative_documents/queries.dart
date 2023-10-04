@@ -7,7 +7,7 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
 
   Future<void> updateExistingDocument({required String newContent}) async {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutCollaboratorInfo();
+      await figureOutActiveCollaboratorInfo();
     }
     await supabase
         .from('working_collaborative_documents')
@@ -27,7 +27,7 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
 
   Future<void> updatePresence({required bool isPresent}) async {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutCollaboratorInfo();
+      await figureOutActiveCollaboratorInfo();
     }
     await supabase
         .from('working_collaborative_documents')
@@ -46,7 +46,7 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
 
   Future<void> updateDelta({required int delta}) async {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutCollaboratorInfo();
+      await figureOutActiveCollaboratorInfo();
     }
     await supabase
         .from('working_collaborative_documents')
@@ -68,7 +68,7 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
     required String docType,
   }) async {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutCollaboratorInfo();
+      await figureOutActiveCollaboratorInfo();
     }
     final checkRes = await supabase
         .from('working_collaborative_documents')

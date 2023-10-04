@@ -49,7 +49,9 @@ void main() {
       "User should be able to create a scheduling session & update the document",
       () async {
     final theDateWeAreUsing = DateTime.now();
-    final res = await queries.createSchedulingDocument();
+    final res = await queries.createSchedulingDocument(
+      sessionTypeBeingPlanned: "collective",
+    );
     expect(res[0]["collaborator_one_uid"], firstUserUID);
     expect(res[0]["collaborator_two_uid"], secondUserUID);
     final stream = WorkingCollaborativeSchedulingStream(supabase: supabase);

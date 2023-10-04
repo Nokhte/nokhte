@@ -55,3 +55,9 @@ as permissive
 for update
 to public
 using (((auth.uid() = collaborator_one_uid) OR (auth.uid() = collaborator_two_uid)));
+
+alter table "public"."working_collaborative_scheduling" add column "session_being_scheduled" text not null;
+
+alter table "public"."working_collaborative_scheduling" add constraint "working_collaborative_scheduling_session_being_scheduled_check" CHECK ((session_being_scheduled = ANY (ARRAY['collective'::text, 'solo'::text]))) not valid;
+
+alter table "public"."working_collaborative_scheduling" validate constraint "working_collaborative_scheduling_session_being_scheduled_check";

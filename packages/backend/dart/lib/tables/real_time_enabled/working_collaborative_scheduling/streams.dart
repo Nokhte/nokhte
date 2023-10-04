@@ -8,7 +8,7 @@ class WorkingCollaborativeSchedulingStream extends CollaborativeQueries {
 
   Stream<CollaboratorsDateAndTime> collaboratorsDateAndTimeStream() async* {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutCollaboratorInfo();
+      await figureOutActiveCollaboratorInfo();
     }
     await for (var event in supabase
         .from('working_collaborative_scheduling')

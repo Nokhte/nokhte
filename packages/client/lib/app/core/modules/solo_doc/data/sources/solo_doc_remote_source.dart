@@ -25,7 +25,7 @@ class SoloDocRemoteSourceImpl implements SoloDocRemoteSource {
             ExistingCollaborationsQueries(supabase: supabase);
 
   Future getCollaboratorUID() async {
-    await existingCollaborationsQueries.figureOutCollaboratorInfo();
+    await existingCollaborationsQueries.figureOutActiveCollaboratorInfo();
     collaborationInfo = existingCollaborationsQueries.collaboratorInfo;
   }
 

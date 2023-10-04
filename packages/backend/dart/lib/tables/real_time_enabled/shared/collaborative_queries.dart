@@ -15,12 +15,12 @@ class CollaborativeQueries {
     required this.supabase,
   }) : currentUserUID = supabase.auth.currentUser?.id ?? '';
 
-  Future<void> figureOutCollaboratorInfo() async {
-    collaboratorInfo = await _computeCollaboratorInfo();
+  Future<void> figureOutActiveCollaboratorInfo() async {
+    collaboratorInfo = await _computeActiveCollaboratorInfo();
   }
 
-  Future<CollaboratorInfo> _computeCollaboratorInfo() async {
-    final res = await fetchCollaboratorsUIDAndNumber();
+  Future<CollaboratorInfo> _computeActiveCollaboratorInfo() async {
+    final res = await fetchActiveCollaboratorsUIDAndNumber();
     return res[1] == 1
         ? CollaboratorInfo(
             theCollaboratorsNumber: 'collaborator_one',
@@ -36,17 +36,25 @@ class CollaborativeQueries {
           );
   }
 
-  Future<List<dynamic>> fetchCollaborationInfo() async {
-    return await supabase.from("existing_collaborations").select().or(
-        'collaborator_one.eq.$currentUserUID,collaborator_two.eq.$currentUserUID');
+  Future<List<dynamic>> fetchActiveCollaborationInfo() async {
+    return await supabase
+        .from("existing_collaborations")
+        .select()
+        .or('collaborator_one.eq.$currentUserUID,collaborator_two.eq.$currentUserUID')
+        .eq('is_currently_active', true);
   }
 
-  Future<List> fetchCollaboratorsUIDAndNumber() async {
-    final collabRes = await fetchCollaborationInfo();
+  Future<List> fetchActiveCollaboratorsUIDAndNumber() async {
+    final collabRes = await fetchActiveCollaborationInfo();
     final collaboratorOne = collabRes[0]["collaborator_one"];
     final collaboratorTwo = collabRes[0]["collaborator_two"];
     return collaboratorOne == currentUserUID
         ? [collaboratorTwo, 2]
         : [collaboratorOne, 1];
+  }
+
+  Future<List<dynamic>> fetchAllCollaborationInfo() async {
+    return await supabase.from("existing_collaborations").select().or(
+        'collaborator_one.eq.$currentUserUID,collaborator_two.eq.$currentUserUID');
   }
 }

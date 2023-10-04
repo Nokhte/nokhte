@@ -38,12 +38,14 @@ void main() {
           ExistingCollaborationsQueries(supabase: supabase);
 
       /// act
-      final res = await existingCollaborationsQueries.fetchCollaborationInfo();
+      final res =
+          await existingCollaborationsQueries.fetchActiveCollaborationInfo();
 
       /// assert
       expect(res, isNotEmpty);
       expect(res[0]["collaborator_one"], firstUserUID);
       expect(res[0]["collaborator_two"], secondUserUID);
+      expect(res[0]["is_currently_active"], true);
       expect(res[0]["who_gets_the_question"], 1);
     });
 
@@ -54,8 +56,8 @@ void main() {
           ExistingCollaborationsQueries(supabase: supabase);
 
       /// act
-      final res =
-          await existingCollaborationsQueries.fetchCollaboratorsUIDAndNumber();
+      final res = await existingCollaborationsQueries
+          .fetchActiveCollaboratorsUIDAndNumber();
 
       /// assert
       expect(res, isNotEmpty);
@@ -69,13 +71,35 @@ void main() {
           ExistingCollaborationsQueries(supabase: supabase);
 
       /// act
-      final res =
-          await existingCollaborationsQueries.fetchCollaboratorsUIDAndNumber();
+      final res = await existingCollaborationsQueries
+          .fetchActiveCollaboratorsUIDAndNumber();
 
       /// assert
       expect(res, isNotEmpty);
       expect(res[0], firstUserUID);
       expect(res[1], 1);
+    });
+    test(
+        "should be able to update the status of the collaboration [let's say at the end of the purpose session]",
+        () async {
+      // arrange
+      await SignIn.user1(supabase: supabase);
+      final existingCollaborationsQueries =
+          ExistingCollaborationsQueries(supabase: supabase);
+      // act
+      await existingCollaborationsQueries.updateActivityStatus(
+        collaboratorOneUID: firstUserUID,
+        collaboratorTwoUID: secondUserUID,
+        newActivityStatus: false,
+      );
+      // assert
+      final res =
+          await existingCollaborationsQueries.fetchAllCollaborationInfo();
+      expect(res, isNotEmpty);
+      expect(res[0]["collaborator_one"], firstUserUID);
+      expect(res[0]["collaborator_two"], secondUserUID);
+      expect(res[0]["is_currently_active"], false);
+      expect(res[0]["who_gets_the_question"], 1);
     });
   });
 
@@ -100,7 +124,8 @@ void main() {
           ExistingCollaborationsQueries(supabase: supabase);
 
       /// act
-      final res = await existingCollaborationsQueries.fetchCollaborationInfo();
+      final res =
+          await existingCollaborationsQueries.fetchActiveCollaborationInfo();
 
       /// assert
       expect(res, isNotEmpty);
@@ -117,8 +142,8 @@ void main() {
           ExistingCollaborationsQueries(supabase: supabase);
 
       /// act
-      final res =
-          await existingCollaborationsQueries.fetchCollaboratorsUIDAndNumber();
+      final res = await existingCollaborationsQueries
+          .fetchActiveCollaboratorsUIDAndNumber();
 
       /// assert
       expect(res, isNotEmpty);

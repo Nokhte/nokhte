@@ -5,9 +5,11 @@ class WorkingCollaborativeSchedulingQueries extends CollaborativeQueries {
   static const table = 'working_collaborative_scheduling';
   WorkingCollaborativeSchedulingQueries({required super.supabase});
 
-  Future<List> createSchedulingDocument() async {
+  Future<List> createSchedulingDocument({
+    required String sessionTypeBeingPlanned,
+  }) async {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutCollaboratorInfo();
+      await figureOutActiveCollaboratorInfo();
     }
     final checkRes = await supabase
         .from(table)
@@ -26,6 +28,7 @@ class WorkingCollaborativeSchedulingQueries extends CollaborativeQueries {
             collaboratorInfo.theCollaboratorsUID,
         "${collaboratorInfo.theUsersCollaboratorNumber}_uid":
             collaboratorInfo.theUsersUID,
+        "session_being_scheduled": sessionTypeBeingPlanned,
       }).select();
     } else {
       return [];
@@ -34,7 +37,7 @@ class WorkingCollaborativeSchedulingQueries extends CollaborativeQueries {
 
   Future<void> deleteSchedulingSession() async {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutCollaboratorInfo();
+      await figureOutActiveCollaboratorInfo();
     }
     await supabase
         .from(table)
@@ -52,7 +55,7 @@ class WorkingCollaborativeSchedulingQueries extends CollaborativeQueries {
   Future<void> updateTimeOrDate(DateTime date,
       {required bool updateDate}) async {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutCollaboratorInfo();
+      await figureOutActiveCollaboratorInfo();
     }
     if (updateDate) {
       final formattedDate = DateFormat('yyyy-MM-dd').format(date);
