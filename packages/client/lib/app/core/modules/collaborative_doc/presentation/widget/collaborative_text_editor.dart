@@ -26,13 +26,13 @@ class _CollaborativeTextEditorState extends State<CollaborativeTextEditor> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        // BaseTextEditor(
+        //   maxLength: 95,
+        //   maxLines: 5,
+        //   trackerStore: widget.trackerStore.collaboratorStore,
+        // ),
         BaseTextEditor(
-          maxLength: 95,
-          maxLines: 5,
-          trackerStore: widget.trackerStore.collaboratorStore,
-        ),
-        BaseTextEditor(
-          maxLength: 95,
+          maxLength: 65,
           maxLines: 5,
           trackerStore: widget.trackerStore.userStore,
         ),
