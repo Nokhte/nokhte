@@ -7,7 +7,7 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/auth_providers.dart';
-import 'package:primala/app/core/widgets/mobx.dart';
+import 'package:primala/app/core/widgets/widgets.dart';
 
 import 'auth_provider_store.dart';
 import 'auth_state_store.dart';
@@ -18,9 +18,17 @@ class LoginScreenCoordinatorStore = _LoginScreenCoordinatorStoreBase
     with _$LoginScreenCoordinatorStore;
 
 abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
+  final GesturePillStore gesturePillStore;
   final AuthProviderStore authProviderStore;
   final AuthStateStore authStateStore;
   final FadeInAndChangeColorTextStore textStore;
+
+  _LoginScreenCoordinatorStoreBase({
+    required this.authProviderStore,
+    required this.authStateStore,
+    required this.textStore,
+    required this.gesturePillStore,
+  });
 
   @observable
   bool showText = false;
@@ -30,8 +38,6 @@ abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
 
   @action
   screenConstructor() {
-    // AuthProvider authProvider =
-
     if (kDebugMode) {
       authProvider = AuthProvider.google;
     }
@@ -46,17 +52,10 @@ abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
 
   @action
   loginScreenSwipeUpCallback(AuthProvider authProvider) async {
+    gesturePillStore.startTheAnimation();
     await authProviderStore.routeAuthProviderRequest(authProvider);
   }
 
-  _LoginScreenCoordinatorStoreBase({
-    required this.authProviderStore,
-    required this.authStateStore,
-    required this.textStore,
-  });
-
   @override
-  List<Object> get props => [
-// some items
-      ];
+  List<Object> get props => [];
 }

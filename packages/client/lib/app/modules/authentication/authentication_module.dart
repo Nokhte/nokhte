@@ -1,5 +1,7 @@
 import 'package:primala/app/core/widgets/fade_in_and_change_color_text/stack/constants/constants.dart';
 import 'package:primala/app/core/widgets/mobx.dart';
+import 'package:primala/app/core/widgets/shared/constants/svg_animation_constants.dart';
+import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/authentication/domain/domain.dart';
 import 'package:primala/app/modules/authentication/data/data.dart';
 import 'package:primala/app/modules/authentication/presentation/presentation.dart';
@@ -50,6 +52,11 @@ class AuthenticationModule extends Module {
             ),
           ),
         ),
+        Bind.singleton<GesturePillStore>(
+          (i) => GesturePillStore(
+            endingPath: SvgAnimtionCostants.circlePath,
+          ),
+        ),
         // & Mobx Mother Stores
         Bind.singleton<AuthProviderStore>(
           (i) => AuthProviderStore(
@@ -64,6 +71,7 @@ class AuthenticationModule extends Module {
         // & Coordinator Stores
         Bind.singleton<LoginScreenCoordinatorStore>(
           (i) => LoginScreenCoordinatorStore(
+            gesturePillStore: i<GesturePillStore>(),
             authProviderStore: i<AuthProviderStore>(),
             authStateStore: i<AuthStateStore>(),
             textStore: i<FadeInAndChangeColorTextStore>(),
@@ -76,7 +84,7 @@ class AuthenticationModule extends Module {
         ChildRoute(
           "/",
           child: (context, args) => LoginScreen(
-            loginCoordinatorStore: Modular.get<LoginScreenCoordinatorStore>(),
+            coordinator: Modular.get<LoginScreenCoordinatorStore>(),
           ),
           guards: [
             AuthGuard(
