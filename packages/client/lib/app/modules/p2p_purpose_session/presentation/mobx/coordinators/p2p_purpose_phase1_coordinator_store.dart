@@ -19,6 +19,7 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
     with Store {
   // Logic Stores
   final InstantiateAgoraSdkStore instantiateAgoraSdkStore;
+  final GesturePillStore gesturePillStore;
   final FadeInAndChangeColorTextStore fadeInColorText;
   final FetchAgoraTokenStore fetchAgoraTokenStore;
   final FetchChannelIdStore fetchChannelIdStore;
@@ -37,6 +38,7 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
     required this.beachWaves,
     required this.fadingText,
     required this.fadeInColorText,
+    required this.gesturePillStore,
   });
 
   @action
@@ -64,7 +66,8 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
     // );
     // await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
     // you then want to fade out the two texts
-    fadeInColorText.teeUpFadeOut();
+    // fadeInColorText.teeUpFadeOut();
+    gesturePillStore.startTheAnimation();
     fadingText.fadeTheTextOut();
     // fadingText.togglePause();
     Future.delayed(const Duration(seconds: 3), () {

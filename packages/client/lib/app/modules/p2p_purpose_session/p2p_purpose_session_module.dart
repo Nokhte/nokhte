@@ -8,6 +8,7 @@ import 'package:primala/app/core/modules/solo_doc/solo_doc_module.dart';
 import 'package:primala/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:primala/app/core/modules/voice_call/voice_call_module.dart';
 import 'package:primala/app/core/widgets/mobx.dart';
+import 'package:primala/app/core/widgets/shared/constants/svg_animation_constants.dart';
 import 'package:primala/app/core/widgets/widget_constants.dart';
 import 'package:primala/app/modules/p2p_purpose_session/presentation/presentation.dart';
 
@@ -30,6 +31,11 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<MeshCircleButtonStore>(
           (i) => MeshCircleButtonStore(),
+        ),
+        Bind.singleton<GesturePillStore>(
+          (i) => GesturePillStore(
+            endingPath: SvgAnimtionCostants.circlePath,
+          ),
         ),
         // Bind.factory<BreathingPentagonsStateTrackerStore>(
         //   (i) => BreathingPentagonsStateTrackerStore(),
@@ -69,6 +75,7 @@ class P2PCollaboratorSessionModule extends Module {
           (i) => P2PPurposePhase1CoordinatorStore(
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
             fadeInColorText: Modular.get<FadeInAndChangeColorTextStore>(),
+            gesturePillStore: Modular.get<GesturePillStore>(),
             fadingText: i<SmartFadingAnimatedTextTrackerStore>(),
             instantiateAgoraSdkStore: i<InstantiateAgoraSdkStore>(),
             fetchAgoraTokenStore: i<FetchAgoraTokenStore>(),
@@ -163,8 +170,8 @@ class P2PCollaboratorSessionModule extends Module {
           transition: TransitionType.noTransition,
         ),
         ChildRoute(
-          // '/phase-6/',
-          '/',
+          '/phase-6/',
+          // '/',
           child: (context, args) => P2PPupose6ScheduleNextMeeting(
             coordinator: Modular.get<P2PPurposePhase6CoordinatorStore>(),
           ),

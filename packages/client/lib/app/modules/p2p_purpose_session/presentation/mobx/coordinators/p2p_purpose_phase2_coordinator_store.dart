@@ -31,7 +31,8 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
   screenConstructor() async {
     beachWaves.initiateSuspendedAtTheDepths();
     meshCircleStore.widgetConstructor();
-    await fadingText.oneSecondDelay(() => fadingText.fadeTheTextIn());
+    await fadingText
+        .oneSecondDelay(() async => await fadingText.fadeTheTextIn());
     await questionCheckerStore(NoParams()).then((_) {
       fadingText.setMainMessage(
         index: 1,
