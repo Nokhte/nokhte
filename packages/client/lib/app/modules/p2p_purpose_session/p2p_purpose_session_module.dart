@@ -32,7 +32,7 @@ class P2PCollaboratorSessionModule extends Module {
         Bind.singleton<MeshCircleButtonStore>(
           (i) => MeshCircleButtonStore(),
         ),
-        Bind.singleton<GesturePillStore>(
+        Bind.factory<GesturePillStore>(
           (i) => GesturePillStore(
             endingPath: SvgAnimtionCostants.circlePath,
           ),
@@ -88,8 +88,6 @@ class P2PCollaboratorSessionModule extends Module {
                   beachWaves: Modular.get<BeachWavesTrackerStore>(),
                   fadingText: i<SmartFadingAnimatedTextTrackerStore>(),
                   meshCircleStore: i<MeshCircleButtonStore>(),
-                  // breathingPentagons:
-                  //     Modular.get<BreathingPentagonsStateTrackerStore>(),
                   voiceCallActionsStore: i<VoiceCallActionsStore>(),
                   agoraCallbacksStore: i<AgoraCallbacksStore>(),
                   questionCheckerStore: i<CheckIfUserHasTheQuestionStore>(),
@@ -112,12 +110,12 @@ class P2PCollaboratorSessionModule extends Module {
         Bind.singleton<P2PPurposePhase5CoordinatorStore>(
           (i) => P2PPurposePhase5CoordinatorStore(
             collaborativeDocDB: Modular.get<CollaborativeDocCoordinatorStore>(),
+            gesturePillStore: Modular.get<GesturePillStore>(),
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
             collaborativeTextUI: i<CollaborativeTextEditorTrackerStore>(),
             agoraCallbacksStore: i<AgoraCallbacksStore>(),
             fetchAgoraTokenStore: i<FetchAgoraTokenStore>(),
             fetchChannelIdStore: i<FetchChannelIdStore>(),
-            meshCircleStore: i<MeshCircleButtonStore>(),
             voiceCallActionsStore: i<VoiceCallActionsStore>(),
           ),
         ),
@@ -132,8 +130,8 @@ class P2PCollaboratorSessionModule extends Module {
   @override
   List<ChildRoute> get routes => [
         ChildRoute(
-          '/',
-          // '/phase-1',
+          // '/',
+          '/phase-1',
           child: (context, args) => P2PPurpose1GreeterScreen(
             coordinator: Modular.get<P2PPurposePhase1CoordinatorStore>(),
           ),
@@ -162,8 +160,8 @@ class P2PCollaboratorSessionModule extends Module {
           transition: TransitionType.noTransition,
         ),
         ChildRoute(
-          '/phase-5/',
-          // '/',
+          // '/phase-5/',
+          '/',
           child: (context, args) => P2PPurpose5CollectiveCreation(
             coordinator: Modular.get<P2PPurposePhase5CoordinatorStore>(),
           ),

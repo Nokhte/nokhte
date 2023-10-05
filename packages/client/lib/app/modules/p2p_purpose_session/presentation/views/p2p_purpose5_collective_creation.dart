@@ -42,26 +42,19 @@ class P2PPurpose5CollectiveCreation extends StatelessWidget {
                 Column(
                   children: [
                     Expanded(
-                      child:
-                          Container(), // Empty SizedBox to take up available space
+                      child: Container(),
                     ),
-                    GestureDetector(
-                      onLongPressStart: (_) =>
-                          coordinator.audioButtonHoldStartCallback(),
-                      onLongPressEnd: (_) {
-                        coordinator.audioButtonHoldEndCallback();
-                      },
-                      child: SizedBox(
-                        height: size.height,
-                        width: size.width,
-                        child: MeshCircleButton(
-                          trackerStore: coordinator.meshCircleStore,
+                    Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        GesturePill(
                           size: size,
+                          stateTrackerStore: coordinator.gesturePillStore,
                         ),
-                      ),
+                      ],
                     ),
                     const Padding(
-                      padding: EdgeInsets.only(bottom: 40),
+                      padding: EdgeInsets.only(bottom: 20),
                     ),
                   ],
                 ),

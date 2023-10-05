@@ -16,8 +16,8 @@ import 'package:primala/app/modules/p2p_collaborator_pool/data/data.dart'
     as _i12;
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/domain.dart'
     as _i4;
+import 'package:primala_backend/existing_collaborations.dart' as _i3;
 import 'package:primala_backend/phrase_components.dart' as _i9;
-import 'package:primala_backend/streams.dart' as _i3;
 import 'package:supabase_flutter/supabase_flutter.dart' as _i2;
 
 import 'p2p_collaborator_pool_stack_mock_gen.dart' as _i7;

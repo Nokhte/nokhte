@@ -21,6 +21,7 @@ class P2PPurposePhase5CoordinatorStore = _P2PPurposePhase5CoordinatorStoreBase
 abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
     with Store {
   final BeachWavesTrackerStore beachWaves;
+  final GesturePillStore gesturePillStore;
   final CollaborativeTextEditorTrackerStore collaborativeTextUI;
   final CollaborativeDocCoordinatorStore collaborativeDocDB;
   final TextEditingController collaboratorController;
@@ -31,7 +32,6 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
   final FetchChannelIdStore fetchChannelIdStore;
   final AgoraCallbacksStore agoraCallbacksStore;
   final VoiceCallActionsStore voiceCallActionsStore;
-  final MeshCircleButtonStore meshCircleStore;
 
   _P2PPurposePhase5CoordinatorStoreBase({
     required this.beachWaves,
@@ -41,7 +41,7 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
     required this.voiceCallActionsStore,
     required this.fetchAgoraTokenStore,
     required this.fetchChannelIdStore,
-    required this.meshCircleStore,
+    required this.gesturePillStore,
   })  : userController = collaborativeTextUI.userStore.controller,
         userFocusNode = collaborativeTextUI.userStore.focusNode,
         collaboratorController =
@@ -56,7 +56,6 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
   @action
   screenConstructor() async {
     beachWaves.initiateSuspendedAtTheDepths();
-    meshCircleStore.widgetConstructor();
     // await fetchChannelIdStore(NoParams());
     // await fetchAgoraTokenStore(
     //   FetchAgoraTokenParams(
@@ -122,19 +121,6 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
         // print("A USER JUST LEFT THE TEXT DOC");
       }
     });
-  }
-
-  @action
-  audioButtonHoldStartCallback() {
-    /// TODO comment out for production
-    // voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);
-    meshCircleStore.toggleColorAnimation();
-  }
-
-  @action
-  audioButtonHoldEndCallback() {
-    // voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
-    meshCircleStore.toggleColorAnimation();
   }
 
   @override
