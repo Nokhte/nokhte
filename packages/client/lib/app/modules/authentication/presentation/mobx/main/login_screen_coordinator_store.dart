@@ -3,11 +3,13 @@
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/auth_providers.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
+import 'package:simple_animations/simple_animations.dart';
 
 import 'auth_provider_store.dart';
 import 'auth_state_store.dart';
@@ -38,6 +40,14 @@ abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
 
   @action
   screenConstructor() {
+    gesturePillStore
+        .setPillMovie(BottomCircleGoesUp.getMovie(firstGradientColors: [
+      const Color(0xFF41D2F8),
+      const Color(0xFF69E9BC),
+    ], secondGradientColors: [
+      const Color(0xFF41D2F8),
+      const Color(0xFF69E9BC),
+    ]));
     if (kDebugMode) {
       authProvider = AuthProvider.google;
     }
@@ -52,7 +62,8 @@ abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
 
   @action
   loginScreenSwipeUpCallback(AuthProvider authProvider) async {
-    gesturePillStore.startTheAnimation();
+    gesturePillStore.setPillAnimationControl(Control.playFromStart);
+
     await authProviderStore.routeAuthProviderRequest(authProvider);
   }
 

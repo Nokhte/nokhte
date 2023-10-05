@@ -78,7 +78,7 @@ class HomeModule extends Module {
         // & Coordinator Store
         Bind.singleton<HomeScreenCoordinatorStore>(
           (i) => HomeScreenCoordinatorStore(
-            gestureCross: i<GesturePillStore>(),
+            gesturePillStore: i<GesturePillStore>(),
             beachWaves: i<BeachWavesTrackerStore>(),
             addNameToDatabaseStore: i<AddNameToDatabaseStore>(),
             fadingTextStateTrackerStore:

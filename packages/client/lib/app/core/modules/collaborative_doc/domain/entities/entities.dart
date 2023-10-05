@@ -5,3 +5,4 @@ export 'collaborative_doc_creation_status_entity.dart';
 export 'collaborative_doc_update_status_entity.dart';
 export 'collaborative_doc_delta_updater_status_entity.dart';
 export 'collaborative_doc_presence_updater_status_entity.dart';
+export './collaborative_doc_update_commit_desire_status_entity.dart';

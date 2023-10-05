@@ -36,11 +36,11 @@ class MeshCirclePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    Path shadowPath = Path()
-      ..addOval(Rect.fromCircle(
-          center: Offset(size.width / 2, size.height / 2),
-          radius:
-              size.width / 2.5 + 1.0)); // Adjust the shadow radius as needed.
+    // Path shadowPath = Path()
+    //   ..addOval(Rect.fromCircle(
+    //       center: Offset(size.width / 2, size.height / 2),
+    //       radius:
+    //           size.width / 2.5 + 1.0)); // Adjust the shadow radius as needed.
 
     // Paint shadowPaint = Paint()
     //   ..color = const Color(0x3600FF75)

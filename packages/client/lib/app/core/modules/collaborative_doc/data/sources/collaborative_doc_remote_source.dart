@@ -7,6 +7,7 @@ abstract class CollaborativeDocRemoteSource {
   Future<List> createCollaborativeDoc({required String docType});
   Future<void> updateUserPresence({required bool updatedUserPresence});
   Future<void> updateUserDelta({required int updatedDelta});
+  Future<void> updateCommitDesireStatus({required bool wantsToCommit});
   Future<void> updateCollaborativeDoc({required String newContent});
 }
 
@@ -52,5 +53,10 @@ class CollaborativeDocRemoteSourceImpl implements CollaborativeDocRemoteSource {
   @override
   Future<void> updateUserPresence({required bool updatedUserPresence}) async {
     return await queries.updatePresence(isPresent: updatedUserPresence);
+  }
+
+  @override
+  Future<void> updateCommitDesireStatus({required bool wantsToCommit}) async {
+    return await queries.updateCommitDesireStatus(wantsToCommit: wantsToCommit);
   }
 }

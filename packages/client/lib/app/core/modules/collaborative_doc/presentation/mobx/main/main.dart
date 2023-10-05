@@ -4,3 +4,4 @@ export './create_collaborative_doc_store.dart';
 export './update_collaborative_doc_store.dart';
 export './update_user_delta_store.dart';
 export './update_user_presence_store.dart';
+export 'update_commit_desire_status_store.dart';

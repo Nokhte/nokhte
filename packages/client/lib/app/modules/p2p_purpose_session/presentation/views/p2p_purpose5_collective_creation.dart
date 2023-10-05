@@ -25,6 +25,7 @@ class P2PPurpose5CollectiveCreation extends StatelessWidget {
     return LayoutBuilder(
       builder: ((context, constraints) => PlatformScaffold(
               body: Swipe(
+            onSwipeUp: () => coordinator.swipeUpCallback(),
             child: Stack(
               children: [
                 SizedBox(

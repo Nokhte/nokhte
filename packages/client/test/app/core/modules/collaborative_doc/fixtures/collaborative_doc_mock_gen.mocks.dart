@@ -188,6 +188,17 @@ class MockMCollaborativeDocRemoteSource extends _i1.Mock
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
   @override
+  _i6.Future<void> updateCommitDesireStatus({required bool? wantsToCommit}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateCommitDesireStatus,
+          [],
+          {#wantsToCommit: wantsToCommit},
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
   _i6.Future<void> updateCollaborativeDoc({required String? newContent}) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -345,6 +356,32 @@ class MockMCollaborativeDocContract extends _i1.Mock
           ) as _i6.Future<
               _i2.Either<_i8.Failure,
                   _i3.CollaborativeDocPresenceUpdaterStatusEntity>>);
+  @override
+  _i6.Future<
+          _i2.Either<_i8.Failure,
+              _i3.CollaborativeDocUpdateCommitDesireStatusEntity>>
+      updateCommitDesireStatus({required bool? wantsToCommit}) =>
+          (super.noSuchMethod(
+            Invocation.method(
+              #updateCommitDesireStatus,
+              [],
+              {#wantsToCommit: wantsToCommit},
+            ),
+            returnValue: _i6.Future<
+                    _i2.Either<_i8.Failure,
+                        _i3.CollaborativeDocUpdateCommitDesireStatusEntity>>.value(
+                _FakeEither_0<_i8.Failure,
+                    _i3.CollaborativeDocUpdateCommitDesireStatusEntity>(
+              this,
+              Invocation.method(
+                #updateCommitDesireStatus,
+                [],
+                {#wantsToCommit: wantsToCommit},
+              ),
+            )),
+          ) as _i6.Future<
+              _i2.Either<_i8.Failure,
+                  _i3.CollaborativeDocUpdateCommitDesireStatusEntity>>);
 }
 
 /// A class which mocks [MGetCollaborativeDocContent].

@@ -27,6 +27,23 @@ mixin _$P2PPurposePhase5CoordinatorStore
     });
   }
 
+  late final _$bottomCircleIsUpAtom = Atom(
+      name: '_P2PPurposePhase5CoordinatorStoreBase.bottomCircleIsUp',
+      context: context);
+
+  @override
+  bool get bottomCircleIsUp {
+    _$bottomCircleIsUpAtom.reportRead();
+    return super.bottomCircleIsUp;
+  }
+
+  @override
+  set bottomCircleIsUp(bool value) {
+    _$bottomCircleIsUpAtom.reportWrite(value, super.bottomCircleIsUp, () {
+      super.bottomCircleIsUp = value;
+    });
+  }
+
   late final _$screenConstructorAsyncAction = AsyncAction(
       '_P2PPurposePhase5CoordinatorStoreBase.screenConstructor',
       context: context);
@@ -36,10 +53,20 @@ mixin _$P2PPurposePhase5CoordinatorStore
     return _$screenConstructorAsyncAction.run(() => super.screenConstructor());
   }
 
+  late final _$swipeUpCallbackAsyncAction = AsyncAction(
+      '_P2PPurposePhase5CoordinatorStoreBase.swipeUpCallback',
+      context: context);
+
+  @override
+  Future swipeUpCallback() {
+    return _$swipeUpCallbackAsyncAction.run(() => super.swipeUpCallback());
+  }
+
   @override
   String toString() {
     return '''
-previousWord: ${previousWord}
+previousWord: ${previousWord},
+bottomCircleIsUp: ${bottomCircleIsUp}
     ''';
   }
 }

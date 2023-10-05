@@ -79,6 +79,10 @@ class DefaultEntities {
   static Either<Failure, CollaborativeDocDeltaUpdaterStatusEntity>
       get defaultCollaborativeDocDeltaUpdaterStatusEntity => const Right(
           CollaborativeDocDeltaUpdaterStatusEntity(isUpdated: false));
+  static Either<Failure, CollaborativeDocUpdateCommitDesireStatusEntity>
+      get collaborativeDocUpdateCommitDesireEntity => const Right(
+            CollaborativeDocUpdateCommitDesireStatusEntity(isUpdated: false),
+          );
 
   static Stream<DocInfoContent> get defaultDocContentEntity => Stream.value(
         DocInfoContent(
@@ -87,6 +91,7 @@ class DefaultEntities {
           lastEditedBy: "",
           collaboratorsCommitDesireStatus: false,
           documentCommitStatus: false,
+          userCommitDesireStatus: false,
         ),
       );
   static Stream<CollaboratorDocInfo> get defaultCollaboratorDocInfo =>

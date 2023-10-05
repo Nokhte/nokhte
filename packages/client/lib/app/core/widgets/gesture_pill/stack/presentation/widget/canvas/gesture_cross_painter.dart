@@ -51,20 +51,20 @@ class GestureCrossPainter extends CustomPainter {
     final lowerCircleCenterY = (height - circleRadius * 2) -
         centerCircleAnimationConstant; // Position it near the bottom
     final higherCircleCenterY = (height - circleRadius * 2) - 27;
-    final circleRect = Rect.fromCircle(
+    final higherCircleRect = Rect.fromCircle(
         center: Offset(centerX, higherCircleCenterY), radius: circleRadius);
     final upperCirclePaint = Paint()
       ..shader = LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors: upperCircleLinearGradient,
-      ).createShader(circleRect);
+      ).createShader(higherCircleRect);
 
-    canvas.drawCircle(
-        Offset(centerX, higherCircleCenterY), circleRadius, upperCirclePaint);
     //
     canvas.drawCircle(
         Offset(centerX, lowerCircleCenterY), circleRadius, lowerCirclePaint);
+    canvas.drawCircle(
+        Offset(centerX, higherCircleCenterY), circleRadius, upperCirclePaint);
   }
 
   @override

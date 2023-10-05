@@ -9,6 +9,22 @@ part of 'gesture_pill_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$GesturePillStore on _GesturePillStoreBase, Store {
+  late final _$wantToFadeOutAtom =
+      Atom(name: '_GesturePillStoreBase.wantToFadeOut', context: context);
+
+  @override
+  bool get wantToFadeOut {
+    _$wantToFadeOutAtom.reportRead();
+    return super.wantToFadeOut;
+  }
+
+  @override
+  set wantToFadeOut(bool value) {
+    _$wantToFadeOutAtom.reportWrite(value, super.wantToFadeOut, () {
+      super.wantToFadeOut = value;
+    });
+  }
+
   late final _$showWidgetAtom =
       Atom(name: '_GesturePillStoreBase.showWidget', context: context);
 
@@ -41,19 +57,19 @@ mixin _$GesturePillStore on _GesturePillStoreBase, Store {
     });
   }
 
-  late final _$colorControllerAtom =
-      Atom(name: '_GesturePillStoreBase.colorController', context: context);
+  late final _$pillControllerAtom =
+      Atom(name: '_GesturePillStoreBase.pillController', context: context);
 
   @override
-  Control get colorController {
-    _$colorControllerAtom.reportRead();
-    return super.colorController;
+  Control get pillController {
+    _$pillControllerAtom.reportRead();
+    return super.pillController;
   }
 
   @override
-  set colorController(Control value) {
-    _$colorControllerAtom.reportWrite(value, super.colorController, () {
-      super.colorController = value;
+  set pillController(Control value) {
+    _$pillControllerAtom.reportWrite(value, super.pillController, () {
+      super.pillController = value;
     });
   }
 
@@ -61,11 +77,33 @@ mixin _$GesturePillStore on _GesturePillStoreBase, Store {
       ActionController(name: '_GesturePillStoreBase', context: context);
 
   @override
-  dynamic startTheAnimation() {
+  dynamic setFadeOut(bool newFadeStatus) {
     final _$actionInfo = _$_GesturePillStoreBaseActionController.startAction(
-        name: '_GesturePillStoreBase.startTheAnimation');
+        name: '_GesturePillStoreBase.setFadeOut');
     try {
-      return super.startTheAnimation();
+      return super.setFadeOut(newFadeStatus);
+    } finally {
+      _$_GesturePillStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setPillAnimationControl(Control newControl) {
+    final _$actionInfo = _$_GesturePillStoreBaseActionController.startAction(
+        name: '_GesturePillStoreBase.setPillAnimationControl');
+    try {
+      return super.setPillAnimationControl(newControl);
+    } finally {
+      _$_GesturePillStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setPillMovie(MovieTween newMovie) {
+    final _$actionInfo = _$_GesturePillStoreBaseActionController.startAction(
+        name: '_GesturePillStoreBase.setPillMovie');
+    try {
+      return super.setPillMovie(newMovie);
     } finally {
       _$_GesturePillStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -96,9 +134,10 @@ mixin _$GesturePillStore on _GesturePillStoreBase, Store {
   @override
   String toString() {
     return '''
+wantToFadeOut: ${wantToFadeOut},
 showWidget: ${showWidget},
 movie: ${movie},
-colorController: ${colorController}
+pillController: ${pillController}
     ''';
   }
 }

@@ -81,4 +81,16 @@ class CollaborativeDocContractImpl implements CollaborativeDocContract {
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  Future<Either<Failure, CollaborativeDocUpdateCommitDesireStatusModel>>
+      updateCommitDesireStatus({required bool wantsToCommit}) async {
+    if (await networkInfo.isConnected) {
+      await remoteSource.updateCommitDesireStatus(wantsToCommit: wantsToCommit);
+      return const Right(
+          CollaborativeDocUpdateCommitDesireStatusModel(isUpdated: true));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
 }

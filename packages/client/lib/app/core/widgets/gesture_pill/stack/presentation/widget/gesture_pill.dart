@@ -48,14 +48,15 @@ class _GestureCrossState extends State<GesturePill>
 
   @override
   Widget build(BuildContext context) {
+    final stateTracker = widget.stateTrackerStore;
     return Observer(
       builder: (context) => CustomAnimationBuilder(
-        tween: widget.stateTrackerStore.movie,
-        duration: widget.stateTrackerStore.movie.duration,
-        control: widget.stateTrackerStore.colorController,
-        onCompleted: () => widget.stateTrackerStore.onAnimationCompleted(),
+        tween: stateTracker.movie,
+        duration: stateTracker.movie.duration,
+        control: stateTracker.pillController,
+        onCompleted: () => stateTracker.onAnimationCompleted(),
         builder: (context, value, child) => AnimatedOpacity(
-          opacity: widget.stateTrackerStore.showWidget ? 1 : 0,
+          opacity: stateTracker.showWidget ? 1 : 0,
           duration: const Duration(seconds: 1),
           child: Container(
             alignment: Alignment.topLeft,
@@ -71,9 +72,9 @@ class _GestureCrossState extends State<GesturePill>
                   currentPath.getBounds(),
                   firstGradientColor: value.get('first gradient color'),
                   secondGradientColor: value.get('second gradient color'),
-                  upperCircleLinearGradient: const [
-                    Color(0xFF41D2F8),
-                    Color(0xFF69E9BC),
+                  upperCircleLinearGradient: [
+                    value.get('top circle color 1'),
+                    value.get('top circle color 2'),
                   ],
                   centerCircleAnimationConstant:
                       value.get('center circle constant'),

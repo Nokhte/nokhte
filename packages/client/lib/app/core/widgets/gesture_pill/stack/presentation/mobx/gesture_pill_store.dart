@@ -3,8 +3,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:path_morph/path_morph.dart';
-import 'package:primala/app/core/widgets/gesture_pill/gesture_pill.dart';
-// import 'package:primala/app/core/widgets/gesture_cross/gesture_cross.dart';
 import 'package:primala/app/core/widgets/shared/constants/svg_animation_constants.dart';
 import 'package:simple_animations/simple_animations.dart';
 // * Mobx Codegen Inclusion
@@ -15,7 +13,16 @@ class GesturePillStore = _GesturePillStoreBase with _$GesturePillStore;
 abstract class _GesturePillStoreBase extends Equatable with Store {
   Path endingPath;
   SampledPathData animationPathData;
+  MovieTween topCircleAnimationMovie = MovieTween();
   late AnimationController controller;
+
+  @observable
+  bool wantToFadeOut = true;
+
+  @action
+  setFadeOut(bool newFadeStatus) {
+    wantToFadeOut = newFadeStatus;
+  }
 
   _GesturePillStoreBase({
     required this.endingPath,
@@ -28,16 +35,21 @@ abstract class _GesturePillStoreBase extends Equatable with Store {
   bool showWidget = true;
 
   @action
-  startTheAnimation() {
+  setPillAnimationControl(Control newControl) {
     // controller.play();
-    colorController = Control.play;
+    pillController = newControl;
   }
 
   @observable
-  MovieTween movie = PillToCircle.movie;
+  MovieTween movie = MovieTween();
+
+  @action
+  setPillMovie(MovieTween newMovie) {
+    movie = newMovie;
+  }
 
   @observable
-  Control colorController = Control.stop;
+  Control pillController = Control.stop;
 
   @action
   animationRenderingCallback(int i, Offset z) {
@@ -46,7 +58,7 @@ abstract class _GesturePillStoreBase extends Equatable with Store {
 
   @action
   onAnimationCompleted() {
-    showWidget = false;
+    if (wantToFadeOut) showWidget = false;
   }
 
   @override

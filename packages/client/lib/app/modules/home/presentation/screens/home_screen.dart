@@ -56,7 +56,7 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           GesturePill(
                             size: size,
-                            stateTrackerStore: coordinator.gestureCross,
+                            stateTrackerStore: coordinator.gesturePillStore,
                           ),
                         ],
                       ),

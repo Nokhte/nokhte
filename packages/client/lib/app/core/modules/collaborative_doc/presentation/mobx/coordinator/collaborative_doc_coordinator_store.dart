@@ -12,6 +12,7 @@ class CollaborativeDocCoordinatorStore = _CollaborativeDocCoordinatorStoreBase
 
 abstract class _CollaborativeDocCoordinatorStoreBase extends Equatable
     with Store {
+  final UpdateCommitDesireStatusStore updateCommitDesire;
   final UpdateUserDeltaStore updateDelta;
   final UpdateUserPresenceStore updatePresence;
   final CreateCollaborativeDocStore createDoc;
@@ -26,6 +27,7 @@ abstract class _CollaborativeDocCoordinatorStoreBase extends Equatable
     required this.getCollaboratorInfo,
     required this.updateDelta,
     required this.updatePresence,
+    required this.updateCommitDesire,
   });
   @override
   List<Object> get props => [

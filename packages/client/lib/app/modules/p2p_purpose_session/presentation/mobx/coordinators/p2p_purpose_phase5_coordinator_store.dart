@@ -7,11 +7,13 @@ import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
+import 'package:primala/app/core/modules/collaborative_doc/domain/logic/update_commit_desire_status.dart';
 import 'package:primala/app/core/modules/collaborative_doc/presentation/presentation.dart';
 import 'package:primala/app/core/modules/voice_call/domain/domain.dart';
 import 'package:primala/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala_backend/working_collaborative_documents.dart';
+import 'package:simple_animations/simple_animations.dart';
 // * Mobx Codegen Inclusion
 part 'p2p_purpose_phase5_coordinator_store.g.dart';
 
@@ -53,15 +55,21 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
 
   bool isInitialLoad = true;
 
+  @observable
+  bool bottomCircleIsUp = false;
+
   @action
   screenConstructor() async {
+    gesturePillStore.setFadeOut(false);
+    gesturePillStore
+        .setPillMovie(BottomCircleGoesUp.getMovie(firstGradientColors: [
+      const Color(0xFFEB9040),
+      const Color(0xFFD95C67),
+    ], secondGradientColors: [
+      const Color(0xFFEB9040),
+      const Color(0xFFD95C67),
+    ]));
     beachWaves.initiateSuspendedAtTheDepths();
-    // await fetchChannelIdStore(NoParams());
-    // await fetchAgoraTokenStore(
-    //   FetchAgoraTokenParams(
-    //     channelName: fetchChannelIdStore.channelId,
-    //   ),
-    // );
     await voiceCallActionsStore.enterOrLeaveCall(
       Right(
         JoinCallParams(
@@ -70,7 +78,7 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
         ),
       ),
     );
-    await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
+    await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);
     collaborativeDocDB.createDoc(
       const CreateCollaborativeDocParams(
         docType: 'purpose',
@@ -83,6 +91,31 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
         collaborativeTextUI.setText(value.content);
         isInitialLoad = false;
       }
+      if (value.userCommitDesireStatus) {
+        userFocusNode.addListener(() async {
+          if (userFocusNode.hasFocus) {
+            collaborativeDocDB.updateCommitDesire(
+                const UpdateCommitDesireStatusParams(wantsToCommit: false));
+
+            gesturePillStore
+                .setPillAnimationControl(Control.playReverseFromEnd);
+          }
+        });
+      }
+      if (value.documentCommitStatus) {
+        gesturePillStore
+            .setPillMovie(TopCircleColorChange.getMovie(firstGradientColors: [
+          const Color(0xFFEB9040),
+          const Color(0xFFD95C67),
+        ], secondGradientColors: [
+          const Color(0xFF09FD20),
+          const Color(0xFF4CDC8B),
+        ]));
+        gesturePillStore.setPillAnimationControl(Control.playFromStart);
+        // do the transition here
+        // Modular.to.navigate('p2p_purpose_session_phase-6');
+      }
+
       if (value.lastEditedBy != value.currentUserUID) {
         final userDelta = userController.selection.start;
         // ohh
@@ -107,20 +140,14 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
         collaboratorController.text = userController.text;
       }
     });
+  }
 
-    userFocusNode.addListener(() async {
-      if (userFocusNode.hasFocus) {
-        await collaborativeDocDB
-            .updatePresence(const UpdateUserPresenceParams(newPresence: true));
-        // print("A USER JUST WENT INTO THE TEXT DOC");
-      } else {
-        await collaborativeDocDB
-            .updatePresence(const UpdateUserPresenceParams(newPresence: false));
-        await collaborativeDocDB
-            .updateDelta(const UpdateUserDeltaParams(newDelta: -1));
-        // print("A USER JUST LEFT THE TEXT DOC");
-      }
-    });
+  @action
+  swipeUpCallback() async {
+    await collaborativeDocDB.updateCommitDesire(
+      const UpdateCommitDesireStatusParams(wantsToCommit: true),
+    );
+    gesturePillStore.setPillAnimationControl(Control.playFromStart);
   }
 
   @override

@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // * Mobx Import
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
@@ -15,14 +16,14 @@ class HomeScreenCoordinatorStore = _HomeScreenCoordinatorStoreBase
     with _$HomeScreenCoordinatorStore;
 
 abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
-  final GesturePillStore gestureCross;
+  final GesturePillStore gesturePillStore;
   final BeachWavesTrackerStore beachWaves;
   final AddNameToDatabaseStore addNameToDatabaseStore;
   final SmartFadingAnimatedTextTrackerStore fadingTextStateTrackerStore;
   final GetCollaboratorPhraseStore getCollaboratorPhraseStore;
 
   _HomeScreenCoordinatorStoreBase({
-    required this.gestureCross,
+    required this.gesturePillStore,
     required this.beachWaves,
     required this.addNameToDatabaseStore,
     required this.fadingTextStateTrackerStore,
@@ -36,6 +37,14 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
   }
 
   homeScreenConstructorCallback() {
+    gesturePillStore
+        .setPillMovie(BottomCircleGoesUp.getMovie(firstGradientColors: [
+      const Color(0xFF41D2F8),
+      const Color(0xFF69E9BC),
+    ], secondGradientColors: [
+      const Color(0xFF41D2F8),
+      const Color(0xFF69E9BC),
+    ]));
     Future.delayed(const Duration(seconds: 1), () async {
       await addNameToDatabaseStore(NoParams());
       await getCollaboratorPhraseStore(NoParams()).then((_) {
@@ -57,7 +66,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
   //     fadingTextStateTrackerStore.togglePause();
   //   }
   //   if (beachWaves.movieStatus != MovieStatus.inProgress) {
-  //     gestureCross.startTheAnimation();
+  //     gesturePillStore.startTheAnimation();
   //     fadingTextStateTrackerStore.currentMainText = "";
   //     fadingTextStateTrackerStore.currentSubText = "";
   //     beachWaves.teeUpOceanDive();

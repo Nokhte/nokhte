@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // * Mobx Import
 // import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
@@ -9,6 +10,7 @@ import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/modules/voice_call/domain/domain.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/core/modules/voice_call/mobx/mobx.dart';
+import 'package:simple_animations/simple_animations.dart';
 // * Mobx Codegen Inclusion
 part 'p2p_purpose_phase1_coordinator_store.g.dart';
 
@@ -43,6 +45,14 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
 
   @action
   screenConstructorCallback() async {
+    gesturePillStore
+        .setPillMovie(BottomCircleGoesUp.getMovie(firstGradientColors: [
+      const Color(0xFF41D2F8),
+      const Color(0xFF69E9BC),
+    ], secondGradientColors: [
+      const Color(0xFF41D2F8),
+      const Color(0xFF69E9BC),
+    ]));
     beachWaves.initiateSuspendedAtTheDepths();
     await instantiateAgoraSdkStore(NoParams());
     await fetchChannelIdStore(NoParams());
@@ -67,7 +77,7 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
     // await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
     // you then want to fade out the two texts
     // fadeInColorText.teeUpFadeOut();
-    gesturePillStore.startTheAnimation();
+    gesturePillStore.setPillAnimationControl(Control.playFromStart);
     fadingText.fadeTheTextOut();
     // fadingText.togglePause();
     Future.delayed(const Duration(seconds: 3), () {

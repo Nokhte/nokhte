@@ -5,6 +5,7 @@ class DocInfoContent extends Equatable {
   final String currentUserUID;
   final String lastEditedBy;
   final bool collaboratorsCommitDesireStatus;
+  final bool userCommitDesireStatus;
   final bool documentCommitStatus;
 
   DocInfoContent({
@@ -13,6 +14,7 @@ class DocInfoContent extends Equatable {
     required this.currentUserUID,
     required this.collaboratorsCommitDesireStatus,
     required this.documentCommitStatus,
+    required this.userCommitDesireStatus,
   });
 
   @override

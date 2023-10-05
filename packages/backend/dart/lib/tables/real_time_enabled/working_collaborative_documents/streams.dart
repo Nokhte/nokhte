@@ -47,6 +47,7 @@ class WorkingCollaborativeDocumentsStreams extends CollaborativeQueries {
           currentUserUID: "",
           collaboratorsCommitDesireStatus: false,
           documentCommitStatus: false,
+          userCommitDesireStatus: false,
         );
       } else {
         yield DocInfoContent(
@@ -55,7 +56,14 @@ class WorkingCollaborativeDocumentsStreams extends CollaborativeQueries {
           currentUserUID: userUID,
           collaboratorsCommitDesireStatus: event[0]
               ["${collaboratorInfo.theCollaboratorsNumber}_wants_to_commit"],
-          documentCommitStatus: event[0]["is_committed"],
+          documentCommitStatus: event[0][
+                      "${collaboratorInfo.theCollaboratorsNumber}_wants_to_commit"] &&
+                  event[0][
+                      "${collaboratorInfo.theUsersCollaboratorNumber}_wants_to_commit"]
+              ? true
+              : false,
+          userCommitDesireStatus: event[0][
+              "${collaboratorInfo.theUsersCollaboratorNumber}_wants_to_commit"],
         );
       }
     }

@@ -8,6 +8,7 @@ class DocContentResonse {
           currentUserUID: "lastEditedBy",
           collaboratorsCommitDesireStatus: true,
           documentCommitStatus: true,
+          userCommitDesireStatus: true,
         ),
       );
   static Stream<DocInfoContent> get notSuccessfulResponse => Stream.value(
@@ -17,6 +18,7 @@ class DocContentResonse {
           currentUserUID: "",
           collaboratorsCommitDesireStatus: false,
           documentCommitStatus: false,
+          userCommitDesireStatus: false,
         ),
       );
 }
