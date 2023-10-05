@@ -85,6 +85,8 @@ class DefaultEntities {
           currentUserUID: "",
           content: "",
           lastEditedBy: "",
+          collaboratorsCommitDesireStatus: false,
+          documentCommitStatus: false,
         ),
       );
   static Stream<CollaboratorDocInfo> get defaultCollaboratorDocInfo =>

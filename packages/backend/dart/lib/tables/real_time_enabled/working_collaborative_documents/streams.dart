@@ -5,6 +5,7 @@ class WorkingCollaborativeDocumentsStreams extends CollaborativeQueries {
   bool docContentListeningStatus = false;
   bool collaboratorPresenceListeningStatus = false;
   bool collaboratorDeltaListeningStatus = false;
+
   String userUID = '';
   WorkingCollaborativeDocumentsStreams({
     required super.supabase,
@@ -44,12 +45,17 @@ class WorkingCollaborativeDocumentsStreams extends CollaborativeQueries {
           content: "",
           lastEditedBy: "",
           currentUserUID: "",
+          collaboratorsCommitDesireStatus: false,
+          documentCommitStatus: false,
         );
       } else {
         yield DocInfoContent(
           content: event[0]["content"],
           lastEditedBy: event[0]["last_edited_by"] ?? '',
           currentUserUID: userUID,
+          collaboratorsCommitDesireStatus: event[0]
+              ["${collaboratorInfo.theCollaboratorsNumber}_wants_to_commit"],
+          documentCommitStatus: event[0]["is_committed"],
         );
       }
     }

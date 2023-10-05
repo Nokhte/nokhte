@@ -11,6 +11,8 @@ class ConstantCollaborativeDocContentEntity {
             content: "content",
             lastEditedBy: "lastEditedBy",
             currentUserUID: "lastEditedBy",
+            collaboratorsCommitDesireStatus: true,
+            documentCommitStatus: true,
           ),
         ),
       );
@@ -21,6 +23,8 @@ class ConstantCollaborativeDocContentEntity {
             content: "",
             lastEditedBy: "",
             currentUserUID: "",
+            collaboratorsCommitDesireStatus: false,
+            documentCommitStatus: false,
           ),
         ),
       );
