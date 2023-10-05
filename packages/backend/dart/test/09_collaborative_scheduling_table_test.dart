@@ -8,23 +8,30 @@ import 'package:primala_backend/existing_collaborations.dart';
 
 void main() {
   // do a similar testing protocol
-  late SupabaseClient supabase;
+  late SupabaseClient user1Supabase;
+  late SupabaseClient user2Supabase;
   late SupabaseClient supabaseAdmin;
   late String firstUserUID;
   late String secondUserUID;
-  late WorkingCollaborativeSchedulingQueries queries;
+  late WorkingCollaborativeSchedulingQueries user1Queries;
   late ExistingCollaborationsQueries existingCollaborationsQueries;
 
   setUpAll(() async {
-    supabase = SupabaseClientConfigConstants.supabase;
+    user1Supabase = SupabaseClientConfigConstants.supabase;
+    user2Supabase = SupabaseClientConfigConstants.supabase;
+    supabaseAdmin = SupabaseClientConfigConstants.supabaseAdmin;
+    await SignIn.user1(supabase: user1Supabase);
+    await SignIn.user1(supabase: supabaseAdmin);
+    await SignIn.user2(supabase: user2Supabase);
+
     supabaseAdmin = SupabaseClientConfigConstants.supabaseAdmin;
     existingCollaborationsQueries =
         ExistingCollaborationsQueries(supabase: supabaseAdmin);
     final userIdResults = await UserSetupConstants.fetchUIDs();
     firstUserUID = userIdResults[0];
     secondUserUID = userIdResults[1];
-    await SignIn.user1(supabase: supabase);
-    queries = WorkingCollaborativeSchedulingQueries(supabase: supabase);
+    user1Queries =
+        WorkingCollaborativeSchedulingQueries(supabase: user1Supabase);
     await existingCollaborationsQueries.createNewCollaboration(
       collaboratorOneUID: firstUserUID,
       collaboratorTwoUID: secondUserUID,
@@ -40,26 +47,28 @@ void main() {
   });
 
   tearDown(() async {
-    final queries =
+    final user1Queries =
         WorkingCollaborativeSchedulingQueries(supabase: supabaseAdmin);
-    queries.currentUserUID = firstUserUID;
-    await queries.deleteSchedulingSession();
+    user1Queries.currentUserUID = firstUserUID;
+    await user1Queries.deleteSchedulingSession();
   });
 
   test(
       "User should be able to create a scheduling session & update the document",
       () async {
-    final theDateWeAreUsing = DateTime.now();
-    final res = await queries.createSchedulingSession(
+    final now = DateTime.now();
+    final dateOnly = DateTime(now.year, now.month, now.day);
+    final res = await user1Queries.createSchedulingSession(
       sessionTypeBeingPlanned: "collective",
     );
     expect(res[0]["collaborator_one_uid"], firstUserUID);
     expect(res[0]["collaborator_two_uid"], secondUserUID);
-    final stream = WorkingCollaborativeSchedulingStream(supabase: supabase);
+    final stream =
+        WorkingCollaborativeSchedulingStream(supabase: user1Supabase);
     stream.collaboratorsDateAndTimeStream().listen((value) {
-      expect(value.date, theDateWeAreUsing);
+      expect(value.date, dateOnly);
       // second wave of expects
     });
-    await queries.updateTimeOrDate(theDateWeAreUsing, updateDate: true);
+    await user1Queries.updateTimeOrDate(dateOnly, updateDate: true);
   });
 }

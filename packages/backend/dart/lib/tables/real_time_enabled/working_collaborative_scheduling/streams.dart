@@ -33,9 +33,12 @@ class WorkingCollaborativeSchedulingStream extends CollaborativeQueries {
           date: DateTime.parse(
             event[0]["${collaboratorInfo.theCollaboratorsNumber}_chosen_day"],
           ),
-          time: DateTime.parse(
-            event[0]["${collaboratorInfo.theCollaboratorsNumber}_chosen_time"],
-          ),
+          time: event[0][
+                      "${collaboratorInfo.theCollaboratorsNumber}_chosen_time"] ==
+                  null
+              ? DateTime.fromMicrosecondsSinceEpoch(0)
+              : DateTime.parse(event[0]
+                  ["${collaboratorInfo.theCollaboratorsNumber}_chosen_time"]),
         );
       }
     }
