@@ -135,7 +135,7 @@ void main() {
             docType: 'purpose');
         // assert
         expect(res,
-            ConstantCollaborativeDocCreationStatusModel.wrappedNotSuccessCase);
+            ConstantCollaborativeDocCreationStatusModel.wrappedSuccessCase);
       });
     });
     group("is not Online", () {

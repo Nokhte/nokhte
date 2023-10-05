@@ -7,23 +7,40 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:primala_backend/finished_collaborative_documents.dart';
 
 void main() {
-  late SupabaseClient supabase;
+  late SupabaseClient user1Supabase;
+  late SupabaseClient user2Supabase;
   late SupabaseClient supabaseAdmin;
   late String firstUserUID;
   late String secondUserUID;
   late ExistingCollaborationsQueries existingCollaborationsQueries;
+  late FinishedCollaborativeP2PPurposeDocumentsQueries user1FinishedQueries;
+  late FinishedCollaborativeP2PPurposeDocumentsQueries user2FinishedQueries;
 
   setUpAll(() async {
-    supabase = SupabaseClientConfigConstants.supabase;
+    user1Supabase = SupabaseClientConfigConstants.supabase;
+    user2Supabase = SupabaseClientConfigConstants.supabase;
     supabaseAdmin = SupabaseClientConfigConstants.supabaseAdmin;
     existingCollaborationsQueries =
         ExistingCollaborationsQueries(supabase: supabaseAdmin);
+    await SignIn.user1(supabase: user1Supabase);
+    await SignIn.user2(supabase: user2Supabase);
+    user1FinishedQueries = FinishedCollaborativeP2PPurposeDocumentsQueries(
+      supabase: user1Supabase,
+    );
+    user2FinishedQueries = FinishedCollaborativeP2PPurposeDocumentsQueries(
+      supabase: user2Supabase,
+    );
     final userIdResults = await UserSetupConstants.fetchUIDs();
     firstUserUID = userIdResults[0];
     secondUserUID = userIdResults[1];
+    await existingCollaborationsQueries.createNewCollaboration(
+      collaboratorOneUID: firstUserUID,
+      collaboratorTwoUID: secondUserUID,
+    );
   });
 
-  tearDown(() async {
+  tearDownAll(() async {
+    //
     await existingCollaborationsQueries.deleteExistingCollaboration(
       collaboratorOneUID: firstUserUID,
       collaboratorTwoUID: secondUserUID,
@@ -31,12 +48,7 @@ void main() {
   });
 
   test("User Should be able to commit a message, add it here", () async {
-    await SignIn.user1(supabase: supabase);
-
-    final res = await FinishedCollaborativeP2PPurposeDocuments.insertDoc(
-      supabase: supabase,
-      currentUserUID: firstUserUID,
-      collaboratorUserUID: secondUserUID,
+    final res = await user1FinishedQueries.insertDoc(
       content: "committed purpose",
       docType: 'purpose',
     );
@@ -44,10 +56,7 @@ void main() {
     expect(res[0]["doc_type"], "purpose");
     expect(res[0]["collaborator_two_uid"], secondUserUID);
     expect(res[0]["content"], "committed purpose");
-    await SignIn.user2(supabase: supabase);
-    final res2 = await FinishedCollaborativeP2PPurposeDocuments.fetchDocInfo(
-      supabase: supabase,
-      currentUserUID: firstUserUID,
+    final res2 = await user2FinishedQueries.fetchDocInfo(
       docType: 'purpose',
     );
     expect(res2[0]["collaborator_one_uid"], firstUserUID);
