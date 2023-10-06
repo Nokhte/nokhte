@@ -70,6 +70,7 @@ class _GestureCrossState extends State<GesturePill>
                   currentPath,
                   widget.size,
                   currentPath.getBounds(),
+                  centerCircleOpacity: value.get('center circle opacity'),
                   firstGradientColor: value.get('first gradient color'),
                   secondGradientColor: value.get('second gradient color'),
                   upperCircleLinearGradient: [

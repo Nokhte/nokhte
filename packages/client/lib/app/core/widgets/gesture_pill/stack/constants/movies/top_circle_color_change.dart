@@ -14,7 +14,7 @@ class TopCircleColorChange {
             'first gradient color',
             ColorTween(
               begin: const Color(0xFF0A98FF),
-              end: const Color(0xFF0A98FF),
+              end: const Color(0x000A98FF),
               // end: const Color(0xFFFFFFFF),
             ),
           )
@@ -33,6 +33,9 @@ class TopCircleColorChange {
               end: 27.0,
             ),
           )
+      ..scene(
+              begin: const Duration(seconds: 0),
+              end: const Duration(seconds: 1))
           .tween(
             'top circle color 1',
             ColorTween(
@@ -45,6 +48,37 @@ class TopCircleColorChange {
             ColorTween(
               begin: firstGradientColors[1],
               end: secondGradientColors[1],
+            ),
+          )
+          .tween(
+            'center circle opacity',
+            Tween<double>(
+              begin: 1,
+              end: 1,
+            ),
+          )
+      ..scene(
+              begin: const Duration(seconds: 1),
+              end: const Duration(seconds: 2))
+          .tween(
+            'center circle opacity',
+            Tween<double>(
+              begin: 1,
+              end: 0,
+            ),
+          )
+          .tween(
+            'top circle color 1',
+            ColorTween(
+              begin: secondGradientColors[0],
+              end: const Color(0x00FFFFFF),
+            ),
+          )
+          .tween(
+            'top circle color 2',
+            ColorTween(
+              begin: secondGradientColors[1],
+              end: const Color(0x00FFFFFF),
             ),
           );
   }

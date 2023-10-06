@@ -2,6 +2,7 @@
 // * Mobx Import
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
@@ -26,10 +27,8 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
   final GesturePillStore gesturePillStore;
   final CollaborativeTextEditorTrackerStore collaborativeTextUI;
   final CollaborativeDocCoordinatorStore collaborativeDocDB;
-  final TextEditingController collaboratorController;
   final TextEditingController userController;
   final FocusNode userFocusNode;
-  final FocusNode collaboratorFocusNode;
   final FetchAgoraTokenStore fetchAgoraTokenStore;
   final FetchChannelIdStore fetchChannelIdStore;
   final AgoraCallbacksStore agoraCallbacksStore;
@@ -45,10 +44,7 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
     required this.fetchChannelIdStore,
     required this.gesturePillStore,
   })  : userController = collaborativeTextUI.userStore.controller,
-        userFocusNode = collaborativeTextUI.userStore.focusNode,
-        collaboratorController =
-            collaborativeTextUI.collaboratorStore.controller,
-        collaboratorFocusNode = collaborativeTextUI.collaboratorStore.focusNode;
+        userFocusNode = collaborativeTextUI.userStore.focusNode;
 
   @observable
   String previousWord = "";
@@ -60,6 +56,7 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
 
   @action
   screenConstructor() async {
+    collaborativeTextUI.flipWidgetVisibility();
     gesturePillStore.setFadeOut(false);
     gesturePillStore
         .setPillMovie(BottomCircleGoesUp.getMovie(firstGradientColors: [
@@ -113,13 +110,20 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
         ]));
         gesturePillStore.setPillAnimationControl(Control.playFromStart);
         // do the transition here
-        // Modular.to.navigate('p2p_purpose_session_phase-6');
+        collaborativeTextUI.flipWidgetVisibility();
+        Future.delayed(const Duration(seconds: 3),
+            () async => Modular.to.navigate('/p2p_purpose_session/phase-6/'));
+        // fade the text widget out
       }
 
       if (value.lastEditedBy != value.currentUserUID) {
         final userDelta = userController.selection.start;
         // ohh
         collaborativeTextUI.setText(value.content);
+        collaborativeDocDB.updateCommitDesire(
+            const UpdateCommitDesireStatusParams(wantsToCommit: false));
+
+        gesturePillStore.setPillAnimationControl(Control.playReverseFromEnd);
         userController.selection = TextSelection.fromPosition(
           TextPosition(
             offset: userDelta > userController.text.length
@@ -137,7 +141,6 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
         previousWord = userController.text;
         await collaborativeDocDB.updateDoc(
             UpdateCollaborativeDocParams(newContent: userController.text));
-        collaboratorController.text = userController.text;
       }
     });
   }

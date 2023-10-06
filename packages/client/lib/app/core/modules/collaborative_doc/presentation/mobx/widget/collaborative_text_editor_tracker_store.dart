@@ -12,23 +12,28 @@ class CollaborativeTextEditorTrackerStore = _CollaborativeTextEditorTrackerStore
 abstract class _CollaborativeTextEditorTrackerStoreBase extends Equatable
     with Store {
   final UserTextEditorTrackerStore userStore;
-  final CollaboratorTextEditorTrackerStore collaboratorStore;
 
   _CollaborativeTextEditorTrackerStoreBase({
     required this.userStore,
-    required this.collaboratorStore,
   });
 
   @action
   setText(String message) {
     userStore.controller.text = message;
-    collaboratorStore.controller.text = message;
+  }
+
+  @observable
+  bool showWidget = false;
+
+  @action
+  flipWidgetVisibility() {
+    showWidget = !showWidget;
+    // print("was this working??? $showWidget");
   }
 
   @action
   dispose() {
     userStore.dispose();
-    collaboratorStore.dispose();
   }
 
   @override

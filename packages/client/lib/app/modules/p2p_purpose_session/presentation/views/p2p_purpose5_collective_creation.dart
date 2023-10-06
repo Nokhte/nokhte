@@ -37,6 +37,7 @@ class P2PPurpose5CollectiveCreation extends StatelessWidget {
                 ),
                 Center(
                   child: CollaborativeTextEditor(
+                    fadeInDuration: const Duration(seconds: 1),
                     trackerStore: coordinator.collaborativeTextUI,
                   ),
                 ),

@@ -67,7 +67,6 @@ class P2PCollaboratorSessionModule extends Module {
         Bind.singleton<CollaborativeTextEditorTrackerStore>(
           (i) => CollaborativeTextEditorTrackerStore(
             userStore: i<UserTextEditorTrackerStore>(),
-            collaboratorStore: i<CollaboratorTextEditorTrackerStore>(),
           ),
         ),
         // & Coordinator Stores

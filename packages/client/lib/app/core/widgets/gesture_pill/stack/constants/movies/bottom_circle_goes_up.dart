@@ -73,6 +73,13 @@ class BottomCircleGoesUp {
               begin: const Duration(seconds: 0),
               end: const Duration(seconds: 2))
           .tween(
+            'center circle opacity',
+            Tween<double>(
+              begin: 1,
+              end: 1,
+            ),
+          )
+          .tween(
             'top circle color 1',
             ColorTween(
               begin: firstGradientColors[0],

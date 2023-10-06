@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class GestureCrossPainter extends CustomPainter {
   Path path;
   double centerCircleAnimationConstant;
+  double centerCircleOpacity;
   Rect pathBounds;
   late double height;
   late double width;
@@ -16,6 +17,7 @@ class GestureCrossPainter extends CustomPainter {
     Size size,
     this.pathBounds, {
     required this.firstGradientColor,
+    required this.centerCircleOpacity,
     required this.secondGradientColor,
     required this.centerCircleAnimationConstant,
     required this.upperCircleLinearGradient,
@@ -46,7 +48,8 @@ class GestureCrossPainter extends CustomPainter {
     canvas.drawPath(path, myPaint);
     //
     const circleRadius = 6.0; // Adjust the radius as needed
-    final lowerCirclePaint = Paint()..color = Colors.white;
+    final lowerCirclePaint = Paint()
+      ..color = Colors.white.withOpacity(centerCircleOpacity);
     final centerX = width / 2;
     final lowerCircleCenterY = (height - circleRadius * 2) -
         centerCircleAnimationConstant; // Position it near the bottom
