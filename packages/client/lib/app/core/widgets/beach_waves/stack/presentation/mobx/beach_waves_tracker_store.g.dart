@@ -214,6 +214,17 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
   }
 
   @override
+  dynamic initiateTestTheWaters() {
+    final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
+        .startAction(name: '_BeachWavesTrackerStoreBase.initiateTestTheWaters');
+    try {
+      return super.initiateTestTheWaters();
+    } finally {
+      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic onShoreReturnComplete() {
     final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
         .startAction(name: '_BeachWavesTrackerStoreBase.onShoreReturnComplete');

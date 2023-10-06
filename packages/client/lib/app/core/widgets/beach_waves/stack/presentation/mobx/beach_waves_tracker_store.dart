@@ -124,6 +124,14 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   }
 
   @action
+  initiateTestTheWaters() {
+    // movie = TestTheWaters.movie;
+    control = Control.playFromStart;
+    movieStatus = MovieStatus.inProgress;
+    movieMode = MovieModes.backToShore;
+  }
+
+  @action
   onShoreReturnComplete() {
     movie = OnShore.movie;
     control = Control.mirror;
