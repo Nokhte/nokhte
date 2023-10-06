@@ -7,3 +7,7 @@ export 'back_to_ocean_dive.dart';
 export 'suspended_at_sea.dart';
 export 'back_to_the_depths.dart';
 export './suspended_at_the_depths.dart';
+export 'depths_to_morning_scheduling.dart';
+export 'depths_to_day_scheduling.dart';
+export 'depths_to_dusk_scheduling.dart';
+export 'depths_to_evening_scheduling.dart';
