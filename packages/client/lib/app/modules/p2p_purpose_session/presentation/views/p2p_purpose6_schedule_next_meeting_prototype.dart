@@ -6,11 +6,11 @@ import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 import 'package:swipe/swipe.dart';
 
-class P2PPupose6ScheduleNextMeeting extends StatelessWidget {
+class P2PPupose6ScheduleNextMeetingPrototype extends StatelessWidget {
   final P2PPurposePhase6CoordinatorStore coordinator;
   late double currentAngle;
   // CRAP we need a whole new widget that
-  P2PPupose6ScheduleNextMeeting({
+  P2PPupose6ScheduleNextMeetingPrototype({
     super.key,
     required this.coordinator,
   }) {
@@ -32,15 +32,15 @@ class P2PPupose6ScheduleNextMeeting extends StatelessWidget {
                     stateTrackerStore: coordinator.beachWaves,
                   ),
                 ),
-                // StreamBuilder(
-                //     stream: coordinator.gyroscopeStore.userDirection,
-                //     builder: (context, snapshot) {
-                //       return Center(
-                //         child: PlatformText(
-                //           snapshot.data.toString(),
-                //         ),
-                //       );
-                //     })
+                StreamBuilder(
+                    stream: coordinator.gyroscopeStore.userDirection,
+                    builder: (context, snapshot) {
+                      return Center(
+                        child: PlatformText(
+                          snapshot.data.toString(),
+                        ),
+                      );
+                    })
               ],
             ),
           ),
