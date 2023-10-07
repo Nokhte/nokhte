@@ -1,2 +1,2 @@
-export 'mobx/beach_sky_store.dart';
-export 'widget/beach_sky.dart';
+export 'mobx/sun_and_moon_store.dart';
+export 'widget/sun_and_moon.dart';
