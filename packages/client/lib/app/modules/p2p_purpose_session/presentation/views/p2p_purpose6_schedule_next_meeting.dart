@@ -40,64 +40,6 @@ class P2PPupose6ScheduleNextMeeting extends StatelessWidget {
                         ),
                       ),
                     ],
-                    // children: [
-                    //   // the pusher if that makes sense
-                    //   Container(
-                    //     height: value,
-                    //     color: Colors.green.withOpacity(.4),
-                    //   ),
-                    //   Stack(
-                    //     children: [
-                    //       // the sun
-                    //       Container(
-                    //         height: value,
-                    //         child: Container(
-                    //             // alignment: Alignment.center,
-                    //             // child: PlatformText('hi'),
-                    //             ),
-                    //       ),
-                    //       // the sky
-                    //       Container(
-                    //         color: Colors.blue,
-                    //         width: MediaQuery.of(context).size.width,
-                    //         height: (MediaQuery.of(context).size.height * .5) -
-                    //             value,
-                    //         // child: SmartBeachWaves(
-                    //         //   stateTrackerStore: coordinator.beachWaves,
-                    //         // ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    //   Contkiner(),
-
-                    // Column(
-                    //   children: [
-                    //     Container(
-                    //       height: value,
-                    //       child: Container(
-                    //           alignment: Alignment.bottomCenter,
-                    //           child: PlatformText('hi')),
-                    //     ),
-                    //     Container(
-                    //       color: Colors.blue,
-                    //       width: MediaQuery.of(context).size.width,
-                    //       height: MediaQuery.of(context).size.height - value,
-                    //       // child: SmartBeachWaves(
-                    //       //   stateTrackerStore: coordinator.beachWaves,
-                    //       // ),
-                    //     ),
-                    //   ],
-                    // ),
-                    // StreamBuilder(
-                    //     stream: coordinator.gyroscopeStore.userDirection,
-                    //     builder: (context, snapshot) {
-                    //       return Center(
-                    //         child: PlatformText(
-                    //           snapshot.data.toString(),
-                    //         ),
-                    //       );
-                    //     })
-                    // ],
                   ),
                 ),
               );
