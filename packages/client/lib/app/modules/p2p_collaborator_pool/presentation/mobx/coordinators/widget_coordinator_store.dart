@@ -3,6 +3,7 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
+import 'package:primala/app/core/widgets/beach_widgets/shared/types/types.dart';
 
 import 'package:primala/app/core/widgets/widgets.dart';
 // * Mobx Codegen Inclusion
@@ -15,13 +16,11 @@ abstract class _WidgetCoordinatorStoreBase extends Equatable with Store {
   final MeshCircleButtonStore meshCircleButtonStore;
   final FadeInAndChangeColorTextStore fadeInAndChangeColorTextStore;
   final SmartFadingAnimatedTextTrackerStore smartFadingAnimatedTextStore;
-  final BreathingPentagonsStateTrackerStore breathingPentagonsStore;
   final BeachWavesTrackerStore beachWavesStore;
 
   _WidgetCoordinatorStoreBase({
     required this.meshCircleButtonStore,
     required this.smartFadingAnimatedTextStore,
-    required this.breathingPentagonsStore,
     required this.beachWavesStore,
     required this.fadeInAndChangeColorTextStore,
   });
@@ -31,7 +30,6 @@ abstract class _WidgetCoordinatorStoreBase extends Equatable with Store {
     if (beachWavesStore.movieStatus != MovieStatus.inProgress &&
         beachWavesStore.movieMode == MovieModes.suspendedAtSea) {
       beachWavesStore.initiateBackToShore();
-      breathingPentagonsStore.flipWidgetVisibility();
       smartFadingAnimatedTextStore.fadeTheTextOut();
     }
   }
@@ -41,7 +39,6 @@ abstract class _WidgetCoordinatorStoreBase extends Equatable with Store {
     if (beachWavesStore.movieStatus != MovieStatus.inProgress &&
         beachWavesStore.movieMode == MovieModes.suspendedAtSea) {
       beachWavesStore.initiateToTheDepths();
-      breathingPentagonsStore.flipWidgetVisibility();
       smartFadingAnimatedTextStore.fadeTheTextOut();
     }
     //

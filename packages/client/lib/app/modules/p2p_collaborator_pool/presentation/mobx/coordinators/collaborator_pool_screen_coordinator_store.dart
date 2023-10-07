@@ -5,10 +5,10 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/widgets/beach_waves/beach_waves.dart';
-import 'package:primala/app/core/widgets/fade_in_and_change_color_text/stack/mobx/fade_in_and_change_color_text_store.dart';
-import 'package:primala/app/core/widgets/smart_fading_animated_text/smart_fading_animated_text.dart';
+import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
+
+import '../../../../../core/widgets/beach_widgets/shared/types/types.dart';
 // * Mobx Codegen Inclusion
 part 'collaborator_pool_screen_coordinator_store.g.dart';
 

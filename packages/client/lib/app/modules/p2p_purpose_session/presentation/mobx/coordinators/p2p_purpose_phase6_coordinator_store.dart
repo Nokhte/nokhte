@@ -15,23 +15,23 @@ class P2PPurposePhase6CoordinatorStore = _P2PPurposePhase6CoordinatorStoreBase
 
 abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
     with Store {
-  final BeachWavesTrackerStore beachWaves;
+  final BeachHorizonTrackerStore beachWaves;
   final GetDirectionAngleStore gyroscopeStore;
 
   @observable
   double direction = -10.0;
 
   screenConstructor() async {
-    beachWaves.initiateSuspendedAtTheDepths();
-    if (await Permission.locationWhenInUse.isDenied) {
-      await Permission.locationWhenInUse.request();
-    }
-    await gyroscopeStore(NoParams());
-    gyroscopeStore.userDirection.listen((value) {
-      print("is heading in the coordinator?? ${value.heading} ");
-      setDirection(value.heading ?? -11.0);
-      print("is the value being set??? ${direction} ");
-    });
+    // beachWaves.initiateSuspendedAtTheDepths();
+    // if (await Permission.locationWhenInUse.isDenied) {
+    //   await Permission.locationWhenInUse.request();
+    // }
+    // await gyroscopeStore(NoParams());
+    // gyroscopeStore.userDirection.listen((value) {
+    //   print("is heading in the coordinator?? ${value.heading} ");
+    //   setDirection(value.heading ?? -11.0);
+    //   print("is the value being set??? ${direction} ");
+    // });
   }
 
   @action

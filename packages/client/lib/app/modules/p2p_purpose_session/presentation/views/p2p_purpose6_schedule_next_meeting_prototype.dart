@@ -22,29 +22,29 @@ class P2PPupose6ScheduleNextMeetingPrototype extends StatelessWidget {
     return LayoutBuilder(
       builder: ((context, constraints) {
         return PlatformScaffold(
-          body: Swipe(
-            child: Stack(
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  child: SmartBeachWaves(
-                    stateTrackerStore: coordinator.beachWaves,
-                  ),
-                ),
-                StreamBuilder(
-                    stream: coordinator.gyroscopeStore.userDirection,
-                    builder: (context, snapshot) {
-                      return Center(
-                        child: PlatformText(
-                          snapshot.data.toString(),
-                        ),
-                      );
-                    })
-              ],
-            ),
-          ),
-        );
+            // body: Swipe(
+            //   child: Stack(
+            //     children: [
+            //       SizedBox(
+            //         width: MediaQuery.of(context).size.width,
+            //         height: MediaQuery.of(context).size.height,
+            //         child: SmartBeachWaves(
+            //           stateTrackerStore: coordinator.beachWaves,
+            //         ),
+            //       ),
+            //       StreamBuilder(
+            //           stream: coordinator.gyroscopeStore.userDirection,
+            //           builder: (context, snapshot) {
+            //             return Center(
+            //               child: PlatformText(
+            //                 snapshot.data.toString(),
+            //               ),
+            //             );
+            //           })
+            //     ],
+            //   ),
+            // ),
+            );
       }),
     );
   }

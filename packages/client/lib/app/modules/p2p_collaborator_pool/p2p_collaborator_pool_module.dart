@@ -131,9 +131,6 @@ class P2PCollaboratorPoolModule extends Module {
             ),
           ),
         ),
-        Bind.factory<BreathingPentagonsStateTrackerStore>(
-          (i) => BreathingPentagonsStateTrackerStore(),
-        ),
         Bind.factory<BeachWavesTrackerStore>(
           (i) => BeachWavesTrackerStore(),
         ),
@@ -149,8 +146,6 @@ class P2PCollaboratorPoolModule extends Module {
                 Modular.get<FadeInAndChangeColorTextStore>(),
             smartFadingAnimatedTextStore:
                 Modular.get<SmartFadingAnimatedTextTrackerStore>(),
-            breathingPentagonsStore:
-                Modular.get<BreathingPentagonsStateTrackerStore>(),
             beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
           ),
         ),

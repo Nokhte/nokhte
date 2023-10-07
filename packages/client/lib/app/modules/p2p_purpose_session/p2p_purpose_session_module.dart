@@ -55,6 +55,9 @@ class P2PCollaboratorSessionModule extends Module {
             chosenMovie: FadeInText.movie,
           ),
         ),
+        Bind.singleton<BeachHorizonTrackerStore>(
+          (i) => BeachHorizonTrackerStore(),
+        ),
         Bind.singleton<SoloTextEditorTrackerStore>(
           (i) => SoloTextEditorTrackerStore(),
         ),
@@ -120,7 +123,7 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase6CoordinatorStore>(
           (i) => P2PPurposePhase6CoordinatorStore(
-            beachWaves: Modular.get<BeachWavesTrackerStore>(),
+            beachWaves: Modular.get<BeachHorizonTrackerStore>(),
             gyroscopeStore: i<GetDirectionAngleStore>(),
           ),
         ),
@@ -159,16 +162,16 @@ class P2PCollaboratorSessionModule extends Module {
           transition: TransitionType.noTransition,
         ),
         ChildRoute(
-          // '/phase-5/',
-          '/',
+          '/phase-5/',
+          // '/',
           child: (context, args) => P2PPurpose5CollectiveCreation(
             coordinator: Modular.get<P2PPurposePhase5CoordinatorStore>(),
           ),
           transition: TransitionType.noTransition,
         ),
         ChildRoute(
-          '/phase-6/',
-          // '/',
+          // '/phase-6/',
+          '/',
           child: (context, args) => P2PPupose6ScheduleNextMeeting(
             coordinator: Modular.get<P2PPurposePhase6CoordinatorStore>(),
           ),

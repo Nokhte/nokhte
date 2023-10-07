@@ -7,6 +7,7 @@ import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/modules/solo_doc/domain/domain.dart';
 import 'package:primala/app/core/modules/solo_doc/mobx/mobx.dart';
+import 'package:primala/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:primala/app/core/widgets/mobx.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 // * Mobx Codegen Inclusion
