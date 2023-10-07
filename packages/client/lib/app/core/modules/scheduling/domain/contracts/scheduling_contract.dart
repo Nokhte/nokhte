@@ -6,7 +6,7 @@ import 'package:primala/app/core/modules/scheduling/domain/domain.dart';
 abstract class SchedulingContract {
   Future<Either<Failure, SchedulingSessionCreationStatusEntity>>
       createCollaborativeSchedulingSession(NoParams params);
-  Future<Either<Failure, SchedulingSesesionUpdateTimeOrDateStatusEntity>>
+  Future<Either<Failure, SchedulingSessionUpdateTimeOrDateStatusEntity>>
       updateSchedulingTimeOrDate(UpdateSchedulingTimeOrDateParams params);
   Future<Either<Failure, CollaboratorsChosenTimeAndDayEntity>>
       getCollaboratorsDateAndTime(NoParams params);

@@ -3,6 +3,7 @@ import 'package:flutter_compass/flutter_compass.dart';
 import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
 import 'package:primala/app/core/modules/local_speech_to_text/constants/constants.dart';
+import 'package:primala/app/core/modules/scheduling/domain/domain.dart';
 import 'package:primala/app/modules/home/domain/entities/entities.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/entities.dart';
 import 'package:primala/app/core/modules/voice_call/domain/domain.dart';
@@ -10,6 +11,7 @@ import 'package:primala/app/core/modules/local_speech_to_text/domain/domain.dart
 import 'package:primala/app/core/modules/solo_doc/domain/domain.dart';
 import 'package:primala_backend/phrase_components.dart';
 import 'package:primala_backend/working_collaborative_documents.dart';
+import 'package:primala_backend/working_collaborative_scheduling.dart';
 
 class DefaultEntities {
   static Either<Failure, NameCreationStatusEntity>
@@ -114,4 +116,13 @@ class DefaultEntities {
 
   static Stream<CompassEvent> get defaultCompassEvent =>
       Stream.value(CompassEvent.fromList([-198, 0, 0]));
+
+  static Either<Failure, SchedulingSessionCreationStatusEntity>
+      get schedulingSessionCreationStatusEntity =>
+          const Right(SchedulingSessionCreationStatusEntity(isCreated: false));
+  static Either<Failure, SchedulingSessionUpdateTimeOrDateStatusEntity>
+      get schedulingSessionUpdateStatusEntity => const Right(
+          SchedulingSessionUpdateTimeOrDateStatusEntity(isUpdated: false));
+  static Stream<CollaboratorsDateAndTime> get collaboratorsChosenTimeAndDay =>
+      const Stream.empty();
 }

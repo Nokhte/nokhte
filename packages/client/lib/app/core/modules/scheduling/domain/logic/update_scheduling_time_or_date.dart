@@ -4,7 +4,7 @@ import 'package:primala/app/core/modules/scheduling/domain/domain.dart';
 
 class UpdateSchedulingTimeOrDate
     implements
-        AbstractFutureLogic<SchedulingSesesionUpdateTimeOrDateStatusEntity,
+        AbstractFutureLogic<SchedulingSessionUpdateTimeOrDateStatusEntity,
             UpdateSchedulingTimeOrDateParams> {
   final SchedulingContract contract;
 

@@ -10,7 +10,7 @@
 import 'package:primala/app/core/modules/scheduling/domain/domain.dart';
 
 class SchedulingSessionUpdateTimeOrDateStatusModel
-    extends SchedulingSesesionUpdateTimeOrDateStatusEntity {
+    extends SchedulingSessionUpdateTimeOrDateStatusEntity {
   const SchedulingSessionUpdateTimeOrDateStatusModel(
       {required super.isUpdated});
 }
