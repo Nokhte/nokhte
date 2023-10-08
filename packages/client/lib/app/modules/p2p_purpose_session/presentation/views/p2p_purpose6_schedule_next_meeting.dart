@@ -32,13 +32,13 @@ class P2PPupose6ScheduleNextMeeting extends StatelessWidget {
                 body: Swipe(
                   child: Stack(
                     children: [
-                      // SizedBox(
-                      //   width: MediaQuery.of(context).size.width,
-                      //   height: MediaQuery.of(context).size.height,
-                      //   child: SmartBeachHorizon(
-                      //     stateTrackerStore: coordinator.beachWaves,
-                      //   ),
-                      // ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        child: SmartBeachHorizon(
+                          stateTrackerStore: coordinator.beachWaves,
+                        ),
+                      ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height,

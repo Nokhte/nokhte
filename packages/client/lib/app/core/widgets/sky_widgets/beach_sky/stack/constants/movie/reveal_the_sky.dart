@@ -9,8 +9,8 @@ class RevealTheSky {
     ).tween(
       'sky value',
       Tween<double>(
-        begin: 500.0,
-        end: 500.0,
+        begin: 0.0,
+        end: 0.0,
       ),
     )
     ..scene(
@@ -19,7 +19,7 @@ class RevealTheSky {
     ).tween(
       'sky value',
       Tween<double>(
-        begin: 500.0,
+        begin: 0.0,
         end: 500.0,
       ),
     );
