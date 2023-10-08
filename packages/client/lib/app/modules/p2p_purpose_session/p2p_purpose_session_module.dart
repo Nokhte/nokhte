@@ -67,6 +67,9 @@ class P2PCollaboratorSessionModule extends Module {
         Bind.singleton<UserTextEditorTrackerStore>(
           (i) => UserTextEditorTrackerStore(),
         ),
+        Bind.singleton<BeachSkyStore>(
+          (i) => BeachSkyStore(),
+        ),
         Bind.singleton<CollaborativeTextEditorTrackerStore>(
           (i) => CollaborativeTextEditorTrackerStore(
             userStore: i<UserTextEditorTrackerStore>(),
@@ -123,6 +126,7 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase6CoordinatorStore>(
           (i) => P2PPurposePhase6CoordinatorStore(
+            beachSkyStore: i<BeachSkyStore>(),
             beachWaves: Modular.get<BeachHorizonTrackerStore>(),
             gyroscopeStore: i<GetDirectionAngleStore>(),
           ),

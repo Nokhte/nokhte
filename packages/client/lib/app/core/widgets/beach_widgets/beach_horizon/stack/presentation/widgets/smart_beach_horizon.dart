@@ -7,7 +7,7 @@ import '../mobx/beach_horizon_tracker_store.dart';
 import 'canvas/beach_horizon_painter.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-class SmartBeachHorizon extends StatefulWidget {
+class SmartBeachHorizon extends StatelessWidget {
   // final Size size;
   final BeachHorizonTrackerStore stateTrackerStore;
   const SmartBeachHorizon({
@@ -15,21 +15,13 @@ class SmartBeachHorizon extends StatefulWidget {
     // required this.size,
     required this.stateTrackerStore,
   });
-
-  @override
-  _SmartBeachWavesState createState() => _SmartBeachWavesState();
-}
-
-class _SmartBeachWavesState extends State<SmartBeachHorizon>
-    with SingleTickerProviderStateMixin {
-  // final Size size;
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
       return CustomAnimationBuilder<Movie>(
-        tween: widget.stateTrackerStore.movie,
-        duration: widget.stateTrackerStore.movie.duration,
-        control: widget.stateTrackerStore.control,
+        tween: stateTrackerStore.movie,
+        duration: stateTrackerStore.movie.duration,
+        control: stateTrackerStore.control,
         builder: (context, value, child) {
           final currentAnimationValues = GetCurrentWaterAnimation.values(value);
           return CustomPaint(

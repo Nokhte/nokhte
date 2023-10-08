@@ -5,8 +5,8 @@ import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/modules/gyroscopic/presentation/mobx/main/get_direction_angle_store.dart';
-import 'package:primala/app/core/widgets/mobx.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:primala/app/core/widgets/widgets.dart';
 // * Mobx Codegen Inclusion
 part 'p2p_purpose_phase6_coordinator_store.g.dart';
 
@@ -17,6 +17,7 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
     with Store {
   final BeachHorizonTrackerStore beachWaves;
   final GetDirectionAngleStore gyroscopeStore;
+  final BeachSkyStore beachSkyStore;
 
   @observable
   double direction = -10.0;
@@ -42,6 +43,7 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   _P2PPurposePhase6CoordinatorStoreBase({
     required this.beachWaves,
     required this.gyroscopeStore,
+    required this.beachSkyStore,
   });
 
   @override

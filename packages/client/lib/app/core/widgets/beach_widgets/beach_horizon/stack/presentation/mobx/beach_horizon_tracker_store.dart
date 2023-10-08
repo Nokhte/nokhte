@@ -17,9 +17,6 @@ abstract class _BeachHorizonTrackerStoreBase extends Equatable with Store {
   MovieTween movie = EveningHorizonWaters.movie;
 
   @observable
-  double passingParam = -10.0;
-
-  @observable
   Control control = Control.play;
 
   @override

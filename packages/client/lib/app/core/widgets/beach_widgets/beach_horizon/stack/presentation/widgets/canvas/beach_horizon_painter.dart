@@ -78,11 +78,13 @@ class BeachHorizonPainter extends CustomPainter {
           Offset(size.width, size.height),
         ),
       );
+    // print("${size.height} ${size.width} FROM HORIZON");
     // Rect.fromLTWH(0, 0, size.width, size.height));
     final rect = Rect.fromPoints(
       Offset(0, size.height - rectHeight),
       Offset(size.width, size.height),
     );
+
     canvas.drawRect(rect, waterPaint);
 
     // Apply the wave gradient
@@ -90,6 +92,6 @@ class BeachHorizonPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(BeachHorizonPainter oldDelegate) {
-    return true;
+    return oldDelegate != this;
   }
 }

@@ -25,22 +25,6 @@ mixin _$BeachHorizonTrackerStore on _BeachHorizonTrackerStoreBase, Store {
     });
   }
 
-  late final _$passingParamAtom = Atom(
-      name: '_BeachHorizonTrackerStoreBase.passingParam', context: context);
-
-  @override
-  double get passingParam {
-    _$passingParamAtom.reportRead();
-    return super.passingParam;
-  }
-
-  @override
-  set passingParam(double value) {
-    _$passingParamAtom.reportWrite(value, super.passingParam, () {
-      super.passingParam = value;
-    });
-  }
-
   late final _$controlAtom =
       Atom(name: '_BeachHorizonTrackerStoreBase.control', context: context);
 
@@ -61,7 +45,6 @@ mixin _$BeachHorizonTrackerStore on _BeachHorizonTrackerStoreBase, Store {
   String toString() {
     return '''
 movie: ${movie},
-passingParam: ${passingParam},
 control: ${control}
     ''';
   }
