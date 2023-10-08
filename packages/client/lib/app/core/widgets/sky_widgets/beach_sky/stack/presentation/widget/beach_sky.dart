@@ -21,12 +21,8 @@ class BeachSky extends StatelessWidget {
           control: stateTrackerStore.control,
           builder: (context, value, child) {
             final skyValue = value.get('sky value');
-            print(skyValue);
             stateTrackerStore.setSkyValue(skyValue);
             final width = MediaQuery.of(context).size.width;
-            final height = MediaQuery.of(context).size.height;
-            // print("$width $height SKY");
-            // Path path = Path();
             final rect = Rect.fromPoints(
               const Offset(0, 0),
               Offset(
@@ -34,26 +30,18 @@ class BeachSky extends StatelessWidget {
                 skyValue,
               ),
             );
-            // print(rect.toString());
-            // stateTrackerStore.setPath(
-            //   Rect.fromPoints(
-            //     Offset(0, skyValue),
-            //     Offset(
-            //       width,
-            //       stateTrackerStore.skyValue,
-            //     ),
-            //   ),
-            // );
-            return ClipRect(
-              clipper: CustomRectClipper(rect),
-              child: AnimatedMeshGradient(
-                colors: const [
-                  Colors.green,
-                  Colors.greenAccent,
-                  Colors.lightGreen,
-                  Colors.lightGreenAccent,
-                ],
-                options: AnimatedMeshGradientOptions(),
+            return SizedBox(
+              width: width,
+              height: skyValue,
+              child: ClipRect(
+                clipper: CustomRectClipper(rect),
+                child: AnimatedMeshGradient(
+                  colors: SkyColors.dusk,
+                  seed: 300,
+                  options: AnimatedMeshGradientOptions(
+                    frequency: 0,
+                  ),
+                ),
               ),
             );
           });
