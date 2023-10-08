@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // * Mobx Import
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
@@ -14,26 +13,6 @@ class BeachSkyStore = _BeachSkyStoreBase with _$BeachSkyStore;
 abstract class _BeachSkyStoreBase extends Equatable with Store {
   @observable
   MovieTween movie = RevealTheSky.movie;
-
-  @observable
-  double skyValue = 0.0;
-
-  @observable
-  Path path = Path();
-
-  @observable
-  Rect rect = Rect.zero;
-
-  @action
-  setSkyValue(double newSkyValue) {
-    skyValue = newSkyValue;
-  }
-
-  @action
-  setPath(Rect newRect) {
-    path = Path();
-    path.addRect(newRect);
-  }
 
   @observable
   Control control = Control.play;

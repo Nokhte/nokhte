@@ -15,6 +15,7 @@ class P2PPurposePhase6CoordinatorStore = _P2PPurposePhase6CoordinatorStoreBase
 
 abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
     with Store {
+  final SunAndMoonStore sunAndMoon;
   final BeachHorizonTrackerStore beachWaves;
   final GetDirectionAngleStore gyroscopeStore;
   final BeachSkyStore beachSkyStore;
@@ -44,6 +45,7 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
     required this.beachWaves,
     required this.gyroscopeStore,
     required this.beachSkyStore,
+    required this.sunAndMoon,
   });
 
   @override

@@ -21,7 +21,6 @@ class BeachSky extends StatelessWidget {
           control: stateTrackerStore.control,
           builder: (context, value, child) {
             final skyValue = value.get('sky value');
-            stateTrackerStore.setSkyValue(skyValue);
             final width = MediaQuery.of(context).size.width;
             final rect = Rect.fromPoints(
               const Offset(0, 0),
