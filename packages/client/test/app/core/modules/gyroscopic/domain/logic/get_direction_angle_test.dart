@@ -26,7 +26,7 @@ void main() {
     final result = await logic(tParams);
     result.fold((failure) {}, (entity) {
       entity.angleStream.listen((value) {
-        expect(value.heading, 95.95);
+        expect(value, 95);
       });
     });
     verify(mockContract.getDirectionAngle(tParams));

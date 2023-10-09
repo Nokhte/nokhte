@@ -38,7 +38,7 @@ void main() {
         // assert
         res.fold((failure) {}, (entity) {
           entity.angleStream.listen((event) {
-            expect(event.heading, 95.95);
+            expect(event, 95);
           });
         });
       });
@@ -51,7 +51,7 @@ void main() {
         // assert
         res.fold((failure) {}, (entity) {
           entity.angleStream.listen((event) {
-            expect(event.heading, -1);
+            expect(event, -1);
           });
         });
       });
