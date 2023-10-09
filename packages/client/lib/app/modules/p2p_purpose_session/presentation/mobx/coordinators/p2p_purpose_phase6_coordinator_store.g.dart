@@ -15,15 +15,50 @@ mixin _$P2PPurposePhase6CoordinatorStore
       context: context);
 
   @override
-  double get direction {
+  int get direction {
     _$directionAtom.reportRead();
     return super.direction;
   }
 
   @override
-  set direction(double value) {
+  set direction(int value) {
     _$directionAtom.reportWrite(value, super.direction, () {
       super.direction = value;
+    });
+  }
+
+  late final _$currentAggregateAngleAtom = Atom(
+      name: '_P2PPurposePhase6CoordinatorStoreBase.currentAggregateAngle',
+      context: context);
+
+  @override
+  double get currentAggregateAngle {
+    _$currentAggregateAngleAtom.reportRead();
+    return super.currentAggregateAngle;
+  }
+
+  @override
+  set currentAggregateAngle(double value) {
+    _$currentAggregateAngleAtom.reportWrite(value, super.currentAggregateAngle,
+        () {
+      super.currentAggregateAngle = value;
+    });
+  }
+
+  late final _$revolutionAtom = Atom(
+      name: '_P2PPurposePhase6CoordinatorStoreBase.revolution',
+      context: context);
+
+  @override
+  int get revolution {
+    _$revolutionAtom.reportRead();
+    return super.revolution;
+  }
+
+  @override
+  set revolution(int value) {
+    _$revolutionAtom.reportWrite(value, super.revolution, () {
+      super.revolution = value;
     });
   }
 
@@ -32,7 +67,7 @@ mixin _$P2PPurposePhase6CoordinatorStore
           name: '_P2PPurposePhase6CoordinatorStoreBase', context: context);
 
   @override
-  dynamic setDirection(double newValue) {
+  dynamic setDirection(int newValue) {
     final _$actionInfo =
         _$_P2PPurposePhase6CoordinatorStoreBaseActionController.startAction(
             name: '_P2PPurposePhase6CoordinatorStoreBase.setDirection');
@@ -47,7 +82,9 @@ mixin _$P2PPurposePhase6CoordinatorStore
   @override
   String toString() {
     return '''
-direction: ${direction}
+direction: ${direction},
+currentAggregateAngle: ${currentAggregateAngle},
+revolution: ${revolution}
     ''';
   }
 }

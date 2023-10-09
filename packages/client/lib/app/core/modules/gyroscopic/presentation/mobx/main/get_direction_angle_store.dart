@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'package:flutter_compass/flutter_compass.dart';
 import 'package:mobx/mobx.dart';
 import 'package:primala/app/core/constants/entities.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
@@ -18,7 +17,7 @@ abstract class _GetDirectionAngleStoreBase
   _GetDirectionAngleStoreBase({required this.getterStore});
 
   @observable
-  ObservableStream<CompassEvent> userDirection = ObservableStream(
+  ObservableStream<int> userDirection = ObservableStream(
     DefaultEntities.defaultCompassEvent,
   );
 

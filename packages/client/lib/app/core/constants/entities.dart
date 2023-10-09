@@ -114,8 +114,7 @@ class DefaultEntities {
       get defaultAudioProcessingEntity =>
           const Right(AudioProcessingEntity(resultingWords: ''));
 
-  static Stream<CompassEvent> get defaultCompassEvent =>
-      Stream.value(CompassEvent.fromList([-198, 0, 0]));
+  static Stream<int> get defaultCompassEvent => Stream.value(-1);
 
   static Either<Failure, SchedulingSessionCreationStatusEntity>
       get schedulingSessionCreationStatusEntity =>

@@ -1,8 +1,7 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_compass/flutter_compass.dart';
 
 class DirectionAngleEntity extends Equatable {
-  final Stream<CompassEvent> angleStream;
+  final Stream<int> angleStream;
 
   const DirectionAngleEntity({
     required this.angleStream,

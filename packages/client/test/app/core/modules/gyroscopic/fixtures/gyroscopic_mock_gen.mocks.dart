@@ -8,7 +8,6 @@
 import 'dart:async' as _i4;
 
 import 'package:dartz/dartz.dart' as _i2;
-import 'package:flutter_compass/flutter_compass.dart' as _i8;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:primala/app/core/error/failure.dart' as _i5;
 import 'package:primala/app/core/interfaces/logic.dart' as _i7;
@@ -77,11 +76,11 @@ class MockMGyroscopicRemoteSource extends _i1.Mock
   }
 
   @override
-  _i4.Stream<_i8.CompassEvent> getDirectionAngle() => (super.noSuchMethod(
+  _i4.Stream<int> getDirectionAngle() => (super.noSuchMethod(
         Invocation.method(
           #getDirectionAngle,
           [],
         ),
-        returnValue: _i4.Stream<_i8.CompassEvent>.empty(),
-      ) as _i4.Stream<_i8.CompassEvent>);
+        returnValue: _i4.Stream<int>.empty(),
+      ) as _i4.Stream<int>);
 }

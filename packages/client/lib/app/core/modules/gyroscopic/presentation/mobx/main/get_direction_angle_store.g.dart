@@ -13,13 +13,13 @@ mixin _$GetDirectionAngleStore on _GetDirectionAngleStoreBase, Store {
       Atom(name: '_GetDirectionAngleStoreBase.userDirection', context: context);
 
   @override
-  ObservableStream<CompassEvent> get userDirection {
+  ObservableStream<int> get userDirection {
     _$userDirectionAtom.reportRead();
     return super.userDirection;
   }
 
   @override
-  set userDirection(ObservableStream<CompassEvent> value) {
+  set userDirection(ObservableStream<int> value) {
     _$userDirectionAtom.reportWrite(value, super.userDirection, () {
       super.userDirection = value;
     });

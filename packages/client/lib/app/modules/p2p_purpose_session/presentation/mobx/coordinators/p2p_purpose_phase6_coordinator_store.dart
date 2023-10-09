@@ -3,7 +3,7 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-// import 'package:primala/app/core/interfaces/logic.dart';
+import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/modules/gyroscopic/presentation/mobx/main/get_direction_angle_store.dart';
 // import 'package:permission_handler/permission_handler.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
@@ -21,23 +21,33 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   final BeachSkyStore beachSkyStore;
 
   @observable
-  double direction = -10.0;
+  int direction = -10;
+
+  @observable
+  double currentAggregateAngle = 0.0;
+
+  @observable
+  int revolution = 0;
 
   screenConstructor() async {
     // beachWaves.initiateSuspendedAtTheDepths();
     // if (await Permission.locationWhenInUse.isDenied) {
     //   await Permission.locationWhenInUse.request();
     // }
-    // await gyroscopeStore(NoParams());
-    // gyroscopeStore.userDirection.listen((value) {
-    //   print("is heading in the coordinator?? ${value.heading} ");
-    //   setDirection(value.heading ?? -11.0);
-    //   print("is the value being set??? ${direction} ");
-    // });
+    await gyroscopeStore(NoParams());
+    gyroscopeStore.userDirection.listen((value) {
+      print("is heading in the coordinator?? $value ");
+      setDirection(value);
+      // print("is the value being set??? ${direction} ");
+      if (value.floor() >= 359) {
+        revolution++;
+        print("You went over 360!!!! $revolution");
+      }
+    });
   }
 
   @action
-  setDirection(double newValue) {
+  setDirection(int newValue) {
     direction = newValue;
   }
 
