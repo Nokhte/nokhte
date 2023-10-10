@@ -31,22 +31,16 @@ class GyroscopeUtils {
 
   static int clockwiseComparison(int firstVal, int secondVal) {
     int clockwiseDifference = (firstVal - secondVal + 360) % 360;
-    // print(
-    //     "THE DIFFERENCE ? first $firstVal second $secondVal op => $clockwiseDifference");
-
     if (clockwiseDifference > 0 && clockwiseDifference <= 180) {
-      // print("angle2 is greater (clockwise) than angle1");
+      // angle2 is greater (clockwise) than angle1
       return 2;
     } else if (clockwiseDifference > 180 && clockwiseDifference < 360) {
       // angle1 is clockwise greater than angle2
-      // print("angle1 is greater (clockwise) than angle2");
       return 1;
     } else {
       // They are either the same angle or 180 degrees apart (opposite directions)
-      // print("They are either the same angle or opposite directions.");
       return 0;
     }
-    //
   }
 
   static Threshold isInThresholdRange(

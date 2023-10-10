@@ -15,6 +15,7 @@ class AppWidget extends StatelessWidget {
           primaryColor: Color.fromRGBO(53, 53, 53, 1.0),
         ),
         builder: (context) => PlatformApp.router(
+          debugShowCheckedModeBanner: false,
           localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
             DefaultMaterialLocalizations.delegate,
             DefaultWidgetsLocalizations.delegate,
