@@ -10,20 +10,20 @@ part of 'p2p_purpose_phase6_coordinator_store.dart';
 
 mixin _$P2PPurposePhase6CoordinatorStore
     on _P2PPurposePhase6CoordinatorStoreBase, Store {
-  late final _$directionAtom = Atom(
-      name: '_P2PPurposePhase6CoordinatorStoreBase.direction',
+  late final _$currentModeAtom = Atom(
+      name: '_P2PPurposePhase6CoordinatorStoreBase.currentMode',
       context: context);
 
   @override
-  int get direction {
-    _$directionAtom.reportRead();
-    return super.direction;
+  GyroscopeModes get currentMode {
+    _$currentModeAtom.reportRead();
+    return super.currentMode;
   }
 
   @override
-  set direction(int value) {
-    _$directionAtom.reportWrite(value, super.direction, () {
-      super.direction = value;
+  set currentMode(GyroscopeModes value) {
+    _$currentModeAtom.reportWrite(value, super.currentMode, () {
+      super.currentMode = value;
     });
   }
 
@@ -60,23 +60,6 @@ mixin _$P2PPurposePhase6CoordinatorStore
     });
   }
 
-  late final _$currentQuadrantAtom = Atom(
-      name: '_P2PPurposePhase6CoordinatorStoreBase.currentQuadrant',
-      context: context);
-
-  @override
-  int get currentQuadrant {
-    _$currentQuadrantAtom.reportRead();
-    return super.currentQuadrant;
-  }
-
-  @override
-  set currentQuadrant(int value) {
-    _$currentQuadrantAtom.reportWrite(value, super.currentQuadrant, () {
-      super.currentQuadrant = value;
-    });
-  }
-
   late final _$theSideTheThresholdWasEnteredFromAtom = Atom(
       name:
           '_P2PPurposePhase6CoordinatorStoreBase.theSideTheThresholdWasEnteredFrom',
@@ -93,6 +76,23 @@ mixin _$P2PPurposePhase6CoordinatorStore
     _$theSideTheThresholdWasEnteredFromAtom
         .reportWrite(value, super.theSideTheThresholdWasEnteredFrom, () {
       super.theSideTheThresholdWasEnteredFrom = value;
+    });
+  }
+
+  late final _$unFilteredAngleListAtom = Atom(
+      name: '_P2PPurposePhase6CoordinatorStoreBase.unFilteredAngleList',
+      context: context);
+
+  @override
+  ObservableList<int> get unFilteredAngleList {
+    _$unFilteredAngleListAtom.reportRead();
+    return super.unFilteredAngleList;
+  }
+
+  @override
+  set unFilteredAngleList(ObservableList<int> value) {
+    _$unFilteredAngleListAtom.reportWrite(value, super.unFilteredAngleList, () {
+      super.unFilteredAngleList = value;
     });
   }
 
@@ -152,11 +152,12 @@ mixin _$P2PPurposePhase6CoordinatorStore
           name: '_P2PPurposePhase6CoordinatorStoreBase', context: context);
 
   @override
-  dynamic setRefAngle(int newAngle) {
-    final _$actionInfo = _$_P2PPurposePhase6CoordinatorStoreBaseActionController
-        .startAction(name: '_P2PPurposePhase6CoordinatorStoreBase.setRefAngle');
+  dynamic setRefAngleInfo({required int newRefAngle}) {
+    final _$actionInfo =
+        _$_P2PPurposePhase6CoordinatorStoreBaseActionController.startAction(
+            name: '_P2PPurposePhase6CoordinatorStoreBase.setRefAngleInfo');
     try {
-      return super.setRefAngle(newAngle);
+      return super.setRefAngleInfo(newRefAngle: newRefAngle);
     } finally {
       _$_P2PPurposePhase6CoordinatorStoreBaseActionController
           .endAction(_$actionInfo);
@@ -178,26 +179,13 @@ mixin _$P2PPurposePhase6CoordinatorStore
   }
 
   @override
-  dynamic setDirection(int newValue) {
-    final _$actionInfo =
-        _$_P2PPurposePhase6CoordinatorStoreBaseActionController.startAction(
-            name: '_P2PPurposePhase6CoordinatorStoreBase.setDirection');
-    try {
-      return super.setDirection(newValue);
-    } finally {
-      _$_P2PPurposePhase6CoordinatorStoreBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
-direction: ${direction},
+currentMode: ${currentMode},
 refAngle: ${refAngle},
 currentRevolution: ${currentRevolution},
-currentQuadrant: ${currentQuadrant},
 theSideTheThresholdWasEnteredFrom: ${theSideTheThresholdWasEnteredFrom},
+unFilteredAngleList: ${unFilteredAngleList},
 thresholdList: ${thresholdList},
 shortenedAngleList: ${shortenedAngleList},
 filteredAngleList: ${filteredAngleList}

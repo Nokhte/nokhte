@@ -25,25 +25,35 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   final GetDirectionAngleStore gyroscopeStore;
   final BeachSkyStore beachSkyStore;
 
+  // @observable
+  // int direction = -10;
+
   @observable
-  int direction = -10;
+  GyroscopeModes currentMode = GyroscopeModes.regular;
 
   @observable
   int refAngle = 0;
 
   @observable
-  @observable
   int currentRevolution = 1;
 
-  @observable
-  int currentQuadrant = 1;
+  // @observable
+  // int currentQuadrant = 1;
 
   int inflectionPoint = 0;
 
+  int lowerBound = 330;
+  int upperBound = 30;
+
   bool isALowEndRefAngle = false;
 
+  bool isFirstTime = true;
+
   @observable
-  CloserTo theSideTheThresholdWasEnteredFrom = CloserTo.initial;
+  CloserTo theSideTheThresholdWasEnteredFrom = CloserTo.equidistant;
+
+  @observable
+  ObservableList<int> unFilteredAngleList = ObservableList<int>();
 
   @observable
   ObservableList<Threshold> thresholdList = ObservableList<Threshold>();
@@ -55,8 +65,14 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   ObservableList<int> filteredAngleList = ObservableList<int>();
 
   @action
-  setRefAngle(int newAngle) {
-    refAngle = refAngle;
+  setRefAngleInfo({required int newRefAngle}) {
+    refAngle = newRefAngle;
+    inflectionPoint = 360 - refAngle;
+    isALowEndRefAngle = refAngle < 180 ? true : false;
+    // lowerBound = (refAngle - 30) % 360;
+    // upperBound = (refAngle + 30) % 360;
+    // print(
+    //     "INFO: refAngle: $refAngle inflection $inflectionPoint isLowEnd $isALowEndRefAngle upperBound $upperBound lowerBound $lowerBound");
   }
 
   @action
@@ -64,81 +80,117 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
 
   screenConstructor() async {
     await gyroscopeStore(NoParams());
-    final unfilteredList = [];
-    int lowerBound = 0;
-    int upperBound = 0;
-    // final numOfQuadrants = 7;
-    // final angleCoveragePerQuadrant = 60;
-    // final buffer = CircularBuffer<int>(100);
+    // final unfilteredList = [];
 
     gyroscopeStore.userDirection.listen((value) {
-      setDirection(value);
-      unfilteredList.add(value);
+      // setDirection(value);
+      unFilteredAngleList.add(value);
       shortenedAngleList.clear();
 
-      refAngle = unfilteredList[0];
-      inflectionPoint = 360 - refAngle;
-      isALowEndRefAngle = refAngle < 180 ? true : false;
-
-      lowerBound = (refAngle - 30) % 360;
-      upperBound = (refAngle + 30) % 360;
-      // filteredAngle Logic
-      for (int i = 0; i < unfilteredList.length; i += 5) {
-        shortenedAngleList.add(unfilteredList[i] - refAngle);
+      // print("What's the first value? ${unFilteredAngleList[0]}");
+      if (isFirstTime) {
+        isFirstTime = false;
+        setRefAngleInfo(newRefAngle: unFilteredAngleList[0]);
       }
-      print(
-          'REFERENCE ANGLE: $refAngle || unfiltered ${shortenedAngleList.last.toString()}');
+      // filteredAngle Logic
+      for (int i = 0; i < unFilteredAngleList.length; i++) {
+        // print(
+        //     "huh what is this? REF ANGLE $refAngle UNFIL last ${unFilteredAngleList[i]} ${unFilteredAngleList[i] - refAngle}");
+        shortenedAngleList.add(unFilteredAngleList[i] - refAngle);
+        GyroscopeUtils.removeDuplicates(shortenedAngleList);
+      }
+      // print(
+      //     'REFERENCE ANGLE: $refAngle || unfiltered ${shortenedAngleList.last.toString()}');
     });
 
+    // filtration reaction
     reaction((p0) => shortenedAngleList.toString(), (p0) {
-      // final isWithinThreshold = GyroscopeUtils.isWithinBounds(
-      //   shortenedAngleList.last,
-      //   lowerBound,
-      //   upperBound,
-      // );
-
-      if (currentRevolution == 1 && isALowEndRefAngle) {
-        // low end angle count up is good
-        // print(
-        //     'low end rxn LAST MEASUREMENT ${shortenedAngleList.last} INFLECTION POINT $inflectionPoint ${shortenedAngleList.last + refAngle}');
-
+      // print("SHORTENED ${shortenedAngleList.last}");
+      if (currentMode == GyroscopeModes.negative) {
+        final last = unFilteredAngleList.last;
+        final secondToLast =
+            unFilteredAngleList[unFilteredAngleList.length - 2];
+        GyroscopeUtils.clockwiseComparison(last, secondToLast) == 2
+            ? {
+                currentMode = GyroscopeModes.regular,
+                print("negative mode actually left"),
+              }
+            : {
+                setRefAngleInfo(newRefAngle: unFilteredAngleList.last),
+                filteredAngleList.add(unFilteredAngleList.last - refAngle),
+                print("perpetuating negative mode"),
+              };
+        return;
+      }
+      if (currentRevolution == 1 &&
+          isALowEndRefAngle &&
+          currentMode == GyroscopeModes.regular) {
         if (shortenedAngleList.last.isNegative &&
             shortenedAngleList.last < inflectionPoint) {
+          // this is correct if they are going clockwise before they hit revolution 2
           filteredAngleList
               .add(shortenedAngleList.last + refAngle + inflectionPoint);
-          print("1 LETS SEE IF THIS WORKS: ${filteredAngleList.last}");
+          print(filteredAngleList.last.toString());
           return;
         } else {
-          print("2 LETS SEE IF THIS WORKS: ${filteredAngleList.last}");
+          // this is correct if they are going clockwise before they hit revolution 2
           filteredAngleList.add(shortenedAngleList.last);
+          print(filteredAngleList.last.toString());
           return;
         }
-      } else if (currentRevolution == 1 && !isALowEndRefAngle) {
+      } else if (currentRevolution == 1 &&
+          !isALowEndRefAngle &&
+          currentMode == GyroscopeModes.regular) {
         if (shortenedAngleList.last.isNegative) {
           filteredAngleList
               .add(shortenedAngleList.last + refAngle + inflectionPoint);
-          print("1 LETS SEE IF THIS WORKS: ${filteredAngleList.last}");
+          print(filteredAngleList.last.toString());
           return;
         } else {
           filteredAngleList.add(shortenedAngleList.last);
-          print("2 LETS SEE IF THIS WORKS: ${filteredAngleList.last}");
+          print(filteredAngleList.last.toString());
           return;
         }
-      } // high end is working too it counts up
+      }
+    });
+
+    reaction((p0) => filteredAngleList.toString(), (p0) {
+      final isWithinThreshold = GyroscopeUtils.isInThresholdRange(
+        filteredAngleList.last,
+        lowerBound,
+        upperBound,
+      );
+      if (isWithinThreshold.isInRange) {
+        thresholdList.add(isWithinThreshold);
+        return;
+      } else if (isWithinThreshold.isInRange == false) {
+        thresholdList.clear();
+        theSideTheThresholdWasEnteredFrom = CloserTo.initial;
+        return;
+      }
     });
 
     reaction((p0) => thresholdList.toString(), (p0) {
       if (thresholdList.isNotEmpty) {
         theSideTheThresholdWasEnteredFrom = thresholdList[0].closerTo;
+        // print(
+        //     "the side that was entered from $theSideTheThresholdWasEnteredFrom");
+        if ((theSideTheThresholdWasEnteredFrom == CloserTo.equidistant ||
+                theSideTheThresholdWasEnteredFrom == CloserTo.upperBound) &&
+            currentRevolution == 1 &&
+            thresholdList.last.closerTo == CloserTo.lowerBound) {
+          print("NEGATIVE MODE TRIGGERED");
+          currentMode = GyroscopeModes.negative;
+          //
+        }
       }
-      print("WHICH SIDE DID IT ENTER FROM? $theSideTheThresholdWasEnteredFrom");
     });
   }
 
-  @action
-  setDirection(int newValue) {
-    direction = newValue;
-  }
+  // @action
+  // setDirection(int newValue) {
+  //   direction = newValue;
+  // }
 
   _P2PPurposePhase6CoordinatorStoreBase({
     required this.beachWaves,
