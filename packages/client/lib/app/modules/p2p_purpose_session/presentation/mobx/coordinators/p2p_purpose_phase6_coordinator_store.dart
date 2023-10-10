@@ -83,7 +83,7 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
       lowerBound = (refAngle - 30) % 360;
       upperBound = (refAngle + 30) % 360;
       // filteredAngle Logic
-      for (int i = 0; i < unfilteredList.length; i += 20) {
+      for (int i = 0; i < unfilteredList.length; i += 5) {
         shortenedAngleList.add(unfilteredList[i] - refAngle);
       }
       print(
@@ -91,30 +91,40 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
     });
 
     reaction((p0) => shortenedAngleList.toString(), (p0) {
-      final isWithinThreshold = GyroscopeUtils.isWithinBounds(
-        shortenedAngleList.last,
-        lowerBound,
-        upperBound,
-      );
+      // final isWithinThreshold = GyroscopeUtils.isWithinBounds(
+      //   shortenedAngleList.last,
+      //   lowerBound,
+      //   upperBound,
+      // );
 
       if (currentRevolution == 1 && isALowEndRefAngle) {
         // low end angle count up is good
-        print(
-            'low end rxn LAST MEASUREMENT ${shortenedAngleList.last} INFLECTION POINT $inflectionPoint ${shortenedAngleList.last + refAngle}');
-        if (shortenedAngleList.last >= inflectionPoint) {
-          filteredAngleList.add(shortenedAngleList.last + refAngle);
-        }
-      } // done for now
+        // print(
+        //     'low end rxn LAST MEASUREMENT ${shortenedAngleList.last} INFLECTION POINT $inflectionPoint ${shortenedAngleList.last + refAngle}');
 
-      else if (currentRevolution == 1 && !isALowEndRefAngle) {
+        if (shortenedAngleList.last.isNegative &&
+            shortenedAngleList.last < inflectionPoint) {
+          filteredAngleList
+              .add(shortenedAngleList.last + refAngle + inflectionPoint);
+          print("1 LETS SEE IF THIS WORKS: ${filteredAngleList.last}");
+          return;
+        } else {
+          print("2 LETS SEE IF THIS WORKS: ${filteredAngleList.last}");
+          filteredAngleList.add(shortenedAngleList.last);
+          return;
+        }
+      } else if (currentRevolution == 1 && !isALowEndRefAngle) {
         if (shortenedAngleList.last.isNegative) {
           filteredAngleList
               .add(shortenedAngleList.last + refAngle + inflectionPoint);
+          print("1 LETS SEE IF THIS WORKS: ${filteredAngleList.last}");
+          return;
+        } else {
+          filteredAngleList.add(shortenedAngleList.last);
+          print("2 LETS SEE IF THIS WORKS: ${filteredAngleList.last}");
+          return;
         }
       } // high end is working too it counts up
-
-      print(
-          "REF ANGLE $refAngle || isALowEndRefAngle $isALowEndRefAngle \n \n ||| \n \n Filtered angle list ${filteredAngleList.last.toString()}");
     });
 
     reaction((p0) => thresholdList.toString(), (p0) {
