@@ -9,8 +9,8 @@ class GyroscopicRemoteSourceImpl implements GyroscopicRemoteSource {
   @override
   Stream<int> getDirectionAngle() {
     return FlutterCompass.events
-            ?.distinct()
-            .map((event) => event.heading!.floor()) ??
+            ?.map((event) => event.heading!.floor())
+            .distinct() ??
         Stream.value(-199);
   }
 }
