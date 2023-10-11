@@ -10,6 +10,21 @@ part of 'p2p_purpose_phase6_coordinator_store.dart';
 
 mixin _$P2PPurposePhase6CoordinatorStore
     on _P2PPurposePhase6CoordinatorStoreBase, Store {
+  Computed<int>? _$lowerBoundComputed;
+
+  @override
+  int get lowerBound =>
+      (_$lowerBoundComputed ??= Computed<int>(() => super.lowerBound,
+              name: '_P2PPurposePhase6CoordinatorStoreBase.lowerBound'))
+          .value;
+  Computed<int>? _$upperBoundComputed;
+
+  @override
+  int get upperBound =>
+      (_$upperBoundComputed ??= Computed<int>(() => super.upperBound,
+              name: '_P2PPurposePhase6CoordinatorStoreBase.upperBound'))
+          .value;
+
   late final _$currentModeAtom = Atom(
       name: '_P2PPurposePhase6CoordinatorStoreBase.currentMode',
       context: context);
@@ -24,22 +39,6 @@ mixin _$P2PPurposePhase6CoordinatorStore
   set currentMode(GyroscopeModes value) {
     _$currentModeAtom.reportWrite(value, super.currentMode, () {
       super.currentMode = value;
-    });
-  }
-
-  late final _$refAngleAtom = Atom(
-      name: '_P2PPurposePhase6CoordinatorStoreBase.refAngle', context: context);
-
-  @override
-  int get refAngle {
-    _$refAngleAtom.reportRead();
-    return super.refAngle;
-  }
-
-  @override
-  set refAngle(int value) {
-    _$refAngleAtom.reportWrite(value, super.refAngle, () {
-      super.refAngle = value;
     });
   }
 
@@ -79,23 +78,6 @@ mixin _$P2PPurposePhase6CoordinatorStore
     });
   }
 
-  late final _$unFilteredAngleListAtom = Atom(
-      name: '_P2PPurposePhase6CoordinatorStoreBase.unFilteredAngleList',
-      context: context);
-
-  @override
-  ObservableList<int> get unFilteredAngleList {
-    _$unFilteredAngleListAtom.reportRead();
-    return super.unFilteredAngleList;
-  }
-
-  @override
-  set unFilteredAngleList(ObservableList<int> value) {
-    _$unFilteredAngleListAtom.reportWrite(value, super.unFilteredAngleList, () {
-      super.unFilteredAngleList = value;
-    });
-  }
-
   late final _$thresholdListAtom = Atom(
       name: '_P2PPurposePhase6CoordinatorStoreBase.thresholdList',
       context: context);
@@ -110,40 +92,6 @@ mixin _$P2PPurposePhase6CoordinatorStore
   set thresholdList(ObservableList<Threshold> value) {
     _$thresholdListAtom.reportWrite(value, super.thresholdList, () {
       super.thresholdList = value;
-    });
-  }
-
-  late final _$shortenedAngleListAtom = Atom(
-      name: '_P2PPurposePhase6CoordinatorStoreBase.shortenedAngleList',
-      context: context);
-
-  @override
-  ObservableList<int> get shortenedAngleList {
-    _$shortenedAngleListAtom.reportRead();
-    return super.shortenedAngleList;
-  }
-
-  @override
-  set shortenedAngleList(ObservableList<int> value) {
-    _$shortenedAngleListAtom.reportWrite(value, super.shortenedAngleList, () {
-      super.shortenedAngleList = value;
-    });
-  }
-
-  late final _$filteredAngleListAtom = Atom(
-      name: '_P2PPurposePhase6CoordinatorStoreBase.filteredAngleList',
-      context: context);
-
-  @override
-  ObservableList<int> get filteredAngleList {
-    _$filteredAngleListAtom.reportRead();
-    return super.filteredAngleList;
-  }
-
-  @override
-  set filteredAngleList(ObservableList<int> value) {
-    _$filteredAngleListAtom.reportWrite(value, super.filteredAngleList, () {
-      super.filteredAngleList = value;
     });
   }
 
@@ -164,6 +112,23 @@ mixin _$P2PPurposePhase6CoordinatorStore
     });
   }
 
+  late final _$hasBeenMarkedUpAtom = Atom(
+      name: '_P2PPurposePhase6CoordinatorStoreBase.hasBeenMarkedUp',
+      context: context);
+
+  @override
+  bool get hasBeenMarkedUp {
+    _$hasBeenMarkedUpAtom.reportRead();
+    return super.hasBeenMarkedUp;
+  }
+
+  @override
+  set hasBeenMarkedUp(bool value) {
+    _$hasBeenMarkedUpAtom.reportWrite(value, super.hasBeenMarkedUp, () {
+      super.hasBeenMarkedUp = value;
+    });
+  }
+
   late final _$secondValueAtom = Atom(
       name: '_P2PPurposePhase6CoordinatorStoreBase.secondValue',
       context: context);
@@ -181,50 +146,18 @@ mixin _$P2PPurposePhase6CoordinatorStore
     });
   }
 
-  late final _$_P2PPurposePhase6CoordinatorStoreBaseActionController =
-      ActionController(
-          name: '_P2PPurposePhase6CoordinatorStoreBase', context: context);
-
-  @override
-  dynamic setRefAngleInfo({required int newRefAngle}) {
-    final _$actionInfo =
-        _$_P2PPurposePhase6CoordinatorStoreBaseActionController.startAction(
-            name: '_P2PPurposePhase6CoordinatorStoreBase.setRefAngleInfo');
-    try {
-      return super.setRefAngleInfo(newRefAngle: newRefAngle);
-    } finally {
-      _$_P2PPurposePhase6CoordinatorStoreBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void addToFilteredAngleList(int newAngle) {
-    final _$actionInfo =
-        _$_P2PPurposePhase6CoordinatorStoreBaseActionController.startAction(
-            name:
-                '_P2PPurposePhase6CoordinatorStoreBase.addToFilteredAngleList');
-    try {
-      return super.addToFilteredAngleList(newAngle);
-    } finally {
-      _$_P2PPurposePhase6CoordinatorStoreBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
   @override
   String toString() {
     return '''
 currentMode: ${currentMode},
-refAngle: ${refAngle},
 currentRevolution: ${currentRevolution},
 theSideTheThresholdWasEnteredFrom: ${theSideTheThresholdWasEnteredFrom},
-unFilteredAngleList: ${unFilteredAngleList},
 thresholdList: ${thresholdList},
-shortenedAngleList: ${shortenedAngleList},
-filteredAngleList: ${filteredAngleList},
 firstValue: ${firstValue},
-secondValue: ${secondValue}
+hasBeenMarkedUp: ${hasBeenMarkedUp},
+secondValue: ${secondValue},
+lowerBound: ${lowerBound},
+upperBound: ${upperBound}
     ''';
   }
 }

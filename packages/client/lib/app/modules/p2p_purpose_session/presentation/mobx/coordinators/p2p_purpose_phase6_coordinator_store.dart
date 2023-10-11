@@ -38,18 +38,17 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   GyroscopeModes currentMode = GyroscopeModes.regular;
 
   @observable
-  int refAngle = 0;
-
-  @observable
-  int currentRevolution = 1;
+  int currentRevolution = 0;
 
   // @observable
   // int currentQuadrant = 1;
 
   int inflectionPoint = 0;
 
-  int lowerBound = 330;
-  int upperBound = 30;
+  @computed
+  int get lowerBound => 330 + (currentRevolution * 360);
+  @computed
+  int get upperBound => 30 + (currentRevolution * 360);
 
   bool isALowEndRefAngle = false;
 
@@ -60,39 +59,24 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   CloserTo theSideTheThresholdWasEnteredFrom = CloserTo.equidistant;
 
   @observable
-  ObservableList<int> unFilteredAngleList = ObservableList<int>();
-
-  @observable
   ObservableList<Threshold> thresholdList = ObservableList<Threshold>();
 
   @observable
-  ObservableList<int> shortenedAngleList = ObservableList<int>();
-
-  @observable
-  ObservableList<int> filteredAngleList = ObservableList<int>();
-
-  @observable
   int firstValue = -1;
+
+  @observable
+  bool hasBeenMarkedUp = false;
 
   @observable
   int secondValue = -1;
 
   int previousValue = -10;
 
-  @action
-  setRefAngleInfo({required int newRefAngle}) {
-    refAngle = newRefAngle;
-    inflectionPoint = 360 - refAngle;
-    isALowEndRefAngle = refAngle < 180 ? true : false;
-  }
-
-  @action
-  void addToFilteredAngleList(int newAngle) => shortenedAngleList.add(newAngle);
-
   screenConstructor() async {
     await gyroscopeStore(NoParams());
 
     gyroscopeStore.userDirection.listen((value) {
+      // value = value;
       // setup
       if (firstValue == -1) {
         // Set the first value
@@ -107,7 +91,7 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
         secondValue = value;
       }
       // print("val $value prev $previousValue ");
-      print("THE MODE $currentMode");
+      // print("THE MODE $currentMode");
       // if (value != previousValue) {}
       if (currentMode == GyroscopeModes.negative) {
         print(
@@ -117,10 +101,14 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
         if (comparison == 1) {
           gyroImpl.setReferenceAngle(value);
           currentMode = GyroscopeModes.regular;
-          print("OUT OF NEGATIVE MODE $value");
+          // print("OUT OF NEGATIVE MODE $value");
         }
       } else {
-        print("STREAM $value");
+        currentRevolution > 0
+            ? value = value + (360 * currentRevolution)
+            : null;
+        print("value $value");
+        // print("STREAM $value");
         final isWithinThreshold = GyroscopeUtils.isInThresholdRange(
           value,
           lowerBound,
@@ -130,7 +118,11 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
           thresholdList.add(isWithinThreshold);
         } else if (isWithinThreshold.isInRange == false) {
           thresholdList.clear();
+          hasBeenMarkedUp = false;
           theSideTheThresholdWasEnteredFrom = CloserTo.initial;
+          if (currentMode == GyroscopeModes.markdown) {
+            currentMode = GyroscopeModes.regular;
+          }
         }
       }
       // can you do it all in here
@@ -141,11 +133,30 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
         theSideTheThresholdWasEnteredFrom = thresholdList[0].closerTo;
         if ((theSideTheThresholdWasEnteredFrom == CloserTo.equidistant ||
                 theSideTheThresholdWasEnteredFrom == CloserTo.upperBound) &&
-            currentRevolution == 1 &&
-            thresholdList.last.closerTo == CloserTo.lowerBound) {
+            currentRevolution == 0 &&
+            thresholdList.last.closerTo == CloserTo.lowerBound &&
+            currentMode != GyroscopeModes.markdown) {
           print("NEGATIVE MODE TRIGGERED");
           currentMode = GyroscopeModes.negative;
+        } else if ((theSideTheThresholdWasEnteredFrom == CloserTo.lowerBound) &&
+            thresholdList.last.closerTo == CloserTo.upperBound) {
+          if (!hasBeenMarkedUp) {
+            print("positive revolution!!");
+            currentRevolution++;
+            hasBeenMarkedUp = true;
+          }
+        } else if ((theSideTheThresholdWasEnteredFrom == CloserTo.upperBound) &&
+            thresholdList.last.closerTo == CloserTo.lowerBound &&
+            currentRevolution > 0) {
+          if (!hasBeenMarkedUp) {
+            print("negative revolution!!");
+            currentMode = GyroscopeModes.markdown;
+            currentRevolution--;
+            hasBeenMarkedUp = true;
+          }
+          //
         }
+        // now we want
       }
     });
   }

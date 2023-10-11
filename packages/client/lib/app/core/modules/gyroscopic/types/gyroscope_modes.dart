@@ -1,5 +1,5 @@
 enum GyroscopeModes {
   regular,
   negative,
-  markup,
+  markdown,
 }
