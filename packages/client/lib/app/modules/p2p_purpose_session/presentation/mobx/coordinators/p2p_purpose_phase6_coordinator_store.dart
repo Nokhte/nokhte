@@ -31,29 +31,36 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
     required this.gyroImpl,
   });
 
-  // @observable
-  // int direction = -10;
+  // Computed
+  @computed
+  int get lowerBound => 330 + (currentRevolution * 360);
+  @computed
+  int get upperBound => 30 + (currentRevolution * 360);
+
+  @computed
+  bool get isANegativeModeMovement =>
+      (theSideTheThresholdWasEnteredFrom == CloserTo.equidistant ||
+          theSideTheThresholdWasEnteredFrom == CloserTo.upperBound) &&
+      currentRevolution == 0 &&
+      thresholdList.last.closerTo == CloserTo.lowerBound &&
+      currentMode != GyroscopeModes.markdown;
+
+  @computed
+  bool get isAPositiveRevolutionMovement =>
+      (theSideTheThresholdWasEnteredFrom == CloserTo.lowerBound) &&
+      thresholdList.last.closerTo == CloserTo.upperBound;
+
+  @computed
+  bool get isANegativeRevolutionMovement =>
+      (theSideTheThresholdWasEnteredFrom == CloserTo.upperBound) &&
+      thresholdList.last.closerTo == CloserTo.lowerBound &&
+      currentRevolution > 0;
 
   @observable
   GyroscopeModes currentMode = GyroscopeModes.regular;
 
   @observable
   int currentRevolution = 0;
-
-  // @observable
-  // int currentQuadrant = 1;
-
-  int inflectionPoint = 0;
-
-  @computed
-  int get lowerBound => 330 + (currentRevolution * 360);
-  @computed
-  int get upperBound => 30 + (currentRevolution * 360);
-
-  bool isALowEndRefAngle = false;
-
-  bool isFirstTime = true;
-  bool isSecondTime = false;
 
   @observable
   CloserTo theSideTheThresholdWasEnteredFrom = CloserTo.equidistant;
@@ -72,93 +79,79 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
 
   int previousValue = -10;
 
+  bool isFirstTime = true;
+  bool isSecondTime = false;
+
   screenConstructor() async {
     await gyroscopeStore(NoParams());
 
     gyroscopeStore.userDirection.listen((value) {
-      // value = value;
-      // setup
-      if (firstValue == -1) {
-        // Set the first value
-        firstValue = value;
-      } else if (secondValue == -1) {
-        // Set the second value
-        secondValue = value;
-      } else {
-        // If both firstValue and secondValue have been set, update previousValue
-        previousValue = firstValue;
-        firstValue = secondValue;
-        secondValue = value;
-      }
-      // print("val $value prev $previousValue ");
-      // print("THE MODE $currentMode");
-      // if (value != previousValue) {}
-      if (currentMode == GyroscopeModes.negative) {
-        print(
-            "we're in negative mode $firstValue, $secondValue ${GyroscopeUtils.clockwiseComparison(firstValue, secondValue)}");
-        int comparison =
-            GyroscopeUtils.clockwiseComparison(firstValue, secondValue);
-        if (comparison == 1) {
-          gyroImpl.setReferenceAngle(value);
-          currentMode = GyroscopeModes.regular;
-          // print("OUT OF NEGATIVE MODE $value");
-        }
-      } else {
-        currentRevolution > 0
-            ? value = value + (360 * currentRevolution)
-            : null;
-        print("value $value");
-        // print("STREAM $value");
-        final isWithinThreshold = GyroscopeUtils.isInThresholdRange(
-          value,
-          lowerBound,
-          upperBound,
-        );
-        if (isWithinThreshold.isInRange) {
-          thresholdList.add(isWithinThreshold);
-        } else if (isWithinThreshold.isInRange == false) {
-          thresholdList.clear();
-          hasBeenMarkedUp = false;
-          theSideTheThresholdWasEnteredFrom = CloserTo.initial;
-          if (currentMode == GyroscopeModes.markdown) {
-            currentMode = GyroscopeModes.regular;
-          }
-        }
-      }
-      // can you do it all in here
+      valueTrackingSetup(value);
+      negativeAndRegularModeWatcher(value);
     });
 
     reaction((p0) => thresholdList.toString(), (p0) {
       if (thresholdList.isNotEmpty) {
         theSideTheThresholdWasEnteredFrom = thresholdList[0].closerTo;
-        if ((theSideTheThresholdWasEnteredFrom == CloserTo.equidistant ||
-                theSideTheThresholdWasEnteredFrom == CloserTo.upperBound) &&
-            currentRevolution == 0 &&
-            thresholdList.last.closerTo == CloserTo.lowerBound &&
-            currentMode != GyroscopeModes.markdown) {
-          print("NEGATIVE MODE TRIGGERED");
+        if (isANegativeModeMovement) {
           currentMode = GyroscopeModes.negative;
-        } else if ((theSideTheThresholdWasEnteredFrom == CloserTo.lowerBound) &&
-            thresholdList.last.closerTo == CloserTo.upperBound) {
+        } else if (isAPositiveRevolutionMovement) {
           if (!hasBeenMarkedUp) {
-            print("positive revolution!!");
             currentRevolution++;
             hasBeenMarkedUp = true;
           }
-        } else if ((theSideTheThresholdWasEnteredFrom == CloserTo.upperBound) &&
-            thresholdList.last.closerTo == CloserTo.lowerBound &&
-            currentRevolution > 0) {
+        } else if (isANegativeRevolutionMovement) {
           if (!hasBeenMarkedUp) {
-            print("negative revolution!!");
             currentMode = GyroscopeModes.markdown;
             currentRevolution--;
             hasBeenMarkedUp = true;
           }
-          //
         }
-        // now we want
       }
     });
+  }
+
+  @action
+  valueTrackingSetup(int value) {
+    if (firstValue == -1) {
+      firstValue = value;
+    } else if (secondValue == -1) {
+      secondValue = value;
+    } else {
+      previousValue = firstValue;
+      firstValue = secondValue;
+      secondValue = value;
+    }
+  }
+
+  @action
+  negativeAndRegularModeWatcher(int value) {
+    if (currentMode == GyroscopeModes.negative) {
+      int comparison =
+          GyroscopeUtils.clockwiseComparison(firstValue, secondValue);
+      if (comparison == 1) {
+        gyroImpl.setReferenceAngle(value);
+        currentMode = GyroscopeModes.regular;
+      }
+    } else {
+      currentRevolution > 0 ? value = value + (360 * currentRevolution) : null;
+      // print(value);
+      final isWithinThreshold = GyroscopeUtils.isInThresholdRange(
+        value,
+        lowerBound,
+        upperBound,
+      );
+      if (isWithinThreshold.isInRange) {
+        thresholdList.add(isWithinThreshold);
+      } else if (isWithinThreshold.isInRange == false) {
+        thresholdList.clear();
+        hasBeenMarkedUp = false;
+        theSideTheThresholdWasEnteredFrom = CloserTo.initial;
+        if (currentMode == GyroscopeModes.markdown) {
+          currentMode = GyroscopeModes.regular;
+        }
+      }
+    }
   }
 
   @override

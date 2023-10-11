@@ -24,6 +24,32 @@ mixin _$P2PPurposePhase6CoordinatorStore
       (_$upperBoundComputed ??= Computed<int>(() => super.upperBound,
               name: '_P2PPurposePhase6CoordinatorStoreBase.upperBound'))
           .value;
+  Computed<bool>? _$isANegativeModeMovementComputed;
+
+  @override
+  bool get isANegativeModeMovement => (_$isANegativeModeMovementComputed ??=
+          Computed<bool>(() => super.isANegativeModeMovement,
+              name:
+                  '_P2PPurposePhase6CoordinatorStoreBase.isANegativeModeMovement'))
+      .value;
+  Computed<bool>? _$isAPositiveRevolutionMovementComputed;
+
+  @override
+  bool get isAPositiveRevolutionMovement =>
+      (_$isAPositiveRevolutionMovementComputed ??= Computed<bool>(
+              () => super.isAPositiveRevolutionMovement,
+              name:
+                  '_P2PPurposePhase6CoordinatorStoreBase.isAPositiveRevolutionMovement'))
+          .value;
+  Computed<bool>? _$isANegativeRevolutionMovementComputed;
+
+  @override
+  bool get isANegativeRevolutionMovement =>
+      (_$isANegativeRevolutionMovementComputed ??= Computed<bool>(
+              () => super.isANegativeRevolutionMovement,
+              name:
+                  '_P2PPurposePhase6CoordinatorStoreBase.isANegativeRevolutionMovement'))
+          .value;
 
   late final _$currentModeAtom = Atom(
       name: '_P2PPurposePhase6CoordinatorStoreBase.currentMode',
@@ -146,6 +172,37 @@ mixin _$P2PPurposePhase6CoordinatorStore
     });
   }
 
+  late final _$_P2PPurposePhase6CoordinatorStoreBaseActionController =
+      ActionController(
+          name: '_P2PPurposePhase6CoordinatorStoreBase', context: context);
+
+  @override
+  dynamic valueTrackingSetup(int value) {
+    final _$actionInfo =
+        _$_P2PPurposePhase6CoordinatorStoreBaseActionController.startAction(
+            name: '_P2PPurposePhase6CoordinatorStoreBase.valueTrackingSetup');
+    try {
+      return super.valueTrackingSetup(value);
+    } finally {
+      _$_P2PPurposePhase6CoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic negativeAndRegularModeWatcher(int value) {
+    final _$actionInfo =
+        _$_P2PPurposePhase6CoordinatorStoreBaseActionController.startAction(
+            name:
+                '_P2PPurposePhase6CoordinatorStoreBase.negativeAndRegularModeWatcher');
+    try {
+      return super.negativeAndRegularModeWatcher(value);
+    } finally {
+      _$_P2PPurposePhase6CoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
@@ -157,7 +214,10 @@ firstValue: ${firstValue},
 hasBeenMarkedUp: ${hasBeenMarkedUp},
 secondValue: ${secondValue},
 lowerBound: ${lowerBound},
-upperBound: ${upperBound}
+upperBound: ${upperBound},
+isANegativeModeMovement: ${isANegativeModeMovement},
+isAPositiveRevolutionMovement: ${isAPositiveRevolutionMovement},
+isANegativeRevolutionMovement: ${isANegativeRevolutionMovement}
     ''';
   }
 }

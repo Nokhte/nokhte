@@ -22,12 +22,9 @@ class GyroscopicRemoteSourceImpl implements GyroscopicRemoteSource {
 
   @override
   void setReferenceAngle(int relativeReferenceAngle) {
-    print("$relativeReferenceAngle $referenceAngle");
     referenceAngle = GyroscopeUtils.setReferenceAngle(
         relativeReferenceAngle, referenceAngle);
-
     _controller.sink.add(referenceAngle);
-    print("What's the new ref angle? $referenceAngle");
   }
 
   void _initializeCompassStream() {
