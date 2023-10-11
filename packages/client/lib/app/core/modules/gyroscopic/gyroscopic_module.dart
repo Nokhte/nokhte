@@ -10,12 +10,12 @@ import 'package:primala/app/core/network/network_info.dart';
 class GyroscopicModule extends Module {
   @override
   List<Bind> get binds => [
-// & Data Source
+        // & Data Source
         Bind.singleton<GyroscopicRemoteSourceImpl>(
           (i) => GyroscopicRemoteSourceImpl(),
           export: true,
         ),
-// & Contract Implementation
+        // & Contract Implementation
         Bind.singleton<GyroscopicContractImpl>(
           (i) => GyroscopicContractImpl(
             networkInfo: Modular.get<NetworkInfoImpl>(),
@@ -23,24 +23,48 @@ class GyroscopicModule extends Module {
           ),
           export: true,
         ),
-// & Logic
+        // & Logic
         Bind.singleton<GetDirectionAngle>(
           (i) => GetDirectionAngle(
             contract: i<GyroscopicContract>(),
           ),
           export: true,
         ),
-// & MobX Getter Stores
+        Bind.singleton<SetReferenceAngle>(
+          (i) => SetReferenceAngle(
+            contract: i<GyroscopicContract>(),
+          ),
+          export: true,
+        ),
+        // & MobX Getter Stores
         Bind.singleton<GetDirectionAngleGetterStore>(
           (i) => GetDirectionAngleGetterStore(
             logic: i<GetDirectionAngle>(),
           ),
           export: true,
         ),
-// & Mobx Mother Stores
+        Bind.singleton<SetReferenceAngleGetterStore>(
+          (i) => SetReferenceAngleGetterStore(logic: i<SetReferenceAngle>()),
+          export: true,
+        ),
+        // & Mobx Mother Stores
         Bind.singleton<GetDirectionAngleStore>(
           (i) => GetDirectionAngleStore(
             getterStore: i<GetDirectionAngleGetterStore>(),
+          ),
+          export: true,
+        ),
+        Bind.singleton<SetReferenceAngleStore>(
+          (i) => SetReferenceAngleStore(
+            getterStore: i<SetReferenceAngleGetterStore>(),
+          ),
+          export: true,
+        ),
+        // & Coordinator Store
+        Bind.singleton<GyroscopicCoordinatorStore>(
+          (i) => GyroscopicCoordinatorStore(
+            angleFeedStore: i<GetDirectionAngleStore>(),
+            setRefAngleStore: i<SetReferenceAngleStore>(),
           ),
           export: true,
         ),

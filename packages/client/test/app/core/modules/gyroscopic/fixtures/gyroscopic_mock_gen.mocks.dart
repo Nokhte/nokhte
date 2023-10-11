@@ -5,15 +5,15 @@
 // @dart=2.19
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i5;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:primala/app/core/error/failure.dart' as _i5;
+import 'package:primala/app/core/error/failure.dart' as _i6;
 import 'package:primala/app/core/interfaces/logic.dart' as _i7;
-import 'package:primala/app/core/modules/gyroscopic/domain/domain.dart' as _i6;
+import 'package:primala/app/core/modules/gyroscopic/domain/domain.dart' as _i3;
 
-import 'gyroscopic_mock_gen.dart' as _i3;
+import 'gyroscopic_mock_gen.dart' as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -36,18 +36,29 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
         );
 }
 
+class _FakeReferenceAngleSetterStatusEntity_1 extends _i1.SmartFake
+    implements _i3.ReferenceAngleSetterStatusEntity {
+  _FakeReferenceAngleSetterStatusEntity_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [MGyroscopicContract].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMGyroscopicContract extends _i1.Mock
-    implements _i3.MGyroscopicContract {
+    implements _i4.MGyroscopicContract {
   MockMGyroscopicContract() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<
-      _i2.Either<_i5.Failure, _i6.DirectionAngleEntity>> getDirectionAngle(
+  _i5.Future<
+      _i2.Either<_i6.Failure, _i3.DirectionAngleEntity>> getDirectionAngle(
           _i7.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -55,34 +66,50 @@ class MockMGyroscopicContract extends _i1.Mock
           [params],
         ),
         returnValue:
-            _i4.Future<_i2.Either<_i5.Failure, _i6.DirectionAngleEntity>>.value(
-                _FakeEither_0<_i5.Failure, _i6.DirectionAngleEntity>(
+            _i5.Future<_i2.Either<_i6.Failure, _i3.DirectionAngleEntity>>.value(
+                _FakeEither_0<_i6.Failure, _i3.DirectionAngleEntity>(
           this,
           Invocation.method(
             #getDirectionAngle,
             [params],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.DirectionAngleEntity>>);
+      ) as _i5.Future<_i2.Either<_i6.Failure, _i3.DirectionAngleEntity>>);
+  @override
+  _i3.ReferenceAngleSetterStatusEntity setReferenceAngle(
+          int? newReferenceAngle) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #setReferenceAngle,
+          [newReferenceAngle],
+        ),
+        returnValue: _FakeReferenceAngleSetterStatusEntity_1(
+          this,
+          Invocation.method(
+            #setReferenceAngle,
+            [newReferenceAngle],
+          ),
+        ),
+      ) as _i3.ReferenceAngleSetterStatusEntity);
 }
 
 /// A class which mocks [MGyroscopicRemoteSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMGyroscopicRemoteSource extends _i1.Mock
-    implements _i3.MGyroscopicRemoteSource {
+    implements _i4.MGyroscopicRemoteSource {
   MockMGyroscopicRemoteSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Stream<int> getDirectionAngle() => (super.noSuchMethod(
+  _i5.Stream<int> getDirectionAngle() => (super.noSuchMethod(
         Invocation.method(
           #getDirectionAngle,
           [],
         ),
-        returnValue: _i4.Stream<int>.empty(),
-      ) as _i4.Stream<int>);
+        returnValue: _i5.Stream<int>.empty(),
+      ) as _i5.Stream<int>);
   @override
   void setReferenceAngle(int? newReferenceAngle) => super.noSuchMethod(
         Invocation.method(

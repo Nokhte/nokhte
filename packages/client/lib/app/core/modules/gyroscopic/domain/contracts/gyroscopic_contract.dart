@@ -7,4 +7,5 @@ abstract class GyroscopicContract {
   Future<Either<Failure, DirectionAngleEntity>> getDirectionAngle(
     NoParams params,
   );
+  ReferenceAngleSetterStatusEntity setReferenceAngle(int newReferenceAngle);
 }

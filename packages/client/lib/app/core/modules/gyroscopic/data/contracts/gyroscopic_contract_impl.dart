@@ -23,4 +23,10 @@ class GyroscopicContractImpl implements GyroscopicContract {
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  ReferenceAngleSetterStatusModel setReferenceAngle(int newReferenceAngle) {
+    remoteSource.setReferenceAngle(newReferenceAngle);
+    return const ReferenceAngleSetterStatusModel(isSet: true);
+  }
 }
