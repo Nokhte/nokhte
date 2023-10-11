@@ -1,6 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:primala/app/core/modules/collaborative_doc/collaborative_doc_module.dart';
 import 'package:primala/app/core/modules/collaborative_doc/presentation/presentation.dart';
+import 'package:primala/app/core/modules/gyroscopic/data/data.dart';
 import 'package:primala/app/core/modules/gyroscopic/gyroscopic_module.dart';
 import 'package:primala/app/core/modules/gyroscopic/presentation/presentation.dart';
 import 'package:primala/app/core/modules/solo_doc/mobx/mobx.dart';
@@ -129,6 +130,7 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase6CoordinatorStore>(
           (i) => P2PPurposePhase6CoordinatorStore(
+            gyroImpl: Modular.get<GyroscopicRemoteSourceImpl>(),
             sunAndMoon: i<SunAndMoonStore>(),
             beachSkyStore: i<BeachSkyStore>(),
             beachWaves: Modular.get<BeachHorizonTrackerStore>(),

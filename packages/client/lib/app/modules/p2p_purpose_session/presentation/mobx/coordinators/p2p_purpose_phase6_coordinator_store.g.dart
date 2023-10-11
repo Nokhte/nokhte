@@ -147,6 +147,40 @@ mixin _$P2PPurposePhase6CoordinatorStore
     });
   }
 
+  late final _$firstValueAtom = Atom(
+      name: '_P2PPurposePhase6CoordinatorStoreBase.firstValue',
+      context: context);
+
+  @override
+  int get firstValue {
+    _$firstValueAtom.reportRead();
+    return super.firstValue;
+  }
+
+  @override
+  set firstValue(int value) {
+    _$firstValueAtom.reportWrite(value, super.firstValue, () {
+      super.firstValue = value;
+    });
+  }
+
+  late final _$secondValueAtom = Atom(
+      name: '_P2PPurposePhase6CoordinatorStoreBase.secondValue',
+      context: context);
+
+  @override
+  int get secondValue {
+    _$secondValueAtom.reportRead();
+    return super.secondValue;
+  }
+
+  @override
+  set secondValue(int value) {
+    _$secondValueAtom.reportWrite(value, super.secondValue, () {
+      super.secondValue = value;
+    });
+  }
+
   late final _$_P2PPurposePhase6CoordinatorStoreBaseActionController =
       ActionController(
           name: '_P2PPurposePhase6CoordinatorStoreBase', context: context);
@@ -188,7 +222,9 @@ theSideTheThresholdWasEnteredFrom: ${theSideTheThresholdWasEnteredFrom},
 unFilteredAngleList: ${unFilteredAngleList},
 thresholdList: ${thresholdList},
 shortenedAngleList: ${shortenedAngleList},
-filteredAngleList: ${filteredAngleList}
+filteredAngleList: ${filteredAngleList},
+firstValue: ${firstValue},
+secondValue: ${secondValue}
     ''';
   }
 }

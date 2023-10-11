@@ -83,4 +83,12 @@ class MockMGyroscopicRemoteSource extends _i1.Mock
         ),
         returnValue: _i4.Stream<int>.empty(),
       ) as _i4.Stream<int>);
+  @override
+  void setReferenceAngle(int? newReferenceAngle) => super.noSuchMethod(
+        Invocation.method(
+          #setReferenceAngle,
+          [newReferenceAngle],
+        ),
+        returnValueForMissingStub: null,
+      );
 }

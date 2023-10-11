@@ -72,4 +72,17 @@ class GyroscopeUtils {
       }
     }
   }
+
+  static int setReferenceAngle(
+      int relativeReferenceAngle, int oldReferenceAngle) {
+    int newReferenceAngle;
+    final theDifference = newReferenceAngle = (360 - relativeReferenceAngle);
+    print("the difference ${(oldReferenceAngle - theDifference) % 360}");
+    if (oldReferenceAngle > 180) {
+      newReferenceAngle = (theDifference - oldReferenceAngle).abs();
+    } else {
+      newReferenceAngle = (oldReferenceAngle - theDifference) % 360;
+    }
+    return newReferenceAngle;
+  }
 }
