@@ -4,6 +4,7 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
+import 'package:primala/app/core/modules/gyroscopic/domain/domain.dart';
 import 'package:primala/app/core/modules/gyroscopic/presentation/presentation.dart';
 import 'package:primala/app/core/modules/gyroscopic/types/types.dart';
 import 'package:primala/app/core/modules/gyroscopic/utils/utils.dart';
@@ -16,9 +17,11 @@ class GyroscopicCoordinatorStore = _GyroscopicCoordinatorStoreBase
 abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
   final GetDirectionAngleStore angleFeedStore;
   final SetReferenceAngleStore setRefAngleStore;
+  final ResetRefAngleForMaxCapacityStore resetRefAngle;
   _GyroscopicCoordinatorStoreBase({
     required this.angleFeedStore,
     required this.setRefAngleStore,
+    required this.resetRefAngle,
   });
 
   setupTheStream() async {
@@ -52,9 +55,9 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
 
   // Computed
   @computed
-  int get lowerBound => 330 + (currentRevolution * 360);
+  int get lowerThresholdBound => 330 + (currentRevolution * 360);
   @computed
-  int get upperBound => 30 + (currentRevolution * 360);
+  int get upperThresholdBound => 30 + (currentRevolution * 360);
 
   @computed
   bool get isANegativeModeMovement =>
@@ -67,13 +70,17 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
   @computed
   bool get isAPositiveRevolutionMovement =>
       (theSideTheThresholdWasEnteredFrom == CloserTo.lowerBound) &&
-      thresholdList.last.closerTo == CloserTo.upperBound;
+      thresholdList.last.closerTo == CloserTo.upperBound &&
+      currentMode != GyroscopeModes.atMaxCapacity;
 
   @computed
   bool get isANegativeRevolutionMovement =>
       (theSideTheThresholdWasEnteredFrom == CloserTo.upperBound) &&
       thresholdList.last.closerTo == CloserTo.lowerBound &&
       currentRevolution > 0;
+
+  @computed
+  bool get isAtMaxCapacity => firstValue >= maxAngle;
 
   @observable
   GyroscopeModes currentMode = GyroscopeModes.regular;
@@ -101,6 +108,8 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
   bool isFirstTime = true;
   bool isSecondTime = false;
 
+  int maxAngle = 345;
+
   @action
   valueTrackingSetup(int value) {
     if (firstValue == -1) {
@@ -117,6 +126,7 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
   @action
   negativeAndRegularModeWatcher(int value) {
     if (currentMode == GyroscopeModes.negative) {
+      print("negative mode");
       int comparison =
           GyroscopeUtils.clockwiseComparison(firstValue, secondValue);
       if (comparison == 1) {
@@ -124,17 +134,36 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
         currentMode = GyroscopeModes.regular;
       }
       print(value);
+      // print("vlaue $value isAtMax $isAtMaxCapacity");
+    } else if (currentMode == GyroscopeModes.atMaxCapacity) {
+      int comparison =
+          GyroscopeUtils.clockwiseComparison(firstValue, secondValue);
+      if (comparison == 2) {
+        // so what happens is that we set it to zero
+        resetRefAngle(ResetRefAngleForMaxCapacityParams(
+            maxAngle: maxAngle, currentValue: value));
+        // setRefAngleStore(value - maxAngle);
+        currentMode = GyroscopeModes.regular;
+      }
+      //
     } else {
       currentRevolution > 0 ? value = value + (360 * currentRevolution) : null;
+      // print(
+      //     "value $value $maxAngle the comp ${value >= maxAngle && currentMode != GyroscopeModes.negative} current mode ==> $currentMode");
+      if (value >= maxAngle && !isANegativeModeMovement && value != 359) {
+        print("switched to max capacity");
+        currentMode = GyroscopeModes.atMaxCapacity;
+      }
       print(value);
-      final isWithinThreshold = GyroscopeUtils.isInThresholdRange(
+
+      final isWithinRevolutionThreshold = GyroscopeUtils.isInThresholdRange(
         value,
-        lowerBound,
-        upperBound,
+        lowerThresholdBound,
+        upperThresholdBound,
       );
-      if (isWithinThreshold.isInRange) {
-        thresholdList.add(isWithinThreshold);
-      } else if (isWithinThreshold.isInRange == false) {
+      if (isWithinRevolutionThreshold.isInRange) {
+        thresholdList.add(isWithinRevolutionThreshold);
+      } else if (isWithinRevolutionThreshold.isInRange == false) {
         thresholdList.clear();
         hasBeenMarkedUp = false;
         theSideTheThresholdWasEnteredFrom = CloserTo.initial;

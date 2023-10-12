@@ -9,20 +9,20 @@ part of 'gyroscopic_coordinator_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
-  Computed<int>? _$lowerBoundComputed;
+  Computed<int>? _$lowerThresholdBoundComputed;
 
   @override
-  int get lowerBound =>
-      (_$lowerBoundComputed ??= Computed<int>(() => super.lowerBound,
-              name: '_GyroscopicCoordinatorStoreBase.lowerBound'))
-          .value;
-  Computed<int>? _$upperBoundComputed;
+  int get lowerThresholdBound => (_$lowerThresholdBoundComputed ??=
+          Computed<int>(() => super.lowerThresholdBound,
+              name: '_GyroscopicCoordinatorStoreBase.lowerThresholdBound'))
+      .value;
+  Computed<int>? _$upperThresholdBoundComputed;
 
   @override
-  int get upperBound =>
-      (_$upperBoundComputed ??= Computed<int>(() => super.upperBound,
-              name: '_GyroscopicCoordinatorStoreBase.upperBound'))
-          .value;
+  int get upperThresholdBound => (_$upperThresholdBoundComputed ??=
+          Computed<int>(() => super.upperThresholdBound,
+              name: '_GyroscopicCoordinatorStoreBase.upperThresholdBound'))
+      .value;
   Computed<bool>? _$isANegativeModeMovementComputed;
 
   @override
@@ -47,6 +47,13 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
               () => super.isANegativeRevolutionMovement,
               name:
                   '_GyroscopicCoordinatorStoreBase.isANegativeRevolutionMovement'))
+          .value;
+  Computed<bool>? _$isAtMaxCapacityComputed;
+
+  @override
+  bool get isAtMaxCapacity =>
+      (_$isAtMaxCapacityComputed ??= Computed<bool>(() => super.isAtMaxCapacity,
+              name: '_GyroscopicCoordinatorStoreBase.isAtMaxCapacity'))
           .value;
 
   late final _$currentModeAtom = Atom(
@@ -204,11 +211,12 @@ thresholdList: ${thresholdList},
 firstValue: ${firstValue},
 hasBeenMarkedUp: ${hasBeenMarkedUp},
 secondValue: ${secondValue},
-lowerBound: ${lowerBound},
-upperBound: ${upperBound},
+lowerThresholdBound: ${lowerThresholdBound},
+upperThresholdBound: ${upperThresholdBound},
 isANegativeModeMovement: ${isANegativeModeMovement},
 isAPositiveRevolutionMovement: ${isAPositiveRevolutionMovement},
-isANegativeRevolutionMovement: ${isANegativeRevolutionMovement}
+isANegativeRevolutionMovement: ${isANegativeRevolutionMovement},
+isAtMaxCapacity: ${isAtMaxCapacity}
     ''';
   }
 }

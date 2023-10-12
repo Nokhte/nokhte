@@ -5,6 +5,8 @@ import 'package:primala/app/core/modules/gyroscopic/utils/utils.dart';
 abstract class GyroscopicRemoteSource {
   Stream<int> getDirectionAngle();
   void setReferenceAngle(int newReferenceAngle);
+  void resetRefAngleForMaxCapacity(
+      {required int maxAngle, required int currentValue});
 }
 
 class GyroscopicRemoteSourceImpl implements GyroscopicRemoteSource {
@@ -43,5 +45,15 @@ class GyroscopicRemoteSourceImpl implements GyroscopicRemoteSource {
 
   void dispose() {
     _controller.close();
+  }
+
+  @override
+  void resetRefAngleForMaxCapacity(
+      {required int maxAngle, required int currentValue}) {
+    referenceAngle = GyroscopeUtils.resetRefAngleForMaxCapacity(
+        maxAngle: maxAngle,
+        currentValue: currentValue,
+        originalReferenceAngle: referenceAngle);
+    _controller.sink.add(referenceAngle);
   }
 }

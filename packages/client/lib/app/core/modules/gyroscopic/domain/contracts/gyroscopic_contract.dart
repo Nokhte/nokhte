@@ -8,4 +8,6 @@ abstract class GyroscopicContract {
     NoParams params,
   );
   ReferenceAngleSetterStatusEntity setReferenceAngle(int newReferenceAngle);
+  ReferenceAngleSetterStatusEntity resetRefAngleForMaxCapacity(
+      ResetRefAngleForMaxCapacityParams params);
 }

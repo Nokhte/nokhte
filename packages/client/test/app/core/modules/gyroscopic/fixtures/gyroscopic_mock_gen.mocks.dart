@@ -91,6 +91,22 @@ class MockMGyroscopicContract extends _i1.Mock
           ),
         ),
       ) as _i3.ReferenceAngleSetterStatusEntity);
+  @override
+  _i3.ReferenceAngleSetterStatusEntity resetRefAngleForMaxCapacity(
+          _i3.ResetRefAngleForMaxCapacityParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #resetRefAngleForMaxCapacity,
+          [params],
+        ),
+        returnValue: _FakeReferenceAngleSetterStatusEntity_1(
+          this,
+          Invocation.method(
+            #resetRefAngleForMaxCapacity,
+            [params],
+          ),
+        ),
+      ) as _i3.ReferenceAngleSetterStatusEntity);
 }
 
 /// A class which mocks [MGyroscopicRemoteSource].
@@ -115,6 +131,22 @@ class MockMGyroscopicRemoteSource extends _i1.Mock
         Invocation.method(
           #setReferenceAngle,
           [newReferenceAngle],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void resetRefAngleForMaxCapacity({
+    required int? maxAngle,
+    required int? currentValue,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #resetRefAngleForMaxCapacity,
+          [],
+          {
+            #maxAngle: maxAngle,
+            #currentValue: currentValue,
+          },
         ),
         returnValueForMissingStub: null,
       );

@@ -85,4 +85,18 @@ class GyroscopeUtils {
     }
     return newReferenceAngle;
   }
+
+  static int resetRefAngleForMaxCapacity({
+    required int maxAngle,
+    required int currentValue,
+    required originalReferenceAngle,
+  }) {
+    currentValue %= 360;
+    maxAngle %= 360;
+    int theDiffBetweenMaxAndCurrent = currentValue - maxAngle;
+    theDiffBetweenMaxAndCurrent < 0 ? theDiffBetweenMaxAndCurrent += 360 : null;
+    final int newRefAngle =
+        ((theDiffBetweenMaxAndCurrent + originalReferenceAngle) % 360).floor();
+    return newRefAngle;
+  }
 }

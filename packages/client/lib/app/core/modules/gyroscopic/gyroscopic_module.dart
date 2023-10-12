@@ -36,10 +36,22 @@ class GyroscopicModule extends Module {
           ),
           export: true,
         ),
+        Bind.singleton<ResetRefAngleForMaxCapacity>(
+          (i) => ResetRefAngleForMaxCapacity(
+            contract: i<GyroscopicContract>(),
+          ),
+          export: true,
+        ),
         // & MobX Getter Stores
         Bind.singleton<GetDirectionAngleGetterStore>(
           (i) => GetDirectionAngleGetterStore(
             logic: i<GetDirectionAngle>(),
+          ),
+          export: true,
+        ),
+        Bind.singleton<ResetRefAngleForMaxCapacityGetterStore>(
+          (i) => ResetRefAngleForMaxCapacityGetterStore(
+            logic: i<ResetRefAngleForMaxCapacity>(),
           ),
           export: true,
         ),
@@ -60,9 +72,16 @@ class GyroscopicModule extends Module {
           ),
           export: true,
         ),
+        Bind.singleton<ResetRefAngleForMaxCapacityStore>(
+          (i) => ResetRefAngleForMaxCapacityStore(
+            getterStore: i<ResetRefAngleForMaxCapacityGetterStore>(),
+          ),
+          export: true,
+        ),
         // & Coordinator Store
         Bind.singleton<GyroscopicCoordinatorStore>(
           (i) => GyroscopicCoordinatorStore(
+            resetRefAngle: i<ResetRefAngleForMaxCapacityStore>(),
             angleFeedStore: i<GetDirectionAngleStore>(),
             setRefAngleStore: i<SetReferenceAngleStore>(),
           ),

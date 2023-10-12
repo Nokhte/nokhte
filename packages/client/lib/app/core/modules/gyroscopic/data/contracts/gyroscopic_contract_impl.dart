@@ -29,4 +29,12 @@ class GyroscopicContractImpl implements GyroscopicContract {
     remoteSource.setReferenceAngle(newReferenceAngle);
     return const ReferenceAngleSetterStatusModel(isSet: true);
   }
+
+  @override
+  ReferenceAngleSetterStatusEntity resetRefAngleForMaxCapacity(
+      ResetRefAngleForMaxCapacityParams params) {
+    remoteSource.resetRefAngleForMaxCapacity(
+        maxAngle: params.maxAngle, currentValue: params.currentValue);
+    return const ReferenceAngleSetterStatusModel(isSet: true);
+  }
 }
