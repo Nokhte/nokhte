@@ -201,7 +201,7 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
         ));
       }
 
-      print("current Quad $currentQuadrant current angle $value ");
+      // print("current Quad $currentQuadrant current angle $value ");
       // print(
       //     "value $value $maxAngle the comp ${value >= maxAngle && currentMode != GyroscopeModes.negative} current mode ==> $currentMode");
       if (value >= maxAngle && !isANegativeModeMovement && value != 359) {
