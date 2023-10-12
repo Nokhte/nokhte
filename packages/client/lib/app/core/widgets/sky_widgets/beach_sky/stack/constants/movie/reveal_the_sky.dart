@@ -15,11 +15,24 @@ class RevealTheSky {
     )
     ..scene(
       begin: const Duration(seconds: 4),
-      end: const Duration(seconds: 6),
+      end: const Duration(seconds: 8),
     ).tween(
       'sky value',
       Tween<double>(
         begin: 0.0,
+        end: 520.0,
+      ),
+    )
+    ..scene(
+      begin: const Duration(seconds: 8),
+      end: const Duration(
+        seconds: 9,
+        // milliseconds: 500,
+      ),
+    ).tween(
+      'sky value',
+      Tween<double>(
+        begin: 520.0,
         end: 500.0,
       ),
     );

@@ -3,14 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:primala/app/core/widgets/beach_widgets/beach_waves/stack/utils/get_current_water_animation.dart';
-import '../mobx/beach_horizon_tracker_store.dart';
-import 'canvas/beach_horizon_painter.dart';
+import '../mobx/beach_horizon_water_tracker_store.dart';
+import 'canvas/beach_horizon_water_painter.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-class SmartBeachHorizon extends StatelessWidget {
+class BeachHorizonWater extends StatelessWidget {
   // final Size size;
-  final BeachHorizonTrackerStore stateTrackerStore;
-  const SmartBeachHorizon({
+  final BeachHorizonWaterTrackerStore stateTrackerStore;
+  const BeachHorizonWater({
     super.key,
     // required this.size,
     required this.stateTrackerStore,
@@ -25,7 +25,7 @@ class SmartBeachHorizon extends StatelessWidget {
         builder: (context, value, child) {
           final currentAnimationValues = GetCurrentWaterAnimation.values(value);
           return CustomPaint(
-            painter: BeachHorizonPainter(
+            painter: BeachHorizonWaterPainter(
               waterValue: currentAnimationValues[0],
               firstGradientColor: currentAnimationValues[1],
               secondGradientColor: currentAnimationValues[2],

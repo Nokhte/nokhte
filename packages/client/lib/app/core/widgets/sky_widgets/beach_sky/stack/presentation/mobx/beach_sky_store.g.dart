@@ -41,6 +41,20 @@ mixin _$BeachSkyStore on _BeachSkyStoreBase, Store {
     });
   }
 
+  late final _$_BeachSkyStoreBaseActionController =
+      ActionController(name: '_BeachSkyStoreBase', context: context);
+
+  @override
+  dynamic selectTimeBasedMovie(DateTime date) {
+    final _$actionInfo = _$_BeachSkyStoreBaseActionController.startAction(
+        name: '_BeachSkyStoreBase.selectTimeBasedMovie');
+    try {
+      return super.selectTimeBasedMovie(date);
+    } finally {
+      _$_BeachSkyStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

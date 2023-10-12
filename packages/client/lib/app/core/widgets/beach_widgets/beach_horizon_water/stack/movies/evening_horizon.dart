@@ -253,15 +253,8 @@ class EveningHorizonWaters {
         )
     ..scene(
       begin: const Duration(seconds: 4),
-      end: const Duration(seconds: 6),
+      end: const Duration(seconds: 7),
     )
-        .tween(
-          'water movement',
-          Tween<double>(
-            begin: 0,
-            end: 500,
-          ),
-        )
         .tween(
           '1st Water Gradient Color',
           ColorTween(
@@ -373,5 +366,26 @@ class EveningHorizonWaters {
             begin: WaterColorsAndStops.schedulingEveningWater[7].stop,
             end: WaterColorsAndStops.schedulingEveningWater[7].stop,
           ),
-        );
+        )
+    ..scene(begin: const Duration(seconds: 4), end: const Duration(seconds: 8))
+        .tween(
+      'water movement',
+      Tween<double>(
+        begin: 0,
+        end: 520,
+      ),
+    )
+    ..scene(
+      begin: const Duration(seconds: 8),
+      end: const Duration(
+        seconds: 9,
+        // milliseconds: 500,
+      ),
+    ).tween(
+      'water movement',
+      Tween<double>(
+        begin: 520,
+        end: 500,
+      ),
+    );
 }

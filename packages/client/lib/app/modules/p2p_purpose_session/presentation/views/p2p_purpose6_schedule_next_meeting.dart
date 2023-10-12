@@ -36,21 +36,21 @@ class P2PPupose6ScheduleNextMeeting extends StatelessWidget {
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height,
                         child: BeachSky(
-                          stateTrackerStore: coordinator.beachSkyStore,
+                          stateTrackerStore: coordinator.widgets.beachSkyStore,
                         ),
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height,
                         child: SunAndMoon(
-                          stateTrackerStore: coordinator.sunAndMoon,
+                          stateTrackerStore: coordinator.widgets.sunAndMoon,
                         ),
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height,
-                        child: SmartBeachHorizon(
-                          stateTrackerStore: coordinator.beachWaves,
+                        child: BeachHorizonWater(
+                          stateTrackerStore: coordinator.widgets.beachWaves,
                         ),
                       ),
                     ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class BeachHorizonPainter extends CustomPainter {
+class BeachHorizonWaterPainter extends CustomPainter {
   // final double waterValue;
   final Color firstGradientColor,
       secondGradientColor,
@@ -22,7 +22,7 @@ class BeachHorizonPainter extends CustomPainter {
   final List<double> stopsList;
   final List<Color> colorsList;
 
-  BeachHorizonPainter({
+  BeachHorizonWaterPainter({
     required this.waterValue,
     required this.firstGradientColor,
     required this.secondGradientColor,
@@ -91,7 +91,7 @@ class BeachHorizonPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(BeachHorizonPainter oldDelegate) {
+  bool shouldRepaint(BeachHorizonWaterPainter oldDelegate) {
     return oldDelegate != this;
   }
 }
