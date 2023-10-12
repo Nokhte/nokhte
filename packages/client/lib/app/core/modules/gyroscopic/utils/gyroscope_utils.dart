@@ -145,4 +145,19 @@ class GyroscopeUtils {
         desiredStartingAngle: desiredStartingAngle,
         startingRevolution: startingRev);
   }
+
+  static int getCurrentQuadrant({
+    required currentAngle,
+    required List<QuadrantInfo> quadrants,
+  }) {
+    for (int i = 0; i < quadrants.length; i++) {
+      QuadrantInfo quadrant = quadrants[i];
+      if (currentAngle >= quadrant.startingAngle &&
+          currentAngle <= quadrant.endingAngle) {
+        return i;
+      }
+    }
+    return -1;
+    //
+  }
 }

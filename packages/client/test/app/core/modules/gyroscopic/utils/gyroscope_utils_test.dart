@@ -83,4 +83,16 @@ void main() {
     expect(secondRes.startingRevolution, 2);
     expect(secondRes.maxAngle, 1439);
   });
+
+  test("get current quadrant is doing what it should", () {
+    final res = GyroscopeUtils.getCurrentQuadrant(
+        currentAngle: 85, quadrants: QuadrantLists.dayList);
+    expect(res, 0);
+    final res2 = GyroscopeUtils.getCurrentQuadrant(
+        currentAngle: 180, quadrants: QuadrantLists.dayList);
+    expect(res2, 2);
+    final res3 = GyroscopeUtils.getCurrentQuadrant(
+        currentAngle: 365, quadrants: QuadrantLists.timeList);
+    expect(res3, 6);
+  });
 }

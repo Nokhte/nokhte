@@ -29,8 +29,12 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
     await gyroscopicCoordinatorStore.setupTheStream(
       numberOfQuadrants: 4,
       totalAngleCoverageOfEachQuadrant: 90,
-      startingQuadrant: 1,
+      startingQuadrant: 0,
     );
+
+    reaction((p0) => gyroscopicCoordinatorStore.currentQuadrant, (p0) {
+      print("from the coordinator $p0");
+    });
   }
 
   @override

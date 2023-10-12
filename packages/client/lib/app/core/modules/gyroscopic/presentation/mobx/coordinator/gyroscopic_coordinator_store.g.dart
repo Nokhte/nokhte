@@ -62,6 +62,13 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
       (_$isAtMaxCapacityComputed ??= Computed<bool>(() => super.isAtMaxCapacity,
               name: '_GyroscopicCoordinatorStoreBase.isAtMaxCapacity'))
           .value;
+  Computed<bool>? _$isSecondTimeComputed;
+
+  @override
+  bool get isSecondTime =>
+      (_$isSecondTimeComputed ??= Computed<bool>(() => super.isSecondTime,
+              name: '_GyroscopicCoordinatorStoreBase.isSecondTime'))
+          .value;
 
   late final _$currentModeAtom = Atom(
       name: '_GyroscopicCoordinatorStoreBase.currentMode', context: context);
@@ -93,6 +100,23 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
   set currentRevolution(int value) {
     _$currentRevolutionAtom.reportWrite(value, super.currentRevolution, () {
       super.currentRevolution = value;
+    });
+  }
+
+  late final _$currentQuadrantAtom = Atom(
+      name: '_GyroscopicCoordinatorStoreBase.currentQuadrant',
+      context: context);
+
+  @override
+  int get currentQuadrant {
+    _$currentQuadrantAtom.reportRead();
+    return super.currentQuadrant;
+  }
+
+  @override
+  set currentQuadrant(int value) {
+    _$currentQuadrantAtom.reportWrite(value, super.currentQuadrant, () {
+      super.currentQuadrant = value;
     });
   }
 
@@ -195,6 +219,18 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
   }
 
   @override
+  void setCurrentQuadrant(int newQuad) {
+    final _$actionInfo =
+        _$_GyroscopicCoordinatorStoreBaseActionController.startAction(
+            name: '_GyroscopicCoordinatorStoreBase.setCurrentQuadrant');
+    try {
+      return super.setCurrentQuadrant(newQuad);
+    } finally {
+      _$_GyroscopicCoordinatorStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic valueTrackingSetup(int value) {
     final _$actionInfo =
         _$_GyroscopicCoordinatorStoreBaseActionController.startAction(
@@ -224,6 +260,7 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
     return '''
 currentMode: ${currentMode},
 currentRevolution: ${currentRevolution},
+currentQuadrant: ${currentQuadrant},
 theSideTheThresholdWasEnteredFrom: ${theSideTheThresholdWasEnteredFrom},
 thresholdList: ${thresholdList},
 firstValue: ${firstValue},
@@ -235,7 +272,8 @@ isFirstTime: ${isFirstTime},
 isANegativeModeMovement: ${isANegativeModeMovement},
 isAPositiveRevolutionMovement: ${isAPositiveRevolutionMovement},
 isANegativeRevolutionMovement: ${isANegativeRevolutionMovement},
-isAtMaxCapacity: ${isAtMaxCapacity}
+isAtMaxCapacity: ${isAtMaxCapacity},
+isSecondTime: ${isSecondTime}
     ''';
   }
 }

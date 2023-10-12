@@ -46,13 +46,14 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
         );
         currentRevolution = setupReturnType.startingRevolution;
         maxAngle = setupReturnType.maxAngle;
-        // desiredStartingAngle
-        resetRefAngle(ResetRefAngleForMaxCapacityParams(
-          currentValue: value,
-          maxAngle: setupReturnType.desiredStartingAngle,
-        ));
+        if (setupReturnType.desiredStartingAngle != 0) {
+          resetRefAngle(ResetRefAngleForMaxCapacityParams(
+            currentValue: value,
+            maxAngle: setupReturnType.desiredStartingAngle,
+          ));
+        }
+        setCurrentQuadrant(startingQuadrant);
       }
-
       valueTrackingSetup(value);
       negativeAndRegularModeWatcher(value);
     });
@@ -118,8 +119,17 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
   @observable
   GyroscopeModes currentMode = GyroscopeModes.regular;
 
+  @computed
+  bool get isSecondTime => secondValue == -1;
+
   @observable
   int currentRevolution = 0;
+
+  @observable
+  int currentQuadrant = 0;
+
+  @action
+  void setCurrentQuadrant(int newQuad) => currentQuadrant = newQuad;
 
   @observable
   CloserTo theSideTheThresholdWasEnteredFrom = CloserTo.equidistant;
@@ -137,8 +147,6 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
   int secondValue = -1;
 
   int previousValue = -10;
-
-  bool isSecondTime = false;
 
   int maxAngle = 345;
 
@@ -158,14 +166,15 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
   @action
   negativeAndRegularModeWatcher(int value) {
     if (currentMode == GyroscopeModes.negative) {
-      print("negative mode");
+      // print("negative mode");
       int comparison =
           GyroscopeUtils.clockwiseComparison(firstValue, secondValue);
       if (comparison == 1) {
         setRefAngleStore(value);
         currentMode = GyroscopeModes.regular;
       }
-      print(value);
+      // print(value);
+      // print("current Quad $currentQuadrant current angle $value ");
       // print("vlaue $value isAtMax $isAtMaxCapacity");
     } else if (currentMode == GyroscopeModes.atMaxCapacity) {
       int comparison =
@@ -179,14 +188,27 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
       }
       //
     } else {
+      // print("value up here $value");
       currentRevolution > 0 ? value = value + (360 * currentRevolution) : null;
+
+      if (!isFirstTime &&
+          !isSecondTime &&
+          currentMode != GyroscopeModes.negative &&
+          value != 359) {
+        setCurrentQuadrant(GyroscopeUtils.getCurrentQuadrant(
+          currentAngle: value,
+          quadrants: setupReturnType.quadrantInfo,
+        ));
+      }
+
+      print("current Quad $currentQuadrant current angle $value ");
       // print(
       //     "value $value $maxAngle the comp ${value >= maxAngle && currentMode != GyroscopeModes.negative} current mode ==> $currentMode");
       if (value >= maxAngle && !isANegativeModeMovement && value != 359) {
-        print("switched to max capacity");
+        // print("switched to max capacity");
         currentMode = GyroscopeModes.atMaxCapacity;
       }
-      print(value);
+      // print(value);
 
       final isWithinRevolutionThreshold = GyroscopeUtils.isInThresholdRange(
         value,
