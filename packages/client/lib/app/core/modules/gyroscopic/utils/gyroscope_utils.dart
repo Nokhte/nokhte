@@ -86,6 +86,11 @@ class GyroscopeUtils {
     return newReferenceAngle;
   }
 
+  static int revolutionCalculator(int angle) {
+    int revolution = (angle / 360) < 1 ? 0 : (angle / 360).floor();
+    return revolution;
+  }
+
   static int resetRefAngleForMaxCapacity({
     required int maxAngle,
     required int currentValue,
@@ -98,5 +103,46 @@ class GyroscopeUtils {
     final int newRefAngle =
         ((theDiffBetweenMaxAndCurrent + originalReferenceAngle) % 360).floor();
     return newRefAngle;
+  }
+
+  static List<QuadrantInfo> quadrantPartitioner(
+      {required int numberOfQuadrants,
+      required int totalAngleCoverageOfEachQuadrant}) {
+    if (numberOfQuadrants < 1 || totalAngleCoverageOfEachQuadrant < 1) {
+      throw ArgumentError(
+          "Number of quadrants and total angle coverage must be greater than 0.");
+    }
+
+    List<QuadrantInfo> quadrantList = [];
+
+    for (int i = 0; i < numberOfQuadrants; i++) {
+      int startingAngle = i * totalAngleCoverageOfEachQuadrant;
+      int endingAngle = (i + 1) * totalAngleCoverageOfEachQuadrant - 1;
+
+      QuadrantInfo quadrantInfo =
+          QuadrantInfo(startingAngle: startingAngle, endingAngle: endingAngle);
+      quadrantList.add(quadrantInfo);
+    }
+
+    return quadrantList;
+  }
+
+  static GyroSetupReturnType quadrantSetup({
+    required int numberOfQuadrants,
+    required int totalAngleCoverageOfEachQuadrant,
+    required int startingQuadrant, // count from 0
+  }) {
+    final quadrantList = quadrantPartitioner(
+      numberOfQuadrants: numberOfQuadrants,
+      totalAngleCoverageOfEachQuadrant: totalAngleCoverageOfEachQuadrant,
+    );
+    final desiredStartingAngle = quadrantList[startingQuadrant].startingAngle;
+    final startingRev = revolutionCalculator(desiredStartingAngle);
+
+    return GyroSetupReturnType(
+        quadrantInfo: quadrantList,
+        maxAngle: quadrantList.last.endingAngle,
+        desiredStartingAngle: desiredStartingAngle,
+        startingRevolution: startingRev);
   }
 }

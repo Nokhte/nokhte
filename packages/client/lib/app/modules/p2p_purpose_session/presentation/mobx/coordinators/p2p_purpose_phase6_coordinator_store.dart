@@ -26,7 +26,11 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   });
 
   screenConstructor() async {
-    await gyroscopicCoordinatorStore.setupTheStream();
+    await gyroscopicCoordinatorStore.setupTheStream(
+      numberOfQuadrants: 4,
+      totalAngleCoverageOfEachQuadrant: 90,
+      startingQuadrant: 1,
+    );
   }
 
   @override

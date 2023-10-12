@@ -23,6 +23,13 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
           Computed<int>(() => super.upperThresholdBound,
               name: '_GyroscopicCoordinatorStoreBase.upperThresholdBound'))
       .value;
+  Computed<bool>? _$isFirstTimeComputed;
+
+  @override
+  bool get isFirstTime =>
+      (_$isFirstTimeComputed ??= Computed<bool>(() => super.isFirstTime,
+              name: '_GyroscopicCoordinatorStoreBase.isFirstTime'))
+          .value;
   Computed<bool>? _$isANegativeModeMovementComputed;
 
   @override
@@ -177,6 +184,17 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
           name: '_GyroscopicCoordinatorStoreBase', context: context);
 
   @override
+  dynamic dispose() {
+    final _$actionInfo = _$_GyroscopicCoordinatorStoreBaseActionController
+        .startAction(name: '_GyroscopicCoordinatorStoreBase.dispose');
+    try {
+      return super.dispose();
+    } finally {
+      _$_GyroscopicCoordinatorStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic valueTrackingSetup(int value) {
     final _$actionInfo =
         _$_GyroscopicCoordinatorStoreBaseActionController.startAction(
@@ -213,6 +231,7 @@ hasBeenMarkedUp: ${hasBeenMarkedUp},
 secondValue: ${secondValue},
 lowerThresholdBound: ${lowerThresholdBound},
 upperThresholdBound: ${upperThresholdBound},
+isFirstTime: ${isFirstTime},
 isANegativeModeMovement: ${isANegativeModeMovement},
 isAPositiveRevolutionMovement: ${isAPositiveRevolutionMovement},
 isANegativeRevolutionMovement: ${isANegativeRevolutionMovement},

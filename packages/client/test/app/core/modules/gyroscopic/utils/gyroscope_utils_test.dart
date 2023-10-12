@@ -1,6 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primala/app/core/modules/gyroscopic/utils/utils.dart';
 
+import '../constants/quadrant_lists.dart';
+
 void main() {
   test("`setReferenceAngle` should work with a variety of values", () {
     const firstOldRefAngle = 200;
@@ -41,5 +43,44 @@ void main() {
       originalReferenceAngle: secondOriginalReferenceAngle,
     );
     expect(secondRes, 15);
+  });
+
+  test("`quadrantPartitioner` should do it's job", () {
+    final firstRes = GyroscopeUtils.quadrantPartitioner(
+        numberOfQuadrants: 4, totalAngleCoverageOfEachQuadrant: 90);
+    expect(firstRes, QuadrantLists.dayList);
+    final secondRes = GyroscopeUtils.quadrantPartitioner(
+        numberOfQuadrants: 24, totalAngleCoverageOfEachQuadrant: 60);
+    expect(secondRes, QuadrantLists.timeList);
+  });
+
+  test("calculateRevolution should do its job", () {
+    final res = GyroscopeUtils.revolutionCalculator(359);
+    expect(res, 0);
+    final secondRes = GyroscopeUtils.revolutionCalculator(719);
+    expect(secondRes, 1);
+    final thirdRes = GyroscopeUtils.revolutionCalculator(3610);
+    expect(thirdRes, 10);
+  });
+
+  test("Quadrant setup should do it's job", () {
+    final firstRes = GyroscopeUtils.quadrantSetup(
+      numberOfQuadrants: 4,
+      totalAngleCoverageOfEachQuadrant: 90,
+      startingQuadrant: 2,
+    );
+    expect(firstRes.quadrantInfo, QuadrantLists.dayList);
+    expect(firstRes.maxAngle, 359);
+    expect(firstRes.desiredStartingAngle, 180);
+    expect(firstRes.startingRevolution, 0);
+    final secondRes = GyroscopeUtils.quadrantSetup(
+      numberOfQuadrants: 24,
+      totalAngleCoverageOfEachQuadrant: 60,
+      startingQuadrant: 12,
+    );
+    expect(secondRes.quadrantInfo, QuadrantLists.timeList);
+    expect(secondRes.desiredStartingAngle, 720);
+    expect(secondRes.startingRevolution, 2);
+    expect(secondRes.maxAngle, 1439);
   });
 }

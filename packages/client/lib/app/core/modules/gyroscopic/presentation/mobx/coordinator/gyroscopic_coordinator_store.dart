@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // * Mobx Import
+import 'dart:async';
+
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
@@ -18,16 +20,39 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
   final GetDirectionAngleStore angleFeedStore;
   final SetReferenceAngleStore setRefAngleStore;
   final ResetRefAngleForMaxCapacityStore resetRefAngle;
+  final List<QuadrantInfo> quadrantInfo = [];
+  late GyroSetupReturnType setupReturnType;
+  late StreamSubscription<int> angleStream;
   _GyroscopicCoordinatorStoreBase({
     required this.angleFeedStore,
     required this.setRefAngleStore,
     required this.resetRefAngle,
   });
 
-  setupTheStream() async {
+  setupTheStream({
+    required int startingQuadrant,
+    required int numberOfQuadrants,
+    required int totalAngleCoverageOfEachQuadrant,
+  }) async {
+    // now that we
     await angleFeedStore(NoParams());
 
-    angleFeedStore.userDirection.listen((value) {
+    angleStream = angleFeedStore.userDirection.listen((value) {
+      if (isFirstTime) {
+        setupReturnType = GyroscopeUtils.quadrantSetup(
+          numberOfQuadrants: numberOfQuadrants,
+          totalAngleCoverageOfEachQuadrant: totalAngleCoverageOfEachQuadrant,
+          startingQuadrant: startingQuadrant,
+        );
+        currentRevolution = setupReturnType.startingRevolution;
+        maxAngle = setupReturnType.maxAngle;
+        // desiredStartingAngle
+        resetRefAngle(ResetRefAngleForMaxCapacityParams(
+          currentValue: value,
+          maxAngle: setupReturnType.desiredStartingAngle,
+        ));
+      }
+
       valueTrackingSetup(value);
       negativeAndRegularModeWatcher(value);
     });
@@ -53,11 +78,19 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
     });
   }
 
+  @action
+  dispose() {
+    angleStream.cancel();
+  }
+
   // Computed
   @computed
   int get lowerThresholdBound => 330 + (currentRevolution * 360);
   @computed
   int get upperThresholdBound => 30 + (currentRevolution * 360);
+
+  @computed
+  bool get isFirstTime => firstValue == -1;
 
   @computed
   bool get isANegativeModeMovement =>
@@ -105,14 +138,13 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
 
   int previousValue = -10;
 
-  bool isFirstTime = true;
   bool isSecondTime = false;
 
   int maxAngle = 345;
 
   @action
   valueTrackingSetup(int value) {
-    if (firstValue == -1) {
+    if (isFirstTime) {
       firstValue = value;
     } else if (secondValue == -1) {
       secondValue = value;
