@@ -28,7 +28,7 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
       totalAngleCoverageOfEachQuadrant: 90,
       startingQuadrant: 0,
     );
-    final now = DateTime.parse('1969-16-20 22:23:00');
+    final now = DateTime.parse('1969-16-20 05:00:00');
     widgets.attuneTheWidgets(now);
 
     reaction((p0) => gyroscopicCoordinatorStore.currentQuadrant, (p0) {

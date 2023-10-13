@@ -20,12 +20,14 @@ abstract class _BeachHorizonWaterTrackerStoreBase extends Equatable with Store {
     if (hour >= 21 || hour < 6) {
       // Branch 1: Time is between 9 PM and 5:59 AM
       movie = DepthsToHorizonWaters.getMovie(
-        WaterColorsAndStops.schedulingDuskWater,
+        WaterColorsAndStops.schedulingDuskWaterFullScreen,
+        WaterColorsAndStops.schedulingDuskWaterHalfScreen,
       );
       control = Control.play;
     } else if (hour >= 6 && hour < 10) {
       // Branch 2: Time is between 6 AM and 9:59 AM
       movie = DepthsToHorizonWaters.getMovie(
+        WaterColorsAndStops.schedulingMorningWater,
         WaterColorsAndStops.schedulingMorningWater,
       );
       control = Control.play;
@@ -33,12 +35,14 @@ abstract class _BeachHorizonWaterTrackerStoreBase extends Equatable with Store {
       // Branch 3: Time is between 10 AM and 4:59 PM
       movie = DepthsToHorizonWaters.getMovie(
         WaterColorsAndStops.schedulingDayWater,
+        WaterColorsAndStops.schedulingDayWater,
       );
       control = Control.play;
     } else {
       // Branch 4: Time is between 5 PM and 8:59 PM
       movie = DepthsToHorizonWaters.getMovie(
         WaterColorsAndStops.schedulingEveningWater,
+        WaterColorsAndStops.schedulingDayWater,
       );
       control = Control.play;
     }
@@ -49,6 +53,7 @@ abstract class _BeachHorizonWaterTrackerStoreBase extends Equatable with Store {
 
   @observable
   MovieTween movie = DepthsToHorizonWaters.getMovie(
+    WaterColorsAndStops.schedulingEveningWater,
     WaterColorsAndStops.schedulingEveningWater,
   );
 
