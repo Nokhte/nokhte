@@ -3,9 +3,10 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
+import 'package:primala/app/core/widgets/beach_widgets/beach_horizon_water/stack/movies/depths_to_horizon.dart';
+import 'package:primala/app/core/widgets/beach_widgets/shared/data/water_colors_and_stops.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-import '../../movies/movies.dart';
 // * Mobx Codegen Inclusion
 part 'beach_horizon_water_tracker_store.g.dart';
 
@@ -18,19 +19,27 @@ abstract class _BeachHorizonWaterTrackerStoreBase extends Equatable with Store {
     final hour = date.hour;
     if (hour >= 21 || hour < 6) {
       // Branch 1: Time is between 9 PM and 5:59 AM
-      movie = DuskHorizonWaters.movie;
+      movie = DepthsToHorizonWaters.getMovie(
+        WaterColorsAndStops.schedulingDuskWater,
+      );
       control = Control.play;
     } else if (hour >= 6 && hour < 10) {
       // Branch 2: Time is between 6 AM and 9:59 AM
-      movie = MorningHorizonWaters.movie;
+      movie = DepthsToHorizonWaters.getMovie(
+        WaterColorsAndStops.schedulingMorningWater,
+      );
       control = Control.play;
     } else if (hour >= 10 && hour < 17) {
       // Branch 3: Time is between 10 AM and 4:59 PM
-      movie = DayHorizonWaters.movie;
+      movie = DepthsToHorizonWaters.getMovie(
+        WaterColorsAndStops.schedulingDayWater,
+      );
       control = Control.play;
     } else {
       // Branch 4: Time is between 5 PM and 8:59 PM
-      movie = EveningHorizonWaters.movie;
+      movie = DepthsToHorizonWaters.getMovie(
+        WaterColorsAndStops.schedulingEveningWater,
+      );
       control = Control.play;
     }
   }
@@ -39,7 +48,9 @@ abstract class _BeachHorizonWaterTrackerStoreBase extends Equatable with Store {
   void setControl(Control newControl) => control = newControl;
 
   @observable
-  MovieTween movie = DuskHorizonWaters.movie;
+  MovieTween movie = DepthsToHorizonWaters.getMovie(
+    WaterColorsAndStops.schedulingEveningWater,
+  );
 
   @observable
   Control control = Control.stop;
