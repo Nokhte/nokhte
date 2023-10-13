@@ -368,19 +368,21 @@ class DepthsToHorizonWaters {
           'water movement',
           Tween<double>(
             begin: 0,
-            end: 520,
+            end: 510,
           ),
         )
         ..scene(
           begin: const Duration(seconds: 8),
           end: const Duration(
-            seconds: 9,
+            seconds: 8,
+            milliseconds: 800,
+            // seconds: 9,
             // milliseconds: 500,
           ),
         ).tween(
           'water movement',
           Tween<double>(
-            begin: 520,
+            begin: 510,
             end: 500,
           ),
         );

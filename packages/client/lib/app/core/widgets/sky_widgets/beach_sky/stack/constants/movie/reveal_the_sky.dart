@@ -20,18 +20,19 @@ class RevealTheSky {
       'sky value',
       Tween<double>(
         begin: 0.0,
-        end: 520.0,
+        end: 510.0,
       ),
     )
     ..scene(
       begin: const Duration(seconds: 8),
       end: const Duration(
-        seconds: 9,
+        seconds: 8,
+        milliseconds: 800,
       ),
     ).tween(
       'sky value',
       Tween<double>(
-        begin: 520.0,
+        begin: 510.0,
         end: 500.0,
       ),
     )

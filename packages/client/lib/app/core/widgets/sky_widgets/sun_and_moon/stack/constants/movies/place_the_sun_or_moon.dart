@@ -27,7 +27,7 @@ class PlaceTheSunOrMoon {
       'vertical constant',
       Tween<double>(
         begin: -1100,
-        end: -470,
+        end: -480,
       ),
     )
     ..scene(
@@ -35,12 +35,14 @@ class PlaceTheSunOrMoon {
         seconds: 8,
       ),
       end: const Duration(
-        seconds: 9,
+        seconds: 8,
+        milliseconds: 800,
+        // seconds: 9,
       ),
     ).tween(
       'vertical constant',
       Tween<double>(
-        begin: -470,
+        begin: -480,
         end: -490,
       ),
     )
