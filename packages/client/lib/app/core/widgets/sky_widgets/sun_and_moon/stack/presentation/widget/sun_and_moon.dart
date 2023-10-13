@@ -21,8 +21,12 @@ class SunAndMoon extends StatelessWidget {
         builder: (context, value, child) {
           return CustomPaint(
             painter: SunAndMoonPainter(
+              isTheMoon: stateTrackerStore.isTheMoon,
               verticalConstant: value.get('vertical constant'),
-              colorGrad: SunColors.evening,
+              colorGrad: [
+                value.get("first grad color"),
+                value.get("second grad color"),
+              ],
             ),
           );
         },

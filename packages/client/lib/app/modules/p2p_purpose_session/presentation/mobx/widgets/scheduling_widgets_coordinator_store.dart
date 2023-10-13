@@ -20,6 +20,14 @@ abstract class _SchedulingWidgetsCoordinatorStoreBase extends Equatable
     required this.beachSkyStore,
     required this.beachWaves,
   });
+
+  @action
+  attuneTheWidgets(DateTime currentTime) {
+    sunAndMoon.selectTimeBasedMovie(currentTime);
+    beachWaves.selectTimeBasedMovie(currentTime);
+    beachSkyStore.selectTimeBasedMovie(currentTime);
+  }
+
   @override
   List<Object> get props => [];
 }

@@ -133,13 +133,6 @@ class DayHorizonWaters {
       end: const Duration(seconds: 4),
     )
         .tween(
-          'water movement',
-          Tween<double>(
-            begin: 0,
-            end: 0,
-          ),
-        )
-        .tween(
           '1st Water Gradient Color',
           ColorTween(
             begin: WaterColorsAndStops.schedulingDayWater[0].color,
@@ -256,13 +249,6 @@ class DayHorizonWaters {
       end: const Duration(seconds: 6),
     )
         .tween(
-          'water movement',
-          Tween<double>(
-            begin: 0,
-            end: 500,
-          ),
-        )
-        .tween(
           '1st Water Gradient Color',
           ColorTween(
             begin: WaterColorsAndStops.schedulingDayWater[7].color,
@@ -373,5 +359,26 @@ class DayHorizonWaters {
             begin: WaterColorsAndStops.schedulingDayWater[7].stop,
             end: WaterColorsAndStops.schedulingDayWater[7].stop,
           ),
-        );
+        )
+    ..scene(begin: const Duration(seconds: 4), end: const Duration(seconds: 8))
+        .tween(
+      'water movement',
+      Tween<double>(
+        begin: 0,
+        end: 520,
+      ),
+    )
+    ..scene(
+      begin: const Duration(seconds: 8),
+      end: const Duration(
+        seconds: 9,
+        // milliseconds: 500,
+      ),
+    ).tween(
+      'water movement',
+      Tween<double>(
+        begin: 520,
+        end: 500,
+      ),
+    );
 }

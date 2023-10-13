@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class PlaceTheSunOrMoon {
-  static MovieTween movie() => MovieTween()
+  static MovieTween getMovie(List<Color> theGradient) => MovieTween()
     ..scene(
         begin: const Duration(
           seconds: 0,
@@ -27,7 +27,6 @@ class PlaceTheSunOrMoon {
       'vertical constant',
       Tween<double>(
         begin: -1100,
-        // end: -490,
         end: -470,
       ),
     )
@@ -44,5 +43,27 @@ class PlaceTheSunOrMoon {
         begin: -470,
         end: -490,
       ),
-    );
+    )
+    ..scene(
+      begin: const Duration(
+        seconds: 0,
+      ),
+      end: const Duration(
+        seconds: 9,
+      ),
+    )
+        .tween(
+          'first grad color',
+          ColorTween(
+            begin: theGradient[0],
+            end: theGradient[0],
+          ),
+        )
+        .tween(
+          'second grad color',
+          ColorTween(
+            begin: theGradient[1],
+            end: theGradient[1],
+          ),
+        );
 }

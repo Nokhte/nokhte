@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 class SunAndMoonPainter extends CustomPainter {
   final List<Color> colorGrad;
   final double verticalConstant;
+  final bool isTheMoon;
   SunAndMoonPainter({
     required this.colorGrad,
     required this.verticalConstant,
+    required this.isTheMoon,
   });
 
   @override
@@ -29,7 +31,8 @@ class SunAndMoonPainter extends CustomPainter {
           .createShader(Rect.fromCircle(center: center, radius: radius));
 
     // Draw the circle in the center of the canvas
-    for (int i = 0; i < 12; i++) {
+
+    for (int i = 0; i < (isTheMoon ? 23 : 12); i++) {
       canvas.drawCircle(center, radius, paint);
     }
   }

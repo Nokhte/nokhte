@@ -60,6 +60,18 @@ mixin _$BeachHorizonWaterTrackerStore
   }
 
   @override
+  void setControl(Control newControl) {
+    final _$actionInfo = _$_BeachHorizonWaterTrackerStoreBaseActionController
+        .startAction(name: '_BeachHorizonWaterTrackerStoreBase.setControl');
+    try {
+      return super.setControl(newControl);
+    } finally {
+      _$_BeachHorizonWaterTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 movie: ${movie},

@@ -41,6 +41,31 @@ mixin _$SunAndMoonStore on _SunAndMoonStoreBase, Store {
     });
   }
 
+  late final _$_SunAndMoonStoreBaseActionController =
+      ActionController(name: '_SunAndMoonStoreBase', context: context);
+
+  @override
+  dynamic selectTimeBasedMovie(DateTime date) {
+    final _$actionInfo = _$_SunAndMoonStoreBaseActionController.startAction(
+        name: '_SunAndMoonStoreBase.selectTimeBasedMovie');
+    try {
+      return super.selectTimeBasedMovie(date);
+    } finally {
+      _$_SunAndMoonStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setControl(Control newControl) {
+    final _$actionInfo = _$_SunAndMoonStoreBaseActionController.startAction(
+        name: '_SunAndMoonStoreBase.setControl');
+    try {
+      return super.setControl(newControl);
+    } finally {
+      _$_SunAndMoonStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

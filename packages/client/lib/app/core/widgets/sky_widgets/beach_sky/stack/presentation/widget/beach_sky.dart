@@ -35,7 +35,12 @@ class BeachSky extends StatelessWidget {
               child: ClipRect(
                 clipper: CustomRectClipper(rect),
                 child: AnimatedMeshGradient(
-                  colors: SkyColors.evening,
+                  colors: [
+                    value.get('first color'),
+                    value.get('second color'),
+                    value.get('third color'),
+                    value.get('fourth color'),
+                  ],
                   seed: 300,
                   options: AnimatedMeshGradientOptions(
                     frequency: 0,
