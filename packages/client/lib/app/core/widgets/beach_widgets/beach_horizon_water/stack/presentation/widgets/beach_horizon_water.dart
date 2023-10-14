@@ -25,6 +25,7 @@ class BeachHorizonWater extends StatelessWidget {
         control: stateTrackerStore.control,
         builder: (context, value, child) {
           final rectHeight = size.height - value.get('water value');
+          // final rectHeight = size.height;
           final rect = Rect.fromPoints(
             Offset(0, size.height - rectHeight),
             Offset(size.width, size.height),

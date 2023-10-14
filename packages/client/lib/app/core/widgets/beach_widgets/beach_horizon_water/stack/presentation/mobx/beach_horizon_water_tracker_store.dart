@@ -3,7 +3,7 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/widgets/beach_widgets/beach_horizon_water/stack/movies/depths_to_dusk.dart';
+import 'package:primala/app/core/widgets/beach_widgets/beach_horizon_water/stack/movies/depths_to_horizon_waters.dart';
 import 'package:primala/app/core/widgets/beach_widgets/shared/data/water_colors_and_stops.dart';
 import 'package:simple_animations/simple_animations.dart';
 

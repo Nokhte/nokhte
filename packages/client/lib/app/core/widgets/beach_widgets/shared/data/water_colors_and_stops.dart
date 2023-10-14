@@ -140,27 +140,70 @@ class WaterColorsAndStops {
       ];
   // 🌅
   static List<ColorAndStop> get schedulingMorningWaterFullScreen => const [
-        ColorAndStop(Color(0xFFBBD9B4), 0),
-        ColorAndStop(Color(0xFF2BAA92), .202),
-        ColorAndStop(Color(0xFF2D9A84), .3548),
-        ColorAndStop(Color(0xFF459D87), .4480),
-        ColorAndStop(Color(0xFF458D7F), .5501),
-        ColorAndStop(Color(0xFF326562), .7248),
-        ColorAndStop(Color(0xFF24474B), .8620),
-        ColorAndStop(Color(0xFF1F3A43), 1.00),
+        ColorAndStop(Color(0xFF1D3741), 0),
+        ColorAndStop(Color(0xFF274D4F), .202),
+        ColorAndStop(Color(0xFF274D4F), .3548),
+        ColorAndStop(Color(0xFF3E8077), .4480),
+        ColorAndStop(Color(0xFF36C0A8), .5501),
+        ColorAndStop(Color(0xFF229982), .7248),
+        ColorAndStop(Color(0xFF569F88), .8620),
+        ColorAndStop(Color(0xFFC0DAB4), 1.00),
       ];
   // 🌅
   static List<ColorAndStop> get schedulingMorningWaterHalfScreen => const [
         // the challenge is you got to make it with 8 strategize
-        ColorAndStop(Color(0xFFBBD9B4), 0),
-        ColorAndStop(Color(0xFF2BAA92), .202),
-        ColorAndStop(Color(0xFF2D9A84), .3548),
-        ColorAndStop(Color(0xFF459D87), .4480),
-        ColorAndStop(Color(0xFF458D7F), .5501),
-        ColorAndStop(Color(0xFF326562), .7248),
-        ColorAndStop(Color(0xFF24474B), .8620),
-        ColorAndStop(Color(0xFF3E8077), 1.00),
+        ColorAndStop(Color(0xFF1D3741), 0),
+        ColorAndStop(Color(0xFF274D4F), .2),
+        ColorAndStop(Color(0xFF274D4F), .56),
+        ColorAndStop(Color(0xFF3E8077), .59),
+        ColorAndStop(Color(0xFF36C0A8), .701),
+        ColorAndStop(Color(0xFF229982), .8048),
+        ColorAndStop(Color(0xFF569F88), .9020),
+        ColorAndStop(Color(0xFFC0DAB4), 1.00),
       ];
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+
   //
   static List<ColorAndStop> get schedulingEveningWaterFullScreen => const [
         ColorAndStop(Color(0xFF3F8078), 0.05),
