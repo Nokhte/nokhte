@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:primala/app/core/widgets/beach_widgets/_shared/data/water_colors_and_stops.dart';
-import 'package:primala/app/core/widgets/beach_widgets/_shared/types/types.dart';
+import 'package:primala/app/core/widgets/beach_widgets/shared/data/water_colors_and_stops.dart';
+import 'package:primala/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class DepthsToHorizonWaters {

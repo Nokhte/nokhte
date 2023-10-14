@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-import '../../../_shared/data/water_colors_and_stops.dart';
+import '../../../shared/data/water_colors_and_stops.dart';
 
 class BackToOceanDive {
   static MovieTween get movie => MovieTween()

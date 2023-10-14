@@ -8,7 +8,7 @@ import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
 
-import '../../../../../core/widgets/beach_widgets/_shared/types/types.dart';
+import '../../../../../core/widgets/beach_widgets/shared/types/types.dart';
 // * Mobx Codegen Inclusion
 part 'collaborator_pool_screen_coordinator_store.g.dart';
 
