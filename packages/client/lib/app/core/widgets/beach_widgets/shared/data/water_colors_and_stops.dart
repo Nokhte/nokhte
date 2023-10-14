@@ -151,7 +151,6 @@ class WaterColorsAndStops {
       ];
   // 🌅
   static List<ColorAndStop> get schedulingMorningWaterHalfScreen => const [
-        // the challenge is you got to make it with 8 strategize
         ColorAndStop(Color(0xFF1D3741), 0),
         ColorAndStop(Color(0xFF274D4F), .2),
         ColorAndStop(Color(0xFF274D4F), .56),
@@ -161,49 +160,6 @@ class WaterColorsAndStops {
         ColorAndStop(Color(0xFF569F88), .9020),
         ColorAndStop(Color(0xFFC0DAB4), 1.00),
       ];
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-
   //
   static List<ColorAndStop> get schedulingEveningWaterFullScreen => const [
         ColorAndStop(Color(0xFF3F8078), 0.05),

@@ -29,17 +29,17 @@ class SunAndMoonTimesAndPositions {
         endingPostion: -460,
       ); //✅
   static Position get sixAM => const Position(
-        endingPostion: -380,
-      );
+        endingPostion: -350,
+      ); //✅
   static Position get sevenAM => const Position(
-        endingPostion: -380,
-      );
+        endingPostion: -460,
+      ); //✅
   static Position get eightAM => const Position(
-        endingPostion: -380,
-      );
+        endingPostion: -490,
+      ); //✅
   static Position get nineAM => const Position(
-        endingPostion: -380,
-      );
+        endingPostion: -510,
+      ); //✅
   static Position get tenAM => const Position(
         endingPostion: -380,
       );
