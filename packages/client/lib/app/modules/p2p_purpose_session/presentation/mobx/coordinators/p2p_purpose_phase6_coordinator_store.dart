@@ -29,7 +29,6 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   setWidgetVisibility(newBool) => showWidget = newBool;
 
   screenConstructor() async {
-    widgets.setTheOverlayWidget();
     Future.delayed(const Duration(seconds: 6), () {
       setWidgetVisibility(true);
     });

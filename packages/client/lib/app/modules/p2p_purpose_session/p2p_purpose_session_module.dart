@@ -81,9 +81,7 @@ class P2PCollaboratorSessionModule extends Module {
         // & Coordinator Stores
         Bind.singleton<SchedulingWidgetsCoordinatorStore>(
           (i) => SchedulingWidgetsCoordinatorStore(
-            overlayBeachWaterStore:
-                Modular.get<BeachHorizonWaterTrackerStore>(),
-            beachSkyStore: Modular.get<BeachSkyStore>(),
+            beachSkyStore: i<BeachSkyStore>(),
             beachWaves: i<BeachHorizonWaterTrackerStore>(),
             sunAndMoon: i<SunAndMoonStore>(),
           ),
