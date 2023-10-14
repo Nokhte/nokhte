@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_animations/simple_animations.dart';
-import '../../../shared/data/water_colors_and_stops.dart';
+import '../../../_shared/data/water_colors_and_stops.dart';
 
 class OceanDive extends Equatable {
   static MovieTween getOceanDiveMovie(

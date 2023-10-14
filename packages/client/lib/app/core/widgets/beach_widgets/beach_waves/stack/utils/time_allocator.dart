@@ -1,4 +1,4 @@
-import '../../../shared/types/types.dart';
+import '../../../_shared/types/types.dart';
 
 class TimeAllocator {
   static List<CustomDuration> generateDurations(

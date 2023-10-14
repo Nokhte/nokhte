@@ -7,7 +7,7 @@ import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-import '../../../../shared/types/types.dart';
+import '../../../../_shared/types/types.dart';
 import '../../movies/movies.dart';
 
 // * Mobx Codegen Inclusion

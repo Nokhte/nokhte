@@ -24,6 +24,7 @@ class P2PPupose6ScheduleNextMeeting extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: ((context, constraints) {
+        final size = MediaQuery.of(context).size;
         return PlayAnimationBuilder(
             tween: Tween<double>(begin: 0.00, end: 200.00),
             duration: const Duration(seconds: 10),
@@ -47,9 +48,10 @@ class P2PPupose6ScheduleNextMeeting extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
+                        width: size.width,
+                        height: size.height,
                         child: BeachHorizonWater(
+                          size: size,
                           stateTrackerStore: coordinator.widgets.beachWaves,
                         ),
                       ),

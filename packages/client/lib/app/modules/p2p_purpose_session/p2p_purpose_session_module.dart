@@ -55,9 +55,6 @@ class P2PCollaboratorSessionModule extends Module {
             chosenMovie: FadeInText.movie,
           ),
         ),
-        Bind.singleton<BeachHorizonWaterTrackerStore>(
-          (i) => BeachHorizonWaterTrackerStore(),
-        ),
         Bind.singleton<SoloTextEditorTrackerStore>(
           (i) => SoloTextEditorTrackerStore(),
         ),
@@ -66,6 +63,9 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<UserTextEditorTrackerStore>(
           (i) => UserTextEditorTrackerStore(),
+        ),
+        Bind.singleton<BeachHorizonWaterTrackerStore>(
+          (i) => BeachHorizonWaterTrackerStore(),
         ),
         Bind.singleton<BeachSkyStore>(
           (i) => BeachSkyStore(),
@@ -81,7 +81,9 @@ class P2PCollaboratorSessionModule extends Module {
         // & Coordinator Stores
         Bind.singleton<SchedulingWidgetsCoordinatorStore>(
           (i) => SchedulingWidgetsCoordinatorStore(
-            beachSkyStore: i<BeachSkyStore>(),
+            overlayBeachWaterStore:
+                Modular.get<BeachHorizonWaterTrackerStore>(),
+            beachSkyStore: Modular.get<BeachSkyStore>(),
             beachWaves: i<BeachHorizonWaterTrackerStore>(),
             sunAndMoon: i<SunAndMoonStore>(),
           ),

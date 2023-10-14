@@ -1,131 +1,80 @@
-import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/core/widgets/sky_widgets/sun_and_moon/stack/constants/types/position_and_duration.dart';
 
 class SunAndMoonTimesAndPositions {
-  static PositionAndDuration get ninePM => PositionAndDuration(
-        bigMovementStartTime: Seconds.get(3),
-        bigMovementEndTime: Seconds.get(8),
+  static Position get ninePM => const Position(
         endingPostion: -440,
       ); //✅
-  static PositionAndDuration get tenPM => PositionAndDuration(
-        bigMovementStartTime: Seconds.get(3),
-        bigMovementEndTime: Seconds.get(8),
+  static Position get tenPM => const Position(
         endingPostion: -480,
       ); //✅
-  static PositionAndDuration get elevenPM => PositionAndDuration(
-        bigMovementStartTime: Seconds.get(3),
-        bigMovementEndTime: Seconds.get(8),
+  static Position get elevenPM => const Position(
         endingPostion: -520,
       ); //✅
-  static PositionAndDuration get twelveAM => PositionAndDuration(
-        bigMovementStartTime: Seconds.get(3),
-        bigMovementEndTime: Seconds.get(8),
+  static Position get twelveAM => const Position(
         endingPostion: -560,
       ); //✅
-  static PositionAndDuration get oneAM => PositionAndDuration(
-        bigMovementStartTime: Seconds.get(3),
-        bigMovementEndTime: Seconds.get(8),
+  static Position get oneAM => const Position(
         endingPostion: -585,
       ); //✅
-  static PositionAndDuration get twoAM => PositionAndDuration(
-        bigMovementStartTime: Seconds.get(3),
-        bigMovementEndTime: Seconds.get(8),
+  static Position get twoAM => const Position(
         endingPostion: -560,
       ); //✅
-  static PositionAndDuration get threeAM => PositionAndDuration(
-        bigMovementStartTime: Seconds.get(3),
-        bigMovementEndTime: Seconds.get(8),
+  static Position get threeAM => const Position(
         endingPostion: -535,
       ); //✅
-  static PositionAndDuration get fourAM => PositionAndDuration(
-        bigMovementStartTime: Seconds.get(3),
-        bigMovementEndTime: Seconds.get(8),
+  static Position get fourAM => const Position(
         endingPostion: -490,
       ); //✅
-  static PositionAndDuration get fiveAM => PositionAndDuration(
-        bigMovementStartTime: Seconds.get(3),
-        bigMovementEndTime: Seconds.get(8),
+  static Position get fiveAM => const Position(
         endingPostion: -460,
       ); //✅
-  static PositionAndDuration get sixAM => PositionAndDuration(
-        bigMovementStartTime: Seconds.get(3),
-        bigMovementEndTime: Seconds.get(8),
+  static Position get sixAM => const Position(
         endingPostion: -380,
       );
-  static PositionAndDuration get sevenAM => PositionAndDuration(
-        bigMovementStartTime: Seconds.get(3),
-        bigMovementEndTime: Seconds.get(8),
+  static Position get sevenAM => const Position(
         endingPostion: -380,
       );
-  static PositionAndDuration get eightAM => PositionAndDuration(
-        bigMovementStartTime: Seconds.get(3),
-        bigMovementEndTime: Seconds.get(8),
+  static Position get eightAM => const Position(
         endingPostion: -380,
       );
-  static PositionAndDuration get nineAM => PositionAndDuration(
-        bigMovementStartTime: Seconds.get(3),
-        bigMovementEndTime: Seconds.get(8),
+  static Position get nineAM => const Position(
         endingPostion: -380,
       );
-  static PositionAndDuration get tenAM => PositionAndDuration(
-        bigMovementStartTime: Seconds.get(3),
-        bigMovementEndTime: Seconds.get(8),
+  static Position get tenAM => const Position(
         endingPostion: -380,
       );
-  static PositionAndDuration get elevenAM => PositionAndDuration(
-        bigMovementStartTime: Seconds.get(3),
-        bigMovementEndTime: Seconds.get(8),
+  static Position get elevenAM => const Position(
         endingPostion: -380,
       );
-  static PositionAndDuration get twelvePM => PositionAndDuration(
-        bigMovementStartTime: Seconds.get(3),
-        bigMovementEndTime: Seconds.get(8),
+  static Position get twelvePM => const Position(
         endingPostion: -380,
       );
-  static PositionAndDuration get onePM => PositionAndDuration(
-        bigMovementStartTime: Seconds.get(3),
-        bigMovementEndTime: Seconds.get(8),
+  static Position get onePM => const Position(
         endingPostion: -380,
       );
-  static PositionAndDuration get twoPM => PositionAndDuration(
-        bigMovementStartTime: Seconds.get(3),
-        bigMovementEndTime: Seconds.get(8),
+  static Position get twoPM => const Position(
         endingPostion: -380,
       );
-  static PositionAndDuration get threePM => PositionAndDuration(
-        bigMovementStartTime: Seconds.get(3),
-        bigMovementEndTime: Seconds.get(8),
+  static Position get threePM => const Position(
         endingPostion: -380,
       );
-  static PositionAndDuration get fourPM => PositionAndDuration(
-        bigMovementStartTime: Seconds.get(3),
-        bigMovementEndTime: Seconds.get(8),
+  static Position get fourPM => const Position(
         endingPostion: -380,
       );
-  static PositionAndDuration get fivePM => PositionAndDuration(
-        bigMovementStartTime: Seconds.get(3),
-        bigMovementEndTime: Seconds.get(8),
+  static Position get fivePM => const Position(
         endingPostion: -380,
       );
-  static PositionAndDuration get sixPM => PositionAndDuration(
-        bigMovementStartTime: Seconds.get(3),
-        bigMovementEndTime: Seconds.get(8),
+  static Position get sixPM => const Position(
         endingPostion: -380,
       );
-  static PositionAndDuration get sevenPM => PositionAndDuration(
-        bigMovementStartTime: Seconds.get(3),
-        bigMovementEndTime: Seconds.get(8),
+  static Position get sevenPM => const Position(
         endingPostion: -380,
       );
-  static PositionAndDuration get eightPM => PositionAndDuration(
-        bigMovementStartTime: Seconds.get(3),
-        bigMovementEndTime: Seconds.get(8),
+  static Position get eightPM => const Position(
         endingPostion: -380,
       );
 
-  static Map<int, PositionAndDuration> get timeMap => {
-        0: twelveAM,
-        1: oneAM,
+  static Map<int, Position> get timeMap => {
         2: twoAM,
         3: threeAM,
         4: fourAM,

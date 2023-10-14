@@ -2,17 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:primala/app/core/widgets/beach_widgets/beach_waves/stack/utils/get_current_water_animation.dart';
+import 'package:primala/app/core/canvas_widget_utils/canvas_widget_utils.dart';
+// import 'package:primala/app/core/widgets/beach_widgets/beach_waves/stack/utils/get_current_water_animation.dart';
 import '../mobx/beach_horizon_water_tracker_store.dart';
 import 'canvas/beach_horizon_water_painter.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class BeachHorizonWater extends StatelessWidget {
-  // final Size size;
+  final Size size;
   final BeachHorizonWaterTrackerStore stateTrackerStore;
   const BeachHorizonWater({
     super.key,
-    // required this.size,
+    required this.size,
     required this.stateTrackerStore,
   });
   @override
@@ -23,28 +24,38 @@ class BeachHorizonWater extends StatelessWidget {
         duration: stateTrackerStore.movie.duration,
         control: stateTrackerStore.control,
         builder: (context, value, child) {
-          final currentAnimationValues = GetCurrentWaterAnimation.values(value);
-          return CustomPaint(
-            painter: BeachHorizonWaterPainter(
-              waterValue: currentAnimationValues[0],
-              firstGradientColor: currentAnimationValues[1],
-              secondGradientColor: currentAnimationValues[2],
-              thirdGradientColor: currentAnimationValues[3],
-              fourthGradientColor: currentAnimationValues[4],
-              fifthGradientColor: currentAnimationValues[5],
-              sixthGradientColor: currentAnimationValues[6],
-              seventhGradientColor: currentAnimationValues[7],
-              eighthGradientColor: currentAnimationValues[8],
-              firstGradientStop: currentAnimationValues[9],
-              secondGradientStop: currentAnimationValues[10],
-              thirdGradientStop: currentAnimationValues[11],
-              fourthGradientStop: currentAnimationValues[12],
-              fifthGradientStop: currentAnimationValues[13],
-              sixthGradientStop: currentAnimationValues[14],
-              seventhGradientStop: currentAnimationValues[15],
-              eighthGradientStop: currentAnimationValues[16],
+          final rectHeight = size.height - value.get('water value');
+          final rect = Rect.fromPoints(
+            Offset(0, size.height - rectHeight),
+            Offset(size.width, size.height),
+          );
+          return ClipRect(
+            clipper: CustomRectClipper(rect),
+            child: CustomPaint(
+              painter: BeachHorizonWaterPainter(
+                stopsList: [
+                  value.get('1st Water Gradient Stop'),
+                  value.get('2nd Water Gradient Stop'),
+                  value.get('3rd Water Gradient Stop'),
+                  value.get('4th Water Gradient Stop'),
+                  value.get('5th Water Gradient Stop'),
+                  value.get('6th Water Gradient Stop'),
+                  value.get('7th Water Gradient Stop'),
+                  value.get('8th Water Gradient Stop'),
+                ],
+                colorsList: [
+                  value.get('1st Water Gradient Color'),
+                  value.get('2nd Water Gradient Color'),
+                  value.get('3rd Water Gradient Color'),
+                  value.get('4th Water Gradient Color'),
+                  value.get('5th Water Gradient Color'),
+                  value.get('6th Water Gradient Color'),
+                  value.get('7th Water Gradient Color'),
+                  value.get('8th Water Gradient Color'),
+                ],
+              ),
+              size: MediaQuery.of(context).size,
             ),
-            size: MediaQuery.of(context).size,
           );
         },
       );

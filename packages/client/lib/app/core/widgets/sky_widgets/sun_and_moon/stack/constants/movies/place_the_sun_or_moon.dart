@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/core/widgets/sky_widgets/sun_and_moon/stack/constants/types/position_and_duration.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class PlaceTheSunOrMoon {
   static MovieTween getMovie(
     List<Color> theGradient,
-    PositionAndDuration posAndDur,
+    Position posAndDur,
   ) =>
       MovieTween()
         ..scene(
           begin: const Duration(
             seconds: 0,
           ),
-          end: posAndDur.bigMovementStartTime,
+          end: Seconds.get(2),
         ).tween(
           'vertical constant',
           Tween<double>(
@@ -21,8 +22,8 @@ class PlaceTheSunOrMoon {
           ),
         )
         ..scene(
-          begin: posAndDur.bigMovementStartTime,
-          end: posAndDur.bigMovementEndTime,
+          begin: Seconds.get(2),
+          end: Seconds.get(6),
         ).tween(
           'vertical constant',
           Tween<double>(
@@ -31,9 +32,9 @@ class PlaceTheSunOrMoon {
           ),
         )
         ..scene(
-          begin: posAndDur.bigMovementEndTime,
+          begin: Seconds.get(6),
           end: const Duration(
-            seconds: 8,
+            seconds: 6,
             milliseconds: 800,
             // seconds: 9,
           ),

@@ -5,7 +5,7 @@ class RevealTheSky {
   static MovieTween getMovie(List<Color> skyColors) => MovieTween()
     ..scene(
       begin: const Duration(seconds: 0),
-      end: const Duration(seconds: 4),
+      end: const Duration(seconds: 2),
     ).tween(
       'sky value',
       Tween<double>(
@@ -14,8 +14,8 @@ class RevealTheSky {
       ),
     )
     ..scene(
-      begin: const Duration(seconds: 4),
-      end: const Duration(seconds: 8),
+      begin: const Duration(seconds: 2),
+      end: const Duration(seconds: 6),
     ).tween(
       'sky value',
       Tween<double>(
@@ -24,9 +24,9 @@ class RevealTheSky {
       ),
     )
     ..scene(
-      begin: const Duration(seconds: 8),
+      begin: const Duration(seconds: 6),
       end: const Duration(
-        seconds: 8,
+        seconds: 6,
         milliseconds: 800,
       ),
     ).tween(

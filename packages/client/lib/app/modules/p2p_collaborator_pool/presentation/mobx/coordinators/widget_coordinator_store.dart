@@ -3,7 +3,7 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/widgets/beach_widgets/shared/types/types.dart';
+import 'package:primala/app/core/widgets/beach_widgets/_shared/types/types.dart';
 
 import 'package:primala/app/core/widgets/widgets.dart';
 // * Mobx Codegen Inclusion

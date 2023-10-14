@@ -6,7 +6,7 @@ import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/modules/solo_doc/domain/domain.dart';
 import 'package:primala/app/core/modules/solo_doc/mobx/mobx.dart';
-import 'package:primala/app/core/widgets/beach_widgets/shared/types/types.dart';
+import 'package:primala/app/core/widgets/beach_widgets/_shared/types/types.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 // * Mobx Codegen Inclusion
 part 'p2p_purpose_phase4_coordinator_store.g.dart';

@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:primala/app/core/widgets/beach_widgets/beach_waves/stack/utils/time_allocator.dart';
-import '../../../shared/data/water_colors_and_stops.dart';
+import '../../../_shared/data/water_colors_and_stops.dart';
 import 'package:simple_animations/movie_tween/movie_tween.dart';
 
 class TimesUp extends Equatable {
