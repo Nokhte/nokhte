@@ -1,6 +1,6 @@
 import 'package:primala/app/core/widgets/sky_widgets/sun_and_moon/stack/constants/types/position_and_duration.dart';
 
-class SunAndMoonTimesAndPositions {
+class SunAndMoonPositions {
   static Position get ninePM => const Position(
         endingPostion: -440,
       ); //✅
@@ -41,40 +41,42 @@ class SunAndMoonTimesAndPositions {
         endingPostion: -510,
       ); //✅
   static Position get tenAM => const Position(
-        endingPostion: -380,
-      );
+        endingPostion: -550,
+      ); //✅
   static Position get elevenAM => const Position(
-        endingPostion: -380,
-      );
+        endingPostion: -590,
+      ); //✅
   static Position get twelvePM => const Position(
-        endingPostion: -380,
-      );
+        endingPostion: -620,
+      ); //✅
   static Position get onePM => const Position(
-        endingPostion: -380,
-      );
+        endingPostion: -680,
+      ); //✅
   static Position get twoPM => const Position(
-        endingPostion: -380,
-      );
+        endingPostion: -660,
+      ); //✅
   static Position get threePM => const Position(
-        endingPostion: -380,
-      );
+        endingPostion: -640,
+      ); //✅
   static Position get fourPM => const Position(
-        endingPostion: -380,
-      );
+        endingPostion: -600,
+      ); //✅
   static Position get fivePM => const Position(
-        endingPostion: -380,
-      );
+        endingPostion: -520,
+      ); //✅
   static Position get sixPM => const Position(
-        endingPostion: -380,
-      );
+        endingPostion: -490,
+      ); //✅
   static Position get sevenPM => const Position(
-        endingPostion: -380,
+        endingPostion: -450,
       );
   static Position get eightPM => const Position(
-        endingPostion: -380,
+        endingPostion: -350,
       );
 
   static Map<int, Position> get timeMap => {
+        0: twelveAM,
+        1: oneAM,
         2: twoAM,
         3: threeAM,
         4: fourAM,
@@ -85,7 +87,7 @@ class SunAndMoonTimesAndPositions {
         9: nineAM,
         10: tenAM,
         11: elevenAM,
-        12: twelveAM,
+        12: twelvePM,
         13: onePM,
         14: twoPM,
         15: threePM,

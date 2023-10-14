@@ -160,46 +160,47 @@ class WaterColorsAndStops {
         ColorAndStop(Color(0xFF569F88), .9020),
         ColorAndStop(Color(0xFFC0DAB4), 1.00),
       ];
-  //
-  static List<ColorAndStop> get schedulingEveningWaterFullScreen => const [
-        ColorAndStop(Color(0xFF3F8078), 0.05),
-        ColorAndStop(Color(0xFF3B7871), .1302),
-        ColorAndStop(Color(0xFF336763), .2548),
-        ColorAndStop(Color(0xFF30605E), .3480),
-        ColorAndStop(Color(0xFF2C5858), .5501),
-        ColorAndStop(Color(0xFF284F50), .7248),
-        ColorAndStop(Color(0xFF25474B), .8620),
-        ColorAndStop(Color(0xFF1E3842), .97),
-      ];
-  static List<ColorAndStop> get schedulingEveningWaterHalfScreen => const [
-        ColorAndStop(Color(0xFF3F8078), 0.05),
-        ColorAndStop(Color(0xFF3B7871), .1302),
-        ColorAndStop(Color(0xFF336763), .2548),
-        ColorAndStop(Color(0xFF30605E), .3480),
-        ColorAndStop(Color(0xFF2C5858), .5501),
-        ColorAndStop(Color(0xFF284F50), .7248),
-        ColorAndStop(Color(0xFF25474B), .8620),
-        ColorAndStop(Color(0xFF1E3842), .97),
-      ];
 
   static List<ColorAndStop> get schedulingDayWaterFullScreen => const [
-        ColorAndStop(Color(0xFFBABDBA), 0),
-        ColorAndStop(Color(0xFF3D9EA9), .1302),
-        ColorAndStop(Color(0xFF2997A9), .2548),
-        ColorAndStop(Color(0xFF2698B2), .3480),
-        ColorAndStop(Color(0xFF2288A3), .5501),
-        ColorAndStop(Color(0xFF1D7792), .7248),
-        ColorAndStop(Color(0xFF1B75A5), .8620),
-        ColorAndStop(Color(0xFF1B699A), 1.00),
+        ColorAndStop(Color(0xFF1A6395), 0),
+        ColorAndStop(Color(0xFF1A76A6), .1302),
+        ColorAndStop(Color(0xFF1C7490), .2548),
+        ColorAndStop(Color(0xFF2599B3), .3480),
+        ColorAndStop(Color(0xFF2997AB), .5501),
+        ColorAndStop(Color(0xFF48A1A9), .7248),
+        ColorAndStop(Color(0xFF73999D), .8620),
+        ColorAndStop(Color(0xFFAAB5B4), 1.00),
       ];
   static List<ColorAndStop> get schedulingDayWaterHalfScreen => const [
-        ColorAndStop(Color(0xFFBABDBA), 0),
-        ColorAndStop(Color(0xFF3D9EA9), .1302),
-        ColorAndStop(Color(0xFF2997A9), .2548),
-        ColorAndStop(Color(0xFF2698B2), .3480),
-        ColorAndStop(Color(0xFF2288A3), .5501),
-        ColorAndStop(Color(0xFF1D7792), .7248),
-        ColorAndStop(Color(0xFF1B75A5), .8620),
-        ColorAndStop(Color(0xFF1B699A), 1.00),
+        ColorAndStop(Color(0xFF1A6395), 0),
+        ColorAndStop(Color(0xFF1A76A6), .2),
+        ColorAndStop(Color(0xFF1C7490), .56),
+        ColorAndStop(Color(0xFF2599B3), .59),
+        ColorAndStop(Color(0xFF2997AB), .701),
+        ColorAndStop(Color(0xFF48A1A9), .7548),
+        ColorAndStop(Color(0xFF73999D), .9020),
+        ColorAndStop(Color(0xFFAAB5B4), 1.00),
+      ];
+  //
+
+  static List<ColorAndStop> get schedulingEveningWaterFullScreen => const [
+        ColorAndStop(Color(0xFF1D3741), 0.05),
+        ColorAndStop(Color(0xFF1D3741), .1302),
+        ColorAndStop(Color(0xFF274D4F), .2548),
+        ColorAndStop(Color(0xFF274D4F), .3480),
+        ColorAndStop(Color(0xFF2E5C5B), .5501),
+        ColorAndStop(Color(0xFF236663), .7248),
+        ColorAndStop(Color(0xFF3A7770), .8620),
+        ColorAndStop(Color(0xFF3C7B73), .97),
+      ];
+  static List<ColorAndStop> get schedulingEveningWaterHalfScreen => const [
+        ColorAndStop(Color(0xFF1D3741), 0),
+        ColorAndStop(Color(0xFF1D3741), .58),
+        ColorAndStop(Color(0xFF274D4F), .63),
+        ColorAndStop(Color(0xFF274D4F), .68),
+        ColorAndStop(Color(0xFF2E5C5B), .81),
+        ColorAndStop(Color(0xFF236663), .88),
+        ColorAndStop(Color(0xFF3A7770), .95210),
+        ColorAndStop(Color(0xFF3C7B73), 1.00),
       ];
 }
