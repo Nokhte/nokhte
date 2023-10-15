@@ -56,17 +56,6 @@ mixin _$BeachSkyStore on _BeachSkyStoreBase, Store {
   }
 
   @override
-  void setControl(Control newControl) {
-    final _$actionInfo = _$_BeachSkyStoreBaseActionController.startAction(
-        name: '_BeachSkyStoreBase.setControl');
-    try {
-      return super.setControl(newControl);
-    } finally {
-      _$_BeachSkyStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 movie: ${movie},

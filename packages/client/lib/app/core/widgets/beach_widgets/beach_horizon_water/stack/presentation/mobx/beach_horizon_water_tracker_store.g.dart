@@ -10,6 +10,22 @@ part of 'beach_horizon_water_tracker_store.dart';
 
 mixin _$BeachHorizonWaterTrackerStore
     on _BeachHorizonWaterTrackerStoreBase, Store {
+  late final _$isCompleteAtom = Atom(
+      name: '_BeachHorizonWaterTrackerStoreBase.isComplete', context: context);
+
+  @override
+  bool get isComplete {
+    _$isCompleteAtom.reportRead();
+    return super.isComplete;
+  }
+
+  @override
+  set isComplete(bool value) {
+    _$isCompleteAtom.reportWrite(value, super.isComplete, () {
+      super.isComplete = value;
+    });
+  }
+
   late final _$movieAtom =
       Atom(name: '_BeachHorizonWaterTrackerStoreBase.movie', context: context);
 
@@ -60,20 +76,9 @@ mixin _$BeachHorizonWaterTrackerStore
   }
 
   @override
-  void setControl(Control newControl) {
-    final _$actionInfo = _$_BeachHorizonWaterTrackerStoreBaseActionController
-        .startAction(name: '_BeachHorizonWaterTrackerStoreBase.setControl');
-    try {
-      return super.setControl(newControl);
-    } finally {
-      _$_BeachHorizonWaterTrackerStoreBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
+isComplete: ${isComplete},
 movie: ${movie},
 control: ${control}
     ''';

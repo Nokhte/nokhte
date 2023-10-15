@@ -9,6 +9,22 @@ part of 'sun_and_moon_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$SunAndMoonStore on _SunAndMoonStoreBase, Store {
+  late final _$isTheMoonAtom =
+      Atom(name: '_SunAndMoonStoreBase.isTheMoon', context: context);
+
+  @override
+  bool get isTheMoon {
+    _$isTheMoonAtom.reportRead();
+    return super.isTheMoon;
+  }
+
+  @override
+  set isTheMoon(bool value) {
+    _$isTheMoonAtom.reportWrite(value, super.isTheMoon, () {
+      super.isTheMoon = value;
+    });
+  }
+
   late final _$movieAtom =
       Atom(name: '_SunAndMoonStoreBase.movie', context: context);
 
@@ -56,19 +72,9 @@ mixin _$SunAndMoonStore on _SunAndMoonStoreBase, Store {
   }
 
   @override
-  void setControl(Control newControl) {
-    final _$actionInfo = _$_SunAndMoonStoreBaseActionController.startAction(
-        name: '_SunAndMoonStoreBase.setControl');
-    try {
-      return super.setControl(newControl);
-    } finally {
-      _$_SunAndMoonStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
+isTheMoon: ${isTheMoon},
 movie: ${movie},
 control: ${control}
     ''';
