@@ -12,7 +12,16 @@ class ConveyerBeltTextStore = _ConveyerBeltTextStoreBase
     with _$ConveyerBeltTextStore;
 
 abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
+  DateOrTime currentFocus = DateOrTime.date;
+
+  @action
+  toggleListFocus() => currentFocus == DateOrTime.date
+      ? currentFocus = DateOrTime.time
+      : DateOrTime.date;
+
   List<GeneralDateTimeReturnType> dates = [];
+
+  List<GeneralDateTimeReturnType> times = [];
 
   final ReturnDateOrTimeArray logic;
 
@@ -26,40 +35,68 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
         currentTime: DateTime.now(),
       ),
     );
+    // print("${uiArray.toString()} LISTS??");
   }
+
+  @action
+  setTimesArray() {
+    times = logic(
+      ReturnDateOrTimeArrayParams(
+        dateOrTime: DateOrTime.time,
+        currentTime: DateTime.now(),
+      ),
+    );
+  }
+
+  @computed
+  int get leftMostIndex => currentlySelectedIndex - 2;
+
+  @computed
+  int get leftIndex => currentlySelectedIndex - 1;
+
+  @computed
+  int get rightIndex => currentlySelectedIndex + 1;
+
+  @computed
+  int get rightMostIndex => currentlySelectedIndex + 2;
+
+  @computed
+  int get focusListCardinalLength => theFocusedList.length - 1;
+
+  @computed
+  List<GeneralDateTimeReturnType> get theFocusedList =>
+      currentFocus == DateOrTime.date ? dates : times;
 
   @computed
   String get leftMostValue => currentlySelectedIndex - 2 < 0
       ? ""
-      : dates[currentlySelectedIndex - 2].formatted;
+      : theFocusedList[leftMostIndex].formatted;
 
   @computed
-  String get leftValue => currentlySelectedIndex - 1 < 0
+  String get leftValue =>
+      currentlySelectedIndex - 1 < 0 ? "" : theFocusedList[leftIndex].formatted;
+
+  @computed
+  String get centerValue => currentlySelectedIndex > focusListCardinalLength
       ? ""
-      : dates[currentlySelectedIndex - 1].formatted;
+      : theFocusedList[currentlySelectedIndex].formatted;
 
   @computed
-  String get centerValue => dates[currentlySelectedIndex].formatted;
-
-  @computed
-  String get rightValue => currentlySelectedIndex + 1 > (dates.length - 1)
+  String get rightValue => rightIndex > (focusListCardinalLength)
       ? ""
-      : dates[currentlySelectedIndex + 1].formatted;
+      : theFocusedList[rightIndex].formatted;
 
   @computed
-  String get rightMostValue => currentlySelectedIndex + 2 > (dates.length - 1)
+  String get rightMostValue => rightMostIndex > (focusListCardinalLength)
       ? ""
-      : dates[currentlySelectedIndex + 2].formatted;
+      : theFocusedList[rightMostIndex].formatted;
 
   @observable
   int currentlySelectedIndex = 0;
 
-  @observable
-  ObservableList<String> uiDates = ObservableList.of([]);
-
   @action
   setCurrentlySelectedIndex(int index) {
-    assert(index > 0 && index <= dates.length - 1, "must be greater than 0");
+    assert(index > 0 && index <= (dates.length - 1), "must be greater than 0");
     currentlySelectedIndex = index;
   }
 

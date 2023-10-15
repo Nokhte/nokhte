@@ -9,6 +9,49 @@ part of 'conveyer_belt_text_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$ConveyerBeltTextStore on _ConveyerBeltTextStoreBase, Store {
+  Computed<int>? _$leftMostIndexComputed;
+
+  @override
+  int get leftMostIndex =>
+      (_$leftMostIndexComputed ??= Computed<int>(() => super.leftMostIndex,
+              name: '_ConveyerBeltTextStoreBase.leftMostIndex'))
+          .value;
+  Computed<int>? _$leftIndexComputed;
+
+  @override
+  int get leftIndex =>
+      (_$leftIndexComputed ??= Computed<int>(() => super.leftIndex,
+              name: '_ConveyerBeltTextStoreBase.leftIndex'))
+          .value;
+  Computed<int>? _$rightIndexComputed;
+
+  @override
+  int get rightIndex =>
+      (_$rightIndexComputed ??= Computed<int>(() => super.rightIndex,
+              name: '_ConveyerBeltTextStoreBase.rightIndex'))
+          .value;
+  Computed<int>? _$rightMostIndexComputed;
+
+  @override
+  int get rightMostIndex =>
+      (_$rightMostIndexComputed ??= Computed<int>(() => super.rightMostIndex,
+              name: '_ConveyerBeltTextStoreBase.rightMostIndex'))
+          .value;
+  Computed<int>? _$focusListCardinalLengthComputed;
+
+  @override
+  int get focusListCardinalLength => (_$focusListCardinalLengthComputed ??=
+          Computed<int>(() => super.focusListCardinalLength,
+              name: '_ConveyerBeltTextStoreBase.focusListCardinalLength'))
+      .value;
+  Computed<List<GeneralDateTimeReturnType>>? _$theFocusedListComputed;
+
+  @override
+  List<GeneralDateTimeReturnType> get theFocusedList =>
+      (_$theFocusedListComputed ??= Computed<List<GeneralDateTimeReturnType>>(
+              () => super.theFocusedList,
+              name: '_ConveyerBeltTextStoreBase.theFocusedList'))
+          .value;
   Computed<String>? _$leftMostValueComputed;
 
   @override
@@ -63,24 +106,30 @@ mixin _$ConveyerBeltTextStore on _ConveyerBeltTextStoreBase, Store {
     });
   }
 
-  late final _$uiDatesAtom =
-      Atom(name: '_ConveyerBeltTextStoreBase.uiDates', context: context);
-
-  @override
-  ObservableList<String> get uiDates {
-    _$uiDatesAtom.reportRead();
-    return super.uiDates;
-  }
-
-  @override
-  set uiDates(ObservableList<String> value) {
-    _$uiDatesAtom.reportWrite(value, super.uiDates, () {
-      super.uiDates = value;
-    });
-  }
-
   late final _$_ConveyerBeltTextStoreBaseActionController =
       ActionController(name: '_ConveyerBeltTextStoreBase', context: context);
+
+  @override
+  dynamic toggleListFocus() {
+    final _$actionInfo = _$_ConveyerBeltTextStoreBaseActionController
+        .startAction(name: '_ConveyerBeltTextStoreBase.toggleListFocus');
+    try {
+      return super.toggleListFocus();
+    } finally {
+      _$_ConveyerBeltTextStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setTimesArray() {
+    final _$actionInfo = _$_ConveyerBeltTextStoreBaseActionController
+        .startAction(name: '_ConveyerBeltTextStoreBase.setTimesArray');
+    try {
+      return super.setTimesArray();
+    } finally {
+      _$_ConveyerBeltTextStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic setCurrentlySelectedIndex(int index) {
@@ -98,7 +147,12 @@ mixin _$ConveyerBeltTextStore on _ConveyerBeltTextStoreBase, Store {
   String toString() {
     return '''
 currentlySelectedIndex: ${currentlySelectedIndex},
-uiDates: ${uiDates},
+leftMostIndex: ${leftMostIndex},
+leftIndex: ${leftIndex},
+rightIndex: ${rightIndex},
+rightMostIndex: ${rightMostIndex},
+focusListCardinalLength: ${focusListCardinalLength},
+theFocusedList: ${theFocusedList},
 leftMostValue: ${leftMostValue},
 leftValue: ${leftValue},
 centerValue: ${centerValue},

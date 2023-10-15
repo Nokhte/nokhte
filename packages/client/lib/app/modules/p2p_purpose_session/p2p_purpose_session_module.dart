@@ -21,10 +21,13 @@ class P2PCollaboratorSessionModule extends Module {
         CollaborativeDocModule(),
         SoloDocModule(),
         GyroscopicModule(),
+        ConveyerBeltTextWidgetModule(),
       ];
 
   @override
   List<Bind> get binds => [
+        // conveyer belt widget stack
+
         // & Widget State Management Stores
         Bind.factory<BeachWavesTrackerStore>(
           (i) => BeachWavesTrackerStore(),
@@ -37,9 +40,6 @@ class P2PCollaboratorSessionModule extends Module {
             endingPath: SvgAnimtionCostants.circlePath,
           ),
         ),
-        // Bind.factory<BreathingPentagonsStateTrackerStore>(
-        //   (i) => BreathingPentagonsStateTrackerStore(),
-        // ),
         Bind.singleton<SmartFadingAnimatedTextTrackerStore>(
           (i) => SmartFadingAnimatedTextTrackerStore(
             isInfinite: false,
@@ -81,6 +81,7 @@ class P2PCollaboratorSessionModule extends Module {
         // & Coordinator Stores
         Bind.singleton<SchedulingWidgetsCoordinatorStore>(
           (i) => SchedulingWidgetsCoordinatorStore(
+            conveyerBelt: i<ConveyerBeltTextStore>(),
             beachSkyStore: i<BeachSkyStore>(),
             beachWaves: i<BeachHorizonWaterTrackerStore>(),
             sunAndMoon: i<SunAndMoonStore>(),

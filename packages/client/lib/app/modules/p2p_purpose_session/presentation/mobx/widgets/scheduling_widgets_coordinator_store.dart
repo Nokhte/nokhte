@@ -12,10 +12,12 @@ class SchedulingWidgetsCoordinatorStore = _SchedulingWidgetsCoordinatorStoreBase
 
 abstract class _SchedulingWidgetsCoordinatorStoreBase extends Equatable
     with Store {
+  final ConveyerBeltTextStore conveyerBelt;
   final SunAndMoonStore sunAndMoon;
   final BeachHorizonWaterTrackerStore beachWaves;
   final BeachSkyStore beachSkyStore;
   _SchedulingWidgetsCoordinatorStoreBase({
+    required this.conveyerBelt,
     required this.sunAndMoon,
     required this.beachSkyStore,
     required this.beachWaves,
