@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:primala/app/core/widgets/conveyer_belt_text/stack/presentation/presentation.dart';
 
 class ConveyerBeltText extends StatelessWidget {
-  final ConveryerBeltTextStore trackerStore;
+  final ConveyerBeltTextStore trackerStore;
   const ConveyerBeltText({
     super.key,
     required this.trackerStore,

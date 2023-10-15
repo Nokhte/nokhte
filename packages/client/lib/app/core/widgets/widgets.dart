@@ -5,3 +5,4 @@ export './gesture_pill/gesture_pill.dart';
 export './mesh_circle_button/mesh_circle_button.dart';
 export 'sky_widgets/beach_sky/beach_sky.dart';
 export 'sky_widgets/sun_and_moon/sun_and_moon.dart';
+export './conveyer_belt_text/conveyer_belt_text.dart';
