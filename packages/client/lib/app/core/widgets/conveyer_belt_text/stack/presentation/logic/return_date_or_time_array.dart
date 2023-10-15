@@ -7,9 +7,9 @@ class ReturnDateOrTimeArray extends AbstractSyncNoFailureLogic<
     List<GeneralDateTimeReturnType>, ReturnDateOrTimeArrayParams> {
   @override
   call(params) {
+    DateTime currentDate = params.currentTime;
     switch (params.dateOrTime) {
       case DateOrTime.date:
-        DateTime currentDate = params.currentTime;
         List<Date> dateArray = [];
         for (int i = 0; i < 4; i++) {
           final String formatted = _formatDateTime(currentDate);
@@ -21,12 +21,17 @@ class ReturnDateOrTimeArray extends AbstractSyncNoFailureLogic<
         List<Time> timeArray = [];
 
         for (int hour = 0; hour < 24; hour++) {
-          final String formatted = _formatTime(hour);
+          final String formatted = _formatTime(hour, params.currentTime);
           final bool isTheActiveOne = hour == params.currentTime.hour;
           timeArray.add(
             Time(
               formatted: formatted,
-              unformatted: params.currentTime,
+              unformatted: DateTime(
+                params.currentTime.year,
+                params.currentTime.month,
+                params.currentTime.day,
+                hour,
+              ),
               isTheActiveOne: isTheActiveOne,
             ),
           );
@@ -41,9 +46,10 @@ class ReturnDateOrTimeArray extends AbstractSyncNoFailureLogic<
     return formattedDate;
   }
 
-  String _formatTime(int hour) {
+  String _formatTime(int hour, DateTime currentDate) {
     final DateFormat formatter = DateFormat.jm();
-    final DateTime time = DateTime(2023, 1, 1, hour, 0);
+    final DateTime time =
+        DateTime(currentDate.year, currentDate.month, currentDate.day, hour);
     final String formattedTime = formatter.format(time);
     return formattedTime;
   }

@@ -26,6 +26,8 @@ void main() {
       dateOrTime: DateOrTime.time,
     ));
     for (int i = 0; i < tList.length; i++) {
+      print(
+          "${tList[i].formatted} ${tList[i].unformatted.hour} ${tList[i].isTheActiveOne}");
       if (currentHour == tList[i].unformatted.hour) {
         expect(tList[i].isTheActiveOne, true);
       }

@@ -3,6 +3,8 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
+import 'package:primala/app/core/widgets/conveyer_belt_text/stack/presentation/logic/return_date_or_time_array.dart';
+import 'package:primala/app/core/widgets/widgets.dart';
 // * Mobx Codegen Inclusion
 part 'conveyer_belt_text_store.g.dart';
 
@@ -10,28 +12,44 @@ class ConveyerBeltTextStore = _ConveyerBeltTextStoreBase
     with _$ConveyerBeltTextStore;
 
 abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
-  static final List<String> dates = ["Oct 15", "Oct 16", "Oct 17", "Oct 18"];
+  List<GeneralDateTimeReturnType> dates = [];
+
+  final ReturnDateOrTimeArray logic;
+
+  _ConveyerBeltTextStoreBase({
+    required this.logic,
+    required DateOrTime dateOrTimeParam,
+  }) {
+    dates = logic(
+      ReturnDateOrTimeArrayParams(
+        dateOrTime: dateOrTimeParam,
+        currentTime: DateTime.now(),
+      ),
+    );
+  }
 
   @computed
-  String get leftMostValue =>
-      currentlySelectedIndex - 2 < 0 ? "" : dates[currentlySelectedIndex - 2];
+  String get leftMostValue => currentlySelectedIndex - 2 < 0
+      ? ""
+      : dates[currentlySelectedIndex - 2].formatted;
 
   @computed
-  String get leftValue =>
-      currentlySelectedIndex - 1 < 0 ? "" : dates[currentlySelectedIndex - 1];
+  String get leftValue => currentlySelectedIndex - 1 < 0
+      ? ""
+      : dates[currentlySelectedIndex - 1].formatted;
 
   @computed
-  String get centerValue => dates[currentlySelectedIndex];
+  String get centerValue => dates[currentlySelectedIndex].formatted;
 
   @computed
   String get rightValue => currentlySelectedIndex + 1 > (dates.length - 1)
       ? ""
-      : dates[currentlySelectedIndex + 1];
+      : dates[currentlySelectedIndex + 1].formatted;
 
   @computed
   String get rightMostValue => currentlySelectedIndex + 2 > (dates.length - 1)
       ? ""
-      : dates[currentlySelectedIndex + 2];
+      : dates[currentlySelectedIndex + 2].formatted;
 
   @observable
   int currentlySelectedIndex = 0;
