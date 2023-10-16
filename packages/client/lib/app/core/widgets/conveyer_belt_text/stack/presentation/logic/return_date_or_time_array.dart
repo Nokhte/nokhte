@@ -41,7 +41,7 @@ class ReturnDateOrTimeArray extends AbstractSyncNoFailureLogic<
   }
 
   String _formatDateTime(DateTime dateTime) {
-    final DateFormat formatter = DateFormat('MMM d');
+    final DateFormat formatter = DateFormat('MMM. d');
     final String formattedDate = formatter.format(dateTime);
     return formattedDate;
   }

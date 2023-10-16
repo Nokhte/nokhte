@@ -3,8 +3,10 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
+import 'package:primala/app/core/widgets/conveyer_belt_text/stack/constants/movies/default_layout_movie.dart';
 import 'package:primala/app/core/widgets/conveyer_belt_text/stack/presentation/logic/return_date_or_time_array.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
+import 'package:simple_animations/simple_animations.dart';
 // * Mobx Codegen Inclusion
 part 'conveyer_belt_text_store.g.dart';
 
@@ -13,6 +15,12 @@ class ConveyerBeltTextStore = _ConveyerBeltTextStoreBase
 
 abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
   DateOrTime currentFocus = DateOrTime.date;
+
+  @observable
+  MovieTween movie = DefaultLayoutMovie.movie;
+
+  @observable
+  Control control = Control.play;
 
   @action
   toggleListFocus() => currentFocus == DateOrTime.date

@@ -88,6 +88,38 @@ mixin _$ConveyerBeltTextStore on _ConveyerBeltTextStoreBase, Store {
               name: '_ConveyerBeltTextStoreBase.rightMostValue'))
           .value;
 
+  late final _$movieAtom =
+      Atom(name: '_ConveyerBeltTextStoreBase.movie', context: context);
+
+  @override
+  MovieTween get movie {
+    _$movieAtom.reportRead();
+    return super.movie;
+  }
+
+  @override
+  set movie(MovieTween value) {
+    _$movieAtom.reportWrite(value, super.movie, () {
+      super.movie = value;
+    });
+  }
+
+  late final _$controlAtom =
+      Atom(name: '_ConveyerBeltTextStoreBase.control', context: context);
+
+  @override
+  Control get control {
+    _$controlAtom.reportRead();
+    return super.control;
+  }
+
+  @override
+  set control(Control value) {
+    _$controlAtom.reportWrite(value, super.control, () {
+      super.control = value;
+    });
+  }
+
   late final _$currentlySelectedIndexAtom = Atom(
       name: '_ConveyerBeltTextStoreBase.currentlySelectedIndex',
       context: context);
@@ -146,6 +178,8 @@ mixin _$ConveyerBeltTextStore on _ConveyerBeltTextStoreBase, Store {
   @override
   String toString() {
     return '''
+movie: ${movie},
+control: ${control},
 currentlySelectedIndex: ${currentlySelectedIndex},
 leftMostIndex: ${leftMostIndex},
 leftIndex: ${leftIndex},
