@@ -82,6 +82,7 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
         currentTime: DateTime.now(),
       ),
     );
+    toggleListFocus();
     times = returnEntity.dateOrTimeList;
     setCurrentlySelectedIndex(returnEntity.activeSelectionIndex);
   }
