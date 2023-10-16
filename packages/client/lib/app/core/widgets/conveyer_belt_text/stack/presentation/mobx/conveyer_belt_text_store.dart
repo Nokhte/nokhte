@@ -3,7 +3,7 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/widgets/conveyer_belt_text/stack/constants/movies/default_layout_movie.dart';
+import 'package:primala/app/core/widgets/conveyer_belt_text/stack/constants/movies/movies.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 // * Mobx Codegen Inclusion
@@ -16,7 +16,9 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
   DateOrTime currentFocus = DateOrTime.date;
 
   @observable
-  MovieTween movie = DefaultLayoutMovie.movie;
+  MovieTween movie = ForwardsOrBackwards.getMovie(isForward: false);
+  // MovieTween movie = AtMinOrMax.getMovie(atMin: false);
+  // MovieTween movie = DefaultLayoutMovie.movie;
 
   @observable
   Control control = Control.play;
@@ -90,10 +92,11 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
   @action
   setUIArray(List<GeneralDateTimeReturnType> inputArr) {
     // left
-    final leftMostVal =
-        leftMostIndex.isNegative ? "" : theFocusedList[leftMostIndex].formatted;
+    final leftMostVal = leftMostIndex.isNegative
+        ? "EMP. 1"
+        : theFocusedList[leftMostIndex].formatted;
     final leftVal =
-        leftIndex.isNegative ? "" : theFocusedList[leftIndex].formatted;
+        leftIndex.isNegative ? "EMP. 2" : theFocusedList[leftIndex].formatted;
     // center
     final centerVal = focusListCardinalLength == 0
         ? ""
