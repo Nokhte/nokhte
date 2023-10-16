@@ -4,8 +4,6 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/widgets/conveyer_belt_text/stack/constants/movies/default_layout_movie.dart';
-import 'package:primala/app/core/widgets/conveyer_belt_text/stack/presentation/entities/return_date_or_time_entity.dart';
-import 'package:primala/app/core/widgets/conveyer_belt_text/stack/presentation/logic/return_date_or_time_array.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 // * Mobx Codegen Inclusion

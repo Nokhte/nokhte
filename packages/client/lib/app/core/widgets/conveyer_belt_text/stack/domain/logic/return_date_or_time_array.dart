@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:intl/intl.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/widgets/conveyer_belt_text/stack/presentation/entities/return_date_or_time_entity.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 
 class ReturnDateOrTimeArray extends AbstractSyncNoFailureLogic<

@@ -1,5 +1,4 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:primala/app/core/widgets/conveyer_belt_text/stack/presentation/logic/return_date_or_time_array.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 
 class ConveyerBeltTextWidgetModule extends Module {

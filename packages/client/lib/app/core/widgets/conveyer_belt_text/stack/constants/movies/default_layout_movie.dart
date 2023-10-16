@@ -8,8 +8,8 @@ class DefaultLayoutMovie {
         .tween(
           '0 left position',
           Tween<double>(
-            begin: 20, // -500 works
-            end: 20,
+            begin: -150, // -500 works
+            end: -150,
           ),
         )
         .tween(
@@ -36,8 +36,8 @@ class DefaultLayoutMovie {
         .tween(
           '1 left position',
           Tween<double>(
-            begin: 150,
-            end: 150,
+            begin: 10,
+            end: 10,
           ),
         )
         .tween(
@@ -57,15 +57,15 @@ class DefaultLayoutMovie {
         .tween(
           '1 top position',
           Tween<double>(
-            begin: 440,
-            end: 440,
+            begin: 456,
+            end: 456,
           ),
         )
         .tween(
           '2 left position',
           Tween<double>(
-            begin: 285,
-            end: 285,
+            begin: 150,
+            end: 150,
           ),
         )
         .tween(
@@ -85,15 +85,15 @@ class DefaultLayoutMovie {
         .tween(
           '2 top position',
           Tween<double>(
-            begin: 456,
-            end: 456,
+            begin: 440,
+            end: 440,
           ),
         )
         .tween(
           '3 left position',
           Tween<double>(
-            begin: 400,
-            end: 400,
+            begin: 285,
+            end: 285,
           ),
         )
         .tween(
