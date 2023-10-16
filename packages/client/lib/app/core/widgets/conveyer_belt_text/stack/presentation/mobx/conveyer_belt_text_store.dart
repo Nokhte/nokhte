@@ -69,13 +69,7 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
     required DateOrTime dateOrTimeParam,
   }) {
     setDatesArray();
-    // setUIArray(dates);
-
-    setTimesArray();
-    setUIArray(times);
-    print("before UI array $uiArray");
-    initBackwardMovie();
-    // initForwardMovie();
+    setUIArray(dates);
   }
 
   @action
@@ -116,21 +110,20 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
   @action
   setUIArray(List<GeneralDateTimeReturnType> inputArr) {
     // left
-    final leftMostVal = leftMostIndex.isNegative
-        ? "EMP. 1"
-        : theFocusedList[leftMostIndex].formatted;
+    final leftMostVal =
+        leftMostIndex.isNegative ? "" : theFocusedList[leftMostIndex].formatted;
     final leftVal =
-        leftIndex.isNegative ? "EMP. 2" : theFocusedList[leftIndex].formatted;
+        leftIndex.isNegative ? "" : theFocusedList[leftIndex].formatted;
     // center
     final centerVal = focusListCardinalLength == 0
-        ? "EMP. 3"
+        ? ""
         : theFocusedList[currentlySelectedIndex].formatted;
     // right
     final rightVal = rightIndex > focusListCardinalLength
-        ? "EMP. 4"
+        ? ""
         : theFocusedList[rightIndex].formatted;
     final rightMostVal = rightMostIndex > focusListCardinalLength
-        ? "EMP. 5"
+        ? ""
         : theFocusedList[rightMostIndex].formatted;
 
     uiArray = [leftMostVal, leftVal, centerVal, rightVal, rightMostVal];
@@ -172,15 +165,12 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
     switch (movieMode) {
       case ConveyerMovieModes.forward:
         movie = DefaultLayoutMovie.movie;
-        print("currentIndex b4 $currentlySelectedIndex");
         setCurrentlySelectedIndex(currentlySelectedIndex + 1);
-        print("currentIndex after $currentlySelectedIndex");
         currentFocus == DateOrTime.date ? setUIArray(dates) : setUIArray(times);
         movieMode = currentlySelectedIndex == focusListCardinalLength
             ? ConveyerMovieModes.idleMax
             : ConveyerMovieModes.idleInRange;
         movieStatus = MovieStatus.idle;
-        print("UI ARR AFTER THE STUFF ${uiArray.toString()}");
       case ConveyerMovieModes.backwards:
         movie = DefaultLayoutMovie.movie;
         setCurrentlySelectedIndex(currentlySelectedIndex - 1);
@@ -189,10 +179,8 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
             ? ConveyerMovieModes.idleMin
             : ConveyerMovieModes.idleInRange;
         movieStatus = MovieStatus.idle;
-        print(uiArray.toString());
       default:
         movieStatus = MovieStatus.idle;
-        print("what's happening $movieMode");
         break;
     }
   }
