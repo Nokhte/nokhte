@@ -30,6 +30,21 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
   ReturnDateOrTimeEntity returnEntity =
       const ReturnDateOrTimeEntity(dateOrTimeList: [], activeSelectionIndex: 0);
 
+  @computed
+  int get leftMostIndex => currentlySelectedIndex - 2;
+
+  @computed
+  int get leftIndex => currentlySelectedIndex - 1;
+
+  @computed
+  int get rightIndex => currentlySelectedIndex + 1;
+
+  @computed
+  int get rightMostIndex => currentlySelectedIndex + 2;
+
+  @computed
+  int get focusListCardinalLength => theFocusedList.length - 1;
+
   @action
   toggleListFocus() => currentFocus == DateOrTime.date
       ? currentFocus = DateOrTime.time
@@ -45,14 +60,20 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
     required this.logic,
     required DateOrTime dateOrTimeParam,
   }) {
-    dates = logic(
+    setDatesArray();
+    setUIArray(dates);
+  }
+
+  @action
+  setDatesArray() {
+    returnEntity = logic(
       ReturnDateOrTimeArrayParams(
-        dateOrTime: dateOrTimeParam,
+        dateOrTime: DateOrTime.date,
         currentTime: DateTime.now(),
       ),
-    ).dateOrTimeList;
-    // what should happen here?
-    // print("${uiArray.toString()} LISTS??");
+    );
+    dates = returnEntity.dateOrTimeList;
+    setCurrentlySelectedIndex(returnEntity.activeSelectionIndex);
   }
 
   @action
@@ -63,8 +84,27 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
         currentTime: DateTime.now(),
       ),
     );
-    dates = returnEntity.dateOrTimeList;
+    times = returnEntity.dateOrTimeList;
     setCurrentlySelectedIndex(returnEntity.activeSelectionIndex);
+  }
+
+  @action
+  setUIArray(List<GeneralDateTimeReturnType> inputArr) {
+    // figure out right most
+    final rightMostVal = rightMostIndex > focusListCardinalLength
+        ? ""
+        : theFocusedList[rightMostIndex].formatted;
+    final rightVal = rightIndex > focusListCardinalLength
+        ? ""
+        : theFocusedList[rightIndex].formatted;
+    final centerVal = focusListCardinalLength == 0
+        ? ""
+        : theFocusedList[currentlySelectedIndex].formatted;
+    final leftVal =
+        leftIndex.isNegative ? "" : theFocusedList[leftIndex].formatted;
+    final leftMostVal =
+        leftMostIndex.isNegative ? "" : theFocusedList[leftMostIndex].formatted;
+    uiArray = [leftMostVal, leftVal, centerVal, rightVal, rightMostVal];
   }
 
   @computed
@@ -76,7 +116,7 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
 
   @action
   setCurrentlySelectedIndex(int index) {
-    assert(index > 0 && index <= (dates.length - 1), "must be greater than 0");
+    // assert(index > 0 && index <= (dates.length - 1), "must be greater than 0");
     currentlySelectedIndex = index;
   }
 

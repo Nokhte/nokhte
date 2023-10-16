@@ -37,7 +37,7 @@ class ConveyerBeltText extends StatelessWidget {
                         fontSize: 30,
                         color: Colors.white,
                       ),
-                      trackerStore.theFocusedList[i].formatted),
+                      trackerStore.uiArray[i]),
                 ),
             ]);
           });
