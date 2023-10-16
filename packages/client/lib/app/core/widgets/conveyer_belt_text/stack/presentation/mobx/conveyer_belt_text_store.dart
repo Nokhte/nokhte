@@ -90,20 +90,23 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
 
   @action
   setUIArray(List<GeneralDateTimeReturnType> inputArr) {
-    // figure out right most
-    final rightMostVal = rightMostIndex > focusListCardinalLength
-        ? ""
-        : theFocusedList[rightMostIndex].formatted;
-    final rightVal = rightIndex > focusListCardinalLength
-        ? ""
-        : theFocusedList[rightIndex].formatted;
+    // left
+    final leftMostVal =
+        leftMostIndex.isNegative ? "" : theFocusedList[leftMostIndex].formatted;
+    final leftVal =
+        leftIndex.isNegative ? "" : theFocusedList[leftIndex].formatted;
+    // center
     final centerVal = focusListCardinalLength == 0
         ? ""
         : theFocusedList[currentlySelectedIndex].formatted;
-    final leftVal =
-        leftIndex.isNegative ? "" : theFocusedList[leftIndex].formatted;
-    final leftMostVal =
-        leftMostIndex.isNegative ? "" : theFocusedList[leftMostIndex].formatted;
+    // right
+    final rightVal = rightIndex > focusListCardinalLength
+        ? ""
+        : theFocusedList[rightIndex].formatted;
+    final rightMostVal = rightMostIndex > focusListCardinalLength
+        ? ""
+        : theFocusedList[rightMostIndex].formatted;
+
     uiArray = [leftMostVal, leftVal, centerVal, rightVal, rightMostVal];
   }
 
