@@ -7,7 +7,7 @@ class GeneralDateTimeReturnType extends Equatable {
   const GeneralDateTimeReturnType({
     required this.formatted,
     required this.unformatted,
-    this.isTheActiveOne = false,
+    required this.isTheActiveOne,
   });
 
   @override

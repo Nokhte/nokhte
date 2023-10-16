@@ -4,6 +4,7 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/widgets/conveyer_belt_text/stack/constants/movies/default_layout_movie.dart';
+import 'package:primala/app/core/widgets/conveyer_belt_text/stack/presentation/entities/return_date_or_time_entity.dart';
 import 'package:primala/app/core/widgets/conveyer_belt_text/stack/presentation/logic/return_date_or_time_array.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -21,6 +22,13 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
 
   @observable
   Control control = Control.play;
+
+  @observable
+  List<String> uiArray = [];
+
+  @observable
+  ReturnDateOrTimeEntity returnEntity =
+      const ReturnDateOrTimeEntity(dateOrTimeList: [], activeSelectionIndex: 0);
 
   @action
   toggleListFocus() => currentFocus == DateOrTime.date
@@ -42,62 +50,26 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
         dateOrTime: dateOrTimeParam,
         currentTime: DateTime.now(),
       ),
-    );
+    ).dateOrTimeList;
+    // what should happen here?
     // print("${uiArray.toString()} LISTS??");
   }
 
   @action
   setTimesArray() {
-    times = logic(
+    returnEntity = logic(
       ReturnDateOrTimeArrayParams(
         dateOrTime: DateOrTime.time,
         currentTime: DateTime.now(),
       ),
     );
+    dates = returnEntity.dateOrTimeList;
+    setCurrentlySelectedIndex(returnEntity.activeSelectionIndex);
   }
-
-  @computed
-  int get leftMostIndex => currentlySelectedIndex - 2;
-
-  @computed
-  int get leftIndex => currentlySelectedIndex - 1;
-
-  @computed
-  int get rightIndex => currentlySelectedIndex + 1;
-
-  @computed
-  int get rightMostIndex => currentlySelectedIndex + 2;
-
-  @computed
-  int get focusListCardinalLength => theFocusedList.length - 1;
 
   @computed
   List<GeneralDateTimeReturnType> get theFocusedList =>
       currentFocus == DateOrTime.date ? dates : times;
-
-  @computed
-  String get leftMostValue => currentlySelectedIndex - 2 < 0
-      ? ""
-      : theFocusedList[leftMostIndex].formatted;
-
-  @computed
-  String get leftValue =>
-      currentlySelectedIndex - 1 < 0 ? "" : theFocusedList[leftIndex].formatted;
-
-  @computed
-  String get centerValue => currentlySelectedIndex > focusListCardinalLength
-      ? ""
-      : theFocusedList[currentlySelectedIndex].formatted;
-
-  @computed
-  String get rightValue => rightIndex > (focusListCardinalLength)
-      ? ""
-      : theFocusedList[rightIndex].formatted;
-
-  @computed
-  String get rightMostValue => rightMostIndex > (focusListCardinalLength)
-      ? ""
-      : theFocusedList[rightMostIndex].formatted;
 
   @observable
   int currentlySelectedIndex = 0;

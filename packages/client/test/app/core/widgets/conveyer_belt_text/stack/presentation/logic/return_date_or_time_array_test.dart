@@ -1,9 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:primala/app/core/widgets/conveyer_belt_text/stack/presentation/entities/return_date_or_time_entity.dart';
 import 'package:primala/app/core/widgets/conveyer_belt_text/stack/presentation/logic/return_date_or_time_array.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 
 void main() {
   late ReturnDateOrTimeArray logic;
+  late ReturnDateOrTimeEntity tEntity;
 
   setUp(() {
     logic = ReturnDateOrTimeArray();
@@ -11,26 +13,25 @@ void main() {
 
   test("should return a proper date array", () {
     final now = DateTime.now();
-    final tList = logic(ReturnDateOrTimeArrayParams(
+    tEntity = logic(ReturnDateOrTimeArrayParams(
       currentTime: now,
       dateOrTime: DateOrTime.date,
     ));
+    final tList = tEntity.dateOrTimeList;
     expect(tList[0].unformatted, now);
     expect(tList[3].unformatted, now.add(const Duration(days: 3)));
+    expect(tEntity.activeSelectionIndex, 0);
   });
   test("should return a proper time array", () {
     final now = DateTime.now();
     int currentHour = now.hour;
-    final tList = logic(ReturnDateOrTimeArrayParams(
+    int oneHourInTheFuture = ((currentHour + 1) % 24).floor();
+    tEntity = logic(ReturnDateOrTimeArrayParams(
       currentTime: now,
       dateOrTime: DateOrTime.time,
     ));
-    for (int i = 0; i < tList.length; i++) {
-      print(
-          "${tList[i].formatted} ${tList[i].unformatted.hour} ${tList[i].isTheActiveOne}");
-      if (currentHour == tList[i].unformatted.hour) {
-        expect(tList[i].isTheActiveOne, true);
-      }
-    }
+    final tList = tEntity.dateOrTimeList;
+    expect(tList[currentHour].isTheActiveOne, true);
+    expect(tList[oneHourInTheFuture].isTheActiveOne, false);
   });
 }

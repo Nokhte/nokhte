@@ -1,42 +1,20 @@
 import 'package:equatable/equatable.dart';
 import 'package:intl/intl.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
+import 'package:primala/app/core/widgets/conveyer_belt_text/stack/presentation/entities/return_date_or_time_entity.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 
 class ReturnDateOrTimeArray extends AbstractSyncNoFailureLogic<
-    List<GeneralDateTimeReturnType>, ReturnDateOrTimeArrayParams> {
+    ReturnDateOrTimeEntity, ReturnDateOrTimeArrayParams> {
   @override
   call(params) {
     DateTime currentDate = params.currentTime;
+    int activeOneIndex = 0;
     switch (params.dateOrTime) {
       case DateOrTime.date:
-        List<Date> dateArray = [];
-        for (int i = 0; i < 4; i++) {
-          final String formatted = _formatDateTime(currentDate);
-          dateArray.add(Date(formatted: formatted, unformatted: currentDate));
-          currentDate = currentDate.add(const Duration(days: 1));
-        }
-        return dateArray;
+        return _returnDateEntity(currentDate, activeOneIndex);
       case DateOrTime.time:
-        List<Time> timeArray = [];
-
-        for (int hour = 0; hour < 24; hour++) {
-          final String formatted = _formatTime(hour, params.currentTime);
-          final bool isTheActiveOne = hour == params.currentTime.hour;
-          timeArray.add(
-            Time(
-              formatted: formatted,
-              unformatted: DateTime(
-                params.currentTime.year,
-                params.currentTime.month,
-                params.currentTime.day,
-                hour,
-              ),
-              isTheActiveOne: isTheActiveOne,
-            ),
-          );
-        }
-        return timeArray;
+        return _returnTimeEntity(currentDate, activeOneIndex);
     }
   }
 
@@ -52,6 +30,55 @@ class ReturnDateOrTimeArray extends AbstractSyncNoFailureLogic<
         DateTime(currentDate.year, currentDate.month, currentDate.day, hour);
     final String formattedTime = formatter.format(time);
     return formattedTime;
+  }
+
+  ReturnDateOrTimeEntity _returnDateEntity(
+      DateTime currentDate, int activeOneIndex) {
+    List<Date> dateArray = [];
+    for (int i = 0; i < 4; i++) {
+      final isTheActiveOne = i == 0 ? true : false;
+      isTheActiveOne ? {activeOneIndex = i} : null;
+      final String formatted = _formatDateTime(currentDate);
+      dateArray.add(
+        Date(
+          formatted: formatted,
+          unformatted: currentDate,
+          isTheActiveOne: isTheActiveOne,
+        ),
+      );
+      currentDate = currentDate.add(const Duration(days: 1));
+    }
+    return ReturnDateOrTimeEntity(
+      dateOrTimeList: dateArray,
+      activeSelectionIndex: activeOneIndex,
+    );
+  }
+
+  ReturnDateOrTimeEntity _returnTimeEntity(
+      DateTime currentDate, int activeOneIndex) {
+    List<Time> timeArray = [];
+
+    for (int hour = 0; hour < 24; hour++) {
+      final String formatted = _formatTime(hour, currentDate);
+      final bool isTheActiveOne = hour == currentDate.hour;
+      isTheActiveOne ? {activeOneIndex = hour} : null;
+      timeArray.add(
+        Time(
+          formatted: formatted,
+          unformatted: DateTime(
+            currentDate.year,
+            currentDate.month,
+            currentDate.day,
+            hour,
+          ),
+          isTheActiveOne: isTheActiveOne,
+        ),
+      );
+    }
+    return ReturnDateOrTimeEntity(
+      dateOrTimeList: timeArray,
+      activeSelectionIndex: activeOneIndex,
+    );
   }
 }
 
