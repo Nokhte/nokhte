@@ -1,7 +1,9 @@
 class TextPlacementConstants {
-  // static int get  zeroLeft => 20;
-  // static int get  zeroRight => 0;
-  // static int get  zeroBottom => 0;
-  // static int get  zero
-  // static int get
+  static double get regularHeight => 456;
+  static double get elevatedHeight => 440;
+  static double get zeroLeft => -150;
+  static double get oneLeft => 10;
+  static double get twoLeft => 150;
+  static double get threeLeft => 285;
+  static double get fourLeft => 450;
 }

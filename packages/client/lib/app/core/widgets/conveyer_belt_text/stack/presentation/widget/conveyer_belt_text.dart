@@ -29,8 +29,6 @@ class ConveyerBeltText extends StatelessWidget {
               for (int i = 0; i < 4; i++)
                 Positioned(
                   left: value.get('$i left position'),
-                  right: value.get('$i right position'),
-                  bottom: value.get('$i bottom position'),
                   top: value.get('$i top position'),
                   child: PlatformText(
                       style: GoogleFonts.jost(
