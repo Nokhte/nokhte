@@ -1,4 +1,4 @@
-enum MovieModes {
+enum BeachWaveMovieModes {
   onShore,
   oceanDiveSetup,
   oceanDive,
@@ -9,9 +9,4 @@ enum MovieModes {
   backToTheDepths,
   toTheDepths,
   timesUp,
-  // collaboratorPoolTimesUp,
-  // individualPurpose,
-  // purposeCallTimesUp,
-  // enterThePurposeSessionDepths,
-  // enterPhase3Depths,
 }

@@ -35,11 +35,12 @@ class _SmartBeachWavesState extends State<SmartBeachWaves>
             widget.stateTrackerStore.onBeachWavesAnimationCompletion(),
         builder: (context, value, child) {
           final currentAnimationValues = GetCurrentWaterAnimation.values(value);
-          if (widget.stateTrackerStore.movieMode == MovieModes.oceanDiveSetup) {
+          if (widget.stateTrackerStore.movieMode ==
+              BeachWaveMovieModes.oceanDiveSetup) {
             widget.stateTrackerStore.teeUpOnShoreToOceanDiveTransition(
                 startingWaterMovement: currentAnimationValues[0]);
           } else if (widget.stateTrackerStore.movieMode ==
-              MovieModes.backToTheDepthsSetup) {
+              BeachWaveMovieModes.backToTheDepthsSetup) {
             widget.stateTrackerStore
                 .teeUpBackToTheDepthsValues(colorGradientsList: [
               currentAnimationValues[1],

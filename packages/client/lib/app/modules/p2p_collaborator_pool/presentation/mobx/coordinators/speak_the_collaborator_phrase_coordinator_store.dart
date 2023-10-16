@@ -52,13 +52,13 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
 
     reaction((p0) => beachWaves.movieStatus, (p0) {
       if (beachWaves.movieStatus == MovieStatus.finished &&
-          beachWaves.movieMode == MovieModes.backToOceanDive) {
+          beachWaves.movieMode == BeachWaveMovieModes.backToOceanDive) {
         Modular.to.navigate('/p2p_collaborator_pool/');
       } else if (beachWaves.movieStatus == MovieStatus.finished &&
-          beachWaves.movieMode == MovieModes.toTheDepths) {
+          beachWaves.movieMode == BeachWaveMovieModes.toTheDepths) {
         Modular.to.navigate('/p2p_collaborator_pool/pool/');
       } else if (beachWaves.movieStatus == MovieStatus.finished &&
-          beachWaves.movieMode == MovieModes.backToShore) {
+          beachWaves.movieMode == BeachWaveMovieModes.backToShore) {
         print("issssssssssssss dis running");
         Modular.to.navigate('/home/');
       }

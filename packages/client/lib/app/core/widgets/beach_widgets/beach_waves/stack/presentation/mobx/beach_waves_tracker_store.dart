@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
+import 'package:primala/app/core/types/types.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 import '../../../../shared/types/types.dart';
@@ -30,7 +31,7 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   double passingParam = -10.0;
 
   @observable
-  MovieModes movieMode = MovieModes.onShore;
+  BeachWaveMovieModes movieMode = BeachWaveMovieModes.onShore;
 
   @observable
   Control control = Control.mirror;
@@ -43,21 +44,21 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
 
   @action
   teeUpOceanDive() {
-    if (movieMode == MovieModes.onShore) {
-      movieMode = MovieModes.oceanDiveSetup;
+    if (movieMode == BeachWaveMovieModes.onShore) {
+      movieMode = BeachWaveMovieModes.oceanDiveSetup;
     }
   }
 
   @action
   teeUpBackToTheDepths() {
-    movieMode = MovieModes.backToTheDepthsSetup;
+    movieMode = BeachWaveMovieModes.backToTheDepthsSetup;
   }
 
   @action
   initiateSuspendedAtSea() {
     movie = SuspendedAtSea.movie;
     control = Control.playFromStart;
-    movieMode = MovieModes.suspendedAtSea;
+    movieMode = BeachWaveMovieModes.suspendedAtSea;
     movieStatus = MovieStatus.idle;
   }
 
@@ -65,7 +66,7 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   initiateSuspendedAtTheDepths() {
     movie = SuspendedAtTheDepths.movie;
     control = Control.playFromStart;
-    movieMode = MovieModes.suspendedAtSea;
+    movieMode = BeachWaveMovieModes.suspendedAtSea;
     movieStatus = MovieStatus.idle;
   }
 
@@ -74,7 +75,7 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
     movie = ToTheDepths.movie;
     control = Control.playFromStart;
     movieStatus = MovieStatus.inProgress;
-    movieMode = MovieModes.toTheDepths;
+    movieMode = BeachWaveMovieModes.toTheDepths;
   }
 
   @action
@@ -86,19 +87,19 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
     );
     control = Control.playFromStart;
     movieStatus = MovieStatus.inProgress;
-    movieMode = MovieModes.timesUp;
+    movieMode = BeachWaveMovieModes.timesUp;
   }
 
   // what we should do is have state change
   @action
   onBeachWavesAnimationCompletion() {
     switch (movieMode) {
-      case MovieModes.oceanDive:
+      case BeachWaveMovieModes.oceanDive:
         oceanDiveCount != 0
             ? movieStatus = MovieStatus.finished
             : oceanDiveCount++;
         break;
-      case MovieModes.backToTheDepths:
+      case BeachWaveMovieModes.backToTheDepths:
         backToTheDepthsCount != 0
             ? movieStatus = MovieStatus.finished
             : backToTheDepthsCount++;
@@ -114,7 +115,7 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
     movie = BackToOceanDive.movie;
     control = Control.playFromStart;
     movieStatus = MovieStatus.inProgress;
-    movieMode = MovieModes.backToOceanDive;
+    movieMode = BeachWaveMovieModes.backToOceanDive;
   }
 
   @action
@@ -122,7 +123,7 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
     movie = BackToShore.movie;
     control = Control.playFromStart;
     movieStatus = MovieStatus.inProgress;
-    movieMode = MovieModes.backToShore;
+    movieMode = BeachWaveMovieModes.backToShore;
   }
 
   @action
@@ -130,14 +131,14 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
     // movie = TestTheWaters.movie;
     control = Control.playFromStart;
     movieStatus = MovieStatus.inProgress;
-    movieMode = MovieModes.backToShore;
+    movieMode = BeachWaveMovieModes.backToShore;
   }
 
   @action
   onShoreReturnComplete() {
     movie = OnShore.movie;
     control = Control.mirror;
-    movieMode = MovieModes.onShore;
+    movieMode = BeachWaveMovieModes.onShore;
     movieStatus = MovieStatus.idle;
   }
 
@@ -173,7 +174,7 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
     );
     control = Control.playFromStart;
     movieStatus = MovieStatus.inProgress;
-    movieMode = MovieModes.backToTheDepths;
+    movieMode = BeachWaveMovieModes.backToTheDepths;
   }
 
   @action
@@ -187,7 +188,7 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   initiateOceanDive() {
     movieStatus = MovieStatus.inProgress;
     control = Control.playFromStart;
-    movieMode = MovieModes.oceanDive;
+    movieMode = BeachWaveMovieModes.oceanDive;
   }
 
   @override

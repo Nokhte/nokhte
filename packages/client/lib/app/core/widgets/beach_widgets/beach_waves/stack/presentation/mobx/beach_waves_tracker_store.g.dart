@@ -78,13 +78,13 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
       Atom(name: '_BeachWavesTrackerStoreBase.movieMode', context: context);
 
   @override
-  MovieModes get movieMode {
+  BeachWaveMovieModes get movieMode {
     _$movieModeAtom.reportRead();
     return super.movieMode;
   }
 
   @override
-  set movieMode(MovieModes value) {
+  set movieMode(BeachWaveMovieModes value) {
     _$movieModeAtom.reportWrite(value, super.movieMode, () {
       super.movieMode = value;
     });

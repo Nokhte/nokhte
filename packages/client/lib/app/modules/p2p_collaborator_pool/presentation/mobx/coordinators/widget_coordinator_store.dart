@@ -3,6 +3,7 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
+import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/core/widgets/beach_widgets/shared/types/types.dart';
 
 import 'package:primala/app/core/widgets/widgets.dart';
@@ -28,7 +29,7 @@ abstract class _WidgetCoordinatorStoreBase extends Equatable with Store {
   @action
   backToShoreWidgetChanges() {
     if (beachWavesStore.movieStatus != MovieStatus.inProgress &&
-        beachWavesStore.movieMode == MovieModes.suspendedAtSea) {
+        beachWavesStore.movieMode == BeachWaveMovieModes.suspendedAtSea) {
       beachWavesStore.initiateBackToShore();
       smartFadingAnimatedTextStore.fadeTheTextOut();
     }
@@ -37,7 +38,7 @@ abstract class _WidgetCoordinatorStoreBase extends Equatable with Store {
   @action
   toTheDepthsWidgetChanges() {
     if (beachWavesStore.movieStatus != MovieStatus.inProgress &&
-        beachWavesStore.movieMode == MovieModes.suspendedAtSea) {
+        beachWavesStore.movieMode == BeachWaveMovieModes.suspendedAtSea) {
       beachWavesStore.initiateToTheDepths();
       smartFadingAnimatedTextStore.fadeTheTextOut();
     }

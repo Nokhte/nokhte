@@ -6,7 +6,7 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/widgets/beach_widgets/shared/types/movie_status.dart';
+import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/home/presentation/mobx/main/main.dart';
 

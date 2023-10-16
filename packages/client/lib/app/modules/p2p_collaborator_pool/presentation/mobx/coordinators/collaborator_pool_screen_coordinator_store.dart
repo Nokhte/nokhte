@@ -5,6 +5,7 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
+import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
 
@@ -34,16 +35,16 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
   }) {
     reaction((p0) => beachWavesStore.movieStatus, (p0) {
       if (beachWavesStore.movieStatus == MovieStatus.finished &&
-          beachWavesStore.movieMode == MovieModes.timesUp) {
+          beachWavesStore.movieMode == BeachWaveMovieModes.timesUp) {
         beachWavesStore.initiateBackToOceanDive();
         // beachWavesStore.backToTheDepthsCount++;
         exitCollaboratorPoolStore(NoParams());
         cancelStreamStore(NoParams());
       } else if (beachWavesStore.movieStatus == MovieStatus.finished &&
-          beachWavesStore.movieMode == MovieModes.backToOceanDive) {
+          beachWavesStore.movieMode == BeachWaveMovieModes.backToOceanDive) {
         Modular.to.navigate('/p2p_collaborator_pool/');
       } else if (beachWavesStore.movieStatus == MovieStatus.finished &&
-          beachWavesStore.movieMode == MovieModes.backToTheDepths) {
+          beachWavesStore.movieMode == BeachWaveMovieModes.backToTheDepths) {
         Modular.to.navigate('/p2p_purpose_session/');
       }
     });

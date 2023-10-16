@@ -6,6 +6,7 @@ import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/modules/voice_call/mobx/mobx.dart';
+import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 // * Mobx Codegen Inclusion
@@ -56,17 +57,17 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
     required this.meshCircleStore,
   }) {
     reaction((p0) => beachWaves.movieMode, (p0) {
-      if (beachWaves.movieMode == MovieModes.backToTheDepthsSetup) {
+      if (beachWaves.movieMode == BeachWaveMovieModes.backToTheDepthsSetup) {
         meshCircleStore.toggleWidgetVisibility();
       }
     });
     reaction((p0) => beachWaves.movieStatus, (p0) {
       if (beachWaves.movieStatus == MovieStatus.finished &&
-          beachWaves.movieMode == MovieModes.timesUp) {
+          beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
         beachWaves.teeUpBackToTheDepths();
         beachWaves.backToTheDepthsCount++;
       } else if (beachWaves.movieStatus == MovieStatus.finished &&
-          beachWaves.movieMode == MovieModes.backToTheDepths) {
+          beachWaves.movieMode == BeachWaveMovieModes.backToTheDepths) {
         Modular.to.navigate('/p2p_purpose_session/phase-3/');
       }
     });

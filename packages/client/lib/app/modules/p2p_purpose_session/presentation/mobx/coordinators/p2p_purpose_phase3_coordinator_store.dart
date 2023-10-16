@@ -7,6 +7,7 @@ import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/modules/solo_doc/domain/domain.dart';
 import 'package:primala/app/core/modules/solo_doc/mobx/mobx.dart';
+import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:primala/app/core/widgets/mobx.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
@@ -30,12 +31,12 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends Equatable
   }) {
     reaction((p0) => beachWaves.movieStatus, (p0) async {
       if (beachWaves.movieStatus == MovieStatus.finished &&
-          beachWaves.movieMode == MovieModes.timesUp) {
+          beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
         beachWaves.teeUpBackToTheDepths();
         beachWaves.backToTheDepthsCount++;
         textEditor.flipWidgetVisibility();
       } else if (beachWaves.movieStatus == MovieStatus.finished &&
-          beachWaves.movieMode == MovieModes.backToTheDepths) {
+          beachWaves.movieMode == BeachWaveMovieModes.backToTheDepths) {
         final currentText = textEditor.controller.text;
         await soloDoc
             .createSoloDoc(const CreateSoloDocParams(docType: 'purpose'));
