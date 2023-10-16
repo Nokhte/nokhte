@@ -79,4 +79,28 @@ class MiscAlgos {
 
     return result;
   }
+
+  static schedulingExecutor({
+    required DateTime inputDate,
+    required Function duskCallback,
+    required Function morningCallback,
+    required Function dayCallback,
+    required Function eveningCallback,
+    required bool needsHourParam,
+  }) {
+    final hour = inputDate.hour;
+    if (hour >= 21 || hour < 6) {
+      // Branch 1: Time is between 9 PM and 5:59 AM
+      needsHourParam ? duskCallback(hour) : duskCallback();
+    } else if (hour >= 6 && hour < 10) {
+      // Branch 2: Time is between 6 AM and 9:59 AM
+      needsHourParam ? morningCallback(hour) : morningCallback();
+    } else if (hour >= 10 && hour < 17) {
+      // Branch 3: Time is between 10 AM and 4:59 PM
+      needsHourParam ? dayCallback(hour) : dayCallback();
+    } else {
+      // Branch 4: Time is between 5 PM and 8:59 PM
+      needsHourParam ? eveningCallback(hour) : eveningCallback();
+    }
+  }
 }

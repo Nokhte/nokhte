@@ -3,6 +3,7 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
+import 'package:primala/app/core/utilities/utilities.dart';
 import 'package:primala/app/core/widgets/sky_widgets/sun_and_moon/stack/constants/data/sun_and_moon_positions.dart';
 import 'package:primala/app/core/widgets/sky_widgets/sun_and_moon/stack/constants/movies/place_the_sun_or_moon.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
@@ -17,31 +18,42 @@ abstract class _SunAndMoonStoreBase extends Equatable with Store {
   bool isTheMoon = false;
 
   @action
-  selectTimeBasedMovie(DateTime date) {
-    final hour = date.hour;
-    if (hour >= 21 || hour < 6) {
-      print("dusk");
-      // Branch 1: Time is between 9 PM and 5:59 AM
-      movie = PlaceTheSunOrMoon.getMovie(
-          MoonColors.colors, SunAndMoonPositions.timeMap[hour]!);
-      isTheMoon = true;
-      control = Control.play;
-    } else if (hour >= 6 && hour < 10) {
-      // Branch 2: Time is between 6 AM and 9:59 AM
-      movie = PlaceTheSunOrMoon.getMovie(
-          SunColors.morning, SunAndMoonPositions.timeMap[hour]!);
-      control = Control.play;
-    } else if (hour >= 10 && hour < 17) {
-      // Branch 3: Time is between 10 AM and 4:59 PM
-      movie = PlaceTheSunOrMoon.getMovie(
-          SunColors.day, SunAndMoonPositions.timeMap[hour]!);
-      control = Control.play;
-    } else {
-      // Branch 4: Time is between 5 PM and 8:59 PM
-      movie = PlaceTheSunOrMoon.getMovie(
-          SunColors.evening, SunAndMoonPositions.timeMap[hour]!);
-      control = Control.play;
-    }
+  selectTimeBasedMovie(DateTime date) => MiscAlgos.schedulingExecutor(
+        inputDate: date,
+        needsHourParam: true,
+        duskCallback: initDuskCallback,
+        morningCallback: initMorningCallback,
+        dayCallback: initDayCallback,
+        eveningCallback: initEveningCallback,
+      );
+
+  @action
+  void initDuskCallback(int hour) {
+    movie = PlaceTheSunOrMoon.getMovie(
+        MoonColors.colors, SunAndMoonPositions.timeMap[hour]!);
+    isTheMoon = true;
+    control = Control.play;
+  }
+
+  @action
+  void initMorningCallback(int hour) {
+    movie = PlaceTheSunOrMoon.getMovie(
+        SunColors.morning, SunAndMoonPositions.timeMap[hour]!);
+    control = Control.play;
+  }
+
+  @action
+  void initDayCallback(int hour) {
+    movie = PlaceTheSunOrMoon.getMovie(
+        SunColors.day, SunAndMoonPositions.timeMap[hour]!);
+    control = Control.play;
+  }
+
+  @action
+  void initEveningCallback(int hour) {
+    movie = PlaceTheSunOrMoon.getMovie(
+        SunColors.evening, SunAndMoonPositions.timeMap[hour]!);
+    control = Control.play;
   }
 
   void setControl(Control newControl) => control = newControl;

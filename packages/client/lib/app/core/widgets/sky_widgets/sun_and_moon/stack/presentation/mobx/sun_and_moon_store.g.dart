@@ -72,6 +72,50 @@ mixin _$SunAndMoonStore on _SunAndMoonStoreBase, Store {
   }
 
   @override
+  void initDuskCallback(int hour) {
+    final _$actionInfo = _$_SunAndMoonStoreBaseActionController.startAction(
+        name: '_SunAndMoonStoreBase.initDuskCallback');
+    try {
+      return super.initDuskCallback(hour);
+    } finally {
+      _$_SunAndMoonStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void initMorningCallback(int hour) {
+    final _$actionInfo = _$_SunAndMoonStoreBaseActionController.startAction(
+        name: '_SunAndMoonStoreBase.initMorningCallback');
+    try {
+      return super.initMorningCallback(hour);
+    } finally {
+      _$_SunAndMoonStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void initDayCallback(int hour) {
+    final _$actionInfo = _$_SunAndMoonStoreBaseActionController.startAction(
+        name: '_SunAndMoonStoreBase.initDayCallback');
+    try {
+      return super.initDayCallback(hour);
+    } finally {
+      _$_SunAndMoonStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void initEveningCallback(int hour) {
+    final _$actionInfo = _$_SunAndMoonStoreBaseActionController.startAction(
+        name: '_SunAndMoonStoreBase.initEveningCallback');
+    try {
+      return super.initEveningCallback(hour);
+    } finally {
+      _$_SunAndMoonStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 isTheMoon: ${isTheMoon},

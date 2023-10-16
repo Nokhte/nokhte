@@ -56,6 +56,72 @@ mixin _$BeachSkyStore on _BeachSkyStoreBase, Store {
   }
 
   @override
+  void initDuskCallback() {
+    final _$actionInfo = _$_BeachSkyStoreBaseActionController.startAction(
+        name: '_BeachSkyStoreBase.initDuskCallback');
+    try {
+      return super.initDuskCallback();
+    } finally {
+      _$_BeachSkyStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void initDayCallback() {
+    final _$actionInfo = _$_BeachSkyStoreBaseActionController.startAction(
+        name: '_BeachSkyStoreBase.initDayCallback');
+    try {
+      return super.initDayCallback();
+    } finally {
+      _$_BeachSkyStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void initMorningCallback() {
+    final _$actionInfo = _$_BeachSkyStoreBaseActionController.startAction(
+        name: '_BeachSkyStoreBase.initMorningCallback');
+    try {
+      return super.initMorningCallback();
+    } finally {
+      _$_BeachSkyStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void initEveningCallback() {
+    final _$actionInfo = _$_BeachSkyStoreBaseActionController.startAction(
+        name: '_BeachSkyStoreBase.initEveningCallback');
+    try {
+      return super.initEveningCallback();
+    } finally {
+      _$_BeachSkyStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic initForwardShift(DateTime pastTime, DateTime newTime) {
+    final _$actionInfo = _$_BeachSkyStoreBaseActionController.startAction(
+        name: '_BeachSkyStoreBase.initForwardShift');
+    try {
+      return super.initForwardShift(pastTime, newTime);
+    } finally {
+      _$_BeachSkyStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic initBackwardsShift(DateTime pastTime, DateTime newTime) {
+    final _$actionInfo = _$_BeachSkyStoreBaseActionController.startAction(
+        name: '_BeachSkyStoreBase.initBackwardsShift');
+    try {
+      return super.initBackwardsShift(pastTime, newTime);
+    } finally {
+      _$_BeachSkyStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 movie: ${movie},

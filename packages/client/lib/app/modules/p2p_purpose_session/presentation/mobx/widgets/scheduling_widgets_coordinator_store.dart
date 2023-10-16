@@ -3,6 +3,7 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
+import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 // * Mobx Codegen Inclusion
 part 'scheduling_widgets_coordinator_store.g.dart';
@@ -23,11 +24,27 @@ abstract class _SchedulingWidgetsCoordinatorStoreBase extends Equatable
     required this.beachWaves,
   });
 
+  @observable
+  DateTime currentSelectedTime = DateTime.now();
+
   @action
-  attuneTheWidgets(DateTime currentTime) {
-    sunAndMoon.selectTimeBasedMovie(currentTime);
-    beachWaves.selectTimeBasedMovie(currentTime);
-    beachSkyStore.selectTimeBasedMovie(currentTime);
+  attuneTheWidgets(DateTime currentTimeParam) {
+    currentSelectedTime = currentTimeParam;
+    sunAndMoon.selectTimeBasedMovie(currentTimeParam);
+    beachWaves.selectTimeBasedMovie(currentTimeParam);
+    beachSkyStore.selectTimeBasedMovie(currentTimeParam);
+  }
+
+  @action
+  initForwardTimeShift() {
+    final pastTime = currentSelectedTime;
+    final newTime = currentSelectedTime.add(Hours.get(1));
+  }
+
+  @action
+  initBackwardTimeShift() {
+    final pastTime = currentSelectedTime;
+    final newTime = currentSelectedTime.subtract(Hours.get(1));
   }
 
   @override
