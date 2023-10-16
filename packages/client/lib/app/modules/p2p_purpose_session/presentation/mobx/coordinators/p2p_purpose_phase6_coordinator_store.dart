@@ -4,6 +4,7 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/modules/gyroscopic/presentation/presentation.dart';
+import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 // * Mobx Codegen Inclusion
 part 'p2p_purpose_phase6_coordinator_store.g.dart';
@@ -31,6 +32,9 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
     // final now = DateTime.parse('1969-16-20 20:00:00');
     final now = DateTime.now();
     widgets.attuneTheWidgets(now);
+    Future.delayed(Seconds.get(7), () {
+      widgets.initForwardTimeShift();
+    });
 
     reaction((p0) => gyroscopicCoordinatorStore.currentQuadrant, (p0) {
       // print("from the coordinator $p0");

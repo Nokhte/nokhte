@@ -4,26 +4,6 @@ import 'dart:math';
 import 'package:crypto/crypto.dart';
 
 class MiscAlgos {
-  static String deriveUsernameFromEmail(String email) {
-    int atIndex = email.indexOf('@');
-    String username = email.substring(0, atIndex);
-
-    // Shorten the username if it exceeds 15 characters and if it's an iCloud relay email
-    if (username.length > 15 &&
-        (email.endsWith("@icloud.com") || email.endsWith("appleid.com"))) {
-      if (email.endsWith("@icloud.com")) {
-        username = username.substring(0, 15);
-      } else {
-        username = username.substring(0, -2);
-      }
-    }
-
-    String modifiedUsername = username.replaceAll('.', '_');
-    String modifiedEmail = modifiedUsername;
-
-    return modifiedEmail;
-  }
-
   static String generateRandomString({int length = 32}) {
     const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
     final random = Random.secure();
@@ -87,20 +67,55 @@ class MiscAlgos {
     required Function dayCallback,
     required Function eveningCallback,
     required bool needsHourParam,
+    bool isAStartingValue = false,
+    required bool needsStartingValueParam,
   }) {
     final hour = inputDate.hour;
     if (hour >= 21 || hour < 6) {
       // Branch 1: Time is between 9 PM and 5:59 AM
-      needsHourParam ? duskCallback(hour) : duskCallback();
+      if (needsHourParam && !needsStartingValueParam) {
+        duskCallback(hour);
+      } else if (needsHourParam && needsStartingValueParam) {
+        duskCallback(hour, isAStartingValue);
+      } else if (!needsHourParam && needsStartingValueParam) {
+        duskCallback(isAStartingValue);
+      } else {
+        duskCallback();
+      }
     } else if (hour >= 6 && hour < 10) {
       // Branch 2: Time is between 6 AM and 9:59 AM
-      needsHourParam ? morningCallback(hour) : morningCallback();
+
+      if (needsHourParam && !needsStartingValueParam) {
+        morningCallback(hour);
+      } else if (needsHourParam && needsStartingValueParam) {
+        morningCallback(hour, isAStartingValue);
+      } else if (!needsHourParam && needsStartingValueParam) {
+        morningCallback(isAStartingValue);
+      } else {
+        morningCallback();
+      }
     } else if (hour >= 10 && hour < 17) {
       // Branch 3: Time is between 10 AM and 4:59 PM
-      needsHourParam ? dayCallback(hour) : dayCallback();
+      if (needsHourParam && !needsStartingValueParam) {
+        dayCallback(hour);
+      } else if (needsHourParam && needsStartingValueParam) {
+        dayCallback(hour, isAStartingValue);
+      } else if (!needsHourParam && needsStartingValueParam) {
+        dayCallback(isAStartingValue);
+      } else {
+        dayCallback();
+      }
     } else {
       // Branch 4: Time is between 5 PM and 8:59 PM
-      needsHourParam ? eveningCallback(hour) : eveningCallback();
+      if (needsHourParam && !needsStartingValueParam) {
+        eveningCallback(hour);
+      } else if (needsHourParam && needsStartingValueParam) {
+        eveningCallback(hour, isAStartingValue);
+      } else if (!needsHourParam && needsStartingValueParam) {
+        eveningCallback(isAStartingValue);
+      } else {
+        eveningCallback();
+      }
     }
   }
 }

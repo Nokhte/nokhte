@@ -39,12 +39,14 @@ abstract class _SchedulingWidgetsCoordinatorStoreBase extends Equatable
   initForwardTimeShift() {
     final pastTime = currentSelectedTime;
     final newTime = currentSelectedTime.add(Hours.get(1));
+    beachSkyStore.initForwardShift(pastTime, newTime);
+    currentSelectedTime = newTime;
   }
 
   @action
   initBackwardTimeShift() {
-    final pastTime = currentSelectedTime;
-    final newTime = currentSelectedTime.subtract(Hours.get(1));
+    // final pastTime = currentSelectedTime;
+    // final newTime = currentSelectedTime.subtract(Hours.get(1));
   }
 
   @override

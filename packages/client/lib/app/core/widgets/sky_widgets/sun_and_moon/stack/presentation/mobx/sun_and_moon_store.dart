@@ -20,7 +20,9 @@ abstract class _SunAndMoonStoreBase extends Equatable with Store {
   @action
   selectTimeBasedMovie(DateTime date) => MiscAlgos.schedulingExecutor(
         inputDate: date,
+        isAStartingValue: false,
         needsHourParam: true,
+        needsStartingValueParam: false,
         duskCallback: initDuskCallback,
         morningCallback: initMorningCallback,
         dayCallback: initDayCallback,

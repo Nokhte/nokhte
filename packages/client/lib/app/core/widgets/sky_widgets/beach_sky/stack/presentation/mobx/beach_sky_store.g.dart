@@ -9,6 +9,38 @@ part of 'beach_sky_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$BeachSkyStore on _BeachSkyStoreBase, Store {
+  late final _$startingGradAtom =
+      Atom(name: '_BeachSkyStoreBase.startingGrad', context: context);
+
+  @override
+  List<Color> get startingGrad {
+    _$startingGradAtom.reportRead();
+    return super.startingGrad;
+  }
+
+  @override
+  set startingGrad(List<Color> value) {
+    _$startingGradAtom.reportWrite(value, super.startingGrad, () {
+      super.startingGrad = value;
+    });
+  }
+
+  late final _$endingGradAtom =
+      Atom(name: '_BeachSkyStoreBase.endingGrad', context: context);
+
+  @override
+  List<Color> get endingGrad {
+    _$endingGradAtom.reportRead();
+    return super.endingGrad;
+  }
+
+  @override
+  set endingGrad(List<Color> value) {
+    _$endingGradAtom.reportWrite(value, super.endingGrad, () {
+      super.endingGrad = value;
+    });
+  }
+
   late final _$movieAtom =
       Atom(name: '_BeachSkyStoreBase.movie', context: context);
 
@@ -100,6 +132,50 @@ mixin _$BeachSkyStore on _BeachSkyStoreBase, Store {
   }
 
   @override
+  void isADuskTime(bool isAStartingValue) {
+    final _$actionInfo = _$_BeachSkyStoreBaseActionController.startAction(
+        name: '_BeachSkyStoreBase.isADuskTime');
+    try {
+      return super.isADuskTime(isAStartingValue);
+    } finally {
+      _$_BeachSkyStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void isAMorningTime(bool isAStartingValue) {
+    final _$actionInfo = _$_BeachSkyStoreBaseActionController.startAction(
+        name: '_BeachSkyStoreBase.isAMorningTime');
+    try {
+      return super.isAMorningTime(isAStartingValue);
+    } finally {
+      _$_BeachSkyStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void isADayTime(bool isAStartingValue) {
+    final _$actionInfo = _$_BeachSkyStoreBaseActionController.startAction(
+        name: '_BeachSkyStoreBase.isADayTime');
+    try {
+      return super.isADayTime(isAStartingValue);
+    } finally {
+      _$_BeachSkyStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void isAEveningTime(bool isAStartingValue) {
+    final _$actionInfo = _$_BeachSkyStoreBaseActionController.startAction(
+        name: '_BeachSkyStoreBase.isAEveningTime');
+    try {
+      return super.isAEveningTime(isAStartingValue);
+    } finally {
+      _$_BeachSkyStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic initForwardShift(DateTime pastTime, DateTime newTime) {
     final _$actionInfo = _$_BeachSkyStoreBaseActionController.startAction(
         name: '_BeachSkyStoreBase.initForwardShift');
@@ -124,6 +200,8 @@ mixin _$BeachSkyStore on _BeachSkyStoreBase, Store {
   @override
   String toString() {
     return '''
+startingGrad: ${startingGrad},
+endingGrad: ${endingGrad},
 movie: ${movie},
 control: ${control}
     ''';

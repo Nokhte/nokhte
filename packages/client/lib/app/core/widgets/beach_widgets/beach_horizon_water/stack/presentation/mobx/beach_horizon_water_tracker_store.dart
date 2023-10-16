@@ -21,6 +21,7 @@ abstract class _BeachHorizonWaterTrackerStoreBase extends Equatable with Store {
   @action
   selectTimeBasedMovie(DateTime date) => MiscAlgos.schedulingExecutor(
         inputDate: date,
+        needsStartingValueParam: false,
         needsHourParam: false,
         duskCallback: initDuskCallback,
         morningCallback: initMorningCallback,
