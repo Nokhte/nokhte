@@ -203,9 +203,6 @@ class ForwardsOrBackwards {
             end: isForward
                 ? TextPlacementConstants.regularHeight
                 : TextPlacementConstants.elevatedHeight,
-            // end: isForward
-            //     ? TextPlacementConstants.elevatedHeight
-            //     : TextPlacementConstants.regularHeight,
           ),
         )
         .tween(
