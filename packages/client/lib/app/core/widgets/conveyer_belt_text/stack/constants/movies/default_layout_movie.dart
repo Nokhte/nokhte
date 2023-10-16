@@ -5,7 +5,7 @@ import 'package:simple_animations/simple_animations.dart';
 
 class DefaultLayoutMovie {
   static MovieTween get movie => MovieTween()
-    ..scene(begin: Seconds.get(0), end: Seconds.get(1))
+    ..scene(begin: Seconds.get(0), end: Seconds.get(10))
         .tween(
           '0 left position',
           Tween<double>(

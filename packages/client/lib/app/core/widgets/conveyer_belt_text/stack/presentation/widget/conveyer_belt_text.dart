@@ -22,11 +22,13 @@ class ConveyerBeltText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
       return CustomAnimationBuilder(
+          onCompleted: () => trackerStore.onCompletedMovie(),
+          control: trackerStore.control,
           tween: trackerStore.movie,
           duration: trackerStore.movie.duration,
           builder: (context, value, child) {
             return Stack(clipBehavior: Clip.none, children: [
-              for (int i = 0; i < 4; i++)
+              for (int i = 0; i < 5; i++)
                 Positioned(
                   left: value.get('$i left position'),
                   top: value.get('$i top position'),

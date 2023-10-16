@@ -69,6 +69,38 @@ mixin _$ConveyerBeltTextStore on _ConveyerBeltTextStoreBase, Store {
     });
   }
 
+  late final _$movieModeAtom =
+      Atom(name: '_ConveyerBeltTextStoreBase.movieMode', context: context);
+
+  @override
+  ConveyerMovieModes get movieMode {
+    _$movieModeAtom.reportRead();
+    return super.movieMode;
+  }
+
+  @override
+  set movieMode(ConveyerMovieModes value) {
+    _$movieModeAtom.reportWrite(value, super.movieMode, () {
+      super.movieMode = value;
+    });
+  }
+
+  late final _$movieStatusAtom =
+      Atom(name: '_ConveyerBeltTextStoreBase.movieStatus', context: context);
+
+  @override
+  MovieStatus get movieStatus {
+    _$movieStatusAtom.reportRead();
+    return super.movieStatus;
+  }
+
+  @override
+  set movieStatus(MovieStatus value) {
+    _$movieStatusAtom.reportWrite(value, super.movieStatus, () {
+      super.movieStatus = value;
+    });
+  }
+
   late final _$controlAtom =
       Atom(name: '_ConveyerBeltTextStoreBase.control', context: context);
 
@@ -139,6 +171,18 @@ mixin _$ConveyerBeltTextStore on _ConveyerBeltTextStoreBase, Store {
       ActionController(name: '_ConveyerBeltTextStoreBase', context: context);
 
   @override
+  dynamic setCurrentlySelectedIndex(int index) {
+    final _$actionInfo =
+        _$_ConveyerBeltTextStoreBaseActionController.startAction(
+            name: '_ConveyerBeltTextStoreBase.setCurrentlySelectedIndex');
+    try {
+      return super.setCurrentlySelectedIndex(index);
+    } finally {
+      _$_ConveyerBeltTextStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic toggleListFocus() {
     final _$actionInfo = _$_ConveyerBeltTextStoreBaseActionController
         .startAction(name: '_ConveyerBeltTextStoreBase.toggleListFocus');
@@ -183,12 +227,33 @@ mixin _$ConveyerBeltTextStore on _ConveyerBeltTextStoreBase, Store {
   }
 
   @override
-  dynamic setCurrentlySelectedIndex(int index) {
-    final _$actionInfo =
-        _$_ConveyerBeltTextStoreBaseActionController.startAction(
-            name: '_ConveyerBeltTextStoreBase.setCurrentlySelectedIndex');
+  dynamic initForwardMovie() {
+    final _$actionInfo = _$_ConveyerBeltTextStoreBaseActionController
+        .startAction(name: '_ConveyerBeltTextStoreBase.initForwardMovie');
     try {
-      return super.setCurrentlySelectedIndex(index);
+      return super.initForwardMovie();
+    } finally {
+      _$_ConveyerBeltTextStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic initBackwardMovie() {
+    final _$actionInfo = _$_ConveyerBeltTextStoreBaseActionController
+        .startAction(name: '_ConveyerBeltTextStoreBase.initBackwardMovie');
+    try {
+      return super.initBackwardMovie();
+    } finally {
+      _$_ConveyerBeltTextStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onCompletedMovie() {
+    final _$actionInfo = _$_ConveyerBeltTextStoreBaseActionController
+        .startAction(name: '_ConveyerBeltTextStoreBase.onCompletedMovie');
+    try {
+      return super.onCompletedMovie();
     } finally {
       _$_ConveyerBeltTextStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -198,6 +263,8 @@ mixin _$ConveyerBeltTextStore on _ConveyerBeltTextStoreBase, Store {
   String toString() {
     return '''
 movie: ${movie},
+movieMode: ${movieMode},
+movieStatus: ${movieStatus},
 control: ${control},
 uiArray: ${uiArray},
 returnEntity: ${returnEntity},
