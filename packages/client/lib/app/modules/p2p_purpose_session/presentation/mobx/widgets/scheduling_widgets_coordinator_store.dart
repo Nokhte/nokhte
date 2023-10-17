@@ -41,7 +41,7 @@ abstract class _SchedulingWidgetsCoordinatorStoreBase extends Equatable
     final newTime = currentSelectedTime.add(Hours.get(1));
     beachSkyStore.initTimeShift(pastTime, newTime);
     beachWater.initTimeShift(pastTime, newTime);
-    // sunAndMoon.initTimeShift(pastTime, newTime);
+    sunAndMoon.initTimeShift(pastTime, newTime);
 
     // currentSelectedTime = newTime;
   }
