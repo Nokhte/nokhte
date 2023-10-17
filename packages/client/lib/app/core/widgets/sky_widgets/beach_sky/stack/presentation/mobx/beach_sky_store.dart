@@ -74,8 +74,8 @@ abstract class _BeachSkyStoreBase extends BaseSchedulingWidgetStore<Color>
         : endingGrad = SkyColors.evening;
   }
 
-  @override
   @action
+  @override
   initForwardShift(DateTime pastTime, DateTime newTime) {
     setStartingGradient(pastTime);
     setEndingGradient(newTime);

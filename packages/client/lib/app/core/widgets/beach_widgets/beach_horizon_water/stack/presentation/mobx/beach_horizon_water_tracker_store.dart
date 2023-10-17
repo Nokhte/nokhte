@@ -98,7 +98,7 @@ abstract class _BeachHorizonWaterTrackerStoreBase
   initForwardShift(DateTime pastTime, DateTime newTime) {
     setStartingGradient(pastTime);
     setEndingGradient(newTime);
-    // movie = HorizonWaterColorChange.getMovie(startingGrad, endingGrad);
+    movie = HorizonWaterColorChange.getMovie(startingGrad, endingGrad);
     control = Control.playFromStart;
   }
 
