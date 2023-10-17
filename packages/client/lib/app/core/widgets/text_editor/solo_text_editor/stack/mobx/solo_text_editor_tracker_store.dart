@@ -18,6 +18,6 @@ abstract class _SoloTextEditorTrackerStoreBase extends BaseTextEditorStore
   @action
   flipWidgetVisibility() {
     showWidget = !showWidget;
-    print("was this working??? $showWidget");
+    // print("was this working??? $showWidget");
   }
 }

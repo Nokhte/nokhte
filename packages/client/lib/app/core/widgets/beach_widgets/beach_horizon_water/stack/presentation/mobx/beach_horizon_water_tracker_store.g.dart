@@ -63,6 +63,31 @@ mixin _$BeachHorizonWaterTrackerStore
           name: '_BeachHorizonWaterTrackerStoreBase', context: context);
 
   @override
+  dynamic setGradient(DateTime date, {required bool isStart}) {
+    final _$actionInfo = _$_BeachHorizonWaterTrackerStoreBaseActionController
+        .startAction(name: '_BeachHorizonWaterTrackerStoreBase.setGradient');
+    try {
+      return super.setGradient(date, isStart: isStart);
+    } finally {
+      _$_BeachHorizonWaterTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic selectTimeBasedMovie(DateTime date) {
+    final _$actionInfo =
+        _$_BeachHorizonWaterTrackerStoreBaseActionController.startAction(
+            name: '_BeachHorizonWaterTrackerStoreBase.selectTimeBasedMovie');
+    try {
+      return super.selectTimeBasedMovie(date);
+    } finally {
+      _$_BeachHorizonWaterTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void isADuskTime(bool isAStartingValue) {
     final _$actionInfo = _$_BeachHorizonWaterTrackerStoreBaseActionController
         .startAction(name: '_BeachHorizonWaterTrackerStoreBase.isADuskTime');
@@ -111,12 +136,12 @@ mixin _$BeachHorizonWaterTrackerStore
   }
 
   @override
-  void initDuskCallback() {
+  void initDuskCallback(NoParams params) {
     final _$actionInfo =
         _$_BeachHorizonWaterTrackerStoreBaseActionController.startAction(
             name: '_BeachHorizonWaterTrackerStoreBase.initDuskCallback');
     try {
-      return super.initDuskCallback();
+      return super.initDuskCallback(params);
     } finally {
       _$_BeachHorizonWaterTrackerStoreBaseActionController
           .endAction(_$actionInfo);
@@ -124,12 +149,12 @@ mixin _$BeachHorizonWaterTrackerStore
   }
 
   @override
-  void initMorningCallback() {
+  void initMorningCallback(NoParams params) {
     final _$actionInfo =
         _$_BeachHorizonWaterTrackerStoreBaseActionController.startAction(
             name: '_BeachHorizonWaterTrackerStoreBase.initMorningCallback');
     try {
-      return super.initMorningCallback();
+      return super.initMorningCallback(params);
     } finally {
       _$_BeachHorizonWaterTrackerStoreBaseActionController
           .endAction(_$actionInfo);
@@ -137,12 +162,12 @@ mixin _$BeachHorizonWaterTrackerStore
   }
 
   @override
-  void initDayCallback() {
+  void initDayCallback(NoParams params) {
     final _$actionInfo =
         _$_BeachHorizonWaterTrackerStoreBaseActionController.startAction(
             name: '_BeachHorizonWaterTrackerStoreBase.initDayCallback');
     try {
-      return super.initDayCallback();
+      return super.initDayCallback(params);
     } finally {
       _$_BeachHorizonWaterTrackerStoreBaseActionController
           .endAction(_$actionInfo);
@@ -150,12 +175,12 @@ mixin _$BeachHorizonWaterTrackerStore
   }
 
   @override
-  void initEveningCallback() {
+  void initEveningCallback(NoParams params) {
     final _$actionInfo =
         _$_BeachHorizonWaterTrackerStoreBaseActionController.startAction(
             name: '_BeachHorizonWaterTrackerStoreBase.initEveningCallback');
     try {
-      return super.initEveningCallback();
+      return super.initEveningCallback(params);
     } finally {
       _$_BeachHorizonWaterTrackerStoreBaseActionController
           .endAction(_$actionInfo);
@@ -163,12 +188,11 @@ mixin _$BeachHorizonWaterTrackerStore
   }
 
   @override
-  dynamic initBackwardsShift(DateTime pastTime, DateTime newTime) {
-    final _$actionInfo =
-        _$_BeachHorizonWaterTrackerStoreBaseActionController.startAction(
-            name: '_BeachHorizonWaterTrackerStoreBase.initBackwardsShift');
+  dynamic initTimeShift(DateTime pastTime, DateTime newTime) {
+    final _$actionInfo = _$_BeachHorizonWaterTrackerStoreBaseActionController
+        .startAction(name: '_BeachHorizonWaterTrackerStoreBase.initTimeShift');
     try {
-      return super.initBackwardsShift(pastTime, newTime);
+      return super.initTimeShift(pastTime, newTime);
     } finally {
       _$_BeachHorizonWaterTrackerStoreBaseActionController
           .endAction(_$actionInfo);

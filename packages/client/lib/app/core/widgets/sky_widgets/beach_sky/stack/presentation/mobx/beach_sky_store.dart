@@ -2,6 +2,7 @@
 // * Mobx Import
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:primala/app/core/interfaces/logic.dart';
 // * Equatable Import
 import 'package:primala/app/core/mobx/base_scheduling_widget_store.dart';
 import 'package:primala/app/core/widgets/sky_widgets/beach_sky/stack/constants/constants.dart';
@@ -12,32 +13,76 @@ part 'beach_sky_store.g.dart';
 
 class BeachSkyStore = _BeachSkyStoreBase with _$BeachSkyStore;
 
-abstract class _BeachSkyStoreBase extends BaseSchedulingWidgetStore<Color>
-    with Store {
+abstract class _BeachSkyStoreBase
+    extends BaseSchedulingWidgetStore<Color, NoParams, bool> with Store {
+  @action
+  setGradient(DateTime date, {required bool isStart}) {
+    final hour = date.hour;
+    if (hour >= 21 || hour < 6) {
+      // Branch 1: Time is between 9 PM and 5:59 AM
+      isADuskTime(isStart);
+      isStart ? startingGrad = SkyColors.dusk : endingGrad = SkyColors.dusk;
+    } else if (hour >= 6 && hour < 10) {
+      // Branch 2: Time is between 6 AM and 9:59 AM
+      isAMorningTime(isStart);
+      isStart
+          ? startingGrad = SkyColors.morning
+          : endingGrad = SkyColors.morning;
+    } else if (hour >= 10 && hour < 17) {
+      // Branch 3: Time is between 10 AM and 4:59 PM
+      isADayTime(isStart);
+      isStart ? startingGrad = SkyColors.day : endingGrad = SkyColors.day;
+    } else {
+      // Branch 4: Time is between 5 PM and 8:59 PM
+      isAEveningTime(isStart);
+      isStart
+          ? startingGrad = SkyColors.evening
+          : endingGrad = SkyColors.evening;
+    }
+  }
+
+  @action
+  selectTimeBasedMovie(DateTime date) {
+    final hour = date.hour;
+    if (hour >= 21 || hour < 6) {
+      initDuskCallback(NoParams());
+      // Branch 1: Time is between 9 PM and 5:59 AM
+    } else if (hour >= 6 && hour < 10) {
+      // Branch 2: Time is between 6 AM and 9:59 AM
+      initMorningCallback(NoParams());
+    } else if (hour >= 10 && hour < 17) {
+      // Branch 3: Time is between 10 AM and 4:59 PM
+      initDayCallback(NoParams());
+    } else {
+      // Branch 4: Time is between 5 PM and 8:59 PM
+      initEveningCallback(NoParams());
+    }
+  }
+
   @override
   @action
-  void initDuskCallback() {
+  void initDuskCallback(NoParams params) {
     movie = RevealTheSky.getMovie(SkyColors.dusk);
     control = Control.play;
   }
 
   @override
   @action
-  void initDayCallback() {
+  void initDayCallback(NoParams params) {
     movie = RevealTheSky.getMovie(SkyColors.day);
     control = Control.play;
   }
 
   @override
   @action
-  void initMorningCallback() {
+  void initMorningCallback(NoParams params) {
     movie = RevealTheSky.getMovie(SkyColors.morning);
     control = Control.play;
   }
 
   @override
   @action
-  void initEveningCallback() {
+  void initEveningCallback(NoParams params) {
     movie = RevealTheSky.getMovie(SkyColors.evening);
     control = Control.play;
   }
@@ -76,16 +121,12 @@ abstract class _BeachSkyStoreBase extends BaseSchedulingWidgetStore<Color>
 
   @action
   @override
-  initForwardShift(DateTime pastTime, DateTime newTime) {
-    setStartingGradient(pastTime);
-    setEndingGradient(newTime);
+  initTimeShift(DateTime pastTime, DateTime newTime) {
+    setGradient(pastTime, isStart: true);
+    setGradient(newTime, isStart: false);
     movie = SkyColorTransition.getMovie(startingGrad, endingGrad);
     control = Control.playFromStart;
   }
-
-  @override
-  @action
-  initBackwardsShift(DateTime pastTime, DateTime newTime) {}
 
   void setControl(Control newControl) => control = newControl;
 

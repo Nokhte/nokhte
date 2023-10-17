@@ -45,44 +45,66 @@ mixin _$BeachSkyStore on _BeachSkyStoreBase, Store {
       ActionController(name: '_BeachSkyStoreBase', context: context);
 
   @override
-  void initDuskCallback() {
+  dynamic setGradient(DateTime date, {required bool isStart}) {
+    final _$actionInfo = _$_BeachSkyStoreBaseActionController.startAction(
+        name: '_BeachSkyStoreBase.setGradient');
+    try {
+      return super.setGradient(date, isStart: isStart);
+    } finally {
+      _$_BeachSkyStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic selectTimeBasedMovie(DateTime date) {
+    final _$actionInfo = _$_BeachSkyStoreBaseActionController.startAction(
+        name: '_BeachSkyStoreBase.selectTimeBasedMovie');
+    try {
+      return super.selectTimeBasedMovie(date);
+    } finally {
+      _$_BeachSkyStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void initDuskCallback(NoParams params) {
     final _$actionInfo = _$_BeachSkyStoreBaseActionController.startAction(
         name: '_BeachSkyStoreBase.initDuskCallback');
     try {
-      return super.initDuskCallback();
+      return super.initDuskCallback(params);
     } finally {
       _$_BeachSkyStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void initDayCallback() {
+  void initDayCallback(NoParams params) {
     final _$actionInfo = _$_BeachSkyStoreBaseActionController.startAction(
         name: '_BeachSkyStoreBase.initDayCallback');
     try {
-      return super.initDayCallback();
+      return super.initDayCallback(params);
     } finally {
       _$_BeachSkyStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void initMorningCallback() {
+  void initMorningCallback(NoParams params) {
     final _$actionInfo = _$_BeachSkyStoreBaseActionController.startAction(
         name: '_BeachSkyStoreBase.initMorningCallback');
     try {
-      return super.initMorningCallback();
+      return super.initMorningCallback(params);
     } finally {
       _$_BeachSkyStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void initEveningCallback() {
+  void initEveningCallback(NoParams params) {
     final _$actionInfo = _$_BeachSkyStoreBaseActionController.startAction(
         name: '_BeachSkyStoreBase.initEveningCallback');
     try {
-      return super.initEveningCallback();
+      return super.initEveningCallback(params);
     } finally {
       _$_BeachSkyStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -133,22 +155,11 @@ mixin _$BeachSkyStore on _BeachSkyStoreBase, Store {
   }
 
   @override
-  dynamic initForwardShift(DateTime pastTime, DateTime newTime) {
+  dynamic initTimeShift(DateTime pastTime, DateTime newTime) {
     final _$actionInfo = _$_BeachSkyStoreBaseActionController.startAction(
-        name: '_BeachSkyStoreBase.initForwardShift');
+        name: '_BeachSkyStoreBase.initTimeShift');
     try {
-      return super.initForwardShift(pastTime, newTime);
-    } finally {
-      _$_BeachSkyStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic initBackwardsShift(DateTime pastTime, DateTime newTime) {
-    final _$actionInfo = _$_BeachSkyStoreBaseActionController.startAction(
-        name: '_BeachSkyStoreBase.initBackwardsShift');
-    try {
-      return super.initBackwardsShift(pastTime, newTime);
+      return super.initTimeShift(pastTime, newTime);
     } finally {
       _$_BeachSkyStoreBaseActionController.endAction(_$actionInfo);
     }

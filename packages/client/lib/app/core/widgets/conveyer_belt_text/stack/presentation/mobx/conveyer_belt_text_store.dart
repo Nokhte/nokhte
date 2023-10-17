@@ -131,7 +131,7 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
 
   @action
   initForwardMovie() {
-    print("is forward running?? $movieStatus");
+    // print("is forward running?? $movieStatus");
     if (movieStatus == MovieStatus.inProgress) return;
     if (currentlySelectedIndex == focusListCardinalLength) {
       movie = AtMinOrMax.getMovie(atMin: false); // at max

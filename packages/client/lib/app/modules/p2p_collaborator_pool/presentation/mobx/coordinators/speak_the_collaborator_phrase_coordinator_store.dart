@@ -59,7 +59,7 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
         Modular.to.navigate('/p2p_collaborator_pool/pool/');
       } else if (beachWaves.movieStatus == MovieStatus.finished &&
           beachWaves.movieMode == BeachWaveMovieModes.backToShore) {
-        print("issssssssssssss dis running");
+        // print("issssssssssssss dis running");
         Modular.to.navigate('/home/');
       }
     });

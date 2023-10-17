@@ -1,5 +1,3 @@
-import 'package:primala/app/core/widgets/fade_in_and_change_color_text/stack/constants/constants.dart';
-import 'package:primala/app/core/widgets/mobx.dart';
 import 'package:primala/app/core/widgets/shared/constants/svg_animation_constants.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/authentication/domain/domain.dart';

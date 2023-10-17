@@ -60,72 +60,72 @@ class MiscAlgos {
     return result;
   }
 
-  static schedulingParamsExecutor({
-    required bool needsHourParam,
-    required bool needsStartingValueParam,
-    required Function theCallback,
-    required int hour,
-    required bool isAStartingValue,
-  }) {
-    if (needsHourParam && !needsStartingValueParam) {
-      theCallback(hour);
-    } else if (needsHourParam && needsStartingValueParam) {
-      theCallback(hour, isAStartingValue);
-    } else if (!needsHourParam && needsStartingValueParam) {
-      theCallback(isAStartingValue);
-    } else {
-      theCallback();
-    }
-    //
-  }
+  // static schedulingParamsExecutor({
+  //   required bool needsHourParam,
+  //   required bool needsStartingValueParam,
+  //   required Function theCallback,
+  //   required int hour,
+  //   required bool isAStartingValue,
+  // }) {
+  //   if (needsHourParam && !needsStartingValueParam) {
+  //     theCallback(hour);
+  //   } else if (needsHourParam && needsStartingValueParam) {
+  //     theCallback(hour, isAStartingValue);
+  //   } else if (!needsHourParam && needsStartingValueParam) {
+  //     theCallback(isAStartingValue);
+  //   } else {
+  //     theCallback(NoParams());
+  //   }
+  //   //
+  // }
 
-  static schedulingExecutor({
-    required DateTime inputDate,
-    required Function duskCallback,
-    required Function morningCallback,
-    required Function dayCallback,
-    required Function eveningCallback,
-    required bool needsHourParam,
-    bool isAStartingValue = false,
-    required bool needsStartingValueParam,
-  }) {
-    final hour = inputDate.hour;
-    if (hour >= 21 || hour < 6) {
-      // Branch 1: Time is between 9 PM and 5:59 AM
-      schedulingParamsExecutor(
-        needsHourParam: needsHourParam,
-        needsStartingValueParam: needsStartingValueParam,
-        theCallback: duskCallback,
-        hour: hour,
-        isAStartingValue: isAStartingValue,
-      );
-    } else if (hour >= 6 && hour < 10) {
-      // Branch 2: Time is between 6 AM and 9:59 AM
-      schedulingParamsExecutor(
-        needsHourParam: needsHourParam,
-        needsStartingValueParam: needsStartingValueParam,
-        theCallback: morningCallback,
-        hour: hour,
-        isAStartingValue: isAStartingValue,
-      );
-    } else if (hour >= 10 && hour < 17) {
-      // Branch 3: Time is between 10 AM and 4:59 PM
-      schedulingParamsExecutor(
-        needsHourParam: needsHourParam,
-        needsStartingValueParam: needsStartingValueParam,
-        theCallback: dayCallback,
-        hour: hour,
-        isAStartingValue: isAStartingValue,
-      );
-    } else {
-      // Branch 4: Time is between 5 PM and 8:59 PM
-      schedulingParamsExecutor(
-        needsHourParam: needsHourParam,
-        needsStartingValueParam: needsStartingValueParam,
-        theCallback: eveningCallback,
-        hour: hour,
-        isAStartingValue: isAStartingValue,
-      );
-    }
-  }
+  // static schedulingExecutor({
+  //   required DateTime inputDate,
+  //   required Function duskCallback,
+  //   required Function morningCallback,
+  //   required Function dayCallback,
+  //   required Function eveningCallback,
+  //   required bool needsHourParam,
+  //   bool isAStartingValue = false,
+  //   required bool needsStartingValueParam,
+  // }) {
+  //   final hour = inputDate.hour;
+  //   if (hour >= 21 || hour < 6) {
+  //     // Branch 1: Time is between 9 PM and 5:59 AM
+  //     schedulingParamsExecutor(
+  //       needsHourParam: needsHourParam,
+  //       needsStartingValueParam: needsStartingValueParam,
+  //       theCallback: duskCallback,
+  //       hour: hour,
+  //       isAStartingValue: isAStartingValue,
+  //     );
+  //   } else if (hour >= 6 && hour < 10) {
+  //     // Branch 2: Time is between 6 AM and 9:59 AM
+  //     schedulingParamsExecutor(
+  //       needsHourParam: needsHourParam,
+  //       needsStartingValueParam: needsStartingValueParam,
+  //       theCallback: morningCallback,
+  //       hour: hour,
+  //       isAStartingValue: isAStartingValue,
+  //     );
+  //   } else if (hour >= 10 && hour < 17) {
+  //     // Branch 3: Time is between 10 AM and 4:59 PM
+  //     schedulingParamsExecutor(
+  //       needsHourParam: needsHourParam,
+  //       needsStartingValueParam: needsStartingValueParam,
+  //       theCallback: dayCallback,
+  //       hour: hour,
+  //       isAStartingValue: isAStartingValue,
+  //     );
+  //   } else {
+  //     // Branch 4: Time is between 5 PM and 8:59 PM
+  //     schedulingParamsExecutor(
+  //       needsHourParam: needsHourParam,
+  //       needsStartingValueParam: needsStartingValueParam,
+  //       theCallback: eveningCallback,
+  //       hour: hour,
+  //       isAStartingValue: isAStartingValue,
+  //     );
+  //   }
+  // }
 }

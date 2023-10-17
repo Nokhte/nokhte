@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api, missing_override_of_must_be_overridden
 // * Mobx Import
 import 'package:mobx/mobx.dart';
+import 'package:primala/app/core/interfaces/logic.dart';
 // * Equatable Import
 import 'package:primala/app/core/mobx/base_scheduling_widget_store.dart';
 import 'package:primala/app/core/widgets/beach_widgets/shared/shared.dart';
@@ -14,9 +15,57 @@ class BeachHorizonWaterTrackerStore = _BeachHorizonWaterTrackerStoreBase
     with _$BeachHorizonWaterTrackerStore;
 
 abstract class _BeachHorizonWaterTrackerStoreBase
-    extends BaseSchedulingWidgetStore<ColorAndStop> with Store {
+    extends BaseSchedulingWidgetStore<ColorAndStop, NoParams, bool> with Store {
   @observable
   bool isComplete = false;
+
+  @action
+  setGradient(DateTime date, {required bool isStart}) {
+    final hour = date.hour;
+    if (hour >= 21 || hour < 6) {
+      // Branch 1: Time is between 9 PM and 5:59 AM
+      isADuskTime(isStart);
+      isStart
+          ? startingGrad = WaterColorsAndStops.schedulingDuskWaterHalfScreen
+          : endingGrad = WaterColorsAndStops.schedulingDuskWaterHalfScreen;
+    } else if (hour >= 6 && hour < 10) {
+      // Branch 2: Time is between 6 AM and 9:59 AM
+      isAMorningTime(isStart);
+      isStart
+          ? startingGrad = WaterColorsAndStops.schedulingMorningWaterHalfScreen
+          : endingGrad = WaterColorsAndStops.schedulingMorningWaterHalfScreen;
+    } else if (hour >= 10 && hour < 17) {
+      // Branch 3: Time is between 10 AM and 4:59 PM
+      isADayTime(isStart);
+      isStart
+          ? startingGrad = WaterColorsAndStops.schedulingDayWaterHalfScreen
+          : endingGrad = WaterColorsAndStops.schedulingDayWaterHalfScreen;
+    } else {
+      // Branch 4: Time is between 5 PM and 8:59 PM
+      isAEveningTime(isStart);
+      isStart
+          ? startingGrad = WaterColorsAndStops.schedulingEveningWaterHalfScreen
+          : endingGrad = WaterColorsAndStops.schedulingEveningWaterHalfScreen;
+    }
+  }
+
+  @action
+  selectTimeBasedMovie(DateTime date) {
+    final hour = date.hour;
+    if (hour >= 21 || hour < 6) {
+      initDuskCallback(NoParams());
+      // Branch 1: Time is between 9 PM and 5:59 AM
+    } else if (hour >= 6 && hour < 10) {
+      // Branch 2: Time is between 6 AM and 9:59 AM
+      initMorningCallback(NoParams());
+    } else if (hour >= 10 && hour < 17) {
+      // Branch 3: Time is between 10 AM and 4:59 PM
+      initDayCallback(NoParams());
+    } else {
+      // Branch 4: Time is between 5 PM and 8:59 PM
+      initEveningCallback(NoParams());
+    }
+  }
 
   @override
   @action
@@ -52,7 +101,7 @@ abstract class _BeachHorizonWaterTrackerStoreBase
 
   @override
   @action
-  void initDuskCallback() {
+  void initDuskCallback(NoParams params) {
     // Branch 1: Time is between 9 PM and 5:59 AM
     movie = DepthsToHorizonWaters.getMovie(
       WaterColorsAndStops.schedulingDuskWaterFullScreen,
@@ -63,7 +112,7 @@ abstract class _BeachHorizonWaterTrackerStoreBase
 
   @override
   @action
-  void initMorningCallback() {
+  void initMorningCallback(NoParams params) {
     // Branch 2: Time is between 6 AM and 9:59 AM
     movie = DepthsToHorizonWaters.getMovie(
       WaterColorsAndStops.schedulingMorningWaterFullScreen,
@@ -74,7 +123,7 @@ abstract class _BeachHorizonWaterTrackerStoreBase
 
   @override
   @action
-  void initDayCallback() {
+  void initDayCallback(NoParams params) {
     // Branch 3: Time is between 10 AM and 4:59 PM
     movie = DepthsToHorizonWaters.getMovie(
       WaterColorsAndStops.schedulingDayWaterFullScreen,
@@ -85,7 +134,7 @@ abstract class _BeachHorizonWaterTrackerStoreBase
 
   @override
   @action
-  void initEveningCallback() {
+  void initEveningCallback(NoParams params) {
     // Branch 4: Time is between 5 PM and 8:59 PM
     movie = DepthsToHorizonWaters.getMovie(
       WaterColorsAndStops.schedulingEveningWaterFullScreen,
@@ -95,18 +144,14 @@ abstract class _BeachHorizonWaterTrackerStoreBase
   }
 
   @override
-  initForwardShift(DateTime pastTime, DateTime newTime) {
-    setStartingGradient(pastTime);
-    setEndingGradient(newTime);
+  @action
+  initTimeShift(DateTime pastTime, DateTime newTime) {
+    setGradient(pastTime, isStart: true);
+    setGradient(newTime, isStart: false);
     movie = HorizonWaterColorChange.getMovie(startingGrad, endingGrad);
     control = Control.playFromStart;
   }
 
-  @override
-  @action
-  initBackwardsShift(DateTime pastTime, DateTime newTime) {}
-
-  //
   void setControl(Control newControl) => control = newControl;
 
   @observable

@@ -7,7 +7,6 @@ import 'package:primala/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 import 'package:primala/app/core/interfaces/auth_providers.dart';
 import 'dart:io';
 import 'package:primala/app/core/widgets/widgets.dart';
-import 'package:primala/app/core/widgets/widget_constants.dart';
 import 'package:primala/app/modules/authentication/presentation/presentation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:swipe/swipe.dart';

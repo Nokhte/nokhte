@@ -4,106 +4,56 @@ import 'package:meta/meta.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/utilities/utilities.dart';
 // * Mobx Codegen Inclusion
 part 'base_scheduling_widget_store.g.dart';
 
-class BaseSchedulingWidgetStore<T> = _BaseSchedulingWidgetStoreBase<T>
-    with _$BaseSchedulingWidgetStore<T>;
+class BaseSchedulingWidgetStore<ArrayType, InitParams,
+        IsATimeParams> = _BaseSchedulingWidgetStoreBase<ArrayType, InitParams, IsATimeParams>
+    with _$BaseSchedulingWidgetStore<ArrayType, InitParams, IsATimeParams>;
 
-abstract class _BaseSchedulingWidgetStoreBase<T> extends Equatable with Store {
-  @mustBeOverridden
+abstract class _BaseSchedulingWidgetStoreBase<ArrayType, InitParams,
+    IsATimeParams> extends Equatable with Store {
   @observable
-  List<T> startingGrad = [];
+  List<ArrayType> startingGrad = [];
 
-  @mustBeOverridden
   @observable
-  List<T> endingGrad = [];
-
-  void setStartingGradient(DateTime pastTime) {
-    MiscAlgos.schedulingExecutor(
-      inputDate: pastTime,
-      duskCallback: isADuskTime,
-      morningCallback: isAMorningTime,
-      dayCallback: isADayTime,
-      eveningCallback: isAEveningTime,
-      needsHourParam: false,
-      needsStartingValueParam: true,
-      isAStartingValue: true,
-    );
-  }
-
-  void setEndingGradient(DateTime newTime) {
-    MiscAlgos.schedulingExecutor(
-      inputDate: newTime,
-      duskCallback: isADuskTime,
-      morningCallback: isAMorningTime,
-      dayCallback: isADayTime,
-      eveningCallback: isAEveningTime,
-      needsHourParam: false,
-      needsStartingValueParam: true,
-      isAStartingValue: false,
-    );
-  }
+  List<ArrayType> endingGrad = [];
 
   @mustBeOverridden
   @action
-  void isADuskTime(bool isAStartingValue) {}
+  void isADuskTime(IsATimeParams params) {}
 
   @mustBeOverridden
   @action
-  void isAMorningTime(bool isAStartingValue) {}
+  void isAMorningTime(IsATimeParams params) {}
 
   @mustBeOverridden
   @action
-  void isADayTime(bool isAStartingValue) {}
+  void isADayTime(IsATimeParams params) {}
 
   @mustBeOverridden
   @action
-  void isAEveningTime(bool isAStartingValue) {}
+  void isAEveningTime(IsATimeParams params) {}
 
   @mustBeOverridden
   @action
-  void initDuskCallback() {
-    // Branch 1: Time is between 9 PM and 5:59 AM
-  }
+  void initDuskCallback(InitParams params) {}
 
   @mustBeOverridden
   @action
-  void initMorningCallback() {
-    // Branch 2: Time is between 6 AM and 9:59 AM
-  }
+  void initMorningCallback(InitParams params) {}
 
   @mustBeOverridden
   @action
-  void initDayCallback() {
-    // Branch 3: Time is between 10 AM and 4:59 PM
-  }
+  void initDayCallback(InitParams params) {}
 
   @mustBeOverridden
   @action
-  void initEveningCallback() {
-    // Branch 4: Time is between 5 PM and 8:59 PM
-  }
+  void initEveningCallback(InitParams params) {}
 
   @mustBeOverridden
   @action
-  initForwardShift(DateTime pastTime, DateTime newTime) {}
-
-  @mustBeOverridden
-  @action
-  initBackwardsShift(DateTime pastTime, DateTime newTime) {}
-
-  @action
-  selectTimeBasedMovie(DateTime date) => MiscAlgos.schedulingExecutor(
-        inputDate: date,
-        needsStartingValueParam: false,
-        needsHourParam: false,
-        duskCallback: initDuskCallback,
-        morningCallback: initMorningCallback,
-        dayCallback: initDayCallback,
-        eveningCallback: initEveningCallback,
-      );
+  initTimeShift(DateTime pastTime, DateTime newTime) {}
 
   @override
   List<Object> get props => [];
