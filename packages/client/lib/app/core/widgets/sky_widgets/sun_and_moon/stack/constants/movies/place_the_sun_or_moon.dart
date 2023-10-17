@@ -28,7 +28,7 @@ class PlaceTheSunOrMoon {
           'vertical constant',
           Tween<double>(
             begin: -1100,
-            end: posAndDur.endingPostion,
+            end: posAndDur.endingPostion - 10,
           ),
         )
         ..scene(
@@ -41,8 +41,8 @@ class PlaceTheSunOrMoon {
         ).tween(
           'vertical constant',
           Tween<double>(
-            begin: posAndDur.endingPostion,
-            end: posAndDur.endingPostion - 10,
+            begin: posAndDur.endingPostion - 10,
+            end: posAndDur.endingPostion,
           ),
         )
         ..scene(

@@ -24,29 +24,22 @@ abstract class _SunAndMoonStoreBase
   @action
   setGradient(DateTime date, {required bool isStart}) {
     final hour = date.hour;
-    final params = IsATimeMobxParams(hour: hour, isAStartingValue: true);
+    final params = IsATimeMobxParams(
+      hour: hour,
+      isAStartingValue: isStart,
+    );
     if (hour >= 21 || hour < 6) {
       // Branch 1: Time is between 9 PM and 5:59 AM
       isADuskTime(params);
-      isStart
-          ? startingGrad = MoonColors.colors
-          : endingGrad = MoonColors.colors;
     } else if (hour >= 6 && hour < 10) {
       // Branch 2: Time is between 6 AM and 9:59 AM
       isAMorningTime(params);
-      isStart
-          ? startingGrad = SunColors.morning
-          : endingGrad = SunColors.morning;
     } else if (hour >= 10 && hour < 17) {
       // Branch 3: Time is between 10 AM and 4:59 PM
       isADayTime(params);
-      isStart ? startingGrad = SunColors.day : endingGrad = SunColors.day;
     } else {
       // Branch 4: Time is between 5 PM and 8:59 PM
       isAEveningTime(params);
-      isStart
-          ? startingGrad = SunColors.evening
-          : endingGrad = SunColors.evening;
     }
   }
 
@@ -103,31 +96,34 @@ abstract class _SunAndMoonStoreBase
 
   @override
   @action
-  void isADuskTime(IsATimeMobxParams hours) {
-    hours.isAStartingValue
-        ? {
-            startingGrad = MoonColors.colors,
-            (hours.hour == 5 || hours.hour == 9)
-                ? queuedUpMovie = QueuedUpMovie.underOver
-                : null
-          }
-        : endingGrad = MoonColors.colors;
+  void isADuskTime(IsATimeMobxParams param) {
+    // hours.isAStartingValue
+    if (param.isAStartingValue) {
+      startingGrad = MoonColors.colors;
+      if (param.hour == 5) {
+        queuedUpMovie = QueuedUpMovie.underOver;
+      } else {
+        queuedUpMovie = QueuedUpMovie.smoothLERP;
+      }
+    } else {
+      endingGrad = MoonColors.colors;
+    }
   }
 
   @override
   @action
   void isAMorningTime(IsATimeMobxParams params) {
-    params.isAStartingValue
-        ? {
-            startingGrad = SunColors.morning,
-            (params.hour == 9)
-                ? queuedUpMovie == QueuedUpMovie.smoothLERP
-                : null,
-            (params.hour == 6)
-                ? queuedUpMovie == QueuedUpMovie.underOver
-                : null,
-          }
-        : endingGrad = SunColors.morning;
+    if (params.isAStartingValue) {
+      startingGrad = SunColors.morning;
+      if (params.hour == 9) {
+        queuedUpMovie = QueuedUpMovie.underOver;
+      } else {
+        queuedUpMovie = QueuedUpMovie.smoothLERP;
+      }
+    } else {
+      print("is the end grad being set properly??");
+      endingGrad = SunColors.morning;
+    }
   }
 
   @override
@@ -136,9 +132,7 @@ abstract class _SunAndMoonStoreBase
     params.isAStartingValue
         ? {
             startingGrad = SunColors.day,
-            (params.hour == 10 || params.hour == 16)
-                ? queuedUpMovie = QueuedUpMovie.smoothLERP
-                : null
+            queuedUpMovie = QueuedUpMovie.smoothLERP
           }
         : endingGrad = SunColors.day;
   }
@@ -151,19 +145,17 @@ abstract class _SunAndMoonStoreBase
             startingGrad = SunColors.evening,
             (params.hour == 20)
                 ? queuedUpMovie == QueuedUpMovie.underOver
-                : null,
-            (params.hour == 17)
-                ? queuedUpMovie == QueuedUpMovie.smoothLERP
-                : null,
+                : queuedUpMovie == QueuedUpMovie.smoothLERP,
           }
         : endingGrad = SunColors.evening;
   }
 
-  @action
+  // @action
   @override
   initTimeShift(DateTime pastTime, DateTime newTime) {
     setGradient(pastTime, isStart: true);
     setGradient(newTime, isStart: false);
+    print("Queued up movie ?? $queuedUpMovie");
     switch (queuedUpMovie) {
       case QueuedUpMovie.underOver:
         movie = UnderOver.getMovie(

@@ -127,8 +127,8 @@ class HorizonWaterColorChange {
             .tween(
               'water value',
               Tween<double>(
-                begin: 490.0,
-                end: 490.0,
+                begin: 500.0,
+                end: 500.0,
               ),
             );
 }
