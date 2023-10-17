@@ -13,7 +13,7 @@ class UnderOver {
       MovieTween()
         ..scene(
           begin: Seconds.get(0),
-          end: Seconds.get(3),
+          end: const Duration(milliseconds: 250),
         )
             .tween(
               'vertical constant',
@@ -37,10 +37,11 @@ class UnderOver {
               ),
             )
         ..scene(
-          begin: Seconds.get(1),
+          begin: const Duration(
+            milliseconds: 251,
+          ),
           end: const Duration(
-            seconds: 1,
-            milliseconds: 1,
+            milliseconds: 252,
           ),
         )
             .tween(
@@ -66,10 +67,9 @@ class UnderOver {
             )
         ..scene(
           begin: const Duration(
-            seconds: 1,
-            milliseconds: 1,
+            milliseconds: 252,
           ),
-          end: Seconds.get(2),
+          end: Seconds.get(500),
         )
             .tween(
               'vertical constant',

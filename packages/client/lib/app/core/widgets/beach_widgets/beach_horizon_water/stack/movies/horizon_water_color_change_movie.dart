@@ -72,56 +72,56 @@ class HorizonWaterColorChange {
               '1st Water Gradient Stop',
               Tween<double>(
                 begin: startingGradient[0].stop,
-                end: startingGradient[0].stop,
+                end: endingGradient[0].stop,
               ),
             )
             .tween(
               '2nd Water Gradient Stop',
               Tween<double>(
                 begin: startingGradient[1].stop,
-                end: startingGradient[1].stop,
+                end: endingGradient[1].stop,
               ),
             )
             .tween(
               '3rd Water Gradient Stop',
               Tween<double>(
                 begin: startingGradient[2].stop,
-                end: startingGradient[2].stop,
+                end: endingGradient[2].stop,
               ),
             )
             .tween(
               '4th Water Gradient Stop',
               Tween<double>(
                 begin: startingGradient[3].stop,
-                end: startingGradient[3].stop,
+                end: endingGradient[3].stop,
               ),
             )
             .tween(
               '5th Water Gradient Stop',
               Tween<double>(
                 begin: startingGradient[4].stop,
-                end: startingGradient[4].stop,
+                end: endingGradient[4].stop,
               ),
             )
             .tween(
               '6th Water Gradient Stop',
               Tween<double>(
                 begin: startingGradient[5].stop,
-                end: startingGradient[5].stop,
+                end: endingGradient[5].stop,
               ),
             )
             .tween(
               '7th Water Gradient Stop',
               Tween<double>(
                 begin: startingGradient[6].stop,
-                end: startingGradient[6].stop,
+                end: endingGradient[6].stop,
               ),
             )
             .tween(
               '8th Water Gradient Stop',
               Tween<double>(
                 begin: startingGradient[7].stop,
-                end: startingGradient[7].stop,
+                end: endingGradient[7].stop,
               ),
             )
             .tween(

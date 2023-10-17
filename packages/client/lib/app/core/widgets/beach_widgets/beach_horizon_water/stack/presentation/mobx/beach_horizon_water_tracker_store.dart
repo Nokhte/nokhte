@@ -19,37 +19,37 @@ abstract class _BeachHorizonWaterTrackerStoreBase
   @observable
   bool isComplete = false;
 
-  @action
+  // @action
   setGradient(DateTime date, {required bool isStart}) {
     final hour = date.hour;
     if (hour >= 21 || hour < 6) {
       // Branch 1: Time is between 9 PM and 5:59 AM
-      isADuskTime(isStart);
+      // isADuskTime(isStart);
       isStart
           ? startingGrad = WaterColorsAndStops.schedulingDuskWaterHalfScreen
           : endingGrad = WaterColorsAndStops.schedulingDuskWaterHalfScreen;
     } else if (hour >= 6 && hour < 10) {
       // Branch 2: Time is between 6 AM and 9:59 AM
-      isAMorningTime(isStart);
+      // isAMorningTime(isStart);
       isStart
           ? startingGrad = WaterColorsAndStops.schedulingMorningWaterHalfScreen
           : endingGrad = WaterColorsAndStops.schedulingMorningWaterHalfScreen;
     } else if (hour >= 10 && hour < 17) {
       // Branch 3: Time is between 10 AM and 4:59 PM
-      isADayTime(isStart);
+      // isADayTime(isStart);
       isStart
           ? startingGrad = WaterColorsAndStops.schedulingDayWaterHalfScreen
           : endingGrad = WaterColorsAndStops.schedulingDayWaterHalfScreen;
     } else {
       // Branch 4: Time is between 5 PM and 8:59 PM
-      isAEveningTime(isStart);
+      // isAEveningTime(isStart);
       isStart
           ? startingGrad = WaterColorsAndStops.schedulingEveningWaterHalfScreen
           : endingGrad = WaterColorsAndStops.schedulingEveningWaterHalfScreen;
     }
   }
 
-  @action
+  // @action
   selectTimeBasedMovie(DateTime date) {
     final hour = date.hour;
     if (hour >= 21 || hour < 6) {
@@ -69,39 +69,7 @@ abstract class _BeachHorizonWaterTrackerStoreBase
 
   @override
   @action
-  void isADuskTime(bool isAStartingValue) {
-    isAStartingValue
-        ? startingGrad = WaterColorsAndStops.schedulingDuskWaterHalfScreen
-        : endingGrad = WaterColorsAndStops.schedulingDuskWaterHalfScreen;
-  }
-
-  @override
-  @action
-  void isAMorningTime(bool isAStartingValue) {
-    isAStartingValue
-        ? startingGrad = WaterColorsAndStops.schedulingMorningWaterHalfScreen
-        : endingGrad = WaterColorsAndStops.schedulingMorningWaterHalfScreen;
-  }
-
-  @override
-  @action
-  void isADayTime(bool isAStartingValue) {
-    isAStartingValue
-        ? startingGrad = WaterColorsAndStops.schedulingDayWaterHalfScreen
-        : endingGrad = WaterColorsAndStops.schedulingDayWaterHalfScreen;
-  }
-
-  @override
-  @action
-  void isAEveningTime(bool isAStartingValue) {
-    isAStartingValue
-        ? startingGrad = WaterColorsAndStops.schedulingEveningWaterHalfScreen
-        : endingGrad = WaterColorsAndStops.schedulingEveningWaterHalfScreen;
-  }
-
-  @override
-  @action
-  void initDuskCallback(NoParams params) {
+  void initDuskCallback(params) {
     // Branch 1: Time is between 9 PM and 5:59 AM
     movie = DepthsToHorizonWaters.getMovie(
       WaterColorsAndStops.schedulingDuskWaterFullScreen,
@@ -112,7 +80,7 @@ abstract class _BeachHorizonWaterTrackerStoreBase
 
   @override
   @action
-  void initMorningCallback(NoParams params) {
+  void initMorningCallback(params) {
     // Branch 2: Time is between 6 AM and 9:59 AM
     movie = DepthsToHorizonWaters.getMovie(
       WaterColorsAndStops.schedulingMorningWaterFullScreen,
@@ -123,7 +91,7 @@ abstract class _BeachHorizonWaterTrackerStoreBase
 
   @override
   @action
-  void initDayCallback(NoParams params) {
+  void initDayCallback(params) {
     // Branch 3: Time is between 10 AM and 4:59 PM
     movie = DepthsToHorizonWaters.getMovie(
       WaterColorsAndStops.schedulingDayWaterFullScreen,
@@ -134,7 +102,7 @@ abstract class _BeachHorizonWaterTrackerStoreBase
 
   @override
   @action
-  void initEveningCallback(NoParams params) {
+  void initEveningCallback(params) {
     // Branch 4: Time is between 5 PM and 8:59 PM
     movie = DepthsToHorizonWaters.getMovie(
       WaterColorsAndStops.schedulingEveningWaterFullScreen,

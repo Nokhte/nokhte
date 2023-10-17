@@ -13,32 +13,7 @@ class SmoothLerpTransition {
       MovieTween()
         ..scene(
           begin: Seconds.get(0),
-          end: Seconds.get(6),
-        )
-            .tween(
-              'vertical constant',
-              Tween<double>(
-                begin: startingPosition,
-                end: startingPosition,
-              ),
-            )
-            .tween(
-              'first grad color',
-              ColorTween(
-                begin: startingGradient[0],
-                end: startingGradient[0],
-              ),
-            )
-            .tween(
-              'second grad color',
-              ColorTween(
-                begin: startingGradient[1],
-                end: startingGradient[1],
-              ),
-            )
-        ..scene(
-          begin: Seconds.get(6),
-          end: Seconds.get(7),
+          end: const Duration(milliseconds: 500),
         )
             .tween(
               'vertical constant',
