@@ -26,39 +26,6 @@ mixin _$BeachHorizonWaterTrackerStore
     });
   }
 
-  late final _$startingGradAtom = Atom(
-      name: '_BeachHorizonWaterTrackerStoreBase.startingGrad',
-      context: context);
-
-  @override
-  List<ColorAndStop> get startingGrad {
-    _$startingGradAtom.reportRead();
-    return super.startingGrad;
-  }
-
-  @override
-  set startingGrad(List<ColorAndStop> value) {
-    _$startingGradAtom.reportWrite(value, super.startingGrad, () {
-      super.startingGrad = value;
-    });
-  }
-
-  late final _$endingGradAtom = Atom(
-      name: '_BeachHorizonWaterTrackerStoreBase.endingGrad', context: context);
-
-  @override
-  List<ColorAndStop> get endingGrad {
-    _$endingGradAtom.reportRead();
-    return super.endingGrad;
-  }
-
-  @override
-  set endingGrad(List<ColorAndStop> value) {
-    _$endingGradAtom.reportWrite(value, super.endingGrad, () {
-      super.endingGrad = value;
-    });
-  }
-
   late final _$movieAtom =
       Atom(name: '_BeachHorizonWaterTrackerStoreBase.movie', context: context);
 
@@ -144,19 +111,6 @@ mixin _$BeachHorizonWaterTrackerStore
   }
 
   @override
-  dynamic selectTimeBasedMovie(DateTime date) {
-    final _$actionInfo =
-        _$_BeachHorizonWaterTrackerStoreBaseActionController.startAction(
-            name: '_BeachHorizonWaterTrackerStoreBase.selectTimeBasedMovie');
-    try {
-      return super.selectTimeBasedMovie(date);
-    } finally {
-      _$_BeachHorizonWaterTrackerStoreBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
   void initDuskCallback() {
     final _$actionInfo =
         _$_BeachHorizonWaterTrackerStoreBaseActionController.startAction(
@@ -225,8 +179,6 @@ mixin _$BeachHorizonWaterTrackerStore
   String toString() {
     return '''
 isComplete: ${isComplete},
-startingGrad: ${startingGrad},
-endingGrad: ${endingGrad},
 movie: ${movie},
 control: ${control}
     ''';

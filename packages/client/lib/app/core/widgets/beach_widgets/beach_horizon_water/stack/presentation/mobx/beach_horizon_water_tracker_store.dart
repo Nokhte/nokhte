@@ -1,9 +1,8 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, missing_override_of_must_be_overridden
 // * Mobx Import
 import 'package:mobx/mobx.dart';
 // * Equatable Import
-import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/utilities/misc_algos.dart';
+import 'package:primala/app/core/mobx/base_scheduling_widget_store.dart';
 import 'package:primala/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -14,16 +13,12 @@ part 'beach_horizon_water_tracker_store.g.dart';
 class BeachHorizonWaterTrackerStore = _BeachHorizonWaterTrackerStoreBase
     with _$BeachHorizonWaterTrackerStore;
 
-abstract class _BeachHorizonWaterTrackerStoreBase extends Equatable with Store {
+abstract class _BeachHorizonWaterTrackerStoreBase
+    extends BaseSchedulingWidgetStore<ColorAndStop> with Store {
   @observable
   bool isComplete = false;
 
-  @observable
-  List<ColorAndStop> startingGrad = [];
-
-  @observable
-  List<ColorAndStop> endingGrad = [];
-
+  @override
   @action
   void isADuskTime(bool isAStartingValue) {
     isAStartingValue
@@ -31,6 +26,7 @@ abstract class _BeachHorizonWaterTrackerStoreBase extends Equatable with Store {
         : endingGrad = WaterColorsAndStops.schedulingDuskWaterHalfScreen;
   }
 
+  @override
   @action
   void isAMorningTime(bool isAStartingValue) {
     isAStartingValue
@@ -38,6 +34,7 @@ abstract class _BeachHorizonWaterTrackerStoreBase extends Equatable with Store {
         : endingGrad = WaterColorsAndStops.schedulingMorningWaterHalfScreen;
   }
 
+  @override
   @action
   void isADayTime(bool isAStartingValue) {
     isAStartingValue
@@ -45,6 +42,7 @@ abstract class _BeachHorizonWaterTrackerStoreBase extends Equatable with Store {
         : endingGrad = WaterColorsAndStops.schedulingDayWaterHalfScreen;
   }
 
+  @override
   @action
   void isAEveningTime(bool isAStartingValue) {
     isAStartingValue
@@ -52,43 +50,7 @@ abstract class _BeachHorizonWaterTrackerStoreBase extends Equatable with Store {
         : endingGrad = WaterColorsAndStops.schedulingEveningWaterHalfScreen;
   }
 
-  void setStartingGradient(DateTime pastTime) {
-    MiscAlgos.schedulingExecutor(
-      inputDate: pastTime,
-      duskCallback: isADuskTime,
-      morningCallback: isAMorningTime,
-      dayCallback: isADayTime,
-      eveningCallback: isAEveningTime,
-      needsHourParam: false,
-      needsStartingValueParam: true,
-      isAStartingValue: true,
-    );
-  }
-
-  void setEndingGradient(DateTime newTime) {
-    MiscAlgos.schedulingExecutor(
-      inputDate: newTime,
-      duskCallback: isADuskTime,
-      morningCallback: isAMorningTime,
-      dayCallback: isADayTime,
-      eveningCallback: isAEveningTime,
-      needsHourParam: false,
-      needsStartingValueParam: true,
-      isAStartingValue: false,
-    );
-  }
-
-  @action
-  selectTimeBasedMovie(DateTime date) => MiscAlgos.schedulingExecutor(
-        inputDate: date,
-        needsStartingValueParam: false,
-        needsHourParam: false,
-        duskCallback: initDuskCallback,
-        morningCallback: initMorningCallback,
-        dayCallback: initDayCallback,
-        eveningCallback: initEveningCallback,
-      );
-
+  @override
   @action
   void initDuskCallback() {
     // Branch 1: Time is between 9 PM and 5:59 AM
@@ -99,6 +61,7 @@ abstract class _BeachHorizonWaterTrackerStoreBase extends Equatable with Store {
     control = Control.play;
   }
 
+  @override
   @action
   void initMorningCallback() {
     // Branch 2: Time is between 6 AM and 9:59 AM
@@ -109,6 +72,7 @@ abstract class _BeachHorizonWaterTrackerStoreBase extends Equatable with Store {
     control = Control.play;
   }
 
+  @override
   @action
   void initDayCallback() {
     // Branch 3: Time is between 10 AM and 4:59 PM
@@ -119,6 +83,7 @@ abstract class _BeachHorizonWaterTrackerStoreBase extends Equatable with Store {
     control = Control.play;
   }
 
+  @override
   @action
   void initEveningCallback() {
     // Branch 4: Time is between 5 PM and 8:59 PM
@@ -129,13 +94,15 @@ abstract class _BeachHorizonWaterTrackerStoreBase extends Equatable with Store {
     control = Control.play;
   }
 
+  @override
   initForwardShift(DateTime pastTime, DateTime newTime) {
     setStartingGradient(pastTime);
     setEndingGradient(newTime);
-    movie = HorizonWaterColorChange.getMovie(startingGrad, endingGrad);
+    // movie = HorizonWaterColorChange.getMovie(startingGrad, endingGrad);
     control = Control.playFromStart;
   }
 
+  @override
   @action
   initBackwardsShift(DateTime pastTime, DateTime newTime) {}
 
@@ -150,10 +117,4 @@ abstract class _BeachHorizonWaterTrackerStoreBase extends Equatable with Store {
 
   @observable
   Control control = Control.stop;
-
-  @override
-  List<Object> get props => [];
 }
-// the problem is the gradients aren't moving
-// with it so you don't have that part of the
-// perspectives
