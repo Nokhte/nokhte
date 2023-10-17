@@ -26,6 +26,39 @@ mixin _$BeachHorizonWaterTrackerStore
     });
   }
 
+  late final _$startingGradAtom = Atom(
+      name: '_BeachHorizonWaterTrackerStoreBase.startingGrad',
+      context: context);
+
+  @override
+  List<ColorAndStop> get startingGrad {
+    _$startingGradAtom.reportRead();
+    return super.startingGrad;
+  }
+
+  @override
+  set startingGrad(List<ColorAndStop> value) {
+    _$startingGradAtom.reportWrite(value, super.startingGrad, () {
+      super.startingGrad = value;
+    });
+  }
+
+  late final _$endingGradAtom = Atom(
+      name: '_BeachHorizonWaterTrackerStoreBase.endingGrad', context: context);
+
+  @override
+  List<ColorAndStop> get endingGrad {
+    _$endingGradAtom.reportRead();
+    return super.endingGrad;
+  }
+
+  @override
+  set endingGrad(List<ColorAndStop> value) {
+    _$endingGradAtom.reportWrite(value, super.endingGrad, () {
+      super.endingGrad = value;
+    });
+  }
+
   late final _$movieAtom =
       Atom(name: '_BeachHorizonWaterTrackerStoreBase.movie', context: context);
 
@@ -61,6 +94,54 @@ mixin _$BeachHorizonWaterTrackerStore
   late final _$_BeachHorizonWaterTrackerStoreBaseActionController =
       ActionController(
           name: '_BeachHorizonWaterTrackerStoreBase', context: context);
+
+  @override
+  void isADuskTime(bool isAStartingValue) {
+    final _$actionInfo = _$_BeachHorizonWaterTrackerStoreBaseActionController
+        .startAction(name: '_BeachHorizonWaterTrackerStoreBase.isADuskTime');
+    try {
+      return super.isADuskTime(isAStartingValue);
+    } finally {
+      _$_BeachHorizonWaterTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void isAMorningTime(bool isAStartingValue) {
+    final _$actionInfo = _$_BeachHorizonWaterTrackerStoreBaseActionController
+        .startAction(name: '_BeachHorizonWaterTrackerStoreBase.isAMorningTime');
+    try {
+      return super.isAMorningTime(isAStartingValue);
+    } finally {
+      _$_BeachHorizonWaterTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void isADayTime(bool isAStartingValue) {
+    final _$actionInfo = _$_BeachHorizonWaterTrackerStoreBaseActionController
+        .startAction(name: '_BeachHorizonWaterTrackerStoreBase.isADayTime');
+    try {
+      return super.isADayTime(isAStartingValue);
+    } finally {
+      _$_BeachHorizonWaterTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void isAEveningTime(bool isAStartingValue) {
+    final _$actionInfo = _$_BeachHorizonWaterTrackerStoreBaseActionController
+        .startAction(name: '_BeachHorizonWaterTrackerStoreBase.isAEveningTime');
+    try {
+      return super.isAEveningTime(isAStartingValue);
+    } finally {
+      _$_BeachHorizonWaterTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic selectTimeBasedMovie(DateTime date) {
@@ -128,9 +209,24 @@ mixin _$BeachHorizonWaterTrackerStore
   }
 
   @override
+  dynamic initBackwardsShift(DateTime pastTime, DateTime newTime) {
+    final _$actionInfo =
+        _$_BeachHorizonWaterTrackerStoreBaseActionController.startAction(
+            name: '_BeachHorizonWaterTrackerStoreBase.initBackwardsShift');
+    try {
+      return super.initBackwardsShift(pastTime, newTime);
+    } finally {
+      _$_BeachHorizonWaterTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 isComplete: ${isComplete},
+startingGrad: ${startingGrad},
+endingGrad: ${endingGrad},
 movie: ${movie},
 control: ${control}
     ''';

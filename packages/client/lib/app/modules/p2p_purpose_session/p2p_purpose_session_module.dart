@@ -83,7 +83,7 @@ class P2PCollaboratorSessionModule extends Module {
           (i) => SchedulingWidgetsCoordinatorStore(
             conveyerBelt: i<ConveyerBeltTextStore>(),
             beachSkyStore: i<BeachSkyStore>(),
-            beachWaves: i<BeachHorizonWaterTrackerStore>(),
+            beachWater: i<BeachHorizonWaterTrackerStore>(),
             sunAndMoon: i<SunAndMoonStore>(),
           ),
         ),

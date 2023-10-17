@@ -15,13 +15,13 @@ abstract class _SchedulingWidgetsCoordinatorStoreBase extends Equatable
     with Store {
   final ConveyerBeltTextStore conveyerBelt;
   final SunAndMoonStore sunAndMoon;
-  final BeachHorizonWaterTrackerStore beachWaves;
+  final BeachHorizonWaterTrackerStore beachWater;
   final BeachSkyStore beachSkyStore;
   _SchedulingWidgetsCoordinatorStoreBase({
     required this.conveyerBelt,
     required this.sunAndMoon,
     required this.beachSkyStore,
-    required this.beachWaves,
+    required this.beachWater,
   });
 
   @observable
@@ -31,7 +31,7 @@ abstract class _SchedulingWidgetsCoordinatorStoreBase extends Equatable
   attuneTheWidgets(DateTime currentTimeParam) {
     currentSelectedTime = currentTimeParam;
     sunAndMoon.selectTimeBasedMovie(currentTimeParam);
-    beachWaves.selectTimeBasedMovie(currentTimeParam);
+    beachWater.selectTimeBasedMovie(currentTimeParam);
     beachSkyStore.selectTimeBasedMovie(currentTimeParam);
   }
 
@@ -40,6 +40,8 @@ abstract class _SchedulingWidgetsCoordinatorStoreBase extends Equatable
     final pastTime = currentSelectedTime;
     final newTime = currentSelectedTime.add(Hours.get(1));
     beachSkyStore.initForwardShift(pastTime, newTime);
+    beachWater.initForwardShift(pastTime, newTime);
+
     currentSelectedTime = newTime;
   }
 

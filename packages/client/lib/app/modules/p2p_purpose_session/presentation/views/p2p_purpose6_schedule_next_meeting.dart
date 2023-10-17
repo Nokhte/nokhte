@@ -52,7 +52,7 @@ class P2PPupose6ScheduleNextMeeting extends StatelessWidget {
                         height: size.height,
                         child: BeachHorizonWater(
                           size: size,
-                          stateTrackerStore: coordinator.widgets.beachWaves,
+                          stateTrackerStore: coordinator.widgets.beachWater,
                         ),
                       ),
                       SizedBox(

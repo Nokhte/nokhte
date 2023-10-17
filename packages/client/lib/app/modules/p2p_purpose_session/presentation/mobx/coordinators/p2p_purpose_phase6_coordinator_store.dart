@@ -29,8 +29,8 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
       totalAngleCoverageOfEachQuadrant: 90,
       startingQuadrant: 0,
     );
-    // final now = DateTime.parse('1969-16-20 20:00:00');
-    final now = DateTime.now();
+    final now = DateTime.parse('1969-16-20 16:00:00');
+    // final now = DateTime.now();
     widgets.attuneTheWidgets(now);
     Future.delayed(Seconds.get(7), () {
       widgets.initForwardTimeShift();

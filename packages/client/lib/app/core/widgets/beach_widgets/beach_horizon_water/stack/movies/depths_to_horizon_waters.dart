@@ -375,20 +375,20 @@ class DepthsToHorizonWaters {
           'water value',
           Tween<double>(
             begin: 0,
-            end: 490,
+            end: 510,
           ),
         )
         ..scene(
-          begin: const Duration(seconds: 6),
+          begin: Seconds.get(6),
           end: const Duration(
             seconds: 6,
             milliseconds: 800,
           ),
         ).tween(
-          'sky value',
+          'water value',
           Tween<double>(
-            begin: 490.0,
-            end: 500.0,
+            begin: 510,
+            end: 500,
           ),
         );
 }

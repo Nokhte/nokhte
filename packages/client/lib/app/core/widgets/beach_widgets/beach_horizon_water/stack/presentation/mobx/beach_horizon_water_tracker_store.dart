@@ -4,8 +4,8 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/utilities/misc_algos.dart';
-import 'package:primala/app/core/widgets/beach_widgets/beach_horizon_water/stack/movies/depths_to_horizon_waters.dart';
-import 'package:primala/app/core/widgets/beach_widgets/shared/data/water_colors_and_stops.dart';
+import 'package:primala/app/core/widgets/beach_widgets/shared/shared.dart';
+import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 // * Mobx Codegen Inclusion
@@ -17,6 +17,66 @@ class BeachHorizonWaterTrackerStore = _BeachHorizonWaterTrackerStoreBase
 abstract class _BeachHorizonWaterTrackerStoreBase extends Equatable with Store {
   @observable
   bool isComplete = false;
+
+  @observable
+  List<ColorAndStop> startingGrad = [];
+
+  @observable
+  List<ColorAndStop> endingGrad = [];
+
+  @action
+  void isADuskTime(bool isAStartingValue) {
+    isAStartingValue
+        ? startingGrad = WaterColorsAndStops.schedulingDuskWaterHalfScreen
+        : endingGrad = WaterColorsAndStops.schedulingDuskWaterHalfScreen;
+  }
+
+  @action
+  void isAMorningTime(bool isAStartingValue) {
+    isAStartingValue
+        ? startingGrad = WaterColorsAndStops.schedulingMorningWaterHalfScreen
+        : endingGrad = WaterColorsAndStops.schedulingMorningWaterHalfScreen;
+  }
+
+  @action
+  void isADayTime(bool isAStartingValue) {
+    isAStartingValue
+        ? startingGrad = WaterColorsAndStops.schedulingDayWaterHalfScreen
+        : endingGrad = WaterColorsAndStops.schedulingDayWaterHalfScreen;
+  }
+
+  @action
+  void isAEveningTime(bool isAStartingValue) {
+    isAStartingValue
+        ? startingGrad = WaterColorsAndStops.schedulingEveningWaterHalfScreen
+        : endingGrad = WaterColorsAndStops.schedulingEveningWaterHalfScreen;
+  }
+
+  void setStartingGradient(DateTime pastTime) {
+    MiscAlgos.schedulingExecutor(
+      inputDate: pastTime,
+      duskCallback: isADuskTime,
+      morningCallback: isAMorningTime,
+      dayCallback: isADayTime,
+      eveningCallback: isAEveningTime,
+      needsHourParam: false,
+      needsStartingValueParam: true,
+      isAStartingValue: true,
+    );
+  }
+
+  void setEndingGradient(DateTime newTime) {
+    MiscAlgos.schedulingExecutor(
+      inputDate: newTime,
+      duskCallback: isADuskTime,
+      morningCallback: isAMorningTime,
+      dayCallback: isADayTime,
+      eveningCallback: isAEveningTime,
+      needsHourParam: false,
+      needsStartingValueParam: true,
+      isAStartingValue: false,
+    );
+  }
 
   @action
   selectTimeBasedMovie(DateTime date) => MiscAlgos.schedulingExecutor(
@@ -68,6 +128,16 @@ abstract class _BeachHorizonWaterTrackerStoreBase extends Equatable with Store {
     );
     control = Control.play;
   }
+
+  initForwardShift(DateTime pastTime, DateTime newTime) {
+    setStartingGradient(pastTime);
+    setEndingGradient(newTime);
+    movie = HorizonWaterColorChange.getMovie(startingGrad, endingGrad);
+    control = Control.playFromStart;
+  }
+
+  @action
+  initBackwardsShift(DateTime pastTime, DateTime newTime) {}
 
   //
   void setControl(Control newControl) => control = newControl;

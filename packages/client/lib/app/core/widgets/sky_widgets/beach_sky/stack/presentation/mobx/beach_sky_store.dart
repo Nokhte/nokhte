@@ -51,6 +51,7 @@ abstract class _BeachSkyStoreBase extends Equatable with Store {
 
   @observable
   List<Color> startingGrad = [];
+
   @observable
   List<Color> endingGrad = [];
 
