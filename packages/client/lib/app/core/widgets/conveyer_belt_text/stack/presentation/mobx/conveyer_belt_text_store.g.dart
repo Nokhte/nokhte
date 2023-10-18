@@ -53,6 +53,22 @@ mixin _$ConveyerBeltTextStore on _ConveyerBeltTextStoreBase, Store {
               name: '_ConveyerBeltTextStoreBase.theFocusedList'))
           .value;
 
+  late final _$showWidgetAtom =
+      Atom(name: '_ConveyerBeltTextStoreBase.showWidget', context: context);
+
+  @override
+  bool get showWidget {
+    _$showWidgetAtom.reportRead();
+    return super.showWidget;
+  }
+
+  @override
+  set showWidget(bool value) {
+    _$showWidgetAtom.reportWrite(value, super.showWidget, () {
+      super.showWidget = value;
+    });
+  }
+
   late final _$movieAtom =
       Atom(name: '_ConveyerBeltTextStoreBase.movie', context: context);
 
@@ -171,6 +187,17 @@ mixin _$ConveyerBeltTextStore on _ConveyerBeltTextStoreBase, Store {
       ActionController(name: '_ConveyerBeltTextStoreBase', context: context);
 
   @override
+  void setWidgetVisibility(bool newVisiblity) {
+    final _$actionInfo = _$_ConveyerBeltTextStoreBaseActionController
+        .startAction(name: '_ConveyerBeltTextStoreBase.setWidgetVisibility');
+    try {
+      return super.setWidgetVisibility(newVisiblity);
+    } finally {
+      _$_ConveyerBeltTextStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setCurrentlySelectedIndex(int index) {
     final _$actionInfo =
         _$_ConveyerBeltTextStoreBaseActionController.startAction(
@@ -262,6 +289,7 @@ mixin _$ConveyerBeltTextStore on _ConveyerBeltTextStoreBase, Store {
   @override
   String toString() {
     return '''
+showWidget: ${showWidget},
 movie: ${movie},
 movieMode: ${movieMode},
 movieStatus: ${movieStatus},

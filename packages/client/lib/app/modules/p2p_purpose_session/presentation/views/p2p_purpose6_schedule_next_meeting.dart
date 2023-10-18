@@ -55,16 +55,16 @@ class P2PPupose6ScheduleNextMeeting extends StatelessWidget {
                           stateTrackerStore: coordinator.widgets.beachWater,
                         ),
                       ),
-                      // SizedBox(
-                      //   width: MediaQuery.of(context).size.width,
-                      //   height: MediaQuery.of(context).size.height,
-                      //   child: Center(
-                      //     child: ConveyerBeltText(
-                      //       size: size,
-                      //       trackerStore: coordinator.widgets.conveyerBelt,
-                      //     ),
-                      //   ),
-                      // ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        child: Center(
+                          child: ConveyerBeltText(
+                            size: size,
+                            trackerStore: coordinator.widgets.conveyerBelt,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),

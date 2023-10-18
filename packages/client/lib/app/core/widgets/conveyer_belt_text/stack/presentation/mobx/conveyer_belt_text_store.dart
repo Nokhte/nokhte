@@ -15,6 +15,9 @@ class ConveyerBeltTextStore = _ConveyerBeltTextStoreBase
     with _$ConveyerBeltTextStore;
 
 abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
+  @observable
+  bool showWidget = false;
+
   DateOrTime currentFocus = DateOrTime.date;
 
   @observable
@@ -71,6 +74,9 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
     setDatesArray();
     setUIArray(dates);
   }
+
+  @action
+  void setWidgetVisibility(bool newVisiblity) => showWidget = newVisiblity;
 
   @action
   setCurrentlySelectedIndex(int index) {
