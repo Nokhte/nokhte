@@ -16,6 +16,13 @@ mixin _$ConveyerBeltTextStore on _ConveyerBeltTextStoreBase, Store {
       (_$leftMostIndexComputed ??= Computed<int>(() => super.leftMostIndex,
               name: '_ConveyerBeltTextStoreBase.leftMostIndex'))
           .value;
+  Computed<bool>? _$leftMostCompOperatorComputed;
+
+  @override
+  bool get leftMostCompOperator => (_$leftMostCompOperatorComputed ??=
+          Computed<bool>(() => super.leftMostCompOperator,
+              name: '_ConveyerBeltTextStoreBase.leftMostCompOperator'))
+      .value;
   Computed<int>? _$leftIndexComputed;
 
   @override
@@ -23,6 +30,20 @@ mixin _$ConveyerBeltTextStore on _ConveyerBeltTextStoreBase, Store {
       (_$leftIndexComputed ??= Computed<int>(() => super.leftIndex,
               name: '_ConveyerBeltTextStoreBase.leftIndex'))
           .value;
+  Computed<bool>? _$leftCompOperatorComputed;
+
+  @override
+  bool get leftCompOperator => (_$leftCompOperatorComputed ??= Computed<bool>(
+          () => super.leftCompOperator,
+          name: '_ConveyerBeltTextStoreBase.leftCompOperator'))
+      .value;
+  Computed<bool>? _$centerCompOperatorComputed;
+
+  @override
+  bool get centerCompOperator => (_$centerCompOperatorComputed ??=
+          Computed<bool>(() => super.centerCompOperator,
+              name: '_ConveyerBeltTextStoreBase.centerCompOperator'))
+      .value;
   Computed<int>? _$rightIndexComputed;
 
   @override
@@ -30,12 +51,40 @@ mixin _$ConveyerBeltTextStore on _ConveyerBeltTextStoreBase, Store {
       (_$rightIndexComputed ??= Computed<int>(() => super.rightIndex,
               name: '_ConveyerBeltTextStoreBase.rightIndex'))
           .value;
+  Computed<bool>? _$rightCompOperatorComputed;
+
+  @override
+  bool get rightCompOperator => (_$rightCompOperatorComputed ??= Computed<bool>(
+          () => super.rightCompOperator,
+          name: '_ConveyerBeltTextStoreBase.rightCompOperator'))
+      .value;
   Computed<int>? _$rightMostIndexComputed;
 
   @override
   int get rightMostIndex =>
       (_$rightMostIndexComputed ??= Computed<int>(() => super.rightMostIndex,
               name: '_ConveyerBeltTextStoreBase.rightMostIndex'))
+          .value;
+  Computed<bool>? _$rightMostCompOperatorComputed;
+
+  @override
+  bool get rightMostCompOperator => (_$rightMostCompOperatorComputed ??=
+          Computed<bool>(() => super.rightMostCompOperator,
+              name: '_ConveyerBeltTextStoreBase.rightMostCompOperator'))
+      .value;
+  Computed<List<bool>>? _$comparisonListComputed;
+
+  @override
+  List<bool> get comparisonList => (_$comparisonListComputed ??=
+          Computed<List<bool>>(() => super.comparisonList,
+              name: '_ConveyerBeltTextStoreBase.comparisonList'))
+      .value;
+  Computed<List<int>>? _$listIndicesComputed;
+
+  @override
+  List<int> get listIndices =>
+      (_$listIndicesComputed ??= Computed<List<int>>(() => super.listIndices,
+              name: '_ConveyerBeltTextStoreBase.listIndices'))
           .value;
   Computed<int>? _$focusListCardinalLengthComputed;
 
@@ -187,6 +236,17 @@ mixin _$ConveyerBeltTextStore on _ConveyerBeltTextStoreBase, Store {
       ActionController(name: '_ConveyerBeltTextStoreBase', context: context);
 
   @override
+  dynamic setUIArray(List<GeneralDateTimeReturnType> inputArr) {
+    final _$actionInfo = _$_ConveyerBeltTextStoreBaseActionController
+        .startAction(name: '_ConveyerBeltTextStoreBase.setUIArray');
+    try {
+      return super.setUIArray(inputArr);
+    } finally {
+      _$_ConveyerBeltTextStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setWidgetVisibility(bool newVisiblity) {
     final _$actionInfo = _$_ConveyerBeltTextStoreBaseActionController
         .startAction(name: '_ConveyerBeltTextStoreBase.setWidgetVisibility');
@@ -243,17 +303,6 @@ mixin _$ConveyerBeltTextStore on _ConveyerBeltTextStoreBase, Store {
   }
 
   @override
-  dynamic setUIArray(List<GeneralDateTimeReturnType> inputArr) {
-    final _$actionInfo = _$_ConveyerBeltTextStoreBaseActionController
-        .startAction(name: '_ConveyerBeltTextStoreBase.setUIArray');
-    try {
-      return super.setUIArray(inputArr);
-    } finally {
-      _$_ConveyerBeltTextStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic initForwardMovie() {
     final _$actionInfo = _$_ConveyerBeltTextStoreBaseActionController
         .startAction(name: '_ConveyerBeltTextStoreBase.initForwardMovie');
@@ -298,9 +347,16 @@ uiArray: ${uiArray},
 returnEntity: ${returnEntity},
 currentlySelectedIndex: ${currentlySelectedIndex},
 leftMostIndex: ${leftMostIndex},
+leftMostCompOperator: ${leftMostCompOperator},
 leftIndex: ${leftIndex},
+leftCompOperator: ${leftCompOperator},
+centerCompOperator: ${centerCompOperator},
 rightIndex: ${rightIndex},
+rightCompOperator: ${rightCompOperator},
 rightMostIndex: ${rightMostIndex},
+rightMostCompOperator: ${rightMostCompOperator},
+comparisonList: ${comparisonList},
+listIndices: ${listIndices},
 focusListCardinalLength: ${focusListCardinalLength},
 theFocusedList: ${theFocusedList}
     ''';

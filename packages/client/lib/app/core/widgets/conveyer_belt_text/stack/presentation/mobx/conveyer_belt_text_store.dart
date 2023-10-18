@@ -44,13 +44,45 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
   int get leftMostIndex => currentlySelectedIndex - 2;
 
   @computed
+  bool get leftMostCompOperator => leftMostIndex.isNegative;
+
+  @computed
   int get leftIndex => currentlySelectedIndex - 1;
+
+  @computed
+  bool get leftCompOperator => leftIndex.isNegative;
+
+  @computed
+  bool get centerCompOperator => focusListCardinalLength == 0;
 
   @computed
   int get rightIndex => currentlySelectedIndex + 1;
 
   @computed
+  bool get rightCompOperator => rightIndex > focusListCardinalLength;
+
+  @computed
   int get rightMostIndex => currentlySelectedIndex + 2;
+
+  @computed
+  bool get rightMostCompOperator => rightMostIndex > focusListCardinalLength;
+
+  @computed
+  List<bool> get comparisonList => [
+        leftMostCompOperator,
+        leftCompOperator,
+        centerCompOperator,
+        rightCompOperator,
+        rightMostCompOperator,
+      ];
+  @computed
+  List<int> get listIndices => [
+        leftMostIndex,
+        leftIndex,
+        currentlySelectedIndex,
+        rightIndex,
+        rightMostIndex,
+      ];
 
   @computed
   int get focusListCardinalLength => theFocusedList.length - 1;
@@ -58,6 +90,26 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
   @computed
   List<GeneralDateTimeReturnType> get theFocusedList =>
       currentFocus == DateOrTime.date ? dates : times;
+
+  @action
+  setUIArray(List<GeneralDateTimeReturnType> inputArr) {
+    final List<UIArray> finishedArray = [];
+    for (int i = 0; i < comparisonList.length; i++) {
+      finishedArray.add(
+        comparisonList[i]
+            ? UIArray(
+                gradient: ConveyerColors.invisible,
+                date: "",
+              )
+            : UIArray(
+                gradient: theFocusedList[listIndices[i]].isBelowMinDate
+                    ? ConveyerColors.outOfRange
+                    : ConveyerColors.inRange,
+                date: theFocusedList[listIndices[i]].formatted,
+              ),
+      );
+    }
+  }
 
   @observable
   int currentlySelectedIndex = 0;
@@ -114,76 +166,6 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
     toggleListFocus();
     times = returnEntity.dateOrTimeList;
     setCurrentlySelectedIndex(returnEntity.activeSelectionIndex);
-  }
-
-  @action
-  setUIArray(List<GeneralDateTimeReturnType> inputArr) {
-    // left
-    final leftMostVal = leftMostIndex.isNegative
-        ? const UIArray(gradient: [
-            Colors.transparent,
-            Colors.transparent,
-          ], date: "")
-        : UIArray(
-            gradient: theFocusedList[leftMostIndex].isBelowMinDate
-                ? ConveyerColors.outOfRange
-                : ConveyerColors.inRange,
-            date: theFocusedList[leftMostIndex].formatted,
-          );
-
-    final leftVal = leftIndex.isNegative
-        ? const UIArray(gradient: [
-            Colors.transparent,
-            Colors.transparent,
-          ], date: "")
-        : UIArray(
-            gradient: theFocusedList[leftIndex].isBelowMinDate
-                ? ConveyerColors.outOfRange
-                : ConveyerColors.inRange,
-            date: theFocusedList[leftIndex].formatted,
-          );
-    final centerVal = focusListCardinalLength == 0
-        ? const UIArray(gradient: [
-            Colors.transparent,
-            Colors.transparent,
-          ], date: "")
-        : UIArray(
-            gradient: theFocusedList[currentlySelectedIndex].isBelowMinDate
-                ? ConveyerColors.outOfRange
-                : ConveyerColors.inRange,
-            date: theFocusedList[currentlySelectedIndex].formatted,
-          );
-    final rightVal = rightIndex > focusListCardinalLength
-        ? const UIArray(gradient: [
-            Colors.transparent,
-            Colors.transparent,
-          ], date: "")
-        : UIArray(
-            gradient: theFocusedList[rightIndex].isBelowMinDate
-                ? ConveyerColors.outOfRange
-                : ConveyerColors.inRange,
-            date: theFocusedList[rightIndex].formatted,
-          );
-
-    final rightMostVal = rightMostIndex > focusListCardinalLength
-        ? const UIArray(gradient: [
-            Colors.transparent,
-            Colors.transparent,
-          ], date: "")
-        : UIArray(
-            gradient: theFocusedList[rightMostIndex].isBelowMinDate
-                ? ConveyerColors.outOfRange
-                : ConveyerColors.inRange,
-            date: theFocusedList[rightMostIndex].formatted,
-          );
-
-    uiArray = [
-      leftMostVal,
-      leftVal,
-      centerVal,
-      rightVal,
-      rightMostVal,
-    ];
   }
 
   @action
