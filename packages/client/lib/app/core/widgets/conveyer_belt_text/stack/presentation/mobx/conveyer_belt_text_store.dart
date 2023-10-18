@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // * Mobx Import
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
@@ -33,7 +34,7 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
   Control control = Control.stop;
 
   @observable
-  List<String> uiArray = [];
+  List<UIArray> uiArray = [];
 
   @observable
   ReturnDateOrTimeEntity returnEntity =
@@ -72,6 +73,7 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
     required DateOrTime dateOrTimeParam,
   }) {
     setDatesArray();
+    print(dates.toString());
     setUIArray(dates);
   }
 
@@ -96,6 +98,7 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
         currentTime: DateTime.now(),
       ),
     );
+    // print("${returnEntity.dateOrTimeList[0].isBelowMinDate}");
     dates = returnEntity.dateOrTimeList;
     setCurrentlySelectedIndex(returnEntity.activeSelectionIndex);
   }
@@ -116,23 +119,71 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
   @action
   setUIArray(List<GeneralDateTimeReturnType> inputArr) {
     // left
-    final leftMostVal =
-        leftMostIndex.isNegative ? "" : theFocusedList[leftMostIndex].formatted;
-    final leftVal =
-        leftIndex.isNegative ? "" : theFocusedList[leftIndex].formatted;
-    // center
-    final centerVal = focusListCardinalLength == 0
-        ? ""
-        : theFocusedList[currentlySelectedIndex].formatted;
-    // right
-    final rightVal = rightIndex > focusListCardinalLength
-        ? ""
-        : theFocusedList[rightIndex].formatted;
-    final rightMostVal = rightMostIndex > focusListCardinalLength
-        ? ""
-        : theFocusedList[rightMostIndex].formatted;
+    final leftMostVal = leftMostIndex.isNegative
+        ? const UIArray(gradient: [
+            Colors.transparent,
+            Colors.transparent,
+          ], date: "")
+        : UIArray(
+            gradient: theFocusedList[leftMostIndex].isBelowMinDate
+                ? ConveyerColors.outOfRange
+                : ConveyerColors.inRange,
+            date: theFocusedList[leftMostIndex].formatted,
+          );
 
-    uiArray = [leftMostVal, leftVal, centerVal, rightVal, rightMostVal];
+    final leftVal = leftIndex.isNegative
+        ? const UIArray(gradient: [
+            Colors.transparent,
+            Colors.transparent,
+          ], date: "")
+        : UIArray(
+            gradient: theFocusedList[leftIndex].isBelowMinDate
+                ? ConveyerColors.outOfRange
+                : ConveyerColors.inRange,
+            date: theFocusedList[leftIndex].formatted,
+          );
+    final centerVal = focusListCardinalLength == 0
+        ? const UIArray(gradient: [
+            Colors.transparent,
+            Colors.transparent,
+          ], date: "")
+        : UIArray(
+            gradient: theFocusedList[currentlySelectedIndex].isBelowMinDate
+                ? ConveyerColors.outOfRange
+                : ConveyerColors.inRange,
+            date: theFocusedList[currentlySelectedIndex].formatted,
+          );
+    final rightVal = rightIndex > focusListCardinalLength
+        ? const UIArray(gradient: [
+            Colors.transparent,
+            Colors.transparent,
+          ], date: "")
+        : UIArray(
+            gradient: theFocusedList[rightIndex].isBelowMinDate
+                ? ConveyerColors.outOfRange
+                : ConveyerColors.inRange,
+            date: theFocusedList[rightIndex].formatted,
+          );
+
+    final rightMostVal = rightMostIndex > focusListCardinalLength
+        ? const UIArray(gradient: [
+            Colors.transparent,
+            Colors.transparent,
+          ], date: "")
+        : UIArray(
+            gradient: theFocusedList[rightMostIndex].isBelowMinDate
+                ? ConveyerColors.outOfRange
+                : ConveyerColors.inRange,
+            date: theFocusedList[rightMostIndex].formatted,
+          );
+
+    uiArray = [
+      leftMostVal,
+      leftVal,
+      centerVal,
+      rightVal,
+      rightMostVal,
+    ];
   }
 
   @action

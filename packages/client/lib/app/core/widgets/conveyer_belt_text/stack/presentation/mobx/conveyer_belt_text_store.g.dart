@@ -137,13 +137,13 @@ mixin _$ConveyerBeltTextStore on _ConveyerBeltTextStoreBase, Store {
       Atom(name: '_ConveyerBeltTextStoreBase.uiArray', context: context);
 
   @override
-  List<String> get uiArray {
+  List<UIArray> get uiArray {
     _$uiArrayAtom.reportRead();
     return super.uiArray;
   }
 
   @override
-  set uiArray(List<String> value) {
+  set uiArray(List<UIArray> value) {
     _$uiArrayAtom.reportWrite(value, super.uiArray, () {
       super.uiArray = value;
     });

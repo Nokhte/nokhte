@@ -17,6 +17,7 @@ class ConveyerBeltText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("${trackerStore.uiArray[0].gradient}");
     return Observer(builder: (context) {
       return AnimatedOpacity(
         opacity: trackerStore.showWidget ? 1 : 0,
@@ -34,10 +35,9 @@ class ConveyerBeltText extends StatelessWidget {
                     top: value.get('$i top position'),
                     child: ShaderMask(
                       shaderCallback: (Rect bounds) {
-                        return const LinearGradient(
-                          // colors: [Colors.red, Colors.blue],
-                          colors: [Colors.white, Colors.white],
-                          stops: [0.0, 1.0],
+                        return LinearGradient(
+                          colors: trackerStore.uiArray[i].gradient,
+                          stops: const [0.0, 1.0],
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           // begin: Alignment.topLeft,
@@ -49,7 +49,7 @@ class ConveyerBeltText extends StatelessWidget {
                             fontSize: 30,
                             color: Colors.white,
                           ),
-                          trackerStore.uiArray[i]),
+                          trackerStore.uiArray[i].date),
                     ),
                   ),
               ]);

@@ -37,6 +37,7 @@ class ReturnDateOrTimeArray extends AbstractSyncNoFailureLogic<
     currentDate = currentDate.subtract(const Duration(days: 2));
     for (int i = 0; i < 6; i++) {
       final isTheActiveOne = i == 1 ? true : false;
+      final isBelowMinDate = i < 2 ? true : false;
       isTheActiveOne ? {activeOneIndex = i} : null;
       final String formatted = _formatDateTime(currentDate);
       dateArray.add(
@@ -44,6 +45,7 @@ class ReturnDateOrTimeArray extends AbstractSyncNoFailureLogic<
           formatted: formatted,
           unformatted: currentDate,
           isTheActiveOne: isTheActiveOne,
+          isBelowMinDate: isBelowMinDate,
         ),
       );
       currentDate = currentDate.add(const Duration(days: 1));
@@ -61,6 +63,7 @@ class ReturnDateOrTimeArray extends AbstractSyncNoFailureLogic<
     for (int hour = 0; hour < 24; hour++) {
       final String formatted = _formatTime(hour, currentDate);
       final bool isTheActiveOne = hour == currentDate.hour;
+      const isBelowMinDate = false;
       isTheActiveOne ? {activeOneIndex = hour} : null;
       timeArray.add(
         Time(
@@ -72,6 +75,7 @@ class ReturnDateOrTimeArray extends AbstractSyncNoFailureLogic<
             hour,
           ),
           isTheActiveOne: isTheActiveOne,
+          isBelowMinDate: isBelowMinDate,
         ),
       );
     }
