@@ -92,7 +92,7 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
 
   @action
   setUIArray(List<GeneralDateTimeReturnType> inputArr) {
-    final List<UIArray> finishedArray = [];
+    List<UIArray> finishedArray = [];
     for (int i = 0; i < comparisonList.length; i++) {
       finishedArray.add(
         comparisonList[i]
@@ -108,6 +108,7 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
               ),
       );
     }
+    uiArray = finishedArray;
   }
 
   @observable

@@ -16,11 +16,13 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
     with Store {
   final GyroscopicCoordinatorStore gyroscopicCoordinatorStore;
   final SchedulingWidgetsCoordinatorStore widgets;
+  final SchedulingWidgetsCoordinatorStore scheduling;
   // I think a coordinator store for the widget
 
   _P2PPurposePhase6CoordinatorStoreBase({
     required this.widgets,
     required this.gyroscopicCoordinatorStore,
+    required this.scheduling,
   });
 
   screenConstructor() async {
