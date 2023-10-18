@@ -6,11 +6,12 @@ class SkyColorTransition {
   static MovieTween getMovie(
     List<Color> startingGrad,
     List<Color> endingGrad,
+    bool shouldBeLonger,
   ) =>
       MovieTween()
         ..scene(
           begin: Seconds.get(0),
-          end: const Duration(milliseconds: 500),
+          end: shouldBeLonger ? Seconds.get(3) : Seconds.get(1),
         )
             .tween(
               'sky value',

@@ -35,7 +35,7 @@ abstract class _SchedulingWidgetsCoordinatorStoreBase extends Equatable
     beachSkyStore.selectTimeBasedMovie(currentTimeParam);
   }
 
-  // @action
+  @action
   initForwardTimeShift() {
     final pastTime = currentSelectedTime;
     final newTime = currentSelectedTime.add(Hours.get(1));

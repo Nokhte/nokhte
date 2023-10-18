@@ -45,6 +45,20 @@ mixin _$SchedulingWidgetsCoordinatorStore
   }
 
   @override
+  dynamic initForwardTimeShift() {
+    final _$actionInfo =
+        _$_SchedulingWidgetsCoordinatorStoreBaseActionController.startAction(
+            name:
+                '_SchedulingWidgetsCoordinatorStoreBase.initForwardTimeShift');
+    try {
+      return super.initForwardTimeShift();
+    } finally {
+      _$_SchedulingWidgetsCoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic initBackwardTimeShift() {
     final _$actionInfo =
         _$_SchedulingWidgetsCoordinatorStoreBaseActionController.startAction(

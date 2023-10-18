@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:simple_animations/simple_animations.dart';
 
@@ -6,11 +7,14 @@ class HorizonWaterColorChange {
   static MovieTween getMovie(
     List<ColorAndStop> startingGradient,
     List<ColorAndStop> endingGradient,
+    bool shouldBeLonger,
   ) =>
       MovieTween()
         ..scene(
           begin: const Duration(seconds: 0),
-          end: const Duration(milliseconds: 500),
+          end: shouldBeLonger
+              ? Seconds.get(3)
+              : Seconds.get(1),
         )
             .tween(
               '1st Water Gradient Color',

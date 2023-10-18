@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:primala/app/core/mobx/base_scheduling_widget_store.dart';
+import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/core/widgets/sky_widgets/sun_and_moon/stack/constants/movies/movies.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -121,7 +122,6 @@ abstract class _SunAndMoonStoreBase
         queuedUpMovie = QueuedUpMovie.smoothLERP;
       }
     } else {
-      print("is the end grad being set properly??");
       endingGrad = SunColors.morning;
     }
   }
@@ -155,7 +155,6 @@ abstract class _SunAndMoonStoreBase
   initTimeShift(DateTime pastTime, DateTime newTime) {
     setGradient(pastTime, isStart: true);
     setGradient(newTime, isStart: false);
-    print("Queued up movie ?? $queuedUpMovie");
     switch (queuedUpMovie) {
       case QueuedUpMovie.underOver:
         movie = UnderOver.getMovie(
