@@ -34,8 +34,9 @@ class ReturnDateOrTimeArray extends AbstractSyncNoFailureLogic<
   ReturnDateOrTimeEntity _returnDateEntity(
       DateTime currentDate, int activeOneIndex) {
     List<Date> dateArray = [];
-    for (int i = 0; i < 4; i++) {
-      final isTheActiveOne = i == 0 ? true : false;
+    currentDate = currentDate.subtract(const Duration(days: 2));
+    for (int i = 0; i < 6; i++) {
+      final isTheActiveOne = i == 1 ? true : false;
       isTheActiveOne ? {activeOneIndex = i} : null;
       final String formatted = _formatDateTime(currentDate);
       dateArray.add(

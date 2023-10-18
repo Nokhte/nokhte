@@ -16,9 +16,9 @@ void main() {
       dateOrTime: DateOrTime.date,
     ));
     final tList = tEntity.dateOrTimeList;
-    expect(tList[0].unformatted, now);
-    expect(tList[3].unformatted, now.add(const Duration(days: 3)));
-    expect(tEntity.activeSelectionIndex, 0);
+    expect(tList[2].unformatted, now);
+    expect(tList[5].unformatted, now.add(const Duration(days: 3)));
+    expect(tEntity.activeSelectionIndex, 1);
   });
   test("should return a proper time array", () {
     final now = DateTime.now();
