@@ -150,7 +150,7 @@ abstract class _SunAndMoonStoreBase
         : endingGrad = SunColors.evening;
   }
 
-  // @action
+  @action
   @override
   initTimeShift(DateTime pastTime, DateTime newTime) {
     setGradient(pastTime, isStart: true);
