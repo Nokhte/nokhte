@@ -32,12 +32,25 @@ class ConveyerBeltText extends StatelessWidget {
                   Positioned(
                     left: value.get('$i left position'),
                     top: value.get('$i top position'),
-                    child: PlatformText(
-                        style: GoogleFonts.jost(
-                          fontSize: 30,
-                          color: Colors.white,
-                        ),
-                        trackerStore.uiArray[i]),
+                    child: ShaderMask(
+                      shaderCallback: (Rect bounds) {
+                        return const LinearGradient(
+                          // colors: [Colors.red, Colors.blue],
+                          colors: [Colors.white, Colors.white],
+                          stops: [0.0, 1.0],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          // begin: Alignment.topLeft,
+                          // end: Alignment.bottomRight,
+                        ).createShader(bounds);
+                      },
+                      child: PlatformText(
+                          style: GoogleFonts.jost(
+                            fontSize: 30,
+                            color: Colors.white,
+                          ),
+                          trackerStore.uiArray[i]),
+                    ),
                   ),
               ]);
             }),
