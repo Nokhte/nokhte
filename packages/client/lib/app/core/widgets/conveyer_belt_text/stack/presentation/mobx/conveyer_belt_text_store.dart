@@ -170,17 +170,17 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
 
   @action
   initForwardMovie() {
-    print("INITF: what's the movies statue $movieStatus");
-    print(
-        "INITF: what's the movies statue $movieStatus currently selected index $currentlySelectedIndex");
+    // print("INITF: what's the movies statue $movieStatus");
+    // print(
+    //     "INITF: what's the movies statue $movieStatus currently selected index $currentlySelectedIndex");
     if (movieStatus == MovieStatus.inProgress) return;
     if (currentlySelectedIndex == focusListCardinalLength) {
-      print("at max forward movie running");
+      // print("at max forward movie running");
       movie = AtMinOrMax.getMovie(atMin: false); // at max
       control = Control.playFromStart;
       movieStatus = MovieStatus.inProgress;
     } else {
-      print("at regular forward movie running");
+      // print("at regular forward movie running");
       movie = ForwardsOrBackwards.getMovie(isForward: true); // anywhere else
       movieMode = ConveyerMovieModes.forward;
       control = Control.playFromStart;
@@ -190,16 +190,16 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
 
   @action
   initBackwardMovie() {
-    print(
-        "INITF: what's the movies statue $movieStatus currently selected index $currentlySelectedIndex");
+    // print(
+    //     "INITF: what's the movies statue $movieStatus currently selected index $currentlySelectedIndex");
     if (movieStatus == MovieStatus.inProgress) return;
     if (currentlySelectedIndex == 0) {
-      print("at min forward movie running");
+      // print("at min forward movie running");
       movie = AtMinOrMax.getMovie(atMin: true);
       control = Control.playFromStart;
       movieStatus = MovieStatus.inProgress;
     } else {
-      print("at regular backward movie running");
+      // print("at regular backward movie running");
       movie = ForwardsOrBackwards.getMovie(isForward: false); // at min
       movieMode = ConveyerMovieModes.backwards;
       control = Control.playFromStart;
@@ -211,7 +211,7 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
   onCompletedMovie() {
     switch (movieMode) {
       case ConveyerMovieModes.forward:
-        print("forward completed movie!!");
+        // print("forward completed movie!!");
         control = Control.stop;
         movie = DefaultLayoutMovie.movie;
         Future.delayed(Seconds.get(0), () {
@@ -225,7 +225,7 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
             : ConveyerMovieModes.idleInRange;
         movieStatus = MovieStatus.idle;
       case ConveyerMovieModes.backwards:
-        print("backward completed movie!!");
+        // print("backward completed movie!!");
         control = Control.stop;
         movie = DefaultLayoutMovie.movie;
         Future.delayed(Seconds.get(0), () {

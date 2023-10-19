@@ -138,8 +138,11 @@ class GyroscopeUtils {
     );
     final quadRange = quadrantList[startingQuadrant].endingAngle -
         quadrantList[startingQuadrant].startingAngle;
-    final desiredStartingAngle =
+    int desiredStartingAngle =
         quadrantList[startingQuadrant].startingAngle + quadRange;
+    if (startingQuadrant == 0) {
+      desiredStartingAngle = 0;
+    }
     final startingRev = revolutionCalculator(desiredStartingAngle);
 
     return GyroSetupReturnType(

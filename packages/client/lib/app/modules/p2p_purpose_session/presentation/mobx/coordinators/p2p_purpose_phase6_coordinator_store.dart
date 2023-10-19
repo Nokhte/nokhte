@@ -53,23 +53,6 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
     Future.delayed(Seconds.get(6), () {
       widgets.conveyerBelt.setWidgetVisibility(true);
     });
-    // Future.delayed(Seconds.get(10), () {
-    //   widgets.conveyerBelt.initForwardMovie();
-    // });
-    // Future.delayed(Seconds.get(13), () {
-    //   widgets.conveyerBelt.initForwardMovie();
-    // });
-    // Future.delayed(Seconds.get(16), () {
-    //   widgets.conveyerBelt.initForwardMovie();
-    // });
-
-    // Future.delayed(Seconds.get(19), () {
-    //   widgets.conveyerBelt.initForwardMovie();
-    // });
-
-    // Future.delayed(Seconds.get(21), () {
-    //   widgets.conveyerBelt.initForwardMovie();
-    // });
 
     @action
     valueTrackingSetup(int p0) {
@@ -88,6 +71,14 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
       if (p0 >= 0) {
         valueTrackingSetup(p0);
         print("most curr val $firstValue lagging val $previousValue ");
+
+        if (isFirstTime && firstValue > 0) {
+          widgets.conveyerBelt.initForwardMovie();
+        } else if (firstValue > previousValue) {
+          widgets.conveyerBelt.initForwardMovie();
+        } else {
+          widgets.conveyerBelt.initBackwardMovie();
+        }
       }
     });
   }

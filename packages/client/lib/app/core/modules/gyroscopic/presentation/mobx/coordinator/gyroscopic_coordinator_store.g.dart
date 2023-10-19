@@ -9,6 +9,13 @@ part of 'gyroscopic_coordinator_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
+  Computed<bool>? _$isSecondTimeComputed;
+
+  @override
+  bool get isSecondTime =>
+      (_$isSecondTimeComputed ??= Computed<bool>(() => super.isSecondTime,
+              name: '_GyroscopicCoordinatorStoreBase.isSecondTime'))
+          .value;
   Computed<int>? _$lowerThresholdBoundComputed;
 
   @override
@@ -62,13 +69,22 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
       (_$isAtMaxCapacityComputed ??= Computed<bool>(() => super.isAtMaxCapacity,
               name: '_GyroscopicCoordinatorStoreBase.isAtMaxCapacity'))
           .value;
-  Computed<bool>? _$isSecondTimeComputed;
+
+  late final _$currentValueAtom = Atom(
+      name: '_GyroscopicCoordinatorStoreBase.currentValue', context: context);
 
   @override
-  bool get isSecondTime =>
-      (_$isSecondTimeComputed ??= Computed<bool>(() => super.isSecondTime,
-              name: '_GyroscopicCoordinatorStoreBase.isSecondTime'))
-          .value;
+  int get currentValue {
+    _$currentValueAtom.reportRead();
+    return super.currentValue;
+  }
+
+  @override
+  set currentValue(int value) {
+    _$currentValueAtom.reportWrite(value, super.currentValue, () {
+      super.currentValue = value;
+    });
+  }
 
   late final _$currentModeAtom = Atom(
       name: '_GyroscopicCoordinatorStoreBase.currentMode', context: context);
@@ -208,23 +224,24 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
           name: '_GyroscopicCoordinatorStoreBase', context: context);
 
   @override
-  dynamic dispose() {
-    final _$actionInfo = _$_GyroscopicCoordinatorStoreBaseActionController
-        .startAction(name: '_GyroscopicCoordinatorStoreBase.dispose');
+  dynamic negativeAndRegularModeWatcher(int value) {
+    final _$actionInfo =
+        _$_GyroscopicCoordinatorStoreBaseActionController.startAction(
+            name:
+                '_GyroscopicCoordinatorStoreBase.negativeAndRegularModeWatcher');
     try {
-      return super.dispose();
+      return super.negativeAndRegularModeWatcher(value);
     } finally {
       _$_GyroscopicCoordinatorStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void setCurrentQuadrant(int newQuad) {
-    final _$actionInfo =
-        _$_GyroscopicCoordinatorStoreBaseActionController.startAction(
-            name: '_GyroscopicCoordinatorStoreBase.setCurrentQuadrant');
+  dynamic dispose() {
+    final _$actionInfo = _$_GyroscopicCoordinatorStoreBaseActionController
+        .startAction(name: '_GyroscopicCoordinatorStoreBase.dispose');
     try {
-      return super.setCurrentQuadrant(newQuad);
+      return super.dispose();
     } finally {
       _$_GyroscopicCoordinatorStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -243,13 +260,23 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
   }
 
   @override
-  dynamic negativeAndRegularModeWatcher(int value) {
+  dynamic setCurrentValue(int newInt) {
+    final _$actionInfo = _$_GyroscopicCoordinatorStoreBaseActionController
+        .startAction(name: '_GyroscopicCoordinatorStoreBase.setCurrentValue');
+    try {
+      return super.setCurrentValue(newInt);
+    } finally {
+      _$_GyroscopicCoordinatorStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setCurrentQuadrant(int newQuad) {
     final _$actionInfo =
         _$_GyroscopicCoordinatorStoreBaseActionController.startAction(
-            name:
-                '_GyroscopicCoordinatorStoreBase.negativeAndRegularModeWatcher');
+            name: '_GyroscopicCoordinatorStoreBase.setCurrentQuadrant');
     try {
-      return super.negativeAndRegularModeWatcher(value);
+      return super.setCurrentQuadrant(newQuad);
     } finally {
       _$_GyroscopicCoordinatorStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -258,6 +285,7 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
   @override
   String toString() {
     return '''
+currentValue: ${currentValue},
 currentMode: ${currentMode},
 currentRevolution: ${currentRevolution},
 currentQuadrant: ${currentQuadrant},
@@ -266,14 +294,14 @@ thresholdList: ${thresholdList},
 firstValue: ${firstValue},
 hasBeenMarkedUp: ${hasBeenMarkedUp},
 secondValue: ${secondValue},
+isSecondTime: ${isSecondTime},
 lowerThresholdBound: ${lowerThresholdBound},
 upperThresholdBound: ${upperThresholdBound},
 isFirstTime: ${isFirstTime},
 isANegativeModeMovement: ${isANegativeModeMovement},
 isAPositiveRevolutionMovement: ${isAPositiveRevolutionMovement},
 isANegativeRevolutionMovement: ${isANegativeRevolutionMovement},
-isAtMaxCapacity: ${isAtMaxCapacity},
-isSecondTime: ${isSecondTime}
+isAtMaxCapacity: ${isAtMaxCapacity}
     ''';
   }
 }
