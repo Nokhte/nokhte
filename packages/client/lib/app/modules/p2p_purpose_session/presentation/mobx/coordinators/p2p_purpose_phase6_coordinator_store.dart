@@ -8,6 +8,7 @@ import 'package:primala/app/core/modules/gyroscopic/presentation/presentation.da
 import 'package:primala/app/core/modules/scheduling/domain/domain.dart';
 import 'package:primala/app/core/modules/scheduling/presentation/presentation.dart';
 import 'package:primala/app/core/types/types.dart';
+import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 // * Mobx Codegen Inclusion
 part 'p2p_purpose_phase6_coordinator_store.g.dart';
@@ -19,6 +20,7 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
     with Store {
   final GyroscopicCoordinatorStore gyroscopicCoordinatorStore;
   final SchedulingWidgetsCoordinatorStore widgets;
+  final ConveyerBeltTextStore conveyerBelt;
   final SchedulingCoordinatorStore scheduling;
 
   // I think a coordinator store for the widget
@@ -42,7 +44,7 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
     required this.widgets,
     required this.gyroscopicCoordinatorStore,
     required this.scheduling,
-  });
+  }) : conveyerBelt = widgets.conveyerBelt;
 
   screenConstructor() async {
     await scheduling.createSchedulingSessionStore(NoParams());
@@ -67,16 +69,15 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
       if (p0 >= 0) {
         valueTrackingSetup(p0);
         conveyerBeltController();
-        print("most curr val $firstValue lagging val $previousValue ");
+        // print("most curr val $firstValue lagging val $previousValue ");
       }
     });
   }
 
   @action
   updateTheBackend(bool isAForwardMovement) async {
-    final chosenIndex = isAForwardMovement
-        ? widgets.conveyerBelt.rightIndex
-        : widgets.conveyerBelt.leftIndex;
+    final chosenIndex =
+        isAForwardMovement ? conveyerBelt.rightIndex : conveyerBelt.leftIndex;
 
     await scheduling.updateSchedulingTimeOrDateStore(
         UpdateSchedulingTimeOrDateParams(
@@ -102,14 +103,14 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   @action
   conveyerBeltController() async {
     if (isFirstTime && firstValue > 0) {
-      widgets.conveyerBelt.initForwardMovie();
+      conveyerBelt.initForwardMovie();
       updateTheBackend(true);
       // here
     } else if (firstValue > previousValue) {
-      widgets.conveyerBelt.initForwardMovie();
+      conveyerBelt.initForwardMovie();
       updateTheBackend(true);
     } else {
-      widgets.conveyerBelt.initBackwardMovie();
+      conveyerBelt.initBackwardMovie();
       updateTheBackend(false);
     }
   }
