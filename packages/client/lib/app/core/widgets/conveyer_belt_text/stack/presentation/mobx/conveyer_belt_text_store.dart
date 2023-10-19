@@ -176,9 +176,9 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
     if (movieStatus == MovieStatus.inProgress) return;
     if (currentlySelectedIndex == focusListCardinalLength) {
       // print("at max forward movie running");
-      movie = AtMinOrMax.getMovie(atMin: false); // at max
-      control = Control.playFromStart;
-      movieStatus = MovieStatus.inProgress;
+      // movie = AtMinOrMax.getMovie(atMin: false); // at max
+      // control = Control.playFromStart;
+      // movieStatus = MovieStatus.inProgress;
     } else {
       // print("at regular forward movie running");
       movie = ForwardsOrBackwards.getMovie(isForward: true); // anywhere else
@@ -195,9 +195,9 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
     if (movieStatus == MovieStatus.inProgress) return;
     if (currentlySelectedIndex == 0) {
       // print("at min forward movie running");
-      movie = AtMinOrMax.getMovie(atMin: true);
-      control = Control.playFromStart;
-      movieStatus = MovieStatus.inProgress;
+      // movie = AtMinOrMax.getMovie(atMin: true);
+      // control = Control.playFromStart;
+      // movieStatus = MovieStatus.inProgress;
     } else {
       // print("at regular backward movie running");
       movie = ForwardsOrBackwards.getMovie(isForward: false); // at min
