@@ -10,6 +10,7 @@ import 'package:primala/app/core/modules/solo_doc/solo_doc_module.dart';
 import 'package:primala/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:primala/app/core/modules/voice_call/voice_call_module.dart';
 import 'package:primala/app/core/widgets/mobx.dart';
+import 'package:primala/app/core/widgets/scheduling_delta/stack/stack.dart';
 import 'package:primala/app/core/widgets/shared/constants/svg_animation_constants.dart';
 import 'package:primala/app/core/widgets/widget_constants.dart';
 import 'package:primala/app/modules/p2p_purpose_session/presentation/presentation.dart';
@@ -76,6 +77,9 @@ class P2PCollaboratorSessionModule extends Module {
         Bind.singleton<SunAndMoonStore>(
           (i) => SunAndMoonStore(),
         ),
+        Bind.singleton<SchedulingDeltaStore>(
+          (i) => SchedulingDeltaStore(),
+        ),
         Bind.singleton<CollaborativeTextEditorTrackerStore>(
           (i) => CollaborativeTextEditorTrackerStore(
             userStore: i<UserTextEditorTrackerStore>(),
@@ -84,6 +88,7 @@ class P2PCollaboratorSessionModule extends Module {
         // & Coordinator Stores
         Bind.singleton<SchedulingWidgetsCoordinatorStore>(
           (i) => SchedulingWidgetsCoordinatorStore(
+            schedulingDelta: i<SchedulingDeltaStore>(),
             conveyerBelt: i<ConveyerBeltTextStore>(),
             beachSkyStore: i<BeachSkyStore>(),
             beachWater: i<BeachHorizonWaterTrackerStore>(),

@@ -4,6 +4,7 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/types/types.dart';
+import 'package:primala/app/core/widgets/scheduling_delta/stack/stack.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 // * Mobx Codegen Inclusion
 part 'scheduling_widgets_coordinator_store.g.dart';
@@ -17,11 +18,13 @@ abstract class _SchedulingWidgetsCoordinatorStoreBase extends Equatable
   final SunAndMoonStore sunAndMoon;
   final BeachHorizonWaterTrackerStore beachWater;
   final BeachSkyStore beachSkyStore;
+  final SchedulingDeltaStore schedulingDelta;
   _SchedulingWidgetsCoordinatorStoreBase({
     required this.conveyerBelt,
     required this.sunAndMoon,
     required this.beachSkyStore,
     required this.beachWater,
+    required this.schedulingDelta,
   });
 
   @observable
