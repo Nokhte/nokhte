@@ -67,18 +67,22 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
       }
     }
 
+    @action
+    conveyerBeltController() {
+      if (isFirstTime && firstValue > 0) {
+        widgets.conveyerBelt.initForwardMovie();
+      } else if (firstValue > previousValue) {
+        widgets.conveyerBelt.initForwardMovie();
+      } else {
+        widgets.conveyerBelt.initBackwardMovie();
+      }
+    }
+
     reaction((p0) => gyroscopicCoordinatorStore.currentQuadrant, (p0) {
       if (p0 >= 0) {
         valueTrackingSetup(p0);
+        conveyerBeltController();
         print("most curr val $firstValue lagging val $previousValue ");
-
-        if (isFirstTime && firstValue > 0) {
-          widgets.conveyerBelt.initForwardMovie();
-        } else if (firstValue > previousValue) {
-          widgets.conveyerBelt.initForwardMovie();
-        } else {
-          widgets.conveyerBelt.initBackwardMovie();
-        }
       }
     });
   }
