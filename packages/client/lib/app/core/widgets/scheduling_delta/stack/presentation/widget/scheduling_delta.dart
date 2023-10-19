@@ -19,7 +19,7 @@ class SchedulingDelta extends StatelessWidget {
       builder: (context) => CustomAnimationBuilder(
           tween: trackerStore.movie,
           control: trackerStore.control,
-          duration: Seconds.get(1),
+          duration: trackerStore.movie.duration,
           builder: (context, value, child) {
             return AnimatedOpacity(
               opacity: trackerStore.showWidget ? 1 : 0,

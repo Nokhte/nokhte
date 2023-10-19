@@ -59,6 +59,23 @@ mixin _$P2PPurposePhase6CoordinatorStore
     });
   }
 
+  late final _$confirmingMatchAtom = Atom(
+      name: '_P2PPurposePhase6CoordinatorStoreBase.confirmingMatch',
+      context: context);
+
+  @override
+  bool get confirmingMatch {
+    _$confirmingMatchAtom.reportRead();
+    return super.confirmingMatch;
+  }
+
+  @override
+  set confirmingMatch(bool value) {
+    _$confirmingMatchAtom.reportWrite(value, super.confirmingMatch, () {
+      super.confirmingMatch = value;
+    });
+  }
+
   late final _$updateTheBackendAsyncAction = AsyncAction(
       '_P2PPurposePhase6CoordinatorStoreBase.updateTheBackend',
       context: context);
@@ -101,6 +118,7 @@ mixin _$P2PPurposePhase6CoordinatorStore
     return '''
 firstValue: ${firstValue},
 secondValue: ${secondValue},
+confirmingMatch: ${confirmingMatch},
 isFirstTime: ${isFirstTime},
 isSecondTime: ${isSecondTime}
     ''';
