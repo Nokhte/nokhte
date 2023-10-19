@@ -17,7 +17,23 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   final GyroscopicCoordinatorStore gyroscopicCoordinatorStore;
   final SchedulingWidgetsCoordinatorStore widgets;
   final SchedulingWidgetsCoordinatorStore scheduling;
+
   // I think a coordinator store for the widget
+  @observable
+  int firstValue = -1;
+
+  @observable
+  int secondValue = -1;
+
+  int previousValue = -1;
+
+  @computed
+  bool get isFirstTime => firstValue == -1;
+
+  @computed
+  bool get isSecondTime => secondValue == -1;
+
+  // basically what you want is a comparison type deal
 
   _P2PPurposePhase6CoordinatorStoreBase({
     required this.widgets,
@@ -27,19 +43,52 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
 
   screenConstructor() async {
     await gyroscopicCoordinatorStore.setupTheStream(
-      numberOfQuadrants: 4,
+      numberOfQuadrants: 6,
       totalAngleCoverageOfEachQuadrant: 90,
       startingQuadrant: 0,
     );
-    // final now = DateTime.parse('1969-16-20 07:00:00');
-    final now = DateTime.now();
+    final now = DateTime.parse('1969-16-20 04:00:00');
+    // final now = DateTime.now();
     widgets.attuneTheWidgets(now);
-    Future.delayed(Seconds.get(5), () {
+    Future.delayed(Seconds.get(6), () {
       widgets.conveyerBelt.setWidgetVisibility(true);
     });
+    // Future.delayed(Seconds.get(10), () {
+    //   widgets.conveyerBelt.initForwardMovie();
+    // });
+    // Future.delayed(Seconds.get(13), () {
+    //   widgets.conveyerBelt.initForwardMovie();
+    // });
+    // Future.delayed(Seconds.get(16), () {
+    //   widgets.conveyerBelt.initForwardMovie();
+    // });
+
+    // Future.delayed(Seconds.get(19), () {
+    //   widgets.conveyerBelt.initForwardMovie();
+    // });
+
+    // Future.delayed(Seconds.get(21), () {
+    //   widgets.conveyerBelt.initForwardMovie();
+    // });
+
+    @action
+    valueTrackingSetup(int p0) {
+      if (isFirstTime) {
+        firstValue = p0;
+      } else if (secondValue == -1) {
+        secondValue = p0;
+      } else {
+        previousValue = firstValue;
+        firstValue = secondValue;
+        secondValue = p0;
+      }
+    }
 
     reaction((p0) => gyroscopicCoordinatorStore.currentQuadrant, (p0) {
-      // print("from the coordinator $p0");
+      if (p0 >= 0) {
+        valueTrackingSetup(p0);
+        print("most curr val $firstValue lagging val $previousValue ");
+      }
     });
   }
 

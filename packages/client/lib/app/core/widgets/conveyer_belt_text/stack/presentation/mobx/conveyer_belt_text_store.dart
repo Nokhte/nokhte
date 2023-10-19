@@ -125,7 +125,7 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
     required DateOrTime dateOrTimeParam,
   }) {
     setDatesArray();
-    print(dates.toString());
+    // print(dates.toString());
     setUIArray(dates);
   }
 
@@ -170,31 +170,39 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
 
   @action
   initForwardMovie() {
-    // print("is forward running?? $movieStatus");
+    print("INITF: what's the movies statue $movieStatus");
+    print(
+        "INITF: what's the movies statue $movieStatus currently selected index $currentlySelectedIndex");
     if (movieStatus == MovieStatus.inProgress) return;
     if (currentlySelectedIndex == focusListCardinalLength) {
+      print("at max forward movie running");
       movie = AtMinOrMax.getMovie(atMin: false); // at max
-      control = Control.play;
+      control = Control.playFromStart;
       movieStatus = MovieStatus.inProgress;
     } else {
-      movie = ForwardsOrBackwards.getMovie(isForward: true); // at min
+      print("at regular forward movie running");
+      movie = ForwardsOrBackwards.getMovie(isForward: true); // anywhere else
       movieMode = ConveyerMovieModes.forward;
-      control = Control.play;
+      control = Control.playFromStart;
       movieStatus = MovieStatus.inProgress;
     }
   }
 
   @action
   initBackwardMovie() {
+    print(
+        "INITF: what's the movies statue $movieStatus currently selected index $currentlySelectedIndex");
     if (movieStatus == MovieStatus.inProgress) return;
     if (currentlySelectedIndex == 0) {
+      print("at min forward movie running");
       movie = AtMinOrMax.getMovie(atMin: true);
-      control = Control.play;
+      control = Control.playFromStart;
       movieStatus = MovieStatus.inProgress;
     } else {
+      print("at regular backward movie running");
       movie = ForwardsOrBackwards.getMovie(isForward: false); // at min
       movieMode = ConveyerMovieModes.backwards;
-      control = Control.play;
+      control = Control.playFromStart;
       movieStatus = MovieStatus.inProgress;
     }
   }
@@ -203,22 +211,35 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
   onCompletedMovie() {
     switch (movieMode) {
       case ConveyerMovieModes.forward:
+        print("forward completed movie!!");
+        control = Control.stop;
         movie = DefaultLayoutMovie.movie;
-        setCurrentlySelectedIndex(currentlySelectedIndex + 1);
-        currentFocus == DateOrTime.date ? setUIArray(dates) : setUIArray(times);
+        Future.delayed(Seconds.get(0), () {
+          setCurrentlySelectedIndex(currentlySelectedIndex + 1);
+          currentFocus == DateOrTime.date
+              ? setUIArray(dates)
+              : setUIArray(times);
+        });
         movieMode = currentlySelectedIndex == focusListCardinalLength
             ? ConveyerMovieModes.idleMax
             : ConveyerMovieModes.idleInRange;
         movieStatus = MovieStatus.idle;
       case ConveyerMovieModes.backwards:
+        print("backward completed movie!!");
+        control = Control.stop;
         movie = DefaultLayoutMovie.movie;
-        setCurrentlySelectedIndex(currentlySelectedIndex - 1);
-        currentFocus == DateOrTime.date ? setUIArray(dates) : setUIArray(times);
+        Future.delayed(Seconds.get(0), () {
+          setCurrentlySelectedIndex(currentlySelectedIndex - 1);
+          currentFocus == DateOrTime.date
+              ? setUIArray(dates)
+              : setUIArray(times);
+        });
         movieMode = currentlySelectedIndex == 0
             ? ConveyerMovieModes.idleMin
             : ConveyerMovieModes.idleInRange;
         movieStatus = MovieStatus.idle;
       default:
+        // print("how often is this running????");
         movieStatus = MovieStatus.idle;
         break;
     }

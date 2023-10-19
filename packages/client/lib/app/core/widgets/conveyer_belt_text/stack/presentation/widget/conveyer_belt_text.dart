@@ -17,7 +17,6 @@ class ConveyerBeltText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("${trackerStore.uiArray[0].gradient}");
     return Observer(builder: (context) {
       return AnimatedOpacity(
         opacity: trackerStore.showWidget ? 1 : 0,

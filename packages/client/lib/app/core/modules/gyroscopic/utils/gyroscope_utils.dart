@@ -156,7 +156,11 @@ class GyroscopeUtils {
     for (int i = 0; i < quadrants.length; i++) {
       QuadrantInfo quadrant = quadrants[i];
       if (currentAngle >= quadrant.startingAngle &&
-          currentAngle <= quadrant.endingAngle) {
+          currentAngle <= quadrant.endingAngle &&
+          i != quadrants.length - 1) {
+        return i;
+      } else if (currentAngle >= quadrant.startingAngle &&
+          i == quadrants.length - 1) {
         return i;
       }
     }

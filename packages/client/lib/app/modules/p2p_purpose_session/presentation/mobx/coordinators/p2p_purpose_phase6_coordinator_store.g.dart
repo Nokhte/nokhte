@@ -10,10 +10,62 @@ part of 'p2p_purpose_phase6_coordinator_store.dart';
 
 mixin _$P2PPurposePhase6CoordinatorStore
     on _P2PPurposePhase6CoordinatorStoreBase, Store {
+  Computed<bool>? _$isFirstTimeComputed;
+
+  @override
+  bool get isFirstTime =>
+      (_$isFirstTimeComputed ??= Computed<bool>(() => super.isFirstTime,
+              name: '_P2PPurposePhase6CoordinatorStoreBase.isFirstTime'))
+          .value;
+  Computed<bool>? _$isSecondTimeComputed;
+
+  @override
+  bool get isSecondTime =>
+      (_$isSecondTimeComputed ??= Computed<bool>(() => super.isSecondTime,
+              name: '_P2PPurposePhase6CoordinatorStoreBase.isSecondTime'))
+          .value;
+
+  late final _$firstValueAtom = Atom(
+      name: '_P2PPurposePhase6CoordinatorStoreBase.firstValue',
+      context: context);
+
+  @override
+  int get firstValue {
+    _$firstValueAtom.reportRead();
+    return super.firstValue;
+  }
+
+  @override
+  set firstValue(int value) {
+    _$firstValueAtom.reportWrite(value, super.firstValue, () {
+      super.firstValue = value;
+    });
+  }
+
+  late final _$secondValueAtom = Atom(
+      name: '_P2PPurposePhase6CoordinatorStoreBase.secondValue',
+      context: context);
+
+  @override
+  int get secondValue {
+    _$secondValueAtom.reportRead();
+    return super.secondValue;
+  }
+
+  @override
+  set secondValue(int value) {
+    _$secondValueAtom.reportWrite(value, super.secondValue, () {
+      super.secondValue = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
-
+firstValue: ${firstValue},
+secondValue: ${secondValue},
+isFirstTime: ${isFirstTime},
+isSecondTime: ${isSecondTime}
     ''';
   }
 }
