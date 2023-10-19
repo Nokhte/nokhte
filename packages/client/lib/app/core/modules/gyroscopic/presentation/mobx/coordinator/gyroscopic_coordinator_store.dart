@@ -194,7 +194,8 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
       if (!isFirstTime &&
           !isSecondTime &&
           currentMode != GyroscopeModes.negative &&
-          value != 359) {
+          value != 359 &&
+          value != 0) {
         setCurrentQuadrant(GyroscopeUtils.getCurrentQuadrant(
           currentAngle: value,
           quadrants: setupReturnType.quadrantInfo,
