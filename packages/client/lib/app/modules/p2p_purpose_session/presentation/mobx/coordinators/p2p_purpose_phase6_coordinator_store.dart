@@ -3,7 +3,10 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
+import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/modules/gyroscopic/presentation/presentation.dart';
+import 'package:primala/app/core/modules/scheduling/domain/domain.dart';
+import 'package:primala/app/core/modules/scheduling/presentation/presentation.dart';
 import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 // * Mobx Codegen Inclusion
@@ -16,7 +19,7 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
     with Store {
   final GyroscopicCoordinatorStore gyroscopicCoordinatorStore;
   final SchedulingWidgetsCoordinatorStore widgets;
-  final SchedulingWidgetsCoordinatorStore scheduling;
+  final SchedulingCoordinatorStore scheduling;
 
   // I think a coordinator store for the widget
   @observable
@@ -42,6 +45,7 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   });
 
   screenConstructor() async {
+    await scheduling.createSchedulingSessionStore(NoParams());
     await gyroscopicCoordinatorStore.setupTheStream(
       numberOfQuadrants: 6,
       totalAngleCoverageOfEachQuadrant: 90,
@@ -54,29 +58,10 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
       widgets.conveyerBelt.setWidgetVisibility(true);
     });
 
-    @action
-    valueTrackingSetup(int p0) {
-      if (isFirstTime) {
-        firstValue = p0;
-      } else if (secondValue == -1) {
-        secondValue = p0;
-      } else {
-        previousValue = firstValue;
-        firstValue = secondValue;
-        secondValue = p0;
-      }
-    }
-
-    @action
-    conveyerBeltController() {
-      if (isFirstTime && firstValue > 0) {
-        widgets.conveyerBelt.initForwardMovie();
-      } else if (firstValue > previousValue) {
-        widgets.conveyerBelt.initForwardMovie();
-      } else {
-        widgets.conveyerBelt.initBackwardMovie();
-      }
-    }
+    Future.delayed(Seconds.get(8), () {
+      widgets.conveyerBelt.initForwardMovie();
+      updateTheBackend(true);
+    });
 
     reaction((p0) => gyroscopicCoordinatorStore.currentQuadrant, (p0) {
       if (p0 >= 0) {
@@ -85,6 +70,48 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
         print("most curr val $firstValue lagging val $previousValue ");
       }
     });
+  }
+
+  @action
+  updateTheBackend(bool isAForwardMovement) async {
+    final chosenIndex = isAForwardMovement
+        ? widgets.conveyerBelt.rightIndex
+        : widgets.conveyerBelt.leftIndex;
+
+    await scheduling.updateSchedulingTimeOrDateStore(
+        UpdateSchedulingTimeOrDateParams(
+            updateDate: true,
+            newDateOrTime: widgets.conveyerBelt.dates[chosenIndex].unformatted
+            //
+            ));
+  }
+
+  @action
+  valueTrackingSetup(int p0) {
+    if (isFirstTime) {
+      firstValue = p0;
+    } else if (secondValue == -1) {
+      secondValue = p0;
+    } else {
+      previousValue = firstValue;
+      firstValue = secondValue;
+      secondValue = p0;
+    }
+  }
+
+  @action
+  conveyerBeltController() async {
+    if (isFirstTime && firstValue > 0) {
+      widgets.conveyerBelt.initForwardMovie();
+      updateTheBackend(true);
+      // here
+    } else if (firstValue > previousValue) {
+      widgets.conveyerBelt.initForwardMovie();
+      updateTheBackend(true);
+    } else {
+      widgets.conveyerBelt.initBackwardMovie();
+      updateTheBackend(false);
+    }
   }
 
   @override

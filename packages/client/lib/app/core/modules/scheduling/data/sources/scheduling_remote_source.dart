@@ -21,7 +21,7 @@ class SchedulingRemoteSourceImpl implements SchedulingRemoteSource {
   @override
   Future<List> createSchedulingSession() async {
     return await queries.createSchedulingSession(
-        sessionTypeBeingPlanned: 'collaborative');
+        sessionTypeBeingPlanned: 'collective');
   }
 
   @override

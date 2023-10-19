@@ -59,6 +59,43 @@ mixin _$P2PPurposePhase6CoordinatorStore
     });
   }
 
+  late final _$updateTheBackendAsyncAction = AsyncAction(
+      '_P2PPurposePhase6CoordinatorStoreBase.updateTheBackend',
+      context: context);
+
+  @override
+  Future updateTheBackend(bool isAForwardMovement) {
+    return _$updateTheBackendAsyncAction
+        .run(() => super.updateTheBackend(isAForwardMovement));
+  }
+
+  late final _$conveyerBeltControllerAsyncAction = AsyncAction(
+      '_P2PPurposePhase6CoordinatorStoreBase.conveyerBeltController',
+      context: context);
+
+  @override
+  Future conveyerBeltController() {
+    return _$conveyerBeltControllerAsyncAction
+        .run(() => super.conveyerBeltController());
+  }
+
+  late final _$_P2PPurposePhase6CoordinatorStoreBaseActionController =
+      ActionController(
+          name: '_P2PPurposePhase6CoordinatorStoreBase', context: context);
+
+  @override
+  dynamic valueTrackingSetup(int p0) {
+    final _$actionInfo =
+        _$_P2PPurposePhase6CoordinatorStoreBaseActionController.startAction(
+            name: '_P2PPurposePhase6CoordinatorStoreBase.valueTrackingSetup');
+    try {
+      return super.valueTrackingSetup(p0);
+    } finally {
+      _$_P2PPurposePhase6CoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

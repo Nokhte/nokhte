@@ -3,6 +3,7 @@ import 'package:primala/app/core/modules/collaborative_doc/collaborative_doc_mod
 import 'package:primala/app/core/modules/collaborative_doc/presentation/presentation.dart';
 import 'package:primala/app/core/modules/gyroscopic/gyroscopic_module.dart';
 import 'package:primala/app/core/modules/gyroscopic/presentation/presentation.dart';
+import 'package:primala/app/core/modules/scheduling/presentation/presentation.dart';
 import 'package:primala/app/core/modules/scheduling/scheduling_module.dart';
 import 'package:primala/app/core/modules/solo_doc/mobx/mobx.dart';
 import 'package:primala/app/core/modules/solo_doc/solo_doc_module.dart';
@@ -139,7 +140,7 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase6CoordinatorStore>(
           (i) => P2PPurposePhase6CoordinatorStore(
-            scheduling: i<SchedulingWidgetsCoordinatorStore>(),
+            scheduling: i<SchedulingCoordinatorStore>(),
             widgets: i<SchedulingWidgetsCoordinatorStore>(),
             gyroscopicCoordinatorStore:
                 Modular.get<GyroscopicCoordinatorStore>(),
