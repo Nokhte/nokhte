@@ -57,11 +57,12 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
     // final now = DateTime.now();
     widgets.attuneTheWidgets(now);
     Future.delayed(Seconds.get(6), () {
-      widgets.conveyerBelt.setWidgetVisibility(true);
+      conveyerBelt.setWidgetVisibility(true);
     });
 
     Future.delayed(Seconds.get(8), () {
-      widgets.conveyerBelt.initForwardMovie();
+      conveyerBelt.initForwardMovie();
+
       updateTheBackend(true);
     });
 
