@@ -118,6 +118,22 @@ mixin _$ConveyerBeltTextStore on _ConveyerBeltTextStoreBase, Store {
     });
   }
 
+  late final _$currentFocusAtom =
+      Atom(name: '_ConveyerBeltTextStoreBase.currentFocus', context: context);
+
+  @override
+  DateOrTime get currentFocus {
+    _$currentFocusAtom.reportRead();
+    return super.currentFocus;
+  }
+
+  @override
+  set currentFocus(DateOrTime value) {
+    _$currentFocusAtom.reportWrite(value, super.currentFocus, () {
+      super.currentFocus = value;
+    });
+  }
+
   late final _$movieAtom =
       Atom(name: '_ConveyerBeltTextStoreBase.movie', context: context);
 
@@ -339,6 +355,7 @@ mixin _$ConveyerBeltTextStore on _ConveyerBeltTextStoreBase, Store {
   String toString() {
     return '''
 showWidget: ${showWidget},
+currentFocus: ${currentFocus},
 movie: ${movie},
 movieMode: ${movieMode},
 movieStatus: ${movieStatus},

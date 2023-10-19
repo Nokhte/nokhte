@@ -86,19 +86,22 @@ mixin _$P2PPurposePhase6CoordinatorStore
         .run(() => super.updateTheBackend(isAForwardMovement));
   }
 
-  late final _$conveyerBeltControllerAsyncAction = AsyncAction(
-      '_P2PPurposePhase6CoordinatorStoreBase.conveyerBeltController',
-      context: context);
-
-  @override
-  Future conveyerBeltController() {
-    return _$conveyerBeltControllerAsyncAction
-        .run(() => super.conveyerBeltController());
-  }
-
   late final _$_P2PPurposePhase6CoordinatorStoreBaseActionController =
       ActionController(
           name: '_P2PPurposePhase6CoordinatorStoreBase', context: context);
+
+  @override
+  bool checkIfDatesMatch(DateTime comparisonDate) {
+    final _$actionInfo =
+        _$_P2PPurposePhase6CoordinatorStoreBaseActionController.startAction(
+            name: '_P2PPurposePhase6CoordinatorStoreBase.checkIfDatesMatch');
+    try {
+      return super.checkIfDatesMatch(comparisonDate);
+    } finally {
+      _$_P2PPurposePhase6CoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic valueTrackingSetup(int p0) {
@@ -107,6 +110,20 @@ mixin _$P2PPurposePhase6CoordinatorStore
             name: '_P2PPurposePhase6CoordinatorStoreBase.valueTrackingSetup');
     try {
       return super.valueTrackingSetup(p0);
+    } finally {
+      _$_P2PPurposePhase6CoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic conveyerBeltController() {
+    final _$actionInfo =
+        _$_P2PPurposePhase6CoordinatorStoreBaseActionController.startAction(
+            name:
+                '_P2PPurposePhase6CoordinatorStoreBase.conveyerBeltController');
+    try {
+      return super.conveyerBeltController();
     } finally {
       _$_P2PPurposePhase6CoordinatorStoreBaseActionController
           .endAction(_$actionInfo);

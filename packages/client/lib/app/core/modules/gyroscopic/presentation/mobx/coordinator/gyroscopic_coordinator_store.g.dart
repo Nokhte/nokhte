@@ -70,6 +70,23 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
               name: '_GyroscopicCoordinatorStoreBase.isAtMaxCapacity'))
           .value;
 
+  late final _$setupReturnTypeAtom = Atom(
+      name: '_GyroscopicCoordinatorStoreBase.setupReturnType',
+      context: context);
+
+  @override
+  GyroSetupReturnType get setupReturnType {
+    _$setupReturnTypeAtom.reportRead();
+    return super.setupReturnType;
+  }
+
+  @override
+  set setupReturnType(GyroSetupReturnType value) {
+    _$setupReturnTypeAtom.reportWrite(value, super.setupReturnType, () {
+      super.setupReturnType = value;
+    });
+  }
+
   late final _$currentValueAtom = Atom(
       name: '_GyroscopicCoordinatorStoreBase.currentValue', context: context);
 
@@ -219,9 +236,35 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
     });
   }
 
+  late final _$disposeAsyncAction =
+      AsyncAction('_GyroscopicCoordinatorStoreBase.dispose', context: context);
+
+  @override
+  Future dispose() {
+    return _$disposeAsyncAction.run(() => super.dispose());
+  }
+
   late final _$_GyroscopicCoordinatorStoreBaseActionController =
       ActionController(
           name: '_GyroscopicCoordinatorStoreBase', context: context);
+
+  @override
+  dynamic resetTheQuadrantLayout(
+      {required int startingQuadrant,
+      required int numberOfQuadrants,
+      required int totalAngleCoverageOfEachQuadrant}) {
+    final _$actionInfo =
+        _$_GyroscopicCoordinatorStoreBaseActionController.startAction(
+            name: '_GyroscopicCoordinatorStoreBase.resetTheQuadrantLayout');
+    try {
+      return super.resetTheQuadrantLayout(
+          startingQuadrant: startingQuadrant,
+          numberOfQuadrants: numberOfQuadrants,
+          totalAngleCoverageOfEachQuadrant: totalAngleCoverageOfEachQuadrant);
+    } finally {
+      _$_GyroscopicCoordinatorStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic negativeAndRegularModeWatcher(int value) {
@@ -231,17 +274,6 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
                 '_GyroscopicCoordinatorStoreBase.negativeAndRegularModeWatcher');
     try {
       return super.negativeAndRegularModeWatcher(value);
-    } finally {
-      _$_GyroscopicCoordinatorStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic dispose() {
-    final _$actionInfo = _$_GyroscopicCoordinatorStoreBaseActionController
-        .startAction(name: '_GyroscopicCoordinatorStoreBase.dispose');
-    try {
-      return super.dispose();
     } finally {
       _$_GyroscopicCoordinatorStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -285,6 +317,7 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
   @override
   String toString() {
     return '''
+setupReturnType: ${setupReturnType},
 currentValue: ${currentValue},
 currentMode: ${currentMode},
 currentRevolution: ${currentRevolution},

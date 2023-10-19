@@ -21,7 +21,37 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
   final SetReferenceAngleStore setRefAngleStore;
   final ResetRefAngleForMaxCapacityStore resetRefAngle;
   final List<QuadrantInfo> quadrantInfo = [];
-  late GyroSetupReturnType setupReturnType;
+
+  @observable
+  late GyroSetupReturnType setupReturnType = const GyroSetupReturnType(
+    desiredStartingAngle: 0,
+    maxAngle: 0,
+    quadrantInfo: [],
+    startingRevolution: 0,
+  );
+
+  @action
+  resetTheQuadrantLayout({
+    required int startingQuadrant,
+    required int numberOfQuadrants,
+    required int totalAngleCoverageOfEachQuadrant,
+  }) {
+    setupReturnType = GyroscopeUtils.quadrantSetup(
+      numberOfQuadrants: numberOfQuadrants,
+      totalAngleCoverageOfEachQuadrant: totalAngleCoverageOfEachQuadrant,
+      startingQuadrant: startingQuadrant,
+    );
+    currentRevolution = setupReturnType.startingRevolution;
+    maxAngle = setupReturnType.maxAngle;
+    if (setupReturnType.desiredStartingAngle != 0) {
+      resetRefAngle(ResetRefAngleForMaxCapacityParams(
+        currentValue: setupReturnType.desiredStartingAngle,
+        maxAngle: setupReturnType.desiredStartingAngle,
+      ));
+    }
+    setCurrentQuadrant(startingQuadrant);
+  }
+
   late StreamSubscription<int> angleStream;
   _GyroscopicCoordinatorStoreBase({
     required this.angleFeedStore,
@@ -97,7 +127,7 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
         currentMode = GyroscopeModes.regular;
         // print("neg mode $value");
       }
-      // print(value);
+      print(value);
       // print("current Quad $currentQuadrant current angle $value ");
       // print("vlaue $value isAtMax $isAtMaxCapacity");
     } else if (currentMode == GyroscopeModes.atMaxCapacity) {
@@ -112,7 +142,7 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
       }
       //
     } else {
-      // print("value up here $value");
+      print("value up here $value");
       // currentRevolution > 0 ? value = value + (360 * currentRevolution) : null;
 
       if (!isFirstTime &&
@@ -154,8 +184,8 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
   }
 
   @action
-  dispose() {
-    angleStream.cancel();
+  dispose() async {
+    await angleStream.cancel();
   }
 
   // Computed

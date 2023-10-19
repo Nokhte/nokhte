@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // * Mobx Import
+import 'dart:async';
+
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
@@ -43,6 +45,15 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   @computed
   bool get isSecondTime => secondValue == -1;
 
+  @action
+  bool checkIfDatesMatch(DateTime comparisonDate) {
+    final exactDate =
+        conveyerBelt.dates[conveyerBelt.currentlySelectedIndex].unformatted;
+    final roundedDate =
+        DateTime(exactDate.year, exactDate.month, exactDate.day);
+    return roundedDate == comparisonDate ? true : false;
+  }
+
   // basically what you want is a comparison type deal
 
   _P2PPurposePhase6CoordinatorStoreBase({
@@ -67,11 +78,11 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
       conveyerBelt.setWidgetVisibility(true);
     });
 
-    Future.delayed(Seconds.get(8), () {
-      conveyerBelt.initForwardMovie();
+    // Future.delayed(Seconds.get(8), () {
+    //   conveyerBelt.initForwardMovie();
 
-      updateTheBackend(true);
-    });
+    //   updateTheBackend(true);
+    // });
 
     reaction((p0) => gyroscopicCoordinatorStore.currentQuadrant, (p0) {
       if (p0 >= 0) {
@@ -82,25 +93,36 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
     });
     scheduling.getCollaboratorsDateAndTimeStore.chosenTimeAndDay
         .listen((value) {
-      final exactDate =
-          conveyerBelt.dates[conveyerBelt.currentlySelectedIndex].unformatted;
-      final roundedDate =
-          DateTime(exactDate.year, exactDate.month, exactDate.day);
-      print(
-          "${conveyerBelt.currentlySelectedIndex} our date$roundedDate theirs ${value.date}");
       switch (conveyerBelt.currentFocus) {
         case DateOrTime.date:
-          if (value.date == roundedDate) {
-            print("you have a date match!! start the timer!");
+          if (checkIfDatesMatch(value.date)) {
             delta.startColorTransitionMovie();
             confirmingMatch = true;
+            Timer(Seconds.get(3), () {
+              if (confirmingMatch == true) {
+                // make the transition to times
+                print("this should be running no?");
+                conveyerBelt.setWidgetVisibility(false);
+                Future.delayed(Seconds.get(3), () {
+                  conveyerBelt.setTimesArray();
+                  print("current focus?? ${conveyerBelt.currentFocus}");
+                  conveyerBelt.setWidgetVisibility(true);
+                  // conveyerBelt.setUIArray(inputArr)
+                });
+                gyroscopicCoordinatorStore.resetTheQuadrantLayout(
+                  startingQuadrant: conveyerBelt.currentlySelectedIndex,
+                  numberOfQuadrants: 24,
+                  totalAngleCoverageOfEachQuadrant: 90,
+                );
+              }
+            });
           } else {
             if (confirmingMatch == true) {
               delta.backTrackTheTransition();
+              confirmingMatch == false;
             } else {
               delta.resetColorTransition();
             }
-            print("you don't have a date match!! end the timer!");
           }
           break;
         case DateOrTime.time:
@@ -164,15 +186,18 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   }
 
   @action
-  conveyerBeltController() async {
-    if (isFirstTime && firstValue > 0) {
+  conveyerBeltController() {
+    if (isSecondTime && firstValue > 0) {
+      print("branch 1: $firstValue pv: $previousValue ");
       conveyerBelt.initForwardMovie();
       updateTheBackend(true);
       // here
     } else if (firstValue > previousValue) {
+      print("branch 2: $firstValue pv: $previousValue ");
       conveyerBelt.initForwardMovie();
       updateTheBackend(true);
-    } else {
+    } else if (firstValue < previousValue && firstValue != 0) {
+      print("branch 3: $firstValue pv: $previousValue ");
       conveyerBelt.initBackwardMovie();
       updateTheBackend(false);
     }

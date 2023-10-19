@@ -18,6 +18,7 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
   @observable
   bool showWidget = false;
 
+  @observable
   DateOrTime currentFocus = DateOrTime.date;
 
   @observable
@@ -139,7 +140,7 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
   @action
   toggleListFocus() => currentFocus == DateOrTime.date
       ? currentFocus = DateOrTime.time
-      : DateOrTime.date;
+      : currentFocus = DateOrTime.date;
 
   @action
   setDatesArray() {
@@ -164,6 +165,7 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
     toggleListFocus();
     times = returnEntity.dateOrTimeList;
     setCurrentlySelectedIndex(returnEntity.activeSelectionIndex);
+    setUIArray(times);
   }
 
   @action
