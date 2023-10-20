@@ -27,6 +27,17 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   final SchedulingCoordinatorStore scheduling;
   final SchedulingDeltaStore delta;
 
+  @action
+  setPrevValue(int newVal) {
+    previousValue = newVal;
+  }
+
+  @observable
+  int chosenIndex = 0;
+
+  @action
+  setChosenIndex(int newInt) => chosenIndex = newInt;
+
   // I think a coordinator store for the widget
   @observable
   int firstValue = -1;
@@ -47,14 +58,18 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
 
   @action
   bool checkIfDatesMatch(DateTime comparisonDate) {
-    final exactDate =
-        conveyerBelt.dates[conveyerBelt.currentlySelectedIndex].unformatted;
-    final roundedDate =
+    final exactDate = conveyerBelt.dates[chosenIndex].unformatted;
+    final ourRoundedDate =
         DateTime(exactDate.year, exactDate.month, exactDate.day);
-    return roundedDate == comparisonDate ? true : false;
+    return ourRoundedDate == comparisonDate ? true : false;
   }
 
-  // basically what you want is a comparison type deal
+  @action
+  bool checkIfTimesMatch(DateTime comparisonDate) {
+    final theirRoundedDate = DateTime(comparisonDate.year, comparisonDate.month,
+        comparisonDate.day, comparisonDate.hour, comparisonDate.minute);
+    return theirRoundedDate == conveyerBelt.times[chosenIndex].unformatted;
+  }
 
   _P2PPurposePhase6CoordinatorStoreBase({
     required this.widgets,
@@ -71,24 +86,17 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
       totalAngleCoverageOfEachQuadrant: 90,
       startingQuadrant: 0,
     );
-    final now = DateTime.parse('1969-16-20 04:00:00');
-    // final now = DateTime.now();
+    // final now = DateTime.parse('1969-16-20 04:00:00');
+    final now = DateTime.now();
     widgets.attuneTheWidgets(now);
     Future.delayed(Seconds.get(6), () {
       conveyerBelt.setWidgetVisibility(true);
     });
 
-    // Future.delayed(Seconds.get(8), () {
-    //   conveyerBelt.initForwardMovie();
-
-    //   updateTheBackend(true);
-    // });
-
     reaction((p0) => gyroscopicCoordinatorStore.currentQuadrant, (p0) {
       if (p0 >= 0) {
         valueTrackingSetup(p0);
         conveyerBeltController();
-        // print("most curr val $firstValue lagging val $previousValue ");
       }
     });
     scheduling.getCollaboratorsDateAndTimeStore.chosenTimeAndDay
@@ -98,61 +106,27 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
           if (checkIfDatesMatch(value.date)) {
             delta.startColorTransitionMovie();
             confirmingMatch = true;
-            Timer(Seconds.get(3), () {
-              if (confirmingMatch == true) {
-                // make the transition to times
-                print("this should be running no?");
-                conveyerBelt.setWidgetVisibility(false);
-                Future.delayed(Seconds.get(3), () {
-                  conveyerBelt.setTimesArray();
-                  print("current focus?? ${conveyerBelt.currentFocus}");
-                  conveyerBelt.setWidgetVisibility(true);
-                  // conveyerBelt.setUIArray(inputArr)
-                });
-                gyroscopicCoordinatorStore.resetTheQuadrantLayout(
-                  startingQuadrant: conveyerBelt.currentlySelectedIndex,
-                  numberOfQuadrants: 24,
-                  totalAngleCoverageOfEachQuadrant: 90,
-                );
-              }
-            });
+            agreementProtocolTimer();
           } else {
-            if (confirmingMatch == true) {
-              delta.backTrackTheTransition();
-              confirmingMatch == false;
-            } else {
-              delta.resetColorTransition();
-            }
+            disagreementAfterAgreementProtocol();
           }
           break;
         case DateOrTime.time:
-          if (value.time ==
-              conveyerBelt
-                  .times[conveyerBelt.currentlySelectedIndex].unformatted) {
-            print("you have a time match!! start the timer!");
+          if (checkIfTimesMatch(value.time)) {
+            delta.startColorTransitionMovie();
+            agreementProtocolTimer();
+            confirmingMatch = true;
           } else {
-            print("you don't have a time match!! end the timer!");
+            disagreementAfterAgreementProtocol();
           }
-          break;
       }
-
-      if (conveyerBelt.currentFocus == DateOrTime.date) {
-        if (value.date ==
-            conveyerBelt
-                .dates[conveyerBelt.currentlySelectedIndex].unformatted) {
-          print("you have a match!! start the timer!");
-        } else {}
-      } else {
-        print("you don't a match!! end / don't start the timer!");
-      }
-      print("date ${value.date}");
     });
   }
 
   @action
   updateTheBackend(bool isAForwardMovement) async {
-    final chosenIndex =
-        isAForwardMovement ? conveyerBelt.rightIndex : conveyerBelt.leftIndex;
+    setChosenIndex(
+        isAForwardMovement ? conveyerBelt.rightIndex : conveyerBelt.leftIndex);
     DateTime newDateOrTime;
     bool updateTheDate;
     conveyerBelt.currentFocus == DateOrTime.date
@@ -186,6 +160,29 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   }
 
   @action
+  agreementProtocolTimer() {
+    Timer(Seconds.get(3), () {
+      if (confirmingMatch) {
+        conveyerBelt.setWidgetVisibility(false);
+        Future.delayed(Seconds.get(3), () {
+          conveyerBelt.setTimesArray();
+          conveyerBelt.setWidgetVisibility(true);
+          gyroscopicCoordinatorStore.resetTheQuadrantLayout(
+            startingQuadrant: conveyerBelt.currentlySelectedIndex,
+            numberOfQuadrants: 24,
+            totalAngleCoverageOfEachQuadrant: 90,
+          );
+          delta.backTrackTheTransition();
+          setPrevValue(conveyerBelt.currentlySelectedIndex - 1);
+          // test these changes see if they fix the problem
+          // of not acting well with first time interaction
+          // resetTheValues();
+        });
+      }
+    });
+  }
+
+  @action
   conveyerBeltController() {
     if (isSecondTime && firstValue > 0) {
       print("branch 1: $firstValue pv: $previousValue ");
@@ -200,6 +197,15 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
       print("branch 3: $firstValue pv: $previousValue ");
       conveyerBelt.initBackwardMovie();
       updateTheBackend(false);
+    }
+  }
+
+  @action
+  disagreementAfterAgreementProtocol() {
+    if (confirmingMatch == true) {
+      confirmingMatch == false;
+      conveyerBelt.setWidgetVisibility(true);
+      delta.backTrackTheTransition();
     }
   }
 

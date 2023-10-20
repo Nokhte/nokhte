@@ -62,7 +62,7 @@ class WorkingCollaborativeSchedulingQueries extends CollaborativeQueries {
       await supabase
           .from(table)
           .update({
-            '${collaboratorInfo.theCollaboratorsNumber}_chosen_day':
+            '${collaboratorInfo.theUsersCollaboratorNumber}_chosen_day':
                 formattedDate,
           })
           .eq(
@@ -78,7 +78,7 @@ class WorkingCollaborativeSchedulingQueries extends CollaborativeQueries {
       await supabase
           .from(table)
           .update({
-            '${collaboratorInfo.theCollaboratorsNumber}_chosen_time':
+            '${collaboratorInfo.theUsersCollaboratorNumber}_chosen_time':
                 formattedDate,
           })
           .eq(
