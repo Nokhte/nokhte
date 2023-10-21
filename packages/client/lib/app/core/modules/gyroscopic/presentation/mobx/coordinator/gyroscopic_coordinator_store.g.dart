@@ -303,6 +303,18 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
   }
 
   @override
+  dynamic setCurrentRevolution(int newRev) {
+    final _$actionInfo =
+        _$_GyroscopicCoordinatorStoreBaseActionController.startAction(
+            name: '_GyroscopicCoordinatorStoreBase.setCurrentRevolution');
+    try {
+      return super.setCurrentRevolution(newRev);
+    } finally {
+      _$_GyroscopicCoordinatorStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setCurrentQuadrant(int newQuad) {
     final _$actionInfo =
         _$_GyroscopicCoordinatorStoreBaseActionController.startAction(

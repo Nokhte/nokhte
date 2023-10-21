@@ -125,8 +125,29 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
     required this.logic,
     required DateOrTime dateOrTimeParam,
   }) {
-    setDatesArray();
+    setDatesArray(DateTime.now());
     setUIArray(dates);
+  }
+
+  InputConverterReturnType convertCurrentState(bool isAForwardMovementParam) {
+    final chosenIndex =
+        isAForwardMovementParam == true ? rightIndex : leftIndex;
+    DateTime newDateOrTime;
+    bool updateTheDate;
+    currentFocus == DateOrTime.date
+        ? {
+            updateTheDate = true,
+            newDateOrTime = dates[chosenIndex].unformatted,
+          }
+        : {
+            updateTheDate = false,
+            newDateOrTime = times[chosenIndex].unformatted,
+          };
+    return InputConverterReturnType(
+      chosenIndex: chosenIndex,
+      newDateOrTime: newDateOrTime,
+      updateTheDate: updateTheDate,
+    );
   }
 
   @action
@@ -143,11 +164,11 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
       : currentFocus = DateOrTime.date;
 
   @action
-  setDatesArray() {
+  setDatesArray(DateTime setDate) {
     returnEntity = logic(
       ReturnDateOrTimeArrayParams(
         dateOrTime: DateOrTime.date,
-        currentTime: DateTime.now(),
+        currentTime: setDate,
       ),
     );
     dates = returnEntity.dateOrTimeList;
@@ -155,17 +176,17 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
   }
 
   @action
-  setTimesArray() {
+  setTimesArray(DateTime setDate) {
     returnEntity = logic(
       ReturnDateOrTimeArrayParams(
         dateOrTime: DateOrTime.time,
-        currentTime: DateTime.now(),
+        currentTime: setDate,
       ),
     );
     toggleListFocus();
     times = returnEntity.dateOrTimeList;
     setCurrentlySelectedIndex(returnEntity.activeSelectionIndex);
-    setUIArray(times);
+    // setUIArray(times);
   }
 
   @action
@@ -196,6 +217,7 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
   onCompletedMovie() {
     switch (movieMode) {
       case ConveyerMovieModes.forward:
+        // if (!showWidget) return;
         control = Control.stop;
         movie = DefaultLayoutMovie.movie;
         Future.delayed(Seconds.get(0), () {
@@ -209,6 +231,7 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
             : ConveyerMovieModes.idleInRange;
         movieStatus = MovieStatus.idle;
       case ConveyerMovieModes.backwards:
+        // if (!showWidget) return;
         control = Control.stop;
         movie = DefaultLayoutMovie.movie;
         Future.delayed(Seconds.get(0), () {

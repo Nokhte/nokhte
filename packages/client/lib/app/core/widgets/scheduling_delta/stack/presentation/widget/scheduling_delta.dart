@@ -23,7 +23,7 @@ class SchedulingDelta extends StatelessWidget {
           builder: (context, value, child) {
             return AnimatedOpacity(
               opacity: trackerStore.showWidget ? 1 : 0,
-              duration: Seconds.get(1),
+              duration: Seconds.get(2),
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 100.0, right: 50),
                 child: Container(

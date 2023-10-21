@@ -10,6 +10,14 @@ part of 'p2p_purpose_phase6_coordinator_store.dart';
 
 mixin _$P2PPurposePhase6CoordinatorStore
     on _P2PPurposePhase6CoordinatorStoreBase, Store {
+  Computed<bool>? _$previousValueIsNotSetComputed;
+
+  @override
+  bool get previousValueIsNotSet => (_$previousValueIsNotSetComputed ??=
+          Computed<bool>(() => super.previousValueIsNotSet,
+              name:
+                  '_P2PPurposePhase6CoordinatorStoreBase.previousValueIsNotSet'))
+      .value;
   Computed<bool>? _$isFirstTimeComputed;
 
   @override
@@ -76,6 +84,57 @@ mixin _$P2PPurposePhase6CoordinatorStore
     });
   }
 
+  late final _$previousValueAtom = Atom(
+      name: '_P2PPurposePhase6CoordinatorStoreBase.previousValue',
+      context: context);
+
+  @override
+  int get previousValue {
+    _$previousValueAtom.reportRead();
+    return super.previousValue;
+  }
+
+  @override
+  set previousValue(int value) {
+    _$previousValueAtom.reportWrite(value, super.previousValue, () {
+      super.previousValue = value;
+    });
+  }
+
+  late final _$timesQuadrantsAtom = Atom(
+      name: '_P2PPurposePhase6CoordinatorStoreBase.timesQuadrants',
+      context: context);
+
+  @override
+  List<int> get timesQuadrants {
+    _$timesQuadrantsAtom.reportRead();
+    return super.timesQuadrants;
+  }
+
+  @override
+  set timesQuadrants(List<int> value) {
+    _$timesQuadrantsAtom.reportWrite(value, super.timesQuadrants, () {
+      super.timesQuadrants = value;
+    });
+  }
+
+  late final _$startingQuadrantAtom = Atom(
+      name: '_P2PPurposePhase6CoordinatorStoreBase.startingQuadrant',
+      context: context);
+
+  @override
+  int get startingQuadrant {
+    _$startingQuadrantAtom.reportRead();
+    return super.startingQuadrant;
+  }
+
+  @override
+  set startingQuadrant(int value) {
+    _$startingQuadrantAtom.reportWrite(value, super.startingQuadrant, () {
+      super.startingQuadrant = value;
+    });
+  }
+
   late final _$confirmingMatchAtom = Atom(
       name: '_P2PPurposePhase6CoordinatorStoreBase.confirmingMatch',
       context: context);
@@ -90,6 +149,23 @@ mixin _$P2PPurposePhase6CoordinatorStore
   set confirmingMatch(bool value) {
     _$confirmingMatchAtom.reportWrite(value, super.confirmingMatch, () {
       super.confirmingMatch = value;
+    });
+  }
+
+  late final _$newDateOrTimeAtom = Atom(
+      name: '_P2PPurposePhase6CoordinatorStoreBase.newDateOrTime',
+      context: context);
+
+  @override
+  DateTime get newDateOrTime {
+    _$newDateOrTimeAtom.reportRead();
+    return super.newDateOrTime;
+  }
+
+  @override
+  set newDateOrTime(DateTime value) {
+    _$newDateOrTimeAtom.reportWrite(value, super.newDateOrTime, () {
+      super.newDateOrTime = value;
     });
   }
 
@@ -108,19 +184,6 @@ mixin _$P2PPurposePhase6CoordinatorStore
           name: '_P2PPurposePhase6CoordinatorStoreBase', context: context);
 
   @override
-  dynamic setPrevValue(int newVal) {
-    final _$actionInfo =
-        _$_P2PPurposePhase6CoordinatorStoreBaseActionController.startAction(
-            name: '_P2PPurposePhase6CoordinatorStoreBase.setPrevValue');
-    try {
-      return super.setPrevValue(newVal);
-    } finally {
-      _$_P2PPurposePhase6CoordinatorStoreBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic setChosenIndex(int newInt) {
     final _$actionInfo =
         _$_P2PPurposePhase6CoordinatorStoreBaseActionController.startAction(
@@ -134,12 +197,11 @@ mixin _$P2PPurposePhase6CoordinatorStore
   }
 
   @override
-  bool checkIfDatesMatch(DateTime comparisonDate) {
-    final _$actionInfo =
-        _$_P2PPurposePhase6CoordinatorStoreBaseActionController.startAction(
-            name: '_P2PPurposePhase6CoordinatorStoreBase.checkIfDatesMatch');
+  dynamic resetValues() {
+    final _$actionInfo = _$_P2PPurposePhase6CoordinatorStoreBaseActionController
+        .startAction(name: '_P2PPurposePhase6CoordinatorStoreBase.resetValues');
     try {
-      return super.checkIfDatesMatch(comparisonDate);
+      return super.resetValues();
     } finally {
       _$_P2PPurposePhase6CoordinatorStoreBaseActionController
           .endAction(_$actionInfo);
@@ -147,12 +209,25 @@ mixin _$P2PPurposePhase6CoordinatorStore
   }
 
   @override
-  bool checkIfTimesMatch(DateTime comparisonDate) {
+  dynamic setStartingQuadrant(int newQuad) {
     final _$actionInfo =
         _$_P2PPurposePhase6CoordinatorStoreBaseActionController.startAction(
-            name: '_P2PPurposePhase6CoordinatorStoreBase.checkIfTimesMatch');
+            name: '_P2PPurposePhase6CoordinatorStoreBase.setStartingQuadrant');
     try {
-      return super.checkIfTimesMatch(comparisonDate);
+      return super.setStartingQuadrant(newQuad);
+    } finally {
+      _$_P2PPurposePhase6CoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setNewDateOrTime(DateTime newDT) {
+    final _$actionInfo =
+        _$_P2PPurposePhase6CoordinatorStoreBaseActionController.startAction(
+            name: '_P2PPurposePhase6CoordinatorStoreBase.setNewDateOrTime');
+    try {
+      return super.setNewDateOrTime(newDT);
     } finally {
       _$_P2PPurposePhase6CoordinatorStoreBaseActionController
           .endAction(_$actionInfo);
@@ -215,12 +290,43 @@ mixin _$P2PPurposePhase6CoordinatorStore
   }
 
   @override
+  bool checkIfDatesMatch(DateTime comparisonDate) {
+    final _$actionInfo =
+        _$_P2PPurposePhase6CoordinatorStoreBaseActionController.startAction(
+            name: '_P2PPurposePhase6CoordinatorStoreBase.checkIfDatesMatch');
+    try {
+      return super.checkIfDatesMatch(comparisonDate);
+    } finally {
+      _$_P2PPurposePhase6CoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  bool checkIfTimesMatch(DateTime comparisonDate) {
+    final _$actionInfo =
+        _$_P2PPurposePhase6CoordinatorStoreBaseActionController.startAction(
+            name: '_P2PPurposePhase6CoordinatorStoreBase.checkIfTimesMatch');
+    try {
+      return super.checkIfTimesMatch(comparisonDate);
+    } finally {
+      _$_P2PPurposePhase6CoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 chosenIndex: ${chosenIndex},
 firstValue: ${firstValue},
 secondValue: ${secondValue},
+previousValue: ${previousValue},
+timesQuadrants: ${timesQuadrants},
+startingQuadrant: ${startingQuadrant},
 confirmingMatch: ${confirmingMatch},
+newDateOrTime: ${newDateOrTime},
+previousValueIsNotSet: ${previousValueIsNotSet},
 isFirstTime: ${isFirstTime},
 isSecondTime: ${isSecondTime}
     ''';

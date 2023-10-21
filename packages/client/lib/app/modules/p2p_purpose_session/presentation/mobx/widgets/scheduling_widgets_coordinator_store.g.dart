@@ -10,23 +10,6 @@ part of 'scheduling_widgets_coordinator_store.dart';
 
 mixin _$SchedulingWidgetsCoordinatorStore
     on _SchedulingWidgetsCoordinatorStoreBase, Store {
-  late final _$currentSelectedTimeAtom = Atom(
-      name: '_SchedulingWidgetsCoordinatorStoreBase.currentSelectedTime',
-      context: context);
-
-  @override
-  DateTime get currentSelectedTime {
-    _$currentSelectedTimeAtom.reportRead();
-    return super.currentSelectedTime;
-  }
-
-  @override
-  set currentSelectedTime(DateTime value) {
-    _$currentSelectedTimeAtom.reportWrite(value, super.currentSelectedTime, () {
-      super.currentSelectedTime = value;
-    });
-  }
-
   late final _$_SchedulingWidgetsCoordinatorStoreBaseActionController =
       ActionController(
           name: '_SchedulingWidgetsCoordinatorStoreBase', context: context);
@@ -45,13 +28,12 @@ mixin _$SchedulingWidgetsCoordinatorStore
   }
 
   @override
-  dynamic initForwardTimeShift() {
+  dynamic widgetSetup(DateTime currentDateTime) {
     final _$actionInfo =
         _$_SchedulingWidgetsCoordinatorStoreBaseActionController.startAction(
-            name:
-                '_SchedulingWidgetsCoordinatorStoreBase.initForwardTimeShift');
+            name: '_SchedulingWidgetsCoordinatorStoreBase.widgetSetup');
     try {
-      return super.initForwardTimeShift();
+      return super.widgetSetup(currentDateTime);
     } finally {
       _$_SchedulingWidgetsCoordinatorStoreBaseActionController
           .endAction(_$actionInfo);
@@ -59,13 +41,27 @@ mixin _$SchedulingWidgetsCoordinatorStore
   }
 
   @override
-  dynamic initBackwardTimeShift() {
+  dynamic initForwardTimeShift(bool isADate, DateTime newTime) {
+    final _$actionInfo =
+        _$_SchedulingWidgetsCoordinatorStoreBaseActionController.startAction(
+            name:
+                '_SchedulingWidgetsCoordinatorStoreBase.initForwardTimeShift');
+    try {
+      return super.initForwardTimeShift(isADate, newTime);
+    } finally {
+      _$_SchedulingWidgetsCoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic initBackwardTimeShift(bool isADate, DateTime newTime) {
     final _$actionInfo =
         _$_SchedulingWidgetsCoordinatorStoreBaseActionController.startAction(
             name:
                 '_SchedulingWidgetsCoordinatorStoreBase.initBackwardTimeShift');
     try {
-      return super.initBackwardTimeShift();
+      return super.initBackwardTimeShift(isADate, newTime);
     } finally {
       _$_SchedulingWidgetsCoordinatorStoreBaseActionController
           .endAction(_$actionInfo);
@@ -75,7 +71,7 @@ mixin _$SchedulingWidgetsCoordinatorStore
   @override
   String toString() {
     return '''
-currentSelectedTime: ${currentSelectedTime}
+
     ''';
   }
 }

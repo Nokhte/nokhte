@@ -14,7 +14,7 @@ class SchedulingDeltaStore = _SchedulingDeltaStoreBase
 
 abstract class _SchedulingDeltaStoreBase extends Equatable with Store {
   @observable
-  bool showWidget = true;
+  bool showWidget = false;
 
   @observable
   Control control = Control.stop;

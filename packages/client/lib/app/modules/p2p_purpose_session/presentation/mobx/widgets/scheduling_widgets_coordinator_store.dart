@@ -27,35 +27,57 @@ abstract class _SchedulingWidgetsCoordinatorStoreBase extends Equatable
     required this.schedulingDelta,
   });
 
-  @observable
-  DateTime currentSelectedTime = DateTime.now();
+  // @observable
+  // DateTime currentSelectedTime = DateTime.now();
 
   @action
   attuneTheWidgets(DateTime currentTimeParam) {
-    currentSelectedTime = currentTimeParam;
+    // currentSelectedTime = currentTimeParam;
     sunAndMoon.selectTimeBasedMovie(currentTimeParam);
     beachWater.selectTimeBasedMovie(currentTimeParam);
     beachSkyStore.selectTimeBasedMovie(currentTimeParam);
   }
 
   @action
-  initForwardTimeShift() {
-    final pastTime = currentSelectedTime;
-    final newTime = currentSelectedTime.add(Hours.get(1));
-    beachSkyStore.initTimeShift(pastTime, newTime);
-    beachWater.initTimeShift(pastTime, newTime);
-    sunAndMoon.initTimeShift(pastTime, newTime);
-
-    currentSelectedTime = newTime;
+  widgetSetup(DateTime currentDateTime) {
+    attuneTheWidgets(currentDateTime);
+    Future.delayed(Seconds.get(6), () {
+      conveyerBelt.setWidgetVisibility(true);
+      schedulingDelta.toggleWidgetVisibility();
+    });
   }
 
   @action
-  initBackwardTimeShift() {
-    final pastTime = currentSelectedTime;
-    final newTime = currentSelectedTime.subtract(Hours.get(1));
-    beachSkyStore.initTimeShift(pastTime, newTime);
-    beachWater.initTimeShift(pastTime, newTime);
-    sunAndMoon.initTimeShift(pastTime, newTime);
+  initForwardTimeShift(bool isADate, DateTime newTime) {
+    if (isADate) {
+      conveyerBelt.initForwardMovie();
+    } else {
+      final realNewTime = newTime.add(Hours.get(2));
+      final pastTime = newTime.add(Hours.get(1));
+      print(
+          "forward: Hey here are the transition times new $realNewTime past $pastTime");
+      beachSkyStore.initTimeShift(pastTime, realNewTime);
+      beachWater.initTimeShift(pastTime, realNewTime);
+      sunAndMoon.initTimeShift(pastTime, realNewTime);
+      // currentSelectedTime = newTime;
+      conveyerBelt.initForwardMovie();
+    }
+  }
+
+  @action
+  initBackwardTimeShift(bool isADate, DateTime newTime) {
+    if (isADate) {
+      conveyerBelt.initBackwardMovie();
+    } else {
+      final realNewTime = newTime.subtract(Hours.get(2));
+      final pastTime = newTime.subtract(Hours.get(1));
+      print(
+          "backward: Hey here are the transition times new $realNewTime past $pastTime ");
+      beachSkyStore.initTimeShift(pastTime, realNewTime);
+      beachWater.initTimeShift(pastTime, realNewTime);
+      sunAndMoon.initTimeShift(pastTime, realNewTime);
+      conveyerBelt.initBackwardMovie();
+    }
   }
 
   @override

@@ -2,10 +2,10 @@
 // * Mobx Import
 import 'dart:async';
 
+import 'package:const_date_time/const_date_time.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/modules/gyroscopic/presentation/presentation.dart';
 import 'package:primala/app/core/modules/scheduling/domain/domain.dart';
 import 'package:primala/app/core/modules/scheduling/presentation/presentation.dart';
@@ -27,10 +27,14 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   final SchedulingCoordinatorStore scheduling;
   final SchedulingDeltaStore delta;
 
-  @action
-  setPrevValue(int newVal) {
-    previousValue = newVal;
-  }
+  _P2PPurposePhase6CoordinatorStoreBase({
+    required this.widgets,
+    required this.gyroscopicCoordinatorStore,
+    required this.scheduling,
+  })  : conveyerBelt = widgets.conveyerBelt,
+        delta = widgets.schedulingDelta;
+
+  bool isFirstTimeWithTimes = true;
 
   @observable
   int chosenIndex = 0;
@@ -45,10 +49,41 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   @observable
   int secondValue = -1;
 
+  @observable
   int previousValue = -1;
 
   @observable
+  List<int> timesQuadrants = [];
+
+  @computed
+  bool get previousValueIsNotSet => previousValue == -1;
+
+  @action
+  resetValues() {
+    firstValue = -1;
+    secondValue = -1;
+    previousValue = -1;
+    print("SPV f $firstValue s $secondValue pr  $previousValue");
+    timesQuadrants.clear();
+  }
+
+  @observable
+  int startingQuadrant = 0;
+
+  @action
+  setStartingQuadrant(int newQuad) => startingQuadrant = newQuad;
+
+  @observable
   bool confirmingMatch = false;
+
+  // @action
+  // setConfirmingMatch(bool newBool) => confirmingMatch = newBool;
+
+  @observable
+  DateTime newDateOrTime = const ConstDateTime(0);
+
+  @action
+  setNewDateOrTime(DateTime newDT) => newDateOrTime = newDT;
 
   @computed
   bool get isFirstTime => firstValue == -1;
@@ -56,46 +91,26 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   @computed
   bool get isSecondTime => secondValue == -1;
 
-  @action
-  bool checkIfDatesMatch(DateTime comparisonDate) {
-    final exactDate = conveyerBelt.dates[chosenIndex].unformatted;
-    final ourRoundedDate =
-        DateTime(exactDate.year, exactDate.month, exactDate.day);
-    return ourRoundedDate == comparisonDate ? true : false;
-  }
-
-  @action
-  bool checkIfTimesMatch(DateTime comparisonDate) {
-    final theirRoundedDate = DateTime(comparisonDate.year, comparisonDate.month,
-        comparisonDate.day, comparisonDate.hour, comparisonDate.minute);
-    return theirRoundedDate == conveyerBelt.times[chosenIndex].unformatted;
-  }
-
-  _P2PPurposePhase6CoordinatorStoreBase({
-    required this.widgets,
-    required this.gyroscopicCoordinatorStore,
-    required this.scheduling,
-  })  : conveyerBelt = widgets.conveyerBelt,
-        delta = widgets.schedulingDelta;
+  DateTime now = DateTime.now();
 
   screenConstructor() async {
-    await scheduling.createSchedulingSessionStore(NoParams());
-    await scheduling.getCollaboratorsDateAndTimeStore(NoParams());
+    await scheduling.createSchedulingAndStreamSetup();
     await gyroscopicCoordinatorStore.setupTheStream(
       numberOfQuadrants: 6,
       totalAngleCoverageOfEachQuadrant: 90,
       startingQuadrant: 0,
     );
-    // final now = DateTime.parse('1969-16-20 04:00:00');
-    final now = DateTime.now();
-    widgets.attuneTheWidgets(now);
-    Future.delayed(Seconds.get(6), () {
-      conveyerBelt.setWidgetVisibility(true);
-    });
+    now = DateTime.parse('1969-16-20 00:00:00');
+    // now = DateTime.now();
+    widgets.widgetSetup(now);
 
     reaction((p0) => gyroscopicCoordinatorStore.currentQuadrant, (p0) {
       if (p0 >= 0) {
         valueTrackingSetup(p0);
+        if (conveyerBelt.currentFocus == DateOrTime.time) {
+          timesQuadrants.add(p0);
+          print("hey here's the times list $timesQuadrants");
+        }
         conveyerBeltController();
       }
     });
@@ -124,89 +139,140 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   }
 
   @action
-  updateTheBackend(bool isAForwardMovement) async {
-    setChosenIndex(
-        isAForwardMovement ? conveyerBelt.rightIndex : conveyerBelt.leftIndex);
-    DateTime newDateOrTime;
-    bool updateTheDate;
-    conveyerBelt.currentFocus == DateOrTime.date
-        ? {
-            updateTheDate = true,
-            newDateOrTime = conveyerBelt.dates[chosenIndex].unformatted,
-          }
-        : {
-            updateTheDate = false,
-            newDateOrTime = conveyerBelt.times[chosenIndex].unformatted,
-          };
-
-    await scheduling
-        .updateSchedulingTimeOrDateStore(UpdateSchedulingTimeOrDateParams(
-      updateDate: updateTheDate,
-      newDateOrTime: newDateOrTime,
-    ));
-  }
-
-  @action
   valueTrackingSetup(int p0) {
+    // it's happeneing here
     if (isFirstTime) {
+      print("is first time $p0");
       firstValue = p0;
     } else if (secondValue == -1) {
+      // if (conveyerBelt.currentFocus == DateOrTime.time &&
+      //     isFirstTimeWithTimes) {
+      //   return;
+      // }
       secondValue = p0;
+      print("is second time $p0");
     } else {
       previousValue = firstValue;
       firstValue = secondValue;
       secondValue = p0;
+      print("is nth time  $firstValue $secondValue $previousValue");
     }
   }
 
   @action
   agreementProtocolTimer() {
-    Timer(Seconds.get(3), () {
+    Future.delayed(Seconds.get(3), () {
       if (confirmingMatch) {
         conveyerBelt.setWidgetVisibility(false);
+        conveyerBelt.setTimesArray(now);
+        gyroscopicCoordinatorStore.resetTheQuadrantLayout(
+          startingQuadrant: conveyerBelt.currentlySelectedIndex,
+          numberOfQuadrants: 24,
+          totalAngleCoverageOfEachQuadrant: 90,
+        ); // fv & pv may need to be synced idk
+        setStartingQuadrant(conveyerBelt.currentlySelectedIndex);
+        // startingQuadrant = conveyerBelt.currentlySelectedIndex
+        print("shouldn't this be 13 $startingQuadrant");
         Future.delayed(Seconds.get(3), () {
-          conveyerBelt.setTimesArray();
+          resetValues();
+          conveyerBelt.setUIArray(conveyerBelt.times);
           conveyerBelt.setWidgetVisibility(true);
-          gyroscopicCoordinatorStore.resetTheQuadrantLayout(
-            startingQuadrant: conveyerBelt.currentlySelectedIndex,
-            numberOfQuadrants: 24,
-            totalAngleCoverageOfEachQuadrant: 90,
-          );
           delta.backTrackTheTransition();
-          setPrevValue(conveyerBelt.currentlySelectedIndex - 1);
-          // test these changes see if they fix the problem
-          // of not acting well with first time interaction
-          // resetTheValues();
+          confirmingMatch = false;
         });
+        // conveyerBeltController();
+
+        // print(
+        //   "what is the sq $startingQuadrant fv $firstValue sv $secondValue pv $previousValue",
+        // );
+        // print(
+        //     "END OF TIMMMMMER : What are our value FV: $firstValue SV: $secondValue PV: $previousValue NEW TIME $newDateOrTime");
       }
     });
   }
 
   @action
   conveyerBeltController() {
-    if (isSecondTime && firstValue > 0) {
-      print("branch 1: $firstValue pv: $previousValue ");
-      conveyerBelt.initForwardMovie();
-      updateTheBackend(true);
-      // here
-    } else if (firstValue > previousValue) {
-      print("branch 2: $firstValue pv: $previousValue ");
-      conveyerBelt.initForwardMovie();
-      updateTheBackend(true);
-    } else if (firstValue < previousValue && firstValue != 0) {
-      print("branch 3: $firstValue pv: $previousValue ");
-      conveyerBelt.initBackwardMovie();
-      updateTheBackend(false);
+    // print(
+    //     "CTRLER : What are our value FV: $firstValue SV: $secondValue PV: $previousValue NEW TIME $newDateOrTime");
+
+    switch (conveyerBelt.currentFocus) {
+      case DateOrTime.date:
+        if (isSecondTime && firstValue > 0) {
+          // print("branch 1 is running  $firstValue  > $previousValue ");
+          widgets.initForwardTimeShift(true, DateTime.now());
+          updateTheBackend(true);
+          //   widgets.initForwardTimeShift(false, newDateOrTime);
+          //   updateTheBackend(true);
+        } else if (firstValue > previousValue) {
+          // print("branch 2 is running $firstValue  > $previousValue");
+          widgets.initForwardTimeShift(true, DateTime.now());
+          updateTheBackend(true);
+          //   widgets.initForwardTimeShift(false, newDateOrTime);
+          //   updateTheBackend(true);
+        } else if (firstValue < previousValue && firstValue != 0) {
+          // print("branch 3 is running  $firstValue  > $previousValue");
+          widgets.initBackwardTimeShift(true, DateTime.now());
+          updateTheBackend(false);
+          //   widgets.initBackwardTimeShift(false, newDateOrTime);
+          //   updateTheBackend(false);
+        }
+      case DateOrTime.time:
+
+        // if (isFirstTimeWithTimes && secondValue != -1) {
+        //   secondValue = -1;
+        //   isFirstTimeWithTimes = false;
+        //   return;
+        // }
+        print(
+            "what's the situation 1st val $firstValue || prev val $previousValue sq $startingQuadrant");
+        if (isSecondTime && firstValue > startingQuadrant) {
+          print("initially you have moved up $firstValue $startingQuadrant");
+        } else if (isSecondTime && previousValue < startingQuadrant) {
+          print("initially you have moved down $firstValue $startingQuadrant");
+        }
+        // print("hey you are now in the other terrarory");
+        break;
     }
   }
 
   @action
   disagreementAfterAgreementProtocol() {
-    if (confirmingMatch == true) {
-      confirmingMatch == false;
-      conveyerBelt.setWidgetVisibility(true);
-      delta.backTrackTheTransition();
+    // if (confirmingMatch == true) {
+    confirmingMatch = false;
+    conveyerBelt.setWidgetVisibility(true);
+    delta.backTrackTheTransition();
+    // }
+  }
+
+  @action
+  bool checkIfDatesMatch(DateTime comparisonDate) {
+    final exactDate = conveyerBelt.dates[chosenIndex].unformatted;
+    final ourRoundedDate =
+        DateTime(exactDate.year, exactDate.month, exactDate.day);
+    return ourRoundedDate == comparisonDate ? true : false;
+  }
+
+  @action
+  bool checkIfTimesMatch(DateTime comparisonDate) {
+    final theirRoundedDate = DateTime(comparisonDate.year, comparisonDate.month,
+        comparisonDate.day, comparisonDate.hour, comparisonDate.minute);
+    return theirRoundedDate == conveyerBelt.times[chosenIndex].unformatted;
+  }
+
+  @action
+  updateTheBackend(bool isAForwardMovement) async {
+    if (isFirstTimeWithTimes && conveyerBelt.currentFocus == DateOrTime.time) {
+      return;
     }
+    final convertedTypes = conveyerBelt.convertCurrentState(isAForwardMovement);
+    setChosenIndex(convertedTypes.chosenIndex);
+    setNewDateOrTime(convertedTypes.newDateOrTime);
+    await scheduling
+        .updateSchedulingTimeOrDateStore(UpdateSchedulingTimeOrDateParams(
+      updateDate: convertedTypes.updateTheDate,
+      newDateOrTime: newDateOrTime,
+    ));
   }
 
   @override

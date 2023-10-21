@@ -297,22 +297,22 @@ mixin _$ConveyerBeltTextStore on _ConveyerBeltTextStoreBase, Store {
   }
 
   @override
-  dynamic setDatesArray() {
+  dynamic setDatesArray(DateTime setDate) {
     final _$actionInfo = _$_ConveyerBeltTextStoreBaseActionController
         .startAction(name: '_ConveyerBeltTextStoreBase.setDatesArray');
     try {
-      return super.setDatesArray();
+      return super.setDatesArray(setDate);
     } finally {
       _$_ConveyerBeltTextStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic setTimesArray() {
+  dynamic setTimesArray(DateTime setDate) {
     final _$actionInfo = _$_ConveyerBeltTextStoreBaseActionController
         .startAction(name: '_ConveyerBeltTextStoreBase.setTimesArray');
     try {
-      return super.setTimesArray();
+      return super.setTimesArray(setDate);
     } finally {
       _$_ConveyerBeltTextStoreBaseActionController.endAction(_$actionInfo);
     }

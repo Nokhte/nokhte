@@ -136,8 +136,12 @@ class GyroscopeUtils {
       numberOfQuadrants: numberOfQuadrants,
       totalAngleCoverageOfEachQuadrant: totalAngleCoverageOfEachQuadrant,
     );
-    final quadRange = quadrantList[startingQuadrant].endingAngle -
-        quadrantList[startingQuadrant].startingAngle;
+    final quadRange = ((quadrantList[startingQuadrant].endingAngle -
+                quadrantList[startingQuadrant].startingAngle) /
+            2)
+        .floor();
+    print(
+        "what is the quadrant starting angle ${quadrantList[startingQuadrant].startingAngle} ending ${quadrantList[startingQuadrant].endingAngle}");
     int desiredStartingAngle =
         quadrantList[startingQuadrant].startingAngle + quadRange;
     if (startingQuadrant == 0) {
