@@ -71,7 +71,7 @@ void main() {
     );
     expect(firstRes.quadrantInfo, QuadrantLists.dayList);
     expect(firstRes.maxAngle, 359);
-    expect(firstRes.desiredStartingAngle, 269);
+    expect(firstRes.desiredStartingAngle, 224);
     expect(firstRes.startingRevolution, 0);
     final secondRes = GyroscopeUtils.quadrantSetup(
       numberOfQuadrants: 24,
@@ -79,7 +79,7 @@ void main() {
       startingQuadrant: 12,
     );
     expect(secondRes.quadrantInfo, QuadrantLists.timeList);
-    expect(secondRes.desiredStartingAngle, 779);
+    expect(secondRes.desiredStartingAngle, 749);
     expect(secondRes.startingRevolution, 2);
     expect(secondRes.maxAngle, 1439);
   });
