@@ -193,6 +193,7 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
         Future.delayed(Seconds.get(3), () {
           if (confirmingMatch) {
             conveyerBelt.setWidgetVisibility(false);
+            widgets.schedulingDelta.toggleWidgetVisibility();
             Future.delayed(Seconds.get(3), () {
               // transition out here
             });
@@ -234,11 +235,11 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
 
   @action
   disagreementAfterAgreementProtocol() {
-    // if (confirmingMatch == true) {
-    confirmingMatch = false;
-    conveyerBelt.setWidgetVisibility(true);
-    delta.backTrackTheTransition();
-    // }
+    if (confirmingMatch == true) {
+      confirmingMatch = false;
+      conveyerBelt.setWidgetVisibility(true);
+      delta.backTrackTheTransition();
+    }
   }
 
   @action

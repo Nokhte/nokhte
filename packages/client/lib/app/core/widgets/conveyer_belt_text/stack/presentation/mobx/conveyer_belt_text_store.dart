@@ -18,6 +18,9 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
   @observable
   bool showWidget = false;
 
+  @action
+  void setWidgetVisibility(bool newVisiblity) => showWidget = newVisiblity;
+
   @observable
   DateOrTime currentFocus = DateOrTime.date;
 
@@ -148,9 +151,6 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
       updateTheDate: updateTheDate,
     );
   }
-
-  @action
-  void setWidgetVisibility(bool newVisiblity) => showWidget = newVisiblity;
 
   @action
   setCurrentlySelectedIndex(int index) {

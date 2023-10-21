@@ -252,22 +252,22 @@ mixin _$ConveyerBeltTextStore on _ConveyerBeltTextStoreBase, Store {
       ActionController(name: '_ConveyerBeltTextStoreBase', context: context);
 
   @override
-  dynamic setUIArray(List<GeneralDateTimeReturnType> inputArr) {
+  void setWidgetVisibility(bool newVisiblity) {
     final _$actionInfo = _$_ConveyerBeltTextStoreBaseActionController
-        .startAction(name: '_ConveyerBeltTextStoreBase.setUIArray');
+        .startAction(name: '_ConveyerBeltTextStoreBase.setWidgetVisibility');
     try {
-      return super.setUIArray(inputArr);
+      return super.setWidgetVisibility(newVisiblity);
     } finally {
       _$_ConveyerBeltTextStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void setWidgetVisibility(bool newVisiblity) {
+  dynamic setUIArray(List<GeneralDateTimeReturnType> inputArr) {
     final _$actionInfo = _$_ConveyerBeltTextStoreBaseActionController
-        .startAction(name: '_ConveyerBeltTextStoreBase.setWidgetVisibility');
+        .startAction(name: '_ConveyerBeltTextStoreBase.setUIArray');
     try {
-      return super.setWidgetVisibility(newVisiblity);
+      return super.setUIArray(inputArr);
     } finally {
       _$_ConveyerBeltTextStoreBaseActionController.endAction(_$actionInfo);
     }

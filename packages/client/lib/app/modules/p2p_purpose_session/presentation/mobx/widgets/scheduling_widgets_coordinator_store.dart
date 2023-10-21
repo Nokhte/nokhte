@@ -38,8 +38,8 @@ abstract class _SchedulingWidgetsCoordinatorStoreBase extends Equatable
   widgetSetup(DateTime currentDateTime) {
     attuneTheWidgets(currentDateTime);
     Future.delayed(Seconds.get(6), () {
-      conveyerBelt.setWidgetVisibility(true);
       schedulingDelta.toggleWidgetVisibility();
+      conveyerBelt.setWidgetVisibility(true);
     });
   }
 
