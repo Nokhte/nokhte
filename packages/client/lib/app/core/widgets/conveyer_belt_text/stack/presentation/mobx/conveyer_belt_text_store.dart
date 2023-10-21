@@ -129,20 +129,19 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
     setUIArray(dates);
   }
 
-  InputConverterReturnType convertCurrentState(bool isAForwardMovementParam) {
+  InputConverterReturnType convertCurrentState(
+      {required bool isADate, required bool isAForwardMovementParam}) {
     final chosenIndex =
         isAForwardMovementParam == true ? rightIndex : leftIndex;
     DateTime newDateOrTime;
     bool updateTheDate;
-    currentFocus == DateOrTime.date
-        ? {
-            updateTheDate = true,
-            newDateOrTime = dates[chosenIndex].unformatted,
-          }
-        : {
-            updateTheDate = false,
-            newDateOrTime = times[chosenIndex].unformatted,
-          };
+    if (isADate) {
+      updateTheDate = true;
+      newDateOrTime = dates[chosenIndex].unformatted;
+    } else {
+      updateTheDate = false;
+      newDateOrTime = times[chosenIndex].unformatted;
+    }
     return InputConverterReturnType(
       chosenIndex: chosenIndex,
       newDateOrTime: newDateOrTime,

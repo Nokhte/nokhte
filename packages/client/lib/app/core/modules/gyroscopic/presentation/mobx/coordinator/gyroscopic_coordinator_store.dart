@@ -45,8 +45,8 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
     setCurrentRevolution(setupReturnType.startingRevolution);
     maxAngle = setupReturnType.maxAngle;
     final startingAngle = (setupReturnType.desiredStartingAngle % 360).floor();
-    print(
-        "Hey what's the starting quad it should be 23 no? $startingQuadrant starting angle full ${setupReturnType.desiredStartingAngle} filtered $startingAngle also what's the rev $currentRevolution");
+    // print(
+    //     "Hey what's the starting quad it should be 23 no? $startingQuadrant starting angle full ${setupReturnType.desiredStartingAngle} filtered $startingAngle also what's the rev $currentRevolution");
     // if (setupReturnType.desiredStartingAngle != 0) {
     resetRefAngle(ResetRefAngleForMaxCapacityParams(
       currentValue: firstValue,
@@ -123,7 +123,7 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
   @action
   negativeAndRegularModeWatcher(int value) {
     if (currentMode == GyroscopeModes.negative) {
-      print("negative mode");
+      // print("negative mode");
       int comparison =
           GyroscopeUtils.clockwiseComparison(firstValue, secondValue);
       if (comparison == 1) {
@@ -134,8 +134,8 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
         // print("neg mode $value");
       }
       // print(value);
-      print(
-          "current Quad $currentQuadrant current angle $value and rev $currentRevolution ");
+      // print(
+      //     "current Quad $currentQuadrant current angle $value and rev $currentRevolution ");
       // print("vlaue $value isAtMax $isAtMaxCapacity");
     } else if (currentMode == GyroscopeModes.atMaxCapacity) {
       int comparison =
@@ -166,8 +166,8 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
         ));
       }
 
-      print(
-          "current Quad $currentQuadrant current angle $value and rev $currentRevolution");
+      // print(
+      //     "current Quad $currentQuadrant current angle $value and rev $currentRevolution");
       // print(
       //     "value $value $maxAngle the comp ${value >= maxAngle && currentMode != GyroscopeModes.negative} current mode ==> $currentMode");
       if (value >= maxAngle && !isANegativeModeMovement && value != 359) {

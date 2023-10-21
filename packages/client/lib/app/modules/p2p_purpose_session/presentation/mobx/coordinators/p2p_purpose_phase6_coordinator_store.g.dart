@@ -101,6 +101,23 @@ mixin _$P2PPurposePhase6CoordinatorStore
     });
   }
 
+  late final _$timesWidgetIsReadyAtom = Atom(
+      name: '_P2PPurposePhase6CoordinatorStoreBase.timesWidgetIsReady',
+      context: context);
+
+  @override
+  bool get timesWidgetIsReady {
+    _$timesWidgetIsReadyAtom.reportRead();
+    return super.timesWidgetIsReady;
+  }
+
+  @override
+  set timesWidgetIsReady(bool value) {
+    _$timesWidgetIsReadyAtom.reportWrite(value, super.timesWidgetIsReady, () {
+      super.timesWidgetIsReady = value;
+    });
+  }
+
   late final _$timesQuadrantsAtom = Atom(
       name: '_P2PPurposePhase6CoordinatorStoreBase.timesQuadrants',
       context: context);
@@ -169,14 +186,31 @@ mixin _$P2PPurposePhase6CoordinatorStore
     });
   }
 
+  late final _$nowAtom =
+      Atom(name: '_P2PPurposePhase6CoordinatorStoreBase.now', context: context);
+
+  @override
+  DateTime get now {
+    _$nowAtom.reportRead();
+    return super.now;
+  }
+
+  @override
+  set now(DateTime value) {
+    _$nowAtom.reportWrite(value, super.now, () {
+      super.now = value;
+    });
+  }
+
   late final _$updateTheBackendAsyncAction = AsyncAction(
       '_P2PPurposePhase6CoordinatorStoreBase.updateTheBackend',
       context: context);
 
   @override
-  Future updateTheBackend(bool isAForwardMovement) {
-    return _$updateTheBackendAsyncAction
-        .run(() => super.updateTheBackend(isAForwardMovement));
+  Future updateTheBackend(
+      {required bool isAForwardMovement, required bool isADate}) {
+    return _$updateTheBackendAsyncAction.run(() => super.updateTheBackend(
+        isAForwardMovement: isAForwardMovement, isADate: isADate));
   }
 
   late final _$_P2PPurposePhase6CoordinatorStoreBaseActionController =
@@ -190,6 +224,20 @@ mixin _$P2PPurposePhase6CoordinatorStore
             name: '_P2PPurposePhase6CoordinatorStoreBase.setChosenIndex');
     try {
       return super.setChosenIndex(newInt);
+    } finally {
+      _$_P2PPurposePhase6CoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setTimesWidgetIsReady(dynamic newBool) {
+    final _$actionInfo =
+        _$_P2PPurposePhase6CoordinatorStoreBaseActionController.startAction(
+            name:
+                '_P2PPurposePhase6CoordinatorStoreBase.setTimesWidgetIsReady');
+    try {
+      return super.setTimesWidgetIsReady(newBool);
     } finally {
       _$_P2PPurposePhase6CoordinatorStoreBaseActionController
           .endAction(_$actionInfo);
@@ -228,6 +276,18 @@ mixin _$P2PPurposePhase6CoordinatorStore
             name: '_P2PPurposePhase6CoordinatorStoreBase.setNewDateOrTime');
     try {
       return super.setNewDateOrTime(newDT);
+    } finally {
+      _$_P2PPurposePhase6CoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setNow(DateTime newNow) {
+    final _$actionInfo = _$_P2PPurposePhase6CoordinatorStoreBaseActionController
+        .startAction(name: '_P2PPurposePhase6CoordinatorStoreBase.setNow');
+    try {
+      return super.setNow(newNow);
     } finally {
       _$_P2PPurposePhase6CoordinatorStoreBaseActionController
           .endAction(_$actionInfo);
@@ -322,10 +382,12 @@ chosenIndex: ${chosenIndex},
 firstValue: ${firstValue},
 secondValue: ${secondValue},
 previousValue: ${previousValue},
+timesWidgetIsReady: ${timesWidgetIsReady},
 timesQuadrants: ${timesQuadrants},
 startingQuadrant: ${startingQuadrant},
 confirmingMatch: ${confirmingMatch},
 newDateOrTime: ${newDateOrTime},
+now: ${now},
 previousValueIsNotSet: ${previousValueIsNotSet},
 isFirstTime: ${isFirstTime},
 isSecondTime: ${isSecondTime}

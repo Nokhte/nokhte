@@ -41,13 +41,14 @@ mixin _$SchedulingWidgetsCoordinatorStore
   }
 
   @override
-  dynamic initForwardTimeShift(bool isADate, DateTime newTime) {
+  dynamic initForwardTimeShift(
+      {required bool isADate, required DateTime newTime}) {
     final _$actionInfo =
         _$_SchedulingWidgetsCoordinatorStoreBaseActionController.startAction(
             name:
                 '_SchedulingWidgetsCoordinatorStoreBase.initForwardTimeShift');
     try {
-      return super.initForwardTimeShift(isADate, newTime);
+      return super.initForwardTimeShift(isADate: isADate, newTime: newTime);
     } finally {
       _$_SchedulingWidgetsCoordinatorStoreBaseActionController
           .endAction(_$actionInfo);
@@ -55,13 +56,14 @@ mixin _$SchedulingWidgetsCoordinatorStore
   }
 
   @override
-  dynamic initBackwardTimeShift(bool isADate, DateTime newTime) {
+  dynamic initBackwardTimeShift(
+      {required bool isADate, required DateTime newTime}) {
     final _$actionInfo =
         _$_SchedulingWidgetsCoordinatorStoreBaseActionController.startAction(
             name:
                 '_SchedulingWidgetsCoordinatorStoreBase.initBackwardTimeShift');
     try {
-      return super.initBackwardTimeShift(isADate, newTime);
+      return super.initBackwardTimeShift(isADate: isADate, newTime: newTime);
     } finally {
       _$_SchedulingWidgetsCoordinatorStoreBaseActionController
           .endAction(_$actionInfo);

@@ -53,6 +53,12 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   int previousValue = -1;
 
   @observable
+  bool timesWidgetIsReady = false;
+
+  @action
+  setTimesWidgetIsReady(newBool) => timesWidgetIsReady = newBool;
+
+  @observable
   List<int> timesQuadrants = [];
 
   @computed
@@ -63,7 +69,7 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
     firstValue = -1;
     secondValue = -1;
     previousValue = -1;
-    print("SPV f $firstValue s $secondValue pr  $previousValue");
+    // print("SPV f $firstValue s $secondValue pr  $previousValue");
     timesQuadrants.clear();
   }
 
@@ -91,7 +97,12 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   @computed
   bool get isSecondTime => secondValue == -1;
 
+  @observable
   DateTime now = DateTime.now();
+  // DateTime now = DateTime.parse('2021-10-20 00:00:00');
+
+  @action
+  setNow(DateTime newNow) => now = newNow;
 
   screenConstructor() async {
     await scheduling.createSchedulingAndStreamSetup();
@@ -100,8 +111,6 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
       totalAngleCoverageOfEachQuadrant: 90,
       startingQuadrant: 0,
     );
-    now = DateTime.parse('1969-16-20 00:00:00');
-    // now = DateTime.now();
     widgets.widgetSetup(now);
 
     reaction((p0) => gyroscopicCoordinatorStore.currentQuadrant, (p0) {
@@ -129,8 +138,8 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
         case DateOrTime.time:
           if (checkIfTimesMatch(value.time)) {
             delta.startColorTransitionMovie();
-            agreementProtocolTimer();
             confirmingMatch = true;
+            agreementProtocolTimer();
           } else {
             disagreementAfterAgreementProtocol();
           }
@@ -140,55 +149,56 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
 
   @action
   valueTrackingSetup(int p0) {
-    // it's happeneing here
     if (isFirstTime) {
-      print("is first time $p0");
+      // print("is first time $p0");
       firstValue = p0;
     } else if (secondValue == -1) {
-      // if (conveyerBelt.currentFocus == DateOrTime.time &&
-      //     isFirstTimeWithTimes) {
-      //   return;
-      // }
       secondValue = p0;
-      print("is second time $p0");
+      // print("is second time $p0");
     } else {
       previousValue = firstValue;
       firstValue = secondValue;
       secondValue = p0;
-      print("is nth time  $firstValue $secondValue $previousValue");
+      // print("is nth time  $firstValue $secondValue $previousValue");
     }
   }
 
   @action
   agreementProtocolTimer() {
-    Future.delayed(Seconds.get(3), () {
-      if (confirmingMatch) {
-        conveyerBelt.setWidgetVisibility(false);
-        conveyerBelt.setTimesArray(now);
-        gyroscopicCoordinatorStore.resetTheQuadrantLayout(
-          startingQuadrant: conveyerBelt.currentlySelectedIndex,
-          numberOfQuadrants: 24,
-          totalAngleCoverageOfEachQuadrant: 90,
-        ); // fv & pv may need to be synced idk
-        setStartingQuadrant(conveyerBelt.currentlySelectedIndex);
-        // startingQuadrant = conveyerBelt.currentlySelectedIndex
-        print("shouldn't this be 13 $startingQuadrant");
+    switch (conveyerBelt.currentFocus) {
+      case DateOrTime.date:
         Future.delayed(Seconds.get(3), () {
-          resetValues();
-          conveyerBelt.setUIArray(conveyerBelt.times);
-          conveyerBelt.setWidgetVisibility(true);
-          delta.backTrackTheTransition();
-          confirmingMatch = false;
+          if (confirmingMatch) {
+            conveyerBelt.setWidgetVisibility(false);
+            print("what now are we using?? $now ????");
+            conveyerBelt.setTimesArray(now);
+            gyroscopicCoordinatorStore.resetTheQuadrantLayout(
+              startingQuadrant: conveyerBelt.currentlySelectedIndex,
+              numberOfQuadrants: 24,
+              totalAngleCoverageOfEachQuadrant: 90,
+            );
+            setStartingQuadrant(conveyerBelt.currentlySelectedIndex);
+            // print("shouldn't this be 13 $startingQuadrant");
+            Future.delayed(Seconds.get(3), () {
+              resetValues();
+              setTimesWidgetIsReady(true);
+              conveyerBelt.setUIArray(conveyerBelt.times);
+              conveyerBelt.setWidgetVisibility(true);
+              delta.backTrackTheTransition();
+              confirmingMatch = false;
+            });
+          }
         });
-        // conveyerBeltController();
-
-        // print(
-        //   "what is the sq $startingQuadrant fv $firstValue sv $secondValue pv $previousValue",
-        // );
-        // print(
-        //     "END OF TIMMMMMER : What are our value FV: $firstValue SV: $secondValue PV: $previousValue NEW TIME $newDateOrTime");
-      }
-    });
+      case DateOrTime.time:
+        Future.delayed(Seconds.get(3), () {
+          if (confirmingMatch) {
+            conveyerBelt.setWidgetVisibility(false);
+            Future.delayed(Seconds.get(3), () {
+              // transition out here
+            });
+          }
+        });
+    }
   }
 
   @action
@@ -200,39 +210,25 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
       case DateOrTime.date:
         if (isSecondTime && firstValue > 0) {
           // print("branch 1 is running  $firstValue  > $previousValue ");
-          widgets.initForwardTimeShift(true, DateTime.now());
-          updateTheBackend(true);
-          //   widgets.initForwardTimeShift(false, newDateOrTime);
-          //   updateTheBackend(true);
+          widgets.initForwardTimeShift(isADate: true, newTime: DateTime.now());
+          updateTheBackend(isAForwardMovement: true, isADate: true);
         } else if (firstValue > previousValue) {
-          // print("branch 2 is running $firstValue  > $previousValue");
-          widgets.initForwardTimeShift(true, DateTime.now());
-          updateTheBackend(true);
-          //   widgets.initForwardTimeShift(false, newDateOrTime);
-          //   updateTheBackend(true);
+          widgets.initForwardTimeShift(isADate: true, newTime: DateTime.now());
+          updateTheBackend(isAForwardMovement: true, isADate: true);
         } else if (firstValue < previousValue && firstValue != 0) {
-          // print("branch 3 is running  $firstValue  > $previousValue");
-          widgets.initBackwardTimeShift(true, DateTime.now());
-          updateTheBackend(false);
-          //   widgets.initBackwardTimeShift(false, newDateOrTime);
-          //   updateTheBackend(false);
+          widgets.initBackwardTimeShift(isADate: true, newTime: DateTime.now());
+          updateTheBackend(isAForwardMovement: false, isADate: true);
         }
       case DateOrTime.time:
-
-        // if (isFirstTimeWithTimes && secondValue != -1) {
-        //   secondValue = -1;
-        //   isFirstTimeWithTimes = false;
-        //   return;
-        // }
-        print(
-            "what's the situation 1st val $firstValue || prev val $previousValue sq $startingQuadrant");
-        if (isSecondTime && firstValue > startingQuadrant) {
-          print("initially you have moved up $firstValue $startingQuadrant");
-        } else if (isSecondTime && previousValue < startingQuadrant) {
-          print("initially you have moved down $firstValue $startingQuadrant");
+        if (timesWidgetIsReady == false) {
+          return;
+        } else if (!isFirstTime && !isSecondTime && secondValue > firstValue) {
+          widgets.initForwardTimeShift(isADate: false, newTime: newDateOrTime);
+          updateTheBackend(isAForwardMovement: true, isADate: false);
+        } else if (!isFirstTime && !isSecondTime && secondValue < firstValue) {
+          widgets.initBackwardTimeShift(isADate: false, newTime: newDateOrTime);
+          updateTheBackend(isAForwardMovement: false, isADate: false);
         }
-        // print("hey you are now in the other terrarory");
-        break;
     }
   }
 
@@ -261,11 +257,14 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   }
 
   @action
-  updateTheBackend(bool isAForwardMovement) async {
-    if (isFirstTimeWithTimes && conveyerBelt.currentFocus == DateOrTime.time) {
-      return;
-    }
-    final convertedTypes = conveyerBelt.convertCurrentState(isAForwardMovement);
+  updateTheBackend(
+      {required bool isAForwardMovement, required bool isADate}) async {
+    final convertedTypes = conveyerBelt.convertCurrentState(
+      isAForwardMovementParam: isAForwardMovement,
+      isADate: isADate,
+    );
+    print(
+        "what's the new date does this not get updated?? ${conveyerBelt.currentFocus} ${convertedTypes.newDateOrTime}");
     setChosenIndex(convertedTypes.chosenIndex);
     setNewDateOrTime(convertedTypes.newDateOrTime);
     await scheduling
