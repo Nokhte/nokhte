@@ -74,11 +74,11 @@ abstract class _SunAndMoonStoreBase
   void isAMorningTime(IsATimeMobxParams params) {
     if (params.isAStartingValue) {
       setStartingGrad(SunColors.morning);
-      if (params.hour == 9) {
-        setQueuedMovie(QueuedUpMovie.underOver);
-      } else {
-        setQueuedMovie(QueuedUpMovie.smoothLERP);
-      }
+      setQueuedMovie(QueuedUpMovie.smoothLERP);
+      // if (params.hour == 9) {
+      // setQueuedMovie(QueuedUpMovie.underOver);
+      // } else {
+      // }
     } else {
       setEndingGrad(SunColors.morning);
     }

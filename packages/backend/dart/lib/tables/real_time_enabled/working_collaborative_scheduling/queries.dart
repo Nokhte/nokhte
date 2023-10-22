@@ -74,7 +74,11 @@ class WorkingCollaborativeSchedulingQueries extends CollaborativeQueries {
             collaboratorInfo.theUsersUID,
           );
     } else {
-      final formattedDate = date.toIso8601String();
+      print("hey what's the date being passed here? $date");
+      // final formattedDate = date.toUtc().toIso8601String();
+      final formattedDate = DateTime(2003, 4, 9, date.hour, date.minute)
+          .toUtc()
+          .toIso8601String();
       await supabase
           .from(table)
           .update({

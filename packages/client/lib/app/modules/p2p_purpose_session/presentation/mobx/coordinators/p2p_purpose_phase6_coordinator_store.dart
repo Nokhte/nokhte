@@ -252,9 +252,13 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
 
   @action
   bool checkIfTimesMatch(DateTime comparisonDate) {
-    final theirRoundedDate = DateTime(comparisonDate.year, comparisonDate.month,
-        comparisonDate.day, comparisonDate.hour, comparisonDate.minute);
-    return theirRoundedDate == conveyerBelt.times[chosenIndex].unformatted;
+    final ourUnformattedDate =
+        conveyerBelt.times[chosenIndex].unformatted.toUtc();
+    final theirRoundedDate = DateTime(2003, 4, 9, comparisonDate.hour);
+    final ourRoundedDate = DateTime(2003, 4, 9, ourUnformattedDate.hour);
+    print(
+        "hey what's this comparison ours: $ourRoundedDate theirs $theirRoundedDate");
+    return theirRoundedDate == ourRoundedDate;
   }
 
   @action
