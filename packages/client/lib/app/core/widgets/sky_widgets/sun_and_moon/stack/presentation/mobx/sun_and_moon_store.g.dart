@@ -77,66 +77,44 @@ mixin _$SunAndMoonStore on _SunAndMoonStoreBase, Store {
       ActionController(name: '_SunAndMoonStoreBase', context: context);
 
   @override
+  dynamic setStartingGrad(List<Color> newColors) {
+    final _$actionInfo = _$_SunAndMoonStoreBaseActionController.startAction(
+        name: '_SunAndMoonStoreBase.setStartingGrad');
+    try {
+      return super.setStartingGrad(newColors);
+    } finally {
+      _$_SunAndMoonStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setEndingGrad(List<Color> newColors) {
+    final _$actionInfo = _$_SunAndMoonStoreBaseActionController.startAction(
+        name: '_SunAndMoonStoreBase.setEndingGrad');
+    try {
+      return super.setEndingGrad(newColors);
+    } finally {
+      _$_SunAndMoonStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setQueuedMovie(QueuedUpMovie newMovie) {
+    final _$actionInfo = _$_SunAndMoonStoreBaseActionController.startAction(
+        name: '_SunAndMoonStoreBase.setQueuedMovie');
+    try {
+      return super.setQueuedMovie(newMovie);
+    } finally {
+      _$_SunAndMoonStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setGradient(DateTime date, {required bool isStart}) {
     final _$actionInfo = _$_SunAndMoonStoreBaseActionController.startAction(
         name: '_SunAndMoonStoreBase.setGradient');
     try {
       return super.setGradient(date, isStart: isStart);
-    } finally {
-      _$_SunAndMoonStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic selectTimeBasedMovie(DateTime date) {
-    final _$actionInfo = _$_SunAndMoonStoreBaseActionController.startAction(
-        name: '_SunAndMoonStoreBase.selectTimeBasedMovie');
-    try {
-      return super.selectTimeBasedMovie(date);
-    } finally {
-      _$_SunAndMoonStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void initDuskCallback(int hours) {
-    final _$actionInfo = _$_SunAndMoonStoreBaseActionController.startAction(
-        name: '_SunAndMoonStoreBase.initDuskCallback');
-    try {
-      return super.initDuskCallback(hours);
-    } finally {
-      _$_SunAndMoonStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void initMorningCallback(int hours) {
-    final _$actionInfo = _$_SunAndMoonStoreBaseActionController.startAction(
-        name: '_SunAndMoonStoreBase.initMorningCallback');
-    try {
-      return super.initMorningCallback(hours);
-    } finally {
-      _$_SunAndMoonStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void initDayCallback(int hours) {
-    final _$actionInfo = _$_SunAndMoonStoreBaseActionController.startAction(
-        name: '_SunAndMoonStoreBase.initDayCallback');
-    try {
-      return super.initDayCallback(hours);
-    } finally {
-      _$_SunAndMoonStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void initEveningCallback(int hours) {
-    final _$actionInfo = _$_SunAndMoonStoreBaseActionController.startAction(
-        name: '_SunAndMoonStoreBase.initEveningCallback');
-    try {
-      return super.initEveningCallback(hours);
     } finally {
       _$_SunAndMoonStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -193,6 +171,61 @@ mixin _$SunAndMoonStore on _SunAndMoonStoreBase, Store {
         name: '_SunAndMoonStoreBase.initTimeShift');
     try {
       return super.initTimeShift(pastTime: pastTime, newTime: newTime);
+    } finally {
+      _$_SunAndMoonStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic selectTimeBasedMovie(DateTime date) {
+    final _$actionInfo = _$_SunAndMoonStoreBaseActionController.startAction(
+        name: '_SunAndMoonStoreBase.selectTimeBasedMovie');
+    try {
+      return super.selectTimeBasedMovie(date);
+    } finally {
+      _$_SunAndMoonStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void initDuskCallback(int hours) {
+    final _$actionInfo = _$_SunAndMoonStoreBaseActionController.startAction(
+        name: '_SunAndMoonStoreBase.initDuskCallback');
+    try {
+      return super.initDuskCallback(hours);
+    } finally {
+      _$_SunAndMoonStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void initMorningCallback(int hours) {
+    final _$actionInfo = _$_SunAndMoonStoreBaseActionController.startAction(
+        name: '_SunAndMoonStoreBase.initMorningCallback');
+    try {
+      return super.initMorningCallback(hours);
+    } finally {
+      _$_SunAndMoonStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void initDayCallback(int hours) {
+    final _$actionInfo = _$_SunAndMoonStoreBaseActionController.startAction(
+        name: '_SunAndMoonStoreBase.initDayCallback');
+    try {
+      return super.initDayCallback(hours);
+    } finally {
+      _$_SunAndMoonStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void initEveningCallback(int hours) {
+    final _$actionInfo = _$_SunAndMoonStoreBaseActionController.startAction(
+        name: '_SunAndMoonStoreBase.initEveningCallback');
+    try {
+      return super.initEveningCallback(hours);
     } finally {
       _$_SunAndMoonStoreBaseActionController.endAction(_$actionInfo);
     }

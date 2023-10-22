@@ -16,6 +16,15 @@ class SunAndMoonStore = _SunAndMoonStoreBase with _$SunAndMoonStore;
 abstract class _SunAndMoonStoreBase
     extends BaseSchedulingWidgetStore<Color, int, IsATimeMobxParams>
     with Store {
+  @action
+  setStartingGrad(List<Color> newColors) => startingGrad = newColors;
+
+  @action
+  setEndingGrad(List<Color> newColors) => endingGrad = newColors;
+
+  @action
+  setQueuedMovie(QueuedUpMovie newMovie) => queuedUpMovie = newMovie;
+
   @observable
   bool isTheMoon = false;
 
@@ -43,6 +52,107 @@ abstract class _SunAndMoonStoreBase
       isAEveningTime(params);
     }
   }
+
+  @override
+  @action
+  void isADuskTime(IsATimeMobxParams param) {
+    // hours.isAStartingValue
+    if (param.isAStartingValue) {
+      setStartingGrad(MoonColors.colors);
+      if (param.hour == 5) {
+        setQueuedMovie(QueuedUpMovie.underOver);
+      } else {
+        setQueuedMovie(QueuedUpMovie.smoothLERP);
+      }
+    } else {
+      setEndingGrad(MoonColors.colors);
+    }
+  }
+
+  @override
+  @action
+  void isAMorningTime(IsATimeMobxParams params) {
+    if (params.isAStartingValue) {
+      setStartingGrad(SunColors.morning);
+      if (params.hour == 9) {
+        setQueuedMovie(QueuedUpMovie.underOver);
+      } else {
+        setQueuedMovie(QueuedUpMovie.smoothLERP);
+      }
+    } else {
+      setEndingGrad(SunColors.morning);
+    }
+  }
+
+  @override
+  @action
+  void isADayTime(IsATimeMobxParams params) {
+    params.isAStartingValue
+        ? {
+            setStartingGrad(SunColors.day),
+            setQueuedMovie(QueuedUpMovie.smoothLERP)
+          }
+        : setEndingGrad(SunColors.day);
+  }
+
+  @override
+  @action
+  void isAEveningTime(IsATimeMobxParams params) {
+    params.isAStartingValue
+        ? {
+            setStartingGrad(SunColors.evening),
+            (params.hour == 20)
+                ? setQueuedMovie(QueuedUpMovie.underOver)
+                : setQueuedMovie(QueuedUpMovie.smoothLERP),
+          }
+        : setEndingGrad(SunColors.evening);
+  }
+
+  @action
+  @override
+  initTimeShift({required DateTime pastTime, required DateTime newTime}) {
+    setGradient(pastTime, isStart: true);
+    setGradient(newTime, isStart: false);
+    print("hey what's the queued up move $queuedUpMovie ???");
+    switch (queuedUpMovie) {
+      case QueuedUpMovie.underOver:
+        movie = UnderOver.getMovie(
+          startingPosition:
+              SunAndMoonPositions.timeMap[pastTime.hour]!.endingPostion,
+          endingPosition:
+              SunAndMoonPositions.timeMap[newTime.hour]!.endingPostion,
+          startingGradient: startingGrad,
+          endingGradient: endingGrad,
+        );
+        control = Control.playFromStart;
+        queuedUpMovie = QueuedUpMovie.cleared;
+      case QueuedUpMovie.smoothLERP:
+        movie = SmoothLerpTransition.getMovie(
+          startingPosition:
+              SunAndMoonPositions.timeMap[pastTime.hour]!.endingPostion,
+          endingPosition:
+              SunAndMoonPositions.timeMap[newTime.hour]!.endingPostion,
+          startingGradient: startingGrad,
+          endingGradient: endingGrad,
+        );
+        control = Control.playFromStart;
+        queuedUpMovie = QueuedUpMovie.cleared;
+      default:
+        print("is this s**** breaking????");
+        break;
+    }
+  }
+
+  void setControl(Control newControl) => control = newControl;
+
+  @observable
+  MovieTween movie = PlaceTheSunOrMoon.getMovie(
+    MoonColors.colors,
+    SunAndMoonPositions.eightAM,
+  );
+
+  @observable
+  Control control = Control.stop;
 
   @action
   selectTimeBasedMovie(DateTime date) {
@@ -94,103 +204,6 @@ abstract class _SunAndMoonStoreBase
         SunColors.evening, SunAndMoonPositions.timeMap[hours]!);
     control = Control.play;
   }
-
-  @override
-  @action
-  void isADuskTime(IsATimeMobxParams param) {
-    // hours.isAStartingValue
-    if (param.isAStartingValue) {
-      startingGrad = MoonColors.colors;
-      if (param.hour == 5) {
-        queuedUpMovie = QueuedUpMovie.underOver;
-      } else {
-        queuedUpMovie = QueuedUpMovie.smoothLERP;
-      }
-    } else {
-      endingGrad = MoonColors.colors;
-    }
-  }
-
-  @override
-  @action
-  void isAMorningTime(IsATimeMobxParams params) {
-    if (params.isAStartingValue) {
-      startingGrad = SunColors.morning;
-      if (params.hour == 9) {
-        queuedUpMovie = QueuedUpMovie.underOver;
-      } else {
-        queuedUpMovie = QueuedUpMovie.smoothLERP;
-      }
-    } else {
-      endingGrad = SunColors.morning;
-    }
-  }
-
-  @override
-  @action
-  void isADayTime(IsATimeMobxParams params) {
-    params.isAStartingValue
-        ? {
-            startingGrad = SunColors.day,
-            queuedUpMovie = QueuedUpMovie.smoothLERP
-          }
-        : endingGrad = SunColors.day;
-  }
-
-  @override
-  @action
-  void isAEveningTime(IsATimeMobxParams params) {
-    params.isAStartingValue
-        ? {
-            startingGrad = SunColors.evening,
-            (params.hour == 20)
-                ? queuedUpMovie == QueuedUpMovie.underOver
-                : queuedUpMovie == QueuedUpMovie.smoothLERP,
-          }
-        : endingGrad = SunColors.evening;
-  }
-
-  @action
-  @override
-  initTimeShift({required DateTime pastTime, required DateTime newTime}) {
-    setGradient(pastTime, isStart: true);
-    setGradient(newTime, isStart: false);
-    switch (queuedUpMovie) {
-      case QueuedUpMovie.underOver:
-        movie = UnderOver.getMovie(
-          startingPosition:
-              SunAndMoonPositions.timeMap[pastTime.hour]!.endingPostion,
-          endingPosition:
-              SunAndMoonPositions.timeMap[newTime.hour]!.endingPostion,
-          startingGradient: startingGrad,
-          endingGradient: endingGrad,
-        );
-      case QueuedUpMovie.smoothLERP:
-        movie = SmoothLerpTransition.getMovie(
-          startingPosition:
-              SunAndMoonPositions.timeMap[pastTime.hour]!.endingPostion,
-          endingPosition:
-              SunAndMoonPositions.timeMap[newTime.hour]!.endingPostion,
-          startingGradient: startingGrad,
-          endingGradient: endingGrad,
-        );
-      default:
-        break;
-    }
-    control = Control.playFromStart;
-    queuedUpMovie = QueuedUpMovie.cleared;
-  }
-
-  void setControl(Control newControl) => control = newControl;
-
-  @observable
-  MovieTween movie = PlaceTheSunOrMoon.getMovie(
-    MoonColors.colors,
-    SunAndMoonPositions.eightAM,
-  );
-
-  @observable
-  Control control = Control.stop;
 
   @override
   List<Object> get props => [];

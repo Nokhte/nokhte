@@ -174,7 +174,7 @@ abstract class _BeachHorizonWaterTrackerStoreBase
       endingGrad,
       movieIsLonger,
     );
-    control = Control.playFromStart;
+    control = Control.play;
   }
 
   void setControl(Control newControl) => control = newControl;
