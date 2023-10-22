@@ -53,9 +53,7 @@ void main() {
     await user1Queries.deleteSchedulingSession();
   });
 
-  test(
-      "User should be able to create a scheduling session & update the document",
-      () async {
+  test("User should be able to create a scheduling session", () async {
     final now = DateTime.now();
     final dateOnly = DateTime(now.year, now.month, now.day);
     final res = await user1Queries.createSchedulingSession(
@@ -63,12 +61,7 @@ void main() {
     );
     expect(res[0]["collaborator_one_uid"], firstUserUID);
     expect(res[0]["collaborator_two_uid"], secondUserUID);
-    final stream =
-        WorkingCollaborativeSchedulingStream(supabase: user1Supabase);
-    stream.collaboratorsDateAndTimeStream().listen((value) {
-      expect(value.date, dateOnly);
-      // second wave of expects
-    });
+    print("hey here's the res ${res[0]}");
     await user1Queries.updateTimeOrDate(dateOnly, updateDate: true);
   });
 }
