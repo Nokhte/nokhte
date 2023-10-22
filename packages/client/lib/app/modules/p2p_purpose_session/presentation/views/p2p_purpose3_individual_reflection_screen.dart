@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/core/widgets/text_editor/text_editor.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
@@ -30,7 +31,7 @@ class P2PPurpose3IndividualRefletionScreen extends StatelessWidget {
                 ),
                 Center(
                   child: SmartFadingAnimatedText(
-                    initialFadeInDelay: const Duration(seconds: 0),
+                    initialFadeInDelay: Seconds.get(0),
                     stateTrackerStore: coordinator.fadingText,
                   ),
                 ),
@@ -39,7 +40,7 @@ class P2PPurpose3IndividualRefletionScreen extends StatelessWidget {
                   child: SoloTextEditor(
                     maxLength: 55,
                     maxLines: 5,
-                    fadeInDuration: const Duration(seconds: 2),
+                    fadeInDuration: Seconds.get(2),
                     trackerStore: coordinator.textEditor,
                   ),
                 ),

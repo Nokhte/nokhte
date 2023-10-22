@@ -57,10 +57,10 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends Equatable
       // TODO COMMENT OUT FOR PROD
     ));
     fadingText.moveToNextMessage();
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(Seconds.get(1), () {
       fadingText.fadeTheTextIn();
     });
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(Seconds.get(3), () {
       fadingText.fadeTheTextOut();
       textEditor.flipWidgetVisibility();
     });

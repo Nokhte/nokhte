@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/core/widgets/scheduling_delta/stack/stack.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
@@ -28,7 +29,7 @@ class P2PPupose6ScheduleNextMeeting extends StatelessWidget {
         final size = MediaQuery.of(context).size;
         return PlayAnimationBuilder(
             tween: Tween<double>(begin: 0.00, end: 200.00),
-            duration: const Duration(seconds: 10),
+            duration: Seconds.get(10),
             builder: (context, value, _) {
               return PlatformScaffold(
                 body: Swipe(

@@ -1,13 +1,14 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/core/widgets/fade_in_and_change_color_text/stack/constants/data/colors.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class TimesUpText extends Equatable {
   static MovieTween get movie => MovieTween()
     ..scene(
-      begin: const Duration(seconds: 0),
-      end: const Duration(seconds: 1),
+      begin: Seconds.get(0),
+      end: Seconds.get(1),
     )
         .tween(
           'text opacity',
@@ -24,8 +25,8 @@ class TimesUpText extends Equatable {
           ),
         )
     ..scene(
-      begin: const Duration(seconds: 1),
-      end: const Duration(seconds: 20),
+      begin: Seconds.get(1),
+      end: Seconds.get(20),
     )
         .tween(
           'text opacity',
@@ -42,8 +43,8 @@ class TimesUpText extends Equatable {
           ),
         )
     ..scene(
-      begin: const Duration(seconds: 25),
-      end: const Duration(seconds: 25, milliseconds: 900),
+      begin: Seconds.get(25),
+      end: Seconds.get(25, milli: 900),
     )
         .tween(
           'text opacity',
@@ -60,8 +61,8 @@ class TimesUpText extends Equatable {
           ),
         )
     ..scene(
-      begin: const Duration(seconds: 25, milliseconds: 500),
-      end: const Duration(seconds: 44),
+      begin: Seconds.get(25, milli: 500),
+      end: Seconds.get(44),
     )
         .tween(
           'text color',
@@ -78,8 +79,8 @@ class TimesUpText extends Equatable {
           ),
         )
     ..scene(
-      begin: const Duration(seconds: 44),
-      end: const Duration(seconds: 45),
+      begin: Seconds.get(44),
+      end: Seconds.get(45),
     )
         .tween(
           'text color',

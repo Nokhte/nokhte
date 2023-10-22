@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:path_morph/path_morph.dart';
+import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/core/widgets/gesture_pill/gesture_pill.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'canvas/gesture_cross_painter.dart';
@@ -27,8 +28,7 @@ class _GestureCrossState extends State<GesturePill>
   @override
   initState() {
     super.initState();
-    controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    controller = AnimationController(vsync: this, duration: Seconds.get(1));
     widget.stateTrackerStore.controller = controller;
     PathMorph.generateAnimations(
       controller,
@@ -57,7 +57,7 @@ class _GestureCrossState extends State<GesturePill>
         onCompleted: () => stateTracker.onAnimationCompleted(),
         builder: (context, value, child) => AnimatedOpacity(
           opacity: stateTracker.showWidget ? 1 : 0,
-          duration: const Duration(seconds: 1),
+          duration: Seconds.get(1),
           child: Container(
             alignment: Alignment.topLeft,
             // color: Colors.blue.withOpacity(.4),

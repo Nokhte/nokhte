@@ -165,7 +165,7 @@ class ForwardsOrBackwards {
         )
     ..scene(
       begin: Seconds.get(1),
-      end: const Duration(seconds: 1, milliseconds: 500),
+      end: Seconds.get(1, milli: 500),
     )
         .tween(
           '0 left position',

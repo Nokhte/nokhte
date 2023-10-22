@@ -8,6 +8,7 @@ import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/modules/voice_call/domain/domain.dart';
+import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -80,7 +81,7 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
     gesturePillStore.setPillAnimationControl(Control.playFromStart);
     fadingText.fadeTheTextOut();
     // fadingText.togglePause();
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(Seconds.get(3), () {
       // fadingText.moveToNextMessage();
       Modular.to.navigate('/p2p_purpose_session/phase-2/');
     });

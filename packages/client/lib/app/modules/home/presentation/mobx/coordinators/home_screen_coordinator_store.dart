@@ -46,7 +46,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
       const Color(0xFF41D2F8),
       const Color(0xFF69E9BC),
     ]));
-    Future.delayed(const Duration(seconds: 1), () async {
+    Future.delayed(Seconds.get(1), () async {
       await addNameToDatabaseStore(NoParams());
       await getCollaboratorPhraseStore(NoParams()).then((_) {
         fadingTextStateTrackerStore.setMainMessage(

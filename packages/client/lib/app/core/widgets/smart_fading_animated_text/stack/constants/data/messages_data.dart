@@ -1,3 +1,4 @@
+import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/core/widgets/widget_constants.dart';
 
 class MessagesData {
@@ -7,7 +8,7 @@ class MessagesData {
             subMessage: "",
             pauseHere: false,
             unlockGesture: Gestures.none,
-            extraDelayTime: const Duration(seconds: 2),
+            extraDelayTime: Seconds.get(2),
             mainMessageFontSize: 50.0,
             subMessageFontSize: 25.0),
         RotatingTextData(
@@ -15,7 +16,7 @@ class MessagesData {
             subMessage: "",
             pauseHere: true,
             unlockGesture: Gestures.doubleTap,
-            extraDelayTime: const Duration(seconds: 0),
+            extraDelayTime: Seconds.get(0),
             mainMessageFontSize: 50.0,
             subMessageFontSize: 25.0),
         RotatingTextData(
@@ -23,7 +24,7 @@ class MessagesData {
             subMessage: "\n tap to copy",
             pauseHere: true,
             unlockGesture: Gestures.tap,
-            extraDelayTime: const Duration(seconds: 0),
+            extraDelayTime: Seconds.get(0),
             mainMessageFontSize: 50.0,
             subMessageFontSize: 25.0),
         RotatingTextData(
@@ -31,7 +32,7 @@ class MessagesData {
             subMessage: "",
             pauseHere: false,
             unlockGesture: Gestures.none,
-            extraDelayTime: const Duration(seconds: 1, milliseconds: 500),
+            extraDelayTime: Seconds.get(1, milli: 500),
             mainMessageFontSize: 50.0,
             subMessageFontSize: 25.0),
         RotatingTextData(
@@ -39,7 +40,7 @@ class MessagesData {
             subMessage: "",
             pauseHere: false,
             unlockGesture: Gestures.none,
-            extraDelayTime: const Duration(seconds: 1),
+            extraDelayTime: Seconds.get(1),
             mainMessageFontSize: 50.0,
             subMessageFontSize: 25.0),
       ];
@@ -49,7 +50,7 @@ class MessagesData {
             subMessage: "",
             pauseHere: true,
             unlockGesture: Gestures.hold,
-            extraDelayTime: const Duration(seconds: 0),
+            extraDelayTime: Seconds.get(0),
             mainMessageFontSize: 50.0,
             subMessageFontSize: 25.0),
         RotatingTextData(
@@ -57,7 +58,7 @@ class MessagesData {
             subMessage: "",
             pauseHere: false,
             unlockGesture: Gestures.none,
-            extraDelayTime: const Duration(seconds: 0),
+            extraDelayTime: Seconds.get(0),
             mainMessageFontSize: 50.0,
             subMessageFontSize: 25.0),
       ];
@@ -67,7 +68,7 @@ class MessagesData {
             subMessage: "",
             pauseHere: true,
             unlockGesture: Gestures.none,
-            extraDelayTime: const Duration(seconds: 0),
+            extraDelayTime: Seconds.get(0),
             mainMessageFontSize: 40.0,
             subMessageFontSize: 25.0),
         RotatingTextData(
@@ -75,7 +76,7 @@ class MessagesData {
             subMessage: "",
             pauseHere: true,
             unlockGesture: Gestures.none,
-            extraDelayTime: const Duration(seconds: 0),
+            extraDelayTime: Seconds.get(0),
             mainMessageFontSize: 50.0,
             subMessageFontSize: 25.0),
         RotatingTextData(
@@ -84,7 +85,7 @@ class MessagesData {
           subMessage: "",
           pauseHere: true,
           unlockGesture: Gestures.none,
-          extraDelayTime: const Duration(seconds: 0),
+          extraDelayTime: Seconds.get(0),
           mainMessageFontSize: 50.0,
           subMessageFontSize: 25.0,
         ),
@@ -93,7 +94,7 @@ class MessagesData {
           subMessage: "",
           pauseHere: true,
           unlockGesture: Gestures.none,
-          extraDelayTime: const Duration(seconds: 0),
+          extraDelayTime: Seconds.get(0),
           mainMessageFontSize: 50.0,
           subMessageFontSize: 25.0,
         ),
@@ -102,7 +103,7 @@ class MessagesData {
           subMessage: "",
           pauseHere: true,
           unlockGesture: Gestures.none,
-          extraDelayTime: const Duration(seconds: 0),
+          extraDelayTime: Seconds.get(0),
           mainMessageFontSize: 50.0,
           subMessageFontSize: 25.0,
         ),
@@ -111,7 +112,7 @@ class MessagesData {
           subMessage: "",
           pauseHere: true,
           unlockGesture: Gestures.none,
-          extraDelayTime: const Duration(seconds: 0),
+          extraDelayTime: Seconds.get(0),
           mainMessageFontSize: 50.0,
           subMessageFontSize: 25.0,
         ),
@@ -121,7 +122,7 @@ class MessagesData {
             subMessage: "",
             pauseHere: true,
             unlockGesture: Gestures.none,
-            extraDelayTime: const Duration(seconds: 0),
+            extraDelayTime: Seconds.get(0),
             mainMessageFontSize: 50.0,
             subMessageFontSize: 25.0),
       ];

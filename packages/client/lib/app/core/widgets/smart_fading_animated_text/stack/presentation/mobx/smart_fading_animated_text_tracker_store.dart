@@ -3,6 +3,7 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
+import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/types/rotating_text_data.dart';
@@ -61,7 +62,7 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
   }
 
   oneSecondDelay(Function body) async {
-    await Future.delayed(const Duration(seconds: 1), () => body());
+    await Future.delayed(Seconds.get(1), () => body());
   }
 
   addADelay(Duration duration) async {

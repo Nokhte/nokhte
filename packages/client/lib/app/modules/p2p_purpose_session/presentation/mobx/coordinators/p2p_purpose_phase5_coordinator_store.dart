@@ -12,6 +12,7 @@ import 'package:primala/app/core/modules/collaborative_doc/domain/logic/update_c
 import 'package:primala/app/core/modules/collaborative_doc/presentation/presentation.dart';
 import 'package:primala/app/core/modules/voice_call/domain/domain.dart';
 import 'package:primala/app/core/modules/voice_call/mobx/mobx.dart';
+import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala_backend/working_collaborative_documents.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -111,7 +112,7 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
         gesturePillStore.setPillAnimationControl(Control.playFromStart);
         // do the transition here
         collaborativeTextUI.flipWidgetVisibility();
-        Future.delayed(const Duration(seconds: 3),
+        Future.delayed(Seconds.get(3),
             () async => Modular.to.navigate('/p2p_purpose_session/phase-6/'));
         // fade the text widget out
       }

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:primala/app/core/types/types.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class RevealTheSky {
   static MovieTween getMovie(List<Color> skyColors) => MovieTween()
     ..scene(
-      begin: const Duration(seconds: 0),
-      end: const Duration(seconds: 2),
+      begin: Seconds.get(0),
+      end: Seconds.get(2),
     ).tween(
       'sky value',
       Tween<double>(
@@ -14,8 +15,8 @@ class RevealTheSky {
       ),
     )
     ..scene(
-      begin: const Duration(seconds: 2),
-      end: const Duration(seconds: 6),
+      begin: Seconds.get(2),
+      end: Seconds.get(6),
     ).tween(
       'sky value',
       Tween<double>(
@@ -24,11 +25,8 @@ class RevealTheSky {
       ),
     )
     ..scene(
-      begin: const Duration(seconds: 6),
-      end: const Duration(
-        seconds: 6,
-        milliseconds: 800,
-      ),
+      begin: Seconds.get(6),
+      end: Seconds.get(6, milli: 800),
     ).tween(
       'sky value',
       Tween<double>(
@@ -37,8 +35,8 @@ class RevealTheSky {
       ),
     )
     ..scene(
-      begin: const Duration(seconds: 0),
-      end: const Duration(seconds: 9),
+      begin: Seconds.get(0),
+      end: Seconds.get(9),
     )
         .tween(
           'first color',

@@ -52,7 +52,7 @@ abstract class _P2PPurposePhase4CoordinatorStoreBase extends Equatable
             getCollaboratorsDoc: true,
           ),
         )
-        .then((value) => Future.delayed(const Duration(seconds: 2), () {
+        .then((value) => Future.delayed(Seconds.get(2), () {
               fadingText.togglePause();
               beachWaves.initiateTimesUp(
                 timerLength: const Duration(

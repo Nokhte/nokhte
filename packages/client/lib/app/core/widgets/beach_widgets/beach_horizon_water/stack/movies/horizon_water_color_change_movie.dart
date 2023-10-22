@@ -11,10 +11,8 @@ class HorizonWaterColorChange {
   ) =>
       MovieTween()
         ..scene(
-          begin: const Duration(seconds: 0),
-          end: shouldBeLonger
-              ? Seconds.get(3)
-              : Seconds.get(1),
+          begin: Seconds.get(0),
+          end: shouldBeLonger ? Seconds.get(3) : Seconds.get(1),
         )
             .tween(
               '1st Water Gradient Color',

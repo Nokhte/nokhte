@@ -13,7 +13,7 @@ class UnderOver {
       MovieTween()
         ..scene(
           begin: Seconds.get(0),
-          end: const Duration(seconds: 1, milliseconds: 500),
+          end: Seconds.get(1, milli: 500),
         ).tween(
           'vertical constant',
           Tween<double>(
@@ -22,7 +22,7 @@ class UnderOver {
           ),
         )
         ..scene(
-          begin: const Duration(seconds: 1, milliseconds: 500),
+          begin: Seconds.get(1, milli: 500),
           end: Seconds.get(3),
         ).tween(
           'vertical constant',
@@ -33,7 +33,7 @@ class UnderOver {
         )
         ..scene(
           begin: Seconds.get(0),
-          end: const Duration(seconds: 1, milliseconds: 500),
+          end: Seconds.get(1, milli: 500),
         )
             .tween(
               'first grad color',
@@ -50,8 +50,8 @@ class UnderOver {
               ),
             )
         ..scene(
-          begin: const Duration(seconds: 1, milliseconds: 500),
-          end: const Duration(seconds: 1, milliseconds: 501),
+          begin: Seconds.get(1, milli: 500),
+          end: Seconds.get(1, milli: 501),
         )
             .tween(
               'first grad color',
@@ -68,7 +68,7 @@ class UnderOver {
               ),
             )
         ..scene(
-          begin: const Duration(seconds: 1, milliseconds: 501),
+          begin: Seconds.get(1, milli: 501),
           end: Seconds.get(3),
         )
             .tween(
@@ -85,34 +85,4 @@ class UnderOver {
                 end: endingGradient[1],
               ),
             );
-  // ..scene(
-  //   begin: const Duration(
-
-  //     milliseconds: 250,
-  //   ),
-  //   end: const Duration(
-  //     milliseconds: 251,
-  //   ),
-  // )
-  //     .tween(
-  //       'vertical constant',
-  //       Tween<double>(
-  //         begin: 300,
-  //         end: 300,
-  //       ),
-  //     )
-  //     .tween(
-  //       'first grad color',
-  //       ColorTween(
-  //         begin: startingGradient[0],
-  //         end: endingGradient[0],
-  //       ),
-  //     )
-  //     .tween(
-  //       'second grad color',
-  //       ColorTween(
-  //         begin: startingGradient[1],
-  //         end: endingGradient[1],
-  //       ),
-  //     )
 }

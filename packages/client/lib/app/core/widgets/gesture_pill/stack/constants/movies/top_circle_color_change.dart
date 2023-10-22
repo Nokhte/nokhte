@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:primala/app/core/types/types.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class TopCircleColorChange {
@@ -8,8 +9,9 @@ class TopCircleColorChange {
   }) {
     return MovieTween()
       ..scene(
-              begin: const Duration(seconds: 0),
-              end: const Duration(seconds: 2))
+        begin: Seconds.get(0),
+        end: Seconds.get(2),
+      )
           .tween(
             'first gradient color',
             ColorTween(
@@ -34,8 +36,9 @@ class TopCircleColorChange {
             ),
           )
       ..scene(
-              begin: const Duration(seconds: 0),
-              end: const Duration(seconds: 1))
+        begin: Seconds.get(0),
+        end: Seconds.get(1),
+      )
           .tween(
             'top circle color 1',
             ColorTween(
@@ -58,8 +61,9 @@ class TopCircleColorChange {
             ),
           )
       ..scene(
-              begin: const Duration(seconds: 1),
-              end: const Duration(seconds: 2))
+        begin: Seconds.get(1),
+        end: Seconds.get(2),
+      )
           .tween(
             'center circle opacity',
             Tween<double>(

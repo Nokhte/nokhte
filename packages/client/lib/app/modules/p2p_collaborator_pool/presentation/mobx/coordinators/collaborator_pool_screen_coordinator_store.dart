@@ -61,8 +61,7 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
   @action
   screenConstructorCallback() {
     beachWavesStore.initiateTimesUp(
-      timerLength: const Duration(seconds: 45),
-      // timerLength: const Duration(seconds: 10),
+      timerLength: Seconds.get(45),
     );
     getCollaboratorSearchStatusStore();
   }

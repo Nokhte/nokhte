@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:primala/app/core/types/types.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class BottomCircleGoesUp {
@@ -8,12 +9,8 @@ class BottomCircleGoesUp {
   }) {
     return MovieTween()
       ..scene(
-        begin: const Duration(
-          seconds: 0,
-        ),
-        end: const Duration(
-          milliseconds: 400,
-        ),
+        begin: Seconds.get(0),
+        end: Seconds.get(0, milli: 400),
       )
           .tween(
             'first gradient color',
@@ -39,12 +36,8 @@ class BottomCircleGoesUp {
             ),
           )
       ..scene(
-        begin: const Duration(
-          milliseconds: 400,
-        ),
-        end: const Duration(
-          milliseconds: 550,
-        ),
+        begin: Seconds.get(0, milli: 400),
+        end: Seconds.get(0, milli: 550),
       )
           .tween(
             'first gradient color',
@@ -70,8 +63,9 @@ class BottomCircleGoesUp {
             ),
           )
       ..scene(
-              begin: const Duration(seconds: 0),
-              end: const Duration(seconds: 2))
+        begin: Seconds.get(0),
+        end: Seconds.get(2),
+      )
           .tween(
             'center circle opacity',
             Tween<double>(

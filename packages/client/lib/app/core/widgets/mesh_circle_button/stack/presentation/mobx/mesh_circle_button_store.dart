@@ -4,6 +4,7 @@ import 'package:mesh_gradient/mesh_gradient.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
+import 'package:primala/app/core/types/types.dart';
 import 'package:simple_animations/simple_animations.dart';
 // * Mobx Codegen Inclusion
 part 'mesh_circle_button_store.g.dart';
@@ -20,7 +21,7 @@ abstract class _MeshCircleButtonStoreBase extends Equatable with Store {
   bool isAnimating = false;
 
   widgetConstructor() {
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(Seconds.get(1), () {
       // print('did this run?');
       toggleWidgetVisibility();
     });
