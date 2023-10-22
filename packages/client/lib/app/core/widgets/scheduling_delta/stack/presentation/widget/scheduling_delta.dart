@@ -16,15 +16,15 @@ class SchedulingDelta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (context) => CustomAnimationBuilder(
-          tween: trackerStore.movie,
-          control: trackerStore.control,
-          duration: trackerStore.movie.duration,
-          builder: (context, value, child) {
-            return AnimatedOpacity(
-              opacity: trackerStore.showWidget ? 1 : 0,
-              duration: Seconds.get(2),
-              child: Padding(
+      builder: (context) => AnimatedOpacity(
+        opacity: trackerStore.showWidget ? 1 : 0,
+        duration: Seconds.get(2),
+        child: CustomAnimationBuilder(
+            tween: trackerStore.movie,
+            control: trackerStore.control,
+            duration: trackerStore.movie.duration,
+            builder: (context, value, child) {
+              return Padding(
                 padding: const EdgeInsets.only(bottom: 100.0, right: 50),
                 child: Container(
                   alignment: Alignment.bottomCenter,
@@ -35,9 +35,9 @@ class SchedulingDelta extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
-            );
-          }),
+              );
+            }),
+      ),
     );
   }
 }

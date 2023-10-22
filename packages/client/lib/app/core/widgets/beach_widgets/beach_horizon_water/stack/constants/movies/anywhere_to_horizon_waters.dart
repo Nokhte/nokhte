@@ -4,8 +4,9 @@ import 'package:primala/app/core/widgets/beach_widgets/shared/data/water_colors_
 import 'package:primala/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-class DepthsToHorizonWaters {
+class AnywhereToHorizonWaters {
   static MovieTween getMovie(
+    List<ColorAndStop> startingGradient,
     List<ColorAndStop> fullScreenGradientColorsAndStops,
     List<ColorAndStop> halfScreenGradientColorsAndStops,
   ) =>

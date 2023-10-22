@@ -9,4 +9,5 @@ enum BeachWaveMovieModes {
   backToTheDepths,
   toTheDepths,
   timesUp,
+  shallowsToShore,
 }

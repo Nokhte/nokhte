@@ -10,9 +10,41 @@ part of 'scheduling_widgets_coordinator_store.dart';
 
 mixin _$SchedulingWidgetsCoordinatorStore
     on _SchedulingWidgetsCoordinatorStoreBase, Store {
+  late final _$beachWavesVisibilityAtom = Atom(
+      name: '_SchedulingWidgetsCoordinatorStoreBase.beachWavesVisibility',
+      context: context);
+
+  @override
+  bool get beachWavesVisibility {
+    _$beachWavesVisibilityAtom.reportRead();
+    return super.beachWavesVisibility;
+  }
+
+  @override
+  set beachWavesVisibility(bool value) {
+    _$beachWavesVisibilityAtom.reportWrite(value, super.beachWavesVisibility,
+        () {
+      super.beachWavesVisibility = value;
+    });
+  }
+
   late final _$_SchedulingWidgetsCoordinatorStoreBaseActionController =
       ActionController(
           name: '_SchedulingWidgetsCoordinatorStoreBase', context: context);
+
+  @override
+  dynamic toggleBeachWavesVisibility() {
+    final _$actionInfo =
+        _$_SchedulingWidgetsCoordinatorStoreBaseActionController.startAction(
+            name:
+                '_SchedulingWidgetsCoordinatorStoreBase.toggleBeachWavesVisibility');
+    try {
+      return super.toggleBeachWavesVisibility();
+    } finally {
+      _$_SchedulingWidgetsCoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic attuneTheWidgets(DateTime currentTimeParam) {
@@ -34,6 +66,19 @@ mixin _$SchedulingWidgetsCoordinatorStore
             name: '_SchedulingWidgetsCoordinatorStoreBase.widgetSetup');
     try {
       return super.widgetSetup(currentDateTime);
+    } finally {
+      _$_SchedulingWidgetsCoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic initBackToShore(DateTime theTimeToTransitionFrom) {
+    final _$actionInfo =
+        _$_SchedulingWidgetsCoordinatorStoreBaseActionController.startAction(
+            name: '_SchedulingWidgetsCoordinatorStoreBase.initBackToShore');
+    try {
+      return super.initBackToShore(theTimeToTransitionFrom);
     } finally {
       _$_SchedulingWidgetsCoordinatorStoreBaseActionController
           .endAction(_$actionInfo);
@@ -73,7 +118,7 @@ mixin _$SchedulingWidgetsCoordinatorStore
   @override
   String toString() {
     return '''
-
+beachWavesVisibility: ${beachWavesVisibility}
     ''';
   }
 }

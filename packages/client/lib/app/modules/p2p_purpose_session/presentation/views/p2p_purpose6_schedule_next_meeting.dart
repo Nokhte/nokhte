@@ -1,83 +1,82 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/core/widgets/scheduling_delta/stack/stack.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
-import 'package:simple_animations/simple_animations.dart';
 import 'package:swipe/swipe.dart';
 
 class P2PPupose6ScheduleNextMeeting extends StatelessWidget {
   final P2PPurposePhase6CoordinatorStore coordinator;
-  late double currentAngle;
-  // CRAP we need a whole new widget that
   P2PPupose6ScheduleNextMeeting({
     super.key,
     required this.coordinator,
   }) {
     coordinator.screenConstructor();
   }
-  // idea is that you have a image and then u push it all down with a single container
-  // so this means Column(Sky, Stack(Sun, Water))
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: ((context, constraints) {
         final size = MediaQuery.of(context).size;
-        return PlayAnimationBuilder(
-            tween: Tween<double>(begin: 0.00, end: 200.00),
-            duration: Seconds.get(10),
-            builder: (context, value, _) {
-              return PlatformScaffold(
-                body: Swipe(
-                  child: Stack(
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        child: BeachSky(
-                          stateTrackerStore: coordinator.widgets.beachSkyStore,
-                        ),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        child: SunAndMoon(
-                          stateTrackerStore: coordinator.widgets.sunAndMoon,
-                        ),
-                      ),
-                      SizedBox(
-                        width: size.width,
-                        height: size.height,
-                        child: BeachHorizonWater(
-                          size: size,
-                          stateTrackerStore: coordinator.widgets.beachWater,
-                        ),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        child: Center(
-                          child: ConveyerBeltText(
-                            size: size,
-                            trackerStore: coordinator.widgets.conveyerBelt,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height,
-                          child: SchedulingDelta(
-                            trackerStore: coordinator.widgets.schedulingDelta,
-                          )),
-                    ],
+        return PlatformScaffold(
+          body: Swipe(
+            child: Stack(
+              children: [
+                // Opacity(
+                //   opacity: coordinator.widgets.beachWavesVisibility ? 1 : 0,
+                //   child: SizedBox(
+                //     width: MediaQuery.of(context).size.width,
+                //     height: MediaQuery.of(context).size.height,
+                //     child: SmartBeachWaves(
+                //       stateTrackerStore: coordinator.widgets.beachWaves,
+                //     ),
+                //   ),
+                // ),
+                // ^^ include this piece later
+                // where beach water goes
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: BeachSky(
+                    stateTrackerStore: coordinator.widgets.beachSkyStore,
                   ),
                 ),
-              );
-            });
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: SunAndMoon(
+                    stateTrackerStore: coordinator.widgets.sunAndMoon,
+                  ),
+                ),
+                SizedBox(
+                  width: size.width,
+                  height: size.height,
+                  child: BeachHorizonWater(
+                    size: size,
+                    stateTrackerStore: coordinator.widgets.beachHorizonWater,
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: Center(
+                    child: ConveyerBeltText(
+                      size: size,
+                      trackerStore: coordinator.widgets.conveyerBelt,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child: SchedulingDelta(
+                      trackerStore: coordinator.widgets.schedulingDelta,
+                    )),
+              ],
+            ),
+          ),
+        );
       }),
     );
   }

@@ -19,46 +19,50 @@ class BeachHorizonWater extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
-      return CustomAnimationBuilder<Movie>(
-        tween: stateTrackerStore.movie,
-        duration: stateTrackerStore.movie.duration,
-        control: stateTrackerStore.control,
-        builder: (context, value, child) {
-          final rectHeight = size.height - value.get('water value');
-          // final rectHeight = size.height;
-          final rect = Rect.fromPoints(
-            Offset(0, size.height - rectHeight),
-            Offset(size.width, size.height),
-          );
-          return ClipRect(
-            clipper: CustomRectClipper(rect),
-            child: CustomPaint(
-              painter: BeachHorizonWaterPainter(
-                stopsList: [
-                  value.get('1st Water Gradient Stop'),
-                  value.get('2nd Water Gradient Stop'),
-                  value.get('3rd Water Gradient Stop'),
-                  value.get('4th Water Gradient Stop'),
-                  value.get('5th Water Gradient Stop'),
-                  value.get('6th Water Gradient Stop'),
-                  value.get('7th Water Gradient Stop'),
-                  value.get('8th Water Gradient Stop'),
-                ],
-                colorsList: [
-                  value.get('1st Water Gradient Color'),
-                  value.get('2nd Water Gradient Color'),
-                  value.get('3rd Water Gradient Color'),
-                  value.get('4th Water Gradient Color'),
-                  value.get('5th Water Gradient Color'),
-                  value.get('6th Water Gradient Color'),
-                  value.get('7th Water Gradient Color'),
-                  value.get('8th Water Gradient Color'),
-                ],
+      return Opacity(
+        opacity: stateTrackerStore.showWidget ? 1 : 0,
+        child: CustomAnimationBuilder<Movie>(
+          tween: stateTrackerStore.movie,
+          duration: stateTrackerStore.movie.duration,
+          control: stateTrackerStore.control,
+          onCompleted: () => stateTrackerStore.onAnimationCompleted(),
+          builder: (context, value, child) {
+            final rectHeight = size.height - value.get('water value');
+            // final rectHeight = size.height;
+            final rect = Rect.fromPoints(
+              Offset(0, size.height - rectHeight),
+              Offset(size.width, size.height),
+            );
+            return ClipRect(
+              clipper: CustomRectClipper(rect),
+              child: CustomPaint(
+                painter: BeachHorizonWaterPainter(
+                  stopsList: [
+                    value.get('1st Water Gradient Stop'),
+                    value.get('2nd Water Gradient Stop'),
+                    value.get('3rd Water Gradient Stop'),
+                    value.get('4th Water Gradient Stop'),
+                    value.get('5th Water Gradient Stop'),
+                    value.get('6th Water Gradient Stop'),
+                    value.get('7th Water Gradient Stop'),
+                    value.get('8th Water Gradient Stop'),
+                  ],
+                  colorsList: [
+                    value.get('1st Water Gradient Color'),
+                    value.get('2nd Water Gradient Color'),
+                    value.get('3rd Water Gradient Color'),
+                    value.get('4th Water Gradient Color'),
+                    value.get('5th Water Gradient Color'),
+                    value.get('6th Water Gradient Color'),
+                    value.get('7th Water Gradient Color'),
+                    value.get('8th Water Gradient Color'),
+                  ],
+                ),
+                size: MediaQuery.of(context).size,
               ),
-              size: MediaQuery.of(context).size,
-            ),
-          );
-        },
+            );
+          },
+        ),
       );
     });
   }

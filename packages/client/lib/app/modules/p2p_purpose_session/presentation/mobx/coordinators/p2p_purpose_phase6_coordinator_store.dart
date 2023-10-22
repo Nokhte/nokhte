@@ -192,11 +192,10 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
       case DateOrTime.time:
         Future.delayed(Seconds.get(3), () {
           if (confirmingMatch) {
-            conveyerBelt.setWidgetVisibility(false);
-            widgets.schedulingDelta.toggleWidgetVisibility();
-            Future.delayed(Seconds.get(3), () {
-              // transition out here
-            });
+            widgets.initBackToShore(
+              conveyerBelt
+                  .times[conveyerBelt.currentlySelectedIndex].unformatted,
+            );
           }
         });
     }

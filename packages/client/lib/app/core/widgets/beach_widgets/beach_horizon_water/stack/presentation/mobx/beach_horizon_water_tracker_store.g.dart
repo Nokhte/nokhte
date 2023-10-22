@@ -10,6 +10,38 @@ part of 'beach_horizon_water_tracker_store.dart';
 
 mixin _$BeachHorizonWaterTrackerStore
     on _BeachHorizonWaterTrackerStoreBase, Store {
+  late final _$movieModeAtom = Atom(
+      name: '_BeachHorizonWaterTrackerStoreBase.movieMode', context: context);
+
+  @override
+  HorizonMovieModes get movieMode {
+    _$movieModeAtom.reportRead();
+    return super.movieMode;
+  }
+
+  @override
+  set movieMode(HorizonMovieModes value) {
+    _$movieModeAtom.reportWrite(value, super.movieMode, () {
+      super.movieMode = value;
+    });
+  }
+
+  late final _$showWidgetAtom = Atom(
+      name: '_BeachHorizonWaterTrackerStoreBase.showWidget', context: context);
+
+  @override
+  bool get showWidget {
+    _$showWidgetAtom.reportRead();
+    return super.showWidget;
+  }
+
+  @override
+  set showWidget(bool value) {
+    _$showWidgetAtom.reportWrite(value, super.showWidget, () {
+      super.showWidget = value;
+    });
+  }
+
   late final _$isCompleteAtom = Atom(
       name: '_BeachHorizonWaterTrackerStoreBase.isComplete', context: context);
 
@@ -78,6 +110,69 @@ mixin _$BeachHorizonWaterTrackerStore
   late final _$_BeachHorizonWaterTrackerStoreBaseActionController =
       ActionController(
           name: '_BeachHorizonWaterTrackerStoreBase', context: context);
+
+  @override
+  dynamic setControl(Control newControl) {
+    final _$actionInfo = _$_BeachHorizonWaterTrackerStoreBaseActionController
+        .startAction(name: '_BeachHorizonWaterTrackerStoreBase.setControl');
+    try {
+      return super.setControl(newControl);
+    } finally {
+      _$_BeachHorizonWaterTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void toggleWidgetVisibility() {
+    final _$actionInfo =
+        _$_BeachHorizonWaterTrackerStoreBaseActionController.startAction(
+            name: '_BeachHorizonWaterTrackerStoreBase.toggleWidgetVisibility');
+    try {
+      return super.toggleWidgetVisibility();
+    } finally {
+      _$_BeachHorizonWaterTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setMovieMode(HorizonMovieModes newMovieMode) {
+    final _$actionInfo = _$_BeachHorizonWaterTrackerStoreBaseActionController
+        .startAction(name: '_BeachHorizonWaterTrackerStoreBase.setMovieMode');
+    try {
+      return super.setMovieMode(newMovieMode);
+    } finally {
+      _$_BeachHorizonWaterTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic initiateBackToShore({required DateTime currentDate}) {
+    final _$actionInfo =
+        _$_BeachHorizonWaterTrackerStoreBaseActionController.startAction(
+            name: '_BeachHorizonWaterTrackerStoreBase.initiateBackToShore');
+    try {
+      return super.initiateBackToShore(currentDate: currentDate);
+    } finally {
+      _$_BeachHorizonWaterTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onAnimationCompleted() {
+    final _$actionInfo =
+        _$_BeachHorizonWaterTrackerStoreBaseActionController.startAction(
+            name: '_BeachHorizonWaterTrackerStoreBase.onAnimationCompleted');
+    try {
+      return super.onAnimationCompleted();
+    } finally {
+      _$_BeachHorizonWaterTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic setGradient(DateTime date, {required bool isStart}) {
@@ -205,8 +300,22 @@ mixin _$BeachHorizonWaterTrackerStore
   }
 
   @override
+  dynamic setMovie(MovieTween newMovie) {
+    final _$actionInfo = _$_BeachHorizonWaterTrackerStoreBaseActionController
+        .startAction(name: '_BeachHorizonWaterTrackerStoreBase.setMovie');
+    try {
+      return super.setMovie(newMovie);
+    } finally {
+      _$_BeachHorizonWaterTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
+movieMode: ${movieMode},
+showWidget: ${showWidget},
 isComplete: ${isComplete},
 movieIsLonger: ${movieIsLonger},
 movie: ${movie},
