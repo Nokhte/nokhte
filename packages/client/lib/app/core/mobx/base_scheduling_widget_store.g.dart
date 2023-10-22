@@ -139,11 +139,12 @@ mixin _$BaseSchedulingWidgetStore<ArrayType, InitParams, IsATimeParams>
   }
 
   @override
-  dynamic initTimeShift(DateTime pastTime, DateTime newTime) {
+  dynamic initTimeShift(
+      {required DateTime pastTime, required DateTime newTime}) {
     final _$actionInfo = _$_BaseSchedulingWidgetStoreBaseActionController
         .startAction(name: '_BaseSchedulingWidgetStoreBase.initTimeShift');
     try {
-      return super.initTimeShift(pastTime, newTime);
+      return super.initTimeShift(pastTime: pastTime, newTime: newTime);
     } finally {
       _$_BaseSchedulingWidgetStoreBaseActionController.endAction(_$actionInfo);
     }

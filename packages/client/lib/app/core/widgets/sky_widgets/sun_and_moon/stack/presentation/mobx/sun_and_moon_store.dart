@@ -152,7 +152,7 @@ abstract class _SunAndMoonStoreBase
 
   @action
   @override
-  initTimeShift(DateTime pastTime, DateTime newTime) {
+  initTimeShift({required DateTime pastTime, required DateTime newTime}) {
     setGradient(pastTime, isStart: true);
     setGradient(newTime, isStart: false);
     switch (queuedUpMovie) {

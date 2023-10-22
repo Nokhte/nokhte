@@ -53,7 +53,7 @@ abstract class _BaseSchedulingWidgetStoreBase<ArrayType, InitParams,
 
   @mustBeOverridden
   @action
-  initTimeShift(DateTime pastTime, DateTime newTime) {}
+  initTimeShift({required DateTime pastTime, required DateTime newTime}) {}
 
   @override
   List<Object> get props => [];

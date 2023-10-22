@@ -192,11 +192,12 @@ mixin _$BeachHorizonWaterTrackerStore
   }
 
   @override
-  dynamic initTimeShift(DateTime pastTime, DateTime newTime) {
+  dynamic initTimeShift(
+      {required DateTime pastTime, required DateTime newTime}) {
     final _$actionInfo = _$_BeachHorizonWaterTrackerStoreBaseActionController
         .startAction(name: '_BeachHorizonWaterTrackerStoreBase.initTimeShift');
     try {
-      return super.initTimeShift(pastTime, newTime);
+      return super.initTimeShift(pastTime: pastTime, newTime: newTime);
     } finally {
       _$_BeachHorizonWaterTrackerStoreBaseActionController
           .endAction(_$actionInfo);

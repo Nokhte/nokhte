@@ -166,7 +166,7 @@ abstract class _BeachHorizonWaterTrackerStoreBase
 
   @override
   @action
-  initTimeShift(DateTime pastTime, DateTime newTime) {
+  initTimeShift({required DateTime pastTime, required DateTime newTime}) {
     setGradient(pastTime, isStart: true);
     setGradient(newTime, isStart: false);
     movie = HorizonWaterColorChange.getMovie(

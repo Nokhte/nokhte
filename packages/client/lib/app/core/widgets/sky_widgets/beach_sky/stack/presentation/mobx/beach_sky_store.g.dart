@@ -171,11 +171,12 @@ mixin _$BeachSkyStore on _BeachSkyStoreBase, Store {
   }
 
   @override
-  dynamic initTimeShift(DateTime pastTime, DateTime newTime) {
+  dynamic initTimeShift(
+      {required DateTime pastTime, required DateTime newTime}) {
     final _$actionInfo = _$_BeachSkyStoreBaseActionController.startAction(
         name: '_BeachSkyStoreBase.initTimeShift');
     try {
-      return super.initTimeShift(pastTime, newTime);
+      return super.initTimeShift(pastTime: pastTime, newTime: newTime);
     } finally {
       _$_BeachSkyStoreBaseActionController.endAction(_$actionInfo);
     }

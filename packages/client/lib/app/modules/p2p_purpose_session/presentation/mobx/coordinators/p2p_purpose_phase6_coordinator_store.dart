@@ -211,13 +211,13 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
       case DateOrTime.date:
         if (isSecondTime && firstValue > 0) {
           // print("branch 1 is running  $firstValue  > $previousValue ");
-          widgets.initForwardTimeShift(isADate: true, newTime: DateTime.now());
+          widgets.initForwardTimeShift(isADate: true, newTime: newDateOrTime);
           updateTheBackend(isAForwardMovement: true, isADate: true);
-        } else if (firstValue > previousValue) {
-          widgets.initForwardTimeShift(isADate: true, newTime: DateTime.now());
+        } else if (!isFirstTime && !isSecondTime && secondValue > firstValue) {
+          widgets.initForwardTimeShift(isADate: true, newTime: newDateOrTime);
           updateTheBackend(isAForwardMovement: true, isADate: true);
-        } else if (firstValue < previousValue && firstValue != 0) {
-          widgets.initBackwardTimeShift(isADate: true, newTime: DateTime.now());
+        } else if (!isFirstTime && !isSecondTime && secondValue < firstValue) {
+          widgets.initBackwardTimeShift(isADate: true, newTime: newDateOrTime);
           updateTheBackend(isAForwardMovement: false, isADate: true);
         }
       case DateOrTime.time:

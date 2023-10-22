@@ -187,11 +187,12 @@ mixin _$SunAndMoonStore on _SunAndMoonStoreBase, Store {
   }
 
   @override
-  dynamic initTimeShift(DateTime pastTime, DateTime newTime) {
+  dynamic initTimeShift(
+      {required DateTime pastTime, required DateTime newTime}) {
     final _$actionInfo = _$_SunAndMoonStoreBaseActionController.startAction(
         name: '_SunAndMoonStoreBase.initTimeShift');
     try {
-      return super.initTimeShift(pastTime, newTime);
+      return super.initTimeShift(pastTime: pastTime, newTime: newTime);
     } finally {
       _$_SunAndMoonStoreBaseActionController.endAction(_$actionInfo);
     }

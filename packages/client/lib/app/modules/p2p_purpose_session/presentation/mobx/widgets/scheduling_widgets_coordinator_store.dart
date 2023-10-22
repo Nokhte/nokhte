@@ -52,12 +52,14 @@ abstract class _SchedulingWidgetsCoordinatorStoreBase extends Equatable
       conveyerBelt.initForwardMovie();
     } else {
       // print("hey what's the date being passed in ${newTime.hour}");
-      final pastTime = newTime.subtract(Hours.get(1));
+      final realNewTime = newTime.add(Hours.get(1));
+      final pastTime = newTime;
+      // yeesh I think they are backwards, stuff needs to be done
       print(
-          "forward: Hey here are the transition times new $newTime past $pastTime");
-      beachSkyStore.initTimeShift(pastTime, newTime);
-      beachWater.initTimeShift(pastTime, newTime);
-      sunAndMoon.initTimeShift(pastTime, newTime);
+          "forward: Hey here are the transition times new $realNewTime past $pastTime");
+      beachSkyStore.initTimeShift(pastTime: pastTime, newTime: realNewTime);
+      beachWater.initTimeShift(pastTime: pastTime, newTime: realNewTime);
+      sunAndMoon.initTimeShift(pastTime: pastTime, newTime: realNewTime);
       conveyerBelt.initForwardMovie();
     }
   }
@@ -70,12 +72,14 @@ abstract class _SchedulingWidgetsCoordinatorStoreBase extends Equatable
     if (isADate) {
       conveyerBelt.initBackwardMovie();
     } else {
-      final pastTime = newTime.add(Hours.get(1));
+      final pastTime = newTime;
+      final realNewTime = newTime.subtract(Hours.get(1));
+      // todo
       print(
-          "backward: Hey here are the transition times new $newTime past $pastTime ");
-      beachSkyStore.initTimeShift(pastTime, newTime);
-      beachWater.initTimeShift(pastTime, newTime);
-      sunAndMoon.initTimeShift(pastTime, newTime);
+          "backward: Hey here are the transition times new $realNewTime past $pastTime ");
+      beachSkyStore.initTimeShift(pastTime: pastTime, newTime: realNewTime);
+      beachWater.initTimeShift(pastTime: pastTime, newTime: realNewTime);
+      sunAndMoon.initTimeShift(pastTime: pastTime, newTime: realNewTime);
       conveyerBelt.initBackwardMovie();
     }
   }
