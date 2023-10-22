@@ -211,16 +211,17 @@ abstract class _BeachHorizonWaterTrackerStoreBase
     control = Control.play;
   }
 
-  // @action
+  @action
   initBackToShore({required DateTime currentTime}) {
-    setGradient(currentTime, isStart: true);
+    // setGradient(currentTime, isStart: true);
     // for whatever reason control isn't changing ??
     movie = AnywhereToHorizonWaters.getMovie(
       WaterColorsAndStops.onShoreWater,
       WaterColorsAndStops.schedulingEveningWaterFullScreen,
       WaterColorsAndStops.schedulingEveningWaterHalfScreen,
     );
-    control = Control.stop;
+    // control = Control.playReverseFromEnd;
+    // control = Control.stop;
     // setControl(Control.playReverseFromEnd);
   }
 

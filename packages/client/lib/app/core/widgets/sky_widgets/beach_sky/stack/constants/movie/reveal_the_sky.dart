@@ -36,7 +36,7 @@ class RevealTheSky {
     )
     ..scene(
       begin: Seconds.get(0),
-      end: Seconds.get(9),
+      end: Seconds.get(6, milli: 800),
     )
         .tween(
           'first color',

@@ -33,11 +33,7 @@ class PlaceTheSunOrMoon {
         )
         ..scene(
           begin: Seconds.get(6),
-          end: const Duration(
-            seconds: 6,
-            milliseconds: 800,
-            // seconds: 9,
-          ),
+          end: Seconds.get(6, milli: 800),
         ).tween(
           'vertical constant',
           Tween<double>(
@@ -46,12 +42,8 @@ class PlaceTheSunOrMoon {
           ),
         )
         ..scene(
-          begin: const Duration(
-            seconds: 0,
-          ),
-          end: const Duration(
-            seconds: 9,
-          ),
+          begin: Seconds.get(0),
+          end: Seconds.get(6, milli: 800),
         )
             .tween(
               'first grad color',

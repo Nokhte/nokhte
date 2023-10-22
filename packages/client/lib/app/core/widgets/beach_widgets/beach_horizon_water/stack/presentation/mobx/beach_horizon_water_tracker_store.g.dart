@@ -300,6 +300,19 @@ mixin _$BeachHorizonWaterTrackerStore
   }
 
   @override
+  dynamic initBackToShore({required DateTime currentTime}) {
+    final _$actionInfo =
+        _$_BeachHorizonWaterTrackerStoreBaseActionController.startAction(
+            name: '_BeachHorizonWaterTrackerStoreBase.initBackToShore');
+    try {
+      return super.initBackToShore(currentTime: currentTime);
+    } finally {
+      _$_BeachHorizonWaterTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setMovie(MovieTween newMovie) {
     final _$actionInfo = _$_BeachHorizonWaterTrackerStoreBaseActionController
         .startAction(name: '_BeachHorizonWaterTrackerStoreBase.setMovie');

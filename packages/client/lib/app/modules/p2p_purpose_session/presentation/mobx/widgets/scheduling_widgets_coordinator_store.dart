@@ -71,8 +71,8 @@ abstract class _SchedulingWidgetsCoordinatorStoreBase extends Equatable
     //   schedulingDelta.toggleWidgetVisibility();
     //   sunAndMoon.control = Control.playReverseFromEnd;
     //   beachSkyStore.control = Control.playReverseFromEnd;
-    //   beachHorizonWater.control = Control.playReverseFromEnd;
     //   // beachHorizonWater.initiateBackToShore(currentDate: currentDateTime);
+    //   beachHorizonWater.control = Control.playReverseFromEnd;
     //   // still not changing the movie
     //   // Future.delayed(Seconds.get(0, milli: 800), () {
     //   // still off I would say
