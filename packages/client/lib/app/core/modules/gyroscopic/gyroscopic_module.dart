@@ -79,8 +79,8 @@ class GyroscopicModule extends Module {
           export: true,
         ),
         // & Coordinator Store
-        Bind.singleton<GyroscopicCoordinatorStore>(
-          (i) => GyroscopicCoordinatorStore(
+        Bind.singleton<QuadrantAPI>(
+          (i) => QuadrantAPI(
             resetRefAngle: i<ResetRefAngleForMaxCapacityStore>(),
             angleFeedStore: i<GetDirectionAngleStore>(),
             setRefAngleStore: i<SetReferenceAngleStore>(),

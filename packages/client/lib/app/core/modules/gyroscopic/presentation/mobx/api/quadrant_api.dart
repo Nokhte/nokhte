@@ -11,12 +11,11 @@ import 'package:primala/app/core/modules/gyroscopic/presentation/presentation.da
 import 'package:primala/app/core/modules/gyroscopic/types/types.dart';
 import 'package:primala/app/core/modules/gyroscopic/utils/utils.dart';
 // * Mobx Codegen Inclusion
-part 'gyroscopic_coordinator_store.g.dart';
+part 'quadrant_api.g.dart';
 
-class GyroscopicCoordinatorStore = _GyroscopicCoordinatorStoreBase
-    with _$GyroscopicCoordinatorStore;
+class QuadrantAPI = _QuadrantAPIBase with _$QuadrantAPI;
 
-abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
+abstract class _QuadrantAPIBase extends Equatable with Store {
   final GetDirectionAngleStore angleFeedStore;
   final SetReferenceAngleStore setRefAngleStore;
   final ResetRefAngleForMaxCapacityStore resetRefAngle;
@@ -52,7 +51,7 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
   }
 
   late StreamSubscription<int> angleStream;
-  _GyroscopicCoordinatorStoreBase({
+  _QuadrantAPIBase({
     required this.angleFeedStore,
     required this.setRefAngleStore,
     required this.resetRefAngle,

@@ -21,7 +21,7 @@ class P2PPurposePhase6CoordinatorStore = _P2PPurposePhase6CoordinatorStoreBase
 
 abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
     with Store {
-  final GyroscopicCoordinatorStore gyroscopicCoordinatorStore;
+  final QuadrantAPI quadrantAPI;
   final SchedulingWidgetsCoordinatorStore widgets;
   final ConveyerBeltTextStore conveyerBelt;
   final SchedulingCoordinatorStore scheduling;
@@ -29,7 +29,7 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
 
   _P2PPurposePhase6CoordinatorStoreBase({
     required this.widgets,
-    required this.gyroscopicCoordinatorStore,
+    required this.quadrantAPI,
     required this.scheduling,
   })  : conveyerBelt = widgets.conveyerBelt,
         delta = widgets.schedulingDelta;
@@ -106,14 +106,14 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
 
   screenConstructor() async {
     await scheduling.createSchedulingAndStreamSetup();
-    await gyroscopicCoordinatorStore.setupTheStream(
+    await quadrantAPI.setupTheStream(
       numberOfQuadrants: 6,
       totalAngleCoverageOfEachQuadrant: 90,
       startingQuadrant: 0,
     );
     widgets.widgetSetup(now);
 
-    reaction((p0) => gyroscopicCoordinatorStore.currentQuadrant, (p0) {
+    reaction((p0) => quadrantAPI.currentQuadrant, (p0) {
       if (p0 >= 0) {
         valueTrackingSetup(p0);
         if (conveyerBelt.currentFocus == DateOrTime.time) {
@@ -172,7 +172,7 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
             conveyerBelt.setWidgetVisibility(false);
             print("what now are we using?? $now ????");
             conveyerBelt.setTimesArray(now);
-            gyroscopicCoordinatorStore.resetTheQuadrantLayout(
+            quadrantAPI.resetTheQuadrantLayout(
               startingQuadrant: conveyerBelt.currentlySelectedIndex,
               numberOfQuadrants: 24,
               totalAngleCoverageOfEachQuadrant: 90,

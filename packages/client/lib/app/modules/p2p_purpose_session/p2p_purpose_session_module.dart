@@ -148,8 +148,7 @@ class P2PCollaboratorSessionModule extends Module {
           (i) => P2PPurposePhase6CoordinatorStore(
             scheduling: i<SchedulingCoordinatorStore>(),
             widgets: i<SchedulingWidgetsCoordinatorStore>(),
-            gyroscopicCoordinatorStore:
-                Modular.get<GyroscopicCoordinatorStore>(),
+            quadrantAPI: Modular.get<QuadrantAPI>(),
           ),
         ),
       ];

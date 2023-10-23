@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'gyroscopic_coordinator_store.dart';
+part of 'quadrant_api.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,41 +8,41 @@ part of 'gyroscopic_coordinator_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
+mixin _$QuadrantAPI on _QuadrantAPIBase, Store {
   Computed<bool>? _$isSecondTimeComputed;
 
   @override
   bool get isSecondTime =>
       (_$isSecondTimeComputed ??= Computed<bool>(() => super.isSecondTime,
-              name: '_GyroscopicCoordinatorStoreBase.isSecondTime'))
+              name: '_QuadrantAPIBase.isSecondTime'))
           .value;
   Computed<int>? _$lowerThresholdBoundComputed;
 
   @override
   int get lowerThresholdBound => (_$lowerThresholdBoundComputed ??=
           Computed<int>(() => super.lowerThresholdBound,
-              name: '_GyroscopicCoordinatorStoreBase.lowerThresholdBound'))
+              name: '_QuadrantAPIBase.lowerThresholdBound'))
       .value;
   Computed<int>? _$upperThresholdBoundComputed;
 
   @override
   int get upperThresholdBound => (_$upperThresholdBoundComputed ??=
           Computed<int>(() => super.upperThresholdBound,
-              name: '_GyroscopicCoordinatorStoreBase.upperThresholdBound'))
+              name: '_QuadrantAPIBase.upperThresholdBound'))
       .value;
   Computed<bool>? _$isFirstTimeComputed;
 
   @override
   bool get isFirstTime =>
       (_$isFirstTimeComputed ??= Computed<bool>(() => super.isFirstTime,
-              name: '_GyroscopicCoordinatorStoreBase.isFirstTime'))
+              name: '_QuadrantAPIBase.isFirstTime'))
           .value;
   Computed<bool>? _$isANegativeModeMovementComputed;
 
   @override
   bool get isANegativeModeMovement => (_$isANegativeModeMovementComputed ??=
           Computed<bool>(() => super.isANegativeModeMovement,
-              name: '_GyroscopicCoordinatorStoreBase.isANegativeModeMovement'))
+              name: '_QuadrantAPIBase.isANegativeModeMovement'))
       .value;
   Computed<bool>? _$isAPositiveRevolutionMovementComputed;
 
@@ -50,8 +50,7 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
   bool get isAPositiveRevolutionMovement =>
       (_$isAPositiveRevolutionMovementComputed ??= Computed<bool>(
               () => super.isAPositiveRevolutionMovement,
-              name:
-                  '_GyroscopicCoordinatorStoreBase.isAPositiveRevolutionMovement'))
+              name: '_QuadrantAPIBase.isAPositiveRevolutionMovement'))
           .value;
   Computed<bool>? _$isANegativeRevolutionMovementComputed;
 
@@ -59,20 +58,18 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
   bool get isANegativeRevolutionMovement =>
       (_$isANegativeRevolutionMovementComputed ??= Computed<bool>(
               () => super.isANegativeRevolutionMovement,
-              name:
-                  '_GyroscopicCoordinatorStoreBase.isANegativeRevolutionMovement'))
+              name: '_QuadrantAPIBase.isANegativeRevolutionMovement'))
           .value;
   Computed<bool>? _$isAtMaxCapacityComputed;
 
   @override
   bool get isAtMaxCapacity =>
       (_$isAtMaxCapacityComputed ??= Computed<bool>(() => super.isAtMaxCapacity,
-              name: '_GyroscopicCoordinatorStoreBase.isAtMaxCapacity'))
+              name: '_QuadrantAPIBase.isAtMaxCapacity'))
           .value;
 
-  late final _$setupReturnTypeAtom = Atom(
-      name: '_GyroscopicCoordinatorStoreBase.setupReturnType',
-      context: context);
+  late final _$setupReturnTypeAtom =
+      Atom(name: '_QuadrantAPIBase.setupReturnType', context: context);
 
   @override
   GyroSetupReturnType get setupReturnType {
@@ -87,8 +84,8 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
     });
   }
 
-  late final _$currentValueAtom = Atom(
-      name: '_GyroscopicCoordinatorStoreBase.currentValue', context: context);
+  late final _$currentValueAtom =
+      Atom(name: '_QuadrantAPIBase.currentValue', context: context);
 
   @override
   int get currentValue {
@@ -103,8 +100,8 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
     });
   }
 
-  late final _$currentModeAtom = Atom(
-      name: '_GyroscopicCoordinatorStoreBase.currentMode', context: context);
+  late final _$currentModeAtom =
+      Atom(name: '_QuadrantAPIBase.currentMode', context: context);
 
   @override
   GyroscopeModes get currentMode {
@@ -119,9 +116,8 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
     });
   }
 
-  late final _$currentRevolutionAtom = Atom(
-      name: '_GyroscopicCoordinatorStoreBase.currentRevolution',
-      context: context);
+  late final _$currentRevolutionAtom =
+      Atom(name: '_QuadrantAPIBase.currentRevolution', context: context);
 
   @override
   int get currentRevolution {
@@ -136,9 +132,8 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
     });
   }
 
-  late final _$currentQuadrantAtom = Atom(
-      name: '_GyroscopicCoordinatorStoreBase.currentQuadrant',
-      context: context);
+  late final _$currentQuadrantAtom =
+      Atom(name: '_QuadrantAPIBase.currentQuadrant', context: context);
 
   @override
   int get currentQuadrant {
@@ -154,7 +149,7 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
   }
 
   late final _$theSideTheThresholdWasEnteredFromAtom = Atom(
-      name: '_GyroscopicCoordinatorStoreBase.theSideTheThresholdWasEnteredFrom',
+      name: '_QuadrantAPIBase.theSideTheThresholdWasEnteredFrom',
       context: context);
 
   @override
@@ -171,8 +166,8 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
     });
   }
 
-  late final _$thresholdListAtom = Atom(
-      name: '_GyroscopicCoordinatorStoreBase.thresholdList', context: context);
+  late final _$thresholdListAtom =
+      Atom(name: '_QuadrantAPIBase.thresholdList', context: context);
 
   @override
   ObservableList<Threshold> get thresholdList {
@@ -187,8 +182,8 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
     });
   }
 
-  late final _$firstValueAtom = Atom(
-      name: '_GyroscopicCoordinatorStoreBase.firstValue', context: context);
+  late final _$firstValueAtom =
+      Atom(name: '_QuadrantAPIBase.firstValue', context: context);
 
   @override
   int get firstValue {
@@ -203,9 +198,8 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
     });
   }
 
-  late final _$hasBeenMarkedUpAtom = Atom(
-      name: '_GyroscopicCoordinatorStoreBase.hasBeenMarkedUp',
-      context: context);
+  late final _$hasBeenMarkedUpAtom =
+      Atom(name: '_QuadrantAPIBase.hasBeenMarkedUp', context: context);
 
   @override
   bool get hasBeenMarkedUp {
@@ -220,8 +214,8 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
     });
   }
 
-  late final _$secondValueAtom = Atom(
-      name: '_GyroscopicCoordinatorStoreBase.secondValue', context: context);
+  late final _$secondValueAtom =
+      Atom(name: '_QuadrantAPIBase.secondValue', context: context);
 
   @override
   int get secondValue {
@@ -237,92 +231,85 @@ mixin _$GyroscopicCoordinatorStore on _GyroscopicCoordinatorStoreBase, Store {
   }
 
   late final _$disposeAsyncAction =
-      AsyncAction('_GyroscopicCoordinatorStoreBase.dispose', context: context);
+      AsyncAction('_QuadrantAPIBase.dispose', context: context);
 
   @override
   Future dispose() {
     return _$disposeAsyncAction.run(() => super.dispose());
   }
 
-  late final _$_GyroscopicCoordinatorStoreBaseActionController =
-      ActionController(
-          name: '_GyroscopicCoordinatorStoreBase', context: context);
+  late final _$_QuadrantAPIBaseActionController =
+      ActionController(name: '_QuadrantAPIBase', context: context);
 
   @override
   dynamic resetTheQuadrantLayout(
       {required int startingQuadrant,
       required int numberOfQuadrants,
       required int totalAngleCoverageOfEachQuadrant}) {
-    final _$actionInfo =
-        _$_GyroscopicCoordinatorStoreBaseActionController.startAction(
-            name: '_GyroscopicCoordinatorStoreBase.resetTheQuadrantLayout');
+    final _$actionInfo = _$_QuadrantAPIBaseActionController.startAction(
+        name: '_QuadrantAPIBase.resetTheQuadrantLayout');
     try {
       return super.resetTheQuadrantLayout(
           startingQuadrant: startingQuadrant,
           numberOfQuadrants: numberOfQuadrants,
           totalAngleCoverageOfEachQuadrant: totalAngleCoverageOfEachQuadrant);
     } finally {
-      _$_GyroscopicCoordinatorStoreBaseActionController.endAction(_$actionInfo);
+      _$_QuadrantAPIBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic negativeAndRegularModeWatcher(int value) {
-    final _$actionInfo =
-        _$_GyroscopicCoordinatorStoreBaseActionController.startAction(
-            name:
-                '_GyroscopicCoordinatorStoreBase.negativeAndRegularModeWatcher');
+    final _$actionInfo = _$_QuadrantAPIBaseActionController.startAction(
+        name: '_QuadrantAPIBase.negativeAndRegularModeWatcher');
     try {
       return super.negativeAndRegularModeWatcher(value);
     } finally {
-      _$_GyroscopicCoordinatorStoreBaseActionController.endAction(_$actionInfo);
+      _$_QuadrantAPIBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic valueTrackingSetup(int value) {
-    final _$actionInfo =
-        _$_GyroscopicCoordinatorStoreBaseActionController.startAction(
-            name: '_GyroscopicCoordinatorStoreBase.valueTrackingSetup');
+    final _$actionInfo = _$_QuadrantAPIBaseActionController.startAction(
+        name: '_QuadrantAPIBase.valueTrackingSetup');
     try {
       return super.valueTrackingSetup(value);
     } finally {
-      _$_GyroscopicCoordinatorStoreBaseActionController.endAction(_$actionInfo);
+      _$_QuadrantAPIBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic setCurrentValue(int newInt) {
-    final _$actionInfo = _$_GyroscopicCoordinatorStoreBaseActionController
-        .startAction(name: '_GyroscopicCoordinatorStoreBase.setCurrentValue');
+    final _$actionInfo = _$_QuadrantAPIBaseActionController.startAction(
+        name: '_QuadrantAPIBase.setCurrentValue');
     try {
       return super.setCurrentValue(newInt);
     } finally {
-      _$_GyroscopicCoordinatorStoreBaseActionController.endAction(_$actionInfo);
+      _$_QuadrantAPIBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic setCurrentRevolution(int newRev) {
-    final _$actionInfo =
-        _$_GyroscopicCoordinatorStoreBaseActionController.startAction(
-            name: '_GyroscopicCoordinatorStoreBase.setCurrentRevolution');
+    final _$actionInfo = _$_QuadrantAPIBaseActionController.startAction(
+        name: '_QuadrantAPIBase.setCurrentRevolution');
     try {
       return super.setCurrentRevolution(newRev);
     } finally {
-      _$_GyroscopicCoordinatorStoreBaseActionController.endAction(_$actionInfo);
+      _$_QuadrantAPIBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void setCurrentQuadrant(int newQuad) {
-    final _$actionInfo =
-        _$_GyroscopicCoordinatorStoreBaseActionController.startAction(
-            name: '_GyroscopicCoordinatorStoreBase.setCurrentQuadrant');
+    final _$actionInfo = _$_QuadrantAPIBaseActionController.startAction(
+        name: '_QuadrantAPIBase.setCurrentQuadrant');
     try {
       return super.setCurrentQuadrant(newQuad);
     } finally {
-      _$_GyroscopicCoordinatorStoreBaseActionController.endAction(_$actionInfo);
+      _$_QuadrantAPIBaseActionController.endAction(_$actionInfo);
     }
   }
 
