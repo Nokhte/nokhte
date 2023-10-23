@@ -21,7 +21,6 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
   final SetReferenceAngleStore setRefAngleStore;
   final ResetRefAngleForMaxCapacityStore resetRefAngle;
   final List<QuadrantInfo> quadrantInfo = [];
-  // TODO modularize this, it's a big mess
 
   @observable
   late GyroSetupReturnType setupReturnType = const GyroSetupReturnType(
@@ -45,17 +44,11 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
     setCurrentRevolution(setupReturnType.startingRevolution);
     maxAngle = setupReturnType.maxAngle;
     final startingAngle = (setupReturnType.desiredStartingAngle % 360).floor();
-    // print(
-    //     "Hey what's the starting quad it should be 23 no? $startingQuadrant starting angle full ${setupReturnType.desiredStartingAngle} filtered $startingAngle also what's the rev $currentRevolution");
-    // if (setupReturnType.desiredStartingAngle != 0) {
     resetRefAngle(ResetRefAngleForMaxCapacityParams(
       currentValue: firstValue,
-      maxAngle:
-          startingAngle, // if this is bad try starting angle from return entitty
+      maxAngle: startingAngle,
     ));
     setCurrentQuadrant(startingQuadrant);
-    // ^ this cuold be causing the commotion
-    // }
   }
 
   late StreamSubscription<int> angleStream;
@@ -70,7 +63,6 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
     required int numberOfQuadrants,
     required int totalAngleCoverageOfEachQuadrant,
   }) async {
-    // now that we
     await angleFeedStore(NoParams());
 
     angleStream = angleFeedStore.userDirection.listen((value) {
@@ -123,34 +115,22 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
   @action
   negativeAndRegularModeWatcher(int value) {
     if (currentMode == GyroscopeModes.negative) {
-      // print("negative mode");
       int comparison =
           GyroscopeUtils.clockwiseComparison(firstValue, secondValue);
       if (comparison == 1) {
-        // setRefAngleStore(value);
         resetRefAngle(ResetRefAngleForMaxCapacityParams(
             maxAngle: 0, currentValue: value));
         currentMode = GyroscopeModes.regular;
-        // print("neg mode $value");
       }
-      // print(value);
-      // print( "current Quad $currentQuadrant current angle $value and rev $currentRevolution ");
-      // print("vlaue $value isAtMax $isAtMaxCapacity");
     } else if (currentMode == GyroscopeModes.atMaxCapacity) {
       int comparison =
           GyroscopeUtils.clockwiseComparison(firstValue, secondValue);
       if (comparison == 2) {
-        // so what happens is that we set it to zero
         resetRefAngle(ResetRefAngleForMaxCapacityParams(
             maxAngle: maxAngle, currentValue: value));
-        // setRefAngleStore(value - maxAngle);
         currentMode = GyroscopeModes.regular;
       }
-      //
     } else {
-      // print("value up here $value");
-      // currentRevolution > 0 ? value = value + (360 * currentRevolution) : null;
-
       if (!isFirstTime &&
           !isSecondTime &&
           currentMode != GyroscopeModes.negative &&
@@ -163,15 +143,9 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
         ));
       }
 
-      // print( "current Quad $currentQuadrant current angle $value and rev $currentRevolution");
-      // print(
-      //     "value $value $maxAngle the comp ${value >= maxAngle && currentMode != GyroscopeModes.negative} current mode ==> $currentMode");
       if (value >= maxAngle && !isANegativeModeMovement && value != 359) {
-        // print("switched to max capacity");
         currentMode = GyroscopeModes.atMaxCapacity;
       }
-      // print(value);
-
       final isWithinRevolutionThreshold = GyroscopeUtils.isInThresholdRange(
         value,
         lowerThresholdBound,
@@ -194,8 +168,6 @@ abstract class _GyroscopicCoordinatorStoreBase extends Equatable with Store {
   dispose() async {
     await angleStream.cancel();
   }
-
-  // Computed
 
   @action
   valueTrackingSetup(int value) {
