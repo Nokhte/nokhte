@@ -7,7 +7,7 @@ class ShallowsToShore {
   static MovieTween get movie => MovieTween()
     ..scene(
       begin: Seconds.get(0),
-      end: Seconds.get(2),
+      end: Seconds.get(3),
     )
         .tween(
           'water movement',
@@ -19,56 +19,56 @@ class ShallowsToShore {
         .tween(
           '1st Water Gradient Color',
           ColorTween(
-            begin: WaterColorsAndStops.onShoreWater[0].color,
+            begin: WaterColorsAndStops.onShoreWater[7].color,
             end: WaterColorsAndStops.onShoreWater[0].color,
           ),
         )
         .tween(
           '2nd Water Gradient Color',
           ColorTween(
-            begin: WaterColorsAndStops.onShoreWater[1].color,
+            begin: WaterColorsAndStops.onShoreWater[6].color,
             end: WaterColorsAndStops.onShoreWater[1].color,
           ),
         )
         .tween(
           '3rd Water Gradient Color',
           ColorTween(
-            begin: WaterColorsAndStops.onShoreWater[2].color,
+            begin: WaterColorsAndStops.onShoreWater[5].color,
             end: WaterColorsAndStops.onShoreWater[2].color,
           ),
         )
         .tween(
           '4th Water Gradient Color',
           ColorTween(
-            begin: WaterColorsAndStops.onShoreWater[3].color,
+            begin: WaterColorsAndStops.onShoreWater[4].color,
             end: WaterColorsAndStops.onShoreWater[3].color,
           ),
         )
         .tween(
           '5th Water Gradient Color',
           ColorTween(
-            begin: WaterColorsAndStops.onShoreWater[4].color,
+            begin: WaterColorsAndStops.onShoreWater[3].color,
             end: WaterColorsAndStops.onShoreWater[4].color,
           ),
         )
         .tween(
           '6th Water Gradient Color',
           ColorTween(
-            begin: WaterColorsAndStops.onShoreWater[5].color,
+            begin: WaterColorsAndStops.onShoreWater[2].color,
             end: WaterColorsAndStops.onShoreWater[5].color,
           ),
         )
         .tween(
           '7th Water Gradient Color',
           ColorTween(
-            begin: WaterColorsAndStops.onShoreWater[6].color,
+            begin: WaterColorsAndStops.onShoreWater[1].color,
             end: WaterColorsAndStops.onShoreWater[6].color,
           ),
         )
         .tween(
           '8th Water Gradient Color',
           ColorTween(
-            begin: WaterColorsAndStops.onShoreWater[7].color,
+            begin: WaterColorsAndStops.onShoreWater[0].color,
             end: WaterColorsAndStops.onShoreWater[7].color,
           ),
         )

@@ -25,6 +25,22 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
     });
   }
 
+  late final _$showWidgetAtom =
+      Atom(name: '_BeachWavesTrackerStoreBase.showWidget', context: context);
+
+  @override
+  bool get showWidget {
+    _$showWidgetAtom.reportRead();
+    return super.showWidget;
+  }
+
+  @override
+  set showWidget(bool value) {
+    _$showWidgetAtom.reportWrite(value, super.showWidget, () {
+      super.showWidget = value;
+    });
+  }
+
   late final _$pivotColorGradientsAtom = Atom(
       name: '_BeachWavesTrackerStoreBase.pivotColorGradients',
       context: context);
@@ -108,6 +124,39 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
 
   late final _$_BeachWavesTrackerStoreBaseActionController =
       ActionController(name: '_BeachWavesTrackerStoreBase', context: context);
+
+  @override
+  dynamic toggleWidgetVisibilty() {
+    final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
+        .startAction(name: '_BeachWavesTrackerStoreBase.toggleWidgetVisibilty');
+    try {
+      return super.toggleWidgetVisibilty();
+    } finally {
+      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setMovie(MovieTween newMovie) {
+    final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
+        .startAction(name: '_BeachWavesTrackerStoreBase.setMovie');
+    try {
+      return super.setMovie(newMovie);
+    } finally {
+      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setControl(Control newControl) {
+    final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
+        .startAction(name: '_BeachWavesTrackerStoreBase.setControl');
+    try {
+      return super.setControl(newControl);
+    } finally {
+      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic teeUpOceanDive() {
@@ -314,6 +363,7 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
   String toString() {
     return '''
 movie: ${movie},
+showWidget: ${showWidget},
 pivotColorGradients: ${pivotColorGradients},
 movieStatus: ${movieStatus},
 passingParam: ${passingParam},

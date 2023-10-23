@@ -8,7 +8,7 @@ import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:primala/app/core/widgets/scheduling_delta/stack/stack.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
-// import 'package:simple_animations/simple_animations.dart';
+import 'package:simple_animations/simple_animations.dart';
 // * Mobx Codegen Inclusion
 part 'scheduling_widgets_coordinator_store.g.dart';
 
@@ -32,15 +32,19 @@ abstract class _SchedulingWidgetsCoordinatorStoreBase extends Equatable
     required this.schedulingDelta,
     required this.beachWaves,
   }) {
-    reaction((p0) => beachHorizonWater.showWidget, (p0) {
-      if (!p0) {
+    reaction((p0) => beachHorizonWater.backToShoreCompleted, (p0) {
+      if (p0) {
         toggleBeachWavesVisibility();
+        beachWaves.toggleWidgetVisibilty();
+        beachWaves.initShallowsToShore();
+        beachWaves.control = Control.play;
       }
     });
 
     reaction((p0) => beachWaves.movieStatus, (p0) {
       if (beachWaves.movieStatus == MovieStatus.finished &&
           beachWaves.movieMode == BeachWaveMovieModes.shallowsToShore) {
+        print("hey did the movie finish & back to home");
         Modular.to.navigate('/home/');
       }
     });
@@ -55,42 +59,39 @@ abstract class _SchedulingWidgetsCoordinatorStoreBase extends Equatable
   @action
   attuneTheWidgets(DateTime currentTimeParam) {
     sunAndMoon.selectTimeBasedMovie(currentTimeParam);
-    beachHorizonWater.selectTimeBasedMovie(currentTimeParam);
+    beachHorizonWater.selectTimeBasedMovie(
+      currentTimeParam,
+      WaterColorsAndStops.toTheDepthsWater,
+    );
     beachSkyStore.selectTimeBasedMovie(currentTimeParam);
   }
 
   @action
   widgetSetup(DateTime currentDateTime) {
+    beachWaves.toggleWidgetVisibilty();
     attuneTheWidgets(currentDateTime);
     Future.delayed(Seconds.get(6), () {
       schedulingDelta.toggleWidgetVisibility();
       conveyerBelt.setWidgetVisibility(true);
     });
-    // Future.delayed(Seconds.get(9), () {
-    //   conveyerBelt.setWidgetVisibility(false);
-    //   schedulingDelta.toggleWidgetVisibility();
-    //   sunAndMoon.control = Control.playReverseFromEnd;
-    //   beachSkyStore.control = Control.playReverseFromEnd;
-    //   // beachHorizonWater.initiateBackToShore(currentDate: currentDateTime);
-    //   beachHorizonWater.control = Control.playReverseFromEnd;
-    //   // still not changing the movie
-    //   // Future.delayed(Seconds.get(0, milli: 800), () {
-    //   // still off I would say
-    //   // beachHorizonWater.initiateBackToShore(
-    //   //   currentDate: DateTime.now(),
-    //   // );
-    //   // beachHorizonWater.control = Control.playReverseFromEnd;
-    //   // });
-    // });
+    Future.delayed(Seconds.get(9), () {
+      conveyerBelt.setWidgetVisibility(false);
+      schedulingDelta.toggleWidgetVisibility();
+
+      // beachHorizonWater.control = Control.playReverseFromEnd;
+    });
   }
 
   @action
   initBackToShore(DateTime theTimeToTransitionFrom) {
     conveyerBelt.setWidgetVisibility(false);
     schedulingDelta.toggleWidgetVisibility();
-    Future.delayed(Seconds.get(3), () {
-      // beachHorizonWater.initiateBackToShore(
-      //     currentDate: theTimeToTransitionFrom);
+    Future.delayed(Seconds.get(4), () {
+      sunAndMoon.selectTimeBasedMovie(theTimeToTransitionFrom);
+      sunAndMoon.control = Control.playReverseFromEnd;
+      beachSkyStore.selectTimeBasedMovie(theTimeToTransitionFrom);
+      beachSkyStore.control = Control.playReverseFromEnd;
+      beachHorizonWater.initBackToShore(currentTime: theTimeToTransitionFrom);
     });
   }
 

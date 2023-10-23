@@ -1,7 +1,8 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api, missing_override_of_must_be_overridden
 // * Mobx Import
+// import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
+// import 'package:primala/app/core/interfaces/logic.dart';
 // * Equatable Import
 import 'package:primala/app/core/mobx/base_scheduling_widget_store.dart';
 import 'package:primala/app/core/types/types.dart';
@@ -16,19 +17,20 @@ class BeachHorizonWaterTrackerStore = _BeachHorizonWaterTrackerStoreBase
     with _$BeachHorizonWaterTrackerStore;
 
 abstract class _BeachHorizonWaterTrackerStoreBase
-    extends BaseSchedulingWidgetStore<ColorAndStop, NoParams, IsATimeMobxParams>
-    with Store {
+    extends BaseSchedulingWidgetStore<ColorAndStop, List<ColorAndStop>,
+        IsATimeMobxParams> with Store {
   @observable
   HorizonMovieModes movieMode = HorizonMovieModes.regular;
 
   @observable
-  bool showWidget = true;
+  bool backToShoreCompleted = false;
 
   @action
   setControl(Control newControl) => control = newControl;
 
   @action
-  void toggleWidgetVisibility() => showWidget = !showWidget;
+  void toggleShoreCompletionStatus() =>
+      backToShoreCompleted = !backToShoreCompleted;
 
   @action
   setMovieMode(HorizonMovieModes newMovieMode) => movieMode = newMovieMode;
@@ -40,17 +42,9 @@ abstract class _BeachHorizonWaterTrackerStoreBase
   bool movieIsLonger = false;
 
   @action
-  initiateBackToShore({required DateTime currentDate}) {
-    setGradient(currentDate, isStart: true);
-    HorizonWatersToShore.getMovie(startingGrad);
-    control = Control.playFromStart;
-    setMovieMode(HorizonMovieModes.backToShore);
-  }
-
-  @action
   onAnimationCompleted() {
     if (movieMode == HorizonMovieModes.backToShore) {
-      toggleWidgetVisibility();
+      toggleShoreCompletionStatus();
     }
   }
 
@@ -132,21 +126,36 @@ abstract class _BeachHorizonWaterTrackerStoreBase
     }
   }
 
-  // @action
-  selectTimeBasedMovie(DateTime date) {
+  @action
+  selectTimeBasedMovie(
+    DateTime date,
+    List<ColorAndStop> startingMovieGrad,
+  ) {
     final hour = date.hour;
     if (hour >= 21 || hour < 6) {
-      initDuskCallback(NoParams());
+      initDuskCallback(startingMovieGrad);
+      if (startingMovieGrad == WaterColorsAndStops.toTheDepthsWater) {
+        control = Control.play;
+      }
       // Branch 1: Time is between 9 PM and 5:59 AM
     } else if (hour >= 6 && hour < 10) {
       // Branch 2: Time is between 6 AM and 9:59 AM
-      initMorningCallback(NoParams());
+      initMorningCallback(startingMovieGrad);
+      if (startingMovieGrad == WaterColorsAndStops.toTheDepthsWater) {
+        control = Control.play;
+      }
     } else if (hour >= 10 && hour < 17) {
       // Branch 3: Time is between 10 AM and 4:59 PM
-      initDayCallback(NoParams());
+      initDayCallback(startingMovieGrad);
+      if (startingMovieGrad == WaterColorsAndStops.toTheDepthsWater) {
+        control = Control.play;
+      }
     } else {
       // Branch 4: Time is between 5 PM and 8:59 PM
-      initEveningCallback(NoParams());
+      initEveningCallback(startingMovieGrad);
+      if (startingMovieGrad == WaterColorsAndStops.toTheDepthsWater) {
+        control = Control.play;
+      }
     }
   }
 
@@ -154,48 +163,49 @@ abstract class _BeachHorizonWaterTrackerStoreBase
   @action
   void initDuskCallback(params) {
     // Branch 1: Time is between 9 PM and 5:59 AM
-    movie = AnywhereToHorizonWaters.getMovie(
-      WaterColorsAndStops.toTheDepthsWater,
+    setMovie(AnywhereToHorizonWaters.getMovie(
+      params,
       WaterColorsAndStops.schedulingDuskWaterFullScreen,
       WaterColorsAndStops.schedulingDuskWaterHalfScreen,
-    );
-    control = Control.play;
+    ));
+    // control = Control.play;
   }
 
   @override
   @action
   void initMorningCallback(params) {
     // Branch 2: Time is between 6 AM and 9:59 AM
-    movie = AnywhereToHorizonWaters.getMovie(
-      WaterColorsAndStops.toTheDepthsWater,
+    setMovie(AnywhereToHorizonWaters.getMovie(
+      params,
       WaterColorsAndStops.schedulingMorningWaterFullScreen,
       WaterColorsAndStops.schedulingMorningWaterHalfScreen,
-    );
-    control = Control.play;
+    ));
+    // control = Control.play;
   }
 
   @override
   @action
   void initDayCallback(params) {
+    // print("Is this refreshing the UI/??");
     // Branch 3: Time is between 10 AM and 4:59 PM
-    movie = AnywhereToHorizonWaters.getMovie(
-      WaterColorsAndStops.toTheDepthsWater,
+    setMovie(AnywhereToHorizonWaters.getMovie(
+      params,
       WaterColorsAndStops.schedulingDayWaterFullScreen,
       WaterColorsAndStops.schedulingDayWaterHalfScreen,
-    );
-    control = Control.play;
+    ));
+    // control = Control.play;
   }
 
   @override
   @action
   void initEveningCallback(params) {
     // Branch 4: Time is between 5 PM and 8:59 PM
-    movie = AnywhereToHorizonWaters.getMovie(
-      WaterColorsAndStops.toTheDepthsWater,
+    setMovie(AnywhereToHorizonWaters.getMovie(
+      params,
       WaterColorsAndStops.schedulingEveningWaterFullScreen,
       WaterColorsAndStops.schedulingEveningWaterHalfScreen,
-    );
-    control = Control.play;
+    ));
+    // control = Control.play;
   }
 
   @override
@@ -213,16 +223,9 @@ abstract class _BeachHorizonWaterTrackerStoreBase
 
   @action
   initBackToShore({required DateTime currentTime}) {
-    // setGradient(currentTime, isStart: true);
-    // for whatever reason control isn't changing ??
-    movie = AnywhereToHorizonWaters.getMovie(
-      WaterColorsAndStops.onShoreWater,
-      WaterColorsAndStops.schedulingEveningWaterFullScreen,
-      WaterColorsAndStops.schedulingEveningWaterHalfScreen,
-    );
-    // control = Control.playReverseFromEnd;
-    // control = Control.stop;
-    // setControl(Control.playReverseFromEnd);
+    setMovieMode(HorizonMovieModes.backToShore);
+    selectTimeBasedMovie(currentTime, WaterColorsAndStops.oceanDiveWater);
+    setControl(Control.playReverseFromEnd);
   }
 
   @action

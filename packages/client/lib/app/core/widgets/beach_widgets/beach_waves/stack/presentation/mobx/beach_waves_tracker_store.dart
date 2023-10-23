@@ -22,10 +22,22 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   MovieTween movie = OnShore.movie;
 
   @observable
+  bool showWidget = true;
+
+  @action
+  toggleWidgetVisibilty() => showWidget = !showWidget;
+
+  @observable
   List<Color> pivotColorGradients = [];
 
   @observable
   MovieStatus movieStatus = MovieStatus.idle;
+
+  @action
+  void setMovie(MovieTween newMovie) => movie = newMovie;
+
+  @action
+  void setControl(Control newControl) => control = newControl;
 
   @observable
   double passingParam = -10.0;
@@ -73,7 +85,7 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   @action
   initShallowsToShore() {
     movie = ShallowsToShore.movie;
-    control = Control.playFromStart;
+    // setControl(Control.playFromStart);
     movieMode = BeachWaveMovieModes.shallowsToShore;
     movieStatus = MovieStatus.inProgress;
   }

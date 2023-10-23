@@ -18,105 +18,105 @@ class AnywhereToHorizonWaters {
             .tween(
               '1st Water Gradient Color',
               ColorTween(
-                begin: WaterColorsAndStops.toTheDepthsWater[0].color,
+                begin: startingGradient[0].color,
                 end: fullScreenGradientColorsAndStops[0].color,
               ),
             )
             .tween(
               '2nd Water Gradient Color',
               ColorTween(
-                begin: WaterColorsAndStops.toTheDepthsWater[1].color,
+                begin: startingGradient[1].color,
                 end: fullScreenGradientColorsAndStops[1].color,
               ),
             )
             .tween(
               '3rd Water Gradient Color',
               ColorTween(
-                begin: WaterColorsAndStops.toTheDepthsWater[2].color,
+                begin: startingGradient[2].color,
                 end: fullScreenGradientColorsAndStops[2].color,
               ),
             )
             .tween(
               '4th Water Gradient Color',
               ColorTween(
-                begin: WaterColorsAndStops.toTheDepthsWater[3].color,
+                begin: startingGradient[3].color,
                 end: fullScreenGradientColorsAndStops[3].color,
               ),
             )
             .tween(
               '5th Water Gradient Color',
               ColorTween(
-                begin: WaterColorsAndStops.toTheDepthsWater[4].color,
+                begin: startingGradient[4].color,
                 end: fullScreenGradientColorsAndStops[4].color,
               ),
             )
             .tween(
               '6th Water Gradient Color',
               ColorTween(
-                begin: WaterColorsAndStops.toTheDepthsWater[5].color,
+                begin: startingGradient[5].color,
                 end: fullScreenGradientColorsAndStops[5].color,
               ),
             )
             .tween(
               '7th Water Gradient Color',
               ColorTween(
-                begin: WaterColorsAndStops.toTheDepthsWater[6].color,
+                begin: startingGradient[6].color,
                 end: fullScreenGradientColorsAndStops[6].color,
               ),
             )
             .tween(
               '8th Water Gradient Color',
               ColorTween(
-                begin: WaterColorsAndStops.toTheDepthsWater[7].color,
+                begin: startingGradient[7].color,
                 end: fullScreenGradientColorsAndStops[7].color,
               ),
             )
             .tween(
               '1st Water Gradient Stop',
               Tween<double>(
-                begin: WaterColorsAndStops.toTheDepthsWater[0].stop,
+                begin: startingGradient[0].stop,
                 end: fullScreenGradientColorsAndStops[0].stop,
               ),
             )
             .tween(
               '2nd Water Gradient Stop',
               Tween<double>(
-                begin: WaterColorsAndStops.toTheDepthsWater[1].stop,
+                begin: startingGradient[1].stop,
                 end: fullScreenGradientColorsAndStops[1].stop,
               ),
             )
             .tween(
               '3rd Water Gradient Stop',
               Tween<double>(
-                begin: WaterColorsAndStops.toTheDepthsWater[2].stop,
+                begin: startingGradient[2].stop,
                 end: fullScreenGradientColorsAndStops[2].stop,
               ),
             )
             .tween(
               '4th Water Gradient Stop',
               Tween<double>(
-                begin: WaterColorsAndStops.toTheDepthsWater[3].stop,
+                begin: startingGradient[3].stop,
                 end: fullScreenGradientColorsAndStops[3].stop,
               ),
             )
             .tween(
               '5th Water Gradient Stop',
               Tween<double>(
-                begin: WaterColorsAndStops.toTheDepthsWater[4].stop,
+                begin: startingGradient[4].stop,
                 end: fullScreenGradientColorsAndStops[4].stop,
               ),
             )
             .tween(
               '6th Water Gradient Stop',
               Tween<double>(
-                begin: WaterColorsAndStops.toTheDepthsWater[5].stop,
+                begin: startingGradient[5].stop,
                 end: fullScreenGradientColorsAndStops[5].stop,
               ),
             )
             .tween(
               '7th Water Gradient Stop',
               Tween<double>(
-                begin: WaterColorsAndStops.toTheDepthsWater[6].stop,
+                begin: startingGradient[6].stop,
                 end: fullScreenGradientColorsAndStops[6].stop,
               ),
             )

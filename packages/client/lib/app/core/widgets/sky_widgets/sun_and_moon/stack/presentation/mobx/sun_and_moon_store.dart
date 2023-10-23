@@ -113,7 +113,7 @@ abstract class _SunAndMoonStoreBase
   initTimeShift({required DateTime pastTime, required DateTime newTime}) {
     setGradient(pastTime, isStart: true);
     setGradient(newTime, isStart: false);
-    print("hey what's the queued up move $queuedUpMovie ???");
+    // print("hey what's the queued up move $queuedUpMovie ???");
     switch (queuedUpMovie) {
       case QueuedUpMovie.underOver:
         movie = UnderOver.getMovie(
@@ -138,7 +138,7 @@ abstract class _SunAndMoonStoreBase
         control = Control.playFromStart;
         queuedUpMovie = QueuedUpMovie.cleared;
       default:
-        print("is this s**** breaking????");
+        // print("is this s**** breaking????");
         break;
     }
   }
