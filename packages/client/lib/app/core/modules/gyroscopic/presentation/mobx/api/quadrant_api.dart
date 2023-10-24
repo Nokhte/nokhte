@@ -4,7 +4,6 @@ import 'dart:async';
 
 import 'package:mobx/mobx.dart';
 // * Equatable Import
-import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
 import 'package:primala/app/core/modules/gyroscopic/domain/domain.dart';
 import 'package:primala/app/core/modules/gyroscopic/presentation/presentation.dart';
@@ -15,7 +14,7 @@ part 'quadrant_api.g.dart';
 
 class QuadrantAPI = _QuadrantAPIBase with _$QuadrantAPI;
 
-abstract class _QuadrantAPIBase extends Equatable with Store {
+abstract class _QuadrantAPIBase extends GyroscopeAPI with Store {
   final GetDirectionAngleStore angleFeedStore;
   final SetReferenceAngleStore setRefAngleStore;
   final ResetRefAngleForMaxCapacityStore resetRefAngle;
@@ -111,74 +110,68 @@ abstract class _QuadrantAPIBase extends Equatable with Store {
     });
   }
 
+  negativeModeCallback(int value) {
+    int comparison =
+        GyroscopeUtils.clockwiseComparison(firstValue, secondValue);
+    if (comparison == 1) {
+      resetRefAngle(
+          ResetRefAngleForMaxCapacityParams(maxAngle: 0, currentValue: value));
+      currentMode = GyroscopeModes.regular;
+    }
+  }
+
+  maxCapacityCallback(int value) {
+    int comparison =
+        GyroscopeUtils.clockwiseComparison(firstValue, secondValue);
+    if (comparison == 2) {
+      resetRefAngle(ResetRefAngleForMaxCapacityParams(
+          maxAngle: maxAngle, currentValue: value));
+      currentMode = GyroscopeModes.regular;
+    }
+  }
+
+  thresholdDetectionCallback(int value) {
+    final isWithinRevolutionThreshold = GyroscopeUtils.isInThresholdRange(
+      value,
+      lowerThresholdBound,
+      upperThresholdBound,
+    );
+    if (isWithinRevolutionThreshold.isInRange) {
+      thresholdList.add(isWithinRevolutionThreshold);
+    } else if (isWithinRevolutionThreshold.isInRange == false) {
+      thresholdList.clear();
+      hasBeenMarkedUp = false;
+      theSideTheThresholdWasEnteredFrom = CloserTo.initial;
+      if (currentMode == GyroscopeModes.markdown) {
+        currentMode = GyroscopeModes.regular;
+      }
+    }
+  }
+
   @action
   negativeAndRegularModeWatcher(int value) {
     if (currentMode == GyroscopeModes.negative) {
-      int comparison =
-          GyroscopeUtils.clockwiseComparison(firstValue, secondValue);
-      if (comparison == 1) {
-        resetRefAngle(ResetRefAngleForMaxCapacityParams(
-            maxAngle: 0, currentValue: value));
-        currentMode = GyroscopeModes.regular;
-      }
+      negativeModeCallback(value);
     } else if (currentMode == GyroscopeModes.atMaxCapacity) {
-      int comparison =
-          GyroscopeUtils.clockwiseComparison(firstValue, secondValue);
-      if (comparison == 2) {
-        resetRefAngle(ResetRefAngleForMaxCapacityParams(
-            maxAngle: maxAngle, currentValue: value));
-        currentMode = GyroscopeModes.regular;
-      }
+      maxCapacityCallback(value);
     } else {
-      if (!isFirstTime &&
-          !isSecondTime &&
-          currentMode != GyroscopeModes.negative &&
-          value % 360 != 359 &&
-          value % 360 != 1 &&
-          value % 360 != 0) {
+      if (isEligableForQuadrantAlteration(value)) {
         setCurrentQuadrant(GyroscopeUtils.getCurrentQuadrant(
           currentAngle: value,
           quadrants: setupReturnType.quadrantInfo,
         ));
       }
 
-      if (value >= maxAngle && !isANegativeModeMovement && value != 359) {
+      if (isAtMaxCapacity(value)) {
         currentMode = GyroscopeModes.atMaxCapacity;
       }
-      final isWithinRevolutionThreshold = GyroscopeUtils.isInThresholdRange(
-        value,
-        lowerThresholdBound,
-        upperThresholdBound,
-      );
-      if (isWithinRevolutionThreshold.isInRange) {
-        thresholdList.add(isWithinRevolutionThreshold);
-      } else if (isWithinRevolutionThreshold.isInRange == false) {
-        thresholdList.clear();
-        hasBeenMarkedUp = false;
-        theSideTheThresholdWasEnteredFrom = CloserTo.initial;
-        if (currentMode == GyroscopeModes.markdown) {
-          currentMode = GyroscopeModes.regular;
-        }
-      }
+      thresholdDetectionCallback(value);
     }
   }
 
   @action
   dispose() async {
     await angleStream.cancel();
-  }
-
-  @action
-  valueTrackingSetup(int value) {
-    if (isFirstTime) {
-      firstValue = value;
-    } else if (secondValue == -1) {
-      secondValue = value;
-    } else {
-      previousValue = firstValue;
-      firstValue = secondValue;
-      secondValue = value;
-    }
   }
 
   @observable
@@ -189,9 +182,6 @@ abstract class _QuadrantAPIBase extends Equatable with Store {
 
   @observable
   GyroscopeModes currentMode = GyroscopeModes.regular;
-
-  @computed
-  bool get isSecondTime => secondValue == -1;
 
   @observable
   int currentRevolution = 0;
@@ -212,25 +202,25 @@ abstract class _QuadrantAPIBase extends Equatable with Store {
   ObservableList<Threshold> thresholdList = ObservableList<Threshold>();
 
   @observable
-  int firstValue = -1;
-
-  @observable
   bool hasBeenMarkedUp = false;
 
-  @observable
-  int secondValue = -1;
-
-  int previousValue = -10;
-
   int maxAngle = 345;
+
+  bool isEligableForQuadrantAlteration(int value) =>
+      !isFirstTime &&
+      !isSecondTime &&
+      currentMode != GyroscopeModes.negative &&
+      value % 360 != 359 &&
+      value % 360 != 1 &&
+      value % 360 != 0;
+
+  bool isAtMaxCapacity(int value) =>
+      value >= maxAngle && !isANegativeModeMovement && value != 359;
 
   @computed
   int get lowerThresholdBound => 330 + (currentRevolution * 360);
   @computed
   int get upperThresholdBound => 30 + (currentRevolution * 360);
-
-  @computed
-  bool get isFirstTime => firstValue == -1;
 
   @computed
   bool get isANegativeModeMovement =>
@@ -252,9 +242,6 @@ abstract class _QuadrantAPIBase extends Equatable with Store {
       thresholdList.last.closerTo == CloserTo.lowerBound &&
       currentRevolution > 0;
 
-  @computed
-  bool get isAtMaxCapacity => firstValue >= maxAngle;
-
-  @override
-  List<Object> get props => [];
+  // @computed
+  // bool get isAtMaxCapacity => firstValue >= maxAngle;
 }

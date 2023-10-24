@@ -74,12 +74,12 @@ abstract class _SchedulingWidgetsCoordinatorStoreBase extends Equatable
       schedulingDelta.toggleWidgetVisibility();
       conveyerBelt.setWidgetVisibility(true);
     });
-    Future.delayed(Seconds.get(9), () {
-      conveyerBelt.setWidgetVisibility(false);
-      schedulingDelta.toggleWidgetVisibility();
+    // Future.delayed(Seconds.get(9), () {
+    //   conveyerBelt.setWidgetVisibility(false);
+    //   schedulingDelta.toggleWidgetVisibility();
 
-      // beachHorizonWater.control = Control.playReverseFromEnd;
-    });
+    //   // beachHorizonWater.control = Control.playReverseFromEnd;
+    // });
   }
 
   @action

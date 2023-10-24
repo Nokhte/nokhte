@@ -9,13 +9,6 @@ part of 'quadrant_api.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$QuadrantAPI on _QuadrantAPIBase, Store {
-  Computed<bool>? _$isSecondTimeComputed;
-
-  @override
-  bool get isSecondTime =>
-      (_$isSecondTimeComputed ??= Computed<bool>(() => super.isSecondTime,
-              name: '_QuadrantAPIBase.isSecondTime'))
-          .value;
   Computed<int>? _$lowerThresholdBoundComputed;
 
   @override
@@ -30,13 +23,6 @@ mixin _$QuadrantAPI on _QuadrantAPIBase, Store {
           Computed<int>(() => super.upperThresholdBound,
               name: '_QuadrantAPIBase.upperThresholdBound'))
       .value;
-  Computed<bool>? _$isFirstTimeComputed;
-
-  @override
-  bool get isFirstTime =>
-      (_$isFirstTimeComputed ??= Computed<bool>(() => super.isFirstTime,
-              name: '_QuadrantAPIBase.isFirstTime'))
-          .value;
   Computed<bool>? _$isANegativeModeMovementComputed;
 
   @override
@@ -59,13 +45,6 @@ mixin _$QuadrantAPI on _QuadrantAPIBase, Store {
       (_$isANegativeRevolutionMovementComputed ??= Computed<bool>(
               () => super.isANegativeRevolutionMovement,
               name: '_QuadrantAPIBase.isANegativeRevolutionMovement'))
-          .value;
-  Computed<bool>? _$isAtMaxCapacityComputed;
-
-  @override
-  bool get isAtMaxCapacity =>
-      (_$isAtMaxCapacityComputed ??= Computed<bool>(() => super.isAtMaxCapacity,
-              name: '_QuadrantAPIBase.isAtMaxCapacity'))
           .value;
 
   late final _$setupReturnTypeAtom =
@@ -182,22 +161,6 @@ mixin _$QuadrantAPI on _QuadrantAPIBase, Store {
     });
   }
 
-  late final _$firstValueAtom =
-      Atom(name: '_QuadrantAPIBase.firstValue', context: context);
-
-  @override
-  int get firstValue {
-    _$firstValueAtom.reportRead();
-    return super.firstValue;
-  }
-
-  @override
-  set firstValue(int value) {
-    _$firstValueAtom.reportWrite(value, super.firstValue, () {
-      super.firstValue = value;
-    });
-  }
-
   late final _$hasBeenMarkedUpAtom =
       Atom(name: '_QuadrantAPIBase.hasBeenMarkedUp', context: context);
 
@@ -211,22 +174,6 @@ mixin _$QuadrantAPI on _QuadrantAPIBase, Store {
   set hasBeenMarkedUp(bool value) {
     _$hasBeenMarkedUpAtom.reportWrite(value, super.hasBeenMarkedUp, () {
       super.hasBeenMarkedUp = value;
-    });
-  }
-
-  late final _$secondValueAtom =
-      Atom(name: '_QuadrantAPIBase.secondValue', context: context);
-
-  @override
-  int get secondValue {
-    _$secondValueAtom.reportRead();
-    return super.secondValue;
-  }
-
-  @override
-  set secondValue(int value) {
-    _$secondValueAtom.reportWrite(value, super.secondValue, () {
-      super.secondValue = value;
     });
   }
 
@@ -264,17 +211,6 @@ mixin _$QuadrantAPI on _QuadrantAPIBase, Store {
         name: '_QuadrantAPIBase.negativeAndRegularModeWatcher');
     try {
       return super.negativeAndRegularModeWatcher(value);
-    } finally {
-      _$_QuadrantAPIBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic valueTrackingSetup(int value) {
-    final _$actionInfo = _$_QuadrantAPIBaseActionController.startAction(
-        name: '_QuadrantAPIBase.valueTrackingSetup');
-    try {
-      return super.valueTrackingSetup(value);
     } finally {
       _$_QuadrantAPIBaseActionController.endAction(_$actionInfo);
     }
@@ -323,17 +259,12 @@ currentRevolution: ${currentRevolution},
 currentQuadrant: ${currentQuadrant},
 theSideTheThresholdWasEnteredFrom: ${theSideTheThresholdWasEnteredFrom},
 thresholdList: ${thresholdList},
-firstValue: ${firstValue},
 hasBeenMarkedUp: ${hasBeenMarkedUp},
-secondValue: ${secondValue},
-isSecondTime: ${isSecondTime},
 lowerThresholdBound: ${lowerThresholdBound},
 upperThresholdBound: ${upperThresholdBound},
-isFirstTime: ${isFirstTime},
 isANegativeModeMovement: ${isANegativeModeMovement},
 isAPositiveRevolutionMovement: ${isAPositiveRevolutionMovement},
-isANegativeRevolutionMovement: ${isANegativeRevolutionMovement},
-isAtMaxCapacity: ${isAtMaxCapacity}
+isANegativeRevolutionMovement: ${isANegativeRevolutionMovement}
     ''';
   }
 }

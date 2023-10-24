@@ -33,8 +33,8 @@ class AppModule extends Module {
   @override
   List<ModularRoute> get routes => [
         ModuleRoute(
-          // '/',
-          '/auth/',
+          '/',
+          // '/auth/',
           module: AuthenticationModule(),
         ),
         ModuleRoute(
@@ -46,8 +46,8 @@ class AppModule extends Module {
           module: P2PCollaboratorPoolModule(),
         ),
         ModuleRoute(
-          '/',
-          // '/p2p_purpose_session/',
+          // '/',
+          '/p2p_purpose_session/',
           module: P2PCollaboratorSessionModule(),
         ),
       ];
