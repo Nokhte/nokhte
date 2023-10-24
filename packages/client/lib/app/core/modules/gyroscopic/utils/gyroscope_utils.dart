@@ -15,6 +15,22 @@ class GyroscopeUtils {
     }
   }
 
+  static List<int> includeNegativeQuads(
+      List<int> inputList, int maxValue, int minThreshold) {
+    return inputList.map((value) {
+      int newVal = -199;
+      if (value == maxValue) {
+        newVal = -1;
+      } else if (value < maxValue && value > minThreshold) {
+        final theDiff = ((maxValue - value) * -1) - 1;
+        newVal = theDiff;
+      } else {
+        newVal = value;
+      }
+      return newVal;
+    }).toList();
+  }
+
   static List<int> removeDuplicates(List<int> inputList) {
     List<int> uniqueList = [];
     Set<int> seenSet = {};

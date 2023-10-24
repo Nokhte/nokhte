@@ -89,9 +89,7 @@ class GyroscopicModule extends Module {
         ),
         Bind.singleton<PortalAPI>(
           (i) => PortalAPI(
-            resetRefAngle: i<ResetRefAngleForMaxCapacityStore>(),
-            angleFeedStore: i<GetDirectionAngleStore>(),
-            setRefAngleStore: i<SetReferenceAngleStore>(),
+            quadrantAPI: i<QuadrantAPI>(),
           ),
           export: true,
         ),

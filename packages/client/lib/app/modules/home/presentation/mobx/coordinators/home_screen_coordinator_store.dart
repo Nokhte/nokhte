@@ -6,9 +6,8 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
-// import 'package:primala/app/core/modules/gyroscopic/presentation/mobx/api/portal_api.dart';
-import 'package:primala/app/core/modules/gyroscopic/presentation/mobx/api/quadrant_api.dart';
-import 'package:primala/app/core/modules/gyroscopic/types/types.dart';
+import 'package:primala/app/core/modules/gyroscopic/presentation/presentation.dart';
+// import 'package:primala/app/core/modules/gyroscopic/types/types.dart';
 import 'package:primala/app/core/types/types.dart';
 import 'package:primala/app/core/widgets/widgets.dart';
 import 'package:primala/app/modules/home/presentation/mobx/main/main.dart';
@@ -20,8 +19,8 @@ class HomeScreenCoordinatorStore = _HomeScreenCoordinatorStoreBase
     with _$HomeScreenCoordinatorStore;
 
 abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
-  // final PortalAPI portalAPI;
-  final QuadrantAPI quadrantAPI;
+  final PortalAPI portalAPI;
+  // final QuadrantAPI quadrantAPI;
   final GesturePillStore gesturePillStore;
   final BeachWavesTrackerStore beachWaves;
   final AddNameToDatabaseStore addNameToDatabaseStore;
@@ -29,8 +28,8 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
   final GetCollaboratorPhraseStore getCollaboratorPhraseStore;
 
   _HomeScreenCoordinatorStoreBase({
-    // required this.portalAPI,
-    required this.quadrantAPI,
+    required this.portalAPI,
+    // required this.quadrantAPI,
     required this.gesturePillStore,
     required this.beachWaves,
     required this.addNameToDatabaseStore,
@@ -66,16 +65,12 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
 
     // api setup
 
-    await quadrantAPI.setupTheStream(
-      numberOfQuadrants: 6,
-      quadrantSpread: 90,
-      startingQuadrant: 0,
-      negativeModeBehavior: NegativeModeBehaviors.indexNegativeQuadrants,
-    );
+    await portalAPI.setupTheStream();
 
-    reaction((p0) => quadrantAPI.currentQuadrant, (p0) {
-      print("quadrant api home coordinator $p0");
-    });
+    // reaction((p0) => portalAPI.currentQuadrant, (p0) {
+
+    //   print("quadrant api home coordinator $p0");
+    // });
 
     // await portalAPI.setupTheStream(
     //     startingQuadrant: 0,

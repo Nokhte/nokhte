@@ -168,6 +168,7 @@ abstract class _QuadrantAPIBase extends GyroscopeAPI with Store {
         final diff = 360 - value;
         if (diff.isNegative || value == 0) {
           currentMode = GyroscopeModes.regular;
+          // print("is this the part that isn't working?? $diff");
           return;
         }
         final getCurrQuad = GyroscopeUtils.getCurrentQuadrant(
@@ -175,8 +176,7 @@ abstract class _QuadrantAPIBase extends GyroscopeAPI with Store {
           quadrants: setupReturnType.quadrantInfo,
         );
         int newQuad = (getCurrQuad * -1) - 1;
-        // print(
-        //     "diff: $diff | quadSpread $quadSpread getCurrQuad $getCurrQuad newQad $newQuad ");
+        // print("diff: $diff | getCurrQuad $getCurrQuad | newQuad $newQuad ");
         if (isEligableForNegativeQuadrantIndexing(value)) {
           setCurrentQuadrant(newQuad);
         }

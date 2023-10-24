@@ -1,6 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:primala/app/core/modules/gyroscopic/gyroscopic_module.dart';
-import 'package:primala/app/core/modules/gyroscopic/presentation/mobx/api/quadrant_api.dart';
+import 'package:primala/app/core/modules/gyroscopic/presentation/presentation.dart';
 import 'package:primala/app/core/network/network_info.dart';
 import 'package:primala/app/core/widgets/shared/constants/svg_animation_constants.dart';
 import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
@@ -84,8 +84,8 @@ class HomeModule extends Module {
         // & Coordinator Store
         Bind.singleton<HomeScreenCoordinatorStore>(
           (i) => HomeScreenCoordinatorStore(
-            // portalAPI: i<PortalAPI>(),
-            quadrantAPI: i<QuadrantAPI>(),
+            portalAPI: i<PortalAPI>(),
+            // quadrantAPI: i<QuadrantAPI>(),
             gesturePillStore: i<GesturePillStore>(),
             beachWaves: i<BeachWavesTrackerStore>(),
             addNameToDatabaseStore: i<AddNameToDatabaseStore>(),

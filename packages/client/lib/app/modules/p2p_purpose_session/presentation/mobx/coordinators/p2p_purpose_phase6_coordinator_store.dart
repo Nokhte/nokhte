@@ -108,8 +108,8 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   screenConstructor() async {
     await scheduling.createSchedulingAndStreamSetup();
     await quadrantAPI.setupTheStream(
-      numberOfQuadrants: 18,
-      quadrantSpread: 20,
+      numberOfQuadrants: 6,
+      quadrantSpread: 90,
       startingQuadrant: 0,
       negativeModeBehavior: NegativeModeBehaviors.resetRefAngle,
     );
