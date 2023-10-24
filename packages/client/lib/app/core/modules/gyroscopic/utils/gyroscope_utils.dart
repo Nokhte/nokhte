@@ -43,6 +43,12 @@ class GyroscopeUtils {
     }
   }
 
+  static Threshold isAboveUpperBound(int value, int upperBound) {
+    throw UnimplementedError();
+    // so how should we be thinking about this algorithm?
+    // well what you
+  }
+
   static Threshold isInThresholdRange(
       int value, int lowerBound, int upperBound) {
     // Range does not wrap around (e.g., 350 to 30 degrees)

@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, missing_override_of_must_be_overridden
 // * Mobx Import
 import 'dart:async';
 
@@ -15,10 +15,14 @@ part 'quadrant_api.g.dart';
 class QuadrantAPI = _QuadrantAPIBase with _$QuadrantAPI;
 
 abstract class _QuadrantAPIBase extends GyroscopeAPI with Store {
-  final GetDirectionAngleStore angleFeedStore;
-  final SetReferenceAngleStore setRefAngleStore;
-  final ResetRefAngleForMaxCapacityStore resetRefAngle;
   final List<QuadrantInfo> quadrantInfo = [];
+  int maxAngle = 345;
+
+  _QuadrantAPIBase({
+    required super.angleFeedStore,
+    required super.setRefAngleStore,
+    required super.resetRefAngle,
+  });
 
   @observable
   late GyroSetupReturnType setupReturnType = const GyroSetupReturnType(
@@ -28,40 +32,50 @@ abstract class _QuadrantAPIBase extends GyroscopeAPI with Store {
     startingRevolution: 0,
   );
 
+  @observable
+  int currentValue = 0;
+
+  @observable
+  int currentRevolution = 0;
+
+  @observable
+  int currentQuadrant = 0;
+
+  @observable
+  CloserTo theSideTheThresholdWasEnteredFrom = CloserTo.equidistant;
+
+  @observable
+  NegativeModeBehaviors desiredNegativeModeBehavior =
+      NegativeModeBehaviors.resetRefAngle;
+
+  @observable
+  ObservableList<Threshold> thresholdList = ObservableList<Threshold>();
+
+  @observable
+  bool hasBeenMarkedUp = false;
+
   @action
-  resetTheQuadrantLayout({
-    required int startingQuadrant,
-    required int numberOfQuadrants,
-    required int totalAngleCoverageOfEachQuadrant,
-  }) {
-    setupReturnType = GyroscopeUtils.quadrantSetup(
-      numberOfQuadrants: numberOfQuadrants,
-      totalAngleCoverageOfEachQuadrant: totalAngleCoverageOfEachQuadrant,
-      startingQuadrant: startingQuadrant,
-    );
-    setCurrentRevolution(setupReturnType.startingRevolution);
-    maxAngle = setupReturnType.maxAngle;
-    final startingAngle = (setupReturnType.desiredStartingAngle % 360).floor();
-    resetRefAngle(ResetRefAngleForMaxCapacityParams(
-      currentValue: firstValue,
-      maxAngle: startingAngle,
-    ));
-    setCurrentQuadrant(startingQuadrant);
-  }
+  setCurrentValue(int newInt) => currentValue = newInt;
 
-  late StreamSubscription<int> angleStream;
-  _QuadrantAPIBase({
-    required this.angleFeedStore,
-    required this.setRefAngleStore,
-    required this.resetRefAngle,
-  });
+  @action
+  setCurrentRevolution(int newRev) => currentRevolution = newRev;
 
+  @action
+  setCurrentQuadrant(int newQuad) => currentQuadrant = newQuad;
+
+  @action
+  setDesiredNegativeModeBehavior(NegativeModeBehaviors newNegBehavior) =>
+      desiredNegativeModeBehavior = newNegBehavior;
+
+  @override
   setupTheStream({
     required int startingQuadrant,
     required int numberOfQuadrants,
     required int totalAngleCoverageOfEachQuadrant,
+    required NegativeModeBehaviors negativeModeBehavior,
   }) async {
     await angleFeedStore(NoParams());
+    setDesiredNegativeModeBehavior(negativeModeBehavior);
 
     angleStream = angleFeedStore.userDirection.listen((value) {
       if (isFirstTime) {
@@ -89,34 +103,83 @@ abstract class _QuadrantAPIBase extends GyroscopeAPI with Store {
       negativeAndRegularModeWatcher(currentValue);
     });
 
-    reaction((p0) => thresholdList.toString(), (p0) {
-      if (thresholdList.isNotEmpty) {
-        theSideTheThresholdWasEnteredFrom = thresholdList[0].closerTo;
-        if (isANegativeModeMovement) {
-          currentMode = GyroscopeModes.negative;
-        } else if (isAPositiveRevolutionMovement) {
-          if (!hasBeenMarkedUp) {
-            setCurrentRevolution(currentRevolution + 1);
-            hasBeenMarkedUp = true;
-          }
-        } else if (isANegativeRevolutionMovement) {
-          if (!hasBeenMarkedUp) {
-            currentMode = GyroscopeModes.markdown;
-            setCurrentRevolution(currentRevolution - 1);
-            hasBeenMarkedUp = true;
-          }
-        }
-      }
-    });
+    reaction(
+      (p0) => thresholdList.toString(),
+      (p0) => thresholdModeCallback(),
+    );
   }
 
+  @action
+  resetTheQuadrantLayout({
+    required int startingQuadrant,
+    required int numberOfQuadrants,
+    required int totalAngleCoverageOfEachQuadrant,
+  }) {
+    setupReturnType = GyroscopeUtils.quadrantSetup(
+      numberOfQuadrants: numberOfQuadrants,
+      totalAngleCoverageOfEachQuadrant: totalAngleCoverageOfEachQuadrant,
+      startingQuadrant: startingQuadrant,
+    );
+    setCurrentRevolution(setupReturnType.startingRevolution);
+    maxAngle = setupReturnType.maxAngle;
+    final startingAngle = (setupReturnType.desiredStartingAngle % 360).floor();
+    resetRefAngle(ResetRefAngleForMaxCapacityParams(
+      currentValue: firstValue,
+      maxAngle: startingAngle,
+    ));
+    setCurrentQuadrant(startingQuadrant);
+  }
+
+  thresholdModeCallback() {
+    if (thresholdList.isNotEmpty) {
+      theSideTheThresholdWasEnteredFrom = thresholdList[0].closerTo;
+      if (isANegativeModeMovement) {
+        currentMode = GyroscopeModes.negative;
+      } else if (isAPositiveRevolutionMovement) {
+        if (!hasBeenMarkedUp) {
+          setCurrentRevolution(currentRevolution + 1);
+          hasBeenMarkedUp = true;
+        }
+      } else if (isANegativeRevolutionMovement) {
+        if (!hasBeenMarkedUp) {
+          currentMode = GyroscopeModes.markdown;
+          setCurrentRevolution(currentRevolution - 1);
+          hasBeenMarkedUp = true;
+        }
+      }
+    }
+  }
+
+  @override
   negativeModeCallback(int value) {
-    int comparison =
-        GyroscopeUtils.clockwiseComparison(firstValue, secondValue);
-    if (comparison == 1) {
-      resetRefAngle(
-          ResetRefAngleForMaxCapacityParams(maxAngle: 0, currentValue: value));
-      currentMode = GyroscopeModes.regular;
+    switch (desiredNegativeModeBehavior) {
+      case NegativeModeBehaviors.resetRefAngle:
+        // print("reset ref angle piece");
+        int comparison =
+            GyroscopeUtils.clockwiseComparison(firstValue, secondValue);
+        if (comparison == 1) {
+          resetRefAngle(ResetRefAngleForMaxCapacityParams(
+              maxAngle: 0, currentValue: value));
+          currentMode = GyroscopeModes.regular;
+        }
+      case NegativeModeBehaviors.indexNegativeQuadrants:
+        // print("index negative quadrants piece");
+        // print("what's the value for negative is it just zero?? $value");
+        final diff = 360 - value;
+        if (diff.isNegative || value == 0) {
+          currentMode = GyroscopeModes.regular;
+          return;
+        }
+        final getCurrQuad = GyroscopeUtils.getCurrentQuadrant(
+          currentAngle: diff,
+          quadrants: setupReturnType.quadrantInfo,
+        );
+        int newQuad = (getCurrQuad * -1) - 1;
+        // print(
+        //     "diff: $diff | quadSpread $quadSpread getCurrQuad $getCurrQuad newQad $newQuad ");
+        if (isEligableForNegativeQuadrantIndexing(value)) {
+          setCurrentQuadrant(newQuad);
+        }
     }
   }
 
@@ -130,6 +193,7 @@ abstract class _QuadrantAPIBase extends GyroscopeAPI with Store {
     }
   }
 
+  @override
   thresholdDetectionCallback(int value) {
     final isWithinRevolutionThreshold = GyroscopeUtils.isInThresholdRange(
       value,
@@ -174,37 +238,12 @@ abstract class _QuadrantAPIBase extends GyroscopeAPI with Store {
     await angleStream.cancel();
   }
 
-  @observable
-  int currentValue = 0;
-
-  @action
-  setCurrentValue(int newInt) => currentValue = newInt;
-
-  @observable
-  GyroscopeModes currentMode = GyroscopeModes.regular;
-
-  @observable
-  int currentRevolution = 0;
-
-  @action
-  setCurrentRevolution(int newRev) => currentRevolution = newRev;
-
-  @observable
-  int currentQuadrant = 0;
-
-  @action
-  void setCurrentQuadrant(int newQuad) => currentQuadrant = newQuad;
-
-  @observable
-  CloserTo theSideTheThresholdWasEnteredFrom = CloserTo.equidistant;
-
-  @observable
-  ObservableList<Threshold> thresholdList = ObservableList<Threshold>();
-
-  @observable
-  bool hasBeenMarkedUp = false;
-
-  int maxAngle = 345;
+  bool isEligableForNegativeQuadrantIndexing(int value) =>
+      !isFirstTime &&
+      !isSecondTime &&
+      value % 360 != 359 &&
+      value % 360 != 1 &&
+      value % 360 != 0;
 
   bool isEligableForQuadrantAlteration(int value) =>
       !isFirstTime &&
@@ -241,7 +280,4 @@ abstract class _QuadrantAPIBase extends GyroscopeAPI with Store {
       (theSideTheThresholdWasEnteredFrom == CloserTo.upperBound) &&
       thresholdList.last.closerTo == CloserTo.lowerBound &&
       currentRevolution > 0;
-
-  // @computed
-  // bool get isAtMaxCapacity => firstValue >= maxAngle;
 }

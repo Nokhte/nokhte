@@ -7,6 +7,7 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:primala/app/core/modules/gyroscopic/presentation/presentation.dart';
+import 'package:primala/app/core/modules/gyroscopic/types/types.dart';
 import 'package:primala/app/core/modules/scheduling/domain/domain.dart';
 import 'package:primala/app/core/modules/scheduling/presentation/presentation.dart';
 import 'package:primala/app/core/types/types.dart';
@@ -107,9 +108,10 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   screenConstructor() async {
     await scheduling.createSchedulingAndStreamSetup();
     await quadrantAPI.setupTheStream(
-      numberOfQuadrants: 6,
-      totalAngleCoverageOfEachQuadrant: 90,
+      numberOfQuadrants: 18,
+      totalAngleCoverageOfEachQuadrant: 20,
       startingQuadrant: 0,
+      negativeModeBehavior: NegativeModeBehaviors.resetRefAngle,
     );
     widgets.widgetSetup(now);
 

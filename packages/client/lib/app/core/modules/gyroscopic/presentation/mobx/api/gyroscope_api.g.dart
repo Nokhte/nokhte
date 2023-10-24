@@ -56,6 +56,22 @@ mixin _$GyroscopeAPI on _GyroscopeAPIBase, Store {
     });
   }
 
+  late final _$currentModeAtom =
+      Atom(name: '_GyroscopeAPIBase.currentMode', context: context);
+
+  @override
+  GyroscopeModes get currentMode {
+    _$currentModeAtom.reportRead();
+    return super.currentMode;
+  }
+
+  @override
+  set currentMode(GyroscopeModes value) {
+    _$currentModeAtom.reportWrite(value, super.currentMode, () {
+      super.currentMode = value;
+    });
+  }
+
   late final _$_GyroscopeAPIBaseActionController =
       ActionController(name: '_GyroscopeAPIBase', context: context);
 
@@ -75,6 +91,7 @@ mixin _$GyroscopeAPI on _GyroscopeAPIBase, Store {
     return '''
 firstValue: ${firstValue},
 secondValue: ${secondValue},
+currentMode: ${currentMode},
 isFirstTime: ${isFirstTime},
 isSecondTime: ${isSecondTime}
     ''';

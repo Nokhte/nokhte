@@ -79,22 +79,6 @@ mixin _$QuadrantAPI on _QuadrantAPIBase, Store {
     });
   }
 
-  late final _$currentModeAtom =
-      Atom(name: '_QuadrantAPIBase.currentMode', context: context);
-
-  @override
-  GyroscopeModes get currentMode {
-    _$currentModeAtom.reportRead();
-    return super.currentMode;
-  }
-
-  @override
-  set currentMode(GyroscopeModes value) {
-    _$currentModeAtom.reportWrite(value, super.currentMode, () {
-      super.currentMode = value;
-    });
-  }
-
   late final _$currentRevolutionAtom =
       Atom(name: '_QuadrantAPIBase.currentRevolution', context: context);
 
@@ -145,6 +129,23 @@ mixin _$QuadrantAPI on _QuadrantAPIBase, Store {
     });
   }
 
+  late final _$desiredNegativeModeBehaviorAtom = Atom(
+      name: '_QuadrantAPIBase.desiredNegativeModeBehavior', context: context);
+
+  @override
+  NegativeModeBehaviors get desiredNegativeModeBehavior {
+    _$desiredNegativeModeBehaviorAtom.reportRead();
+    return super.desiredNegativeModeBehavior;
+  }
+
+  @override
+  set desiredNegativeModeBehavior(NegativeModeBehaviors value) {
+    _$desiredNegativeModeBehaviorAtom
+        .reportWrite(value, super.desiredNegativeModeBehavior, () {
+      super.desiredNegativeModeBehavior = value;
+    });
+  }
+
   late final _$thresholdListAtom =
       Atom(name: '_QuadrantAPIBase.thresholdList', context: context);
 
@@ -189,6 +190,50 @@ mixin _$QuadrantAPI on _QuadrantAPIBase, Store {
       ActionController(name: '_QuadrantAPIBase', context: context);
 
   @override
+  dynamic setCurrentValue(int newInt) {
+    final _$actionInfo = _$_QuadrantAPIBaseActionController.startAction(
+        name: '_QuadrantAPIBase.setCurrentValue');
+    try {
+      return super.setCurrentValue(newInt);
+    } finally {
+      _$_QuadrantAPIBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setCurrentRevolution(int newRev) {
+    final _$actionInfo = _$_QuadrantAPIBaseActionController.startAction(
+        name: '_QuadrantAPIBase.setCurrentRevolution');
+    try {
+      return super.setCurrentRevolution(newRev);
+    } finally {
+      _$_QuadrantAPIBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setCurrentQuadrant(int newQuad) {
+    final _$actionInfo = _$_QuadrantAPIBaseActionController.startAction(
+        name: '_QuadrantAPIBase.setCurrentQuadrant');
+    try {
+      return super.setCurrentQuadrant(newQuad);
+    } finally {
+      _$_QuadrantAPIBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setDesiredNegativeModeBehavior(NegativeModeBehaviors newNegBehavior) {
+    final _$actionInfo = _$_QuadrantAPIBaseActionController.startAction(
+        name: '_QuadrantAPIBase.setDesiredNegativeModeBehavior');
+    try {
+      return super.setDesiredNegativeModeBehavior(newNegBehavior);
+    } finally {
+      _$_QuadrantAPIBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic resetTheQuadrantLayout(
       {required int startingQuadrant,
       required int numberOfQuadrants,
@@ -217,47 +262,14 @@ mixin _$QuadrantAPI on _QuadrantAPIBase, Store {
   }
 
   @override
-  dynamic setCurrentValue(int newInt) {
-    final _$actionInfo = _$_QuadrantAPIBaseActionController.startAction(
-        name: '_QuadrantAPIBase.setCurrentValue');
-    try {
-      return super.setCurrentValue(newInt);
-    } finally {
-      _$_QuadrantAPIBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic setCurrentRevolution(int newRev) {
-    final _$actionInfo = _$_QuadrantAPIBaseActionController.startAction(
-        name: '_QuadrantAPIBase.setCurrentRevolution');
-    try {
-      return super.setCurrentRevolution(newRev);
-    } finally {
-      _$_QuadrantAPIBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void setCurrentQuadrant(int newQuad) {
-    final _$actionInfo = _$_QuadrantAPIBaseActionController.startAction(
-        name: '_QuadrantAPIBase.setCurrentQuadrant');
-    try {
-      return super.setCurrentQuadrant(newQuad);
-    } finally {
-      _$_QuadrantAPIBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 setupReturnType: ${setupReturnType},
 currentValue: ${currentValue},
-currentMode: ${currentMode},
 currentRevolution: ${currentRevolution},
 currentQuadrant: ${currentQuadrant},
 theSideTheThresholdWasEnteredFrom: ${theSideTheThresholdWasEnteredFrom},
+desiredNegativeModeBehavior: ${desiredNegativeModeBehavior},
 thresholdList: ${thresholdList},
 hasBeenMarkedUp: ${hasBeenMarkedUp},
 lowerThresholdBound: ${lowerThresholdBound},
