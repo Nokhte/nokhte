@@ -47,10 +47,10 @@ void main() {
 
   test("`quadrantPartitioner` should do it's job", () {
     final firstRes = GyroscopeUtils.quadrantPartitioner(
-        numberOfQuadrants: 4, totalAngleCoverageOfEachQuadrant: 90);
+        numberOfQuadrants: 4, quadrantSpread: 90);
     expect(firstRes, QuadrantLists.dayList);
     final secondRes = GyroscopeUtils.quadrantPartitioner(
-        numberOfQuadrants: 24, totalAngleCoverageOfEachQuadrant: 60);
+        numberOfQuadrants: 24, quadrantSpread: 60);
     expect(secondRes, QuadrantLists.timeList);
   });
 
@@ -66,7 +66,7 @@ void main() {
   test("Quadrant setup should do it's job", () {
     final firstRes = GyroscopeUtils.quadrantSetup(
       numberOfQuadrants: 4,
-      totalAngleCoverageOfEachQuadrant: 90,
+      quadrantSpread: 90,
       startingQuadrant: 2,
     );
     expect(firstRes.quadrantInfo, QuadrantLists.dayList);
@@ -75,7 +75,7 @@ void main() {
     expect(firstRes.startingRevolution, 0);
     final secondRes = GyroscopeUtils.quadrantSetup(
       numberOfQuadrants: 24,
-      totalAngleCoverageOfEachQuadrant: 60,
+      quadrantSpread: 60,
       startingQuadrant: 12,
     );
     expect(secondRes.quadrantInfo, QuadrantLists.timeList);

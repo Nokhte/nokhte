@@ -71,7 +71,7 @@ abstract class _QuadrantAPIBase extends GyroscopeAPI with Store {
   setupTheStream({
     required int startingQuadrant,
     required int numberOfQuadrants,
-    required int totalAngleCoverageOfEachQuadrant,
+    required int quadrantSpread,
     required NegativeModeBehaviors negativeModeBehavior,
   }) async {
     await angleFeedStore(NoParams());
@@ -81,7 +81,7 @@ abstract class _QuadrantAPIBase extends GyroscopeAPI with Store {
       if (isFirstTime) {
         setupReturnType = GyroscopeUtils.quadrantSetup(
           numberOfQuadrants: numberOfQuadrants,
-          totalAngleCoverageOfEachQuadrant: totalAngleCoverageOfEachQuadrant,
+          quadrantSpread: quadrantSpread,
           startingQuadrant: startingQuadrant,
         );
         setCurrentRevolution(setupReturnType.startingRevolution);
@@ -113,11 +113,11 @@ abstract class _QuadrantAPIBase extends GyroscopeAPI with Store {
   resetTheQuadrantLayout({
     required int startingQuadrant,
     required int numberOfQuadrants,
-    required int totalAngleCoverageOfEachQuadrant,
+    required int quadrantSpread,
   }) {
     setupReturnType = GyroscopeUtils.quadrantSetup(
       numberOfQuadrants: numberOfQuadrants,
-      totalAngleCoverageOfEachQuadrant: totalAngleCoverageOfEachQuadrant,
+      quadrantSpread: quadrantSpread,
       startingQuadrant: startingQuadrant,
     );
     setCurrentRevolution(setupReturnType.startingRevolution);

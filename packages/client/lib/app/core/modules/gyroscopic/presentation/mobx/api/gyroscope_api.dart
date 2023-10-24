@@ -60,7 +60,7 @@ abstract class _GyroscopeAPIBase extends Equatable with Store {
   Future<void> setupTheStream({
     required int startingQuadrant,
     required int numberOfQuadrants,
-    required int totalAngleCoverageOfEachQuadrant,
+    required int quadrantSpread,
     required NegativeModeBehaviors negativeModeBehavior,
   }) async {}
 

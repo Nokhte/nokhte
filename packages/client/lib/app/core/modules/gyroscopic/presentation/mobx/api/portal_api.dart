@@ -25,7 +25,7 @@ abstract class _PortalAPIBase extends GyroscopeAPI with Store {
   setupTheStream({
     required int startingQuadrant,
     required int numberOfQuadrants,
-    required int totalAngleCoverageOfEachQuadrant,
+    required int quadrantSpread,
     required NegativeModeBehaviors negativeModeBehavior,
   }) async {
     await angleFeedStore(NoParams());

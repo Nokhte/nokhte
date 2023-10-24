@@ -237,14 +237,14 @@ mixin _$QuadrantAPI on _QuadrantAPIBase, Store {
   dynamic resetTheQuadrantLayout(
       {required int startingQuadrant,
       required int numberOfQuadrants,
-      required int totalAngleCoverageOfEachQuadrant}) {
+      required int quadrantSpread}) {
     final _$actionInfo = _$_QuadrantAPIBaseActionController.startAction(
         name: '_QuadrantAPIBase.resetTheQuadrantLayout');
     try {
       return super.resetTheQuadrantLayout(
           startingQuadrant: startingQuadrant,
           numberOfQuadrants: numberOfQuadrants,
-          totalAngleCoverageOfEachQuadrant: totalAngleCoverageOfEachQuadrant);
+          quadrantSpread: quadrantSpread);
     } finally {
       _$_QuadrantAPIBaseActionController.endAction(_$actionInfo);
     }

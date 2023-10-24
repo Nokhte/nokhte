@@ -112,9 +112,8 @@ class GyroscopeUtils {
   }
 
   static List<QuadrantInfo> quadrantPartitioner(
-      {required int numberOfQuadrants,
-      required int totalAngleCoverageOfEachQuadrant}) {
-    if (numberOfQuadrants < 1 || totalAngleCoverageOfEachQuadrant < 1) {
+      {required int numberOfQuadrants, required int quadrantSpread}) {
+    if (numberOfQuadrants < 1 || quadrantSpread < 1) {
       throw ArgumentError(
           "Number of quadrants and total angle coverage must be greater than 0.");
     }
@@ -122,8 +121,8 @@ class GyroscopeUtils {
     List<QuadrantInfo> quadrantList = [];
 
     for (int i = 0; i < numberOfQuadrants; i++) {
-      int startingAngle = i * totalAngleCoverageOfEachQuadrant;
-      int endingAngle = (i + 1) * totalAngleCoverageOfEachQuadrant - 1;
+      int startingAngle = i * quadrantSpread;
+      int endingAngle = (i + 1) * quadrantSpread - 1;
 
       QuadrantInfo quadrantInfo =
           QuadrantInfo(startingAngle: startingAngle, endingAngle: endingAngle);
@@ -135,12 +134,12 @@ class GyroscopeUtils {
 
   static GyroSetupReturnType quadrantSetup({
     required int numberOfQuadrants,
-    required int totalAngleCoverageOfEachQuadrant,
+    required int quadrantSpread,
     required int startingQuadrant, // count from 0
   }) {
     final quadrantList = quadrantPartitioner(
       numberOfQuadrants: numberOfQuadrants,
-      totalAngleCoverageOfEachQuadrant: totalAngleCoverageOfEachQuadrant,
+      quadrantSpread: quadrantSpread,
     );
     final quadRange = ((quadrantList[startingQuadrant].endingAngle -
                 quadrantList[startingQuadrant].startingAngle) /

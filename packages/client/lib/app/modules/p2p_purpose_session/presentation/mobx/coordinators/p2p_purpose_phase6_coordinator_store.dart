@@ -109,7 +109,7 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
     await scheduling.createSchedulingAndStreamSetup();
     await quadrantAPI.setupTheStream(
       numberOfQuadrants: 18,
-      totalAngleCoverageOfEachQuadrant: 20,
+      quadrantSpread: 20,
       startingQuadrant: 0,
       negativeModeBehavior: NegativeModeBehaviors.resetRefAngle,
     );
@@ -177,7 +177,7 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
             quadrantAPI.resetTheQuadrantLayout(
               startingQuadrant: conveyerBelt.currentlySelectedIndex,
               numberOfQuadrants: 24,
-              totalAngleCoverageOfEachQuadrant: 90,
+              quadrantSpread: 90,
             );
             setStartingQuadrant(conveyerBelt.currentlySelectedIndex);
             // print("shouldn't this be 13 $startingQuadrant");

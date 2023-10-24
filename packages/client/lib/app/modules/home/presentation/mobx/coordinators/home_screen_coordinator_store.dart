@@ -68,7 +68,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
 
     await quadrantAPI.setupTheStream(
       numberOfQuadrants: 6,
-      totalAngleCoverageOfEachQuadrant: 90,
+      quadrantSpread: 90,
       startingQuadrant: 0,
       negativeModeBehavior: NegativeModeBehaviors.indexNegativeQuadrants,
     );
