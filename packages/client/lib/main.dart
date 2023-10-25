@@ -11,6 +11,7 @@ import 'package:flutter/foundation.dart';
 
 void main() async {
   await dotenv.load();
+
   late String supabaseUrl;
   final String supabaseAnonKey;
   if (kDebugMode) {
