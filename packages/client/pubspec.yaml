@@ -23,7 +23,6 @@ dependencies:
   flutter_compass: ^0.8.0
   flutter_dotenv: ^5.1.0
   flutter_launcher_icons: ^0.13.1
-  flutter_local_notifications: ^16.1.0
   flutter_mobx: ^2.0.6+5
   flutter_modular: ^5.0.3
   flutter_platform_widgets: ^3.3.5

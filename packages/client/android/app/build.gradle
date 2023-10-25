@@ -37,7 +37,6 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace 'com.primala.primala'
     compileSdkVersion flutter.compileSdkVersion 
-    // ^^ this may need to be set to 33, but I'll leave it, come back if android doesn't want to build
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -90,7 +89,7 @@ flutter {
 }
 
 dependencies {
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'
+    // coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.multidex:multidex:2.0.1"
     implementation 'androidx.window:window:1.0.0'
