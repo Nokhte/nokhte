@@ -49,10 +49,10 @@ abstract class _PortalAPIBase extends Equatable with Store {
             GyroscopeUtils.includeNegativeQuads(visitedQuadrantsList, 17, 14);
         final drawingStatus =
             DrawingUtils.decideIfTheyHaveDrawnACircle(visitedQuadrantsList, 10);
-        print("$visitedQuadrantsList $drawingStatus");
+        // print("$visitedQuadrantsList $drawingStatus");
         if (drawingStatus == DrawingStatus.hasDrawn) {
           drawingMode = DrawingStatus.hasDrawn;
-          print("congrats you drew a circle $visitedQuadrantsList");
+          // print("congrats you drew a circle $visitedQuadrantsList");
         }
       }
     });
