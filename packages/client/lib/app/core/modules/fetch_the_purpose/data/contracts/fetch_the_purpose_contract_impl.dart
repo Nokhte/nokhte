@@ -1,16 +1,16 @@
 import 'package:dartz/dartz.dart';
 import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/modules/individual_session/domain/domain.dart';
-import 'package:primala/app/modules/individual_session/data/data.dart';
+import 'package:primala/app/core/modules/fetch_the_purpose/data/data.dart';
+import 'package:primala/app/core/modules/fetch_the_purpose/domain/domain.dart';
 import 'package:primala/app/core/network/network_info.dart';
 import 'package:primala/app/core/constants/failure_constants.dart';
 
-class IndividualSessionContractImpl implements IndividualSessionContract {
-  final IndividualSessionRemoteSource remoteSource;
+class FetchThePurposeContractImpl implements FetchThePurposeContract {
+  final FetchThePurposeRemoteSource remoteSource;
   final NetworkInfo networkInfo;
 
-  IndividualSessionContractImpl({
+  FetchThePurposeContractImpl({
     required this.remoteSource,
     required this.networkInfo,
   });

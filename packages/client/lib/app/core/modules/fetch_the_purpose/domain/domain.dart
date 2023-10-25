@@ -1,3 +1,3 @@
 export './logic/logic.dart';
 export './entities/entities.dart';
-export 'contracts/individual_session_contract.dart';
+export 'contracts/fetch_the_purpose_contract.dart';

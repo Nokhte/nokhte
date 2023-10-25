@@ -25,7 +25,7 @@ class P2PCollaboratorSessionModule extends Module {
         SoloDocModule(),
         GyroscopicModule(),
         ConveyerBeltTextWidgetModule(),
-        ScheduligModule(),
+        SchedulingModule(),
       ];
 
   @override

@@ -1,17 +1,16 @@
 import 'package:primala_backend/finished_collaborative_documents.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-abstract class IndividualSessionRemoteSource {
+abstract class FetchThePurposeRemoteSource {
   Future<List> fetchThePurpose();
 }
 
-class IndividualSessionRemoteSourceImpl
-    implements IndividualSessionRemoteSource {
+class FetchThePurposeSourceImpl implements FetchThePurposeRemoteSource {
   final SupabaseClient supabase;
   final FinishedCollaborativeP2PPurposeDocumentsQueries queries;
   // finish this off
 
-  IndividualSessionRemoteSourceImpl({
+  FetchThePurposeSourceImpl({
     required this.supabase,
   }) : queries = FinishedCollaborativeP2PPurposeDocumentsQueries(
           supabase: supabase,
@@ -22,3 +21,4 @@ class IndividualSessionRemoteSourceImpl
     return queries.fetchDocInfo(docType: 'purpose');
   }
 }
+// nateretla

@@ -5,7 +5,7 @@ import 'package:primala/app/core/modules/scheduling/presentation/presentation.da
 import 'package:primala/app/core/network/network_info.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class ScheduligModule extends Module {
+class SchedulingModule extends Module {
   @override
   List<Bind> get binds => [
         Bind.singleton<SchedulingRemoteSourceImpl>(

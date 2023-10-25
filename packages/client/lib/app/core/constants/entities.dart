@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:primala/app/core/error/failure.dart';
 import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
+import 'package:primala/app/core/modules/fetch_the_purpose/domain/domain.dart';
 import 'package:primala/app/core/modules/local_speech_to_text/constants/constants.dart';
 import 'package:primala/app/core/modules/scheduling/domain/domain.dart';
 import 'package:primala/app/modules/home/domain/entities/entities.dart';
@@ -123,4 +124,6 @@ class DefaultEntities {
           SchedulingSessionUpdateTimeOrDateStatusEntity(isUpdated: false));
   static Stream<CollaboratorsDateAndTime> get collaboratorsChosenTimeAndDay =>
       const Stream.empty();
+  static Either<Failure, CollectivePurposeEntity> get collectivePurposeEntity =>
+      const Right(CollectivePurposeEntity(thePurpose: ""));
 }
