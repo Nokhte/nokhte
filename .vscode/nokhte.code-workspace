@@ -1,0 +1,90 @@
+{
+    "folders": [
+        {
+            "name": "️⬜️ nokhte root",
+            "path": "../",
+        },
+        {
+            "name": "⬜ backend",
+            "path": "../packages/backend/dart"
+        },
+        {
+            "name": "⬜ client code",
+            "path": "../packages/client/lib/app"
+        },
+        {
+            "name": "⬜ client tests",
+            "path": "../packages/client"
+        },
+        {
+            "name": "⬜ supabase",
+            "path": "../packages/backend/supabase",
+        },
+        {
+            "name": "⬜ client ios",
+            "path": "../packages/client/ios"
+        },
+        {
+            "name": "⬜ client android",
+            "path": "../packages/client/android"
+        },
+        // {
+        //     "name": "client root",
+        //     "path": "../packages/client/"
+        // },
+
+    ],
+    
+    "settings": 
+    
+    
+    {
+            "files.exclude": {
+                "**/_scripts/": true,
+                // "**/_templates/": true,
+                "packages/client/.vscode": true,
+                "**/android/": true,
+                "**/ios/": true,
+                "packages/": true,
+                "**/**.iml": true,
+                "**/**.g.dart": true,
+                // "**/.gitignore": true,
+                // "**/pubspec.yaml": true,
+                "**/**.mocks.dart": true,
+                "**/.dart_tool": true,
+                "**/deprecated_gitlab_ci": true,
+                "**/deprecated/**": true,
+                "**/build/**": true,
+                "**/_deprecated/**": true,
+                "**/canvas_widget_utils/**": true,
+                "**/core/constants/**": true,
+                "**/core/entities/**": true,
+                "**/core/error/**": true,
+                "**/core/guards/**": true,
+                "**/core/interfaces/**": true,
+                "**/core/mobx/**": true,
+                "**/core/network/**": true,
+                "**/core/utilities/**": true,
+                "**/core/types/**": true,
+                "**/.idea": true,
+                "**/**.lock": true,
+                "**/analysis_options.yaml": true,
+                "**/.flutter-plugins": true,
+                "**/.flutter-plugins-dependencies": true,
+                "**/pubspec_overrides.yaml": true,
+                "**/version.yml": true,
+                "**/.metadata": true,
+                "**/flutter_01.log": true,
+                "**/.example.env": true,
+                // "**/README.md": true,
+                "**/changelog.md": true,
+                // "**/.env": true,
+                "**/.git": true
+                
+            },
+            "deno.importMap": "./packages/backend/supabase/functions/import_map.json",
+            "deno.enable": true,
+            "deno.lint": true,
+            "deno.unstable": true
+        }
+}

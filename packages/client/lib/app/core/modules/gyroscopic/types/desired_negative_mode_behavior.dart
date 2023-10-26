@@ -1,0 +1,4 @@
+enum NegativeModeBehaviors {
+  resetRefAngle,
+  indexNegativeQuadrants,
+}

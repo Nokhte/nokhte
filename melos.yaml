@@ -1,0 +1,18 @@
+name: primala_core
+
+
+packages:
+  - packages/client
+  - packages/backend/dart
+
+
+command:
+  bootstrap:
+    hooks:
+      pre: dart run common_packs_injector.dart
+    runPubGetInParallel: false
+    usePubspecOverrides: true
+
+scripts:
+  start-client:
+    run: cd packages/client && flutter run --verbose
