@@ -31,7 +31,7 @@ test-the-db-rules-and-edge-functions:
     # - flutter pub get
     # - flutter test || kill $SERVER_PID
     - chmod u+x ./scripts/test.sh
-    - ./scripts/test.sh 
+    - ./scripts/test.sh
     - kill $SERVER_PID
   rules:
     - if: '$CI_COMMIT_BRANCH == "development"'
@@ -51,7 +51,7 @@ test-the-db-rules-and-edge-functions:
 #     - deno test --allow-all initiate-collaborator-search-test.ts --import-map=../functions/import_map.json --allow-env
 #   only:
 #     - development
-    
+
 deploy-to-staging-db:
   stage: staging
   script:
@@ -64,21 +64,18 @@ deploy-to-staging-db:
   when: manual
 
 deploy-to-prod-db:
-  stage: production 
+  stage: production
   script:
     - cd packages/backend
     - supabase link --project-ref $SUPABASE_PROD_PROJECT_ID --password $SUPABASE_PROD_DB_PASSWORD
     - supabase functions deploy
     - supabase db push
   only:
-    - production 
+    - production
   when: manual
 # $ Backend CI/CD JOBS END
 # @ ======================== @
-# % Client CI/CD JOBS START 
-
-
-
+# % Client CI/CD JOBS START
 
 # ✅ WORKS
 run-the-unit-tests:
@@ -91,21 +88,20 @@ run-the-unit-tests:
     - flutter test
   rules:
     - if: '$CI_COMMIT_BRANCH == "development"'
-      changes: 
+      changes:
         - packages/client/**/*
       when: always
     - when: never
 
 pre-build-check:
   stage: development
-  script: 
+  script:
     - melos bs
     - touch .env
     - flutter build ios && flutter build appbundle
   only:
     - development
   when: manual
-
 
 # ✅ WORKS
 internal-ios-staging:
@@ -117,7 +113,7 @@ internal-ios-staging:
     - cd packages/client
     - echo "PROD_SUPABASE_URL=$STAGING_SUPABASE_URL" >> .env
     - echo "PROD_SUPABASE_ANON_KEY=$STAGING_SUPABASE_ANON_KEY" >> .env
-    - chmod u+x ./scripts/ios/*.sh
+    - chmod u+x ./_scripts/ios/*.sh
     - ./scripts/ios/build_ios.sh
     - ./scripts/ios/distribute_ios_beta.sh
   only:
@@ -129,20 +125,19 @@ internal-android-staging:
   stage: staging
   tags:
     - shell
-  script: 
+  script:
     - melos bs
     - cd packages/client
     - echo "PROD_SUPABASE_URL=$STAGING_SUPABASE_URL" >> .env
     - echo "PROD_SUPABASE_ANON_KEY=$STAGING_SUPABASE_ANON_KEY" >> .env
-    - chmod u+x ./scripts/android/*.sh
+    - chmod u+x ./_scripts/android/*.sh
     - ./scripts/android/build_android.sh
     - ./scripts/android/distribute_android_staging.sh
   only:
     - staging
   when: manual
 
-
-# 🌊 Pretty Sure This Works 
+# 🌊 Pretty Sure This Works
 external-ios-beta-build:
   stage: production
   tags:
@@ -152,27 +147,27 @@ external-ios-beta-build:
     - cd packages/client
     - echo "PROD_SUPABASE_URL=$PROD_SUPABASE_URL" >> .env
     - echo "PROD_SUPABASE_ANON_KEY=$PROD_SUPABASE_ANON_KEY" >> .env
-    - chmod u+x ./scripts/ios/*.sh
+    - chmod u+x ./_scripts/ios/*.sh
     - ./scripts/ios/build_ios.sh
     - ./scripts/ios/distribute_ios_beta.sh
   only:
     - staging
   when: manual
 
-# 🌊 Pretty Sure This Works 
+# 🌊 Pretty Sure This Works
 external-android-beta-build:
-  stage: production 
+  stage: production
   tags:
     - shell
-  script: 
+  script:
     - melos bs
     - cd packages/client
     - echo "PROD_SUPABASE_URL=$PROD_SUPABASE_URL" >> .env
     - echo "PROD_SUPABASE_ANON_KEY=$PROD_SUPABASE_ANON_KEY" >> .env
-    - chmod u+x ./scripts/android/*.sh
+    - chmod u+x ./_scripts/android/*.sh
     - ./scripts/android/build_android.sh
     - ./scripts/android/distribute_android_production.sh
   only:
     - staging
   when: manual
-# % Client CI/CD JOBS END 
+# % Client CI/CD JOBS END
