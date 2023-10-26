@@ -133,8 +133,8 @@ internal-ios-staging:
     - echo "PROD_SUPABASE_URL=$STAGING_SUPABASE_URL" >> .env
     - echo "PROD_SUPABASE_ANON_KEY=$STAGING_SUPABASE_ANON_KEY" >> .env
     - chmod u+x ./_scripts/ios/*.sh
-    - ./scripts/ios/build_ios.sh
-    - ./scripts/ios/distribute_ios_beta.sh
+    - ./_scripts/ios/build_ios.sh
+    - ./_scripts/ios/distribute_ios_beta.sh
   only:
     - staging
   when: manual
@@ -153,8 +153,8 @@ internal-android-staging:
     - echo "PROD_SUPABASE_URL=$STAGING_SUPABASE_URL" >> .env
     - echo "PROD_SUPABASE_ANON_KEY=$STAGING_SUPABASE_ANON_KEY" >> .env
     - chmod u+x ./_scripts/android/*.sh
-    - ./scripts/android/build_android.sh
-    - ./scripts/android/distribute_android_staging.sh
+    - ./_scripts/android/build_android.sh
+    - ./_scripts/android/distribute_android_staging.sh
   only:
     - staging
   when: manual
@@ -172,8 +172,8 @@ external-ios-beta-build:
     - echo "PROD_SUPABASE_URL=$PROD_SUPABASE_URL" >> .env
     - echo "PROD_SUPABASE_ANON_KEY=$PROD_SUPABASE_ANON_KEY" >> .env
     - chmod u+x ./_scripts/ios/*.sh
-    - ./scripts/ios/build_ios.sh
-    - ./scripts/ios/distribute_ios_beta.sh
+    - ./_scripts/ios/build_ios.sh
+    - ./_scripts/ios/distribute_ios_beta.sh
   only:
     - staging
   when: manual
@@ -192,8 +192,8 @@ external-android-beta-build:
     - echo "PROD_SUPABASE_URL=$PROD_SUPABASE_URL" >> .env
     - echo "PROD_SUPABASE_ANON_KEY=$PROD_SUPABASE_ANON_KEY" >> .env
     - chmod u+x ./_scripts/android/*.sh
-    - ./scripts/android/build_android.sh
-    - ./scripts/android/distribute_android_production.sh
+    - ./_scripts/android/build_android.sh
+    - ./_scripts/android/distribute_android_production.sh
   only:
     - staging
   when: manual

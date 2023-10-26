@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nokhte/app/app_module.dart';
 import 'package:nokhte/app/app_widget.dart';
 // import 'package:primala/firebase_options.dart';
+// some extra comment to get merge going
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_modular/flutter_modular.dart';
