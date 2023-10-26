@@ -4,9 +4,9 @@ import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/modules/voice_call/domain/domain.dart';
+import 'package:nokhte/app/core/error/failure.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 // * Mobx Codegen Inclusion
 part 'check_if_user_has_the_question_getter_store.g.dart';
 

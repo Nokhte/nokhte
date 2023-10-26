@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/modules/gyroscopic/types/types.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
 
 class GyroSetupReturnType extends Equatable {
   final List<QuadrantInfo> quadrantInfo;

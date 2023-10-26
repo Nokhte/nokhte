@@ -1,4 +1,4 @@
-import 'package:primala/app/core/widgets/sky_widgets/sun_and_moon/stack/constants/types/position_and_duration.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class SunAndMoonPositions {
   static Position get ninePM => const Position(

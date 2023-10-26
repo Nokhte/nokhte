@@ -2,14 +2,14 @@
 // * Mobx Import
 import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
-import 'package:primala/app/core/error/failure.dart';
+import 'package:nokhte/app/core/error/failure.dart';
 // * Equatable Import
-import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/mobx/base_mobx_db_store.dart';
-import 'package:primala/app/core/mobx/store_state.dart';
-import 'package:primala/app/core/types/types.dart';
-import 'package:primala/app/core/modules/voice_call/domain/domain.dart';
-import 'package:primala/app/core/modules/voice_call/mobx/mobx.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mobx/base_mobx_db_store.dart';
+import 'package:nokhte/app/core/mobx/store_state.dart';
+import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
+import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 // * Mobx Codegen Inclusion
 part 'voice_call_actions_store.g.dart';
 

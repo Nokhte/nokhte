@@ -1,5 +1,5 @@
-import 'package:primala/app/core/modules/local_speech_to_text/constants/constants.dart';
-import 'package:primala/app/core/modules/local_speech_to_text/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/local_speech_to_text/constants/constants.dart';
+import 'package:nokhte/app/core/modules/local_speech_to_text/mobx/mobx.dart';
 
 class OnAudioRecorded {
   final OnAudioRecordedStore onAudioRecordedStore;

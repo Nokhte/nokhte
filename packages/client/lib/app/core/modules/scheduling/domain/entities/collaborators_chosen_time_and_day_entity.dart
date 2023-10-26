@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:primala_backend/working_collaborative_scheduling.dart';
+import 'package:nokhte_backend/working_collaborative_scheduling.dart';
 
 class CollaboratorsChosenTimeAndDayEntity extends Equatable {
   final Stream<CollaboratorsDateAndTime> dateAndTime;

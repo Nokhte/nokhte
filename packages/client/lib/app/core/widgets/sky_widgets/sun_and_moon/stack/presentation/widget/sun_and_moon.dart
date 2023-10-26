@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:primala/app/core/widgets/sky_widgets/sun_and_moon/stack/presentation/widget/canvas/sun_and_moon_painter.dart';
-import 'package:primala/app/core/widgets/sky_widgets/sun_and_moon/sun_and_moon.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
+import 'canvas/sun_and_moon_painter.dart';
 
 class SunAndMoon extends StatelessWidget {
   final SunAndMoonStore stateTrackerStore;

@@ -1,4 +1,4 @@
-import 'package:primala/app/core/modules/gyroscopic/types/types.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
 
 class GyroscopeUtils {
   static CloserTo determineCloser(int lowerBound, int upperBound, int input) {

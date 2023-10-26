@@ -2,7 +2,7 @@
 // * Mobx Import
 import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
-import 'package:primala/app/core/error/failure.dart';
+import 'package:nokhte/app/core/error/failure.dart';
 // * Core StoreState Type
 import './store_state.dart';
 // * Equatable Import

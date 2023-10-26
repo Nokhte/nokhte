@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/error/failure.dart';
+import 'package:nokhte/app/core/error/failure.dart';
 
 abstract class AbstractFutureLogic<Type, Params> {
   Future<Either<Failure, Type>> call(Params params);

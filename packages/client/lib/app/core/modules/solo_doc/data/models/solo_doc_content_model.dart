@@ -1,4 +1,4 @@
-import 'package:primala/app/core/modules/solo_doc/domain/domain.dart';
+import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
 
 class SoloDocContentModel extends SoloDocContentEntity {
   const SoloDocContentModel({required super.content});

@@ -4,11 +4,11 @@ import 'dart:async';
 
 import 'package:mobx/mobx.dart';
 // * Equatable Import
-import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/modules/gyroscopic/domain/domain.dart';
-import 'package:primala/app/core/modules/gyroscopic/presentation/presentation.dart';
-import 'package:primala/app/core/modules/gyroscopic/types/types.dart';
-import 'package:primala/app/core/modules/gyroscopic/utils/utils.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/domain/domain.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/utils/utils.dart';
 // * Mobx Codegen Inclusion
 part 'quadrant_api.g.dart';
 

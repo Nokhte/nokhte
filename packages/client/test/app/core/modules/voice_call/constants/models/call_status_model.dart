@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/core/types/call_status.dart';
-import 'package:primala/app/core/modules/voice_call/data/data.dart';
+import 'package:nokhte/app/core/error/failure.dart';
+import 'package:nokhte/app/core/types/call_status.dart';
+import 'package:nokhte/app/core/modules/voice_call/data/data.dart';
 
 class ConstantCallStatusModel {
   static CallStatusModel get successCase =>

@@ -1,10 +1,10 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
-import 'package:primala/app/core/constants/entities.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/mobx/mobx.dart';
-import 'package:primala/app/core/modules/scheduling/presentation/presentation.dart';
-import 'package:primala_backend/working_collaborative_scheduling.dart';
+import 'package:nokhte/app/core/constants/entities.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/scheduling/presentation/presentation.dart';
+import 'package:nokhte_backend/working_collaborative_scheduling.dart';
 // * Mobx Codegen Inclusion
 part 'get_collaborators_date_and_time_store.g.dart';
 

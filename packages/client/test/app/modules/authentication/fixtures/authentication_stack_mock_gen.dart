@@ -3,13 +3,13 @@
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 
-import 'package:primala/app/modules/authentication/data/sources/auth_remote_source.dart';
-import 'package:primala/app/modules/authentication/domain/contracts/authentication_contract.dart';
-import 'package:primala/app/modules/authentication/domain/logic/get_auth_state.dart';
-import 'package:primala/app/modules/authentication/domain/logic/sign_in_with_apple.dart';
-import 'package:primala/app/modules/authentication/domain/logic/sign_in_with_google.dart';
-import 'package:primala/app/modules/authentication/presentation/mobx/getters/get_auth_provider_getter_store.dart';
-import 'package:primala/app/modules/authentication/presentation/mobx/getters/get_auth_state_getter_store.dart';
+import 'package:nokhte/app/modules/authentication/data/sources/auth_remote_source.dart';
+import 'package:nokhte/app/modules/authentication/domain/contracts/authentication_contract.dart';
+import 'package:nokhte/app/modules/authentication/domain/logic/get_auth_state.dart';
+import 'package:nokhte/app/modules/authentication/domain/logic/sign_in_with_apple.dart';
+import 'package:nokhte/app/modules/authentication/domain/logic/sign_in_with_google.dart';
+import 'package:nokhte/app/modules/authentication/presentation/mobx/getters/get_auth_provider_getter_store.dart';
+import 'package:nokhte/app/modules/authentication/presentation/mobx/getters/get_auth_state_getter_store.dart';
 
 class MAuthenticationRemoteSourceImpl extends Mock
     implements AuthenticationRemoteSourceImpl {}

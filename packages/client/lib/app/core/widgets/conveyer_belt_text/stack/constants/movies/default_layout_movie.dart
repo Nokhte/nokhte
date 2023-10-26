@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:primala/app/core/types/types.dart';
-import 'package:primala/app/core/widgets/conveyer_belt_text/stack/constants/data/text_placement_constants.dart';
+import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class DefaultLayoutMovie {

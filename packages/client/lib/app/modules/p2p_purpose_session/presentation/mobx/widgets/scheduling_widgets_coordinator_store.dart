@@ -4,10 +4,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/types/types.dart';
-import 'package:primala/app/core/widgets/beach_widgets/shared/shared.dart';
-import 'package:primala/app/core/widgets/scheduling_delta/stack/stack.dart';
-import 'package:primala/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
+import 'package:nokhte/app/core/widgets/scheduling_delta/stack/stack.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 // * Mobx Codegen Inclusion
 part 'scheduling_widgets_coordinator_store.g.dart';

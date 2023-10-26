@@ -4,9 +4,9 @@ import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/modules/voice_call/domain/domain.dart';
+import 'package:nokhte/app/core/error/failure.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 // * Mobx Codegen Inclusion
 part 'fetch_channel_id_getter_store.g.dart';
 

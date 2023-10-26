@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter_compass/flutter_compass.dart';
-import 'package:primala/app/core/modules/gyroscopic/utils/utils.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/utils/utils.dart';
 
 abstract class GyroscopicRemoteSource {
   Stream<int> getDirectionAngle();

@@ -1,10 +1,10 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:primala/app/core/modules/collaborative_doc/domain/logic/update_commit_desire_status.dart';
-import 'package:primala/app/core/network/network_info.dart';
-import 'package:primala/app/core/modules/collaborative_doc/data/data.dart';
-import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
-import 'package:primala/app/core/modules/collaborative_doc/presentation/presentation.dart';
-import 'package:primala_backend/working_collaborative_documents.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/domain/logic/update_commit_desire_status.dart';
+import 'package:nokhte/app/core/network/network_info.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/data/data.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/presentation/presentation.dart';
+import 'package:nokhte_backend/working_collaborative_documents.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class CollaborativeDocModule extends Module {

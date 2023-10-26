@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:primala/app/core/canvas_widget_utils/canvas_widget_utils.dart';
+import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 // import 'package:primala/app/core/types/types.dart';
 // import 'package:primala/app/core/widgets/beach_widgets/beach_waves/stack/utils/get_current_water_animation.dart';
 import '../mobx/beach_horizon_water_tracker_store.dart';

@@ -2,8 +2,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/widgets/shared/constants/svg_animation_constants.dart';
 import 'package:path_morph/path_morph.dart';
-import 'package:primala/app/core/widgets/shared/constants/svg_animation_constants.dart';
 import 'package:simple_animations/simple_animations.dart';
 // * Mobx Codegen Inclusion
 part 'gesture_pill_store.g.dart';

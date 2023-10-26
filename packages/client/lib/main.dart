@@ -1,8 +1,8 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:primala/app/app_module.dart';
-import 'package:primala/app/app_widget.dart';
+import 'package:nokhte/app/app_module.dart';
+import 'package:nokhte/app/app_widget.dart';
 // import 'package:primala/firebase_options.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';

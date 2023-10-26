@@ -1,4 +1,4 @@
-import 'package:primala/app/core/modules/local_speech_to_text/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/local_speech_to_text/mobx/mobx.dart';
 
 class OnSpeechResult {
   final OnSpeechResultStore speechResultStore;

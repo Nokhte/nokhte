@@ -1,5 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:primala/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class ConveyerBeltTextWidgetModule extends Module {
   @override

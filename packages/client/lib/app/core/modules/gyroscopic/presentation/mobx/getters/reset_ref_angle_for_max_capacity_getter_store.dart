@@ -3,7 +3,7 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/modules/gyroscopic/domain/domain.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/domain/domain.dart';
 // * Mobx Codegen Inclusion
 part 'reset_ref_angle_for_max_capacity_getter_store.g.dart';
 

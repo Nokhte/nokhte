@@ -2,12 +2,12 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:mockito/mockito.dart';
-import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/core/interfaces/auth_providers.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/mobx/store_state.dart';
-import 'package:primala/app/modules/authentication/domain/entities/auth_provider_entity.dart';
-import 'package:primala/app/modules/authentication/presentation/mobx/getters/get_auth_provider_getter_store.dart';
+import 'package:nokhte/app/core/error/failure.dart';
+import 'package:nokhte/app/core/interfaces/auth_providers.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mobx/store_state.dart';
+import 'package:nokhte/app/modules/authentication/domain/entities/auth_provider_entity.dart';
+import 'package:nokhte/app/modules/authentication/presentation/mobx/getters/get_auth_provider_getter_store.dart';
 import '../../../fixtures/authentication_stack_mock_gen.mocks.dart';
 
 void main() {

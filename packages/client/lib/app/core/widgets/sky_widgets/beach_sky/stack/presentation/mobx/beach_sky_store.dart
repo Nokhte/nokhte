@@ -2,12 +2,12 @@
 // * Mobx Import
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 // * Equatable Import
-import 'package:primala/app/core/mobx/base_scheduling_widget_store.dart';
-import 'package:primala/app/core/types/types.dart';
-import 'package:primala/app/core/widgets/sky_widgets/beach_sky/stack/constants/constants.dart';
-import 'package:primala/app/core/widgets/sky_widgets/beach_sky/stack/constants/movie/sky_color_transition.dart';
+import 'package:nokhte/app/core/mobx/base_scheduling_widget_store.dart';
+import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/sky_widgets/beach_sky/stack/constants/constants.dart';
+import 'package:nokhte/app/core/widgets/sky_widgets/beach_sky/stack/constants/movie/sky_color_transition.dart';
 import 'package:simple_animations/simple_animations.dart';
 // * Mobx Codegen Inclusion
 part 'beach_sky_store.g.dart';

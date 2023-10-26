@@ -1,7 +1,7 @@
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:primala/app/core/modules/gyroscopic/data/data.dart';
-import 'package:primala/app/core/modules/gyroscopic/domain/domain.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/data/data.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/domain/domain.dart';
 
 class MGyroscopicRemoteSource extends Mock implements GyroscopicRemoteSource {}
 

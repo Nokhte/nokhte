@@ -1,14 +1,14 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
-import 'package:primala/app/core/constants/entities.dart';
-import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/mobx/base_future_store.dart';
-import 'package:primala/app/core/mobx/base_mobx_db_store.dart';
-import 'package:primala/app/core/mobx/store_state.dart';
-import 'package:primala/app/modules/home/domain/entities/name_creation_status_entity.dart';
-import 'package:primala/app/modules/home/presentation/mobx/getter/add_name_to_database_getter_store.dart';
+import 'package:nokhte/app/core/constants/entities.dart';
+import 'package:nokhte/app/core/error/failure.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mobx/base_future_store.dart';
+import 'package:nokhte/app/core/mobx/base_mobx_db_store.dart';
+import 'package:nokhte/app/core/mobx/store_state.dart';
+import 'package:nokhte/app/modules/home/domain/entities/name_creation_status_entity.dart';
+import 'package:nokhte/app/modules/home/presentation/mobx/getter/add_name_to_database_getter_store.dart';
 part 'add_name_to_database_store.g.dart';
 
 class AddNameToDatabaseStore = _AddNameToDatabaseStoreBase

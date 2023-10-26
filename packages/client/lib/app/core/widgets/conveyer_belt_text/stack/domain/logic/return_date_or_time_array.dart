@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:intl/intl.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class ReturnDateOrTimeArray extends AbstractSyncNoFailureLogic<
     ReturnDateOrTimeEntity, ReturnDateOrTimeArrayParams> {

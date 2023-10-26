@@ -4,8 +4,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:modular_test/modular_test.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 // * Primala Imports
-import 'package:primala/app/app_module.dart';
-import 'package:primala/app/core/network/network_info.dart';
+import 'package:nokhte/app/app_module.dart';
+import 'package:nokhte/app/core/network/network_info.dart';
 // * Mocks
 import './modules/_helpers/common_mocks.mocks.dart';
 

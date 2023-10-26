@@ -3,7 +3,7 @@
 // import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
-import 'package:primala/app/core/widgets/text_editor/core/mobx/base_text_editor_store.dart';
+import 'package:nokhte/app/core/widgets/text_editor/core/mobx/base_text_editor_store.dart';
 // * Mobx Codegen Inclusion
 part 'solo_text_editor_tracker_store.g.dart';
 

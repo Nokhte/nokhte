@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primala/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 
 void main() {
   late ReturnDateOrTimeArray logic;

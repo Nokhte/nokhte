@@ -1,11 +1,11 @@
-// * Primala Domain Imports
-import 'package:primala/app/modules/authentication/domain/entities/auth_provider_entity.dart';
-import 'package:primala/app/modules/authentication/domain/logic/sign_in_with_google.dart';
-import 'package:primala/app/modules/authentication/domain/logic/sign_in_with_apple.dart';
-// * Primala Core Imports
-import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/interfaces/auth_providers.dart';
-import 'package:primala/app/core/error/failure.dart';
+// * Nokhte Domain Imports
+import 'package:nokhte/app/modules/authentication/domain/entities/auth_provider_entity.dart';
+import 'package:nokhte/app/modules/authentication/domain/logic/sign_in_with_google.dart';
+import 'package:nokhte/app/modules/authentication/domain/logic/sign_in_with_apple.dart';
+// * Nokhte Core Imports
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/interfaces/auth_providers.dart';
+import 'package:nokhte/app/core/error/failure.dart';
 // * Test & Mock Imports
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';

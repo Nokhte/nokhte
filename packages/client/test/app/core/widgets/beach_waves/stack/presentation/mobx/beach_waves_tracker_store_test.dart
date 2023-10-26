@@ -1,8 +1,8 @@
 // * Testing & Mocking Libs
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primala/app/core/types/types.dart';
-import 'package:primala/app/core/widgets/beach_widgets/beach_waves/stack/presentation/mobx/beach_waves_tracker_store.dart';
-import 'package:primala/app/core/widgets/beach_widgets/shared/types/types.dart';
+import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/beach_waves/stack/presentation/mobx/beach_waves_tracker_store.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 void main() {

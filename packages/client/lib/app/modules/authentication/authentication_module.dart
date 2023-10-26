@@ -1,12 +1,12 @@
-import 'package:primala/app/core/widgets/shared/constants/svg_animation_constants.dart';
-import 'package:primala/app/core/widgets/widgets.dart';
-import 'package:primala/app/modules/authentication/domain/domain.dart';
-import 'package:primala/app/modules/authentication/data/data.dart';
-import 'package:primala/app/modules/authentication/presentation/presentation.dart';
+import 'package:nokhte/app/core/widgets/shared/constants/svg_animation_constants.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/authentication/domain/domain.dart';
+import 'package:nokhte/app/modules/authentication/data/data.dart';
+import 'package:nokhte/app/modules/authentication/presentation/presentation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:primala/app/core/network/network_info.dart';
-import 'package:primala/app/core/guards/auth_guard.dart';
+import 'package:nokhte/app/core/network/network_info.dart';
+import 'package:nokhte/app/core/guards/auth_guard.dart';
 
 class AuthenticationModule extends Module {
   @override

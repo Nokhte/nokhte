@@ -1,10 +1,10 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
-import 'package:primala/app/core/constants/entities.dart';
-import 'package:primala/app/core/mobx/mobx.dart';
-import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
-import 'package:primala/app/core/modules/collaborative_doc/domain/logic/update_commit_desire_status.dart';
-import 'package:primala/app/core/modules/collaborative_doc/presentation/presentation.dart';
+import 'package:nokhte/app/core/constants/entities.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/domain/logic/update_commit_desire_status.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/presentation/presentation.dart';
 // * Mobx Codegen Inclusion
 part 'update_commit_desire_status_store.g.dart';
 

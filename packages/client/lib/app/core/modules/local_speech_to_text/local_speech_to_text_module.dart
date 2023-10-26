@@ -1,8 +1,8 @@
-import 'package:primala/app/core/modules/local_speech_to_text/data/data.dart';
-import 'package:primala/app/core/modules/local_speech_to_text/domain/domain.dart';
-import 'package:primala/app/core/modules/local_speech_to_text/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/local_speech_to_text/data/data.dart';
+import 'package:nokhte/app/core/modules/local_speech_to_text/domain/domain.dart';
+import 'package:nokhte/app/core/modules/local_speech_to_text/mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:primala/app/core/network/network_info.dart';
+import 'package:nokhte/app/core/network/network_info.dart';
 
 class LocalSpeechToTextModule extends Module {
   @override

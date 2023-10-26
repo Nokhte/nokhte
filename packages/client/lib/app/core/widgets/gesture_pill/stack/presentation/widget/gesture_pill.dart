@@ -1,9 +1,9 @@
 // ignore_for_file: library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:path_morph/path_morph.dart';
-import 'package:primala/app/core/types/types.dart';
-import 'package:primala/app/core/widgets/gesture_pill/gesture_pill.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'canvas/gesture_cross_painter.dart';
 

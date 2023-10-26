@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:primala/app/core/constants/failure_constants.dart';
-import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/core/network/network_info.dart';
-import 'package:primala/app/core/modules/solo_doc/data/data.dart';
-import 'package:primala/app/core/modules/solo_doc/domain/domain.dart';
+import 'package:nokhte/app/core/constants/failure_constants.dart';
+import 'package:nokhte/app/core/error/failure.dart';
+import 'package:nokhte/app/core/network/network_info.dart';
+import 'package:nokhte/app/core/modules/solo_doc/data/data.dart';
+import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
 
 class SoloDocContractImpl implements SoloDocContract {
   final SoloDocRemoteSource remoteSource;

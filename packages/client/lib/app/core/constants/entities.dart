@@ -1,17 +1,17 @@
 import 'package:dartz/dartz.dart';
-import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
-import 'package:primala/app/core/modules/fetch_the_purpose/domain/domain.dart';
-import 'package:primala/app/core/modules/local_speech_to_text/constants/constants.dart';
-import 'package:primala/app/core/modules/scheduling/domain/domain.dart';
-import 'package:primala/app/modules/home/domain/entities/entities.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/entities.dart';
-import 'package:primala/app/core/modules/voice_call/domain/domain.dart';
-import 'package:primala/app/core/modules/local_speech_to_text/domain/domain.dart';
-import 'package:primala/app/core/modules/solo_doc/domain/domain.dart';
-import 'package:primala_backend/phrase_components.dart';
-import 'package:primala_backend/working_collaborative_documents.dart';
-import 'package:primala_backend/working_collaborative_scheduling.dart';
+import 'package:nokhte/app/core/error/failure.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
+import 'package:nokhte/app/core/modules/fetch_the_purpose/domain/domain.dart';
+import 'package:nokhte/app/core/modules/local_speech_to_text/constants/constants.dart';
+import 'package:nokhte/app/core/modules/scheduling/domain/domain.dart';
+import 'package:nokhte/app/modules/home/domain/entities/entities.dart';
+import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/entities/entities.dart';
+import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
+import 'package:nokhte/app/core/modules/local_speech_to_text/domain/domain.dart';
+import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
+import 'package:nokhte_backend/phrase_components.dart';
+import 'package:nokhte_backend/working_collaborative_documents.dart';
+import 'package:nokhte_backend/working_collaborative_scheduling.dart';
 
 class DefaultEntities {
   static Either<Failure, NameCreationStatusEntity>

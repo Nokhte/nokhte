@@ -1,9 +1,9 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:primala/app/core/modules/solo_doc/data/data.dart';
-import 'package:primala/app/core/modules/solo_doc/domain/domain.dart';
-import 'package:primala/app/core/modules/solo_doc/mobx/mobx.dart';
-import 'package:primala/app/core/modules/voice_call/voice_call_module.dart';
-import 'package:primala/app/core/network/network_info.dart';
+import 'package:nokhte/app/core/modules/solo_doc/data/data.dart';
+import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
+import 'package:nokhte/app/core/modules/solo_doc/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/voice_call/voice_call_module.dart';
+import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SoloDocModule extends Module {

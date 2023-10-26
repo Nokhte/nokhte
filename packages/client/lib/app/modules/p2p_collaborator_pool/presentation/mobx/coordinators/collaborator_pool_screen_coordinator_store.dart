@@ -4,10 +4,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/types/types.dart';
-import 'package:primala/app/core/widgets/widgets.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
 
 import '../../../../../core/widgets/beach_widgets/shared/types/types.dart';
 // * Mobx Codegen Inclusion

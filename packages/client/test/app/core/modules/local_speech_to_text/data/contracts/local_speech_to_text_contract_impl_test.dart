@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:primala/app/core/constants/failure_constants.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/modules/local_speech_to_text/constants/constants.dart';
-import 'package:primala/app/core/modules/local_speech_to_text/data/data.dart';
+import 'package:nokhte/app/core/constants/failure_constants.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/modules/local_speech_to_text/constants/constants.dart';
+import 'package:nokhte/app/core/modules/local_speech_to_text/data/data.dart';
 import '../../constants/constants.dart';
 import '../../fixtures/local_speech_to_text_mock_gen.mocks.dart';
 import '../../../../../modules/_module_helpers/shared_mocks_gen.mocks.dart'

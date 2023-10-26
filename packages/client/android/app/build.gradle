@@ -35,7 +35,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace 'com.primala.primala'
+    namespace 'com.nokhte.nokhte'
     compileSdkVersion flutter.compileSdkVersion 
     ndkVersion flutter.ndkVersion
 
@@ -54,7 +54,7 @@ android {
 
     defaultConfig {
         multiDexEnabled true
-        applicationId "com.primala.primala"
+        applicationId "com.nokhte.nokhte"
         manifestPlaceholders += [
         appAuthRedirectScheme: applicationId
       ]

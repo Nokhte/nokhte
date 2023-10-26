@@ -1,4 +1,4 @@
-import 'package:primala/app/core/modules/scheduling/domain/domain.dart';
+import 'package:nokhte/app/core/modules/scheduling/domain/domain.dart';
 
 class CollaboratorsChosenTimeAndDayModel
     extends CollaboratorsChosenTimeAndDayEntity {

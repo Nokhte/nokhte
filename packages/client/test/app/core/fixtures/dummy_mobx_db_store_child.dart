@@ -2,8 +2,8 @@
 // * Mobx Import
 import 'package:mobx/mobx.dart';
 // * Equatable Import
-import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/mobx/base_mobx_db_store.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mobx/base_mobx_db_store.dart';
 
 import 'dummy_entity.dart';
 // * Mobx Codegen Inclusion

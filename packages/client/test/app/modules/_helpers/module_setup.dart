@@ -2,9 +2,9 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mockito/mockito.dart';
 import 'package:modular_test/modular_test.dart';
-import 'package:primala/app/app_module.dart';
-import 'package:primala/app/core/modules/connectivity/connectivity_module.dart';
-import 'package:primala/app/core/network/network_info.dart';
+import 'package:nokhte/app/app_module.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity_module.dart';
+import 'package:nokhte/app/core/network/network_info.dart';
 import 'common_mocks.mocks.dart';
 
 class ModuleHelpers {

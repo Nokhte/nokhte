@@ -1,4 +1,4 @@
-import 'package:primala_backend/tables/real_time_enabled/shared/shared.dart';
+import 'package:nokhte_backend/tables/real_time_enabled/shared/shared.dart';
 
 class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
   static const tableName = 'working_collaborative_documents';

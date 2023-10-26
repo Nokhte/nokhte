@@ -2,12 +2,12 @@
 
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
-import 'package:primala/app/core/modules/local_speech_to_text/data/data.dart';
-import 'package:primala/app/core/modules/local_speech_to_text/domain/domain.dart';
-import 'package:primala/app/core/modules/local_speech_to_text/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/local_speech_to_text/data/data.dart';
+import 'package:nokhte/app/core/modules/local_speech_to_text/domain/domain.dart';
+import 'package:nokhte/app/core/modules/local_speech_to_text/mobx/mobx.dart';
 
-// class MLocalSpeechToTextRemoteSourceImpl extends Mock
-//     implements LocalSpeechToTextRemoteSourceImpl {}
+class MLocalSpeechToTextRemoteSourceImpl extends Mock
+    implements LocalSpeechToTextRemoteSourceImpl {}
 
 class MLocalSpeechToTextContract extends Mock
     implements LocalSpeechToTextContract {}
@@ -20,6 +20,9 @@ class MStopRecording extends Mock implements StopRecording {}
 
 class MInitLeopardGetterStore extends Mock implements InitLeopardGetterStore {}
 
+// class MLocalSpeechToTextRemoteSourceImpl extends Mock
+//     implements LocalSpeechToTextRemoteSourceImpl {}
+
 class MStartRecordingGetterStore extends Mock
     implements StartRecordingGetterStore {}
 
@@ -28,6 +31,7 @@ class MStopRecordingGetterStore extends Mock
 
 @GenerateMocks([
   // MLocalSpeechToTextRemoteSourceImpl,
+  MLocalSpeechToTextRemoteSourceImpl,
   MLocalSpeechToTextContract,
   MInitLeopard,
   MStopRecording,

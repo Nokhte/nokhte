@@ -1,6 +1,6 @@
-import 'package:primala/app/core/constants/entities.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/entities.dart';
-import 'package:primala_backend/phrase_components.dart';
+import 'package:nokhte/app/core/constants/entities.dart';
+import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/entities/entities.dart';
+import 'package:nokhte_backend/phrase_components.dart';
 
 class CollaboratorPhraseValidationModel
     extends CollaboratorPhraseValidationEntity {

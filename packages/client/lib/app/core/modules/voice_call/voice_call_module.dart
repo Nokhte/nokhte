@@ -1,9 +1,9 @@
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:primala/app/core/network/network_info.dart';
-import 'package:primala/app/core/modules/voice_call/data/data.dart';
-import 'package:primala/app/core/modules/voice_call/domain/domain.dart';
-import 'package:primala/app/core/modules/voice_call/mobx/mobx.dart';
+import 'package:nokhte/app/core/network/network_info.dart';
+import 'package:nokhte/app/core/modules/voice_call/data/data.dart';
+import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
+import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class VoiceCallModule extends Module {

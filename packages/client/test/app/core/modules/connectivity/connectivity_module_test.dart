@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:primala/app/core/modules/connectivity/connectivity_module.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity_module.dart';
 import './connectivity_module.mocks.dart';
 import 'package:modular_test/modular_test.dart';
 import 'package:flutter_modular/flutter_modular.dart';

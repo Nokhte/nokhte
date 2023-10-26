@@ -3,9 +3,9 @@
 
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
-import 'package:primala/app/core/modules/voice_call/data/data.dart';
-import 'package:primala/app/core/modules/voice_call/domain/domain.dart';
-import 'package:primala/app/core/modules/voice_call/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/voice_call/data/data.dart';
+import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
+import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 
 class MVoiceCallRemoteSourceImpl extends Mock
     implements VoiceCallRemoteSourceImpl {}

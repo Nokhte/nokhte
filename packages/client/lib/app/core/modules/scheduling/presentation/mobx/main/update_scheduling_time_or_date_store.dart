@@ -1,9 +1,9 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
-import 'package:primala/app/core/constants/entities.dart';
-import 'package:primala/app/core/mobx/mobx.dart';
-import 'package:primala/app/core/modules/scheduling/domain/domain.dart';
-import 'package:primala/app/core/modules/scheduling/presentation/presentation.dart';
+import 'package:nokhte/app/core/constants/entities.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/scheduling/domain/domain.dart';
+import 'package:nokhte/app/core/modules/scheduling/presentation/presentation.dart';
 // * Mobx Codegen Inclusion
 part 'update_scheduling_time_or_date_store.g.dart';
 

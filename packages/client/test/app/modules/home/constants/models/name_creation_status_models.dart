@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/modules/home/data/models/name_creation_status_model.dart';
+import 'package:nokhte/app/core/error/failure.dart';
+import 'package:nokhte/app/modules/home/data/models/name_creation_status_model.dart';
 
 class ConstantNameCreationStatusModels {
   static NameCreationStatusModel get successCase =>

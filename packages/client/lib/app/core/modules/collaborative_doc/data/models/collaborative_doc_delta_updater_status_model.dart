@@ -1,4 +1,4 @@
-import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
 
 class CollaborativeDocDeltaUpdaterStatusModel
     extends CollaborativeDocDeltaUpdaterStatusEntity {

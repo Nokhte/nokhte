@@ -1,4 +1,4 @@
-import 'package:primala_backend/working_collaborative_documents.dart';
+import 'package:nokhte_backend/working_collaborative_documents.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class CollaborativeDocRemoteSource {

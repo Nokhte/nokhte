@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:primala/app/core/constants/failure_constants.dart';
-import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/core/network/network_info.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/data/data.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/domain/domain.dart';
-import 'package:primala_backend/phrase_components.dart';
+import 'package:nokhte/app/core/constants/failure_constants.dart';
+import 'package:nokhte/app/core/error/failure.dart';
+import 'package:nokhte/app/core/network/network_info.dart';
+import 'package:nokhte/app/modules/p2p_collaborator_pool/data/data.dart';
+import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/domain.dart';
+import 'package:nokhte_backend/phrase_components.dart';
 
 class P2PCollaboratorPoolContractImpl implements P2PCollaboratorPoolContract {
   final P2PCollaboratorPoolRemoteSource remoteSource;

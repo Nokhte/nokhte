@@ -1,9 +1,9 @@
 // * Testing & Mocking Libs
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/modules/authentication/domain/entities/auth_state_entity.dart';
-import 'package:primala/app/modules/authentication/presentation/mobx/getters/get_auth_state_getter_store.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/modules/authentication/domain/entities/auth_state_entity.dart';
+import 'package:nokhte/app/modules/authentication/presentation/mobx/getters/get_auth_state_getter_store.dart';
 import '../../../fixtures/authentication_stack_mock_gen.mocks.dart';
 
 void main() {

@@ -3,10 +3,9 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/types/types.dart';
-import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
 import 'package:clipboard/clipboard.dart';
-import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/types/rotating_text_data.dart';
+import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/widget_constants.dart';
 // * Mobx Codegen Inclusion
 part 'smart_fading_animated_text_tracker_store.g.dart';
 

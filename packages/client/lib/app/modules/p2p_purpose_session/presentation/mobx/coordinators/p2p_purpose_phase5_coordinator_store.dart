@@ -6,15 +6,15 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
-import 'package:primala/app/core/modules/collaborative_doc/domain/logic/update_commit_desire_status.dart';
-import 'package:primala/app/core/modules/collaborative_doc/presentation/presentation.dart';
-import 'package:primala/app/core/modules/voice_call/domain/domain.dart';
-import 'package:primala/app/core/modules/voice_call/mobx/mobx.dart';
-import 'package:primala/app/core/types/types.dart';
-import 'package:primala/app/core/widgets/widgets.dart';
-import 'package:primala_backend/working_collaborative_documents.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/domain/logic/update_commit_desire_status.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
+import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
+import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte_backend/working_collaborative_documents.dart';
 import 'package:simple_animations/simple_animations.dart';
 // * Mobx Codegen Inclusion
 part 'p2p_purpose_phase5_coordinator_store.g.dart';

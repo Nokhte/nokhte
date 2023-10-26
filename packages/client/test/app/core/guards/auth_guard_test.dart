@@ -7,7 +7,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 // * fixture
 import '../../modules/authentication/fixtures/supabase_module_auth_fixture.dart';
 // * guard import
-import 'package:primala/app/core/guards/auth_guard.dart';
+import 'package:nokhte/app/core/guards/auth_guard.dart';
 // * mock
 import './auth_guard_test.mocks.dart';
 

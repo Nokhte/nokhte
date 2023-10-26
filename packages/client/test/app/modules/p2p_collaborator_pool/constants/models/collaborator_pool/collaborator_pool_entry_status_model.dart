@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/data/models/models.dart';
+import 'package:nokhte/app/core/error/failure.dart';
+import 'package:nokhte/app/modules/p2p_collaborator_pool/data/models/models.dart';
 
 class ConstantCollaboratorPoolEntryStatusModel {
   static CollaboratorPoolEntryStatusModel get successCase =>

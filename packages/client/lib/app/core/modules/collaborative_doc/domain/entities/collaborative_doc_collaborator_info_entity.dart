@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:primala_backend/working_collaborative_documents.dart';
+import 'package:nokhte_backend/working_collaborative_documents.dart';
 
 class CollaborativeDocCollaboratorInfoEntity extends Equatable {
   final Stream<CollaboratorDocInfo> collaboratorDocInfo;

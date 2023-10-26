@@ -1,11 +1,11 @@
-// import 'package:primala/app/modules/p2p_purpose_session/domain/logic/logic.dart';
+// import 'package:nokhte/app/modules/p2p_purpose_session/domain/logic/logic.dart';
 
 import 'package:http/http.dart';
-import 'package:primala/app/core/utilities/utilities.dart';
-import 'package:primala/app/core/modules/voice_call/mobx/mobx.dart';
+import 'package:nokhte/app/core/utilities/utilities.dart';
+import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:primala_backend/token_server.dart';
-import 'package:primala_backend/existing_collaborations.dart';
+import 'package:nokhte_backend/token_server.dart';
+import 'package:nokhte_backend/existing_collaborations.dart';
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 
 abstract class VoiceCallRemoteSource {

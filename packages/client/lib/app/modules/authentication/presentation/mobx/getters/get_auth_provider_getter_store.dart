@@ -5,12 +5,12 @@ import 'package:equatable/equatable.dart';
 import 'package:mobx/mobx.dart';
 // * Type Imports Import
 import 'package:dartz/dartz.dart';
-import 'package:primala/app/core/interfaces/auth_providers.dart';
-import 'package:primala/app/modules/authentication/domain/domain.dart';
+import 'package:nokhte/app/core/interfaces/auth_providers.dart';
+import 'package:nokhte/app/modules/authentication/domain/domain.dart';
 // * Core imports
-import 'package:primala/app/core/mobx/store_state.dart';
-import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mobx/store_state.dart';
+import 'package:nokhte/app/core/error/failure.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 // * Mobx Codegen Import
 part 'get_auth_provider_getter_store.g.dart';
 

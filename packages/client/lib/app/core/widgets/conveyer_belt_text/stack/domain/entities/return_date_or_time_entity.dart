@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class ReturnDateOrTimeEntity extends Equatable {
   final List<GeneralDateTimeReturnType> dateOrTimeList;

@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:primala/app/core/constants/failure_constants.dart';
-import 'package:primala/app/core/modules/voice_call/data/data.dart';
+import 'package:nokhte/app/core/constants/failure_constants.dart';
+import 'package:nokhte/app/core/modules/voice_call/data/data.dart';
 import '../../../../../modules/_module_helpers/shared_mocks_gen.mocks.dart';
 import '../../constants/models/models.dart';
 import '../../fixtures/voice_call_mock_gen.mocks.dart';

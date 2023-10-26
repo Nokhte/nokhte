@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primala/app/core/types/types.dart';
-import 'package:primala/app/core/widgets/beach_widgets/beach_waves/stack/utils/time_allocator.dart';
-import 'package:primala/app/core/widgets/beach_widgets/shared/types/types.dart';
+import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/beach_waves/stack/utils/time_allocator.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
 
 void main() {
   test("generateDurations works as expected with a few inputs", () {

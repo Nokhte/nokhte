@@ -1,4 +1,4 @@
-import 'package:primala/app/modules/home/domain/entities/name_creation_status_entity.dart';
+import 'package:nokhte/app/modules/home/domain/entities/name_creation_status_entity.dart';
 
 class NameCreationStatusModel extends NameCreationStatusEntity {
   const NameCreationStatusModel({required bool isSent}) : super(isSent: isSent);

@@ -4,8 +4,8 @@ import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
+import 'package:nokhte/app/core/error/failure.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
 // * Mobx Codegen Inclusion
 part 'update_user_delta_getter_store.g.dart';
 

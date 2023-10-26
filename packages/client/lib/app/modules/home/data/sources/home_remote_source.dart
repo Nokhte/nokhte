@@ -1,6 +1,6 @@
-import 'package:primala/app/core/utilities/misc_algos.dart';
-import 'package:primala_backend/user_names.dart';
-import 'package:primala_backend/collaborator_phrases.dart';
+import 'package:nokhte/app/core/utilities/misc_algos.dart';
+import 'package:nokhte_backend/user_names.dart';
+import 'package:nokhte_backend/collaborator_phrases.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class HomeRemoteSource {

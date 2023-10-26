@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
-import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/presentation/mobx/smart_fading_animated_text_tracker_store.dart';
+import 'package:nokhte/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
+import 'package:nokhte/app/core/widgets/smart_fading_animated_text/stack/presentation/mobx/smart_fading_animated_text_tracker_store.dart';
 
 class SmartFadingAnimatedText extends StatefulWidget {
   final SmartFadingAnimatedTextTrackerStore stateTrackerStore;

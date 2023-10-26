@@ -1,9 +1,9 @@
 // ignore_for_file: file_names
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primala_backend/user_names.dart';
+import 'package:nokhte_backend/user_names.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:primala_backend/constants/constants.dart';
+import 'package:nokhte_backend/constants/constants.dart';
 
 /// @dev: run this one first as all subsequent tests are dependent on the
 /// @ code that is run the `teardownAll` block

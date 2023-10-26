@@ -2,10 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 // import 'package:primala/app/core/types/types.dart';
-import 'package:primala/app/core/widgets/beach_widgets/beach_waves/stack/utils/get_current_water_animation.dart';
-import '../../../../shared/types/types.dart';
-import '../mobx/beach_waves_tracker_store.dart';
 import 'canvas/beach_waves_painter.dart';
 import 'package:simple_animations/simple_animations.dart';
 

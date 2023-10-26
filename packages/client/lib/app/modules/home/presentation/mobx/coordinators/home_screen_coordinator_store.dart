@@ -5,12 +5,12 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/modules/gyroscopic/presentation/presentation.dart';
-// import 'package:primala/app/core/modules/gyroscopic/types/types.dart';
-import 'package:primala/app/core/types/types.dart';
-import 'package:primala/app/core/widgets/widgets.dart';
-import 'package:primala/app/modules/home/presentation/mobx/main/main.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
+// import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
+import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/home/presentation/mobx/main/main.dart';
 
 // * Mobx Codegen Inclusion
 part 'home_screen_coordinator_store.g.dart';

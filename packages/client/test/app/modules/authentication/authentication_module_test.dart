@@ -4,20 +4,20 @@ import 'package:mockito/mockito.dart';
 import 'package:modular_test/modular_test.dart';
 // * 3rd Party Libs
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:primala/app/core/constants/failure_constants.dart';
+import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 // * App Module
-import 'package:primala/app/app_module.dart';
+import 'package:nokhte/app/app_module.dart';
 // * Core
-import 'package:primala/app/core/interfaces/auth_providers.dart';
-import 'package:primala/app/core/modules/connectivity/connectivity_module.dart';
-import 'package:primala/app/core/network/network_info.dart';
+import 'package:nokhte/app/core/interfaces/auth_providers.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity_module.dart';
+import 'package:nokhte/app/core/network/network_info.dart';
 // * Auth Module
-import 'package:primala/app/modules/authentication/authentication_module.dart';
+import 'package:nokhte/app/modules/authentication/authentication_module.dart';
 // * Main Mobx Stores
-import 'package:primala/app/modules/authentication/presentation/mobx/main/auth_provider_store.dart';
-import 'package:primala/app/modules/authentication/presentation/mobx/main/auth_state_store.dart';
+import 'package:nokhte/app/modules/authentication/presentation/mobx/main/auth_provider_store.dart';
+import 'package:nokhte/app/modules/authentication/presentation/mobx/main/auth_state_store.dart';
 // * Local Mocks
 import 'fixtures/supabase_module_auth_fixture.dart';
 import '../_module_helpers/module_mock_gen.mocks.dart';

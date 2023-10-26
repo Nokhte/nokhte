@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
+import 'package:nokhte/app/core/widgets/widget_constants.dart';
 
 class RotatingTextData extends Equatable {
   String mainMessage;

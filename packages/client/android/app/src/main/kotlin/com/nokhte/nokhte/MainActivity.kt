@@ -1,4 +1,4 @@
-package com.primala.primala
+package com.nokhte.nokhte
 
 import io.flutter.embedding.android.FlutterActivity
 

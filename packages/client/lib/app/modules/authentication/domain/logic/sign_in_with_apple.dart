@@ -1,7 +1,7 @@
-import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/error/failure.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:dartz/dartz.dart';
-import 'package:primala/app/modules/authentication/domain/domain.dart';
+import 'package:nokhte/app/modules/authentication/domain/domain.dart';
 
 class SignInWithApple
     extends AbstractFutureLogic<AuthProviderEntity, NoParams> {

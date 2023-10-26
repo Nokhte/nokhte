@@ -2,15 +2,15 @@
 import 'package:flutter_test/flutter_test.dart';
 // * mocking lib
 import 'package:mockito/mockito.dart';
-import 'package:primala/app/core/constants/failure_constants.dart';
-import 'package:primala/app/core/error/exceptions.dart';
-import 'package:primala/app/core/error/failure.dart';
-// * primala data imports
-import 'package:primala/app/modules/authentication/data/contracts/authentication_contract_impl.dart';
-import 'package:primala/app/modules/authentication/data/models/auth_provider_model.dart';
-import 'package:primala/app/modules/authentication/data/models/auth_state_model.dart';
-// * primala core imports
-import 'package:primala/app/core/interfaces/auth_providers.dart';
+import 'package:nokhte/app/core/constants/failure_constants.dart';
+import 'package:nokhte/app/core/error/exceptions.dart';
+import 'package:nokhte/app/core/error/failure.dart';
+// * nokhte data imports
+import 'package:nokhte/app/modules/authentication/data/contracts/authentication_contract_impl.dart';
+import 'package:nokhte/app/modules/authentication/data/models/auth_provider_model.dart';
+import 'package:nokhte/app/modules/authentication/data/models/auth_state_model.dart';
+// * nokhte core imports
+import 'package:nokhte/app/core/interfaces/auth_providers.dart';
 // * mock import
 import '../../fixtures/authentication_stack_mock_gen.mocks.dart';
 import '../../../_module_helpers/shared_mocks_gen.mocks.dart'

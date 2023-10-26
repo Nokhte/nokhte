@@ -1,2 +1,2 @@
 # json_key_file("../_secrets/pc-api-7330259790296996622-184-c6708d3d9fed.json") # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
-package_name("com.primala.primala") # e.g. com.krausefx.app
+package_name("com.nokhte.nokhte") # e.g. com.krausefx.app

@@ -1,5 +1,5 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:primala_backend/constants/types/default_stream_class.dart';
+import 'package:nokhte_backend/constants/types/default_stream_class.dart';
 
 class ExistingCollaborationsStream extends DefaultStreamClass {
   Stream<bool> notifyWhenForged({

@@ -1,11 +1,11 @@
-// * Primala Domain Imports
-import 'package:primala/app/modules/authentication/domain/entities/auth_state_entity.dart';
-import 'package:primala/app/modules/authentication/domain/logic/get_auth_state.dart';
+// * Nokhte Domain Imports
+import 'package:nokhte/app/modules/authentication/domain/entities/auth_state_entity.dart';
+import 'package:nokhte/app/modules/authentication/domain/logic/get_auth_state.dart';
 // * Test-Specific Imports
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-// * Primala Core Imports
-import 'package:primala/app/core/interfaces/logic.dart';
+// * Nokhte Core Imports
+import 'package:nokhte/app/core/interfaces/logic.dart';
 // * mocks
 import '../../fixtures/authentication_stack_mock_gen.mocks.dart';
 

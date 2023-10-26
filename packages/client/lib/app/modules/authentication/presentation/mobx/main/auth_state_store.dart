@@ -5,7 +5,7 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 // * Primala Imports
-import 'package:primala/app/modules/authentication/presentation/mobx/getters/get_auth_state_getter_store.dart';
+import 'package:nokhte/app/modules/authentication/presentation/mobx/getters/get_auth_state_getter_store.dart';
 // * Mobx Codegen Inclusion
 part 'auth_state_store.g.dart';
 

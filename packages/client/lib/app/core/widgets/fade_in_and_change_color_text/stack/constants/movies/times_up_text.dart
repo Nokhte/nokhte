@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:primala/app/core/types/types.dart';
-import 'package:primala/app/core/widgets/fade_in_and_change_color_text/stack/constants/data/colors.dart';
+import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/fade_in_and_change_color_text/stack/constants/data/colors.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class TimesUpText extends Equatable {

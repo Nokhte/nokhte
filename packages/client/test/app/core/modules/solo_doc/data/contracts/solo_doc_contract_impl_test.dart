@@ -2,10 +2,9 @@
 import 'package:flutter_test/flutter_test.dart';
 // * mocking lib
 import 'package:mockito/mockito.dart';
-import 'package:primala/app/core/constants/failure_constants.dart';
-// * primala core imports
-import 'package:primala/app/core/modules/solo_doc/data/data.dart';
-import 'package:primala/app/core/modules/solo_doc/domain/domain.dart';
+import 'package:nokhte/app/core/constants/failure_constants.dart';
+import 'package:nokhte/app/core/modules/solo_doc/data/data.dart';
+import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
 // * mock import
 import '../../../../../modules/_module_helpers/shared_mocks_gen.mocks.dart'
     show MockMNetworkInfo;

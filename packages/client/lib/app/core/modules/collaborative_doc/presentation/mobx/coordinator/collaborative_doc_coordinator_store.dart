@@ -3,7 +3,7 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/modules/collaborative_doc/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/presentation/presentation.dart';
 // * Mobx Codegen Inclusion
 part 'collaborative_doc_coordinator_store.g.dart';
 

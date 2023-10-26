@@ -4,13 +4,12 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/modules/solo_doc/domain/domain.dart';
-import 'package:primala/app/core/modules/solo_doc/mobx/mobx.dart';
-import 'package:primala/app/core/types/types.dart';
-import 'package:primala/app/core/widgets/beach_widgets/shared/types/types.dart';
-import 'package:primala/app/core/widgets/mobx.dart';
-import 'package:primala/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
+import 'package:nokhte/app/core/modules/solo_doc/mobx/mobx.dart';
+import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
+import 'package:nokhte/app/core/widgets/mobx.dart';
 // * Mobx Codegen Inclusion
 part 'p2p_purpose_phase3_coordinator_store.g.dart';
 

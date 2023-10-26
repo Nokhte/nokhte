@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/data/models/models.dart';
+import 'package:nokhte/app/modules/p2p_collaborator_pool/data/models/models.dart';
 import '../../constants/models/models.dart';
 import '../../constants/responses/function_responses.dart';
 

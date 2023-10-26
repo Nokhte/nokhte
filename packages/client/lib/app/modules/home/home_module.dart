@@ -1,17 +1,17 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:primala/app/core/modules/gyroscopic/gyroscopic_module.dart';
-import 'package:primala/app/core/modules/gyroscopic/presentation/presentation.dart';
-import 'package:primala/app/core/network/network_info.dart';
-import 'package:primala/app/core/widgets/shared/constants/svg_animation_constants.dart';
-import 'package:primala/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
-import 'package:primala/app/core/widgets/widgets.dart';
-import 'package:primala/app/modules/home/data/contracts/home_contract_impl.dart';
-import 'package:primala/app/modules/home/data/sources/home_remote_source.dart';
-import 'package:primala/app/modules/home/domain/contracts/home_contract.dart';
-import 'package:primala/app/modules/home/domain/logic/logic.dart';
-import 'package:primala/app/modules/home/presentation/mobx/coordinators/home_screen_coordinator_store.dart';
-import 'package:primala/app/modules/home/presentation/mobx/mobx.dart';
-import 'package:primala/app/modules/home/presentation/screens/home_screen.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic_module.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
+import 'package:nokhte/app/core/network/network_info.dart';
+import 'package:nokhte/app/core/widgets/shared/constants/svg_animation_constants.dart';
+import 'package:nokhte/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/home/data/contracts/home_contract_impl.dart';
+import 'package:nokhte/app/modules/home/data/sources/home_remote_source.dart';
+import 'package:nokhte/app/modules/home/domain/contracts/home_contract.dart';
+import 'package:nokhte/app/modules/home/domain/logic/logic.dart';
+import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/home_screen_coordinator_store.dart';
+import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
+import 'package:nokhte/app/modules/home/presentation/screens/home_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HomeModule extends Module {

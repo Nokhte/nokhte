@@ -1,19 +1,19 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:primala/app/core/modules/collaborative_doc/collaborative_doc_module.dart';
-import 'package:primala/app/core/modules/collaborative_doc/presentation/presentation.dart';
-import 'package:primala/app/core/modules/gyroscopic/gyroscopic_module.dart';
-import 'package:primala/app/core/modules/gyroscopic/presentation/presentation.dart';
-import 'package:primala/app/core/modules/scheduling/presentation/presentation.dart';
-import 'package:primala/app/core/modules/scheduling/scheduling_module.dart';
-import 'package:primala/app/core/modules/solo_doc/mobx/mobx.dart';
-import 'package:primala/app/core/modules/solo_doc/solo_doc_module.dart';
-import 'package:primala/app/core/modules/voice_call/mobx/mobx.dart';
-import 'package:primala/app/core/modules/voice_call/voice_call_module.dart';
-import 'package:primala/app/core/widgets/mobx.dart';
-import 'package:primala/app/core/widgets/scheduling_delta/stack/stack.dart';
-import 'package:primala/app/core/widgets/shared/constants/svg_animation_constants.dart';
-import 'package:primala/app/core/widgets/widget_constants.dart';
-import 'package:primala/app/modules/p2p_purpose_session/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/collaborative_doc_module.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic_module.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/scheduling/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/scheduling/scheduling_module.dart';
+import 'package:nokhte/app/core/modules/solo_doc/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/solo_doc/solo_doc_module.dart';
+import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/voice_call/voice_call_module.dart';
+import 'package:nokhte/app/core/widgets/mobx.dart';
+import 'package:nokhte/app/core/widgets/scheduling_delta/stack/stack.dart';
+import 'package:nokhte/app/core/widgets/shared/constants/svg_animation_constants.dart';
+import 'package:nokhte/app/core/widgets/widget_constants.dart';
+import 'package:nokhte/app/modules/p2p_purpose_session/presentation/presentation.dart';
 
 import '../../core/widgets/widgets.dart';
 

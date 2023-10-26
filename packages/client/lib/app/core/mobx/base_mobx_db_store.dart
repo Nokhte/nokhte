@@ -4,9 +4,9 @@ import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/constants/failure_constants.dart';
-import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/core/mobx/store_state.dart';
+import 'package:nokhte/app/core/constants/failure_constants.dart';
+import 'package:nokhte/app/core/error/failure.dart';
+import 'package:nokhte/app/core/mobx/store_state.dart';
 // * Mobx Codegen Inclusion
 part 'base_mobx_db_store.g.dart';
 

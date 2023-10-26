@@ -1,4 +1,4 @@
-import 'package:primala/app/core/modules/gyroscopic/types/types.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
 
 class QuadrantLists {
   static List<QuadrantInfo> get dayList => [

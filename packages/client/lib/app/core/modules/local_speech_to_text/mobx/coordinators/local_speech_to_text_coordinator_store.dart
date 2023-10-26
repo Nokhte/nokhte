@@ -3,7 +3,7 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/modules/local_speech_to_text/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/local_speech_to_text/mobx/mobx.dart';
 // * Mobx Codegen Inclusion
 part 'local_speech_to_text_coordinator_store.g.dart';
 

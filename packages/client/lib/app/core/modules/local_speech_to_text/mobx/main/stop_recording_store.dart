@@ -1,10 +1,10 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
-import 'package:primala/app/core/constants/entities.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/mobx/mobx.dart';
-import 'package:primala/app/core/modules/local_speech_to_text/domain/domain.dart';
-import 'package:primala/app/core/modules/local_speech_to_text/mobx/mobx.dart';
+import 'package:nokhte/app/core/constants/entities.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/local_speech_to_text/domain/domain.dart';
+import 'package:nokhte/app/core/modules/local_speech_to_text/mobx/mobx.dart';
 // * Mobx Codegen Inclusion
 part 'stop_recording_store.g.dart';
 

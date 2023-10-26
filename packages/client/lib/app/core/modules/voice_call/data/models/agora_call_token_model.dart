@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart';
-import 'package:primala/app/core/modules/voice_call/domain/domain.dart';
+import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 
 class AgoraCallTokenModel extends AgoraCallTokenEntity {
   const AgoraCallTokenModel({

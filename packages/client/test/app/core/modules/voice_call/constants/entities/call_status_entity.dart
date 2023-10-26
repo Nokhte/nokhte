@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/core/types/types.dart';
-import 'package:primala/app/core/modules/voice_call/domain/domain.dart';
+import 'package:nokhte/app/core/error/failure.dart';
+import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 
 class ConstantCallStatusEntity {
   static CallStatusEntity get joinedCase =>

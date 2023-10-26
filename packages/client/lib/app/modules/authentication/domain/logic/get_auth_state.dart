@@ -1,7 +1,7 @@
 // * Primala Domain Imports
-import 'package:primala/app/modules/authentication/domain/domain.dart';
+import 'package:nokhte/app/modules/authentication/domain/domain.dart';
 // * Primala Core Imports
-import 'package:primala/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 
 class GetAuthState
     extends AbstractSyncNoFailureLogic<AuthStateEntity, NoParams> {

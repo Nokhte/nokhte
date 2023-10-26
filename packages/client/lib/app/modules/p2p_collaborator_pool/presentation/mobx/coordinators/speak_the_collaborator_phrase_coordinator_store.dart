@@ -5,15 +5,15 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/types/types.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:primala/app/core/widgets/beach_widgets/shared/types/types.dart';
-import 'package:primala/app/core/widgets/widget_constants.dart';
-import 'package:primala/app/core/widgets/widgets.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/domain/domain.dart';
-import 'package:primala/app/core/modules/local_speech_to_text/mobx/mobx.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/main/main.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
+import 'package:nokhte/app/core/widgets/widget_constants.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/domain.dart';
+import 'package:nokhte/app/core/modules/local_speech_to_text/mobx/mobx.dart';
+import 'package:nokhte/app/modules/p2p_collaborator_pool/presentation/mobx/main/main.dart';
 
 import 'widget_coordinator_store.dart';
 // * Mobx Codegen Inclusion

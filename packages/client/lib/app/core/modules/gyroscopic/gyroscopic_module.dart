@@ -1,10 +1,10 @@
-import 'package:primala/app/core/modules/gyroscopic/data/data.dart';
-import 'package:primala/app/core/modules/gyroscopic/domain/domain.dart';
-import 'package:primala/app/core/modules/gyroscopic/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/data/data.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/domain/domain.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
 // * 3rd Parties
 import 'package:flutter_modular/flutter_modular.dart';
 //    * Core Imports
-import 'package:primala/app/core/network/network_info.dart';
+import 'package:nokhte/app/core/network/network_info.dart';
 // ***************************************************
 
 class GyroscopicModule extends Module {

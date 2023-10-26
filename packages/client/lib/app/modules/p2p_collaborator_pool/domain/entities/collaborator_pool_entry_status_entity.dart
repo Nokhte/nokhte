@@ -1,4 +1,4 @@
-import 'package:primala/app/core/entities/default_db_status_entity.dart';
+import 'package:nokhte/app/core/entities/default_db_status_entity.dart';
 
 class CollaboratorPoolEntryStatusEntity extends DefaultDBStatusEntity {
   const CollaboratorPoolEntryStatusEntity({required hasEntered})

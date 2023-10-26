@@ -1,16 +1,16 @@
 // * 3rd Party Libs
 import 'package:dartz/dartz.dart';
-import 'package:primala/app/core/constants/failure_constants.dart';
-import 'package:primala/app/modules/home/data/models/models.dart';
-import 'package:primala/app/modules/home/data/sources/home_remote_source.dart';
+import 'package:nokhte/app/core/constants/failure_constants.dart';
+import 'package:nokhte/app/modules/home/data/models/models.dart';
+import 'package:nokhte/app/modules/home/data/sources/home_remote_source.dart';
 // * Domain Imports
-import 'package:primala/app/modules/home/domain/contracts/home_contract.dart';
+import 'package:nokhte/app/modules/home/domain/contracts/home_contract.dart';
 // * Core Imports
-import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/core/network/network_info.dart';
-import 'package:primala/app/modules/home/domain/entities/collaborator_phrase_entity.dart';
+import 'package:nokhte/app/core/error/failure.dart';
+import 'package:nokhte/app/core/network/network_info.dart';
+import 'package:nokhte/app/modules/home/domain/entities/collaborator_phrase_entity.dart';
 // * Data Source Imports
-import 'package:primala/app/modules/home/domain/entities/name_creation_status_entity.dart';
+import 'package:nokhte/app/modules/home/domain/entities/name_creation_status_entity.dart';
 
 class HomeContractImpl implements HomeContract {
   final HomeRemoteSource remoteSource;

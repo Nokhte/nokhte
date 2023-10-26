@@ -1,4 +1,4 @@
-import 'package:primala/app/core/modules/fetch_the_purpose/domain/entities/entities.dart';
+import 'package:nokhte/app/core/modules/fetch_the_purpose/domain/entities/entities.dart';
 
 class CollectivePurposeModel extends CollectivePurposeEntity {
   const CollectivePurposeModel({required super.thePurpose});

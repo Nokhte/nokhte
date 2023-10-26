@@ -1,14 +1,14 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // * Mobx Import
 import 'package:mobx/mobx.dart';
-import 'package:primala/app/core/constants/entities.dart';
+import 'package:nokhte/app/core/constants/entities.dart';
 // * Equatable Import
-import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/mobx/base_future_store.dart';
-import 'package:primala/app/core/mobx/base_mobx_db_store.dart';
-import 'package:primala/app/core/mobx/store_state.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/domain/entities/entities.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/presentation/mobx/getters/getters.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mobx/base_future_store.dart';
+import 'package:nokhte/app/core/mobx/base_mobx_db_store.dart';
+import 'package:nokhte/app/core/mobx/store_state.dart';
+import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/entities/entities.dart';
+import 'package:nokhte/app/modules/p2p_collaborator_pool/presentation/mobx/getters/getters.dart';
 // * Mobx Codegen Inclusion
 part 'exit_collaborator_pool_store.g.dart';
 

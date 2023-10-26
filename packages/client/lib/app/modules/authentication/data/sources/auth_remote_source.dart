@@ -1,8 +1,8 @@
-import 'package:primala/app/modules/authentication/data/models/models.dart';
-import 'package:primala/app/core/interfaces/auth_providers.dart';
+import 'package:nokhte/app/modules/authentication/data/models/models.dart';
+import 'package:nokhte/app/core/interfaces/auth_providers.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter/foundation.dart';
-import 'package:primala/app/core/utilities/misc_algos.dart';
+import 'package:nokhte/app/core/utilities/misc_algos.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';

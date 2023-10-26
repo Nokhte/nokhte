@@ -6,14 +6,14 @@ import 'package:const_date_time/const_date_time.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/modules/gyroscopic/presentation/presentation.dart';
-import 'package:primala/app/core/modules/gyroscopic/types/types.dart';
-import 'package:primala/app/core/modules/scheduling/domain/domain.dart';
-import 'package:primala/app/core/modules/scheduling/presentation/presentation.dart';
-import 'package:primala/app/core/types/types.dart';
-import 'package:primala/app/core/widgets/scheduling_delta/stack/stack.dart';
-import 'package:primala/app/core/widgets/widgets.dart';
-import 'package:primala/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
+import 'package:nokhte/app/core/modules/scheduling/domain/domain.dart';
+import 'package:nokhte/app/core/modules/scheduling/presentation/presentation.dart';
+import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/scheduling_delta/stack/stack.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 // * Mobx Codegen Inclusion
 part 'p2p_purpose_phase6_coordinator_store.g.dart';
 

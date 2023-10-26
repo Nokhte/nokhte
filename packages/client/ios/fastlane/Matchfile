@@ -1,4 +1,4 @@
-gitlab_project("primala/primala_core")
+gitlab_project("nokhte/nokhte")
 # gitlab_host("")
 
 storage_mode("gitlab_secure_files")

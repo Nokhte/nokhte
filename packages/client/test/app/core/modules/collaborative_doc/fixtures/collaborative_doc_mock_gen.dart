@@ -3,9 +3,9 @@
 
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
-import 'package:primala/app/core/modules/collaborative_doc/data/sources/collaborative_doc_remote_source.dart';
-import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
-import 'package:primala/app/core/modules/collaborative_doc/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/data/sources/collaborative_doc_remote_source.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/presentation/presentation.dart';
 
 class MCollaborativeDocRemoteSource extends Mock
     implements CollaborativeDocRemoteSource {}

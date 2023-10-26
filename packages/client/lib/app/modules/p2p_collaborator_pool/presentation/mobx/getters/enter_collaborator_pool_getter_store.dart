@@ -4,9 +4,9 @@ import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/domain/domain.dart';
-import 'package:primala_backend/constants/types/types.dart';
+import 'package:nokhte/app/core/error/failure.dart';
+import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/domain.dart';
+import 'package:nokhte_backend/constants/types/types.dart';
 // * Mobx Codegen Inclusion
 part 'enter_collaborator_pool_getter_store.g.dart';
 

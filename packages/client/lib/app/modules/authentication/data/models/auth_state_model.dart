@@ -1,5 +1,5 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:primala/app/modules/authentication/domain/domain.dart';
+import 'package:nokhte/app/modules/authentication/domain/domain.dart';
 
 class AuthStateModel extends AuthStateEntity {
   const AuthStateModel({required Stream<bool> isAuthenticated})

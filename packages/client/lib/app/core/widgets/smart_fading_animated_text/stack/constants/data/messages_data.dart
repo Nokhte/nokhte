@@ -1,5 +1,5 @@
-import 'package:primala/app/core/types/types.dart';
-import 'package:primala/app/core/widgets/widget_constants.dart';
+import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/widget_constants.dart';
 
 class MessagesData {
   static List<RotatingTextData> get homeList => [

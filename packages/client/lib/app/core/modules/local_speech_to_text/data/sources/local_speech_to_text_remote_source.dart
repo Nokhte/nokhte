@@ -5,9 +5,9 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:leopard_flutter/leopard.dart';
 import 'package:leopard_flutter/leopard_error.dart';
 import 'package:leopard_flutter/leopard_transcript.dart';
-import 'package:primala/app/core/modules/local_speech_to_text/constants/constants.dart';
-import 'package:primala/app/core/modules/local_speech_to_text/domain/domain.dart';
-import 'package:primala/app/core/utilities/utilities.dart';
+import 'package:nokhte/app/core/modules/local_speech_to_text/constants/constants.dart';
+import 'package:nokhte/app/core/modules/local_speech_to_text/domain/domain.dart';
+import 'package:nokhte/app/core/utilities/utilities.dart';
 
 abstract class LocalSpeechToTextRemoteSource {
   Future<bool> initLeopard();

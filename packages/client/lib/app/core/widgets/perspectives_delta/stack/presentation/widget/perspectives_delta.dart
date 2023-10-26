@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:primala/app/core/widgets/perspectives_delta/stack/presentation/presentation.dart';
+import 'package:nokhte/app/core/widgets/perspectives_delta/stack/stack.dart';
 
 class PerspectivesDelta extends StatelessWidget {
   final PerspectivesDeltaStore trackerStore;

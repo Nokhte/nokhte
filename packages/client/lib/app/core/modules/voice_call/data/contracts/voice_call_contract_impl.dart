@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:primala/app/core/constants/failure_constants.dart';
-import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/core/network/network_info.dart';
-import 'package:primala/app/core/types/call_status.dart';
-import 'package:primala/app/core/modules/voice_call/data/data.dart';
-import 'package:primala/app/core/modules/voice_call/domain/domain.dart';
+import 'package:nokhte/app/core/constants/failure_constants.dart';
+import 'package:nokhte/app/core/error/failure.dart';
+import 'package:nokhte/app/core/network/network_info.dart';
+import 'package:nokhte/app/core/types/call_status.dart';
+import 'package:nokhte/app/core/modules/voice_call/data/data.dart';
+import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 
 class VoiceCallContractImpl implements VoiceCallContract {
   final VoiceCallRemoteSource remoteSource;

@@ -6,11 +6,11 @@ import 'package:equatable/equatable.dart';
 import 'package:mobx/mobx.dart';
 // import 'package:primala/app/core/modules/gyroscopic/domain/domain.dart';
 // * Equatable Import
-import 'package:primala/app/core/modules/gyroscopic/presentation/presentation.dart';
-import 'package:primala/app/core/modules/gyroscopic/types/types.dart';
-import 'package:primala/app/core/modules/gyroscopic/utils/drawing_utils.dart';
-import 'package:primala/app/core/modules/gyroscopic/utils/utils.dart';
-import 'package:primala/app/core/types/types.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/utils/drawing_utils.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/utils/utils.dart';
+import 'package:nokhte/app/core/types/types.dart';
 // * Mobx Codegen Inclusion
 part 'portal_api.g.dart';
 

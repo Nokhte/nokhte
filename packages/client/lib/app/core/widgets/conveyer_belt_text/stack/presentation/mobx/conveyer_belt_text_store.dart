@@ -3,10 +3,10 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/types/types.dart';
-import 'package:primala/app/core/widgets/conveyer_belt_text/stack/constants/movies/movies.dart';
-import 'package:primala/app/core/widgets/conveyer_belt_text/stack/constants/types/conveyer_movie_modes.dart';
-import 'package:primala/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/conveyer_belt_text/stack/constants/movies/movies.dart';
+import 'package:nokhte/app/core/widgets/conveyer_belt_text/stack/constants/types/conveyer_movie_modes.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 // * Mobx Codegen Inclusion
 part 'conveyer_belt_text_store.g.dart';

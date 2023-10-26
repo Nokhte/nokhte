@@ -1,10 +1,10 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
-import 'package:primala/app/core/constants/entities.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/mobx/mobx.dart';
-import 'package:primala/app/core/modules/fetch_the_purpose/domain/domain.dart';
-import 'package:primala/app/core/modules/fetch_the_purpose/mobx/mobx.dart';
+import 'package:nokhte/app/core/constants/entities.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/fetch_the_purpose/domain/domain.dart';
+import 'package:nokhte/app/core/modules/fetch_the_purpose/mobx/mobx.dart';
 // * Mobx Codegen Inclusion
 part 'fetch_the_purpose_store.g.dart';
 

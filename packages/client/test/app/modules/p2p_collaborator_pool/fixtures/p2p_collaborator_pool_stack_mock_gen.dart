@@ -3,9 +3,9 @@
 
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/data/data.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/domain/domain.dart';
-import 'package:primala/app/modules/p2p_collaborator_pool/presentation/presentation.dart';
+import 'package:nokhte/app/modules/p2p_collaborator_pool/data/data.dart';
+import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/domain.dart';
+import 'package:nokhte/app/modules/p2p_collaborator_pool/presentation/presentation.dart';
 
 class MP2PCollaboratorPoolRemoteSourceImpl extends Mock
     implements P2PCollaboratorPoolRemoteSourceImpl {}

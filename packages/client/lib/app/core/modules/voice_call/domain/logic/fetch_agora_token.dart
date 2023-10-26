@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/modules/voice_call/domain/domain.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 
 class FetchAgoraToken
     extends AbstractFutureLogic<AgoraCallTokenEntity, FetchAgoraTokenParams> {

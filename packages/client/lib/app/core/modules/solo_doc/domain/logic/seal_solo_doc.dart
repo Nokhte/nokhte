@@ -1,5 +1,5 @@
-import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/modules/solo_doc/domain/domain.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
 
 class SealSoloDoc
     extends AbstractFutureLogic<SoloDocSealingStatusEntity, NoParams> {

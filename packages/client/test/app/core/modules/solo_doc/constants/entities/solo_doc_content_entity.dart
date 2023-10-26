@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/core/modules/solo_doc/domain/domain.dart';
+import 'package:nokhte/app/core/error/failure.dart';
+import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
 
 class ConstantSoloDocContentEntity {
   static SoloDocContentEntity get successCase =>

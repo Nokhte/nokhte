@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/modules/scheduling/domain/domain.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/modules/scheduling/domain/domain.dart';
 
 class UpdateSchedulingTimeOrDate
     implements

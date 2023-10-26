@@ -1,10 +1,10 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:primala/app/core/canvas_widget_utils/canvas_widget_utils.dart';
-import 'package:primala/app/core/types/types.dart';
-import 'package:primala/app/core/widgets/widgets.dart';
-import 'package:primala/app/modules/home/presentation/mobx/coordinators/home_screen_coordinator_store.dart';
+import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
+import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/home_screen_coordinator_store.dart';
 import 'package:swipe/swipe.dart';
 // import 'package:posthog_flutter/posthog_flutter.dart';
 

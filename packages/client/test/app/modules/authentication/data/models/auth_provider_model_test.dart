@@ -1,9 +1,9 @@
-// * Primala Data Import
-import 'package:primala/app/modules/authentication/data/models/auth_provider_model.dart';
-// * Primala Domain Import
-import 'package:primala/app/modules/authentication/domain/entities/auth_provider_entity.dart';
-// * Primala Core Import
-import 'package:primala/app/core/interfaces/auth_providers.dart';
+// * Nokhte Data Import
+import 'package:nokhte/app/modules/authentication/data/models/auth_provider_model.dart';
+// * Nokhte Domain Import
+import 'package:nokhte/app/modules/authentication/domain/entities/auth_provider_entity.dart';
+// * Nokhte Core Import
+import 'package:nokhte/app/core/interfaces/auth_providers.dart';
 // * Test-Specific Imports
 import '../../fixtures/supabase_auth_fixture.dart';
 import 'package:flutter_test/flutter_test.dart';

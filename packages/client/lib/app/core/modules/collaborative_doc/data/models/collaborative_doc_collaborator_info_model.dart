@@ -1,4 +1,4 @@
-import 'package:primala/app/core/modules/collaborative_doc/domain/entities/collaborative_doc_collaborator_info_entity.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
 
 class CollaborativeDocCollaboratorInfoModel
     extends CollaborativeDocCollaboratorInfoEntity {

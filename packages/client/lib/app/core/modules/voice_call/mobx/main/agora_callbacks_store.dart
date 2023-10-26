@@ -2,7 +2,7 @@
 // * Mobx Import
 import 'package:mobx/mobx.dart';
 // * Equatable Import
-import 'package:primala/app/core/types/types.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:equatable/equatable.dart';
 // * Mobx Codegen Inclusion
 part 'agora_callbacks_store.g.dart';

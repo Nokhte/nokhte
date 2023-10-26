@@ -4,8 +4,8 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:dartz/dartz.dart';
-import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/core/modules/scheduling/domain/domain.dart';
+import 'package:nokhte/app/core/error/failure.dart';
+import 'package:nokhte/app/core/modules/scheduling/domain/domain.dart';
 // * Mobx Codegen Inclusion
 part 'create_scheduling_session_getter_store.g.dart';
 

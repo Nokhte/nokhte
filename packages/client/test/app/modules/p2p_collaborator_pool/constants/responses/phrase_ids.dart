@@ -1,4 +1,4 @@
-import 'package:primala_backend/phrase_components.dart';
+import 'package:nokhte_backend/phrase_components.dart';
 
 class PhraseIDs {
   static CollaboratorPhraseIDs get phraseID =>

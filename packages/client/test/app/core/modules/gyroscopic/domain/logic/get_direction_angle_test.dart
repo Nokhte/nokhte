@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:primala/app/core/constants/failure_constants.dart';
-import 'package:primala/app/core/interfaces/logic.dart';
-import 'package:primala/app/core/modules/gyroscopic/domain/domain.dart';
-import 'package:primala/app/core/modules/gyroscopic/domain/logic/get_direction_angle.dart';
+import 'package:nokhte/app/core/constants/failure_constants.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/domain/domain.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/domain/logic/get_direction_angle.dart';
 import '../../constants/entities/entities.dart';
 import '../../fixtures/gyroscopic_mock_gen.mocks.dart';
 

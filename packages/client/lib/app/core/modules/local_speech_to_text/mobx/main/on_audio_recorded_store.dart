@@ -4,7 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:leopard_flutter/leopard_error.dart';
 import 'package:mobx/mobx.dart';
-import 'package:primala/app/core/modules/local_speech_to_text/constants/constants.dart';
+import 'package:nokhte/app/core/modules/local_speech_to_text/constants/constants.dart';
 // * Mobx Codegen Inclusion
 part 'on_audio_recorded_store.g.dart';
 

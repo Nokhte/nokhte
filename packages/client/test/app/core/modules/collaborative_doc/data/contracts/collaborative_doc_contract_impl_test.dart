@@ -2,9 +2,9 @@
 import 'package:flutter_test/flutter_test.dart';
 // * mocking lib
 import 'package:mockito/mockito.dart';
-import 'package:primala/app/core/constants/failure_constants.dart';
-import 'package:primala/app/core/modules/collaborative_doc/data/data.dart';
-import 'package:primala_backend/working_collaborative_documents.dart';
+import 'package:nokhte/app/core/constants/failure_constants.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/data/data.dart';
+import 'package:nokhte_backend/working_collaborative_documents.dart';
 // * primala core imports
 // * mock import
 import '../../constants/models/models.dart';

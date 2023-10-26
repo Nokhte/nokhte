@@ -1,4 +1,4 @@
-import 'package:primala/app/core/error/failure.dart';
+import 'package:nokhte/app/core/error/failure.dart';
 
 class FailureConstants {
   static String get androidPlatformFailureMsg => 'Not Available on Android';

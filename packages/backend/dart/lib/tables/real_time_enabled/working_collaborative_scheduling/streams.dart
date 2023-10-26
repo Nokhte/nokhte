@@ -1,5 +1,5 @@
-import 'package:primala_backend/tables/real_time_enabled/shared/collaborative_queries.dart';
-import 'package:primala_backend/working_collaborative_scheduling.dart';
+import 'package:nokhte_backend/tables/real_time_enabled/shared/collaborative_queries.dart';
+import 'package:nokhte_backend/working_collaborative_scheduling.dart';
 
 class WorkingCollaborativeSchedulingStream extends CollaborativeQueries {
   WorkingCollaborativeSchedulingStream({required super.supabase});

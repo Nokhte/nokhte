@@ -1,17 +1,6 @@
-// import 'package:equatable/equatable.dart';
-
-// class CollaborativeDocCollaboratorPresenceEntity extends Equatable {
-//   final Stream<bool> isPresent;
-
-//   const CollaborativeDocCollaboratorPresenceEntity({required this.isPresent});
-
-//   @override
-//   List<Object> get props => [isPresent];
-// }
-
 import 'package:dartz/dartz.dart';
-import 'package:primala/app/core/error/failure.dart';
-import 'package:primala/app/core/modules/collaborative_doc/domain/domain.dart';
+import 'package:nokhte/app/core/error/failure.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
 
 class ConstantCollaborativeDocCollaboratorPresenceEntity {
   static CollaborativeDocCollaboratorPresenceEntity get successCase =>

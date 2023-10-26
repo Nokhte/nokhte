@@ -1,6 +1,6 @@
-import 'package:primala_backend/existing_collaborations.dart';
-import 'package:primala_backend/solo_sharable_documents.dart';
-import 'package:primala_backend/tables/real_time_enabled/existing_collaborations/types/types.dart';
+import 'package:nokhte_backend/existing_collaborations.dart';
+import 'package:nokhte_backend/solo_sharable_documents.dart';
+import 'package:nokhte_backend/tables/real_time_enabled/existing_collaborations/types/types.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class SoloDocRemoteSource {

@@ -3,10 +3,9 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:primala/app/core/types/types.dart';
-import 'package:primala/app/core/widgets/beach_widgets/shared/types/types.dart';
-
-import 'package:primala/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 // * Mobx Codegen Inclusion
 part 'widget_coordinator_store.g.dart';
 

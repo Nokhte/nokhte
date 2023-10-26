@@ -3,11 +3,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:primala/app/core/canvas_widget_utils/canvas_widget_utils.dart';
-import 'package:primala/app/core/interfaces/auth_providers.dart';
+import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
+import 'package:nokhte/app/core/interfaces/auth_providers.dart';
 import 'dart:io';
-import 'package:primala/app/core/widgets/widgets.dart';
-import 'package:primala/app/modules/authentication/presentation/presentation.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/authentication/presentation/presentation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:swipe/swipe.dart';
 

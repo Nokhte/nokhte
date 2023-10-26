@@ -1,4 +1,4 @@
-name: primala
+name: nokhte
 description: A new Flutter project.
 publish_to: "none"
 
@@ -39,13 +39,15 @@ dependencies:
   mesh_gradient: ^1.1.5
   meta: ^1.9.1
   mobx: ^2.2.0
+  nokhte_backend:
+    path: ../backend/dart
   path_drawing: ^1.0.1
   path_morph: ^1.1.1
   path_provider: ^2.1.1
   permission_handler: ^11.0.0
   posthog_flutter: ^3.1.0
-  primala_backend:
-    path: ../backend/dart
+  # nokhte_backend:
+  #   path: ../backend/dart
   sensors_plus: ^3.0.3
   sign_in_with_apple: ^5.0.0
   simple_animations: ^5.0.2

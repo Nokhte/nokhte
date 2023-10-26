@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:primala/app/core/widgets/mobx.dart';
-import 'package:primala/app/core/widgets/widget_constants.dart';
+import 'package:nokhte/app/core/widgets/mobx.dart';
+import 'package:nokhte/app/core/widgets/widget_constants.dart';
 
 class BaseTextEditor extends StatelessWidget {
   final BaseTextEditorStore trackerStore;

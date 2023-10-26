@@ -1,5 +1,5 @@
-import 'package:primala_backend/constants/general/user_data_constants.dart';
-import 'package:primala_backend/constants/types/types.dart';
+import 'package:nokhte_backend/constants/general/user_data_constants.dart';
+import 'package:nokhte_backend/constants/types/types.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'sign_in.dart';
 import 'supabase_client_constants.dart';
