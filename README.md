@@ -1,5 +1,3 @@
-# primala
+# Nokhte
 
-This app needs to be open source & we need to figure out a new relationship this can have with the public, open access is definitely a part of it.
-
-Some changes
+It was said by Imam Ali that the whole Quran was the dot or Nokhte (نقطه) under the ب

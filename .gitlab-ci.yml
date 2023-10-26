@@ -1,15 +1,82 @@
-stages: 
-  - development 
-  - staging 
-  - production 
+stages:
+  - development
+  - staging
+  - production
 
 default:
   before_script:
     - export PATH="$PATH:/Users/sonny/Documents/flutter/bin"
+    - dart pub global activate melos
+    - export PATH="$PATH":"$HOME/.pub-cache/bin"
+    - flutter pub get
 
 variables:
   LC_ALL: "en_US.UTF-8"
   LANG: "en_US.UTF-8"
+
+# $ Backend-CI/CD JOBS START
+test-the-db-rules-and-edge-functions:
+  stage: development
+  script:
+    - melos bs
+    - cd packages/backend/dart
+    - echo "APPLE_CLIENT_SECRET='$APPLE_CLIENT_SECRET'" >> .env
+    - echo "GOOGLE_CLIENT_ID='$GOOGLE_CLIENT_ID'" >> .env
+    - echo "GOOGLE_CLIENT_SECRET='$GOOGLE_CLIENT_SECRET'" >> .env
+    - supabase stop --no-backup
+    - supabase start
+    - trap "kill $SEVER_PID" EXIT
+    - supabase functions serve &
+    - SERVER_PID=$!
+    # - flutter pub get
+    # - flutter test || kill $SERVER_PID
+    - chmod u+x ./scripts/test.sh
+    - ./scripts/test.sh 
+    - kill $SERVER_PID
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "development"'
+      changes:
+        - packages/backend/**/*
+      when: always
+    - when: never
+
+# test-the-edge-functions:
+#   stage: development
+#   script:
+#     - cd packages/backend/supabase
+#     - supabase stop --no-backup
+#     - supabase start
+#     - supabase functions serve  --env-file supabase/test/.env.local &
+#     - cd test
+#     - deno test --allow-all initiate-collaborator-search-test.ts --import-map=../functions/import_map.json --allow-env
+#   only:
+#     - development
+    
+deploy-to-staging-db:
+  stage: staging
+  script:
+    - cd packages/backend
+    - supabase link --project-ref $SUPABASE_STAGING_PROJECT_ID --password $SUPABASE_STAGING_DB_PASSWORD
+    - supabase functions deploy
+    - supabase db push
+  only:
+    - staging
+  when: manual
+
+deploy-to-prod-db:
+  stage: production 
+  script:
+    - cd packages/backend
+    - supabase link --project-ref $SUPABASE_PROD_PROJECT_ID --password $SUPABASE_PROD_DB_PASSWORD
+    - supabase functions deploy
+    - supabase db push
+  only:
+    - production 
+  when: manual
+# $ Backend CI/CD JOBS END
+# @ ======================== @
+# % Client CI/CD JOBS START 
+
 
 
 
@@ -17,15 +84,22 @@ variables:
 run-the-unit-tests:
   stage: development
   script:
+    - melos bs
+    - cd packages/client
     - touch .env
     - flutter pub get
     - flutter test
-  only:
-    - development
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "development"'
+      changes: 
+        - packages/client/**/*
+      when: always
+    - when: never
 
 pre-build-check:
   stage: development
   script: 
+    - melos bs
     - touch .env
     - flutter build ios && flutter build appbundle
   only:
@@ -39,6 +113,8 @@ internal-ios-staging:
   tags:
     - shell
   script:
+    - melos bs
+    - cd packages/client
     - echo "PROD_SUPABASE_URL=$STAGING_SUPABASE_URL" >> .env
     - echo "PROD_SUPABASE_ANON_KEY=$STAGING_SUPABASE_ANON_KEY" >> .env
     - chmod u+x ./scripts/ios/*.sh
@@ -54,6 +130,8 @@ internal-android-staging:
   tags:
     - shell
   script: 
+    - melos bs
+    - cd packages/client
     - echo "PROD_SUPABASE_URL=$STAGING_SUPABASE_URL" >> .env
     - echo "PROD_SUPABASE_ANON_KEY=$STAGING_SUPABASE_ANON_KEY" >> .env
     - chmod u+x ./scripts/android/*.sh
@@ -70,6 +148,8 @@ external-ios-beta-build:
   tags:
     - shell
   script:
+    - melos bs
+    - cd packages/client
     - echo "PROD_SUPABASE_URL=$PROD_SUPABASE_URL" >> .env
     - echo "PROD_SUPABASE_ANON_KEY=$PROD_SUPABASE_ANON_KEY" >> .env
     - chmod u+x ./scripts/ios/*.sh
@@ -85,6 +165,8 @@ external-android-beta-build:
   tags:
     - shell
   script: 
+    - melos bs
+    - cd packages/client
     - echo "PROD_SUPABASE_URL=$PROD_SUPABASE_URL" >> .env
     - echo "PROD_SUPABASE_ANON_KEY=$PROD_SUPABASE_ANON_KEY" >> .env
     - chmod u+x ./scripts/android/*.sh
@@ -93,3 +175,4 @@ external-android-beta-build:
   only:
     - staging
   when: manual
+# % Client CI/CD JOBS END 

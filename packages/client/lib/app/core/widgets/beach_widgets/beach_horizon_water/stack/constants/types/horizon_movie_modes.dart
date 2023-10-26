@@ -1,0 +1,4 @@
+enum HorizonMovieModes {
+  regular,
+  backToShore,
+}

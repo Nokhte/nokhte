@@ -1,0 +1,1 @@
+alter table "public"."existing_collaborations" add column "is_currently_active" boolean not null default false;

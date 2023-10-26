@@ -1,0 +1,4 @@
+enum DateOrTime {
+  date,
+  time,
+}

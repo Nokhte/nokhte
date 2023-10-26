@@ -1,0 +1,1 @@
+create table "public"."usernames" ("uid" uuid not null, "username" text);

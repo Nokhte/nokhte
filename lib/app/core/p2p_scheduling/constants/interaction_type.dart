@@ -1,4 +1,0 @@
-enum InteractionType {
-  single,
-  range,
-}
