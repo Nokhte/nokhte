@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.nokhte.nokhte">
 	>
+
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 	<uses-permission android:name="android.permission.RECORD_AUDIO" />
 	<uses-permission android:name="android.permission.INTERNET" />
@@ -10,6 +11,14 @@
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 	<uses-permission android:name="android.permission.VIBRATE" />
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+	<uses-permission android:name="android.permission.WRITE_CALENDAR" />
+<uses-permission android:name="android.permission.READ_CALENDAR" />
+	<queries>
+		<intent>
+			<action android:name="android.intent.action.INSERT" />
+			<data android:mimeType="vnd.android.cursor.item/event" />
+		</intent>
+	</queries>
 	<application android:label="primala" android:name="${applicationName}" android:icon="@mipmap/ic_launcher">
 		<!--
 		<receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />

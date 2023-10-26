@@ -11,6 +11,7 @@ import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dar
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/main/main.dart';
+// import 'package:add_2_calendar/add_2_calendar.dart';
 
 // * Mobx Codegen Inclusion
 part 'home_screen_coordinator_store.g.dart';
@@ -81,9 +82,26 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
     // ^^ idk figure this out later
   }
 
-  homeScreenSwipeUpCallback() {
+  homeScreenSwipeUpCallback() async {
     // works!!
     Modular.to.navigate('/p2p_purpose_session/');
+    // final Event event = Event(
+    //   title: 'Perspectives Session with \${PERSON}',
+    //   // description: 'With X Persion',
+    //   // location: 'Event location',
+    //   startDate: DateTime(2023, 10, 28),
+    //   endDate: DateTime(2023, 10, 28),
+    //   iosParams: const IOSParams(
+    //     reminder: Duration(
+    //       hours: 1,
+    //     ), // on iOS, you can set alarm notification after your event.
+    //     url: 'com.nokhte.nokhte', // on iOS, you can set url to your event.
+    //   ),
+    //   androidParams: const AndroidParams(
+    //     emailInvites: [], // on Android, you can add invite emails to your event.
+    //   ),
+    // );
+    // Add2Calendar.addEvent2Cal(event);
   }
 
   // homeScreenSwipeUpCallback() {

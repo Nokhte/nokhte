@@ -1,4 +1,6 @@
 PODS:
+  - add_2_calendar (0.0.1):
+    - Flutter
   - agora_rtc_engine (6.2.4):
     - AgoraIrisRTC_iOS (= 4.2.3-build.4)
     - AgoraRtcEngine_iOS (= 4.2.3)
@@ -93,6 +95,7 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
+  - add_2_calendar (from `.symlinks/plugins/add_2_calendar/ios`)
   - agora_rtc_engine (from `.symlinks/plugins/agora_rtc_engine/ios`)
   - app_links (from `.symlinks/plugins/app_links/ios`)
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
@@ -126,6 +129,8 @@ SPEC REPOS:
     - ReachabilitySwift
 
 EXTERNAL SOURCES:
+  add_2_calendar:
+    :path: ".symlinks/plugins/add_2_calendar/ios"
   agora_rtc_engine:
     :path: ".symlinks/plugins/agora_rtc_engine/ios"
   app_links:
@@ -164,6 +169,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/webview_flutter_wkwebview/ios"
 
 SPEC CHECKSUMS:
+  add_2_calendar: 5eee66d5a3b99cd5e1487a7e03abd4e3ac4aff11
   agora_rtc_engine: fb9292d3b1eec2df31a47a2f435937e57e724648
   AgoraIrisRTC_iOS: 84ae4f5824d68480d1215cbdd8db261549a7c94e
   AgoraRtcEngine_iOS: eb0a7e87dbc9e818b267d413b48f76a57959e6f4
