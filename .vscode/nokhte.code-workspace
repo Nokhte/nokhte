@@ -5,27 +5,27 @@
             "path": "../",
         },
         {
-            "name": "🐬 backend",
+            "name": "⬜ backend",
             "path": "../packages/backend/dart"
         },
         {
-            "name": "🌞 client code",
+            "name": "⬜ client code",
             "path": "../packages/client/lib/app"
         },
         {
-            "name": "🌝 client tests",
+            "name": "⬜ client tests",
             "path": "../packages/client"
         },
         {
-            "name": "👹 supabase",
+            "name": "⬜ supabase",
             "path": "../packages/backend/supabase",
         },
         {
-            "name": "client ios",
+            "name": "⬜ client ios",
             "path": "../packages/client/ios"
         },
         {
-            "name": "client android",
+            "name": "⬜ client android",
             "path": "../packages/client/android"
         },
         // {
@@ -76,7 +76,7 @@
                 "**/.metadata": true,
                 "**/flutter_01.log": true,
                 "**/.example.env": true,
-                "**/README.md": true,
+                // "**/README.md": true,
                 "**/changelog.md": true,
                 // "**/.env": true,
                 "**/.git": true

@@ -1,3 +1,3 @@
-# Primala Core
+# Nokhte
 
-Monorepo including a local dev environment for the backend & the mobile client
+It was said by Imam Ali that the whole Quran was the dot or Nokhte (نقطه) under the ب
