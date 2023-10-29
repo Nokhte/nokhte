@@ -5,13 +5,6 @@ import 'package:nokhte_backend/solo_sharable_documents.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// make this script
-/// take a break come back, also make sure to add these
-/// these are quality of life things to run
-/// so that you can fast forward to certain
-/// parts of the UX and test them without
-/// repetivie CLI non-sense
-
 void main() {
   final SupabaseClient supabaseAdmin =
       SupabaseClientConfigConstants.supabaseAdmin;
