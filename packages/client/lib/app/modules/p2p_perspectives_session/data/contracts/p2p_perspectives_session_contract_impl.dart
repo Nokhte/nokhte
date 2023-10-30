@@ -16,7 +16,7 @@ class P2PPerspectivesSessionContractImpl
 
   @override
   Future<Either<Failure, PerspectivesCommitStatusModel>> commitThePerspectives(
-      NoParams params) async {
+      List<String> params) async {
     if (await networkInfo.isConnected) {
       await remoteSource.commitThePerspectives(params);
       return const Right(PerspectivesCommitStatusModel(isCommitted: true));

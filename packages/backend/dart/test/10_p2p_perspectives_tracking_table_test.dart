@@ -12,8 +12,8 @@ void main() {
   late String firstUserUID;
   late String secondUserUID;
   late ExistingCollaborationsQueries existingCollaborationsQueries;
-  late P2PPerspectivesTracking user1Queries;
-  late P2PPerspectivesTracking adminQueries;
+  late P2PPerspectivesTrackingQueries user1Queries;
+  late P2PPerspectivesTrackingQueries adminQueries;
   final tPerspectives = ['perspective1', 'perspective2', 'perspective 3'];
   final tPerspectives2 = ['perspective11', 'perspective22', 'perspective 33'];
   final tPerspectives3 = [
@@ -34,8 +34,8 @@ void main() {
     final userIdResults = await UserSetupConstants.fetchUIDs();
     firstUserUID = userIdResults[0];
     secondUserUID = userIdResults[1];
-    user1Queries = P2PPerspectivesTracking(supabase: user1Supabase);
-    adminQueries = P2PPerspectivesTracking(
+    user1Queries = P2PPerspectivesTrackingQueries(supabase: user1Supabase);
+    adminQueries = P2PPerspectivesTrackingQueries(
         supabase: SupabaseClientConfigConstants.supabaseAdmin);
     await existingCollaborationsQueries.createNewCollaboration(
       collaboratorOneUID: firstUserUID,

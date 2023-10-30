@@ -7,7 +7,7 @@ abstract class P2PPerspectivesSessionContract {
   Future<Either<Failure, CurrentQuadrantUpdatingStatusEntity>>
       updateCurrentQuadrant(int params);
   Future<Either<Failure, PerspectivesCommitStatusEntity>> commitThePerspectives(
-      NoParams params);
+      List<String> params);
   Future<Either<Failure, StagingAreaUpdateStatusEntity>> updateTheStagingArea(
     List<String> params,
   );

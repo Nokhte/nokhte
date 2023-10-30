@@ -4,12 +4,12 @@ import 'package:nokhte_backend/tables/real_time_disabled/p2p_perspectives_tracki
 import 'package:nokhte_backend/tables/real_time_enabled/shared/shared.dart';
 //todo break this up into smaller functions
 
-class P2PPerspectivesTracking extends CollaborativeQueries {
+class P2PPerspectivesTrackingQueries extends CollaborativeQueries {
   static const TABLE_NAME = "p2p_perspectives_tracking";
   static const CURRENT_PERSPECTIVES = "current_perspectives";
   static const PAST_PERSPECTIVES = "past_perspectives";
   static const CURRENT_COMMITTED_AT = "current_committed_at";
-  P2PPerspectivesTracking({required super.supabase});
+  P2PPerspectivesTrackingQueries({required super.supabase});
 
   insertNewPerspectives({
     required List<String> newPerspectives,
