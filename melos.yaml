@@ -1,10 +1,8 @@
-name: primala_core
-
+name: nokhte
 
 packages:
   - packages/client
   - packages/backend/dart
-
 
 command:
   bootstrap:
