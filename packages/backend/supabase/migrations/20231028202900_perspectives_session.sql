@@ -229,3 +229,7 @@ AS $function$BEGIN
   RETURN NEW;
 END;$function$
 ;
+
+alter table "public"."p2p_perspectives_tracking" alter column "past_perspectives" set default '{}'::jsonb;
+
+alter table "public"."p2p_perspectives_tracking" alter column "past_perspectives" set not null;

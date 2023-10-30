@@ -7,3 +7,5 @@ flutter test test/06_solo_sharable_documents_table_test.dart
 flutter test test/07_finished_collaborative_documents_test.dart
 flutter test test/08_working_collaborative_documents_test.dart
 flutter test test/09_collaborative_scheduling_table_test.dart
+flutter test test/10_p2p_perspectives_tracking_table_test.dart
+# flutter test test/11_working_perspective_positioning_table_test

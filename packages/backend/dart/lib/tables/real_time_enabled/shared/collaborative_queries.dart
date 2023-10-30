@@ -16,10 +16,10 @@ class CollaborativeQueries {
   }) : currentUserUID = supabase.auth.currentUser?.id ?? '';
 
   Future<void> figureOutActiveCollaboratorInfo() async {
-    collaboratorInfo = await _computeActiveCollaboratorInfo();
+    collaboratorInfo = await computeActiveCollaboratorInfo();
   }
 
-  Future<CollaboratorInfo> _computeActiveCollaboratorInfo() async {
+  Future<CollaboratorInfo> computeActiveCollaboratorInfo() async {
     final res = await fetchActiveCollaboratorsUIDAndNumber();
     return res[1] == 1
         ? CollaboratorInfo(

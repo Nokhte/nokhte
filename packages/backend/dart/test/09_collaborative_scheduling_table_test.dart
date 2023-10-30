@@ -17,6 +17,7 @@ void main() {
   late ExistingCollaborationsQueries existingCollaborationsQueries;
 
   setUpAll(() async {
+    // assignment // that can happen in block vars just needs to be passed in
     user1Supabase = SupabaseClientConfigConstants.supabase;
     user2Supabase = SupabaseClientConfigConstants.supabase;
     supabaseAdmin = SupabaseClientConfigConstants.supabaseAdmin;

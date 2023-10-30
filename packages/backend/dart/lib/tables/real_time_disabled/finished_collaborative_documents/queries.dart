@@ -11,8 +11,8 @@ class FinishedCollaborativeP2PPurposeDocumentsQueries
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutActiveCollaboratorInfo();
     }
-    print(
-        "${collaboratorInfo.theCollaboratorsNumber}_uid ${collaboratorInfo.theCollaboratorsUID}");
+    // print(
+    //     "${collaboratorInfo.theCollaboratorsNumber}_uid ${collaboratorInfo.theCollaboratorsUID}");
     return await supabase
         .from(tableName)
         .select()
