@@ -1,2 +1,2 @@
 export './mobx/mobx.dart';
-export './views/module_screen.dart';
+export 'views/perspectives_session_screen.dart';

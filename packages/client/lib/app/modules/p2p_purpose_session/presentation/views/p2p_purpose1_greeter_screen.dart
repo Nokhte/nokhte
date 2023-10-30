@@ -59,13 +59,6 @@ class P2PPurpose1GreeterScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                // Container(
-                //   padding: const EdgeInsets.only(bottom: 40.0),
-                //   alignment: Alignment.bottomCenter,
-                //   child: FadeInAndChangeColorText(
-                //     stateStore: coordinator.fadeInColorText,
-                //   ),
-                // ),
               ],
             ),
           ))),
