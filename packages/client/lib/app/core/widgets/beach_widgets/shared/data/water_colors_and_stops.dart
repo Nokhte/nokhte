@@ -24,6 +24,18 @@ class WaterColorsAndStops {
         ColorAndStop(Color(0xFF499384), .8438),
         ColorAndStop(Color(0xFF51A18D), 1.00),
       ];
+
+  static List<ColorAndStop> get otherWater => const [
+        ColorAndStop(Color(0xFF122430), 0),
+        ColorAndStop(Color(0xFF1D3741), .1302),
+        ColorAndStop(Color(0xFF214147), .2548),
+        ColorAndStop(Color(0xFF274D4F), .4357),
+        ColorAndStop(Color(0xFF326562), .5826),
+        ColorAndStop(Color(0xFF3E8077), .7261),
+        ColorAndStop(Color(0xFF499384), .8620),
+        ColorAndStop(Color(0xFF51A18D), 1.00),
+      ];
+
   static List<ColorAndStop> get toTheDepthsWater => const [
         ColorAndStop(Color(0xFF66CF90), 0),
         ColorAndStop(Color(0xFF66CF90), .1302),
@@ -34,6 +46,7 @@ class WaterColorsAndStops {
         ColorAndStop(Color(0xFF1D3741), .8620),
         ColorAndStop(Color(0xFF122430), 1.00),
       ];
+
   static List<ColorAndStop> get timesUpPhase1 => const [
         ColorAndStop(Color(0xFFFFFFE3), 0),
         ColorAndStop(Color(0xFF66CF90), .1302),

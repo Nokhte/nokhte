@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/beach_widgets/shared/data/water_colors_and_stops.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:simple_animations/simple_animations.dart';
 
@@ -123,7 +122,7 @@ class AnywhereToHorizonWaters {
             .tween(
               '8th Water Gradient Stop',
               Tween<double>(
-                begin: WaterColorsAndStops.toTheDepthsWater[7].stop,
+                begin: startingGradient[7].stop,
                 end: fullScreenGradientColorsAndStops[7].stop,
               ),
             )

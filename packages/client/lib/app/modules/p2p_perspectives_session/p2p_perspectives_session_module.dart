@@ -4,6 +4,8 @@ import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dar
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/voice_call_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
+import 'package:nokhte/app/core/widgets/mobx.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_perspectives_session/data/data.dart';
 import 'package:nokhte/app/modules/p2p_perspectives_session/domain/domain.dart';
 import 'package:nokhte/app/modules/p2p_perspectives_session/presentation/presentation.dart';
@@ -20,7 +22,8 @@ class P2PPerspectivesSessionModule extends Module {
         // % Remote Source
         Bind.singleton<P2PPerspectivesSessionRemoteSourceImpl>(
           (i) => P2PPerspectivesSessionRemoteSourceImpl(
-              supabase: Modular.get<SupabaseClient>()),
+            supabase: Modular.get<SupabaseClient>(),
+          ),
         ),
         // % Contract Impl
         Bind.singleton<P2PPerspectivesSessionContractImpl>(
@@ -106,6 +109,13 @@ class P2PPerspectivesSessionModule extends Module {
             getterStore: i<UpdateTheStagingAreaGetterStore>(),
           ),
         ),
+        // % Widgets
+        Bind.singleton<BeachHorizonWaterTrackerStore>(
+          (i) => BeachHorizonWaterTrackerStore(),
+        ),
+        Bind.singleton<BeachSkyStore>(
+          (i) => BeachSkyStore(),
+        ),
         // % Coordinator
         Bind.singleton<P2PPerspectiveSessionCoordinatorStore>(
           (i) => P2PPerspectiveSessionCoordinatorStore(
@@ -116,6 +126,8 @@ class P2PPerspectivesSessionModule extends Module {
             perspectivesStream: i<FetchPerspectivesStreamStore>(),
             updateStore: i<UpdateCurrentQuadrantStore>(),
             updateStaging: i<UpdateTheStagingAreaStore>(),
+            beachHorizonWater: i<BeachHorizonWaterTrackerStore>(),
+            beachSky: i<BeachSkyStore>(),
           ),
         ),
       ];

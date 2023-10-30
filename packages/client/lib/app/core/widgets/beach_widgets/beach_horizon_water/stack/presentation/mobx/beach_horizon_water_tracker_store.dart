@@ -134,26 +134,30 @@ abstract class _BeachHorizonWaterTrackerStoreBase
     final hour = date.hour;
     if (hour >= 21 || hour < 6) {
       initDuskCallback(startingMovieGrad);
-      if (startingMovieGrad == WaterColorsAndStops.toTheDepthsWater) {
+      if (startingMovieGrad == WaterColorsAndStops.toTheDepthsWater ||
+          startingMovieGrad == WaterColorsAndStops.oceanDiveWater) {
         control = Control.play;
       }
       // Branch 1: Time is between 9 PM and 5:59 AM
     } else if (hour >= 6 && hour < 10) {
       // Branch 2: Time is between 6 AM and 9:59 AM
       initMorningCallback(startingMovieGrad);
-      if (startingMovieGrad == WaterColorsAndStops.toTheDepthsWater) {
+      if (startingMovieGrad == WaterColorsAndStops.toTheDepthsWater ||
+          startingMovieGrad == WaterColorsAndStops.oceanDiveWater) {
         control = Control.play;
       }
     } else if (hour >= 10 && hour < 17) {
       // Branch 3: Time is between 10 AM and 4:59 PM
       initDayCallback(startingMovieGrad);
-      if (startingMovieGrad == WaterColorsAndStops.toTheDepthsWater) {
+      if (startingMovieGrad == WaterColorsAndStops.toTheDepthsWater ||
+          startingMovieGrad == WaterColorsAndStops.oceanDiveWater) {
         control = Control.play;
       }
     } else {
       // Branch 4: Time is between 5 PM and 8:59 PM
       initEveningCallback(startingMovieGrad);
-      if (startingMovieGrad == WaterColorsAndStops.toTheDepthsWater) {
+      if (startingMovieGrad == WaterColorsAndStops.toTheDepthsWater ||
+          startingMovieGrad == WaterColorsAndStops.oceanDiveWater) {
         control = Control.play;
       }
     }
