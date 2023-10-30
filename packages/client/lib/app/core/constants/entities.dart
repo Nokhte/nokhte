@@ -9,9 +9,11 @@ import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/entities/entitie
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/domain/domain.dart';
 import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
+import 'package:nokhte/app/modules/p2p_perspectives_session/domain/domain.dart';
 import 'package:nokhte_backend/phrase_components.dart';
 import 'package:nokhte_backend/working_collaborative_documents.dart';
 import 'package:nokhte_backend/working_collaborative_scheduling.dart';
+import 'package:nokhte_backend/working_perspectives_positioning.dart';
 
 class DefaultEntities {
   static Either<Failure, NameCreationStatusEntity>
@@ -103,6 +105,12 @@ class DefaultEntities {
           delta: -1,
         ),
       );
+  static Stream<PerspectivesPositioning> get defaultPerspectivesStream =>
+      Stream.value(PerspectivesPositioning(
+        collaboratorsQuadrant: -1,
+        lastEditedBy: '',
+        stagingAreaInfo: const [],
+      ));
   static Either<Failure, InitLeopardStatusEntity>
       get defaultInitLeopardStatusEntity =>
           const Right(InitLeopardStatusEntity(isInitialized: false));
@@ -126,4 +134,20 @@ class DefaultEntities {
       const Stream.empty();
   static Either<Failure, CollectivePurposeEntity> get collectivePurposeEntity =>
       const Right(CollectivePurposeEntity(thePurpose: ""));
+
+  static Either<Failure, PerspectivesCommitStatusEntity>
+      get perspectivesCommitStatusEntity =>
+          const Right(PerspectivesCommitStatusEntity(isCommitted: false));
+
+  static Either<Failure, PerspectiveSessionCreationStatusEntity>
+      get perspectivesSessionCreationStatusEntity =>
+          const Right(PerspectiveSessionCreationStatusEntity(isCreated: false));
+
+  static Either<Failure, CurrentQuadrantUpdatingStatusEntity>
+      get currentQuadrantUpdatingStatusEntity =>
+          const Right(CurrentQuadrantUpdatingStatusEntity(isUpdated: false));
+
+  static Either<Failure, StagingAreaUpdateStatusEntity>
+      get stagingAreaUpdateStatusEntity =>
+          const Right(StagingAreaUpdateStatusEntity(isUpdated: false));
 }

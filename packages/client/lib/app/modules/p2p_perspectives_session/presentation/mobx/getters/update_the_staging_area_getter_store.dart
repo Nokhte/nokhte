@@ -24,7 +24,5 @@ abstract class _UpdateTheStagingAreaGetterStoreBase extends Equatable
       await logic(params);
 
   @override
-  List<Object> get props => [
-// some items
-      ];
+  List<Object> get props => [];
 }
