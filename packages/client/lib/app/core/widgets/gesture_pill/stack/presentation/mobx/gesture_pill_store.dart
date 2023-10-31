@@ -27,7 +27,7 @@ abstract class _GesturePillStoreBase extends Equatable with Store {
   _GesturePillStoreBase({
     required this.endingPath,
   }) : animationPathData = PathMorph.samplePaths(
-          SvgAnimtionCostants.pillPath,
+          SvgAnimtionConstants.pillPath,
           endingPath,
         );
 

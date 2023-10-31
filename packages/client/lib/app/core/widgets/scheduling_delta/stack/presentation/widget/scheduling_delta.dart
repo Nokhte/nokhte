@@ -30,7 +30,7 @@ class SchedulingDelta extends StatelessWidget {
                   alignment: Alignment.bottomCenter,
                   child: CustomPaint(
                     painter: SchedulingDeltaPainter(
-                      path: SvgAnimtionCostants.schedulingDeltaPath,
+                      path: SvgAnimtionConstants.schedulingDeltaPath,
                       deltaColor: value.get('color'),
                     ),
                   ),

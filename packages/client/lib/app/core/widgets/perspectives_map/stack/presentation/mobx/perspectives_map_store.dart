@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:nokhte/app/core/widgets/shared/constants/svg_animation_constants.dart';
-import 'package:path_morph/path_morph.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 // * Mobx Codegen Inclusion
 part 'perspectives_map_store.g.dart';
@@ -14,11 +13,6 @@ class PerspectivesMapStore = _PerspectivesMapStoreBase
     with _$PerspectivesMapStore;
 
 abstract class _PerspectivesMapStoreBase extends Equatable with Store {
-  Path endingPath;
-  SampledPathData animationPathData;
-  MovieTween topCircleAnimationMovie = MovieTween();
-  late AnimationController controller;
-
   @observable
   bool wantToFadeOut = true;
 
@@ -27,37 +21,28 @@ abstract class _PerspectivesMapStoreBase extends Equatable with Store {
     wantToFadeOut = newFadeStatus;
   }
 
-  _PerspectivesMapStoreBase({
-    required this.endingPath,
-  }) : animationPathData = PathMorph.samplePaths(
-          SvgAnimtionCostants.pillPath,
-          endingPath,
-        );
-
   @observable
   bool showWidget = true;
 
   @action
-  setPillAnimationControl(Control newControl) {
-    // controller.play();
-    pillController = newControl;
+  setController(Control newControl) {
+    controller = newControl;
   }
 
   @observable
-  MovieTween movie = MovieTween();
+  MovieTween movie = PerspectivesMapColorAndVertOffsetChange.getMovie(
+      startingCircleColors: List.filled(5, Colors.white),
+      endingCircleColors: List.filled(5, Colors.white),
+      startingVertOffsets: List.filled(5, 0),
+      endingVertOffsets: List.filled(5, 0));
 
-  @action
-  setPillMovie(MovieTween newMovie) {
-    movie = newMovie;
-  }
+  // @action
+  // setPillMovie(MovieTween newMovie) {
+  //   movie = newMovie;
+  // }
 
   @observable
-  Control pillController = Control.stop;
-
-  @action
-  animationRenderingCallback(int i, Offset z) {
-    animationPathData.shiftedPoints[i] = z;
-  }
+  Control controller = Control.stop;
 
   @action
   onAnimationCompleted() {

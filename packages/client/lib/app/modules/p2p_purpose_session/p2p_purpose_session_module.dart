@@ -41,7 +41,7 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.factory<GesturePillStore>(
           (i) => GesturePillStore(
-            endingPath: SvgAnimtionCostants.circlePath,
+            endingPath: SvgAnimtionConstants.circlePath,
           ),
         ),
         Bind.singleton<SmartFadingAnimatedTextTrackerStore>(

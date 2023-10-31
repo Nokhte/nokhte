@@ -4,8 +4,6 @@ import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dar
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/voice_call_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
-import 'package:nokhte/app/core/widgets/mobx.dart';
-import 'package:nokhte/app/core/widgets/shared/constants/svg_animation_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_perspectives_session/data/data.dart';
 import 'package:nokhte/app/modules/p2p_perspectives_session/domain/domain.dart';
@@ -119,9 +117,7 @@ class P2PPerspectivesSessionModule extends Module {
           (i) => BeachSkyStore(),
         ),
         Bind.singleton<PerspectivesMapStore>(
-          (i) => PerspectivesMapStore(
-            endingPath: SvgAnimtionCostants.pillPath,
-          ),
+          (i) => PerspectivesMapStore(),
         ),
 
         // % Widgets Coordinator

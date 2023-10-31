@@ -1,4 +1,3 @@
-/// draw_a
 import 'dart:math';
 import 'package:flutter/material.dart';
 

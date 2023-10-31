@@ -30,11 +30,11 @@ abstract class _AuthProviderStoreBase extends Equatable with Store {
 
   String mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
-      case AuthenticationFailure:
+      case AuthenticationFailure _:
         return FailureConstants.authFailureMsg;
-      case NetworkConnectionFailure:
+      case NetworkConnectionFailure _:
         return FailureConstants.internetConnectionFailureMsg;
-      case SupabaseFailure:
+      case SupabaseFailure _:
         return FailureConstants.serverFailureMsg;
       default:
         return FailureConstants.genericFailureMsg;

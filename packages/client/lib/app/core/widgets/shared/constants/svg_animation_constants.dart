@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:path_drawing/path_drawing.dart';
 
-class SvgAnimtionCostants {
+class SvgAnimtionConstants {
   //Scaling Value
   static double get scalingRatio => 1.0;
   static Matrix4 get scalingMatrix =>
@@ -29,6 +29,12 @@ class SvgAnimtionCostants {
   static Path get circlePath => parseSvgPathData(
         circleSvgPath,
       ).transform(
+        scalingMatrix.storage,
+      );
+  static String get fiveCirclePlatform =>
+      'M37.3913 27.2464L13.913 27.2464C6.22908 27.2464 0 21.0173 0 13.3334C0 5.96956 5.96954 2.28882e-05 13.3333 2.28882e-05L37.3913 2.28882e-05H49.5H59.25L68.25 2.28882e-05H78.2609L106.667 2.28882e-05C114.03 2.28882e-05 120 5.96956 120 13.3334C120 21.0173 113.771 27.2464 106.087 27.2464L78.2609 27.2464H68.25L57.75 27.2464H49.5H37.3913Z';
+  static Path get fiveCirclePlatformPath =>
+      parseSvgPathData(fiveCirclePlatform).transform(
         scalingMatrix.storage,
       );
 }

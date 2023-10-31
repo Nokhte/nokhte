@@ -5,11 +5,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthProviderModel extends AuthProviderEntity {
   const AuthProviderModel(
-      {required AuthProvider authProvider, required bool authProviderStatus})
-      : super(
-          authProvider: authProvider,
-          authProviderStatus: authProviderStatus,
-        );
+      {required super.authProvider, required super.authProviderStatus});
 
   static Future<AuthProviderModel> fromSupabase(
     AuthProvider authProvider,

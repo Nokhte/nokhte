@@ -52,7 +52,7 @@ class AuthenticationModule extends Module {
         ),
         Bind.singleton<GesturePillStore>(
           (i) => GesturePillStore(
-            endingPath: SvgAnimtionCostants.circlePath,
+            endingPath: SvgAnimtionConstants.circlePath,
           ),
         ),
         // & Mobx Mother Stores

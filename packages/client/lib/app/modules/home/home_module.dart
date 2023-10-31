@@ -79,7 +79,7 @@ class HomeModule extends Module {
           (i) => BeachWavesTrackerStore(),
         ),
         Bind.singleton<GesturePillStore>(
-          (i) => GesturePillStore(endingPath: SvgAnimtionCostants.circlePath),
+          (i) => GesturePillStore(endingPath: SvgAnimtionConstants.circlePath),
         ),
         // & Coordinator Store
         Bind.singleton<HomeScreenCoordinatorStore>(

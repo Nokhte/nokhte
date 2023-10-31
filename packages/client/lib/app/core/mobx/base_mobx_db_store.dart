@@ -23,7 +23,7 @@ abstract class _BaseMobxDBStoreBase<Params, T> extends Equatable with Store {
   // Ok what are the
   String mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
-      case NetworkConnectionFailure:
+      case NetworkConnectionFailure _:
         return FailureConstants.internetConnectionFailureMsg;
       default:
         return FailureConstants.genericFailureMsg;

@@ -15,9 +15,9 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
   final SpeakTheCollaboratorPhraseCoordinatorStore coordinatorStore;
 
   SpeakTheCollaboratorPhraseScreen({
-    Key? key,
+    super.key,
     required this.coordinatorStore,
-  }) : super(key: key) {
+  }) {
     coordinatorStore.screenConstructorCallback(
       coordinatorStore: coordinatorStore,
     );

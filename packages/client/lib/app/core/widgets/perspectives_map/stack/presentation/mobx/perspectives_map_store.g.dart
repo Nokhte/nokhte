@@ -57,19 +57,19 @@ mixin _$PerspectivesMapStore on _PerspectivesMapStoreBase, Store {
     });
   }
 
-  late final _$pillControllerAtom =
-      Atom(name: '_PerspectivesMapStoreBase.pillController', context: context);
+  late final _$controllerAtom =
+      Atom(name: '_PerspectivesMapStoreBase.controller', context: context);
 
   @override
-  Control get pillController {
-    _$pillControllerAtom.reportRead();
-    return super.pillController;
+  Control get controller {
+    _$controllerAtom.reportRead();
+    return super.controller;
   }
 
   @override
-  set pillController(Control value) {
-    _$pillControllerAtom.reportWrite(value, super.pillController, () {
-      super.pillController = value;
+  set controller(Control value) {
+    _$controllerAtom.reportWrite(value, super.controller, () {
+      super.controller = value;
     });
   }
 
@@ -88,34 +88,11 @@ mixin _$PerspectivesMapStore on _PerspectivesMapStoreBase, Store {
   }
 
   @override
-  dynamic setPillAnimationControl(Control newControl) {
+  dynamic setController(Control newControl) {
     final _$actionInfo = _$_PerspectivesMapStoreBaseActionController
-        .startAction(name: '_PerspectivesMapStoreBase.setPillAnimationControl');
+        .startAction(name: '_PerspectivesMapStoreBase.setController');
     try {
-      return super.setPillAnimationControl(newControl);
-    } finally {
-      _$_PerspectivesMapStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic setPillMovie(MovieTween newMovie) {
-    final _$actionInfo = _$_PerspectivesMapStoreBaseActionController
-        .startAction(name: '_PerspectivesMapStoreBase.setPillMovie');
-    try {
-      return super.setPillMovie(newMovie);
-    } finally {
-      _$_PerspectivesMapStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic animationRenderingCallback(int i, Offset z) {
-    final _$actionInfo =
-        _$_PerspectivesMapStoreBaseActionController.startAction(
-            name: '_PerspectivesMapStoreBase.animationRenderingCallback');
-    try {
-      return super.animationRenderingCallback(i, z);
+      return super.setController(newControl);
     } finally {
       _$_PerspectivesMapStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -138,7 +115,7 @@ mixin _$PerspectivesMapStore on _PerspectivesMapStoreBase, Store {
 wantToFadeOut: ${wantToFadeOut},
 showWidget: ${showWidget},
 movie: ${movie},
-pillController: ${pillController}
+controller: ${controller}
     ''';
   }
 }

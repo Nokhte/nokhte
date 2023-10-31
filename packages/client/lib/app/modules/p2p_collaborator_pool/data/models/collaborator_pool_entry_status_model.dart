@@ -1,3 +1,5 @@
+// ignore_for_file: use_super_parameters
+
 import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/entities/entities.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

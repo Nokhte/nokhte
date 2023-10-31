@@ -28,13 +28,13 @@ class MeshCircleButton extends StatelessWidget {
           height: size.height,
           child: CustomPaint(
             painter: MeshCirclePainter(
-              SvgAnimtionCostants.circlePath,
+              SvgAnimtionConstants.circlePath,
               size,
               firstGradientColor: Colors.white,
               secondGradientColor: Colors.white,
             ),
             child: ClipPath(
-              clipper: CustomPathClipper(SvgAnimtionCostants.circlePath),
+              clipper: CustomPathClipper(SvgAnimtionConstants.circlePath),
               child: AnimatedMeshGradient(
                 controller: trackerStore.meshGradientController,
                 colors: const [

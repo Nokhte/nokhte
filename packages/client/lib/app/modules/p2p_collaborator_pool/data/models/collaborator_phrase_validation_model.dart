@@ -5,8 +5,7 @@ import 'package:nokhte_backend/phrase_components.dart';
 class CollaboratorPhraseValidationModel
     extends CollaboratorPhraseValidationEntity {
   const CollaboratorPhraseValidationModel(
-      {required bool isValid, required CollaboratorPhraseIDs phraseIDs})
-      : super(isValid: isValid, phraseIDs: phraseIDs);
+      {required bool super.isValid, required super.phraseIDs});
 
   static CollaboratorPhraseValidationModel fromSupabase(
       {required List adjRes, required List nounRes}) {

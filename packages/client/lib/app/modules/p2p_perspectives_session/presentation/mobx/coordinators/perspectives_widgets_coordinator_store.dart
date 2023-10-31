@@ -24,7 +24,6 @@ abstract class _PerspectivesWidgetsCoordinatorStoreBase extends Equatable
   });
 
   attuneTheWidgets(DateTime now) {
-    // final now = DateTime.now();
     beachHorizonWater.selectTimeBasedMovie(
       now,
       WaterColorsAndStops.oceanDiveWater,

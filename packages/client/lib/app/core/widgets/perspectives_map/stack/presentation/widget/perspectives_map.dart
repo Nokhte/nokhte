@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/perspectives_map/stack/stack.dart';
+import 'package:nokhte/app/core/widgets/shared/constants/svg_animation_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:path_morph/path_morph.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'canvas/perspectives_map_painter.dart';
 
-class PerspectivesMap extends StatefulWidget {
+class PerspectivesMap extends StatelessWidget {
   final Size size;
   final PerspectivesMapStore stateTrackerStore;
   const PerspectivesMap({
@@ -18,68 +18,46 @@ class PerspectivesMap extends StatefulWidget {
   });
 
   @override
-  State<StatefulWidget> createState() => _GestureCrossState();
-}
-
-class _GestureCrossState extends State<PerspectivesMap>
-    with SingleTickerProviderStateMixin {
-  late AnimationController controller;
-  late Path currentPath;
-
-  @override
-  initState() {
-    super.initState();
-    controller = AnimationController(vsync: this, duration: Seconds.get(1));
-    widget.stateTrackerStore.controller = controller;
-    PathMorph.generateAnimations(
-      controller,
-      widget.stateTrackerStore.animationPathData,
-      animationRenderingCallback,
-    );
-    currentPath = PathMorph.generatePath(
-      widget.stateTrackerStore.animationPathData,
-    );
-  }
-
-  animationRenderingCallback(int i, Offset z) {
-    setState(() {
-      widget.stateTrackerStore.animationPathData.shiftedPoints[i] = z;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final stateTracker = widget.stateTrackerStore;
+    final stateTracker = stateTrackerStore;
     return Observer(
       builder: (context) => CustomAnimationBuilder(
         tween: stateTracker.movie,
         duration: stateTracker.movie.duration,
-        control: stateTracker.pillController,
+        control: stateTracker.controller,
         onCompleted: () => stateTracker.onAnimationCompleted(),
         builder: (context, value, child) => AnimatedOpacity(
           opacity: stateTracker.showWidget ? 1 : 0,
           duration: Seconds.get(1),
           child: Container(
             alignment: Alignment.topLeft,
-            // color: Colors.blue.withOpacity(.4),
-            width: widget.size.width,
-            height: widget.size.height,
+            width: size.width,
+            height: size.height,
             child: Padding(
-              padding: const EdgeInsets.only(left: 20.0),
+              padding: const EdgeInsets.only(right: 25.0, top: 60.0),
               child: CustomPaint(
                 painter: PerspectivesMapPainter(
-                  currentPath,
-                  widget.size,
-                  currentPath.getBounds(),
-                  centerCircleOpacity: value.get('center circle opacity'),
-                  firstGradientColor: value.get('first gradient color'),
-                  secondGradientColor: value.get('second gradient color'),
-                  upperCircleLinearGradient: [
-                    value.get('top circle color 1'),
-                    value.get('top circle color 2'),
+                  SvgAnimtionConstants.fiveCirclePlatformPath,
+                  size,
+                  SvgAnimtionConstants.fiveCirclePlatformPath.getBounds(),
+                  platformGradColors: [
+                    const Color(0xFF0A98FF),
+                    const Color(0x00FFFFFF),
                   ],
-                  centerCircleAnimationConstant:
-                      value.get('center circle constant'),
+                  circleColors: [
+                    value.get('leftMostCircleColor'),
+                    value.get('leftCircleColor'),
+                    value.get('centerCircleColor'),
+                    value.get('rightCircleColor'),
+                    value.get('rightMostCircleColor'),
+                  ],
+                  circleVertOffsets: [
+                    value.get('leftMostCircleVertOffset'),
+                    value.get('leftCircleVertOffset'),
+                    value.get('centerCircleVertOffset'),
+                    value.get('rightCircleVertOffset'),
+                    value.get('rightMostCircleVertOffset'),
+                  ],
                 ),
               ),
             ),
