@@ -1,8 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:nokhte/app/core/widgets/text_editor/core/core.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/presentation/presentation.dart';
+import 'package:nokhte/app/core/widgets/text_editors/shared/shared.dart';
 
 class CollaborativeTextEditor extends StatefulWidget {
   final CollaborativeTextEditorTrackerStore trackerStore;
