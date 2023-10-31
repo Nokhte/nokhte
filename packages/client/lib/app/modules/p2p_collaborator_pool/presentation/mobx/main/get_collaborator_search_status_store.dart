@@ -32,7 +32,7 @@ abstract class _GetCollaboratorSearchStatusStoreBase extends Equatable
 
   String mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
-      case NetworkConnectionFailure _:
+      case NetworkConnectionFailure:
         return FailureConstants.internetConnectionFailureMsg;
       default:
         return FailureConstants.genericFailureMsg;
