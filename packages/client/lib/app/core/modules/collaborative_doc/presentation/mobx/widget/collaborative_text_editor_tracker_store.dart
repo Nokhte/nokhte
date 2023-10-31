@@ -28,7 +28,6 @@ abstract class _CollaborativeTextEditorTrackerStoreBase extends Equatable
   @action
   flipWidgetVisibility() {
     showWidget = !showWidget;
-    // print("was this working??? $showWidget");
   }
 
   @action

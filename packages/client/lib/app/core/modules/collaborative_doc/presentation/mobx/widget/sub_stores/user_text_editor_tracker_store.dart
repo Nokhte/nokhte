@@ -2,7 +2,7 @@
 // * Mobx Import
 import 'package:mobx/mobx.dart';
 // * Equatable Import
-import 'package:nokhte/app/core/widgets/text_editor/mobx.dart';
+import 'package:nokhte/app/core/widgets/mobx.dart';
 // * Mobx Codegen Inclusion
 part 'user_text_editor_tracker_store.g.dart';
 
