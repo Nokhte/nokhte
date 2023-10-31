@@ -24,7 +24,7 @@ class PerspectivesSessionScreen extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
                 child: BeachSky(
-                  stateTrackerStore: coordinator.beachSky,
+                  stateTrackerStore: coordinator.widgets.beachSky,
                 ),
               ),
               SizedBox(
@@ -32,7 +32,7 @@ class PerspectivesSessionScreen extends StatelessWidget {
                 height: MediaQuery.of(context).size.height,
                 child: BeachHorizonWater(
                   size: MediaQuery.of(context).size,
-                  stateTrackerStore: coordinator.beachHorizonWater,
+                  stateTrackerStore: coordinator.widgets.beachHorizonWater,
                 ),
               ),
             ],

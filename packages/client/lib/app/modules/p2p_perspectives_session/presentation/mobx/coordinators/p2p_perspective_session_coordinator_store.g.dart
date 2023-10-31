@@ -10,22 +10,13 @@ part of 'p2p_perspective_session_coordinator_store.dart';
 
 mixin _$P2PPerspectiveSessionCoordinatorStore
     on _P2PPerspectiveSessionCoordinatorStoreBase, Store {
-  late final _$_P2PPerspectiveSessionCoordinatorStoreBaseActionController =
-      ActionController(
-          name: '_P2PPerspectiveSessionCoordinatorStoreBase', context: context);
+  late final _$screenConstructorAsyncAction = AsyncAction(
+      '_P2PPerspectiveSessionCoordinatorStoreBase.screenConstructor',
+      context: context);
 
   @override
-  dynamic screenConstructor() {
-    final _$actionInfo =
-        _$_P2PPerspectiveSessionCoordinatorStoreBaseActionController.startAction(
-            name:
-                '_P2PPerspectiveSessionCoordinatorStoreBase.screenConstructor');
-    try {
-      return super.screenConstructor();
-    } finally {
-      _$_P2PPerspectiveSessionCoordinatorStoreBaseActionController
-          .endAction(_$actionInfo);
-    }
+  Future screenConstructor() {
+    return _$screenConstructorAsyncAction.run(() => super.screenConstructor());
   }
 
   @override

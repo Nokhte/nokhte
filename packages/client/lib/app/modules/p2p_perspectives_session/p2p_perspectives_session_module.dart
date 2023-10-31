@@ -5,9 +5,11 @@ import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/voice_call_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/widgets/mobx.dart';
+import 'package:nokhte/app/core/widgets/shared/constants/svg_animation_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_perspectives_session/data/data.dart';
 import 'package:nokhte/app/modules/p2p_perspectives_session/domain/domain.dart';
+import 'package:nokhte/app/modules/p2p_perspectives_session/presentation/mobx/coordinators/perspectives_widgets_coordinator_store.dart';
 import 'package:nokhte/app/modules/p2p_perspectives_session/presentation/presentation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -116,9 +118,25 @@ class P2PPerspectivesSessionModule extends Module {
         Bind.singleton<BeachSkyStore>(
           (i) => BeachSkyStore(),
         ),
+        Bind.singleton<PerspectivesMapStore>(
+          (i) => PerspectivesMapStore(
+            endingPath: SvgAnimtionCostants.pillPath,
+          ),
+        ),
+
+        // % Widgets Coordinator
+        Bind.singleton<PerspectivesWidgetsCoordinatorStore>(
+          (i) => PerspectivesWidgetsCoordinatorStore(
+            beachHorizonWater: i<BeachHorizonWaterTrackerStore>(),
+            beachSky: i<BeachSkyStore>(),
+            perspectivesMap: i<PerspectivesMapStore>(),
+          ),
+        ),
+
         // % Coordinator
         Bind.singleton<P2PPerspectiveSessionCoordinatorStore>(
           (i) => P2PPerspectiveSessionCoordinatorStore(
+            widgets: i<PerspectivesWidgetsCoordinatorStore>(),
             voiceCall: Modular.get<VoiceCallActionsStore>(),
             quadrantAPI: Modular.get<QuadrantAPI>(),
             commitThePerspectives: i<CommitThePerspectivesStore>(),
@@ -126,8 +144,6 @@ class P2PPerspectivesSessionModule extends Module {
             perspectivesStream: i<FetchPerspectivesStreamStore>(),
             updateStore: i<UpdateCurrentQuadrantStore>(),
             updateStaging: i<UpdateTheStagingAreaStore>(),
-            beachHorizonWater: i<BeachHorizonWaterTrackerStore>(),
-            beachSky: i<BeachSkyStore>(),
           ),
         ),
       ];
