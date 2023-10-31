@@ -13,7 +13,6 @@ import 'package:nokhte/app/core/modules/collaborative_doc/presentation/presentat
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/mobx.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte_backend/working_collaborative_documents.dart';
 import 'package:simple_animations/simple_animations.dart';
