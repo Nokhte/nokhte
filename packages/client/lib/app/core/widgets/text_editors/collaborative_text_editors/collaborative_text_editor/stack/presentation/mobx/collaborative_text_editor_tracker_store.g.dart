@@ -59,19 +59,6 @@ mixin _$CollaborativeTextEditorTrackerStore
   }
 
   @override
-  dynamic dispose() {
-    final _$actionInfo =
-        _$_CollaborativeTextEditorTrackerStoreBaseActionController.startAction(
-            name: '_CollaborativeTextEditorTrackerStoreBase.dispose');
-    try {
-      return super.dispose();
-    } finally {
-      _$_CollaborativeTextEditorTrackerStoreBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 showWidget: ${showWidget}

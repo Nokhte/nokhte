@@ -1,40 +1,29 @@
-// // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// // * Mobx Import
-// import 'package:equatable/equatable.dart';
-// import 'package:mobx/mobx.dart';
-// import 'sub_stores/sub_stores.dart';
-// // * Mobx Codegen Inclusion
-// part 'collaborative_text_editor_tracker_store.g.dart';
+// * Mobx Import
+// ignore_for_file: library_private_types_in_public_api, must_be_immutable
 
-// class CollaborativeTextEditorTrackerStore = _CollaborativeTextEditorTrackerStoreBase
-//     with _$CollaborativeTextEditorTrackerStore;
+import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/widgets/text_editors/shared/shared.dart';
+// * Mobx Codegen Inclusion
+part 'collaborative_text_editor_tracker_store.g.dart';
 
-// abstract class _CollaborativeTextEditorTrackerStoreBase extends Equatable
-//     with Store {
-//   final UserTextEditorTrackerStore userStore;
+class CollaborativeTextEditorTrackerStore = _CollaborativeTextEditorTrackerStoreBase
+    with _$CollaborativeTextEditorTrackerStore;
 
-//   _CollaborativeTextEditorTrackerStoreBase({
-//     required this.userStore,
-//   });
+abstract class _CollaborativeTextEditorTrackerStoreBase
+    extends BaseTextEditorStore with Store {
+  @action
+  setText(String message) {
+    controller.text = message;
+  }
 
-//   @action
-//   setText(String message) {
-//     userStore.controller.text = message;
-//   }
+  @observable
+  bool showWidget = false;
 
-//   @observable
-//   bool showWidget = false;
+  @action
+  flipWidgetVisibility() {
+    showWidget = !showWidget;
+  }
 
-//   @action
-//   flipWidgetVisibility() {
-//     showWidget = !showWidget;
-//   }
-
-//   @action
-//   dispose() {
-//     userStore.dispose();
-//   }
-
-//   @override
-//   List<Object> get props => [];
-// }
+  @override
+  List<Object> get props => [];
+}

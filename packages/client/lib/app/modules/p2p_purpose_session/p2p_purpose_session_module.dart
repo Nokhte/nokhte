@@ -62,12 +62,12 @@ class P2PCollaboratorSessionModule extends Module {
         Bind.singleton<SoloTextEditorTrackerStore>(
           (i) => SoloTextEditorTrackerStore(),
         ),
-        Bind.singleton<CollaboratorTextEditorTrackerStore>(
-          (i) => CollaboratorTextEditorTrackerStore(),
-        ),
-        Bind.singleton<UserTextEditorTrackerStore>(
-          (i) => UserTextEditorTrackerStore(),
-        ),
+        // Bind.singleton<CollaboratorTextEditorTrackerStore>(
+        //   (i) => CollaboratorTextEditorTrackerStore(),
+        // ),
+        // Bind.singleton<UserTextEditorTrackerStore>(
+        //   (i) => UserTextEditorTrackerStore(),
+        // ),
         Bind.singleton<BeachHorizonWaterTrackerStore>(
           (i) => BeachHorizonWaterTrackerStore(),
         ),
@@ -81,9 +81,7 @@ class P2PCollaboratorSessionModule extends Module {
           (i) => SchedulingDeltaStore(),
         ),
         Bind.singleton<CollaborativeTextEditorTrackerStore>(
-          (i) => CollaborativeTextEditorTrackerStore(
-            userStore: i<UserTextEditorTrackerStore>(),
-          ),
+          (i) => CollaborativeTextEditorTrackerStore(),
         ),
         // & Coordinator Stores
         Bind.singleton<SchedulingWidgetsCoordinatorStore>(
