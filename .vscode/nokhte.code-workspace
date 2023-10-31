@@ -1,7 +1,7 @@
 {
     "folders": [
         {
-            "name": "️⬜️ nokhte root",
+            "name": "️⬜️",
             "path": "../",
         },
         {
@@ -9,8 +9,16 @@
             "path": "../packages/backend/dart"
         },
         {
-            "name": "🟨 client app",
-            "path": "../packages/client/lib/app"
+            "name": "🟨 client core modules",
+            "path": "../packages/client/lib/app/core/modules"
+        },
+        {
+            "name": "🟨 client core widgets",
+            "path": "../packages/client/lib/app/core/widgets"
+        },
+        {
+            "name": "🟨 client modules",
+            "path": "../packages/client/lib/app/modules"
         },
         {
             "name": "🟦 client root",
@@ -28,10 +36,6 @@
             "name": "🟥 client android",
             "path": "../packages/client/android"
         },
-        // {
-        //     "name": "client root",
-        //     "path": "../packages/client/"
-        // },
 
     ],
     
