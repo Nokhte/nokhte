@@ -3,6 +3,7 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 // * Mobx Codegen Inclusion
@@ -16,11 +17,13 @@ abstract class _PerspectivesWidgetsCoordinatorStoreBase extends Equatable
   final BeachHorizonWaterTrackerStore beachHorizonWater;
   final BeachSkyStore beachSky;
   final PerspectivesMapStore perspectivesMap;
+  final CollaborativeTextEditorTrackerStore collaborativeTextEditor;
 
   _PerspectivesWidgetsCoordinatorStoreBase({
     required this.beachHorizonWater,
     required this.beachSky,
     required this.perspectivesMap,
+    required this.collaborativeTextEditor,
   });
 
   attuneTheWidgets(DateTime now) {
@@ -29,6 +32,10 @@ abstract class _PerspectivesWidgetsCoordinatorStoreBase extends Equatable
       WaterColorsAndStops.oceanDiveWater,
     );
     beachSky.selectTimeBasedMovie(now);
+    Future.delayed(Seconds.get(9, milli: 800), () {
+      perspectivesMap.toggleWidgetVisibility();
+      collaborativeTextEditor.flipWidgetVisibility();
+    });
     //
   }
 

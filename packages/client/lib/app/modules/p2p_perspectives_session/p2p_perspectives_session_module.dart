@@ -111,18 +111,25 @@ class P2PPerspectivesSessionModule extends Module {
         ),
         // % Widgets
         Bind.singleton<BeachHorizonWaterTrackerStore>(
-          (i) => BeachHorizonWaterTrackerStore(),
+          (i) => BeachHorizonWaterTrackerStore(
+            isGoingToFullSky: true,
+          ),
         ),
         Bind.singleton<BeachSkyStore>(
-          (i) => BeachSkyStore(),
+          (i) => BeachSkyStore(
+            isGoingToFullSky: true,
+          ),
         ),
         Bind.singleton<PerspectivesMapStore>(
           (i) => PerspectivesMapStore(),
         ),
-
+        Bind.singleton<CollaborativeTextEditorTrackerStore>(
+          (i) => CollaborativeTextEditorTrackerStore(),
+        ),
         // % Widgets Coordinator
         Bind.singleton<PerspectivesWidgetsCoordinatorStore>(
           (i) => PerspectivesWidgetsCoordinatorStore(
+            collaborativeTextEditor: i<CollaborativeTextEditorTrackerStore>(),
             beachHorizonWater: i<BeachHorizonWaterTrackerStore>(),
             beachSky: i<BeachSkyStore>(),
             perspectivesMap: i<PerspectivesMapStore>(),

@@ -12,7 +12,8 @@ class SoloTextEditorTrackerStore = _SoloTextEditorTrackerStoreBase
 abstract class _SoloTextEditorTrackerStoreBase extends BaseTextEditorStore
     with Store {
   @observable
-  bool showWidget = false;
+  // bool showWidget = false;
+  bool showWidget = true;
 
   @action
   flipWidgetVisibility() {

@@ -14,15 +14,13 @@ class PerspectivesMapStore = _PerspectivesMapStoreBase
 
 abstract class _PerspectivesMapStoreBase extends Equatable with Store {
   @observable
-  bool wantToFadeOut = true;
+  bool showWidget = false;
 
   @action
-  setFadeOut(bool newFadeStatus) {
-    wantToFadeOut = newFadeStatus;
+  toggleWidgetVisibility() {
+    showWidget = !showWidget;
+    print("is this running properly $showWidget");
   }
-
-  @observable
-  bool showWidget = true;
 
   @action
   setController(Control newControl) {
@@ -36,18 +34,8 @@ abstract class _PerspectivesMapStoreBase extends Equatable with Store {
       startingVertOffsets: List.filled(5, 0),
       endingVertOffsets: List.filled(5, 0));
 
-  // @action
-  // setPillMovie(MovieTween newMovie) {
-  //   movie = newMovie;
-  // }
-
   @observable
   Control controller = Control.stop;
-
-  @action
-  onAnimationCompleted() {
-    if (wantToFadeOut) showWidget = false;
-  }
 
   @override
   List<Object> get props => [];

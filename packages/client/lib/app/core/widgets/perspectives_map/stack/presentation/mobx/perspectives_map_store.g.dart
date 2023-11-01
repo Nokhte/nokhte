@@ -9,22 +9,6 @@ part of 'perspectives_map_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$PerspectivesMapStore on _PerspectivesMapStoreBase, Store {
-  late final _$wantToFadeOutAtom =
-      Atom(name: '_PerspectivesMapStoreBase.wantToFadeOut', context: context);
-
-  @override
-  bool get wantToFadeOut {
-    _$wantToFadeOutAtom.reportRead();
-    return super.wantToFadeOut;
-  }
-
-  @override
-  set wantToFadeOut(bool value) {
-    _$wantToFadeOutAtom.reportWrite(value, super.wantToFadeOut, () {
-      super.wantToFadeOut = value;
-    });
-  }
-
   late final _$showWidgetAtom =
       Atom(name: '_PerspectivesMapStoreBase.showWidget', context: context);
 
@@ -77,11 +61,11 @@ mixin _$PerspectivesMapStore on _PerspectivesMapStoreBase, Store {
       ActionController(name: '_PerspectivesMapStoreBase', context: context);
 
   @override
-  dynamic setFadeOut(bool newFadeStatus) {
+  dynamic toggleWidgetVisibility() {
     final _$actionInfo = _$_PerspectivesMapStoreBaseActionController
-        .startAction(name: '_PerspectivesMapStoreBase.setFadeOut');
+        .startAction(name: '_PerspectivesMapStoreBase.toggleWidgetVisibility');
     try {
-      return super.setFadeOut(newFadeStatus);
+      return super.toggleWidgetVisibility();
     } finally {
       _$_PerspectivesMapStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -99,20 +83,8 @@ mixin _$PerspectivesMapStore on _PerspectivesMapStoreBase, Store {
   }
 
   @override
-  dynamic onAnimationCompleted() {
-    final _$actionInfo = _$_PerspectivesMapStoreBaseActionController
-        .startAction(name: '_PerspectivesMapStoreBase.onAnimationCompleted');
-    try {
-      return super.onAnimationCompleted();
-    } finally {
-      _$_PerspectivesMapStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
-wantToFadeOut: ${wantToFadeOut},
 showWidget: ${showWidget},
 movie: ${movie},
 controller: ${controller}

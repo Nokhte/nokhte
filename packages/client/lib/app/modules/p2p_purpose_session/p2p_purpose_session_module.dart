@@ -63,10 +63,12 @@ class P2PCollaboratorSessionModule extends Module {
           (i) => SoloTextEditorTrackerStore(),
         ),
         Bind.singleton<BeachHorizonWaterTrackerStore>(
-          (i) => BeachHorizonWaterTrackerStore(),
+          (i) => BeachHorizonWaterTrackerStore(
+            isGoingToFullSky: false,
+          ),
         ),
         Bind.singleton<BeachSkyStore>(
-          (i) => BeachSkyStore(),
+          (i) => BeachSkyStore(isGoingToFullSky: false),
         ),
         Bind.singleton<SunAndMoonStore>(
           (i) => SunAndMoonStore(),

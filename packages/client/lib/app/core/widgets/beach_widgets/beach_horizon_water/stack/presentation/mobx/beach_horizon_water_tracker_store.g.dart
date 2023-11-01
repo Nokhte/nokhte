@@ -44,6 +44,24 @@ mixin _$BeachHorizonWaterTrackerStore
     });
   }
 
+  late final _$isFirstTimeCompletingAtom = Atom(
+      name: '_BeachHorizonWaterTrackerStoreBase.isFirstTimeCompleting',
+      context: context);
+
+  @override
+  bool get isFirstTimeCompleting {
+    _$isFirstTimeCompletingAtom.reportRead();
+    return super.isFirstTimeCompleting;
+  }
+
+  @override
+  set isFirstTimeCompleting(bool value) {
+    _$isFirstTimeCompletingAtom.reportWrite(value, super.isFirstTimeCompleting,
+        () {
+      super.isFirstTimeCompleting = value;
+    });
+  }
+
   late final _$isCompleteAtom = Atom(
       name: '_BeachHorizonWaterTrackerStoreBase.isComplete', context: context);
 
@@ -333,6 +351,7 @@ mixin _$BeachHorizonWaterTrackerStore
     return '''
 movieMode: ${movieMode},
 backToShoreCompleted: ${backToShoreCompleted},
+isFirstTimeCompleting: ${isFirstTimeCompleting},
 isComplete: ${isComplete},
 movieIsLonger: ${movieIsLonger},
 movie: ${movie},

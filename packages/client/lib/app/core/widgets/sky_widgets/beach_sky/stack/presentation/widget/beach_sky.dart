@@ -14,11 +14,13 @@ class BeachSky extends StatelessWidget {
 
   @override
   Widget build(context) {
-    return Observer(builder: (context) {
-      return CustomAnimationBuilder(
+    return Observer(
+      builder: (context) {
+        return CustomAnimationBuilder(
           tween: stateTrackerStore.movie,
           duration: stateTrackerStore.movie.duration,
           control: stateTrackerStore.control,
+          onCompleted: () => stateTrackerStore.onAnimationComplete(),
           builder: (context, value, child) {
             final skyValue = value.get('sky value');
             final width = MediaQuery.of(context).size.width;
@@ -48,7 +50,9 @@ class BeachSky extends StatelessWidget {
                 ),
               ),
             );
-          });
-    });
+          },
+        );
+      },
+    );
   }
 }

@@ -18,6 +18,7 @@ abstract class _CollaborativeTextEditorTrackerStoreBase
 
   @observable
   bool showWidget = false;
+  // bool showWidget = true;
 
   @action
   flipWidgetVisibility() {

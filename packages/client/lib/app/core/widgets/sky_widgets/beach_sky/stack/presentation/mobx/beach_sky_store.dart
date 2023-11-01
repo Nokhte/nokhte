@@ -7,7 +7,6 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/base_scheduling_widget_store.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/sky_widgets/beach_sky/stack/constants/constants.dart';
-import 'package:nokhte/app/core/widgets/sky_widgets/beach_sky/stack/constants/movie/sky_color_transition.dart';
 import 'package:simple_animations/simple_animations.dart';
 // * Mobx Codegen Inclusion
 part 'beach_sky_store.g.dart';
@@ -17,8 +16,34 @@ class BeachSkyStore = _BeachSkyStoreBase with _$BeachSkyStore;
 abstract class _BeachSkyStoreBase
     extends BaseSchedulingWidgetStore<Color, NoParams, IsATimeMobxParams>
     with Store {
+  bool isGoingToFullSky;
+
+  _BeachSkyStoreBase({
+    required this.isGoingToFullSky,
+  });
+
+  @observable
+  bool isFirstTimeCompleting = true;
+
+  @observable
+  List<Color> currentGrad = [];
+
+  @action
+  setCurrentGrad(List<Color> newGrad) => currentGrad = newGrad;
+
   @observable
   bool movieIsLonger = false;
+
+  @action
+  onAnimationComplete() {
+    if (isGoingToFullSky && isFirstTimeCompleting) {
+      // print("current grad $currentGrad");
+      movie = HalfToFullSky.getMovie(currentGrad);
+      setControl(Control.playFromStart);
+
+      isFirstTimeCompleting = false;
+    }
+  }
 
   @action
   setGradient(DateTime date, {required bool isStart}) {
@@ -63,6 +88,8 @@ abstract class _BeachSkyStoreBase
   @override
   @action
   void initDuskCallback(params) {
+    // setCurrentGrad(SkyColors.dusk);
+    currentGrad = SkyColors.dusk;
     movie = RevealTheSky.getMovie(SkyColors.dusk);
     control = Control.play;
   }
@@ -70,6 +97,8 @@ abstract class _BeachSkyStoreBase
   @override
   @action
   void initDayCallback(NoParams params) {
+    currentGrad = SkyColors.day;
+    // setCurrentGrad(SkyColors.day);
     movie = RevealTheSky.getMovie(SkyColors.day);
     control = Control.play;
   }
@@ -77,6 +106,8 @@ abstract class _BeachSkyStoreBase
   @override
   @action
   void initMorningCallback(NoParams params) {
+    currentGrad = SkyColors.morning;
+    // setCurrentGrad(SkyColors.morning);
     movie = RevealTheSky.getMovie(SkyColors.morning);
     control = Control.play;
   }
@@ -84,6 +115,8 @@ abstract class _BeachSkyStoreBase
   @override
   @action
   void initEveningCallback(NoParams params) {
+    // setCurrentGrad(SkyColors.evening);
+    currentGrad = SkyColors.evening;
     movie = RevealTheSky.getMovie(SkyColors.evening);
     control = Control.play;
   }

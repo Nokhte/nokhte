@@ -15,6 +15,7 @@ class P2PPerspectiveSessionCoordinatorStore = _P2PPerspectiveSessionCoordinatorS
 
 abstract class _P2PPerspectiveSessionCoordinatorStoreBase extends Equatable
     with Store {
+  final PerspectivesWidgetsCoordinatorStore widgets;
   final VoiceCallActionsStore voiceCall;
   final QuadrantAPI quadrantAPI;
   final CommitThePerspectivesStore commitThePerspectives;
@@ -22,7 +23,6 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase extends Equatable
   final FetchPerspectivesStreamStore perspectivesStream;
   final UpdateCurrentQuadrantStore updateStore;
   final UpdateTheStagingAreaStore updateStaging;
-  final PerspectivesWidgetsCoordinatorStore widgets;
 
   _P2PPerspectiveSessionCoordinatorStoreBase({
     required this.voiceCall,

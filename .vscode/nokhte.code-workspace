@@ -80,7 +80,7 @@
                 "**/.metadata": true,
                 "**/flutter_01.log": true,
                 "**/.example.env": true,
-                // "**/README.md": true,
+                "**/README.md": true,
                 "**/changelog.md": true,
                 // "**/.env": true,
                 "**/.git": true

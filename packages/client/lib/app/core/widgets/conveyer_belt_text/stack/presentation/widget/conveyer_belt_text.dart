@@ -40,8 +40,6 @@ class ConveyerBeltText extends StatelessWidget {
                               stops: const [0.0, 1.0],
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
-                              // begin: Alignment.topLeft,
-                              // end: Alignment.bottomRight,
                             ).createShader(bounds);
                           },
                           child: PlatformText(

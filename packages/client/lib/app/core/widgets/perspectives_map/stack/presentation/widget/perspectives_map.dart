@@ -19,17 +19,15 @@ class PerspectivesMap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final stateTracker = stateTrackerStore;
     return Observer(
-      builder: (context) => CustomAnimationBuilder(
-        tween: stateTracker.movie,
-        duration: stateTracker.movie.duration,
-        control: stateTracker.controller,
-        onCompleted: () => stateTracker.onAnimationCompleted(),
-        builder: (context, value, child) => AnimatedOpacity(
-          opacity: stateTracker.showWidget ? 1 : 0,
-          duration: Seconds.get(1),
-          child: Container(
+      builder: (context) => AnimatedOpacity(
+        opacity: stateTrackerStore.showWidget ? 1 : 0,
+        duration: Seconds.get(1),
+        child: CustomAnimationBuilder(
+          tween: stateTrackerStore.movie,
+          duration: stateTrackerStore.movie.duration,
+          control: stateTrackerStore.controller,
+          builder: (context, value, child) => Container(
             alignment: Alignment.topLeft,
             width: size.width,
             height: size.height,

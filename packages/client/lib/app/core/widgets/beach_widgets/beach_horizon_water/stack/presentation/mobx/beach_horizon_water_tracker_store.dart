@@ -19,11 +19,20 @@ class BeachHorizonWaterTrackerStore = _BeachHorizonWaterTrackerStoreBase
 abstract class _BeachHorizonWaterTrackerStoreBase
     extends BaseSchedulingWidgetStore<ColorAndStop, List<ColorAndStop>,
         IsATimeMobxParams> with Store {
+  bool isGoingToFullSky;
+
+  _BeachHorizonWaterTrackerStoreBase({
+    required this.isGoingToFullSky,
+  });
+
   @observable
   HorizonMovieModes movieMode = HorizonMovieModes.regular;
 
   @observable
   bool backToShoreCompleted = false;
+
+  @observable
+  bool isFirstTimeCompleting = true;
 
   @action
   setControl(Control newControl) => control = newControl;
@@ -45,6 +54,11 @@ abstract class _BeachHorizonWaterTrackerStoreBase
   onAnimationCompleted() {
     if (movieMode == HorizonMovieModes.backToShore) {
       toggleShoreCompletionStatus();
+    }
+    if (isGoingToFullSky && isFirstTimeCompleting) {
+      movie = HorizonToFullSky.getMovie(endingGrad);
+      setControl(Control.playFromStart);
+      isFirstTimeCompleting = false;
     }
   }
 
@@ -167,10 +181,12 @@ abstract class _BeachHorizonWaterTrackerStoreBase
   @action
   void initDuskCallback(params) {
     // Branch 1: Time is between 9 PM and 5:59 AM
+    startingGrad = WaterColorsAndStops.schedulingDuskWaterFullScreen;
+    endingGrad = WaterColorsAndStops.schedulingDuskWaterHalfScreen;
     setMovie(AnywhereToHorizonWaters.getMovie(
       params,
-      WaterColorsAndStops.schedulingDuskWaterFullScreen,
-      WaterColorsAndStops.schedulingDuskWaterHalfScreen,
+      startingGrad,
+      endingGrad,
     ));
     // control = Control.play;
   }
@@ -179,10 +195,12 @@ abstract class _BeachHorizonWaterTrackerStoreBase
   @action
   void initMorningCallback(params) {
     // Branch 2: Time is between 6 AM and 9:59 AM
+    startingGrad = WaterColorsAndStops.schedulingMorningWaterFullScreen;
+    endingGrad = WaterColorsAndStops.schedulingMorningWaterHalfScreen;
     setMovie(AnywhereToHorizonWaters.getMovie(
       params,
-      WaterColorsAndStops.schedulingMorningWaterFullScreen,
-      WaterColorsAndStops.schedulingMorningWaterHalfScreen,
+      startingGrad,
+      endingGrad,
     ));
     // control = Control.play;
   }
@@ -192,10 +210,12 @@ abstract class _BeachHorizonWaterTrackerStoreBase
   void initDayCallback(params) {
     // print("Is this refreshing the UI/??");
     // Branch 3: Time is between 10 AM and 4:59 PM
+    startingGrad = WaterColorsAndStops.schedulingDayWaterFullScreen;
+    endingGrad = WaterColorsAndStops.schedulingDayWaterHalfScreen;
     setMovie(AnywhereToHorizonWaters.getMovie(
       params,
-      WaterColorsAndStops.schedulingDayWaterFullScreen,
-      WaterColorsAndStops.schedulingDayWaterHalfScreen,
+      startingGrad,
+      endingGrad,
     ));
     // control = Control.play;
   }
@@ -204,10 +224,12 @@ abstract class _BeachHorizonWaterTrackerStoreBase
   @action
   void initEveningCallback(params) {
     // Branch 4: Time is between 5 PM and 8:59 PM
+    startingGrad = WaterColorsAndStops.schedulingEveningWaterFullScreen;
+    endingGrad = WaterColorsAndStops.schedulingEveningWaterHalfScreen;
     setMovie(AnywhereToHorizonWaters.getMovie(
       params,
-      WaterColorsAndStops.schedulingEveningWaterFullScreen,
-      WaterColorsAndStops.schedulingEveningWaterHalfScreen,
+      startingGrad,
+      endingGrad,
     ));
     // control = Control.play;
   }

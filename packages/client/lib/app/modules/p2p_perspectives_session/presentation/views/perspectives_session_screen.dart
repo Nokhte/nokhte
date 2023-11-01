@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_perspectives_session/presentation/presentation.dart';
 
@@ -50,6 +51,12 @@ class PerspectivesSessionScreen extends StatelessWidget {
                     stateTrackerStore: coordinator.widgets.perspectivesMap,
                   ),
                 ],
+              ),
+              Center(
+                child: CollaborativeTextEditor(
+                  trackerStore: coordinator.widgets.collaborativeTextEditor,
+                  fadeInDuration: Seconds.get(1),
+                ),
               ),
             ],
           ),
