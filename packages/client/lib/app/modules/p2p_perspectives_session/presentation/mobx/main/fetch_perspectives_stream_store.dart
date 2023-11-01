@@ -16,8 +16,7 @@ abstract class _FetchPerspectivesStreamStoreBase
     extends BaseMobxDBStore<NoParams, WorkingPerspectivesStreamEntity>
     with Store {
   @observable
-  ObservableStream<PerspectivesPositioning> perspectivesStream =
-      ObservableStream(
+  ObservableStream<PerspectivesPositioning> stream = ObservableStream(
     DefaultEntities.defaultPerspectivesStream,
   );
 
@@ -32,7 +31,7 @@ abstract class _FetchPerspectivesStreamStoreBase
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
     }, (entity) {
-      perspectivesStream = ObservableStream(entity.stream);
+      stream = ObservableStream(entity.stream);
       state = StoreState.loaded;
     });
   }

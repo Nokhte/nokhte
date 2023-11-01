@@ -36,12 +36,14 @@ class WorkingPerspectivesPositioningStream extends CollaborativeQueries {
           stagingAreaInfo: [],
           lastEditedBy: '',
           collaboratorsQuadrant: -1,
+          currentUserUID: '',
         );
       } else {
         yield PerspectivesPositioning(
           stagingAreaInfo: event[0]
               [WorkingPerspectivesPositioningConstants.stagingArea],
           lastEditedBy: event[0]["last_edited_by"] ?? '',
+          currentUserUID: userUID,
           collaboratorsQuadrant: event[0]
               ["${collaboratorInfo.theCollaboratorsNumber}_quadrant"],
         );

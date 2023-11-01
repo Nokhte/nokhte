@@ -10,20 +10,19 @@ part of 'fetch_perspectives_stream_store.dart';
 
 mixin _$FetchPerspectivesStreamStore
     on _FetchPerspectivesStreamStoreBase, Store {
-  late final _$perspectivesStreamAtom = Atom(
-      name: '_FetchPerspectivesStreamStoreBase.perspectivesStream',
-      context: context);
+  late final _$streamAtom =
+      Atom(name: '_FetchPerspectivesStreamStoreBase.stream', context: context);
 
   @override
-  ObservableStream<PerspectivesPositioning> get perspectivesStream {
-    _$perspectivesStreamAtom.reportRead();
-    return super.perspectivesStream;
+  ObservableStream<PerspectivesPositioning> get stream {
+    _$streamAtom.reportRead();
+    return super.stream;
   }
 
   @override
-  set perspectivesStream(ObservableStream<PerspectivesPositioning> value) {
-    _$perspectivesStreamAtom.reportWrite(value, super.perspectivesStream, () {
-      super.perspectivesStream = value;
+  set stream(ObservableStream<PerspectivesPositioning> value) {
+    _$streamAtom.reportWrite(value, super.stream, () {
+      super.stream = value;
     });
   }
 
@@ -38,7 +37,7 @@ mixin _$FetchPerspectivesStreamStore
   @override
   String toString() {
     return '''
-perspectivesStream: ${perspectivesStream}
+stream: ${stream}
     ''';
   }
 }

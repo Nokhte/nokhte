@@ -26,6 +26,10 @@ abstract class _PerspectivesWidgetsCoordinatorStoreBase extends Equatable
     required this.collaborativeTextEditor,
   });
 
+  setText(String newContent) {
+    collaborativeTextEditor.setText(newContent);
+  }
+
   attuneTheWidgets(DateTime now) {
     beachHorizonWater.selectTimeBasedMovie(
       now,

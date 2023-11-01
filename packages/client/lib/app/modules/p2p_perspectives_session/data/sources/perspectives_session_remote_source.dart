@@ -4,13 +4,13 @@ import 'package:nokhte_backend/p2p_perspectives_tracking.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class P2PPerspectivesSessionRemoteSource {
-  Future<List> updateCurrentQuadrant(int params);
-  Future<List> commitThePerspectives(List<String> params);
-  Future<List> updateTheStagingArea(List<String> params);
+  Future<void> updateCurrentQuadrant(int params);
+  Future<void> commitThePerspectives(List<String> params);
+  Future<void> updateTheStagingArea(List<String> params);
   Future<Stream<PerspectivesPositioning>> fetchPerspectivesStream(
     NoParams params,
   );
-  Future<List> createAPerspectivesSession(NoParams params);
+  Future<void> createAPerspectivesSession(NoParams params);
 }
 
 class P2PPerspectivesSessionRemoteSourceImpl
@@ -28,13 +28,13 @@ class P2PPerspectivesSessionRemoteSourceImpl
         trackingQueries = P2PPerspectivesTrackingQueries(supabase: supabase);
 
   @override
-  Future<List> commitThePerspectives(List<String> params) async {
+  Future<void> commitThePerspectives(List<String> params) async {
     return await trackingQueries.insertNewPerspectives(newPerspectives: params);
   }
 
   @override
-  Future<List> createAPerspectivesSession(NoParams params) async {
-    return await workingQueries.createPositioningSession();
+  Future<void> createAPerspectivesSession(NoParams params) async {
+    await workingQueries.createPositioningSession();
   }
 
   @override
@@ -44,8 +44,8 @@ class P2PPerspectivesSessionRemoteSourceImpl
   }
 
   @override
-  Future<List> updateCurrentQuadrant(int params) async {
-    return workingQueries.updateCurrentQuadrant(newQuadrant: params);
+  Future<void> updateCurrentQuadrant(int params) async {
+    workingQueries.updateCurrentQuadrant(newQuadrant: params);
   }
 
   @override

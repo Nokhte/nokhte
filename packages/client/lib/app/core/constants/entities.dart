@@ -107,6 +107,7 @@ class DefaultEntities {
       );
   static Stream<PerspectivesPositioning> get defaultPerspectivesStream =>
       Stream.value(PerspectivesPositioning(
+        currentUserUID: "",
         collaboratorsQuadrant: -1,
         lastEditedBy: '',
         stagingAreaInfo: const [],

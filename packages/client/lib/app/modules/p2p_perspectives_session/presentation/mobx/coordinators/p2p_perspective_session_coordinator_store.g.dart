@@ -10,6 +10,40 @@ part of 'p2p_perspective_session_coordinator_store.dart';
 
 mixin _$P2PPerspectiveSessionCoordinatorStore
     on _P2PPerspectiveSessionCoordinatorStoreBase, Store {
+  late final _$previousWordAtom = Atom(
+      name: '_P2PPerspectiveSessionCoordinatorStoreBase.previousWord',
+      context: context);
+
+  @override
+  String get previousWord {
+    _$previousWordAtom.reportRead();
+    return super.previousWord;
+  }
+
+  @override
+  set previousWord(String value) {
+    _$previousWordAtom.reportWrite(value, super.previousWord, () {
+      super.previousWord = value;
+    });
+  }
+
+  late final _$activeIndexAtom = Atom(
+      name: '_P2PPerspectiveSessionCoordinatorStoreBase.activeIndex',
+      context: context);
+
+  @override
+  int get activeIndex {
+    _$activeIndexAtom.reportRead();
+    return super.activeIndex;
+  }
+
+  @override
+  set activeIndex(int value) {
+    _$activeIndexAtom.reportWrite(value, super.activeIndex, () {
+      super.activeIndex = value;
+    });
+  }
+
   late final _$screenConstructorAsyncAction = AsyncAction(
       '_P2PPerspectiveSessionCoordinatorStoreBase.screenConstructor',
       context: context);
@@ -22,7 +56,8 @@ mixin _$P2PPerspectiveSessionCoordinatorStore
   @override
   String toString() {
     return '''
-
+previousWord: ${previousWord},
+activeIndex: ${activeIndex}
     ''';
   }
 }

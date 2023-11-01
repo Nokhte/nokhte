@@ -20,7 +20,7 @@ class WorkingPerspectivesPositioningQueries extends CollaborativeQueries {
         .eq("${collaboratorInfo.theCollaboratorsNumber}_uid",
             collaboratorInfo.theCollaboratorsUID)
         .eq("${collaboratorInfo.theUsersCollaboratorNumber}_uid",
-            collaboratorInfo);
+            collaboratorInfo.theUsersUID);
     if (checkRes.isEmpty) {
       return await supabase
           .from(
@@ -43,11 +43,16 @@ class WorkingPerspectivesPositioningQueries extends CollaborativeQueries {
     }
     return await supabase
         .from(
-      WorkingPerspectivesPositioningConstants.tableName,
-    )
+          WorkingPerspectivesPositioningConstants.tableName,
+        )
         .update({
-      "${collaboratorInfo.theCollaboratorsNumber}_quadrant": newQuadrant,
-    }).select();
+          "${collaboratorInfo.theCollaboratorsNumber}_quadrant": newQuadrant,
+        })
+        .eq("${collaboratorInfo.theCollaboratorsNumber}_uid",
+            collaboratorInfo.theCollaboratorsUID)
+        .eq("${collaboratorInfo.theUsersCollaboratorNumber}_uid",
+            collaboratorInfo.theUsersUID)
+        .select();
   }
 
   Future<List> updateStagingAreaArr({required List<String> newArr}) async {
@@ -56,10 +61,17 @@ class WorkingPerspectivesPositioningQueries extends CollaborativeQueries {
     }
     return await supabase
         .from(
-      WorkingPerspectivesPositioningConstants.tableName,
-    )
+          WorkingPerspectivesPositioningConstants.tableName,
+        )
         .update({
-      WorkingPerspectivesPositioningConstants.stagingArea: newArr,
-    }).select();
+          WorkingPerspectivesPositioningConstants.stagingArea: newArr,
+          WorkingPerspectivesPositioningConstants.lastEditedBy:
+              collaboratorInfo.theUsersUID,
+        })
+        .eq("${collaboratorInfo.theCollaboratorsNumber}_uid",
+            collaboratorInfo.theCollaboratorsUID)
+        .eq("${collaboratorInfo.theUsersCollaboratorNumber}_uid",
+            collaboratorInfo.theUsersUID)
+        .select();
   }
 }
