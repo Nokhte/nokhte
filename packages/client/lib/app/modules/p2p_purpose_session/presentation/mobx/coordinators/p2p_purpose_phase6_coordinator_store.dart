@@ -70,7 +70,6 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
     firstValue = -1;
     secondValue = -1;
     previousValue = -1;
-    // print("SPV f $firstValue s $secondValue pr  $previousValue");
     timesQuadrants.clear();
   }
 
@@ -82,9 +81,6 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
 
   @observable
   bool confirmingMatch = false;
-
-  // @action
-  // setConfirmingMatch(bool newBool) => confirmingMatch = newBool;
 
   @observable
   DateTime newDateOrTime = const ConstDateTime(0);
@@ -100,7 +96,6 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
 
   @observable
   DateTime now = DateTime.now();
-  // DateTime now = DateTime.parse('2021-10-20 00:00:00');
 
   @action
   setNow(DateTime newNow) => now = newNow;
@@ -120,7 +115,6 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
         valueTrackingSetup(p0);
         if (conveyerBelt.currentFocus == DateOrTime.time) {
           timesQuadrants.add(p0);
-          print("hey here's the times list $timesQuadrants");
         }
         conveyerBeltController();
       }
@@ -152,16 +146,13 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   @action
   valueTrackingSetup(int p0) {
     if (isFirstTime) {
-      // print("is first time $p0");
       firstValue = p0;
     } else if (secondValue == -1) {
       secondValue = p0;
-      // print("is second time $p0");
     } else {
       previousValue = firstValue;
       firstValue = secondValue;
       secondValue = p0;
-      // print("is nth time  $firstValue $secondValue $previousValue");
     }
   }
 
@@ -172,7 +163,6 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
         Future.delayed(Seconds.get(3), () {
           if (confirmingMatch) {
             conveyerBelt.setWidgetVisibility(false);
-            print("what now are we using?? $now ????");
             conveyerBelt.setTimesArray(now);
             quadrantAPI.resetTheQuadrantLayout(
               startingQuadrant: conveyerBelt.currentlySelectedIndex,
@@ -180,7 +170,6 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
               quadrantSpread: 90,
             );
             setStartingQuadrant(conveyerBelt.currentlySelectedIndex);
-            // print("shouldn't this be 13 $startingQuadrant");
             Future.delayed(Seconds.get(3), () {
               resetValues();
               setTimesWidgetIsReady(true);
@@ -205,13 +194,9 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
 
   @action
   conveyerBeltController() {
-    // print(
-    //     "CTRLER : What are our value FV: $firstValue SV: $secondValue PV: $previousValue NEW TIME $newDateOrTime");
-
     switch (conveyerBelt.currentFocus) {
       case DateOrTime.date:
         if (isSecondTime && firstValue > 0) {
-          // print("branch 1 is running  $firstValue  > $previousValue ");
           widgets.initForwardTimeShift(isADate: true, newTime: newDateOrTime);
           updateTheBackend(isAForwardMovement: true, isADate: true);
         } else if (!isFirstTime && !isSecondTime && secondValue > firstValue) {
@@ -257,8 +242,6 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
         conveyerBelt.times[chosenIndex].unformatted.toUtc();
     final theirRoundedDate = DateTime(2003, 4, 9, comparisonDate.hour);
     final ourRoundedDate = DateTime(2003, 4, 9, ourUnformattedDate.hour);
-    print(
-        "hey what's this comparison ours: $ourRoundedDate theirs $theirRoundedDate");
     return theirRoundedDate == ourRoundedDate;
   }
 
@@ -269,8 +252,6 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
       isAForwardMovementParam: isAForwardMovement,
       isADate: isADate,
     );
-    print(
-        "what's the new date does this not get updated?? ${conveyerBelt.currentFocus} ${convertedTypes.newDateOrTime}");
     setChosenIndex(convertedTypes.chosenIndex);
     setNewDateOrTime(convertedTypes.newDateOrTime);
     await scheduling
