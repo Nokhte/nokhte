@@ -67,20 +67,13 @@ class P2PPupose6ScheduleNextMeeting extends StatelessWidget {
                       child: SchedulingDelta(
                         trackerStore: coordinator.widgets.schedulingDelta,
                       )),
-                  // Opacity(
-                  //   opacity: coordinator.widgets.beachWavesVisibility ? 1 : 0,
-                  //   child:
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
-                    // child: Opacity(
-                    // opacity: coordinator.widgets.beachWavesVisibility ? 1 : 0,
                     child: SmartBeachWaves(
                       stateTrackerStore: coordinator.widgets.beachWaves,
                     ),
-                    // ),
                   ),
-                  // ),
                 ],
               ),
             ),
@@ -90,5 +83,3 @@ class P2PPupose6ScheduleNextMeeting extends StatelessWidget {
     });
   }
 }
-
-// import 'package:flutter/material.dart';
