@@ -24,10 +24,21 @@ class PerspectivesMapAnimationData {
     return list;
   }
 
+  static List<Color> getCompletedAndMarkupColors(int activeIndex) {
+    final list = List.filled(5, Colors.white);
+    for (int i = 0; i < list.length; i++) {
+      if (i < activeIndex) {
+        list[i] = doneColor.withOpacity(.5);
+      } else if (i > activeIndex) {
+        list[i] = Colors.white.withOpacity(.5);
+      }
+    }
+    return list;
+  }
+
   static List<double> getVertOffArr(int activeIndex) {
     final list = List.filled(5, 0.0);
     list[activeIndex] = elevatedVertOffset;
-    print(list);
     return list;
   }
 }

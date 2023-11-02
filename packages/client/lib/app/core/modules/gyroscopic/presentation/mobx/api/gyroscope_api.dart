@@ -14,7 +14,7 @@ class GyroscopeAPI = _GyroscopeAPIBase with _$GyroscopeAPI;
 abstract class _GyroscopeAPIBase extends Equatable with Store {
   final GetDirectionAngleStore angleFeedStore;
   final SetReferenceAngleStore setRefAngleStore;
-  final ResetRefAngleForMaxCapacityStore resetRefAngle;
+  final ResetRefAngleStore resetRefAngle;
 
   late StreamSubscription<int> angleStream;
 

@@ -34,7 +34,7 @@ abstract class _PerspectivesWidgetsCoordinatorStoreBase extends Equatable
 
   attuneTheWidgets(
     DateTime now, {
-    defaultActiveIndex = 0,
+    defaultChosenIndex = 0,
   }) {
     beachHorizonWater.selectTimeBasedMovie(
       now,
@@ -45,61 +45,75 @@ abstract class _PerspectivesWidgetsCoordinatorStoreBase extends Equatable
       perspectivesMap.toggleWidgetVisibility();
       perspectivesMap.setMovie(PerspectivesMapColorAndVertOffsetChange.getMovie(
         startingCircleColors:
-            PerspectivesMapAnimationData.getWhiteArr(defaultActiveIndex),
+            PerspectivesMapAnimationData.getWhiteArr(defaultChosenIndex),
         endingCircleColors:
-            PerspectivesMapAnimationData.getWhiteArr(defaultActiveIndex),
+            PerspectivesMapAnimationData.getWhiteArr(defaultChosenIndex),
         startingVertOffsets: List.filled(5, 0),
         endingVertOffsets:
-            PerspectivesMapAnimationData.getVertOffArr(defaultActiveIndex),
+            PerspectivesMapAnimationData.getVertOffArr(defaultChosenIndex),
       ));
       collaborativeTextEditor.flipWidgetVisibility();
       perspectivesMap.controller = Control.playFromStart;
     });
-    //
   }
 
-  changeToInProgressColor(int activeIndex) {
+  changeToInProgressColor(int chosenIndex) => perspectivesMap.setMovie(
+        PerspectivesMapColorAndVertOffsetChange.getMovie(
+          startingCircleColors:
+              PerspectivesMapAnimationData.getWhiteArr(chosenIndex),
+          endingCircleColors:
+              PerspectivesMapAnimationData.getCommitInProgressArr(chosenIndex),
+          startingVertOffsets:
+              PerspectivesMapAnimationData.getVertOffArr(chosenIndex),
+          endingVertOffsets:
+              PerspectivesMapAnimationData.getVertOffArr(chosenIndex),
+        ),
+      );
+
+  inProgressToDoneTransition(int chosenIndex) => perspectivesMap.setMovie(
+        PerspectivesMapColorAndVertOffsetChange.getMovie(
+          startingCircleColors:
+              PerspectivesMapAnimationData.getCommitInProgressArr(chosenIndex),
+          endingCircleColors:
+              PerspectivesMapAnimationData.getCommittedArr(chosenIndex),
+          startingVertOffsets:
+              PerspectivesMapAnimationData.getVertOffArr(chosenIndex),
+          endingVertOffsets:
+              PerspectivesMapAnimationData.getVertOffArr(chosenIndex),
+        ),
+      );
+
+  inProgressColorReversion(int chosenIndex) => perspectivesMap.setMovie(
+        PerspectivesMapColorAndVertOffsetChange.getMovie(
+          startingCircleColors:
+              PerspectivesMapAnimationData.getCommitInProgressArr(chosenIndex),
+          endingCircleColors:
+              PerspectivesMapAnimationData.getWhiteArr(chosenIndex),
+          startingVertOffsets:
+              PerspectivesMapAnimationData.getVertOffArr(chosenIndex),
+          endingVertOffsets:
+              PerspectivesMapAnimationData.getVertOffArr(chosenIndex),
+        ),
+      );
+
+  moveUpOrDownToNextPerspective(
+    int chosenIndex, {
+    required bool shouldMoveUp,
+  }) {
+    final prevIndex = shouldMoveUp ? chosenIndex - 1 : chosenIndex + 1;
+    setText('');
+    collaborativeTextEditor.flipWidgetVisibility();
     perspectivesMap.setMovie(
       PerspectivesMapColorAndVertOffsetChange.getMovie(
         startingCircleColors:
-            PerspectivesMapAnimationData.getWhiteArr(activeIndex),
+            PerspectivesMapAnimationData.getCommittedArr(prevIndex),
         endingCircleColors:
-            PerspectivesMapAnimationData.getCommitInProgressArr(activeIndex),
+            PerspectivesMapAnimationData.getCompletedAndMarkupColors(
+                chosenIndex),
         startingVertOffsets:
-            PerspectivesMapAnimationData.getVertOffArr(activeIndex),
+            PerspectivesMapAnimationData.getVertOffArr(prevIndex),
         endingVertOffsets:
-            PerspectivesMapAnimationData.getVertOffArr(activeIndex),
-      ),
-    );
-  }
-
-  inProgressToDoneTransition(int activeIndex) {
-    perspectivesMap.setMovie(
-      PerspectivesMapColorAndVertOffsetChange.getMovie(
-        startingCircleColors:
-            PerspectivesMapAnimationData.getCommitInProgressArr(activeIndex),
-        endingCircleColors:
-            PerspectivesMapAnimationData.getCommittedArr(activeIndex),
-        startingVertOffsets:
-            PerspectivesMapAnimationData.getVertOffArr(activeIndex),
-        endingVertOffsets:
-            PerspectivesMapAnimationData.getVertOffArr(activeIndex),
-      ),
-    );
-    //
-  }
-
-  inProgressColorReversion(int activeIndex) {
-    perspectivesMap.setMovie(
-      PerspectivesMapColorAndVertOffsetChange.getMovie(
-        startingCircleColors:
-            PerspectivesMapAnimationData.getCommitInProgressArr(activeIndex),
-        endingCircleColors:
-            PerspectivesMapAnimationData.getWhiteArr(activeIndex),
-        startingVertOffsets:
-            PerspectivesMapAnimationData.getVertOffArr(activeIndex),
-        endingVertOffsets:
-            PerspectivesMapAnimationData.getVertOffArr(activeIndex),
+            PerspectivesMapAnimationData.getVertOffArr(chosenIndex),
       ),
     );
   }

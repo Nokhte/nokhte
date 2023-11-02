@@ -87,9 +87,9 @@ abstract class _QuadrantAPIBase extends GyroscopeAPI with Store {
         setCurrentRevolution(setupReturnType.startingRevolution);
         maxAngle = setupReturnType.maxAngle;
         if (setupReturnType.desiredStartingAngle != 0) {
-          resetRefAngle(ResetRefAngleForMaxCapacityParams(
+          resetRefAngle(ResetRefAngleParams(
             currentValue: value,
-            maxAngle: setupReturnType.desiredStartingAngle,
+            desiredSetAngle: setupReturnType.desiredStartingAngle,
           ));
         }
         setCurrentQuadrant(startingQuadrant);
@@ -123,9 +123,9 @@ abstract class _QuadrantAPIBase extends GyroscopeAPI with Store {
     setCurrentRevolution(setupReturnType.startingRevolution);
     maxAngle = setupReturnType.maxAngle;
     final startingAngle = (setupReturnType.desiredStartingAngle % 360).floor();
-    resetRefAngle(ResetRefAngleForMaxCapacityParams(
+    resetRefAngle(ResetRefAngleParams(
       currentValue: firstValue,
-      maxAngle: startingAngle,
+      desiredSetAngle: startingAngle,
     ));
     setCurrentQuadrant(startingQuadrant);
   }
@@ -158,8 +158,8 @@ abstract class _QuadrantAPIBase extends GyroscopeAPI with Store {
         int comparison =
             GyroscopeUtils.clockwiseComparison(firstValue, secondValue);
         if (comparison == 1) {
-          resetRefAngle(ResetRefAngleForMaxCapacityParams(
-              maxAngle: 0, currentValue: value));
+          resetRefAngle(
+              ResetRefAngleParams(desiredSetAngle: 0, currentValue: value));
           currentMode = GyroscopeModes.regular;
         }
       case NegativeModeBehaviors.indexNegativeQuadrants:
@@ -187,8 +187,10 @@ abstract class _QuadrantAPIBase extends GyroscopeAPI with Store {
     int comparison =
         GyroscopeUtils.clockwiseComparison(firstValue, secondValue);
     if (comparison == 2) {
-      resetRefAngle(ResetRefAngleForMaxCapacityParams(
-          maxAngle: maxAngle, currentValue: value));
+      resetRefAngle(ResetRefAngleParams(
+        desiredSetAngle: maxAngle,
+        currentValue: value,
+      ));
       currentMode = GyroscopeModes.regular;
     }
   }

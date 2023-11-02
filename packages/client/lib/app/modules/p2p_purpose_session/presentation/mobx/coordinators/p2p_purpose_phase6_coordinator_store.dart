@@ -4,9 +4,7 @@ import 'dart:async';
 
 import 'package:const_date_time/const_date_time.dart';
 import 'package:mobx/mobx.dart';
-// * Equatable Import
-import 'package:equatable/equatable.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
 import 'package:nokhte/app/core/modules/scheduling/domain/domain.dart';
 import 'package:nokhte/app/core/modules/scheduling/presentation/presentation.dart';
@@ -20,38 +18,22 @@ part 'p2p_purpose_phase6_coordinator_store.g.dart';
 class P2PPurposePhase6CoordinatorStore = _P2PPurposePhase6CoordinatorStoreBase
     with _$P2PPurposePhase6CoordinatorStore;
 
-abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
-    with Store {
-  final QuadrantAPI quadrantAPI;
+abstract class _P2PPurposePhase6CoordinatorStoreBase
+    extends BaseQuadrantAPIReceiver with Store {
+  // final QuadrantAPI quadrantAPI;
   final SchedulingWidgetsCoordinatorStore widgets;
   final ConveyerBeltTextStore conveyerBelt;
   final SchedulingCoordinatorStore scheduling;
   final SchedulingDeltaStore delta;
 
   _P2PPurposePhase6CoordinatorStoreBase({
+    required super.quadrantAPI,
     required this.widgets,
-    required this.quadrantAPI,
     required this.scheduling,
   })  : conveyerBelt = widgets.conveyerBelt,
         delta = widgets.schedulingDelta;
 
   bool isFirstTimeWithTimes = true;
-
-  @observable
-  int chosenIndex = 0;
-
-  @action
-  setChosenIndex(int newInt) => chosenIndex = newInt;
-
-  // I think a coordinator store for the widget
-  @observable
-  int firstValue = -1;
-
-  @observable
-  int secondValue = -1;
-
-  @observable
-  int previousValue = -1;
 
   @observable
   bool timesWidgetIsReady = false;
@@ -87,12 +69,6 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
 
   @action
   setNewDateOrTime(DateTime newDT) => newDateOrTime = newDT;
-
-  @computed
-  bool get isFirstTime => firstValue == -1;
-
-  @computed
-  bool get isSecondTime => secondValue == -1;
 
   @observable
   DateTime now = DateTime.now();
@@ -141,19 +117,6 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
           }
       }
     });
-  }
-
-  @action
-  valueTrackingSetup(int p0) {
-    if (isFirstTime) {
-      firstValue = p0;
-    } else if (secondValue == -1) {
-      secondValue = p0;
-    } else {
-      previousValue = firstValue;
-      firstValue = secondValue;
-      secondValue = p0;
-    }
   }
 
   @action
@@ -260,7 +223,4 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
       newDateOrTime: newDateOrTime,
     ));
   }
-
-  @override
-  List<Object> get props => [];
 }

@@ -3,23 +3,23 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
-import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
+// import 'package:nokhte/app/core/modules/gyroscopic/domain/domain.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/types/desired_negative_mode_behavior.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
-import 'package:nokhte/app/modules/p2p_perspectives_session/presentation/mobx/coordinators/perspectives_widgets_coordinator_store.dart';
-import 'package:nokhte/app/modules/p2p_perspectives_session/presentation/mobx/main/main.dart';
+import 'package:nokhte/app/modules/p2p_perspectives_session/presentation/presentation.dart';
 // * Mobx Codegen Inclusion
 part 'p2p_perspective_session_coordinator_store.g.dart';
 
 class P2PPerspectiveSessionCoordinatorStore = _P2PPerspectiveSessionCoordinatorStoreBase
     with _$P2PPerspectiveSessionCoordinatorStore;
 
-abstract class _P2PPerspectiveSessionCoordinatorStoreBase extends Equatable
-    with Store {
+abstract class _P2PPerspectiveSessionCoordinatorStoreBase
+    extends BaseQuadrantAPIReceiver with Store {
   final PerspectivesWidgetsCoordinatorStore widgets;
   final VoiceCallActionsStore voiceCall;
-  final QuadrantAPI quadrantAPI;
+  // final QuadrantAPI quadrantAPI;
   final CommitThePerspectivesStore commitThePerspectives;
   final CreateAPerspectivesSessionStore createSession;
   final FetchPerspectivesStreamStore perspectivesStream;
@@ -27,9 +27,12 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase extends Equatable
   final UpdateTheStagingAreaStore updateStaging;
   final TextEditingController userController;
 
+  final quadNum = 5;
+  final quadSpread = 90;
+
   _P2PPerspectiveSessionCoordinatorStoreBase({
+    required super.quadrantAPI,
     required this.voiceCall,
-    required this.quadrantAPI,
     required this.widgets,
     required this.commitThePerspectives,
     required this.createSession,
@@ -45,10 +48,9 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase extends Equatable
   @observable
   String previousWord = "";
 
-  @observable
-  int activeIndex = 0;
-
   bool canBeMarkedUp = false;
+
+  int perspectivesThatAreCommitted = 0;
 
   List<String> localPerspectives = List.filled(5, "");
 
@@ -59,49 +61,104 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase extends Equatable
     widgets.attuneTheWidgets(DateTime.now());
     await createSession(NoParams());
     await perspectivesStream(NoParams());
-    perspectivesStream.stream.listen((value) {
-      if (isInitalDocLoad) {
-        widgets.setText(value.stagingAreaInfo[activeIndex]);
-        isInitalDocLoad = false;
-      }
-      if (value.lastEditedBy != value.currentUserUID) {
-        widgets.setText(value.stagingAreaInfo[activeIndex]);
-        if (inProgressCommit) {
-          inProgressCommit = false;
-          updateQuadStore(activeIndex);
-          widgets.inProgressColorReversion(activeIndex);
-        }
-      }
-      if (value.usersQuadrant > activeIndex &&
-          value.collaboratorsQuadrant > activeIndex &&
-          value.collaboratorsQuadrant == value.usersQuadrant) {
-        canBeMarkedUp = true; // once they turn it should be set to false
-        widgets.inProgressToDoneTransition(activeIndex);
-        widgets.collaborativeTextEditor.flipWidgetVisibility();
-        // then when they turn it fades back in as empty
-        //
-      }
-    });
-    userController.addListener(() async {
-      if (previousWord != userController.text && !isInitalDocLoad) {
-        previousWord = userController.text;
-        localPerspectives[activeIndex] = userController.text;
-        if (inProgressCommit) {
-          inProgressCommit = false;
-          updateQuadStore(activeIndex);
-          widgets.inProgressColorReversion(activeIndex);
-        }
-        await updateStaging(localPerspectives);
-      }
-    });
+    textEditorSynchronizer();
+    textEditorListener();
+    await quadrantAPI.setupTheStream(
+      numberOfQuadrants: quadNum,
+      quadrantSpread: quadSpread,
+      startingQuadrant: 0,
+      negativeModeBehavior: NegativeModeBehaviors.resetRefAngle,
+    );
   }
 
   @action
   onSwipeUp() {
     inProgressCommit = true;
-    updateQuadStore(activeIndex + 1);
-    widgets.changeToInProgressColor(activeIndex);
+    updateQuadStore(chosenIndex + 1);
+    widgets.changeToInProgressColor(chosenIndex);
   }
+
+  markUpValidationAndExecution() {
+    if (canBeMarkedUp) {
+      canBeMarkedUp = false;
+      perspectivesThatAreCommitted++;
+      setChosenIndex(chosenIndex + 1);
+      widgets.moveUpOrDownToNextPerspective(chosenIndex, shouldMoveUp: true);
+      return;
+    } else {
+      quadrantAPI.resetTheQuadrantLayout(
+        startingQuadrant: chosenIndex,
+        numberOfQuadrants: quadNum,
+        quadrantSpread: quadSpread,
+      );
+    }
+  }
+
+  markDownValidationAndExecution() {
+    if (chosenIndex > 0) {
+      perspectivesThatAreCommitted--;
+      setChosenIndex(chosenIndex - 1);
+      widgets.moveUpOrDownToNextPerspective(chosenIndex, shouldMoveUp: false);
+    }
+  }
+
+  perspectivesController() {
+    if (isSecondTime && firstValue > 0) {
+      /* INITIAL FORWARD MOVE */
+      markUpValidationAndExecution();
+    } else if (!isFirstTime &&
+        !isSecondTime &&
+        secondValue > firstValue &&
+        canBeMarkedUp) {
+      /* Non-iNiTiAL FORWARD MOVE */
+      markUpValidationAndExecution();
+    } else if (!isFirstTime && !isSecondTime && secondValue < firstValue) {
+      /* BACKWARD MOVE */
+      markDownValidationAndExecution();
+    }
+  }
+
+  quadrantAPIListener() => reaction((p0) => quadrantAPI.currentQuadrant, (p0) {
+        if (p0 >= 0) {
+          valueTrackingSetup(p0);
+          perspectivesController();
+        }
+      });
+
+  textEditorSynchronizer() => perspectivesStream.stream.listen((value) {
+        if (isInitalDocLoad) {
+          widgets.setText(value.stagingAreaInfo[chosenIndex]);
+          isInitalDocLoad = false;
+        }
+        if (value.lastEditedBy != value.currentUserUID) {
+          widgets.setText(value.stagingAreaInfo[chosenIndex]);
+          if (inProgressCommit) {
+            inProgressCommit = false;
+            updateQuadStore(chosenIndex);
+            widgets.inProgressColorReversion(chosenIndex);
+          }
+        }
+        if (value.usersQuadrant > chosenIndex &&
+            value.collaboratorsQuadrant > chosenIndex &&
+            value.collaboratorsQuadrant == value.usersQuadrant) {
+          canBeMarkedUp = true; // once they turn it should be set to false
+          widgets.inProgressToDoneTransition(chosenIndex);
+          widgets.collaborativeTextEditor.flipWidgetVisibility();
+        }
+      });
+
+  textEditorListener() => userController.addListener(() async {
+        if (previousWord != userController.text && !isInitalDocLoad) {
+          previousWord = userController.text;
+          localPerspectives[chosenIndex] = userController.text;
+          if (inProgressCommit) {
+            inProgressCommit = false;
+            updateQuadStore(chosenIndex);
+            widgets.inProgressColorReversion(chosenIndex);
+          }
+          await updateStaging(localPerspectives);
+        }
+      });
 
   @override
   List<Object> get props => [];

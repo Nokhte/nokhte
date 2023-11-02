@@ -36,8 +36,8 @@ class GyroscopicModule extends Module {
           ),
           export: true,
         ),
-        Bind.singleton<ResetRefAngleForMaxCapacity>(
-          (i) => ResetRefAngleForMaxCapacity(
+        Bind.singleton<ResetRefAngle>(
+          (i) => ResetRefAngle(
             contract: i<GyroscopicContract>(),
           ),
           export: true,
@@ -49,9 +49,9 @@ class GyroscopicModule extends Module {
           ),
           export: true,
         ),
-        Bind.singleton<ResetRefAngleForMaxCapacityGetterStore>(
-          (i) => ResetRefAngleForMaxCapacityGetterStore(
-            logic: i<ResetRefAngleForMaxCapacity>(),
+        Bind.singleton<ResetRefAngleGetterStore>(
+          (i) => ResetRefAngleGetterStore(
+            logic: i<ResetRefAngle>(),
           ),
           export: true,
         ),
@@ -72,16 +72,16 @@ class GyroscopicModule extends Module {
           ),
           export: true,
         ),
-        Bind.singleton<ResetRefAngleForMaxCapacityStore>(
-          (i) => ResetRefAngleForMaxCapacityStore(
-            getterStore: i<ResetRefAngleForMaxCapacityGetterStore>(),
+        Bind.singleton<ResetRefAngleStore>(
+          (i) => ResetRefAngleStore(
+            getterStore: i<ResetRefAngleGetterStore>(),
           ),
           export: true,
         ),
         // & Coordinator Store
         Bind.singleton<QuadrantAPI>(
           (i) => QuadrantAPI(
-            resetRefAngle: i<ResetRefAngleForMaxCapacityStore>(),
+            resetRefAngle: i<ResetRefAngleStore>(),
             angleFeedStore: i<GetDirectionAngleStore>(),
             setRefAngleStore: i<SetReferenceAngleStore>(),
           ),

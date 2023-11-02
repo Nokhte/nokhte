@@ -92,17 +92,17 @@ class MockMGyroscopicContract extends _i1.Mock
       ) as _i3.ReferenceAngleSetterStatusEntity);
 
   @override
-  _i3.ReferenceAngleSetterStatusEntity resetRefAngleForMaxCapacity(
-          _i3.ResetRefAngleForMaxCapacityParams? params) =>
+  _i3.ReferenceAngleSetterStatusEntity resetRefAngle(
+          _i3.ResetRefAngleParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
-          #resetRefAngleForMaxCapacity,
+          #resetRefAngle,
           [params],
         ),
         returnValue: _FakeReferenceAngleSetterStatusEntity_1(
           this,
           Invocation.method(
-            #resetRefAngleForMaxCapacity,
+            #resetRefAngle,
             [params],
           ),
         ),

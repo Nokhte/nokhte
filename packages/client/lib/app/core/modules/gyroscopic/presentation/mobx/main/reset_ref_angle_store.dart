@@ -5,16 +5,14 @@ import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
 // * Mobx Codegen Inclusion
-part 'reset_ref_angle_for_max_capacity_store.g.dart';
+part 'reset_ref_angle_store.g.dart';
 
-class ResetRefAngleForMaxCapacityStore = _ResetRefAngleForMaxCapacityStoreBase
-    with _$ResetRefAngleForMaxCapacityStore;
+class ResetRefAngleStore = _ResetRefAngleStoreBase with _$ResetRefAngleStore;
 
-abstract class _ResetRefAngleForMaxCapacityStoreBase extends Equatable
-    with Store {
-  final ResetRefAngleForMaxCapacityGetterStore getterStore;
+abstract class _ResetRefAngleStoreBase extends Equatable with Store {
+  final ResetRefAngleGetterStore getterStore;
 
-  _ResetRefAngleForMaxCapacityStoreBase({
+  _ResetRefAngleStoreBase({
     required this.getterStore,
   });
 
