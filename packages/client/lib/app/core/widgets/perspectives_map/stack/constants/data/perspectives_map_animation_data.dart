@@ -7,25 +7,27 @@ class PerspectivesMapAnimationData {
   static Color get commitInProgressColor => const Color(0xFFFFB783);
   static Color get regularBaseColor => Colors.white;
   static List<Color> getWhiteArr(int activeIndex) {
-    final list = List.filled(5, Colors.white.withOpacity(.5));
-    list[activeIndex] = Colors.white;
-    return list;
+    // final list = List.filled(5, Colors.white.withOpacity(.5));
+    // list[activeIndex] = Colors.white;
+    // return list;
+    return getCompletedAndMarkupColors(activeIndex);
   }
 
   static List<Color> getCommitInProgressArr(int activeIndex) {
-    final list = List.filled(5, Colors.white.withOpacity(.5));
+    final list = getCompletedAndMarkupColors(activeIndex);
     list[activeIndex] = commitInProgressColor;
     return list;
   }
 
   static List<Color> getCommittedArr(int activeIndex) {
-    final list = List.filled(5, Colors.white.withOpacity(.5));
+    final list = getCompletedAndMarkupColors(activeIndex);
     list[activeIndex] = doneColor;
     return list;
   }
 
   static List<Color> getCompletedAndMarkupColors(int activeIndex) {
-    final list = List.filled(5, Colors.white);
+    final list = List.filled(5, Colors.white.withOpacity(.5));
+    list[activeIndex] = Colors.white;
     for (int i = 0; i < list.length; i++) {
       if (i < activeIndex) {
         list[i] = doneColor.withOpacity(.5);

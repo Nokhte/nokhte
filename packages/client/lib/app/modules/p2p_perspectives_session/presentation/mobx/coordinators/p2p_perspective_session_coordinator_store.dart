@@ -86,6 +86,7 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
   markUpValidationAndExecution() {
     if (canBeMarkedUp) {
       canBeMarkedUp = false;
+      inProgressCommit = false;
       perspectivesThatAreCommitted++;
       setChosenIndex(chosenIndex + 1);
       // widgets.setText('');
@@ -105,12 +106,19 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
     }
   }
 
-  markDownValidationAndExecution() {
-    if (chosenIndex > 0) {
-      perspectivesThatAreCommitted--;
-      setChosenIndex(chosenIndex - 1);
-      widgets.moveUpOrDownToNextPerspective(chosenIndex, shouldMoveUp: false);
+  onSwipeDown() async {
+    if (localPerspectives[2].isNotEmpty) {
+      await commitThePerspectives(localPerspectives);
+      // the transition out of the session
     }
+  }
+
+  markDownValidationAndExecution() {
+    // if (chosenIndex > 0) {
+    //   perspectivesThatAreCommitted--;
+    //   setChosenIndex(chosenIndex - 1);
+    //   widgets.moveUpOrDownToNextPerspective(chosenIndex, shouldMoveUp: false);
+    // }
   }
 
   perspectivesController() {
@@ -171,12 +179,12 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
           previousWord = userController.text;
           localPerspectives[chosenIndex] = userController.text;
           print("what's happeneing here ?? ${localPerspectives[chosenIndex]}");
+          await updateStaging(localPerspectives);
           if (inProgressCommit) {
             inProgressCommit = false;
             await updateQuadStore(chosenIndex);
             widgets.inProgressColorReversion(chosenIndex);
           }
-          await updateStaging(localPerspectives);
         }
       });
 

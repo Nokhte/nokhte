@@ -27,6 +27,7 @@ class PerspectivesSessionScreen extends StatelessWidget {
         builder: (contexts, constraints) => PlatformScaffold(
           body: Swipe(
             onSwipeUp: () => coordinator.onSwipeUp(),
+            onSwipeDown: () => coordinator.onSwipeDown(),
             child: Stack(
               children: [
                 SizedBox(
