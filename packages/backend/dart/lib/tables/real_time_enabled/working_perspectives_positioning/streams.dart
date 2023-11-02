@@ -37,16 +37,18 @@ class WorkingPerspectivesPositioningStream extends CollaborativeQueries {
           lastEditedBy: '',
           collaboratorsQuadrant: -1,
           currentUserUID: '',
+          usersQuadrant: -1,
         );
       } else {
         yield PerspectivesPositioning(
-          stagingAreaInfo: event[0]
-              [WorkingPerspectivesPositioningConstants.stagingArea],
-          lastEditedBy: event[0]["last_edited_by"] ?? '',
-          currentUserUID: userUID,
-          collaboratorsQuadrant: event[0]
-              ["${collaboratorInfo.theCollaboratorsNumber}_quadrant"],
-        );
+            stagingAreaInfo: event[0]
+                [WorkingPerspectivesPositioningConstants.stagingArea],
+            lastEditedBy: event[0]["last_edited_by"] ?? '',
+            currentUserUID: userUID,
+            collaboratorsQuadrant: event[0]
+                ["${collaboratorInfo.theCollaboratorsNumber}_quadrant"],
+            usersQuadrant: event[0]
+                ["${collaboratorInfo.theUsersCollaboratorNumber}_quadrant"]);
       }
     }
   }

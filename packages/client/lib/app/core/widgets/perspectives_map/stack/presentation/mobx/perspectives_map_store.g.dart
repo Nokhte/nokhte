@@ -83,6 +83,17 @@ mixin _$PerspectivesMapStore on _PerspectivesMapStoreBase, Store {
   }
 
   @override
+  dynamic setMovie(MovieTween newMovie) {
+    final _$actionInfo = _$_PerspectivesMapStoreBaseActionController
+        .startAction(name: '_PerspectivesMapStoreBase.setMovie');
+    try {
+      return super.setMovie(newMovie);
+    } finally {
+      _$_PerspectivesMapStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 showWidget: ${showWidget},

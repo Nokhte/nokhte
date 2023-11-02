@@ -145,7 +145,7 @@ class P2PPerspectivesSessionModule extends Module {
             commitThePerspectives: i<CommitThePerspectivesStore>(),
             createSession: i<CreateAPerspectivesSessionStore>(),
             perspectivesStream: i<FetchPerspectivesStreamStore>(),
-            updateStore: i<UpdateCurrentQuadrantStore>(),
+            updateQuadStore: i<UpdateCurrentQuadrantStore>(),
             updateStaging: i<UpdateTheStagingAreaStore>(),
           ),
         ),

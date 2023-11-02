@@ -61,7 +61,7 @@
                 "**/build/**": true,
                 "**/_deprecated/**": true,
                 "**/canvas_widget_utils/**": true,
-                "**/core/constants/**": true,
+                // "**/core/constants/**": true,
                 "**/core/entities/**": true,
                 "**/core/error/**": true,
                 "**/core/guards/**": true,

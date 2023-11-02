@@ -23,7 +23,7 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase extends Equatable
   final CommitThePerspectivesStore commitThePerspectives;
   final CreateAPerspectivesSessionStore createSession;
   final FetchPerspectivesStreamStore perspectivesStream;
-  final UpdateCurrentQuadrantStore updateStore;
+  final UpdateCurrentQuadrantStore updateQuadStore;
   final UpdateTheStagingAreaStore updateStaging;
   final TextEditingController userController;
 
@@ -34,17 +34,21 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase extends Equatable
     required this.commitThePerspectives,
     required this.createSession,
     required this.perspectivesStream,
-    required this.updateStore,
+    required this.updateQuadStore,
     required this.updateStaging,
   }) : userController = widgets.collaborativeTextEditor.controller;
 
-  bool isInitalDocLoad = false;
+  bool isInitalDocLoad = true;
+
+  bool inProgressCommit = false;
 
   @observable
   String previousWord = "";
 
   @observable
   int activeIndex = 0;
+
+  bool canBeMarkedUp = false;
 
   List<String> localPerspectives = List.filled(5, "");
 
@@ -57,20 +61,46 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase extends Equatable
     await perspectivesStream(NoParams());
     perspectivesStream.stream.listen((value) {
       if (isInitalDocLoad) {
-        widgets.setText(value.stagingAreaInfo[0]);
+        widgets.setText(value.stagingAreaInfo[activeIndex]);
+        isInitalDocLoad = false;
       }
       if (value.lastEditedBy != value.currentUserUID) {
         widgets.setText(value.stagingAreaInfo[activeIndex]);
+        if (inProgressCommit) {
+          inProgressCommit = false;
+          updateQuadStore(activeIndex);
+          widgets.inProgressColorReversion(activeIndex);
+        }
       }
-      // print("$value");
+      if (value.usersQuadrant > activeIndex &&
+          value.collaboratorsQuadrant > activeIndex &&
+          value.collaboratorsQuadrant == value.usersQuadrant) {
+        canBeMarkedUp = true; // once they turn it should be set to false
+        widgets.inProgressToDoneTransition(activeIndex);
+        widgets.collaborativeTextEditor.flipWidgetVisibility();
+        // then when they turn it fades back in as empty
+        //
+      }
     });
     userController.addListener(() async {
       if (previousWord != userController.text && !isInitalDocLoad) {
         previousWord = userController.text;
         localPerspectives[activeIndex] = userController.text;
+        if (inProgressCommit) {
+          inProgressCommit = false;
+          updateQuadStore(activeIndex);
+          widgets.inProgressColorReversion(activeIndex);
+        }
         await updateStaging(localPerspectives);
       }
     });
+  }
+
+  @action
+  onSwipeUp() {
+    inProgressCommit = true;
+    updateQuadStore(activeIndex + 1);
+    widgets.changeToInProgressColor(activeIndex);
   }
 
   @override

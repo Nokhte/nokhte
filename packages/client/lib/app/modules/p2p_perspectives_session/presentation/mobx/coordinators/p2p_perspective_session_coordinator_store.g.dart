@@ -53,6 +53,24 @@ mixin _$P2PPerspectiveSessionCoordinatorStore
     return _$screenConstructorAsyncAction.run(() => super.screenConstructor());
   }
 
+  late final _$_P2PPerspectiveSessionCoordinatorStoreBaseActionController =
+      ActionController(
+          name: '_P2PPerspectiveSessionCoordinatorStoreBase', context: context);
+
+  @override
+  dynamic onSwipeUp() {
+    final _$actionInfo =
+        _$_P2PPerspectiveSessionCoordinatorStoreBaseActionController
+            .startAction(
+                name: '_P2PPerspectiveSessionCoordinatorStoreBase.onSwipeUp');
+    try {
+      return super.onSwipeUp();
+    } finally {
+      _$_P2PPerspectiveSessionCoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

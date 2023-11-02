@@ -27,6 +27,9 @@ abstract class _PerspectivesMapStoreBase extends Equatable with Store {
     controller = newControl;
   }
 
+  @action
+  setMovie(MovieTween newMovie) => movie = newMovie;
+
   @observable
   MovieTween movie = PerspectivesMapColorAndVertOffsetChange.getMovie(
       startingCircleColors: List.filled(5, Colors.white),

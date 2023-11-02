@@ -4,6 +4,7 @@ class PerspectivesPositioning extends Equatable {
   final List stagingAreaInfo;
   final String lastEditedBy;
   final int collaboratorsQuadrant;
+  final int usersQuadrant;
   final String currentUserUID;
 
   PerspectivesPositioning({
@@ -11,6 +12,7 @@ class PerspectivesPositioning extends Equatable {
     required this.lastEditedBy,
     required this.collaboratorsQuadrant,
     required this.currentUserUID,
+    required this.usersQuadrant,
   });
 
   @override

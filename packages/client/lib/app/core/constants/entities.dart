@@ -111,6 +111,7 @@ class DefaultEntities {
         collaboratorsQuadrant: -1,
         lastEditedBy: '',
         stagingAreaInfo: const [],
+        usersQuadrant: -1,
       ));
   static Either<Failure, InitLeopardStatusEntity>
       get defaultInitLeopardStatusEntity =>

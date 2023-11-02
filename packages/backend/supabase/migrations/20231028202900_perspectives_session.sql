@@ -233,3 +233,13 @@ END;$function$
 alter table "public"."p2p_perspectives_tracking" alter column "past_perspectives" set default '{}'::jsonb;
 
 alter table "public"."p2p_perspectives_tracking" alter column "past_perspectives" set not null;
+
+alter table "public"."working_perspective_positioning" add column "last_edited_by" uuid;
+
+alter table "public"."working_perspective_positioning" add constraint "working_perspective_positioning_last_edited_by_fkey" FOREIGN KEY (last_edited_by) REFERENCES auth.users(id) not valid;
+
+alter table "public"."working_perspective_positioning" validate constraint "working_perspective_positioning_last_edited_by_fkey";
+
+alter table "public"."working_perspective_positioning" alter column "collaborator_one_quadrant" set default '0'::bigint;
+
+alter table "public"."working_perspective_positioning" alter column "collaborator_two_quadrant" set default '0'::bigint;
