@@ -41,6 +41,7 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
     required this.updateStaging,
   }) : userController = widgets.collaborativeTextEditor.controller;
 
+  @observable
   bool isInitalDocLoad = true;
 
   bool inProgressCommit = false;
@@ -69,12 +70,16 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
       startingQuadrant: 0,
       negativeModeBehavior: NegativeModeBehaviors.resetRefAngle,
     );
+    quadrantAPIListener();
   }
 
   @action
-  onSwipeUp() {
+  setIsInitialDocLoad(bool newBool) => isInitalDocLoad = newBool;
+
+  @action
+  onSwipeUp() async {
     inProgressCommit = true;
-    updateQuadStore(chosenIndex + 1);
+    await updateQuadStore(chosenIndex + 1);
     widgets.changeToInProgressColor(chosenIndex);
   }
 
@@ -83,6 +88,12 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
       canBeMarkedUp = false;
       perspectivesThatAreCommitted++;
       setChosenIndex(chosenIndex + 1);
+      // widgets.setText('');
+      print("validation $localPerspectives");
+      updateStaging(localPerspectives);
+      setIsInitialDocLoad(true);
+
+      // isInitalDocLoad = true;
       widgets.moveUpOrDownToNextPerspective(chosenIndex, shouldMoveUp: true);
       return;
     } else {
@@ -105,14 +116,17 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
   perspectivesController() {
     if (isSecondTime && firstValue > 0) {
       /* INITIAL FORWARD MOVE */
+      print("is init forward move running??");
       markUpValidationAndExecution();
     } else if (!isFirstTime &&
         !isSecondTime &&
         secondValue > firstValue &&
         canBeMarkedUp) {
+      print("is  forward move running??");
       /* Non-iNiTiAL FORWARD MOVE */
       markUpValidationAndExecution();
     } else if (!isFirstTime && !isSecondTime && secondValue < firstValue) {
+      print("is backward move running??");
       /* BACKWARD MOVE */
       markDownValidationAndExecution();
     }
@@ -121,11 +135,15 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
   quadrantAPIListener() => reaction((p0) => quadrantAPI.currentQuadrant, (p0) {
         if (p0 >= 0) {
           valueTrackingSetup(p0);
+          print("quad api listener $localPerspectives");
           perspectivesController();
         }
       });
 
-  textEditorSynchronizer() => perspectivesStream.stream.listen((value) {
+  textEditorSynchronizer() => perspectivesStream.stream.listen((value) async {
+        // print(
+        //     "tf is the index $chosenIndex and what is the staging val ${value.stagingAreaInfo[chosenIndex]}");
+        print("text editor synchronizer $localPerspectives");
         if (isInitalDocLoad) {
           widgets.setText(value.stagingAreaInfo[chosenIndex]);
           isInitalDocLoad = false;
@@ -134,7 +152,7 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
           widgets.setText(value.stagingAreaInfo[chosenIndex]);
           if (inProgressCommit) {
             inProgressCommit = false;
-            updateQuadStore(chosenIndex);
+            await updateQuadStore(chosenIndex);
             widgets.inProgressColorReversion(chosenIndex);
           }
         }
@@ -149,11 +167,13 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
 
   textEditorListener() => userController.addListener(() async {
         if (previousWord != userController.text && !isInitalDocLoad) {
+          print("hey what is the current index $chosenIndex");
           previousWord = userController.text;
           localPerspectives[chosenIndex] = userController.text;
+          print("what's happeneing here ?? ${localPerspectives[chosenIndex]}");
           if (inProgressCommit) {
             inProgressCommit = false;
-            updateQuadStore(chosenIndex);
+            await updateQuadStore(chosenIndex);
             widgets.inProgressColorReversion(chosenIndex);
           }
           await updateStaging(localPerspectives);

@@ -42,12 +42,14 @@ class WorkingPerspectivesPositioningQueries extends CollaborativeQueries {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutActiveCollaboratorInfo();
     }
+    print("Is this thing running??? $newQuadrant");
     return await supabase
         .from(
           WorkingPerspectivesPositioningConstants.tableName,
         )
         .update({
-          "${collaboratorInfo.theCollaboratorsNumber}_quadrant": newQuadrant,
+          "${collaboratorInfo.theUsersCollaboratorNumber}_quadrant":
+              newQuadrant,
         })
         .eq("${collaboratorInfo.theCollaboratorsNumber}_uid",
             collaboratorInfo.theCollaboratorsUID)

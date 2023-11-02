@@ -101,7 +101,8 @@ abstract class _PerspectivesWidgetsCoordinatorStoreBase extends Equatable
     required bool shouldMoveUp,
   }) {
     final prevIndex = shouldMoveUp ? chosenIndex - 1 : chosenIndex + 1;
-    setText('');
+    // setText('');
+    // ^^ this
     collaborativeTextEditor.flipWidgetVisibility();
     perspectivesMap.setMovie(
       PerspectivesMapColorAndVertOffsetChange.getMovie(

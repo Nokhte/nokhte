@@ -22,11 +22,13 @@ class BaseTextEditor extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0),
       child: PlatformTextField(
+        keyboardType: TextInputType.name,
         onTapOutside: (event) => trackerStore.focusNode.unfocus(),
         onTap: () => trackerStore.handleTap(),
         controller: trackerStore.controller,
         focusNode: trackerStore.focusNode,
         maxLines: maxLines,
+        // onSubmitted: (_) => FocusScope.of(context).unfocus(),
         maxLength: maxLength,
         maxLengthEnforcement: MaxLengthEnforcement.enforced,
         style: TextEditorConstants.mainTextStyle,
