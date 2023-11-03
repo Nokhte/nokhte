@@ -119,6 +119,10 @@ abstract class _PerspectivesWidgetsCoordinatorStoreBase extends Equatable
     );
   }
 
+  transitionBackToShore() {
+    //
+  }
+
   @override
   List<Object> get props => [];
 }
