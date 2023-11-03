@@ -10,10 +10,46 @@ part of 'perspectives_widgets_coordinator_store.dart';
 
 mixin _$PerspectivesWidgetsCoordinatorStore
     on _PerspectivesWidgetsCoordinatorStoreBase, Store {
+  late final _$beachWavesVisibilityAtom = Atom(
+      name: '_PerspectivesWidgetsCoordinatorStoreBase.beachWavesVisibility',
+      context: context);
+
+  @override
+  bool get beachWavesVisibility {
+    _$beachWavesVisibilityAtom.reportRead();
+    return super.beachWavesVisibility;
+  }
+
+  @override
+  set beachWavesVisibility(bool value) {
+    _$beachWavesVisibilityAtom.reportWrite(value, super.beachWavesVisibility,
+        () {
+      super.beachWavesVisibility = value;
+    });
+  }
+
+  late final _$_PerspectivesWidgetsCoordinatorStoreBaseActionController =
+      ActionController(
+          name: '_PerspectivesWidgetsCoordinatorStoreBase', context: context);
+
+  @override
+  dynamic toggleBeachWavesVisibility() {
+    final _$actionInfo =
+        _$_PerspectivesWidgetsCoordinatorStoreBaseActionController.startAction(
+            name:
+                '_PerspectivesWidgetsCoordinatorStoreBase.toggleBeachWavesVisibility');
+    try {
+      return super.toggleBeachWavesVisibility();
+    } finally {
+      _$_PerspectivesWidgetsCoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
-
+beachWavesVisibility: ${beachWavesVisibility}
     ''';
   }
 }

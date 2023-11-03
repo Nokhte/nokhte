@@ -21,7 +21,7 @@ abstract class _CollaborativeTextEditorTrackerStoreBase
   // bool showWidget = true;
 
   @action
-  flipWidgetVisibility() {
+  toggleWidgetVisibility() {
     showWidget = !showWidget;
   }
 

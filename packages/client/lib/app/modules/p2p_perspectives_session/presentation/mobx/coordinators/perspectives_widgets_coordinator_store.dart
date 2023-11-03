@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // * Mobx Import
 // import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
@@ -19,6 +20,7 @@ abstract class _PerspectivesWidgetsCoordinatorStoreBase extends Equatable
   final BeachHorizonWaterTrackerStore beachHorizonWater;
   final BeachSkyStore beachSky;
   final PerspectivesMapStore perspectivesMap;
+  final BeachWavesTrackerStore beachWaves;
   final CollaborativeTextEditorTrackerStore collaborativeTextEditor;
 
   _PerspectivesWidgetsCoordinatorStoreBase({
@@ -26,7 +28,30 @@ abstract class _PerspectivesWidgetsCoordinatorStoreBase extends Equatable
     required this.beachSky,
     required this.perspectivesMap,
     required this.collaborativeTextEditor,
-  });
+    required this.beachWaves,
+  }) {
+    reaction((p0) => beachHorizonWater.backToShoreCompleted, (p0) {
+      if (p0) {
+        toggleBeachWavesVisibility();
+        beachWaves.toggleWidgetVisibilty();
+        beachWaves.initShallowsToShore();
+        beachWaves.control = Control.play;
+      }
+    });
+
+    reaction((p0) => beachWaves.movieStatus, (p0) {
+      if (beachWaves.movieStatus == MovieStatus.finished &&
+          beachWaves.movieMode == BeachWaveMovieModes.shallowsToShore) {
+        Modular.to.navigate('/home/');
+      }
+    });
+  }
+
+  @observable
+  bool beachWavesVisibility = false;
+
+  @action
+  toggleBeachWavesVisibility() => beachWavesVisibility = !beachWavesVisibility;
 
   setText(String newContent) {
     collaborativeTextEditor.setText(newContent);
@@ -36,6 +61,8 @@ abstract class _PerspectivesWidgetsCoordinatorStoreBase extends Equatable
     DateTime now, {
     defaultChosenIndex = 0,
   }) {
+    // toggleBeachWavesVisibility();
+    beachWaves.toggleWidgetVisibilty();
     beachHorizonWater.selectTimeBasedMovie(
       now,
       WaterColorsAndStops.oceanDiveWater,
@@ -52,7 +79,7 @@ abstract class _PerspectivesWidgetsCoordinatorStoreBase extends Equatable
         endingVertOffsets:
             PerspectivesMapAnimationData.getVertOffArr(defaultChosenIndex),
       ));
-      collaborativeTextEditor.flipWidgetVisibility();
+      collaborativeTextEditor.toggleWidgetVisibility();
       perspectivesMap.controller = Control.playFromStart;
     });
   }
@@ -101,9 +128,7 @@ abstract class _PerspectivesWidgetsCoordinatorStoreBase extends Equatable
     required bool shouldMoveUp,
   }) {
     final prevIndex = shouldMoveUp ? chosenIndex - 1 : chosenIndex + 1;
-    // setText('');
-    // ^^ this
-    collaborativeTextEditor.flipWidgetVisibility();
+    collaborativeTextEditor.toggleWidgetVisibility();
     perspectivesMap.setMovie(
       PerspectivesMapColorAndVertOffsetChange.getMovie(
         startingCircleColors:
@@ -120,6 +145,16 @@ abstract class _PerspectivesWidgetsCoordinatorStoreBase extends Equatable
   }
 
   transitionBackToShore() {
+    final theTimeToTransitionFrom = DateTime.now();
+    perspectivesMap.toggleWidgetVisibility();
+    collaborativeTextEditor.toggleWidgetVisibility();
+    beachHorizonWater.fullSkyBackToShorePreReq(
+        currentTime: theTimeToTransitionFrom);
+    Future.delayed(Seconds.get(3), () {
+      beachSky.selectTimeBasedMovie(theTimeToTransitionFrom);
+      beachSky.control = Control.playReverseFromEnd;
+      beachHorizonWater.initBackToShore(currentTime: theTimeToTransitionFrom);
+    });
     //
   }
 

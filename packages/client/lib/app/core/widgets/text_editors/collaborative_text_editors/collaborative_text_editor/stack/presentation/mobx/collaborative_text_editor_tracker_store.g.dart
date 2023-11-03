@@ -45,13 +45,13 @@ mixin _$CollaborativeTextEditorTrackerStore
   }
 
   @override
-  dynamic flipWidgetVisibility() {
+  dynamic toggleWidgetVisibility() {
     final _$actionInfo =
         _$_CollaborativeTextEditorTrackerStoreBaseActionController.startAction(
             name:
-                '_CollaborativeTextEditorTrackerStoreBase.flipWidgetVisibility');
+                '_CollaborativeTextEditorTrackerStoreBase.toggleWidgetVisibility');
     try {
-      return super.flipWidgetVisibility();
+      return super.toggleWidgetVisibility();
     } finally {
       _$_CollaborativeTextEditorTrackerStoreBaseActionController
           .endAction(_$actionInfo);

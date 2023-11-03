@@ -71,6 +71,10 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
       negativeModeBehavior: NegativeModeBehaviors.resetRefAngle,
     );
     quadrantAPIListener();
+
+    // Future.delayed(Seconds.get(11), () {
+    //   widgets.transitionBackToShore();
+    // });
   }
 
   @action
@@ -90,7 +94,7 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
       perspectivesThatAreCommitted++;
       setChosenIndex(chosenIndex + 1);
       // widgets.setText('');
-      print("validation $localPerspectives");
+      // print("validation $localPerspectives");
       updateStaging(localPerspectives);
       setIsInitialDocLoad(true);
 
@@ -125,17 +129,17 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
   perspectivesController() {
     if (isSecondTime && firstValue > 0) {
       /* INITIAL FORWARD MOVE */
-      print("is init forward move running??");
+      // print("is init forward move running??");
       markUpValidationAndExecution();
     } else if (!isFirstTime &&
         !isSecondTime &&
         secondValue > firstValue &&
         canBeMarkedUp) {
-      print("is  forward move running??");
+      // print("is  forward move running??");
       /* Non-iNiTiAL FORWARD MOVE */
       markUpValidationAndExecution();
     } else if (!isFirstTime && !isSecondTime && secondValue < firstValue) {
-      print("is backward move running??");
+      // print("is backward move running??");
       /* BACKWARD MOVE */
       markDownValidationAndExecution();
     }
@@ -144,7 +148,7 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
   quadrantAPIListener() => reaction((p0) => quadrantAPI.currentQuadrant, (p0) {
         if (p0 >= 0) {
           valueTrackingSetup(p0);
-          print("quad api listener $localPerspectives");
+          // print("quad api listener $localPerspectives");
           perspectivesController();
         }
       });
@@ -152,7 +156,7 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
   textEditorSynchronizer() => perspectivesStream.stream.listen((value) async {
         // print(
         //     "tf is the index $chosenIndex and what is the staging val ${value.stagingAreaInfo[chosenIndex]}");
-        print("text editor synchronizer $localPerspectives");
+        // print("text editor synchronizer $localPerspectives");
         if (isInitalDocLoad) {
           widgets.setText(value.stagingAreaInfo[chosenIndex]);
           isInitalDocLoad = false;
@@ -170,16 +174,16 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
             value.collaboratorsQuadrant == value.usersQuadrant) {
           canBeMarkedUp = true; // once they turn it should be set to false
           widgets.inProgressToDoneTransition(chosenIndex);
-          widgets.collaborativeTextEditor.flipWidgetVisibility();
+          widgets.collaborativeTextEditor.toggleWidgetVisibility();
         }
       });
 
   textEditorListener() => userController.addListener(() async {
         if (previousWord != userController.text && !isInitalDocLoad) {
-          print("hey what is the current index $chosenIndex");
+          // print("hey what is the current index $chosenIndex");
           previousWord = userController.text;
           localPerspectives[chosenIndex] = userController.text;
-          print("what's happeneing here ?? ${localPerspectives[chosenIndex]}");
+          // print("what's happeneing here ?? ${localPerspectives[chosenIndex]}");
           await updateStaging(localPerspectives);
           if (inProgressCommit) {
             inProgressCommit = false;

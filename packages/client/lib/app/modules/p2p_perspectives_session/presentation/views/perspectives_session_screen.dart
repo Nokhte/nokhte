@@ -37,12 +37,15 @@ class PerspectivesSessionScreen extends StatelessWidget {
                     stateTrackerStore: coordinator.widgets.beachSky,
                   ),
                 ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  child: BeachHorizonWater(
-                    size: MediaQuery.of(context).size,
-                    stateTrackerStore: coordinator.widgets.beachHorizonWater,
+                Opacity(
+                  opacity: coordinator.widgets.beachWavesVisibility ? 0 : 1,
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child: BeachHorizonWater(
+                      size: MediaQuery.of(context).size,
+                      stateTrackerStore: coordinator.widgets.beachHorizonWater,
+                    ),
                   ),
                 ),
                 Column(
@@ -60,6 +63,13 @@ class PerspectivesSessionScreen extends StatelessWidget {
                   child: CollaborativeTextEditor(
                     trackerStore: coordinator.widgets.collaborativeTextEditor,
                     fadeInDuration: Seconds.get(1),
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: SmartBeachWaves(
+                    stateTrackerStore: coordinator.widgets.beachWaves,
                   ),
                 ),
               ],

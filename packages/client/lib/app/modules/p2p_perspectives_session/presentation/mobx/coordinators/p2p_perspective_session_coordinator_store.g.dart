@@ -10,6 +10,23 @@ part of 'p2p_perspective_session_coordinator_store.dart';
 
 mixin _$P2PPerspectiveSessionCoordinatorStore
     on _P2PPerspectiveSessionCoordinatorStoreBase, Store {
+  late final _$isInitalDocLoadAtom = Atom(
+      name: '_P2PPerspectiveSessionCoordinatorStoreBase.isInitalDocLoad',
+      context: context);
+
+  @override
+  bool get isInitalDocLoad {
+    _$isInitalDocLoadAtom.reportRead();
+    return super.isInitalDocLoad;
+  }
+
+  @override
+  set isInitalDocLoad(bool value) {
+    _$isInitalDocLoadAtom.reportWrite(value, super.isInitalDocLoad, () {
+      super.isInitalDocLoad = value;
+    });
+  }
+
   late final _$previousWordAtom = Atom(
       name: '_P2PPerspectiveSessionCoordinatorStoreBase.previousWord',
       context: context);
@@ -36,18 +53,27 @@ mixin _$P2PPerspectiveSessionCoordinatorStore
     return _$screenConstructorAsyncAction.run(() => super.screenConstructor());
   }
 
+  late final _$onSwipeUpAsyncAction = AsyncAction(
+      '_P2PPerspectiveSessionCoordinatorStoreBase.onSwipeUp',
+      context: context);
+
+  @override
+  Future onSwipeUp() {
+    return _$onSwipeUpAsyncAction.run(() => super.onSwipeUp());
+  }
+
   late final _$_P2PPerspectiveSessionCoordinatorStoreBaseActionController =
       ActionController(
           name: '_P2PPerspectiveSessionCoordinatorStoreBase', context: context);
 
   @override
-  dynamic onSwipeUp() {
+  dynamic setIsInitialDocLoad(bool newBool) {
     final _$actionInfo =
-        _$_P2PPerspectiveSessionCoordinatorStoreBaseActionController
-            .startAction(
-                name: '_P2PPerspectiveSessionCoordinatorStoreBase.onSwipeUp');
+        _$_P2PPerspectiveSessionCoordinatorStoreBaseActionController.startAction(
+            name:
+                '_P2PPerspectiveSessionCoordinatorStoreBase.setIsInitialDocLoad');
     try {
-      return super.onSwipeUp();
+      return super.setIsInitialDocLoad(newBool);
     } finally {
       _$_P2PPerspectiveSessionCoordinatorStoreBaseActionController
           .endAction(_$actionInfo);
@@ -57,6 +83,7 @@ mixin _$P2PPerspectiveSessionCoordinatorStore
   @override
   String toString() {
     return '''
+isInitalDocLoad: ${isInitalDocLoad},
 previousWord: ${previousWord}
     ''';
   }

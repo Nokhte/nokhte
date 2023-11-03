@@ -85,7 +85,6 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   @action
   initShallowsToShore() {
     movie = ShallowsToShore.movie;
-    // setControl(Control.playFromStart);
     movieMode = BeachWaveMovieModes.shallowsToShore;
     movieStatus = MovieStatus.inProgress;
   }

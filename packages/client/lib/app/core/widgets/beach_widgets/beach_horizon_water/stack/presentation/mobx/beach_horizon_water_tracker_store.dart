@@ -52,6 +52,8 @@ abstract class _BeachHorizonWaterTrackerStoreBase
 
   @action
   onAnimationCompleted() {
+    print(
+        "what's happeneing here $movieMode $isGoingToFullSky $isFirstTimeCompleting");
     if (movieMode == HorizonMovieModes.backToShore) {
       toggleShoreCompletionStatus();
     }
@@ -245,6 +247,34 @@ abstract class _BeachHorizonWaterTrackerStoreBase
       movieIsLonger,
     );
     control = Control.play;
+  }
+
+  @action
+  fullSkyBackToShorePreReq({required DateTime currentTime}) {
+    // setMovieMode(HorizonMovieModes.backToShorePreReq);
+    final hour = currentTime.hour;
+    if (hour >= 21 || hour < 6) {
+      movie = BackToShorePreReqMovie.getMovie(
+        WaterColorsAndStops.schedulingDuskWaterHalfScreen,
+      );
+      control = Control.playFromStart;
+    } else if (hour >= 6 && hour < 10) {
+      movie = BackToShorePreReqMovie.getMovie(
+        WaterColorsAndStops.schedulingMorningWaterHalfScreen,
+      );
+      control = Control.playFromStart;
+    } else if (hour >= 10 && hour < 17) {
+      movie = BackToShorePreReqMovie.getMovie(
+        WaterColorsAndStops.schedulingDayWaterHalfScreen,
+      );
+      control = Control.playFromStart;
+    } else {
+      movie = BackToShorePreReqMovie.getMovie(
+        WaterColorsAndStops.schedulingEveningWaterHalfScreen,
+      );
+      control = Control.playFromStart;
+    }
+    //
   }
 
   @action

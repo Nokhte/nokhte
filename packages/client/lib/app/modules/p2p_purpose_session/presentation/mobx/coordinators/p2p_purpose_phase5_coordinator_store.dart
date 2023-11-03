@@ -57,7 +57,7 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
 
   @action
   screenConstructor() async {
-    collaborativeTextUI.flipWidgetVisibility();
+    collaborativeTextUI.toggleWidgetVisibility();
     gesturePillStore.setFadeOut(false);
     gesturePillStore
         .setPillMovie(BottomCircleGoesUp.getMovie(firstGradientColors: [
@@ -111,7 +111,7 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
         ]));
         gesturePillStore.setPillAnimationControl(Control.playFromStart);
         // do the transition here
-        collaborativeTextUI.flipWidgetVisibility();
+        collaborativeTextUI.toggleWidgetVisibility();
         Future.delayed(Seconds.get(3),
             () async => Modular.to.navigate('/p2p_purpose_session/phase-6/'));
         // fade the text widget out

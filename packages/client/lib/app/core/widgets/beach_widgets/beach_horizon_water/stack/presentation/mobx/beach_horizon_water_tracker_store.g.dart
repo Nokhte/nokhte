@@ -322,6 +322,20 @@ mixin _$BeachHorizonWaterTrackerStore
   }
 
   @override
+  dynamic fullSkyBackToShorePreReq({required DateTime currentTime}) {
+    final _$actionInfo =
+        _$_BeachHorizonWaterTrackerStoreBaseActionController.startAction(
+            name:
+                '_BeachHorizonWaterTrackerStoreBase.fullSkyBackToShorePreReq');
+    try {
+      return super.fullSkyBackToShorePreReq(currentTime: currentTime);
+    } finally {
+      _$_BeachHorizonWaterTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic initBackToShore({required DateTime currentTime}) {
     final _$actionInfo =
         _$_BeachHorizonWaterTrackerStoreBaseActionController.startAction(
