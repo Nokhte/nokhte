@@ -15,6 +15,7 @@
         {
             "name": "🟨 client core widgets",
             "path": "../packages/client/lib/app/core/widgets"
+            
         },
         {
             "name": "🟨 client modules",
