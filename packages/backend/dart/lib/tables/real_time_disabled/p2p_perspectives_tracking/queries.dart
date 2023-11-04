@@ -17,6 +17,7 @@ class P2PPerspectivesTrackingQueries extends CollaborativeQueries {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutActiveCollaboratorInfo();
     }
+
     final List checkRes = await supabase
         .from(TABLE_NAME)
         .select()
