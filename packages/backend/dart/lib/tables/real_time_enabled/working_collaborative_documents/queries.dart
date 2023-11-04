@@ -115,6 +115,22 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
           "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
           collaboratorInfo.theUsersUID,
         );
-//
+  }
+
+  Future<void> deleteThedoc() async {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutActiveCollaboratorInfo();
+    }
+    await supabase
+        .from('working_collaborative_documents')
+        .delete()
+        .eq(
+          "${collaboratorInfo.theCollaboratorsNumber}_uid",
+          collaboratorInfo.theCollaboratorsUID,
+        )
+        .eq(
+          "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
+          collaboratorInfo.theUsersUID,
+        );
   }
 }

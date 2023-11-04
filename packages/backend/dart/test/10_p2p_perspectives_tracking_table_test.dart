@@ -2,16 +2,12 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte_backend/constants/general/general.dart';
-import 'package:nokhte_backend/existing_collaborations.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:nokhte_backend/p2p_perspectives_tracking.dart';
 
+import 'shared/shared.dart';
+
 void main() {
-  late SupabaseClient user1Supabase;
-  late SupabaseClient supabaseAdmin;
-  late String firstUserUID;
-  late String secondUserUID;
-  late ExistingCollaborationsQueries existingCollaborationsQueries;
+  final tSetup = CommonCollaborativeTestFunctions();
   late P2PPerspectivesTrackingQueries user1Queries;
   late P2PPerspectivesTrackingQueries adminQueries;
   final tPerspectives = ['perspective1', 'perspective2', 'perspective 3'];
@@ -23,36 +19,17 @@ void main() {
   ];
 
   setUpAll(() async {
-    user1Supabase = SupabaseClientConfigConstants.supabase;
-    supabaseAdmin = SupabaseClientConfigConstants.supabaseAdmin;
-    await SignIn.user1(supabase: user1Supabase);
-    await SignIn.user1(supabase: supabaseAdmin);
-
-    existingCollaborationsQueries = ExistingCollaborationsQueries(
-      supabase: SupabaseClientConfigConstants.supabaseAdmin,
-    );
-    final userIdResults = await UserSetupConstants.fetchUIDs();
-    firstUserUID = userIdResults[0];
-    secondUserUID = userIdResults[1];
-    user1Queries = P2PPerspectivesTrackingQueries(supabase: user1Supabase);
+    await tSetup.setUp();
+    user1Queries =
+        P2PPerspectivesTrackingQueries(supabase: tSetup.user1Supabase);
     adminQueries = P2PPerspectivesTrackingQueries(
         supabase: SupabaseClientConfigConstants.supabaseAdmin);
-    await existingCollaborationsQueries.createNewCollaboration(
-      collaboratorOneUID: firstUserUID,
-      collaboratorTwoUID: secondUserUID,
-    );
   });
 
-  // tearDown(() async {});
-
   tearDownAll(() async {
-    existingCollaborationsQueries.currentUserUID = firstUserUID;
-    adminQueries.currentUserUID = firstUserUID;
+    adminQueries.currentUserUID = tSetup.firstUserUID;
     await adminQueries.deletePerspectivesRow();
-    await existingCollaborationsQueries.deleteExistingCollaboration(
-      collaboratorOneUID: firstUserUID,
-      collaboratorTwoUID: secondUserUID,
-    );
+    tSetup.tearDownAll();
   });
   test(
       "collaborators should be able to commit multiple perspectives & retain perspectives history",
