@@ -10,7 +10,6 @@ class PerspectivesAudioStorageQueries extends CollaborativeQueries {
   });
 
   uploadPerspective(IndividualSessionAudioClip audioClipData) async {
-    // supabase.storage.setAuth(supabase.auth.currentSession?.accessToken ?? '');
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutActiveCollaboratorInfo();
     }
@@ -18,8 +17,6 @@ class PerspectivesAudioStorageQueries extends CollaborativeQueries {
       collaboratorInfo: collaboratorInfo,
       audioClipData: audioClipData,
     );
-    // print("hey whats thestor url $storageURL");
-    // await supabase.storage.from('').copy(fromPath, toPath);
     await supabase.storage.from(bucketName).upload(
           storageURL,
           audioClipData.theFile,
@@ -31,7 +28,6 @@ class PerspectivesAudioStorageQueries extends CollaborativeQueries {
 
   moveToCollectiveSpace(
       CollectiveSessionAudioExtrapolationInfo extrapolationInfo) async {
-    // supabase.storage.setAuth(supabase.auth.currentSession?.accessToken ?? '');
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutActiveCollaboratorInfo();
     }
@@ -40,12 +36,22 @@ class PerspectivesAudioStorageQueries extends CollaborativeQueries {
             collaboratorInfo: collaboratorInfo,
             extrapolationInfo: extrapolationInfo);
     for (final path in paths) {
-      // print(
-      //     "start path ${path.startPath} \n \n end path ${path.endPath} \n \n END \n -------------------");
       await supabase.storage.from(bucketName).copy(
             path.startPath,
             path.endPath,
           );
+    }
+  }
+
+  emptyTheBucket(
+      CollectiveSessionAudioExtrapolationInfo extrapolationInfo) async {
+    final List<StartAndEndPaths> paths =
+        StorageUtilities.getCollectiveSessionPaths(
+            collaboratorInfo: collaboratorInfo,
+            extrapolationInfo: extrapolationInfo);
+    for (final path in paths) {
+      await supabase.storage.from(bucketName).remove([path.startPath]);
+      await supabase.storage.from(bucketName).remove([path.endPath]);
     }
   }
 }

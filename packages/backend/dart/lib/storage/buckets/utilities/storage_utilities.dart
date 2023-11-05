@@ -33,6 +33,7 @@ class StorageUtilities {
   static getPersonalPerspectivesPath({
     required CollaboratorInfo collaboratorInfo,
     required IndividualSessionAudioClip audioClipData,
+    bool excludeFile = false,
   }) {
     final usersUID = collaboratorInfo.theUsersUID;
     final collaborationID = getCollaborationID(collaboratorInfo);
@@ -48,21 +49,21 @@ class StorageUtilities {
       audioClipData.theRecordingNumber,
       collaboratorInfo,
     );
-    final path = [
+    String path = [
       usersUID,
       collaborationID,
       perspectivesCommitTimestamp,
       sessionTimestamp,
       thePerspective,
-      fileName
+      excludeFile ? "" : fileName
     ].join('/');
-    // print("THE path $path");
     return path;
   }
 
   static List<StartAndEndPaths> getCollectiveSessionPaths({
     required CollectiveSessionAudioExtrapolationInfo extrapolationInfo,
     required CollaboratorInfo collaboratorInfo,
+    bool excludeFile = false,
   }) {
     final userUID = collaboratorInfo.theUsersUID;
     final collaborationID = getCollaborationID(collaboratorInfo);
@@ -86,7 +87,7 @@ class StorageUtilities {
           perspectivesCommitTimestamp,
           individualSessionTimestamp,
           currentFormattedPerspective,
-          currentFileName,
+          excludeFile ? "" : currentFileName,
         ].join('/');
         final currentEndPath = [
           collaborationID,
@@ -94,7 +95,7 @@ class StorageUtilities {
           collectiveSessionTimestamp,
           currentFormattedPerspective,
           userUID,
-          currentFileName
+          excludeFile ? "" : currentFileName,
         ].join('/');
         returnPaths.add(
           StartAndEndPaths(

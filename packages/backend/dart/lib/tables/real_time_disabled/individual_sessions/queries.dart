@@ -24,6 +24,9 @@ class IndividualSessionsQueries extends CollaborativeQueries {
   }
 
   Future<List> updateSessionMetadata({required Object newMetadata}) async {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutActiveCollaboratorInfo();
+    }
     return await supabase
         .from(TABLE_NAME)
         .update({
@@ -39,4 +42,7 @@ class IndividualSessionsQueries extends CollaborativeQueries {
         )
         .select();
   }
+
+  Future<void> deleteTheRow() async =>
+      await supabase.from(TABLE_NAME).delete().eq(OWNER_UID, currentUserUID);
 }

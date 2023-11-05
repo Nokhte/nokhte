@@ -48,3 +48,6 @@ as permissive
 for update
 to authenticated
 using ((((bucket_id = 'perspectives_audio'::text) AND ((split_part((storage.foldername(name))[1], '_'::text, 1) = (auth.uid())::text) OR (split_part((storage.foldername(name))[1], '_'::text, 2) = (auth.uid())::text))) OR ((bucket_id = 'perspectives_audio'::text) AND ((storage.foldername(name))[1] = (auth.uid())::text))));
+
+-- collective session addition 10/5/23
+alter table "public"."collective_sessions" add column "started_at" timestamp with time zone not null default now();
