@@ -13,7 +13,10 @@ class CollaborativeQueries {
 
   CollaborativeQueries({
     required this.supabase,
-  }) : currentUserUID = supabase.auth.currentUser?.id ?? '';
+  }) {
+    currentUserUID = supabase.auth.currentUser?.id ?? '';
+    supabase.storage.setAuth(supabase.auth.currentSession?.accessToken ?? '');
+  }
 
   Future<void> figureOutActiveCollaboratorInfo() async {
     collaboratorInfo = await computeActiveCollaboratorInfo();

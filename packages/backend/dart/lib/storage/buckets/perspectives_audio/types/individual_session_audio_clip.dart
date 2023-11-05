@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 class IndividualSessionAudioClip extends Equatable {
   final bool isOverwritingAnotherFile;
   final String thePerspective;
+  final int thePerspectivesIndex;
   final int theRecordingNumber;
   final DateTime thePerspectivesTimestamp;
   final DateTime theSessionTimestamp;
@@ -13,6 +14,7 @@ class IndividualSessionAudioClip extends Equatable {
     required this.isOverwritingAnotherFile,
     required this.thePerspective,
     required this.theRecordingNumber,
+    required this.thePerspectivesIndex,
     required this.theSessionTimestamp,
     required this.thePerspectivesTimestamp,
     required this.theFile,

@@ -92,6 +92,5 @@ to authenticated
 using ((auth.uid() = owner_uid));
 
 insert into storage.buckets (id, name)
-    values  ('individual_sessions', 'individual_sessions'),
-            ('collective_sessions', 'collective_sessions');
+    values  ('perspectives_audio', 'perspectives_audio');
 

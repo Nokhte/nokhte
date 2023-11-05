@@ -13,7 +13,7 @@ class CommonCollaborativeTestFunctions {
   late P2PPerspectivesTrackingQueries user1PerspectivesQueries;
   late P2PPerspectivesTrackingQueries adminPerspectivesQueries;
 
-  final tPerspectives = ['perspective1', 'perspective2', 'perspective 3'];
+  final tPerspectives = ['pERSPECTIVE1', 'peRSPECTIVE2', 'perSPECTIVE 3'];
 
   CommonCollaborativeTestFunctions() {
     user1Supabase = SupabaseClientConfigConstants.supabase;
