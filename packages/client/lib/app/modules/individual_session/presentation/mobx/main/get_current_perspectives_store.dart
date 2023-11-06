@@ -14,7 +14,7 @@ class GetCurrentPerspectivesStore = _GetCurrentPerspectivesStoreBase
 abstract class _GetCurrentPerspectivesStoreBase
     extends BaseMobxDBStore<NoParams, CurrentPerspectivesEntity> with Store {
   @observable
-  ObservableList<String> currentPerspectives = ObservableList.of([]);
+  ObservableList currentPerspectives = ObservableList.of([]);
 
   final GetCurrentPerspectivesGetterStore getterStore;
   _GetCurrentPerspectivesStoreBase({required this.getterStore});

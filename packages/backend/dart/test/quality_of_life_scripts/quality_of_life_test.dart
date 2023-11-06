@@ -1,7 +1,9 @@
 import 'package:nokhte_backend/constants/constants.dart';
 import 'package:nokhte_backend/edge_functions.dart';
 import 'package:nokhte_backend/existing_collaborations.dart';
+import 'package:nokhte_backend/p2p_perspectives_tracking.dart';
 import 'package:nokhte_backend/solo_sharable_documents.dart';
+import 'package:nokhte_backend/tables/real_time_enabled/existing_collaborations/types/types.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -9,10 +11,13 @@ void main() {
   final SupabaseClient supabaseAdmin =
       SupabaseClientConfigConstants.supabaseAdmin;
   late ExistingCollaborationsQueries existingCollaborationsQueries;
+  late P2PPerspectivesTrackingQueries perspectivesQueries;
 
   setUpAll(() {
     existingCollaborationsQueries =
         ExistingCollaborationsQueries(supabase: supabaseAdmin);
+    perspectivesQueries =
+        P2PPerspectivesTrackingQueries(supabase: supabaseAdmin);
   });
 
   Future returnNonNPCUID() async {
@@ -30,6 +35,27 @@ void main() {
     existingCollaborationsQueries.createNewCollaboration(
       collaboratorOneUID: npcUserUID,
       collaboratorTwoUID: realPersonUID,
+    );
+  });
+
+  test("make a set of perspectives between real person & npc 2", () async {
+    final userIdResults = await UserSetupConstants.fetchUIDs();
+    final npcUserUID = userIdResults[1];
+    final realPersonUID = await returnNonNPCUID();
+    perspectivesQueries.collaboratorInfo = CollaboratorInfo(
+      theCollaboratorsNumber: "collaborator_one",
+      theCollaboratorsUID: npcUserUID,
+      theUsersCollaboratorNumber: "collaborator_two",
+      theUsersUID: realPersonUID,
+    );
+    await perspectivesQueries.insertNewPerspectives(
+      newPerspectives: [
+        "pERSPECTIVE 1",
+        "peRSPECTIVE 2",
+        "perSPECTIVE 3",
+        'persPECTIVE 4',
+        'persPECTIVE 5'
+      ],
     );
   });
 

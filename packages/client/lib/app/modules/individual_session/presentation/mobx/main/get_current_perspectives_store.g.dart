@@ -14,13 +14,13 @@ mixin _$GetCurrentPerspectivesStore on _GetCurrentPerspectivesStoreBase, Store {
       context: context);
 
   @override
-  ObservableList<String> get currentPerspectives {
+  ObservableList<dynamic> get currentPerspectives {
     _$currentPerspectivesAtom.reportRead();
     return super.currentPerspectives;
   }
 
   @override
-  set currentPerspectives(ObservableList<String> value) {
+  set currentPerspectives(ObservableList<dynamic> value) {
     _$currentPerspectivesAtom.reportWrite(value, super.currentPerspectives, () {
       super.currentPerspectives = value;
     });

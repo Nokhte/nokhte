@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class CurrentPerspectivesEntity extends Equatable {
-  final List<String> currentPerspectives;
+  final List currentPerspectives;
 
   const CurrentPerspectivesEntity({
     required this.currentPerspectives,

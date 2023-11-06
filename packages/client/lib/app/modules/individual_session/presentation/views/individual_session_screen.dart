@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
+import 'package:nokhte/app/core/types/types.dart';
 // import 'package:nokhte/app/core/types/seconds.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/individual_session/presentation/mobx/coordinators/individual_session_screen_coordinator.dart';
@@ -59,12 +60,12 @@ class IndividualSessionScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                // Center(
-                //   child: CollaborativeTextEditor(
-                //     trackerStore: coordinator.widgets.collaborativeTextEditor,
-                //     fadeInDuration: Seconds.get(1),
-                //   ),
-                // ),
+                Center(
+                  child: CollaborativeTextEditor(
+                    trackerStore: coordinator.widgets.collaborativeTextEditor,
+                    fadeInDuration: Seconds.get(1),
+                  ),
+                ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
