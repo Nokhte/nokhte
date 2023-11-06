@@ -22,6 +22,10 @@
             "path": "../packages/client/lib/app/modules"
         },
         {
+            "name": "🟦 working module",
+            "path": "../packages/client/lib/app/modules/individual_session"
+        },
+        {
             "name": "🟦 client root",
             "path": "../packages/client"
         },
