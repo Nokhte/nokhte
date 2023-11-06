@@ -32,7 +32,7 @@ class WorkingPerspectivesPositioningQueries extends CollaborativeQueries {
         "${collaboratorInfo.theUsersCollaboratorNumber}_uid":
             collaboratorInfo.theUsersUID,
         WorkingPerspectivesPositioningConstants.stagingArea: List.filled(5, ""),
-      });
+      }).select();
     } else {
       return checkRes;
     }

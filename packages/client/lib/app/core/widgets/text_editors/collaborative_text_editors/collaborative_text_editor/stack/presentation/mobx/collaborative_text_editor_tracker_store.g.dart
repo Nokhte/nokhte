@@ -10,6 +10,23 @@ part of 'collaborative_text_editor_tracker_store.dart';
 
 mixin _$CollaborativeTextEditorTrackerStore
     on _CollaborativeTextEditorTrackerStoreBase, Store {
+  late final _$isReadOnlyAtom = Atom(
+      name: '_CollaborativeTextEditorTrackerStoreBase.isReadOnly',
+      context: context);
+
+  @override
+  bool get isReadOnly {
+    _$isReadOnlyAtom.reportRead();
+    return super.isReadOnly;
+  }
+
+  @override
+  set isReadOnly(bool value) {
+    _$isReadOnlyAtom.reportWrite(value, super.isReadOnly, () {
+      super.isReadOnly = value;
+    });
+  }
+
   late final _$showWidgetAtom = Atom(
       name: '_CollaborativeTextEditorTrackerStoreBase.showWidget',
       context: context);
@@ -61,6 +78,7 @@ mixin _$CollaborativeTextEditorTrackerStore
   @override
   String toString() {
     return '''
+isReadOnly: ${isReadOnly},
 showWidget: ${showWidget}
     ''';
   }

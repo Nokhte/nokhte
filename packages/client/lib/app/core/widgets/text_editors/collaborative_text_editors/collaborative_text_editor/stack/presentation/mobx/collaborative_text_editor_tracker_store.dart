@@ -17,6 +17,11 @@ abstract class _CollaborativeTextEditorTrackerStoreBase
   }
 
   @observable
+  bool isReadOnly = false;
+
+  _CollaborativeTextEditorTrackerStoreBase({required this.isReadOnly});
+
+  @observable
   bool showWidget = false;
   // bool showWidget = true;
 

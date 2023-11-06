@@ -32,6 +32,7 @@ class _CollaborativeTextEditorState extends State<CollaborativeTextEditor> {
         opacity: widget.trackerStore.showWidget ? 1 : 0,
         duration: widget.fadeInDuration,
         child: BaseTextEditor(
+          isReadOnly: widget.trackerStore.isReadOnly,
           maxLength: 65,
           maxLines: 5,
           trackerStore: widget.trackerStore,

@@ -9,12 +9,14 @@ class BaseTextEditor extends StatelessWidget {
   final BaseTextEditorStore trackerStore;
   final int maxLines;
   final int maxLength;
+  final bool isReadOnly;
 
   const BaseTextEditor({
     super.key,
     required this.trackerStore,
     required this.maxLength,
     required this.maxLines,
+    required this.isReadOnly,
   });
 
   @override
@@ -28,6 +30,7 @@ class BaseTextEditor extends StatelessWidget {
         controller: trackerStore.controller,
         focusNode: trackerStore.focusNode,
         maxLines: maxLines,
+        readOnly: isReadOnly,
         // onSubmitted: (_) => FocusScope.of(context).unfocus(),
         maxLength: maxLength,
         maxLengthEnforcement: MaxLengthEnforcement.enforced,

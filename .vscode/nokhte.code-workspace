@@ -71,7 +71,7 @@
                 "**/core/error/**": true,
                 "**/core/guards/**": true,
                 "**/core/interfaces/**": true,
-                "**/core/mobx/**": true,
+                // "**/core/mobx/**": true,
                 "**/core/network/**": true,
                 "**/core/utilities/**": true,
                 "**/core/types/**": true,

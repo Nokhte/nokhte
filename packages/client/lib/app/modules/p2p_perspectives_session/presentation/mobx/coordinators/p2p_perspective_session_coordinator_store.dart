@@ -8,6 +8,7 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 // import 'package:nokhte/app/core/modules/gyroscopic/domain/domain.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/types/desired_negative_mode_behavior.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
+import 'package:nokhte/app/core/types/seconds.dart';
 import 'package:nokhte/app/modules/p2p_perspectives_session/presentation/presentation.dart';
 // * Mobx Codegen Inclusion
 part 'p2p_perspective_session_coordinator_store.g.dart';
@@ -19,7 +20,6 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
     extends BaseQuadrantAPIReceiver with Store {
   final PerspectivesWidgetsCoordinatorStore widgets;
   final VoiceCallActionsStore voiceCall;
-  // final QuadrantAPI quadrantAPI;
   final CommitThePerspectivesStore commitThePerspectives;
   final CreateAPerspectivesSessionStore createSession;
   final FetchPerspectivesStreamStore perspectivesStream;
@@ -72,9 +72,9 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
     );
     quadrantAPIListener();
 
-    // Future.delayed(Seconds.get(11), () {
-    //   widgets.transitionBackToShore();
-    // });
+    Future.delayed(Seconds.get(11), () {
+      widgets.transitionBackToShore();
+    });
   }
 
   @action
@@ -154,9 +154,6 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
       });
 
   textEditorSynchronizer() => perspectivesStream.stream.listen((value) async {
-        // print(
-        //     "tf is the index $chosenIndex and what is the staging val ${value.stagingAreaInfo[chosenIndex]}");
-        // print("text editor synchronizer $localPerspectives");
         if (isInitalDocLoad) {
           widgets.setText(value.stagingAreaInfo[chosenIndex]);
           isInitalDocLoad = false;

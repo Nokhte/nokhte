@@ -77,7 +77,9 @@ class P2PCollaboratorSessionModule extends Module {
           (i) => SchedulingDeltaStore(),
         ),
         Bind.singleton<CollaborativeTextEditorTrackerStore>(
-          (i) => CollaborativeTextEditorTrackerStore(),
+          (i) => CollaborativeTextEditorTrackerStore(
+            isReadOnly: false,
+          ),
         ),
         // & Coordinator Stores
         Bind.singleton<SchedulingWidgetsCoordinatorStore>(

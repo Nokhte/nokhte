@@ -52,10 +52,12 @@ abstract class _BeachHorizonWaterTrackerStoreBase
 
   @action
   onAnimationCompleted() {
-    print(
-        "what's happeneing here $movieMode $isGoingToFullSky $isFirstTimeCompleting");
     if (movieMode == HorizonMovieModes.backToShore) {
-      toggleShoreCompletionStatus();
+      if (isFirstTimeCompleting) {
+        isFirstTimeCompleting = false;
+      } else {
+        toggleShoreCompletionStatus();
+      }
     }
     if (isGoingToFullSky && isFirstTimeCompleting) {
       movie = HorizonToFullSky.getMovie(endingGrad);
@@ -251,7 +253,7 @@ abstract class _BeachHorizonWaterTrackerStoreBase
 
   @action
   fullSkyBackToShorePreReq({required DateTime currentTime}) {
-    // setMovieMode(HorizonMovieModes.backToShorePreReq);
+    setMovieMode(HorizonMovieModes.backToShorePreReq);
     final hour = currentTime.hour;
     if (hour >= 21 || hour < 6) {
       movie = BackToShorePreReqMovie.getMovie(

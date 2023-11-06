@@ -37,6 +37,7 @@ class _SoloTextEditorState extends State<SoloTextEditor> {
         opacity: widget.trackerStore.showWidget ? 1 : 0,
         duration: widget.fadeInDuration,
         child: BaseTextEditor(
+          isReadOnly: false,
           maxLines: widget.maxLines,
           maxLength: widget.maxLength,
           trackerStore: widget.trackerStore,

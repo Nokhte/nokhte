@@ -126,7 +126,9 @@ class P2PPerspectivesSessionModule extends Module {
           (i) => PerspectivesMapStore(),
         ),
         Bind.singleton<CollaborativeTextEditorTrackerStore>(
-          (i) => CollaborativeTextEditorTrackerStore(),
+          (i) => CollaborativeTextEditorTrackerStore(
+            isReadOnly: false,
+          ),
         ),
         // % Widgets Coordinator
         Bind.singleton<PerspectivesWidgetsCoordinatorStore>(
