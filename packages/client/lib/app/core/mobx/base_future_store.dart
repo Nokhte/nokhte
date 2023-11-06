@@ -45,16 +45,3 @@ abstract class _BaseFutureStoreBase<T> extends Equatable with Store {
         unwrappedEntityOrFailure,
       ];
 }
-// TODO Test this later
-
-// So this is our thesis on how the mobX store should work,
-
-// So the tentative plan is to set the future store to the async call of the getter store
-// Note in the example above when they are actually doing the logic in the main store
-// here's the under the pipes for our sakes, first you will want to do await in the return
-// statement of the getter in our case this will be the getter store call method 
-// so make sure you have the await there, and what you will do is set the future
-// in the main class to this one, so you will have to instantiate the future Store
-// inline so do you have a clearer picture?
-
-// ok so our goal now is to 

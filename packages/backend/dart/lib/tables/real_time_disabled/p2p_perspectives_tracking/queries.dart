@@ -1,14 +1,11 @@
-// ignore_for_file: constant_identifier_names
-
 import 'package:nokhte_backend/tables/real_time_disabled/p2p_perspectives_tracking/types/types.dart';
 import 'package:nokhte_backend/tables/real_time_enabled/shared/shared.dart';
-//todo break this up into smaller functions
 
 class P2PPerspectivesTrackingQueries extends CollaborativeQueries {
-  static const TABLE_NAME = "p2p_perspectives_tracking";
-  static const CURRENT_PERSPECTIVES = "current_perspectives";
-  static const PAST_PERSPECTIVES = "past_perspectives";
-  static const CURRENT_COMMITTED_AT = "current_committed_at";
+  static const tableName = "p2p_perspectives_tracking";
+  static const currentPerspectives = "current_perspectives";
+  static const pastPerspectives = "past_perspectives";
+  static const currentCommittedAt = "current_committed_at";
   P2PPerspectivesTrackingQueries({required super.supabase});
 
   insertNewPerspectives({
@@ -18,8 +15,44 @@ class P2PPerspectivesTrackingQueries extends CollaborativeQueries {
       await figureOutActiveCollaboratorInfo();
     }
 
-    final List checkRes = await supabase
-        .from(TABLE_NAME)
+    final List checkRes = await selectPerspectivesRow();
+    if (checkRes.isEmpty) {
+      return await _insertIntoCurrentPerspectivesColumn(newPerspectives);
+    } else {
+      final thePastPerspectives = checkRes[0][pastPerspectives];
+      final oldPerspectives = Perspectives(
+        newPerspectives: checkRes[0][currentPerspectives],
+        date: checkRes[0][currentCommittedAt],
+      );
+
+      if (thePastPerspectives.toString() == '{}') {
+        return await _updatePastPerspectivesColumn(
+            newPerspectives, oldPerspectives.toJson());
+      } else {
+        final List newPastCommitsList = thePastPerspectives["commits"];
+        newPastCommitsList.add(oldPerspectives.toObject());
+        final newObj = {"commits": newPastCommitsList};
+        return await _updatePastPerspectivesColumn(newPerspectives, newObj);
+      }
+    }
+  }
+
+  deletePerspectivesRow() async {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutActiveCollaboratorInfo();
+    }
+    await supabase.from(tableName).delete().eq(
+          "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
+          collaboratorInfo.theUsersUID,
+        );
+  }
+
+  selectPerspectivesRow() async {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutActiveCollaboratorInfo();
+    }
+    return await supabase
+        .from(tableName)
         .select()
         .eq(
           "${collaboratorInfo.theCollaboratorsNumber}_uid",
@@ -29,71 +62,34 @@ class P2PPerspectivesTrackingQueries extends CollaborativeQueries {
           "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
           collaboratorInfo.theUsersUID,
         );
-    if (checkRes.isEmpty) {
-      return await supabase.from(TABLE_NAME).insert({
+  }
+
+  _insertIntoCurrentPerspectivesColumn(List<String> newPerspectives) async =>
+      await supabase.from(tableName).insert({
         "${collaboratorInfo.theCollaboratorsNumber}_uid":
             collaboratorInfo.theCollaboratorsUID,
         "${collaboratorInfo.theUsersCollaboratorNumber}_uid":
             collaboratorInfo.theUsersUID,
-        CURRENT_PERSPECTIVES: newPerspectives,
+        currentPerspectives: newPerspectives,
       }).select();
-    } else {
-      final pastPerspectives = checkRes[0][PAST_PERSPECTIVES];
-      final oldPerspectives = Perspectives(
-        newPerspectives: checkRes[0][CURRENT_PERSPECTIVES],
-        date: checkRes[0][CURRENT_COMMITTED_AT],
-      );
 
-      if (pastPerspectives.toString() == '{}') {
-        // print("is this running??");
-        return await supabase
-            .from(TABLE_NAME)
-            .update({
-              "current_committed_at": DateTime.now().toIso8601String(),
-              "current_perspectives": newPerspectives,
-              "past_perspectives": oldPerspectives.toJson(),
-            })
-            .eq(
-              "${collaboratorInfo.theCollaboratorsNumber}_uid",
-              collaboratorInfo.theCollaboratorsUID,
-            )
-            .eq(
-              "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
-              collaboratorInfo.theUsersUID,
-            )
-            .select();
-      } else {
-        final List newPastCommitsList = pastPerspectives["commits"];
-        newPastCommitsList.add(oldPerspectives.toObject());
-        final newObj = {"commits": newPastCommitsList};
-
-        return await supabase
-            .from(TABLE_NAME)
-            .update({
-              "current_committed_at": DateTime.now().toIso8601String(),
-              "current_perspectives": newPerspectives,
-              "past_perspectives": newObj,
-            })
-            .eq(
-              "${collaboratorInfo.theCollaboratorsNumber}_uid",
-              collaboratorInfo.theCollaboratorsUID,
-            )
-            .eq(
-              "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
-              collaboratorInfo.theUsersUID,
-            )
-            .select();
-      }
-    }
-  }
-
-  deletePerspectivesRow() async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
-    await supabase.from(TABLE_NAME).delete().eq(
+  _updatePastPerspectivesColumn(
+      List<String> newPerspectives, Object pastPerspectives) async {
+    return await supabase
+        .from(tableName)
+        .update({
+          "current_committed_at": DateTime.now().toIso8601String(),
+          "current_perspectives": newPerspectives,
+          "past_perspectives": pastPerspectives,
+        })
+        .eq(
+          "${collaboratorInfo.theCollaboratorsNumber}_uid",
+          collaboratorInfo.theCollaboratorsUID,
+        )
+        .eq(
           "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
           collaboratorInfo.theUsersUID,
-        );
+        )
+        .select();
   }
 }
