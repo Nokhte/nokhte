@@ -7,12 +7,12 @@ abstract class IndividualSessionRemoteSource {
 // Future<> ();
 }
 
-class IndividualSesionRemoteSourceImpl
+class IndividualSessionRemoteSourceImpl
     implements IndividualSessionRemoteSource {
   final SupabaseClient supabase;
   final P2PPerspectivesTrackingQueries queries;
 
-  IndividualSesionRemoteSourceImpl({
+  IndividualSessionRemoteSourceImpl({
     required this.supabase,
   }) : queries = P2PPerspectivesTrackingQueries(supabase: supabase);
   @override

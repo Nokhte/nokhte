@@ -5,6 +5,7 @@ import 'package:nokhte/app/core/modules/fetch_the_purpose/domain/domain.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/constants/constants.dart';
 import 'package:nokhte/app/core/modules/scheduling/domain/domain.dart';
 import 'package:nokhte/app/modules/home/domain/entities/entities.dart';
+import 'package:nokhte/app/modules/individual_session/domain/domain.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/entities/entities.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/domain/domain.dart';
@@ -152,4 +153,7 @@ class DefaultEntities {
   static Either<Failure, StagingAreaUpdateStatusEntity>
       get stagingAreaUpdateStatusEntity =>
           const Right(StagingAreaUpdateStatusEntity(isUpdated: false));
+  static Either<Failure, CurrentPerspectivesEntity>
+      get currentPerspectivesEntity =>
+          const Right(CurrentPerspectivesEntity(currentPerspectives: []));
 }
