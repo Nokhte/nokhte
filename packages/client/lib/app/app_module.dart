@@ -4,6 +4,7 @@ import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/modules/authentication/authentication_module.dart';
 import 'package:nokhte/app/modules/home/home_module.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:nokhte/app/modules/individual_session/individual_session_module.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/p2p_collaborator_pool_module.dart';
 import 'package:nokhte/app/modules/p2p_perspectives_session/p2p_perspectives_session_module.dart';
 import 'package:nokhte/app/modules/p2p_purpose_session/p2p_purpose_session_module.dart';
@@ -52,9 +53,14 @@ class AppModule extends Module {
           module: P2PCollaboratorSessionModule(),
         ),
         ModuleRoute(
-          '/',
-          // '/p2p_perspective_session/',
+          // '/',
+          '/p2p_perspective_session/',
           module: P2PPerspectivesSessionModule(),
         ),
+        ModuleRoute(
+          // 'individual_session/',
+          '/',
+          module: IndividualSessionModule(),
+        )
       ];
 }

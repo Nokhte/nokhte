@@ -7,7 +7,6 @@ import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_perspectives_session/data/data.dart';
 import 'package:nokhte/app/modules/p2p_perspectives_session/domain/domain.dart';
-import 'package:nokhte/app/modules/p2p_perspectives_session/presentation/mobx/coordinators/perspectives_widgets_coordinator_store.dart';
 import 'package:nokhte/app/modules/p2p_perspectives_session/presentation/presentation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
