@@ -10,6 +10,15 @@ part of 'individual_session_screen_coordinator.dart';
 
 mixin _$IndividualSessionScreenCoordinatorStore
     on _IndividualSessionScreenCoordinatorStoreBase, Store {
+  Computed<String>? _$currentPerspectiveComputed;
+
+  @override
+  String get currentPerspective => (_$currentPerspectiveComputed ??= Computed<
+              String>(() => super.currentPerspective,
+          name:
+              '_IndividualSessionScreenCoordinatorStoreBase.currentPerspective'))
+      .value;
+
   late final _$screenConstructorAsyncAction = AsyncAction(
       '_IndividualSessionScreenCoordinatorStoreBase.screenConstructor',
       context: context);
@@ -56,7 +65,7 @@ mixin _$IndividualSessionScreenCoordinatorStore
   @override
   String toString() {
     return '''
-
+currentPerspective: ${currentPerspective}
     ''';
   }
 }

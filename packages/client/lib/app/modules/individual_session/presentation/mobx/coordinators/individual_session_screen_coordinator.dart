@@ -5,7 +5,6 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/types/desired_negative_mode_behavior.dart';
-import 'package:nokhte/app/core/types/seconds.dart';
 import 'package:nokhte/app/modules/individual_session/presentation/presentation.dart';
 // * Mobx Codegen Inclusion
 part 'individual_session_screen_coordinator.g.dart';
@@ -28,6 +27,10 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
   final quadNum = 5;
   final quadSpread = 90;
 
+  @computed
+  String get currentPerspective =>
+      getCurrentPerspectives.currentPerspectives[chosenIndex] ?? '';
+
   @action
   screenConstructor() async {
     widgets.attuneTheWidgets(DateTime.now());
@@ -45,27 +48,18 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
   quadrantAPIListener() => reaction((p0) => quadrantAPI.currentQuadrant, (p0) {
         if (p0 >= 0) {
           valueTrackingSetup(p0);
-          // print("quad api listener $localPerspectives");
           perspectivesController();
         }
       });
 
-  textChangeAndFadeIn() => Future.delayed(Seconds.get(2), () {
-        widgets
-            .setText(getCurrentPerspectives.currentPerspectives[chosenIndex]);
-        widgets.collaborativeTextEditor.toggleWidgetVisibility();
-      });
-
   markUp() {
     setChosenIndex(chosenIndex + 1);
-    widgets.moveUpOrDownToNextPerspective(chosenIndex, shouldMoveUp: true);
-    textChangeAndFadeIn();
+    widgets.markup(chosenIndex, currentPerspective);
   }
 
   markDown() {
     setChosenIndex(chosenIndex - 1);
-    widgets.moveUpOrDownToNextPerspective(chosenIndex, shouldMoveUp: false);
-    textChangeAndFadeIn();
+    widgets.markup(chosenIndex, currentPerspective);
   }
 
   perspectivesController() {
@@ -79,9 +73,7 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
   }
 
   @action
-  onSwipeUp() {
-    //
-  }
+  onSwipeUp() => widgets.onSwipeUp();
 
   @action
   onSwipeDown() {
