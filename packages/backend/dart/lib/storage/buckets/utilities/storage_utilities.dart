@@ -46,7 +46,7 @@ class StorageUtilities {
       thePerspective: audioClipData.thePerspective,
     );
     final fileName = getFileName(
-      audioClipData.theRecordingNumber,
+      audioClipData.totalNumberOfFilesForThePerspective,
       collaboratorInfo,
     );
     String path = [

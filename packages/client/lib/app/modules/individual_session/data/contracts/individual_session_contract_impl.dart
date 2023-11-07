@@ -46,4 +46,11 @@ class IndividualSessionContractImpl implements IndividualSessionContract {
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  Future<Either<Failure, IndividualPerspectivesAudioUploadStatusEntity>>
+      uploadIndividualPerspectivesAudio(params) {
+    // TODO: implement uploadIndividualPerspectivesAudio
+    throw UnimplementedError();
+  }
 }

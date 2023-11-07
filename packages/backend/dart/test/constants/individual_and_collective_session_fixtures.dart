@@ -25,7 +25,7 @@ class IndividualAndCollectiveSessionFixtures {
         thePerspectivesIndex: 0,
         isOverwritingAnotherFile: true,
         thePerspective: tSetup.tPerspectives[0],
-        theRecordingNumber: 1,
+        totalNumberOfFilesForThePerspective: 1,
         theSessionTimestamp: now,
         thePerspectivesTimestamp: now,
         theFile: File('${Directory.current.path}/test/assets/star_wars.wav'),

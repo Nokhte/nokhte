@@ -154,6 +154,7 @@ class DefaultEntities {
       get stagingAreaUpdateStatusEntity =>
           const Right(StagingAreaUpdateStatusEntity(isUpdated: false));
   static Either<Failure, CurrentPerspectivesEntity>
-      get currentPerspectivesEntity =>
-          const Right(CurrentPerspectivesEntity(currentPerspectives: []));
+      get currentPerspectivesEntity => Right(CurrentPerspectivesEntity(
+          currentPerspectives: const [],
+          currentPerspectiveTimestamp: DateTime.fromMillisecondsSinceEpoch(0)));
 }
