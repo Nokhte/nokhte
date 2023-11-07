@@ -10,6 +10,28 @@ part of 'individual_session_screen_widgets_coordinator.dart';
 
 mixin _$IndividualSessionScreenWidgetsCoordinator
     on _IndividualSessionScreenWidgetsCoordinatorBase, Store {
+  late final _$_IndividualSessionScreenWidgetsCoordinatorBaseActionController =
+      ActionController(
+          name: '_IndividualSessionScreenWidgetsCoordinatorBase',
+          context: context);
+
+  @override
+  dynamic markUpOrDownTheAudioPlatform(int chosenAudioIndex,
+      {required bool shouldMoveUp}) {
+    final _$actionInfo =
+        _$_IndividualSessionScreenWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_IndividualSessionScreenWidgetsCoordinatorBase.markUpOrDownTheAudioPlatform');
+    try {
+      return super.markUpOrDownTheAudioPlatform(chosenAudioIndex,
+          shouldMoveUp: shouldMoveUp);
+    } finally {
+      _$_IndividualSessionScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

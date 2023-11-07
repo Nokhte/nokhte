@@ -13,6 +13,12 @@ class PerspectivesMapAnimationData {
     return getCompletedAndMarkupColors(activeIndex);
   }
 
+  static List<Color> getOnlyWhiteArr(int activeIndex) {
+    final list = List.filled(5, Colors.white.withOpacity(.5));
+    list[activeIndex] = Colors.white;
+    return list;
+  }
+
   static List<Color> getCommitInProgressArr(int activeIndex) {
     final list = getCompletedAndMarkupColors(activeIndex);
     list[activeIndex] = commitInProgressColor;

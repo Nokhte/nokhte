@@ -36,6 +36,23 @@ mixin _$IndividualSessionScreenCoordinatorStore
     });
   }
 
+  late final _$chosenAudioIndexAtom = Atom(
+      name: '_IndividualSessionScreenCoordinatorStoreBase.chosenAudioIndex',
+      context: context);
+
+  @override
+  int get chosenAudioIndex {
+    _$chosenAudioIndexAtom.reportRead();
+    return super.chosenAudioIndex;
+  }
+
+  @override
+  set chosenAudioIndex(int value) {
+    _$chosenAudioIndexAtom.reportWrite(value, super.chosenAudioIndex, () {
+      super.chosenAudioIndex = value;
+    });
+  }
+
   late final _$screenConstructorAsyncAction = AsyncAction(
       '_IndividualSessionScreenCoordinatorStoreBase.screenConstructor',
       context: context);
@@ -49,6 +66,34 @@ mixin _$IndividualSessionScreenCoordinatorStore
       ActionController(
           name: '_IndividualSessionScreenCoordinatorStoreBase',
           context: context);
+
+  @override
+  dynamic setChosenAudioIndex(int newVal) {
+    final _$actionInfo =
+        _$_IndividualSessionScreenCoordinatorStoreBaseActionController.startAction(
+            name:
+                '_IndividualSessionScreenCoordinatorStoreBase.setChosenAudioIndex');
+    try {
+      return super.setChosenAudioIndex(newVal);
+    } finally {
+      _$_IndividualSessionScreenCoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic audioPlatformIndexMarkUp() {
+    final _$actionInfo =
+        _$_IndividualSessionScreenCoordinatorStoreBaseActionController.startAction(
+            name:
+                '_IndividualSessionScreenCoordinatorStoreBase.audioPlatformIndexMarkUp');
+    try {
+      return super.audioPlatformIndexMarkUp();
+    } finally {
+      _$_IndividualSessionScreenCoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic transitionToRecordingMode() {
@@ -79,24 +124,10 @@ mixin _$IndividualSessionScreenCoordinatorStore
   }
 
   @override
-  dynamic onSwipeDown() {
-    final _$actionInfo =
-        _$_IndividualSessionScreenCoordinatorStoreBaseActionController
-            .startAction(
-                name:
-                    '_IndividualSessionScreenCoordinatorStoreBase.onSwipeDown');
-    try {
-      return super.onSwipeDown();
-    } finally {
-      _$_IndividualSessionScreenCoordinatorStoreBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 screenType: ${screenType},
+chosenAudioIndex: ${chosenAudioIndex},
 currentPerspective: ${currentPerspective}
     ''';
   }

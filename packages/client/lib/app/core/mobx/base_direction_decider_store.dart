@@ -41,9 +41,9 @@ abstract class _BaseDirectionDeciderStoreBase extends Equatable with Store {
     if (dragType == DragType.horizontal) {
       final firstVal = mostRecentCoordinates.first.dx;
       final lastVal = mostRecentCoordinates.last.dx;
-      if ((firstVal - lastVal).abs() < 50) return;
+      // if ((firstVal - lastVal).abs() < 50) return;
       directionsType =
-          firstVal < lastVal ? GestureDirections.right : GestureDirections.left;
+          firstVal < lastVal ? GestureDirections.left : GestureDirections.right;
     } else if (dragType == DragType.vertical) {
       final firstVal = mostRecentCoordinates.first.dy;
       final lastVal = mostRecentCoordinates.last.dy;

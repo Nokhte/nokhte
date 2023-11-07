@@ -4,7 +4,8 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:nokhte/app/core/mobx/base_perspectives_widgets_store.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/audio_clip_platform/stack/presentation/presentation.dart';
+import 'package:nokhte/app/core/widgets/audio_clip_platform/audio_clip_platform.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 // * Mobx Codegen Inclusion
 part 'individual_session_screen_widgets_coordinator.g.dart';
@@ -29,7 +30,7 @@ abstract class _IndividualSessionScreenWidgetsCoordinatorBase
         collaborativeTextEditor.toggleWidgetVisibility();
       });
 
-  markup(int chosenIndex, String currentPerspective) {
+  markUpPerspectivesMap(int chosenIndex, String currentPerspective) {
     moveUpOrDownToNextPerspective(chosenIndex, shouldMoveUp: true);
     textChangeAndFadeIn(currentPerspective);
   }
@@ -50,5 +51,27 @@ abstract class _IndividualSessionScreenWidgetsCoordinatorBase
     collaborativeTextEditor.toggleWidgetVisibility();
     perspectivesMap.toggleWidgetVisibility();
     audioClipPlatform.toggleWidgetVisibility();
+  }
+
+  @action
+  markUpOrDownTheAudioPlatform(
+    int chosenAudioIndex, {
+    required bool shouldMoveUp,
+  }) {
+    final prevIndex =
+        shouldMoveUp ? chosenAudioIndex - 1 : chosenAudioIndex + 1;
+
+    audioClipPlatform
+        .setMovie(AudioClipPlatformColorAndVertOffsetChange.getMovie(
+      startingCircleColors:
+          PerspectivesMapAnimationData.getOnlyWhiteArr(prevIndex),
+      endingCircleColors:
+          PerspectivesMapAnimationData.getOnlyWhiteArr(chosenAudioIndex),
+      startingVertOffsets:
+          PerspectivesMapAnimationData.getVertOffArr(prevIndex),
+      endingVertOffsets:
+          PerspectivesMapAnimationData.getVertOffArr(chosenAudioIndex),
+    ));
+    audioClipPlatform.control = Control.playFromStart;
   }
 }

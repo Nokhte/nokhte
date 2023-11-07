@@ -39,6 +39,12 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
   IndividualSessionScreenType screenType =
       IndividualSessionScreenType.perspectiveViewingMode;
 
+  @observable
+  int chosenAudioIndex = 0;
+
+  @action
+  setChosenAudioIndex(int newVal) => chosenAudioIndex = newVal;
+
   // what do we want to do now?
 
   @action
@@ -70,24 +76,27 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
                 transitionToRecordingMode();
                 directions.resetDirectionsType();
               case IndividualSessionScreenType.recordingAudioMode:
-                // print("UP on recording");
                 transitionToPerspectivesMode();
                 directions.resetDirectionsType();
-              // EXIT BACK TO PERSPECTIVES
             }
           case GestureDirections.down:
             if (screenType == IndividualSessionScreenType.recordingAudioMode) {
-              print("DOWN on recording");
+              // here is where they record someting
+              // print("DOWN on recording");
               directions.resetDirectionsType();
             }
           case GestureDirections.left:
             if (screenType == IndividualSessionScreenType.recordingAudioMode) {
               print("LEFT on recording");
+              // audioPlatformIndexMarkUp();
+              audioPlatformIndexMarkDown();
               directions.resetDirectionsType();
             }
           case GestureDirections.right:
             if (screenType == IndividualSessionScreenType.recordingAudioMode) {
               print("RIGHT on recording");
+              audioPlatformIndexMarkUp();
+              // audioPlatformIndexMarkDown();
               directions.resetDirectionsType();
             }
 
@@ -96,23 +105,41 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
         }
       });
 
-  markUp() {
+  perspectivesIndexMarkUp() {
     setChosenIndex(chosenIndex + 1);
-    widgets.markup(chosenIndex, currentPerspective);
+    widgets.markUpPerspectivesMap(chosenIndex, currentPerspective);
   }
 
-  markDown() {
+  perspectivesIndexMarkDown() {
     setChosenIndex(chosenIndex - 1);
-    widgets.markup(chosenIndex, currentPerspective);
+    widgets.markUpPerspectivesMap(chosenIndex, currentPerspective);
+  }
+
+  @action
+  audioPlatformIndexMarkUp() {
+    chosenAudioIndex++;
+    widgets.markUpOrDownTheAudioPlatform(
+      chosenAudioIndex,
+      shouldMoveUp: true,
+    );
+  }
+
+  audioPlatformIndexMarkDown() {
+    if (chosenAudioIndex == 0) return;
+    chosenAudioIndex--;
+    widgets.markUpOrDownTheAudioPlatform(
+      chosenAudioIndex,
+      shouldMoveUp: false,
+    );
   }
 
   perspectivesController() {
     if (isSecondTime && firstValue > 0) {
-      markUp();
+      perspectivesIndexMarkUp();
     } else if (!isFirstTime && !isSecondTime && secondValue > firstValue) {
-      markUp();
+      perspectivesIndexMarkUp();
     } else if (!isFirstTime && !isSecondTime && secondValue < firstValue) {
-      markDown();
+      perspectivesIndexMarkDown();
     }
   }
 
@@ -126,11 +153,6 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
   transitionToPerspectivesMode() {
     screenType = IndividualSessionScreenType.perspectiveViewingMode;
     widgets.transitionBackToPerspectivesMode();
-  }
-
-  @action
-  onSwipeDown() {
-    //
   }
 
   @override
