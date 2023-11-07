@@ -39,6 +39,7 @@ abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
   @observable
   bool showText = false;
 
+  @observable
   AuthProvider authProvider =
       Platform.isAndroid ? AuthProvider.google : AuthProvider.apple;
 
@@ -58,6 +59,11 @@ abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
     textStore.setCurrentMessage(
         "Swipe to Log In with ${authProvider.name[0].toUpperCase() + authProvider.name.substring(1)}");
     gestureListener();
+    authProvider =
+        Platform.isAndroid ? AuthProvider.google : AuthProvider.apple;
+    if (kDebugMode) {
+      authProvider = AuthProvider.google;
+    }
   }
 
   gestureListener() => reaction((p0) => swipe.directionsType, (p0) {

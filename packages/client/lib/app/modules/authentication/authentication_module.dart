@@ -1,6 +1,4 @@
-import 'package:nokhte/app/core/mobx/gesture_direction_detector.dart';
 import 'package:nokhte/app/core/widgets/shared/constants/svg_animation_constants.dart';
-import 'package:nokhte/app/core/widgets/swipe/stack/presentation/mobx/swipe_detector.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/authentication/domain/domain.dart';
 import 'package:nokhte/app/modules/authentication/data/data.dart';
