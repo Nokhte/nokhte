@@ -28,6 +28,15 @@ mixin _$SpeakTheCollaboratorPhraseCoordinatorStore
     });
   }
 
+  late final _$screenConstructorAsyncAction = AsyncAction(
+      '_SpeakTheCollaboratorPhraseCoordinatorStoreBase.screenConstructor',
+      context: context);
+
+  @override
+  Future screenConstructor() {
+    return _$screenConstructorAsyncAction.run(() => super.screenConstructor());
+  }
+
   late final _$audioButtonHoldEndCallbackAsyncAction = AsyncAction(
       '_SpeakTheCollaboratorPhraseCoordinatorStoreBase.audioButtonHoldEndCallback',
       context: context);
@@ -36,17 +45,6 @@ mixin _$SpeakTheCollaboratorPhraseCoordinatorStore
   Future audioButtonHoldEndCallback() {
     return _$audioButtonHoldEndCallbackAsyncAction
         .run(() => super.audioButtonHoldEndCallback());
-  }
-
-  late final _$screenConstructorCallbackAsyncAction = AsyncAction(
-      '_SpeakTheCollaboratorPhraseCoordinatorStoreBase.screenConstructorCallback',
-      context: context);
-
-  @override
-  Future screenConstructorCallback(
-      {required SpeakTheCollaboratorPhraseCoordinatorStore coordinatorStore}) {
-    return _$screenConstructorCallbackAsyncAction.run(() =>
-        super.screenConstructorCallback(coordinatorStore: coordinatorStore));
   }
 
   late final _$_SpeakTheCollaboratorPhraseCoordinatorStoreBaseActionController =
@@ -70,14 +68,14 @@ mixin _$SpeakTheCollaboratorPhraseCoordinatorStore
   }
 
   @override
-  dynamic swipeDownCallback() {
+  dynamic goBackToShore() {
     final _$actionInfo =
         _$_SpeakTheCollaboratorPhraseCoordinatorStoreBaseActionController
             .startAction(
                 name:
-                    '_SpeakTheCollaboratorPhraseCoordinatorStoreBase.swipeDownCallback');
+                    '_SpeakTheCollaboratorPhraseCoordinatorStoreBase.goBackToShore');
     try {
-      return super.swipeDownCallback();
+      return super.goBackToShore();
     } finally {
       _$_SpeakTheCollaboratorPhraseCoordinatorStoreBaseActionController
           .endAction(_$actionInfo);
@@ -85,14 +83,14 @@ mixin _$SpeakTheCollaboratorPhraseCoordinatorStore
   }
 
   @override
-  dynamic swipeUpCallback() {
+  dynamic enterThePool() {
     final _$actionInfo =
         _$_SpeakTheCollaboratorPhraseCoordinatorStoreBaseActionController
             .startAction(
                 name:
-                    '_SpeakTheCollaboratorPhraseCoordinatorStoreBase.swipeUpCallback');
+                    '_SpeakTheCollaboratorPhraseCoordinatorStoreBase.enterThePool');
     try {
-      return super.swipeUpCallback();
+      return super.enterThePool();
     } finally {
       _$_SpeakTheCollaboratorPhraseCoordinatorStoreBaseActionController
           .endAction(_$actionInfo);

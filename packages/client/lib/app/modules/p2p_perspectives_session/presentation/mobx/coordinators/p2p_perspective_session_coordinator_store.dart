@@ -7,6 +7,8 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/types/desired_negative_mode_behavior.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
+import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_perspectives_session/presentation/presentation.dart';
 // * Mobx Codegen Inclusion
 part 'p2p_perspective_session_coordinator_store.g.dart';
@@ -18,6 +20,7 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
     extends BaseQuadrantAPIReceiver with Store {
   final PerspectivesWidgetsCoordinatorStore widgets;
   final VoiceCallActionsStore voiceCall;
+  final SwipeDetector swipe;
   final CommitThePerspectivesStore commitThePerspectives;
   final CreateAPerspectivesSessionStore createSession;
   final FetchPerspectivesStreamStore perspectivesStream;
@@ -31,6 +34,7 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
   _P2PPerspectiveSessionCoordinatorStoreBase({
     required super.quadrantAPI,
     required this.voiceCall,
+    required this.swipe,
     required this.widgets,
     required this.commitThePerspectives,
     required this.createSession,
@@ -78,8 +82,19 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
   @action
   setIsInitialDocLoad(bool newBool) => isInitalDocLoad = newBool;
 
+  gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
+        switch (p0) {
+          case GestureDirections.up:
+            updateCommitStatusToYes();
+          case GestureDirections.down:
+            wantToFinishTheSession();
+          default:
+            break;
+        }
+      });
+
   @action
-  onSwipeUp() async {
+  updateCommitStatusToYes() async {
     inProgressCommit = true;
     await updateQuadStore(chosenIndex + 1);
     widgets.changeToInProgressColor(chosenIndex);
@@ -105,7 +120,7 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
     }
   }
 
-  onSwipeDown() async {
+  wantToFinishTheSession() async {
     if (localPerspectives[2].isNotEmpty) {
       await commitThePerspectives(localPerspectives);
     }

@@ -25,14 +25,14 @@ mixin _$LoginScreenCoordinatorStore on _LoginScreenCoordinatorStoreBase, Store {
     });
   }
 
-  late final _$loginScreenSwipeUpCallbackAsyncAction = AsyncAction(
-      '_LoginScreenCoordinatorStoreBase.loginScreenSwipeUpCallback',
+  late final _$logTheUserInAsyncAction = AsyncAction(
+      '_LoginScreenCoordinatorStoreBase.logTheUserIn',
       context: context);
 
   @override
-  Future loginScreenSwipeUpCallback(AuthProvider authProvider) {
-    return _$loginScreenSwipeUpCallbackAsyncAction
-        .run(() => super.loginScreenSwipeUpCallback(authProvider));
+  Future logTheUserIn(AuthProvider authProvider) {
+    return _$logTheUserInAsyncAction
+        .run(() => super.logTheUserIn(authProvider));
   }
 
   late final _$_LoginScreenCoordinatorStoreBaseActionController =

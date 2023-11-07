@@ -36,6 +36,9 @@ class P2PCollaboratorSessionModule extends Module {
         Bind.factory<BeachWavesTrackerStore>(
           (i) => BeachWavesTrackerStore(),
         ),
+        Bind.factory<SwipeDetector>(
+          (i) => SwipeDetector(),
+        ),
         Bind.singleton<MeshCircleButtonStore>(
           (i) => MeshCircleButtonStore(),
         ),
@@ -94,6 +97,7 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase1CoordinatorStore>(
           (i) => P2PPurposePhase1CoordinatorStore(
+            swipe: i<SwipeDetector>(),
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
             fadeInColorText: Modular.get<FadeInAndChangeColorTextStore>(),
             gesturePillStore: Modular.get<GesturePillStore>(),
@@ -106,6 +110,7 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase2CoordinatorStore>(
             (i) => P2PPurposePhase2CoordinatorStore(
+                  swipe: i<SwipeDetector>(),
                   beachWaves: Modular.get<BeachWavesTrackerStore>(),
                   fadingText: i<SmartFadingAnimatedTextTrackerStore>(),
                   meshCircleStore: i<MeshCircleButtonStore>(),
@@ -115,6 +120,7 @@ class P2PCollaboratorSessionModule extends Module {
                 )),
         Bind.singleton<P2PPurposePhase3CoordinatorStore>(
           (i) => P2PPurposePhase3CoordinatorStore(
+            swipe: i<SwipeDetector>(),
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
             textEditor: Modular.get<SoloTextEditorTrackerStore>(),
             fadingText: i<SmartFadingAnimatedTextTrackerStore>(),
@@ -123,6 +129,7 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase4CoordinatorStore>(
           (i) => P2PPurposePhase4CoordinatorStore(
+            swipe: i<SwipeDetector>(),
             fadingText: i<SmartFadingAnimatedTextTrackerStore>(),
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
             soloDoc: i<SoloDocCoordinatorStore>(),
@@ -130,6 +137,7 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase5CoordinatorStore>(
           (i) => P2PPurposePhase5CoordinatorStore(
+            swipe: i<SwipeDetector>(),
             collaborativeDocDB: Modular.get<CollaborativeDocCoordinatorStore>(),
             gesturePillStore: Modular.get<GesturePillStore>(),
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
@@ -142,6 +150,7 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase6CoordinatorStore>(
           (i) => P2PPurposePhase6CoordinatorStore(
+            swipe: i<SwipeDetector>(),
             scheduling: i<SchedulingCoordinatorStore>(),
             widgets: i<SchedulingWidgetsCoordinatorStore>(),
             quadrantAPI: Modular.get<QuadrantAPI>(),

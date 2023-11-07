@@ -1,4 +1,6 @@
+import 'package:nokhte/app/core/mobx/gesture_direction_detector.dart';
 import 'package:nokhte/app/core/widgets/shared/constants/svg_animation_constants.dart';
+import 'package:nokhte/app/core/widgets/swipe/stack/presentation/mobx/swipe_detector.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/authentication/domain/domain.dart';
 import 'package:nokhte/app/modules/authentication/data/data.dart';
@@ -56,6 +58,9 @@ class AuthenticationModule extends Module {
           ),
         ),
         // & Mobx Mother Stores
+        Bind.singleton<SwipeDetector>(
+          (i) => SwipeDetector(),
+        ),
         Bind.singleton<AuthProviderStore>(
           (i) => AuthProviderStore(
             authProviderGetterStore: i<GetAuthProviderStateGetterStore>(),
@@ -69,6 +74,7 @@ class AuthenticationModule extends Module {
         // & Coordinator Stores
         Bind.singleton<LoginScreenCoordinatorStore>(
           (i) => LoginScreenCoordinatorStore(
+            swipe: i<SwipeDetector>(),
             gesturePillStore: i<GesturePillStore>(),
             authProviderStore: i<AuthProviderStore>(),
             authStateStore: i<AuthStateStore>(),

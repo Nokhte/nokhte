@@ -24,39 +24,44 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
   final BeachWavesTrackerStore beachWavesStore;
   final SmartFadingAnimatedTextTrackerStore fadingTextStore;
   final FadeInAndChangeColorTextStore fadeInAndColorTextStore;
+  final SwipeDetector swipe;
 
   _CollaboratorPoolScreenCoordinatorStoreBase({
+    required this.swipe,
     required this.exitCollaboratorPoolStore,
     required this.cancelStreamStore,
     required this.getCollaboratorSearchStatusStore,
     required this.beachWavesStore,
     required this.fadingTextStore,
     required this.fadeInAndColorTextStore,
-  }) {
-    reaction((p0) => beachWavesStore.movieStatus, (p0) {
-      if (beachWavesStore.movieStatus == MovieStatus.finished &&
-          beachWavesStore.movieMode == BeachWaveMovieModes.timesUp) {
-        beachWavesStore.initiateBackToOceanDive();
-        // beachWavesStore.backToTheDepthsCount++;
-        exitCollaboratorPoolStore(NoParams());
-        cancelStreamStore(NoParams());
-      } else if (beachWavesStore.movieStatus == MovieStatus.finished &&
-          beachWavesStore.movieMode == BeachWaveMovieModes.backToOceanDive) {
-        Modular.to.navigate('/p2p_collaborator_pool/');
-      } else if (beachWavesStore.movieStatus == MovieStatus.finished &&
-          beachWavesStore.movieMode == BeachWaveMovieModes.backToTheDepths) {
-        Modular.to.navigate('/p2p_purpose_session/');
-      }
-    });
-    reaction((p0) => getCollaboratorSearchStatusStore.searchStatus, (p0) {
-      p0.listen((value) {
-        if (value == true) {
-          beachWavesStore.teeUpBackToTheDepths();
-          fadeInAndColorTextStore.teeUpFadeOut();
+  });
+
+  beachWavesMovieStatusListener() =>
+      reaction((p0) => beachWavesStore.movieStatus, (p0) {
+        if (beachWavesStore.movieStatus == MovieStatus.finished &&
+            beachWavesStore.movieMode == BeachWaveMovieModes.timesUp) {
+          beachWavesStore.initiateBackToOceanDive();
+          // beachWavesStore.backToTheDepthsCount++;
+          exitCollaboratorPoolStore(NoParams());
+          cancelStreamStore(NoParams());
+        } else if (beachWavesStore.movieStatus == MovieStatus.finished &&
+            beachWavesStore.movieMode == BeachWaveMovieModes.backToOceanDive) {
+          Modular.to.navigate('/p2p_collaborator_pool/');
+        } else if (beachWavesStore.movieStatus == MovieStatus.finished &&
+            beachWavesStore.movieMode == BeachWaveMovieModes.backToTheDepths) {
+          Modular.to.navigate('/p2p_purpose_session/');
         }
       });
-    });
-  }
+
+  searchStatusListener() =>
+      reaction((p0) => getCollaboratorSearchStatusStore.searchStatus, (p0) {
+        p0.listen((value) {
+          if (value == true) {
+            beachWavesStore.teeUpBackToTheDepths();
+            fadeInAndColorTextStore.teeUpFadeOut();
+          }
+        });
+      });
 
   @action
   screenConstructorCallback() {
@@ -64,6 +69,8 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
       timerLength: Seconds.get(45),
     );
     getCollaboratorSearchStatusStore();
+    searchStatusListener();
+    beachWavesMovieStatusListener();
   }
 
   @override

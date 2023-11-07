@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/presentation/presentation.dart';
-import 'package:swipe/swipe.dart';
+// import 'package:swipe/swipe.dart';
 
 class CollaboratorPoolScreen extends StatelessWidget {
   final CollaboratorPoolScreenCoordinatorStore coordinatorStore;
@@ -19,6 +19,7 @@ class CollaboratorPoolScreen extends StatelessWidget {
     return LayoutBuilder(
       builder: ((context, constraints) => PlatformScaffold(
               body: Swipe(
+            trackerStore: coordinatorStore.swipe,
             child: Stack(
               children: [
                 SizedBox(

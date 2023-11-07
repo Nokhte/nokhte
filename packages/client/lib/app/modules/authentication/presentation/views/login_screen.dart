@@ -9,7 +9,6 @@ import 'dart:io';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/authentication/presentation/presentation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:swipe/swipe.dart';
 
 class LoginScreen extends StatelessWidget {
   final LoginScreenCoordinatorStore coordinator;
@@ -41,23 +40,13 @@ class LoginScreen extends StatelessWidget {
           }
           return PlatformScaffold(
             body: Swipe(
-              onSwipeUp: () async =>
-                  await coordinator.loginScreenSwipeUpCallback(authProvider),
+              trackerStore: coordinator.swipe,
               child: Stack(
                 children: [
                   SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height,
                       child: DumbBeachWaves(movie: OnShore.movie)),
-                  // Observer(builder: (context) {
-                  //   return Container(
-                  //     alignment: Alignment.bottomCenter,
-                  //     padding: const EdgeInsets.all(30.0),
-                  //     child: FadeInAndChangeColorText(
-                  //       stateStore: coordinator.textStore,
-                  //     ),
-                  //   );
-                  // }),
                   Column(
                     children: [
                       Expanded(
@@ -80,6 +69,7 @@ class LoginScreen extends StatelessWidget {
                 ],
               ),
             ),
+            // ),
           );
         });
   }

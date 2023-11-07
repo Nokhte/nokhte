@@ -27,6 +27,7 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
   final FetchAgoraTokenStore fetchAgoraTokenStore;
   final FetchChannelIdStore fetchChannelIdStore;
   final VoiceCallActionsStore voiceCallActionsStore;
+  final SwipeDetector swipe;
   // final
 
   // Widget Stores
@@ -34,6 +35,7 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
   final SmartFadingAnimatedTextTrackerStore fadingText;
 
   _P2PPurposePhase1CoordinatorStoreBase({
+    required this.swipe,
     required this.instantiateAgoraSdkStore,
     required this.fetchAgoraTokenStore,
     required this.fetchChannelIdStore,
@@ -64,8 +66,17 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
     );
   }
 
+  gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
+        switch (p0) {
+          case GestureDirections.up:
+            joinTheCallAndMoveToPhase2();
+          default:
+            break;
+        }
+      });
+
   @action
-  swipeUpCallback() async {
+  joinTheCallAndMoveToPhase2() async {
     /// todo leave in for production
     // await voiceCallActionsStore.enterOrLeaveCall(
     //   Right(

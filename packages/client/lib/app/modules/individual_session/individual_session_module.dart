@@ -1,5 +1,4 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:nokhte/app/core/mobx/base_direction_decider_store.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic_module.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/mobx/api/api.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
@@ -47,8 +46,8 @@ class IndividualSessionModule extends Module {
             getterStore: i<GetCurrentPerspectivesGetterStore>(),
           ),
         ),
-        Bind.singleton<BaseDirectionDeciderStore>(
-          (i) => BaseDirectionDeciderStore(),
+        Bind.singleton<SwipeDetector>(
+          (i) => SwipeDetector(),
         ),
         // % Widgets
         Bind.singleton<AudioClipPlatformTrackerStore>(
@@ -88,7 +87,7 @@ class IndividualSessionModule extends Module {
         ),
         Bind.singleton<IndividualSessionScreenCoordinatorStore>(
           (i) => IndividualSessionScreenCoordinatorStore(
-            directions: i<BaseDirectionDeciderStore>(),
+            swipe: i<SwipeDetector>(),
             quadrantAPI: i<QuadrantAPI>(),
             widgets: i<IndividualSessionScreenWidgetsCoordinator>(),
             getCurrentPerspectives: i<GetCurrentPerspectivesStore>(),

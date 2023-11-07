@@ -53,13 +53,14 @@ mixin _$P2PPerspectiveSessionCoordinatorStore
     return _$screenConstructorAsyncAction.run(() => super.screenConstructor());
   }
 
-  late final _$onSwipeUpAsyncAction = AsyncAction(
-      '_P2PPerspectiveSessionCoordinatorStoreBase.onSwipeUp',
+  late final _$updateCommitStatusToYesAsyncAction = AsyncAction(
+      '_P2PPerspectiveSessionCoordinatorStoreBase.updateCommitStatusToYes',
       context: context);
 
   @override
-  Future onSwipeUp() {
-    return _$onSwipeUpAsyncAction.run(() => super.onSwipeUp());
+  Future updateCommitStatusToYes() {
+    return _$updateCommitStatusToYesAsyncAction
+        .run(() => super.updateCommitStatusToYes());
   }
 
   late final _$_P2PPerspectiveSessionCoordinatorStoreBaseActionController =

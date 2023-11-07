@@ -81,10 +81,14 @@ class HomeModule extends Module {
         Bind.singleton<GesturePillStore>(
           (i) => GesturePillStore(endingPath: SvgAnimtionConstants.circlePath),
         ),
+        Bind.singleton<SwipeDetector>(
+          (i) => SwipeDetector(),
+        ),
         // & Coordinator Store
         Bind.singleton<HomeScreenCoordinatorStore>(
           (i) => HomeScreenCoordinatorStore(
             portalAPI: i<PortalAPI>(),
+            swipe: i<SwipeDetector>(),
             // quadrantAPI: i<QuadrantAPI>(),
             gesturePillStore: i<GesturePillStore>(),
             beachWaves: i<BeachWavesTrackerStore>(),

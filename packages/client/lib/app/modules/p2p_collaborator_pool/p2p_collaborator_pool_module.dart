@@ -116,6 +116,9 @@ class P2PCollaboratorPoolModule extends Module {
           ),
         ),
         // & Widget State Management Stores
+        Bind.factory<SwipeDetector>(
+          (i) => SwipeDetector(),
+        ),
         Bind.factory<SmartFadingAnimatedTextTrackerStore>(
           (i) => SmartFadingAnimatedTextTrackerStore(
             isInfinite: false,
@@ -153,6 +156,7 @@ class P2PCollaboratorPoolModule extends Module {
         // do the sub here &
         Bind.singleton<SpeakTheCollaboratorPhraseCoordinatorStore>(
           (i) => SpeakTheCollaboratorPhraseCoordinatorStore(
+            swipe: i<SwipeDetector>(),
             enterCollaboratorPoolStore: i<EnterCollaboratorPoolStore>(),
             validateQueryStore: i<ValidateQueryStore>(),
             onSpeechResultStore: i<OnSpeechResultStore>(),
@@ -162,6 +166,7 @@ class P2PCollaboratorPoolModule extends Module {
         ),
         Bind.singleton<CollaboratorPoolScreenCoordinatorStore>(
           (i) => CollaboratorPoolScreenCoordinatorStore(
+            swipe: i<SwipeDetector>(),
             exitCollaboratorPoolStore: i<ExitCollaboratorPoolStore>(),
             beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
             fadeInAndColorTextStore:

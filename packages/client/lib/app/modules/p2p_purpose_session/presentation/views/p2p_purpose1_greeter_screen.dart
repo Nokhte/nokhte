@@ -4,7 +4,7 @@ import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/coordinators/coordinators.dart';
-import 'package:swipe/swipe.dart';
+// import 'package:swipe/swipe.dart';
 
 class P2PPurpose1GreeterScreen extends StatelessWidget {
   final P2PPurposePhase1CoordinatorStore coordinator;
@@ -24,7 +24,8 @@ class P2PPurpose1GreeterScreen extends StatelessWidget {
     return LayoutBuilder(
       builder: ((context, constraints) => PlatformScaffold(
               body: Swipe(
-            onSwipeUp: () async => coordinator.swipeUpCallback(),
+            trackerStore: coordinator.swipe,
+            // onSwipeUp: () async => coordinator.swipeUpCallback(),
             child: Stack(
               children: [
                 SizedBox(

@@ -117,6 +117,9 @@ class P2PPerspectivesSessionModule extends Module {
         Bind.singleton<BeachWavesTrackerStore>(
           (i) => BeachWavesTrackerStore(),
         ),
+        Bind.singleton<SwipeDetector>(
+          (i) => SwipeDetector(),
+        ),
         Bind.singleton<BeachSkyStore>(
           (i) => BeachSkyStore(
             isGoingToFullSky: true,
@@ -144,6 +147,7 @@ class P2PPerspectivesSessionModule extends Module {
         // % Coordinator
         Bind.singleton<P2PPerspectiveSessionCoordinatorStore>(
           (i) => P2PPerspectiveSessionCoordinatorStore(
+            swipe: i<SwipeDetector>(),
             widgets: i<PerspectivesWidgetsCoordinatorStore>(),
             voiceCall: Modular.get<VoiceCallActionsStore>(),
             quadrantAPI: Modular.get<QuadrantAPI>(),

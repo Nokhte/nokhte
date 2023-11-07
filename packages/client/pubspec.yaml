@@ -47,7 +47,6 @@ dependencies:
   sign_in_with_apple: ^5.0.0
   simple_animations: ^5.0.2
   supabase_flutter: ^1.10.9
-  swipe: ^0.0.1
   timezone: ^0.9.2
 
 dev_dependencies:

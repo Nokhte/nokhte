@@ -26,85 +26,118 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
     with Store {
   final WidgetCoordinatorStore widgetStore;
   final LocalSpeechToTextCoordinatorStore localSpeechToText;
-  // final SpeechToTextStore speechToTextStore;
+  final SwipeDetector swipe;
   final OnSpeechResultStore onSpeechResultStore;
   final ValidateQueryStore validateQueryStore;
   final EnterCollaboratorPoolStore enterCollaboratorPoolStore;
   late BeachWavesTrackerStore beachWaves;
-  // late BreathingPentagonsStateTrackerStore breathingPentagonsStore;
   late SmartFadingAnimatedTextTrackerStore fadingTextStore;
   late MeshCircleButtonStore meshCircleStore;
 
-  @observable
-  bool isReadyToEnterPool = false;
-
   _SpeakTheCollaboratorPhraseCoordinatorStoreBase({
+    required this.swipe,
     required this.widgetStore,
     required this.localSpeechToText,
     required this.onSpeechResultStore,
     required this.validateQueryStore,
     required this.enterCollaboratorPoolStore,
-  }) {
-    beachWaves = widgetStore.beachWavesStore;
-    fadingTextStore = widgetStore.smartFadingAnimatedTextStore;
-    // breathingPentagonsStore = widgetStore.breathingPentagonsStore;
-    meshCircleStore = widgetStore.meshCircleButtonStore;
+  })  : beachWaves = widgetStore.beachWavesStore,
+        fadingTextStore = widgetStore.smartFadingAnimatedTextStore,
+        meshCircleStore = widgetStore.meshCircleButtonStore;
 
-    reaction((p0) => beachWaves.movieStatus, (p0) {
-      if (beachWaves.movieStatus == MovieStatus.finished &&
-          beachWaves.movieMode == BeachWaveMovieModes.backToOceanDive) {
-        Modular.to.navigate('/p2p_collaborator_pool/');
-      } else if (beachWaves.movieStatus == MovieStatus.finished &&
-          beachWaves.movieMode == BeachWaveMovieModes.toTheDepths) {
-        Modular.to.navigate('/p2p_collaborator_pool/pool/');
-      } else if (beachWaves.movieStatus == MovieStatus.finished &&
-          beachWaves.movieMode == BeachWaveMovieModes.backToShore) {
-        // print("issssssssssssss dis running");
-        Modular.to.navigate('/home/');
-      }
-    });
-    reaction((p0) => onSpeechResultStore.currentPhraseIndex, (p0) {
-      fadingTextStore.togglePause(gestureType: Gestures.none);
-      fadingTextStore.addNewMessage(
-        mainMessage: onSpeechResultStore.currentSpeechResult,
-      );
-      validateQueryStore.validateTheLength(
-        inputString: onSpeechResultStore.currentSpeechResult,
-      );
-    });
-    reaction((p0) => validateQueryStore.isProperLength, (p0) {
-      if (validateQueryStore.isProperLength == ValidationStatus.invalid) {
-        fadingTextStore.changeFutureSubMessage(
-          amountOfMessagesForward:
-              onSpeechResultStore.currentPhraseIndex == 1 ? 2 : 1,
-          message: "invalid length collaborator phrase",
-        );
-      } else if (validateQueryStore.isProperLength == ValidationStatus.valid) {
-        validateQueryStore.call(
-          ValidateQueryParams(
-            query: onSpeechResultStore.currentSpeechResult,
-          ),
-        );
-      }
-    });
-    reaction((p0) => validateQueryStore.isValidated, (p0) {
-      if (validateQueryStore.isValidated == ValidationStatus.valid &&
-          validateQueryStore.isProperLength == ValidationStatus.valid) {
-        fadingTextStore.changeFutureSubMessage(
-          amountOfMessagesForward:
-              onSpeechResultStore.currentPhraseIndex == 1 ? 2 : 1,
-          message: "Swipe Up To Enter",
-        );
-      } else if (validateQueryStore.isValidated == ValidationStatus.invalid &&
-          validateQueryStore.isProperLength == ValidationStatus.valid) {
-        fadingTextStore.changeFutureSubMessage(
-          amountOfMessagesForward:
-              onSpeechResultStore.currentPhraseIndex == 1 ? 2 : 1,
-          message: "invalid collaborator phrase",
-        );
-      }
-    });
+  @action
+  screenConstructor() async {
+    meshCircleStore.widgetConstructor();
+    beachWaves.initiateSuspendedAtSea();
+    localSpeechToText.initLeopardStore(NoParams());
+    if (await Permission.microphone.isDenied) {
+      await Permission.microphone.request();
+    }
+    if (!fadingTextStore.showText && !fadingTextStore.firstTime) {
+      fadingTextStore.resetToDefault();
+    }
+    gestureListener();
+    queryValidationLengthListener();
+    queryContentValidationListener();
+    speechToTextListener();
+    beachWavesMovieStatusListener();
   }
+
+  beachWavesMovieStatusListener() =>
+      reaction((p0) => beachWaves.movieStatus, (p0) {
+        if (beachWaves.movieStatus == MovieStatus.finished &&
+            beachWaves.movieMode == BeachWaveMovieModes.backToOceanDive) {
+          Modular.to.navigate('/p2p_collaborator_pool/');
+        } else if (beachWaves.movieStatus == MovieStatus.finished &&
+            beachWaves.movieMode == BeachWaveMovieModes.toTheDepths) {
+          Modular.to.navigate('/p2p_collaborator_pool/pool/');
+        } else if (beachWaves.movieStatus == MovieStatus.finished &&
+            beachWaves.movieMode == BeachWaveMovieModes.backToShore) {
+          Modular.to.navigate('/home/');
+        }
+      });
+
+  speechToTextListener() =>
+      reaction((p0) => onSpeechResultStore.currentPhraseIndex, (p0) {
+        fadingTextStore.togglePause(gestureType: Gestures.none);
+        fadingTextStore.addNewMessage(
+          mainMessage: onSpeechResultStore.currentSpeechResult,
+        );
+        validateQueryStore.validateTheLength(
+          inputString: onSpeechResultStore.currentSpeechResult,
+        );
+      });
+
+  queryValidationLengthListener() =>
+      reaction((p0) => validateQueryStore.isProperLength, (p0) {
+        if (validateQueryStore.isProperLength == ValidationStatus.invalid) {
+          fadingTextStore.changeFutureSubMessage(
+            amountOfMessagesForward:
+                onSpeechResultStore.currentPhraseIndex == 1 ? 2 : 1,
+            message: "invalid length collaborator phrase",
+          );
+        } else if (validateQueryStore.isProperLength ==
+            ValidationStatus.valid) {
+          validateQueryStore.call(
+            ValidateQueryParams(
+              query: onSpeechResultStore.currentSpeechResult,
+            ),
+          );
+        }
+      });
+
+  queryContentValidationListener() =>
+      reaction((p0) => validateQueryStore.isValidated, (p0) {
+        if (validateQueryStore.isValidated == ValidationStatus.valid &&
+            validateQueryStore.isProperLength == ValidationStatus.valid) {
+          fadingTextStore.changeFutureSubMessage(
+            amountOfMessagesForward:
+                onSpeechResultStore.currentPhraseIndex == 1 ? 2 : 1,
+            message: "Swipe Up To Enter",
+          );
+        } else if (validateQueryStore.isValidated == ValidationStatus.invalid &&
+            validateQueryStore.isProperLength == ValidationStatus.valid) {
+          fadingTextStore.changeFutureSubMessage(
+            amountOfMessagesForward:
+                onSpeechResultStore.currentPhraseIndex == 1 ? 2 : 1,
+            message: "invalid collaborator phrase",
+          );
+        }
+      });
+
+  gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
+        switch (p0) {
+          case GestureDirections.up:
+            enterThePool();
+          case GestureDirections.down:
+            goBackToShore();
+          default:
+            break;
+        }
+      });
+
+  @observable
+  bool isReadyToEnterPool = false;
 
   @action
   audioButtonHoldStartCallback() {
@@ -126,31 +159,16 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   }
 
   @action
-  swipeDownCallback() {
+  goBackToShore() {
     widgetStore.backToShoreWidgetChanges();
   }
 
   @action
-  swipeUpCallback() {
+  enterThePool() {
     if (validateQueryStore.isValidated == ValidationStatus.valid) {
       enterCollaboratorPoolStore(validateQueryStore.phraseIDs);
       enterCollaboratorPoolStore(validateQueryStore.phraseIDs);
       widgetStore.toTheDepthsWidgetChanges();
-    }
-  }
-
-  @action
-  screenConstructorCallback({
-    required SpeakTheCollaboratorPhraseCoordinatorStore coordinatorStore,
-  }) async {
-    meshCircleStore.widgetConstructor();
-    beachWaves.initiateSuspendedAtSea();
-    localSpeechToText.initLeopardStore(NoParams());
-    if (await Permission.microphone.isDenied) {
-      await Permission.microphone.request();
-    }
-    if (!fadingTextStore.showText && !fadingTextStore.firstTime) {
-      fadingTextStore.resetToDefault();
     }
   }
 

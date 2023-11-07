@@ -25,21 +25,8 @@ class IndividualSessionScreen extends StatelessWidget {
     return Observer(
       builder: (context) => LayoutBuilder(
         builder: (contexts, constraints) => PlatformScaffold(
-          body: GestureDetector(
-            onHorizontalDragUpdate: (details) =>
-                coordinator.directions.onUpdateCallback(
-              details.globalPosition,
-              DragType.horizontal,
-            ),
-            onHorizontalDragEnd: (details) =>
-                coordinator.directions.onFinishedGestureCallback(),
-            onVerticalDragUpdate: (details) =>
-                coordinator.directions.onUpdateCallback(
-              details.globalPosition,
-              DragType.vertical,
-            ),
-            onVerticalDragEnd: (details) =>
-                coordinator.directions.onFinishedGestureCallback(),
+          body: Swipe(
+            trackerStore: coordinator.swipe,
             child: Stack(
               clipBehavior: Clip.none,
               children: [
@@ -101,7 +88,6 @@ class IndividualSessionScreen extends StatelessWidget {
           ),
         ),
       ),
-      // ),
     );
   }
   // same transition

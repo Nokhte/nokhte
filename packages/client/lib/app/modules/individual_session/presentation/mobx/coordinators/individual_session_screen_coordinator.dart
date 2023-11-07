@@ -1,12 +1,12 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // * Mobx Import
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/mobx/base_direction_decider_store.dart';
 // * Equatable Import
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/types/desired_negative_mode_behavior.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/swipe/stack/presentation/presentation.dart';
 import 'package:nokhte/app/modules/individual_session/presentation/presentation.dart';
 // * Mobx Codegen Inclusion
 part 'individual_session_screen_coordinator.g.dart';
@@ -17,13 +17,13 @@ class IndividualSessionScreenCoordinatorStore = _IndividualSessionScreenCoordina
 abstract class _IndividualSessionScreenCoordinatorStoreBase
     extends BaseQuadrantAPIReceiver with Store {
   final GetCurrentPerspectivesStore getCurrentPerspectives;
-  final BaseDirectionDeciderStore directions;
+  final SwipeDetector swipe;
   final IndividualSessionScreenWidgetsCoordinator widgets;
 
   _IndividualSessionScreenCoordinatorStoreBase({
     required super.quadrantAPI,
     required this.getCurrentPerspectives,
-    required this.directions,
+    required this.swipe,
     required this.widgets,
   });
 
@@ -68,36 +68,36 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
           perspectivesController();
         }
       });
-  gestureListener() => reaction((p0) => directions.directionsType, (p0) {
+  gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.up:
             switch (screenType) {
               case IndividualSessionScreenType.perspectiveViewingMode:
                 transitionToRecordingMode();
-                directions.resetDirectionsType();
+                swipe.resetDirectionsType();
               case IndividualSessionScreenType.recordingAudioMode:
                 transitionToPerspectivesMode();
-                directions.resetDirectionsType();
+                swipe.resetDirectionsType();
             }
           case GestureDirections.down:
             if (screenType == IndividualSessionScreenType.recordingAudioMode) {
               // here is where they record someting
               // print("DOWN on recording");
-              directions.resetDirectionsType();
+              swipe.resetDirectionsType();
             }
           case GestureDirections.left:
             if (screenType == IndividualSessionScreenType.recordingAudioMode) {
               print("LEFT on recording");
               // audioPlatformIndexMarkUp();
               audioPlatformIndexMarkDown();
-              directions.resetDirectionsType();
+              swipe.resetDirectionsType();
             }
           case GestureDirections.right:
             if (screenType == IndividualSessionScreenType.recordingAudioMode) {
               print("RIGHT on recording");
               audioPlatformIndexMarkUp();
               // audioPlatformIndexMarkDown();
-              directions.resetDirectionsType();
+              swipe.resetDirectionsType();
             }
 
           default:

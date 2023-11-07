@@ -24,6 +24,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
   final BeachWavesTrackerStore beachWaves;
   final SmartFadingAnimatedTextTrackerStore fadingText;
   final MeshCircleButtonStore meshCircleStore;
+  final SwipeDetector swipe;
   // final BreathingPentagonsStateTrackerStore breathingPentagons;
 
   @observable
@@ -49,6 +50,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
   }
 
   _P2PPurposePhase2CoordinatorStoreBase({
+    required this.swipe,
     required this.agoraCallbacksStore,
     required this.questionCheckerStore,
     required this.voiceCallActionsStore,

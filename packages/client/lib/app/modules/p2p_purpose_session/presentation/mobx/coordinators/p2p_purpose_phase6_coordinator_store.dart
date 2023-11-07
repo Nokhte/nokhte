@@ -25,8 +25,10 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase
   final ConveyerBeltTextStore conveyerBelt;
   final SchedulingCoordinatorStore scheduling;
   final SchedulingDeltaStore delta;
+  final SwipeDetector swipe;
 
   _P2PPurposePhase6CoordinatorStoreBase({
+    required this.swipe,
     required super.quadrantAPI,
     required this.widgets,
     required this.scheduling,

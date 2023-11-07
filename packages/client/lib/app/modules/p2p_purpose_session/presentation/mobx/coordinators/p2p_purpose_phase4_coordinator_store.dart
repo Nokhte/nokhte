@@ -20,8 +20,10 @@ abstract class _P2PPurposePhase4CoordinatorStoreBase extends Equatable
   final SmartFadingAnimatedTextTrackerStore fadingText;
   final BeachWavesTrackerStore beachWaves;
   final SoloDocCoordinatorStore soloDoc;
+  final SwipeDetector swipe;
 
   _P2PPurposePhase4CoordinatorStoreBase({
+    required this.swipe,
     required this.beachWaves,
     required this.fadingText,
     required this.soloDoc,

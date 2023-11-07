@@ -5,7 +5,7 @@ import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_perspectives_session/presentation/presentation.dart';
-import 'package:swipe/swipe.dart';
+// import 'package:swipe/swipe.dart';
 
 class PerspectivesSessionScreen extends StatelessWidget {
   final P2PPerspectiveSessionCoordinatorStore coordinator;
@@ -26,8 +26,9 @@ class PerspectivesSessionScreen extends StatelessWidget {
       builder: (context) => LayoutBuilder(
         builder: (contexts, constraints) => PlatformScaffold(
           body: Swipe(
-            onSwipeUp: () => coordinator.onSwipeUp(),
-            onSwipeDown: () => coordinator.onSwipeDown(),
+            trackerStore: coordinator.swipe,
+            // onSwipeUp: () => coordinator.onSwipeUp(),
+            // onSwipeDown: () => coordinator.onSwipeDown(),
             child: Stack(
               children: [
                 SizedBox(

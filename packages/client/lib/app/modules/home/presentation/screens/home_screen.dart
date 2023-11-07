@@ -5,7 +5,7 @@ import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/home_screen_coordinator_store.dart';
-import 'package:swipe/swipe.dart';
+// import 'package:swipe/swipe.dart';
 // import 'package:posthog_flutter/posthog_flutter.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -30,7 +30,8 @@ class HomeScreen extends StatelessWidget {
         builder: (context, constraints) {
           return PlatformScaffold(
             body: Swipe(
-              onSwipeUp: () => coordinator.homeScreenSwipeUpCallback(),
+              trackerStore: coordinator.swipe,
+              // onSwipeUp: () => coordinator.homeScreenSwipeUpCallback(),
               child: Stack(
                 children: [
                   SizedBox(

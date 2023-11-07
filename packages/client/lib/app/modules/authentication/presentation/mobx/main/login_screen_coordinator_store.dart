@@ -2,12 +2,13 @@
 // * Mobx Import
 import 'dart:io';
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
-import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/auth_providers.dart';
+import 'package:nokhte/app/core/types/directions.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 
@@ -23,12 +24,15 @@ abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
   final GesturePillStore gesturePillStore;
   final AuthProviderStore authProviderStore;
   final AuthStateStore authStateStore;
+  final SwipeDetector swipe;
+
   final FadeInAndChangeColorTextStore textStore;
 
   _LoginScreenCoordinatorStoreBase({
     required this.authProviderStore,
     required this.authStateStore,
     required this.textStore,
+    required this.swipe,
     required this.gesturePillStore,
   });
 
@@ -53,7 +57,17 @@ abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
     }
     textStore.setCurrentMessage(
         "Swipe to Log In with ${authProvider.name[0].toUpperCase() + authProvider.name.substring(1)}");
+    gestureListener();
   }
+
+  gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
+        switch (p0) {
+          case GestureDirections.up:
+            logTheUserIn(authProvider);
+          default:
+            break;
+        }
+      });
 
   @action
   flipTextVisibility() {
@@ -61,7 +75,7 @@ abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
   }
 
   @action
-  loginScreenSwipeUpCallback(AuthProvider authProvider) async {
+  logTheUserIn(AuthProvider authProvider) async {
     gesturePillStore.setPillAnimationControl(Control.playFromStart);
 
     await authProviderStore.routeAuthProviderRequest(authProvider);

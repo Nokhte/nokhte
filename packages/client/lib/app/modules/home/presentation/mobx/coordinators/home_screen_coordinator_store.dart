@@ -23,6 +23,7 @@ class HomeScreenCoordinatorStore = _HomeScreenCoordinatorStoreBase
 abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
   final PortalAPI portalAPI;
   // final QuadrantAPI quadrantAPI;
+  final SwipeDetector swipe;
   final GesturePillStore gesturePillStore;
   final BeachWavesTrackerStore beachWaves;
   final AddNameToDatabaseStore addNameToDatabaseStore;
@@ -30,6 +31,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
   final GetCollaboratorPhraseStore getCollaboratorPhraseStore;
 
   _HomeScreenCoordinatorStoreBase({
+    required this.swipe,
     required this.portalAPI,
     // required this.quadrantAPI,
     required this.gesturePillStore,
@@ -65,6 +67,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
         );
       });
     });
+    gestureListener();
 
     // api setup
 
@@ -84,7 +87,16 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
     // ^^ idk figure this out later
   }
 
-  homeScreenSwipeUpCallback() {
+  gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
+        switch (p0) {
+          case GestureDirections.up:
+            fadeTheTextOutAndWaterComesDown();
+          default:
+            break;
+        }
+      });
+
+  fadeTheTextOutAndWaterComesDown() {
     if (!fadingTextStateTrackerStore.isPaused) {
       fadingTextStateTrackerStore.togglePause();
     }

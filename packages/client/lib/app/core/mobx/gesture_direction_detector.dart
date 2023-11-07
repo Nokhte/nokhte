@@ -6,12 +6,12 @@ import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/types/types.dart';
 // * Mobx Codegen Inclusion
-part 'base_direction_decider_store.g.dart';
+part 'gesture_direction_detector.g.dart';
 
-class BaseDirectionDeciderStore = _BaseDirectionDeciderStoreBase
-    with _$BaseDirectionDeciderStore;
+class GestureDirectionDetector = _GestureDirectionDetector
+    with _$GestureDirectionDetector;
 
-abstract class _BaseDirectionDeciderStoreBase extends Equatable with Store {
+abstract class _GestureDirectionDetector extends Equatable with Store {
   @observable
   ObservableList<Offset> mostRecentCoordinates = ObservableList.of([]);
 

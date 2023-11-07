@@ -9,7 +9,7 @@ import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
-import 'package:swipe/swipe.dart';
+// import 'package:swipe/swipe.dart';
 
 class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
   final SpeakTheCollaboratorPhraseCoordinatorStore coordinatorStore;
@@ -18,9 +18,7 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
     super.key,
     required this.coordinatorStore,
   }) {
-    coordinatorStore.screenConstructorCallback(
-      coordinatorStore: coordinatorStore,
-    );
+    coordinatorStore.screenConstructor();
   }
 
   @override
@@ -33,8 +31,7 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
       builder: (context, constraints) {
         return PlatformScaffold(
           body: Swipe(
-            onSwipeUp: () => coordinatorStore.swipeUpCallback(),
-            onSwipeDown: () => coordinatorStore.swipeDownCallback(),
+            trackerStore: coordinatorStore.swipe,
             child: Stack(
               children: [
                 SizedBox(
@@ -44,10 +41,8 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                     stateTrackerStore: coordinatorStore.beachWaves,
                   ),
                 ),
-                // Observer(builder: (context) { return
                 Observer(builder: (context) {
                   if (coordinatorStore.isReadyToEnterPool) {
-                    // navigation work in here
                     Modular.to.navigate('/p2p_collaborator_pool/pool/');
                   }
                   return Center(
