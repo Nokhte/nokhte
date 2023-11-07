@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
 
-class PerspectivesMapPainter extends CustomPainter {
+class AudioClipPlatformPainter extends CustomPainter {
   Path path;
   Rect pathBounds;
+  final circleVertOffsets = List.filled(5, 0.0);
+  final circleColors = List.filled(5, Colors.white);
+  List<Color> platformGradColors;
   late double height;
   late double width;
   late Paint myPaint;
-  List<Color> platformGradColors;
-  List<Color> circleColors;
-  List<double> circleVertOffsets;
 
-  PerspectivesMapPainter(
-    this.path,
-    Size size,
-    this.pathBounds, {
-    required this.platformGradColors,
-    required this.circleColors,
-    required this.circleVertOffsets,
-  }) {
+  AudioClipPlatformPainter(
+      {required this.path,
+      required this.pathBounds,
+      required this.platformGradColors}) {
     height = pathBounds.height;
     width = pathBounds.width;
     myPaint = Paint()
@@ -33,11 +29,6 @@ class PerspectivesMapPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     canvas.drawPath(path, myPaint);
     const circleRadius = 5.5;
-    // leftMost
-    final leftMostCircleX = (width / 2) - 45;
-    final leftMostCircleY =
-        ((height - circleRadius * 2) - 2) + circleVertOffsets[0];
-    final leftMostPaint = Paint()..color = circleColors[0];
     // left
     final leftCircleX = (width / 2) - 23;
     final leftCircleY =
@@ -54,23 +45,15 @@ class PerspectivesMapPainter extends CustomPainter {
         ((height - circleRadius * 2) - 2) + circleVertOffsets[3];
     final rightPaint = Paint()..color = circleColors[3];
     // rightMost
-    final rightMostCircleX = (width / 2) + 45;
-    final rightMostCircleY =
-        ((height - circleRadius * 2) - 2) + circleVertOffsets[4];
-    final rightMostPaint = Paint()..color = circleColors[4];
 
-    canvas.drawCircle(
-        Offset(leftMostCircleX, leftMostCircleY), circleRadius, leftMostPaint);
     canvas.drawCircle(
         Offset(leftCircleX, leftCircleY), circleRadius, leftPaint);
     canvas.drawCircle(
         Offset(centerCircleX, centerCircleY), circleRadius, centerPaint);
     canvas.drawCircle(
         Offset(rightCircleX, rightCircleY), circleRadius, rightPaint);
-    canvas.drawCircle(Offset(rightMostCircleX, rightMostCircleY), circleRadius,
-        rightMostPaint);
   }
 
   @override
-  bool shouldRepaint(PerspectivesMapPainter oldDelegate) => true;
+  bool shouldRepaint(AudioClipPlatformPainter oldDelegate) => true;
 }

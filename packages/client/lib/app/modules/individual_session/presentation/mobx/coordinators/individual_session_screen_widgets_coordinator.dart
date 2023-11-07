@@ -4,6 +4,7 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:nokhte/app/core/mobx/base_perspectives_widgets_store.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/audio_clip_platform/stack/presentation/presentation.dart';
 import 'package:simple_animations/simple_animations.dart';
 // * Mobx Codegen Inclusion
 part 'individual_session_screen_widgets_coordinator.g.dart';
@@ -13,7 +14,9 @@ class IndividualSessionScreenWidgetsCoordinator = _IndividualSessionScreenWidget
 
 abstract class _IndividualSessionScreenWidgetsCoordinatorBase
     extends BasePerspectivesWidgetsStore with Store {
+  final AudioClipPlatformTrackerStore audioClipPlatform;
   _IndividualSessionScreenWidgetsCoordinatorBase({
+    required this.audioClipPlatform,
     required super.beachHorizonWater,
     required super.beachSky,
     required super.perspectivesMap,
@@ -37,5 +40,6 @@ abstract class _IndividualSessionScreenWidgetsCoordinatorBase
     beachHorizonWater.fullSkyBackToShorePreReq(currentTime: DateTime.now());
     collaborativeTextEditor.toggleWidgetVisibility();
     perspectivesMap.toggleWidgetVisibility();
+    audioClipPlatform.toggleWidgetVisibility();
   }
 }

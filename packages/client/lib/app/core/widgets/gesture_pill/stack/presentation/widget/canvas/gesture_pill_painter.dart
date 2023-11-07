@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class GestureCrossPainter extends CustomPainter {
+class GesturePillPainter extends CustomPainter {
   Path path;
   double centerCircleAnimationConstant;
   double centerCircleOpacity;
@@ -12,7 +12,7 @@ class GestureCrossPainter extends CustomPainter {
   List<Color> upperCircleLinearGradient;
   Color secondGradientColor;
 
-  GestureCrossPainter(
+  GesturePillPainter(
     this.path,
     Size size,
     this.pathBounds, {
@@ -71,5 +71,5 @@ class GestureCrossPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(GestureCrossPainter oldDelegate) => true;
+  bool shouldRepaint(GesturePillPainter oldDelegate) => true;
 }

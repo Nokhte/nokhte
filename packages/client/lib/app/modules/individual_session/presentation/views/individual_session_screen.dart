@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/audio_clip_platform/stack/presentation/presentation.dart';
 // import 'package:nokhte/app/core/types/seconds.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/individual_session/presentation/mobx/coordinators/individual_session_screen_coordinator.dart';
@@ -57,6 +58,17 @@ class IndividualSessionScreen extends StatelessWidget {
                     PerspectivesMap(
                       size: size,
                       stateTrackerStore: coordinator.widgets.perspectivesMap,
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Expanded(
+                      child: Container(),
+                    ),
+                    AudioClipPlatform(
+                      size: size,
+                      stateTrackerStore: coordinator.widgets.audioClipPlatform,
                     ),
                   ],
                 ),

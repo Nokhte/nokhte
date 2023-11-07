@@ -2,6 +2,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic_module.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/mobx/api/api.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
+import 'package:nokhte/app/core/widgets/audio_clip_platform/stack/presentation/presentation.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/individual_session/data/data.dart';
 import 'package:nokhte/app/modules/individual_session/domain/domain.dart';
@@ -46,6 +47,9 @@ class IndividualSessionModule extends Module {
           ),
         ),
         // % Widgets
+        Bind.singleton<AudioClipPlatformTrackerStore>(
+          (i) => AudioClipPlatformTrackerStore(),
+        ),
         Bind.singleton<BeachHorizonWaterTrackerStore>(
           (i) => BeachHorizonWaterTrackerStore(
             isGoingToFullSky: true,
@@ -70,6 +74,7 @@ class IndividualSessionModule extends Module {
         // % Coordinators
         Bind.singleton<IndividualSessionScreenWidgetsCoordinator>(
           (i) => IndividualSessionScreenWidgetsCoordinator(
+            audioClipPlatform: i<AudioClipPlatformTrackerStore>(),
             beachWaves: i<BeachWavesTrackerStore>(),
             collaborativeTextEditor: i<CollaborativeTextEditorTrackerStore>(),
             beachHorizonWater: i<BeachHorizonWaterTrackerStore>(),
