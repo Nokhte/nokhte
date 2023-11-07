@@ -9,4 +9,6 @@ abstract class IndividualSessionContract {
   );
   Future<Either<Failure, IndividualSessionCreationStatusEntity>>
       createIndividualSession(NoParams params);
+  Future<Either<Failure, IndividualSessionMetadataUpdateStatusEntity>>
+      updateSessionMetadata(UpdateSessionMetadataParams params);
 }

@@ -34,4 +34,16 @@ class IndividualSessionContractImpl implements IndividualSessionContract {
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  Future<Either<Failure, IndividualSessionMetadataUpdateStatusEntity>>
+      updateSessionMetadata(UpdateSessionMetadataParams params) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.updateSessionMetadata(params);
+      return Right(
+          IndividualSessionMetadataUpdateStatusModel.fromSupabase(res));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
 }
