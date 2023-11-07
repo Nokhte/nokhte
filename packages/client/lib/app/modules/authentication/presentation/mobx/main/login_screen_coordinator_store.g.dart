@@ -25,6 +25,22 @@ mixin _$LoginScreenCoordinatorStore on _LoginScreenCoordinatorStoreBase, Store {
     });
   }
 
+  late final _$authProviderAtom = Atom(
+      name: '_LoginScreenCoordinatorStoreBase.authProvider', context: context);
+
+  @override
+  AuthProvider get authProvider {
+    _$authProviderAtom.reportRead();
+    return super.authProvider;
+  }
+
+  @override
+  set authProvider(AuthProvider value) {
+    _$authProviderAtom.reportWrite(value, super.authProvider, () {
+      super.authProvider = value;
+    });
+  }
+
   late final _$logTheUserInAsyncAction = AsyncAction(
       '_LoginScreenCoordinatorStoreBase.logTheUserIn',
       context: context);
@@ -68,7 +84,8 @@ mixin _$LoginScreenCoordinatorStore on _LoginScreenCoordinatorStoreBase, Store {
   @override
   String toString() {
     return '''
-showText: ${showText}
+showText: ${showText},
+authProvider: ${authProvider}
     ''';
   }
 }

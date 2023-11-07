@@ -8,6 +8,7 @@ import 'package:nokhte/app/core/modules/gyroscopic/types/desired_negative_mode_b
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/swipe/stack/presentation/presentation.dart';
 import 'package:nokhte/app/modules/individual_session/presentation/presentation.dart';
+import 'package:nokhte/app/modules/individual_session/types/types.dart';
 // * Mobx Codegen Inclusion
 part 'individual_session_screen_coordinator.g.dart';
 

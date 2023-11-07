@@ -157,4 +157,14 @@ class DefaultEntities {
       get currentPerspectivesEntity => Right(CurrentPerspectivesEntity(
           currentPerspectives: const [],
           currentPerspectiveTimestamp: DateTime.fromMillisecondsSinceEpoch(0)));
+
+  static Either<Failure, IndividualPerspectivesAudioUploadStatusEntity>
+      get individualPerspectivesAudioUploadStatusEntity => const Right(
+          IndividualPerspectivesAudioUploadStatusEntity(isUploaded: false));
+  static Either<Failure, IndividualSessionCreationStatusEntity>
+      get individualSessionCreationStatusEntity =>
+          const Right(IndividualSessionCreationStatusEntity(isCreated: false));
+  static Either<Failure, IndividualSessionMetadataUpdateStatusEntity>
+      get individualSessionMetadataUpdateStatusEntity => const Right(
+          IndividualSessionMetadataUpdateStatusEntity(isUpdated: false));
 }
