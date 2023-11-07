@@ -4,10 +4,8 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/audio_clip_platform/stack/presentation/presentation.dart';
-// import 'package:nokhte/app/core/types/seconds.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/individual_session/presentation/mobx/coordinators/individual_session_screen_coordinator.dart';
-import 'package:swipe/swipe.dart';
 
 class IndividualSessionScreen extends StatelessWidget {
   final IndividualSessionScreenCoordinatorStore coordinator;
@@ -27,10 +25,23 @@ class IndividualSessionScreen extends StatelessWidget {
     return Observer(
       builder: (context) => LayoutBuilder(
         builder: (contexts, constraints) => PlatformScaffold(
-          body: Swipe(
-            onSwipeUp: () => coordinator.onSwipeUp(),
-            onSwipeDown: () => coordinator.onSwipeDown(),
+          body: GestureDetector(
+            onHorizontalDragUpdate: (details) =>
+                coordinator.directions.onUpdateCallback(
+              details.globalPosition,
+              DragType.horizontal,
+            ),
+            onHorizontalDragEnd: (details) =>
+                coordinator.directions.onFinishedGestureCallback(),
+            onVerticalDragUpdate: (details) =>
+                coordinator.directions.onUpdateCallback(
+              details.globalPosition,
+              DragType.vertical,
+            ),
+            onVerticalDragEnd: (details) =>
+                coordinator.directions.onFinishedGestureCallback(),
             child: Stack(
+              clipBehavior: Clip.none,
               children: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
@@ -90,6 +101,7 @@ class IndividualSessionScreen extends StatelessWidget {
           ),
         ),
       ),
+      // ),
     );
   }
   // same transition

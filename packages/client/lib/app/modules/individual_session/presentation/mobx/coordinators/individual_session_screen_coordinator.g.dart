@@ -19,6 +19,23 @@ mixin _$IndividualSessionScreenCoordinatorStore
               '_IndividualSessionScreenCoordinatorStoreBase.currentPerspective'))
       .value;
 
+  late final _$screenTypeAtom = Atom(
+      name: '_IndividualSessionScreenCoordinatorStoreBase.screenType',
+      context: context);
+
+  @override
+  IndividualSessionScreenType get screenType {
+    _$screenTypeAtom.reportRead();
+    return super.screenType;
+  }
+
+  @override
+  set screenType(IndividualSessionScreenType value) {
+    _$screenTypeAtom.reportWrite(value, super.screenType, () {
+      super.screenType = value;
+    });
+  }
+
   late final _$screenConstructorAsyncAction = AsyncAction(
       '_IndividualSessionScreenCoordinatorStoreBase.screenConstructor',
       context: context);
@@ -34,13 +51,27 @@ mixin _$IndividualSessionScreenCoordinatorStore
           context: context);
 
   @override
-  dynamic onSwipeUp() {
+  dynamic transitionToRecordingMode() {
     final _$actionInfo =
-        _$_IndividualSessionScreenCoordinatorStoreBaseActionController
-            .startAction(
-                name: '_IndividualSessionScreenCoordinatorStoreBase.onSwipeUp');
+        _$_IndividualSessionScreenCoordinatorStoreBaseActionController.startAction(
+            name:
+                '_IndividualSessionScreenCoordinatorStoreBase.transitionToRecordingMode');
     try {
-      return super.onSwipeUp();
+      return super.transitionToRecordingMode();
+    } finally {
+      _$_IndividualSessionScreenCoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic transitionToPerspectivesMode() {
+    final _$actionInfo =
+        _$_IndividualSessionScreenCoordinatorStoreBaseActionController.startAction(
+            name:
+                '_IndividualSessionScreenCoordinatorStoreBase.transitionToPerspectivesMode');
+    try {
+      return super.transitionToPerspectivesMode();
     } finally {
       _$_IndividualSessionScreenCoordinatorStoreBaseActionController
           .endAction(_$actionInfo);
@@ -65,6 +96,7 @@ mixin _$IndividualSessionScreenCoordinatorStore
   @override
   String toString() {
     return '''
+screenType: ${screenType},
 currentPerspective: ${currentPerspective}
     ''';
   }

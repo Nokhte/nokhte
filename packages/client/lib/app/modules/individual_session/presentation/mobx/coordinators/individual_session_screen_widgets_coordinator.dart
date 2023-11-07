@@ -34,10 +34,19 @@ abstract class _IndividualSessionScreenWidgetsCoordinatorBase
     textChangeAndFadeIn(currentPerspective);
   }
 
-  onSwipeUp() {
+  transitionToRecordingMode() {
     Future.delayed(
         Seconds.get(1), () => beachSky.control = Control.playReverseFromEnd);
     beachHorizonWater.fullSkyBackToShorePreReq(currentTime: DateTime.now());
+    collaborativeTextEditor.toggleWidgetVisibility();
+    perspectivesMap.toggleWidgetVisibility();
+    audioClipPlatform.toggleWidgetVisibility();
+  }
+
+  transitionBackToPerspectivesMode() {
+    beachSky.control = Control.playFromStart;
+    Future.delayed(Seconds.get(1),
+        () => beachHorizonWater.control = Control.playReverseFromEnd);
     collaborativeTextEditor.toggleWidgetVisibility();
     perspectivesMap.toggleWidgetVisibility();
     audioClipPlatform.toggleWidgetVisibility();

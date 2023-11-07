@@ -22,6 +22,10 @@
             "path": "../packages/client/lib/app/modules"
         },
         {
+            "name": "🟦 working widget",
+            "path": "../packages/client/lib/app/core/widgets/audio_clip_platform"
+        },
+        {
             "name": "🟦 working module",
             "path": "../packages/client/lib/app/modules/individual_session"
         },
@@ -73,8 +77,8 @@
                 "**/core/interfaces/**": true,
                 // "**/core/mobx/**": true,
                 "**/core/network/**": true,
-                "**/core/utilities/**": true,
-                "**/core/types/**": true,
+                // "**/core/utilities/**": true,
+                // "**/core/types/**": true,
                 "**/.idea": true,
                 "**/**.lock": true,
                 "**/analysis_options.yaml": true,

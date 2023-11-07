@@ -29,18 +29,22 @@ class AudioClipPlatform extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   width: size.width,
                   height: size.height,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 18.5, top: 60.0),
-                    // padding: const EdgeInsets.only(),
-                    child: CustomPaint(
-                      painter: AudioClipPlatformPainter(
-                        platformGradColors: [
-                          const Color(0xFF0A98FF),
-                          const Color(0x00FFFFFF),
-                        ],
-                        path: SvgAnimtionConstants.threeCirclePlatformPath,
-                        pathBounds: SvgAnimtionConstants.threeCirclePlatformPath
-                            .getBounds(),
+                  child: GestureDetector(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 18.5, top: 60.0),
+                      // padding: const EdgeInsets.only(),
+                      child: CustomPaint(
+                        size: size,
+                        painter: AudioClipPlatformPainter(
+                          platformGradColors: [
+                            const Color(0xFF0A98FF),
+                            const Color(0x00FFFFFF),
+                          ],
+                          path: SvgAnimtionConstants.threeCirclePlatformPath,
+                          pathBounds: SvgAnimtionConstants
+                              .threeCirclePlatformPath
+                              .getBounds(),
+                        ),
                       ),
                     ),
                   ),
