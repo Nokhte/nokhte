@@ -67,10 +67,8 @@ abstract class _IndividualSessionScreenWidgetsCoordinatorBase
           PerspectivesMapAnimationData.getOnlyWhiteArr(prevIndex),
       endingCircleColors:
           PerspectivesMapAnimationData.getOnlyWhiteArr(chosenAudioIndex),
-      startingVertOffsets:
-          PerspectivesMapAnimationData.getVertOffArr(prevIndex),
-      endingVertOffsets:
-          PerspectivesMapAnimationData.getVertOffArr(chosenAudioIndex),
+      startingVertOffsets: List.filled(3, 0),
+      endingVertOffsets: List.filled(3, 0),
     ));
     audioClipPlatform.control = Control.playFromStart;
   }
