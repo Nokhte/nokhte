@@ -43,6 +43,8 @@ PODS:
   - AppAuth/Core (1.6.2)
   - AppAuth/ExternalUserAgent (1.6.2):
     - AppAuth/Core
+  - audioplayers_darwin (0.0.1):
+    - Flutter
   - connectivity_plus (0.0.1):
     - Flutter
     - ReachabilitySwift
@@ -82,6 +84,9 @@ PODS:
     - Flutter
     - PostHog (~> 2.0)
   - ReachabilitySwift (5.0.0)
+  - record_darwin (1.0.0):
+    - Flutter
+    - FlutterMacOS
   - sensors_plus (0.0.1):
     - Flutter
   - shared_preferences_foundation (0.0.1):
@@ -98,6 +103,7 @@ DEPENDENCIES:
   - add_2_calendar (from `.symlinks/plugins/add_2_calendar/ios`)
   - agora_rtc_engine (from `.symlinks/plugins/agora_rtc_engine/ios`)
   - app_links (from `.symlinks/plugins/app_links/ios`)
+  - audioplayers_darwin (from `.symlinks/plugins/audioplayers_darwin/ios`)
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - Flutter (from `Flutter`)
   - flutter_compass (from `.symlinks/plugins/flutter_compass/ios`)
@@ -109,6 +115,7 @@ DEPENDENCIES:
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - posthog_flutter (from `.symlinks/plugins/posthog_flutter/ios`)
+  - record_darwin (from `.symlinks/plugins/record_darwin/ios`)
   - sensors_plus (from `.symlinks/plugins/sensors_plus/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - sign_in_with_apple (from `.symlinks/plugins/sign_in_with_apple/ios`)
@@ -135,6 +142,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/agora_rtc_engine/ios"
   app_links:
     :path: ".symlinks/plugins/app_links/ios"
+  audioplayers_darwin:
+    :path: ".symlinks/plugins/audioplayers_darwin/ios"
   connectivity_plus:
     :path: ".symlinks/plugins/connectivity_plus/ios"
   Flutter:
@@ -157,6 +166,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/permission_handler_apple/ios"
   posthog_flutter:
     :path: ".symlinks/plugins/posthog_flutter/ios"
+  record_darwin:
+    :path: ".symlinks/plugins/record_darwin/ios"
   sensors_plus:
     :path: ".symlinks/plugins/sensors_plus/ios"
   shared_preferences_foundation:
@@ -175,6 +186,7 @@ SPEC CHECKSUMS:
   AgoraRtcEngine_iOS: eb0a7e87dbc9e818b267d413b48f76a57959e6f4
   app_links: 5ef33d0d295a89d9d16bb81b0e3b0d5f70d6c875
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
+  audioplayers_darwin: 877d9a4d06331c5c374595e46e16453ac7eafa40
   connectivity_plus: bf0076dd84a130856aa636df1c71ccaff908fa1d
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_compass: cbbd285cea1584c7ac9c4e0c3e1f17cbea55e855
@@ -193,6 +205,7 @@ SPEC CHECKSUMS:
   PostHog: cec53400d07af379cc46c8982a757b2ecad48c9e
   posthog_flutter: 080dc6e4638a25095095965517ca84ce85581ef0
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
+  record_darwin: 1f6619f2abac4d1ca91d3eeab038c980d76f1517
   sensors_plus: 4ee32bc7d61a055f27f88d3215ad6b6fb96a2b8e
   shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
   sign_in_with_apple: f3bf75217ea4c2c8b91823f225d70230119b8440
