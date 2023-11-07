@@ -23,4 +23,15 @@ class IndividualSessionContractImpl implements IndividualSessionContract {
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  Future<Either<Failure, IndividualSessionCreationStatusModel>>
+      createIndividualSession(NoParams params) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.createIndividualSession();
+      return Right(IndividualSessionCreationStatusModel.fromSupabase(res));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
 }

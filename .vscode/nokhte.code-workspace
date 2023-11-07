@@ -21,10 +21,10 @@
             "name": "🟨 client modules",
             "path": "../packages/client/lib/app/modules"
         },
-        {
-            "name": "🟦 working widget",
-            "path": "../packages/client/lib/app/core/widgets/audio_clip_platform"
-        },
+        // {
+        //     "name": "🟦 working widget",
+        //     "path": "../packages/client/lib/app/core/widgets/audio_clip_platform"
+        // },
         {
             "name": "🟦 working module",
             "path": "../packages/client/lib/app/modules/individual_session"

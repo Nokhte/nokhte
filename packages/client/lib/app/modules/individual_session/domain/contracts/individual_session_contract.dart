@@ -7,4 +7,6 @@ abstract class IndividualSessionContract {
   Future<Either<Failure, CurrentPerspectivesEntity>> getCurrentPerspectives(
     NoParams params,
   );
+  Future<Either<Failure, IndividualSessionCreationStatusEntity>>
+      createIndividualSession(NoParams params);
 }
