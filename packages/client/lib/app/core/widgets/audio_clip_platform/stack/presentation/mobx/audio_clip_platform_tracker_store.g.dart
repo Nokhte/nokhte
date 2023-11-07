@@ -63,6 +63,18 @@ mixin _$AudioClipPlatformTrackerStore
           name: '_AudioClipPlatformTrackerStoreBase', context: context);
 
   @override
+  dynamic setMovie(MovieTween newMovie) {
+    final _$actionInfo = _$_AudioClipPlatformTrackerStoreBaseActionController
+        .startAction(name: '_AudioClipPlatformTrackerStoreBase.setMovie');
+    try {
+      return super.setMovie(newMovie);
+    } finally {
+      _$_AudioClipPlatformTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void toggleWidgetVisibility() {
     final _$actionInfo =
         _$_AudioClipPlatformTrackerStoreBaseActionController.startAction(

@@ -19,7 +19,6 @@ abstract class _PerspectivesMapStoreBase extends Equatable with Store {
   @action
   toggleWidgetVisibility() {
     showWidget = !showWidget;
-    print("is this running properly $showWidget");
   }
 
   @action

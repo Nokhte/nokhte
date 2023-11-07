@@ -36,6 +36,16 @@ class AudioClipPlatform extends StatelessWidget {
                       child: CustomPaint(
                         size: size,
                         painter: AudioClipPlatformPainter(
+                          circleColors: [
+                            value.get('leftCircleColor'),
+                            value.get('centerCircleColor'),
+                            value.get('rightCircleColor'),
+                          ],
+                          circleVertOffsets: [
+                            value.get('leftCircleVertOffset'),
+                            value.get('centerCircleVertOffset'),
+                            value.get('rightCircleVertOffset'),
+                          ],
                           platformGradColors: [
                             const Color(0xFF0A98FF),
                             const Color(0x00FFFFFF),

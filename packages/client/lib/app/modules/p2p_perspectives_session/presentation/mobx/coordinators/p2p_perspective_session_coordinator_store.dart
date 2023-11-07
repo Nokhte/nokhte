@@ -91,12 +91,9 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
       inProgressCommit = false;
       perspectivesThatAreCommitted++;
       setChosenIndex(chosenIndex + 1);
-      // widgets.setText('');
-      // print("validation $localPerspectives");
       updateStaging(localPerspectives);
       setIsInitialDocLoad(true);
 
-      // isInitalDocLoad = true;
       widgets.moveUpOrDownToNextPerspective(chosenIndex, shouldMoveUp: true);
       return;
     } else {
@@ -111,7 +108,6 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
   onSwipeDown() async {
     if (localPerspectives[2].isNotEmpty) {
       await commitThePerspectives(localPerspectives);
-      // the transition out of the session
     }
   }
 
@@ -127,17 +123,14 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
   perspectivesController() {
     if (isSecondTime && firstValue > 0) {
       /* INITIAL FORWARD MOVE */
-      // print("is init forward move running??");
       markUpValidationAndExecution();
     } else if (!isFirstTime &&
         !isSecondTime &&
         secondValue > firstValue &&
         canBeMarkedUp) {
-      // print("is  forward move running??");
       /* Non-iNiTiAL FORWARD MOVE */
       markUpValidationAndExecution();
     } else if (!isFirstTime && !isSecondTime && secondValue < firstValue) {
-      // print("is backward move running??");
       /* BACKWARD MOVE */
       markDownValidationAndExecution();
     }
@@ -146,7 +139,6 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
   quadrantAPIListener() => reaction((p0) => quadrantAPI.currentQuadrant, (p0) {
         if (p0 >= 0) {
           valueTrackingSetup(p0);
-          // print("quad api listener $localPerspectives");
           perspectivesController();
         }
       });
@@ -167,7 +159,7 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
         if (value.usersQuadrant > chosenIndex &&
             value.collaboratorsQuadrant > chosenIndex &&
             value.collaboratorsQuadrant == value.usersQuadrant) {
-          canBeMarkedUp = true; // once they turn it should be set to false
+          canBeMarkedUp = true;
           widgets.inProgressToDoneTransition(chosenIndex);
           widgets.collaborativeTextEditor.toggleWidgetVisibility();
         }
@@ -175,10 +167,8 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
 
   textEditorListener() => userController.addListener(() async {
         if (previousWord != userController.text && !isInitalDocLoad) {
-          // print("hey what is the current index $chosenIndex");
           previousWord = userController.text;
           localPerspectives[chosenIndex] = userController.text;
-          // print("what's happeneing here ?? ${localPerspectives[chosenIndex]}");
           await updateStaging(localPerspectives);
           if (inProgressCommit) {
             inProgressCommit = false;
