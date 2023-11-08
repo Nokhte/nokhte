@@ -26,9 +26,9 @@ class StorageUtilities {
 
   static String getFileName(
     int theRecordingNumber,
-    CollaboratorInfo collaboratorInfo,
+    String theUsersUID,
   ) =>
-      '${collaboratorInfo.theUsersUID}_${fileNameMap[theRecordingNumber]!}';
+      '${theUsersUID}_${fileNameMap[theRecordingNumber]!}';
 
   static getPersonalPerspectivesPath({
     required CollaboratorInfo collaboratorInfo,
@@ -47,7 +47,7 @@ class StorageUtilities {
     );
     final fileName = getFileName(
       audioClipData.totalNumberOfFilesForThePerspective,
-      collaboratorInfo,
+      collaboratorInfo.theUsersUID,
     );
     String path = [
       usersUID,
@@ -80,7 +80,8 @@ class StorageUtilities {
       final currentFormattedPerspective = getFormattedPerspective(
           currentIndex: i, thePerspective: metaArr[i]["thePerspective"]);
       for (int j = 0; j < metaArr[i]["numberOfFiles"]; j++) {
-        final currentFileName = getFileName(j + 1, collaboratorInfo);
+        final currentFileName =
+            getFileName(j + 1, collaboratorInfo.theUsersUID);
         final currentStartPath = [
           userUID,
           collaborationID,

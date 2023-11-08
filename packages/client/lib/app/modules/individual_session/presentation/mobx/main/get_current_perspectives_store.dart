@@ -16,6 +16,13 @@ abstract class _GetCurrentPerspectivesStoreBase
   @observable
   ObservableList currentPerspectives = ObservableList.of([]);
 
+  @observable
+  DateTime currentPerspectivesTimestamp =
+      DateTime.fromMicrosecondsSinceEpoch(0);
+
+  @observable
+  String theUsersUID = '';
+
   final GetCurrentPerspectivesGetterStore getterStore;
   _GetCurrentPerspectivesStoreBase({required this.getterStore});
 
@@ -35,6 +42,9 @@ abstract class _GetCurrentPerspectivesStoreBase
     }, (perspectivesEntity) {
       currentPerspectives =
           ObservableList.of(perspectivesEntity.currentPerspectives);
+      theUsersUID = perspectivesEntity.theUsersUID;
+      currentPerspectivesTimestamp =
+          perspectivesEntity.currentPerspectiveTimestamp;
     });
   }
 

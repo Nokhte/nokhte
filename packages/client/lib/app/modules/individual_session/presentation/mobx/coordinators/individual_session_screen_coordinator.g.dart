@@ -53,6 +53,23 @@ mixin _$IndividualSessionScreenCoordinatorStore
     });
   }
 
+  late final _$currentPathAtom = Atom(
+      name: '_IndividualSessionScreenCoordinatorStoreBase.currentPath',
+      context: context);
+
+  @override
+  String get currentPath {
+    _$currentPathAtom.reportRead();
+    return super.currentPath;
+  }
+
+  @override
+  set currentPath(String value) {
+    _$currentPathAtom.reportWrite(value, super.currentPath, () {
+      super.currentPath = value;
+    });
+  }
+
   late final _$screenConstructorAsyncAction = AsyncAction(
       '_IndividualSessionScreenCoordinatorStoreBase.screenConstructor',
       context: context);
@@ -60,6 +77,26 @@ mixin _$IndividualSessionScreenCoordinatorStore
   @override
   Future screenConstructor() {
     return _$screenConstructorAsyncAction.run(() => super.screenConstructor());
+  }
+
+  late final _$startRecordingAudioClipAsyncAction = AsyncAction(
+      '_IndividualSessionScreenCoordinatorStoreBase.startRecordingAudioClip',
+      context: context);
+
+  @override
+  Future startRecordingAudioClip() {
+    return _$startRecordingAudioClipAsyncAction
+        .run(() => super.startRecordingAudioClip());
+  }
+
+  late final _$stopRecordingAudioClipAsyncAction = AsyncAction(
+      '_IndividualSessionScreenCoordinatorStoreBase.stopRecordingAudioClip',
+      context: context);
+
+  @override
+  Future stopRecordingAudioClip() {
+    return _$stopRecordingAudioClipAsyncAction
+        .run(() => super.stopRecordingAudioClip());
   }
 
   late final _$_IndividualSessionScreenCoordinatorStoreBaseActionController =
@@ -128,6 +165,7 @@ mixin _$IndividualSessionScreenCoordinatorStore
     return '''
 screenType: ${screenType},
 chosenAudioIndex: ${chosenAudioIndex},
+currentPath: ${currentPath},
 currentPerspective: ${currentPerspective}
     ''';
   }

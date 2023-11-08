@@ -32,8 +32,10 @@ class IndividualSessionRemoteSourceImpl
         storageQueries = PerspectivesAudioStorageQueries(supabase: supabase);
 
   @override
-  Future<List> getCurrentPerspectives() async =>
-      await perpsectivesQueries.selectPerspectivesRow();
+  Future<List> getCurrentPerspectives() async => [
+        await perpsectivesQueries.selectPerspectivesRow(),
+        perpsectivesQueries.collaboratorInfo.theUsersUID,
+      ];
 
   @override
   Future<List> createIndividualSession() async =>

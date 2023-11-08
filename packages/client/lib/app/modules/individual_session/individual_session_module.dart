@@ -148,7 +148,8 @@ class IndividualSessionModule extends Module {
         ),
         Bind.singleton<IndividualSessionScreenCoordinatorStore>(
           (i) => IndividualSessionScreenCoordinatorStore(
-            recordingStatus: i<ChangePerspectivesAudioRecordingStatusStore>(),
+            setRecordingStatus:
+                i<ChangePerspectivesAudioRecordingStatusStore>(),
             createIndividualSession: i<CreateIndividualSessionStore>(),
             updateSessionMetadata: i<UpdateSessionMetadataStore>(),
             uploadIndividualPerspectivesAudio:

@@ -26,6 +26,40 @@ mixin _$GetCurrentPerspectivesStore on _GetCurrentPerspectivesStoreBase, Store {
     });
   }
 
+  late final _$currentPerspectivesTimestampAtom = Atom(
+      name: '_GetCurrentPerspectivesStoreBase.currentPerspectivesTimestamp',
+      context: context);
+
+  @override
+  DateTime get currentPerspectivesTimestamp {
+    _$currentPerspectivesTimestampAtom.reportRead();
+    return super.currentPerspectivesTimestamp;
+  }
+
+  @override
+  set currentPerspectivesTimestamp(DateTime value) {
+    _$currentPerspectivesTimestampAtom
+        .reportWrite(value, super.currentPerspectivesTimestamp, () {
+      super.currentPerspectivesTimestamp = value;
+    });
+  }
+
+  late final _$theUsersUIDAtom = Atom(
+      name: '_GetCurrentPerspectivesStoreBase.theUsersUID', context: context);
+
+  @override
+  String get theUsersUID {
+    _$theUsersUIDAtom.reportRead();
+    return super.theUsersUID;
+  }
+
+  @override
+  set theUsersUID(String value) {
+    _$theUsersUIDAtom.reportWrite(value, super.theUsersUID, () {
+      super.theUsersUID = value;
+    });
+  }
+
   late final _$futureStoreAtom = Atom(
       name: '_GetCurrentPerspectivesStoreBase.futureStore', context: context);
 
@@ -54,6 +88,8 @@ mixin _$GetCurrentPerspectivesStore on _GetCurrentPerspectivesStoreBase, Store {
   String toString() {
     return '''
 currentPerspectives: ${currentPerspectives},
+currentPerspectivesTimestamp: ${currentPerspectivesTimestamp},
+theUsersUID: ${theUsersUID},
 futureStore: ${futureStore}
     ''';
   }
