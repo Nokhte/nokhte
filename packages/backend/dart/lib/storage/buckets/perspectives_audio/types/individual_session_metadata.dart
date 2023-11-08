@@ -16,7 +16,7 @@ class IndividualSessionMetadata extends Equatable {
   @override
   List<Object> get props => [perspectivesMetadata];
 
-  Object toJson() {
+  Map toJson() {
     final newMetadataArr = [];
 
     for (final perspective in perspectivesMetadata) {

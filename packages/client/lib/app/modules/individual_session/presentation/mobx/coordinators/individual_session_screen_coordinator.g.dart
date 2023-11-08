@@ -186,13 +186,14 @@ mixin _$IndividualSessionScreenCoordinatorStore
     return _$playTheAudioAsyncAction.run(() => super.playTheAudio());
   }
 
-  late final _$stopTheAudioAsyncAction = AsyncAction(
-      '_IndividualSessionScreenCoordinatorStoreBase.stopTheAudio',
+  late final _$stopPlayingTheAudioAsyncAction = AsyncAction(
+      '_IndividualSessionScreenCoordinatorStoreBase.stopPlayingTheAudio',
       context: context);
 
   @override
-  Future stopTheAudio() {
-    return _$stopTheAudioAsyncAction.run(() => super.stopTheAudio());
+  Future stopPlayingTheAudio() {
+    return _$stopPlayingTheAudioAsyncAction
+        .run(() => super.stopPlayingTheAudio());
   }
 
   late final _$stopRecordingAudioClipAsyncAction = AsyncAction(

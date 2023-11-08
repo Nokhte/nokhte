@@ -27,6 +27,23 @@ mixin _$ChangePerspectivesAudioRecordingStatusStore
     });
   }
 
+  late final _$returnFileAtom = Atom(
+      name: '_ChangePerspectivesAudioRecordingStatusStoreBase.returnFile',
+      context: context);
+
+  @override
+  File get returnFile {
+    _$returnFileAtom.reportRead();
+    return super.returnFile;
+  }
+
+  @override
+  set returnFile(File value) {
+    _$returnFileAtom.reportWrite(value, super.returnFile, () {
+      super.returnFile = value;
+    });
+  }
+
   late final _$stateAtom = Atom(
       name: '_ChangePerspectivesAudioRecordingStatusStoreBase.state',
       context: context);
@@ -57,6 +74,7 @@ mixin _$ChangePerspectivesAudioRecordingStatusStore
   String toString() {
     return '''
 recordingStatus: ${recordingStatus},
+returnFile: ${returnFile},
 state: ${state}
     ''';
   }

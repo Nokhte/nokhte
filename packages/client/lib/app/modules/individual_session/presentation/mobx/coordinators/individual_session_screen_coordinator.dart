@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // * Mobx Import
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:mobx/mobx.dart';
 // * Equatable Import
@@ -13,6 +13,7 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/swipe/stack/presentation/presentation.dart';
 import 'package:nokhte/app/modules/individual_session/domain/domain.dart';
 import 'package:nokhte/app/modules/individual_session/presentation/presentation.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:nokhte/app/modules/individual_session/types/types.dart';
 import 'package:nokhte_backend/storage/buckets/utilities/storage_utilities.dart';
 import 'package:nokhte_backend/storage/perspectives_audio.dart';
@@ -102,6 +103,9 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
     quadrantAPIListener();
     gestureListener();
     await createIndividualSession(NoParams());
+    if (await Permission.microphone.isDenied) {
+      await Permission.microphone.request();
+    }
   }
 
   quadrantAPIListener() => reaction((p0) => quadrantAPI.currentQuadrant, (p0) {
@@ -125,6 +129,11 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
             if (screenType == IndividualSessionScreenType.recordingAudioMode) {
               // here is where they record someting
               // print("DOWN on recording");
+              startRecordingAudioClip();
+              Future.delayed(
+                Seconds.get(3),
+                () => stopRecordingAudioClip(),
+              );
               swipe.resetDirectionsType();
             }
           case GestureDirections.left:
@@ -169,15 +178,21 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
 
   @action
   startRecordingAudioClip() async {
+    if (hasntRecordedForAudioIndex) {
+      numberOfFiles[chosenAudioIndex]++;
+    }
     formattedPerspective = StorageUtilities.getFormattedPerspective(
       currentIndex: chosenIndex,
       thePerspective: getCurrentPerspectives.currentPerspectives[chosenIndex],
     );
+
     fileName = StorageUtilities.getFileName(
-      chosenAudioIndex,
+      numberOfFiles[chosenAudioIndex],
       getCurrentPerspectives.theUsersUID,
     );
-    currentPath = "$formattedPerspective/$fileName";
+    // currentPath = "$formattedPerspective/$fileName";
+    currentPath = fileName;
+    // print("current path $currentPath");
     await setRecordingStatus(
       ChangePerspectivesAudioRecordingStatusParams(
         recordingAction: PerspectivesAudioRecordingActions.startRecording,
@@ -191,20 +206,23 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
       ChangeAudioPlayingStatusParams(path: currentPath, startPlaying: true));
 
   @action
-  stopTheAudio() async => await changeAudioPlayingStatus(
+  stopPlayingTheAudio() async => await changeAudioPlayingStatus(
       ChangeAudioPlayingStatusParams(path: currentPath, startPlaying: false));
 
   @action
   stopRecordingAudioClip() async {
     await setRecordingStatus(
       ChangePerspectivesAudioRecordingStatusParams(
-        recordingAction: PerspectivesAudioRecordingActions.startRecording,
+        recordingAction: PerspectivesAudioRecordingActions.stopRecording,
         thePath: currentPath,
       ),
     );
-    if (hasntRecordedForAudioIndex) {
-      numberOfFiles[chosenAudioIndex]++;
-    }
+    final file = setRecordingStatus.returnFile;
+    // final file = File.fromUri(Uri.parse(currentPath));
+    // final file = File("${Directory.current}.$currentPath");
+    // print(
+    //     "hey here's the path ${file.path} does this exist?? ${await file.exists()}");
+
     await updateSessionMetadata(
       UpdateSessionMetadataParams(
         sessionMetadata: SessionMetadata(
@@ -215,13 +233,13 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
     );
     final IndividualSessionAudioClip clipData = IndividualSessionAudioClip(
       isOverwritingAnotherFile: hasntRecordedForAudioIndex ? false : true,
-      thePerspective: fileName,
-      totalNumberOfFilesForThePerspective: chosenAudioIndex,
+      thePerspective: getCurrentPerspectives.currentPerspectives[chosenIndex],
+      totalNumberOfFilesForThePerspective: numberOfFiles[chosenAudioIndex],
       thePerspectivesIndex: chosenIndex,
       thePerspectivesTimestamp:
           getCurrentPerspectives.currentPerspectivesTimestamp,
       theSessionTimestamp: createIndividualSession.sessionTimestamp,
-      theFile: File(currentPath),
+      theFile: file,
     );
     await uploadIndividualPerspectivesAudio(
         UploadIndividualPerspectivesAudioParams(clipData: clipData));

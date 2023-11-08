@@ -30,3 +30,8 @@ class NoParams extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class Void extends Equatable {
+  @override
+  List<Object> get props => [];
+}

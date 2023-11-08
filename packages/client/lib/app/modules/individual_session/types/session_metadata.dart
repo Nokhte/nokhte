@@ -9,7 +9,7 @@ class SessionMetadata extends Equatable {
     required this.thePerspectives,
   });
 
-  Object toJson() {
+  Map toJson() {
     final res = {"metadata": []};
     for (int i = 0; i < thePerspectives.length; i++) {
       res["metadata"]?.add({

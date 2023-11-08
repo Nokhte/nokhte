@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
@@ -173,7 +175,10 @@ class DefaultEntities {
           IndividualSessionMetadataUpdateStatusEntity(isUpdated: false));
 
   static Either<Failure, PerspectivesAudioRecordingStatusEntity>
-      get perspectivesAudioRecordingStatusEntity =>
-          const Right(PerspectivesAudioRecordingStatusEntity(
-              recordingStatus: PerspectivesAudioRecordingStatus.idle));
+      get perspectivesAudioRecordingStatusEntity => Right(
+            PerspectivesAudioRecordingStatusEntity(
+              recordingStatus: PerspectivesAudioRecordingStatus.idle,
+              returnFile: File(''),
+            ),
+          );
 }

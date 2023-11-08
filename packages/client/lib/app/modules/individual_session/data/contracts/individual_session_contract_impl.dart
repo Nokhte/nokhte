@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -66,14 +68,17 @@ class IndividualSessionContractImpl implements IndividualSessionContract {
   Future<PerspectivesAudioRecordingStatusModel>
       changePerspectivesAudioRecordingStatus(
           ChangePerspectivesAudioRecordingStatusParams params) async {
-    await remoteSource.changePerspectivesAudioRecordingStatus(params);
-    switch (params.recordingAction) {
-      case PerspectivesAudioRecordingActions.startRecording:
-        return const PerspectivesAudioRecordingStatusModel(
-            recordingStatus: PerspectivesAudioRecordingStatus.recording);
-      case PerspectivesAudioRecordingActions.stopRecording:
-        return const PerspectivesAudioRecordingStatusModel(
-            recordingStatus: PerspectivesAudioRecordingStatus.recorded);
-    }
+    final res =
+        await remoteSource.changePerspectivesAudioRecordingStatus(params);
+    return res.fold((voidEntity) {
+      return PerspectivesAudioRecordingStatusModel(
+        recordingStatus: PerspectivesAudioRecordingStatus.recording,
+        returnFile: File(''),
+      );
+    }, (returnFile) {
+      return PerspectivesAudioRecordingStatusModel(
+          recordingStatus: PerspectivesAudioRecordingStatus.recorded,
+          returnFile: returnFile);
+    });
   }
 }

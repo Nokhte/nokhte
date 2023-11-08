@@ -45,6 +45,7 @@ dependencies:
   permission_handler: ^11.0.0
   posthog_flutter: ^3.2.0
   record: ^5.0.1
+  record_darwin: ^1.0.1-beta.1
   sensors_plus: ^3.0.3
   sign_in_with_apple: ^5.0.0
   simple_animations: ^5.0.2

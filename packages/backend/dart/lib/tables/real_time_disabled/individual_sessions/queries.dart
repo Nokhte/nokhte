@@ -22,7 +22,7 @@ class IndividualSessionsQueries extends CollaborativeQueries {
     }).select();
   }
 
-  Future<List> updateSessionMetadata({required Object newMetadata}) async {
+  Future<List> updateSessionMetadata({required Map newMetadata}) async {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutActiveCollaboratorInfo();
     }
