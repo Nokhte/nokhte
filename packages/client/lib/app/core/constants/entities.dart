@@ -6,6 +6,7 @@ import 'package:nokhte/app/core/modules/local_speech_to_text/constants/constants
 import 'package:nokhte/app/core/modules/scheduling/domain/domain.dart';
 import 'package:nokhte/app/modules/home/domain/entities/entities.dart';
 import 'package:nokhte/app/modules/individual_session/domain/domain.dart';
+import 'package:nokhte/app/modules/individual_session/types/types.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/entities/entities.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/domain/domain.dart';
@@ -168,4 +169,9 @@ class DefaultEntities {
   static Either<Failure, IndividualSessionMetadataUpdateStatusEntity>
       get individualSessionMetadataUpdateStatusEntity => const Right(
           IndividualSessionMetadataUpdateStatusEntity(isUpdated: false));
+
+  static Either<Failure, PerspectivesAudioRecordingStatusEntity>
+      get perspectivesAudioRecordingStatusEntity =>
+          const Right(PerspectivesAudioRecordingStatusEntity(
+              recordingStatus: PerspectivesAudioRecordingStatus.idle));
 }

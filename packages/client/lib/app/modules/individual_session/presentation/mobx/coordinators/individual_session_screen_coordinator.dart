@@ -18,6 +18,7 @@ class IndividualSessionScreenCoordinatorStore = _IndividualSessionScreenCoordina
 abstract class _IndividualSessionScreenCoordinatorStoreBase
     extends BaseQuadrantAPIReceiver with Store {
   final CreateIndividualSessionStore createIndividualSession;
+  final ChangePerspectivesAudioRecordingStatusStore recordingStatus;
   final GetCurrentPerspectivesStore getCurrentPerspectives;
   final UpdateSessionMetadataStore updateSessionMetadata;
   final UploadIndividualPerspectivesAudioStore
@@ -26,6 +27,7 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
   final IndividualSessionScreenWidgetsCoordinator widgets;
 
   _IndividualSessionScreenCoordinatorStoreBase({
+    required this.recordingStatus,
     required this.createIndividualSession,
     required this.updateSessionMetadata,
     required this.uploadIndividualPerspectivesAudio,

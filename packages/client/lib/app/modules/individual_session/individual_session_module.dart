@@ -31,6 +31,11 @@ class IndividualSessionModule extends Module {
               networkInfo: Modular.get<NetworkInfoImpl>()),
         ),
         // % Logic
+        Bind.singleton<ChangePerspectivesAudioRecordingStatus>(
+          (i) => ChangePerspectivesAudioRecordingStatus(
+            contract: i<IndividualSessionContractImpl>(),
+          ),
+        ),
         Bind.singleton<CreateIndividualSession>(
           (i) => CreateIndividualSession(
             contract: i<IndividualSessionContractImpl>(),
@@ -51,6 +56,11 @@ class IndividualSessionModule extends Module {
           ),
         ),
         // % Getter Store
+        Bind.singleton<ChangePerspectivesAudioRecordingStatusGetterStore>(
+          (i) => ChangePerspectivesAudioRecordingStatusGetterStore(
+            logic: i<ChangePerspectivesAudioRecordingStatus>(),
+          ),
+        ),
         Bind.singleton<CreateIndividualSessionGetterStore>(
           (i) => CreateIndividualSessionGetterStore(
             logic: i<CreateIndividualSession>(),
@@ -72,6 +82,11 @@ class IndividualSessionModule extends Module {
           ),
         ),
         // % Main Store
+        Bind.singleton<ChangePerspectivesAudioRecordingStatusStore>(
+          (i) => ChangePerspectivesAudioRecordingStatusStore(
+            getterStore: i<ChangePerspectivesAudioRecordingStatusGetterStore>(),
+          ),
+        ),
         Bind.singleton<CreateIndividualSessionStore>(
           (i) => CreateIndividualSessionStore(
             getterStore: i<CreateIndividualSessionGetterStore>(),
@@ -133,6 +148,7 @@ class IndividualSessionModule extends Module {
         ),
         Bind.singleton<IndividualSessionScreenCoordinatorStore>(
           (i) => IndividualSessionScreenCoordinatorStore(
+            recordingStatus: i<ChangePerspectivesAudioRecordingStatusStore>(),
             createIndividualSession: i<CreateIndividualSessionStore>(),
             updateSessionMetadata: i<UpdateSessionMetadataStore>(),
             uploadIndividualPerspectivesAudio:
