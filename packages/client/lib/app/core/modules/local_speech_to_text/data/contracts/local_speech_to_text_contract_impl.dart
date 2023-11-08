@@ -27,11 +27,11 @@ class LocalSpeechToTextContractImpl implements LocalSpeechToTextContract {
   }
 
   @override
-  Future<Either<Failure, RecordingStatusModel>> startRecording(
+  Future<Either<Failure, SpeechToTextRecordingStatusModel>> startRecording(
       NoParams params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.startRecording();
-      return Right(RecordingStatusModel.fromMicrophone(res));
+      return Right(SpeechToTextRecordingStatusModel.fromMicrophone(res));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }

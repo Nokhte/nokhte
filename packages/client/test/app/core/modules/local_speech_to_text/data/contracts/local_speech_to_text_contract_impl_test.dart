@@ -68,8 +68,8 @@ void main() {
       });
       test("when online and non-empty should return a model", () async {
         // arrange
-        when(mockRemoteSource.startRecording())
-            .thenAnswer((realInvocation) async => RecordingStatus.started);
+        when(mockRemoteSource.startRecording()).thenAnswer(
+            (realInvocation) async => SpeechToTextRecordingStatus.started);
         // act
         final res = await contract.startRecording(NoParams());
         // assert
@@ -80,8 +80,8 @@ void main() {
       });
       test("when online and empty should return a model", () async {
         // arrange
-        when(mockRemoteSource.startRecording())
-            .thenAnswer((realInvocation) async => RecordingStatus.error);
+        when(mockRemoteSource.startRecording()).thenAnswer(
+            (realInvocation) async => SpeechToTextRecordingStatus.error);
         // act
         final res = await contract.startRecording(NoParams());
         // assert

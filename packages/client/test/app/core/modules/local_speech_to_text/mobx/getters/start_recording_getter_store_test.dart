@@ -12,7 +12,8 @@ import '../../fixtures/local_speech_to_text_mock_gen.mocks.dart';
 void main() {
   late MockMStartRecording mockLogic;
   late StartRecordingGetterStore getterStore;
-  late Either<Failure, RecordingStatusEntity> tEitherStatusOrFailure;
+  late Either<Failure, SpeechToTextRecordingStatusEntity>
+      tEitherStatusOrFailure;
   final tParams = NoParams();
 
   setUp(() {

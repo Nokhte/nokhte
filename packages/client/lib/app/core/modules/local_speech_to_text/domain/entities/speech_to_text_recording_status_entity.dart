@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/constants/constants.dart';
 
-class RecordingStatusEntity extends Equatable {
-  final RecordingStatus recordingStatus;
+class SpeechToTextRecordingStatusEntity extends Equatable {
+  final SpeechToTextRecordingStatus recordingStatus;
 
-  const RecordingStatusEntity({required this.recordingStatus});
+  const SpeechToTextRecordingStatusEntity({required this.recordingStatus});
 
   @override
   List<Object> get props => [recordingStatus];

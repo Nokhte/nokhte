@@ -213,14 +213,15 @@ class MockMLocalSpeechToTextRemoteSourceImpl extends _i1.Mock
       ) as _i8.Future<List<_i9.LeopardWord>>);
 
   @override
-  _i8.Future<_i11.RecordingStatus> startRecording() => (super.noSuchMethod(
+  _i8.Future<_i11.SpeechToTextRecordingStatus> startRecording() =>
+      (super.noSuchMethod(
         Invocation.method(
           #startRecording,
           [],
         ),
-        returnValue: _i8.Future<_i11.RecordingStatus>.value(
-            _i11.RecordingStatus.initial),
-      ) as _i8.Future<_i11.RecordingStatus>);
+        returnValue: _i8.Future<_i11.SpeechToTextRecordingStatus>.value(
+            _i11.SpeechToTextRecordingStatus.initial),
+      ) as _i8.Future<_i11.SpeechToTextRecordingStatus>);
 }
 
 /// A class which mocks [MLocalSpeechToTextContract].
@@ -233,22 +234,24 @@ class MockMLocalSpeechToTextContract extends _i1.Mock
   }
 
   @override
-  _i8.Future<_i5.Either<_i12.Failure, _i2.RecordingStatusEntity>>
+  _i8.Future<_i5.Either<_i12.Failure, _i2.SpeechToTextRecordingStatusEntity>>
       startRecording(_i13.NoParams? params) => (super.noSuchMethod(
             Invocation.method(
               #startRecording,
               [params],
             ),
             returnValue: _i8.Future<
-                    _i5.Either<_i12.Failure, _i2.RecordingStatusEntity>>.value(
-                _FakeEither_3<_i12.Failure, _i2.RecordingStatusEntity>(
+                _i5.Either<_i12.Failure,
+                    _i2.SpeechToTextRecordingStatusEntity>>.value(_FakeEither_3<
+                _i12.Failure, _i2.SpeechToTextRecordingStatusEntity>(
               this,
               Invocation.method(
                 #startRecording,
                 [params],
               ),
             )),
-          ) as _i8.Future<_i5.Either<_i12.Failure, _i2.RecordingStatusEntity>>);
+          ) as _i8.Future<
+              _i5.Either<_i12.Failure, _i2.SpeechToTextRecordingStatusEntity>>);
 
   @override
   _i8.Future<_i5.Either<_i12.Failure, _i2.AudioProcessingEntity>> stopRecording(
@@ -381,23 +384,26 @@ class MockMStartRecording extends _i1.Mock implements _i7.MStartRecording {
       ) as _i2.LocalSpeechToTextContract);
 
   @override
-  _i8.Future<_i5.Either<_i12.Failure, _i2.RecordingStatusEntity>> call(
+  _i8.Future<
+      _i5.Either<_i12.Failure, _i2.SpeechToTextRecordingStatusEntity>> call(
           _i13.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i8
-            .Future<_i5.Either<_i12.Failure, _i2.RecordingStatusEntity>>.value(
-            _FakeEither_3<_i12.Failure, _i2.RecordingStatusEntity>(
+        returnValue: _i8.Future<
+                _i5.Either<_i12.Failure,
+                    _i2.SpeechToTextRecordingStatusEntity>>.value(
+            _FakeEither_3<_i12.Failure, _i2.SpeechToTextRecordingStatusEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i8.Future<_i5.Either<_i12.Failure, _i2.RecordingStatusEntity>>);
+      ) as _i8.Future<
+          _i5.Either<_i12.Failure, _i2.SpeechToTextRecordingStatusEntity>>);
 }
 
 /// A class which mocks [MInitLeopardGetterStore].
@@ -487,23 +493,26 @@ class MockMStartRecordingGetterStore extends _i1.Mock
       ) as _i6.ReactiveContext);
 
   @override
-  _i8.Future<_i5.Either<_i12.Failure, _i2.RecordingStatusEntity>> call(
+  _i8.Future<
+      _i5.Either<_i12.Failure, _i2.SpeechToTextRecordingStatusEntity>> call(
           dynamic params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i8
-            .Future<_i5.Either<_i12.Failure, _i2.RecordingStatusEntity>>.value(
-            _FakeEither_3<_i12.Failure, _i2.RecordingStatusEntity>(
+        returnValue: _i8.Future<
+                _i5.Either<_i12.Failure,
+                    _i2.SpeechToTextRecordingStatusEntity>>.value(
+            _FakeEither_3<_i12.Failure, _i2.SpeechToTextRecordingStatusEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i8.Future<_i5.Either<_i12.Failure, _i2.RecordingStatusEntity>>);
+      ) as _i8.Future<
+          _i5.Either<_i12.Failure, _i2.SpeechToTextRecordingStatusEntity>>);
 }
 
 /// A class which mocks [MStopRecordingGetterStore].
@@ -600,14 +609,16 @@ class MockLocalSpeechToTextRemoteSource extends _i1.Mock
       ) as _i8.Future<List<_i9.LeopardWord>>);
 
   @override
-  _i8.Future<_i11.RecordingStatus> startRecording() => (super.noSuchMethod(
+  _i8.Future<_i11.SpeechToTextRecordingStatus> startRecording() =>
+      (super.noSuchMethod(
         Invocation.method(
           #startRecording,
           [],
         ),
-        returnValue: _i8.Future<_i11.RecordingStatus>.value(
-            _i11.RecordingStatus.initial),
-        returnValueForMissingStub: _i8.Future<_i11.RecordingStatus>.value(
-            _i11.RecordingStatus.initial),
-      ) as _i8.Future<_i11.RecordingStatus>);
+        returnValue: _i8.Future<_i11.SpeechToTextRecordingStatus>.value(
+            _i11.SpeechToTextRecordingStatus.initial),
+        returnValueForMissingStub:
+            _i8.Future<_i11.SpeechToTextRecordingStatus>.value(
+                _i11.SpeechToTextRecordingStatus.initial),
+      ) as _i8.Future<_i11.SpeechToTextRecordingStatus>);
 }

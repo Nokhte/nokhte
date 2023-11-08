@@ -118,9 +118,10 @@ class DefaultEntities {
       get defaultInitLeopardStatusEntity =>
           const Right(InitLeopardStatusEntity(isInitialized: false));
 
-  static Either<Failure, RecordingStatusEntity>
-      get defaultRecordingStatusEntity => const Right(
-          RecordingStatusEntity(recordingStatus: RecordingStatus.initial));
+  static Either<Failure, SpeechToTextRecordingStatusEntity>
+      get defaultRecordingStatusEntity =>
+          const Right(SpeechToTextRecordingStatusEntity(
+              recordingStatus: SpeechToTextRecordingStatus.initial));
   static Either<Failure, AudioProcessingEntity>
       get defaultAudioProcessingEntity =>
           const Right(AudioProcessingEntity(resultingWords: ''));
