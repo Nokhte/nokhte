@@ -6,6 +6,7 @@ import 'package:nokhte/app/core/widgets/audio_clip_platform/stack/presentation/p
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/individual_session/data/data.dart';
 import 'package:nokhte/app/modules/individual_session/domain/domain.dart';
+import 'package:nokhte/app/modules/individual_session/domain/logic/upload_individual_perspectives_audio.dart';
 import 'package:nokhte/app/modules/individual_session/presentation/presentation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -30,17 +31,52 @@ class IndividualSessionModule extends Module {
               networkInfo: Modular.get<NetworkInfoImpl>()),
         ),
         // % Logic
+        Bind.singleton<CreateIndividualSession>(
+          (i) => CreateIndividualSession(
+            contract: i<IndividualSessionContractImpl>(),
+          ),
+        ),
         Bind.singleton<GetCurrentPerspectives>(
           (i) => GetCurrentPerspectives(
               contract: i<IndividualSessionContractImpl>()),
         ),
+        Bind.singleton<UpdateSessionMetadata>(
+          (i) => UpdateSessionMetadata(
+            contract: i<IndividualSessionContractImpl>(),
+          ),
+        ),
+        Bind.singleton<UploadIndividualPerspectivesAudio>(
+          (i) => UploadIndividualPerspectivesAudio(
+            contract: i<IndividualSessionContractImpl>(),
+          ),
+        ),
         // % Getter Store
+        Bind.singleton<CreateIndividualSessionGetterStore>(
+          (i) => CreateIndividualSessionGetterStore(
+            logic: i<CreateIndividualSession>(),
+          ),
+        ),
         Bind.singleton<GetCurrentPerspectivesGetterStore>(
           (i) => GetCurrentPerspectivesGetterStore(
             logic: i<GetCurrentPerspectives>(),
           ),
         ),
+        Bind.singleton<UpdateSessionMetadataGetterStore>(
+          (i) => UpdateSessionMetadataGetterStore(
+            logic: i<UpdateSessionMetadata>(),
+          ),
+        ),
+        Bind.singleton<UploadIndividualPerspectivesAudioGetterStore>(
+          (i) => UploadIndividualPerspectivesAudioGetterStore(
+            logic: i<UploadIndividualPerspectivesAudio>(),
+          ),
+        ),
         // % Main Store
+        Bind.singleton<CreateIndividualSessionStore>(
+          (i) => CreateIndividualSessionStore(
+            getterStore: i<CreateIndividualSessionGetterStore>(),
+          ),
+        ),
         Bind.singleton<GetCurrentPerspectivesStore>(
           (i) => GetCurrentPerspectivesStore(
             getterStore: i<GetCurrentPerspectivesGetterStore>(),
@@ -48,6 +84,16 @@ class IndividualSessionModule extends Module {
         ),
         Bind.singleton<SwipeDetector>(
           (i) => SwipeDetector(),
+        ),
+        Bind.singleton<UpdateSessionMetadataStore>(
+          (i) => UpdateSessionMetadataStore(
+            getterStore: i<UpdateSessionMetadataGetterStore>(),
+          ),
+        ),
+        Bind.singleton<UploadIndividualPerspectivesAudioStore>(
+          (i) => UploadIndividualPerspectivesAudioStore(
+            getterStore: i<UploadIndividualPerspectivesAudioGetterStore>(),
+          ),
         ),
         // % Widgets
         Bind.singleton<AudioClipPlatformTrackerStore>(
@@ -87,6 +133,10 @@ class IndividualSessionModule extends Module {
         ),
         Bind.singleton<IndividualSessionScreenCoordinatorStore>(
           (i) => IndividualSessionScreenCoordinatorStore(
+            createIndividualSession: i<CreateIndividualSessionStore>(),
+            updateSessionMetadata: i<UpdateSessionMetadataStore>(),
+            uploadIndividualPerspectivesAudio:
+                i<UploadIndividualPerspectivesAudioStore>(),
             swipe: i<SwipeDetector>(),
             quadrantAPI: i<QuadrantAPI>(),
             widgets: i<IndividualSessionScreenWidgetsCoordinator>(),
