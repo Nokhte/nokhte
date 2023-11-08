@@ -5,6 +5,8 @@ import 'package:nokhte/app/modules/individual_session/domain/domain.dart';
 import 'package:nokhte/app/modules/individual_session/data/data.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
+import 'package:nokhte/app/modules/individual_session/types/perspectives_audio_recording_actions.dart';
+import 'package:nokhte/app/modules/individual_session/types/perspectives_audio_recording_status.dart';
 
 class IndividualSessionContractImpl implements IndividualSessionContract {
   final IndividualSessionRemoteSource remoteSource;
@@ -48,9 +50,30 @@ class IndividualSessionContractImpl implements IndividualSessionContract {
   }
 
   @override
-  Future<Either<Failure, IndividualPerspectivesAudioUploadStatusEntity>>
-      uploadIndividualPerspectivesAudio(params) {
-    // TODO: implement uploadIndividualPerspectivesAudio
-    throw UnimplementedError();
+  Future<Either<Failure, IndividualPerspectivesAudioUploadStatusModel>>
+      uploadIndividualPerspectivesAudio(
+          UploadIndividualPerspectivesAudioParams params) async {
+    if (await networkInfo.isConnected) {
+      await remoteSource.uploadIndividualPerspectivesAudio(params);
+      return const Right(
+          IndividualPerspectivesAudioUploadStatusModel(isUploaded: true));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
+
+  @override
+  Future<PerspectivesAudioRecordingStatusModel>
+      changePerspectivesAudioRecordingStatus(
+          ChangePerspectivesAudioRecordingStatusParams params) async {
+    await remoteSource.changePerspectivesAudioRecordingStatus(params);
+    switch (params.recordingAction) {
+      case PerspectivesAudioRecordingActions.startRecording:
+        return const PerspectivesAudioRecordingStatusModel(
+            recordingStatus: PerspectivesAudioRecordingStatus.recording);
+      case PerspectivesAudioRecordingActions.stopRecording:
+        return const PerspectivesAudioRecordingStatusModel(
+            recordingStatus: PerspectivesAudioRecordingStatus.recorded);
+    }
   }
 }

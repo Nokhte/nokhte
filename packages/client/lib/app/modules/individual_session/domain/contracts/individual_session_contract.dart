@@ -12,5 +12,10 @@ abstract class IndividualSessionContract {
   Future<Either<Failure, IndividualSessionMetadataUpdateStatusEntity>>
       updateSessionMetadata(UpdateSessionMetadataParams params);
   Future<Either<Failure, IndividualPerspectivesAudioUploadStatusEntity>>
-      uploadIndividualPerspectivesAudio(params);
+      uploadIndividualPerspectivesAudio(
+          UploadIndividualPerspectivesAudioParams params);
+  Future<PerspectivesAudioRecordingStatusEntity>
+      changePerspectivesAudioRecordingStatus(
+    ChangePerspectivesAudioRecordingStatusParams params,
+  );
 }

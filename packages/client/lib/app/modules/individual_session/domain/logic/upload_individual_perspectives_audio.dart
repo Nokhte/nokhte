@@ -6,7 +6,7 @@ import 'package:nokhte_backend/storage/perspectives_audio.dart';
 class UploadIndividualPerspectivesAudio
     implements
         AbstractFutureLogic<IndividualPerspectivesAudioUploadStatusEntity,
-            NoParams> {
+            UploadIndividualPerspectivesAudioParams> {
   final IndividualSessionContract contract;
 
   UploadIndividualPerspectivesAudio({required this.contract});

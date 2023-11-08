@@ -1,0 +1,4 @@
+enum PerspectivesAudioRecordingActions {
+  startRecording,
+  stopRecording,
+}
