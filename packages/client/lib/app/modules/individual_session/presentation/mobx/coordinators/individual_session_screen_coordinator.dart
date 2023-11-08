@@ -6,6 +6,8 @@ import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/modules/audio_player/domain/domain.dart';
+import 'package:nokhte/app/core/modules/audio_player/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/types/desired_negative_mode_behavior.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/swipe/stack/presentation/presentation.dart';
@@ -25,6 +27,7 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
   final CreateIndividualSessionStore createIndividualSession;
   final ChangePerspectivesAudioRecordingStatusStore setRecordingStatus;
   final GetCurrentPerspectivesStore getCurrentPerspectives;
+  final ChangeAudioPlayingStatusStore changeAudioPlayingStatus;
   final UpdateSessionMetadataStore updateSessionMetadata;
   final UploadIndividualPerspectivesAudioStore
       uploadIndividualPerspectivesAudio;
@@ -32,6 +35,7 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
   final IndividualSessionScreenWidgetsCoordinator widgets;
 
   _IndividualSessionScreenCoordinatorStoreBase({
+    required this.changeAudioPlayingStatus,
     required this.setRecordingStatus,
     required this.createIndividualSession,
     required this.updateSessionMetadata,
@@ -181,6 +185,14 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
       ),
     );
   }
+
+  @action
+  playTheAudio() async => await changeAudioPlayingStatus(
+      ChangeAudioPlayingStatusParams(path: currentPath, startPlaying: true));
+
+  @action
+  stopTheAudio() async => await changeAudioPlayingStatus(
+      ChangeAudioPlayingStatusParams(path: currentPath, startPlaying: false));
 
   @action
   stopRecordingAudioClip() async {

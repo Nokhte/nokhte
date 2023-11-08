@@ -4,6 +4,7 @@ import 'package:nokhte_backend/p2p_perspectives_tracking.dart';
 import 'package:nokhte_backend/individual_sessions.dart';
 import 'package:nokhte_backend/storage/perspectives_audio.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:record/record.dart';
 
 abstract class IndividualSessionRemoteSource {
@@ -23,6 +24,7 @@ class IndividualSessionRemoteSourceImpl
   final IndividualSessionsQueries sessionQueries;
   final PerspectivesAudioStorageQueries storageQueries;
   final record = AudioRecorder();
+  final player = AudioPlayer();
 
   IndividualSessionRemoteSourceImpl({
     required this.supabase,

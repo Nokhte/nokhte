@@ -177,6 +177,24 @@ mixin _$IndividualSessionScreenCoordinatorStore
         .run(() => super.startRecordingAudioClip());
   }
 
+  late final _$playTheAudioAsyncAction = AsyncAction(
+      '_IndividualSessionScreenCoordinatorStoreBase.playTheAudio',
+      context: context);
+
+  @override
+  Future playTheAudio() {
+    return _$playTheAudioAsyncAction.run(() => super.playTheAudio());
+  }
+
+  late final _$stopTheAudioAsyncAction = AsyncAction(
+      '_IndividualSessionScreenCoordinatorStoreBase.stopTheAudio',
+      context: context);
+
+  @override
+  Future stopTheAudio() {
+    return _$stopTheAudioAsyncAction.run(() => super.stopTheAudio());
+  }
+
   late final _$stopRecordingAudioClipAsyncAction = AsyncAction(
       '_IndividualSessionScreenCoordinatorStoreBase.stopRecordingAudioClip',
       context: context);

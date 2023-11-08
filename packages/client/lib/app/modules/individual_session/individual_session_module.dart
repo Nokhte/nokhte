@@ -1,4 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:nokhte/app/core/modules/audio_player/audio_player_module.dart';
+import 'package:nokhte/app/core/modules/audio_player/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic_module.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/mobx/api/api.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
@@ -6,7 +8,6 @@ import 'package:nokhte/app/core/widgets/audio_clip_platform/stack/presentation/p
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/individual_session/data/data.dart';
 import 'package:nokhte/app/modules/individual_session/domain/domain.dart';
-import 'package:nokhte/app/modules/individual_session/domain/logic/upload_individual_perspectives_audio.dart';
 import 'package:nokhte/app/modules/individual_session/presentation/presentation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -14,6 +15,7 @@ class IndividualSessionModule extends Module {
   @override
   List<Module> get imports => [
         GyroscopicModule(),
+        AudioPlayerModule(),
       ];
 
   @override
@@ -148,6 +150,8 @@ class IndividualSessionModule extends Module {
         ),
         Bind.singleton<IndividualSessionScreenCoordinatorStore>(
           (i) => IndividualSessionScreenCoordinatorStore(
+            changeAudioPlayingStatus:
+                Modular.get<ChangeAudioPlayingStatusStore>(),
             setRecordingStatus:
                 i<ChangePerspectivesAudioRecordingStatusStore>(),
             createIndividualSession: i<CreateIndividualSessionStore>(),
