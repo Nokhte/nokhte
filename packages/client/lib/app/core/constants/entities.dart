@@ -18,6 +18,7 @@ import 'package:nokhte_backend/working_collaborative_scheduling.dart';
 import 'package:nokhte_backend/working_perspectives_positioning.dart';
 
 class DefaultEntities {
+  static DateTime get defaultDate => DateTime.fromMillisecondsSinceEpoch(0);
   static Either<Failure, NameCreationStatusEntity>
       get nameCreationStatusEntity =>
           const Right(NameCreationStatusEntity(isSent: false));
@@ -159,14 +160,14 @@ class DefaultEntities {
       get currentPerspectivesEntity => Right(CurrentPerspectivesEntity(
           theUsersUID: '',
           currentPerspectives: const [],
-          currentPerspectiveTimestamp: DateTime.fromMillisecondsSinceEpoch(0)));
+          currentPerspectiveTimestamp: defaultDate));
 
   static Either<Failure, IndividualPerspectivesAudioUploadStatusEntity>
       get individualPerspectivesAudioUploadStatusEntity => const Right(
           IndividualPerspectivesAudioUploadStatusEntity(isUploaded: false));
-  static Either<Failure, IndividualSessionCreationStatusEntity>
+  static Either<Failure, IndividualSessionCreationEntity>
       get individualSessionCreationStatusEntity =>
-          const Right(IndividualSessionCreationStatusEntity(isCreated: false));
+          Right(IndividualSessionCreationEntity(sessionTimestamp: defaultDate));
   static Either<Failure, IndividualSessionMetadataUpdateStatusEntity>
       get individualSessionMetadataUpdateStatusEntity => const Right(
           IndividualSessionMetadataUpdateStatusEntity(isUpdated: false));

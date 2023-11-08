@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // * Mobx Import
+import 'dart:io';
+
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -11,6 +13,7 @@ import 'package:nokhte/app/modules/individual_session/domain/domain.dart';
 import 'package:nokhte/app/modules/individual_session/presentation/presentation.dart';
 import 'package:nokhte/app/modules/individual_session/types/types.dart';
 import 'package:nokhte_backend/storage/buckets/utilities/storage_utilities.dart';
+import 'package:nokhte_backend/storage/perspectives_audio.dart';
 // * Mobx Codegen Inclusion
 part 'individual_session_screen_coordinator.g.dart';
 
@@ -54,11 +57,26 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
   @observable
   int chosenAudioIndex = 0;
 
+  @observable
+  bool hasntRecordedForAudioIndex = true;
+
   @action
   setChosenAudioIndex(int newVal) => chosenAudioIndex = newVal;
 
   @observable
   String currentPath = '';
+
+  @observable
+  String formattedPerspective = '';
+
+  @observable
+  String fileName = '';
+
+  @observable
+  ObservableList<String> thePerspectives = ObservableList.of([]);
+
+  @observable
+  ObservableList<int> numberOfFiles = ObservableList.of([]);
 
   // what do we want to do now?
 
@@ -66,6 +84,10 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
   screenConstructor() async {
     widgets.attuneTheWidgets(DateTime.now());
     await getCurrentPerspectives(NoParams());
+    thePerspectives = ObservableList.of(
+        List.filled(getCurrentPerspectives.currentPerspectives.length, ""));
+    numberOfFiles = ObservableList.of(
+        List.filled(getCurrentPerspectives.currentPerspectives.length, 0));
     widgets.setText(getCurrentPerspectives.currentPerspectives[chosenIndex]);
     await quadrantAPI.setupTheStream(
       numberOfQuadrants: quadNum,
@@ -75,6 +97,7 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
     );
     quadrantAPIListener();
     gestureListener();
+    await createIndividualSession(NoParams());
   }
 
   quadrantAPIListener() => reaction((p0) => quadrantAPI.currentQuadrant, (p0) {
@@ -133,6 +156,7 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
   @action
   audioPlatformIndexMarkUp() {
     chosenAudioIndex++;
+    hasntRecordedForAudioIndex = true;
     widgets.markUpOrDownTheAudioPlatform(
       chosenAudioIndex,
       shouldMoveUp: true,
@@ -141,15 +165,15 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
 
   @action
   startRecordingAudioClip() async {
-    final folderName = StorageUtilities.getFormattedPerspective(
+    formattedPerspective = StorageUtilities.getFormattedPerspective(
       currentIndex: chosenIndex,
       thePerspective: getCurrentPerspectives.currentPerspectives[chosenIndex],
     );
-    final fileName = StorageUtilities.getFileName(
+    fileName = StorageUtilities.getFileName(
       chosenAudioIndex,
       getCurrentPerspectives.theUsersUID,
     );
-    currentPath = "$folderName/$fileName";
+    currentPath = "$formattedPerspective/$fileName";
     await setRecordingStatus(
       ChangePerspectivesAudioRecordingStatusParams(
         recordingAction: PerspectivesAudioRecordingActions.startRecording,
@@ -166,6 +190,29 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
         thePath: currentPath,
       ),
     );
+    if (hasntRecordedForAudioIndex) {
+      numberOfFiles[chosenAudioIndex]++;
+    }
+    await updateSessionMetadata(
+      UpdateSessionMetadataParams(
+        sessionMetadata: SessionMetadata(
+          numberOfFiles: numberOfFiles,
+          thePerspectives: thePerspectives,
+        ),
+      ),
+    );
+    final IndividualSessionAudioClip clipData = IndividualSessionAudioClip(
+      isOverwritingAnotherFile: hasntRecordedForAudioIndex ? false : true,
+      thePerspective: fileName,
+      totalNumberOfFilesForThePerspective: chosenAudioIndex,
+      thePerspectivesIndex: chosenIndex,
+      thePerspectivesTimestamp:
+          getCurrentPerspectives.currentPerspectivesTimestamp,
+      theSessionTimestamp: createIndividualSession.sessionTimestamp,
+      theFile: File(currentPath),
+    );
+    await uploadIndividualPerspectivesAudio(
+        UploadIndividualPerspectivesAudioParams(clipData: clipData));
   }
 
   audioPlatformIndexMarkDown() {

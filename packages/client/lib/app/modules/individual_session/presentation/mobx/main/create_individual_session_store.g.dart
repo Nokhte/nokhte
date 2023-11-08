@@ -10,19 +10,20 @@ part of 'create_individual_session_store.dart';
 
 mixin _$CreateIndividualSessionStore
     on _CreateIndividualSessionStoreBase, Store {
-  late final _$isCreatedAtom = Atom(
-      name: '_CreateIndividualSessionStoreBase.isCreated', context: context);
+  late final _$sessionTimestampAtom = Atom(
+      name: '_CreateIndividualSessionStoreBase.sessionTimestamp',
+      context: context);
 
   @override
-  bool get isCreated {
-    _$isCreatedAtom.reportRead();
-    return super.isCreated;
+  DateTime get sessionTimestamp {
+    _$sessionTimestampAtom.reportRead();
+    return super.sessionTimestamp;
   }
 
   @override
-  set isCreated(bool value) {
-    _$isCreatedAtom.reportWrite(value, super.isCreated, () {
-      super.isCreated = value;
+  set sessionTimestamp(DateTime value) {
+    _$sessionTimestampAtom.reportWrite(value, super.sessionTimestamp, () {
+      super.sessionTimestamp = value;
     });
   }
 
@@ -30,14 +31,13 @@ mixin _$CreateIndividualSessionStore
       name: '_CreateIndividualSessionStoreBase.futureStore', context: context);
 
   @override
-  BaseFutureStore<IndividualSessionCreationStatusEntity> get futureStore {
+  BaseFutureStore<IndividualSessionCreationEntity> get futureStore {
     _$futureStoreAtom.reportRead();
     return super.futureStore;
   }
 
   @override
-  set futureStore(
-      BaseFutureStore<IndividualSessionCreationStatusEntity> value) {
+  set futureStore(BaseFutureStore<IndividualSessionCreationEntity> value) {
     _$futureStoreAtom.reportWrite(value, super.futureStore, () {
       super.futureStore = value;
     });
@@ -54,7 +54,7 @@ mixin _$CreateIndividualSessionStore
   @override
   String toString() {
     return '''
-isCreated: ${isCreated},
+sessionTimestamp: ${sessionTimestamp},
 futureStore: ${futureStore}
     ''';
   }

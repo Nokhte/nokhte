@@ -53,6 +53,25 @@ mixin _$IndividualSessionScreenCoordinatorStore
     });
   }
 
+  late final _$hasntRecordedForAudioIndexAtom = Atom(
+      name:
+          '_IndividualSessionScreenCoordinatorStoreBase.hasntRecordedForAudioIndex',
+      context: context);
+
+  @override
+  bool get hasntRecordedForAudioIndex {
+    _$hasntRecordedForAudioIndexAtom.reportRead();
+    return super.hasntRecordedForAudioIndex;
+  }
+
+  @override
+  set hasntRecordedForAudioIndex(bool value) {
+    _$hasntRecordedForAudioIndexAtom
+        .reportWrite(value, super.hasntRecordedForAudioIndex, () {
+      super.hasntRecordedForAudioIndex = value;
+    });
+  }
+
   late final _$currentPathAtom = Atom(
       name: '_IndividualSessionScreenCoordinatorStoreBase.currentPath',
       context: context);
@@ -67,6 +86,75 @@ mixin _$IndividualSessionScreenCoordinatorStore
   set currentPath(String value) {
     _$currentPathAtom.reportWrite(value, super.currentPath, () {
       super.currentPath = value;
+    });
+  }
+
+  late final _$formattedPerspectiveAtom = Atom(
+      name: '_IndividualSessionScreenCoordinatorStoreBase.formattedPerspective',
+      context: context);
+
+  @override
+  String get formattedPerspective {
+    _$formattedPerspectiveAtom.reportRead();
+    return super.formattedPerspective;
+  }
+
+  @override
+  set formattedPerspective(String value) {
+    _$formattedPerspectiveAtom.reportWrite(value, super.formattedPerspective,
+        () {
+      super.formattedPerspective = value;
+    });
+  }
+
+  late final _$fileNameAtom = Atom(
+      name: '_IndividualSessionScreenCoordinatorStoreBase.fileName',
+      context: context);
+
+  @override
+  String get fileName {
+    _$fileNameAtom.reportRead();
+    return super.fileName;
+  }
+
+  @override
+  set fileName(String value) {
+    _$fileNameAtom.reportWrite(value, super.fileName, () {
+      super.fileName = value;
+    });
+  }
+
+  late final _$thePerspectivesAtom = Atom(
+      name: '_IndividualSessionScreenCoordinatorStoreBase.thePerspectives',
+      context: context);
+
+  @override
+  ObservableList<String> get thePerspectives {
+    _$thePerspectivesAtom.reportRead();
+    return super.thePerspectives;
+  }
+
+  @override
+  set thePerspectives(ObservableList<String> value) {
+    _$thePerspectivesAtom.reportWrite(value, super.thePerspectives, () {
+      super.thePerspectives = value;
+    });
+  }
+
+  late final _$numberOfFilesAtom = Atom(
+      name: '_IndividualSessionScreenCoordinatorStoreBase.numberOfFiles',
+      context: context);
+
+  @override
+  ObservableList<int> get numberOfFiles {
+    _$numberOfFilesAtom.reportRead();
+    return super.numberOfFiles;
+  }
+
+  @override
+  set numberOfFiles(ObservableList<int> value) {
+    _$numberOfFilesAtom.reportWrite(value, super.numberOfFiles, () {
+      super.numberOfFiles = value;
     });
   }
 
@@ -165,7 +253,12 @@ mixin _$IndividualSessionScreenCoordinatorStore
     return '''
 screenType: ${screenType},
 chosenAudioIndex: ${chosenAudioIndex},
+hasntRecordedForAudioIndex: ${hasntRecordedForAudioIndex},
 currentPath: ${currentPath},
+formattedPerspective: ${formattedPerspective},
+fileName: ${fileName},
+thePerspectives: ${thePerspectives},
+numberOfFiles: ${numberOfFiles},
 currentPerspective: ${currentPerspective}
     ''';
   }

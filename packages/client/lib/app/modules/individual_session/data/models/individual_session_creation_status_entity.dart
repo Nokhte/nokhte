@@ -1,14 +1,18 @@
 import 'package:nokhte/app/modules/individual_session/domain/domain.dart';
+import 'package:nokhte_backend/individual_sessions.dart';
 
-class IndividualSessionCreationStatusModel
-    extends IndividualSessionCreationStatusEntity {
-  const IndividualSessionCreationStatusModel({required super.isCreated});
+class IndividualSessionCreationModel extends IndividualSessionCreationEntity {
+  const IndividualSessionCreationModel({required super.sessionTimestamp});
 
-  static IndividualSessionCreationStatusModel fromSupabase(List res) {
+  static IndividualSessionCreationModel fromSupabase(List res) {
     if (res.isEmpty) {
-      return const IndividualSessionCreationStatusModel(isCreated: false);
+      return IndividualSessionCreationModel(
+          sessionTimestamp: DateTime.fromMicrosecondsSinceEpoch(0));
     } else {
-      return const IndividualSessionCreationStatusModel(isCreated: true);
+      return IndividualSessionCreationModel(
+          sessionTimestamp: DateTime.parse(
+        res[0][IndividualSessionsQueries.sessionHeldAt],
+      ));
     }
   }
 }

@@ -20,12 +20,9 @@ abstract class _CreateIndividualSessionGetterStoreBase extends Equatable
     required this.logic,
   });
 
-  Future<Either<Failure, IndividualSessionCreationStatusEntity>> call(
-          params) async =>
+  Future<Either<Failure, IndividualSessionCreationEntity>> call(params) async =>
       await logic(params);
 
   @override
-  List<Object> get props => [
-// some items
-      ];
+  List<Object> get props => [];
 }

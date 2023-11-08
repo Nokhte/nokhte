@@ -1,11 +1,10 @@
-// ignore_for_file: constant_identifier_names
-
 import 'package:nokhte_backend/tables/real_time_enabled/shared/shared.dart';
 
 class IndividualSessionsQueries extends CollaborativeQueries {
-  static const TABLE_NAME = "individual_sessions";
-  static const OWNER_UID = "owner_uid";
-  static const SESSION_METADATA = "session_metadata";
+  static const tableName = "individual_sessions";
+  static const ownerUID = "owner_uid";
+  static const sessionMetadata = "session_metadata";
+  static const sessionHeldAt = 'session_held_at';
 
   IndividualSessionsQueries({required super.supabase});
 
@@ -13,13 +12,13 @@ class IndividualSessionsQueries extends CollaborativeQueries {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutActiveCollaboratorInfo();
     }
-    return await supabase.from(TABLE_NAME).insert({
-      OWNER_UID: collaboratorInfo.theUsersUID,
+    return await supabase.from(tableName).insert({
+      ownerUID: collaboratorInfo.theUsersUID,
       "${collaboratorInfo.theCollaboratorsNumber}_uid":
           collaboratorInfo.theCollaboratorsUID,
       "${collaboratorInfo.theUsersCollaboratorNumber}_uid":
           collaboratorInfo.theUsersUID,
-      SESSION_METADATA: {},
+      sessionMetadata: {},
     }).select();
   }
 
@@ -28,9 +27,9 @@ class IndividualSessionsQueries extends CollaborativeQueries {
       await figureOutActiveCollaboratorInfo();
     }
     return await supabase
-        .from(TABLE_NAME)
+        .from(tableName)
         .update({
-          SESSION_METADATA: newMetadata,
+          sessionMetadata: newMetadata,
         })
         .eq(
           "${collaboratorInfo.theCollaboratorsNumber}_uid",
@@ -44,5 +43,5 @@ class IndividualSessionsQueries extends CollaborativeQueries {
   }
 
   Future<void> deleteTheRow() async =>
-      await supabase.from(TABLE_NAME).delete().eq(OWNER_UID, currentUserUID);
+      await supabase.from(tableName).delete().eq(ownerUID, currentUserUID);
 }

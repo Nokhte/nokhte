@@ -1,6 +1,12 @@
-import 'package:nokhte/app/core/entities/default_db_status_entity.dart';
+import 'package:equatable/equatable.dart';
 
-class IndividualSessionCreationStatusEntity extends DefaultDBStatusEntity {
-  const IndividualSessionCreationStatusEntity({required bool isCreated})
-      : super(isSent: isCreated);
+class IndividualSessionCreationEntity extends Equatable {
+  final DateTime sessionTimestamp;
+
+  const IndividualSessionCreationEntity({
+    required this.sessionTimestamp,
+  });
+
+  @override
+  List<Object> get props => [];
 }

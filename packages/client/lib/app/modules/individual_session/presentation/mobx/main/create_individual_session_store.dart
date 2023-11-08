@@ -12,16 +12,16 @@ class CreateIndividualSessionStore = _CreateIndividualSessionStoreBase
     with _$CreateIndividualSessionStore;
 
 abstract class _CreateIndividualSessionStoreBase
-    extends BaseMobxDBStore<NoParams, IndividualSessionCreationStatusEntity>
+    extends BaseMobxDBStore<NoParams, IndividualSessionCreationEntity>
     with Store {
   @observable
-  bool isCreated = false;
+  DateTime sessionTimestamp = DefaultEntities.defaultDate;
 
   final CreateIndividualSessionGetterStore getterStore;
   _CreateIndividualSessionStoreBase({required this.getterStore});
 
   @observable
-  BaseFutureStore<IndividualSessionCreationStatusEntity> futureStore =
+  BaseFutureStore<IndividualSessionCreationEntity> futureStore =
       BaseFutureStore(
     baseEntity: DefaultEntities.individualSessionCreationStatusEntity,
     entityFutureParam: ObservableFuture(
@@ -34,8 +34,8 @@ abstract class _CreateIndividualSessionStoreBase
     result.fold((failure) {
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
-    }, (creationStatusEntity) {
-      isCreated = creationStatusEntity.isSent;
+    }, (creationResEntity) {
+      sessionTimestamp = creationResEntity.sessionTimestamp;
     });
   }
 
