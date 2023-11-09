@@ -83,6 +83,14 @@ class IndividualSessionScreen extends StatelessWidget {
                     stateTrackerStore: coordinator.widgets.beachWaves,
                   ),
                 ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: BeachHorizonWater(
+                    size: MediaQuery.of(context).size,
+                    stateTrackerStore: coordinator.widgets.audioRecordingWater,
+                  ),
+                ),
               ],
             ),
           ),

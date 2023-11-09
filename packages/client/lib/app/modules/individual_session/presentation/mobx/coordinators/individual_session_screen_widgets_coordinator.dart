@@ -5,6 +5,7 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_perspectives_widgets_store.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/audio_clip_platform/audio_clip_platform.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 // * Mobx Codegen Inclusion
@@ -16,14 +17,25 @@ class IndividualSessionScreenWidgetsCoordinator = _IndividualSessionScreenWidget
 abstract class _IndividualSessionScreenWidgetsCoordinatorBase
     extends BasePerspectivesWidgetsStore with Store {
   final AudioClipPlatformTrackerStore audioClipPlatform;
+  final BeachHorizonWaterTrackerStore audioRecordingWater;
   _IndividualSessionScreenWidgetsCoordinatorBase({
     required this.audioClipPlatform,
+    required this.audioRecordingWater,
     required super.beachHorizonWater,
     required super.beachSky,
     required super.perspectivesMap,
     required super.collaborativeTextEditor,
     required super.beachWaves,
-  });
+  }) {
+    audioRecordingWater.toggleIsGoingFullSky();
+  }
+
+  @observable
+  bool audioRecordingWaterVisibility = false;
+
+  @action
+  toggleAudioRecordingWaterVisibility() =>
+      audioRecordingWaterVisibility = !audioRecordingWaterVisibility;
 
   textChangeAndFadeIn(String newText) => Future.delayed(Seconds.get(2), () {
         setText(newText);
@@ -84,5 +96,16 @@ abstract class _IndividualSessionScreenWidgetsCoordinatorBase
     ));
     audioClipPlatform.control = Control.playFromStart;
     //
+  }
+
+  @action
+  startWaterImmersion() {
+    toggleAudioRecordingWaterVisibility();
+    audioRecordingWater.setMovie(
+      BottomUpImmersionWaters.getMovie(
+        WaterColorsAndStops.audioImmersionWater,
+      ),
+    );
+    audioRecordingWater.control = Control.playFromStart;
   }
 }

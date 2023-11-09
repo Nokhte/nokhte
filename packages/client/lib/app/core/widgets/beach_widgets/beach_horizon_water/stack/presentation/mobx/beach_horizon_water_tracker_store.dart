@@ -19,7 +19,11 @@ class BeachHorizonWaterTrackerStore = _BeachHorizonWaterTrackerStoreBase
 abstract class _BeachHorizonWaterTrackerStoreBase
     extends BaseSchedulingWidgetStore<ColorAndStop, List<ColorAndStop>,
         IsATimeMobxParams> with Store {
+  @observable
   bool isGoingToFullSky;
+
+  @action
+  toggleIsGoingFullSky() => isGoingToFullSky = !isGoingToFullSky;
 
   _BeachHorizonWaterTrackerStoreBase({
     required this.isGoingToFullSky,
@@ -60,6 +64,7 @@ abstract class _BeachHorizonWaterTrackerStoreBase
       }
     }
     if (isGoingToFullSky && isFirstTimeCompleting) {
+      print("is this causing the problem??");
       movie = HorizonToFullSky.getMovie(endingGrad);
       setControl(Control.playFromStart);
       isFirstTimeCompleting = false;

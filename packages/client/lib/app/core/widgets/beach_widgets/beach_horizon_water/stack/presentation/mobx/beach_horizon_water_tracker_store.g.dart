@@ -10,6 +10,23 @@ part of 'beach_horizon_water_tracker_store.dart';
 
 mixin _$BeachHorizonWaterTrackerStore
     on _BeachHorizonWaterTrackerStoreBase, Store {
+  late final _$isGoingToFullSkyAtom = Atom(
+      name: '_BeachHorizonWaterTrackerStoreBase.isGoingToFullSky',
+      context: context);
+
+  @override
+  bool get isGoingToFullSky {
+    _$isGoingToFullSkyAtom.reportRead();
+    return super.isGoingToFullSky;
+  }
+
+  @override
+  set isGoingToFullSky(bool value) {
+    _$isGoingToFullSkyAtom.reportWrite(value, super.isGoingToFullSky, () {
+      super.isGoingToFullSky = value;
+    });
+  }
+
   late final _$movieModeAtom = Atom(
       name: '_BeachHorizonWaterTrackerStoreBase.movieMode', context: context);
 
@@ -130,6 +147,19 @@ mixin _$BeachHorizonWaterTrackerStore
   late final _$_BeachHorizonWaterTrackerStoreBaseActionController =
       ActionController(
           name: '_BeachHorizonWaterTrackerStoreBase', context: context);
+
+  @override
+  dynamic toggleIsGoingFullSky() {
+    final _$actionInfo =
+        _$_BeachHorizonWaterTrackerStoreBaseActionController.startAction(
+            name: '_BeachHorizonWaterTrackerStoreBase.toggleIsGoingFullSky');
+    try {
+      return super.toggleIsGoingFullSky();
+    } finally {
+      _$_BeachHorizonWaterTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic setControl(Control newControl) {
@@ -363,6 +393,7 @@ mixin _$BeachHorizonWaterTrackerStore
   @override
   String toString() {
     return '''
+isGoingToFullSky: ${isGoingToFullSky},
 movieMode: ${movieMode},
 backToShoreCompleted: ${backToShoreCompleted},
 isFirstTimeCompleting: ${isFirstTimeCompleting},

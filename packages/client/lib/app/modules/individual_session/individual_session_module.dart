@@ -116,7 +116,7 @@ class IndividualSessionModule extends Module {
         Bind.singleton<AudioClipPlatformTrackerStore>(
           (i) => AudioClipPlatformTrackerStore(),
         ),
-        Bind.singleton<BeachHorizonWaterTrackerStore>(
+        Bind.factory<BeachHorizonWaterTrackerStore>(
           (i) => BeachHorizonWaterTrackerStore(
             isGoingToFullSky: true,
           ),
@@ -143,7 +143,8 @@ class IndividualSessionModule extends Module {
             audioClipPlatform: i<AudioClipPlatformTrackerStore>(),
             beachWaves: i<BeachWavesTrackerStore>(),
             collaborativeTextEditor: i<CollaborativeTextEditorTrackerStore>(),
-            beachHorizonWater: i<BeachHorizonWaterTrackerStore>(),
+            beachHorizonWater: Modular.get<BeachHorizonWaterTrackerStore>(),
+            audioRecordingWater: Modular.get<BeachHorizonWaterTrackerStore>(),
             beachSky: i<BeachSkyStore>(),
             perspectivesMap: i<PerspectivesMapStore>(),
           ),
