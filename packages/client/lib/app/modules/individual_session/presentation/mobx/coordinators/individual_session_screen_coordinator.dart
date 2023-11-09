@@ -57,6 +57,13 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
       getCurrentPerspectives.currentPerspectives[chosenIndex] ?? '';
 
   @observable
+  bool hasAlreadyMadeTheGesture = false;
+
+  @action
+  toggleHasAlreadyMadeGesture() =>
+      hasAlreadyMadeTheGesture = !hasAlreadyMadeTheGesture;
+
+  @observable
   IndividualSessionScreenType screenType =
       IndividualSessionScreenType.perspectiveViewingMode;
 
@@ -82,7 +89,9 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
 
   @action
   screenConstructor() async {
+    widgets.setupWaterImmersion();
     widgets.attuneTheWidgets(DateTime.now());
+
     await getCurrentPerspectives(NoParams());
     thePerspectives = ObservableList.of(
         List.filled(getCurrentPerspectives.currentPerspectives.length, ""));
@@ -97,12 +106,11 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
     );
     quadrantAPIListener();
     gestureListener();
+    holdingStateListener();
     await createIndividualSession(NoParams());
     if (await Permission.microphone.isDenied) {
       await Permission.microphone.request();
     }
-
-    widgets.startWaterImmersion();
   }
 
   quadrantAPIListener() => reaction((p0) => quadrantAPI.currentQuadrant, (p0) {
@@ -114,40 +122,41 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
   gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.up:
-            switch (screenType) {
-              case IndividualSessionScreenType.perspectiveViewingMode:
-                transitionToRecordingMode();
-                swipe.resetDirectionsType();
-              case IndividualSessionScreenType.recordingAudioMode:
-                transitionToPerspectivesMode();
-                swipe.resetDirectionsType();
+            if (!swipe.hasAlreadyMadeGesture) {
+              switch (screenType) {
+                case IndividualSessionScreenType.perspectiveViewingMode:
+                  transitionToRecordingMode();
+                case IndividualSessionScreenType.recordingAudioMode:
+                  transitionToPerspectivesMode();
+              }
             }
           case GestureDirections.down:
             if (screenType == IndividualSessionScreenType.recordingAudioMode) {
-              // here is where they record someting
-              // print("DOWN on recording");
+              print("is this running when it's supposed to??");
               startRecordingAudioClip();
-              Future.delayed(
-                Seconds.get(3),
-                () => stopRecordingAudioClip(),
-              );
-              swipe.resetDirectionsType();
             }
           case GestureDirections.left:
             if (screenType == IndividualSessionScreenType.recordingAudioMode) {
-              // print("LEFT on recording");
-              // audioPlatformIndexMarkUp();
               audioPlatformIndexMarkDown();
-              swipe.resetDirectionsType();
             }
           case GestureDirections.right:
             if (screenType == IndividualSessionScreenType.recordingAudioMode) {
-              // print("RIGHT on recording");
               audioPlatformIndexMarkUp();
-              // audioPlatformIndexMarkDown();
-              swipe.resetDirectionsType();
             }
 
+          default:
+            break;
+        }
+      });
+  holdingStateListener() => reaction((p0) => swipe.holdState, (p0) {
+        // print("did this one run $p0");
+        switch (p0) {
+          case HoldState.initial:
+            if (screenType == IndividualSessionScreenType.recordingAudioMode) {
+              if (swipe.directionsType == GestureDirections.down) {
+                stopRecordingAudioClip();
+              }
+            }
           default:
             break;
         }
@@ -267,12 +276,14 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
   transitionToRecordingMode() {
     screenType = IndividualSessionScreenType.recordingAudioMode;
     widgets.transitionToRecordingMode();
+    swipe.toggleHasAlreadyMadeGesture();
   }
 
   @action
   transitionToPerspectivesMode() {
     screenType = IndividualSessionScreenType.perspectiveViewingMode;
     widgets.transitionBackToPerspectivesMode();
+    swipe.toggleHasAlreadyMadeGesture();
   }
 
   @override

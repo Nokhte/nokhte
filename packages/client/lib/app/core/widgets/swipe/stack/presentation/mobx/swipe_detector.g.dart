@@ -58,8 +58,52 @@ mixin _$SwipeDetector on _SwipeDetector, Store {
     });
   }
 
+  late final _$holdStateAtom =
+      Atom(name: '_SwipeDetector.holdState', context: context);
+
+  @override
+  HoldState get holdState {
+    _$holdStateAtom.reportRead();
+    return super.holdState;
+  }
+
+  @override
+  set holdState(HoldState value) {
+    _$holdStateAtom.reportWrite(value, super.holdState, () {
+      super.holdState = value;
+    });
+  }
+
+  late final _$hasAlreadyMadeGestureAtom =
+      Atom(name: '_SwipeDetector.hasAlreadyMadeGesture', context: context);
+
+  @override
+  bool get hasAlreadyMadeGesture {
+    _$hasAlreadyMadeGestureAtom.reportRead();
+    return super.hasAlreadyMadeGesture;
+  }
+
+  @override
+  set hasAlreadyMadeGesture(bool value) {
+    _$hasAlreadyMadeGestureAtom.reportWrite(value, super.hasAlreadyMadeGesture,
+        () {
+      super.hasAlreadyMadeGesture = value;
+    });
+  }
+
   late final _$_SwipeDetectorActionController =
       ActionController(name: '_SwipeDetector', context: context);
+
+  @override
+  dynamic setDirectionsType(GestureDirections newDirectionsType) {
+    final _$actionInfo = _$_SwipeDetectorActionController.startAction(
+        name: '_SwipeDetector.setDirectionsType');
+    try {
+      return super.setDirectionsType(newDirectionsType);
+    } finally {
+      _$_SwipeDetectorActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic setDragType(DragType newDragType) {
@@ -84,11 +128,22 @@ mixin _$SwipeDetector on _SwipeDetector, Store {
   }
 
   @override
-  dynamic resetDirectionsType() {
+  dynamic directionDetection() {
     final _$actionInfo = _$_SwipeDetectorActionController.startAction(
-        name: '_SwipeDetector.resetDirectionsType');
+        name: '_SwipeDetector.directionDetection');
     try {
-      return super.resetDirectionsType();
+      return super.directionDetection();
+    } finally {
+      _$_SwipeDetectorActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic toggleHasAlreadyMadeGesture() {
+    final _$actionInfo = _$_SwipeDetectorActionController.startAction(
+        name: '_SwipeDetector.toggleHasAlreadyMadeGesture');
+    try {
+      return super.toggleHasAlreadyMadeGesture();
     } finally {
       _$_SwipeDetectorActionController.endAction(_$actionInfo);
     }
@@ -110,7 +165,9 @@ mixin _$SwipeDetector on _SwipeDetector, Store {
     return '''
 mostRecentCoordinates: ${mostRecentCoordinates},
 dragType: ${dragType},
-directionsType: ${directionsType}
+directionsType: ${directionsType},
+holdState: ${holdState},
+hasAlreadyMadeGesture: ${hasAlreadyMadeGesture}
     ''';
   }
 }

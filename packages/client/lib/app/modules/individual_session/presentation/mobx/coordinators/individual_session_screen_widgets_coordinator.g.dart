@@ -10,44 +10,10 @@ part of 'individual_session_screen_widgets_coordinator.dart';
 
 mixin _$IndividualSessionScreenWidgetsCoordinator
     on _IndividualSessionScreenWidgetsCoordinatorBase, Store {
-  late final _$audioRecordingWaterVisibilityAtom = Atom(
-      name:
-          '_IndividualSessionScreenWidgetsCoordinatorBase.audioRecordingWaterVisibility',
-      context: context);
-
-  @override
-  bool get audioRecordingWaterVisibility {
-    _$audioRecordingWaterVisibilityAtom.reportRead();
-    return super.audioRecordingWaterVisibility;
-  }
-
-  @override
-  set audioRecordingWaterVisibility(bool value) {
-    _$audioRecordingWaterVisibilityAtom
-        .reportWrite(value, super.audioRecordingWaterVisibility, () {
-      super.audioRecordingWaterVisibility = value;
-    });
-  }
-
   late final _$_IndividualSessionScreenWidgetsCoordinatorBaseActionController =
       ActionController(
           name: '_IndividualSessionScreenWidgetsCoordinatorBase',
           context: context);
-
-  @override
-  dynamic toggleAudioRecordingWaterVisibility() {
-    final _$actionInfo =
-        _$_IndividualSessionScreenWidgetsCoordinatorBaseActionController
-            .startAction(
-                name:
-                    '_IndividualSessionScreenWidgetsCoordinatorBase.toggleAudioRecordingWaterVisibility');
-    try {
-      return super.toggleAudioRecordingWaterVisibility();
-    } finally {
-      _$_IndividualSessionScreenWidgetsCoordinatorBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
 
   @override
   dynamic markUpOrDownTheAudioPlatform(int chosenAudioIndex,
@@ -82,6 +48,21 @@ mixin _$IndividualSessionScreenWidgetsCoordinator
   }
 
   @override
+  dynamic setupWaterImmersion() {
+    final _$actionInfo =
+        _$_IndividualSessionScreenWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_IndividualSessionScreenWidgetsCoordinatorBase.setupWaterImmersion');
+    try {
+      return super.setupWaterImmersion();
+    } finally {
+      _$_IndividualSessionScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic startWaterImmersion() {
     final _$actionInfo =
         _$_IndividualSessionScreenWidgetsCoordinatorBaseActionController
@@ -99,7 +80,7 @@ mixin _$IndividualSessionScreenWidgetsCoordinator
   @override
   String toString() {
     return '''
-audioRecordingWaterVisibility: ${audioRecordingWaterVisibility}
+
     ''';
   }
 }

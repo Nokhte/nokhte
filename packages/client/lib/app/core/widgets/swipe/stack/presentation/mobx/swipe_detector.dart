@@ -21,6 +21,13 @@ abstract class _SwipeDetector extends Equatable with Store {
   GestureDirections directionsType = GestureDirections.initial;
 
   @action
+  setDirectionsType(GestureDirections newDirectionsType) =>
+      directionsType = newDirectionsType;
+
+  @observable
+  HoldState holdState = HoldState.initial;
+
+  @action
   setDragType(DragType newDragType) => dragType = newDragType;
 
   @action
@@ -29,28 +36,51 @@ abstract class _SwipeDetector extends Equatable with Store {
     DragType newDragType,
   ) {
     mostRecentCoordinates.add(mostRecentOffset);
-    dragType = newDragType;
+    if (dragType != newDragType) {
+      dragType = newDragType;
+    }
+    directionDetection();
   }
 
   @action
-  resetDirectionsType() => directionsType = GestureDirections.initial;
-
-  @action
-  onFinishedGestureCallback() {
+  directionDetection() {
+    // print("dragType $dragType");
+    holdState = HoldState.holding;
     if (dragType == DragType.horizontal) {
       final firstVal = mostRecentCoordinates.first.dx;
       final lastVal = mostRecentCoordinates.last.dx;
-      // if ((firstVal - lastVal).abs() < 50) return;
-      directionsType =
+      print(
+          "horiz ${firstVal < lastVal ? GestureDirections.left : GestureDirections.right}");
+      final directionsComparison =
           firstVal < lastVal ? GestureDirections.left : GestureDirections.right;
+      if (directionsComparison != directionsType) {
+        setDirectionsType(directionsComparison);
+      }
     } else if (dragType == DragType.vertical) {
       final firstVal = mostRecentCoordinates.first.dy;
       final lastVal = mostRecentCoordinates.last.dy;
-      if ((firstVal - lastVal).abs() < 50) return;
-      // print("fv $firstVal lv $lastVal");
-      directionsType =
+      print(
+          "vert ${firstVal < lastVal ? GestureDirections.down : GestureDirections.up}");
+      final directionsComparison =
           firstVal < lastVal ? GestureDirections.down : GestureDirections.up;
+      if (directionsComparison != directionsType) {
+        setDirectionsType(directionsComparison);
+      }
     }
+  }
+
+  @observable
+  bool hasAlreadyMadeGesture = false;
+
+  @action
+  toggleHasAlreadyMadeGesture() =>
+      hasAlreadyMadeGesture = !hasAlreadyMadeGesture;
+
+  @action
+  onFinishedGestureCallback() {
+    // toggleHasAlreadyMadeGesture();
+    dragType = DragType.initial;
+    holdState = HoldState.initial;
     mostRecentCoordinates.clear();
   }
 

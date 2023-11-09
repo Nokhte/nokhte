@@ -19,6 +19,25 @@ mixin _$IndividualSessionScreenCoordinatorStore
               '_IndividualSessionScreenCoordinatorStoreBase.currentPerspective'))
       .value;
 
+  late final _$hasAlreadyMadeTheGestureAtom = Atom(
+      name:
+          '_IndividualSessionScreenCoordinatorStoreBase.hasAlreadyMadeTheGesture',
+      context: context);
+
+  @override
+  bool get hasAlreadyMadeTheGesture {
+    _$hasAlreadyMadeTheGestureAtom.reportRead();
+    return super.hasAlreadyMadeTheGesture;
+  }
+
+  @override
+  set hasAlreadyMadeTheGesture(bool value) {
+    _$hasAlreadyMadeTheGestureAtom
+        .reportWrite(value, super.hasAlreadyMadeTheGesture, () {
+      super.hasAlreadyMadeTheGesture = value;
+    });
+  }
+
   late final _$screenTypeAtom = Atom(
       name: '_IndividualSessionScreenCoordinatorStoreBase.screenType',
       context: context);
@@ -195,6 +214,20 @@ mixin _$IndividualSessionScreenCoordinatorStore
           context: context);
 
   @override
+  dynamic toggleHasAlreadyMadeGesture() {
+    final _$actionInfo =
+        _$_IndividualSessionScreenCoordinatorStoreBaseActionController.startAction(
+            name:
+                '_IndividualSessionScreenCoordinatorStoreBase.toggleHasAlreadyMadeGesture');
+    try {
+      return super.toggleHasAlreadyMadeGesture();
+    } finally {
+      _$_IndividualSessionScreenCoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic audioPlatformIndexMarkUp() {
     final _$actionInfo =
         _$_IndividualSessionScreenCoordinatorStoreBaseActionController.startAction(
@@ -253,6 +286,7 @@ mixin _$IndividualSessionScreenCoordinatorStore
   @override
   String toString() {
     return '''
+hasAlreadyMadeTheGesture: ${hasAlreadyMadeTheGesture},
 screenType: ${screenType},
 hasntRecordedForAudioIndex: ${hasntRecordedForAudioIndex},
 currentPath: ${currentPath},

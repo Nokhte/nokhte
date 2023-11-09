@@ -30,13 +30,6 @@ abstract class _IndividualSessionScreenWidgetsCoordinatorBase
     audioRecordingWater.toggleIsGoingFullSky();
   }
 
-  @observable
-  bool audioRecordingWaterVisibility = false;
-
-  @action
-  toggleAudioRecordingWaterVisibility() =>
-      audioRecordingWaterVisibility = !audioRecordingWaterVisibility;
-
   textChangeAndFadeIn(String newText) => Future.delayed(Seconds.get(2), () {
         setText(newText);
         collaborativeTextEditor.toggleWidgetVisibility();
@@ -95,17 +88,15 @@ abstract class _IndividualSessionScreenWidgetsCoordinatorBase
       endingVertOffsets: List.filled(3, 0),
     ));
     audioClipPlatform.control = Control.playFromStart;
-    //
   }
 
   @action
-  startWaterImmersion() {
-    toggleAudioRecordingWaterVisibility();
-    audioRecordingWater.setMovie(
-      BottomUpImmersionWaters.getMovie(
-        WaterColorsAndStops.audioImmersionWater,
-      ),
-    );
-    audioRecordingWater.control = Control.playFromStart;
-  }
+  setupWaterImmersion() => audioRecordingWater.setMovie(
+        BottomUpImmersionWaters.getMovie(
+          WaterColorsAndStops.audioImmersionWater,
+        ),
+      );
+
+  @action
+  startWaterImmersion() => audioRecordingWater.control = Control.playFromStart;
 }
