@@ -85,8 +85,6 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
   @observable
   ObservableList<int> numberOfFiles = ObservableList.of([]);
 
-  // what do we want to do now?
-
   @action
   screenConstructor() async {
     widgets.setupWaterImmersion();
@@ -94,9 +92,13 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
 
     await getCurrentPerspectives(NoParams());
     thePerspectives = ObservableList.of(
-        List.filled(getCurrentPerspectives.currentPerspectives.length, ""));
+      List.filled(getCurrentPerspectives.currentPerspectives.length, ""),
+    );
+
     numberOfFiles = ObservableList.of(
-        List.filled(getCurrentPerspectives.currentPerspectives.length, 1));
+      List.filled(getCurrentPerspectives.currentPerspectives.length, 1),
+    );
+
     widgets.setText(getCurrentPerspectives.currentPerspectives[chosenIndex]);
     await quadrantAPI.setupTheStream(
       numberOfQuadrants: quadNum,
@@ -132,7 +134,6 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
             }
           case GestureDirections.down:
             if (screenType == IndividualSessionScreenType.recordingAudioMode) {
-              print("is this running when it's supposed to??");
               startRecordingAudioClip();
             }
           case GestureDirections.left:
@@ -148,7 +149,6 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
         }
       });
   holdingStateListener() => reaction((p0) => swipe.holdState, (p0) {
-        // print("did this one run $p0");
         switch (p0) {
           case HoldState.initial:
             if (screenType == IndividualSessionScreenType.recordingAudioMode) {
@@ -163,7 +163,6 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
 
   perspectivesIndexMarkUp() {
     setChosenIndex(chosenIndex + 1);
-    print("hey whats the chosen index??? $chosenIndex $numberOfFiles");
     widgets.markUpPerspectivesMap(chosenIndex, currentPerspective);
     audioPlatformReset();
   }
