@@ -72,4 +72,17 @@ abstract class _IndividualSessionScreenWidgetsCoordinatorBase
     ));
     audioClipPlatform.control = Control.playFromStart;
   }
+
+  @action
+  resetAudioPlatform() {
+    audioClipPlatform
+        .setMovie(AudioClipPlatformColorAndVertOffsetChange.getMovie(
+      startingCircleColors: PerspectivesMapAnimationData.getOnlyWhiteArr(0),
+      endingCircleColors: PerspectivesMapAnimationData.getOnlyWhiteArr(0),
+      startingVertOffsets: List.filled(3, 0),
+      endingVertOffsets: List.filled(3, 0),
+    ));
+    audioClipPlatform.control = Control.playFromStart;
+    //
+  }
 }

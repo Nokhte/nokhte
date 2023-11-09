@@ -33,6 +33,21 @@ mixin _$IndividualSessionScreenWidgetsCoordinator
   }
 
   @override
+  dynamic resetAudioPlatform() {
+    final _$actionInfo =
+        _$_IndividualSessionScreenWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_IndividualSessionScreenWidgetsCoordinatorBase.resetAudioPlatform');
+    try {
+      return super.resetAudioPlatform();
+    } finally {
+      _$_IndividualSessionScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 

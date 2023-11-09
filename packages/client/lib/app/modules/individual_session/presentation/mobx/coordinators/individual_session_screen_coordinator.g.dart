@@ -36,23 +36,6 @@ mixin _$IndividualSessionScreenCoordinatorStore
     });
   }
 
-  late final _$chosenAudioIndexAtom = Atom(
-      name: '_IndividualSessionScreenCoordinatorStoreBase.chosenAudioIndex',
-      context: context);
-
-  @override
-  int get chosenAudioIndex {
-    _$chosenAudioIndexAtom.reportRead();
-    return super.chosenAudioIndex;
-  }
-
-  @override
-  set chosenAudioIndex(int value) {
-    _$chosenAudioIndexAtom.reportWrite(value, super.chosenAudioIndex, () {
-      super.chosenAudioIndex = value;
-    });
-  }
-
   late final _$hasntRecordedForAudioIndexAtom = Atom(
       name:
           '_IndividualSessionScreenCoordinatorStoreBase.hasntRecordedForAudioIndex',
@@ -212,20 +195,6 @@ mixin _$IndividualSessionScreenCoordinatorStore
           context: context);
 
   @override
-  dynamic setChosenAudioIndex(int newVal) {
-    final _$actionInfo =
-        _$_IndividualSessionScreenCoordinatorStoreBaseActionController.startAction(
-            name:
-                '_IndividualSessionScreenCoordinatorStoreBase.setChosenAudioIndex');
-    try {
-      return super.setChosenAudioIndex(newVal);
-    } finally {
-      _$_IndividualSessionScreenCoordinatorStoreBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic audioPlatformIndexMarkUp() {
     final _$actionInfo =
         _$_IndividualSessionScreenCoordinatorStoreBaseActionController.startAction(
@@ -233,6 +202,20 @@ mixin _$IndividualSessionScreenCoordinatorStore
                 '_IndividualSessionScreenCoordinatorStoreBase.audioPlatformIndexMarkUp');
     try {
       return super.audioPlatformIndexMarkUp();
+    } finally {
+      _$_IndividualSessionScreenCoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic audioPlatformReset() {
+    final _$actionInfo =
+        _$_IndividualSessionScreenCoordinatorStoreBaseActionController.startAction(
+            name:
+                '_IndividualSessionScreenCoordinatorStoreBase.audioPlatformReset');
+    try {
+      return super.audioPlatformReset();
     } finally {
       _$_IndividualSessionScreenCoordinatorStoreBaseActionController
           .endAction(_$actionInfo);
@@ -271,7 +254,6 @@ mixin _$IndividualSessionScreenCoordinatorStore
   String toString() {
     return '''
 screenType: ${screenType},
-chosenAudioIndex: ${chosenAudioIndex},
 hasntRecordedForAudioIndex: ${hasntRecordedForAudioIndex},
 currentPath: ${currentPath},
 formattedPerspective: ${formattedPerspective},

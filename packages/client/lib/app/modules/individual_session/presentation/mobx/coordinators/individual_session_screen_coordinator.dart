@@ -60,13 +60,7 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
       IndividualSessionScreenType.perspectiveViewingMode;
 
   @observable
-  int chosenAudioIndex = 0;
-
-  @observable
   bool hasntRecordedForAudioIndex = true;
-
-  @action
-  setChosenAudioIndex(int newVal) => chosenAudioIndex = newVal;
 
   @observable
   String currentPath = '';
@@ -158,25 +152,31 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
 
   perspectivesIndexMarkUp() {
     setChosenIndex(chosenIndex + 1);
+    print("hey whats the chosen index??? $chosenIndex $numberOfFiles");
     widgets.markUpPerspectivesMap(chosenIndex, currentPerspective);
+    audioPlatformReset();
   }
 
   perspectivesIndexMarkDown() {
     setChosenIndex(chosenIndex - 1);
     widgets.markUpPerspectivesMap(chosenIndex, currentPerspective);
+    audioPlatformReset();
   }
 
   @action
   audioPlatformIndexMarkUp() {
     // chosenAudioIndex++;
     numberOfFiles[chosenIndex]++;
-    print("chosen index $chosenAudioIndex ");
+    // print("chosen index $chosenAudioIndex ");
     hasntRecordedForAudioIndex = true;
     widgets.markUpOrDownTheAudioPlatform(
       numberOfFiles[chosenIndex] - 1,
       shouldMoveUp: true,
     );
   }
+
+  @action
+  audioPlatformReset() => widgets.resetAudioPlatform();
 
   @action
   startRecordingAudioClip() async {
@@ -188,7 +188,7 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
     );
 
     fileName = StorageUtilities.getFileName(
-      numberOfFiles[chosenAudioIndex],
+      numberOfFiles[chosenIndex],
       getCurrentPerspectives.theUsersUID,
     );
     currentPath = fileName;
@@ -242,10 +242,10 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
   }
 
   audioPlatformIndexMarkDown() {
-    if (chosenAudioIndex == 0) return;
-    chosenAudioIndex--;
+    if (numberOfFiles[chosenIndex] == 0) return;
+    numberOfFiles[chosenIndex]--;
     widgets.markUpOrDownTheAudioPlatform(
-      chosenAudioIndex,
+      numberOfFiles[chosenIndex] - 1,
       shouldMoveUp: false,
     );
   }
