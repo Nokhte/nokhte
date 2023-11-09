@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -7,7 +6,6 @@ import 'package:nokhte/app/modules/individual_session/domain/domain.dart';
 import 'package:nokhte/app/modules/individual_session/data/data.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
-import 'package:nokhte/app/modules/individual_session/types/perspectives_audio_recording_actions.dart';
 import 'package:nokhte/app/modules/individual_session/types/perspectives_audio_recording_status.dart';
 
 class IndividualSessionContractImpl implements IndividualSessionContract {

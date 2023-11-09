@@ -1,6 +1,4 @@
 import 'dart:io';
-
-// import 'package:audioplayers/audioplayers.dart';
 import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/modules/individual_session/domain/domain.dart';
@@ -11,7 +9,6 @@ import 'package:nokhte_backend/storage/perspectives_audio.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:record/record.dart';
 import 'package:path_provider/path_provider.dart';
-// import 'package:flutter_sound/flutter_sound.dart';
 
 abstract class IndividualSessionRemoteSource {
   Future<List> getCurrentPerspectives();
@@ -68,30 +65,14 @@ class IndividualSessionRemoteSourceImpl
       case PerspectivesAudioRecordingActions.startRecording:
         final realPath =
             "${(await getTemporaryDirectory()).path}/${params.thePath}";
-        // print("hey real path $realPath");
         await record.start(
           const RecordConfig(encoder: AudioEncoder.wav),
           path: realPath,
         );
-        // await record.openRecorder();
-        // await record.startRecorder(
-        //   codec: Codec.defaultCodec,
-        //   toFile: params.thePath,
-        // );
         return Left(Void());
-      // return
-      // print(
-      //     "is this running start in the rs?? ${await record.isRecording()}");
       case PerspectivesAudioRecordingActions.stopRecording:
-        // final path = await record.stopRecorder();
         final path = await record.stop();
-        // final path = File('');
-
-        final file = File("${Directory.current.path}$path");
-        print(
-            "hey here's the file ==> $file | EXISTS?? => ${await file.exists()}");
-        // await record.closeRecorder();
-        // return Left(Void());
+        final file = File(path as String);
         return Right(file);
     }
   }

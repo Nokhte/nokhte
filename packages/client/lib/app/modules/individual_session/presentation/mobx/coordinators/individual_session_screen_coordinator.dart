@@ -92,7 +92,7 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
     thePerspectives = ObservableList.of(
         List.filled(getCurrentPerspectives.currentPerspectives.length, ""));
     numberOfFiles = ObservableList.of(
-        List.filled(getCurrentPerspectives.currentPerspectives.length, 0));
+        List.filled(getCurrentPerspectives.currentPerspectives.length, 1));
     widgets.setText(getCurrentPerspectives.currentPerspectives[chosenIndex]);
     await quadrantAPI.setupTheStream(
       numberOfQuadrants: quadNum,
@@ -168,19 +168,20 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
 
   @action
   audioPlatformIndexMarkUp() {
-    chosenAudioIndex++;
+    // chosenAudioIndex++;
+    numberOfFiles[chosenIndex]++;
+    print("chosen index $chosenAudioIndex ");
     hasntRecordedForAudioIndex = true;
     widgets.markUpOrDownTheAudioPlatform(
-      chosenAudioIndex,
+      numberOfFiles[chosenIndex] - 1,
       shouldMoveUp: true,
     );
   }
 
   @action
   startRecordingAudioClip() async {
-    if (hasntRecordedForAudioIndex) {
-      numberOfFiles[chosenAudioIndex]++;
-    }
+    print("started recording");
+    hasntRecordedForAudioIndex = false;
     formattedPerspective = StorageUtilities.getFormattedPerspective(
       currentIndex: chosenIndex,
       thePerspective: getCurrentPerspectives.currentPerspectives[chosenIndex],
@@ -190,9 +191,7 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
       numberOfFiles[chosenAudioIndex],
       getCurrentPerspectives.theUsersUID,
     );
-    // currentPath = "$formattedPerspective/$fileName";
     currentPath = fileName;
-    // print("current path $currentPath");
     await setRecordingStatus(
       ChangePerspectivesAudioRecordingStatusParams(
         recordingAction: PerspectivesAudioRecordingActions.startRecording,
@@ -211,6 +210,7 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
 
   @action
   stopRecordingAudioClip() async {
+    print("ended recording");
     await setRecordingStatus(
       ChangePerspectivesAudioRecordingStatusParams(
         recordingAction: PerspectivesAudioRecordingActions.stopRecording,
@@ -218,10 +218,6 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
       ),
     );
     final file = setRecordingStatus.returnFile;
-    // final file = File.fromUri(Uri.parse(currentPath));
-    // final file = File("${Directory.current}.$currentPath");
-    // print(
-    //     "hey here's the path ${file.path} does this exist?? ${await file.exists()}");
 
     await updateSessionMetadata(
       UpdateSessionMetadataParams(
@@ -234,7 +230,7 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
     final IndividualSessionAudioClip clipData = IndividualSessionAudioClip(
       isOverwritingAnotherFile: hasntRecordedForAudioIndex ? false : true,
       thePerspective: getCurrentPerspectives.currentPerspectives[chosenIndex],
-      totalNumberOfFilesForThePerspective: numberOfFiles[chosenAudioIndex],
+      totalNumberOfFilesForThePerspective: numberOfFiles[chosenIndex],
       thePerspectivesIndex: chosenIndex,
       thePerspectivesTimestamp:
           getCurrentPerspectives.currentPerspectivesTimestamp,
