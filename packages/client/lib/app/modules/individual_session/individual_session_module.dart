@@ -1,5 +1,4 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:nokhte/app/core/modules/audio_player/audio_player_module.dart';
 import 'package:nokhte/app/core/modules/audio_player/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic_module.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/mobx/api/api.dart';
@@ -13,10 +12,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class IndividualSessionModule extends Module {
   @override
-  List<Module> get imports => [
-        GyroscopicModule(),
-        AudioPlayerModule(),
-      ];
+  List<Module> get imports => [GyroscopicModule()];
 
   @override
   List<Bind> get binds => [

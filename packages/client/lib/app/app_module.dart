@@ -2,6 +2,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/modules/authentication/authentication_module.dart';
+import 'package:nokhte/app/modules/collective_session/collective_session_module.dart';
 import 'package:nokhte/app/modules/home/home_module.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:nokhte/app/modules/individual_session/individual_session_module.dart';
@@ -57,9 +58,14 @@ class AppModule extends Module {
           module: P2PPerspectivesSessionModule(),
         ),
         ModuleRoute(
-          // '/individual_session/',
-          '/',
+          '/individual_session/',
+          // '/',
           module: IndividualSessionModule(),
-        )
+        ),
+        ModuleRoute(
+          // '/collective_session/',
+          '/',
+          module: CollectiveSessionModule(),
+        ),
       ];
 }

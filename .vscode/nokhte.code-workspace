@@ -27,7 +27,8 @@
         // },
         {
             "name": "🟦 working module",
-            "path": "../packages/client/lib/app/modules/individual_session"
+            "path": "../packages/client/lib/app/modules/collective_session"
+            
         },
         {
             "name": "🟦 client root",
