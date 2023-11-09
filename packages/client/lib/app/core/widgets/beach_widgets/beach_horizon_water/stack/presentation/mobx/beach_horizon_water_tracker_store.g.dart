@@ -27,6 +27,23 @@ mixin _$BeachHorizonWaterTrackerStore
     });
   }
 
+  late final _$currentWaterValueAtom = Atom(
+      name: '_BeachHorizonWaterTrackerStoreBase.currentWaterValue',
+      context: context);
+
+  @override
+  double get currentWaterValue {
+    _$currentWaterValueAtom.reportRead();
+    return super.currentWaterValue;
+  }
+
+  @override
+  set currentWaterValue(double value) {
+    _$currentWaterValueAtom.reportWrite(value, super.currentWaterValue, () {
+      super.currentWaterValue = value;
+    });
+  }
+
   late final _$movieModeAtom = Atom(
       name: '_BeachHorizonWaterTrackerStoreBase.movieMode', context: context);
 
@@ -147,6 +164,33 @@ mixin _$BeachHorizonWaterTrackerStore
   late final _$_BeachHorizonWaterTrackerStoreBaseActionController =
       ActionController(
           name: '_BeachHorizonWaterTrackerStoreBase', context: context);
+
+  @override
+  dynamic initImmersionBackToHorizon() {
+    final _$actionInfo =
+        _$_BeachHorizonWaterTrackerStoreBaseActionController.startAction(
+            name:
+                '_BeachHorizonWaterTrackerStoreBase.initImmersionBackToHorizon');
+    try {
+      return super.initImmersionBackToHorizon();
+    } finally {
+      _$_BeachHorizonWaterTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setCurrentWaterValue(double newValue) {
+    final _$actionInfo =
+        _$_BeachHorizonWaterTrackerStoreBaseActionController.startAction(
+            name: '_BeachHorizonWaterTrackerStoreBase.setCurrentWaterValue');
+    try {
+      return super.setCurrentWaterValue(newValue);
+    } finally {
+      _$_BeachHorizonWaterTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic toggleIsGoingFullSky() {
@@ -394,6 +438,7 @@ mixin _$BeachHorizonWaterTrackerStore
   String toString() {
     return '''
 isGoingToFullSky: ${isGoingToFullSky},
+currentWaterValue: ${currentWaterValue},
 movieMode: ${movieMode},
 backToShoreCompleted: ${backToShoreCompleted},
 isFirstTimeCompleting: ${isFirstTimeCompleting},

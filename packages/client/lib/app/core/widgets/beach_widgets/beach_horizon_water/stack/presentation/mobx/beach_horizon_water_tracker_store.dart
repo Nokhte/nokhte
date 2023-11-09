@@ -22,6 +22,18 @@ abstract class _BeachHorizonWaterTrackerStoreBase
   @observable
   bool isGoingToFullSky;
 
+  @observable
+  double currentWaterValue = 0.0;
+
+  @action
+  initImmersionBackToHorizon() {
+    setMovie(ImmersionBackToShore.getMovie(currentWaterValue));
+    setControl(Control.playFromStart);
+  }
+
+  @action
+  setCurrentWaterValue(double newValue) => currentWaterValue = newValue;
+
   @action
   toggleIsGoingFullSky() => isGoingToFullSky = !isGoingToFullSky;
 

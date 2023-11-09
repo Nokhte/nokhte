@@ -208,6 +208,8 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
         thePath: currentPath,
       ),
     );
+    widgets.setupWaterImmersion();
+    widgets.startWaterImmersion();
   }
 
   @action
@@ -249,6 +251,7 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
     );
     await uploadIndividualPerspectivesAudio(
         UploadIndividualPerspectivesAudioParams(clipData: clipData));
+    widgets.audioRecordingWater.initImmersionBackToHorizon();
   }
 
   audioPlatformIndexMarkDown() {
