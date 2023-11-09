@@ -58,6 +58,23 @@ mixin _$SwipeDetector on _SwipeDetector, Store {
     });
   }
 
+  late final _$resetTheDirectionTypeAtom =
+      Atom(name: '_SwipeDetector.resetTheDirectionType', context: context);
+
+  @override
+  bool get resetTheDirectionType {
+    _$resetTheDirectionTypeAtom.reportRead();
+    return super.resetTheDirectionType;
+  }
+
+  @override
+  set resetTheDirectionType(bool value) {
+    _$resetTheDirectionTypeAtom.reportWrite(value, super.resetTheDirectionType,
+        () {
+      super.resetTheDirectionType = value;
+    });
+  }
+
   late final _$holdStateAtom =
       Atom(name: '_SwipeDetector.holdState', context: context);
 
@@ -166,6 +183,7 @@ mixin _$SwipeDetector on _SwipeDetector, Store {
 mostRecentCoordinates: ${mostRecentCoordinates},
 dragType: ${dragType},
 directionsType: ${directionsType},
+resetTheDirectionType: ${resetTheDirectionType},
 holdState: ${holdState},
 hasAlreadyMadeGesture: ${hasAlreadyMadeGesture}
     ''';

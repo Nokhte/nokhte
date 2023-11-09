@@ -20,6 +20,9 @@ abstract class _SwipeDetector extends Equatable with Store {
   @observable
   GestureDirections directionsType = GestureDirections.initial;
 
+  @observable
+  bool resetTheDirectionType = false;
+
   @action
   setDirectionsType(GestureDirections newDirectionsType) =>
       directionsType = newDirectionsType;
@@ -38,6 +41,7 @@ abstract class _SwipeDetector extends Equatable with Store {
     mostRecentCoordinates.add(mostRecentOffset);
     if (dragType != newDragType) {
       dragType = newDragType;
+      resetTheDirectionType = true;
     }
     directionDetection();
   }
@@ -49,21 +53,27 @@ abstract class _SwipeDetector extends Equatable with Store {
     if (dragType == DragType.horizontal) {
       final firstVal = mostRecentCoordinates.first.dx;
       final lastVal = mostRecentCoordinates.last.dx;
-      print(
-          "horiz ${firstVal < lastVal ? GestureDirections.left : GestureDirections.right}");
+      // print(
+      //     "horiz ${firstVal < lastVal ? GestureDirections.left : GestureDirections.right}");
       final directionsComparison =
           firstVal < lastVal ? GestureDirections.left : GestureDirections.right;
-      if (directionsComparison != directionsType) {
+      if (resetTheDirectionType) {
+        setDirectionsType(GestureDirections.initial);
+        resetTheDirectionType = false;
+      } else {
         setDirectionsType(directionsComparison);
       }
     } else if (dragType == DragType.vertical) {
       final firstVal = mostRecentCoordinates.first.dy;
       final lastVal = mostRecentCoordinates.last.dy;
-      print(
-          "vert ${firstVal < lastVal ? GestureDirections.down : GestureDirections.up}");
-      final directionsComparison =
+      // print(
+      //     "vert ${firstVal < lastVal ? GestureDirections.down : GestureDirections.up}");
+      GestureDirections directionsComparison =
           firstVal < lastVal ? GestureDirections.down : GestureDirections.up;
-      if (directionsComparison != directionsType) {
+      if (resetTheDirectionType) {
+        setDirectionsType(GestureDirections.initial);
+        resetTheDirectionType = false;
+      } else {
         setDirectionsType(directionsComparison);
       }
     }
@@ -78,7 +88,8 @@ abstract class _SwipeDetector extends Equatable with Store {
 
   @action
   onFinishedGestureCallback() {
-    // toggleHasAlreadyMadeGesture();
+    hasAlreadyMadeGesture = false;
+    // directionsType = GestureDirections.initial;
     dragType = DragType.initial;
     holdState = HoldState.initial;
     mostRecentCoordinates.clear();

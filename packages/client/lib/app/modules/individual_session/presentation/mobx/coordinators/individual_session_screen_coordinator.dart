@@ -143,7 +143,6 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
             if (screenType == IndividualSessionScreenType.recordingAudioMode) {
               audioPlatformIndexMarkUp();
             }
-
           default:
             break;
         }
