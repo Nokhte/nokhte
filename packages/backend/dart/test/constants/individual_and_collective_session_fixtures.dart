@@ -17,6 +17,7 @@ class IndividualAndCollectiveSessionFixtures {
       IndividualSessionMetadata(perspectivesMetadata: [
         getPerspectiveMetadata(tSetup),
       ]);
+
   static IndividualSessionAudioClip getTestAudioClipData(
     CommonCollaborativeTestFunctions tSetup,
     DateTime now,
@@ -30,6 +31,7 @@ class IndividualAndCollectiveSessionFixtures {
         thePerspectivesTimestamp: now,
         theFile: File('${Directory.current.path}/test/assets/star_wars.wav'),
       );
+
   static CollectiveSessionAudioExtrapolationInfo getTestExtrapolationInfo(
     CommonCollaborativeTestFunctions tSetup,
     DateTime now,

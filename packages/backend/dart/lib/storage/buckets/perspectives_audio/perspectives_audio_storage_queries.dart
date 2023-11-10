@@ -27,7 +27,8 @@ class PerspectivesAudioStorageQueries extends CollaborativeQueries {
   }
 
   moveToCollectiveSpace(
-      CollectiveSessionAudioExtrapolationInfo extrapolationInfo) async {
+    CollectiveSessionAudioExtrapolationInfo extrapolationInfo,
+  ) async {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutActiveCollaboratorInfo();
     }
@@ -41,6 +42,27 @@ class PerspectivesAudioStorageQueries extends CollaborativeQueries {
             path.endPath,
           );
     }
+  }
+
+  getTheCollaboratorsAudioClipLinks(
+    CollectiveSessionAudioExtrapolationInfo extrapolationInfo,
+  ) async {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutActiveCollaboratorInfo();
+    }
+    final List theList = [];
+    final List<StartAndEndPaths> paths =
+        StorageUtilities.getCollectiveSessionPaths(
+      collaboratorInfo: collaboratorInfo,
+      extrapolationInfo: extrapolationInfo,
+      returnCollaboratorsPaths: true,
+    );
+    for (final path in paths) {
+      final res =
+          await supabase.storage.from(bucketName).download(path.endPath);
+      theList.add(res);
+    }
+    return theList;
   }
 
   emptyTheBucket(

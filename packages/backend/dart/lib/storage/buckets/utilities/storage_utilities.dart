@@ -64,8 +64,10 @@ class StorageUtilities {
     required CollectiveSessionAudioExtrapolationInfo extrapolationInfo,
     required CollaboratorInfo collaboratorInfo,
     bool excludeFile = false,
+    bool returnCollaboratorsPaths = false,
   }) {
     final userUID = collaboratorInfo.theUsersUID;
+    final collaboratorsUID = collaboratorInfo.theCollaboratorsUID;
     final collaborationID = getCollaborationID(collaboratorInfo);
     final individualSessionTimestamp =
         getSessionTimestamp(extrapolationInfo.individualSessionTimestamp);
@@ -80,8 +82,8 @@ class StorageUtilities {
       final currentFormattedPerspective = getFormattedPerspective(
           currentIndex: i, thePerspective: metaArr[i]["thePerspective"]);
       for (int j = 0; j < metaArr[i]["numberOfFiles"]; j++) {
-        final currentFileName =
-            getFileName(j + 1, collaboratorInfo.theUsersUID);
+        final currentFileName = getFileName(
+            j + 1, returnCollaboratorsPaths ? collaboratorsUID : userUID);
         final currentStartPath = [
           userUID,
           collaborationID,
@@ -95,7 +97,7 @@ class StorageUtilities {
           perspectivesCommitTimestamp,
           collectiveSessionTimestamp,
           currentFormattedPerspective,
-          userUID,
+          returnCollaboratorsPaths ? collaboratorsUID : userUID,
           excludeFile ? "" : currentFileName,
         ].join('/');
         returnPaths.add(
