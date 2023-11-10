@@ -1,1 +1,2 @@
 export 'individual_audio_movement_to_collective_space_status_model.dart';
+export 'collaborators_audio_clips_download_status_model.dart';

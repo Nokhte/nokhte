@@ -98,7 +98,7 @@ void main() {
         res2[0].name, "${user1Queries.collaboratorInfo.theUsersUID}_one.wav");
     // arrange ii
     final res3 = await user1StorageQueries
-        .getTheCollaboratorsAudioClipLinks(extrapolationInfo);
+        .downloadTheCollaboratorsAudioClips(extrapolationInfo);
     expect(res3, isNotEmpty);
   });
 }

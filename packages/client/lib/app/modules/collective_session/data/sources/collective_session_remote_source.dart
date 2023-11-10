@@ -1,8 +1,12 @@
+import 'dart:typed_data';
+
 import 'package:nokhte_backend/storage/perspectives_audio.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class CollectiveSessionRemoteSource {
   Future<void> moveIndividualPerspectivesAudioToCollectiveSpace(
+      CollectiveSessionAudioExtrapolationInfo params);
+  Future<List<Uint8List>> downloadTheCollaboratorsPerspectivesClips(
       CollectiveSessionAudioExtrapolationInfo params);
 }
 
@@ -17,4 +21,9 @@ class CollectiveSessionRemoteSourceImpl
   Future<void> moveIndividualPerspectivesAudioToCollectiveSpace(
           CollectiveSessionAudioExtrapolationInfo params) async =>
       await storageQueries.moveToCollectiveSpace(params);
+
+  @override
+  Future<List<Uint8List>> downloadTheCollaboratorsPerspectivesClips(
+          CollectiveSessionAudioExtrapolationInfo params) async =>
+      await storageQueries.downloadTheCollaboratorsAudioClips(params);
 }

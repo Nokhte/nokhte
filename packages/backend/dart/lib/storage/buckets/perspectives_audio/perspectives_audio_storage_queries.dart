@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:nokhte_backend/storage/buckets/utilities/storage_utilities.dart';
 import 'package:nokhte_backend/tables/real_time_enabled/shared/shared.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -44,13 +46,13 @@ class PerspectivesAudioStorageQueries extends CollaborativeQueries {
     }
   }
 
-  getTheCollaboratorsAudioClipLinks(
+  Future<List<Uint8List>> downloadTheCollaboratorsAudioClips(
     CollectiveSessionAudioExtrapolationInfo extrapolationInfo,
   ) async {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutActiveCollaboratorInfo();
     }
-    final List theList = [];
+    final List<Uint8List> theList = [];
     final List<StartAndEndPaths> paths =
         StorageUtilities.getCollectiveSessionPaths(
       collaboratorInfo: collaboratorInfo,

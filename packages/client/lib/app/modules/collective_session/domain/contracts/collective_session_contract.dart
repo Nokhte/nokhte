@@ -7,4 +7,7 @@ abstract class CollectiveSessionContract {
   Future<Either<Failure, IndividualAudioMovementToCollectiveSpaceStatusEntity>>
       moveIndividualPerspectivesAudioToCollectiveSpace(
           CollectiveSessionAudioExtrapolationInfo params);
+  Future<Either<Failure, CollaboratorsAudioClipsDownloadStatusEntity>>
+      downloadCollaboratorsPerspectivesClips(
+          CollectiveSessionAudioExtrapolationInfo params);
 }

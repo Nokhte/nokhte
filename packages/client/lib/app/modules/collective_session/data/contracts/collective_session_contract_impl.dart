@@ -26,4 +26,18 @@ class CollectiveSessionContractImpl implements CollectiveSessionContract {
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  Future<Either<Failure, CollaboratorsAudioClipsDownloadStatusModel>>
+      downloadCollaboratorsPerspectivesClips(
+          CollectiveSessionAudioExtrapolationInfo params) async {
+    if (await networkInfo.isConnected) {
+      await remoteSource
+          .moveIndividualPerspectivesAudioToCollectiveSpace(params);
+      return const Right(
+          CollaboratorsAudioClipsDownloadStatusModel(isDownloaded: true));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
 }
