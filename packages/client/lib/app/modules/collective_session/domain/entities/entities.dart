@@ -1,1 +1,1 @@
-export '';
+export 'individual_audio_movement_to_collective_space_status_entity.dart';

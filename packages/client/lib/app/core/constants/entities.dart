@@ -6,6 +6,7 @@ import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
 import 'package:nokhte/app/core/modules/fetch_the_purpose/domain/domain.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/constants/constants.dart';
 import 'package:nokhte/app/core/modules/scheduling/domain/domain.dart';
+import 'package:nokhte/app/modules/collective_session/domain/entities/entities.dart';
 import 'package:nokhte/app/modules/home/domain/entities/entities.dart';
 import 'package:nokhte/app/modules/individual_session/domain/domain.dart';
 import 'package:nokhte/app/modules/individual_session/types/types.dart';
@@ -181,4 +182,7 @@ class DefaultEntities {
               returnFile: File(''),
             ),
           );
+  static Either<Failure, IndividualAudioMovementToCollectiveSpaceStatusEntity>
+      get individualAudioMovementToCollectiveSpaceStatusEntity => const Right(
+          IndividualAudioMovementToCollectiveSpaceStatusEntity(isMoved: false));
 }
