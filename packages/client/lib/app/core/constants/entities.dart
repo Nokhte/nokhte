@@ -187,11 +187,11 @@ class DefaultEntities {
       get individualAudioMovementToCollectiveSpaceStatusEntity => const Right(
           IndividualAudioMovementToCollectiveSpaceStatusEntity(isMoved: false));
 
-  static Either<Failure, CollaboratorsAudioClipsPathsAndFilesEntity>
+  static Either<Failure, CollaboratorsAudioClipsDownloadStatusEntity>
       get collaboratorsAudioCLipsAndFilesEntity => const Right(
-          CollaboratorsAudioClipsPathsAndFilesEntity(pathAndFiles: []));
+          CollaboratorsAudioClipsDownloadStatusEntity(isDownloaded: false));
 
-  static CollaboratorsAudioClipsPathsAndFilesEntity
-      get unwrappedCollaboratorsAudioCLipsAndFilesEntity =>
-          const CollaboratorsAudioClipsPathsAndFilesEntity(pathAndFiles: []);
+  static Either<Failure, CollaboratorIndividualSessionMetadataEntity>
+      get collaboratorIndividualSessionMetadataEntity => const Right(
+          CollaboratorIndividualSessionMetadataEntity(sessionMetadata: {}));
 }

@@ -1,30 +1,33 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/constants/entities.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/modules/collective_session/domain/domain.dart';
 import 'package:nokhte/app/modules/collective_session/presentation/presentation.dart';
-import 'package:nokhte_backend/storage/perspectives_audio.dart';
-part 'download_collaborators_perspectives_clips_store.g.dart';
+part 'get_collaborator_individual_session_metadata_store.g.dart';
 
-class DownloadCollaboratorsPerspectivesClipsStore = _DownloadCollaboratorsPerspectivesClipsStoreBase
-    with _$DownloadCollaboratorsPerspectivesClipsStore;
+class GetCollaboratorIndividualSessionMetadataStore = _GetCollaboratorIndividualSessionMetadataStoreBase
+    with _$GetCollaboratorIndividualSessionMetadataStore;
 
-abstract class _DownloadCollaboratorsPerspectivesClipsStoreBase
-    extends BaseMobxDBStore<CollectiveSessionAudioExtrapolationInfo,
-        CollaboratorsAudioClipsDownloadStatusEntity> with Store {
+abstract class _GetCollaboratorIndividualSessionMetadataStoreBase
+    extends BaseMobxDBStore<NoParams,
+        CollaboratorIndividualSessionMetadataEntity> with Store {
   @observable
-  bool isDownloaded = false;
+  Map collaboratorMetadata = {};
 
-  final DownloadCollaboratorsPerspectivesClipsGetterStore getterStore;
-  _DownloadCollaboratorsPerspectivesClipsStoreBase({required this.getterStore});
+  final GetCollaboratorIndividualSessionMetadataGetterStore getterStore;
+  _GetCollaboratorIndividualSessionMetadataStoreBase(
+      {required this.getterStore});
 
   @observable
-  BaseFutureStore<CollaboratorsAudioClipsDownloadStatusEntity> futureStore =
+  BaseFutureStore<CollaboratorIndividualSessionMetadataEntity> futureStore =
       BaseFutureStore(
-    baseEntity: DefaultEntities.collaboratorsAudioCLipsAndFilesEntity,
+    baseEntity: DefaultEntities.collaboratorIndividualSessionMetadataEntity,
     entityFutureParam: ObservableFuture(
-      Future.value(DefaultEntities.collaboratorsAudioCLipsAndFilesEntity),
+      Future.value(
+        DefaultEntities.collaboratorIndividualSessionMetadataEntity,
+      ),
     ),
   );
 
@@ -33,8 +36,8 @@ abstract class _DownloadCollaboratorsPerspectivesClipsStoreBase
     result.fold((failure) {
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
-    }, (downloadStatusEntity) {
-      isDownloaded = downloadStatusEntity.isSent;
+    }, (metadataEntity) {
+      collaboratorMetadata = metadataEntity.sessionMetadata;
     });
   }
 

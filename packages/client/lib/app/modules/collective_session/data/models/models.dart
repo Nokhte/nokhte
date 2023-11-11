@@ -1,2 +1,3 @@
 export 'collaborators_audio_clips_paths_and_files_model.dart';
 export 'individual_audio_movement_to_collective_space_status_model.dart';
+export 'collaborator_individual_session_metadata_model.dart';

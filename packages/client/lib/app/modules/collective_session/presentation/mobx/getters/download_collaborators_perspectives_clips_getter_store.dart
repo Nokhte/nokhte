@@ -17,7 +17,7 @@ abstract class _DownloadCollaboratorsPerspectivesClipsGetterStoreBase
     required this.logic,
   });
 
-  Future<Either<Failure, CollaboratorsAudioClipsPathsAndFilesEntity>> call(
+  Future<Either<Failure, CollaboratorsAudioClipsDownloadStatusEntity>> call(
           params) async =>
       await logic(params);
 

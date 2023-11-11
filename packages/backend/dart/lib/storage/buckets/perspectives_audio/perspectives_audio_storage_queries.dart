@@ -58,10 +58,12 @@ class PerspectivesAudioStorageQueries extends CollaborativeQueries {
       returnCollaboratorsPaths: true,
     );
     for (final path in paths) {
-      final thePath = path.endPath.split('/').sublist(0, 4).join('/');
+      final List pathAsList = path.endPath.split('/');
+      pathAsList.removeAt(4);
+      final String pathAsString = pathAsList.join('/');
       final rawBytes =
           await supabase.storage.from(bucketName).download(path.endPath);
-      final pathAndFile = PathAndBytes(path: thePath, rawBytes: rawBytes);
+      final pathAndFile = PathAndBytes(path: pathAsString, rawBytes: rawBytes);
       theList.add(pathAndFile);
     }
     return theList;
