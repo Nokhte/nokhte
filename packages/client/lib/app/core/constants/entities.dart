@@ -19,6 +19,7 @@ import 'package:nokhte_backend/phrase_components.dart';
 import 'package:nokhte_backend/working_collaborative_documents.dart';
 import 'package:nokhte_backend/working_collaborative_scheduling.dart';
 import 'package:nokhte_backend/working_perspectives_positioning.dart';
+import 'package:nokhte/app/modules/collective_session/domain/domain.dart';
 
 class DefaultEntities {
   static DateTime get defaultDate => DateTime.fromMillisecondsSinceEpoch(0);
@@ -185,4 +186,12 @@ class DefaultEntities {
   static Either<Failure, IndividualAudioMovementToCollectiveSpaceStatusEntity>
       get individualAudioMovementToCollectiveSpaceStatusEntity => const Right(
           IndividualAudioMovementToCollectiveSpaceStatusEntity(isMoved: false));
+
+  static Either<Failure, CollaboratorsAudioClipsPathsAndFilesEntity>
+      get collaboratorsAudioCLipsAndFilesEntity => const Right(
+          CollaboratorsAudioClipsPathsAndFilesEntity(pathAndFiles: []));
+
+  static CollaboratorsAudioClipsPathsAndFilesEntity
+      get unwrappedCollaboratorsAudioCLipsAndFilesEntity =>
+          const CollaboratorsAudioClipsPathsAndFilesEntity(pathAndFiles: []);
 }
