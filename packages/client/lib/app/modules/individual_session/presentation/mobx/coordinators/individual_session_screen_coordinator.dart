@@ -1,9 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
-// import 'dart:io';
-
 import 'package:mobx/mobx.dart';
-// * Equatable Import
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/audio_player/domain/domain.dart';
@@ -18,7 +14,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:nokhte/app/modules/individual_session/types/types.dart';
 import 'package:nokhte_backend/storage/buckets/utilities/storage_utilities.dart';
 import 'package:nokhte_backend/storage/perspectives_audio.dart';
-// * Mobx Codegen Inclusion
 part 'individual_session_screen_coordinator.g.dart';
 
 class IndividualSessionScreenCoordinatorStore = _IndividualSessionScreenCoordinatorStoreBase
@@ -48,7 +43,6 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
     required this.widgets,
   });
 
-  // make this dynamic later
   final quadNum = 5;
   final quadSpread = 90;
 
@@ -175,9 +169,7 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
 
   @action
   audioPlatformIndexMarkUp() {
-    // chosenAudioIndex++;
     numberOfFiles[chosenIndex]++;
-    // print("chosen index $chosenAudioIndex ");
     hasntRecordedForAudioIndex = true;
     widgets.markUpOrDownTheAudioPlatform(
       numberOfFiles[chosenIndex] - 1,

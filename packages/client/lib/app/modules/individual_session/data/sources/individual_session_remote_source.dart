@@ -26,7 +26,6 @@ class IndividualSessionRemoteSourceImpl
   final P2PPerspectivesTrackingQueries perpsectivesQueries;
   final IndividualSessionsQueries sessionQueries;
   final PerspectivesAudioStorageQueries storageQueries;
-  // final record = FlutterSoundRecorder();
   final record = AudioRecorder();
 
   IndividualSessionRemoteSourceImpl({

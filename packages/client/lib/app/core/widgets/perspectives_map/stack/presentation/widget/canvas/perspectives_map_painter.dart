@@ -33,27 +33,22 @@ class PerspectivesMapPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     canvas.drawPath(path, myPaint);
     const circleRadius = 5.5;
-    // leftMost
     final leftMostCircleX = (width / 2) - 45;
     final leftMostCircleY =
         ((height - circleRadius * 2) - 2) + circleVertOffsets[0];
     final leftMostPaint = Paint()..color = circleColors[0];
-    // left
     final leftCircleX = (width / 2) - 23;
     final leftCircleY =
         ((height - circleRadius * 2) - 2) + circleVertOffsets[1];
     final leftPaint = Paint()..color = circleColors[1];
-    // center
     final centerCircleX = width / 2;
     final centerCircleY =
         ((height - circleRadius * 2) - 2) + circleVertOffsets[2];
     final centerPaint = Paint()..color = circleColors[2];
-    // right
     final rightCircleX = (width / 2) + 23;
     final rightCircleY =
         ((height - circleRadius * 2) - 2) + circleVertOffsets[3];
     final rightPaint = Paint()..color = circleColors[3];
-    // rightMost
     final rightMostCircleX = (width / 2) + 45;
     final rightMostCircleY =
         ((height - circleRadius * 2) - 2) + circleVertOffsets[4];

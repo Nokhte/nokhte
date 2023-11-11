@@ -1,4 +1,3 @@
-// * Testing & Mocking Libs
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -32,10 +31,6 @@ void main() {
         expect(value.currentUserUID, "lastEditedBy");
         expect(value.lastEditedBy, "lastEditedBy");
       });
-      // expect(
-      //   shareSoloDocStore.docContent,
-      //   emits("content"),
-      // );
       expect(shareSoloDocStore.errorMessage, "");
     });
     test("❌ Success Case: should update accordingly if failure is passed",

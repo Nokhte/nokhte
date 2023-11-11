@@ -6,7 +6,6 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/constants/types/recording_status.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/domain/domain.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/mobx/mobx.dart';
-// * Mobx Codegen Inclusion
 part 'start_recording_store.g.dart';
 
 class StartRecordingStore = _StartRecordingStoreBase with _$StartRecordingStore;

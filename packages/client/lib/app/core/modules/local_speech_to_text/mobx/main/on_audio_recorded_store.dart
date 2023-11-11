@@ -5,14 +5,12 @@ import 'package:equatable/equatable.dart';
 import 'package:leopard_flutter/leopard_error.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/constants/constants.dart';
-// * Mobx Codegen Inclusion
 part 'on_audio_recorded_store.g.dart';
 
 class OnAudioRecordedStore = _OnAudioRecordedStoreBase
     with _$OnAudioRecordedStore;
 
 abstract class _OnAudioRecordedStoreBase extends Equatable with Store {
-  // so the logic
   final double maxRecordingLength = 10;
 
   @observable

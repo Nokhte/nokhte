@@ -28,14 +28,14 @@ class CollectiveSessionContractImpl implements CollectiveSessionContract {
   }
 
   @override
-  Future<Either<Failure, CollaboratorsAudioClipsDownloadStatusModel>>
+  Future<Either<Failure, CollaboratorsAudioClipsPathsAndFilesModel>>
       downloadCollaboratorsPerspectivesClips(
           CollectiveSessionAudioExtrapolationInfo params) async {
     if (await networkInfo.isConnected) {
-      await remoteSource
-          .moveIndividualPerspectivesAudioToCollectiveSpace(params);
-      return const Right(
-          CollaboratorsAudioClipsDownloadStatusModel(isDownloaded: true));
+      final res =
+          await remoteSource.downloadTheCollaboratorsPerspectivesClips(params);
+      return Right(
+          CollaboratorsAudioClipsPathsAndFilesModel(pathAndFiles: res));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }

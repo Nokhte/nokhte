@@ -6,7 +6,6 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/modules/p2p_perspectives_session/domain/domain.dart';
 import 'package:nokhte/app/modules/p2p_perspectives_session/presentation/presentation.dart';
 import 'package:nokhte_backend/working_perspectives_positioning.dart';
-// * Mobx Codegen Inclusion
 part 'fetch_perspectives_stream_store.g.dart';
 
 class FetchPerspectivesStreamStore = _FetchPerspectivesStreamStoreBase

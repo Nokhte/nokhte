@@ -32,7 +32,6 @@ class AudioClipPlatform extends StatelessWidget {
                   child: GestureDetector(
                     child: Padding(
                       padding: const EdgeInsets.only(left: 18.5, top: 60.0),
-                      // padding: const EdgeInsets.only(),
                       child: CustomPaint(
                         size: size,
                         painter: AudioClipPlatformPainter(

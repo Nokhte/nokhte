@@ -1,5 +1,3 @@
-// import 'package:nokhte/app/modules/p2p_purpose_session/domain/logic/logic.dart';
-
 import 'package:http/http.dart';
 import 'package:nokhte/app/core/utilities/utilities.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
@@ -11,23 +9,17 @@ import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 abstract class VoiceCallRemoteSource {
   Future<Response> fetchAgoraToken({required String channelName});
 
-  /// needs logic & status entity
   Future instantiateAgoraSDK();
 
-  /// needs logic & status entity
   Future joinCall({required String token, required String channelId});
 
-  /// needs logic & status entity
   Future leaveCall();
 
   Future muteLocalAudioStream();
 
   Future unmuteLocalAudioStream();
 
-  /// needs logic & status entity
-  // Future<List<dynamic>> fetchChannelId();
   Future<List<dynamic>> fetchCollaboratorInfo();
-  // Future<List> fetchWhoGetsQuestion();
 }
 
 class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
@@ -36,7 +28,7 @@ class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
   final AgoraCallbacksStore agoraCallbacksStore;
   final String currentUserUID;
   final int currentAgoraUID;
-  final RtcEngine agoraEngine; // should call createAgoraRtcEngine() in module
+  final RtcEngine agoraEngine;
 
   VoiceCallRemoteSourceImpl({
     required this.supabase,

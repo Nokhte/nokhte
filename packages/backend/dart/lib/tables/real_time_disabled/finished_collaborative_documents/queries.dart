@@ -7,12 +7,9 @@ class FinishedCollaborativeP2PPurposeDocumentsQueries
   Future<List> fetchDocInfo({
     required String docType,
   }) async {
-    //
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutActiveCollaboratorInfo();
     }
-    // print(
-    //     "${collaboratorInfo.theCollaboratorsNumber}_uid ${collaboratorInfo.theCollaboratorsUID}");
     return await supabase
         .from(tableName)
         .select()

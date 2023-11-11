@@ -3,7 +3,6 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/domain/domain.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
-// * Mobx Codegen Inclusion
 part 'set_reference_angle_store.g.dart';
 
 class SetReferenceAngleStore = _SetReferenceAngleStoreBase

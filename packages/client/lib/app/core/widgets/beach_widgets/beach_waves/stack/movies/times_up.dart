@@ -5,7 +5,6 @@ import '../../../shared/data/water_colors_and_stops.dart';
 import 'package:simple_animations/movie_tween/movie_tween.dart';
 
 class TimesUp extends Equatable {
-  ///
   static MovieTween getMovie({required Duration timerLength}) {
     final durationsArr = TimeAllocator.generateDurations(
         duration: timerLength, numIncrements: 8);

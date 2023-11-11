@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:nokhte_backend/storage/buckets/utilities/storage_utilities.dart';
 import 'package:nokhte_backend/tables/real_time_enabled/shared/shared.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -46,13 +44,13 @@ class PerspectivesAudioStorageQueries extends CollaborativeQueries {
     }
   }
 
-  Future<List<Uint8List>> downloadTheCollaboratorsAudioClips(
+  Future<List<PathAndBytes>> downloadTheCollaboratorsAudioClips(
     CollectiveSessionAudioExtrapolationInfo extrapolationInfo,
   ) async {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutActiveCollaboratorInfo();
     }
-    final List<Uint8List> theList = [];
+    final List<PathAndBytes> theList = [];
     final List<StartAndEndPaths> paths =
         StorageUtilities.getCollectiveSessionPaths(
       collaboratorInfo: collaboratorInfo,
@@ -60,9 +58,11 @@ class PerspectivesAudioStorageQueries extends CollaborativeQueries {
       returnCollaboratorsPaths: true,
     );
     for (final path in paths) {
-      final res =
+      final thePath = path.endPath.split('/').sublist(0, 4).join('/');
+      final rawBytes =
           await supabase.storage.from(bucketName).download(path.endPath);
-      theList.add(res);
+      final pathAndFile = PathAndBytes(path: thePath, rawBytes: rawBytes);
+      theList.add(pathAndFile);
     }
     return theList;
   }

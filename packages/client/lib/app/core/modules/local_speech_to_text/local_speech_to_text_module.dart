@@ -7,7 +7,6 @@ import 'package:nokhte/app/core/network/network_info.dart';
 class LocalSpeechToTextModule extends Module {
   @override
   List<Bind> get binds => [
-        // & Callbacks Store
         Bind.singleton<OnSpeechResultStore>(
           (i) => OnSpeechResultStore(),
           export: true,
@@ -16,7 +15,6 @@ class LocalSpeechToTextModule extends Module {
           (i) => OnAudioRecordedStore(),
           export: true,
         ),
-        // & Callback Logic
         Bind.singleton<OnSpeechResult>(
           (i) => OnSpeechResult(
             speechResultStore: i<OnSpeechResultStore>(),
@@ -29,14 +27,12 @@ class LocalSpeechToTextModule extends Module {
           ),
           export: true,
         ),
-// & Data Source
         Bind.singleton<LocalSpeechToTextRemoteSourceImpl>(
           (i) => LocalSpeechToTextRemoteSourceImpl(
             onAudioRecorded: i<OnAudioRecorded>(),
           ),
           export: true,
         ),
-// & Contract Implementation
         Bind.singleton<LocalSpeechToTextContractImpl>(
           (i) => LocalSpeechToTextContractImpl(
             remoteSource: i<LocalSpeechToTextRemoteSourceImpl>(),
@@ -44,7 +40,6 @@ class LocalSpeechToTextModule extends Module {
           ),
           export: true,
         ),
-// & Logic
         Bind.singleton<InitLeopard>(
           (i) => InitLeopard(
             contract: i<LocalSpeechToTextContract>(),
@@ -63,7 +58,6 @@ class LocalSpeechToTextModule extends Module {
           ),
           export: true,
         ),
-// & MobX Getter Stores
         Bind.singleton<InitLeopardGetterStore>(
           (i) => InitLeopardGetterStore(
             logic: i<InitLeopard>(),
@@ -82,7 +76,6 @@ class LocalSpeechToTextModule extends Module {
           ),
           export: true,
         ),
-// & Mobx Mother Stores
         Bind.singleton<InitLeopardStore>(
           (i) => InitLeopardStore(
             getterStore: i<InitLeopardGetterStore>(),
@@ -101,7 +94,6 @@ class LocalSpeechToTextModule extends Module {
           ),
           export: true,
         ),
-        // & Coordinator
         Bind.singleton<LocalSpeechToTextCoordinatorStore>(
           (i) => LocalSpeechToTextCoordinatorStore(
             onSpeechResultStore: i<OnSpeechResultStore>(),

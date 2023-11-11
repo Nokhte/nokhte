@@ -4,16 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-// import 'package:primala/app/core/types/types.dart';
 import 'canvas/beach_waves_painter.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class SmartBeachWaves extends StatefulWidget {
-  // final Size size;
   final BeachWavesTrackerStore stateTrackerStore;
   const SmartBeachWaves({
     super.key,
-    // required this.size,
     required this.stateTrackerStore,
   });
 
@@ -23,12 +20,10 @@ class SmartBeachWaves extends StatefulWidget {
 
 class _SmartBeachWavesState extends State<SmartBeachWaves>
     with SingleTickerProviderStateMixin {
-  // final Size size;
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
       return Opacity(
-        // duration: Seconds.get(1),
         opacity: widget.stateTrackerStore.showWidget ? 1 : 0,
         child: CustomAnimationBuilder<Movie>(
           tween: widget.stateTrackerStore.movie,

@@ -2,7 +2,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/solo_doc/mobx/mobx.dart';
-// * Mobx Codegen Inclusion
 part 'solo_doc_coordinator_store.g.dart';
 
 class SoloDocCoordinatorStore = _SoloDocCoordinatorStoreBase

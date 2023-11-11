@@ -5,7 +5,6 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/logic/update_commit_desire_status.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/presentation/presentation.dart';
-// * Mobx Codegen Inclusion
 part 'update_commit_desire_status_store.g.dart';
 
 class UpdateCommitDesireStatusStore = _UpdateCommitDesireStatusStoreBase

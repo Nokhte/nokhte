@@ -5,7 +5,6 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/fetch_the_purpose/domain/domain.dart';
 import 'package:nokhte/app/core/modules/fetch_the_purpose/mobx/mobx.dart';
-// * Mobx Codegen Inclusion
 part 'fetch_the_purpose_store.g.dart';
 
 class FetchThePurposeStore = _FetchThePurposeStoreBase

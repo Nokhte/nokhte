@@ -18,8 +18,6 @@ void main() {
     await SignIn.user1(supabase: supabase);
   });
 
-  // tearDown(() async {});
-
   test("Should be able to read their row", () async {
     final collaboratorPhrasRes = await CollaboratorPhraseQueries.fetchUserInfo(
       supabase: supabase,

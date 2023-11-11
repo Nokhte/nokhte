@@ -23,8 +23,6 @@ void main() {
   });
 
   test("`resetRefAngleForMaxCapacity` should work w/ a variety of values", () {
-    // try low end with 355 staying under 360 and going over and do the same
-    // with high end values as well
     const firstMaxAngle = 355;
     const firstCurrentValue = 358;
     const firstOriginalReferenceAngle = 5;

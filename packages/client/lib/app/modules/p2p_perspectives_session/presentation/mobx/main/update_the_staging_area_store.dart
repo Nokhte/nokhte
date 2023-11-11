@@ -4,7 +4,6 @@ import 'package:nokhte/app/core/constants/entities.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/modules/p2p_perspectives_session/domain/domain.dart';
 import 'package:nokhte/app/modules/p2p_perspectives_session/presentation/presentation.dart';
-// * Mobx Codegen Inclusion
 part 'update_the_staging_area_store.g.dart';
 
 class UpdateTheStagingAreaStore = _UpdateTheStagingAreaStoreBase

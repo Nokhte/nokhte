@@ -17,7 +17,6 @@ class BottomCircleGoesUp {
             ColorTween(
               begin: const Color(0xFF0A98FF),
               end: const Color(0xFF0A98FF),
-              // end: const Color(0xFFFFFFFF),
             ),
           )
           .tween(
@@ -25,7 +24,6 @@ class BottomCircleGoesUp {
             ColorTween(
               begin: const Color(0x00FFFFFF),
               end: const Color(0x00FFFFFF),
-              // end: const Color(0xFFFFFFFF),
             ),
           )
           .tween(
@@ -44,7 +42,6 @@ class BottomCircleGoesUp {
             ColorTween(
               begin: const Color(0xFF0A98FF),
               end: const Color(0xFF0A98FF),
-              // end: const Color(0xFFFFFFFF),
             ),
           )
           .tween(
@@ -52,7 +49,6 @@ class BottomCircleGoesUp {
             ColorTween(
               begin: const Color(0x00FFFFFF),
               end: const Color(0x00FFFFFF),
-              // end: const Color(0xFFFFFFFF),
             ),
           )
           .tween(

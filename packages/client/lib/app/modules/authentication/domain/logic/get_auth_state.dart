@@ -1,6 +1,4 @@
-// * Primala Domain Imports
 import 'package:nokhte/app/modules/authentication/domain/domain.dart';
-// * Primala Core Imports
 import 'package:nokhte/app/core/interfaces/logic.dart';
 
 class GetAuthState

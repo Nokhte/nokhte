@@ -1,10 +1,8 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-// * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/logic/update_commit_desire_status.dart';
@@ -15,7 +13,6 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte_backend/working_collaborative_documents.dart';
 import 'package:simple_animations/simple_animations.dart';
-// * Mobx Codegen Inclusion
 part 'p2p_purpose_phase5_coordinator_store.g.dart';
 
 class P2PPurposePhase5CoordinatorStore = _P2PPurposePhase5CoordinatorStoreBase
@@ -182,7 +179,5 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
   }
 
   @override
-  List<Object> get props => [
-// some items
-      ];
+  List<Object> get props => [];
 }

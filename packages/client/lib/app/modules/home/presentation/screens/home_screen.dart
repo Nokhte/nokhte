@@ -5,8 +5,6 @@ import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/home_screen_coordinator_store.dart';
-// import 'package:swipe/swipe.dart';
-// import 'package:posthog_flutter/posthog_flutter.dart';
 
 class HomeScreen extends StatelessWidget {
   final HomeScreenCoordinatorStore coordinator;
@@ -15,7 +13,6 @@ class HomeScreen extends StatelessWidget {
     required this.coordinator,
   }) {
     coordinator.homeScreenConstructorCallback();
-    // Posthog().screen(screenName: 'opener screen');
   }
 
   @override
@@ -24,14 +21,12 @@ class HomeScreen extends StatelessWidget {
       context: context,
       percentageLength: .20,
     );
-    // return Observer(builder: (context) {
     return Builder(builder: (context) {
       return LayoutBuilder(
         builder: (context, constraints) {
           return PlatformScaffold(
             body: Swipe(
               trackerStore: coordinator.swipe,
-              // onSwipeUp: () => coordinator.homeScreenSwipeUpCallback(),
               child: Stack(
                 children: [
                   SizedBox(
@@ -74,7 +69,5 @@ class HomeScreen extends StatelessWidget {
         },
       );
     });
-    // }
-    // );
   }
 }

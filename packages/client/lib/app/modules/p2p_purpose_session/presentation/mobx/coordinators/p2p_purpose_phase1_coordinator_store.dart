@@ -1,10 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
-// import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-// * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
@@ -12,7 +9,6 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:simple_animations/simple_animations.dart';
-// * Mobx Codegen Inclusion
 part 'p2p_purpose_phase1_coordinator_store.g.dart';
 
 class P2PPurposePhase1CoordinatorStore = _P2PPurposePhase1CoordinatorStoreBase
@@ -20,7 +16,6 @@ class P2PPurposePhase1CoordinatorStore = _P2PPurposePhase1CoordinatorStoreBase
 
 abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
     with Store {
-  // Logic Stores
   final InstantiateAgoraSdkStore instantiateAgoraSdkStore;
   final GesturePillStore gesturePillStore;
   final FadeInAndChangeColorTextStore fadeInColorText;
@@ -28,9 +23,7 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
   final FetchChannelIdStore fetchChannelIdStore;
   final VoiceCallActionsStore voiceCallActionsStore;
   final SwipeDetector swipe;
-  // final
 
-  // Widget Stores
   final BeachWavesTrackerStore beachWaves;
   final SmartFadingAnimatedTextTrackerStore fadingText;
 
@@ -91,15 +84,11 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
     // fadeInColorText.teeUpFadeOut();
     gesturePillStore.setPillAnimationControl(Control.playFromStart);
     fadingText.fadeTheTextOut();
-    // fadingText.togglePause();
     Future.delayed(Seconds.get(3), () {
-      // fadingText.moveToNextMessage();
       Modular.to.navigate('/p2p_purpose_session/phase-2/');
     });
   }
 
   @override
-  List<Object> get props => [
-// some items
-      ];
+  List<Object> get props => [];
 }

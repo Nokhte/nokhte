@@ -23,7 +23,6 @@ class P2PPerspectivesSessionContractImpl
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
-    //
   }
 
   @override
@@ -36,7 +35,6 @@ class P2PPerspectivesSessionContractImpl
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
-    //
   }
 
   @override

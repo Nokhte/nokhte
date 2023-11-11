@@ -38,7 +38,6 @@ class MeshCircleButton extends StatelessWidget {
               child: AnimatedMeshGradient(
                 controller: trackerStore.meshGradientController,
                 colors: const [
-                  // 00
                   Color(0xFF88F4FC),
                   Color(0xFF0BB7FC),
                   Color(0xFF6FE6C9),
@@ -53,5 +52,3 @@ class MeshCircleButton extends StatelessWidget {
     });
   }
 }
-/// ok so this isn't fading out might wanna do something 
-/// else to pass the time

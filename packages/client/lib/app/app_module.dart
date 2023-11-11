@@ -17,13 +17,11 @@ class AppModule extends Module {
 
   AppModule({required this.supabase, required this.connectivityInstance});
 
-  /// List of module imports.
   @override
   List<Module> get imports => [
         ConnectivityModule(connectivityInstance: connectivityInstance),
       ];
 
-  /// List of the global dependency injections (binds).
   @override
   List<Bind> get binds => [
         Bind.singleton<SupabaseClient>((i) => supabase),
@@ -32,7 +30,6 @@ class AppModule extends Module {
         )
       ];
 
-  /// List of routes for navigation within the app.
   @override
   List<ModularRoute> get routes => [
         ModuleRoute(

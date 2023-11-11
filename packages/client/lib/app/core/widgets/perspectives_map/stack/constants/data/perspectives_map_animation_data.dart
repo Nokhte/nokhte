@@ -7,9 +7,6 @@ class PerspectivesMapAnimationData {
   static Color get commitInProgressColor => const Color(0xFFFFB783);
   static Color get regularBaseColor => Colors.white;
   static List<Color> getWhiteArr(int activeIndex) {
-    // final list = List.filled(5, Colors.white.withOpacity(.5));
-    // list[activeIndex] = Colors.white;
-    // return list;
     return getCompletedAndMarkupColors(activeIndex);
   }
 

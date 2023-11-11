@@ -26,21 +26,19 @@ void main() {
   });
 
   test("STEP 1: Document is Created & Not Shared", () async {
-    // arrange
     await SignIn.user1(supabase: supabase);
-    // act
     final res = await SoloSharableDocuments.createSoloDoc(
       supabase: supabase,
       ownerUID: firstUserUID,
       collaboratorUID: secondUserUID,
       docType: 'purpose',
     );
-    // asserts from user 1 perspective
+
     expect(res[0]["owner_uid"], firstUserUID);
     expect(res[0]["collaborator_uid"], secondUserUID);
     expect(res[0]["is_visible_to_collaborator"], false);
     expect(res[0]["session_is_completed"], false);
-    // asserts from user 2 perspective
+
     await SignIn.user2(supabase: supabase);
     final secondRes = await SoloSharableDocuments.fetchDocInfo(
       supabase: supabase,

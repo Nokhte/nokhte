@@ -9,21 +9,14 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class VoiceCallModule extends Module {
   @override
   List<Bind> get binds => [
-        // & Agora RTC Engine Instance
         Bind.singleton<RtcEngine>(
           (i) => createAgoraRtcEngine(),
           export: true,
         ),
-
-        /// % Agora Callback Stores START
         Bind.singleton<AgoraCallbacksStore>(
           (i) => AgoraCallbacksStore(),
           export: true,
         ),
-
-        /// % Agora Callback Stores END
-        // & Remotes Source
-        // # Voice Call
         Bind.singleton<VoiceCallRemoteSourceImpl>(
           (i) => VoiceCallRemoteSourceImpl(
             supabase: Modular.get<SupabaseClient>(),
@@ -32,9 +25,6 @@ class VoiceCallModule extends Module {
           ),
           export: true,
         ),
-        // & Contract Implementation
-
-        // # Voice Call
         Bind.singleton<VoiceCallContractImpl>(
           (i) => VoiceCallContractImpl(
             networkInfo: Modular.get<NetworkInfo>(),
@@ -42,8 +32,6 @@ class VoiceCallModule extends Module {
           ),
           export: true,
         ),
-        // & Logic
-        // # Voice Call
         Bind.singleton<CheckIfUserHasTheQuestion>(
           (i) => CheckIfUserHasTheQuestion(
             contract: i<VoiceCallContract>(),
@@ -92,8 +80,6 @@ class VoiceCallModule extends Module {
           ),
           export: true,
         ),
-        // & MobX Getter Stores
-        // # Voice Call
         Bind.singleton<CheckIfUserHasTheQuestionGetterStore>(
           (i) => CheckIfUserHasTheQuestionGetterStore(
             logic: i<CheckIfUserHasTheQuestion>(),
@@ -142,8 +128,6 @@ class VoiceCallModule extends Module {
           ),
           export: true,
         ),
-        // & Mobx Logic Stores
-        // # Voice Call
         Bind.singleton<CheckIfUserHasTheQuestionStore>(
           (i) => CheckIfUserHasTheQuestionStore(
             getterStore: i<CheckIfUserHasTheQuestionGetterStore>(),

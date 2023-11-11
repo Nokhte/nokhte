@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable
-// * Testing & Mocking Libs
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 

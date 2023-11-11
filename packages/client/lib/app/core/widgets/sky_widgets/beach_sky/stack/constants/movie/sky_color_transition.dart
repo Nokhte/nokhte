@@ -48,5 +48,4 @@ class SkyColorTransition {
                 end: endingGrad[3],
               ),
             );
-  // ..scene(begin: const )
 }

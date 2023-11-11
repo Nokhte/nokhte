@@ -16,19 +16,16 @@ class IndividualSessionModule extends Module {
 
   @override
   List<Bind> get binds => [
-        // % Remote Source
         Bind.singleton<IndividualSessionRemoteSourceImpl>(
           (i) => IndividualSessionRemoteSourceImpl(
             supabase: Modular.get<SupabaseClient>(),
           ),
         ),
-        // % Contract
         Bind.singleton<IndividualSessionContractImpl>(
           (i) => IndividualSessionContractImpl(
               remoteSource: i<IndividualSessionRemoteSource>(),
               networkInfo: Modular.get<NetworkInfoImpl>()),
         ),
-        // % Logic
         Bind.singleton<ChangePerspectivesAudioRecordingStatus>(
           (i) => ChangePerspectivesAudioRecordingStatus(
             contract: i<IndividualSessionContractImpl>(),
@@ -53,7 +50,6 @@ class IndividualSessionModule extends Module {
             contract: i<IndividualSessionContractImpl>(),
           ),
         ),
-        // % Getter Store
         Bind.singleton<ChangePerspectivesAudioRecordingStatusGetterStore>(
           (i) => ChangePerspectivesAudioRecordingStatusGetterStore(
             logic: i<ChangePerspectivesAudioRecordingStatus>(),
@@ -79,7 +75,6 @@ class IndividualSessionModule extends Module {
             logic: i<UploadIndividualPerspectivesAudio>(),
           ),
         ),
-        // % Main Store
         Bind.singleton<ChangePerspectivesAudioRecordingStatusStore>(
           (i) => ChangePerspectivesAudioRecordingStatusStore(
             getterStore: i<ChangePerspectivesAudioRecordingStatusGetterStore>(),
@@ -108,7 +103,6 @@ class IndividualSessionModule extends Module {
             getterStore: i<UploadIndividualPerspectivesAudioGetterStore>(),
           ),
         ),
-        // % Widgets
         Bind.singleton<AudioClipPlatformTrackerStore>(
           (i) => AudioClipPlatformTrackerStore(),
         ),
@@ -133,7 +127,6 @@ class IndividualSessionModule extends Module {
             isReadOnly: true,
           ),
         ),
-        // % Coordinators
         Bind.singleton<IndividualSessionScreenWidgetsCoordinator>(
           (i) => IndividualSessionScreenWidgetsCoordinator(
             audioClipPlatform: i<AudioClipPlatformTrackerStore>(),

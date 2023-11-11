@@ -18,19 +18,16 @@ class P2PPerspectivesSessionModule extends Module {
       ];
   @override
   List<Bind> get binds => [
-        // % Remote Source
         Bind.singleton<P2PPerspectivesSessionRemoteSourceImpl>(
           (i) => P2PPerspectivesSessionRemoteSourceImpl(
             supabase: Modular.get<SupabaseClient>(),
           ),
         ),
-        // % Contract Impl
         Bind.singleton<P2PPerspectivesSessionContractImpl>(
           (i) => P2PPerspectivesSessionContractImpl(
               remoteSource: i<P2PPerspectivesSessionRemoteSource>(),
               networkInfo: Modular.get<NetworkInfoImpl>()),
         ),
-        // % Logic
         Bind.singleton<CommitThePerspectives>(
           (i) => CommitThePerspectives(
             contract: i<P2PPerspectivesSessionContractImpl>(),
@@ -56,7 +53,6 @@ class P2PPerspectivesSessionModule extends Module {
             contract: i<P2PPerspectivesSessionContractImpl>(),
           ),
         ),
-        // % Getter
         Bind.singleton<CommitThePerspectivesGetterStore>(
           (i) => CommitThePerspectivesGetterStore(
             logic: i<CommitThePerspectives>(),
@@ -82,7 +78,6 @@ class P2PPerspectivesSessionModule extends Module {
             logic: i<UpdateTheStagingArea>(),
           ),
         ),
-        // % Main
         Bind.singleton<CommitThePerspectivesStore>(
           (i) => CommitThePerspectivesStore(
             getterStore: i<CommitThePerspectivesGetterStore>(),
@@ -108,7 +103,6 @@ class P2PPerspectivesSessionModule extends Module {
             getterStore: i<UpdateTheStagingAreaGetterStore>(),
           ),
         ),
-        // % Widgets
         Bind.singleton<BeachHorizonWaterTrackerStore>(
           (i) => BeachHorizonWaterTrackerStore(
             isGoingToFullSky: true,
@@ -133,7 +127,6 @@ class P2PPerspectivesSessionModule extends Module {
             isReadOnly: false,
           ),
         ),
-        // % Widgets Coordinator
         Bind.singleton<PerspectivesWidgetsCoordinatorStore>(
           (i) => PerspectivesWidgetsCoordinatorStore(
             beachWaves: i<BeachWavesTrackerStore>(),
@@ -143,8 +136,6 @@ class P2PPerspectivesSessionModule extends Module {
             perspectivesMap: i<PerspectivesMapStore>(),
           ),
         ),
-
-        // % Coordinator
         Bind.singleton<P2PPerspectiveSessionCoordinatorStore>(
           (i) => P2PPerspectiveSessionCoordinatorStore(
             swipe: i<SwipeDetector>(),

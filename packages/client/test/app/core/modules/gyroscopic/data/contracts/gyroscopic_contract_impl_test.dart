@@ -30,12 +30,9 @@ void main() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       });
       test("when online and non-empty should return a model", () async {
-        // arrange
         when(mockRemoteSource.getDirectionAngle())
             .thenAnswer((realInvocation) => ConstantCompassEvent.successCase);
-        // act
         final res = await contract.getDirectionAngle(tParams);
-        // assert
         res.fold((failure) {}, (entity) {
           entity.angleStream.listen((event) {
             expect(event, 95);
@@ -43,12 +40,9 @@ void main() {
         });
       });
       test("when online and empty should return a model", () async {
-        // arrange
         when(mockRemoteSource.getDirectionAngle()).thenAnswer(
             (realInvocation) => ConstantCompassEvent.notSuccessCase);
-        // act
         final res = await contract.getDirectionAngle(tParams);
-        // assert
         res.fold((failure) {}, (entity) {
           entity.angleStream.listen((event) {
             expect(event, -1);

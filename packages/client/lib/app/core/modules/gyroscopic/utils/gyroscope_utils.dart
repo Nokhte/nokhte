@@ -2,7 +2,6 @@ import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
 
 class GyroscopeUtils {
   static CloserTo determineCloser(int lowerBound, int upperBound, int input) {
-    // Calculate the absolute differences between input and lowerBound, and input andupperBound
     int diffToStart = (input - lowerBound).abs();
     int diffToEnd = (input - upperBound).abs();
 
@@ -48,26 +47,20 @@ class GyroscopeUtils {
   static int clockwiseComparison(int firstVal, int secondVal) {
     int clockwiseDifference = (firstVal - secondVal + 360) % 360;
     if (clockwiseDifference > 0 && clockwiseDifference <= 180) {
-      // angle2 is greater (clockwise) than angle1
       return 2;
     } else if (clockwiseDifference > 180 && clockwiseDifference < 360) {
-      // angle1 is clockwise greater than angle2
       return 1;
     } else {
-      // They are either the same angle or 180 degrees apart (opposite directions)
       return 0;
     }
   }
 
   static Threshold isAboveUpperBound(int value, int upperBound) {
     throw UnimplementedError();
-    // so how should we be thinking about this algorithm?
-    // well what you
   }
 
   static Threshold isInThresholdRange(
       int value, int lowerBound, int upperBound) {
-    // Range does not wrap around (e.g., 350 to 30 degrees)
     if (lowerBound <= upperBound) {
       if (value >= lowerBound && value <= upperBound) {
         return Threshold(
@@ -80,14 +73,12 @@ class GyroscopeUtils {
             isInRange: false, closerTo: CloserTo.initial, angle: value);
       }
     } else {
-      // Range wraps around (e.g., 350 to 30 degrees)
       if (value >= lowerBound || value <= upperBound) {
         return Threshold(
           isInRange: true,
           closerTo: determineCloser(lowerBound, upperBound, value),
           angle: value,
         );
-        //
       } else {
         return Threshold(
             isInRange: false, closerTo: CloserTo.initial, angle: value);
@@ -99,7 +90,6 @@ class GyroscopeUtils {
       int relativeReferenceAngle, int oldReferenceAngle) {
     int newReferenceAngle;
     final theDifference = newReferenceAngle = (360 - relativeReferenceAngle);
-    // print("the difference ${(oldReferenceAngle - theDifference) % 360}");
     if (oldReferenceAngle > 180) {
       newReferenceAngle = (theDifference - oldReferenceAngle).abs();
     } else {
@@ -151,7 +141,7 @@ class GyroscopeUtils {
   static GyroSetupReturnType quadrantSetup({
     required int numberOfQuadrants,
     required int quadrantSpread,
-    required int startingQuadrant, // count from 0
+    required int startingQuadrant,
   }) {
     final quadrantList = quadrantPartitioner(
       numberOfQuadrants: numberOfQuadrants,
@@ -161,8 +151,6 @@ class GyroscopeUtils {
                 quadrantList[startingQuadrant].startingAngle) /
             2)
         .floor();
-    // print(
-    //     "what is the quadrant starting angle ${quadrantList[startingQuadrant].startingAngle} ending ${quadrantList[startingQuadrant].endingAngle}");
     int desiredStartingAngle =
         quadrantList[startingQuadrant].startingAngle + quadRange;
     if (startingQuadrant == 0) {
@@ -193,6 +181,5 @@ class GyroscopeUtils {
       }
     }
     return -1;
-    //
   }
 }

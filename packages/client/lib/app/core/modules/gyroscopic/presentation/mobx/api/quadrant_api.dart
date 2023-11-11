@@ -1,15 +1,11 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api, missing_override_of_must_be_overridden
-// * Mobx Import
 import 'dart:async';
-
 import 'package:mobx/mobx.dart';
-// * Equatable Import
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/domain/domain.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/utils/utils.dart';
-// * Mobx Codegen Inclusion
 part 'quadrant_api.g.dart';
 
 class QuadrantAPI = _QuadrantAPIBase with _$QuadrantAPI;
@@ -154,7 +150,6 @@ abstract class _QuadrantAPIBase extends GyroscopeAPI with Store {
   negativeModeCallback(int value) {
     switch (desiredNegativeModeBehavior) {
       case NegativeModeBehaviors.resetRefAngle:
-        // print("reset ref angle piece");
         int comparison =
             GyroscopeUtils.clockwiseComparison(firstValue, secondValue);
         if (comparison == 1) {
@@ -163,12 +158,9 @@ abstract class _QuadrantAPIBase extends GyroscopeAPI with Store {
           currentMode = GyroscopeModes.regular;
         }
       case NegativeModeBehaviors.indexNegativeQuadrants:
-        // print("index negative quadrants piece");
-        // print("what's the value for negative is it just zero?? $value");
         final diff = 360 - value;
         if (diff.isNegative || value == 0) {
           currentMode = GyroscopeModes.regular;
-          // print("is this the part that isn't working?? $diff");
           return;
         }
         final getCurrQuad = GyroscopeUtils.getCurrentQuadrant(
@@ -176,7 +168,6 @@ abstract class _QuadrantAPIBase extends GyroscopeAPI with Store {
           quadrants: setupReturnType.quadrantInfo,
         );
         int newQuad = (getCurrQuad * -1) - 1;
-        // print("diff: $diff | getCurrQuad $getCurrQuad | newQuad $newQuad ");
         if (isEligableForNegativeQuadrantIndexing(value)) {
           setCurrentQuadrant(newQuad);
         }

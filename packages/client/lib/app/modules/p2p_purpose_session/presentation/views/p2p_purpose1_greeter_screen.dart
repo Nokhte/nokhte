@@ -4,7 +4,6 @@ import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/coordinators/coordinators.dart';
-// import 'package:swipe/swipe.dart';
 
 class P2PPurpose1GreeterScreen extends StatelessWidget {
   final P2PPurposePhase1CoordinatorStore coordinator;
@@ -23,47 +22,46 @@ class P2PPurpose1GreeterScreen extends StatelessWidget {
     );
     return LayoutBuilder(
       builder: ((context, constraints) => PlatformScaffold(
-              body: Swipe(
-            trackerStore: coordinator.swipe,
-            // onSwipeUp: () async => coordinator.swipeUpCallback(),
-            child: Stack(
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  child: SmartBeachWaves(
-                    stateTrackerStore: coordinator.beachWaves,
+            body: Swipe(
+              trackerStore: coordinator.swipe,
+              child: Stack(
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child: SmartBeachWaves(
+                      stateTrackerStore: coordinator.beachWaves,
+                    ),
                   ),
-                ),
-                Center(
-                  child: SmartFadingAnimatedText(
-                    initialFadeInDelay: Seconds.get(0),
-                    stateTrackerStore: coordinator.fadingText,
+                  Center(
+                    child: SmartFadingAnimatedText(
+                      initialFadeInDelay: Seconds.get(0),
+                      stateTrackerStore: coordinator.fadingText,
+                    ),
                   ),
-                ),
-                Column(
-                  children: [
-                    Expanded(
-                      child: Container(),
-                    ),
-                    Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: [
-                        GesturePill(
-                          size: size,
-                          stateTrackerStore: coordinator.gesturePillStore,
-                        ),
-                      ],
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(bottom: 20),
-                    ),
-                  ],
-                ),
-              ],
+                  Column(
+                    children: [
+                      Expanded(
+                        child: Container(),
+                      ),
+                      Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          GesturePill(
+                            size: size,
+                            stateTrackerStore: coordinator.gesturePillStore,
+                          ),
+                        ],
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 20),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ))),
+          )),
     );
-    // });
   }
 }

@@ -8,7 +8,6 @@ abstract class FetchThePurposeRemoteSource {
 class FetchThePurposeSourceImpl implements FetchThePurposeRemoteSource {
   final SupabaseClient supabase;
   final FinishedCollaborativeP2PPurposeDocumentsQueries queries;
-  // finish this off
 
   FetchThePurposeSourceImpl({
     required this.supabase,
@@ -21,4 +20,3 @@ class FetchThePurposeSourceImpl implements FetchThePurposeRemoteSource {
     return queries.fetchDocInfo(docType: 'purpose');
   }
 }
-// nateretla

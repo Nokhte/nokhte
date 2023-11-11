@@ -118,7 +118,6 @@ class WaterColorsAndStops {
         ColorAndStop(Color(0xFFF4DD98), .8620),
         ColorAndStop(Color(0xFFF5DC91), 1.00),
       ];
-  // 🌚
   static List<ColorAndStop> get schedulingDuskWaterFullScreen => const [
         ColorAndStop(Color(0xFF1D3741), 0),
         ColorAndStop(Color(0xFF1D3741), 0),
@@ -129,18 +128,16 @@ class WaterColorsAndStops {
         ColorAndStop(Color(0xFF23364A), .7248),
         ColorAndStop(Color(0xFF274D4F), 1.0),
       ];
-  // 🌚
   static List<ColorAndStop> get schedulingDuskWaterHalfScreen => const [
         ColorAndStop(Color(0xFF1D3741), 0),
         ColorAndStop(Color(0xFF1D3741), .1302),
         ColorAndStop(Color(0xFF1D3741), .2548),
-        ColorAndStop(Color(0xFF1D3741), .4480), // +.1
+        ColorAndStop(Color(0xFF1D3741), .4480),
         ColorAndStop(Color(0xFF1D3741), .55),
-        ColorAndStop(Color(0xFF122430), .601), // mover
+        ColorAndStop(Color(0xFF122430), .601),
         ColorAndStop(Color(0xFF23364A), .7248),
         ColorAndStop(Color(0xFF274D4F), .8620),
       ];
-  // 🌅
   static List<ColorAndStop> get schedulingMorningWaterFullScreen => const [
         ColorAndStop(Color(0xFF1D3741), 0),
         ColorAndStop(Color(0xFF274D4F), .202),
@@ -151,7 +148,6 @@ class WaterColorsAndStops {
         ColorAndStop(Color(0xFF569F88), .8620),
         ColorAndStop(Color(0xFFC0DAB4), 1.00),
       ];
-  // 🌅
   static List<ColorAndStop> get schedulingMorningWaterHalfScreen => const [
         ColorAndStop(Color(0xFF1D3741), 0),
         ColorAndStop(Color(0xFF274D4F), .2),
@@ -183,7 +179,6 @@ class WaterColorsAndStops {
         ColorAndStop(Color(0xFF73999D), .9020),
         ColorAndStop(Color(0xFFAAB5B4), 1.00),
       ];
-  //
 
   static List<ColorAndStop> get schedulingEveningWaterFullScreen => const [
         ColorAndStop(Color(0xFF1D3741), 0.05),

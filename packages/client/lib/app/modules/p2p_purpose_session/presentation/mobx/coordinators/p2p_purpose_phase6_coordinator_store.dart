@@ -1,7 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
 import 'dart:async';
-
 import 'package:const_date_time/const_date_time.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -12,7 +10,6 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/scheduling_delta/stack/stack.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
-// * Mobx Codegen Inclusion
 part 'p2p_purpose_phase6_coordinator_store.g.dart';
 
 class P2PPurposePhase6CoordinatorStore = _P2PPurposePhase6CoordinatorStoreBase
@@ -20,7 +17,6 @@ class P2PPurposePhase6CoordinatorStore = _P2PPurposePhase6CoordinatorStoreBase
 
 abstract class _P2PPurposePhase6CoordinatorStoreBase
     extends BaseQuadrantAPIReceiver with Store {
-  // final QuadrantAPI quadrantAPI;
   final SchedulingWidgetsCoordinatorStore widgets;
   final ConveyerBeltTextStore conveyerBelt;
   final SchedulingCoordinatorStore scheduling;

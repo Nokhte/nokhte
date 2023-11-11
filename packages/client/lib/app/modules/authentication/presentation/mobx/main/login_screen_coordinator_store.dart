@@ -1,20 +1,15 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
 import 'dart:io';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-// * Equatable Import
 import 'package:nokhte/app/core/interfaces/auth_providers.dart';
 import 'package:nokhte/app/core/types/directions.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-
 import 'auth_provider_store.dart';
 import 'auth_state_store.dart';
-// * Mobx Codegen Inclusion
 part 'login_screen_coordinator_store.g.dart';
 
 class LoginScreenCoordinatorStore = _LoginScreenCoordinatorStoreBase

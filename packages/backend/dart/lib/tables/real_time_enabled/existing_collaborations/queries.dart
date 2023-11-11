@@ -31,10 +31,6 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
         .eq(isCurrentlyActive, !newActivityStatus)
         .select();
     print("did it happen??? $something");
-    // so test this method, make sure it works, then all you need to do is flip
-    // the switch at the end of the session and if you want to cover your ass
-    // down the line, you can create a method that recursively changes all a persons
-    // collaborations to false thats activated on the home page
   }
 
   Future<void> deleteExistingCollaboration({

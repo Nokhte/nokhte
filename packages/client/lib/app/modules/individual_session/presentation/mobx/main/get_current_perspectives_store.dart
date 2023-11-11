@@ -5,7 +5,6 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/modules/individual_session/domain/domain.dart';
 import 'package:nokhte/app/modules/individual_session/presentation/presentation.dart';
-// * Mobx Codegen Inclusion
 part 'get_current_perspectives_store.g.dart';
 
 class GetCurrentPerspectivesStore = _GetCurrentPerspectivesStoreBase

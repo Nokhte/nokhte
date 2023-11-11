@@ -21,20 +21,17 @@ class HomeModule extends Module {
       ];
   @override
   List<Bind> get binds => [
-        // & Remote Source
         Bind.singleton<HomeRemoteSourceImpl>(
           (i) => HomeRemoteSourceImpl(
             supabase: Modular.get<SupabaseClient>(),
           ),
         ),
-        // & Contract Implementation
         Bind.singleton<HomeContractImpl>(
           (i) => HomeContractImpl(
             remoteSource: i<HomeRemoteSourceImpl>(),
             networkInfo: Modular.get<NetworkInfoImpl>(),
           ),
         ),
-        // & Logic
         Bind.singleton<AddNameToDatabase>(
           (i) => AddNameToDatabase(
             contract: i<HomeContract>(),
@@ -45,7 +42,6 @@ class HomeModule extends Module {
             contract: i<HomeContract>(),
           ),
         ),
-        // & MobX Getter Stores
         Bind.singleton<AddNameToDatabaseGetterStore>(
           (i) => AddNameToDatabaseGetterStore(
             addNameLogic: i<AddNameToDatabase>(),
@@ -56,7 +52,6 @@ class HomeModule extends Module {
             getCollaboratorPhraseLogic: i<GetCollaboratorPhrase>(),
           ),
         ),
-        // & Mobx Mother Stores
         Bind.singleton<AddNameToDatabaseStore>(
           (i) => AddNameToDatabaseStore(
             addNameGetterStore: i<AddNameToDatabaseGetterStore>(),
@@ -68,7 +63,6 @@ class HomeModule extends Module {
                 i<GetCollaboratorPhraseGetterStore>(),
           ),
         ),
-        // & Widget State Management Stores
         Bind.singleton<SmartFadingAnimatedTextTrackerStore>(
           (i) => SmartFadingAnimatedTextTrackerStore(
             isInfinite: true,
@@ -84,12 +78,10 @@ class HomeModule extends Module {
         Bind.singleton<SwipeDetector>(
           (i) => SwipeDetector(),
         ),
-        // & Coordinator Store
         Bind.singleton<HomeScreenCoordinatorStore>(
           (i) => HomeScreenCoordinatorStore(
             portalAPI: i<PortalAPI>(),
             swipe: i<SwipeDetector>(),
-            // quadrantAPI: i<QuadrantAPI>(),
             gesturePillStore: i<GesturePillStore>(),
             beachWaves: i<BeachWavesTrackerStore>(),
             addNameToDatabaseStore: i<AddNameToDatabaseStore>(),

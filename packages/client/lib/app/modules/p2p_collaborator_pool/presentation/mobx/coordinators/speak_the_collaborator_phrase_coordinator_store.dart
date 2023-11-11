@@ -1,9 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
-// import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-// * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -16,7 +13,6 @@ import 'package:nokhte/app/core/modules/local_speech_to_text/mobx/mobx.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/presentation/mobx/main/main.dart';
 
 import 'widget_coordinator_store.dart';
-// * Mobx Codegen Inclusion
 part 'speak_the_collaborator_phrase_coordinator_store.g.dart';
 
 class SpeakTheCollaboratorPhraseCoordinatorStore = _SpeakTheCollaboratorPhraseCoordinatorStoreBase
@@ -143,14 +139,12 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   audioButtonHoldStartCallback() {
     validateQueryStore.resetCheckerFields();
     meshCircleStore.toggleColorAnimation();
-    // breathingPentagonsStore.gestureFunctionRouter();
     localSpeechToText.startRecordingStore(NoParams());
   }
 
   @action
   audioButtonHoldEndCallback() async {
     meshCircleStore.toggleColorAnimation();
-    // breathingPentagonsStore.gestureFunctionRouter();
     await localSpeechToText.stopRecordingStore(NoParams()).then((value) {
       onSpeechResultStore
           .addSpeechResult(localSpeechToText.stopRecordingStore.resultingWords);

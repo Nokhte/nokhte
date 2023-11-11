@@ -23,4 +23,3 @@ class ValidateQueryParams extends Equatable {
   @override
   List<Object> get props => [query];
 }
-// write the tests for these when you get back

@@ -98,5 +98,4 @@ class IndividualSessionScreen extends StatelessWidget {
       ),
     );
   }
-  // same transition
 }

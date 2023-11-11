@@ -1,11 +1,8 @@
 // ignore_for_file: no_logic_in_create_state
 
-// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
-// import 'package:nokhte/app/core/interfaces/auth_providers.dart';
-// import 'dart:io';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/authentication/presentation/presentation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -18,7 +15,6 @@ class LoginScreen extends StatelessWidget {
     required this.coordinator,
   }) {
     coordinator.screenConstructor();
-    // coordinator.flipTextVisibility();
   }
 
   @override
@@ -65,7 +61,6 @@ class LoginScreen extends StatelessWidget {
                 ],
               ),
             ),
-            // ),
           );
         });
   }

@@ -1,5 +1,3 @@
-// So I believe what we want are 4 different mock classes
-// AuthenticatedFakeGoTrue
 import 'package:flutter_test/flutter_test.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

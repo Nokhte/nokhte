@@ -32,16 +32,13 @@ void main() {
           'collaborator_one.eq.$firstUserUID,collaborator_two.eq.$firstUserUID');
     });
     test("should be able to read from the table", () async {
-      /// arrange
       await SignIn.user1(supabase: supabase);
       final existingCollaborationsQueries =
           ExistingCollaborationsQueries(supabase: supabase);
 
-      /// act
       final res =
           await existingCollaborationsQueries.fetchActiveCollaborationInfo();
 
-      /// assert
       expect(res, isNotEmpty);
       expect(res[0]["collaborator_one"], firstUserUID);
       expect(res[0]["collaborator_two"], secondUserUID);
@@ -50,31 +47,25 @@ void main() {
     });
 
     test("should be properly identified as collaborator_one", () async {
-      /// arrange
       await SignIn.user1(supabase: supabase);
       final existingCollaborationsQueries =
           ExistingCollaborationsQueries(supabase: supabase);
 
-      /// act
       final res = await existingCollaborationsQueries
           .fetchActiveCollaboratorsUIDAndNumber();
 
-      /// assert
       expect(res, isNotEmpty);
       expect(res[0], secondUserUID);
       expect(res[1], 2);
     });
     test("should be properly identified as collaborator_two", () async {
-      /// arrange
       await SignIn.user2(supabase: supabase);
       final existingCollaborationsQueries =
           ExistingCollaborationsQueries(supabase: supabase);
 
-      /// act
       final res = await existingCollaborationsQueries
           .fetchActiveCollaboratorsUIDAndNumber();
 
-      /// assert
       expect(res, isNotEmpty);
       expect(res[0], firstUserUID);
       expect(res[1], 1);
@@ -82,17 +73,16 @@ void main() {
     test(
         "should be able to update the status of the collaboration [let's say at the end of the purpose session]",
         () async {
-      // arrange
       await SignIn.user1(supabase: supabase);
       final existingCollaborationsQueries =
           ExistingCollaborationsQueries(supabase: supabase);
-      // act
+
       await existingCollaborationsQueries.updateActivityStatus(
         collaboratorOneUID: firstUserUID,
         collaboratorTwoUID: secondUserUID,
         newActivityStatus: false,
       );
-      // assert
+
       final res =
           await existingCollaborationsQueries.fetchAllCollaborationInfo();
       expect(res, isNotEmpty);
@@ -102,8 +92,6 @@ void main() {
       expect(res[0]["who_gets_the_question"], 1);
     });
   });
-
-  // test("if they are collaborator_one")
 
   group("If they are collaborator_two...", () {
     setUpAll(() async {
@@ -118,16 +106,13 @@ void main() {
           'collaborator_one.eq.$firstUserUID,collaborator_two.eq.$firstUserUID');
     });
     test("should be able to read from the table", () async {
-      /// arrange
       await SignIn.user1(supabase: supabase);
       final existingCollaborationsQueries =
           ExistingCollaborationsQueries(supabase: supabase);
 
-      /// act
       final res =
           await existingCollaborationsQueries.fetchActiveCollaborationInfo();
 
-      /// assert
       expect(res, isNotEmpty);
       expect(res[0]["collaborator_one"], secondUserUID);
       expect(res[0]["collaborator_two"], firstUserUID);
@@ -135,17 +120,14 @@ void main() {
     });
 
     test("should be properly identified as collaborator_one", () async {
-      /// arrange
       await SignIn.user2(supabase: supabase);
 
       final existingCollaborationsQueries =
           ExistingCollaborationsQueries(supabase: supabase);
 
-      /// act
       final res = await existingCollaborationsQueries
           .fetchActiveCollaboratorsUIDAndNumber();
 
-      /// assert
       expect(res, isNotEmpty);
       expect(res[0], firstUserUID);
       expect(res[1], 2);

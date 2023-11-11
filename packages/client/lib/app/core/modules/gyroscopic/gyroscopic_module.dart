@@ -1,21 +1,16 @@
 import 'package:nokhte/app/core/modules/gyroscopic/data/data.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/domain/domain.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
-// * 3rd Parties
 import 'package:flutter_modular/flutter_modular.dart';
-//    * Core Imports
 import 'package:nokhte/app/core/network/network_info.dart';
-// ***************************************************
 
 class GyroscopicModule extends Module {
   @override
   List<Bind> get binds => [
-        // & Data Source
         Bind.singleton<GyroscopicRemoteSourceImpl>(
           (i) => GyroscopicRemoteSourceImpl(),
           export: true,
         ),
-        // & Contract Implementation
         Bind.singleton<GyroscopicContractImpl>(
           (i) => GyroscopicContractImpl(
             networkInfo: Modular.get<NetworkInfoImpl>(),
@@ -23,7 +18,6 @@ class GyroscopicModule extends Module {
           ),
           export: true,
         ),
-        // & Logic
         Bind.singleton<GetDirectionAngle>(
           (i) => GetDirectionAngle(
             contract: i<GyroscopicContract>(),
@@ -42,7 +36,6 @@ class GyroscopicModule extends Module {
           ),
           export: true,
         ),
-        // & MobX Getter Stores
         Bind.singleton<GetDirectionAngleGetterStore>(
           (i) => GetDirectionAngleGetterStore(
             logic: i<GetDirectionAngle>(),
@@ -59,7 +52,6 @@ class GyroscopicModule extends Module {
           (i) => SetReferenceAngleGetterStore(logic: i<SetReferenceAngle>()),
           export: true,
         ),
-        // & Mobx Mother Stores
         Bind.singleton<GetDirectionAngleStore>(
           (i) => GetDirectionAngleStore(
             getterStore: i<GetDirectionAngleGetterStore>(),
@@ -78,7 +70,6 @@ class GyroscopicModule extends Module {
           ),
           export: true,
         ),
-        // & Coordinator Store
         Bind.singleton<QuadrantAPI>(
           (i) => QuadrantAPI(
             resetRefAngle: i<ResetRefAngleStore>(),

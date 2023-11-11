@@ -1,13 +1,11 @@
 // ignore_for_file: sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
-// import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
-// import 'package:swipe/swipe.dart';
 
 class P2PPurpose2ConsultationScreen extends StatelessWidget {
   final P2PPurposePhase2CoordinatorStore coordinator;
@@ -37,22 +35,16 @@ class P2PPurpose2ConsultationScreen extends StatelessWidget {
                     stateTrackerStore: coordinator.beachWaves,
                   ),
                 ),
-                // Observer(
-                //   builder: (context) {
-                //     return
                 Center(
                   child: SmartFadingAnimatedText(
                     initialFadeInDelay: Seconds.get(0),
                     stateTrackerStore: coordinator.fadingText,
                   ),
                 ),
-                //   },
-                // ),
                 Column(
                   children: [
                     Expanded(
-                      child:
-                          Container(), // Empty SizedBox to take up available space
+                      child: Container(),
                     ),
                     GestureDetector(
                       onLongPressStart: (_) =>
@@ -78,6 +70,5 @@ class P2PPurpose2ConsultationScreen extends StatelessWidget {
             ),
           ))),
     );
-    // });
   }
 }

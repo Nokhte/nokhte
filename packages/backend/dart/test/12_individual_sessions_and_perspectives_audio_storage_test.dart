@@ -51,10 +51,9 @@ void main() {
   });
 
   test("user 1 & 2 individual Session Stuff", () async {
-    // arrange i
     await user1Queries.createNewSession();
     await user2Queries.createNewSession();
-    // act i
+
     await user1Queries.updateSessionMetadata(
       newMetadata:
           IndividualAndCollectiveSessionFixtures.getTestMetadata(tSetup)
@@ -65,6 +64,7 @@ void main() {
           IndividualAndCollectiveSessionFixtures.getTestMetadata(tSetup)
               .toJson(),
     );
+
     await user1StorageQueries.uploadPerspective(tAudioClipData);
     await user2StorageQueries.uploadPerspective(tAudioClipData);
     final userPath = StorageUtilities.getPersonalPerspectivesPath(
@@ -77,26 +77,26 @@ void main() {
         await user1Queries.supabase.storage.from('perspectives_audio').list(
               path: userPath,
             );
-    // assert i
+
     expect(res[0].name, "${user1Queries.collaboratorInfo.theUsersUID}_one.wav");
-    //arrange i
+
     final collaboratorPath = StorageUtilities.getCollectiveSessionPaths(
       extrapolationInfo: extrapolationInfo,
       collaboratorInfo: user1Queries.collaboratorInfo,
       excludeFile: true,
     )[0]
         .endPath;
-    // // act i
+
     await user1StorageQueries.moveToCollectiveSpace(extrapolationInfo);
     await user2StorageQueries.moveToCollectiveSpace(extrapolationInfo);
     final res2 =
         await user1Queries.supabase.storage.from('perspectives_audio').list(
               path: collaboratorPath,
             );
-    // assert i
+
     expect(
         res2[0].name, "${user1Queries.collaboratorInfo.theUsersUID}_one.wav");
-    // arrange ii
+
     final res3 = await user1StorageQueries
         .downloadTheCollaboratorsAudioClips(extrapolationInfo);
     expect(res3, isNotEmpty);

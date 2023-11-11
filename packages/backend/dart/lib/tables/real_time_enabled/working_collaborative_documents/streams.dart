@@ -36,7 +36,6 @@ class WorkingCollaborativeDocumentsStreams extends CollaborativeQueries {
       "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
       collaboratorInfo.theUsersUID,
     )) {
-      // .eq("${collaboratorInfo.theCollaboratorsNumber}_uid", userUID)) {
       if (!docContentListeningStatus) {
         break;
       }
@@ -79,7 +78,6 @@ class WorkingCollaborativeDocumentsStreams extends CollaborativeQueries {
         .stream(primaryKey: ['id']).eq(
             "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
             collaboratorInfo.theUsersUID)) {
-      // .eq("${collaboratorInfo.theCollaboratorsNumber}_uid", userUID)) {
       if (!collaboratorPresenceListeningStatus) {
         break;
       }

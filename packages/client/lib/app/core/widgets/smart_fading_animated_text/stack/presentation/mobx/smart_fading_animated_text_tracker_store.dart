@@ -1,12 +1,9 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
 import 'package:mobx/mobx.dart';
-// * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
-// * Mobx Codegen Inclusion
 part 'smart_fading_animated_text_tracker_store.g.dart';
 
 class SmartFadingAnimatedTextTrackerStore = _SmartFadingAnimatedTextTrackerStoreBase
@@ -144,7 +141,6 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
       showText = true;
     } else {
       showText = false;
-      // if (currentIndex == messagesData.length - 1 && !isInfinite) return;
       await oneSecondDelay(() => moveToNextMessage());
     }
   }

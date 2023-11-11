@@ -20,7 +20,6 @@ class WorkingCollaborativeSchedulingStream extends CollaborativeQueries {
       '${collaboratorInfo.theUsersCollaboratorNumber}_uid',
       collaboratorInfo.theUsersUID,
     )) {
-      //
       if (!listeningStatus) {
         break;
       }
@@ -45,6 +44,5 @@ class WorkingCollaborativeSchedulingStream extends CollaborativeQueries {
         );
       }
     }
-    //
   }
 }

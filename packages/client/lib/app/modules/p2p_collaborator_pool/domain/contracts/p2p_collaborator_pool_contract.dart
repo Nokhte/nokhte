@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/domain.dart';
 import 'package:nokhte_backend/constants/types/types.dart';
-// import 'package:primala/app/modules/p2p_collaborator_pool/domain/logic/logic.dart';
 
 abstract class P2PCollaboratorPoolContract {
   Future<Either<Failure, CollaboratorPhraseValidationEntity>> validateQuery(

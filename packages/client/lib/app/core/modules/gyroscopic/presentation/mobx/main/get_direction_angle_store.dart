@@ -5,7 +5,6 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/domain/domain.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
-// * Mobx Codegen Inclusion
 part 'get_direction_angle_store.g.dart';
 
 class GetDirectionAngleStore = _GetDirectionAngleStoreBase

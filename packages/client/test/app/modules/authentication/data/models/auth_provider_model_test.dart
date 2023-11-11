@@ -1,13 +1,8 @@
-// * Nokhte Data Import
 import 'package:nokhte/app/modules/authentication/data/models/auth_provider_model.dart';
-// * Nokhte Domain Import
 import 'package:nokhte/app/modules/authentication/domain/entities/auth_provider_entity.dart';
-// * Nokhte Core Import
 import 'package:nokhte/app/core/interfaces/auth_providers.dart';
-// * Test-Specific Imports
 import '../../fixtures/supabase_auth_fixture.dart';
 import 'package:flutter_test/flutter_test.dart';
-// * Misc Libs
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() {
@@ -19,7 +14,6 @@ void main() {
       () {
     group('Authenticated', () {
       setUp(() async {
-        // * arrange
         tAuthProvider = const AuthProviderModel(
             authProvider: AuthProvider.apple, authProviderStatus: true);
         final AuthState authState =
@@ -36,19 +30,16 @@ void main() {
       test(
           "should return a valid model when user has fully completed apple authentication",
           () async {
-        // * act
         final AuthProviderModel result = await AuthProviderModel.fromSupabase(
           AuthProvider.apple,
           tAuthResponse,
         );
 
-        // * assert
         expect(result, tAuthProvider);
       });
     });
     group('UnAuthenticated', () {
       setUp(() async {
-        // * arrange
         tAuthProvider = const AuthProviderModel(
             authProvider: AuthProvider.apple, authProviderStatus: false);
         final AuthState authState =
@@ -63,12 +54,10 @@ void main() {
     test(
         "should return a valid model when user hasn't fully completed apple authentication",
         () async {
-      // * act
       final AuthProviderModel result = await AuthProviderModel.fromSupabase(
         AuthProvider.apple,
         tAuthResponse,
       );
-      // * assert
       expect(result, tAuthProvider);
     });
   });

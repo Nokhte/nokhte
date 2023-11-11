@@ -3,7 +3,6 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
-// import 'package:swipe/swipe.dart';
 
 class P2PPurpose4ReciprocateAttentionScreen extends StatelessWidget {
   final P2PPurposePhase4CoordinatorStore coordinator;
@@ -39,6 +38,5 @@ class P2PPurpose4ReciprocateAttentionScreen extends StatelessWidget {
             ),
           ))),
     );
-    // });
   }
 }

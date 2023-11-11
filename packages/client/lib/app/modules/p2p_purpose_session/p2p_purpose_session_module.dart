@@ -30,9 +30,6 @@ class P2PCollaboratorSessionModule extends Module {
 
   @override
   List<Bind> get binds => [
-        // conveyer belt widget stack
-
-        // & Widget State Management Stores
         Bind.factory<BeachWavesTrackerStore>(
           (i) => BeachWavesTrackerStore(),
         ),
@@ -84,7 +81,6 @@ class P2PCollaboratorSessionModule extends Module {
             isReadOnly: false,
           ),
         ),
-        // & Coordinator Stores
         Bind.singleton<SchedulingWidgetsCoordinatorStore>(
           (i) => SchedulingWidgetsCoordinatorStore(
             schedulingDelta: i<SchedulingDeltaStore>(),

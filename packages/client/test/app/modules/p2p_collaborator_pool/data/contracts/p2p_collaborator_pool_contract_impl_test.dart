@@ -28,7 +28,6 @@ void main() {
             .thenAnswer((realInvocation) async => true);
       });
       test("when online and non-empty should return a false model", () async {
-        // arrange
         when(mockRemoteSource.validateQuery(query: "some phrase"))
             .thenAnswer((realInvocation) async => [
                   [
@@ -38,20 +37,16 @@ void main() {
                     {"id": 1}
                   ]
                 ]);
-        // act
         final res =
             await p2pCollaboratorPoolContract.validateQuery("some phrase");
-        // assert
         expect(
             res, ConstantCollaboratorPhraseValidationModel.wrappedSuccessCase);
       });
       test("when online and empty should return a true model", () async {
         when(mockRemoteSource.validateQuery(query: "some phrase"))
             .thenAnswer((realInvocation) async => [[], []]);
-        // act
         final res =
             await p2pCollaboratorPoolContract.validateQuery("some phrase");
-        // assert
         expect(res,
             ConstantCollaboratorPhraseValidationModel.wrappedNotSuccessCase);
       });
@@ -76,13 +71,10 @@ void main() {
             .thenAnswer((realInvocation) async => true);
       });
       test("when online w/ a  200 should return a successful model", () async {
-        // arrange
         when(mockRemoteSource.enterThePool(phraseIDs: PhraseIDs.phraseID))
             .thenAnswer((realInvocation) async => FunctionResponses.successRes);
-        // act
         final res = await p2pCollaboratorPoolContract.enterTheCollaboratorPool(
             phraseIDs: PhraseIDs.phraseID);
-        // assert
         expect(
             res, ConstantCollaboratorPoolEntryStatusModel.wrappedSuccessCase);
       });
@@ -91,10 +83,8 @@ void main() {
         when(mockRemoteSource.enterThePool(phraseIDs: PhraseIDs.phraseID))
             .thenAnswer(
                 (realInvocation) async => FunctionResponses.notSuccessRes);
-        // act
         final res = await p2pCollaboratorPoolContract.enterTheCollaboratorPool(
             phraseIDs: PhraseIDs.phraseID);
-        // assert
         expect(res,
             ConstantCollaboratorPoolEntryStatusModel.wrappedNotSuccessCase);
       });
@@ -119,21 +109,16 @@ void main() {
             .thenAnswer((realInvocation) async => true);
       });
       test("when online w/ a  200 should return a successful model", () async {
-        // arrange
         when(mockRemoteSource.exitThePool())
             .thenAnswer((realInvocation) async => FunctionResponses.successRes);
-        // act
         final res = await p2pCollaboratorPoolContract.exitCollaboratorPool();
-        // assert
         expect(res, ConstantCollaboratorPoolExitStatusModel.wrappedSuccessCase);
       });
       test("when online w/ a non 200  should return a not successful model",
           () async {
         when(mockRemoteSource.exitThePool()).thenAnswer(
             (realInvocation) async => FunctionResponses.notSuccessRes);
-        // act
         final res = await p2pCollaboratorPoolContract.exitCollaboratorPool();
-        // assert
         expect(
             res, ConstantCollaboratorPoolExitStatusModel.wrappedNotSuccessCase);
       });
@@ -191,12 +176,9 @@ void main() {
       });
       test("when online and no errors are shown should return a proper model",
           () async {
-        // arrange
         when(mockRemoteSource.cancelStream()).thenAnswer((_) => true);
-        // act
         final res =
             await p2pCollaboratorPoolContract.cancelCollaboratorStream();
-        // assert
         expect(res, ConstantCollaboratorStreamStatusModel.wrappedSuccessCase);
       });
     });

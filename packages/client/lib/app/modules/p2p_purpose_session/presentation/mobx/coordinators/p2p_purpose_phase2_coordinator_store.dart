@@ -1,15 +1,12 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-// * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-// * Mobx Codegen Inclusion
 part 'p2p_purpose_phase2_coordinator_store.g.dart';
 
 class P2PPurposePhase2CoordinatorStore = _P2PPurposePhase2CoordinatorStoreBase
@@ -20,12 +17,10 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
   final AgoraCallbacksStore agoraCallbacksStore;
   final VoiceCallActionsStore voiceCallActionsStore;
   final CheckIfUserHasTheQuestionStore questionCheckerStore;
-  // widget stores
   final BeachWavesTrackerStore beachWaves;
   final SmartFadingAnimatedTextTrackerStore fadingText;
   final MeshCircleButtonStore meshCircleStore;
   final SwipeDetector swipe;
-  // final BreathingPentagonsStateTrackerStore breathingPentagons;
 
   @observable
   bool isFirstTimeTalking = true;
@@ -43,7 +38,6 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
             ? "Ask: What Could We Collectively Create?"
             : "Wait For Your Collaborator To Start The Conversation",
       );
-      // fadingText.fadeTheTextIn();
     }).then((value) => Future.delayed(Seconds.get(1), () {
           fadingText.togglePause();
         }));

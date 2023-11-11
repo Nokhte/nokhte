@@ -7,12 +7,10 @@ class ExistingCollaborationsStream extends DefaultStreamClass {
     required String userUID,
   }) async* {
     isListening = true;
-    // Use a flag to control the loop
     await for (var event in supabase
         .from('existing_collaborations')
         .stream(primaryKey: ['id'])) {
       if (!isListening) {
-        // Exit the loop when isListening is set to false
         break;
       }
       if (event.isNotEmpty) {

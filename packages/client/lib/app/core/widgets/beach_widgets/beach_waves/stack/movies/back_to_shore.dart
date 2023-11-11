@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import '../../../shared/data/water_colors_and_stops.dart';
 import 'package:simple_animations/simple_animations.dart';
-// 8 stop migration done
 
 class BackToShore extends Equatable {
   static MovieTween get movie => MovieTween()

@@ -14,10 +14,6 @@ class Swipe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      // onLongPressMoveUpdate: (details) => trackerStore.longPressUpdateCallback(
-      //   details.globalPosition,
-      // ),
-      // onLongPressEnd: (details) => trackerStore.onFinishedGestureCallback(),
       onHorizontalDragUpdate: (details) => trackerStore.onUpdateCallback(
         details.globalPosition,
         DragType.horizontal,

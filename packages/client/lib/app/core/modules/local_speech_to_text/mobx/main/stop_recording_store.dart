@@ -5,7 +5,6 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/domain/domain.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/mobx/mobx.dart';
-// * Mobx Codegen Inclusion
 part 'stop_recording_store.g.dart';
 
 class StopRecordingStore = _StopRecordingStoreBase with _$StopRecordingStore;

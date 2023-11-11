@@ -1,20 +1,15 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-// * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
-// import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/main/main.dart';
 import 'package:simple_animations/simple_animations.dart';
-// import 'package:add_2_calendar/add_2_calendar.dart';
 
-// * Mobx Codegen Inclusion
 part 'home_screen_coordinator_store.g.dart';
 
 class HomeScreenCoordinatorStore = _HomeScreenCoordinatorStoreBase
@@ -22,7 +17,6 @@ class HomeScreenCoordinatorStore = _HomeScreenCoordinatorStoreBase
 
 abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
   final PortalAPI portalAPI;
-  // final QuadrantAPI quadrantAPI;
   final SwipeDetector swipe;
   final GesturePillStore gesturePillStore;
   final BeachWavesTrackerStore beachWaves;
@@ -33,7 +27,6 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
   _HomeScreenCoordinatorStoreBase({
     required this.swipe,
     required this.portalAPI,
-    // required this.quadrantAPI,
     required this.gesturePillStore,
     required this.beachWaves,
     required this.addNameToDatabaseStore,
@@ -68,8 +61,6 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
       });
     });
     gestureListener();
-
-    // api setup
 
     await portalAPI.setupTheStream();
 
@@ -112,7 +103,5 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
   }
 
   @override
-  List<Object> get props => [
-// some items
-      ];
+  List<Object> get props => [];
 }

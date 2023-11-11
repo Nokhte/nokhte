@@ -1,10 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
 import 'package:mobx/mobx.dart';
-// * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/presentation/presentation.dart';
-// * Mobx Codegen Inclusion
 part 'collaborative_doc_coordinator_store.g.dart';
 
 class CollaborativeDocCoordinatorStore = _CollaborativeDocCoordinatorStoreBase
@@ -30,7 +27,5 @@ abstract class _CollaborativeDocCoordinatorStoreBase extends Equatable
     required this.updateCommitDesire,
   });
   @override
-  List<Object> get props => [
-// some items
-      ];
+  List<Object> get props => [];
 }

@@ -23,7 +23,6 @@ class DrawingUtils {
       if (value > peakValue) {
         peakValue = value;
       } else if (value < peakValue && value >= negativeTerritoryMark) {
-        // We are in negative territory and have a descent
         if (isWithinRange(baseValue, value)) {
           hasDescendedEnough = true;
         }
@@ -34,12 +33,10 @@ class DrawingUtils {
       }
 
       if (hasAscendedEnough && hasDescendedEnough) {
-        // Continuous ascent and descent pattern found
         return DrawingStatus.hasDrawn;
       }
     }
 
-    // If no continuous ascent and descent pattern is found, return hasNotDrawn
     return DrawingStatus.hasNotDrawn;
   }
 }

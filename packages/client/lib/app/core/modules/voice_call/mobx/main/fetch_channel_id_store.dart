@@ -1,15 +1,12 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/constants/entities.dart';
-// * Equatable Import
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/base_future_store.dart';
 import 'package:nokhte/app/core/mobx/base_mobx_db_store.dart';
 import 'package:nokhte/app/core/mobx/store_state.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
-// * Mobx Codegen Inclusion
 part 'fetch_channel_id_store.g.dart';
 
 class FetchChannelIdStore = _FetchChannelIdStoreBase with _$FetchChannelIdStore;

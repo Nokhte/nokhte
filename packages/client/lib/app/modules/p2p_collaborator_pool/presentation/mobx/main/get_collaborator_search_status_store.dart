@@ -1,13 +1,10 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
 import 'package:mobx/mobx.dart';
-// * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/mobx/store_state.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/presentation/mobx/getters/getters.dart';
-// * Mobx Codegen Inclusion
 part 'get_collaborator_search_status_store.g.dart';
 
 class GetCollaboratorSearchStatusStore = _GetCollaboratorSearchStatusStoreBase
@@ -48,8 +45,6 @@ abstract class _GetCollaboratorSearchStatusStoreBase extends Equatable
       searchStatus = ObservableStream(searchStatusEntity.isFound);
     });
   }
-
-  /// test this infra in the morning and then round out the impl
 
   @override
   List<Object> get props => [];

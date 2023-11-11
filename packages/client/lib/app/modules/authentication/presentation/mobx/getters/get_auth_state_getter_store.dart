@@ -1,13 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api
-
-// * Mobx Import
 import 'package:equatable/equatable.dart';
 import 'package:mobx/mobx.dart';
-// * Logic import
 import 'package:nokhte/app/modules/authentication/domain/logic/get_auth_state.dart';
-// * Core imports
 import 'package:nokhte/app/core/interfaces/logic.dart';
-// * Mobx Codegen Import
 part 'get_auth_state_getter_store.g.dart';
 
 class GetAuthStateGetterStore = _GetAuthStateGetterStoreBase

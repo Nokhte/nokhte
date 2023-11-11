@@ -5,7 +5,6 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/scheduling/domain/domain.dart';
 import 'package:nokhte/app/core/modules/scheduling/presentation/presentation.dart';
-// * Mobx Codegen Inclusion
 part 'create_scheduling_session_store.g.dart';
 
 class CreateSchedulingSessionStore = _CreateSchedulingSessionStoreBase

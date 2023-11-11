@@ -1,17 +1,12 @@
 // ignore_for_file: library_private_types_in_public_api, must_be_immutable
-
-// * Mobx Import
 import 'package:equatable/equatable.dart';
 import 'package:mobx/mobx.dart';
-// * Type Imports Import
 import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/interfaces/auth_providers.dart';
 import 'package:nokhte/app/modules/authentication/domain/domain.dart';
-// * Core imports
 import 'package:nokhte/app/core/mobx/store_state.dart';
 import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-// * Mobx Codegen Import
 part 'get_auth_provider_getter_store.g.dart';
 
 class GetAuthProviderStateGetterStore = _GetAuthProviderGetterStateStoreBase

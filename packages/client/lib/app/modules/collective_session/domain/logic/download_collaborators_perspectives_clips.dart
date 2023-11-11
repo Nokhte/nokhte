@@ -4,7 +4,7 @@ import 'package:nokhte_backend/storage/perspectives_audio.dart';
 
 class DownloadCollaboratorsPerspectivesClips
     implements
-        AbstractFutureLogic<CollaboratorsAudioClipsDownloadStatusEntity,
+        AbstractFutureLogic<CollaboratorsAudioClipsPathsAndFilesEntity,
             CollectiveSessionAudioExtrapolationInfo> {
   final CollectiveSessionContract contract;
 

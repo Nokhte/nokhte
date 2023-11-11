@@ -1,8 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-// * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
@@ -10,7 +8,6 @@ import 'package:nokhte/app/core/modules/solo_doc/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:nokhte/app/core/widgets/mobx.dart';
-// * Mobx Codegen Inclusion
 part 'p2p_purpose_phase3_coordinator_store.g.dart';
 
 class P2PPurposePhase3CoordinatorStore = _P2PPurposePhase3CoordinatorStoreBase
@@ -65,7 +62,6 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends Equatable
       fadingText.fadeTheTextOut();
       textEditor.flipWidgetVisibility();
     });
-    // textEditor.addEventListeners();
   }
 
   @override

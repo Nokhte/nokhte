@@ -12,7 +12,7 @@ class AtMinOrMax {
         .tween(
           '0 left position',
           Tween<double>(
-            begin: TextPlacementConstants.zeroLeft, // -500 works
+            begin: TextPlacementConstants.zeroLeft,
             end: TextPlacementConstants.zeroLeft,
           ),
         )

@@ -29,24 +29,18 @@ void main() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       });
       test("when online and non-empty should return a model", () async {
-        // arrange
         when(mockRemoteSource.initLeopard())
             .thenAnswer((realInvocation) async => true);
-        // act
         final res = await contract.initLeopard(NoParams());
-        // assert
         expect(
           res,
           ConstantInitLeopardStatusModel.wrappedSuccessCase,
         );
       });
       test("when online and empty should return a model", () async {
-        // arrange
         when(mockRemoteSource.initLeopard())
             .thenAnswer((realInvocation) async => false);
-        // act
         final res = await contract.initLeopard(NoParams());
-        // assert
         expect(res, ConstantInitLeopardStatusModel.wrappedNotSuccessCase);
       });
     });
@@ -67,24 +61,18 @@ void main() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       });
       test("when online and non-empty should return a model", () async {
-        // arrange
         when(mockRemoteSource.startRecording()).thenAnswer(
             (realInvocation) async => SpeechToTextRecordingStatus.started);
-        // act
         final res = await contract.startRecording(NoParams());
-        // assert
         expect(
           res,
           ConstantRecordingStatusModel.wrappedStartedCase,
         );
       });
       test("when online and empty should return a model", () async {
-        // arrange
         when(mockRemoteSource.startRecording()).thenAnswer(
             (realInvocation) async => SpeechToTextRecordingStatus.error);
-        // act
         final res = await contract.startRecording(NoParams());
-        // assert
         expect(res, ConstantRecordingStatusModel.wrappedErrorCase);
       });
     });
@@ -105,24 +93,18 @@ void main() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       });
       test("when online and non-empty should return a model", () async {
-        // arrange
         when(mockRemoteSource.stopRecording())
             .thenAnswer((realInvocation) async => Leopard.response);
-        // act
         final res = await contract.stopRecording(NoParams());
-        // assert
         expect(
           res,
           ConstantAudioProcessingModel.wrappedSuccessCase,
         );
       });
       test("when online and empty should return a model", () async {
-        // arrange
         when(mockRemoteSource.stopRecording())
             .thenAnswer((realInvocation) async => []);
-        // act
         final res = await contract.stopRecording(NoParams());
-        // assert
         expect(res, ConstantAudioProcessingModel.wrappedNotSuccessCase);
       });
     });

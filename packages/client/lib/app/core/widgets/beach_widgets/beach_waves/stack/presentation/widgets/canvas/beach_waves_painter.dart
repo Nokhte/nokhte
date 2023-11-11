@@ -41,12 +41,9 @@ class BeachWavesPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    // Define the water properties
-    const waveCount = 3; // Number of waves
-    const waveAmplitude = 20.0; // Maximum vertical displacement of waves
+    const waveCount = 3;
+    const waveAmplitude = 20.0;
 
-    // Set up the paint for drawing the water waves
-    // final wavePaint = Paint()..color = Colors.blue;
     final waveGradient = LinearGradient(
       colors: [
         firstGradientColor,
@@ -58,7 +55,6 @@ class BeachWavesPainter extends CustomPainter {
         seventhGradientColor,
         eighthGradientColor,
       ],
-      // background: linear-gradient(0, .1563, .3111, .4583, .5885, .7240, .8438, 1.00);
       stops: [
         firstGradientStop,
         secondGradientStop,
@@ -69,7 +65,6 @@ class BeachWavesPainter extends CustomPainter {
         seventhGradientStop,
         eighthGradientStop,
       ],
-      // [0, 0.1979, 0.4375, 0.5885, 0.7448],
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
     );
@@ -77,28 +72,23 @@ class BeachWavesPainter extends CustomPainter {
       ..shader = waveGradient
           .createShader(Rect.fromLTWH(0, 0, size.width, size.height));
 
-    // Set up the paint for drawing the sand-looking gradient
     final sandGrandient = Paint()
       ..shader = const LinearGradient(
         colors: [
-          Color(0xFFD2B48C), // Light sand color
-          Color(0xFF8B5E3C), // Dark sand color
+          Color(0xFFD2B48C),
+          Color(0xFF8B5E3C),
         ],
         begin: Alignment.bottomCenter,
         end: Alignment.topCenter,
       ).createShader(
           Rect.fromLTWH(0, size.height * 0.75, size.width, size.height * 0.25));
 
-    // Paint the sand-looking gradient at the bottom
     canvas.drawRect(Offset.zero & size, sandGrandient);
 
-    // Calculate the current phase based on the animation value
     final phase = waterValue;
 
-    // Draw the water waves from the top
     for (int i = 0; i < waveCount; i++) {
       final waveOffset = size.height / (waveCount + 1) * (i + 1);
-      // final yOffset = -math.sin(phase + i * wavePeriod) * waveAmplitude;
       final yOffset = phase * 3;
       final path = Path()
         ..moveTo(0, waveOffset + yOffset)

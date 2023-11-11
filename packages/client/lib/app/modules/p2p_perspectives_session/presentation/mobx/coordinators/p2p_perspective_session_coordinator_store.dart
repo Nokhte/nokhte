@@ -1,8 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-// * Equatable Import
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/types/desired_negative_mode_behavior.dart';
@@ -10,7 +8,6 @@ import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_perspectives_session/presentation/presentation.dart';
-// * Mobx Codegen Inclusion
 part 'p2p_perspective_session_coordinator_store.g.dart';
 
 class P2PPerspectiveSessionCoordinatorStore = _P2PPerspectiveSessionCoordinatorStoreBase
@@ -57,8 +54,6 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
 
   List<String> localPerspectives = List.filled(5, "");
 
-  // the problem is the extra layer
-
   @action
   screenConstructor() async {
     widgets.attuneTheWidgets(DateTime.now());
@@ -73,10 +68,6 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
       negativeModeBehavior: NegativeModeBehaviors.resetRefAngle,
     );
     quadrantAPIListener();
-
-    // Future.delayed(Seconds.get(11), () {
-    //   widgets.transitionBackToShore();
-    // });
   }
 
   @action
@@ -126,27 +117,17 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
     }
   }
 
-  // TODO implement this fully on later versions
-  markDownValidationAndExecution() {
-    // if (chosenIndex > 0) {
-    //   perspectivesThatAreCommitted--;
-    //   setChosenIndex(chosenIndex - 1);
-    //   widgets.moveUpOrDownToNextPerspective(chosenIndex, shouldMoveUp: false);
-    // }
-  }
+  markDownValidationAndExecution() {}
 
   perspectivesController() {
     if (isSecondTime && firstValue > 0) {
-      /* INITIAL FORWARD MOVE */
       markUpValidationAndExecution();
     } else if (!isFirstTime &&
         !isSecondTime &&
         secondValue > firstValue &&
         canBeMarkedUp) {
-      /* Non-iNiTiAL FORWARD MOVE */
       markUpValidationAndExecution();
     } else if (!isFirstTime && !isSecondTime && secondValue < firstValue) {
-      /* BACKWARD MOVE */
       markDownValidationAndExecution();
     }
   }

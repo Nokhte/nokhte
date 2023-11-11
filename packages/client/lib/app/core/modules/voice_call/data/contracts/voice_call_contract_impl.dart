@@ -28,7 +28,6 @@ class VoiceCallContractImpl implements VoiceCallContract {
 
   @override
   Future<Either<Failure, ChannelIdEntity>> fetchChannelId() async {
-    //
     if (await networkInfo.isConnected) {
       final res = await remoteSource.fetchCollaboratorInfo();
       return Right(ChannelIdModel.fromSupabase(res));
@@ -39,7 +38,6 @@ class VoiceCallContractImpl implements VoiceCallContract {
 
   @override
   Future<Either<Failure, AgoraSdkStatusModel>> instantiateAgoraSdk() async {
-    //
     if (await networkInfo.isConnected) {
       await remoteSource.instantiateAgoraSDK();
       return const Right(AgoraSdkStatusModel(isInstantiated: true));
@@ -57,7 +55,6 @@ class VoiceCallContractImpl implements VoiceCallContract {
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
-    //
   }
 
   @override

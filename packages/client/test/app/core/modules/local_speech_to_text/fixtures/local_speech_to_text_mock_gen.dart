@@ -20,9 +20,6 @@ class MStopRecording extends Mock implements StopRecording {}
 
 class MInitLeopardGetterStore extends Mock implements InitLeopardGetterStore {}
 
-// class MLocalSpeechToTextRemoteSourceImpl extends Mock
-//     implements LocalSpeechToTextRemoteSourceImpl {}
-
 class MStartRecordingGetterStore extends Mock
     implements StartRecordingGetterStore {}
 
@@ -30,7 +27,6 @@ class MStopRecordingGetterStore extends Mock
     implements StopRecordingGetterStore {}
 
 @GenerateMocks([
-  // MLocalSpeechToTextRemoteSourceImpl,
   MLocalSpeechToTextRemoteSourceImpl,
   MLocalSpeechToTextContract,
   MInitLeopard,

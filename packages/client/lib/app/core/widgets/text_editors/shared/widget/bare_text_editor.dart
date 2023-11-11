@@ -31,7 +31,6 @@ class BaseTextEditor extends StatelessWidget {
         focusNode: trackerStore.focusNode,
         maxLines: maxLines,
         readOnly: isReadOnly,
-        // onSubmitted: (_) => FocusScope.of(context).unfocus(),
         maxLength: maxLength,
         maxLengthEnforcement: MaxLengthEnforcement.enforced,
         style: TextEditorConstants.mainTextStyle,

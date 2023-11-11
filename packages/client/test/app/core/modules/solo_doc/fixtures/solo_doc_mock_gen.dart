@@ -1,4 +1,3 @@
-// * Testing & Mocking Libs
 // ignore_for_file: must_be_immutable
 
 import 'package:mockito/mockito.dart';
@@ -7,7 +6,6 @@ import 'package:nokhte/app/core/modules/solo_doc/data/data.dart';
 import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
 import 'package:nokhte/app/core/modules/solo_doc/mobx/mobx.dart';
 
-// remote sources
 class MSoloDocRemoteSource extends Mock implements SoloDocRemoteSource {}
 
 class MSoloDocContract extends Mock implements SoloDocContract {}

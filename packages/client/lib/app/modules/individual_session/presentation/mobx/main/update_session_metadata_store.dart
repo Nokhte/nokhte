@@ -4,7 +4,6 @@ import 'package:nokhte/app/core/constants/entities.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/modules/individual_session/domain/domain.dart';
 import 'package:nokhte/app/modules/individual_session/presentation/presentation.dart';
-// * Mobx Codegen Inclusion
 part 'update_session_metadata_store.g.dart';
 
 class UpdateSessionMetadataStore = _UpdateSessionMetadataStoreBase

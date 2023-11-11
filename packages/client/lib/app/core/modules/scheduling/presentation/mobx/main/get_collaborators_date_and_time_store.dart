@@ -5,7 +5,6 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/scheduling/presentation/presentation.dart';
 import 'package:nokhte_backend/working_collaborative_scheduling.dart';
-// * Mobx Codegen Inclusion
 part 'get_collaborators_date_and_time_store.g.dart';
 
 class GetCollaboratorsDateAndTimeStore = _GetCollaboratorsDateAndTimeStoreBase
