@@ -25,7 +25,7 @@ void main() {
         .from('user_names')
         .select()
         .filter('first_name', 'neq', 'tester');
-    return realPersonUIDQuery[0]["uid"];
+    return realPersonUIDQuery.first["uid"];
   }
 
   test("make a collaboration between real person & npc 2", () async {
@@ -61,7 +61,7 @@ void main() {
 
   test("make a solo npc-owned doc & share it with the user", () async {
     final userIdResults = await UserSetupConstants.fetchUIDs();
-    final npcUserUID = userIdResults[0];
+    final npcUserUID = userIdResults.first;
     final realPersonUID = await returnNonNPCUID();
     await SoloSharableDocuments.createSoloDoc(
         supabase: supabaseAdmin,
@@ -82,7 +82,7 @@ void main() {
 
   test("put npc in the pool searching for user ", () async {
     final userIdResults = await UserSetupConstants.fetchUIDs();
-    final npcUserUID = userIdResults[0];
+    final npcUserUID = userIdResults.first;
     final realPersonUID = await returnNonNPCUID();
     final realPersonPhraseIDRes = await supabaseAdmin
         .from('collaborator_phrases')
@@ -92,8 +92,8 @@ void main() {
       supabase: supabaseAdmin,
       wayfarerUID: npcUserUID,
       queryPhraseIDs: CollaboratorPhraseIDs(
-        adjectiveID: realPersonPhraseIDRes[0]["adjective_id"],
-        nounID: realPersonPhraseIDRes[0]["noun_id"],
+        adjectiveID: realPersonPhraseIDRes.first["adjective_id"],
+        nounID: realPersonPhraseIDRes.first["noun_id"],
       ),
     );
   });
@@ -109,8 +109,8 @@ void main() {
       supabase: supabaseAdmin,
       wayfarerUID: realPersonUID,
       queryPhraseIDs: CollaboratorPhraseIDs(
-        adjectiveID: npcPhraseRes[0]["adjective_id"],
-        nounID: npcPhraseRes[0]["noun_id"],
+        adjectiveID: npcPhraseRes.first["adjective_id"],
+        nounID: npcPhraseRes.first["noun_id"],
       ),
     );
   });

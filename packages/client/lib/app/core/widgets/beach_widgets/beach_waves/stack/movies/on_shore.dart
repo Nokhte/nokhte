@@ -20,8 +20,8 @@ class OnShore extends Equatable {
         .tween(
           '1st Water Gradient Color',
           ColorTween(
-            begin: WaterColorsAndStops.onShoreWater[0].color,
-            end: WaterColorsAndStops.onShoreWater[0].color,
+            begin: WaterColorsAndStops.onShoreWater.first.color,
+            end: WaterColorsAndStops.onShoreWater.first.color,
           ),
         )
         .tween(
@@ -76,8 +76,8 @@ class OnShore extends Equatable {
         .tween(
           '1st Water Gradient Stop',
           Tween<double>(
-            begin: WaterColorsAndStops.onShoreWater[0].stop,
-            end: WaterColorsAndStops.onShoreWater[0].stop,
+            begin: WaterColorsAndStops.onShoreWater.first.stop,
+            end: WaterColorsAndStops.onShoreWater.first.stop,
           ),
         )
         .tween(

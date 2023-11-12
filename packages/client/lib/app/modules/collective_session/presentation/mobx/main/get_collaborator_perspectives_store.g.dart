@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'download_collaborators_perspectives_clips_store.dart';
+part of 'get_collaborator_perspectives_store.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,45 +8,45 @@ part of 'download_collaborators_perspectives_clips_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$DownloadCollaboratorsPerspectivesClipsStore
-    on _DownloadCollaboratorsPerspectivesClipsStoreBase, Store {
-  late final _$isDownloadedAtom = Atom(
-      name: '_DownloadCollaboratorsPerspectivesClipsStoreBase.isDownloaded',
+mixin _$GetCollaboratorPerspectivesStore
+    on _GetCollaboratorPerspectivesStoreBase, Store {
+  late final _$collaboratorPerspectivesAtom = Atom(
+      name: '_GetCollaboratorPerspectivesStoreBase.collaboratorPerspectives',
       context: context);
 
   @override
-  bool get isDownloaded {
-    _$isDownloadedAtom.reportRead();
-    return super.isDownloaded;
+  CollaboratorPerspectivesEntity get collaboratorPerspectives {
+    _$collaboratorPerspectivesAtom.reportRead();
+    return super.collaboratorPerspectives;
   }
 
   @override
-  set isDownloaded(bool value) {
-    _$isDownloadedAtom.reportWrite(value, super.isDownloaded, () {
-      super.isDownloaded = value;
+  set collaboratorPerspectives(CollaboratorPerspectivesEntity value) {
+    _$collaboratorPerspectivesAtom
+        .reportWrite(value, super.collaboratorPerspectives, () {
+      super.collaboratorPerspectives = value;
     });
   }
 
   late final _$futureStoreAtom = Atom(
-      name: '_DownloadCollaboratorsPerspectivesClipsStoreBase.futureStore',
+      name: '_GetCollaboratorPerspectivesStoreBase.futureStore',
       context: context);
 
   @override
-  BaseFutureStore<CollaboratorsAudioClipsDownloadStatusEntity> get futureStore {
+  BaseFutureStore<CollaboratorPerspectivesEntity> get futureStore {
     _$futureStoreAtom.reportRead();
     return super.futureStore;
   }
 
   @override
-  set futureStore(
-      BaseFutureStore<CollaboratorsAudioClipsDownloadStatusEntity> value) {
+  set futureStore(BaseFutureStore<CollaboratorPerspectivesEntity> value) {
     _$futureStoreAtom.reportWrite(value, super.futureStore, () {
       super.futureStore = value;
     });
   }
 
   late final _$callAsyncAction = AsyncAction(
-      '_DownloadCollaboratorsPerspectivesClipsStoreBase.call',
+      '_GetCollaboratorPerspectivesStoreBase.call',
       context: context);
 
   @override
@@ -57,7 +57,7 @@ mixin _$DownloadCollaboratorsPerspectivesClipsStore
   @override
   String toString() {
     return '''
-isDownloaded: ${isDownloaded},
+collaboratorPerspectives: ${collaboratorPerspectives},
 futureStore: ${futureStore}
     ''';
   }

@@ -50,18 +50,18 @@ class WorkingCollaborativeDocumentsStreams extends CollaborativeQueries {
         );
       } else {
         yield DocInfoContent(
-          content: event[0]["content"],
-          lastEditedBy: event[0]["last_edited_by"] ?? '',
+          content: event.first["content"],
+          lastEditedBy: event.first["last_edited_by"] ?? '',
           currentUserUID: userUID,
-          collaboratorsCommitDesireStatus: event[0]
-              ["${collaboratorInfo.theCollaboratorsNumber}_wants_to_commit"],
-          documentCommitStatus: event[0][
+          collaboratorsCommitDesireStatus: event.first[
+              "${collaboratorInfo.theCollaboratorsNumber}_wants_to_commit"],
+          documentCommitStatus: event.first[
                       "${collaboratorInfo.theCollaboratorsNumber}_wants_to_commit"] &&
-                  event[0][
+                  event.first[
                       "${collaboratorInfo.theUsersCollaboratorNumber}_wants_to_commit"]
               ? true
               : false,
-          userCommitDesireStatus: event[0][
+          userCommitDesireStatus: event.first[
               "${collaboratorInfo.theUsersCollaboratorNumber}_wants_to_commit"],
         );
       }
@@ -85,10 +85,10 @@ class WorkingCollaborativeDocumentsStreams extends CollaborativeQueries {
         yield CollaboratorDocInfo(isPresent: false, delta: -1);
       } else {
         yield CollaboratorDocInfo(
-            isPresent: event[0]
-                ["${collaboratorInfo.theCollaboratorsNumber}_is_active"],
-            delta: event[0]
-                ["${collaboratorInfo.theCollaboratorsNumber}_delta"]);
+            isPresent: event
+                .first["${collaboratorInfo.theCollaboratorsNumber}_is_active"],
+            delta: event
+                .first["${collaboratorInfo.theCollaboratorsNumber}_delta"]);
       }
     }
   }

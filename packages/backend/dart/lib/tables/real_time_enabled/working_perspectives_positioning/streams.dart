@@ -41,14 +41,14 @@ class WorkingPerspectivesPositioningStream extends CollaborativeQueries {
         );
       } else {
         yield PerspectivesPositioning(
-            stagingAreaInfo: event[0]
-                [WorkingPerspectivesPositioningConstants.stagingArea],
-            lastEditedBy: event[0]["last_edited_by"] ?? '',
+            stagingAreaInfo: event
+                .first[WorkingPerspectivesPositioningConstants.stagingArea],
+            lastEditedBy: event.first["last_edited_by"] ?? '',
             currentUserUID: userUID,
-            collaboratorsQuadrant: event[0]
-                ["${collaboratorInfo.theCollaboratorsNumber}_quadrant"],
-            usersQuadrant: event[0]
-                ["${collaboratorInfo.theUsersCollaboratorNumber}_quadrant"]);
+            collaboratorsQuadrant: event
+                .first["${collaboratorInfo.theCollaboratorsNumber}_quadrant"],
+            usersQuadrant: event.first[
+                "${collaboratorInfo.theUsersCollaboratorNumber}_quadrant"]);
       }
     }
   }

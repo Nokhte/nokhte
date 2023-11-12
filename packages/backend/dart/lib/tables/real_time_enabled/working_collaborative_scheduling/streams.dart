@@ -29,18 +29,18 @@ class WorkingCollaborativeSchedulingStream extends CollaborativeQueries {
             time: DateTime.fromMicrosecondsSinceEpoch(0));
       } else {
         yield CollaboratorsDateAndTime(
-          date: event[0][
+          date: event.first[
                       "${collaboratorInfo.theCollaboratorsNumber}_chosen_day"] ==
                   null
               ? DateTime.fromMicrosecondsSinceEpoch(0)
-              : DateTime.parse(event[0]
-                  ["${collaboratorInfo.theCollaboratorsNumber}_chosen_day"]),
-          time: event[0][
+              : DateTime.parse(event.first[
+                  "${collaboratorInfo.theCollaboratorsNumber}_chosen_day"]),
+          time: event.first[
                       "${collaboratorInfo.theCollaboratorsNumber}_chosen_time"] ==
                   null
               ? DateTime.fromMicrosecondsSinceEpoch(0)
-              : DateTime.parse(event[0]
-                  ["${collaboratorInfo.theCollaboratorsNumber}_chosen_time"]),
+              : DateTime.parse(event.first[
+                  "${collaboratorInfo.theCollaboratorsNumber}_chosen_time"]),
         );
       }
     }

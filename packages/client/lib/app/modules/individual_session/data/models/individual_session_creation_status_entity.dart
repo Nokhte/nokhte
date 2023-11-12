@@ -11,7 +11,7 @@ class IndividualSessionCreationModel extends IndividualSessionCreationEntity {
     } else {
       return IndividualSessionCreationModel(
           sessionTimestamp: DateTime.parse(
-        res[0][IndividualSessionsQueries.sessionHeldAt],
+        res.first[IndividualSessionsQueries.sessionHeldAt],
       ));
     }
   }

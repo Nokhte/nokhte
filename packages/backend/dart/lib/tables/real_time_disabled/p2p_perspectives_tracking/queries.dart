@@ -19,10 +19,10 @@ class P2PPerspectivesTrackingQueries extends CollaborativeQueries {
     if (checkRes.isEmpty) {
       return await _insertIntoCurrentPerspectivesColumn(newPerspectives);
     } else {
-      final thePastPerspectives = checkRes[0][pastPerspectives];
+      final thePastPerspectives = checkRes.first[pastPerspectives];
       final oldPerspectives = Perspectives(
-        newPerspectives: checkRes[0][currentPerspectives],
-        date: checkRes[0][currentCommittedAt],
+        newPerspectives: checkRes.first[currentPerspectives],
+        date: checkRes.first[currentCommittedAt],
       );
 
       if (thePastPerspectives.toString() == '{}') {

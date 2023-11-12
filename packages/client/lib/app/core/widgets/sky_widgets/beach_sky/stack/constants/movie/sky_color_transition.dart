@@ -23,8 +23,8 @@ class SkyColorTransition {
             .tween(
               'first color',
               ColorTween(
-                begin: startingGrad[0],
-                end: endingGrad[0],
+                begin: startingGrad.first,
+                end: endingGrad.first,
               ),
             )
             .tween(

@@ -12,8 +12,8 @@ class DrawingUtils {
     List<int> inputList,
     int negativeTerritoryMark,
   ) {
-    int peakValue = inputList[0];
-    int baseValue = inputList[0];
+    int peakValue = inputList.first;
+    int baseValue = inputList.first;
     bool hasAscendedEnough = false;
     bool hasDescendedEnough = false;
 

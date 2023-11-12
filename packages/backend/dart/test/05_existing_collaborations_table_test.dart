@@ -15,7 +15,7 @@ void main() {
     supabase = SupabaseClientConfigConstants.supabase;
     supabaseAdmin = SupabaseClientConfigConstants.supabaseAdmin;
     final userIdResults = await UserSetupConstants.fetchUIDs();
-    firstUserUID = userIdResults[0];
+    firstUserUID = userIdResults.first;
     secondUserUID = userIdResults[1];
   });
 
@@ -40,10 +40,10 @@ void main() {
           await existingCollaborationsQueries.fetchActiveCollaborationInfo();
 
       expect(res, isNotEmpty);
-      expect(res[0]["collaborator_one"], firstUserUID);
-      expect(res[0]["collaborator_two"], secondUserUID);
-      expect(res[0]["is_currently_active"], true);
-      expect(res[0]["who_gets_the_question"], 1);
+      expect(res.first["collaborator_one"], firstUserUID);
+      expect(res.first["collaborator_two"], secondUserUID);
+      expect(res.first["is_currently_active"], true);
+      expect(res.first["who_gets_the_question"], 1);
     });
 
     test("should be properly identified as collaborator_one", () async {
@@ -55,7 +55,7 @@ void main() {
           .fetchActiveCollaboratorsUIDAndNumber();
 
       expect(res, isNotEmpty);
-      expect(res[0], secondUserUID);
+      expect(res.first, secondUserUID);
       expect(res[1], 2);
     });
     test("should be properly identified as collaborator_two", () async {
@@ -67,7 +67,7 @@ void main() {
           .fetchActiveCollaboratorsUIDAndNumber();
 
       expect(res, isNotEmpty);
-      expect(res[0], firstUserUID);
+      expect(res.first, firstUserUID);
       expect(res[1], 1);
     });
     test(
@@ -86,10 +86,10 @@ void main() {
       final res =
           await existingCollaborationsQueries.fetchAllCollaborationInfo();
       expect(res, isNotEmpty);
-      expect(res[0]["collaborator_one"], firstUserUID);
-      expect(res[0]["collaborator_two"], secondUserUID);
-      expect(res[0]["is_currently_active"], false);
-      expect(res[0]["who_gets_the_question"], 1);
+      expect(res.first["collaborator_one"], firstUserUID);
+      expect(res.first["collaborator_two"], secondUserUID);
+      expect(res.first["is_currently_active"], false);
+      expect(res.first["who_gets_the_question"], 1);
     });
   });
 
@@ -114,9 +114,9 @@ void main() {
           await existingCollaborationsQueries.fetchActiveCollaborationInfo();
 
       expect(res, isNotEmpty);
-      expect(res[0]["collaborator_one"], secondUserUID);
-      expect(res[0]["collaborator_two"], firstUserUID);
-      expect(res[0]["who_gets_the_question"], 2);
+      expect(res.first["collaborator_one"], secondUserUID);
+      expect(res.first["collaborator_two"], firstUserUID);
+      expect(res.first["who_gets_the_question"], 2);
     });
 
     test("should be properly identified as collaborator_one", () async {
@@ -129,7 +129,7 @@ void main() {
           .fetchActiveCollaboratorsUIDAndNumber();
 
       expect(res, isNotEmpty);
-      expect(res[0], firstUserUID);
+      expect(res.first, firstUserUID);
       expect(res[1], 2);
     });
   });

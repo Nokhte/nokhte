@@ -35,8 +35,8 @@ class PerspectivesMapPainter extends CustomPainter {
     const circleRadius = 5.5;
     final leftMostCircleX = (width / 2) - 45;
     final leftMostCircleY =
-        ((height - circleRadius * 2) - 2) + circleVertOffsets[0];
-    final leftMostPaint = Paint()..color = circleColors[0];
+        ((height - circleRadius * 2) - 2) + circleVertOffsets.first;
+    final leftMostPaint = Paint()..color = circleColors.first;
     final leftCircleX = (width / 2) - 23;
     final leftCircleY =
         ((height - circleRadius * 2) - 2) + circleVertOffsets[1];

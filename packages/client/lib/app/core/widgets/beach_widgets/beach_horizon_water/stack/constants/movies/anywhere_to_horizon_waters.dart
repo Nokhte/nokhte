@@ -17,8 +17,8 @@ class AnywhereToHorizonWaters {
             .tween(
               '1st Water Gradient Color',
               ColorTween(
-                begin: startingGradient[0].color,
-                end: fullScreenGradientColorsAndStops[0].color,
+                begin: startingGradient.first.color,
+                end: fullScreenGradientColorsAndStops.first.color,
               ),
             )
             .tween(
@@ -73,8 +73,8 @@ class AnywhereToHorizonWaters {
             .tween(
               '1st Water Gradient Stop',
               Tween<double>(
-                begin: startingGradient[0].stop,
-                end: fullScreenGradientColorsAndStops[0].stop,
+                begin: startingGradient.first.stop,
+                end: fullScreenGradientColorsAndStops.first.stop,
               ),
             )
             .tween(
@@ -133,8 +133,8 @@ class AnywhereToHorizonWaters {
             .tween(
               '1st Water Gradient Color',
               ColorTween(
-                begin: fullScreenGradientColorsAndStops[0].color,
-                end: halfScreenGradientColorsAndStops[0].color,
+                begin: fullScreenGradientColorsAndStops.first.color,
+                end: halfScreenGradientColorsAndStops.first.color,
               ),
             )
             .tween(
@@ -189,8 +189,8 @@ class AnywhereToHorizonWaters {
             .tween(
               '1st Water Gradient Stop',
               Tween<double>(
-                begin: fullScreenGradientColorsAndStops[0].stop,
-                end: fullScreenGradientColorsAndStops[0].stop,
+                begin: fullScreenGradientColorsAndStops.first.stop,
+                end: fullScreenGradientColorsAndStops.first.stop,
               ),
             )
             .tween(
@@ -249,8 +249,8 @@ class AnywhereToHorizonWaters {
             .tween(
               '1st Water Gradient Color',
               ColorTween(
-                begin: halfScreenGradientColorsAndStops[0].color,
-                end: halfScreenGradientColorsAndStops[0].color,
+                begin: halfScreenGradientColorsAndStops.first.color,
+                end: halfScreenGradientColorsAndStops.first.color,
               ),
             )
             .tween(
@@ -305,8 +305,8 @@ class AnywhereToHorizonWaters {
             .tween(
               '1st Water Gradient Stop',
               Tween<double>(
-                begin: fullScreenGradientColorsAndStops[0].stop,
-                end: halfScreenGradientColorsAndStops[0].stop,
+                begin: fullScreenGradientColorsAndStops.first.stop,
+                end: halfScreenGradientColorsAndStops.first.stop,
               ),
             )
             .tween(

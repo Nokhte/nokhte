@@ -15,8 +15,8 @@ class BottomUpImmersionWaters {
             .tween(
               '1st Water Gradient Color',
               ColorTween(
-                begin: theGradient[0].color,
-                end: theGradient[0].color,
+                begin: theGradient.first.color,
+                end: theGradient.first.color,
               ),
             )
             .tween(
@@ -71,8 +71,8 @@ class BottomUpImmersionWaters {
             .tween(
               '1st Water Gradient Stop',
               Tween<double>(
-                begin: theGradient[0].stop,
-                end: theGradient[0].stop,
+                begin: theGradient.first.stop,
+                end: theGradient.first.stop,
               ),
             )
             .tween(

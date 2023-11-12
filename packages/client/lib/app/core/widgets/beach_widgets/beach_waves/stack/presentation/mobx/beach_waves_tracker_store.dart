@@ -174,7 +174,7 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   @action
   initiateBackToTheDepths() {
     movie = BackToTheDepths.getMovie(
-      startingFirstGradient: pivotColorGradients[0],
+      startingFirstGradient: pivotColorGradients.first,
       startingSecondGradient: pivotColorGradients[1],
       startingThirdGradient: pivotColorGradients[2],
       startingFourthGradient: pivotColorGradients[3],

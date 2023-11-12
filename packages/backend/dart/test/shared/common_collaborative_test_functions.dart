@@ -26,7 +26,7 @@ class CommonCollaborativeTestFunctions {
     await SignIn.user2(supabase: user2Supabase);
 
     final userIdResults = await UserSetupConstants.fetchUIDs();
-    firstUserUID = userIdResults[0];
+    firstUserUID = userIdResults.first;
     secondUserUID = userIdResults[1];
 
     existingCollaborationsQueries =

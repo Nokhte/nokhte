@@ -24,8 +24,8 @@ class SmoothLerpTransition {
             .tween(
               'first grad color',
               ColorTween(
-                begin: startingGradient[0],
-                end: endingGradient[0],
+                begin: startingGradient.first,
+                end: endingGradient.first,
               ),
             )
             .tween(

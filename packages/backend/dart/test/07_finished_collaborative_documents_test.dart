@@ -35,16 +35,16 @@ void main() {
       content: "committed purpose",
       docType: 'purpose',
     );
-    expect(res[0]["collaborator_one_uid"], tSetup.firstUserUID);
-    expect(res[0]["doc_type"], "purpose");
-    expect(res[0]["collaborator_two_uid"], tSetup.secondUserUID);
-    expect(res[0]["content"], "committed purpose");
+    expect(res.first["collaborator_one_uid"], tSetup.firstUserUID);
+    expect(res.first["doc_type"], "purpose");
+    expect(res.first["collaborator_two_uid"], tSetup.secondUserUID);
+    expect(res.first["content"], "committed purpose");
     final res2 = await user2FinishedQueries.fetchDocInfo(
       docType: 'purpose',
     );
-    expect(res2[0]["collaborator_one_uid"], tSetup.firstUserUID);
-    expect(res2[0]["collaborator_two_uid"], tSetup.secondUserUID);
-    expect(res2[0]["content"], "committed purpose");
-    expect(res2[0]["doc_type"], "purpose");
+    expect(res2.first["collaborator_one_uid"], tSetup.firstUserUID);
+    expect(res2.first["collaborator_two_uid"], tSetup.secondUserUID);
+    expect(res2.first["content"], "committed purpose");
+    expect(res2.first["doc_type"], "purpose");
   });
 }

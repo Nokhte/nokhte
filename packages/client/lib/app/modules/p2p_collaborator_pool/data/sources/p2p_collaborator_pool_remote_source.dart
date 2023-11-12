@@ -30,7 +30,7 @@ class P2PCollaboratorPoolRemoteSourceImpl
   @override
   Future<List> validateQuery({required String query}) async {
     final splitQuery = query.split(" ");
-    final adjectiveQuery = splitQuery[0];
+    final adjectiveQuery = splitQuery.first;
     final nounQuery = splitQuery[1];
     final adjRes = await PhraseComponentsQueries.checkIfAdjectiveExists(
         supabase: supabase, queryAdjective: adjectiveQuery);

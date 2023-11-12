@@ -43,14 +43,14 @@ void main() {
   test("User Should be able to create, edit & commit a document", () async {
     final res = await user1WorkingQueries.createCollaborativeDocument(
         docType: 'purpose');
-    expect(res[0]["collaborator_one_uid"], tSetup.firstUserUID);
-    expect(res[0]["doc_type"], "purpose");
-    expect(res[0]["collaborator_two_uid"], tSetup.secondUserUID);
-    expect(res[0]["content"], isEmpty);
-    expect(res[0]["collaborator_one_delta"], -1);
-    expect(res[0]["collaborator_two_delta"], -1);
-    expect(res[0]["collaborator_one_is_active"], false);
-    expect(res[0]["collaborator_two_is_active"], false);
+    expect(res.first["collaborator_one_uid"], tSetup.firstUserUID);
+    expect(res.first["doc_type"], "purpose");
+    expect(res.first["collaborator_two_uid"], tSetup.secondUserUID);
+    expect(res.first["content"], isEmpty);
+    expect(res.first["collaborator_one_delta"], -1);
+    expect(res.first["collaborator_two_delta"], -1);
+    expect(res.first["collaborator_one_is_active"], false);
+    expect(res.first["collaborator_two_is_active"], false);
     final stream =
         WorkingCollaborativeDocumentsStreams(supabase: tSetup.user1Supabase);
     stream.docContentStream().listen((value) {
@@ -64,9 +64,9 @@ void main() {
     await user1WorkingQueries.updateCommitDesireStatus(wantsToCommit: true);
     await user2WorkingQueries.updateCommitDesireStatus(wantsToCommit: true);
     final res2 = await user1FinishedQueries.fetchDocInfo(docType: 'purpose');
-    expect(res2[0]["collaborator_one_uid"], tSetup.firstUserUID);
-    expect(res2[0]["collaborator_two_uid"], tSetup.secondUserUID);
-    expect(res2[0]["content"], "newContent");
-    expect(res2[0]["doc_type"], "purpose");
+    expect(res2.first["collaborator_one_uid"], tSetup.firstUserUID);
+    expect(res2.first["collaborator_two_uid"], tSetup.secondUserUID);
+    expect(res2.first["content"], "newContent");
+    expect(res2.first["doc_type"], "purpose");
   });
 }

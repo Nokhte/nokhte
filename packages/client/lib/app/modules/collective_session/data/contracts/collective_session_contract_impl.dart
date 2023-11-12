@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/error/failure.dart';
-import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/modules/collective_session/domain/domain.dart';
 import 'package:nokhte/app/modules/collective_session/data/data.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
@@ -29,27 +28,12 @@ class CollectiveSessionContractImpl implements CollectiveSessionContract {
   }
 
   @override
-  Future<Either<Failure, CollaboratorsAudioClipsDownloadStatusModel>>
-      downloadCollaboratorsPerspectivesClips(
+  Future<Either<Failure, CollaboratorPerspectivesModel>>
+      getCollaboratorPerspectives(
           CollectiveSessionAudioExtrapolationInfo params) async {
     if (await networkInfo.isConnected) {
-      await remoteSource.downloadTheCollaboratorsPerspectivesClips(params);
-
-      return const Right(
-          CollaboratorsAudioClipsDownloadStatusModel(isDownloaded: true));
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
-
-  @override
-  Future<Either<Failure, CollaboratorIndividualSessionMetadataModel>>
-      getCollaboratorIndividualSessionMetadata(NoParams params) async {
-    if (await networkInfo.isConnected) {
-      final res =
-          await remoteSource.getCollaboratorIndividualSessionMetadata(params);
-      return Right(
-          CollaboratorIndividualSessionMetadataModel.fromSupabase(res));
+      final res = await remoteSource.getCollaboratorsPerspectives(params);
+      return Right(CollaboratorPerspectivesModel.fromSupabase(res));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }

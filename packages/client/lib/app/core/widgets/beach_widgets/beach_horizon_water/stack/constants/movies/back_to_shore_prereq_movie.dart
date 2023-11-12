@@ -22,8 +22,8 @@ class BackToShorePreReqMovie {
             .tween(
               '1st Water Gradient Color',
               ColorTween(
-                begin: halfScreenGradientColorsAndStops[0].color,
-                end: halfScreenGradientColorsAndStops[0].color,
+                begin: halfScreenGradientColorsAndStops.first.color,
+                end: halfScreenGradientColorsAndStops.first.color,
               ),
             )
             .tween(
@@ -78,8 +78,8 @@ class BackToShorePreReqMovie {
             .tween(
               '1st Water Gradient Stop',
               Tween<double>(
-                begin: halfScreenGradientColorsAndStops[0].stop,
-                end: halfScreenGradientColorsAndStops[0].stop,
+                begin: halfScreenGradientColorsAndStops.first.stop,
+                end: halfScreenGradientColorsAndStops.first.stop,
               ),
             )
             .tween(

@@ -38,26 +38,26 @@ void main() {
       newPerspectives: tPerspectives,
     );
 
-    expect(res1[0]["current_perspectives"], tPerspectives);
-    expect(res1[0]["past_perspectives"], {});
+    expect(res1.first["current_perspectives"], tPerspectives);
+    expect(res1.first["past_perspectives"], {});
 
     final res2 = await user1Queries.insertNewPerspectives(
       newPerspectives: tPerspectives2,
     );
 
     final List pastPerspectives =
-        res2[0]["past_perspectives"]["commits"][0]["perspectives"];
+        res2.first["past_perspectives"]["commits"].first["perspectives"];
     expect(pastPerspectives, tPerspectives);
-    expect(res2[0]["current_perspectives"], tPerspectives2);
+    expect(res2.first["current_perspectives"], tPerspectives2);
 
     final res3 = await user1Queries.insertNewPerspectives(
       newPerspectives: tPerspectives3,
     );
 
     final List pastPerspectives2 =
-        res3[0]["past_perspectives"]["commits"][1]["perspectives"];
+        res3.first["past_perspectives"]["commits"][1]["perspectives"];
     final List pastPerspectives3 =
-        res3[0]["past_perspectives"]["commits"][0]["perspectives"];
+        res3.first["past_perspectives"]["commits"].first["perspectives"];
     expect(pastPerspectives2, tPerspectives2);
     expect(pastPerspectives3, tPerspectives);
   });

@@ -14,8 +14,8 @@ class ExistingCollaborationsStream extends DefaultStreamClass {
         break;
       }
       if (event.isNotEmpty) {
-        if (event[0]["collaborator_one"] == userUID ||
-            event[0]["collaborator_two"] == userUID) {
+        if (event.first["collaborator_one"] == userUID ||
+            event.first["collaborator_two"] == userUID) {
           yield true;
         } else {
           yield false;

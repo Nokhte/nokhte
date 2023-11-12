@@ -17,8 +17,8 @@ class HorizonWaterColorChange {
             .tween(
               '1st Water Gradient Color',
               ColorTween(
-                begin: startingGradient[0].color,
-                end: endingGradient[0].color,
+                begin: startingGradient.first.color,
+                end: endingGradient.first.color,
               ),
             )
             .tween(
@@ -73,8 +73,8 @@ class HorizonWaterColorChange {
             .tween(
               '1st Water Gradient Stop',
               Tween<double>(
-                begin: startingGradient[0].stop,
-                end: endingGradient[0].stop,
+                begin: startingGradient.first.stop,
+                end: endingGradient.first.stop,
               ),
             )
             .tween(

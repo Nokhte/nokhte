@@ -35,8 +35,8 @@ class AudioClipPlatformPainter extends CustomPainter {
 
     final leftCircleX = (width / 2) - 23;
     final leftCircleY =
-        ((height - circleRadius * 2) - 2) + circleVertOffsets[0];
-    final leftPaint = Paint()..color = circleColors[0];
+        ((height - circleRadius * 2) - 2) + circleVertOffsets.first;
+    final leftPaint = Paint()..color = circleColors.first;
 
     final centerCircleX = width / 2;
     final centerCircleY =

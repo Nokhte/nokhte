@@ -13,12 +13,12 @@ class CollaboratorIndividualSessionMetadataModel
           sessionMetadata: {});
     } else {
       final theCollaboratorsNumber =
-          remoteSourceRes[0].collaboratorInfo.theCollaboratorsNumber;
+          remoteSourceRes.first.collaboratorInfo.theCollaboratorsNumber;
       const individualSessionMetadata =
           CollectiveSessionQueries.individualSessionMetadata;
       return CollaboratorIndividualSessionMetadataModel(
-        sessionMetadata: remoteSourceRes[1][0]
-            ["${theCollaboratorsNumber}_$individualSessionMetadata"],
+        sessionMetadata: remoteSourceRes[1]
+            .first["${theCollaboratorsNumber}_$individualSessionMetadata"],
       );
     }
   }

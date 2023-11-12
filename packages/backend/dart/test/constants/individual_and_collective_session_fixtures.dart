@@ -8,7 +8,7 @@ class IndividualAndCollectiveSessionFixtures {
   ) =>
       PerspectiveMetadata(
         numberOfFiles: 1,
-        thePerspective: tSetup.tPerspectives[0],
+        thePerspective: tSetup.tPerspectives.first,
       );
 
   static IndividualSessionMetadata getTestMetadata(
@@ -25,7 +25,7 @@ class IndividualAndCollectiveSessionFixtures {
       IndividualSessionAudioClip(
         thePerspectivesIndex: 0,
         isOverwritingAnotherFile: true,
-        thePerspective: tSetup.tPerspectives[0],
+        thePerspective: tSetup.tPerspectives.first,
         totalNumberOfFilesForThePerspective: 1,
         theSessionTimestamp: now,
         thePerspectivesTimestamp: now,
@@ -42,7 +42,7 @@ class IndividualAndCollectiveSessionFixtures {
         individualSessionMetadata: {
           "metadata": [
             {
-              "thePerspective": tSetup.tPerspectives[0],
+              "thePerspective": tSetup.tPerspectives.first,
               "numberOfFiles": 1,
             }
           ]

@@ -10,8 +10,8 @@ class CollaboratorPhraseValidationModel
   static CollaboratorPhraseValidationModel fromSupabase(
       {required List adjRes, required List nounRes}) {
     if (adjRes.isNotEmpty && nounRes.isNotEmpty) {
-      final nounID = nounRes[0]["id"];
-      final adjectiveID = adjRes[0]["id"];
+      final nounID = nounRes.first["id"];
+      final adjectiveID = adjRes.first["id"];
       return CollaboratorPhraseValidationModel(
         isValid: true,
         phraseIDs: CollaboratorPhraseIDs(

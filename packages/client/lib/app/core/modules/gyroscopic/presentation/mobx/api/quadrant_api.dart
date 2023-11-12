@@ -128,7 +128,7 @@ abstract class _QuadrantAPIBase extends GyroscopeAPI with Store {
 
   thresholdModeCallback() {
     if (thresholdList.isNotEmpty) {
-      theSideTheThresholdWasEnteredFrom = thresholdList[0].closerTo;
+      theSideTheThresholdWasEnteredFrom = thresholdList.first.closerTo;
       if (isANegativeModeMovement) {
         currentMode = GyroscopeModes.negative;
       } else if (isAPositiveRevolutionMovement) {

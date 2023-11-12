@@ -37,8 +37,8 @@ class UnderOver {
             .tween(
               'first grad color',
               ColorTween(
-                begin: startingGradient[0],
-                end: startingGradient[0],
+                begin: startingGradient.first,
+                end: startingGradient.first,
               ),
             )
             .tween(
@@ -55,8 +55,8 @@ class UnderOver {
             .tween(
               'first grad color',
               ColorTween(
-                begin: startingGradient[0],
-                end: endingGradient[0],
+                begin: startingGradient.first,
+                end: endingGradient.first,
               ),
             )
             .tween(
@@ -73,8 +73,8 @@ class UnderOver {
             .tween(
               'first grad color',
               ColorTween(
-                begin: endingGradient[0],
-                end: endingGradient[0],
+                begin: endingGradient.first,
+                end: endingGradient.first,
               ),
             )
             .tween(

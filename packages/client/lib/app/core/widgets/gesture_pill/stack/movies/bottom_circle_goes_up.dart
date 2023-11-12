@@ -72,8 +72,8 @@ class BottomCircleGoesUp {
           .tween(
             'top circle color 1',
             ColorTween(
-              begin: firstGradientColors[0],
-              end: secondGradientColors[0],
+              begin: firstGradientColors.first,
+              end: secondGradientColors.first,
             ),
           )
           .tween(

@@ -20,8 +20,8 @@ class BackToOceanDive {
         .tween(
           '1st Water Gradient Color',
           ColorTween(
-            begin: WaterColorsAndStops.timesUpPhase8[0].color,
-            end: WaterColorsAndStops.oceanDiveWater[0].color,
+            begin: WaterColorsAndStops.timesUpPhase8.first.color,
+            end: WaterColorsAndStops.oceanDiveWater.first.color,
           ),
         )
         .tween(
@@ -76,8 +76,8 @@ class BackToOceanDive {
         .tween(
           '1st Water Gradient Stop',
           Tween<double>(
-            begin: WaterColorsAndStops.timesUpPhase8[0].stop,
-            end: WaterColorsAndStops.oceanDiveWater[0].stop,
+            begin: WaterColorsAndStops.timesUpPhase8.first.stop,
+            end: WaterColorsAndStops.oceanDiveWater.first.stop,
           ),
         )
         .tween(

@@ -194,4 +194,13 @@ class DefaultEntities {
   static Either<Failure, CollaboratorIndividualSessionMetadataEntity>
       get collaboratorIndividualSessionMetadataEntity => const Right(
           CollaboratorIndividualSessionMetadataEntity(sessionMetadata: {}));
+
+  static Either<Failure, CollaboratorPerspectivesEntity>
+      get collaboratorPerspectivesEntity => const Right(
+          CollaboratorPerspectivesEntity(collaboratorPerspectivesData: []));
+
+  static CollaboratorPerspectivesEntity
+      get unwrappedCollaboratorPerspectivesEntity =>
+          const CollaboratorPerspectivesEntity(
+              collaboratorPerspectivesData: []);
 }

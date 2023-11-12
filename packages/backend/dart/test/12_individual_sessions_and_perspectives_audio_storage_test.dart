@@ -78,14 +78,14 @@ void main() {
               path: userPath,
             );
 
-    expect(res[0].name, "${user1Queries.collaboratorInfo.theUsersUID}_one.wav");
+    expect(
+        res.first.name, "${user1Queries.collaboratorInfo.theUsersUID}_one.wav");
 
     final collaboratorPath = StorageUtilities.getCollectiveSessionPaths(
       extrapolationInfo: extrapolationInfo,
       collaboratorInfo: user1Queries.collaboratorInfo,
       excludeFile: true,
-    )[0]
-        .endPath;
+    ).first.endPath;
 
     await user1StorageQueries.moveToCollectiveSpace(extrapolationInfo);
     await user2StorageQueries.moveToCollectiveSpace(extrapolationInfo);
@@ -94,8 +94,8 @@ void main() {
               path: collaboratorPath,
             );
 
-    expect(
-        res2[0].name, "${user1Queries.collaboratorInfo.theUsersUID}_one.wav");
+    expect(res2.first.name,
+        "${user1Queries.collaboratorInfo.theUsersUID}_one.wav");
 
     final res3 = await user1StorageQueries
         .downloadTheCollaboratorsAudioClips(extrapolationInfo);

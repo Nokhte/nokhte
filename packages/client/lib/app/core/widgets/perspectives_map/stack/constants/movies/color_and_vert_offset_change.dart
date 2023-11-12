@@ -17,8 +17,8 @@ class PerspectivesMapColorAndVertOffsetChange {
             .tween(
               'leftMostCircleColor',
               ColorTween(
-                begin: startingCircleColors[0],
-                end: endingCircleColors[0],
+                begin: startingCircleColors.first,
+                end: endingCircleColors.first,
               ),
             )
             .tween(
@@ -52,8 +52,8 @@ class PerspectivesMapColorAndVertOffsetChange {
             .tween(
               'leftMostCircleVertOffset',
               Tween<double>(
-                begin: startingVertOffsets[0],
-                end: endingVertOffsets[0],
+                begin: startingVertOffsets.first,
+                end: endingVertOffsets.first,
               ),
             )
             .tween(

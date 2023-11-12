@@ -19,8 +19,8 @@ class DepthsToDayScheduling {
         .tween(
           '1st Water Gradient Color',
           ColorTween(
-            begin: WaterColorsAndStops.toTheDepthsWater[0].color,
-            end: WaterColorsAndStops.schedulingDayWaterFullScreen[0].color,
+            begin: WaterColorsAndStops.toTheDepthsWater.first.color,
+            end: WaterColorsAndStops.schedulingDayWaterFullScreen.first.color,
           ),
         )
         .tween(
@@ -75,8 +75,8 @@ class DepthsToDayScheduling {
         .tween(
           '1st Water Gradient Stop',
           Tween<double>(
-            begin: WaterColorsAndStops.toTheDepthsWater[0].stop,
-            end: WaterColorsAndStops.schedulingDayWaterFullScreen[0].stop,
+            begin: WaterColorsAndStops.toTheDepthsWater.first.stop,
+            end: WaterColorsAndStops.schedulingDayWaterFullScreen.first.stop,
           ),
         )
         .tween(

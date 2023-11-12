@@ -10,8 +10,8 @@ class HorizonToFullSky {
             .tween(
               '1st Water Gradient Color',
               ColorTween(
-                begin: startingGradient[0].color,
-                end: startingGradient[0].color,
+                begin: startingGradient.first.color,
+                end: startingGradient.first.color,
               ),
             )
             .tween(
@@ -66,8 +66,8 @@ class HorizonToFullSky {
             .tween(
               '1st Water Gradient Stop',
               Tween<double>(
-                begin: startingGradient[0].stop,
-                end: startingGradient[0].stop,
+                begin: startingGradient.first.stop,
+                end: startingGradient.first.stop,
               ),
             )
             .tween(

@@ -18,10 +18,11 @@ class CurrentPerspectivesModel extends CurrentPerspectivesEntity {
     } else {
       return CurrentPerspectivesModel(
         theUsersUID: sbQueryRes[1],
-        currentPerspectives: sbQueryRes[0][0]
-            [P2PPerspectivesTrackingQueries.currentPerspectives],
+        currentPerspectives: sbQueryRes
+            .first.first[P2PPerspectivesTrackingQueries.currentPerspectives],
         currentPerspectiveTimestamp: DateTime.parse(
-          sbQueryRes[0][0][P2PPerspectivesTrackingQueries.currentCommittedAt],
+          sbQueryRes
+              .first.first[P2PPerspectivesTrackingQueries.currentCommittedAt],
         ),
       );
     }

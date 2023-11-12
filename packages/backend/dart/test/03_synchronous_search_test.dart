@@ -20,10 +20,10 @@ void main() {
     final phraseIdResults = await UserSetupConstants.fetchCollaboratorPhraseIDs(
       supabaseAdmin: supabaseAdmin,
     );
-    firstUserUID = userIdResults[0];
+    firstUserUID = userIdResults.first;
     secondUserUID = userIdResults[1];
 
-    firstUserPhraseIDs = phraseIdResults[0];
+    firstUserPhraseIDs = phraseIdResults.first;
     secondUserPhraseIDs = phraseIdResults[1];
   });
 

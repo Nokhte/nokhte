@@ -13,7 +13,7 @@ void main() {
   setUpAll(() async {
     supabase = SupabaseClientConfigConstants.supabase;
     final userIDResults = await UserSetupConstants.fetchUIDs();
-    currentUserUID = userIDResults[0];
+    currentUserUID = userIDResults.first;
     otherUserUID = userIDResults[1];
     await SignIn.user1(supabase: supabase);
   });

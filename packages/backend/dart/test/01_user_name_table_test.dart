@@ -18,7 +18,7 @@ void main() {
     supabaseAdmin = SupabaseClientConfigConstants.supabaseAdmin;
     await UserSetupConstants.wipeUsernamesTable(supabaseAdmin: supabaseAdmin);
     final userIdResults = await UserSetupConstants.fetchUIDs();
-    currentUserUID = userIdResults[0];
+    currentUserUID = userIdResults.first;
     await SignIn.user1(supabase: supabase);
   });
 
@@ -49,17 +49,18 @@ void main() {
       userUID: currentUserUID,
     );
 
-    expect(userNamesRes[0]['first_name'], UserDataConstants.user1FirstName);
-    expect(userNamesRes[0]["last_name"], UserDataConstants.user1LastName);
-    expect(userNamesRes[0]["uid"], currentUserUID);
+    expect(userNamesRes.first['first_name'], UserDataConstants.user1FirstName);
+    expect(userNamesRes.first["last_name"], UserDataConstants.user1LastName);
+    expect(userNamesRes.first["uid"], currentUserUID);
 
-    expect(collaboratorPhraseRes[0]["uid"], currentUserUID);
-    expect(collaboratorPhraseRes[0]["collaborator_phrase"], isNotEmpty);
-    expect(collaboratorPhraseRes[0]["adjective_id"], isA<int>());
-    expect(collaboratorPhraseRes[0]["noun_id"], isA<int>());
-    expect(collaboratorPhraseRes[0]["is_visible"], false);
+    expect(collaboratorPhraseRes.first["uid"], currentUserUID);
+    expect(collaboratorPhraseRes.first["collaborator_phrase"], isNotEmpty);
+    expect(collaboratorPhraseRes.first["adjective_id"], isA<int>());
+    expect(collaboratorPhraseRes.first["noun_id"], isA<int>());
+    expect(collaboratorPhraseRes.first["is_visible"], false);
     expect(
-        collaboratorPhraseRes[0]["has_an_existing_collaborator_relationship"],
+        collaboratorPhraseRes
+            .first["has_an_existing_collaborator_relationship"],
         false);
   });
 

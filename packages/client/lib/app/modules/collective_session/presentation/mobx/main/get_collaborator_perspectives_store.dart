@@ -5,26 +5,26 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/modules/collective_session/domain/domain.dart';
 import 'package:nokhte/app/modules/collective_session/presentation/presentation.dart';
 import 'package:nokhte_backend/storage/perspectives_audio.dart';
-part 'download_collaborators_perspectives_clips_store.g.dart';
+part 'get_collaborator_perspectives_store.g.dart';
 
-class DownloadCollaboratorsPerspectivesClipsStore = _DownloadCollaboratorsPerspectivesClipsStoreBase
-    with _$DownloadCollaboratorsPerspectivesClipsStore;
+class GetCollaboratorPerspectivesStore = _GetCollaboratorPerspectivesStoreBase
+    with _$GetCollaboratorPerspectivesStore;
 
-abstract class _DownloadCollaboratorsPerspectivesClipsStoreBase
-    extends BaseMobxDBStore<CollectiveSessionAudioExtrapolationInfo,
-        CollaboratorsAudioClipsDownloadStatusEntity> with Store {
+abstract class _GetCollaboratorPerspectivesStoreBase extends BaseMobxDBStore<
+    CollectiveSessionAudioExtrapolationInfo,
+    CollaboratorPerspectivesEntity> with Store {
   @observable
-  bool isDownloaded = false;
+  CollaboratorPerspectivesEntity collaboratorPerspectives =
+      DefaultEntities.unwrappedCollaboratorPerspectivesEntity;
 
-  final DownloadCollaboratorsPerspectivesClipsGetterStore getterStore;
-  _DownloadCollaboratorsPerspectivesClipsStoreBase({required this.getterStore});
+  final GetCollaboratorPerspectivesGetterStore getterStore;
+  _GetCollaboratorPerspectivesStoreBase({required this.getterStore});
 
   @observable
-  BaseFutureStore<CollaboratorsAudioClipsDownloadStatusEntity> futureStore =
-      BaseFutureStore(
-    baseEntity: DefaultEntities.collaboratorsAudioCLipsAndFilesEntity,
+  BaseFutureStore<CollaboratorPerspectivesEntity> futureStore = BaseFutureStore(
+    baseEntity: DefaultEntities.collaboratorPerspectivesEntity,
     entityFutureParam: ObservableFuture(
-      Future.value(DefaultEntities.collaboratorsAudioCLipsAndFilesEntity),
+      Future.value(DefaultEntities.collaboratorPerspectivesEntity),
     ),
   );
 
@@ -33,8 +33,8 @@ abstract class _DownloadCollaboratorsPerspectivesClipsStoreBase
     result.fold((failure) {
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
-    }, (downloadStatusEntity) {
-      isDownloaded = downloadStatusEntity.isSent;
+    }, (perspectivesEntity) {
+      collaboratorPerspectives = perspectivesEntity;
     });
   }
 

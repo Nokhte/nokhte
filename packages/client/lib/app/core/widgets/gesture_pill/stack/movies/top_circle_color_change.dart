@@ -40,8 +40,8 @@ class TopCircleColorChange {
           .tween(
             'top circle color 1',
             ColorTween(
-              begin: firstGradientColors[0],
-              end: secondGradientColors[0],
+              begin: firstGradientColors.first,
+              end: secondGradientColors.first,
             ),
           )
           .tween(
@@ -72,7 +72,7 @@ class TopCircleColorChange {
           .tween(
             'top circle color 1',
             ColorTween(
-              begin: secondGradientColors[0],
+              begin: secondGradientColors.first,
               end: const Color(0x00FFFFFF),
             ),
           )

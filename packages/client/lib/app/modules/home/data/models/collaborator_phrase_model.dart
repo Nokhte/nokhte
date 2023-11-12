@@ -5,6 +5,6 @@ class CollaboratorPhraseModel extends CollaboratorPhraseEntity {
 
   static CollaboratorPhraseModel fromSupabase(List sbQueryRes) {
     return CollaboratorPhraseModel(
-        collaboratorPhrase: sbQueryRes[0]["collaborator_phrase"]);
+        collaboratorPhrase: sbQueryRes.first["collaborator_phrase"]);
   }
 }

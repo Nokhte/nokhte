@@ -7,8 +7,9 @@ class WhoGetsTheQuestionModel extends WhoGetsTheQuestionEntity {
     if (sbQueryRes.isEmpty) {
       return const WhoGetsTheQuestionModel(hasIt: false);
     } else {
-      final String collaboratorOne = sbQueryRes[0][0]["collaborator_one"];
-      final int whoGetsTheQuestion = sbQueryRes[0][0]["who_gets_the_question"];
+      final String collaboratorOne = sbQueryRes.first.first["collaborator_one"];
+      final int whoGetsTheQuestion =
+          sbQueryRes.first.first["who_gets_the_question"];
       if (collaboratorOne == sbQueryRes[1]) {
         return WhoGetsTheQuestionModel(
           hasIt: whoGetsTheQuestion == 1 ? true : false,

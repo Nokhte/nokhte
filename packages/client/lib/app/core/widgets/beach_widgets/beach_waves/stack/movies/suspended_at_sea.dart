@@ -19,8 +19,8 @@ class SuspendedAtSea {
         .tween(
           '1st Water Gradient Color',
           ColorTween(
-            begin: WaterColorsAndStops.oceanDiveWater[0].color,
-            end: WaterColorsAndStops.oceanDiveWater[0].color,
+            begin: WaterColorsAndStops.oceanDiveWater.first.color,
+            end: WaterColorsAndStops.oceanDiveWater.first.color,
           ),
         )
         .tween(
@@ -75,8 +75,8 @@ class SuspendedAtSea {
         .tween(
           '1st Water Gradient Stop',
           Tween<double>(
-            begin: WaterColorsAndStops.oceanDiveWater[0].stop,
-            end: WaterColorsAndStops.oceanDiveWater[0].stop,
+            begin: WaterColorsAndStops.oceanDiveWater.first.stop,
+            end: WaterColorsAndStops.oceanDiveWater.first.stop,
           ),
         )
         .tween(

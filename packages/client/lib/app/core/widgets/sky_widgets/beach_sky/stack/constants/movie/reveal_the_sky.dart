@@ -41,8 +41,8 @@ class RevealTheSky {
         .tween(
           'first color',
           ColorTween(
-            begin: skyColors[0],
-            end: skyColors[0],
+            begin: skyColors.first,
+            end: skyColors.first,
           ),
         )
         .tween(

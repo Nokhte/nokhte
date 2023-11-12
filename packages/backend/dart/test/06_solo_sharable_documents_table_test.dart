@@ -14,7 +14,7 @@ void main() {
     supabase = SupabaseClientConfigConstants.supabase;
     supabaseAdmin = SupabaseClientConfigConstants.supabaseAdmin;
     final userIdResults = await UserSetupConstants.fetchUIDs();
-    firstUserUID = userIdResults[0];
+    firstUserUID = userIdResults.first;
     secondUserUID = userIdResults[1];
   });
 
@@ -34,10 +34,10 @@ void main() {
       docType: 'purpose',
     );
 
-    expect(res[0]["owner_uid"], firstUserUID);
-    expect(res[0]["collaborator_uid"], secondUserUID);
-    expect(res[0]["is_visible_to_collaborator"], false);
-    expect(res[0]["session_is_completed"], false);
+    expect(res.first["owner_uid"], firstUserUID);
+    expect(res.first["collaborator_uid"], secondUserUID);
+    expect(res.first["is_visible_to_collaborator"], false);
+    expect(res.first["session_is_completed"], false);
 
     await SignIn.user2(supabase: supabase);
     final secondRes = await SoloSharableDocuments.fetchDocInfo(
@@ -66,7 +66,7 @@ void main() {
         supabase: supabase,
         collaboratorUID: secondUserUID,
       );
-      expect(thirdRes[0]["content"], "hi there collaborator 2");
+      expect(thirdRes.first["content"], "hi there collaborator 2");
     },
   );
 

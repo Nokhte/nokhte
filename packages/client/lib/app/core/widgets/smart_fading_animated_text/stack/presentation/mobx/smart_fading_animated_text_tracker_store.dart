@@ -15,8 +15,8 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
 
   _SmartFadingAnimatedTextTrackerStoreBase(
       {required this.messagesData, required this.isInfinite})
-      : currentMainText = messagesData[0].mainMessage,
-        currentSubText = messagesData[0].subMessage,
+      : currentMainText = messagesData.first.mainMessage,
+        currentSubText = messagesData.first.subMessage,
         firstTime = false;
 
   @observable

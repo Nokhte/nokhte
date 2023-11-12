@@ -1,2 +1,2 @@
 export 'move_individual_perspectives_audio_to_collective_space.dart';
-export 'download_collaborators_perspectives_clips.dart';
+export 'get_collaborator_perspectives.dart';

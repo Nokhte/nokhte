@@ -12,8 +12,8 @@ class ImmersionBackToShore {
         .tween(
           '1st Water Gradient Color',
           ColorTween(
-            begin: WaterColorsAndStops.audioImmersionWater[0].color,
-            end: WaterColorsAndStops.audioImmersionWater[0].color,
+            begin: WaterColorsAndStops.audioImmersionWater.first.color,
+            end: WaterColorsAndStops.audioImmersionWater.first.color,
           ),
         )
         .tween(
@@ -68,8 +68,8 @@ class ImmersionBackToShore {
         .tween(
           '1st Water Gradient Stop',
           Tween<double>(
-            begin: WaterColorsAndStops.audioImmersionWater[0].stop,
-            end: WaterColorsAndStops.audioImmersionWater[0].stop,
+            begin: WaterColorsAndStops.audioImmersionWater.first.stop,
+            end: WaterColorsAndStops.audioImmersionWater.first.stop,
           ),
         )
         .tween(
