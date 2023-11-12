@@ -79,13 +79,14 @@ class CollectiveSessionModule extends Module {
         ),
         Bind.singleton<CollectiveSessionPhase1Coordinator>(
           (i) => CollectiveSessionPhase1Coordinator(
-              widgets: i<CollectiveSessionPhase1WidgetsCoordinator>(),
-              audioPlayer: Modular.get<ChangeAudioPlayingStatusStore>(),
-              quadrantAPI: Modular.get<QuadrantAPI>(),
-              moveTheAudio:
-                  i<MoveIndividualPerspectivesAudioToCollectiveSpaceStore>(),
-              getCollaboratorPerspectives:
-                  i<GetCollaboratorPerspectivesStore>()),
+            audioPlayer: Modular.get<ChangeAudioPlayingStatusStore>(),
+            getCollaboratorPerspectives: i<GetCollaboratorPerspectivesStore>(),
+            moveTheAudio:
+                i<MoveIndividualPerspectivesAudioToCollectiveSpaceStore>(),
+            quadrantAPI: Modular.get<QuadrantAPI>(),
+            swipe: Modular.get<SwipeDetector>(),
+            widgets: i<CollectiveSessionPhase1WidgetsCoordinator>(),
+          ),
         ),
       ];
 
@@ -93,8 +94,9 @@ class CollectiveSessionModule extends Module {
   List<ChildRoute> get routes => [
         ChildRoute(
           '/',
-          child: (context, args) =>
-              const CollectiveSession1StandInTheirShoesScreen(),
+          child: (context, args) => CollectiveSession1StandInTheirShoesScreen(
+            coordinator: Modular.get<CollectiveSessionPhase1Coordinator>(),
+          ),
         )
       ];
 }
