@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:nokhte/app/modules/collective_session/types/paths_and_session_metadata.dart';
 import 'package:nokhte/app/modules/collective_session/types/types.dart';
 import 'package:nokhte_backend/collective_sessions.dart';
 import 'package:nokhte_backend/storage/perspectives_audio.dart';
