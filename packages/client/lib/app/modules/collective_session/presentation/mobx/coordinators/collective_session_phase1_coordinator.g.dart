@@ -10,6 +10,15 @@ part of 'collective_session_phase1_coordinator.dart';
 
 mixin _$CollectiveSessionPhase1Coordinator
     on _CollectiveSessionPhase1CoordinatorBase, Store {
+  late final _$screenConstructorAsyncAction = AsyncAction(
+      '_CollectiveSessionPhase1CoordinatorBase.screenConstructor',
+      context: context);
+
+  @override
+  Future screenConstructor() {
+    return _$screenConstructorAsyncAction.run(() => super.screenConstructor());
+  }
+
   @override
   String toString() {
     return '''

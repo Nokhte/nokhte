@@ -8,10 +8,12 @@ import 'package:nokhte/app/modules/collective_session/presentation/presentation.
 
 class CollectiveSession1StandInTheirShoesScreen extends StatelessWidget {
   final CollectiveSessionPhase1Coordinator coordinator;
-  const CollectiveSession1StandInTheirShoesScreen({
+  CollectiveSession1StandInTheirShoesScreen({
     super.key,
     required this.coordinator,
-  });
+  }) {
+    coordinator.screenConstructor();
+  }
 
   @override
   Widget build(BuildContext context) {
