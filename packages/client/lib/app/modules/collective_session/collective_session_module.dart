@@ -6,9 +6,11 @@ import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic_module.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/mobx/api/api.dart';
 import 'package:nokhte/app/core/modules/voice_call/voice_call_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/collective_session/data/data.dart';
 import 'package:nokhte/app/modules/collective_session/domain/domain.dart';
 import 'package:nokhte/app/modules/collective_session/presentation/mobx/coordinators/collective_session_phase1_coordinator.dart';
+import 'package:nokhte/app/modules/collective_session/presentation/mobx/coordinators/collective_session_phase1_widgets_coordinator.dart';
 import 'package:nokhte/app/modules/collective_session/presentation/presentation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -65,8 +67,19 @@ class CollectiveSessionModule extends Module {
                 MoveIndividualPerspectivesAudioToCollectiveSpaceGetterStore>(),
           ),
         ),
+        Bind.singleton<CollectiveSessionPhase1WidgetsCoordinator>(
+          (i) => CollectiveSessionPhase1WidgetsCoordinator(
+            beachWaves: Modular.get<BeachWavesTrackerStore>(),
+            collaborativeTextEditor:
+                Modular.get<CollaborativeTextEditorTrackerStore>(),
+            beachHorizonWater: Modular.get<BeachHorizonWaterTrackerStore>(),
+            beachSky: Modular.get<BeachSkyStore>(),
+            perspectivesMap: Modular.get<PerspectivesMapStore>(),
+          ),
+        ),
         Bind.singleton<CollectiveSessionPhase1Coordinator>(
           (i) => CollectiveSessionPhase1Coordinator(
+              widgets: i<CollectiveSessionPhase1WidgetsCoordinator>(),
               audioPlayer: Modular.get<ChangeAudioPlayingStatusStore>(),
               quadrantAPI: Modular.get<QuadrantAPI>(),
               moveTheAudio:

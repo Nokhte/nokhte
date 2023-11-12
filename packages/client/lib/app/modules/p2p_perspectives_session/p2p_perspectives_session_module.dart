@@ -4,6 +4,7 @@ import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dar
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/voice_call_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
+import 'package:nokhte/app/core/widgets/widget_modules/perspectives_widgets_module.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_perspectives_session/data/data.dart';
 import 'package:nokhte/app/modules/p2p_perspectives_session/domain/domain.dart';
@@ -13,6 +14,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class P2PPerspectivesSessionModule extends Module {
   @override
   List<Module> get imports => [
+        PerspectivesWidgetsModule(),
         GyroscopicModule(),
         VoiceCallModule(),
       ];
@@ -103,37 +105,14 @@ class P2PPerspectivesSessionModule extends Module {
             getterStore: i<UpdateTheStagingAreaGetterStore>(),
           ),
         ),
-        Bind.singleton<BeachHorizonWaterTrackerStore>(
-          (i) => BeachHorizonWaterTrackerStore(
-            isGoingToFullSky: true,
-          ),
-        ),
-        Bind.singleton<BeachWavesTrackerStore>(
-          (i) => BeachWavesTrackerStore(),
-        ),
-        Bind.singleton<SwipeDetector>(
-          (i) => SwipeDetector(),
-        ),
-        Bind.singleton<BeachSkyStore>(
-          (i) => BeachSkyStore(
-            isGoingToFullSky: true,
-          ),
-        ),
-        Bind.singleton<PerspectivesMapStore>(
-          (i) => PerspectivesMapStore(),
-        ),
-        Bind.singleton<CollaborativeTextEditorTrackerStore>(
-          (i) => CollaborativeTextEditorTrackerStore(
-            isReadOnly: false,
-          ),
-        ),
         Bind.singleton<PerspectivesWidgetsCoordinatorStore>(
           (i) => PerspectivesWidgetsCoordinatorStore(
-            beachWaves: i<BeachWavesTrackerStore>(),
-            collaborativeTextEditor: i<CollaborativeTextEditorTrackerStore>(),
-            beachHorizonWater: i<BeachHorizonWaterTrackerStore>(),
-            beachSky: i<BeachSkyStore>(),
-            perspectivesMap: i<PerspectivesMapStore>(),
+            beachWaves: Modular.get<BeachWavesTrackerStore>(),
+            collaborativeTextEditor:
+                Modular.get<CollaborativeTextEditorTrackerStore>(),
+            beachHorizonWater: Modular.get<BeachHorizonWaterTrackerStore>(),
+            beachSky: Modular.get<BeachSkyStore>(),
+            perspectivesMap: Modular.get<PerspectivesMapStore>(),
           ),
         ),
         Bind.singleton<P2PPerspectiveSessionCoordinatorStore>(
