@@ -1,3 +1,4 @@
+import 'package:nokhte/app/core/custom_control_structures/custom_control_structures.dart';
 import 'package:nokhte/app/modules/collective_session/domain/domain.dart';
 import 'package:nokhte/app/modules/collective_session/types/types.dart';
 import 'package:nokhte_backend/storage/buckets/utilities/storage_utilities.dart';
@@ -8,37 +9,30 @@ class CollaboratorPerspectivesModel extends CollaboratorPerspectivesEntity {
 
   static CollaboratorPerspectivesModel fromSupabase(
       PathsAndSessionMetadata response) {
-    List<CollaboratorPerspectivesData> collaboratorPerspectives = List.filled(
-        response.individualSessionMetadata.length,
-        CollaboratorPerspectivesData(
-            thePerspective: '', numberOfFiles: 0, pathsToFiles: const []));
-    for (int sessionMetadataIndex = 0;
-        sessionMetadataIndex < response.individualSessionMetadata.length;
-        sessionMetadataIndex++) {
-      for (int pathsIndex = 0;
-          pathsIndex < response.fullAndRelativePaths.length;
-          pathsIndex++) {
-        final formattedPerspective = StorageUtilities.getFormattedPerspective(
-            thePerspective:
-                response.individualSessionMetadata[sessionMetadataIndex]
-                    ["thePerspective"],
-            currentIndex: sessionMetadataIndex);
+    final metadata = response.individualSessionMetadata;
+    final paths = response.fullAndRelativePaths;
 
-        final thePerspectiveTheFileBelongsTo = response
-            .fullAndRelativePaths[pathsIndex].relativePath
-            .split('/')[4];
+    List<CollaboratorPerspectivesData> collaboratorPerspectives = List.generate(
+      response.individualSessionMetadata.length,
+      (index) => CollaboratorPerspectivesData(
+        thePerspective: metadata[index]["thePerspective"],
+        numberOfFiles: 0,
+        pathsToFiles: List.empty(growable: true),
+      ),
+    );
 
-        if (formattedPerspective == thePerspectiveTheFileBelongsTo) {
-          collaboratorPerspectives[sessionMetadataIndex].thePerspective =
-              response.individualSessionMetadata[sessionMetadataIndex]
-                  ['thePerspective'];
-          collaboratorPerspectives[sessionMetadataIndex].numberOfFiles++;
-          collaboratorPerspectives[sessionMetadataIndex].pathsToFiles.add(
-                response.fullAndRelativePaths[pathsIndex].fullPath,
-              );
-        }
+    NestedLoop.execute(paths, metadata, (pathsIndex, metadataIndex) {
+      final persPath = paths[pathsIndex].fullPath.split('/')[3];
+      final metaDataCompVal = StorageUtilities.getFormattedPerspective(
+          thePerspective: metadata[metadataIndex]["thePerspective"],
+          currentIndex: metadataIndex);
+      if (persPath == metaDataCompVal) {
+        collaboratorPerspectives[metadataIndex].numberOfFiles++;
+        collaboratorPerspectives[metadataIndex]
+            .pathsToFiles
+            .add(response.fullAndRelativePaths[pathsIndex].fullPath);
       }
-    }
+    });
     return CollaboratorPerspectivesModel(
       collaboratorPerspectivesData: collaboratorPerspectives,
     );
