@@ -4,6 +4,10 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 class PerspectivesWidgetsModule extends Module {
   @override
   List<Bind> get binds => [
+        Bind.singleton<AudioClipPlatformTrackerStore>(
+          (i) => AudioClipPlatformTrackerStore(),
+          export: true,
+        ),
         Bind.singleton<BeachHorizonWaterTrackerStore>(
           (i) => BeachHorizonWaterTrackerStore(
             isGoingToFullSky: true,

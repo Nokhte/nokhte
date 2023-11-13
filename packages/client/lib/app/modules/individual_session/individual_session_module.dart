@@ -5,7 +5,6 @@ import 'package:nokhte/app/core/modules/get_current_perspectives/mobx/mobx.dart'
 import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic_module.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/mobx/api/api.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
-import 'package:nokhte/app/core/widgets/audio_clip_platform/stack/presentation/presentation.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/individual_session/data/data.dart';
 import 'package:nokhte/app/modules/individual_session/domain/domain.dart';
@@ -120,7 +119,7 @@ class IndividualSessionModule extends Module {
         ),
         Bind.singleton<IndividualSessionScreenWidgetsCoordinator>(
           (i) => IndividualSessionScreenWidgetsCoordinator(
-            audioClipPlatform: i<AudioClipPlatformTrackerStore>(),
+            audioClipPlatform: Modular.get<AudioClipPlatformTrackerStore>(),
             beachWaves: i<BeachWavesTrackerStore>(),
             collaborativeTextEditor: i<CollaborativeTextEditorTrackerStore>(),
             beachHorizonWater: Modular.get<BeachHorizonWaterTrackerStore>(),

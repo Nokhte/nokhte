@@ -72,6 +72,7 @@ class CollectiveSessionModule extends Module {
         ),
         Bind.singleton<CollectiveSessionPhase1WidgetsCoordinator>(
           (i) => CollectiveSessionPhase1WidgetsCoordinator(
+            audioClipPlatform: Modular.get<AudioClipPlatformTrackerStore>(),
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
             collaborativeTextEditor:
                 Modular.get<CollaborativeTextEditorTrackerStore>(),

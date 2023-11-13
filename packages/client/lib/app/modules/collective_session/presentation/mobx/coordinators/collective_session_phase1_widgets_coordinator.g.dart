@@ -10,6 +10,43 @@ part of 'collective_session_phase1_widgets_coordinator.dart';
 
 mixin _$CollectiveSessionPhase1WidgetsCoordinator
     on _CollectiveSessionPhase1WidgetsCoordinatorBase, Store {
+  late final _$_CollectiveSessionPhase1WidgetsCoordinatorBaseActionController =
+      ActionController(
+          name: '_CollectiveSessionPhase1WidgetsCoordinatorBase',
+          context: context);
+
+  @override
+  dynamic markUpOrDownTheAudioPlatform(int chosenAudioIndex,
+      {required bool shouldMoveUp}) {
+    final _$actionInfo =
+        _$_CollectiveSessionPhase1WidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_CollectiveSessionPhase1WidgetsCoordinatorBase.markUpOrDownTheAudioPlatform');
+    try {
+      return super.markUpOrDownTheAudioPlatform(chosenAudioIndex,
+          shouldMoveUp: shouldMoveUp);
+    } finally {
+      _$_CollectiveSessionPhase1WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic resetAudioPlatform() {
+    final _$actionInfo =
+        _$_CollectiveSessionPhase1WidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_CollectiveSessionPhase1WidgetsCoordinatorBase.resetAudioPlatform');
+    try {
+      return super.resetAudioPlatform();
+    } finally {
+      _$_CollectiveSessionPhase1WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
