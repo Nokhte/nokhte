@@ -2,3 +2,13 @@
 .idea
 melos_primala_core.iml
 build/**
+.DS_Store
+packages/.DS_Store
+packages/backend/.DS_Store
+packages/backend/dart/.DS_Store
+packages/backend/dart/test/.DS_Store
+packages/backend/dart/test/assets/.DS_Store
+packages/backend/dart/.DS_Store
+packages/backend/dart/test/.DS_Store
+packages/backend/dart/.DS_Store
+packages/backend/dart/test/.DS_Store
