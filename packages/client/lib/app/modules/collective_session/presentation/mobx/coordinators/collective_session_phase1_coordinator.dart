@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/audio_player/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/get_current_perspectives/mobx/mobx.dart';
@@ -38,6 +39,7 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
   @action
   screenConstructor() async {
     widgets.attuneTheWidgets(DateTime.now());
+    await getCurrentPerspectives(NoParams());
     widgets.setText(getCurrentPerspectives.currentPerspectives[chosenIndex]);
     await quadrantAPI.setupTheStream(
       numberOfQuadrants: quadNum,
