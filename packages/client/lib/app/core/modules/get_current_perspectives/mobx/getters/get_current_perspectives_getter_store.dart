@@ -3,7 +3,7 @@ import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/error/failure.dart';
-import 'package:nokhte/app/modules/individual_session/domain/domain.dart';
+import 'package:nokhte/app/core/modules/get_current_perspectives/domain/domain.dart';
 part 'get_current_perspectives_getter_store.g.dart';
 
 class GetCurrentPerspectivesGetterStore = _GetCurrentPerspectivesGetterStoreBase

@@ -1,4 +1,4 @@
-import 'package:nokhte/app/modules/individual_session/domain/domain.dart';
+import 'package:nokhte/app/core/modules/get_current_perspectives/domain/domain.dart';
 import 'package:nokhte_backend/p2p_perspectives_tracking.dart';
 
 class CurrentPerspectivesModel extends CurrentPerspectivesEntity {

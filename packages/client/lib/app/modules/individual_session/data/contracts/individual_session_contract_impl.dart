@@ -16,17 +16,6 @@ class IndividualSessionContractImpl implements IndividualSessionContract {
       {required this.remoteSource, required this.networkInfo});
 
   @override
-  Future<Either<Failure, CurrentPerspectivesModel>> getCurrentPerspectives(
-      NoParams params) async {
-    if (await networkInfo.isConnected) {
-      final res = await remoteSource.getCurrentPerspectives();
-      return Right(CurrentPerspectivesModel.fromSupabase(res));
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
-
-  @override
   Future<Either<Failure, IndividualSessionCreationModel>>
       createIndividualSession(NoParams params) async {
     if (await networkInfo.isConnected) {

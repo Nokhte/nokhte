@@ -1,5 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/audio_player/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/get_current_perspectives/get_current_perspectives_module.dart';
+import 'package:nokhte/app/core/modules/get_current_perspectives/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic_module.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/mobx/api/api.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
@@ -12,7 +14,10 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class IndividualSessionModule extends Module {
   @override
-  List<Module> get imports => [GyroscopicModule()];
+  List<Module> get imports => [
+        GyroscopicModule(),
+        GetCurrentPerspectivesModule(),
+      ];
 
   @override
   List<Bind> get binds => [
@@ -36,10 +41,6 @@ class IndividualSessionModule extends Module {
             contract: i<IndividualSessionContractImpl>(),
           ),
         ),
-        Bind.singleton<GetCurrentPerspectives>(
-          (i) => GetCurrentPerspectives(
-              contract: i<IndividualSessionContractImpl>()),
-        ),
         Bind.singleton<UpdateSessionMetadata>(
           (i) => UpdateSessionMetadata(
             contract: i<IndividualSessionContractImpl>(),
@@ -60,11 +61,6 @@ class IndividualSessionModule extends Module {
             logic: i<CreateIndividualSession>(),
           ),
         ),
-        Bind.singleton<GetCurrentPerspectivesGetterStore>(
-          (i) => GetCurrentPerspectivesGetterStore(
-            logic: i<GetCurrentPerspectives>(),
-          ),
-        ),
         Bind.singleton<UpdateSessionMetadataGetterStore>(
           (i) => UpdateSessionMetadataGetterStore(
             logic: i<UpdateSessionMetadata>(),
@@ -83,11 +79,6 @@ class IndividualSessionModule extends Module {
         Bind.singleton<CreateIndividualSessionStore>(
           (i) => CreateIndividualSessionStore(
             getterStore: i<CreateIndividualSessionGetterStore>(),
-          ),
-        ),
-        Bind.singleton<GetCurrentPerspectivesStore>(
-          (i) => GetCurrentPerspectivesStore(
-            getterStore: i<GetCurrentPerspectivesGetterStore>(),
           ),
         ),
         Bind.singleton<SwipeDetector>(
@@ -143,7 +134,7 @@ class IndividualSessionModule extends Module {
             changeAudioPlayingStatus:
                 Modular.get<ChangeAudioPlayingStatusStore>(),
             setRecordingStatus:
-                i<ChangePerspectivesAudioRecordingStatusStore>(),
+                Modular.get<ChangePerspectivesAudioRecordingStatusStore>(),
             createIndividualSession: i<CreateIndividualSessionStore>(),
             updateSessionMetadata: i<UpdateSessionMetadataStore>(),
             uploadIndividualPerspectivesAudio:
@@ -151,7 +142,7 @@ class IndividualSessionModule extends Module {
             swipe: i<SwipeDetector>(),
             quadrantAPI: i<QuadrantAPI>(),
             widgets: i<IndividualSessionScreenWidgetsCoordinator>(),
-            getCurrentPerspectives: i<GetCurrentPerspectivesStore>(),
+            getCurrentPerspectives: Modular.get<GetCurrentPerspectivesStore>(),
           ),
         ),
       ];

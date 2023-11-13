@@ -2,6 +2,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/audio_player/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/get_current_perspectives/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/types/desired_negative_mode_behavior.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/collective_session/presentation/mobx/mobx.dart';
@@ -12,6 +13,7 @@ class CollectiveSessionPhase1Coordinator = _CollectiveSessionPhase1CoordinatorBa
 
 abstract class _CollectiveSessionPhase1CoordinatorBase
     extends BaseQuadrantAPIReceiver with Store {
+  final GetCurrentPerspectivesStore getCurrentPerspectives;
   final CollectiveSessionPhase1WidgetsCoordinator widgets;
   final ChangeAudioPlayingStatusStore audioPlayer;
   final SwipeDetector swipe;
@@ -23,6 +25,7 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
 
   _CollectiveSessionPhase1CoordinatorBase({
     required super.quadrantAPI,
+    required this.getCurrentPerspectives,
     required this.swipe,
     required this.audioPlayer,
     required this.getCollaboratorPerspectives,

@@ -1,12 +1,12 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/modules/individual_session/domain/domain.dart';
+import 'package:nokhte/app/core/modules/get_current_perspectives/domain/domain.dart';
 
 class GetCurrentPerspectives
     implements AbstractFutureLogic<CurrentPerspectivesEntity, NoParams> {
-  final IndividualSessionContract contract;
+  final GetCurrentPerspectivesContract contract;
 
   GetCurrentPerspectives({required this.contract});
 
   @override
-  call(params) async => await contract.getCurrentPerspectives(params);
+  call(NoParams params) async => await contract.getCurrentPerspectives(params);
 }

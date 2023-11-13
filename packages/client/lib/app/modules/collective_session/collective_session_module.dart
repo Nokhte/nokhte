@@ -2,6 +2,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/audio_player/audio_player_module.dart';
 import 'package:nokhte/app/core/modules/audio_player/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/collaborative_doc_module.dart';
+import 'package:nokhte/app/core/modules/get_current_perspectives/get_current_perspectives_module.dart';
+import 'package:nokhte/app/core/modules/get_current_perspectives/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic_module.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/mobx/api/api.dart';
 import 'package:nokhte/app/core/modules/voice_call/voice_call_module.dart';
@@ -16,6 +18,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class CollectiveSessionModule extends Module {
   @override
   List<Module> get imports => [
+        GetCurrentPerspectivesModule(), // add in the coordinator
         PerspectivesWidgetsModule(),
         CollaborativeDocModule(),
         VoiceCallModule(),
@@ -79,6 +82,7 @@ class CollectiveSessionModule extends Module {
         ),
         Bind.singleton<CollectiveSessionPhase1Coordinator>(
           (i) => CollectiveSessionPhase1Coordinator(
+            getCurrentPerspectives: Modular.get<GetCurrentPerspectivesStore>(),
             audioPlayer: Modular.get<ChangeAudioPlayingStatusStore>(),
             getCollaboratorPerspectives: i<GetCollaboratorPerspectivesStore>(),
             moveTheAudio:
