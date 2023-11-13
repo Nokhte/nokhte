@@ -79,7 +79,7 @@
                 "**/core/mobx/**": true,
                 "**/core/network/**": true,
                 "**/core/utilities/**": true, 
-                "**/core/types/**": true,
+                // "**/core/types/**": true,
                 "**/.idea": true,
                 "**/**.lock": true,
                 "**/analysis_options.yaml": true,

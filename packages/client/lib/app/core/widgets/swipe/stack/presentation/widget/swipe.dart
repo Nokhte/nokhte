@@ -25,6 +25,7 @@ class Swipe extends StatelessWidget {
         DragType.vertical,
       ),
       onVerticalDragEnd: (details) => trackerStore.onFinishedGestureCallback(),
+      onTap: () => trackerStore.onTap(),
       child: child,
     );
   }
