@@ -14,7 +14,7 @@ class PerspectivesWidgetsModule extends Module {
           ),
           export: true,
         ),
-        Bind.singleton<BeachWavesTrackerStore>(
+        Bind.factory<BeachWavesTrackerStore>(
           (i) => BeachWavesTrackerStore(),
           export: true,
         ),

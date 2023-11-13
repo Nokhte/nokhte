@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:nokhte_backend/constants/constants.dart';
 import 'package:nokhte_backend/edge_functions.dart';
 import 'package:nokhte_backend/existing_collaborations.dart';
 import 'package:nokhte_backend/p2p_perspectives_tracking.dart';
 import 'package:nokhte_backend/solo_sharable_documents.dart';
+import 'package:nokhte_backend/storage/perspectives_audio.dart';
+import 'package:nokhte_backend/tables/real_time_disabled/individual_sessions/queries.dart';
 import 'package:nokhte_backend/tables/real_time_enabled/existing_collaborations/types/types.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -12,12 +16,28 @@ void main() {
       SupabaseClientConfigConstants.supabaseAdmin;
   late ExistingCollaborationsQueries existingCollaborationsQueries;
   late P2PPerspectivesTrackingQueries perspectivesQueries;
+  late IndividualSessionsQueries individualSessionQueries;
+  late PerspectivesAudioStorageQueries perspectivesAudioStorageQueries;
+  final supabase = SupabaseClientConfigConstants.supabase;
+  final tPerspectives = [
+    "pERSPECTIVE 1",
+    "peRSPECTIVE 2",
+    "perSPECTIVE 3",
+    'persPECTIVE 4',
+    'persPECTIVE 5'
+  ];
 
-  setUpAll(() {
+  final now = DateTime.now();
+
+  setUpAll(() async {
+    await SignIn.user2(supabase: supabase);
     existingCollaborationsQueries =
         ExistingCollaborationsQueries(supabase: supabaseAdmin);
     perspectivesQueries =
         P2PPerspectivesTrackingQueries(supabase: supabaseAdmin);
+    individualSessionQueries = IndividualSessionsQueries(supabase: supabase);
+    perspectivesAudioStorageQueries =
+        PerspectivesAudioStorageQueries(supabase: supabase);
   });
 
   Future returnNonNPCUID() async {
@@ -49,13 +69,124 @@ void main() {
       theUsersUID: realPersonUID,
     );
     await perspectivesQueries.insertNewPerspectives(
-      newPerspectives: [
-        "pERSPECTIVE 1",
-        "peRSPECTIVE 2",
-        "perSPECTIVE 3",
-        'persPECTIVE 4',
-        'persPECTIVE 5'
+      newPerspectives: tPerspectives,
+    );
+  });
+
+  test(
+      "make the collaborator do an individual session & update their row accordingly and then move it into the collective space",
+      () async {
+    final userIdResults = await UserSetupConstants.fetchUIDs();
+    final npcUserUID = userIdResults[1];
+    final realPersonUID = await returnNonNPCUID();
+    perspectivesQueries.collaboratorInfo = CollaboratorInfo(
+      theCollaboratorsNumber: "collaborator_one",
+      theCollaboratorsUID: npcUserUID,
+      theUsersCollaboratorNumber: "collaborator_two",
+      theUsersUID: realPersonUID,
+    );
+    // perspectivesAudioStorageQueries.collaboratorInfo = perspectivesQueries.collaboratorInfo;
+
+    await individualSessionQueries.createNewSession();
+    await perspectivesAudioStorageQueries.uploadPerspective(
+      IndividualSessionAudioClip(
+        isOverwritingAnotherFile: false,
+        thePerspective: tPerspectives[0],
+        totalNumberOfFilesForThePerspective: 1,
+        thePerspectivesIndex: 0,
+        theSessionTimestamp: now,
+        thePerspectivesTimestamp: now,
+        theFile: File(
+          '${Directory.current.path}/test/assets/perspectives/pers1_1.m4a',
+        ),
+      ),
+    );
+    await perspectivesAudioStorageQueries.uploadPerspective(
+      IndividualSessionAudioClip(
+        isOverwritingAnotherFile: false,
+        thePerspective: tPerspectives[0],
+        totalNumberOfFilesForThePerspective: 2,
+        thePerspectivesIndex: 0,
+        theSessionTimestamp: now,
+        thePerspectivesTimestamp: now,
+        theFile: File(
+          '${Directory.current.path}/test/assets/perspectives/pers1_2.m4a',
+        ),
+      ),
+    );
+    await perspectivesAudioStorageQueries.uploadPerspective(
+      IndividualSessionAudioClip(
+        isOverwritingAnotherFile: false,
+        thePerspective: tPerspectives[1],
+        totalNumberOfFilesForThePerspective: 1,
+        thePerspectivesIndex: 1,
+        theSessionTimestamp: now,
+        thePerspectivesTimestamp: now,
+        theFile: File(
+          '${Directory.current.path}/test/assets/perspectives/pers2_1.m4a',
+        ),
+      ),
+    );
+    await perspectivesAudioStorageQueries.uploadPerspective(
+      IndividualSessionAudioClip(
+        isOverwritingAnotherFile: false,
+        thePerspective: tPerspectives[1],
+        totalNumberOfFilesForThePerspective: 2,
+        thePerspectivesIndex: 1,
+        theSessionTimestamp: now,
+        thePerspectivesTimestamp: now,
+        theFile: File(
+          '${Directory.current.path}/test/assets/perspectives/pers2_2.m4a',
+        ),
+      ),
+    );
+    await perspectivesAudioStorageQueries.uploadPerspective(
+      IndividualSessionAudioClip(
+        isOverwritingAnotherFile: false,
+        thePerspective: tPerspectives[1],
+        totalNumberOfFilesForThePerspective: 3,
+        thePerspectivesIndex: 1,
+        theSessionTimestamp: now,
+        thePerspectivesTimestamp: now,
+        theFile: File(
+          '${Directory.current.path}/test/assets/perspectives/pers2_3.m4a',
+        ),
+      ),
+    );
+
+    final sessionMetadata = {
+      "metadata": [
+        {
+          "thePerspective": tPerspectives[0],
+          "numberOfFiles": 2,
+        },
+        {
+          "thePerspective": tPerspectives[1],
+          "numberOfFiles": 3,
+        },
+        {
+          "thePerspective": tPerspectives[2],
+          "numberOfFiles": 0,
+        },
+        {
+          "thePerspective": tPerspectives[3],
+          "numberOfFiles": 0,
+        },
+        {
+          "thePerspective": tPerspectives[4],
+          "numberOfFiles": 0,
+        },
       ],
+    };
+    await individualSessionQueries.updateSessionMetadata(
+        newMetadata: sessionMetadata);
+    await perspectivesAudioStorageQueries.moveToCollectiveSpace(
+      CollectiveSessionAudioExtrapolationInfo(
+        perspectivesCommitTimestamp: now,
+        individualSessionMetadata: sessionMetadata,
+        collectiveSessionTimestamp: now,
+        individualSessionTimestamp: now,
+      ),
     );
   });
 
