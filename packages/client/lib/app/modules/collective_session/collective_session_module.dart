@@ -43,6 +43,11 @@ class CollectiveSessionModule extends Module {
             contract: i<CollectiveSessionContract>(),
           ),
         ),
+        Bind.singleton<CreateCollectiveSession>(
+          (i) => CreateCollectiveSession(
+            contract: i<CollectiveSessionContract>(),
+          ),
+        ),
         Bind.singleton<MoveIndividualPerspectivesAudioToCollectiveSpace>(
           (i) => MoveIndividualPerspectivesAudioToCollectiveSpace(
             contract: i<CollectiveSessionContract>(),
@@ -51,6 +56,11 @@ class CollectiveSessionModule extends Module {
         Bind.singleton<GetCollaboratorPerspectivesGetterStore>(
           (i) => GetCollaboratorPerspectivesGetterStore(
             logic: i<GetCollaboratorPerspectives>(),
+          ),
+        ),
+        Bind.singleton<CreateCollectiveSessionGetterStore>(
+          (i) => CreateCollectiveSessionGetterStore(
+            logic: i<CreateCollectiveSession>(),
           ),
         ),
         Bind.singleton<
@@ -62,6 +72,11 @@ class CollectiveSessionModule extends Module {
         Bind.singleton<GetCollaboratorPerspectivesStore>(
           (i) => GetCollaboratorPerspectivesStore(
             getterStore: i<GetCollaboratorPerspectivesGetterStore>(),
+          ),
+        ),
+        Bind.singleton<CreateCollectiveSessionStore>(
+          (i) => CreateCollectiveSessionStore(
+            getterStore: i<CreateCollectiveSessionGetterStore>(),
           ),
         ),
         Bind.singleton<MoveIndividualPerspectivesAudioToCollectiveSpaceStore>(
@@ -83,6 +98,7 @@ class CollectiveSessionModule extends Module {
         ),
         Bind.singleton<CollectiveSessionPhase1Coordinator>(
           (i) => CollectiveSessionPhase1Coordinator(
+            createCollectiveSession: i<CreateCollectiveSessionStore>(),
             getCurrentPerspectives: Modular.get<GetCurrentPerspectivesStore>(),
             audioPlayer: Modular.get<ChangeAudioPlayingStatusStore>(),
             getCollaboratorPerspectives: i<GetCollaboratorPerspectivesStore>(),

@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/error/failure.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/modules/collective_session/domain/domain.dart';
 import 'package:nokhte/app/modules/collective_session/data/data.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
@@ -34,6 +35,17 @@ class CollectiveSessionContractImpl implements CollectiveSessionContract {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.getCollaboratorsPerspectives(params);
       return Right(CollaboratorPerspectivesModel.fromSupabase(res));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, CollectiveSessionCreationStatusModel>>
+      createCollectiveSession(NoParams params) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.createCollectiveSession(params);
+      return Right(CollectiveSessionCreationStatusModel.fromSupabase(res));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }

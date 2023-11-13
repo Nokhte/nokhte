@@ -22,12 +22,14 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
   final SwipeDetector swipe;
   final MoveIndividualPerspectivesAudioToCollectiveSpaceStore moveTheAudio;
   final GetCollaboratorPerspectivesStore getCollaboratorPerspectives;
+  final CreateCollectiveSessionStore createCollectiveSession;
 
   final quadNum = 5;
   final quadSpread = 90;
 
   _CollectiveSessionPhase1CoordinatorBase({
     required super.quadrantAPI,
+    required this.createCollectiveSession,
     required this.getCurrentPerspectives,
     required this.swipe,
     required this.audioPlayer,
@@ -47,6 +49,10 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
       startingQuadrant: 0,
       negativeModeBehavior: NegativeModeBehaviors.resetRefAngle,
     );
+    await createCollectiveSession(NoParams());
+    // 1. they would also have to update their metadata
+    // 2. move their files
+    // 3. download their collaborators files
     quadrantAPIListener();
     gestureListener();
     tapListener();

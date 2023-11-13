@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/modules/collective_session/types/types.dart';
 import 'package:nokhte_backend/collective_sessions.dart';
+import 'package:nokhte_backend/individual_sessions.dart';
 import 'package:nokhte_backend/storage/perspectives_audio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -10,16 +12,20 @@ abstract class CollectiveSessionRemoteSource {
       CollectiveSessionAudioExtrapolationInfo params);
   Future<PathsAndSessionMetadata> getCollaboratorsPerspectives(
       CollectiveSessionAudioExtrapolationInfo params);
+  Future<List> createCollectiveSession(NoParams params);
 }
 
 class CollectiveSessionRemoteSourceImpl
     implements CollectiveSessionRemoteSource {
   final SupabaseClient supabase;
   final PerspectivesAudioStorageQueries storageQueries;
+  final IndividualSessionsQueries individualSessionsQueries;
   final CollectiveSessionQueries collectiveQueries;
   CollectiveSessionRemoteSourceImpl({required this.supabase})
       : storageQueries = PerspectivesAudioStorageQueries(supabase: supabase),
-        collectiveQueries = CollectiveSessionQueries(supabase: supabase);
+        collectiveQueries = CollectiveSessionQueries(supabase: supabase),
+        individualSessionsQueries =
+            IndividualSessionsQueries(supabase: supabase);
 
   @override
   Future<void> moveIndividualPerspectivesAudioToCollectiveSpace(
@@ -65,4 +71,13 @@ class CollectiveSessionRemoteSourceImpl
             ["metadata"];
     return theCollaboratorsMetadata;
   }
+
+  // Future<void> addIndividualSessionMetadataToCollectiveSession() async =>
+  //     await collectiveQueries.updateTheirIndividualSessionFields(
+  //         individualSessionTimestampParam: individualSessionTimestampParam,
+  //         sessionMetadata: sessionMetadata);
+
+  @override
+  Future<List> createCollectiveSession(NoParams params) async =>
+      await collectiveQueries.createNewSession();
 }

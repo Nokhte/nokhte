@@ -11,12 +11,17 @@ class CollectiveSessionQueries extends CollaborativeQueries {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutActiveCollaboratorInfo();
     }
-    return await supabase.from(tableName).insert({
-      "${collaboratorInfo.theCollaboratorsNumber}_uid":
-          collaboratorInfo.theCollaboratorsUID,
-      "${collaboratorInfo.theUsersCollaboratorNumber}_uid":
-          collaboratorInfo.theUsersUID,
-    });
+    final checkRes = await getCollaboratorsSessionMetadata();
+    if (checkRes.isNotEmpty) {
+      return checkRes;
+    } else {
+      return await supabase.from(tableName).insert({
+        "${collaboratorInfo.theCollaboratorsNumber}_uid":
+            collaboratorInfo.theCollaboratorsUID,
+        "${collaboratorInfo.theUsersCollaboratorNumber}_uid":
+            collaboratorInfo.theUsersUID,
+      }).select();
+    }
   }
 
   Future<List> submitCommitMessage(String commitMsg) async =>
@@ -25,7 +30,7 @@ class CollectiveSessionQueries extends CollaborativeQueries {
       });
 
   Future updateTheirIndividualSessionFields({
-    required DateTime individualSessionTimestamp,
+    required DateTime individualSessionTimestampParam,
     required Map sessionMetadata,
   }) async {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
@@ -35,7 +40,7 @@ class CollectiveSessionQueries extends CollaborativeQueries {
         .from(tableName)
         .update({
           "${collaboratorInfo.theUsersCollaboratorNumber}_$individualSessionTimestamp":
-              individualSessionTimestamp.toIso8601String(),
+              individualSessionTimestampParam.toIso8601String(),
           "${collaboratorInfo.theUsersCollaboratorNumber}_$individualSessionMetadata":
               sessionMetadata,
         })

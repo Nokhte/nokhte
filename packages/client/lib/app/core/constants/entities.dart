@@ -196,4 +196,7 @@ class DefaultEntities {
       get unwrappedCollaboratorPerspectivesEntity =>
           const CollaboratorPerspectivesEntity(
               collaboratorPerspectivesData: []);
+  static Either<Failure, CollectiveSessionCreationStatusEntity>
+      get collectiveSessionCreationStatusEntity =>
+          const Right(CollectiveSessionCreationStatusEntity(isCreated: false));
 }

@@ -6,6 +6,7 @@ import 'package:nokhte_backend/existing_collaborations.dart';
 import 'package:nokhte_backend/p2p_perspectives_tracking.dart';
 import 'package:nokhte_backend/solo_sharable_documents.dart';
 import 'package:nokhte_backend/storage/perspectives_audio.dart';
+import 'package:nokhte_backend/tables/real_time_disabled/collective_sessions/queries.dart';
 import 'package:nokhte_backend/tables/real_time_disabled/individual_sessions/queries.dart';
 import 'package:nokhte_backend/tables/real_time_enabled/existing_collaborations/types/types.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -17,6 +18,7 @@ void main() {
   late ExistingCollaborationsQueries existingCollaborationsQueries;
   late P2PPerspectivesTrackingQueries perspectivesQueries;
   late IndividualSessionsQueries individualSessionQueries;
+  late CollectiveSessionQueries collectiveSessionQueries;
   late PerspectivesAudioStorageQueries perspectivesAudioStorageQueries;
   final supabase = SupabaseClientConfigConstants.supabase;
   final tPerspectives = [
@@ -38,6 +40,8 @@ void main() {
     individualSessionQueries = IndividualSessionsQueries(supabase: supabase);
     perspectivesAudioStorageQueries =
         PerspectivesAudioStorageQueries(supabase: supabase);
+    collectiveSessionQueries =
+        CollectiveSessionQueries(supabase: supabaseAdmin);
   });
 
   Future returnNonNPCUID() async {
@@ -73,9 +77,7 @@ void main() {
     );
   });
 
-  test(
-      "make the collaborator do an individual session & update their row accordingly and then move it into the collective space",
-      () async {
+  test("1. individual session setup 2. collective session setup", () async {
     final userIdResults = await UserSetupConstants.fetchUIDs();
     final npcUserUID = userIdResults[1];
     final realPersonUID = await returnNonNPCUID();
@@ -85,6 +87,8 @@ void main() {
       theUsersCollaboratorNumber: "collaborator_two",
       theUsersUID: realPersonUID,
     );
+    collectiveSessionQueries.collaboratorInfo =
+        perspectivesQueries.collaboratorInfo;
     // perspectivesAudioStorageQueries.collaboratorInfo = perspectivesQueries.collaboratorInfo;
 
     await individualSessionQueries.createNewSession();
@@ -180,6 +184,17 @@ void main() {
     };
     await individualSessionQueries.updateSessionMetadata(
         newMetadata: sessionMetadata);
+    await supabaseAdmin.from("individual_sessions").insert({
+      "owner_uid": realPersonUID,
+      "collaborator_one_uid": npcUserUID,
+      "collaborator_two_uid": realPersonUID,
+      "session_metadata": sessionMetadata,
+    });
+    await collectiveSessionQueries.createNewSession();
+    await collectiveSessionQueries.updateTheirIndividualSessionFields(
+      individualSessionTimestampParam: now,
+      sessionMetadata: sessionMetadata,
+    );
     await perspectivesAudioStorageQueries.moveToCollectiveSpace(
       CollectiveSessionAudioExtrapolationInfo(
         perspectivesCommitTimestamp: now,
