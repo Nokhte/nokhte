@@ -71,7 +71,6 @@ abstract class _BeachHorizonWaterTrackerStoreBase
       }
     }
     if (isGoingToFullSky && isFirstTimeCompleting) {
-      print("is this causing the problem??");
       movie = HorizonToFullSky.getMovie(endingGrad);
       setControl(Control.playFromStart);
       isFirstTimeCompleting = false;
