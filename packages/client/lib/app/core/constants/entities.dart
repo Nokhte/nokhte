@@ -188,14 +188,6 @@ class DefaultEntities {
       get individualAudioMovementToCollectiveSpaceStatusEntity => const Right(
           IndividualAudioMovementToCollectiveSpaceStatusEntity(isMoved: false));
 
-  static Either<Failure, CollaboratorsAudioClipsDownloadStatusEntity>
-      get collaboratorsAudioCLipsAndFilesEntity => const Right(
-          CollaboratorsAudioClipsDownloadStatusEntity(isDownloaded: false));
-
-  static Either<Failure, CollaboratorIndividualSessionMetadataEntity>
-      get collaboratorIndividualSessionMetadataEntity => const Right(
-          CollaboratorIndividualSessionMetadataEntity(sessionMetadata: {}));
-
   static Either<Failure, CollaboratorPerspectivesEntity>
       get collaboratorPerspectivesEntity => const Right(
           CollaboratorPerspectivesEntity(collaboratorPerspectivesData: []));
