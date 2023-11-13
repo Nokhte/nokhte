@@ -54,6 +54,7 @@ class Constants {
       );
   static get expected => [
         CollaboratorPerspectivesData(
+            numberOfFilesTheyHaveListenedTo: 0,
             thePerspective: "pERSPECTIVE1",
             numberOfFiles: 2,
             pathsToFiles: const [
@@ -61,6 +62,7 @@ class Constants {
               "c1e1b4b1-4a05-45d4-9015-468711f277a0_4a8e9dc9-d2e0-45a5-8dd1-d32f0c6d95c7/perspectives_2023-11-12:8:53/session_2023-11-12_8:32/pERSPE0/c1e1b4b1-4a05-45d4-9015-468711f277a0/c1e1b4b1-4a05-45d4-9015-468711f277a0_two.wav"
             ]),
         CollaboratorPerspectivesData(
+            numberOfFilesTheyHaveListenedTo: 0,
             thePerspective: "peRSPECTIVE2",
             numberOfFiles: 3,
             pathsToFiles: const [
@@ -69,6 +71,7 @@ class Constants {
               "c1e1b4b1-4a05-45d4-9015-468711f277a0_4a8e9dc9-d2e0-45a5-8dd1-d32f0c6d95c7/perspectives_2023-11-12:8:53/session_2023-11-12_8:32/peRSPE1/c1e1b4b1-4a05-45d4-9015-468711f277a0/c1e1b4b1-4a05-45d4-9015-468711f277a0_three.wav"
             ]),
         CollaboratorPerspectivesData(
+            numberOfFilesTheyHaveListenedTo: 0,
             thePerspective: "perSPECTIVE3",
             numberOfFiles: 0,
             pathsToFiles: const [])

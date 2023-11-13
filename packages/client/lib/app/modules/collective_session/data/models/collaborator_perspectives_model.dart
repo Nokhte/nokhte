@@ -15,6 +15,7 @@ class CollaboratorPerspectivesModel extends CollaboratorPerspectivesEntity {
     List<CollaboratorPerspectivesData> collaboratorPerspectives = List.generate(
       response.individualSessionMetadata.length,
       (index) => CollaboratorPerspectivesData(
+        numberOfFilesTheyHaveListenedTo: 0,
         thePerspective: metadata[index]["thePerspective"],
         numberOfFiles: 0,
         pathsToFiles: List.empty(growable: true),
