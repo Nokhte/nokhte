@@ -46,6 +46,8 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
       negativeModeBehavior: NegativeModeBehaviors.resetRefAngle,
     );
     quadrantAPIListener();
+    gestureListener();
+    tapListener();
     //
   }
 
@@ -78,6 +80,12 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
             }
           default:
             break;
+        }
+      });
+  tapListener() => reaction((p0) => swipe.tapCount, (p0) {
+        if (screenType ==
+            CollectiveSessionPhase1ScreenTypes.listenToTheirClips) {
+          // toggle pause and start for audio
         }
       });
 
