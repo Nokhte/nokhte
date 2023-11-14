@@ -29,27 +29,27 @@
         //     "name": "🟦 working widget",
         //     "path": "../packages/client/lib/app/core/widgets/audio_clip_platform"
         // },
-        {
-            "name": "🟦 working module",
-            "path": "../packages/client/lib/app/modules/collective_session"
+        // {
+        //     "name": "🟦 working module",
+        //     "path": "../packages/client/lib/app/modules/collective_session"
             
-        },
+        // },
         {
             "name": "🟦 client root",
             "path": "../packages/client"
         },
-        {
-            "name": "🟩 supabase",
-            "path": "../packages/backend/supabase",
-        },
-        {
-            "name": "🟫 client ios",
-            "path": "../packages/client/ios"
-        },
-        {
-            "name": "🟥 client android",
-            "path": "../packages/client/android"
-        },
+        // {
+        //     "name": "🟩 supabase",
+        //     "path": "../packages/backend/supabase",
+        // },
+        // {
+        //     "name": "🟫 client ios",
+        //     "path": "../packages/client/ios"
+        // },
+        // {
+        //     "name": "🟥 client android",
+        //     "path": "../packages/client/android"
+        // },
 
     ],
     

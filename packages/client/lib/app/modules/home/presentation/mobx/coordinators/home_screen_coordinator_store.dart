@@ -32,16 +32,10 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
     required this.addNameToDatabaseStore,
     required this.fadingTextStateTrackerStore,
     required this.getCollaboratorPhraseStore,
-  }) {
-    reaction((p0) => beachWaves.movieStatus, (p0) {
-      if (beachWaves.movieStatus == MovieStatus.finished) {
-        // Modular.to.navigate('/p2p_collaborator_pool/');
-        Modular.to.navigate('/p2p_perspective_session/');
-      }
-    });
-  }
+  });
 
   homeScreenConstructorCallback() async {
+    beachWavesListener();
     gesturePillStore
         .setPillMovie(BottomCircleGoesUp.getMovie(firstGradientColors: [
       const Color(0xFF41D2F8),
@@ -60,6 +54,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
         );
       });
     });
+    holdListener();
     gestureListener();
 
     await portalAPI.setupTheStream();
@@ -78,13 +73,23 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
     // ^^ idk figure this out later
   }
 
+  beachWavesListener() => reaction((p0) => beachWaves.movieStatus, (p0) {
+        if (beachWaves.movieStatus == MovieStatus.finished) {
+          Modular.to.navigate('/p2p_collaborator_pool/');
+          // Modular.to.navigate('/p2p_perspective_session/');
+        }
+      });
+
   gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.up:
-            fadeTheTextOutAndWaterComesDown();
+          // fadeTheTextOutAndWaterComesDown();
           default:
             break;
         }
+      });
+  holdListener() => reaction((p0) => swipe.holdCount, (p0) {
+        fadeTheTextOutAndWaterComesDown();
       });
 
   fadeTheTextOutAndWaterComesDown() {

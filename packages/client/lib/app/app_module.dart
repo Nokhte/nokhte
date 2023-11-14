@@ -33,8 +33,8 @@ class AppModule extends Module {
   @override
   List<ModularRoute> get routes => [
         ModuleRoute(
-          // '/',
-          '/auth/',
+          '/',
+          // '/auth/',
           module: AuthenticationModule(),
         ),
         ModuleRoute(
@@ -60,8 +60,8 @@ class AppModule extends Module {
           module: IndividualSessionModule(),
         ),
         ModuleRoute(
-          // '/collective_session/',
-          '/',
+          '/collective_session/',
+          // '/',
           module: CollectiveSessionModule(),
         ),
       ];
