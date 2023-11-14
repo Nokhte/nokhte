@@ -63,6 +63,40 @@ mixin _$CollectiveSessionPhase1Coordinator
     });
   }
 
+  late final _$onCompletedStreamAtom = Atom(
+      name: '_CollectiveSessionPhase1CoordinatorBase.onCompletedStream',
+      context: context);
+
+  @override
+  ObservableStream<dynamic> get onCompletedStream {
+    _$onCompletedStreamAtom.reportRead();
+    return super.onCompletedStream;
+  }
+
+  @override
+  set onCompletedStream(ObservableStream<dynamic> value) {
+    _$onCompletedStreamAtom.reportWrite(value, super.onCompletedStream, () {
+      super.onCompletedStream = value;
+    });
+  }
+
+  late final _$isPlayingAtom = Atom(
+      name: '_CollectiveSessionPhase1CoordinatorBase.isPlaying',
+      context: context);
+
+  @override
+  bool get isPlaying {
+    _$isPlayingAtom.reportRead();
+    return super.isPlaying;
+  }
+
+  @override
+  set isPlaying(bool value) {
+    _$isPlayingAtom.reportWrite(value, super.isPlaying, () {
+      super.isPlaying = value;
+    });
+  }
+
   late final _$screenTypeAtom = Atom(
       name: '_CollectiveSessionPhase1CoordinatorBase.screenType',
       context: context);
@@ -207,6 +241,8 @@ mixin _$CollectiveSessionPhase1Coordinator
     return '''
 isReadyToMoveToNextPart: ${isReadyToMoveToNextPart},
 chosenAudioIndex: ${chosenAudioIndex},
+onCompletedStream: ${onCompletedStream},
+isPlaying: ${isPlaying},
 screenType: ${screenType},
 hadAudioClipsForThePerspective: ${hadAudioClipsForThePerspective},
 currentPerspective: ${currentPerspective}

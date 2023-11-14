@@ -49,8 +49,20 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
   @observable
   int chosenAudioIndex = 0;
 
+  @observable
+  ObservableStream onCompletedStream = ObservableStream(const Stream.empty());
+
+  @observable
+  bool isPlaying = false;
+
   @action
   screenConstructor() async {
+    onCompletedStream =
+        ObservableStream(audioPlayer.streamGetterStore(NoParams()).stream);
+    onCompletedStream.listen((value) {
+      checkIfTheyHaveListenedToAllTheClips();
+      isPlaying = false;
+    });
     widgets.attuneTheWidgets(DateTime.now());
     await getCurrentPerspectives(NoParams());
     widgets.setText(getCurrentPerspectives.currentPerspectives[chosenIndex]);
@@ -60,10 +72,8 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
       startingQuadrant: 0,
       negativeModeBehavior: NegativeModeBehaviors.resetRefAngle,
     );
-    // they have to more
     await createCollectiveSession(NoParams());
     await addIndividualMetadata(NoParams());
-    // await moveTheAudio(NoParams());
 
     Future.delayed(
         Seconds.get(3),
@@ -112,8 +122,6 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
         if (screenType ==
             CollectiveSessionPhase1ScreenTypes.listenToTheirClips) {
           audioPlayer.isPlaying ? stopAudio() : playAudio();
-          // based on current perspective & current audio index
-          // toggle pause and start for audio
         }
       });
 
@@ -176,7 +184,8 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
 
   @action
   playAudio() {
-    checkIfTheyHaveListenedToAllTheClips();
+    isPlaying = true;
+
     getCollaboratorPerspectivesAudio
         .collaboratorPerspectives
         .collaboratorPerspectivesData[chosenIndex]
@@ -191,6 +200,7 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
 
   @action
   stopAudio() {
+    isPlaying = false;
     audioPlayer(ChangeAudioPlayingStatusParams(
         path: getCollaboratorPerspectivesAudio
             .collaboratorPerspectives
@@ -208,8 +218,8 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
         .collaboratorPerspectives.collaboratorPerspectivesData) {
       if (clipData.numberOfFilesTheyHaveListenedTo + 1 >=
           clipData.numberOfFiles) {
-        print(
-            "${clipData.numberOfFilesTheyHaveListenedTo} ${clipData.numberOfFiles}");
+        // print(
+        //     "${clipData.numberOfFilesTheyHaveListenedTo} ${clipData.numberOfFiles}");
         checkVals.add(true);
       } else {
         checkVals.add(false);
@@ -220,13 +230,13 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
         returnVal = false;
       }
     }
-    print("Hey return val?? $checkVals $returnVal");
+    // print("Hey return val?? $checkVals $returnVal");
     isReadyToMoveToNextPart = returnVal;
   }
 
   readyToMoveOnListener() => reaction((p0) => isReadyToMoveToNextPart, (p0) {
         if (p0) {
-          print("YOU ARE READY TO MOVE ON CONGRATS!!");
+          // print("YOU ARE READY TO MOVE ON CONGRATS!!");
         }
       });
 
