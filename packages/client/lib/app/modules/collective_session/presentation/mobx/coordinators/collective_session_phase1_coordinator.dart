@@ -84,6 +84,8 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
     gestureListener();
     tapListener();
     readyToMoveOnListener();
+
+    Future.delayed(Seconds.get(12), () => moveToNextScreen());
     //
   }
 
@@ -236,9 +238,20 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
 
   readyToMoveOnListener() => reaction((p0) => isReadyToMoveToNextPart, (p0) {
         if (p0) {
+          moveToNextScreen();
           // print("YOU ARE READY TO MOVE ON CONGRATS!!");
         }
       });
+
+  moveToNextScreen() {
+    Future.delayed(
+        Seconds.get(3), () => transitionToListeningMode()); // take out of prod
+    Future.delayed(Seconds.get(6), () => transitionToPerspectivesMode());
+    Future.delayed(
+      Seconds.get(9),
+      () => widgets.transitionToNextScreen(),
+    );
+  }
 
   @computed
   bool get hadAudioClipsForThePerspective =>

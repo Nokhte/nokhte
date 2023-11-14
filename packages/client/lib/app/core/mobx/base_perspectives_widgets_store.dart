@@ -35,24 +35,28 @@ abstract class _PerspectivesWidgetsStoreBase extends Equatable with Store {
     required this.collaborativeTextEditor,
     required this.beachWaves,
   }) {
-    reaction((p0) => beachHorizonWater.backToShoreCompleted, (p0) {
-      if (p0) {
-        toggleBeachWavesVisibility();
-        beachWaves.toggleWidgetVisibilty();
-        beachWaves.initShallowsToShore();
-        beachWaves.control = Control.play;
-      }
-    });
-
-    reaction((p0) => beachWaves.movieStatus, (p0) {
-      if (isFirstTimeGoingThroughIt) {
-        toggleIsFirstTimeGoingThroughIt();
-      } else if (beachWaves.movieStatus == MovieStatus.finished &&
-          beachWaves.movieMode == BeachWaveMovieModes.shallowsToShore) {
-        Modular.to.navigate('/home/');
-      }
-    });
+    beachHorizonWaterListener();
+    beachWavesListener();
   }
+
+  beachHorizonWaterListener() =>
+      reaction((p0) => beachHorizonWater.backToShoreCompleted, (p0) {
+        if (p0) {
+          toggleBeachWavesVisibility();
+          beachWaves.toggleWidgetVisibilty();
+          beachWaves.initShallowsToShore();
+          beachWaves.control = Control.play;
+        }
+      });
+
+  beachWavesListener() => reaction((p0) => beachWaves.movieStatus, (p0) {
+        if (isFirstTimeGoingThroughIt) {
+          toggleIsFirstTimeGoingThroughIt();
+        } else if (beachWaves.movieStatus == MovieStatus.finished &&
+            beachWaves.movieMode == BeachWaveMovieModes.shallowsToShore) {
+          Modular.to.navigate('/home/');
+        }
+      });
 
   @observable
   bool beachWavesVisibility = false;

@@ -139,6 +139,14 @@ class CollectiveSessionModule extends Module {
           child: (context, args) => CollectiveSession1StandInTheirShoesScreen(
             coordinator: Modular.get<CollectiveSessionPhase1Coordinator>(),
           ),
+          transition: TransitionType.noTransition,
+        ),
+        ChildRoute(
+          '/phase-2',
+          child: (context, args) => const CollectiveSession2CommitScreen(
+              // coordinator: Modular.get<CollectiveSessionPhase1Coordinator>(),
+              ),
+          transition: TransitionType.noTransition,
         )
       ];
 }
