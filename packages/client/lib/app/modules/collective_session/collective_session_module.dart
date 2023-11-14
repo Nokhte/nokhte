@@ -2,12 +2,15 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/audio_player/audio_player_module.dart';
 import 'package:nokhte/app/core/modules/audio_player/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/collaborative_doc_module.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/presentation/presentation.dart';
 import 'package:nokhte/app/core/modules/get_current_perspectives/get_current_perspectives_module.dart';
 import 'package:nokhte/app/core/modules/get_current_perspectives/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic_module.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/mobx/api/api.dart';
+import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/voice_call_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
+import 'package:nokhte/app/core/widgets/shared/constants/svg_animation_constants.dart';
 import 'package:nokhte/app/core/widgets/widget_modules/perspectives_widgets_module.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/collective_session/data/data.dart';
@@ -103,6 +106,11 @@ class CollectiveSessionModule extends Module {
                 MoveIndividualPerspectivesAudioToCollectiveSpaceGetterStore>(),
           ),
         ),
+        Bind.singleton<GesturePillStore>(
+          (i) => GesturePillStore(
+            endingPath: SvgAnimtionConstants.pillPath,
+          ),
+        ),
         Bind.singleton<CollectiveSessionPhase1WidgetsCoordinator>(
           (i) => CollectiveSessionPhase1WidgetsCoordinator(
             audioClipPlatform: Modular.get<AudioClipPlatformTrackerStore>(),
@@ -112,6 +120,14 @@ class CollectiveSessionModule extends Module {
             beachHorizonWater: Modular.get<BeachHorizonWaterTrackerStore>(),
             beachSky: Modular.get<BeachSkyStore>(),
             perspectivesMap: Modular.get<PerspectivesMapStore>(),
+          ),
+        ),
+        Bind.singleton<CollectiveSessionPhase2WidgetsCoordinator>(
+          (i) => CollectiveSessionPhase2WidgetsCoordinator(
+            gesturePill: i<GesturePillStore>(),
+            beachWaves: Modular.get<BeachWavesTrackerStore>(),
+            collaborativeTextEditor:
+                Modular.get<CollaborativeTextEditorTrackerStore>(),
           ),
         ),
         Bind.singleton<CollectiveSessionPhase1Coordinator>(
@@ -130,6 +146,13 @@ class CollectiveSessionModule extends Module {
             widgets: i<CollectiveSessionPhase1WidgetsCoordinator>(),
           ),
         ),
+        Bind.singleton<CollectiveSessionPhase2Coordinator>(
+          (i) => CollectiveSessionPhase2Coordinator(
+              swipe: Modular.get<SwipeDetector>(),
+              widgets: i<CollectiveSessionPhase2WidgetsCoordinator>(),
+              voiceCall: i<VoiceCallActionsStore>(),
+              collaborativeDoc: i<CollaborativeDocCoordinatorStore>()),
+        ),
       ];
 
   @override
@@ -143,9 +166,9 @@ class CollectiveSessionModule extends Module {
         ),
         ChildRoute(
           '/phase-2',
-          child: (context, args) => const CollectiveSession2CommitScreen(
-              // coordinator: Modular.get<CollectiveSessionPhase1Coordinator>(),
-              ),
+          child: (context, args) => CollectiveSession2CommitScreen(
+            coordinator: Modular.get<CollectiveSessionPhase2Coordinator>(),
+          ),
           transition: TransitionType.noTransition,
         )
       ];

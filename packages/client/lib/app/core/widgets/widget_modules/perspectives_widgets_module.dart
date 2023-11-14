@@ -32,7 +32,7 @@ class PerspectivesWidgetsModule extends Module {
           (i) => PerspectivesMapStore(),
           export: true,
         ),
-        Bind.singleton<CollaborativeTextEditorTrackerStore>(
+        Bind.factory<CollaborativeTextEditorTrackerStore>(
           (i) => CollaborativeTextEditorTrackerStore(
             isReadOnly: false,
           ),
