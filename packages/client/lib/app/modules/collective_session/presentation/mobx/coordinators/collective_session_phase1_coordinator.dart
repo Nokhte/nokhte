@@ -2,6 +2,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/audio_player/domain/domain.dart';
 import 'package:nokhte/app/core/modules/audio_player/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/get_current_perspectives/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/types/desired_negative_mode_behavior.dart';
@@ -106,6 +107,7 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
   tapListener() => reaction((p0) => swipe.tapCount, (p0) {
         if (screenType ==
             CollectiveSessionPhase1ScreenTypes.listenToTheirClips) {
+          audioPlayer.isPlaying ? stopAudio() : playAudio();
           // based on current perspective & current audio index
           // toggle pause and start for audio
         }
@@ -122,16 +124,6 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
     widgets.markUpPerspectivesMap(chosenIndex, currentPerspective);
     audioPlatformReset();
   }
-
-  // @action
-  // audioPlatformIndexMarkUp() {
-  //   numberOfFiles[chosenIndex]++;
-  //   hasntRecordedForAudioIndex = true;
-  //   widgets.markUpOrDownTheAudioPlatform(
-  //     numberOfFiles[chosenIndex] - 1,
-  //     shouldMoveUp: true,
-  //   );
-  // }
 
   @observable
   CollectiveSessionPhase1ScreenTypes screenType =
@@ -153,7 +145,6 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
   @action
   transitionToListeningMode() {
     screenType = CollectiveSessionPhase1ScreenTypes.listenToTheirClips;
-    print("hey what is it?? $hadAudioClipsForThePerspective ");
     widgets.transitionToListeningMode(hadAudioClipsForThePerspective);
     swipe.toggleHasAlreadyMadeGesture();
   }
@@ -161,19 +152,42 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
   @action
   transitionToPerspectivesMode() {
     screenType = CollectiveSessionPhase1ScreenTypes.perspectiveViewingMode;
-    print("hey what is it?? $hadAudioClipsForThePerspective ");
     widgets.transitionBackToPerspectivesMode(hadAudioClipsForThePerspective);
     swipe.toggleHasAlreadyMadeGesture();
   }
 
   @action
   audioPlatformIndexMarkup() {
+    // check if it is LEQ than the max number before doing it
+    chosenAudioIndex++;
     widgets.markUpOrDownTheAudioPlatform(chosenAudioIndex, shouldMoveUp: true);
   }
 
   @action
   audioPlatformIndexMarkdown() {
+    // check if it's GEQ 0 before doing it
+    chosenAudioIndex--;
     widgets.markUpOrDownTheAudioPlatform(chosenAudioIndex, shouldMoveUp: false);
+  }
+
+  @action
+  playAudio() {
+    audioPlayer(ChangeAudioPlayingStatusParams(
+        path: getCollaboratorPerspectivesAudio
+            .collaboratorPerspectives
+            .collaboratorPerspectivesData[chosenIndex]
+            .pathsToFiles[chosenAudioIndex],
+        startPlaying: true));
+  }
+
+  @action
+  stopAudio() {
+    audioPlayer(ChangeAudioPlayingStatusParams(
+        path: getCollaboratorPerspectivesAudio
+            .collaboratorPerspectives
+            .collaboratorPerspectivesData[chosenIndex]
+            .pathsToFiles[chosenAudioIndex],
+        startPlaying: false));
   }
 
   @computed

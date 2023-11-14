@@ -178,6 +178,15 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
     );
   }
 
+  audioPlatformIndexMarkDown() {
+    if (numberOfFiles[chosenIndex] == 0) return;
+    numberOfFiles[chosenIndex]--;
+    widgets.markUpOrDownTheAudioPlatform(
+      numberOfFiles[chosenIndex] - 1,
+      shouldMoveUp: false,
+    );
+  }
+
   @action
   audioPlatformReset() => widgets.resetAudioPlatform();
 
@@ -245,15 +254,6 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
     await uploadIndividualPerspectivesAudio(
         UploadIndividualPerspectivesAudioParams(clipData: clipData));
     widgets.audioRecordingWater.initImmersionBackToHorizon();
-  }
-
-  audioPlatformIndexMarkDown() {
-    if (numberOfFiles[chosenIndex] == 0) return;
-    numberOfFiles[chosenIndex]--;
-    widgets.markUpOrDownTheAudioPlatform(
-      numberOfFiles[chosenIndex] - 1,
-      shouldMoveUp: false,
-    );
   }
 
   perspectivesController() {

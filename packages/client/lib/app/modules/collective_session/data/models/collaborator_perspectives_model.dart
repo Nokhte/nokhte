@@ -18,7 +18,7 @@ class CollaboratorPerspectivesModel extends CollaboratorPerspectivesEntity {
         numberOfFilesTheyHaveListenedTo: 0,
         thePerspective: metadata[index]["thePerspective"],
         numberOfFiles: 0,
-        pathsToFiles: [],
+        pathsToFiles: List.empty(growable: true),
       ),
     );
 

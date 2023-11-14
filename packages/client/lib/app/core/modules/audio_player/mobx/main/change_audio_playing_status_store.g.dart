@@ -42,11 +42,28 @@ mixin _$ChangeAudioPlayingStatusStore
     });
   }
 
+  late final _$onCompletedStreamAtom = Atom(
+      name: '_ChangeAudioPlayingStatusStoreBase.onCompletedStream',
+      context: context);
+
+  @override
+  ObservableStream<dynamic> get onCompletedStream {
+    _$onCompletedStreamAtom.reportRead();
+    return super.onCompletedStream;
+  }
+
+  @override
+  set onCompletedStream(ObservableStream<dynamic> value) {
+    _$onCompletedStreamAtom.reportWrite(value, super.onCompletedStream, () {
+      super.onCompletedStream = value;
+    });
+  }
+
   late final _$callAsyncAction =
       AsyncAction('_ChangeAudioPlayingStatusStoreBase.call', context: context);
 
   @override
-  Future<void> call(dynamic params) {
+  Future<void> call(ChangeAudioPlayingStatusParams params) {
     return _$callAsyncAction.run(() => super.call(params));
   }
 
@@ -54,7 +71,8 @@ mixin _$ChangeAudioPlayingStatusStore
   String toString() {
     return '''
 isPlaying: ${isPlaying},
-state: ${state}
+state: ${state},
+onCompletedStream: ${onCompletedStream}
     ''';
   }
 }

@@ -145,6 +145,32 @@ mixin _$CollectiveSessionPhase1Coordinator
   }
 
   @override
+  dynamic playAudio() {
+    final _$actionInfo =
+        _$_CollectiveSessionPhase1CoordinatorBaseActionController.startAction(
+            name: '_CollectiveSessionPhase1CoordinatorBase.playAudio');
+    try {
+      return super.playAudio();
+    } finally {
+      _$_CollectiveSessionPhase1CoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic stopAudio() {
+    final _$actionInfo =
+        _$_CollectiveSessionPhase1CoordinatorBaseActionController.startAction(
+            name: '_CollectiveSessionPhase1CoordinatorBase.stopAudio');
+    try {
+      return super.stopAudio();
+    } finally {
+      _$_CollectiveSessionPhase1CoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 chosenAudioIndex: ${chosenAudioIndex},
