@@ -26,38 +26,6 @@ mixin _$SwipeDetector on _SwipeDetector, Store {
     });
   }
 
-  late final _$tapCountAtom =
-      Atom(name: '_SwipeDetector.tapCount', context: context);
-
-  @override
-  int get tapCount {
-    _$tapCountAtom.reportRead();
-    return super.tapCount;
-  }
-
-  @override
-  set tapCount(int value) {
-    _$tapCountAtom.reportWrite(value, super.tapCount, () {
-      super.tapCount = value;
-    });
-  }
-
-  late final _$holdCountAtom =
-      Atom(name: '_SwipeDetector.holdCount', context: context);
-
-  @override
-  int get holdCount {
-    _$holdCountAtom.reportRead();
-    return super.holdCount;
-  }
-
-  @override
-  set holdCount(int value) {
-    _$holdCountAtom.reportWrite(value, super.holdCount, () {
-      super.holdCount = value;
-    });
-  }
-
   late final _$dragTypeAtom =
       Atom(name: '_SwipeDetector.dragType', context: context);
 
@@ -188,28 +156,6 @@ mixin _$SwipeDetector on _SwipeDetector, Store {
   }
 
   @override
-  dynamic onTap() {
-    final _$actionInfo = _$_SwipeDetectorActionController.startAction(
-        name: '_SwipeDetector.onTap');
-    try {
-      return super.onTap();
-    } finally {
-      _$_SwipeDetectorActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic onHold() {
-    final _$actionInfo = _$_SwipeDetectorActionController.startAction(
-        name: '_SwipeDetector.onHold');
-    try {
-      return super.onHold();
-    } finally {
-      _$_SwipeDetectorActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic toggleHasAlreadyMadeGesture() {
     final _$actionInfo = _$_SwipeDetectorActionController.startAction(
         name: '_SwipeDetector.toggleHasAlreadyMadeGesture');
@@ -235,8 +181,6 @@ mixin _$SwipeDetector on _SwipeDetector, Store {
   String toString() {
     return '''
 mostRecentCoordinates: ${mostRecentCoordinates},
-tapCount: ${tapCount},
-holdCount: ${holdCount},
 dragType: ${dragType},
 directionsType: ${directionsType},
 resetTheDirectionType: ${resetTheDirectionType},

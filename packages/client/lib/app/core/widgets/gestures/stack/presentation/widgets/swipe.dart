@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/swipe/stack/presentation/mobx/swipe_detector.dart';
+import 'package:nokhte/app/core/widgets/gestures/stack/presentation/mobx/swipe_detector.dart';
 
 class Swipe extends StatelessWidget {
   final SwipeDetector trackerStore;
@@ -14,7 +14,6 @@ class Swipe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onLongPressStart: (details) => trackerStore.onHold(),
       onHorizontalDragUpdate: (details) => trackerStore.onUpdateCallback(
         details.globalPosition,
         DragType.horizontal,
@@ -26,7 +25,6 @@ class Swipe extends StatelessWidget {
         DragType.vertical,
       ),
       onVerticalDragEnd: (details) => trackerStore.onFinishedGestureCallback(),
-      onTap: () => trackerStore.onTap(),
       child: child,
     );
   }

@@ -17,9 +17,7 @@ class P2PPurpose4ReciprocateAttentionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: ((context, constraints) => PlatformScaffold(
-              body: Swipe(
-            trackerStore: coordinator.swipe,
-            child: Stack(
+            body: Stack(
               children: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
@@ -36,7 +34,7 @@ class P2PPurpose4ReciprocateAttentionScreen extends StatelessWidget {
                 ),
               ],
             ),
-          ))),
+          )),
     );
   }
 }

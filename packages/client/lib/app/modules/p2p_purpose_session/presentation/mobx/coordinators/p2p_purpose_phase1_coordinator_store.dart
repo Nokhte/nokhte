@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -57,12 +58,14 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
         channelName: fetchChannelIdStore.channelId,
       ),
     );
+    gestureListener();
   }
 
-  gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
+  gestureListener() => reaction((p0) => swipe.directionsType, (p0) async {
         switch (p0) {
           case GestureDirections.up:
-            joinTheCallAndMoveToPhase2();
+            print("hi you working??");
+            await joinTheCallAndMoveToPhase2();
           default:
             break;
         }
@@ -70,16 +73,16 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
 
   @action
   joinTheCallAndMoveToPhase2() async {
-    /// todo leave in for production
-    // await voiceCallActionsStore.enterOrLeaveCall(
-    //   Right(
-    //     JoinCallParams(
-    //       token: fetchAgoraTokenStore.token,
-    //       channelId: fetchChannelIdStore.channelId,
-    //     ),
-    //   ),
-    // );
-    // await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
+    print("You working???");
+    await voiceCallActionsStore.enterOrLeaveCall(
+      Right(
+        JoinCallParams(
+          token: fetchAgoraTokenStore.token,
+          channelId: fetchChannelIdStore.channelId,
+        ),
+      ),
+    );
+    await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
     // you then want to fade out the two texts
     // fadeInColorText.teeUpFadeOut();
     gesturePillStore.setPillAnimationControl(Control.playFromStart);

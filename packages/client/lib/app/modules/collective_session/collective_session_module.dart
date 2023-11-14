@@ -10,8 +10,8 @@ import 'package:nokhte/app/core/modules/gyroscopic/presentation/mobx/api/api.dar
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/voice_call_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
+import 'package:nokhte/app/core/widgets/module.dart';
 import 'package:nokhte/app/core/widgets/shared/constants/svg_animation_constants.dart';
-import 'package:nokhte/app/core/widgets/widget_modules/perspectives_widgets_module.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/collective_session/data/data.dart';
 import 'package:nokhte/app/modules/collective_session/domain/domain.dart';
@@ -22,6 +22,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class CollectiveSessionModule extends Module {
   @override
   List<Module> get imports => [
+        GesturesModule(),
         GetCurrentPerspectivesModule(), // add in the coordinator
         PerspectivesWidgetsModule(),
         CollaborativeDocModule(),
@@ -142,6 +143,7 @@ class CollectiveSessionModule extends Module {
             moveTheAudio:
                 i<MoveIndividualPerspectivesAudioToCollectiveSpaceStore>(),
             quadrantAPI: Modular.get<QuadrantAPI>(),
+            tap: Modular.get<TapDetector>(),
             swipe: Modular.get<SwipeDetector>(),
             widgets: i<CollectiveSessionPhase1WidgetsCoordinator>(),
           ),

@@ -12,12 +12,6 @@ abstract class _SwipeDetector extends Equatable with Store {
   ObservableList<Offset> mostRecentCoordinates = ObservableList.of([]);
 
   @observable
-  int tapCount = 0;
-
-  @observable
-  int holdCount = 0;
-
-  @observable
   DragType dragType = DragType.initial;
 
   @observable
@@ -76,12 +70,6 @@ abstract class _SwipeDetector extends Equatable with Store {
       }
     }
   }
-
-  @action
-  onTap() => tapCount++;
-
-  @action
-  onHold() => holdCount++;
 
   @observable
   bool hasAlreadyMadeGesture = false;

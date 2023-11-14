@@ -29,11 +29,11 @@
         //     "name": "🟦 working widget",
         //     "path": "../packages/client/lib/app/core/widgets/audio_clip_platform"
         // },
-        // {
-        //     "name": "🟦 working module",
-        //     "path": "../packages/client/lib/app/modules/collective_session"
+        {
+            "name": "🟦 working module",
+            "path": "../packages/client/lib/app/modules/p2p_purpose_session"
             
-        // },
+        },
         {
             "name": "🟦 client root",
             "path": "../packages/client"

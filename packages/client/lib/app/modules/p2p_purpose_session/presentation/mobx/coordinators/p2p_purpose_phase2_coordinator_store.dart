@@ -21,6 +21,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
   final SmartFadingAnimatedTextTrackerStore fadingText;
   final MeshCircleButtonStore meshCircleStore;
   final SwipeDetector swipe;
+  final HoldDetector hold;
 
   @observable
   bool isFirstTimeTalking = true;
@@ -28,6 +29,8 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
   @action
   screenConstructor() async {
     beachWaves.initiateSuspendedAtTheDepths();
+    holdStartListener();
+    holdEndListener();
     meshCircleStore.widgetConstructor();
     await fadingText
         .oneSecondDelay(() async => await fadingText.fadeTheTextIn());
@@ -45,6 +48,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
 
   _P2PPurposePhase2CoordinatorStoreBase({
     required this.swipe,
+    required this.hold,
     required this.agoraCallbacksStore,
     required this.questionCheckerStore,
     required this.voiceCallActionsStore,
@@ -69,32 +73,35 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
     });
   }
 
+  holdStartListener() => reaction((p0) => hold.holdCount, (p0) {
+        audioButtonHoldStartCallback();
+      });
+
+  holdEndListener() => reaction((p0) => hold.letGoCount, (p0) {
+        audioButtonHoldEndCallback();
+      });
+
   @action
   audioButtonHoldStartCallback() {
     if (isFirstTimeTalking) {
       beachWaves.initiateTimesUp(
         timerLength: const Duration(
-          seconds: 10,
-          // minutes: 5,
-          // TODO COMMENT OUT FOR PROD
+          minutes: 5,
         ),
-        // pMovieMode: MovieModes.purposeCallTimesUp,
       );
       fadingText.fadeTheTextOut();
       isFirstTimeTalking = false;
     }
 
-    /// TODO comment out for production
-    // voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);
+    ///// TODO comment out for production
+    voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);
     meshCircleStore.toggleColorAnimation();
-    // breathingPentagons.gestureFunctionRouter();
   }
 
   @action
   audioButtonHoldEndCallback() {
-    // voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
+    voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
     meshCircleStore.toggleColorAnimation();
-    // breathingPentagons.gestureFunctionRouter();
   }
 
   @override

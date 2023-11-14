@@ -46,6 +46,7 @@ class AppModule extends Module {
           module: P2PCollaboratorPoolModule(),
         ),
         ModuleRoute(
+          // '/',
           '/p2p_purpose_session/',
           module: P2PCollaboratorSessionModule(),
         ),

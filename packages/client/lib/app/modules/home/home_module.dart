@@ -2,6 +2,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic_module.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
+import 'package:nokhte/app/core/widgets/module.dart';
 import 'package:nokhte/app/core/widgets/shared/constants/svg_animation_constants.dart';
 import 'package:nokhte/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -18,6 +19,7 @@ class HomeModule extends Module {
   @override
   List<Module> get imports => [
         GyroscopicModule(),
+        GesturesModule(),
       ];
   @override
   List<Bind> get binds => [
@@ -75,13 +77,11 @@ class HomeModule extends Module {
         Bind.singleton<GesturePillStore>(
           (i) => GesturePillStore(endingPath: SvgAnimtionConstants.circlePath),
         ),
-        Bind.singleton<SwipeDetector>(
-          (i) => SwipeDetector(),
-        ),
         Bind.singleton<HomeScreenCoordinatorStore>(
           (i) => HomeScreenCoordinatorStore(
             portalAPI: i<PortalAPI>(),
-            swipe: i<SwipeDetector>(),
+            hold: Modular.get<HoldDetector>(),
+            swipe: Modular.get<SwipeDetector>(),
             gesturePillStore: i<GesturePillStore>(),
             beachWaves: i<BeachWavesTrackerStore>(),
             addNameToDatabaseStore: i<AddNameToDatabaseStore>(),

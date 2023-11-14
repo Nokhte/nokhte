@@ -22,6 +22,7 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
   final CollectiveSessionPhase1WidgetsCoordinator widgets;
   final ChangeAudioPlayingStatusStore audioPlayer;
   final SwipeDetector swipe;
+  final TapDetector tap;
   final MoveIndividualPerspectivesAudioToCollectiveSpaceStore moveTheAudio;
   final GetCollaboratorPerspectivesStore getCollaboratorPerspectivesAudio;
   final AddIndividualSessionMetadataToCollectiveSessionStore
@@ -40,6 +41,7 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
     required this.audioPlayer,
     required this.getCollaboratorPerspectivesAudio,
     required this.moveTheAudio,
+    required this.tap,
     required this.widgets,
   });
 
@@ -120,7 +122,7 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
             break;
         }
       });
-  tapListener() => reaction((p0) => swipe.tapCount, (p0) {
+  tapListener() => reaction((p0) => tap.tapCount, (p0) {
         if (screenType ==
             CollectiveSessionPhase1ScreenTypes.listenToTheirClips) {
           audioPlayer.isPlaying ? stopAudio() : playAudio();

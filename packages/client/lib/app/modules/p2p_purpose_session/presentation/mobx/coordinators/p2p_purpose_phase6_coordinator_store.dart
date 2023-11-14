@@ -10,6 +10,7 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/scheduling_delta/stack/stack.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
+import 'package:add_2_calendar/add_2_calendar.dart';
 part 'p2p_purpose_phase6_coordinator_store.g.dart';
 
 class P2PPurposePhase6CoordinatorStore = _P2PPurposePhase6CoordinatorStoreBase
@@ -70,6 +71,9 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase
 
   @observable
   DateTime now = DateTime.now();
+
+  @observable
+  DateTime currentlySelectedDate = DateTime.fromMicrosecondsSinceEpoch(0);
 
   @action
   setNow(DateTime newNow) => now = newNow;
@@ -144,6 +148,7 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase
       case DateOrTime.time:
         Future.delayed(Seconds.get(3), () {
           if (confirmingMatch) {
+            calendarCallback(currentlySelectedDate);
             widgets.initBackToShore(
               conveyerBelt
                   .times[conveyerBelt.currentlySelectedIndex].unformatted,
@@ -151,6 +156,26 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase
           }
         });
     }
+  }
+
+  calendarCallback(DateTime theDate) async {
+    final Event event = Event(
+      title: 'Perspectives Session',
+      // description: 'With X Persion',
+      // location: 'Event location',
+      startDate: theDate,
+      endDate: theDate,
+      iosParams: const IOSParams(
+        reminder: Duration(
+          hours: 1,
+        ), // on iOS, you can set alarm notification after your event.
+        // url: 'com.nokhte.nokhte', // on iOS, you can set url to your event.
+      ),
+      androidParams: const AndroidParams(
+        emailInvites: [], // on Android, you can add invite emails to your event.
+      ),
+    );
+    Add2Calendar.addEvent2Cal(event);
   }
 
   @action
@@ -173,9 +198,11 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase
         } else if (!isFirstTime && !isSecondTime && secondValue > firstValue) {
           widgets.initForwardTimeShift(isADate: false, newTime: newDateOrTime);
           updateTheBackend(isAForwardMovement: true, isADate: false);
+          currentlySelectedDate = newDateOrTime;
         } else if (!isFirstTime && !isSecondTime && secondValue < firstValue) {
           widgets.initBackwardTimeShift(isADate: false, newTime: newDateOrTime);
           updateTheBackend(isAForwardMovement: false, isADate: false);
+          currentlySelectedDate = newDateOrTime;
         }
     }
   }

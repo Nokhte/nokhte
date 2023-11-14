@@ -46,12 +46,8 @@ class P2PPurpose2ConsultationScreen extends StatelessWidget {
                     Expanded(
                       child: Container(),
                     ),
-                    GestureDetector(
-                      onLongPressStart: (_) =>
-                          coordinator.audioButtonHoldStartCallback(),
-                      onLongPressEnd: (_) {
-                        coordinator.audioButtonHoldEndCallback();
-                      },
+                    Hold(
+                      trackerStore: coordinator.hold,
                       child: Container(
                         height: size.height,
                         width: size.width,

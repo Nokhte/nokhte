@@ -17,10 +17,8 @@ abstract class _P2PPurposePhase4CoordinatorStoreBase extends Equatable
   final SmartFadingAnimatedTextTrackerStore fadingText;
   final BeachWavesTrackerStore beachWaves;
   final SoloDocCoordinatorStore soloDoc;
-  final SwipeDetector swipe;
 
   _P2PPurposePhase4CoordinatorStoreBase({
-    required this.swipe,
     required this.beachWaves,
     required this.fadingText,
     required this.soloDoc,
@@ -54,9 +52,7 @@ abstract class _P2PPurposePhase4CoordinatorStoreBase extends Equatable
               fadingText.togglePause();
               beachWaves.initiateTimesUp(
                 timerLength: const Duration(
-                  seconds: 10,
-                  // minutes: 5,
-                  // TODO COMMENT OUT FOR PROD
+                  minutes: 5,
                 ),
                 // pMovieMode: MovieModes.purposeCallTimesUp,
               );

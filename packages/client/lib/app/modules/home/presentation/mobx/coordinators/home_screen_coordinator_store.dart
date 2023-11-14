@@ -18,6 +18,7 @@ class HomeScreenCoordinatorStore = _HomeScreenCoordinatorStoreBase
 abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
   final PortalAPI portalAPI;
   final SwipeDetector swipe;
+  final HoldDetector hold;
   final GesturePillStore gesturePillStore;
   final BeachWavesTrackerStore beachWaves;
   final AddNameToDatabaseStore addNameToDatabaseStore;
@@ -26,6 +27,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
 
   _HomeScreenCoordinatorStoreBase({
     required this.swipe,
+    required this.hold,
     required this.portalAPI,
     required this.gesturePillStore,
     required this.beachWaves,
@@ -55,7 +57,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
       });
     });
     holdListener();
-    gestureListener();
+    // gestureListener();
 
     await portalAPI.setupTheStream();
 
@@ -80,15 +82,15 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
         }
       });
 
-  gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
-        switch (p0) {
-          case GestureDirections.up:
-          // fadeTheTextOutAndWaterComesDown();
-          default:
-            break;
-        }
-      });
-  holdListener() => reaction((p0) => swipe.holdCount, (p0) {
+  // gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
+  //       switch (p0) {
+  //         case GestureDirections.up:
+  //           fadeTheTextOutAndWaterComesDown();
+  //         default:
+  //           break;
+  //       }
+  //     });
+  holdListener() => reaction((p0) => hold.holdCount, (p0) {
         fadeTheTextOutAndWaterComesDown();
       });
 
