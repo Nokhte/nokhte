@@ -42,6 +42,9 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
     required this.widgets,
   });
 
+  @observable
+  int chosenAudioIndex = 0;
+
   @action
   screenConstructor() async {
     widgets.attuneTheWidgets(DateTime.now());
@@ -103,6 +106,7 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
   tapListener() => reaction((p0) => swipe.tapCount, (p0) {
         if (screenType ==
             CollectiveSessionPhase1ScreenTypes.listenToTheirClips) {
+          // based on current perspective & current audio index
           // toggle pause and start for audio
         }
       });
@@ -149,26 +153,34 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
   @action
   transitionToListeningMode() {
     screenType = CollectiveSessionPhase1ScreenTypes.listenToTheirClips;
-    widgets.transitionToListeningMode();
+    print("hey what is it?? $hadAudioClipsForThePerspective ");
+    widgets.transitionToListeningMode(hadAudioClipsForThePerspective);
     swipe.toggleHasAlreadyMadeGesture();
   }
 
   @action
   transitionToPerspectivesMode() {
     screenType = CollectiveSessionPhase1ScreenTypes.perspectiveViewingMode;
-    widgets.transitionBackToPerspectivesMode();
+    print("hey what is it?? $hadAudioClipsForThePerspective ");
+    widgets.transitionBackToPerspectivesMode(hadAudioClipsForThePerspective);
     swipe.toggleHasAlreadyMadeGesture();
   }
 
   @action
   audioPlatformIndexMarkup() {
-    // widgets.markUpOrDownTheAudioPlatform(chosenAudioIndex, shouldMoveUp: shouldMoveUp)
+    widgets.markUpOrDownTheAudioPlatform(chosenAudioIndex, shouldMoveUp: true);
   }
 
   @action
   audioPlatformIndexMarkdown() {
-    // widgets.markUpOrDownTheAudioPlatform(chosenAudioIndex, shouldMoveUp: shouldMoveUp)
+    widgets.markUpOrDownTheAudioPlatform(chosenAudioIndex, shouldMoveUp: false);
   }
+
+  @computed
+  bool get hadAudioClipsForThePerspective =>
+      (getCollaboratorPerspectivesAudio.collaboratorPerspectives
+          .collaboratorPerspectivesData[chosenIndex].numberOfFiles) >
+      0;
 
   @computed
   String get currentPerspective =>

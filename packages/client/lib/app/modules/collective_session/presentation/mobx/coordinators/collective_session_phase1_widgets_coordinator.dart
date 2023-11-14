@@ -31,22 +31,26 @@ abstract class _CollectiveSessionPhase1WidgetsCoordinatorBase
     textChangeAndFadeIn(currentPerspective);
   }
 
-  transitionToListeningMode() {
+  transitionToListeningMode(bool hasAudioClips) {
     Future.delayed(
         Seconds.get(1), () => beachSky.control = Control.playReverseFromEnd);
     beachHorizonWater.fullSkyBackToShorePreReq(currentTime: DateTime.now());
     collaborativeTextEditor.toggleWidgetVisibility();
     perspectivesMap.toggleWidgetVisibility();
-    audioClipPlatform.toggleWidgetVisibility();
+    if (hasAudioClips) {
+      audioClipPlatform.toggleWidgetVisibility();
+    }
   }
 
-  transitionBackToPerspectivesMode() {
+  transitionBackToPerspectivesMode(bool hasAudioClips) {
     beachSky.control = Control.playFromStart;
     Future.delayed(Seconds.get(1),
         () => beachHorizonWater.control = Control.playReverseFromEnd);
     collaborativeTextEditor.toggleWidgetVisibility();
     perspectivesMap.toggleWidgetVisibility();
-    audioClipPlatform.toggleWidgetVisibility();
+    if (hasAudioClips) {
+      audioClipPlatform.toggleWidgetVisibility();
+    }
   }
 
   @action

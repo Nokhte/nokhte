@@ -10,6 +10,15 @@ part of 'collective_session_phase1_coordinator.dart';
 
 mixin _$CollectiveSessionPhase1Coordinator
     on _CollectiveSessionPhase1CoordinatorBase, Store {
+  Computed<bool>? _$hadAudioClipsForThePerspectiveComputed;
+
+  @override
+  bool get hadAudioClipsForThePerspective =>
+      (_$hadAudioClipsForThePerspectiveComputed ??= Computed<bool>(
+              () => super.hadAudioClipsForThePerspective,
+              name:
+                  '_CollectiveSessionPhase1CoordinatorBase.hadAudioClipsForThePerspective'))
+          .value;
   Computed<String>? _$currentPerspectiveComputed;
 
   @override
@@ -18,6 +27,23 @@ mixin _$CollectiveSessionPhase1Coordinator
               name:
                   '_CollectiveSessionPhase1CoordinatorBase.currentPerspective'))
       .value;
+
+  late final _$chosenAudioIndexAtom = Atom(
+      name: '_CollectiveSessionPhase1CoordinatorBase.chosenAudioIndex',
+      context: context);
+
+  @override
+  int get chosenAudioIndex {
+    _$chosenAudioIndexAtom.reportRead();
+    return super.chosenAudioIndex;
+  }
+
+  @override
+  set chosenAudioIndex(int value) {
+    _$chosenAudioIndexAtom.reportWrite(value, super.chosenAudioIndex, () {
+      super.chosenAudioIndex = value;
+    });
+  }
 
   late final _$screenTypeAtom = Atom(
       name: '_CollectiveSessionPhase1CoordinatorBase.screenType',
@@ -121,7 +147,9 @@ mixin _$CollectiveSessionPhase1Coordinator
   @override
   String toString() {
     return '''
+chosenAudioIndex: ${chosenAudioIndex},
 screenType: ${screenType},
+hadAudioClipsForThePerspective: ${hadAudioClipsForThePerspective},
 currentPerspective: ${currentPerspective}
     ''';
   }

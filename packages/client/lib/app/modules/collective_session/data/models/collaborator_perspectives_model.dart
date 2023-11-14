@@ -18,12 +18,14 @@ class CollaboratorPerspectivesModel extends CollaboratorPerspectivesEntity {
         numberOfFilesTheyHaveListenedTo: 0,
         thePerspective: metadata[index]["thePerspective"],
         numberOfFiles: 0,
-        pathsToFiles: List.empty(growable: true),
+        pathsToFiles: [],
       ),
     );
 
     NestedLoops.twoDifferentLists(paths, metadata, (pathsIndex, metadataIndex) {
-      final persPath = paths[pathsIndex].fullPath.split('/')[3];
+      final pathAsArr = paths[pathsIndex].fullPath.split('/');
+      final persPath = pathAsArr[pathAsArr.length - 3];
+
       final metaDataCompVal = StorageUtilities.getFormattedPerspective(
           thePerspective: metadata[metadataIndex]["thePerspective"],
           currentIndex: metadataIndex);

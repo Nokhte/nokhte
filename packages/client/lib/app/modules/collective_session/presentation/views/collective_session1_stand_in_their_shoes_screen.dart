@@ -57,6 +57,17 @@ class CollectiveSession1StandInTheirShoesScreen extends StatelessWidget {
                     ),
                   ],
                 ),
+                Column(
+                  children: [
+                    Expanded(
+                      child: Container(),
+                    ),
+                    AudioClipPlatform(
+                      size: size,
+                      stateTrackerStore: coordinator.widgets.audioClipPlatform,
+                    ),
+                  ],
+                ),
                 Center(
                   child: CollaborativeTextEditor(
                     trackerStore: coordinator.widgets.collaborativeTextEditor,

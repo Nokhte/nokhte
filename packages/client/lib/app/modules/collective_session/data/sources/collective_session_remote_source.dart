@@ -104,13 +104,12 @@ class CollectiveSessionRemoteSourceImpl
       final pathList = pathAndBytes.path.split('/');
       final tempDir = (await getTemporaryDirectory()).path;
       final theFolder = pathList.sublist(0, pathList.length - 1).join('/');
-      Directory("$tempDir/$theFolder").create(recursive: true);
+      await Directory("$tempDir/$theFolder").create(recursive: true);
       final fullPath = "$tempDir/${pathAndBytes.path}";
       final file = File(fullPath);
       fullAndRelativePathsList.add(
           FullAndRelativePath(relativePath: file.path, fullPath: fullPath));
-      print("is is working properly?? ${file.path} \n \n ??? ");
-      file.writeAsBytes(pathAndBytes.rawBytes);
+      await file.writeAsBytes(pathAndBytes.rawBytes);
     }
     return fullAndRelativePathsList;
   }
