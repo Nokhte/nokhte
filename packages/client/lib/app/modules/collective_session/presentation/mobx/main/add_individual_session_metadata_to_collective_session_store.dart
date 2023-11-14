@@ -5,26 +5,29 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/modules/collective_session/domain/domain.dart';
 import 'package:nokhte/app/modules/collective_session/presentation/presentation.dart';
-part 'get_collaborator_perspectives_store.g.dart';
+part 'add_individual_session_metadata_to_collective_session_store.g.dart';
 
-class GetCollaboratorPerspectivesStore = _GetCollaboratorPerspectivesStoreBase
-    with _$GetCollaboratorPerspectivesStore;
+class AddIndividualSessionMetadataToCollectiveSessionStore = _AddIndividualSessionMetadataToCollectiveSessionStoreBase
+    with _$AddIndividualSessionMetadataToCollectiveSessionStore;
 
-abstract class _GetCollaboratorPerspectivesStoreBase
-    extends BaseMobxDBStore<NoParams, CollaboratorPerspectivesEntity>
-    with Store {
+abstract class _AddIndividualSessionMetadataToCollectiveSessionStoreBase
+    extends BaseMobxDBStore<NoParams,
+        InvidualMetadataAdditionToCollectiveSessionStatusEntity> with Store {
   @observable
-  CollaboratorPerspectivesEntity collaboratorPerspectives =
-      DefaultEntities.unwrappedCollaboratorPerspectivesEntity;
+  bool isAdded = false;
 
-  final GetCollaboratorPerspectivesGetterStore getterStore;
-  _GetCollaboratorPerspectivesStoreBase({required this.getterStore});
+  final AddIndividualSessionMetadataToCollectiveSessionGetterStore getterStore;
+  _AddIndividualSessionMetadataToCollectiveSessionStoreBase(
+      {required this.getterStore});
 
   @observable
-  BaseFutureStore<CollaboratorPerspectivesEntity> futureStore = BaseFutureStore(
-    baseEntity: DefaultEntities.collaboratorPerspectivesEntity,
+  BaseFutureStore<InvidualMetadataAdditionToCollectiveSessionStatusEntity>
+      futureStore = BaseFutureStore(
+    baseEntity:
+        DefaultEntities.invidualMetadataAdditionToCollectiveSessionStatusEntity,
     entityFutureParam: ObservableFuture(
-      Future.value(DefaultEntities.collaboratorPerspectivesEntity),
+      Future.value(DefaultEntities
+          .invidualMetadataAdditionToCollectiveSessionStatusEntity),
     ),
   );
 
@@ -33,8 +36,8 @@ abstract class _GetCollaboratorPerspectivesStoreBase
     result.fold((failure) {
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
-    }, (perspectivesEntity) {
-      collaboratorPerspectives = perspectivesEntity;
+    }, (additionStatusEntity) {
+      isAdded = additionStatusEntity.isSent;
     });
   }
 

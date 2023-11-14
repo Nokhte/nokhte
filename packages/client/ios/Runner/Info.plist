@@ -70,5 +70,9 @@
 	<string>To Set Collaboration Times In Calendar App</string>
 	<key>NSContactsUsageDescription</key>
 	<string>For Smooth Running Of The App</string>
+	 <key>LSSupportsOpeningDocumentsInPlace</key>
+    <true/>
+    <key>UIFileSharingEnabled</key>
+    <true/>
 </dict>
 </plist>

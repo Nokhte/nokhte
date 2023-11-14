@@ -47,7 +47,7 @@ class P2PPerspectivesTrackingQueries extends CollaborativeQueries {
         );
   }
 
-  selectPerspectivesRow() async {
+  Future<List> selectPerspectivesRow() async {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutActiveCollaboratorInfo();
     }

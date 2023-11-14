@@ -9,10 +9,10 @@ class StorageUtilities {
 
   static String getPerspectivesCommitTimestamp(
           DateTime thePerspectivesTimestamp) =>
-      "perspectives_${thePerspectivesTimestamp.year}-${thePerspectivesTimestamp.month}-${thePerspectivesTimestamp.day}_${thePerspectivesTimestamp.hour}:${thePerspectivesTimestamp.minute}";
+      "perspectives_${thePerspectivesTimestamp.year}-${thePerspectivesTimestamp.month}-${thePerspectivesTimestamp.day}_${thePerspectivesTimestamp.hour}__${thePerspectivesTimestamp.minute}";
 
   static String getSessionTimestamp(DateTime theSessionTimestamp) =>
-      "session_${theSessionTimestamp.year}-${theSessionTimestamp.month}-${theSessionTimestamp.day}_${theSessionTimestamp.hour}:${theSessionTimestamp.minute}";
+      "session_${theSessionTimestamp.year}-${theSessionTimestamp.month}-${theSessionTimestamp.day}_${theSessionTimestamp.hour}__${theSessionTimestamp.minute}";
 
   static String getFormattedPerspective({
     required int currentIndex,

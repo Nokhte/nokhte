@@ -3,6 +3,7 @@ name: nokhte
 packages:
   - packages/client
   - packages/backend/dart
+  - packages/core
 
 command:
   bootstrap:

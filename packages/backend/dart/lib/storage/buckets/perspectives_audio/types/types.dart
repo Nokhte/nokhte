@@ -4,3 +4,4 @@ export './individual_session_metadata.dart';
 export 'path_and_bytes.dart';
 export './perspective_metadata.dart';
 export './start_and_end_paths.dart';
+export 'perspectives_audio_path_components.dart';

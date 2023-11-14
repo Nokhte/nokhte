@@ -5,7 +5,6 @@ import 'package:nokhte/app/modules/collective_session/domain/domain.dart';
 import 'package:nokhte/app/modules/collective_session/data/data.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
-import 'package:nokhte_backend/storage/buckets/perspectives_audio/types/collective_session_audio_extrapolation_info.dart';
 
 class CollectiveSessionContractImpl implements CollectiveSessionContract {
   final CollectiveSessionRemoteSource remoteSource;
@@ -16,8 +15,7 @@ class CollectiveSessionContractImpl implements CollectiveSessionContract {
 
   @override
   Future<Either<Failure, IndividualAudioMovementToCollectiveSpaceStatusModel>>
-      moveIndividualPerspectivesAudioToCollectiveSpace(
-          CollectiveSessionAudioExtrapolationInfo params) async {
+      moveIndividualPerspectivesAudioToCollectiveSpace(NoParams params) async {
     if (await networkInfo.isConnected) {
       await remoteSource
           .moveIndividualPerspectivesAudioToCollectiveSpace(params);
@@ -30,8 +28,7 @@ class CollectiveSessionContractImpl implements CollectiveSessionContract {
 
   @override
   Future<Either<Failure, CollaboratorPerspectivesModel>>
-      getCollaboratorPerspectives(
-          CollectiveSessionAudioExtrapolationInfo params) async {
+      getCollaboratorPerspectives(NoParams params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.getCollaboratorsPerspectives(params);
       return Right(CollaboratorPerspectivesModel.fromSupabase(res));
@@ -46,6 +43,20 @@ class CollectiveSessionContractImpl implements CollectiveSessionContract {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.createCollectiveSession(params);
       return Right(CollectiveSessionCreationStatusModel.fromSupabase(res));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
+
+  @override
+  Future<
+          Either<Failure,
+              InvidualMetadataAdditionToCollectiveSessionStatusModel>>
+      addIndividualSessionMetadataToCollectiveSession(NoParams params) async {
+    if (await networkInfo.isConnected) {
+      await remoteSource.addIndividualSessionMetadataToCollectiveSession();
+      return const Right(InvidualMetadataAdditionToCollectiveSessionStatusModel(
+          isAdded: true));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }

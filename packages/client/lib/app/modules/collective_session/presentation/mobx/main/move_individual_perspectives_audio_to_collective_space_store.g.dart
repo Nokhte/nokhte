@@ -54,7 +54,7 @@ mixin _$MoveIndividualPerspectivesAudioToCollectiveSpaceStore
       context: context);
 
   @override
-  Future<void> call(CollectiveSessionAudioExtrapolationInfo params) {
+  Future<void> call(NoParams params) {
     return _$callAsyncAction.run(() => super.call(params));
   }
 

@@ -1,17 +1,17 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/constants/entities.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/modules/collective_session/domain/domain.dart';
 import 'package:nokhte/app/modules/collective_session/presentation/presentation.dart';
-import 'package:nokhte_backend/storage/perspectives_audio.dart';
 part 'move_individual_perspectives_audio_to_collective_space_store.g.dart';
 
 class MoveIndividualPerspectivesAudioToCollectiveSpaceStore = _MoveIndividualPerspectivesAudioToCollectiveSpaceStoreBase
     with _$MoveIndividualPerspectivesAudioToCollectiveSpaceStore;
 
 abstract class _MoveIndividualPerspectivesAudioToCollectiveSpaceStoreBase
-    extends BaseMobxDBStore<CollectiveSessionAudioExtrapolationInfo,
+    extends BaseMobxDBStore<NoParams,
         IndividualAudioMovementToCollectiveSpaceStatusEntity> with Store {
   @observable
   bool isMoved = false;

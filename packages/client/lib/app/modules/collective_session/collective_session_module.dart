@@ -12,6 +12,7 @@ import 'package:nokhte/app/core/widgets/widget_modules/perspectives_widgets_modu
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/collective_session/data/data.dart';
 import 'package:nokhte/app/modules/collective_session/domain/domain.dart';
+import 'package:nokhte/app/modules/collective_session/presentation/mobx/main/add_individual_session_metadata_to_collective_session_store.dart';
 import 'package:nokhte/app/modules/collective_session/presentation/presentation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -53,6 +54,11 @@ class CollectiveSessionModule extends Module {
             contract: i<CollectiveSessionContract>(),
           ),
         ),
+        Bind.singleton<AddIndividualSessionMetadataToCollectiveSession>(
+          (i) => AddIndividualSessionMetadataToCollectiveSession(
+            contract: i<CollectiveSessionContract>(),
+          ),
+        ),
         Bind.singleton<GetCollaboratorPerspectivesGetterStore>(
           (i) => GetCollaboratorPerspectivesGetterStore(
             logic: i<GetCollaboratorPerspectives>(),
@@ -64,6 +70,12 @@ class CollectiveSessionModule extends Module {
           ),
         ),
         Bind.singleton<
+            AddIndividualSessionMetadataToCollectiveSessionGetterStore>(
+          (i) => AddIndividualSessionMetadataToCollectiveSessionGetterStore(
+            logic: i<AddIndividualSessionMetadataToCollectiveSession>(),
+          ),
+        ),
+        Bind.singleton<
             MoveIndividualPerspectivesAudioToCollectiveSpaceGetterStore>(
           (i) => MoveIndividualPerspectivesAudioToCollectiveSpaceGetterStore(
             logic: i<MoveIndividualPerspectivesAudioToCollectiveSpace>(),
@@ -72,6 +84,12 @@ class CollectiveSessionModule extends Module {
         Bind.singleton<GetCollaboratorPerspectivesStore>(
           (i) => GetCollaboratorPerspectivesStore(
             getterStore: i<GetCollaboratorPerspectivesGetterStore>(),
+          ),
+        ),
+        Bind.singleton<AddIndividualSessionMetadataToCollectiveSessionStore>(
+          (i) => AddIndividualSessionMetadataToCollectiveSessionStore(
+            getterStore:
+                i<AddIndividualSessionMetadataToCollectiveSessionGetterStore>(),
           ),
         ),
         Bind.singleton<CreateCollectiveSessionStore>(
@@ -98,10 +116,13 @@ class CollectiveSessionModule extends Module {
         ),
         Bind.singleton<CollectiveSessionPhase1Coordinator>(
           (i) => CollectiveSessionPhase1Coordinator(
+            addIndividualMetadata:
+                i<AddIndividualSessionMetadataToCollectiveSessionStore>(),
             createCollectiveSession: i<CreateCollectiveSessionStore>(),
             getCurrentPerspectives: Modular.get<GetCurrentPerspectivesStore>(),
             audioPlayer: Modular.get<ChangeAudioPlayingStatusStore>(),
-            getCollaboratorPerspectives: i<GetCollaboratorPerspectivesStore>(),
+            getCollaboratorPerspectivesAudio:
+                i<GetCollaboratorPerspectivesStore>(),
             moveTheAudio:
                 i<MoveIndividualPerspectivesAudioToCollectiveSpaceStore>(),
             quadrantAPI: Modular.get<QuadrantAPI>(),

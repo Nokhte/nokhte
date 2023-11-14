@@ -1,6 +1,6 @@
-import 'package:nokhte/app/core/custom_control_structures/custom_control_structures.dart';
 import 'package:nokhte/app/modules/collective_session/domain/domain.dart';
 import 'package:nokhte/app/modules/collective_session/types/types.dart';
+import 'package:nokhte_core/custom_control_structures.dart';
 import 'package:nokhte_backend/storage/buckets/utilities/storage_utilities.dart';
 
 class CollaboratorPerspectivesModel extends CollaboratorPerspectivesEntity {
@@ -22,7 +22,7 @@ class CollaboratorPerspectivesModel extends CollaboratorPerspectivesEntity {
       ),
     );
 
-    NestedLoop.execute(paths, metadata, (pathsIndex, metadataIndex) {
+    NestedLoops.twoDifferentLists(paths, metadata, (pathsIndex, metadataIndex) {
       final persPath = paths[pathsIndex].fullPath.split('/')[3];
       final metaDataCompVal = StorageUtilities.getFormattedPerspective(
           thePerspective: metadata[metadataIndex]["thePerspective"],

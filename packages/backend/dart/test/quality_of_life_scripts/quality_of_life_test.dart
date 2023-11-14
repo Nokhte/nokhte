@@ -40,8 +40,7 @@ void main() {
     individualSessionQueries = IndividualSessionsQueries(supabase: supabase);
     perspectivesAudioStorageQueries =
         PerspectivesAudioStorageQueries(supabase: supabase);
-    collectiveSessionQueries =
-        CollectiveSessionQueries(supabase: supabaseAdmin);
+    collectiveSessionQueries = CollectiveSessionQueries(supabase: supabase);
   });
 
   Future returnNonNPCUID() async {
@@ -91,6 +90,17 @@ void main() {
         perspectivesQueries.collaboratorInfo;
     // perspectivesAudioStorageQueries.collaboratorInfo = perspectivesQueries.collaboratorInfo;
 
+    final thePerspectivesCommitTimestampStr = (await supabase
+            .from('p2p_perspectives_tracking')
+            .select()
+            .eq("collaborator_one_uid", npcUserUID)
+            .eq("collaborator_two_uid", realPersonUID))
+        .first['current_committed_at'];
+    final thePerspectivesCommitTimestamp =
+        DateTime.parse(thePerspectivesCommitTimestampStr);
+
+    print("$thePerspectivesCommitTimestamp");
+
     await individualSessionQueries.createNewSession();
     await perspectivesAudioStorageQueries.uploadPerspective(
       IndividualSessionAudioClip(
@@ -99,7 +109,7 @@ void main() {
         totalNumberOfFilesForThePerspective: 1,
         thePerspectivesIndex: 0,
         theSessionTimestamp: now,
-        thePerspectivesTimestamp: now,
+        thePerspectivesTimestamp: thePerspectivesCommitTimestamp,
         theFile: File(
           '${Directory.current.path}/test/assets/perspectives/pers1_1.m4a',
         ),
@@ -112,7 +122,7 @@ void main() {
         totalNumberOfFilesForThePerspective: 2,
         thePerspectivesIndex: 0,
         theSessionTimestamp: now,
-        thePerspectivesTimestamp: now,
+        thePerspectivesTimestamp: thePerspectivesCommitTimestamp,
         theFile: File(
           '${Directory.current.path}/test/assets/perspectives/pers1_2.m4a',
         ),
@@ -125,7 +135,7 @@ void main() {
         totalNumberOfFilesForThePerspective: 1,
         thePerspectivesIndex: 1,
         theSessionTimestamp: now,
-        thePerspectivesTimestamp: now,
+        thePerspectivesTimestamp: thePerspectivesCommitTimestamp,
         theFile: File(
           '${Directory.current.path}/test/assets/perspectives/pers2_1.m4a',
         ),
@@ -138,7 +148,7 @@ void main() {
         totalNumberOfFilesForThePerspective: 2,
         thePerspectivesIndex: 1,
         theSessionTimestamp: now,
-        thePerspectivesTimestamp: now,
+        thePerspectivesTimestamp: thePerspectivesCommitTimestamp,
         theFile: File(
           '${Directory.current.path}/test/assets/perspectives/pers2_2.m4a',
         ),
@@ -151,7 +161,7 @@ void main() {
         totalNumberOfFilesForThePerspective: 3,
         thePerspectivesIndex: 1,
         theSessionTimestamp: now,
-        thePerspectivesTimestamp: now,
+        thePerspectivesTimestamp: thePerspectivesCommitTimestamp,
         theFile: File(
           '${Directory.current.path}/test/assets/perspectives/pers2_3.m4a',
         ),
@@ -191,16 +201,38 @@ void main() {
       "session_metadata": sessionMetadata,
     });
     await collectiveSessionQueries.createNewSession();
+    await supabaseAdmin
+        .from('collective_sessions')
+        .update({
+          "collaborator_one_uid": npcUserUID,
+          "collaborator_two_uid": realPersonUID,
+          "collaborator_one_individual_session_metadata": sessionMetadata,
+          "collaborator_one_individual_session_timestamp":
+              now.toIso8601String(),
+        })
+        .eq("collaborator_one_uid", npcUserUID)
+        .eq("collaborator_two_uid", realPersonUID);
     await collectiveSessionQueries.updateTheirIndividualSessionFields(
       individualSessionTimestampParam: now,
       sessionMetadata: sessionMetadata,
     );
+
+    final collectiveSessinTimestamp = DateTime.parse((await supabase
+            .from('collective_sessions')
+            .select()
+            .eq("collaborator_one_uid", npcUserUID)
+            .eq("collaborator_two_uid", realPersonUID))
+        .first["started_at"]);
+
     await perspectivesAudioStorageQueries.moveToCollectiveSpace(
+      // ohh here's the problem
       CollectiveSessionAudioExtrapolationInfo(
-        perspectivesCommitTimestamp: now,
+        perspectivesCommitTimestamp: thePerspectivesCommitTimestamp,
         individualSessionMetadata: sessionMetadata,
-        collectiveSessionTimestamp: now,
+        collectiveSessionTimestamp: collectiveSessinTimestamp,
+        //
         individualSessionTimestamp: now,
+        // this can be left the same
       ),
     );
   });

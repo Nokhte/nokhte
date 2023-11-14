@@ -22,6 +22,24 @@ class IndividualSessionsQueries extends CollaborativeQueries {
     }).select();
   }
 
+  Future<List> getLatestSessionInfo() async {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutActiveCollaboratorInfo();
+    }
+    return await supabase
+        .from(tableName)
+        .select()
+        .eq(ownerUID, collaboratorInfo.theUsersUID)
+        .eq(
+          "${collaboratorInfo.theCollaboratorsNumber}_uid",
+          collaboratorInfo.theCollaboratorsUID,
+        )
+        .eq(
+          "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
+          collaboratorInfo.theUsersUID,
+        );
+  }
+
   Future<List> updateSessionMetadata({required Map newMetadata}) async {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutActiveCollaboratorInfo();

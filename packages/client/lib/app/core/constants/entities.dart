@@ -199,4 +199,9 @@ class DefaultEntities {
   static Either<Failure, CollectiveSessionCreationStatusEntity>
       get collectiveSessionCreationStatusEntity =>
           const Right(CollectiveSessionCreationStatusEntity(isCreated: false));
+  static Either<Failure,
+          InvidualMetadataAdditionToCollectiveSessionStatusEntity>
+      get invidualMetadataAdditionToCollectiveSessionStatusEntity =>
+          const Right(InvidualMetadataAdditionToCollectiveSessionStatusEntity(
+              isAdded: true));
 }

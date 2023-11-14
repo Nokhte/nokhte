@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'get_collaborator_perspectives_store.dart';
+part of 'add_individual_session_metadata_to_collective_session_store.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,45 +8,48 @@ part of 'get_collaborator_perspectives_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$GetCollaboratorPerspectivesStore
-    on _GetCollaboratorPerspectivesStoreBase, Store {
-  late final _$collaboratorPerspectivesAtom = Atom(
-      name: '_GetCollaboratorPerspectivesStoreBase.collaboratorPerspectives',
+mixin _$AddIndividualSessionMetadataToCollectiveSessionStore
+    on _AddIndividualSessionMetadataToCollectiveSessionStoreBase, Store {
+  late final _$isAddedAtom = Atom(
+      name: '_AddIndividualSessionMetadataToCollectiveSessionStoreBase.isAdded',
       context: context);
 
   @override
-  CollaboratorPerspectivesEntity get collaboratorPerspectives {
-    _$collaboratorPerspectivesAtom.reportRead();
-    return super.collaboratorPerspectives;
+  bool get isAdded {
+    _$isAddedAtom.reportRead();
+    return super.isAdded;
   }
 
   @override
-  set collaboratorPerspectives(CollaboratorPerspectivesEntity value) {
-    _$collaboratorPerspectivesAtom
-        .reportWrite(value, super.collaboratorPerspectives, () {
-      super.collaboratorPerspectives = value;
+  set isAdded(bool value) {
+    _$isAddedAtom.reportWrite(value, super.isAdded, () {
+      super.isAdded = value;
     });
   }
 
   late final _$futureStoreAtom = Atom(
-      name: '_GetCollaboratorPerspectivesStoreBase.futureStore',
+      name:
+          '_AddIndividualSessionMetadataToCollectiveSessionStoreBase.futureStore',
       context: context);
 
   @override
-  BaseFutureStore<CollaboratorPerspectivesEntity> get futureStore {
+  BaseFutureStore<InvidualMetadataAdditionToCollectiveSessionStatusEntity>
+      get futureStore {
     _$futureStoreAtom.reportRead();
     return super.futureStore;
   }
 
   @override
-  set futureStore(BaseFutureStore<CollaboratorPerspectivesEntity> value) {
+  set futureStore(
+      BaseFutureStore<InvidualMetadataAdditionToCollectiveSessionStatusEntity>
+          value) {
     _$futureStoreAtom.reportWrite(value, super.futureStore, () {
       super.futureStore = value;
     });
   }
 
   late final _$callAsyncAction = AsyncAction(
-      '_GetCollaboratorPerspectivesStoreBase.call',
+      '_AddIndividualSessionMetadataToCollectiveSessionStoreBase.call',
       context: context);
 
   @override
@@ -57,7 +60,7 @@ mixin _$GetCollaboratorPerspectivesStore
   @override
   String toString() {
     return '''
-collaboratorPerspectives: ${collaboratorPerspectives},
+isAdded: ${isAdded},
 futureStore: ${futureStore}
     ''';
   }

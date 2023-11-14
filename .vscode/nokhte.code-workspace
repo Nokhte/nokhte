@@ -5,6 +5,10 @@
             "path": "../",
         },
         {
+            "name": "️⬜️ CORE",
+            "path": "../packages/core",
+        },
+        {
             "name": "🟧 backend",
             "path": "../packages/backend/dart"
         },
@@ -59,7 +63,7 @@
                 "packages/client/.vscode": true,
                 "**/android/": true,
                 "**/ios/": true,
-                "packages/": true,
+                // "packages/": true,
                 "**/**.iml": true,
                 "**/**.g.dart": true,
                 "**/.gitignore": true,
@@ -85,7 +89,7 @@
                 "**/analysis_options.yaml": true,
                 "**/.flutter-plugins": true,
                 "**/.flutter-plugins-dependencies": true,
-                "**/pubspec_overrides.yaml": true,
+                // "**/pubspec_overrides.yaml": true,
                 "**/version.yml": true,
                 "**/.metadata": true,
                 "**/flutter_01.log": true,

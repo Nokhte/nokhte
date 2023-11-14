@@ -7,6 +7,7 @@ import 'package:nokhte/app/core/modules/get_current_perspectives/mobx/mobx.dart'
 import 'package:nokhte/app/core/modules/gyroscopic/types/desired_negative_mode_behavior.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/collective_session/presentation/mobx/main/add_individual_session_metadata_to_collective_session_store.dart';
 import 'package:nokhte/app/modules/collective_session/presentation/mobx/mobx.dart';
 import 'package:nokhte/app/modules/collective_session/types/types.dart';
 part 'collective_session_phase1_coordinator.g.dart';
@@ -21,7 +22,9 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
   final ChangeAudioPlayingStatusStore audioPlayer;
   final SwipeDetector swipe;
   final MoveIndividualPerspectivesAudioToCollectiveSpaceStore moveTheAudio;
-  final GetCollaboratorPerspectivesStore getCollaboratorPerspectives;
+  final GetCollaboratorPerspectivesStore getCollaboratorPerspectivesAudio;
+  final AddIndividualSessionMetadataToCollectiveSessionStore
+      addIndividualMetadata;
   final CreateCollectiveSessionStore createCollectiveSession;
 
   final quadNum = 5;
@@ -29,11 +32,12 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
 
   _CollectiveSessionPhase1CoordinatorBase({
     required super.quadrantAPI,
+    required this.addIndividualMetadata,
     required this.createCollectiveSession,
     required this.getCurrentPerspectives,
     required this.swipe,
     required this.audioPlayer,
-    required this.getCollaboratorPerspectives,
+    required this.getCollaboratorPerspectivesAudio,
     required this.moveTheAudio,
     required this.widgets,
   });
@@ -49,10 +53,16 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
       startingQuadrant: 0,
       negativeModeBehavior: NegativeModeBehaviors.resetRefAngle,
     );
+    // they have to more
     await createCollectiveSession(NoParams());
-    // 1. they would also have to update their metadata
-    // 2. move their files
-    // 3. download their collaborators files
+    await addIndividualMetadata(NoParams());
+    // await moveTheAudio(NoParams());
+
+    Future.delayed(
+        Seconds.get(3),
+        () async => await getCollaboratorPerspectivesAudio(
+              NoParams(),
+            ));
     quadrantAPIListener();
     gestureListener();
     tapListener();
