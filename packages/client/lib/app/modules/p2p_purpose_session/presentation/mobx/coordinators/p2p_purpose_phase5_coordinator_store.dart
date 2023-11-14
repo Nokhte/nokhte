@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/logic/update_commit_desire_status.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/presentation/presentation.dart';
@@ -75,11 +76,12 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
       ),
     );
     await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);
-    collaborativeDocDB.createDoc(
+    await collaborativeDocDB.createDoc(
       const CreateCollaborativeDocParams(
         docType: 'purpose',
       ),
     );
+    await collaborativeDocDB.getContent(NoParams());
 
     collaborativeDocListener();
     gestureListener();

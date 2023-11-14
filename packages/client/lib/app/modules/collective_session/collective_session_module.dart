@@ -158,14 +158,16 @@ class CollectiveSessionModule extends Module {
   @override
   List<ChildRoute> get routes => [
         ChildRoute(
-          '/',
+          '/phase1',
+          // '/',
           child: (context, args) => CollectiveSession1StandInTheirShoesScreen(
             coordinator: Modular.get<CollectiveSessionPhase1Coordinator>(),
           ),
           transition: TransitionType.noTransition,
         ),
         ChildRoute(
-          '/phase-2',
+          // '/phase-2',
+          '/',
           child: (context, args) => CollectiveSession2CommitScreen(
             coordinator: Modular.get<CollectiveSessionPhase2Coordinator>(),
           ),

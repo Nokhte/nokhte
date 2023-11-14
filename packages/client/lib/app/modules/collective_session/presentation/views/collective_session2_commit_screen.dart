@@ -29,17 +29,17 @@ class CollectiveSession2CommitScreen extends StatelessWidget {
             child: Stack(
               // this also needs the
               children: [
-                Center(
-                  child: CollaborativeTextEditor(
-                    trackerStore: coordinator.widgets.collaborativeTextEditor,
-                    fadeInDuration: Seconds.get(1),
-                  ),
-                ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   child: SmartBeachWaves(
                     stateTrackerStore: coordinator.widgets.beachWaves,
+                  ),
+                ),
+                Center(
+                  child: CollaborativeTextEditor(
+                    trackerStore: coordinator.widgets.collaborativeTextEditor,
+                    fadeInDuration: Seconds.get(1),
                   ),
                 ),
                 Column(

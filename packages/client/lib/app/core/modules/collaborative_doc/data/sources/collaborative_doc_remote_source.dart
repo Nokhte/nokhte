@@ -35,7 +35,7 @@ class CollaborativeDocRemoteSourceImpl implements CollaborativeDocRemoteSource {
 
   @override
   Future<List> createCollaborativeDoc({required String docType}) async {
-    return await queries.createCollaborativeDocument(docType: 'purpose');
+    return await queries.createCollaborativeDocument(docType: docType);
   }
 
   @override

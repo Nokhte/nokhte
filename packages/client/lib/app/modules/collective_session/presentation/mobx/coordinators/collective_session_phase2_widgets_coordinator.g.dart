@@ -10,6 +10,25 @@ part of 'collective_session_phase2_widgets_coordinator.dart';
 
 mixin _$CollectiveSessionPhase2WidgetsCoordinator
     on _CollectiveSessionPhase2WidgetsCoordinatorBase, Store {
+  late final _$isFirstTimeGoingThroughItAtom = Atom(
+      name:
+          '_CollectiveSessionPhase2WidgetsCoordinatorBase.isFirstTimeGoingThroughIt',
+      context: context);
+
+  @override
+  bool get isFirstTimeGoingThroughIt {
+    _$isFirstTimeGoingThroughItAtom.reportRead();
+    return super.isFirstTimeGoingThroughIt;
+  }
+
+  @override
+  set isFirstTimeGoingThroughIt(bool value) {
+    _$isFirstTimeGoingThroughItAtom
+        .reportWrite(value, super.isFirstTimeGoingThroughIt, () {
+      super.isFirstTimeGoingThroughIt = value;
+    });
+  }
+
   late final _$_CollectiveSessionPhase2WidgetsCoordinatorBaseActionController =
       ActionController(
           name: '_CollectiveSessionPhase2WidgetsCoordinatorBase',
@@ -31,9 +50,24 @@ mixin _$CollectiveSessionPhase2WidgetsCoordinator
   }
 
   @override
+  dynamic goBackHome() {
+    final _$actionInfo =
+        _$_CollectiveSessionPhase2WidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_CollectiveSessionPhase2WidgetsCoordinatorBase.goBackHome');
+    try {
+      return super.goBackHome();
+    } finally {
+      _$_CollectiveSessionPhase2WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-
+isFirstTimeGoingThroughIt: ${isFirstTimeGoingThroughIt}
     ''';
   }
 }
