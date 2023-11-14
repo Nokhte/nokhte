@@ -28,6 +28,24 @@ mixin _$CollectiveSessionPhase1Coordinator
                   '_CollectiveSessionPhase1CoordinatorBase.currentPerspective'))
       .value;
 
+  late final _$isReadyToMoveToNextPartAtom = Atom(
+      name: '_CollectiveSessionPhase1CoordinatorBase.isReadyToMoveToNextPart',
+      context: context);
+
+  @override
+  bool get isReadyToMoveToNextPart {
+    _$isReadyToMoveToNextPartAtom.reportRead();
+    return super.isReadyToMoveToNextPart;
+  }
+
+  @override
+  set isReadyToMoveToNextPart(bool value) {
+    _$isReadyToMoveToNextPartAtom
+        .reportWrite(value, super.isReadyToMoveToNextPart, () {
+      super.isReadyToMoveToNextPart = value;
+    });
+  }
+
   late final _$chosenAudioIndexAtom = Atom(
       name: '_CollectiveSessionPhase1CoordinatorBase.chosenAudioIndex',
       context: context);
@@ -171,8 +189,23 @@ mixin _$CollectiveSessionPhase1Coordinator
   }
 
   @override
+  dynamic checkIfTheyHaveListenedToAllTheClips() {
+    final _$actionInfo =
+        _$_CollectiveSessionPhase1CoordinatorBaseActionController.startAction(
+            name:
+                '_CollectiveSessionPhase1CoordinatorBase.checkIfTheyHaveListenedToAllTheClips');
+    try {
+      return super.checkIfTheyHaveListenedToAllTheClips();
+    } finally {
+      _$_CollectiveSessionPhase1CoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
+isReadyToMoveToNextPart: ${isReadyToMoveToNextPart},
 chosenAudioIndex: ${chosenAudioIndex},
 screenType: ${screenType},
 hadAudioClipsForThePerspective: ${hadAudioClipsForThePerspective},

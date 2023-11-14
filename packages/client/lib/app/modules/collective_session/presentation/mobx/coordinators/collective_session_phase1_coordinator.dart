@@ -44,6 +44,9 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
   });
 
   @observable
+  bool isReadyToMoveToNextPart = false;
+
+  @observable
   int chosenAudioIndex = 0;
 
   @action
@@ -70,6 +73,7 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
     quadrantAPIListener();
     gestureListener();
     tapListener();
+    readyToMoveOnListener();
     //
   }
 
@@ -172,6 +176,11 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
 
   @action
   playAudio() {
+    checkIfTheyHaveListenedToAllTheClips();
+    getCollaboratorPerspectivesAudio
+        .collaboratorPerspectives
+        .collaboratorPerspectivesData[chosenIndex]
+        .numberOfFilesTheyHaveListenedTo = chosenAudioIndex + 1;
     audioPlayer(ChangeAudioPlayingStatusParams(
         path: getCollaboratorPerspectivesAudio
             .collaboratorPerspectives
@@ -189,6 +198,37 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
             .pathsToFiles[chosenAudioIndex],
         startPlaying: false));
   }
+
+  @action
+  checkIfTheyHaveListenedToAllTheClips() {
+    List<bool> checkVals = [];
+    bool returnVal = true;
+
+    for (final clipData in getCollaboratorPerspectivesAudio
+        .collaboratorPerspectives.collaboratorPerspectivesData) {
+      if (clipData.numberOfFilesTheyHaveListenedTo + 1 >=
+          clipData.numberOfFiles) {
+        print(
+            "${clipData.numberOfFilesTheyHaveListenedTo} ${clipData.numberOfFiles}");
+        checkVals.add(true);
+      } else {
+        checkVals.add(false);
+      }
+    }
+    for (final checkVal in checkVals) {
+      if (checkVal == false) {
+        returnVal = false;
+      }
+    }
+    print("Hey return val?? $checkVals $returnVal");
+    isReadyToMoveToNextPart = returnVal;
+  }
+
+  readyToMoveOnListener() => reaction((p0) => isReadyToMoveToNextPart, (p0) {
+        if (p0) {
+          print("YOU ARE READY TO MOVE ON CONGRATS!!");
+        }
+      });
 
   @computed
   bool get hadAudioClipsForThePerspective =>
