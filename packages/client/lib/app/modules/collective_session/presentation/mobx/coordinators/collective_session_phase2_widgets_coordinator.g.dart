@@ -10,6 +10,26 @@ part of 'collective_session_phase2_widgets_coordinator.dart';
 
 mixin _$CollectiveSessionPhase2WidgetsCoordinator
     on _CollectiveSessionPhase2WidgetsCoordinatorBase, Store {
+  late final _$_CollectiveSessionPhase2WidgetsCoordinatorBaseActionController =
+      ActionController(
+          name: '_CollectiveSessionPhase2WidgetsCoordinatorBase',
+          context: context);
+
+  @override
+  dynamic attuneTheWidgets() {
+    final _$actionInfo =
+        _$_CollectiveSessionPhase2WidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_CollectiveSessionPhase2WidgetsCoordinatorBase.attuneTheWidgets');
+    try {
+      return super.attuneTheWidgets();
+    } finally {
+      _$_CollectiveSessionPhase2WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

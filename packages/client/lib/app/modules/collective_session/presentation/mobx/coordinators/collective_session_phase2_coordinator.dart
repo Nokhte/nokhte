@@ -17,6 +17,12 @@ abstract class _CollectiveSessionPhase2CoordinatorBase extends Equatable
   final CollectiveSessionPhase2WidgetsCoordinator widgets;
   final SwipeDetector swipe;
 
+  @action
+  screenConstructor() {
+    widgets.attuneTheWidgets();
+    //
+  }
+
   _CollectiveSessionPhase2CoordinatorBase({
     required this.swipe,
     required this.widgets,

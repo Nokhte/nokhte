@@ -8,10 +8,12 @@ import 'package:nokhte/app/modules/collective_session/presentation/presentation.
 
 class CollectiveSession2CommitScreen extends StatelessWidget {
   final CollectiveSessionPhase2Coordinator coordinator;
-  const CollectiveSession2CommitScreen({
+  CollectiveSession2CommitScreen({
     super.key,
     required this.coordinator,
-  });
+  }) {
+    coordinator.screenConstructor();
+  }
 
   @override
   Widget build(BuildContext context) {

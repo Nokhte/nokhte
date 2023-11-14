@@ -249,7 +249,7 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
     Future.delayed(Seconds.get(6), () => transitionToPerspectivesMode());
     Future.delayed(
       Seconds.get(9),
-      () => widgets.transitionToNextScreen(),
+      () => widgets.transitionBackToShore(),
     );
   }
 

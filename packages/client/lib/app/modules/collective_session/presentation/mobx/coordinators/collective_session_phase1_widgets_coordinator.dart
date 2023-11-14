@@ -3,7 +3,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_perspectives_widgets_store.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'collective_session_phase1_widgets_coordinator.g.dart';
@@ -87,41 +86,15 @@ abstract class _CollectiveSessionPhase1WidgetsCoordinatorBase
     audioClipPlatform.control = Control.playFromStart;
   }
 
-  transitionToNextScreen() {
-    final theTimeToTransitionFrom = DateTime.now();
-    perspectivesMap.toggleWidgetVisibility();
-    collaborativeTextEditor.toggleWidgetVisibility();
-    beachHorizonWater.fullSkyBackToShorePreReq(
-        currentTime: theTimeToTransitionFrom);
-    Future.delayed(Seconds.get(3), () {
-      beachSky.selectTimeBasedMovie(theTimeToTransitionFrom);
-      beachSky.control = Control.playReverseFromEnd;
-      beachHorizonWater.initBackToShore(currentTime: theTimeToTransitionFrom);
-    });
-  }
-
   @override
   beachHorizonWaterListener() =>
       reaction((p0) => beachHorizonWater.backToShoreCompleted, (p0) {
         if (p0) {
-          // add collective_session in prod build
-          Modular.to.navigate('/phase-2');
-          //
+          Future.delayed(Seconds.get(7), () => Modular.to.navigate('/phase-2'));
           // print("HI it was completed");
         }
       });
 
   @override
-  beachWavesListener() => reaction((p0) => beachWaves.movieStatus, (p0) {
-        if (isFirstTimeGoingThroughIt) {
-          toggleIsFirstTimeGoingThroughIt();
-        } else if (beachWaves.movieStatus == MovieStatus.finished &&
-            beachWaves.movieMode == BeachWaveMovieModes.shallowsToShore) {
-          // here you would change the beach wave movie mode
-          // and the place it navigates to
-          // Modular.to.navigate('/home/');
-        }
-      });
-
-  // markUpPerspectivesMap
+  beachWavesListener() {}
 }

@@ -10,6 +10,23 @@ part of 'collective_session_phase2_coordinator.dart';
 
 mixin _$CollectiveSessionPhase2Coordinator
     on _CollectiveSessionPhase2CoordinatorBase, Store {
+  late final _$_CollectiveSessionPhase2CoordinatorBaseActionController =
+      ActionController(
+          name: '_CollectiveSessionPhase2CoordinatorBase', context: context);
+
+  @override
+  dynamic screenConstructor() {
+    final _$actionInfo =
+        _$_CollectiveSessionPhase2CoordinatorBaseActionController.startAction(
+            name: '_CollectiveSessionPhase2CoordinatorBase.screenConstructor');
+    try {
+      return super.screenConstructor();
+    } finally {
+      _$_CollectiveSessionPhase2CoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
