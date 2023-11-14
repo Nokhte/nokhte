@@ -31,7 +31,7 @@
         // },
         {
             "name": "🟦 working module",
-            "path": "../packages/client/lib/app/modules/p2p_purpose_session"
+            "path": "../packages/client/lib/app/modules/home"
             
         },
         {

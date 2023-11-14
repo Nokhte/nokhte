@@ -4,10 +4,13 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/modules/get_current_perspectives/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/main/main.dart';
+import 'package:nokhte/app/modules/home/types/types.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 part 'home_screen_coordinator_store.g.dart';
@@ -16,6 +19,7 @@ class HomeScreenCoordinatorStore = _HomeScreenCoordinatorStoreBase
     with _$HomeScreenCoordinatorStore;
 
 abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
+  final GetCurrentPerspectivesStore getCurrentPerspectives;
   final PortalAPI portalAPI;
   final SwipeDetector swipe;
   final HoldDetector hold;
@@ -27,6 +31,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
 
   _HomeScreenCoordinatorStoreBase({
     required this.swipe,
+    required this.getCurrentPerspectives,
     required this.hold,
     required this.portalAPI,
     required this.gesturePillStore,
@@ -35,6 +40,12 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
     required this.fadingTextStateTrackerStore,
     required this.getCollaboratorPhraseStore,
   });
+
+  @observable
+  PlacesYouCanGo thePlaceTheyAreGoing = PlacesYouCanGo.initial;
+
+  @observable
+  bool hasMadePerspectives = false;
 
   homeScreenConstructorCallback() async {
     beachWavesListener();
@@ -49,6 +60,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
 
     Future.delayed(Seconds.get(1), () async {
       await addNameToDatabaseStore(NoParams());
+      await getCurrentPerspectives(NoParams());
       await getCollaboratorPhraseStore(NoParams()).then((_) {
         fadingTextStateTrackerStore.setMainMessage(
           index: 2,
@@ -56,45 +68,58 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
         );
       });
     });
+    gestureListener();
     holdListener();
-    // gestureListener();
-
+    if (getCurrentPerspectives.currentPerspectives.isNotEmpty) {
+      hasMadePerspectives = true;
+    }
     await portalAPI.setupTheStream();
-
-    // reaction((p0) => portalAPI.currentQuadrant, (p0) {
-
-    //   print("quadrant api home coordinator $p0");
-    // });
-
-    // await portalAPI.setupTheStream(
-    //     startingQuadrant: 0,
-    //     numberOfQuadrants: 0,
-    //     totalAngleCoverageOfEachQuadrant: 0);
-
-    // reaction((p0) => portalAPI.drawingMode, (p0) { })
-    // ^^ idk figure this out later
+    portalAPIListener();
   }
 
-  beachWavesListener() => reaction((p0) => beachWaves.movieStatus, (p0) {
-        if (beachWaves.movieStatus == MovieStatus.finished) {
-          Modular.to.navigate('/p2p_collaborator_pool/');
-          // Modular.to.navigate('/p2p_perspective_session/');
+  @action
+  portalAPIListener() => reaction((p0) => portalAPI.drawingMode, (p0) {
+        if (p0 == DrawingStatus.hasDrawn && hasMadePerspectives) {
+          fadeTheTextOutAndWaterComesDown(PlacesYouCanGo.individualSession);
         }
       });
 
-  // gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
-  //       switch (p0) {
-  //         case GestureDirections.up:
-  //           fadeTheTextOutAndWaterComesDown();
-  //         default:
-  //           break;
-  //       }
-  //     });
-  holdListener() => reaction((p0) => hold.holdCount, (p0) {
-        fadeTheTextOutAndWaterComesDown();
+  beachWavesListener() => reaction((p0) => beachWaves.movieStatus, (p0) {
+        if (beachWaves.movieStatus == MovieStatus.finished &&
+            thePlaceTheyAreGoing == PlacesYouCanGo.newCollaboration) {
+          switch (thePlaceTheyAreGoing) {
+            case PlacesYouCanGo.newCollaboration:
+              Modular.to.navigate('/p2p_collaborator_pool/');
+            case PlacesYouCanGo.collectiveSession:
+              Modular.to.navigate('/collective_session/');
+            case PlacesYouCanGo.individualSession:
+              Modular.to.navigate('/individual_session/');
+            case PlacesYouCanGo.perspectivesSession:
+              Modular.to.navigate('/p2p_perspective_session/');
+            default:
+              break;
+          }
+        }
       });
 
-  fadeTheTextOutAndWaterComesDown() {
+  gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
+        switch (p0) {
+          case GestureDirections.up:
+            final thePlaceTheyAreGoing = hasMadePerspectives
+                ? PlacesYouCanGo.collectiveSession
+                : PlacesYouCanGo.perspectivesSession;
+            fadeTheTextOutAndWaterComesDown(thePlaceTheyAreGoing);
+          default:
+            break;
+        }
+      });
+  holdListener() => reaction((p0) => hold.holdCount, (p0) {
+        fadeTheTextOutAndWaterComesDown(PlacesYouCanGo.newCollaboration);
+      });
+
+  @action
+  fadeTheTextOutAndWaterComesDown(PlacesYouCanGo thePlaceTheyAreGoing) {
+    thePlaceTheyAreGoing = PlacesYouCanGo.newCollaboration;
     if (!fadingTextStateTrackerStore.isPaused) {
       fadingTextStateTrackerStore.togglePause();
     }

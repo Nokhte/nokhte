@@ -1,4 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:nokhte/app/core/modules/get_current_perspectives/get_current_perspectives_module.dart';
+import 'package:nokhte/app/core/modules/get_current_perspectives/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic_module.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
@@ -20,6 +22,7 @@ class HomeModule extends Module {
   List<Module> get imports => [
         GyroscopicModule(),
         GesturesModule(),
+        GetCurrentPerspectivesModule(),
       ];
   @override
   List<Bind> get binds => [
@@ -79,6 +82,7 @@ class HomeModule extends Module {
         ),
         Bind.singleton<HomeScreenCoordinatorStore>(
           (i) => HomeScreenCoordinatorStore(
+            getCurrentPerspectives: Modular.get<GetCurrentPerspectivesStore>(),
             portalAPI: i<PortalAPI>(),
             hold: Modular.get<HoldDetector>(),
             swipe: Modular.get<SwipeDetector>(),
