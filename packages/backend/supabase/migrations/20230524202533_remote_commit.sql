@@ -1,7 +1,0 @@
--- drop policy "Enable insert for users who don't have a row already" on "public"."usernames";
--- drop policy "Enable select for authenticated users only" on "public"."usernames";
--- alter table "public"."usernames" drop constraint "usernames_pkey";
--- drop index if exists "public"."usernames_pkey";
--- alter table "public"."usernames"
--- alter column "uid" drop not null;
--- alter table "public"."usernames" disable row level security;
