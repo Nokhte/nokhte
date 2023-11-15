@@ -45,13 +45,13 @@ alter table "public"."user_names" validate constraint "user_names_uid_fkey";
 
 alter table "public"."user_names" add constraint "usernames_uid_key" UNIQUE using index "usernames_uid_key";
 
-alter table "public"."p2p_requests" add constraint "p2p_requests_receiver_id_fkey" FOREIGN KEY (receiver_id) REFERENCES user_names(uid) not valid;
+-- alter table "public"."p2p_requests" add constraint "p2p_requests_receiver_id_fkey" FOREIGN KEY (receiver_id) REFERENCES user_names(uid) not valid;
 
-alter table "public"."p2p_requests" validate constraint "p2p_requests_receiver_id_fkey";
+-- alter table "public"."p2p_requests" validate constraint "p2p_requests_receiver_id_fkey";
 
-alter table "public"."p2p_requests" add constraint "p2p_requests_sender_id_fkey" FOREIGN KEY (sender_id) REFERENCES user_names(uid) not valid;
+-- alter table "public"."p2p_requests" add constraint "p2p_requests_sender_id_fkey" FOREIGN KEY (sender_id) REFERENCES user_names(uid) not valid;
 
-alter table "public"."p2p_requests" validate constraint "p2p_requests_sender_id_fkey";
+-- alter table "public"."p2p_requests" validate constraint "p2p_requests_sender_id_fkey";
 
 create policy "CREATE: Users Who Don't Have a Row Already Can Add Theirs"
 on "public"."user_names"
