@@ -1,9 +1,11 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/types/desired_negative_mode_behavior.dart';
+import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -15,6 +17,10 @@ class P2PPerspectiveSessionCoordinatorStore = _P2PPerspectiveSessionCoordinatorS
 
 abstract class _P2PPerspectiveSessionCoordinatorStoreBase
     extends BaseQuadrantAPIReceiver with Store {
+  final VoiceCallActionsStore voiceCallActions;
+  final InstantiateAgoraSdkStore instantiateAgoraSdk;
+  final FetchAgoraTokenStore fetchAgoraToken;
+  final FetchChannelIdStore fetchChannelId;
   final PerspectivesWidgetsCoordinatorStore widgets;
   final VoiceCallActionsStore voiceCall;
   final SwipeDetector swipe;
@@ -30,6 +36,10 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
 
   _P2PPerspectiveSessionCoordinatorStoreBase({
     required super.quadrantAPI,
+    required this.fetchChannelId,
+    required this.voiceCallActions,
+    required this.instantiateAgoraSdk,
+    required this.fetchAgoraToken,
     required this.voiceCall,
     required this.swipe,
     required this.widgets,
@@ -59,6 +69,23 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
     widgets.attuneTheWidgets(DateTime.now());
     await createSession(NoParams());
     await perspectivesStream(NoParams());
+    await instantiateAgoraSdk(NoParams());
+    await fetchChannelId(NoParams());
+    await fetchAgoraToken(
+      FetchAgoraTokenParams(
+        channelName: fetchChannelId.channelId,
+      ),
+    );
+    await voiceCallActions.enterOrLeaveCall(
+      Right(
+        JoinCallParams(
+          token: fetchAgoraToken.token,
+          channelId: fetchChannelId.channelId,
+        ),
+      ),
+    );
+    await voiceCallActions.muteOrUnmuteAudio(wantToMute: false);
+
     textEditorSynchronizer();
     textEditorListener();
     await quadrantAPI.setupTheStream(

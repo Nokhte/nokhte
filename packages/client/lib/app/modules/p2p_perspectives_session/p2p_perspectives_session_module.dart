@@ -14,6 +14,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class P2PPerspectivesSessionModule extends Module {
   @override
   List<Module> get imports => [
+        VoiceCallModule(),
         PerspectivesWidgetsModule(),
         GyroscopicModule(),
         VoiceCallModule(),
@@ -117,6 +118,10 @@ class P2PPerspectivesSessionModule extends Module {
         ),
         Bind.singleton<P2PPerspectiveSessionCoordinatorStore>(
           (i) => P2PPerspectiveSessionCoordinatorStore(
+            fetchChannelId: Modular.get<FetchChannelIdStore>(),
+            voiceCallActions: Modular.get<VoiceCallActionsStore>(),
+            instantiateAgoraSdk: Modular.get<InstantiateAgoraSdkStore>(),
+            fetchAgoraToken: Modular.get<FetchAgoraTokenStore>(),
             swipe: i<SwipeDetector>(),
             widgets: i<PerspectivesWidgetsCoordinatorStore>(),
             voiceCall: Modular.get<VoiceCallActionsStore>(),

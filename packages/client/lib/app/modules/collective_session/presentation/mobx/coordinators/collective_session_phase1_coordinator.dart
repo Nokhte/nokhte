@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -6,6 +7,8 @@ import 'package:nokhte/app/core/modules/audio_player/domain/domain.dart';
 import 'package:nokhte/app/core/modules/audio_player/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/get_current_perspectives/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/types/desired_negative_mode_behavior.dart';
+import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
+import 'package:nokhte/app/core/modules/voice_call/mobx/main/main.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/collective_session/presentation/mobx/main/add_individual_session_metadata_to_collective_session_store.dart';
@@ -18,6 +21,10 @@ class CollectiveSessionPhase1Coordinator = _CollectiveSessionPhase1CoordinatorBa
 
 abstract class _CollectiveSessionPhase1CoordinatorBase
     extends BaseQuadrantAPIReceiver with Store {
+  final VoiceCallActionsStore voiceCallActions;
+  final InstantiateAgoraSdkStore instantiateAgoraSdk;
+  final FetchAgoraTokenStore fetchAgoraToken;
+  final FetchChannelIdStore fetchChannelId;
   final GetCurrentPerspectivesStore getCurrentPerspectives;
   final CollectiveSessionPhase1WidgetsCoordinator widgets;
   final ChangeAudioPlayingStatusStore audioPlayer;
@@ -35,6 +42,10 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
   _CollectiveSessionPhase1CoordinatorBase({
     required super.quadrantAPI,
     required this.addIndividualMetadata,
+    required this.fetchChannelId,
+    required this.voiceCallActions,
+    required this.instantiateAgoraSdk,
+    required this.fetchAgoraToken,
     required this.createCollectiveSession,
     required this.getCurrentPerspectives,
     required this.swipe,
@@ -74,6 +85,23 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
       startingQuadrant: 0,
       negativeModeBehavior: NegativeModeBehaviors.resetRefAngle,
     );
+    await instantiateAgoraSdk(NoParams());
+    await fetchChannelId(NoParams());
+    await fetchAgoraToken(
+      FetchAgoraTokenParams(
+        channelName: fetchChannelId.channelId,
+      ),
+    );
+    await voiceCallActions.enterOrLeaveCall(
+      Right(
+        JoinCallParams(
+          token: fetchAgoraToken.token,
+          channelId: fetchChannelId.channelId,
+        ),
+      ),
+    );
+    await voiceCallActions.muteOrUnmuteAudio(wantToMute: false);
+
     await createCollectiveSession(NoParams());
     await addIndividualMetadata(NoParams());
 
