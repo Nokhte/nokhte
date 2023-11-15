@@ -71,4 +71,4 @@ to authenticated
 using ((uid = auth.uid()));
 
 
-CREATE TRIGGER cant_impersonate_username_creation BEFORE INSERT ON public.user_names FOR EACH ROW EXECUTE FUNCTION internal_functions.cant_impersonate_username_creation();
+-- CREATE TRIGGER cant_impersonate_username_creation BEFORE INSERT ON public.user_names FOR EACH ROW EXECUTE FUNCTION internal_functions.cant_impersonate_username_creation();
