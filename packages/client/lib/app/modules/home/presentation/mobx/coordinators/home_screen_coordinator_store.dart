@@ -83,8 +83,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
       });
 
   beachWavesListener() => reaction((p0) => beachWaves.movieStatus, (p0) {
-        if (beachWaves.movieStatus == MovieStatus.finished &&
-            thePlaceTheyAreGoing == PlacesYouCanGo.newCollaboration) {
+        if (beachWaves.movieStatus == MovieStatus.finished) {
           switch (thePlaceTheyAreGoing) {
             case PlacesYouCanGo.newCollaboration:
               Modular.to.navigate('/p2p_collaborator_pool/');
@@ -119,8 +118,8 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
       });
 
   @action
-  fadeTheTextOutAndWaterComesDown(PlacesYouCanGo thePlaceTheyAreGoing) {
-    thePlaceTheyAreGoing = PlacesYouCanGo.newCollaboration;
+  fadeTheTextOutAndWaterComesDown(PlacesYouCanGo thePlaceTheyAreGoingParam) {
+    thePlaceTheyAreGoing = thePlaceTheyAreGoingParam;
     if (!fadingTextStateTrackerStore.isPaused) {
       fadingTextStateTrackerStore.togglePause();
     }

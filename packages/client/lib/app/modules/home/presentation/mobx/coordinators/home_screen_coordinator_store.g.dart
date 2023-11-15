@@ -60,13 +60,14 @@ mixin _$HomeScreenCoordinatorStore on _HomeScreenCoordinatorStoreBase, Store {
   }
 
   @override
-  dynamic fadeTheTextOutAndWaterComesDown(PlacesYouCanGo thePlaceTheyAreGoing) {
+  dynamic fadeTheTextOutAndWaterComesDown(
+      PlacesYouCanGo thePlaceTheyAreGoingParam) {
     final _$actionInfo =
         _$_HomeScreenCoordinatorStoreBaseActionController.startAction(
             name:
                 '_HomeScreenCoordinatorStoreBase.fadeTheTextOutAndWaterComesDown');
     try {
-      return super.fadeTheTextOutAndWaterComesDown(thePlaceTheyAreGoing);
+      return super.fadeTheTextOutAndWaterComesDown(thePlaceTheyAreGoingParam);
     } finally {
       _$_HomeScreenCoordinatorStoreBaseActionController.endAction(_$actionInfo);
     }
