@@ -19,22 +19,18 @@ class P2PCollaboratorPoolModule extends Module {
 
   @override
   List<Bind> get binds => [
-        /// % Inverted Call Hierarchy END
-        // & Remote Source
         Bind.singleton<P2PCollaboratorPoolRemoteSourceImpl>(
           (i) => P2PCollaboratorPoolRemoteSourceImpl(
             existingCollaborationsStream: ExistingCollaborationsStream(),
             supabase: Modular.get<SupabaseClient>(),
           ),
         ),
-        // & Contract Implementation
         Bind.singleton<P2PCollaboratorPoolContractImpl>(
           (i) => P2PCollaboratorPoolContractImpl(
             remoteSource: i<P2PCollaboratorPoolRemoteSourceImpl>(),
             networkInfo: Modular.get<NetworkInfo>(),
           ),
         ),
-        // & Logic
         Bind.singleton<EnterCollaboratorPool>(
           (i) => EnterCollaboratorPool(
             contract: i<P2PCollaboratorPoolContract>(),
@@ -60,7 +56,6 @@ class P2PCollaboratorPoolModule extends Module {
             contract: i<P2PCollaboratorPoolContract>(),
           ),
         ),
-        // & MobX Getter Stores
         Bind.singleton<EnterCollaboratorPoolGetterStore>(
           (i) => EnterCollaboratorPoolGetterStore(
             enterPoolLogic: i<EnterCollaboratorPool>(),
@@ -86,7 +81,6 @@ class P2PCollaboratorPoolModule extends Module {
             cancelStreamLogic: i<CancelCollaboratorStream>(),
           ),
         ),
-        // & Mobx Mother Stores
         Bind.singleton<EnterCollaboratorPoolStore>(
           (i) => EnterCollaboratorPoolStore(
             enterCollaboratorPoolGetterStore:
@@ -115,7 +109,9 @@ class P2PCollaboratorPoolModule extends Module {
             getterStore: i<CancelCollaboratorStreamGetterStore>(),
           ),
         ),
-        // & Widget State Management Stores
+        Bind.factory<SwipeDetector>(
+          (i) => SwipeDetector(),
+        ),
         Bind.factory<SmartFadingAnimatedTextTrackerStore>(
           (i) => SmartFadingAnimatedTextTrackerStore(
             isInfinite: false,
@@ -134,11 +130,9 @@ class P2PCollaboratorPoolModule extends Module {
         Bind.factory<BeachWavesTrackerStore>(
           (i) => BeachWavesTrackerStore(),
         ),
-
         Bind.singleton<MeshCircleButtonStore>(
           (i) => MeshCircleButtonStore(),
         ),
-        // & Widget Manager Stores
         Bind.factory<WidgetCoordinatorStore>(
           (i) => WidgetCoordinatorStore(
             meshCircleButtonStore: i<MeshCircleButtonStore>(),
@@ -149,10 +143,9 @@ class P2PCollaboratorPoolModule extends Module {
             beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
           ),
         ),
-        // & Coordinator Stores
-        // do the sub here &
         Bind.singleton<SpeakTheCollaboratorPhraseCoordinatorStore>(
           (i) => SpeakTheCollaboratorPhraseCoordinatorStore(
+            swipe: i<SwipeDetector>(),
             enterCollaboratorPoolStore: i<EnterCollaboratorPoolStore>(),
             validateQueryStore: i<ValidateQueryStore>(),
             onSpeechResultStore: i<OnSpeechResultStore>(),
@@ -162,6 +155,7 @@ class P2PCollaboratorPoolModule extends Module {
         ),
         Bind.singleton<CollaboratorPoolScreenCoordinatorStore>(
           (i) => CollaboratorPoolScreenCoordinatorStore(
+            swipe: i<SwipeDetector>(),
             exitCollaboratorPoolStore: i<ExitCollaboratorPoolStore>(),
             beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
             fadeInAndColorTextStore:
@@ -181,7 +175,6 @@ class P2PCollaboratorPoolModule extends Module {
           child: (context, args) => SpeakTheCollaboratorPhraseScreen(
             coordinatorStore:
                 Modular.get<SpeakTheCollaboratorPhraseCoordinatorStore>(),
-            // startingWaveMovement: args.data,
           ),
           transition: TransitionType.noTransition,
         ),

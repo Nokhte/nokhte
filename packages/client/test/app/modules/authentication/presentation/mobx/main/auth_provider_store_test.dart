@@ -1,4 +1,3 @@
-// * Testing & Mocking Libs
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/interfaces/auth_providers.dart';
@@ -20,7 +19,6 @@ void main() {
     );
   });
 
-  // initial state
   test("On Instantiation all the values of the store should be properly set",
       () {
     expect(authProviderStore.state, StoreState.initial);
@@ -53,35 +51,24 @@ void main() {
   group("ErrorStateUpdater", () {
     test("should update error state w/ any error that gets passed to it",
         () async {
-      //act
       authProviderStore.errorMessageUpdater(Left(FailureConstants.authFailure));
-      //assert
       expect(authProviderStore.errorMessage, FailureConstants.authFailureMsg);
     });
   });
   group("@action routeAuthProviderRequest", () {
     test("Success Case", () async {
-      //arrange
       when(mockGetterStore(AuthProvider.apple)).thenAnswer((_) async =>
           const Right(AuthProviderEntity(
               authProvider: AuthProvider.apple, authProviderStatus: false)));
-      //act
       authProviderStore.routeAuthProviderRequest(AuthProvider.apple);
 
-      //assert
       expect(authProviderStore.errorMessage, "");
-      // since nothing in the UI is updated on the response, you want
-      // to check that the error message, since the authState is the thing
-      // that responds with UI changes
     });
 
     test("Failure Case", () async {
-      //arrange
       when(mockGetterStore(AuthProvider.apple))
           .thenAnswer((_) async => Left(FailureConstants.authFailure));
-      // act
       await authProviderStore.routeAuthProviderRequest(AuthProvider.apple);
-      //assert
       verify(mockGetterStore(AuthProvider.apple));
       expect(authProviderStore.errorMessage, FailureConstants.authFailureMsg);
     });

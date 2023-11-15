@@ -25,7 +25,6 @@ class HomeRemoteSourceImpl implements HomeRemoteSource {
       userUID: supabase.auth.currentUser?.id ?? '',
     );
 
-    // add check for if it already exists
     List insertRes;
     if (nameCheck.isEmpty) {
       insertRes = await CommonUserNamesQueries.insertUserInfo(

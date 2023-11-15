@@ -1,15 +1,12 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-// * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-// * Mobx Codegen Inclusion
 part 'p2p_purpose_phase2_coordinator_store.g.dart';
 
 class P2PPurposePhase2CoordinatorStore = _P2PPurposePhase2CoordinatorStoreBase
@@ -20,11 +17,11 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
   final AgoraCallbacksStore agoraCallbacksStore;
   final VoiceCallActionsStore voiceCallActionsStore;
   final CheckIfUserHasTheQuestionStore questionCheckerStore;
-  // widget stores
   final BeachWavesTrackerStore beachWaves;
   final SmartFadingAnimatedTextTrackerStore fadingText;
   final MeshCircleButtonStore meshCircleStore;
-  // final BreathingPentagonsStateTrackerStore breathingPentagons;
+  final SwipeDetector swipe;
+  final HoldDetector hold;
 
   @observable
   bool isFirstTimeTalking = true;
@@ -32,6 +29,8 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
   @action
   screenConstructor() async {
     beachWaves.initiateSuspendedAtTheDepths();
+    holdStartListener();
+    holdEndListener();
     meshCircleStore.widgetConstructor();
     await fadingText
         .oneSecondDelay(() async => await fadingText.fadeTheTextIn());
@@ -42,13 +41,14 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
             ? "Ask: What Could We Collectively Create?"
             : "Wait For Your Collaborator To Start The Conversation",
       );
-      // fadingText.fadeTheTextIn();
     }).then((value) => Future.delayed(Seconds.get(1), () {
           fadingText.togglePause();
         }));
   }
 
   _P2PPurposePhase2CoordinatorStoreBase({
+    required this.swipe,
+    required this.hold,
     required this.agoraCallbacksStore,
     required this.questionCheckerStore,
     required this.voiceCallActionsStore,
@@ -73,32 +73,35 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
     });
   }
 
+  holdStartListener() => reaction((p0) => hold.holdCount, (p0) {
+        audioButtonHoldStartCallback();
+      });
+
+  holdEndListener() => reaction((p0) => hold.letGoCount, (p0) {
+        audioButtonHoldEndCallback();
+      });
+
   @action
   audioButtonHoldStartCallback() {
     if (isFirstTimeTalking) {
       beachWaves.initiateTimesUp(
         timerLength: const Duration(
-          seconds: 10,
-          // minutes: 5,
-          // TODO COMMENT OUT FOR PROD
+          minutes: 5,
         ),
-        // pMovieMode: MovieModes.purposeCallTimesUp,
       );
       fadingText.fadeTheTextOut();
       isFirstTimeTalking = false;
     }
 
-    /// TODO comment out for production
-    // voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);
+    ///// TODO comment out for production
+    voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);
     meshCircleStore.toggleColorAnimation();
-    // breathingPentagons.gestureFunctionRouter();
   }
 
   @action
   audioButtonHoldEndCallback() {
-    // voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
+    voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
     meshCircleStore.toggleColorAnimation();
-    // breathingPentagons.gestureFunctionRouter();
   }
 
   @override

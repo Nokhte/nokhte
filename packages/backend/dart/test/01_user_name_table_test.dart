@@ -18,7 +18,7 @@ void main() {
     supabaseAdmin = SupabaseClientConfigConstants.supabaseAdmin;
     await UserSetupConstants.wipeUsernamesTable(supabaseAdmin: supabaseAdmin);
     final userIdResults = await UserSetupConstants.fetchUIDs();
-    currentUserUID = userIdResults[0];
+    currentUserUID = userIdResults.first;
     await SignIn.user1(supabase: supabase);
   });
 
@@ -37,7 +37,6 @@ void main() {
   test(
       "✅ should be able to CREATE & READ a row in the table if their uid isn't present already",
       () async {
-    // arrange + act
     final userNamesRes = await CommonUserNamesQueries.insertUserInfo(
       supabase: supabase,
       userUID: currentUserUID,
@@ -50,32 +49,30 @@ void main() {
       userUID: currentUserUID,
     );
 
-    /// user_names row checks
-    expect(userNamesRes[0]['first_name'], UserDataConstants.user1FirstName);
-    expect(userNamesRes[0]["last_name"], UserDataConstants.user1LastName);
-    expect(userNamesRes[0]["uid"], currentUserUID);
+    expect(userNamesRes.first['first_name'], UserDataConstants.user1FirstName);
+    expect(userNamesRes.first["last_name"], UserDataConstants.user1LastName);
+    expect(userNamesRes.first["uid"], currentUserUID);
 
-    /// collaborator_phrases row checks
-    expect(collaboratorPhraseRes[0]["uid"], currentUserUID);
-    expect(collaboratorPhraseRes[0]["collaborator_phrase"], isNotEmpty);
-    expect(collaboratorPhraseRes[0]["adjective_id"], isA<int>());
-    expect(collaboratorPhraseRes[0]["noun_id"], isA<int>());
-    expect(collaboratorPhraseRes[0]["is_visible"], false);
+    expect(collaboratorPhraseRes.first["uid"], currentUserUID);
+    expect(collaboratorPhraseRes.first["collaborator_phrase"], isNotEmpty);
+    expect(collaboratorPhraseRes.first["adjective_id"], isA<int>());
+    expect(collaboratorPhraseRes.first["noun_id"], isA<int>());
+    expect(collaboratorPhraseRes.first["is_visible"], false);
     expect(
-        collaboratorPhraseRes[0]["has_an_existing_collaborator_relationship"],
+        collaboratorPhraseRes
+            .first["has_an_existing_collaborator_relationship"],
         false);
   });
 
   test("❌ shouldn't be able to insert another row if they already have one",
       () async {
-    // arrange
     await CommonUserNamesQueries.insertUserInfo(
       supabase: supabase,
       userUID: currentUserUID,
       firstName: UserDataConstants.user1FirstName,
       lastName: UserDataConstants.user1LastName,
     );
-    // act
+
     try {
       await CommonUserNamesQueries.insertUserInfo(
         supabase: supabase,
@@ -84,7 +81,6 @@ void main() {
         lastName: UserDataConstants.user1LastName,
       );
     } catch (e) {
-      // assert
       expect(e, isA<PostgrestException>());
     }
   });

@@ -1,15 +1,11 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api, missing_override_of_must_be_overridden
-// * Mobx Import
 import 'dart:async';
-
 import 'package:mobx/mobx.dart';
-// * Equatable Import
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/domain/domain.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/utils/utils.dart';
-// * Mobx Codegen Inclusion
 part 'quadrant_api.g.dart';
 
 class QuadrantAPI = _QuadrantAPIBase with _$QuadrantAPI;
@@ -87,9 +83,9 @@ abstract class _QuadrantAPIBase extends GyroscopeAPI with Store {
         setCurrentRevolution(setupReturnType.startingRevolution);
         maxAngle = setupReturnType.maxAngle;
         if (setupReturnType.desiredStartingAngle != 0) {
-          resetRefAngle(ResetRefAngleForMaxCapacityParams(
+          resetRefAngle(ResetRefAngleParams(
             currentValue: value,
-            maxAngle: setupReturnType.desiredStartingAngle,
+            desiredSetAngle: setupReturnType.desiredStartingAngle,
           ));
         }
         setCurrentQuadrant(startingQuadrant);
@@ -123,16 +119,16 @@ abstract class _QuadrantAPIBase extends GyroscopeAPI with Store {
     setCurrentRevolution(setupReturnType.startingRevolution);
     maxAngle = setupReturnType.maxAngle;
     final startingAngle = (setupReturnType.desiredStartingAngle % 360).floor();
-    resetRefAngle(ResetRefAngleForMaxCapacityParams(
+    resetRefAngle(ResetRefAngleParams(
       currentValue: firstValue,
-      maxAngle: startingAngle,
+      desiredSetAngle: startingAngle,
     ));
     setCurrentQuadrant(startingQuadrant);
   }
 
   thresholdModeCallback() {
     if (thresholdList.isNotEmpty) {
-      theSideTheThresholdWasEnteredFrom = thresholdList[0].closerTo;
+      theSideTheThresholdWasEnteredFrom = thresholdList.first.closerTo;
       if (isANegativeModeMovement) {
         currentMode = GyroscopeModes.negative;
       } else if (isAPositiveRevolutionMovement) {
@@ -154,21 +150,17 @@ abstract class _QuadrantAPIBase extends GyroscopeAPI with Store {
   negativeModeCallback(int value) {
     switch (desiredNegativeModeBehavior) {
       case NegativeModeBehaviors.resetRefAngle:
-        // print("reset ref angle piece");
         int comparison =
             GyroscopeUtils.clockwiseComparison(firstValue, secondValue);
         if (comparison == 1) {
-          resetRefAngle(ResetRefAngleForMaxCapacityParams(
-              maxAngle: 0, currentValue: value));
+          resetRefAngle(
+              ResetRefAngleParams(desiredSetAngle: 0, currentValue: value));
           currentMode = GyroscopeModes.regular;
         }
       case NegativeModeBehaviors.indexNegativeQuadrants:
-        // print("index negative quadrants piece");
-        // print("what's the value for negative is it just zero?? $value");
         final diff = 360 - value;
         if (diff.isNegative || value == 0) {
           currentMode = GyroscopeModes.regular;
-          // print("is this the part that isn't working?? $diff");
           return;
         }
         final getCurrQuad = GyroscopeUtils.getCurrentQuadrant(
@@ -176,7 +168,6 @@ abstract class _QuadrantAPIBase extends GyroscopeAPI with Store {
           quadrants: setupReturnType.quadrantInfo,
         );
         int newQuad = (getCurrQuad * -1) - 1;
-        // print("diff: $diff | getCurrQuad $getCurrQuad | newQuad $newQuad ");
         if (isEligableForNegativeQuadrantIndexing(value)) {
           setCurrentQuadrant(newQuad);
         }
@@ -187,8 +178,10 @@ abstract class _QuadrantAPIBase extends GyroscopeAPI with Store {
     int comparison =
         GyroscopeUtils.clockwiseComparison(firstValue, secondValue);
     if (comparison == 2) {
-      resetRefAngle(ResetRefAngleForMaxCapacityParams(
-          maxAngle: maxAngle, currentValue: value));
+      resetRefAngle(ResetRefAngleParams(
+        desiredSetAngle: maxAngle,
+        currentValue: value,
+      ));
       currentMode = GyroscopeModes.regular;
     }
   }

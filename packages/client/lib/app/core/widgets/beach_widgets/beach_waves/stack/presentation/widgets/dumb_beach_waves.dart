@@ -20,7 +20,7 @@ class DumbBeachWaves extends StatelessWidget {
           final currentAnimationValues = GetCurrentWaterAnimation.values(value);
           return CustomPaint(
             painter: BeachWavesPainter(
-              waterValue: currentAnimationValues[0],
+              waterValue: currentAnimationValues.first,
               firstGradientColor: currentAnimationValues[1],
               secondGradientColor: currentAnimationValues[2],
               thirdGradientColor: currentAnimationValues[3],

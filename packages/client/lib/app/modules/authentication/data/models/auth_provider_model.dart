@@ -1,15 +1,10 @@
-// import 'package:primala/app/modules/authentication/domain/entities/auth_provider_entity.dart';
 import 'package:nokhte/app/modules/authentication/domain/domain.dart';
 import 'package:nokhte/app/core/interfaces/auth_providers.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthProviderModel extends AuthProviderEntity {
   const AuthProviderModel(
-      {required AuthProvider authProvider, required bool authProviderStatus})
-      : super(
-          authProvider: authProvider,
-          authProviderStatus: authProviderStatus,
-        );
+      {required super.authProvider, required super.authProviderStatus});
 
   static Future<AuthProviderModel> fromSupabase(
     AuthProvider authProvider,

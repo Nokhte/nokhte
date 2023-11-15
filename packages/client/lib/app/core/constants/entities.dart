@@ -1,19 +1,29 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
 import 'package:nokhte/app/core/modules/fetch_the_purpose/domain/domain.dart';
+import 'package:nokhte/app/core/modules/get_current_perspectives/domain/domain.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/constants/constants.dart';
 import 'package:nokhte/app/core/modules/scheduling/domain/domain.dart';
+import 'package:nokhte/app/modules/collective_session/domain/entities/entities.dart';
 import 'package:nokhte/app/modules/home/domain/entities/entities.dart';
+import 'package:nokhte/app/modules/individual_session/domain/domain.dart';
+import 'package:nokhte/app/modules/individual_session/types/types.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/entities/entities.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/domain/domain.dart';
 import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
+import 'package:nokhte/app/modules/p2p_perspectives_session/domain/domain.dart';
 import 'package:nokhte_backend/phrase_components.dart';
 import 'package:nokhte_backend/working_collaborative_documents.dart';
 import 'package:nokhte_backend/working_collaborative_scheduling.dart';
+import 'package:nokhte_backend/working_perspectives_positioning.dart';
+import 'package:nokhte/app/modules/collective_session/domain/domain.dart';
 
 class DefaultEntities {
+  static DateTime get defaultDate => DateTime.fromMillisecondsSinceEpoch(0);
   static Either<Failure, NameCreationStatusEntity>
       get nameCreationStatusEntity =>
           const Right(NameCreationStatusEntity(isSent: false));
@@ -103,13 +113,22 @@ class DefaultEntities {
           delta: -1,
         ),
       );
+  static Stream<PerspectivesPositioning> get defaultPerspectivesStream =>
+      Stream.value(PerspectivesPositioning(
+        currentUserUID: "",
+        collaboratorsQuadrant: -1,
+        lastEditedBy: '',
+        stagingAreaInfo: const [],
+        usersQuadrant: -1,
+      ));
   static Either<Failure, InitLeopardStatusEntity>
       get defaultInitLeopardStatusEntity =>
           const Right(InitLeopardStatusEntity(isInitialized: false));
 
-  static Either<Failure, RecordingStatusEntity>
-      get defaultRecordingStatusEntity => const Right(
-          RecordingStatusEntity(recordingStatus: RecordingStatus.initial));
+  static Either<Failure, SpeechToTextRecordingStatusEntity>
+      get defaultRecordingStatusEntity =>
+          const Right(SpeechToTextRecordingStatusEntity(
+              recordingStatus: SpeechToTextRecordingStatus.initial));
   static Either<Failure, AudioProcessingEntity>
       get defaultAudioProcessingEntity =>
           const Right(AudioProcessingEntity(resultingWords: ''));
@@ -126,4 +145,63 @@ class DefaultEntities {
       const Stream.empty();
   static Either<Failure, CollectivePurposeEntity> get collectivePurposeEntity =>
       const Right(CollectivePurposeEntity(thePurpose: ""));
+
+  static Either<Failure, PerspectivesCommitStatusEntity>
+      get perspectivesCommitStatusEntity =>
+          const Right(PerspectivesCommitStatusEntity(isCommitted: false));
+
+  static Either<Failure, PerspectiveSessionCreationStatusEntity>
+      get perspectivesSessionCreationStatusEntity =>
+          const Right(PerspectiveSessionCreationStatusEntity(isCreated: false));
+
+  static Either<Failure, CurrentQuadrantUpdatingStatusEntity>
+      get currentQuadrantUpdatingStatusEntity =>
+          const Right(CurrentQuadrantUpdatingStatusEntity(isUpdated: false));
+
+  static Either<Failure, StagingAreaUpdateStatusEntity>
+      get stagingAreaUpdateStatusEntity =>
+          const Right(StagingAreaUpdateStatusEntity(isUpdated: false));
+  static Either<Failure, CurrentPerspectivesEntity>
+      get currentPerspectivesEntity => Right(CurrentPerspectivesEntity(
+          theUsersUID: '',
+          currentPerspectives: const [],
+          currentPerspectiveTimestamp: defaultDate));
+
+  static Either<Failure, IndividualPerspectivesAudioUploadStatusEntity>
+      get individualPerspectivesAudioUploadStatusEntity => const Right(
+          IndividualPerspectivesAudioUploadStatusEntity(isUploaded: false));
+  static Either<Failure, IndividualSessionCreationEntity>
+      get individualSessionCreationStatusEntity =>
+          Right(IndividualSessionCreationEntity(sessionTimestamp: defaultDate));
+  static Either<Failure, IndividualSessionMetadataUpdateStatusEntity>
+      get individualSessionMetadataUpdateStatusEntity => const Right(
+          IndividualSessionMetadataUpdateStatusEntity(isUpdated: false));
+
+  static Either<Failure, PerspectivesAudioRecordingStatusEntity>
+      get perspectivesAudioRecordingStatusEntity => Right(
+            PerspectivesAudioRecordingStatusEntity(
+              recordingStatus: PerspectivesAudioRecordingStatus.idle,
+              returnFile: File(''),
+            ),
+          );
+  static Either<Failure, IndividualAudioMovementToCollectiveSpaceStatusEntity>
+      get individualAudioMovementToCollectiveSpaceStatusEntity => const Right(
+          IndividualAudioMovementToCollectiveSpaceStatusEntity(isMoved: false));
+
+  static Either<Failure, CollaboratorPerspectivesEntity>
+      get collaboratorPerspectivesEntity => const Right(
+          CollaboratorPerspectivesEntity(collaboratorPerspectivesData: []));
+
+  static CollaboratorPerspectivesEntity
+      get unwrappedCollaboratorPerspectivesEntity =>
+          const CollaboratorPerspectivesEntity(
+              collaboratorPerspectivesData: []);
+  static Either<Failure, CollectiveSessionCreationStatusEntity>
+      get collectiveSessionCreationStatusEntity =>
+          const Right(CollectiveSessionCreationStatusEntity(isCreated: false));
+  static Either<Failure,
+          InvidualMetadataAdditionToCollectiveSessionStatusEntity>
+      get invidualMetadataAdditionToCollectiveSessionStatusEntity =>
+          const Right(InvidualMetadataAdditionToCollectiveSessionStatusEntity(
+              isAdded: true));
 }

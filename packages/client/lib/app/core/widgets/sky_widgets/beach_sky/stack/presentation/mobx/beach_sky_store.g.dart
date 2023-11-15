@@ -9,6 +9,39 @@ part of 'beach_sky_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$BeachSkyStore on _BeachSkyStoreBase, Store {
+  late final _$isFirstTimeCompletingAtom =
+      Atom(name: '_BeachSkyStoreBase.isFirstTimeCompleting', context: context);
+
+  @override
+  bool get isFirstTimeCompleting {
+    _$isFirstTimeCompletingAtom.reportRead();
+    return super.isFirstTimeCompleting;
+  }
+
+  @override
+  set isFirstTimeCompleting(bool value) {
+    _$isFirstTimeCompletingAtom.reportWrite(value, super.isFirstTimeCompleting,
+        () {
+      super.isFirstTimeCompleting = value;
+    });
+  }
+
+  late final _$currentGradAtom =
+      Atom(name: '_BeachSkyStoreBase.currentGrad', context: context);
+
+  @override
+  List<Color> get currentGrad {
+    _$currentGradAtom.reportRead();
+    return super.currentGrad;
+  }
+
+  @override
+  set currentGrad(List<Color> value) {
+    _$currentGradAtom.reportWrite(value, super.currentGrad, () {
+      super.currentGrad = value;
+    });
+  }
+
   late final _$movieIsLongerAtom =
       Atom(name: '_BeachSkyStoreBase.movieIsLonger', context: context);
 
@@ -59,6 +92,28 @@ mixin _$BeachSkyStore on _BeachSkyStoreBase, Store {
 
   late final _$_BeachSkyStoreBaseActionController =
       ActionController(name: '_BeachSkyStoreBase', context: context);
+
+  @override
+  dynamic setCurrentGrad(List<Color> newGrad) {
+    final _$actionInfo = _$_BeachSkyStoreBaseActionController.startAction(
+        name: '_BeachSkyStoreBase.setCurrentGrad');
+    try {
+      return super.setCurrentGrad(newGrad);
+    } finally {
+      _$_BeachSkyStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onAnimationComplete() {
+    final _$actionInfo = _$_BeachSkyStoreBaseActionController.startAction(
+        name: '_BeachSkyStoreBase.onAnimationComplete');
+    try {
+      return super.onAnimationComplete();
+    } finally {
+      _$_BeachSkyStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic setGradient(DateTime date, {required bool isStart}) {
@@ -185,6 +240,8 @@ mixin _$BeachSkyStore on _BeachSkyStoreBase, Store {
   @override
   String toString() {
     return '''
+isFirstTimeCompleting: ${isFirstTimeCompleting},
+currentGrad: ${currentGrad},
 movieIsLonger: ${movieIsLonger},
 movie: ${movie},
 control: ${control}

@@ -73,8 +73,8 @@ class UserSetupConstants {
           .select()
           .eq('uid', userUID);
       phraseIDs.add(CollaboratorPhraseIDs(
-        adjectiveID: collaboratorPhraseRes[0]["adjective_id"],
-        nounID: collaboratorPhraseRes[0]["noun_id"],
+        adjectiveID: collaboratorPhraseRes.first["adjective_id"],
+        nounID: collaboratorPhraseRes.first["noun_id"],
       ));
     }
     return phraseIDs;

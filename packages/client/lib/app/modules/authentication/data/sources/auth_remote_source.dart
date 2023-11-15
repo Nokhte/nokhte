@@ -23,8 +23,7 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
     final res = await supabase.auth.signInWithOAuth(
       Provider.google,
       scopes: 'email profile openid',
-      // authScreenLaunchMode: LaunchMode.inAppWebView, // <=== gives us issues
-      redirectTo: kIsWeb ? null : 'com.primala.primala://login-callback',
+      redirectTo: kIsWeb ? null : 'com.nokhte.nokhte://login-callback',
     );
     return AuthProviderModel(
         authProvider: AuthProvider.google, authProviderStatus: res);

@@ -1,12 +1,8 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
 import 'dart:async';
-
 import 'package:const_date_time/const_date_time.dart';
 import 'package:mobx/mobx.dart';
-// * Equatable Import
-import 'package:equatable/equatable.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
 import 'package:nokhte/app/core/modules/scheduling/domain/domain.dart';
 import 'package:nokhte/app/core/modules/scheduling/presentation/presentation.dart';
@@ -14,44 +10,29 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/scheduling_delta/stack/stack.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
-// * Mobx Codegen Inclusion
+import 'package:add_2_calendar/add_2_calendar.dart';
 part 'p2p_purpose_phase6_coordinator_store.g.dart';
 
 class P2PPurposePhase6CoordinatorStore = _P2PPurposePhase6CoordinatorStoreBase
     with _$P2PPurposePhase6CoordinatorStore;
 
-abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
-    with Store {
-  final QuadrantAPI quadrantAPI;
+abstract class _P2PPurposePhase6CoordinatorStoreBase
+    extends BaseQuadrantAPIReceiver with Store {
   final SchedulingWidgetsCoordinatorStore widgets;
   final ConveyerBeltTextStore conveyerBelt;
   final SchedulingCoordinatorStore scheduling;
   final SchedulingDeltaStore delta;
+  final SwipeDetector swipe;
 
   _P2PPurposePhase6CoordinatorStoreBase({
+    required this.swipe,
+    required super.quadrantAPI,
     required this.widgets,
-    required this.quadrantAPI,
     required this.scheduling,
   })  : conveyerBelt = widgets.conveyerBelt,
         delta = widgets.schedulingDelta;
 
   bool isFirstTimeWithTimes = true;
-
-  @observable
-  int chosenIndex = 0;
-
-  @action
-  setChosenIndex(int newInt) => chosenIndex = newInt;
-
-  // I think a coordinator store for the widget
-  @observable
-  int firstValue = -1;
-
-  @observable
-  int secondValue = -1;
-
-  @observable
-  int previousValue = -1;
 
   @observable
   bool timesWidgetIsReady = false;
@@ -70,7 +51,6 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
     firstValue = -1;
     secondValue = -1;
     previousValue = -1;
-    // print("SPV f $firstValue s $secondValue pr  $previousValue");
     timesQuadrants.clear();
   }
 
@@ -83,24 +63,17 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   @observable
   bool confirmingMatch = false;
 
-  // @action
-  // setConfirmingMatch(bool newBool) => confirmingMatch = newBool;
-
   @observable
   DateTime newDateOrTime = const ConstDateTime(0);
 
   @action
   setNewDateOrTime(DateTime newDT) => newDateOrTime = newDT;
 
-  @computed
-  bool get isFirstTime => firstValue == -1;
-
-  @computed
-  bool get isSecondTime => secondValue == -1;
-
   @observable
   DateTime now = DateTime.now();
-  // DateTime now = DateTime.parse('2021-10-20 00:00:00');
+
+  @observable
+  DateTime currentlySelectedDate = DateTime.fromMicrosecondsSinceEpoch(0);
 
   @action
   setNow(DateTime newNow) => now = newNow;
@@ -120,7 +93,6 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
         valueTrackingSetup(p0);
         if (conveyerBelt.currentFocus == DateOrTime.time) {
           timesQuadrants.add(p0);
-          print("hey here's the times list $timesQuadrants");
         }
         conveyerBeltController();
       }
@@ -150,29 +122,12 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
   }
 
   @action
-  valueTrackingSetup(int p0) {
-    if (isFirstTime) {
-      // print("is first time $p0");
-      firstValue = p0;
-    } else if (secondValue == -1) {
-      secondValue = p0;
-      // print("is second time $p0");
-    } else {
-      previousValue = firstValue;
-      firstValue = secondValue;
-      secondValue = p0;
-      // print("is nth time  $firstValue $secondValue $previousValue");
-    }
-  }
-
-  @action
   agreementProtocolTimer() {
     switch (conveyerBelt.currentFocus) {
       case DateOrTime.date:
         Future.delayed(Seconds.get(3), () {
           if (confirmingMatch) {
             conveyerBelt.setWidgetVisibility(false);
-            print("what now are we using?? $now ????");
             conveyerBelt.setTimesArray(now);
             quadrantAPI.resetTheQuadrantLayout(
               startingQuadrant: conveyerBelt.currentlySelectedIndex,
@@ -180,7 +135,6 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
               quadrantSpread: 90,
             );
             setStartingQuadrant(conveyerBelt.currentlySelectedIndex);
-            // print("shouldn't this be 13 $startingQuadrant");
             Future.delayed(Seconds.get(3), () {
               resetValues();
               setTimesWidgetIsReady(true);
@@ -194,6 +148,7 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
       case DateOrTime.time:
         Future.delayed(Seconds.get(3), () {
           if (confirmingMatch) {
+            calendarCallback(currentlySelectedDate);
             widgets.initBackToShore(
               conveyerBelt
                   .times[conveyerBelt.currentlySelectedIndex].unformatted,
@@ -203,15 +158,31 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
     }
   }
 
+  calendarCallback(DateTime theDate) async {
+    final Event event = Event(
+      title: 'Perspectives Session',
+      // description: 'With X Persion',
+      // location: 'Event location',
+      startDate: theDate,
+      endDate: theDate,
+      iosParams: const IOSParams(
+        reminder: Duration(
+          hours: 1,
+        ), // on iOS, you can set alarm notification after your event.
+        // url: 'com.nokhte.nokhte', // on iOS, you can set url to your event.
+      ),
+      androidParams: const AndroidParams(
+        emailInvites: [], // on Android, you can add invite emails to your event.
+      ),
+    );
+    Add2Calendar.addEvent2Cal(event);
+  }
+
   @action
   conveyerBeltController() {
-    // print(
-    //     "CTRLER : What are our value FV: $firstValue SV: $secondValue PV: $previousValue NEW TIME $newDateOrTime");
-
     switch (conveyerBelt.currentFocus) {
       case DateOrTime.date:
         if (isSecondTime && firstValue > 0) {
-          // print("branch 1 is running  $firstValue  > $previousValue ");
           widgets.initForwardTimeShift(isADate: true, newTime: newDateOrTime);
           updateTheBackend(isAForwardMovement: true, isADate: true);
         } else if (!isFirstTime && !isSecondTime && secondValue > firstValue) {
@@ -227,9 +198,11 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
         } else if (!isFirstTime && !isSecondTime && secondValue > firstValue) {
           widgets.initForwardTimeShift(isADate: false, newTime: newDateOrTime);
           updateTheBackend(isAForwardMovement: true, isADate: false);
+          currentlySelectedDate = newDateOrTime;
         } else if (!isFirstTime && !isSecondTime && secondValue < firstValue) {
           widgets.initBackwardTimeShift(isADate: false, newTime: newDateOrTime);
           updateTheBackend(isAForwardMovement: false, isADate: false);
+          currentlySelectedDate = newDateOrTime;
         }
     }
   }
@@ -257,8 +230,6 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
         conveyerBelt.times[chosenIndex].unformatted.toUtc();
     final theirRoundedDate = DateTime(2003, 4, 9, comparisonDate.hour);
     final ourRoundedDate = DateTime(2003, 4, 9, ourUnformattedDate.hour);
-    print(
-        "hey what's this comparison ours: $ourRoundedDate theirs $theirRoundedDate");
     return theirRoundedDate == ourRoundedDate;
   }
 
@@ -269,8 +240,6 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
       isAForwardMovementParam: isAForwardMovement,
       isADate: isADate,
     );
-    print(
-        "what's the new date does this not get updated?? ${conveyerBelt.currentFocus} ${convertedTypes.newDateOrTime}");
     setChosenIndex(convertedTypes.chosenIndex);
     setNewDateOrTime(convertedTypes.newDateOrTime);
     await scheduling
@@ -279,7 +248,4 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase extends Equatable
       newDateOrTime: newDateOrTime,
     ));
   }
-
-  @override
-  List<Object> get props => [];
 }

@@ -5,17 +5,20 @@ import '../../constants/models/models.dart';
 
 void main() {
   test('`fromMicrophone` should return entity w/ error if error is given', () {
-    final res = RecordingStatusModel.fromMicrophone(RecordingStatus.error);
+    final res = SpeechToTextRecordingStatusModel.fromMicrophone(
+        SpeechToTextRecordingStatus.error);
     expect(res, ConstantRecordingStatusModel.errorCase);
   });
   test('`fromMicrophone` should return entity w/ started if started is given',
       () {
-    final res = RecordingStatusModel.fromMicrophone(RecordingStatus.started);
+    final res = SpeechToTextRecordingStatusModel.fromMicrophone(
+        SpeechToTextRecordingStatus.started);
     expect(res, ConstantRecordingStatusModel.startedCase);
   });
   test('`fromMicrophone` should return entity w/ stopped if stopped is given',
       () {
-    final res = RecordingStatusModel.fromMicrophone(RecordingStatus.stopped);
+    final res = SpeechToTextRecordingStatusModel.fromMicrophone(
+        SpeechToTextRecordingStatus.stopped);
     expect(res, ConstantRecordingStatusModel.stoppedCase);
   });
 }

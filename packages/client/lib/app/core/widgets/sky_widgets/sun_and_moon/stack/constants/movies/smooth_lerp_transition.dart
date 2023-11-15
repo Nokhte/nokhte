@@ -3,7 +3,6 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class SmoothLerpTransition {
-  //
   static MovieTween getMovie({
     required double startingPosition,
     required double endingPosition,
@@ -25,8 +24,8 @@ class SmoothLerpTransition {
             .tween(
               'first grad color',
               ColorTween(
-                begin: startingGradient[0],
-                end: endingGradient[0],
+                begin: startingGradient.first,
+                end: endingGradient.first,
               ),
             )
             .tween(

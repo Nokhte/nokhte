@@ -3,8 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
-// import 'package:primala/app/core/types/types.dart';
-// import 'package:primala/app/core/widgets/beach_widgets/beach_waves/stack/utils/get_current_water_animation.dart';
 import '../mobx/beach_horizon_water_tracker_store.dart';
 import 'canvas/beach_horizon_water_painter.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -27,7 +25,7 @@ class BeachHorizonWater extends StatelessWidget {
         onCompleted: () => stateTrackerStore.onAnimationCompleted(),
         builder: (context, value, child) {
           final rectHeight = size.height - value.get('water value');
-          // final rectHeight = size.height;
+          stateTrackerStore.setCurrentWaterValue(value.get('water value'));
           final rect = Rect.fromPoints(
             Offset(0, size.height - rectHeight),
             Offset(size.width, size.height),

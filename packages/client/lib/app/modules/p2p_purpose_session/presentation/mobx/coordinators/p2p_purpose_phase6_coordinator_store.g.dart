@@ -18,88 +18,6 @@ mixin _$P2PPurposePhase6CoordinatorStore
               name:
                   '_P2PPurposePhase6CoordinatorStoreBase.previousValueIsNotSet'))
       .value;
-  Computed<bool>? _$isFirstTimeComputed;
-
-  @override
-  bool get isFirstTime =>
-      (_$isFirstTimeComputed ??= Computed<bool>(() => super.isFirstTime,
-              name: '_P2PPurposePhase6CoordinatorStoreBase.isFirstTime'))
-          .value;
-  Computed<bool>? _$isSecondTimeComputed;
-
-  @override
-  bool get isSecondTime =>
-      (_$isSecondTimeComputed ??= Computed<bool>(() => super.isSecondTime,
-              name: '_P2PPurposePhase6CoordinatorStoreBase.isSecondTime'))
-          .value;
-
-  late final _$chosenIndexAtom = Atom(
-      name: '_P2PPurposePhase6CoordinatorStoreBase.chosenIndex',
-      context: context);
-
-  @override
-  int get chosenIndex {
-    _$chosenIndexAtom.reportRead();
-    return super.chosenIndex;
-  }
-
-  @override
-  set chosenIndex(int value) {
-    _$chosenIndexAtom.reportWrite(value, super.chosenIndex, () {
-      super.chosenIndex = value;
-    });
-  }
-
-  late final _$firstValueAtom = Atom(
-      name: '_P2PPurposePhase6CoordinatorStoreBase.firstValue',
-      context: context);
-
-  @override
-  int get firstValue {
-    _$firstValueAtom.reportRead();
-    return super.firstValue;
-  }
-
-  @override
-  set firstValue(int value) {
-    _$firstValueAtom.reportWrite(value, super.firstValue, () {
-      super.firstValue = value;
-    });
-  }
-
-  late final _$secondValueAtom = Atom(
-      name: '_P2PPurposePhase6CoordinatorStoreBase.secondValue',
-      context: context);
-
-  @override
-  int get secondValue {
-    _$secondValueAtom.reportRead();
-    return super.secondValue;
-  }
-
-  @override
-  set secondValue(int value) {
-    _$secondValueAtom.reportWrite(value, super.secondValue, () {
-      super.secondValue = value;
-    });
-  }
-
-  late final _$previousValueAtom = Atom(
-      name: '_P2PPurposePhase6CoordinatorStoreBase.previousValue',
-      context: context);
-
-  @override
-  int get previousValue {
-    _$previousValueAtom.reportRead();
-    return super.previousValue;
-  }
-
-  @override
-  set previousValue(int value) {
-    _$previousValueAtom.reportWrite(value, super.previousValue, () {
-      super.previousValue = value;
-    });
-  }
 
   late final _$timesWidgetIsReadyAtom = Atom(
       name: '_P2PPurposePhase6CoordinatorStoreBase.timesWidgetIsReady',
@@ -218,19 +136,6 @@ mixin _$P2PPurposePhase6CoordinatorStore
           name: '_P2PPurposePhase6CoordinatorStoreBase', context: context);
 
   @override
-  dynamic setChosenIndex(int newInt) {
-    final _$actionInfo =
-        _$_P2PPurposePhase6CoordinatorStoreBaseActionController.startAction(
-            name: '_P2PPurposePhase6CoordinatorStoreBase.setChosenIndex');
-    try {
-      return super.setChosenIndex(newInt);
-    } finally {
-      _$_P2PPurposePhase6CoordinatorStoreBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic setTimesWidgetIsReady(dynamic newBool) {
     final _$actionInfo =
         _$_P2PPurposePhase6CoordinatorStoreBaseActionController.startAction(
@@ -288,19 +193,6 @@ mixin _$P2PPurposePhase6CoordinatorStore
         .startAction(name: '_P2PPurposePhase6CoordinatorStoreBase.setNow');
     try {
       return super.setNow(newNow);
-    } finally {
-      _$_P2PPurposePhase6CoordinatorStoreBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic valueTrackingSetup(int p0) {
-    final _$actionInfo =
-        _$_P2PPurposePhase6CoordinatorStoreBaseActionController.startAction(
-            name: '_P2PPurposePhase6CoordinatorStoreBase.valueTrackingSetup');
-    try {
-      return super.valueTrackingSetup(p0);
     } finally {
       _$_P2PPurposePhase6CoordinatorStoreBaseActionController
           .endAction(_$actionInfo);
@@ -378,19 +270,13 @@ mixin _$P2PPurposePhase6CoordinatorStore
   @override
   String toString() {
     return '''
-chosenIndex: ${chosenIndex},
-firstValue: ${firstValue},
-secondValue: ${secondValue},
-previousValue: ${previousValue},
 timesWidgetIsReady: ${timesWidgetIsReady},
 timesQuadrants: ${timesQuadrants},
 startingQuadrant: ${startingQuadrant},
 confirmingMatch: ${confirmingMatch},
 newDateOrTime: ${newDateOrTime},
 now: ${now},
-previousValueIsNotSet: ${previousValueIsNotSet},
-isFirstTime: ${isFirstTime},
-isSecondTime: ${isSecondTime}
+previousValueIsNotSet: ${previousValueIsNotSet}
     ''';
   }
 }

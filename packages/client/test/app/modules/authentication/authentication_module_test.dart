@@ -1,24 +1,17 @@
-// * Testing & Mocking Libs
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:modular_test/modular_test.dart';
-// * 3rd Party Libs
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-// * App Module
 import 'package:nokhte/app/app_module.dart';
-// * Core
 import 'package:nokhte/app/core/interfaces/auth_providers.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
-// * Auth Module
 import 'package:nokhte/app/modules/authentication/authentication_module.dart';
-// * Main Mobx Stores
 import 'package:nokhte/app/modules/authentication/presentation/mobx/main/auth_provider_store.dart';
 import 'package:nokhte/app/modules/authentication/presentation/mobx/main/auth_state_store.dart';
-// * Local Mocks
 import 'fixtures/supabase_module_auth_fixture.dart';
 import '../_module_helpers/module_mock_gen.mocks.dart';
 
@@ -90,9 +83,6 @@ void main() {
   });
 
   teeItUp(GoTrueVersion.successfulApple, () {
-    // NOTE: Imitating Successful Apple & Google will be done in the E2E context since
-    // it's too much of a pain to do here, and it will do more good in the E2E
-    // context anyways since it's giving us too much trouble here
     test(
         "OFFLINE FAILURE: should call signInWithApple, and send back a NetworkError",
         () async {

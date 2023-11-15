@@ -1,14 +1,12 @@
-// So I believe what we want are 4 different mock classes
-// AuthenticatedFakeGoTrue
 import 'package:flutter_test/flutter_test.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthenticatedAuthState extends Fake implements GoTrueClient {
   @override
-  Session? get currentSession => const Session(
+  Session? get currentSession => Session(
         accessToken: "",
         tokenType: "",
-        user: User(
+        user: const User(
           id: "",
           appMetadata: {},
           userMetadata: {},
@@ -53,7 +51,7 @@ class UnauthenticatedAuthState extends Fake implements GoTrueClient {
       createdAt: "",
       updatedAt: "",
     );
-    const session = Session(
+    final session = Session(
       accessToken: '',
       refreshToken: '',
       expiresIn: 0,
@@ -123,7 +121,7 @@ class FailedAppleSignIn extends Fake implements GoTrueClient {
       createdAt: "",
       updatedAt: "",
     );
-    const session = Session(
+    final session = Session(
       accessToken: '',
       refreshToken: '',
       expiresIn: 0,

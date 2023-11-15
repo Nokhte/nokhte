@@ -7,7 +7,7 @@ class CollectivePurposeModel extends CollectivePurposeEntity {
     if (sbQueryRes.isEmpty) {
       return const CollectivePurposeModel(thePurpose: '');
     } else {
-      final thePurpose = sbQueryRes[0]["content"];
+      final thePurpose = sbQueryRes.first["content"];
       return CollectivePurposeModel(thePurpose: thePurpose);
     }
   }

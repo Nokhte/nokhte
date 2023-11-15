@@ -1,17 +1,11 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
 import 'package:flutter/material.dart';
-// import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-// * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:simple_animations/simple_animations.dart';
-
 import '../../../../shared/types/types.dart';
 import '../../movies/movies.dart';
-
-// * Mobx Codegen Inclusion
 part 'beach_waves_tracker_store.g.dart';
 
 class BeachWavesTrackerStore = _BeachWavesTrackerStoreBase
@@ -85,7 +79,6 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   @action
   initShallowsToShore() {
     movie = ShallowsToShore.movie;
-    // setControl(Control.playFromStart);
     movieMode = BeachWaveMovieModes.shallowsToShore;
     movieStatus = MovieStatus.inProgress;
   }
@@ -110,7 +103,6 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
     movieMode = BeachWaveMovieModes.timesUp;
   }
 
-  // what we should do is have state change
   @action
   onBeachWavesAnimationCompletion() {
     switch (movieMode) {
@@ -148,7 +140,6 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
 
   @action
   initiateTestTheWaters() {
-    // movie = TestTheWaters.movie;
     control = Control.playFromStart;
     movieStatus = MovieStatus.inProgress;
     movieMode = BeachWaveMovieModes.backToShore;
@@ -183,7 +174,7 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   @action
   initiateBackToTheDepths() {
     movie = BackToTheDepths.getMovie(
-      startingFirstGradient: pivotColorGradients[0],
+      startingFirstGradient: pivotColorGradients.first,
       startingSecondGradient: pivotColorGradients[1],
       startingThirdGradient: pivotColorGradients[2],
       startingFourthGradient: pivotColorGradients[3],

@@ -2,8 +2,7 @@ import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/entities/entitie
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class CollaboratorPoolExitStatusModel extends CollaboratorPoolExitStatusEntity {
-  const CollaboratorPoolExitStatusModel({required bool hasLeft})
-      : super(hasLeft: hasLeft);
+  const CollaboratorPoolExitStatusModel({required bool super.hasLeft});
 
   static CollaboratorPoolExitStatusModel fromSupabase(
       {required FunctionResponse funcRes}) {

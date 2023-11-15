@@ -40,8 +40,6 @@ class _SmartFadingAnimatedTextState extends State<SmartFadingAnimatedText> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Center(
-              // child:
               Text(
                 widget.stateTrackerStore.currentMainText,
                 textAlign: TextAlign.center,
@@ -60,7 +58,6 @@ class _SmartFadingAnimatedTextState extends State<SmartFadingAnimatedText> {
                   fontWeight: FontWeight.w300,
                 ),
               ),
-              // ),
             ],
           ),
         ),

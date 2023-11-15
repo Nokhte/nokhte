@@ -6,21 +6,23 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/constants/types/recording_status.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/domain/domain.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/mobx/mobx.dart';
-// * Mobx Codegen Inclusion
 part 'start_recording_store.g.dart';
 
 class StartRecordingStore = _StartRecordingStoreBase with _$StartRecordingStore;
 
 abstract class _StartRecordingStoreBase
-    extends BaseMobxDBStore<NoParams, RecordingStatusEntity> with Store {
+    extends BaseMobxDBStore<NoParams, SpeechToTextRecordingStatusEntity>
+    with Store {
   @observable
-  RecordingStatus recordingStatus = RecordingStatus.initial;
+  SpeechToTextRecordingStatus recordingStatus =
+      SpeechToTextRecordingStatus.initial;
 
   final StartRecordingGetterStore getterStore;
   _StartRecordingStoreBase({required this.getterStore});
 
   @observable
-  BaseFutureStore<RecordingStatusEntity> futureStore = BaseFutureStore(
+  BaseFutureStore<SpeechToTextRecordingStatusEntity> futureStore =
+      BaseFutureStore(
     baseEntity: DefaultEntities.defaultRecordingStatusEntity,
     entityFutureParam: ObservableFuture(
       Future.value(DefaultEntities.defaultRecordingStatusEntity),

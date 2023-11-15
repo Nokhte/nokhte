@@ -29,6 +29,7 @@ Future<List<Directory>> getSubfolder(Directory dir) async {
       }
     }
   }
+  folders.removeAt(0); // exclude core
   completer.complete(folders);
   return completer.future;
 }

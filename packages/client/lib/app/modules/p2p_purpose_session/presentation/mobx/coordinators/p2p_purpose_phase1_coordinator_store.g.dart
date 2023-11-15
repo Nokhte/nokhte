@@ -20,13 +20,14 @@ mixin _$P2PPurposePhase1CoordinatorStore
         .run(() => super.screenConstructorCallback());
   }
 
-  late final _$swipeUpCallbackAsyncAction = AsyncAction(
-      '_P2PPurposePhase1CoordinatorStoreBase.swipeUpCallback',
+  late final _$joinTheCallAndMoveToPhase2AsyncAction = AsyncAction(
+      '_P2PPurposePhase1CoordinatorStoreBase.joinTheCallAndMoveToPhase2',
       context: context);
 
   @override
-  Future swipeUpCallback() {
-    return _$swipeUpCallbackAsyncAction.run(() => super.swipeUpCallback());
+  Future joinTheCallAndMoveToPhase2() {
+    return _$joinTheCallAndMoveToPhase2AsyncAction
+        .run(() => super.joinTheCallAndMoveToPhase2());
   }
 
   @override

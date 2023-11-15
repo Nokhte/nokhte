@@ -1,1 +1,7 @@
-enum RecordingStatus { initial, started, stopped, error, processing }
+enum SpeechToTextRecordingStatus {
+  initial,
+  started,
+  stopped,
+  error,
+  processing
+}

@@ -1,14 +1,11 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
 import 'package:mobx/mobx.dart';
-// * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/conveyer_belt_text/stack/constants/movies/movies.dart';
 import 'package:nokhte/app/core/widgets/conveyer_belt_text/stack/constants/types/conveyer_movie_modes.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-// * Mobx Codegen Inclusion
 part 'conveyer_belt_text_store.g.dart';
 
 class ConveyerBeltTextStore = _ConveyerBeltTextStoreBase
@@ -185,7 +182,6 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
     toggleListFocus();
     times = returnEntity.dateOrTimeList;
     setCurrentlySelectedIndex(returnEntity.activeSelectionIndex);
-    // setUIArray(times);
   }
 
   @action
@@ -193,7 +189,7 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
     if (movieStatus == MovieStatus.inProgress) return;
     if (currentlySelectedIndex == focusListCardinalLength) {
     } else {
-      movie = ForwardsOrBackwards.getMovie(isForward: true); // anywhere else
+      movie = ForwardsOrBackwards.getMovie(isForward: true);
       movieMode = ConveyerMovieModes.forward;
       control = Control.playFromStart;
       movieStatus = MovieStatus.inProgress;
@@ -205,7 +201,7 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
     if (movieStatus == MovieStatus.inProgress) return;
     if (currentlySelectedIndex == 0) {
     } else {
-      movie = ForwardsOrBackwards.getMovie(isForward: false); // at min
+      movie = ForwardsOrBackwards.getMovie(isForward: false);
       movieMode = ConveyerMovieModes.backwards;
       control = Control.playFromStart;
       movieStatus = MovieStatus.inProgress;
@@ -216,7 +212,6 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
   onCompletedMovie() {
     switch (movieMode) {
       case ConveyerMovieModes.forward:
-        // if (!showWidget) return;
         control = Control.stop;
         movie = DefaultLayoutMovie.movie;
         Future.delayed(Seconds.get(0), () {
@@ -230,7 +225,6 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
             : ConveyerMovieModes.idleInRange;
         movieStatus = MovieStatus.idle;
       case ConveyerMovieModes.backwards:
-        // if (!showWidget) return;
         control = Control.stop;
         movie = DefaultLayoutMovie.movie;
         Future.delayed(Seconds.get(0), () {

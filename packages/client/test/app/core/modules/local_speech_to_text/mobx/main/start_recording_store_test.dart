@@ -27,14 +27,14 @@ void main() {
       );
       expect(
         mainStore.recordingStatus,
-        RecordingStatus.started,
+        SpeechToTextRecordingStatus.started,
       );
     });
     test("❌ Success Case: should update accordingly if failure is passed", () {
       mainStore.stateOrErrorUpdater(
         Left(FailureConstants.dbFailure),
       );
-      expect(mainStore.recordingStatus, RecordingStatus.initial);
+      expect(mainStore.recordingStatus, SpeechToTextRecordingStatus.initial);
       expect(mainStore.errorMessage, FailureConstants.genericFailureMsg);
     });
   });
@@ -47,7 +47,7 @@ void main() {
       await mainStore(tParams);
       expect(
         mainStore.recordingStatus,
-        RecordingStatus.initial,
+        SpeechToTextRecordingStatus.initial,
       );
       expect(mainStore.errorMessage, "");
     });
@@ -57,7 +57,7 @@ void main() {
         (_) async => Left(FailureConstants.dbFailure),
       );
       await mainStore(tParams);
-      expect(mainStore.recordingStatus, RecordingStatus.initial);
+      expect(mainStore.recordingStatus, SpeechToTextRecordingStatus.initial);
       expect(mainStore.errorMessage, FailureConstants.genericFailureMsg);
     });
   });

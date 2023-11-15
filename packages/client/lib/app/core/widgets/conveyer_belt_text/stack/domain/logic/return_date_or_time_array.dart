@@ -63,9 +63,6 @@ class ReturnDateOrTimeArray extends AbstractSyncNoFailureLogic<
     for (int hour = 0; hour < 24; hour++) {
       final String formatted = _formatTime(hour, currentDate);
       final bool isTheActiveOne = hour == currentDate.hour;
-      // if (isTheActiveOne) {
-      //   print("ACTIVE $hour");
-      // }
       const isBelowMinDate = false;
       isTheActiveOne ? {activeOneIndex = hour} : null;
       timeArray.add(

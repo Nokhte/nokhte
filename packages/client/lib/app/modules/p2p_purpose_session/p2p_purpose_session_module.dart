@@ -10,12 +10,12 @@ import 'package:nokhte/app/core/modules/solo_doc/solo_doc_module.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/voice_call_module.dart';
 import 'package:nokhte/app/core/widgets/mobx.dart';
+import 'package:nokhte/app/core/widgets/module.dart';
 import 'package:nokhte/app/core/widgets/scheduling_delta/stack/stack.dart';
 import 'package:nokhte/app/core/widgets/shared/constants/svg_animation_constants.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_purpose_session/presentation/presentation.dart';
-
-import '../../core/widgets/widgets.dart';
 
 class P2PCollaboratorSessionModule extends Module {
   @override
@@ -25,14 +25,12 @@ class P2PCollaboratorSessionModule extends Module {
         SoloDocModule(),
         GyroscopicModule(),
         ConveyerBeltTextWidgetModule(),
+        GesturesModule(),
         SchedulingModule(),
       ];
 
   @override
   List<Bind> get binds => [
-        // conveyer belt widget stack
-
-        // & Widget State Management Stores
         Bind.factory<BeachWavesTrackerStore>(
           (i) => BeachWavesTrackerStore(),
         ),
@@ -41,7 +39,7 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.factory<GesturePillStore>(
           (i) => GesturePillStore(
-            endingPath: SvgAnimtionCostants.circlePath,
+            endingPath: SvgAnimtionConstants.circlePath,
           ),
         ),
         Bind.singleton<SmartFadingAnimatedTextTrackerStore>(
@@ -62,17 +60,13 @@ class P2PCollaboratorSessionModule extends Module {
         Bind.singleton<SoloTextEditorTrackerStore>(
           (i) => SoloTextEditorTrackerStore(),
         ),
-        Bind.singleton<CollaboratorTextEditorTrackerStore>(
-          (i) => CollaboratorTextEditorTrackerStore(),
-        ),
-        Bind.singleton<UserTextEditorTrackerStore>(
-          (i) => UserTextEditorTrackerStore(),
-        ),
         Bind.singleton<BeachHorizonWaterTrackerStore>(
-          (i) => BeachHorizonWaterTrackerStore(),
+          (i) => BeachHorizonWaterTrackerStore(
+            isGoingToFullSky: false,
+          ),
         ),
         Bind.singleton<BeachSkyStore>(
-          (i) => BeachSkyStore(),
+          (i) => BeachSkyStore(isGoingToFullSky: false),
         ),
         Bind.singleton<SunAndMoonStore>(
           (i) => SunAndMoonStore(),
@@ -82,10 +76,9 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<CollaborativeTextEditorTrackerStore>(
           (i) => CollaborativeTextEditorTrackerStore(
-            userStore: i<UserTextEditorTrackerStore>(),
+            isReadOnly: false,
           ),
         ),
-        // & Coordinator Stores
         Bind.singleton<SchedulingWidgetsCoordinatorStore>(
           (i) => SchedulingWidgetsCoordinatorStore(
             schedulingDelta: i<SchedulingDeltaStore>(),
@@ -98,6 +91,7 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase1CoordinatorStore>(
           (i) => P2PPurposePhase1CoordinatorStore(
+            swipe: i<SwipeDetector>(),
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
             fadeInColorText: Modular.get<FadeInAndChangeColorTextStore>(),
             gesturePillStore: Modular.get<GesturePillStore>(),
@@ -110,6 +104,8 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase2CoordinatorStore>(
             (i) => P2PPurposePhase2CoordinatorStore(
+                  hold: Modular.get<HoldDetector>(),
+                  swipe: Modular.get<SwipeDetector>(),
                   beachWaves: Modular.get<BeachWavesTrackerStore>(),
                   fadingText: i<SmartFadingAnimatedTextTrackerStore>(),
                   meshCircleStore: i<MeshCircleButtonStore>(),
@@ -119,6 +115,7 @@ class P2PCollaboratorSessionModule extends Module {
                 )),
         Bind.singleton<P2PPurposePhase3CoordinatorStore>(
           (i) => P2PPurposePhase3CoordinatorStore(
+            swipe: Modular.get<SwipeDetector>(),
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
             textEditor: Modular.get<SoloTextEditorTrackerStore>(),
             fadingText: i<SmartFadingAnimatedTextTrackerStore>(),
@@ -134,6 +131,7 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase5CoordinatorStore>(
           (i) => P2PPurposePhase5CoordinatorStore(
+            swipe: Modular.get<SwipeDetector>(),
             collaborativeDocDB: Modular.get<CollaborativeDocCoordinatorStore>(),
             gesturePillStore: Modular.get<GesturePillStore>(),
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
@@ -146,6 +144,7 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase6CoordinatorStore>(
           (i) => P2PPurposePhase6CoordinatorStore(
+            swipe: Modular.get<SwipeDetector>(),
             scheduling: i<SchedulingCoordinatorStore>(),
             widgets: i<SchedulingWidgetsCoordinatorStore>(),
             quadrantAPI: Modular.get<QuadrantAPI>(),
@@ -157,7 +156,6 @@ class P2PCollaboratorSessionModule extends Module {
   List<ChildRoute> get routes => [
         ChildRoute(
           '/',
-          // '/phase-1',
           child: (context, args) => P2PPurpose1GreeterScreen(
             coordinator: Modular.get<P2PPurposePhase1CoordinatorStore>(),
           ),
@@ -172,7 +170,6 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         ChildRoute(
           '/phase-3/',
-          // '/',
           child: (context, args) => P2PPurpose3IndividualRefletionScreen(
             coordinator: Modular.get<P2PPurposePhase3CoordinatorStore>(),
           ),
@@ -187,7 +184,6 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         ChildRoute(
           '/phase-5/',
-          // '/',
           child: (context, args) => P2PPurpose5CollectiveCreation(
             coordinator: Modular.get<P2PPurposePhase5CoordinatorStore>(),
           ),
@@ -195,7 +191,6 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         ChildRoute(
           '/phase-6/',
-          // '/',
           child: (context, args) => P2PPupose6ScheduleNextMeeting(
             coordinator: Modular.get<P2PPurposePhase6CoordinatorStore>(),
           ),

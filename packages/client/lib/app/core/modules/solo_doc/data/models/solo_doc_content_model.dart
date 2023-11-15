@@ -7,7 +7,7 @@ class SoloDocContentModel extends SoloDocContentEntity {
     if (sbQueryRes.isEmpty) {
       return const SoloDocContentModel(content: "");
     } else {
-      return SoloDocContentModel(content: sbQueryRes[0]["content"]);
+      return SoloDocContentModel(content: sbQueryRes.first["content"]);
     }
   }
 }

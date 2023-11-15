@@ -1,12 +1,9 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
 import 'package:mobx/mobx.dart';
-// * Equatable Import
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/base_mobx_db_store.dart';
 
 import 'dummy_entity.dart';
-// * Mobx Codegen Inclusion
 part 'dummy_mobx_db_store_child.g.dart';
 
 class DummyMobxDBStoreChild = _DummyMobxDBStoreChildBase

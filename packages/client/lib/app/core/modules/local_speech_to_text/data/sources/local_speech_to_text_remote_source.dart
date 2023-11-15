@@ -13,7 +13,7 @@ abstract class LocalSpeechToTextRemoteSource {
   Future<bool> initLeopard();
   Future<List<LeopardWord>> processAudio(File recordedFile);
   Future<List<LeopardWord>> stopRecording();
-  Future<RecordingStatus> startRecording();
+  Future<SpeechToTextRecordingStatus> startRecording();
 }
 
 class LocalSpeechToTextRemoteSourceImpl
@@ -58,13 +58,13 @@ class LocalSpeechToTextRemoteSourceImpl
   }
 
   @override
-  Future<RecordingStatus> startRecording() async {
+  Future<SpeechToTextRecordingStatus> startRecording() async {
     try {
       await micRecorder.startRecord();
-      return RecordingStatus.started;
+      return SpeechToTextRecordingStatus.started;
     } on LeopardException catch (ex) {
       onAudioRecorded(Left(ex));
-      return RecordingStatus.error;
+      return SpeechToTextRecordingStatus.error;
     }
   }
 }

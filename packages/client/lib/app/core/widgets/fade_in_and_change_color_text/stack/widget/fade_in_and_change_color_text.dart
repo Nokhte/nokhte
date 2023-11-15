@@ -4,7 +4,6 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-/// this will need some alterations
 class FadeInAndChangeColorText extends StatelessWidget {
   final FadeInAndChangeColorTextStore stateStore;
   const FadeInAndChangeColorText({super.key, required this.stateStore});

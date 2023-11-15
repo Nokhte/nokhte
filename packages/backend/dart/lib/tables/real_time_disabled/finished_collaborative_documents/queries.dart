@@ -7,12 +7,9 @@ class FinishedCollaborativeP2PPurposeDocumentsQueries
   Future<List> fetchDocInfo({
     required String docType,
   }) async {
-    //
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutActiveCollaboratorInfo();
     }
-    print(
-        "${collaboratorInfo.theCollaboratorsNumber}_uid ${collaboratorInfo.theCollaboratorsUID}");
     return await supabase
         .from(tableName)
         .select()
@@ -47,5 +44,22 @@ class FinishedCollaborativeP2PPurposeDocumentsQueries
       'doc_type': docType,
       'content': content,
     }).select();
+  }
+
+  Future<void> deleteADoc() async {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutActiveCollaboratorInfo();
+    }
+    return await supabase
+        .from(tableName)
+        .delete()
+        .eq(
+          "${collaboratorInfo.theCollaboratorsNumber}_uid",
+          collaboratorInfo.theCollaboratorsUID,
+        )
+        .eq(
+          "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
+          collaboratorInfo.theUsersUID,
+        );
   }
 }

@@ -5,7 +5,6 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/shared/constants/svg_animation_constants.dart';
 import 'package:path_morph/path_morph.dart';
 import 'package:simple_animations/simple_animations.dart';
-// * Mobx Codegen Inclusion
 part 'gesture_pill_store.g.dart';
 
 class GesturePillStore = _GesturePillStoreBase with _$GesturePillStore;
@@ -27,7 +26,7 @@ abstract class _GesturePillStoreBase extends Equatable with Store {
   _GesturePillStoreBase({
     required this.endingPath,
   }) : animationPathData = PathMorph.samplePaths(
-          SvgAnimtionCostants.pillPath,
+          SvgAnimtionConstants.pillPath,
           endingPath,
         );
 
@@ -36,7 +35,6 @@ abstract class _GesturePillStoreBase extends Equatable with Store {
 
   @action
   setPillAnimationControl(Control newControl) {
-    // controller.play();
     pillController = newControl;
   }
 

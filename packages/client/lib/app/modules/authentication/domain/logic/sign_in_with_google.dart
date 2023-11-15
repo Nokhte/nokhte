@@ -1,8 +1,6 @@
 import 'package:nokhte/app/modules/authentication/domain/domain.dart';
-// * Primala Core Imports
 import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-// * Miscc Libs
 import 'package:dartz/dartz.dart';
 
 class SignInWithGoogle

@@ -11,27 +11,23 @@ import 'package:nokhte/app/core/guards/auth_guard.dart';
 class AuthenticationModule extends Module {
   @override
   List<Bind> get binds => [
-        // & Data Source
         Bind.singleton<AuthenticationRemoteSourceImpl>(
           (i) => AuthenticationRemoteSourceImpl(
             supabase: Modular.get<SupabaseClient>(),
           ),
         ),
-        // & Contract Implementation
         Bind.singleton<AuthenticationContractImpl>(
           (i) => AuthenticationContractImpl(
             remoteSource: i<AuthenticationRemoteSourceImpl>(),
             networkInfo: Modular.get<NetworkInfoImpl>(),
           ),
         ),
-        // & Logic
         Bind.singleton<GetAuthState>(
             (i) => GetAuthState(contract: i<AuthenticationContract>())),
         Bind.singleton<SignInWithApple>(
             (i) => SignInWithApple(contract: i<AuthenticationContract>())),
         Bind.singleton<SignInWithGoogle>(
             (i) => SignInWithGoogle(contract: i<AuthenticationContract>())),
-        // & MobX Getter Stores
         Bind.singleton<GetAuthStateGetterStore>(
             (i) => GetAuthStateGetterStore(i<GetAuthState>())),
         Bind.singleton<GetAuthProviderStateGetterStore>(
@@ -40,7 +36,6 @@ class AuthenticationModule extends Module {
             google: i<SignInWithGoogle>(),
           ),
         ),
-        // & Widget Stores
         Bind.singleton<FadeInAndChangeColorTextStore>(
           (i) => FadeInAndChangeColorTextStore(
             chosenMovie: FadeInText.movie,
@@ -52,10 +47,12 @@ class AuthenticationModule extends Module {
         ),
         Bind.singleton<GesturePillStore>(
           (i) => GesturePillStore(
-            endingPath: SvgAnimtionCostants.circlePath,
+            endingPath: SvgAnimtionConstants.circlePath,
           ),
         ),
-        // & Mobx Mother Stores
+        Bind.singleton<SwipeDetector>(
+          (i) => SwipeDetector(),
+        ),
         Bind.singleton<AuthProviderStore>(
           (i) => AuthProviderStore(
             authProviderGetterStore: i<GetAuthProviderStateGetterStore>(),
@@ -66,9 +63,9 @@ class AuthenticationModule extends Module {
             authStateGetterStore: i<GetAuthStateGetterStore>(),
           ),
         ),
-        // & Coordinator Stores
         Bind.singleton<LoginScreenCoordinatorStore>(
           (i) => LoginScreenCoordinatorStore(
+            swipe: i<SwipeDetector>(),
             gesturePillStore: i<GesturePillStore>(),
             authProviderStore: i<AuthProviderStore>(),
             authStateStore: i<AuthStateStore>(),

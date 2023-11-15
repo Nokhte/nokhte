@@ -1,17 +1,12 @@
-// * testing lib
 import 'package:flutter_test/flutter_test.dart';
-// * mocking lib
 import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
-// * nokhte core imports
 import 'package:nokhte/app/modules/home/data/contracts/home_contract_impl.dart';
-// * mock import
 import '../../constants/models/models.dart';
 import '../../constants/data/data.dart';
 import '../../fixtures/home_stack_mock_gen.mocks.dart';
 import '../../../_module_helpers/shared_mocks_gen.mocks.dart'
     show MockMNetworkInfo;
-// * functional programming
 import 'package:dartz/dartz.dart';
 
 void main() {
@@ -34,21 +29,15 @@ void main() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       });
       test("when online and non-empty should return a model", () async {
-        // arrange
         when(mockRemoteSource.addNamesToDatabase())
             .thenAnswer((realInvocation) async => [{}]);
-        // act
         final res = await homeContract.addNameToDatabase();
-        // assert
         expect(res, ConstantNameCreationStatusModels.wrappedSuccessCase);
       });
       test("when online and empty should return a model", () async {
-        // arrange
         when(mockRemoteSource.addNamesToDatabase())
             .thenAnswer((realInvocation) async => []);
-        // act
         final res = await homeContract.addNameToDatabase();
-        // assert
         expect(res, ConstantNameCreationStatusModels.wrappedNotSuccessCase);
       });
     });
@@ -70,12 +59,9 @@ void main() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       });
       test("when online and non-empty should return a model", () async {
-        // arrange
         when(mockRemoteSource.getCollaboratorPhrase())
             .thenAnswer((realInvocation) async => SampleSupabaseRes.res);
-        // act
         final res = await homeContract.getCollaboratorPhrase();
-        // assert
         expect(res, ConstantCollaboratorPhraseModels.wrappedSuccessCase);
       });
     });
@@ -91,6 +77,3 @@ void main() {
     });
   });
 }
-
-// after this move on to the sources & testing those & we should be done with
-// this features!!

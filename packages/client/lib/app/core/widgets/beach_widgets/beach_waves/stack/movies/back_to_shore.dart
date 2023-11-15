@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import '../../../shared/data/water_colors_and_stops.dart';
 import 'package:simple_animations/simple_animations.dart';
-// 8 stop migration done
 
 class BackToShore extends Equatable {
   static MovieTween get movie => MovieTween()
@@ -21,8 +20,8 @@ class BackToShore extends Equatable {
         .tween(
           '1st Water Gradient Color',
           ColorTween(
-            begin: WaterColorsAndStops.oceanDiveWater[0].color,
-            end: WaterColorsAndStops.onShoreWater[0].color,
+            begin: WaterColorsAndStops.oceanDiveWater.first.color,
+            end: WaterColorsAndStops.onShoreWater.first.color,
           ),
         )
         .tween(
@@ -77,8 +76,8 @@ class BackToShore extends Equatable {
         .tween(
           '1st Water Gradient Stop',
           Tween<double>(
-            begin: WaterColorsAndStops.oceanDiveWater[0].stop,
-            end: WaterColorsAndStops.onShoreWater[0].stop,
+            begin: WaterColorsAndStops.oceanDiveWater.first.stop,
+            end: WaterColorsAndStops.onShoreWater.first.stop,
           ),
         )
         .tween(
@@ -141,8 +140,8 @@ class BackToShore extends Equatable {
         .tween(
           '1st Water Gradient Color',
           ColorTween(
-            begin: WaterColorsAndStops.onShoreWater[0].color,
-            end: WaterColorsAndStops.onShoreWater[0].color,
+            begin: WaterColorsAndStops.onShoreWater.first.color,
+            end: WaterColorsAndStops.onShoreWater.first.color,
           ),
         )
         .tween(
@@ -197,8 +196,8 @@ class BackToShore extends Equatable {
         .tween(
           '1st Water Gradient Stop',
           Tween<double>(
-            begin: WaterColorsAndStops.onShoreWater[0].stop,
-            end: WaterColorsAndStops.onShoreWater[0].stop,
+            begin: WaterColorsAndStops.onShoreWater.first.stop,
+            end: WaterColorsAndStops.onShoreWater.first.stop,
           ),
         )
         .tween(

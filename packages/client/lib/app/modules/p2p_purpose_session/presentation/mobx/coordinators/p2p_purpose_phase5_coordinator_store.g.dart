@@ -53,13 +53,14 @@ mixin _$P2PPurposePhase5CoordinatorStore
     return _$screenConstructorAsyncAction.run(() => super.screenConstructor());
   }
 
-  late final _$swipeUpCallbackAsyncAction = AsyncAction(
-      '_P2PPurposePhase5CoordinatorStoreBase.swipeUpCallback',
+  late final _$updateCommitStatusAsyncAction = AsyncAction(
+      '_P2PPurposePhase5CoordinatorStoreBase.updateCommitStatus',
       context: context);
 
   @override
-  Future swipeUpCallback() {
-    return _$swipeUpCallbackAsyncAction.run(() => super.swipeUpCallback());
+  Future updateCommitStatus() {
+    return _$updateCommitStatusAsyncAction
+        .run(() => super.updateCommitStatus());
   }
 
   @override

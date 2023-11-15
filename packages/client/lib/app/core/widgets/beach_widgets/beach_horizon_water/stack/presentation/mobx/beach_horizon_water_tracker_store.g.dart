@@ -10,6 +10,40 @@ part of 'beach_horizon_water_tracker_store.dart';
 
 mixin _$BeachHorizonWaterTrackerStore
     on _BeachHorizonWaterTrackerStoreBase, Store {
+  late final _$isGoingToFullSkyAtom = Atom(
+      name: '_BeachHorizonWaterTrackerStoreBase.isGoingToFullSky',
+      context: context);
+
+  @override
+  bool get isGoingToFullSky {
+    _$isGoingToFullSkyAtom.reportRead();
+    return super.isGoingToFullSky;
+  }
+
+  @override
+  set isGoingToFullSky(bool value) {
+    _$isGoingToFullSkyAtom.reportWrite(value, super.isGoingToFullSky, () {
+      super.isGoingToFullSky = value;
+    });
+  }
+
+  late final _$currentWaterValueAtom = Atom(
+      name: '_BeachHorizonWaterTrackerStoreBase.currentWaterValue',
+      context: context);
+
+  @override
+  double get currentWaterValue {
+    _$currentWaterValueAtom.reportRead();
+    return super.currentWaterValue;
+  }
+
+  @override
+  set currentWaterValue(double value) {
+    _$currentWaterValueAtom.reportWrite(value, super.currentWaterValue, () {
+      super.currentWaterValue = value;
+    });
+  }
+
   late final _$movieModeAtom = Atom(
       name: '_BeachHorizonWaterTrackerStoreBase.movieMode', context: context);
 
@@ -41,6 +75,24 @@ mixin _$BeachHorizonWaterTrackerStore
     _$backToShoreCompletedAtom.reportWrite(value, super.backToShoreCompleted,
         () {
       super.backToShoreCompleted = value;
+    });
+  }
+
+  late final _$isFirstTimeCompletingAtom = Atom(
+      name: '_BeachHorizonWaterTrackerStoreBase.isFirstTimeCompleting',
+      context: context);
+
+  @override
+  bool get isFirstTimeCompleting {
+    _$isFirstTimeCompletingAtom.reportRead();
+    return super.isFirstTimeCompleting;
+  }
+
+  @override
+  set isFirstTimeCompleting(bool value) {
+    _$isFirstTimeCompletingAtom.reportWrite(value, super.isFirstTimeCompleting,
+        () {
+      super.isFirstTimeCompleting = value;
     });
   }
 
@@ -112,6 +164,46 @@ mixin _$BeachHorizonWaterTrackerStore
   late final _$_BeachHorizonWaterTrackerStoreBaseActionController =
       ActionController(
           name: '_BeachHorizonWaterTrackerStoreBase', context: context);
+
+  @override
+  dynamic initImmersionBackToHorizon() {
+    final _$actionInfo =
+        _$_BeachHorizonWaterTrackerStoreBaseActionController.startAction(
+            name:
+                '_BeachHorizonWaterTrackerStoreBase.initImmersionBackToHorizon');
+    try {
+      return super.initImmersionBackToHorizon();
+    } finally {
+      _$_BeachHorizonWaterTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setCurrentWaterValue(double newValue) {
+    final _$actionInfo =
+        _$_BeachHorizonWaterTrackerStoreBaseActionController.startAction(
+            name: '_BeachHorizonWaterTrackerStoreBase.setCurrentWaterValue');
+    try {
+      return super.setCurrentWaterValue(newValue);
+    } finally {
+      _$_BeachHorizonWaterTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic toggleIsGoingFullSky() {
+    final _$actionInfo =
+        _$_BeachHorizonWaterTrackerStoreBaseActionController.startAction(
+            name: '_BeachHorizonWaterTrackerStoreBase.toggleIsGoingFullSky');
+    try {
+      return super.toggleIsGoingFullSky();
+    } finally {
+      _$_BeachHorizonWaterTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic setControl(Control newControl) {
@@ -304,6 +396,20 @@ mixin _$BeachHorizonWaterTrackerStore
   }
 
   @override
+  dynamic fullSkyBackToShorePreReq({required DateTime currentTime}) {
+    final _$actionInfo =
+        _$_BeachHorizonWaterTrackerStoreBaseActionController.startAction(
+            name:
+                '_BeachHorizonWaterTrackerStoreBase.fullSkyBackToShorePreReq');
+    try {
+      return super.fullSkyBackToShorePreReq(currentTime: currentTime);
+    } finally {
+      _$_BeachHorizonWaterTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic initBackToShore({required DateTime currentTime}) {
     final _$actionInfo =
         _$_BeachHorizonWaterTrackerStoreBaseActionController.startAction(
@@ -331,8 +437,11 @@ mixin _$BeachHorizonWaterTrackerStore
   @override
   String toString() {
     return '''
+isGoingToFullSky: ${isGoingToFullSky},
+currentWaterValue: ${currentWaterValue},
 movieMode: ${movieMode},
 backToShoreCompleted: ${backToShoreCompleted},
+isFirstTimeCompleting: ${isFirstTimeCompleting},
 isComplete: ${isComplete},
 movieIsLonger: ${movieIsLonger},
 movie: ${movie},

@@ -20,10 +20,10 @@ void main() {
     final phraseIdResults = await UserSetupConstants.fetchCollaboratorPhraseIDs(
       supabaseAdmin: supabaseAdmin,
     );
-    firstUserUID = userIdResults[0];
+    firstUserUID = userIdResults.first;
     secondUserUID = userIdResults[1];
 
-    firstUserPhraseIDs = phraseIdResults[0];
+    firstUserPhraseIDs = phraseIdResults.first;
     secondUserPhraseIDs = phraseIdResults[1];
   });
 
@@ -35,10 +35,8 @@ void main() {
   });
 
   test("SCENARIO 1: User1 Enters & Gets Booted Out", () async {
-    // arrange 1
     await SignIn.user1(supabase: supabase);
 
-    /// act 1
     await InitiateCollaboratorSearch.invoke(
       supabase: supabase,
       wayfarerUID: firstUserUID,
@@ -47,19 +45,16 @@ void main() {
     final firstPoolRes =
         await supabaseAdmin.from('p2p_collaborator_pool').select();
 
-    /// assert 1
     expect(firstPoolRes.length, 1);
-    // arrange 2
+
     await EndCollaboratorSearch.invoke(
       supabase: supabase,
       firstUserUID: firstUserUID,
     );
 
-    /// act 2
     final secondPoolRes =
         await supabaseAdmin.from('p2p_collaborator_pool').select();
 
-    /// assert 3
     expect(secondPoolRes.length, 0);
   });
 
@@ -71,10 +66,8 @@ void main() {
     collaborationForged = existingCollaborations.notifyWhenForged(
       supabase: supabase,
       userUID: firstUserUID,
-      // elsLogic: runTest,
     );
 
-    // Perform necessary actions
     await InitiateCollaboratorSearch.invoke(
       supabase: supabase,
       wayfarerUID: firstUserUID,

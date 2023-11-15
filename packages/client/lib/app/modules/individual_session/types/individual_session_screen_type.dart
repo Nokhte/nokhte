@@ -1,0 +1,4 @@
+enum IndividualSessionScreenType {
+  perspectiveViewingMode,
+  recordingAudioMode,
+}

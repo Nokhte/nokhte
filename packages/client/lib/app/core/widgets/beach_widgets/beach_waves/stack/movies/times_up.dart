@@ -5,15 +5,14 @@ import '../../../shared/data/water_colors_and_stops.dart';
 import 'package:simple_animations/movie_tween/movie_tween.dart';
 
 class TimesUp extends Equatable {
-  ///
   static MovieTween getMovie({required Duration timerLength}) {
     final durationsArr = TimeAllocator.generateDurations(
         duration: timerLength, numIncrements: 8);
 
     return MovieTween()
       ..scene(
-        begin: durationsArr[0].begin,
-        end: durationsArr[0].end,
+        begin: durationsArr.first.begin,
+        end: durationsArr.first.end,
       )
           .tween(
             'water movement',
@@ -25,8 +24,8 @@ class TimesUp extends Equatable {
           .tween(
             '1st Water Gradient Color',
             ColorTween(
-              begin: WaterColorsAndStops.toTheDepthsWater[0].color,
-              end: WaterColorsAndStops.timesUpPhase1[0].color,
+              begin: WaterColorsAndStops.toTheDepthsWater.first.color,
+              end: WaterColorsAndStops.timesUpPhase1.first.color,
             ),
           )
           .tween(
@@ -81,8 +80,8 @@ class TimesUp extends Equatable {
           .tween(
             '1st Water Gradient Stop',
             Tween<double>(
-              begin: WaterColorsAndStops.toTheDepthsWater[0].stop,
-              end: WaterColorsAndStops.timesUpPhase1[0].stop,
+              begin: WaterColorsAndStops.toTheDepthsWater.first.stop,
+              end: WaterColorsAndStops.timesUpPhase1.first.stop,
             ),
           )
           .tween(
@@ -148,8 +147,8 @@ class TimesUp extends Equatable {
           .tween(
             '1st Water Gradient Color',
             ColorTween(
-              begin: WaterColorsAndStops.timesUpPhase1[0].color,
-              end: WaterColorsAndStops.timesUpPhase2[0].color,
+              begin: WaterColorsAndStops.timesUpPhase1.first.color,
+              end: WaterColorsAndStops.timesUpPhase2.first.color,
             ),
           )
           .tween(
@@ -204,8 +203,8 @@ class TimesUp extends Equatable {
           .tween(
             '1st Water Gradient Stop',
             Tween<double>(
-              begin: WaterColorsAndStops.timesUpPhase1[0].stop,
-              end: WaterColorsAndStops.timesUpPhase2[0].stop,
+              begin: WaterColorsAndStops.timesUpPhase1.first.stop,
+              end: WaterColorsAndStops.timesUpPhase2.first.stop,
             ),
           )
           .tween(
@@ -271,8 +270,8 @@ class TimesUp extends Equatable {
           .tween(
             '1st Water Gradient Color',
             ColorTween(
-              begin: WaterColorsAndStops.timesUpPhase2[0].color,
-              end: WaterColorsAndStops.timesUpPhase3[0].color,
+              begin: WaterColorsAndStops.timesUpPhase2.first.color,
+              end: WaterColorsAndStops.timesUpPhase3.first.color,
             ),
           )
           .tween(
@@ -327,8 +326,8 @@ class TimesUp extends Equatable {
           .tween(
             '1st Water Gradient Stop',
             Tween<double>(
-              begin: WaterColorsAndStops.timesUpPhase2[0].stop,
-              end: WaterColorsAndStops.timesUpPhase3[0].stop,
+              begin: WaterColorsAndStops.timesUpPhase2.first.stop,
+              end: WaterColorsAndStops.timesUpPhase3.first.stop,
             ),
           )
           .tween(
@@ -394,8 +393,8 @@ class TimesUp extends Equatable {
           .tween(
             '1st Water Gradient Color',
             ColorTween(
-              begin: WaterColorsAndStops.timesUpPhase3[0].color,
-              end: WaterColorsAndStops.timesUpPhase4[0].color,
+              begin: WaterColorsAndStops.timesUpPhase3.first.color,
+              end: WaterColorsAndStops.timesUpPhase4.first.color,
             ),
           )
           .tween(
@@ -450,8 +449,8 @@ class TimesUp extends Equatable {
           .tween(
             '1st Water Gradient Stop',
             Tween<double>(
-              begin: WaterColorsAndStops.timesUpPhase3[0].stop,
-              end: WaterColorsAndStops.timesUpPhase4[0].stop,
+              begin: WaterColorsAndStops.timesUpPhase3.first.stop,
+              end: WaterColorsAndStops.timesUpPhase4.first.stop,
             ),
           )
           .tween(
@@ -517,8 +516,8 @@ class TimesUp extends Equatable {
           .tween(
             '1st Water Gradient Color',
             ColorTween(
-              begin: WaterColorsAndStops.timesUpPhase4[0].color,
-              end: WaterColorsAndStops.timesUpPhase5[0].color,
+              begin: WaterColorsAndStops.timesUpPhase4.first.color,
+              end: WaterColorsAndStops.timesUpPhase5.first.color,
             ),
           )
           .tween(
@@ -573,8 +572,8 @@ class TimesUp extends Equatable {
           .tween(
             '1st Water Gradient Stop',
             Tween<double>(
-              begin: WaterColorsAndStops.timesUpPhase4[0].stop,
-              end: WaterColorsAndStops.timesUpPhase5[0].stop,
+              begin: WaterColorsAndStops.timesUpPhase4.first.stop,
+              end: WaterColorsAndStops.timesUpPhase5.first.stop,
             ),
           )
           .tween(
@@ -640,8 +639,8 @@ class TimesUp extends Equatable {
           .tween(
             '1st Water Gradient Color',
             ColorTween(
-              begin: WaterColorsAndStops.timesUpPhase5[0].color,
-              end: WaterColorsAndStops.timesUpPhase6[0].color,
+              begin: WaterColorsAndStops.timesUpPhase5.first.color,
+              end: WaterColorsAndStops.timesUpPhase6.first.color,
             ),
           )
           .tween(
@@ -696,8 +695,8 @@ class TimesUp extends Equatable {
           .tween(
             '1st Water Gradient Stop',
             Tween<double>(
-              begin: WaterColorsAndStops.timesUpPhase5[0].stop,
-              end: WaterColorsAndStops.timesUpPhase6[0].stop,
+              begin: WaterColorsAndStops.timesUpPhase5.first.stop,
+              end: WaterColorsAndStops.timesUpPhase6.first.stop,
             ),
           )
           .tween(
@@ -763,8 +762,8 @@ class TimesUp extends Equatable {
           .tween(
             '1st Water Gradient Color',
             ColorTween(
-              begin: WaterColorsAndStops.timesUpPhase6[0].color,
-              end: WaterColorsAndStops.timesUpPhase7[0].color,
+              begin: WaterColorsAndStops.timesUpPhase6.first.color,
+              end: WaterColorsAndStops.timesUpPhase7.first.color,
             ),
           )
           .tween(
@@ -819,8 +818,8 @@ class TimesUp extends Equatable {
           .tween(
             '1st Water Gradient Stop',
             Tween<double>(
-              begin: WaterColorsAndStops.timesUpPhase6[0].stop,
-              end: WaterColorsAndStops.timesUpPhase7[0].stop,
+              begin: WaterColorsAndStops.timesUpPhase6.first.stop,
+              end: WaterColorsAndStops.timesUpPhase7.first.stop,
             ),
           )
           .tween(
@@ -886,8 +885,8 @@ class TimesUp extends Equatable {
           .tween(
             '1st Water Gradient Color',
             ColorTween(
-              begin: WaterColorsAndStops.timesUpPhase7[0].color,
-              end: WaterColorsAndStops.timesUpPhase8[0].color,
+              begin: WaterColorsAndStops.timesUpPhase7.first.color,
+              end: WaterColorsAndStops.timesUpPhase8.first.color,
             ),
           )
           .tween(
@@ -942,8 +941,8 @@ class TimesUp extends Equatable {
           .tween(
             '1st Water Gradient Stop',
             Tween<double>(
-              begin: WaterColorsAndStops.timesUpPhase7[0].stop,
-              end: WaterColorsAndStops.timesUpPhase8[0].stop,
+              begin: WaterColorsAndStops.timesUpPhase7.first.stop,
+              end: WaterColorsAndStops.timesUpPhase8.first.stop,
             ),
           )
           .tween(

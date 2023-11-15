@@ -8,7 +8,7 @@ class SoloDocSubmissionStatusModel extends SoloDocSubmissionStatusEntity {
       return const SoloDocSubmissionStatusModel(isSubmitted: false);
     } else {
       return SoloDocSubmissionStatusModel(
-          isSubmitted: sbQueryRes[0]["content"].isNotEmpty);
+          isSubmitted: sbQueryRes.first["content"].isNotEmpty);
     }
   }
 }

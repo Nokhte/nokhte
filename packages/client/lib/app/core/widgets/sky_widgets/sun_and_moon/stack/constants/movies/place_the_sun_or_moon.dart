@@ -48,8 +48,8 @@ class PlaceTheSunOrMoon {
             .tween(
               'first grad color',
               ColorTween(
-                begin: theGradient[0],
-                end: theGradient[0],
+                begin: theGradient.first,
+                end: theGradient.first,
               ),
             )
             .tween(

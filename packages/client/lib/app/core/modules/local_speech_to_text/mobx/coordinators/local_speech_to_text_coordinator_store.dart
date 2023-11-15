@@ -1,10 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
 import 'package:mobx/mobx.dart';
-// * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/mobx/mobx.dart';
-// * Mobx Codegen Inclusion
 part 'local_speech_to_text_coordinator_store.g.dart';
 
 class LocalSpeechToTextCoordinatorStore = _LocalSpeechToTextCoordinatorStoreBase
@@ -24,7 +21,5 @@ abstract class _LocalSpeechToTextCoordinatorStoreBase extends Equatable
     required this.onSpeechResultStore,
   });
   @override
-  List<Object> get props => [
-// some items
-      ];
+  List<Object> get props => [];
 }

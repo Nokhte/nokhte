@@ -1,2 +1,2 @@
-export './constants/constants.dart';
+export './movies/movies.dart';
 export './presentation/presentation.dart';

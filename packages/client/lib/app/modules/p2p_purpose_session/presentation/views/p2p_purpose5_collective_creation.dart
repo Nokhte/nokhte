@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
-import 'package:nokhte/app/core/modules/collaborative_doc/presentation/presentation.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
-import 'package:swipe/swipe.dart';
 
 class P2PPurpose5CollectiveCreation extends StatelessWidget {
   final P2PPurposePhase5CoordinatorStore coordinator;
@@ -13,7 +11,6 @@ class P2PPurpose5CollectiveCreation extends StatelessWidget {
     super.key,
     required this.coordinator,
   }) {
-    //
     coordinator.screenConstructor();
   }
 
@@ -26,7 +23,7 @@ class P2PPurpose5CollectiveCreation extends StatelessWidget {
     return LayoutBuilder(
       builder: ((context, constraints) => PlatformScaffold(
               body: Swipe(
-            onSwipeUp: () => coordinator.swipeUpCallback(),
+            trackerStore: coordinator.swipe,
             child: Stack(
               children: [
                 SizedBox(
@@ -65,6 +62,5 @@ class P2PPurpose5CollectiveCreation extends StatelessWidget {
             ),
           ))),
     );
-    // });
   }
 }

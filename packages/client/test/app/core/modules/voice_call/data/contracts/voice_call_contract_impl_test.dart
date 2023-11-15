@@ -30,24 +30,18 @@ void main() {
       });
       test("when online & a good API query is made it should proper model",
           () async {
-        // arrange
         when(mockRemoteSource.fetchAgoraToken(channelName: 'hi')).thenAnswer(
             (realInvocation) async => TokenServerResponse.successfulResponse);
-        // act
         final res = await contractImpl.fetchAgoraToken(channelName: 'hi');
-        // assert
         expect(res, ConstantAgoraCallTokenModel.wrappedSuccessCase);
       });
 
       test("when online and not approved should return a proper model",
           () async {
-        // arrange
         when(mockRemoteSource.fetchAgoraToken(channelName: 'hi')).thenAnswer(
             (realInvocation) async =>
                 TokenServerResponse.notSuccessfulResponse);
-        // act
         final res = await contractImpl.fetchAgoraToken(channelName: 'hi');
-        // assert
         expect(res, ConstantAgoraCallTokenModel.wrappedNotSuccessCase);
       });
     });
@@ -70,25 +64,19 @@ void main() {
       });
       test("when online & collaboration exists should return the proper model",
           () async {
-        // arrange
         when(mockRemoteSource.fetchCollaboratorInfo()).thenAnswer(
           (realInvocation) async => ExistingCollaboratorsTable.response,
         );
-        // act
         final res = await contractImpl.fetchChannelId();
-        // assert
         expect(res, ConstantChannelIdModel.wrappedSuccessCase);
       });
 
       test(
           "when online and collaboration doesn't exist should return empty model",
           () async {
-        // arrange
         when(mockRemoteSource.fetchCollaboratorInfo())
             .thenAnswer((realInvocation) async => []);
-        // act
         final res = await contractImpl.fetchChannelId();
-        // assert
         expect(res, ConstantChannelIdModel.wrappedNotSuccessCase);
       });
     });
@@ -112,11 +100,8 @@ void main() {
       test(
           "when online & no exceptions / errors are thrown should return a successful model",
           () async {
-        // arrange
         when(mockRemoteSource.instantiateAgoraSDK()).thenAnswer((_) async {});
-        // act
         final res = await contractImpl.instantiateAgoraSdk();
-        // assert
         expect(res, ConstantAgoraSdkStatusModel.wrappedSuccessCase);
       });
     });
@@ -141,14 +126,11 @@ void main() {
       test(
           "when online & everything is valid should return an in progress model",
           () async {
-        // arrange
         when(mockRemoteSource.joinCall(
           token: 'someTokenId',
           channelId: 'someChannelId',
         )).thenAnswer((_) async {});
-        // act
         final res = await contractImpl.joinCall('someTokenId', 'someChannelId');
-        // assert
         expect(res, ConstantCallStatusModel.wrappedInProgressCase);
       });
     });
@@ -176,11 +158,8 @@ void main() {
       test(
           "when online & everything is valid should return a model w/ leaving status",
           () async {
-        // arrange
         when(mockRemoteSource.leaveCall()).thenAnswer((_) async {});
-        // act
         final res = await contractImpl.leaveCall();
-        // assert
         expect(res, ConstantCallStatusModel.wrappedLeavingInProgressCase);
       });
     });
@@ -204,11 +183,8 @@ void main() {
       test(
           "when online & everything is valid should return a model w/ leaving status",
           () async {
-        // arrange
         when(mockRemoteSource.muteLocalAudioStream()).thenAnswer((_) async {});
-        // act
         final res = await contractImpl.muteLocalAudioStream();
-        // assert
         expect(res, ConstantLocalAudioStreamStatusModel.wrappedMutedCase);
       });
     });
@@ -232,12 +208,9 @@ void main() {
       test(
           "when online & everything is valid should return a model w/ leaving status",
           () async {
-        // arrange
         when(mockRemoteSource.unmuteLocalAudioStream())
             .thenAnswer((_) async {});
-        // act
         final res = await contractImpl.unmuteLocalAudioStream();
-        // assert
         expect(res, ConstantLocalAudioStreamStatusModel.wrappedUnmutedCase);
       });
     });
@@ -261,24 +234,18 @@ void main() {
       test(
           "when online & everything is valid should return a model w/ proper state",
           () async {
-        // arrange
         when(mockRemoteSource.fetchCollaboratorInfo()).thenAnswer(
           (_) async => ExistingCollaboratorsTable.response,
         );
-        // act
         final res = await contractImpl.checkIfUserHasTheQuestion();
-        // assert
         expect(res, ConstantWhoGetsTheQuestionModel.wrappedHasItCase);
       });
       test(
           "when online & everything is in-valid should return a model w/ proper state",
           () async {
-        // arrange
         when(mockRemoteSource.fetchCollaboratorInfo())
             .thenAnswer((_) async => []);
-        // act
         final res = await contractImpl.checkIfUserHasTheQuestion();
-        // assert
         expect(res, ConstantWhoGetsTheQuestionModel.wrappedDoesNotHaveItCase);
       });
     });

@@ -10,7 +10,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class CollaborativeDocModule extends Module {
   @override
   List<Bind> get binds => [
-        // & Remotes Source
         Bind.singleton<CollaborativeDocRemoteSourceImpl>(
           (i) => CollaborativeDocRemoteSourceImpl(
             supabase: Modular.get<SupabaseClient>(),
@@ -23,7 +22,6 @@ class CollaborativeDocModule extends Module {
           ),
           export: true,
         ),
-        // & Contract Implementation
         Bind.singleton<CollaborativeDocContractImpl>(
           (i) => CollaborativeDocContractImpl(
             networkInfo: i<NetworkInfo>(),
@@ -31,7 +29,6 @@ class CollaborativeDocModule extends Module {
           ),
           export: true,
         ),
-        // & Logic
         Bind.singleton<CreateCollaborativeDoc>(
           (i) => CreateCollaborativeDoc(
             contract: i<CollaborativeDocContract>(),
@@ -50,7 +47,6 @@ class CollaborativeDocModule extends Module {
           ),
           export: true,
         ),
-
         Bind.singleton<UpdateCommitDesireStatus>(
           (i) => UpdateCommitDesireStatus(
             contract: i<CollaborativeDocContract>(),
@@ -75,8 +71,6 @@ class CollaborativeDocModule extends Module {
           ),
           export: true,
         ),
-
-        // & MobX Getter Stores
         Bind.singleton<CreateCollaborativeDocGetterStore>(
           (i) => CreateCollaborativeDocGetterStore(
             logic: i<CreateCollaborativeDoc>(),
@@ -119,7 +113,6 @@ class CollaborativeDocModule extends Module {
           ),
           export: true,
         ),
-        // & Mobx Logic Stores
         Bind.singleton<CreateCollaborativeDocStore>(
           (i) => CreateCollaborativeDocStore(
             getterStore: i<CreateCollaborativeDocGetterStore>(),
@@ -162,7 +155,6 @@ class CollaborativeDocModule extends Module {
           ),
           export: true,
         ),
-        // & Mobx Coordinator Stores
         Bind.singleton<CollaborativeDocCoordinatorStore>(
           (i) => CollaborativeDocCoordinatorStore(
             updateCommitDesire: i<UpdateCommitDesireStatusStore>(),

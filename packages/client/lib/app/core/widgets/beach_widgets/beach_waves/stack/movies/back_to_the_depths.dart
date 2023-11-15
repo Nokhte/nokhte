@@ -30,7 +30,7 @@ class BackToTheDepths {
             '1st Water Gradient Color',
             ColorTween(
               begin: startingFirstGradient,
-              end: WaterColorsAndStops.toTheDepthsWater[0].color,
+              end: WaterColorsAndStops.toTheDepthsWater.first.color,
             ),
           )
           .tween(
@@ -85,8 +85,8 @@ class BackToTheDepths {
           .tween(
             '1st Water Gradient Stop',
             Tween<double>(
-              begin: WaterColorsAndStops.timesUpPhase8[0].stop,
-              end: WaterColorsAndStops.toTheDepthsWater[0].stop,
+              begin: WaterColorsAndStops.timesUpPhase8.first.stop,
+              end: WaterColorsAndStops.toTheDepthsWater.first.stop,
             ),
           )
           .tween(

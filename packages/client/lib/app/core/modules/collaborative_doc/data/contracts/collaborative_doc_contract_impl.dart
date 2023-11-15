@@ -53,7 +53,7 @@ class CollaborativeDocContractImpl implements CollaborativeDocContract {
       updateCollaborativeDoc({required String newContent}) async {
     if (await networkInfo.isConnected) {
       await remoteSource.updateCollaborativeDoc(newContent: newContent);
-      return Right(CollaborativeDocUpdateStatusModel.fromSupabase([{}]));
+      return const Right(CollaborativeDocUpdateStatusModel(isUpdated: true));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
@@ -64,7 +64,8 @@ class CollaborativeDocContractImpl implements CollaborativeDocContract {
       updateUserDelta({required int newDelta}) async {
     if (await networkInfo.isConnected) {
       await remoteSource.updateUserDelta(updatedDelta: newDelta);
-      return Right(CollaborativeDocDeltaUpdaterStatusModel.fromSupabase([{}]));
+      return const Right(
+          CollaborativeDocDeltaUpdaterStatusModel(isUpdated: true));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
@@ -75,8 +76,8 @@ class CollaborativeDocContractImpl implements CollaborativeDocContract {
       updateUserPresence({required bool newPresence}) async {
     if (await networkInfo.isConnected) {
       await remoteSource.updateUserPresence(updatedUserPresence: newPresence);
-      return Right(
-          CollaborativeDocPresenceUpdaterStatusModel.fromSupabase([{}]));
+      return const Right(
+          CollaborativeDocPresenceUpdaterStatusModel(isUpdated: true));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }

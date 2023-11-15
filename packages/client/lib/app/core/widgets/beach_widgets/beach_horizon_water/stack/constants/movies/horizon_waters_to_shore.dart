@@ -13,8 +13,8 @@ class HorizonWatersToShore {
             .tween(
               '1st Water Gradient Color',
               ColorTween(
-                begin: startingGradient[0].color,
-                end: WaterColorsAndStops.onShoreWater[0].color,
+                begin: startingGradient.first.color,
+                end: WaterColorsAndStops.onShoreWater.first.color,
               ),
             )
             .tween(
@@ -69,8 +69,8 @@ class HorizonWatersToShore {
             .tween(
               '1st Water Gradient Stop',
               Tween<double>(
-                begin: startingGradient[0].stop,
-                end: WaterColorsAndStops.onShoreWater[0].stop,
+                begin: startingGradient.first.stop,
+                end: WaterColorsAndStops.onShoreWater.first.stop,
               ),
             )
             .tween(

@@ -1,4 +1,3 @@
-// * Testing & Mocking Libs
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';

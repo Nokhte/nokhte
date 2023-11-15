@@ -8,7 +8,7 @@ class SoloDocSealingStatusModel extends SoloDocSealingStatusEntity {
       return const SoloDocSealingStatusModel(isSealed: false);
     } else {
       return SoloDocSealingStatusModel(
-          isSealed: sbQueryRes[0]["session_is_completed"]);
+          isSealed: sbQueryRes.first["session_is_completed"]);
     }
   }
 }

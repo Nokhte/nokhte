@@ -6,7 +6,6 @@ class AgoraCallTokenModel extends AgoraCallTokenEntity {
   const AgoraCallTokenModel({
     required super.returnedToken,
   });
-  // assumes it's already vetted
   static AgoraCallTokenModel fromTokenServer(Response res) {
     if (res.statusCode == 200) {
       Map<String, dynamic> json = jsonDecode(res.body);

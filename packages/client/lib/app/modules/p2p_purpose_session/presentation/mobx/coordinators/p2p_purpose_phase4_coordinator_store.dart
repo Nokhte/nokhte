@@ -1,15 +1,12 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-// * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
 import 'package:nokhte/app/core/modules/solo_doc/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-// * Mobx Codegen Inclusion
 part 'p2p_purpose_phase4_coordinator_store.g.dart';
 
 class P2PPurposePhase4CoordinatorStore = _P2PPurposePhase4CoordinatorStoreBase
@@ -44,7 +41,6 @@ abstract class _P2PPurposePhase4CoordinatorStoreBase extends Equatable
     beachWaves.initiateSuspendedAtTheDepths();
 
     fadingText.moveToNextMessage();
-    // fadingText.moveToNextMessage();
     fadingText.fadeTheTextIn();
     await soloDoc
         .getSoloDoc(
@@ -56,9 +52,7 @@ abstract class _P2PPurposePhase4CoordinatorStoreBase extends Equatable
               fadingText.togglePause();
               beachWaves.initiateTimesUp(
                 timerLength: const Duration(
-                  seconds: 10,
-                  // minutes: 5,
-                  // TODO COMMENT OUT FOR PROD
+                  minutes: 5,
                 ),
                 // pMovieMode: MovieModes.purposeCallTimesUp,
               );
@@ -70,7 +64,5 @@ abstract class _P2PPurposePhase4CoordinatorStoreBase extends Equatable
   }
 
   @override
-  List<Object> get props => [
-// some items
-      ];
+  List<Object> get props => [];
 }

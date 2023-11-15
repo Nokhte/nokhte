@@ -1,12 +1,9 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
 import 'package:mobx/mobx.dart';
-// * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-// * Mobx Codegen Inclusion
 part 'widget_coordinator_store.g.dart';
 
 class WidgetCoordinatorStore = _WidgetCoordinatorStoreBase
@@ -41,11 +38,8 @@ abstract class _WidgetCoordinatorStoreBase extends Equatable with Store {
       beachWavesStore.initiateToTheDepths();
       smartFadingAnimatedTextStore.fadeTheTextOut();
     }
-    //
   }
 
   @override
-  List<Object> get props => [
-// some items
-      ];
+  List<Object> get props => [];
 }

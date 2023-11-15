@@ -1,7 +1,10 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:nokhte/app/core/modules/get_current_perspectives/get_current_perspectives_module.dart';
+import 'package:nokhte/app/core/modules/get_current_perspectives/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic_module.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
+import 'package:nokhte/app/core/widgets/module.dart';
 import 'package:nokhte/app/core/widgets/shared/constants/svg_animation_constants.dart';
 import 'package:nokhte/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -18,23 +21,22 @@ class HomeModule extends Module {
   @override
   List<Module> get imports => [
         GyroscopicModule(),
+        GesturesModule(),
+        GetCurrentPerspectivesModule(),
       ];
   @override
   List<Bind> get binds => [
-        // & Remote Source
         Bind.singleton<HomeRemoteSourceImpl>(
           (i) => HomeRemoteSourceImpl(
             supabase: Modular.get<SupabaseClient>(),
           ),
         ),
-        // & Contract Implementation
         Bind.singleton<HomeContractImpl>(
           (i) => HomeContractImpl(
             remoteSource: i<HomeRemoteSourceImpl>(),
             networkInfo: Modular.get<NetworkInfoImpl>(),
           ),
         ),
-        // & Logic
         Bind.singleton<AddNameToDatabase>(
           (i) => AddNameToDatabase(
             contract: i<HomeContract>(),
@@ -45,7 +47,6 @@ class HomeModule extends Module {
             contract: i<HomeContract>(),
           ),
         ),
-        // & MobX Getter Stores
         Bind.singleton<AddNameToDatabaseGetterStore>(
           (i) => AddNameToDatabaseGetterStore(
             addNameLogic: i<AddNameToDatabase>(),
@@ -56,7 +57,6 @@ class HomeModule extends Module {
             getCollaboratorPhraseLogic: i<GetCollaboratorPhrase>(),
           ),
         ),
-        // & Mobx Mother Stores
         Bind.singleton<AddNameToDatabaseStore>(
           (i) => AddNameToDatabaseStore(
             addNameGetterStore: i<AddNameToDatabaseGetterStore>(),
@@ -68,7 +68,6 @@ class HomeModule extends Module {
                 i<GetCollaboratorPhraseGetterStore>(),
           ),
         ),
-        // & Widget State Management Stores
         Bind.singleton<SmartFadingAnimatedTextTrackerStore>(
           (i) => SmartFadingAnimatedTextTrackerStore(
             isInfinite: true,
@@ -79,13 +78,14 @@ class HomeModule extends Module {
           (i) => BeachWavesTrackerStore(),
         ),
         Bind.singleton<GesturePillStore>(
-          (i) => GesturePillStore(endingPath: SvgAnimtionCostants.circlePath),
+          (i) => GesturePillStore(endingPath: SvgAnimtionConstants.circlePath),
         ),
-        // & Coordinator Store
         Bind.singleton<HomeScreenCoordinatorStore>(
           (i) => HomeScreenCoordinatorStore(
+            getCurrentPerspectives: Modular.get<GetCurrentPerspectivesStore>(),
             portalAPI: i<PortalAPI>(),
-            // quadrantAPI: i<QuadrantAPI>(),
+            hold: Modular.get<HoldDetector>(),
+            swipe: Modular.get<SwipeDetector>(),
             gesturePillStore: i<GesturePillStore>(),
             beachWaves: i<BeachWavesTrackerStore>(),
             addNameToDatabaseStore: i<AddNameToDatabaseStore>(),

@@ -5,7 +5,7 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:path_morph/path_morph.dart';
 import 'package:simple_animations/simple_animations.dart';
-import 'canvas/gesture_cross_painter.dart';
+import 'canvas/gesture_pill_painter.dart';
 
 class GesturePill extends StatefulWidget {
   final Size size;
@@ -60,13 +60,12 @@ class _GestureCrossState extends State<GesturePill>
           duration: Seconds.get(1),
           child: Container(
             alignment: Alignment.topLeft,
-            // color: Colors.blue.withOpacity(.4),
             width: widget.size.width,
             height: widget.size.height,
             child: Padding(
               padding: const EdgeInsets.only(left: 20.0),
               child: CustomPaint(
-                painter: GestureCrossPainter(
+                painter: GesturePillPainter(
                   currentPath,
                   widget.size,
                   currentPath.getBounds(),

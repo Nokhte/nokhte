@@ -1,26 +1,28 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-// * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/modules/get_current_perspectives/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
-// import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/main/main.dart';
+import 'package:nokhte/app/modules/home/types/types.dart';
+import 'package:simple_animations/simple_animations.dart';
 
-// * Mobx Codegen Inclusion
 part 'home_screen_coordinator_store.g.dart';
 
 class HomeScreenCoordinatorStore = _HomeScreenCoordinatorStoreBase
     with _$HomeScreenCoordinatorStore;
 
 abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
+  final GetCurrentPerspectivesStore getCurrentPerspectives;
   final PortalAPI portalAPI;
-  // final QuadrantAPI quadrantAPI;
+  final SwipeDetector swipe;
+  final HoldDetector hold;
   final GesturePillStore gesturePillStore;
   final BeachWavesTrackerStore beachWaves;
   final AddNameToDatabaseStore addNameToDatabaseStore;
@@ -28,22 +30,25 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
   final GetCollaboratorPhraseStore getCollaboratorPhraseStore;
 
   _HomeScreenCoordinatorStoreBase({
+    required this.swipe,
+    required this.getCurrentPerspectives,
+    required this.hold,
     required this.portalAPI,
-    // required this.quadrantAPI,
     required this.gesturePillStore,
     required this.beachWaves,
     required this.addNameToDatabaseStore,
     required this.fadingTextStateTrackerStore,
     required this.getCollaboratorPhraseStore,
-  }) {
-    reaction((p0) => beachWaves.movieStatus, (p0) {
-      if (beachWaves.movieStatus == MovieStatus.finished) {
-        Modular.to.navigate('/p2p_collaborator_pool/');
-      }
-    });
-  }
+  });
+
+  @observable
+  PlacesYouCanGo thePlaceTheyAreGoing = PlacesYouCanGo.initial;
+
+  @observable
+  bool hasMadePerspectives = false;
 
   homeScreenConstructorCallback() async {
+    beachWavesListener();
     gesturePillStore
         .setPillMovie(BottomCircleGoesUp.getMovie(firstGradientColors: [
       const Color(0xFF41D2F8),
@@ -55,6 +60,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
 
     Future.delayed(Seconds.get(1), () async {
       await addNameToDatabaseStore(NoParams());
+      await getCurrentPerspectives(NoParams());
       await getCollaboratorPhraseStore(NoParams()).then((_) {
         fadingTextStateTrackerStore.setMainMessage(
           index: 2,
@@ -62,47 +68,72 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
         );
       });
     });
-
-    // api setup
-
+    gestureListener();
+    holdListener();
+    if (getCurrentPerspectives.currentPerspectives.isNotEmpty) {
+      hasMadePerspectives = true;
+    }
     await portalAPI.setupTheStream();
-
-    // reaction((p0) => portalAPI.currentQuadrant, (p0) {
-
-    //   print("quadrant api home coordinator $p0");
-    // });
-
-    // await portalAPI.setupTheStream(
-    //     startingQuadrant: 0,
-    //     numberOfQuadrants: 0,
-    //     totalAngleCoverageOfEachQuadrant: 0);
-
-    // reaction((p0) => portalAPI.drawingMode, (p0) { })
-    // ^^ idk figure this out later
+    portalAPIListener();
   }
 
-  homeScreenSwipeUpCallback() {
-    // works!!
-    Modular.to.navigate('/p2p_purpose_session/');
-  }
+  @action
+  portalAPIListener() => reaction((p0) => portalAPI.drawingMode, (p0) {
+        if (p0 == DrawingStatus.hasDrawn && hasMadePerspectives) {
+          fadeTheTextOutAndWaterComesDown(PlacesYouCanGo.individualSession);
+        }
+      });
 
-  // homeScreenSwipeUpCallback() {
-  //   if (!fadingTextStateTrackerStore.isPaused) {
-  //     fadingTextStateTrackerStore.togglePause();
-  //   }
-  //   if (beachWaves.movieStatus != MovieStatus.inProgress) {
-  //     gesturePillStore.startTheAnimation();
-  //     fadingTextStateTrackerStore.currentMainText = "";
-  //     fadingTextStateTrackerStore.currentSubText = "";
-  //     beachWaves.teeUpOceanDive();
-  //     beachWaves.teeOceanDiveMovieUp(
-  //       startingWaterMovement: beachWaves.passingParam,
-  //     );
-  //   }
-  // }
+  beachWavesListener() => reaction((p0) => beachWaves.movieStatus, (p0) {
+        if (beachWaves.movieStatus == MovieStatus.finished &&
+            thePlaceTheyAreGoing == PlacesYouCanGo.newCollaboration) {
+          switch (thePlaceTheyAreGoing) {
+            case PlacesYouCanGo.newCollaboration:
+              Modular.to.navigate('/p2p_collaborator_pool/');
+            case PlacesYouCanGo.collectiveSession:
+              Modular.to.navigate('/collective_session/');
+            case PlacesYouCanGo.individualSession:
+              Modular.to.navigate('/individual_session/');
+            case PlacesYouCanGo.perspectivesSession:
+              Modular.to.navigate('/p2p_perspective_session/');
+            default:
+              break;
+          }
+        }
+      });
+
+  gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
+        switch (p0) {
+          case GestureDirections.up:
+            final thePlaceTheyAreGoing = hasMadePerspectives
+                ? PlacesYouCanGo.collectiveSession
+                : PlacesYouCanGo.perspectivesSession;
+            fadeTheTextOutAndWaterComesDown(thePlaceTheyAreGoing);
+          default:
+            break;
+        }
+      });
+  holdListener() => reaction((p0) => hold.holdCount, (p0) {
+        fadeTheTextOutAndWaterComesDown(PlacesYouCanGo.newCollaboration);
+      });
+
+  @action
+  fadeTheTextOutAndWaterComesDown(PlacesYouCanGo thePlaceTheyAreGoing) {
+    thePlaceTheyAreGoing = PlacesYouCanGo.newCollaboration;
+    if (!fadingTextStateTrackerStore.isPaused) {
+      fadingTextStateTrackerStore.togglePause();
+    }
+    if (beachWaves.movieStatus != MovieStatus.inProgress) {
+      gesturePillStore.setPillAnimationControl(Control.play);
+      fadingTextStateTrackerStore.currentMainText = "";
+      fadingTextStateTrackerStore.currentSubText = "";
+      beachWaves.teeUpOceanDive();
+      beachWaves.teeOceanDiveMovieUp(
+        startingWaterMovement: beachWaves.passingParam,
+      );
+    }
+  }
 
   @override
-  List<Object> get props => [
-// some items
-      ];
+  List<Object> get props => [];
 }

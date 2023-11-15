@@ -4,7 +4,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:nokhte/app/core/widgets/scheduling_delta/stack/stack.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
-import 'package:swipe/swipe.dart';
+// import 'package:swipe/swipe.dart';
 
 class P2PPupose6ScheduleNextMeeting extends StatelessWidget {
   final P2PPurposePhase6CoordinatorStore coordinator;
@@ -23,6 +23,7 @@ class P2PPupose6ScheduleNextMeeting extends StatelessWidget {
           final size = MediaQuery.of(context).size;
           return PlatformScaffold(
             body: Swipe(
+              trackerStore: coordinator.swipe,
               child: Stack(
                 children: [
                   SizedBox(
@@ -67,20 +68,13 @@ class P2PPupose6ScheduleNextMeeting extends StatelessWidget {
                       child: SchedulingDelta(
                         trackerStore: coordinator.widgets.schedulingDelta,
                       )),
-                  // Opacity(
-                  //   opacity: coordinator.widgets.beachWavesVisibility ? 1 : 0,
-                  //   child:
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
-                    // child: Opacity(
-                    // opacity: coordinator.widgets.beachWavesVisibility ? 1 : 0,
                     child: SmartBeachWaves(
                       stateTrackerStore: coordinator.widgets.beachWaves,
                     ),
-                    // ),
                   ),
-                  // ),
                 ],
               ),
             ),
@@ -90,5 +84,3 @@ class P2PPupose6ScheduleNextMeeting extends StatelessWidget {
     });
   }
 }
-
-// import 'package:flutter/material.dart';

@@ -1,4 +1,3 @@
-// * Testing & Mocking Libs
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte/app/modules/home/data/models/name_creation_status_model.dart';
 

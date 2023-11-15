@@ -75,7 +75,6 @@ class WorkingCollaborativeSchedulingQueries extends CollaborativeQueries {
           );
     } else {
       print("hey what's the date being passed here? $date");
-      // final formattedDate = date.toUtc().toIso8601String();
       final formattedDate = DateTime(2003, 4, 9, date.hour, date.minute)
           .toUtc()
           .toIso8601String();

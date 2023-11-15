@@ -1,4 +1,3 @@
-// * Testing & Mocking Libs
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -99,7 +98,6 @@ void main() {
   });
 
   group("muteOrUnmuteAudio", () {
-    //
     test("✅ Success Unmute Case: should update accordingly if state is passed",
         () async {
       when(mockUnmuteLocalAudioStream()).thenAnswer(
@@ -148,7 +146,6 @@ void main() {
   });
 
   group("joinOrLeaveCall", () {
-    //
     test("✅ Success Join Case: should update accordingly if state is passed",
         () async {
       when(mockJoinCallGetterStore(

@@ -5,8 +5,6 @@ import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/home_screen_coordinator_store.dart';
-import 'package:swipe/swipe.dart';
-// import 'package:posthog_flutter/posthog_flutter.dart';
 
 class HomeScreen extends StatelessWidget {
   final HomeScreenCoordinatorStore coordinator;
@@ -15,7 +13,6 @@ class HomeScreen extends StatelessWidget {
     required this.coordinator,
   }) {
     coordinator.homeScreenConstructorCallback();
-    // Posthog().screen(screenName: 'opener screen');
   }
 
   @override
@@ -24,56 +21,56 @@ class HomeScreen extends StatelessWidget {
       context: context,
       percentageLength: .20,
     );
-    // return Observer(builder: (context) {
     return Builder(builder: (context) {
       return LayoutBuilder(
         builder: (context, constraints) {
           return PlatformScaffold(
-            body: Swipe(
-              onSwipeUp: () => coordinator.homeScreenSwipeUpCallback(),
-              child: Stack(
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    child: SmartBeachWaves(
-                      stateTrackerStore: coordinator.beachWaves,
+            body: Hold(
+              trackerStore: coordinator.hold,
+              child: Swipe(
+                trackerStore: coordinator.swipe,
+                child: Stack(
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      child: SmartBeachWaves(
+                        stateTrackerStore: coordinator.beachWaves,
+                      ),
                     ),
-                  ),
-                  Center(
-                    child: SmartFadingAnimatedText(
-                      initialFadeInDelay: Seconds.get(0),
-                      stateTrackerStore:
-                          coordinator.fadingTextStateTrackerStore,
+                    Center(
+                      child: SmartFadingAnimatedText(
+                        initialFadeInDelay: Seconds.get(0),
+                        stateTrackerStore:
+                            coordinator.fadingTextStateTrackerStore,
+                      ),
                     ),
-                  ),
-                  Column(
-                    children: [
-                      Expanded(
-                        child: Container(),
-                      ),
-                      Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: [
-                          GesturePill(
-                            size: size,
-                            stateTrackerStore: coordinator.gesturePillStore,
-                          ),
-                        ],
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                      ),
-                    ],
-                  ),
-                ],
+                    Column(
+                      children: [
+                        Expanded(
+                          child: Container(),
+                        ),
+                        Stack(
+                          alignment: Alignment.bottomCenter,
+                          children: [
+                            GesturePill(
+                              size: size,
+                              stateTrackerStore: coordinator.gesturePillStore,
+                            ),
+                          ],
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 20),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           );
         },
       );
     });
-    // }
-    // );
   }
 }

@@ -1,14 +1,10 @@
-// * testing lib
 import 'package:flutter_test/flutter_test.dart';
-// * mocking lib
 import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/modules/solo_doc/data/data.dart';
 import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
-// * mock import
 import '../../../../../modules/_module_helpers/shared_mocks_gen.mocks.dart'
     show MockMNetworkInfo;
-// * functional programming
 import 'package:dartz/dartz.dart';
 
 import '../../constants/constants.dart';
@@ -38,24 +34,18 @@ void main() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       });
       test("when online and non-empty should return a model", () async {
-        // arrange
         when(mockRemoteSource.createSoloDoc(docType: tCreateParams.docType))
             .thenAnswer(
                 (realInvocation) async => SoloDocumentTableResponse.response);
-        // act
         final res =
             await homeContract.createSoloDoc(docType: tCreateParams.docType);
-        // assert
         expect(res, ConstantSoloDocCreationStatusModel.wrappedSuccessCase);
       });
       test("when online and empty should return a model", () async {
-        // arrange
         when(mockRemoteSource.createSoloDoc(docType: tCreateParams.docType))
             .thenAnswer((realInvocation) async => []);
-        // act
         final res =
             await homeContract.createSoloDoc(docType: tCreateParams.docType);
-        // assert
         expect(res, ConstantSoloDocCreationStatusModel.wrappedNotSuccessCase);
       });
     });
@@ -78,26 +68,20 @@ void main() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       });
       test("when online and non-empty should return a model", () async {
-        // arrange
         when(mockRemoteSource.getSoloDocContent(
                 getCollaboratorsDoc: tParams.getCollaboratorsDoc))
             .thenAnswer(
                 (realInvocation) async => SoloDocumentTableResponse.response);
-        // act
         final res = await homeContract.getSoloDocContent(
             getCollaboratorsDoc: tParams.getCollaboratorsDoc);
-        // assert
         expect(res, ConstantSoloDocContentModel.wrappedSuccessCase);
       });
       test("when online and empty should return a model", () async {
-        // arrange
         when(mockRemoteSource.getSoloDocContent(
                 getCollaboratorsDoc: tParams.getCollaboratorsDoc))
             .thenAnswer((realInvocation) async => []);
-        // act
         final res = await homeContract.getSoloDocContent(
             getCollaboratorsDoc: tParams.getCollaboratorsDoc);
-        // assert
         expect(res, ConstantSoloDocContentModel.wrappedNotSuccessCase);
       });
     });
@@ -120,21 +104,15 @@ void main() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       });
       test("when online and non-empty should return a model", () async {
-        // arrange
         when(mockRemoteSource.sealSoloDoc()).thenAnswer(
             (realInvocation) async => SoloDocumentTableResponse.response);
-        // act
         final res = await homeContract.sealSoloDoc();
-        // assert
         expect(res, ConstantSoloDocSealingStatusModel.wrappedSuccessCase);
       });
       test("when online and empty should return a model", () async {
-        // arrange
         when(mockRemoteSource.sealSoloDoc())
             .thenAnswer((realInvocation) async => []);
-        // act
         final res = await homeContract.sealSoloDoc();
-        // assert
         expect(res, ConstantSoloDocSealingStatusModel.wrappedNotSuccessCase);
       });
     });
@@ -155,21 +133,15 @@ void main() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       });
       test("when online and non-empty should return a model", () async {
-        // arrange
         when(mockRemoteSource.shareSoloDoc()).thenAnswer(
             (realInvocation) async => SoloDocumentTableResponse.response);
-        // act
         final res = await homeContract.shareSoloDoc();
-        // assert
         expect(res, ConstantSoloDocSharingStatusModel.wrappedSuccessCase);
       });
       test("when online and empty should return a model", () async {
-        // arrange
         when(mockRemoteSource.shareSoloDoc())
             .thenAnswer((realInvocation) async => []);
-        // act
         final res = await homeContract.shareSoloDoc();
-        // assert
         expect(res, ConstantSoloDocSharingStatusModel.wrappedNotSuccessCase);
       });
     });
@@ -190,22 +162,16 @@ void main() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       });
       test("when online and non-empty should return a model", () async {
-        // arrange
         when(mockRemoteSource.submitDocContent(newContent: "content"))
             .thenAnswer(
                 (realInvocation) async => SoloDocumentTableResponse.response);
-        // act
         final res = await homeContract.submitDocContent(newContent: "content");
-        // assert
         expect(res, ConstantSoloDocSubmissionStatusModel.wrappedSuccessCase);
       });
       test("when online and empty should return a model", () async {
-        // arrange
         when(mockRemoteSource.submitDocContent(newContent: "content"))
             .thenAnswer((realInvocation) async => []);
-        // act
         final res = await homeContract.submitDocContent(newContent: "content");
-        // assert
         expect(res, ConstantSoloDocSubmissionStatusModel.wrappedNotSuccessCase);
       });
     });

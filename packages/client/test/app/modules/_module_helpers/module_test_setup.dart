@@ -5,7 +5,6 @@ import 'package:modular_test/modular_test.dart';
 import 'package:nokhte/app/app_module.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
-// import '../_helpers/common_mocks.mocks.dart';
 import './module_mock_gen.mocks.dart';
 
 class ModuleTestHelpers {

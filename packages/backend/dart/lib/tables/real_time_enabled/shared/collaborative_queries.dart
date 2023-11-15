@@ -13,24 +13,27 @@ class CollaborativeQueries {
 
   CollaborativeQueries({
     required this.supabase,
-  }) : currentUserUID = supabase.auth.currentUser?.id ?? '';
-
-  Future<void> figureOutActiveCollaboratorInfo() async {
-    collaboratorInfo = await _computeActiveCollaboratorInfo();
+  }) {
+    currentUserUID = supabase.auth.currentUser?.id ?? '';
+    supabase.storage.setAuth(supabase.auth.currentSession?.accessToken ?? '');
   }
 
-  Future<CollaboratorInfo> _computeActiveCollaboratorInfo() async {
+  Future<void> figureOutActiveCollaboratorInfo() async {
+    collaboratorInfo = await computeActiveCollaboratorInfo();
+  }
+
+  Future<CollaboratorInfo> computeActiveCollaboratorInfo() async {
     final res = await fetchActiveCollaboratorsUIDAndNumber();
     return res[1] == 1
         ? CollaboratorInfo(
             theCollaboratorsNumber: 'collaborator_one',
-            theCollaboratorsUID: res[0],
+            theCollaboratorsUID: res.first,
             theUsersCollaboratorNumber: 'collaborator_two',
             theUsersUID: currentUserUID,
           )
         : CollaboratorInfo(
             theCollaboratorsNumber: 'collaborator_two',
-            theCollaboratorsUID: res[0],
+            theCollaboratorsUID: res.first,
             theUsersCollaboratorNumber: 'collaborator_one',
             theUsersUID: currentUserUID,
           );
@@ -46,8 +49,8 @@ class CollaborativeQueries {
 
   Future<List> fetchActiveCollaboratorsUIDAndNumber() async {
     final collabRes = await fetchActiveCollaborationInfo();
-    final collaboratorOne = collabRes[0]["collaborator_one"];
-    final collaboratorTwo = collabRes[0]["collaborator_two"];
+    final collaboratorOne = collabRes.first["collaborator_one"];
+    final collaboratorTwo = collabRes.first["collaborator_two"];
     return collaboratorOne == currentUserUID
         ? [collaboratorTwo, 2]
         : [collaboratorOne, 1];

@@ -9,14 +9,12 @@ class PhraseComponentsQueries {
         .from("phrase_components")
         .select()
         .eq('adjective', queryAdjective);
-    //
   }
 
   static Future<dynamic> checkIfNounExists({
     required SupabaseClient supabase,
     required String queryNoun,
   }) async {
-    //
     return await supabase
         .from("phrase_components")
         .select()

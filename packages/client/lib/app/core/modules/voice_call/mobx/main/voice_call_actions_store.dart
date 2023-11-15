@@ -1,16 +1,13 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
 import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/error/failure.dart';
-// * Equatable Import
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/base_mobx_db_store.dart';
 import 'package:nokhte/app/core/mobx/store_state.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
-// * Mobx Codegen Inclusion
 part 'voice_call_actions_store.g.dart';
 
 class VoiceCallActionsStore = _VoiceCallActionsStoreBase
@@ -44,7 +41,6 @@ abstract class _VoiceCallActionsStoreBase extends BaseMobxDBStore with Store {
     }, (localAudioStreamStatusEntity) {
       isMuted = localAudioStreamStatusEntity.isSent;
     });
-    //
   }
 
   callStateOrErrorUpdater(Either<Failure, CallStatusEntity> result) {

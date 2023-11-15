@@ -13,13 +13,13 @@ mixin _$StartRecordingStore on _StartRecordingStoreBase, Store {
       Atom(name: '_StartRecordingStoreBase.recordingStatus', context: context);
 
   @override
-  RecordingStatus get recordingStatus {
+  SpeechToTextRecordingStatus get recordingStatus {
     _$recordingStatusAtom.reportRead();
     return super.recordingStatus;
   }
 
   @override
-  set recordingStatus(RecordingStatus value) {
+  set recordingStatus(SpeechToTextRecordingStatus value) {
     _$recordingStatusAtom.reportWrite(value, super.recordingStatus, () {
       super.recordingStatus = value;
     });
@@ -29,13 +29,13 @@ mixin _$StartRecordingStore on _StartRecordingStoreBase, Store {
       Atom(name: '_StartRecordingStoreBase.futureStore', context: context);
 
   @override
-  BaseFutureStore<RecordingStatusEntity> get futureStore {
+  BaseFutureStore<SpeechToTextRecordingStatusEntity> get futureStore {
     _$futureStoreAtom.reportRead();
     return super.futureStore;
   }
 
   @override
-  set futureStore(BaseFutureStore<RecordingStatusEntity> value) {
+  set futureStore(BaseFutureStore<SpeechToTextRecordingStatusEntity> value) {
     _$futureStoreAtom.reportWrite(value, super.futureStore, () {
       super.futureStore = value;
     });

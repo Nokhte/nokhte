@@ -20,8 +20,8 @@ class ToTheDepths extends Equatable {
         .tween(
           '1st Water Gradient Color',
           ColorTween(
-            begin: WaterColorsAndStops.oceanDiveWater[0].color,
-            end: WaterColorsAndStops.toTheDepthsWater[0].color,
+            begin: WaterColorsAndStops.oceanDiveWater.first.color,
+            end: WaterColorsAndStops.toTheDepthsWater.first.color,
           ),
         )
         .tween(
@@ -76,8 +76,8 @@ class ToTheDepths extends Equatable {
         .tween(
           '1st Water Gradient Stop',
           Tween<double>(
-            begin: WaterColorsAndStops.oceanDiveWater[0].stop,
-            end: WaterColorsAndStops.toTheDepthsWater[0].stop,
+            begin: WaterColorsAndStops.oceanDiveWater.first.stop,
+            end: WaterColorsAndStops.toTheDepthsWater.first.stop,
           ),
         )
         .tween(

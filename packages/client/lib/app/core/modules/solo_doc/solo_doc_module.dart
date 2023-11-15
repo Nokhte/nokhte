@@ -14,15 +14,12 @@ class SoloDocModule extends Module {
 
   @override
   List<Bind> get binds => [
-        // & Remotes Source
-        // # Solo Doc
         Bind.singleton<SoloDocRemoteSourceImpl>(
           (i) => SoloDocRemoteSourceImpl(
             supabase: Modular.get<SupabaseClient>(),
           ),
           export: true,
         ),
-        // & Contract Implementation
         Bind.singleton<SoloDocContractImpl>(
           (i) => SoloDocContractImpl(
             networkInfo: i<NetworkInfo>(),
@@ -30,7 +27,6 @@ class SoloDocModule extends Module {
           ),
           export: true,
         ),
-        // & Logic
         Bind.singleton<CreateSoloDoc>(
           (i) => CreateSoloDoc(
             contract: i<SoloDocContract>(),
@@ -91,7 +87,6 @@ class SoloDocModule extends Module {
           ),
           export: true,
         ),
-        // & Mobx Logic Stores
         Bind.singleton<CreateSoloDocStore>(
           (i) => CreateSoloDocStore(
             getterStore: i<CreateSoloDocGetterStore>(),
