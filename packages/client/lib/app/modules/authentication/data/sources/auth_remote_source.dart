@@ -1,5 +1,6 @@
 import 'package:nokhte/app/modules/authentication/data/models/models.dart';
 import 'package:nokhte/app/core/interfaces/auth_providers.dart';
+import 'package:nokhte/app/modules/home/data/sources/home_remote_source.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:nokhte/app/core/utilities/misc_algos.dart';
@@ -15,6 +16,7 @@ abstract class AuthenticationRemoteSource {
 
 class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
   final SupabaseClient supabase;
+  late HomeRemoteSourceImpl homeRemoteSource;
 
   AuthenticationRemoteSourceImpl({required this.supabase});
 
@@ -31,6 +33,7 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
 
   @override
   Future<AuthProviderModel> signInWithApple() async {
+    // final authRes = await supabase.auth.signInWithApple();
     final rawNonce = MiscAlgos.generateRandomString();
     final hashedNonce = sha256.convert(utf8.encode(rawNonce)).toString();
 
@@ -41,6 +44,8 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
       ],
       nonce: hashedNonce,
     );
+    final fullName = "${credential.givenName} ${credential.familyName}";
+
     final idToken = credential.identityToken ?? '';
 
     final authRes = await supabase.auth.signInWithIdToken(
@@ -48,7 +53,9 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
       idToken: idToken,
       nonce: rawNonce,
     );
+    homeRemoteSource = HomeRemoteSourceImpl(supabase: supabase);
 
+    await homeRemoteSource.addNamesToDatabase(theName: fullName);
     return AuthProviderModel.fromSupabase(
       AuthProvider.apple,
       authRes,
