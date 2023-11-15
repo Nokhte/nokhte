@@ -90,8 +90,6 @@ run-the-unit-tests:
   script:
     - melos bs
     - cd packages/client
-    - melos bs
-    - cd packages/client
     - touch .env
     - flutter pub get
     - flutter test
@@ -128,8 +126,6 @@ internal-ios-staging:
   script:
     - melos bs
     - cd packages/client
-    - melos bs
-    - cd packages/client
     - echo "PROD_SUPABASE_URL=$STAGING_SUPABASE_URL" >> .env
     - echo "PROD_SUPABASE_ANON_KEY=$STAGING_SUPABASE_ANON_KEY" >> .env
     - chmod u+x ./_scripts/ios/*.sh
@@ -144,9 +140,6 @@ internal-android-staging:
   stage: staging
   tags:
     - shell
-  script: 
-    - melos bs
-    - cd packages/client
   script:
     - melos bs
     - cd packages/client
@@ -167,8 +160,6 @@ external-ios-beta-build:
   script:
     - melos bs
     - cd packages/client
-    - melos bs
-    - cd packages/client
     - echo "PROD_SUPABASE_URL=$PROD_SUPABASE_URL" >> .env
     - echo "PROD_SUPABASE_ANON_KEY=$PROD_SUPABASE_ANON_KEY" >> .env
     - chmod u+x ./_scripts/ios/*.sh
@@ -183,9 +174,6 @@ external-android-beta-build:
   stage: production
   tags:
     - shell
-  script: 
-    - melos bs
-    - cd packages/client
   script:
     - melos bs
     - cd packages/client
