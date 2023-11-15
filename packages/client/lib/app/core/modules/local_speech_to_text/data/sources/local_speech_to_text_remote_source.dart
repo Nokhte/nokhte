@@ -8,8 +8,6 @@ import 'package:leopard_flutter/leopard_transcript.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/constants/constants.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/domain/domain.dart';
 import 'package:nokhte/app/core/utilities/utilities.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:record/record.dart';
 
 abstract class LocalSpeechToTextRemoteSource {
   Future<bool> initLeopard();
@@ -21,7 +19,6 @@ abstract class LocalSpeechToTextRemoteSource {
 class LocalSpeechToTextRemoteSourceImpl
     implements LocalSpeechToTextRemoteSource {
   final OnAudioRecorded onAudioRecorded;
-  final record = AudioRecorder();
 
   LocalSpeechToTextRemoteSourceImpl({
     required this.onAudioRecorded,
@@ -56,21 +53,14 @@ class LocalSpeechToTextRemoteSourceImpl
 
   @override
   Future<List<LeopardWord>> stopRecording() async {
-    // File recordedFile = await micRecorder.stopRecord();
-    final path = await record.stop();
-    File recordedFile = File(path as String);
+    File recordedFile = await micRecorder.stopRecord();
     return await processAudio(recordedFile);
   }
 
   @override
   Future<SpeechToTextRecordingStatus> startRecording() async {
     try {
-      // await micRecorder.startRecord();
-      final path = "${(await getTemporaryDirectory()).path}/recording.wav";
-      await record.start(
-        const RecordConfig(encoder: AudioEncoder.wav),
-        path: path,
-      );
+      await micRecorder.startRecord();
       return SpeechToTextRecordingStatus.started;
     } on LeopardException catch (ex) {
       onAudioRecorded(Left(ex));
