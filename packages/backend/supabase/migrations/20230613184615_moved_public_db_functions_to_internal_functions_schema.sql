@@ -77,7 +77,7 @@ drop function if exists "public"."only_receiver_can_update_request"();
 
 drop function if exists "public"."p2p_requests_cant_have_same_sender_and_receiver_id"();
 
-CREATE TRIGGER enforce_unique_p2p_requests_trigger BEFORE INSERT ON public.p2p_requests FOR EACH ROW EXECUTE FUNCTION internal_functions.enforce_unique_p2p_requests();
+-- CREATE TRIGGER enforce_unique_p2p_requests_trigger BEFORE INSERT ON public.p2p_requests FOR EACH ROW EXECUTE FUNCTION internal_functions.enforce_unique_p2p_requests();
 
 CREATE TRIGGER only_receiver_can_update_request_trigger BEFORE UPDATE ON public.p2p_requests FOR EACH ROW EXECUTE FUNCTION internal_functions.only_receiver_can_update_request();
 
