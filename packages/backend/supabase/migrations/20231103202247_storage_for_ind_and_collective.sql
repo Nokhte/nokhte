@@ -1,6 +1,6 @@
-alter table "storage"."objects" add constraint "objects_owner_fkey" FOREIGN KEY (owner) REFERENCES auth.users(id) not valid;
+-- alter table "storage"."objects" add constraint "objects_owner_fkey" FOREIGN KEY (owner) REFERENCES auth.users(id) not valid;
 
-alter table "storage"."objects" validate constraint "objects_owner_fkey";
+-- alter table "storage"."objects" validate constraint "objects_owner_fkey";
 
 create policy "allows insert root folder that follow name-convens ojhj66_0"
 on "storage"."objects"
