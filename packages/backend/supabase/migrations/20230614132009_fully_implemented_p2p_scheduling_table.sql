@@ -143,11 +143,11 @@ END;$function$
 ;
 
 
-drop trigger if exists "enforce_unique_p2p_requests_trigger" on "public"."p2p_requests";
+-- drop trigger if exists "enforce_unique_p2p_requests_trigger" on "public"."p2p_requests";
 
-drop trigger if exists "only_receiver_can_update_request_trigger" on "public"."p2p_requests";
+-- drop trigger if exists "only_receiver_can_update_request_trigger" on "public"."p2p_requests";
 
-drop trigger if exists "p2p_requests_cant_have_same_sender_and_receiver_id_trigger" on "public"."p2p_requests";
+-- drop trigger if exists "p2p_requests_cant_have_same_sender_and_receiver_id_trigger" on "public"."p2p_requests";
 
 create table "public"."p2p_scheduling" (
     "scheduling_id" uuid not null default gen_random_uuid(),
