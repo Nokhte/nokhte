@@ -13,14 +13,14 @@ class GetCollaboratorPhraseGetterStore = _GetCollaboratorPhraseGetterStoreBase
 
 abstract class _GetCollaboratorPhraseGetterStoreBase extends Equatable
     with Store {
-  final GetCollaboratorPhrase getCollaboratorPhraseLogic;
+  final GetCollaboratorPhrase logic;
 
   _GetCollaboratorPhraseGetterStoreBase({
-    required this.getCollaboratorPhraseLogic,
+    required this.logic,
   });
 
   Future<Either<Failure, CollaboratorPhraseEntity>> call() async =>
-      await getCollaboratorPhraseLogic(NoParams());
+      await logic(NoParams());
 
   @override
   List<Object> get props => [];

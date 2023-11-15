@@ -13,5 +13,5 @@ class AddNameToDatabase
   @override
   Future<Either<Failure, NameCreationStatusEntity>> call(
           NoParams params) async =>
-      await contract.addNameToDatabase();
+      await contract.addNameToDatabase(params);
 }

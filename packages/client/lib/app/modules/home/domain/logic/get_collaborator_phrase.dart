@@ -13,5 +13,5 @@ class GetCollaboratorPhrase
   @override
   Future<Either<Failure, CollaboratorPhraseEntity>> call(
           NoParams params) async =>
-      await contract.getCollaboratorPhrase();
+      await contract.getCollaboratorPhrase(params);
 }

@@ -4,7 +4,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/get_current_perspectives/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -19,10 +18,10 @@ class HomeScreenCoordinatorStore = _HomeScreenCoordinatorStoreBase
     with _$HomeScreenCoordinatorStore;
 
 abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
-  final GetCurrentPerspectivesStore getCurrentPerspectives;
   final PortalAPI portalAPI;
   final SwipeDetector swipe;
   final HoldDetector hold;
+  final GetExistingCollaborationsInfoStore getExistingCollaborationInfo;
   final GesturePillStore gesturePillStore;
   final BeachWavesTrackerStore beachWaves;
   final AddNameToDatabaseStore addNameToDatabaseStore;
@@ -30,8 +29,8 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
   final GetCollaboratorPhraseStore getCollaboratorPhraseStore;
 
   _HomeScreenCoordinatorStoreBase({
+    required this.getExistingCollaborationInfo,
     required this.swipe,
-    required this.getCurrentPerspectives,
     required this.hold,
     required this.portalAPI,
     required this.gesturePillStore,
@@ -60,7 +59,6 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
 
     Future.delayed(Seconds.get(1), () async {
       await addNameToDatabaseStore(NoParams());
-      await getCurrentPerspectives(NoParams());
       await getCollaboratorPhraseStore(NoParams()).then((_) {
         fadingTextStateTrackerStore.setMainMessage(
           index: 2,
@@ -70,16 +68,16 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
     });
     gestureListener();
     holdListener();
-    if (getCurrentPerspectives.currentPerspectives.isNotEmpty) {
-      hasMadePerspectives = true;
-    }
+    await getExistingCollaborationInfo(NoParams());
     await portalAPI.setupTheStream();
     portalAPIListener();
   }
 
   @action
   portalAPIListener() => reaction((p0) => portalAPI.drawingMode, (p0) {
-        if (p0 == DrawingStatus.hasDrawn && hasMadePerspectives) {
+        if (p0 == DrawingStatus.hasDrawn &&
+            getExistingCollaborationInfo.hasDonePerspectives &&
+            getExistingCollaborationInfo.hasACollaboration) {
           fadeTheTextOutAndWaterComesDown(PlacesYouCanGo.individualSession);
         }
       });
@@ -105,10 +103,13 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
   gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.up:
-            final thePlaceTheyAreGoing = hasMadePerspectives
-                ? PlacesYouCanGo.collectiveSession
-                : PlacesYouCanGo.perspectivesSession;
-            fadeTheTextOutAndWaterComesDown(thePlaceTheyAreGoing);
+            if (getExistingCollaborationInfo.hasACollaboration) {
+              final thePlaceTheyAreGoing =
+                  getExistingCollaborationInfo.hasDonePerspectives
+                      ? PlacesYouCanGo.collectiveSession
+                      : PlacesYouCanGo.perspectivesSession;
+              fadeTheTextOutAndWaterComesDown(thePlaceTheyAreGoing);
+            }
           default:
             break;
         }
