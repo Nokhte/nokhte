@@ -30,13 +30,13 @@ drop trigger if exists "new_scheduling_request_validator" on "public"."p2p_sched
 
 drop trigger if exists "p2p_scheduling_update_validation" on "public"."p2p_scheduling";
 
-drop policy "CREATE: Only Authenticated Users Can Insert" on "public"."p2p_requests";
+-- drop policy "CREATE: Only Authenticated Users Can Insert" on "public"."p2p_requests";
 
-drop policy "READ: Can Only Read Requests They've Authored" on "public"."p2p_requests";
+-- drop policy "READ: Can Only Read Requests They've Authored" on "public"."p2p_requests";
 
-drop policy "READ: Can Only Read Requests They've Received" on "public"."p2p_requests";
+-- drop policy "READ: Can Only Read Requests They've Received" on "public"."p2p_requests";
 
-drop policy "UPDATE: Receiver can only update the row" on "public"."p2p_requests";
+-- drop policy "UPDATE: Receiver can only update the row" on "public"."p2p_requests";
 
 drop policy "CREATE: Only Authenticated Users Can Insert" on "public"."p2p_scheduling";
 
