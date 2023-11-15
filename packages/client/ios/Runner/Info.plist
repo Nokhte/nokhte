@@ -40,7 +40,7 @@
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Location is needed for directional schedule setting and perspectives mode.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Location needed for directional schedule setting</string>
+	<string>Location is needed for directional schedule setting</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>For Voice Calls &amp; Speech Recognition.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
@@ -50,6 +50,10 @@
 		<string>fetch</string>
 		<string>remote-notification</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Access camera</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Library</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -71,7 +75,7 @@
 	<key>NSCalendarsUsageDescription</key>
 	<string>To Set Collaboration Times In Calendar App</string>
 	<key>NSContactsUsageDescription</key>
-	<string>For Smooth Running Of The App</string>
+	<string>The reason for access to contacts is calendar configuration</string>
 	 <key>LSSupportsOpeningDocumentsInPlace</key>
     <true/>
     <key>UIFileSharingEnabled</key>
