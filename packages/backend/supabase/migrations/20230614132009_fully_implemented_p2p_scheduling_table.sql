@@ -233,13 +233,13 @@ to authenticated
 using (true);
 
 
-CREATE TRIGGER cant_have_same_sender_and_receiver_id_p2p_requests BEFORE INSERT ON public.p2p_requests FOR EACH ROW EXECUTE FUNCTION internal_functions.cant_have_same_sender_and_receiver_id();
+-- CREATE TRIGGER cant_have_same_sender_and_receiver_id_p2p_requests BEFORE INSERT ON public.p2p_requests FOR EACH ROW EXECUTE FUNCTION internal_functions.cant_have_same_sender_and_receiver_id();
 
-CREATE TRIGGER cant_impersonate_requests BEFORE INSERT ON public.p2p_requests FOR EACH ROW EXECUTE FUNCTION internal_functions.cant_impersonate_requests();
+-- CREATE TRIGGER cant_impersonate_requests BEFORE INSERT ON public.p2p_requests FOR EACH ROW EXECUTE FUNCTION internal_functions.cant_impersonate_requests();
 
-CREATE TRIGGER enforce_unique_p2p_requests BEFORE INSERT ON public.p2p_requests FOR EACH ROW EXECUTE FUNCTION internal_functions.enforce_unique_p2p_requests();
+-- CREATE TRIGGER enforce_unique_p2p_requests BEFORE INSERT ON public.p2p_requests FOR EACH ROW EXECUTE FUNCTION internal_functions.enforce_unique_p2p_requests();
 
-CREATE TRIGGER only_receiver_can_update_request BEFORE UPDATE ON public.p2p_requests FOR EACH ROW EXECUTE FUNCTION internal_functions.only_receiver_can_update_request();
+-- CREATE TRIGGER only_receiver_can_update_request BEFORE UPDATE ON public.p2p_requests FOR EACH ROW EXECUTE FUNCTION internal_functions.only_receiver_can_update_request();
 
 CREATE TRIGGER cant_have_same_sender_and_receiver_id_p2p_scheduling BEFORE INSERT ON public.p2p_scheduling FOR EACH ROW EXECUTE FUNCTION internal_functions.cant_have_same_sender_and_receiver_id();
 
