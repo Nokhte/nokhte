@@ -12,12 +12,12 @@ class AddNameToDatabaseGetterStore = _AddNameToDatabaseGetterStoreBase
     with _$AddNameToDatabaseGetterStore;
 
 abstract class _AddNameToDatabaseGetterStoreBase extends Equatable with Store {
-  final AddNameToDatabase addNameLogic;
+  final AddNameToDatabase logic;
 
-  _AddNameToDatabaseGetterStoreBase({required this.addNameLogic});
+  _AddNameToDatabaseGetterStoreBase({required this.logic});
 
   Future<Either<Failure, NameCreationStatusEntity>> call() async =>
-      await addNameLogic(NoParams());
+      await logic(NoParams());
 
   @override
   List<Object> get props => [];

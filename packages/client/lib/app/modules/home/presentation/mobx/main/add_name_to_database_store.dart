@@ -16,9 +16,9 @@ class AddNameToDatabaseStore = _AddNameToDatabaseStoreBase
 
 abstract class _AddNameToDatabaseStoreBase
     extends BaseMobxDBStore<NoParams, NameCreationStatusEntity> with Store {
-  final AddNameToDatabaseGetterStore addNameGetterStore;
+  final AddNameToDatabaseGetterStore getterStore;
 
-  _AddNameToDatabaseStoreBase({required this.addNameGetterStore});
+  _AddNameToDatabaseStoreBase({required this.getterStore});
 
   NameCreationStatusEntity nameCreationStatus = const NameCreationStatusEntity(
     isSent: false,
@@ -50,7 +50,7 @@ abstract class _AddNameToDatabaseStoreBase
   Future<void> call(NoParams params) async {
     state = StoreState.loading;
     futureStore.entityOrFailureFuture = ObservableFuture(
-      addNameGetterStore(),
+      getterStore(),
     );
     futureStore.unwrappedEntityOrFailure =
         await futureStore.entityOrFailureFuture;

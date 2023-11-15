@@ -42,10 +42,10 @@
         //     "name": "🟩 supabase",
         //     "path": "../packages/backend/supabase",
         // },
-        {
-            "name": "🟫 client ios",
-            "path": "../packages/client/ios"
-        },
+        // {
+        //     "name": "🟫 client ios",
+        //     "path": "../packages/client/ios"
+        // },
         // {
         //     "name": "🟥 client android",
         //     "path": "../packages/client/android"

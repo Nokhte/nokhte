@@ -204,4 +204,11 @@ class DefaultEntities {
       get invidualMetadataAdditionToCollectiveSessionStatusEntity =>
           const Right(InvidualMetadataAdditionToCollectiveSessionStatusEntity(
               isAdded: true));
+  static Either<Failure, ExistingCollaborationsInfoEntity>
+      get existingCollaborationsInfoEntity => const Right(
+            ExistingCollaborationsInfoEntity(
+              hasACollaboration: false,
+              hasDoneThePerspectivesSession: false,
+            ),
+          );
 }

@@ -15,7 +15,7 @@ void main() {
   setUp(() {
     mockGetterStore = MockMGetCollaboratorPhraseGetterStore();
     getCollaboratorPhraseStore = GetCollaboratorPhraseStore(
-      getCollaboratorPhraseGetterStore: mockGetterStore,
+      getterStore: mockGetterStore,
     );
   });
 

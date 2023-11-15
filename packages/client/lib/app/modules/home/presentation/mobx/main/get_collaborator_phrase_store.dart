@@ -14,10 +14,10 @@ class GetCollaboratorPhraseStore = _GetCollaboratorPhraseStoreBase
 
 abstract class _GetCollaboratorPhraseStoreBase
     extends BaseMobxDBStore<NoParams, CollaboratorPhraseEntity> with Store {
-  final GetCollaboratorPhraseGetterStore getCollaboratorPhraseGetterStore;
+  final GetCollaboratorPhraseGetterStore getterStore;
 
   _GetCollaboratorPhraseStoreBase({
-    required this.getCollaboratorPhraseGetterStore,
+    required this.getterStore,
   });
 
   CollaboratorPhraseEntity collaboratorPhraseEntity =
@@ -52,8 +52,7 @@ abstract class _GetCollaboratorPhraseStoreBase
   @action
   Future<void> call(NoParams params) async {
     state = StoreState.loading;
-    futureStore.entityOrFailureFuture =
-        ObservableFuture(getCollaboratorPhraseGetterStore());
+    futureStore.entityOrFailureFuture = ObservableFuture(getterStore());
     futureStore.unwrappedEntityOrFailure =
         await futureStore.entityOrFailureFuture;
     state = StoreState.loaded;

@@ -11,19 +11,16 @@ void main() async {
   await dotenv.load();
 
   late String supabaseUrl;
-  final String supabaseAnonKey;
+  late String supabaseAnonKey;
   if (kDebugMode) {
-    /// # Local Supabase Stack
-    supabaseUrl = dotenv.env["DEV_SUPABASE_URL"] ?? '';
-    supabaseAnonKey = dotenv.env["DEV_SUPABASE_ANON_KEY"] ?? '';
+    // supabaseUrl = dotenv.env["DEV_SUPABASE_URL"] ?? '';
+    // supabaseAnonKey = dotenv.env["DEV_SUPABASE_ANON_KEY"] ?? '';
 
-    /// # PRODUCTION Supabase Stack
     // supabaseUrl = dotenv.env["PROD_SUPABASE_URL"] ?? '';
     // supabaseAnonKey = dotenv.env["PROD_SUPABASE_ANON_KEY"] ?? '';
 
-    /// # STAGING Supabase Stack
-    // supabaseUrl = dotenv.env["STAGING_SUPABASE_URL"] ?? '';
-    // supabaseAnonKey = dotenv.env["STAGING_SUPABASE_ANON_KEY"] ?? '';
+    supabaseUrl = dotenv.env["STAGING_SUPABASE_URL"] ?? '';
+    supabaseAnonKey = dotenv.env["STAGING_SUPABASE_ANON_KEY"] ?? '';
   } else {
     supabaseUrl = dotenv.env["PROD_SUPABASE_URL"] ?? '';
     supabaseAnonKey = dotenv.env["PROD_SUPABASE_ANON_KEY"] ?? '';

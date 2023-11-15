@@ -18,26 +18,26 @@ void main() {
   });
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
-    when(mockContract.addNameToDatabase()).thenAnswer(
+    when(mockContract.addNameToDatabase(NoParams())).thenAnswer(
       (_) async => ConstantNameCreationStatusEntities.wrappedSuccessCase,
     );
 
     final result = await logic(NoParams());
 
     expect(result, ConstantNameCreationStatusEntities.wrappedSuccessCase);
-    verify(mockContract.addNameToDatabase());
+    verify(mockContract.addNameToDatabase(NoParams()));
     verifyNoMoreInteractions(mockContract);
   });
 
   test("✅ should pass A Failure from Contract ==> Logic", () async {
-    when(mockContract.addNameToDatabase()).thenAnswer(
+    when(mockContract.addNameToDatabase(NoParams())).thenAnswer(
       (_) async => Left(FailureConstants.dbFailure),
     );
 
     final result = await logic(NoParams());
 
     expect(result, Left(FailureConstants.dbFailure));
-    verify(mockContract.addNameToDatabase());
+    verify(mockContract.addNameToDatabase(NoParams()));
     verifyNoMoreInteractions(mockContract);
   });
 }

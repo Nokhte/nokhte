@@ -18,26 +18,26 @@ void main() {
   });
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
-    when(mockContract.getCollaboratorPhrase()).thenAnswer(
+    when(mockContract.getCollaboratorPhrase(NoParams())).thenAnswer(
       (_) async => ConstantCollaboratorPhraseEntities.wrappedSuccessCase,
     );
 
     final result = await logic(NoParams());
 
     expect(result, ConstantCollaboratorPhraseEntities.wrappedSuccessCase);
-    verify(mockContract.getCollaboratorPhrase());
+    verify(mockContract.getCollaboratorPhrase(NoParams()));
     verifyNoMoreInteractions(mockContract);
   });
 
   test("✅ should pass A Failure from Contract ==> Logic", () async {
-    when(mockContract.getCollaboratorPhrase()).thenAnswer(
+    when(mockContract.getCollaboratorPhrase(NoParams())).thenAnswer(
       (_) async => Left(FailureConstants.dbFailure),
     );
 
     final result = await logic(NoParams());
 
     expect(result, Left(FailureConstants.dbFailure));
-    verify(mockContract.getCollaboratorPhrase());
+    verify(mockContract.getCollaboratorPhrase(NoParams()));
     verifyNoMoreInteractions(mockContract);
   });
 }

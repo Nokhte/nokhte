@@ -120,6 +120,24 @@ mixin _$P2PPurposePhase6CoordinatorStore
     });
   }
 
+  late final _$currentlySelectedDateAtom = Atom(
+      name: '_P2PPurposePhase6CoordinatorStoreBase.currentlySelectedDate',
+      context: context);
+
+  @override
+  DateTime get currentlySelectedDate {
+    _$currentlySelectedDateAtom.reportRead();
+    return super.currentlySelectedDate;
+  }
+
+  @override
+  set currentlySelectedDate(DateTime value) {
+    _$currentlySelectedDateAtom.reportWrite(value, super.currentlySelectedDate,
+        () {
+      super.currentlySelectedDate = value;
+    });
+  }
+
   late final _$updateTheBackendAsyncAction = AsyncAction(
       '_P2PPurposePhase6CoordinatorStoreBase.updateTheBackend',
       context: context);
@@ -276,6 +294,7 @@ startingQuadrant: ${startingQuadrant},
 confirmingMatch: ${confirmingMatch},
 newDateOrTime: ${newDateOrTime},
 now: ${now},
+currentlySelectedDate: ${currentlySelectedDate},
 previousValueIsNotSet: ${previousValueIsNotSet}
     ''';
   }

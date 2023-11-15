@@ -15,7 +15,7 @@ void main() {
   setUp(() {
     mockGetterStore = MockMAddNameToDatabaseGetterStore();
     addNameToDatabaseStore = AddNameToDatabaseStore(
-      addNameGetterStore: mockGetterStore,
+      getterStore: mockGetterStore,
     );
   });
 

@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/modules/home/data/contracts/home_contract_impl.dart';
 import '../../constants/models/models.dart';
 import '../../constants/data/data.dart';
@@ -31,13 +32,13 @@ void main() {
       test("when online and non-empty should return a model", () async {
         when(mockRemoteSource.addNamesToDatabase())
             .thenAnswer((realInvocation) async => [{}]);
-        final res = await homeContract.addNameToDatabase();
+        final res = await homeContract.addNameToDatabase(NoParams());
         expect(res, ConstantNameCreationStatusModels.wrappedSuccessCase);
       });
       test("when online and empty should return a model", () async {
         when(mockRemoteSource.addNamesToDatabase())
             .thenAnswer((realInvocation) async => []);
-        final res = await homeContract.addNameToDatabase();
+        final res = await homeContract.addNameToDatabase(NoParams());
         expect(res, ConstantNameCreationStatusModels.wrappedNotSuccessCase);
       });
     });
@@ -47,7 +48,7 @@ void main() {
       });
 
       test("When offline should return an internet connection error", () async {
-        final res = await homeContract.addNameToDatabase();
+        final res = await homeContract.addNameToDatabase(NoParams());
         expect(res, Left(FailureConstants.internetConnectionFailure));
       });
     });
@@ -61,7 +62,7 @@ void main() {
       test("when online and non-empty should return a model", () async {
         when(mockRemoteSource.getCollaboratorPhrase())
             .thenAnswer((realInvocation) async => SampleSupabaseRes.res);
-        final res = await homeContract.getCollaboratorPhrase();
+        final res = await homeContract.getCollaboratorPhrase(NoParams());
         expect(res, ConstantCollaboratorPhraseModels.wrappedSuccessCase);
       });
     });
@@ -71,7 +72,7 @@ void main() {
       });
 
       test("When offline should return an internet connection error", () async {
-        final res = await homeContract.getCollaboratorPhrase();
+        final res = await homeContract.getCollaboratorPhrase(NoParams());
         expect(res, Left(FailureConstants.internetConnectionFailure));
       });
     });
