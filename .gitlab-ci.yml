@@ -126,6 +126,8 @@ internal-ios-staging:
   script:
     - melos bs
     - cd packages/client
+    - echo "LEOPARD_MODEL_PATH=assets/leopard_model.pv" >> .env
+    - echo "LEOPARD_ACCESS_KEY=$LEOPARD_ACCESS_KEY" >> .env
     - echo "PROD_SUPABASE_URL=$STAGING_SUPABASE_URL" >> .env
     - echo "PROD_SUPABASE_ANON_KEY=$STAGING_SUPABASE_ANON_KEY" >> .env
     - chmod u+x ./_scripts/ios/*.sh
@@ -143,6 +145,8 @@ internal-android-staging:
   script:
     - melos bs
     - cd packages/client
+    - echo "LEOPARD_MODEL_PATH=assets/leopard_model.pv" >> .env
+    - echo "LEOPARD_ACCESS_KEY=$LEOPARD_ACCESS_KEY" >> .env
     - echo "PROD_SUPABASE_URL=$STAGING_SUPABASE_URL" >> .env
     - echo "PROD_SUPABASE_ANON_KEY=$STAGING_SUPABASE_ANON_KEY" >> .env
     - chmod u+x ./_scripts/android/*.sh
@@ -160,6 +164,8 @@ external-ios-beta-build:
   script:
     - melos bs
     - cd packages/client
+    - echo "LEOPARD_MODEL_PATH=assets/leopard_model.pv" >> .env
+    - echo "LEOPARD_ACCESS_KEY=$LEOPARD_ACCESS_KEY" >> .env
     - echo "PROD_SUPABASE_URL=$PROD_SUPABASE_URL" >> .env
     - echo "PROD_SUPABASE_ANON_KEY=$PROD_SUPABASE_ANON_KEY" >> .env
     - chmod u+x ./_scripts/ios/*.sh
@@ -177,6 +183,8 @@ external-android-beta-build:
   script:
     - melos bs
     - cd packages/client
+    - echo "LEOPARD_MODEL_PATH=assets/leopard_model.pv" >> .env
+    - echo "LEOPARD_ACCESS_KEY=$LEOPARD_ACCESS_KEY" >> .env
     - echo "PROD_SUPABASE_URL=$PROD_SUPABASE_URL" >> .env
     - echo "PROD_SUPABASE_ANON_KEY=$PROD_SUPABASE_ANON_KEY" >> .env
     - chmod u+x ./_scripts/android/*.sh
