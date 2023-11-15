@@ -23,6 +23,7 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   final WidgetCoordinatorStore widgetStore;
   final LocalSpeechToTextCoordinatorStore localSpeechToText;
   final SwipeDetector swipe;
+  final HoldDetector hold;
   final OnSpeechResultStore onSpeechResultStore;
   final ValidateQueryStore validateQueryStore;
   final EnterCollaboratorPoolStore enterCollaboratorPoolStore;
@@ -32,6 +33,7 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
 
   _SpeakTheCollaboratorPhraseCoordinatorStoreBase({
     required this.swipe,
+    required this.hold,
     required this.widgetStore,
     required this.localSpeechToText,
     required this.onSpeechResultStore,
@@ -45,7 +47,7 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   screenConstructor() async {
     meshCircleStore.widgetConstructor();
     beachWaves.initiateSuspendedAtSea();
-    localSpeechToText.initLeopardStore(NoParams());
+    await localSpeechToText.initLeopardStore(NoParams());
     if (await Permission.microphone.isDenied) {
       await Permission.microphone.request();
     }
@@ -57,6 +59,8 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
     queryContentValidationListener();
     speechToTextListener();
     beachWavesMovieStatusListener();
+    holdListener();
+    holdLetGoListener();
   }
 
   beachWavesMovieStatusListener() =>
@@ -131,6 +135,16 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
             break;
         }
       });
+
+  holdListener() => reaction(
+        (p0) => hold.holdCount,
+        (p0) => audioButtonHoldStartCallback(),
+      );
+
+  holdLetGoListener() => reaction(
+        (p0) => hold.letGoCount,
+        (p0) => audioButtonHoldEndCallback(),
+      );
 
   @observable
   bool isReadyToEnterPool = false;

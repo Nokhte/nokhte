@@ -52,12 +52,14 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                     Expanded(
                       child: Container(),
                     ),
-                    GestureDetector(
-                      onLongPressStart: (_) =>
-                          coordinatorStore.audioButtonHoldStartCallback(),
-                      onLongPressEnd: (_) {
-                        coordinatorStore.audioButtonHoldEndCallback();
-                      },
+                    // GestureDetector(
+                    //   onLongPressStart: (_) =>
+                    //       coordinatorStore.audioButtonHoldStartCallback(),
+                    //   onLongPressEnd: (_) {
+                    //     coordinatorStore.audioButtonHoldEndCallback();
+                    //   },
+                    Hold(
+                      trackerStore: coordinatorStore.hold,
                       child: MeshCircleButton(
                         trackerStore: coordinatorStore.meshCircleStore,
                         size: size,

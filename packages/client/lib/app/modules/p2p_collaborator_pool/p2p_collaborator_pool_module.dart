@@ -3,6 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/local_speech_to_text_module.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/mobx/mobx.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
+import 'package:nokhte/app/core/widgets/module.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/presentation/presentation.dart';
@@ -15,6 +16,7 @@ class P2PCollaboratorPoolModule extends Module {
   @override
   List<Module> get imports => [
         LocalSpeechToTextModule(),
+        GesturesModule(),
       ];
 
   @override
@@ -109,9 +111,6 @@ class P2PCollaboratorPoolModule extends Module {
             getterStore: i<CancelCollaboratorStreamGetterStore>(),
           ),
         ),
-        Bind.factory<SwipeDetector>(
-          (i) => SwipeDetector(),
-        ),
         Bind.factory<SmartFadingAnimatedTextTrackerStore>(
           (i) => SmartFadingAnimatedTextTrackerStore(
             isInfinite: false,
@@ -145,7 +144,8 @@ class P2PCollaboratorPoolModule extends Module {
         ),
         Bind.singleton<SpeakTheCollaboratorPhraseCoordinatorStore>(
           (i) => SpeakTheCollaboratorPhraseCoordinatorStore(
-            swipe: i<SwipeDetector>(),
+            hold: Modular.get<HoldDetector>(),
+            swipe: Modular.get<SwipeDetector>(),
             enterCollaboratorPoolStore: i<EnterCollaboratorPoolStore>(),
             validateQueryStore: i<ValidateQueryStore>(),
             onSpeechResultStore: i<OnSpeechResultStore>(),
