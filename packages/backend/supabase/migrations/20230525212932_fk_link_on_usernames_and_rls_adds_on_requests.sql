@@ -1,8 +1,8 @@
 alter table "public"."p2p_requests"
 alter column "accepted_at" drop not null;
-alter table "public"."usernames"
-add constraint "usernames_uid_fkey" FOREIGN KEY (uid) REFERENCES auth.users(id) not valid;
-alter table "public"."usernames" validate constraint "usernames_uid_fkey";
+-- alter table "public"."usernames"
+-- add constraint "usernames_uid_fkey" FOREIGN KEY (uid) REFERENCES auth.users(id) not valid;
+-- alter table "public"."usernames" validate constraint "usernames_uid_fkey";
 create policy "CREATE: Disallow duplicate requests" on "public"."p2p_requests" as permissive for
 insert to authenticated with check (
         (

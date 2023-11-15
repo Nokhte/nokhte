@@ -1,20 +1,20 @@
-drop trigger if exists "cant_impersonate_username_creation" on "public"."usernames";
+-- drop trigger if exists "cant_impersonate_username_creation" on "public"."usernames";
 
-drop policy "Enable insert for users who don't have a row already" on "public"."usernames";
+-- drop policy "Enable insert for users who don't have a row already" on "public"."usernames";
 
-drop policy "Enable select for authenticated users only" on "public"."usernames";
+-- drop policy "Enable select for authenticated users only" on "public"."usernames";
 
-alter table "public"."usernames" drop constraint "usernames_uid_fkey";
+-- alter table "public"."usernames" drop constraint "usernames_uid_fkey";
 
-alter table "public"."usernames" drop constraint "usernames_uid_key";
+-- alter table "public"."usernames" drop constraint "usernames_uid_key";
 
-alter table "public"."usernames" drop constraint "usernames_username_key";
+-- alter table "public"."usernames" drop constraint "usernames_username_key";
 
 alter table "public"."p2p_requests" drop constraint "p2p_requests_receiver_id_fkey";
 
 alter table "public"."p2p_requests" drop constraint "p2p_requests_sender_id_fkey";
 
-alter table "public"."usernames" drop constraint "usernames_pkey";
+-- alter table "public"."usernames" drop constraint "usernames_pkey";
 
 drop index if exists "public"."usernames_username_key";
 
@@ -22,7 +22,7 @@ drop index if exists "public"."usernames_pkey";
 
 drop index if exists "public"."usernames_uid_key";
 
-drop table "public"."usernames";
+-- drop table "public"."usernames";
 
 create table "public"."user_names" (
     "uid" uuid not null,
