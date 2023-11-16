@@ -50,6 +50,7 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
       const Color(0xFF41D2F8),
       const Color(0xFF69E9BC),
     ]));
+    gestureListener();
     beachWaves.initiateSuspendedAtTheDepths();
     await instantiateAgoraSdkStore(NoParams());
     await fetchChannelIdStore(NoParams());
@@ -58,7 +59,6 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
         channelName: fetchChannelIdStore.channelId,
       ),
     );
-    gestureListener();
   }
 
   gestureListener() => reaction((p0) => swipe.directionsType, (p0) async {

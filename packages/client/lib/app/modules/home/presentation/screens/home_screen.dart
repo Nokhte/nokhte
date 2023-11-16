@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -24,7 +23,8 @@ class HomeScreen extends StatelessWidget {
     return Builder(builder: (context) {
       return LayoutBuilder(
         builder: (context, constraints) {
-          return PlatformScaffold(
+          return Scaffold(
+            resizeToAvoidBottomInset: false,
             body: Hold(
               trackerStore: coordinator.hold,
               child: Swipe(

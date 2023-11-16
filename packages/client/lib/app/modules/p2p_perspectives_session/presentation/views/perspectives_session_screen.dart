@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -23,14 +22,15 @@ class PerspectivesSessionScreen extends StatelessWidget {
     );
     return Observer(
       builder: (context) => LayoutBuilder(
-        builder: (contexts, constraints) => PlatformScaffold(
+        builder: (contexts, constraints) => Scaffold(
+          resizeToAvoidBottomInset: false,
           body: Swipe(
             trackerStore: coordinator.swipe,
             child: Stack(
               children: [
                 SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
+                  width: constraints.widthConstraints().maxHeight,
+                  height: constraints.heightConstraints().maxWidth,
                   child: BeachSky(
                     stateTrackerStore: coordinator.widgets.beachSky,
                   ),
@@ -38,8 +38,8 @@ class PerspectivesSessionScreen extends StatelessWidget {
                 Opacity(
                   opacity: coordinator.widgets.beachWavesVisibility ? 0 : 1,
                   child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
+                    width: constraints.widthConstraints().maxHeight,
+                    height: constraints.heightConstraints().maxWidth,
                     child: BeachHorizonWater(
                       size: MediaQuery.of(context).size,
                       stateTrackerStore: coordinator.widgets.beachHorizonWater,
@@ -64,8 +64,8 @@ class PerspectivesSessionScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
+                  width: constraints.widthConstraints().maxHeight,
+                  height: constraints.heightConstraints().maxWidth,
                   child: SmartBeachWaves(
                     stateTrackerStore: coordinator.widgets.beachWaves,
                   ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:nokhte/app/core/canvas_widget_utils/canvas_size_calculator.dart';
 import 'package:nokhte/app/core/types/seconds.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -23,15 +22,16 @@ class CollectiveSession2CommitScreen extends StatelessWidget {
     );
     return Observer(
       builder: (context) => LayoutBuilder(
-        builder: (contexts, constraints) => PlatformScaffold(
+        builder: (contexts, constraints) => Scaffold(
+          resizeToAvoidBottomInset: false,
           body: Swipe(
             trackerStore: coordinator.swipe,
             child: Stack(
               // this also needs the
               children: [
                 SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
+                  width: constraints.widthConstraints().maxHeight,
+                  height: constraints.heightConstraints().maxWidth,
                   child: SmartBeachWaves(
                     stateTrackerStore: coordinator.widgets.beachWaves,
                   ),

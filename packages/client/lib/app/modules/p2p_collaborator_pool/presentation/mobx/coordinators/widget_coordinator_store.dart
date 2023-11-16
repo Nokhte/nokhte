@@ -28,6 +28,7 @@ abstract class _WidgetCoordinatorStoreBase extends Equatable with Store {
         beachWavesStore.movieMode == BeachWaveMovieModes.suspendedAtSea) {
       beachWavesStore.initiateBackToShore();
       smartFadingAnimatedTextStore.fadeTheTextOut();
+      meshCircleButtonStore.toggleWidgetVisibility();
     }
   }
 
@@ -37,6 +38,7 @@ abstract class _WidgetCoordinatorStoreBase extends Equatable with Store {
         beachWavesStore.movieMode == BeachWaveMovieModes.suspendedAtSea) {
       beachWavesStore.initiateToTheDepths();
       smartFadingAnimatedTextStore.fadeTheTextOut();
+      meshCircleButtonStore.toggleWidgetVisibility();
     }
   }
 
