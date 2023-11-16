@@ -42,14 +42,14 @@
         //     "name": "🟩 supabase",
         //     "path": "../packages/backend/supabase",
         // },
-        // {
-        //     "name": "🟫 client ios",
-        //     "path": "../packages/client/ios"
-        // },
-        // {
-        //     "name": "🟥 client android",
-        //     "path": "../packages/client/android"
-        // },
+        {
+            "name": "🟫 client ios",
+            "path": "../packages/client/ios"
+        },
+        {
+            "name": "🟥 client android",
+            "path": "../packages/client/android"
+        },
 
     ],
     
@@ -58,30 +58,30 @@
     
     {
             "files.exclude": {
-                // "**/_scripts/": true,
-                // "**/_templates/": true,
-                // "packages/client/.vscode": true,
-                // "packages/": true,
+                "**/_scripts/": true,
+                "**/_templates/": true,
+                "packages/client/.vscode": true,
+                "packages/": true,
                 "**/**.iml": true,
                 "**/**.g.dart": true,
                 "**/.gitignore": true,
                 // "**/pubspec.yaml": true,
-                // "**/**.mocks.dart": true,
-                // "**/.dart_tool": true,
-                // "**/deprecated_gitlab_ci": true,
-                // "**/deprecated/**": true,
-                // "**/build/**": true,
-                // "**/_deprecated/**": true,
-                // "**/canvas_widget_utils/**": true,
-                // "**/core/constants/**": true,
-                // "**/core/entities/**": true,
-                // "**/core/error/**": true,
-                // "**/core/guards/**": true,
-                // "**/core/interfaces/**": true,
-                // "**/core/mobx/**": true,
-                // "**/core/network/**": true,
-                // "**/core/utilities/**": true, 
-                // "**/core/types/**": true,
+                "**/**.mocks.dart": true,
+                "**/.dart_tool": true,
+                "**/deprecated_gitlab_ci": true,
+                "**/deprecated/**": true,
+                "**/build/**": true,
+                "**/_deprecated/**": true,
+                "**/canvas_widget_utils/**": true,
+                "**/core/constants/**": true,
+                "**/core/entities/**": true,
+                "**/core/error/**": true,
+                "**/core/guards/**": true,
+                "**/core/interfaces/**": true,
+                "**/core/mobx/**": true,
+                "**/core/network/**": true,
+                "**/core/utilities/**": true, 
+                "**/core/types/**": true,
                 "**/.idea": true,
                 "**/**.lock": true,
                 "**/analysis_options.yaml": true,

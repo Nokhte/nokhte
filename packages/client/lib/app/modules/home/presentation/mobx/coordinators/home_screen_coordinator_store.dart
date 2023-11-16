@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:haptic_feedback/haptic_feedback.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -113,7 +114,8 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
             break;
         }
       });
-  holdListener() => reaction((p0) => hold.holdCount, (p0) {
+  holdListener() => reaction((p0) => hold.holdCount, (p0) async {
+        await Haptics.vibrate(HapticsType.medium);
         fadeTheTextOutAndWaterComesDown(PlacesYouCanGo.newCollaboration);
       });
 
