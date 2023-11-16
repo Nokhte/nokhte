@@ -89,8 +89,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
     if (isFirstTimeTalking) {
       beachWaves.initiateTimesUp(
         timerLength: const Duration(
-          // minutes: 5,
-          seconds: 30,
+          minutes: 5,
         ),
       );
       isFirstTimeTalking = false;
@@ -99,7 +98,6 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
       fadingText.fadeTheTextOut();
     }
 
-    ///// TODO comment out for production
     voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);
     meshCircleStore.toggleColorAnimation();
   }
