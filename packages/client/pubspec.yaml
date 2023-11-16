@@ -53,6 +53,7 @@ dependencies:
   simple_animations: ^5.0.2
   supabase_flutter: ^1.10.9
   timezone: ^0.9.2
+  vibration: ^1.8.3
 
 dev_dependencies:
   build_runner: ^2.3.3

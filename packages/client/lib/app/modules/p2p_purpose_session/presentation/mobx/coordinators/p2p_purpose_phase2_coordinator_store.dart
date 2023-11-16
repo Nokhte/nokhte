@@ -95,7 +95,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
       isFirstTimeTalking = false;
     }
     if (fadingText.currentIndex == 1 && fadingText.showText) {
-      fadingText.fadeTheTextOut();
+      Future.delayed(Seconds.get(10), () => fadingText.fadeTheTextOut());
     }
 
     voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);

@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:haptic_feedback/haptic_feedback.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -43,9 +44,6 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
   @observable
   PlacesYouCanGo thePlaceTheyAreGoing = PlacesYouCanGo.initial;
 
-  @observable
-  bool hasMadePerspectives = false;
-
   homeScreenConstructorCallback() async {
     beachWavesListener();
     gesturePillStore
@@ -74,10 +72,11 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
   }
 
   @action
-  portalAPIListener() => reaction((p0) => portalAPI.drawingMode, (p0) {
+  portalAPIListener() => reaction((p0) => portalAPI.drawingMode, (p0) async {
         if (p0 == DrawingStatus.hasDrawn &&
             getExistingCollaborationInfo.hasDonePerspectives &&
-            getExistingCollaborationInfo.hasACollaboration) {
+            getExistingCollaborationInfo.hasCommittedAPurpose) {
+          await Haptics.vibrate(HapticsType.medium);
           fadeTheTextOutAndWaterComesDown(PlacesYouCanGo.individualSession);
         }
       });
@@ -102,7 +101,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
   gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.up:
-            if (getExistingCollaborationInfo.hasACollaboration) {
+            if (getExistingCollaborationInfo.hasCommittedAPurpose) {
               final thePlaceTheyAreGoing =
                   getExistingCollaborationInfo.hasDonePerspectives
                       ? PlacesYouCanGo.collectiveSession
@@ -113,7 +112,8 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
             break;
         }
       });
-  holdListener() => reaction((p0) => hold.holdCount, (p0) {
+  holdListener() => reaction((p0) => hold.holdCount, (p0) async {
+        await Haptics.vibrate(HapticsType.medium);
         fadeTheTextOutAndWaterComesDown(PlacesYouCanGo.newCollaboration);
       });
 

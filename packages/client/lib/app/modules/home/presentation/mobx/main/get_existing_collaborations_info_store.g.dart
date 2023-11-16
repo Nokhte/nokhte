@@ -44,6 +44,24 @@ mixin _$GetExistingCollaborationsInfoStore
     });
   }
 
+  late final _$hasCommittedAPurposeAtom = Atom(
+      name: '_GetExistingCollaborationsInfoStoreBase.hasCommittedAPurpose',
+      context: context);
+
+  @override
+  bool get hasCommittedAPurpose {
+    _$hasCommittedAPurposeAtom.reportRead();
+    return super.hasCommittedAPurpose;
+  }
+
+  @override
+  set hasCommittedAPurpose(bool value) {
+    _$hasCommittedAPurposeAtom.reportWrite(value, super.hasCommittedAPurpose,
+        () {
+      super.hasCommittedAPurpose = value;
+    });
+  }
+
   late final _$futureStoreAtom = Atom(
       name: '_GetExistingCollaborationsInfoStoreBase.futureStore',
       context: context);
@@ -75,6 +93,7 @@ mixin _$GetExistingCollaborationsInfoStore
     return '''
 hasACollaboration: ${hasACollaboration},
 hasDonePerspectives: ${hasDonePerspectives},
+hasCommittedAPurpose: ${hasCommittedAPurpose},
 futureStore: ${futureStore}
     ''';
   }
