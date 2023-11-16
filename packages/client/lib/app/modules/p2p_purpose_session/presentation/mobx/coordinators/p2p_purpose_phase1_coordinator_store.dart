@@ -64,7 +64,6 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
   gestureListener() => reaction((p0) => swipe.directionsType, (p0) async {
         switch (p0) {
           case GestureDirections.up:
-            print("hi you working??");
             await joinTheCallAndMoveToPhase2();
           default:
             break;
@@ -73,7 +72,6 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
 
   @action
   joinTheCallAndMoveToPhase2() async {
-    print("You working???");
     await voiceCallActionsStore.enterOrLeaveCall(
       Right(
         JoinCallParams(
@@ -83,8 +81,6 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
       ),
     );
     await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
-    // you then want to fade out the two texts
-    // fadeInColorText.teeUpFadeOut();
     gesturePillStore.setPillAnimationControl(Control.playFromStart);
     fadingText.fadeTheTextOut();
     Future.delayed(Seconds.get(3), () {
