@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'package:dartz/dartz.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
@@ -61,13 +62,15 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
         meshCircleStore.toggleWidgetVisibility();
       }
     });
-    reaction((p0) => beachWaves.movieStatus, (p0) {
+    reaction((p0) => beachWaves.movieStatus, (p0) async {
       if (beachWaves.movieStatus == MovieStatus.finished &&
           beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
         beachWaves.teeUpBackToTheDepths();
         beachWaves.backToTheDepthsCount++;
       } else if (beachWaves.movieStatus == MovieStatus.finished &&
           beachWaves.movieMode == BeachWaveMovieModes.backToTheDepths) {
+        await voiceCallActionsStore.enterOrLeaveCall(Left(NoParams()));
+        meshCircleStore.toggleWidgetVisibility();
         Modular.to.navigate('/p2p_purpose_session/phase-3/');
       }
     });
@@ -86,11 +89,14 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
     if (isFirstTimeTalking) {
       beachWaves.initiateTimesUp(
         timerLength: const Duration(
-          minutes: 5,
+          // minutes: 5,
+          seconds: 30,
         ),
       );
-      fadingText.fadeTheTextOut();
       isFirstTimeTalking = false;
+    }
+    if (fadingText.currentIndex == 1 && fadingText.showText) {
+      fadingText.fadeTheTextOut();
     }
 
     ///// TODO comment out for production

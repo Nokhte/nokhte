@@ -1,7 +1,6 @@
 // ignore_for_file: no_logic_in_create_state
 
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/authentication/presentation/presentation.dart';
@@ -30,7 +29,8 @@ class LoginScreen extends StatelessWidget {
           if (snapshot.data == true) {
             Modular.to.navigate('/home/');
           }
-          return PlatformScaffold(
+          return Scaffold(
+            resizeToAvoidBottomInset: false,
             body: Swipe(
               trackerStore: coordinator.swipe,
               child: Stack(

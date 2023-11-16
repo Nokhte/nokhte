@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -21,7 +20,8 @@ class P2PPurpose1GreeterScreen extends StatelessWidget {
       percentageLength: .20,
     );
     return LayoutBuilder(
-      builder: ((context, constraints) => PlatformScaffold(
+      builder: ((context, constraints) => Scaffold(
+            resizeToAvoidBottomInset: false,
             body: Swipe(
               trackerStore: coordinator.swipe,
               child: Stack(

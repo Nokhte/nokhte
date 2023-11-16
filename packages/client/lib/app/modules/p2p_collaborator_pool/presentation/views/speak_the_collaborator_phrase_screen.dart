@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart' hide AnimationStatus;
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -25,7 +24,8 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
     );
     return LayoutBuilder(
       builder: (context, constraints) {
-        return PlatformScaffold(
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
           body: Swipe(
             trackerStore: coordinatorStore.swipe,
             child: Stack(
@@ -52,12 +52,6 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                     Expanded(
                       child: Container(),
                     ),
-                    // GestureDetector(
-                    //   onLongPressStart: (_) =>
-                    //       coordinatorStore.audioButtonHoldStartCallback(),
-                    //   onLongPressEnd: (_) {
-                    //     coordinatorStore.audioButtonHoldEndCallback();
-                    //   },
                     Hold(
                       trackerStore: coordinatorStore.hold,
                       child: MeshCircleButton(

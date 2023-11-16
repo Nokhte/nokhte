@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -23,7 +22,8 @@ class CollectiveSession1StandInTheirShoesScreen extends StatelessWidget {
     );
     return Observer(
       builder: (context) => LayoutBuilder(
-        builder: (contexts, constraints) => PlatformScaffold(
+        builder: (contexts, constraints) => Scaffold(
+          resizeToAvoidBottomInset: false,
           body: Swipe(
             trackerStore: coordinator.swipe,
             child: Stack(

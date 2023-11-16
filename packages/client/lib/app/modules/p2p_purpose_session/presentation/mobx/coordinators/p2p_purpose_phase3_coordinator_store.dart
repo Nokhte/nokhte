@@ -47,10 +47,10 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends Equatable
 
   @action
   screenConstructor() {
+    textEditor.flipWidgetVisibility();
     beachWaves.initiateSuspendedAtTheDepths();
     beachWaves.initiateTimesUp(
         timerLength: const Duration(
-      // seconds: 10,
       minutes: 5,
     ));
     fadingText.moveToNextMessage();

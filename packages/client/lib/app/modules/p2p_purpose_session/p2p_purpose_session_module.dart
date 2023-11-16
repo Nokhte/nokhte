@@ -156,6 +156,7 @@ class P2PCollaboratorSessionModule extends Module {
   List<ChildRoute> get routes => [
         ChildRoute(
           '/',
+          // '/phase-1',
           child: (context, args) => P2PPurpose1GreeterScreen(
             coordinator: Modular.get<P2PPurposePhase1CoordinatorStore>(),
           ),
@@ -169,6 +170,7 @@ class P2PCollaboratorSessionModule extends Module {
           transition: TransitionType.noTransition,
         ),
         ChildRoute(
+          // '/',
           '/phase-3/',
           child: (context, args) => P2PPurpose3IndividualRefletionScreen(
             coordinator: Modular.get<P2PPurposePhase3CoordinatorStore>(),
