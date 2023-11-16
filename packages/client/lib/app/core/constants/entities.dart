@@ -207,6 +207,7 @@ class DefaultEntities {
   static Either<Failure, ExistingCollaborationsInfoEntity>
       get existingCollaborationsInfoEntity => const Right(
             ExistingCollaborationsInfoEntity(
+              hasAPurpose: false,
               hasACollaboration: false,
               hasDoneThePerspectivesSession: false,
             ),

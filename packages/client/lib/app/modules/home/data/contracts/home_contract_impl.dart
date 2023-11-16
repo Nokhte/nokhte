@@ -47,15 +47,19 @@ class HomeContractImpl implements HomeContract {
       final collaborationRes =
           await remoteSource.checkIfTheyHaveACollaboration();
       final initRes = ExistingCollaborationsInfoModel.fromSupabase(
-        collaborationRes,
-        [],
+        collaborationRes: collaborationRes,
+        perspectivesSessionRes: [],
+        committedPurposeRes: [],
       );
       if (initRes.hasACollaboration) {
-        final perspectives =
+        final perspectivesRes =
             await remoteSource.checkIfTheyHaveDonePerspectives();
+        final purposeRes =
+            await remoteSource.checkIfTheyHaveCommittedAPurpose();
         return Right(ExistingCollaborationsInfoModel.fromSupabase(
-          collaborationRes,
-          perspectives,
+          collaborationRes: collaborationRes,
+          perspectivesSessionRes: perspectivesRes,
+          committedPurposeRes: purposeRes,
         ));
       } else {
         return Right(initRes);

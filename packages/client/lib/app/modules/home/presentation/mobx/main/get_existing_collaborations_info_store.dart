@@ -19,6 +19,9 @@ abstract class _GetExistingCollaborationsInfoStoreBase
   @observable
   bool hasDonePerspectives = false;
 
+  @observable
+  bool hasCommittedAPurpose = false;
+
   final GetExistingCollaborationsInfoGetterStore getterStore;
   _GetExistingCollaborationsInfoStoreBase({required this.getterStore});
 
@@ -39,6 +42,7 @@ abstract class _GetExistingCollaborationsInfoStoreBase
     }, (infoEntity) {
       hasACollaboration = infoEntity.hasACollaboration;
       hasDonePerspectives = infoEntity.hasDoneThePerspectivesSession;
+      hasCommittedAPurpose = infoEntity.hasAPurpose;
     });
   }
 

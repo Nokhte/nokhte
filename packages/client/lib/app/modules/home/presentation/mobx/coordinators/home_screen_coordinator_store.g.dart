@@ -27,23 +27,6 @@ mixin _$HomeScreenCoordinatorStore on _HomeScreenCoordinatorStoreBase, Store {
     });
   }
 
-  late final _$hasMadePerspectivesAtom = Atom(
-      name: '_HomeScreenCoordinatorStoreBase.hasMadePerspectives',
-      context: context);
-
-  @override
-  bool get hasMadePerspectives {
-    _$hasMadePerspectivesAtom.reportRead();
-    return super.hasMadePerspectives;
-  }
-
-  @override
-  set hasMadePerspectives(bool value) {
-    _$hasMadePerspectivesAtom.reportWrite(value, super.hasMadePerspectives, () {
-      super.hasMadePerspectives = value;
-    });
-  }
-
   late final _$_HomeScreenCoordinatorStoreBaseActionController =
       ActionController(
           name: '_HomeScreenCoordinatorStoreBase', context: context);
@@ -76,8 +59,7 @@ mixin _$HomeScreenCoordinatorStore on _HomeScreenCoordinatorStoreBase, Store {
   @override
   String toString() {
     return '''
-thePlaceTheyAreGoing: ${thePlaceTheyAreGoing},
-hasMadePerspectives: ${hasMadePerspectives}
+thePlaceTheyAreGoing: ${thePlaceTheyAreGoing}
     ''';
   }
 }

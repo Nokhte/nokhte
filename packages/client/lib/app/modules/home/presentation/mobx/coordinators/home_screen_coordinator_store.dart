@@ -44,9 +44,6 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
   @observable
   PlacesYouCanGo thePlaceTheyAreGoing = PlacesYouCanGo.initial;
 
-  @observable
-  bool hasMadePerspectives = false;
-
   homeScreenConstructorCallback() async {
     beachWavesListener();
     gesturePillStore
@@ -75,10 +72,11 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
   }
 
   @action
-  portalAPIListener() => reaction((p0) => portalAPI.drawingMode, (p0) {
+  portalAPIListener() => reaction((p0) => portalAPI.drawingMode, (p0) async {
         if (p0 == DrawingStatus.hasDrawn &&
             getExistingCollaborationInfo.hasDonePerspectives &&
-            getExistingCollaborationInfo.hasACollaboration) {
+            getExistingCollaborationInfo.hasCommittedAPurpose) {
+          await Haptics.vibrate(HapticsType.medium);
           fadeTheTextOutAndWaterComesDown(PlacesYouCanGo.individualSession);
         }
       });
@@ -103,7 +101,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
   gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.up:
-            if (getExistingCollaborationInfo.hasACollaboration) {
+            if (getExistingCollaborationInfo.hasCommittedAPurpose) {
               final thePlaceTheyAreGoing =
                   getExistingCollaborationInfo.hasDonePerspectives
                       ? PlacesYouCanGo.collectiveSession

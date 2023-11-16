@@ -38,10 +38,10 @@
             "name": "🟦 client root",
             "path": "../packages/client"
         },
-        // {
-        //     "name": "🟩 supabase",
-        //     "path": "../packages/backend/supabase",
-        // },
+        {
+            "name": "🟩 supabase",
+            "path": "../packages/backend/supabase",
+        },
         {
             "name": "🟫 client ios",
             "path": "../packages/client/ios"

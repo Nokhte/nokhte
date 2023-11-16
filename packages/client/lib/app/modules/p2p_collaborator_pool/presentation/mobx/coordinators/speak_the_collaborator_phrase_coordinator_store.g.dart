@@ -37,6 +37,16 @@ mixin _$SpeakTheCollaboratorPhraseCoordinatorStore
     return _$screenConstructorAsyncAction.run(() => super.screenConstructor());
   }
 
+  late final _$audioButtonHoldStartCallbackAsyncAction = AsyncAction(
+      '_SpeakTheCollaboratorPhraseCoordinatorStoreBase.audioButtonHoldStartCallback',
+      context: context);
+
+  @override
+  Future audioButtonHoldStartCallback() {
+    return _$audioButtonHoldStartCallbackAsyncAction
+        .run(() => super.audioButtonHoldStartCallback());
+  }
+
   late final _$audioButtonHoldEndCallbackAsyncAction = AsyncAction(
       '_SpeakTheCollaboratorPhraseCoordinatorStoreBase.audioButtonHoldEndCallback',
       context: context);
@@ -51,21 +61,6 @@ mixin _$SpeakTheCollaboratorPhraseCoordinatorStore
       ActionController(
           name: '_SpeakTheCollaboratorPhraseCoordinatorStoreBase',
           context: context);
-
-  @override
-  dynamic audioButtonHoldStartCallback() {
-    final _$actionInfo =
-        _$_SpeakTheCollaboratorPhraseCoordinatorStoreBaseActionController
-            .startAction(
-                name:
-                    '_SpeakTheCollaboratorPhraseCoordinatorStoreBase.audioButtonHoldStartCallback');
-    try {
-      return super.audioButtonHoldStartCallback();
-    } finally {
-      _$_SpeakTheCollaboratorPhraseCoordinatorStoreBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
 
   @override
   dynamic goBackToShore() {
