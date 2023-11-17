@@ -6,24 +6,16 @@ import 'shared/shared.dart';
 
 void main() {
   late TimerInformationQueries user1Queries;
+  late TimerInformationQueries user2Queries;
   late TimerInformationQueries adminQueries;
   final tSetup = CommonCollaborativeTestFunctions();
 
-  setUpAll(() async {
-    await tSetup.setUp();
-    user1Queries = TimerInformationQueries(supabase: tSetup.user1Supabase);
-    adminQueries = TimerInformationQueries(supabase: tSetup.supabaseAdmin);
-  });
-
-  tearDownAll(() async {
+  deleteTimer() async {
     adminQueries.currentUserUID = tSetup.firstUserUID;
     await adminQueries.deleteTheTimer();
-    await tSetup.tearDownAll();
-  });
+  }
 
-  test("users should be able to create a timer", () async {
-    final res =
-        await user1Queries.createNewTimer(timerLengthInMilliseconds: 500.0);
+  commonInitialTimerExpectationSuite(List res) {
     final theCollaboratorsNumber =
         user1Queries.collaboratorInfo.theCollaboratorsNumber;
     final expectedCollaboratorsUID =
@@ -37,5 +29,35 @@ void main() {
       res.first[TimerInformationQueries.timeRemainingInMilliseconds],
       500.0,
     );
+  }
+
+  setUpAll(() async {
+    await tSetup.setUp();
+    user1Queries = TimerInformationQueries(supabase: tSetup.user1Supabase);
+    user2Queries = TimerInformationQueries(supabase: tSetup.user2Supabase);
+    adminQueries = TimerInformationQueries(supabase: tSetup.supabaseAdmin);
+  });
+
+  tearDownAll(() async {
+    await deleteTimer();
+    await tSetup.tearDownAll();
+  });
+
+  test("users should be able to create a timer", () async {
+    final res =
+        await user1Queries.createNewTimer(timerLengthInMilliseconds: 500.0);
+    commonInitialTimerExpectationSuite(res);
+  });
+
+  group("assumes timer row as been created", () {
+    setUp(() async {
+      await user1Queries.createNewTimer(timerLengthInMilliseconds: 500.0);
+    });
+    tearDown(() async => await deleteTimer());
+
+    test("user2 can read a timer", () async {
+      final res = await user2Queries.selectMostRecentTimer();
+      commonInitialTimerExpectationSuite(res);
+    });
   });
 }

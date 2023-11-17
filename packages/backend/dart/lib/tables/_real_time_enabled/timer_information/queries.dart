@@ -39,4 +39,21 @@ class TimerInformationQueries extends CollaborativeQueries {
           collaboratorInfo.theUsersUID,
         );
   }
+
+  Future<List> selectMostRecentTimer() async {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutActiveCollaboratorInfo();
+    }
+    return await supabase
+        .from(tableName)
+        .select()
+        .eq(
+          "${collaboratorInfo.theCollaboratorsNumber}_uid",
+          collaboratorInfo.theCollaboratorsUID,
+        )
+        .eq(
+          "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
+          collaboratorInfo.theUsersUID,
+        );
+  }
 }
