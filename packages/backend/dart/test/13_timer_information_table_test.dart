@@ -15,7 +15,7 @@ void main() {
     await adminQueries.deleteTheTimer();
   }
 
-  commonInitialTimerExpectationSuite(List res) {
+  initialTimerExpectationSuite(List res) {
     final theCollaboratorsNumber =
         user1Queries.collaboratorInfo.theCollaboratorsNumber;
     final expectedCollaboratorsUID =
@@ -46,7 +46,7 @@ void main() {
   test("users should be able to create a timer", () async {
     final res =
         await user1Queries.createNewTimer(timerLengthInMilliseconds: 500.0);
-    commonInitialTimerExpectationSuite(res);
+    initialTimerExpectationSuite(res);
   });
 
   group("assumes timer row as been created", () {
@@ -57,7 +57,15 @@ void main() {
 
     test("user2 can read a timer", () async {
       final res = await user2Queries.selectMostRecentTimer();
-      commonInitialTimerExpectationSuite(res);
+      initialTimerExpectationSuite(res);
+    });
+
+    test("user can update their presence", () async {
+      final res = await user1Queries.updatePresence(isOnlineParam: true);
+      final usersCollaboratorNumber =
+          user1Queries.collaboratorInfo.theUsersCollaboratorNumber;
+      final isOnline = TimerInformationQueries.isOnline;
+      expect(res.first["${usersCollaboratorNumber}_$isOnline"], true);
     });
   });
 }

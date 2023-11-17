@@ -56,4 +56,25 @@ class TimerInformationQueries extends CollaborativeQueries {
           collaboratorInfo.theUsersUID,
         );
   }
+
+  Future<List> updatePresence({required bool isOnlineParam}) async {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutActiveCollaboratorInfo();
+    }
+    return await supabase
+        .from(tableName)
+        .update({
+          "${collaboratorInfo.theUsersCollaboratorNumber}_$isOnline":
+              isOnlineParam,
+        })
+        .eq(
+          "${collaboratorInfo.theCollaboratorsNumber}_uid",
+          collaboratorInfo.theCollaboratorsUID,
+        )
+        .eq(
+          "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
+          collaboratorInfo.theUsersUID,
+        )
+        .select();
+  }
 }
