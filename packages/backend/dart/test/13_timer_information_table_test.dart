@@ -1,4 +1,6 @@
 // ignore_for_file: file_names
+import 'dart:async';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte_backend/tables/timer_information.dart';
 
@@ -66,6 +68,22 @@ void main() {
           user1Queries.collaboratorInfo.theUsersCollaboratorNumber;
       final isOnline = TimerInformationQueries.isOnline;
       expect(res.first["${usersCollaboratorNumber}_$isOnline"], true);
+    });
+  });
+
+  test("when both users are online the clock winds down", () async {
+    await user1Queries.updatePresence(isOnlineParam: true);
+    await user2Queries.updatePresence(isOnlineParam: true);
+    int timerCount = 0;
+    Timer.periodic(const Duration(milliseconds: 1), (timer) async {
+      if (timerCount < 3) {
+        timer.cancel();
+        final res = (await user1Queries.selectMostRecentTimer())
+            .first[TimerInformationQueries.timeRemainingInMilliseconds];
+        expect(res, 498.0);
+      }
+      await user1Queries.markDownTheClock();
+      timerCount++;
     });
   });
 }
