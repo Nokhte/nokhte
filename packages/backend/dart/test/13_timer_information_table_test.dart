@@ -81,8 +81,8 @@ void main() {
     });
 
     test("when both users are online the clock winds down", () async {
-      updateUserPrecenceToTrue();
-      decrementTwoMilliseconds();
+      await updateUserPrecenceToTrue();
+      await decrementTwoMilliseconds();
       final int res = (await user1Queries.selectMostRecentTimer())
           .first[TimerInformationQueries.timeRemainingInMilliseconds];
       print(res);
