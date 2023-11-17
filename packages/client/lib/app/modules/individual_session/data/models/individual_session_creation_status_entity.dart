@@ -1,5 +1,5 @@
 import 'package:nokhte/app/modules/individual_session/domain/domain.dart';
-import 'package:nokhte_backend/individual_sessions.dart';
+import 'package:nokhte_backend/tables/individual_sessions.dart';
 
 class IndividualSessionCreationModel extends IndividualSessionCreationEntity {
   const IndividualSessionCreationModel({required super.sessionTimestamp});

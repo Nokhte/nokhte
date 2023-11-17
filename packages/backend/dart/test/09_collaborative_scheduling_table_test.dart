@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nokhte_backend/working_collaborative_scheduling.dart';
+import 'package:nokhte_backend/tables/working_collaborative_scheduling.dart';
 
 import 'shared/shared.dart';
 

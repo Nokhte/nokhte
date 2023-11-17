@@ -1,6 +1,6 @@
 import 'package:nokhte_backend/constants/constants.dart';
-import 'package:nokhte_backend/existing_collaborations.dart';
-import 'package:nokhte_backend/p2p_perspectives_tracking.dart';
+import 'package:nokhte_backend/tables/existing_collaborations.dart';
+import 'package:nokhte_backend/tables/p2p_perspectives_tracking.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class CommonCollaborativeTestFunctions {

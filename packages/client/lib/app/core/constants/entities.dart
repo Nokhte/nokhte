@@ -16,10 +16,10 @@ import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/domain/domain.dart';
 import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
 import 'package:nokhte/app/modules/p2p_perspectives_session/domain/domain.dart';
-import 'package:nokhte_backend/phrase_components.dart';
-import 'package:nokhte_backend/working_collaborative_documents.dart';
-import 'package:nokhte_backend/working_collaborative_scheduling.dart';
-import 'package:nokhte_backend/working_perspectives_positioning.dart';
+import 'package:nokhte_backend/tables/phrase_components.dart';
+import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
+import 'package:nokhte_backend/tables/working_collaborative_scheduling.dart';
+import 'package:nokhte_backend/tables/working_perspectives_positioning.dart';
 import 'package:nokhte/app/modules/collective_session/domain/domain.dart';
 
 class DefaultEntities {

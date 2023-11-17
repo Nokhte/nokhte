@@ -1,6 +1,6 @@
-import 'package:nokhte_backend/phrase_components.dart';
-import 'package:nokhte_backend/edge_functions.dart';
-import 'package:nokhte_backend/existing_collaborations.dart';
+import 'package:nokhte_backend/edge_functions/edge_functions.dart';
+import 'package:nokhte_backend/tables/phrase_components.dart';
+import 'package:nokhte_backend/tables/existing_collaborations.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class P2PCollaboratorPoolRemoteSource {

@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/modules/collective_session/types/types.dart';
-import 'package:nokhte_backend/collective_sessions.dart';
-import 'package:nokhte_backend/individual_sessions.dart';
-import 'package:nokhte_backend/p2p_perspectives_tracking.dart';
+import 'package:nokhte_backend/tables/collective_sessions.dart';
+import 'package:nokhte_backend/tables/individual_sessions.dart';
+import 'package:nokhte_backend/tables/p2p_perspectives_tracking.dart';
 import 'package:nokhte_backend/storage/perspectives_audio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';

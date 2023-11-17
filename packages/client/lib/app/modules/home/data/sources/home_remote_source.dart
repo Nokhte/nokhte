@@ -1,9 +1,9 @@
 import 'package:nokhte/app/core/utilities/misc_algos.dart';
-import 'package:nokhte_backend/existing_collaborations.dart';
-import 'package:nokhte_backend/finished_collaborative_documents.dart';
-import 'package:nokhte_backend/p2p_perspectives_tracking.dart';
-import 'package:nokhte_backend/user_names.dart';
-import 'package:nokhte_backend/collaborator_phrases.dart';
+import 'package:nokhte_backend/tables/existing_collaborations.dart';
+import 'package:nokhte_backend/tables/finished_collaborative_documents.dart';
+import 'package:nokhte_backend/tables/p2p_perspectives_tracking.dart';
+import 'package:nokhte_backend/tables/user_names.dart';
+import 'package:nokhte_backend/tables/collaborator_phrases.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class HomeRemoteSource {

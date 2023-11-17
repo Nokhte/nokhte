@@ -1,5 +1,5 @@
 import 'package:nokhte/app/core/modules/get_current_perspectives/domain/domain.dart';
-import 'package:nokhte_backend/p2p_perspectives_tracking.dart';
+import 'package:nokhte_backend/tables/p2p_perspectives_tracking.dart';
 
 class CurrentPerspectivesModel extends CurrentPerspectivesEntity {
   const CurrentPerspectivesModel({

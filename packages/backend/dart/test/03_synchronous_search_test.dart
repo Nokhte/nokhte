@@ -2,8 +2,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte_backend/constants/constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:nokhte_backend/edge_functions.dart';
-import 'package:nokhte_backend/existing_collaborations.dart';
+import 'package:nokhte_backend/edge_functions/edge_functions.dart';
+import 'package:nokhte_backend/tables/existing_collaborations.dart';
 
 void main() {
   late SupabaseClient supabase;

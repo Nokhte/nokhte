@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/data/data.dart';
-import 'package:nokhte_backend/working_collaborative_documents.dart';
+import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
 import '../../constants/models/models.dart';
 import '../../constants/responses/responses.dart';
 import '../../fixtures/collaborative_doc_mock_gen.mocks.dart';

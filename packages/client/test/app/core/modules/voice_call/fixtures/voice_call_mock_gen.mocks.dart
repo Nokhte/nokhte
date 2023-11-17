@@ -17,7 +17,7 @@ import 'package:nokhte/app/core/mobx/store_state.dart' as _i15;
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart' as _i8;
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart' as _i4;
 import 'package:nokhte/app/core/types/types.dart' as _i16;
-import 'package:nokhte_backend/existing_collaborations.dart' as _i3;
+import 'package:nokhte_backend/tables/existing_collaborations.dart' as _i3;
 import 'package:supabase_flutter/supabase_flutter.dart' as _i2;
 
 import 'voice_call_mock_gen.dart' as _i11;

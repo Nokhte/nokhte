@@ -4,7 +4,7 @@ import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/data/data.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/presentation/presentation.dart';
-import 'package:nokhte_backend/working_collaborative_documents.dart';
+import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class CollaborativeDocModule extends Module {

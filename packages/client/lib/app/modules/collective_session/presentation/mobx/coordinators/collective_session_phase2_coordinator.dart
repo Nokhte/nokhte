@@ -10,7 +10,7 @@ import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/gesture_pill/gesture_pill.dart';
 import 'package:nokhte/app/core/widgets/mobx.dart';
-import 'package:nokhte_backend/tables/real_time_enabled/working_collaborative_documents/types/types.dart';
+import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'collective_session_phase2_widgets_coordinator.dart';
 part 'collective_session_phase2_coordinator.g.dart';

@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/logic/logic.dart';
-import 'package:nokhte_backend/phrase_components.dart';
+import 'package:nokhte_backend/tables/phrase_components.dart';
 
 import '../../constants/entities/entities.dart';
 import '../../fixtures/p2p_collaborator_pool_stack_mock_gen.mocks.dart';

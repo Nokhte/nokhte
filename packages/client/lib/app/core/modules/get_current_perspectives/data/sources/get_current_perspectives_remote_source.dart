@@ -1,5 +1,5 @@
-import 'package:nokhte_backend/p2p_perspectives_tracking.dart';
-import 'package:nokhte_backend/individual_sessions.dart';
+import 'package:nokhte_backend/tables/p2p_perspectives_tracking.dart';
+import 'package:nokhte_backend/tables/individual_sessions.dart';
 import 'package:nokhte_backend/storage/perspectives_audio.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:record/record.dart';

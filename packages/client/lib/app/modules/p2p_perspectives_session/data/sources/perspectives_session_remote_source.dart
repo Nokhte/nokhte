@@ -1,6 +1,6 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte_backend/working_perspectives_positioning.dart';
-import 'package:nokhte_backend/p2p_perspectives_tracking.dart';
+import 'package:nokhte_backend/tables/working_perspectives_positioning.dart';
+import 'package:nokhte_backend/tables/p2p_perspectives_tracking.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class P2PPerspectivesSessionRemoteSource {

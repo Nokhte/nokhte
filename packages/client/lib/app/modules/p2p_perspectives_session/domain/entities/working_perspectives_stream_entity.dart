@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:nokhte_backend/working_perspectives_positioning.dart';
+import 'package:nokhte_backend/tables/working_perspectives_positioning.dart';
 
 class WorkingPerspectivesStreamEntity extends Equatable {
   final Stream<PerspectivesPositioning> stream;

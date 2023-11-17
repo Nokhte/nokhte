@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
-import 'package:nokhte_backend/working_collaborative_documents.dart';
+import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
 
 class ConstantCollaborativeDocCollaboratorInfoEntity {
   static CollaborativeDocCollaboratorInfoEntity get successCase =>

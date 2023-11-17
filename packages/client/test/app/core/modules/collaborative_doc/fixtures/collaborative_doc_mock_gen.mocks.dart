@@ -12,7 +12,8 @@ import 'package:nokhte/app/core/error/failure.dart' as _i8;
 import 'package:nokhte/app/core/interfaces/logic.dart' as _i9;
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart'
     as _i3;
-import 'package:nokhte_backend/working_collaborative_documents.dart' as _i7;
+import 'package:nokhte_backend/tables/working_collaborative_documents.dart'
+    as _i7;
 
 import 'collaborative_doc_mock_gen.dart' as _i5;
 

@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/data/models/models.dart';
-import 'package:nokhte_backend/phrase_components.dart';
+import 'package:nokhte_backend/tables/phrase_components.dart';
 
 class ConstantCollaboratorPhraseValidationModel {
   static CollaboratorPhraseIDs get successfulCollaboratorPhraseIDs =>

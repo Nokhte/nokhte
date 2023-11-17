@@ -4,7 +4,7 @@ import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/data/data.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/domain.dart';
-import 'package:nokhte_backend/phrase_components.dart';
+import 'package:nokhte_backend/tables/phrase_components.dart';
 
 class P2PCollaboratorPoolContractImpl implements P2PCollaboratorPoolContract {
   final P2PCollaboratorPoolRemoteSource remoteSource;

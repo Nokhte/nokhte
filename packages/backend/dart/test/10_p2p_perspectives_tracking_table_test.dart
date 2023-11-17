@@ -2,7 +2,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte_backend/constants/general/general.dart';
-import 'package:nokhte_backend/p2p_perspectives_tracking.dart';
+import 'package:nokhte_backend/tables/p2p_perspectives_tracking.dart';
 
 import 'shared/shared.dart';
 

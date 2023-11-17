@@ -1,5 +1,5 @@
 import 'package:nokhte/app/core/modules/scheduling/domain/domain.dart';
-import 'package:nokhte_backend/working_collaborative_scheduling.dart';
+import 'package:nokhte_backend/tables/working_collaborative_scheduling.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class SchedulingRemoteSource {

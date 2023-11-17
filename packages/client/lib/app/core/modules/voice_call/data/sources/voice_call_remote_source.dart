@@ -2,8 +2,8 @@ import 'package:http/http.dart';
 import 'package:nokhte/app/core/utilities/utilities.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:nokhte_backend/token_server.dart';
-import 'package:nokhte_backend/existing_collaborations.dart';
+import 'package:nokhte_backend/token_server/token_server.dart';
+import 'package:nokhte_backend/tables/existing_collaborations.dart';
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 
 abstract class VoiceCallRemoteSource {
@@ -45,7 +45,7 @@ class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
   Future<Response> fetchAgoraToken({
     required String channelName,
   }) async {
-    return await TokenServer.fetchAgoraToken(
+    return await TokenServices.fetchAgoraToken(
       currentUserUID: currentAgoraUID,
       channelName: channelName,
     );

@@ -1,8 +1,8 @@
 // ignore_for_file: file_names
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nokhte_backend/finished_collaborative_documents.dart';
-import 'package:nokhte_backend/working_collaborative_documents.dart';
+import 'package:nokhte_backend/tables/finished_collaborative_documents.dart';
+import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
 
 import 'shared/shared.dart';
 

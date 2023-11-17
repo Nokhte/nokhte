@@ -1,4 +1,4 @@
-import 'package:nokhte_backend/finished_collaborative_documents.dart';
+import 'package:nokhte_backend/tables/finished_collaborative_documents.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class FetchThePurposeRemoteSource {

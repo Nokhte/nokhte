@@ -1,4 +1,4 @@
-import 'package:nokhte_backend/working_collaborative_documents.dart';
+import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
 
 class DocContentResonse {
   static Stream<DocInfoContent> get successfulResponse => Stream.value(

@@ -17,9 +17,10 @@ import 'package:nokhte/app/modules/home/domain/contracts/home_contract.dart'
 import 'package:nokhte/app/modules/home/domain/entities/entities.dart' as _i11;
 import 'package:nokhte/app/modules/home/domain/logic/logic.dart' as _i8;
 import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart' as _i10;
-import 'package:nokhte_backend/existing_collaborations.dart' as _i3;
-import 'package:nokhte_backend/finished_collaborative_documents.dart' as _i5;
-import 'package:nokhte_backend/p2p_perspectives_tracking.dart' as _i4;
+import 'package:nokhte_backend/tables/existing_collaborations.dart' as _i3;
+import 'package:nokhte_backend/tables/finished_collaborative_documents.dart'
+    as _i5;
+import 'package:nokhte_backend/tables/p2p_perspectives_tracking.dart' as _i4;
 import 'package:supabase_flutter/supabase_flutter.dart' as _i2;
 
 import 'home_stack_mock_gen.dart' as _i13;

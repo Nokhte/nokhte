@@ -3,7 +3,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte_backend/constants/constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:nokhte_backend/collaborator_phrases.dart';
+import 'package:nokhte_backend/tables/collaborator_phrases.dart';
 
 void main() {
   late SupabaseClient supabase;

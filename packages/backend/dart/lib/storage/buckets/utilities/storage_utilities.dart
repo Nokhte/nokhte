@@ -1,5 +1,5 @@
 import 'package:nokhte_backend/storage/buckets/perspectives_audio/types/types.dart';
-import 'package:nokhte_backend/tables/real_time_enabled/existing_collaborations/types/types.dart';
+import 'package:nokhte_backend/tables/_real_time_enabled/existing_collaborations/types/types.dart';
 
 class StorageUtilities {
   static String getCollaborationID(CollaboratorInfo collaboratorInfo) =>

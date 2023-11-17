@@ -6,7 +6,7 @@ import 'package:nokhte/app/core/mobx/base_mobx_db_store.dart';
 import 'package:nokhte/app/core/mobx/store_state.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/presentation/presentation.dart';
-import 'package:nokhte_backend/working_collaborative_documents.dart';
+import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
 part 'get_collaborative_doc_content_store.g.dart';
 
 class GetCollaborativeDocContentStore = _GetCollaborativeDocContentStoreBase
