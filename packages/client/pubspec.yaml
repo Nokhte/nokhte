@@ -26,6 +26,7 @@ dependencies:
   flutter_mobx: ^2.0.6+5
   flutter_modular: ^5.0.3
   flutter_platform_widgets: ^3.3.5
+  flutter_redux: ^0.10.0
   flutter_voice_processor: ^1.1.0
   google_fonts: ^6.1.0
   google_sign_in: ^6.1.4
@@ -48,6 +49,7 @@ dependencies:
   posthog_flutter: ^3.2.0
   record: ^5.0.1
   record_darwin: ^1.0.1-beta.1
+  redux: ^5.0.0
   sensors_plus: ^3.0.3
   sign_in_with_apple: ^5.0.0
   simple_animations: ^5.0.2
