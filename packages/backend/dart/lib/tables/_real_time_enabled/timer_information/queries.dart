@@ -82,11 +82,23 @@ class TimerInformationQueries extends CollaborativeQueries {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutActiveCollaboratorInfo();
     }
-    final double pastClockVal =
-        (await selectMostRecentTimer()).first[timeRemainingInMilliseconds];
-    final newClockVal = pastClockVal - 1;
-    await supabase.from(tableName).update({
-      timeRemainingInMilliseconds: newClockVal,
-    });
+    final double pastClockVal = (await selectMostRecentTimer())
+        .first[timeRemainingInMilliseconds]
+        .toDouble();
+
+    final double newClockVal = pastClockVal - 1;
+    await supabase
+        .from(tableName)
+        .update({
+          timeRemainingInMilliseconds: newClockVal,
+        })
+        .eq(
+          "${collaboratorInfo.theCollaboratorsNumber}_uid",
+          collaboratorInfo.theCollaboratorsUID,
+        )
+        .eq(
+          "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
+          collaboratorInfo.theUsersUID,
+        );
   }
 }
