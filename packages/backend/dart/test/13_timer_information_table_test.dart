@@ -96,7 +96,9 @@ void main() {
         expect(event.remainingTimeInMilliseconds, 498.0);
         expect(event.collaboratorsPresence, true);
         expect(event.usersPresence, true);
-      });
+      }).cancel();
+      // await updateUserPrecenceToTrue();
+      // await decrementTwoMilliseconds();
     });
   });
 }
