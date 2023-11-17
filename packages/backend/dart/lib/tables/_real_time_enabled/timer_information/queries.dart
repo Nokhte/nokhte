@@ -7,4 +7,36 @@ class TimerInformationQueries extends CollaborativeQueries {
   static const timeRemainingInMilliseconds = "time_remaining_in_milliseconds";
 
   TimerInformationQueries({required super.supabase});
+
+  Future<List> createNewTimer({
+    required double timerLengthInMilliseconds,
+  }) async {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutActiveCollaboratorInfo();
+    }
+    return await supabase.from(tableName).insert({
+      "${collaboratorInfo.theCollaboratorsNumber}_uid":
+          collaboratorInfo.theCollaboratorsUID,
+      "${collaboratorInfo.theUsersCollaboratorNumber}_uid":
+          collaboratorInfo.theUsersUID,
+      timeRemainingInMilliseconds: timerLengthInMilliseconds,
+    }).select();
+  }
+
+  Future<void> deleteTheTimer() async {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutActiveCollaboratorInfo();
+    }
+    return await supabase
+        .from(tableName)
+        .delete()
+        .eq(
+          "${collaboratorInfo.theCollaboratorsNumber}_uid",
+          collaboratorInfo.theCollaboratorsUID,
+        )
+        .eq(
+          "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
+          collaboratorInfo.theUsersUID,
+        );
+  }
 }
