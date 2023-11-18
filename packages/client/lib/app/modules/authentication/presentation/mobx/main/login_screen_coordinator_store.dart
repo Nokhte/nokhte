@@ -56,9 +56,9 @@ abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
     gestureListener();
     authProvider =
         Platform.isAndroid ? AuthProvider.google : AuthProvider.apple;
-    // if (kDebugMode) {
-    //   authProvider = AuthProvider.google;
-    // }
+    if (kDebugMode) {
+      authProvider = AuthProvider.google;
+    }
   }
 
   gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
