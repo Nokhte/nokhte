@@ -1,5 +1,5 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/timer/domain/logic/create_timer.dart';
+import 'package:nokhte/app/core/modules/timer/domain/domain.dart';
 import 'package:nokhte_backend/tables/timer_information.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
