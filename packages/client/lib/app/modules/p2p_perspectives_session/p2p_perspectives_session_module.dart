@@ -142,6 +142,7 @@ class P2PPerspectivesSessionModule extends Module {
           child: (context, args) => PerspectivesSessionScreen(
             coordinator: Modular.get<P2PPerspectiveSessionCoordinatorStore>(),
           ),
+          transition: TransitionType.noTransition,
         ),
       ];
 }

@@ -153,6 +153,7 @@ class IndividualSessionModule extends Module {
           child: (context, args) => IndividualSessionScreen(
             coordinator: Modular.get<IndividualSessionScreenCoordinatorStore>(),
           ),
+          transition: TransitionType.noTransition,
         )
       ];
 }

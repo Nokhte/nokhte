@@ -86,6 +86,7 @@ class AuthenticationModule extends Module {
               supabase: Modular.get<SupabaseClient>(),
             ),
           ],
+          transition: TransitionType.noTransition,
         )
       ];
 }
