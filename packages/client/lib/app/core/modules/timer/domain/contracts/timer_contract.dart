@@ -10,4 +10,6 @@ abstract class TimerContract {
   Future<Either<Failure, PresenceUpdateStatusEntity>> updatePresence(
     bool isPresent,
   );
+  Future<Either<Failure, TimerRunningUpdateStatusEntity>>
+      updateTimerRunningStatus(bool shouldRun);
 }
