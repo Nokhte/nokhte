@@ -30,7 +30,7 @@ class TimerRemoteSourceImpl implements TimerRemoteSource {
     }
     final userCollaboratorNumber =
         queries.collaboratorInfo.theUsersCollaboratorNumber;
-    return StringComparison.isCollaboratorOne(
+    return await StringComparison.isCollaboratorTwo(
         input: userCollaboratorNumber,
         elseReturnVal: [],
         callback: () async {
