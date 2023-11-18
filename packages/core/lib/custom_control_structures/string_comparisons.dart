@@ -1,11 +1,11 @@
 class StringComparison {
-  static isCollaboratorOne({
+  static isCollaboratorTwo({
     required String input,
     required Function callback,
     required elseReturnVal,
   }) async {
-    if (input == "collaborator_one") {
-      await callback();
+    if (input == "collaborator_two") {
+      return await callback();
     } else {
       return elseReturnVal;
     }
