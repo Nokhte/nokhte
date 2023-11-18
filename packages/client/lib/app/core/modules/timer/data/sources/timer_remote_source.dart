@@ -9,6 +9,7 @@ abstract class TimerRemoteSource {
   Future<List> updateTimerRunningStatus(bool shouldBeRunning);
   Future<void> deleteTheTimer(NoParams params);
   Future<void> markdownTheTimer(NoParams params);
+  Stream<PresenceAndTimeRemaining> getTimerInformationStream(NoParams params);
 }
 
 class TimerRemoteSourceImpl implements TimerRemoteSource {
@@ -42,4 +43,8 @@ class TimerRemoteSourceImpl implements TimerRemoteSource {
   @override
   Future<void> markdownTheTimer(NoParams params) async =>
       await queries.markDownTheTimer();
+
+  @override
+  Stream<PresenceAndTimeRemaining> getTimerInformationStream(NoParams params) =>
+      stream.getStream();
 }
