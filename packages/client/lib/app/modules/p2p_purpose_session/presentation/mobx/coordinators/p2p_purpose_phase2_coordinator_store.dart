@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/modules/timer/presentation/presentation.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
@@ -15,6 +16,7 @@ class P2PPurposePhase2CoordinatorStore = _P2PPurposePhase2CoordinatorStoreBase
 
 abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
     with Store {
+  final TimerCoordinator timer;
   final AgoraCallbacksStore agoraCallbacksStore;
   final VoiceCallActionsStore voiceCallActionsStore;
   final CheckIfUserHasTheQuestionStore questionCheckerStore;
@@ -48,6 +50,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
   }
 
   _P2PPurposePhase2CoordinatorStoreBase({
+    required this.timer,
     required this.swipe,
     required this.hold,
     required this.agoraCallbacksStore,

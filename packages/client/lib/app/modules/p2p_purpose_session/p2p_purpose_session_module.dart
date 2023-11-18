@@ -7,6 +7,7 @@ import 'package:nokhte/app/core/modules/scheduling/presentation/presentation.dar
 import 'package:nokhte/app/core/modules/scheduling/scheduling_module.dart';
 import 'package:nokhte/app/core/modules/solo_doc/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/solo_doc/solo_doc_module.dart';
+import 'package:nokhte/app/core/modules/timer/presentation/presentation.dart';
 import 'package:nokhte/app/core/modules/timer/timer_module.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/voice_call_module.dart';
@@ -106,6 +107,7 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase2CoordinatorStore>(
             (i) => P2PPurposePhase2CoordinatorStore(
+                  timer: Modular.get<TimerCoordinator>(),
                   hold: Modular.get<HoldDetector>(),
                   swipe: Modular.get<SwipeDetector>(),
                   beachWaves: Modular.get<BeachWavesTrackerStore>(),
