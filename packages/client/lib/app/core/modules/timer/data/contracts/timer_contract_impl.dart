@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/error/failure.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/timer/data/models/timer_runnning_update_status_model.dart';
 import 'package:nokhte/app/core/modules/timer/domain/domain.dart';
 import 'package:nokhte/app/core/modules/timer/data/data.dart';
@@ -40,6 +41,28 @@ class TimerContractImpl implements TimerContract {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.updateTimerRunningStatus(shouldRun);
       return Right(TimerRunningUpdateStatusModel.fromSupabase(res));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, TimerDeletionStatusEntity>> deleteTheTimer(
+      NoParams params) async {
+    if (await networkInfo.isConnected) {
+      await remoteSource.deleteTheTimer(params);
+      return const Right(TimerDeletionStatusModel(isDeleted: true));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, TimerMarkdownStatusEntity>> markdownTheTimer(
+      NoParams params) async {
+    if (await networkInfo.isConnected) {
+      await remoteSource.markdownTheTimer(params);
+      return const Right(TimerMarkdownStatusModel(isMarkedDown: true));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
