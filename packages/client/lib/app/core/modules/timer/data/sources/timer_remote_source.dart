@@ -1,6 +1,7 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/timer/domain/domain.dart';
 import 'package:nokhte_backend/tables/timer_information.dart';
+import 'package:nokhte_core/custom_control_structures.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class TimerRemoteSource {
@@ -23,10 +24,21 @@ class TimerRemoteSourceImpl implements TimerRemoteSource {
         stream = TimerInformationStreams(supabase: supabase);
 
   @override
-  Future<List> createTimer(CreateTimerParams params) async =>
-      await queries.createNewTimer(
-        timerLengthInMilliseconds: params.toMilliseconds(),
-      );
+  Future<List> createTimer(CreateTimerParams params) async {
+    if (queries.collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await queries.figureOutActiveCollaboratorInfo();
+    }
+    final userCollaboratorNumber =
+        queries.collaboratorInfo.theUsersCollaboratorNumber;
+    return StringComparison.isCollaboratorOne(
+        input: userCollaboratorNumber,
+        elseReturnVal: [],
+        callback: () async {
+          return await queries.createNewTimer(
+            timerLengthInMilliseconds: params.toMilliseconds(),
+          );
+        });
+  }
 
   @override
   Future<List> updatePresence(bool isPresent) async =>
