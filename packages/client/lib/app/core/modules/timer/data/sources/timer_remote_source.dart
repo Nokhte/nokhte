@@ -5,7 +5,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 abstract class TimerRemoteSource {
   Future<List> createTimer(CreateTimerParams params);
   Future<List> updatePresence(bool isPresent);
-// Future<> ();
+  Future<List> updateTimerRunningStatus(bool shouldBeRunning);
 }
 
 class TimerRemoteSourceImpl implements TimerRemoteSource {
@@ -27,4 +27,8 @@ class TimerRemoteSourceImpl implements TimerRemoteSource {
   @override
   Future<List> updatePresence(bool isPresent) async =>
       await queries.updatePresence(isOnlineParam: isPresent);
+
+  @override
+  Future<List> updateTimerRunningStatus(bool shouldBeRunning) async =>
+      await queries.updateTimerRunningStatus(newTimerStatus: shouldBeRunning);
 }
