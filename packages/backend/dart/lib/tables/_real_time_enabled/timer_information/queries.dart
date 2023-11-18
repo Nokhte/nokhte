@@ -1,5 +1,4 @@
 import 'package:nokhte_backend/tables/_real_time_enabled/shared/shared.dart';
-import 'package:nokhte_core/custom_control_structures.dart';
 
 class TimerInformationQueries extends CollaborativeQueries {
   static const tableName = "timer_information";
@@ -17,21 +16,15 @@ class TimerInformationQueries extends CollaborativeQueries {
       await figureOutActiveCollaboratorInfo();
     }
     final checkRes = await selectMostRecentTimer();
+    print(checkRes);
     if (checkRes.isEmpty) {
-      final isMoreThanAnHour = DurationUtils.isMoreThanAnHour(
-          startTime: DateTime.parse(checkRes.first[createdAt]),
-          endTime: DateTime.now());
-      if (isMoreThanAnHour) {
-        return await supabase.from(tableName).insert({
-          "${collaboratorInfo.theCollaboratorsNumber}_uid":
-              collaboratorInfo.theCollaboratorsUID,
-          "${collaboratorInfo.theUsersCollaboratorNumber}_uid":
-              collaboratorInfo.theUsersUID,
-          timeRemainingInMilliseconds: timerLengthInMilliseconds,
-        }).select();
-      } else {
-        return checkRes;
-      }
+      return await supabase.from(tableName).insert({
+        "${collaboratorInfo.theCollaboratorsNumber}_uid":
+            collaboratorInfo.theCollaboratorsUID,
+        "${collaboratorInfo.theUsersCollaboratorNumber}_uid":
+            collaboratorInfo.theUsersUID,
+        timeRemainingInMilliseconds: timerLengthInMilliseconds,
+      }).select();
     } else {
       return checkRes;
     }
@@ -120,7 +113,7 @@ class TimerInformationQueries extends CollaborativeQueries {
         .first[timeRemainingInMilliseconds]
         .toDouble();
 
-    final double newClockVal = pastClockVal - 1;
+    final double newClockVal = pastClockVal - 1000;
     await supabase
         .from(tableName)
         .update({
