@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/modules/timer/domain/logic/logic.dart';
 import 'package:nokhte/app/core/modules/timer/presentation/presentation.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -33,6 +34,10 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
   screenConstructor() async {
     beachWaves.initiateSuspendedAtTheDepths();
     holdStartListener();
+    await timer.createTheTimer(
+      const CreateTimerParams(timerLengthInMinutes: 5),
+    );
+    await timer.setOnlineStatus(true);
     holdEndListener();
     meshCircleStore.widgetConstructor();
     await fadingText
