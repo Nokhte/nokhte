@@ -34,10 +34,8 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
   screenConstructor() async {
     beachWaves.initiateSuspendedAtTheDepths();
     holdStartListener();
-    await timer.createTheTimer(
-      const CreateTimerParams(timerLengthInMinutes: 5),
-    );
-    await timer.setOnlineStatus(true);
+    await timer.setupAndStreamListenerActivation(
+        const CreateTimerParams(timerLengthInMinutes: 5));
     holdEndListener();
     meshCircleStore.widgetConstructor();
     await fadingText
