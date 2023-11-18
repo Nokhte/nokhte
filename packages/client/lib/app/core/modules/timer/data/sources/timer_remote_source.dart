@@ -4,7 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class TimerRemoteSource {
   Future<List> createTimer(CreateTimerParams params);
-// Future<> ();
+  Future<List> updatePresence(bool isPresent);
 // Future<> ();
 }
 

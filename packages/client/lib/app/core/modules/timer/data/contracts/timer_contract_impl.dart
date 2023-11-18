@@ -22,4 +22,15 @@ class TimerContractImpl implements TimerContract {
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  Future<Either<Failure, PresenceUpdateStatusModel>> updatePresence(
+      bool isPresent) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.updatePresence(isPresent);
+      return Right(PresenceUpdateStatusModel.fromSupabase(res));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
 }
