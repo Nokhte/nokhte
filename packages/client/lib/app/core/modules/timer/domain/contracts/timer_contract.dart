@@ -18,4 +18,7 @@ abstract class TimerContract {
 
   Future<Either<Failure, TimerMarkdownStatusEntity>> markdownTheTimer(
       NoParams params);
+
+  Future<Either<Failure, TimerInformationStreamEntity>>
+      getTimerInformationStream(NoParams params);
 }
