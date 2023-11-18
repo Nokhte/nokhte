@@ -26,6 +26,9 @@ void main() {
     await user1Queries.markDownTheClock();
   }
 
+  updateTimerRunningStatus(bool newStatus) async =>
+      await user1Queries.updateTimerRunningStatus(newTimerStatus: newStatus);
+
   initialTimerExpectationSuite(List res) {
     final theCollaboratorsNumber =
         user1Queries.collaboratorInfo.theCollaboratorsNumber;
@@ -80,6 +83,11 @@ void main() {
       expect(res.first["${usersCollaboratorNumber}_$isOnline"], true);
     });
 
+    test("user should be able to updateTimer running status", () async {
+      final res = await updateTimerRunningStatus(true);
+      expect(res.first[TimerInformationQueries.timerIsRunning], true);
+    });
+
     test("when both users are online the clock winds down", () async {
       await updateUserPrecenceToTrue();
       await decrementTwoMilliseconds();
@@ -91,6 +99,7 @@ void main() {
 
     test("stream should properly emit changes", () async {
       await updateUserPrecenceToTrue();
+      await updateTimerRunningStatus(true);
       await decrementTwoMilliseconds();
 
       final stream = user1Stream.getStream();
