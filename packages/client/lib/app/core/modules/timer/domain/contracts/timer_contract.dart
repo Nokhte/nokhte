@@ -7,4 +7,7 @@ abstract class TimerContract {
   Future<Either<Failure, TimerCreationStatusEntity>> createTimer(
     CreateTimerParams params,
   );
+  Future<Either<Failure, PresenceUpdateStatusEntity>> updatePresence(
+    bool isPresent,
+  );
 }
