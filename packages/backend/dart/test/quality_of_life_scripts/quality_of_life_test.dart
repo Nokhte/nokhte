@@ -8,7 +8,6 @@ import 'package:nokhte_backend/tables/solo_sharable_documents.dart';
 import 'package:nokhte_backend/storage/perspectives_audio.dart';
 import 'package:nokhte_backend/tables/_real_time_disabled/collective_sessions/queries.dart';
 import 'package:nokhte_backend/tables/_real_time_disabled/individual_sessions/queries.dart';
-import 'package:nokhte_backend/tables/_real_time_enabled/existing_collaborations/types/types.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
