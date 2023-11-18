@@ -1,10 +1,12 @@
 import 'package:nokhte_backend/tables/_real_time_enabled/shared/shared.dart';
+import 'package:nokhte_core/custom_control_structures.dart';
 
 class TimerInformationQueries extends CollaborativeQueries {
   static const tableName = "timer_information";
   static const isOnline = "is_online";
   static const timerIsRunning = "timer_is_running";
   static const timeRemainingInMilliseconds = "time_remaining_in_milliseconds";
+  static const createdAt = "created_at";
 
   TimerInformationQueries({required super.supabase});
 
@@ -14,13 +16,25 @@ class TimerInformationQueries extends CollaborativeQueries {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutActiveCollaboratorInfo();
     }
-    return await supabase.from(tableName).insert({
-      "${collaboratorInfo.theCollaboratorsNumber}_uid":
-          collaboratorInfo.theCollaboratorsUID,
-      "${collaboratorInfo.theUsersCollaboratorNumber}_uid":
-          collaboratorInfo.theUsersUID,
-      timeRemainingInMilliseconds: timerLengthInMilliseconds,
-    }).select();
+    final checkRes = await selectMostRecentTimer();
+    if (checkRes.isEmpty) {
+      final isMoreThanAnHour = DurationUtils.isMoreThanAnHour(
+          startTime: DateTime.parse(checkRes.first[createdAt]),
+          endTime: DateTime.now());
+      if (isMoreThanAnHour) {
+        return await supabase.from(tableName).insert({
+          "${collaboratorInfo.theCollaboratorsNumber}_uid":
+              collaboratorInfo.theCollaboratorsUID,
+          "${collaboratorInfo.theUsersCollaboratorNumber}_uid":
+              collaboratorInfo.theUsersUID,
+          timeRemainingInMilliseconds: timerLengthInMilliseconds,
+        }).select();
+      } else {
+        return checkRes;
+      }
+    } else {
+      return checkRes;
+    }
   }
 
   Future<void> deleteTheTimer() async {
