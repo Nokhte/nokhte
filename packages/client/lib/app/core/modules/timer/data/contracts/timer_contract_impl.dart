@@ -67,4 +67,15 @@ class TimerContractImpl implements TimerContract {
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  Future<Either<Failure, TimerInformationStreamModel>>
+      getTimerInformationStream(NoParams params) async {
+    if (await networkInfo.isConnected) {
+      final res = remoteSource.getTimerInformationStream(params);
+      return Right(TimerInformationStreamModel(theTimeStream: res));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
 }
