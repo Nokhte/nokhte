@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:dartz/dartz.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -72,19 +73,22 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
 
   @action
   joinTheCallAndMoveToPhase2() async {
-    await voiceCallActionsStore.enterOrLeaveCall(
-      Right(
-        JoinCallParams(
-          token: fetchAgoraTokenStore.token,
-          channelId: fetchChannelIdStore.channelId,
+    if (!kDebugMode) {
+      await voiceCallActionsStore.enterOrLeaveCall(
+        Right(
+          JoinCallParams(
+            token: fetchAgoraTokenStore.token,
+            channelId: fetchChannelIdStore.channelId,
+          ),
         ),
-      ),
-    );
-    await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
+      );
+      await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
+    }
     gesturePillStore.setPillAnimationControl(Control.playFromStart);
     fadingText.fadeTheTextOut();
     Future.delayed(Seconds.get(3), () {
-      Modular.to.navigate('/p2p_purpose_session/phase-2/');
+      // Modular.to.navigate('/p2p_purpose_session/phase-2/');
+      Modular.to.navigate('/phase-2/');
     });
   }
 
