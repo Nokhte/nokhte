@@ -21,7 +21,7 @@ void main() {
     await user2Queries.updatePresence(isOnlineParam: true);
   }
 
-  decrementTwoMilliseconds() async {
+  decrementTwoSeconds() async {
     await user1Queries.markDownTheTimer();
     await user1Queries.markDownTheTimer();
   }
@@ -41,7 +41,7 @@ void main() {
     expect(res.first[TimerInformationQueries.timerIsRunning], false);
     expect(
       res.first[TimerInformationQueries.timeRemainingInMilliseconds],
-      500.0,
+      3000.0,
     );
   }
 
@@ -60,13 +60,13 @@ void main() {
 
   test("users should be able to create a timer", () async {
     final res =
-        await user1Queries.createNewTimer(timerLengthInMilliseconds: 500.0);
+        await user1Queries.createNewTimer(timerLengthInMilliseconds: 3000.0);
     initialTimerExpectationSuite(res);
   });
 
   group("assumes timer row as been created", () {
     setUp(() async {
-      await user1Queries.createNewTimer(timerLengthInMilliseconds: 500.0);
+      await user1Queries.createNewTimer(timerLengthInMilliseconds: 3000.0);
     });
     tearDown(() async => await deleteTimer());
 
@@ -90,17 +90,17 @@ void main() {
 
     test("when both users are online the clock winds down", () async {
       await updateUserPrecenceToTrue();
-      await decrementTwoMilliseconds();
+      await decrementTwoSeconds();
       final int res = (await user1Queries.selectMostRecentTimer())
           .first[TimerInformationQueries.timeRemainingInMilliseconds];
       print(res);
-      expect(res, 498.0);
+      expect(res, 1000.0);
     });
 
     test("stream should properly emit changes", () async {
       await updateUserPrecenceToTrue();
       await updateTimerRunningStatus(true);
-      await decrementTwoMilliseconds();
+      await decrementTwoSeconds();
 
       final stream = user1Stream.getStream();
       expect(
@@ -108,7 +108,7 @@ void main() {
         emits(
           PresenceAndTimeRemaining(
             timerIsRunning: true,
-            remainingTimeInMilliseconds: 498.0,
+            remainingTimeInMilliseconds: 1000.0,
             usersPresence: true,
             collaboratorsPresence: true,
           ),
