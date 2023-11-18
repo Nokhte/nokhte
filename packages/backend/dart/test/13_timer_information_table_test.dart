@@ -22,8 +22,8 @@ void main() {
   }
 
   decrementTwoMilliseconds() async {
-    await user1Queries.markDownTheClock();
-    await user1Queries.markDownTheClock();
+    await user1Queries.markDownTheTimer();
+    await user1Queries.markDownTheTimer();
   }
 
   updateTimerRunningStatus(bool newStatus) async =>

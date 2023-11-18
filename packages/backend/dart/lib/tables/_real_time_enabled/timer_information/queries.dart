@@ -98,7 +98,7 @@ class TimerInformationQueries extends CollaborativeQueries {
         .select();
   }
 
-  Future<void> markDownTheClock() async {
+  Future<void> markDownTheTimer() async {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutActiveCollaboratorInfo();
     }
