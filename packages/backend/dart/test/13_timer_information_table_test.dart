@@ -92,13 +92,19 @@ void main() {
     test("stream should properly emit changes", () async {
       await updateUserPrecenceToTrue();
       await decrementTwoMilliseconds();
-      user1Stream.getStream().listen((event) {
-        expect(event.remainingTimeInMilliseconds, 498.0);
-        expect(event.collaboratorsPresence, true);
-        expect(event.usersPresence, true);
-      }).cancel();
-      // await updateUserPrecenceToTrue();
-      // await decrementTwoMilliseconds();
+
+      final stream = user1Stream.getStream();
+      expect(
+        stream,
+        emits(
+          PresenceAndTimeRemaining(
+            timerIsRunning: true,
+            remainingTimeInMilliseconds: 498.0,
+            usersPresence: true,
+            collaboratorsPresence: true,
+          ),
+        ),
+      );
     });
   });
 }

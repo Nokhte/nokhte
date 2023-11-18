@@ -16,6 +16,7 @@ class TimerInformationStreams extends CollaborativeQueries {
     String usersCollaboratorNumber = "";
     String collaboratorsNumber = "";
     String remainingTime = TimerInformationQueries.timeRemainingInMilliseconds;
+    String timerIsRunning = TimerInformationQueries.timerIsRunning;
     String isOnline = TimerInformationQueries.isOnline;
 
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
@@ -34,23 +35,20 @@ class TimerInformationStreams extends CollaborativeQueries {
       if (isListening == false) {
         return;
       }
-      // print("anything ??  ${event}");
-
       if (event.isEmpty) {
         yield PresenceAndTimeRemaining(
           remainingTimeInMilliseconds: -1,
           usersPresence: false,
           collaboratorsPresence: false,
+          timerIsRunning: false,
         );
       } else {
-        final thing = PresenceAndTimeRemaining(
-          remainingTimeInMilliseconds: event.first[remainingTime].toDouble(),
-          usersPresence: event.first["${usersCollaboratorNumber}_$isOnline"],
-          collaboratorsPresence:
-              event.first["${collaboratorsNumber}_$isOnline"],
-        );
-        print("HEY THING $thing");
-        yield thing;
+        yield PresenceAndTimeRemaining(
+            remainingTimeInMilliseconds: event.first[remainingTime].toDouble(),
+            usersPresence: event.first["${usersCollaboratorNumber}_$isOnline"],
+            collaboratorsPresence:
+                event.first["${collaboratorsNumber}_$isOnline"],
+            timerIsRunning: event.first[timerIsRunning]);
       }
     }
   }
