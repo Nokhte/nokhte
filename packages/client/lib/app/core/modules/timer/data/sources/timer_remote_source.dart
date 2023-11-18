@@ -23,4 +23,8 @@ class TimerRemoteSourceImpl implements TimerRemoteSource {
       await queries.createNewTimer(
         timerLengthInMilliseconds: params.toMilliseconds(),
       );
+
+  @override
+  Future<List> updatePresence(bool isPresent) async =>
+      await queries.updatePresence(isOnlineParam: isPresent);
 }
