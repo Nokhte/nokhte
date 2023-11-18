@@ -1,3 +1,4 @@
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/timer/domain/logic/create_timer.dart';
 import 'package:nokhte_backend/tables/timer_information.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -6,6 +7,8 @@ abstract class TimerRemoteSource {
   Future<List> createTimer(CreateTimerParams params);
   Future<List> updatePresence(bool isPresent);
   Future<List> updateTimerRunningStatus(bool shouldBeRunning);
+  Future<void> deleteTheTimer(NoParams params);
+  Future<void> markdownTheTimer(NoParams params);
 }
 
 class TimerRemoteSourceImpl implements TimerRemoteSource {
@@ -31,4 +34,12 @@ class TimerRemoteSourceImpl implements TimerRemoteSource {
   @override
   Future<List> updateTimerRunningStatus(bool shouldBeRunning) async =>
       await queries.updateTimerRunningStatus(newTimerStatus: shouldBeRunning);
+
+  @override
+  Future<void> deleteTheTimer(NoParams params) async =>
+      await queries.deleteTheTimer();
+
+  @override
+  Future<void> markdownTheTimer(NoParams params) async =>
+      await queries.markDownTheTimer();
 }
