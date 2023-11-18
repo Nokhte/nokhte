@@ -31,7 +31,7 @@
         // },
         {
             "name": "🟦 working module",
-            "path": "../packages/client/lib/app/core/modules/timer"
+            "path": "../packages/client/lib/app/modules/home"
             
         },
         {
