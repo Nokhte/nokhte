@@ -25,6 +25,7 @@ class TimerModule extends Module {
           (i) => CreateTimer(
             contract: i<TimerContract>(),
           ),
+          export: true,
         ),
         Bind.singleton<DeleteTheTimer>(
           (i) => DeleteTheTimer(
@@ -60,6 +61,7 @@ class TimerModule extends Module {
           (i) => CreateTimerGetterStore(
             logic: i<CreateTimer>(),
           ),
+          export: true,
         ),
         Bind.singleton<DeleteTheTimerGetterStore>(
           (i) => DeleteTheTimerGetterStore(
@@ -94,6 +96,7 @@ class TimerModule extends Module {
           (i) => CreateTimerStore(
             getterStore: i<CreateTimerGetterStore>(),
           ),
+          export: true,
         ),
         Bind.singleton<DeleteTheTimerStore>(
           (i) => DeleteTheTimerStore(
@@ -122,6 +125,17 @@ class TimerModule extends Module {
         Bind.singleton<UpdateTimerRunningStatusStore>(
           (i) => UpdateTimerRunningStatusStore(
             getterStore: i<UpdateTimerRunningStatusGetterStore>(),
+          ),
+          export: true,
+        ),
+        Bind.singleton<TimerCoordinator>(
+          (i) => TimerCoordinator(
+            createTimer: i<CreateTimerStore>(),
+            deleteTheTimer: i<DeleteTheTimerStore>(),
+            getTimeInfoStream: i<GetTimerInformationStreamStore>(),
+            markdownTheTimer: i<MarkdownTheTimerStore>(),
+            updatePresence: i<UpdatePresenceStore>(),
+            updateTimerRunningStatus: i<UpdateTimerRunningStatusStore>(),
           ),
           export: true,
         ),
