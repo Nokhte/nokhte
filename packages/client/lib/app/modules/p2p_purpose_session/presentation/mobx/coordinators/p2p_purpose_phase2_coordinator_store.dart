@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
@@ -100,21 +101,14 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
   initOrPauseTimesUp(bool shouldRun) {
     if (shouldRun) {
       if (isFirstTimeStartingMovie) {
-        beachWaves.initiateTimesUp(
-          timerLength: const Duration(
-            // minutes: 0,
-            seconds: 20,
-          ),
-        );
+        final Duration timerLength =
+            kDebugMode ? Seconds.get(20) : const Duration(minutes: 5);
+        beachWaves.initiateTimesUp(timerLength: timerLength);
         isFirstTimeStartingMovie = false;
-        // beachWaves.setControl(Control.playFromStart);
       } else {
         beachWaves.setControl(Control.play);
-        // print("did this set control run ${beachWaves.control}??");
-        // beachWaves.setControl(Control.play);
       }
     } else {
-      // beachWaves.control = Control.stop;
       beachWaves.setControl(Control.stop);
     }
   }
