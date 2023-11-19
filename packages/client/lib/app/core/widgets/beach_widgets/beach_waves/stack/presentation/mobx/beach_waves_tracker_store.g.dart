@@ -58,6 +58,22 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
     });
   }
 
+  late final _$localStopwatchAtom = Atom(
+      name: '_BeachWavesTrackerStoreBase.localStopwatch', context: context);
+
+  @override
+  Stopwatch get localStopwatch {
+    _$localStopwatchAtom.reportRead();
+    return super.localStopwatch;
+  }
+
+  @override
+  set localStopwatch(Stopwatch value) {
+    _$localStopwatchAtom.reportWrite(value, super.localStopwatch, () {
+      super.localStopwatch = value;
+    });
+  }
+
   late final _$movieStatusAtom =
       Atom(name: '_BeachWavesTrackerStoreBase.movieStatus', context: context);
 
@@ -122,6 +138,24 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
     });
   }
 
+  late final _$stopwatchMillsecondsAtom = Atom(
+      name: '_BeachWavesTrackerStoreBase.stopwatchMillseconds',
+      context: context);
+
+  @override
+  String get stopwatchMillseconds {
+    _$stopwatchMillsecondsAtom.reportRead();
+    return super.stopwatchMillseconds;
+  }
+
+  @override
+  set stopwatchMillseconds(String value) {
+    _$stopwatchMillsecondsAtom.reportWrite(value, super.stopwatchMillseconds,
+        () {
+      super.stopwatchMillseconds = value;
+    });
+  }
+
   late final _$_BeachWavesTrackerStoreBaseActionController =
       ActionController(name: '_BeachWavesTrackerStoreBase', context: context);
 
@@ -164,6 +198,18 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
         .startAction(name: '_BeachWavesTrackerStoreBase.teeUpOceanDive');
     try {
       return super.teeUpOceanDive();
+    } finally {
+      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic startAndResetStopWatch() {
+    final _$actionInfo =
+        _$_BeachWavesTrackerStoreBaseActionController.startAction(
+            name: '_BeachWavesTrackerStoreBase.startAndResetStopWatch');
+    try {
+      return super.startAndResetStopWatch();
     } finally {
       _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -365,10 +411,12 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
 movie: ${movie},
 showWidget: ${showWidget},
 pivotColorGradients: ${pivotColorGradients},
+localStopwatch: ${localStopwatch},
 movieStatus: ${movieStatus},
 passingParam: ${passingParam},
 movieMode: ${movieMode},
-control: ${control}
+control: ${control},
+stopwatchMillseconds: ${stopwatchMillseconds}
     ''';
   }
 }

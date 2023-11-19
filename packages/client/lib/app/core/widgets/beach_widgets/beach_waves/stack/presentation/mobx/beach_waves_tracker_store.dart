@@ -1,9 +1,12 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:simple_animations/simple_animations.dart';
+import 'dart:core';
 import '../../../../shared/types/types.dart';
 import '../../movies/movies.dart';
 part 'beach_waves_tracker_store.g.dart';
@@ -12,6 +15,11 @@ class BeachWavesTrackerStore = _BeachWavesTrackerStoreBase
     with _$BeachWavesTrackerStore;
 
 abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
+  _BeachWavesTrackerStoreBase() {
+    controlListener();
+    stopwatchListener();
+  }
+
   @observable
   MovieTween movie = OnShore.movie;
 
@@ -23,6 +31,9 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
 
   @observable
   List<Color> pivotColorGradients = [];
+
+  @observable
+  Stopwatch localStopwatch = Stopwatch();
 
   @observable
   MovieStatus movieStatus = MovieStatus.idle;
@@ -48,12 +59,59 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
 
   int timesUpCount = 0;
 
+  @observable
+  String stopwatchMillseconds = "";
+
   @action
   teeUpOceanDive() {
     if (movieMode == BeachWaveMovieModes.onShore) {
       movieMode = BeachWaveMovieModes.oceanDiveSetup;
     }
   }
+
+  @action
+  startAndResetStopWatch() {
+    print("is this running?????? stopwatch starter??");
+    localStopwatch.reset();
+    localStopwatch.start();
+    print("${localStopwatch.elapsedMilliseconds}");
+    Timer.periodic(Seconds.get(0, milli: 1), (timer) {
+      stopwatchMillseconds = localStopwatch.elapsedMilliseconds.toString();
+      if (movieStatus == MovieStatus.finished) {
+        timer.cancel();
+      }
+    });
+  }
+
+  controlListener() => reaction((p0) => control, (p0) {
+        print("is this running the rxn $p0");
+        if (control == Control.playFromStart) {
+          // localStopwatch.reset();
+          localStopwatch.start();
+        } else if (control == Control.play) {
+          // if (!localStopwatch.isRunning) {
+          localStopwatch.start();
+          print("start ${localStopwatch.elapsedMilliseconds}");
+          // }
+        } else if (control == Control.stop) {
+          localStopwatch.stop();
+          print("stop ${localStopwatch.elapsedMilliseconds}");
+        }
+      });
+
+  stopwatchListener() => reaction((p0) => stopwatchMillseconds, (p0) {
+        // print(" $p0 == ?? ${movie.duration.inMilliseconds}");
+        if ((movie.duration.inMilliseconds - int.parse(p0)) < 1000) {
+          print("milllllli $p0");
+        }
+        if (p0 == movie.duration.inMilliseconds.toString()) {
+          print("IT'S FINISHED!!!! $p0");
+          movieStatus = MovieStatus.finished;
+        } else if (int.parse(p0) > movie.duration.inMilliseconds) {
+          localStopwatch.stop();
+          localStopwatch.reset();
+        }
+      });
 
   @action
   teeUpBackToTheDepths() {
@@ -105,21 +163,30 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
 
   @action
   onBeachWavesAnimationCompletion() {
-    switch (movieMode) {
-      case BeachWaveMovieModes.oceanDive:
-        oceanDiveCount != 0
-            ? movieStatus = MovieStatus.finished
-            : oceanDiveCount++;
-        break;
-      case BeachWaveMovieModes.backToTheDepths:
-        backToTheDepthsCount != 0
-            ? movieStatus = MovieStatus.finished
-            : backToTheDepthsCount++;
-        break;
-      default:
-        movieStatus = MovieStatus.finished;
-        break;
-    }
+    // switch (movieMode) {
+    //   case BeachWaveMovieModes.oceanDive:
+    //     oceanDiveCount != 0
+    //         ? movieStatus = MovieStatus.finished
+    //         : oceanDiveCount++;
+    //     break;
+    //   case BeachWaveMovieModes.backToTheDepths:
+    //     backToTheDepthsCount != 0
+    //         ? movieStatus = MovieStatus.finished
+    //         : backToTheDepthsCount++;
+    //     break;
+    // default:
+    // if (control == Control.stop) {
+    //   final pastMovie = movie;
+    //   movie = MovieTween();
+    //   movie = pastMovie;
+    // onBeachWavesAnimationCompletion();
+    // control = Control.play;
+    //   return;
+    // }
+    // movieStatus = MovieStatus.finished;
+
+    // break;
+    // }
   }
 
   @action

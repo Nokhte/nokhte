@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'canvas/beach_waves_painter.dart';
 import 'package:simple_animations/simple_animations.dart';
+import 'canvas/beach_waves_painter.dart';
 
 class SmartBeachWaves extends StatefulWidget {
   final BeachWavesTrackerStore stateTrackerStore;
@@ -25,12 +25,11 @@ class _SmartBeachWavesState extends State<SmartBeachWaves>
     return Observer(builder: (context) {
       return Opacity(
         opacity: widget.stateTrackerStore.showWidget ? 1 : 0,
-        child: CustomAnimationBuilder<Movie>(
+        child: CustomAnimationBuilder(
           tween: widget.stateTrackerStore.movie,
           duration: widget.stateTrackerStore.movie.duration,
           control: widget.stateTrackerStore.control,
-          onCompleted: () =>
-              widget.stateTrackerStore.onBeachWavesAnimationCompletion(),
+          onStarted: () => widget.stateTrackerStore.startAndResetStopWatch(),
           builder: (context, value, child) {
             final currentAnimationValues =
                 GetCurrentWaterAnimation.values(value);
