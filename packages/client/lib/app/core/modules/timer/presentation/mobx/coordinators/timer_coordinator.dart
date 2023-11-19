@@ -43,37 +43,45 @@ abstract class _TimerCoordinatorBase extends Equatable with Store {
   @observable
   bool isFirstTime = true;
 
+  @observable
+  bool shouldCancelTimer = false;
+
   @action
-  timeInfoStreamListener() =>
-      getTimeInfoStream.timerInformationStream.distinct().listen((value) {
+  timerInfoStreamListener(Function(bool) initOrPauseCallback) =>
+      getTimeInfoStream.timerInformationStream.listen((value) {
+        Timer theTimerVal = Timer.periodic(Seconds.get(0), (timer) {});
         currentTimeLeft = value.remainingTimeInMilliseconds;
-        print("here's remaining time ${value.remainingTimeInMilliseconds}");
         if (value.collaboratorsPresence &&
             value.usersPresence &&
             value.timerIsRunning) {
           if (currentTimeLeft != value.remainingTimeInMilliseconds ||
               isFirstTime) {
-            Timer.periodic(Seconds.get(1), (timer) async {
+            initOrPauseCallback(true);
+            theTimerVal = Timer.periodic(Seconds.get(1), (theTimer) async {
               await markdownTheTimer(NoParams());
               isFirstTime = false;
-              if (!value.collaboratorsPresence ||
-                  !value.usersPresence ||
-                  !value.timerIsRunning) {
-                print("did it cancel??");
-                timer.cancel();
-                isFirstTime = true;
+              if (shouldCancelTimer) {
+                theTimer.cancel();
               }
             });
           }
+        } else if (!value.collaboratorsPresence ||
+            !value.usersPresence ||
+            !value.timerIsRunning) {
+          shouldCancelTimer = true;
+          initOrPauseCallback(false);
+          theTimerVal.cancel();
+          isFirstTime = true;
         }
       });
 
   @action
-  setupAndStreamListenerActivation(CreateTimerParams params) async {
+  setupAndStreamListenerActivation(
+      CreateTimerParams params, Function(bool) callback) async {
     await createTheTimer(params);
     await setOnlineStatus(true);
     await getTimerInformationStream();
-    timeInfoStreamListener();
+    timerInfoStreamListener(callback);
   }
 
   @override
