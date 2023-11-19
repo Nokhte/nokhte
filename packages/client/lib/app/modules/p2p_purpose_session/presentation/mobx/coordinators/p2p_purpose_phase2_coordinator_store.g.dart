@@ -27,6 +27,24 @@ mixin _$P2PPurposePhase2CoordinatorStore
     });
   }
 
+  late final _$isFirstTimeStartingMovieAtom = Atom(
+      name: '_P2PPurposePhase2CoordinatorStoreBase.isFirstTimeStartingMovie',
+      context: context);
+
+  @override
+  bool get isFirstTimeStartingMovie {
+    _$isFirstTimeStartingMovieAtom.reportRead();
+    return super.isFirstTimeStartingMovie;
+  }
+
+  @override
+  set isFirstTimeStartingMovie(bool value) {
+    _$isFirstTimeStartingMovieAtom
+        .reportWrite(value, super.isFirstTimeStartingMovie, () {
+      super.isFirstTimeStartingMovie = value;
+    });
+  }
+
   late final _$screenConstructorAsyncAction = AsyncAction(
       '_P2PPurposePhase2CoordinatorStoreBase.screenConstructor',
       context: context);
@@ -36,18 +54,27 @@ mixin _$P2PPurposePhase2CoordinatorStore
     return _$screenConstructorAsyncAction.run(() => super.screenConstructor());
   }
 
+  late final _$audioButtonHoldStartCallbackAsyncAction = AsyncAction(
+      '_P2PPurposePhase2CoordinatorStoreBase.audioButtonHoldStartCallback',
+      context: context);
+
+  @override
+  Future audioButtonHoldStartCallback() {
+    return _$audioButtonHoldStartCallbackAsyncAction
+        .run(() => super.audioButtonHoldStartCallback());
+  }
+
   late final _$_P2PPurposePhase2CoordinatorStoreBaseActionController =
       ActionController(
           name: '_P2PPurposePhase2CoordinatorStoreBase', context: context);
 
   @override
-  dynamic audioButtonHoldStartCallback() {
+  dynamic initOrPauseTimesUp(bool shouldRun) {
     final _$actionInfo =
         _$_P2PPurposePhase2CoordinatorStoreBaseActionController.startAction(
-            name:
-                '_P2PPurposePhase2CoordinatorStoreBase.audioButtonHoldStartCallback');
+            name: '_P2PPurposePhase2CoordinatorStoreBase.initOrPauseTimesUp');
     try {
-      return super.audioButtonHoldStartCallback();
+      return super.initOrPauseTimesUp(shouldRun);
     } finally {
       _$_P2PPurposePhase2CoordinatorStoreBaseActionController
           .endAction(_$actionInfo);
@@ -71,7 +98,8 @@ mixin _$P2PPurposePhase2CoordinatorStore
   @override
   String toString() {
     return '''
-isFirstTimeTalking: ${isFirstTimeTalking}
+isFirstTimeTalking: ${isFirstTimeTalking},
+isFirstTimeStartingMovie: ${isFirstTimeStartingMovie}
     ''';
   }
 }

@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -10,6 +11,7 @@ import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:simple_animations/simple_animations.dart';
 part 'p2p_purpose_phase2_coordinator_store.g.dart';
 
 class P2PPurposePhase2CoordinatorStore = _P2PPurposePhase2CoordinatorStoreBase
@@ -30,12 +32,16 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
   @observable
   bool isFirstTimeTalking = true;
 
+  @observable
+  bool isFirstTimeStartingMovie = true;
+
   @action
   screenConstructor() async {
     beachWaves.initiateSuspendedAtTheDepths();
     holdStartListener();
     await timer.setupAndStreamListenerActivation(
-        const CreateTimerParams(timerLengthInMinutes: 5));
+        const CreateTimerParams(timerLengthInMinutes: 5), initOrPauseTimesUp);
+
     holdEndListener();
     meshCircleStore.widgetConstructor();
     await fadingText
@@ -91,15 +97,32 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
       });
 
   @action
-  audioButtonHoldStartCallback() {
-    if (isFirstTimeTalking) {
-      beachWaves.initiateTimesUp(
-        timerLength: const Duration(
-          minutes: 5,
-        ),
-      );
-      isFirstTimeTalking = false;
+  initOrPauseTimesUp(bool shouldRun) {
+    if (shouldRun) {
+      if (isFirstTimeStartingMovie) {
+        beachWaves.initiateTimesUp(
+          timerLength: const Duration(
+            // minutes: 0,
+            seconds: 20,
+          ),
+        );
+        isFirstTimeStartingMovie = false;
+        // beachWaves.setControl(Control.playFromStart);
+      } else {
+        beachWaves.setControl(Control.play);
+        // print("did this set control run ${beachWaves.control}??");
+        // beachWaves.setControl(Control.play);
+      }
+    } else {
+      // beachWaves.control = Control.stop;
+      beachWaves.setControl(Control.stop);
     }
+  }
+
+  @action
+  audioButtonHoldStartCallback() async {
+    await timer.updateTimerRunningStatus(true);
+
     if (fadingText.currentIndex == 1 && fadingText.showText) {
       Future.delayed(Seconds.get(10), () => fadingText.fadeTheTextOut());
     }
