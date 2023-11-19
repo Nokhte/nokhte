@@ -23,14 +23,14 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
     required String collaboratorTwoUID,
     required bool newActivityStatus,
   }) async {
-    final something = await supabase
+    await supabase
         .from(tableName)
         .update({isCurrentlyActive: newActivityStatus})
         .eq(collaboratorOne, collaboratorOneUID)
         .eq(collaboratorTwo, collaboratorTwoUID)
         .eq(isCurrentlyActive, !newActivityStatus)
         .select();
-    print("did it happen??? $something");
+    // print("did it happen??? $something");
   }
 
   Future<void> deleteExistingCollaboration({
