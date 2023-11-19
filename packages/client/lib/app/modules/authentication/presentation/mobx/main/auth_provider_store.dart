@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, must_be_immutable
+// ignore_for_file: library_private_types_in_public_api, must_be_immutable, type_literal_in_constant_pattern
 import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';

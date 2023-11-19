@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, type_literal_in_constant_pattern
 // * Mobx Import
 import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
