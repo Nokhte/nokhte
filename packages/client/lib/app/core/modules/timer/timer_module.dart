@@ -128,7 +128,7 @@ class TimerModule extends Module {
           ),
           export: true,
         ),
-        Bind.singleton<TimerCoordinator>(
+        Bind.factory<TimerCoordinator>(
           (i) => TimerCoordinator(
             createTimer: i<CreateTimerStore>(),
             deleteTheTimer: i<DeleteTheTimerStore>(),
