@@ -60,7 +60,7 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                       ),
                     ),
                     const Padding(
-                      padding: EdgeInsets.only(bottom: 40),
+                      padding: EdgeInsets.only(bottom: 30),
                     ),
                   ],
                 ),
