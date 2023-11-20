@@ -1,30 +1,25 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/timer/domain/logic/logic.dart';
-import 'package:nokhte/app/core/modules/timer/presentation/presentation.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:simple_animations/simple_animations.dart';
 part 'p2p_purpose_phase2_coordinator_store.g.dart';
 
 class P2PPurposePhase2CoordinatorStore = _P2PPurposePhase2CoordinatorStoreBase
     with _$P2PPurposePhase2CoordinatorStore;
 
-abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
+abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
     with Store {
-  final TimerCoordinator timer;
   final AgoraCallbacksStore agoraCallbacksStore;
   final VoiceCallActionsStore voiceCallActionsStore;
   final CheckIfUserHasTheQuestionStore questionCheckerStore;
-  final BeachWavesTrackerStore beachWaves;
   final SmartFadingAnimatedTextTrackerStore fadingText;
   final MeshCircleButtonStore meshCircleStore;
   final SwipeDetector swipe;
@@ -32,9 +27,6 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
 
   @observable
   bool isFirstTimeTalking = true;
-
-  @observable
-  bool isFirstTimeStartingMovie = true;
 
   @action
   screenConstructor() async {
@@ -60,16 +52,16 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
   }
 
   _P2PPurposePhase2CoordinatorStoreBase({
-    required this.timer,
+    required super.timer,
     required this.swipe,
     required this.hold,
     required this.agoraCallbacksStore,
     required this.questionCheckerStore,
     required this.voiceCallActionsStore,
-    required this.beachWaves,
+    required super.beachWaves,
     required this.fadingText,
     required this.meshCircleStore,
-  }) {
+  }) : super(productionTimerLength: const Duration(minutes: 5)) {
     reaction((p0) => beachWaves.movieMode, (p0) {
       if (beachWaves.movieMode == BeachWaveMovieModes.backToTheDepthsSetup) {
         meshCircleStore.toggleWidgetVisibility();
@@ -82,6 +74,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
         beachWaves.backToTheDepthsCount++;
       } else if (beachWaves.movieStatus == MovieStatus.finished &&
           beachWaves.movieMode == BeachWaveMovieModes.backToTheDepths) {
+        await timer.deleteTheTimer(NoParams());
         await voiceCallActionsStore.enterOrLeaveCall(Left(NoParams()));
         meshCircleStore.toggleWidgetVisibility();
         Modular.to.navigate('/p2p_purpose_session/phase-3/');
@@ -96,22 +89,6 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends Equatable
   holdEndListener() => reaction((p0) => hold.letGoCount, (p0) {
         audioButtonHoldEndCallback();
       });
-
-  @action
-  initOrPauseTimesUp(bool shouldRun) {
-    if (shouldRun) {
-      if (isFirstTimeStartingMovie) {
-        final Duration timerLength =
-            kDebugMode ? Seconds.get(20) : const Duration(minutes: 5);
-        beachWaves.initiateTimesUp(timerLength: timerLength);
-        isFirstTimeStartingMovie = false;
-      } else {
-        beachWaves.setControl(Control.play);
-      }
-    } else {
-      beachWaves.setControl(Control.stop);
-    }
-  }
 
   @action
   audioButtonHoldStartCallback() async {

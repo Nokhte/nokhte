@@ -27,24 +27,6 @@ mixin _$P2PPurposePhase2CoordinatorStore
     });
   }
 
-  late final _$isFirstTimeStartingMovieAtom = Atom(
-      name: '_P2PPurposePhase2CoordinatorStoreBase.isFirstTimeStartingMovie',
-      context: context);
-
-  @override
-  bool get isFirstTimeStartingMovie {
-    _$isFirstTimeStartingMovieAtom.reportRead();
-    return super.isFirstTimeStartingMovie;
-  }
-
-  @override
-  set isFirstTimeStartingMovie(bool value) {
-    _$isFirstTimeStartingMovieAtom
-        .reportWrite(value, super.isFirstTimeStartingMovie, () {
-      super.isFirstTimeStartingMovie = value;
-    });
-  }
-
   late final _$screenConstructorAsyncAction = AsyncAction(
       '_P2PPurposePhase2CoordinatorStoreBase.screenConstructor',
       context: context);
@@ -69,19 +51,6 @@ mixin _$P2PPurposePhase2CoordinatorStore
           name: '_P2PPurposePhase2CoordinatorStoreBase', context: context);
 
   @override
-  dynamic initOrPauseTimesUp(bool shouldRun) {
-    final _$actionInfo =
-        _$_P2PPurposePhase2CoordinatorStoreBaseActionController.startAction(
-            name: '_P2PPurposePhase2CoordinatorStoreBase.initOrPauseTimesUp');
-    try {
-      return super.initOrPauseTimesUp(shouldRun);
-    } finally {
-      _$_P2PPurposePhase2CoordinatorStoreBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic audioButtonHoldEndCallback() {
     final _$actionInfo =
         _$_P2PPurposePhase2CoordinatorStoreBaseActionController.startAction(
@@ -98,8 +67,7 @@ mixin _$P2PPurposePhase2CoordinatorStore
   @override
   String toString() {
     return '''
-isFirstTimeTalking: ${isFirstTimeTalking},
-isFirstTimeStartingMovie: ${isFirstTimeStartingMovie}
+isFirstTimeTalking: ${isFirstTimeTalking}
     ''';
   }
 }

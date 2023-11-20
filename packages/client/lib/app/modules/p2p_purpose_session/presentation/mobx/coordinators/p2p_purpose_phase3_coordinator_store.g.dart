@@ -10,21 +10,13 @@ part of 'p2p_purpose_phase3_coordinator_store.dart';
 
 mixin _$P2PPurposePhase3CoordinatorStore
     on _P2PPurposePhase3CoordinatorStoreBase, Store {
-  late final _$_P2PPurposePhase3CoordinatorStoreBaseActionController =
-      ActionController(
-          name: '_P2PPurposePhase3CoordinatorStoreBase', context: context);
+  late final _$screenConstructorAsyncAction = AsyncAction(
+      '_P2PPurposePhase3CoordinatorStoreBase.screenConstructor',
+      context: context);
 
   @override
-  dynamic screenConstructor() {
-    final _$actionInfo =
-        _$_P2PPurposePhase3CoordinatorStoreBaseActionController.startAction(
-            name: '_P2PPurposePhase3CoordinatorStoreBase.screenConstructor');
-    try {
-      return super.screenConstructor();
-    } finally {
-      _$_P2PPurposePhase3CoordinatorStoreBaseActionController
-          .endAction(_$actionInfo);
-    }
+  Future screenConstructor() {
+    return _$screenConstructorAsyncAction.run(() => super.screenConstructor());
   }
 
   @override
