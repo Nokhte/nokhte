@@ -1,6 +1,7 @@
 // ignore_for_file: sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -52,6 +53,16 @@ class P2PPurpose2ConsultationScreen extends StatelessWidget
                   children: [
                     Expanded(
                       child: Container(),
+                    ),
+                    ExplanationText(
+                      chosenFont: GoogleFonts.montserrat(
+                        fontSize: 20.0,
+                        color: Colors.white,
+                      ),
+                      trackerStore: coordinator.explanationText,
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 15),
                     ),
                     Hold(
                       trackerStore: coordinator.hold,
