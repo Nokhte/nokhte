@@ -23,6 +23,7 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
     with Store {
   final WidgetCoordinatorStore widgetStore;
   final LocalSpeechToTextCoordinatorStore localSpeechToText;
+  final ExplanationTextStore explanationText;
   final SwipeDetector swipe;
   final HoldDetector hold;
   final OnSpeechResultStore onSpeechResultStore;
@@ -36,6 +37,7 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
     required this.swipe,
     required this.hold,
     required this.widgetStore,
+    required this.explanationText,
     required this.localSpeechToText,
     required this.onSpeechResultStore,
     required this.validateQueryStore,
@@ -46,6 +48,8 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
 
   @action
   screenConstructor() async {
+    explanationText.setText("hold to talk");
+    explanationText.widgetConstructor();
     meshCircleStore.widgetConstructor();
     beachWaves.initiateSuspendedAtSea();
     await localSpeechToText.initLeopardStore(NoParams());
@@ -63,6 +67,9 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
     holdListener();
     holdLetGoListener();
   }
+
+  @observable
+  bool isFirstTimeSpeaking = true;
 
   beachWavesMovieStatusListener() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
@@ -140,6 +147,13 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   holdListener() => reaction(
         (p0) => hold.holdCount,
         (p0) async {
+          if (isFirstTimeSpeaking) {
+            Future.delayed(
+              Seconds.get(3),
+              () => explanationText.toggleWidgetVisibility(),
+            );
+            isFirstTimeSpeaking = false;
+          }
           await Haptics.vibrate(HapticsType.medium);
           await audioButtonHoldStartCallback();
           meshCircleStore.initGlowUp();

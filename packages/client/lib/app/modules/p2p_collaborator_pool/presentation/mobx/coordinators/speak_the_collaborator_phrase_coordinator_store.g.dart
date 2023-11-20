@@ -10,6 +10,24 @@ part of 'speak_the_collaborator_phrase_coordinator_store.dart';
 
 mixin _$SpeakTheCollaboratorPhraseCoordinatorStore
     on _SpeakTheCollaboratorPhraseCoordinatorStoreBase, Store {
+  late final _$isFirstTimeSpeakingAtom = Atom(
+      name:
+          '_SpeakTheCollaboratorPhraseCoordinatorStoreBase.isFirstTimeSpeaking',
+      context: context);
+
+  @override
+  bool get isFirstTimeSpeaking {
+    _$isFirstTimeSpeakingAtom.reportRead();
+    return super.isFirstTimeSpeaking;
+  }
+
+  @override
+  set isFirstTimeSpeaking(bool value) {
+    _$isFirstTimeSpeakingAtom.reportWrite(value, super.isFirstTimeSpeaking, () {
+      super.isFirstTimeSpeaking = value;
+    });
+  }
+
   late final _$isReadyToEnterPoolAtom = Atom(
       name:
           '_SpeakTheCollaboratorPhraseCoordinatorStoreBase.isReadyToEnterPool',
@@ -95,6 +113,7 @@ mixin _$SpeakTheCollaboratorPhraseCoordinatorStore
   @override
   String toString() {
     return '''
+isFirstTimeSpeaking: ${isFirstTimeSpeaking},
 isReadyToEnterPool: ${isReadyToEnterPool}
     ''';
   }
