@@ -117,6 +117,9 @@ class P2PCollaboratorPoolModule extends Module {
             messagesData: MessagesData.speakTheCollaboratorPhraseList,
           ),
         ),
+        Bind.singleton<ExplanationTextStore>(
+          (i) => ExplanationTextStore(),
+        ),
         Bind.factory<FadeInAndChangeColorTextStore>(
           (i) => FadeInAndChangeColorTextStore(
             chosenMovie: TimesUpText.movie,
@@ -144,6 +147,7 @@ class P2PCollaboratorPoolModule extends Module {
         ),
         Bind.singleton<SpeakTheCollaboratorPhraseCoordinatorStore>(
           (i) => SpeakTheCollaboratorPhraseCoordinatorStore(
+            explanationText: i<ExplanationTextStore>(),
             hold: Modular.get<HoldDetector>(),
             swipe: Modular.get<SwipeDetector>(),
             enterCollaboratorPoolStore: i<EnterCollaboratorPoolStore>(),
