@@ -9,38 +9,6 @@ part of 'beach_waves_tracker_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
-  late final _$movieAtom =
-      Atom(name: '_BeachWavesTrackerStoreBase.movie', context: context);
-
-  @override
-  MovieTween get movie {
-    _$movieAtom.reportRead();
-    return super.movie;
-  }
-
-  @override
-  set movie(MovieTween value) {
-    _$movieAtom.reportWrite(value, super.movie, () {
-      super.movie = value;
-    });
-  }
-
-  late final _$showWidgetAtom =
-      Atom(name: '_BeachWavesTrackerStoreBase.showWidget', context: context);
-
-  @override
-  bool get showWidget {
-    _$showWidgetAtom.reportRead();
-    return super.showWidget;
-  }
-
-  @override
-  set showWidget(bool value) {
-    _$showWidgetAtom.reportWrite(value, super.showWidget, () {
-      super.showWidget = value;
-    });
-  }
-
   late final _$pivotColorGradientsAtom = Atom(
       name: '_BeachWavesTrackerStoreBase.pivotColorGradients',
       context: context);
@@ -58,51 +26,19 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
     });
   }
 
-  late final _$localStopwatchAtom = Atom(
-      name: '_BeachWavesTrackerStoreBase.localStopwatch', context: context);
+  late final _$lastWaterValueAtom = Atom(
+      name: '_BeachWavesTrackerStoreBase.lastWaterValue', context: context);
 
   @override
-  Stopwatch get localStopwatch {
-    _$localStopwatchAtom.reportRead();
-    return super.localStopwatch;
+  double get lastWaterValue {
+    _$lastWaterValueAtom.reportRead();
+    return super.lastWaterValue;
   }
 
   @override
-  set localStopwatch(Stopwatch value) {
-    _$localStopwatchAtom.reportWrite(value, super.localStopwatch, () {
-      super.localStopwatch = value;
-    });
-  }
-
-  late final _$movieStatusAtom =
-      Atom(name: '_BeachWavesTrackerStoreBase.movieStatus', context: context);
-
-  @override
-  MovieStatus get movieStatus {
-    _$movieStatusAtom.reportRead();
-    return super.movieStatus;
-  }
-
-  @override
-  set movieStatus(MovieStatus value) {
-    _$movieStatusAtom.reportWrite(value, super.movieStatus, () {
-      super.movieStatus = value;
-    });
-  }
-
-  late final _$passingParamAtom =
-      Atom(name: '_BeachWavesTrackerStoreBase.passingParam', context: context);
-
-  @override
-  double get passingParam {
-    _$passingParamAtom.reportRead();
-    return super.passingParam;
-  }
-
-  @override
-  set passingParam(double value) {
-    _$passingParamAtom.reportWrite(value, super.passingParam, () {
-      super.passingParam = value;
+  set lastWaterValue(double value) {
+    _$lastWaterValueAtom.reportWrite(value, super.lastWaterValue, () {
+      super.lastWaterValue = value;
     });
   }
 
@@ -122,75 +58,8 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
     });
   }
 
-  late final _$controlAtom =
-      Atom(name: '_BeachWavesTrackerStoreBase.control', context: context);
-
-  @override
-  Control get control {
-    _$controlAtom.reportRead();
-    return super.control;
-  }
-
-  @override
-  set control(Control value) {
-    _$controlAtom.reportWrite(value, super.control, () {
-      super.control = value;
-    });
-  }
-
-  late final _$stopwatchMillsecondsAtom = Atom(
-      name: '_BeachWavesTrackerStoreBase.stopwatchMillseconds',
-      context: context);
-
-  @override
-  String get stopwatchMillseconds {
-    _$stopwatchMillsecondsAtom.reportRead();
-    return super.stopwatchMillseconds;
-  }
-
-  @override
-  set stopwatchMillseconds(String value) {
-    _$stopwatchMillsecondsAtom.reportWrite(value, super.stopwatchMillseconds,
-        () {
-      super.stopwatchMillseconds = value;
-    });
-  }
-
   late final _$_BeachWavesTrackerStoreBaseActionController =
       ActionController(name: '_BeachWavesTrackerStoreBase', context: context);
-
-  @override
-  dynamic toggleWidgetVisibilty() {
-    final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
-        .startAction(name: '_BeachWavesTrackerStoreBase.toggleWidgetVisibilty');
-    try {
-      return super.toggleWidgetVisibilty();
-    } finally {
-      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void setMovie(MovieTween newMovie) {
-    final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
-        .startAction(name: '_BeachWavesTrackerStoreBase.setMovie');
-    try {
-      return super.setMovie(newMovie);
-    } finally {
-      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void setControl(Control newControl) {
-    final _$actionInfo = _$_BeachWavesTrackerStoreBaseActionController
-        .startAction(name: '_BeachWavesTrackerStoreBase.setControl');
-    try {
-      return super.setControl(newControl);
-    } finally {
-      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
 
   @override
   dynamic teeUpOceanDive() {
@@ -198,18 +67,6 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
         .startAction(name: '_BeachWavesTrackerStoreBase.teeUpOceanDive');
     try {
       return super.teeUpOceanDive();
-    } finally {
-      _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic startAndResetStopWatch() {
-    final _$actionInfo =
-        _$_BeachWavesTrackerStoreBaseActionController.startAction(
-            name: '_BeachWavesTrackerStoreBase.startAndResetStopWatch');
-    try {
-      return super.startAndResetStopWatch();
     } finally {
       _$_BeachWavesTrackerStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -395,15 +252,9 @@ mixin _$BeachWavesTrackerStore on _BeachWavesTrackerStoreBase, Store {
   @override
   String toString() {
     return '''
-movie: ${movie},
-showWidget: ${showWidget},
 pivotColorGradients: ${pivotColorGradients},
-localStopwatch: ${localStopwatch},
-movieStatus: ${movieStatus},
-passingParam: ${passingParam},
-movieMode: ${movieMode},
-control: ${control},
-stopwatchMillseconds: ${stopwatchMillseconds}
+lastWaterValue: ${lastWaterValue},
+movieMode: ${movieMode}
     ''';
   }
 }

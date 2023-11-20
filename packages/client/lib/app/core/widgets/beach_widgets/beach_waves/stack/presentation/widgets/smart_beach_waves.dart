@@ -7,7 +7,7 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'canvas/beach_waves_painter.dart';
 
-class SmartBeachWaves extends StatefulWidget {
+class SmartBeachWaves extends StatelessWidget {
   final BeachWavesTrackerStore stateTrackerStore;
   const SmartBeachWaves({
     super.key,
@@ -15,32 +15,25 @@ class SmartBeachWaves extends StatefulWidget {
   });
 
   @override
-  _SmartBeachWavesState createState() => _SmartBeachWavesState();
-}
-
-class _SmartBeachWavesState extends State<SmartBeachWaves>
-    with SingleTickerProviderStateMixin {
-  @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
       return Opacity(
-        opacity: widget.stateTrackerStore.showWidget ? 1 : 0,
+        opacity: stateTrackerStore.showWidget ? 1 : 0,
         child: CustomAnimationBuilder(
-          tween: widget.stateTrackerStore.movie,
-          duration: widget.stateTrackerStore.movie.duration,
-          control: widget.stateTrackerStore.control,
-          onStarted: () => widget.stateTrackerStore.startAndResetStopWatch(),
+          tween: stateTrackerStore.movie,
+          duration: stateTrackerStore.movie.duration,
+          control: stateTrackerStore.control,
+          onStarted: () => stateTrackerStore.startAndResetStopWatch(),
           builder: (context, value, child) {
             final currentAnimationValues =
                 GetCurrentWaterAnimation.values(value);
-            if (widget.stateTrackerStore.movieMode ==
+            if (stateTrackerStore.movieMode ==
                 BeachWaveMovieModes.oceanDiveSetup) {
-              widget.stateTrackerStore.teeUpOnShoreToOceanDiveTransition(
+              stateTrackerStore.teeUpOnShoreToOceanDiveTransition(
                   startingWaterMovement: currentAnimationValues.first);
-            } else if (widget.stateTrackerStore.movieMode ==
+            } else if (stateTrackerStore.movieMode ==
                 BeachWaveMovieModes.backToTheDepthsSetup) {
-              widget.stateTrackerStore
-                  .teeUpBackToTheDepthsValues(colorGradientsList: [
+              stateTrackerStore.teeUpBackToTheDepthsValues(colorGradientsList: [
                 currentAnimationValues[1],
                 currentAnimationValues[2],
                 currentAnimationValues[3],

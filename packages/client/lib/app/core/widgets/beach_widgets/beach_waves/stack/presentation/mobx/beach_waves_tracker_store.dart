@@ -1,57 +1,31 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:equatable/equatable.dart';
+import 'package:nokhte/app/core/mobx/base_custom_animated_widget_store.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'dart:core';
-import '../../../../shared/types/types.dart';
-import '../../movies/movies.dart';
 part 'beach_waves_tracker_store.g.dart';
 
 class BeachWavesTrackerStore = _BeachWavesTrackerStoreBase
     with _$BeachWavesTrackerStore;
 
-abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
+abstract class _BeachWavesTrackerStoreBase extends BaseCustomAnimatedWidgetStore
+    with Store {
   _BeachWavesTrackerStoreBase() {
-    controlListener();
-    stopwatchListener();
+    movie = OnShore.movie;
   }
-
-  @observable
-  MovieTween movie = OnShore.movie;
-
-  @observable
-  bool showWidget = true;
-
-  @action
-  toggleWidgetVisibilty() => showWidget = !showWidget;
 
   @observable
   List<Color> pivotColorGradients = [];
 
   @observable
-  Stopwatch localStopwatch = Stopwatch();
-
-  @observable
-  MovieStatus movieStatus = MovieStatus.idle;
-
-  @action
-  void setMovie(MovieTween newMovie) => movie = newMovie;
-
-  @action
-  void setControl(Control newControl) => control = newControl;
-
-  @observable
-  double passingParam = -10.0;
+  double lastWaterValue = -10.0;
 
   @observable
   BeachWaveMovieModes movieMode = BeachWaveMovieModes.onShore;
-
-  @observable
-  Control control = Control.mirror;
 
   int oceanDiveCount = 0;
 
@@ -59,47 +33,12 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
 
   int timesUpCount = 0;
 
-  @observable
-  String stopwatchMillseconds = "";
-
   @action
   teeUpOceanDive() {
     if (movieMode == BeachWaveMovieModes.onShore) {
       movieMode = BeachWaveMovieModes.oceanDiveSetup;
     }
   }
-
-  @action
-  startAndResetStopWatch() {
-    localStopwatch.reset();
-    localStopwatch.start();
-    Timer.periodic(Seconds.get(0, milli: 1), (timer) {
-      stopwatchMillseconds = localStopwatch.elapsedMilliseconds.toString();
-      if (movieStatus == MovieStatus.finished) {
-        timer.cancel();
-      }
-    });
-  }
-
-  controlListener() => reaction((p0) => control, (p0) {
-        if (control == Control.playFromStart) {
-          localStopwatch.start();
-        } else if (control == Control.play) {
-          localStopwatch.start();
-        } else if (control == Control.stop) {
-          localStopwatch.stop();
-        }
-      });
-
-  stopwatchListener() => reaction((p0) => stopwatchMillseconds, (p0) {
-        if ((movie.duration.inMilliseconds - int.parse(p0)) < 1000) {}
-        if (p0 == movie.duration.inMilliseconds.toString()) {
-          movieStatus = MovieStatus.finished;
-        } else if (int.parse(p0) > movie.duration.inMilliseconds) {
-          localStopwatch.stop();
-          localStopwatch.reset();
-        }
-      });
 
   @action
   teeUpBackToTheDepths() {
@@ -219,7 +158,7 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   teeUpOnShoreToOceanDiveTransition({
     required double startingWaterMovement,
   }) {
-    passingParam = startingWaterMovement;
+    lastWaterValue = startingWaterMovement;
   }
 
   @action
