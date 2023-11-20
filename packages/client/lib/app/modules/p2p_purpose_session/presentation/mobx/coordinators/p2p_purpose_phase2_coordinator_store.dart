@@ -17,6 +17,7 @@ class P2PPurposePhase2CoordinatorStore = _P2PPurposePhase2CoordinatorStoreBase
 
 abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
     with Store {
+  final ExplanationTextStore explanationText;
   final AgoraCallbacksStore agoraCallbacksStore;
   final VoiceCallActionsStore voiceCallActionsStore;
   final CheckIfUserHasTheQuestionStore questionCheckerStore;
@@ -35,6 +36,8 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
     await timer.setupAndStreamListenerActivation(
         const CreateTimerParams(timerLengthInMinutes: 5), initOrPauseTimesUp);
     appStateListener();
+    explanationText.setText("hold to talk");
+    explanationText.widgetConstructor();
     beachWavesMovieModeWatcher();
     beachWavesMovieStatusWatcher();
     holdEndListener();
@@ -55,6 +58,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
 
   _P2PPurposePhase2CoordinatorStoreBase({
     required super.timer,
+    required this.explanationText,
     required this.swipe,
     required this.hold,
     required this.agoraCallbacksStore,
@@ -96,8 +100,15 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
 
   @action
   audioButtonHoldStartCallback() async {
-    await timer.updateTimerRunningStatus(true);
-    meshCircleStore.initGlowUp();
+    if (isFirstTimeTalking) {
+      isFirstTimeTalking = false;
+      Future.delayed(
+        Seconds.get(3),
+        () => explanationText.toggleWidgetVisibility(),
+      );
+      await timer.updateTimerRunningStatus(true);
+      meshCircleStore.initGlowUp();
+    }
 
     if (fadingText.currentIndex == 1 && fadingText.showText) {
       Future.delayed(Seconds.get(10), () => fadingText.fadeTheTextOut());
