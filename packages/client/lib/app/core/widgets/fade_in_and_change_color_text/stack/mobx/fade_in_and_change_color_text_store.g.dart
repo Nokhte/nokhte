@@ -27,22 +27,6 @@ mixin _$FadeInAndChangeColorTextStore
     });
   }
 
-  late final _$movieAtom =
-      Atom(name: '_FadeInAndChangeColorTextStoreBase.movie', context: context);
-
-  @override
-  MovieTween get movie {
-    _$movieAtom.reportRead();
-    return super.movie;
-  }
-
-  @override
-  set movie(MovieTween value) {
-    _$movieAtom.reportWrite(value, super.movie, () {
-      super.movie = value;
-    });
-  }
-
   late final _$movieModeAtom = Atom(
       name: '_FadeInAndChangeColorTextStoreBase.movieMode', context: context);
 
@@ -56,22 +40,6 @@ mixin _$FadeInAndChangeColorTextStore
   set movieMode(FadeInTextMovieModes value) {
     _$movieModeAtom.reportWrite(value, super.movieMode, () {
       super.movieMode = value;
-    });
-  }
-
-  late final _$controlAtom = Atom(
-      name: '_FadeInAndChangeColorTextStoreBase.control', context: context);
-
-  @override
-  Control get control {
-    _$controlAtom.reportRead();
-    return super.control;
-  }
-
-  @override
-  set control(Control value) {
-    _$controlAtom.reportWrite(value, super.control, () {
-      super.control = value;
     });
   }
 
@@ -138,9 +106,7 @@ mixin _$FadeInAndChangeColorTextStore
   String toString() {
     return '''
 currentMessage: ${currentMessage},
-movie: ${movie},
 movieMode: ${movieMode},
-control: ${control},
 currentColor: ${currentColor}
     ''';
   }

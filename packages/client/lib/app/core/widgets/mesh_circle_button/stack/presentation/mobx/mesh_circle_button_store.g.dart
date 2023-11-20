@@ -25,38 +25,6 @@ mixin _$MeshCircleButtonStore on _MeshCircleButtonStoreBase, Store {
     });
   }
 
-  late final _$controlAtom =
-      Atom(name: '_MeshCircleButtonStoreBase.control', context: context);
-
-  @override
-  Control get control {
-    _$controlAtom.reportRead();
-    return super.control;
-  }
-
-  @override
-  set control(Control value) {
-    _$controlAtom.reportWrite(value, super.control, () {
-      super.control = value;
-    });
-  }
-
-  late final _$movieAtom =
-      Atom(name: '_MeshCircleButtonStoreBase.movie', context: context);
-
-  @override
-  MovieTween get movie {
-    _$movieAtom.reportRead();
-    return super.movie;
-  }
-
-  @override
-  set movie(MovieTween value) {
-    _$movieAtom.reportWrite(value, super.movie, () {
-      super.movie = value;
-    });
-  }
-
   late final _$currentGlowColorAtom = Atom(
       name: '_MeshCircleButtonStoreBase.currentGlowColor', context: context);
 
@@ -70,22 +38,6 @@ mixin _$MeshCircleButtonStore on _MeshCircleButtonStoreBase, Store {
   set currentGlowColor(Color value) {
     _$currentGlowColorAtom.reportWrite(value, super.currentGlowColor, () {
       super.currentGlowColor = value;
-    });
-  }
-
-  late final _$showWidgetAtom =
-      Atom(name: '_MeshCircleButtonStoreBase.showWidget', context: context);
-
-  @override
-  bool get showWidget {
-    _$showWidgetAtom.reportRead();
-    return super.showWidget;
-  }
-
-  @override
-  set showWidget(bool value) {
-    _$showWidgetAtom.reportWrite(value, super.showWidget, () {
-      super.showWidget = value;
     });
   }
 
@@ -126,39 +78,6 @@ mixin _$MeshCircleButtonStore on _MeshCircleButtonStoreBase, Store {
   }
 
   @override
-  dynamic setControl(Control newControl) {
-    final _$actionInfo = _$_MeshCircleButtonStoreBaseActionController
-        .startAction(name: '_MeshCircleButtonStoreBase.setControl');
-    try {
-      return super.setControl(newControl);
-    } finally {
-      _$_MeshCircleButtonStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic setMovie(MovieTween newMovie) {
-    final _$actionInfo = _$_MeshCircleButtonStoreBaseActionController
-        .startAction(name: '_MeshCircleButtonStoreBase.setMovie');
-    try {
-      return super.setMovie(newMovie);
-    } finally {
-      _$_MeshCircleButtonStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic toggleWidgetVisibility() {
-    final _$actionInfo = _$_MeshCircleButtonStoreBaseActionController
-        .startAction(name: '_MeshCircleButtonStoreBase.toggleWidgetVisibility');
-    try {
-      return super.toggleWidgetVisibility();
-    } finally {
-      _$_MeshCircleButtonStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic toggleColorAnimation() {
     final _$actionInfo = _$_MeshCircleButtonStoreBaseActionController
         .startAction(name: '_MeshCircleButtonStoreBase.toggleColorAnimation');
@@ -173,10 +92,7 @@ mixin _$MeshCircleButtonStore on _MeshCircleButtonStoreBase, Store {
   String toString() {
     return '''
 isAnimating: ${isAnimating},
-control: ${control},
-movie: ${movie},
-currentGlowColor: ${currentGlowColor},
-showWidget: ${showWidget}
+currentGlowColor: ${currentGlowColor}
     ''';
   }
 }

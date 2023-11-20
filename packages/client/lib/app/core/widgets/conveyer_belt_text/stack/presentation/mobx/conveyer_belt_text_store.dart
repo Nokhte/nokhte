@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
-import 'package:equatable/equatable.dart';
+import 'package:nokhte/app/core/mobx/base_custom_animated_widget_store.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/conveyer_belt_text/stack/constants/movies/movies.dart';
 import 'package:nokhte/app/core/widgets/conveyer_belt_text/stack/constants/types/conveyer_movie_modes.dart';
@@ -11,9 +11,17 @@ part 'conveyer_belt_text_store.g.dart';
 class ConveyerBeltTextStore = _ConveyerBeltTextStoreBase
     with _$ConveyerBeltTextStore;
 
-abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
-  @observable
-  bool showWidget = false;
+abstract class _ConveyerBeltTextStoreBase extends BaseCustomAnimatedWidgetStore
+    with Store {
+  _ConveyerBeltTextStoreBase({
+    required this.logic,
+    required DateOrTime dateOrTimeParam,
+  }) {
+    setDatesArray(DateTime.now());
+    setUIArray(dates);
+    showWidget = false;
+    movie = DefaultLayoutMovie.movie;
+  }
 
   @action
   void setWidgetVisibility(bool newVisiblity) => showWidget = newVisiblity;
@@ -22,16 +30,7 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
   DateOrTime currentFocus = DateOrTime.date;
 
   @observable
-  MovieTween movie = DefaultLayoutMovie.movie;
-
-  @observable
   ConveyerMovieModes movieMode = ConveyerMovieModes.idleInRange;
-
-  @observable
-  MovieStatus movieStatus = MovieStatus.idle;
-
-  @observable
-  Control control = Control.stop;
 
   @observable
   List<UIArray> uiArray = [];
@@ -120,14 +119,6 @@ abstract class _ConveyerBeltTextStoreBase extends Equatable with Store {
   List<GeneralDateTimeReturnType> times = [];
 
   final ReturnDateOrTimeArray logic;
-
-  _ConveyerBeltTextStoreBase({
-    required this.logic,
-    required DateOrTime dateOrTimeParam,
-  }) {
-    setDatesArray(DateTime.now());
-    setUIArray(dates);
-  }
 
   InputConverterReturnType convertCurrentState(
       {required bool isADate, required bool isAForwardMovementParam}) {

@@ -25,38 +25,6 @@ mixin _$GesturePillStore on _GesturePillStoreBase, Store {
     });
   }
 
-  late final _$showWidgetAtom =
-      Atom(name: '_GesturePillStoreBase.showWidget', context: context);
-
-  @override
-  bool get showWidget {
-    _$showWidgetAtom.reportRead();
-    return super.showWidget;
-  }
-
-  @override
-  set showWidget(bool value) {
-    _$showWidgetAtom.reportWrite(value, super.showWidget, () {
-      super.showWidget = value;
-    });
-  }
-
-  late final _$movieAtom =
-      Atom(name: '_GesturePillStoreBase.movie', context: context);
-
-  @override
-  MovieTween get movie {
-    _$movieAtom.reportRead();
-    return super.movie;
-  }
-
-  @override
-  set movie(MovieTween value) {
-    _$movieAtom.reportWrite(value, super.movie, () {
-      super.movie = value;
-    });
-  }
-
   late final _$pillControllerAtom =
       Atom(name: '_GesturePillStoreBase.pillController', context: context);
 
@@ -135,8 +103,6 @@ mixin _$GesturePillStore on _GesturePillStoreBase, Store {
   String toString() {
     return '''
 wantToFadeOut: ${wantToFadeOut},
-showWidget: ${showWidget},
-movie: ${movie},
 pillController: ${pillController}
     ''';
   }

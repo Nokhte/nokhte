@@ -32,7 +32,7 @@ abstract class _SchedulingWidgetsCoordinatorStoreBase extends Equatable
     reaction((p0) => beachHorizonWater.backToShoreCompleted, (p0) {
       if (p0) {
         toggleBeachWavesVisibility();
-        beachWaves.toggleWidgetVisibilty();
+        beachWaves.toggleWidgetVisibility();
         beachWaves.initShallowsToShore();
         beachWaves.control = Control.play;
       }
@@ -65,7 +65,7 @@ abstract class _SchedulingWidgetsCoordinatorStoreBase extends Equatable
 
   @action
   widgetSetup(DateTime currentDateTime) {
-    beachWaves.toggleWidgetVisibilty();
+    beachWaves.toggleWidgetVisibility();
     attuneTheWidgets(currentDateTime);
     Future.delayed(Seconds.get(6), () {
       schedulingDelta.toggleWidgetVisibility();

@@ -102,22 +102,6 @@ mixin _$ConveyerBeltTextStore on _ConveyerBeltTextStoreBase, Store {
               name: '_ConveyerBeltTextStoreBase.theFocusedList'))
           .value;
 
-  late final _$showWidgetAtom =
-      Atom(name: '_ConveyerBeltTextStoreBase.showWidget', context: context);
-
-  @override
-  bool get showWidget {
-    _$showWidgetAtom.reportRead();
-    return super.showWidget;
-  }
-
-  @override
-  set showWidget(bool value) {
-    _$showWidgetAtom.reportWrite(value, super.showWidget, () {
-      super.showWidget = value;
-    });
-  }
-
   late final _$currentFocusAtom =
       Atom(name: '_ConveyerBeltTextStoreBase.currentFocus', context: context);
 
@@ -134,22 +118,6 @@ mixin _$ConveyerBeltTextStore on _ConveyerBeltTextStoreBase, Store {
     });
   }
 
-  late final _$movieAtom =
-      Atom(name: '_ConveyerBeltTextStoreBase.movie', context: context);
-
-  @override
-  MovieTween get movie {
-    _$movieAtom.reportRead();
-    return super.movie;
-  }
-
-  @override
-  set movie(MovieTween value) {
-    _$movieAtom.reportWrite(value, super.movie, () {
-      super.movie = value;
-    });
-  }
-
   late final _$movieModeAtom =
       Atom(name: '_ConveyerBeltTextStoreBase.movieMode', context: context);
 
@@ -163,38 +131,6 @@ mixin _$ConveyerBeltTextStore on _ConveyerBeltTextStoreBase, Store {
   set movieMode(ConveyerMovieModes value) {
     _$movieModeAtom.reportWrite(value, super.movieMode, () {
       super.movieMode = value;
-    });
-  }
-
-  late final _$movieStatusAtom =
-      Atom(name: '_ConveyerBeltTextStoreBase.movieStatus', context: context);
-
-  @override
-  MovieStatus get movieStatus {
-    _$movieStatusAtom.reportRead();
-    return super.movieStatus;
-  }
-
-  @override
-  set movieStatus(MovieStatus value) {
-    _$movieStatusAtom.reportWrite(value, super.movieStatus, () {
-      super.movieStatus = value;
-    });
-  }
-
-  late final _$controlAtom =
-      Atom(name: '_ConveyerBeltTextStoreBase.control', context: context);
-
-  @override
-  Control get control {
-    _$controlAtom.reportRead();
-    return super.control;
-  }
-
-  @override
-  set control(Control value) {
-    _$controlAtom.reportWrite(value, super.control, () {
-      super.control = value;
     });
   }
 
@@ -354,12 +290,8 @@ mixin _$ConveyerBeltTextStore on _ConveyerBeltTextStoreBase, Store {
   @override
   String toString() {
     return '''
-showWidget: ${showWidget},
 currentFocus: ${currentFocus},
-movie: ${movie},
 movieMode: ${movieMode},
-movieStatus: ${movieStatus},
-control: ${control},
 uiArray: ${uiArray},
 returnEntity: ${returnEntity},
 currentlySelectedIndex: ${currentlySelectedIndex},

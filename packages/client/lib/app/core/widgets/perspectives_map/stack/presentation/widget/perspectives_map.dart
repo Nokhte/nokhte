@@ -25,7 +25,7 @@ class PerspectivesMap extends StatelessWidget {
         child: CustomAnimationBuilder(
           tween: stateTrackerStore.movie,
           duration: stateTrackerStore.movie.duration,
-          control: stateTrackerStore.controller,
+          control: stateTrackerStore.control,
           builder: (context, value, child) => Container(
             alignment: Alignment.topLeft,
             width: size.width,
