@@ -142,6 +142,7 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
         (p0) async {
           await Haptics.vibrate(HapticsType.medium);
           await audioButtonHoldStartCallback();
+          meshCircleStore.initGlowUp();
         },
       );
 
@@ -150,6 +151,7 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
         (p0) async {
           await Haptics.vibrate(HapticsType.medium);
           await audioButtonHoldEndCallback();
+          meshCircleStore.initGlowDown();
         },
       );
 

@@ -97,6 +97,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
   @action
   audioButtonHoldStartCallback() async {
     await timer.updateTimerRunningStatus(true);
+    meshCircleStore.initGlowUp();
 
     if (fadingText.currentIndex == 1 && fadingText.showText) {
       Future.delayed(Seconds.get(10), () => fadingText.fadeTheTextOut());
@@ -108,6 +109,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
 
   @action
   audioButtonHoldEndCallback() {
+    meshCircleStore.initGlowDown();
     voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
     meshCircleStore.toggleColorAnimation();
   }
