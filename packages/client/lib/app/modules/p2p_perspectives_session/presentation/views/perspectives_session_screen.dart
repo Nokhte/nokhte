@@ -57,17 +57,17 @@ class PerspectivesSessionScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                Center(
-                  child: CollaborativeTextEditor(
-                    trackerStore: coordinator.widgets.collaborativeTextEditor,
-                    fadeInDuration: Seconds.get(1),
-                  ),
-                ),
                 SizedBox(
                   width: constraints.widthConstraints().maxHeight,
                   height: constraints.heightConstraints().maxWidth,
                   child: SmartBeachWaves(
                     stateTrackerStore: coordinator.widgets.beachWaves,
+                  ),
+                ),
+                Center(
+                  child: CollaborativeTextEditor(
+                    trackerStore: coordinator.widgets.collaborativeTextEditor,
+                    fadeInDuration: Seconds.get(1),
                   ),
                 ),
               ],
