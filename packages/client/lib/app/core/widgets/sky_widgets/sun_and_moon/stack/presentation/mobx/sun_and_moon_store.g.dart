@@ -41,38 +41,6 @@ mixin _$SunAndMoonStore on _SunAndMoonStoreBase, Store {
     });
   }
 
-  late final _$movieAtom =
-      Atom(name: '_SunAndMoonStoreBase.movie', context: context);
-
-  @override
-  MovieTween get movie {
-    _$movieAtom.reportRead();
-    return super.movie;
-  }
-
-  @override
-  set movie(MovieTween value) {
-    _$movieAtom.reportWrite(value, super.movie, () {
-      super.movie = value;
-    });
-  }
-
-  late final _$controlAtom =
-      Atom(name: '_SunAndMoonStoreBase.control', context: context);
-
-  @override
-  Control get control {
-    _$controlAtom.reportRead();
-    return super.control;
-  }
-
-  @override
-  set control(Control value) {
-    _$controlAtom.reportWrite(value, super.control, () {
-      super.control = value;
-    });
-  }
-
   late final _$_SunAndMoonStoreBaseActionController =
       ActionController(name: '_SunAndMoonStoreBase', context: context);
 
@@ -235,9 +203,7 @@ mixin _$SunAndMoonStore on _SunAndMoonStoreBase, Store {
   String toString() {
     return '''
 isTheMoon: ${isTheMoon},
-queuedUpMovie: ${queuedUpMovie},
-movie: ${movie},
-control: ${control}
+queuedUpMovie: ${queuedUpMovie}
     ''';
   }
 }

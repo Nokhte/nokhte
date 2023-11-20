@@ -18,6 +18,7 @@ class SunAndMoon extends StatelessWidget {
         tween: stateTrackerStore.movie,
         duration: stateTrackerStore.movie.duration,
         control: stateTrackerStore.control,
+        onStarted: () => stateTrackerStore.startAndResetStopWatch(),
         builder: (context, value, child) {
           return CustomPaint(
             painter: SunAndMoonPainter(

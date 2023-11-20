@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api, missing_override_of_must_be_overridden
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/mobx/base_scheduling_widget_store.dart';
+import 'package:nokhte/app/core/mobx/base_animated_scheduling_widget_store.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/sky_widgets/sun_and_moon/stack/constants/movies/movies.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -11,8 +11,15 @@ part 'sun_and_moon_store.g.dart';
 class SunAndMoonStore = _SunAndMoonStoreBase with _$SunAndMoonStore;
 
 abstract class _SunAndMoonStoreBase
-    extends BaseSchedulingWidgetStore<Color, int, IsATimeMobxParams>
+    extends BaseAnimatedSchedulingWidgetStore<Color, int, IsATimeMobxParams>
     with Store {
+  _SunAndMoonStoreBase() {
+    movie = PlaceTheSunOrMoon.getMovie(
+      MoonColors.colors,
+      SunAndMoonPositions.eightAM,
+    );
+  }
+
   @action
   setStartingGrad(List<Color> newColors) => startingGrad = newColors;
 
@@ -129,17 +136,6 @@ abstract class _SunAndMoonStoreBase
     }
   }
 
-  void setControl(Control newControl) => control = newControl;
-
-  @observable
-  MovieTween movie = PlaceTheSunOrMoon.getMovie(
-    MoonColors.colors,
-    SunAndMoonPositions.eightAM,
-  );
-
-  @observable
-  Control control = Control.stop;
-
   @action
   selectTimeBasedMovie(DateTime date) {
     final hour = date.hour;
@@ -186,7 +182,4 @@ abstract class _SunAndMoonStoreBase
         SunColors.evening, SunAndMoonPositions.timeMap[hours]!);
     control = Control.play;
   }
-
-  @override
-  List<Object> get props => [];
 }
