@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:nokhte/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
 import 'package:nokhte/app/core/widgets/smart_fading_animated_text/stack/presentation/mobx/smart_fading_animated_text_tracker_store.dart';
 
@@ -37,28 +39,34 @@ class _SmartFadingAnimatedTextState extends State<SmartFadingAnimatedText> {
         child: AnimatedOpacity(
           opacity: widget.stateTrackerStore.showText ? 1 : 0,
           duration: const Duration(milliseconds: 500), // Adjust fade duration
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                widget.stateTrackerStore.currentMainText,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: widget.stateTrackerStore.currentMainMessageFont,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w300,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 50.0, right: 50.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                PlatformText(
+                  widget.stateTrackerStore.currentMainText,
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.kantumruyPro(
+                    fontSize: widget.stateTrackerStore.currentMainMessageFont,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-              Text(
-                widget.stateTrackerStore.currentSubText,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: widget.stateTrackerStore.currentSubMessageFont,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w300,
+                PlatformText(
+                  widget.stateTrackerStore.currentSubText,
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.kantumruyPro(
+                    fontSize: widget.stateTrackerStore.currentSubMessageFont,
+                    color: Colors.white,
+                  ),
+                  // style: TextStyle(
+                  //   fontSize: widget.stateTrackerStore.currentSubMessageFont,
+                  //   color: Colors.white,
+                  //   fontWeight: FontWeight.w300,
+                  // ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       );
