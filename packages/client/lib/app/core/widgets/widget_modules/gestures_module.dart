@@ -4,15 +4,15 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 class GesturesModule extends Module {
   @override
   List<Bind> get binds => [
-        Bind.singleton<HoldDetector>(
+        Bind.factory<HoldDetector>(
           (i) => HoldDetector(),
           export: true,
         ),
-        Bind.singleton<SwipeDetector>(
+        Bind.factory<SwipeDetector>(
           (i) => SwipeDetector(),
           export: true,
         ),
-        Bind.singleton<TapDetector>(
+        Bind.factory<TapDetector>(
           (i) => TapDetector(),
           export: true,
         ),
