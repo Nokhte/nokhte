@@ -71,10 +71,8 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
 
   @action
   startAndResetStopWatch() {
-    print("is this running?????? stopwatch starter??");
     localStopwatch.reset();
     localStopwatch.start();
-    print("${localStopwatch.elapsedMilliseconds}");
     Timer.periodic(Seconds.get(0, milli: 1), (timer) {
       stopwatchMillseconds = localStopwatch.elapsedMilliseconds.toString();
       if (movieStatus == MovieStatus.finished) {
@@ -84,28 +82,18 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
   }
 
   controlListener() => reaction((p0) => control, (p0) {
-        print("is this running the rxn $p0");
         if (control == Control.playFromStart) {
-          // localStopwatch.reset();
           localStopwatch.start();
         } else if (control == Control.play) {
-          // if (!localStopwatch.isRunning) {
           localStopwatch.start();
-          print("start ${localStopwatch.elapsedMilliseconds}");
-          // }
         } else if (control == Control.stop) {
           localStopwatch.stop();
-          print("stop ${localStopwatch.elapsedMilliseconds}");
         }
       });
 
   stopwatchListener() => reaction((p0) => stopwatchMillseconds, (p0) {
-        // print(" $p0 == ?? ${movie.duration.inMilliseconds}");
-        if ((movie.duration.inMilliseconds - int.parse(p0)) < 1000) {
-          print("milllllli $p0");
-        }
+        if ((movie.duration.inMilliseconds - int.parse(p0)) < 1000) {}
         if (p0 == movie.duration.inMilliseconds.toString()) {
-          print("IT'S FINISHED!!!! $p0");
           movieStatus = MovieStatus.finished;
         } else if (int.parse(p0) > movie.duration.inMilliseconds) {
           localStopwatch.stop();
@@ -159,34 +147,6 @@ abstract class _BeachWavesTrackerStoreBase extends Equatable with Store {
     control = Control.playFromStart;
     movieStatus = MovieStatus.inProgress;
     movieMode = BeachWaveMovieModes.timesUp;
-  }
-
-  @action
-  onBeachWavesAnimationCompletion() {
-    // switch (movieMode) {
-    //   case BeachWaveMovieModes.oceanDive:
-    //     oceanDiveCount != 0
-    //         ? movieStatus = MovieStatus.finished
-    //         : oceanDiveCount++;
-    //     break;
-    //   case BeachWaveMovieModes.backToTheDepths:
-    //     backToTheDepthsCount != 0
-    //         ? movieStatus = MovieStatus.finished
-    //         : backToTheDepthsCount++;
-    //     break;
-    // default:
-    // if (control == Control.stop) {
-    //   final pastMovie = movie;
-    //   movie = MovieTween();
-    //   movie = pastMovie;
-    // onBeachWavesAnimationCompletion();
-    // control = Control.play;
-    //   return;
-    // }
-    // movieStatus = MovieStatus.finished;
-
-    // break;
-    // }
   }
 
   @action
