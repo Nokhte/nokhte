@@ -22,7 +22,7 @@ class SvgAnimtionConstants {
         scalingMatrix.storage,
       );
   static String get circleSvgPath =>
-      'M35 0h0s35 0 35 35v0s0 35 -35 35h0s-35 0 -35 -35v0s0 -35 35 -35';
+      'M40, 35 m -35, 0 a 35,35 0 1,0 70,0 a 35,35 0 1,0 -70,0';
   static Path get circlePath => parseSvgPathData(
         circleSvgPath,
       ).transform(
