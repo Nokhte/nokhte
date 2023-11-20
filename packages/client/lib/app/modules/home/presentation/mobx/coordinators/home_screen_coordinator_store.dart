@@ -45,6 +45,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
   PlacesYouCanGo thePlaceTheyAreGoing = PlacesYouCanGo.initial;
 
   homeScreenConstructorCallback() async {
+    beachWaves.setControl(Control.mirror);
     beachWavesListener();
     gesturePillStore
         .setPillMovie(BottomCircleGoesUp.getMovie(firstGradientColors: [
