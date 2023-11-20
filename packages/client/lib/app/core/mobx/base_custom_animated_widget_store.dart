@@ -37,7 +37,7 @@ abstract class _BaseCustomAnimatedWidgetStoreBase extends Equatable with Store {
   String stopwatchMillseconds = "";
 
   @action
-  toggleWidgetVisibilty() => showWidget = !showWidget;
+  toggleWidgetVisibility() => showWidget = !showWidget;
 
   @action
   void setMovie(MovieTween newMovie) => movie = newMovie;

@@ -114,12 +114,12 @@ mixin _$BaseCustomAnimatedWidgetStore
           name: '_BaseCustomAnimatedWidgetStoreBase', context: context);
 
   @override
-  dynamic toggleWidgetVisibilty() {
+  dynamic toggleWidgetVisibility() {
     final _$actionInfo =
         _$_BaseCustomAnimatedWidgetStoreBaseActionController.startAction(
-            name: '_BaseCustomAnimatedWidgetStoreBase.toggleWidgetVisibilty');
+            name: '_BaseCustomAnimatedWidgetStoreBase.toggleWidgetVisibility');
     try {
-      return super.toggleWidgetVisibilty();
+      return super.toggleWidgetVisibility();
     } finally {
       _$_BaseCustomAnimatedWidgetStoreBaseActionController
           .endAction(_$actionInfo);
