@@ -15,7 +15,7 @@ void main() {
 
   test("sets default values correctly", () {
     expect(homeModuleStateTrackerStore.movieStatus, MovieStatus.idle);
-    expect(homeModuleStateTrackerStore.passingParam, -10.0);
+    expect(homeModuleStateTrackerStore.lastWaterValue, -10.0);
     expect(homeModuleStateTrackerStore.movieMode, BeachWaveMovieModes.onShore);
     expect(homeModuleStateTrackerStore.control, Control.mirror);
   });
@@ -40,7 +40,7 @@ void main() {
         BeachWaveMovieModes.backToShore);
     homeModuleStateTrackerStore = BeachWavesTrackerStore();
     expect(homeModuleStateTrackerStore.movieStatus, MovieStatus.idle);
-    expect(homeModuleStateTrackerStore.passingParam, -10.0);
+    expect(homeModuleStateTrackerStore.lastWaterValue, -10.0);
     expect(homeModuleStateTrackerStore.movieMode, BeachWaveMovieModes.onShore);
     expect(homeModuleStateTrackerStore.control, Control.mirror);
   });

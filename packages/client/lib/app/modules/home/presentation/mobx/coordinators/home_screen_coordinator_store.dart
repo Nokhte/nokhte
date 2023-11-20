@@ -129,7 +129,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
       fadingTextStateTrackerStore.currentSubText = "";
       beachWaves.teeUpOceanDive();
       beachWaves.teeOceanDiveMovieUp(
-        startingWaterMovement: beachWaves.passingParam,
+        startingWaterMovement: beachWaves.lastWaterValue,
       );
     }
   }
