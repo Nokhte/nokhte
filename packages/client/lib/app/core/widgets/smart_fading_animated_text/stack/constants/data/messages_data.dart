@@ -51,16 +51,16 @@ class MessagesData {
             pauseHere: true,
             unlockGesture: Gestures.hold,
             extraDelayTime: Seconds.get(0),
-            mainMessageFontSize: 50.0,
-            subMessageFontSize: 25.0),
+            mainMessageFontSize: 25.0,
+            subMessageFontSize: 15.0),
         RotatingTextData(
             mainMessage: "Speak Your Collaborator's Phrase",
             subMessage: "",
             pauseHere: false,
             unlockGesture: Gestures.none,
             extraDelayTime: Seconds.get(0),
-            mainMessageFontSize: 50.0,
-            subMessageFontSize: 25.0),
+            mainMessageFontSize: 45.0,
+            subMessageFontSize: 15.0),
       ];
   static List<RotatingTextData> get p2pPurposeSession => [
         RotatingTextData(
@@ -69,16 +69,16 @@ class MessagesData {
             pauseHere: true,
             unlockGesture: Gestures.none,
             extraDelayTime: Seconds.get(0),
-            mainMessageFontSize: 40.0,
-            subMessageFontSize: 25.0),
+            mainMessageFontSize: 25.0,
+            subMessageFontSize: 15.0),
         RotatingTextData(
             mainMessage: "?",
             subMessage: "",
             pauseHere: true,
             unlockGesture: Gestures.none,
             extraDelayTime: Seconds.get(0),
-            mainMessageFontSize: 50.0,
-            subMessageFontSize: 25.0),
+            mainMessageFontSize: 25.0,
+            subMessageFontSize: 15.0),
         RotatingTextData(
           mainMessage:
               "Write one path of collective creation that stuck out to you.",
@@ -86,8 +86,8 @@ class MessagesData {
           pauseHere: true,
           unlockGesture: Gestures.none,
           extraDelayTime: Seconds.get(0),
-          mainMessageFontSize: 50.0,
-          subMessageFontSize: 25.0,
+          mainMessageFontSize: 25.0,
+          subMessageFontSize: 15.0,
         ),
         RotatingTextData(
           mainMessage: "Look At Your Partners proposal.",
@@ -95,8 +95,8 @@ class MessagesData {
           pauseHere: true,
           unlockGesture: Gestures.none,
           extraDelayTime: Seconds.get(0),
-          mainMessageFontSize: 50.0,
-          subMessageFontSize: 25.0,
+          mainMessageFontSize: 25.0,
+          subMessageFontSize: 15.0,
         ),
         RotatingTextData(
           mainMessage: ".",
@@ -104,8 +104,8 @@ class MessagesData {
           pauseHere: true,
           unlockGesture: Gestures.none,
           extraDelayTime: Seconds.get(0),
-          mainMessageFontSize: 50.0,
-          subMessageFontSize: 25.0,
+          mainMessageFontSize: 25.0,
+          subMessageFontSize: 15.0,
         ),
         RotatingTextData(
           mainMessage: "Now Make Your Collective Path Together.",
@@ -113,17 +113,8 @@ class MessagesData {
           pauseHere: true,
           unlockGesture: Gestures.none,
           extraDelayTime: Seconds.get(0),
-          mainMessageFontSize: 50.0,
-          subMessageFontSize: 25.0,
+          mainMessageFontSize: 25.0,
+          subMessageFontSize: 15.0,
         ),
-        RotatingTextData(
-            mainMessage:
-                "Complete An Individual Session To Do Another Collective Session",
-            subMessage: "",
-            pauseHere: true,
-            unlockGesture: Gestures.none,
-            extraDelayTime: Seconds.get(0),
-            mainMessageFontSize: 50.0,
-            subMessageFontSize: 25.0),
       ];
 }
