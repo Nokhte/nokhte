@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart' hide AnimationStatus;
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -51,6 +52,16 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Container(),
+                    ),
+                    ExplanationText(
+                      chosenFont: GoogleFonts.montserrat(
+                        fontSize: 20.0,
+                        color: Colors.white,
+                      ),
+                      trackerStore: coordinatorStore.explanationText,
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 15),
                     ),
                     Hold(
                       trackerStore: coordinatorStore.hold,
