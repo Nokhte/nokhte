@@ -34,7 +34,9 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
     holdStartListener();
     await timer.setupAndStreamListenerActivation(
         const CreateTimerParams(timerLengthInMinutes: 5), initOrPauseTimesUp);
-
+    appStateListener();
+    beachWavesMovieModeWatcher();
+    beachWavesMovieStatusWatcher();
     holdEndListener();
     meshCircleStore.widgetConstructor();
     await fadingText
@@ -61,26 +63,28 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
     required super.beachWaves,
     required this.fadingText,
     required this.meshCircleStore,
-  }) : super(productionTimerLength: const Duration(minutes: 5)) {
-    reaction((p0) => beachWaves.movieMode, (p0) {
-      if (beachWaves.movieMode == BeachWaveMovieModes.backToTheDepthsSetup) {
-        meshCircleStore.toggleWidgetVisibility();
-      }
-    });
-    reaction((p0) => beachWaves.movieStatus, (p0) async {
-      if (beachWaves.movieStatus == MovieStatus.finished &&
-          beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
-        beachWaves.teeUpBackToTheDepths();
-        beachWaves.backToTheDepthsCount++;
-      } else if (beachWaves.movieStatus == MovieStatus.finished &&
-          beachWaves.movieMode == BeachWaveMovieModes.backToTheDepths) {
-        await timer.deleteTheTimer(NoParams());
-        await voiceCallActionsStore.enterOrLeaveCall(Left(NoParams()));
-        meshCircleStore.toggleWidgetVisibility();
-        Modular.to.navigate('/p2p_purpose_session/phase-3/');
-      }
-    });
-  }
+  }) : super(productionTimerLength: const Duration(minutes: 5));
+
+  beachWavesMovieModeWatcher() => reaction((p0) => beachWaves.movieMode, (p0) {
+        if (beachWaves.movieMode == BeachWaveMovieModes.backToTheDepthsSetup) {
+          meshCircleStore.toggleWidgetVisibility();
+        }
+      });
+
+  beachWavesMovieStatusWatcher() =>
+      reaction((p0) => beachWaves.movieStatus, (p0) async {
+        if (beachWaves.movieStatus == MovieStatus.finished &&
+            beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
+          beachWaves.teeUpBackToTheDepths();
+          beachWaves.backToTheDepthsCount++;
+        } else if (beachWaves.movieStatus == MovieStatus.finished &&
+            beachWaves.movieMode == BeachWaveMovieModes.backToTheDepths) {
+          await timer.deleteTheTimer(NoParams());
+          await voiceCallActionsStore.enterOrLeaveCall(Left(NoParams()));
+          meshCircleStore.toggleWidgetVisibility();
+          Modular.to.navigate('/p2p_purpose_session/phase-3/');
+        }
+      });
 
   holdStartListener() => reaction((p0) => hold.holdCount, (p0) {
         audioButtonHoldStartCallback();
