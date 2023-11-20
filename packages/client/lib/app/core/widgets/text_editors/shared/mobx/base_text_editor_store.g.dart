@@ -45,6 +45,17 @@ mixin _$BaseTextEditorStore on _BaseTextEditorStoreBase, Store {
       ActionController(name: '_BaseTextEditorStoreBase', context: context);
 
   @override
+  dynamic setText(String newContent) {
+    final _$actionInfo = _$_BaseTextEditorStoreBaseActionController.startAction(
+        name: '_BaseTextEditorStoreBase.setText');
+    try {
+      return super.setText(newContent);
+    } finally {
+      _$_BaseTextEditorStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic handleTap() {
     final _$actionInfo = _$_BaseTextEditorStoreBaseActionController.startAction(
         name: '_BaseTextEditorStoreBase.handleTap');

@@ -14,6 +14,9 @@ abstract class _BaseTextEditorStoreBase extends Equatable with Store {
   FocusNode focusNode = FocusNode();
 
   @action
+  setText(String newContent) => controller.text = newContent;
+
+  @action
   handleTap() {}
 
   @action
