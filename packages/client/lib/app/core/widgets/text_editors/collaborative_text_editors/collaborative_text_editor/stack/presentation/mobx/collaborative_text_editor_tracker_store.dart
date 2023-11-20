@@ -8,11 +8,6 @@ class CollaborativeTextEditorTrackerStore = _CollaborativeTextEditorTrackerStore
 
 abstract class _CollaborativeTextEditorTrackerStoreBase
     extends BaseTextEditorStore with Store {
-  @action
-  setText(String message) {
-    controller.text = message;
-  }
-
   @observable
   bool isReadOnly = false;
 
