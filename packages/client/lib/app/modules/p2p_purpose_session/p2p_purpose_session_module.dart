@@ -82,6 +82,9 @@ class P2PCollaboratorSessionModule extends Module {
             isReadOnly: false,
           ),
         ),
+        Bind.singleton<ExplanationTextStore>(
+          (i) => ExplanationTextStore(),
+        ),
         Bind.singleton<SchedulingWidgetsCoordinatorStore>(
           (i) => SchedulingWidgetsCoordinatorStore(
             schedulingDelta: i<SchedulingDeltaStore>(),
@@ -107,6 +110,7 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase2CoordinatorStore>(
             (i) => P2PPurposePhase2CoordinatorStore(
+                  explanationText: i<ExplanationTextStore>(),
                   timer: Modular.get<TimerCoordinator>(),
                   hold: Modular.get<HoldDetector>(),
                   swipe: Modular.get<SwipeDetector>(),
