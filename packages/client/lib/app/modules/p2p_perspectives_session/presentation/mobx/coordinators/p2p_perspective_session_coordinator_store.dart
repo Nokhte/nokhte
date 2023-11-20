@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:dartz/dartz.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -69,22 +70,24 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
     widgets.attuneTheWidgets(DateTime.now());
     await createSession(NoParams());
     await perspectivesStream(NoParams());
-    await instantiateAgoraSdk(NoParams());
-    await fetchChannelId(NoParams());
-    await fetchAgoraToken(
-      FetchAgoraTokenParams(
-        channelName: fetchChannelId.channelId,
-      ),
-    );
-    await voiceCallActions.enterOrLeaveCall(
-      Right(
-        JoinCallParams(
-          token: fetchAgoraToken.token,
-          channelId: fetchChannelId.channelId,
+    if (!kDebugMode) {
+      await instantiateAgoraSdk(NoParams());
+      await fetchChannelId(NoParams());
+      await fetchAgoraToken(
+        FetchAgoraTokenParams(
+          channelName: fetchChannelId.channelId,
         ),
-      ),
-    );
-    await voiceCallActions.muteOrUnmuteAudio(wantToMute: false);
+      );
+      await voiceCallActions.enterOrLeaveCall(
+        Right(
+          JoinCallParams(
+            token: fetchAgoraToken.token,
+            channelId: fetchChannelId.channelId,
+          ),
+        ),
+      );
+      await voiceCallActions.muteOrUnmuteAudio(wantToMute: false);
+    }
 
     textEditorSynchronizer();
     textEditorListener();
