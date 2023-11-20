@@ -38,7 +38,6 @@ void main() {
     p2pCollaboratorPoolStateTrackerStore.initiateBackToShore();
     expect(p2pCollaboratorPoolStateTrackerStore.movieMode,
         BeachWaveMovieModes.backToShore);
-    p2pCollaboratorPoolStateTrackerStore.onBeachWavesAnimationCompletion();
     homeModuleStateTrackerStore = BeachWavesTrackerStore();
     expect(homeModuleStateTrackerStore.movieStatus, MovieStatus.idle);
     expect(homeModuleStateTrackerStore.passingParam, -10.0);
