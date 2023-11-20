@@ -6,15 +6,21 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 
-class P2PPurpose2ConsultationScreen extends StatelessWidget {
+class P2PPurpose2ConsultationScreen extends StatelessWidget
+    with WidgetsBindingObserver {
   final bool isInitialLoad = true;
   final P2PPurposePhase2CoordinatorStore coordinator;
   P2PPurpose2ConsultationScreen({
     super.key,
     required this.coordinator,
   }) {
+    WidgetsBinding.instance.addObserver(this);
     coordinator.screenConstructor();
   }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) =>
+      coordinator.setAppState(state);
 
   @override
   Widget build(BuildContext context) {
