@@ -4,4 +4,5 @@ export 'base_times_up_store.dart';
 export './base_quadrant_api_receiver.dart';
 export './error.dart';
 export './store_state.dart';
-export './base_scheduling_widget_store.dart';
+export 'base_animated_scheduling_widget_store.dart';
+export 'base_custom_animated_widget_store.dart';
