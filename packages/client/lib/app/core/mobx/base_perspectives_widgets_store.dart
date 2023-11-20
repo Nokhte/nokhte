@@ -42,7 +42,7 @@ abstract class _PerspectivesWidgetsStoreBase extends Equatable with Store {
       reaction((p0) => beachHorizonWater.backToShoreCompleted, (p0) {
         if (p0) {
           toggleBeachWavesVisibility();
-          beachWaves.toggleWidgetVisibilty();
+          beachWaves.toggleWidgetVisibility();
           beachWaves.initShallowsToShore();
           beachWaves.control = Control.play;
         }
@@ -71,7 +71,7 @@ abstract class _PerspectivesWidgetsStoreBase extends Equatable with Store {
     DateTime now, {
     defaultChosenIndex = 0,
   }) {
-    beachWaves.toggleWidgetVisibilty();
+    beachWaves.toggleWidgetVisibility();
     beachHorizonWater.selectTimeBasedMovie(
       now,
       WaterColorsAndStops.oceanDiveWater,
@@ -89,7 +89,7 @@ abstract class _PerspectivesWidgetsStoreBase extends Equatable with Store {
             PerspectivesMapAnimationData.getVertOffArr(defaultChosenIndex),
       ));
       collaborativeTextEditor.toggleWidgetVisibility();
-      perspectivesMap.controller = Control.playFromStart;
+      perspectivesMap.control = Control.playFromStart;
     });
   }
 
