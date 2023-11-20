@@ -60,6 +60,18 @@ void main() {
     );
   });
 
+  test("make a purpose between npc & person", () async {
+    final userIdResults = await UserSetupConstants.fetchUIDs();
+    final npcUserUID = userIdResults[1];
+    final realPersonUID = await returnNonNPCUID();
+    await supabaseAdmin.from("finished_collaborative_documents").insert({
+      "collaborator_one_uid": npcUserUID,
+      "collaborator_two_uid": realPersonUID,
+      "doc_type": "purpose",
+      "content": "pURPOSE",
+    });
+  });
+
   test("make a set of perspectives between real person & npc 2", () async {
     final userIdResults = await UserSetupConstants.fetchUIDs();
     final npcUserUID = userIdResults[1];
