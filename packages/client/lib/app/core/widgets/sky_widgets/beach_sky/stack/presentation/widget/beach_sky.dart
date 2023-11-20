@@ -20,7 +20,8 @@ class BeachSky extends StatelessWidget {
           tween: stateTrackerStore.movie,
           duration: stateTrackerStore.movie.duration,
           control: stateTrackerStore.control,
-          onCompleted: () => stateTrackerStore.onAnimationComplete(),
+          onStarted: () => stateTrackerStore.startAndResetStopWatch(),
+          // onCompleted: () => stateTrackerStore.onAnimationComplete(),
           builder: (context, value, child) {
             final skyValue = value.get('sky value');
             final width = MediaQuery.of(context).size.width;

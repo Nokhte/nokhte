@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/mobx/base_scheduling_widget_store.dart';
+import 'package:nokhte/app/core/mobx/base_animated_scheduling_widget_store.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/sky_widgets/beach_sky/stack/constants/constants.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -10,14 +10,16 @@ part 'beach_sky_store.g.dart';
 
 class BeachSkyStore = _BeachSkyStoreBase with _$BeachSkyStore;
 
-abstract class _BeachSkyStoreBase
-    extends BaseSchedulingWidgetStore<Color, NoParams, IsATimeMobxParams>
-    with Store {
+abstract class _BeachSkyStoreBase extends BaseAnimatedSchedulingWidgetStore<
+    Color, NoParams, IsATimeMobxParams> with Store {
   bool isGoingToFullSky;
 
   _BeachSkyStoreBase({
     required this.isGoingToFullSky,
-  });
+  }) {
+    movie = RevealTheSky.getMovie(SkyColors.evening);
+    animationStatusListener();
+  }
 
   @observable
   bool isFirstTimeCompleting = true;
@@ -30,6 +32,12 @@ abstract class _BeachSkyStoreBase
 
   @observable
   bool movieIsLonger = false;
+
+  animationStatusListener() => reaction((p0) => movieStatus, (p0) {
+        if (p0 == MovieStatus.finished) {
+          onAnimationComplete();
+        }
+      });
 
   @action
   onAnimationComplete() {
@@ -173,14 +181,6 @@ abstract class _BeachSkyStoreBase
     );
     control = Control.playFromStart;
   }
-
-  void setControl(Control newControl) => control = newControl;
-
-  @observable
-  MovieTween movie = RevealTheSky.getMovie(SkyColors.evening);
-
-  @observable
-  Control control = Control.stop;
 
   @override
   List<Object> get props => [];
