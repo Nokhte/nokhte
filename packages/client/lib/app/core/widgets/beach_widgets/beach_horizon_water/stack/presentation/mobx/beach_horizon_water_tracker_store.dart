@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api, missing_override_of_must_be_overridden
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/mobx/base_scheduling_widget_store.dart';
+import 'package:nokhte/app/core/mobx/base_animated_scheduling_widget_store.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -12,8 +12,17 @@ class BeachHorizonWaterTrackerStore = _BeachHorizonWaterTrackerStoreBase
     with _$BeachHorizonWaterTrackerStore;
 
 abstract class _BeachHorizonWaterTrackerStoreBase
-    extends BaseSchedulingWidgetStore<ColorAndStop, List<ColorAndStop>,
+    extends BaseAnimatedSchedulingWidgetStore<ColorAndStop, List<ColorAndStop>,
         IsATimeMobxParams> with Store {
+          
+  _BeachHorizonWaterTrackerStoreBase({required this.isGoingToFullSky}) {
+    movie = AnywhereToHorizonWaters.getMovie(
+      WaterColorsAndStops.toTheDepthsWater,
+      WaterColorsAndStops.schedulingEveningWaterFullScreen,
+      WaterColorsAndStops.schedulingEveningWaterFullScreen,
+    );
+  }
+
   @observable
   bool isGoingToFullSky;
 
@@ -32,10 +41,6 @@ abstract class _BeachHorizonWaterTrackerStoreBase
   @action
   toggleIsGoingFullSky() => isGoingToFullSky = !isGoingToFullSky;
 
-  _BeachHorizonWaterTrackerStoreBase({
-    required this.isGoingToFullSky,
-  });
-
   @observable
   HorizonMovieModes movieMode = HorizonMovieModes.regular;
 
@@ -44,9 +49,6 @@ abstract class _BeachHorizonWaterTrackerStoreBase
 
   @observable
   bool isFirstTimeCompleting = true;
-
-  @action
-  setControl(Control newControl) => control = newControl;
 
   @action
   void toggleShoreCompletionStatus() =>
@@ -60,6 +62,12 @@ abstract class _BeachHorizonWaterTrackerStoreBase
 
   @observable
   bool movieIsLonger = false;
+
+  animationStatusListener() => reaction((p0) => movieStatus, (p0) {
+        if (p0 == MovieStatus.finished) {
+          onAnimationCompleted();
+        }
+      });
 
   @action
   onAnimationCompleted() {
@@ -279,16 +287,4 @@ abstract class _BeachHorizonWaterTrackerStoreBase
     setControl(Control.playReverseFromEnd);
   }
 
-  @action
-  setMovie(MovieTween newMovie) => movie = newMovie;
-
-  @observable
-  MovieTween movie = AnywhereToHorizonWaters.getMovie(
-    WaterColorsAndStops.toTheDepthsWater,
-    WaterColorsAndStops.schedulingEveningWaterFullScreen,
-    WaterColorsAndStops.schedulingEveningWaterFullScreen,
-  );
-
-  @observable
-  Control control = Control.stop;
 }

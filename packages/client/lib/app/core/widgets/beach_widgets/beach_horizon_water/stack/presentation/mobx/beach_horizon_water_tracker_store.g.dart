@@ -129,38 +129,6 @@ mixin _$BeachHorizonWaterTrackerStore
     });
   }
 
-  late final _$movieAtom =
-      Atom(name: '_BeachHorizonWaterTrackerStoreBase.movie', context: context);
-
-  @override
-  MovieTween get movie {
-    _$movieAtom.reportRead();
-    return super.movie;
-  }
-
-  @override
-  set movie(MovieTween value) {
-    _$movieAtom.reportWrite(value, super.movie, () {
-      super.movie = value;
-    });
-  }
-
-  late final _$controlAtom = Atom(
-      name: '_BeachHorizonWaterTrackerStoreBase.control', context: context);
-
-  @override
-  Control get control {
-    _$controlAtom.reportRead();
-    return super.control;
-  }
-
-  @override
-  set control(Control value) {
-    _$controlAtom.reportWrite(value, super.control, () {
-      super.control = value;
-    });
-  }
-
   late final _$_BeachHorizonWaterTrackerStoreBaseActionController =
       ActionController(
           name: '_BeachHorizonWaterTrackerStoreBase', context: context);
@@ -199,18 +167,6 @@ mixin _$BeachHorizonWaterTrackerStore
             name: '_BeachHorizonWaterTrackerStoreBase.toggleIsGoingFullSky');
     try {
       return super.toggleIsGoingFullSky();
-    } finally {
-      _$_BeachHorizonWaterTrackerStoreBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic setControl(Control newControl) {
-    final _$actionInfo = _$_BeachHorizonWaterTrackerStoreBaseActionController
-        .startAction(name: '_BeachHorizonWaterTrackerStoreBase.setControl');
-    try {
-      return super.setControl(newControl);
     } finally {
       _$_BeachHorizonWaterTrackerStoreBaseActionController
           .endAction(_$actionInfo);
@@ -423,18 +379,6 @@ mixin _$BeachHorizonWaterTrackerStore
   }
 
   @override
-  dynamic setMovie(MovieTween newMovie) {
-    final _$actionInfo = _$_BeachHorizonWaterTrackerStoreBaseActionController
-        .startAction(name: '_BeachHorizonWaterTrackerStoreBase.setMovie');
-    try {
-      return super.setMovie(newMovie);
-    } finally {
-      _$_BeachHorizonWaterTrackerStoreBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 isGoingToFullSky: ${isGoingToFullSky},
@@ -443,9 +387,7 @@ movieMode: ${movieMode},
 backToShoreCompleted: ${backToShoreCompleted},
 isFirstTimeCompleting: ${isFirstTimeCompleting},
 isComplete: ${isComplete},
-movieIsLonger: ${movieIsLonger},
-movie: ${movie},
-control: ${control}
+movieIsLonger: ${movieIsLonger}
     ''';
   }
 }
