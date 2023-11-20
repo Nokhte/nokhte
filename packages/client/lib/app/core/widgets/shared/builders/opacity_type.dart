@@ -1,0 +1,4 @@
+enum OpacityType {
+  animated,
+  regular,
+}
