@@ -31,7 +31,7 @@
         // },
         {
             "name": "🟦 working module",
-            "path": "../packages/client/lib/app/modules/p2p_purpose_session"
+            "path": "../packages/client/lib/app/modules/p2p_collaborator_pool"
             
         },
         {
@@ -63,7 +63,7 @@
                 "packages/client/.vscode": true,
                 "packages/": true,
                 "**/**.iml": true,
-                // "**/**.g.dart": true,
+                "**/**.g.dart": true,
                 "**/.gitignore": true,
                 // "**/pubspec.yaml": true,
                 "**/**.mocks.dart": true,
