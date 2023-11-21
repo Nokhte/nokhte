@@ -21,7 +21,10 @@ class CommonCollaborativeTestFunctions {
     supabaseAdmin = SupabaseClientConfigConstants.supabaseAdmin;
   }
 
-  Future<void> setUp({bool shouldSetupPerspectives = false}) async {
+  Future<void> setUp({
+    bool shouldSetupPerspectives = false,
+    bool shouldMakeCollaboration = true,
+  }) async {
     await SignIn.user1(supabase: user1Supabase);
     await SignIn.user2(supabase: user2Supabase);
 
@@ -31,10 +34,12 @@ class CommonCollaborativeTestFunctions {
 
     existingCollaborationsQueries =
         ExistingCollaborationsQueries(supabase: supabaseAdmin);
-    await existingCollaborationsQueries.createNewCollaboration(
-      collaboratorOneUID: firstUserUID,
-      collaboratorTwoUID: secondUserUID,
-    );
+    if (shouldMakeCollaboration) {
+      await existingCollaborationsQueries.createNewCollaboration(
+        collaboratorOneUID: firstUserUID,
+        collaboratorTwoUID: secondUserUID,
+      );
+    }
 
     adminPerspectivesQueries =
         P2PPerspectivesTrackingQueries(supabase: supabaseAdmin);
