@@ -50,6 +50,23 @@ mixin _$SmartFadingAnimatedTextTrackerStore
                   '_SmartFadingAnimatedTextTrackerStoreBase.currentUnlockGesture'))
       .value;
 
+  late final _$messagesDataAtom = Atom(
+      name: '_SmartFadingAnimatedTextTrackerStoreBase.messagesData',
+      context: context);
+
+  @override
+  ObservableList<RotatingTextData> get messagesData {
+    _$messagesDataAtom.reportRead();
+    return super.messagesData;
+  }
+
+  @override
+  set messagesData(ObservableList<RotatingTextData> value) {
+    _$messagesDataAtom.reportWrite(value, super.messagesData, () {
+      super.messagesData = value;
+    });
+  }
+
   late final _$firstTimeAtom = Atom(
       name: '_SmartFadingAnimatedTextTrackerStoreBase.firstTime',
       context: context);
@@ -238,13 +255,14 @@ mixin _$SmartFadingAnimatedTextTrackerStore
     return _$copyToClipboardAsyncAction.run(() => super.copyToClipboard());
   }
 
-  late final _$startRotatingTextAsyncAction = AsyncAction(
-      '_SmartFadingAnimatedTextTrackerStoreBase.startRotatingText',
+  late final _$triggerRotatingTextAsyncAction = AsyncAction(
+      '_SmartFadingAnimatedTextTrackerStoreBase.triggerRotatingText',
       context: context);
 
   @override
-  Future startRotatingText() {
-    return _$startRotatingTextAsyncAction.run(() => super.startRotatingText());
+  Future triggerRotatingText() {
+    return _$triggerRotatingTextAsyncAction
+        .run(() => super.triggerRotatingText());
   }
 
   late final _$togglePauseAsyncAction = AsyncAction(
@@ -260,6 +278,19 @@ mixin _$SmartFadingAnimatedTextTrackerStore
   late final _$_SmartFadingAnimatedTextTrackerStoreBaseActionController =
       ActionController(
           name: '_SmartFadingAnimatedTextTrackerStoreBase', context: context);
+
+  @override
+  dynamic setMessagesData(List<RotatingTextData> newList) {
+    final _$actionInfo =
+        _$_SmartFadingAnimatedTextTrackerStoreBaseActionController.startAction(
+            name: '_SmartFadingAnimatedTextTrackerStoreBase.setMessagesData');
+    try {
+      return super.setMessagesData(newList);
+    } finally {
+      _$_SmartFadingAnimatedTextTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic fadeTheTextOut() {
@@ -334,6 +365,19 @@ mixin _$SmartFadingAnimatedTextTrackerStore
   }
 
   @override
+  dynamic startRotatingText(Duration fadeInDelay) {
+    final _$actionInfo =
+        _$_SmartFadingAnimatedTextTrackerStoreBaseActionController.startAction(
+            name: '_SmartFadingAnimatedTextTrackerStoreBase.startRotatingText');
+    try {
+      return super.startRotatingText(fadeInDelay);
+    } finally {
+      _$_SmartFadingAnimatedTextTrackerStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setMainMessage({required int index, required String thePhrase}) {
     final _$actionInfo =
         _$_SmartFadingAnimatedTextTrackerStoreBaseActionController.startAction(
@@ -362,6 +406,7 @@ mixin _$SmartFadingAnimatedTextTrackerStore
   @override
   String toString() {
     return '''
+messagesData: ${messagesData},
 firstTime: ${firstTime},
 isInfinite: ${isInfinite},
 showText: ${showText},

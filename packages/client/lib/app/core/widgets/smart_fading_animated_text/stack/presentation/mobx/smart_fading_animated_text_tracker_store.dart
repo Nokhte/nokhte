@@ -11,13 +11,18 @@ class SmartFadingAnimatedTextTrackerStore = _SmartFadingAnimatedTextTrackerStore
 
 abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
     with Store {
-  List<RotatingTextData> messagesData = [];
+  @observable
+  ObservableList<RotatingTextData> messagesData = ObservableList.of([]);
 
-  _SmartFadingAnimatedTextTrackerStoreBase(
-      {required this.messagesData, required this.isInfinite})
-      : currentMainText = messagesData.first.mainMessage,
-        currentSubText = messagesData.first.subMessage,
-        firstTime = false;
+  @action
+  setMessagesData(List<RotatingTextData> newList) {
+    messagesData = ObservableList.of(newList);
+    currentMainText = messagesData.first.mainMessage;
+    currentSubText = messagesData.first.subMessage;
+    firstTime = false;
+  }
+
+  _SmartFadingAnimatedTextTrackerStoreBase({required this.isInfinite});
 
   @observable
   bool firstTime = true;
@@ -163,7 +168,15 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
   }
 
   @action
-  startRotatingText() async {
+  startRotatingText(Duration fadeInDelay) {
+    Future.delayed(
+      fadeInDelay,
+      () async => await triggerRotatingText(),
+    );
+  }
+
+  @action
+  triggerRotatingText() async {
     while (!isPaused) {
       if (hasJustBeenUnPaused) {
         await oneSecondDelay(() => fadeTheTextOut());
@@ -183,7 +196,7 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
       isPaused = !isPaused;
       if (isPaused == false) {
         hasJustBeenUnPaused = true;
-        startRotatingText();
+        triggerRotatingText();
       }
       if (gestureType == Gestures.tap) {
         await copyToClipboard();
@@ -209,22 +222,26 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
   }
 
   @computed
-  bool get shouldPauseHere => messagesData[currentIndex].pauseHere;
+  bool get shouldPauseHere =>
+      messagesData.isEmpty ? false : messagesData[currentIndex].pauseHere;
 
   @computed
   double get currentMainMessageFont =>
-      messagesData[currentIndex].mainMessageFontSize;
+      messagesData.isEmpty ? 0 : messagesData[currentIndex].mainMessageFontSize;
 
   @computed
   double get currentSubMessageFont =>
-      messagesData[currentIndex].subMessageFontSize;
+      messagesData.isEmpty ? 0 : messagesData[currentIndex].subMessageFontSize;
 
   @computed
-  Duration get currentExtraDelayTime =>
-      messagesData[currentIndex].extraDelayTime;
+  Duration get currentExtraDelayTime => messagesData.isEmpty
+      ? const Duration()
+      : messagesData[currentIndex].extraDelayTime;
 
   @computed
-  Gestures get currentUnlockGesture => messagesData[currentIndex].unlockGesture;
+  Gestures get currentUnlockGesture => messagesData.isEmpty
+      ? Gestures.none
+      : messagesData[currentIndex].unlockGesture;
 
   @override
   List<Object> get props => [

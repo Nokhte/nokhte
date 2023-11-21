@@ -7,11 +7,9 @@ import 'package:nokhte/app/core/widgets/smart_fading_animated_text/stack/present
 
 class SmartFadingAnimatedText extends StatefulWidget {
   final SmartFadingAnimatedTextTrackerStore stateTrackerStore;
-  final Duration initialFadeInDelay;
   const SmartFadingAnimatedText({
     super.key,
     required this.stateTrackerStore,
-    required this.initialFadeInDelay,
   });
 
   @override
@@ -20,13 +18,13 @@ class SmartFadingAnimatedText extends StatefulWidget {
 }
 
 class _SmartFadingAnimatedTextState extends State<SmartFadingAnimatedText> {
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(widget.initialFadeInDelay, () {
-      widget.stateTrackerStore.startRotatingText();
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   Future.delayed(widget.initialFadeInDelay, () {
+  //     widget.stateTrackerStore.startRotatingText();
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
