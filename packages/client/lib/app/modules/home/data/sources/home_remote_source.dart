@@ -20,6 +20,7 @@ class HomeRemoteSourceImpl implements HomeRemoteSource {
   final P2PPerspectivesTrackingQueries perspectivesQueries;
   final FinishedCollaborativeP2PPurposeDocumentsQueries
       finishedCollaborativeP2PPurposeDocumentsQueries;
+  final CollaboratorPhraseQueries collaboratorPhraseQueries;
 
   HomeRemoteSourceImpl({required this.supabase})
       : existingCollaborationsQueries =
@@ -27,7 +28,9 @@ class HomeRemoteSourceImpl implements HomeRemoteSource {
         perspectivesQueries =
             P2PPerspectivesTrackingQueries(supabase: supabase),
         finishedCollaborativeP2PPurposeDocumentsQueries =
-            FinishedCollaborativeP2PPurposeDocumentsQueries(supabase: supabase);
+            FinishedCollaborativeP2PPurposeDocumentsQueries(supabase: supabase),
+        collaboratorPhraseQueries =
+            CollaboratorPhraseQueries(supabase: supabase);
 
   @override
   addNamesToDatabase({String theName = ""}) async {
@@ -60,12 +63,8 @@ class HomeRemoteSourceImpl implements HomeRemoteSource {
   }
 
   @override
-  Future<List> getCollaboratorPhrase() async {
-    return await CollaboratorPhraseQueries.getUserInfo(
-      supabase: supabase,
-      userUID: supabase.auth.currentUser?.id,
-    );
-  }
+  Future<List> getCollaboratorPhrase() async =>
+      await collaboratorPhraseQueries.getUserInfo();
 
   @override
   Future<List> checkIfTheyHaveACollaboration() async =>
