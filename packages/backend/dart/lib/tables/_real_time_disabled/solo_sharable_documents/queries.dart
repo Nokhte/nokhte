@@ -1,91 +1,118 @@
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:nokhte_backend/tables/_real_time_enabled/shared/shared.dart';
 
-class SoloSharableDocuments {
-  static Future<List> createSoloDoc({
-    required SupabaseClient supabase,
-    required String ownerUID,
-    required String collaboratorUID,
-    required String docType,
-  }) async =>
-      await supabase.from('solo_sharable_documents').insert({
-        'owner_uid': ownerUID,
-        'collaborator_uid': collaboratorUID,
-        'doc_type': docType,
-      }).select();
+class SoloSharableDocumentQueries extends CollaborativeQueries {
+  SoloSharableDocumentQueries({required super.supabase});
 
-  static Future<List> getDocInfo({
-    required SupabaseClient supabase,
-    String ownerUID = '',
-    String collaboratorUID = '',
-  }) async {
-    if (ownerUID.isEmpty && collaboratorUID.isEmpty) {
-      throw ArgumentError(
-          "You need either ownerUID or collaboratorUID to complete a query");
+  static const table = "solo_sharable_documents";
+  static const content = "content";
+  static const isVisibleToCollaborator = "is_visible_to_collaborator";
+  static const sessionIsCompleted = "session_is_completed";
+  static const docType = "doc_type";
+  static const ownerUID = "owner_uid";
+  static const collaboratorUID = "collaborator_uid";
+  static const createdAt = "created_at";
+
+  Future<List> createSoloDoc({required String desiredDocType}) async {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutActiveCollaboratorInfo();
+    }
+    return await supabase.from(table).insert({
+      ownerUID: collaboratorInfo.theUsersUID,
+      collaboratorUID: collaboratorInfo.theCollaboratorsUID,
+      docType: desiredDocType,
+    }).select();
+  }
+
+  Future<List> getDocInfo({required bool getCollaboratorsDoc}) async {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutActiveCollaboratorInfo();
     }
     return await supabase
-        .from('solo_sharable_documents')
+        .from(table)
         .select()
         .eq(
-          ownerUID.isEmpty ? 'collaborator_uid' : 'owner_uid',
-          ownerUID.isEmpty ? collaboratorUID : ownerUID,
+          ownerUID,
+          getCollaboratorsDoc
+              ? collaboratorInfo.theCollaboratorsUID
+              : collaboratorInfo.theUsersUID,
         )
-        .order(
-          'created_at',
-          ascending: false,
+        .eq(
+          collaboratorUID,
+          getCollaboratorsDoc
+              ? collaboratorInfo.theUsersUID
+              : collaboratorInfo.theCollaboratorsUID,
         )
+        .order(createdAt, ascending: false)
         .limit(1);
   }
 
-  static Future<List> updateDocContent({
-    required SupabaseClient supabase,
-    required String ownerUID,
-    required String content,
-  }) async =>
-      await supabase
-          .from('solo_sharable_documents')
-          .update({
-            'content': content,
-          })
-          .eq('owner_uid', ownerUID)
-          .order(
-            'created_at',
-            ascending: false,
-          )
-          .limit(1)
-          .select();
+  Future<List> updateDocContent(String content) async {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutActiveCollaboratorInfo();
+    }
+    return await supabase
+        .from(table)
+        .update({
+          content: content,
+        })
+        .eq(ownerUID, collaboratorInfo.theUsersUID)
+        .order(
+          createdAt,
+          ascending: false,
+        )
+        .limit(1)
+        .select();
+  }
 
-  static Future<List> updateDocVisibility({
-    required SupabaseClient supabase,
-    required String ownerUID,
-    required bool visibility,
-  }) async =>
-      await supabase
-          .from('solo_sharable_documents')
-          .update({
-            'is_visible_to_collaborator': visibility,
-          })
-          .eq('owner_uid', ownerUID)
-          .order(
-            'created_at',
-            ascending: false,
-          )
-          .limit(1)
-          .select();
+  Future<List> updateDocVisibility({
+    required bool makeVisible,
+  }) async {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutActiveCollaboratorInfo();
+    }
+    return await supabase
+        .from(table)
+        .update({
+          isVisibleToCollaborator: makeVisible,
+        })
+        .eq(ownerUID, collaboratorInfo.theUsersUID)
+        .order(
+          createdAt,
+          ascending: false,
+        )
+        .limit(1)
+        .select();
+  }
 
-  static Future<List> sealDocument({
-    required SupabaseClient supabase,
-    required String ownerUID,
-  }) async =>
-      await supabase
-          .from('solo_sharable_documents')
-          .update({
-            'session_is_completed': true,
-          })
-          .eq('owner_uid', ownerUID)
-          .order(
-            'created_at',
-            ascending: false,
-          )
-          .limit(1)
-          .select();
+  Future<List> sealDocument() async {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutActiveCollaboratorInfo();
+    }
+    return await supabase
+        .from(table)
+        .update({
+          sessionIsCompleted: true,
+        })
+        .eq(ownerUID, collaboratorInfo.theUsersUID)
+        .order(
+          createdAt,
+          ascending: false,
+        )
+        .limit(1)
+        .select();
+  }
+
+  Future<void> deleteDocument() async {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutActiveCollaboratorInfo();
+    }
+    return await supabase
+        .from(table)
+        .delete()
+        .eq(ownerUID, collaboratorInfo.theUsersUID)
+        .order(
+          createdAt,
+          ascending: false,
+        );
+  }
 }

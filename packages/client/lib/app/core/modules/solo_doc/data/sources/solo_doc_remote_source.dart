@@ -18,64 +18,33 @@ class SoloDocRemoteSourceImpl implements SoloDocRemoteSource {
   final SupabaseClient supabase;
   final ExistingCollaborationsQueries existingCollaborationsQueries;
   late CollaboratorInfo collaborationInfo;
+  late SoloSharableDocumentQueries soloDocQueries;
 
   SoloDocRemoteSourceImpl({
     required this.supabase,
-  }) : existingCollaborationsQueries =
-            ExistingCollaborationsQueries(supabase: supabase);
-
-  Future getCollaboratorUID() async {
-    await existingCollaborationsQueries.figureOutActiveCollaboratorInfo();
-    collaborationInfo = existingCollaborationsQueries.collaboratorInfo;
-  }
+  })  : existingCollaborationsQueries =
+            ExistingCollaborationsQueries(supabase: supabase),
+        soloDocQueries = SoloSharableDocumentQueries(supabase: supabase);
 
   @override
-  Future<List> createSoloDoc({required String docType}) async {
-    await getCollaboratorUID();
-    return await SoloSharableDocuments.createSoloDoc(
-      supabase: supabase,
-      ownerUID: collaborationInfo.theUsersUID,
-      collaboratorUID: collaborationInfo.theCollaboratorsUID,
-      docType: docType,
-    );
-  }
+  Future<List> createSoloDoc({required String docType}) async =>
+      await soloDocQueries.createSoloDoc(desiredDocType: docType);
 
   @override
-  Future<List> getSoloDocContent({required bool getCollaboratorsDoc}) async {
-    return await SoloSharableDocuments.getDocInfo(
-      supabase: supabase,
-      ownerUID: getCollaboratorsDoc
-          ? collaborationInfo.theCollaboratorsUID
-          : collaborationInfo.theUsersUID,
-      collaboratorUID: getCollaboratorsDoc
-          ? collaborationInfo.theUsersUID
-          : collaborationInfo.theCollaboratorsUID,
-    );
-  }
+  Future<List> getSoloDocContent({required bool getCollaboratorsDoc}) async =>
+      await soloDocQueries.getDocInfo(
+        getCollaboratorsDoc: getCollaboratorsDoc,
+      );
 
   @override
-  Future<List> sealSoloDoc() async {
-    return await SoloSharableDocuments.sealDocument(
-      supabase: supabase,
-      ownerUID: collaborationInfo.theUsersUID,
-    );
-  }
+  Future<List> sealSoloDoc() async => await soloDocQueries.sealDocument();
 
   @override
-  Future<List> shareSoloDoc() async {
-    return await SoloSharableDocuments.updateDocVisibility(
-      supabase: supabase,
-      ownerUID: collaborationInfo.theUsersUID,
-      visibility: true,
-    );
-  }
+  Future<List> shareSoloDoc() async => await soloDocQueries.updateDocVisibility(
+        makeVisible: true,
+      );
 
   @override
-  Future<List> submitDocContent({required String newContent}) async {
-    return await SoloSharableDocuments.updateDocContent(
-      supabase: supabase,
-      ownerUID: collaborationInfo.theUsersUID,
-      content: newContent,
-    );
-  }
+  Future<List> submitDocContent({required String newContent}) async =>
+      await soloDocQueries.updateDocContent(newContent);
 }

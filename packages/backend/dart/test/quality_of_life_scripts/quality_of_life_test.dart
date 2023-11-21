@@ -17,6 +17,7 @@ void main() {
   late ExistingCollaborationsQueries existingCollaborationsQueries;
   late P2PPerspectivesTrackingQueries perspectivesQueries;
   late IndividualSessionsQueries individualSessionQueries;
+  late SoloSharableDocumentQueries soloDocQueries;
   late InitiateCollaboratorSearch npcInitiateCollaboratorSearch;
   late CollectiveSessionQueries collectiveSessionQueries;
   late PerspectivesAudioStorageQueries perspectivesAudioStorageQueries;
@@ -35,6 +36,7 @@ void main() {
     await SignIn.user2(supabase: supabase);
     npcInitiateCollaboratorSearch =
         InitiateCollaboratorSearch(supabase: supabase);
+    soloDocQueries = SoloSharableDocumentQueries(supabase: supabase);
     existingCollaborationsQueries =
         ExistingCollaborationsQueries(supabase: supabaseAdmin);
     perspectivesQueries =
@@ -252,24 +254,9 @@ void main() {
   });
 
   test("make a solo npc-owned doc & share it with the user", () async {
-    final userIdResults = await UserSetupConstants.getUIDs();
-    final npcUserUID = userIdResults.first;
-    final realPersonUID = await returnNonNPCUID();
-    await SoloSharableDocuments.createSoloDoc(
-        supabase: supabaseAdmin,
-        ownerUID: npcUserUID,
-        collaboratorUID: realPersonUID,
-        docType: 'purpose');
-    await SoloSharableDocuments.updateDocContent(
-      supabase: supabaseAdmin,
-      ownerUID: npcUserUID,
-      content: 'npc content',
-    );
-    await SoloSharableDocuments.updateDocVisibility(
-      supabase: supabaseAdmin,
-      ownerUID: npcUserUID,
-      visibility: true,
-    );
+    await soloDocQueries.createSoloDoc(desiredDocType: 'purpose');
+    await soloDocQueries.updateDocContent('npc content');
+    await soloDocQueries.updateDocVisibility(makeVisible: true);
   });
 
   test("put npc in the pool searching for user ", () async {

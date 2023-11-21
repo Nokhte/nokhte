@@ -20,18 +20,43 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   }
 
   Future<void> updateActivityStatus({
-    required String collaboratorOneUID,
-    required String collaboratorTwoUID,
     required bool newActivityStatus,
   }) async {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutActiveCollaboratorInfo();
+    }
     await supabase
         .from(tableName)
         .update({isCurrentlyActive: newActivityStatus})
-        .eq(collaboratorOne, collaboratorOneUID)
-        .eq(collaboratorTwo, collaboratorTwoUID)
+        .eq(
+          collaboratorInfo.theCollaboratorsNumber,
+          collaboratorInfo.theCollaboratorsUID,
+        )
+        .eq(
+          collaboratorInfo.theUsersCollaboratorNumber,
+          collaboratorInfo.theUsersUID,
+        )
         .eq(isCurrentlyActive, !newActivityStatus)
         .select();
-    // print("did it happen??? $something");
+  }
+
+  Future<List> updateWhoIsTalking() async {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutActiveCollaboratorInfo();
+    }
+    return await supabase
+        .from(tableName)
+        .update({
+          whoTalkedLast: collaboratorInfo.theUsersUID,
+        })
+        .eq(
+          "${collaboratorInfo.theCollaboratorsNumber}_uid",
+          collaboratorInfo.theCollaboratorsUID,
+        )
+        .eq(
+          "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
+          collaboratorInfo.theUsersUID,
+        );
   }
 
   Future<void> deleteExistingCollaboration({
