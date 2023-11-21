@@ -1,8 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/one_talker_at_a_time/data/data.dart';
 import 'package:nokhte/app/core/modules/one_talker_at_a_time/domain/domain.dart';
-import 'package:nokhte/app/core/modules/one_talker_at_a_time/mobx/check_if_collaborator_is_talking_store.dart';
-import 'package:nokhte/app/core/modules/one_talker_at_a_time/mobx/update_who_is_talking_store.dart';
+import 'package:nokhte/app/core/modules/one_talker_at_a_time/mobx/mobx.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -43,6 +42,14 @@ class OneTalkerAtATimeModule extends Module {
         Bind.singleton<CheckIfCollaboratorIsTalkingStore>(
           (i) => CheckIfCollaboratorIsTalkingStore(
             logic: i<CheckIfCollaboratorIsTalking>(),
+          ),
+          export: true,
+        ),
+        Bind.singleton<OneTalkerAtATimeCoordinator>(
+          (i) => OneTalkerAtATimeCoordinator(
+            checkIfCollaboratorIsTalking:
+                i<CheckIfCollaboratorIsTalkingStore>(),
+            updateWhoIsTalking: i<UpdateWhoIsTalkingStore>(),
           ),
           export: true,
         ),
