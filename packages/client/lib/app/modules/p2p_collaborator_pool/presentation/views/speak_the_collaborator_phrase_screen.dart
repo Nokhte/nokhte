@@ -3,7 +3,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
-import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
 
@@ -44,7 +43,6 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                   }
                   return Center(
                       child: SmartFadingAnimatedText(
-                    initialFadeInDelay: Seconds.get(0),
                     stateTrackerStore: coordinatorStore.fadingTextStore,
                   ));
                 }),
