@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
-import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/home_screen_coordinator_store.dart';
 
@@ -40,7 +39,6 @@ class HomeScreen extends StatelessWidget {
                     ),
                     Center(
                       child: SmartFadingAnimatedText(
-                        initialFadeInDelay: Seconds.get(0),
                         stateTrackerStore:
                             coordinator.fadingTextStateTrackerStore,
                       ),
