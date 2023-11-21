@@ -1,8 +1,14 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class CollaboratorPhraseQueries {
-  static Future<dynamic> getUserInfo(
-      {required SupabaseClient supabase, required String? userUID}) async {
+  final SupabaseClient supabase;
+  final String userUID;
+
+  CollaboratorPhraseQueries({
+    required this.supabase,
+  }) : userUID = supabase.auth.currentUser?.id ?? "";
+
+  Future<dynamic> getUserInfo() async {
     return await supabase
         .from('collaborator_phrases')
         .select()
