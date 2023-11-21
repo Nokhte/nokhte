@@ -8,7 +8,6 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/presentation/presentation.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/domain.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/data/data.dart';
-import 'package:nokhte_backend/tables/existing_collaborations.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class P2PCollaboratorPoolModule extends Module {
@@ -22,7 +21,6 @@ class P2PCollaboratorPoolModule extends Module {
   List<Bind> get binds => [
         Bind.singleton<P2PCollaboratorPoolRemoteSourceImpl>(
           (i) => P2PCollaboratorPoolRemoteSourceImpl(
-            existingCollaborationsStream: ExistingCollaborationsStream(),
             supabase: Modular.get<SupabaseClient>(),
           ),
         ),
