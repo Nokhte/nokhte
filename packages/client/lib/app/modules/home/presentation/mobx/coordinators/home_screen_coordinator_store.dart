@@ -8,6 +8,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/main/main.dart';
 import 'package:nokhte/app/modules/home/types/types.dart';
@@ -56,18 +57,37 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
       const Color(0xFF69E9BC),
     ]));
 
-    Future.delayed(Seconds.get(1), () async {
-      await addNameToDatabaseStore(NoParams());
-      await getCollaboratorPhraseStore(NoParams()).then((_) {
-        fadingTextStateTrackerStore.setMainMessage(
-          index: 2,
-          thePhrase: getCollaboratorPhraseStore.collaboratorPhrase,
-        );
-      });
-    });
     gestureListener();
     holdListener();
     await getExistingCollaborationInfo(NoParams());
+    Duration fadeInDuration;
+    Future.delayed(Seconds.get(1), () async {
+      await addNameToDatabaseStore(NoParams());
+      await getCollaboratorPhraseStore(NoParams());
+    });
+
+    getExistingCollaborationInfo.hasACollaboration
+        ? {
+            fadeInDuration = Seconds.get(10),
+            fadingTextStateTrackerStore.setMessagesData(
+              MessagesData.hasACollaboratorHomeList,
+            ),
+            fadingTextStateTrackerStore.setMainMessage(
+              index: 1,
+              thePhrase: getCollaboratorPhraseStore.collaboratorPhrase,
+            )
+          }
+        : {
+            fadeInDuration = Seconds.get(5),
+            fadingTextStateTrackerStore.setMessagesData(
+              MessagesData.homeList,
+            ),
+            fadingTextStateTrackerStore.setMainMessage(
+              index: 2,
+              thePhrase: getCollaboratorPhraseStore.collaboratorPhrase,
+            )
+          };
+    fadingTextStateTrackerStore.startRotatingText(fadeInDuration);
     await portalAPI.setupTheStream();
     portalAPIListener();
   }
