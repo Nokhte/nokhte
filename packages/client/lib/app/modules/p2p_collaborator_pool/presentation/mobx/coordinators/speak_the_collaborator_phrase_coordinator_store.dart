@@ -6,6 +6,7 @@ import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:vibration/vibration.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -46,8 +47,15 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
         fadingTextStore = widgetStore.smartFadingAnimatedTextStore,
         meshCircleStore = widgetStore.meshCircleButtonStore;
 
+  errorVibration() => Future.delayed(
+        Seconds.get(3),
+        () async => await Vibration.vibrate(
+            pattern: [500, 500], intensities: [255, 255]),
+      );
+
   @action
   screenConstructor() async {
+    fadingTextStore.startRotatingText(Seconds.get(0));
     explanationText.setText("hold to talk");
     explanationText.widgetConstructor();
     meshCircleStore.widgetConstructor();
@@ -97,13 +105,9 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
       });
 
   queryValidationLengthListener() =>
-      reaction((p0) => validateQueryStore.isProperLength, (p0) {
+      reaction((p0) => validateQueryStore.isProperLength, (p0) async {
         if (validateQueryStore.isProperLength == ValidationStatus.invalid) {
-          fadingTextStore.changeFutureSubMessage(
-            amountOfMessagesForward:
-                onSpeechResultStore.currentPhraseIndex == 1 ? 2 : 1,
-            message: "invalid length collaborator phrase",
-          );
+          errorVibration();
         } else if (validateQueryStore.isProperLength ==
             ValidationStatus.valid) {
           validateQueryStore.call(
@@ -119,17 +123,12 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
         if (validateQueryStore.isValidated == ValidationStatus.valid &&
             validateQueryStore.isProperLength == ValidationStatus.valid) {
           fadingTextStore.changeFutureSubMessage(
-            amountOfMessagesForward:
-                onSpeechResultStore.currentPhraseIndex == 1 ? 2 : 1,
+            amountOfMessagesForward: 1,
             message: "Swipe Up To Enter",
           );
         } else if (validateQueryStore.isValidated == ValidationStatus.invalid &&
             validateQueryStore.isProperLength == ValidationStatus.valid) {
-          fadingTextStore.changeFutureSubMessage(
-            amountOfMessagesForward:
-                onSpeechResultStore.currentPhraseIndex == 1 ? 2 : 1,
-            message: "invalid collaborator phrase",
-          );
+          errorVibration();
         }
       });
 
