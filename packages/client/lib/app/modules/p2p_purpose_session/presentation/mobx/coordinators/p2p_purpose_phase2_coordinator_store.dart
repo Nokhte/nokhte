@@ -30,7 +30,6 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
 
   _P2PPurposePhase2CoordinatorStoreBase({
     required super.timer,
-    required this.explanationText,
     required this.oneTalkerAtATime,
     required this.swipe,
     required this.hold,
@@ -38,6 +37,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
     required this.questionCheckerStore,
     required this.voiceCallActionsStore,
     required super.beachWaves,
+    required this.explanationText,
     required this.fadingText,
     required this.meshCircleStore,
   }) : super(productionTimerLength: const Duration(minutes: 5));
@@ -49,10 +49,12 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
   screenConstructor() async {
     fadingText.startRotatingText(Seconds.get(0));
     beachWaves.initiateSuspendedAtTheDepths();
+    await oneTalkerAtATime.startListeningToCheckIfCollaboratorIsTalking();
     holdStartListener();
+    collaboratorIsTalkingListener();
     await timer.setupAndStreamListenerActivation(
         const CreateTimerParams(timerLengthInMinutes: 5), initOrPauseTimesUp);
-    appStateListener();
+    foregroundAndBackgroundStateListener();
     explanationText.setText("hold to talk");
     explanationText.widgetConstructor();
     beachWavesMovieModeWatcher();
@@ -79,6 +81,18 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
         }
       });
 
+  collaboratorIsTalkingListener() =>
+      reaction((p0) => oneTalkerAtATime.collaboratorIsTalking, (p0) {
+        if (p0) {
+          meshCircleStore.toggleIsEnabled();
+        } else if (!p0) {
+          Future.delayed(
+            Seconds.get(1),
+            () => meshCircleStore.toggleIsEnabled(),
+          );
+        }
+      });
+
   beachWavesMovieStatusWatcher() =>
       reaction((p0) => beachWaves.movieStatus, (p0) async {
         if (beachWaves.movieStatus == MovieStatus.finished &&
@@ -94,39 +108,46 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
         }
       });
 
-  holdStartListener() => reaction((p0) => hold.holdCount, (p0) {
-        audioButtonHoldStartCallback();
-      });
+  holdStartListener() => reaction(
+        (p0) => hold.holdCount,
+        (p0) => audioButtonHoldStartCallback(),
+      );
 
-  holdEndListener() => reaction((p0) => hold.letGoCount, (p0) {
-        audioButtonHoldEndCallback();
-      });
+  holdEndListener() => reaction(
+        (p0) => hold.letGoCount,
+        (p0) => audioButtonHoldEndCallback(),
+      );
 
   @action
   audioButtonHoldStartCallback() async {
-    if (isFirstTimeTalking) {
-      isFirstTimeTalking = false;
-      Future.delayed(
-        Seconds.get(3),
-        () => explanationText.toggleWidgetVisibility(),
-      );
-      await timer.updateTimerRunningStatus(true);
-      meshCircleStore.initGlowUp();
-    }
+    if (meshCircleStore.isEnabled) {
+      if (isFirstTimeTalking) {
+        isFirstTimeTalking = false;
+        Future.delayed(
+          Seconds.get(3),
+          () => explanationText.toggleWidgetVisibility(),
+        );
+        await timer.updateTimerRunningStatus(true);
+        meshCircleStore.initGlowUp();
+      }
 
-    if (fadingText.currentIndex == 1 && fadingText.showText) {
-      Future.delayed(Seconds.get(10), () => fadingText.fadeTheTextOut());
+      if (fadingText.currentIndex == 1 && fadingText.showText) {
+        Future.delayed(Seconds.get(10), () => fadingText.fadeTheTextOut());
+      }
+      oneTalkerAtATime.markUserAsTheTalker();
+      voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);
+      meshCircleStore.toggleColorAnimation();
     }
-
-    voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);
-    meshCircleStore.toggleColorAnimation();
   }
 
   @action
   audioButtonHoldEndCallback() {
-    meshCircleStore.initGlowDown();
-    voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
-    meshCircleStore.toggleColorAnimation();
+    if (meshCircleStore.isEnabled) {
+      oneTalkerAtATime.clearOutTalkerRow();
+      meshCircleStore.initGlowDown();
+      voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
+      meshCircleStore.toggleColorAnimation();
+    }
   }
 
   @override
