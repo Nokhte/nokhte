@@ -3,6 +3,8 @@ import 'package:nokhte/app/core/modules/collaborative_doc/collaborative_doc_modu
 import 'package:nokhte/app/core/modules/collaborative_doc/presentation/presentation.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic_module.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/one_talker_at_a_time/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/one_talker_at_a_time/one_talker_at_a_time_module.dart';
 import 'package:nokhte/app/core/modules/scheduling/presentation/presentation.dart';
 import 'package:nokhte/app/core/modules/scheduling/scheduling_module.dart';
 import 'package:nokhte/app/core/modules/solo_doc/mobx/mobx.dart';
@@ -21,6 +23,7 @@ import 'package:nokhte/app/modules/p2p_purpose_session/presentation/presentation
 class P2PCollaboratorSessionModule extends Module {
   @override
   List<Module> get imports => [
+        OneTalkerAtATimeModule(),
         VoiceCallModule(),
         CollaborativeDocModule(),
         SoloDocModule(),
@@ -108,6 +111,7 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase2CoordinatorStore>(
             (i) => P2PPurposePhase2CoordinatorStore(
+                  oneTalkerAtATime: Modular.get<OneTalkerAtATimeCoordinator>(),
                   explanationText: i<ExplanationTextStore>(),
                   timer: Modular.get<TimerCoordinator>(),
                   hold: Modular.get<HoldDetector>(),
