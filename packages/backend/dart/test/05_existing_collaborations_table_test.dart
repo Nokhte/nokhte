@@ -62,8 +62,8 @@ void main() {
   test(
       "should be able to update talking status & receive changes in the stream",
       () async {
-    await user1Queries.setUserAsTheCurrentTalker();
     final stream = user1Stream.getWhoIsTalking();
+    await user1Queries.setUserAsTheCurrentTalker();
     expect(stream, emits(tSetup.firstUserUID));
   });
 }

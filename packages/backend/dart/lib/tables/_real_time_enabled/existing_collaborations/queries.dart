@@ -60,14 +60,20 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
         .select();
   }
 
-  Future<void> deleteExistingCollaboration({
-    required String collaboratorOneUID,
-    required String collaboratorTwoUID,
-  }) async {
+  Future<void> deleteExistingCollaboration() async {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutActiveCollaboratorInfo();
+    }
     return await supabase
         .from(tableName)
         .delete()
-        .eq(collaboratorOne, collaboratorOneUID)
-        .eq(collaboratorTwo, collaboratorTwoUID);
+        .eq(
+          collaboratorInfo.theCollaboratorsNumber,
+          collaboratorInfo.theCollaboratorsUID,
+        )
+        .eq(
+          collaboratorInfo.theUsersCollaboratorNumber,
+          collaboratorInfo.theUsersUID,
+        );
   }
 }

@@ -53,15 +53,17 @@ class CommonCollaborativeTestFunctions {
     }
   }
 
-  Future<void> tearDownAll({bool shouldTearDownPerspectives = false}) async {
+  Future<void> tearDownAll({
+    bool shouldTearDownPerspectives = false,
+    bool shouldTeardownCollaboration = true,
+  }) async {
     existingCollaborationsQueries.currentUserUID = firstUserUID;
     adminPerspectivesQueries.collaboratorInfo =
         user1PerspectivesQueries.collaboratorInfo;
+    if (shouldTeardownCollaboration) {
+      await existingCollaborationsQueries.deleteExistingCollaboration();
+    }
 
-    await existingCollaborationsQueries.deleteExistingCollaboration(
-      collaboratorOneUID: firstUserUID,
-      collaboratorTwoUID: secondUserUID,
-    );
     if (shouldTearDownPerspectives) {
       adminPerspectivesQueries.deletePerspectivesRow();
     }

@@ -50,10 +50,11 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
       }
       if (event.isEmpty) {
         yield '';
+      } else if (event.first[ExistingCollaborationsQueries.whoIsTalking] ==
+          null) {
+        yield "";
       } else {
-        yield event.first[ExistingCollaborationsQueries.whoIsTalking]
-                as String? ??
-            '';
+        yield event.first[ExistingCollaborationsQueries.whoIsTalking] as String;
       }
     }
   }
