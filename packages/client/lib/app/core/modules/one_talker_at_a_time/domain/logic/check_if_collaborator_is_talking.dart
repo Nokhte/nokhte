@@ -3,7 +3,7 @@ import 'package:nokhte/app/core/modules/one_talker_at_a_time/domain/domain.dart'
 
 class CheckIfCollaboratorIsTalking
     implements
-        AbstractFutureLogic<CheckIfCollaboratorisTalkingEntity, NoParams> {
+        AbstractFutureLogic<CheckIfCollaboratorIsTalkingEntity, NoParams> {
   final OneTalkerAtATimeContract contract;
 
   CheckIfCollaboratorIsTalking({required this.contract});

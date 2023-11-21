@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 
-class CheckIfCollaboratorisTalkingEntity extends Equatable {
+class CheckIfCollaboratorIsTalkingEntity extends Equatable {
   final Stream<bool> collaboratorIsTalking;
 
-  const CheckIfCollaboratorisTalkingEntity({
+  const CheckIfCollaboratorIsTalkingEntity({
     required this.collaboratorIsTalking,
   });
 
