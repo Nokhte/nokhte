@@ -27,13 +27,13 @@ class OneTalkerAtATimeContractImpl implements OneTalkerAtATimeContract {
 
   @override
   Future<Either<Failure, WhoIsTalkingUpdateStatusEntity>> updateWhoIsTalking(
-      WhoIsTalkingUpdateParams params) async {
+      UpdateWhoIsTalkingParams params) async {
     if (await networkInfo.isConnected) {
       switch (params) {
-        case WhoIsTalkingUpdateParams.setUserAsTalker:
+        case UpdateWhoIsTalkingParams.setUserAsTalker:
           final res = await remoteSource.setUserAsCurrentTalker();
           return Right(WhoIsTalkingUpdateStatusModel.fromSupabase(res));
-        case WhoIsTalkingUpdateParams.clearOut:
+        case UpdateWhoIsTalkingParams.clearOut:
           await remoteSource.clearTheCurrentTalker();
           return const Right(WhoIsTalkingUpdateStatusModel(isUpdated: true));
       }

@@ -6,6 +6,7 @@ import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
 import 'package:nokhte/app/core/modules/get_the_purpose/domain/domain.dart';
 import 'package:nokhte/app/core/modules/get_current_perspectives/domain/domain.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/constants/constants.dart';
+import 'package:nokhte/app/core/modules/one_talker_at_a_time/domain/domain.dart';
 import 'package:nokhte/app/core/modules/scheduling/domain/domain.dart';
 import 'package:nokhte/app/core/modules/timer/domain/domain.dart';
 import 'package:nokhte/app/modules/collective_session/domain/entities/entities.dart';
@@ -237,4 +238,10 @@ class DefaultEntities {
   static Either<Failure, TimerCreationStatusEntity>
       get timerCreationStatusEntity =>
           const Right(TimerCreationStatusEntity(isCreated: false));
+
+  static Either<Failure, WhoIsTalkingUpdateStatusEntity>
+      get whoIsTalkingUpdateStatusEntity =>
+          const Right(WhoIsTalkingUpdateStatusEntity(
+            isUpdated: false,
+          ));
 }

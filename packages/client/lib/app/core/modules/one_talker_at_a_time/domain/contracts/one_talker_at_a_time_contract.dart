@@ -7,6 +7,6 @@ abstract class OneTalkerAtATimeContract {
   Future<Either<Failure, CheckIfCollaboratorIsTalkingEntity>>
       checkIfCollaboratorIsTalking(NoParams params);
   Future<Either<Failure, WhoIsTalkingUpdateStatusEntity>> updateWhoIsTalking(
-    WhoIsTalkingUpdateParams params,
+    UpdateWhoIsTalkingParams params,
   );
 }

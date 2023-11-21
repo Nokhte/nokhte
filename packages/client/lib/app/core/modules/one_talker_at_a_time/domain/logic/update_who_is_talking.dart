@@ -4,7 +4,7 @@ import 'package:nokhte/app/core/modules/one_talker_at_a_time/domain/domain.dart'
 class UpdateWhoIsTalking
     implements
         AbstractFutureLogic<WhoIsTalkingUpdateStatusEntity,
-            WhoIsTalkingUpdateParams> {
+            UpdateWhoIsTalkingParams> {
   final OneTalkerAtATimeContract contract;
 
   UpdateWhoIsTalking({required this.contract});
@@ -13,7 +13,7 @@ class UpdateWhoIsTalking
   call(params) async => await contract.updateWhoIsTalking(params);
 }
 
-enum WhoIsTalkingUpdateParams {
+enum UpdateWhoIsTalkingParams {
   clearOut,
   setUserAsTalker,
 }
