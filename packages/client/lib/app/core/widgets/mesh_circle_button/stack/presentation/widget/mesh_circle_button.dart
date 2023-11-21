@@ -22,7 +22,7 @@ class MeshCircleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
       return AnimatedOpacity(
-        opacity: trackerStore.showWidget ? 1 : 0,
+        opacity: trackerStore.opacity,
         duration: Seconds.get(1),
         child: CustomAnimationBuilder(
             tween: trackerStore.movie,

@@ -9,6 +9,37 @@ part of 'mesh_circle_button_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$MeshCircleButtonStore on _MeshCircleButtonStoreBase, Store {
+  Computed<double>? _$enabledOpacityComputed;
+
+  @override
+  double get enabledOpacity =>
+      (_$enabledOpacityComputed ??= Computed<double>(() => super.enabledOpacity,
+              name: '_MeshCircleButtonStoreBase.enabledOpacity'))
+          .value;
+  Computed<double>? _$opacityComputed;
+
+  @override
+  double get opacity =>
+      (_$opacityComputed ??= Computed<double>(() => super.opacity,
+              name: '_MeshCircleButtonStoreBase.opacity'))
+          .value;
+
+  late final _$isEnabledAtom =
+      Atom(name: '_MeshCircleButtonStoreBase.isEnabled', context: context);
+
+  @override
+  bool get isEnabled {
+    _$isEnabledAtom.reportRead();
+    return super.isEnabled;
+  }
+
+  @override
+  set isEnabled(bool value) {
+    _$isEnabledAtom.reportWrite(value, super.isEnabled, () {
+      super.isEnabled = value;
+    });
+  }
+
   late final _$isAnimatingAtom =
       Atom(name: '_MeshCircleButtonStoreBase.isAnimating', context: context);
 
@@ -91,8 +122,11 @@ mixin _$MeshCircleButtonStore on _MeshCircleButtonStoreBase, Store {
   @override
   String toString() {
     return '''
+isEnabled: ${isEnabled},
 isAnimating: ${isAnimating},
-currentGlowColor: ${currentGlowColor}
+currentGlowColor: ${currentGlowColor},
+enabledOpacity: ${enabledOpacity},
+opacity: ${opacity}
     ''';
   }
 }

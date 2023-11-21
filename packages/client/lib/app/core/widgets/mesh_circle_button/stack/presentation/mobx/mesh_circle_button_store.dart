@@ -22,6 +22,9 @@ abstract class _MeshCircleButtonStoreBase extends BaseCustomAnimatedWidgetStore
   }
 
   @observable
+  bool isEnabled = true;
+
+  @observable
   bool isAnimating = false;
 
   @observable
@@ -58,6 +61,12 @@ abstract class _MeshCircleButtonStoreBase extends BaseCustomAnimatedWidgetStore
       isAnimating = true;
     }
   }
+
+  @computed
+  double get enabledOpacity => isEnabled ? 1 : .5;
+
+  @computed
+  double get opacity => showWidget ? enabledOpacity : 0;
 
   @override
   List<Object> get props => [];
