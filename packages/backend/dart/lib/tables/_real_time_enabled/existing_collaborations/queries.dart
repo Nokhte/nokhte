@@ -5,6 +5,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   static const collaboratorOne = "collaborator_one";
   static const collaboratorTwo = "collaborator_two";
   static const isCurrentlyActive = 'is_currently_active';
+  static const whoTalkedLast = "who_talked_last";
   ExistingCollaborationsQueries({required super.supabase});
 
   Future<List> createNewCollaboration({
