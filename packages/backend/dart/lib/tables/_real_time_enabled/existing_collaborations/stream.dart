@@ -8,7 +8,7 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
   }
 
   bool collaboratorSearchListeningStatus = false;
-  bool whoTalkedLastListeningStatus = false;
+  bool whoIsTalkingListeningStatus = false;
 
   Stream<bool> getCollaboratorSearchStatus() async* {
     collaboratorSearchListeningStatus = true;
@@ -32,20 +32,26 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
   cancelGetCollaboratorSearchStream() =>
       collaboratorSearchListeningStatus = false;
 
-  cancelWhoTalkedLastStream() => whoTalkedLastListeningStatus = false;
+  cancelWhoIsTalkingtream() => whoIsTalkingListeningStatus = false;
 
-  Stream<String> getWhoTalkedLast() async* {
-    whoTalkedLastListeningStatus = true;
+  Stream<String> getWhoIsTalking() async* {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutActiveCollaboratorInfo();
+    }
+    whoIsTalkingListeningStatus = true;
     await for (var event in supabase
         .from('existing_collaborations')
-        .stream(primaryKey: ['id'])) {
-      if (!whoTalkedLastListeningStatus) {
+        .stream(primaryKey: ['id']).eq(
+      collaboratorInfo.theUsersCollaboratorNumber,
+      collaboratorInfo.theUsersUID,
+    )) {
+      if (!whoIsTalkingListeningStatus) {
         break;
       }
       if (event.isEmpty) {
         yield '';
       } else {
-        yield event.first[ExistingCollaborationsQueries.whoTalkedLast]
+        yield event.first[ExistingCollaborationsQueries.whoIsTalking]
                 as String? ??
             '';
       }

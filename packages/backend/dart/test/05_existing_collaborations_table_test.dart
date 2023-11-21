@@ -7,6 +7,7 @@ import 'shared/shared.dart';
 void main() {
   late ExistingCollaborationsQueries user1Queries;
   late ExistingCollaborationsQueries user2Queries;
+  late ExistingCollaborationsStream user1Stream;
   final tSetup = CommonCollaborativeTestFunctions();
 
   setUpAll(() async {
@@ -15,6 +16,7 @@ void main() {
         ExistingCollaborationsQueries(supabase: tSetup.user1Supabase);
     user2Queries =
         ExistingCollaborationsQueries(supabase: tSetup.user2Supabase);
+    user1Stream = ExistingCollaborationsStream(supabase: tSetup.user1Supabase);
   });
 
   tearDownAll(() async {
@@ -55,5 +57,13 @@ void main() {
     expect(res.first["collaborator_two"], tSetup.secondUserUID);
     expect(res.first["is_currently_active"], false);
     expect(res.first["who_gets_the_question"], 1);
+  });
+
+  test(
+      "should be able to update talking status & receive changes in the stream",
+      () async {
+    await user1Queries.setUserAsTheCurrentTalker();
+    final stream = user1Stream.getWhoIsTalking();
+    expect(stream, emits(tSetup.firstUserUID));
   });
 }

@@ -5,7 +5,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   static const collaboratorOne = "collaborator_one";
   static const collaboratorTwo = "collaborator_two";
   static const isCurrentlyActive = 'is_currently_active';
-  static const whoTalkedLast = "who_talked_last";
+  static const whoIsTalking = "who_is_talking";
   ExistingCollaborationsQueries({required super.supabase});
 
   Future<List> createNewCollaboration({
@@ -40,23 +40,24 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
         .select();
   }
 
-  Future<List> updateWhoIsTalking() async {
+  Future<List> setUserAsTheCurrentTalker() async {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutActiveCollaboratorInfo();
     }
     return await supabase
         .from(tableName)
         .update({
-          whoTalkedLast: collaboratorInfo.theUsersUID,
+          whoIsTalking: collaboratorInfo.theUsersUID,
         })
         .eq(
-          "${collaboratorInfo.theCollaboratorsNumber}_uid",
+          collaboratorInfo.theCollaboratorsNumber,
           collaboratorInfo.theCollaboratorsUID,
         )
         .eq(
-          "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
+          collaboratorInfo.theUsersCollaboratorNumber,
           collaboratorInfo.theUsersUID,
-        );
+        )
+        .select();
   }
 
   Future<void> deleteExistingCollaboration({
