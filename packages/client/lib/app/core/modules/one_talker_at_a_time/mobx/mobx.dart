@@ -1,2 +1,2 @@
-export './check_if_collaborator_is_talking_store.dart';
-export './update_who_is_talking_store.dart';
+export './main/main.dart';
+export './one_talker_at_a_time_coordinator.dart';
