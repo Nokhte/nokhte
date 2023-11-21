@@ -8,6 +8,7 @@ import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -51,6 +52,8 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
       const Color(0xFF41D2F8),
       const Color(0xFF69E9BC),
     ]));
+    fadingText.setMessagesData(MessagesData.p2pPurposeSession);
+    fadingText.startRotatingText(Seconds.get(0));
     gestureListener();
     beachWaves.initiateSuspendedAtTheDepths();
     await instantiateAgoraSdkStore(NoParams());

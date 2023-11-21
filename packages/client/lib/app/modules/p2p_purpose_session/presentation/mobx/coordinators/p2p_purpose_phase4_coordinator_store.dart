@@ -39,6 +39,7 @@ abstract class _P2PPurposePhase4CoordinatorStoreBase extends BaseTimesUpStore
 
   @action
   screenConstructor() async {
+    fadingText.startRotatingText(Seconds.get(0));
     beachWaves.initiateSuspendedAtTheDepths();
 
     fadingText.moveToNextMessage();

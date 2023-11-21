@@ -51,6 +51,7 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends BaseTimesUpStore
 
   @action
   screenConstructor() async {
+    fadingText.startRotatingText(Seconds.get(0));
     textEditor.flipWidgetVisibility();
     beachWaves.initiateSuspendedAtTheDepths();
     await timer.setupAndStreamListenerActivation(
