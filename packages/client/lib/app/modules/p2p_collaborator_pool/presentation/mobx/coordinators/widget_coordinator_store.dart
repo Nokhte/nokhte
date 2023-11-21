@@ -3,6 +3,7 @@ import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
+import 'package:nokhte/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 part 'widget_coordinator_store.g.dart';
 
@@ -20,7 +21,10 @@ abstract class _WidgetCoordinatorStoreBase extends Equatable with Store {
     required this.smartFadingAnimatedTextStore,
     required this.beachWavesStore,
     required this.fadeInAndChangeColorTextStore,
-  });
+  }) {
+    smartFadingAnimatedTextStore
+        .setMessagesData(MessagesData.speakTheCollaboratorPhraseList);
+  }
 
   @action
   backToShoreWidgetChanges() {
