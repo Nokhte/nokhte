@@ -31,7 +31,7 @@ void main() {
     user2PhraseIDs = phraseIdResults[1];
   });
 
-  tearDown(() async {
+  tearDownAll(() async {
     await tSetup.tearDownAll();
   });
 
