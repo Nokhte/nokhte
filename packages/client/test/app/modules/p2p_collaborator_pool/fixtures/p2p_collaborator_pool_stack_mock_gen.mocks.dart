@@ -3,22 +3,23 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i8;
+import 'dart:async' as _i9;
 
-import 'package:dartz/dartz.dart' as _i5;
-import 'package:mobx/mobx.dart' as _i6;
+import 'package:dartz/dartz.dart' as _i6;
+import 'package:mobx/mobx.dart' as _i7;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:nokhte/app/core/error/failure.dart' as _i10;
-import 'package:nokhte/app/core/interfaces/logic.dart' as _i11;
+import 'package:nokhte/app/core/error/failure.dart' as _i11;
+import 'package:nokhte/app/core/interfaces/logic.dart' as _i12;
 import 'package:nokhte/app/modules/p2p_collaborator_pool/data/data.dart'
-    as _i12;
+    as _i13;
 import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/domain.dart'
-    as _i4;
+    as _i5;
+import 'package:nokhte_backend/edge_functions/edge_functions.dart' as _i4;
 import 'package:nokhte_backend/tables/existing_collaborations.dart' as _i3;
-import 'package:nokhte_backend/tables/phrase_components.dart' as _i9;
+import 'package:nokhte_backend/tables/phrase_components.dart' as _i10;
 import 'package:supabase_flutter/supabase_flutter.dart' as _i2;
 
-import 'p2p_collaborator_pool_stack_mock_gen.dart' as _i7;
+import 'p2p_collaborator_pool_stack_mock_gen.dart' as _i8;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -53,9 +54,31 @@ class _FakeExistingCollaborationsStream_1 extends _i1.SmartFake
         );
 }
 
-class _FakeFunctionResponse_2 extends _i1.SmartFake
+class _FakeInitiateCollaboratorSearch_2 extends _i1.SmartFake
+    implements _i4.InitiateCollaboratorSearch {
+  _FakeInitiateCollaboratorSearch_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeEndCollaboratorSearch_3 extends _i1.SmartFake
+    implements _i4.EndCollaboratorSearch {
+  _FakeEndCollaboratorSearch_3(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeFunctionResponse_4 extends _i1.SmartFake
     implements _i2.FunctionResponse {
-  _FakeFunctionResponse_2(
+  _FakeFunctionResponse_4(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -64,9 +87,9 @@ class _FakeFunctionResponse_2 extends _i1.SmartFake
         );
 }
 
-class _FakeP2PCollaboratorPoolContract_3 extends _i1.SmartFake
-    implements _i4.P2PCollaboratorPoolContract {
-  _FakeP2PCollaboratorPoolContract_3(
+class _FakeP2PCollaboratorPoolContract_5 extends _i1.SmartFake
+    implements _i5.P2PCollaboratorPoolContract {
+  _FakeP2PCollaboratorPoolContract_5(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -75,8 +98,8 @@ class _FakeP2PCollaboratorPoolContract_3 extends _i1.SmartFake
         );
 }
 
-class _FakeEither_4<L, R> extends _i1.SmartFake implements _i5.Either<L, R> {
-  _FakeEither_4(
+class _FakeEither_6<L, R> extends _i1.SmartFake implements _i6.Either<L, R> {
+  _FakeEither_6(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -85,9 +108,9 @@ class _FakeEither_4<L, R> extends _i1.SmartFake implements _i5.Either<L, R> {
         );
 }
 
-class _FakeCancelCollaboratorStream_5 extends _i1.SmartFake
-    implements _i4.CancelCollaboratorStream {
-  _FakeCancelCollaboratorStream_5(
+class _FakeCancelCollaboratorStream_7 extends _i1.SmartFake
+    implements _i5.CancelCollaboratorStream {
+  _FakeCancelCollaboratorStream_7(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -96,9 +119,9 @@ class _FakeCancelCollaboratorStream_5 extends _i1.SmartFake
         );
 }
 
-class _FakeReactiveContext_6 extends _i1.SmartFake
-    implements _i6.ReactiveContext {
-  _FakeReactiveContext_6(
+class _FakeReactiveContext_8 extends _i1.SmartFake
+    implements _i7.ReactiveContext {
+  _FakeReactiveContext_8(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -107,9 +130,9 @@ class _FakeReactiveContext_6 extends _i1.SmartFake
         );
 }
 
-class _FakeEnterCollaboratorPool_7 extends _i1.SmartFake
-    implements _i4.EnterCollaboratorPool {
-  _FakeEnterCollaboratorPool_7(
+class _FakeEnterCollaboratorPool_9 extends _i1.SmartFake
+    implements _i5.EnterCollaboratorPool {
+  _FakeEnterCollaboratorPool_9(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -118,9 +141,9 @@ class _FakeEnterCollaboratorPool_7 extends _i1.SmartFake
         );
 }
 
-class _FakeExitCollaboratorPool_8 extends _i1.SmartFake
-    implements _i4.ExitCollaboratorPool {
-  _FakeExitCollaboratorPool_8(
+class _FakeExitCollaboratorPool_10 extends _i1.SmartFake
+    implements _i5.ExitCollaboratorPool {
+  _FakeExitCollaboratorPool_10(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -129,9 +152,9 @@ class _FakeExitCollaboratorPool_8 extends _i1.SmartFake
         );
 }
 
-class _FakeGetCollaboratorSearchStatus_9 extends _i1.SmartFake
-    implements _i4.GetCollaboratorSearchStatus {
-  _FakeGetCollaboratorSearchStatus_9(
+class _FakeGetCollaboratorSearchStatus_11 extends _i1.SmartFake
+    implements _i5.GetCollaboratorSearchStatus {
+  _FakeGetCollaboratorSearchStatus_11(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -140,8 +163,8 @@ class _FakeGetCollaboratorSearchStatus_9 extends _i1.SmartFake
         );
 }
 
-class _FakeValidateQuery_10 extends _i1.SmartFake implements _i4.ValidateQuery {
-  _FakeValidateQuery_10(
+class _FakeValidateQuery_12 extends _i1.SmartFake implements _i5.ValidateQuery {
+  _FakeValidateQuery_12(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -154,7 +177,7 @@ class _FakeValidateQuery_10 extends _i1.SmartFake implements _i4.ValidateQuery {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMP2PCollaboratorPoolRemoteSourceImpl extends _i1.Mock
-    implements _i7.MP2PCollaboratorPoolRemoteSourceImpl {
+    implements _i8.MP2PCollaboratorPoolRemoteSourceImpl {
   MockMP2PCollaboratorPoolRemoteSourceImpl() {
     _i1.throwOnMissingStub(this);
   }
@@ -185,19 +208,38 @@ class MockMP2PCollaboratorPoolRemoteSourceImpl extends _i1.Mock
       ) as _i3.ExistingCollaborationsStream);
 
   @override
-  _i8.Future<List<dynamic>> validateQuery({required String? query}) =>
+  _i4.InitiateCollaboratorSearch get initiateCollaboratorSearch =>
+      (super.noSuchMethod(
+        Invocation.getter(#initiateCollaboratorSearch),
+        returnValue: _FakeInitiateCollaboratorSearch_2(
+          this,
+          Invocation.getter(#initiateCollaboratorSearch),
+        ),
+      ) as _i4.InitiateCollaboratorSearch);
+
+  @override
+  _i4.EndCollaboratorSearch get endCollaboratorSearch => (super.noSuchMethod(
+        Invocation.getter(#endCollaboratorSearch),
+        returnValue: _FakeEndCollaboratorSearch_3(
+          this,
+          Invocation.getter(#endCollaboratorSearch),
+        ),
+      ) as _i4.EndCollaboratorSearch);
+
+  @override
+  _i9.Future<List<dynamic>> validateQuery({required String? query}) =>
       (super.noSuchMethod(
         Invocation.method(
           #validateQuery,
           [],
           {#query: query},
         ),
-        returnValue: _i8.Future<List<dynamic>>.value(<dynamic>[]),
-      ) as _i8.Future<List<dynamic>>);
+        returnValue: _i9.Future<List<dynamic>>.value(<dynamic>[]),
+      ) as _i9.Future<List<dynamic>>);
 
   @override
-  _i8.Future<_i2.FunctionResponse> enterThePool(
-          {required _i9.CollaboratorPhraseIDs? phraseIDs}) =>
+  _i9.Future<_i2.FunctionResponse> enterThePool(
+          {required _i10.CollaboratorPhraseIDs? phraseIDs}) =>
       (super.noSuchMethod(
         Invocation.method(
           #enterThePool,
@@ -205,7 +247,7 @@ class MockMP2PCollaboratorPoolRemoteSourceImpl extends _i1.Mock
           {#phraseIDs: phraseIDs},
         ),
         returnValue:
-            _i8.Future<_i2.FunctionResponse>.value(_FakeFunctionResponse_2(
+            _i9.Future<_i2.FunctionResponse>.value(_FakeFunctionResponse_4(
           this,
           Invocation.method(
             #enterThePool,
@@ -213,32 +255,32 @@ class MockMP2PCollaboratorPoolRemoteSourceImpl extends _i1.Mock
             {#phraseIDs: phraseIDs},
           ),
         )),
-      ) as _i8.Future<_i2.FunctionResponse>);
+      ) as _i9.Future<_i2.FunctionResponse>);
 
   @override
-  _i8.Future<_i2.FunctionResponse> exitThePool() => (super.noSuchMethod(
+  _i9.Future<_i2.FunctionResponse> exitThePool() => (super.noSuchMethod(
         Invocation.method(
           #exitThePool,
           [],
         ),
         returnValue:
-            _i8.Future<_i2.FunctionResponse>.value(_FakeFunctionResponse_2(
+            _i9.Future<_i2.FunctionResponse>.value(_FakeFunctionResponse_4(
           this,
           Invocation.method(
             #exitThePool,
             [],
           ),
         )),
-      ) as _i8.Future<_i2.FunctionResponse>);
+      ) as _i9.Future<_i2.FunctionResponse>);
 
   @override
-  _i8.Stream<bool> getCollaboratorSearchStatus() => (super.noSuchMethod(
+  _i9.Stream<bool> getCollaboratorSearchStatus() => (super.noSuchMethod(
         Invocation.method(
           #getCollaboratorSearchStatus,
           [],
         ),
-        returnValue: _i8.Stream<bool>.empty(),
-      ) as _i8.Stream<bool>);
+        returnValue: _i9.Stream<bool>.empty(),
+      ) as _i9.Stream<bool>);
 
   @override
   bool cancelStream() => (super.noSuchMethod(
@@ -254,169 +296,169 @@ class MockMP2PCollaboratorPoolRemoteSourceImpl extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMEnterCollaboratorPool extends _i1.Mock
-    implements _i7.MEnterCollaboratorPool {
+    implements _i8.MEnterCollaboratorPool {
   MockMEnterCollaboratorPool() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.P2PCollaboratorPoolContract get contract => (super.noSuchMethod(
+  _i5.P2PCollaboratorPoolContract get contract => (super.noSuchMethod(
         Invocation.getter(#contract),
-        returnValue: _FakeP2PCollaboratorPoolContract_3(
+        returnValue: _FakeP2PCollaboratorPoolContract_5(
           this,
           Invocation.getter(#contract),
         ),
-      ) as _i4.P2PCollaboratorPoolContract);
+      ) as _i5.P2PCollaboratorPoolContract);
 
   @override
-  _i8.Future<
-      _i5.Either<_i10.Failure, _i4.CollaboratorPoolEntryStatusEntity>> call(
-          _i9.CollaboratorPhraseIDs? params) =>
+  _i9.Future<
+      _i6.Either<_i11.Failure, _i5.CollaboratorPoolEntryStatusEntity>> call(
+          _i10.CollaboratorPhraseIDs? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i8.Future<
-                _i5.Either<_i10.Failure,
-                    _i4.CollaboratorPoolEntryStatusEntity>>.value(
-            _FakeEither_4<_i10.Failure, _i4.CollaboratorPoolEntryStatusEntity>(
+        returnValue: _i9.Future<
+                _i6.Either<_i11.Failure,
+                    _i5.CollaboratorPoolEntryStatusEntity>>.value(
+            _FakeEither_6<_i11.Failure, _i5.CollaboratorPoolEntryStatusEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i8.Future<
-          _i5.Either<_i10.Failure, _i4.CollaboratorPoolEntryStatusEntity>>);
+      ) as _i9.Future<
+          _i6.Either<_i11.Failure, _i5.CollaboratorPoolEntryStatusEntity>>);
 }
 
 /// A class which mocks [MExitCollaboratorPool].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMExitCollaboratorPool extends _i1.Mock
-    implements _i7.MExitCollaboratorPool {
+    implements _i8.MExitCollaboratorPool {
   MockMExitCollaboratorPool() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.P2PCollaboratorPoolContract get contract => (super.noSuchMethod(
+  _i5.P2PCollaboratorPoolContract get contract => (super.noSuchMethod(
         Invocation.getter(#contract),
-        returnValue: _FakeP2PCollaboratorPoolContract_3(
+        returnValue: _FakeP2PCollaboratorPoolContract_5(
           this,
           Invocation.getter(#contract),
         ),
-      ) as _i4.P2PCollaboratorPoolContract);
+      ) as _i5.P2PCollaboratorPoolContract);
 
   @override
-  _i8.Future<
-      _i5.Either<_i10.Failure, _i4.CollaboratorPoolExitStatusEntity>> call(
-          _i11.NoParams? params) =>
+  _i9.Future<
+      _i6.Either<_i11.Failure, _i5.CollaboratorPoolExitStatusEntity>> call(
+          _i12.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i8.Future<
-                _i5.Either<_i10.Failure,
-                    _i4.CollaboratorPoolExitStatusEntity>>.value(
-            _FakeEither_4<_i10.Failure, _i4.CollaboratorPoolExitStatusEntity>(
+        returnValue: _i9.Future<
+                _i6.Either<_i11.Failure,
+                    _i5.CollaboratorPoolExitStatusEntity>>.value(
+            _FakeEither_6<_i11.Failure, _i5.CollaboratorPoolExitStatusEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i8.Future<
-          _i5.Either<_i10.Failure, _i4.CollaboratorPoolExitStatusEntity>>);
+      ) as _i9.Future<
+          _i6.Either<_i11.Failure, _i5.CollaboratorPoolExitStatusEntity>>);
 }
 
 /// A class which mocks [MValidateQuery].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMValidateQuery extends _i1.Mock implements _i7.MValidateQuery {
+class MockMValidateQuery extends _i1.Mock implements _i8.MValidateQuery {
   MockMValidateQuery() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.P2PCollaboratorPoolContract get contract => (super.noSuchMethod(
+  _i5.P2PCollaboratorPoolContract get contract => (super.noSuchMethod(
         Invocation.getter(#contract),
-        returnValue: _FakeP2PCollaboratorPoolContract_3(
+        returnValue: _FakeP2PCollaboratorPoolContract_5(
           this,
           Invocation.getter(#contract),
         ),
-      ) as _i4.P2PCollaboratorPoolContract);
+      ) as _i5.P2PCollaboratorPoolContract);
 
   @override
-  _i8.Future<
-      _i5.Either<_i10.Failure, _i4.CollaboratorPhraseValidationEntity>> call(
-          _i4.ValidateQueryParams? params) =>
+  _i9.Future<
+      _i6.Either<_i11.Failure, _i5.CollaboratorPhraseValidationEntity>> call(
+          _i5.ValidateQueryParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i8.Future<
-                _i5.Either<_i10.Failure,
-                    _i4.CollaboratorPhraseValidationEntity>>.value(
-            _FakeEither_4<_i10.Failure, _i4.CollaboratorPhraseValidationEntity>(
+        returnValue: _i9.Future<
+                _i6.Either<_i11.Failure,
+                    _i5.CollaboratorPhraseValidationEntity>>.value(
+            _FakeEither_6<_i11.Failure, _i5.CollaboratorPhraseValidationEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i8.Future<
-          _i5.Either<_i10.Failure, _i4.CollaboratorPhraseValidationEntity>>);
+      ) as _i9.Future<
+          _i6.Either<_i11.Failure, _i5.CollaboratorPhraseValidationEntity>>);
 }
 
 /// A class which mocks [MP2PCollaboratorPoolContract].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMP2PCollaboratorPoolContract extends _i1.Mock
-    implements _i7.MP2PCollaboratorPoolContract {
+    implements _i8.MP2PCollaboratorPoolContract {
   MockMP2PCollaboratorPoolContract() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i8.Future<_i5.Either<_i10.Failure, _i4.CollaboratorPhraseValidationEntity>>
+  _i9.Future<_i6.Either<_i11.Failure, _i5.CollaboratorPhraseValidationEntity>>
       validateQuery(String? query) => (super.noSuchMethod(
             Invocation.method(
               #validateQuery,
               [query],
             ),
-            returnValue: _i8.Future<
-                    _i5.Either<_i10.Failure,
-                        _i4.CollaboratorPhraseValidationEntity>>.value(
-                _FakeEither_4<_i10.Failure,
-                    _i4.CollaboratorPhraseValidationEntity>(
+            returnValue: _i9.Future<
+                    _i6.Either<_i11.Failure,
+                        _i5.CollaboratorPhraseValidationEntity>>.value(
+                _FakeEither_6<_i11.Failure,
+                    _i5.CollaboratorPhraseValidationEntity>(
               this,
               Invocation.method(
                 #validateQuery,
                 [query],
               ),
             )),
-          ) as _i8.Future<
-              _i5
-              .Either<_i10.Failure, _i4.CollaboratorPhraseValidationEntity>>);
+          ) as _i9.Future<
+              _i6
+              .Either<_i11.Failure, _i5.CollaboratorPhraseValidationEntity>>);
 
   @override
-  _i8.Future<_i5.Either<_i10.Failure, _i4.CollaboratorPoolEntryStatusEntity>>
+  _i9.Future<_i6.Either<_i11.Failure, _i5.CollaboratorPoolEntryStatusEntity>>
       enterTheCollaboratorPool(
-              {required _i9.CollaboratorPhraseIDs? phraseIDs}) =>
+              {required _i10.CollaboratorPhraseIDs? phraseIDs}) =>
           (super.noSuchMethod(
             Invocation.method(
               #enterTheCollaboratorPool,
               [],
               {#phraseIDs: phraseIDs},
             ),
-            returnValue: _i8.Future<
-                _i5.Either<_i10.Failure,
-                    _i4.CollaboratorPoolEntryStatusEntity>>.value(_FakeEither_4<
-                _i10.Failure, _i4.CollaboratorPoolEntryStatusEntity>(
+            returnValue: _i9.Future<
+                _i6.Either<_i11.Failure,
+                    _i5.CollaboratorPoolEntryStatusEntity>>.value(_FakeEither_6<
+                _i11.Failure, _i5.CollaboratorPoolEntryStatusEntity>(
               this,
               Invocation.method(
                 #enterTheCollaboratorPool,
@@ -424,87 +466,87 @@ class MockMP2PCollaboratorPoolContract extends _i1.Mock
                 {#phraseIDs: phraseIDs},
               ),
             )),
-          ) as _i8.Future<
-              _i5.Either<_i10.Failure, _i4.CollaboratorPoolEntryStatusEntity>>);
+          ) as _i9.Future<
+              _i6.Either<_i11.Failure, _i5.CollaboratorPoolEntryStatusEntity>>);
 
   @override
-  _i8.Future<_i5.Either<_i10.Failure, _i4.CollaboratorPoolExitStatusEntity>>
+  _i9.Future<_i6.Either<_i11.Failure, _i5.CollaboratorPoolExitStatusEntity>>
       exitCollaboratorPool() => (super.noSuchMethod(
             Invocation.method(
               #exitCollaboratorPool,
               [],
             ),
-            returnValue: _i8.Future<
-                _i5.Either<_i10.Failure,
-                    _i4.CollaboratorPoolExitStatusEntity>>.value(_FakeEither_4<
-                _i10.Failure, _i4.CollaboratorPoolExitStatusEntity>(
+            returnValue: _i9.Future<
+                _i6.Either<_i11.Failure,
+                    _i5.CollaboratorPoolExitStatusEntity>>.value(_FakeEither_6<
+                _i11.Failure, _i5.CollaboratorPoolExitStatusEntity>(
               this,
               Invocation.method(
                 #exitCollaboratorPool,
                 [],
               ),
             )),
-          ) as _i8.Future<
-              _i5.Either<_i10.Failure, _i4.CollaboratorPoolExitStatusEntity>>);
+          ) as _i9.Future<
+              _i6.Either<_i11.Failure, _i5.CollaboratorPoolExitStatusEntity>>);
 
   @override
-  _i8.Future<_i5.Either<_i10.Failure, _i4.CollaboratorSearchStatusEntity>>
+  _i9.Future<_i6.Either<_i11.Failure, _i5.CollaboratorSearchStatusEntity>>
       getCollaboratorSearchStatus() => (super.noSuchMethod(
             Invocation.method(
               #getCollaboratorSearchStatus,
               [],
             ),
-            returnValue: _i8.Future<
-                    _i5.Either<_i10.Failure,
-                        _i4.CollaboratorSearchStatusEntity>>.value(
-                _FakeEither_4<_i10.Failure, _i4.CollaboratorSearchStatusEntity>(
+            returnValue: _i9.Future<
+                    _i6.Either<_i11.Failure,
+                        _i5.CollaboratorSearchStatusEntity>>.value(
+                _FakeEither_6<_i11.Failure, _i5.CollaboratorSearchStatusEntity>(
               this,
               Invocation.method(
                 #getCollaboratorSearchStatus,
                 [],
               ),
             )),
-          ) as _i8.Future<
-              _i5.Either<_i10.Failure, _i4.CollaboratorSearchStatusEntity>>);
+          ) as _i9.Future<
+              _i6.Either<_i11.Failure, _i5.CollaboratorSearchStatusEntity>>);
 
   @override
-  _i8.Future<_i5.Either<_i10.Failure, _i4.CollaboratorStreamStatusEntity>>
+  _i9.Future<_i6.Either<_i11.Failure, _i5.CollaboratorStreamStatusEntity>>
       cancelCollaboratorStream() => (super.noSuchMethod(
             Invocation.method(
               #cancelCollaboratorStream,
               [],
             ),
-            returnValue: _i8.Future<
-                    _i5.Either<_i10.Failure,
-                        _i4.CollaboratorStreamStatusEntity>>.value(
-                _FakeEither_4<_i10.Failure, _i4.CollaboratorStreamStatusEntity>(
+            returnValue: _i9.Future<
+                    _i6.Either<_i11.Failure,
+                        _i5.CollaboratorStreamStatusEntity>>.value(
+                _FakeEither_6<_i11.Failure, _i5.CollaboratorStreamStatusEntity>(
               this,
               Invocation.method(
                 #cancelCollaboratorStream,
                 [],
               ),
             )),
-          ) as _i8.Future<
-              _i5.Either<_i10.Failure, _i4.CollaboratorStreamStatusEntity>>);
+          ) as _i9.Future<
+              _i6.Either<_i11.Failure, _i5.CollaboratorStreamStatusEntity>>);
 }
 
 /// A class which mocks [MCancelCollaboratorStreamGetterStore].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMCancelCollaboratorStreamGetterStore extends _i1.Mock
-    implements _i7.MCancelCollaboratorStreamGetterStore {
+    implements _i8.MCancelCollaboratorStreamGetterStore {
   MockMCancelCollaboratorStreamGetterStore() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.CancelCollaboratorStream get cancelStreamLogic => (super.noSuchMethod(
+  _i5.CancelCollaboratorStream get cancelStreamLogic => (super.noSuchMethod(
         Invocation.getter(#cancelStreamLogic),
-        returnValue: _FakeCancelCollaboratorStream_5(
+        returnValue: _FakeCancelCollaboratorStream_7(
           this,
           Invocation.getter(#cancelStreamLogic),
         ),
-      ) as _i4.CancelCollaboratorStream);
+      ) as _i5.CancelCollaboratorStream);
 
   @override
   List<Object> get props => (super.noSuchMethod(
@@ -513,52 +555,52 @@ class MockMCancelCollaboratorStreamGetterStore extends _i1.Mock
       ) as List<Object>);
 
   @override
-  _i6.ReactiveContext get context => (super.noSuchMethod(
+  _i7.ReactiveContext get context => (super.noSuchMethod(
         Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_6(
+        returnValue: _FakeReactiveContext_8(
           this,
           Invocation.getter(#context),
         ),
-      ) as _i6.ReactiveContext);
+      ) as _i7.ReactiveContext);
 
   @override
-  _i8.Future<_i5.Either<_i10.Failure, _i4.CollaboratorStreamStatusEntity>>
+  _i9.Future<_i6.Either<_i11.Failure, _i5.CollaboratorStreamStatusEntity>>
       call() => (super.noSuchMethod(
             Invocation.method(
               #call,
               [],
             ),
-            returnValue: _i8.Future<
-                    _i5.Either<_i10.Failure,
-                        _i4.CollaboratorStreamStatusEntity>>.value(
-                _FakeEither_4<_i10.Failure, _i4.CollaboratorStreamStatusEntity>(
+            returnValue: _i9.Future<
+                    _i6.Either<_i11.Failure,
+                        _i5.CollaboratorStreamStatusEntity>>.value(
+                _FakeEither_6<_i11.Failure, _i5.CollaboratorStreamStatusEntity>(
               this,
               Invocation.method(
                 #call,
                 [],
               ),
             )),
-          ) as _i8.Future<
-              _i5.Either<_i10.Failure, _i4.CollaboratorStreamStatusEntity>>);
+          ) as _i9.Future<
+              _i6.Either<_i11.Failure, _i5.CollaboratorStreamStatusEntity>>);
 }
 
 /// A class which mocks [MEnterCollaboratorPoolGetterStore].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMEnterCollaboratorPoolGetterStore extends _i1.Mock
-    implements _i7.MEnterCollaboratorPoolGetterStore {
+    implements _i8.MEnterCollaboratorPoolGetterStore {
   MockMEnterCollaboratorPoolGetterStore() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.EnterCollaboratorPool get enterPoolLogic => (super.noSuchMethod(
+  _i5.EnterCollaboratorPool get enterPoolLogic => (super.noSuchMethod(
         Invocation.getter(#enterPoolLogic),
-        returnValue: _FakeEnterCollaboratorPool_7(
+        returnValue: _FakeEnterCollaboratorPool_9(
           this,
           Invocation.getter(#enterPoolLogic),
         ),
-      ) as _i4.EnterCollaboratorPool);
+      ) as _i5.EnterCollaboratorPool);
 
   @override
   List<Object> get props => (super.noSuchMethod(
@@ -567,28 +609,28 @@ class MockMEnterCollaboratorPoolGetterStore extends _i1.Mock
       ) as List<Object>);
 
   @override
-  _i6.ReactiveContext get context => (super.noSuchMethod(
+  _i7.ReactiveContext get context => (super.noSuchMethod(
         Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_6(
+        returnValue: _FakeReactiveContext_8(
           this,
           Invocation.getter(#context),
         ),
-      ) as _i6.ReactiveContext);
+      ) as _i7.ReactiveContext);
 
   @override
-  _i8.Future<
-      _i5.Either<_i10.Failure, _i4.CollaboratorPoolEntryStatusEntity>> call(
-          {required _i9.CollaboratorPhraseIDs? phraseIDs}) =>
+  _i9.Future<
+      _i6.Either<_i11.Failure, _i5.CollaboratorPoolEntryStatusEntity>> call(
+          {required _i10.CollaboratorPhraseIDs? phraseIDs}) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [],
           {#phraseIDs: phraseIDs},
         ),
-        returnValue: _i8.Future<
-                _i5.Either<_i10.Failure,
-                    _i4.CollaboratorPoolEntryStatusEntity>>.value(
-            _FakeEither_4<_i10.Failure, _i4.CollaboratorPoolEntryStatusEntity>(
+        returnValue: _i9.Future<
+                _i6.Either<_i11.Failure,
+                    _i5.CollaboratorPoolEntryStatusEntity>>.value(
+            _FakeEither_6<_i11.Failure, _i5.CollaboratorPoolEntryStatusEntity>(
           this,
           Invocation.method(
             #call,
@@ -596,27 +638,27 @@ class MockMEnterCollaboratorPoolGetterStore extends _i1.Mock
             {#phraseIDs: phraseIDs},
           ),
         )),
-      ) as _i8.Future<
-          _i5.Either<_i10.Failure, _i4.CollaboratorPoolEntryStatusEntity>>);
+      ) as _i9.Future<
+          _i6.Either<_i11.Failure, _i5.CollaboratorPoolEntryStatusEntity>>);
 }
 
 /// A class which mocks [MExitCollaboratorPoolGetterStore].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMExitCollaboratorPoolGetterStore extends _i1.Mock
-    implements _i7.MExitCollaboratorPoolGetterStore {
+    implements _i8.MExitCollaboratorPoolGetterStore {
   MockMExitCollaboratorPoolGetterStore() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.ExitCollaboratorPool get exitPoolLogic => (super.noSuchMethod(
+  _i5.ExitCollaboratorPool get exitPoolLogic => (super.noSuchMethod(
         Invocation.getter(#exitPoolLogic),
-        returnValue: _FakeExitCollaboratorPool_8(
+        returnValue: _FakeExitCollaboratorPool_10(
           this,
           Invocation.getter(#exitPoolLogic),
         ),
-      ) as _i4.ExitCollaboratorPool);
+      ) as _i5.ExitCollaboratorPool);
 
   @override
   List<Object> get props => (super.noSuchMethod(
@@ -625,53 +667,53 @@ class MockMExitCollaboratorPoolGetterStore extends _i1.Mock
       ) as List<Object>);
 
   @override
-  _i6.ReactiveContext get context => (super.noSuchMethod(
+  _i7.ReactiveContext get context => (super.noSuchMethod(
         Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_6(
+        returnValue: _FakeReactiveContext_8(
           this,
           Invocation.getter(#context),
         ),
-      ) as _i6.ReactiveContext);
+      ) as _i7.ReactiveContext);
 
   @override
-  _i8.Future<_i5.Either<_i10.Failure, _i4.CollaboratorPoolExitStatusEntity>>
+  _i9.Future<_i6.Either<_i11.Failure, _i5.CollaboratorPoolExitStatusEntity>>
       call() => (super.noSuchMethod(
             Invocation.method(
               #call,
               [],
             ),
-            returnValue: _i8.Future<
-                _i5.Either<_i10.Failure,
-                    _i4.CollaboratorPoolExitStatusEntity>>.value(_FakeEither_4<
-                _i10.Failure, _i4.CollaboratorPoolExitStatusEntity>(
+            returnValue: _i9.Future<
+                _i6.Either<_i11.Failure,
+                    _i5.CollaboratorPoolExitStatusEntity>>.value(_FakeEither_6<
+                _i11.Failure, _i5.CollaboratorPoolExitStatusEntity>(
               this,
               Invocation.method(
                 #call,
                 [],
               ),
             )),
-          ) as _i8.Future<
-              _i5.Either<_i10.Failure, _i4.CollaboratorPoolExitStatusEntity>>);
+          ) as _i9.Future<
+              _i6.Either<_i11.Failure, _i5.CollaboratorPoolExitStatusEntity>>);
 }
 
 /// A class which mocks [MGetCollaboratorSearchStatusGetterStore].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMGetCollaboratorSearchStatusGetterStore extends _i1.Mock
-    implements _i7.MGetCollaboratorSearchStatusGetterStore {
+    implements _i8.MGetCollaboratorSearchStatusGetterStore {
   MockMGetCollaboratorSearchStatusGetterStore() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.GetCollaboratorSearchStatus get collaboratorSearchStatusLogic =>
+  _i5.GetCollaboratorSearchStatus get collaboratorSearchStatusLogic =>
       (super.noSuchMethod(
         Invocation.getter(#collaboratorSearchStatusLogic),
-        returnValue: _FakeGetCollaboratorSearchStatus_9(
+        returnValue: _FakeGetCollaboratorSearchStatus_11(
           this,
           Invocation.getter(#collaboratorSearchStatusLogic),
         ),
-      ) as _i4.GetCollaboratorSearchStatus);
+      ) as _i5.GetCollaboratorSearchStatus);
 
   @override
   List<Object> get props => (super.noSuchMethod(
@@ -680,55 +722,55 @@ class MockMGetCollaboratorSearchStatusGetterStore extends _i1.Mock
       ) as List<Object>);
 
   @override
-  _i6.ReactiveContext get context => (super.noSuchMethod(
+  _i7.ReactiveContext get context => (super.noSuchMethod(
         Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_6(
+        returnValue: _FakeReactiveContext_8(
           this,
           Invocation.getter(#context),
         ),
-      ) as _i6.ReactiveContext);
+      ) as _i7.ReactiveContext);
 
   @override
-  _i8.Future<_i5.Either<_i10.Failure, _i4.CollaboratorSearchStatusEntity>>
+  _i9.Future<_i6.Either<_i11.Failure, _i5.CollaboratorSearchStatusEntity>>
       call() => (super.noSuchMethod(
             Invocation.method(
               #call,
               [],
             ),
-            returnValue: _i8.Future<
-                    _i5.Either<_i10.Failure,
-                        _i4.CollaboratorSearchStatusEntity>>.value(
-                _FakeEither_4<_i10.Failure, _i4.CollaboratorSearchStatusEntity>(
+            returnValue: _i9.Future<
+                    _i6.Either<_i11.Failure,
+                        _i5.CollaboratorSearchStatusEntity>>.value(
+                _FakeEither_6<_i11.Failure, _i5.CollaboratorSearchStatusEntity>(
               this,
               Invocation.method(
                 #call,
                 [],
               ),
             )),
-          ) as _i8.Future<
-              _i5.Either<_i10.Failure, _i4.CollaboratorSearchStatusEntity>>);
+          ) as _i9.Future<
+              _i6.Either<_i11.Failure, _i5.CollaboratorSearchStatusEntity>>);
 }
 
 /// A class which mocks [MValidateQueryGetterStore].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMValidateQueryGetterStore extends _i1.Mock
-    implements _i7.MValidateQueryGetterStore {
+    implements _i8.MValidateQueryGetterStore {
   MockMValidateQueryGetterStore() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.ValidateQuery get validateQueryLogic => (super.noSuchMethod(
+  _i5.ValidateQuery get validateQueryLogic => (super.noSuchMethod(
         Invocation.getter(#validateQueryLogic),
-        returnValue: _FakeValidateQuery_10(
+        returnValue: _FakeValidateQuery_12(
           this,
           Invocation.getter(#validateQueryLogic),
         ),
-      ) as _i4.ValidateQuery);
+      ) as _i5.ValidateQuery);
 
   @override
-  set validateQueryLogic(_i4.ValidateQuery? _validateQueryLogic) =>
+  set validateQueryLogic(_i5.ValidateQuery? _validateQueryLogic) =>
       super.noSuchMethod(
         Invocation.setter(
           #validateQueryLogic,
@@ -744,57 +786,57 @@ class MockMValidateQueryGetterStore extends _i1.Mock
       ) as List<Object>);
 
   @override
-  _i6.ReactiveContext get context => (super.noSuchMethod(
+  _i7.ReactiveContext get context => (super.noSuchMethod(
         Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_6(
+        returnValue: _FakeReactiveContext_8(
           this,
           Invocation.getter(#context),
         ),
-      ) as _i6.ReactiveContext);
+      ) as _i7.ReactiveContext);
 
   @override
-  _i8.Future<
-      _i5.Either<_i10.Failure, _i4.CollaboratorPhraseValidationEntity>> call(
-          _i4.ValidateQueryParams? params) =>
+  _i9.Future<
+      _i6.Either<_i11.Failure, _i5.CollaboratorPhraseValidationEntity>> call(
+          _i5.ValidateQueryParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i8.Future<
-                _i5.Either<_i10.Failure,
-                    _i4.CollaboratorPhraseValidationEntity>>.value(
-            _FakeEither_4<_i10.Failure, _i4.CollaboratorPhraseValidationEntity>(
+        returnValue: _i9.Future<
+                _i6.Either<_i11.Failure,
+                    _i5.CollaboratorPhraseValidationEntity>>.value(
+            _FakeEither_6<_i11.Failure, _i5.CollaboratorPhraseValidationEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i8.Future<
-          _i5.Either<_i10.Failure, _i4.CollaboratorPhraseValidationEntity>>);
+      ) as _i9.Future<
+          _i6.Either<_i11.Failure, _i5.CollaboratorPhraseValidationEntity>>);
 }
 
 /// A class which mocks [P2PCollaboratorPoolRemoteSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockP2PCollaboratorPoolRemoteSource extends _i1.Mock
-    implements _i12.P2PCollaboratorPoolRemoteSource {
+    implements _i13.P2PCollaboratorPoolRemoteSource {
   @override
-  _i8.Future<List<dynamic>> validateQuery({required String? query}) =>
+  _i9.Future<List<dynamic>> validateQuery({required String? query}) =>
       (super.noSuchMethod(
         Invocation.method(
           #validateQuery,
           [],
           {#query: query},
         ),
-        returnValue: _i8.Future<List<dynamic>>.value(<dynamic>[]),
-        returnValueForMissingStub: _i8.Future<List<dynamic>>.value(<dynamic>[]),
-      ) as _i8.Future<List<dynamic>>);
+        returnValue: _i9.Future<List<dynamic>>.value(<dynamic>[]),
+        returnValueForMissingStub: _i9.Future<List<dynamic>>.value(<dynamic>[]),
+      ) as _i9.Future<List<dynamic>>);
 
   @override
-  _i8.Future<_i2.FunctionResponse> enterThePool(
-          {required _i9.CollaboratorPhraseIDs? phraseIDs}) =>
+  _i9.Future<_i2.FunctionResponse> enterThePool(
+          {required _i10.CollaboratorPhraseIDs? phraseIDs}) =>
       (super.noSuchMethod(
         Invocation.method(
           #enterThePool,
@@ -802,7 +844,7 @@ class MockP2PCollaboratorPoolRemoteSource extends _i1.Mock
           {#phraseIDs: phraseIDs},
         ),
         returnValue:
-            _i8.Future<_i2.FunctionResponse>.value(_FakeFunctionResponse_2(
+            _i9.Future<_i2.FunctionResponse>.value(_FakeFunctionResponse_4(
           this,
           Invocation.method(
             #enterThePool,
@@ -811,7 +853,7 @@ class MockP2PCollaboratorPoolRemoteSource extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i8.Future<_i2.FunctionResponse>.value(_FakeFunctionResponse_2(
+            _i9.Future<_i2.FunctionResponse>.value(_FakeFunctionResponse_4(
           this,
           Invocation.method(
             #enterThePool,
@@ -819,16 +861,16 @@ class MockP2PCollaboratorPoolRemoteSource extends _i1.Mock
             {#phraseIDs: phraseIDs},
           ),
         )),
-      ) as _i8.Future<_i2.FunctionResponse>);
+      ) as _i9.Future<_i2.FunctionResponse>);
 
   @override
-  _i8.Future<_i2.FunctionResponse> exitThePool() => (super.noSuchMethod(
+  _i9.Future<_i2.FunctionResponse> exitThePool() => (super.noSuchMethod(
         Invocation.method(
           #exitThePool,
           [],
         ),
         returnValue:
-            _i8.Future<_i2.FunctionResponse>.value(_FakeFunctionResponse_2(
+            _i9.Future<_i2.FunctionResponse>.value(_FakeFunctionResponse_4(
           this,
           Invocation.method(
             #exitThePool,
@@ -836,24 +878,24 @@ class MockP2PCollaboratorPoolRemoteSource extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i8.Future<_i2.FunctionResponse>.value(_FakeFunctionResponse_2(
+            _i9.Future<_i2.FunctionResponse>.value(_FakeFunctionResponse_4(
           this,
           Invocation.method(
             #exitThePool,
             [],
           ),
         )),
-      ) as _i8.Future<_i2.FunctionResponse>);
+      ) as _i9.Future<_i2.FunctionResponse>);
 
   @override
-  _i8.Stream<bool> getCollaboratorSearchStatus() => (super.noSuchMethod(
+  _i9.Stream<bool> getCollaboratorSearchStatus() => (super.noSuchMethod(
         Invocation.method(
           #getCollaboratorSearchStatus,
           [],
         ),
-        returnValue: _i8.Stream<bool>.empty(),
-        returnValueForMissingStub: _i8.Stream<bool>.empty(),
-      ) as _i8.Stream<bool>);
+        returnValue: _i9.Stream<bool>.empty(),
+        returnValueForMissingStub: _i9.Stream<bool>.empty(),
+      ) as _i9.Stream<bool>);
 
   @override
   bool cancelStream() => (super.noSuchMethod(
