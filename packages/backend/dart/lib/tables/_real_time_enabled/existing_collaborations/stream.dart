@@ -34,7 +34,7 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
 
   cancelWhoIsTalkingtream() => whoIsTalkingListeningStatus = false;
 
-  Stream<String> getWhoIsTalking() async* {
+  Stream<bool> checkIfCollaboratorIsTalking() async* {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutActiveCollaboratorInfo();
     }
@@ -49,12 +49,13 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
         break;
       }
       if (event.isEmpty) {
-        yield '';
+        yield false;
       } else if (event.first[ExistingCollaborationsQueries.whoIsTalking] ==
           null) {
-        yield "";
+        yield false;
       } else {
-        yield event.first[ExistingCollaborationsQueries.whoIsTalking] as String;
+        yield event.first[ExistingCollaborationsQueries.whoIsTalking] ==
+            collaboratorInfo.theCollaboratorsUID;
       }
     }
   }

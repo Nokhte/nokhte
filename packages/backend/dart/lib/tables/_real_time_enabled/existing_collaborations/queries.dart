@@ -60,6 +60,25 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
         .select();
   }
 
+  Future<void> clearTheCurrentTalker() async {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutActiveCollaboratorInfo();
+    }
+    return await supabase
+        .from(tableName)
+        .update({
+          whoIsTalking: null,
+        })
+        .eq(
+          collaboratorInfo.theCollaboratorsNumber,
+          collaboratorInfo.theCollaboratorsUID,
+        )
+        .eq(
+          collaboratorInfo.theUsersCollaboratorNumber,
+          collaboratorInfo.theUsersUID,
+        );
+  }
+
   Future<void> deleteExistingCollaboration() async {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutActiveCollaboratorInfo();

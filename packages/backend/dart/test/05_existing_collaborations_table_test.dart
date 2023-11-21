@@ -64,8 +64,16 @@ void main() {
   test(
       "should be able to update talking status & receive changes in the stream",
       () async {
-    final stream = user1Stream.getWhoIsTalking();
+    final stream = user1Stream.checkIfCollaboratorIsTalking();
+    await user2Queries.setUserAsTheCurrentTalker();
+    expect(stream, emits(true));
+  });
+
+  test("should be able to empty who is talking when they are done talking",
+      () async {
+    final stream = user1Stream.checkIfCollaboratorIsTalking();
     await user1Queries.setUserAsTheCurrentTalker();
-    expect(stream, emits(tSetup.firstUserUID));
+    await user1Queries.clearTheCurrentTalker();
+    expect(stream, emits(false));
   });
 }
