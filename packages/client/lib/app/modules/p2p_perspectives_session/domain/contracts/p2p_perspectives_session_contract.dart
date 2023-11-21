@@ -13,7 +13,7 @@ abstract class P2PPerspectivesSessionContract {
   );
 
   Future<Either<Failure, WorkingPerspectivesStreamEntity>>
-      fetchPerspectivesStream(NoParams params);
+      getPerspectivesStream(NoParams params);
   Future<Either<Failure, PerspectiveSessionCreationStatusEntity>>
       createAPerspectivesSession(NoParams params);
 }

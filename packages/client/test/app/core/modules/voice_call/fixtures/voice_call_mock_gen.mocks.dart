@@ -129,9 +129,8 @@ class _FakeReactiveContext_8 extends _i1.SmartFake
         );
 }
 
-class _FakeFetchAgoraToken_9 extends _i1.SmartFake
-    implements _i8.FetchAgoraToken {
-  _FakeFetchAgoraToken_9(
+class _FakeGetAgoraToken_9 extends _i1.SmartFake implements _i8.GetAgoraToken {
+  _FakeGetAgoraToken_9(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -140,9 +139,8 @@ class _FakeFetchAgoraToken_9 extends _i1.SmartFake
         );
 }
 
-class _FakeFetchChannelId_10 extends _i1.SmartFake
-    implements _i8.FetchChannelId {
-  _FakeFetchChannelId_10(
+class _FakeGetChannelId_10 extends _i1.SmartFake implements _i8.GetChannelId {
+  _FakeGetChannelId_10(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -226,9 +224,9 @@ class _FakeBaseFutureStore_17<T> extends _i1.SmartFake
         );
 }
 
-class _FakeFetchAgoraTokenGetterStore_18 extends _i1.SmartFake
-    implements _i4.FetchAgoraTokenGetterStore {
-  _FakeFetchAgoraTokenGetterStore_18(
+class _FakeGetAgoraTokenGetterStore_18 extends _i1.SmartFake
+    implements _i4.GetAgoraTokenGetterStore {
+  _FakeGetAgoraTokenGetterStore_18(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -237,9 +235,9 @@ class _FakeFetchAgoraTokenGetterStore_18 extends _i1.SmartFake
         );
 }
 
-class _FakeFetchChannelIdGetterStore_19 extends _i1.SmartFake
-    implements _i4.FetchChannelIdGetterStore {
-  _FakeFetchChannelIdGetterStore_19(
+class _FakeGetChannelIdGetterStore_19 extends _i1.SmartFake
+    implements _i4.GetChannelIdGetterStore {
+  _FakeGetChannelIdGetterStore_19(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -362,17 +360,17 @@ class MockMVoiceCallRemoteSourceImpl extends _i1.Mock
       ) as _i5.RtcEngine);
 
   @override
-  _i12.Future<_i6.Response> fetchAgoraToken({required String? channelName}) =>
+  _i12.Future<_i6.Response> getAgoraToken({required String? channelName}) =>
       (super.noSuchMethod(
         Invocation.method(
-          #fetchAgoraToken,
+          #getAgoraToken,
           [],
           {#channelName: channelName},
         ),
         returnValue: _i12.Future<_i6.Response>.value(_FakeResponse_4(
           this,
           Invocation.method(
-            #fetchAgoraToken,
+            #getAgoraToken,
             [],
             {#channelName: channelName},
           ),
@@ -418,9 +416,9 @@ class MockMVoiceCallRemoteSourceImpl extends _i1.Mock
       ) as _i12.Future<void>);
 
   @override
-  _i12.Future<List<dynamic>> fetchCollaboratorInfo() => (super.noSuchMethod(
+  _i12.Future<List<dynamic>> getCollaboratorInfo() => (super.noSuchMethod(
         Invocation.method(
-          #fetchCollaboratorInfo,
+          #getCollaboratorInfo,
           [],
         ),
         returnValue: _i12.Future<List<dynamic>>.value(<dynamic>[]),
@@ -455,30 +453,31 @@ class MockMVoiceCallContract extends _i1.Mock
   }
 
   @override
-  _i12.Future<_i7.Either<_i13.Failure, _i8.AgoraCallTokenEntity>>
-      fetchAgoraToken({required String? channelName}) => (super.noSuchMethod(
-            Invocation.method(
-              #fetchAgoraToken,
-              [],
-              {#channelName: channelName},
-            ),
-            returnValue: _i12.Future<
-                    _i7.Either<_i13.Failure, _i8.AgoraCallTokenEntity>>.value(
-                _FakeEither_5<_i13.Failure, _i8.AgoraCallTokenEntity>(
-              this,
-              Invocation.method(
-                #fetchAgoraToken,
-                [],
-                {#channelName: channelName},
-              ),
-            )),
-          ) as _i12.Future<_i7.Either<_i13.Failure, _i8.AgoraCallTokenEntity>>);
-
-  @override
-  _i12.Future<_i7.Either<_i13.Failure, _i8.ChannelIdEntity>> fetchChannelId() =>
+  _i12.Future<_i7.Either<_i13.Failure, _i8.AgoraCallTokenEntity>> getAgoraToken(
+          {required String? channelName}) =>
       (super.noSuchMethod(
         Invocation.method(
-          #fetchChannelId,
+          #getAgoraToken,
+          [],
+          {#channelName: channelName},
+        ),
+        returnValue: _i12
+            .Future<_i7.Either<_i13.Failure, _i8.AgoraCallTokenEntity>>.value(
+            _FakeEither_5<_i13.Failure, _i8.AgoraCallTokenEntity>(
+          this,
+          Invocation.method(
+            #getAgoraToken,
+            [],
+            {#channelName: channelName},
+          ),
+        )),
+      ) as _i12.Future<_i7.Either<_i13.Failure, _i8.AgoraCallTokenEntity>>);
+
+  @override
+  _i12.Future<_i7.Either<_i13.Failure, _i8.ChannelIdEntity>> getChannelId() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getChannelId,
           [],
         ),
         returnValue:
@@ -486,7 +485,7 @@ class MockMVoiceCallContract extends _i1.Mock
                 _FakeEither_5<_i13.Failure, _i8.ChannelIdEntity>(
           this,
           Invocation.method(
-            #fetchChannelId,
+            #getChannelId,
             [],
           ),
         )),
@@ -654,11 +653,11 @@ class MockMCheckIfUserHasTheQuestion extends _i1.Mock
       ) as _i12.Future<_i7.Either<_i13.Failure, _i8.WhoGetsTheQuestionEntity>>);
 }
 
-/// A class which mocks [MFetchAgoraToken].
+/// A class which mocks [MGetAgoraToken].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMFetchAgoraToken extends _i1.Mock implements _i11.MFetchAgoraToken {
-  MockMFetchAgoraToken() {
+class MockMGetAgoraToken extends _i1.Mock implements _i11.MGetAgoraToken {
+  MockMGetAgoraToken() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -673,7 +672,7 @@ class MockMFetchAgoraToken extends _i1.Mock implements _i11.MFetchAgoraToken {
 
   @override
   _i12.Future<_i7.Either<_i13.Failure, _i8.AgoraCallTokenEntity>> call(
-          _i8.FetchAgoraTokenParams? params) =>
+          _i8.GetAgoraTokenParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
@@ -691,11 +690,11 @@ class MockMFetchAgoraToken extends _i1.Mock implements _i11.MFetchAgoraToken {
       ) as _i12.Future<_i7.Either<_i13.Failure, _i8.AgoraCallTokenEntity>>);
 }
 
-/// A class which mocks [MFetchChannelId].
+/// A class which mocks [MGetChannelId].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMFetchChannelId extends _i1.Mock implements _i11.MFetchChannelId {
-  MockMFetchChannelId() {
+class MockMGetChannelId extends _i1.Mock implements _i11.MGetChannelId {
+  MockMGetChannelId() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -972,26 +971,26 @@ class MockMCheckIfUserHasTheQuestionGetterStore extends _i1.Mock
       ) as _i12.Future<_i7.Either<_i13.Failure, _i8.WhoGetsTheQuestionEntity>>);
 }
 
-/// A class which mocks [MFetchAgoraTokenGetterStore].
+/// A class which mocks [MGetAgoraTokenGetterStore].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMFetchAgoraTokenGetterStore extends _i1.Mock
-    implements _i11.MFetchAgoraTokenGetterStore {
-  MockMFetchAgoraTokenGetterStore() {
+class MockMGetAgoraTokenGetterStore extends _i1.Mock
+    implements _i11.MGetAgoraTokenGetterStore {
+  MockMGetAgoraTokenGetterStore() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i8.FetchAgoraToken get logic => (super.noSuchMethod(
+  _i8.GetAgoraToken get logic => (super.noSuchMethod(
         Invocation.getter(#logic),
-        returnValue: _FakeFetchAgoraToken_9(
+        returnValue: _FakeGetAgoraToken_9(
           this,
           Invocation.getter(#logic),
         ),
-      ) as _i8.FetchAgoraToken);
+      ) as _i8.GetAgoraToken);
 
   @override
-  set logic(_i8.FetchAgoraToken? _logic) => super.noSuchMethod(
+  set logic(_i8.GetAgoraToken? _logic) => super.noSuchMethod(
         Invocation.setter(
           #logic,
           _logic,
@@ -1016,7 +1015,7 @@ class MockMFetchAgoraTokenGetterStore extends _i1.Mock
 
   @override
   _i12.Future<_i7.Either<_i13.Failure, _i8.AgoraCallTokenEntity>> call(
-          _i8.FetchAgoraTokenParams? params) =>
+          _i8.GetAgoraTokenParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
@@ -1034,26 +1033,26 @@ class MockMFetchAgoraTokenGetterStore extends _i1.Mock
       ) as _i12.Future<_i7.Either<_i13.Failure, _i8.AgoraCallTokenEntity>>);
 }
 
-/// A class which mocks [MFetchChannelIdGetterStore].
+/// A class which mocks [MGetChannelIdGetterStore].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMFetchChannelIdGetterStore extends _i1.Mock
-    implements _i11.MFetchChannelIdGetterStore {
-  MockMFetchChannelIdGetterStore() {
+class MockMGetChannelIdGetterStore extends _i1.Mock
+    implements _i11.MGetChannelIdGetterStore {
+  MockMGetChannelIdGetterStore() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i8.FetchChannelId get logic => (super.noSuchMethod(
+  _i8.GetChannelId get logic => (super.noSuchMethod(
         Invocation.getter(#logic),
-        returnValue: _FakeFetchChannelId_10(
+        returnValue: _FakeGetChannelId_10(
           this,
           Invocation.getter(#logic),
         ),
-      ) as _i8.FetchChannelId);
+      ) as _i8.GetChannelId);
 
   @override
-  set logic(_i8.FetchChannelId? _logic) => super.noSuchMethod(
+  set logic(_i8.GetChannelId? _logic) => super.noSuchMethod(
         Invocation.setter(
           #logic,
           _logic,
@@ -1545,23 +1544,23 @@ class MockMCheckIfUserHasTheQuestionStore extends _i1.Mock
       ) as String);
 }
 
-/// A class which mocks [MFetchAgoraTokenStore].
+/// A class which mocks [MGetAgoraTokenStore].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMFetchAgoraTokenStore extends _i1.Mock
-    implements _i11.MFetchAgoraTokenStore {
-  MockMFetchAgoraTokenStore() {
+class MockMGetAgoraTokenStore extends _i1.Mock
+    implements _i11.MGetAgoraTokenStore {
+  MockMGetAgoraTokenStore() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.FetchAgoraTokenGetterStore get getterStore => (super.noSuchMethod(
+  _i4.GetAgoraTokenGetterStore get getterStore => (super.noSuchMethod(
         Invocation.getter(#getterStore),
-        returnValue: _FakeFetchAgoraTokenGetterStore_18(
+        returnValue: _FakeGetAgoraTokenGetterStore_18(
           this,
           Invocation.getter(#getterStore),
         ),
-      ) as _i4.FetchAgoraTokenGetterStore);
+      ) as _i4.GetAgoraTokenGetterStore);
 
   @override
   _i10.BaseFutureStore<_i8.AgoraCallTokenEntity> get futureStore =>
@@ -1655,8 +1654,7 @@ class MockMFetchAgoraTokenStore extends _i1.Mock
       );
 
   @override
-  _i12.Future<void> call(_i8.FetchAgoraTokenParams? params) =>
-      (super.noSuchMethod(
+  _i12.Future<void> call(dynamic params) => (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
@@ -1675,23 +1673,23 @@ class MockMFetchAgoraTokenStore extends _i1.Mock
       ) as String);
 }
 
-/// A class which mocks [MFetchChannelIdStore].
+/// A class which mocks [MGetChannelIdStore].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMFetchChannelIdStore extends _i1.Mock
-    implements _i11.MFetchChannelIdStore {
-  MockMFetchChannelIdStore() {
+class MockMGetChannelIdStore extends _i1.Mock
+    implements _i11.MGetChannelIdStore {
+  MockMGetChannelIdStore() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.FetchChannelIdGetterStore get getterStore => (super.noSuchMethod(
+  _i4.GetChannelIdGetterStore get getterStore => (super.noSuchMethod(
         Invocation.getter(#getterStore),
-        returnValue: _FakeFetchChannelIdGetterStore_19(
+        returnValue: _FakeGetChannelIdGetterStore_19(
           this,
           Invocation.getter(#getterStore),
         ),
-      ) as _i4.FetchChannelIdGetterStore);
+      ) as _i4.GetChannelIdGetterStore);
 
   @override
   String get channelId => (super.noSuchMethod(

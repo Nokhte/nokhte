@@ -31,7 +31,7 @@ class HomeRemoteSourceImpl implements HomeRemoteSource {
 
   @override
   addNamesToDatabase({String theName = ""}) async {
-    final List nameCheck = await CommonUserNamesQueries.fetchUserInfo(
+    final List nameCheck = await CommonUserNamesQueries.getUserInfo(
       supabase: supabase,
       userUID: supabase.auth.currentUser?.id ?? '',
     );
@@ -61,7 +61,7 @@ class HomeRemoteSourceImpl implements HomeRemoteSource {
 
   @override
   Future<List> getCollaboratorPhrase() async {
-    return await CollaboratorPhraseQueries.fetchUserInfo(
+    return await CollaboratorPhraseQueries.getUserInfo(
       supabase: supabase,
       userUID: supabase.auth.currentUser?.id,
     );
@@ -69,7 +69,7 @@ class HomeRemoteSourceImpl implements HomeRemoteSource {
 
   @override
   Future<List> checkIfTheyHaveACollaboration() async =>
-      await existingCollaborationsQueries.fetchActiveCollaborationInfo();
+      await existingCollaborationsQueries.getActiveCollaborationInfo();
 
   @override
   Future<List> checkIfTheyHaveDonePerspectives() async =>
@@ -77,6 +77,6 @@ class HomeRemoteSourceImpl implements HomeRemoteSource {
 
   @override
   Future<List> checkIfTheyHaveCommittedAPurpose() async =>
-      await finishedCollaborativeP2PPurposeDocumentsQueries.fetchDocInfo(
+      await finishedCollaborativeP2PPurposeDocumentsQueries.getDocInfo(
           docType: 'purpose');
 }

@@ -20,14 +20,14 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
     extends BaseQuadrantAPIReceiver with Store {
   final VoiceCallActionsStore voiceCallActions;
   final InstantiateAgoraSdkStore instantiateAgoraSdk;
-  final FetchAgoraTokenStore fetchAgoraToken;
-  final FetchChannelIdStore fetchChannelId;
+  final GetAgoraTokenStore getAgoraToken;
+  final GetChannelIdStore getChannelId;
   final PerspectivesWidgetsCoordinatorStore widgets;
   final VoiceCallActionsStore voiceCall;
   final SwipeDetector swipe;
   final CommitThePerspectivesStore commitThePerspectives;
   final CreateAPerspectivesSessionStore createSession;
-  final FetchPerspectivesStreamStore perspectivesStream;
+  final GetPerspectivesStreamStore perspectivesStream;
   final UpdateCurrentQuadrantStore updateQuadStore;
   final UpdateTheStagingAreaStore updateStaging;
   final TextEditingController userController;
@@ -37,10 +37,10 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
 
   _P2PPerspectiveSessionCoordinatorStoreBase({
     required super.quadrantAPI,
-    required this.fetchChannelId,
+    required this.getChannelId,
     required this.voiceCallActions,
     required this.instantiateAgoraSdk,
-    required this.fetchAgoraToken,
+    required this.getAgoraToken,
     required this.voiceCall,
     required this.swipe,
     required this.widgets,
@@ -72,17 +72,17 @@ abstract class _P2PPerspectiveSessionCoordinatorStoreBase
     await perspectivesStream(NoParams());
     if (!kDebugMode) {
       await instantiateAgoraSdk(NoParams());
-      await fetchChannelId(NoParams());
-      await fetchAgoraToken(
-        FetchAgoraTokenParams(
-          channelName: fetchChannelId.channelId,
+      await getChannelId(NoParams());
+      await getAgoraToken(
+        GetAgoraTokenParams(
+          channelName: getChannelId.channelId,
         ),
       );
       await voiceCallActions.enterOrLeaveCall(
         Right(
           JoinCallParams(
-            token: fetchAgoraToken.token,
-            channelId: fetchChannelId.channelId,
+            token: getAgoraToken.token,
+            channelId: getChannelId.channelId,
           ),
         ),
       );

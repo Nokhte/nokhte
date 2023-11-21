@@ -15,11 +15,11 @@ class VoiceCallContractImpl implements VoiceCallContract {
   });
 
   @override
-  Future<Either<Failure, AgoraCallTokenModel>> fetchAgoraToken({
+  Future<Either<Failure, AgoraCallTokenModel>> getAgoraToken({
     required String channelName,
   }) async {
     if (await networkInfo.isConnected) {
-      final res = await remoteSource.fetchAgoraToken(channelName: channelName);
+      final res = await remoteSource.getAgoraToken(channelName: channelName);
       return Right(AgoraCallTokenModel.fromTokenServer(res));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
@@ -27,9 +27,9 @@ class VoiceCallContractImpl implements VoiceCallContract {
   }
 
   @override
-  Future<Either<Failure, ChannelIdEntity>> fetchChannelId() async {
+  Future<Either<Failure, ChannelIdEntity>> getChannelId() async {
     if (await networkInfo.isConnected) {
-      final res = await remoteSource.fetchCollaboratorInfo();
+      final res = await remoteSource.getCollaboratorInfo();
       return Right(ChannelIdModel.fromSupabase(res));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
@@ -93,7 +93,7 @@ class VoiceCallContractImpl implements VoiceCallContract {
   Future<Either<Failure, WhoGetsTheQuestionModel>>
       checkIfUserHasTheQuestion() async {
     if (await networkInfo.isConnected) {
-      final res = await remoteSource.fetchCollaboratorInfo();
+      final res = await remoteSource.getCollaboratorInfo();
       return Right(
         WhoGetsTheQuestionModel.fromSupabase(res),
       );

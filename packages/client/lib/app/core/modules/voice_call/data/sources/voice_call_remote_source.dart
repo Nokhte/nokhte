@@ -7,7 +7,7 @@ import 'package:nokhte_backend/tables/existing_collaborations.dart';
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 
 abstract class VoiceCallRemoteSource {
-  Future<Response> fetchAgoraToken({required String channelName});
+  Future<Response> getAgoraToken({required String channelName});
 
   Future instantiateAgoraSDK();
 
@@ -19,7 +19,7 @@ abstract class VoiceCallRemoteSource {
 
   Future unmuteLocalAudioStream();
 
-  Future<List<dynamic>> fetchCollaboratorInfo();
+  Future<List<dynamic>> getCollaboratorInfo();
 }
 
 class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
@@ -42,10 +42,10 @@ class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
             ExistingCollaborationsQueries(supabase: supabase);
 
   @override
-  Future<Response> fetchAgoraToken({
+  Future<Response> getAgoraToken({
     required String channelName,
   }) async {
-    return await TokenServices.fetchAgoraToken(
+    return await TokenServices.getAgoraToken(
       currentUserUID: currentAgoraUID,
       channelName: channelName,
     );
@@ -89,9 +89,9 @@ class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
   }
 
   @override
-  Future<List> fetchCollaboratorInfo() async {
+  Future<List> getCollaboratorInfo() async {
     return [
-      await existingCollaborationsQueries.fetchActiveCollaborationInfo(),
+      await existingCollaborationsQueries.getActiveCollaborationInfo(),
       currentUserUID
     ];
   }

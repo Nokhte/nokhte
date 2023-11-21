@@ -13,7 +13,7 @@ void main() {
   setUpAll(() async {
     supabase = SupabaseClientConfigConstants.supabase;
     supabaseAdmin = SupabaseClientConfigConstants.supabaseAdmin;
-    final userIdResults = await UserSetupConstants.fetchUIDs();
+    final userIdResults = await UserSetupConstants.getUIDs();
     firstUserUID = userIdResults.first;
     secondUserUID = userIdResults[1];
   });
@@ -40,7 +40,7 @@ void main() {
     expect(res.first["session_is_completed"], false);
 
     await SignIn.user2(supabase: supabase);
-    final secondRes = await SoloSharableDocuments.fetchDocInfo(
+    final secondRes = await SoloSharableDocuments.getDocInfo(
       supabase: supabase,
       collaboratorUID: secondUserUID,
     );
@@ -62,7 +62,7 @@ void main() {
         visibility: true,
       );
       await SignIn.user2(supabase: supabase);
-      final thirdRes = await SoloSharableDocuments.fetchDocInfo(
+      final thirdRes = await SoloSharableDocuments.getDocInfo(
         supabase: supabase,
         collaboratorUID: secondUserUID,
       );
@@ -79,7 +79,7 @@ void main() {
         ownerUID: firstUserUID,
       );
       await SignIn.user2(supabase: supabase);
-      final fourthRes = await SoloSharableDocuments.fetchDocInfo(
+      final fourthRes = await SoloSharableDocuments.getDocInfo(
         supabase: supabase,
         collaboratorUID: secondUserUID,
       );

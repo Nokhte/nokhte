@@ -23,8 +23,8 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
     extends BaseQuadrantAPIReceiver with Store {
   final VoiceCallActionsStore voiceCallActions;
   final InstantiateAgoraSdkStore instantiateAgoraSdk;
-  final FetchAgoraTokenStore fetchAgoraToken;
-  final FetchChannelIdStore fetchChannelId;
+  final GetAgoraTokenStore getAgoraToken;
+  final GetChannelIdStore getChannelId;
   final GetCurrentPerspectivesStore getCurrentPerspectives;
   final CollectiveSessionPhase1WidgetsCoordinator widgets;
   final ChangeAudioPlayingStatusStore audioPlayer;
@@ -42,10 +42,10 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
   _CollectiveSessionPhase1CoordinatorBase({
     required super.quadrantAPI,
     required this.addIndividualMetadata,
-    required this.fetchChannelId,
+    required this.getChannelId,
     required this.voiceCallActions,
     required this.instantiateAgoraSdk,
-    required this.fetchAgoraToken,
+    required this.getAgoraToken,
     required this.createCollectiveSession,
     required this.getCurrentPerspectives,
     required this.swipe,
@@ -86,17 +86,17 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
       negativeModeBehavior: NegativeModeBehaviors.resetRefAngle,
     );
     await instantiateAgoraSdk(NoParams());
-    await fetchChannelId(NoParams());
-    await fetchAgoraToken(
-      FetchAgoraTokenParams(
-        channelName: fetchChannelId.channelId,
+    await getChannelId(NoParams());
+    await getAgoraToken(
+      GetAgoraTokenParams(
+        channelName: getChannelId.channelId,
       ),
     );
     await voiceCallActions.enterOrLeaveCall(
       Right(
         JoinCallParams(
-          token: fetchAgoraToken.token,
-          channelId: fetchChannelId.channelId,
+          token: getAgoraToken.token,
+          channelId: getChannelId.channelId,
         ),
       ),
     );

@@ -9,34 +9,34 @@ import '../../fixtures/voice_call_mock_gen.mocks.dart';
 
 void main() {
   late MockMVoiceCallContract mockContract;
-  late FetchChannelId logic;
+  late GetChannelId logic;
 
   setUp(() {
     mockContract = MockMVoiceCallContract();
-    logic = FetchChannelId(contract: mockContract);
+    logic = GetChannelId(contract: mockContract);
   });
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
-    when(mockContract.fetchChannelId()).thenAnswer(
+    when(mockContract.getChannelId()).thenAnswer(
       (_) async => ConstantChannelIdEntity.wrappedSuccessCase,
     );
 
     final result = await logic(NoParams());
 
     expect(result, ConstantChannelIdEntity.wrappedSuccessCase);
-    verify(mockContract.fetchChannelId());
+    verify(mockContract.getChannelId());
     verifyNoMoreInteractions(mockContract);
   });
 
   test("✅ should pass A Failure from Contract ==> Logic", () async {
-    when(mockContract.fetchChannelId()).thenAnswer(
+    when(mockContract.getChannelId()).thenAnswer(
       (_) async => Left(FailureConstants.dbFailure),
     );
 
     final result = await logic(NoParams());
 
     expect(result, Left(FailureConstants.dbFailure));
-    verify(mockContract.fetchChannelId());
+    verify(mockContract.getChannelId());
     verifyNoMoreInteractions(mockContract);
   });
 }

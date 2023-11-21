@@ -63,7 +63,7 @@ void main() {
     );
     await user1WorkingQueries.updateCommitDesireStatus(wantsToCommit: true);
     await user2WorkingQueries.updateCommitDesireStatus(wantsToCommit: true);
-    final res2 = await user1FinishedQueries.fetchDocInfo(docType: 'purpose');
+    final res2 = await user1FinishedQueries.getDocInfo(docType: 'purpose');
     expect(res2.first["collaborator_one_uid"], tSetup.firstUserUID);
     expect(res2.first["collaborator_two_uid"], tSetup.secondUserUID);
     expect(res2.first["content"], "newContent");

@@ -14,7 +14,7 @@ void main() {
   setUpAll(() async {
     supabase = SupabaseClientConfigConstants.supabase;
     supabaseAdmin = SupabaseClientConfigConstants.supabaseAdmin;
-    final userIdResults = await UserSetupConstants.fetchUIDs();
+    final userIdResults = await UserSetupConstants.getUIDs();
     firstUserUID = userIdResults.first;
     secondUserUID = userIdResults[1];
   });
@@ -37,7 +37,7 @@ void main() {
           ExistingCollaborationsQueries(supabase: supabase);
 
       final res =
-          await existingCollaborationsQueries.fetchActiveCollaborationInfo();
+          await existingCollaborationsQueries.getActiveCollaborationInfo();
 
       expect(res, isNotEmpty);
       expect(res.first["collaborator_one"], firstUserUID);
@@ -52,7 +52,7 @@ void main() {
           ExistingCollaborationsQueries(supabase: supabase);
 
       final res = await existingCollaborationsQueries
-          .fetchActiveCollaboratorsUIDAndNumber();
+          .getActiveCollaboratorsUIDAndNumber();
 
       expect(res, isNotEmpty);
       expect(res.first, secondUserUID);
@@ -64,7 +64,7 @@ void main() {
           ExistingCollaborationsQueries(supabase: supabase);
 
       final res = await existingCollaborationsQueries
-          .fetchActiveCollaboratorsUIDAndNumber();
+          .getActiveCollaboratorsUIDAndNumber();
 
       expect(res, isNotEmpty);
       expect(res.first, firstUserUID);
@@ -83,8 +83,7 @@ void main() {
         newActivityStatus: false,
       );
 
-      final res =
-          await existingCollaborationsQueries.fetchAllCollaborationInfo();
+      final res = await existingCollaborationsQueries.getAllCollaborationInfo();
       expect(res, isNotEmpty);
       expect(res.first["collaborator_one"], firstUserUID);
       expect(res.first["collaborator_two"], secondUserUID);
@@ -111,7 +110,7 @@ void main() {
           ExistingCollaborationsQueries(supabase: supabase);
 
       final res =
-          await existingCollaborationsQueries.fetchActiveCollaborationInfo();
+          await existingCollaborationsQueries.getActiveCollaborationInfo();
 
       expect(res, isNotEmpty);
       expect(res.first["collaborator_one"], secondUserUID);
@@ -126,7 +125,7 @@ void main() {
           ExistingCollaborationsQueries(supabase: supabase);
 
       final res = await existingCollaborationsQueries
-          .fetchActiveCollaboratorsUIDAndNumber();
+          .getActiveCollaboratorsUIDAndNumber();
 
       expect(res, isNotEmpty);
       expect(res.first, firstUserUID);

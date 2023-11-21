@@ -41,8 +41,8 @@ class P2PPerspectivesSessionModule extends Module {
             contract: i<P2PPerspectivesSessionContractImpl>(),
           ),
         ),
-        Bind.singleton<FetchPerspectivesStream>(
-          (i) => FetchPerspectivesStream(
+        Bind.singleton<GetPerspectivesStream>(
+          (i) => GetPerspectivesStream(
             contract: i<P2PPerspectivesSessionContractImpl>(),
           ),
         ),
@@ -66,9 +66,9 @@ class P2PPerspectivesSessionModule extends Module {
             logic: i<CreateAPerspectivesSession>(),
           ),
         ),
-        Bind.singleton<FetchPerspectivesStreamGetterStore>(
-          (i) => FetchPerspectivesStreamGetterStore(
-            logic: i<FetchPerspectivesStream>(),
+        Bind.singleton<GetPerspectivesStreamGetterStore>(
+          (i) => GetPerspectivesStreamGetterStore(
+            logic: i<GetPerspectivesStream>(),
           ),
         ),
         Bind.singleton<UpdateCurrentQuadrantGetterStore>(
@@ -91,9 +91,9 @@ class P2PPerspectivesSessionModule extends Module {
             getterStore: i<CreateAPerspectivesSessionGetterStore>(),
           ),
         ),
-        Bind.singleton<FetchPerspectivesStreamStore>(
-          (i) => FetchPerspectivesStreamStore(
-            getterStore: i<FetchPerspectivesStreamGetterStore>(),
+        Bind.singleton<GetPerspectivesStreamStore>(
+          (i) => GetPerspectivesStreamStore(
+            getterStore: i<GetPerspectivesStreamGetterStore>(),
           ),
         ),
         Bind.singleton<UpdateCurrentQuadrantStore>(
@@ -118,17 +118,17 @@ class P2PPerspectivesSessionModule extends Module {
         ),
         Bind.singleton<P2PPerspectiveSessionCoordinatorStore>(
           (i) => P2PPerspectiveSessionCoordinatorStore(
-            fetchChannelId: Modular.get<FetchChannelIdStore>(),
+            getChannelId: Modular.get<GetChannelIdStore>(),
             voiceCallActions: Modular.get<VoiceCallActionsStore>(),
             instantiateAgoraSdk: Modular.get<InstantiateAgoraSdkStore>(),
-            fetchAgoraToken: Modular.get<FetchAgoraTokenStore>(),
+            getAgoraToken: Modular.get<GetAgoraTokenStore>(),
             swipe: i<SwipeDetector>(),
             widgets: i<PerspectivesWidgetsCoordinatorStore>(),
             voiceCall: Modular.get<VoiceCallActionsStore>(),
             quadrantAPI: Modular.get<QuadrantAPI>(),
             commitThePerspectives: i<CommitThePerspectivesStore>(),
             createSession: i<CreateAPerspectivesSessionStore>(),
-            perspectivesStream: i<FetchPerspectivesStreamStore>(),
+            perspectivesStream: i<GetPerspectivesStreamStore>(),
             updateQuadStore: i<UpdateCurrentQuadrantStore>(),
             updateStaging: i<UpdateTheStagingAreaStore>(),
           ),

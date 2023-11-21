@@ -39,7 +39,7 @@ void main() {
     expect(res.first["doc_type"], "purpose");
     expect(res.first["collaborator_two_uid"], tSetup.secondUserUID);
     expect(res.first["content"], "committed purpose");
-    final res2 = await user2FinishedQueries.fetchDocInfo(
+    final res2 = await user2FinishedQueries.getDocInfo(
       docType: 'purpose',
     );
     expect(res2.first["collaborator_one_uid"], tSetup.firstUserUID);

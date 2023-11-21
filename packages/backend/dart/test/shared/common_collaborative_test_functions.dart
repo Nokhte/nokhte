@@ -25,7 +25,7 @@ class CommonCollaborativeTestFunctions {
     await SignIn.user1(supabase: user1Supabase);
     await SignIn.user2(supabase: user2Supabase);
 
-    final userIdResults = await UserSetupConstants.fetchUIDs();
+    final userIdResults = await UserSetupConstants.getUIDs();
     firstUserUID = userIdResults.first;
     secondUserUID = userIdResults[1];
 

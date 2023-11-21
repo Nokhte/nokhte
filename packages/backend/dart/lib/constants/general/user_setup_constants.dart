@@ -5,7 +5,7 @@ import 'sign_in.dart';
 import 'supabase_client_constants.dart';
 
 class UserSetupConstants {
-  static Future<List<String>> fetchUIDs() async {
+  static Future<List<String>> getUIDs() async {
     final supabase = SupabaseClientConfigConstants.supabase;
     final List<String> userUIDs = [];
     try {
@@ -35,7 +35,7 @@ class UserSetupConstants {
   static Future<void> wipeUsernamesTable({
     required SupabaseClient supabaseAdmin,
   }) async {
-    final userUIDs = await fetchUIDs();
+    final userUIDs = await getUIDs();
     for (var userUID in userUIDs) {
       await supabaseAdmin.from('user_names').delete().eq(
             'uid',
@@ -50,7 +50,7 @@ class UserSetupConstants {
 
   static Future<void> setUpUserNamesTableForSubsequentTests(
       {required SupabaseClient supabase}) async {
-    final userUIDs = await fetchUIDs();
+    final userUIDs = await getUIDs();
     for (var i = 0; i < userUIDs.length; i++) {
       await SignIn.callbackList(supabase: supabase)[i]();
       await supabase.from('user_names').insert(
@@ -63,10 +63,10 @@ class UserSetupConstants {
     }
   }
 
-  static Future<List<CollaboratorPhraseIDs>> fetchCollaboratorPhraseIDs(
+  static Future<List<CollaboratorPhraseIDs>> getCollaboratorPhraseIDs(
       {required SupabaseClient supabaseAdmin}) async {
     final List<CollaboratorPhraseIDs> phraseIDs = [];
-    final userUIDs = await fetchUIDs();
+    final userUIDs = await getUIDs();
     for (var userUID in userUIDs) {
       final collaboratorPhraseRes = await supabaseAdmin
           .from('collaborator_phrases')

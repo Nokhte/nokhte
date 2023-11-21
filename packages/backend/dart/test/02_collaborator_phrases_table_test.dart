@@ -12,21 +12,21 @@ void main() {
 
   setUpAll(() async {
     supabase = SupabaseClientConfigConstants.supabase;
-    final userIDResults = await UserSetupConstants.fetchUIDs();
+    final userIDResults = await UserSetupConstants.getUIDs();
     currentUserUID = userIDResults.first;
     otherUserUID = userIDResults[1];
     await SignIn.user1(supabase: supabase);
   });
 
   test("Should be able to read their row", () async {
-    final collaboratorPhrasRes = await CollaboratorPhraseQueries.fetchUserInfo(
+    final collaboratorPhrasRes = await CollaboratorPhraseQueries.getUserInfo(
       supabase: supabase,
       userUID: currentUserUID,
     );
     expect(collaboratorPhrasRes, isNotEmpty);
   });
   test("Shouldn't be able to read someone else's row", () async {
-    final collaboratorPhrasRes = await CollaboratorPhraseQueries.fetchUserInfo(
+    final collaboratorPhrasRes = await CollaboratorPhraseQueries.getUserInfo(
       supabase: supabase,
       userUID: otherUserUID,
     );

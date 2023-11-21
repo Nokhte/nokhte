@@ -9,15 +9,14 @@ import '../../constants/entities/entities.dart';
 import '../../fixtures/voice_call_mock_gen.mocks.dart';
 
 void main() {
-  late MockMFetchAgoraToken mockLogic;
-  late FetchAgoraTokenGetterStore getterStore;
+  late MockMGetAgoraToken mockLogic;
+  late GetAgoraTokenGetterStore getterStore;
   late Either<Failure, AgoraCallTokenEntity> tEitherStatusOrFailure;
-  const FetchAgoraTokenParams tParams =
-      FetchAgoraTokenParams(channelName: 'hi');
+  const GetAgoraTokenParams tParams = GetAgoraTokenParams(channelName: 'hi');
 
   setUp(() {
-    mockLogic = MockMFetchAgoraToken();
-    getterStore = FetchAgoraTokenGetterStore(logic: mockLogic);
+    mockLogic = MockMGetAgoraToken();
+    getterStore = GetAgoraTokenGetterStore(logic: mockLogic);
   });
 
   group("✅ Success Cases", () {

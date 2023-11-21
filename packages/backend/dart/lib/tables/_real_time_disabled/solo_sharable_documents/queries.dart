@@ -13,7 +13,7 @@ class SoloSharableDocuments {
         'doc_type': docType,
       }).select();
 
-  static Future<List> fetchDocInfo({
+  static Future<List> getDocInfo({
     required SupabaseClient supabase,
     String ownerUID = '',
     String collaboratorUID = '',

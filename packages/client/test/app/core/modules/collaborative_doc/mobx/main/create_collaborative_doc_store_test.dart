@@ -9,33 +9,33 @@ import '../../fixtures/collaborative_doc_mock_gen.mocks.dart';
 
 void main() {
   late MockMCreateCollaborativeDocGetterStore mockGetterStore;
-  late CreateCollaborativeDocStore fetchChannelIdStore;
+  late CreateCollaborativeDocStore getChannelIdStore;
   const tParams = CreateCollaborativeDocParams(docType: 'purpose');
 
   setUp(() {
     mockGetterStore = MockMCreateCollaborativeDocGetterStore();
-    fetchChannelIdStore = CreateCollaborativeDocStore(
+    getChannelIdStore = CreateCollaborativeDocStore(
       getterStore: mockGetterStore,
     );
   });
 
   group("stateOrErrorUpdater", () {
     test("✅ Success Case: should update accordingly if state is passed", () {
-      fetchChannelIdStore.stateOrErrorUpdater(
+      getChannelIdStore.stateOrErrorUpdater(
         ConstantCollaborativeDocCreationStatusEntity.wrappedSuccessCase,
       );
       expect(
-        fetchChannelIdStore.isCreated,
+        getChannelIdStore.isCreated,
         true,
       );
     });
     test("❌ Success Case: should update accordingly if failure is passed", () {
-      fetchChannelIdStore.stateOrErrorUpdater(
+      getChannelIdStore.stateOrErrorUpdater(
         Left(FailureConstants.dbFailure),
       );
-      expect(fetchChannelIdStore.isCreated, false);
+      expect(getChannelIdStore.isCreated, false);
       expect(
-          fetchChannelIdStore.errorMessage, FailureConstants.genericFailureMsg);
+          getChannelIdStore.errorMessage, FailureConstants.genericFailureMsg);
     });
   });
   group("call", () {
@@ -45,22 +45,22 @@ void main() {
         (_) async =>
             ConstantCollaborativeDocCreationStatusEntity.wrappedNotSuccessCase,
       );
-      await fetchChannelIdStore(tParams);
+      await getChannelIdStore(tParams);
       expect(
-        fetchChannelIdStore.isCreated,
+        getChannelIdStore.isCreated,
         false,
       );
-      expect(fetchChannelIdStore.errorMessage, "");
+      expect(getChannelIdStore.errorMessage, "");
     });
     test("❌ Success Case: should update accordingly if failure is passed",
         () async {
       when(mockGetterStore(tParams)).thenAnswer(
         (_) async => Left(FailureConstants.dbFailure),
       );
-      await fetchChannelIdStore(tParams);
-      expect(fetchChannelIdStore.isCreated, false);
+      await getChannelIdStore(tParams);
+      expect(getChannelIdStore.isCreated, false);
       expect(
-          fetchChannelIdStore.errorMessage, FailureConstants.genericFailureMsg);
+          getChannelIdStore.errorMessage, FailureConstants.genericFailureMsg);
     });
   });
 }

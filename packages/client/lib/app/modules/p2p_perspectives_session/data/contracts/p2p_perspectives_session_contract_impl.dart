@@ -38,10 +38,10 @@ class P2PPerspectivesSessionContractImpl
   }
 
   @override
-  Future<Either<Failure, WorkingPerspectivesStreamModel>>
-      fetchPerspectivesStream(NoParams params) async {
+  Future<Either<Failure, WorkingPerspectivesStreamModel>> getPerspectivesStream(
+      NoParams params) async {
     if (await networkInfo.isConnected) {
-      final res = await remoteSource.fetchPerspectivesStream(params);
+      final res = await remoteSource.getPerspectivesStream(params);
       return Right(WorkingPerspectivesStreamModel(stream: res));
     } else {
       return Left(FailureConstants.internetConnectionFailure);

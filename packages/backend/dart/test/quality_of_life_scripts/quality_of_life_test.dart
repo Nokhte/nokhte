@@ -51,7 +51,7 @@ void main() {
   }
 
   test("make a collaboration between real person & npc 2", () async {
-    final userIdResults = await UserSetupConstants.fetchUIDs();
+    final userIdResults = await UserSetupConstants.getUIDs();
     final npcUserUID = userIdResults[1];
     final realPersonUID = await returnNonNPCUID();
     existingCollaborationsQueries.createNewCollaboration(
@@ -61,7 +61,7 @@ void main() {
   });
 
   test("make a purpose between npc & person", () async {
-    final userIdResults = await UserSetupConstants.fetchUIDs();
+    final userIdResults = await UserSetupConstants.getUIDs();
     final npcUserUID = userIdResults[1];
     final realPersonUID = await returnNonNPCUID();
     await supabaseAdmin.from("finished_collaborative_documents").insert({
@@ -73,7 +73,7 @@ void main() {
   });
 
   test("make a set of perspectives between real person & npc 2", () async {
-    final userIdResults = await UserSetupConstants.fetchUIDs();
+    final userIdResults = await UserSetupConstants.getUIDs();
     final npcUserUID = userIdResults[1];
     final realPersonUID = await returnNonNPCUID();
     perspectivesQueries.collaboratorInfo = CollaboratorInfo(
@@ -88,7 +88,7 @@ void main() {
   });
 
   test("1. individual session setup 2. collective session setup", () async {
-    final userIdResults = await UserSetupConstants.fetchUIDs();
+    final userIdResults = await UserSetupConstants.getUIDs();
     final npcUserUID = userIdResults[1];
     final realPersonUID = await returnNonNPCUID();
     perspectivesQueries.collaboratorInfo = CollaboratorInfo(
@@ -249,7 +249,7 @@ void main() {
   });
 
   test("make a solo npc-owned doc & share it with the user", () async {
-    final userIdResults = await UserSetupConstants.fetchUIDs();
+    final userIdResults = await UserSetupConstants.getUIDs();
     final npcUserUID = userIdResults.first;
     final realPersonUID = await returnNonNPCUID();
     await SoloSharableDocuments.createSoloDoc(
@@ -270,7 +270,7 @@ void main() {
   });
 
   test("put npc in the pool searching for user ", () async {
-    final userIdResults = await UserSetupConstants.fetchUIDs();
+    final userIdResults = await UserSetupConstants.getUIDs();
     final npcUserUID = userIdResults.first;
     final realPersonUID = await returnNonNPCUID();
     final realPersonPhraseIDRes = await supabaseAdmin
@@ -287,7 +287,7 @@ void main() {
     );
   });
   test("user 1 in the pool searching for npc ", () async {
-    final userIdResults = await UserSetupConstants.fetchUIDs();
+    final userIdResults = await UserSetupConstants.getUIDs();
     final npcUserUID = userIdResults[1];
     final realPersonUID = await returnNonNPCUID();
     final npcPhraseRes = await supabaseAdmin

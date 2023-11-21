@@ -22,7 +22,7 @@ void main() {
     );
   });
 
-  group('Method No. 1: fetchAgoraToken ', () {
+  group('Method No. 1: getAgoraToken ', () {
     group("is Online", () {
       setUp(() {
         when(mockNetworkInfo.isConnected)
@@ -30,18 +30,18 @@ void main() {
       });
       test("when online & a good API query is made it should proper model",
           () async {
-        when(mockRemoteSource.fetchAgoraToken(channelName: 'hi')).thenAnswer(
+        when(mockRemoteSource.getAgoraToken(channelName: 'hi')).thenAnswer(
             (realInvocation) async => TokenServerResponse.successfulResponse);
-        final res = await contractImpl.fetchAgoraToken(channelName: 'hi');
+        final res = await contractImpl.getAgoraToken(channelName: 'hi');
         expect(res, ConstantAgoraCallTokenModel.wrappedSuccessCase);
       });
 
       test("when online and not approved should return a proper model",
           () async {
-        when(mockRemoteSource.fetchAgoraToken(channelName: 'hi')).thenAnswer(
+        when(mockRemoteSource.getAgoraToken(channelName: 'hi')).thenAnswer(
             (realInvocation) async =>
                 TokenServerResponse.notSuccessfulResponse);
-        final res = await contractImpl.fetchAgoraToken(channelName: 'hi');
+        final res = await contractImpl.getAgoraToken(channelName: 'hi');
         expect(res, ConstantAgoraCallTokenModel.wrappedNotSuccessCase);
       });
     });
@@ -51,12 +51,12 @@ void main() {
             .thenAnswer((realInvocation) async => false);
       });
       test("When offline should return an internet connection error", () async {
-        final res = await contractImpl.fetchAgoraToken(channelName: 'hi');
+        final res = await contractImpl.getAgoraToken(channelName: 'hi');
         expect(res, Left(FailureConstants.internetConnectionFailure));
       });
     });
   });
-  group('Method No. 2:  `FetchChannelId`', () {
+  group('Method No. 2:  `GetChannelId`', () {
     group("is Online", () {
       setUp(() {
         when(mockNetworkInfo.isConnected)
@@ -64,19 +64,19 @@ void main() {
       });
       test("when online & collaboration exists should return the proper model",
           () async {
-        when(mockRemoteSource.fetchCollaboratorInfo()).thenAnswer(
+        when(mockRemoteSource.getCollaboratorInfo()).thenAnswer(
           (realInvocation) async => ExistingCollaboratorsTable.response,
         );
-        final res = await contractImpl.fetchChannelId();
+        final res = await contractImpl.getChannelId();
         expect(res, ConstantChannelIdModel.wrappedSuccessCase);
       });
 
       test(
           "when online and collaboration doesn't exist should return empty model",
           () async {
-        when(mockRemoteSource.fetchCollaboratorInfo())
+        when(mockRemoteSource.getCollaboratorInfo())
             .thenAnswer((realInvocation) async => []);
-        final res = await contractImpl.fetchChannelId();
+        final res = await contractImpl.getChannelId();
         expect(res, ConstantChannelIdModel.wrappedNotSuccessCase);
       });
     });
@@ -86,7 +86,7 @@ void main() {
             .thenAnswer((realInvocation) async => false);
       });
       test("When offline should return an internet connection error", () async {
-        final res = await contractImpl.fetchChannelId();
+        final res = await contractImpl.getChannelId();
         expect(res, Left(FailureConstants.internetConnectionFailure));
       });
     });
@@ -234,7 +234,7 @@ void main() {
       test(
           "when online & everything is valid should return a model w/ proper state",
           () async {
-        when(mockRemoteSource.fetchCollaboratorInfo()).thenAnswer(
+        when(mockRemoteSource.getCollaboratorInfo()).thenAnswer(
           (_) async => ExistingCollaboratorsTable.response,
         );
         final res = await contractImpl.checkIfUserHasTheQuestion();
@@ -243,7 +243,7 @@ void main() {
       test(
           "when online & everything is in-valid should return a model w/ proper state",
           () async {
-        when(mockRemoteSource.fetchCollaboratorInfo())
+        when(mockRemoteSource.getCollaboratorInfo())
             .thenAnswer((_) async => []);
         final res = await contractImpl.checkIfUserHasTheQuestion();
         expect(res, ConstantWhoGetsTheQuestionModel.wrappedDoesNotHaveItCase);

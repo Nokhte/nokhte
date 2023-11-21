@@ -10,13 +10,13 @@ import '../../constants/entities/entities.dart';
 import '../../fixtures/voice_call_mock_gen.mocks.dart';
 
 void main() {
-  late MockMFetchChannelId mockLogic;
-  late FetchChannelIdGetterStore getterStore;
+  late MockMGetChannelId mockLogic;
+  late GetChannelIdGetterStore getterStore;
   late Either<Failure, ChannelIdEntity> tEitherStatusOrFailure;
 
   setUp(() {
-    mockLogic = MockMFetchChannelId();
-    getterStore = FetchChannelIdGetterStore(logic: mockLogic);
+    mockLogic = MockMGetChannelId();
+    getterStore = GetChannelIdGetterStore(logic: mockLogic);
   });
 
   group("✅ Success Cases", () {

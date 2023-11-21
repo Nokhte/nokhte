@@ -1,7 +1,7 @@
 import 'package:http/http.dart';
 
 class TokenServices {
-  static Future<Response> fetchAgoraToken({
+  static Future<Response> getAgoraToken({
     int currentUserUID = 0,
     required String channelName,
     int tokenRole = 1,

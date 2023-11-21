@@ -7,7 +7,7 @@ abstract class P2PPerspectivesSessionRemoteSource {
   Future<void> updateCurrentQuadrant(int params);
   Future<void> commitThePerspectives(List<String> params);
   Future<void> updateTheStagingArea(List<String> params);
-  Future<Stream<PerspectivesPositioning>> fetchPerspectivesStream(
+  Future<Stream<PerspectivesPositioning>> getPerspectivesStream(
     NoParams params,
   );
   Future<void> createAPerspectivesSession(NoParams params);
@@ -38,7 +38,7 @@ class P2PPerspectivesSessionRemoteSourceImpl
   }
 
   @override
-  Future<Stream<PerspectivesPositioning>> fetchPerspectivesStream(
+  Future<Stream<PerspectivesPositioning>> getPerspectivesStream(
       NoParams params) async {
     return workingStreams.getStream();
   }

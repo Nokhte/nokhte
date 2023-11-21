@@ -133,10 +133,10 @@ class CollectiveSessionModule extends Module {
         ),
         Bind.singleton<CollectiveSessionPhase1Coordinator>(
           (i) => CollectiveSessionPhase1Coordinator(
-            fetchChannelId: Modular.get<FetchChannelIdStore>(),
+            getChannelId: Modular.get<GetChannelIdStore>(),
             voiceCallActions: Modular.get<VoiceCallActionsStore>(),
             instantiateAgoraSdk: Modular.get<InstantiateAgoraSdkStore>(),
-            fetchAgoraToken: Modular.get<FetchAgoraTokenStore>(),
+            getAgoraToken: Modular.get<GetAgoraTokenStore>(),
             addIndividualMetadata:
                 i<AddIndividualSessionMetadataToCollectiveSessionStore>(),
             createCollectiveSession: i<CreateCollectiveSessionStore>(),

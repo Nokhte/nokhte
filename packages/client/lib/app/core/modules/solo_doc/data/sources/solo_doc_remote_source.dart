@@ -42,7 +42,7 @@ class SoloDocRemoteSourceImpl implements SoloDocRemoteSource {
 
   @override
   Future<List> getSoloDocContent({required bool getCollaboratorsDoc}) async {
-    return await SoloSharableDocuments.fetchDocInfo(
+    return await SoloSharableDocuments.getDocInfo(
       supabase: supabase,
       ownerUID: getCollaboratorsDoc
           ? collaborationInfo.theCollaboratorsUID

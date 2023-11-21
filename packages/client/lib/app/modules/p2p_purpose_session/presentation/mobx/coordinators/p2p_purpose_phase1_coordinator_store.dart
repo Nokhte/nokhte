@@ -21,8 +21,8 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
   final InstantiateAgoraSdkStore instantiateAgoraSdkStore;
   final GesturePillStore gesturePillStore;
   final FadeInAndChangeColorTextStore fadeInColorText;
-  final FetchAgoraTokenStore fetchAgoraTokenStore;
-  final FetchChannelIdStore fetchChannelIdStore;
+  final GetAgoraTokenStore getAgoraTokenStore;
+  final GetChannelIdStore getChannelIdStore;
   final VoiceCallActionsStore voiceCallActionsStore;
   final SwipeDetector swipe;
 
@@ -32,8 +32,8 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
   _P2PPurposePhase1CoordinatorStoreBase({
     required this.swipe,
     required this.instantiateAgoraSdkStore,
-    required this.fetchAgoraTokenStore,
-    required this.fetchChannelIdStore,
+    required this.getAgoraTokenStore,
+    required this.getChannelIdStore,
     required this.voiceCallActionsStore,
     required this.beachWaves,
     required this.fadingText,
@@ -54,10 +54,10 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
     gestureListener();
     beachWaves.initiateSuspendedAtTheDepths();
     await instantiateAgoraSdkStore(NoParams());
-    await fetchChannelIdStore(NoParams());
-    await fetchAgoraTokenStore(
-      FetchAgoraTokenParams(
-        channelName: fetchChannelIdStore.channelId,
+    await getChannelIdStore(NoParams());
+    await getAgoraTokenStore(
+      GetAgoraTokenParams(
+        channelName: getChannelIdStore.channelId,
       ),
     );
   }
@@ -77,8 +77,8 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
       await voiceCallActionsStore.enterOrLeaveCall(
         Right(
           JoinCallParams(
-            token: fetchAgoraTokenStore.token,
-            channelId: fetchChannelIdStore.channelId,
+            token: getAgoraTokenStore.token,
+            channelId: getChannelIdStore.channelId,
           ),
         ),
       );

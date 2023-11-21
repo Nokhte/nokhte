@@ -14,9 +14,9 @@ class MVoiceCallContract extends Mock implements VoiceCallContract {}
 class MCheckIfUserHasTheQuestion extends Mock
     implements CheckIfUserHasTheQuestion {}
 
-class MFetchAgoraToken extends Mock implements FetchAgoraToken {}
+class MGetAgoraToken extends Mock implements GetAgoraToken {}
 
-class MFetchChannelId extends Mock implements FetchChannelId {}
+class MGetChannelId extends Mock implements GetChannelId {}
 
 class MInstantiateAgoraSdk extends Mock implements InstantiateAgoraSdk {}
 
@@ -31,11 +31,11 @@ class MUnmuteLocalAudioStream extends Mock implements UnmuteLocalAudioStream {}
 class MCheckIfUserHasTheQuestionGetterStore extends Mock
     implements CheckIfUserHasTheQuestionGetterStore {}
 
-class MFetchAgoraTokenGetterStore extends Mock
-    implements FetchAgoraTokenGetterStore {}
+class MGetAgoraTokenGetterStore extends Mock
+    implements GetAgoraTokenGetterStore {}
 
-class MFetchChannelIdGetterStore extends Mock
-    implements FetchChannelIdGetterStore {}
+class MGetChannelIdGetterStore extends Mock
+    implements GetChannelIdGetterStore {}
 
 class MInstantiateAgoraSdkGetterStore extends Mock
     implements InstantiateAgoraSdkGetterStore {}
@@ -53,9 +53,9 @@ class MUnmuteLocalAudioStreamGetterStore extends Mock
 class MCheckIfUserHasTheQuestionStore extends Mock
     implements CheckIfUserHasTheQuestionStore {}
 
-class MFetchAgoraTokenStore extends Mock implements FetchAgoraTokenStore {}
+class MGetAgoraTokenStore extends Mock implements GetAgoraTokenStore {}
 
-class MFetchChannelIdStore extends Mock implements FetchChannelIdStore {}
+class MGetChannelIdStore extends Mock implements GetChannelIdStore {}
 
 class MInstantiateAgoraSdkStore extends Mock
     implements InstantiateAgoraSdkStore {}
@@ -66,24 +66,24 @@ class MVoiceCallActionsStore extends Mock implements VoiceCallActionsStore {}
   MVoiceCallRemoteSourceImpl,
   MVoiceCallContract,
   MCheckIfUserHasTheQuestion,
-  MFetchAgoraToken,
-  MFetchChannelId,
+  MGetAgoraToken,
+  MGetChannelId,
   MInstantiateAgoraSdk,
   MJoinCall,
   MLeaveCall,
   MMuteLocalAudioStream,
   MUnmuteLocalAudioStream,
   MCheckIfUserHasTheQuestionGetterStore,
-  MFetchAgoraTokenGetterStore,
-  MFetchChannelIdGetterStore,
+  MGetAgoraTokenGetterStore,
+  MGetChannelIdGetterStore,
   MInstantiateAgoraSdkGetterStore,
   MJoinCallGetterStore,
   MLeaveCallGetterStore,
   MMuteLocalAudioStreamGetterStore,
   MUnmuteLocalAudioStreamGetterStore,
   MCheckIfUserHasTheQuestionStore,
-  MFetchAgoraTokenStore,
-  MFetchChannelIdStore,
+  MGetAgoraTokenStore,
+  MGetChannelIdStore,
   MInstantiateAgoraSdkStore,
   MVoiceCallActionsStore,
 ])

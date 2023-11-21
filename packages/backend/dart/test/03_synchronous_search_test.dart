@@ -16,8 +16,8 @@ void main() {
   setUpAll(() async {
     supabase = SupabaseClientConfigConstants.supabase;
     supabaseAdmin = SupabaseClientConfigConstants.supabaseAdmin;
-    final userIdResults = await UserSetupConstants.fetchUIDs();
-    final phraseIdResults = await UserSetupConstants.fetchCollaboratorPhraseIDs(
+    final userIdResults = await UserSetupConstants.getUIDs();
+    final phraseIdResults = await UserSetupConstants.getCollaboratorPhraseIDs(
       supabaseAdmin: supabaseAdmin,
     );
     firstUserUID = userIdResults.first;

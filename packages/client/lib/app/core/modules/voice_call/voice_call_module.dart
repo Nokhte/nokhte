@@ -38,14 +38,14 @@ class VoiceCallModule extends Module {
           ),
           export: true,
         ),
-        Bind.singleton<FetchAgoraToken>(
-          (i) => FetchAgoraToken(
+        Bind.singleton<GetAgoraToken>(
+          (i) => GetAgoraToken(
             contract: i<VoiceCallContract>(),
           ),
           export: true,
         ),
-        Bind.singleton<FetchChannelId>(
-          (i) => FetchChannelId(
+        Bind.singleton<GetChannelId>(
+          (i) => GetChannelId(
             contract: i<VoiceCallContract>(),
           ),
           export: true,
@@ -86,15 +86,15 @@ class VoiceCallModule extends Module {
           ),
           export: true,
         ),
-        Bind.singleton<FetchAgoraTokenGetterStore>(
-          (i) => FetchAgoraTokenGetterStore(
-            logic: i<FetchAgoraToken>(),
+        Bind.singleton<GetAgoraTokenGetterStore>(
+          (i) => GetAgoraTokenGetterStore(
+            logic: i<GetAgoraToken>(),
           ),
           export: true,
         ),
-        Bind.singleton<FetchChannelIdGetterStore>(
-          (i) => FetchChannelIdGetterStore(
-            logic: i<FetchChannelId>(),
+        Bind.singleton<GetChannelIdGetterStore>(
+          (i) => GetChannelIdGetterStore(
+            logic: i<GetChannelId>(),
           ),
           export: true,
         ),
@@ -134,15 +134,15 @@ class VoiceCallModule extends Module {
           ),
           export: true,
         ),
-        Bind.singleton<FetchAgoraTokenStore>(
-          (i) => FetchAgoraTokenStore(
-            getterStore: i<FetchAgoraTokenGetterStore>(),
+        Bind.singleton<GetAgoraTokenStore>(
+          (i) => GetAgoraTokenStore(
+            getterStore: i<GetAgoraTokenGetterStore>(),
           ),
           export: true,
         ),
-        Bind.singleton<FetchChannelIdStore>(
-          (i) => FetchChannelIdStore(
-            getterStore: i<FetchChannelIdGetterStore>(),
+        Bind.singleton<GetChannelIdStore>(
+          (i) => GetChannelIdStore(
+            getterStore: i<GetChannelIdGetterStore>(),
           ),
           export: true,
         ),

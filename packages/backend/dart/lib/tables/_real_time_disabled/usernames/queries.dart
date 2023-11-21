@@ -14,7 +14,7 @@ class CommonUserNamesQueries {
     }).select();
   }
 
-  static Future<dynamic> fetchUserInfo({
+  static Future<dynamic> getUserInfo({
     required SupabaseClient supabase,
     required String? userUID,
   }) async {
@@ -24,7 +24,7 @@ class CommonUserNamesQueries {
         );
   }
 
-  static Future<dynamic> fetchCollaboratorPhraseInfo({
+  static Future<dynamic> getCollaboratorPhraseInfo({
     required SupabaseClient supabase,
     required String? userUID,
   }) async {

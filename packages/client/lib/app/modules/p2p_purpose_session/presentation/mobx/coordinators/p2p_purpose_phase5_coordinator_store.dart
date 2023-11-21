@@ -27,8 +27,8 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
   final CollaborativeDocCoordinatorStore collaborativeDocDB;
   final TextEditingController userController;
   final FocusNode userFocusNode;
-  final FetchAgoraTokenStore fetchAgoraTokenStore;
-  final FetchChannelIdStore fetchChannelIdStore;
+  final GetAgoraTokenStore getAgoraTokenStore;
+  final GetChannelIdStore getChannelIdStore;
   final AgoraCallbacksStore agoraCallbacksStore;
   final VoiceCallActionsStore voiceCallActionsStore;
   final SwipeDetector swipe;
@@ -39,8 +39,8 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
     required this.collaborativeDocDB,
     required this.agoraCallbacksStore,
     required this.voiceCallActionsStore,
-    required this.fetchAgoraTokenStore,
-    required this.fetchChannelIdStore,
+    required this.getAgoraTokenStore,
+    required this.getChannelIdStore,
     required this.gesturePillStore,
     required this.swipe,
   })  : userController = collaborativeTextUI.controller,
@@ -70,8 +70,8 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
     await voiceCallActionsStore.enterOrLeaveCall(
       Right(
         JoinCallParams(
-          token: fetchAgoraTokenStore.token,
-          channelId: fetchChannelIdStore.channelId,
+          token: getAgoraTokenStore.token,
+          channelId: getChannelIdStore.channelId,
         ),
       ),
     );

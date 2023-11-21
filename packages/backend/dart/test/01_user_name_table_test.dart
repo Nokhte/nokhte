@@ -17,7 +17,7 @@ void main() {
     supabase = SupabaseClientConfigConstants.supabase;
     supabaseAdmin = SupabaseClientConfigConstants.supabaseAdmin;
     await UserSetupConstants.wipeUsernamesTable(supabaseAdmin: supabaseAdmin);
-    final userIdResults = await UserSetupConstants.fetchUIDs();
+    final userIdResults = await UserSetupConstants.getUIDs();
     currentUserUID = userIdResults.first;
     await SignIn.user1(supabase: supabase);
   });
@@ -44,7 +44,7 @@ void main() {
       lastName: UserDataConstants.user1LastName,
     );
     final collaboratorPhraseRes =
-        await CommonUserNamesQueries.fetchCollaboratorPhraseInfo(
+        await CommonUserNamesQueries.getCollaboratorPhraseInfo(
       supabase: supabase,
       userUID: currentUserUID,
     );
