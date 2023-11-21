@@ -1,85 +1,61 @@
 // ignore_for_file: file_names
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte_backend/constants/constants.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:nokhte_backend/edge_functions/edge_functions.dart';
 import 'package:nokhte_backend/tables/existing_collaborations.dart';
+import 'shared/shared.dart';
 
 void main() {
-  late SupabaseClient supabase;
-  late SupabaseClient supabaseAdmin;
-  late String firstUserUID;
-  late String secondUserUID;
-  late CollaboratorPhraseIDs firstUserPhraseIDs;
-  late CollaboratorPhraseIDs secondUserPhraseIDs;
+  late CollaboratorPhraseIDs user1PhraseIDs;
+  late CollaboratorPhraseIDs user2PhraseIDs;
+  late ExistingCollaborationsStream user1Streams;
+  late InitiateCollaboratorSearch user1StartEdgeFunctions;
+  late EndCollaboratorSearch user1EndEdgeFunctions;
+  late InitiateCollaboratorSearch user2EdgeFunctions;
+  final tSetup = CommonCollaborativeTestFunctions();
 
   setUpAll(() async {
-    supabase = SupabaseClientConfigConstants.supabase;
-    supabaseAdmin = SupabaseClientConfigConstants.supabaseAdmin;
-    final userIdResults = await UserSetupConstants.getUIDs();
+    await tSetup.setUp(shouldMakeCollaboration: false);
+    user1StartEdgeFunctions =
+        InitiateCollaboratorSearch(supabase: tSetup.user1Supabase);
+    user1EndEdgeFunctions =
+        EndCollaboratorSearch(supabase: tSetup.user1Supabase);
+    user2EdgeFunctions =
+        InitiateCollaboratorSearch(supabase: tSetup.user2Supabase);
+    user1Streams = ExistingCollaborationsStream(supabase: tSetup.user1Supabase);
     final phraseIdResults = await UserSetupConstants.getCollaboratorPhraseIDs(
-      supabaseAdmin: supabaseAdmin,
+      supabaseAdmin: tSetup.supabaseAdmin,
     );
-    firstUserUID = userIdResults.first;
-    secondUserUID = userIdResults[1];
 
-    firstUserPhraseIDs = phraseIdResults.first;
-    secondUserPhraseIDs = phraseIdResults[1];
+    user1PhraseIDs = phraseIdResults.first;
+    user2PhraseIDs = phraseIdResults[1];
   });
 
   tearDown(() async {
-    await supabaseAdmin.from('existing_collaborations').delete().eq(
-          'collaborator_one',
-          secondUserUID,
-        );
+    await tSetup.tearDownAll();
   });
 
-  test("SCENARIO 1: User1 Enters & Gets Booted Out", () async {
-    await SignIn.user1(supabase: supabase);
-
-    await InitiateCollaboratorSearch.invoke(
-      supabase: supabase,
-      wayfarerUID: firstUserUID,
-      queryPhraseIDs: secondUserPhraseIDs,
-    );
+  test("user should be able to enter the pool", () async {
+    await user1StartEdgeFunctions.invoke(user2PhraseIDs);
     final firstPoolRes =
-        await supabaseAdmin.from('p2p_collaborator_pool').select();
+        await tSetup.supabaseAdmin.from('p2p_collaborator_pool').select();
 
     expect(firstPoolRes.length, 1);
+  });
 
-    await EndCollaboratorSearch.invoke(
-      supabase: supabase,
-      firstUserUID: firstUserUID,
-    );
+  test("user should be able to leave the pool", () async {
+    await user1EndEdgeFunctions.invoke();
 
     final secondPoolRes =
-        await supabaseAdmin.from('p2p_collaborator_pool').select();
+        await tSetup.supabaseAdmin.from('p2p_collaborator_pool').select();
 
     expect(secondPoolRes.length, 0);
   });
 
-  test("SCENARIO 2: User1 Enters, Then User2 Enters", () async {
-    Stream<bool> collaborationForged;
-
-    await SignIn.user1(supabase: supabase);
-    final existingCollaborations = ExistingCollaborationsStream();
-    collaborationForged = existingCollaborations.notifyWhenForged(
-      supabase: supabase,
-      userUID: firstUserUID,
-    );
-
-    await InitiateCollaboratorSearch.invoke(
-      supabase: supabase,
-      wayfarerUID: firstUserUID,
-      queryPhraseIDs: secondUserPhraseIDs,
-    );
-    await InitiateCollaboratorSearch.invoke(
-      supabase: supabase,
-      wayfarerUID: secondUserUID,
-      queryPhraseIDs: firstUserPhraseIDs,
-    );
-    expect(collaborationForged, emits(true));
-    existingCollaborations.cancelStream();
-    expect(existingCollaborations.isListening, false);
+  test("user should be able to make a collaboration", () async {
+    await user1StartEdgeFunctions.invoke(user2PhraseIDs);
+    await user2EdgeFunctions.invoke(user1PhraseIDs);
+    final user1Stream = user1Streams.getCollaboratorSearchStatus();
+    expect(user1Stream, emits(true));
   });
 }
