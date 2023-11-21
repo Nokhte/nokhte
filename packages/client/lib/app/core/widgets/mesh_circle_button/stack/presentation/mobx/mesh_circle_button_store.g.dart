@@ -76,6 +76,17 @@ mixin _$MeshCircleButtonStore on _MeshCircleButtonStoreBase, Store {
       ActionController(name: '_MeshCircleButtonStoreBase', context: context);
 
   @override
+  dynamic toggleIsEnabled() {
+    final _$actionInfo = _$_MeshCircleButtonStoreBaseActionController
+        .startAction(name: '_MeshCircleButtonStoreBase.toggleIsEnabled');
+    try {
+      return super.toggleIsEnabled();
+    } finally {
+      _$_MeshCircleButtonStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setCurrentGlowColor(Color newColor) {
     final _$actionInfo = _$_MeshCircleButtonStoreBaseActionController
         .startAction(name: '_MeshCircleButtonStoreBase.setCurrentGlowColor');

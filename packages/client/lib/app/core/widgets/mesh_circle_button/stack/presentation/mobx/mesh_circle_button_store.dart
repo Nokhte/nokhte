@@ -6,6 +6,7 @@ import 'package:nokhte/app/core/mobx/base_custom_animated_widget_store.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
+
 part 'mesh_circle_button_store.g.dart';
 
 class MeshCircleButtonStore = _MeshCircleButtonStoreBase
@@ -23,6 +24,9 @@ abstract class _MeshCircleButtonStoreBase extends BaseCustomAnimatedWidgetStore
 
   @observable
   bool isEnabled = true;
+
+  @action
+  toggleIsEnabled() => isEnabled = !isEnabled;
 
   @observable
   bool isAnimating = false;
