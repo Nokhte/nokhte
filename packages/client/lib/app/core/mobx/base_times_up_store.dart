@@ -31,7 +31,8 @@ abstract class _BaseTimesUpStoreBase extends Equatable with Store {
   @observable
   bool isFirstTimeStartingMovie = true;
 
-  appStateListener() => reaction((p0) => appState, (p0) async {
+  foregroundAndBackgroundStateListener() =>
+      reaction((p0) => appState, (p0) async {
         switch (p0) {
           case AppLifecycleState.resumed:
             await timer.setOnlineStatus(true);

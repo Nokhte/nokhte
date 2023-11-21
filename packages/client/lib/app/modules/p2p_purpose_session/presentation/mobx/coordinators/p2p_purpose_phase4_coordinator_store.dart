@@ -45,7 +45,7 @@ abstract class _P2PPurposePhase4CoordinatorStoreBase extends BaseTimesUpStore
     fadingText.moveToNextMessage();
     await timer.setupAndStreamListenerActivation(
         const CreateTimerParams(timerLengthInMinutes: 5), initOrPauseTimesUp);
-    appStateListener();
+    foregroundAndBackgroundStateListener();
     fadingText.fadeTheTextIn();
     await soloDoc
         .getSoloDoc(
