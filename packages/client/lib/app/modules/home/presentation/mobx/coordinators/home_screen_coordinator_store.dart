@@ -61,10 +61,8 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
     holdListener();
     await getExistingCollaborationInfo(NoParams());
     Duration fadeInDuration;
-    Future.delayed(Seconds.get(1), () async {
-      await addNameToDatabaseStore(NoParams());
-      await getCollaboratorPhraseStore(NoParams());
-    });
+    await addNameToDatabaseStore(NoParams());
+    await getCollaboratorPhraseStore(NoParams());
 
     getExistingCollaborationInfo.hasACollaboration
         ? {
@@ -78,7 +76,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
             )
           }
         : {
-            fadeInDuration = Seconds.get(5),
+            fadeInDuration = Seconds.get(3),
             fadingTextStateTrackerStore.setMessagesData(
               MessagesData.homeList,
             ),

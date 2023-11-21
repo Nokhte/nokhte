@@ -136,7 +136,7 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
 
   @action
   copyToClipboard() async {
-    await FlutterClipboard.copy(messagesData[2].mainMessage);
+    await FlutterClipboard.copy(messagesData[currentIndex].mainMessage);
     changeCurrrentSubMessage(message: "copied");
   }
 
