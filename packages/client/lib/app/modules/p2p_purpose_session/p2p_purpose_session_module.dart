@@ -15,7 +15,6 @@ import 'package:nokhte/app/core/widgets/mobx.dart';
 import 'package:nokhte/app/core/widgets/module.dart';
 import 'package:nokhte/app/core/widgets/scheduling_delta/stack/stack.dart';
 import 'package:nokhte/app/core/widgets/shared/constants/svg_animation_constants.dart';
-import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_purpose_session/presentation/presentation.dart';
 
@@ -48,7 +47,6 @@ class P2PCollaboratorSessionModule extends Module {
         Bind.singleton<SmartFadingAnimatedTextTrackerStore>(
           (i) => SmartFadingAnimatedTextTrackerStore(
             isInfinite: false,
-            messagesData: MessagesData.p2pPurposeSession,
           ),
         ),
         Bind.factory<FadeInAndChangeColorTextStore>(
