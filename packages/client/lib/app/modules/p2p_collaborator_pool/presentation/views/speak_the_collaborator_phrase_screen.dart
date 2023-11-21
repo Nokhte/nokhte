@@ -6,14 +6,25 @@ import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
 
-class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
-  final SpeakTheCollaboratorPhraseCoordinatorStore coordinatorStore;
+class SpeakTheCollaboratorPhraseScreen extends StatefulWidget {
+  final SpeakTheCollaboratorPhraseCoordinatorStore coordinator;
 
-  SpeakTheCollaboratorPhraseScreen({
+  const SpeakTheCollaboratorPhraseScreen({
     super.key,
-    required this.coordinatorStore,
-  }) {
-    coordinatorStore.screenConstructor();
+    required this.coordinator,
+  });
+
+  @override
+  State<SpeakTheCollaboratorPhraseScreen> createState() =>
+      _SpeakTheCollaboratorPhraseScreenState();
+}
+
+class _SpeakTheCollaboratorPhraseScreenState
+    extends State<SpeakTheCollaboratorPhraseScreen> {
+  @override
+  initState() {
+    super.initState();
+    widget.coordinator.screenConstructor();
   }
 
   @override
@@ -27,23 +38,23 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
         return Scaffold(
           resizeToAvoidBottomInset: false,
           body: Swipe(
-            trackerStore: coordinatorStore.swipe,
+            trackerStore: widget.coordinator.swipe,
             child: Stack(
               children: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   child: SmartBeachWaves(
-                    stateTrackerStore: coordinatorStore.beachWaves,
+                    stateTrackerStore: widget.coordinator.beachWaves,
                   ),
                 ),
                 Observer(builder: (context) {
-                  if (coordinatorStore.isReadyToEnterPool) {
+                  if (widget.coordinator.isReadyToEnterPool) {
                     Modular.to.navigate('/p2p_collaborator_pool/pool/');
                   }
                   return Center(
                       child: SmartFadingAnimatedText(
-                    stateTrackerStore: coordinatorStore.fadingTextStore,
+                    stateTrackerStore: widget.coordinator.fadingTextStore,
                   ));
                 }),
                 Column(
@@ -56,15 +67,15 @@ class SpeakTheCollaboratorPhraseScreen extends StatelessWidget {
                         fontSize: 20.0,
                         color: Colors.white,
                       ),
-                      trackerStore: coordinatorStore.explanationText,
+                      trackerStore: widget.coordinator.explanationText,
                     ),
                     const Padding(
                       padding: EdgeInsets.only(bottom: 15),
                     ),
                     Hold(
-                      trackerStore: coordinatorStore.hold,
+                      trackerStore: widget.coordinator.hold,
                       child: MeshCircleButton(
-                        trackerStore: coordinatorStore.meshCircleStore,
+                        trackerStore: widget.coordinator.meshCircleStore,
                         size: size,
                       ),
                     ),

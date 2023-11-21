@@ -137,14 +137,13 @@ class P2PCollaboratorPoolModule extends Module {
             meshCircleButtonStore: i<MeshCircleButtonStore>(),
             fadeInAndChangeColorTextStore:
                 Modular.get<FadeInAndChangeColorTextStore>(),
-            smartFadingAnimatedTextStore:
-                Modular.get<SmartFadingAnimatedTextTrackerStore>(),
+            fadingText: Modular.get<SmartFadingAnimatedTextTrackerStore>(),
             beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
+            explanationText: i<ExplanationTextStore>(),
           ),
         ),
         Bind.singleton<SpeakTheCollaboratorPhraseCoordinatorStore>(
           (i) => SpeakTheCollaboratorPhraseCoordinatorStore(
-            explanationText: i<ExplanationTextStore>(),
             hold: Modular.get<HoldDetector>(),
             swipe: Modular.get<SwipeDetector>(),
             enterCollaboratorPoolStore: i<EnterCollaboratorPoolStore>(),
@@ -174,7 +173,7 @@ class P2PCollaboratorPoolModule extends Module {
         ChildRoute(
           "/",
           child: (context, args) => SpeakTheCollaboratorPhraseScreen(
-            coordinatorStore:
+            coordinator:
                 Modular.get<SpeakTheCollaboratorPhraseCoordinatorStore>(),
           ),
           transition: TransitionType.noTransition,
@@ -182,8 +181,7 @@ class P2PCollaboratorPoolModule extends Module {
         ChildRoute(
           "/pool/",
           child: (context, args) => CollaboratorPoolScreen(
-            coordinatorStore:
-                Modular.get<CollaboratorPoolScreenCoordinatorStore>(),
+            coordinator: Modular.get<CollaboratorPoolScreenCoordinatorStore>(),
           ),
           transition: TransitionType.noTransition,
         )

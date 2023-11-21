@@ -3,13 +3,13 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/presentation/presentation.dart';
 
 class CollaboratorPoolScreen extends StatelessWidget {
-  final CollaboratorPoolScreenCoordinatorStore coordinatorStore;
+  final CollaboratorPoolScreenCoordinatorStore coordinator;
 
   CollaboratorPoolScreen({
     super.key,
-    required this.coordinatorStore,
+    required this.coordinator,
   }) {
-    coordinatorStore.screenConstructorCallback();
+    coordinator.screenConstructorCallback();
   }
 
   @override
@@ -18,19 +18,19 @@ class CollaboratorPoolScreen extends StatelessWidget {
       builder: ((context, constraints) => Scaffold(
           resizeToAvoidBottomInset: false,
           body: Swipe(
-            trackerStore: coordinatorStore.swipe,
+            trackerStore: coordinator.swipe,
             child: Stack(
               children: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   child: SmartBeachWaves(
-                    stateTrackerStore: coordinatorStore.beachWavesStore,
+                    stateTrackerStore: coordinator.beachWavesStore,
                   ),
                 ),
                 Center(
                   child: FadeInAndChangeColorText(
-                    stateStore: coordinatorStore.fadeInAndColorTextStore,
+                    stateStore: coordinator.fadeInAndColorTextStore,
                   ),
                 ),
               ],

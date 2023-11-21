@@ -24,7 +24,6 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
     with Store {
   final WidgetCoordinatorStore widgetStore;
   final LocalSpeechToTextCoordinatorStore localSpeechToText;
-  final ExplanationTextStore explanationText;
   final SwipeDetector swipe;
   final HoldDetector hold;
   final OnSpeechResultStore onSpeechResultStore;
@@ -33,19 +32,20 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   late BeachWavesTrackerStore beachWaves;
   late SmartFadingAnimatedTextTrackerStore fadingTextStore;
   late MeshCircleButtonStore meshCircleStore;
+  late ExplanationTextStore explanationText;
 
   _SpeakTheCollaboratorPhraseCoordinatorStoreBase({
     required this.swipe,
     required this.hold,
     required this.widgetStore,
-    required this.explanationText,
     required this.localSpeechToText,
     required this.onSpeechResultStore,
     required this.validateQueryStore,
     required this.enterCollaboratorPoolStore,
   })  : beachWaves = widgetStore.beachWavesStore,
-        fadingTextStore = widgetStore.smartFadingAnimatedTextStore,
-        meshCircleStore = widgetStore.meshCircleButtonStore;
+        fadingTextStore = widgetStore.fadingText,
+        meshCircleStore = widgetStore.meshCircleButtonStore,
+        explanationText = widgetStore.explanationText;
 
   errorVibration() => Future.delayed(
         Seconds.get(3),
@@ -55,17 +55,10 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
 
   @action
   screenConstructor() async {
-    fadingTextStore.startRotatingText(Seconds.get(0));
-    explanationText.setText("hold to talk");
-    explanationText.widgetConstructor();
-    meshCircleStore.widgetConstructor();
-    beachWaves.initiateSuspendedAtSea();
+    widgetStore.widgetConstructor();
     await localSpeechToText.initLeopardStore(NoParams());
     if (await Permission.microphone.isDenied) {
       await Permission.microphone.request();
-    }
-    if (!fadingTextStore.showText && !fadingTextStore.firstTime) {
-      fadingTextStore.resetToDefault();
     }
     gestureListener();
     queryValidationLengthListener();

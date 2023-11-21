@@ -13,17 +13,35 @@ class WidgetCoordinatorStore = _WidgetCoordinatorStoreBase
 abstract class _WidgetCoordinatorStoreBase extends Equatable with Store {
   final MeshCircleButtonStore meshCircleButtonStore;
   final FadeInAndChangeColorTextStore fadeInAndChangeColorTextStore;
-  final SmartFadingAnimatedTextTrackerStore smartFadingAnimatedTextStore;
+  final SmartFadingAnimatedTextTrackerStore fadingText;
   final BeachWavesTrackerStore beachWavesStore;
+  final ExplanationTextStore explanationText;
 
   _WidgetCoordinatorStoreBase({
     required this.meshCircleButtonStore,
-    required this.smartFadingAnimatedTextStore,
+    required this.fadingText,
     required this.beachWavesStore,
     required this.fadeInAndChangeColorTextStore,
-  }) {
-    smartFadingAnimatedTextStore
-        .setMessagesData(MessagesData.speakTheCollaboratorPhraseList);
+    required this.explanationText,
+  });
+
+  @action
+  widgetConstructor() {
+    fadingText.setMessagesData(MessagesData.speakTheCollaboratorPhraseList);
+    fadingText.startRotatingText(Seconds.get(0));
+    explanationText.setText("hold to talk");
+    explanationText.widgetConstructor();
+    meshCircleButtonStore.widgetConstructor();
+    beachWavesStore.initiateSuspendedAtSea();
+    if (!fadingText.showText && !fadingText.firstTime) {
+      fadingText.resetToDefault();
+    }
+  }
+
+  fadeOutExplanationTextIfNecessary() {
+    if (explanationText.showWidget) {
+      explanationText.toggleWidgetVisibility();
+    }
   }
 
   @action
@@ -31,7 +49,8 @@ abstract class _WidgetCoordinatorStoreBase extends Equatable with Store {
     if (beachWavesStore.movieStatus != MovieStatus.inProgress &&
         beachWavesStore.movieMode == BeachWaveMovieModes.suspendedAtSea) {
       beachWavesStore.initiateBackToShore();
-      smartFadingAnimatedTextStore.fadeTheTextOut();
+      fadeOutExplanationTextIfNecessary();
+      fadingText.fadeTheTextOut();
       meshCircleButtonStore.toggleWidgetVisibility();
     }
   }
@@ -41,7 +60,7 @@ abstract class _WidgetCoordinatorStoreBase extends Equatable with Store {
     if (beachWavesStore.movieStatus != MovieStatus.inProgress &&
         beachWavesStore.movieMode == BeachWaveMovieModes.suspendedAtSea) {
       beachWavesStore.initiateToTheDepths();
-      smartFadingAnimatedTextStore.fadeTheTextOut();
+      fadingText.fadeTheTextOut();
       meshCircleButtonStore.toggleWidgetVisibility();
     }
   }

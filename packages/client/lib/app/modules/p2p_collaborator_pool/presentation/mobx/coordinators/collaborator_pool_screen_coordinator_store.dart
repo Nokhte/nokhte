@@ -35,6 +35,8 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
 
   beachWavesMovieStatusListener() =>
       reaction((p0) => beachWavesStore.movieStatus, (p0) {
+        print(
+            "what's happening here?? ${beachWavesStore.movieStatus} ${beachWavesStore.movieMode}");
         if (beachWavesStore.movieStatus == MovieStatus.finished &&
             beachWavesStore.movieMode == BeachWaveMovieModes.timesUp) {
           beachWavesStore.initiateBackToOceanDive();

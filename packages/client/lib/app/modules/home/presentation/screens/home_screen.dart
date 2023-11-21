@@ -4,13 +4,22 @@ import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/home_screen_coordinator_store.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   final HomeScreenCoordinatorStore coordinator;
-  HomeScreen({
+  const HomeScreen({
     super.key,
     required this.coordinator,
-  }) {
-    coordinator.homeScreenConstructorCallback();
+  });
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  initState() {
+    super.initState();
+    widget.coordinator.homeScreenConstructorCallback();
   }
 
   @override
@@ -25,22 +34,22 @@ class HomeScreen extends StatelessWidget {
           return Scaffold(
             resizeToAvoidBottomInset: false,
             body: Hold(
-              trackerStore: coordinator.hold,
+              trackerStore: widget.coordinator.hold,
               child: Swipe(
-                trackerStore: coordinator.swipe,
+                trackerStore: widget.coordinator.swipe,
                 child: Stack(
                   children: [
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height,
                       child: SmartBeachWaves(
-                        stateTrackerStore: coordinator.beachWaves,
+                        stateTrackerStore: widget.coordinator.beachWaves,
                       ),
                     ),
                     Center(
                       child: SmartFadingAnimatedText(
                         stateTrackerStore:
-                            coordinator.fadingTextStateTrackerStore,
+                            widget.coordinator.fadingTextStateTrackerStore,
                       ),
                     ),
                     Column(
@@ -53,7 +62,8 @@ class HomeScreen extends StatelessWidget {
                           children: [
                             GesturePill(
                               size: size,
-                              stateTrackerStore: coordinator.gesturePillStore,
+                              stateTrackerStore:
+                                  widget.coordinator.gesturePillStore,
                             ),
                           ],
                         ),
