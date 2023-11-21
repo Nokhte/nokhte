@@ -21,11 +21,17 @@ class P2PCollaboratorPoolRemoteSourceImpl
   final SupabaseClient supabase;
   final String currentUserUID;
   final ExistingCollaborationsStream existingCollaborationsStream;
+  final InitiateCollaboratorSearch initiateCollaboratorSearch;
+  final EndCollaboratorSearch endCollaboratorSearch;
 
   P2PCollaboratorPoolRemoteSourceImpl({
     required this.supabase,
-    required this.existingCollaborationsStream,
-  }) : currentUserUID = supabase.auth.currentUser?.id ?? '';
+  })  : initiateCollaboratorSearch =
+            InitiateCollaboratorSearch(supabase: supabase),
+        endCollaboratorSearch = EndCollaboratorSearch(supabase: supabase),
+        existingCollaborationsStream =
+            ExistingCollaborationsStream(supabase: supabase),
+        currentUserUID = supabase.auth.currentUser?.id ?? '';
 
   @override
   Future<List> validateQuery({required String query}) async {
@@ -40,34 +46,22 @@ class P2PCollaboratorPoolRemoteSourceImpl
   }
 
   @override
-  enterThePool({required CollaboratorPhraseIDs phraseIDs}) async {
-    return await InitiateCollaboratorSearch.invoke(
-      supabase: supabase,
-      wayfarerUID: currentUserUID,
-      queryPhraseIDs: phraseIDs,
-    );
-  }
+  enterThePool({required CollaboratorPhraseIDs phraseIDs}) async =>
+      await initiateCollaboratorSearch.invoke(
+        phraseIDs,
+      );
 
   @override
-  Future<FunctionResponse> exitThePool() async {
-    return await EndCollaboratorSearch.invoke(
-      supabase: supabase,
-      firstUserUID: currentUserUID,
-    );
-  }
+  Future<FunctionResponse> exitThePool() async =>
+      await endCollaboratorSearch.invoke();
 
   @override
-  Stream<bool> getCollaboratorSearchStatus() {
-    return existingCollaborationsStream.notifyWhenForged(
-      supabase: supabase,
-      userUID: currentUserUID,
-    );
-  }
+  Stream<bool> getCollaboratorSearchStatus() =>
+      existingCollaborationsStream.getCollaboratorSearchStatus();
 
   @override
   bool cancelStream() {
-    existingCollaborationsStream.cancelStream();
-
-    return existingCollaborationsStream.isListening;
+    existingCollaborationsStream.cancelGetCollaboratorSearchStream();
+    return existingCollaborationsStream.collaboratorSearchListeningStatus;
   }
 }
