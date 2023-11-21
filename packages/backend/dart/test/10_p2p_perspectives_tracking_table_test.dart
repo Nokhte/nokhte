@@ -29,7 +29,7 @@ void main() {
   tearDownAll(() async {
     adminQueries.currentUserUID = tSetup.firstUserUID;
     await adminQueries.deletePerspectivesRow();
-    tSetup.tearDownAll();
+    await tSetup.tearDownAll();
   });
   test(
       "collaborators should be able to commit multiple perspectives & retain perspectives history",
