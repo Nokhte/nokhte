@@ -17,6 +17,7 @@ void main() {
   late ExistingCollaborationsQueries existingCollaborationsQueries;
   late P2PPerspectivesTrackingQueries perspectivesQueries;
   late IndividualSessionsQueries individualSessionQueries;
+  late InitiateCollaboratorSearch npcInitiateCollaboratorSearch;
   late CollectiveSessionQueries collectiveSessionQueries;
   late PerspectivesAudioStorageQueries perspectivesAudioStorageQueries;
   final supabase = SupabaseClientConfigConstants.supabase;
@@ -32,6 +33,8 @@ void main() {
 
   setUpAll(() async {
     await SignIn.user2(supabase: supabase);
+    npcInitiateCollaboratorSearch =
+        InitiateCollaboratorSearch(supabase: supabase);
     existingCollaborationsQueries =
         ExistingCollaborationsQueries(supabase: supabaseAdmin);
     perspectivesQueries =
@@ -270,36 +273,15 @@ void main() {
   });
 
   test("put npc in the pool searching for user ", () async {
-    final userIdResults = await UserSetupConstants.getUIDs();
-    final npcUserUID = userIdResults.first;
     final realPersonUID = await returnNonNPCUID();
     final realPersonPhraseIDRes = await supabaseAdmin
         .from('collaborator_phrases')
         .select()
         .eq('uid', realPersonUID);
-    await InitiateCollaboratorSearch.invoke(
-      supabase: supabaseAdmin,
-      wayfarerUID: npcUserUID,
-      queryPhraseIDs: CollaboratorPhraseIDs(
+    await npcInitiateCollaboratorSearch.invoke(
+      CollaboratorPhraseIDs(
         adjectiveID: realPersonPhraseIDRes.first["adjective_id"],
         nounID: realPersonPhraseIDRes.first["noun_id"],
-      ),
-    );
-  });
-  test("user 1 in the pool searching for npc ", () async {
-    final userIdResults = await UserSetupConstants.getUIDs();
-    final npcUserUID = userIdResults[1];
-    final realPersonUID = await returnNonNPCUID();
-    final npcPhraseRes = await supabaseAdmin
-        .from('collaborator_phrases')
-        .select()
-        .eq('uid', npcUserUID);
-    await InitiateCollaboratorSearch.invoke(
-      supabase: supabaseAdmin,
-      wayfarerUID: realPersonUID,
-      queryPhraseIDs: CollaboratorPhraseIDs(
-        adjectiveID: npcPhraseRes.first["adjective_id"],
-        nounID: npcPhraseRes.first["noun_id"],
       ),
     );
   });
