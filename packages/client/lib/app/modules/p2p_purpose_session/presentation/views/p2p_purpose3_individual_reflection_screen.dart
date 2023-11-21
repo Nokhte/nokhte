@@ -35,7 +35,6 @@ class P2PPurpose3IndividualRefletionScreen extends StatelessWidget
                 ),
                 Center(
                   child: SmartFadingAnimatedText(
-                    initialFadeInDelay: Seconds.get(0),
                     stateTrackerStore: coordinator.fadingText,
                   ),
                 ),

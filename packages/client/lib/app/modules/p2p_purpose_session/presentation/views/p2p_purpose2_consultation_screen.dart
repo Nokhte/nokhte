@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
-import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 
@@ -45,7 +44,6 @@ class P2PPurpose2ConsultationScreen extends StatelessWidget
                 ),
                 Center(
                   child: SmartFadingAnimatedText(
-                    initialFadeInDelay: Seconds.get(0),
                     stateTrackerStore: coordinator.fadingText,
                   ),
                 ),
