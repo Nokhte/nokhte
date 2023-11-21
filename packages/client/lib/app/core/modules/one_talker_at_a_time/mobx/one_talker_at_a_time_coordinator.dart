@@ -3,6 +3,8 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/modules/one_talker_at_a_time/domain/domain.dart';
 import 'package:nokhte/app/core/modules/one_talker_at_a_time/mobx/main/main.dart';
 // * Mobx Codegen Inclusion
 part 'one_talker_at_a_time_coordinator.g.dart';
@@ -18,6 +20,26 @@ abstract class _OneTalkerAtATimeCoordinatorBase extends Equatable with Store {
     required this.checkIfCollaboratorIsTalking,
     required this.updateWhoIsTalking,
   });
+
+  @observable
+  bool collaboratorIsTalking = false;
+
+  @action
+  setWhoIsTalking(bool newBool) => collaboratorIsTalking = newBool;
+
+  @action
+  startListeningToCheckIfCollaboratorIsTalking() async {
+    await checkIfCollaboratorIsTalking(NoParams());
+    checkIfCollaboratorIsTalking.collaboratorIsTalking
+        .listen((value) => setWhoIsTalking(value));
+  }
+
+  @action
+  markUserAsTheTalker() =>
+      updateWhoIsTalking(UpdateWhoIsTalkingParams.setUserAsTalker);
+
+  @action
+  clearOutTalkerRow() => updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
 
   @override
   List<Object> get props => [];
