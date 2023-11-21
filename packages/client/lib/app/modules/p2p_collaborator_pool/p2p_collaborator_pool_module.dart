@@ -5,7 +5,6 @@ import 'package:nokhte/app/core/modules/local_speech_to_text/mobx/mobx.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/widgets/module.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/presentation/presentation.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/domain.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/data/data.dart';
@@ -114,7 +113,7 @@ class P2PCollaboratorPoolModule extends Module {
         Bind.factory<SmartFadingAnimatedTextTrackerStore>(
           (i) => SmartFadingAnimatedTextTrackerStore(
             isInfinite: false,
-            messagesData: MessagesData.speakTheCollaboratorPhraseList,
+            // messagesDataParam: MessagesData.speakTheCollaboratorPhraseList,
           ),
         ),
         Bind.singleton<ExplanationTextStore>(
