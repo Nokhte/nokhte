@@ -5,6 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/one_talker_at_a_time/mobx/one_talker_at_a_time_coordinator.dart';
 import 'package:nokhte/app/core/modules/timer/domain/logic/logic.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -17,6 +18,7 @@ class P2PPurposePhase2CoordinatorStore = _P2PPurposePhase2CoordinatorStoreBase
 
 abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
     with Store {
+  final OneTalkerAtATimeCoordinator oneTalkerAtATime;
   final ExplanationTextStore explanationText;
   final AgoraCallbacksStore agoraCallbacksStore;
   final VoiceCallActionsStore voiceCallActionsStore;
@@ -25,6 +27,20 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
   final MeshCircleButtonStore meshCircleStore;
   final SwipeDetector swipe;
   final HoldDetector hold;
+
+  _P2PPurposePhase2CoordinatorStoreBase({
+    required super.timer,
+    required this.explanationText,
+    required this.oneTalkerAtATime,
+    required this.swipe,
+    required this.hold,
+    required this.agoraCallbacksStore,
+    required this.questionCheckerStore,
+    required this.voiceCallActionsStore,
+    required super.beachWaves,
+    required this.fadingText,
+    required this.meshCircleStore,
+  }) : super(productionTimerLength: const Duration(minutes: 5));
 
   @observable
   bool isFirstTimeTalking = true;
@@ -56,19 +72,6 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
           fadingText.togglePause();
         }));
   }
-
-  _P2PPurposePhase2CoordinatorStoreBase({
-    required super.timer,
-    required this.explanationText,
-    required this.swipe,
-    required this.hold,
-    required this.agoraCallbacksStore,
-    required this.questionCheckerStore,
-    required this.voiceCallActionsStore,
-    required super.beachWaves,
-    required this.fadingText,
-    required this.meshCircleStore,
-  }) : super(productionTimerLength: const Duration(minutes: 5));
 
   beachWavesMovieModeWatcher() => reaction((p0) => beachWaves.movieMode, (p0) {
         if (beachWaves.movieMode == BeachWaveMovieModes.backToTheDepthsSetup) {
