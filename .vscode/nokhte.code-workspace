@@ -31,7 +31,7 @@
         // },
         {
             "name": "🟦 working module",
-            "path": "../packages/client/lib/app/modules/p2p_collaborator_pool"
+            "path": "../packages/client/lib/app/core/modules/one_talker_at_a_time"
             
         },
         {
@@ -74,7 +74,7 @@
                 "**/_deprecated/**": true,
                 "**/canvas_widget_utils/**": true,
                 "**/core/constants/**": true,
-                "**/core/entities/**": true,
+                // "**/core/entities/**": true,
                 "**/core/error/**": true,
                 "**/core/guards/**": true,
                 "**/core/interfaces/**": true,
