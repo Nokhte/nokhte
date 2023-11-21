@@ -17,7 +17,7 @@ void main() {
     expect(homeModuleStateTrackerStore.movieStatus, MovieStatus.idle);
     expect(homeModuleStateTrackerStore.lastWaterValue, -10.0);
     expect(homeModuleStateTrackerStore.movieMode, BeachWaveMovieModes.onShore);
-    expect(homeModuleStateTrackerStore.control, Control.mirror);
+    expect(homeModuleStateTrackerStore.control, Control.stop);
   });
 
   test(
@@ -39,6 +39,7 @@ void main() {
     expect(p2pCollaboratorPoolStateTrackerStore.movieMode,
         BeachWaveMovieModes.backToShore);
     homeModuleStateTrackerStore = BeachWavesTrackerStore();
+    homeModuleStateTrackerStore.setControl(Control.mirror);
     expect(homeModuleStateTrackerStore.movieStatus, MovieStatus.idle);
     expect(homeModuleStateTrackerStore.lastWaterValue, -10.0);
     expect(homeModuleStateTrackerStore.movieMode, BeachWaveMovieModes.onShore);
