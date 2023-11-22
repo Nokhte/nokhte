@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:haptic_feedback/haptic_feedback.dart';
 import 'package:mobx/mobx.dart';
-import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -19,24 +19,25 @@ part 'home_screen_coordinator_store.g.dart';
 class HomeScreenCoordinatorStore = _HomeScreenCoordinatorStoreBase
     with _$HomeScreenCoordinatorStore;
 
-abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
+abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
+    with Store {
   final PortalAPI portalAPI;
   final SwipeDetector swipe;
   final HoldDetector hold;
   final GetExistingCollaborationsInfoStore getExistingCollaborationInfo;
   final GesturePillStore gesturePillStore;
-  final BeachWavesTrackerStore beachWaves;
+  // final BeachWavesTrackerStore beachWaves;
   final AddNameToDatabaseStore addNameToDatabaseStore;
   final SmartFadingAnimatedTextTrackerStore fadingTextStateTrackerStore;
   final GetCollaboratorPhraseStore getCollaboratorPhraseStore;
 
   _HomeScreenCoordinatorStoreBase({
+    required super.beachWaves,
     required this.getExistingCollaborationInfo,
     required this.swipe,
     required this.hold,
     required this.portalAPI,
     required this.gesturePillStore,
-    required this.beachWaves,
     required this.addNameToDatabaseStore,
     required this.fadingTextStateTrackerStore,
     required this.getCollaboratorPhraseStore,
@@ -109,28 +110,30 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
 
   @action
   beachWavesListener() => reaction((p0) => beachWaves.movieStatus, (p0) {
-        print(
-            "did this just not run??? $p0 ${beachWaves.movieMode} $thePlaceTheyAreGoing");
-        if (beachWaves.movieStatus == MovieStatus.finished) {
+        if (beachWaves.movieStatus == MovieStatus.inProgress) {
           switch (thePlaceTheyAreGoing) {
             case PlacesYouCanGo.newCollaboration:
-              toggleIsNavigating();
-              Modular.to.navigate('/p2p_collaborator_pool/');
+              delayedNavigation(
+                () => Modular.to.navigate('/p2p_collaborator_pool/'),
+              );
             case PlacesYouCanGo.collectiveSession:
-              Modular.to.navigate('/collective_session/');
-              toggleIsNavigating();
+              delayedNavigation(
+                () => Modular.to.navigate('/collective_session/'),
+              );
             case PlacesYouCanGo.individualSession:
+              delayedNavigation(
+                () => Modular.to.navigate('/individual_session/'),
+              );
               Modular.to.navigate('/individual_session/');
-              toggleIsNavigating();
             case PlacesYouCanGo.perspectivesSession:
-              Modular.to.navigate('/p2p_perspective_session/');
-              toggleIsNavigating();
+              delayedNavigation(
+                () => Modular.to.navigate('/p2p_perspective_session/'),
+              );
             default:
               break;
           }
         }
       });
-
   @action
   gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
