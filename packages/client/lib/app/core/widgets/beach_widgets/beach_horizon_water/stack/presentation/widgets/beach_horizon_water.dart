@@ -22,7 +22,7 @@ class BeachHorizonWater extends StatelessWidget {
         tween: stateTrackerStore.movie,
         duration: stateTrackerStore.movie.duration,
         control: stateTrackerStore.control,
-        onStarted: () => stateTrackerStore.startAndResetStopWatch(),
+        // onStarted: () => stateTrackerStore.startAndResetStopWatch(),
         // onCompleted: () => stateTrackerStore.onAnimationCompleted(),
         builder: (context, value, child) {
           final rectHeight = size.height - value.get('water value');

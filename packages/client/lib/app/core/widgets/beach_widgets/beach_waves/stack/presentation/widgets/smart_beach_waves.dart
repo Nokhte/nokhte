@@ -23,7 +23,7 @@ class SmartBeachWaves extends StatelessWidget {
           tween: stateTrackerStore.movie,
           duration: stateTrackerStore.movie.duration,
           control: stateTrackerStore.control,
-          onStarted: () => stateTrackerStore.startAndResetStopWatch(),
+          // onStarted: () => stateTrackerStore.startAndResetStopWatch(),
           builder: (context, value, child) {
             final currentAnimationValues =
                 GetCurrentWaterAnimation.values(value);

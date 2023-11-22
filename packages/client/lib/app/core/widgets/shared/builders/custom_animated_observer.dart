@@ -28,7 +28,7 @@ class CustomAnimatedObserver extends StatelessWidget {
           tween: store.movie,
           duration: store.movie.duration,
           control: store.control,
-          onStarted: () => store.startAndResetStopWatch(),
+          // onStarted: () => store.startAndResetStopWatch(),
           builder: (context, value, child_) {
             builderBodyCallback(value);
             return child;
