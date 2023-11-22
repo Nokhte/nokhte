@@ -32,6 +32,7 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
     required this.fadingTextStore,
     required this.fadeInAndColorTextStore,
   });
+  // so click a bunch to see where it comes from
 
   beachWavesMovieStatusListener() =>
       reaction((p0) => beachWavesStore.movieStatus, (p0) {
@@ -54,9 +55,21 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
   searchStatusListener() =>
       reaction((p0) => getCollaboratorSearchStatusStore.searchStatus, (p0) {
         p0.listen((value) {
+          final Stopwatch stopwatch = Stopwatch();
+          stopwatch.start();
           if (value == true) {
-            beachWavesStore.teeUpBackToTheDepths();
-            fadeInAndColorTextStore.teeUpFadeOut();
+            if (stopwatch.elapsedMilliseconds < 1000) {
+              Future.delayed(Seconds.get(1), () {
+                beachWavesStore.teeUpBackToTheDepths();
+                fadeInAndColorTextStore.teeUpFadeOut();
+              });
+            } else {
+              beachWavesStore.teeUpBackToTheDepths();
+              fadeInAndColorTextStore.teeUpFadeOut();
+              // ship this in the morning and see if this fixes the issue
+              // also click around alot to see how we can counter act the problem
+              // of the transition not happening sometimes
+            }
           }
         });
       });
