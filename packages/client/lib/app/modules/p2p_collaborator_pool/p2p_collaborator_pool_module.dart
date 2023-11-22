@@ -156,7 +156,7 @@ class P2PCollaboratorPoolModule extends Module {
         Bind.singleton<CollaboratorPoolScreenCoordinatorStore>(
           (i) => CollaboratorPoolScreenCoordinatorStore(
             exitCollaboratorPoolStore: i<ExitCollaboratorPoolStore>(),
-            beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
+            beachWaves: Modular.get<BeachWavesTrackerStore>(),
             fadeInAndColorTextStore:
                 Modular.get<FadeInAndChangeColorTextStore>(),
             getCollaboratorSearchStatusStore:
