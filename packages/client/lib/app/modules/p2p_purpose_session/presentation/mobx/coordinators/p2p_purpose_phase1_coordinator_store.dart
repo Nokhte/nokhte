@@ -4,8 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
@@ -17,7 +17,7 @@ part 'p2p_purpose_phase1_coordinator_store.g.dart';
 class P2PPurposePhase1CoordinatorStore = _P2PPurposePhase1CoordinatorStoreBase
     with _$P2PPurposePhase1CoordinatorStore;
 
-abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
+abstract class _P2PPurposePhase1CoordinatorStoreBase extends BaseCoordinator
     with Store {
   final InstantiateAgoraSdkStore instantiateAgoraSdkStore;
   final GesturePillStore gesturePillStore;
@@ -26,8 +26,6 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
   final GetChannelIdStore getChannelIdStore;
   final VoiceCallActionsStore voiceCallActionsStore;
   final SwipeDetector swipe;
-
-  final BeachWavesTrackerStore beachWaves;
   final SmartFadingAnimatedTextTrackerStore fadingText;
 
   _P2PPurposePhase1CoordinatorStoreBase({
@@ -36,7 +34,7 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
     required this.getAgoraTokenStore,
     required this.getChannelIdStore,
     required this.voiceCallActionsStore,
-    required this.beachWaves,
+    required super.beachWaves,
     required this.fadingText,
     required this.fadeInColorText,
     required this.gesturePillStore,
