@@ -68,12 +68,16 @@ abstract class _BaseCustomAnimatedWidgetStoreBase extends Equatable with Store {
       });
 
   stopwatchListener() => reaction((p0) => stopwatchMillseconds, (p0) {
-        if ((movie.duration.inMilliseconds - int.parse(p0)) < 1000) {}
-        if (p0 == movie.duration.inMilliseconds.toString()) {
-          movieStatus = MovieStatus.finished;
+        if ((movie.duration.inMilliseconds - int.parse(p0)) < 1000) {
+          if (p0 == movie.duration.inMilliseconds.toString()) {
+            movieStatus = MovieStatus.finished;
+            print(
+                "milli $p0 vs ${movie.duration.inMilliseconds} and $movieStatus");
+          }
         } else if (int.parse(p0) > movie.duration.inMilliseconds) {
           localStopwatch.stop();
           localStopwatch.reset();
+          print("new movie reset it all");
         }
       });
 

@@ -90,8 +90,7 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends Equatable
     gesturePillStore.setPillAnimationControl(Control.playFromStart);
     fadingText.fadeTheTextOut();
     Future.delayed(Seconds.get(3), () {
-      // Modular.to.navigate('/p2p_purpose_session/phase-2/');
-      Modular.to.navigate('/phase-2/');
+      Modular.to.navigate('/p2p_purpose_session/phase-2/');
     });
   }
 

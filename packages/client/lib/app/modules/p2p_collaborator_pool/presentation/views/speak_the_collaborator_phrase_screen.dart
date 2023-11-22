@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart' hide AnimationStatus;
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -48,15 +46,11 @@ class _SpeakTheCollaboratorPhraseScreenState
                     stateTrackerStore: widget.coordinator.beachWaves,
                   ),
                 ),
-                Observer(builder: (context) {
-                  if (widget.coordinator.isReadyToEnterPool) {
-                    Modular.to.navigate('/p2p_collaborator_pool/pool/');
-                  }
-                  return Center(
-                      child: SmartFadingAnimatedText(
+                Center(
+                  child: SmartFadingAnimatedText(
                     stateTrackerStore: widget.coordinator.fadingTextStore,
-                  ));
-                }),
+                  ),
+                ),
                 Column(
                   children: [
                     Expanded(

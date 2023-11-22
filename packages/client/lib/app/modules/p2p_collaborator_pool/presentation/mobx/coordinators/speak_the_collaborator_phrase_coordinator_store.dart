@@ -166,9 +166,9 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
 
   @action
   audioButtonHoldStartCallback() async {
-    validateQueryStore.resetCheckerFields();
+    await validateQueryStore.resetCheckerFields();
     meshCircleStore.toggleColorAnimation();
-    localSpeechToText.startRecordingStore(NoParams());
+    await localSpeechToText.startRecordingStore(NoParams());
   }
 
   @action

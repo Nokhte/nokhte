@@ -27,12 +27,6 @@ abstract class _BeachWavesTrackerStoreBase extends BaseCustomAnimatedWidgetStore
   @observable
   BeachWaveMovieModes movieMode = BeachWaveMovieModes.onShore;
 
-  int oceanDiveCount = 0;
-
-  int backToTheDepthsCount = 0;
-
-  int timesUpCount = 0;
-
   @action
   teeUpOceanDive() {
     if (movieMode == BeachWaveMovieModes.onShore) {
@@ -133,6 +127,7 @@ abstract class _BeachWavesTrackerStoreBase extends BaseCustomAnimatedWidgetStore
   teeUpBackToTheDepthsValues({
     required List<Color> colorGradientsList,
   }) {
+    control = Control.playFromStart;
     pivotColorGradients = colorGradientsList;
     initiateBackToTheDepths();
   }

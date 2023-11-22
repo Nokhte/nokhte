@@ -38,6 +38,7 @@ abstract class _WidgetCoordinatorStoreBase extends Equatable with Store {
     }
   }
 
+  @action
   fadeOutExplanationTextIfNecessary() {
     if (explanationText.showWidget) {
       explanationText.toggleWidgetVisibility();

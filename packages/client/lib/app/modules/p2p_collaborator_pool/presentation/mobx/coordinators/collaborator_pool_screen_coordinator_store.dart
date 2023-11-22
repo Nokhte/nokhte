@@ -30,6 +30,7 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
   });
   // so click a bunch to see where it comes from
 
+  @action
   beachWavesMovieStatusListener() =>
       reaction((p0) => beachWavesStore.movieStatus, (p0) {
         print(
@@ -44,28 +45,31 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
           Modular.to.navigate('/p2p_collaborator_pool/');
         } else if (beachWavesStore.movieStatus == MovieStatus.finished &&
             beachWavesStore.movieMode == BeachWaveMovieModes.backToTheDepths) {
+          print("did the nav to purpose session work??");
           Modular.to.navigate('/p2p_purpose_session/');
         }
       });
 
+  @action
   searchStatusListener() =>
       reaction((p0) => getCollaboratorSearchStatusStore.searchStatus, (p0) {
         p0.listen((value) {
           final Stopwatch stopwatch = Stopwatch();
           stopwatch.start();
           if (value == true) {
-            if (stopwatch.elapsedMilliseconds < 1000) {
-              Future.delayed(Seconds.get(1), () {
-                beachWavesStore.teeUpBackToTheDepths();
-                fadeInAndColorTextStore.teeUpFadeOut();
-              });
-            } else {
+            print("did this piece run??");
+            // if (stopwatch.elapsedMilliseconds < 1000) {
+            Future.delayed(Seconds.get(2), () {
               beachWavesStore.teeUpBackToTheDepths();
               fadeInAndColorTextStore.teeUpFadeOut();
-              // ship this in the morning and see if this fixes the issue
-              // also click around alot to see how we can counter act the problem
-              // of the transition not happening sometimes
-            }
+            });
+            // } else {
+            // beachWavesStore.teeUpBackToTheDepths();
+            // fadeInAndColorTextStore.teeUpFadeOut();
+            // ship this in the morning and see if this fixes the issue
+            // also click around alot to see how we can counter act the problem
+            // of the transition not happening sometimes
+            // }
           }
         });
       });

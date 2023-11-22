@@ -16,6 +16,34 @@ mixin _$CollaboratorPoolScreenCoordinatorStore
           context: context);
 
   @override
+  dynamic beachWavesMovieStatusListener() {
+    final _$actionInfo =
+        _$_CollaboratorPoolScreenCoordinatorStoreBaseActionController.startAction(
+            name:
+                '_CollaboratorPoolScreenCoordinatorStoreBase.beachWavesMovieStatusListener');
+    try {
+      return super.beachWavesMovieStatusListener();
+    } finally {
+      _$_CollaboratorPoolScreenCoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic searchStatusListener() {
+    final _$actionInfo =
+        _$_CollaboratorPoolScreenCoordinatorStoreBaseActionController.startAction(
+            name:
+                '_CollaboratorPoolScreenCoordinatorStoreBase.searchStatusListener');
+    try {
+      return super.searchStatusListener();
+    } finally {
+      _$_CollaboratorPoolScreenCoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic screenConstructorCallback() {
     final _$actionInfo =
         _$_CollaboratorPoolScreenCoordinatorStoreBaseActionController.startAction(

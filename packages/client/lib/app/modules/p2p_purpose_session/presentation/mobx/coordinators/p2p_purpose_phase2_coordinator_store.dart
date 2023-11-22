@@ -98,7 +98,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
         if (beachWaves.movieStatus == MovieStatus.finished &&
             beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
           beachWaves.teeUpBackToTheDepths();
-          beachWaves.backToTheDepthsCount++;
+          // beachWaves.backToTheDepthsCount++;
         } else if (beachWaves.movieStatus == MovieStatus.finished &&
             beachWaves.movieMode == BeachWaveMovieModes.backToTheDepths) {
           await timer.deleteTheTimer(NoParams());

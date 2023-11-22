@@ -24,6 +24,19 @@ mixin _$WidgetCoordinatorStore on _WidgetCoordinatorStoreBase, Store {
   }
 
   @override
+  dynamic fadeOutExplanationTextIfNecessary() {
+    final _$actionInfo =
+        _$_WidgetCoordinatorStoreBaseActionController.startAction(
+            name:
+                '_WidgetCoordinatorStoreBase.fadeOutExplanationTextIfNecessary');
+    try {
+      return super.fadeOutExplanationTextIfNecessary();
+    } finally {
+      _$_WidgetCoordinatorStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic backToShoreWidgetChanges() {
     final _$actionInfo =
         _$_WidgetCoordinatorStoreBaseActionController.startAction(

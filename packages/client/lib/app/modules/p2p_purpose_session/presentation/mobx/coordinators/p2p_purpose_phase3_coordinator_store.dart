@@ -35,7 +35,7 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends BaseTimesUpStore
           beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
         beachWaves.teeUpBackToTheDepths();
         foregroundAndBackgroundStateListener();
-        beachWaves.backToTheDepthsCount++;
+        // beachWaves.backToTheDepthsCount++;
         textEditor.flipWidgetVisibility();
       } else if (beachWaves.movieStatus == MovieStatus.finished &&
           beachWaves.movieMode == BeachWaveMovieModes.backToTheDepths) {
