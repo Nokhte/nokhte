@@ -23,7 +23,7 @@ class CollaboratorPoolScreen extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   child: SmartBeachWaves(
-                    stateTrackerStore: coordinator.beachWavesStore,
+                    stateTrackerStore: coordinator.beachWaves,
                   ),
                 ),
                 Center(
