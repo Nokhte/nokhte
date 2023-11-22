@@ -95,16 +95,17 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
 
   beachWavesMovieStatusWatcher() =>
       reaction((p0) => beachWaves.movieStatus, (p0) async {
-        if (beachWaves.movieStatus == MovieStatus.finished &&
+        if (beachWaves.movieStatus == MovieStatus.inProgress &&
             beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
-          beachWaves.teeUpBackToTheDepths();
+          delayedNavigation(() => beachWaves.teeUpBackToTheDepths());
           // beachWaves.backToTheDepthsCount++;
-        } else if (beachWaves.movieStatus == MovieStatus.finished &&
+        } else if (beachWaves.movieStatus == MovieStatus.inProgress &&
             beachWaves.movieMode == BeachWaveMovieModes.backToTheDepths) {
           await timer.deleteTheTimer(NoParams());
           await voiceCallActionsStore.enterOrLeaveCall(Left(NoParams()));
           meshCircleStore.toggleWidgetVisibility();
-          Modular.to.navigate('/p2p_purpose_session/phase-3/');
+          delayedNavigation(
+              () => Modular.to.navigate('/p2p_purpose_session/phase-3/'));
         }
       });
 

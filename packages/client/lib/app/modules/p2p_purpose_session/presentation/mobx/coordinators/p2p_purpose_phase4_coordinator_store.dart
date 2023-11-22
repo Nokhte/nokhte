@@ -25,14 +25,16 @@ abstract class _P2PPurposePhase4CoordinatorStoreBase extends BaseTimesUpStore
     required this.soloDoc,
   }) : super(productionTimerLength: const Duration(minutes: 5)) {
     reaction((p0) => beachWaves.movieStatus, (p0) {
-      if (beachWaves.movieStatus == MovieStatus.finished &&
+      if (beachWaves.movieStatus == MovieStatus.inProgress &&
           beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
-        beachWaves.teeUpBackToTheDepths();
+        delayedNavigation(() => beachWaves.teeUpBackToTheDepths());
         // beachWaves.backToTheDepthsCount++;
-      } else if (beachWaves.movieStatus == MovieStatus.finished &&
+      } else if (beachWaves.movieStatus == MovieStatus.inProgress &&
           beachWaves.movieMode == BeachWaveMovieModes.backToTheDepths) {
-        fadingText.fadeTheTextOut();
-        Modular.to.navigate('/p2p_purpose_session/phase-5/');
+        delayedNavigation(() {
+          fadingText.fadeTheTextOut();
+          Modular.to.navigate('/p2p_purpose_session/phase-5/');
+        });
       }
     });
   }
