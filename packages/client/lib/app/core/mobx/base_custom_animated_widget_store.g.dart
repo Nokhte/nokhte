@@ -10,23 +10,6 @@ part of 'base_custom_animated_widget_store.dart';
 
 mixin _$BaseCustomAnimatedWidgetStore
     on _BaseCustomAnimatedWidgetStoreBase, Store {
-  late final _$localStopwatchAtom = Atom(
-      name: '_BaseCustomAnimatedWidgetStoreBase.localStopwatch',
-      context: context);
-
-  @override
-  Stopwatch get localStopwatch {
-    _$localStopwatchAtom.reportRead();
-    return super.localStopwatch;
-  }
-
-  @override
-  set localStopwatch(Stopwatch value) {
-    _$localStopwatchAtom.reportWrite(value, super.localStopwatch, () {
-      super.localStopwatch = value;
-    });
-  }
-
   late final _$movieAtom =
       Atom(name: '_BaseCustomAnimatedWidgetStoreBase.movie', context: context);
 
@@ -151,19 +134,6 @@ mixin _$BaseCustomAnimatedWidgetStore
   }
 
   @override
-  dynamic startAndResetStopWatch() {
-    final _$actionInfo =
-        _$_BaseCustomAnimatedWidgetStoreBaseActionController.startAction(
-            name: '_BaseCustomAnimatedWidgetStoreBase.startAndResetStopWatch');
-    try {
-      return super.startAndResetStopWatch();
-    } finally {
-      _$_BaseCustomAnimatedWidgetStoreBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic setMovieStatus(MovieStatus newMovieStatus) {
     final _$actionInfo = _$_BaseCustomAnimatedWidgetStoreBaseActionController
         .startAction(name: '_BaseCustomAnimatedWidgetStoreBase.setMovieStatus');
@@ -178,7 +148,6 @@ mixin _$BaseCustomAnimatedWidgetStore
   @override
   String toString() {
     return '''
-localStopwatch: ${localStopwatch},
 movie: ${movie},
 control: ${control},
 showWidget: ${showWidget},
