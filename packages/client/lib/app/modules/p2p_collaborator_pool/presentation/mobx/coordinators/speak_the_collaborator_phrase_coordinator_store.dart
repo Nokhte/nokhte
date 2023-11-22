@@ -47,6 +47,13 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
         meshCircleStore = widgetStore.meshCircleButtonStore,
         explanationText = widgetStore.explanationText;
 
+  delayedNavigation(Function callback) {
+    Future.delayed(
+      beachWaves.movie.duration,
+      () => callback(),
+    );
+  }
+
   errorVibration() => Future.delayed(
         Seconds.get(3),
         () async => await Vibration.vibrate(
@@ -74,15 +81,17 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
 
   beachWavesMovieStatusListener() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
-        if (beachWaves.movieStatus == MovieStatus.finished &&
+        if (beachWaves.movieStatus == MovieStatus.inProgress &&
             beachWaves.movieMode == BeachWaveMovieModes.backToOceanDive) {
-          Modular.to.navigate('/p2p_collaborator_pool/');
-        } else if (beachWaves.movieStatus == MovieStatus.finished &&
+          delayedNavigation(
+              () => Modular.to.navigate('/p2p_collaborator_pool/'));
+        } else if (beachWaves.movieStatus == MovieStatus.inProgress &&
             beachWaves.movieMode == BeachWaveMovieModes.toTheDepths) {
-          Modular.to.navigate('/p2p_collaborator_pool/pool/');
-        } else if (beachWaves.movieStatus == MovieStatus.finished &&
+          delayedNavigation(
+              () => Modular.to.navigate('/p2p_collaborator_pool/pool/'));
+        } else if (beachWaves.movieStatus == MovieStatus.inProgress &&
             beachWaves.movieMode == BeachWaveMovieModes.backToShore) {
-          Modular.to.navigate('/home/');
+          delayedNavigation(() => () => Modular.to.navigate('/home/'));
         }
       });
 
