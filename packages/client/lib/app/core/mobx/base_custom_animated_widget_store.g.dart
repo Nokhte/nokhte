@@ -164,6 +164,18 @@ mixin _$BaseCustomAnimatedWidgetStore
   }
 
   @override
+  dynamic setMovieStatus(MovieStatus newMovieStatus) {
+    final _$actionInfo = _$_BaseCustomAnimatedWidgetStoreBaseActionController
+        .startAction(name: '_BaseCustomAnimatedWidgetStoreBase.setMovieStatus');
+    try {
+      return super.setMovieStatus(newMovieStatus);
+    } finally {
+      _$_BaseCustomAnimatedWidgetStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 localStopwatch: ${localStopwatch},
