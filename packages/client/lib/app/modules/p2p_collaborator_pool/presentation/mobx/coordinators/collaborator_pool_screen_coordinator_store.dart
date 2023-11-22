@@ -19,17 +19,13 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
   final CancelCollaboratorStreamStore cancelStreamStore;
   final GetCollaboratorSearchStatusStore getCollaboratorSearchStatusStore;
   final BeachWavesTrackerStore beachWavesStore;
-  final SmartFadingAnimatedTextTrackerStore fadingTextStore;
   final FadeInAndChangeColorTextStore fadeInAndColorTextStore;
-  final SwipeDetector swipe;
 
   _CollaboratorPoolScreenCoordinatorStoreBase({
-    required this.swipe,
     required this.exitCollaboratorPoolStore,
     required this.cancelStreamStore,
     required this.getCollaboratorSearchStatusStore,
     required this.beachWavesStore,
-    required this.fadingTextStore,
     required this.fadeInAndColorTextStore,
   });
   // so click a bunch to see where it comes from
@@ -76,7 +72,6 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase extends Equatable
 
   @action
   screenConstructorCallback() {
-    fadingTextStore.startRotatingText(Seconds.get(0));
     beachWavesStore.initiateTimesUp(
       timerLength: Seconds.get(45),
     );

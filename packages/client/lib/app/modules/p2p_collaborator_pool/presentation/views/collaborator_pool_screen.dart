@@ -16,10 +16,8 @@ class CollaboratorPoolScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: ((context, constraints) => Scaffold(
-          resizeToAvoidBottomInset: false,
-          body: Swipe(
-            trackerStore: coordinator.swipe,
-            child: Stack(
+            resizeToAvoidBottomInset: false,
+            body: Stack(
               children: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
@@ -35,7 +33,7 @@ class CollaboratorPoolScreen extends StatelessWidget {
                 ),
               ],
             ),
-          ))),
+          )),
     );
   }
 }

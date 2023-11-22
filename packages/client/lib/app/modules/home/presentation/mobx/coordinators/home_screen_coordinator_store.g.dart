@@ -27,6 +27,32 @@ mixin _$HomeScreenCoordinatorStore on _HomeScreenCoordinatorStoreBase, Store {
     });
   }
 
+  late final _$isNavigatingAtom = Atom(
+      name: '_HomeScreenCoordinatorStoreBase.isNavigating', context: context);
+
+  @override
+  bool get isNavigating {
+    _$isNavigatingAtom.reportRead();
+    return super.isNavigating;
+  }
+
+  @override
+  set isNavigating(bool value) {
+    _$isNavigatingAtom.reportWrite(value, super.isNavigating, () {
+      super.isNavigating = value;
+    });
+  }
+
+  late final _$homeScreenConstructorCallbackAsyncAction = AsyncAction(
+      '_HomeScreenCoordinatorStoreBase.homeScreenConstructorCallback',
+      context: context);
+
+  @override
+  Future homeScreenConstructorCallback() {
+    return _$homeScreenConstructorCallbackAsyncAction
+        .run(() => super.homeScreenConstructorCallback());
+  }
+
   late final _$_HomeScreenCoordinatorStoreBaseActionController =
       ActionController(
           name: '_HomeScreenCoordinatorStoreBase', context: context);
@@ -37,6 +63,52 @@ mixin _$HomeScreenCoordinatorStore on _HomeScreenCoordinatorStoreBase, Store {
         .startAction(name: '_HomeScreenCoordinatorStoreBase.portalAPIListener');
     try {
       return super.portalAPIListener();
+    } finally {
+      _$_HomeScreenCoordinatorStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic toggleIsNavigating() {
+    final _$actionInfo =
+        _$_HomeScreenCoordinatorStoreBaseActionController.startAction(
+            name: '_HomeScreenCoordinatorStoreBase.toggleIsNavigating');
+    try {
+      return super.toggleIsNavigating();
+    } finally {
+      _$_HomeScreenCoordinatorStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic beachWavesListener() {
+    final _$actionInfo =
+        _$_HomeScreenCoordinatorStoreBaseActionController.startAction(
+            name: '_HomeScreenCoordinatorStoreBase.beachWavesListener');
+    try {
+      return super.beachWavesListener();
+    } finally {
+      _$_HomeScreenCoordinatorStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic gestureListener() {
+    final _$actionInfo = _$_HomeScreenCoordinatorStoreBaseActionController
+        .startAction(name: '_HomeScreenCoordinatorStoreBase.gestureListener');
+    try {
+      return super.gestureListener();
+    } finally {
+      _$_HomeScreenCoordinatorStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic holdListener() {
+    final _$actionInfo = _$_HomeScreenCoordinatorStoreBaseActionController
+        .startAction(name: '_HomeScreenCoordinatorStoreBase.holdListener');
+    try {
+      return super.holdListener();
     } finally {
       _$_HomeScreenCoordinatorStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -59,7 +131,8 @@ mixin _$HomeScreenCoordinatorStore on _HomeScreenCoordinatorStoreBase, Store {
   @override
   String toString() {
     return '''
-thePlaceTheyAreGoing: ${thePlaceTheyAreGoing}
+thePlaceTheyAreGoing: ${thePlaceTheyAreGoing},
+isNavigating: ${isNavigating}
     ''';
   }
 }

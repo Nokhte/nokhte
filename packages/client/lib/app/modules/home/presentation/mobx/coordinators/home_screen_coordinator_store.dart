@@ -45,6 +45,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
   @observable
   PlacesYouCanGo thePlaceTheyAreGoing = PlacesYouCanGo.initial;
 
+  @action
   homeScreenConstructorCallback() async {
     beachWaves.setControl(Control.mirror);
     beachWavesListener();
@@ -100,23 +101,37 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
         }
       });
 
+  @observable
+  bool isNavigating = false;
+
+  @action
+  toggleIsNavigating() => isNavigating = !isNavigating;
+
+  @action
   beachWavesListener() => reaction((p0) => beachWaves.movieStatus, (p0) {
+        print(
+            "did this just not run??? $p0 ${beachWaves.movieMode} $thePlaceTheyAreGoing");
         if (beachWaves.movieStatus == MovieStatus.finished) {
           switch (thePlaceTheyAreGoing) {
             case PlacesYouCanGo.newCollaboration:
+              toggleIsNavigating();
               Modular.to.navigate('/p2p_collaborator_pool/');
             case PlacesYouCanGo.collectiveSession:
               Modular.to.navigate('/collective_session/');
+              toggleIsNavigating();
             case PlacesYouCanGo.individualSession:
               Modular.to.navigate('/individual_session/');
+              toggleIsNavigating();
             case PlacesYouCanGo.perspectivesSession:
               Modular.to.navigate('/p2p_perspective_session/');
+              toggleIsNavigating();
             default:
               break;
           }
         }
       });
 
+  @action
   gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.up:
@@ -131,6 +146,8 @@ abstract class _HomeScreenCoordinatorStoreBase extends Equatable with Store {
             break;
         }
       });
+
+  @action
   holdListener() => reaction((p0) => hold.holdCount, (p0) async {
         await Haptics.vibrate(HapticsType.medium);
         fadeTheTextOutAndWaterComesDown(PlacesYouCanGo.newCollaboration);

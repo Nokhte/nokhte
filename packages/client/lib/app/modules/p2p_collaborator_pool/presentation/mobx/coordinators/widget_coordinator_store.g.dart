@@ -13,6 +13,17 @@ mixin _$WidgetCoordinatorStore on _WidgetCoordinatorStoreBase, Store {
       ActionController(name: '_WidgetCoordinatorStoreBase', context: context);
 
   @override
+  dynamic widgetConstructor() {
+    final _$actionInfo = _$_WidgetCoordinatorStoreBaseActionController
+        .startAction(name: '_WidgetCoordinatorStoreBase.widgetConstructor');
+    try {
+      return super.widgetConstructor();
+    } finally {
+      _$_WidgetCoordinatorStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic backToShoreWidgetChanges() {
     final _$actionInfo =
         _$_WidgetCoordinatorStoreBaseActionController.startAction(
