@@ -3,19 +3,32 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 
-class P2PPurpose4ReciprocateAttentionScreen extends StatelessWidget
+class P2PPurpose4ReciprocateAttentionScreen extends StatefulWidget
     with WidgetsBindingObserver {
   final P2PPurposePhase4CoordinatorStore coordinator;
   P2PPurpose4ReciprocateAttentionScreen({
     super.key,
     required this.coordinator,
   }) {
-    coordinator.screenConstructor();
   }
 
   @override
+  State<P2PPurpose4ReciprocateAttentionScreen> createState() =>
+      _P2PPurpose4ReciprocateAttentionScreenState();
+}
+
+class _P2PPurpose4ReciprocateAttentionScreenState
+    extends State<P2PPurpose4ReciprocateAttentionScreen>
+    with WidgetsBindingObserver {
+  @override
   void didChangeAppLifecycleState(AppLifecycleState state) =>
-      coordinator.setAppState(state);
+      widget.coordinator.setAppState(state);
+    
+    @override
+  void initState() {
+    widget.coordinator.screenConstructor();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +42,12 @@ class P2PPurpose4ReciprocateAttentionScreen extends StatelessWidget
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     child: SmartBeachWaves(
-                      stateTrackerStore: coordinator.beachWaves,
+                      stateTrackerStore: widget.coordinator.beachWaves,
                     ),
                   ),
                   Center(
                     child: SmartFadingAnimatedText(
-                      stateTrackerStore: coordinator.fadingText,
+                      stateTrackerStore: widget.coordinator.fadingText,
                     ),
                   ),
                 ],

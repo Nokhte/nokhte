@@ -4,13 +4,24 @@ import 'package:nokhte/app/core/widgets/scheduling_delta/stack/stack.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 
-class P2PPupose6ScheduleNextMeeting extends StatelessWidget {
+class P2PPupose6ScheduleNextMeeting extends StatefulWidget {
   final P2PPurposePhase6CoordinatorStore coordinator;
   P2PPupose6ScheduleNextMeeting({
     super.key,
     required this.coordinator,
-  }) {
-    coordinator.screenConstructor();
+  }) {}
+
+  @override
+  State<P2PPupose6ScheduleNextMeeting> createState() =>
+      _P2PPupose6ScheduleNextMeetingState();
+}
+
+class _P2PPupose6ScheduleNextMeetingState
+    extends State<P2PPupose6ScheduleNextMeeting> {
+  @override
+  void initState() {
+    super.initState();
+    widget.coordinator.screenConstructor();
   }
 
   @override
@@ -22,32 +33,34 @@ class P2PPupose6ScheduleNextMeeting extends StatelessWidget {
           return Scaffold(
             resizeToAvoidBottomInset: false,
             body: Swipe(
-              trackerStore: coordinator.swipe,
+              trackerStore: widget.coordinator.swipe,
               child: Stack(
                 children: [
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     child: BeachSky(
-                      stateTrackerStore: coordinator.widgets.beachSkyStore,
+                      stateTrackerStore:
+                          widget.coordinator.widgets.beachSkyStore,
                     ),
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     child: SunAndMoon(
-                      stateTrackerStore: coordinator.widgets.sunAndMoon,
+                      stateTrackerStore: widget.coordinator.widgets.sunAndMoon,
                     ),
                   ),
                   Opacity(
-                    opacity: coordinator.widgets.beachWavesVisibility ? 0 : 1,
+                    opacity:
+                        widget.coordinator.widgets.beachWavesVisibility ? 0 : 1,
                     child: SizedBox(
                       width: size.width,
                       height: size.height,
                       child: BeachHorizonWater(
                         size: size,
                         stateTrackerStore:
-                            coordinator.widgets.beachHorizonWater,
+                            widget.coordinator.widgets.beachHorizonWater,
                       ),
                     ),
                   ),
@@ -57,7 +70,7 @@ class P2PPupose6ScheduleNextMeeting extends StatelessWidget {
                     child: Center(
                       child: ConveyerBeltText(
                         size: size,
-                        trackerStore: coordinator.widgets.conveyerBelt,
+                        trackerStore: widget.coordinator.widgets.conveyerBelt,
                       ),
                     ),
                   ),
@@ -65,13 +78,14 @@ class P2PPupose6ScheduleNextMeeting extends StatelessWidget {
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height,
                       child: SchedulingDelta(
-                        trackerStore: coordinator.widgets.schedulingDelta,
+                        trackerStore:
+                            widget.coordinator.widgets.schedulingDelta,
                       )),
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     child: SmartBeachWaves(
-                      stateTrackerStore: coordinator.widgets.beachWaves,
+                      stateTrackerStore: widget.coordinator.widgets.beachWaves,
                     ),
                   ),
                 ],

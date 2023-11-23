@@ -7,21 +7,33 @@ import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 
-class P2PPurpose2ConsultationScreen extends StatelessWidget
+class P2PPurpose2ConsultationScreen extends StatefulWidget
     with WidgetsBindingObserver {
-  final bool isInitialLoad = true;
   final P2PPurposePhase2CoordinatorStore coordinator;
   P2PPurpose2ConsultationScreen({
     super.key,
     required this.coordinator,
-  }) {
-    WidgetsBinding.instance.addObserver(this);
-    coordinator.screenConstructor();
-  }
+  }) {}
+
+  @override
+  State<P2PPurpose2ConsultationScreen> createState() =>
+      _P2PPurpose2ConsultationScreenState();
+}
+
+class _P2PPurpose2ConsultationScreenState
+    extends State<P2PPurpose2ConsultationScreen> with WidgetsBindingObserver {
+  final bool isInitialLoad = true;
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) =>
-      coordinator.setAppState(state);
+      widget.coordinator.setAppState(state);
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    widget.coordinator.screenConstructor();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,19 +46,19 @@ class P2PPurpose2ConsultationScreen extends StatelessWidget
             return Scaffold(
                 resizeToAvoidBottomInset: false,
                 body: Swipe(
-                  trackerStore: coordinator.swipe,
+                  trackerStore: widget.coordinator.swipe,
                   child: Stack(
                     children: [
                       SizedBox(
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height,
                         child: SmartBeachWaves(
-                          stateTrackerStore: coordinator.beachWaves,
+                          stateTrackerStore: widget.coordinator.beachWaves,
                         ),
                       ),
                       Center(
                         child: SmartFadingAnimatedText(
-                          stateTrackerStore: coordinator.fadingText,
+                          stateTrackerStore: widget.coordinator.fadingText,
                         ),
                       ),
                       Column(
@@ -59,18 +71,19 @@ class P2PPurpose2ConsultationScreen extends StatelessWidget
                               fontSize: 20.0,
                               color: Colors.white,
                             ),
-                            trackerStore: coordinator.explanationText,
+                            trackerStore: widget.coordinator.explanationText,
                           ),
                           const Padding(
                             padding: EdgeInsets.only(bottom: 15),
                           ),
                           Hold(
-                            trackerStore: coordinator.hold,
+                            trackerStore: widget.coordinator.hold,
                             child: Container(
                               height: size.height,
                               width: size.width,
                               child: MeshCircleButton(
-                                trackerStore: coordinator.meshCircleStore,
+                                trackerStore:
+                                    widget.coordinator.meshCircleStore,
                                 size: size,
                               ),
                             ),

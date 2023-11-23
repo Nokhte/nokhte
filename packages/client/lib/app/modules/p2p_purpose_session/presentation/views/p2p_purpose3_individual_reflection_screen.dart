@@ -4,20 +4,33 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 
-class P2PPurpose3IndividualRefletionScreen extends StatelessWidget
+class P2PPurpose3IndividualRefletionScreen extends StatefulWidget
     with WidgetsBindingObserver {
   final P2PPurposePhase3CoordinatorStore coordinator;
 
   P2PPurpose3IndividualRefletionScreen({
     super.key,
     required this.coordinator,
-  }) {
-    coordinator.screenConstructor();
-  }
+  });
 
   @override
+  State<P2PPurpose3IndividualRefletionScreen> createState() =>
+      _P2PPurpose3IndividualRefletionScreenState();
+}
+
+class _P2PPurpose3IndividualRefletionScreenState
+    extends State<P2PPurpose3IndividualRefletionScreen>
+    with WidgetsBindingObserver {
+  @override
   void didChangeAppLifecycleState(AppLifecycleState state) =>
-      coordinator.setAppState(state);
+      widget.coordinator.setAppState(state);
+
+  @override
+  void initState() {
+    widget.coordinator.screenConstructor();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
@@ -25,19 +38,19 @@ class P2PPurpose3IndividualRefletionScreen extends StatelessWidget
         builder: ((context, constraints) => Scaffold(
             resizeToAvoidBottomInset: false,
             body: Swipe(
-              trackerStore: coordinator.swipe,
+              trackerStore: widget.coordinator.swipe,
               child: Stack(
                 children: [
                   SizedBox(
                     width: constraints.widthConstraints().maxHeight,
                     height: constraints.heightConstraints().maxWidth,
                     child: SmartBeachWaves(
-                      stateTrackerStore: coordinator.beachWaves,
+                      stateTrackerStore: widget.coordinator.beachWaves,
                     ),
                   ),
                   Center(
                     child: SmartFadingAnimatedText(
-                      stateTrackerStore: coordinator.fadingText,
+                      stateTrackerStore: widget.coordinator.fadingText,
                     ),
                   ),
                   Container(
@@ -46,7 +59,7 @@ class P2PPurpose3IndividualRefletionScreen extends StatelessWidget
                       maxLength: 55,
                       maxLines: 5,
                       fadeInDuration: Seconds.get(2),
-                      trackerStore: coordinator.textEditor,
+                      trackerStore: widget.coordinator.textEditor,
                     ),
                   ),
                 ],

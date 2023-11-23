@@ -5,13 +5,24 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 
-class P2PPurpose5CollectiveCreation extends StatelessWidget {
+class P2PPurpose5CollectiveCreation extends StatefulWidget {
   final P2PPurposePhase5CoordinatorStore coordinator;
-  P2PPurpose5CollectiveCreation({
+  const P2PPurpose5CollectiveCreation({
     super.key,
     required this.coordinator,
-  }) {
-    coordinator.screenConstructor();
+  });
+
+  @override
+  State<P2PPurpose5CollectiveCreation> createState() =>
+      _P2PPurpose5CollectiveCreationState();
+}
+
+class _P2PPurpose5CollectiveCreationState
+    extends State<P2PPurpose5CollectiveCreation> {
+  @override
+  void initState() {
+    widget.coordinator.screenConstructor();
+    super.initState();
   }
 
   @override
@@ -25,20 +36,20 @@ class P2PPurpose5CollectiveCreation extends StatelessWidget {
             return Scaffold(
                 resizeToAvoidBottomInset: false,
                 body: Swipe(
-                  trackerStore: coordinator.swipe,
+                  trackerStore: widget.coordinator.swipe,
                   child: Stack(
                     children: [
                       SizedBox(
                         width: constraints.widthConstraints().maxHeight,
                         height: constraints.heightConstraints().maxWidth,
                         child: SmartBeachWaves(
-                          stateTrackerStore: coordinator.beachWaves,
+                          stateTrackerStore: widget.coordinator.beachWaves,
                         ),
                       ),
                       Center(
                         child: CollaborativeTextEditor(
                           fadeInDuration: Seconds.get(1),
-                          trackerStore: coordinator.collaborativeTextUI,
+                          trackerStore: widget.coordinator.collaborativeTextUI,
                         ),
                       ),
                       Column(
@@ -51,7 +62,8 @@ class P2PPurpose5CollectiveCreation extends StatelessWidget {
                             children: [
                               GesturePill(
                                 size: size,
-                                stateTrackerStore: coordinator.gesturePillStore,
+                                stateTrackerStore:
+                                    widget.coordinator.gesturePillStore,
                               ),
                             ],
                           ),
