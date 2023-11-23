@@ -15,7 +15,7 @@ abstract class _GetCollaboratorSearchStatusStoreBase extends Equatable
   final GetCollaboratorSearchStatusGetterStore collaboratorSearchStatusGetter;
 
   @observable
-  ObservableStream<bool> searchStatus = ObservableStream(Stream.value(false));
+  ObservableStream<bool> searchStatus = ObservableStream(const Stream.empty());
 
   @observable
   String errorMessage = "";
