@@ -106,13 +106,22 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
   beachWavesMovieStatusWatcher() =>
       reaction((p0) => beachWaves.movieStatus, (p0) async {
         print(" phase 2${beachWaves.movieStatus} ${beachWaves.movieMode}");
-        if (beachWaves.movieStatus == MovieStatus.finished &&
-            beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
-          beachWaves.teeUpBackToTheDepths();
-        } else if (beachWaves.movieStatus == MovieStatus.finished &&
-            beachWaves.movieMode == BeachWaveMovieModes.backToTheDepths &&
+        if (beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
+          if (beachWaves.movieStatus == MovieStatus.finished) {
+            beachWaves.teeUpBackToTheDepths();
+          } else if (beachWaves.movieStatus == MovieStatus.inProgress) {
+            delayedNavigation(
+              () => beachWaves.teeUpBackToTheDepths(),
+            );
+          }
+        } else if (beachWaves.movieMode ==
+                BeachWaveMovieModes.backToTheDepths &&
             !shouldCleanUpAndTransition) {
-          await cleanUpAndTransition();
+          if (beachWaves.movieStatus == MovieStatus.finished) {
+            await cleanUpAndTransition();
+          } else if (beachWaves.movieStatus == MovieStatus.inProgress) {
+            delayedNavigation(() async => await cleanUpAndTransition());
+          }
         }
       });
 
