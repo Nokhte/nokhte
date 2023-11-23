@@ -36,17 +36,17 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends BaseTimesUpStore
         if (beachWaves.movieStatus == MovieStatus.finished) {
           textEditor.flipWidgetVisibility();
           beachWaves.teeUpBackToTheDepths();
+          Future.delayed(Seconds.get(3), () async {
+            await cleanUpAndTransition();
+          });
         } else if (beachWaves.movieStatus == MovieStatus.inProgress) {
           delayedNavigation(() {
             textEditor.flipWidgetVisibility();
             beachWaves.teeUpBackToTheDepths();
+            Future.delayed(Seconds.get(3), () async {
+              await cleanUpAndTransition();
+            });
           });
-        }
-      } else if (beachWaves.movieMode == BeachWaveMovieModes.backToTheDepths) {
-        if (beachWaves.movieStatus == MovieStatus.finished) {
-          await cleanUpAndTransition();
-        } else if (beachWaves.movieStatus == MovieStatus.inProgress) {
-          delayedNavigation(() async => await cleanUpAndTransition());
         }
       }
     });

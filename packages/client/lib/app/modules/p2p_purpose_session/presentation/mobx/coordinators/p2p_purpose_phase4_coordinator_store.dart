@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'package:flutter/foundation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -24,25 +25,45 @@ abstract class _P2PPurposePhase4CoordinatorStoreBase extends BaseTimesUpStore
     required this.fadingText,
     required this.soloDoc,
   }) : super(productionTimerLength: const Duration(minutes: 5)) {
-    reaction((p0) => beachWaves.movieStatus, (p0) {
-      if (beachWaves.movieStatus == MovieStatus.inProgress &&
-          beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
-        delayedNavigation(() => beachWaves.teeUpBackToTheDepths());
-        // beachWaves.backToTheDepthsCount++;
-      } else if (beachWaves.movieStatus == MovieStatus.inProgress &&
-          beachWaves.movieMode == BeachWaveMovieModes.backToTheDepths) {
-        delayedNavigation(() {
-          fadingText.fadeTheTextOut();
-          Modular.to.navigate('/p2p_purpose_session/phase-5/');
-        });
-      }
-    });
+    beachWavesMovieStatusListener();
+  }
+
+  final duration = kDebugMode ? Seconds.get(20) : const Duration(minutes: 5);
+
+  @action
+  beachWavesMovieStatusListener() =>
+      reaction((p0) => beachWaves.movieStatus, (p0) {
+        print("phase 4 ${beachWaves.movieStatus} ${beachWaves.movieMode}");
+        if (beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
+          if (beachWaves.movieStatus == MovieStatus.finished) {
+            beachWaves.teeUpBackToTheDepths();
+            Future.delayed(Seconds.get(3), () {
+              cleanUpAndTransition();
+            });
+          } else if (beachWaves.movieStatus == MovieStatus.inProgress) {
+            delayedNavigation(() {
+              beachWaves.teeUpBackToTheDepths();
+              Future.delayed(Seconds.get(3), () {
+                cleanUpAndTransition();
+              });
+            });
+          }
+        }
+      });
+
+  @action
+  cleanUpAndTransition() {
+    print("was this phase 5 ranstioncalled");
+    fadingText.fadeTheTextOut();
+    Modular.to.navigate('/p2p_purpose_session/phase-5/');
   }
 
   @action
   screenConstructor() async {
+    // beachWavesMovieStatusListener();
     fadingText.startRotatingText(Seconds.get(0));
     beachWaves.initiateSuspendedAtTheDepths();
+    beachWaves.initiateTimesUp(timerLength: duration);
 
     fadingText.moveToNextMessage();
     await timer.setupAndStreamListenerActivation(
@@ -57,12 +78,6 @@ abstract class _P2PPurposePhase4CoordinatorStoreBase extends BaseTimesUpStore
         )
         .then((value) => Future.delayed(Seconds.get(2), () {
               fadingText.togglePause();
-              beachWaves.initiateTimesUp(
-                timerLength: const Duration(
-                  minutes: 5,
-                ),
-                // pMovieMode: MovieModes.purposeCallTimesUp,
-              );
             }));
     fadingText.setMainMessage(
       index: 4,
