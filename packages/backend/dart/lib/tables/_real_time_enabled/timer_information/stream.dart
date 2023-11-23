@@ -13,23 +13,19 @@ class TimerInformationStreams extends CollaborativeQueries {
 
   Stream<PresenceAndTimeRemaining> getStream() async* {
     bool isListening = true;
-    String usersCollaboratorNumber = "";
-    String collaboratorsNumber = "";
     String remainingTime = TimerInformationQueries.timeRemainingInMilliseconds;
     String timerIsRunning = TimerInformationQueries.timerIsRunning;
     String isOnline = TimerInformationQueries.isOnline;
 
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutActiveCollaboratorInfo();
-      usersCollaboratorNumber = collaboratorInfo.theUsersCollaboratorNumber;
-      collaboratorsNumber = collaboratorInfo.theCollaboratorsNumber;
     }
     await for (var event in supabase
         .from(
       TimerInformationQueries.tableName,
     )
         .stream(primaryKey: ['id']).eq(
-      "${usersCollaboratorNumber}_uid",
+      "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
       collaboratorInfo.theUsersUID,
     )) {
       if (isListening == false) {
@@ -45,9 +41,10 @@ class TimerInformationStreams extends CollaborativeQueries {
       } else {
         yield PresenceAndTimeRemaining(
             remainingTimeInMilliseconds: event.first[remainingTime].toDouble(),
-            usersPresence: event.first["${usersCollaboratorNumber}_$isOnline"],
-            collaboratorsPresence:
-                event.first["${collaboratorsNumber}_$isOnline"],
+            usersPresence: event.first[
+                "${collaboratorInfo.theUsersCollaboratorNumber}_$isOnline"],
+            collaboratorsPresence: event
+                .first["${collaboratorInfo.theCollaboratorsNumber}_$isOnline"],
             timerIsRunning: event.first[timerIsRunning]);
       }
     }

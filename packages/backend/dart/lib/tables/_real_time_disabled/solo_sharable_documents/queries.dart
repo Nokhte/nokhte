@@ -46,14 +46,14 @@ class SoloSharableDocumentQueries extends CollaborativeQueries {
         .limit(1);
   }
 
-  Future<List> updateDocContent(String content) async {
+  Future<List> updateDocContent(String contentParam) async {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutActiveCollaboratorInfo();
     }
     return await supabase
         .from(table)
         .update({
-          content: content,
+          content: contentParam,
         })
         .eq(ownerUID, collaboratorInfo.theUsersUID)
         .order(
