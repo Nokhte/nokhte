@@ -8,6 +8,7 @@ import 'package:nokhte_backend/tables/solo_sharable_documents.dart';
 import 'package:nokhte_backend/storage/perspectives_audio.dart';
 import 'package:nokhte_backend/tables/_real_time_disabled/collective_sessions/queries.dart';
 import 'package:nokhte_backend/tables/_real_time_disabled/individual_sessions/queries.dart';
+import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -20,6 +21,7 @@ void main() {
   late SoloSharableDocumentQueries soloDocQueries;
   late InitiateCollaboratorSearch npcInitiateCollaboratorSearch;
   late CollectiveSessionQueries collectiveSessionQueries;
+  late WorkingCollaborativeDocumentsQueries collaborativeDocQueries;
   late PerspectivesAudioStorageQueries perspectivesAudioStorageQueries;
   final supabase = SupabaseClientConfigConstants.supabase;
   final tPerspectives = [
@@ -37,6 +39,8 @@ void main() {
     npcInitiateCollaboratorSearch =
         InitiateCollaboratorSearch(supabase: supabase);
     soloDocQueries = SoloSharableDocumentQueries(supabase: supabase);
+    collaborativeDocQueries =
+        WorkingCollaborativeDocumentsQueries(supabase: supabase);
     existingCollaborationsQueries =
         ExistingCollaborationsQueries(supabase: supabaseAdmin);
     perspectivesQueries =
@@ -257,6 +261,16 @@ void main() {
     await soloDocQueries.createSoloDoc(desiredDocType: 'purpose');
     await soloDocQueries.updateDocContent('npc content');
     await soloDocQueries.updateDocVisibility(makeVisible: true);
+  });
+
+  test("update the collaborative doc", () async {
+    await collaborativeDocQueries.updateExistingDocument(
+        newContent: "some new content ur gay");
+  });
+
+  test("make a collaborative doc", () async {
+    await collaborativeDocQueries.createCollaborativeDocument(
+        docType: 'purpose');
   });
 
   test("put npc in the pool searching for user ", () async {
