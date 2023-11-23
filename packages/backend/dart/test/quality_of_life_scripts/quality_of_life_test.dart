@@ -272,4 +272,23 @@ void main() {
       ),
     );
   });
+
+  test(
+    "user 1 in the pool searching for npc ",
+    () async {
+      final userIdResults = await UserSetupConstants.getUIDs();
+      final npcUserUID = userIdResults[1];
+      final npcPhraseRes = await supabaseAdmin
+          .from('collaborator_phrases')
+          .select()
+          .eq('uid', npcUserUID);
+      final edge = InitiateCollaboratorSearch(supabase: supabase);
+      await edge.invoke(
+        CollaboratorPhraseIDs(
+          adjectiveID: npcPhraseRes.first["adjective_id"],
+          nounID: npcPhraseRes.first["noun_id"],
+        ),
+      );
+    },
+  );
 }
