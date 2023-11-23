@@ -74,9 +74,7 @@ abstract class _BeachWavesTrackerStoreBase extends BaseCustomAnimatedWidgetStore
   initiateTimesUp({
     required Duration timerLength,
   }) {
-    movie = TimesUp.getMovie(
-      timerLength: timerLength,
-    );
+    movie = TimesUp.getMovie(timerLength: timerLength);
     control = Control.playFromStart;
     movieStatus = MovieStatus.inProgress;
     movieMode = BeachWaveMovieModes.timesUp;
@@ -86,7 +84,7 @@ abstract class _BeachWavesTrackerStoreBase extends BaseCustomAnimatedWidgetStore
   initiateBackToOceanDive() {
     movie = BackToOceanDive.movie;
     control = Control.playFromStart;
-    movieStatus = MovieStatus.inProgress;
+    setMovieStatus(MovieStatus.inProgress);
     movieMode = BeachWaveMovieModes.backToOceanDive;
   }
 
