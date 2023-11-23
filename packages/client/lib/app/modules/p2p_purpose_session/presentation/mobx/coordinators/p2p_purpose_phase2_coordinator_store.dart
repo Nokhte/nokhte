@@ -92,24 +92,34 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
         }
       });
 
+  cleanUpAndTransition() async {
+    await timer.deleteTheTimer(NoParams());
+    await voiceCallActionsStore.enterOrLeaveCall(Left(NoParams()));
+    await explanationText.toggleWidgetVisibility();
+    if (fadingText.showText) {
+      fadingText.fadeTheTextOut();
+    }
+    meshCircleStore.toggleWidgetVisibility();
+    Modular.to.navigate('/p2p_purpose_session/phase-3/');
+  }
+
   beachWavesMovieStatusWatcher() =>
       reaction((p0) => beachWaves.movieStatus, (p0) async {
-        // print("${beachWaves.movieStatus} ${beachWaves.movieMode}");
-        if (beachWaves.movieStatus == MovieStatus.inProgress &&
-            beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
-          delayedNavigation(() => beachWaves.teeUpBackToTheDepths());
-          // beachWaves.backToTheDepthsCount++;
+        print(" phase 2${beachWaves.movieStatus} ${beachWaves.movieMode}");
+        if (beachWaves.movieStatus == MovieStatus.finished &&
+            beachWaves.movieMode == BeachWaveMovieModes.timesUp &&
+            !shouldCleanUpAndTransition) {
+          beachWaves.teeUpBackToTheDepths();
+        } else if (beachWaves.movieStatus == MovieStatus.finished &&
+            beachWaves.movieMode == BeachWaveMovieModes.backToTheDepths &&
+            !shouldCleanUpAndTransition) {
+          await cleanUpAndTransition();
         } else if (beachWaves.movieStatus == MovieStatus.inProgress &&
-            beachWaves.movieMode == BeachWaveMovieModes.backToTheDepths) {
-          await timer.deleteTheTimer(NoParams());
-          await voiceCallActionsStore.enterOrLeaveCall(Left(NoParams()));
-          await explanationText.toggleWidgetVisibility();
-          if (fadingText.showText) {
-            fadingText.fadeTheTextOut();
-          }
-          meshCircleStore.toggleWidgetVisibility();
-          delayedNavigation(
-              () => Modular.to.navigate('/p2p_purpose_session/phase-3/'));
+            beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
+          delayedNavigation(() async {
+            toggleShouldCleanUpAndTransition();
+            await cleanUpAndTransition();
+          });
         }
       });
 
@@ -133,8 +143,8 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
           () => explanationText.toggleWidgetVisibility(),
         );
         await timer.updateTimerRunningStatus(true);
-        meshCircleStore.initGlowUp();
       }
+      meshCircleStore.initGlowUp();
 
       if (fadingText.currentIndex == 1 && fadingText.showText) {
         Future.delayed(Seconds.get(10), () => fadingText.fadeTheTextOut());
