@@ -10,7 +10,6 @@ import 'package:nokhte/app/core/modules/timer/domain/logic/logic.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:nokhte/app/core/widgets/mobx.dart';
-import 'package:nokhte/app/core/widgets/widgets.dart';
 part 'p2p_purpose_phase3_coordinator_store.g.dart';
 
 class P2PPurposePhase3CoordinatorStore = _P2PPurposePhase3CoordinatorStoreBase
@@ -33,15 +32,22 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends BaseTimesUpStore
   }) : super(productionTimerLength: const Duration(minutes: 5)) {
     reaction((p0) => beachWaves.movieStatus, (p0) async {
       print(" phase 3${beachWaves.movieStatus} ${beachWaves.movieMode}");
-      if (beachWaves.movieStatus == MovieStatus.finished &&
-          beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
-        textEditor.flipWidgetVisibility();
-        beachWaves.teeUpBackToTheDepths();
-        foregroundAndBackgroundStateListener();
-      } else if (beachWaves.movieStatus == MovieStatus.finished &&
-          beachWaves.movieMode == BeachWaveMovieModes.backToTheDepths &&
-          !shouldCleanUpAndTransition) {
-        await cleanUpAndTransition();
+      if (beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
+        if (beachWaves.movieStatus == MovieStatus.finished) {
+          textEditor.flipWidgetVisibility();
+          beachWaves.teeUpBackToTheDepths();
+        } else if (beachWaves.movieStatus == MovieStatus.inProgress) {
+          delayedNavigation(() {
+            textEditor.flipWidgetVisibility();
+            beachWaves.teeUpBackToTheDepths();
+          });
+        }
+      } else if (beachWaves.movieMode == BeachWaveMovieModes.backToTheDepths) {
+        if (beachWaves.movieStatus == MovieStatus.finished) {
+          await cleanUpAndTransition();
+        } else if (beachWaves.movieStatus == MovieStatus.inProgress) {
+          delayedNavigation(() async => await cleanUpAndTransition());
+        }
       }
     });
   }
@@ -57,6 +63,7 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends BaseTimesUpStore
 
   @action
   screenConstructor() async {
+    foregroundAndBackgroundStateListener();
     fadingText.startRotatingText(Seconds.get(0));
     textEditor.flipWidgetVisibility();
     beachWaves.initiateSuspendedAtTheDepths();
