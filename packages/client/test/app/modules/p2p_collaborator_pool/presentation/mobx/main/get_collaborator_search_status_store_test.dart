@@ -36,7 +36,8 @@ void main() {
         (_) async => Left(FailureConstants.dbFailure),
       );
       await shareSoloDocStore();
-      expect(shareSoloDocStore.searchStatus, emits(false));
+      expect(shareSoloDocStore.searchStatus,
+          neverEmits(shareSoloDocStore.searchStatus));
       expect(
           shareSoloDocStore.errorMessage, FailureConstants.genericFailureMsg);
     });
