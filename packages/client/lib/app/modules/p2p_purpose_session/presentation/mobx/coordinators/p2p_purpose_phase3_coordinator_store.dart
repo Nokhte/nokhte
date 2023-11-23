@@ -10,6 +10,7 @@ import 'package:nokhte/app/core/modules/timer/domain/logic/logic.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:nokhte/app/core/widgets/mobx.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 part 'p2p_purpose_phase3_coordinator_store.g.dart';
 
 class P2PPurposePhase3CoordinatorStore = _P2PPurposePhase3CoordinatorStoreBase
@@ -31,23 +32,27 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends BaseTimesUpStore
     required this.soloDoc,
   }) : super(productionTimerLength: const Duration(minutes: 5)) {
     reaction((p0) => beachWaves.movieStatus, (p0) async {
-      if (beachWaves.movieStatus == MovieStatus.inProgress &&
+      print(" phase 3${beachWaves.movieStatus} ${beachWaves.movieMode}");
+      if (beachWaves.movieStatus == MovieStatus.finished &&
           beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
-        delayedNavigation(() => beachWaves.teeUpBackToTheDepths());
-        foregroundAndBackgroundStateListener();
-        // beachWaves.backToTheDepthsCount++;
         textEditor.flipWidgetVisibility();
-      } else if (beachWaves.movieStatus == MovieStatus.inProgress &&
-          beachWaves.movieMode == BeachWaveMovieModes.backToTheDepths) {
-        final currentText = textEditor.controller.text;
-        await soloDoc
-            .createSoloDoc(const CreateSoloDocParams(docType: 'purpose'));
-        await soloDoc.submitSoloDoc(SubmitSoloDocParams(content: currentText));
-        await soloDoc.shareSoloDoc(NoParams());
-        delayedNavigation(
-            () => Modular.to.navigate('/p2p_purpose_session/phase-4/'));
+        beachWaves.teeUpBackToTheDepths();
+        foregroundAndBackgroundStateListener();
+      } else if (beachWaves.movieStatus == MovieStatus.finished &&
+          beachWaves.movieMode == BeachWaveMovieModes.backToTheDepths &&
+          !shouldCleanUpAndTransition) {
+        await cleanUpAndTransition();
       }
     });
+  }
+
+  cleanUpAndTransition() async {
+    final currentText = textEditor.controller.text;
+    await soloDoc.createSoloDoc(const CreateSoloDocParams(docType: 'purpose'));
+    await soloDoc.submitSoloDoc(SubmitSoloDocParams(content: currentText));
+    await soloDoc.shareSoloDoc(NoParams());
+    Modular.to.navigate('/p2p_purpose_session/phase-4/');
+    print("did it navigate to phase4");
   }
 
   @action
