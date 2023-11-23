@@ -88,7 +88,8 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
         } else if (beachWaves.movieStatus == MovieStatus.inProgress &&
             beachWaves.movieMode == BeachWaveMovieModes.toTheDepths) {
           delayedNavigation(
-              () => Modular.to.navigate('/p2p_collaborator_pool/pool/'));
+            () => Modular.to.navigate('/p2p_collaborator_pool/pool/'),
+          );
         } else if (beachWaves.movieStatus == MovieStatus.inProgress &&
             beachWaves.movieMode == BeachWaveMovieModes.backToShore) {
           delayedNavigation(() => Modular.to.navigate('/home/'));

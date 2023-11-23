@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'dart:async';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -95,6 +94,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
 
   beachWavesMovieStatusWatcher() =>
       reaction((p0) => beachWaves.movieStatus, (p0) async {
+        // print("${beachWaves.movieStatus} ${beachWaves.movieMode}");
         if (beachWaves.movieStatus == MovieStatus.inProgress &&
             beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
           delayedNavigation(() => beachWaves.teeUpBackToTheDepths());
@@ -103,6 +103,10 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
             beachWaves.movieMode == BeachWaveMovieModes.backToTheDepths) {
           await timer.deleteTheTimer(NoParams());
           await voiceCallActionsStore.enterOrLeaveCall(Left(NoParams()));
+          await explanationText.toggleWidgetVisibility();
+          if (fadingText.showText) {
+            fadingText.fadeTheTextOut();
+          }
           meshCircleStore.toggleWidgetVisibility();
           delayedNavigation(
               () => Modular.to.navigate('/p2p_purpose_session/phase-3/'));
