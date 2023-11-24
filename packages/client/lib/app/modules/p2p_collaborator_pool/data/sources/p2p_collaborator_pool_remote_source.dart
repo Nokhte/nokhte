@@ -11,7 +11,7 @@ abstract class P2PCollaboratorPoolRemoteSource {
 
   Future<FunctionResponse> exitThePool();
 
-  Stream<bool> getCollaboratorSearchStatus();
+  Stream<CollaboratorSearchAndEntryStatus> getCollaboratorSearchStatus();
 
   bool cancelStream();
 }
@@ -56,8 +56,8 @@ class P2PCollaboratorPoolRemoteSourceImpl
       await endCollaboratorSearch.invoke();
 
   @override
-  Stream<bool> getCollaboratorSearchStatus() =>
-      existingCollaborationsStream.getCollaboratorSearchStatus();
+  Stream<CollaboratorSearchAndEntryStatus> getCollaboratorSearchStatus() =>
+      existingCollaborationsStream.getCollaboratorSearchAndEntryStatus();
 
   @override
   bool cancelStream() {
