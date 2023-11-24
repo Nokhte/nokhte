@@ -8,6 +8,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/logic/update_commit_desire_status.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/update_existing_collaborations/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -22,6 +23,7 @@ class P2PPurposePhase5CoordinatorStore = _P2PPurposePhase5CoordinatorStoreBase
 abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
     with Store {
   final BeachWavesTrackerStore beachWaves;
+  final UpdateExistingCollaborationsCoordinator updateExistingCollaborations;
   final GesturePillStore gesturePillStore;
   final CollaborativeTextEditorTrackerStore collaborativeTextUI;
   final CollaborativeDocCoordinatorStore collaborativeDocDB;
@@ -35,6 +37,7 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
 
   _P2PPurposePhase5CoordinatorStoreBase({
     required this.beachWaves,
+    required this.updateExistingCollaborations,
     required this.collaborativeTextUI,
     required this.collaborativeDocDB,
     required this.agoraCallbacksStore,
@@ -146,7 +149,7 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
     }
   }
 
-  wantsToCommitChangesAndListener(DocInfoContent value) {
+  wantsToCommitChangesAndListener(DocInfoContent value) async {
     if (value.documentCommitStatus) {
       gesturePillStore
           .setPillMovie(TopCircleColorChange.getMovie(firstGradientColors: [
@@ -156,6 +159,7 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
         const Color(0xFF09FD20),
         const Color(0xFF4CDC8B),
       ]));
+      await updateExistingCollaborations.consecrateTheCollaboration(NoParams());
       gesturePillStore.setPillAnimationControl(Control.playFromStart);
       collaborativeTextUI.toggleWidgetVisibility();
       Future.delayed(Seconds.get(3),

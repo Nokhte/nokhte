@@ -6,6 +6,7 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
 import 'package:nokhte/app/core/modules/scheduling/domain/domain.dart';
 import 'package:nokhte/app/core/modules/scheduling/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/update_existing_collaborations/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/scheduling_delta/stack/stack.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -20,11 +21,13 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase
     extends BaseQuadrantAPIReceiver with Store {
   final SchedulingWidgetsCoordinatorStore widgets;
   final ConveyerBeltTextStore conveyerBelt;
+  final UpdateExistingCollaborationsCoordinator updateExistingCollaborations;
   final SchedulingCoordinatorStore scheduling;
   final SchedulingDeltaStore delta;
   final SwipeDetector swipe;
 
   _P2PPurposePhase6CoordinatorStoreBase({
+    required this.updateExistingCollaborations,
     required this.swipe,
     required super.quadrantAPI,
     required this.widgets,
@@ -146,7 +149,9 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase
           }
         });
       case DateOrTime.time:
-        Future.delayed(Seconds.get(3), () {
+        Future.delayed(Seconds.get(3), () async {
+          await updateExistingCollaborations
+              .updateCollaborationActivationStatus(false);
           if (confirmingMatch) {
             calendarCallback(currentlySelectedDate);
             widgets.initBackToShore(

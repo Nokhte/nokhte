@@ -11,6 +11,8 @@ import 'package:nokhte/app/core/modules/solo_doc/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/solo_doc/solo_doc_module.dart';
 import 'package:nokhte/app/core/modules/timer/presentation/presentation.dart';
 import 'package:nokhte/app/core/modules/timer/timer_module.dart';
+import 'package:nokhte/app/core/modules/update_existing_collaborations/mobx/coordinator/update_existing_collaborations_coordinator.dart';
+import 'package:nokhte/app/core/modules/update_existing_collaborations/update_existing_collaborations_module.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/voice_call_module.dart';
 import 'package:nokhte/app/core/widgets/mobx.dart';
@@ -25,6 +27,7 @@ class P2PCollaboratorSessionModule extends Module {
   List<Module> get imports => [
         OneTalkerAtATimeModule(),
         VoiceCallModule(),
+        UpdateExistingCollaborationsModule(),
         CollaborativeDocModule(),
         SoloDocModule(),
         GyroscopicModule(),
@@ -144,6 +147,8 @@ class P2PCollaboratorSessionModule extends Module {
         Bind.singleton<P2PPurposePhase5CoordinatorStore>(
           (i) => P2PPurposePhase5CoordinatorStore(
             swipe: Modular.get<SwipeDetector>(),
+            updateExistingCollaborations:
+                Modular.get<UpdateExistingCollaborationsCoordinator>(),
             collaborativeDocDB: Modular.get<CollaborativeDocCoordinatorStore>(),
             gesturePillStore: Modular.get<GesturePillStore>(),
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
@@ -156,6 +161,8 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase6CoordinatorStore>(
           (i) => P2PPurposePhase6CoordinatorStore(
+            updateExistingCollaborations:
+                Modular.get<UpdateExistingCollaborationsCoordinator>(),
             swipe: Modular.get<SwipeDetector>(),
             scheduling: i<SchedulingCoordinatorStore>(),
             widgets: i<SchedulingWidgetsCoordinatorStore>(),
