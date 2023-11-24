@@ -4,7 +4,7 @@ import 'package:nokhte/app/core/modules/update_existing_collaborations/domain/do
 class ConsecrateTheCollaboration
     implements
         AbstractFutureLogic<CollaborationConsecrationStatusEntity, NoParams> {
-  final UpdateExistingCollaborationsConstract contract;
+  final UpdateExistingCollaborationsContract contract;
 
   ConsecrateTheCollaboration({required this.contract});
 
