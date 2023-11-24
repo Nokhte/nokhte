@@ -1,4 +1,5 @@
 import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
+import 'package:nokhte_core/custom_control_structures.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class CollaborativeDocRemoteSource {
@@ -35,7 +36,15 @@ class CollaborativeDocRemoteSourceImpl implements CollaborativeDocRemoteSource {
 
   @override
   Future<List> createCollaborativeDoc({required String docType}) async {
-    return await queries.createCollaborativeDocument(docType: docType);
+    if (queries.collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await queries.figureOutActiveCollaboratorInfo();
+    }
+    return StringComparison.isCollaboratorTwo(
+      input: queries.collaboratorInfo.theUsersCollaboratorNumber,
+      callback: () async =>
+          await queries.createCollaborativeDocument(docType: docType),
+      elseReturnVal: [],
+    );
   }
 
   @override
