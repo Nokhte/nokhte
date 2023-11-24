@@ -9,3 +9,7 @@ alter table "public"."existing_collaborations" add constraint "existing_collabor
 alter table "public"."existing_collaborations" validate constraint "existing_collaborations_who_is_talking_fkey";
 
 alter table "public"."existing_collaborations" add column "is_consecrated" boolean not null default false;
+
+alter table "public"."existing_collaborations" add column "collaborator_one_has_entered" boolean not null default false;
+
+alter table "public"."existing_collaborations" add column "collaborator_two_has_entered" boolean not null default false;
