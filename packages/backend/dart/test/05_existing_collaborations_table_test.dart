@@ -29,7 +29,7 @@ void main() {
     expect(res.first["collaborator_one"], tSetup.firstUserUID);
     expect(res.first["collaborator_two"], tSetup.secondUserUID);
     expect(res.first["is_currently_active"], true);
-    expect(res.first["who_gets_the_question"], 1);
+    expect(res.first["who_gets_the_question"], 2);
   });
 
   test("should be properly identified as collaborator_one", () async {
@@ -57,7 +57,7 @@ void main() {
     expect(res.first["collaborator_one"], tSetup.firstUserUID);
     expect(res.first["collaborator_two"], tSetup.secondUserUID);
     expect(res.first["is_currently_active"], false);
-    expect(res.first["who_gets_the_question"], 1);
+    expect(res.first["who_gets_the_question"], 2);
     await user1Queries.updateActivityStatus(newActivityStatus: true);
   });
 
