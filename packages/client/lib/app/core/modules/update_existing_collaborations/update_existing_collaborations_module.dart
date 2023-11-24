@@ -34,6 +34,12 @@ class UpdateExistingCollaborationsModule extends Module {
           ),
           export: true,
         ),
+        Bind.singleton<UpdateIndividualCollaboratorEntryStatus>(
+          (i) => UpdateIndividualCollaboratorEntryStatus(
+            contract: i<UpdateExistingCollaborationsContract>(),
+          ),
+          export: true,
+        ),
         Bind.singleton<ConsecrateTheCollaborationStore>(
           (i) => ConsecrateTheCollaborationStore(
             logic: i<ConsecrateTheCollaboration>(),
@@ -46,8 +52,16 @@ class UpdateExistingCollaborationsModule extends Module {
           ),
           export: true,
         ),
+        Bind.singleton<UpdateIndividualCollaboratorEntryStatusStore>(
+          (i) => UpdateIndividualCollaboratorEntryStatusStore(
+            logic: i<UpdateIndividualCollaboratorEntryStatus>(),
+          ),
+          export: true,
+        ),
         Bind.singleton<UpdateExistingCollaborationsCoordinator>(
           (i) => UpdateExistingCollaborationsCoordinator(
+            updateIndividualCollaboratorEntryStatus:
+                i<UpdateIndividualCollaboratorEntryStatusStore>(),
             updateCollaborationActivationStatus:
                 i<UpdateCollaborationActivationStatusStore>(),
             consecrateTheCollaboration: i<ConsecrateTheCollaborationStore>(),
