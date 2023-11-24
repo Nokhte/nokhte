@@ -20,7 +20,8 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
       }
       if (event.isNotEmpty) {
         if (event.first["collaborator_one"] == userUID ||
-            event.first["collaborator_two"] == userUID) {
+            event.first["collaborator_two"] == userUID &&
+                event.first["is_consecrated"] == false) {
           yield true;
         } else {
           yield false;
