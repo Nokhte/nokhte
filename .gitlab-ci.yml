@@ -45,18 +45,6 @@ test-the-db-rules-and-edge-functions:
       when: always
     - when: never
 
-# test-the-edge-functions:
-#   stage: development
-#   script:
-#     - cd packages/backend/supabase
-#     - supabase stop --no-backup
-#     - supabase start
-#     - supabase functions serve  --env-file supabase/test/.env.local &
-#     - cd test
-#     - deno test --allow-all initiate-collaborator-search-test.ts --import-map=../functions/import_map.json --allow-env
-#   only:
-#     - development
-
 deploy-to-staging-db:
   stage: staging
   script:
@@ -78,11 +66,8 @@ deploy-to-prod-db:
   only:
     - production
   when: manual
-# $ Backend CI/CD JOBS END
-# @ ======================== @
-# % Client CI/CD JOBS START
 
-# ✅ WORKS
+  
 run-the-unit-tests:
   stage: development
   script:
@@ -116,7 +101,6 @@ pre-build-check:
     - development
   when: manual
 
-# ✅ WORKS
 internal-ios-staging:
   stage: staging
   tags:
@@ -135,7 +119,24 @@ internal-ios-staging:
     - staging
   when: manual
 
-#  ✅ WORKS
+internal-ios-shorebird-staging:
+  stage: staging
+  tags:
+    - shell
+  script:
+    - melos bs
+    - cd packages/client
+    - echo "LEOPARD_MODEL_PATH=assets/leopard_model.pv" >> .env
+    - echo "LEOPARD_ACCESS_KEY=$LEOPARD_ACCESS_KEY" >> .env
+    - echo "PROD_SUPABASE_URL=$STAGING_SUPABASE_URL" >> .env
+    - echo "PROD_SUPABASE_ANON_KEY=$STAGING_SUPABASE_ANON_KEY" >> .env
+    - chmod u+x ./_scripts/ios/*.sh
+    -  ./_scripts/ios/build_shorebird_ios_release.sh
+    - ./_scripts/ios/distribute_ios_beta.sh
+  only:
+    - staging
+  when: manual
+
 internal-android-staging:
   stage: staging
   tags:
@@ -154,7 +155,6 @@ internal-android-staging:
     - staging
   when: manual
 
-# 🌊 Pretty Sure This Works
 external-ios-beta-build:
   stage: production
   tags:
@@ -173,7 +173,6 @@ external-ios-beta-build:
     - staging
   when: manual
 
-# 🌊 Pretty Sure This Works
 external-android-beta-build:
   stage: production
   tags:
@@ -191,6 +190,3 @@ external-android-beta-build:
   only:
     - staging
   when: manual
-# % Client CI/CD JOBS END 
-
-# % Client CI/CD JOBS END
