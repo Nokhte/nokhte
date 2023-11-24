@@ -1,5 +1,6 @@
 import 'package:nokhte/app/core/modules/scheduling/domain/domain.dart';
 import 'package:nokhte_backend/tables/working_collaborative_scheduling.dart';
+import 'package:nokhte_core/custom_control_structures.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class SchedulingRemoteSource {
@@ -20,8 +21,15 @@ class SchedulingRemoteSourceImpl implements SchedulingRemoteSource {
 
   @override
   Future<List> createSchedulingSession() async {
-    return await queries.createSchedulingSession(
-        sessionTypeBeingPlanned: 'collective');
+    if (queries.collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await queries.figureOutActiveCollaboratorInfo();
+    }
+    return StringComparison.isCollaboratorTwo(
+      input: queries.collaboratorInfo.theUsersCollaboratorNumber,
+      callback: () async => await queries.createSchedulingSession(
+          sessionTypeBeingPlanned: 'collective'),
+      elseReturnVal: [],
+    );
   }
 
   @override
