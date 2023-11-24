@@ -15,7 +15,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
     return await supabase.from(tableName).insert({
       collaboratorOne: collaboratorOneUID,
       collaboratorTwo: collaboratorTwoUID,
-      'who_gets_the_question': 1,
+      'who_gets_the_question': 2,
     }).select();
   }
 
