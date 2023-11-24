@@ -15,13 +15,13 @@ mixin _$GetCollaboratorSearchStatusStore
       context: context);
 
   @override
-  ObservableStream<bool> get searchStatus {
+  ObservableStream<CollaboratorSearchAndEntryStatus> get searchStatus {
     _$searchStatusAtom.reportRead();
     return super.searchStatus;
   }
 
   @override
-  set searchStatus(ObservableStream<bool> value) {
+  set searchStatus(ObservableStream<CollaboratorSearchAndEntryStatus> value) {
     _$searchStatusAtom.reportWrite(value, super.searchStatus, () {
       super.searchStatus = value;
     });
