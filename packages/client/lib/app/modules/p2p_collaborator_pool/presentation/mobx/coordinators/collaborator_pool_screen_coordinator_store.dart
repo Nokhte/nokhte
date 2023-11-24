@@ -6,6 +6,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/update_existing_collaborations/mobx/coordinator/update_existing_collaborations_coordinator.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -22,9 +23,11 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
   final CancelCollaboratorStreamStore cancelStreamStore;
   final GetCollaboratorSearchStatusStore getCollaboratorSearchStatusStore;
   final FadeInAndChangeColorTextStore fadeInAndColorTextStore;
+  final UpdateExistingCollaborationsCoordinator updateExistingCollaborations;
 
   _CollaboratorPoolScreenCoordinatorStoreBase({
     required this.exitCollaboratorPoolStore,
+    required this.updateExistingCollaborations,
     required this.cancelStreamStore,
     required this.getCollaboratorSearchStatusStore,
     required super.beachWaves,
@@ -51,17 +54,16 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
 
   searchStatusListener() =>
       reaction((p0) => getCollaboratorSearchStatusStore.searchStatus, (p0) {
-        p0.listen((value) {
+        p0.listen((value) async {
           print("value $value");
-          if (value) {
-            // ^^ this would turn into if (value.hasFoundIt && value.hasn't enteres)
-            // ^^ then execute the below logic + the transition
-            // await flipEntryStatus()
-            print("did the first reaction run search status? $value?");
+          if (value.hasFoundTheirCollaborator && !value.hasEntered) {
+            await updateExistingCollaborations
+                .updateIndividualCollaboratorEntryStatus(true);
             Future.delayed(Seconds.get(2), () {
               beachWaves.teeUpBackToTheDepths();
               fadeInAndColorTextStore.teeUpFadeOut();
             });
+            print("did the first reaction run search status? $value?");
           }
         });
       });
