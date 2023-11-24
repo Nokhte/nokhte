@@ -48,44 +48,50 @@ class WorkingCollaborativeSchedulingQueries extends CollaborativeQueries {
         );
   }
 
+  updateTheDate(DateTime date) async {
+    final formattedDate = DateFormat('yyyy-MM-dd').format(date);
+    await supabase
+        .from(table)
+        .update({
+          '${collaboratorInfo.theUsersCollaboratorNumber}_chosen_day':
+              formattedDate,
+        })
+        .eq(
+          '${collaboratorInfo.theCollaboratorsNumber}_uid',
+          collaboratorInfo.theCollaboratorsUID,
+        )
+        .eq(
+          "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
+          collaboratorInfo.theUsersUID,
+        );
+  }
+
+  updateTheTime(DateTime date) async {
+    final formattedDate =
+        DateTime(2003, 4, 9, date.hour, date.minute).toUtc().toIso8601String();
+    await supabase
+        .from(table)
+        .update({
+          '${collaboratorInfo.theUsersCollaboratorNumber}_chosen_time':
+              formattedDate,
+        })
+        .eq(
+          '${collaboratorInfo.theCollaboratorsNumber}_uid',
+          collaboratorInfo.theCollaboratorsUID,
+        )
+        .eq(
+          "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
+          collaboratorInfo.theUsersUID,
+        );
+  }
+
   Future<void> updateTimeOrDate(DateTime date,
       {required bool updateDate}) async {
     await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     if (updateDate) {
-      final formattedDate = DateFormat('yyyy-MM-dd').format(date);
-      await supabase
-          .from(table)
-          .update({
-            '${collaboratorInfo.theUsersCollaboratorNumber}_chosen_day':
-                formattedDate,
-          })
-          .eq(
-            '${collaboratorInfo.theCollaboratorsNumber}_uid',
-            collaboratorInfo.theCollaboratorsUID,
-          )
-          .eq(
-            "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
-            collaboratorInfo.theUsersUID,
-          );
+      updateTheDate(date);
     } else {
-      print("hey what's the date being passed here? $date");
-      final formattedDate = DateTime(2003, 4, 9, date.hour, date.minute)
-          .toUtc()
-          .toIso8601String();
-      await supabase
-          .from(table)
-          .update({
-            '${collaboratorInfo.theUsersCollaboratorNumber}_chosen_time':
-                formattedDate,
-          })
-          .eq(
-            '${collaboratorInfo.theCollaboratorsNumber}_uid',
-            collaboratorInfo.theCollaboratorsUID,
-          )
-          .eq(
-            "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
-            collaboratorInfo.theUsersUID,
-          );
+      updateTheTime(date);
     }
   }
 }
