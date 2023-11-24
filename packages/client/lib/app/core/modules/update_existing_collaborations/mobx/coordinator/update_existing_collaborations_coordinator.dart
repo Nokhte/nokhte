@@ -16,12 +16,15 @@ class UpdateExistingCollaborationsCoordinator = _UpdateExistingCollaborationsCoo
 abstract class _UpdateExistingCollaborationsCoordinatorBase extends Equatable
     with Store {
   final ConsecrateTheCollaborationStore consecrateTheCollaboration;
+  final UpdateIndividualCollaboratorEntryStatusStore
+      updateIndividualCollaboratorEntryStatus;
   final UpdateCollaborationActivationStatusStore
       updateCollaborationActivationStatus;
 
   _UpdateExistingCollaborationsCoordinatorBase({
     required this.consecrateTheCollaboration,
     required this.updateCollaborationActivationStatus,
+    required this.updateIndividualCollaboratorEntryStatus,
   });
   @override
   List<Object> get props => [
