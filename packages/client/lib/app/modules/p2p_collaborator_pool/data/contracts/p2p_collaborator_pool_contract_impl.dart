@@ -68,7 +68,7 @@ class P2PCollaboratorPoolContractImpl implements P2PCollaboratorPoolContract {
     if (await networkInfo.isConnected) {
       final res = remoteSource.getCollaboratorSearchStatus();
       return Right(
-        CollaboratorSearchStatusModel(isFound: res),
+        CollaboratorSearchStatusModel(searchAndEntryStatusStream: res),
       );
     } else {
       return Left(FailureConstants.internetConnectionFailure);
