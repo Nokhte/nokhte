@@ -254,4 +254,7 @@ class DefaultEntities {
       get collaborationActivationStatusEntity => const Right(
             CollaborationActivationStatusEntity(isActivated: false),
           );
+  static Either<Failure, IndividualCollaboratorEntryStatusEntity>
+      get individualCollaboratorEntryStatusEntity => const Right(
+          IndividualCollaboratorEntryStatusEntity(hasEntered: false));
 }
