@@ -5,6 +5,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   static const collaboratorOne = "collaborator_one";
   static const collaboratorTwo = "collaborator_two";
   static const isCurrentlyActive = 'is_currently_active';
+  static const isConsecrated = "is_consecrated";
   static const whoIsTalking = "who_is_talking";
   ExistingCollaborationsQueries({required super.supabase});
 
@@ -17,6 +18,24 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
       collaboratorTwo: collaboratorTwoUID,
       'who_gets_the_question': 2,
     }).select();
+  }
+
+  Future<void> consecrateTheCollaboration() async {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutActiveCollaboratorInfo();
+    }
+    await supabase
+        .from(tableName)
+        .update({isConsecrated: true})
+        .eq(
+          collaboratorInfo.theCollaboratorsNumber,
+          collaboratorInfo.theCollaboratorsUID,
+        )
+        .eq(
+          collaboratorInfo.theUsersCollaboratorNumber,
+          collaboratorInfo.theUsersUID,
+        )
+        .select();
   }
 
   Future<void> updateActivityStatus({
