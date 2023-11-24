@@ -29,69 +29,45 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
     required this.getCollaboratorSearchStatusStore,
     required super.beachWaves,
     required this.fadeInAndColorTextStore,
-  }) {
-    // searchStatusListener();
-    // beachWavesMovieStatusListener();
-    // final duration = kDebugMode ? Seconds.get(10) : Seconds.get(45);
-    // beachWaves.initiateTimesUp(
-    //   timerLength: duration,
-    // );
-  }
+  });
 
-  // @action
   beachWavesMovieStatusListener() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         print(
             "HEYYYYYYYYY IS THIS WORKING???? ${beachWaves.movieStatus} ${beachWaves.movieMode} ${beachWaves.movie.duration}");
         if (beachWaves.movieStatus == MovieStatus.finished &&
             beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
-          // Future.delayed(Seconds.get(0), () {
           beachWaves.initiateBackToOceanDive();
           exitCollaboratorPoolStore(NoParams());
           cancelStreamStore(NoParams());
-          // });
         } else if (beachWaves.movieStatus == MovieStatus.finished &&
             beachWaves.movieMode == BeachWaveMovieModes.backToOceanDive) {
-          // delayedNavigation(() =>
           Modular.to.navigate('/p2p_collaborator_pool/');
-          // );
         } else if (beachWaves.movieStatus == MovieStatus.finished &&
             beachWaves.movieMode == BeachWaveMovieModes.backToTheDepths) {
-          // delayedNavigation(
-          // () =>
           Modular.to.navigate('/p2p_purpose_session/');
-          // );
         }
       });
 
-  // @action
   searchStatusListener() =>
       reaction((p0) => getCollaboratorSearchStatusStore.searchStatus, (p0) {
         p0.listen((value) {
           print("value $value");
           if (value) {
+            // ^^ this would turn into if (value.hasFoundIt && value.hasn't enteres)
+            // ^^ then execute the below logic + the transition
+            // await flipEntryStatus()
             print("did the first reaction run search status? $value?");
             Future.delayed(Seconds.get(2), () {
               beachWaves.teeUpBackToTheDepths();
               fadeInAndColorTextStore.teeUpFadeOut();
             });
           }
-          // else if (!value) {
-          //   delayedNavigation(() {
-          //     if (!value &&
-          //         beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
-          //       beachWaves.initiateBackToOceanDive();
-          //       exitCollaboratorPoolStore(NoParams());
-          //       cancelStreamStore(NoParams());
-          //     }
-          //   });
-          // }
         });
       });
 
   @action
   screenConstructorCallback() {
-    // final duration = kDebugMode ? Seconds.get(10) : Seconds.get(45);
     final duration = kDebugMode ? Seconds.get(10) : Seconds.get(45);
     beachWaves.initiateTimesUp(
       timerLength: duration,
@@ -99,32 +75,5 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
     getCollaboratorSearchStatusStore();
     searchStatusListener();
     beachWavesMovieStatusListener();
-    // await Future.delayed(Seconds.get(0), () async {
-    // Timer.run(() {
-    // beachWaves.initiateTimesUp(
-    //   timerLength: duration,
-    // );
-    // });
-    // });
   }
-
-  // @action
-  // screenConstructorCallback() {
-  //   beachWaves.initiateTimesUp(
-  //     timerLength: Seconds.get(45),
-  //   );
-  //   getCollaboratorSearchStatusStore();
-  //   searchStatusListener();
-  //   beachWavesMovieStatusListener();
-  // }
-
-  // @action
-  // separateFunction(duration) => Future.delayed(
-  //     Seconds.get(0, milli: 1),
-  //     () => beachWaves.initiateTimesUp(
-  //           timerLength: duration,
-  //         ));
-
-  @override
-  List<Object> get props => [];
 }
