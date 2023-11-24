@@ -37,4 +37,18 @@ class UpdateExistingCollaborationsContractImpl
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  Future<Either<Failure, IndividualCollaboratorEntryStatusModel>>
+      updateIndividualCollaboratorEntryStatus(
+          {required bool isEntering}) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.updateIndividualCollaboratorEntryStatus(
+        isEntering: isEntering,
+      );
+      return Right(IndividualCollaboratorEntryStatusModel.fromSupabase(res));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
 }
