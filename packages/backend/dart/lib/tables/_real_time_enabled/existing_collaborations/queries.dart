@@ -20,11 +20,11 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
     }).select();
   }
 
-  Future<void> consecrateTheCollaboration() async {
+  Future<List> consecrateTheCollaboration() async {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutActiveCollaboratorInfo();
     }
-    await supabase
+    return await supabase
         .from(tableName)
         .update({isConsecrated: true})
         .eq(
@@ -38,13 +38,13 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
         .select();
   }
 
-  Future<void> updateActivityStatus({
+  Future<List> updateActivityStatus({
     required bool newActivityStatus,
   }) async {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
       await figureOutActiveCollaboratorInfo();
     }
-    await supabase
+    return await supabase
         .from(tableName)
         .update({isCurrentlyActive: newActivityStatus})
         .eq(
