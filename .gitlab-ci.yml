@@ -120,7 +120,7 @@ internal-ios-staging:
   when: manual
 
 
-internal-ios-staging-path:
+internal-ios-staging-patch:
   stage: staging
   tags:
     - shell
