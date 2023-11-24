@@ -6,6 +6,9 @@ abstract class UpdateExistingCollaborationsRemoteSource {
   Future<List> updateCollaborationActivationStatus(
       {required bool shouldActivate});
   Future<List> consecrateTheCollaboration(NoParams params);
+  Future<List> updateIndividualCollaboratorEntryStatus({
+    required bool isEntering,
+  });
 }
 
 class UpdateExistingCollaborationsRemoteSourceImpl
@@ -18,12 +21,17 @@ class UpdateExistingCollaborationsRemoteSourceImpl
   }) : queries = ExistingCollaborationsQueries(supabase: supabase);
   @override
   Future<List> consecrateTheCollaboration(NoParams params) async =>
-      queries.consecrateTheCollaboration();
+      await queries.consecrateTheCollaboration();
 
   @override
   Future<List> updateCollaborationActivationStatus(
           {required bool shouldActivate}) async =>
-      queries.updateActivityStatus(
+      await queries.updateActivityStatus(
         newActivityStatus: shouldActivate,
       );
+
+  @override
+  Future<List> updateIndividualCollaboratorEntryStatus(
+          {required bool isEntering}) async =>
+      await queries.updateUserHasEnteredStatus(newEntryStatus: isEntering);
 }
