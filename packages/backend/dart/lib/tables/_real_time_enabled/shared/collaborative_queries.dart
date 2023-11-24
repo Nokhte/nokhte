@@ -22,6 +22,12 @@ class CollaborativeQueries {
     collaboratorInfo = await computeActiveCollaboratorInfo();
   }
 
+  Future<void> figureOutActiveCollaboratorInfoIfNotDoneAlready() async {
+    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
+      await figureOutActiveCollaboratorInfo();
+    }
+  }
+
   Future<CollaboratorInfo> computeActiveCollaboratorInfo() async {
     final res = await getActiveCollaboratorsUIDAndNumber();
     return res[1] == 1
