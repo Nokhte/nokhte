@@ -4,6 +4,7 @@ import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/data/data.dart';
+import 'package:nokhte_backend/tables/_real_time_enabled/existing_collaborations/types/collaborator_search_and_entry_status.dart';
 import '../../../_module_helpers/shared_mocks_gen.mocks.dart';
 import '../../constants/responses/responses.dart';
 import '../../constants/models/models.dart';
@@ -144,13 +145,17 @@ void main() {
       test(
           "when online and no errors are shown should return a model w/ the right state",
           () async {
-        when(mockRemoteSource.getCollaboratorSearchStatus())
-            .thenAnswer((realInvocation) => Stream.value(true));
+        when(mockRemoteSource.getCollaboratorSearchStatus()).thenAnswer(
+            (realInvocation) => ConstantCollaboratorSearchStatusStatusModel
+                .successCase.searchAndEntryStatusStream);
 
         final res =
             await p2pCollaboratorPoolContract.getCollaboratorSearchStatus();
         res.fold((failure) {}, (entity) {
-          expect(entity.isFound, emits(true));
+          expect(
+              entity.searchAndEntryStatusStream,
+              emits(CollaboratorSearchAndEntryStatus(
+                  hasEntered: false, hasFoundTheirCollaborator: true)));
         });
         expect(res,
             const TypeMatcher<Right<Failure, CollaboratorSearchStatusModel>>());

@@ -274,13 +274,15 @@ class MockMP2PCollaboratorPoolRemoteSourceImpl extends _i1.Mock
       ) as _i9.Future<_i2.FunctionResponse>);
 
   @override
-  _i9.Stream<bool> getCollaboratorSearchStatus() => (super.noSuchMethod(
-        Invocation.method(
-          #getCollaboratorSearchStatus,
-          [],
-        ),
-        returnValue: _i9.Stream<bool>.empty(),
-      ) as _i9.Stream<bool>);
+  _i9.Stream<_i3.CollaboratorSearchAndEntryStatus>
+      getCollaboratorSearchStatus() => (super.noSuchMethod(
+            Invocation.method(
+              #getCollaboratorSearchStatus,
+              [],
+            ),
+            returnValue:
+                _i9.Stream<_i3.CollaboratorSearchAndEntryStatus>.empty(),
+          ) as _i9.Stream<_i3.CollaboratorSearchAndEntryStatus>);
 
   @override
   bool cancelStream() => (super.noSuchMethod(
@@ -888,14 +890,17 @@ class MockP2PCollaboratorPoolRemoteSource extends _i1.Mock
       ) as _i9.Future<_i2.FunctionResponse>);
 
   @override
-  _i9.Stream<bool> getCollaboratorSearchStatus() => (super.noSuchMethod(
-        Invocation.method(
-          #getCollaboratorSearchStatus,
-          [],
-        ),
-        returnValue: _i9.Stream<bool>.empty(),
-        returnValueForMissingStub: _i9.Stream<bool>.empty(),
-      ) as _i9.Stream<bool>);
+  _i9.Stream<_i3.CollaboratorSearchAndEntryStatus>
+      getCollaboratorSearchStatus() => (super.noSuchMethod(
+            Invocation.method(
+              #getCollaboratorSearchStatus,
+              [],
+            ),
+            returnValue:
+                _i9.Stream<_i3.CollaboratorSearchAndEntryStatus>.empty(),
+            returnValueForMissingStub:
+                _i9.Stream<_i3.CollaboratorSearchAndEntryStatus>.empty(),
+          ) as _i9.Stream<_i3.CollaboratorSearchAndEntryStatus>);
 
   @override
   bool cancelStream() => (super.noSuchMethod(
