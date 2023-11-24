@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
+import 'package:nokhte_backend/tables/existing_collaborations.dart';
 import '../../../constants/entities/entities.dart';
 import '../../../fixtures/p2p_collaborator_pool_stack_mock_gen.mocks.dart';
 
@@ -26,7 +27,8 @@ void main() {
       await shareSoloDocStore();
       expect(
         shareSoloDocStore.searchStatus,
-        emits(true),
+        emits(CollaboratorSearchAndEntryStatus(
+            hasEntered: false, hasFoundTheirCollaborator: true)),
       );
       expect(shareSoloDocStore.errorMessage, "");
     });
