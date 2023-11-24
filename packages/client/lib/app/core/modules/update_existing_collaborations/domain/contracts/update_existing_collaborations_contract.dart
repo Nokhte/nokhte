@@ -8,4 +8,8 @@ abstract class UpdateExistingCollaborationsContract {
       consecrateTheCollaboration(NoParams params);
   Future<Either<Failure, CollaborationActivationStatusEntity>>
       updateCollaborationActivationStatus({required bool shouldActivate});
+  Future<Either<Failure, IndividualCollaboratorEntryStatusEntity>>
+      updateIndividualCollaboratorEntryStatus({
+    required bool isEntering,
+  });
 }
