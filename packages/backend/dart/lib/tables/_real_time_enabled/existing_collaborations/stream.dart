@@ -19,10 +19,18 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
         break;
       }
       if (event.isNotEmpty) {
+        // so this is if the collaboration
         if (event.first["collaborator_one"] == userUID ||
             event.first["collaborator_two"] == userUID &&
                 event.first["is_consecrated"] == false) {
-          yield true;
+          // you then want to do some extra computation on which collaborator they are
+          await figureOutActiveCollaboratorInfo();
+          if (!event.first[
+              "${collaboratorInfo.theUsersCollaboratorNumber}_has_entered"]) {
+            yield true;
+          } else {
+            yield false;
+          }
         } else {
           yield false;
         }
