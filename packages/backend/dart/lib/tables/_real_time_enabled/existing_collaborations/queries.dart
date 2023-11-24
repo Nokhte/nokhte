@@ -21,9 +21,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   }
 
   Future<List> consecrateTheCollaboration() async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     return await supabase
         .from(tableName)
         .update({isConsecrated: true})
@@ -40,7 +38,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
 
   Future<List> updateUserHasEnteredStatus(
       {required bool newEntryStatus}) async {
-    figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     return await supabase
         .from(tableName)
         .update({
@@ -61,7 +59,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   Future<List> updateActivityStatus({
     required bool newActivityStatus,
   }) async {
-    figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     return await supabase
         .from(tableName)
         .update({isCurrentlyActive: newActivityStatus})
@@ -78,7 +76,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   }
 
   Future<List> setUserAsTheCurrentTalker() async {
-    figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     return await supabase
         .from(tableName)
         .update({
@@ -96,7 +94,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   }
 
   Future<void> clearTheCurrentTalker() async {
-    figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     return await supabase
         .from(tableName)
         .update({
@@ -113,7 +111,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   }
 
   Future<void> deleteExistingCollaboration() async {
-    figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     return await supabase
         .from(tableName)
         .delete()

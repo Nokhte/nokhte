@@ -11,9 +11,7 @@ class P2PPerspectivesTrackingQueries extends CollaborativeQueries {
   insertNewPerspectives({
     required List<String> newPerspectives,
   }) async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
 
     final List checkRes = await selectPerspectivesRow();
     if (checkRes.isEmpty) {
@@ -38,9 +36,7 @@ class P2PPerspectivesTrackingQueries extends CollaborativeQueries {
   }
 
   deletePerspectivesRow() async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     await supabase.from(tableName).delete().eq(
           "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
           collaboratorInfo.theUsersUID,
@@ -48,9 +44,7 @@ class P2PPerspectivesTrackingQueries extends CollaborativeQueries {
   }
 
   Future<List> selectPerspectivesRow() async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     return await supabase
         .from(tableName)
         .select()

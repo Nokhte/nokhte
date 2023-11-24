@@ -7,9 +7,7 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
   });
 
   Future<void> updateExistingDocument({required String newContent}) async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     await supabase
         .from(tableName)
         .update({
@@ -27,9 +25,7 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
   }
 
   Future<void> updatePresence({required bool isPresent}) async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     await supabase
         .from(tableName)
         .update({
@@ -46,9 +42,7 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
   }
 
   Future<void> updateDelta({required int delta}) async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     await supabase
         .from(tableName)
         .update({
@@ -67,9 +61,7 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
   Future<List> createCollaborativeDocument({
     required String docType,
   }) async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     final checkRes = await supabase
         .from(tableName)
         .select()
@@ -98,9 +90,7 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
   Future<void> updateCommitDesireStatus({
     required bool wantsToCommit,
   }) async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     await supabase
         .from(tableName)
         .update({
@@ -118,9 +108,7 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
   }
 
   Future<void> deleteThedoc() async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     await supabase
         .from('working_collaborative_documents')
         .delete()

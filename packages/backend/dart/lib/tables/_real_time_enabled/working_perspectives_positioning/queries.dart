@@ -9,9 +9,7 @@ class WorkingPerspectivesPositioningQueries extends CollaborativeQueries {
   });
 
   Future<List> createPositioningSession() async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     final List checkRes = await supabase
         .from(
           WorkingPerspectivesPositioningConstants.tableName,
@@ -39,9 +37,7 @@ class WorkingPerspectivesPositioningQueries extends CollaborativeQueries {
   }
 
   Future<List> updateCurrentQuadrant({required int newQuadrant}) async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     print("Is this thing running??? $newQuadrant");
     return await supabase
         .from(
@@ -59,9 +55,7 @@ class WorkingPerspectivesPositioningQueries extends CollaborativeQueries {
   }
 
   Future<List> updateStagingAreaArr({required List<String> newArr}) async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     return await supabase
         .from(
           WorkingPerspectivesPositioningConstants.tableName,

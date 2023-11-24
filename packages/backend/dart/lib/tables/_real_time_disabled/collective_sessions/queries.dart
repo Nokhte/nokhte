@@ -9,9 +9,7 @@ class CollectiveSessionQueries extends CollaborativeQueries {
   CollectiveSessionQueries({required super.supabase});
 
   Future<List> createNewSession() async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     final checkRes = await getCollaboratorsSessionMetadata();
     if (checkRes.isNotEmpty) {
       return checkRes;
@@ -34,9 +32,7 @@ class CollectiveSessionQueries extends CollaborativeQueries {
     required DateTime individualSessionTimestampParam,
     required Map sessionMetadata,
   }) async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     return await supabase
         .from(tableName)
         .update({
@@ -56,9 +52,7 @@ class CollectiveSessionQueries extends CollaborativeQueries {
   }
 
   Future<List> getMostRecentRow() async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     return await supabase
         .from(tableName)
         .select()
@@ -73,9 +67,7 @@ class CollectiveSessionQueries extends CollaborativeQueries {
   }
 
   Future<List> getCollaboratorsSessionMetadata() async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     return await supabase
         .from(tableName)
         .select()

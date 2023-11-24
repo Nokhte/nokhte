@@ -17,9 +17,7 @@ class TimerInformationStreams extends CollaborativeQueries {
     String timerIsRunning = TimerInformationQueries.timerIsRunning;
     String isOnline = TimerInformationQueries.isOnline;
 
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     await for (var event in supabase
         .from(
       TimerInformationQueries.tableName,

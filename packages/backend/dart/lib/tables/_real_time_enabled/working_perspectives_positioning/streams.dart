@@ -17,9 +17,7 @@ class WorkingPerspectivesPositioningStream extends CollaborativeQueries {
 
   Stream<PerspectivesPositioning> getStream() async* {
     bool isListening = true;
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     await for (var event in supabase
         .from(
       WorkingPerspectivesPositioningConstants.tableName,

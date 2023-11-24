@@ -10,7 +10,13 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
   bool collaboratorSearchListeningStatus = false;
   bool whoIsTalkingListeningStatus = false;
 
-  Stream<bool> getCollaboratorSearchStatus() async* {
+  bool isANewCollaboration(event) =>
+      event.first["collaborator_one"] == userUID ||
+      event.first["collaborator_two"] == userUID &&
+          event.first["is_consecrated"] == false;
+
+  Stream<CollaboratorSearchAndEntryStatus>
+      getCollaboratorSearchAndEntryStatus() async* {
     collaboratorSearchListeningStatus = true;
     await for (var event in supabase
         .from('existing_collaborations')
@@ -19,21 +25,24 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
         break;
       }
       if (event.isNotEmpty) {
-        // so this is if the collaboration
-        if (event.first["collaborator_one"] == userUID ||
-            event.first["collaborator_two"] == userUID &&
-                event.first["is_consecrated"] == false) {
-          // you then want to do some extra computation on which collaborator they are
+        if (isANewCollaboration(event)) {
           await figureOutActiveCollaboratorInfo();
-          if (!event.first[
-              "${collaboratorInfo.theUsersCollaboratorNumber}_has_entered"]) {
-            yield true;
-          } else {
-            yield false;
-          }
+          yield CollaboratorSearchAndEntryStatus(
+            hasEntered: event.first[
+                "${collaboratorInfo.theUsersCollaboratorNumber}_has_entered"],
+            hasFoundTheirCollaborator: true,
+          );
         } else {
-          yield false;
+          yield CollaboratorSearchAndEntryStatus(
+            hasEntered: false,
+            hasFoundTheirCollaborator: false,
+          );
         }
+      } else {
+        yield CollaboratorSearchAndEntryStatus(
+          hasEntered: false,
+          hasFoundTheirCollaborator: false,
+        );
       }
     }
   }
@@ -44,9 +53,7 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
   cancelWhoIsTalkingtream() => whoIsTalkingListeningStatus = false;
 
   Stream<bool> checkIfCollaboratorIsTalking() async* {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+        await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     whoIsTalkingListeningStatus = true;
     await for (var event in supabase
         .from('existing_collaborations')

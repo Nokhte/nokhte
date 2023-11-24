@@ -7,9 +7,7 @@ class FinishedCollaborativeP2PPurposeDocumentsQueries
   Future<List> getDocInfo({
     required String docType,
   }) async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     return await supabase
         .from(tableName)
         .select()
@@ -33,9 +31,7 @@ class FinishedCollaborativeP2PPurposeDocumentsQueries
     required String docType,
     required String content,
   }) async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     return await supabase.from(tableName).insert({
       "${collaboratorInfo.theCollaboratorsNumber}_uid":
           collaboratorInfo.theCollaboratorsUID,
@@ -47,9 +43,7 @@ class FinishedCollaborativeP2PPurposeDocumentsQueries
   }
 
   Future<void> deleteADoc() async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     return await supabase
         .from(tableName)
         .delete()

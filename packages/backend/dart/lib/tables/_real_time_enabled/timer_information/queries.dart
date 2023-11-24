@@ -12,9 +12,7 @@ class TimerInformationQueries extends CollaborativeQueries {
   Future<List> createNewTimer({
     required double timerLengthInMilliseconds,
   }) async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     final checkRes = await selectMostRecentTimer();
     print(checkRes);
     if (checkRes.isEmpty) {
@@ -31,9 +29,7 @@ class TimerInformationQueries extends CollaborativeQueries {
   }
 
   Future<void> deleteTheTimer() async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     return await supabase
         .from(tableName)
         .delete()
@@ -48,9 +44,7 @@ class TimerInformationQueries extends CollaborativeQueries {
   }
 
   Future<List> selectMostRecentTimer() async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     return await supabase
         .from(tableName)
         .select()
@@ -65,9 +59,7 @@ class TimerInformationQueries extends CollaborativeQueries {
   }
 
   Future<List> updateTimerRunningStatus({required bool newTimerStatus}) async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     return await supabase
         .from(tableName)
         .update({
@@ -85,9 +77,7 @@ class TimerInformationQueries extends CollaborativeQueries {
   }
 
   Future<List> updatePresence({required bool isOnlineParam}) async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     return await supabase
         .from(tableName)
         .update({
@@ -106,9 +96,7 @@ class TimerInformationQueries extends CollaborativeQueries {
   }
 
   Future<void> markDownTheTimer() async {
-    if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
-    }
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     final double pastClockVal = (await selectMostRecentTimer())
         .first[timeRemainingInMilliseconds]
         .toDouble();
