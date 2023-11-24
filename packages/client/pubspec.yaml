@@ -73,7 +73,6 @@ flutter:
     - .env
     - assets/app_logo.png
     - assets/leopard_model.pv
-    - shorebird.yaml
 flutter_icons:
   image_path: "assets/app_logo.png"
   android: true
