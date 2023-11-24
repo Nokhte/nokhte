@@ -119,6 +119,25 @@ internal-ios-staging:
     - staging
   when: manual
 
+
+internal-ios-staging-path:
+  stage: staging
+  tags:
+    - shell
+  script:
+    - melos bs
+    - cd packages/client
+    - echo "LEOPARD_MODEL_PATH=assets/leopard_model.pv" >> .env
+    - echo "LEOPARD_ACCESS_KEY=$LEOPARD_ACCESS_KEY" >> .env
+    - echo "PROD_SUPABASE_URL=$STAGING_SUPABASE_URL" >> .env
+    - echo "PROD_SUPABASE_ANON_KEY=$STAGING_SUPABASE_ANON_KEY" >> .env
+    - chmod u+x ./_scripts/ios/*.sh
+    -  ./_scripts/ios/build_shorebird_ios_patch.sh
+    - ./_scripts/ios/distribute_ios_beta.sh
+  only:
+    - staging
+  when: manual
+
 internal-ios-shorebird-staging:
   stage: staging
   tags:
