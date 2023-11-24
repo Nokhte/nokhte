@@ -20,11 +20,12 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
     }).select();
   }
 
-  Future<List> consecrateTheCollaboration() async {
+  Future<List> consecrateTheCollaboration(
+      {bool shouldConsecrate = true}) async {
     await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     return await supabase
         .from(tableName)
-        .update({isConsecrated: true})
+        .update({isConsecrated: shouldConsecrate})
         .eq(
           collaboratorInfo.theCollaboratorsNumber,
           collaboratorInfo.theCollaboratorsUID,
@@ -100,6 +101,23 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
         .update({
           whoIsTalking: null,
         })
+        .eq(
+          collaboratorInfo.theCollaboratorsNumber,
+          collaboratorInfo.theCollaboratorsUID,
+        )
+        .eq(
+          collaboratorInfo.theUsersCollaboratorNumber,
+          collaboratorInfo.theUsersUID,
+        );
+  }
+
+  Future<void> abortUnConsecratedTheCollaboration() async {
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    return await supabase
+        .from(tableName)
+        .delete()
+        .eq(isCurrentlyActive, true)
+        .eq(isConsecrated, false)
         .eq(
           collaboratorInfo.theCollaboratorsNumber,
           collaboratorInfo.theCollaboratorsUID,

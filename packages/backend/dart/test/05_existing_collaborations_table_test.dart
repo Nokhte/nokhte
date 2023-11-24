@@ -19,9 +19,6 @@ void main() {
     user1Stream = ExistingCollaborationsStream(supabase: tSetup.user1Supabase);
   });
 
-  tearDownAll(() async {
-    await tSetup.tearDownAll();
-  });
   test("should be able to read from the table", () async {
     final res = await user1Queries.getActiveCollaborationInfo();
 
@@ -43,6 +40,7 @@ void main() {
   test("should be able to consecrate the collaboration", () async {
     final res = await user1Queries.consecrateTheCollaboration();
     expect(res.first["is_consecrated"], true);
+    await user1Queries.consecrateTheCollaboration(shouldConsecrate: false);
   });
 
   test("should be able to modify their entry status", () async {
@@ -89,5 +87,13 @@ void main() {
     await user1Queries.setUserAsTheCurrentTalker();
     await user1Queries.clearTheCurrentTalker();
     expect(stream, emits(false));
+  });
+
+  test(
+      "should be able to abort a collaboration that is active and un-consecrated",
+      () async {
+    await user1Queries.abortUnConsecratedTheCollaboration();
+    final res = await user1Queries.getAllCollaborationInfo();
+    expect(res, isEmpty);
   });
 }
