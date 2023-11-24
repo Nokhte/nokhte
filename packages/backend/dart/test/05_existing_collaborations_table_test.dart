@@ -39,6 +39,20 @@ void main() {
     expect(res.first, tSetup.secondUserUID);
     expect(res[1], 2);
   });
+
+  test("should be able to consecrate the collaboration", () async {
+    final res = await user1Queries.consecrateTheCollaboration();
+    expect(res.first["is_consecrated"], true);
+  });
+
+  test("should be able to modify their entry status", () async {
+    final res =
+        await user1Queries.updateUserHasEnteredStatus(newEntryStatus: true);
+    expect(
+        res.first[
+            "${user1Queries.collaboratorInfo.theUsersCollaboratorNumber}_has_entered"],
+        true);
+  });
   test("should be properly identified as collaborator_two", () async {
     final res = await user2Queries.getActiveCollaboratorsUIDAndNumber();
 
