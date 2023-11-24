@@ -7,3 +7,5 @@ alter table "public"."existing_collaborations" validate constraint "existing_col
 alter table "public"."existing_collaborations" add constraint "existing_collaborations_who_is_talking_fkey" FOREIGN KEY (who_is_talking) REFERENCES auth.users(id) not valid;
 
 alter table "public"."existing_collaborations" validate constraint "existing_collaborations_who_is_talking_fkey";
+
+alter table "public"."existing_collaborations" add column "is_consecrated" boolean not null default false;
