@@ -26,6 +26,11 @@ abstract class AbstractNoFailureAsyncLogic<Type, Params> {
   Future<Type> call(Params params);
 }
 
+class NoEntity extends Equatable {
+  @override
+  List<Object> get props => [];
+}
+
 class NoParams extends Equatable {
   @override
   List<Object> get props => [];
