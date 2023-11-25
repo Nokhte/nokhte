@@ -18,9 +18,10 @@ class P2PPurpose5CollectiveCreation extends StatefulWidget {
 }
 
 class _P2PPurpose5CollectiveCreationState
-    extends State<P2PPurpose5CollectiveCreation> {
+    extends State<P2PPurpose5CollectiveCreation> with WidgetsBindingObserver {
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
     widget.coordinator.screenConstructor();
     super.initState();
   }

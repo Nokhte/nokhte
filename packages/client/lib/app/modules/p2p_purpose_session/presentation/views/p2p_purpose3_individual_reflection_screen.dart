@@ -27,8 +27,9 @@ class _P2PPurpose3IndividualRefletionScreenState
 
   @override
   void initState() {
-    widget.coordinator.screenConstructor();
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    widget.coordinator.screenConstructor();
   }
 
   @override

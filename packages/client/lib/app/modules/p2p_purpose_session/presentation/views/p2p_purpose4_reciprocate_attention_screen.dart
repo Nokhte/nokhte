@@ -9,8 +9,7 @@ class P2PPurpose4ReciprocateAttentionScreen extends StatefulWidget
   P2PPurpose4ReciprocateAttentionScreen({
     super.key,
     required this.coordinator,
-  }) {
-  }
+  }) {}
 
   @override
   State<P2PPurpose4ReciprocateAttentionScreen> createState() =>
@@ -23,9 +22,10 @@ class _P2PPurpose4ReciprocateAttentionScreenState
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) =>
       widget.coordinator.setAppState(state);
-    
-    @override
+
+  @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
     widget.coordinator.screenConstructor();
     super.initState();
   }

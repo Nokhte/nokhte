@@ -16,10 +16,16 @@ class P2PPurpose1GreeterScreen extends StatefulWidget {
       _P2PPurpose1GreeterScreenState();
 }
 
-class _P2PPurpose1GreeterScreenState extends State<P2PPurpose1GreeterScreen> {
+class _P2PPurpose1GreeterScreenState extends State<P2PPurpose1GreeterScreen>
+    with WidgetsBindingObserver {
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) =>
+      widget.coordinator.setAppState(state);
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     widget.coordinator.screenConstructorCallback();
   }
 

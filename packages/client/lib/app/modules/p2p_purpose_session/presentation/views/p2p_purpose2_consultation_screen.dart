@@ -13,7 +13,7 @@ class P2PPurpose2ConsultationScreen extends StatefulWidget
   P2PPurpose2ConsultationScreen({
     super.key,
     required this.coordinator,
-  }) {}
+  });
 
   @override
   State<P2PPurpose2ConsultationScreen> createState() =>
