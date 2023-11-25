@@ -36,34 +36,46 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
 
   beachWavesMovieStatusListener() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
-        print(
-            "HEYYYYYYYYY IS THIS WORKING???? ${beachWaves.movieStatus} ${beachWaves.movieMode} ${beachWaves.movie.duration}");
-        if (beachWaves.movieStatus == MovieStatus.finished &&
-            beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
-          beachWaves.initiateBackToOceanDive();
-          exitCollaboratorPoolStore(NoParams());
-          cancelStreamStore(NoParams());
-        } else if (beachWaves.movieStatus == MovieStatus.finished &&
-            beachWaves.movieMode == BeachWaveMovieModes.backToOceanDive) {
-          Modular.to.navigate('/p2p_collaborator_pool/');
-        } else if (beachWaves.movieStatus == MovieStatus.finished &&
-            beachWaves.movieMode == BeachWaveMovieModes.backToTheDepths) {
-          Modular.to.navigate('/p2p_purpose_session/');
+        if (beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
+          if (beachWaves.movieStatus == MovieStatus.finished) {
+            beachWaves.initiateBackToOceanDive();
+            Future.delayed(Seconds.get(3), () async {
+              await cleanUpAndTransitionBackToOceanDive();
+            });
+          } else if (beachWaves.movieStatus == MovieStatus.inProgress) {
+            delayedNavigation(() async {
+              beachWaves.initiateBackToOceanDive();
+              await cleanUpAndTransitionBackToOceanDive();
+            });
+          }
+        } else if (beachWaves.movieMode ==
+            BeachWaveMovieModes.backToTheDepths) {
+          if (beachWaves.movieStatus == MovieStatus.finished) {
+            Modular.to.navigate('/p2p_purpose_session/');
+          } else if (beachWaves.movieStatus == MovieStatus.inProgress) {
+            delayedNavigation(() {
+              Modular.to.navigate('/p2p_purpose_session/');
+            });
+          }
         }
       });
+
+  cleanUpAndTransitionBackToOceanDive() async {
+    await exitCollaboratorPoolStore(NoParams());
+    await cancelStreamStore(NoParams());
+    Modular.to.navigate('/p2p_collaborator_pool/');
+  }
 
   searchStatusListener() =>
       reaction((p0) => getCollaboratorSearchStatusStore.searchStatus, (p0) {
         p0.listen((value) async {
-          print("value $value");
           if (value.hasFoundTheirCollaborator && !value.hasEntered) {
-            await updateExistingCollaborations
-                .updateIndividualCollaboratorEntryStatus(true);
             Future.delayed(Seconds.get(2), () {
               beachWaves.teeUpBackToTheDepths();
               fadeInAndColorTextStore.teeUpFadeOut();
             });
-            print("did the first reaction run search status? $value?");
+            await updateExistingCollaborations
+                .updateIndividualCollaboratorEntryStatus(true);
           }
         });
       });
