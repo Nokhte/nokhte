@@ -69,6 +69,7 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends BaseTimesUpStore
     beachWaves.initiateSuspendedAtTheDepths();
     await timer.setupAndStreamListenerActivation(
         const CreateTimerParams(timerLengthInMinutes: 5), initOrPauseTimesUp);
+    await timer.setOnlineStatus(true);
     await timer.updateTimerRunningStatus(true);
     final timerLength =
         kDebugMode ? Seconds.get(20) : const Duration(minutes: 5);

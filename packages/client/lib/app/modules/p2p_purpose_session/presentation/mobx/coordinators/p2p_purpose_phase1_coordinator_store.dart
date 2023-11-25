@@ -91,7 +91,4 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends BaseCoordinator
       Modular.to.navigate('/p2p_purpose_session/phase-2/');
     });
   }
-
-  @override
-  List<Object> get props => [];
 }

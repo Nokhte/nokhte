@@ -53,6 +53,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
     collaboratorIsTalkingListener();
     await timer.setupAndStreamListenerActivation(
         const CreateTimerParams(timerLengthInMinutes: 5), initOrPauseTimesUp);
+    await timer.setOnlineStatus(true);
     foregroundAndBackgroundStateListener();
     explanationText.setText("hold to talk");
     explanationText.widgetConstructor();
