@@ -9,10 +9,10 @@ class StringComparison {
   }) async {
     switch (collaboratorOptions) {
       case CollaboratorOptions.one:
-        executeCallbackIfStringEquals(
+        return executeCallbackIfStringEquals(
             callback, input, "collaborator_one", elseReturnVal);
       case CollaboratorOptions.two:
-        executeCallbackIfStringEquals(
+        return executeCallbackIfStringEquals(
             callback, input, "collaborator_two", elseReturnVal);
     }
   }
@@ -24,7 +24,7 @@ class StringComparison {
     elseReturnVal,
   ) async {
     if (input == comparisonString) {
-      await callback();
+      return await callback();
     } else {
       return elseReturnVal;
     }
