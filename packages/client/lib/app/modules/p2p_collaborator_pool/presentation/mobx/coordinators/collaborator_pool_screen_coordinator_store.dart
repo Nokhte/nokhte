@@ -51,15 +51,6 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
               });
             });
           }
-        } else if (beachWaves.movieMode ==
-            BeachWaveMovieModes.backToTheDepths) {
-          if (beachWaves.movieStatus == MovieStatus.finished) {
-            Modular.to.navigate('/p2p_purpose_session/');
-          } else if (beachWaves.movieStatus == MovieStatus.inProgress) {
-            delayedNavigation(() {
-              Modular.to.navigate('/p2p_purpose_session/');
-            });
-          }
         }
       });
 
@@ -73,12 +64,13 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
       reaction((p0) => getCollaboratorSearchStatusStore.searchStatus, (p0) {
         p0.listen((value) async {
           if (value.hasFoundTheirCollaborator && !value.hasEntered) {
-            Future.delayed(Seconds.get(2), () {
-              beachWaves.teeUpBackToTheDepths();
-              fadeInAndColorTextStore.teeUpFadeOut();
+            beachWaves.teeUpBackToTheDepths();
+            fadeInAndColorTextStore.teeUpFadeOut();
+            Future.delayed(Seconds.get(3), () async {
+              Modular.to.navigate('/p2p_purpose_session/');
+              await updateExistingCollaborations
+                  .updateIndividualCollaboratorEntryStatus(true);
             });
-            await updateExistingCollaborations
-                .updateIndividualCollaboratorEntryStatus(true);
           }
         });
       });
