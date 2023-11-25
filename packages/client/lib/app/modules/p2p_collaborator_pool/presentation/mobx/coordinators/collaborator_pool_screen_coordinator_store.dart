@@ -36,6 +36,7 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
 
   beachWavesMovieStatusListener() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
+        print("movie status ${beachWaves.movieMode} ${beachWaves.movieStatus}");
         if (beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
           if (beachWaves.movieStatus == MovieStatus.finished) {
             beachWaves.initiateBackToOceanDive();
@@ -45,7 +46,9 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
           } else if (beachWaves.movieStatus == MovieStatus.inProgress) {
             delayedNavigation(() async {
               beachWaves.initiateBackToOceanDive();
-              await cleanUpAndTransitionBackToOceanDive();
+              Future.delayed(Seconds.get(3), () async {
+                await cleanUpAndTransitionBackToOceanDive();
+              });
             });
           }
         } else if (beachWaves.movieMode ==
@@ -86,8 +89,8 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
     beachWaves.initiateTimesUp(
       timerLength: duration,
     );
+    beachWavesMovieStatusListener();
     getCollaboratorSearchStatusStore();
     searchStatusListener();
-    beachWavesMovieStatusListener();
   }
 }
