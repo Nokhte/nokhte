@@ -10,6 +10,7 @@ import 'package:nokhte/app/core/modules/collaborative_doc/domain/logic/update_co
 import 'package:nokhte/app/core/modules/collaborative_doc/presentation/presentation.dart';
 import 'package:nokhte/app/core/modules/update_existing_collaborations/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
+import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -23,6 +24,7 @@ class P2PPurposePhase5CoordinatorStore = _P2PPurposePhase5CoordinatorStoreBase
 abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
     with Store {
   final BeachWavesTrackerStore beachWaves;
+  final AbortPurposeSessionArtifactsStore abortPurposeSessionArtifactsStore;
   final UpdateExistingCollaborationsCoordinator updateExistingCollaborations;
   final GesturePillStore gesturePillStore;
   final CollaborativeTextEditorTrackerStore collaborativeTextUI;
@@ -43,6 +45,7 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
     required this.agoraCallbacksStore,
     required this.voiceCallActionsStore,
     required this.getAgoraTokenStore,
+    required this.abortPurposeSessionArtifactsStore,
     required this.getChannelIdStore,
     required this.gesturePillStore,
     required this.swipe,

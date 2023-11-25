@@ -10,6 +10,7 @@ import 'package:nokhte/app/core/modules/update_existing_collaborations/mobx/mobx
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/scheduling_delta/stack/stack.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/mobx/mobx.dart';
 import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 import 'package:add_2_calendar/add_2_calendar.dart';
 part 'p2p_purpose_phase6_coordinator_store.g.dart';
@@ -20,6 +21,7 @@ class P2PPurposePhase6CoordinatorStore = _P2PPurposePhase6CoordinatorStoreBase
 abstract class _P2PPurposePhase6CoordinatorStoreBase
     extends BaseQuadrantAPIReceiver with Store {
   final SchedulingWidgetsCoordinatorStore widgets;
+  final AbortPurposeSessionArtifactsStore abortPurposeSessionArtifactsStore;
   final ConveyerBeltTextStore conveyerBelt;
   final UpdateExistingCollaborationsCoordinator updateExistingCollaborations;
   final SchedulingCoordinatorStore scheduling;
@@ -29,6 +31,7 @@ abstract class _P2PPurposePhase6CoordinatorStoreBase
   _P2PPurposePhase6CoordinatorStoreBase({
     required this.updateExistingCollaborations,
     required this.swipe,
+    required this.abortPurposeSessionArtifactsStore,
     required super.quadrantAPI,
     required this.widgets,
     required this.scheduling,

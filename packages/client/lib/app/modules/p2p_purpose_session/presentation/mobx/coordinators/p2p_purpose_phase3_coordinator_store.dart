@@ -6,6 +6,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
 import 'package:nokhte/app/core/modules/solo_doc/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/timer/domain/logic/logic.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
@@ -18,6 +19,7 @@ class P2PPurposePhase3CoordinatorStore = _P2PPurposePhase3CoordinatorStoreBase
 abstract class _P2PPurposePhase3CoordinatorStoreBase extends BaseTimesUpStore
     with Store {
   final SoloTextEditorTrackerStore textEditor;
+  final AbortPurposeSessionArtifactsStore abortPurposeSessionArtifactsStore;
   final SmartFadingAnimatedTextTrackerStore fadingText;
   final SoloDocCoordinatorStore soloDoc;
   final SwipeDetector swipe;
@@ -26,6 +28,7 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends BaseTimesUpStore
     required super.timer,
     required this.swipe,
     required super.beachWaves,
+    required this.abortPurposeSessionArtifactsStore,
     required this.textEditor,
     required this.fadingText,
     required this.soloDoc,

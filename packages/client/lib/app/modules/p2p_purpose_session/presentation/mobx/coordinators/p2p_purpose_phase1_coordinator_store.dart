@@ -6,6 +6,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/mobx/abort_purpose_session_artifacts_store.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
@@ -21,6 +22,7 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends BaseCoordinator
     with Store {
   final InstantiateAgoraSdkStore instantiateAgoraSdkStore;
   final GesturePillStore gesturePillStore;
+  final AbortPurposeSessionArtifactsStore abortPurposeSessionArtifactsStore;
   final FadeInAndChangeColorTextStore fadeInColorText;
   final GetAgoraTokenStore getAgoraTokenStore;
   final GetChannelIdStore getChannelIdStore;
@@ -30,6 +32,7 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends BaseCoordinator
 
   _P2PPurposePhase1CoordinatorStoreBase({
     required this.swipe,
+    required this.abortPurposeSessionArtifactsStore,
     required this.instantiateAgoraSdkStore,
     required this.getAgoraTokenStore,
     required this.getChannelIdStore,

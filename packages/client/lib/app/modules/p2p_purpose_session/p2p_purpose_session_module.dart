@@ -1,4 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/abort_purpose_session_artifacts_module.dart';
+import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/mobx/abort_purpose_session_artifacts_store.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/collaborative_doc_module.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/presentation/presentation.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic_module.dart';
@@ -25,6 +27,7 @@ import 'package:nokhte/app/modules/p2p_purpose_session/presentation/presentation
 class P2PCollaboratorSessionModule extends Module {
   @override
   List<Module> get imports => [
+        AbortPurposeSessionArtifactsModule(),
         OneTalkerAtATimeModule(),
         VoiceCallModule(),
         UpdateExistingCollaborationsModule(),
@@ -101,6 +104,8 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase1CoordinatorStore>(
           (i) => P2PPurposePhase1CoordinatorStore(
+            abortPurposeSessionArtifactsStore:
+                i<AbortPurposeSessionArtifactsStore>(),
             swipe: i<SwipeDetector>(),
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
             fadeInColorText: Modular.get<FadeInAndChangeColorTextStore>(),
@@ -114,6 +119,8 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase2CoordinatorStore>(
             (i) => P2PPurposePhase2CoordinatorStore(
+                  abortPurposeSessionArtifactsStore:
+                      i<AbortPurposeSessionArtifactsStore>(),
                   oneTalkerAtATime: Modular.get<OneTalkerAtATimeCoordinator>(),
                   explanationText: i<ExplanationTextStore>(),
                   timer: Modular.get<TimerCoordinator>(),
@@ -128,6 +135,8 @@ class P2PCollaboratorSessionModule extends Module {
                 )),
         Bind.singleton<P2PPurposePhase3CoordinatorStore>(
           (i) => P2PPurposePhase3CoordinatorStore(
+            abortPurposeSessionArtifactsStore:
+                i<AbortPurposeSessionArtifactsStore>(),
             timer: Modular.get<TimerCoordinator>(),
             swipe: Modular.get<SwipeDetector>(),
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
@@ -138,6 +147,8 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase4CoordinatorStore>(
           (i) => P2PPurposePhase4CoordinatorStore(
+            abortPurposeSessionArtifactsStore:
+                i<AbortPurposeSessionArtifactsStore>(),
             timer: Modular.get<TimerCoordinator>(),
             fadingText: i<SmartFadingAnimatedTextTrackerStore>(),
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
@@ -146,6 +157,8 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase5CoordinatorStore>(
           (i) => P2PPurposePhase5CoordinatorStore(
+            abortPurposeSessionArtifactsStore:
+                i<AbortPurposeSessionArtifactsStore>(),
             swipe: Modular.get<SwipeDetector>(),
             updateExistingCollaborations:
                 Modular.get<UpdateExistingCollaborationsCoordinator>(),
@@ -161,6 +174,8 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase6CoordinatorStore>(
           (i) => P2PPurposePhase6CoordinatorStore(
+            abortPurposeSessionArtifactsStore:
+                i<AbortPurposeSessionArtifactsStore>(),
             updateExistingCollaborations:
                 Modular.get<UpdateExistingCollaborationsCoordinator>(),
             swipe: Modular.get<SwipeDetector>(),

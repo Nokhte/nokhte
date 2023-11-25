@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/one_talker_at_a_time/mobx/one_talker_at_a_time_coordinator.dart';
 import 'package:nokhte/app/core/modules/timer/domain/logic/logic.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
@@ -19,6 +20,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
     with Store {
   final OneTalkerAtATimeCoordinator oneTalkerAtATime;
   final ExplanationTextStore explanationText;
+  final AbortPurposeSessionArtifactsStore abortPurposeSessionArtifactsStore;
   final AgoraCallbacksStore agoraCallbacksStore;
   final VoiceCallActionsStore voiceCallActionsStore;
   final CheckIfUserHasTheQuestionStore questionCheckerStore;
@@ -29,6 +31,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
 
   _P2PPurposePhase2CoordinatorStoreBase({
     required super.timer,
+    required this.abortPurposeSessionArtifactsStore,
     required this.oneTalkerAtATime,
     required this.swipe,
     required this.hold,
