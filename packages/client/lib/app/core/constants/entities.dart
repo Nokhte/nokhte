@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/error/failure.dart';
+import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/domain/domain.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
 import 'package:nokhte/app/core/modules/get_the_purpose/domain/domain.dart';
 import 'package:nokhte/app/core/modules/get_current_perspectives/domain/domain.dart';
@@ -257,4 +258,8 @@ class DefaultEntities {
   static Either<Failure, IndividualCollaboratorEntryStatusEntity>
       get individualCollaboratorEntryStatusEntity => const Right(
           IndividualCollaboratorEntryStatusEntity(hasEntered: false));
+
+  static Either<Failure, PurposeSessionArtifactAbortionStatusEntity>
+      get purposeSessionArtifactAbortionStatusEntity => const Right(
+          PurposeSessionArtifactAbortionStatusEntity(isAborted: false));
 }
