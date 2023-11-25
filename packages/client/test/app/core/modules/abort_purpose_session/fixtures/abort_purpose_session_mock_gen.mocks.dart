@@ -40,15 +40,15 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
 class MockAbortPurposeSessionArtifactsContract extends _i1.Mock
     implements _i3.AbortPurposeSessionArtifactsContract {
   @override
-  _i4.Future<_i2.Either<_i5.Failure, void>> abortTheCollaboration(
+  _i4.Future<_i2.Either<_i5.Failure, _i6.NoEntity>> abortTheCollaboration(
           _i6.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #abortTheCollaboration,
           [params],
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, void>>.value(
-            _FakeEither_0<_i5.Failure, void>(
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.NoEntity>>.value(
+            _FakeEither_0<_i5.Failure, _i6.NoEntity>(
           this,
           Invocation.method(
             #abortTheCollaboration,
@@ -56,26 +56,26 @@ class MockAbortPurposeSessionArtifactsContract extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.Either<_i5.Failure, void>>.value(
-                _FakeEither_0<_i5.Failure, void>(
+            _i4.Future<_i2.Either<_i5.Failure, _i6.NoEntity>>.value(
+                _FakeEither_0<_i5.Failure, _i6.NoEntity>(
           this,
           Invocation.method(
             #abortTheCollaboration,
             [params],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, void>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.NoEntity>>);
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, void>> deleteSoloDocuments(
+  _i4.Future<_i2.Either<_i5.Failure, _i6.NoEntity>> deleteSoloDocuments(
           _i6.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #deleteSoloDocuments,
           [params],
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, void>>.value(
-            _FakeEither_0<_i5.Failure, void>(
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.NoEntity>>.value(
+            _FakeEither_0<_i5.Failure, _i6.NoEntity>(
           this,
           Invocation.method(
             #deleteSoloDocuments,
@@ -83,130 +83,43 @@ class MockAbortPurposeSessionArtifactsContract extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.Either<_i5.Failure, void>>.value(
-                _FakeEither_0<_i5.Failure, void>(
+            _i4.Future<_i2.Either<_i5.Failure, _i6.NoEntity>>.value(
+                _FakeEither_0<_i5.Failure, _i6.NoEntity>(
           this,
           Invocation.method(
             #deleteSoloDocuments,
             [params],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, void>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.NoEntity>>);
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, void>> deleteWorkingCollaborativeDocument(
-          _i6.NoParams? params) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #deleteWorkingCollaborativeDocument,
-          [params],
-        ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, void>>.value(
-            _FakeEither_0<_i5.Failure, void>(
-          this,
-          Invocation.method(
-            #deleteWorkingCollaborativeDocument,
-            [params],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i4.Future<_i2.Either<_i5.Failure, void>>.value(
-                _FakeEither_0<_i5.Failure, void>(
-          this,
-          Invocation.method(
-            #deleteWorkingCollaborativeDocument,
-            [params],
-          ),
-        )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, void>>);
-
-  @override
-  _i4.Future<
-      _i2.Either<_i5.Failure, _i7.TimerCreationStatusEntity>> createTimer(
-          _i7.CreateTimerParams? params) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #createTimer,
-          [params],
-        ),
-        returnValue: _i4.Future<
-                _i2.Either<_i5.Failure, _i7.TimerCreationStatusEntity>>.value(
-            _FakeEither_0<_i5.Failure, _i7.TimerCreationStatusEntity>(
-          this,
-          Invocation.method(
-            #createTimer,
-            [params],
-          ),
-        )),
-        returnValueForMissingStub: _i4.Future<
-                _i2.Either<_i5.Failure, _i7.TimerCreationStatusEntity>>.value(
-            _FakeEither_0<_i5.Failure, _i7.TimerCreationStatusEntity>(
-          this,
-          Invocation.method(
-            #createTimer,
-            [params],
-          ),
-        )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, _i7.TimerCreationStatusEntity>>);
-
-  @override
-  _i4.Future<
-      _i2.Either<_i5.Failure, _i7.PresenceUpdateStatusEntity>> updatePresence(
-          bool? isPresent) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #updatePresence,
-          [isPresent],
-        ),
-        returnValue: _i4.Future<
-                _i2.Either<_i5.Failure, _i7.PresenceUpdateStatusEntity>>.value(
-            _FakeEither_0<_i5.Failure, _i7.PresenceUpdateStatusEntity>(
-          this,
-          Invocation.method(
-            #updatePresence,
-            [isPresent],
-          ),
-        )),
-        returnValueForMissingStub: _i4.Future<
-                _i2.Either<_i5.Failure, _i7.PresenceUpdateStatusEntity>>.value(
-            _FakeEither_0<_i5.Failure, _i7.PresenceUpdateStatusEntity>(
-          this,
-          Invocation.method(
-            #updatePresence,
-            [isPresent],
-          ),
-        )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, _i7.PresenceUpdateStatusEntity>>);
-
-  @override
-  _i4.Future<_i2.Either<_i5.Failure, _i7.TimerRunningUpdateStatusEntity>>
-      updateTimerRunningStatus(bool? shouldRun) => (super.noSuchMethod(
+  _i4.Future<_i2.Either<_i5.Failure, _i6.NoEntity>>
+      deleteWorkingCollaborativeDocument(_i6.NoParams? params) =>
+          (super.noSuchMethod(
             Invocation.method(
-              #updateTimerRunningStatus,
-              [shouldRun],
+              #deleteWorkingCollaborativeDocument,
+              [params],
             ),
-            returnValue: _i4.Future<
-                    _i2.Either<_i5.Failure,
-                        _i7.TimerRunningUpdateStatusEntity>>.value(
-                _FakeEither_0<_i5.Failure, _i7.TimerRunningUpdateStatusEntity>(
+            returnValue:
+                _i4.Future<_i2.Either<_i5.Failure, _i6.NoEntity>>.value(
+                    _FakeEither_0<_i5.Failure, _i6.NoEntity>(
               this,
               Invocation.method(
-                #updateTimerRunningStatus,
-                [shouldRun],
+                #deleteWorkingCollaborativeDocument,
+                [params],
               ),
             )),
-            returnValueForMissingStub: _i4.Future<
-                    _i2.Either<_i5.Failure,
-                        _i7.TimerRunningUpdateStatusEntity>>.value(
-                _FakeEither_0<_i5.Failure, _i7.TimerRunningUpdateStatusEntity>(
+            returnValueForMissingStub:
+                _i4.Future<_i2.Either<_i5.Failure, _i6.NoEntity>>.value(
+                    _FakeEither_0<_i5.Failure, _i6.NoEntity>(
               this,
               Invocation.method(
-                #updateTimerRunningStatus,
-                [shouldRun],
+                #deleteWorkingCollaborativeDocument,
+                [params],
               ),
             )),
-          ) as _i4.Future<
-              _i2.Either<_i5.Failure, _i7.TimerRunningUpdateStatusEntity>>);
+          ) as _i4.Future<_i2.Either<_i5.Failure, _i6.NoEntity>>);
 
   @override
   _i4.Future<
@@ -236,63 +149,4 @@ class MockAbortPurposeSessionArtifactsContract extends _i1.Mock
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, _i7.TimerDeletionStatusEntity>>);
-
-  @override
-  _i4.Future<
-      _i2.Either<_i5.Failure, _i7.TimerMarkdownStatusEntity>> markdownTheTimer(
-          _i6.NoParams? params) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #markdownTheTimer,
-          [params],
-        ),
-        returnValue: _i4.Future<
-                _i2.Either<_i5.Failure, _i7.TimerMarkdownStatusEntity>>.value(
-            _FakeEither_0<_i5.Failure, _i7.TimerMarkdownStatusEntity>(
-          this,
-          Invocation.method(
-            #markdownTheTimer,
-            [params],
-          ),
-        )),
-        returnValueForMissingStub: _i4.Future<
-                _i2.Either<_i5.Failure, _i7.TimerMarkdownStatusEntity>>.value(
-            _FakeEither_0<_i5.Failure, _i7.TimerMarkdownStatusEntity>(
-          this,
-          Invocation.method(
-            #markdownTheTimer,
-            [params],
-          ),
-        )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, _i7.TimerMarkdownStatusEntity>>);
-
-  @override
-  _i4.Future<_i2.Either<_i5.Failure, _i7.TimerInformationStreamEntity>>
-      getTimerInformationStream(_i6.NoParams? params) => (super.noSuchMethod(
-            Invocation.method(
-              #getTimerInformationStream,
-              [params],
-            ),
-            returnValue: _i4.Future<
-                    _i2.Either<_i5.Failure,
-                        _i7.TimerInformationStreamEntity>>.value(
-                _FakeEither_0<_i5.Failure, _i7.TimerInformationStreamEntity>(
-              this,
-              Invocation.method(
-                #getTimerInformationStream,
-                [params],
-              ),
-            )),
-            returnValueForMissingStub: _i4.Future<
-                    _i2.Either<_i5.Failure,
-                        _i7.TimerInformationStreamEntity>>.value(
-                _FakeEither_0<_i5.Failure, _i7.TimerInformationStreamEntity>(
-              this,
-              Invocation.method(
-                #getTimerInformationStream,
-                [params],
-              ),
-            )),
-          ) as _i4.Future<
-              _i2.Either<_i5.Failure, _i7.TimerInformationStreamEntity>>);
 }
