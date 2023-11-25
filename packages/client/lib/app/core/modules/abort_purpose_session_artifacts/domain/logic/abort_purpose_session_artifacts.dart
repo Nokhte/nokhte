@@ -7,7 +7,7 @@ import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/types/pu
 class AbortPurposeSessionArtifacts
     implements
         AbstractFutureLogic<PurposeSessionArtifactAbortionStatusEntity,
-            AbortThePurposeSessionParams> {
+            AbortPurposeSessionArtifactsParams> {
   final AbortPurposeSessionArtifactsContract contract;
 
   AbortPurposeSessionArtifacts({required this.contract});
@@ -52,9 +52,11 @@ class AbortPurposeSessionArtifacts
   }
 }
 
-class AbortThePurposeSessionParams extends Equatable {
+class AbortPurposeSessionArtifactsParams extends Equatable {
   final PurposeSessionScreens currentScreen;
-  const AbortThePurposeSessionParams({required this.currentScreen});
+  const AbortPurposeSessionArtifactsParams({
+    required this.currentScreen,
+  });
 
   @override
   List<Object> get props => [currentScreen];
