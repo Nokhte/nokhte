@@ -44,6 +44,12 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
   });
 
   @observable
+  int placesYouCanGoCount = 0;
+
+  @action
+  incrementPlacesYouCanGoCount() => placesYouCanGoCount++;
+
+  @observable
   PlacesYouCanGo thePlaceTheyAreGoing = PlacesYouCanGo.initial;
 
   @action
@@ -136,24 +142,30 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
       });
   @action
   gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
-        switch (p0) {
-          case GestureDirections.up:
-            if (getExistingCollaborationInfo.hasCommittedAPurpose) {
-              final thePlaceTheyAreGoing =
-                  getExistingCollaborationInfo.hasDonePerspectives
-                      ? PlacesYouCanGo.collectiveSession
-                      : PlacesYouCanGo.perspectivesSession;
-              fadeTheTextOutAndWaterComesDown(thePlaceTheyAreGoing);
-            }
-          default:
-            break;
+        if (isAllowedMakeANavigation) {
+          switch (p0) {
+            case GestureDirections.up:
+              if (getExistingCollaborationInfo.hasCommittedAPurpose) {
+                final thePlaceTheyAreGoing =
+                    getExistingCollaborationInfo.hasDonePerspectives
+                        ? PlacesYouCanGo.collectiveSession
+                        : PlacesYouCanGo.perspectivesSession;
+                fadeTheTextOutAndWaterComesDown(thePlaceTheyAreGoing);
+              }
+            default:
+              break;
+          }
+          placesYouCanGoCount++;
         }
       });
 
   @action
   holdListener() => reaction((p0) => hold.holdCount, (p0) async {
-        await Haptics.vibrate(HapticsType.medium);
-        fadeTheTextOutAndWaterComesDown(PlacesYouCanGo.newCollaboration);
+        if (isAllowedMakeANavigation) {
+          await Haptics.vibrate(HapticsType.medium);
+          fadeTheTextOutAndWaterComesDown(PlacesYouCanGo.newCollaboration);
+          incrementPlacesYouCanGoCount();
+        }
       });
 
   @action
@@ -172,6 +184,9 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
       );
     }
   }
+
+  @computed
+  bool get isAllowedMakeANavigation => placesYouCanGoCount == 0;
 
   @override
   List<Object> get props => [];
