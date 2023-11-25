@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // * Mobx Import
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -24,25 +23,7 @@ abstract class _BaseTimesUpStoreBase extends BaseCoordinator with Store {
   });
 
   @observable
-  AppLifecycleState appState = AppLifecycleState.resumed;
-
-  @observable
   bool isFirstTimeStartingMovie = true;
-
-  foregroundAndBackgroundStateListener() =>
-      reaction((p0) => appState, (p0) async {
-        switch (p0) {
-          case AppLifecycleState.resumed:
-            await timer.setOnlineStatus(true);
-          case AppLifecycleState.inactive:
-            await timer.setOnlineStatus(false);
-          default:
-            break;
-        }
-      });
-
-  @action
-  setAppState(AppLifecycleState newState) => appState = newState;
 
   @action
   initOrPauseTimesUp(bool shouldRun) {
