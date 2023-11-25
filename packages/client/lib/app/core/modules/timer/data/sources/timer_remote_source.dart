@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/timer/domain/domain.dart';
 import 'package:nokhte_backend/tables/timer_information.dart';
 import 'package:nokhte_core/custom_control_structures.dart';
+import 'package:nokhte_core/types/types.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class TimerRemoteSource {
@@ -30,14 +32,14 @@ class TimerRemoteSourceImpl implements TimerRemoteSource {
     }
     final userCollaboratorNumber =
         queries.collaboratorInfo.theUsersCollaboratorNumber;
-    return await StringComparison.isCollaboratorTwo(
+    const chosenCollaborator =
+        kDebugMode ? CollaboratorOptions.one : CollaboratorOptions.two;
+    return await StringComparison.isCollaborator(
+        collaboratorOptions: chosenCollaborator,
         input: userCollaboratorNumber,
-        elseReturnVal: [],
-        callback: () async {
-          return await queries.createNewTimer(
-            timerLengthInMilliseconds: params.toMilliseconds(),
-          );
-        });
+        callback: () async => await queries.createNewTimer(
+            timerLengthInMilliseconds: params.toMilliseconds()),
+        elseReturnVal: []);
   }
 
   @override
