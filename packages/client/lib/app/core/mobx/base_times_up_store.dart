@@ -15,7 +15,6 @@ class BaseTimesUpStore = _BaseTimesUpStoreBase with _$BaseTimesUpStore;
 
 abstract class _BaseTimesUpStoreBase extends BaseCoordinator with Store {
   final TimerCoordinator timer;
-  // final BeachWavesTrackerStore beachWaves;
   final Duration productionTimerLength;
 
   _BaseTimesUpStoreBase({
