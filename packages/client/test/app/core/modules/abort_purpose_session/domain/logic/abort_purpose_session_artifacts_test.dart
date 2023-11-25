@@ -9,15 +9,15 @@ void main() {
   late MockAbortPurposeSessionArtifactsContract mockContract;
   late AbortPurposeSessionArtifacts logic;
   final tParams = NoParams();
-  const p1Params = AbortThePurposeSessionParams(
+  const p1Params = AbortPurposeSessionArtifactsParams(
       currentScreen: PurposeSessionScreens.phase1Greeter);
-  const p2Params = AbortThePurposeSessionParams(
+  const p2Params = AbortPurposeSessionArtifactsParams(
       currentScreen: PurposeSessionScreens.phase2Consultation);
-  const p3Params = AbortThePurposeSessionParams(
+  const p3Params = AbortPurposeSessionArtifactsParams(
       currentScreen: PurposeSessionScreens.phase3IndividualReflection);
-  const p4Params = AbortThePurposeSessionParams(
+  const p4Params = AbortPurposeSessionArtifactsParams(
       currentScreen: PurposeSessionScreens.phase4ReciprocateAttention);
-  const p5Params = AbortThePurposeSessionParams(
+  const p5Params = AbortPurposeSessionArtifactsParams(
       currentScreen: PurposeSessionScreens.phase5CollectiveCreation);
 
   setUp(() {
