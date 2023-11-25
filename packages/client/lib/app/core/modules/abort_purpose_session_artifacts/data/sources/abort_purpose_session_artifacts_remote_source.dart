@@ -3,15 +3,14 @@ import 'package:nokhte_backend/tables/existing_collaborations.dart';
 import 'package:nokhte_backend/tables/solo_sharable_documents.dart';
 import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
 
-abstract class AbortPurposeSessionArtifactsRemoteSource {
+abstract class AbortPurposeSessionArtifactsRemoteSource
+    with DeleteTheTimerRemoteSourceInterface {
   Future<void> abortTheCollaboration();
   Future<void> deleteSoloDocuments();
   Future<void> deleteWorkingCollaborativeDocument();
-  // Future<List> deleteTimer(); not needed
 }
 
-abstract class AbortPurposeSessionArtifactsRemoteSourceImpl
-    extends TimerRemoteSourceImpl
+class AbortPurposeSessionArtifactsRemoteSourceImpl extends TimerRemoteSourceImpl
     implements AbortPurposeSessionArtifactsRemoteSource {
   final ExistingCollaborationsQueries existingCollaborationsQueries;
   final SoloSharableDocumentQueries soloSharableDocumentQueries;
@@ -35,8 +34,3 @@ abstract class AbortPurposeSessionArtifactsRemoteSourceImpl
   Future<void> deleteWorkingCollaborativeDocument() async =>
       await workingCollaborativeDocumentsQueries.deleteThedoc();
 }
-
-// 1. existing_collaborations
-// 2. solo_sharable_documents
-// 3. timer_information
-// 4. working_collaborative_documents
