@@ -1,16 +1,17 @@
 import 'package:flutter/foundation.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/modules/timer/data/sources/delete_the_timer_remote_source_interface.dart';
 import 'package:nokhte/app/core/modules/timer/domain/domain.dart';
 import 'package:nokhte_backend/tables/timer_information.dart';
 import 'package:nokhte_core/custom_control_structures.dart';
 import 'package:nokhte_core/types/types.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-abstract class TimerRemoteSource {
+abstract class TimerRemoteSource with DeleteTheTimerRemoteSourceInterface {
   Future<List> createTimer(CreateTimerParams params);
   Future<List> updatePresence(bool isPresent);
   Future<List> updateTimerRunningStatus(bool shouldBeRunning);
-  Future<void> deleteTheTimer(NoParams params);
+
   Future<void> markdownTheTimer(NoParams params);
   Stream<PresenceAndTimeRemaining> getTimerInformationStream(NoParams params);
 }

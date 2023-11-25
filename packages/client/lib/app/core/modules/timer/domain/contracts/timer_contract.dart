@@ -2,8 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/timer/domain/domain.dart';
+import 'delete_the_timer_contract_interface.dart';
 
-abstract class TimerContract {
+abstract class TimerContract with DeleteTimerContractInterface {
   Future<Either<Failure, TimerCreationStatusEntity>> createTimer(
     CreateTimerParams params,
   );
@@ -12,9 +13,6 @@ abstract class TimerContract {
   );
   Future<Either<Failure, TimerRunningUpdateStatusEntity>>
       updateTimerRunningStatus(bool shouldRun);
-
-  Future<Either<Failure, TimerDeletionStatusEntity>> deleteTheTimer(
-      NoParams params);
 
   Future<Either<Failure, TimerMarkdownStatusEntity>> markdownTheTimer(
       NoParams params);
