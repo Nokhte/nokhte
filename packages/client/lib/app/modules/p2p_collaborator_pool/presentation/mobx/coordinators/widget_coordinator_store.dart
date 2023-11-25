@@ -25,11 +25,20 @@ abstract class _WidgetCoordinatorStoreBase extends Equatable with Store {
     required this.explanationText,
   });
 
+  @observable
+  bool isFirstTime = true;
+
+  @action
+  toggleIsFirstTime() => isFirstTime = !isFirstTime;
+
   @action
   widgetConstructor() {
-    fadingText.setMessagesData(MessagesData.speakTheCollaboratorPhraseList);
-    fadingText.startRotatingText(Seconds.get(0));
-    explanationText.setText("hold to talk");
+    if (isFirstTime) {
+      fadingText.setMessagesData(MessagesData.speakTheCollaboratorPhraseList);
+      fadingText.startRotatingText(Seconds.get(0));
+      explanationText.setText("hold to talk");
+      toggleIsFirstTime();
+    }
     explanationText.widgetConstructor();
     meshCircleButtonStore.widgetConstructor();
     beachWavesStore.initiateSuspendedAtSea();
