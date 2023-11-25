@@ -3,8 +3,10 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/domain/domain.dart';
+import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/types/types.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/logic/update_commit_desire_status.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/presentation/presentation.dart';
@@ -21,9 +23,9 @@ part 'p2p_purpose_phase5_coordinator_store.g.dart';
 class P2PPurposePhase5CoordinatorStore = _P2PPurposePhase5CoordinatorStoreBase
     with _$P2PPurposePhase5CoordinatorStore;
 
-abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
+abstract class _P2PPurposePhase5CoordinatorStoreBase extends BaseCoordinator
     with Store {
-  final BeachWavesTrackerStore beachWaves;
+  // final BeachWavesTrackerStore beachWaves;
   final AbortPurposeSessionArtifactsStore abortPurposeSessionArtifactsStore;
   final UpdateExistingCollaborationsCoordinator updateExistingCollaborations;
   final GesturePillStore gesturePillStore;
@@ -38,7 +40,7 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
   final SwipeDetector swipe;
 
   _P2PPurposePhase5CoordinatorStoreBase({
-    required this.beachWaves,
+    required super.beachWaves,
     required this.updateExistingCollaborations,
     required this.collaborativeTextUI,
     required this.collaborativeDocDB,
@@ -64,6 +66,15 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends Equatable
   screenConstructor() async {
     collaborativeTextUI.toggleWidgetVisibility();
     gesturePillStore.setFadeOut(false);
+    foregroundAndBackgroundStateListener(
+      resumedCallback: () async => await null,
+      inactiveCallback: () async => await null,
+      detachedCallback: () async => await abortPurposeSessionArtifactsStore(
+        const AbortPurposeSessionArtifactsParams(
+          currentScreen: PurposeSessionScreens.phase5CollectiveCreation,
+        ),
+      ),
+    );
     gesturePillStore
         .setPillMovie(BottomCircleGoesUp.getMovie(firstGradientColors: [
       const Color(0xFFEB9040),

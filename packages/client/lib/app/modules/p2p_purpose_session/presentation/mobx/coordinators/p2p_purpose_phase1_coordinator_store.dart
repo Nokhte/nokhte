@@ -6,7 +6,9 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/domain/domain.dart';
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/mobx/abort_purpose_session_artifacts_store.dart';
+import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/types/types.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
@@ -56,6 +58,15 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends BaseCoordinator
     fadingText.setMessagesData(MessagesData.p2pPurposeSession);
     fadingText.startRotatingText(Seconds.get(0));
     gestureListener();
+    foregroundAndBackgroundStateListener(
+      resumedCallback: () async => null,
+      inactiveCallback: () async => null,
+      detachedCallback: () async => await abortPurposeSessionArtifactsStore(
+        const AbortPurposeSessionArtifactsParams(
+          currentScreen: PurposeSessionScreens.phase1Greeter,
+        ),
+      ),
+    );
     beachWaves.initiateSuspendedAtTheDepths();
     await instantiateAgoraSdkStore(NoParams());
     await getChannelIdStore(NoParams());

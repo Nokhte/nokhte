@@ -3,6 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/domain/domain.dart';
+import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/types/types.dart';
 import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
 import 'package:nokhte/app/core/modules/solo_doc/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/timer/domain/logic/logic.dart';
@@ -72,7 +74,15 @@ abstract class _P2PPurposePhase4CoordinatorStoreBase extends BaseTimesUpStore
     await timer.setupAndStreamListenerActivation(
         const CreateTimerParams(timerLengthInMinutes: 5), initOrPauseTimesUp);
     await timer.setOnlineStatus(true);
-    foregroundAndBackgroundStateListener();
+    foregroundAndBackgroundStateListener(
+      resumedCallback: () async => await timer.setOnlineStatus(true),
+      inactiveCallback: () async => await timer.setOnlineStatus(false),
+      detachedCallback: () async => await abortPurposeSessionArtifactsStore(
+        const AbortPurposeSessionArtifactsParams(
+          currentScreen: PurposeSessionScreens.phase4ReciprocateAttention,
+        ),
+      ),
+    );
     fadingText.fadeTheTextIn();
     await soloDoc
         .getSoloDoc(

@@ -4,7 +4,9 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/domain/domain.dart';
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/types/purpose_session_screens.dart';
 import 'package:nokhte/app/core/modules/one_talker_at_a_time/mobx/one_talker_at_a_time_coordinator.dart';
 import 'package:nokhte/app/core/modules/timer/domain/logic/logic.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
@@ -57,7 +59,15 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
     await timer.setupAndStreamListenerActivation(
         const CreateTimerParams(timerLengthInMinutes: 5), initOrPauseTimesUp);
     await timer.setOnlineStatus(true);
-    foregroundAndBackgroundStateListener();
+    foregroundAndBackgroundStateListener(
+      resumedCallback: () async => await timer.setOnlineStatus(true),
+      inactiveCallback: () async => await timer.setOnlineStatus(false),
+      detachedCallback: () async => await abortPurposeSessionArtifactsStore(
+        const AbortPurposeSessionArtifactsParams(
+          currentScreen: PurposeSessionScreens.phase2Consultation,
+        ),
+      ),
+    );
     explanationText.setText("hold to talk");
     explanationText.widgetConstructor();
     beachWavesMovieModeWatcher();
