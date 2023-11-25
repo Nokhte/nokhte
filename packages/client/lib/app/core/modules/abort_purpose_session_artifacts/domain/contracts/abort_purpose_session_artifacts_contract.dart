@@ -1,11 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/timer/domain/domain.dart';
+import 'package:nokhte/app/core/modules/timer/domain/contracts/delete_the_timer_contract_interface.dart';
 
-abstract class AbortPurposeSessionArtifactsContract extends TimerContract {
-  Future<Either<Failure, void>> abortTheCollaboration(NoParams params);
-  Future<Either<Failure, void>> deleteSoloDocuments(NoParams params);
-  Future<Either<Failure, void>> deleteWorkingCollaborativeDocument(
+abstract class AbortPurposeSessionArtifactsContract
+    with DeleteTimerContractInterface {
+  Future<Either<Failure, NoEntity>> abortTheCollaboration(NoParams params);
+  Future<Either<Failure, NoEntity>> deleteSoloDocuments(NoParams params);
+  Future<Either<Failure, NoEntity>> deleteWorkingCollaborativeDocument(
       NoParams params);
 }
