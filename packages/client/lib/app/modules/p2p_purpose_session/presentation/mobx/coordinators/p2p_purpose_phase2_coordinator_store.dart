@@ -98,10 +98,14 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
       reaction((p0) => oneTalkerAtATime.collaboratorIsTalking, (p0) {
         if (p0) {
           meshCircleStore.toggleIsEnabled();
+          meshCircleStore.initGlowUp();
         } else if (!p0) {
           Future.delayed(
             Seconds.get(1),
-            () => meshCircleStore.toggleIsEnabled(),
+            () {
+              meshCircleStore.toggleIsEnabled();
+              meshCircleStore.initGlowDown();
+            },
           );
         }
       });
