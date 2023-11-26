@@ -53,7 +53,7 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
   cancelWhoIsTalkingtream() => whoIsTalkingListeningStatus = false;
 
   Stream<bool> checkIfCollaboratorIsTalking() async* {
-        await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     whoIsTalkingListeningStatus = true;
     await for (var event in supabase
         .from('existing_collaborations')
@@ -66,11 +66,11 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
       }
       if (event.isEmpty) {
         yield false;
-      } else if (event.first[ExistingCollaborationsQueries.whoIsTalking] ==
-          null) {
+      } else if (event.first[ExistingCollaborationsQueries.talkingQueue] ==
+          []) {
         yield false;
       } else {
-        yield event.first[ExistingCollaborationsQueries.whoIsTalking] ==
+        yield event.first[ExistingCollaborationsQueries.talkingQueue].first ==
             collaboratorInfo.theCollaboratorsUID;
       }
     }
