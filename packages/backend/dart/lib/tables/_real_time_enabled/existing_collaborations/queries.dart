@@ -111,7 +111,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
         .select();
   }
 
-  Future<void> clearMostRecentTalker() async {
+  Future<void> clearTheCurrentTalker() async {
     final List currentQueue = await getWhoIsTalkingQueue();
     currentQueue.removeAt(0);
     await figureOutActiveCollaboratorInfoIfNotDoneAlready();
