@@ -66,8 +66,8 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
       }
       if (event.isEmpty) {
         yield false;
-      } else if (event.first[ExistingCollaborationsQueries.talkingQueue] ==
-          []) {
+      } else if (event
+          .first[ExistingCollaborationsQueries.talkingQueue].isEmpty) {
         yield false;
       } else {
         yield event.first[ExistingCollaborationsQueries.talkingQueue].first ==
