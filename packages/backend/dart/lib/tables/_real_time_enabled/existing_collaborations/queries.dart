@@ -6,7 +6,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   static const collaboratorTwo = "collaborator_two";
   static const isCurrentlyActive = 'is_currently_active';
   static const isConsecrated = "is_consecrated";
-  static const whoIsTalking = "who_is_talking";
+  static const talkingQueue = "talking_queue";
   ExistingCollaborationsQueries({required super.supabase});
 
   Future<List> createNewCollaboration({
@@ -76,12 +76,29 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
         .select();
   }
 
-  Future<List> setUserAsTheCurrentTalker() async {
+  Future<List> getWhoIsTalkingQueue() async {
     await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    return (await supabase
+            .from(tableName)
+            .select()
+            .eq(
+              collaboratorInfo.theCollaboratorsNumber,
+              collaboratorInfo.theCollaboratorsUID,
+            )
+            .eq(
+              collaboratorInfo.theUsersCollaboratorNumber,
+              collaboratorInfo.theUsersUID,
+            ))
+        .first[talkingQueue];
+  }
+
+  Future<List> setUserAsTheCurrentTalker() async {
+    final currentQueue = await getWhoIsTalkingQueue();
+    currentQueue.add(collaboratorInfo.theUsersUID);
     return await supabase
         .from(tableName)
         .update({
-          whoIsTalking: collaboratorInfo.theUsersUID,
+          talkingQueue: currentQueue,
         })
         .eq(
           collaboratorInfo.theCollaboratorsNumber,
@@ -94,12 +111,14 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
         .select();
   }
 
-  Future<void> clearTheCurrentTalker() async {
+  Future<void> clearMostRecentTalker() async {
+    final List currentQueue = await getWhoIsTalkingQueue();
+    currentQueue.removeAt(0);
     await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     return await supabase
         .from(tableName)
         .update({
-          whoIsTalking: null,
+          talkingQueue: currentQueue,
         })
         .eq(
           collaboratorInfo.theCollaboratorsNumber,
