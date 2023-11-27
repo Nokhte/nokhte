@@ -7,7 +7,7 @@ import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic_module.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
 import 'package:nokhte/app/core/modules/one_talker_at_a_time/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/one_talker_at_a_time/one_talker_at_a_time_module.dart';
-import 'package:nokhte/app/core/modules/scheduling/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/scheduling/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/scheduling/scheduling_module.dart';
 import 'package:nokhte/app/core/modules/solo_doc/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/solo_doc/solo_doc_module.dart';

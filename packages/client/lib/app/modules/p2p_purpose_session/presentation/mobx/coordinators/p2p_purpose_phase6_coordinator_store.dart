@@ -5,7 +5,7 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
 import 'package:nokhte/app/core/modules/scheduling/domain/domain.dart';
-import 'package:nokhte/app/core/modules/scheduling/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/scheduling/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/update_existing_collaborations/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/scheduling_delta/stack/stack.dart';
