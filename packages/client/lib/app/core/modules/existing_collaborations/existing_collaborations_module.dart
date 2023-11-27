@@ -9,34 +9,34 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class ExistingCollaborationsModule extends Module {
   @override
   List<Bind> get binds => [
-        Bind.singleton<UpdateExistingCollaborationsRemoteSourceImpl>(
-          (i) => UpdateExistingCollaborationsRemoteSourceImpl(
+        Bind.singleton<ExistingCollaborationsRemoteSourceImpl>(
+          (i) => ExistingCollaborationsRemoteSourceImpl(
             supabase: Modular.get<SupabaseClient>(),
           ),
           export: true,
         ),
-        Bind.singleton<UpdateExistingCollaborationsContractImpl>(
-          (i) => UpdateExistingCollaborationsContractImpl(
+        Bind.singleton<ExistingCollaborationsContractImpl>(
+          (i) => ExistingCollaborationsContractImpl(
             networkInfo: i<NetworkInfoImpl>(),
-            remoteSource: i<UpdateExistingCollaborationsRemoteSource>(),
+            remoteSource: i<ExistingCollaborationsRemoteSource>(),
           ),
           export: true,
         ),
         Bind.singleton<ConsecrateTheCollaboration>(
           (i) => ConsecrateTheCollaboration(
-            contract: i<UpdateExistingCollaborationsContract>(),
+            contract: i<ExistingCollaborationsContract>(),
           ),
           export: true,
         ),
         Bind.singleton<UpdateCollaborationActivationStatus>(
           (i) => UpdateCollaborationActivationStatus(
-            contract: i<UpdateExistingCollaborationsContract>(),
+            contract: i<ExistingCollaborationsContract>(),
           ),
           export: true,
         ),
         Bind.singleton<UpdateIndividualCollaboratorEntryStatus>(
           (i) => UpdateIndividualCollaboratorEntryStatus(
-            contract: i<UpdateExistingCollaborationsContract>(),
+            contract: i<ExistingCollaborationsContract>(),
           ),
           export: true,
         ),
@@ -58,8 +58,8 @@ class ExistingCollaborationsModule extends Module {
           ),
           export: true,
         ),
-        Bind.singleton<UpdateExistingCollaborationsCoordinator>(
-          (i) => UpdateExistingCollaborationsCoordinator(
+        Bind.singleton<ExistingCollaborationsCoordinator>(
+          (i) => ExistingCollaborationsCoordinator(
             updateIndividualCollaboratorEntryStatus:
                 i<UpdateIndividualCollaboratorEntryStatusStore>(),
             updateCollaborationActivationStatus:
