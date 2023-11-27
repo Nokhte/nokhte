@@ -57,73 +57,19 @@ class SoloDocModule extends Module {
           ),
           export: true,
         ),
-        Bind.singleton<CreateSoloDocGetterStore>(
-          (i) => CreateSoloDocGetterStore(
-            logic: i<CreateSoloDoc>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<GetSoloDocGetterStore>(
-          (i) => GetSoloDocGetterStore(
-            logic: i<GetSoloDoc>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<SealSoloDocGetterStore>(
-          (i) => SealSoloDocGetterStore(
-            logic: i<SealSoloDoc>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<ShareSoloDocGetterStore>(
-          (i) => ShareSoloDocGetterStore(
-            logic: i<ShareSoloDoc>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<SubmitSoloDocGetterStore>(
-          (i) => SubmitSoloDocGetterStore(
-            logic: i<SubmitSoloDoc>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<CreateSoloDocStore>(
-          (i) => CreateSoloDocStore(
-            getterStore: i<CreateSoloDocGetterStore>(),
-          ),
-          export: true,
-        ),
         Bind.singleton<GetSoloDocStore>(
           (i) => GetSoloDocStore(
-            getterStore: i<GetSoloDocGetterStore>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<SealSoloDocStore>(
-          (i) => SealSoloDocStore(
-            getterStore: i<SealSoloDocGetterStore>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<ShareSoloDocStore>(
-          (i) => ShareSoloDocStore(
-            getterStore: i<ShareSoloDocGetterStore>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<SubmitSoloDocStore>(
-          (i) => SubmitSoloDocStore(
-            getterStore: i<SubmitSoloDocGetterStore>(),
+            logic: i<GetSoloDoc>(),
           ),
           export: true,
         ),
         Bind.singleton<SoloDocCoordinatorStore>(
           (i) => SoloDocCoordinatorStore(
-            createSoloDoc: i<CreateSoloDocStore>(),
             getSoloDoc: i<GetSoloDocStore>(),
-            sealSoloDoc: i<SealSoloDocStore>(),
-            shareSoloDoc: i<ShareSoloDocStore>(),
-            submitSoloDoc: i<SubmitSoloDocStore>(),
+            createSoloDoc: i<CreateSoloDoc>(),
+            sealSoloDoc: i<SealSoloDoc>(),
+            shareSoloDoc: i<ShareSoloDoc>(),
+            submitSoloDoc: i<SubmitSoloDoc>(),
           ),
           export: true,
         ),
