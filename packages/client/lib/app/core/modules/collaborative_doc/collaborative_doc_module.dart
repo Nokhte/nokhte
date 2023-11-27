@@ -1,9 +1,9 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:nokhte/app/core/modules/collaborative_doc/domain/logic/update_commit_desire_status.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/mobx/get_collaborative_doc_content_store.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/data/data.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
-import 'package:nokhte/app/core/modules/collaborative_doc/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/mobx/mobx.dart';
 import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -71,99 +71,15 @@ class CollaborativeDocModule extends Module {
           ),
           export: true,
         ),
-        Bind.singleton<CreateCollaborativeDocGetterStore>(
-          (i) => CreateCollaborativeDocGetterStore(
-            logic: i<CreateCollaborativeDoc>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<GetCollaborativeDocContentGetterStore>(
-          (i) => GetCollaborativeDocContentGetterStore(
-            logic: i<GetCollaborativeDocContent>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<GetCollaboratorDocInfoGetterStore>(
-          (i) => GetCollaboratorDocInfoGetterStore(
-            logic: i<GetCollaboratorDocInfo>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<UpdateCommitDesireStatusGetterStore>(
-          (i) => UpdateCommitDesireStatusGetterStore(
-            logic: i<UpdateCommitDesireStatus>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<UpdateCollaborativeDocGetterStore>(
-          (i) => UpdateCollaborativeDocGetterStore(
-            logic: i<UpdateCollaborativeDoc>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<UpdateUserDeltaGetterStore>(
-          (i) => UpdateUserDeltaGetterStore(
-            logic: i<UpdateUserDelta>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<UpdateUserPresenceGetterStore>(
-          (i) => UpdateUserPresenceGetterStore(
-            logic: i<UpdateUserPresence>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<CreateCollaborativeDocStore>(
-          (i) => CreateCollaborativeDocStore(
-            getterStore: i<CreateCollaborativeDocGetterStore>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<GetCollaborativeDocContentStore>(
-          (i) => GetCollaborativeDocContentStore(
-            getterStore: i<GetCollaborativeDocContentGetterStore>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<GetCollaboratorDocInfoStore>(
-          (i) => GetCollaboratorDocInfoStore(
-            getterStore: i<GetCollaboratorDocInfoGetterStore>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<UpdateCommitDesireStatusStore>(
-          (i) => UpdateCommitDesireStatusStore(
-            getterStore: i<UpdateCommitDesireStatusGetterStore>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<UpdateCollaborativeDocStore>(
-          (i) => UpdateCollaborativeDocStore(
-            getterStore: i<UpdateCollaborativeDocGetterStore>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<UpdateUserDeltaStore>(
-          (i) => UpdateUserDeltaStore(
-            getterStore: i<UpdateUserDeltaGetterStore>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<UpdateUserPresenceStore>(
-          (i) => UpdateUserPresenceStore(
-            getterStore: i<UpdateUserPresenceGetterStore>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<CollaborativeDocCoordinatorStore>(
-          (i) => CollaborativeDocCoordinatorStore(
-            updateCommitDesire: i<UpdateCommitDesireStatusStore>(),
-            updateDoc: i<UpdateCollaborativeDocStore>(),
-            createDoc: i<CreateCollaborativeDocStore>(),
+        Bind.singleton<CollaborativeDocCoordinator>(
+          (i) => CollaborativeDocCoordinator(
+            updateCommitDesire: i<UpdateCommitDesireStatus>(),
+            updateDoc: i<UpdateCollaborativeDoc>(),
+            createDoc: i<CreateCollaborativeDoc>(),
             getContent: i<GetCollaborativeDocContentStore>(),
-            getCollaboratorInfo: i<GetCollaboratorDocInfoStore>(),
-            updateDelta: i<UpdateUserDeltaStore>(),
-            updatePresence: i<UpdateUserPresenceStore>(),
+            getCollaboratorInfo: i<GetCollaboratorDocInfo>(),
+            updateDelta: i<UpdateUserDelta>(),
+            updatePresence: i<UpdateUserPresence>(),
           ),
           export: true,
         )
