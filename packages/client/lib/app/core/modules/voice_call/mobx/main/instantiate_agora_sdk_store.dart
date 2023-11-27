@@ -6,7 +6,6 @@ import 'package:nokhte/app/core/mobx/base_future_store.dart';
 import 'package:nokhte/app/core/mobx/base_mobx_db_store.dart';
 import 'package:nokhte/app/core/mobx/store_state.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
-import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 part 'instantiate_agora_sdk_store.g.dart';
 
 class InstantiateAgoraSdkStore = _InstantiateAgoraSdkStoreBase
@@ -14,13 +13,13 @@ class InstantiateAgoraSdkStore = _InstantiateAgoraSdkStoreBase
 
 abstract class _InstantiateAgoraSdkStoreBase
     extends BaseMobxDBStore<NoParams, AgoraSdkStatusEntity> with Store {
-  final InstantiateAgoraSdkGetterStore getterStore;
+  final InstantiateAgoraSdk logic;
 
   @observable
   bool isInstantiated = false;
 
   _InstantiateAgoraSdkStoreBase({
-    required this.getterStore,
+    required this.logic,
   });
 
   @observable
@@ -45,7 +44,7 @@ abstract class _InstantiateAgoraSdkStoreBase
   @action
   Future<void> call(params) async {
     state = StoreState.loading;
-    futureStore.entityOrFailureFuture = ObservableFuture(getterStore());
+    futureStore.entityOrFailureFuture = ObservableFuture(logic(NoParams()));
     futureStore.unwrappedEntityOrFailure =
         await futureStore.entityOrFailureFuture;
     stateOrErrorUpdater(futureStore.unwrappedEntityOrFailure);

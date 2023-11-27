@@ -7,23 +7,24 @@ import 'package:nokhte/app/core/mobx/base_mobx_db_store.dart';
 import 'package:nokhte/app/core/mobx/store_state.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
-import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 part 'voice_call_actions_store.g.dart';
 
 class VoiceCallActionsStore = _VoiceCallActionsStoreBase
     with _$VoiceCallActionsStore;
 
 abstract class _VoiceCallActionsStoreBase extends BaseMobxDBStore with Store {
-  final JoinCallGetterStore joinCallGetterStore;
-  final LeaveCallGetterStore leaveCallGetterStore;
-  final MuteLocalAudioStreamGetterStore muteAudioGetterStore;
-  final UnmuteLocalAudioStreamGetterStore unmuteAudioGetterStore;
+  final JoinCall joinCall;
+  final LeaveCall leaveCall;
+  final MuteLocalAudio muteAudio;
+  final UnmuteLocalAudio unmuteAudio;
+  // move who has question into purpose session module or it's own module
+  // and add the other stores here as well
 
   _VoiceCallActionsStoreBase({
-    required this.joinCallGetterStore,
-    required this.leaveCallGetterStore,
-    required this.muteAudioGetterStore,
-    required this.unmuteAudioGetterStore,
+    required this.joinCall,
+    required this.leaveCall,
+    required this.muteAudio,
+    required this.unmuteAudio,
   });
 
   @observable
@@ -56,10 +57,10 @@ abstract class _VoiceCallActionsStoreBase extends BaseMobxDBStore with Store {
   @action
   Future<void> muteOrUnmuteAudio({required bool wantToMute}) async {
     if (wantToMute) {
-      final res = await muteAudioGetterStore();
+      final res = await muteAudio(NoParams());
       audioStateOrErrorUpdater(res);
     } else {
-      final res = await unmuteAudioGetterStore();
+      final res = await unmuteAudio(NoParams());
       audioStateOrErrorUpdater(res);
     }
   }
@@ -67,12 +68,14 @@ abstract class _VoiceCallActionsStoreBase extends BaseMobxDBStore with Store {
   @action
   Future<void> enterOrLeaveCall(Either<NoParams, JoinCallParams> params) async {
     params.fold((NoParams leaveCallParams) async {
-      final res = await leaveCallGetterStore();
+      final res = await leaveCall(NoParams());
       callStateOrErrorUpdater(res);
     }, (JoinCallParams joinCallParams) async {
-      final res = await joinCallGetterStore(
-        channelId: joinCallParams.channelId,
-        token: joinCallParams.token,
+      final res = await joinCall(
+        JoinCallParams(
+          token: joinCallParams.token,
+          channelId: joinCallParams.channelId,
+        ),
       );
       callStateOrErrorUpdater(res);
     });

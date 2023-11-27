@@ -6,7 +6,6 @@ import 'package:nokhte/app/core/mobx/base_future_store.dart';
 import 'package:nokhte/app/core/mobx/base_mobx_db_store.dart';
 import 'package:nokhte/app/core/mobx/store_state.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
-import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 part 'check_if_user_has_the_question_store.g.dart';
 
 class CheckIfUserHasTheQuestionStore = _CheckIfUserHasTheQuestionStoreBase
@@ -14,10 +13,10 @@ class CheckIfUserHasTheQuestionStore = _CheckIfUserHasTheQuestionStoreBase
 
 abstract class _CheckIfUserHasTheQuestionStoreBase
     extends BaseMobxDBStore<NoParams, WhoGetsTheQuestionEntity> with Store {
-  final CheckIfUserHasTheQuestionGetterStore getterStore;
+  final CheckIfUserHasTheQuestion logic;
 
   _CheckIfUserHasTheQuestionStoreBase({
-    required this.getterStore,
+    required this.logic,
   });
 
   @observable
@@ -50,7 +49,7 @@ abstract class _CheckIfUserHasTheQuestionStoreBase
   @action
   Future<void> call(params) async {
     state = StoreState.loading;
-    futureStore.entityOrFailureFuture = ObservableFuture(getterStore());
+    futureStore.entityOrFailureFuture = ObservableFuture(logic(params));
     futureStore.unwrappedEntityOrFailure =
         await futureStore.entityOrFailureFuture;
     stateOrErrorUpdater(futureStore.unwrappedEntityOrFailure);

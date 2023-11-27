@@ -6,17 +6,16 @@ import 'package:nokhte/app/core/mobx/base_future_store.dart';
 import 'package:nokhte/app/core/mobx/base_mobx_db_store.dart';
 import 'package:nokhte/app/core/mobx/store_state.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
-import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 part 'get_channel_id_store.g.dart';
 
 class GetChannelIdStore = _GetChannelIdStoreBase with _$GetChannelIdStore;
 
 abstract class _GetChannelIdStoreBase
     extends BaseMobxDBStore<NoParams, ChannelIdEntity> with Store {
-  final GetChannelIdGetterStore getterStore;
+  final GetChannelId logic;
 
   _GetChannelIdStoreBase({
-    required this.getterStore,
+    required this.logic,
   });
 
   @observable
@@ -44,7 +43,7 @@ abstract class _GetChannelIdStoreBase
   @action
   Future<void> call(params) async {
     state = StoreState.loading;
-    futureStore.entityOrFailureFuture = ObservableFuture(getterStore());
+    futureStore.entityOrFailureFuture = ObservableFuture(logic(NoParams()));
     futureStore.unwrappedEntityOrFailure =
         await futureStore.entityOrFailureFuture;
     stateOrErrorUpdater(futureStore.unwrappedEntityOrFailure);
