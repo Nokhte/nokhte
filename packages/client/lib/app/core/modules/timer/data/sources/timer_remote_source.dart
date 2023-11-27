@@ -29,10 +29,10 @@ class TimerRemoteSourceImpl implements TimerRemoteSource {
   @override
   Future<List> createTimer(CreateTimerParams params) async {
     await queries.figureOutActiveCollaboratorInfoIfNotDoneAlready();
-    const chosenCollaborator =
-        kDebugMode ? CollaboratorOptions.one : CollaboratorOptions.two;
+    const chosenCollaboratorNumber =
+        kDebugMode ? CollaboratorNumbers.one : CollaboratorNumbers.two;
     return await StringComparison.isCollaborator(
-        collaboratorOptions: chosenCollaborator,
+        chosenCollaboratorNumber: chosenCollaboratorNumber,
         input: queries.collaboratorInfo.theUsersCollaboratorNumber,
         callback: () async => await queries.createNewTimer(
             timerLengthInMilliseconds: params.toMilliseconds()),
