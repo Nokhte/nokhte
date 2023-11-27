@@ -23,7 +23,7 @@ class SpeakTheCollaboratorPhraseCoordinatorStore = _SpeakTheCollaboratorPhraseCo
 abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
     with Store {
   final WidgetCoordinatorStore widgetStore;
-  final LocalSpeechToTextCoordinatorStore localSpeechToText;
+  final LocalSpeechToTextCoordinator localSpeechToText;
   final SwipeDetector swipe;
   final HoldDetector hold;
   final OnSpeechResultStore onSpeechResultStore;
