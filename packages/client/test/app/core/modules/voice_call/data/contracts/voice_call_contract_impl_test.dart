@@ -183,8 +183,8 @@ void main() {
       test(
           "when online & everything is valid should return a model w/ leaving status",
           () async {
-        when(mockRemoteSource.muteLocalAudioStream()).thenAnswer((_) async {});
-        final res = await contractImpl.muteLocalAudioStream();
+        when(mockRemoteSource.muteLocalAudio()).thenAnswer((_) async {});
+        final res = await contractImpl.muteLocalAudio();
         expect(res, ConstantLocalAudioStreamStatusModel.wrappedMutedCase);
       });
     });
@@ -194,7 +194,7 @@ void main() {
             .thenAnswer((realInvocation) async => false);
       });
       test("When offline should return an internet connection error", () async {
-        final res = await contractImpl.muteLocalAudioStream();
+        final res = await contractImpl.muteLocalAudio();
         expect(res, Left(FailureConstants.internetConnectionFailure));
       });
     });
@@ -208,9 +208,8 @@ void main() {
       test(
           "when online & everything is valid should return a model w/ leaving status",
           () async {
-        when(mockRemoteSource.unmuteLocalAudioStream())
-            .thenAnswer((_) async {});
-        final res = await contractImpl.unmuteLocalAudioStream();
+        when(mockRemoteSource.unmuteLocalAudio()).thenAnswer((_) async {});
+        final res = await contractImpl.unmuteLocalAudio();
         expect(res, ConstantLocalAudioStreamStatusModel.wrappedUnmutedCase);
       });
     });
@@ -220,7 +219,7 @@ void main() {
             .thenAnswer((realInvocation) async => false);
       });
       test("When offline should return an internet connection error", () async {
-        final res = await contractImpl.unmuteLocalAudioStream();
+        final res = await contractImpl.unmuteLocalAudio();
         expect(res, Left(FailureConstants.internetConnectionFailure));
       });
     });
