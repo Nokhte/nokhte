@@ -9,7 +9,7 @@ import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/domain/d
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/types/types.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/logic/update_commit_desire_status.dart';
-import 'package:nokhte/app/core/modules/collaborative_doc/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/update_existing_collaborations/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/mobx/mobx.dart';
@@ -30,7 +30,7 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends BaseCoordinator
   final UpdateExistingCollaborationsCoordinator updateExistingCollaborations;
   final GesturePillStore gesturePillStore;
   final CollaborativeTextEditorTrackerStore collaborativeTextUI;
-  final CollaborativeDocCoordinatorStore collaborativeDocDB;
+  final CollaborativeDocCoordinator collaborativeDocDB;
   final TextEditingController userController;
   final FocusNode userFocusNode;
   final GetAgoraTokenStore getAgoraTokenStore;

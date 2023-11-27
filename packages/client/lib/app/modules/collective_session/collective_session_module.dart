@@ -2,7 +2,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/audio_player/audio_player_module.dart';
 import 'package:nokhte/app/core/modules/audio_player/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/collaborative_doc_module.dart';
-import 'package:nokhte/app/core/modules/collaborative_doc/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/get_current_perspectives/get_current_perspectives_module.dart';
 import 'package:nokhte/app/core/modules/get_current_perspectives/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic_module.dart';
@@ -157,7 +157,7 @@ class CollectiveSessionModule extends Module {
               swipe: Modular.get<SwipeDetector>(),
               widgets: i<CollectiveSessionPhase2WidgetsCoordinator>(),
               voiceCall: i<VoiceCallActionsStore>(),
-              collaborativeDoc: i<CollaborativeDocCoordinatorStore>()),
+              collaborativeDoc: i<CollaborativeDocCoordinator>()),
         ),
       ];
 

@@ -2,7 +2,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/abort_purpose_session_artifacts_module.dart';
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/mobx/abort_purpose_session_artifacts_store.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/collaborative_doc_module.dart';
-import 'package:nokhte/app/core/modules/collaborative_doc/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic_module.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
 import 'package:nokhte/app/core/modules/one_talker_at_a_time/mobx/mobx.dart';
@@ -162,7 +162,7 @@ class P2PCollaboratorSessionModule extends Module {
             swipe: Modular.get<SwipeDetector>(),
             updateExistingCollaborations:
                 Modular.get<UpdateExistingCollaborationsCoordinator>(),
-            collaborativeDocDB: Modular.get<CollaborativeDocCoordinatorStore>(),
+            collaborativeDocDB: Modular.get<CollaborativeDocCoordinator>(),
             gesturePillStore: Modular.get<GesturePillStore>(),
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
             collaborativeTextUI: i<CollaborativeTextEditorTrackerStore>(),

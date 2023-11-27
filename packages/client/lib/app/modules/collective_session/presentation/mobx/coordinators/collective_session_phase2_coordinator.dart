@@ -4,8 +4,7 @@ import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
-import 'package:nokhte/app/core/modules/collaborative_doc/domain/logic/update_commit_desire_status.dart';
-import 'package:nokhte/app/core/modules/collaborative_doc/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/gesture_pill/gesture_pill.dart';
@@ -21,7 +20,7 @@ class CollectiveSessionPhase2Coordinator = _CollectiveSessionPhase2CoordinatorBa
 abstract class _CollectiveSessionPhase2CoordinatorBase extends Equatable
     with Store {
   final VoiceCallActionsStore voiceCall;
-  final CollaborativeDocCoordinatorStore collaborativeDoc;
+  final CollaborativeDocCoordinator collaborativeDoc;
   final CollectiveSessionPhase2WidgetsCoordinator widgets;
 
   final SwipeDetector swipe;
