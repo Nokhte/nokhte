@@ -30,6 +30,12 @@ class MeshCircleButton extends StatelessWidget {
             duration: trackerStore.movie.duration,
             builder: (context, value, child) {
               trackerStore.setCurrentGlowColor(value.get('color'));
+              trackerStore.setCurrentMatrixValues(
+                newXTranslate: value.get("Xtranslate"),
+                newYTranslate: value.get('Ytranslate'),
+                newXScale: value.get('Xscale'),
+                newYScale: value.get('Yscale'),
+              );
               return SizedBox(
                 width: size.width,
                 height: size.height,
@@ -41,6 +47,10 @@ class MeshCircleButton extends StatelessWidget {
                     secondGradientColor: Colors.white,
                     glowColor: value.get('color'),
                     glowOpacity: value.get('opacity'),
+                    xGlowXTranslate: value.get('Xtranslate'),
+                    yGlowYTranslate: value.get('Ytranslate'),
+                    xScaleglow: value.get('Xscale'),
+                    yGlowScale: value.get('Yscale'),
                   ),
                   child: ClipPath(
                     clipper: CustomPathClipper(SvgAnimtionConstants.circlePath),
