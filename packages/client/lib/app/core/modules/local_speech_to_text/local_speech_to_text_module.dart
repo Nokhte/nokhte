@@ -58,44 +58,26 @@ class LocalSpeechToTextModule extends Module {
           ),
           export: true,
         ),
-        Bind.singleton<InitLeopardGetterStore>(
-          (i) => InitLeopardGetterStore(
-            logic: i<InitLeopard>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<StopRecordingGetterStore>(
-          (i) => StopRecordingGetterStore(
-            logic: i<StopRecording>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<StartRecordingGetterStore>(
-          (i) => StartRecordingGetterStore(
-            logic: i<StartRecording>(),
-          ),
-          export: true,
-        ),
         Bind.singleton<InitLeopardStore>(
           (i) => InitLeopardStore(
-            getterStore: i<InitLeopardGetterStore>(),
+            logic: i<InitLeopard>(),
           ),
           export: true,
         ),
         Bind.singleton<StopRecordingStore>(
           (i) => StopRecordingStore(
-            getterStore: i<StopRecordingGetterStore>(),
+            logic: i<StopRecording>(),
           ),
           export: true,
         ),
         Bind.singleton<StartRecordingStore>(
           (i) => StartRecordingStore(
-            getterStore: i<StartRecordingGetterStore>(),
+            logic: i<StartRecording>(),
           ),
           export: true,
         ),
-        Bind.singleton<LocalSpeechToTextCoordinatorStore>(
-          (i) => LocalSpeechToTextCoordinatorStore(
+        Bind.singleton<LocalSpeechToTextCoordinator>(
+          (i) => LocalSpeechToTextCoordinator(
             onSpeechResultStore: i<OnSpeechResultStore>(),
             initLeopardStore: i<InitLeopardStore>(),
             stopRecordingStore: i<StopRecordingStore>(),
