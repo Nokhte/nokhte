@@ -3,7 +3,7 @@ import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'data/data.dart';
 import 'domain/domain.dart';
-import 'presentation/presentation.dart';
+import 'mobx/mobx.dart';
 
 class TimerModule extends Module {
   @override
@@ -57,85 +57,20 @@ class TimerModule extends Module {
           ),
           export: true,
         ),
-        Bind.singleton<CreateTimerGetterStore>(
-          (i) => CreateTimerGetterStore(
-            logic: i<CreateTimer>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<DeleteTheTimerGetterStore>(
-          (i) => DeleteTheTimerGetterStore(
-            logic: i<DeleteTheTimer>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<GetTimerInformationStreamGetterStore>(
-          (i) => GetTimerInformationStreamGetterStore(
-              logic: i<GetTimerInformationStream>()),
-          export: true,
-        ),
-        Bind.singleton<MarkdownTheTimerGetterStore>(
-          (i) => MarkdownTheTimerGetterStore(
-            logic: i<MarkdownTheTimer>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<UpdatePresenceGetterStore>(
-          (i) => UpdatePresenceGetterStore(
-            logic: i<UpdatePresence>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<UpdateTimerRunningStatusGetterStore>(
-          (i) => UpdateTimerRunningStatusGetterStore(
-            logic: i<UpdateTimerRunningStatus>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<CreateTimerStore>(
-          (i) => CreateTimerStore(
-            getterStore: i<CreateTimerGetterStore>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<DeleteTheTimerStore>(
-          (i) => DeleteTheTimerStore(
-            getterStore: i<DeleteTheTimerGetterStore>(),
-          ),
-          export: true,
-        ),
         Bind.singleton<GetTimerInformationStreamStore>(
           (i) => GetTimerInformationStreamStore(
-            getterStore: i<GetTimerInformationStreamGetterStore>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<MarkdownTheTimerStore>(
-          (i) => MarkdownTheTimerStore(
-            getterStore: i<MarkdownTheTimerGetterStore>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<UpdatePresenceStore>(
-          (i) => UpdatePresenceStore(
-            getterStore: i<UpdatePresenceGetterStore>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<UpdateTimerRunningStatusStore>(
-          (i) => UpdateTimerRunningStatusStore(
-            getterStore: i<UpdateTimerRunningStatusGetterStore>(),
+            logic: i<GetTimerInformationStream>(),
           ),
           export: true,
         ),
         Bind.factory<TimerCoordinator>(
           (i) => TimerCoordinator(
-            createTimer: i<CreateTimerStore>(),
-            deleteTheTimer: i<DeleteTheTimerStore>(),
+            createTimer: i<CreateTimer>(),
+            deleteTheTimer: i<DeleteTheTimer>(),
             getTimeInfoStream: i<GetTimerInformationStreamStore>(),
-            markdownTheTimer: i<MarkdownTheTimerStore>(),
-            updatePresence: i<UpdatePresenceStore>(),
-            updateTimerRunningStatus: i<UpdateTimerRunningStatusStore>(),
+            markdownTheTimer: i<MarkdownTheTimer>(),
+            updatePresence: i<UpdatePresence>(),
+            updateTimerRunningStatus: i<UpdateTimerRunningStatus>(),
           ),
           export: true,
         ),
