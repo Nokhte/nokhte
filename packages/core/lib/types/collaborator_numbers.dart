@@ -1,0 +1,4 @@
+enum CollaboratorNumbers {
+  one,
+  two,
+}

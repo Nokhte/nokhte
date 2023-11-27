@@ -1,4 +1,0 @@
-enum CollaboratorOptions {
-  one,
-  two,
-}
