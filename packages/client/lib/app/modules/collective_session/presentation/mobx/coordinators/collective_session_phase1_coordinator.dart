@@ -70,8 +70,8 @@ abstract class _CollectiveSessionPhase1CoordinatorBase
 
   @action
   screenConstructor() async {
-    onCompletedStream =
-        ObservableStream(audioPlayer.streamGetterStore(NoParams()).stream);
+    onCompletedStream = ObservableStream(
+        audioPlayer.getPlayerCompletionStream(NoParams()).stream);
     onCompletedStream.listen((value) {
       checkIfTheyHaveListenedToAllTheClips();
       isPlaying = false;
