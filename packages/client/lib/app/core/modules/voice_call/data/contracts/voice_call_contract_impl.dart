@@ -68,10 +68,9 @@ class VoiceCallContractImpl implements VoiceCallContract {
   }
 
   @override
-  Future<Either<Failure, LocalAudioStreamStatusModel>>
-      muteLocalAudioStream() async {
+  Future<Either<Failure, LocalAudioStreamStatusModel>> muteLocalAudio() async {
     if (await networkInfo.isConnected) {
-      await remoteSource.muteLocalAudioStream();
+      await remoteSource.muteLocalAudio();
       return const Right(LocalAudioStreamStatusModel(isMuted: true));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
@@ -80,9 +79,9 @@ class VoiceCallContractImpl implements VoiceCallContract {
 
   @override
   Future<Either<Failure, LocalAudioStreamStatusModel>>
-      unmuteLocalAudioStream() async {
+      unmuteLocalAudio() async {
     if (await networkInfo.isConnected) {
-      await remoteSource.unmuteLocalAudioStream();
+      await remoteSource.unmuteLocalAudio();
       return const Right(LocalAudioStreamStatusModel(isMuted: false));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
