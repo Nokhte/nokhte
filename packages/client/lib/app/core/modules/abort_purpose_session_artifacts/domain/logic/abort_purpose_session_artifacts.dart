@@ -22,7 +22,7 @@ class AbortPurposeSessionArtifacts
       screen == PurposeSessionScreens.phase4ReciprocateAttention;
 
   bool isPhase5(PurposeSessionScreens screen) =>
-      screen == PurposeSessionScreens.phase4ReciprocateAttention;
+      screen == PurposeSessionScreens.phase5CollectiveCreation;
 
   bool shouldDeleteSoloDocument(PurposeSessionScreens screen) =>
       isPhase3(screen) || isPhase4(screen) || isPhase5(screen);
