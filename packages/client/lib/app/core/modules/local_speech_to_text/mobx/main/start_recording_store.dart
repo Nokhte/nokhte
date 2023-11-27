@@ -5,7 +5,6 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/constants/types/recording_status.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/domain/domain.dart';
-import 'package:nokhte/app/core/modules/local_speech_to_text/mobx/mobx.dart';
 part 'start_recording_store.g.dart';
 
 class StartRecordingStore = _StartRecordingStoreBase with _$StartRecordingStore;
@@ -17,8 +16,8 @@ abstract class _StartRecordingStoreBase
   SpeechToTextRecordingStatus recordingStatus =
       SpeechToTextRecordingStatus.initial;
 
-  final StartRecordingGetterStore getterStore;
-  _StartRecordingStoreBase({required this.getterStore});
+  final StartRecording logic;
+  _StartRecordingStoreBase({required this.logic});
 
   @observable
   BaseFutureStore<SpeechToTextRecordingStatusEntity> futureStore =
@@ -43,7 +42,7 @@ abstract class _StartRecordingStoreBase
   @action
   Future<void> call(params) async {
     state = StoreState.loading;
-    futureStore.entityOrFailureFuture = ObservableFuture(getterStore(params));
+    futureStore.entityOrFailureFuture = ObservableFuture(logic(params));
     futureStore.unwrappedEntityOrFailure =
         await futureStore.entityOrFailureFuture;
     stateOrErrorUpdater(futureStore.unwrappedEntityOrFailure);

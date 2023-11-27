@@ -4,7 +4,6 @@ import 'package:nokhte/app/core/constants/entities.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/domain/domain.dart';
-import 'package:nokhte/app/core/modules/local_speech_to_text/mobx/mobx.dart';
 part 'stop_recording_store.g.dart';
 
 class StopRecordingStore = _StopRecordingStoreBase with _$StopRecordingStore;
@@ -14,8 +13,8 @@ abstract class _StopRecordingStoreBase
   @observable
   String resultingWords = "";
 
-  final StopRecordingGetterStore getterStore;
-  _StopRecordingStoreBase({required this.getterStore});
+  final StopRecording logic;
+  _StopRecordingStoreBase({required this.logic});
 
   @observable
   BaseFutureStore<AudioProcessingEntity> futureStore = BaseFutureStore(
@@ -39,7 +38,7 @@ abstract class _StopRecordingStoreBase
   @action
   Future<void> call(params) async {
     state = StoreState.loading;
-    futureStore.entityOrFailureFuture = ObservableFuture(getterStore(params));
+    futureStore.entityOrFailureFuture = ObservableFuture(logic(params));
     futureStore.unwrappedEntityOrFailure =
         await futureStore.entityOrFailureFuture;
     stateOrErrorUpdater(futureStore.unwrappedEntityOrFailure);

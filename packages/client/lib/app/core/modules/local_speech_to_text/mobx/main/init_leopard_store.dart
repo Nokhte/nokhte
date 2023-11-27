@@ -4,7 +4,6 @@ import 'package:nokhte/app/core/constants/entities.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/domain/domain.dart';
-import 'package:nokhte/app/core/modules/local_speech_to_text/mobx/mobx.dart';
 part 'init_leopard_store.g.dart';
 
 class InitLeopardStore = _InitLeopardStoreBase with _$InitLeopardStore;
@@ -14,8 +13,8 @@ abstract class _InitLeopardStoreBase
   @observable
   bool isInitialized = false;
 
-  final InitLeopardGetterStore getterStore;
-  _InitLeopardStoreBase({required this.getterStore});
+  final InitLeopard logic;
+  _InitLeopardStoreBase({required this.logic});
 
   @observable
   BaseFutureStore<InitLeopardStatusEntity> futureStore = BaseFutureStore(
@@ -39,7 +38,7 @@ abstract class _InitLeopardStoreBase
   @action
   Future<void> call(params) async {
     state = StoreState.loading;
-    futureStore.entityOrFailureFuture = ObservableFuture(getterStore(params));
+    futureStore.entityOrFailureFuture = ObservableFuture(logic(params));
     futureStore.unwrappedEntityOrFailure =
         await futureStore.entityOrFailureFuture;
     stateOrErrorUpdater(futureStore.unwrappedEntityOrFailure);

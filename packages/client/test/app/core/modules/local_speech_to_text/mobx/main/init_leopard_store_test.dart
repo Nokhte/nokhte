@@ -8,14 +8,14 @@ import '../../constants/entities/entities.dart';
 import '../../fixtures/local_speech_to_text_mock_gen.mocks.dart';
 
 void main() {
-  late MockMInitLeopardGetterStore mockGetterStore;
+  late MockMInitLeopard mockGetterStore;
   late InitLeopardStore mainStore;
   final tParams = NoParams();
 
   setUp(() {
-    mockGetterStore = MockMInitLeopardGetterStore();
+    mockGetterStore = MockMInitLeopard();
     mainStore = InitLeopardStore(
-      getterStore: mockGetterStore,
+      logic: mockGetterStore,
     );
   });
 

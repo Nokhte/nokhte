@@ -9,14 +9,14 @@ import '../../constants/entities/entities.dart';
 import '../../fixtures/local_speech_to_text_mock_gen.mocks.dart';
 
 void main() {
-  late MockMStartRecordingGetterStore mockGetterStore;
+  late MockMStartRecording mockGetterStore;
   late StartRecordingStore mainStore;
   final tParams = NoParams();
 
   setUp(() {
-    mockGetterStore = MockMStartRecordingGetterStore();
+    mockGetterStore = MockMStartRecording();
     mainStore = StartRecordingStore(
-      getterStore: mockGetterStore,
+      logic: mockGetterStore,
     );
   });
 
