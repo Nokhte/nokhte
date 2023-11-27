@@ -74,5 +74,69 @@ class GlowUp {
         begin: 1.0,
         end: 1.0,
       ),
-    );
+    )
+    ..scene(
+      begin: Seconds.get(0),
+      end: Seconds.get(30),
+    )
+        .tween(
+          'scaleX',
+          Tween<double>(
+            begin: 1,
+            end: 1,
+          ),
+        )
+        .tween(
+          'scaleY',
+          Tween<double>(
+            begin: 1,
+            end: 1,
+          ),
+        )
+        .tween(
+          'translateX',
+          Tween<double>(
+            begin: 0,
+            end: 0,
+          ),
+        )
+        .tween(
+          'translateY',
+          Tween<double>(
+            begin: 0,
+            end: 0,
+          ),
+        )
+    ..scene(
+      begin: Seconds.get(30),
+      end: Seconds.get(33),
+    )
+        .tween(
+          'Xscale',
+          Tween<double>(
+            begin: 1,
+            end: 1.4,
+          ),
+        )
+        .tween(
+          'Yscale',
+          Tween<double>(
+            begin: 1,
+            end: 1.4,
+          ),
+        )
+        .tween(
+          'Xtranslate',
+          Tween<double>(
+            begin: 0,
+            end: -15,
+          ),
+        )
+        .tween(
+          'Ytranslate',
+          Tween<double>(
+            begin: 0,
+            end: -13,
+          ),
+        );
 }
