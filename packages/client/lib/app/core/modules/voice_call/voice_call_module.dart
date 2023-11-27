@@ -68,96 +68,48 @@ class VoiceCallModule extends Module {
           ),
           export: true,
         ),
-        Bind.singleton<MuteLocalAudioStream>(
-          (i) => MuteLocalAudioStream(
+        Bind.singleton<MuteLocalAudio>(
+          (i) => MuteLocalAudio(
             contract: i<VoiceCallContract>(),
           ),
           export: true,
         ),
-        Bind.singleton<UnmuteLocalAudioStream>(
-          (i) => UnmuteLocalAudioStream(
+        Bind.singleton<UnmuteLocalAudio>(
+          (i) => UnmuteLocalAudio(
             contract: i<VoiceCallContract>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<CheckIfUserHasTheQuestionGetterStore>(
-          (i) => CheckIfUserHasTheQuestionGetterStore(
-            logic: i<CheckIfUserHasTheQuestion>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<GetAgoraTokenGetterStore>(
-          (i) => GetAgoraTokenGetterStore(
-            logic: i<GetAgoraToken>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<GetChannelIdGetterStore>(
-          (i) => GetChannelIdGetterStore(
-            logic: i<GetChannelId>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<InstantiateAgoraSdkGetterStore>(
-          (i) => InstantiateAgoraSdkGetterStore(
-            logic: i<InstantiateAgoraSdk>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<JoinCallGetterStore>(
-          (i) => JoinCallGetterStore(
-            logic: i<JoinCall>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<LeaveCallGetterStore>(
-          (i) => LeaveCallGetterStore(
-            logic: i<LeaveCall>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<MuteLocalAudioStreamGetterStore>(
-          (i) => MuteLocalAudioStreamGetterStore(
-            logic: i<MuteLocalAudioStream>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<UnmuteLocalAudioStreamGetterStore>(
-          (i) => UnmuteLocalAudioStreamGetterStore(
-            logic: i<UnmuteLocalAudioStream>(),
           ),
           export: true,
         ),
         Bind.singleton<CheckIfUserHasTheQuestionStore>(
           (i) => CheckIfUserHasTheQuestionStore(
-            getterStore: i<CheckIfUserHasTheQuestionGetterStore>(),
+            logic: i<CheckIfUserHasTheQuestion>(),
           ),
           export: true,
         ),
         Bind.singleton<GetAgoraTokenStore>(
           (i) => GetAgoraTokenStore(
-            getterStore: i<GetAgoraTokenGetterStore>(),
+            logic: i<GetAgoraToken>(),
           ),
           export: true,
         ),
         Bind.singleton<GetChannelIdStore>(
           (i) => GetChannelIdStore(
-            getterStore: i<GetChannelIdGetterStore>(),
+            logic: i<GetChannelId>(),
           ),
           export: true,
         ),
         Bind.singleton<InstantiateAgoraSdkStore>(
           (i) => InstantiateAgoraSdkStore(
-            getterStore: i<InstantiateAgoraSdkGetterStore>(),
+            logic: i<InstantiateAgoraSdk>(),
           ),
           export: true,
         ),
         Bind.singleton<VoiceCallActionsStore>(
           (i) => VoiceCallActionsStore(
-            joinCallGetterStore: i<JoinCallGetterStore>(),
-            leaveCallGetterStore: i<LeaveCallGetterStore>(),
-            muteAudioGetterStore: i<MuteLocalAudioStreamGetterStore>(),
-            unmuteAudioGetterStore: i<UnmuteLocalAudioStreamGetterStore>(),
+            joinCall: i<JoinCall>(),
+            leaveCall: i<LeaveCall>(),
+            muteAudio: i<MuteLocalAudio>(),
+            unmuteAudio: i<UnmuteLocalAudio>(),
           ),
           export: true,
         ),
