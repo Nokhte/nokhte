@@ -1,18 +1,19 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:equatable/equatable.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/solo_doc/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
+import 'package:nokhte/app/core/modules/solo_doc/mobx/main/get_solo_doc_store.dart';
 part 'solo_doc_coordinator_store.g.dart';
 
 class SoloDocCoordinatorStore = _SoloDocCoordinatorStoreBase
     with _$SoloDocCoordinatorStore;
 
 abstract class _SoloDocCoordinatorStoreBase extends Equatable with Store {
-  final CreateSoloDocStore createSoloDoc;
+  final CreateSoloDoc createSoloDoc;
   final GetSoloDocStore getSoloDoc;
-  final SealSoloDocStore sealSoloDoc;
-  final ShareSoloDocStore shareSoloDoc;
-  final SubmitSoloDocStore submitSoloDoc;
+  final SealSoloDoc sealSoloDoc;
+  final ShareSoloDoc shareSoloDoc;
+  final SubmitSoloDoc submitSoloDoc;
 
   _SoloDocCoordinatorStoreBase({
     required this.createSoloDoc,
