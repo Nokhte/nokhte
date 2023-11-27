@@ -9,34 +9,34 @@ import '../../fixtures/voice_call_mock_gen.mocks.dart';
 
 void main() {
   late MockMVoiceCallContract mockContract;
-  late MuteLocalAudioStream logic;
+  late MuteLocalAudio logic;
 
   setUp(() {
     mockContract = MockMVoiceCallContract();
-    logic = MuteLocalAudioStream(contract: mockContract);
+    logic = MuteLocalAudio(contract: mockContract);
   });
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
-    when(mockContract.muteLocalAudioStream()).thenAnswer(
+    when(mockContract.muteLocalAudio()).thenAnswer(
       (_) async => ConstantLocalAudioStreamStatusEntity.wrappedMutedCase,
     );
 
     final result = await logic(NoParams());
 
     expect(result, ConstantLocalAudioStreamStatusEntity.wrappedMutedCase);
-    verify(mockContract.muteLocalAudioStream());
+    verify(mockContract.muteLocalAudio());
     verifyNoMoreInteractions(mockContract);
   });
 
   test("✅ should pass A Failure from Contract ==> Logic", () async {
-    when(mockContract.muteLocalAudioStream()).thenAnswer(
+    when(mockContract.muteLocalAudio()).thenAnswer(
       (_) async => Left(FailureConstants.dbFailure),
     );
 
     final result = await logic(NoParams());
 
     expect(result, Left(FailureConstants.dbFailure));
-    verify(mockContract.muteLocalAudioStream());
+    verify(mockContract.muteLocalAudio());
     verifyNoMoreInteractions(mockContract);
   });
 }

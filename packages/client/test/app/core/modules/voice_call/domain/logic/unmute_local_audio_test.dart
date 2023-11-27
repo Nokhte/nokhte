@@ -9,34 +9,34 @@ import '../../fixtures/voice_call_mock_gen.mocks.dart';
 
 void main() {
   late MockMVoiceCallContract mockContract;
-  late UnmuteLocalAudioStream logic;
+  late UnmuteLocalAudio logic;
 
   setUp(() {
     mockContract = MockMVoiceCallContract();
-    logic = UnmuteLocalAudioStream(contract: mockContract);
+    logic = UnmuteLocalAudio(contract: mockContract);
   });
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
-    when(mockContract.unmuteLocalAudioStream()).thenAnswer(
+    when(mockContract.unmuteLocalAudio()).thenAnswer(
       (_) async => ConstantLocalAudioStreamStatusEntity.wrappedUnmutedCase,
     );
 
     final result = await logic(NoParams());
 
     expect(result, ConstantLocalAudioStreamStatusEntity.wrappedUnmutedCase);
-    verify(mockContract.unmuteLocalAudioStream());
+    verify(mockContract.unmuteLocalAudio());
     verifyNoMoreInteractions(mockContract);
   });
 
   test("✅ should pass A Failure from Contract ==> Logic", () async {
-    when(mockContract.unmuteLocalAudioStream()).thenAnswer(
+    when(mockContract.unmuteLocalAudio()).thenAnswer(
       (_) async => Left(FailureConstants.dbFailure),
     );
 
     final result = await logic(NoParams());
 
     expect(result, Left(FailureConstants.dbFailure));
-    verify(mockContract.unmuteLocalAudioStream());
+    verify(mockContract.unmuteLocalAudio());
     verifyNoMoreInteractions(mockContract);
   });
 }
