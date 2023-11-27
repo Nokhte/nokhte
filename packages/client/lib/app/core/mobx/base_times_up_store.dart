@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/timer/presentation/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/timer/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/seconds.dart';
 import 'package:simple_animations/simple_animations.dart';
 // * Mobx Codegen Inclusion

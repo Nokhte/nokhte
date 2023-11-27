@@ -11,7 +11,7 @@ import 'package:nokhte/app/core/modules/scheduling/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/scheduling/scheduling_module.dart';
 import 'package:nokhte/app/core/modules/solo_doc/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/solo_doc/solo_doc_module.dart';
-import 'package:nokhte/app/core/modules/timer/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/timer/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/timer/timer_module.dart';
 import 'package:nokhte/app/core/modules/update_existing_collaborations/mobx/coordinator/update_existing_collaborations_coordinator.dart';
 import 'package:nokhte/app/core/modules/update_existing_collaborations/update_existing_collaborations_module.dart';
