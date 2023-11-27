@@ -142,7 +142,7 @@ class P2PCollaboratorSessionModule extends Module {
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
             textEditor: Modular.get<SoloTextEditorTrackerStore>(),
             fadingText: i<SmartFadingAnimatedTextTrackerStore>(),
-            soloDoc: i<SoloDocCoordinatorStore>(),
+            soloDoc: i<SoloDocCoordinator>(),
           ),
         ),
         Bind.singleton<P2PPurposePhase4CoordinatorStore>(
@@ -152,7 +152,7 @@ class P2PCollaboratorSessionModule extends Module {
             timer: Modular.get<TimerCoordinator>(),
             fadingText: i<SmartFadingAnimatedTextTrackerStore>(),
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
-            soloDoc: i<SoloDocCoordinatorStore>(),
+            soloDoc: i<SoloDocCoordinator>(),
           ),
         ),
         Bind.singleton<P2PPurposePhase5CoordinatorStore>(

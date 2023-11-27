@@ -21,7 +21,7 @@ abstract class _P2PPurposePhase4CoordinatorStoreBase extends BaseTimesUpStore
     with Store {
   final SmartFadingAnimatedTextTrackerStore fadingText;
   final AbortPurposeSessionArtifactsStore abortPurposeSessionArtifactsStore;
-  final SoloDocCoordinatorStore soloDoc;
+  final SoloDocCoordinator soloDoc;
 
   _P2PPurposePhase4CoordinatorStoreBase({
     required super.timer,

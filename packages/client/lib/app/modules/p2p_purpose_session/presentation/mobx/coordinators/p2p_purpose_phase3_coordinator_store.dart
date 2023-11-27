@@ -23,7 +23,7 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends BaseTimesUpStore
   final SoloTextEditorTrackerStore textEditor;
   final AbortPurposeSessionArtifactsStore abortPurposeSessionArtifactsStore;
   final SmartFadingAnimatedTextTrackerStore fadingText;
-  final SoloDocCoordinatorStore soloDoc;
+  final SoloDocCoordinator soloDoc;
   final SwipeDetector swipe;
 
   _P2PPurposePhase3CoordinatorStoreBase({
