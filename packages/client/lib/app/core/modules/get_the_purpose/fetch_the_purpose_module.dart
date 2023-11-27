@@ -26,15 +26,9 @@ class GetThePurposeModule extends Module {
           ),
           export: true,
         ),
-        Bind.singleton<GetThePurposeGetterStore>(
-          (i) => GetThePurposeGetterStore(
-            logic: i<GetThePurpose>(),
-          ),
-          export: true,
-        ),
         Bind.singleton<GetThePurposeStore>(
           (i) => GetThePurposeStore(
-            getterStore: i<GetThePurposeGetterStore>(),
+            logic: i<GetThePurpose>(),
           ),
           export: true,
         ),
