@@ -4,7 +4,6 @@ import 'package:nokhte/app/core/constants/entities.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/domain/domain.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
 part 'get_direction_angle_store.g.dart';
 
 class GetDirectionAngleStore = _GetDirectionAngleStoreBase
@@ -12,8 +11,8 @@ class GetDirectionAngleStore = _GetDirectionAngleStoreBase
 
 abstract class _GetDirectionAngleStoreBase
     extends BaseMobxDBStore<NoParams, DirectionAngleEntity> with Store {
-  final GetDirectionAngleGetterStore getterStore;
-  _GetDirectionAngleStoreBase({required this.getterStore});
+  final GetDirectionAngle logic;
+  _GetDirectionAngleStoreBase({required this.logic});
 
   @observable
   ObservableStream<int> userDirection = ObservableStream(
@@ -22,7 +21,7 @@ abstract class _GetDirectionAngleStoreBase
 
   @override
   Future<void> call(params) async {
-    final result = await getterStore(NoParams());
+    final result = await logic(NoParams());
     result.fold(
       (failure) {
         errorMessage = mapFailureToMessage(failure);

@@ -2,7 +2,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/domain/domain.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
 part 'set_reference_angle_store.g.dart';
 
 class SetReferenceAngleStore = _SetReferenceAngleStoreBase
@@ -10,7 +9,7 @@ class SetReferenceAngleStore = _SetReferenceAngleStoreBase
 
 abstract class _SetReferenceAngleStoreBase
     extends BaseMobxDBStore<int, ReferenceAngleSetterStatusEntity> with Store {
-  final SetReferenceAngleGetterStore getterStore;
+  final SetReferenceAngle getterStore;
   _SetReferenceAngleStoreBase({required this.getterStore});
 
   @action
