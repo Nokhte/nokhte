@@ -3,16 +3,15 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i6;
+import 'dart:async' as _i5;
 
 import 'package:dartz/dartz.dart' as _i2;
-import 'package:mobx/mobx.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:nokhte/app/core/error/failure.dart' as _i7;
-import 'package:nokhte/app/core/interfaces/logic.dart' as _i8;
+import 'package:nokhte/app/core/error/failure.dart' as _i6;
+import 'package:nokhte/app/core/interfaces/logic.dart' as _i7;
 import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart' as _i3;
 
-import 'solo_doc_mock_gen.dart' as _i5;
+import 'solo_doc_mock_gen.dart' as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -46,89 +45,28 @@ class _FakeSoloDocContract_1 extends _i1.SmartFake
         );
 }
 
-class _FakeCreateSoloDoc_2 extends _i1.SmartFake implements _i3.CreateSoloDoc {
-  _FakeCreateSoloDoc_2(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeReactiveContext_3 extends _i1.SmartFake
-    implements _i4.ReactiveContext {
-  _FakeReactiveContext_3(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeGetSoloDoc_4 extends _i1.SmartFake implements _i3.GetSoloDoc {
-  _FakeGetSoloDoc_4(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeSealSoloDoc_5 extends _i1.SmartFake implements _i3.SealSoloDoc {
-  _FakeSealSoloDoc_5(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeShareSoloDoc_6 extends _i1.SmartFake implements _i3.ShareSoloDoc {
-  _FakeShareSoloDoc_6(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeSubmitSoloDoc_7 extends _i1.SmartFake implements _i3.SubmitSoloDoc {
-  _FakeSubmitSoloDoc_7(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
 /// A class which mocks [MSoloDocRemoteSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMSoloDocRemoteSource extends _i1.Mock
-    implements _i5.MSoloDocRemoteSource {
+    implements _i4.MSoloDocRemoteSource {
   MockMSoloDocRemoteSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i6.Future<List<dynamic>> createSoloDoc({required String? docType}) =>
+  _i5.Future<List<dynamic>> createSoloDoc({required String? docType}) =>
       (super.noSuchMethod(
         Invocation.method(
           #createSoloDoc,
           [],
           {#docType: docType},
         ),
-        returnValue: _i6.Future<List<dynamic>>.value(<dynamic>[]),
-      ) as _i6.Future<List<dynamic>>);
+        returnValue: _i5.Future<List<dynamic>>.value(<dynamic>[]),
+      ) as _i5.Future<List<dynamic>>);
 
   @override
-  _i6.Future<List<dynamic>> getSoloDocContent(
+  _i5.Future<List<dynamic>> getSoloDocContent(
           {required bool? getCollaboratorsDoc}) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -136,50 +74,50 @@ class MockMSoloDocRemoteSource extends _i1.Mock
           [],
           {#getCollaboratorsDoc: getCollaboratorsDoc},
         ),
-        returnValue: _i6.Future<List<dynamic>>.value(<dynamic>[]),
-      ) as _i6.Future<List<dynamic>>);
+        returnValue: _i5.Future<List<dynamic>>.value(<dynamic>[]),
+      ) as _i5.Future<List<dynamic>>);
 
   @override
-  _i6.Future<List<dynamic>> sealSoloDoc() => (super.noSuchMethod(
+  _i5.Future<List<dynamic>> sealSoloDoc() => (super.noSuchMethod(
         Invocation.method(
           #sealSoloDoc,
           [],
         ),
-        returnValue: _i6.Future<List<dynamic>>.value(<dynamic>[]),
-      ) as _i6.Future<List<dynamic>>);
+        returnValue: _i5.Future<List<dynamic>>.value(<dynamic>[]),
+      ) as _i5.Future<List<dynamic>>);
 
   @override
-  _i6.Future<List<dynamic>> shareSoloDoc() => (super.noSuchMethod(
+  _i5.Future<List<dynamic>> shareSoloDoc() => (super.noSuchMethod(
         Invocation.method(
           #shareSoloDoc,
           [],
         ),
-        returnValue: _i6.Future<List<dynamic>>.value(<dynamic>[]),
-      ) as _i6.Future<List<dynamic>>);
+        returnValue: _i5.Future<List<dynamic>>.value(<dynamic>[]),
+      ) as _i5.Future<List<dynamic>>);
 
   @override
-  _i6.Future<List<dynamic>> submitDocContent({required String? newContent}) =>
+  _i5.Future<List<dynamic>> submitDocContent({required String? newContent}) =>
       (super.noSuchMethod(
         Invocation.method(
           #submitDocContent,
           [],
           {#newContent: newContent},
         ),
-        returnValue: _i6.Future<List<dynamic>>.value(<dynamic>[]),
-      ) as _i6.Future<List<dynamic>>);
+        returnValue: _i5.Future<List<dynamic>>.value(<dynamic>[]),
+      ) as _i5.Future<List<dynamic>>);
 }
 
 /// A class which mocks [MSoloDocContract].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMSoloDocContract extends _i1.Mock implements _i5.MSoloDocContract {
+class MockMSoloDocContract extends _i1.Mock implements _i4.MSoloDocContract {
   MockMSoloDocContract() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i6.Future<
-      _i2.Either<_i7.Failure, _i3.SoloDocContentEntity>> getSoloDocContent(
+  _i5.Future<
+      _i2.Either<_i6.Failure, _i3.SoloDocContentEntity>> getSoloDocContent(
           {required bool? getCollaboratorsDoc}) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -188,8 +126,8 @@ class MockMSoloDocContract extends _i1.Mock implements _i5.MSoloDocContract {
           {#getCollaboratorsDoc: getCollaboratorsDoc},
         ),
         returnValue:
-            _i6.Future<_i2.Either<_i7.Failure, _i3.SoloDocContentEntity>>.value(
-                _FakeEither_0<_i7.Failure, _i3.SoloDocContentEntity>(
+            _i5.Future<_i2.Either<_i6.Failure, _i3.SoloDocContentEntity>>.value(
+                _FakeEither_0<_i6.Failure, _i3.SoloDocContentEntity>(
           this,
           Invocation.method(
             #getSoloDocContent,
@@ -197,20 +135,20 @@ class MockMSoloDocContract extends _i1.Mock implements _i5.MSoloDocContract {
             {#getCollaboratorsDoc: getCollaboratorsDoc},
           ),
         )),
-      ) as _i6.Future<_i2.Either<_i7.Failure, _i3.SoloDocContentEntity>>);
+      ) as _i5.Future<_i2.Either<_i6.Failure, _i3.SoloDocContentEntity>>);
 
   @override
-  _i6.Future<_i2.Either<_i7.Failure, _i3.SoloDocSubmissionStatusEntity>>
+  _i5.Future<_i2.Either<_i6.Failure, _i3.SoloDocSubmissionStatusEntity>>
       submitDocContent({required String? newContent}) => (super.noSuchMethod(
             Invocation.method(
               #submitDocContent,
               [],
               {#newContent: newContent},
             ),
-            returnValue: _i6.Future<
-                    _i2.Either<_i7.Failure,
+            returnValue: _i5.Future<
+                    _i2.Either<_i6.Failure,
                         _i3.SoloDocSubmissionStatusEntity>>.value(
-                _FakeEither_0<_i7.Failure, _i3.SoloDocSubmissionStatusEntity>(
+                _FakeEither_0<_i6.Failure, _i3.SoloDocSubmissionStatusEntity>(
               this,
               Invocation.method(
                 #submitDocContent,
@@ -218,12 +156,12 @@ class MockMSoloDocContract extends _i1.Mock implements _i5.MSoloDocContract {
                 {#newContent: newContent},
               ),
             )),
-          ) as _i6.Future<
-              _i2.Either<_i7.Failure, _i3.SoloDocSubmissionStatusEntity>>);
+          ) as _i5.Future<
+              _i2.Either<_i6.Failure, _i3.SoloDocSubmissionStatusEntity>>);
 
   @override
-  _i6.Future<
-      _i2.Either<_i7.Failure, _i3.SoloDocCreationStatusEntity>> createSoloDoc(
+  _i5.Future<
+      _i2.Either<_i6.Failure, _i3.SoloDocCreationStatusEntity>> createSoloDoc(
           {required String? docType}) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -231,9 +169,9 @@ class MockMSoloDocContract extends _i1.Mock implements _i5.MSoloDocContract {
           [],
           {#docType: docType},
         ),
-        returnValue: _i6.Future<
-                _i2.Either<_i7.Failure, _i3.SoloDocCreationStatusEntity>>.value(
-            _FakeEither_0<_i7.Failure, _i3.SoloDocCreationStatusEntity>(
+        returnValue: _i5.Future<
+                _i2.Either<_i6.Failure, _i3.SoloDocCreationStatusEntity>>.value(
+            _FakeEither_0<_i6.Failure, _i3.SoloDocCreationStatusEntity>(
           this,
           Invocation.method(
             #createSoloDoc,
@@ -241,54 +179,54 @@ class MockMSoloDocContract extends _i1.Mock implements _i5.MSoloDocContract {
             {#docType: docType},
           ),
         )),
-      ) as _i6
-          .Future<_i2.Either<_i7.Failure, _i3.SoloDocCreationStatusEntity>>);
+      ) as _i5
+          .Future<_i2.Either<_i6.Failure, _i3.SoloDocCreationStatusEntity>>);
 
   @override
-  _i6.Future<_i2.Either<_i7.Failure, _i3.SoloDocSealingStatusEntity>>
+  _i5.Future<_i2.Either<_i6.Failure, _i3.SoloDocSealingStatusEntity>>
       sealSoloDoc() => (super.noSuchMethod(
             Invocation.method(
               #sealSoloDoc,
               [],
             ),
-            returnValue: _i6.Future<
+            returnValue: _i5.Future<
                     _i2
-                    .Either<_i7.Failure, _i3.SoloDocSealingStatusEntity>>.value(
-                _FakeEither_0<_i7.Failure, _i3.SoloDocSealingStatusEntity>(
+                    .Either<_i6.Failure, _i3.SoloDocSealingStatusEntity>>.value(
+                _FakeEither_0<_i6.Failure, _i3.SoloDocSealingStatusEntity>(
               this,
               Invocation.method(
                 #sealSoloDoc,
                 [],
               ),
             )),
-          ) as _i6
-              .Future<_i2.Either<_i7.Failure, _i3.SoloDocSealingStatusEntity>>);
+          ) as _i5
+              .Future<_i2.Either<_i6.Failure, _i3.SoloDocSealingStatusEntity>>);
 
   @override
-  _i6.Future<_i2.Either<_i7.Failure, _i3.SoloDocSharingStatusEntity>>
+  _i5.Future<_i2.Either<_i6.Failure, _i3.SoloDocSharingStatusEntity>>
       shareSoloDoc() => (super.noSuchMethod(
             Invocation.method(
               #shareSoloDoc,
               [],
             ),
-            returnValue: _i6.Future<
+            returnValue: _i5.Future<
                     _i2
-                    .Either<_i7.Failure, _i3.SoloDocSharingStatusEntity>>.value(
-                _FakeEither_0<_i7.Failure, _i3.SoloDocSharingStatusEntity>(
+                    .Either<_i6.Failure, _i3.SoloDocSharingStatusEntity>>.value(
+                _FakeEither_0<_i6.Failure, _i3.SoloDocSharingStatusEntity>(
               this,
               Invocation.method(
                 #shareSoloDoc,
                 [],
               ),
             )),
-          ) as _i6
-              .Future<_i2.Either<_i7.Failure, _i3.SoloDocSharingStatusEntity>>);
+          ) as _i5
+              .Future<_i2.Either<_i6.Failure, _i3.SoloDocSharingStatusEntity>>);
 }
 
 /// A class which mocks [MCreateSoloDoc].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMCreateSoloDoc extends _i1.Mock implements _i5.MCreateSoloDoc {
+class MockMCreateSoloDoc extends _i1.Mock implements _i4.MCreateSoloDoc {
   MockMCreateSoloDoc() {
     _i1.throwOnMissingStub(this);
   }
@@ -303,30 +241,30 @@ class MockMCreateSoloDoc extends _i1.Mock implements _i5.MCreateSoloDoc {
       ) as _i3.SoloDocContract);
 
   @override
-  _i6.Future<_i2.Either<_i7.Failure, _i3.SoloDocCreationStatusEntity>> call(
+  _i5.Future<_i2.Either<_i6.Failure, _i3.SoloDocCreationStatusEntity>> call(
           _i3.CreateSoloDocParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i6.Future<
-                _i2.Either<_i7.Failure, _i3.SoloDocCreationStatusEntity>>.value(
-            _FakeEither_0<_i7.Failure, _i3.SoloDocCreationStatusEntity>(
+        returnValue: _i5.Future<
+                _i2.Either<_i6.Failure, _i3.SoloDocCreationStatusEntity>>.value(
+            _FakeEither_0<_i6.Failure, _i3.SoloDocCreationStatusEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i6
-          .Future<_i2.Either<_i7.Failure, _i3.SoloDocCreationStatusEntity>>);
+      ) as _i5
+          .Future<_i2.Either<_i6.Failure, _i3.SoloDocCreationStatusEntity>>);
 }
 
 /// A class which mocks [MGetSoloDoc].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMGetSoloDoc extends _i1.Mock implements _i5.MGetSoloDoc {
+class MockMGetSoloDoc extends _i1.Mock implements _i4.MGetSoloDoc {
   MockMGetSoloDoc() {
     _i1.throwOnMissingStub(this);
   }
@@ -341,7 +279,7 @@ class MockMGetSoloDoc extends _i1.Mock implements _i5.MGetSoloDoc {
       ) as _i3.SoloDocContract);
 
   @override
-  _i6.Future<_i2.Either<_i7.Failure, _i3.SoloDocContentEntity>> call(
+  _i5.Future<_i2.Either<_i6.Failure, _i3.SoloDocContentEntity>> call(
           _i3.GetSoloDocParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -349,21 +287,21 @@ class MockMGetSoloDoc extends _i1.Mock implements _i5.MGetSoloDoc {
           [params],
         ),
         returnValue:
-            _i6.Future<_i2.Either<_i7.Failure, _i3.SoloDocContentEntity>>.value(
-                _FakeEither_0<_i7.Failure, _i3.SoloDocContentEntity>(
+            _i5.Future<_i2.Either<_i6.Failure, _i3.SoloDocContentEntity>>.value(
+                _FakeEither_0<_i6.Failure, _i3.SoloDocContentEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i6.Future<_i2.Either<_i7.Failure, _i3.SoloDocContentEntity>>);
+      ) as _i5.Future<_i2.Either<_i6.Failure, _i3.SoloDocContentEntity>>);
 }
 
 /// A class which mocks [MSealSoloDoc].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMSealSoloDoc extends _i1.Mock implements _i5.MSealSoloDoc {
+class MockMSealSoloDoc extends _i1.Mock implements _i4.MSealSoloDoc {
   MockMSealSoloDoc() {
     _i1.throwOnMissingStub(this);
   }
@@ -378,29 +316,29 @@ class MockMSealSoloDoc extends _i1.Mock implements _i5.MSealSoloDoc {
       ) as _i3.SoloDocContract);
 
   @override
-  _i6.Future<_i2.Either<_i7.Failure, _i3.SoloDocSealingStatusEntity>> call(
-          _i8.NoParams? params) =>
+  _i5.Future<_i2.Either<_i6.Failure, _i3.SoloDocSealingStatusEntity>> call(
+          _i7.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i6.Future<
-                _i2.Either<_i7.Failure, _i3.SoloDocSealingStatusEntity>>.value(
-            _FakeEither_0<_i7.Failure, _i3.SoloDocSealingStatusEntity>(
+        returnValue: _i5.Future<
+                _i2.Either<_i6.Failure, _i3.SoloDocSealingStatusEntity>>.value(
+            _FakeEither_0<_i6.Failure, _i3.SoloDocSealingStatusEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i6.Future<_i2.Either<_i7.Failure, _i3.SoloDocSealingStatusEntity>>);
+      ) as _i5.Future<_i2.Either<_i6.Failure, _i3.SoloDocSealingStatusEntity>>);
 }
 
 /// A class which mocks [MShareSoloDoc].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMShareSoloDoc extends _i1.Mock implements _i5.MShareSoloDoc {
+class MockMShareSoloDoc extends _i1.Mock implements _i4.MShareSoloDoc {
   MockMShareSoloDoc() {
     _i1.throwOnMissingStub(this);
   }
@@ -415,29 +353,29 @@ class MockMShareSoloDoc extends _i1.Mock implements _i5.MShareSoloDoc {
       ) as _i3.SoloDocContract);
 
   @override
-  _i6.Future<_i2.Either<_i7.Failure, _i3.SoloDocSharingStatusEntity>> call(
-          _i8.NoParams? params) =>
+  _i5.Future<_i2.Either<_i6.Failure, _i3.SoloDocSharingStatusEntity>> call(
+          _i7.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i6.Future<
-                _i2.Either<_i7.Failure, _i3.SoloDocSharingStatusEntity>>.value(
-            _FakeEither_0<_i7.Failure, _i3.SoloDocSharingStatusEntity>(
+        returnValue: _i5.Future<
+                _i2.Either<_i6.Failure, _i3.SoloDocSharingStatusEntity>>.value(
+            _FakeEither_0<_i6.Failure, _i3.SoloDocSharingStatusEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i6.Future<_i2.Either<_i7.Failure, _i3.SoloDocSharingStatusEntity>>);
+      ) as _i5.Future<_i2.Either<_i6.Failure, _i3.SoloDocSharingStatusEntity>>);
 }
 
 /// A class which mocks [MSubmitSoloDoc].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMSubmitSoloDoc extends _i1.Mock implements _i5.MSubmitSoloDoc {
+class MockMSubmitSoloDoc extends _i1.Mock implements _i4.MSubmitSoloDoc {
   MockMSubmitSoloDoc() {
     _i1.throwOnMissingStub(this);
   }
@@ -452,300 +390,23 @@ class MockMSubmitSoloDoc extends _i1.Mock implements _i5.MSubmitSoloDoc {
       ) as _i3.SoloDocContract);
 
   @override
-  _i6.Future<_i2.Either<_i7.Failure, _i3.SoloDocSubmissionStatusEntity>> call(
+  _i5.Future<_i2.Either<_i6.Failure, _i3.SoloDocSubmissionStatusEntity>> call(
           _i3.SubmitSoloDocParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i6.Future<
+        returnValue: _i5.Future<
                 _i2
-                .Either<_i7.Failure, _i3.SoloDocSubmissionStatusEntity>>.value(
-            _FakeEither_0<_i7.Failure, _i3.SoloDocSubmissionStatusEntity>(
+                .Either<_i6.Failure, _i3.SoloDocSubmissionStatusEntity>>.value(
+            _FakeEither_0<_i6.Failure, _i3.SoloDocSubmissionStatusEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i6
-          .Future<_i2.Either<_i7.Failure, _i3.SoloDocSubmissionStatusEntity>>);
-}
-
-/// A class which mocks [MCreateSoloDocGetterStore].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockMCreateSoloDocGetterStore extends _i1.Mock
-    implements _i5.MCreateSoloDocGetterStore {
-  MockMCreateSoloDocGetterStore() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i3.CreateSoloDoc get logic => (super.noSuchMethod(
-        Invocation.getter(#logic),
-        returnValue: _FakeCreateSoloDoc_2(
-          this,
-          Invocation.getter(#logic),
-        ),
-      ) as _i3.CreateSoloDoc);
-
-  @override
-  set logic(_i3.CreateSoloDoc? _logic) => super.noSuchMethod(
-        Invocation.setter(
-          #logic,
-          _logic,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  List<Object> get props => (super.noSuchMethod(
-        Invocation.getter(#props),
-        returnValue: <Object>[],
-      ) as List<Object>);
-
-  @override
-  _i4.ReactiveContext get context => (super.noSuchMethod(
-        Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_3(
-          this,
-          Invocation.getter(#context),
-        ),
-      ) as _i4.ReactiveContext);
-
-  @override
-  _i6.Future<_i2.Either<_i7.Failure, _i3.SoloDocCreationStatusEntity>> call(
-          _i3.CreateSoloDocParams? params) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #call,
-          [params],
-        ),
-        returnValue: _i6.Future<
-                _i2.Either<_i7.Failure, _i3.SoloDocCreationStatusEntity>>.value(
-            _FakeEither_0<_i7.Failure, _i3.SoloDocCreationStatusEntity>(
-          this,
-          Invocation.method(
-            #call,
-            [params],
-          ),
-        )),
-      ) as _i6
-          .Future<_i2.Either<_i7.Failure, _i3.SoloDocCreationStatusEntity>>);
-}
-
-/// A class which mocks [MGetSoloDocGetterStore].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockMGetSoloDocGetterStore extends _i1.Mock
-    implements _i5.MGetSoloDocGetterStore {
-  MockMGetSoloDocGetterStore() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i3.GetSoloDoc get logic => (super.noSuchMethod(
-        Invocation.getter(#logic),
-        returnValue: _FakeGetSoloDoc_4(
-          this,
-          Invocation.getter(#logic),
-        ),
-      ) as _i3.GetSoloDoc);
-
-  @override
-  List<Object> get props => (super.noSuchMethod(
-        Invocation.getter(#props),
-        returnValue: <Object>[],
-      ) as List<Object>);
-
-  @override
-  _i4.ReactiveContext get context => (super.noSuchMethod(
-        Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_3(
-          this,
-          Invocation.getter(#context),
-        ),
-      ) as _i4.ReactiveContext);
-
-  @override
-  _i6.Future<_i2.Either<_i7.Failure, _i3.SoloDocContentEntity>> call(
-          _i3.GetSoloDocParams? params) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #call,
-          [params],
-        ),
-        returnValue:
-            _i6.Future<_i2.Either<_i7.Failure, _i3.SoloDocContentEntity>>.value(
-                _FakeEither_0<_i7.Failure, _i3.SoloDocContentEntity>(
-          this,
-          Invocation.method(
-            #call,
-            [params],
-          ),
-        )),
-      ) as _i6.Future<_i2.Either<_i7.Failure, _i3.SoloDocContentEntity>>);
-}
-
-/// A class which mocks [MSealSoloDocGetterStore].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockMSealSoloDocGetterStore extends _i1.Mock
-    implements _i5.MSealSoloDocGetterStore {
-  MockMSealSoloDocGetterStore() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i3.SealSoloDoc get logic => (super.noSuchMethod(
-        Invocation.getter(#logic),
-        returnValue: _FakeSealSoloDoc_5(
-          this,
-          Invocation.getter(#logic),
-        ),
-      ) as _i3.SealSoloDoc);
-
-  @override
-  List<Object> get props => (super.noSuchMethod(
-        Invocation.getter(#props),
-        returnValue: <Object>[],
-      ) as List<Object>);
-
-  @override
-  _i4.ReactiveContext get context => (super.noSuchMethod(
-        Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_3(
-          this,
-          Invocation.getter(#context),
-        ),
-      ) as _i4.ReactiveContext);
-
-  @override
-  _i6.Future<_i2.Either<_i7.Failure, _i3.SoloDocSealingStatusEntity>> call(
-          _i8.NoParams? params) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #call,
-          [params],
-        ),
-        returnValue: _i6.Future<
-                _i2.Either<_i7.Failure, _i3.SoloDocSealingStatusEntity>>.value(
-            _FakeEither_0<_i7.Failure, _i3.SoloDocSealingStatusEntity>(
-          this,
-          Invocation.method(
-            #call,
-            [params],
-          ),
-        )),
-      ) as _i6.Future<_i2.Either<_i7.Failure, _i3.SoloDocSealingStatusEntity>>);
-}
-
-/// A class which mocks [MShareSoloDocGetterStore].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockMShareSoloDocGetterStore extends _i1.Mock
-    implements _i5.MShareSoloDocGetterStore {
-  MockMShareSoloDocGetterStore() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i3.ShareSoloDoc get logic => (super.noSuchMethod(
-        Invocation.getter(#logic),
-        returnValue: _FakeShareSoloDoc_6(
-          this,
-          Invocation.getter(#logic),
-        ),
-      ) as _i3.ShareSoloDoc);
-
-  @override
-  List<Object> get props => (super.noSuchMethod(
-        Invocation.getter(#props),
-        returnValue: <Object>[],
-      ) as List<Object>);
-
-  @override
-  _i4.ReactiveContext get context => (super.noSuchMethod(
-        Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_3(
-          this,
-          Invocation.getter(#context),
-        ),
-      ) as _i4.ReactiveContext);
-
-  @override
-  _i6.Future<_i2.Either<_i7.Failure, _i3.SoloDocSharingStatusEntity>> call(
-          _i8.NoParams? params) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #call,
-          [params],
-        ),
-        returnValue: _i6.Future<
-                _i2.Either<_i7.Failure, _i3.SoloDocSharingStatusEntity>>.value(
-            _FakeEither_0<_i7.Failure, _i3.SoloDocSharingStatusEntity>(
-          this,
-          Invocation.method(
-            #call,
-            [params],
-          ),
-        )),
-      ) as _i6.Future<_i2.Either<_i7.Failure, _i3.SoloDocSharingStatusEntity>>);
-}
-
-/// A class which mocks [MSubmitSoloDocGetterStore].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockMSubmitSoloDocGetterStore extends _i1.Mock
-    implements _i5.MSubmitSoloDocGetterStore {
-  MockMSubmitSoloDocGetterStore() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i3.SubmitSoloDoc get logic => (super.noSuchMethod(
-        Invocation.getter(#logic),
-        returnValue: _FakeSubmitSoloDoc_7(
-          this,
-          Invocation.getter(#logic),
-        ),
-      ) as _i3.SubmitSoloDoc);
-
-  @override
-  List<Object> get props => (super.noSuchMethod(
-        Invocation.getter(#props),
-        returnValue: <Object>[],
-      ) as List<Object>);
-
-  @override
-  _i4.ReactiveContext get context => (super.noSuchMethod(
-        Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_3(
-          this,
-          Invocation.getter(#context),
-        ),
-      ) as _i4.ReactiveContext);
-
-  @override
-  _i6.Future<_i2.Either<_i7.Failure, _i3.SoloDocSubmissionStatusEntity>> call(
-          _i3.SubmitSoloDocParams? params) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #call,
-          [params],
-        ),
-        returnValue: _i6.Future<
-                _i2
-                .Either<_i7.Failure, _i3.SoloDocSubmissionStatusEntity>>.value(
-            _FakeEither_0<_i7.Failure, _i3.SoloDocSubmissionStatusEntity>(
-          this,
-          Invocation.method(
-            #call,
-            [params],
-          ),
-        )),
-      ) as _i6
-          .Future<_i2.Either<_i7.Failure, _i3.SoloDocSubmissionStatusEntity>>);
+      ) as _i5
+          .Future<_i2.Either<_i6.Failure, _i3.SoloDocSubmissionStatusEntity>>);
 }

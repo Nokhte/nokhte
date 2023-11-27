@@ -4,7 +4,6 @@ import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 import 'package:nokhte/app/core/modules/solo_doc/data/data.dart';
 import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
-import 'package:nokhte/app/core/modules/solo_doc/mobx/mobx.dart';
 
 class MSoloDocRemoteSource extends Mock implements SoloDocRemoteSource {}
 
@@ -20,19 +19,6 @@ class MShareSoloDoc extends Mock implements ShareSoloDoc {}
 
 class MSubmitSoloDoc extends Mock implements SubmitSoloDoc {}
 
-class MCreateSoloDocGetterStore extends Mock
-    implements CreateSoloDocGetterStore {}
-
-class MGetSoloDocGetterStore extends Mock implements GetSoloDocGetterStore {}
-
-class MSealSoloDocGetterStore extends Mock implements SealSoloDocGetterStore {}
-
-class MShareSoloDocGetterStore extends Mock
-    implements ShareSoloDocGetterStore {}
-
-class MSubmitSoloDocGetterStore extends Mock
-    implements SubmitSoloDocGetterStore {}
-
 @GenerateMocks([
   MSoloDocRemoteSource,
   MSoloDocContract,
@@ -41,10 +27,5 @@ class MSubmitSoloDocGetterStore extends Mock
   MSealSoloDoc,
   MShareSoloDoc,
   MSubmitSoloDoc,
-  MCreateSoloDocGetterStore,
-  MGetSoloDocGetterStore,
-  MSealSoloDocGetterStore,
-  MShareSoloDocGetterStore,
-  MSubmitSoloDocGetterStore,
 ])
 void main() {}
