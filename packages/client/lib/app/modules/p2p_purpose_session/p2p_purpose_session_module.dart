@@ -13,8 +13,8 @@ import 'package:nokhte/app/core/modules/solo_doc/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/solo_doc/solo_doc_module.dart';
 import 'package:nokhte/app/core/modules/timer/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/timer/timer_module.dart';
-import 'package:nokhte/app/core/modules/update_existing_collaborations/mobx/coordinator/update_existing_collaborations_coordinator.dart';
-import 'package:nokhte/app/core/modules/update_existing_collaborations/update_existing_collaborations_module.dart';
+import 'package:nokhte/app/core/modules/existing_collaborations/mobx/coordinator/existing_collaborations_coordinator.dart';
+import 'package:nokhte/app/core/modules/existing_collaborations/existing_collaborations_module.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/voice_call_module.dart';
 import 'package:nokhte/app/core/widgets/mobx.dart';
@@ -30,7 +30,7 @@ class P2PCollaboratorSessionModule extends Module {
         AbortPurposeSessionArtifactsModule(),
         OneTalkerAtATimeModule(),
         VoiceCallModule(),
-        UpdateExistingCollaborationsModule(),
+        ExistingCollaborationsModule(),
         CollaborativeDocModule(),
         SoloDocModule(),
         GyroscopicModule(),
@@ -160,8 +160,8 @@ class P2PCollaboratorSessionModule extends Module {
             abortPurposeSessionArtifactsStore:
                 i<AbortPurposeSessionArtifactsStore>(),
             swipe: Modular.get<SwipeDetector>(),
-            updateExistingCollaborations:
-                Modular.get<UpdateExistingCollaborationsCoordinator>(),
+            existingCollaborations:
+                Modular.get<ExistingCollaborationsCoordinator>(),
             collaborativeDocDB: Modular.get<CollaborativeDocCoordinator>(),
             gesturePillStore: Modular.get<GesturePillStore>(),
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
@@ -176,8 +176,8 @@ class P2PCollaboratorSessionModule extends Module {
           (i) => P2PPurposePhase6CoordinatorStore(
             abortPurposeSessionArtifactsStore:
                 i<AbortPurposeSessionArtifactsStore>(),
-            updateExistingCollaborations:
-                Modular.get<UpdateExistingCollaborationsCoordinator>(),
+            existingCollaborations:
+                Modular.get<ExistingCollaborationsCoordinator>(),
             swipe: Modular.get<SwipeDetector>(),
             scheduling: i<SchedulingCoordinatorStore>(),
             widgets: i<SchedulingWidgetsCoordinatorStore>(),
