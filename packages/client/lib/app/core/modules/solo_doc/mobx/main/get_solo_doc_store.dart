@@ -5,20 +5,19 @@ import 'package:nokhte/app/core/mobx/base_future_store.dart';
 import 'package:nokhte/app/core/mobx/base_mobx_db_store.dart';
 import 'package:nokhte/app/core/mobx/store_state.dart';
 import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
-import 'package:nokhte/app/core/modules/solo_doc/mobx/mobx.dart';
 part 'get_solo_doc_store.g.dart';
 
 class GetSoloDocStore = _GetSoloDocStoreBase with _$GetSoloDocStore;
 
 abstract class _GetSoloDocStoreBase
     extends BaseMobxDBStore<GetSoloDocParams, SoloDocContentEntity> with Store {
-  final GetSoloDocGetterStore getterStore;
+  final GetSoloDoc logic;
 
   @observable
   String docContent = "";
 
   _GetSoloDocStoreBase({
-    required this.getterStore,
+    required this.logic,
   });
 
   @observable
@@ -46,7 +45,7 @@ abstract class _GetSoloDocStoreBase
   Future<void> call(params) async {
     state = StoreState.loading;
     futureStore.entityOrFailureFuture = ObservableFuture(
-      getterStore(
+      logic(
         params,
       ),
     );

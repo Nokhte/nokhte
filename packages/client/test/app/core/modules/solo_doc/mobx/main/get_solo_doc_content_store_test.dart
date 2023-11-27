@@ -8,14 +8,14 @@ import '../../fixtures/solo_doc_mock_gen.mocks.dart';
 import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
 
 void main() {
-  late MockMGetSoloDocGetterStore mockGetterStore;
+  late MockMGetSoloDoc mockGetterStore;
   late GetSoloDocStore getSoloDocStore;
   const tParams = GetSoloDocParams(getCollaboratorsDoc: true);
 
   setUp(() {
-    mockGetterStore = MockMGetSoloDocGetterStore();
+    mockGetterStore = MockMGetSoloDoc();
     getSoloDocStore = GetSoloDocStore(
-      getterStore: mockGetterStore,
+      logic: mockGetterStore,
     );
   });
 
