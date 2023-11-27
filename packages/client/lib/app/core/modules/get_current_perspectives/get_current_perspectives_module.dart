@@ -29,15 +29,9 @@ class GetCurrentPerspectivesModule extends Module {
               contract: i<GetCurrentPerspectivesContract>()),
           export: true,
         ),
-        Bind.singleton<GetCurrentPerspectivesGetterStore>(
-          (i) => GetCurrentPerspectivesGetterStore(
-            logic: i<GetCurrentPerspectives>(),
-          ),
-          export: true,
-        ),
         Bind.singleton<GetCurrentPerspectivesStore>(
           (i) => GetCurrentPerspectivesStore(
-            getterStore: i<GetCurrentPerspectivesGetterStore>(),
+            logic: i<GetCurrentPerspectives>(),
           ),
           export: true,
         ),

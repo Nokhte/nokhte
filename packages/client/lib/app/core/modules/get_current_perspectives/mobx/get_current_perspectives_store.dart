@@ -4,7 +4,6 @@ import 'package:nokhte/app/core/constants/entities.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/get_current_perspectives/domain/domain.dart';
-import 'package:nokhte/app/core/modules/get_current_perspectives/mobx/mobx.dart';
 part 'get_current_perspectives_store.g.dart';
 
 class GetCurrentPerspectivesStore = _GetCurrentPerspectivesStoreBase
@@ -22,8 +21,8 @@ abstract class _GetCurrentPerspectivesStoreBase
   @observable
   String theUsersUID = '';
 
-  final GetCurrentPerspectivesGetterStore getterStore;
-  _GetCurrentPerspectivesStoreBase({required this.getterStore});
+  final GetCurrentPerspectives logic;
+  _GetCurrentPerspectivesStoreBase({required this.logic});
 
   @observable
   BaseFutureStore<CurrentPerspectivesEntity> futureStore = BaseFutureStore(
@@ -51,7 +50,7 @@ abstract class _GetCurrentPerspectivesStoreBase
   @action
   Future<void> call(params) async {
     state = StoreState.loading;
-    futureStore.entityOrFailureFuture = ObservableFuture(getterStore(params));
+    futureStore.entityOrFailureFuture = ObservableFuture(logic(params));
     futureStore.unwrappedEntityOrFailure =
         await futureStore.entityOrFailureFuture;
     stateOrErrorUpdater(futureStore.unwrappedEntityOrFailure);
