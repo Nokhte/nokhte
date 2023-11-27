@@ -23,9 +23,7 @@ class SchedulingRemoteSourceImpl implements SchedulingRemoteSource {
 
   @override
   Future<List> createSchedulingSession() async {
-    if (queries.collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await queries.figureOutActiveCollaboratorInfo();
-    }
+    await queries.figureOutActiveCollaboratorInfoIfNotDoneAlready();
     const chosenCollaboratorNumber =
         kDebugMode ? CollaboratorNumbers.one : CollaboratorNumbers.two;
     return await StringComparison.isCollaborator(
