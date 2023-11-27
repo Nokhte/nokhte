@@ -152,7 +152,7 @@ class P2PCollaboratorPoolModule extends Module {
             enterCollaboratorPoolStore: i<EnterCollaboratorPoolStore>(),
             validateQueryStore: i<ValidateQueryStore>(),
             onSpeechResultStore: i<OnSpeechResultStore>(),
-            localSpeechToText: i<LocalSpeechToTextCoordinatorStore>(),
+            localSpeechToText: i<LocalSpeechToTextCoordinator>(),
             widgetStore: Modular.get<WidgetCoordinatorStore>(),
           ),
         ),
