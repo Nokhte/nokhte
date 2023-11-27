@@ -1,32 +1,32 @@
 import 'package:flutter/material.dart';
 
 class MeshCirclePainter extends CustomPainter {
-  Path path;
+  Path mainCircleOutlinePath;
   late Paint myPaint;
   late Paint theGlowPaint;
-  double xScaleglow;
+  double xGlowScale;
   double yGlowScale;
-  double xGlowXTranslate;
-  double yGlowYTranslate;
+  double xGlowTranslate;
+  double yGlowTranslate;
   Color firstGradientColor;
   Color secondGradientColor;
   Color glowColor;
   double glowOpacity;
-  late Path somePath;
+  late Path theGlowPath;
 
   MeshCirclePainter(
-    this.path,
+    this.mainCircleOutlinePath,
     Size size, {
     required this.firstGradientColor,
     required this.secondGradientColor,
     required this.glowColor,
     required this.glowOpacity,
-    required this.xScaleglow,
+    required this.xGlowScale,
     required this.yGlowScale,
-    required this.xGlowXTranslate,
-    required this.yGlowYTranslate,
+    required this.xGlowTranslate,
+    required this.yGlowTranslate,
   }) {
-    path.getBounds();
+    mainCircleOutlinePath.getBounds();
     myPaint = Paint()
       ..shader = RadialGradient(colors: [
         firstGradientColor,
@@ -35,17 +35,16 @@ class MeshCirclePainter extends CustomPainter {
         0,
         1.8,
       ]).createShader(
-        path.getBounds(),
+        mainCircleOutlinePath.getBounds(),
       );
     final scalingMatrix = Matrix4(
-      xScaleglow, 0, 0, 0, //
+      xGlowScale, 0, 0, 0, //
       0, yGlowScale, 0, 0, //
       0, 0, 1, 0, //
-      xGlowXTranslate, yGlowYTranslate, 0, 1, //
+      xGlowTranslate, yGlowTranslate, 0, 1, //
     );
 
-    somePath = path.transform(scalingMatrix.storage);
-    // somePath = path;
+    theGlowPath = mainCircleOutlinePath.transform(scalingMatrix.storage);
     myPaint.style = PaintingStyle.stroke;
     myPaint.strokeWidth = 5.0;
     myPaint.color = Colors.white;
@@ -61,9 +60,9 @@ class MeshCirclePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     if (glowOpacity > 0) {
-      canvas.drawPath(somePath, theGlowPaint);
+      canvas.drawPath(theGlowPath, theGlowPaint);
     }
-    canvas.drawPath(path, myPaint);
+    canvas.drawPath(mainCircleOutlinePath, myPaint);
   }
 
   @override

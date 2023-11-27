@@ -47,9 +47,9 @@ class MeshCircleButton extends StatelessWidget {
                     secondGradientColor: Colors.white,
                     glowColor: value.get('color'),
                     glowOpacity: value.get('opacity'),
-                    xGlowXTranslate: value.get('Xtranslate'),
-                    yGlowYTranslate: value.get('Ytranslate'),
-                    xScaleglow: value.get('Xscale'),
+                    xGlowTranslate: value.get('Xtranslate'),
+                    yGlowTranslate: value.get('Ytranslate'),
+                    xGlowScale: value.get('Xscale'),
                     yGlowScale: value.get('Yscale'),
                   ),
                   child: ClipPath(
