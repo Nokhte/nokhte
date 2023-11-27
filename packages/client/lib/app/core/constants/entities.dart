@@ -10,7 +10,7 @@ import 'package:nokhte/app/core/modules/local_speech_to_text/constants/constants
 import 'package:nokhte/app/core/modules/one_talker_at_a_time/domain/domain.dart';
 import 'package:nokhte/app/core/modules/scheduling/domain/domain.dart';
 import 'package:nokhte/app/core/modules/timer/domain/domain.dart';
-import 'package:nokhte/app/core/modules/update_existing_collaborations/domain/domain.dart';
+import 'package:nokhte/app/core/modules/existing_collaborations/domain/domain.dart';
 import 'package:nokhte/app/modules/collective_session/domain/entities/entities.dart';
 import 'package:nokhte/app/modules/home/domain/entities/entities.dart';
 import 'package:nokhte/app/modules/individual_session/domain/domain.dart';
