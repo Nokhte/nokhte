@@ -63,8 +63,8 @@ class SoloDocModule extends Module {
           ),
           export: true,
         ),
-        Bind.singleton<SoloDocCoordinatorStore>(
-          (i) => SoloDocCoordinatorStore(
+        Bind.singleton<SoloDocCoordinator>(
+          (i) => SoloDocCoordinator(
             getSoloDoc: i<GetSoloDocStore>(),
             createSoloDoc: i<CreateSoloDoc>(),
             sealSoloDoc: i<SealSoloDoc>(),
