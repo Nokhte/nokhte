@@ -25,6 +25,18 @@ abstract class _MeshCircleButtonStoreBase extends BaseCustomAnimatedWidgetStore
   @observable
   bool isEnabled = true;
 
+  @observable
+  double currentXTranslate = 0.0;
+
+  @observable
+  double currentYTranslate = 0.0;
+
+  @observable
+  double currentXScale = 0.0;
+
+  @observable
+  double currentYScale = 0.0;
+
   @action
   toggleIsEnabled() => isEnabled = !isEnabled;
 
@@ -38,8 +50,27 @@ abstract class _MeshCircleButtonStoreBase extends BaseCustomAnimatedWidgetStore
   setCurrentGlowColor(Color newColor) => currentGlowColor = newColor;
 
   @action
+  setCurrentMatrixValues({
+    required double newXTranslate,
+    required double newYTranslate,
+    required double newXScale,
+    required double newYScale,
+  }) {
+    currentXTranslate = newXTranslate;
+    currentYTranslate = newYTranslate;
+    currentXScale = newXScale;
+    currentYScale = newYScale;
+  }
+
+  @action
   initGlowDown() {
-    movie = GlowDown.getMovie(currentGlowColor);
+    movie = GlowDown.getMovie(
+      currentGlowColor: currentGlowColor,
+      newXTranslate: currentXTranslate,
+      newYTranslate: currentYTranslate,
+      newXScale: currentXScale,
+      newYScale: currentYScale,
+    );
     control = Control.playFromStart;
   }
 

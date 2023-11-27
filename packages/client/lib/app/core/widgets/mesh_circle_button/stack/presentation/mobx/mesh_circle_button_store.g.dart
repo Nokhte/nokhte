@@ -40,6 +40,70 @@ mixin _$MeshCircleButtonStore on _MeshCircleButtonStoreBase, Store {
     });
   }
 
+  late final _$currentXTranslateAtom = Atom(
+      name: '_MeshCircleButtonStoreBase.currentXTranslate', context: context);
+
+  @override
+  double get currentXTranslate {
+    _$currentXTranslateAtom.reportRead();
+    return super.currentXTranslate;
+  }
+
+  @override
+  set currentXTranslate(double value) {
+    _$currentXTranslateAtom.reportWrite(value, super.currentXTranslate, () {
+      super.currentXTranslate = value;
+    });
+  }
+
+  late final _$currentYTranslateAtom = Atom(
+      name: '_MeshCircleButtonStoreBase.currentYTranslate', context: context);
+
+  @override
+  double get currentYTranslate {
+    _$currentYTranslateAtom.reportRead();
+    return super.currentYTranslate;
+  }
+
+  @override
+  set currentYTranslate(double value) {
+    _$currentYTranslateAtom.reportWrite(value, super.currentYTranslate, () {
+      super.currentYTranslate = value;
+    });
+  }
+
+  late final _$currentXScaleAtom =
+      Atom(name: '_MeshCircleButtonStoreBase.currentXScale', context: context);
+
+  @override
+  double get currentXScale {
+    _$currentXScaleAtom.reportRead();
+    return super.currentXScale;
+  }
+
+  @override
+  set currentXScale(double value) {
+    _$currentXScaleAtom.reportWrite(value, super.currentXScale, () {
+      super.currentXScale = value;
+    });
+  }
+
+  late final _$currentYScaleAtom =
+      Atom(name: '_MeshCircleButtonStoreBase.currentYScale', context: context);
+
+  @override
+  double get currentYScale {
+    _$currentYScaleAtom.reportRead();
+    return super.currentYScale;
+  }
+
+  @override
+  set currentYScale(double value) {
+    _$currentYScaleAtom.reportWrite(value, super.currentYScale, () {
+      super.currentYScale = value;
+    });
+  }
+
   late final _$isAnimatingAtom =
       Atom(name: '_MeshCircleButtonStoreBase.isAnimating', context: context);
 
@@ -98,6 +162,25 @@ mixin _$MeshCircleButtonStore on _MeshCircleButtonStoreBase, Store {
   }
 
   @override
+  dynamic setCurrentMatrixValues(
+      {required double newXTranslate,
+      required double newYTranslate,
+      required double newXScale,
+      required double newYScale}) {
+    final _$actionInfo = _$_MeshCircleButtonStoreBaseActionController
+        .startAction(name: '_MeshCircleButtonStoreBase.setCurrentMatrixValues');
+    try {
+      return super.setCurrentMatrixValues(
+          newXTranslate: newXTranslate,
+          newYTranslate: newYTranslate,
+          newXScale: newXScale,
+          newYScale: newYScale);
+    } finally {
+      _$_MeshCircleButtonStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic initGlowDown() {
     final _$actionInfo = _$_MeshCircleButtonStoreBaseActionController
         .startAction(name: '_MeshCircleButtonStoreBase.initGlowDown');
@@ -134,6 +217,10 @@ mixin _$MeshCircleButtonStore on _MeshCircleButtonStoreBase, Store {
   String toString() {
     return '''
 isEnabled: ${isEnabled},
+currentXTranslate: ${currentXTranslate},
+currentYTranslate: ${currentYTranslate},
+currentXScale: ${currentXScale},
+currentYScale: ${currentYScale},
 isAnimating: ${isAnimating},
 currentGlowColor: ${currentGlowColor},
 enabledOpacity: ${enabledOpacity},
