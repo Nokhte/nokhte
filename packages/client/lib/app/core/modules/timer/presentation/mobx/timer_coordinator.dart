@@ -5,19 +5,19 @@ import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/timer/domain/logic/logic.dart';
-import 'package:nokhte/app/core/modules/timer/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/timer/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 part 'timer_coordinator.g.dart';
 
 class TimerCoordinator = _TimerCoordinatorBase with _$TimerCoordinator;
 
 abstract class _TimerCoordinatorBase extends Equatable with Store {
-  final CreateTimerStore createTimer;
-  final DeleteTheTimerStore deleteTheTimer;
   final GetTimerInformationStreamStore getTimeInfoStream;
-  final MarkdownTheTimerStore markdownTheTimer;
-  final UpdatePresenceStore updatePresence;
-  final UpdateTimerRunningStatusStore updateTimerRunningStatus;
+  final CreateTimer createTimer;
+  final DeleteTheTimer deleteTheTimer;
+  final MarkdownTheTimer markdownTheTimer;
+  final UpdatePresence updatePresence;
+  final UpdateTimerRunningStatus updateTimerRunningStatus;
 
   _TimerCoordinatorBase({
     required this.createTimer,
