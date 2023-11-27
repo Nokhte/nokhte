@@ -6,7 +6,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/update_existing_collaborations/mobx/coordinator/update_existing_collaborations_coordinator.dart';
+import 'package:nokhte/app/core/modules/existing_collaborations/mobx/coordinator/existing_collaborations_coordinator.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -23,11 +23,11 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
   final CancelCollaboratorStreamStore cancelStreamStore;
   final GetCollaboratorSearchStatusStore getCollaboratorSearchStatusStore;
   final FadeInAndChangeColorTextStore fadeInAndColorTextStore;
-  final UpdateExistingCollaborationsCoordinator updateExistingCollaborations;
+  final ExistingCollaborationsCoordinator existingCollaborations;
 
   _CollaboratorPoolScreenCoordinatorStoreBase({
     required this.exitCollaboratorPoolStore,
-    required this.updateExistingCollaborations,
+    required this.existingCollaborations,
     required this.cancelStreamStore,
     required this.getCollaboratorSearchStatusStore,
     required super.beachWaves,
@@ -68,7 +68,7 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
             fadeInAndColorTextStore.teeUpFadeOut();
             Future.delayed(Seconds.get(3), () async {
               Modular.to.navigate('/p2p_purpose_session/');
-              await updateExistingCollaborations
+              await existingCollaborations
                   .updateIndividualCollaboratorEntryStatus(true);
             });
           }

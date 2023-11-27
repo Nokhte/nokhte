@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:nokhte/app/core/modules/existing_collaborations/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/local_speech_to_text_module.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/update_existing_collaborations/mobx/coordinator/update_existing_collaborations_coordinator.dart';
-import 'package:nokhte/app/core/modules/update_existing_collaborations/update_existing_collaborations_module.dart';
+import 'package:nokhte/app/core/modules/existing_collaborations/existing_collaborations_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/widgets/module.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -17,7 +17,7 @@ class P2PCollaboratorPoolModule extends Module {
   List<Module> get imports => [
         LocalSpeechToTextModule(),
         GesturesModule(),
-        UpdateExistingCollaborationsModule(),
+        ExistingCollaborationsModule(),
       ];
 
   @override
@@ -158,8 +158,8 @@ class P2PCollaboratorPoolModule extends Module {
         ),
         Bind.singleton<CollaboratorPoolScreenCoordinatorStore>(
           (i) => CollaboratorPoolScreenCoordinatorStore(
-            updateExistingCollaborations:
-                Modular.get<UpdateExistingCollaborationsCoordinator>(),
+            existingCollaborations:
+                Modular.get<ExistingCollaborationsCoordinator>(),
             exitCollaboratorPoolStore: i<ExitCollaboratorPoolStore>(),
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
             fadeInAndColorTextStore:

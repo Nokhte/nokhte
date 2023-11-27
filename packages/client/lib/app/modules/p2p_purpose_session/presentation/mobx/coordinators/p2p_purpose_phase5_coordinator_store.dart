@@ -8,9 +8,8 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/domain/domain.dart';
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/types/types.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
-import 'package:nokhte/app/core/modules/collaborative_doc/domain/logic/update_commit_desire_status.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/update_existing_collaborations/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/existing_collaborations/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
@@ -27,7 +26,7 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends BaseCoordinator
     with Store {
   // final BeachWavesTrackerStore beachWaves;
   final AbortPurposeSessionArtifactsStore abortPurposeSessionArtifactsStore;
-  final UpdateExistingCollaborationsCoordinator updateExistingCollaborations;
+  final ExistingCollaborationsCoordinator existingCollaborations;
   final GesturePillStore gesturePillStore;
   final CollaborativeTextEditorTrackerStore collaborativeTextUI;
   final CollaborativeDocCoordinator collaborativeDocDB;
@@ -41,7 +40,7 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends BaseCoordinator
 
   _P2PPurposePhase5CoordinatorStoreBase({
     required super.beachWaves,
-    required this.updateExistingCollaborations,
+    required this.existingCollaborations,
     required this.collaborativeTextUI,
     required this.collaborativeDocDB,
     required this.agoraCallbacksStore,
@@ -173,7 +172,7 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends BaseCoordinator
         const Color(0xFF09FD20),
         const Color(0xFF4CDC8B),
       ]));
-      await updateExistingCollaborations.consecrateTheCollaboration(NoParams());
+      await existingCollaborations.consecrateTheCollaboration(NoParams());
       gesturePillStore.setPillAnimationControl(Control.playFromStart);
       collaborativeTextUI.toggleWidgetVisibility();
       Future.delayed(Seconds.get(3),
