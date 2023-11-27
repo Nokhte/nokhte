@@ -8,14 +8,14 @@ import '../../constants/entities/entities.dart';
 import '../../fixtures/voice_call_mock_gen.mocks.dart';
 
 void main() {
-  late MockMGetAgoraTokenGetterStore mockGetterStore;
+  late MockMGetAgoraToken mockLogic;
   late GetAgoraTokenStore getAgoraTokenStore;
   const tParams = GetAgoraTokenParams(channelName: 'hi');
 
   setUp(() {
-    mockGetterStore = MockMGetAgoraTokenGetterStore();
+    mockLogic = MockMGetAgoraToken();
     getAgoraTokenStore = GetAgoraTokenStore(
-      getterStore: mockGetterStore,
+      logic: mockLogic,
     );
   });
 
@@ -41,7 +41,7 @@ void main() {
   group("call", () {
     test("✅ Success Case: should update accordingly if state is passed",
         () async {
-      when(mockGetterStore(tParams)).thenAnswer(
+      when(mockLogic(tParams)).thenAnswer(
         (_) async => ConstantAgoraCallTokenEntity.wrappedNotSuccessCase,
       );
       await getAgoraTokenStore(tParams);
@@ -53,7 +53,7 @@ void main() {
     });
     test("❌ Success Case: should update accordingly if failure is passed",
         () async {
-      when(mockGetterStore(tParams)).thenAnswer(
+      when(mockLogic(tParams)).thenAnswer(
         (_) async => Left(FailureConstants.dbFailure),
       );
       await getAgoraTokenStore(tParams);

@@ -10,24 +10,24 @@ import '../../constants/entities/entities.dart';
 import '../../fixtures/voice_call_mock_gen.mocks.dart';
 
 void main() {
-  late MockMJoinCallGetterStore mockJoinCallGetterStore;
-  late MockMLeaveCallGetterStore mockLeaveCallGetterStore;
-  late MockMMuteLocalAudioStreamGetterStore mockMuteLocalAudioStream;
-  late MockMUnmuteLocalAudioStreamGetterStore mockUnmuteLocalAudioStream;
-  late VoiceCallActionsStore voiceCallActionsStore;
+  late MockMJoinCall mockJoinCall;
+  late MockMLeaveCall mockLeaveCall;
+  late MockMMuteLocalAudio mockMuteLocalAudio;
+  late MockMUnmuteLocalAudio mockUnmuteLocalAudio;
+  late VoiceCallActionsStore voiceCallCoordinator;
   final tParams = NoParams();
   const joinCallParams = JoinCallParams(channelId: "channelId", token: "token");
 
   setUp(() {
-    mockJoinCallGetterStore = MockMJoinCallGetterStore();
-    mockLeaveCallGetterStore = MockMLeaveCallGetterStore();
-    mockMuteLocalAudioStream = MockMMuteLocalAudioStreamGetterStore();
-    mockUnmuteLocalAudioStream = MockMUnmuteLocalAudioStreamGetterStore();
-    voiceCallActionsStore = VoiceCallActionsStore(
-      joinCallGetterStore: mockJoinCallGetterStore,
-      leaveCallGetterStore: mockLeaveCallGetterStore,
-      muteAudioGetterStore: mockMuteLocalAudioStream,
-      unmuteAudioGetterStore: mockUnmuteLocalAudioStream,
+    mockJoinCall = MockMJoinCall();
+    mockLeaveCall = MockMLeaveCall();
+    mockMuteLocalAudio = MockMMuteLocalAudio();
+    mockUnmuteLocalAudio = MockMUnmuteLocalAudio();
+    voiceCallCoordinator = VoiceCallActionsStore(
+      joinCall: mockJoinCall,
+      leaveCall: mockLeaveCall,
+      muteAudio: mockMuteLocalAudio,
+      unmuteAudio: mockUnmuteLocalAudio,
     );
   });
 
@@ -35,22 +35,22 @@ void main() {
     test(
         "✅ Success Unmute Local Audio Case: should update accordingly if state is passed",
         () {
-      voiceCallActionsStore.audioStateOrErrorUpdater(
+      voiceCallCoordinator.audioStateOrErrorUpdater(
         ConstantLocalAudioStreamStatusEntity.wrappedUnmutedCase,
       );
       expect(
-        voiceCallActionsStore.isMuted,
+        voiceCallCoordinator.isMuted,
         false,
       );
     });
     test(
         "✅ Success Mute Local Audio Case: should update accordingly if state is passed",
         () {
-      voiceCallActionsStore.stateOrErrorUpdater(
+      voiceCallCoordinator.stateOrErrorUpdater(
         ConstantLocalAudioStreamStatusEntity.wrappedMutedCase,
       );
       expect(
-        voiceCallActionsStore.isMuted,
+        voiceCallCoordinator.isMuted,
         true,
       );
     });
@@ -58,11 +58,11 @@ void main() {
     test(
         "❌ Failure Local Audio Case: should update accordingly if failure is passed",
         () {
-      voiceCallActionsStore.audioStateOrErrorUpdater(
+      voiceCallCoordinator.audioStateOrErrorUpdater(
         Left(FailureConstants.dbFailure),
       );
-      expect(voiceCallActionsStore.isMuted, true);
-      expect(voiceCallActionsStore.errorMessage,
+      expect(voiceCallCoordinator.isMuted, true);
+      expect(voiceCallCoordinator.errorMessage,
           FailureConstants.genericFailureMsg);
     });
   });
@@ -71,28 +71,28 @@ void main() {
     test(
         "✅ Success Join Call Case: should update accordingly if state is passed",
         () {
-      voiceCallActionsStore.callStateOrErrorUpdater(
+      voiceCallCoordinator.callStateOrErrorUpdater(
         ConstantCallStatusEntity.wrappedJoiningCase,
       );
-      expect(voiceCallActionsStore.callStatus, CallStatus.joining);
+      expect(voiceCallCoordinator.callStatus, CallStatus.joining);
     });
     test(
         "✅ Success Leave Call Case: should update accordingly if state is passed",
         () {
-      voiceCallActionsStore.callStateOrErrorUpdater(
+      voiceCallCoordinator.callStateOrErrorUpdater(
         ConstantCallStatusEntity.wrappedLeavingCase,
       );
-      expect(voiceCallActionsStore.callStatus, CallStatus.leaving);
+      expect(voiceCallCoordinator.callStatus, CallStatus.leaving);
     });
 
     test(
         "❌ Failure Local Call Case: should update accordingly if failure is passed",
         () {
-      voiceCallActionsStore.callStateOrErrorUpdater(
+      voiceCallCoordinator.callStateOrErrorUpdater(
         Left(FailureConstants.dbFailure),
       );
-      expect(voiceCallActionsStore.callStatus, CallStatus.initial);
-      expect(voiceCallActionsStore.errorMessage,
+      expect(voiceCallCoordinator.callStatus, CallStatus.initial);
+      expect(voiceCallCoordinator.errorMessage,
           FailureConstants.genericFailureMsg);
     });
   });
@@ -100,47 +100,47 @@ void main() {
   group("muteOrUnmuteAudio", () {
     test("✅ Success Unmute Case: should update accordingly if state is passed",
         () async {
-      when(mockUnmuteLocalAudioStream()).thenAnswer(
+      when(mockUnmuteLocalAudio(NoParams())).thenAnswer(
         (_) async => ConstantLocalAudioStreamStatusEntity.wrappedUnmutedCase,
       );
-      await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);
+      await voiceCallCoordinator.muteOrUnmuteAudio(wantToMute: false);
       expect(
-        voiceCallActionsStore.isMuted,
+        voiceCallCoordinator.isMuted,
         false,
       );
-      expect(voiceCallActionsStore.errorMessage, "");
+      expect(voiceCallCoordinator.errorMessage, "");
     });
     test("✅ Success Mute Case: should update accordingly if state is passed",
         () async {
-      when(mockMuteLocalAudioStream()).thenAnswer(
+      when(mockMuteLocalAudio(NoParams())).thenAnswer(
         (_) async => ConstantLocalAudioStreamStatusEntity.wrappedMutedCase,
       );
-      await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
+      await voiceCallCoordinator.muteOrUnmuteAudio(wantToMute: true);
       expect(
-        voiceCallActionsStore.isMuted,
+        voiceCallCoordinator.isMuted,
         true,
       );
-      expect(voiceCallActionsStore.errorMessage, "");
+      expect(voiceCallCoordinator.errorMessage, "");
     });
     test("❌ Mute Failure Case: should update accordingly if failure is passed",
         () async {
-      when(mockMuteLocalAudioStream()).thenAnswer(
+      when(mockMuteLocalAudio(NoParams())).thenAnswer(
         (_) async => Left(FailureConstants.dbFailure),
       );
-      await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
-      expect(voiceCallActionsStore.isMuted, true);
-      expect(voiceCallActionsStore.errorMessage,
+      await voiceCallCoordinator.muteOrUnmuteAudio(wantToMute: true);
+      expect(voiceCallCoordinator.isMuted, true);
+      expect(voiceCallCoordinator.errorMessage,
           FailureConstants.genericFailureMsg);
     });
     test(
         "❌ Unmute Failure Case: should update accordingly if failure is passed",
         () async {
-      when(mockUnmuteLocalAudioStream()).thenAnswer(
+      when(mockUnmuteLocalAudio(NoParams())).thenAnswer(
         (_) async => Left(FailureConstants.dbFailure),
       );
-      await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);
-      expect(voiceCallActionsStore.isMuted, true);
-      expect(voiceCallActionsStore.errorMessage,
+      await voiceCallCoordinator.muteOrUnmuteAudio(wantToMute: false);
+      expect(voiceCallCoordinator.isMuted, true);
+      expect(voiceCallCoordinator.errorMessage,
           FailureConstants.genericFailureMsg);
     });
   });
@@ -148,50 +148,60 @@ void main() {
   group("joinOrLeaveCall", () {
     test("✅ Success Join Case: should update accordingly if state is passed",
         () async {
-      when(mockJoinCallGetterStore(
-              channelId: joinCallParams.channelId, token: joinCallParams.token))
-          .thenAnswer(
+      when(
+        mockJoinCall(
+          JoinCallParams(
+            token: joinCallParams.token,
+            channelId: joinCallParams.channelId,
+          ),
+        ),
+      ).thenAnswer(
         (_) async => ConstantCallStatusEntity.wrappedJoiningCase,
       );
-      await voiceCallActionsStore.enterOrLeaveCall(const Right(joinCallParams));
+      await voiceCallCoordinator.enterOrLeaveCall(const Right(joinCallParams));
       expect(
-        voiceCallActionsStore.callStatus,
+        voiceCallCoordinator.callStatus,
         CallStatus.joining,
       );
-      expect(voiceCallActionsStore.errorMessage, "");
+      expect(voiceCallCoordinator.errorMessage, "");
     });
     test("✅ Success Leave Case: should update accordingly if state is passed",
         () async {
-      when(mockLeaveCallGetterStore()).thenAnswer(
+      when(mockLeaveCall(NoParams())).thenAnswer(
         (_) async => ConstantCallStatusEntity.wrappedLeavingCase,
       );
-      await voiceCallActionsStore.enterOrLeaveCall(Left(tParams));
+      await voiceCallCoordinator.enterOrLeaveCall(Left(tParams));
       expect(
-        voiceCallActionsStore.callStatus,
+        voiceCallCoordinator.callStatus,
         CallStatus.leaving,
       );
-      expect(voiceCallActionsStore.errorMessage, "");
+      expect(voiceCallCoordinator.errorMessage, "");
     });
     test("❌ Join Failure Case: should update accordingly if failure is passed",
         () async {
-      when(mockJoinCallGetterStore(
-              channelId: joinCallParams.channelId, token: joinCallParams.token))
-          .thenAnswer(
+      when(
+        mockJoinCall(
+          JoinCallParams(
+            token: joinCallParams.token,
+            channelId: joinCallParams.channelId,
+          ),
+        ),
+      ).thenAnswer(
         (_) async => Left(FailureConstants.dbFailure),
       );
-      await voiceCallActionsStore.enterOrLeaveCall(const Right(joinCallParams));
-      expect(voiceCallActionsStore.isMuted, true);
-      expect(voiceCallActionsStore.errorMessage,
+      await voiceCallCoordinator.enterOrLeaveCall(const Right(joinCallParams));
+      expect(voiceCallCoordinator.isMuted, true);
+      expect(voiceCallCoordinator.errorMessage,
           FailureConstants.genericFailureMsg);
     });
     test("❌ Leave Failure Case: should update accordingly if failure is passed",
         () async {
-      when(mockLeaveCallGetterStore()).thenAnswer(
+      when(mockLeaveCall(NoParams())).thenAnswer(
         (_) async => Left(FailureConstants.dbFailure),
       );
-      await voiceCallActionsStore.enterOrLeaveCall(Left(tParams));
-      expect(voiceCallActionsStore.isMuted, true);
-      expect(voiceCallActionsStore.errorMessage,
+      await voiceCallCoordinator.enterOrLeaveCall(Left(tParams));
+      expect(voiceCallCoordinator.isMuted, true);
+      expect(voiceCallCoordinator.errorMessage,
           FailureConstants.genericFailureMsg);
     });
   });

@@ -8,14 +8,14 @@ import '../../constants/entities/entities.dart';
 import '../../fixtures/voice_call_mock_gen.mocks.dart';
 
 void main() {
-  late MockMCheckIfUserHasTheQuestionGetterStore mockGetterStore;
+  late MockMCheckIfUserHasTheQuestion mockLogic;
   late CheckIfUserHasTheQuestionStore checkIfUserHasTheQuestionStore;
   final tParams = NoParams();
 
   setUp(() {
-    mockGetterStore = MockMCheckIfUserHasTheQuestionGetterStore();
+    mockLogic = MockMCheckIfUserHasTheQuestion();
     checkIfUserHasTheQuestionStore = CheckIfUserHasTheQuestionStore(
-      getterStore: mockGetterStore,
+      logic: mockLogic,
     );
   });
 
@@ -41,7 +41,7 @@ void main() {
   group("call", () {
     test("✅ Success Case: should update accordingly if state is passed",
         () async {
-      when(mockGetterStore()).thenAnswer(
+      when(mockLogic(NoParams())).thenAnswer(
         (_) async => ConstantWhoGetsTheQuestionEntity.wrappedDoesNotHaveItCase,
       );
       await checkIfUserHasTheQuestionStore(tParams);
@@ -53,7 +53,7 @@ void main() {
     });
     test("❌ Success Case: should update accordingly if failure is passed",
         () async {
-      when(mockGetterStore()).thenAnswer(
+      when(mockLogic(NoParams())).thenAnswer(
         (_) async => Left(FailureConstants.dbFailure),
       );
       await checkIfUserHasTheQuestionStore(tParams);

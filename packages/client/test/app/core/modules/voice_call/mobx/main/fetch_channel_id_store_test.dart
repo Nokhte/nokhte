@@ -8,14 +8,14 @@ import '../../constants/entities/entities.dart';
 import '../../fixtures/voice_call_mock_gen.mocks.dart';
 
 void main() {
-  late MockMGetChannelIdGetterStore mockGetterStore;
+  late MockMGetChannelId mockLogic;
   late GetChannelIdStore getChannelIdStore;
   final tParams = NoParams();
 
   setUp(() {
-    mockGetterStore = MockMGetChannelIdGetterStore();
+    mockLogic = MockMGetChannelId();
     getChannelIdStore = GetChannelIdStore(
-      getterStore: mockGetterStore,
+      logic: mockLogic,
     );
   });
 
@@ -41,7 +41,7 @@ void main() {
   group("call", () {
     test("✅ Success Case: should update accordingly if state is passed",
         () async {
-      when(mockGetterStore()).thenAnswer(
+      when(mockLogic(NoParams())).thenAnswer(
         (_) async => ConstantChannelIdEntity.wrappedNotSuccessCase,
       );
       await getChannelIdStore(tParams);
@@ -53,7 +53,7 @@ void main() {
     });
     test("❌ Success Case: should update accordingly if failure is passed",
         () async {
-      when(mockGetterStore()).thenAnswer(
+      when(mockLogic(NoParams())).thenAnswer(
         (_) async => Left(FailureConstants.dbFailure),
       );
       await getChannelIdStore(tParams);
