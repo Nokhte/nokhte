@@ -12,18 +12,26 @@ class AbortPurposeSessionArtifacts
 
   AbortPurposeSessionArtifacts({required this.contract});
 
-  bool shouldDeleteSoloDocument(PurposeSessionScreens screen) =>
-      screen == PurposeSessionScreens.phase3IndividualReflection ||
-      screen == PurposeSessionScreens.phase4ReciprocateAttention ||
-      screen == PurposeSessionScreens.phase5CollectiveCreation;
+  bool isPhase2(PurposeSessionScreens screen) =>
+      screen == PurposeSessionScreens.phase2Consultation;
 
-  bool shouldDeleteTimer(PurposeSessionScreens screen) =>
-      screen == PurposeSessionScreens.phase2Consultation ||
-      screen == PurposeSessionScreens.phase3IndividualReflection ||
+  bool isPhase3(PurposeSessionScreens screen) =>
+      screen == PurposeSessionScreens.phase3IndividualReflection;
+
+  bool isPhase4(PurposeSessionScreens screen) =>
       screen == PurposeSessionScreens.phase4ReciprocateAttention;
 
+  bool isPhase5(PurposeSessionScreens screen) =>
+      screen == PurposeSessionScreens.phase4ReciprocateAttention;
+
+  bool shouldDeleteSoloDocument(PurposeSessionScreens screen) =>
+      isPhase3(screen) || isPhase4(screen) || isPhase5(screen);
+
+  bool shouldDeleteTimer(PurposeSessionScreens screen) =>
+      isPhase2(screen) || isPhase3(screen) || isPhase4(screen);
+
   bool shouldDeleteCollaborativeDocument(PurposeSessionScreens screen) =>
-      screen == PurposeSessionScreens.phase5CollectiveCreation;
+      isPhase5(screen);
 
   Future<void> handleAbortionForScreen(PurposeSessionScreens screen) async {
     await contract.abortTheCollaboration(NoParams());
