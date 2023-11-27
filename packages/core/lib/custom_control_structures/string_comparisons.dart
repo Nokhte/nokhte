@@ -2,16 +2,16 @@ import 'package:nokhte_core/types/types.dart';
 
 class StringComparison {
   static isCollaborator({
-    required CollaboratorOptions collaboratorOptions,
+    required CollaboratorNumbers chosenCollaboratorNumber,
     required String input,
     required Function callback,
     required elseReturnVal,
   }) async {
-    switch (collaboratorOptions) {
-      case CollaboratorOptions.one:
+    switch (chosenCollaboratorNumber) {
+      case CollaboratorNumbers.one:
         return executeCallbackIfStringEquals(
             callback, input, "collaborator_one", elseReturnVal);
-      case CollaboratorOptions.two:
+      case CollaboratorNumbers.two:
         return executeCallbackIfStringEquals(
             callback, input, "collaborator_two", elseReturnVal);
     }
