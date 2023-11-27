@@ -2,19 +2,18 @@
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/mobx/mobx.dart';
-part 'local_speech_to_text_coordinator_store.g.dart';
+part 'local_speech_to_text_coordinator.g.dart';
 
-class LocalSpeechToTextCoordinatorStore = _LocalSpeechToTextCoordinatorStoreBase
-    with _$LocalSpeechToTextCoordinatorStore;
+class LocalSpeechToTextCoordinator = _LocalSpeechToTextCoordinatorBase
+    with _$LocalSpeechToTextCoordinator;
 
-abstract class _LocalSpeechToTextCoordinatorStoreBase extends Equatable
-    with Store {
+abstract class _LocalSpeechToTextCoordinatorBase extends Equatable with Store {
   final InitLeopardStore initLeopardStore;
   final StartRecordingStore startRecordingStore;
   final StopRecordingStore stopRecordingStore;
   final OnSpeechResultStore onSpeechResultStore;
 
-  _LocalSpeechToTextCoordinatorStoreBase({
+  _LocalSpeechToTextCoordinatorBase({
     required this.initLeopardStore,
     required this.startRecordingStore,
     required this.stopRecordingStore,
