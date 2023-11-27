@@ -36,37 +36,21 @@ class GyroscopicModule extends Module {
           ),
           export: true,
         ),
-        Bind.singleton<GetDirectionAngleGetterStore>(
-          (i) => GetDirectionAngleGetterStore(
-            logic: i<GetDirectionAngle>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<ResetRefAngleGetterStore>(
-          (i) => ResetRefAngleGetterStore(
-            logic: i<ResetRefAngle>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<SetReferenceAngleGetterStore>(
-          (i) => SetReferenceAngleGetterStore(logic: i<SetReferenceAngle>()),
-          export: true,
-        ),
         Bind.singleton<GetDirectionAngleStore>(
           (i) => GetDirectionAngleStore(
-            getterStore: i<GetDirectionAngleGetterStore>(),
+            logic: i<GetDirectionAngle>(),
           ),
           export: true,
         ),
         Bind.singleton<SetReferenceAngleStore>(
           (i) => SetReferenceAngleStore(
-            getterStore: i<SetReferenceAngleGetterStore>(),
+            getterStore: i<SetReferenceAngle>(),
           ),
           export: true,
         ),
         Bind.singleton<ResetRefAngleStore>(
           (i) => ResetRefAngleStore(
-            getterStore: i<ResetRefAngleGetterStore>(),
+            logic: i<ResetRefAngle>(),
           ),
           export: true,
         ),
