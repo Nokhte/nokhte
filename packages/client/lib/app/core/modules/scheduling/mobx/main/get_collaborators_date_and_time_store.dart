@@ -3,7 +3,7 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/constants/entities.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/scheduling/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/scheduling/domain/domain.dart';
 import 'package:nokhte_backend/tables/working_collaborative_scheduling.dart';
 part 'get_collaborators_date_and_time_store.g.dart';
 
@@ -12,8 +12,8 @@ class GetCollaboratorsDateAndTimeStore = _GetCollaboratorsDateAndTimeStoreBase
 
 abstract class _GetCollaboratorsDateAndTimeStoreBase
     extends BaseMobxDBStore<NoParams, CollaboratorsDateAndTime> with Store {
-  final GetCollaboratorsDateAndTimeGetterStore getterStore;
-  _GetCollaboratorsDateAndTimeStoreBase({required this.getterStore});
+  final GetCollaboratorsDateAndTime logic;
+  _GetCollaboratorsDateAndTimeStoreBase({required this.logic});
 
   @observable
   ObservableStream<CollaboratorsDateAndTime> chosenTimeAndDay =
@@ -23,7 +23,7 @@ abstract class _GetCollaboratorsDateAndTimeStoreBase
 
   @override
   Future<void> call(params) async {
-    final result = await getterStore(params);
+    final result = await logic(params);
     result.fold(
       (failure) {
         errorMessage = mapFailureToMessage(failure);

@@ -2,7 +2,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/scheduling/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/scheduling/mobx/mobx.dart';
 part 'scheduling_coordinator_store.g.dart';
 
 class SchedulingCoordinatorStore = _SchedulingCoordinatorStoreBase

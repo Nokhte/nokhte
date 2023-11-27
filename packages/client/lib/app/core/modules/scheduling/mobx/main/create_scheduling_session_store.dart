@@ -4,7 +4,6 @@ import 'package:nokhte/app/core/constants/entities.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/scheduling/domain/domain.dart';
-import 'package:nokhte/app/core/modules/scheduling/presentation/presentation.dart';
 part 'create_scheduling_session_store.g.dart';
 
 class CreateSchedulingSessionStore = _CreateSchedulingSessionStoreBase
@@ -16,8 +15,8 @@ abstract class _CreateSchedulingSessionStoreBase
   @observable
   bool isCreated = false;
 
-  final CreateSchedulingSessionGetterStore getterStore;
-  _CreateSchedulingSessionStoreBase({required this.getterStore});
+  final CreateSchedulingSession logic;
+  _CreateSchedulingSessionStoreBase({required this.logic});
 
   @observable
   BaseFutureStore<SchedulingSessionCreationStatusEntity> futureStore =
@@ -42,7 +41,7 @@ abstract class _CreateSchedulingSessionStoreBase
   @action
   Future<void> call(params) async {
     state = StoreState.loading;
-    futureStore.entityOrFailureFuture = ObservableFuture(getterStore(params));
+    futureStore.entityOrFailureFuture = ObservableFuture(logic(params));
     futureStore.unwrappedEntityOrFailure =
         await futureStore.entityOrFailureFuture;
     stateOrErrorUpdater(futureStore.unwrappedEntityOrFailure);
