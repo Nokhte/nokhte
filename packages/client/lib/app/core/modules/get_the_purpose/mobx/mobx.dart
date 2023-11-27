@@ -1,2 +1,1 @@
-export './getters/getters.dart';
-export './main/main.dart';
+export 'get_the_purpose_store.dart';
