@@ -24,31 +24,9 @@ class MJoinCall extends Mock implements JoinCall {}
 
 class MLeaveCall extends Mock implements LeaveCall {}
 
-class MMuteLocalAudioStream extends Mock implements MuteLocalAudioStream {}
+class MMuteLocalAudio extends Mock implements MuteLocalAudio {}
 
-class MUnmuteLocalAudioStream extends Mock implements UnmuteLocalAudioStream {}
-
-class MCheckIfUserHasTheQuestionGetterStore extends Mock
-    implements CheckIfUserHasTheQuestionGetterStore {}
-
-class MGetAgoraTokenGetterStore extends Mock
-    implements GetAgoraTokenGetterStore {}
-
-class MGetChannelIdGetterStore extends Mock
-    implements GetChannelIdGetterStore {}
-
-class MInstantiateAgoraSdkGetterStore extends Mock
-    implements InstantiateAgoraSdkGetterStore {}
-
-class MJoinCallGetterStore extends Mock implements JoinCallGetterStore {}
-
-class MLeaveCallGetterStore extends Mock implements LeaveCallGetterStore {}
-
-class MMuteLocalAudioStreamGetterStore extends Mock
-    implements MuteLocalAudioStreamGetterStore {}
-
-class MUnmuteLocalAudioStreamGetterStore extends Mock
-    implements UnmuteLocalAudioStreamGetterStore {}
+class MUnmuteLocalAudio extends Mock implements UnmuteLocalAudio {}
 
 class MCheckIfUserHasTheQuestionStore extends Mock
     implements CheckIfUserHasTheQuestionStore {}
@@ -71,16 +49,8 @@ class MVoiceCallActionsStore extends Mock implements VoiceCallActionsStore {}
   MInstantiateAgoraSdk,
   MJoinCall,
   MLeaveCall,
-  MMuteLocalAudioStream,
-  MUnmuteLocalAudioStream,
-  MCheckIfUserHasTheQuestionGetterStore,
-  MGetAgoraTokenGetterStore,
-  MGetChannelIdGetterStore,
-  MInstantiateAgoraSdkGetterStore,
-  MJoinCallGetterStore,
-  MLeaveCallGetterStore,
-  MMuteLocalAudioStreamGetterStore,
-  MUnmuteLocalAudioStreamGetterStore,
+  MMuteLocalAudio,
+  MUnmuteLocalAudio,
   MCheckIfUserHasTheQuestionStore,
   MGetAgoraTokenStore,
   MGetChannelIdStore,
