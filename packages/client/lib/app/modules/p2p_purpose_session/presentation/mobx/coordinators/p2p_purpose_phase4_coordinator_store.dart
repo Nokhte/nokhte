@@ -2,6 +2,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/domain/domain.dart';
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/types/types.dart';
@@ -57,8 +58,9 @@ abstract class _P2PPurposePhase4CoordinatorStoreBase extends BaseTimesUpStore
       });
 
   @action
-  cleanUpAndTransition() {
+  cleanUpAndTransition() async {
     print("was this phase 5 ranstioncalled");
+    await timer.deleteTheTimer(NoParams());
     fadingText.fadeTheTextOut();
     Modular.to.navigate('/p2p_purpose_session/phase-5/');
   }

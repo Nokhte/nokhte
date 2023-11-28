@@ -59,6 +59,7 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends BaseTimesUpStore
 
   cleanUpAndTransition() async {
     final currentText = textEditor.controller.text;
+    await timer.deleteTheTimer(NoParams());
     await soloDoc.createSoloDoc(const CreateSoloDocParams(docType: 'purpose'));
     await soloDoc.submitSoloDoc(SubmitSoloDocParams(content: currentText));
     await soloDoc.shareSoloDoc(NoParams());
