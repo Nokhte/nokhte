@@ -1,5 +1,4 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:nokhte/app/core/modules/collaborative_doc/mobx/get_collaborative_doc_content_store.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/data/data.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
