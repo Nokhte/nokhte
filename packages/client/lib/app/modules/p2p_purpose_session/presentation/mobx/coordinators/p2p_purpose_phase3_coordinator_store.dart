@@ -42,14 +42,16 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends BaseTimesUpStore
           textEditor.flipWidgetVisibility();
           beachWaves.teeUpBackToTheDepths();
           Future.delayed(Seconds.get(3), () async {
-            await cleanUpAndTransition();
+            // todo change to completed timer
+            // await cleanUpAndTransition();
           });
         } else if (beachWaves.movieStatus == MovieStatus.inProgress) {
           delayedNavigation(() {
             textEditor.flipWidgetVisibility();
             beachWaves.teeUpBackToTheDepths();
+            // todo change to completed timer
             Future.delayed(Seconds.get(3), () async {
-              await cleanUpAndTransition();
+              // await cleanUpAndTransition();
             });
           });
         }
@@ -82,7 +84,10 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends BaseTimesUpStore
     textEditor.flipWidgetVisibility();
     beachWaves.initiateSuspendedAtTheDepths();
     await timer.setupAndStreamListenerActivation(
-        const CreateTimerParams(timerLengthInMinutes: 5), initOrPauseTimesUp);
+      const CreateTimerParams(timerLengthInMinutes: 5),
+      timerUICallback: initOrPauseTimesUp,
+      onBothCollaboratorTimersCompleted: cleanUpAndTransition,
+    );
     await timer.setOnlineStatus(true);
     await timer.updateTimerRunningStatus(true);
     final timerLength =

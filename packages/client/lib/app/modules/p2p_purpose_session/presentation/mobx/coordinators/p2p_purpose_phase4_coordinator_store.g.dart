@@ -10,6 +10,16 @@ part of 'p2p_purpose_phase4_coordinator_store.dart';
 
 mixin _$P2PPurposePhase4CoordinatorStore
     on _P2PPurposePhase4CoordinatorStoreBase, Store {
+  late final _$cleanUpAndTransitionAsyncAction = AsyncAction(
+      '_P2PPurposePhase4CoordinatorStoreBase.cleanUpAndTransition',
+      context: context);
+
+  @override
+  Future cleanUpAndTransition() {
+    return _$cleanUpAndTransitionAsyncAction
+        .run(() => super.cleanUpAndTransition());
+  }
+
   late final _$screenConstructorAsyncAction = AsyncAction(
       '_P2PPurposePhase4CoordinatorStoreBase.screenConstructor',
       context: context);
@@ -31,19 +41,6 @@ mixin _$P2PPurposePhase4CoordinatorStore
                 '_P2PPurposePhase4CoordinatorStoreBase.beachWavesMovieStatusListener');
     try {
       return super.beachWavesMovieStatusListener();
-    } finally {
-      _$_P2PPurposePhase4CoordinatorStoreBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic cleanUpAndTransition() {
-    final _$actionInfo =
-        _$_P2PPurposePhase4CoordinatorStoreBaseActionController.startAction(
-            name: '_P2PPurposePhase4CoordinatorStoreBase.cleanUpAndTransition');
-    try {
-      return super.cleanUpAndTransition();
     } finally {
       _$_P2PPurposePhase4CoordinatorStoreBaseActionController
           .endAction(_$actionInfo);

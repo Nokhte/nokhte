@@ -44,13 +44,15 @@ abstract class _P2PPurposePhase4CoordinatorStoreBase extends BaseTimesUpStore
           if (beachWaves.movieStatus == MovieStatus.finished) {
             beachWaves.teeUpBackToTheDepths();
             Future.delayed(Seconds.get(3), () {
-              cleanUpAndTransition();
+              // todo change to completed timer
+              // cleanUpAndTransition();
             });
           } else if (beachWaves.movieStatus == MovieStatus.inProgress) {
             delayedNavigation(() {
               beachWaves.teeUpBackToTheDepths();
               Future.delayed(Seconds.get(3), () {
-                cleanUpAndTransition();
+                // todo change to completed timer
+                // cleanUpAndTransition();
               });
             });
           }
@@ -74,7 +76,10 @@ abstract class _P2PPurposePhase4CoordinatorStoreBase extends BaseTimesUpStore
 
     fadingText.moveToNextMessage();
     await timer.setupAndStreamListenerActivation(
-        const CreateTimerParams(timerLengthInMinutes: 5), initOrPauseTimesUp);
+      const CreateTimerParams(timerLengthInMinutes: 5),
+      timerUICallback: initOrPauseTimesUp,
+      onBothCollaboratorTimersCompleted: cleanUpAndTransition,
+    );
     await timer.setOnlineStatus(true);
     foregroundAndBackgroundStateListener(
       resumedCallback: () async => await timer.setOnlineStatus(true),

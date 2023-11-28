@@ -57,7 +57,10 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
     holdStartListener();
     collaboratorIsTalkingListener();
     await timer.setupAndStreamListenerActivation(
-        const CreateTimerParams(timerLengthInMinutes: 5), initOrPauseTimesUp);
+      const CreateTimerParams(timerLengthInMinutes: 5),
+      timerUICallback: initOrPauseTimesUp,
+      onBothCollaboratorTimersCompleted: cleanUpAndTransition,
+    );
     await timer.setOnlineStatus(true);
     foregroundAndBackgroundStateListener(
       resumedCallback: () async => await timer.setOnlineStatus(true),
@@ -68,8 +71,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
         ),
       ),
     );
-    explanationText.setText("hold to talk");
-    explanationText.widgetConstructor();
+    explanationText.widgetConstructor(message: "hold to talk");
     beachWavesMovieModeWatcher();
     beachWavesMovieStatusWatcher();
     holdEndListener();
@@ -128,13 +130,15 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
           if (beachWaves.movieStatus == MovieStatus.finished) {
             beachWaves.teeUpBackToTheDepths();
             Future.delayed(Seconds.get(3), () async {
-              await cleanUpAndTransition();
+              // todo add this
+              // await timer.userHasCompletedtimer
             });
           } else if (beachWaves.movieStatus == MovieStatus.inProgress) {
             delayedNavigation(() {
               beachWaves.teeUpBackToTheDepths();
               Future.delayed(Seconds.get(3), () async {
-                await cleanUpAndTransition();
+                // todo add has Completed timer
+                // await cleanUpAndTransition();
               });
             });
           }
