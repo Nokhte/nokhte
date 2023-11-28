@@ -36,7 +36,7 @@ abstract class _WidgetCoordinatorStoreBase extends Equatable with Store {
     if (isFirstTime) {
       fadingText.setMessagesData(MessagesData.speakTheCollaboratorPhraseList);
       fadingText.startRotatingText(Seconds.get(0));
-      explanationText.setText("hold to talk");
+      explanationText.widgetConstructor(message: "hold to talk");
       toggleIsFirstTime();
     }
     explanationText.widgetConstructor();
