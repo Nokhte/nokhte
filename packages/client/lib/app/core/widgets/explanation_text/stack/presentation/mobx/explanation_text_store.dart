@@ -16,12 +16,15 @@ abstract class _ExplanationTextStoreBase extends BaseTextEditorStore
   bool showWidget = false;
 
   @action
-  widgetConstructor({String message = ""}) {
-    if (message.isNotEmpty) {
-      setText(message);
-    }
-    Future.delayed(Seconds.get(1), () => toggleWidgetVisibility());
-  }
+  widgetConstructor({String message = ""}) =>
+      Future.delayed(Seconds.get(1), () {
+        if (message.isNotEmpty) {
+          setText(message);
+          toggleWidgetVisibility();
+        } else {
+          toggleWidgetVisibility();
+        }
+      });
 
   @action
   toggleWidgetVisibility() => showWidget = !showWidget;
