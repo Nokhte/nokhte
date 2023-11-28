@@ -10,6 +10,5 @@ class EnterCollaboratorPool extends AbstractFutureLogic<
   EnterCollaboratorPool({required this.contract});
 
   @override
-  call(params) async =>
-      await contract.enterTheCollaboratorPool(phraseIDs: params);
+  call(params) async => await contract.enterTheCollaboratorPool(params);
 }

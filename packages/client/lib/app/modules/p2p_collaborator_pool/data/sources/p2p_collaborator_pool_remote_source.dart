@@ -6,8 +6,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 abstract class P2PCollaboratorPoolRemoteSource {
   Future<List> validateQuery({required String query});
 
-  Future<FunctionResponse> enterThePool(
-      {required CollaboratorPhraseIDs phraseIDs});
+  Future<FunctionResponse> enterThePool(CollaboratorPhraseIDs phraseIDs);
 
   Future<FunctionResponse> exitThePool();
 
@@ -46,7 +45,7 @@ class P2PCollaboratorPoolRemoteSourceImpl
   }
 
   @override
-  enterThePool({required CollaboratorPhraseIDs phraseIDs}) async =>
+  enterThePool(CollaboratorPhraseIDs phraseIDs) async =>
       await initiateCollaboratorSearch.invoke(
         phraseIDs,
       );

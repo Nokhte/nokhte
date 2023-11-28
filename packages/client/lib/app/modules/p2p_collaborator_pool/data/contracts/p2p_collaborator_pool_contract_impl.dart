@@ -33,10 +33,9 @@ class P2PCollaboratorPoolContractImpl implements P2PCollaboratorPoolContract {
 
   @override
   Future<Either<Failure, CollaboratorPoolEntryStatusModel>>
-      enterTheCollaboratorPool(
-          {required CollaboratorPhraseIDs phraseIDs}) async {
+      enterTheCollaboratorPool(CollaboratorPhraseIDs phraseIDs) async {
     if (await networkInfo.isConnected) {
-      final res = await remoteSource.enterThePool(phraseIDs: phraseIDs);
+      final res = await remoteSource.enterThePool(phraseIDs);
       return Right(
         CollaboratorPoolEntryStatusModel.fromSupabase(
           funcRes: res,
