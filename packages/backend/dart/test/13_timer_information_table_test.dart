@@ -21,11 +21,6 @@ void main() {
     await user2Queries.updatePresence(isOnlineParam: true);
   }
 
-  decrementTwoSeconds() async {
-    await user1Queries.markDownTheTimer();
-    await user1Queries.markDownTheTimer();
-  }
-
   updateTimerRunningStatus(bool newStatus) async =>
       await user1Queries.updateTimerRunningStatus(newTimerStatus: newStatus);
 
@@ -98,7 +93,6 @@ void main() {
       await updateTimerRunningStatus(true);
       await user1Queries.markTimerAsComplete();
       await user2Queries.markTimerAsComplete();
-      await decrementTwoSeconds();
 
       final stream = user1Stream.getStream();
       expect(

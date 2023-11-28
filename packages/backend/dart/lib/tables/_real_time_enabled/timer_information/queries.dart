@@ -113,26 +113,4 @@ class TimerInformationQueries extends CollaborativeQueries {
         )
         .select();
   }
-
-  Future<void> markDownTheTimer() async {
-    // await figureOutActiveCollaboratorInfoIfNotDoneAlready();
-    // final double pastClockVal = (await selectMostRecentTimer())
-    //     .first[timeRemainingInMilliseconds]
-    //     .toDouble();
-
-    // final double newClockVal = pastClockVal - 1000;
-    // await supabase
-    //     .from(tableName)
-    //     .update({
-    //       timeRemainingInMilliseconds: newClockVal,
-    //     })
-    //     .eq(
-    //       "${collaboratorInfo.theCollaboratorsNumber}_uid",
-    //       collaboratorInfo.theCollaboratorsUID,
-    //     )
-    //     .eq(
-    //       "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
-    //       collaboratorInfo.theUsersUID,
-    //     );
-  }
 }
