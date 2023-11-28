@@ -5,6 +5,7 @@ import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/timer/domain/logic/logic.dart';
+import 'package:nokhte/app/core/types/seconds.dart';
 import 'get_timer_information_stream_store.dart';
 part 'timer_coordinator.g.dart';
 
@@ -51,12 +52,16 @@ abstract class _TimerCoordinatorBase extends Equatable with Store {
     required Function onBothCollaboratorTimersCompleted,
   }) =>
       getTimeInfoStream.timerInformationStream.listen((value) async {
+        // if (!value.isDefault()) {
+        //   Future.delayed(Seconds.get(1), () async {
+        //     await setOnlineStatus(true);
+        //   });
+        // }
         if (value.collaboratorsPresence &&
             value.usersPresence &&
             value.timerIsRunning) {
           if (isFirstTime) {
             initOrPauseUITimer(true);
-            await setOnlineStatus(true);
           }
         } else if (!value.collaboratorsPresence ||
             !value.usersPresence ||
@@ -77,6 +82,7 @@ abstract class _TimerCoordinatorBase extends Equatable with Store {
     required Function onBothCollaboratorTimersCompleted,
   }) async {
     await createTheTimer(params);
+    await setOnlineStatus(true);
     await getTimerInformationStream();
     timerInfoStreamListener(
       initOrPauseUITimer: timerUICallback,
