@@ -8,7 +8,6 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/existing_collaborations/mobx/coordinator/existing_collaborations_coordinator.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
 
@@ -25,6 +24,13 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
   final FadeInAndChangeColorTextStore fadeInAndColorTextStore;
   final ExistingCollaborationsCoordinator existingCollaborations;
 
+  @observable
+  bool canEnterTheCollaboration = false;
+
+  @action
+  toggleCanEnterTheCollaboration() =>
+      canEnterTheCollaboration = !canEnterTheCollaboration;
+
   _CollaboratorPoolScreenCoordinatorStoreBase({
     required this.exitCollaboratorPoolStore,
     required this.existingCollaborations,
@@ -34,25 +40,25 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
     required this.fadeInAndColorTextStore,
   });
 
-  beachWavesMovieStatusListener() =>
-      reaction((p0) => beachWaves.movieStatus, (p0) {
-        print("movie status ${beachWaves.movieMode} ${beachWaves.movieStatus}");
-        if (beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
-          if (beachWaves.movieStatus == MovieStatus.finished) {
-            beachWaves.initiateBackToOceanDive();
-            Future.delayed(Seconds.get(3), () async {
-              await cleanUpAndTransitionBackToOceanDive();
-            });
-          } else if (beachWaves.movieStatus == MovieStatus.inProgress) {
-            delayedNavigation(() async {
-              beachWaves.initiateBackToOceanDive();
-              Future.delayed(Seconds.get(3), () async {
-                await cleanUpAndTransitionBackToOceanDive();
-              });
-            });
-          }
-        }
-      });
+  // beachWavesMovieStatusListener() =>
+  //     reaction((p0) => beachWaves.movieStatus, (p0) {
+  //       print("movie status ${beachWaves.movieMode} ${beachWaves.movieStatus}");
+  //       if (beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
+  //         if (beachWaves.movieStatus == MovieStatus.finished) {
+  //           beachWaves.initiateBackToOceanDive();
+  //           Future.delayed(Seconds.get(3), () async {
+  //             await cleanUpAndTransitionBackToOceanDive();
+  //           });
+  //         } else if (beachWaves.movieStatus == MovieStatus.inProgress) {
+  //           delayedNavigation(() async {
+  //             beachWaves.initiateBackToOceanDive();
+  //             Future.delayed(Seconds.get(3), () async {
+  //               await cleanUpAndTransitionBackToOceanDive();
+  //             });
+  //           });
+  //         }
+  //       }
+  //     });
 
   cleanUpAndTransitionBackToOceanDive() async {
     await exitCollaboratorPoolStore(NoParams());
@@ -64,6 +70,7 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
       reaction((p0) => getCollaboratorSearchStatusStore.searchStatus, (p0) {
         p0.listen((value) async {
           if (value.hasFoundTheirCollaborator && !value.hasEntered) {
+            toggleCanEnterTheCollaboration();
             beachWaves.teeUpBackToTheDepths();
             fadeInAndColorTextStore.teeUpFadeOut();
             Future.delayed(Seconds.get(3), () async {
@@ -81,7 +88,13 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
     beachWaves.initiateTimesUp(
       timerLength: duration,
     );
-    beachWavesMovieStatusListener();
+    Future.delayed(duration, () async {
+      if (!canEnterTheCollaboration) {
+        await cleanUpAndTransitionBackToOceanDive();
+      }
+    });
+
+    // beachWavesMovieStatusListener();
     getCollaboratorSearchStatusStore();
     searchStatusListener();
   }
