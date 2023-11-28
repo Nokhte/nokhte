@@ -13,7 +13,7 @@ abstract class TimerRemoteSource with DeleteTheTimerRemoteSourceInterface {
   Future<List> updateTimerRunningStatus(bool shouldBeRunning);
 
   Future<void> markdownTheTimer(NoParams params);
-  Stream<PresenceAndTimeRemaining> getTimerInformationStream(NoParams params);
+  Stream<PresenceAndTimerCompletion> getTimerInformationStream(NoParams params);
 }
 
 class TimerRemoteSourceImpl implements TimerRemoteSource {
@@ -56,6 +56,7 @@ class TimerRemoteSourceImpl implements TimerRemoteSource {
       await queries.markDownTheTimer();
 
   @override
-  Stream<PresenceAndTimeRemaining> getTimerInformationStream(NoParams params) =>
+  Stream<PresenceAndTimerCompletion> getTimerInformationStream(
+          NoParams params) =>
       stream.getStream();
 }

@@ -226,7 +226,7 @@ class DefaultEntities {
       get timerDeletionStatusEntity =>
           const Right(TimerDeletionStatusEntity(isDeleted: false));
 
-  static Stream<PresenceAndTimeRemaining> get timerInformationStream =>
+  static Stream<PresenceAndTimerCompletion> get timerInformationStream =>
       const Stream.empty();
 
   static Either<Failure, TimerMarkdownStatusEntity>

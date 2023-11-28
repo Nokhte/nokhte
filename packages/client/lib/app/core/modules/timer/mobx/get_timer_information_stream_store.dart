@@ -13,7 +13,7 @@ class GetTimerInformationStreamStore = _GetTimerInformationStreamStoreBase
 abstract class _GetTimerInformationStreamStoreBase
     extends BaseMobxDBStore<NoParams, TimerInformationStreamEntity> with Store {
   @observable
-  ObservableStream<PresenceAndTimeRemaining> timerInformationStream =
+  ObservableStream<PresenceAndTimerCompletion> timerInformationStream =
       ObservableStream(DefaultEntities.timerInformationStream);
 
   final GetTimerInformationStream logic;

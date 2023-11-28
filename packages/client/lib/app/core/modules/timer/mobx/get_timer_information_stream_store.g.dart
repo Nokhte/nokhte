@@ -15,13 +15,13 @@ mixin _$GetTimerInformationStreamStore
       context: context);
 
   @override
-  ObservableStream<PresenceAndTimeRemaining> get timerInformationStream {
+  ObservableStream<InvalidType> get timerInformationStream {
     _$timerInformationStreamAtom.reportRead();
     return super.timerInformationStream;
   }
 
   @override
-  set timerInformationStream(ObservableStream<PresenceAndTimeRemaining> value) {
+  set timerInformationStream(ObservableStream<InvalidType> value) {
     _$timerInformationStreamAtom
         .reportWrite(value, super.timerInformationStream, () {
       super.timerInformationStream = value;
