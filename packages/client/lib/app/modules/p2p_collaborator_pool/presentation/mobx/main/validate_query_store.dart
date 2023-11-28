@@ -7,7 +7,6 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/domain.dart';
 import 'package:nokhte/app/core/utilities/utilities.dart';
 import 'package:nokhte/app/core/mobx/base_mobx_db_store.dart';
-import 'package:nokhte/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
 import 'package:nokhte_backend/tables/phrase_components.dart';
 part 'validate_query_store.g.dart';
 
@@ -15,7 +14,7 @@ class ValidateQueryStore = _ValidateQueryStoreBase with _$ValidateQueryStore;
 
 abstract class _ValidateQueryStoreBase extends BaseMobxDBStore<
     ValidateQueryParams, CollaboratorPhraseValidationEntity> with Store {
-  final ValidateQueryGetterStore validateQueryGetterStore;
+  final ValidateQuery logic;
 
   @observable
   ValidationStatus isProperLength = ValidationStatus.idle;
@@ -27,7 +26,7 @@ abstract class _ValidateQueryStoreBase extends BaseMobxDBStore<
       const CollaboratorPhraseIDs(adjectiveID: -1, nounID: -1);
 
   _ValidateQueryStoreBase({
-    required this.validateQueryGetterStore,
+    required this.logic,
   });
 
   @action
@@ -73,7 +72,7 @@ abstract class _ValidateQueryStoreBase extends BaseMobxDBStore<
   Future<void> call(params) async {
     state = StoreState.loading;
     futureStore.entityOrFailureFuture = ObservableFuture(
-      validateQueryGetterStore(params),
+      logic(params),
     );
     futureStore.unwrappedEntityOrFailure =
         await futureStore.entityOrFailureFuture;

@@ -5,8 +5,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/base_future_store.dart';
 import 'package:nokhte/app/core/mobx/base_mobx_db_store.dart';
 import 'package:nokhte/app/core/mobx/store_state.dart';
-import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/entities/entities.dart';
-import 'package:nokhte/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
+import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/domain.dart';
 part 'cancel_collaborator_stream_store.g.dart';
 
 class CancelCollaboratorStreamStore = _CancelCollaboratorStreamStoreBase
@@ -15,10 +14,10 @@ class CancelCollaboratorStreamStore = _CancelCollaboratorStreamStoreBase
 abstract class _CancelCollaboratorStreamStoreBase
     extends BaseMobxDBStore<NoParams, CollaboratorStreamStatusEntity>
     with Store {
-  final CancelCollaboratorStreamGetterStore getterStore;
+  final CancelCollaboratorStream logic;
 
   _CancelCollaboratorStreamStoreBase({
-    required this.getterStore,
+    required this.logic,
   });
 
   @observable
@@ -47,7 +46,7 @@ abstract class _CancelCollaboratorStreamStoreBase
   Future<void> call(params) async {
     state = StoreState.loading;
     futureStore.entityOrFailureFuture = ObservableFuture(
-      getterStore(),
+      logic(params),
     );
     futureStore.unwrappedEntityOrFailure =
         await futureStore.entityOrFailureFuture;

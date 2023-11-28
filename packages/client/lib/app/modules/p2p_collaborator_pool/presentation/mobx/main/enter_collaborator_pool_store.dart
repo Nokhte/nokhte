@@ -4,8 +4,7 @@ import 'package:nokhte/app/core/constants/entities.dart';
 import 'package:nokhte/app/core/mobx/base_future_store.dart';
 import 'package:nokhte/app/core/mobx/base_mobx_db_store.dart';
 import 'package:nokhte/app/core/mobx/store_state.dart';
-import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/entities/entities.dart';
-import 'package:nokhte/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
+import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/domain.dart';
 import 'package:nokhte_backend/constants/types/types.dart';
 part 'enter_collaborator_pool_store.g.dart';
 
@@ -14,13 +13,13 @@ class EnterCollaboratorPoolStore = _EnterCollaboratorPoolStoreBase
 
 abstract class _EnterCollaboratorPoolStoreBase extends BaseMobxDBStore<
     CollaboratorPhraseIDs, CollaboratorPoolEntryStatusEntity> with Store {
-  final EnterCollaboratorPoolGetterStore enterCollaboratorPoolGetterStore;
+  final EnterCollaboratorPool logic;
 
   @observable
   bool hasEntered = false;
 
   _EnterCollaboratorPoolStoreBase({
-    required this.enterCollaboratorPoolGetterStore,
+    required this.logic,
   });
 
   @observable
@@ -48,9 +47,8 @@ abstract class _EnterCollaboratorPoolStoreBase extends BaseMobxDBStore<
   @action
   Future<void> call(params) async {
     state = StoreState.loading;
-    futureStore.entityOrFailureFuture =
-        ObservableFuture(enterCollaboratorPoolGetterStore(
-      phraseIDs: params,
+    futureStore.entityOrFailureFuture = ObservableFuture(logic(
+      params,
     ));
     futureStore.unwrappedEntityOrFailure =
         await futureStore.entityOrFailureFuture;

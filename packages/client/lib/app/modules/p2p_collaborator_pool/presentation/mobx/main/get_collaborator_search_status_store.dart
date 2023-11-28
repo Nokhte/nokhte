@@ -3,8 +3,9 @@ import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/error/failure.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/store_state.dart';
-import 'package:nokhte/app/modules/p2p_collaborator_pool/presentation/mobx/getters/getters.dart';
+import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/domain.dart';
 import 'package:nokhte_backend/tables/existing_collaborations.dart';
 part 'get_collaborator_search_status_store.g.dart';
 
@@ -13,7 +14,7 @@ class GetCollaboratorSearchStatusStore = _GetCollaboratorSearchStatusStoreBase
 
 abstract class _GetCollaboratorSearchStatusStoreBase extends Equatable
     with Store {
-  final GetCollaboratorSearchStatusGetterStore collaboratorSearchStatusGetter;
+  final GetCollaboratorSearchStatus logic;
 
   @observable
   ObservableStream<CollaboratorSearchAndEntryStatus> searchStatus =
@@ -26,7 +27,7 @@ abstract class _GetCollaboratorSearchStatusStoreBase extends Equatable
   StoreState state = StoreState.initial;
 
   _GetCollaboratorSearchStatusStoreBase({
-    required this.collaboratorSearchStatusGetter,
+    required this.logic,
   });
 
   String mapFailureToMessage(Failure failure) {
@@ -39,7 +40,7 @@ abstract class _GetCollaboratorSearchStatusStoreBase extends Equatable
   }
 
   Future<void> call() async {
-    final result = await collaboratorSearchStatusGetter();
+    final result = await logic(NoParams());
     result.fold((failure) {
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
