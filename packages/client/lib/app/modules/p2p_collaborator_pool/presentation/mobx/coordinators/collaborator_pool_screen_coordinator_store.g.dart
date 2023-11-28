@@ -49,6 +49,35 @@ mixin _$CollaboratorPoolScreenCoordinatorStore
   }
 
   @override
+  dynamic searchStatusListener() {
+    final _$actionInfo =
+        _$_CollaboratorPoolScreenCoordinatorStoreBaseActionController.startAction(
+            name:
+                '_CollaboratorPoolScreenCoordinatorStoreBase.searchStatusListener');
+    try {
+      return super.searchStatusListener();
+    } finally {
+      _$_CollaboratorPoolScreenCoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic goBackToShore(bool canEnterTheCollaboration) {
+    final _$actionInfo =
+        _$_CollaboratorPoolScreenCoordinatorStoreBaseActionController
+            .startAction(
+                name:
+                    '_CollaboratorPoolScreenCoordinatorStoreBase.goBackToShore');
+    try {
+      return super.goBackToShore(canEnterTheCollaboration);
+    } finally {
+      _$_CollaboratorPoolScreenCoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic screenConstructorCallback() {
     final _$actionInfo =
         _$_CollaboratorPoolScreenCoordinatorStoreBaseActionController.startAction(

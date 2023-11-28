@@ -8,6 +8,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/existing_collaborations/mobx/coordinator/existing_collaborations_coordinator.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
 
@@ -40,32 +41,14 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
     required this.fadeInAndColorTextStore,
   });
 
-  // beachWavesMovieStatusListener() =>
-  //     reaction((p0) => beachWaves.movieStatus, (p0) {
-  //       print("movie status ${beachWaves.movieMode} ${beachWaves.movieStatus}");
-  //       if (beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
-  //         if (beachWaves.movieStatus == MovieStatus.finished) {
-  //           beachWaves.initiateBackToOceanDive();
-  //           Future.delayed(Seconds.get(3), () async {
-  //             await cleanUpAndTransitionBackToOceanDive();
-  //           });
-  //         } else if (beachWaves.movieStatus == MovieStatus.inProgress) {
-  //           delayedNavigation(() async {
-  //             beachWaves.initiateBackToOceanDive();
-  //             Future.delayed(Seconds.get(3), () async {
-  //               await cleanUpAndTransitionBackToOceanDive();
-  //             });
-  //           });
-  //         }
-  //       }
-  //     });
-
   cleanUpAndTransitionBackToOceanDive() async {
     await exitCollaboratorPoolStore(NoParams());
     await cancelStreamStore(NoParams());
+    await getCollaboratorSearchStatusStore.searchStatus.close();
     Modular.to.navigate('/p2p_collaborator_pool/');
   }
 
+  @action
   searchStatusListener() =>
       reaction((p0) => getCollaboratorSearchStatusStore.searchStatus, (p0) {
         p0.listen((value) async {
@@ -74,15 +57,32 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
             beachWaves.teeUpBackToTheDepths();
             fadeInAndColorTextStore.teeUpFadeOut();
             Future.delayed(Seconds.get(3), () async {
+              // delayedNavigation(() {
+              print("what is it can enter stream $canEnterTheCollaboration");
               if (canEnterTheCollaboration) {
                 Modular.to.navigate('/p2p_purpose_session/');
-                await existingCollaborations
+                existingCollaborations
                     .updateIndividualCollaboratorEntryStatus(true);
               }
+              // });
             });
           }
         });
       });
+
+  @action
+  goBackToShore(bool canEnterTheCollaboration) {
+    if (beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
+      print("is the transition to speak happening??");
+      beachWaves.initiateBackToOceanDive();
+      delayedNavigation(() {
+        exitCollaboratorPoolStore(NoParams());
+        cancelStreamStore(NoParams());
+        getCollaboratorSearchStatusStore.searchStatus.close();
+        Modular.to.navigate('/p2p_collaborator_pool/');
+      });
+    }
+  }
 
   @action
   screenConstructorCallback() {
@@ -90,12 +90,8 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
     beachWaves.initiateTimesUp(
       timerLength: duration,
     );
-    Future.delayed(duration, () async {
-      if (canEnterTheCollaboration == false) {
-        print("is the transition to speak happening??");
-        await cleanUpAndTransitionBackToOceanDive();
-      }
-    });
+    delayedNavigation(() => goBackToShore(canEnterTheCollaboration));
+    // Future.delayed(duration, () => goBackToShore());
     getCollaboratorSearchStatusStore();
     searchStatusListener();
   }
