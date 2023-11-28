@@ -20,8 +20,7 @@ void main() {
   });
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
-    when(mockContract.enterTheCollaboratorPool(phraseIDs: phraseIds))
-        .thenAnswer(
+    when(mockContract.enterTheCollaboratorPool(phraseIds)).thenAnswer(
       (_) async => ConstantCollaboratorPoolEntryStatusEntity.wrappedSuccessCase,
     );
 
@@ -29,20 +28,19 @@ void main() {
 
     expect(
         result, ConstantCollaboratorPoolEntryStatusEntity.wrappedSuccessCase);
-    verify(mockContract.enterTheCollaboratorPool(phraseIDs: phraseIds));
+    verify(mockContract.enterTheCollaboratorPool(phraseIds));
     verifyNoMoreInteractions(mockContract);
   });
 
   test("✅ should pass A Failure from Contract ==> Logic", () async {
-    when(mockContract.enterTheCollaboratorPool(phraseIDs: phraseIds))
-        .thenAnswer(
+    when(mockContract.enterTheCollaboratorPool(phraseIds)).thenAnswer(
       (_) async => Left(FailureConstants.dbFailure),
     );
 
     final result = await logic(phraseIds);
 
     expect(result, Left(FailureConstants.dbFailure));
-    verify(mockContract.enterTheCollaboratorPool(phraseIDs: phraseIds));
+    verify(mockContract.enterTheCollaboratorPool(phraseIds));
     verifyNoMoreInteractions(mockContract);
   });
 }

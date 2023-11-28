@@ -8,13 +8,13 @@ import '../../../constants/responses/responses.dart';
 import '../../../fixtures/p2p_collaborator_pool_stack_mock_gen.mocks.dart';
 
 void main() {
-  late MockMEnterCollaboratorPoolGetterStore mockGetterStore;
+  late MockMEnterCollaboratorPool mockLogic;
   late EnterCollaboratorPoolStore shareSoloDocStore;
 
   setUp(() {
-    mockGetterStore = MockMEnterCollaboratorPoolGetterStore();
+    mockLogic = MockMEnterCollaboratorPool();
     shareSoloDocStore = EnterCollaboratorPoolStore(
-      enterCollaboratorPoolGetterStore: mockGetterStore,
+      logic: mockLogic,
     );
   });
 
@@ -40,7 +40,7 @@ void main() {
   group("call", () {
     test("✅ Success Case: should update accordingly if state is passed",
         () async {
-      when(mockGetterStore(phraseIDs: PhraseIDs.phraseID)).thenAnswer(
+      when(mockLogic(PhraseIDs.phraseID)).thenAnswer(
         (_) async =>
             ConstantCollaboratorPoolEntryStatusEntity.wrappedNotSuccessCase,
       );
@@ -53,7 +53,7 @@ void main() {
     });
     test("❌ Success Case: should update accordingly if failure is passed",
         () async {
-      when(mockGetterStore(phraseIDs: PhraseIDs.phraseID)).thenAnswer(
+      when(mockLogic(PhraseIDs.phraseID)).thenAnswer(
         (_) async => Left(FailureConstants.dbFailure),
       );
       await shareSoloDocStore(PhraseIDs.phraseID);

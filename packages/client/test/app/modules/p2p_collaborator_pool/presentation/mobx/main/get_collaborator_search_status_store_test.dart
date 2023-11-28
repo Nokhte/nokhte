@@ -2,26 +2,27 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
 import 'package:nokhte_backend/tables/existing_collaborations.dart';
 import '../../../constants/entities/entities.dart';
 import '../../../fixtures/p2p_collaborator_pool_stack_mock_gen.mocks.dart';
 
 void main() {
-  late MockMGetCollaboratorSearchStatusGetterStore mockGetterStore;
+  late MockMGetCollaboratorSearchStatus mockLogic;
   late GetCollaboratorSearchStatusStore shareSoloDocStore;
 
   setUp(() {
-    mockGetterStore = MockMGetCollaboratorSearchStatusGetterStore();
+    mockLogic = MockMGetCollaboratorSearchStatus();
     shareSoloDocStore = GetCollaboratorSearchStatusStore(
-      collaboratorSearchStatusGetter: mockGetterStore,
+      logic: mockLogic,
     );
   });
 
   group("call", () {
     test("✅ Success Case: should update accordingly if state is passed",
         () async {
-      when(mockGetterStore()).thenAnswer(
+      when(mockLogic(NoParams())).thenAnswer(
         (_) async => ConstantCollaboratorSearchStatusEntity.wrappedSuccessCase,
       );
       await shareSoloDocStore();
@@ -34,7 +35,7 @@ void main() {
     });
     test("❌ Success Case: should update accordingly if failure is passed",
         () async {
-      when(mockGetterStore()).thenAnswer(
+      when(mockLogic(NoParams())).thenAnswer(
         (_) async => Left(FailureConstants.dbFailure),
       );
       await shareSoloDocStore();

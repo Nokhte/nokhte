@@ -8,13 +8,13 @@ import '../../../constants/entities/entities.dart';
 import '../../../fixtures/p2p_collaborator_pool_stack_mock_gen.mocks.dart';
 
 void main() {
-  late MockMExitCollaboratorPoolGetterStore mockGetterStore;
+  late MockMExitCollaboratorPool mockLogic;
   late ExitCollaboratorPoolStore shareSoloDocStore;
 
   setUp(() {
-    mockGetterStore = MockMExitCollaboratorPoolGetterStore();
+    mockLogic = MockMExitCollaboratorPool();
     shareSoloDocStore = ExitCollaboratorPoolStore(
-      exitCollaboratorPoolGetterStore: mockGetterStore,
+      logic: mockLogic,
     );
   });
 
@@ -40,7 +40,7 @@ void main() {
   group("call", () {
     test("✅ Success Case: should update accordingly if state is passed",
         () async {
-      when(mockGetterStore()).thenAnswer(
+      when(mockLogic(NoParams())).thenAnswer(
         (_) async =>
             ConstantCollaboratorPoolExitStatusEntity.wrappedNotSuccessCase,
       );
@@ -53,7 +53,7 @@ void main() {
     });
     test("❌ Success Case: should update accordingly if failure is passed",
         () async {
-      when(mockGetterStore()).thenAnswer(
+      when(mockLogic(NoParams())).thenAnswer(
         (_) async => Left(FailureConstants.dbFailure),
       );
       await shareSoloDocStore(NoParams());

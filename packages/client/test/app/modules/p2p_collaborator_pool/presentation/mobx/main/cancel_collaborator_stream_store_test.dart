@@ -8,14 +8,14 @@ import '../../../constants/entities/entities.dart';
 import '../../../fixtures/p2p_collaborator_pool_stack_mock_gen.mocks.dart';
 
 void main() {
-  late MockMCancelCollaboratorStreamGetterStore mockGetterStore;
+  late MockMCancelCollaboratorStream mockLogic;
   late CancelCollaboratorStreamStore cancelCollaboratorStreamStore;
   final tParams = NoParams();
 
   setUp(() {
-    mockGetterStore = MockMCancelCollaboratorStreamGetterStore();
+    mockLogic = MockMCancelCollaboratorStream();
     cancelCollaboratorStreamStore = CancelCollaboratorStreamStore(
-      getterStore: mockGetterStore,
+      logic: mockLogic,
     );
   });
 
@@ -41,7 +41,7 @@ void main() {
   group("call", () {
     test("✅ Success Case: should update accordingly if state is passed",
         () async {
-      when(mockGetterStore()).thenAnswer(
+      when(mockLogic(tParams)).thenAnswer(
         (_) async =>
             ConstantCollaboratorStreamStatusEntity.wrappedNotSuccessCase,
       );
@@ -54,7 +54,7 @@ void main() {
     });
     test("❌ Success Case: should update accordingly if failure is passed",
         () async {
-      when(mockGetterStore()).thenAnswer(
+      when(mockLogic(tParams)).thenAnswer(
         (_) async => Left(FailureConstants.dbFailure),
       );
       await cancelCollaboratorStreamStore(tParams);

@@ -72,20 +72,19 @@ void main() {
             .thenAnswer((realInvocation) async => true);
       });
       test("when online w/ a  200 should return a successful model", () async {
-        when(mockRemoteSource.enterThePool(phraseIDs: PhraseIDs.phraseID))
+        when(mockRemoteSource.enterThePool(PhraseIDs.phraseID))
             .thenAnswer((realInvocation) async => FunctionResponses.successRes);
-        final res = await p2pCollaboratorPoolContract.enterTheCollaboratorPool(
-            phraseIDs: PhraseIDs.phraseID);
+        final res = await p2pCollaboratorPoolContract
+            .enterTheCollaboratorPool(PhraseIDs.phraseID);
         expect(
             res, ConstantCollaboratorPoolEntryStatusModel.wrappedSuccessCase);
       });
       test("when online w/ a non 200  should return a not successful model",
           () async {
-        when(mockRemoteSource.enterThePool(phraseIDs: PhraseIDs.phraseID))
-            .thenAnswer(
-                (realInvocation) async => FunctionResponses.notSuccessRes);
-        final res = await p2pCollaboratorPoolContract.enterTheCollaboratorPool(
-            phraseIDs: PhraseIDs.phraseID);
+        when(mockRemoteSource.enterThePool(PhraseIDs.phraseID)).thenAnswer(
+            (realInvocation) async => FunctionResponses.notSuccessRes);
+        final res = await p2pCollaboratorPoolContract
+            .enterTheCollaboratorPool(PhraseIDs.phraseID);
         expect(res,
             ConstantCollaboratorPoolEntryStatusModel.wrappedNotSuccessCase);
       });
@@ -96,8 +95,8 @@ void main() {
             .thenAnswer((realInvocation) async => false);
       });
       test("When offline should return an internet connection error", () async {
-        final res = await p2pCollaboratorPoolContract.enterTheCollaboratorPool(
-            phraseIDs: PhraseIDs.phraseID);
+        final res = await p2pCollaboratorPoolContract
+            .enterTheCollaboratorPool(PhraseIDs.phraseID);
         expect(res, Left(FailureConstants.internetConnectionFailure));
       });
     });
