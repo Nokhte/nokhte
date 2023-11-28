@@ -11,7 +11,6 @@ import 'package:nokhte/app/core/modules/solo_doc/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/timer/domain/logic/logic.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:nokhte/app/core/widgets/mobx.dart';
 part 'p2p_purpose_phase3_coordinator_store.g.dart';
 
@@ -35,28 +34,26 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends BaseTimesUpStore
     required this.fadingText,
     required this.soloDoc,
   }) : super(productionTimerLength: const Duration(minutes: 5)) {
-    reaction((p0) => beachWaves.movieStatus, (p0) async {
-      print(" phase 3${beachWaves.movieStatus} ${beachWaves.movieMode}");
-      if (beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
-        if (beachWaves.movieStatus == MovieStatus.finished) {
-          textEditor.flipWidgetVisibility();
-          beachWaves.teeUpBackToTheDepths();
-          Future.delayed(Seconds.get(3), () async {
-            // todo change to completed timer
-            // await cleanUpAndTransition();
-          });
-        } else if (beachWaves.movieStatus == MovieStatus.inProgress) {
-          delayedNavigation(() {
-            textEditor.flipWidgetVisibility();
-            beachWaves.teeUpBackToTheDepths();
-            // todo change to completed timer
-            Future.delayed(Seconds.get(3), () async {
-              // await cleanUpAndTransition();
-            });
-          });
-        }
-      }
-    });
+    // reaction((p0) => beachWaves.movieStatus, (p0) async {
+    //   print(" phase 3${beachWaves.movieStatus} ${beachWaves.movieMode}");
+    //   if (beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
+    //     if (beachWaves.movieStatus == MovieStatus.finished) {
+    //       textEditor.flipWidgetVisibility();
+    //       beachWaves.teeUpBackToTheDepths();
+    //       Future.delayed(Seconds.get(3), () async {
+    //         await timer.markTimerAsComplete(NoParams());
+    //       });
+    //     } else if (beachWaves.movieStatus == MovieStatus.inProgress) {
+    //       delayedNavigation(() {
+    //         textEditor.flipWidgetVisibility();
+    //         beachWaves.teeUpBackToTheDepths();
+    //         Future.delayed(Seconds.get(3), () async {
+    //           await timer.markTimerAsComplete(NoParams());
+    //         });
+    //       });
+    //     }
+    //   }
+    // });
   }
 
   cleanUpAndTransition() async {
@@ -65,7 +62,12 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends BaseTimesUpStore
     await soloDoc.createSoloDoc(const CreateSoloDocParams(docType: 'purpose'));
     await soloDoc.submitSoloDoc(SubmitSoloDocParams(content: currentText));
     await soloDoc.shareSoloDoc(NoParams());
-    Modular.to.navigate('/p2p_purpose_session/phase-4/');
+    textEditor.flipWidgetVisibility();
+    beachWaves.teeUpBackToTheDepths();
+    Future.delayed(Seconds.get(3), () {
+      timer.markTimerAsComplete(NoParams());
+      Modular.to.navigate('/p2p_purpose_session/phase-4/');
+    });
     print("did it navigate to phase4");
   }
 
@@ -101,6 +103,8 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends BaseTimesUpStore
       fadingText.fadeTheTextOut();
       textEditor.flipWidgetVisibility();
     });
+
+    delayedNavigation(() => cleanUpAndTransition());
   }
 
   @override
