@@ -32,7 +32,7 @@ void main() {
     expect(res, isNotEmpty);
     expect(
         res.first["${theCollaboratorsNumber}_uid"], expectedCollaboratorsUID);
-    expect(res.first["${theCollaboratorsNumber}_is_online"], false);
+    expect(res.first["${theCollaboratorsNumber}_is_online"], true);
     expect(res.first[TimerInformationQueries.timerIsRunning], false);
   }
 
