@@ -62,7 +62,7 @@ void main() {
 
   test("user should be able to mark when they have completed the timer",
       () async {
-    await user1Queries.completeUserTimer();
+    await user1Queries.markTimerAsComplete();
     final timerResponse = await user1Queries.selectMostRecentTimer();
     final user = user1Queries.collaboratorInfo.theUsersCollaboratorNumber;
     final hasCompletedTimer = TimerInformationQueries.hasCompletedTimer;
@@ -96,8 +96,8 @@ void main() {
     test("stream should properly emit changes", () async {
       await updateUserPrecenceToTrue();
       await updateTimerRunningStatus(true);
-      await user1Queries.completeUserTimer();
-      await user2Queries.completeUserTimer();
+      await user1Queries.markTimerAsComplete();
+      await user2Queries.markTimerAsComplete();
       await decrementTwoSeconds();
 
       final stream = user1Stream.getStream();

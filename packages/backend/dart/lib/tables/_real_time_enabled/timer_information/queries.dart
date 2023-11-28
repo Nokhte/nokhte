@@ -29,7 +29,7 @@ class TimerInformationQueries extends CollaborativeQueries {
     }
   }
 
-  Future<void> completeUserTimer() async {
+  Future<void> markTimerAsComplete() async {
     await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     await supabase
         .from(tableName)
