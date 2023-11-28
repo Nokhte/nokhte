@@ -51,7 +51,6 @@ class MeshCirclePainter extends CustomPainter {
 
     theGlowPaint = Paint();
     if (glowOpacity > 0) {
-      print(glowOpacity);
       theGlowPaint.maskFilter = const MaskFilter.blur(BlurStyle.normal, 10.0);
       theGlowPaint.color = glowColor.withOpacity(glowOpacity);
     }
