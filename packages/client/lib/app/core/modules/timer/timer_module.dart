@@ -39,8 +39,8 @@ class TimerModule extends Module {
           ),
           export: true,
         ),
-        Bind.singleton<MarkdownTheTimer>(
-          (i) => MarkdownTheTimer(
+        Bind.singleton<MarkTimerAsComplete>(
+          (i) => MarkTimerAsComplete(
             contract: i<TimerContract>(),
           ),
           export: true,
@@ -68,7 +68,7 @@ class TimerModule extends Module {
             createTimer: i<CreateTimer>(),
             deleteTheTimer: i<DeleteTheTimer>(),
             getTimeInfoStream: i<GetTimerInformationStreamStore>(),
-            markdownTheTimer: i<MarkdownTheTimer>(),
+            markTimerAsComplete: i<MarkTimerAsComplete>(),
             updatePresence: i<UpdatePresence>(),
             updateTimerRunningStatus: i<UpdateTimerRunningStatus>(),
           ),
