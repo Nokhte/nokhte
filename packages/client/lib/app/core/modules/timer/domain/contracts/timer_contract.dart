@@ -14,7 +14,7 @@ abstract class TimerContract with DeleteTimerContractInterface {
   Future<Either<Failure, TimerRunningUpdateStatusEntity>>
       updateTimerRunningStatus(bool shouldRun);
 
-  Future<Either<Failure, TimerMarkdownStatusEntity>> markdownTheTimer(
+  Future<Either<Failure, TimerCompletionStatusEntity>> markTimerAsComplete(
       NoParams params);
 
   Future<Either<Failure, TimerInformationStreamEntity>>
