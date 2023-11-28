@@ -1,1 +1,1 @@
-export './text_editor_constants.dart';
+export 'text_editor_constants.dart';

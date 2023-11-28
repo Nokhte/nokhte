@@ -1,1 +1,1 @@
-export './scheduling_coordinator_store.dart';
+export 'scheduling_coordinator_store.dart';

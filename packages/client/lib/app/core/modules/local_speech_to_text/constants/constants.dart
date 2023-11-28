@@ -1,1 +1,1 @@
-export './types/types.dart';
+export 'types/types.dart';

@@ -1,1 +1,1 @@
-export './perspectives.dart';
+export 'perspectives.dart';

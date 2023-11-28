@@ -1,7 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:nokhte_backend/tables/_real_time_enabled/shared/shared.dart';
-import './types/types.dart';
+import types/types.dart';
 
 class WorkingPerspectivesPositioningStream extends CollaborativeQueries {
   bool isListening = false;

@@ -1,3 +1,3 @@
-export './hold.dart';
-export './swipe.dart';
-export './tap.dart';
+export 'hold.dart';
+export 'swipe.dart';
+export 'tap.dart';

@@ -1,1 +1,1 @@
-export './current_perspectives_entity.dart';
+export 'current_perspectives_entity.dart';

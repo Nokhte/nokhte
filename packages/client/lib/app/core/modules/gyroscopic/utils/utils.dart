@@ -1,1 +1,1 @@
-export './gyroscope_utils.dart';
+export 'gyroscope_utils.dart';

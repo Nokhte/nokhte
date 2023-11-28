@@ -1,1 +1,1 @@
-export './collective_purpose_entity.dart';
+export 'collective_purpose_entity.dart';

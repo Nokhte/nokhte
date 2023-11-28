@@ -1,1 +1,1 @@
-export './sky_colors.dart';
+export 'sky_colors.dart';

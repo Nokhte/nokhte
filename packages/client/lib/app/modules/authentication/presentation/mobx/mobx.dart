@@ -1,2 +1,2 @@
-export './getters/getters.dart';
-export './main/main.dart';
+export 'getters/getters.dart';
+export 'main/main.dart';

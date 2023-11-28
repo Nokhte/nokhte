@@ -1,1 +1,1 @@
-export './stack/stack.dart';
+export 'stack/stack.dart';

@@ -1,1 +1,1 @@
-export './abort_purpose_session_artifacts.dart';
+export 'abort_purpose_session_artifacts.dart';

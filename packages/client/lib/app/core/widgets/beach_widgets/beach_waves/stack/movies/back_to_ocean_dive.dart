@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:simple_animations/simple_animations.dart';
-
-import '../../../shared/data/water_colors_and_stops.dart';
 
 class BackToOceanDive {
   static MovieTween get movie => MovieTween()

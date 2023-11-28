@@ -1,1 +1,1 @@
-export './data/data.dart';
+export 'data/data.dart';

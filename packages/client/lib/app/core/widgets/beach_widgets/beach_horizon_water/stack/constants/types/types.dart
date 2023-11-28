@@ -1,1 +1,1 @@
-export './horizon_movie_modes.dart';
+export 'horizon_movie_modes.dart';

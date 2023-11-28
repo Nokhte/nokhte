@@ -1,4 +1,5 @@
-import '../../../shared/types/types.dart';
+
+import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 
 class TimeAllocator {
   static List<CustomDuration> generateDurations(

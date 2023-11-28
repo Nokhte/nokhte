@@ -1,1 +1,1 @@
-export './mobx/mobx.dart';
+export 'mobx/mobx.dart';

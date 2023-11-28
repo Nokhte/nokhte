@@ -1,1 +1,1 @@
-export './get_current_perspectives.dart';
+export 'get_current_perspectives.dart';

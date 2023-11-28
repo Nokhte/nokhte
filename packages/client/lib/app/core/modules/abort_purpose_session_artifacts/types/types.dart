@@ -1,1 +1,1 @@
-export './purpose_session_screens.dart';
+export 'purpose_session_screens.dart';

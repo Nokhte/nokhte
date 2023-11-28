@@ -1,1 +1,1 @@
-export './collaborative_queries.dart';
+export 'collaborative_queries.dart';

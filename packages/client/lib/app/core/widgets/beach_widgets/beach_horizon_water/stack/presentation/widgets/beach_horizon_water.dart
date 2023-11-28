@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
-import '../mobx/beach_horizon_water_tracker_store.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'canvas/beach_horizon_water_painter.dart';
 import 'package:simple_animations/simple_animations.dart';
 
@@ -22,8 +22,6 @@ class BeachHorizonWater extends StatelessWidget {
         tween: stateTrackerStore.movie,
         duration: stateTrackerStore.movie.duration,
         control: stateTrackerStore.control,
-        // onStarted: () => stateTrackerStore.startAndResetStopWatch(),
-        // onCompleted: () => stateTrackerStore.onAnimationCompleted(),
         builder: (context, value, child) {
           final rectHeight = size.height - value.get('water value');
           stateTrackerStore.setCurrentWaterValue(value.get('water value'));

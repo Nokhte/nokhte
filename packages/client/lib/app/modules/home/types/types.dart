@@ -1,1 +1,1 @@
-export './places_you_can_go.dart';
+export 'places_you_can_go.dart';

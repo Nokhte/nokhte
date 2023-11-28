@@ -1,1 +1,1 @@
-export './collective_purpose_model.dart';
+export 'collective_purpose_model.dart';

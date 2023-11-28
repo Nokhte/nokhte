@@ -1,1 +1,1 @@
-export './common_collaborative_test_functions.dart';
+export 'common_collaborative_test_functions.dart';

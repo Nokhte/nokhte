@@ -1,2 +1,2 @@
-export './mobx/mobx.dart';
+export 'mobx/mobx.dart';
 export 'widgets/widgets.dart';

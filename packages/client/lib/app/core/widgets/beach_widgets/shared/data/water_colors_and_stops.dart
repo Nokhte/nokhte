@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 
-import '../types/color_and_stop.dart';
 
 class WaterColorsAndStops {
   static List<ColorAndStop> get onShoreWater => const [

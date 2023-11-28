@@ -1,2 +1,2 @@
-export './general/general.dart';
-export './types/types.dart';
+export 'general/general.dart';
+export 'types/types.dart';

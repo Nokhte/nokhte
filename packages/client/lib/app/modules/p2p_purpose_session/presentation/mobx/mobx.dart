@@ -1,2 +1,2 @@
-export './coordinators/coordinators.dart';
-export './widgets/scheduling_widgets_coordinator_store.dart';
+export 'coordinators/coordinators.dart';
+export 'widgets/scheduling_widgets_coordinator_store.dart';
