@@ -71,6 +71,12 @@ class CollaborativeDocModule extends Module {
           ),
           export: true,
         ),
+        Bind.singleton<GetCollaborativeDocContentStore>(
+          (i) => GetCollaborativeDocContentStore(
+            logic: i<GetCollaborativeDocContent>(),
+          ),
+          export: true,
+        ),
         Bind.singleton<CollaborativeDocCoordinator>(
           (i) => CollaborativeDocCoordinator(
             updateCommitDesire: i<UpdateCommitDesireStatus>(),
