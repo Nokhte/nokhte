@@ -24,11 +24,11 @@ class SoloTextEditor extends StatefulWidget {
 }
 
 class _SoloTextEditorState extends State<SoloTextEditor> {
-  @override
-  void dispose() {
-    super.dispose();
-    widget.trackerStore.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   widget.trackerStore.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
