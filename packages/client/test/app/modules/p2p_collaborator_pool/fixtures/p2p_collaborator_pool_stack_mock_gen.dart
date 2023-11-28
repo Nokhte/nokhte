@@ -4,7 +4,6 @@ import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/data/data.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/domain.dart';
-import 'package:nokhte/app/modules/p2p_collaborator_pool/presentation/presentation.dart';
 
 class MP2PCollaboratorPoolRemoteSourceImpl extends Mock
     implements P2PCollaboratorPoolRemoteSourceImpl {}
@@ -12,38 +11,26 @@ class MP2PCollaboratorPoolRemoteSourceImpl extends Mock
 class MP2PCollaboratorPoolContract extends Mock
     implements P2PCollaboratorPoolContract {}
 
-class MEnterCollaboratorPool extends Mock implements EnterCollaboratorPool {}
+class MCancelCollaboratorStream extends Mock
+    implements CancelCollaboratorStream {}
 
-class MValidateQuery extends Mock implements ValidateQuery {}
+class MEnterCollaboratorPool extends Mock implements EnterCollaboratorPool {}
 
 class MExitCollaboratorPool extends Mock implements ExitCollaboratorPool {}
 
-class MCancelCollaboratorStreamGetterStore extends Mock
-    implements CancelCollaboratorStreamGetterStore {}
+class MGetCollaboratorSearchStatus extends Mock
+    implements GetCollaboratorSearchStatus {}
 
-class MEnterCollaboratorPoolGetterStore extends Mock
-    implements EnterCollaboratorPoolGetterStore {}
-
-class MExitCollaboratorPoolGetterStore extends Mock
-    implements ExitCollaboratorPoolGetterStore {}
-
-class MGetCollaboratorSearchStatusGetterStore extends Mock
-    implements GetCollaboratorSearchStatusGetterStore {}
-
-class MValidateQueryGetterStore extends Mock
-    implements ValidateQueryGetterStore {}
+class MValidateQuery extends Mock implements ValidateQuery {}
 
 @GenerateMocks([
   MP2PCollaboratorPoolRemoteSourceImpl,
+  MP2PCollaboratorPoolContract,
+  MCancelCollaboratorStream,
   MEnterCollaboratorPool,
   MExitCollaboratorPool,
+  MGetCollaboratorSearchStatus,
   MValidateQuery,
-  MP2PCollaboratorPoolContract,
-  MCancelCollaboratorStreamGetterStore,
-  MEnterCollaboratorPoolGetterStore,
-  MExitCollaboratorPoolGetterStore,
-  MGetCollaboratorSearchStatusGetterStore,
-  MValidateQueryGetterStore,
 ])
 @GenerateNiceMocks([
   MockSpec<P2PCollaboratorPoolRemoteSource>(),
