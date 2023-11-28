@@ -61,7 +61,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
       timerUICallback: initOrPauseTimesUp,
       onBothCollaboratorTimersCompleted: cleanUpAndTransition,
     );
-    await timer.setOnlineStatus(true);
+    // await timer.setOnlineStatus(true);
     foregroundAndBackgroundStateListener(
       resumedCallback: () async => await timer.setOnlineStatus(true),
       inactiveCallback: () async => await timer.setOnlineStatus(false),
@@ -130,15 +130,13 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
           if (beachWaves.movieStatus == MovieStatus.finished) {
             beachWaves.teeUpBackToTheDepths();
             Future.delayed(Seconds.get(3), () async {
-              // todo add this
-              // await timer.userHasCompletedtimer
+              await timer.markTimerAsComplete(NoParams());
             });
           } else if (beachWaves.movieStatus == MovieStatus.inProgress) {
             delayedNavigation(() {
               beachWaves.teeUpBackToTheDepths();
               Future.delayed(Seconds.get(3), () async {
-                // todo add has Completed timer
-                // await cleanUpAndTransition();
+                await timer.markTimerAsComplete(NoParams());
               });
             });
           }
