@@ -16,6 +16,7 @@ import 'package:nokhte/app/core/mobx/base_future_store.dart' as _i9;
 import 'package:nokhte/app/core/mobx/store_state.dart' as _i15;
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart' as _i8;
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart' as _i4;
+import 'package:nokhte/app/core/types/types.dart' as _i16;
 import 'package:nokhte_backend/tables/existing_collaborations.dart' as _i3;
 import 'package:supabase_flutter/supabase_flutter.dart' as _i2;
 
@@ -162,6 +163,48 @@ class _FakeGetChannelId_11 extends _i1.SmartFake implements _i8.GetChannelId {
 class _FakeInstantiateAgoraSdk_12 extends _i1.SmartFake
     implements _i8.InstantiateAgoraSdk {
   _FakeInstantiateAgoraSdk_12(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeJoinCall_13 extends _i1.SmartFake implements _i8.JoinCall {
+  _FakeJoinCall_13(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeLeaveCall_14 extends _i1.SmartFake implements _i8.LeaveCall {
+  _FakeLeaveCall_14(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeMuteLocalAudio_15 extends _i1.SmartFake
+    implements _i8.MuteLocalAudio {
+  _FakeMuteLocalAudio_15(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeUnmuteLocalAudio_16 extends _i1.SmartFake
+    implements _i8.UnmuteLocalAudio {
+  _FakeUnmuteLocalAudio_16(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -1310,4 +1353,184 @@ class MockMVoiceCallActionsStore extends _i1.Mock
   MockMVoiceCallActionsStore() {
     _i1.throwOnMissingStub(this);
   }
+
+  @override
+  _i8.JoinCall get joinCall => (super.noSuchMethod(
+        Invocation.getter(#joinCall),
+        returnValue: _FakeJoinCall_13(
+          this,
+          Invocation.getter(#joinCall),
+        ),
+      ) as _i8.JoinCall);
+
+  @override
+  _i8.LeaveCall get leaveCall => (super.noSuchMethod(
+        Invocation.getter(#leaveCall),
+        returnValue: _FakeLeaveCall_14(
+          this,
+          Invocation.getter(#leaveCall),
+        ),
+      ) as _i8.LeaveCall);
+
+  @override
+  _i8.MuteLocalAudio get muteAudio => (super.noSuchMethod(
+        Invocation.getter(#muteAudio),
+        returnValue: _FakeMuteLocalAudio_15(
+          this,
+          Invocation.getter(#muteAudio),
+        ),
+      ) as _i8.MuteLocalAudio);
+
+  @override
+  _i8.UnmuteLocalAudio get unmuteAudio => (super.noSuchMethod(
+        Invocation.getter(#unmuteAudio),
+        returnValue: _FakeUnmuteLocalAudio_16(
+          this,
+          Invocation.getter(#unmuteAudio),
+        ),
+      ) as _i8.UnmuteLocalAudio);
+
+  @override
+  _i16.CallStatus get callStatus => (super.noSuchMethod(
+        Invocation.getter(#callStatus),
+        returnValue: _i16.CallStatus.initial,
+      ) as _i16.CallStatus);
+
+  @override
+  set callStatus(_i16.CallStatus? value) => super.noSuchMethod(
+        Invocation.setter(
+          #callStatus,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get isMuted => (super.noSuchMethod(
+        Invocation.getter(#isMuted),
+        returnValue: false,
+      ) as bool);
+
+  @override
+  set isMuted(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #isMuted,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+      ) as List<Object>);
+
+  @override
+  _i15.StoreState get state => (super.noSuchMethod(
+        Invocation.getter(#state),
+        returnValue: _i15.StoreState.initial,
+      ) as _i15.StoreState);
+
+  @override
+  set state(_i15.StoreState? value) => super.noSuchMethod(
+        Invocation.setter(
+          #state,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  String get errorMessage => (super.noSuchMethod(
+        Invocation.getter(#errorMessage),
+        returnValue: '',
+      ) as String);
+
+  @override
+  set errorMessage(String? value) => super.noSuchMethod(
+        Invocation.setter(
+          #errorMessage,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i10.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_9(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i10.ReactiveContext);
+
+  @override
+  dynamic audioStateOrErrorUpdater(
+          _i7.Either<_i13.Failure, _i8.LocalAudioStreamStatusEntity>? result) =>
+      super.noSuchMethod(Invocation.method(
+        #audioStateOrErrorUpdater,
+        [result],
+      ));
+
+  @override
+  dynamic callStateOrErrorUpdater(
+          _i7.Either<_i13.Failure, _i8.CallStatusEntity>? result) =>
+      super.noSuchMethod(Invocation.method(
+        #callStateOrErrorUpdater,
+        [result],
+      ));
+
+  @override
+  _i12.Future<void> muteOrUnmuteAudio({required bool? wantToMute}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #muteOrUnmuteAudio,
+          [],
+          {#wantToMute: wantToMute},
+        ),
+        returnValue: _i12.Future<void>.value(),
+        returnValueForMissingStub: _i12.Future<void>.value(),
+      ) as _i12.Future<void>);
+
+  @override
+  _i12.Future<void> enterOrLeaveCall(
+          _i7.Either<_i14.NoParams, _i8.JoinCallParams>? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #enterOrLeaveCall,
+          [params],
+        ),
+        returnValue: _i12.Future<void>.value(),
+        returnValueForMissingStub: _i12.Future<void>.value(),
+      ) as _i12.Future<void>);
+
+  @override
+  String mapFailureToMessage(_i13.Failure? failure) => (super.noSuchMethod(
+        Invocation.method(
+          #mapFailureToMessage,
+          [failure],
+        ),
+        returnValue: '',
+      ) as String);
+
+  @override
+  void stateOrErrorUpdater(_i7.Either<_i13.Failure, dynamic>? result) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #stateOrErrorUpdater,
+          [result],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i12.Future<void> call(dynamic params) => (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i12.Future<void>.value(),
+        returnValueForMissingStub: _i12.Future<void>.value(),
+      ) as _i12.Future<void>);
 }
