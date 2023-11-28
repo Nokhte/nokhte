@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
-class PresenceAndTimeRemaining extends Equatable {
-  final double remainingTimeInMilliseconds;
+class PresenceAndTimerCompletion extends Equatable {
   final bool usersPresence;
   final bool collaboratorsPresence;
   final bool timerIsRunning;
+  final bool bothCollaboratorsAreReadyToMoveOn;
 
-  PresenceAndTimeRemaining({
-    required this.remainingTimeInMilliseconds,
+  PresenceAndTimerCompletion({
+    required this.bothCollaboratorsAreReadyToMoveOn,
     required this.usersPresence,
     required this.collaboratorsPresence,
     required this.timerIsRunning,
@@ -15,8 +15,9 @@ class PresenceAndTimeRemaining extends Equatable {
 
   @override
   List<Object> get props => [
-        remainingTimeInMilliseconds,
         usersPresence,
         collaboratorsPresence,
+        timerIsRunning,
+        bothCollaboratorsAreReadyToMoveOn,
       ];
 }
