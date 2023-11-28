@@ -89,21 +89,29 @@ mixin _$TimerCoordinator on _TimerCoordinatorBase, Store {
       context: context);
 
   @override
-  Future setupAndStreamListenerActivation(
-      CreateTimerParams params, dynamic Function(bool) callback) {
-    return _$setupAndStreamListenerActivationAsyncAction
-        .run(() => super.setupAndStreamListenerActivation(params, callback));
+  Future setupAndStreamListenerActivation(CreateTimerParams params,
+      {required dynamic Function(bool) timerUICallback,
+      required Function onBothCollaboratorTimersCompleted}) {
+    return _$setupAndStreamListenerActivationAsyncAction.run(() => super
+        .setupAndStreamListenerActivation(params,
+            timerUICallback: timerUICallback,
+            onBothCollaboratorTimersCompleted:
+                onBothCollaboratorTimersCompleted));
   }
 
   late final _$_TimerCoordinatorBaseActionController =
       ActionController(name: '_TimerCoordinatorBase', context: context);
 
   @override
-  dynamic timerInfoStreamListener(dynamic Function(bool) initOrPauseCallback) {
+  dynamic timerInfoStreamListener(
+      {required dynamic Function(bool) initOrPauseUITimer,
+      required Function onBothCollaboratorTimersCompleted}) {
     final _$actionInfo = _$_TimerCoordinatorBaseActionController.startAction(
         name: '_TimerCoordinatorBase.timerInfoStreamListener');
     try {
-      return super.timerInfoStreamListener(initOrPauseCallback);
+      return super.timerInfoStreamListener(
+          initOrPauseUITimer: initOrPauseUITimer,
+          onBothCollaboratorTimersCompleted: onBothCollaboratorTimersCompleted);
     } finally {
       _$_TimerCoordinatorBaseActionController.endAction(_$actionInfo);
     }

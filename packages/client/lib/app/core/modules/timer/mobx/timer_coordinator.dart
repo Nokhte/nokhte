@@ -5,7 +5,6 @@ import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/timer/domain/logic/logic.dart';
-import 'package:nokhte/app/core/types/types.dart';
 import 'get_timer_information_stream_store.dart';
 part 'timer_coordinator.g.dart';
 
@@ -47,41 +46,42 @@ abstract class _TimerCoordinatorBase extends Equatable with Store {
   bool shouldCancelTimer = false;
 
   @action
-  timerInfoStreamListener(Function(bool) initOrPauseCallback) =>
-      getTimeInfoStream.timerInformationStream.listen((value) {
-        Timer theTimerVal = Timer.periodic(Seconds.get(0), (timer) {});
-        currentTimeLeft = value.remainingTimeInMilliseconds;
+  timerInfoStreamListener({
+    required Function(bool) initOrPauseUITimer,
+    required Function onBothCollaboratorTimersCompleted,
+  }) =>
+      getTimeInfoStream.timerInformationStream.listen((value) async {
         if (value.collaboratorsPresence &&
             value.usersPresence &&
             value.timerIsRunning) {
-          if (currentTimeLeft != value.remainingTimeInMilliseconds ||
-              isFirstTime) {
-            initOrPauseCallback(true);
-            theTimerVal = Timer.periodic(Seconds.get(1), (theTimer) async {
-              await markdownTheTimer(NoParams());
-              isFirstTime = false;
-              if (shouldCancelTimer) {
-                theTimer.cancel();
-              }
-            });
+          if (isFirstTime) {
+            initOrPauseUITimer(true);
+            await setOnlineStatus(true);
           }
         } else if (!value.collaboratorsPresence ||
             !value.usersPresence ||
             !value.timerIsRunning) {
-          shouldCancelTimer = true;
-          initOrPauseCallback(false);
-          theTimerVal.cancel();
+          initOrPauseUITimer(false);
           isFirstTime = true;
+        }
+
+        if (value.bothCollaboratorsAreReadyToMoveOn) {
+          onBothCollaboratorTimersCompleted();
         }
       });
 
   @action
   setupAndStreamListenerActivation(
-      CreateTimerParams params, Function(bool) callback) async {
+    CreateTimerParams params, {
+    required Function(bool) timerUICallback,
+    required Function onBothCollaboratorTimersCompleted,
+  }) async {
     await createTheTimer(params);
-    await setOnlineStatus(true);
     await getTimerInformationStream();
-    timerInfoStreamListener(callback);
+    timerInfoStreamListener(
+      initOrPauseUITimer: timerUICallback,
+      onBothCollaboratorTimersCompleted: onBothCollaboratorTimersCompleted,
+    );
   }
 
   @override
