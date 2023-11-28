@@ -58,63 +58,34 @@ class P2PCollaboratorPoolModule extends Module {
             contract: i<P2PCollaboratorPoolContract>(),
           ),
         ),
-        Bind.singleton<EnterCollaboratorPoolGetterStore>(
-          (i) => EnterCollaboratorPoolGetterStore(
-            enterPoolLogic: i<EnterCollaboratorPool>(),
-          ),
-        ),
-        Bind.singleton<ExitCollaboratorPoolGetterStore>(
-          (i) => ExitCollaboratorPoolGetterStore(
-            exitPoolLogic: i<ExitCollaboratorPool>(),
-          ),
-        ),
-        Bind.singleton<ValidateQueryGetterStore>(
-          (i) => ValidateQueryGetterStore(
-            validateQueryLogic: i<ValidateQuery>(),
-          ),
-        ),
-        Bind.singleton<GetCollaboratorSearchStatusGetterStore>(
-          (i) => GetCollaboratorSearchStatusGetterStore(
-            collaboratorSearchStatusLogic: i<GetCollaboratorSearchStatus>(),
-          ),
-        ),
-        Bind.singleton<CancelCollaboratorStreamGetterStore>(
-          (i) => CancelCollaboratorStreamGetterStore(
-            cancelStreamLogic: i<CancelCollaboratorStream>(),
-          ),
-        ),
         Bind.singleton<EnterCollaboratorPoolStore>(
           (i) => EnterCollaboratorPoolStore(
-            enterCollaboratorPoolGetterStore:
-                i<EnterCollaboratorPoolGetterStore>(),
+            logic: i<EnterCollaboratorPool>(),
           ),
         ),
         Bind.singleton<ExitCollaboratorPoolStore>(
           (i) => ExitCollaboratorPoolStore(
-            exitCollaboratorPoolGetterStore:
-                i<ExitCollaboratorPoolGetterStore>(),
+            logic: i<ExitCollaboratorPool>(),
           ),
         ),
         Bind.singleton<ValidateQueryStore>(
           (i) => ValidateQueryStore(
-            validateQueryGetterStore: i<ValidateQueryGetterStore>(),
+            logic: i<ValidateQuery>(),
           ),
         ),
         Bind.singleton<GetCollaboratorSearchStatusStore>(
           (i) => GetCollaboratorSearchStatusStore(
-            collaboratorSearchStatusGetter:
-                i<GetCollaboratorSearchStatusGetterStore>(),
+            logic: i<GetCollaboratorSearchStatus>(),
           ),
         ),
         Bind.singleton<CancelCollaboratorStreamStore>(
           (i) => CancelCollaboratorStreamStore(
-            getterStore: i<CancelCollaboratorStreamGetterStore>(),
+            logic: i<CancelCollaboratorStream>(),
           ),
         ),
         Bind.factory<SmartFadingAnimatedTextTrackerStore>(
           (i) => SmartFadingAnimatedTextTrackerStore(
             isInfinite: false,
-            // messagesDataParam: MessagesData.speakTheCollaboratorPhraseList,
           ),
         ),
         Bind.singleton<ExplanationTextStore>(
