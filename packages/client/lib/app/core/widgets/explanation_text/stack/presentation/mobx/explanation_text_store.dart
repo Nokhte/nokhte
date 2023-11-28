@@ -16,8 +16,12 @@ abstract class _ExplanationTextStoreBase extends BaseTextEditorStore
   bool showWidget = false;
 
   @action
-  widgetConstructor() =>
-      Future.delayed(Seconds.get(1), () => toggleWidgetVisibility());
+  widgetConstructor({String message = ""}) {
+    if (message.isNotEmpty) {
+      setText(message);
+    }
+    Future.delayed(Seconds.get(1), () => toggleWidgetVisibility());
+  }
 
   @action
   toggleWidgetVisibility() => showWidget = !showWidget;

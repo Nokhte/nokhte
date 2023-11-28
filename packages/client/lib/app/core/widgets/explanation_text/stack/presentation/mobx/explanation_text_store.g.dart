@@ -29,11 +29,11 @@ mixin _$ExplanationTextStore on _ExplanationTextStoreBase, Store {
       ActionController(name: '_ExplanationTextStoreBase', context: context);
 
   @override
-  dynamic widgetConstructor() {
+  dynamic widgetConstructor({String message = ""}) {
     final _$actionInfo = _$_ExplanationTextStoreBaseActionController
         .startAction(name: '_ExplanationTextStoreBase.widgetConstructor');
     try {
-      return super.widgetConstructor();
+      return super.widgetConstructor(message: message);
     } finally {
       _$_ExplanationTextStoreBaseActionController.endAction(_$actionInfo);
     }
