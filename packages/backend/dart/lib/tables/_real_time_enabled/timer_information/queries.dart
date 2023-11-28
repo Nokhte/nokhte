@@ -4,7 +4,8 @@ class TimerInformationQueries extends CollaborativeQueries {
   static const tableName = "timer_information";
   static const isOnline = "is_online";
   static const timerIsRunning = "timer_is_running";
-  static const timeRemainingInMilliseconds = "time_remaining_in_milliseconds";
+  static const hasCompletedTimer = "has_completed_timer";
+  // static const timeRemainingInMilliseconds = "time_remaining_in_milliseconds";
   static const createdAt = "created_at";
 
   TimerInformationQueries({required super.supabase});
@@ -21,11 +22,29 @@ class TimerInformationQueries extends CollaborativeQueries {
             collaboratorInfo.theCollaboratorsUID,
         "${collaboratorInfo.theUsersCollaboratorNumber}_uid":
             collaboratorInfo.theUsersUID,
-        timeRemainingInMilliseconds: timerLengthInMilliseconds,
+        // timeRemainingInMilliseconds: timerLengthInMilliseconds,
       }).select();
     } else {
       return checkRes;
     }
+  }
+
+  Future<void> completeUserTimer() async {
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await supabase
+        .from(tableName)
+        .update({
+          "${collaboratorInfo.theUsersCollaboratorNumber}_$hasCompletedTimer":
+              true,
+        })
+        .eq(
+          "${collaboratorInfo.theCollaboratorsNumber}_uid",
+          collaboratorInfo.theCollaboratorsUID,
+        )
+        .eq(
+          "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
+          collaboratorInfo.theUsersUID,
+        );
   }
 
   Future<void> deleteTheTimer() async {
@@ -96,24 +115,24 @@ class TimerInformationQueries extends CollaborativeQueries {
   }
 
   Future<void> markDownTheTimer() async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
-    final double pastClockVal = (await selectMostRecentTimer())
-        .first[timeRemainingInMilliseconds]
-        .toDouble();
+    // await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    // final double pastClockVal = (await selectMostRecentTimer())
+    //     .first[timeRemainingInMilliseconds]
+    //     .toDouble();
 
-    final double newClockVal = pastClockVal - 1000;
-    await supabase
-        .from(tableName)
-        .update({
-          timeRemainingInMilliseconds: newClockVal,
-        })
-        .eq(
-          "${collaboratorInfo.theCollaboratorsNumber}_uid",
-          collaboratorInfo.theCollaboratorsUID,
-        )
-        .eq(
-          "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
-          collaboratorInfo.theUsersUID,
-        );
+    // final double newClockVal = pastClockVal - 1000;
+    // await supabase
+    //     .from(tableName)
+    //     .update({
+    //       timeRemainingInMilliseconds: newClockVal,
+    //     })
+    //     .eq(
+    //       "${collaboratorInfo.theCollaboratorsNumber}_uid",
+    //       collaboratorInfo.theCollaboratorsUID,
+    //     )
+    //     .eq(
+    //       "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
+    //       collaboratorInfo.theUsersUID,
+    //     );
   }
 }

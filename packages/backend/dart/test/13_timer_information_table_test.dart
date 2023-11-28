@@ -39,10 +39,6 @@ void main() {
         res.first["${theCollaboratorsNumber}_uid"], expectedCollaboratorsUID);
     expect(res.first["${theCollaboratorsNumber}_is_online"], false);
     expect(res.first[TimerInformationQueries.timerIsRunning], false);
-    expect(
-      res.first[TimerInformationQueries.timeRemainingInMilliseconds],
-      3000.0,
-    );
   }
 
   setUpAll(() async {
@@ -62,6 +58,15 @@ void main() {
     final res =
         await user1Queries.createNewTimer(timerLengthInMilliseconds: 3000.0);
     initialTimerExpectationSuite(res);
+  });
+
+  test("user should be able to mark when they have completed the timer",
+      () async {
+    await user1Queries.completeUserTimer();
+    final timerResponse = await user1Queries.selectMostRecentTimer();
+    final user = user1Queries.collaboratorInfo.theUsersCollaboratorNumber;
+    final hasCompletedTimer = TimerInformationQueries.hasCompletedTimer;
+    expect(timerResponse.first["${user}_$hasCompletedTimer"], true);
   });
 
   group("assumes timer row as been created", () {
@@ -88,27 +93,20 @@ void main() {
       expect(res.first[TimerInformationQueries.timerIsRunning], true);
     });
 
-    test("when both users are online the clock winds down", () async {
-      await updateUserPrecenceToTrue();
-      await decrementTwoSeconds();
-      final int res = (await user1Queries.selectMostRecentTimer())
-          .first[TimerInformationQueries.timeRemainingInMilliseconds];
-      print(res);
-      expect(res, 1000.0);
-    });
-
     test("stream should properly emit changes", () async {
       await updateUserPrecenceToTrue();
       await updateTimerRunningStatus(true);
+      await user1Queries.completeUserTimer();
+      await user2Queries.completeUserTimer();
       await decrementTwoSeconds();
 
       final stream = user1Stream.getStream();
       expect(
         stream,
         emits(
-          PresenceAndTimeRemaining(
+          PresenceAndTimerCompletion(
             timerIsRunning: true,
-            remainingTimeInMilliseconds: 1000.0,
+            bothCollaboratorsAreReadyToMoveOn: true,
             usersPresence: true,
             collaboratorsPresence: true,
           ),

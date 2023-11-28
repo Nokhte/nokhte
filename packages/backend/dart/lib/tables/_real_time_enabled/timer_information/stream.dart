@@ -11,13 +11,19 @@ class TimerInformationStreams extends CollaborativeQueries {
     isLisening = false;
   }
 
-  Stream<PresenceAndTimeRemaining> getStream() async* {
+  Stream<PresenceAndTimerCompletion> getStream() async* {
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     bool isListening = true;
-    String remainingTime = TimerInformationQueries.timeRemainingInMilliseconds;
+    String hasCompletedTimer = TimerInformationQueries.hasCompletedTimer;
     String timerIsRunning = TimerInformationQueries.timerIsRunning;
     String isOnline = TimerInformationQueries.isOnline;
+    String user = collaboratorInfo.theUsersCollaboratorNumber;
+    String collaborator = collaboratorInfo.theCollaboratorsNumber;
+    String userHasCompletedTimer = "${user}_$hasCompletedTimer";
+    String collaboratorHasCompletedTimer = "${collaborator}_$hasCompletedTimer";
+    String userIsOnline = "${user}_$isOnline";
+    String collaboratorIsOnline = "${collaborator}_$isOnline";
 
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     await for (var event in supabase
         .from(
       TimerInformationQueries.tableName,
@@ -30,19 +36,21 @@ class TimerInformationStreams extends CollaborativeQueries {
         return;
       }
       if (event.isEmpty) {
-        yield PresenceAndTimeRemaining(
-          remainingTimeInMilliseconds: -1,
+        yield PresenceAndTimerCompletion(
+          bothCollaboratorsAreReadyToMoveOn: false,
           usersPresence: false,
           collaboratorsPresence: false,
           timerIsRunning: false,
         );
       } else {
-        yield PresenceAndTimeRemaining(
-            remainingTimeInMilliseconds: event.first[remainingTime].toDouble(),
-            usersPresence: event.first[
-                "${collaboratorInfo.theUsersCollaboratorNumber}_$isOnline"],
-            collaboratorsPresence: event
-                .first["${collaboratorInfo.theCollaboratorsNumber}_$isOnline"],
+        final bothCollaboratorsHaveCompletedTimer =
+            event.first[userHasCompletedTimer] &&
+                event.first[collaboratorHasCompletedTimer];
+        yield PresenceAndTimerCompletion(
+            usersPresence: event.first[userIsOnline],
+            collaboratorsPresence: event.first[collaboratorIsOnline],
+            bothCollaboratorsAreReadyToMoveOn:
+                bothCollaboratorsHaveCompletedTimer,
             timerIsRunning: event.first[timerIsRunning]);
       }
     }
