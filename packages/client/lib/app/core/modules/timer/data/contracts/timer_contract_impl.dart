@@ -58,11 +58,11 @@ class TimerContractImpl implements TimerContract {
   }
 
   @override
-  Future<Either<Failure, TimerMarkdownStatusEntity>> markdownTheTimer(
+  Future<Either<Failure, TimerCompletionStatusEntity>> markTimerAsComplete(
       NoParams params) async {
     if (await networkInfo.isConnected) {
-      await remoteSource.markdownTheTimer(params);
-      return const Right(TimerMarkdownStatusModel(isMarkedDown: true));
+      await remoteSource.markTimerAsComplete(params);
+      return const Right(TimerCompletionStatusModel(isCompleted: true));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
