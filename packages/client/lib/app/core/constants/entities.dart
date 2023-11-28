@@ -229,9 +229,9 @@ class DefaultEntities {
   static Stream<PresenceAndTimerCompletion> get timerInformationStream =>
       const Stream.empty();
 
-  static Either<Failure, TimerMarkdownStatusEntity>
+  static Either<Failure, TimerCompletionStatusEntity>
       get timerMarkdownStatusEntity =>
-          const Right(TimerMarkdownStatusEntity(isMarkedDown: false));
+          const Right(TimerCompletionStatusEntity(isCompleted: false));
 
   static Either<Failure, TimerRunningUpdateStatusEntity>
       get timerRunningUpdateStatusEntity =>
