@@ -13,6 +13,13 @@ class PresenceAndTimerCompletion extends Equatable {
     required this.timerIsRunning,
   });
 
+  bool isDefault() {
+    return !usersPresence &&
+        !collaboratorsPresence &&
+        !timerIsRunning &&
+        !bothCollaboratorsAreReadyToMoveOn;
+  }
+
   @override
   List<Object> get props => [
         usersPresence,
