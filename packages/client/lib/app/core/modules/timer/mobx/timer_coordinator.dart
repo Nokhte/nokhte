@@ -14,7 +14,7 @@ abstract class _TimerCoordinatorBase extends Equatable with Store {
   final GetTimerInformationStreamStore getTimeInfoStream;
   final CreateTimer createTimer;
   final DeleteTheTimer deleteTheTimer;
-  final MarkdownTheTimer markdownTheTimer;
+  final MarkTimerAsComplete markTimerAsComplete;
   final UpdatePresence updatePresence;
   final UpdateTimerRunningStatus updateTimerRunningStatus;
 
@@ -22,7 +22,7 @@ abstract class _TimerCoordinatorBase extends Equatable with Store {
     required this.createTimer,
     required this.deleteTheTimer,
     required this.getTimeInfoStream,
-    required this.markdownTheTimer,
+    required this.markTimerAsComplete,
     required this.updatePresence,
     required this.updateTimerRunningStatus,
   });
