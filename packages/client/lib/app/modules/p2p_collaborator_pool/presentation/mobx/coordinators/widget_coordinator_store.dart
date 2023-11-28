@@ -36,10 +36,10 @@ abstract class _WidgetCoordinatorStoreBase extends Equatable with Store {
     if (isFirstTime) {
       fadingText.setMessagesData(MessagesData.speakTheCollaboratorPhraseList);
       fadingText.startRotatingText(Seconds.get(0));
-      explanationText.widgetConstructor(message: "hold to talk");
       toggleIsFirstTime();
     }
-    explanationText.widgetConstructor();
+    // explanationText.widgetConstructor();
+    explanationText.widgetConstructor(message: "hold to talk");
     meshCircleButtonStore.widgetConstructor();
     beachWavesStore.initiateSuspendedAtSea();
     if (!fadingText.showText && !fadingText.firstTime) {
@@ -71,6 +71,7 @@ abstract class _WidgetCoordinatorStoreBase extends Equatable with Store {
         beachWavesStore.movieMode == BeachWaveMovieModes.suspendedAtSea) {
       beachWavesStore.initiateToTheDepths();
       fadingText.fadeTheTextOut();
+      fadeOutExplanationTextIfNecessary();
       meshCircleButtonStore.toggleWidgetVisibility();
     }
   }
