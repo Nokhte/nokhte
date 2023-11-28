@@ -29,24 +29,6 @@ mixin _$P2PPurposePhase4CoordinatorStore
     return _$screenConstructorAsyncAction.run(() => super.screenConstructor());
   }
 
-  late final _$_P2PPurposePhase4CoordinatorStoreBaseActionController =
-      ActionController(
-          name: '_P2PPurposePhase4CoordinatorStoreBase', context: context);
-
-  @override
-  dynamic beachWavesMovieStatusListener() {
-    final _$actionInfo =
-        _$_P2PPurposePhase4CoordinatorStoreBaseActionController.startAction(
-            name:
-                '_P2PPurposePhase4CoordinatorStoreBase.beachWavesMovieStatusListener');
-    try {
-      return super.beachWavesMovieStatusListener();
-    } finally {
-      _$_P2PPurposePhase4CoordinatorStoreBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
   @override
   String toString() {
     return '''
