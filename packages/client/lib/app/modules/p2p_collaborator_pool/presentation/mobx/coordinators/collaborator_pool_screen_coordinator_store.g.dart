@@ -10,10 +10,43 @@ part of 'collaborator_pool_screen_coordinator_store.dart';
 
 mixin _$CollaboratorPoolScreenCoordinatorStore
     on _CollaboratorPoolScreenCoordinatorStoreBase, Store {
+  late final _$canEnterTheCollaborationAtom = Atom(
+      name:
+          '_CollaboratorPoolScreenCoordinatorStoreBase.canEnterTheCollaboration',
+      context: context);
+
+  @override
+  bool get canEnterTheCollaboration {
+    _$canEnterTheCollaborationAtom.reportRead();
+    return super.canEnterTheCollaboration;
+  }
+
+  @override
+  set canEnterTheCollaboration(bool value) {
+    _$canEnterTheCollaborationAtom
+        .reportWrite(value, super.canEnterTheCollaboration, () {
+      super.canEnterTheCollaboration = value;
+    });
+  }
+
   late final _$_CollaboratorPoolScreenCoordinatorStoreBaseActionController =
       ActionController(
           name: '_CollaboratorPoolScreenCoordinatorStoreBase',
           context: context);
+
+  @override
+  dynamic toggleCanEnterTheCollaboration() {
+    final _$actionInfo =
+        _$_CollaboratorPoolScreenCoordinatorStoreBaseActionController.startAction(
+            name:
+                '_CollaboratorPoolScreenCoordinatorStoreBase.toggleCanEnterTheCollaboration');
+    try {
+      return super.toggleCanEnterTheCollaboration();
+    } finally {
+      _$_CollaboratorPoolScreenCoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic screenConstructorCallback() {
@@ -32,7 +65,7 @@ mixin _$CollaboratorPoolScreenCoordinatorStore
   @override
   String toString() {
     return '''
-
+canEnterTheCollaboration: ${canEnterTheCollaboration}
     ''';
   }
 }

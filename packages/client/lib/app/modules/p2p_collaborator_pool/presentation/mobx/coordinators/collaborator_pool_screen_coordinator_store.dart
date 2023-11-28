@@ -74,9 +74,11 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
             beachWaves.teeUpBackToTheDepths();
             fadeInAndColorTextStore.teeUpFadeOut();
             Future.delayed(Seconds.get(3), () async {
-              Modular.to.navigate('/p2p_purpose_session/');
-              await existingCollaborations
-                  .updateIndividualCollaboratorEntryStatus(true);
+              if (canEnterTheCollaboration) {
+                Modular.to.navigate('/p2p_purpose_session/');
+                await existingCollaborations
+                    .updateIndividualCollaboratorEntryStatus(true);
+              }
             });
           }
         });
@@ -89,12 +91,11 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
       timerLength: duration,
     );
     Future.delayed(duration, () async {
-      if (!canEnterTheCollaboration) {
+      if (canEnterTheCollaboration == false) {
+        print("is the transition to speak happening??");
         await cleanUpAndTransitionBackToOceanDive();
       }
     });
-
-    // beachWavesMovieStatusListener();
     getCollaboratorSearchStatusStore();
     searchStatusListener();
   }
