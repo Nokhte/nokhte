@@ -23,7 +23,7 @@ dependencies:
   flutter_compass: ^0.8.0
   flutter_dotenv: ^5.1.0
   flutter_launcher_icons: ^0.13.1
-  flutter_mobx: ^2.0.6+5
+  flutter_mobx: ^2.2.0
   flutter_modular: ^5.0.3
   flutter_platform_widgets: ^3.3.5
   flutter_voice_processor: ^1.1.0
@@ -36,7 +36,7 @@ dependencies:
   matrix4_transform: ^2.0.1
   mesh_gradient: ^1.1.5
   meta: ^1.9.1
-  mobx: ^2.2.0
+  mobx: ^2.2.1
   nokhte_backend:
     path: ../backend/dart
   nokhte_core:
