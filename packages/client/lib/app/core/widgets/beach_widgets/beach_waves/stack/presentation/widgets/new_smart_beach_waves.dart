@@ -23,7 +23,8 @@ class NewSmartBeachWaves extends StatelessWidget {
           tween: store.currentMovie,
           duration: store.currentMovie.duration,
           control: store.currentControl,
-          onStarted: () => store.currentStore.startAndResetStopWatch(),
+          onCompleted: () => store.onCompleted(),
+          // onStarted: () => store.currentStore.startAndResetStopWatch(),
           builder: (context, value, child) {
             final currentAnimationValues =
                 GetCurrentWaterAnimation.values(value);
