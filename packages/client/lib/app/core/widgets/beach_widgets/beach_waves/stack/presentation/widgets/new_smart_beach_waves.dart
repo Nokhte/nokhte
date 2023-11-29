@@ -27,8 +27,9 @@ class NewSmartBeachWaves extends StatelessWidget {
           builder: (context, value, child) {
             final currentAnimationValues =
                 GetCurrentWaterAnimation.values(value);
-            if (store.movieMode == BeachWaveMovieModes.oceanDiveSetup) {
-              store.setMovieMode(BeachWaveMovieModes.oceanDive);
+            if (store.movieMode ==
+                BeachWaveMovieModes.onShoreToOceanDiveSetup) {
+              store.setMovieMode(BeachWaveMovieModes.onShoreToOceanDive);
               store.currentStore.initMovie(currentAnimationValues.first);
             } else if (store.movieMode ==
                 BeachWaveMovieModes.backToTheDepthsSetup) {
