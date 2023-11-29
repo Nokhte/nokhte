@@ -1,1 +1,1 @@
-export './on_shore_movie_store.dart';
+export 'on_shore/on_shore.dart';
