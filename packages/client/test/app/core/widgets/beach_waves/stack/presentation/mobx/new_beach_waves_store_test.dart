@@ -6,15 +6,15 @@ import 'package:simple_animations/simple_animations.dart';
 
 void main() {
   late NewBeachWavesStore testStore;
-  late OceanDiveMovieStore oceanDiveMovieStore;
+  late OnShoreToOceanDiveMovieStore onShoreToOceanDiveMovieStore;
   late OnShoreMovieStore onShoreMovieStore;
 
   setUp(() {
-    oceanDiveMovieStore = OceanDiveMovieStore();
+    onShoreToOceanDiveMovieStore = OnShoreToOceanDiveMovieStore();
     onShoreMovieStore = OnShoreMovieStore();
 
     testStore = NewBeachWavesStore(
-      oceanDiveMovieStore: oceanDiveMovieStore,
+      onShoreToOceanDiveMovieStore: onShoreToOceanDiveMovieStore,
       onShoreMovieStore: onShoreMovieStore,
     );
   });
