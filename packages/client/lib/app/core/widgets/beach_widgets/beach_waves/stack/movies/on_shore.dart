@@ -8,7 +8,7 @@ class OnShore extends Equatable {
   static MovieTween get movie => MovieTween()
     ..scene(
       begin: Seconds.get(0),
-      end: Seconds.get(2),
+      end: Seconds.get(2, milli: 1),
     )
         .tween(
           'water movement',
