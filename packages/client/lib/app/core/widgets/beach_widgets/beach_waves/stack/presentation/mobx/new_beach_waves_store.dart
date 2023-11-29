@@ -17,7 +17,9 @@ abstract class _NewBeachWavesStoreBase extends Equatable with Store {
   final OceanDiveToOnShoreMovieStore oceanDiveToOnShoreMovieStore;
   final SuspendedAtOceanDiveStore suspendedAtOceanDiveStore;
   final OceanDiveToTimesUpMovieStore oceanDiveToTimesUpMovieStore;
+  final TimesUpMovieStore timesUpMovieStore;
   _NewBeachWavesStoreBase({
+    required this.timesUpMovieStore,
     required this.oceanDiveToTimesUpMovieStore,
     required this.onShoreToOceanDiveMovieStore,
     required this.suspendedAtOceanDiveStore,
