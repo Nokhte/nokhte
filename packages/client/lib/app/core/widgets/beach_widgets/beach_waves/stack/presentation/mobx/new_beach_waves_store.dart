@@ -42,9 +42,13 @@ abstract class _NewBeachWavesStoreBase extends Equatable with Store {
 
   @action
   onCompleted() {
-    print("what happened $movieMode $movieStatus");
-    if (finishedCount == 0) {
-      finishedCount++;
+    if (currentStore.callsOnCompleteTwice) {
+      print("what happened $movieMode $movieStatus");
+      if (finishedCount == 0) {
+        finishedCount++;
+      } else {
+        movieStatus = MovieStatus.finished;
+      }
     } else {
       movieStatus = MovieStatus.finished;
     }
