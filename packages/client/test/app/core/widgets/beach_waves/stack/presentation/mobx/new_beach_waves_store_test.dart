@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/beach_waves/stack/presentation/mobx/movie_stores/times_up_end_to_ocean_dive/times_up_end_to_ocean_dive.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -12,6 +13,7 @@ void main() {
   late OceanDiveToOnShoreMovieStore oceanDiveToOnShoreMovieStore;
   late TimesUpMovieStore timesUpMovieStore;
   late OceanDiveToTimesUpMovieStore oceanDiveToTimesUpMovieStore;
+  late TimesUpEndToOceanDiveMovieStore timesUpEndToOceanDiveMovie;
 
   setUp(() {
     timesUpMovieStore = TimesUpMovieStore();
@@ -20,8 +22,10 @@ void main() {
     onShoreToOceanDiveMovieStore = OnShoreToOceanDiveMovieStore();
     onShoreMovieStore = OnShoreMovieStore();
     oceanDiveToOnShoreMovieStore = OceanDiveToOnShoreMovieStore();
+    timesUpEndToOceanDiveMovie = TimesUpEndToOceanDiveMovieStore();
 
     testStore = NewBeachWavesStore(
+      timesUpEndToOceanDiveMovie: timesUpEndToOceanDiveMovie,
       timesUpMovieStore: timesUpMovieStore,
       oceanDiveToTimesUpMovieStore: oceanDiveToTimesUpMovieStore,
       suspendedAtOceanDiveStore: suspendedAtOceanDiveStore,

@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/beach_waves/stack/presentation/mobx/movie_stores/times_up_end_to_ocean_dive/times_up_end_to_ocean_dive.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class BeachWavesModule extends Module {
@@ -28,8 +29,13 @@ class BeachWavesModule extends Module {
           (i) => TimesUpMovieStore(),
           export: true,
         ),
+        Bind.singleton<TimesUpEndToOceanDiveMovieStore>(
+          (i) => TimesUpEndToOceanDiveMovieStore(),
+          export: true,
+        ),
         Bind.singleton<NewBeachWavesStore>(
           (i) => NewBeachWavesStore(
+            timesUpEndToOceanDiveMovie: i<TimesUpEndToOceanDiveMovieStore>(),
             timesUpMovieStore: i<TimesUpMovieStore>(),
             oceanDiveToTimesUpMovieStore: i<OceanDiveToTimesUpMovieStore>(),
             suspendedAtOceanDiveStore: i<SuspendedAtOceanDiveStore>(),

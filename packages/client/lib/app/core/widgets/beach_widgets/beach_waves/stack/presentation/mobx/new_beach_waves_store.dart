@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_custom_animated_widget_store.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/beach_waves/stack/presentation/mobx/movie_stores/times_up_end_to_ocean_dive/times_up_end_to_ocean_dive.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'dart:core';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
@@ -18,7 +19,10 @@ abstract class _NewBeachWavesStoreBase extends Equatable with Store {
   final SuspendedAtOceanDiveStore suspendedAtOceanDiveStore;
   final OceanDiveToTimesUpMovieStore oceanDiveToTimesUpMovieStore;
   final TimesUpMovieStore timesUpMovieStore;
+  final TimesUpEndToOceanDiveMovieStore timesUpEndToOceanDiveMovie;
+  //
   _NewBeachWavesStoreBase({
+    required this.timesUpEndToOceanDiveMovie,
     required this.timesUpMovieStore,
     required this.oceanDiveToTimesUpMovieStore,
     required this.onShoreToOceanDiveMovieStore,
@@ -34,6 +38,7 @@ abstract class _NewBeachWavesStoreBase extends Equatable with Store {
       BeachWaveMovieModes.onShore: onShoreMovieStore,
       BeachWaveMovieModes.suspendedAtOceanDive: suspendedAtOceanDiveStore,
       BeachWaveMovieModes.oceanDiveToTimesUp: oceanDiveToTimesUpMovieStore,
+      BeachWaveMovieModes.timesUpEndToOceanDive: timesUpEndToOceanDiveMovie,
     };
   }
 
