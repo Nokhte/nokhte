@@ -116,13 +116,13 @@ class P2PCollaboratorPoolModule extends Module {
             fadingText: Modular.get<SmartFadingAnimatedTextTrackerStore>(),
             beachWavesStore: Modular.get<BeachWavesTrackerStore>(),
             explanationText: i<ExplanationTextStore>(),
+            newBeachWaves: Modular.get<NewBeachWavesStore>(),
           ),
         ),
         Bind.singleton<SpeakTheCollaboratorPhraseCoordinatorStore>(
           (i) => SpeakTheCollaboratorPhraseCoordinatorStore(
             hold: Modular.get<HoldDetector>(),
             swipe: Modular.get<SwipeDetector>(),
-            newBeachWaves: Modular.get<NewBeachWavesStore>(),
             enterCollaboratorPoolStore: i<EnterCollaboratorPoolStore>(),
             validateQueryStore: i<ValidateQueryStore>(),
             onSpeechResultStore: i<OnSpeechResultStore>(),

@@ -24,7 +24,7 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
     with Store {
   final WidgetCoordinatorStore widgetStore;
   final LocalSpeechToTextCoordinator localSpeechToText;
-  final NewBeachWavesStore newBeachWaves;
+
   final SwipeDetector swipe;
   final HoldDetector hold;
   final OnSpeechResultStore onSpeechResultStore;
@@ -36,7 +36,6 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   late ExplanationTextStore explanationText;
 
   _SpeakTheCollaboratorPhraseCoordinatorStoreBase({
-    required this.newBeachWaves,
     required this.swipe,
     required this.hold,
     required this.widgetStore,

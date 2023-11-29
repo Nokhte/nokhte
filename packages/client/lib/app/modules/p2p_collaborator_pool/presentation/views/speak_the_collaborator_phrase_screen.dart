@@ -46,7 +46,7 @@ class _SpeakTheCollaboratorPhraseScreenState
                   //   stateTrackerStore: widget.coordinator.beachWaves,
                   // ),
                   child: NewSmartBeachWaves(
-                    store: widget.coordinator.newBeachWaves,
+                    store: widget.coordinator.widgetStore.newBeachWaves,
                   ),
                 ),
                 Center(
