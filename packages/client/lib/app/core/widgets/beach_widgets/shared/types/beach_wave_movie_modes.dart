@@ -1,4 +1,5 @@
 enum BeachWaveMovieModes {
+  none,
   onShore,
   oceanDiveSetup,
   oceanDive,
