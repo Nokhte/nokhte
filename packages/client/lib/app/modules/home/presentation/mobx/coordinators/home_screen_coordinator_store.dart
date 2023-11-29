@@ -140,10 +140,9 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
   //       }
   //     });
 
-  beachWavesListener() =>
-      reaction((p0) => newBeachWave.currentMovieStatus, (p0) {
+  beachWavesListener() => reaction((p0) => newBeachWave.movieStatus, (p0) {
         print("$p0 ${newBeachWave.movieMode}");
-        if (newBeachWave.currentMovieStatus == MovieStatus.finished &&
+        if (newBeachWave.movieStatus == MovieStatus.finished &&
             newBeachWave.movieMode == BeachWaveMovieModes.onShoreToOceanDive) {
           switch (thePlaceTheyAreGoing) {
             case PlacesYouCanGo.newCollaboration:
