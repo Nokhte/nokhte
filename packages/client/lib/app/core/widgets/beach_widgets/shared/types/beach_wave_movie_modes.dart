@@ -2,7 +2,10 @@ enum BeachWaveMovieModes {
   none,
   onShore,
   oceanDiveSetup,
-  oceanDive,
+  oceanDive, // deprecated
+  onShoreToOceanDiveSetup,
+  onShoreToOceanDive,
+  oceanDiveToOnShore,
   backToOceanDive,
   backToTheDepthsSetup,
   suspendedAtSea,
