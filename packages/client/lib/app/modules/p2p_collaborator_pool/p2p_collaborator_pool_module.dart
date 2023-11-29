@@ -110,6 +110,7 @@ class P2PCollaboratorPoolModule extends Module {
         ),
         Bind.factory<WidgetCoordinatorStore>(
           (i) => WidgetCoordinatorStore(
+            newBeachWaves: Modular.get<NewBeachWavesStore>(),
             meshCircleButtonStore: i<MeshCircleButtonStore>(),
             fadeInAndChangeColorTextStore:
                 Modular.get<FadeInAndChangeColorTextStore>(),

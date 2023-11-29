@@ -11,6 +11,7 @@ class WidgetCoordinatorStore = _WidgetCoordinatorStoreBase
     with _$WidgetCoordinatorStore;
 
 abstract class _WidgetCoordinatorStoreBase extends Equatable with Store {
+  final NewBeachWavesStore newBeachWaves;
   final MeshCircleButtonStore meshCircleButtonStore;
   final FadeInAndChangeColorTextStore fadeInAndChangeColorTextStore;
   final SmartFadingAnimatedTextTrackerStore fadingText;
@@ -18,6 +19,7 @@ abstract class _WidgetCoordinatorStoreBase extends Equatable with Store {
   final ExplanationTextStore explanationText;
 
   _WidgetCoordinatorStoreBase({
+    required this.newBeachWaves,
     required this.meshCircleButtonStore,
     required this.fadingText,
     required this.beachWavesStore,
