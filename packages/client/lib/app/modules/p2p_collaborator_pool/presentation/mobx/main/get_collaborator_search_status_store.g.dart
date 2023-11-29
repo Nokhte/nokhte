@@ -60,6 +60,22 @@ mixin _$GetCollaboratorSearchStatusStore
     });
   }
 
+  late final _$_GetCollaboratorSearchStatusStoreBaseActionController =
+      ActionController(
+          name: '_GetCollaboratorSearchStatusStoreBase', context: context);
+
+  @override
+  dynamic resetStream() {
+    final _$actionInfo = _$_GetCollaboratorSearchStatusStoreBaseActionController
+        .startAction(name: '_GetCollaboratorSearchStatusStoreBase.resetStream');
+    try {
+      return super.resetStream();
+    } finally {
+      _$_GetCollaboratorSearchStatusStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

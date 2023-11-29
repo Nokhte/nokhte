@@ -23,6 +23,11 @@ abstract class _GetCollaboratorSearchStatusStoreBase extends Equatable
   @observable
   String errorMessage = "";
 
+  @action
+  resetStream() {
+    searchStatus = ObservableStream(const Stream.empty());
+  }
+
   @observable
   StoreState state = StoreState.initial;
 
