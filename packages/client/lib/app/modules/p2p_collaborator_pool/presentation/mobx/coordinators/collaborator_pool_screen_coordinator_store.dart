@@ -75,28 +75,50 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
         });
       });
 
-  @action
-  goBackToShore(bool canEnterTheCollaboration) {
-    if (beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
-      print("is the transition to speak happening??");
-      beachWaves.initiateBackToOceanDive();
-      delayedNavigation(() async {
-        exitCollaboratorPoolStore(NoParams());
-        cancelStreamStore(NoParams());
-        await stream.cancel();
-        Modular.to.navigate('/p2p_collaborator_pool/');
+  beachWavesListener() => reaction((p0) => newBeachWaves.movieStatus, (p0) {
+        print("$p0 ${newBeachWaves.movieMode}");
+        if (newBeachWaves.movieStatus == MovieStatus.finished &&
+            newBeachWaves.movieMode == BeachWaveMovieModes.timesUp) {
+          goBackToShore();
+        } else if (newBeachWaves.movieStatus == MovieStatus.finished &&
+            newBeachWaves.movieMode == BeachWaveMovieModes.timesUp) {
+          // goBackToShore();
+        }
       });
+
+  // @action
+  // goBackToShore(bool canEnterTheCollaboration) {
+  //   if (beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
+  //     print("is the transition to speak happening??");
+  //     beachWaves.initiateBackToOceanDive();
+  //     delayedNavigation(() async {
+  //       exitCollaboratorPoolStore(NoParams());
+  //       cancelStreamStore(NoParams());
+  //       await stream.cancel();
+  //       Modular.to.navigate('/p2p_collaborator_pool/');
+  //     });
+  //   }
+  // }
+
+  @action
+  goBackToShore() {
+    if (newBeachWaves.movieMode == BeachWaveMovieModes.timesUp) {
+      // print("is the transition to speak happening??");
+      // newBeachWaves.initiateBackToOceanDive();
+      // delayedNavigation(() async {
+      //   exitCollaboratorPoolStore(NoParams());
+      //   cancelStreamStore(NoParams());
+      //   await stream.cancel();
+      //   Modular.to.navigate('/p2p_collaborator_pool/');
+      // });
     }
   }
 
   @action
   screenConstructorCallback() {
     final duration = kDebugMode ? Seconds.get(10) : Seconds.get(45);
-    beachWaves.initiateTimesUp(
-      timerLength: duration,
-    );
-    delayedNavigation(() => goBackToShore(canEnterTheCollaboration));
-    // Future.delayed(duration, () => goBackToShore());
+    newBeachWaves.setMovieMode(BeachWaveMovieModes.timesUp);
+    newBeachWaves.currentStore.initMovie(duration);
     getCollaboratorSearchStatusStore();
     searchStatusListener();
   }

@@ -63,14 +63,14 @@ mixin _$CollaboratorPoolScreenCoordinatorStore
   }
 
   @override
-  dynamic goBackToShore(bool canEnterTheCollaboration) {
+  dynamic goBackToShore() {
     final _$actionInfo =
         _$_CollaboratorPoolScreenCoordinatorStoreBaseActionController
             .startAction(
                 name:
                     '_CollaboratorPoolScreenCoordinatorStoreBase.goBackToShore');
     try {
-      return super.goBackToShore(canEnterTheCollaboration);
+      return super.goBackToShore();
     } finally {
       _$_CollaboratorPoolScreenCoordinatorStoreBaseActionController
           .endAction(_$actionInfo);
