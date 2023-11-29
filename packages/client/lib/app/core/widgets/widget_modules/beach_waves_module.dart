@@ -4,6 +4,10 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 class BeachWavesModule extends Module {
   @override
   List<Bind> get binds => [
+        Bind.singleton<SuspendedAtOceanDiveStore>(
+          (i) => SuspendedAtOceanDiveStore(),
+          export: true,
+        ),
         Bind.singleton<OceanDiveToOnShoreMovieStore>(
           (i) => OceanDiveToOnShoreMovieStore(),
           export: true,
@@ -18,6 +22,7 @@ class BeachWavesModule extends Module {
         ),
         Bind.singleton<NewBeachWavesStore>(
           (i) => NewBeachWavesStore(
+            suspendedAtOceanDiveStore: i<SuspendedAtOceanDiveStore>(),
             oceanDiveToOnShoreMovieStore: i<OceanDiveToOnShoreMovieStore>(),
             onShoreToOceanDiveMovieStore: i<OnShoreToOceanDiveMovieStore>(),
             onShoreMovieStore: i<OnShoreMovieStore>(),
