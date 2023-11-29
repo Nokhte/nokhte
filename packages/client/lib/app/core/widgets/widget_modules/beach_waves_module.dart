@@ -6,6 +6,7 @@ class BeachWavesModule extends Module {
   List<Bind> get binds => [
         Bind.singleton<OceanDiveToTimesUpMovieStore>(
           (i) => OceanDiveToTimesUpMovieStore(),
+          export: true,
         ),
         Bind.singleton<SuspendedAtOceanDiveStore>(
           (i) => SuspendedAtOceanDiveStore(),
