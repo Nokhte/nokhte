@@ -2,6 +2,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_custom_animated_widget_store.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'dart:core';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
@@ -19,6 +20,7 @@ abstract class _NewBeachWavesStoreBase extends Equatable with Store {
   }) {
     movieModeToStoreLookup = {
       BeachWaveMovieModes.none: BaseCustomAnimatedWidgetStore(),
+      BeachWaveMovieModes.oceanDiveSetup: onShoreMovieStore,
       BeachWaveMovieModes.oceanDive: oceanDiveMovieStore,
       BeachWaveMovieModes.onShore: onShoreMovieStore,
     };
@@ -30,17 +32,22 @@ abstract class _NewBeachWavesStoreBase extends Equatable with Store {
   };
 
   @observable
-  BeachWaveMovieModes movieMode = BeachWaveMovieModes.none;
+  MovieStatus movieStatus = MovieStatus.idle;
+
+  @action
+  onCompleted() {
+    print("onCompleted $movieMode");
+    movieStatus = MovieStatus.finished;
+  }
 
   @observable
-  double currentWaterYPosition = -1.0;
+  BeachWaveMovieModes movieMode = BeachWaveMovieModes.none;
 
   @action
-  setCurrentWaterYPosition(double newYWaterPosition) =>
-      currentWaterYPosition = newYWaterPosition;
-
-  @action
-  setMovieMode(BeachWaveMovieModes newMovieMode) => movieMode = newMovieMode;
+  setMovieMode(BeachWaveMovieModes newMovieMode) {
+    movieStatus = MovieStatus.idle;
+    movieMode = newMovieMode;
+  }
 
   @computed
   BaseCustomAnimatedWidgetStore get currentStore =>
@@ -49,6 +56,10 @@ abstract class _NewBeachWavesStoreBase extends Equatable with Store {
   @computed
   Control get currentControl =>
       movieModeToStoreLookup[movieMode]?.control ?? Control.stop;
+
+  @computed
+  MovieStatus get currentMovieStatus =>
+      movieModeToStoreLookup[movieMode]?.movieStatus ?? MovieStatus.idle;
 
   @computed
   MovieTween get currentMovie =>
