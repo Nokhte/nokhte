@@ -16,7 +16,9 @@ abstract class _NewBeachWavesStoreBase extends Equatable with Store {
   final OnShoreMovieStore onShoreMovieStore;
   final OceanDiveToOnShoreMovieStore oceanDiveToOnShoreMovieStore;
   final SuspendedAtOceanDiveStore suspendedAtOceanDiveStore;
+  final OceanDiveToTimesUpMovieStore oceanDiveToTimesUpMovieStore;
   _NewBeachWavesStoreBase({
+    required this.oceanDiveToTimesUpMovieStore,
     required this.onShoreToOceanDiveMovieStore,
     required this.suspendedAtOceanDiveStore,
     required this.onShoreMovieStore,
@@ -29,6 +31,7 @@ abstract class _NewBeachWavesStoreBase extends Equatable with Store {
       BeachWaveMovieModes.oceanDiveToOnShore: oceanDiveToOnShoreMovieStore,
       BeachWaveMovieModes.onShore: onShoreMovieStore,
       BeachWaveMovieModes.suspendedAtOceanDive: suspendedAtOceanDiveStore,
+      BeachWaveMovieModes.oceanDiveToTimesUp: oceanDiveToTimesUpMovieStore,
     };
   }
 
