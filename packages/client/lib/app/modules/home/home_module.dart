@@ -5,6 +5,7 @@ import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dar
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/widgets/module.dart';
 import 'package:nokhte/app/core/widgets/shared/constants/svg_animation_constants.dart';
+import 'package:nokhte/app/core/widgets/widget_modules/beach_waves_module.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/data/contracts/home_contract_impl.dart';
 import 'package:nokhte/app/modules/home/data/sources/home_remote_source.dart';
@@ -19,6 +20,7 @@ class HomeModule extends Module {
   @override
   List<Module> get imports => [
         GyroscopicModule(),
+        BeachWavesModule(),
         GesturesModule(),
         GetCurrentPerspectivesModule(),
       ];
@@ -93,6 +95,7 @@ class HomeModule extends Module {
         ),
         Bind.singleton<HomeScreenCoordinatorStore>(
           (i) => HomeScreenCoordinatorStore(
+            newBeachWave: Modular.get<NewBeachWavesStore>(),
             getExistingCollaborationInfo:
                 i<GetExistingCollaborationsInfoStore>(),
             portalAPI: i<PortalAPI>(),

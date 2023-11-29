@@ -8,6 +8,7 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/main/main.dart';
@@ -22,6 +23,7 @@ class HomeScreenCoordinatorStore = _HomeScreenCoordinatorStoreBase
 abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
     with Store {
   final PortalAPI portalAPI;
+  final NewBeachWavesStore newBeachWave;
   final SwipeDetector swipe;
   final HoldDetector hold;
   final GetExistingCollaborationsInfoStore getExistingCollaborationInfo;
@@ -32,6 +34,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
   final GetCollaboratorPhraseStore getCollaboratorPhraseStore;
 
   _HomeScreenCoordinatorStoreBase({
+    required this.newBeachWave,
     required super.beachWaves,
     required this.getExistingCollaborationInfo,
     required this.swipe,
@@ -54,7 +57,8 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
 
   @action
   homeScreenConstructorCallback() async {
-    beachWaves.setControl(Control.mirror);
+    newBeachWave.setMovieMode(BeachWaveMovieModes.onShore);
+    // beachWaves.setControl(Control.mirror);
     beachWavesListener();
     gesturePillStore
         .setPillMovie(BottomCircleGoesUp.getMovie(firstGradientColors: [
@@ -115,26 +119,19 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
   toggleIsNavigating() => isNavigating = !isNavigating;
 
   @action
-  beachWavesListener() => reaction((p0) => beachWaves.movieStatus, (p0) {
-        if (beachWaves.movieStatus == MovieStatus.inProgress) {
+  beachWavesListener() =>
+      reaction((p0) => newBeachWave.currentMovieStatus, (p0) {
+        if (newBeachWave.currentMovieStatus == MovieStatus.finished &&
+            newBeachWave.movieMode == BeachWaveMovieModes.oceanDive) {
           switch (thePlaceTheyAreGoing) {
             case PlacesYouCanGo.newCollaboration:
-              delayedNavigation(
-                () => Modular.to.navigate('/p2p_collaborator_pool/'),
-              );
+              Modular.to.navigate('/p2p_collaborator_pool/');
             case PlacesYouCanGo.collectiveSession:
-              delayedNavigation(
-                () => Modular.to.navigate('/collective_session/'),
-              );
+              Modular.to.navigate('/collective_session/');
             case PlacesYouCanGo.individualSession:
-              delayedNavigation(
-                () => Modular.to.navigate('/individual_session/'),
-              );
               Modular.to.navigate('/individual_session/');
             case PlacesYouCanGo.perspectivesSession:
-              delayedNavigation(
-                () => Modular.to.navigate('/p2p_perspective_session/'),
-              );
+              Modular.to.navigate('/p2p_perspective_session/');
             default:
               break;
           }
@@ -178,10 +175,11 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
       gesturePillStore.setPillAnimationControl(Control.play);
       fadingTextStateTrackerStore.currentMainText = "";
       fadingTextStateTrackerStore.currentSubText = "";
-      beachWaves.teeUpOceanDive();
-      beachWaves.teeOceanDiveMovieUp(
-        startingWaterMovement: beachWaves.lastWaterValue,
-      );
+      newBeachWave.setMovieMode(BeachWaveMovieModes.oceanDiveSetup);
+      // beachWaves.teeUpOceanDive();
+      // beachWaves.teeOceanDiveMovieUp(
+      //   startingWaterMovement: beachWaves.lastWaterValue,
+      // );
     }
   }
 
