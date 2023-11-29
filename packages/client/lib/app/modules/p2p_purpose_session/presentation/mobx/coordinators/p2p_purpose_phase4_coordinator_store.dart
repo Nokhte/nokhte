@@ -76,7 +76,7 @@ abstract class _P2PPurposePhase4CoordinatorStoreBase extends BaseTimesUpStore
       timerUICallback: initOrPauseTimesUp,
       onBothCollaboratorTimersCompleted: cleanUpAndTransition,
     );
-    await timer.setOnlineStatus(true);
+    await timer.updateTimerRunningStatus(true);
     foregroundAndBackgroundStateListener(
       resumedCallback: () async => await timer.setOnlineStatus(true),
       inactiveCallback: () async => await timer.setOnlineStatus(false),
@@ -103,11 +103,11 @@ abstract class _P2PPurposePhase4CoordinatorStoreBase extends BaseTimesUpStore
 
     delayedNavigation(() {
       beachWaves.teeUpBackToTheDepths();
-      // Future.delayed(Seconds.get(3), () async {
-      cleanUpAndTransition();
-      // await timer.markTimerAsComplete(NoParams());
+      Future.delayed(Seconds.get(3), () async {
+        cleanUpAndTransition();
+        // await timer.markTimerAsComplete(NoParams());
+      });
     });
-    // });
   }
 
   @override
