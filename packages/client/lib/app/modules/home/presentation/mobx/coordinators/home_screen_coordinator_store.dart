@@ -57,8 +57,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
 
   @action
   homeScreenConstructorCallback() async {
-    newBeachWave.setMovieMode(BeachWaveMovieModes.onShore);
-    // beachWaves.setControl(Control.mirror);
+    beachWaves.setControl(Control.mirror);
     beachWavesListener();
     gesturePillStore
         .setPillMovie(BottomCircleGoesUp.getMovie(firstGradientColors: [
@@ -119,19 +118,22 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
   toggleIsNavigating() => isNavigating = !isNavigating;
 
   @action
-  beachWavesListener() =>
-      reaction((p0) => newBeachWave.currentMovieStatus, (p0) {
-        if (newBeachWave.currentMovieStatus == MovieStatus.finished &&
-            newBeachWave.movieMode == BeachWaveMovieModes.oceanDive) {
+  beachWavesListener() => reaction((p0) => beachWaves.movieStatus, (p0) {
+        if (beachWaves.movieStatus == MovieStatus.inProgress &&
+            beachWaves.movieMode == BeachWaveMovieModes.oceanDive) {
           switch (thePlaceTheyAreGoing) {
             case PlacesYouCanGo.newCollaboration:
-              Modular.to.navigate('/p2p_collaborator_pool/');
+              delayedNavigation(
+                  () => Modular.to.navigate('/p2p_collaborator_pool/'));
             case PlacesYouCanGo.collectiveSession:
-              Modular.to.navigate('/collective_session/');
+              delayedNavigation(
+                  () => Modular.to.navigate('/collective_session/'));
             case PlacesYouCanGo.individualSession:
-              Modular.to.navigate('/individual_session/');
+              delayedNavigation(
+                  () => Modular.to.navigate('/individual_session/'));
             case PlacesYouCanGo.perspectivesSession:
-              Modular.to.navigate('/p2p_perspective_session/');
+              delayedNavigation(
+                  () => Modular.to.navigate('/p2p_perspective_session/'));
             default:
               break;
           }
@@ -176,10 +178,10 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
       fadingTextStateTrackerStore.currentMainText = "";
       fadingTextStateTrackerStore.currentSubText = "";
       newBeachWave.setMovieMode(BeachWaveMovieModes.oceanDiveSetup);
-      // beachWaves.teeUpOceanDive();
-      // beachWaves.teeOceanDiveMovieUp(
-      //   startingWaterMovement: beachWaves.lastWaterValue,
-      // );
+      beachWaves.teeUpOceanDive();
+      beachWaves.teeOceanDiveMovieUp(
+        startingWaterMovement: beachWaves.lastWaterValue,
+      );
     }
   }
 
