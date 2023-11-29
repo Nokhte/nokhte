@@ -176,6 +176,18 @@ mixin _$BaseCustomAnimatedWidgetStore
   }
 
   @override
+  dynamic onCompleted() {
+    final _$actionInfo = _$_BaseCustomAnimatedWidgetStoreBaseActionController
+        .startAction(name: '_BaseCustomAnimatedWidgetStoreBase.onCompleted');
+    try {
+      return super.onCompleted();
+    } finally {
+      _$_BaseCustomAnimatedWidgetStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 localStopwatch: ${localStopwatch},

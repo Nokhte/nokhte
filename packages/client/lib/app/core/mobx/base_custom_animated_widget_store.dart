@@ -114,6 +114,11 @@ abstract class _BaseCustomAnimatedWidgetStoreBase extends Equatable with Store {
   @action
   setMovieStatus(MovieStatus newMovieStatus) => movieStatus = newMovieStatus;
 
+  @action
+  onCompleted() {
+    setMovieStatus(MovieStatus.finished);
+  }
+
   stopwatchListener() => reaction((p0) => stopwatchMillseconds, (p0) {
         if ((movie.duration.inMilliseconds - int.parse(p0)) < 1000) {
           if (p0 == movie.duration.inMilliseconds.toString()) {
