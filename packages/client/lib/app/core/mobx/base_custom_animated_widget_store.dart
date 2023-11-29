@@ -15,10 +15,13 @@ class BaseCustomAnimatedWidgetStore<T> = _BaseCustomAnimatedWidgetStoreBase<T>
 
 abstract class _BaseCustomAnimatedWidgetStoreBase<T> extends Equatable
     with Store {
-  _BaseCustomAnimatedWidgetStoreBase() {
+  _BaseCustomAnimatedWidgetStoreBase({this.callsOnCompleteTwice = false}) {
     controlListener();
     stopwatchListener();
   }
+
+  final bool callsOnCompleteTwice;
+
   @observable
   Stopwatch localStopwatch = Stopwatch();
 
