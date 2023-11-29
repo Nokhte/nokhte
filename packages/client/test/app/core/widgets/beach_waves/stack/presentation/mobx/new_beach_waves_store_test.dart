@@ -10,9 +10,11 @@ void main() {
   late OnShoreMovieStore onShoreMovieStore;
   late SuspendedAtOceanDiveStore suspendedAtOceanDiveStore;
   late OceanDiveToOnShoreMovieStore oceanDiveToOnShoreMovieStore;
+  late TimesUpMovieStore timesUpMovieStore;
   late OceanDiveToTimesUpMovieStore oceanDiveToTimesUpMovieStore;
 
   setUp(() {
+    timesUpMovieStore = TimesUpMovieStore();
     oceanDiveToTimesUpMovieStore = OceanDiveToTimesUpMovieStore();
     suspendedAtOceanDiveStore = SuspendedAtOceanDiveStore();
     onShoreToOceanDiveMovieStore = OnShoreToOceanDiveMovieStore();
@@ -20,6 +22,7 @@ void main() {
     oceanDiveToOnShoreMovieStore = OceanDiveToOnShoreMovieStore();
 
     testStore = NewBeachWavesStore(
+      timesUpMovieStore: timesUpMovieStore,
       oceanDiveToTimesUpMovieStore: oceanDiveToTimesUpMovieStore,
       suspendedAtOceanDiveStore: suspendedAtOceanDiveStore,
       oceanDiveToOnShoreMovieStore: oceanDiveToOnShoreMovieStore,
