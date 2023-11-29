@@ -28,7 +28,6 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
   final HoldDetector hold;
   final GetExistingCollaborationsInfoStore getExistingCollaborationInfo;
   final GesturePillStore gesturePillStore;
-  // final BeachWavesTrackerStore beachWaves;
   final AddNameToDatabaseStore addNameToDatabaseStore;
   final SmartFadingAnimatedTextTrackerStore fadingTextStateTrackerStore;
   final GetCollaboratorPhraseStore getCollaboratorPhraseStore;
@@ -57,7 +56,8 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
 
   @action
   homeScreenConstructorCallback() async {
-    beachWaves.setControl(Control.mirror);
+    // beachWaves.setControl(Control.mirror);
+    newBeachWave.setMovieMode(BeachWaveMovieModes.onShore);
     beachWavesListener();
     gesturePillStore
         .setPillMovie(BottomCircleGoesUp.getMovie(firstGradientColors: [
@@ -117,28 +117,49 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
   @action
   toggleIsNavigating() => isNavigating = !isNavigating;
 
-  @action
-  beachWavesListener() => reaction((p0) => beachWaves.movieStatus, (p0) {
-        if (beachWaves.movieStatus == MovieStatus.inProgress &&
-            beachWaves.movieMode == BeachWaveMovieModes.oceanDive) {
+  // @action
+  // beachWavesListener() => reaction((p0) => beachWaves.movieStatus, (p0) {
+  //       if (beachWaves.movieStatus == MovieStatus.inProgress &&
+  //           beachWaves.movieMode == BeachWaveMovieModes.oceanDive) {
+  //         switch (thePlaceTheyAreGoing) {
+  //           case PlacesYouCanGo.newCollaboration:
+  //             delayedNavigation(
+  //                 () => Modular.to.navigate('/p2p_collaborator_pool/'));
+  //           case PlacesYouCanGo.collectiveSession:
+  //             delayedNavigation(
+  //                 () => Modular.to.navigate('/collective_session/'));
+  //           case PlacesYouCanGo.individualSession:
+  //             delayedNavigation(
+  //                 () => Modular.to.navigate('/individual_session/'));
+  //           case PlacesYouCanGo.perspectivesSession:
+  //             delayedNavigation(
+  //                 () => Modular.to.navigate('/p2p_perspective_session/'));
+  //           default:
+  //             break;
+  //         }
+  //       }
+  //     });
+
+  beachWavesListener() =>
+      reaction((p0) => newBeachWave.currentMovieStatus, (p0) {
+        print("$p0 ${newBeachWave.movieMode}");
+        if (newBeachWave.currentMovieStatus == MovieStatus.finished &&
+            newBeachWave.movieMode == BeachWaveMovieModes.onShoreToOceanDive) {
           switch (thePlaceTheyAreGoing) {
             case PlacesYouCanGo.newCollaboration:
-              delayedNavigation(
-                  () => Modular.to.navigate('/p2p_collaborator_pool/'));
+              Modular.to.navigate('/p2p_collaborator_pool/');
             case PlacesYouCanGo.collectiveSession:
-              delayedNavigation(
-                  () => Modular.to.navigate('/collective_session/'));
+              Modular.to.navigate('/collective_session/');
             case PlacesYouCanGo.individualSession:
-              delayedNavigation(
-                  () => Modular.to.navigate('/individual_session/'));
+              Modular.to.navigate('/individual_session/');
             case PlacesYouCanGo.perspectivesSession:
-              delayedNavigation(
-                  () => Modular.to.navigate('/p2p_perspective_session/'));
+              Modular.to.navigate('/p2p_perspective_session/');
             default:
               break;
           }
         }
       });
+
   @action
   gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
         if (isAllowedMakeANavigation) {
@@ -177,11 +198,12 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
       gesturePillStore.setPillAnimationControl(Control.play);
       fadingTextStateTrackerStore.currentMainText = "";
       fadingTextStateTrackerStore.currentSubText = "";
-      newBeachWave.setMovieMode(BeachWaveMovieModes.oceanDiveSetup);
-      beachWaves.teeUpOceanDive();
-      beachWaves.teeOceanDiveMovieUp(
-        startingWaterMovement: beachWaves.lastWaterValue,
-      );
+      newBeachWave.setMovieMode(BeachWaveMovieModes.onShoreToOceanDiveSetup);
+      // newBeachWave.currentStore.initMovie(NoParams());
+      // beachWaves.teeUpOceanDive();
+      // beachWaves.teeOceanDiveMovieUp(
+      //   startingWaterMovement: beachWaves.lastWaterValue,
+      // );
     }
   }
 

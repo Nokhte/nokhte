@@ -119,18 +119,6 @@ mixin _$HomeScreenCoordinatorStore on _HomeScreenCoordinatorStoreBase, Store {
   }
 
   @override
-  dynamic beachWavesListener() {
-    final _$actionInfo =
-        _$_HomeScreenCoordinatorStoreBaseActionController.startAction(
-            name: '_HomeScreenCoordinatorStoreBase.beachWavesListener');
-    try {
-      return super.beachWavesListener();
-    } finally {
-      _$_HomeScreenCoordinatorStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic gestureListener() {
     final _$actionInfo = _$_HomeScreenCoordinatorStoreBaseActionController
         .startAction(name: '_HomeScreenCoordinatorStoreBase.gestureListener');
