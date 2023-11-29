@@ -110,7 +110,6 @@ class P2PCollaboratorPoolModule extends Module {
         ),
         Bind.factory<WidgetCoordinatorStore>(
           (i) => WidgetCoordinatorStore(
-            newBeachWaves: Modular.get<NewBeachWavesStore>(),
             meshCircleButtonStore: i<MeshCircleButtonStore>(),
             fadeInAndChangeColorTextStore:
                 Modular.get<FadeInAndChangeColorTextStore>(),
@@ -123,6 +122,7 @@ class P2PCollaboratorPoolModule extends Module {
           (i) => SpeakTheCollaboratorPhraseCoordinatorStore(
             hold: Modular.get<HoldDetector>(),
             swipe: Modular.get<SwipeDetector>(),
+            newBeachWaves: Modular.get<NewBeachWavesStore>(),
             enterCollaboratorPoolStore: i<EnterCollaboratorPoolStore>(),
             validateQueryStore: i<ValidateQueryStore>(),
             onSpeechResultStore: i<OnSpeechResultStore>(),
