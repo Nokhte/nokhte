@@ -76,12 +76,11 @@ mixin _$WidgetCoordinatorStore on _WidgetCoordinatorStoreBase, Store {
   }
 
   @override
-  dynamic toTheDepthsWidgetChanges() {
-    final _$actionInfo =
-        _$_WidgetCoordinatorStoreBaseActionController.startAction(
-            name: '_WidgetCoordinatorStoreBase.toTheDepthsWidgetChanges');
+  dynamic transitionToTimesUp() {
+    final _$actionInfo = _$_WidgetCoordinatorStoreBaseActionController
+        .startAction(name: '_WidgetCoordinatorStoreBase.transitionToTimesUp');
     try {
-      return super.toTheDepthsWidgetChanges();
+      return super.transitionToTimesUp();
     } finally {
       _$_WidgetCoordinatorStoreBaseActionController.endAction(_$actionInfo);
     }

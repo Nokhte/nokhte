@@ -71,11 +71,23 @@ abstract class _WidgetCoordinatorStoreBase extends Equatable with Store {
     }
   }
 
+  // @action
+  // toTheDepthsWidgetChanges() {
+  //   if (newBeachWaves.movieStatus != MovieStatus.inProgress &&
+  //       newBeachWaves.movieMode == BeachWaveMovieModes.suspendedAtSea) {
+  //     beachWavesStore.initiateToTheDepths();
+  //     fadingText.fadeTheTextOut();
+  //     fadeOutExplanationTextIfNecessary();
+  //     meshCircleButtonStore.toggleWidgetVisibility();
+  //   }
+  // }
+
   @action
-  toTheDepthsWidgetChanges() {
+  transitionToTimesUp() {
     if (newBeachWaves.movieStatus != MovieStatus.inProgress &&
-        newBeachWaves.movieMode == BeachWaveMovieModes.suspendedAtSea) {
-      beachWavesStore.initiateToTheDepths();
+        newBeachWaves.movieMode == BeachWaveMovieModes.suspendedAtOceanDive) {
+      newBeachWaves.setMovieMode(BeachWaveMovieModes.oceanDiveToTimesUp);
+      newBeachWaves.currentStore.initMovie(NoParams());
       fadingText.fadeTheTextOut();
       fadeOutExplanationTextIfNecessary();
       meshCircleButtonStore.toggleWidgetVisibility();
