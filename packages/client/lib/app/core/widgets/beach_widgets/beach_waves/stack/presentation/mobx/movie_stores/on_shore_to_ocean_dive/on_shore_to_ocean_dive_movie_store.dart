@@ -14,7 +14,7 @@ class OnShoreToOceanDiveMovieStore = _OnShoreToOceanDiveMovieStoreBase
 
 abstract class _OnShoreToOceanDiveMovieStoreBase
     extends BaseCustomAnimatedWidgetStore<double> with Store {
-  _OnShoreToOceanDiveMovieStoreBase() {
+  _OnShoreToOceanDiveMovieStoreBase() : super(callsOnCompleteTwice: true) {
     movie =
         OnShoreToOceanDiveMovie.getOceanDiveMovie(startingWaterMovement: 0.0);
     // control = Control.playFromStart;
