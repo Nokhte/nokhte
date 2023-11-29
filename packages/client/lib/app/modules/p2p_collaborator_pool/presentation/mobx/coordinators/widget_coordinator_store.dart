@@ -41,6 +41,7 @@ abstract class _WidgetCoordinatorStoreBase extends Equatable with Store {
       toggleIsFirstTime();
     }
     // explanationText.widgetConstructor();
+    newBeachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtOceanDive);
     explanationText.widgetConstructor(message: "hold to talk");
     meshCircleButtonStore.widgetConstructor();
     beachWavesStore.initiateSuspendedAtSea();
