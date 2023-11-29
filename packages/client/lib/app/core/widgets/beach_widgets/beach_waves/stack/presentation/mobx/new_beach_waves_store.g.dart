@@ -40,6 +40,22 @@ mixin _$NewBeachWavesStore on _NewBeachWavesStoreBase, Store {
               name: '_NewBeachWavesStoreBase.currentMovie'))
           .value;
 
+  late final _$finishedCountAtom =
+      Atom(name: '_NewBeachWavesStoreBase.finishedCount', context: context);
+
+  @override
+  int get finishedCount {
+    _$finishedCountAtom.reportRead();
+    return super.finishedCount;
+  }
+
+  @override
+  set finishedCount(int value) {
+    _$finishedCountAtom.reportWrite(value, super.finishedCount, () {
+      super.finishedCount = value;
+    });
+  }
+
   late final _$movieStatusAtom =
       Atom(name: '_NewBeachWavesStoreBase.movieStatus', context: context);
 
@@ -76,6 +92,17 @@ mixin _$NewBeachWavesStore on _NewBeachWavesStoreBase, Store {
       ActionController(name: '_NewBeachWavesStoreBase', context: context);
 
   @override
+  dynamic onCompleted() {
+    final _$actionInfo = _$_NewBeachWavesStoreBaseActionController.startAction(
+        name: '_NewBeachWavesStoreBase.onCompleted');
+    try {
+      return super.onCompleted();
+    } finally {
+      _$_NewBeachWavesStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setMovieMode(BeachWaveMovieModes newMovieMode) {
     final _$actionInfo = _$_NewBeachWavesStoreBaseActionController.startAction(
         name: '_NewBeachWavesStoreBase.setMovieMode');
@@ -89,6 +116,7 @@ mixin _$NewBeachWavesStore on _NewBeachWavesStoreBase, Store {
   @override
   String toString() {
     return '''
+finishedCount: ${finishedCount},
 movieStatus: ${movieStatus},
 movieMode: ${movieMode},
 currentStore: ${currentStore},
