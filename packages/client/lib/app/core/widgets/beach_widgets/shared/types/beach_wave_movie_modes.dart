@@ -9,6 +9,7 @@ enum BeachWaveMovieModes {
   backToOceanDive,
   backToTheDepthsSetup,
   oceanDiveToTimesUp,
+  timesUpEndToOceanDive,
   suspendedAtSea, // deprecated
   suspendedAtOceanDive,
   backToShore,
