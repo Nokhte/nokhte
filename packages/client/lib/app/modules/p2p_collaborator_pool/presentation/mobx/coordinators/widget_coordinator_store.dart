@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:nokhte/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
@@ -59,9 +60,11 @@ abstract class _WidgetCoordinatorStoreBase extends Equatable with Store {
 
   @action
   backToShoreWidgetChanges() {
-    if (beachWavesStore.movieStatus != MovieStatus.inProgress &&
-        beachWavesStore.movieMode == BeachWaveMovieModes.suspendedAtSea) {
-      beachWavesStore.initiateBackToShore();
+    if (newBeachWaves.movieStatus != MovieStatus.inProgress &&
+        newBeachWaves.movieMode == BeachWaveMovieModes.suspendedAtOceanDive) {
+      newBeachWaves.setMovieMode(BeachWaveMovieModes.oceanDiveToOnShore);
+      newBeachWaves.currentStore.initMovie(NoParams());
+      // beachWavesStore.initiateBackToShore();
       fadeOutExplanationTextIfNecessary();
       fadingText.fadeTheTextOut();
       meshCircleButtonStore.toggleWidgetVisibility();
@@ -70,8 +73,8 @@ abstract class _WidgetCoordinatorStoreBase extends Equatable with Store {
 
   @action
   toTheDepthsWidgetChanges() {
-    if (beachWavesStore.movieStatus != MovieStatus.inProgress &&
-        beachWavesStore.movieMode == BeachWaveMovieModes.suspendedAtSea) {
+    if (newBeachWaves.movieStatus != MovieStatus.inProgress &&
+        newBeachWaves.movieMode == BeachWaveMovieModes.suspendedAtSea) {
       beachWavesStore.initiateToTheDepths();
       fadingText.fadeTheTextOut();
       fadeOutExplanationTextIfNecessary();

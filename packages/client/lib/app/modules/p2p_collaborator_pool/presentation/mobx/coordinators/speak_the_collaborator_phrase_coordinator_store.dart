@@ -30,10 +30,12 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   final OnSpeechResultStore onSpeechResultStore;
   final ValidateQueryStore validateQueryStore;
   final EnterCollaboratorPoolStore enterCollaboratorPoolStore;
+
   late BeachWavesTrackerStore beachWaves;
   late SmartFadingAnimatedTextTrackerStore fadingTextStore;
   late MeshCircleButtonStore meshCircleStore;
   late ExplanationTextStore explanationText;
+  late NewBeachWavesStore newBeachWaves;
 
   _SpeakTheCollaboratorPhraseCoordinatorStoreBase({
     required this.swipe,
@@ -46,7 +48,8 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   })  : beachWaves = widgetStore.beachWavesStore,
         fadingTextStore = widgetStore.fadingText,
         meshCircleStore = widgetStore.meshCircleButtonStore,
-        explanationText = widgetStore.explanationText;
+        explanationText = widgetStore.explanationText,
+        newBeachWaves = widgetStore.newBeachWaves;
 
   delayedNavigation(Function callback) {
     Future.delayed(
@@ -81,19 +84,16 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
   bool isFirstTimeSpeaking = true;
 
   beachWavesMovieStatusListener() =>
-      reaction((p0) => beachWaves.movieStatus, (p0) {
-        if (beachWaves.movieStatus == MovieStatus.inProgress &&
-            beachWaves.movieMode == BeachWaveMovieModes.backToOceanDive) {
-          delayedNavigation(
-              () => Modular.to.navigate('/p2p_collaborator_pool/'));
-        } else if (beachWaves.movieStatus == MovieStatus.inProgress &&
-            beachWaves.movieMode == BeachWaveMovieModes.toTheDepths) {
-          delayedNavigation(
-            () => Modular.to.navigate('/p2p_collaborator_pool/pool/'),
-          );
-        } else if (beachWaves.movieStatus == MovieStatus.inProgress &&
-            beachWaves.movieMode == BeachWaveMovieModes.backToShore) {
-          delayedNavigation(() => Modular.to.navigate('/home/'));
+      reaction((p0) => newBeachWaves.movieStatus, (p0) {
+        if (newBeachWaves.movieStatus == MovieStatus.finished &&
+            newBeachWaves.movieMode == BeachWaveMovieModes.backToOceanDive) {
+          Modular.to.navigate('/p2p_collaborator_pool/');
+        } else if (newBeachWaves.movieStatus == MovieStatus.finished &&
+            newBeachWaves.movieMode == BeachWaveMovieModes.toTheDepths) {
+          Modular.to.navigate('/p2p_collaborator_pool/pool/');
+        } else if (newBeachWaves.movieStatus == MovieStatus.finished &&
+            newBeachWaves.movieMode == BeachWaveMovieModes.oceanDiveToOnShore) {
+          Modular.to.navigate('/home/');
         }
       });
 
