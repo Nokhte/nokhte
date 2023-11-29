@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'ocean_dive_movie_store.dart';
+part of 'on_shore_to_ocean_dive_movie_store.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,18 +8,21 @@ part of 'ocean_dive_movie_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$OceanDiveMovieStore on _OceanDiveMovieStoreBase, Store {
-  late final _$_OceanDiveMovieStoreBaseActionController =
-      ActionController(name: '_OceanDiveMovieStoreBase', context: context);
+mixin _$OnShoreToOceanDiveMovieStore
+    on _OnShoreToOceanDiveMovieStoreBase, Store {
+  late final _$_OnShoreToOceanDiveMovieStoreBaseActionController =
+      ActionController(
+          name: '_OnShoreToOceanDiveMovieStoreBase', context: context);
 
   @override
   dynamic initMovie(double startingWaterPosition) {
-    final _$actionInfo = _$_OceanDiveMovieStoreBaseActionController.startAction(
-        name: '_OceanDiveMovieStoreBase.initMovie');
+    final _$actionInfo = _$_OnShoreToOceanDiveMovieStoreBaseActionController
+        .startAction(name: '_OnShoreToOceanDiveMovieStoreBase.initMovie');
     try {
       return super.initMovie(startingWaterPosition);
     } finally {
-      _$_OceanDiveMovieStoreBaseActionController.endAction(_$actionInfo);
+      _$_OnShoreToOceanDiveMovieStoreBaseActionController
+          .endAction(_$actionInfo);
     }
   }
 

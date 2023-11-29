@@ -3,24 +3,27 @@
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:nokhte/app/core/mobx/base_custom_animated_widget_store.dart';
-import 'package:nokhte/app/core/widgets/beach_widgets/beach_waves/stack/presentation/mobx/movie_stores/ocean_dive/ocean_dive.dart';
 import 'package:simple_animations/simple_animations.dart';
+
+import 'on_shore_to_ocean_dive_movie.dart';
 // * Mobx Codegen Inclusion
-part 'ocean_dive_movie_store.g.dart';
+part 'on_shore_to_ocean_dive_movie_store.g.dart';
 
-class OceanDiveMovieStore = _OceanDiveMovieStoreBase with _$OceanDiveMovieStore;
+class OnShoreToOceanDiveMovieStore = _OnShoreToOceanDiveMovieStoreBase
+    with _$OnShoreToOceanDiveMovieStore;
 
-abstract class _OceanDiveMovieStoreBase
+abstract class _OnShoreToOceanDiveMovieStoreBase
     extends BaseCustomAnimatedWidgetStore<double> with Store {
-  _OceanDiveMovieStoreBase() {
-    movie = OceanDiveMovie.getOceanDiveMovie(startingWaterMovement: 0.0);
+  _OnShoreToOceanDiveMovieStoreBase() {
+    movie =
+        OnShoreToOceanDiveMovie.getOceanDiveMovie(startingWaterMovement: 0.0);
     // control = Control.playFromStart;
   }
 
   @override
   @action
   initMovie(double startingWaterPosition) {
-    movie = OceanDiveMovie.getOceanDiveMovie(
+    movie = OnShoreToOceanDiveMovie.getOceanDiveMovie(
         startingWaterMovement: startingWaterPosition);
     control = Control.playFromStart;
   }
