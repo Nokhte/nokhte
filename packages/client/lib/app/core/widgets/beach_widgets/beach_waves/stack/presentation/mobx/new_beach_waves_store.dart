@@ -12,16 +12,19 @@ part 'new_beach_waves_store.g.dart';
 class NewBeachWavesStore = _NewBeachWavesStoreBase with _$NewBeachWavesStore;
 
 abstract class _NewBeachWavesStoreBase extends Equatable with Store {
-  final OceanDiveMovieStore oceanDiveMovieStore;
+  final OnShoreToOceanDiveMovieStore onShoreToOceanDiveMovieStore;
   final OnShoreMovieStore onShoreMovieStore;
+  final OceanDiveToOnShoreMovieStore oceanDiveToOnShoreMovieStore;
   _NewBeachWavesStoreBase({
-    required this.oceanDiveMovieStore,
+    required this.onShoreToOceanDiveMovieStore,
     required this.onShoreMovieStore,
+    required this.oceanDiveToOnShoreMovieStore,
   }) {
     movieModeToStoreLookup = {
       BeachWaveMovieModes.none: BaseCustomAnimatedWidgetStore(),
-      BeachWaveMovieModes.oceanDiveSetup: onShoreMovieStore,
-      BeachWaveMovieModes.oceanDive: oceanDiveMovieStore,
+      BeachWaveMovieModes.onShoreToOceanDiveSetup: onShoreMovieStore,
+      BeachWaveMovieModes.onShoreToOceanDive: onShoreToOceanDiveMovieStore,
+      BeachWaveMovieModes.oceanDiveToOnShore: oceanDiveToOnShoreMovieStore,
       BeachWaveMovieModes.onShore: onShoreMovieStore,
     };
   }
@@ -34,11 +37,11 @@ abstract class _NewBeachWavesStoreBase extends Equatable with Store {
   @observable
   MovieStatus movieStatus = MovieStatus.idle;
 
-  @action
-  onCompleted() {
-    print("onCompleted $movieMode");
-    movieStatus = MovieStatus.finished;
-  }
+  // @action
+  // onCompleted() {
+  //   print("onCompleted $movieMode");
+  //   movieStatus = MovieStatus.finished;
+  // }
 
   @observable
   BeachWaveMovieModes movieMode = BeachWaveMovieModes.none;

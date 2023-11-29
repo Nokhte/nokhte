@@ -76,17 +76,6 @@ mixin _$NewBeachWavesStore on _NewBeachWavesStoreBase, Store {
       ActionController(name: '_NewBeachWavesStoreBase', context: context);
 
   @override
-  dynamic onCompleted() {
-    final _$actionInfo = _$_NewBeachWavesStoreBaseActionController.startAction(
-        name: '_NewBeachWavesStoreBase.onCompleted');
-    try {
-      return super.onCompleted();
-    } finally {
-      _$_NewBeachWavesStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic setMovieMode(BeachWaveMovieModes newMovieMode) {
     final _$actionInfo = _$_NewBeachWavesStoreBaseActionController.startAction(
         name: '_NewBeachWavesStoreBase.setMovieMode');
