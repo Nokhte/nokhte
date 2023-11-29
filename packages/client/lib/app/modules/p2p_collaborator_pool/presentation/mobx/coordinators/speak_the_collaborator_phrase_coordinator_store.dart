@@ -89,7 +89,7 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
             newBeachWaves.movieMode == BeachWaveMovieModes.backToOceanDive) {
           Modular.to.navigate('/p2p_collaborator_pool/');
         } else if (newBeachWaves.movieStatus == MovieStatus.finished &&
-            newBeachWaves.movieMode == BeachWaveMovieModes.toTheDepths) {
+            newBeachWaves.movieMode == BeachWaveMovieModes.oceanDiveToTimesUp) {
           Modular.to.navigate('/p2p_collaborator_pool/pool/');
         } else if (newBeachWaves.movieStatus == MovieStatus.finished &&
             newBeachWaves.movieMode == BeachWaveMovieModes.oceanDiveToOnShore) {
@@ -202,7 +202,9 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
     if (validateQueryStore.isValidated == ValidationStatus.valid) {
       enterCollaboratorPoolStore(validateQueryStore.phraseIDs);
       enterCollaboratorPoolStore(validateQueryStore.phraseIDs);
-      widgetStore.toTheDepthsWidgetChanges();
+      print("did this run??");
+      widgetStore.transitionToTimesUp();
+      // widgetStore.toTheDepthsWidgetChanges();
     }
   }
 
