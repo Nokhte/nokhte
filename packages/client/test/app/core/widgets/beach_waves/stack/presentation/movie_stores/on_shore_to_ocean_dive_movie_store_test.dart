@@ -4,10 +4,10 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 void main() {
-  late OceanDiveMovieStore testStore;
+  late OnShoreToOceanDiveMovieStore testStore;
 
   setUp(() {
-    testStore = OceanDiveMovieStore();
+    testStore = OnShoreToOceanDiveMovieStore();
   });
 
   group("initial values", () {
