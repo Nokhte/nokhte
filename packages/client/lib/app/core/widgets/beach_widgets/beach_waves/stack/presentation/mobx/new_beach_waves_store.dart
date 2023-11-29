@@ -4,7 +4,6 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_custom_animated_widget_store.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'dart:core';
-
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'new_beach_waves_store.g.dart';
@@ -33,8 +32,19 @@ abstract class _NewBeachWavesStoreBase extends Equatable with Store {
   @observable
   BeachWaveMovieModes movieMode = BeachWaveMovieModes.none;
 
+  @observable
+  double currentWaterYPosition = -1.0;
+
+  @action
+  setCurrentWaterYPosition(double newYWaterPosition) =>
+      currentWaterYPosition = newYWaterPosition;
+
   @action
   setMovieMode(BeachWaveMovieModes newMovieMode) => movieMode = newMovieMode;
+
+  @computed
+  BaseCustomAnimatedWidgetStore get currentStore =>
+      movieModeToStoreLookup[movieMode] ?? BaseCustomAnimatedWidgetStore();
 
   @computed
   Control get currentControl =>

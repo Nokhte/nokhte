@@ -18,18 +18,5 @@ void main() {
     test("control should be mirror", () {
       expect(testStore.control, Control.mirror);
     });
-
-    test("currentWaterYPosition should be set to -1.0", () {
-      expect(testStore.currentWaterYPosition, -1.0);
-    });
-  });
-
-  group("actions", () {
-    test(
-        "setCurrentWaterYPosition should set currentWaterYPosition according to the parameter",
-        () {
-      testStore.setCurrentWaterYPosition(10.1234);
-      expect(testStore.currentWaterYPosition, 10.1234);
-    });
   });
 }

@@ -24,6 +24,10 @@ void main() {
       testStore.movieMode = BeachWaveMovieModes.none;
     });
 
+    test("currentWaterYPosition should be set to -1.0", () {
+      expect(testStore.currentWaterYPosition, -1.0);
+    });
+
     group('movieModeToStoreLookup', () {
       test("none key", () {
         final noneRes =
@@ -55,6 +59,12 @@ void main() {
   });
 
   group("actions", () {
+    test(
+        "setCurrentWaterYPosition should set currentWaterYPosition according to the parameter",
+        () {
+      testStore.setCurrentWaterYPosition(10.1234);
+      expect(testStore.currentWaterYPosition, 10.1234);
+    });
     test('setMovieMode', () {
       testStore.setMovieMode(BeachWaveMovieModes.oceanDive);
       expect(testStore.movieMode, BeachWaveMovieModes.oceanDive);

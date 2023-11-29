@@ -16,11 +16,4 @@ abstract class _OnShoreMovieStoreBase extends BaseCustomAnimatedWidgetStore
     movie = OnShoreMovie.movie;
     control = Control.mirror;
   }
-
-  @observable
-  double currentWaterYPosition = -1.0;
-
-  @action
-  setCurrentWaterYPosition(double newYWaterPosition) =>
-      currentWaterYPosition = newYWaterPosition;
 }
