@@ -6,6 +6,7 @@ import 'package:nokhte/app/core/modules/local_speech_to_text/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/existing_collaborations/existing_collaborations_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/widgets/module.dart';
+import 'package:nokhte/app/core/widgets/widget_modules/beach_waves_module.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/presentation/presentation.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/domain.dart';
@@ -16,6 +17,7 @@ class P2PCollaboratorPoolModule extends Module {
   @override
   List<Module> get imports => [
         LocalSpeechToTextModule(),
+        BeachWavesModule(),
         GesturesModule(),
         ExistingCollaborationsModule(),
       ];
