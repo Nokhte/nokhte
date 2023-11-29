@@ -4,7 +4,7 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 
-class OceanDive extends Equatable {
+class OceanDiveMovie extends Equatable {
   static MovieTween getOceanDiveMovie(
           {required double startingWaterMovement}) =>
       MovieTween()
