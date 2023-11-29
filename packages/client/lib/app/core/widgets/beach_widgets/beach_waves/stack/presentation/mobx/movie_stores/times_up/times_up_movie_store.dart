@@ -2,7 +2,6 @@
 // * Mobx Import
 import 'package:mobx/mobx.dart';
 // * Equatable Import
-import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -14,7 +13,7 @@ part 'times_up_movie_store.g.dart';
 class TimesUpMovieStore = _TimesUpMovieStoreBase with _$TimesUpMovieStore;
 
 abstract class _TimesUpMovieStoreBase
-    extends BaseCustomAnimatedWidgetStore<NoParams> with Store {
+    extends BaseCustomAnimatedWidgetStore<Duration> with Store {
   _TimesUpMovieStoreBase() {
     movie = TimesUpMovie.getMovie(
       timerLength: Seconds.get(45),
@@ -22,7 +21,10 @@ abstract class _TimesUpMovieStoreBase
   }
 
   @override
-  initMovie(NoParams param) {
+  initMovie(Duration param) {
+    movie = TimesUpMovie.getMovie(
+      timerLength: param,
+    );
     control = Control.playFromStart;
   }
 }
