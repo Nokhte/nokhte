@@ -11,6 +11,7 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/presentation/mobx/mobx.dart';
+import 'package:nokhte_backend/tables/existing_collaborations.dart';
 
 part 'collaborator_pool_screen_coordinator_store.g.dart';
 
@@ -27,6 +28,8 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
 
   @observable
   bool canEnterTheCollaboration = false;
+
+  late StreamSubscription<CollaboratorSearchAndEntryStatus> stream;
 
   @action
   toggleCanEnterTheCollaboration() =>
@@ -51,15 +54,15 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
   @action
   searchStatusListener() =>
       reaction((p0) => getCollaboratorSearchStatusStore.searchStatus, (p0) {
-        p0.listen((value) async {
+        stream = p0.listen((value) async {
           if (value.hasFoundTheirCollaborator && !value.hasEntered) {
             toggleCanEnterTheCollaboration();
             beachWaves.teeUpBackToTheDepths();
             fadeInAndColorTextStore.teeUpFadeOut();
             Future.delayed(Seconds.get(3), () async {
               // delayedNavigation(() {
-              print("what is it can enter stream $canEnterTheCollaboration");
               if (canEnterTheCollaboration) {
+                getCollaboratorSearchStatusStore.resetStream();
                 Modular.to.navigate('/p2p_purpose_session/');
                 existingCollaborations
                     .updateIndividualCollaboratorEntryStatus(true);
@@ -75,10 +78,10 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
     if (beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
       print("is the transition to speak happening??");
       beachWaves.initiateBackToOceanDive();
-      delayedNavigation(() {
+      delayedNavigation(() async {
         exitCollaboratorPoolStore(NoParams());
         cancelStreamStore(NoParams());
-        getCollaboratorSearchStatusStore.searchStatus.close();
+        await stream.cancel();
         Modular.to.navigate('/p2p_collaborator_pool/');
       });
     }
