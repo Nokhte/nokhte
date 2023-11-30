@@ -20,7 +20,7 @@ class P2PPurposePhase6CoordinatorStore = _P2PPurposePhase6CoordinatorStoreBase
 
 abstract class _P2PPurposePhase6CoordinatorStoreBase
     extends BaseQuadrantAPIReceiver with Store {
-  final SchedulingWidgetsCoordinatorStore widgets;
+  final P2PPurposePhase6WidgetsCoordinator widgets;
   final AbortPurposeSessionArtifactsStore abortPurposeSessionArtifactsStore;
   final ConveyerBeltTextStore conveyerBelt;
   final ExistingCollaborationsCoordinator existingCollaborations;

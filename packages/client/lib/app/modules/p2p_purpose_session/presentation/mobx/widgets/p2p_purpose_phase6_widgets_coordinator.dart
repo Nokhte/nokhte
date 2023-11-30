@@ -7,12 +7,12 @@ import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/scheduling_delta/stack/stack.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'scheduling_widgets_coordinator_store.g.dart';
+part 'p2p_purpose_phase6_widgets_coordinator.g.dart';
 
-class SchedulingWidgetsCoordinatorStore = _SchedulingWidgetsCoordinatorStoreBase
-    with _$SchedulingWidgetsCoordinatorStore;
+class P2PPurposePhase6WidgetsCoordinator = _P2PPurposePhase6WidgetsCoordinatorBase
+    with _$P2PPurposePhase6WidgetsCoordinator;
 
-abstract class _SchedulingWidgetsCoordinatorStoreBase extends Equatable
+abstract class _P2PPurposePhase6WidgetsCoordinatorBase extends Equatable
     with Store {
   final ConveyerBeltTextStore conveyerBelt;
   final SunAndMoonStore sunAndMoon;
@@ -21,7 +21,7 @@ abstract class _SchedulingWidgetsCoordinatorStoreBase extends Equatable
 
   final BeachSkyStore beachSkyStore;
   final SchedulingDeltaStore schedulingDelta;
-  _SchedulingWidgetsCoordinatorStoreBase({
+  _P2PPurposePhase6WidgetsCoordinatorBase({
     required this.conveyerBelt,
     required this.sunAndMoon,
     required this.beachSkyStore,

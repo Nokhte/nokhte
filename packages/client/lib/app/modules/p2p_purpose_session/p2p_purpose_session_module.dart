@@ -94,8 +94,8 @@ class P2PCollaboratorSessionModule extends Module {
         Bind.singleton<ExplanationTextStore>(
           (i) => ExplanationTextStore(),
         ),
-        Bind.singleton<SchedulingWidgetsCoordinatorStore>(
-          (i) => SchedulingWidgetsCoordinatorStore(
+        Bind.singleton<P2PPurposePhase6WidgetsCoordinator>(
+          (i) => P2PPurposePhase6WidgetsCoordinator(
             schedulingDelta: i<SchedulingDeltaStore>(),
             conveyerBelt: i<ConveyerBeltTextStore>(),
             beachSkyStore: i<BeachSkyStore>(),
@@ -150,8 +150,8 @@ class P2PCollaboratorSessionModule extends Module {
             soloDoc: i<SoloDocCoordinator>(),
           ),
         ),
-        Bind.singleton<P2PPurposePhase4CoordinatorStore>(
-          (i) => P2PPurposePhase4CoordinatorStore(
+        Bind.singleton<P2PPurposePhase4Coordinator>(
+          (i) => P2PPurposePhase4Coordinator(
             newBeachWaves: Modular.get<NewBeachWavesStore>(),
             abortPurposeSessionArtifactsStore:
                 i<AbortPurposeSessionArtifactsStore>(),
@@ -161,8 +161,8 @@ class P2PCollaboratorSessionModule extends Module {
             soloDoc: i<SoloDocCoordinator>(),
           ),
         ),
-        Bind.singleton<P2PPurposePhase5CoordinatorStore>(
-          (i) => P2PPurposePhase5CoordinatorStore(
+        Bind.singleton<P2PPurposePhase5Coordinator>(
+          (i) => P2PPurposePhase5Coordinator(
             // newBeachWaves: Modular.get<NewBeachWavesStore>(),
             abortPurposeSessionArtifactsStore:
                 i<AbortPurposeSessionArtifactsStore>(),
@@ -188,7 +188,7 @@ class P2PCollaboratorSessionModule extends Module {
                 Modular.get<ExistingCollaborationsCoordinator>(),
             swipe: Modular.get<SwipeDetector>(),
             scheduling: i<SchedulingCoordinatorStore>(),
-            widgets: i<SchedulingWidgetsCoordinatorStore>(),
+            widgets: i<P2PPurposePhase6WidgetsCoordinator>(),
             quadrantAPI: Modular.get<QuadrantAPI>(),
           ),
         ),
@@ -222,14 +222,14 @@ class P2PCollaboratorSessionModule extends Module {
         ChildRoute(
           '/phase-4/',
           child: (context, args) => P2PPurpose4ReciprocateAttentionScreen(
-            coordinator: Modular.get<P2PPurposePhase4CoordinatorStore>(),
+            coordinator: Modular.get<P2PPurposePhase4Coordinator>(),
           ),
           transition: TransitionType.noTransition,
         ),
         ChildRoute(
           '/phase-5/',
           child: (context, args) => P2PPurpose5CollectiveCreation(
-            coordinator: Modular.get<P2PPurposePhase5CoordinatorStore>(),
+            coordinator: Modular.get<P2PPurposePhase5Coordinator>(),
           ),
           transition: TransitionType.noTransition,
         ),

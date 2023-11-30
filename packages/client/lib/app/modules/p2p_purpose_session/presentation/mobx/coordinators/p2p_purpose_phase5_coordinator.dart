@@ -17,12 +17,12 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'p2p_purpose_phase5_coordinator_store.g.dart';
+part 'p2p_purpose_phase5_coordinator.g.dart';
 
-class P2PPurposePhase5CoordinatorStore = _P2PPurposePhase5CoordinatorStoreBase
-    with _$P2PPurposePhase5CoordinatorStore;
+class P2PPurposePhase5Coordinator = _P2PPurposePhase5CoordinatorBase
+    with _$P2PPurposePhase5Coordinator;
 
-abstract class _P2PPurposePhase5CoordinatorStoreBase extends BaseCoordinator
+abstract class _P2PPurposePhase5CoordinatorBase extends BaseCoordinator
     with Store {
   // final BeachWavesTrackerStore beachWaves;
   final AbortPurposeSessionArtifactsStore abortPurposeSessionArtifactsStore;
@@ -38,7 +38,7 @@ abstract class _P2PPurposePhase5CoordinatorStoreBase extends BaseCoordinator
   final VoiceCallActionsStore voiceCallActionsStore;
   final SwipeDetector swipe;
 
-  _P2PPurposePhase5CoordinatorStoreBase({
+  _P2PPurposePhase5CoordinatorBase({
     required super.beachWaves,
     required this.existingCollaborations,
     required this.collaborativeTextUI,

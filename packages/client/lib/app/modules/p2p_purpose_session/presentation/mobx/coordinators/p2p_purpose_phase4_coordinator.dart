@@ -13,18 +13,18 @@ import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/mobx/mob
 import 'package:nokhte/app/core/types/types.dart';
 // import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-part 'p2p_purpose_phase4_coordinator_store.g.dart';
+part 'p2p_purpose_phase4_coordinator.g.dart';
 
-class P2PPurposePhase4CoordinatorStore = _P2PPurposePhase4CoordinatorStoreBase
-    with _$P2PPurposePhase4CoordinatorStore;
+class P2PPurposePhase4Coordinator = _P2PPurposePhase4CoordinatorBase
+    with _$P2PPurposePhase4Coordinator;
 
-abstract class _P2PPurposePhase4CoordinatorStoreBase extends BaseTimesUpStore
+abstract class _P2PPurposePhase4CoordinatorBase extends BaseTimesUpStore
     with Store {
   final SmartFadingAnimatedTextTrackerStore fadingText;
   final AbortPurposeSessionArtifactsStore abortPurposeSessionArtifactsStore;
   final SoloDocCoordinator soloDoc;
 
-  _P2PPurposePhase4CoordinatorStoreBase({
+  _P2PPurposePhase4CoordinatorBase({
     required super.timer,
     required super.beachWaves,
     required super.newBeachWaves,

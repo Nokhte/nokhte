@@ -5,7 +5,7 @@ import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/mobx.da
 
 class P2PPurpose4ReciprocateAttentionScreen extends StatefulWidget
     with WidgetsBindingObserver {
-  final P2PPurposePhase4CoordinatorStore coordinator;
+  final P2PPurposePhase4Coordinator coordinator;
   P2PPurpose4ReciprocateAttentionScreen({
     super.key,
     required this.coordinator,

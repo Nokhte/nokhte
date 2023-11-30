@@ -6,7 +6,7 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 
 class P2PPurpose5CollectiveCreation extends StatefulWidget {
-  final P2PPurposePhase5CoordinatorStore coordinator;
+  final P2PPurposePhase5Coordinator coordinator;
   const P2PPurpose5CollectiveCreation({
     super.key,
     required this.coordinator,
