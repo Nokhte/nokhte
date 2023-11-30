@@ -56,6 +56,22 @@ mixin _$NewBeachWavesStore on _NewBeachWavesStoreBase, Store {
     });
   }
 
+  late final _$pivotColorsAtom =
+      Atom(name: '_NewBeachWavesStoreBase.pivotColors', context: context);
+
+  @override
+  ObservableList<ColorAndStop> get pivotColors {
+    _$pivotColorsAtom.reportRead();
+    return super.pivotColors;
+  }
+
+  @override
+  set pivotColors(ObservableList<ColorAndStop> value) {
+    _$pivotColorsAtom.reportWrite(value, super.pivotColors, () {
+      super.pivotColors = value;
+    });
+  }
+
   late final _$movieStatusAtom =
       Atom(name: '_NewBeachWavesStoreBase.movieStatus', context: context);
 
@@ -103,6 +119,17 @@ mixin _$NewBeachWavesStore on _NewBeachWavesStoreBase, Store {
   }
 
   @override
+  dynamic setPivotColors(List<dynamic> currentAnimationValues) {
+    final _$actionInfo = _$_NewBeachWavesStoreBaseActionController.startAction(
+        name: '_NewBeachWavesStoreBase.setPivotColors');
+    try {
+      return super.setPivotColors(currentAnimationValues);
+    } finally {
+      _$_NewBeachWavesStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setMovieMode(BeachWaveMovieModes newMovieMode) {
     final _$actionInfo = _$_NewBeachWavesStoreBaseActionController.startAction(
         name: '_NewBeachWavesStoreBase.setMovieMode');
@@ -117,6 +144,7 @@ mixin _$NewBeachWavesStore on _NewBeachWavesStoreBase, Store {
   String toString() {
     return '''
 finishedCount: ${finishedCount},
+pivotColors: ${pivotColors},
 movieStatus: ${movieStatus},
 movieMode: ${movieMode},
 currentStore: ${currentStore},

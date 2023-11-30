@@ -73,6 +73,23 @@ abstract class _NewBeachWavesStoreBase extends Equatable with Store {
   }
 
   @observable
+  ObservableList<ColorAndStop> pivotColors = ObservableList.of([]);
+
+  @action
+  setPivotColors(List currentAnimationValues) {
+    pivotColors = ObservableList.of([
+      ColorAndStop(currentAnimationValues[1], currentAnimationValues[9]),
+      ColorAndStop(currentAnimationValues[2], currentAnimationValues[10]),
+      ColorAndStop(currentAnimationValues[3], currentAnimationValues[11]),
+      ColorAndStop(currentAnimationValues[4], currentAnimationValues[12]),
+      ColorAndStop(currentAnimationValues[5], currentAnimationValues[13]),
+      ColorAndStop(currentAnimationValues[6], currentAnimationValues[14]),
+      ColorAndStop(currentAnimationValues[7], currentAnimationValues[15]),
+      ColorAndStop(currentAnimationValues[8], currentAnimationValues[16]),
+    ]);
+  }
+
+  @observable
   MovieStatus movieStatus = MovieStatus.idle;
 
   @observable
