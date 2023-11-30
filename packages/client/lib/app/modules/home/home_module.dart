@@ -102,7 +102,6 @@ class HomeModule extends Module {
             hold: Modular.get<HoldDetector>(),
             swipe: Modular.get<SwipeDetector>(),
             gesturePillStore: i<GesturePillStore>(),
-            beachWaves: i<BeachWavesTrackerStore>(),
             addNameToDatabaseStore: i<AddNameToDatabaseStore>(),
             fadingTextStateTrackerStore:
                 i<SmartFadingAnimatedTextTrackerStore>(),
