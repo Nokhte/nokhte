@@ -31,20 +31,19 @@ abstract class _BaseTimesUpStoreBase extends BaseCoordinator with Store {
 
   @action
   initOrPauseTimesUp(bool shouldRun) {
-    if (shouldRun) {
-      if (isFirstTimeStartingMovie) {
-        final Duration timerLength =
-            kDebugMode ? Seconds.get(20) : productionTimerLength;
-        newBeachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtTheDepths);
-        newBeachWaves.setMovieMode(BeachWaveMovieModes.timesUp);
-        newBeachWaves.currentStore.initMovie(timerLength);
-        isFirstTimeStartingMovie = false;
+    if (newBeachWaves.movieMode == BeachWaveMovieModes.timesUp) {
+      if (shouldRun) {
+        if (isFirstTimeStartingMovie) {
+          final Duration timerLength =
+              kDebugMode ? Seconds.get(10) : productionTimerLength;
+          newBeachWaves.currentStore.initMovie(timerLength);
+          isFirstTimeStartingMovie = false;
+        } else {
+          newBeachWaves.currentStore.control = Control.play;
+        }
       } else {
-        newBeachWaves.currentStore.setControl(Control.play);
+        newBeachWaves.currentStore.control = Control.stop;
       }
-    } else {
-      beachWaves.setControl(Control.stop);
-      newBeachWaves.currentStore.setControl(Control.stop);
     }
   }
 }
