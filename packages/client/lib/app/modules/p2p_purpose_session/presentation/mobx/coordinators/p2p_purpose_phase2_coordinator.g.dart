@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'p2p_purpose_phase2_coordinator_store.dart';
+part of 'p2p_purpose_phase2_coordinator.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,10 +8,9 @@ part of 'p2p_purpose_phase2_coordinator_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$P2PPurposePhase2CoordinatorStore
-    on _P2PPurposePhase2CoordinatorStoreBase, Store {
+mixin _$P2PPurposePhase2Coordinator on _P2PPurposePhase2CoordinatorBase, Store {
   late final _$isFirstTimeTalkingAtom = Atom(
-      name: '_P2PPurposePhase2CoordinatorStoreBase.isFirstTimeTalking',
+      name: '_P2PPurposePhase2CoordinatorBase.isFirstTimeTalking',
       context: context);
 
   @override
@@ -28,7 +27,7 @@ mixin _$P2PPurposePhase2CoordinatorStore
   }
 
   late final _$screenConstructorAsyncAction = AsyncAction(
-      '_P2PPurposePhase2CoordinatorStoreBase.screenConstructor',
+      '_P2PPurposePhase2CoordinatorBase.screenConstructor',
       context: context);
 
   @override
@@ -37,7 +36,7 @@ mixin _$P2PPurposePhase2CoordinatorStore
   }
 
   late final _$audioButtonHoldStartCallbackAsyncAction = AsyncAction(
-      '_P2PPurposePhase2CoordinatorStoreBase.audioButtonHoldStartCallback',
+      '_P2PPurposePhase2CoordinatorBase.audioButtonHoldStartCallback',
       context: context);
 
   @override
@@ -46,20 +45,20 @@ mixin _$P2PPurposePhase2CoordinatorStore
         .run(() => super.audioButtonHoldStartCallback());
   }
 
-  late final _$_P2PPurposePhase2CoordinatorStoreBaseActionController =
+  late final _$_P2PPurposePhase2CoordinatorBaseActionController =
       ActionController(
-          name: '_P2PPurposePhase2CoordinatorStoreBase', context: context);
+          name: '_P2PPurposePhase2CoordinatorBase', context: context);
 
   @override
   dynamic audioButtonHoldEndCallback() {
     final _$actionInfo =
-        _$_P2PPurposePhase2CoordinatorStoreBaseActionController.startAction(
+        _$_P2PPurposePhase2CoordinatorBaseActionController.startAction(
             name:
-                '_P2PPurposePhase2CoordinatorStoreBase.audioButtonHoldEndCallback');
+                '_P2PPurposePhase2CoordinatorBase.audioButtonHoldEndCallback');
     try {
       return super.audioButtonHoldEndCallback();
     } finally {
-      _$_P2PPurposePhase2CoordinatorStoreBaseActionController
+      _$_P2PPurposePhase2CoordinatorBaseActionController
           .endAction(_$actionInfo);
     }
   }

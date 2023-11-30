@@ -120,8 +120,8 @@ class P2PCollaboratorSessionModule extends Module {
             voiceCallActionsStore: i<VoiceCallActionsStore>(),
           ),
         ),
-        Bind.singleton<P2PPurposePhase2CoordinatorStore>(
-            (i) => P2PPurposePhase2CoordinatorStore(
+        Bind.singleton<P2PPurposePhase2Coordinator>(
+            (i) => P2PPurposePhase2Coordinator(
                   newBeachWaves: Modular.get<NewBeachWavesStore>(),
                   abortPurposeSessionArtifactsStore:
                       i<AbortPurposeSessionArtifactsStore>(),
@@ -207,7 +207,7 @@ class P2PCollaboratorSessionModule extends Module {
         ChildRoute(
           '/phase-2/',
           child: (context, args) => P2PPurpose2ConsultationScreen(
-            coordinator: Modular.get<P2PPurposePhase2CoordinatorStore>(),
+            coordinator: Modular.get<P2PPurposePhase2Coordinator>(),
           ),
           transition: TransitionType.noTransition,
         ),

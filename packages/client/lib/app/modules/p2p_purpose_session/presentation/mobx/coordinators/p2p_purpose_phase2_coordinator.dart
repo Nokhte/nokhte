@@ -13,12 +13,12 @@ import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-part 'p2p_purpose_phase2_coordinator_store.g.dart';
+part 'p2p_purpose_phase2_coordinator.g.dart';
 
-class P2PPurposePhase2CoordinatorStore = _P2PPurposePhase2CoordinatorStoreBase
-    with _$P2PPurposePhase2CoordinatorStore;
+class P2PPurposePhase2Coordinator = _P2PPurposePhase2CoordinatorBase
+    with _$P2PPurposePhase2Coordinator;
 
-abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
+abstract class _P2PPurposePhase2CoordinatorBase extends BaseTimesUpStore
     with Store {
   // final NewBeachWavesStore newBeachWaves;
   final OneTalkerAtATimeCoordinator oneTalkerAtATime;
@@ -32,7 +32,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
   final SwipeDetector swipe;
   final HoldDetector hold;
 
-  _P2PPurposePhase2CoordinatorStoreBase({
+  _P2PPurposePhase2CoordinatorBase({
     required super.timer,
     required super.newBeachWaves,
     required this.abortPurposeSessionArtifactsStore,

@@ -9,7 +9,7 @@ import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/mobx.da
 
 class P2PPurpose2ConsultationScreen extends StatefulWidget
     with WidgetsBindingObserver {
-  final P2PPurposePhase2CoordinatorStore coordinator;
+  final P2PPurposePhase2Coordinator coordinator;
   P2PPurpose2ConsultationScreen({
     super.key,
     required this.coordinator,
