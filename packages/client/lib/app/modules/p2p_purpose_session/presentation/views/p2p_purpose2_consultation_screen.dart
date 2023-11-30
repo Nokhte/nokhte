@@ -52,8 +52,11 @@ class _P2PPurpose2ConsultationScreenState
                       SizedBox(
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height,
-                        child: SmartBeachWaves(
-                          stateTrackerStore: widget.coordinator.beachWaves,
+                        // child: SmartBeachWaves(
+                        //   stateTrackerStore: widget.coordinator.beachWaves,
+                        // ),
+                        child: NewSmartBeachWaves(
+                          store: widget.coordinator.newBeachWaves,
                         ),
                       ),
                       Center(

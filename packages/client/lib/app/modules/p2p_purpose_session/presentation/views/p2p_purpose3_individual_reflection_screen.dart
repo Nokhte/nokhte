@@ -45,9 +45,12 @@ class _P2PPurpose3IndividualRefletionScreenState
                   SizedBox(
                     width: constraints.widthConstraints().maxHeight,
                     height: constraints.heightConstraints().maxWidth,
-                    child: SmartBeachWaves(
-                      stateTrackerStore: widget.coordinator.beachWaves,
+                    child: NewSmartBeachWaves(
+                      store: widget.coordinator.newBeachWaves,
                     ),
+                    // child: SmartBeachWaves(
+                    //   stateTrackerStore: widget.coordinator.beachWaves,
+                    // ),
                   ),
                   Center(
                     child: SmartFadingAnimatedText(

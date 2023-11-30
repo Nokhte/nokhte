@@ -41,9 +41,12 @@ class _P2PPurpose4ReciprocateAttentionScreenState
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
-                    child: SmartBeachWaves(
-                      stateTrackerStore: widget.coordinator.beachWaves,
+                    child: NewSmartBeachWaves(
+                      store: widget.coordinator.newBeachWaves,
                     ),
+                    // child: SmartBeachWaves(
+                    //   stateTrackerStore: widget.coordinator.beachWaves,
+                    // ),
                   ),
                   Center(
                     child: SmartFadingAnimatedText(
