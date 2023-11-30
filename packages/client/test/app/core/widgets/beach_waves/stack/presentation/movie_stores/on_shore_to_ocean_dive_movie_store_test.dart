@@ -24,7 +24,7 @@ void main() {
     test("initMovie should start the movie", () {
       const double startingPosition = 10.234;
       testStore.initMovie(startingPosition);
-      expect(testStore.control, Control.play);
+      expect(testStore.control, Control.playFromStart);
     });
   });
 }
