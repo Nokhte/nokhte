@@ -13,6 +13,7 @@ part 'new_beach_waves_store.g.dart';
 class NewBeachWavesStore = _NewBeachWavesStoreBase with _$NewBeachWavesStore;
 
 abstract class _NewBeachWavesStoreBase extends Equatable with Store {
+  final TimesUpEndToTheDepthsMovieStore timesUpEndToTheDepthsMovieStore;
   final SuspendedAtTheDepthsMovieStore suspendedAtTheDepthsMovieStore;
   final OnShoreToOceanDiveMovieStore onShoreToOceanDiveMovieStore;
   final OnShoreMovieStore onShoreMovieStore;
@@ -25,6 +26,7 @@ abstract class _NewBeachWavesStoreBase extends Equatable with Store {
       timesUpDynamicPointToTheDepthsMovie;
 
   _NewBeachWavesStoreBase({
+    required this.timesUpEndToTheDepthsMovieStore,
     required this.suspendedAtTheDepthsMovieStore,
     required this.timesUpDynamicPointToTheDepthsMovie,
     required this.timesUpEndToOceanDiveMovie,
@@ -45,6 +47,8 @@ abstract class _NewBeachWavesStoreBase extends Equatable with Store {
       BeachWaveMovieModes.oceanDiveToTimesUp: oceanDiveToTimesUpMovieStore,
       BeachWaveMovieModes.timesUp: timesUpMovieStore,
       BeachWaveMovieModes.timesUpEndToOceanDive: timesUpEndToOceanDiveMovie,
+      BeachWaveMovieModes.timesUpEndToTheDepths:
+          timesUpEndToTheDepthsMovieStore,
       BeachWaveMovieModes.timesUpDynamicPointToTheDepths:
           timesUpDynamicPointToTheDepthsMovie,
       BeachWaveMovieModes.timesUpDynamicPointToTheDepthsSetup:
