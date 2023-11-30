@@ -10,6 +10,7 @@ void main() {
   late OnShoreToOceanDiveMovieStore onShoreToOceanDiveMovieStore;
   late OnShoreMovieStore onShoreMovieStore;
   late SuspendedAtOceanDiveStore suspendedAtOceanDiveStore;
+  late SuspendedAtTheDepthsMovieStore suspendedAtTheDepthsMovieStore;
   late OceanDiveToOnShoreMovieStore oceanDiveToOnShoreMovieStore;
   late TimesUpMovieStore timesUpMovieStore;
   late OceanDiveToTimesUpMovieStore oceanDiveToTimesUpMovieStore;
@@ -18,6 +19,7 @@ void main() {
       timesUpDynamicPointToTheDepthsMovieStore;
 
   setUp(() {
+    suspendedAtTheDepthsMovieStore = SuspendedAtTheDepthsMovieStore();
     timesUpMovieStore = TimesUpMovieStore();
     oceanDiveToTimesUpMovieStore = OceanDiveToTimesUpMovieStore();
     suspendedAtOceanDiveStore = SuspendedAtOceanDiveStore();
@@ -29,6 +31,7 @@ void main() {
         TimesUpDynamicPointToTheDepthsMovieStore();
 
     testStore = NewBeachWavesStore(
+      suspendedAtTheDepthsMovieStore: suspendedAtTheDepthsMovieStore,
       timesUpDynamicPointToTheDepthsMovie:
           timesUpDynamicPointToTheDepthsMovieStore,
       timesUpEndToOceanDiveMovie: timesUpEndToOceanDiveMovie,
