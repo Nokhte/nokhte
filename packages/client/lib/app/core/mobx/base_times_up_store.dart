@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/timer/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/seconds.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -15,14 +14,11 @@ part 'base_times_up_store.g.dart';
 class BaseTimesUpStore = _BaseTimesUpStoreBase with _$BaseTimesUpStore;
 
 abstract class _BaseTimesUpStoreBase extends BaseCoordinator with Store {
-  final TimerCoordinator timer;
   final Duration productionTimerLength;
   final NewBeachWavesStore newBeachWaves;
 
   _BaseTimesUpStoreBase({
     required this.newBeachWaves,
-    required this.timer,
-    required super.beachWaves,
     required this.productionTimerLength,
   });
 
