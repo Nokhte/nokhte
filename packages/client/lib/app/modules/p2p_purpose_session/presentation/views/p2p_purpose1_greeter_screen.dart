@@ -44,12 +44,11 @@ class _P2PPurpose1GreeterScreenState extends State<P2PPurpose1GreeterScreen>
                 child: Stack(
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      child: SmartBeachWaves(
-                        stateTrackerStore: widget.coordinator.beachWaves,
-                      ),
-                    ),
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        child: NewSmartBeachWaves(
+                          store: widget.coordinator.newBeachWaves,
+                        )),
                     Center(
                       child: SmartFadingAnimatedText(
                         stateTrackerStore: widget.coordinator.fadingText,

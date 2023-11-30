@@ -11,6 +11,7 @@ import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/mobx/abo
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/types/types.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
@@ -22,6 +23,7 @@ class P2PPurposePhase1CoordinatorStore = _P2PPurposePhase1CoordinatorStoreBase
 
 abstract class _P2PPurposePhase1CoordinatorStoreBase extends BaseCoordinator
     with Store {
+  final NewBeachWavesStore newBeachWaves;
   final InstantiateAgoraSdkStore instantiateAgoraSdkStore;
   final GesturePillStore gesturePillStore;
   final AbortPurposeSessionArtifactsStore abortPurposeSessionArtifactsStore;
@@ -33,6 +35,7 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends BaseCoordinator
   final SmartFadingAnimatedTextTrackerStore fadingText;
 
   _P2PPurposePhase1CoordinatorStoreBase({
+    required this.newBeachWaves,
     required this.swipe,
     required this.abortPurposeSessionArtifactsStore,
     required this.instantiateAgoraSdkStore,
@@ -67,7 +70,8 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends BaseCoordinator
         ),
       ),
     );
-    beachWaves.initiateSuspendedAtTheDepths();
+    newBeachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtTheDepths);
+    // beachWaves.initiateSuspendedAtTheDepths();
     await instantiateAgoraSdkStore(NoParams());
     await getChannelIdStore(NoParams());
     await getAgoraTokenStore(
