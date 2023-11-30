@@ -50,8 +50,7 @@ void main() {
   });
 
   test("users should be able to create a timer", () async {
-    final res =
-        await user1Queries.createNewTimer(timerLengthInMilliseconds: 3000.0);
+    final res = await user1Queries.createNewTimer();
     initialTimerExpectationSuite(res);
   });
 
@@ -66,7 +65,7 @@ void main() {
 
   group("assumes timer row as been created", () {
     setUp(() async {
-      await user1Queries.createNewTimer(timerLengthInMilliseconds: 3000.0);
+      await user1Queries.createNewTimer();
     });
     tearDown(() async => await deleteTimer());
 

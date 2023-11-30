@@ -10,9 +10,7 @@ class TimerInformationQueries extends CollaborativeQueries {
 
   TimerInformationQueries({required super.supabase});
 
-  Future<List> createNewTimer({
-    required double timerLengthInMilliseconds,
-  }) async {
+  Future<List> createNewTimer() async {
     await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     final checkRes = await selectMostRecentTimer();
     print(checkRes);
@@ -22,7 +20,6 @@ class TimerInformationQueries extends CollaborativeQueries {
             collaboratorInfo.theCollaboratorsUID,
         "${collaboratorInfo.theUsersCollaboratorNumber}_uid":
             collaboratorInfo.theUsersUID,
-        // timeRemainingInMilliseconds: timerLengthInMilliseconds,
       }).select();
     } else {
       return checkRes;
