@@ -4,26 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
-import 'package:nokhte/app/core/widgets/widgets.dart';
 // * Mobx Codegen Inclusion
 part 'base_coordinator.g.dart';
 
 class BaseCoordinator = _BaseCoordinatorBase with _$BaseCoordinator;
 
 abstract class _BaseCoordinatorBase extends Equatable with Store {
-  final BeachWavesTrackerStore beachWaves;
-
-  _BaseCoordinatorBase({
-    required this.beachWaves,
-  });
-
-  delayedNavigation(Function callback) {
-    Future.delayed(
-      beachWaves.movie.duration,
-      () => callback(),
-    );
-  }
-
   @observable
   AppLifecycleState appState = AppLifecycleState.resumed;
 
@@ -36,10 +22,8 @@ abstract class _BaseCoordinatorBase extends Equatable with Store {
         switch (p0) {
           case AppLifecycleState.resumed:
             await resumedCallback();
-          // await timer.setOnlineStatus(true);
           case AppLifecycleState.inactive:
             await inactiveCallback();
-          // await timer.setOnlineStatus(false);
           case AppLifecycleState.detached:
             await detachedCallback();
           default:
