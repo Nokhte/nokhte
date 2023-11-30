@@ -10,6 +10,23 @@ part of 'p2p_purpose_phase2_widgets_coordinator.dart';
 
 mixin _$P2PPurposePhase2WidgetsCoordinator
     on _P2PPurposePhase2WidgetsCoordinatorBase, Store {
+  late final _$isFirstTimeTalkingAtom = Atom(
+      name: '_P2PPurposePhase2WidgetsCoordinatorBase.isFirstTimeTalking',
+      context: context);
+
+  @override
+  bool get isFirstTimeTalking {
+    _$isFirstTimeTalkingAtom.reportRead();
+    return super.isFirstTimeTalking;
+  }
+
+  @override
+  set isFirstTimeTalking(bool value) {
+    _$isFirstTimeTalkingAtom.reportWrite(value, super.isFirstTimeTalking, () {
+      super.isFirstTimeTalking = value;
+    });
+  }
+
   late final _$constructorAsyncAction = AsyncAction(
       '_P2PPurposePhase2WidgetsCoordinatorBase.constructor',
       context: context);
@@ -20,18 +37,32 @@ mixin _$P2PPurposePhase2WidgetsCoordinator
         .run(() => super.constructor(mainOnScreenMessage: mainOnScreenMessage));
   }
 
+  late final _$audioButtonHoldStartCallbackAsyncAction = AsyncAction(
+      '_P2PPurposePhase2WidgetsCoordinatorBase.audioButtonHoldStartCallback',
+      context: context);
+
+  @override
+  Future audioButtonHoldStartCallback(
+      {required Function firstTimeTalkingCallback,
+      required Function everyTimeCallback}) {
+    return _$audioButtonHoldStartCallbackAsyncAction.run(() => super
+        .audioButtonHoldStartCallback(
+            firstTimeTalkingCallback: firstTimeTalkingCallback,
+            everyTimeCallback: everyTimeCallback));
+  }
+
   late final _$_P2PPurposePhase2WidgetsCoordinatorBaseActionController =
       ActionController(
           name: '_P2PPurposePhase2WidgetsCoordinatorBase', context: context);
 
   @override
-  dynamic disableAndMirrorCollaboratorsGlow() {
+  dynamic disableMeshAndMirrorCollaboratorsGlow() {
     final _$actionInfo =
         _$_P2PPurposePhase2WidgetsCoordinatorBaseActionController.startAction(
             name:
-                '_P2PPurposePhase2WidgetsCoordinatorBase.disableAndMirrorCollaboratorsGlow');
+                '_P2PPurposePhase2WidgetsCoordinatorBase.disableMeshAndMirrorCollaboratorsGlow');
     try {
-      return super.disableAndMirrorCollaboratorsGlow();
+      return super.disableMeshAndMirrorCollaboratorsGlow();
     } finally {
       _$_P2PPurposePhase2WidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
@@ -39,13 +70,13 @@ mixin _$P2PPurposePhase2WidgetsCoordinator
   }
 
   @override
-  dynamic enableAfterCooldownPeriod() {
+  dynamic enableMeshAfterCooldownPeriod() {
     final _$actionInfo =
         _$_P2PPurposePhase2WidgetsCoordinatorBaseActionController.startAction(
             name:
-                '_P2PPurposePhase2WidgetsCoordinatorBase.enableAfterCooldownPeriod');
+                '_P2PPurposePhase2WidgetsCoordinatorBase.enableMeshAfterCooldownPeriod');
     try {
-      return super.enableAfterCooldownPeriod();
+      return super.enableMeshAfterCooldownPeriod();
     } finally {
       _$_P2PPurposePhase2WidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
@@ -69,7 +100,7 @@ mixin _$P2PPurposePhase2WidgetsCoordinator
   @override
   String toString() {
     return '''
-
+isFirstTimeTalking: ${isFirstTimeTalking}
     ''';
   }
 }

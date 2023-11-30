@@ -45,14 +45,22 @@ mixin _$P2PPurposePhase2Coordinator on _P2PPurposePhase2CoordinatorBase, Store {
         .run(() => super.audioButtonHoldStartCallback());
   }
 
-  late final _$audioButtonHoldEndCallbackAsyncAction = AsyncAction(
-      '_P2PPurposePhase2CoordinatorBase.audioButtonHoldEndCallback',
-      context: context);
+  late final _$_P2PPurposePhase2CoordinatorBaseActionController =
+      ActionController(
+          name: '_P2PPurposePhase2CoordinatorBase', context: context);
 
   @override
-  Future audioButtonHoldEndCallback() {
-    return _$audioButtonHoldEndCallbackAsyncAction
-        .run(() => super.audioButtonHoldEndCallback());
+  dynamic audioButtonHoldEndCallback() {
+    final _$actionInfo =
+        _$_P2PPurposePhase2CoordinatorBaseActionController.startAction(
+            name:
+                '_P2PPurposePhase2CoordinatorBase.audioButtonHoldEndCallback');
+    try {
+      return super.audioButtonHoldEndCallback();
+    } finally {
+      _$_P2PPurposePhase2CoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
   }
 
   @override

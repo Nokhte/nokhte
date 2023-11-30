@@ -27,37 +27,74 @@ abstract class _P2PPurposePhase2WidgetsCoordinatorBase extends BaseTimesUpStore
     required this.meshCircleStore,
   }) : super(productionTimerLength: const Duration(minutes: 5));
 
+  @observable
+  bool isFirstTimeTalking = true;
+
   @action
   constructor({required String mainOnScreenMessage}) async {
     fadingText.startRotatingText(Seconds.get(0));
+    newBeachWaves.setMovieMode(BeachWaveMovieModes.timesUp);
     explanationText.widgetConstructor(message: "hold to talk");
     meshCircleStore.widgetConstructor();
     await fadingText
         .oneSecondDelay(() async => await fadingText.fadeTheTextIn());
-    fadingText
-        .setMainMessage(
-          index: 1,
-          thePhrase: mainOnScreenMessage,
-        )
-        .then((value) => Future.delayed(Seconds.get(1), () {
-              fadingText.togglePause();
-            }));
+    fadingText.setMainMessage(
+      index: 1,
+      thePhrase: mainOnScreenMessage,
+    );
+    Future.delayed(Seconds.get(1), () {
+      fadingText.togglePause();
+    });
   }
 
   @action
-  disableAndMirrorCollaboratorsGlow() {
+  disableMeshAndMirrorCollaboratorsGlow() {
     meshCircleStore.toggleIsEnabled();
     meshCircleStore.initGlowUp();
   }
 
   @action
-  enableAfterCooldownPeriod() => Future.delayed(
+  enableMeshAfterCooldownPeriod() => Future.delayed(
         Seconds.get(1),
         () {
           meshCircleStore.toggleIsEnabled();
           meshCircleStore.initGlowDown();
         },
       );
+
+  @action
+  audioButtonHoldStartCallback({
+    required Function firstTimeTalkingCallback,
+    required Function everyTimeCallback,
+  }) async {
+    if (meshCircleStore.isEnabled) {
+      if (isFirstTimeTalking) {
+        isFirstTimeTalking = false;
+        Future.delayed(
+          Seconds.get(3),
+          () => explanationText.toggleWidgetVisibility(),
+        );
+        await firstTimeTalkingCallback();
+      }
+      meshCircleStore.initGlowUp();
+
+      if (fadingText.currentIndex == 1 && fadingText.showText) {
+        Future.delayed(Seconds.get(10), () => fadingText.fadeTheTextOut());
+      }
+      await everyTimeCallback();
+      meshCircleStore.toggleColorAnimation();
+    }
+  }
+
+  audioButtonHoldEndCallback({
+    required Function ifMeshIsEnabledCallback,
+  }) async {
+    if (meshCircleStore.isEnabled) {
+      await ifMeshIsEnabledCallback();
+      meshCircleStore.initGlowDown();
+      meshCircleStore.toggleColorAnimation();
+    }
+  }
 
   @action
   uiCleanUpAndTransition() {
@@ -72,7 +109,7 @@ abstract class _P2PPurposePhase2WidgetsCoordinatorBase extends BaseTimesUpStore
     Modular.to.navigate('/p2p_purpose_session/phase-3/');
   }
 
-  beachWavesMovieStatusWatcher(Function logicRelatedCallback) =>
+  beachWavesMovieStatusWatcher({required Function logicRelatedCallback}) =>
       reaction((p0) => newBeachWaves.movieStatus, (p0) async {
         if (newBeachWaves.movieStatus == MovieStatus.finished &&
             newBeachWaves.movieMode == BeachWaveMovieModes.timesUp) {
