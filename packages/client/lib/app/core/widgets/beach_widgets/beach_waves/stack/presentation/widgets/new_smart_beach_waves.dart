@@ -1,5 +1,4 @@
 // ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
@@ -33,17 +32,11 @@ class NewSmartBeachWaves extends StatelessWidget {
               store.setMovieMode(BeachWaveMovieModes.onShoreToOceanDive);
               store.currentStore.initMovie(currentAnimationValues.first);
             } else if (store.movieMode ==
-                BeachWaveMovieModes.backToTheDepthsSetup) {
-              //   store.teeUpBackToTheDepthsValues(colorGradientsList: [
-              //     currentAnimationValues[1],
-              //     currentAnimationValues[2],
-              //     currentAnimationValues[3],
-              //     currentAnimationValues[4],
-              //     currentAnimationValues[5],
-              //     currentAnimationValues[6],
-              //     currentAnimationValues[7],
-              //     currentAnimationValues[8],
-              //   ]);
+                BeachWaveMovieModes.timesUpDynamicPointToTheDepthsSetup) {
+              store.setPivotColors(currentAnimationValues);
+              store.setMovieMode(
+                  BeachWaveMovieModes.timesUpDynamicPointToTheDepths);
+              store.currentStore.initMovie(store.pivotColors);
             }
             return CustomPaint(
               painter: BeachWavesPainter(
