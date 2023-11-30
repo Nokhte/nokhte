@@ -29,6 +29,7 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends BaseTimesUpStore
     required super.timer,
     required this.swipe,
     required super.beachWaves,
+    required super.newBeachWaves,
     required this.abortPurposeSessionArtifactsStore,
     required this.textEditor,
     required this.fadingText,

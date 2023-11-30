@@ -20,6 +20,7 @@ class P2PPurposePhase2CoordinatorStore = _P2PPurposePhase2CoordinatorStoreBase
 
 abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
     with Store {
+  // final NewBeachWavesStore newBeachWaves;
   final OneTalkerAtATimeCoordinator oneTalkerAtATime;
   final ExplanationTextStore explanationText;
   final AbortPurposeSessionArtifactsStore abortPurposeSessionArtifactsStore;
@@ -33,6 +34,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
 
   _P2PPurposePhase2CoordinatorStoreBase({
     required super.timer,
+    required super.newBeachWaves,
     required this.abortPurposeSessionArtifactsStore,
     required this.oneTalkerAtATime,
     required this.swipe,
@@ -53,6 +55,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
   screenConstructor() async {
     fadingText.startRotatingText(Seconds.get(0));
     beachWaves.initiateSuspendedAtTheDepths();
+    newBeachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtTheDepths);
     await oneTalkerAtATime.startListeningToCheckIfCollaboratorIsTalking();
     holdStartListener();
     collaboratorIsTalkingListener();
@@ -61,7 +64,6 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
       timerUICallback: initOrPauseTimesUp,
       onBothCollaboratorTimersCompleted: cleanUpAndTransition,
     );
-    // await timer.setOnlineStatus(true);
     foregroundAndBackgroundStateListener(
       resumedCallback: () async => await timer.setOnlineStatus(true),
       inactiveCallback: () async => await timer.setOnlineStatus(false),
@@ -72,7 +74,7 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
       ),
     );
     explanationText.widgetConstructor(message: "hold to talk");
-    beachWavesMovieModeWatcher();
+    // beachWavesMovieModeWatcher();
     beachWavesMovieStatusWatcher();
     holdEndListener();
     meshCircleStore.widgetConstructor();
@@ -90,11 +92,11 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
         }));
   }
 
-  beachWavesMovieModeWatcher() => reaction((p0) => beachWaves.movieMode, (p0) {
-        if (beachWaves.movieMode == BeachWaveMovieModes.backToTheDepthsSetup) {
-          meshCircleStore.toggleWidgetVisibility();
-        }
-      });
+  // beachWavesMovieModeWatcher() => reaction((p0) => beachWaves.movieMode, (p0) {
+  //       if (beachWaves.movieMode == BeachWaveMovieModes.backToTheDepthsSetup) {
+  //         meshCircleStore.toggleWidgetVisibility();
+  //       }
+  //     });
 
   collaboratorIsTalkingListener() =>
       reaction((p0) => oneTalkerAtATime.collaboratorIsTalking, (p0) {
@@ -116,30 +118,26 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
     await timer.deleteTheTimer(NoParams());
     await voiceCallActionsStore.enterOrLeaveCall(Left(NoParams()));
     await explanationText.toggleWidgetVisibility();
+    await timer.markTimerAsComplete(NoParams());
     if (fadingText.showText) {
       fadingText.fadeTheTextOut();
     }
     meshCircleStore.toggleWidgetVisibility();
-    Modular.to.navigate('/p2p_purpose_session/phase-3/');
+    // Modular.to.navigate('/p2p_purpose_session/phase-3/');
   }
 
   beachWavesMovieStatusWatcher() =>
-      reaction((p0) => beachWaves.movieStatus, (p0) async {
+      reaction((p0) => newBeachWaves.movieStatus, (p0) async {
         print(" phase 2${beachWaves.movieStatus} ${beachWaves.movieMode}");
-        if (beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
-          if (beachWaves.movieStatus == MovieStatus.finished) {
-            beachWaves.teeUpBackToTheDepths();
-            Future.delayed(Seconds.get(3), () async {
-              await timer.markTimerAsComplete(NoParams());
-            });
-          } else if (beachWaves.movieStatus == MovieStatus.inProgress) {
-            delayedNavigation(() {
-              beachWaves.teeUpBackToTheDepths();
-              Future.delayed(Seconds.get(3), () async {
-                await timer.markTimerAsComplete(NoParams());
-              });
-            });
-          }
+        if (newBeachWaves.movieStatus == MovieStatus.finished &&
+            newBeachWaves.movieMode == BeachWaveMovieModes.timesUp) {
+          newBeachWaves.setMovieMode(BeachWaveMovieModes.timesUpEndToTheDepths);
+          newBeachWaves.currentStore.initMovie(NoParams());
+          await cleanUpAndTransition();
+        } else if (newBeachWaves.movieStatus == MovieStatus.finished &&
+            newBeachWaves.movieMode ==
+                BeachWaveMovieModes.timesUpEndToTheDepths) {
+          Modular.to.navigate('/p2p_purpose_session/phase-3/');
         }
       });
 

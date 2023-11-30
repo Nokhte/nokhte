@@ -27,6 +27,7 @@ abstract class _P2PPurposePhase4CoordinatorStoreBase extends BaseTimesUpStore
   _P2PPurposePhase4CoordinatorStoreBase({
     required super.timer,
     required super.beachWaves,
+    required super.newBeachWaves,
     required this.abortPurposeSessionArtifactsStore,
     required this.fadingText,
     required this.soloDoc,

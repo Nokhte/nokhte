@@ -122,6 +122,7 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase2CoordinatorStore>(
             (i) => P2PPurposePhase2CoordinatorStore(
+                  newBeachWaves: Modular.get<NewBeachWavesStore>(),
                   abortPurposeSessionArtifactsStore:
                       i<AbortPurposeSessionArtifactsStore>(),
                   oneTalkerAtATime: Modular.get<OneTalkerAtATimeCoordinator>(),
@@ -138,6 +139,7 @@ class P2PCollaboratorSessionModule extends Module {
                 )),
         Bind.singleton<P2PPurposePhase3CoordinatorStore>(
           (i) => P2PPurposePhase3CoordinatorStore(
+            newBeachWaves: Modular.get<NewBeachWavesStore>(),
             abortPurposeSessionArtifactsStore:
                 i<AbortPurposeSessionArtifactsStore>(),
             timer: Modular.get<TimerCoordinator>(),
@@ -150,6 +152,7 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase4CoordinatorStore>(
           (i) => P2PPurposePhase4CoordinatorStore(
+            newBeachWaves: Modular.get<NewBeachWavesStore>(),
             abortPurposeSessionArtifactsStore:
                 i<AbortPurposeSessionArtifactsStore>(),
             timer: Modular.get<TimerCoordinator>(),
@@ -160,6 +163,7 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase5CoordinatorStore>(
           (i) => P2PPurposePhase5CoordinatorStore(
+            // newBeachWaves: Modular.get<NewBeachWavesStore>(),
             abortPurposeSessionArtifactsStore:
                 i<AbortPurposeSessionArtifactsStore>(),
             swipe: Modular.get<SwipeDetector>(),
@@ -177,6 +181,7 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase6CoordinatorStore>(
           (i) => P2PPurposePhase6CoordinatorStore(
+            // newBeachWaves: Modular.get<NewBeachWavesStore>(),
             abortPurposeSessionArtifactsStore:
                 i<AbortPurposeSessionArtifactsStore>(),
             existingCollaborations:
