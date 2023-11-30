@@ -104,8 +104,8 @@ class P2PCollaboratorSessionModule extends Module {
             sunAndMoon: i<SunAndMoonStore>(),
           ),
         ),
-        Bind.singleton<P2PPurposePhase1CoordinatorStore>(
-          (i) => P2PPurposePhase1CoordinatorStore(
+        Bind.singleton<P2PPurposePhase1Coordinator>(
+          (i) => P2PPurposePhase1Coordinator(
             newBeachWaves: Modular.get<NewBeachWavesStore>(),
             abortPurposeSessionArtifactsStore:
                 i<AbortPurposeSessionArtifactsStore>(),
@@ -200,7 +200,7 @@ class P2PCollaboratorSessionModule extends Module {
           '/',
           // '/phase-1',
           child: (context, args) => P2PPurpose1GreeterScreen(
-            coordinator: Modular.get<P2PPurposePhase1CoordinatorStore>(),
+            coordinator: Modular.get<P2PPurposePhase1Coordinator>(),
           ),
           transition: TransitionType.noTransition,
         ),

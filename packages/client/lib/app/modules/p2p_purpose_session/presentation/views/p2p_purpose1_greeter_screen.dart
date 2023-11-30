@@ -5,7 +5,7 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/coordinators/coordinators.dart';
 
 class P2PPurpose1GreeterScreen extends StatefulWidget {
-  final P2PPurposePhase1CoordinatorStore coordinator;
+  final P2PPurposePhase1Coordinator coordinator;
   const P2PPurpose1GreeterScreen({
     super.key,
     required this.coordinator,

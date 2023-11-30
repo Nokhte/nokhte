@@ -16,12 +16,12 @@ import 'package:nokhte/app/core/widgets/smart_fading_animated_text/stack/constan
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'p2p_purpose_phase1_coordinator_store.g.dart';
+part 'p2p_purpose_phase1_coordinator.g.dart';
 
-class P2PPurposePhase1CoordinatorStore = _P2PPurposePhase1CoordinatorStoreBase
-    with _$P2PPurposePhase1CoordinatorStore;
+class P2PPurposePhase1Coordinator = _P2PPurposePhase1CoordinatorBase
+    with _$P2PPurposePhase1Coordinator;
 
-abstract class _P2PPurposePhase1CoordinatorStoreBase extends BaseCoordinator
+abstract class _P2PPurposePhase1CoordinatorBase extends BaseCoordinator
     with Store {
   final NewBeachWavesStore newBeachWaves;
   final InstantiateAgoraSdkStore instantiateAgoraSdkStore;
@@ -34,7 +34,7 @@ abstract class _P2PPurposePhase1CoordinatorStoreBase extends BaseCoordinator
   final SwipeDetector swipe;
   final SmartFadingAnimatedTextTrackerStore fadingText;
 
-  _P2PPurposePhase1CoordinatorStoreBase({
+  _P2PPurposePhase1CoordinatorBase({
     required this.newBeachWaves,
     required this.swipe,
     required this.abortPurposeSessionArtifactsStore,
