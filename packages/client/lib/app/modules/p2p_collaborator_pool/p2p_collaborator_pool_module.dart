@@ -136,7 +136,6 @@ class P2PCollaboratorPoolModule extends Module {
             existingCollaborations:
                 Modular.get<ExistingCollaborationsCoordinator>(),
             exitCollaboratorPoolStore: i<ExitCollaboratorPoolStore>(),
-            beachWaves: Modular.get<BeachWavesTrackerStore>(),
             fadeInAndColorTextStore:
                 Modular.get<FadeInAndChangeColorTextStore>(),
             getCollaboratorSearchStatusStore:
