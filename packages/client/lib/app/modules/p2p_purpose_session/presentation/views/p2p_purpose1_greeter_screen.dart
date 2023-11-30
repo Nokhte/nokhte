@@ -47,11 +47,12 @@ class _P2PPurpose1GreeterScreenState extends State<P2PPurpose1GreeterScreen>
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height,
                         child: NewSmartBeachWaves(
-                          store: widget.coordinator.newBeachWaves,
+                          store: widget.coordinator.widgets.newBeachWaves,
                         )),
                     Center(
                       child: SmartFadingAnimatedText(
-                        stateTrackerStore: widget.coordinator.fadingText,
+                        stateTrackerStore:
+                            widget.coordinator.widgets.fadingText,
                       ),
                     ),
                     Column(
@@ -65,7 +66,7 @@ class _P2PPurpose1GreeterScreenState extends State<P2PPurpose1GreeterScreen>
                             GesturePill(
                               size: size,
                               stateTrackerStore:
-                                  widget.coordinator.gesturePillStore,
+                                  widget.coordinator.widgets.gesturePillStore,
                             ),
                           ],
                         ),
