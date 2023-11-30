@@ -20,8 +20,11 @@ abstract class _NewBeachWavesStoreBase extends Equatable with Store {
   final OceanDiveToTimesUpMovieStore oceanDiveToTimesUpMovieStore;
   final TimesUpMovieStore timesUpMovieStore;
   final TimesUpEndToOceanDiveMovieStore timesUpEndToOceanDiveMovie;
-  //
+  final TimesUpDynamicPointToTheDepthsMovieStore
+      timesUpDynamicPointToTheDepthsMovie;
+
   _NewBeachWavesStoreBase({
+    required this.timesUpDynamicPointToTheDepthsMovie,
     required this.timesUpEndToOceanDiveMovie,
     required this.timesUpMovieStore,
     required this.oceanDiveToTimesUpMovieStore,
@@ -38,7 +41,12 @@ abstract class _NewBeachWavesStoreBase extends Equatable with Store {
       BeachWaveMovieModes.onShore: onShoreMovieStore,
       BeachWaveMovieModes.suspendedAtOceanDive: suspendedAtOceanDiveStore,
       BeachWaveMovieModes.oceanDiveToTimesUp: oceanDiveToTimesUpMovieStore,
+      BeachWaveMovieModes.timesUp: timesUpMovieStore,
       BeachWaveMovieModes.timesUpEndToOceanDive: timesUpEndToOceanDiveMovie,
+      BeachWaveMovieModes.timesUpDynamicPointToTheDepths:
+          timesUpDynamicPointToTheDepthsMovie,
+      BeachWaveMovieModes.timesUpDynamicPointToTheDepthsSetup:
+          timesUpMovieStore,
     };
   }
 
@@ -66,12 +74,6 @@ abstract class _NewBeachWavesStoreBase extends Equatable with Store {
 
   @observable
   MovieStatus movieStatus = MovieStatus.idle;
-
-  // @action
-  // onCompleted() {
-  //   print("onCompleted $movieMode");
-  //   movieStatus = MovieStatus.finished;
-  // }
 
   @observable
   BeachWaveMovieModes movieMode = BeachWaveMovieModes.none;

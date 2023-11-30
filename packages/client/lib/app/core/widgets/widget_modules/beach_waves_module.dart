@@ -33,8 +33,14 @@ class BeachWavesModule extends Module {
           (i) => TimesUpEndToOceanDiveMovieStore(),
           export: true,
         ),
+        Bind.singleton<TimesUpDynamicPointToTheDepthsMovieStore>(
+          (i) => TimesUpDynamicPointToTheDepthsMovieStore(),
+          export: true,
+        ),
         Bind.singleton<NewBeachWavesStore>(
           (i) => NewBeachWavesStore(
+            timesUpDynamicPointToTheDepthsMovie:
+                i<TimesUpDynamicPointToTheDepthsMovieStore>(),
             timesUpEndToOceanDiveMovie: i<TimesUpEndToOceanDiveMovieStore>(),
             timesUpMovieStore: i<TimesUpMovieStore>(),
             oceanDiveToTimesUpMovieStore: i<OceanDiveToTimesUpMovieStore>(),
