@@ -15,7 +15,8 @@ class TimesUpDynamicPointToTheDepthsMovieStore = _TimesUpDynamicPointToTheDepths
 
 abstract class _TimesUpDynamicPointToTheDepthsMovieStoreBase
     extends BaseCustomAnimatedWidgetStore<List<ColorAndStop>> with Store {
-  _TimesUpDynamicPointToTheDepthsMovieStoreBase() {
+  _TimesUpDynamicPointToTheDepthsMovieStoreBase()
+      : super(callsOnCompleteTwice: true) {
     movie = TimesUpDynamicPointToTheDepthsMovie.getMovie(
       WaterColorsAndStops.toTheDepthsWater,
     );
