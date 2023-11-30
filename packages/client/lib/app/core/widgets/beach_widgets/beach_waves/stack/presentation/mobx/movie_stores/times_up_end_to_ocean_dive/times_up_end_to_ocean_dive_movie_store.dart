@@ -4,9 +4,9 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 // * Equatable Import
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/beach_waves/stack/movies/times_up_end_to_dynamic.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:simple_animations/simple_animations.dart';
-
-import 'times_up_end_to_ocean_dive_movie.dart';
 // * Mobx Codegen Inclusion
 part 'times_up_end_to_ocean_dive_movie_store.g.dart';
 
@@ -16,12 +16,12 @@ class TimesUpEndToOceanDiveMovieStore = _TimesUpEndToOceanDiveMovieStoreBase
 abstract class _TimesUpEndToOceanDiveMovieStoreBase
     extends BaseCustomAnimatedWidgetStore<NoParams> with Store {
   _TimesUpEndToOceanDiveMovieStoreBase() {
-    movie = TimesUpEndToOceanDiveMovie.movie;
+    movie = TimesUpEndToDynamic.getMovie(WaterColorsAndStops.oceanDiveWater);
   }
 
   @override
   initMovie(NoParams params) {
-    movie = TimesUpEndToOceanDiveMovie.movie;
+    movie = TimesUpEndToDynamic.getMovie(WaterColorsAndStops.oceanDiveWater);
     control = Control.playFromStart;
   }
 }
