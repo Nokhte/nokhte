@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -10,9 +9,8 @@ import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/types/ty
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/existing_collaborations/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/voice_call/mobx/coordinator/voice_call_coordinator.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
@@ -32,10 +30,7 @@ abstract class _P2PPurposePhase5CoordinatorBase extends BaseCoordinator
   final CollaborativeDocCoordinator collaborativeDocDB;
   final TextEditingController userController;
   final FocusNode userFocusNode;
-  final GetAgoraTokenStore getAgoraTokenStore;
-  final GetChannelIdStore getChannelIdStore;
-  final AgoraCallbacksStore agoraCallbacksStore;
-  final VoiceCallActionsStore voiceCallActionsStore;
+  final VoiceCallCoordinator voiceCallCoordinator;
   final SwipeDetector swipe;
 
   _P2PPurposePhase5CoordinatorBase({
@@ -43,11 +38,8 @@ abstract class _P2PPurposePhase5CoordinatorBase extends BaseCoordinator
     required this.existingCollaborations,
     required this.collaborativeTextUI,
     required this.collaborativeDocDB,
-    required this.agoraCallbacksStore,
-    required this.voiceCallActionsStore,
-    required this.getAgoraTokenStore,
+    required this.voiceCallCoordinator,
     required this.abortPurposeSessionArtifactsStore,
-    required this.getChannelIdStore,
     required this.gesturePillStore,
     required this.swipe,
   })  : userController = collaborativeTextUI.controller,
@@ -83,15 +75,7 @@ abstract class _P2PPurposePhase5CoordinatorBase extends BaseCoordinator
       const Color(0xFFD95C67),
     ]));
     beachWaves.initiateSuspendedAtTheDepths();
-    await voiceCallActionsStore.enterOrLeaveCall(
-      Right(
-        JoinCallParams(
-          token: getAgoraTokenStore.token,
-          channelId: getChannelIdStore.channelId,
-        ),
-      ),
-    );
-    await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);
+    await voiceCallCoordinator.joinCall(shouldEnterTheCallMuted: false);
     await collaborativeDocDB.createDoc(
       const CreateCollaborativeDocParams(
         docType: 'purpose',

@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'package:dartz/dartz.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -9,6 +8,7 @@ import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/mobx/mob
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/types/purpose_session_screens.dart';
 import 'package:nokhte/app/core/modules/one_talker_at_a_time/mobx/one_talker_at_a_time_coordinator.dart';
 import 'package:nokhte/app/core/modules/timer/domain/logic/logic.dart';
+import 'package:nokhte/app/core/modules/voice_call/mobx/coordinator/voice_call_coordinator.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
@@ -20,12 +20,10 @@ class P2PPurposePhase2Coordinator = _P2PPurposePhase2CoordinatorBase
 
 abstract class _P2PPurposePhase2CoordinatorBase extends BaseTimesUpStore
     with Store {
-  // final NewBeachWavesStore newBeachWaves;
   final OneTalkerAtATimeCoordinator oneTalkerAtATime;
   final ExplanationTextStore explanationText;
   final AbortPurposeSessionArtifactsStore abortPurposeSessionArtifactsStore;
-  final AgoraCallbacksStore agoraCallbacksStore;
-  final VoiceCallActionsStore voiceCallActionsStore;
+  final VoiceCallCoordinator voiceCallCoordinator;
   final CheckIfUserHasTheQuestionStore questionCheckerStore;
   final SmartFadingAnimatedTextTrackerStore fadingText;
   final MeshCircleButtonStore meshCircleStore;
@@ -39,9 +37,8 @@ abstract class _P2PPurposePhase2CoordinatorBase extends BaseTimesUpStore
     required this.oneTalkerAtATime,
     required this.swipe,
     required this.hold,
-    required this.agoraCallbacksStore,
     required this.questionCheckerStore,
-    required this.voiceCallActionsStore,
+    required this.voiceCallCoordinator,
     required super.beachWaves,
     required this.explanationText,
     required this.fadingText,
@@ -108,7 +105,7 @@ abstract class _P2PPurposePhase2CoordinatorBase extends BaseTimesUpStore
 
   cleanUpAndTransition() async {
     await timer.deleteTheTimer(NoParams());
-    await voiceCallActionsStore.enterOrLeaveCall(Left(NoParams()));
+    await voiceCallCoordinator.leaveCall();
     await explanationText.toggleWidgetVisibility();
     await timer.markTimerAsComplete(NoParams());
     if (fadingText.showText) {
@@ -134,12 +131,12 @@ abstract class _P2PPurposePhase2CoordinatorBase extends BaseTimesUpStore
 
   holdStartListener() => reaction(
         (p0) => hold.holdCount,
-        (p0) => audioButtonHoldStartCallback(),
+        (p0) async => await audioButtonHoldStartCallback(),
       );
 
   holdEndListener() => reaction(
         (p0) => hold.letGoCount,
-        (p0) => audioButtonHoldEndCallback(),
+        (p0) async => await audioButtonHoldEndCallback(),
       );
 
   @action
@@ -159,17 +156,17 @@ abstract class _P2PPurposePhase2CoordinatorBase extends BaseTimesUpStore
         Future.delayed(Seconds.get(10), () => fadingText.fadeTheTextOut());
       }
       oneTalkerAtATime.markUserAsTheTalker();
-      voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);
+      await voiceCallCoordinator.unmute();
       meshCircleStore.toggleColorAnimation();
     }
   }
 
   @action
-  audioButtonHoldEndCallback() {
+  audioButtonHoldEndCallback() async {
     if (meshCircleStore.isEnabled) {
       oneTalkerAtATime.clearOutTalkerRow();
       meshCircleStore.initGlowDown();
-      voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
+      await voiceCallCoordinator.mute();
       meshCircleStore.toggleColorAnimation();
     }
   }

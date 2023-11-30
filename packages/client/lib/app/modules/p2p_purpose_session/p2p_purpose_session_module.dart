@@ -115,12 +115,7 @@ class P2PCollaboratorSessionModule extends Module {
               fadeInColorText: Modular.get<FadeInAndChangeColorTextStore>(),
               gesturePillStore: Modular.get<GesturePillStore>(),
               fadingText: i<SmartFadingAnimatedTextTrackerStore>(),
-              voiceCallCoordinator: Modular.get<VoiceCallCoordinator>()
-              // instantiateAgoraSdkStore: i<InstantiateAgoraSdkStore>(),
-              // getAgoraTokenStore: i<GetAgoraTokenStore>(),
-              // getChannelIdStore: i<GetChannelIdStore>(),
-              // voiceCallActionsStore: i<VoiceCallActionsStore>(),
-              ),
+              voiceCallCoordinator: Modular.get<VoiceCallCoordinator>()),
         ),
         Bind.singleton<P2PPurposePhase2Coordinator>(
             (i) => P2PPurposePhase2Coordinator(
@@ -135,8 +130,7 @@ class P2PCollaboratorSessionModule extends Module {
                   beachWaves: Modular.get<BeachWavesTrackerStore>(),
                   fadingText: i<SmartFadingAnimatedTextTrackerStore>(),
                   meshCircleStore: i<MeshCircleButtonStore>(),
-                  voiceCallActionsStore: i<VoiceCallActionsStore>(),
-                  agoraCallbacksStore: i<AgoraCallbacksStore>(),
+                  voiceCallCoordinator: Modular.get<VoiceCallCoordinator>(),
                   questionCheckerStore: i<CheckIfUserHasTheQuestionStore>(),
                 )),
         Bind.singleton<P2PPurposePhase3Coordinator>(
@@ -165,7 +159,6 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase5Coordinator>(
           (i) => P2PPurposePhase5Coordinator(
-            // newBeachWaves: Modular.get<NewBeachWavesStore>(),
             abortPurposeSessionArtifactsStore:
                 i<AbortPurposeSessionArtifactsStore>(),
             swipe: Modular.get<SwipeDetector>(),
@@ -175,15 +168,11 @@ class P2PCollaboratorSessionModule extends Module {
             gesturePillStore: Modular.get<GesturePillStore>(),
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
             collaborativeTextUI: i<CollaborativeTextEditorTrackerStore>(),
-            agoraCallbacksStore: i<AgoraCallbacksStore>(),
-            getAgoraTokenStore: i<GetAgoraTokenStore>(),
-            getChannelIdStore: i<GetChannelIdStore>(),
-            voiceCallActionsStore: i<VoiceCallActionsStore>(),
+            voiceCallCoordinator: Modular.get<VoiceCallCoordinator>(),
           ),
         ),
         Bind.singleton<P2PPurposePhase6CoordinatorStore>(
           (i) => P2PPurposePhase6CoordinatorStore(
-            // newBeachWaves: Modular.get<NewBeachWavesStore>(),
             abortPurposeSessionArtifactsStore:
                 i<AbortPurposeSessionArtifactsStore>(),
             existingCollaborations:
