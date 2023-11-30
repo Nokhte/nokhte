@@ -21,112 +21,112 @@ class TimesUpEndToOceanDiveMovie extends Equatable {
           '1st Water Gradient Color',
           ColorTween(
             begin: WaterColorsAndStops.timesUpPhase8.first.color,
-            end: WaterColorsAndStops.toTheDepthsWater.first.color,
+            end: WaterColorsAndStops.oceanDiveWater.first.color,
           ),
         )
         .tween(
           '2nd Water Gradient Color',
           ColorTween(
             begin: WaterColorsAndStops.timesUpPhase8[1].color,
-            end: WaterColorsAndStops.toTheDepthsWater[1].color,
+            end: WaterColorsAndStops.oceanDiveWater[1].color,
           ),
         )
         .tween(
           '3rd Water Gradient Color',
           ColorTween(
             begin: WaterColorsAndStops.timesUpPhase8[2].color,
-            end: WaterColorsAndStops.toTheDepthsWater[2].color,
+            end: WaterColorsAndStops.oceanDiveWater[2].color,
           ),
         )
         .tween(
           '4th Water Gradient Color',
           ColorTween(
             begin: WaterColorsAndStops.timesUpPhase8[3].color,
-            end: WaterColorsAndStops.toTheDepthsWater[3].color,
+            end: WaterColorsAndStops.oceanDiveWater[3].color,
           ),
         )
         .tween(
           '5th Water Gradient Color',
           ColorTween(
             begin: WaterColorsAndStops.timesUpPhase8[4].color,
-            end: WaterColorsAndStops.toTheDepthsWater[4].color,
+            end: WaterColorsAndStops.oceanDiveWater[4].color,
           ),
         )
         .tween(
           '6th Water Gradient Color',
           ColorTween(
             begin: WaterColorsAndStops.timesUpPhase8[5].color,
-            end: WaterColorsAndStops.toTheDepthsWater[5].color,
+            end: WaterColorsAndStops.oceanDiveWater[5].color,
           ),
         )
         .tween(
           '7th Water Gradient Color',
           ColorTween(
             begin: WaterColorsAndStops.timesUpPhase8[6].color,
-            end: WaterColorsAndStops.toTheDepthsWater[6].color,
+            end: WaterColorsAndStops.oceanDiveWater[6].color,
           ),
         )
         .tween(
           '8th Water Gradient Color',
           ColorTween(
             begin: WaterColorsAndStops.timesUpPhase8[7].color,
-            end: WaterColorsAndStops.toTheDepthsWater[7].color,
+            end: WaterColorsAndStops.oceanDiveWater[7].color,
           ),
         )
         .tween(
           '1st Water Gradient Stop',
           Tween<double>(
             begin: WaterColorsAndStops.timesUpPhase8.first.stop,
-            end: WaterColorsAndStops.toTheDepthsWater.first.stop,
+            end: WaterColorsAndStops.oceanDiveWater.first.stop,
           ),
         )
         .tween(
           '2nd Water Gradient Stop',
           Tween<double>(
             begin: WaterColorsAndStops.timesUpPhase8[1].stop,
-            end: WaterColorsAndStops.toTheDepthsWater[1].stop,
+            end: WaterColorsAndStops.oceanDiveWater[1].stop,
           ),
         )
         .tween(
           '3rd Water Gradient Stop',
           Tween<double>(
             begin: WaterColorsAndStops.timesUpPhase8[2].stop,
-            end: WaterColorsAndStops.toTheDepthsWater[2].stop,
+            end: WaterColorsAndStops.oceanDiveWater[2].stop,
           ),
         )
         .tween(
           '4th Water Gradient Stop',
           Tween<double>(
             begin: WaterColorsAndStops.timesUpPhase8[3].stop,
-            end: WaterColorsAndStops.toTheDepthsWater[3].stop,
+            end: WaterColorsAndStops.oceanDiveWater[3].stop,
           ),
         )
         .tween(
           '5th Water Gradient Stop',
           Tween<double>(
             begin: WaterColorsAndStops.timesUpPhase8[4].stop,
-            end: WaterColorsAndStops.toTheDepthsWater[4].stop,
+            end: WaterColorsAndStops.oceanDiveWater[4].stop,
           ),
         )
         .tween(
           '6th Water Gradient Stop',
           Tween<double>(
             begin: WaterColorsAndStops.timesUpPhase8[5].stop,
-            end: WaterColorsAndStops.toTheDepthsWater[5].stop,
+            end: WaterColorsAndStops.oceanDiveWater[5].stop,
           ),
         )
         .tween(
           '7th Water Gradient Stop',
           Tween<double>(
             begin: WaterColorsAndStops.timesUpPhase8[6].stop,
-            end: WaterColorsAndStops.toTheDepthsWater[6].stop,
+            end: WaterColorsAndStops.oceanDiveWater[6].stop,
           ),
         )
         .tween(
           '8th Water Gradient Stop',
           Tween<double>(
             begin: WaterColorsAndStops.timesUpPhase8[7].stop,
-            end: WaterColorsAndStops.toTheDepthsWater[7].stop,
+            end: WaterColorsAndStops.oceanDiveWater[7].stop,
           ),
         );
 
