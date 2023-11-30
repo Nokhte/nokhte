@@ -9,10 +9,8 @@ import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/mobx/abo
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/types/types.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/coordinator/voice_call_coordinator.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
-import 'package:nokhte/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:simple_animations/simple_animations.dart';
+import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/widgets/p2p_purpose_phase1_widgets_coordinator.dart';
 part 'p2p_purpose_phase1_coordinator.g.dart';
 
 class P2PPurposePhase1Coordinator = _P2PPurposePhase1CoordinatorBase
@@ -21,36 +19,21 @@ class P2PPurposePhase1Coordinator = _P2PPurposePhase1CoordinatorBase
 abstract class _P2PPurposePhase1CoordinatorBase extends BaseCoordinator
     with Store {
   final VoiceCallCoordinator voiceCallCoordinator;
-  final NewBeachWavesStore newBeachWaves;
-  final GesturePillStore gesturePillStore;
   final AbortPurposeSessionArtifactsStore abortPurposeSessionArtifactsStore;
-  final FadeInAndChangeColorTextStore fadeInColorText;
+  final P2PPurposePhase1WidgetsCoordinator widgets;
   final SwipeDetector swipe;
-  final SmartFadingAnimatedTextTrackerStore fadingText;
 
   _P2PPurposePhase1CoordinatorBase({
     required this.voiceCallCoordinator,
-    required this.newBeachWaves,
+    required this.widgets,
     required this.swipe,
     required this.abortPurposeSessionArtifactsStore,
-    required super.beachWaves,
-    required this.fadingText,
-    required this.fadeInColorText,
-    required this.gesturePillStore,
+    // required super.beachWaves,
   });
 
   @action
   screenConstructorCallback() async {
-    gesturePillStore
-        .setPillMovie(BottomCircleGoesUp.getMovie(firstGradientColors: [
-      const Color(0xFF41D2F8),
-      const Color(0xFF69E9BC),
-    ], secondGradientColors: [
-      const Color(0xFF41D2F8),
-      const Color(0xFF69E9BC),
-    ]));
-    fadingText.setMessagesData(MessagesData.p2pPurposeSession);
-    fadingText.startRotatingText(Seconds.get(0));
+    widgets.constructor();
     gestureListener();
     foregroundAndBackgroundStateListener(
       resumedCallback: () async => null,
@@ -61,7 +44,6 @@ abstract class _P2PPurposePhase1CoordinatorBase extends BaseCoordinator
         ),
       ),
     );
-    newBeachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtTheDepths);
   }
 
   gestureListener() => reaction((p0) => swipe.directionsType, (p0) async {
@@ -78,8 +60,9 @@ abstract class _P2PPurposePhase1CoordinatorBase extends BaseCoordinator
     if (!kDebugMode) {
       await voiceCallCoordinator.joinCall(shouldEnterTheCallMuted: true);
     }
-    gesturePillStore.setPillAnimationControl(Control.playFromStart);
-    fadingText.fadeTheTextOut();
+    widgets.moveToPhase2();
+    // gesturePillStore.setPillAnimationControl(Control.playFromStart);
+    // fadingText.fadeTheTextOut();
     Future.delayed(Seconds.get(3), () {
       Modular.to.navigate('/p2p_purpose_session/phase-2/');
     });
