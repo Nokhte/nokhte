@@ -54,11 +54,11 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
   @action
   screenConstructor() async {
     fadingText.startRotatingText(Seconds.get(0));
-    beachWaves.initiateSuspendedAtTheDepths();
-    newBeachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtTheDepths);
     await oneTalkerAtATime.startListeningToCheckIfCollaboratorIsTalking();
     holdStartListener();
     collaboratorIsTalkingListener();
+    beachWavesMovieStatusWatcher();
+    newBeachWaves.setMovieMode(BeachWaveMovieModes.timesUp);
     await timer.setupAndStreamListenerActivation(
       const CreateTimerParams(timerLengthInMinutes: 5),
       timerUICallback: initOrPauseTimesUp,
@@ -74,8 +74,6 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
       ),
     );
     explanationText.widgetConstructor(message: "hold to talk");
-    // beachWavesMovieModeWatcher();
-    beachWavesMovieStatusWatcher();
     holdEndListener();
     meshCircleStore.widgetConstructor();
     await fadingText
@@ -91,12 +89,6 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
           fadingText.togglePause();
         }));
   }
-
-  // beachWavesMovieModeWatcher() => reaction((p0) => beachWaves.movieMode, (p0) {
-  //       if (beachWaves.movieMode == BeachWaveMovieModes.backToTheDepthsSetup) {
-  //         meshCircleStore.toggleWidgetVisibility();
-  //       }
-  //     });
 
   collaboratorIsTalkingListener() =>
       reaction((p0) => oneTalkerAtATime.collaboratorIsTalking, (p0) {
@@ -122,22 +114,21 @@ abstract class _P2PPurposePhase2CoordinatorStoreBase extends BaseTimesUpStore
     if (fadingText.showText) {
       fadingText.fadeTheTextOut();
     }
+    if (explanationText.showWidget) {
+      explanationText.toggleWidgetVisibility();
+    }
     meshCircleStore.toggleWidgetVisibility();
-    // Modular.to.navigate('/p2p_purpose_session/phase-3/');
+    Modular.to.navigate('/p2p_purpose_session/phase-3/');
   }
 
   beachWavesMovieStatusWatcher() =>
       reaction((p0) => newBeachWaves.movieStatus, (p0) async {
-        print(" phase 2${beachWaves.movieStatus} ${beachWaves.movieMode}");
+        print(" phase 2$p0 ${beachWaves.movieMode}");
         if (newBeachWaves.movieStatus == MovieStatus.finished &&
             newBeachWaves.movieMode == BeachWaveMovieModes.timesUp) {
           newBeachWaves.setMovieMode(BeachWaveMovieModes.timesUpEndToTheDepths);
           newBeachWaves.currentStore.initMovie(NoParams());
           await cleanUpAndTransition();
-        } else if (newBeachWaves.movieStatus == MovieStatus.finished &&
-            newBeachWaves.movieMode ==
-                BeachWaveMovieModes.timesUpEndToTheDepths) {
-          Modular.to.navigate('/p2p_purpose_session/phase-3/');
         }
       });
 
