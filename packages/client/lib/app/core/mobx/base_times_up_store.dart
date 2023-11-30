@@ -6,6 +6,8 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/timer/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/seconds.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 // * Mobx Codegen Inclusion
 part 'base_times_up_store.g.dart';
@@ -15,8 +17,10 @@ class BaseTimesUpStore = _BaseTimesUpStoreBase with _$BaseTimesUpStore;
 abstract class _BaseTimesUpStoreBase extends BaseCoordinator with Store {
   final TimerCoordinator timer;
   final Duration productionTimerLength;
+  final NewBeachWavesStore newBeachWaves;
 
   _BaseTimesUpStoreBase({
+    required this.newBeachWaves,
     required this.timer,
     required super.beachWaves,
     required this.productionTimerLength,
@@ -31,18 +35,16 @@ abstract class _BaseTimesUpStoreBase extends BaseCoordinator with Store {
       if (isFirstTimeStartingMovie) {
         final Duration timerLength =
             kDebugMode ? Seconds.get(20) : productionTimerLength;
-        beachWaves.initiateTimesUp(timerLength: timerLength);
+        newBeachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtTheDepths);
+        newBeachWaves.setMovieMode(BeachWaveMovieModes.timesUp);
+        newBeachWaves.currentStore.initMovie(timerLength);
         isFirstTimeStartingMovie = false;
       } else {
-        beachWaves.setControl(Control.play);
+        newBeachWaves.currentStore.setControl(Control.play);
       }
     } else {
       beachWaves.setControl(Control.stop);
+      newBeachWaves.currentStore.setControl(Control.stop);
     }
   }
-
-  @override
-  List<Object> get props => [
-// some items
-      ];
 }
