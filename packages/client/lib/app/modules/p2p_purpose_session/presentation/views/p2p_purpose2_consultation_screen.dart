@@ -56,12 +56,13 @@ class _P2PPurpose2ConsultationScreenState
                         //   stateTrackerStore: widget.coordinator.beachWaves,
                         // ),
                         child: NewSmartBeachWaves(
-                          store: widget.coordinator.newBeachWaves,
+                          store: widget.coordinator.widgets.newBeachWaves,
                         ),
                       ),
                       Center(
                         child: SmartFadingAnimatedText(
-                          stateTrackerStore: widget.coordinator.fadingText,
+                          stateTrackerStore:
+                              widget.coordinator.widgets.fadingText,
                         ),
                       ),
                       Column(
@@ -74,7 +75,8 @@ class _P2PPurpose2ConsultationScreenState
                               fontSize: 20.0,
                               color: Colors.white,
                             ),
-                            trackerStore: widget.coordinator.explanationText,
+                            trackerStore:
+                                widget.coordinator.widgets.explanationText,
                           ),
                           const Padding(
                             padding: EdgeInsets.only(bottom: 15),
@@ -86,7 +88,7 @@ class _P2PPurpose2ConsultationScreenState
                               width: size.width,
                               child: MeshCircleButton(
                                 trackerStore:
-                                    widget.coordinator.meshCircleStore,
+                                    widget.coordinator.widgets.meshCircleStore,
                                 size: size,
                               ),
                             ),
