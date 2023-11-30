@@ -5,7 +5,6 @@ import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/timer/domain/logic/logic.dart';
-import 'package:nokhte/app/core/types/seconds.dart';
 import 'get_timer_information_stream_store.dart';
 part 'timer_coordinator.g.dart';
 
