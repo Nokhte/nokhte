@@ -34,7 +34,6 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
 
   _HomeScreenCoordinatorStoreBase({
     required this.newBeachWave,
-    required super.beachWaves,
     required this.getExistingCollaborationInfo,
     required this.swipe,
     required this.hold,
@@ -194,7 +193,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
     if (!fadingTextStateTrackerStore.isPaused) {
       fadingTextStateTrackerStore.togglePause();
     }
-    if (beachWaves.movieStatus != MovieStatus.inProgress) {
+    if (newBeachWave.movieStatus != MovieStatus.inProgress) {
       gesturePillStore.setPillAnimationControl(Control.play);
       fadingTextStateTrackerStore.currentMainText = "";
       fadingTextStateTrackerStore.currentSubText = "";
