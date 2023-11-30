@@ -14,6 +14,8 @@ void main() {
   late TimesUpMovieStore timesUpMovieStore;
   late OceanDiveToTimesUpMovieStore oceanDiveToTimesUpMovieStore;
   late TimesUpEndToOceanDiveMovieStore timesUpEndToOceanDiveMovie;
+  late TimesUpDynamicPointToTheDepthsMovieStore
+      timesUpDynamicPointToTheDepthsMovieStore;
 
   setUp(() {
     timesUpMovieStore = TimesUpMovieStore();
@@ -23,8 +25,12 @@ void main() {
     onShoreMovieStore = OnShoreMovieStore();
     oceanDiveToOnShoreMovieStore = OceanDiveToOnShoreMovieStore();
     timesUpEndToOceanDiveMovie = TimesUpEndToOceanDiveMovieStore();
+    timesUpDynamicPointToTheDepthsMovieStore =
+        TimesUpDynamicPointToTheDepthsMovieStore();
 
     testStore = NewBeachWavesStore(
+      timesUpDynamicPointToTheDepthsMovie:
+          timesUpDynamicPointToTheDepthsMovieStore,
       timesUpEndToOceanDiveMovie: timesUpEndToOceanDiveMovie,
       timesUpMovieStore: timesUpMovieStore,
       oceanDiveToTimesUpMovieStore: oceanDiveToTimesUpMovieStore,
@@ -51,8 +57,8 @@ void main() {
         expect(noneRes?.movie.duration, Seconds.get(0));
       });
       test("oceanDive key", () {
-        final oceanDiveRes =
-            testStore.movieModeToStoreLookup[BeachWaveMovieModes.oceanDive];
+        final oceanDiveRes = testStore
+            .movieModeToStoreLookup[BeachWaveMovieModes.onShoreToOceanDive];
         expect(oceanDiveRes?.movie.duration, Seconds.get(5));
       });
       test("onShore key", () {
