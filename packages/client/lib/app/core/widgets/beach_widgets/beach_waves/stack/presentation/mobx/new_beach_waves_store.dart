@@ -49,6 +49,7 @@ abstract class _NewBeachWavesStoreBase extends Equatable with Store {
           timesUpDynamicPointToTheDepthsMovie,
       BeachWaveMovieModes.timesUpDynamicPointToTheDepthsSetup:
           timesUpMovieStore,
+      BeachWaveMovieModes.suspendedAtTheDepths: suspendedAtTheDepthsMovieStore,
     };
   }
 
@@ -63,7 +64,6 @@ abstract class _NewBeachWavesStoreBase extends Equatable with Store {
   @action
   onCompleted() {
     if (currentStore.callsOnCompleteTwice) {
-      print("what happened $movieMode $movieStatus");
       if (finishedCount == 0) {
         finishedCount++;
       } else {
