@@ -15,6 +15,7 @@ import 'package:nokhte/app/core/modules/timer/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/timer/timer_module.dart';
 import 'package:nokhte/app/core/modules/existing_collaborations/mobx/coordinator/existing_collaborations_coordinator.dart';
 import 'package:nokhte/app/core/modules/existing_collaborations/existing_collaborations_module.dart';
+import 'package:nokhte/app/core/modules/voice_call/mobx/coordinator/voice_call_coordinator.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/voice_call_module.dart';
 import 'package:nokhte/app/core/widgets/mobx.dart';
@@ -106,19 +107,20 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase1Coordinator>(
           (i) => P2PPurposePhase1Coordinator(
-            newBeachWaves: Modular.get<NewBeachWavesStore>(),
-            abortPurposeSessionArtifactsStore:
-                i<AbortPurposeSessionArtifactsStore>(),
-            swipe: i<SwipeDetector>(),
-            beachWaves: Modular.get<BeachWavesTrackerStore>(),
-            fadeInColorText: Modular.get<FadeInAndChangeColorTextStore>(),
-            gesturePillStore: Modular.get<GesturePillStore>(),
-            fadingText: i<SmartFadingAnimatedTextTrackerStore>(),
-            instantiateAgoraSdkStore: i<InstantiateAgoraSdkStore>(),
-            getAgoraTokenStore: i<GetAgoraTokenStore>(),
-            getChannelIdStore: i<GetChannelIdStore>(),
-            voiceCallActionsStore: i<VoiceCallActionsStore>(),
-          ),
+              newBeachWaves: Modular.get<NewBeachWavesStore>(),
+              abortPurposeSessionArtifactsStore:
+                  i<AbortPurposeSessionArtifactsStore>(),
+              swipe: i<SwipeDetector>(),
+              beachWaves: Modular.get<BeachWavesTrackerStore>(),
+              fadeInColorText: Modular.get<FadeInAndChangeColorTextStore>(),
+              gesturePillStore: Modular.get<GesturePillStore>(),
+              fadingText: i<SmartFadingAnimatedTextTrackerStore>(),
+              voiceCallCoordinator: Modular.get<VoiceCallCoordinator>()
+              // instantiateAgoraSdkStore: i<InstantiateAgoraSdkStore>(),
+              // getAgoraTokenStore: i<GetAgoraTokenStore>(),
+              // getChannelIdStore: i<GetChannelIdStore>(),
+              // voiceCallActionsStore: i<VoiceCallActionsStore>(),
+              ),
         ),
         Bind.singleton<P2PPurposePhase2Coordinator>(
             (i) => P2PPurposePhase2Coordinator(
