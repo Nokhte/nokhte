@@ -25,6 +25,7 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
   final GetCollaboratorSearchStatusStore getCollaboratorSearchStatusStore;
   final FadeInAndChangeColorTextStore fadeInAndColorTextStore;
   final NewBeachWavesStore newBeachWaves;
+
   final ExistingCollaborationsCoordinator existingCollaborations;
 
   @observable
@@ -42,7 +43,6 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
     required this.existingCollaborations,
     required this.cancelStreamStore,
     required this.getCollaboratorSearchStatusStore,
-    required super.beachWaves,
     required this.fadeInAndColorTextStore,
   });
 
