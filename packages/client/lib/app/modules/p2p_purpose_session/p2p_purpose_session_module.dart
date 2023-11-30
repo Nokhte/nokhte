@@ -18,18 +18,15 @@ import 'package:nokhte/app/core/modules/existing_collaborations/existing_collabo
 import 'package:nokhte/app/core/modules/voice_call/mobx/coordinator/voice_call_coordinator.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/voice_call_module.dart';
-import 'package:nokhte/app/core/widgets/mobx.dart';
 import 'package:nokhte/app/core/widgets/module.dart';
-import 'package:nokhte/app/core/widgets/scheduling_delta/stack/stack.dart';
-import 'package:nokhte/app/core/widgets/shared/constants/svg_animation_constants.dart';
-import 'package:nokhte/app/core/widgets/widget_modules/beach_waves_module.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/p2p_purpose_session/p2p_purpose_widgets_module.dart';
 import 'package:nokhte/app/modules/p2p_purpose_session/presentation/presentation.dart';
 
 class P2PCollaboratorSessionModule extends Module {
   @override
   List<Module> get imports => [
-        BeachWavesModule(),
+        P2PPurposeWidgetsModule(),
         AbortPurposeSessionArtifactsModule(),
         OneTalkerAtATimeModule(),
         VoiceCallModule(),
@@ -45,91 +42,23 @@ class P2PCollaboratorSessionModule extends Module {
 
   @override
   List<Bind> get binds => [
-        Bind.factory<BeachWavesTrackerStore>(
-          (i) => BeachWavesTrackerStore(),
-        ),
-        Bind.singleton<MeshCircleButtonStore>(
-          (i) => MeshCircleButtonStore(),
-        ),
-        Bind.factory<GesturePillStore>(
-          (i) => GesturePillStore(
-            endingPath: SvgAnimtionConstants.circlePath,
-          ),
-        ),
-        Bind.singleton<SmartFadingAnimatedTextTrackerStore>(
-          (i) => SmartFadingAnimatedTextTrackerStore(
-            isInfinite: false,
-          ),
-        ),
-        Bind.factory<FadeInAndChangeColorTextStore>(
-          (i) => FadeInAndChangeColorTextStore(
-            messageData: const FadeInMessageData(
-              fontSize: 25.0,
-              message: "swipe up to start call",
-            ),
-            chosenMovie: FadeInText.movie,
-          ),
-        ),
-        Bind.singleton<SoloTextEditorTrackerStore>(
-          (i) => SoloTextEditorTrackerStore(),
-        ),
-        Bind.singleton<BeachHorizonWaterTrackerStore>(
-          (i) => BeachHorizonWaterTrackerStore(
-            isGoingToFullSky: false,
-          ),
-        ),
-        Bind.singleton<BeachSkyStore>(
-          (i) => BeachSkyStore(isGoingToFullSky: false),
-        ),
-        Bind.singleton<SunAndMoonStore>(
-          (i) => SunAndMoonStore(),
-        ),
-        Bind.singleton<SchedulingDeltaStore>(
-          (i) => SchedulingDeltaStore(),
-        ),
-        Bind.singleton<CollaborativeTextEditorTrackerStore>(
-          (i) => CollaborativeTextEditorTrackerStore(
-            isReadOnly: false,
-          ),
-        ),
-        Bind.singleton<ExplanationTextStore>(
-          (i) => ExplanationTextStore(),
-        ),
-        Bind.singleton<P2PPurposePhase6WidgetsCoordinator>(
-          (i) => P2PPurposePhase6WidgetsCoordinator(
-            schedulingDelta: i<SchedulingDeltaStore>(),
-            conveyerBelt: i<ConveyerBeltTextStore>(),
-            beachSkyStore: i<BeachSkyStore>(),
-            beachWaves: Modular.get<BeachWavesTrackerStore>(),
-            beachHorizonWater: i<BeachHorizonWaterTrackerStore>(),
-            sunAndMoon: i<SunAndMoonStore>(),
-          ),
-        ),
         Bind.singleton<P2PPurposePhase1Coordinator>(
           (i) => P2PPurposePhase1Coordinator(
-              newBeachWaves: Modular.get<NewBeachWavesStore>(),
               abortPurposeSessionArtifactsStore:
                   i<AbortPurposeSessionArtifactsStore>(),
               swipe: i<SwipeDetector>(),
-              beachWaves: Modular.get<BeachWavesTrackerStore>(),
-              fadeInColorText: Modular.get<FadeInAndChangeColorTextStore>(),
-              gesturePillStore: Modular.get<GesturePillStore>(),
-              fadingText: i<SmartFadingAnimatedTextTrackerStore>(),
+              widgets: Modular.get<P2PPurposePhase1WidgetsCoordinator>(),
               voiceCallCoordinator: Modular.get<VoiceCallCoordinator>()),
         ),
         Bind.singleton<P2PPurposePhase2Coordinator>(
             (i) => P2PPurposePhase2Coordinator(
-                  newBeachWaves: Modular.get<NewBeachWavesStore>(),
+                  widgets: Modular.get<P2PPurposePhase2WidgetsCoordinator>(),
                   abortPurposeSessionArtifactsStore:
                       i<AbortPurposeSessionArtifactsStore>(),
                   oneTalkerAtATime: Modular.get<OneTalkerAtATimeCoordinator>(),
-                  explanationText: i<ExplanationTextStore>(),
                   timer: Modular.get<TimerCoordinator>(),
                   hold: Modular.get<HoldDetector>(),
                   swipe: Modular.get<SwipeDetector>(),
-                  beachWaves: Modular.get<BeachWavesTrackerStore>(),
-                  fadingText: i<SmartFadingAnimatedTextTrackerStore>(),
-                  meshCircleStore: i<MeshCircleButtonStore>(),
                   voiceCallCoordinator: Modular.get<VoiceCallCoordinator>(),
                   questionCheckerStore: i<CheckIfUserHasTheQuestionStore>(),
                 )),
