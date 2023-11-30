@@ -63,21 +63,6 @@ mixin _$CollaboratorPoolScreenCoordinatorStore
   }
 
   @override
-  dynamic goBackToShore() {
-    final _$actionInfo =
-        _$_CollaboratorPoolScreenCoordinatorStoreBaseActionController
-            .startAction(
-                name:
-                    '_CollaboratorPoolScreenCoordinatorStoreBase.goBackToShore');
-    try {
-      return super.goBackToShore();
-    } finally {
-      _$_CollaboratorPoolScreenCoordinatorStoreBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic screenConstructorCallback() {
     final _$actionInfo =
         _$_CollaboratorPoolScreenCoordinatorStoreBaseActionController.startAction(

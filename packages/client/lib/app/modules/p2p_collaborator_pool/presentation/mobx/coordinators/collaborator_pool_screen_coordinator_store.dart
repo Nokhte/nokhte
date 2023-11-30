@@ -58,19 +58,9 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
       reaction((p0) => getCollaboratorSearchStatusStore.searchStatus, (p0) {
         stream = p0.listen((value) async {
           if (value.hasFoundTheirCollaborator && !value.hasEntered) {
-            toggleCanEnterTheCollaboration();
-            beachWaves.teeUpBackToTheDepths();
+            newBeachWaves.setMovieMode(
+                BeachWaveMovieModes.timesUpDynamicPointToTheDepthsSetup);
             fadeInAndColorTextStore.teeUpFadeOut();
-            Future.delayed(Seconds.get(3), () async {
-              // delayedNavigation(() {
-              if (canEnterTheCollaboration) {
-                getCollaboratorSearchStatusStore.resetStream();
-                Modular.to.navigate('/p2p_purpose_session/');
-                existingCollaborations
-                    .updateIndividualCollaboratorEntryStatus(true);
-              }
-              // });
-            });
           }
         });
       });
@@ -79,46 +69,28 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
         print("$p0 ${newBeachWaves.movieMode}");
         if (newBeachWaves.movieStatus == MovieStatus.finished &&
             newBeachWaves.movieMode == BeachWaveMovieModes.timesUp) {
-          goBackToShore();
+          newBeachWaves.setMovieMode(BeachWaveMovieModes.timesUpEndToOceanDive);
+          newBeachWaves.currentStore.initMovie(NoParams());
         } else if (newBeachWaves.movieStatus == MovieStatus.finished &&
-            newBeachWaves.movieMode == BeachWaveMovieModes.timesUp) {
-          // goBackToShore();
+            newBeachWaves.movieMode ==
+                BeachWaveMovieModes.timesUpEndToOceanDive) {
+          Modular.to.navigate('/p2p_collaborator_pool/');
+        } else if (newBeachWaves.movieStatus == MovieStatus.finished &&
+            newBeachWaves.movieMode ==
+                BeachWaveMovieModes.timesUpDynamicPointToTheDepths) {
+          print("did this one run early");
+          getCollaboratorSearchStatusStore.resetStream();
+          existingCollaborations.updateIndividualCollaboratorEntryStatus(true);
+          Modular.to.navigate('/p2p_purpose_session/');
         }
       });
-
-  // @action
-  // goBackToShore(bool canEnterTheCollaboration) {
-  //   if (beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
-  //     print("is the transition to speak happening??");
-  //     beachWaves.initiateBackToOceanDive();
-  //     delayedNavigation(() async {
-  //       exitCollaboratorPoolStore(NoParams());
-  //       cancelStreamStore(NoParams());
-  //       await stream.cancel();
-  //       Modular.to.navigate('/p2p_collaborator_pool/');
-  //     });
-  //   }
-  // }
-
-  @action
-  goBackToShore() {
-    if (newBeachWaves.movieMode == BeachWaveMovieModes.timesUp) {
-      // print("is the transition to speak happening??");
-      // newBeachWaves.initiateBackToOceanDive();
-      // delayedNavigation(() async {
-      //   exitCollaboratorPoolStore(NoParams());
-      //   cancelStreamStore(NoParams());
-      //   await stream.cancel();
-      //   Modular.to.navigate('/p2p_collaborator_pool/');
-      // });
-    }
-  }
 
   @action
   screenConstructorCallback() {
     final duration = kDebugMode ? Seconds.get(10) : Seconds.get(45);
     newBeachWaves.setMovieMode(BeachWaveMovieModes.timesUp);
     newBeachWaves.currentStore.initMovie(duration);
+    beachWavesListener();
     getCollaboratorSearchStatusStore();
     searchStatusListener();
   }
