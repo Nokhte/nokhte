@@ -137,8 +137,8 @@ class P2PCollaboratorSessionModule extends Module {
                   agoraCallbacksStore: i<AgoraCallbacksStore>(),
                   questionCheckerStore: i<CheckIfUserHasTheQuestionStore>(),
                 )),
-        Bind.singleton<P2PPurposePhase3CoordinatorStore>(
-          (i) => P2PPurposePhase3CoordinatorStore(
+        Bind.singleton<P2PPurposePhase3Coordinator>(
+          (i) => P2PPurposePhase3Coordinator(
             newBeachWaves: Modular.get<NewBeachWavesStore>(),
             abortPurposeSessionArtifactsStore:
                 i<AbortPurposeSessionArtifactsStore>(),
@@ -215,7 +215,7 @@ class P2PCollaboratorSessionModule extends Module {
           // '/',
           '/phase-3/',
           child: (context, args) => P2PPurpose3IndividualRefletionScreen(
-            coordinator: Modular.get<P2PPurposePhase3CoordinatorStore>(),
+            coordinator: Modular.get<P2PPurposePhase3Coordinator>(),
           ),
           transition: TransitionType.noTransition,
         ),

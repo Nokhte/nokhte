@@ -12,12 +12,12 @@ import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/mobx/mob
 import 'package:nokhte/app/core/modules/timer/domain/logic/logic.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/mobx.dart';
-part 'p2p_purpose_phase3_coordinator_store.g.dart';
+part 'p2p_purpose_phase3_coordinator.g.dart';
 
-class P2PPurposePhase3CoordinatorStore = _P2PPurposePhase3CoordinatorStoreBase
-    with _$P2PPurposePhase3CoordinatorStore;
+class P2PPurposePhase3Coordinator = _P2PPurposePhase3CoordinatorBase
+    with _$P2PPurposePhase3Coordinator;
 
-abstract class _P2PPurposePhase3CoordinatorStoreBase extends BaseTimesUpStore
+abstract class _P2PPurposePhase3CoordinatorBase extends BaseTimesUpStore
     with Store {
   final SoloTextEditorTrackerStore textEditor;
   final AbortPurposeSessionArtifactsStore abortPurposeSessionArtifactsStore;
@@ -25,7 +25,7 @@ abstract class _P2PPurposePhase3CoordinatorStoreBase extends BaseTimesUpStore
   final SoloDocCoordinator soloDoc;
   final SwipeDetector swipe;
 
-  _P2PPurposePhase3CoordinatorStoreBase({
+  _P2PPurposePhase3CoordinatorBase({
     required super.timer,
     required this.swipe,
     required super.beachWaves,

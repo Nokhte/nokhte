@@ -6,7 +6,7 @@ import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/mobx.da
 
 class P2PPurpose3IndividualRefletionScreen extends StatefulWidget
     with WidgetsBindingObserver {
-  final P2PPurposePhase3CoordinatorStore coordinator;
+  final P2PPurposePhase3Coordinator coordinator;
 
   P2PPurpose3IndividualRefletionScreen({
     super.key,
