@@ -57,7 +57,7 @@ class TimerModule extends Module {
           ),
           export: true,
         ),
-        Bind.singleton<GetTimerInformationStreamStore>(
+        Bind.factory<GetTimerInformationStreamStore>(
           (i) => GetTimerInformationStreamStore(
             logic: i<GetTimerInformationStream>(),
           ),
