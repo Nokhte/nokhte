@@ -1,5 +1,6 @@
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:nokhte/app/core/modules/voice_call/mobx/coordinator/voice_call_coordinator.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/modules/voice_call/data/data.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
@@ -110,6 +111,15 @@ class VoiceCallModule extends Module {
             leaveCall: i<LeaveCall>(),
             muteAudio: i<MuteLocalAudio>(),
             unmuteAudio: i<UnmuteLocalAudio>(),
+          ),
+          export: true,
+        ),
+        Bind.singleton<VoiceCallCoordinator>(
+          (i) => VoiceCallCoordinator(
+            voiceCallActionsStore: i<VoiceCallActionsStore>(),
+            instantiateAgoraSdkStore: i<InstantiateAgoraSdkStore>(),
+            getAgoraTokenStore: i<GetAgoraTokenStore>(),
+            getChannelIdStore: i<GetChannelIdStore>(),
           ),
           export: true,
         ),
