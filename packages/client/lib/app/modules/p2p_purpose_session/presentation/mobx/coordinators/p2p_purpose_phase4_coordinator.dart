@@ -10,6 +10,7 @@ import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
 import 'package:nokhte/app/core/modules/solo_doc/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/timer/domain/logic/logic.dart';
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/timer/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 // import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -23,10 +24,12 @@ abstract class _P2PPurposePhase4CoordinatorBase extends BaseTimesUpStore
   final SmartFadingAnimatedTextTrackerStore fadingText;
   final AbortPurposeSessionArtifactsStore abortPurposeSessionArtifactsStore;
   final SoloDocCoordinator soloDoc;
+  final TimerCoordinator timer;
+  final BeachWavesTrackerStore beachWaves;
 
   _P2PPurposePhase4CoordinatorBase({
-    required super.timer,
-    required super.beachWaves,
+    required this.timer,
+    required this.beachWaves,
     required super.newBeachWaves,
     required this.abortPurposeSessionArtifactsStore,
     required this.fadingText,
@@ -102,13 +105,13 @@ abstract class _P2PPurposePhase4CoordinatorBase extends BaseTimesUpStore
       thePhrase: soloDoc.getSoloDoc.docContent,
     );
 
-    delayedNavigation(() {
-      beachWaves.teeUpBackToTheDepths();
-      Future.delayed(Seconds.get(3), () async {
-        cleanUpAndTransition();
-        // await timer.markTimerAsComplete(NoParams());
-      });
+    // delayedNavigation(() {
+    beachWaves.teeUpBackToTheDepths();
+    Future.delayed(Seconds.get(3), () async {
+      cleanUpAndTransition();
+      // await timer.markTimerAsComplete(NoParams());
     });
+    // });
   }
 
   @override

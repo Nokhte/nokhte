@@ -32,9 +32,10 @@ abstract class _P2PPurposePhase5CoordinatorBase extends BaseCoordinator
   final FocusNode userFocusNode;
   final VoiceCallCoordinator voiceCallCoordinator;
   final SwipeDetector swipe;
+  final BeachWavesTrackerStore beachWaves;
 
   _P2PPurposePhase5CoordinatorBase({
-    required super.beachWaves,
+    required this.beachWaves,
     required this.existingCollaborations,
     required this.collaborativeTextUI,
     required this.collaborativeDocDB,

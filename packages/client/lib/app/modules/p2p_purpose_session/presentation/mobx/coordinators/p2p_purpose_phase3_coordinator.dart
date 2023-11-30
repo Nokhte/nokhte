@@ -10,6 +10,7 @@ import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
 import 'package:nokhte/app/core/modules/solo_doc/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/timer/domain/logic/logic.dart';
+import 'package:nokhte/app/core/modules/timer/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/mobx.dart';
 part 'p2p_purpose_phase3_coordinator.g.dart';
@@ -24,11 +25,14 @@ abstract class _P2PPurposePhase3CoordinatorBase extends BaseTimesUpStore
   final SmartFadingAnimatedTextTrackerStore fadingText;
   final SoloDocCoordinator soloDoc;
   final SwipeDetector swipe;
+  final BeachWavesTrackerStore beachWaves;
+  final TimerCoordinator timer;
 
   _P2PPurposePhase3CoordinatorBase({
-    required super.timer,
+    required this.timer,
     required this.swipe,
-    required super.beachWaves,
+    required this.beachWaves,
+    // required super.beachWaves,
     required super.newBeachWaves,
     required this.abortPurposeSessionArtifactsStore,
     required this.textEditor,
@@ -64,7 +68,7 @@ abstract class _P2PPurposePhase3CoordinatorBase extends BaseTimesUpStore
     await soloDoc.submitSoloDoc(SubmitSoloDocParams(content: currentText));
     await soloDoc.shareSoloDoc(NoParams());
     textEditor.flipWidgetVisibility();
-    beachWaves.teeUpBackToTheDepths();
+    // beachWaves.teeUpBackToTheDepths();
     Future.delayed(Seconds.get(3), () {
       timer.markTimerAsComplete(NoParams());
       Modular.to.navigate('/p2p_purpose_session/phase-4/');
@@ -105,7 +109,7 @@ abstract class _P2PPurposePhase3CoordinatorBase extends BaseTimesUpStore
       textEditor.flipWidgetVisibility();
     });
 
-    delayedNavigation(() => cleanUpAndTransition());
+    // delayedNavigation(() => cleanUpAndTransition());
   }
 
   @override
