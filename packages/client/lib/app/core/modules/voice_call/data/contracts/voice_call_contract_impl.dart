@@ -87,17 +87,4 @@ class VoiceCallContractImpl implements VoiceCallContract {
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
-
-  @override
-  Future<Either<Failure, WhoGetsTheQuestionModel>>
-      checkIfUserHasTheQuestion() async {
-    if (await networkInfo.isConnected) {
-      final res = await remoteSource.getCollaboratorInfo();
-      return Right(
-        WhoGetsTheQuestionModel.fromSupabase(res),
-      );
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
 }
