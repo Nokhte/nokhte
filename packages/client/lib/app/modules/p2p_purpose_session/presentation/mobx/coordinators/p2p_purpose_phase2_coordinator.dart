@@ -118,7 +118,4 @@ abstract class _P2PPurposePhase2CoordinatorBase extends BaseCoordinator
       await voiceCallCoordinator.mute();
     });
   }
-
-  @override
-  List<Object> get props => [];
 }
