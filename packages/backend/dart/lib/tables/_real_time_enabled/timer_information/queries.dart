@@ -5,7 +5,6 @@ class TimerInformationQueries extends CollaborativeQueries {
   static const isOnline = "is_online";
   static const timerIsRunning = "timer_is_running";
   static const hasCompletedTimer = "has_completed_timer";
-  // static const timeRemainingInMilliseconds = "time_remaining_in_milliseconds";
   static const createdAt = "created_at";
 
   TimerInformationQueries({required super.supabase});
@@ -13,7 +12,6 @@ class TimerInformationQueries extends CollaborativeQueries {
   Future<List> createNewTimer() async {
     await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     final checkRes = await selectMostRecentTimer();
-    print(checkRes);
     if (checkRes.isEmpty) {
       return await supabase.from(tableName).insert({
         "${collaboratorInfo.theCollaboratorsNumber}_uid":
