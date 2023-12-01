@@ -108,6 +108,14 @@ class P2PPurposeWidgetsModule extends Module {
           ),
           export: true,
         ),
+        Bind.singleton<P2PPurposePhase5WidgetsCoordinator>(
+          (i) => P2PPurposePhase5WidgetsCoordinator(
+            gesturePillStore: Modular.get<GesturePillStore>(),
+            newBeachWaves: Modular.get<NewBeachWavesStore>(),
+            collaborativeTextUI: i<CollaborativeTextEditorTrackerStore>(),
+          ),
+          export: true,
+        ),
         Bind.singleton<P2PPurposePhase6WidgetsCoordinator>(
           (i) => P2PPurposePhase6WidgetsCoordinator(
             schedulingDelta: i<SchedulingDeltaStore>(),
