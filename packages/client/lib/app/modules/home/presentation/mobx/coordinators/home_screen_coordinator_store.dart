@@ -116,37 +116,12 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
   @action
   toggleIsNavigating() => isNavigating = !isNavigating;
 
-  // @action
-  // beachWavesListener() => reaction((p0) => beachWaves.movieStatus, (p0) {
-  //       if (beachWaves.movieStatus == MovieStatus.inProgress &&
-  //           beachWaves.movieMode == BeachWaveMovieModes.oceanDive) {
-  //         switch (thePlaceTheyAreGoing) {
-  //           case PlacesYouCanGo.newCollaboration:
-  //             delayedNavigation(
-  //                 () => Modular.to.navigate('/p2p_collaborator_pool/'));
-  //           case PlacesYouCanGo.collectiveSession:
-  //             delayedNavigation(
-  //                 () => Modular.to.navigate('/collective_session/'));
-  //           case PlacesYouCanGo.individualSession:
-  //             delayedNavigation(
-  //                 () => Modular.to.navigate('/individual_session/'));
-  //           case PlacesYouCanGo.perspectivesSession:
-  //             delayedNavigation(
-  //                 () => Modular.to.navigate('/p2p_perspective_session/'));
-  //           default:
-  //             break;
-  //         }
-  //       }
-  //     });
-
   beachWavesListener() => reaction((p0) => newBeachWave.movieStatus, (p0) {
-        print("$p0 ${newBeachWave.movieMode}");
         if (newBeachWave.movieStatus == MovieStatus.finished &&
             newBeachWave.movieMode == BeachWaveMovieModes.onShoreToOceanDive) {
           switch (thePlaceTheyAreGoing) {
             case PlacesYouCanGo.newCollaboration:
-              // Modular.to.navigate('/p2p_collaborator_pool/');
-              Modular.to.navigate('/p2p_purpose_session/');
+              Modular.to.navigate('/p2p_collaborator_pool/');
             case PlacesYouCanGo.collectiveSession:
               Modular.to.navigate('/collective_session/');
             case PlacesYouCanGo.individualSession:
