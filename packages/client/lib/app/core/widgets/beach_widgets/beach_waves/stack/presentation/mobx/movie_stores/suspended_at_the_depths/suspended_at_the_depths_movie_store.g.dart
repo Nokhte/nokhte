@@ -10,6 +10,22 @@ part of 'suspended_at_the_depths_movie_store.dart';
 
 mixin _$SuspendedAtTheDepthsMovieStore
     on _SuspendedAtTheDepthsMovieStoreBase, Store {
+  late final _$_SuspendedAtTheDepthsMovieStoreBaseActionController =
+      ActionController(
+          name: '_SuspendedAtTheDepthsMovieStoreBase', context: context);
+
+  @override
+  dynamic initMovie(NoParams params) {
+    final _$actionInfo = _$_SuspendedAtTheDepthsMovieStoreBaseActionController
+        .startAction(name: '_SuspendedAtTheDepthsMovieStoreBase.initMovie');
+    try {
+      return super.initMovie(params);
+    } finally {
+      _$_SuspendedAtTheDepthsMovieStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
