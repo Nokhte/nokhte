@@ -46,7 +46,7 @@ class _P2PPurpose3IndividualRefletionScreenState
                     width: constraints.widthConstraints().maxHeight,
                     height: constraints.heightConstraints().maxWidth,
                     child: NewSmartBeachWaves(
-                      store: widget.coordinator.newBeachWaves,
+                      store: widget.coordinator.widgets.newBeachWaves,
                     ),
                     // child: SmartBeachWaves(
                     //   stateTrackerStore: widget.coordinator.beachWaves,
@@ -54,7 +54,7 @@ class _P2PPurpose3IndividualRefletionScreenState
                   ),
                   Center(
                     child: SmartFadingAnimatedText(
-                      stateTrackerStore: widget.coordinator.fadingText,
+                      stateTrackerStore: widget.coordinator.widgets.fadingText,
                     ),
                   ),
                   Container(
@@ -63,7 +63,7 @@ class _P2PPurpose3IndividualRefletionScreenState
                       maxLength: 55,
                       maxLines: 5,
                       fadeInDuration: Seconds.get(2),
-                      trackerStore: widget.coordinator.textEditor,
+                      trackerStore: widget.coordinator.widgets.textEditor,
                     ),
                   ),
                 ],
