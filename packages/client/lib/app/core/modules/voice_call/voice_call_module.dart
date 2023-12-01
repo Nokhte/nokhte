@@ -33,12 +33,6 @@ class VoiceCallModule extends Module {
           ),
           export: true,
         ),
-        Bind.singleton<CheckIfUserHasTheQuestion>(
-          (i) => CheckIfUserHasTheQuestion(
-            contract: i<VoiceCallContract>(),
-          ),
-          export: true,
-        ),
         Bind.singleton<GetAgoraToken>(
           (i) => GetAgoraToken(
             contract: i<VoiceCallContract>(),
@@ -78,12 +72,6 @@ class VoiceCallModule extends Module {
         Bind.singleton<UnmuteLocalAudio>(
           (i) => UnmuteLocalAudio(
             contract: i<VoiceCallContract>(),
-          ),
-          export: true,
-        ),
-        Bind.singleton<CheckIfUserHasTheQuestionStore>(
-          (i) => CheckIfUserHasTheQuestionStore(
-            logic: i<CheckIfUserHasTheQuestion>(),
           ),
           export: true,
         ),
