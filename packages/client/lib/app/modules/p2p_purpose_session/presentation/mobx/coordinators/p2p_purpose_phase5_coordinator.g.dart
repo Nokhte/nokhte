@@ -51,14 +51,14 @@ mixin _$P2PPurposePhase5Coordinator on _P2PPurposePhase5CoordinatorBase, Store {
     return _$screenConstructorAsyncAction.run(() => super.screenConstructor());
   }
 
-  late final _$updateCommitStatusAsyncAction = AsyncAction(
-      '_P2PPurposePhase5CoordinatorBase.updateCommitStatus',
+  late final _$updateCommitStatusToAffirmativeAsyncAction = AsyncAction(
+      '_P2PPurposePhase5CoordinatorBase.updateCommitStatusToAffirmative',
       context: context);
 
   @override
-  Future updateCommitStatus() {
-    return _$updateCommitStatusAsyncAction
-        .run(() => super.updateCommitStatus());
+  Future updateCommitStatusToAffirmative() {
+    return _$updateCommitStatusToAffirmativeAsyncAction
+        .run(() => super.updateCommitStatusToAffirmative());
   }
 
   @override
