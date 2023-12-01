@@ -12,4 +12,6 @@ abstract class ExistingCollaborationsContract {
       updateIndividualCollaboratorEntryStatus({
     required bool isEntering,
   });
+  Future<Either<Failure, WhoHasTheQuestionEntity>> checkIfUserHasTheQuestion(
+      NoParams params);
 }
