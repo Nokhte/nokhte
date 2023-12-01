@@ -5,9 +5,9 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/domain/domain.dart';
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/types/purpose_session_screens.dart';
+import 'package:nokhte/app/core/modules/existing_collaborations/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/one_talker_at_a_time/mobx/one_talker_at_a_time_coordinator.dart';
 import 'package:nokhte/app/core/modules/timer/domain/logic/logic.dart';
-import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/timer/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/coordinator/voice_call_coordinator.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -22,19 +22,19 @@ abstract class _P2PPurposePhase2CoordinatorBase extends BaseCoordinator
   final OneTalkerAtATimeCoordinator oneTalkerAtATime;
   final AbortPurposeSessionArtifactsStore abortPurposeSessionArtifactsStore;
   final VoiceCallCoordinator voiceCallCoordinator;
-  final CheckIfUserHasTheQuestionStore questionCheckerStore;
+  final ExistingCollaborationsCoordinator existingCollaborations;
   final P2PPurposePhase2WidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final HoldDetector hold;
   final TimerCoordinator timer;
 
   _P2PPurposePhase2CoordinatorBase({
+    required this.existingCollaborations,
     required this.timer,
     required this.abortPurposeSessionArtifactsStore,
     required this.oneTalkerAtATime,
     required this.swipe,
     required this.hold,
-    required this.questionCheckerStore,
     required this.voiceCallCoordinator,
     required this.widgets,
   });
@@ -54,10 +54,11 @@ abstract class _P2PPurposePhase2CoordinatorBase extends BaseCoordinator
   @action
   screenConstructor() async {
     initListeners();
-    await questionCheckerStore(NoParams());
-    final mainOnScreenMessage = questionCheckerStore.hasTheQuestion
-        ? "Ask: What Could We Collectively Create?"
-        : "Wait For Your Collaborator To Start The Conversation";
+    await existingCollaborations.checkIfUserHasTheQuestion(NoParams());
+    final mainOnScreenMessage =
+        existingCollaborations.checkIfUserHasTheQuestion.hasTheQuestion
+            ? "Ask: What Could We Collectively Create?"
+            : "Wait For Your Collaborator To Start The Conversation";
     widgets.constructor(mainOnScreenMessage: mainOnScreenMessage);
     await timer.setupAndStreamListenerActivation(
       const CreateTimerParams(timerLengthInMinutes: 5),
