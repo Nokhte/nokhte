@@ -42,18 +42,17 @@ class P2PCollaboratorSessionModule extends Module {
   @override
   List<Bind> get binds => [
         Bind.singleton<P2PPurposePhase1Coordinator>(
-          (i) => P2PPurposePhase1Coordinator(
-              abortPurposeSessionArtifactsStore:
-                  i<AbortPurposeSessionArtifactsStore>(),
-              swipe: i<SwipeDetector>(),
-              widgets: Modular.get<P2PPurposePhase1WidgetsCoordinator>(),
-              voiceCallCoordinator: Modular.get<VoiceCallCoordinator>()),
-        ),
+            (i) => P2PPurposePhase1Coordinator(
+                  abortPurposeSessionArtifactsStore:
+                      i<AbortPurposeSessionArtifactsStore>(),
+                  swipe: i<SwipeDetector>(),
+                  voiceCallCoordinator: Modular.get<VoiceCallCoordinator>(),
+                  widgets: Modular.get<P2PPurposePhase1WidgetsCoordinator>(),
+                )),
         Bind.singleton<P2PPurposePhase2Coordinator>(
             (i) => P2PPurposePhase2Coordinator(
                   existingCollaborations:
                       Modular.get<ExistingCollaborationsCoordinator>(),
-                  widgets: Modular.get<P2PPurposePhase2WidgetsCoordinator>(),
                   abortPurposeSessionArtifactsStore:
                       i<AbortPurposeSessionArtifactsStore>(),
                   oneTalkerAtATime: Modular.get<OneTalkerAtATimeCoordinator>(),
@@ -61,15 +60,16 @@ class P2PCollaboratorSessionModule extends Module {
                   hold: Modular.get<HoldDetector>(),
                   swipe: Modular.get<SwipeDetector>(),
                   voiceCallCoordinator: Modular.get<VoiceCallCoordinator>(),
+                  widgets: Modular.get<P2PPurposePhase2WidgetsCoordinator>(),
                 )),
         Bind.singleton<P2PPurposePhase3Coordinator>(
           (i) => P2PPurposePhase3Coordinator(
-            widgets: Modular.get<P2PPurposePhase3WidgetsCoordinator>(),
             abortPurposeSessionArtifactsStore:
                 i<AbortPurposeSessionArtifactsStore>(),
             timer: Modular.get<TimerCoordinator>(),
             swipe: Modular.get<SwipeDetector>(),
             soloDoc: i<SoloDocCoordinator>(),
+            widgets: Modular.get<P2PPurposePhase3WidgetsCoordinator>(),
           ),
         ),
         Bind.singleton<P2PPurposePhase4Coordinator>(
@@ -114,14 +114,15 @@ class P2PCollaboratorSessionModule extends Module {
   @override
   List<ChildRoute> get routes => [
         ChildRoute(
-          // '/',
-          '/phase-1',
+          '/',
+          // '/phase-1',
           child: (context, args) => P2PPurpose1GreeterScreen(
             coordinator: Modular.get<P2PPurposePhase1Coordinator>(),
           ),
           transition: TransitionType.noTransition,
         ),
         ChildRoute(
+          // '/',
           '/phase-2/',
           child: (context, args) => P2PPurpose2ConsultationScreen(
             coordinator: Modular.get<P2PPurposePhase2Coordinator>(),
@@ -129,8 +130,8 @@ class P2PCollaboratorSessionModule extends Module {
           transition: TransitionType.noTransition,
         ),
         ChildRoute(
-          '/',
-          // '/phase-3/',
+          // '/',
+          '/phase-3/',
           child: (context, args) => P2PPurpose3IndividualRefletionScreen(
             coordinator: Modular.get<P2PPurposePhase3Coordinator>(),
           ),
