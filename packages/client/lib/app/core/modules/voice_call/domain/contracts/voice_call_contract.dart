@@ -12,5 +12,4 @@ abstract class VoiceCallContract {
   Future<Either<Failure, CallStatusEntity>> leaveCall();
   Future<Either<Failure, LocalAudioStreamStatusEntity>> muteLocalAudio();
   Future<Either<Failure, LocalAudioStreamStatusEntity>> unmuteLocalAudio();
-  Future<Either<Failure, WhoGetsTheQuestionEntity>> checkIfUserHasTheQuestion();
 }
