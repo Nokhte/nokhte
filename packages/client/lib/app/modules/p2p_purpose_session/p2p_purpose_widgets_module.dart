@@ -101,6 +101,13 @@ class P2PPurposeWidgetsModule extends Module {
           ),
           export: true,
         ),
+        Bind.singleton<P2PPurposePhase4WidgetsCoordinator>(
+          (i) => P2PPurposePhase4WidgetsCoordinator(
+            newBeachWaves: Modular.get<NewBeachWavesStore>(),
+            fadingText: i<SmartFadingAnimatedTextTrackerStore>(),
+          ),
+          export: true,
+        ),
         Bind.singleton<P2PPurposePhase6WidgetsCoordinator>(
           (i) => P2PPurposePhase6WidgetsCoordinator(
             schedulingDelta: i<SchedulingDeltaStore>(),
