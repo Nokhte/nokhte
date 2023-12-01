@@ -12,7 +12,6 @@ class DumbBeachWaves extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(builder: (context) {
       return MirrorAnimationBuilder(
         tween: movie,
         duration: movie.duration,
@@ -42,6 +41,5 @@ class DumbBeachWaves extends StatelessWidget {
           );
         },
       );
-    });
-  }
+    }
 }
