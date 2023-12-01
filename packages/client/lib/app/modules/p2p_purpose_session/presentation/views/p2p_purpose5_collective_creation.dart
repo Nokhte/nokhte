@@ -43,14 +43,15 @@ class _P2PPurpose5CollectiveCreationState
                       SizedBox(
                         width: constraints.widthConstraints().maxHeight,
                         height: constraints.heightConstraints().maxWidth,
-                        child: SmartBeachWaves(
-                          stateTrackerStore: widget.coordinator.beachWaves,
+                        child: NewSmartBeachWaves(
+                          store: widget.coordinator.widgets.newBeachWaves,
                         ),
                       ),
                       Center(
                         child: CollaborativeTextEditor(
                           fadeInDuration: Seconds.get(1),
-                          trackerStore: widget.coordinator.collaborativeTextUI,
+                          trackerStore:
+                              widget.coordinator.widgets.collaborativeTextUI,
                         ),
                       ),
                       Column(
@@ -64,7 +65,7 @@ class _P2PPurpose5CollectiveCreationState
                               GesturePill(
                                 size: size,
                                 stateTrackerStore:
-                                    widget.coordinator.gesturePillStore,
+                                    widget.coordinator.widgets.gesturePillStore,
                               ),
                             ],
                           ),
