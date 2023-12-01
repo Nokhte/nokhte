@@ -25,6 +25,10 @@ abstract class _BaseTimesUpStoreBase extends BaseCoordinator with Store {
   @observable
   bool isFirstTimeStartingMovie = true;
 
+  preventOnShoreSeizure() =>
+    newBeachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtTheDepths);
+  
+
   @action
   initOrPauseTimesUp(bool shouldRun) {
     if (newBeachWaves.movieMode == BeachWaveMovieModes.timesUp) {
