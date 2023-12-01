@@ -27,7 +27,6 @@ abstract class _P2PPurposePhase1CoordinatorBase extends BaseCoordinator
     required this.widgets,
     required this.swipe,
     required this.abortPurposeSessionArtifactsStore,
-    // required super.beachWaves,
   });
 
   @action
@@ -60,8 +59,6 @@ abstract class _P2PPurposePhase1CoordinatorBase extends BaseCoordinator
       await voiceCallCoordinator.joinCall(shouldEnterTheCallMuted: true);
     }
     widgets.moveToPhase2();
-    // gesturePillStore.setPillAnimationControl(Control.playFromStart);
-    // fadingText.fadeTheTextOut();
     Future.delayed(Seconds.get(3), () {
       Modular.to.navigate('/p2p_purpose_session/phase-2/');
     });
