@@ -32,16 +32,22 @@ abstract class _P2PPurposePhase2WidgetsCoordinatorBase extends BaseTimesUpStore
 
   @action
   constructor({required String mainOnScreenMessage}) async {
-    fadingText.startRotatingText(Seconds.get(0));
+    await setFadingTextMessageAndFadeIn(
+      mainOnScreenMessage: mainOnScreenMessage,
+    );
     newBeachWaves.setMovieMode(BeachWaveMovieModes.timesUp);
     explanationText.widgetConstructor(message: "hold to talk");
     meshCircleStore.widgetConstructor();
-    await fadingText
-        .oneSecondDelay(() async => await fadingText.fadeTheTextIn());
+  }
+
+  setFadingTextMessageAndFadeIn({required String mainOnScreenMessage}) async {
+    fadingText.startRotatingText(Seconds.get(0));
     fadingText.setMainMessage(
       index: 1,
       thePhrase: mainOnScreenMessage,
     );
+    await fadingText
+        .oneSecondDelay(() async => await fadingText.fadeTheTextIn());
     Future.delayed(Seconds.get(1), () {
       fadingText.togglePause();
     });
