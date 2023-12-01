@@ -51,4 +51,15 @@ class ExistingCollaborationsContractImpl
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  Future<Either<Failure, WhoHasTheQuestionModel>> checkIfUserHasTheQuestion(
+      NoParams params) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.checkIfUserHasTheQuestion();
+      return Right(WhoHasTheQuestionModel(userHasTheQuestion: res));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
 }
