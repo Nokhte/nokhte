@@ -1,2 +1,2 @@
 export 'coordinators/coordinators.dart';
-export 'widgets/widgets.dart';
+export 'widget_coordinators/widget_coordinators.dart';

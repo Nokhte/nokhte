@@ -9,7 +9,7 @@ import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/types/ty
 import 'package:nokhte/app/core/modules/voice_call/mobx/coordinator/voice_call_coordinator.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/widgets/p2p_purpose_phase1_widgets_coordinator.dart';
+import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 part 'p2p_purpose_phase1_coordinator.g.dart';
 
 class P2PPurposePhase1Coordinator = _P2PPurposePhase1CoordinatorBase
