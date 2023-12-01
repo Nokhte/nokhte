@@ -3,4 +3,3 @@ export 'agora_sdk_status_model.dart';
 export 'call_status_model.dart';
 export 'channel_id_model.dart';
 export 'local_audio_stream_status_model.dart';
-export 'who_gets_the_question_model.dart';
