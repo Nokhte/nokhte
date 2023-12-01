@@ -262,4 +262,7 @@ class DefaultEntities {
   static Either<Failure, PurposeSessionArtifactAbortionStatusEntity>
       get purposeSessionArtifactAbortionStatusEntity => const Right(
           PurposeSessionArtifactAbortionStatusEntity(isAborted: false));
+
+  static Either<Failure, WhoHasTheQuestionEntity> get whoHasTheQuestionEntity =>
+      const Right(WhoHasTheQuestionEntity(userHasTheQuestion: false));
 }
