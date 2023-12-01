@@ -30,7 +30,6 @@ class _HomeScreenState extends State<HomeScreen> {
       percentageLength: .20,
     );
     return Builder(builder: (context) {
-      // widget.coordinator.isNavigating;
       return LayoutBuilder(
         builder: (context, constraints) {
           return Scaffold(
@@ -52,9 +51,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: NewSmartBeachWaves(
                             store: widget.coordinator.newBeachWave,
                           )
-                          // child: SmartBeachWaves(
-                          //   stateTrackerStore: widget.coordinator.beachWaves,
-                          // ),
                           ),
                       Center(
                         child: SmartFadingAnimatedText(
