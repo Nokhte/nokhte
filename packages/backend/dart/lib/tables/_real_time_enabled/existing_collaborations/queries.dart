@@ -6,6 +6,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   static const collaboratorTwo = "collaborator_two";
   static const isCurrentlyActive = 'is_currently_active';
   static const isConsecrated = "is_consecrated";
+  static const whoGetsTheQuestion = "who_gets_the_question";
   static const talkingQueue = "talking_queue";
   ExistingCollaborationsQueries({required super.supabase});
 
@@ -109,6 +110,15 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
           collaboratorInfo.theUsersUID,
         )
         .select();
+  }
+
+  Future<bool> checkIfUserHasTheQuestion() async {
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    final whoHasTheQuestionResponse =
+        (await getActiveCollaborationInfo()).first[whoGetsTheQuestion];
+    final int collaboratorNumber =
+        collaboratorInfo.theUsersCollaboratorNumber == collaboratorOne ? 1 : 2;
+    return collaboratorNumber == whoHasTheQuestionResponse;
   }
 
   Future<void> clearTheCurrentTalker() async {

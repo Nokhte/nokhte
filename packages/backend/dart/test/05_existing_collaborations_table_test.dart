@@ -73,6 +73,18 @@ void main() {
     await user1Queries.updateActivityStatus(newActivityStatus: true);
   });
 
+  group("checkifUserHasTheQuestion", () {
+    test("user does not have the question", () async {
+      final res = await user1Queries.checkIfUserHasTheQuestion();
+      expect(res, false);
+    });
+
+    test("user has the question", () async {
+      final res = await user2Queries.checkIfUserHasTheQuestion();
+      expect(res, true);
+    });
+  });
+
   test(
       "should be able to update talking status & receive changes in the stream",
       () async {
