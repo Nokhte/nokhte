@@ -74,12 +74,10 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase4Coordinator>(
           (i) => P2PPurposePhase4Coordinator(
-            newBeachWaves: Modular.get<NewBeachWavesStore>(),
+            widgets: Modular.get<P2PPurposePhase4WidgetsCoordinator>(),
             abortPurposeSessionArtifactsStore:
                 i<AbortPurposeSessionArtifactsStore>(),
             timer: Modular.get<TimerCoordinator>(),
-            fadingText: i<SmartFadingAnimatedTextTrackerStore>(),
-            beachWaves: Modular.get<BeachWavesTrackerStore>(),
             soloDoc: i<SoloDocCoordinator>(),
           ),
         ),
