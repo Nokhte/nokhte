@@ -11,7 +11,9 @@ class P2PPurpose3IndividualRefletionScreen extends StatefulWidget
   P2PPurpose3IndividualRefletionScreen({
     super.key,
     required this.coordinator,
-  });
+  }) {
+    coordinator.widgets.preventOnShoreSeizure();
+  }
 
   @override
   State<P2PPurpose3IndividualRefletionScreen> createState() =>
