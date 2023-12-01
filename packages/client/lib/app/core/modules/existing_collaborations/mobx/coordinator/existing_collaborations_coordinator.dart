@@ -20,11 +20,13 @@ abstract class _ExistingCollaborationsCoordinatorBase extends Equatable
       updateIndividualCollaboratorEntryStatus;
   final UpdateCollaborationActivationStatusStore
       updateCollaborationActivationStatus;
+  final CheckIfUserHasTheQuestionStore checkIfUserHasTheQuestion;
 
   _ExistingCollaborationsCoordinatorBase({
     required this.consecrateTheCollaboration,
     required this.updateCollaborationActivationStatus,
     required this.updateIndividualCollaboratorEntryStatus,
+    required this.checkIfUserHasTheQuestion,
   });
   @override
   List<Object> get props => [
