@@ -40,9 +40,21 @@ class ExistingCollaborationsModule extends Module {
           ),
           export: true,
         ),
+        Bind.singleton<CheckIfUserHasTheQuestion>(
+          (i) => CheckIfUserHasTheQuestion(
+            contract: i<ExistingCollaborationsContract>(),
+          ),
+          export: true,
+        ),
         Bind.singleton<ConsecrateTheCollaborationStore>(
           (i) => ConsecrateTheCollaborationStore(
             logic: i<ConsecrateTheCollaboration>(),
+          ),
+          export: true,
+        ),
+        Bind.singleton<CheckIfUserHasTheQuestionStore>(
+          (i) => CheckIfUserHasTheQuestionStore(
+            logic: i<CheckIfUserHasTheQuestion>(),
           ),
           export: true,
         ),
@@ -60,6 +72,7 @@ class ExistingCollaborationsModule extends Module {
         ),
         Bind.singleton<ExistingCollaborationsCoordinator>(
           (i) => ExistingCollaborationsCoordinator(
+            checkIfUserHasTheQuestion: i<CheckIfUserHasTheQuestionStore>(),
             updateIndividualCollaboratorEntryStatus:
                 i<UpdateIndividualCollaboratorEntryStatusStore>(),
             updateCollaborationActivationStatus:
