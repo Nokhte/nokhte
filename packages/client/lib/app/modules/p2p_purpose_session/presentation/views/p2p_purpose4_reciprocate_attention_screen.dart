@@ -9,7 +9,9 @@ class P2PPurpose4ReciprocateAttentionScreen extends StatefulWidget
   P2PPurpose4ReciprocateAttentionScreen({
     super.key,
     required this.coordinator,
-  }) {}
+  }) {
+    coordinator.widgets.preventOnShoreSeizure();
+  }
 
   @override
   State<P2PPurpose4ReciprocateAttentionScreen> createState() =>
@@ -42,15 +44,12 @@ class _P2PPurpose4ReciprocateAttentionScreenState
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     child: NewSmartBeachWaves(
-                      store: widget.coordinator.newBeachWaves,
+                      store: widget.coordinator.widgets.newBeachWaves,
                     ),
-                    // child: SmartBeachWaves(
-                    //   stateTrackerStore: widget.coordinator.beachWaves,
-                    // ),
                   ),
                   Center(
                     child: SmartFadingAnimatedText(
-                      stateTrackerStore: widget.coordinator.fadingText,
+                      stateTrackerStore: widget.coordinator.widgets.fadingText,
                     ),
                   ),
                 ],
