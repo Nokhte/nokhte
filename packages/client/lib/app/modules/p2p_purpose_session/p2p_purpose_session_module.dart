@@ -83,15 +83,13 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase5Coordinator>(
           (i) => P2PPurposePhase5Coordinator(
+            widgets: Modular.get<P2PPurposePhase5WidgetsCoordinator>(),
             abortPurposeSessionArtifactsStore:
                 i<AbortPurposeSessionArtifactsStore>(),
             swipe: Modular.get<SwipeDetector>(),
             existingCollaborations:
                 Modular.get<ExistingCollaborationsCoordinator>(),
             collaborativeDocDB: Modular.get<CollaborativeDocCoordinator>(),
-            gesturePillStore: Modular.get<GesturePillStore>(),
-            beachWaves: Modular.get<BeachWavesTrackerStore>(),
-            collaborativeTextUI: i<CollaborativeTextEditorTrackerStore>(),
             voiceCallCoordinator: Modular.get<VoiceCallCoordinator>(),
           ),
         ),
