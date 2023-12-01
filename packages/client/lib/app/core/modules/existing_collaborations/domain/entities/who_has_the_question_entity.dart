@@ -1,6 +1,6 @@
 import 'package:nokhte/app/core/entities/default_db_status_entity.dart';
 
-class WhoAsTheQuestionEntity extends DefaultDBStatusEntity {
-  const WhoAsTheQuestionEntity({required bool userHasTheQuestion})
+class WhoHasTheQuestionEntity extends DefaultDBStatusEntity {
+  const WhoHasTheQuestionEntity({required bool userHasTheQuestion})
       : super(isSent: userHasTheQuestion);
 }
