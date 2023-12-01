@@ -112,7 +112,7 @@ abstract class _P2PPurposePhase2WidgetsCoordinatorBase extends BaseTimesUpStore
       explanationText.toggleWidgetVisibility();
     }
     meshCircleStore.toggleWidgetVisibility();
-    Modular.to.navigate('/p2p_purpose_session/phase-3/');
+    // Modular.to.navigate('/p2p_purpose_session/phase-3/');
   }
 
   beachWavesMovieStatusWatcher({required Function logicRelatedCallback}) =>
@@ -123,6 +123,10 @@ abstract class _P2PPurposePhase2WidgetsCoordinatorBase extends BaseTimesUpStore
           newBeachWaves.currentStore.initMovie(NoParams());
           await logicRelatedCallback();
           await uiCleanUpAndTransition();
+        } else if (newBeachWaves.movieStatus == MovieStatus.finished &&
+            newBeachWaves.movieMode ==
+                BeachWaveMovieModes.timesUpEndToTheDepths) {
+          Modular.to.navigate('/p2p_purpose_session/phase-3/');
         }
       });
 
