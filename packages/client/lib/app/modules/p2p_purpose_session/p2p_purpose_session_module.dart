@@ -16,7 +16,6 @@ import 'package:nokhte/app/core/modules/timer/timer_module.dart';
 import 'package:nokhte/app/core/modules/existing_collaborations/mobx/coordinator/existing_collaborations_coordinator.dart';
 import 'package:nokhte/app/core/modules/existing_collaborations/existing_collaborations_module.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/coordinator/voice_call_coordinator.dart';
-import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/voice_call_module.dart';
 import 'package:nokhte/app/core/widgets/module.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -52,6 +51,8 @@ class P2PCollaboratorSessionModule extends Module {
         ),
         Bind.singleton<P2PPurposePhase2Coordinator>(
             (i) => P2PPurposePhase2Coordinator(
+                  existingCollaborations:
+                      Modular.get<ExistingCollaborationsCoordinator>(),
                   widgets: Modular.get<P2PPurposePhase2WidgetsCoordinator>(),
                   abortPurposeSessionArtifactsStore:
                       i<AbortPurposeSessionArtifactsStore>(),
@@ -60,7 +61,6 @@ class P2PCollaboratorSessionModule extends Module {
                   hold: Modular.get<HoldDetector>(),
                   swipe: Modular.get<SwipeDetector>(),
                   voiceCallCoordinator: Modular.get<VoiceCallCoordinator>(),
-                  questionCheckerStore: i<CheckIfUserHasTheQuestionStore>(),
                 )),
         Bind.singleton<P2PPurposePhase3Coordinator>(
           (i) => P2PPurposePhase3Coordinator(
