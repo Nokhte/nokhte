@@ -9,6 +9,7 @@ abstract class ExistingCollaborationsRemoteSource {
   Future<List> updateIndividualCollaboratorEntryStatus({
     required bool isEntering,
   });
+  Future<bool> checkIfUserHasTheQuestion();
 }
 
 class ExistingCollaborationsRemoteSourceImpl
@@ -34,4 +35,8 @@ class ExistingCollaborationsRemoteSourceImpl
   Future<List> updateIndividualCollaboratorEntryStatus(
           {required bool isEntering}) async =>
       await queries.updateUserHasEnteredStatus(newEntryStatus: isEntering);
+
+  @override
+  Future<bool> checkIfUserHasTheQuestion() async =>
+      await queries.checkIfUserHasTheQuestion();
 }
