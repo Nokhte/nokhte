@@ -11,9 +11,6 @@ class MVoiceCallRemoteSourceImpl extends Mock
 
 class MVoiceCallContract extends Mock implements VoiceCallContract {}
 
-class MCheckIfUserHasTheQuestion extends Mock
-    implements CheckIfUserHasTheQuestion {}
-
 class MGetAgoraToken extends Mock implements GetAgoraToken {}
 
 class MGetChannelId extends Mock implements GetChannelId {}
@@ -28,9 +25,6 @@ class MMuteLocalAudio extends Mock implements MuteLocalAudio {}
 
 class MUnmuteLocalAudio extends Mock implements UnmuteLocalAudio {}
 
-class MCheckIfUserHasTheQuestionStore extends Mock
-    implements CheckIfUserHasTheQuestionStore {}
-
 class MGetAgoraTokenStore extends Mock implements GetAgoraTokenStore {}
 
 class MGetChannelIdStore extends Mock implements GetChannelIdStore {}
@@ -43,7 +37,6 @@ class MVoiceCallActionsStore extends Mock implements VoiceCallActionsStore {}
 @GenerateMocks([
   MVoiceCallRemoteSourceImpl,
   MVoiceCallContract,
-  MCheckIfUserHasTheQuestion,
   MGetAgoraToken,
   MGetChannelId,
   MInstantiateAgoraSdk,
@@ -51,7 +44,6 @@ class MVoiceCallActionsStore extends Mock implements VoiceCallActionsStore {}
   MLeaveCall,
   MMuteLocalAudio,
   MUnmuteLocalAudio,
-  MCheckIfUserHasTheQuestionStore,
   MGetAgoraTokenStore,
   MGetChannelIdStore,
   MInstantiateAgoraSdkStore,

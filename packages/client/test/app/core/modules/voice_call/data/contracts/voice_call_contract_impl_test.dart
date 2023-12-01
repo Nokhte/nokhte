@@ -224,39 +224,4 @@ void main() {
       });
     });
   });
-  group('Method No. 8:  `checkifUserHasTheQuestion`', () {
-    group("is Online", () {
-      setUp(() {
-        when(mockNetworkInfo.isConnected)
-            .thenAnswer((realInvocation) async => true);
-      });
-      test(
-          "when online & everything is valid should return a model w/ proper state",
-          () async {
-        when(mockRemoteSource.getCollaboratorInfo()).thenAnswer(
-          (_) async => ExistingCollaboratorsTable.response,
-        );
-        final res = await contractImpl.checkIfUserHasTheQuestion();
-        expect(res, ConstantWhoGetsTheQuestionModel.wrappedHasItCase);
-      });
-      test(
-          "when online & everything is in-valid should return a model w/ proper state",
-          () async {
-        when(mockRemoteSource.getCollaboratorInfo())
-            .thenAnswer((_) async => []);
-        final res = await contractImpl.checkIfUserHasTheQuestion();
-        expect(res, ConstantWhoGetsTheQuestionModel.wrappedDoesNotHaveItCase);
-      });
-    });
-    group("is not online", () {
-      setUp(() {
-        when(mockNetworkInfo.isConnected)
-            .thenAnswer((realInvocation) async => false);
-      });
-      test("When offline should return an internet connection error", () async {
-        final res = await contractImpl.checkIfUserHasTheQuestion();
-        expect(res, Left(FailureConstants.internetConnectionFailure));
-      });
-    });
-  });
 }
