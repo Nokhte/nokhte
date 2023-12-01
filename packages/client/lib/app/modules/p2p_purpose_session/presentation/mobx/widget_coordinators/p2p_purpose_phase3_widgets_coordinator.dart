@@ -2,6 +2,7 @@
 // * Mobx Import
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 // * Equatable Import
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -24,36 +25,46 @@ abstract class _P2PPurposePhase3WidgetsCoordinatorBase extends BaseTimesUpStore
     required this.fadingText,
   }) : super(productionTimerLength: const Duration(minutes: 5));
 
-  uiCleanUpAndTransition() {
-    textEditor.flipWidgetVisibility();
-    Modular.to.navigate('/p2p_purpose_session/phase-4/');
-  }
+  uiCleanUpAndTransition() => textEditor.flipWidgetVisibility();
 
-  @action
-  constructor() {
+  fadingTextSetup() {
     fadingText.startRotatingText(Seconds.get(0));
-    textEditor.flipWidgetVisibility();
-    newBeachWaves.setMovieMode(BeachWaveMovieModes.timesUp);
     fadingText.moveToNextMessage();
     Future.delayed(Seconds.get(1), () {
       fadingText.fadeTheTextIn();
     });
     Future.delayed(Seconds.get(3), () {
       fadingText.fadeTheTextOut();
+    });
+  }
+
+  @action
+  constructor() {
+    fadingTextSetup();
+    textEditor.flipWidgetVisibility();
+    newBeachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtTheDepths);
+    newBeachWaves.currentStore.initMovie(NoParams());
+    Future.delayed(Seconds.get(3), () {
       textEditor.flipWidgetVisibility();
     });
   }
 
   beachWavesMovieStatusWatcher({required Function onTimesUpComplete}) =>
       reaction((p0) => newBeachWaves.movieStatus, (p0) async {
-        print("did this run?? $p0 ${newBeachWaves.movieMode}");
         if (newBeachWaves.movieStatus == MovieStatus.finished &&
+            newBeachWaves.movieMode ==
+                BeachWaveMovieModes.suspendedAtTheDepths) {
+          newBeachWaves.setMovieMode(BeachWaveMovieModes.timesUp);
+        } else if (newBeachWaves.movieStatus == MovieStatus.finished &&
             newBeachWaves.movieMode == BeachWaveMovieModes.timesUp) {
-          print("does this run on instantiation??");
-          // newBeachWaves.setMovieMode(BeachWaveMovieModes.timesUpEndToTheDepths);
-          // newBeachWaves.currentStore.initMovie(NoParams());
+          newBeachWaves.setMovieMode(BeachWaveMovieModes.timesUpEndToTheDepths);
+          newBeachWaves.currentStore.initMovie(NoParams());
           await onTimesUpComplete();
           await uiCleanUpAndTransition();
+        } else if (newBeachWaves.movieStatus == MovieStatus.finished &&
+            newBeachWaves.movieMode ==
+                BeachWaveMovieModes.timesUpEndToTheDepths) {
+          Modular.to.navigate('/p2p_purpose_session/phase-4/');
         }
       });
 }
