@@ -99,7 +99,7 @@ abstract class _NewBeachWavesStoreBase extends Equatable with Store {
   MovieStatus movieStatus = MovieStatus.idle;
 
   @observable
-  BeachWaveMovieModes movieMode = BeachWaveMovieModes.none;
+  BeachWaveMovieModes movieMode = BeachWaveMovieModes.onShore;
 
   @action
   setMovieMode(BeachWaveMovieModes newMovieMode) {
