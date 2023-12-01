@@ -1,6 +1,4 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'package:flutter/foundation.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -13,71 +11,43 @@ import 'package:nokhte/app/core/modules/timer/domain/logic/logic.dart';
 import 'package:nokhte/app/core/modules/timer/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/mobx.dart';
+import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/widgets/p2p_purpose_phase3_widgets_coordinator.dart';
 part 'p2p_purpose_phase3_coordinator.g.dart';
 
 class P2PPurposePhase3Coordinator = _P2PPurposePhase3CoordinatorBase
     with _$P2PPurposePhase3Coordinator;
 
-abstract class _P2PPurposePhase3CoordinatorBase extends BaseTimesUpStore
+abstract class _P2PPurposePhase3CoordinatorBase extends BaseCoordinator
     with Store {
-  final SoloTextEditorTrackerStore textEditor;
   final AbortPurposeSessionArtifactsStore abortPurposeSessionArtifactsStore;
-  final SmartFadingAnimatedTextTrackerStore fadingText;
+  final P2PPurposePhase3WidgetsCoordinator widgets;
   final SoloDocCoordinator soloDoc;
   final SwipeDetector swipe;
-  final BeachWavesTrackerStore beachWaves;
   final TimerCoordinator timer;
 
   _P2PPurposePhase3CoordinatorBase({
     required this.timer,
     required this.swipe,
-    required this.beachWaves,
-    // required super.beachWaves,
-    required super.newBeachWaves,
+    required this.widgets,
     required this.abortPurposeSessionArtifactsStore,
-    required this.textEditor,
-    required this.fadingText,
     required this.soloDoc,
-  }) : super(productionTimerLength: const Duration(minutes: 5)) {
-    // reaction((p0) => beachWaves.movieStatus, (p0) async {
-    //   print(" phase 3${beachWaves.movieStatus} ${beachWaves.movieMode}");
-    //   if (beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
-    //     if (beachWaves.movieStatus == MovieStatus.finished) {
-    //       textEditor.flipWidgetVisibility();
-    //       beachWaves.teeUpBackToTheDepths();
-    //       Future.delayed(Seconds.get(3), () async {
-    //         await timer.markTimerAsComplete(NoParams());
-    //       });
-    //     } else if (beachWaves.movieStatus == MovieStatus.inProgress) {
-    //       delayedNavigation(() {
-    //         textEditor.flipWidgetVisibility();
-    //         beachWaves.teeUpBackToTheDepths();
-    //         Future.delayed(Seconds.get(3), () async {
-    //           await timer.markTimerAsComplete(NoParams());
-    //         });
-    //       });
-    //     }
-    //   }
-    // });
-  }
+  });
 
   cleanUpAndTransition() async {
-    final currentText = textEditor.controller.text;
+    final currentText = widgets.textEditor.controller.text;
     await timer.deleteTheTimer(NoParams());
     await soloDoc.createSoloDoc(const CreateSoloDocParams(docType: 'purpose'));
     await soloDoc.submitSoloDoc(SubmitSoloDocParams(content: currentText));
     await soloDoc.shareSoloDoc(NoParams());
-    textEditor.flipWidgetVisibility();
-    // beachWaves.teeUpBackToTheDepths();
-    Future.delayed(Seconds.get(3), () {
-      timer.markTimerAsComplete(NoParams());
-      Modular.to.navigate('/p2p_purpose_session/phase-4/');
-    });
-    print("did it navigate to phase4");
   }
 
   @action
   screenConstructor() async {
+    widgets.constructor();
+    widgets.beachWavesMovieStatusWatcher(
+      onTimesUpComplete: cleanUpAndTransition,
+    );
+    await timer.updateTimerRunningStatus(true);
     foregroundAndBackgroundStateListener(
       resumedCallback: () async => await timer.setOnlineStatus(true),
       inactiveCallback: () async => await timer.setOnlineStatus(false),
@@ -87,29 +57,14 @@ abstract class _P2PPurposePhase3CoordinatorBase extends BaseTimesUpStore
         ),
       ),
     );
-    fadingText.startRotatingText(Seconds.get(0));
-    textEditor.flipWidgetVisibility();
-    beachWaves.initiateSuspendedAtTheDepths();
-    await timer.setupAndStreamListenerActivation(
-      const CreateTimerParams(timerLengthInMinutes: 5),
-      timerUICallback: initOrPauseTimesUp,
-      onBothCollaboratorTimersCompleted: cleanUpAndTransition,
-    );
-    await timer.setOnlineStatus(true);
-    await timer.updateTimerRunningStatus(true);
-    final timerLength =
-        kDebugMode ? Seconds.get(20) : const Duration(minutes: 5);
-    beachWaves.initiateTimesUp(timerLength: timerLength);
-    fadingText.moveToNextMessage();
-    Future.delayed(Seconds.get(1), () {
-      fadingText.fadeTheTextIn();
-    });
-    Future.delayed(Seconds.get(3), () {
-      fadingText.fadeTheTextOut();
-      textEditor.flipWidgetVisibility();
-    });
-
-    // delayedNavigation(() => cleanUpAndTransition());
+    // Future.delayed(Seconds.get(1), () async {
+    //   await timer.setupAndStreamListenerActivation(
+    //     const CreateTimerParams(timerLengthInMinutes: 5),
+    //     timerUICallback: widgets.initOrPauseTimesUp,
+    //     onBothCollaboratorTimersCompleted: cleanUpAndTransition,
+    //   );
+    //   await timer.updateTimerRunningStatus(true);
+    // });
   }
 
   @override
