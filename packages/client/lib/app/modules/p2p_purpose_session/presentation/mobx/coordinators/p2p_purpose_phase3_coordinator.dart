@@ -7,11 +7,9 @@ import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/types/ty
 import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
 import 'package:nokhte/app/core/modules/solo_doc/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/timer/domain/logic/logic.dart';
 import 'package:nokhte/app/core/modules/timer/mobx/mobx.dart';
-import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/mobx.dart';
-import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/widgets/p2p_purpose_phase3_widgets_coordinator.dart';
+import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 part 'p2p_purpose_phase3_coordinator.g.dart';
 
 class P2PPurposePhase3Coordinator = _P2PPurposePhase3CoordinatorBase
