@@ -136,6 +136,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
 
   @action
   gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
+        print("$p0");
         if (isAllowedMakeANavigation) {
           switch (p0) {
             case GestureDirections.up:
@@ -149,12 +150,13 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
             default:
               break;
           }
-          placesYouCanGoCount++;
+          incrementPlacesYouCanGoCount();
         }
       });
 
   @action
   holdListener() => reaction((p0) => hold.holdCount, (p0) async {
+        print("$p0");
         if (isAllowedMakeANavigation) {
           await Haptics.vibrate(HapticsType.medium);
           fadeTheTextOutAndWaterComesDown(PlacesYouCanGo.newCollaboration);
@@ -173,11 +175,6 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
       fadingTextStateTrackerStore.currentMainText = "";
       fadingTextStateTrackerStore.currentSubText = "";
       newBeachWave.setMovieMode(BeachWaveMovieModes.onShoreToOceanDiveSetup);
-      // newBeachWave.currentStore.initMovie(NoParams());
-      // beachWaves.teeUpOceanDive();
-      // beachWaves.teeOceanDiveMovieUp(
-      //   startingWaterMovement: beachWaves.lastWaterValue,
-      // );
     }
   }
 
