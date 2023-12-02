@@ -1,5 +1,5 @@
 import { serve } from "std/server";
-import { isNotEmptyOrNull, isEmptyOrNull } from "../utils/array_utils.ts";
+import { isNotEmptyOrNull } from "../utils/array_utils.ts";
 import { supabaseAdmin } from "../constants/supabase.ts";
 import { randomNumber } from "random_number";
 
@@ -47,53 +47,29 @@ serve(async (req) => {
         matched_noun_id: matchedNounId,
       })
       .eq("wayfarer_uid", mostRecentEntrant.data?.[0]["wayfarer_uid"]);
-    const wayfarerIsACollaborator = `collaborator_one.eq.${wayfarerUID},collaborator_two.eq.${wayfarerUID}`;
-    const matchedUIDIsACollaborator = `collaborator_one.eq${matchedUID},collaborator_two.eq${matchedUID}`;
-    const checkForExistingCollaborationRes = (
-      await supabaseAdmin
-        .from("existing_collaborations")
-        .select()
-        .or(`${wayfarerIsACollaborator},${matchedUIDIsACollaborator}`)
-    ).data;
-    console.log(
-      `is this true or fase it should be empty no?? ${checkForExistingCollaborationRes}`
-    );
-    if (isEmptyOrNull(checkForExistingCollaborationRes)) {
-      await supabaseAdmin.from("existing_collaborations").insert({
-        collaborator_one: wayfarerUID,
-        collaborator_two: matchedUID,
-        who_gets_the_question: whoGetsTheQuestion % 2 === 0 ? 1 : 2,
-      });
-      await supabaseAdmin
-        .from("p2p_collaborator_pool")
-        .delete()
-        .eq("wayfarer_uid", wayfarerUID);
-      await supabaseAdmin
-        .from("p2p_collaborator_pool")
-        .delete()
-        .eq("wayfarer_uid", matchedUID);
-    }
-    returnRes = [
-      {
-        status: 200,
-        message: "collaboration successfully forged",
-      },
-    ];
+    await supabaseAdmin.from("existing_collaborations").insert({
+      collaborator_one: wayfarerUID,
+      collaborator_two: matchedUID,
+      collaboration_id: `${wayfarerUID}_${matchedUID}`,
+      who_gets_the_question: whoGetsTheQuestion % 2 === 0 ? 1 : 2,
+    });
+    await supabaseAdmin
+      .from("p2p_collaborator_pool")
+      .delete()
+      .eq("wayfarer_uid", wayfarerUID);
+    await supabaseAdmin
+      .from("p2p_collaborator_pool")
+      .delete()
+      .eq("wayfarer_uid", matchedUID);
   }
+  returnRes = [
+    {
+      status: 200,
+      message: "collaboration successfully forged",
+    },
+  ];
+  // }
   return new Response(JSON.stringify(returnRes), {
     headers: { "Content-Type": "application/json" },
   });
 });
-
-/* To invoke:
-# FIRST ONE
-curl -i --location --request POST 'http://localhost:54321/functions/v1/initiate-collaborator-search' \
---header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0' \
---header 'Content-Type: application/json' \
---data '{"wayfarerUID":"f5fbf3a5-bb45-4bc4-99f0-97618930e6ad", "queryAdjectiveID": "79", "queryNounID": "43"}'
-curl -i --location --request POST 'http://localhost:54321/functions/v1/initiate-collaborator-search' \
---header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0' \
---header 'Content-Type: application/json' \
---data '{"wayfarerUID":"0d7ce7b3-5b59-48ed-8015-a7c2fd4cb2ae", "queryAdjectiveID": "118", "queryNounID": "67"}'
-# SECOND ONE
-*/
