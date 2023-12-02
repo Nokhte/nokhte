@@ -7,6 +7,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   static const isCurrentlyActive = 'is_currently_active';
   static const isConsecrated = "is_consecrated";
   static const whoGetsTheQuestion = "who_gets_the_question";
+  static const collaborationID = "collaboration_id";
   static const talkingQueue = "talking_queue";
   ExistingCollaborationsQueries({required super.supabase});
 
@@ -17,6 +18,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
     return await supabase.from(tableName).insert({
       collaboratorOne: collaboratorOneUID,
       collaboratorTwo: collaboratorTwoUID,
+      collaborationID: "${collaboratorOneUID}_$collaboratorTwoUID",
       'who_gets_the_question': 2,
     }).select();
   }
