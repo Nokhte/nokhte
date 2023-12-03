@@ -121,7 +121,8 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
             newBeachWave.movieMode == BeachWaveMovieModes.onShoreToOceanDive) {
           switch (thePlaceTheyAreGoing) {
             case PlacesYouCanGo.newCollaboration:
-              Modular.to.navigate('/p2p_collaborator_pool/');
+              // Modular.to.navigate('/p2p_collaborator_pool/');
+              Modular.to.navigate('/p2p_purpose_session/');
             case PlacesYouCanGo.collectiveSession:
               Modular.to.navigate('/collective_session/');
             case PlacesYouCanGo.individualSession:
@@ -138,6 +139,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
   gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
         print("$p0");
         if (isAllowedMakeANavigation) {
+          // todo make this more specific so this doesn't trigger if no purpose is ocmmitted
           switch (p0) {
             case GestureDirections.up:
               if (getExistingCollaborationInfo.hasCommittedAPurpose) {

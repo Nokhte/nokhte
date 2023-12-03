@@ -71,7 +71,7 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
     required Function revertAffirmativeCommitDesire,
     required Function updateCommitStatusToAffirmative,
   }) =>
-      docContentStream.listen((DocInfoContent value) {
+      docContentStream.distinct().listen((DocInfoContent value) {
         print("what is happening inside of here?? ${value.content}");
         initialContentLoad(value);
         purposeIntegrityListener(
