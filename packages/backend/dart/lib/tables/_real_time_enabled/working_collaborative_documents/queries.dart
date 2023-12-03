@@ -6,12 +6,12 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
     required super.supabase,
   });
 
-  Future<void> updateExistingDocument({required String newContent}) async {
+  Future<void> updateUsersDocDocument({required String newContent}) async {
     await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     await supabase
         .from(tableName)
         .update({
-          "content": newContent,
+          "${collaboratorInfo.theUsersCollaboratorNumber}_content": newContent,
           "last_edited_by": currentUserUID,
         })
         .eq(
