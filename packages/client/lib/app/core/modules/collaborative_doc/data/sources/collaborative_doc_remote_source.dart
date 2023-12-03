@@ -58,7 +58,7 @@ class CollaborativeDocRemoteSourceImpl implements CollaborativeDocRemoteSource {
 
   @override
   Future<void> updateUserDelta({required int updatedDelta}) async {
-    return await queries.updateDelta(delta: updatedDelta);
+    return await queries.updateDelta(deltaParam: updatedDelta);
   }
 
   @override
@@ -68,6 +68,7 @@ class CollaborativeDocRemoteSourceImpl implements CollaborativeDocRemoteSource {
 
   @override
   Future<void> updateCommitDesireStatus({required bool wantsToCommit}) async {
-    return await queries.updateCommitDesireStatus(wantsToCommit: wantsToCommit);
+    return await queries.updateCommitDesireStatus(
+        wantsToCommitParam: wantsToCommit);
   }
 }
