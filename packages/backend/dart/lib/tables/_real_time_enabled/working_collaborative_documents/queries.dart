@@ -2,6 +2,11 @@ import 'package:nokhte_backend/tables/_real_time_enabled/shared/shared.dart';
 
 class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
   static const tableName = 'working_collaborative_documents';
+  static const wantsToCommit = "wants_to_commit";
+  static const delta = "delta";
+  static const isActive = "is_active";
+  static const content = "content";
+  static const lastEditedBy = "last_edited_by";
   WorkingCollaborativeDocumentsQueries({
     required super.supabase,
   });
@@ -76,7 +81,7 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
     await supabase
         .from(tableName)
         .update({
-          '${collaboratorInfo.theUsersCollaboratorNumber}_wants_to_commit':
+          '${collaboratorInfo.theUsersCollaboratorNumber}_$wantsToCommit':
               wantsToCommit,
         })
         .eq(
@@ -94,7 +99,7 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
     await supabase
         .from(tableName)
         .update({
-          "${collaboratorInfo.theUsersCollaboratorNumber}_delta": delta,
+          "${collaboratorInfo.theUsersCollaboratorNumber}_$delta": delta,
         })
         .eq(
           "${collaboratorInfo.theCollaboratorsNumber}_uid",
@@ -111,7 +116,7 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
     await supabase
         .from(tableName)
         .update({
-          "${collaboratorInfo.theUsersCollaboratorNumber}_is_active": isPresent,
+          "${collaboratorInfo.theUsersCollaboratorNumber}_$isActive": isPresent,
         })
         .eq(
           "${collaboratorInfo.theCollaboratorsNumber}_uid",
@@ -128,8 +133,8 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
     await supabase
         .from(tableName)
         .update({
-          "${collaboratorInfo.theUsersCollaboratorNumber}_content": newContent,
-          "last_edited_by": currentUserUID,
+          "${collaboratorInfo.theUsersCollaboratorNumber}_$content": newContent,
+          lastEditedBy: currentUserUID,
         })
         .eq(
           "${collaboratorInfo.theCollaboratorsNumber}_uid",
