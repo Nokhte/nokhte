@@ -121,8 +121,8 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
             newBeachWave.movieMode == BeachWaveMovieModes.onShoreToOceanDive) {
           switch (thePlaceTheyAreGoing) {
             case PlacesYouCanGo.newCollaboration:
-              // Modular.to.navigate('/p2p_collaborator_pool/');
-              Modular.to.navigate('/p2p_purpose_session/');
+              Modular.to.navigate('/p2p_collaborator_pool/');
+            // Modular.to.navigate('/p2p_purpose_session/');
             case PlacesYouCanGo.collectiveSession:
               Modular.to.navigate('/collective_session/');
             case PlacesYouCanGo.individualSession:
