@@ -46,9 +46,10 @@ abstract class _P2PPurposePhase5CoordinatorBase extends BaseCoordinator
   initListeners() {
     widgets.collaborativeDocListener(
       collaborativeDocDB.getContent.docContent,
-      ifUserHasFocus: updateTheDoc,
-      purposeIsCommitted: consecrateTheCollaboration,
-      ifCommitDesireIsAffirmativeAndEdits: revertCommitAffirmative,
+      updateTheDoc: updateTheDoc,
+      consecrateTheCollaboration: consecrateTheCollaboration,
+      revertAffirmativeCommitDesire: revertAffirmativeCommitDesire,
+      updateCommitStatusToAffirmative: updateCommitStatusToAffirmative,
     );
     gestureListener();
     widgets.userTextControllerListener(collaborativeDocDB: collaborativeDocDB);
@@ -57,6 +58,7 @@ abstract class _P2PPurposePhase5CoordinatorBase extends BaseCoordinator
   @action
   screenConstructor() async {
     widgets.constructor();
+    await collaborativeDocDB.getContent(NoParams());
     initListeners();
     foregroundAndBackgroundStateListener(
       resumedCallback: () async => await null,
@@ -76,24 +78,15 @@ abstract class _P2PPurposePhase5CoordinatorBase extends BaseCoordinator
     await collaborativeDocDB.getContent(NoParams());
   }
 
-  updateTheDoc() async => await collaborativeDocDB.updateCommitDesire(
-      const UpdateCommitDesireStatusParams(wantsToCommit: false));
+  updateTheDoc(String newContent) async => await collaborativeDocDB
+      .updateDoc(UpdateCollaborativeDocParams(newContent: newContent));
 
   consecrateTheCollaboration() async =>
       await existingCollaborations.consecrateTheCollaboration(NoParams());
 
-  revertCommitAffirmative() async =>
+  revertAffirmativeCommitDesire() async =>
       await collaborativeDocDB.updateCommitDesire(
           const UpdateCommitDesireStatusParams(wantsToCommit: false));
-
-  gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
-        switch (p0) {
-          case GestureDirections.up:
-            updateCommitStatusToAffirmative();
-          default:
-            break;
-        }
-      });
 
   @action
   updateCommitStatusToAffirmative() async {
@@ -102,6 +95,15 @@ abstract class _P2PPurposePhase5CoordinatorBase extends BaseCoordinator
     );
     widgets.updateCommitStatusToAffirmative();
   }
+
+  gestureListener() => reaction((p0) => swipe.directionsType, (p0) async {
+        switch (p0) {
+          case GestureDirections.up:
+            await updateCommitStatusToAffirmative();
+          default:
+            break;
+        }
+      });
 
   @override
   List<Object> get props => [];
