@@ -34,33 +34,36 @@ class WorkingCollaborativeDocumentsStreams extends CollaborativeQueries {
       "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
       collaboratorInfo.theUsersUID,
     )) {
+      final collaboratorsNumber = collaboratorInfo.theCollaboratorsNumber;
+      final usersUID = collaboratorInfo.theUsersUID;
+      final usersCollaboratorNumber =
+          collaboratorInfo.theUsersCollaboratorNumber;
+      final row = event.first;
+      final bothCollaboratorsAffirm =
+          row["${collaboratorsNumber}_wants_to_commit"] &&
+              row["${usersCollaboratorNumber}_wants_to_commit"];
       if (!docContentListeningStatus) {
         break;
       }
       if (event.isEmpty) {
         yield DocInfoContent(
-          content: "",
-          lastEditedBy: "",
-          currentUserUID: "",
+          usersContent: "",
+          collaboratorsContent: "",
+          lastEditWasTheUser: false,
           collaboratorsCommitDesireStatus: false,
           documentCommitStatus: false,
           userCommitDesireStatus: false,
         );
       } else {
         yield DocInfoContent(
-          content: event.first["content"],
-          lastEditedBy: event.first["last_edited_by"] ?? '',
-          currentUserUID: userUID,
-          collaboratorsCommitDesireStatus: event.first[
-              "${collaboratorInfo.theCollaboratorsNumber}_wants_to_commit"],
-          documentCommitStatus: event.first[
-                      "${collaboratorInfo.theCollaboratorsNumber}_wants_to_commit"] &&
-                  event.first[
-                      "${collaboratorInfo.theUsersCollaboratorNumber}_wants_to_commit"]
-              ? true
-              : false,
-          userCommitDesireStatus: event.first[
-              "${collaboratorInfo.theUsersCollaboratorNumber}_wants_to_commit"],
+          usersContent: row["${usersCollaboratorNumber}_content"],
+          collaboratorsContent: row["${collaboratorsNumber}_content"],
+          lastEditWasTheUser: row["last_edited_by"] == usersUID,
+          collaboratorsCommitDesireStatus:
+              row["${collaboratorsNumber}_wants_to_commit"],
+          documentCommitStatus: bothCollaboratorsAffirm,
+          userCommitDesireStatus:
+              row["${usersCollaboratorNumber}_wants_to_commit"],
         );
       }
     }
@@ -68,7 +71,7 @@ class WorkingCollaborativeDocumentsStreams extends CollaborativeQueries {
 
   Stream<CollaboratorDocInfo> getCollaboratorDocumentInfo() async* {
     collaboratorPresenceListeningStatus = true;
-        await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     await for (var event in supabase
         .from('working_collaborative_documents')
         .stream(primaryKey: ['id']).eq(
