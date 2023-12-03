@@ -30,10 +30,10 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
 
     if (checkRes.isEmpty) {
       return await supabase.from(tableName).insert({
-        "${collaboratorInfo.theCollaboratorsNumber}_uid":
-            collaboratorInfo.theCollaboratorsUID,
         "${collaboratorInfo.theUsersCollaboratorNumber}_uid":
             collaboratorInfo.theUsersUID,
+        "${collaboratorInfo.theCollaboratorsNumber}_uid":
+            collaboratorInfo.theCollaboratorsUID,
         'doc_type': docType,
       }).select();
     } else {
@@ -75,14 +75,14 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
 
   // update
   Future<void> updateCommitDesireStatus({
-    required bool wantsToCommit,
+    required bool wantsToCommitParam,
   }) async {
     await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     await supabase
         .from(tableName)
         .update({
           '${collaboratorInfo.theUsersCollaboratorNumber}_$wantsToCommit':
-              wantsToCommit,
+              wantsToCommitParam,
         })
         .eq(
           "${collaboratorInfo.theCollaboratorsNumber}_uid",
@@ -94,12 +94,12 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
         );
   }
 
-  Future<void> updateDelta({required int delta}) async {
+  Future<void> updateDelta({required int deltaParam}) async {
     await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     await supabase
         .from(tableName)
         .update({
-          "${collaboratorInfo.theUsersCollaboratorNumber}_$delta": delta,
+          "${collaboratorInfo.theUsersCollaboratorNumber}_$delta": deltaParam,
         })
         .eq(
           "${collaboratorInfo.theCollaboratorsNumber}_uid",
