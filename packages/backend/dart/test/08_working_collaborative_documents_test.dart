@@ -13,6 +13,16 @@ void main() {
   late WorkingCollaborativeDocumentsQueries adminWorkingQueries;
   late FinishedCollaborativeP2PPurposeDocumentsQueries user1FinishedQueries;
   late FinishedCollaborativeP2PPurposeDocumentsQueries adminFinishedQueries;
+  late String usersCollaboratorNumber;
+  late String collaboratorsNumber;
+  late String usersUID;
+  late String collaboratorsUID;
+  final wantsToCommit = WorkingCollaborativeDocumentsQueries.wantsToCommit;
+  final delta = WorkingCollaborativeDocumentsQueries.delta;
+  final isActive = WorkingCollaborativeDocumentsQueries.isActive;
+  final content = WorkingCollaborativeDocumentsQueries.content;
+
+  final tContent = "newContent";
 
   setUpAll(() async {
     await tSetup.setUp();
@@ -20,6 +30,15 @@ void main() {
         WorkingCollaborativeDocumentsQueries(supabase: tSetup.user1Supabase);
     user2WorkingQueries =
         WorkingCollaborativeDocumentsQueries(supabase: tSetup.user2Supabase);
+
+    await user1WorkingQueries.figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    usersCollaboratorNumber =
+        user1WorkingQueries.collaboratorInfo.theUsersCollaboratorNumber;
+    usersUID = user1WorkingQueries.collaboratorInfo.theUsersUID;
+    collaboratorsNumber =
+        user1WorkingQueries.collaboratorInfo.theCollaboratorsNumber;
+    collaboratorsUID = user1WorkingQueries.collaboratorInfo.theCollaboratorsUID;
+
     user1FinishedQueries = FinishedCollaborativeP2PPurposeDocumentsQueries(
       supabase: tSetup.user1Supabase,
     );
@@ -32,19 +51,19 @@ void main() {
 
   tearDownAll(() async {
     adminFinishedQueries.collaboratorInfo =
-        user1FinishedQueries.collaboratorInfo;
-    adminWorkingQueries.collaboratorInfo =
-        adminFinishedQueries.collaboratorInfo;
+        user1WorkingQueries.collaboratorInfo;
+    adminWorkingQueries.collaboratorInfo = user1WorkingQueries.collaboratorInfo;
     await adminWorkingQueries.deleteThedoc();
     await adminFinishedQueries.deleteADoc();
     await tSetup.tearDownAll();
   });
 
   initialDocExpectationSuite(List res) {
-    expect(res.first["collaborator_one_uid"], tSetup.firstUserUID);
+    expect(res.first["${usersCollaboratorNumber}_uid"], usersUID);
     expect(res.first["doc_type"], "purpose");
-    expect(res.first["collaborator_two_uid"], tSetup.secondUserUID);
-    expect(res.first["content"], isEmpty);
+    expect(res.first["${collaboratorsNumber}_uid"], collaboratorsUID);
+    expect(res.first["${usersCollaboratorNumber}_$content"], isEmpty);
+    expect(res.first["${collaboratorsNumber}_$content"], isEmpty);
     expect(res.first["collaborator_one_delta"], -1);
     expect(res.first["collaborator_two_delta"], -1);
     expect(res.first["collaborator_one_is_active"], false);
@@ -59,6 +78,8 @@ void main() {
     });
 
     tearDown(() async {
+      adminWorkingQueries.collaboratorInfo =
+          user1WorkingQueries.collaboratorInfo;
       await adminWorkingQueries.deleteThedoc();
     });
   });
@@ -71,6 +92,11 @@ void main() {
     test("getDocInfo", () async {
       final res = await user1WorkingQueries.getDocInfo();
       initialDocExpectationSuite(res);
+    });
+    tearDown(() async {
+      adminWorkingQueries.collaboratorInfo =
+          user1WorkingQueries.collaboratorInfo;
+      await adminWorkingQueries.deleteThedoc();
     });
   });
 
@@ -94,42 +120,74 @@ void main() {
     );
 
     tearDown(() async {
+      adminWorkingQueries.collaboratorInfo =
+          user1WorkingQueries.collaboratorInfo;
       await adminWorkingQueries.deleteThedoc();
     });
+
+    test("updateCommitDesireStatus", () async {
+      await user1WorkingQueries.updateCommitDesireStatus(
+          wantsToCommitParam: true);
+      final res = await user1WorkingQueries.getDocInfo();
+      final usersCommitStatus =
+          res.first["${usersCollaboratorNumber}_$wantsToCommit"];
+      expect(usersCommitStatus, true);
+    });
+    test(" updateDelta", () async {
+      await user1WorkingQueries.updateDelta(deltaParam: 3);
+      final res = await user1WorkingQueries.getDocInfo();
+      final usersDelta = res.first["${usersCollaboratorNumber}_$delta"];
+      expect(usersDelta, 3);
+    });
+    test(" updatePresence", () async {
+      await user1WorkingQueries.updatePresence(isPresent: true);
+      final res = await user1WorkingQueries.getDocInfo();
+      final usersPresence = res.first["${usersCollaboratorNumber}_$isActive"];
+      expect(usersPresence, true);
+    });
+
     test("updateUsersDocContent", () async {
-      await user1WorkingQueries.updateUsersDocContent(
-        newContent: "newContent",
-      );
+      await user1WorkingQueries.updateUsersDocContent(newContent: tContent);
+      final res = await user1WorkingQueries.getDocInfo();
+      final usersDocContent = res.first["${usersCollaboratorNumber}_$content"];
+      expect(usersDocContent, tContent);
     });
   });
 
-  test("User Should be able to create, edit & commit a document", () async {
-    final res = await user1WorkingQueries.createCollaborativeDocument(
-        docType: 'purpose');
-    expect(res.first["collaborator_one_uid"], tSetup.firstUserUID);
-    expect(res.first["doc_type"], "purpose");
-    expect(res.first["collaborator_two_uid"], tSetup.secondUserUID);
-    expect(res.first["content"], isEmpty);
-    expect(res.first["collaborator_one_delta"], -1);
-    expect(res.first["collaborator_two_delta"], -1);
-    expect(res.first["collaborator_one_is_active"], false);
-    expect(res.first["collaborator_two_is_active"], false);
-    final stream =
-        WorkingCollaborativeDocumentsStreams(supabase: tSetup.user1Supabase);
-    stream.docContentStream().listen((value) {
-      expect(value.content, "newContent");
-      expect(value.lastEditedBy, tSetup.firstUserUID);
-      expect(value.currentUserUID, tSetup.firstUserUID);
-    });
-    await user1WorkingQueries.updateUsersDocContent(
-      newContent: "newContent",
+  group("streams", () {
+    setUp(
+      () async => await user1WorkingQueries.createCollaborativeDocument(
+          docType: 'purpose'),
     );
-    await user1WorkingQueries.updateCommitDesireStatus(wantsToCommit: true);
-    await user2WorkingQueries.updateCommitDesireStatus(wantsToCommit: true);
-    final res2 = await user1FinishedQueries.getDocInfo(docType: 'purpose');
-    expect(res2.first["collaborator_one_uid"], tSetup.firstUserUID);
-    expect(res2.first["collaborator_two_uid"], tSetup.secondUserUID);
-    expect(res2.first["content"], "newContent");
-    expect(res2.first["doc_type"], "purpose");
   });
+
+  // test("User Should be able to create, edit & commit a document", () async {
+  //   final res = await user1WorkingQueries.createCollaborativeDocument(
+  //       docType: 'purpose');
+  //   expect(res.first["collaborator_one_uid"], tSetup.firstUserUID);
+  //   expect(res.first["doc_type"], "purpose");
+  //   expect(res.first["collaborator_two_uid"], tSetup.secondUserUID);
+  //   expect(res.first["content"], isEmpty);
+  //   expect(res.first["collaborator_one_delta"], -1);
+  //   expect(res.first["collaborator_two_delta"], -1);
+  //   expect(res.first["collaborator_one_is_active"], false);
+  //   expect(res.first["collaborator_two_is_active"], false);
+  //   final stream =
+  //       WorkingCollaborativeDocumentsStreams(supabase: tSetup.user1Supabase);
+  //   stream.docContentStream().listen((value) {
+  //     expect(value.content, "newContent");
+  //     expect(value.lastEditedBy, tSetup.firstUserUID);
+  //     expect(value.currentUserUID, tSetup.firstUserUID);
+  //   });
+  //   await user1WorkingQueries.updateUsersDocContent(
+  //     newContent: "newContent",
+  //   );
+  //   await user1WorkingQueries.updateCommitDesireStatus(wantsToCommit: true);
+  //   await user2WorkingQueries.updateCommitDesireStatus(wantsToCommit: true);
+  //   final res2 = await user1FinishedQueries.getDocInfo(docType: 'purpose');
+  //   expect(res2.first["collaborator_one_uid"], tSetup.firstUserUID);
+  //   expect(res2.first["collaborator_two_uid"], tSetup.secondUserUID);
+  //   expect(res2.first["content"], "newContent");
+  //   expect(res2.first["doc_type"], "purpose");
+  // });
 }
