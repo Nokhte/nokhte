@@ -6,58 +6,7 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
     required super.supabase,
   });
 
-  Future<void> updateUsersDocContent({required String newContent}) async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
-    await supabase
-        .from(tableName)
-        .update({
-          "${collaboratorInfo.theUsersCollaboratorNumber}_content": newContent,
-          "last_edited_by": currentUserUID,
-        })
-        .eq(
-          "${collaboratorInfo.theCollaboratorsNumber}_uid",
-          collaboratorInfo.theCollaboratorsUID,
-        )
-        .eq(
-          "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
-          collaboratorInfo.theUsersUID,
-        );
-  }
-
-  Future<void> updatePresence({required bool isPresent}) async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
-    await supabase
-        .from(tableName)
-        .update({
-          "${collaboratorInfo.theUsersCollaboratorNumber}_is_active": isPresent,
-        })
-        .eq(
-          "${collaboratorInfo.theCollaboratorsNumber}_uid",
-          collaboratorInfo.theCollaboratorsUID,
-        )
-        .eq(
-          "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
-          collaboratorInfo.theUsersUID,
-        );
-  }
-
-  Future<void> updateDelta({required int delta}) async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
-    await supabase
-        .from(tableName)
-        .update({
-          "${collaboratorInfo.theUsersCollaboratorNumber}_delta": delta,
-        })
-        .eq(
-          "${collaboratorInfo.theCollaboratorsNumber}_uid",
-          collaboratorInfo.theCollaboratorsUID,
-        )
-        .eq(
-          "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
-          collaboratorInfo.theUsersUID,
-        );
-  }
-
+  // insert
   Future<List> createCollaborativeDocument({
     required String docType,
   }) async {
@@ -87,6 +36,39 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
     }
   }
 
+  // select
+  Future<List> getDocInfo() async {
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    return await supabase
+        .from(tableName)
+        .select()
+        .eq(
+          "${collaboratorInfo.theCollaboratorsNumber}_uid",
+          collaboratorInfo.theCollaboratorsUID,
+        )
+        .eq(
+          "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
+          collaboratorInfo.theUsersUID,
+        );
+  }
+
+  // delete
+  Future<void> deleteThedoc() async {
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await supabase
+        .from(tableName)
+        .delete()
+        .eq(
+          "${collaboratorInfo.theCollaboratorsNumber}_uid",
+          collaboratorInfo.theCollaboratorsUID,
+        )
+        .eq(
+          "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
+          collaboratorInfo.theUsersUID,
+        );
+  }
+
+  // update
   Future<void> updateCommitDesireStatus({
     required bool wantsToCommit,
   }) async {
@@ -107,11 +89,48 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
         );
   }
 
-  Future<void> deleteThedoc() async {
+  Future<void> updateDelta({required int delta}) async {
     await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     await supabase
-        .from('working_collaborative_documents')
-        .delete()
+        .from(tableName)
+        .update({
+          "${collaboratorInfo.theUsersCollaboratorNumber}_delta": delta,
+        })
+        .eq(
+          "${collaboratorInfo.theCollaboratorsNumber}_uid",
+          collaboratorInfo.theCollaboratorsUID,
+        )
+        .eq(
+          "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
+          collaboratorInfo.theUsersUID,
+        );
+  }
+
+  Future<void> updatePresence({required bool isPresent}) async {
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await supabase
+        .from(tableName)
+        .update({
+          "${collaboratorInfo.theUsersCollaboratorNumber}_is_active": isPresent,
+        })
+        .eq(
+          "${collaboratorInfo.theCollaboratorsNumber}_uid",
+          collaboratorInfo.theCollaboratorsUID,
+        )
+        .eq(
+          "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
+          collaboratorInfo.theUsersUID,
+        );
+  }
+
+  Future<void> updateUsersDocContent({required String newContent}) async {
+    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await supabase
+        .from(tableName)
+        .update({
+          "${collaboratorInfo.theUsersCollaboratorNumber}_content": newContent,
+          "last_edited_by": currentUserUID,
+        })
         .eq(
           "${collaboratorInfo.theCollaboratorsNumber}_uid",
           collaboratorInfo.theCollaboratorsUID,
