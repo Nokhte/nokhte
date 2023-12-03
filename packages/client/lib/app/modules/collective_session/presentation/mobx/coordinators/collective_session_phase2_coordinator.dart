@@ -96,15 +96,15 @@ abstract class _CollectiveSessionPhase2CoordinatorBase extends Equatable
 
   initialContentLoad(DocInfoContent value) {
     if (isInitialLoad) {
-      widgets.collaborativeTextEditor.setText(value.content);
+      widgets.collaborativeTextEditor.setText(value.usersContent);
       isInitialLoad = false;
     }
   }
 
   updateTheDoc(DocInfoContent value) {
-    if (value.lastEditedBy != value.currentUserUID) {
+    if (!value.lastEditWasTheUser) {
       final userDelta = userController.selection.start;
-      widgets.collaborativeTextEditor.setText(value.content);
+      widgets.collaborativeTextEditor.setText(value.usersContent);
       collaborativeDoc.updateCommitDesire(
           const UpdateCommitDesireStatusParams(wantsToCommit: false));
 
