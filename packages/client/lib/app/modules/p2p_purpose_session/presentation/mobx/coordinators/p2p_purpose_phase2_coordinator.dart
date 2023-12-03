@@ -44,7 +44,10 @@ abstract class _P2PPurposePhase2CoordinatorBase extends BaseCoordinator
 
   initListeners() {
     holdStartListener();
-    collaboratorIsTalkingListener();
+    collaboratorIsTalkingListener(
+      ifCollaboratorIsTalking: widgets.disableMeshAndMirrorCollaboratorsGlow,
+      ifCollaboratorIsDoneTalking: widgets.enableMeshAfterCooldownPeriod,
+    );
     widgets.beachWavesMovieStatusWatcher(
       logicRelatedCallback: cleanUpAndTransition,
     );
@@ -54,6 +57,7 @@ abstract class _P2PPurposePhase2CoordinatorBase extends BaseCoordinator
   @action
   screenConstructor() async {
     initListeners();
+    await oneTalkerAtATime.startListeningToCheckIfCollaboratorIsTalking();
     await existingCollaborations.checkIfUserHasTheQuestion(NoParams());
     final mainOnScreenMessage =
         existingCollaborations.checkIfUserHasTheQuestion.hasTheQuestion
@@ -76,12 +80,15 @@ abstract class _P2PPurposePhase2CoordinatorBase extends BaseCoordinator
     );
   }
 
-  collaboratorIsTalkingListener() =>
+  collaboratorIsTalkingListener({
+    required Function ifCollaboratorIsTalking,
+    required Function ifCollaboratorIsDoneTalking,
+  }) =>
       reaction((p0) => oneTalkerAtATime.collaboratorIsTalking, (p0) {
         if (p0) {
-          widgets.disableMeshAndMirrorCollaboratorsGlow();
+          ifCollaboratorIsTalking();
         } else if (!p0) {
-          widgets.enableMeshAfterCooldownPeriod();
+          ifCollaboratorIsDoneTalking();
         }
       });
 

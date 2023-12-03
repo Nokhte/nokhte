@@ -55,6 +55,7 @@ abstract class _P2PPurposePhase2WidgetsCoordinatorBase extends BaseTimesUpStore
 
   @action
   disableMeshAndMirrorCollaboratorsGlow() {
+    print("is this running disableAndMirror????");
     meshCircleStore.toggleIsEnabled();
     meshCircleStore.initGlowUp();
   }
