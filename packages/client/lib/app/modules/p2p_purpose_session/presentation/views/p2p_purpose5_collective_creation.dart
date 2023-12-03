@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -33,51 +32,50 @@ class _P2PPurpose5CollectiveCreationState
       percentageLength: .20,
     );
     return LayoutBuilder(
-      builder: ((context, constraints) => Observer(builder: (context) {
-            return Scaffold(
-                resizeToAvoidBottomInset: false,
-                body: Swipe(
-                  trackerStore: widget.coordinator.swipe,
-                  child: Stack(
+      builder: ((context, constraints) => Scaffold(
+            resizeToAvoidBottomInset: false,
+            body: Swipe(
+              trackerStore: widget.coordinator.swipe,
+              child: Stack(
+                children: [
+                  SizedBox(
+                    width: constraints.widthConstraints().maxHeight,
+                    height: constraints.heightConstraints().maxWidth,
+                    child: NewSmartBeachWaves(
+                      store: widget.coordinator.widgets.newBeachWaves,
+                    ),
+                  ),
+                  Center(
+                    child: CollaborativeTextEditor(
+                      fadeInDuration: Seconds.get(1),
+                      trackerStore:
+                          widget.coordinator.widgets.collaborativeTextUI,
+                    ),
+                  ),
+                  Column(
                     children: [
-                      SizedBox(
-                        width: constraints.widthConstraints().maxHeight,
-                        height: constraints.heightConstraints().maxWidth,
-                        child: NewSmartBeachWaves(
-                          store: widget.coordinator.widgets.newBeachWaves,
-                        ),
+                      Expanded(
+                        child: Container(),
                       ),
-                      Center(
-                        child: CollaborativeTextEditor(
-                          fadeInDuration: Seconds.get(1),
-                          trackerStore:
-                              widget.coordinator.widgets.collaborativeTextUI,
-                        ),
-                      ),
-                      Column(
+                      Stack(
+                        alignment: Alignment.bottomCenter,
                         children: [
-                          Expanded(
-                            child: Container(),
-                          ),
-                          Stack(
-                            alignment: Alignment.bottomCenter,
-                            children: [
-                              GesturePill(
-                                size: size,
-                                stateTrackerStore:
-                                    widget.coordinator.widgets.gesturePillStore,
-                              ),
-                            ],
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(bottom: 20),
+                          GesturePill(
+                            size: size,
+                            stateTrackerStore:
+                                widget.coordinator.widgets.gesturePillStore,
                           ),
                         ],
                       ),
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 20),
+                      ),
                     ],
                   ),
-                ));
-          })),
+                ],
+              ),
+            ),
+          )),
     );
   }
 }
