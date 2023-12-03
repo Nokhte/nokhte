@@ -42,6 +42,9 @@ abstract class _TimerCoordinatorBase extends Equatable with Store {
   @observable
   bool isFirstTime = true;
 
+  @action
+  toggleIsFirstTime() => isFirstTime = !isFirstTime;
+
   @observable
   bool shouldCancelTimer = false;
 
@@ -56,12 +59,13 @@ abstract class _TimerCoordinatorBase extends Equatable with Store {
             value.timerIsRunning) {
           if (isFirstTime) {
             initOrPauseUITimer(true);
+            toggleIsFirstTime();
           }
         } else if (!value.collaboratorsPresence ||
             !value.usersPresence ||
-            !value.timerIsRunning) {
+            !value.timerIsRunning && !isFirstTime) {
           initOrPauseUITimer(false);
-          isFirstTime = true;
+          toggleIsFirstTime();
         }
 
         if (value.bothCollaboratorsAreReadyToMoveOn) {

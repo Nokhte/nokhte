@@ -103,6 +103,17 @@ mixin _$TimerCoordinator on _TimerCoordinatorBase, Store {
       ActionController(name: '_TimerCoordinatorBase', context: context);
 
   @override
+  dynamic toggleIsFirstTime() {
+    final _$actionInfo = _$_TimerCoordinatorBaseActionController.startAction(
+        name: '_TimerCoordinatorBase.toggleIsFirstTime');
+    try {
+      return super.toggleIsFirstTime();
+    } finally {
+      _$_TimerCoordinatorBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic timerInfoStreamListener(
       {required dynamic Function(bool) initOrPauseUITimer,
       required Function onBothCollaboratorTimersCompleted}) {
