@@ -40,6 +40,69 @@ void main() {
     await tSetup.tearDownAll();
   });
 
+  initialDocExpectationSuite(List res) {
+    expect(res.first["collaborator_one_uid"], tSetup.firstUserUID);
+    expect(res.first["doc_type"], "purpose");
+    expect(res.first["collaborator_two_uid"], tSetup.secondUserUID);
+    expect(res.first["content"], isEmpty);
+    expect(res.first["collaborator_one_delta"], -1);
+    expect(res.first["collaborator_two_delta"], -1);
+    expect(res.first["collaborator_one_is_active"], false);
+    expect(res.first["collaborator_two_is_active"], false);
+  }
+
+  group("insert", () {
+    test("createCollaborativeDocument", () async {
+      final res = await user1WorkingQueries.createCollaborativeDocument(
+          docType: 'purpose');
+      initialDocExpectationSuite(res);
+    });
+
+    tearDown(() async {
+      await adminWorkingQueries.deleteThedoc();
+    });
+  });
+
+  group("select", () {
+    setUp(() async {
+      await user1WorkingQueries.createCollaborativeDocument(docType: 'purpose');
+    });
+
+    test("getDocInfo", () async {
+      final res = await user1WorkingQueries.getDocInfo();
+      initialDocExpectationSuite(res);
+    });
+  });
+
+  group("delete", () {
+    setUp(
+      () async =>
+          user1WorkingQueries.createCollaborativeDocument(docType: 'purpose'),
+    );
+
+    test("deleteTheDoc", () async {
+      await user1WorkingQueries.deleteThedoc();
+      final res = await user1WorkingQueries.getDocInfo();
+      expect(res, isEmpty);
+    });
+  });
+
+  group("update", () {
+    setUp(
+      () async =>
+          user1WorkingQueries.createCollaborativeDocument(docType: 'purpose'),
+    );
+
+    tearDown(() async {
+      await adminWorkingQueries.deleteThedoc();
+    });
+    test("updateUsersDocContent", () async {
+      await user1WorkingQueries.updateUsersDocContent(
+        newContent: "newContent",
+      );
+    });
+  });
+
   test("User Should be able to create, edit & commit a document", () async {
     final res = await user1WorkingQueries.createCollaborativeDocument(
         docType: 'purpose');
