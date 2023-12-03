@@ -51,11 +51,6 @@ abstract class _TimerCoordinatorBase extends Equatable with Store {
     required Function onBothCollaboratorTimersCompleted,
   }) =>
       getTimeInfoStream.timerInformationStream.listen((value) async {
-        // if (!value.isDefault()) {
-        //   Future.delayed(Seconds.get(1), () async {
-        //     await setOnlineStatus(true);
-        //   });
-        // }
         if (value.collaboratorsPresence &&
             value.usersPresence &&
             value.timerIsRunning) {
