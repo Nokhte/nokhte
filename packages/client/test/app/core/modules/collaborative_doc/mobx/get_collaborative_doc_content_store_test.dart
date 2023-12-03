@@ -27,9 +27,9 @@ void main() {
       );
       await shareSoloDocStore(tParams);
       shareSoloDocStore.docContent.listen((value) {
-        expect(value.content, "content");
+        expect(value.usersContent, "content");
         expect(value.currentUserUID, "lastEditedBy");
-        expect(value.lastEditedBy, "lastEditedBy");
+        expect(value.lastEditWasTheUser, true);
       });
       expect(shareSoloDocStore.errorMessage, "");
     });
@@ -40,9 +40,9 @@ void main() {
       );
       await shareSoloDocStore(tParams);
       shareSoloDocStore.docContent.listen((value) {
-        expect(value.content, "");
+        expect(value.usersContent, "");
         expect(value.currentUserUID, "");
-        expect(value.lastEditedBy, "");
+        expect(value.lastEditWasTheUser, false);
       });
       expect(
           shareSoloDocStore.errorMessage, FailureConstants.genericFailureMsg);

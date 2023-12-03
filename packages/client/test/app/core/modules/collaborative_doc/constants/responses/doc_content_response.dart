@@ -3,8 +3,9 @@ import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
 class DocContentResonse {
   static Stream<DocInfoContent> get successfulResponse => Stream.value(
         DocInfoContent(
-          content: "content",
-          lastEditedBy: "lastEditedBy",
+          usersContent: "content",
+          collaboratorsContent: "content",
+          lastEditWasTheUser: true,
           currentUserUID: "lastEditedBy",
           collaboratorsCommitDesireStatus: true,
           documentCommitStatus: true,
@@ -13,8 +14,9 @@ class DocContentResonse {
       );
   static Stream<DocInfoContent> get notSuccessfulResponse => Stream.value(
         DocInfoContent(
-          content: "",
-          lastEditedBy: "",
+          usersContent: "",
+          collaboratorsContent: "",
+          lastEditWasTheUser: false,
           currentUserUID: "",
           collaboratorsCommitDesireStatus: false,
           documentCommitStatus: false,

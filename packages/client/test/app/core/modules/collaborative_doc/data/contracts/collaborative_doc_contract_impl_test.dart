@@ -35,8 +35,8 @@ void main() {
         final res = await collaborativeDocContract.getCollaborativeDocContent();
         res.fold((failure) {}, (contentEntity) {
           contentEntity.docContent.listen((value) {
-            expect(value.content, "content");
-            expect(value.lastEditedBy, "lastEditedBy");
+            expect(value.usersContent, "content");
+            expect(value.lastEditWasTheUser, true);
             expect(value.currentUserUID, 'lastEditedBy');
           });
         });
@@ -47,8 +47,8 @@ void main() {
         final res = await collaborativeDocContract.getCollaborativeDocContent();
         res.fold((failure) {}, (contentEntity) {
           contentEntity.docContent.listen((value) {
-            expect(value.content, "");
-            expect(value.lastEditedBy, "");
+            expect(value.usersContent, "");
+            expect(value.lastEditWasTheUser, false);
             expect(value.currentUserUID, '');
           });
         });
