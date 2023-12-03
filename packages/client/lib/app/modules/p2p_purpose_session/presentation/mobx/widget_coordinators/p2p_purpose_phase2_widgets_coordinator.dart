@@ -103,7 +103,7 @@ abstract class _P2PPurposePhase2WidgetsCoordinatorBase extends BaseTimesUpStore
   }
 
   @action
-  uiCleanUpAndTransition() {
+  uiCleanUp() {
     explanationText.toggleWidgetVisibility();
     if (fadingText.showText) {
       fadingText.fadeTheTextOut();
@@ -122,7 +122,7 @@ abstract class _P2PPurposePhase2WidgetsCoordinatorBase extends BaseTimesUpStore
           newBeachWaves.setMovieMode(BeachWaveMovieModes.timesUpEndToTheDepths);
           newBeachWaves.currentStore.initMovie(NoParams());
           await logicRelatedCallback();
-          await uiCleanUpAndTransition();
+          await uiCleanUp();
         } else if (newBeachWaves.movieStatus == MovieStatus.finished &&
             newBeachWaves.movieMode ==
                 BeachWaveMovieModes.timesUpEndToTheDepths) {

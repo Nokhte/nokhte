@@ -84,13 +84,12 @@ mixin _$P2PPurposePhase2WidgetsCoordinator
   }
 
   @override
-  dynamic uiCleanUpAndTransition() {
+  dynamic uiCleanUp() {
     final _$actionInfo =
         _$_P2PPurposePhase2WidgetsCoordinatorBaseActionController.startAction(
-            name:
-                '_P2PPurposePhase2WidgetsCoordinatorBase.uiCleanUpAndTransition');
+            name: '_P2PPurposePhase2WidgetsCoordinatorBase.uiCleanUp');
     try {
-      return super.uiCleanUpAndTransition();
+      return super.uiCleanUp();
     } finally {
       _$_P2PPurposePhase2WidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
