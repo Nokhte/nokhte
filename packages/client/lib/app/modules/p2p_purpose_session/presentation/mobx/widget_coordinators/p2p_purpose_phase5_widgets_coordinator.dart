@@ -55,30 +55,34 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
   @observable
   bool isInitialLoad = true;
 
+  @observable
+  bool wantsToCommit = false;
+
+  @action
+  setWantsToCommit(bool newCommitStatus) => wantsToCommit = newCommitStatus;
+
   @action
   toggleIsInitialLoad() => isInitialLoad = !isInitialLoad;
 
   collaborativeDocListener(
     ObservableStream<DocInfoContent> docContentStream, {
-    required Function ifUserHasFocus,
-    required Function purposeIsCommitted,
-    required Function ifCommitDesireIsAffirmativeAndEdits,
+    required Function(String) updateTheDoc,
+    required Function consecrateTheCollaboration,
+    required Function revertAffirmativeCommitDesire,
+    required Function updateCommitStatusToAffirmative,
   }) =>
       docContentStream.listen((DocInfoContent value) {
+        print("what is happening inside of here?? ${value.content}");
         initialContentLoad(value);
         purposeIntegrityListener(
           value,
-          ifUserHasFocus: ifUserHasFocus,
+          ifUserHasFocus: revertAffirmativeCommitDesire,
         );
-        wantsToCommitChangesAndListener(
+        wantsToCommitChanges(
           value,
-          purposeIsCommitted: purposeIsCommitted,
+          purposeIsCommitted: consecrateTheCollaboration,
         );
-        updateTheDoc(
-          value,
-          ifCommitDesireIsAffirmativeAndEdits:
-              ifCommitDesireIsAffirmativeAndEdits,
-        );
+        updateTextUI(value, ifUserEditsTheDoc: updateTheDoc);
       });
 
   initialContentLoad(DocInfoContent value) {
@@ -114,14 +118,14 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
     });
   }
 
-  updateTheDoc(
+  updateTextUI(
     DocInfoContent value, {
-    required Function ifCommitDesireIsAffirmativeAndEdits,
+    required Function(String) ifUserEditsTheDoc,
   }) async {
     if (value.lastEditedBy != value.currentUserUID) {
       final userDelta = userController.selection.start;
       collaborativeTextUI.setText(value.content);
-      await ifCommitDesireIsAffirmativeAndEdits();
+      await ifUserEditsTheDoc(collaborativeTextUI.controller.text);
       gesturePillStore.setPillAnimationControl(Control.playReverseFromEnd);
       userController.selection = TextSelection.fromPosition(
         TextPosition(
@@ -133,11 +137,12 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
     }
   }
 
-  wantsToCommitChangesAndListener(
+  wantsToCommitChanges(
     DocInfoContent value, {
     required Function purposeIsCommitted,
   }) async {
     if (value.documentCommitStatus) {
+      setWantsToCommit(true);
       gesturePillStore
           .setPillMovie(TopCircleColorChange.getMovie(firstGradientColors: [
         const Color(0xFFEB9040),

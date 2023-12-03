@@ -44,6 +44,23 @@ mixin _$P2PPurposePhase5WidgetsCoordinator
     });
   }
 
+  late final _$wantsToCommitAtom = Atom(
+      name: '_P2PPurposePhase5WidgetsCoordinatorBase.wantsToCommit',
+      context: context);
+
+  @override
+  bool get wantsToCommit {
+    _$wantsToCommitAtom.reportRead();
+    return super.wantsToCommit;
+  }
+
+  @override
+  set wantsToCommit(bool value) {
+    _$wantsToCommitAtom.reportWrite(value, super.wantsToCommit, () {
+      super.wantsToCommit = value;
+    });
+  }
+
   late final _$_P2PPurposePhase5WidgetsCoordinatorBaseActionController =
       ActionController(
           name: '_P2PPurposePhase5WidgetsCoordinatorBase', context: context);
@@ -55,6 +72,19 @@ mixin _$P2PPurposePhase5WidgetsCoordinator
             name: '_P2PPurposePhase5WidgetsCoordinatorBase.constructor');
     try {
       return super.constructor();
+    } finally {
+      _$_P2PPurposePhase5WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setWantsToCommit(bool newCommitStatus) {
+    final _$actionInfo =
+        _$_P2PPurposePhase5WidgetsCoordinatorBaseActionController.startAction(
+            name: '_P2PPurposePhase5WidgetsCoordinatorBase.setWantsToCommit');
+    try {
+      return super.setWantsToCommit(newCommitStatus);
     } finally {
       _$_P2PPurposePhase5WidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
@@ -93,7 +123,8 @@ mixin _$P2PPurposePhase5WidgetsCoordinator
   String toString() {
     return '''
 previousWord: ${previousWord},
-isInitialLoad: ${isInitialLoad}
+isInitialLoad: ${isInitialLoad},
+wantsToCommit: ${wantsToCommit}
     ''';
   }
 }
