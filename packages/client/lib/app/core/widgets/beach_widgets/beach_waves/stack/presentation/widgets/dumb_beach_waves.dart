@@ -1,7 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api, no_logic_in_create_state
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'canvas/beach_waves_painter.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -12,34 +11,34 @@ class DumbBeachWaves extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      return MirrorAnimationBuilder(
-        tween: movie,
-        duration: movie.duration,
-        builder: (context, value, child) {
-          final currentAnimationValues = GetCurrentWaterAnimation.values(value);
-          return CustomPaint(
-            painter: BeachWavesPainter(
-              waterValue: currentAnimationValues.first,
-              firstGradientColor: currentAnimationValues[1],
-              secondGradientColor: currentAnimationValues[2],
-              thirdGradientColor: currentAnimationValues[3],
-              fourthGradientColor: currentAnimationValues[4],
-              fifthGradientColor: currentAnimationValues[5],
-              sixthGradientColor: currentAnimationValues[6],
-              seventhGradientColor: currentAnimationValues[7],
-              eighthGradientColor: currentAnimationValues[8],
-              firstGradientStop: currentAnimationValues[9],
-              secondGradientStop: currentAnimationValues[10],
-              thirdGradientStop: currentAnimationValues[11],
-              fourthGradientStop: currentAnimationValues[12],
-              fifthGradientStop: currentAnimationValues[13],
-              sixthGradientStop: currentAnimationValues[14],
-              seventhGradientStop: currentAnimationValues[15],
-              eighthGradientStop: currentAnimationValues[16],
-            ),
-            size: MediaQuery.of(context).size,
-          );
-        },
-      );
-    }
+    return MirrorAnimationBuilder(
+      tween: movie,
+      duration: movie.duration,
+      builder: (context, value, child) {
+        final currentAnimationValues = GetCurrentWaterAnimation.values(value);
+        return CustomPaint(
+          painter: BeachWavesPainter(
+            waterValue: currentAnimationValues.first,
+            firstGradientColor: currentAnimationValues[1],
+            secondGradientColor: currentAnimationValues[2],
+            thirdGradientColor: currentAnimationValues[3],
+            fourthGradientColor: currentAnimationValues[4],
+            fifthGradientColor: currentAnimationValues[5],
+            sixthGradientColor: currentAnimationValues[6],
+            seventhGradientColor: currentAnimationValues[7],
+            eighthGradientColor: currentAnimationValues[8],
+            firstGradientStop: currentAnimationValues[9],
+            secondGradientStop: currentAnimationValues[10],
+            thirdGradientStop: currentAnimationValues[11],
+            fourthGradientStop: currentAnimationValues[12],
+            fifthGradientStop: currentAnimationValues[13],
+            sixthGradientStop: currentAnimationValues[14],
+            seventhGradientStop: currentAnimationValues[15],
+            eighthGradientStop: currentAnimationValues[16],
+          ),
+          size: MediaQuery.of(context).size,
+        );
+      },
+    );
+  }
 }
