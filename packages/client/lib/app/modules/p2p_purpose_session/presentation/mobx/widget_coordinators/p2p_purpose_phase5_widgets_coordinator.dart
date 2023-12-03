@@ -72,7 +72,7 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
     required Function updateCommitStatusToAffirmative,
   }) =>
       docContentStream.distinct().listen((DocInfoContent value) {
-        print("what is happening inside of here?? ${value.content}");
+        // print("what is happening inside of here?? ${value.content}");
         initialContentLoad(value);
         purposeIntegrityListener(
           value,
@@ -87,7 +87,7 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
 
   initialContentLoad(DocInfoContent value) {
     if (isInitialLoad) {
-      collaborativeTextUI.setText(value.content);
+      collaborativeTextUI.setText(value.usersContent);
       toggleIsInitialLoad();
     }
   }
@@ -122,9 +122,9 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
     DocInfoContent value, {
     required Function(String) ifUserEditsTheDoc,
   }) async {
-    if (value.lastEditedBy != value.currentUserUID) {
+    if (!value.lastEditWasTheUser) {
       final userDelta = userController.selection.start;
-      collaborativeTextUI.setText(value.content);
+      collaborativeTextUI.setText(value.usersContent);
       await ifUserEditsTheDoc(collaborativeTextUI.controller.text);
       gesturePillStore.setPillAnimationControl(Control.playReverseFromEnd);
       userController.selection = TextSelection.fromPosition(
