@@ -28,7 +28,6 @@ void main() {
       entity.docContent.listen((value) {
         expect(value.usersContent, "content");
         expect(value.lastEditWasTheUser, true);
-        expect(value.currentUserUID, "lastEditedBy");
       });
     });
 

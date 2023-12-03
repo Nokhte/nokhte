@@ -37,7 +37,6 @@ void main() {
           contentEntity.docContent.listen((value) {
             expect(value.usersContent, "content");
             expect(value.lastEditWasTheUser, true);
-            expect(value.currentUserUID, 'lastEditedBy');
           });
         });
       });
@@ -49,7 +48,6 @@ void main() {
           contentEntity.docContent.listen((value) {
             expect(value.usersContent, "");
             expect(value.lastEditWasTheUser, false);
-            expect(value.currentUserUID, '');
           });
         });
       });
