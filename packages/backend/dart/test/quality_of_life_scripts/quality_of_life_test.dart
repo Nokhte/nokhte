@@ -264,7 +264,7 @@ void main() {
   });
 
   test("update the collaborative doc", () async {
-    await collaborativeDocQueries.updateExistingDocument(
+    await collaborativeDocQueries.updateUsersDocContent(
         newContent: "some new content");
   });
 

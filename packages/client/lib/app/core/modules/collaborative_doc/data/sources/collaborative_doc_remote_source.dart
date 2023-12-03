@@ -51,7 +51,7 @@ class CollaborativeDocRemoteSourceImpl implements CollaborativeDocRemoteSource {
 
   @override
   Future<void> updateCollaborativeDoc({required String newContent}) async {
-    return await queries.updateExistingDocument(
+    return await queries.updateUsersDocContent(
       newContent: newContent,
     );
   }

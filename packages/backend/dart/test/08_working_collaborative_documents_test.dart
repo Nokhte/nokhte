@@ -58,7 +58,7 @@ void main() {
       expect(value.lastEditedBy, tSetup.firstUserUID);
       expect(value.currentUserUID, tSetup.firstUserUID);
     });
-    await user1WorkingQueries.updateExistingDocument(
+    await user1WorkingQueries.updateUsersDocContent(
       newContent: "newContent",
     );
     await user1WorkingQueries.updateCommitDesireStatus(wantsToCommit: true);
