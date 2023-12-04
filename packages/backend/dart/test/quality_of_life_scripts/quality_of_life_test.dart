@@ -265,7 +265,7 @@ void main() {
 
   test("update the collaborative doc", () async {
     await collaborativeDocQueries.updateUsersDocContent(
-        newContent: "some new content");
+        isAnUpdateFromCollaborator: false, newContent: "some new content");
   });
 
   test("make a collaborative doc", () async {
