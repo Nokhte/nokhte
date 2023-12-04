@@ -99,8 +99,7 @@ class DefaultEntities {
 
   static Stream<DocInfoContent> get defaultDocContentEntity => Stream.value(
         DocInfoContent(
-          usersContent: "",
-          collaboratorsContent: "",
+          content: "",
           lastEditWasTheUser: false,
           collaboratorsCommitDesireStatus: false,
           documentCommitStatus: false,
