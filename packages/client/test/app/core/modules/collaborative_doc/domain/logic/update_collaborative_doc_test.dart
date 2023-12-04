@@ -9,7 +9,10 @@ import '../../fixtures/collaborative_doc_mock_gen.mocks.dart';
 void main() {
   late MockMCollaborativeDocContract mockContract;
   late UpdateCollaborativeDoc logic;
-  const tParams = UpdateCollaborativeDocParams(newContent: 'newContent');
+  const tParams = UpdateCollaborativeDocParams(
+    newContent: 'newContent',
+    isAnUpdateFromCollaborator: false,
+  );
 
   setUp(() {
     mockContract = MockMCollaborativeDocContract();
@@ -17,7 +20,8 @@ void main() {
   });
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
-    when(mockContract.updateCollaborativeDoc(newContent: tParams.newContent))
+    when(mockContract.updateCollaborativeDoc(
+            newContent: tParams.newContent, isAnUpdateFromCollaborator: false))
         .thenAnswer(
       (_) async =>
           ConstantCollaborativeDocUpdateStatusEntity.wrappedSuccessCase,
@@ -27,12 +31,14 @@ void main() {
     expect(
         result, ConstantCollaborativeDocUpdateStatusEntity.wrappedSuccessCase);
 
-    verify(mockContract.updateCollaborativeDoc(newContent: tParams.newContent));
+    verify(mockContract.updateCollaborativeDoc(
+        newContent: tParams.newContent, isAnUpdateFromCollaborator: false));
     verifyNoMoreInteractions(mockContract);
   });
 
   test("✅ should pass A Failure from Contract ==> Logic", () async {
-    when(mockContract.updateCollaborativeDoc(newContent: tParams.newContent))
+    when(mockContract.updateCollaborativeDoc(
+            newContent: tParams.newContent, isAnUpdateFromCollaborator: false))
         .thenAnswer(
       (_) async => Left(FailureConstants.dbFailure),
     );
@@ -40,7 +46,10 @@ void main() {
     final result = await logic(tParams);
 
     expect(result, Left(FailureConstants.dbFailure));
-    verify(mockContract.updateCollaborativeDoc(newContent: tParams.newContent));
+    verify(mockContract.updateCollaborativeDoc(
+      newContent: tParams.newContent,
+      isAnUpdateFromCollaborator: false,
+    ));
     verifyNoMoreInteractions(mockContract);
   });
 }
