@@ -143,7 +143,6 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
       "what does this eval to? ${value.lastEditor != LastEditedBy.user && !isInitialLoad} ${value.lastEditor} ${!isInitialLoad}",
     );
     if (value.lastEditor != LastEditedBy.user && !isInitialLoad) {
-      // start block
       toggleBlockUserControllerCallback();
       await ifCollaboratorEditsTheDoc(value.content);
       final userDelta = userController.selection.start;
@@ -157,7 +156,6 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
         ),
       );
       toggleBlockUserControllerCallback();
-      // end the block
     }
   }
 
