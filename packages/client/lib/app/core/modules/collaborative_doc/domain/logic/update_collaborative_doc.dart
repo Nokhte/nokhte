@@ -9,24 +9,19 @@ class UpdateCollaborativeDoc extends AbstractFutureLogic<
   UpdateCollaborativeDoc({required this.contract});
 
   @override
-  call(params) async => await contract.updateCollaborativeDoc(
-        newContent: params.newContent,
-        isAnUpdateFromCollaborator: params.isAnUpdateFromCollaborator,
-      );
+  call(params) async =>
+      await contract.updateCollaborativeDoc(newContent: params.newContent);
 }
 
 class UpdateCollaborativeDocParams extends Equatable {
   final String newContent;
-  final bool isAnUpdateFromCollaborator;
 
   const UpdateCollaborativeDocParams({
     required this.newContent,
-    required this.isAnUpdateFromCollaborator,
   });
 
   @override
   List<Object> get props => [
         newContent,
-        isAnUpdateFromCollaborator,
       ];
 }
