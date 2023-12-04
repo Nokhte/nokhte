@@ -61,6 +61,24 @@ mixin _$P2PPurposePhase5WidgetsCoordinator
     });
   }
 
+  late final _$mostRecentDocInfoContentAtom = Atom(
+      name: '_P2PPurposePhase5WidgetsCoordinatorBase.mostRecentDocInfoContent',
+      context: context);
+
+  @override
+  DocInfoContent get mostRecentDocInfoContent {
+    _$mostRecentDocInfoContentAtom.reportRead();
+    return super.mostRecentDocInfoContent;
+  }
+
+  @override
+  set mostRecentDocInfoContent(DocInfoContent value) {
+    _$mostRecentDocInfoContentAtom
+        .reportWrite(value, super.mostRecentDocInfoContent, () {
+      super.mostRecentDocInfoContent = value;
+    });
+  }
+
   late final _$blockUserControllerCallbackAtom = Atom(
       name:
           '_P2PPurposePhase5WidgetsCoordinatorBase.blockUserControllerCallback',
@@ -102,6 +120,20 @@ mixin _$P2PPurposePhase5WidgetsCoordinator
             name: '_P2PPurposePhase5WidgetsCoordinatorBase.constructor');
     try {
       return super.constructor();
+    } finally {
+      _$_P2PPurposePhase5WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setMostRecentDocInfoContent(DocInfoContent newDocContent) {
+    final _$actionInfo =
+        _$_P2PPurposePhase5WidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_P2PPurposePhase5WidgetsCoordinatorBase.setMostRecentDocInfoContent');
+    try {
+      return super.setMostRecentDocInfoContent(newDocContent);
     } finally {
       _$_P2PPurposePhase5WidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
@@ -169,6 +201,7 @@ mixin _$P2PPurposePhase5WidgetsCoordinator
 previousWord: ${previousWord},
 isInitialLoad: ${isInitialLoad},
 wantsToCommit: ${wantsToCommit},
+mostRecentDocInfoContent: ${mostRecentDocInfoContent},
 blockUserControllerCallback: ${blockUserControllerCallback}
     ''';
   }

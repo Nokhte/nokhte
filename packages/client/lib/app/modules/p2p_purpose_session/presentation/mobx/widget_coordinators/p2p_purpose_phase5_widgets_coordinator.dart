@@ -5,6 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
 import 'package:equatable/equatable.dart';
+import 'package:nokhte/app/core/constants/entities.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -59,6 +60,13 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
   @observable
   bool wantsToCommit = false;
 
+  @observable
+  DocInfoContent mostRecentDocInfoContent = DefaultEntities.docInfoContent;
+
+  @action
+  setMostRecentDocInfoContent(DocInfoContent newDocContent) =>
+      mostRecentDocInfoContent = newDocContent;
+
   @action
   setWantsToCommit(bool newCommitStatus) => wantsToCommit = newCommitStatus;
 
@@ -73,6 +81,7 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
     required Function updateCommitStatusToAffirmative,
   }) =>
       docContentStream.distinct().listen((DocInfoContent value) async {
+        setMostRecentDocInfoContent(value);
         initialContentLoad(value);
         updateTextUI(value, ifCollaboratorEditsTheDoc: updateTheDoc);
         purposeIntegrityListener(
