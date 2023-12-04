@@ -36,7 +36,7 @@ void main() {
         res.fold((failure) {}, (contentEntity) {
           contentEntity.docContent.listen((value) {
             expect(value.content, "content");
-            expect(value.lastEditWasTheUser, true);
+            expect(value.lastEditor, LastEditedBy.user);
           });
         });
       });
@@ -47,7 +47,7 @@ void main() {
         res.fold((failure) {}, (contentEntity) {
           contentEntity.docContent.listen((value) {
             expect(value.content, "");
-            expect(value.lastEditWasTheUser, false);
+            expect(value.lastEditor, LastEditedBy.initial);
           });
         });
       });
