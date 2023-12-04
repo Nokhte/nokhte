@@ -2,15 +2,13 @@ import 'package:equatable/equatable.dart';
 
 class DocInfoContent extends Equatable {
   final bool lastEditWasTheUser;
-  final String usersContent;
-  final String collaboratorsContent;
+  final String content;
   final bool collaboratorsCommitDesireStatus;
   final bool userCommitDesireStatus;
   final bool documentCommitStatus;
 
   DocInfoContent({
-    required this.usersContent,
-    required this.collaboratorsContent,
+    required this.content,
     required this.lastEditWasTheUser,
     required this.collaboratorsCommitDesireStatus,
     required this.documentCommitStatus,
@@ -19,8 +17,7 @@ class DocInfoContent extends Equatable {
 
   @override
   List<Object> get props => [
-        usersContent,
-        collaboratorsContent,
+        content,
         lastEditWasTheUser,
         collaboratorsCommitDesireStatus,
         documentCommitStatus,
