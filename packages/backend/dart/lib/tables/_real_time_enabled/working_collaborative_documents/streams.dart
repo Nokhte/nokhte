@@ -34,24 +34,6 @@ class WorkingCollaborativeDocumentsStreams extends CollaborativeQueries {
       "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
       collaboratorInfo.theUsersUID,
     )) {
-      final collaboratorsNumber = collaboratorInfo.theCollaboratorsNumber;
-      final usersUID = collaboratorInfo.theUsersUID;
-      final usersCollaboratorNumber =
-          collaboratorInfo.theUsersCollaboratorNumber;
-      final row = event.first;
-      final bothCollaboratorsAffirm =
-          row["${collaboratorsNumber}_wants_to_commit"] &&
-              row["${usersCollaboratorNumber}_wants_to_commit"];
-      final String? lastEditedBy =
-          row[WorkingCollaborativeDocumentsQueries.lastEditedBy];
-
-      LastEditedBy lastEditor = LastEditedBy.initial;
-      if (lastEditedBy == usersUID) {
-        lastEditor = LastEditedBy.user;
-      } else if (lastEditedBy == collaboratorInfo.theCollaboratorsUID) {
-        lastEditor = LastEditedBy.collaborator;
-      }
-
       if (!docContentListeningStatus) {
         break;
       }
@@ -64,6 +46,23 @@ class WorkingCollaborativeDocumentsStreams extends CollaborativeQueries {
           userCommitDesireStatus: false,
         );
       } else {
+        final collaboratorsNumber = collaboratorInfo.theCollaboratorsNumber;
+        final usersUID = collaboratorInfo.theUsersUID;
+        final usersCollaboratorNumber =
+            collaboratorInfo.theUsersCollaboratorNumber;
+        final row = event.first;
+        final bothCollaboratorsAffirm =
+            row["${collaboratorsNumber}_wants_to_commit"] &&
+                row["${usersCollaboratorNumber}_wants_to_commit"];
+        final String? lastEditedBy =
+            row[WorkingCollaborativeDocumentsQueries.lastEditedBy];
+
+        LastEditedBy lastEditor = LastEditedBy.initial;
+        if (lastEditedBy == usersUID) {
+          lastEditor = LastEditedBy.user;
+        } else if (lastEditedBy == collaboratorInfo.theCollaboratorsUID) {
+          lastEditor = LastEditedBy.collaborator;
+        }
         yield DocInfoContent(
           content: row[WorkingCollaborativeDocumentsQueries.content],
           lastEditor: lastEditor,
