@@ -48,7 +48,7 @@ class WorkingCollaborativeDocumentsStreams extends CollaborativeQueries {
       if (event.isEmpty) {
         yield DocInfoContent(
           content: "",
-          lastEditWasTheUser: false,
+          lastEditor: LastEditedBy.initial,
           collaboratorsCommitDesireStatus: false,
           documentCommitStatus: false,
           userCommitDesireStatus: false,
