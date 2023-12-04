@@ -45,12 +45,10 @@ class WorkingCollaborativeDocumentsStreams extends CollaborativeQueries {
       final String? lastEditedBy =
           row[WorkingCollaborativeDocumentsQueries.lastEditedBy];
 
-      LastEditedBy lastEditor;
-      if (lastEditedBy == null) {
-        lastEditor = LastEditedBy.initial;
-      } else if (lastEditedBy == usersUID) {
+      LastEditedBy lastEditor = LastEditedBy.initial;
+      if (lastEditedBy == usersUID) {
         lastEditor = LastEditedBy.user;
-      } else {
+      } else if (lastEditedBy == collaboratorInfo.theCollaboratorsUID) {
         lastEditor = LastEditedBy.collaborator;
       }
 
