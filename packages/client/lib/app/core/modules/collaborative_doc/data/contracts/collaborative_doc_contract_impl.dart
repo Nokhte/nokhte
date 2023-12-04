@@ -50,13 +50,11 @@ class CollaborativeDocContractImpl implements CollaborativeDocContract {
 
   @override
   Future<Either<Failure, CollaborativeDocUpdateStatusModel>>
-      updateCollaborativeDoc(
-          {required String newContent,
-          required bool isAnUpdateFromCollaborator}) async {
+      updateCollaborativeDoc({
+    required String newContent,
+  }) async {
     if (await networkInfo.isConnected) {
-      await remoteSource.updateCollaborativeDoc(
-          newContent: newContent,
-          isAnUpdateFromCollaborator: isAnUpdateFromCollaborator);
+      await remoteSource.updateCollaborativeDoc(newContent: newContent);
       return const Right(CollaborativeDocUpdateStatusModel(isUpdated: true));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
