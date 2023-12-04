@@ -35,7 +35,7 @@ void main() {
         final res = await collaborativeDocContract.getCollaborativeDocContent();
         res.fold((failure) {}, (contentEntity) {
           contentEntity.docContent.listen((value) {
-            expect(value.usersContent, "content");
+            expect(value.content, "content");
             expect(value.lastEditWasTheUser, true);
           });
         });
@@ -46,7 +46,7 @@ void main() {
         final res = await collaborativeDocContract.getCollaborativeDocContent();
         res.fold((failure) {}, (contentEntity) {
           contentEntity.docContent.listen((value) {
-            expect(value.usersContent, "");
+            expect(value.content, "");
             expect(value.lastEditWasTheUser, false);
           });
         });
@@ -133,11 +133,10 @@ void main() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       });
       test("when online and non-empty should return a model", () async {
-        when(mockRemoteSource.updateCollaborativeDoc(
-                newContent: 'newContent', isAnUpdateFromCollaborator: false))
+        when(mockRemoteSource.updateCollaborativeDoc(newContent: 'newContent'))
             .thenAnswer((realInvocation) async => [{}]);
         final res = await collaborativeDocContract.updateCollaborativeDoc(
-            isAnUpdateFromCollaborator: false, newContent: 'newContent');
+            newContent: 'newContent');
         expect(
             res, ConstantCollaborativeDocUpdateStatusModel.wrappedSuccessCase);
       });
@@ -149,7 +148,7 @@ void main() {
 
       test("When offline should return an internet connection error", () async {
         final res = await collaborativeDocContract.updateCollaborativeDoc(
-            isAnUpdateFromCollaborator: false, newContent: 'newContent');
+            newContent: 'newContent');
         expect(res, Left(FailureConstants.internetConnectionFailure));
       });
     });
@@ -202,7 +201,7 @@ void main() {
 
       test("When offline should return an internet connection error", () async {
         final res = await collaborativeDocContract.updateCollaborativeDoc(
-            isAnUpdateFromCollaborator: false, newContent: 'newContent');
+            newContent: 'newContent');
         expect(res, Left(FailureConstants.internetConnectionFailure));
       });
     });

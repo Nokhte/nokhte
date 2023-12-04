@@ -11,7 +11,6 @@ void main() {
   late UpdateCollaborativeDoc logic;
   const tParams = UpdateCollaborativeDocParams(
     newContent: 'newContent',
-    isAnUpdateFromCollaborator: false,
   );
 
   setUp(() {
@@ -20,8 +19,7 @@ void main() {
   });
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
-    when(mockContract.updateCollaborativeDoc(
-            newContent: tParams.newContent, isAnUpdateFromCollaborator: false))
+    when(mockContract.updateCollaborativeDoc(newContent: tParams.newContent))
         .thenAnswer(
       (_) async =>
           ConstantCollaborativeDocUpdateStatusEntity.wrappedSuccessCase,
@@ -31,14 +29,12 @@ void main() {
     expect(
         result, ConstantCollaborativeDocUpdateStatusEntity.wrappedSuccessCase);
 
-    verify(mockContract.updateCollaborativeDoc(
-        newContent: tParams.newContent, isAnUpdateFromCollaborator: false));
+    verify(mockContract.updateCollaborativeDoc(newContent: tParams.newContent));
     verifyNoMoreInteractions(mockContract);
   });
 
   test("✅ should pass A Failure from Contract ==> Logic", () async {
-    when(mockContract.updateCollaborativeDoc(
-            newContent: tParams.newContent, isAnUpdateFromCollaborator: false))
+    when(mockContract.updateCollaborativeDoc(newContent: tParams.newContent))
         .thenAnswer(
       (_) async => Left(FailureConstants.dbFailure),
     );
@@ -48,7 +44,6 @@ void main() {
     expect(result, Left(FailureConstants.dbFailure));
     verify(mockContract.updateCollaborativeDoc(
       newContent: tParams.newContent,
-      isAnUpdateFromCollaborator: false,
     ));
     verifyNoMoreInteractions(mockContract);
   });
