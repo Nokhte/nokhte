@@ -87,9 +87,9 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
 
   initialContentLoad(DocInfoContent value) {
     if (isInitialLoad) {
-      collaborativeTextUI.setText(
-        value.content.isEmpty ? "" : value.content,
-      );
+      if (value.content.isNotEmpty) {
+        collaborativeTextUI.setText(value.content);
+      }
       toggleIsInitialLoad();
     }
   }
@@ -140,9 +140,9 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
     required Function(String) ifCollaboratorEditsTheDoc,
   }) async {
     print(
-      "what does this eval to? ${!value.lastEditWasTheUser && !isInitialLoad} ${!value.lastEditWasTheUser} ${!isInitialLoad}",
+      "what does this eval to? ${value.lastEditor != LastEditedBy.user && !isInitialLoad} ${value.lastEditor} ${!isInitialLoad}",
     );
-    if (!value.lastEditWasTheUser && !isInitialLoad) {
+    if (value.lastEditor != LastEditedBy.user && !isInitialLoad) {
       // start block
       toggleBlockUserControllerCallback();
       await ifCollaboratorEditsTheDoc(value.content);
