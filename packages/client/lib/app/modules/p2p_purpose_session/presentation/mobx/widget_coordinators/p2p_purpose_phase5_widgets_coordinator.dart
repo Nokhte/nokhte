@@ -83,7 +83,7 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
       docContentStream.distinct().listen((DocInfoContent value) async {
         setMostRecentDocInfoContent(value);
         initialContentLoad(value);
-        updateTextUI(value, ifCollaboratorEditsTheDoc: updateTheDoc);
+        updateTextUI(value);
         purposeIntegrityListener(
           value,
           ifUserHasFocus: revertAffirmativeCommitDesire,
@@ -122,6 +122,13 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
   toggleBlockUserControllerCallback() =>
       blockUserControllerCallback = !blockUserControllerCallback;
 
+  @observable
+  bool blockUpdateTextUICallback = false;
+
+  @action
+  toggleBlockUpdateTextUICallback() =>
+      blockUpdateTextUICallback = !blockUpdateTextUICallback;
+
   @action
   userTextControllerListener({
     required CollaborativeDocCoordinator collaborativeDocDB,
@@ -134,37 +141,40 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
       // if (value.lastEditWasTheUser) {
       // if(mostRecentDocInfo)
       if (!blockUserControllerCallback) {
-        print("sacred block is it unintentionally triggering??");
+        toggleBlockUpdateTextUICallback();
+        print(
+            "sacred block ===> ${userController.text} ${mostRecentDocInfoContent.content} ");
         await collaborativeDocDB.updateDoc(UpdateCollaborativeDocParams(
           newContent: userController.text,
         ));
+        toggleBlockUpdateTextUICallback();
       }
       // }
       // }
     });
   }
 
-  updateTextUI(
-    DocInfoContent value, {
-    required Function(String) ifCollaboratorEditsTheDoc,
-  }) async {
+  @action
+  updateTextUI(DocInfoContent value) async {
     print(
-      "what does this eval to? ${value.lastEditor != LastEditedBy.user && !isInitialLoad} ${value.lastEditor} ${!isInitialLoad}",
+      "what does this eval to? ${value.lastEditor == LastEditedBy.collaborator && !isInitialLoad} \n \n ${value.lastEditor} ${!isInitialLoad}",
     );
-    if (value.lastEditor == LastEditedBy.collaborator && !isInitialLoad) {
-      toggleBlockUserControllerCallback();
-      await ifCollaboratorEditsTheDoc(value.content);
-      final userDelta = userController.selection.start;
-      collaborativeTextUI.setText(value.content);
-      gesturePillStore.setPillAnimationControl(Control.playReverseFromEnd);
-      userController.selection = TextSelection.fromPosition(
-        TextPosition(
-          offset: userDelta > userController.text.length
-              ? userController.text.length
-              : userDelta,
-        ),
-      );
-      toggleBlockUserControllerCallback();
+    if (!blockUpdateTextUICallback) {
+      if (value.lastEditor == LastEditedBy.collaborator && !isInitialLoad) {
+        print("is this dumptser running??");
+        toggleBlockUserControllerCallback();
+        final userDelta = userController.selection.start;
+        collaborativeTextUI.setText(value.content);
+        gesturePillStore.setPillAnimationControl(Control.playReverseFromEnd);
+        userController.selection = TextSelection.fromPosition(
+          TextPosition(
+            offset: userDelta > userController.text.length
+                ? userController.text.length
+                : userDelta,
+          ),
+        );
+        toggleBlockUserControllerCallback();
+      }
     }
   }
 

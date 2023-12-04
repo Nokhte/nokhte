@@ -98,6 +98,24 @@ mixin _$P2PPurposePhase5WidgetsCoordinator
     });
   }
 
+  late final _$blockUpdateTextUICallbackAtom = Atom(
+      name: '_P2PPurposePhase5WidgetsCoordinatorBase.blockUpdateTextUICallback',
+      context: context);
+
+  @override
+  bool get blockUpdateTextUICallback {
+    _$blockUpdateTextUICallbackAtom.reportRead();
+    return super.blockUpdateTextUICallback;
+  }
+
+  @override
+  set blockUpdateTextUICallback(bool value) {
+    _$blockUpdateTextUICallbackAtom
+        .reportWrite(value, super.blockUpdateTextUICallback, () {
+      super.blockUpdateTextUICallback = value;
+    });
+  }
+
   late final _$userTextControllerListenerAsyncAction = AsyncAction(
       '_P2PPurposePhase5WidgetsCoordinatorBase.userTextControllerListener',
       context: context);
@@ -107,6 +125,15 @@ mixin _$P2PPurposePhase5WidgetsCoordinator
       {required CollaborativeDocCoordinator collaborativeDocDB}) {
     return _$userTextControllerListenerAsyncAction.run(() => super
         .userTextControllerListener(collaborativeDocDB: collaborativeDocDB));
+  }
+
+  late final _$updateTextUIAsyncAction = AsyncAction(
+      '_P2PPurposePhase5WidgetsCoordinatorBase.updateTextUI',
+      context: context);
+
+  @override
+  Future updateTextUI(DocInfoContent value) {
+    return _$updateTextUIAsyncAction.run(() => super.updateTextUI(value));
   }
 
   late final _$_P2PPurposePhase5WidgetsCoordinatorBaseActionController =
@@ -182,6 +209,20 @@ mixin _$P2PPurposePhase5WidgetsCoordinator
   }
 
   @override
+  dynamic toggleBlockUpdateTextUICallback() {
+    final _$actionInfo =
+        _$_P2PPurposePhase5WidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_P2PPurposePhase5WidgetsCoordinatorBase.toggleBlockUpdateTextUICallback');
+    try {
+      return super.toggleBlockUpdateTextUICallback();
+    } finally {
+      _$_P2PPurposePhase5WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic updateCommitStatusToAffirmative() {
     final _$actionInfo =
         _$_P2PPurposePhase5WidgetsCoordinatorBaseActionController.startAction(
@@ -202,7 +243,8 @@ previousWord: ${previousWord},
 isInitialLoad: ${isInitialLoad},
 wantsToCommit: ${wantsToCommit},
 mostRecentDocInfoContent: ${mostRecentDocInfoContent},
-blockUserControllerCallback: ${blockUserControllerCallback}
+blockUserControllerCallback: ${blockUserControllerCallback},
+blockUpdateTextUICallback: ${blockUpdateTextUICallback}
     ''';
   }
 }
