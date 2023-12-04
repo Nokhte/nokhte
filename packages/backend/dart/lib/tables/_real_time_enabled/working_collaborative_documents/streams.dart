@@ -42,6 +42,18 @@ class WorkingCollaborativeDocumentsStreams extends CollaborativeQueries {
       final bothCollaboratorsAffirm =
           row["${collaboratorsNumber}_wants_to_commit"] &&
               row["${usersCollaboratorNumber}_wants_to_commit"];
+      final String? lastEditedBy =
+          row[WorkingCollaborativeDocumentsQueries.lastEditedBy];
+
+      LastEditedBy lastEditor;
+      if (lastEditedBy == null) {
+        lastEditor = LastEditedBy.initial;
+      } else if (lastEditedBy == usersUID) {
+        lastEditor = LastEditedBy.user;
+      } else {
+        lastEditor = LastEditedBy.collaborator;
+      }
+
       if (!docContentListeningStatus) {
         break;
       }
@@ -56,9 +68,7 @@ class WorkingCollaborativeDocumentsStreams extends CollaborativeQueries {
       } else {
         yield DocInfoContent(
           content: row[WorkingCollaborativeDocumentsQueries.content],
-          lastEditWasTheUser:
-              row[WorkingCollaborativeDocumentsQueries.lastEditedBy] ==
-                  usersUID,
+          lastEditor: lastEditor,
           collaboratorsCommitDesireStatus:
               row["${collaboratorsNumber}_wants_to_commit"],
           documentCommitStatus: bothCollaboratorsAffirm,
