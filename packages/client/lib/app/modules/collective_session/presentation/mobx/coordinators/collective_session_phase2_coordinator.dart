@@ -89,8 +89,10 @@ abstract class _CollectiveSessionPhase2CoordinatorBase extends Equatable
             UpdateUserDeltaParams(newDelta: userController.selection.start));
         if (previousWord != userController.text && !isInitialLoad) {
           previousWord = userController.text;
-          await collaborativeDoc.updateDoc(
-              UpdateCollaborativeDocParams(newContent: userController.text));
+          await collaborativeDoc.updateDoc(UpdateCollaborativeDocParams(
+            newContent: userController.text,
+            isAnUpdateFromCollaborator: false,
+          ));
         }
       });
 
