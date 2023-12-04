@@ -51,11 +51,11 @@ abstract class _P2PPurposePhase5CoordinatorBase extends BaseCoordinator
       consecrateTheCollaboration: consecrateTheCollaboration,
       revertAffirmativeCommitDesire: revertAffirmativeCommitDesire,
       updateCommitStatusToAffirmative: updateCommitStatusToAffirmative,
-      collaborativeDocDB: collaborativeDocDB,
     );
     gestureListener();
-    // widgets.userTextControllerListener(
-    // );
+    widgets.userTextControllerListener(
+      collaborativeDocDB: collaborativeDocDB,
+    );
   }
 
   @action

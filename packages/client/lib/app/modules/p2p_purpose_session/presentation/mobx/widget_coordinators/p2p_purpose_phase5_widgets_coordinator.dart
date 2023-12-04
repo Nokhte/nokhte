@@ -71,7 +71,7 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
     required Function consecrateTheCollaboration,
     required Function revertAffirmativeCommitDesire,
     required Function updateCommitStatusToAffirmative,
-    required CollaborativeDocCoordinator collaborativeDocDB,
+    // required CollaborativeDocCoordinator collaborativeDocDB,
   }) =>
       docContentStream.distinct().listen((DocInfoContent value) async {
         print(
@@ -86,14 +86,10 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
           value,
           purposeIsCommitted: consecrateTheCollaboration,
         );
-        userTextControllerListener(
-          value,
-          collaborativeDocDB,
-        );
       });
 
   initialContentLoad(DocInfoContent value) {
-    if (isInitialLoad) {
+    if (isInitialLoad && value.usersContent.isNotEmpty) {
       collaborativeTextUI.setText(value.usersContent);
       toggleIsInitialLoad();
     }
@@ -111,21 +107,20 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
     }
   }
 
-  userTextControllerListener(
-    DocInfoContent value,
-    CollaborativeDocCoordinator collaborativeDocDB,
-  ) async {
+  userTextControllerListener({
+    required CollaborativeDocCoordinator collaborativeDocDB,
+  }) async {
     userController.addListener(() async {
       // await collaborativeDocDB.updateDelta(
       //     UpdateUserDeltaParams(newDelta: userController.selection.start));
       // if (previousWord != userController.text && !isInitialLoad) {
       // previousWord = userController.text;
-      if (value.lastEditWasTheUser) {
-        await collaborativeDocDB.updateDoc(UpdateCollaborativeDocParams(
-          newContent: userController.text,
-          isAnUpdateFromCollaborator: false,
-        ));
-      }
+      // if (value.lastEditWasTheUser) {
+      await collaborativeDocDB.updateDoc(UpdateCollaborativeDocParams(
+        newContent: userController.text,
+        isAnUpdateFromCollaborator: false,
+      ));
+      // }
       // }
     });
   }
@@ -139,8 +134,6 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
         (value.usersContent != value.collaboratorsContent || isInitialLoad)) {
       await ifCollaboratorEditsTheDoc(value.collaboratorsContent, true);
       final userDelta = userController.selection.start;
-      // print(
-      //     "is the users content not updated?? ${value.usersContent} ${value.collaboratorsContent}");
       collaborativeTextUI.setText(value.usersContent);
       gesturePillStore.setPillAnimationControl(Control.playReverseFromEnd);
       userController.selection = TextSelection.fromPosition(
