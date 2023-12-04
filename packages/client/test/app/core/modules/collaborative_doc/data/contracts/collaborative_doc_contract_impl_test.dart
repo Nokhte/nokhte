@@ -133,10 +133,11 @@ void main() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       });
       test("when online and non-empty should return a model", () async {
-        when(mockRemoteSource.updateCollaborativeDoc(newContent: 'newContent'))
+        when(mockRemoteSource.updateCollaborativeDoc(
+                newContent: 'newContent', isAnUpdateFromCollaborator: false))
             .thenAnswer((realInvocation) async => [{}]);
         final res = await collaborativeDocContract.updateCollaborativeDoc(
-            newContent: 'newContent');
+            isAnUpdateFromCollaborator: false, newContent: 'newContent');
         expect(
             res, ConstantCollaborativeDocUpdateStatusModel.wrappedSuccessCase);
       });
@@ -148,7 +149,7 @@ void main() {
 
       test("When offline should return an internet connection error", () async {
         final res = await collaborativeDocContract.updateCollaborativeDoc(
-            newContent: 'newContent');
+            isAnUpdateFromCollaborator: false, newContent: 'newContent');
         expect(res, Left(FailureConstants.internetConnectionFailure));
       });
     });
@@ -201,7 +202,7 @@ void main() {
 
       test("When offline should return an internet connection error", () async {
         final res = await collaborativeDocContract.updateCollaborativeDoc(
-            newContent: 'newContent');
+            isAnUpdateFromCollaborator: false, newContent: 'newContent');
         expect(res, Left(FailureConstants.internetConnectionFailure));
       });
     });
