@@ -61,6 +61,36 @@ mixin _$P2PPurposePhase5WidgetsCoordinator
     });
   }
 
+  late final _$blockUserControllerCallbackAtom = Atom(
+      name:
+          '_P2PPurposePhase5WidgetsCoordinatorBase.blockUserControllerCallback',
+      context: context);
+
+  @override
+  bool get blockUserControllerCallback {
+    _$blockUserControllerCallbackAtom.reportRead();
+    return super.blockUserControllerCallback;
+  }
+
+  @override
+  set blockUserControllerCallback(bool value) {
+    _$blockUserControllerCallbackAtom
+        .reportWrite(value, super.blockUserControllerCallback, () {
+      super.blockUserControllerCallback = value;
+    });
+  }
+
+  late final _$userTextControllerListenerAsyncAction = AsyncAction(
+      '_P2PPurposePhase5WidgetsCoordinatorBase.userTextControllerListener',
+      context: context);
+
+  @override
+  Future userTextControllerListener(
+      {required CollaborativeDocCoordinator collaborativeDocDB}) {
+    return _$userTextControllerListenerAsyncAction.run(() => super
+        .userTextControllerListener(collaborativeDocDB: collaborativeDocDB));
+  }
+
   late final _$_P2PPurposePhase5WidgetsCoordinatorBaseActionController =
       ActionController(
           name: '_P2PPurposePhase5WidgetsCoordinatorBase', context: context);
@@ -106,6 +136,20 @@ mixin _$P2PPurposePhase5WidgetsCoordinator
   }
 
   @override
+  dynamic toggleBlockUserControllerCallback() {
+    final _$actionInfo =
+        _$_P2PPurposePhase5WidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_P2PPurposePhase5WidgetsCoordinatorBase.toggleBlockUserControllerCallback');
+    try {
+      return super.toggleBlockUserControllerCallback();
+    } finally {
+      _$_P2PPurposePhase5WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic updateCommitStatusToAffirmative() {
     final _$actionInfo =
         _$_P2PPurposePhase5WidgetsCoordinatorBaseActionController.startAction(
@@ -124,7 +168,8 @@ mixin _$P2PPurposePhase5WidgetsCoordinator
     return '''
 previousWord: ${previousWord},
 isInitialLoad: ${isInitialLoad},
-wantsToCommit: ${wantsToCommit}
+wantsToCommit: ${wantsToCommit},
+blockUserControllerCallback: ${blockUserControllerCallback}
     ''';
   }
 }

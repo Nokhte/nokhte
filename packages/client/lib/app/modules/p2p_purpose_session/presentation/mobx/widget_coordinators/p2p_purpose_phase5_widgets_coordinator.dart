@@ -71,11 +71,8 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
     required Function consecrateTheCollaboration,
     required Function revertAffirmativeCommitDesire,
     required Function updateCommitStatusToAffirmative,
-    // required CollaborativeDocCoordinator collaborativeDocDB,
   }) =>
       docContentStream.distinct().listen((DocInfoContent value) async {
-        // print(
-        //     "what is happening inside of here?? ${value.collaboratorsContent} ${value.usersContent}");
         initialContentLoad(value);
         updateTextUI(value, ifCollaboratorEditsTheDoc: updateTheDoc);
         purposeIntegrityListener(
@@ -109,6 +106,14 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
     }
   }
 
+  @observable
+  bool blockUserControllerCallback = false;
+
+  @action
+  toggleBlockUserControllerCallback() =>
+      blockUserControllerCallback = !blockUserControllerCallback;
+
+  @action
   userTextControllerListener({
     required CollaborativeDocCoordinator collaborativeDocDB,
   }) async {
@@ -118,10 +123,14 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
       // if (previousWord != userController.text && !isInitialLoad) {
       // previousWord = userController.text;
       // if (value.lastEditWasTheUser) {
-      await collaborativeDocDB.updateDoc(UpdateCollaborativeDocParams(
-        newContent: userController.text,
-        isAnUpdateFromCollaborator: false,
-      ));
+      // if(mostRecentDocInfo)
+      if (!blockUserControllerCallback) {
+        print("sacred block is it unintentionally triggering??");
+        await collaborativeDocDB.updateDoc(UpdateCollaborativeDocParams(
+          newContent: userController.text,
+          isAnUpdateFromCollaborator: false,
+        ));
+      }
       // }
       // }
     });
@@ -135,6 +144,8 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
       "what does this eval to? ${!value.lastEditWasTheUser && !isInitialLoad} ${!value.lastEditWasTheUser} ${!isInitialLoad}",
     );
     if (!value.lastEditWasTheUser && !isInitialLoad) {
+      // start block
+      toggleBlockUserControllerCallback();
       await ifCollaboratorEditsTheDoc(value.collaboratorsContent, true);
       final userDelta = userController.selection.start;
       collaborativeTextUI.setText(value.usersContent);
@@ -146,6 +157,8 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
               : userDelta,
         ),
       );
+      toggleBlockUserControllerCallback();
+      // end the block
     }
   }
 
