@@ -11,6 +11,7 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
+import 'dart:async';
 import 'package:simple_animations/simple_animations.dart';
 // * Mobx Codegen Inclusion
 part 'p2p_purpose_phase5_widgets_coordinator.g.dart';
@@ -66,14 +67,17 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
 
   collaborativeDocListener(
     ObservableStream<DocInfoContent> docContentStream, {
-    required Function(String) updateTheDoc,
+    required Function(String, bool) updateTheDoc,
     required Function consecrateTheCollaboration,
     required Function revertAffirmativeCommitDesire,
     required Function updateCommitStatusToAffirmative,
+    required CollaborativeDocCoordinator collaborativeDocDB,
   }) =>
-      docContentStream.distinct().listen((DocInfoContent value) {
-        // print("what is happening inside of here?? ${value.content}");
+      docContentStream.distinct().listen((DocInfoContent value) async {
+        print(
+            "what is happening inside of here?? ${value.collaboratorsContent} ${value.usersContent}");
         initialContentLoad(value);
+        updateTextUI(value, ifCollaboratorEditsTheDoc: updateTheDoc);
         purposeIntegrityListener(
           value,
           ifUserHasFocus: revertAffirmativeCommitDesire,
@@ -82,7 +86,10 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
           value,
           purposeIsCommitted: consecrateTheCollaboration,
         );
-        updateTextUI(value, ifUserEditsTheDoc: updateTheDoc);
+        userTextControllerListener(
+          value,
+          collaborativeDocDB,
+        );
       });
 
   initialContentLoad(DocInfoContent value) {
@@ -104,28 +111,37 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
     }
   }
 
-  userTextControllerListener({
-    required CollaborativeDocCoordinator collaborativeDocDB,
-  }) async {
+  userTextControllerListener(
+    DocInfoContent value,
+    CollaborativeDocCoordinator collaborativeDocDB,
+  ) async {
     userController.addListener(() async {
-      await collaborativeDocDB.updateDelta(
-          UpdateUserDeltaParams(newDelta: userController.selection.start));
-      if (previousWord != userController.text && !isInitialLoad) {
-        previousWord = userController.text;
-        await collaborativeDocDB.updateDoc(
-            UpdateCollaborativeDocParams(newContent: userController.text));
+      // await collaborativeDocDB.updateDelta(
+      //     UpdateUserDeltaParams(newDelta: userController.selection.start));
+      // if (previousWord != userController.text && !isInitialLoad) {
+      // previousWord = userController.text;
+      if (value.lastEditWasTheUser) {
+        await collaborativeDocDB.updateDoc(UpdateCollaborativeDocParams(
+          newContent: userController.text,
+          isAnUpdateFromCollaborator: false,
+        ));
       }
+      // }
     });
   }
 
   updateTextUI(
     DocInfoContent value, {
-    required Function(String) ifUserEditsTheDoc,
+    required Function(String, bool) ifCollaboratorEditsTheDoc,
   }) async {
-    if (!value.lastEditWasTheUser) {
+    if (!value.lastEditWasTheUser &&
+        userController.text != value.collaboratorsContent &&
+        (value.usersContent != value.collaboratorsContent || isInitialLoad)) {
+      await ifCollaboratorEditsTheDoc(value.collaboratorsContent, true);
       final userDelta = userController.selection.start;
+      // print(
+      //     "is the users content not updated?? ${value.usersContent} ${value.collaboratorsContent}");
       collaborativeTextUI.setText(value.usersContent);
-      await ifUserEditsTheDoc(collaborativeTextUI.controller.text);
       gesturePillStore.setPillAnimationControl(Control.playReverseFromEnd);
       userController.selection = TextSelection.fromPosition(
         TextPosition(
