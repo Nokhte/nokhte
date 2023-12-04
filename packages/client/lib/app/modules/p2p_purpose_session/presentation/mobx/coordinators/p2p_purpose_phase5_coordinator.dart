@@ -83,10 +83,9 @@ abstract class _P2PPurposePhase5CoordinatorBase extends BaseCoordinator
     await collaborativeDocDB.getContent(NoParams());
   }
 
-  updateTheDoc(String newContent, bool isAnUpdateFromCollaborator) async {
+  updateTheDoc(String newContent) async {
     await collaborativeDocDB.updateDoc(UpdateCollaborativeDocParams(
       newContent: newContent,
-      isAnUpdateFromCollaborator: isAnUpdateFromCollaborator,
     ));
   }
 

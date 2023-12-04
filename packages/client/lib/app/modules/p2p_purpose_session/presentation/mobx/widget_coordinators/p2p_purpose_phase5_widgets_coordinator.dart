@@ -67,7 +67,7 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
 
   collaborativeDocListener(
     ObservableStream<DocInfoContent> docContentStream, {
-    required Function(String, bool) updateTheDoc,
+    required Function(String) updateTheDoc,
     required Function consecrateTheCollaboration,
     required Function revertAffirmativeCommitDesire,
     required Function updateCommitStatusToAffirmative,
@@ -88,7 +88,7 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
   initialContentLoad(DocInfoContent value) {
     if (isInitialLoad) {
       collaborativeTextUI.setText(
-        value.usersContent.isEmpty ? "" : value.usersContent,
+        value.content.isEmpty ? "" : value.content,
       );
       toggleIsInitialLoad();
     }
@@ -128,7 +128,6 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
         print("sacred block is it unintentionally triggering??");
         await collaborativeDocDB.updateDoc(UpdateCollaborativeDocParams(
           newContent: userController.text,
-          isAnUpdateFromCollaborator: false,
         ));
       }
       // }
@@ -138,7 +137,7 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
 
   updateTextUI(
     DocInfoContent value, {
-    required Function(String, bool) ifCollaboratorEditsTheDoc,
+    required Function(String) ifCollaboratorEditsTheDoc,
   }) async {
     print(
       "what does this eval to? ${!value.lastEditWasTheUser && !isInitialLoad} ${!value.lastEditWasTheUser} ${!isInitialLoad}",
@@ -146,9 +145,9 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
     if (!value.lastEditWasTheUser && !isInitialLoad) {
       // start block
       toggleBlockUserControllerCallback();
-      await ifCollaboratorEditsTheDoc(value.collaboratorsContent, true);
+      await ifCollaboratorEditsTheDoc(value.content);
       final userDelta = userController.selection.start;
-      collaborativeTextUI.setText(value.usersContent);
+      collaborativeTextUI.setText(value.content);
       gesturePillStore.setPillAnimationControl(Control.playReverseFromEnd);
       userController.selection = TextSelection.fromPosition(
         TextPosition(
