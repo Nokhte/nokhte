@@ -11,7 +11,10 @@ abstract class CollaborativeDocRemoteSource {
   Future<void> updateUserPresence({required bool updatedUserPresence});
   Future<void> updateUserDelta({required int updatedDelta});
   Future<void> updateCommitDesireStatus({required bool wantsToCommit});
-  Future<void> updateCollaborativeDoc({required String newContent});
+  Future<void> updateCollaborativeDoc({
+    required String newContent,
+    required bool isAnUpdateFromCollaborator,
+  });
 }
 
 class CollaborativeDocRemoteSourceImpl implements CollaborativeDocRemoteSource {
@@ -50,9 +53,13 @@ class CollaborativeDocRemoteSourceImpl implements CollaborativeDocRemoteSource {
   }
 
   @override
-  Future<void> updateCollaborativeDoc({required String newContent}) async {
+  Future<void> updateCollaborativeDoc({
+    required String newContent,
+    required bool isAnUpdateFromCollaborator,
+  }) async {
     return await queries.updateUsersDocContent(
       newContent: newContent,
+      isAnUpdateFromCollaborator: isAnUpdateFromCollaborator,
     );
   }
 
