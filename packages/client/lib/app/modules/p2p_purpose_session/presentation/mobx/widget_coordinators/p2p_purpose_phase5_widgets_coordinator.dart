@@ -151,7 +151,7 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
     print(
       "what does this eval to? ${value.lastEditor != LastEditedBy.user && !isInitialLoad} ${value.lastEditor} ${!isInitialLoad}",
     );
-    if (value.lastEditor != LastEditedBy.user && !isInitialLoad) {
+    if (value.lastEditor == LastEditedBy.collaborator && !isInitialLoad) {
       toggleBlockUserControllerCallback();
       await ifCollaboratorEditsTheDoc(value.content);
       final userDelta = userController.selection.start;
