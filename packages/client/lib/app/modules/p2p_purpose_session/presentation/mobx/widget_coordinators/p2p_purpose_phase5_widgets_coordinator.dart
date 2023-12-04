@@ -74,8 +74,8 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
     // required CollaborativeDocCoordinator collaborativeDocDB,
   }) =>
       docContentStream.distinct().listen((DocInfoContent value) async {
-        print(
-            "what is happening inside of here?? ${value.collaboratorsContent} ${value.usersContent}");
+        // print(
+        //     "what is happening inside of here?? ${value.collaboratorsContent} ${value.usersContent}");
         initialContentLoad(value);
         updateTextUI(value, ifCollaboratorEditsTheDoc: updateTheDoc);
         purposeIntegrityListener(
@@ -89,8 +89,10 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
       });
 
   initialContentLoad(DocInfoContent value) {
-    if (isInitialLoad && value.usersContent.isNotEmpty) {
-      collaborativeTextUI.setText(value.usersContent);
+    if (isInitialLoad) {
+      collaborativeTextUI.setText(
+        value.usersContent.isEmpty ? "" : value.usersContent,
+      );
       toggleIsInitialLoad();
     }
   }
@@ -129,9 +131,10 @@ abstract class _P2PPurposePhase5WidgetsCoordinatorBase extends Equatable
     DocInfoContent value, {
     required Function(String, bool) ifCollaboratorEditsTheDoc,
   }) async {
-    if (!value.lastEditWasTheUser &&
-        userController.text != value.collaboratorsContent &&
-        (value.usersContent != value.collaboratorsContent || isInitialLoad)) {
+    print(
+      "what does this eval to? ${!value.lastEditWasTheUser && !isInitialLoad} ${!value.lastEditWasTheUser} ${!isInitialLoad}",
+    );
+    if (!value.lastEditWasTheUser && !isInitialLoad) {
       await ifCollaboratorEditsTheDoc(value.collaboratorsContent, true);
       final userDelta = userController.selection.start;
       collaborativeTextUI.setText(value.usersContent);
