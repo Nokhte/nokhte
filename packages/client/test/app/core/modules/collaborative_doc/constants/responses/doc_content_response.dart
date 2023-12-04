@@ -4,7 +4,7 @@ class DocContentResonse {
   static Stream<DocInfoContent> get successfulResponse => Stream.value(
         DocInfoContent(
           content: "content",
-          lastEditWasTheUser: true,
+          lastEditor: LastEditedBy.user,
           collaboratorsCommitDesireStatus: true,
           documentCommitStatus: true,
           userCommitDesireStatus: true,
@@ -13,7 +13,7 @@ class DocContentResonse {
   static Stream<DocInfoContent> get notSuccessfulResponse => Stream.value(
         DocInfoContent(
           content: "",
-          lastEditWasTheUser: false,
+          lastEditor: LastEditedBy.initial,
           collaboratorsCommitDesireStatus: false,
           documentCommitStatus: false,
           userCommitDesireStatus: false,
