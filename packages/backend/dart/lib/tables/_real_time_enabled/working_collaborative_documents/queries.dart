@@ -135,7 +135,7 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
     await supabase
         .from(tableName)
         .update({
-          "${collaboratorInfo.theUsersCollaboratorNumber}_$content": newContent,
+          content: newContent,
           lastEditedBy: collaboratorInfo.theUsersUID,
         })
         .eq(
