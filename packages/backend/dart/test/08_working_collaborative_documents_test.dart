@@ -139,8 +139,7 @@ void main() {
     });
 
     test("updateUsersDocContent", () async {
-      await user1WorkingQueries.updateUsersDocContent(
-          newContent: tContent, isAnUpdateFromCollaborator: false);
+      await user1WorkingQueries.updateUsersDocContent(newContent: tContent);
       final res = await user1WorkingQueries.getDocInfo();
       final usersDocContent = res.first["${usersCollaboratorNumber}_$content"];
       expect(usersDocContent, tContent);
