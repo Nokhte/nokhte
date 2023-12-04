@@ -126,18 +126,12 @@ class MockMCollaborativeDocRemoteSource extends _i1.Mock
       ) as _i5.Future<void>);
 
   @override
-  _i5.Future<void> updateCollaborativeDoc({
-    required String? newContent,
-    required bool? isAnUpdateFromCollaborator,
-  }) =>
+  _i5.Future<void> updateCollaborativeDoc({required String? newContent}) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateCollaborativeDoc,
           [],
-          {
-            #newContent: newContent,
-            #isAnUpdateFromCollaborator: isAnUpdateFromCollaborator,
-          },
+          {#newContent: newContent},
         ),
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
@@ -222,18 +216,12 @@ class MockMCollaborativeDocContract extends _i1.Mock
 
   @override
   _i5.Future<_i2.Either<_i7.Failure, _i3.CollaborativeDocUpdateStatusEntity>>
-      updateCollaborativeDoc({
-    required String? newContent,
-    required bool? isAnUpdateFromCollaborator,
-  }) =>
+      updateCollaborativeDoc({required String? newContent}) =>
           (super.noSuchMethod(
             Invocation.method(
               #updateCollaborativeDoc,
               [],
-              {
-                #newContent: newContent,
-                #isAnUpdateFromCollaborator: isAnUpdateFromCollaborator,
-              },
+              {#newContent: newContent},
             ),
             returnValue: _i5.Future<
                     _i2.Either<_i7.Failure,
@@ -244,10 +232,7 @@ class MockMCollaborativeDocContract extends _i1.Mock
               Invocation.method(
                 #updateCollaborativeDoc,
                 [],
-                {
-                  #newContent: newContent,
-                  #isAnUpdateFromCollaborator: isAnUpdateFromCollaborator,
-                },
+                {#newContent: newContent},
               ),
             )),
           ) as _i5.Future<
