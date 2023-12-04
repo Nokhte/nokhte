@@ -91,14 +91,13 @@ abstract class _CollectiveSessionPhase2CoordinatorBase extends Equatable
           previousWord = userController.text;
           await collaborativeDoc.updateDoc(UpdateCollaborativeDocParams(
             newContent: userController.text,
-            isAnUpdateFromCollaborator: false,
           ));
         }
       });
 
   initialContentLoad(DocInfoContent value) {
     if (isInitialLoad) {
-      widgets.collaborativeTextEditor.setText(value.usersContent);
+      widgets.collaborativeTextEditor.setText(value.content);
       isInitialLoad = false;
     }
   }
@@ -106,7 +105,7 @@ abstract class _CollectiveSessionPhase2CoordinatorBase extends Equatable
   updateTheDoc(DocInfoContent value) {
     if (!value.lastEditWasTheUser) {
       final userDelta = userController.selection.start;
-      widgets.collaborativeTextEditor.setText(value.usersContent);
+      widgets.collaborativeTextEditor.setText(value.content);
       collaborativeDoc.updateCommitDesire(
           const UpdateCommitDesireStatusParams(wantsToCommit: false));
 
