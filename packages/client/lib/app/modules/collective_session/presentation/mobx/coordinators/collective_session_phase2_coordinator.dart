@@ -103,7 +103,7 @@ abstract class _CollectiveSessionPhase2CoordinatorBase extends Equatable
   }
 
   updateTheDoc(DocInfoContent value) {
-    if (!value.lastEditWasTheUser) {
+    if (value.lastEditor != LastEditedBy.user) {
       final userDelta = userController.selection.start;
       widgets.collaborativeTextEditor.setText(value.content);
       collaborativeDoc.updateCommitDesire(
