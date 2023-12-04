@@ -49,7 +49,7 @@ void main() {
 
   group("initial values", () {
     test("movieMode", () {
-      testStore.movieMode = BeachWaveMovieModes.none;
+      testStore.movieMode = BeachWaveMovieModes.onShore;
     });
 
     group('movieModeToStoreLookup', () {
@@ -73,11 +73,11 @@ void main() {
     group("computed values", () {
       test("currentControl", () {
         final currentControlRes = testStore.currentControl;
-        expect(currentControlRes, Control.stop);
+        expect(currentControlRes, Control.mirror);
       });
       test("currentMovie", () {
         final currentMovieDuration = testStore.currentMovie.duration;
-        expect(currentMovieDuration, Seconds.get(0));
+        expect(currentMovieDuration, Seconds.get(2, milli: 1));
       });
     });
   });
