@@ -13,7 +13,6 @@ abstract class CollaborativeDocRemoteSource {
   Future<void> updateCommitDesireStatus({required bool wantsToCommit});
   Future<void> updateCollaborativeDoc({
     required String newContent,
-    required bool isAnUpdateFromCollaborator,
   });
 }
 
@@ -55,11 +54,9 @@ class CollaborativeDocRemoteSourceImpl implements CollaborativeDocRemoteSource {
   @override
   Future<void> updateCollaborativeDoc({
     required String newContent,
-    required bool isAnUpdateFromCollaborator,
   }) async {
     return await queries.updateUsersDocContent(
       newContent: newContent,
-      isAnUpdateFromCollaborator: isAnUpdateFromCollaborator,
     );
   }
 
