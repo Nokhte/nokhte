@@ -1,4 +1,5 @@
 import 'package:nokhte_backend/tables/_real_time_enabled/shared/shared.dart';
+import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
 import 'types/types.dart';
 
 class WorkingCollaborativeDocumentsStreams extends CollaborativeQueries {
@@ -47,8 +48,7 @@ class WorkingCollaborativeDocumentsStreams extends CollaborativeQueries {
       }
       if (event.isEmpty) {
         yield DocInfoContent(
-          usersContent: "",
-          collaboratorsContent: "",
+          content: "",
           lastEditWasTheUser: false,
           collaboratorsCommitDesireStatus: false,
           documentCommitStatus: false,
@@ -56,9 +56,10 @@ class WorkingCollaborativeDocumentsStreams extends CollaborativeQueries {
         );
       } else {
         yield DocInfoContent(
-          usersContent: row["${usersCollaboratorNumber}_content"],
-          collaboratorsContent: row["${collaboratorsNumber}_content"],
-          lastEditWasTheUser: row["last_edited_by"] == usersUID,
+          content: row[WorkingCollaborativeDocumentsQueries.content],
+          lastEditWasTheUser:
+              row[WorkingCollaborativeDocumentsQueries.lastEditedBy] ==
+                  usersUID,
           collaboratorsCommitDesireStatus:
               row["${collaboratorsNumber}_wants_to_commit"],
           documentCommitStatus: bothCollaboratorsAffirm,
