@@ -18,5 +18,12 @@ class DocInfoContent extends Equatable {
   });
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [
+        usersContent,
+        collaboratorsContent,
+        lastEditWasTheUser,
+        collaboratorsCommitDesireStatus,
+        documentCommitStatus,
+        userCommitDesireStatus,
+      ];
 }
