@@ -5,6 +5,7 @@ import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
+import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
 import '../../constants/entities/entities.dart';
 import '../../fixtures/collaborative_doc_mock_gen.mocks.dart';
 
@@ -27,7 +28,7 @@ void main() {
     result.fold((failure) {}, (entity) {
       entity.docContent.listen((value) {
         expect(value.content, "content");
-        expect(value.lastEditWasTheUser, true);
+        expect(value.lastEditor, LastEditedBy.user);
       });
     });
 
