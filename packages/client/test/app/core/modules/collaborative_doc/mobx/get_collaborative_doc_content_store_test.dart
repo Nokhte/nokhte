@@ -4,6 +4,7 @@ import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/mobx/mobx.dart';
+import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
 import '../constants/entities/entities.dart';
 import '../fixtures/collaborative_doc_mock_gen.mocks.dart';
 
@@ -28,7 +29,7 @@ void main() {
       await shareSoloDocStore(tParams);
       shareSoloDocStore.docContent.listen((value) {
         expect(value.content, "content");
-        expect(value.lastEditWasTheUser, true);
+        expect(value.lastEditor, LastEditedBy.user);
       });
       expect(shareSoloDocStore.errorMessage, "");
     });
@@ -40,7 +41,7 @@ void main() {
       await shareSoloDocStore(tParams);
       shareSoloDocStore.docContent.listen((value) {
         expect(value.content, "");
-        expect(value.lastEditWasTheUser, false);
+        expect(value.lastEditor, LastEditedBy.initial);
       });
       expect(
           shareSoloDocStore.errorMessage, FailureConstants.genericFailureMsg);
