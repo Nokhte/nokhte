@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -50,9 +51,11 @@ abstract class _P2PPurposePhase5CoordinatorBase extends BaseCoordinator
       consecrateTheCollaboration: consecrateTheCollaboration,
       revertAffirmativeCommitDesire: revertAffirmativeCommitDesire,
       updateCommitStatusToAffirmative: updateCommitStatusToAffirmative,
+      collaborativeDocDB: collaborativeDocDB,
     );
     gestureListener();
-    widgets.userTextControllerListener(collaborativeDocDB: collaborativeDocDB);
+    // widgets.userTextControllerListener(
+    // );
   }
 
   @action
@@ -69,7 +72,9 @@ abstract class _P2PPurposePhase5CoordinatorBase extends BaseCoordinator
         ),
       ),
     );
-    await voiceCallCoordinator.joinCall(shouldEnterTheCallMuted: false);
+    if (!kDebugMode) {
+      await voiceCallCoordinator.joinCall(shouldEnterTheCallMuted: false);
+    }
     await collaborativeDocDB.createDoc(
       const CreateCollaborativeDocParams(
         docType: 'purpose',
@@ -78,8 +83,12 @@ abstract class _P2PPurposePhase5CoordinatorBase extends BaseCoordinator
     await collaborativeDocDB.getContent(NoParams());
   }
 
-  updateTheDoc(String newContent) async => await collaborativeDocDB
-      .updateDoc(UpdateCollaborativeDocParams(newContent: newContent));
+  updateTheDoc(String newContent, bool isAnUpdateFromCollaborator) async {
+    await collaborativeDocDB.updateDoc(UpdateCollaborativeDocParams(
+      newContent: newContent,
+      isAnUpdateFromCollaborator: isAnUpdateFromCollaborator,
+    ));
+  }
 
   consecrateTheCollaboration() async =>
       await existingCollaborations.consecrateTheCollaboration(NoParams());
