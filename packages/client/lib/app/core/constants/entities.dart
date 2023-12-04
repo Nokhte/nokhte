@@ -260,4 +260,12 @@ class DefaultEntities {
 
   static Either<Failure, WhoHasTheQuestionEntity> get whoHasTheQuestionEntity =>
       const Right(WhoHasTheQuestionEntity(userHasTheQuestion: false));
+
+  static DocInfoContent get docInfoContent => DocInfoContent(
+        content: "",
+        lastEditor: LastEditedBy.initial,
+        collaboratorsCommitDesireStatus: false,
+        documentCommitStatus: false,
+        userCommitDesireStatus: false,
+      );
 }
