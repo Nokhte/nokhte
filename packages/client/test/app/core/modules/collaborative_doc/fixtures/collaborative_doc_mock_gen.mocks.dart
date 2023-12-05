@@ -136,6 +136,17 @@ class MockMCollaborativeDocRemoteSource extends _i1.Mock
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
+
+  @override
+  _i5.Future<List<dynamic>> moveToFinishedDocs(
+          _i3.MoveToFinishedDocsParams? moveToFinishedDocsParams) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #moveToFinishedDocs,
+          [moveToFinishedDocsParams],
+        ),
+        returnValue: _i5.Future<List<dynamic>>.value(<dynamic>[]),
+      ) as _i5.Future<List<dynamic>>);
 }
 
 /// A class which mocks [MCollaborativeDocContract].
