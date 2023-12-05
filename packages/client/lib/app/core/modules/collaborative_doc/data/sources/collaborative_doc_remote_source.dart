@@ -27,6 +27,8 @@ class CollaborativeDocRemoteSourceImpl implements CollaborativeDocRemoteSource {
   final WorkingCollaborativeDocumentsStreams streams;
   final WorkingCollaborativeDocumentsQueries workingQueries;
   final FinishedCollaborativeDocumentsQueries finishedQueries;
+  final chosenCollaboratorNumber =
+      kDebugMode ? CollaboratorNumbers.two : CollaboratorNumbers.one;
 
   CollaborativeDocRemoteSourceImpl({
     required this.supabase,
@@ -50,8 +52,6 @@ class CollaborativeDocRemoteSourceImpl implements CollaborativeDocRemoteSource {
   @override
   Future<List> createCollaborativeDoc({required String docType}) async {
     await workingQueries.figureOutActiveCollaboratorInfoIfNotDoneAlready();
-    const chosenCollaboratorNumber =
-        kDebugMode ? CollaboratorNumbers.two : CollaboratorNumbers.one;
     return await StringComparison.isCollaborator(
         chosenCollaboratorNumber: chosenCollaboratorNumber,
         input: workingQueries.collaboratorInfo.theUsersCollaboratorNumber,
@@ -88,8 +88,13 @@ class CollaborativeDocRemoteSourceImpl implements CollaborativeDocRemoteSource {
   @override
   Future<List> moveToFinishedDocs(
           MoveToFinishedDocsParams moveToFinishedDocsParams) async =>
-      await finishedQueries.insertDoc(
-        docType: moveToFinishedDocsParams.docType,
-        content: moveToFinishedDocsParams.docContent,
+      await StringComparison.isCollaborator(
+        chosenCollaboratorNumber: chosenCollaboratorNumber,
+        input: workingQueries.collaboratorInfo.theUsersCollaboratorNumber,
+        callback: () async => await finishedQueries.insertDoc(
+          docType: moveToFinishedDocsParams.docType,
+          content: moveToFinishedDocsParams.docContent,
+        ),
+        elseReturnVal: [],
       );
 }
