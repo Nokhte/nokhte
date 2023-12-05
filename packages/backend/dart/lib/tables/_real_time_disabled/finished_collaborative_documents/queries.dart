@@ -1,9 +1,8 @@
 import 'package:nokhte_backend/tables/_real_time_enabled/shared/shared.dart';
 
-class FinishedCollaborativeP2PPurposeDocumentsQueries
-    extends CollaborativeQueries {
+class FinishedCollaborativeDocumentsQueries extends CollaborativeQueries {
   static const tableName = 'finished_collaborative_documents';
-  FinishedCollaborativeP2PPurposeDocumentsQueries({required super.supabase});
+  FinishedCollaborativeDocumentsQueries({required super.supabase});
   Future<List> getDocInfo({
     required String docType,
   }) async {
