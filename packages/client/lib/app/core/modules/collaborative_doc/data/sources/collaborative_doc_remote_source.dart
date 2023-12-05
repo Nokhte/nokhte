@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
+import 'package:nokhte_backend/tables/_real_time_disabled/finished_collaborative_documents/queries.dart';
 import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
 import 'package:nokhte_core/custom_control_structures.dart';
 import 'package:nokhte_core/types/types.dart';
@@ -24,13 +25,14 @@ class CollaborativeDocRemoteSourceImpl implements CollaborativeDocRemoteSource {
   final SupabaseClient supabase;
   final String currentUserUID;
   final WorkingCollaborativeDocumentsStreams streams;
-  final WorkingCollaborativeDocumentsQueries queries;
+  final WorkingCollaborativeDocumentsQueries workingQueries;
 
   CollaborativeDocRemoteSourceImpl({
     required this.supabase,
-    required this.streams,
-    required this.queries,
-  }) : currentUserUID = supabase.auth.currentUser?.id ?? '';
+  })  : workingQueries =
+            WorkingCollaborativeDocumentsQueries(supabase: supabase),
+        streams = WorkingCollaborativeDocumentsStreams(supabase: supabase),
+        currentUserUID = supabase.auth.currentUser?.id ?? '';
 
   @override
   Stream<DocInfoContent> getCollaborativeDocContent() {
@@ -44,14 +46,14 @@ class CollaborativeDocRemoteSourceImpl implements CollaborativeDocRemoteSource {
 
   @override
   Future<List> createCollaborativeDoc({required String docType}) async {
-    await queries.figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await workingQueries.figureOutActiveCollaboratorInfoIfNotDoneAlready();
     const chosenCollaboratorNumber =
         kDebugMode ? CollaboratorNumbers.two : CollaboratorNumbers.one;
     return await StringComparison.isCollaborator(
         chosenCollaboratorNumber: chosenCollaboratorNumber,
-        input: queries.collaboratorInfo.theUsersCollaboratorNumber,
+        input: workingQueries.collaboratorInfo.theUsersCollaboratorNumber,
         callback: () async =>
-            await queries.createCollaborativeDocument(docType: docType),
+            await workingQueries.createCollaborativeDocument(docType: docType),
         elseReturnVal: []);
   }
 
@@ -59,24 +61,24 @@ class CollaborativeDocRemoteSourceImpl implements CollaborativeDocRemoteSource {
   Future<void> updateCollaborativeDoc({
     required String newContent,
   }) async {
-    return await queries.updateUsersDocContent(
+    return await workingQueries.updateUsersDocContent(
       newContent: newContent,
     );
   }
 
   @override
   Future<void> updateUserDelta({required int updatedDelta}) async {
-    return await queries.updateDelta(deltaParam: updatedDelta);
+    return await workingQueries.updateDelta(deltaParam: updatedDelta);
   }
 
   @override
   Future<void> updateUserPresence({required bool updatedUserPresence}) async {
-    return await queries.updatePresence(isPresent: updatedUserPresence);
+    return await workingQueries.updatePresence(isPresent: updatedUserPresence);
   }
 
   @override
   Future<void> updateCommitDesireStatus({required bool wantsToCommit}) async {
-    return await queries.updateCommitDesireStatus(
+    return await workingQueries.updateCommitDesireStatus(
         wantsToCommitParam: wantsToCommit);
   }
 }
