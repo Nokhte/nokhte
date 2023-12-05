@@ -55,7 +55,7 @@ abstract class _BaseCollaborativeTextEditorStoreBase extends Equatable
   collaborativeDocListener(
     ObservableStream<DocInfoContent> docContentStream, {
     required Function(String) updateTheDoc,
-    required Function consecrateTheCollaboration,
+    required Function(String) onCommitted,
     required Function revertAffirmativeCommitDesire,
     required Function updateCommitStatusToAffirmative,
   }) =>
@@ -69,7 +69,7 @@ abstract class _BaseCollaborativeTextEditorStoreBase extends Equatable
         );
         wantsToCommitChanges(
           value,
-          purposeIsCommitted: consecrateTheCollaboration,
+          purposeIsCommitted: onCommitted,
         );
       });
 
