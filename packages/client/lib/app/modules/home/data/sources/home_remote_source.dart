@@ -18,7 +18,7 @@ class HomeRemoteSourceImpl implements HomeRemoteSource {
   final SupabaseClient supabase;
   final ExistingCollaborationsQueries existingCollaborationsQueries;
   final P2PPerspectivesTrackingQueries perspectivesQueries;
-  final FinishedCollaborativeP2PPurposeDocumentsQueries
+  final FinishedCollaborativeDocumentsQueries
       finishedCollaborativeP2PPurposeDocumentsQueries;
   final CollaboratorPhraseQueries collaboratorPhraseQueries;
 
@@ -28,7 +28,7 @@ class HomeRemoteSourceImpl implements HomeRemoteSource {
         perspectivesQueries =
             P2PPerspectivesTrackingQueries(supabase: supabase),
         finishedCollaborativeP2PPurposeDocumentsQueries =
-            FinishedCollaborativeP2PPurposeDocumentsQueries(supabase: supabase),
+            FinishedCollaborativeDocumentsQueries(supabase: supabase),
         collaboratorPhraseQueries =
             CollaboratorPhraseQueries(supabase: supabase);
 
