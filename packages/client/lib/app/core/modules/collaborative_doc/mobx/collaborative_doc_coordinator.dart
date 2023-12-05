@@ -9,6 +9,7 @@ class CollaborativeDocCoordinator = _CollaborativeDocCoordinatorBase
     with _$CollaborativeDocCoordinator;
 
 abstract class _CollaborativeDocCoordinatorBase extends Equatable with Store {
+  final MoveToFinishedDocs moveToFinishedDocs;
   final UpdateCommitDesireStatus updateCommitDesire;
   final UpdateUserDelta updateDelta;
   final UpdateUserPresence updatePresence;
@@ -18,6 +19,7 @@ abstract class _CollaborativeDocCoordinatorBase extends Equatable with Store {
   final UpdateCollaborativeDoc updateDoc;
 
   _CollaborativeDocCoordinatorBase({
+    required this.moveToFinishedDocs,
     required this.updateDoc,
     required this.createDoc,
     required this.getContent,
