@@ -6,7 +6,7 @@ import 'package:nokhte/app/core/mobx/base_future_store.dart';
 import 'package:nokhte/app/core/mobx/base_mobx_db_store.dart';
 import 'package:nokhte/app/core/mobx/store_state.dart';
 import 'package:nokhte/app/modules/home/domain/entities/entities.dart';
-import 'package:nokhte/app/modules/home/presentation/mobx/getter/get_collaborator_phrase_getter_store.dart';
+import 'package:nokhte/app/modules/home/domain/logic/logic.dart';
 part 'get_collaborator_phrase_store.g.dart';
 
 class GetCollaboratorPhraseStore = _GetCollaboratorPhraseStoreBase
@@ -14,10 +14,10 @@ class GetCollaboratorPhraseStore = _GetCollaboratorPhraseStoreBase
 
 abstract class _GetCollaboratorPhraseStoreBase
     extends BaseMobxDBStore<NoParams, CollaboratorPhraseEntity> with Store {
-  final GetCollaboratorPhraseGetterStore getterStore;
+  final GetCollaboratorPhrase logic;
 
   _GetCollaboratorPhraseStoreBase({
-    required this.getterStore,
+    required this.logic,
   });
 
   CollaboratorPhraseEntity collaboratorPhraseEntity =
@@ -52,7 +52,7 @@ abstract class _GetCollaboratorPhraseStoreBase
   @action
   Future<void> call(NoParams params) async {
     state = StoreState.loading;
-    futureStore.entityOrFailureFuture = ObservableFuture(getterStore());
+    futureStore.entityOrFailureFuture = ObservableFuture(logic(params));
     futureStore.unwrappedEntityOrFailure =
         await futureStore.entityOrFailureFuture;
     state = StoreState.loaded;

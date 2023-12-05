@@ -7,8 +7,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/base_future_store.dart';
 import 'package:nokhte/app/core/mobx/base_mobx_db_store.dart';
 import 'package:nokhte/app/core/mobx/store_state.dart';
-import 'package:nokhte/app/modules/home/domain/entities/name_creation_status_entity.dart';
-import 'package:nokhte/app/modules/home/presentation/mobx/getter/add_name_to_database_getter_store.dart';
+import 'package:nokhte/app/modules/home/domain/domain.dart';
 part 'add_name_to_database_store.g.dart';
 
 class AddNameToDatabaseStore = _AddNameToDatabaseStoreBase
@@ -16,9 +15,9 @@ class AddNameToDatabaseStore = _AddNameToDatabaseStoreBase
 
 abstract class _AddNameToDatabaseStoreBase
     extends BaseMobxDBStore<NoParams, NameCreationStatusEntity> with Store {
-  final AddNameToDatabaseGetterStore getterStore;
+  final AddNameToDatabase logic;
 
-  _AddNameToDatabaseStoreBase({required this.getterStore});
+  _AddNameToDatabaseStoreBase({required this.logic});
 
   NameCreationStatusEntity nameCreationStatus = const NameCreationStatusEntity(
     isSent: false,
@@ -50,7 +49,7 @@ abstract class _AddNameToDatabaseStoreBase
   Future<void> call(NoParams params) async {
     state = StoreState.loading;
     futureStore.entityOrFailureFuture = ObservableFuture(
-      getterStore(),
+      logic(params),
     );
     futureStore.unwrappedEntityOrFailure =
         await futureStore.entityOrFailureFuture;

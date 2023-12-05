@@ -4,7 +4,6 @@ import 'package:nokhte/app/core/constants/entities.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/modules/home/domain/domain.dart';
-import 'package:nokhte/app/modules/home/presentation/presentation.dart';
 part 'get_existing_collaborations_info_store.g.dart';
 
 class GetExistingCollaborationsInfoStore = _GetExistingCollaborationsInfoStoreBase
@@ -22,8 +21,8 @@ abstract class _GetExistingCollaborationsInfoStoreBase
   @observable
   bool hasCommittedAPurpose = false;
 
-  final GetExistingCollaborationsInfoGetterStore getterStore;
-  _GetExistingCollaborationsInfoStoreBase({required this.getterStore});
+  final GetExistingCollaborationsInfo logic;
+  _GetExistingCollaborationsInfoStoreBase({required this.logic});
 
   @observable
   BaseFutureStore<ExistingCollaborationsInfoEntity> futureStore =
@@ -50,7 +49,7 @@ abstract class _GetExistingCollaborationsInfoStoreBase
   @action
   Future<void> call(params) async {
     state = StoreState.loading;
-    futureStore.entityOrFailureFuture = ObservableFuture(getterStore(params));
+    futureStore.entityOrFailureFuture = ObservableFuture(logic(params));
     futureStore.unwrappedEntityOrFailure =
         await futureStore.entityOrFailureFuture;
     stateOrErrorUpdater(futureStore.unwrappedEntityOrFailure);
