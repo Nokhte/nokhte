@@ -317,6 +317,43 @@ class MockMCollaborativeDocContract extends _i1.Mock
           ) as _i5.Future<
               _i2.Either<_i7.Failure,
                   _i3.CollaborativeDocUpdateCommitDesireStatusEntity>>);
+
+  @override
+  _i5.Future<
+      _i2.Either<
+          _i7.Failure,
+          _i3
+          .CollaborativeDocMoveToFinishedDocsStatusEntity>> moveToFinishedDocs({
+    required String? docContent,
+    required String? docType,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #moveToFinishedDocs,
+          [],
+          {
+            #docContent: docContent,
+            #docType: docType,
+          },
+        ),
+        returnValue: _i5.Future<
+                _i2.Either<_i7.Failure,
+                    _i3.CollaborativeDocMoveToFinishedDocsStatusEntity>>.value(
+            _FakeEither_0<_i7.Failure,
+                _i3.CollaborativeDocMoveToFinishedDocsStatusEntity>(
+          this,
+          Invocation.method(
+            #moveToFinishedDocs,
+            [],
+            {
+              #docContent: docContent,
+              #docType: docType,
+            },
+          ),
+        )),
+      ) as _i5.Future<
+          _i2.Either<_i7.Failure,
+              _i3.CollaborativeDocMoveToFinishedDocsStatusEntity>>);
 }
 
 /// A class which mocks [MGetCollaborativeDocContent].
