@@ -15,7 +15,7 @@ import 'package:nokhte/app/modules/home/presentation/mobx/main/main.dart';
 import 'package:nokhte/app/modules/home/types/types.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-part 'home_screen_coordinator_store.g.dart';
+part 'home_screen_coordinator.g.dart';
 
 class HomeScreenCoordinatorStore = _HomeScreenCoordinatorStoreBase
     with _$HomeScreenCoordinatorStore;
@@ -150,6 +150,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
   @action
   holdListener() => reaction((p0) => hold.holdCount, (p0) async {
         print("$p0");
+
         if (isAllowedMakeAHoldNavigation) {
           await Haptics.vibrate(HapticsType.medium);
           fadeTheTextOutAndWaterComesDown(PlacesYouCanGo.newCollaboration);
