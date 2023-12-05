@@ -7,19 +7,19 @@ import 'shared/shared.dart';
 
 void main() {
   final tSetup = CommonCollaborativeTestFunctions();
-  late FinishedCollaborativeP2PPurposeDocumentsQueries user1FinishedQueries;
-  late FinishedCollaborativeP2PPurposeDocumentsQueries user2FinishedQueries;
-  late FinishedCollaborativeP2PPurposeDocumentsQueries adminQueries;
+  late FinishedCollaborativeDocumentsQueries user1FinishedQueries;
+  late FinishedCollaborativeDocumentsQueries user2FinishedQueries;
+  late FinishedCollaborativeDocumentsQueries adminQueries;
 
   setUpAll(() async {
     await tSetup.setUp();
-    user1FinishedQueries = FinishedCollaborativeP2PPurposeDocumentsQueries(
+    user1FinishedQueries = FinishedCollaborativeDocumentsQueries(
       supabase: tSetup.user1Supabase,
     );
-    user2FinishedQueries = FinishedCollaborativeP2PPurposeDocumentsQueries(
+    user2FinishedQueries = FinishedCollaborativeDocumentsQueries(
       supabase: tSetup.user2Supabase,
     );
-    adminQueries = FinishedCollaborativeP2PPurposeDocumentsQueries(
+    adminQueries = FinishedCollaborativeDocumentsQueries(
       supabase: tSetup.supabaseAdmin,
     );
   });
