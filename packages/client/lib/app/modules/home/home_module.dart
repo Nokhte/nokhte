@@ -11,7 +11,6 @@ import 'package:nokhte/app/modules/home/data/contracts/home_contract_impl.dart';
 import 'package:nokhte/app/modules/home/data/sources/home_remote_source.dart';
 import 'package:nokhte/app/modules/home/domain/contracts/home_contract.dart';
 import 'package:nokhte/app/modules/home/domain/logic/logic.dart';
-import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/home_screen_coordinator_store.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 import 'package:nokhte/app/modules/home/presentation/screens/home_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -52,34 +51,19 @@ class HomeModule extends Module {
             contract: i<HomeContract>(),
           ),
         ),
-        Bind.singleton<AddNameToDatabaseGetterStore>(
-          (i) => AddNameToDatabaseGetterStore(
-            logic: i<AddNameToDatabase>(),
-          ),
-        ),
-        Bind.singleton<GetCollaboratorPhraseGetterStore>(
-          (i) => GetCollaboratorPhraseGetterStore(
-            logic: i<GetCollaboratorPhrase>(),
-          ),
-        ),
-        Bind.singleton<GetExistingCollaborationsInfoGetterStore>(
-          (i) => GetExistingCollaborationsInfoGetterStore(
-            logic: i<GetExistingCollaborationsInfo>(),
-          ),
-        ),
         Bind.singleton<GetExistingCollaborationsInfoStore>(
           (i) => GetExistingCollaborationsInfoStore(
-            getterStore: i<GetExistingCollaborationsInfoGetterStore>(),
+            logic: i<GetExistingCollaborationsInfo>(),
           ),
         ),
         Bind.singleton<AddNameToDatabaseStore>(
           (i) => AddNameToDatabaseStore(
-            getterStore: i<AddNameToDatabaseGetterStore>(),
+            logic: i<AddNameToDatabase>(),
           ),
         ),
         Bind.singleton<GetCollaboratorPhraseStore>(
           (i) => GetCollaboratorPhraseStore(
-            getterStore: i<GetCollaboratorPhraseGetterStore>(),
+            logic: i<GetCollaboratorPhrase>(),
           ),
         ),
         Bind.singleton<SmartFadingAnimatedTextTrackerStore>(
