@@ -16,12 +16,6 @@ class MAddNameToDatabase extends Mock implements AddNameToDatabase {}
 
 class MGetCollaboratorPhrase extends Mock implements GetCollaboratorPhrase {}
 
-class MAddNameToDatabaseGetterStore extends Mock
-    implements AddNameToDatabaseGetterStore {}
-
-class MGetCollaboratorPhraseGetterStore extends Mock
-    implements GetCollaboratorPhraseGetterStore {}
-
 class MAddNameToDatabaseStore extends Mock implements AddNameToDatabaseStore {}
 
 class MGetCollaboratorPhraseStore extends Mock
@@ -33,8 +27,6 @@ class MGetCollaboratorPhraseStore extends Mock
   MRemoteSource,
   MGetCollaboratorPhrase,
   MAddNameToDatabase,
-  MGetCollaboratorPhraseGetterStore,
-  MAddNameToDatabaseGetterStore,
   MAddNameToDatabaseStore,
   MGetCollaboratorPhraseStore,
 ])
