@@ -48,7 +48,9 @@ abstract class _P2PPurposePhase5CoordinatorBase
       revertAffirmativeCommitDesire: revertAffirmativeCommitDesire,
       updateCommitStatusToAffirmative: updateCommitStatusToAffirmative,
     );
-    gestureListener(widgets.updateCommitStatusToAffirmative);
+    gestureListener(
+      widgetsSwipeUpCallback: widgets.updateCommitStatusToAffirmative,
+    );
     widgets.userTextControllerListener(
       collaborativeDocDB: collaborativeDocDB,
     );
