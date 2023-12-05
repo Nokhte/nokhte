@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
 import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
 import 'package:nokhte_core/custom_control_structures.dart';
 import 'package:nokhte_core/types/types.dart';
@@ -14,6 +15,9 @@ abstract class CollaborativeDocRemoteSource {
   Future<void> updateCollaborativeDoc({
     required String newContent,
   });
+  Future<List> moveToFinishedDocs(
+    MoveToFinishedDocsParams moveToFinishedDocsParams,
+  );
 }
 
 class CollaborativeDocRemoteSourceImpl implements CollaborativeDocRemoteSource {
