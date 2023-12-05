@@ -125,9 +125,9 @@ class CollectiveSessionModule extends Module {
         ),
         Bind.singleton<CollectiveSessionPhase2WidgetsCoordinator>(
           (i) => CollectiveSessionPhase2WidgetsCoordinator(
-            gesturePill: i<GesturePillStore>(),
+            gesturePillStore: i<GesturePillStore>(),
             beachWaves: Modular.get<BeachWavesTrackerStore>(),
-            collaborativeTextEditor:
+            collaborativeTextUI:
                 Modular.get<CollaborativeTextEditorTrackerStore>(),
           ),
         ),
@@ -157,7 +157,7 @@ class CollectiveSessionModule extends Module {
               swipe: Modular.get<SwipeDetector>(),
               widgets: i<CollectiveSessionPhase2WidgetsCoordinator>(),
               voiceCall: i<VoiceCallActionsStore>(),
-              collaborativeDoc: i<CollaborativeDocCoordinator>()),
+              collaborativeDocDB: i<CollaborativeDocCoordinator>()),
         ),
       ];
 
