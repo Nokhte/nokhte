@@ -7,11 +7,11 @@ abstract class GetThePurposeRemoteSource {
 
 class GetThePurposeSourceImpl implements GetThePurposeRemoteSource {
   final SupabaseClient supabase;
-  final FinishedCollaborativeP2PPurposeDocumentsQueries queries;
+  final FinishedCollaborativeDocumentsQueries queries;
 
   GetThePurposeSourceImpl({
     required this.supabase,
-  }) : queries = FinishedCollaborativeP2PPurposeDocumentsQueries(
+  }) : queries = FinishedCollaborativeDocumentsQueries(
           supabase: supabase,
         );
 
