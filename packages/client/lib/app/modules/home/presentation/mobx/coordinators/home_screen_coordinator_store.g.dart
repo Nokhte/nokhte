@@ -9,30 +9,24 @@ part of 'home_screen_coordinator_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$HomeScreenCoordinatorStore on _HomeScreenCoordinatorStoreBase, Store {
-  Computed<bool>? _$isAllowedMakeANavigationComputed;
+  Computed<bool>? _$isAllowedMakeAHoldNavigationComputed;
 
   @override
-  bool get isAllowedMakeANavigation => (_$isAllowedMakeANavigationComputed ??=
-          Computed<bool>(() => super.isAllowedMakeANavigation,
-              name: '_HomeScreenCoordinatorStoreBase.isAllowedMakeANavigation'))
-      .value;
-
-  late final _$placesYouCanGoCountAtom = Atom(
-      name: '_HomeScreenCoordinatorStoreBase.placesYouCanGoCount',
-      context: context);
-
-  @override
-  int get placesYouCanGoCount {
-    _$placesYouCanGoCountAtom.reportRead();
-    return super.placesYouCanGoCount;
-  }
+  bool get isAllowedMakeAHoldNavigation =>
+      (_$isAllowedMakeAHoldNavigationComputed ??= Computed<bool>(
+              () => super.isAllowedMakeAHoldNavigation,
+              name:
+                  '_HomeScreenCoordinatorStoreBase.isAllowedMakeAHoldNavigation'))
+          .value;
+  Computed<bool>? _$isAllowedMakeASwipeNavigationComputed;
 
   @override
-  set placesYouCanGoCount(int value) {
-    _$placesYouCanGoCountAtom.reportWrite(value, super.placesYouCanGoCount, () {
-      super.placesYouCanGoCount = value;
-    });
-  }
+  bool get isAllowedMakeASwipeNavigation =>
+      (_$isAllowedMakeASwipeNavigationComputed ??= Computed<bool>(
+              () => super.isAllowedMakeASwipeNavigation,
+              name:
+                  '_HomeScreenCoordinatorStoreBase.isAllowedMakeASwipeNavigation'))
+          .value;
 
   late final _$thePlaceTheyAreGoingAtom = Atom(
       name: '_HomeScreenCoordinatorStoreBase.thePlaceTheyAreGoing',
@@ -81,19 +75,6 @@ mixin _$HomeScreenCoordinatorStore on _HomeScreenCoordinatorStoreBase, Store {
   late final _$_HomeScreenCoordinatorStoreBaseActionController =
       ActionController(
           name: '_HomeScreenCoordinatorStoreBase', context: context);
-
-  @override
-  dynamic incrementPlacesYouCanGoCount() {
-    final _$actionInfo =
-        _$_HomeScreenCoordinatorStoreBaseActionController.startAction(
-            name:
-                '_HomeScreenCoordinatorStoreBase.incrementPlacesYouCanGoCount');
-    try {
-      return super.incrementPlacesYouCanGoCount();
-    } finally {
-      _$_HomeScreenCoordinatorStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
 
   @override
   dynamic portalAPIListener() {
@@ -157,10 +138,10 @@ mixin _$HomeScreenCoordinatorStore on _HomeScreenCoordinatorStoreBase, Store {
   @override
   String toString() {
     return '''
-placesYouCanGoCount: ${placesYouCanGoCount},
 thePlaceTheyAreGoing: ${thePlaceTheyAreGoing},
 isNavigating: ${isNavigating},
-isAllowedMakeANavigation: ${isAllowedMakeANavigation}
+isAllowedMakeAHoldNavigation: ${isAllowedMakeAHoldNavigation},
+isAllowedMakeASwipeNavigation: ${isAllowedMakeASwipeNavigation}
     ''';
   }
 }

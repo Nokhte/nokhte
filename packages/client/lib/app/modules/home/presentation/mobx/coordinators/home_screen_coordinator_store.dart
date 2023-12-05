@@ -45,17 +45,10 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
   });
 
   @observable
-  int placesYouCanGoCount = 0;
-
-  @action
-  incrementPlacesYouCanGoCount() => placesYouCanGoCount++;
-
-  @observable
   PlacesYouCanGo thePlaceTheyAreGoing = PlacesYouCanGo.initial;
 
   @action
   homeScreenConstructorCallback() async {
-    // beachWaves.setControl(Control.mirror);
     newBeachWave.setMovieMode(BeachWaveMovieModes.onShore);
     beachWavesListener();
     gesturePillStore
@@ -138,8 +131,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
   @action
   gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
         print("$p0");
-        if (isAllowedMakeANavigation) {
-          // todo make this more specific so this doesn't trigger if no purpose is ocmmitted
+        if (isAllowedMakeASwipeNavigation) {
           switch (p0) {
             case GestureDirections.up:
               if (getExistingCollaborationInfo.hasCommittedAPurpose) {
@@ -152,17 +144,15 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
             default:
               break;
           }
-          incrementPlacesYouCanGoCount();
         }
       });
 
   @action
   holdListener() => reaction((p0) => hold.holdCount, (p0) async {
         print("$p0");
-        if (isAllowedMakeANavigation) {
+        if (isAllowedMakeAHoldNavigation) {
           await Haptics.vibrate(HapticsType.medium);
           fadeTheTextOutAndWaterComesDown(PlacesYouCanGo.newCollaboration);
-          incrementPlacesYouCanGoCount();
         }
       });
 
@@ -181,7 +171,9 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
   }
 
   @computed
-  bool get isAllowedMakeANavigation => placesYouCanGoCount == 0;
+  bool get isAllowedMakeAHoldNavigation => !swipe.hasAlreadyMadeGesture;
+  @computed
+  bool get isAllowedMakeASwipeNavigation => hold.holdCount == 0;
 
   @override
   List<Object> get props => [];
