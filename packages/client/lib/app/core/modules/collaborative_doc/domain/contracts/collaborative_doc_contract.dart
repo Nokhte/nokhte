@@ -17,4 +17,6 @@ abstract class CollaborativeDocContract {
       updateUserPresence({required bool newPresence});
   Future<Either<Failure, CollaborativeDocUpdateCommitDesireStatusEntity>>
       updateCommitDesireStatus({required bool wantsToCommit});
+  Future<Either<Failure, CollaborativeDocMoveToFinishedDocsStatusEntity>>
+      moveToFinishedDocs({required String docContent, required String docType});
 }
