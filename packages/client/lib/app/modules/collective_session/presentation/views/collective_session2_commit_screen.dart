@@ -38,7 +38,7 @@ class CollectiveSession2CommitScreen extends StatelessWidget {
                 ),
                 Center(
                   child: CollaborativeTextEditor(
-                    trackerStore: coordinator.widgets.collaborativeTextEditor,
+                    trackerStore: coordinator.widgets.collaborativeTextUI,
                     fadeInDuration: Seconds.get(1),
                   ),
                 ),
@@ -52,7 +52,8 @@ class CollectiveSession2CommitScreen extends StatelessWidget {
                       children: [
                         GesturePill(
                           size: size,
-                          stateTrackerStore: coordinator.widgets.gesturePill,
+                          stateTrackerStore:
+                              coordinator.widgets.gesturePillStore,
                         ),
                       ],
                     ),
