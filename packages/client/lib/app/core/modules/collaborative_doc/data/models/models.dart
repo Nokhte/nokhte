@@ -1,6 +1,7 @@
 export 'collaborative_doc_collaborator_info_model.dart';
 export 'collaborative_doc_collaborator_presence_model.dart';
 export 'collaborative_doc_content_model.dart';
+export 'collaborative_doc_move_to_finished_docs_status_model.dart';
 export 'collaborative_doc_creation_status_model.dart';
 export 'collaborative_doc_update_status_model.dart';
 export 'collaborative_doc_delta_updater_status_model.dart';
