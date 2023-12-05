@@ -49,18 +49,9 @@ abstract class _CollectiveSessionPhase2CoordinatorBase
     widgets.collaborativeDocListener(
       collaborativeDocDB.getContent.docContent,
       updateTheDoc: updateTheDoc,
-      onCommitted: commitTheDoc,
+      onCommitted: moveToFinishedDocs,
       revertAffirmativeCommitDesire: revertAffirmativeCommitDesire,
       updateCommitStatusToAffirmative: updateCommitStatusToAffirmative,
-    );
-  }
-
-  commitTheDoc(String docContent) async {
-    await collaborativeDocDB.moveToFinishedDocs(
-      MoveToFinishedDocsParams(
-        docContent: docContent,
-        docType: 'collective',
-      ),
     );
   }
 }
