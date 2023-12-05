@@ -9,13 +9,13 @@ import '../../../constants/entities/entities.dart';
 import '../../../fixtures/home_stack_mock_gen.mocks.dart';
 
 void main() {
-  late MockMAddNameToDatabaseGetterStore mockGetterStore;
+  late MockMAddNameToDatabase mockGetterStore;
   late AddNameToDatabaseStore addNameToDatabaseStore;
 
   setUp(() {
-    mockGetterStore = MockMAddNameToDatabaseGetterStore();
+    mockGetterStore = MockMAddNameToDatabase();
     addNameToDatabaseStore = AddNameToDatabaseStore(
-      getterStore: mockGetterStore,
+      logic: mockGetterStore,
     );
   });
 
@@ -42,7 +42,7 @@ void main() {
   group("call", () {
     test("✅ Success Case: should update accordingly if state is passed",
         () async {
-      when(mockGetterStore()).thenAnswer(
+      when(mockGetterStore(NoParams())).thenAnswer(
         (_) async => ConstantNameCreationStatusEntities.wrappedSuccessCase,
       );
       await addNameToDatabaseStore(NoParams());
@@ -54,7 +54,7 @@ void main() {
     });
     test("❌ Success Case: should update accordingly if failure is passed",
         () async {
-      when(mockGetterStore()).thenAnswer(
+      when(mockGetterStore(NoParams())).thenAnswer(
         (_) async => Left(FailureConstants.dbFailure),
       );
       await addNameToDatabaseStore(NoParams());

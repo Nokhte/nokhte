@@ -9,13 +9,13 @@ import '../../../constants/entities/entities.dart';
 import '../../../fixtures/home_stack_mock_gen.mocks.dart';
 
 void main() {
-  late MockMGetCollaboratorPhraseGetterStore mockGetterStore;
+  late MockMGetCollaboratorPhrase mockLogic;
   late GetCollaboratorPhraseStore getCollaboratorPhraseStore;
 
   setUp(() {
-    mockGetterStore = MockMGetCollaboratorPhraseGetterStore();
+    mockLogic = MockMGetCollaboratorPhrase();
     getCollaboratorPhraseStore = GetCollaboratorPhraseStore(
-      getterStore: mockGetterStore,
+      logic: mockLogic,
     );
   });
 
@@ -33,7 +33,7 @@ void main() {
   group("call", () {
     test("✅ Success Case: should update accordingly if state is passed",
         () async {
-      when(mockGetterStore()).thenAnswer(
+      when(mockLogic(NoParams())).thenAnswer(
         (_) async => ConstantCollaboratorPhraseEntities.wrappedSuccessCase,
       );
       await getCollaboratorPhraseStore(NoParams());
@@ -45,7 +45,7 @@ void main() {
     });
     test("❌ Success Case: should update accordingly if failure is passed",
         () async {
-      when(mockGetterStore()).thenAnswer(
+      when(mockLogic(NoParams())).thenAnswer(
         (_) async => Left(FailureConstants.dbFailure),
       );
       await getCollaboratorPhraseStore(NoParams());
