@@ -39,6 +39,12 @@ class CollaborativeDocModule extends Module {
           ),
           export: true,
         ),
+        Bind.singleton<MoveToFinishedDocs>(
+          (i) => MoveToFinishedDocs(
+            contract: i<CollaborativeDocContract>(),
+          ),
+          export: true,
+        ),
         Bind.singleton<UpdateCommitDesireStatus>(
           (i) => UpdateCommitDesireStatus(
             contract: i<CollaborativeDocContract>(),
@@ -71,6 +77,7 @@ class CollaborativeDocModule extends Module {
         ),
         Bind.singleton<CollaborativeDocCoordinator>(
           (i) => CollaborativeDocCoordinator(
+            moveToFinishedDocs: i<MoveToFinishedDocs>(),
             updateCommitDesire: i<UpdateCommitDesireStatus>(),
             updateDoc: i<UpdateCollaborativeDoc>(),
             createDoc: i<CreateCollaborativeDoc>(),
