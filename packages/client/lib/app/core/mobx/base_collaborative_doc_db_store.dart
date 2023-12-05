@@ -48,18 +48,16 @@ abstract class _BaseCollaborativeDocDBStoreBase extends BaseCoordinator
           const UpdateCommitDesireStatusParams(wantsToCommit: false));
 
   @action
-  updateCommitStatusToAffirmative(Function widgetsAffirmativeCallback) async {
-    await collaborativeDocDB.updateCommitDesire(
-      const UpdateCommitDesireStatusParams(wantsToCommit: true),
-    );
-    widgetsAffirmativeCallback();
-  }
+  updateCommitStatusToAffirmative(Function widgetsAffirmativeCallback) async {}
 
   gestureListener(Function widgetsAffirmativeCallback) =>
       reaction((p0) => swipe.directionsType, (p0) async {
         switch (p0) {
           case GestureDirections.up:
-            await updateCommitStatusToAffirmative(widgetsAffirmativeCallback);
+            await collaborativeDocDB.updateCommitDesire(
+              const UpdateCommitDesireStatusParams(wantsToCommit: true),
+            );
+            widgetsAffirmativeCallback();
           default:
             break;
         }
