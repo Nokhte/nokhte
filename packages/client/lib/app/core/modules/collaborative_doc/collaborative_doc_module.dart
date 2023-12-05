@@ -3,7 +3,6 @@ import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/data/data.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
 import 'package:nokhte/app/core/modules/collaborative_doc/mobx/mobx.dart';
-import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class CollaborativeDocModule extends Module {
@@ -12,12 +11,6 @@ class CollaborativeDocModule extends Module {
         Bind.singleton<CollaborativeDocRemoteSourceImpl>(
           (i) => CollaborativeDocRemoteSourceImpl(
             supabase: Modular.get<SupabaseClient>(),
-            queries: WorkingCollaborativeDocumentsQueries(
-              supabase: Modular.get<SupabaseClient>(),
-            ),
-            streams: WorkingCollaborativeDocumentsStreams(
-              supabase: Modular.get<SupabaseClient>(),
-            ),
           ),
           export: true,
         ),
