@@ -53,34 +53,6 @@ mixin _$CollectiveSessionPhase2Coordinator
     return _$screenConstructorAsyncAction.run(() => super.screenConstructor());
   }
 
-  late final _$updateCommitStatusAsyncAction = AsyncAction(
-      '_CollectiveSessionPhase2CoordinatorBase.updateCommitStatus',
-      context: context);
-
-  @override
-  Future updateCommitStatus() {
-    return _$updateCommitStatusAsyncAction
-        .run(() => super.updateCommitStatus());
-  }
-
-  late final _$_CollectiveSessionPhase2CoordinatorBaseActionController =
-      ActionController(
-          name: '_CollectiveSessionPhase2CoordinatorBase', context: context);
-
-  @override
-  dynamic userTextControllerListener() {
-    final _$actionInfo =
-        _$_CollectiveSessionPhase2CoordinatorBaseActionController.startAction(
-            name:
-                '_CollectiveSessionPhase2CoordinatorBase.userTextControllerListener');
-    try {
-      return super.userTextControllerListener();
-    } finally {
-      _$_CollectiveSessionPhase2CoordinatorBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
   @override
   String toString() {
     return '''
