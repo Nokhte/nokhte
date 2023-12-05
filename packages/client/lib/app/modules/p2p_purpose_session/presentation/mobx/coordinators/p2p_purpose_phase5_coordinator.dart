@@ -83,12 +83,7 @@ abstract class _P2PPurposePhase5CoordinatorBase
 
   consecrateTheCollaboration(String docContent) async {
     await existingCollaborations.consecrateTheCollaboration(NoParams());
-    await collaborativeDocDB.moveToFinishedDocs(
-      MoveToFinishedDocsParams(
-        docContent: docContent,
-        docType: 'purpose',
-      ),
-    );
+    await moveToFinishedDocs(docContent);
   }
 
   @override
