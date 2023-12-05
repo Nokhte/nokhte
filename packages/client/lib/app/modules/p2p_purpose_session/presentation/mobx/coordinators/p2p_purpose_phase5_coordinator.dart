@@ -48,7 +48,7 @@ abstract class _P2PPurposePhase5CoordinatorBase extends BaseCoordinator
     widgets.collaborativeDocListener(
       collaborativeDocDB.getContent.docContent,
       updateTheDoc: updateTheDoc,
-      consecrateTheCollaboration: consecrateTheCollaboration,
+      onCommitted: consecrateTheCollaboration,
       revertAffirmativeCommitDesire: revertAffirmativeCommitDesire,
       updateCommitStatusToAffirmative: updateCommitStatusToAffirmative,
     );
@@ -89,8 +89,15 @@ abstract class _P2PPurposePhase5CoordinatorBase extends BaseCoordinator
     ));
   }
 
-  consecrateTheCollaboration() async =>
-      await existingCollaborations.consecrateTheCollaboration(NoParams());
+  consecrateTheCollaboration(String docContent) async {
+    await existingCollaborations.consecrateTheCollaboration(NoParams());
+    await collaborativeDocDB.moveToFinishedDocs(
+      MoveToFinishedDocsParams(
+        docContent: docContent,
+        docType: 'purpose',
+      ),
+    );
+  }
 
   revertAffirmativeCommitDesire() async =>
       await collaborativeDocDB.updateCommitDesire(
