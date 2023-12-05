@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 // * Equatable Import
-import 'package:nokhte/app/core/mobx/base_collaborative_text_editor_store.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 // * Mobx Codegen Inclusion
