@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nokhte_backend/tables/finished_collaborative_documents.dart';
 import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
 
 import 'shared/shared.dart';
@@ -10,7 +9,6 @@ void main() {
   final tSetup = CommonCollaborativeTestFunctions();
   late WorkingCollaborativeDocumentsQueries user1WorkingQueries;
   late WorkingCollaborativeDocumentsQueries adminWorkingQueries;
-  late FinishedCollaborativeP2PPurposeDocumentsQueries adminFinishedQueries;
   late String usersCollaboratorNumber;
   late String collaboratorsNumber;
   late String usersUID;
@@ -34,19 +32,14 @@ void main() {
     collaboratorsNumber =
         user1WorkingQueries.collaboratorInfo.theCollaboratorsNumber;
     collaboratorsUID = user1WorkingQueries.collaboratorInfo.theCollaboratorsUID;
-    adminFinishedQueries = FinishedCollaborativeP2PPurposeDocumentsQueries(
-      supabase: tSetup.supabaseAdmin,
-    );
     adminWorkingQueries =
         WorkingCollaborativeDocumentsQueries(supabase: tSetup.supabaseAdmin);
   });
 
   tearDownAll(() async {
-    adminFinishedQueries.collaboratorInfo =
-        user1WorkingQueries.collaboratorInfo;
+    adminWorkingQueries.collaboratorInfo = user1WorkingQueries.collaboratorInfo;
     adminWorkingQueries.collaboratorInfo = user1WorkingQueries.collaboratorInfo;
     await adminWorkingQueries.deleteThedoc();
-    await adminFinishedQueries.deleteADoc();
     await tSetup.tearDownAll();
   });
 
