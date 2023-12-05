@@ -26,14 +26,14 @@ class CollaborativeDocRemoteSourceImpl implements CollaborativeDocRemoteSource {
   final String currentUserUID;
   final WorkingCollaborativeDocumentsStreams streams;
   final WorkingCollaborativeDocumentsQueries workingQueries;
-  final FinishedCollaborativeP2PPurposeDocumentsQueries finishedQueries;
+  final FinishedCollaborativeDocumentsQueries finishedQueries;
 
   CollaborativeDocRemoteSourceImpl({
     required this.supabase,
   })  : workingQueries =
             WorkingCollaborativeDocumentsQueries(supabase: supabase),
         finishedQueries =
-            FinishedCollaborativeP2PPurposeDocumentsQueries(supabase: supabase),
+            FinishedCollaborativeDocumentsQueries(supabase: supabase),
         streams = WorkingCollaborativeDocumentsStreams(supabase: supabase),
         currentUserUID = supabase.auth.currentUser?.id ?? '';
 
@@ -84,4 +84,12 @@ class CollaborativeDocRemoteSourceImpl implements CollaborativeDocRemoteSource {
     return await workingQueries.updateCommitDesireStatus(
         wantsToCommitParam: wantsToCommit);
   }
+
+  @override
+  Future<List> moveToFinishedDocs(
+          MoveToFinishedDocsParams moveToFinishedDocsParams) async =>
+      await finishedQueries.insertDoc(
+        docType: moveToFinishedDocsParams.docType,
+        content: moveToFinishedDocsParams.docContent,
+      );
 }
