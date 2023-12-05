@@ -25,6 +25,22 @@ mixin _$P2PPurposePhase5Coordinator on _P2PPurposePhase5CoordinatorBase, Store {
     });
   }
 
+  late final _$isInitialLoadAtom = Atom(
+      name: '_P2PPurposePhase5CoordinatorBase.isInitialLoad', context: context);
+
+  @override
+  bool get isInitialLoad {
+    _$isInitialLoadAtom.reportRead();
+    return super.isInitialLoad;
+  }
+
+  @override
+  set isInitialLoad(bool value) {
+    _$isInitialLoadAtom.reportWrite(value, super.isInitialLoad, () {
+      super.isInitialLoad = value;
+    });
+  }
+
   late final _$bottomCircleIsUpAtom = Atom(
       name: '_P2PPurposePhase5CoordinatorBase.bottomCircleIsUp',
       context: context);
@@ -51,20 +67,11 @@ mixin _$P2PPurposePhase5Coordinator on _P2PPurposePhase5CoordinatorBase, Store {
     return _$screenConstructorAsyncAction.run(() => super.screenConstructor());
   }
 
-  late final _$updateCommitStatusToAffirmativeAsyncAction = AsyncAction(
-      '_P2PPurposePhase5CoordinatorBase.updateCommitStatusToAffirmative',
-      context: context);
-
-  @override
-  Future updateCommitStatusToAffirmative() {
-    return _$updateCommitStatusToAffirmativeAsyncAction
-        .run(() => super.updateCommitStatusToAffirmative());
-  }
-
   @override
   String toString() {
     return '''
 previousWord: ${previousWord},
+isInitialLoad: ${isInitialLoad},
 bottomCircleIsUp: ${bottomCircleIsUp}
     ''';
   }
