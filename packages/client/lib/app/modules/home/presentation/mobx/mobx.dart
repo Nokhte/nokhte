@@ -1,2 +1,2 @@
 export 'main/main.dart';
-export './coordinators/home_screen_coordinator_store.dart';
+export 'coordinators/home_screen_coordinator.dart';

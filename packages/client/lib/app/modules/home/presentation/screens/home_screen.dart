@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
 import 'package:nokhte/app/core/widgets/smart_fading_animated_text/stack/constants/types/gestures.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/home_screen_coordinator_store.dart';
+import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/home_screen_coordinator.dart';
 
 class HomeScreen extends StatefulWidget {
   final HomeScreenCoordinatorStore coordinator;
@@ -50,8 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: MediaQuery.of(context).size.height,
                           child: NewSmartBeachWaves(
                             store: widget.coordinator.newBeachWave,
-                          )
-                          ),
+                          )),
                       Center(
                         child: SmartFadingAnimatedText(
                           stateTrackerStore:
