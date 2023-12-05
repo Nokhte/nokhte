@@ -24,9 +24,9 @@ mixin _$BaseCollaborativeDocDBStore on _BaseCollaborativeDocDBStoreBase, Store {
       context: context);
 
   @override
-  Future updateCommitStatusToAffirmative() {
-    return _$updateCommitStatusToAffirmativeAsyncAction
-        .run(() => super.updateCommitStatusToAffirmative());
+  Future updateCommitStatusToAffirmative(Function widgetsAffirmativeCallback) {
+    return _$updateCommitStatusToAffirmativeAsyncAction.run(() =>
+        super.updateCommitStatusToAffirmative(widgetsAffirmativeCallback));
   }
 
   @override

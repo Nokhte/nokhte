@@ -16,7 +16,6 @@ class BaseCollaborativeDocDBStore = _BaseCollaborativeDocDBStoreBase
 abstract class _BaseCollaborativeDocDBStoreBase extends BaseCoordinator
     with Store {
   final CollaborativeDocCoordinator collaborativeDocDB;
-  final BaseCollaborativeTextEditorStore widgets;
   final String docType;
   final SwipeDetector swipe;
 
@@ -24,22 +23,7 @@ abstract class _BaseCollaborativeDocDBStoreBase extends BaseCoordinator
     required this.swipe,
     required this.collaborativeDocDB,
     required this.docType,
-    required this.widgets,
   });
-
-  initCollaborativeDocListeners(Function(String) onCommitted) {
-    widgets.collaborativeDocListener(
-      collaborativeDocDB.getContent.docContent,
-      updateTheDoc: updateTheDoc,
-      onCommitted: onCommitted,
-      revertAffirmativeCommitDesire: revertAffirmativeCommitDesire,
-      updateCommitStatusToAffirmative: updateCommitStatusToAffirmative,
-    );
-    gestureListener();
-    widgets.userTextControllerListener(
-      collaborativeDocDB: collaborativeDocDB,
-    );
-  }
 
   updateTheDoc(String newContent) async {
     await collaborativeDocDB.updateDoc(
@@ -64,17 +48,18 @@ abstract class _BaseCollaborativeDocDBStoreBase extends BaseCoordinator
           const UpdateCommitDesireStatusParams(wantsToCommit: false));
 
   @action
-  updateCommitStatusToAffirmative() async {
+  updateCommitStatusToAffirmative(Function widgetsAffirmativeCallback) async {
     await collaborativeDocDB.updateCommitDesire(
       const UpdateCommitDesireStatusParams(wantsToCommit: true),
     );
-    widgets.updateCommitStatusToAffirmative();
+    widgetsAffirmativeCallback();
   }
 
-  gestureListener() => reaction((p0) => swipe.directionsType, (p0) async {
+  gestureListener(Function widgetsAffirmativeCallback) =>
+      reaction((p0) => swipe.directionsType, (p0) async {
         switch (p0) {
           case GestureDirections.up:
-            await updateCommitStatusToAffirmative();
+            await updateCommitStatusToAffirmative(widgetsAffirmativeCallback);
           default:
             break;
         }
