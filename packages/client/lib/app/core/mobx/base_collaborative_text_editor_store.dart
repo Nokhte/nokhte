@@ -145,7 +145,7 @@ abstract class _BaseCollaborativeTextEditorStoreBase extends Equatable
 
   wantsToCommitChanges(
     DocInfoContent value, {
-    required Function purposeIsCommitted,
+    required Function(String) purposeIsCommitted,
   }) async {
     if (value.documentCommitStatus) {
       setWantsToCommit(true);
@@ -157,7 +157,7 @@ abstract class _BaseCollaborativeTextEditorStoreBase extends Equatable
         const Color(0xFF09FD20),
         const Color(0xFF4CDC8B),
       ]));
-      await purposeIsCommitted();
+      await purposeIsCommitted(value.content);
       gesturePillStore.setPillAnimationControl(Control.playFromStart);
       collaborativeTextUI.toggleWidgetVisibility();
       Future.delayed(
