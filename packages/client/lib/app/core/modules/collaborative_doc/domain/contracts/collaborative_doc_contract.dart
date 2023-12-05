@@ -18,5 +18,5 @@ abstract class CollaborativeDocContract {
   Future<Either<Failure, CollaborativeDocUpdateCommitDesireStatusEntity>>
       updateCommitDesireStatus({required bool wantsToCommit});
   Future<Either<Failure, CollaborativeDocMoveToFinishedDocsStatusEntity>>
-      moveToFinishedDocs({required String docContent, required String docType});
+      moveToFinishedDocs(MoveToFinishedDocsParams params);
 }
