@@ -320,40 +320,30 @@ class MockMCollaborativeDocContract extends _i1.Mock
 
   @override
   _i5.Future<
-      _i2.Either<
-          _i7.Failure,
-          _i3
-          .CollaborativeDocMoveToFinishedDocsStatusEntity>> moveToFinishedDocs({
-    required String? docContent,
-    required String? docType,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #moveToFinishedDocs,
-          [],
-          {
-            #docContent: docContent,
-            #docType: docType,
-          },
-        ),
-        returnValue: _i5.Future<
-                _i2.Either<_i7.Failure,
-                    _i3.CollaborativeDocMoveToFinishedDocsStatusEntity>>.value(
-            _FakeEither_0<_i7.Failure,
-                _i3.CollaborativeDocMoveToFinishedDocsStatusEntity>(
-          this,
-          Invocation.method(
-            #moveToFinishedDocs,
-            [],
-            {
-              #docContent: docContent,
-              #docType: docType,
-            },
-          ),
-        )),
-      ) as _i5.Future<
           _i2.Either<_i7.Failure,
-              _i3.CollaborativeDocMoveToFinishedDocsStatusEntity>>);
+              _i3.CollaborativeDocMoveToFinishedDocsStatusEntity>>
+      moveToFinishedDocs(_i3.MoveToFinishedDocsParams? params) =>
+          (super.noSuchMethod(
+            Invocation.method(
+              #moveToFinishedDocs,
+              [params],
+            ),
+            returnValue: _i5.Future<
+                    _i2.Either<
+                        _i7.Failure,
+                        _i3
+                        .CollaborativeDocMoveToFinishedDocsStatusEntity>>.value(
+                _FakeEither_0<_i7.Failure,
+                    _i3.CollaborativeDocMoveToFinishedDocsStatusEntity>(
+              this,
+              Invocation.method(
+                #moveToFinishedDocs,
+                [params],
+              ),
+            )),
+          ) as _i5.Future<
+              _i2.Either<_i7.Failure,
+                  _i3.CollaborativeDocMoveToFinishedDocsStatusEntity>>);
 }
 
 /// A class which mocks [MGetCollaborativeDocContent].
