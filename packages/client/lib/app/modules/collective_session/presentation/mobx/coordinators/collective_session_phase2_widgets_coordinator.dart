@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/types/movie_status.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'collective_session_phase2_widgets_coordinator.g.dart';
@@ -12,19 +12,17 @@ part 'collective_session_phase2_widgets_coordinator.g.dart';
 class CollectiveSessionPhase2WidgetsCoordinator = _CollectiveSessionPhase2WidgetsCoordinatorBase
     with _$CollectiveSessionPhase2WidgetsCoordinator;
 
-abstract class _CollectiveSessionPhase2WidgetsCoordinatorBase extends Equatable
-    with Store {
-  final CollaborativeTextEditorTrackerStore collaborativeTextEditor;
+abstract class _CollectiveSessionPhase2WidgetsCoordinatorBase
+    extends BaseCollaborativeTextEditorStore with Store {
   final BeachWavesTrackerStore beachWaves;
-  final GesturePillStore gesturePill;
 
   @action
   attuneTheWidgets() {
-    gesturePill.wantToFadeOut = false;
+    gesturePillStore.wantToFadeOut = false;
     beachWaves.initiateSuspendedAtSea();
-    // collaborativeTextEditor.setText('');
-    collaborativeTextEditor.toggleWidgetVisibility();
-    gesturePill.setPillMovie(BottomCircleGoesUp.getMovie(firstGradientColors: [
+    collaborativeTextUI.toggleWidgetVisibility();
+    gesturePillStore
+        .setPillMovie(BottomCircleGoesUp.getMovie(firstGradientColors: [
       const Color(0xFFEB9040),
       const Color(0xFFD95C67),
     ], secondGradientColors: [
@@ -56,10 +54,10 @@ abstract class _CollectiveSessionPhase2WidgetsCoordinatorBase extends Equatable
       });
 
   _CollectiveSessionPhase2WidgetsCoordinatorBase({
-    required this.collaborativeTextEditor,
+    required super.collaborativeTextUI,
+    required super.gesturePillStore,
     required this.beachWaves,
-    required this.gesturePill,
-  });
+  }) : super(onCommitedNavigationRoute: '/home/');
   @override
   List<Object> get props => [];
 }
