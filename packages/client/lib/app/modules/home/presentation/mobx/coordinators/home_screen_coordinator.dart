@@ -130,22 +130,19 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
 
   @action
   gestureListener() => reaction((p0) => swipe.directionsType, (p0) async {
-        print("$p0");
-        if (isAllowedMakeASwipeNavigation) {
-          switch (p0) {
-            case GestureDirections.up:
-              PlacesYouCanGo thePlaceTheyAreGoing =
-                  PlacesYouCanGo.newCollaboration;
-              if (getExistingCollaborationInfo.hasCommittedAPurpose) {
-                thePlaceTheyAreGoing = PlacesYouCanGo.perspectivesSession;
-              } else if (getExistingCollaborationInfo.hasDonePerspectives) {
-                thePlaceTheyAreGoing = PlacesYouCanGo.collectiveSession;
-              }
-              fadeTheTextOutAndWaterComesDown(thePlaceTheyAreGoing);
-              await Haptics.vibrate(HapticsType.medium);
-            default:
-              break;
-          }
+        switch (p0) {
+          case GestureDirections.up:
+            PlacesYouCanGo thePlaceTheyAreGoing =
+                PlacesYouCanGo.newCollaboration;
+            if (getExistingCollaborationInfo.hasCommittedAPurpose) {
+              thePlaceTheyAreGoing = PlacesYouCanGo.perspectivesSession;
+            } else if (getExistingCollaborationInfo.hasDonePerspectives) {
+              thePlaceTheyAreGoing = PlacesYouCanGo.collectiveSession;
+            }
+            fadeTheTextOutAndWaterComesDown(thePlaceTheyAreGoing);
+            await Haptics.vibrate(HapticsType.medium);
+          default:
+            break;
         }
       });
 
@@ -162,11 +159,6 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
       newBeachWave.setMovieMode(BeachWaveMovieModes.onShoreToOceanDiveSetup);
     }
   }
-
-  @computed
-  bool get isAllowedMakeAHoldNavigation => !swipe.hasAlreadyMadeGesture;
-  @computed
-  bool get isAllowedMakeASwipeNavigation => hold.holdCount == 0;
 
   @override
   List<Object> get props => [];

@@ -9,25 +9,6 @@ part of 'home_screen_coordinator.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$HomeScreenCoordinatorStore on _HomeScreenCoordinatorStoreBase, Store {
-  Computed<bool>? _$isAllowedMakeAHoldNavigationComputed;
-
-  @override
-  bool get isAllowedMakeAHoldNavigation =>
-      (_$isAllowedMakeAHoldNavigationComputed ??= Computed<bool>(
-              () => super.isAllowedMakeAHoldNavigation,
-              name:
-                  '_HomeScreenCoordinatorStoreBase.isAllowedMakeAHoldNavigation'))
-          .value;
-  Computed<bool>? _$isAllowedMakeASwipeNavigationComputed;
-
-  @override
-  bool get isAllowedMakeASwipeNavigation =>
-      (_$isAllowedMakeASwipeNavigationComputed ??= Computed<bool>(
-              () => super.isAllowedMakeASwipeNavigation,
-              name:
-                  '_HomeScreenCoordinatorStoreBase.isAllowedMakeASwipeNavigation'))
-          .value;
-
   late final _$thePlaceTheyAreGoingAtom = Atom(
       name: '_HomeScreenCoordinatorStoreBase.thePlaceTheyAreGoing',
       context: context);
@@ -128,9 +109,7 @@ mixin _$HomeScreenCoordinatorStore on _HomeScreenCoordinatorStoreBase, Store {
   String toString() {
     return '''
 thePlaceTheyAreGoing: ${thePlaceTheyAreGoing},
-isNavigating: ${isNavigating},
-isAllowedMakeAHoldNavigation: ${isAllowedMakeAHoldNavigation},
-isAllowedMakeASwipeNavigation: ${isAllowedMakeASwipeNavigation}
+isNavigating: ${isNavigating}
     ''';
   }
 }
