@@ -134,17 +134,15 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
         if (isAllowedMakeASwipeNavigation) {
           switch (p0) {
             case GestureDirections.up:
+              PlacesYouCanGo thePlaceTheyAreGoing =
+                  PlacesYouCanGo.newCollaboration;
               if (getExistingCollaborationInfo.hasCommittedAPurpose) {
-                PlacesYouCanGo thePlaceTheyAreGoing =
-                    PlacesYouCanGo.newCollaboration;
-                if (getExistingCollaborationInfo.hasCommittedAPurpose) {
-                  thePlaceTheyAreGoing = PlacesYouCanGo.perspectivesSession;
-                } else if (getExistingCollaborationInfo.hasDonePerspectives) {
-                  thePlaceTheyAreGoing = PlacesYouCanGo.collectiveSession;
-                }
-                fadeTheTextOutAndWaterComesDown(thePlaceTheyAreGoing);
-                await Haptics.vibrate(HapticsType.medium);
+                thePlaceTheyAreGoing = PlacesYouCanGo.perspectivesSession;
+              } else if (getExistingCollaborationInfo.hasDonePerspectives) {
+                thePlaceTheyAreGoing = PlacesYouCanGo.collectiveSession;
               }
+              fadeTheTextOutAndWaterComesDown(thePlaceTheyAreGoing);
+              await Haptics.vibrate(HapticsType.medium);
             default:
               break;
           }
