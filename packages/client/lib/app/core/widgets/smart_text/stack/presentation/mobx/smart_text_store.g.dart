@@ -9,33 +9,57 @@ part of 'smart_text_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$SmartTextStore on _SmartTextStoreBase, Store {
-  Computed<bool>? _$shouldPauseHereComputed;
+  Computed<String>? _$currentSubTextComputed;
 
   @override
-  bool get shouldPauseHere =>
-      (_$shouldPauseHereComputed ??= Computed<bool>(() => super.shouldPauseHere,
-              name: '_SmartTextStoreBase.shouldPauseHere'))
+  String get currentSubText =>
+      (_$currentSubTextComputed ??= Computed<String>(() => super.currentSubText,
+              name: '_SmartTextStoreBase.currentSubText'))
           .value;
-  Computed<double>? _$currentMainMessageFontComputed;
+  Computed<String>? _$currentMainTextComputed;
 
   @override
-  double get currentMainMessageFont => (_$currentMainMessageFontComputed ??=
-          Computed<double>(() => super.currentMainMessageFont,
-              name: '_SmartTextStoreBase.currentMainMessageFont'))
+  String get currentMainText => (_$currentMainTextComputed ??= Computed<String>(
+          () => super.currentMainText,
+          name: '_SmartTextStoreBase.currentMainText'))
       .value;
-  Computed<double>? _$currentSubMessageFontComputed;
+  Computed<bool>? _$shouldPauseAtCurrentComputed;
 
   @override
-  double get currentSubMessageFont => (_$currentSubMessageFontComputed ??=
-          Computed<double>(() => super.currentSubMessageFont,
-              name: '_SmartTextStoreBase.currentSubMessageFont'))
+  bool get shouldPauseAtCurrent => (_$shouldPauseAtCurrentComputed ??=
+          Computed<bool>(() => super.shouldPauseAtCurrent,
+              name: '_SmartTextStoreBase.shouldPauseAtCurrent'))
       .value;
-  Computed<Duration>? _$currentExtraDelayTimeComputed;
+  Computed<double>? _$currentMainMessageFontSizeComputed;
 
   @override
-  Duration get currentExtraDelayTime => (_$currentExtraDelayTimeComputed ??=
-          Computed<Duration>(() => super.currentExtraDelayTime,
-              name: '_SmartTextStoreBase.currentExtraDelayTime'))
+  double get currentMainMessageFontSize =>
+      (_$currentMainMessageFontSizeComputed ??= Computed<double>(
+              () => super.currentMainMessageFontSize,
+              name: '_SmartTextStoreBase.currentMainMessageFontSize'))
+          .value;
+  Computed<double>? _$currentSubMessageFontSizeComputed;
+
+  @override
+  double get currentSubMessageFontSize =>
+      (_$currentSubMessageFontSizeComputed ??= Computed<double>(
+              () => super.currentSubMessageFontSize,
+              name: '_SmartTextStoreBase.currentSubMessageFontSize'))
+          .value;
+  Computed<Duration>? _$currentInitialFadeInDelayComputed;
+
+  @override
+  Duration get currentInitialFadeInDelay =>
+      (_$currentInitialFadeInDelayComputed ??= Computed<Duration>(
+              () => super.currentInitialFadeInDelay,
+              name: '_SmartTextStoreBase.currentInitialFadeInDelay'))
+          .value;
+  Computed<Duration>? _$currentOnScreenTimeComputed;
+
+  @override
+  Duration get currentOnScreenTime => (_$currentOnScreenTimeComputed ??=
+          Computed<Duration>(() => super.currentOnScreenTime,
+              name: '_SmartTextStoreBase.currentOnScreenTime'))
       .value;
   Computed<Gestures>? _$currentUnlockGestureComputed;
 
@@ -61,102 +85,6 @@ mixin _$SmartTextStore on _SmartTextStoreBase, Store {
     });
   }
 
-  late final _$firstTimeAtom =
-      Atom(name: '_SmartTextStoreBase.firstTime', context: context);
-
-  @override
-  bool get firstTime {
-    _$firstTimeAtom.reportRead();
-    return super.firstTime;
-  }
-
-  @override
-  set firstTime(bool value) {
-    _$firstTimeAtom.reportWrite(value, super.firstTime, () {
-      super.firstTime = value;
-    });
-  }
-
-  late final _$isInfiniteAtom =
-      Atom(name: '_SmartTextStoreBase.isInfinite', context: context);
-
-  @override
-  bool get isInfinite {
-    _$isInfiniteAtom.reportRead();
-    return super.isInfinite;
-  }
-
-  @override
-  set isInfinite(bool value) {
-    _$isInfiniteAtom.reportWrite(value, super.isInfinite, () {
-      super.isInfinite = value;
-    });
-  }
-
-  late final _$showTextAtom =
-      Atom(name: '_SmartTextStoreBase.showText', context: context);
-
-  @override
-  bool get showText {
-    _$showTextAtom.reportRead();
-    return super.showText;
-  }
-
-  @override
-  set showText(bool value) {
-    _$showTextAtom.reportWrite(value, super.showText, () {
-      super.showText = value;
-    });
-  }
-
-  late final _$isPausedAtom =
-      Atom(name: '_SmartTextStoreBase.isPaused', context: context);
-
-  @override
-  bool get isPaused {
-    _$isPausedAtom.reportRead();
-    return super.isPaused;
-  }
-
-  @override
-  set isPaused(bool value) {
-    _$isPausedAtom.reportWrite(value, super.isPaused, () {
-      super.isPaused = value;
-    });
-  }
-
-  late final _$hasJustBeenUnPausedAtom =
-      Atom(name: '_SmartTextStoreBase.hasJustBeenUnPaused', context: context);
-
-  @override
-  bool get hasJustBeenUnPaused {
-    _$hasJustBeenUnPausedAtom.reportRead();
-    return super.hasJustBeenUnPaused;
-  }
-
-  @override
-  set hasJustBeenUnPaused(bool value) {
-    _$hasJustBeenUnPausedAtom.reportWrite(value, super.hasJustBeenUnPaused, () {
-      super.hasJustBeenUnPaused = value;
-    });
-  }
-
-  late final _$inProgressAtom =
-      Atom(name: '_SmartTextStoreBase.inProgress', context: context);
-
-  @override
-  bool get inProgress {
-    _$inProgressAtom.reportRead();
-    return super.inProgress;
-  }
-
-  @override
-  set inProgress(bool value) {
-    _$inProgressAtom.reportWrite(value, super.inProgress, () {
-      super.inProgress = value;
-    });
-  }
-
   late final _$currentIndexAtom =
       Atom(name: '_SmartTextStoreBase.currentIndex', context: context);
 
@@ -173,86 +101,36 @@ mixin _$SmartTextStore on _SmartTextStoreBase, Store {
     });
   }
 
-  late final _$currentSubTextAtom =
-      Atom(name: '_SmartTextStoreBase.currentSubText', context: context);
+  late final _$showWidgetAtom =
+      Atom(name: '_SmartTextStoreBase.showWidget', context: context);
 
   @override
-  String get currentSubText {
-    _$currentSubTextAtom.reportRead();
-    return super.currentSubText;
+  bool get showWidget {
+    _$showWidgetAtom.reportRead();
+    return super.showWidget;
   }
 
   @override
-  set currentSubText(String value) {
-    _$currentSubTextAtom.reportWrite(value, super.currentSubText, () {
-      super.currentSubText = value;
+  set showWidget(bool value) {
+    _$showWidgetAtom.reportWrite(value, super.showWidget, () {
+      super.showWidget = value;
     });
   }
 
-  late final _$currentMainTextAtom =
-      Atom(name: '_SmartTextStoreBase.currentMainText', context: context);
+  late final _$opacityCounterAtom =
+      Atom(name: '_SmartTextStoreBase.opacityCounter', context: context);
 
   @override
-  String get currentMainText {
-    _$currentMainTextAtom.reportRead();
-    return super.currentMainText;
+  int get opacityCounter {
+    _$opacityCounterAtom.reportRead();
+    return super.opacityCounter;
   }
 
   @override
-  set currentMainText(String value) {
-    _$currentMainTextAtom.reportWrite(value, super.currentMainText, () {
-      super.currentMainText = value;
+  set opacityCounter(int value) {
+    _$opacityCounterAtom.reportWrite(value, super.opacityCounter, () {
+      super.opacityCounter = value;
     });
-  }
-
-  late final _$statusAtom =
-      Atom(name: '_SmartTextStoreBase.status', context: context);
-
-  @override
-  FadingTextStatus get status {
-    _$statusAtom.reportRead();
-    return super.status;
-  }
-
-  @override
-  set status(FadingTextStatus value) {
-    _$statusAtom.reportWrite(value, super.status, () {
-      super.status = value;
-    });
-  }
-
-  late final _$resetToDefaultAsyncAction =
-      AsyncAction('_SmartTextStoreBase.resetToDefault', context: context);
-
-  @override
-  Future resetToDefault() {
-    return _$resetToDefaultAsyncAction.run(() => super.resetToDefault());
-  }
-
-  late final _$copyToClipboardAsyncAction =
-      AsyncAction('_SmartTextStoreBase.copyToClipboard', context: context);
-
-  @override
-  Future copyToClipboard() {
-    return _$copyToClipboardAsyncAction.run(() => super.copyToClipboard());
-  }
-
-  late final _$triggerRotatingTextAsyncAction =
-      AsyncAction('_SmartTextStoreBase.triggerRotatingText', context: context);
-
-  @override
-  Future triggerRotatingText() {
-    return _$triggerRotatingTextAsyncAction
-        .run(() => super.triggerRotatingText());
-  }
-
-  late final _$togglePauseAsyncAction =
-      AsyncAction('_SmartTextStoreBase.togglePause', context: context);
-
-  @override
-  Future togglePause({Gestures gestureType = Gestures.none}) {
-    return _$togglePauseAsyncAction
-        .run(() => super.togglePause(gestureType: gestureType));
   }
 
   late final _$_SmartTextStoreBaseActionController =
@@ -270,92 +148,33 @@ mixin _$SmartTextStore on _SmartTextStoreBase, Store {
   }
 
   @override
-  dynamic fadeTheTextOut() {
+  dynamic toggleWidgetVisibility() {
     final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
-        name: '_SmartTextStoreBase.fadeTheTextOut');
+        name: '_SmartTextStoreBase.toggleWidgetVisibility');
     try {
-      return super.fadeTheTextOut();
+      return super.toggleWidgetVisibility();
     } finally {
       _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic fadeTheTextIn() {
-    final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
-        name: '_SmartTextStoreBase.fadeTheTextIn');
-    try {
-      return super.fadeTheTextIn();
-    } finally {
-      _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic changeCurrrentSubMessage({required String message}) {
-    final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
-        name: '_SmartTextStoreBase.changeCurrrentSubMessage');
-    try {
-      return super.changeCurrrentSubMessage(message: message);
-    } finally {
-      _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic changeFutureSubMessage(
-      {required int amountOfMessagesForward, required String message}) {
-    final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
-        name: '_SmartTextStoreBase.changeFutureSubMessage');
-    try {
-      return super.changeFutureSubMessage(
-          amountOfMessagesForward: amountOfMessagesForward, message: message);
-    } finally {
-      _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic changeFutureMainMessage(
-      {required int amountOfMessagesForward, required String message}) {
-    final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
-        name: '_SmartTextStoreBase.changeFutureMainMessage');
-    try {
-      return super.changeFutureMainMessage(
-          amountOfMessagesForward: amountOfMessagesForward, message: message);
-    } finally {
-      _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic startRotatingText(Duration fadeInDelay) {
+  dynamic startRotatingText() {
     final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
         name: '_SmartTextStoreBase.startRotatingText');
     try {
-      return super.startRotatingText(fadeInDelay);
+      return super.startRotatingText();
     } finally {
       _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic setMainMessage({required int index, required String thePhrase}) {
+  dynamic onOpacityTransitionComplete(bool widgetIsVisible) {
     final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
-        name: '_SmartTextStoreBase.setMainMessage');
+        name: '_SmartTextStoreBase.onOpacityTransitionComplete');
     try {
-      return super.setMainMessage(index: index, thePhrase: thePhrase);
-    } finally {
-      _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void moveToNextMessage() {
-    final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
-        name: '_SmartTextStoreBase.moveToNextMessage');
-    try {
-      return super.moveToNextMessage();
+      return super.onOpacityTransitionComplete(widgetIsVisible);
     } finally {
       _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -365,20 +184,16 @@ mixin _$SmartTextStore on _SmartTextStoreBase, Store {
   String toString() {
     return '''
 messagesData: ${messagesData},
-firstTime: ${firstTime},
-isInfinite: ${isInfinite},
-showText: ${showText},
-isPaused: ${isPaused},
-hasJustBeenUnPaused: ${hasJustBeenUnPaused},
-inProgress: ${inProgress},
 currentIndex: ${currentIndex},
+showWidget: ${showWidget},
+opacityCounter: ${opacityCounter},
 currentSubText: ${currentSubText},
 currentMainText: ${currentMainText},
-status: ${status},
-shouldPauseHere: ${shouldPauseHere},
-currentMainMessageFont: ${currentMainMessageFont},
-currentSubMessageFont: ${currentSubMessageFont},
-currentExtraDelayTime: ${currentExtraDelayTime},
+shouldPauseAtCurrent: ${shouldPauseAtCurrent},
+currentMainMessageFontSize: ${currentMainMessageFontSize},
+currentSubMessageFontSize: ${currentSubMessageFontSize},
+currentInitialFadeInDelay: ${currentInitialFadeInDelay},
+currentOnScreenTime: ${currentOnScreenTime},
 currentUnlockGesture: ${currentUnlockGesture}
     ''';
   }
