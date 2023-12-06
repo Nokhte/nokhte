@@ -1,14 +1,2 @@
-export 'back_to_ocean_dive.dart';
-export 'back_to_shore.dart';
-export 'back_to_the_depths.dart';
-export 'depths_to_day_scheduling.dart';
-export 'depths_to_dusk_scheduling.dart';
-export 'depths_to_morning_scheduling.dart';
-export 'depths_to_evening_scheduling.dart';
-export 'ocean_dive.dart';
-export 'on_shore.dart';
-export 'shallows_to_shore.dart';
-export 'suspended_at_sea.dart';
-export 'suspended_at_the_depths.dart';
-export 'times_up.dart';
-export 'to_the_depths.dart';
+export './dynamic_to_times_up_start.dart';
+export './times_up_end_to_dynamic.dart';
