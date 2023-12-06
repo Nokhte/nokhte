@@ -71,7 +71,7 @@ class HomeModule extends Module {
         ),
         Bind.singleton<HomeScreenCoordinatorStore>(
           (i) => HomeScreenCoordinatorStore(
-            newBeachWave: Modular.get<BeachWavesStore>(),
+            beachWaves: Modular.get<BeachWavesStore>(),
             getExistingCollaborationInfo:
                 i<GetExistingCollaborationsInfoStore>(),
             hold: Modular.get<HoldDetector>(),
