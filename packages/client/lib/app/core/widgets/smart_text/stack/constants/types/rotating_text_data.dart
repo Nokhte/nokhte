@@ -1,8 +1,7 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 
+// ignore: must_be_immutable
 class RotatingTextData extends Equatable {
   String mainMessage;
   String subMessage;
@@ -10,16 +9,18 @@ class RotatingTextData extends Equatable {
   double subMessageFontSize;
   bool pauseHere;
   Gestures unlockGesture;
-  Duration extraDelayTime;
+  Duration onScreenTime;
+  Duration initialFadeInDelay;
 
   RotatingTextData({
+    this.initialFadeInDelay = Duration.zero,
     required this.mainMessage,
-    required this.subMessage,
-    required this.mainMessageFontSize,
-    required this.subMessageFontSize,
-    required this.pauseHere,
-    required this.unlockGesture,
-    required this.extraDelayTime,
+    this.subMessage = '',
+    this.mainMessageFontSize = 25.0,
+    this.subMessageFontSize = 15.0,
+    this.pauseHere = false,
+    this.unlockGesture = Gestures.none,
+    required this.onScreenTime,
   });
 
   @override
@@ -28,6 +29,6 @@ class RotatingTextData extends Equatable {
         subMessage,
         pauseHere,
         unlockGesture,
-        extraDelayTime,
+        onScreenTime,
       ];
 }
