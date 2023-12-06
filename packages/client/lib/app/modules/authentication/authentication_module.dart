@@ -63,7 +63,6 @@ class AuthenticationModule extends Module {
           (i) => LoginScreenCoordinatorStore(
             beachWaves: Modular.get<BeachWavesStore>(),
             swipe: i<SwipeDetector>(),
-            gesturePillStore: i<GesturePillStore>(),
             authProviderStore: i<AuthProviderStore>(),
             authStateStore: i<AuthStateStore>(),
           ),

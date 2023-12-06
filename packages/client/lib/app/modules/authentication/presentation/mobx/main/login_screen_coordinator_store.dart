@@ -2,13 +2,11 @@
 import 'dart:io';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/auth_providers.dart';
 import 'package:nokhte/app/core/types/directions.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/beach_wave_movie_modes.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:simple_animations/simple_animations.dart';
 import 'auth_provider_store.dart';
 import 'auth_state_store.dart';
 part 'login_screen_coordinator_store.g.dart';
@@ -17,7 +15,6 @@ class LoginScreenCoordinatorStore = _LoginScreenCoordinatorStoreBase
     with _$LoginScreenCoordinatorStore;
 
 abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
-  final GesturePillStore gesturePillStore;
   final BeachWavesStore beachWaves;
   final AuthProviderStore authProviderStore;
   final AuthStateStore authStateStore;
@@ -28,7 +25,6 @@ abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
     required this.beachWaves,
     required this.authStateStore,
     required this.swipe,
-    required this.gesturePillStore,
   });
 
   @observable
@@ -40,14 +36,6 @@ abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
 
   @action
   screenConstructor() {
-    gesturePillStore
-        .setPillMovie(BottomCircleGoesUp.getMovie(firstGradientColors: [
-      const Color(0xFF41D2F8),
-      const Color(0xFF69E9BC),
-    ], secondGradientColors: [
-      const Color(0xFF41D2F8),
-      const Color(0xFF69E9BC),
-    ]));
     beachWaves.setMovieMode(BeachWaveMovieModes.blackOut);
     if (kDebugMode) {
       authProvider = AuthProvider.google;
@@ -76,8 +64,6 @@ abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
 
   @action
   logTheUserIn(AuthProvider authProvider) async {
-    gesturePillStore.setPillAnimationControl(Control.playFromStart);
-
     await authProviderStore.routeAuthProviderRequest(authProvider);
   }
 

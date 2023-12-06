@@ -1,7 +1,6 @@
 // ignore_for_file: no_logic_in_create_state
 
 import 'package:flutter/material.dart';
-import 'package:nokhte/app/core/hooks/use_custom_square_size.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/authentication/presentation/presentation.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -20,7 +19,6 @@ class LoginScreen extends HookWidget {
         onData: (isLoggedIn) {
       if (isLoggedIn) {}
     });
-    final size = useCustomSquareSize(.2);
     useEffect(() {
       coordinator.screenConstructor();
       return null;
@@ -40,25 +38,6 @@ class LoginScreen extends HookWidget {
                   )
                   // child: BeachWaves(movie: OnShore.movie),
                   ),
-              Column(
-                children: [
-                  Expanded(
-                    child: Container(),
-                  ),
-                  Stack(
-                    alignment: Alignment.bottomCenter,
-                    children: [
-                      GesturePill(
-                        size: size,
-                        stateTrackerStore: coordinator.gesturePillStore,
-                      ),
-                    ],
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 20),
-                  ),
-                ],
-              ),
             ],
           ),
         ),
