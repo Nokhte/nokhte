@@ -9,6 +9,7 @@ import 'package:nokhte/app/modules/authentication/domain/logic/sign_in_with_appl
 import 'package:nokhte/app/modules/authentication/domain/logic/sign_in_with_google.dart';
 import 'package:nokhte/app/modules/authentication/presentation/mobx/getters/get_auth_provider_getter_store.dart';
 import 'package:nokhte/app/modules/authentication/presentation/mobx/getters/get_auth_state_getter_store.dart';
+import 'package:nokhte/app/modules/authentication/presentation/presentation.dart';
 
 class MAuthenticationRemoteSourceImpl extends Mock
     implements AuthenticationRemoteSourceImpl {}
@@ -37,5 +38,9 @@ class MGetAuthStateStore extends Mock implements GetAuthStateGetterStore {}
   MGetAuthState,
   MGetAuthProviderStateStore,
   MGetAuthStateStore
+])
+@GenerateNiceMocks([
+  MockSpec<AuthStateStore>(),
+  MockSpec<AuthProviderStore>(),
 ])
 void main() {}
