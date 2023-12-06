@@ -61,7 +61,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
     ]));
 
     gestureListener();
-    holdListener();
+    // holdListener();
     await getExistingCollaborationInfo(NoParams());
     Duration fadeInDuration;
     await addNameToDatabaseStore(NoParams());
@@ -129,31 +129,25 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
       });
 
   @action
-  gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
+  gestureListener() => reaction((p0) => swipe.directionsType, (p0) async {
         print("$p0");
         if (isAllowedMakeASwipeNavigation) {
           switch (p0) {
             case GestureDirections.up:
               if (getExistingCollaborationInfo.hasCommittedAPurpose) {
-                final thePlaceTheyAreGoing =
-                    getExistingCollaborationInfo.hasDonePerspectives
-                        ? PlacesYouCanGo.collectiveSession
-                        : PlacesYouCanGo.perspectivesSession;
+                PlacesYouCanGo thePlaceTheyAreGoing =
+                    PlacesYouCanGo.newCollaboration;
+                if (getExistingCollaborationInfo.hasCommittedAPurpose) {
+                  thePlaceTheyAreGoing = PlacesYouCanGo.perspectivesSession;
+                } else if (getExistingCollaborationInfo.hasDonePerspectives) {
+                  thePlaceTheyAreGoing = PlacesYouCanGo.collectiveSession;
+                }
                 fadeTheTextOutAndWaterComesDown(thePlaceTheyAreGoing);
+                await Haptics.vibrate(HapticsType.medium);
               }
             default:
               break;
           }
-        }
-      });
-
-  @action
-  holdListener() => reaction((p0) => hold.holdCount, (p0) async {
-        print("$p0");
-
-        if (isAllowedMakeAHoldNavigation) {
-          await Haptics.vibrate(HapticsType.medium);
-          fadeTheTextOutAndWaterComesDown(PlacesYouCanGo.newCollaboration);
         }
       });
 

@@ -111,17 +111,6 @@ mixin _$HomeScreenCoordinatorStore on _HomeScreenCoordinatorStoreBase, Store {
   }
 
   @override
-  dynamic holdListener() {
-    final _$actionInfo = _$_HomeScreenCoordinatorStoreBaseActionController
-        .startAction(name: '_HomeScreenCoordinatorStoreBase.holdListener');
-    try {
-      return super.holdListener();
-    } finally {
-      _$_HomeScreenCoordinatorStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic fadeTheTextOutAndWaterComesDown(
       PlacesYouCanGo thePlaceTheyAreGoingParam) {
     final _$actionInfo =
