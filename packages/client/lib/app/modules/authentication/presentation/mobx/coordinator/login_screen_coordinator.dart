@@ -56,6 +56,11 @@ abstract class _LoginScreenCoordinatorBase extends Equatable with Store {
     tapListener();
   }
 
+  @action
+  logTheUserIn(AuthProvider authProvider) async {
+    await authProviderStore.routeAuthProviderRequest(authProvider);
+  }
+
   gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.up:
@@ -72,11 +77,6 @@ abstract class _LoginScreenCoordinatorBase extends Equatable with Store {
           toggleHasMadeTheDot();
         }
       });
-
-  @action
-  logTheUserIn(AuthProvider authProvider) async {
-    await authProviderStore.routeAuthProviderRequest(authProvider);
-  }
 
   @override
   List<Object> get props => [];
