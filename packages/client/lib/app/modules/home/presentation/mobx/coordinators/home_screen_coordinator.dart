@@ -20,7 +20,7 @@ class HomeScreenCoordinatorStore = _HomeScreenCoordinatorStoreBase
 
 abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
     with Store {
-  final NewBeachWavesStore newBeachWave;
+  final BeachWavesStore beachWaves;
   final SwipeDetector swipe;
   final HoldDetector hold;
   final GetExistingCollaborationsInfoStore getExistingCollaborationInfo;
@@ -30,7 +30,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
   final GetCollaboratorPhraseStore getCollaboratorPhraseStore;
 
   _HomeScreenCoordinatorStoreBase({
-    required this.newBeachWave,
+    required this.beachWaves,
     required this.getExistingCollaborationInfo,
     required this.swipe,
     required this.hold,
@@ -45,7 +45,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
 
   @action
   homeScreenConstructorCallback() async {
-    newBeachWave.setMovieMode(BeachWaveMovieModes.onShore);
+    beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
     beachWavesListener();
     gesturePillStore
         .setPillMovie(BottomCircleGoesUp.getMovie(firstGradientColors: [
@@ -93,9 +93,9 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
   @action
   toggleIsNavigating() => isNavigating = !isNavigating;
 
-  beachWavesListener() => reaction((p0) => newBeachWave.movieStatus, (p0) {
-        if (newBeachWave.movieStatus == MovieStatus.finished &&
-            newBeachWave.movieMode == BeachWaveMovieModes.onShoreToOceanDive) {
+  beachWavesListener() => reaction((p0) => beachWaves.movieStatus, (p0) {
+        if (beachWaves.movieStatus == MovieStatus.finished &&
+            beachWaves.movieMode == BeachWaveMovieModes.onShoreToOceanDive) {
           switch (thePlaceTheyAreGoing) {
             case PlacesYouCanGo.newCollaboration:
               Modular.to.navigate('/p2p_collaborator_pool/');
@@ -136,11 +136,11 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
     if (!fadingTextStateTrackerStore.isPaused) {
       fadingTextStateTrackerStore.togglePause();
     }
-    if (newBeachWave.movieStatus != MovieStatus.inProgress) {
+    if (beachWaves.movieStatus != MovieStatus.inProgress) {
       gesturePillStore.setPillAnimationControl(Control.play);
       fadingTextStateTrackerStore.currentMainText = "";
       fadingTextStateTrackerStore.currentSubText = "";
-      newBeachWave.setMovieMode(BeachWaveMovieModes.onShoreToOceanDiveSetup);
+      beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDiveSetup);
     }
   }
 
