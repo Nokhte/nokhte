@@ -6,19 +6,18 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/auth_providers.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/beach_wave_movie_modes.dart';
-import 'package:nokhte/app/core/widgets/smart_text/stack/constants/data/messages_data.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'auth_provider_store.dart';
-import 'auth_state_store.dart';
-part 'login_screen_coordinator_store.g.dart';
+import '../main/auth_provider_store.dart';
+import '../main/auth_state_store.dart';
+part 'login_screen_coordinator.g.dart';
 // fades in properly
 // abrubptly transitions through the rest
 
-class LoginScreenCoordinatorStore = _LoginScreenCoordinatorStoreBase
-    with _$LoginScreenCoordinatorStore;
+class LoginScreenCoordinator = _LoginScreenCoordinatorBase
+    with _$LoginScreenCoordinator;
 
-abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
+abstract class _LoginScreenCoordinatorBase extends Equatable with Store {
   final BeachWavesStore beachWaves;
   final SmartTextStore smartTextStore;
   final AuthProviderStore authProviderStore;
@@ -26,7 +25,7 @@ abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
   final SwipeDetector swipe;
   final TapDetector tap;
 
-  _LoginScreenCoordinatorStoreBase({
+  _LoginScreenCoordinatorBase({
     required this.authProviderStore,
     required this.smartTextStore,
     required this.beachWaves,

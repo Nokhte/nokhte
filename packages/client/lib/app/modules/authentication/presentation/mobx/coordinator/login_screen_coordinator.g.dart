@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'login_screen_coordinator_store.dart';
+part of 'login_screen_coordinator.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,9 +8,9 @@ part of 'login_screen_coordinator_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$LoginScreenCoordinatorStore on _LoginScreenCoordinatorStoreBase, Store {
-  late final _$authProviderAtom = Atom(
-      name: '_LoginScreenCoordinatorStoreBase.authProvider', context: context);
+mixin _$LoginScreenCoordinator on _LoginScreenCoordinatorBase, Store {
+  late final _$authProviderAtom =
+      Atom(name: '_LoginScreenCoordinatorBase.authProvider', context: context);
 
   @override
   AuthProvider get authProvider {
@@ -26,8 +26,7 @@ mixin _$LoginScreenCoordinatorStore on _LoginScreenCoordinatorStoreBase, Store {
   }
 
   late final _$hasNotMadeTheDotAtom = Atom(
-      name: '_LoginScreenCoordinatorStoreBase.hasNotMadeTheDot',
-      context: context);
+      name: '_LoginScreenCoordinatorBase.hasNotMadeTheDot', context: context);
 
   @override
   bool get hasNotMadeTheDot {
@@ -42,9 +41,8 @@ mixin _$LoginScreenCoordinatorStore on _LoginScreenCoordinatorStoreBase, Store {
     });
   }
 
-  late final _$logTheUserInAsyncAction = AsyncAction(
-      '_LoginScreenCoordinatorStoreBase.logTheUserIn',
-      context: context);
+  late final _$logTheUserInAsyncAction =
+      AsyncAction('_LoginScreenCoordinatorBase.logTheUserIn', context: context);
 
   @override
   Future logTheUserIn(AuthProvider authProvider) {
@@ -52,33 +50,28 @@ mixin _$LoginScreenCoordinatorStore on _LoginScreenCoordinatorStoreBase, Store {
         .run(() => super.logTheUserIn(authProvider));
   }
 
-  late final _$_LoginScreenCoordinatorStoreBaseActionController =
-      ActionController(
-          name: '_LoginScreenCoordinatorStoreBase', context: context);
+  late final _$_LoginScreenCoordinatorBaseActionController =
+      ActionController(name: '_LoginScreenCoordinatorBase', context: context);
 
   @override
   dynamic toggleHasMadeTheDot() {
-    final _$actionInfo =
-        _$_LoginScreenCoordinatorStoreBaseActionController.startAction(
-            name: '_LoginScreenCoordinatorStoreBase.toggleHasMadeTheDot');
+    final _$actionInfo = _$_LoginScreenCoordinatorBaseActionController
+        .startAction(name: '_LoginScreenCoordinatorBase.toggleHasMadeTheDot');
     try {
       return super.toggleHasMadeTheDot();
     } finally {
-      _$_LoginScreenCoordinatorStoreBaseActionController
-          .endAction(_$actionInfo);
+      _$_LoginScreenCoordinatorBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic screenConstructor() {
-    final _$actionInfo =
-        _$_LoginScreenCoordinatorStoreBaseActionController.startAction(
-            name: '_LoginScreenCoordinatorStoreBase.screenConstructor');
+    final _$actionInfo = _$_LoginScreenCoordinatorBaseActionController
+        .startAction(name: '_LoginScreenCoordinatorBase.screenConstructor');
     try {
       return super.screenConstructor();
     } finally {
-      _$_LoginScreenCoordinatorStoreBaseActionController
-          .endAction(_$actionInfo);
+      _$_LoginScreenCoordinatorBaseActionController.endAction(_$actionInfo);
     }
   }
 
