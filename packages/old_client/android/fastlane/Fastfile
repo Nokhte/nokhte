@@ -1,0 +1,66 @@
+update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  desc "Major Version Bump"
+  lane :bump_major do
+    flutter_version_manager(
+      arguments: "-major",
+      yml: "../version.yml",
+      pubspec: "../pubspec.yaml")
+  end
+  
+  desc "Minor Version Bump"
+  lane :bump_minor do
+    flutter_version_manager(
+      arguments: "-minor",
+      yml: "../version.yml",
+      pubspec: "../pubspec.yaml")
+  end
+  
+  desc "Patch Version Bump"
+  lane :bump_patch do
+    flutter_version_manager(
+      arguments: "-patch",
+      yml: "../version.yml",
+      pubspec: "../pubspec.yaml")
+  end
+
+  lane :apply_new_version do
+    flutter_version_manager(
+      arguments: "-apply",
+      yml: "../version.yml",
+      pubspec: "../pubspec.yaml")
+  end
+
+  desc "Submit a new Internal Beta Build to the Google Play store"
+  lane :internal_android_beta_build do
+    upload_to_play_store(
+      json_key_data: ENV["SUPPLY_JSON_KEY_DATA"],
+      track: 'internal',
+      aab: '../build/app/outputs/bundle/release/app-release.aab',
+      release_status: 'draft'
+    )
+  end
+
+  desc "Submit a new External Beta Build to the Google Play store"
+  lane :external_android_beta_build do
+    upload_to_play_store(
+      json_key_data: ENV["SUPPLY_JSON_KEY_DATA"],
+      track: 'beta',
+      aab: '../build/app/outputs/bundle/release/app-release.aab',
+      release_status: 'draft'
+    )
+  end
+
+
+  desc "Build a Flutter apk"
+  lane :build do
+      Dir.chdir("../..") do
+        sh "flutter packages get"
+        sh "flutter clean"
+        sh "flutter build appbundle"
+      end
+    end
+end
