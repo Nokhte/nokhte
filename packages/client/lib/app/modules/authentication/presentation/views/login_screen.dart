@@ -6,7 +6,7 @@ import 'package:nokhte/app/modules/authentication/presentation/presentation.dart
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class LoginScreen extends HookWidget {
-  final LoginScreenCoordinatorStore coordinator;
+  final LoginScreenCoordinator coordinator;
 
   const LoginScreen({
     super.key,

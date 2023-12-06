@@ -60,8 +60,8 @@ class AuthenticationModule extends Module {
             authStateGetterStore: i<GetAuthStateGetterStore>(),
           ),
         ),
-        Bind.singleton<LoginScreenCoordinatorStore>(
-          (i) => LoginScreenCoordinatorStore(
+        Bind.singleton<LoginScreenCoordinator>(
+          (i) => LoginScreenCoordinator(
             tap: Modular.get<TapDetector>(),
             smartTextStore: i<SmartTextStore>(),
             beachWaves: Modular.get<BeachWavesStore>(),
@@ -77,7 +77,7 @@ class AuthenticationModule extends Module {
         ChildRoute(
           "/",
           child: (context, args) => LoginScreen(
-            coordinator: Modular.get<LoginScreenCoordinatorStore>(),
+            coordinator: Modular.get<LoginScreenCoordinator>(),
           ),
           // guards: [
           // AuthGuard(
