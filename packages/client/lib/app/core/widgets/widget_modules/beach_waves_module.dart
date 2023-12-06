@@ -5,6 +5,10 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 class BeachWavesModule extends Module {
   @override
   List<Bind> get binds => [
+        Bind.singleton<BlackOutMovieStore>(
+          (i) => BlackOutMovieStore(),
+          export: true,
+        ),
         Bind.singleton<SuspendedAtTheDepthsMovieStore>(
           (i) => SuspendedAtTheDepthsMovieStore(),
           export: true,
@@ -45,8 +49,9 @@ class BeachWavesModule extends Module {
           (i) => TimesUpDynamicPointToTheDepthsMovieStore(),
           export: true,
         ),
-        Bind.factory<NewBeachWavesStore>(
-          (i) => NewBeachWavesStore(
+        Bind.factory<BeachWavesStore>(
+          (i) => BeachWavesStore(
+            blackOutMovie: i<BlackOutMovieStore>(),
             timesUpEndToTheDepthsMovieStore:
                 i<TimesUpEndToTheDepthsMovieStore>(),
             suspendedAtTheDepthsMovieStore: i<SuspendedAtTheDepthsMovieStore>(),
