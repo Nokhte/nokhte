@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/auth_providers.dart';
 import 'package:nokhte/app/core/types/directions.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/beach_wave_movie_modes.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'auth_provider_store.dart';
@@ -17,12 +18,14 @@ class LoginScreenCoordinatorStore = _LoginScreenCoordinatorStoreBase
 
 abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
   final GesturePillStore gesturePillStore;
+  final BeachWavesStore beachWaves;
   final AuthProviderStore authProviderStore;
   final AuthStateStore authStateStore;
   final SwipeDetector swipe;
 
   _LoginScreenCoordinatorStoreBase({
     required this.authProviderStore,
+    required this.beachWaves,
     required this.authStateStore,
     required this.swipe,
     required this.gesturePillStore,
@@ -45,6 +48,7 @@ abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
       const Color(0xFF41D2F8),
       const Color(0xFF69E9BC),
     ]));
+    beachWaves.setMovieMode(BeachWaveMovieModes.blackOut);
     if (kDebugMode) {
       authProvider = AuthProvider.google;
     }
