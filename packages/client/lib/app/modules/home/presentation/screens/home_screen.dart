@@ -48,8 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       SizedBox(
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height,
-                          child: NewSmartBeachWaves(
-                            store: widget.coordinator.newBeachWave,
+                          child: BeachWaves(
+                            store: widget.coordinator.beachWaves,
                           )),
                       Center(
                         child: SmartFadingAnimatedText(
