@@ -36,15 +36,6 @@ class AuthenticationModule extends Module {
             google: i<SignInWithGoogle>(),
           ),
         ),
-        Bind.singleton<FadeInAndChangeColorTextStore>(
-          (i) => FadeInAndChangeColorTextStore(
-            chosenMovie: FadeInText.movie,
-            messageData: const FadeInMessageData(
-              fontSize: 25.0,
-              message: 'i',
-            ),
-          ),
-        ),
         Bind.singleton<GesturePillStore>(
           (i) => GesturePillStore(
             endingPath: SvgAnimtionConstants.circlePath,
@@ -69,7 +60,6 @@ class AuthenticationModule extends Module {
             gesturePillStore: i<GesturePillStore>(),
             authProviderStore: i<AuthProviderStore>(),
             authStateStore: i<AuthStateStore>(),
-            textStore: i<FadeInAndChangeColorTextStore>(),
           ),
         ),
       ];

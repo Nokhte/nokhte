@@ -21,12 +21,9 @@ abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
   final AuthStateStore authStateStore;
   final SwipeDetector swipe;
 
-  final FadeInAndChangeColorTextStore textStore;
-
   _LoginScreenCoordinatorStoreBase({
     required this.authProviderStore,
     required this.authStateStore,
-    required this.textStore,
     required this.swipe,
     required this.gesturePillStore,
   });
@@ -51,8 +48,6 @@ abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
     if (kDebugMode) {
       authProvider = AuthProvider.google;
     }
-    textStore.setCurrentMessage(
-        "Swipe to Log In with ${authProvider.name[0].toUpperCase() + authProvider.name.substring(1)}");
     gestureListener();
     authProvider =
         Platform.isAndroid ? AuthProvider.google : AuthProvider.apple;
