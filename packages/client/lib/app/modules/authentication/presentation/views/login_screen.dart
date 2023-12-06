@@ -26,19 +26,27 @@ class LoginScreen extends HookWidget {
     return Builder(builder: (context) {
       return Scaffold(
         resizeToAvoidBottomInset: false,
-        body: Swipe(
-          trackerStore: coordinator.swipe,
-          child: Stack(
-            children: [
-              SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  child: BeachWaves(
-                    store: coordinator.beachWaves,
-                  )
-                  // child: BeachWaves(movie: OnShore.movie),
+        body: Tap(
+          trackerStore: coordinator.tap,
+          child: Swipe(
+            trackerStore: coordinator.swipe,
+            child: Stack(
+              children: [
+                SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child: BeachWaves(
+                      store: coordinator.beachWaves,
+                    )
+                    // child: BeachWaves(movie: OnShore.movie),
+                    ),
+                Center(
+                  child: SmartText(
+                    store: coordinator.smartTextStore,
                   ),
-            ],
+                ),
+              ],
+            ),
           ),
         ),
       );
