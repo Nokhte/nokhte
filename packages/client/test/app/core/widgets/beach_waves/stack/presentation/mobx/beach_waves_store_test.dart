@@ -13,7 +13,7 @@ void main() {
   late SuspendedAtTheDepthsMovieStore suspendedAtTheDepthsMovieStore;
   late OceanDiveToOnShoreMovieStore oceanDiveToOnShoreMovieStore;
   late TimesUpMovieStore timesUpMovieStore;
-  late OceanDiveToTimesUpMovieStore oceanDiveToTimesUpMovieStore;
+  late OceanDiveToTimesUpStartMovieStore oceanDiveToTimesUpStartMovieStore;
   late TimesUpEndToOceanDiveMovieStore timesUpEndToOceanDiveMovie;
   late TimesUpDynamicPointToTheDepthsMovieStore
       timesUpDynamicPointToTheDepthsMovieStore;
@@ -25,7 +25,7 @@ void main() {
     timesUpEndToTheDepthsMovieStore = TimesUpEndToTheDepthsMovieStore();
     suspendedAtTheDepthsMovieStore = SuspendedAtTheDepthsMovieStore();
     timesUpMovieStore = TimesUpMovieStore();
-    oceanDiveToTimesUpMovieStore = OceanDiveToTimesUpMovieStore();
+    oceanDiveToTimesUpStartMovieStore = OceanDiveToTimesUpStartMovieStore();
     suspendedAtOceanDiveStore = SuspendedAtOceanDiveStore();
     onShoreToOceanDiveMovieStore = OnShoreToOceanDiveMovieStore();
     onShoreMovieStore = OnShoreMovieStore();
@@ -42,7 +42,7 @@ void main() {
           timesUpDynamicPointToTheDepthsMovieStore,
       timesUpEndToOceanDiveMovie: timesUpEndToOceanDiveMovie,
       timesUpMovieStore: timesUpMovieStore,
-      oceanDiveToTimesUpMovieStore: oceanDiveToTimesUpMovieStore,
+      oceanDiveToTimesUpStartMovieStore: oceanDiveToTimesUpStartMovieStore,
       suspendedAtOceanDiveStore: suspendedAtOceanDiveStore,
       oceanDiveToOnShoreMovieStore: oceanDiveToOnShoreMovieStore,
       onShoreToOceanDiveMovieStore: onShoreToOceanDiveMovieStore,
