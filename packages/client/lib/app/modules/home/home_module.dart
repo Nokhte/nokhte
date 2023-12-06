@@ -61,10 +61,8 @@ class HomeModule extends Module {
             logic: i<GetCollaboratorPhrase>(),
           ),
         ),
-        Bind.singleton<SmartFadingAnimatedTextTrackerStore>(
-          (i) => SmartFadingAnimatedTextTrackerStore(
-            isInfinite: true,
-          ),
+        Bind.singleton<SmartTextStore>(
+          (i) => SmartTextStore(),
         ),
         Bind.singleton<GesturePillStore>(
           (i) => GesturePillStore(endingPath: SvgAnimtionConstants.circlePath),
@@ -78,8 +76,7 @@ class HomeModule extends Module {
             swipe: Modular.get<SwipeDetector>(),
             gesturePillStore: i<GesturePillStore>(),
             addNameToDatabaseStore: i<AddNameToDatabaseStore>(),
-            fadingTextStateTrackerStore:
-                i<SmartFadingAnimatedTextTrackerStore>(),
+            smartText: i<SmartTextStore>(),
             getCollaboratorPhraseStore: i<GetCollaboratorPhraseStore>(),
           ),
         ),

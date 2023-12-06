@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
-import 'package:nokhte/app/core/widgets/smart_fading_animated_text/stack/constants/types/gestures.dart';
+import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/home_screen_coordinator.dart';
 
@@ -26,10 +26,10 @@ class HomeScreen extends HookWidget {
           return Scaffold(
             resizeToAvoidBottomInset: false,
             body: GestureDetector(
-              onDoubleTap: () => coordinator.fadingTextStateTrackerStore
+              onDoubleTap: () => coordinator.smartText
                   .togglePause(gestureType: Gestures.doubleTap),
-              onTap: () => coordinator.fadingTextStateTrackerStore
-                  .togglePause(gestureType: Gestures.tap),
+              onTap: () =>
+                  coordinator.smartText.togglePause(gestureType: Gestures.tap),
               child: Hold(
                 trackerStore: coordinator.hold,
                 child: Swipe(
@@ -43,9 +43,8 @@ class HomeScreen extends HookWidget {
                             store: coordinator.beachWaves,
                           )),
                       Center(
-                        child: SmartFadingAnimatedText(
-                          stateTrackerStore:
-                              coordinator.fadingTextStateTrackerStore,
+                        child: SmartText(
+                          stateTrackerStore: coordinator.smartText,
                         ),
                       ),
                       Column(

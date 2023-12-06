@@ -7,7 +7,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
-import 'package:nokhte/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
+import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/main/main.dart';
 import 'package:nokhte/app/modules/home/types/types.dart';
@@ -26,7 +26,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
   final GetExistingCollaborationsInfoStore getExistingCollaborationInfo;
   final GesturePillStore gesturePillStore;
   final AddNameToDatabaseStore addNameToDatabaseStore;
-  final SmartFadingAnimatedTextTrackerStore fadingTextStateTrackerStore;
+  final SmartTextStore smartText;
   final GetCollaboratorPhraseStore getCollaboratorPhraseStore;
 
   _HomeScreenCoordinatorStoreBase({
@@ -36,7 +36,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
     required this.hold,
     required this.gesturePillStore,
     required this.addNameToDatabaseStore,
-    required this.fadingTextStateTrackerStore,
+    required this.smartText,
     required this.getCollaboratorPhraseStore,
   });
 
@@ -66,25 +66,25 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
     getExistingCollaborationInfo.hasACollaboration
         ? {
             fadeInDuration = Seconds.get(10),
-            fadingTextStateTrackerStore.setMessagesData(
+            smartText.setMessagesData(
               MessagesData.hasACollaboratorHomeList,
             ),
-            fadingTextStateTrackerStore.setMainMessage(
+            smartText.setMainMessage(
               index: 1,
               thePhrase: getCollaboratorPhraseStore.collaboratorPhrase,
             )
           }
         : {
             fadeInDuration = Seconds.get(3),
-            fadingTextStateTrackerStore.setMessagesData(
+            smartText.setMessagesData(
               MessagesData.homeList,
             ),
-            fadingTextStateTrackerStore.setMainMessage(
+            smartText.setMainMessage(
               index: 2,
               thePhrase: getCollaboratorPhraseStore.collaboratorPhrase,
             )
           };
-    fadingTextStateTrackerStore.startRotatingText(fadeInDuration);
+    smartText.startRotatingText(fadeInDuration);
   }
 
   @observable
@@ -133,13 +133,13 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
   @action
   fadeTheTextOutAndWaterComesDown(PlacesYouCanGo thePlaceTheyAreGoingParam) {
     thePlaceTheyAreGoing = thePlaceTheyAreGoingParam;
-    if (!fadingTextStateTrackerStore.isPaused) {
-      fadingTextStateTrackerStore.togglePause();
+    if (!smartText.isPaused) {
+      smartText.togglePause();
     }
     if (beachWaves.movieStatus != MovieStatus.inProgress) {
       gesturePillStore.setPillAnimationControl(Control.play);
-      fadingTextStateTrackerStore.currentMainText = "";
-      fadingTextStateTrackerStore.currentSubText = "";
+      smartText.currentMainText = "";
+      smartText.currentSubText = "";
       beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDiveSetup);
     }
   }

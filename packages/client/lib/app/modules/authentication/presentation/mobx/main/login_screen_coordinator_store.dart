@@ -16,6 +16,7 @@ class LoginScreenCoordinatorStore = _LoginScreenCoordinatorStoreBase
 
 abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
   final BeachWavesStore beachWaves;
+
   final AuthProviderStore authProviderStore;
   final AuthStateStore authStateStore;
   final SwipeDetector swipe;
@@ -28,9 +29,6 @@ abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
   });
 
   @observable
-  bool showText = false;
-
-  @observable
   AuthProvider authProvider =
       Platform.isAndroid ? AuthProvider.google : AuthProvider.apple;
 
@@ -41,11 +39,6 @@ abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
       authProvider = AuthProvider.google;
     }
     gestureListener();
-    authProvider =
-        Platform.isAndroid ? AuthProvider.google : AuthProvider.apple;
-    if (kDebugMode) {
-      authProvider = AuthProvider.google;
-    }
   }
 
   gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
@@ -56,11 +49,6 @@ abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
             break;
         }
       });
-
-  @action
-  flipTextVisibility() {
-    showText = !showText;
-  }
 
   @action
   logTheUserIn(AuthProvider authProvider) async {
