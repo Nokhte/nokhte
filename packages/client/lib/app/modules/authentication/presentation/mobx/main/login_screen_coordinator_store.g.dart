@@ -25,6 +25,23 @@ mixin _$LoginScreenCoordinatorStore on _LoginScreenCoordinatorStoreBase, Store {
     });
   }
 
+  late final _$hasNotMadeTheDotAtom = Atom(
+      name: '_LoginScreenCoordinatorStoreBase.hasNotMadeTheDot',
+      context: context);
+
+  @override
+  bool get hasNotMadeTheDot {
+    _$hasNotMadeTheDotAtom.reportRead();
+    return super.hasNotMadeTheDot;
+  }
+
+  @override
+  set hasNotMadeTheDot(bool value) {
+    _$hasNotMadeTheDotAtom.reportWrite(value, super.hasNotMadeTheDot, () {
+      super.hasNotMadeTheDot = value;
+    });
+  }
+
   late final _$logTheUserInAsyncAction = AsyncAction(
       '_LoginScreenCoordinatorStoreBase.logTheUserIn',
       context: context);
@@ -38,6 +55,19 @@ mixin _$LoginScreenCoordinatorStore on _LoginScreenCoordinatorStoreBase, Store {
   late final _$_LoginScreenCoordinatorStoreBaseActionController =
       ActionController(
           name: '_LoginScreenCoordinatorStoreBase', context: context);
+
+  @override
+  dynamic toggleHasMadeTheDot() {
+    final _$actionInfo =
+        _$_LoginScreenCoordinatorStoreBaseActionController.startAction(
+            name: '_LoginScreenCoordinatorStoreBase.toggleHasMadeTheDot');
+    try {
+      return super.toggleHasMadeTheDot();
+    } finally {
+      _$_LoginScreenCoordinatorStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic screenConstructor() {
@@ -55,7 +85,8 @@ mixin _$LoginScreenCoordinatorStore on _LoginScreenCoordinatorStoreBase, Store {
   @override
   String toString() {
     return '''
-authProvider: ${authProvider}
+authProvider: ${authProvider},
+hasNotMadeTheDot: ${hasNotMadeTheDot}
     ''';
   }
 }

@@ -4,27 +4,34 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/auth_providers.dart';
-import 'package:nokhte/app/core/types/directions.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/beach_wave_movie_modes.dart';
+import 'package:nokhte/app/core/widgets/smart_text/stack/constants/data/messages_data.dart';
+import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'auth_provider_store.dart';
 import 'auth_state_store.dart';
 part 'login_screen_coordinator_store.g.dart';
+// fades in properly
+// abrubptly transitions through the rest
 
 class LoginScreenCoordinatorStore = _LoginScreenCoordinatorStoreBase
     with _$LoginScreenCoordinatorStore;
 
 abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
   final BeachWavesStore beachWaves;
-
+  final SmartTextStore smartTextStore;
   final AuthProviderStore authProviderStore;
   final AuthStateStore authStateStore;
   final SwipeDetector swipe;
+  final TapDetector tap;
 
   _LoginScreenCoordinatorStoreBase({
     required this.authProviderStore,
+    required this.smartTextStore,
     required this.beachWaves,
     required this.authStateStore,
+    required this.tap,
     required this.swipe,
   });
 
@@ -32,13 +39,22 @@ abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
   AuthProvider authProvider =
       Platform.isAndroid ? AuthProvider.google : AuthProvider.apple;
 
+  @observable
+  bool hasNotMadeTheDot = true;
+
+  @action
+  toggleHasMadeTheDot() => hasNotMadeTheDot = !hasNotMadeTheDot;
+
   @action
   screenConstructor() {
+    smartTextStore.setMessagesData(MessagesData.loginList);
+    smartTextStore.startRotatingText();
     beachWaves.setMovieMode(BeachWaveMovieModes.blackOut);
     if (kDebugMode) {
       authProvider = AuthProvider.google;
     }
     gestureListener();
+    tapListener();
   }
 
   gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
@@ -47,6 +63,14 @@ abstract class _LoginScreenCoordinatorStoreBase extends Equatable with Store {
             logTheUserIn(authProvider);
           default:
             break;
+        }
+      });
+
+  tapListener() => reaction((p0) => tap.tapCount, (p0) {
+        if (Gestures.tap == smartTextStore.currentUnlockGesture &&
+            hasNotMadeTheDot) {
+          smartTextStore.startRotatingText();
+          toggleHasMadeTheDot();
         }
       });
 
