@@ -20,11 +20,9 @@ void main() {
     });
   });
 
-  group("actions", () {
-    test("initMovie should start the movie", () {
-      const double startingPosition = 10.234;
-      testStore.initMovie(startingPosition);
-      expect(testStore.control, Control.playFromStart);
-    });
+  test("initMovie", () {
+    const double startingPosition = 10.234;
+    testStore.initMovie(startingPosition);
+    expect(testStore.control, Control.playFromStart);
   });
 }
