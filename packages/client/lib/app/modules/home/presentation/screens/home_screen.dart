@@ -1,11 +1,12 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
-import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/widgets/smart_fading_animated_text/stack/constants/types/gestures.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/home_screen_coordinator.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends HookWidget {
   final HomeScreenCoordinatorStore coordinator;
   const HomeScreen({
     super.key,
@@ -13,48 +14,38 @@ class HomeScreen extends StatefulWidget {
   });
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  initState() {
-    super.initState();
-    widget.coordinator.homeScreenConstructorCallback();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final size = CanvasSizeCalculator.squareCanvas(
-      context: context,
-      percentageLength: .20,
-    );
+    final size = useSquareSize(relativeLength: .20);
+    useEffect(() {
+      coordinator.homeScreenConstructorCallback();
+      return null;
+    }, []);
     return Builder(builder: (context) {
       return LayoutBuilder(
         builder: (context, constraints) {
           return Scaffold(
             resizeToAvoidBottomInset: false,
             body: GestureDetector(
-              onDoubleTap: () => widget.coordinator.fadingTextStateTrackerStore
+              onDoubleTap: () => coordinator.fadingTextStateTrackerStore
                   .togglePause(gestureType: Gestures.doubleTap),
-              onTap: () => widget.coordinator.fadingTextStateTrackerStore
+              onTap: () => coordinator.fadingTextStateTrackerStore
                   .togglePause(gestureType: Gestures.tap),
               child: Hold(
-                trackerStore: widget.coordinator.hold,
+                trackerStore: coordinator.hold,
                 child: Swipe(
-                  trackerStore: widget.coordinator.swipe,
+                  trackerStore: coordinator.swipe,
                   child: Stack(
                     children: [
                       SizedBox(
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height,
                           child: BeachWaves(
-                            store: widget.coordinator.beachWaves,
+                            store: coordinator.beachWaves,
                           )),
                       Center(
                         child: SmartFadingAnimatedText(
                           stateTrackerStore:
-                              widget.coordinator.fadingTextStateTrackerStore,
+                              coordinator.fadingTextStateTrackerStore,
                         ),
                       ),
                       Column(
@@ -67,8 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               GesturePill(
                                 size: size,
-                                stateTrackerStore:
-                                    widget.coordinator.gesturePillStore,
+                                stateTrackerStore: coordinator.gesturePillStore,
                               ),
                             ],
                           ),
