@@ -26,10 +26,10 @@ class HomeScreen extends HookWidget {
           return Scaffold(
             resizeToAvoidBottomInset: false,
             body: GestureDetector(
-              onDoubleTap: () => coordinator.smartText
-                  .togglePause(gestureType: Gestures.doubleTap),
-              onTap: () =>
-                  coordinator.smartText.togglePause(gestureType: Gestures.tap),
+              // onDoubleTap: () => coordinator.smartText
+              //     .togglePause(gestureType: Gestures.doubleTap),
+              // onTap: () =>
+              //     coordinator.smartText.togglePause(gestureType: Gestures.tap),
               child: Hold(
                 trackerStore: coordinator.hold,
                 child: Swipe(
@@ -44,7 +44,7 @@ class HomeScreen extends HookWidget {
                           )),
                       Center(
                         child: SmartText(
-                          stateTrackerStore: coordinator.smartText,
+                          store: coordinator.smartText,
                         ),
                       ),
                       Column(

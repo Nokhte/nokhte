@@ -7,7 +7,6 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
-import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/main/main.dart';
 import 'package:nokhte/app/modules/home/types/types.dart';
@@ -59,32 +58,31 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
     gestureListener();
     // holdListener();
     await getExistingCollaborationInfo(NoParams());
-    Duration fadeInDuration;
     await addNameToDatabaseStore(NoParams());
     await getCollaboratorPhraseStore(NoParams());
 
-    getExistingCollaborationInfo.hasACollaboration
-        ? {
-            fadeInDuration = Seconds.get(10),
-            smartText.setMessagesData(
-              MessagesData.hasACollaboratorHomeList,
-            ),
-            smartText.setMainMessage(
-              index: 1,
-              thePhrase: getCollaboratorPhraseStore.collaboratorPhrase,
-            )
-          }
-        : {
-            fadeInDuration = Seconds.get(3),
-            smartText.setMessagesData(
-              MessagesData.homeList,
-            ),
-            smartText.setMainMessage(
-              index: 2,
-              thePhrase: getCollaboratorPhraseStore.collaboratorPhrase,
-            )
-          };
-    smartText.startRotatingText(fadeInDuration);
+    // getExistingCollaborationInfo.hasACollaboration
+    //     ? {
+    //         fadeInDuration = Seconds.get(10),
+    //         smartText.setMessagesData(
+    //           MessagesData.hasACollaboratorHomeList,
+    //         ),
+    //         smartText.setMainMessage(
+    //           index: 1,
+    //           thePhrase: getCollaboratorPhraseStore.collaboratorPhrase,
+    //         )
+    //       }
+    //     : {
+    //         fadeInDuration = Seconds.get(3),
+    //         smartText.setMessagesData(
+    //           MessagesData.homeList,
+    //         ),
+    //         smartText.setMainMessage(
+    //           index: 2,
+    //           thePhrase: getCollaboratorPhraseStore.collaboratorPhrase,
+    //         )
+    //       };
+    // smartText.startRotatingText(fadeInDuration);
   }
 
   @observable
@@ -133,13 +131,13 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
   @action
   fadeTheTextOutAndWaterComesDown(PlacesYouCanGo thePlaceTheyAreGoingParam) {
     thePlaceTheyAreGoing = thePlaceTheyAreGoingParam;
-    if (!smartText.isPaused) {
-      smartText.togglePause();
-    }
+    // if (!smartText.isPaused) {
+    //   smartText.togglePause();
+    // }
     if (beachWaves.movieStatus != MovieStatus.inProgress) {
       gesturePillStore.setPillAnimationControl(Control.play);
-      smartText.currentMainText = "";
-      smartText.currentSubText = "";
+      // smartText.currentMainText = "";
+      // smartText.currentSubText = "";
       beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDiveSetup);
     }
   }
