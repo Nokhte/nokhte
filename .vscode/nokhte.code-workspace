@@ -13,8 +13,8 @@
             "path": "../packages/backend/dart"
         },
         {
-            "name": "🟨 client core modules",
-            "path": "../packages/client/lib/app/core/modules"
+            "name": "🟨 client core",
+            "path": "../packages/client/lib/app/core"
         },
         {
             "name": "🟨 client core widgets",
