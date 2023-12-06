@@ -1,67 +1,68 @@
 // ignore_for_file: no_logic_in_create_state
 
 import 'package:flutter/material.dart';
-import 'package:nokhte/app/core/canvas_widget_utils/canvas_widget_utils.dart';
+import 'package:nokhte/app/core/hooks/use_custom_square_size.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/authentication/presentation/presentation.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends HookWidget {
   final LoginScreenCoordinatorStore coordinator;
 
-  LoginScreen({
+  const LoginScreen({
     super.key,
     required this.coordinator,
-  }) {
-    coordinator.screenConstructor();
-  }
+  });
 
   @override
   Widget build(BuildContext context) {
-    final size = CanvasSizeCalculator.squareCanvas(
-      context: context,
-      percentageLength: .20,
-    );
-
-    return StreamBuilder<bool>(
-        stream: coordinator.authStateStore.authState,
-        builder: (context, snapshot) {
-          if (snapshot.data == true) {
-            Modular.to.navigate('/home/');
-          }
-          return Scaffold(
-            resizeToAvoidBottomInset: false,
-            body: Swipe(
-              trackerStore: coordinator.swipe,
-              child: Stack(
+    useOnStreamChange<bool>(coordinator.authStateStore.authState,
+        onData: (isLoggedIn) {
+      if (isLoggedIn) {}
+    });
+    final size = useCustomSquareSize(.2);
+    useEffect(() {
+      coordinator.screenConstructor();
+      return null;
+    }, []);
+    return Builder(builder: (context) {
+      return Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: Swipe(
+          trackerStore: coordinator.swipe,
+          child: Stack(
+            children: [
+              SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: BeachWaves(
+                    store: coordinator.beachWaves,
+                  )
+                  // child: BeachWaves(movie: OnShore.movie),
+                  ),
+              Column(
                 children: [
-                  SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      child: DumbBeachWaves(movie: OnShore.movie)),
-                  Column(
+                  Expanded(
+                    child: Container(),
+                  ),
+                  Stack(
+                    alignment: Alignment.bottomCenter,
                     children: [
-                      Expanded(
-                        child: Container(),
-                      ),
-                      Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: [
-                          GesturePill(
-                            size: size,
-                            stateTrackerStore: coordinator.gesturePillStore,
-                          ),
-                        ],
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 20),
+                      GesturePill(
+                        size: size,
+                        stateTrackerStore: coordinator.gesturePillStore,
                       ),
                     ],
                   ),
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 20),
+                  ),
                 ],
               ),
-            ),
-          );
-        });
+            ],
+          ),
+        ),
+      );
+    });
   }
 }
