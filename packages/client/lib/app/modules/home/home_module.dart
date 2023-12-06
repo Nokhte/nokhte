@@ -66,15 +66,12 @@ class HomeModule extends Module {
             isInfinite: true,
           ),
         ),
-        Bind.singleton<BeachWavesTrackerStore>(
-          (i) => BeachWavesTrackerStore(),
-        ),
         Bind.singleton<GesturePillStore>(
           (i) => GesturePillStore(endingPath: SvgAnimtionConstants.circlePath),
         ),
         Bind.singleton<HomeScreenCoordinatorStore>(
           (i) => HomeScreenCoordinatorStore(
-            newBeachWave: Modular.get<NewBeachWavesStore>(),
+            newBeachWave: Modular.get<BeachWavesStore>(),
             getExistingCollaborationInfo:
                 i<GetExistingCollaborationsInfoStore>(),
             hold: Modular.get<HoldDetector>(),
