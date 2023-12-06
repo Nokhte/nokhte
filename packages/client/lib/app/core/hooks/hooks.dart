@@ -1,1 +1,1 @@
-export 'use_custom_square_size.dart';
+export 'use_square_size.dart';
