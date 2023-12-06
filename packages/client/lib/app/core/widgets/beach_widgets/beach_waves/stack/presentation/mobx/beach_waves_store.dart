@@ -3,7 +3,6 @@ import 'package:equatable/equatable.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_custom_animated_widget_store.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/beach_widgets/beach_waves/stack/presentation/mobx/movie_stores/times_up_end_to_ocean_dive/times_up_end_to_ocean_dive.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'dart:core';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
@@ -40,22 +39,22 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
     required this.oceanDiveToOnShoreMovieStore,
   }) {
     movieModeToStoreLookup = {
-      BeachWaveMovieModes.none: BaseCustomAnimatedWidgetStore(),
-      BeachWaveMovieModes.onShoreToOceanDiveSetup: onShoreMovieStore,
-      BeachWaveMovieModes.onShoreToOceanDive: onShoreToOceanDiveMovieStore,
+      BeachWaveMovieModes.blackOut: blackOutMovie,
+      BeachWaveMovieModes.oceanDiveToTimesUp: oceanDiveToTimesUpStartMovieStore,
       BeachWaveMovieModes.oceanDiveToOnShore: oceanDiveToOnShoreMovieStore,
       BeachWaveMovieModes.onShore: onShoreMovieStore,
-      BeachWaveMovieModes.blackOut: blackOutMovie,
-      BeachWaveMovieModes.suspendedAtOceanDive: suspendedAtOceanDiveStore,
-      BeachWaveMovieModes.oceanDiveToTimesUp: oceanDiveToTimesUpStartMovieStore,
+      BeachWaveMovieModes.onShoreToOceanDive: onShoreToOceanDiveMovieStore,
+      BeachWaveMovieModes.onShoreToOceanDiveSetup: onShoreMovieStore,
+      BeachWaveMovieModes.none: BaseCustomAnimatedWidgetStore(),
       BeachWaveMovieModes.timesUp: timesUpMovieStore,
-      BeachWaveMovieModes.timesUpEndToOceanDive: timesUpEndToOceanDiveMovie,
-      BeachWaveMovieModes.timesUpEndToTheDepths:
-          timesUpEndToTheDepthsMovieStore,
       BeachWaveMovieModes.timesUpDynamicPointToTheDepths:
           timesUpDynamicPointToTheDepthsMovie,
       BeachWaveMovieModes.timesUpDynamicPointToTheDepthsSetup:
           timesUpMovieStore,
+      BeachWaveMovieModes.timesUpEndToTheDepths:
+          timesUpEndToTheDepthsMovieStore,
+      BeachWaveMovieModes.timesUpEndToOceanDive: timesUpEndToOceanDiveMovie,
+      BeachWaveMovieModes.suspendedAtOceanDive: suspendedAtOceanDiveStore,
       BeachWaveMovieModes.suspendedAtTheDepths: suspendedAtTheDepthsMovieStore,
     };
   }
