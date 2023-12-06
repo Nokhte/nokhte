@@ -1,0 +1,4 @@
+enum CallActions {
+  wantsToJoin,
+  wantsToLeave,
+}

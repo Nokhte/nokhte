@@ -62,7 +62,7 @@
     
     {
             "files.exclude": {
-                // "**/_scripts/": true,
+                "**/_scripts/": true,
                 "**/_templates/": true,
                 "packages/client/.vscode": true,
                 "packages/": true,
