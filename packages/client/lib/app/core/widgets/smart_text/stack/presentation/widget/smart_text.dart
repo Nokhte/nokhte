@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:nokhte/app/core/widgets/smart_fading_animated_text/stack/presentation/mobx/smart_fading_animated_text_tracker_store.dart';
+import 'package:nokhte/app/core/widgets/mobx.dart';
 
-class SmartFadingAnimatedText extends StatelessWidget {
-  final SmartFadingAnimatedTextTrackerStore stateTrackerStore;
-  const SmartFadingAnimatedText({
+class SmartText extends StatelessWidget {
+  final SmartTextStore stateTrackerStore;
+  const SmartText({
     super.key,
     required this.stateTrackerStore,
   });

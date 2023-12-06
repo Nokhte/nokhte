@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'smart_fading_animated_text_tracker_store.dart';
+part of 'smart_text_store.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,51 +8,45 @@ part of 'smart_fading_animated_text_tracker_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$SmartFadingAnimatedTextTrackerStore
-    on _SmartFadingAnimatedTextTrackerStoreBase, Store {
+mixin _$SmartTextStore on _SmartTextStoreBase, Store {
   Computed<bool>? _$shouldPauseHereComputed;
 
   @override
   bool get shouldPauseHere =>
       (_$shouldPauseHereComputed ??= Computed<bool>(() => super.shouldPauseHere,
-              name: '_SmartFadingAnimatedTextTrackerStoreBase.shouldPauseHere'))
+              name: '_SmartTextStoreBase.shouldPauseHere'))
           .value;
   Computed<double>? _$currentMainMessageFontComputed;
 
   @override
   double get currentMainMessageFont => (_$currentMainMessageFontComputed ??=
           Computed<double>(() => super.currentMainMessageFont,
-              name:
-                  '_SmartFadingAnimatedTextTrackerStoreBase.currentMainMessageFont'))
+              name: '_SmartTextStoreBase.currentMainMessageFont'))
       .value;
   Computed<double>? _$currentSubMessageFontComputed;
 
   @override
   double get currentSubMessageFont => (_$currentSubMessageFontComputed ??=
           Computed<double>(() => super.currentSubMessageFont,
-              name:
-                  '_SmartFadingAnimatedTextTrackerStoreBase.currentSubMessageFont'))
+              name: '_SmartTextStoreBase.currentSubMessageFont'))
       .value;
   Computed<Duration>? _$currentExtraDelayTimeComputed;
 
   @override
   Duration get currentExtraDelayTime => (_$currentExtraDelayTimeComputed ??=
           Computed<Duration>(() => super.currentExtraDelayTime,
-              name:
-                  '_SmartFadingAnimatedTextTrackerStoreBase.currentExtraDelayTime'))
+              name: '_SmartTextStoreBase.currentExtraDelayTime'))
       .value;
   Computed<Gestures>? _$currentUnlockGestureComputed;
 
   @override
   Gestures get currentUnlockGesture => (_$currentUnlockGestureComputed ??=
           Computed<Gestures>(() => super.currentUnlockGesture,
-              name:
-                  '_SmartFadingAnimatedTextTrackerStoreBase.currentUnlockGesture'))
+              name: '_SmartTextStoreBase.currentUnlockGesture'))
       .value;
 
-  late final _$messagesDataAtom = Atom(
-      name: '_SmartFadingAnimatedTextTrackerStoreBase.messagesData',
-      context: context);
+  late final _$messagesDataAtom =
+      Atom(name: '_SmartTextStoreBase.messagesData', context: context);
 
   @override
   ObservableList<RotatingTextData> get messagesData {
@@ -67,9 +61,8 @@ mixin _$SmartFadingAnimatedTextTrackerStore
     });
   }
 
-  late final _$firstTimeAtom = Atom(
-      name: '_SmartFadingAnimatedTextTrackerStoreBase.firstTime',
-      context: context);
+  late final _$firstTimeAtom =
+      Atom(name: '_SmartTextStoreBase.firstTime', context: context);
 
   @override
   bool get firstTime {
@@ -84,9 +77,8 @@ mixin _$SmartFadingAnimatedTextTrackerStore
     });
   }
 
-  late final _$isInfiniteAtom = Atom(
-      name: '_SmartFadingAnimatedTextTrackerStoreBase.isInfinite',
-      context: context);
+  late final _$isInfiniteAtom =
+      Atom(name: '_SmartTextStoreBase.isInfinite', context: context);
 
   @override
   bool get isInfinite {
@@ -101,9 +93,8 @@ mixin _$SmartFadingAnimatedTextTrackerStore
     });
   }
 
-  late final _$showTextAtom = Atom(
-      name: '_SmartFadingAnimatedTextTrackerStoreBase.showText',
-      context: context);
+  late final _$showTextAtom =
+      Atom(name: '_SmartTextStoreBase.showText', context: context);
 
   @override
   bool get showText {
@@ -118,9 +109,8 @@ mixin _$SmartFadingAnimatedTextTrackerStore
     });
   }
 
-  late final _$isPausedAtom = Atom(
-      name: '_SmartFadingAnimatedTextTrackerStoreBase.isPaused',
-      context: context);
+  late final _$isPausedAtom =
+      Atom(name: '_SmartTextStoreBase.isPaused', context: context);
 
   @override
   bool get isPaused {
@@ -135,9 +125,8 @@ mixin _$SmartFadingAnimatedTextTrackerStore
     });
   }
 
-  late final _$hasJustBeenUnPausedAtom = Atom(
-      name: '_SmartFadingAnimatedTextTrackerStoreBase.hasJustBeenUnPaused',
-      context: context);
+  late final _$hasJustBeenUnPausedAtom =
+      Atom(name: '_SmartTextStoreBase.hasJustBeenUnPaused', context: context);
 
   @override
   bool get hasJustBeenUnPaused {
@@ -152,9 +141,8 @@ mixin _$SmartFadingAnimatedTextTrackerStore
     });
   }
 
-  late final _$inProgressAtom = Atom(
-      name: '_SmartFadingAnimatedTextTrackerStoreBase.inProgress',
-      context: context);
+  late final _$inProgressAtom =
+      Atom(name: '_SmartTextStoreBase.inProgress', context: context);
 
   @override
   bool get inProgress {
@@ -169,9 +157,8 @@ mixin _$SmartFadingAnimatedTextTrackerStore
     });
   }
 
-  late final _$currentIndexAtom = Atom(
-      name: '_SmartFadingAnimatedTextTrackerStoreBase.currentIndex',
-      context: context);
+  late final _$currentIndexAtom =
+      Atom(name: '_SmartTextStoreBase.currentIndex', context: context);
 
   @override
   int get currentIndex {
@@ -186,9 +173,8 @@ mixin _$SmartFadingAnimatedTextTrackerStore
     });
   }
 
-  late final _$currentSubTextAtom = Atom(
-      name: '_SmartFadingAnimatedTextTrackerStoreBase.currentSubText',
-      context: context);
+  late final _$currentSubTextAtom =
+      Atom(name: '_SmartTextStoreBase.currentSubText', context: context);
 
   @override
   String get currentSubText {
@@ -203,9 +189,8 @@ mixin _$SmartFadingAnimatedTextTrackerStore
     });
   }
 
-  late final _$currentMainTextAtom = Atom(
-      name: '_SmartFadingAnimatedTextTrackerStoreBase.currentMainText',
-      context: context);
+  late final _$currentMainTextAtom =
+      Atom(name: '_SmartTextStoreBase.currentMainText', context: context);
 
   @override
   String get currentMainText {
@@ -220,9 +205,8 @@ mixin _$SmartFadingAnimatedTextTrackerStore
     });
   }
 
-  late final _$statusAtom = Atom(
-      name: '_SmartFadingAnimatedTextTrackerStoreBase.status',
-      context: context);
+  late final _$statusAtom =
+      Atom(name: '_SmartTextStoreBase.status', context: context);
 
   @override
   FadingTextStatus get status {
@@ -237,27 +221,24 @@ mixin _$SmartFadingAnimatedTextTrackerStore
     });
   }
 
-  late final _$resetToDefaultAsyncAction = AsyncAction(
-      '_SmartFadingAnimatedTextTrackerStoreBase.resetToDefault',
-      context: context);
+  late final _$resetToDefaultAsyncAction =
+      AsyncAction('_SmartTextStoreBase.resetToDefault', context: context);
 
   @override
   Future resetToDefault() {
     return _$resetToDefaultAsyncAction.run(() => super.resetToDefault());
   }
 
-  late final _$copyToClipboardAsyncAction = AsyncAction(
-      '_SmartFadingAnimatedTextTrackerStoreBase.copyToClipboard',
-      context: context);
+  late final _$copyToClipboardAsyncAction =
+      AsyncAction('_SmartTextStoreBase.copyToClipboard', context: context);
 
   @override
   Future copyToClipboard() {
     return _$copyToClipboardAsyncAction.run(() => super.copyToClipboard());
   }
 
-  late final _$triggerRotatingTextAsyncAction = AsyncAction(
-      '_SmartFadingAnimatedTextTrackerStoreBase.triggerRotatingText',
-      context: context);
+  late final _$triggerRotatingTextAsyncAction =
+      AsyncAction('_SmartTextStoreBase.triggerRotatingText', context: context);
 
   @override
   Future triggerRotatingText() {
@@ -265,9 +246,8 @@ mixin _$SmartFadingAnimatedTextTrackerStore
         .run(() => super.triggerRotatingText());
   }
 
-  late final _$togglePauseAsyncAction = AsyncAction(
-      '_SmartFadingAnimatedTextTrackerStoreBase.togglePause',
-      context: context);
+  late final _$togglePauseAsyncAction =
+      AsyncAction('_SmartTextStoreBase.togglePause', context: context);
 
   @override
   Future togglePause({Gestures gestureType = Gestures.none}) {
@@ -275,131 +255,109 @@ mixin _$SmartFadingAnimatedTextTrackerStore
         .run(() => super.togglePause(gestureType: gestureType));
   }
 
-  late final _$_SmartFadingAnimatedTextTrackerStoreBaseActionController =
-      ActionController(
-          name: '_SmartFadingAnimatedTextTrackerStoreBase', context: context);
+  late final _$_SmartTextStoreBaseActionController =
+      ActionController(name: '_SmartTextStoreBase', context: context);
 
   @override
   dynamic setMessagesData(List<RotatingTextData> newList) {
-    final _$actionInfo =
-        _$_SmartFadingAnimatedTextTrackerStoreBaseActionController.startAction(
-            name: '_SmartFadingAnimatedTextTrackerStoreBase.setMessagesData');
+    final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
+        name: '_SmartTextStoreBase.setMessagesData');
     try {
       return super.setMessagesData(newList);
     } finally {
-      _$_SmartFadingAnimatedTextTrackerStoreBaseActionController
-          .endAction(_$actionInfo);
+      _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic fadeTheTextOut() {
-    final _$actionInfo =
-        _$_SmartFadingAnimatedTextTrackerStoreBaseActionController.startAction(
-            name: '_SmartFadingAnimatedTextTrackerStoreBase.fadeTheTextOut');
+    final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
+        name: '_SmartTextStoreBase.fadeTheTextOut');
     try {
       return super.fadeTheTextOut();
     } finally {
-      _$_SmartFadingAnimatedTextTrackerStoreBaseActionController
-          .endAction(_$actionInfo);
+      _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic fadeTheTextIn() {
-    final _$actionInfo =
-        _$_SmartFadingAnimatedTextTrackerStoreBaseActionController.startAction(
-            name: '_SmartFadingAnimatedTextTrackerStoreBase.fadeTheTextIn');
+    final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
+        name: '_SmartTextStoreBase.fadeTheTextIn');
     try {
       return super.fadeTheTextIn();
     } finally {
-      _$_SmartFadingAnimatedTextTrackerStoreBaseActionController
-          .endAction(_$actionInfo);
+      _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic changeCurrrentSubMessage({required String message}) {
-    final _$actionInfo =
-        _$_SmartFadingAnimatedTextTrackerStoreBaseActionController.startAction(
-            name:
-                '_SmartFadingAnimatedTextTrackerStoreBase.changeCurrrentSubMessage');
+    final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
+        name: '_SmartTextStoreBase.changeCurrrentSubMessage');
     try {
       return super.changeCurrrentSubMessage(message: message);
     } finally {
-      _$_SmartFadingAnimatedTextTrackerStoreBaseActionController
-          .endAction(_$actionInfo);
+      _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic changeFutureSubMessage(
       {required int amountOfMessagesForward, required String message}) {
-    final _$actionInfo =
-        _$_SmartFadingAnimatedTextTrackerStoreBaseActionController.startAction(
-            name:
-                '_SmartFadingAnimatedTextTrackerStoreBase.changeFutureSubMessage');
+    final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
+        name: '_SmartTextStoreBase.changeFutureSubMessage');
     try {
       return super.changeFutureSubMessage(
           amountOfMessagesForward: amountOfMessagesForward, message: message);
     } finally {
-      _$_SmartFadingAnimatedTextTrackerStoreBaseActionController
-          .endAction(_$actionInfo);
+      _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic changeFutureMainMessage(
       {required int amountOfMessagesForward, required String message}) {
-    final _$actionInfo =
-        _$_SmartFadingAnimatedTextTrackerStoreBaseActionController.startAction(
-            name:
-                '_SmartFadingAnimatedTextTrackerStoreBase.changeFutureMainMessage');
+    final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
+        name: '_SmartTextStoreBase.changeFutureMainMessage');
     try {
       return super.changeFutureMainMessage(
           amountOfMessagesForward: amountOfMessagesForward, message: message);
     } finally {
-      _$_SmartFadingAnimatedTextTrackerStoreBaseActionController
-          .endAction(_$actionInfo);
+      _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic startRotatingText(Duration fadeInDelay) {
-    final _$actionInfo =
-        _$_SmartFadingAnimatedTextTrackerStoreBaseActionController.startAction(
-            name: '_SmartFadingAnimatedTextTrackerStoreBase.startRotatingText');
+    final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
+        name: '_SmartTextStoreBase.startRotatingText');
     try {
       return super.startRotatingText(fadeInDelay);
     } finally {
-      _$_SmartFadingAnimatedTextTrackerStoreBaseActionController
-          .endAction(_$actionInfo);
+      _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic setMainMessage({required int index, required String thePhrase}) {
-    final _$actionInfo =
-        _$_SmartFadingAnimatedTextTrackerStoreBaseActionController.startAction(
-            name: '_SmartFadingAnimatedTextTrackerStoreBase.setMainMessage');
+    final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
+        name: '_SmartTextStoreBase.setMainMessage');
     try {
       return super.setMainMessage(index: index, thePhrase: thePhrase);
     } finally {
-      _$_SmartFadingAnimatedTextTrackerStoreBaseActionController
-          .endAction(_$actionInfo);
+      _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void moveToNextMessage() {
-    final _$actionInfo =
-        _$_SmartFadingAnimatedTextTrackerStoreBaseActionController.startAction(
-            name: '_SmartFadingAnimatedTextTrackerStoreBase.moveToNextMessage');
+    final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
+        name: '_SmartTextStoreBase.moveToNextMessage');
     try {
       return super.moveToNextMessage();
     } finally {
-      _$_SmartFadingAnimatedTextTrackerStoreBaseActionController
-          .endAction(_$actionInfo);
+      _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 

@@ -4,13 +4,11 @@ import 'package:equatable/equatable.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
-part 'smart_fading_animated_text_tracker_store.g.dart';
+part 'smart_text_store.g.dart';
 
-class SmartFadingAnimatedTextTrackerStore = _SmartFadingAnimatedTextTrackerStoreBase
-    with _$SmartFadingAnimatedTextTrackerStore;
+class SmartTextStore = _SmartTextStoreBase with _$SmartTextStore;
 
-abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
-    with Store {
+abstract class _SmartTextStoreBase extends Equatable with Store {
   @observable
   ObservableList<RotatingTextData> messagesData = ObservableList.of([]);
 
@@ -21,8 +19,6 @@ abstract class _SmartFadingAnimatedTextTrackerStoreBase extends Equatable
     currentSubText = messagesData.first.subMessage;
     firstTime = false;
   }
-
-  _SmartFadingAnimatedTextTrackerStoreBase({required this.isInfinite});
 
   @observable
   bool firstTime = true;
