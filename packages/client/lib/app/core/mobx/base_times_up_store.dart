@@ -15,7 +15,7 @@ class BaseTimesUpStore = _BaseTimesUpStoreBase with _$BaseTimesUpStore;
 
 abstract class _BaseTimesUpStoreBase extends BaseCoordinator with Store {
   final Duration productionTimerLength;
-  final NewBeachWavesStore newBeachWaves;
+  final BeachWavesStore newBeachWaves;
 
   _BaseTimesUpStoreBase({
     required this.newBeachWaves,
@@ -26,8 +26,7 @@ abstract class _BaseTimesUpStoreBase extends BaseCoordinator with Store {
   bool isFirstTimeStartingMovie = true;
 
   preventOnShoreSeizure() =>
-    newBeachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtTheDepths);
-  
+      newBeachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtTheDepths);
 
   @action
   initOrPauseTimesUp(bool shouldRun) {
