@@ -6,7 +6,6 @@ export 'mesh_circle_button/mesh_circle_button.dart';
 export 'text_editors/text_editors.dart';
 export 'sky_widgets/beach_sky/beach_sky.dart';
 export 'sky_widgets/sun_and_moon/sun_and_moon.dart';
-export 'conveyer_belt_text/conveyer_belt_text.dart';
 export 'perspectives_map/perspectives_map.dart';
 export 'gestures/gestures.dart';
 export 'explanation_text/explanation_text.dart';
