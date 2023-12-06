@@ -13,6 +13,7 @@ class AuthenticationModule extends Module {
   @override
   List<Module> get imports => [
         BeachWavesModule(),
+        GesturesModule(),
       ];
   @override
   List<Bind> get binds => [
@@ -46,8 +47,8 @@ class AuthenticationModule extends Module {
             endingPath: SvgAnimtionConstants.circlePath,
           ),
         ),
-        Bind.singleton<SwipeDetector>(
-          (i) => SwipeDetector(),
+        Bind.singleton<SmartTextStore>(
+          (i) => SmartTextStore(),
         ),
         Bind.singleton<AuthProviderStore>(
           (i) => AuthProviderStore(
@@ -61,8 +62,10 @@ class AuthenticationModule extends Module {
         ),
         Bind.singleton<LoginScreenCoordinatorStore>(
           (i) => LoginScreenCoordinatorStore(
+            tap: Modular.get<TapDetector>(),
+            smartTextStore: i<SmartTextStore>(),
             beachWaves: Modular.get<BeachWavesStore>(),
-            swipe: i<SwipeDetector>(),
+            swipe: Modular.get<SwipeDetector>(),
             authProviderStore: i<AuthProviderStore>(),
             authStateStore: i<AuthStateStore>(),
           ),
