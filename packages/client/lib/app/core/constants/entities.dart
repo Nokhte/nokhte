@@ -1,20 +1,11 @@
-import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/error/failure.dart';
-import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/domain/domain.dart';
-import 'package:nokhte/app/core/modules/collaborative_doc/domain/domain.dart';
 import 'package:nokhte/app/core/modules/get_the_purpose/domain/domain.dart';
 import 'package:nokhte/app/core/modules/get_current_perspectives/domain/domain.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/constants/constants.dart';
-import 'package:nokhte/app/core/modules/one_talker_at_a_time/domain/domain.dart';
 import 'package:nokhte/app/core/modules/scheduling/domain/domain.dart';
 import 'package:nokhte/app/core/modules/timer/domain/domain.dart';
-import 'package:nokhte/app/core/modules/existing_collaborations/domain/domain.dart';
-import 'package:nokhte/app/modules/collective_session/domain/entities/entities.dart';
 import 'package:nokhte/app/modules/home/domain/entities/entities.dart';
-import 'package:nokhte/app/modules/individual_session/domain/domain.dart';
-import 'package:nokhte/app/modules/individual_session/types/types.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/domain/entities/entities.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 import 'package:nokhte/app/core/modules/local_speech_to_text/domain/domain.dart';
@@ -25,7 +16,6 @@ import 'package:nokhte_backend/tables/timer_information.dart';
 import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
 import 'package:nokhte_backend/tables/working_collaborative_scheduling.dart';
 import 'package:nokhte_backend/tables/working_perspectives_positioning.dart';
-import 'package:nokhte/app/modules/collective_session/domain/domain.dart';
 
 class DefaultEntities {
   static DateTime get defaultDate => DateTime.fromMillisecondsSinceEpoch(0);
@@ -76,26 +66,6 @@ class DefaultEntities {
   static Either<Failure, SoloDocSharingStatusEntity>
       get defaultSoloDocSharingStatusEntity =>
           const Right(SoloDocSharingStatusEntity(isShared: false));
-
-  static Either<Failure, CollaborativeDocCreationStatusEntity>
-      get defaultCollaborativeDocCreationStatusEntity =>
-          const Right(CollaborativeDocCreationStatusEntity(isCreated: false));
-
-  static Either<Failure, CollaborativeDocUpdateStatusEntity>
-      get defaultCollaborativeDocUpdateStatusEntity =>
-          const Right(CollaborativeDocUpdateStatusEntity(isUpdated: false));
-
-  static Either<Failure, CollaborativeDocPresenceUpdaterStatusEntity>
-      get defaultCollaborativeDocPresenceUpdaterStatusEntity => const Right(
-          CollaborativeDocPresenceUpdaterStatusEntity(isUpdated: false));
-
-  static Either<Failure, CollaborativeDocDeltaUpdaterStatusEntity>
-      get defaultCollaborativeDocDeltaUpdaterStatusEntity => const Right(
-          CollaborativeDocDeltaUpdaterStatusEntity(isUpdated: false));
-  static Either<Failure, CollaborativeDocUpdateCommitDesireStatusEntity>
-      get collaborativeDocUpdateCommitDesireEntity => const Right(
-            CollaborativeDocUpdateCommitDesireStatusEntity(isUpdated: false),
-          );
 
   static Stream<DocInfoContent> get defaultDocContentEntity => Stream.value(
         DocInfoContent(
@@ -167,43 +137,6 @@ class DefaultEntities {
           currentPerspectives: const [],
           currentPerspectiveTimestamp: defaultDate));
 
-  static Either<Failure, IndividualPerspectivesAudioUploadStatusEntity>
-      get individualPerspectivesAudioUploadStatusEntity => const Right(
-          IndividualPerspectivesAudioUploadStatusEntity(isUploaded: false));
-  static Either<Failure, IndividualSessionCreationEntity>
-      get individualSessionCreationStatusEntity =>
-          Right(IndividualSessionCreationEntity(sessionTimestamp: defaultDate));
-  static Either<Failure, IndividualSessionMetadataUpdateStatusEntity>
-      get individualSessionMetadataUpdateStatusEntity => const Right(
-          IndividualSessionMetadataUpdateStatusEntity(isUpdated: false));
-
-  static Either<Failure, PerspectivesAudioRecordingStatusEntity>
-      get perspectivesAudioRecordingStatusEntity => Right(
-            PerspectivesAudioRecordingStatusEntity(
-              recordingStatus: PerspectivesAudioRecordingStatus.idle,
-              returnFile: File(''),
-            ),
-          );
-  static Either<Failure, IndividualAudioMovementToCollectiveSpaceStatusEntity>
-      get individualAudioMovementToCollectiveSpaceStatusEntity => const Right(
-          IndividualAudioMovementToCollectiveSpaceStatusEntity(isMoved: false));
-
-  static Either<Failure, CollaboratorPerspectivesEntity>
-      get collaboratorPerspectivesEntity => const Right(
-          CollaboratorPerspectivesEntity(collaboratorPerspectivesData: []));
-
-  static CollaboratorPerspectivesEntity
-      get unwrappedCollaboratorPerspectivesEntity =>
-          const CollaboratorPerspectivesEntity(
-              collaboratorPerspectivesData: []);
-  static Either<Failure, CollectiveSessionCreationStatusEntity>
-      get collectiveSessionCreationStatusEntity =>
-          const Right(CollectiveSessionCreationStatusEntity(isCreated: false));
-  static Either<Failure,
-          InvidualMetadataAdditionToCollectiveSessionStatusEntity>
-      get invidualMetadataAdditionToCollectiveSessionStatusEntity =>
-          const Right(InvidualMetadataAdditionToCollectiveSessionStatusEntity(
-              isAdded: true));
   static Either<Failure, ExistingCollaborationsInfoEntity>
       get existingCollaborationsInfoEntity => const Right(
             ExistingCollaborationsInfoEntity(
@@ -235,31 +168,6 @@ class DefaultEntities {
   static Either<Failure, TimerCreationStatusEntity>
       get timerCreationStatusEntity =>
           const Right(TimerCreationStatusEntity(isCreated: false));
-
-  static Either<Failure, WhoIsTalkingUpdateStatusEntity>
-      get whoIsTalkingUpdateStatusEntity =>
-          const Right(WhoIsTalkingUpdateStatusEntity(
-            isUpdated: false,
-          ));
-  static Either<Failure, CollaborationConsecrationStatusEntity>
-      get collaborationConsecrationStatusEntity => const Right(
-            CollaborationConsecrationStatusEntity(isConsecrated: false),
-          );
-
-  static Either<Failure, CollaborationActivationStatusEntity>
-      get collaborationActivationStatusEntity => const Right(
-            CollaborationActivationStatusEntity(isActivated: false),
-          );
-  static Either<Failure, IndividualCollaboratorEntryStatusEntity>
-      get individualCollaboratorEntryStatusEntity => const Right(
-          IndividualCollaboratorEntryStatusEntity(hasEntered: false));
-
-  static Either<Failure, PurposeSessionArtifactAbortionStatusEntity>
-      get purposeSessionArtifactAbortionStatusEntity => const Right(
-          PurposeSessionArtifactAbortionStatusEntity(isAborted: false));
-
-  static Either<Failure, WhoHasTheQuestionEntity> get whoHasTheQuestionEntity =>
-      const Right(WhoHasTheQuestionEntity(userHasTheQuestion: false));
 
   static DocInfoContent get docInfoContent => DocInfoContent(
         content: "",

@@ -1,4 +1,0 @@
-enum DrawingStatus {
-  hasDrawn,
-  hasNotDrawn,
-}
