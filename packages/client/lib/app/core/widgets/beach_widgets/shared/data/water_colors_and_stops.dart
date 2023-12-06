@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 
-
 class WaterColorsAndStops {
   static List<ColorAndStop> get onShoreWater => const [
         ColorAndStop(Color(0xFF51A18D), 0),
@@ -12,6 +11,17 @@ class WaterColorsAndStops {
         ColorAndStop(Color(0xFF214147), .7240),
         ColorAndStop(Color(0xFF1D3741), .8438),
         ColorAndStop(Color(0xFF122430), 1.00),
+      ];
+
+  static List<ColorAndStop> get blackOut => const [
+        ColorAndStop(Color(0xFF000000), 0),
+        ColorAndStop(Color(0xFF000000), 0),
+        ColorAndStop(Color(0xFF000000), 0),
+        ColorAndStop(Color(0xFF000000), 0),
+        ColorAndStop(Color(0xFF000000), 0),
+        ColorAndStop(Color(0xFF000000), 0),
+        ColorAndStop(Color(0xFF000000), 0),
+        ColorAndStop(Color(0xFF000000), 0),
       ];
 
   static List<ColorAndStop> get oceanDiveWater => const [
