@@ -8,14 +8,14 @@ import 'package:nokhte/app/core/widgets/beach_widgets/beach_waves/stack/movies/d
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:simple_animations/simple_animations.dart';
 // * Mobx Codegen Inclusion
-part 'ocean_dive_to_times_up_movie_store.g.dart';
+part 'ocean_dive_to_times_up_start_movie_store.g.dart';
 
-class OceanDiveToTimesUpMovieStore = _OceanDiveToTimesUpMovieStoreBase
-    with _$OceanDiveToTimesUpMovieStore;
+class OceanDiveToTimesUpStartMovieStore = _OceanDiveToTimesUpStartMovieStoreBase
+    with _$OceanDiveToTimesUpStartMovieStore;
 
-abstract class _OceanDiveToTimesUpMovieStoreBase
+abstract class _OceanDiveToTimesUpStartMovieStoreBase
     extends BaseCustomAnimatedWidgetStore<NoParams> with Store {
-  _OceanDiveToTimesUpMovieStoreBase() {
+  _OceanDiveToTimesUpStartMovieStoreBase() {
     movie = DynamicToTimesUpStart.getMovie(
       startingColors: WaterColorsAndStops.oceanDiveWater,
     );
