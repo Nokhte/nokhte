@@ -6,9 +6,9 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'canvas/beach_waves_painter.dart';
 
-class NewSmartBeachWaves extends StatelessWidget {
-  final NewBeachWavesStore store;
-  const NewSmartBeachWaves({
+class BeachWaves extends StatelessWidget {
+  final BeachWavesStore store;
+  const BeachWaves({
     super.key,
     required this.store,
   });

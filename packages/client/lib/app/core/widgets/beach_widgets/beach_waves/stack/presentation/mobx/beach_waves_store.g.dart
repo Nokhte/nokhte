@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'new_beach_waves_store.dart';
+part of 'beach_waves_store.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,7 +8,7 @@ part of 'new_beach_waves_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$NewBeachWavesStore on _NewBeachWavesStoreBase, Store {
+mixin _$BeachWavesStore on _BeachWavesStoreBase, Store {
   Computed<BaseCustomAnimatedWidgetStore<dynamic>>? _$currentStoreComputed;
 
   @override
@@ -16,32 +16,32 @@ mixin _$NewBeachWavesStore on _NewBeachWavesStoreBase, Store {
       (_$currentStoreComputed ??=
               Computed<BaseCustomAnimatedWidgetStore<dynamic>>(
                   () => super.currentStore,
-                  name: '_NewBeachWavesStoreBase.currentStore'))
+                  name: '_BeachWavesStoreBase.currentStore'))
           .value;
   Computed<Control>? _$currentControlComputed;
 
   @override
   Control get currentControl => (_$currentControlComputed ??= Computed<Control>(
           () => super.currentControl,
-          name: '_NewBeachWavesStoreBase.currentControl'))
+          name: '_BeachWavesStoreBase.currentControl'))
       .value;
   Computed<MovieStatus>? _$currentMovieStatusComputed;
 
   @override
   MovieStatus get currentMovieStatus => (_$currentMovieStatusComputed ??=
           Computed<MovieStatus>(() => super.currentMovieStatus,
-              name: '_NewBeachWavesStoreBase.currentMovieStatus'))
+              name: '_BeachWavesStoreBase.currentMovieStatus'))
       .value;
   Computed<MovieTween>? _$currentMovieComputed;
 
   @override
   MovieTween get currentMovie =>
       (_$currentMovieComputed ??= Computed<MovieTween>(() => super.currentMovie,
-              name: '_NewBeachWavesStoreBase.currentMovie'))
+              name: '_BeachWavesStoreBase.currentMovie'))
           .value;
 
   late final _$finishedCountAtom =
-      Atom(name: '_NewBeachWavesStoreBase.finishedCount', context: context);
+      Atom(name: '_BeachWavesStoreBase.finishedCount', context: context);
 
   @override
   int get finishedCount {
@@ -57,7 +57,7 @@ mixin _$NewBeachWavesStore on _NewBeachWavesStoreBase, Store {
   }
 
   late final _$pivotColorsAtom =
-      Atom(name: '_NewBeachWavesStoreBase.pivotColors', context: context);
+      Atom(name: '_BeachWavesStoreBase.pivotColors', context: context);
 
   @override
   ObservableList<ColorAndStop> get pivotColors {
@@ -73,7 +73,7 @@ mixin _$NewBeachWavesStore on _NewBeachWavesStoreBase, Store {
   }
 
   late final _$movieStatusAtom =
-      Atom(name: '_NewBeachWavesStoreBase.movieStatus', context: context);
+      Atom(name: '_BeachWavesStoreBase.movieStatus', context: context);
 
   @override
   MovieStatus get movieStatus {
@@ -89,7 +89,7 @@ mixin _$NewBeachWavesStore on _NewBeachWavesStoreBase, Store {
   }
 
   late final _$movieModeAtom =
-      Atom(name: '_NewBeachWavesStoreBase.movieMode', context: context);
+      Atom(name: '_BeachWavesStoreBase.movieMode', context: context);
 
   @override
   BeachWaveMovieModes get movieMode {
@@ -104,39 +104,39 @@ mixin _$NewBeachWavesStore on _NewBeachWavesStoreBase, Store {
     });
   }
 
-  late final _$_NewBeachWavesStoreBaseActionController =
-      ActionController(name: '_NewBeachWavesStoreBase', context: context);
+  late final _$_BeachWavesStoreBaseActionController =
+      ActionController(name: '_BeachWavesStoreBase', context: context);
 
   @override
   dynamic onCompleted() {
-    final _$actionInfo = _$_NewBeachWavesStoreBaseActionController.startAction(
-        name: '_NewBeachWavesStoreBase.onCompleted');
+    final _$actionInfo = _$_BeachWavesStoreBaseActionController.startAction(
+        name: '_BeachWavesStoreBase.onCompleted');
     try {
       return super.onCompleted();
     } finally {
-      _$_NewBeachWavesStoreBaseActionController.endAction(_$actionInfo);
+      _$_BeachWavesStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic setPivotColors(List<dynamic> currentAnimationValues) {
-    final _$actionInfo = _$_NewBeachWavesStoreBaseActionController.startAction(
-        name: '_NewBeachWavesStoreBase.setPivotColors');
+    final _$actionInfo = _$_BeachWavesStoreBaseActionController.startAction(
+        name: '_BeachWavesStoreBase.setPivotColors');
     try {
       return super.setPivotColors(currentAnimationValues);
     } finally {
-      _$_NewBeachWavesStoreBaseActionController.endAction(_$actionInfo);
+      _$_BeachWavesStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic setMovieMode(BeachWaveMovieModes newMovieMode) {
-    final _$actionInfo = _$_NewBeachWavesStoreBaseActionController.startAction(
-        name: '_NewBeachWavesStoreBase.setMovieMode');
+    final _$actionInfo = _$_BeachWavesStoreBaseActionController.startAction(
+        name: '_BeachWavesStoreBase.setMovieMode');
     try {
       return super.setMovieMode(newMovieMode);
     } finally {
-      _$_NewBeachWavesStoreBaseActionController.endAction(_$actionInfo);
+      _$_BeachWavesStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
