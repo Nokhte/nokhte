@@ -28,7 +28,7 @@ class SmartText extends StatelessWidget {
                 store.currentMainText,
                 textAlign: TextAlign.center,
                 style: GoogleFonts.kantumruyPro(
-                  fontSize: store.currentMainMessageFontSize,
+                  fontSize: store.currentMainTextFontSize,
                   color: Colors.white,
                 ),
               ),
@@ -36,7 +36,7 @@ class SmartText extends StatelessWidget {
                 store.currentSubText,
                 textAlign: TextAlign.center,
                 style: GoogleFonts.kantumruyPro(
-                  fontSize: store.currentSubMessageFontSize,
+                  fontSize: store.currentSubTextFontSize,
                   color: Colors.white,
                 ),
               ),
