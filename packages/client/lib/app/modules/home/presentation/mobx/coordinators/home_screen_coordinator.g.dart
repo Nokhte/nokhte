@@ -58,17 +58,6 @@ mixin _$HomeScreenCoordinatorStore on _HomeScreenCoordinatorStoreBase, Store {
           name: '_HomeScreenCoordinatorStoreBase', context: context);
 
   @override
-  dynamic portalAPIListener() {
-    final _$actionInfo = _$_HomeScreenCoordinatorStoreBaseActionController
-        .startAction(name: '_HomeScreenCoordinatorStoreBase.portalAPIListener');
-    try {
-      return super.portalAPIListener();
-    } finally {
-      _$_HomeScreenCoordinatorStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic toggleIsNavigating() {
     final _$actionInfo =
         _$_HomeScreenCoordinatorStoreBaseActionController.startAction(

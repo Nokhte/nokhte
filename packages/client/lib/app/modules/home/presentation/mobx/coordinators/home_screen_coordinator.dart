@@ -5,8 +5,6 @@ import 'package:haptic_feedback/haptic_feedback.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/presentation/presentation.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/smart_fading_animated_text/stack/constants/constants.dart';
@@ -22,7 +20,6 @@ class HomeScreenCoordinatorStore = _HomeScreenCoordinatorStoreBase
 
 abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
     with Store {
-  final PortalAPI portalAPI;
   final NewBeachWavesStore newBeachWave;
   final SwipeDetector swipe;
   final HoldDetector hold;
@@ -37,7 +34,6 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
     required this.getExistingCollaborationInfo,
     required this.swipe,
     required this.hold,
-    required this.portalAPI,
     required this.gesturePillStore,
     required this.addNameToDatabaseStore,
     required this.fadingTextStateTrackerStore,
@@ -89,19 +85,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
             )
           };
     fadingTextStateTrackerStore.startRotatingText(fadeInDuration);
-    await portalAPI.setupTheStream();
-    portalAPIListener();
   }
-
-  @action
-  portalAPIListener() => reaction((p0) => portalAPI.drawingMode, (p0) async {
-        if (p0 == DrawingStatus.hasDrawn &&
-            getExistingCollaborationInfo.hasDonePerspectives &&
-            getExistingCollaborationInfo.hasCommittedAPurpose) {
-          await Haptics.vibrate(HapticsType.medium);
-          fadeTheTextOutAndWaterComesDown(PlacesYouCanGo.individualSession);
-        }
-      });
 
   @observable
   bool isNavigating = false;
