@@ -18,8 +18,10 @@ void main() {
   late TimesUpDynamicPointToTheDepthsMovieStore
       timesUpDynamicPointToTheDepthsMovieStore;
   late TimesUpEndToTheDepthsMovieStore timesUpEndToTheDepthsMovieStore;
+  late BlackOutMovieStore blackOutMovieStore;
 
   setUp(() {
+    blackOutMovieStore = BlackOutMovieStore();
     timesUpEndToTheDepthsMovieStore = TimesUpEndToTheDepthsMovieStore();
     suspendedAtTheDepthsMovieStore = SuspendedAtTheDepthsMovieStore();
     timesUpMovieStore = TimesUpMovieStore();
@@ -33,6 +35,7 @@ void main() {
         TimesUpDynamicPointToTheDepthsMovieStore();
 
     testStore = BeachWavesStore(
+      blackOutMovie: blackOutMovieStore,
       timesUpEndToTheDepthsMovieStore: timesUpEndToTheDepthsMovieStore,
       suspendedAtTheDepthsMovieStore: suspendedAtTheDepthsMovieStore,
       timesUpDynamicPointToTheDepthsMovie:
@@ -84,8 +87,8 @@ void main() {
 
   group("actions", () {
     test('setMovieMode', () {
-      testStore.setMovieMode(BeachWaveMovieModes.oceanDive);
-      expect(testStore.movieMode, BeachWaveMovieModes.oceanDive);
+      testStore.setMovieMode(BeachWaveMovieModes.onShoreToOceanDiveSetup);
+      expect(testStore.movieMode, BeachWaveMovieModes.onShoreToOceanDiveSetup);
     });
   });
 
