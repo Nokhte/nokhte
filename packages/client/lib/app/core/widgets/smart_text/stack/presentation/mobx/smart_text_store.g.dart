@@ -23,29 +23,27 @@ mixin _$SmartTextStore on _SmartTextStoreBase, Store {
           () => super.currentMainText,
           name: '_SmartTextStoreBase.currentMainText'))
       .value;
-  Computed<bool>? _$shouldPauseAtCurrentComputed;
+  Computed<bool>? _$currentShouldPauseHereComputed;
 
   @override
-  bool get shouldPauseAtCurrent => (_$shouldPauseAtCurrentComputed ??=
-          Computed<bool>(() => super.shouldPauseAtCurrent,
-              name: '_SmartTextStoreBase.shouldPauseAtCurrent'))
+  bool get currentShouldPauseHere => (_$currentShouldPauseHereComputed ??=
+          Computed<bool>(() => super.currentShouldPauseHere,
+              name: '_SmartTextStoreBase.currentShouldPauseHere'))
       .value;
-  Computed<double>? _$currentMainMessageFontSizeComputed;
+  Computed<double>? _$currentMainTextFontSizeComputed;
 
   @override
-  double get currentMainMessageFontSize =>
-      (_$currentMainMessageFontSizeComputed ??= Computed<double>(
-              () => super.currentMainMessageFontSize,
-              name: '_SmartTextStoreBase.currentMainMessageFontSize'))
-          .value;
-  Computed<double>? _$currentSubMessageFontSizeComputed;
+  double get currentMainTextFontSize => (_$currentMainTextFontSizeComputed ??=
+          Computed<double>(() => super.currentMainTextFontSize,
+              name: '_SmartTextStoreBase.currentMainTextFontSize'))
+      .value;
+  Computed<double>? _$currentSubTextFontSizeComputed;
 
   @override
-  double get currentSubMessageFontSize =>
-      (_$currentSubMessageFontSizeComputed ??= Computed<double>(
-              () => super.currentSubMessageFontSize,
-              name: '_SmartTextStoreBase.currentSubMessageFontSize'))
-          .value;
+  double get currentSubTextFontSize => (_$currentSubTextFontSizeComputed ??=
+          Computed<double>(() => super.currentSubTextFontSize,
+              name: '_SmartTextStoreBase.currentSubTextFontSize'))
+      .value;
   Computed<Duration>? _$currentInitialFadeInDelayComputed;
 
   @override
@@ -85,22 +83,6 @@ mixin _$SmartTextStore on _SmartTextStoreBase, Store {
     });
   }
 
-  late final _$currentIndexAtom =
-      Atom(name: '_SmartTextStoreBase.currentIndex', context: context);
-
-  @override
-  int get currentIndex {
-    _$currentIndexAtom.reportRead();
-    return super.currentIndex;
-  }
-
-  @override
-  set currentIndex(int value) {
-    _$currentIndexAtom.reportWrite(value, super.currentIndex, () {
-      super.currentIndex = value;
-    });
-  }
-
   late final _$showWidgetAtom =
       Atom(name: '_SmartTextStoreBase.showWidget', context: context);
 
@@ -114,6 +96,22 @@ mixin _$SmartTextStore on _SmartTextStoreBase, Store {
   set showWidget(bool value) {
     _$showWidgetAtom.reportWrite(value, super.showWidget, () {
       super.showWidget = value;
+    });
+  }
+
+  late final _$currentIndexAtom =
+      Atom(name: '_SmartTextStoreBase.currentIndex', context: context);
+
+  @override
+  int get currentIndex {
+    _$currentIndexAtom.reportRead();
+    return super.currentIndex;
+  }
+
+  @override
+  set currentIndex(int value) {
+    _$currentIndexAtom.reportWrite(value, super.currentIndex, () {
+      super.currentIndex = value;
     });
   }
 
@@ -184,14 +182,14 @@ mixin _$SmartTextStore on _SmartTextStoreBase, Store {
   String toString() {
     return '''
 messagesData: ${messagesData},
-currentIndex: ${currentIndex},
 showWidget: ${showWidget},
+currentIndex: ${currentIndex},
 opacityCounter: ${opacityCounter},
 currentSubText: ${currentSubText},
 currentMainText: ${currentMainText},
-shouldPauseAtCurrent: ${shouldPauseAtCurrent},
-currentMainMessageFontSize: ${currentMainMessageFontSize},
-currentSubMessageFontSize: ${currentSubMessageFontSize},
+currentShouldPauseHere: ${currentShouldPauseHere},
+currentMainTextFontSize: ${currentMainTextFontSize},
+currentSubTextFontSize: ${currentSubTextFontSize},
 currentInitialFadeInDelay: ${currentInitialFadeInDelay},
 currentOnScreenTime: ${currentOnScreenTime},
 currentUnlockGesture: ${currentUnlockGesture}
