@@ -6,19 +6,16 @@ class MessagesData {
         RotatingTextData(
           initialFadeInDelay: Seconds.get(1),
           mainMessage: "Howdy",
-          unlockGesture: Gestures.none,
           onScreenTime: Seconds.get(2),
         ),
         RotatingTextData(
           initialFadeInDelay: Seconds.get(2),
           mainMessage: "The Point Of The App Is",
-          unlockGesture: Gestures.none,
           onScreenTime: Seconds.get(2),
         ),
         RotatingTextData(
           initialFadeInDelay: Seconds.get(2),
           mainMessage: "To Collectively Uplift Ideas Into Reality",
-          unlockGesture: Gestures.none,
           onScreenTime: Seconds.get(2),
         ),
         RotatingTextData(
