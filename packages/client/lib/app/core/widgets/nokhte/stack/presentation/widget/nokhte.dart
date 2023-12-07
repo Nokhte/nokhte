@@ -14,7 +14,7 @@ class Nokhte extends HookWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (context) => AnimatedOpacity(
-        opacity: 1,
+        opacity: store.showWidget ? 1 : 0,
         duration: Seconds.get(0, milli: 500),
         child: CustomAnimationBuilder(
           tween: store.movie,
@@ -23,7 +23,7 @@ class Nokhte extends HookWidget {
           builder: (context, value, child) {
             return CustomPaint(
               painter: NokhtePainter(
-                nokhteCoordinates: Offset(200, 200),
+                nokhteCoordinates: Offset(value.get('x'), value.get('y')),
               ),
               size: MediaQuery.of(context).size,
             );
