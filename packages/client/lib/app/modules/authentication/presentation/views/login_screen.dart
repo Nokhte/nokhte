@@ -5,13 +5,17 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/authentication/presentation/presentation.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-class LoginScreen extends HookWidget {
+class LoginScreen extends HookWidget with WidgetsBindingObserver {
   final LoginScreenCoordinator coordinator;
 
   const LoginScreen({
     super.key,
     required this.coordinator,
   });
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) =>
+      coordinator.setAppState(state);
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +25,10 @@ class LoginScreen extends HookWidget {
     });
     useEffect(() {
       coordinator.screenConstructor();
+      WidgetsBinding.instance.addObserver(this);
       return null;
     }, []);
+
     return Builder(builder: (context) {
       return Scaffold(
         resizeToAvoidBottomInset: false,
