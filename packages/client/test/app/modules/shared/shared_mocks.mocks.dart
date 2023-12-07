@@ -1019,13 +1019,6 @@ class MockSwipeDetector extends _i1.Mock implements _i2.SwipeDetector {
 /// See the documentation for Mockito's code generation for more information.
 class MockNokhteStore extends _i1.Mock implements _i2.NokhteStore {
   @override
-  List<Object> get props => (super.noSuchMethod(
-        Invocation.getter(#props),
-        returnValue: <Object>[],
-        returnValueForMissingStub: <Object>[],
-      ) as List<Object>);
-
-  @override
   bool get callsOnCompleteTwice => (super.noSuchMethod(
         Invocation.getter(#callsOnCompleteTwice),
         returnValue: false,
@@ -1141,6 +1134,13 @@ class MockNokhteStore extends _i1.Mock implements _i2.NokhteStore {
       );
 
   @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+        returnValueForMissingStub: <Object>[],
+      ) as List<Object>);
+
+  @override
   _i3.ReactiveContext get context => (super.noSuchMethod(
         Invocation.getter(#context),
         returnValue: _FakeReactiveContext_14(
@@ -1152,6 +1152,22 @@ class MockNokhteStore extends _i1.Mock implements _i2.NokhteStore {
           Invocation.getter(#context),
         ),
       ) as _i3.ReactiveContext);
+
+  @override
+  dynamic setPositionMovie(
+    _i6.Offset? touchPoint,
+    _i6.Offset? centerPoint,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #setPositionMovie,
+          [
+            touchPoint,
+            centerPoint,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
 
   @override
   void setMovie(_i5.MovieTween? newMovie) => super.noSuchMethod(
