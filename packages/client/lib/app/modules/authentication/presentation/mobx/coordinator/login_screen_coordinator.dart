@@ -66,7 +66,13 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
       resumedCallback: () => Future.delayed(Seconds.get(0, milli: 200), () {
         smartTextStore.startRotatingText();
       }),
-      inactiveCallback: () => smartTextStore.reset(),
+      inactiveCallback: () {
+        smartTextStore.reset();
+        nokhte.reset();
+        if (!hasNotMadeTheDot) {
+          toggleHasMadeTheDot();
+        }
+      },
       detachedCallback: () => null,
     );
   }
