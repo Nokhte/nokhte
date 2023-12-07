@@ -9,12 +9,8 @@ class NokhtePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Paint paint = Paint()
-      ..color = Colors.blue
-      ..strokeCap = StrokeCap.round
-      ..strokeWidth = 5.0;
-
-    canvas.drawCircle(nokhteCoordinates, 20.0, paint);
+    final Paint paint = Paint()..color = Colors.white;
+    canvas.drawCircle(nokhteCoordinates, 14.0, paint);
   }
 
   @override
