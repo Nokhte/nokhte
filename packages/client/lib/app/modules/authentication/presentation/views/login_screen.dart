@@ -39,16 +39,16 @@ class LoginScreen extends HookWidget with WidgetsBindingObserver {
             child: Stack(
               children: [
                 SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    child: BeachWaves(
-                      store: coordinator.beachWaves,
-                    )
-                    // child: BeachWaves(movie: OnShore.movie),
-                    ),
-                Center(
-                  child: SmartText(
-                    store: coordinator.smartTextStore,
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: BeachWaves(store: coordinator.beachWaves),
+                ),
+                Center(child: SmartText(store: coordinator.smartTextStore)),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: Nokhte(
+                    store: coordinator.nokhte,
                   ),
                 ),
               ],
