@@ -23,8 +23,13 @@ class LoginScreen extends HookWidget with WidgetsBindingObserver {
         onData: (isLoggedIn) {
       if (isLoggedIn) {}
     });
+    final centerX = MediaQuery.of(context).size.width / 2;
+    final centerY = MediaQuery.of(context).size.height / 2;
     useEffect(() {
       coordinator.screenConstructor();
+      coordinator.setCenterScreenCoordinates(
+        Offset(centerX, centerY),
+      );
       WidgetsBinding.instance.addObserver(this);
       return null;
     }, []);
