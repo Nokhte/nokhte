@@ -51,20 +51,21 @@ void main() {
       // write these when you get back
       test("widget is visible at index 0", () {
         fakeAsync((async) {
-          testStore.onOpacityTransitionComplete(true);
+          testStore.toggleWidgetVisibility();
+          testStore.onOpacityTransitionComplete();
           async.elapse(testStore.currentInitialFadeInDelay);
-          expect(testStore.showWidget, true);
+          expect(testStore.showWidget, false);
         });
       });
       test("widget is not visible at index 0", () {
-        testStore.onOpacityTransitionComplete(false);
+        testStore.onOpacityTransitionComplete();
         expect(testStore.opacityCounter, 1);
       });
       test("widget is not visible at index 1", () {
         fakeAsync((async) {
           testStore.currentIndex++;
           testStore.opacityCounter++;
-          testStore.onOpacityTransitionComplete(false);
+          testStore.onOpacityTransitionComplete();
           async.elapse(testStore.currentOnScreenTime);
           expect(testStore.showWidget, true);
           expect(testStore.currentIndex, 2);
