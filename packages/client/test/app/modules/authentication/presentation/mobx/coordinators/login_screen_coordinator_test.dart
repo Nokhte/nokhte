@@ -16,9 +16,11 @@ void main() {
   late MockAuthStateStore mockAuthStateStore;
   late SwipeDetector mockSwipeDetector;
   late TapDetector mockTapDetector;
+  late MockNokhteStore mockNokhteStore;
   late LoginScreenCoordinator testStore;
 
   setUp(() {
+    mockNokhteStore = MockNokhteStore();
     mockBeachWavesStore = MockBeachWavesStore();
     mockSmartTextStore = MockSmartTextStore();
     mockAuthStateStore = MockAuthStateStore();
@@ -26,6 +28,7 @@ void main() {
     mockSwipeDetector = SwipeDetector();
     mockTapDetector = TapDetector();
     testStore = LoginScreenCoordinator(
+      nokhte: mockNokhteStore,
       authProviderStore: mockAuthProviderStore,
       smartTextStore: mockSmartTextStore,
       beachWaves: mockBeachWavesStore,

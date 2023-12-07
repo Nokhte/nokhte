@@ -20,12 +20,14 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
   final SmartTextStore smartTextStore;
   final AuthProviderStore authProviderStore;
   final AuthStateStore authStateStore;
+  final NokhteStore nokhte;
   final SwipeDetector swipe;
   final TapDetector tap;
 
   _LoginScreenCoordinatorBase({
     required this.authProviderStore,
     required this.smartTextStore,
+    required this.nokhte,
     required this.beachWaves,
     required this.authStateStore,
     required this.tap,
