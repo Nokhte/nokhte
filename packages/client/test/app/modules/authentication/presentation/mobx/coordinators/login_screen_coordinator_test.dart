@@ -67,7 +67,7 @@ void main() {
     test("gestureListener", () {
       testStore.gestureListener();
       mockSwipeDetector.setDirectionsType(GestureDirections.up);
-      verify(testStore.logTheUserIn(AuthProvider.apple));
+      verifyNever(testStore.logTheUserIn(AuthProvider.apple));
     });
 
     test("tapListener", () {

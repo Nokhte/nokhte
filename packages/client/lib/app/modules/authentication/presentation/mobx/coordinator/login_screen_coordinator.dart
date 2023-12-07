@@ -64,7 +64,7 @@ abstract class _LoginScreenCoordinatorBase extends Equatable with Store {
   gestureListener() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.up:
-            logTheUserIn(authProvider);
+          // logTheUserIn(authProvider);
           default:
             break;
         }
