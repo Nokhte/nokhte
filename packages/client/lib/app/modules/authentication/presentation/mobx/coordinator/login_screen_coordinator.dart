@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/auth_providers.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -41,8 +42,15 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
   @observable
   bool hasNotMadeTheDot = true;
 
+  @observable
+  Offset centerScreenCoordinates = Offset.zero;
+
   @action
   toggleHasMadeTheDot() => hasNotMadeTheDot = !hasNotMadeTheDot;
+
+  @action
+  setCenterScreenCoordinates(Offset newCoordinates) =>
+      centerScreenCoordinates = newCoordinates;
 
   @action
   screenConstructor() {
@@ -82,6 +90,11 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
             hasNotMadeTheDot) {
           smartTextStore.startRotatingText(isResuming: true);
           toggleHasMadeTheDot();
+          nokhte.setPositionMovie(
+            tap.currentTapPosition,
+            centerScreenCoordinates,
+          );
+          // nokhte
         }
       });
 

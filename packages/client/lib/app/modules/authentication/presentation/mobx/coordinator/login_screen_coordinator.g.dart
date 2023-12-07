@@ -41,6 +41,24 @@ mixin _$LoginScreenCoordinator on _LoginScreenCoordinatorBase, Store {
     });
   }
 
+  late final _$centerScreenCoordinatesAtom = Atom(
+      name: '_LoginScreenCoordinatorBase.centerScreenCoordinates',
+      context: context);
+
+  @override
+  Offset get centerScreenCoordinates {
+    _$centerScreenCoordinatesAtom.reportRead();
+    return super.centerScreenCoordinates;
+  }
+
+  @override
+  set centerScreenCoordinates(Offset value) {
+    _$centerScreenCoordinatesAtom
+        .reportWrite(value, super.centerScreenCoordinates, () {
+      super.centerScreenCoordinates = value;
+    });
+  }
+
   late final _$logTheUserInAsyncAction =
       AsyncAction('_LoginScreenCoordinatorBase.logTheUserIn', context: context);
 
@@ -65,6 +83,18 @@ mixin _$LoginScreenCoordinator on _LoginScreenCoordinatorBase, Store {
   }
 
   @override
+  dynamic setCenterScreenCoordinates(Offset newCoordinates) {
+    final _$actionInfo =
+        _$_LoginScreenCoordinatorBaseActionController.startAction(
+            name: '_LoginScreenCoordinatorBase.setCenterScreenCoordinates');
+    try {
+      return super.setCenterScreenCoordinates(newCoordinates);
+    } finally {
+      _$_LoginScreenCoordinatorBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic screenConstructor() {
     final _$actionInfo = _$_LoginScreenCoordinatorBaseActionController
         .startAction(name: '_LoginScreenCoordinatorBase.screenConstructor');
@@ -79,7 +109,8 @@ mixin _$LoginScreenCoordinator on _LoginScreenCoordinatorBase, Store {
   String toString() {
     return '''
 authProvider: ${authProvider},
-hasNotMadeTheDot: ${hasNotMadeTheDot}
+hasNotMadeTheDot: ${hasNotMadeTheDot},
+centerScreenCoordinates: ${centerScreenCoordinates}
     ''';
   }
 }

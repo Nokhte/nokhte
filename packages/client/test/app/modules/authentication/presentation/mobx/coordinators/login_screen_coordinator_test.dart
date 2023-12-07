@@ -18,6 +18,7 @@ void main() {
   late TapDetector mockTapDetector;
   late MockNokhteStore mockNokhteStore;
   late LoginScreenCoordinator testStore;
+  const tCoordinates = Offset(1, 1);
 
   setUp(() {
     mockNokhteStore = MockNokhteStore();
@@ -45,12 +46,21 @@ void main() {
     test("hasNotMadeTheDot", () {
       expect(testStore.hasNotMadeTheDot, true);
     });
+
+    test("centerScreenCoordinates", () {
+      expect(testStore.centerScreenCoordinates, Offset.zero);
+    });
   });
 
   group("actions", () {
     test("toggleHasMadeTheDot", () {
       testStore.toggleHasMadeTheDot();
       expect(testStore.hasNotMadeTheDot, false);
+    });
+
+    test("setCenterScreenCoordinates", () {
+      testStore.setCenterScreenCoordinates(tCoordinates);
+      expect(testStore.centerScreenCoordinates, tCoordinates);
     });
 
     test("screenConstructor", () {
@@ -74,9 +84,12 @@ void main() {
     });
 
     test("tapListener", () {
+      when(mockSmartTextStore.currentUnlockGesture)
+          .thenAnswer((realInvocation) => Gestures.tap);
       testStore.tapListener();
       mockTapDetector.tapCount++;
-      verifyNever(mockSmartTextStore.startRotatingText());
+      verify(mockSmartTextStore.startRotatingText(isResuming: true));
+      verify(mockNokhteStore.setPositionMovie(Offset.zero, Offset.zero));
     });
   });
 }
