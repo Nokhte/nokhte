@@ -1,9 +1,9 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:io';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/auth_providers.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/beach_wave_movie_modes.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
@@ -11,13 +11,11 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import '../main/auth_provider_store.dart';
 import '../main/auth_state_store.dart';
 part 'login_screen_coordinator.g.dart';
-// fades in properly
-// abrubptly transitions through the rest
 
 class LoginScreenCoordinator = _LoginScreenCoordinatorBase
     with _$LoginScreenCoordinator;
 
-abstract class _LoginScreenCoordinatorBase extends Equatable with Store {
+abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
   final BeachWavesStore beachWaves;
   final SmartTextStore smartTextStore;
   final AuthProviderStore authProviderStore;
@@ -54,6 +52,13 @@ abstract class _LoginScreenCoordinatorBase extends Equatable with Store {
     }
     gestureListener();
     tapListener();
+    foregroundAndBackgroundStateListener(
+      resumedCallback: () => Future.delayed(Seconds.get(0, milli: 200), () {
+        smartTextStore.startRotatingText();
+      }),
+      inactiveCallback: () => smartTextStore.reset(),
+      detachedCallback: () => null,
+    );
   }
 
   @action
@@ -73,7 +78,7 @@ abstract class _LoginScreenCoordinatorBase extends Equatable with Store {
   tapListener() => reaction((p0) => tap.tapCount, (p0) {
         if (Gestures.tap == smartTextStore.currentUnlockGesture &&
             hasNotMadeTheDot) {
-          smartTextStore.startRotatingText();
+          smartTextStore.startRotatingText(isResuming: true);
           toggleHasMadeTheDot();
         }
       });
