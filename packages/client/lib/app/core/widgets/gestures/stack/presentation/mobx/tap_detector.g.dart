@@ -25,8 +25,35 @@ mixin _$TapDetector on _TapDetector, Store {
     });
   }
 
+  late final _$currentTapPositionAtom =
+      Atom(name: '_TapDetector.currentTapPosition', context: context);
+
+  @override
+  Offset get currentTapPosition {
+    _$currentTapPositionAtom.reportRead();
+    return super.currentTapPosition;
+  }
+
+  @override
+  set currentTapPosition(Offset value) {
+    _$currentTapPositionAtom.reportWrite(value, super.currentTapPosition, () {
+      super.currentTapPosition = value;
+    });
+  }
+
   late final _$_TapDetectorActionController =
       ActionController(name: '_TapDetector', context: context);
+
+  @override
+  dynamic onTapDown(Offset newOffset) {
+    final _$actionInfo = _$_TapDetectorActionController.startAction(
+        name: '_TapDetector.onTapDown');
+    try {
+      return super.onTapDown(newOffset);
+    } finally {
+      _$_TapDetectorActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic onTap() {
@@ -42,7 +69,8 @@ mixin _$TapDetector on _TapDetector, Store {
   @override
   String toString() {
     return '''
-tapCount: ${tapCount}
+tapCount: ${tapCount},
+currentTapPosition: ${currentTapPosition}
     ''';
   }
 }

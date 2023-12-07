@@ -14,6 +14,7 @@ class Tap extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => trackerStore.onTap(),
+      onTapDown: (details) => trackerStore.onTapDown(details.globalPosition),
       child: child,
     );
   }
