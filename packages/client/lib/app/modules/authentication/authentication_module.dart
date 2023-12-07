@@ -1,4 +1,5 @@
 import 'package:nokhte/app/core/widgets/module.dart';
+import 'package:nokhte/app/core/widgets/nokhte/nokhte.dart';
 import 'package:nokhte/app/core/widgets/shared/constants/svg_animation_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/authentication/domain/domain.dart';
@@ -47,6 +48,9 @@ class AuthenticationModule extends Module {
             endingPath: SvgAnimtionConstants.circlePath,
           ),
         ),
+        Bind.singleton<NokhteStore>(
+          (i) => NokhteStore(),
+        ),
         Bind.singleton<SmartTextStore>(
           (i) => SmartTextStore(),
         ),
@@ -62,6 +66,7 @@ class AuthenticationModule extends Module {
         ),
         Bind.singleton<LoginScreenCoordinator>(
           (i) => LoginScreenCoordinator(
+            nokhte: i<NokhteStore>(),
             tap: Modular.get<TapDetector>(),
             smartTextStore: i<SmartTextStore>(),
             beachWaves: Modular.get<BeachWavesStore>(),
