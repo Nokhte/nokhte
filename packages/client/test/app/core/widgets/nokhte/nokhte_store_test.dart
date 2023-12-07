@@ -25,5 +25,15 @@ void main() {
         expect(testStore.control, Control.playFromStart);
       });
     });
+
+    test("reset", () {
+      fakeAsync((async) {
+        testStore.setPositionMovie(Offset.zero, Offset.zero);
+        async.elapse(Seconds.get(0, milli: 190));
+        testStore.reset();
+        expect(testStore.showWidget, false);
+        expect(testStore.control, Control.stop);
+      });
+    });
   });
 }

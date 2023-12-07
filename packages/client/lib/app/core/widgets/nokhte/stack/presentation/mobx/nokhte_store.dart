@@ -15,22 +15,29 @@ class NokhteStore = _NokhteStoreBase with _$NokhteStore;
 abstract class _NokhteStoreBase extends BaseCustomAnimatedWidgetStore
     with Store {
   _NokhteStoreBase() {
-    toggleWidgetVisibility();
+    reset();
+  }
+
+  @action
+  reset() {
     setMovie(
       SetNokhtePositionMovie.getMovie(
         Offset.zero,
         Offset.zero,
       ),
     );
+    if (showWidget) {
+      toggleWidgetVisibility();
+    }
+    setControl(Control.playFromStart);
+    setControl(Control.stop);
   }
 
   setPositionMovie(Offset touchPoint, Offset centerPoint) {
     setMovie(SetNokhtePositionMovie.getMovie(touchPoint, centerPoint));
-    toggleWidgetVisibility();
     Future.delayed(Seconds.get(0, milli: 190), () {
+      toggleWidgetVisibility();
       setControl(Control.playFromStart);
     });
   }
-
-  // ok add a movie w/ a starting param
 }
