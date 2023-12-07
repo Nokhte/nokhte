@@ -708,16 +708,6 @@ class MockSmartTextStore extends _i1.Mock implements _i2.SmartTextStore {
         ),
         returnValueForMissingStub: null,
       );
-
-  @override
-  dynamic onOpacityTransitionComplete(bool? widgetIsVisible) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #onOpacityTransitionComplete,
-          [widgetIsVisible],
-        ),
-        returnValueForMissingStub: null,
-      );
 }
 
 /// A class which mocks [SwipeDetector].
