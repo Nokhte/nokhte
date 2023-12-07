@@ -25,6 +25,7 @@ class LoginScreen extends HookWidget with WidgetsBindingObserver {
     });
     final centerX = MediaQuery.of(context).size.width / 2;
     final centerY = MediaQuery.of(context).size.height / 2;
+    // todo make a hook for this later
     useEffect(() {
       coordinator.screenConstructor();
       coordinator.setCenterScreenCoordinates(
