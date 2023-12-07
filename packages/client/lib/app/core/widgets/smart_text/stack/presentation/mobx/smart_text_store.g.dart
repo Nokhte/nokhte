@@ -83,22 +83,6 @@ mixin _$SmartTextStore on _SmartTextStoreBase, Store {
     });
   }
 
-  late final _$showWidgetAtom =
-      Atom(name: '_SmartTextStoreBase.showWidget', context: context);
-
-  @override
-  bool get showWidget {
-    _$showWidgetAtom.reportRead();
-    return super.showWidget;
-  }
-
-  @override
-  set showWidget(bool value) {
-    _$showWidgetAtom.reportWrite(value, super.showWidget, () {
-      super.showWidget = value;
-    });
-  }
-
   late final _$currentIndexAtom =
       Atom(name: '_SmartTextStoreBase.currentIndex', context: context);
 
@@ -112,22 +96,6 @@ mixin _$SmartTextStore on _SmartTextStoreBase, Store {
   set currentIndex(int value) {
     _$currentIndexAtom.reportWrite(value, super.currentIndex, () {
       super.currentIndex = value;
-    });
-  }
-
-  late final _$opacityCounterAtom =
-      Atom(name: '_SmartTextStoreBase.opacityCounter', context: context);
-
-  @override
-  int get opacityCounter {
-    _$opacityCounterAtom.reportRead();
-    return super.opacityCounter;
-  }
-
-  @override
-  set opacityCounter(int value) {
-    _$opacityCounterAtom.reportWrite(value, super.opacityCounter, () {
-      super.opacityCounter = value;
     });
   }
 
@@ -146,22 +114,22 @@ mixin _$SmartTextStore on _SmartTextStoreBase, Store {
   }
 
   @override
-  dynamic toggleWidgetVisibility() {
+  dynamic reset() {
     final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
-        name: '_SmartTextStoreBase.toggleWidgetVisibility');
+        name: '_SmartTextStoreBase.reset');
     try {
-      return super.toggleWidgetVisibility();
+      return super.reset();
     } finally {
       _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic startRotatingText() {
+  dynamic startRotatingText({bool isResuming = false}) {
     final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
         name: '_SmartTextStoreBase.startRotatingText');
     try {
-      return super.startRotatingText();
+      return super.startRotatingText(isResuming: isResuming);
     } finally {
       _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -182,9 +150,7 @@ mixin _$SmartTextStore on _SmartTextStoreBase, Store {
   String toString() {
     return '''
 messagesData: ${messagesData},
-showWidget: ${showWidget},
 currentIndex: ${currentIndex},
-opacityCounter: ${opacityCounter},
 currentSubText: ${currentSubText},
 currentMainText: ${currentMainText},
 currentShouldPauseHere: ${currentShouldPauseHere},

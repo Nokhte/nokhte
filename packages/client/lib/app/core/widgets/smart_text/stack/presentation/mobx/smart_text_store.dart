@@ -1,23 +1,20 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
-import 'package:equatable/equatable.dart';
+import 'package:nokhte/app/core/mobx/base_custom_animated_widget_store.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
+import 'package:simple_animations/simple_animations.dart';
 part 'smart_text_store.g.dart';
 
 class SmartTextStore = _SmartTextStoreBase with _$SmartTextStore;
 
-abstract class _SmartTextStoreBase extends Equatable with Store {
+abstract class _SmartTextStoreBase extends BaseCustomAnimatedWidgetStore
+    with Store {
   @observable
   ObservableList<RotatingTextData> messagesData = ObservableList.of([]);
 
   @observable
-  bool showWidget = false;
-
-  @observable
   int currentIndex = 0;
-
-  @observable
-  int opacityCounter = 0;
 
   @action
   setMessagesData(List<RotatingTextData> newList) {
@@ -25,31 +22,39 @@ abstract class _SmartTextStoreBase extends Equatable with Store {
   }
 
   @action
-  toggleWidgetVisibility() => showWidget = !showWidget;
+  reset() {
+    currentIndex = 0;
+    if (control == Control.playReverseFromEnd) {
+      setControl(Control.stop);
+    } else if (control == Control.playFromStart) {
+      setControl(Control.playReverseFromEnd);
+      setControl(Control.stop);
+    }
+  }
 
   @action
-  startRotatingText() {
+  startRotatingText({bool isResuming = false}) {
     Future.delayed(currentInitialFadeInDelay, () {
-      toggleWidgetVisibility();
+      if (isResuming) {
+        setControl(Control.playReverseFromEnd);
+      } else {
+        setControl(Control.playFromStart);
+      }
     });
   }
 
   @action
   onOpacityTransitionComplete() {
     if (currentIndex < messagesData.length - 1) {
-      if (showWidget && !currentShouldPauseHere) {
-        Future.delayed(currentInitialFadeInDelay, () {
-          toggleWidgetVisibility();
+      if (control == Control.playFromStart && !currentShouldPauseHere) {
+        Future.delayed(currentOnScreenTime, () {
+          setControl(Control.playReverseFromEnd);
         });
-      } else {
-        if (opacityCounter == 0) {
-          opacityCounter++;
-        } else {
-          Future.delayed(currentOnScreenTime, () {
-            currentIndex++;
-            toggleWidgetVisibility();
-          });
-        }
+      } else if (control == Control.playReverseFromEnd) {
+        currentIndex++;
+        Future.delayed(Seconds.get(0, milli: 100), () {
+          setControl(Control.playFromStart);
+        });
       }
     }
   }
@@ -80,7 +85,4 @@ abstract class _SmartTextStoreBase extends Equatable with Store {
 
   @computed
   Gestures get currentUnlockGesture => messagesData[currentIndex].unlockGesture;
-
-  @override
-  List<Object> get props => [];
 }

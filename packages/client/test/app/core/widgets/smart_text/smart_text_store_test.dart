@@ -3,6 +3,7 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:fake_async/fake_async.dart';
+import 'package:simple_animations/simple_animations.dart';
 
 void main() {
   late SmartTextStore testStore;
@@ -12,16 +13,8 @@ void main() {
   });
 
   group("initial values", () {
-    test("showWidget", () {
-      expect(testStore.showWidget, false);
-    });
-
     test("currentIndex", () {
       expect(testStore.currentIndex, 0);
-    });
-
-    test("opacityCounter", () {
-      expect(testStore.opacityCounter, 0);
     });
   });
   group("actions", () {
@@ -30,17 +23,23 @@ void main() {
       expect(testStore.messagesData[0].mainMessage, "Howdy");
     });
 
-    test("toggleWidgetVisibility", () {
-      testStore.toggleWidgetVisibility();
-      expect(testStore.showWidget, true);
-    });
-
-    test("startRotatingText", () {
-      fakeAsync((async) {
+    group("startRotatingText", () {
+      setUp(() {
         testStore.setMessagesData(MessagesData.loginList);
-        testStore.startRotatingText();
-        async.elapse(testStore.currentInitialFadeInDelay);
-        expect(testStore.showWidget, true);
+      });
+      test("is not resuming", () {
+        fakeAsync((async) {
+          testStore.startRotatingText();
+          async.elapse(testStore.currentInitialFadeInDelay);
+          expect(testStore.control, Control.playFromStart);
+        });
+      });
+      test("is resuming", () {
+        fakeAsync((async) {
+          testStore.startRotatingText(isResuming: true);
+          async.elapse(testStore.currentInitialFadeInDelay);
+          expect(testStore.control, Control.playReverseFromEnd);
+        });
       });
     });
 
@@ -51,24 +50,19 @@ void main() {
       // write these when you get back
       test("widget is visible at index 0", () {
         fakeAsync((async) {
-          testStore.toggleWidgetVisibility();
+          testStore.setControl(Control.playFromStart);
           testStore.onOpacityTransitionComplete();
-          async.elapse(testStore.currentInitialFadeInDelay);
-          expect(testStore.showWidget, false);
+          async.elapse(testStore.currentOnScreenTime);
+          expect(testStore.control, Control.playReverseFromEnd);
         });
       });
       test("widget is not visible at index 0", () {
-        testStore.onOpacityTransitionComplete();
-        expect(testStore.opacityCounter, 1);
-      });
-      test("widget is not visible at index 1", () {
         fakeAsync((async) {
-          testStore.currentIndex++;
-          testStore.opacityCounter++;
+          testStore.setControl(Control.playReverseFromEnd);
           testStore.onOpacityTransitionComplete();
-          async.elapse(testStore.currentOnScreenTime);
-          expect(testStore.showWidget, true);
-          expect(testStore.currentIndex, 2);
+          async.elapse(Seconds.get(0, milli: 100));
+          expect(testStore.control, Control.playFromStart);
+          expect(testStore.currentIndex, 1);
         });
       });
     });
