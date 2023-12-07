@@ -1014,6 +1014,173 @@ class MockSwipeDetector extends _i1.Mock implements _i2.SwipeDetector {
       );
 }
 
+/// A class which mocks [NokhteStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockNokhteStore extends _i1.Mock implements _i2.NokhteStore {
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+        returnValueForMissingStub: <Object>[],
+      ) as List<Object>);
+
+  @override
+  bool get callsOnCompleteTwice => (super.noSuchMethod(
+        Invocation.getter(#callsOnCompleteTwice),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  Stopwatch get localStopwatch => (super.noSuchMethod(
+        Invocation.getter(#localStopwatch),
+        returnValue: _FakeStopwatch_16(
+          this,
+          Invocation.getter(#localStopwatch),
+        ),
+        returnValueForMissingStub: _FakeStopwatch_16(
+          this,
+          Invocation.getter(#localStopwatch),
+        ),
+      ) as Stopwatch);
+
+  @override
+  set localStopwatch(Stopwatch? value) => super.noSuchMethod(
+        Invocation.setter(
+          #localStopwatch,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i5.MovieTween get movie => (super.noSuchMethod(
+        Invocation.getter(#movie),
+        returnValue: _FakeMovieTween_13(
+          this,
+          Invocation.getter(#movie),
+        ),
+        returnValueForMissingStub: _FakeMovieTween_13(
+          this,
+          Invocation.getter(#movie),
+        ),
+      ) as _i5.MovieTween);
+
+  @override
+  set movie(_i5.MovieTween? value) => super.noSuchMethod(
+        Invocation.setter(
+          #movie,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i5.Control get control => (super.noSuchMethod(
+        Invocation.getter(#control),
+        returnValue: _i5.Control.stop,
+        returnValueForMissingStub: _i5.Control.stop,
+      ) as _i5.Control);
+
+  @override
+  set control(_i5.Control? value) => super.noSuchMethod(
+        Invocation.setter(
+          #control,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get showWidget => (super.noSuchMethod(
+        Invocation.getter(#showWidget),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set showWidget(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #showWidget,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i8.MovieStatus get movieStatus => (super.noSuchMethod(
+        Invocation.getter(#movieStatus),
+        returnValue: _i8.MovieStatus.idle,
+        returnValueForMissingStub: _i8.MovieStatus.idle,
+      ) as _i8.MovieStatus);
+
+  @override
+  set movieStatus(_i8.MovieStatus? value) => super.noSuchMethod(
+        Invocation.setter(
+          #movieStatus,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  String get stopwatchMillseconds => (super.noSuchMethod(
+        Invocation.getter(#stopwatchMillseconds),
+        returnValue: '',
+        returnValueForMissingStub: '',
+      ) as String);
+
+  @override
+  set stopwatchMillseconds(String? value) => super.noSuchMethod(
+        Invocation.setter(
+          #stopwatchMillseconds,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i3.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_14(
+          this,
+          Invocation.getter(#context),
+        ),
+        returnValueForMissingStub: _FakeReactiveContext_14(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i3.ReactiveContext);
+
+  @override
+  void setMovie(_i5.MovieTween? newMovie) => super.noSuchMethod(
+        Invocation.method(
+          #setMovie,
+          [newMovie],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void setControl(_i5.Control? newControl) => super.noSuchMethod(
+        Invocation.method(
+          #setControl,
+          [newControl],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  dynamic setMovieStatus(_i8.MovieStatus? newMovieStatus) => super.noSuchMethod(
+        Invocation.method(
+          #setMovieStatus,
+          [newMovieStatus],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
 /// A class which mocks [TapDetector].
 ///
 /// See the documentation for Mockito's code generation for more information.
