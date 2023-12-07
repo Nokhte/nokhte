@@ -35,9 +35,9 @@ abstract class _SmartTextStoreBase extends Equatable with Store {
   }
 
   @action
-  onOpacityTransitionComplete(bool widgetIsVisible) {
+  onOpacityTransitionComplete() {
     if (currentIndex < messagesData.length - 1) {
-      if (widgetIsVisible && !currentShouldPauseHere) {
+      if (showWidget && !currentShouldPauseHere) {
         Future.delayed(currentInitialFadeInDelay, () {
           toggleWidgetVisibility();
         });

@@ -168,11 +168,11 @@ mixin _$SmartTextStore on _SmartTextStoreBase, Store {
   }
 
   @override
-  dynamic onOpacityTransitionComplete(bool widgetIsVisible) {
+  dynamic onOpacityTransitionComplete() {
     final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
         name: '_SmartTextStoreBase.onOpacityTransitionComplete');
     try {
-      return super.onOpacityTransitionComplete(widgetIsVisible);
+      return super.onOpacityTransitionComplete();
     } finally {
       _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
     }
