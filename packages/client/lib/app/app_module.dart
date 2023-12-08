@@ -16,20 +16,29 @@ class AppModule extends Module {
         ConnectivityModule(connectivityInstance: connectivityInstance),
       ];
 
+  // @override
+  // List<Bind> get binds => [
+  //       Bind.singleton<SupabaseClient>((i) => supabase),
+  //       Bind.singleton<NetworkInfoImpl>(
+  //         (i) => NetworkInfoImpl(connectivityInstance),
+  //       )
+  //     ];
   @override
-  List<Bind> get binds => [
-        Bind.singleton<SupabaseClient>((i) => supabase),
-        Bind.singleton<NetworkInfoImpl>(
-          (i) => NetworkInfoImpl(connectivityInstance),
-        )
-      ];
+  void binds(i) {
+    i.addSingleton(() => supabase);
+    i.addSingleton(() => NetworkInfoImpl(connectivityInstance));
+  }
 
+  // @override
+  // List<ModularRoute> get routes => [
+  //       ModuleRoute(
+  //         '/',
+  //         // '/auth/',
+  //         module: AuthenticationModule(),
+  //       ),
+  //     ];
   @override
-  List<ModularRoute> get routes => [
-        ModuleRoute(
-          '/',
-          // '/auth/',
-          module: AuthenticationModule(),
-        ),
-      ];
+  void routes(r) {
+    r.module('/', module: AuthenticationModule());
+  }
 }
