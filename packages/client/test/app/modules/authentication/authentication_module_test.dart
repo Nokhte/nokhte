@@ -78,7 +78,7 @@ void main() {
       final authProviderClass = Modular.get<SignInWithAuthProviderStore>();
       await authProviderClass(AuthProvider.apple);
       final expected = authProviderClass.errorMessage;
-      expect(expected, FailureConstants.authFailureMsg);
+      expect(expected, FailureConstants.genericFailureMsg);
     });
   });
 
@@ -117,7 +117,7 @@ void main() {
       final authProviderClass = Modular.get<SignInWithAuthProviderStore>();
       await authProviderClass(AuthProvider.google);
       final expected = authProviderClass.errorMessage;
-      expect(expected, FailureConstants.authFailureMsg);
+      expect(expected, FailureConstants.genericFailureMsg);
     });
   });
 }
