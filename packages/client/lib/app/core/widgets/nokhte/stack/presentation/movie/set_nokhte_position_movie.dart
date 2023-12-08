@@ -13,17 +13,63 @@ class SetNokhtePositionMovie {
           end: Seconds.get(2),
         )
             .tween(
-              'x',
+              'nokhteX',
               Tween<double>(
                 begin: startingPoint.dx,
                 end: centerCoordinates.dx,
               ),
             )
             .tween(
-              'y',
+              'nokhteY',
               Tween<double>(
                 begin: startingPoint.dy,
                 end: centerCoordinates.dy,
+              ),
+            )
+            .tween(
+              'blueX',
+              Tween<double>(
+                begin: startingPoint.dx,
+                end: centerCoordinates.dx,
+              ),
+            )
+            .tween(
+              'blueY',
+              Tween<double>(
+                begin: startingPoint.dy,
+                end: centerCoordinates.dy,
+              ),
+            )
+        ..scene(
+          begin: Seconds.get(2),
+          end: Seconds.get(4),
+        )
+            .tween(
+              'nokhteX',
+              Tween<double>(
+                begin: centerCoordinates.dx,
+                end: centerCoordinates.dx,
+              ),
+            )
+            .tween(
+              'nokhteY',
+              Tween<double>(
+                begin: centerCoordinates.dy,
+                end: centerCoordinates.dy,
+              ),
+            )
+            .tween(
+              'blueX',
+              Tween<double>(
+                begin: centerCoordinates.dx,
+                end: centerCoordinates.dx,
+              ),
+            )
+            .tween(
+              'blueY',
+              Tween<double>(
+                begin: centerCoordinates.dy,
+                end: centerCoordinates.dy - 140.0,
               ),
             );
 }

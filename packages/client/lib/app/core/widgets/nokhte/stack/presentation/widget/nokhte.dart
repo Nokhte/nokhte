@@ -23,7 +23,10 @@ class Nokhte extends HookWidget {
           builder: (context, value, child) {
             return CustomPaint(
               painter: NokhtePainter(
-                nokhteCoordinates: Offset(value.get('x'), value.get('y')),
+                nokhteCoordinates:
+                    Offset(value.get('nokhteX'), value.get('nokhteY')),
+                blueDotCoordinates:
+                    Offset(value.get('blueX'), value.get('blueY')),
               ),
               size: MediaQuery.of(context).size,
             );
