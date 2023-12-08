@@ -13,7 +13,7 @@ void main() {
 
   group("initial values", () {
     test("movie", () {
-      expect(testStore.movie.duration, Seconds.get(2));
+      expect(testStore.movie.duration, Seconds.get(4));
     });
   });
 
