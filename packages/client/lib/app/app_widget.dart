@@ -21,9 +21,7 @@ class AppWidget extends StatelessWidget {
             DefaultWidgetsLocalizations.delegate,
             DefaultCupertinoLocalizations.delegate,
           ],
-          title: 'Primala',
-          routeInformationParser: Modular.routeInformationParser,
-          routerDelegate: Modular.routerDelegate,
+          routerConfig: Modular.routerConfig,
         ),
       ),
     );
