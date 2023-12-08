@@ -3,15 +3,15 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i15;
+import 'dart:async' as _i13;
 
 import 'package:dartz/dartz.dart' as _i5;
-import 'package:mobx/mobx.dart' as _i10;
+import 'package:mobx/mobx.dart' as _i9;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:nokhte/app/core/error/failure.dart' as _i16;
-import 'package:nokhte/app/core/interfaces/auth_providers.dart' as _i19;
-import 'package:nokhte/app/core/interfaces/logic.dart' as _i17;
-import 'package:nokhte/app/core/mobx/store_state.dart' as _i18;
+import 'package:nokhte/app/core/error/failure.dart' as _i14;
+import 'package:nokhte/app/core/interfaces/auth_providers.dart' as _i18;
+import 'package:nokhte/app/core/interfaces/logic.dart' as _i15;
+import 'package:nokhte/app/core/mobx/mobx.dart' as _i17;
 import 'package:nokhte/app/modules/authentication/data/models/models.dart'
     as _i4;
 import 'package:nokhte/app/modules/authentication/domain/contracts/authentication_contract.dart'
@@ -19,22 +19,18 @@ import 'package:nokhte/app/modules/authentication/domain/contracts/authenticatio
 import 'package:nokhte/app/modules/authentication/domain/entities/entities.dart'
     as _i6;
 import 'package:nokhte/app/modules/authentication/domain/logic/get_auth_state.dart'
-    as _i11;
-import 'package:nokhte/app/modules/authentication/domain/logic/sign_in_with_apple.dart'
     as _i8;
+import 'package:nokhte/app/modules/authentication/domain/logic/sign_in_with_apple.dart'
+    as _i10;
 import 'package:nokhte/app/modules/authentication/domain/logic/sign_in_with_google.dart'
-    as _i9;
-import 'package:nokhte/app/modules/authentication/presentation/mobx/getters/get_auth_provider_getter_store.dart'
-    as _i13;
-import 'package:nokhte/app/modules/authentication/presentation/mobx/getters/get_auth_state_getter_store.dart'
-    as _i12;
+    as _i11;
 import 'package:nokhte/app/modules/authentication/presentation/presentation.dart'
-    as _i20;
+    as _i16;
 import 'package:nokhte/app/modules/home/data/sources/home_remote_source.dart'
     as _i3;
 import 'package:supabase_flutter/supabase_flutter.dart' as _i2;
 
-import 'authentication_stack_mock_gen.dart' as _i14;
+import 'authentication_stack_mock_gen.dart' as _i12;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -123,9 +119,8 @@ class _FakeAuthenticationContract_6 extends _i1.SmartFake
         );
 }
 
-class _FakeSignInWithApple_7 extends _i1.SmartFake
-    implements _i8.SignInWithApple {
-  _FakeSignInWithApple_7(
+class _FakeGetAuthState_7 extends _i1.SmartFake implements _i8.GetAuthState {
+  _FakeGetAuthState_7(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -134,9 +129,9 @@ class _FakeSignInWithApple_7 extends _i1.SmartFake
         );
 }
 
-class _FakeSignInWithGoogle_8 extends _i1.SmartFake
-    implements _i9.SignInWithGoogle {
-  _FakeSignInWithGoogle_8(
+class _FakeReactiveContext_8 extends _i1.SmartFake
+    implements _i9.ReactiveContext {
+  _FakeReactiveContext_8(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -145,9 +140,9 @@ class _FakeSignInWithGoogle_8 extends _i1.SmartFake
         );
 }
 
-class _FakeReactiveContext_9 extends _i1.SmartFake
-    implements _i10.ReactiveContext {
-  _FakeReactiveContext_9(
+class _FakeSignInWithApple_9 extends _i1.SmartFake
+    implements _i10.SignInWithApple {
+  _FakeSignInWithApple_9(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -156,30 +151,9 @@ class _FakeReactiveContext_9 extends _i1.SmartFake
         );
 }
 
-class _FakeGetAuthState_10 extends _i1.SmartFake implements _i11.GetAuthState {
-  _FakeGetAuthState_10(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeGetAuthStateGetterStore_11 extends _i1.SmartFake
-    implements _i12.GetAuthStateGetterStore {
-  _FakeGetAuthStateGetterStore_11(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeGetAuthProviderStateGetterStore_12 extends _i1.SmartFake
-    implements _i13.GetAuthProviderStateGetterStore {
-  _FakeGetAuthProviderStateGetterStore_12(
+class _FakeSignInWithGoogle_10 extends _i1.SmartFake
+    implements _i11.SignInWithGoogle {
+  _FakeSignInWithGoogle_10(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -192,7 +166,7 @@ class _FakeGetAuthProviderStateGetterStore_12 extends _i1.SmartFake
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMAuthenticationRemoteSourceImpl extends _i1.Mock
-    implements _i14.MAuthenticationRemoteSourceImpl {
+    implements _i12.MAuthenticationRemoteSourceImpl {
   MockMAuthenticationRemoteSourceImpl() {
     _i1.throwOnMissingStub(this);
   }
@@ -226,36 +200,36 @@ class MockMAuthenticationRemoteSourceImpl extends _i1.Mock
       );
 
   @override
-  _i15.Future<_i4.AuthProviderModel> signInWithGoogle() => (super.noSuchMethod(
+  _i13.Future<_i4.AuthProviderModel> signInWithGoogle() => (super.noSuchMethod(
         Invocation.method(
           #signInWithGoogle,
           [],
         ),
         returnValue:
-            _i15.Future<_i4.AuthProviderModel>.value(_FakeAuthProviderModel_2(
+            _i13.Future<_i4.AuthProviderModel>.value(_FakeAuthProviderModel_2(
           this,
           Invocation.method(
             #signInWithGoogle,
             [],
           ),
         )),
-      ) as _i15.Future<_i4.AuthProviderModel>);
+      ) as _i13.Future<_i4.AuthProviderModel>);
 
   @override
-  _i15.Future<_i4.AuthProviderModel> signInWithApple() => (super.noSuchMethod(
+  _i13.Future<_i4.AuthProviderModel> signInWithApple() => (super.noSuchMethod(
         Invocation.method(
           #signInWithApple,
           [],
         ),
         returnValue:
-            _i15.Future<_i4.AuthProviderModel>.value(_FakeAuthProviderModel_2(
+            _i13.Future<_i4.AuthProviderModel>.value(_FakeAuthProviderModel_2(
           this,
           Invocation.method(
             #signInWithApple,
             [],
           ),
         )),
-      ) as _i15.Future<_i4.AuthProviderModel>);
+      ) as _i13.Future<_i4.AuthProviderModel>);
 
   @override
   _i4.AuthStateModel getAuthState() => (super.noSuchMethod(
@@ -276,42 +250,42 @@ class MockMAuthenticationRemoteSourceImpl extends _i1.Mock
 /// A class which mocks [MRemoteSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMRemoteSource extends _i1.Mock implements _i14.MRemoteSource {
+class MockMRemoteSource extends _i1.Mock implements _i12.MRemoteSource {
   MockMRemoteSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i15.Future<_i4.AuthProviderModel> signInWithGoogle() => (super.noSuchMethod(
+  _i13.Future<_i4.AuthProviderModel> signInWithGoogle() => (super.noSuchMethod(
         Invocation.method(
           #signInWithGoogle,
           [],
         ),
         returnValue:
-            _i15.Future<_i4.AuthProviderModel>.value(_FakeAuthProviderModel_2(
+            _i13.Future<_i4.AuthProviderModel>.value(_FakeAuthProviderModel_2(
           this,
           Invocation.method(
             #signInWithGoogle,
             [],
           ),
         )),
-      ) as _i15.Future<_i4.AuthProviderModel>);
+      ) as _i13.Future<_i4.AuthProviderModel>);
 
   @override
-  _i15.Future<_i4.AuthProviderModel> signInWithApple() => (super.noSuchMethod(
+  _i13.Future<_i4.AuthProviderModel> signInWithApple() => (super.noSuchMethod(
         Invocation.method(
           #signInWithApple,
           [],
         ),
         returnValue:
-            _i15.Future<_i4.AuthProviderModel>.value(_FakeAuthProviderModel_2(
+            _i13.Future<_i4.AuthProviderModel>.value(_FakeAuthProviderModel_2(
           this,
           Invocation.method(
             #signInWithApple,
             [],
           ),
         )),
-      ) as _i15.Future<_i4.AuthProviderModel>);
+      ) as _i13.Future<_i4.AuthProviderModel>);
 
   @override
   _i4.AuthStateModel getAuthState() => (super.noSuchMethod(
@@ -333,46 +307,46 @@ class MockMRemoteSource extends _i1.Mock implements _i14.MRemoteSource {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMAuthenticationContract extends _i1.Mock
-    implements _i14.MAuthenticationContract {
+    implements _i12.MAuthenticationContract {
   MockMAuthenticationContract() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i15.Future<_i5.Either<_i16.Failure, _i6.AuthProviderEntity>>
+  _i13.Future<_i5.Either<_i14.Failure, _i6.AuthProviderEntity>>
       googleSignIn() => (super.noSuchMethod(
             Invocation.method(
               #googleSignIn,
               [],
             ),
-            returnValue: _i15
-                .Future<_i5.Either<_i16.Failure, _i6.AuthProviderEntity>>.value(
-                _FakeEither_4<_i16.Failure, _i6.AuthProviderEntity>(
+            returnValue: _i13
+                .Future<_i5.Either<_i14.Failure, _i6.AuthProviderEntity>>.value(
+                _FakeEither_4<_i14.Failure, _i6.AuthProviderEntity>(
               this,
               Invocation.method(
                 #googleSignIn,
                 [],
               ),
             )),
-          ) as _i15.Future<_i5.Either<_i16.Failure, _i6.AuthProviderEntity>>);
+          ) as _i13.Future<_i5.Either<_i14.Failure, _i6.AuthProviderEntity>>);
 
   @override
-  _i15.Future<_i5.Either<_i16.Failure, _i6.AuthProviderEntity>> appleSignIn() =>
+  _i13.Future<_i5.Either<_i14.Failure, _i6.AuthProviderEntity>> appleSignIn() =>
       (super.noSuchMethod(
         Invocation.method(
           #appleSignIn,
           [],
         ),
         returnValue:
-            _i15.Future<_i5.Either<_i16.Failure, _i6.AuthProviderEntity>>.value(
-                _FakeEither_4<_i16.Failure, _i6.AuthProviderEntity>(
+            _i13.Future<_i5.Either<_i14.Failure, _i6.AuthProviderEntity>>.value(
+                _FakeEither_4<_i14.Failure, _i6.AuthProviderEntity>(
           this,
           Invocation.method(
             #appleSignIn,
             [],
           ),
         )),
-      ) as _i15.Future<_i5.Either<_i16.Failure, _i6.AuthProviderEntity>>);
+      ) as _i13.Future<_i5.Either<_i14.Failure, _i6.AuthProviderEntity>>);
 
   @override
   _i6.AuthStateEntity getAuthState() => (super.noSuchMethod(
@@ -390,14 +364,10 @@ class MockMAuthenticationContract extends _i1.Mock
       ) as _i6.AuthStateEntity);
 }
 
-/// A class which mocks [MSignInWithGoogle].
+/// A class which mocks [GetAuthState].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMSignInWithGoogle extends _i1.Mock implements _i14.MSignInWithGoogle {
-  MockMSignInWithGoogle() {
-    _i1.throwOnMissingStub(this);
-  }
-
+class MockGetAuthState extends _i1.Mock implements _i8.GetAuthState {
   @override
   _i7.AuthenticationContract get contract => (super.noSuchMethod(
         Invocation.getter(#contract),
@@ -405,84 +375,14 @@ class MockMSignInWithGoogle extends _i1.Mock implements _i14.MSignInWithGoogle {
           this,
           Invocation.getter(#contract),
         ),
-      ) as _i7.AuthenticationContract);
-
-  @override
-  _i15.Future<_i5.Either<_i16.Failure, _i6.AuthProviderEntity>> call(
-          _i17.NoParams? params) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #call,
-          [params],
-        ),
-        returnValue:
-            _i15.Future<_i5.Either<_i16.Failure, _i6.AuthProviderEntity>>.value(
-                _FakeEither_4<_i16.Failure, _i6.AuthProviderEntity>(
-          this,
-          Invocation.method(
-            #call,
-            [params],
-          ),
-        )),
-      ) as _i15.Future<_i5.Either<_i16.Failure, _i6.AuthProviderEntity>>);
-}
-
-/// A class which mocks [MSignInWithApple].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockMSignInWithApple extends _i1.Mock implements _i14.MSignInWithApple {
-  MockMSignInWithApple() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i7.AuthenticationContract get contract => (super.noSuchMethod(
-        Invocation.getter(#contract),
-        returnValue: _FakeAuthenticationContract_6(
+        returnValueForMissingStub: _FakeAuthenticationContract_6(
           this,
           Invocation.getter(#contract),
         ),
       ) as _i7.AuthenticationContract);
 
   @override
-  _i15.Future<_i5.Either<_i16.Failure, _i6.AuthProviderEntity>> call(
-          _i17.NoParams? params) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #call,
-          [params],
-        ),
-        returnValue:
-            _i15.Future<_i5.Either<_i16.Failure, _i6.AuthProviderEntity>>.value(
-                _FakeEither_4<_i16.Failure, _i6.AuthProviderEntity>(
-          this,
-          Invocation.method(
-            #call,
-            [params],
-          ),
-        )),
-      ) as _i15.Future<_i5.Either<_i16.Failure, _i6.AuthProviderEntity>>);
-}
-
-/// A class which mocks [MGetAuthState].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockMGetAuthState extends _i1.Mock implements _i14.MGetAuthState {
-  MockMGetAuthState() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i7.AuthenticationContract get contract => (super.noSuchMethod(
-        Invocation.getter(#contract),
-        returnValue: _FakeAuthenticationContract_6(
-          this,
-          Invocation.getter(#contract),
-        ),
-      ) as _i7.AuthenticationContract);
-
-  @override
-  _i6.AuthStateEntity call(_i17.NoParams? params) => (super.noSuchMethod(
+  _i6.AuthStateEntity call(_i15.NoParams? params) => (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
@@ -494,155 +394,42 @@ class MockMGetAuthState extends _i1.Mock implements _i14.MGetAuthState {
             [params],
           ),
         ),
-      ) as _i6.AuthStateEntity);
-}
-
-/// A class which mocks [MGetAuthProviderStateStore].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockMGetAuthProviderStateStore extends _i1.Mock
-    implements _i14.MGetAuthProviderStateStore {
-  MockMGetAuthProviderStateStore() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i8.SignInWithApple get appleSignInLogic => (super.noSuchMethod(
-        Invocation.getter(#appleSignInLogic),
-        returnValue: _FakeSignInWithApple_7(
-          this,
-          Invocation.getter(#appleSignInLogic),
-        ),
-      ) as _i8.SignInWithApple);
-
-  @override
-  _i9.SignInWithGoogle get googleSignInLogic => (super.noSuchMethod(
-        Invocation.getter(#googleSignInLogic),
-        returnValue: _FakeSignInWithGoogle_8(
-          this,
-          Invocation.getter(#googleSignInLogic),
-        ),
-      ) as _i9.SignInWithGoogle);
-
-  @override
-  _i18.StoreState get state => (super.noSuchMethod(
-        Invocation.getter(#state),
-        returnValue: _i18.StoreState.initial,
-      ) as _i18.StoreState);
-
-  @override
-  set state(_i18.StoreState? value) => super.noSuchMethod(
-        Invocation.setter(
-          #state,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  List<Object> get props => (super.noSuchMethod(
-        Invocation.getter(#props),
-        returnValue: <Object>[],
-      ) as List<Object>);
-
-  @override
-  _i10.ReactiveContext get context => (super.noSuchMethod(
-        Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_9(
-          this,
-          Invocation.getter(#context),
-        ),
-      ) as _i10.ReactiveContext);
-
-  @override
-  _i15.Future<_i5.Either<_i16.Failure, _i6.AuthProviderEntity>> call(
-          _i19.AuthProvider? authProvider) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #call,
-          [authProvider],
-        ),
-        returnValue:
-            _i15.Future<_i5.Either<_i16.Failure, _i6.AuthProviderEntity>>.value(
-                _FakeEither_4<_i16.Failure, _i6.AuthProviderEntity>(
+        returnValueForMissingStub: _FakeAuthStateEntity_5(
           this,
           Invocation.method(
             #call,
-            [authProvider],
+            [params],
           ),
-        )),
-      ) as _i15.Future<_i5.Either<_i16.Failure, _i6.AuthProviderEntity>>);
+        ),
+      ) as _i6.AuthStateEntity);
 }
 
-/// A class which mocks [MGetAuthStateStore].
+/// A class which mocks [GetAuthStateStore].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMGetAuthStateStore extends _i1.Mock
-    implements _i14.MGetAuthStateStore {
-  MockMGetAuthStateStore() {
-    _i1.throwOnMissingStub(this);
-  }
-
+class MockGetAuthStateStore extends _i1.Mock implements _i16.GetAuthStateStore {
   @override
-  _i11.GetAuthState get getAuthState => (super.noSuchMethod(
-        Invocation.getter(#getAuthState),
-        returnValue: _FakeGetAuthState_10(
+  _i8.GetAuthState get logic => (super.noSuchMethod(
+        Invocation.getter(#logic),
+        returnValue: _FakeGetAuthState_7(
           this,
-          Invocation.getter(#getAuthState),
+          Invocation.getter(#logic),
         ),
-      ) as _i11.GetAuthState);
-
-  @override
-  List<Object> get props => (super.noSuchMethod(
-        Invocation.getter(#props),
-        returnValue: <Object>[],
-      ) as List<Object>);
-
-  @override
-  _i10.ReactiveContext get context => (super.noSuchMethod(
-        Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_9(
+        returnValueForMissingStub: _FakeGetAuthState_7(
           this,
-          Invocation.getter(#context),
+          Invocation.getter(#logic),
         ),
-      ) as _i10.ReactiveContext);
+      ) as _i8.GetAuthState);
 
   @override
-  _i15.Stream<bool> call() => (super.noSuchMethod(
-        Invocation.method(
-          #call,
-          [],
-        ),
-        returnValue: _i15.Stream<bool>.empty(),
-      ) as _i15.Stream<bool>);
-}
-
-/// A class which mocks [AuthStateStore].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockAuthStateStore extends _i1.Mock implements _i20.AuthStateStore {
-  @override
-  _i12.GetAuthStateGetterStore get authStateGetterStore => (super.noSuchMethod(
-        Invocation.getter(#authStateGetterStore),
-        returnValue: _FakeGetAuthStateGetterStore_11(
-          this,
-          Invocation.getter(#authStateGetterStore),
-        ),
-        returnValueForMissingStub: _FakeGetAuthStateGetterStore_11(
-          this,
-          Invocation.getter(#authStateGetterStore),
-        ),
-      ) as _i12.GetAuthStateGetterStore);
-
-  @override
-  _i15.Stream<bool> get authState => (super.noSuchMethod(
+  _i13.Stream<bool> get authState => (super.noSuchMethod(
         Invocation.getter(#authState),
-        returnValue: _i15.Stream<bool>.empty(),
-        returnValueForMissingStub: _i15.Stream<bool>.empty(),
-      ) as _i15.Stream<bool>);
+        returnValue: _i13.Stream<bool>.empty(),
+        returnValueForMissingStub: _i13.Stream<bool>.empty(),
+      ) as _i13.Stream<bool>);
 
   @override
-  set authState(_i15.Stream<bool>? value) => super.noSuchMethod(
+  set authState(_i13.Stream<bool>? value) => super.noSuchMethod(
         Invocation.setter(
           #authState,
           value,
@@ -658,46 +445,82 @@ class MockAuthStateStore extends _i1.Mock implements _i20.AuthStateStore {
       ) as List<Object>);
 
   @override
-  _i10.ReactiveContext get context => (super.noSuchMethod(
+  _i9.ReactiveContext get context => (super.noSuchMethod(
         Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_9(
+        returnValue: _FakeReactiveContext_8(
           this,
           Invocation.getter(#context),
         ),
-        returnValueForMissingStub: _FakeReactiveContext_9(
+        returnValueForMissingStub: _FakeReactiveContext_8(
           this,
           Invocation.getter(#context),
         ),
-      ) as _i10.ReactiveContext);
+      ) as _i9.ReactiveContext);
 }
 
-/// A class which mocks [AuthProviderStore].
+/// A class which mocks [SignInWithAuthProviderStore].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuthProviderStore extends _i1.Mock implements _i20.AuthProviderStore {
+class MockSignInWithAuthProviderStore extends _i1.Mock
+    implements _i16.SignInWithAuthProviderStore {
   @override
-  _i13.GetAuthProviderStateGetterStore get authProviderGetterStore =>
-      (super.noSuchMethod(
-        Invocation.getter(#authProviderGetterStore),
-        returnValue: _FakeGetAuthProviderStateGetterStore_12(
+  _i10.SignInWithApple get signInWithApple => (super.noSuchMethod(
+        Invocation.getter(#signInWithApple),
+        returnValue: _FakeSignInWithApple_9(
           this,
-          Invocation.getter(#authProviderGetterStore),
+          Invocation.getter(#signInWithApple),
         ),
-        returnValueForMissingStub: _FakeGetAuthProviderStateGetterStore_12(
+        returnValueForMissingStub: _FakeSignInWithApple_9(
           this,
-          Invocation.getter(#authProviderGetterStore),
+          Invocation.getter(#signInWithApple),
         ),
-      ) as _i13.GetAuthProviderStateGetterStore);
+      ) as _i10.SignInWithApple);
 
   @override
-  _i18.StoreState get state => (super.noSuchMethod(
+  _i11.SignInWithGoogle get signInWithGoogle => (super.noSuchMethod(
+        Invocation.getter(#signInWithGoogle),
+        returnValue: _FakeSignInWithGoogle_10(
+          this,
+          Invocation.getter(#signInWithGoogle),
+        ),
+        returnValueForMissingStub: _FakeSignInWithGoogle_10(
+          this,
+          Invocation.getter(#signInWithGoogle),
+        ),
+      ) as _i11.SignInWithGoogle);
+
+  @override
+  bool get authProviderRequestStatus => (super.noSuchMethod(
+        Invocation.getter(#authProviderRequestStatus),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set authProviderRequestStatus(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #authProviderRequestStatus,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+        returnValueForMissingStub: <Object>[],
+      ) as List<Object>);
+
+  @override
+  _i17.StoreState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i18.StoreState.initial,
-        returnValueForMissingStub: _i18.StoreState.initial,
-      ) as _i18.StoreState);
+        returnValue: _i17.StoreState.initial,
+        returnValueForMissingStub: _i17.StoreState.initial,
+      ) as _i17.StoreState);
 
   @override
-  set state(_i18.StoreState? value) => super.noSuchMethod(
+  set state(_i17.StoreState? value) => super.noSuchMethod(
         Invocation.setter(
           #state,
           value,
@@ -722,27 +545,61 @@ class MockAuthProviderStore extends _i1.Mock implements _i20.AuthProviderStore {
       );
 
   @override
-  List<Object> get props => (super.noSuchMethod(
-        Invocation.getter(#props),
-        returnValue: <Object>[],
-        returnValueForMissingStub: <Object>[],
-      ) as List<Object>);
-
-  @override
-  _i10.ReactiveContext get context => (super.noSuchMethod(
+  _i9.ReactiveContext get context => (super.noSuchMethod(
         Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_9(
+        returnValue: _FakeReactiveContext_8(
           this,
           Invocation.getter(#context),
         ),
-        returnValueForMissingStub: _FakeReactiveContext_9(
+        returnValueForMissingStub: _FakeReactiveContext_8(
           this,
           Invocation.getter(#context),
         ),
-      ) as _i10.ReactiveContext);
+      ) as _i9.ReactiveContext);
 
   @override
-  String mapFailureToMessage(_i16.Failure? failure) => (super.noSuchMethod(
+  _i13.Future<
+      _i5
+      .Either<_i14.Failure, _i6.AuthProviderEntity>> routeAuthProviderRequest(
+          _i18.AuthProvider? authProvider) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #routeAuthProviderRequest,
+          [authProvider],
+        ),
+        returnValue:
+            _i13.Future<_i5.Either<_i14.Failure, _i6.AuthProviderEntity>>.value(
+                _FakeEither_4<_i14.Failure, _i6.AuthProviderEntity>(
+          this,
+          Invocation.method(
+            #routeAuthProviderRequest,
+            [authProvider],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i13.Future<_i5.Either<_i14.Failure, _i6.AuthProviderEntity>>.value(
+                _FakeEither_4<_i14.Failure, _i6.AuthProviderEntity>(
+          this,
+          Invocation.method(
+            #routeAuthProviderRequest,
+            [authProvider],
+          ),
+        )),
+      ) as _i13.Future<_i5.Either<_i14.Failure, _i6.AuthProviderEntity>>);
+
+  @override
+  _i13.Future<void> call(_i18.AuthProvider? authProvider) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [authProvider],
+        ),
+        returnValue: _i13.Future<void>.value(),
+        returnValueForMissingStub: _i13.Future<void>.value(),
+      ) as _i13.Future<void>);
+
+  @override
+  String mapFailureToMessage(_i14.Failure? failure) => (super.noSuchMethod(
         Invocation.method(
           #mapFailureToMessage,
           [failure],
@@ -752,24 +609,105 @@ class MockAuthProviderStore extends _i1.Mock implements _i20.AuthProviderStore {
       ) as String);
 
   @override
-  void errorMessageUpdater(
-          _i5.Either<_i16.Failure, _i6.AuthProviderEntity>? result) =>
+  void stateOrErrorUpdater(
+          _i5.Either<_i14.Failure, _i6.AuthProviderEntity>? result) =>
       super.noSuchMethod(
         Invocation.method(
-          #errorMessageUpdater,
+          #stateOrErrorUpdater,
           [result],
         ),
         returnValueForMissingStub: null,
       );
+}
+
+/// A class which mocks [SignInWithApple].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSignInWithApple extends _i1.Mock implements _i10.SignInWithApple {
+  @override
+  _i7.AuthenticationContract get contract => (super.noSuchMethod(
+        Invocation.getter(#contract),
+        returnValue: _FakeAuthenticationContract_6(
+          this,
+          Invocation.getter(#contract),
+        ),
+        returnValueForMissingStub: _FakeAuthenticationContract_6(
+          this,
+          Invocation.getter(#contract),
+        ),
+      ) as _i7.AuthenticationContract);
 
   @override
-  _i15.Future<void> routeAuthProviderRequest(_i19.AuthProvider? authProvider) =>
+  _i13.Future<_i5.Either<_i14.Failure, _i6.AuthProviderEntity>> call(
+          _i15.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
-          #routeAuthProviderRequest,
-          [authProvider],
+          #call,
+          [params],
         ),
-        returnValue: _i15.Future<void>.value(),
-        returnValueForMissingStub: _i15.Future<void>.value(),
-      ) as _i15.Future<void>);
+        returnValue:
+            _i13.Future<_i5.Either<_i14.Failure, _i6.AuthProviderEntity>>.value(
+                _FakeEither_4<_i14.Failure, _i6.AuthProviderEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i13.Future<_i5.Either<_i14.Failure, _i6.AuthProviderEntity>>.value(
+                _FakeEither_4<_i14.Failure, _i6.AuthProviderEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i13.Future<_i5.Either<_i14.Failure, _i6.AuthProviderEntity>>);
+}
+
+/// A class which mocks [SignInWithGoogle].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSignInWithGoogle extends _i1.Mock implements _i11.SignInWithGoogle {
+  @override
+  _i7.AuthenticationContract get contract => (super.noSuchMethod(
+        Invocation.getter(#contract),
+        returnValue: _FakeAuthenticationContract_6(
+          this,
+          Invocation.getter(#contract),
+        ),
+        returnValueForMissingStub: _FakeAuthenticationContract_6(
+          this,
+          Invocation.getter(#contract),
+        ),
+      ) as _i7.AuthenticationContract);
+
+  @override
+  _i13.Future<_i5.Either<_i14.Failure, _i6.AuthProviderEntity>> call(
+          _i15.NoParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue:
+            _i13.Future<_i5.Either<_i14.Failure, _i6.AuthProviderEntity>>.value(
+                _FakeEither_4<_i14.Failure, _i6.AuthProviderEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i13.Future<_i5.Either<_i14.Failure, _i6.AuthProviderEntity>>.value(
+                _FakeEither_4<_i14.Failure, _i6.AuthProviderEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i13.Future<_i5.Either<_i14.Failure, _i6.AuthProviderEntity>>);
 }

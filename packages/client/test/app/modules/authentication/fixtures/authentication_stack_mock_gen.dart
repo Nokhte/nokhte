@@ -7,8 +7,6 @@ import 'package:nokhte/app/modules/authentication/domain/contracts/authenticatio
 import 'package:nokhte/app/modules/authentication/domain/logic/get_auth_state.dart';
 import 'package:nokhte/app/modules/authentication/domain/logic/sign_in_with_apple.dart';
 import 'package:nokhte/app/modules/authentication/domain/logic/sign_in_with_google.dart';
-import 'package:nokhte/app/modules/authentication/presentation/mobx/getters/get_auth_provider_getter_store.dart';
-import 'package:nokhte/app/modules/authentication/presentation/mobx/getters/get_auth_state_getter_store.dart';
 import 'package:nokhte/app/modules/authentication/presentation/presentation.dart';
 
 class MAuthenticationRemoteSourceImpl extends Mock
@@ -18,29 +16,25 @@ class MAuthenticationContract extends Mock implements AuthenticationContract {}
 
 class MRemoteSource extends Mock implements AuthenticationRemoteSource {}
 
-class MSignInWithGoogle extends Mock implements SignInWithGoogle {}
+// class MSignInWithGoogle extends Mock implements SignInWithGoogle {}
 
-class MSignInWithApple extends Mock implements SignInWithApple {}
+// class MSignInWithApple extends Mock implements SignInWithApple {}
 
-class MGetAuthState extends Mock implements GetAuthState {}
-
-class MGetAuthProviderStateStore extends Mock
-    implements GetAuthProviderStateGetterStore {}
-
-class MGetAuthStateStore extends Mock implements GetAuthStateGetterStore {}
+// class MGetAuthState extends Mock implements GetAuthState {}
 
 @GenerateMocks([
   MAuthenticationRemoteSourceImpl,
   MRemoteSource,
   MAuthenticationContract,
-  MSignInWithGoogle,
-  MSignInWithApple,
-  MGetAuthState,
-  MGetAuthProviderStateStore,
-  MGetAuthStateStore
+  // MSignInWithGoogle,
+  // MSignInWithApple,
+  // MGetAuthState,
 ])
 @GenerateNiceMocks([
-  MockSpec<AuthStateStore>(),
-  MockSpec<AuthProviderStore>(),
+  MockSpec<GetAuthState>(),
+  MockSpec<GetAuthStateStore>(),
+  MockSpec<SignInWithAuthProviderStore>(),
+  MockSpec<SignInWithApple>(),
+  MockSpec<SignInWithGoogle>(),
 ])
 void main() {}
