@@ -19,56 +19,56 @@ class HomeModule extends Module {
         GesturesModule(),
       ];
   @override
-  List<Bind> get binds => [
-        Bind.singleton<HomeRemoteSourceImpl>(
-          (i) => HomeRemoteSourceImpl(
+  binds(i) => [
+        i.addSingleton<HomeRemoteSourceImpl>(
+          () => HomeRemoteSourceImpl(
             supabase: Modular.get<SupabaseClient>(),
           ),
         ),
-        Bind.singleton<HomeContractImpl>(
-          (i) => HomeContractImpl(
+        i.addSingleton<HomeContractImpl>(
+          () => HomeContractImpl(
             remoteSource: i<HomeRemoteSourceImpl>(),
             networkInfo: Modular.get<NetworkInfoImpl>(),
           ),
         ),
-        Bind.singleton<AddNameToDatabase>(
-          (i) => AddNameToDatabase(
+        i.addSingleton<AddNameToDatabase>(
+          () => AddNameToDatabase(
             contract: i<HomeContract>(),
           ),
         ),
-        Bind.singleton<GetCollaboratorPhrase>(
-          (i) => GetCollaboratorPhrase(
+        i.addSingleton<GetCollaboratorPhrase>(
+          () => GetCollaboratorPhrase(
             contract: i<HomeContract>(),
           ),
         ),
-        Bind.singleton<GetExistingCollaborationsInfo>(
-          (i) => GetExistingCollaborationsInfo(
+        i.addSingleton<GetExistingCollaborationsInfo>(
+          () => GetExistingCollaborationsInfo(
             contract: i<HomeContract>(),
           ),
         ),
-        Bind.singleton<GetExistingCollaborationsInfoStore>(
-          (i) => GetExistingCollaborationsInfoStore(
+        i.addSingleton<GetExistingCollaborationsInfoStore>(
+          () => GetExistingCollaborationsInfoStore(
             logic: i<GetExistingCollaborationsInfo>(),
           ),
         ),
-        Bind.singleton<AddNameToDatabaseStore>(
-          (i) => AddNameToDatabaseStore(
+        i.addSingleton<AddNameToDatabaseStore>(
+          () => AddNameToDatabaseStore(
             logic: i<AddNameToDatabase>(),
           ),
         ),
-        Bind.singleton<GetCollaboratorPhraseStore>(
-          (i) => GetCollaboratorPhraseStore(
+        i.addSingleton<GetCollaboratorPhraseStore>(
+          () => GetCollaboratorPhraseStore(
             logic: i<GetCollaboratorPhrase>(),
           ),
         ),
-        Bind.singleton<SmartTextStore>(
-          (i) => SmartTextStore(),
+        i.addSingleton<SmartTextStore>(
+          () => SmartTextStore(),
         ),
-        Bind.singleton<GesturePillStore>(
-          (i) => GesturePillStore(endingPath: SvgAnimtionConstants.circlePath),
+        i.addSingleton<GesturePillStore>(
+          () => GesturePillStore(endingPath: SvgAnimtionConstants.circlePath),
         ),
-        Bind.singleton<HomeScreenCoordinatorStore>(
-          (i) => HomeScreenCoordinatorStore(
+        i.addSingleton<HomeScreenCoordinatorStore>(
+          () => HomeScreenCoordinatorStore(
             beachWaves: Modular.get<BeachWavesStore>(),
             getExistingCollaborationInfo:
                 i<GetExistingCollaborationsInfoStore>(),
@@ -83,13 +83,13 @@ class HomeModule extends Module {
       ];
 
   @override
-  List<ModularRoute> get routes => [
-        ChildRoute(
-          "/",
-          transition: TransitionType.noTransition,
-          child: (context, args) => HomeScreen(
-            coordinator: Modular.get<HomeScreenCoordinatorStore>(),
-          ),
-        )
-      ];
+  routes(r) {
+    r.child(
+      "/",
+      transition: TransitionType.noTransition,
+      child: (context) => HomeScreen(
+        coordinator: Modular.get<HomeScreenCoordinatorStore>(),
+      ),
+    );
+  }
 }
