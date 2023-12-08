@@ -9,8 +9,7 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/beach_wave_movie_modes.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import '../main/auth_provider_store.dart';
-import '../main/auth_state_store.dart';
+import 'package:nokhte/app/modules/authentication/presentation/presentation.dart';
 part 'login_screen_coordinator.g.dart';
 
 class LoginScreenCoordinator = _LoginScreenCoordinatorBase
@@ -19,14 +18,14 @@ class LoginScreenCoordinator = _LoginScreenCoordinatorBase
 abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
   final BeachWavesStore beachWaves;
   final SmartTextStore smartTextStore;
-  final AuthProviderStore authProviderStore;
-  final AuthStateStore authStateStore;
+  final SignInWithAuthProviderStore signInWithAuthProvider;
+  final GetAuthStateStore authStateStore;
   final NokhteStore nokhte;
   final SwipeDetector swipe;
   final TapDetector tap;
 
   _LoginScreenCoordinatorBase({
-    required this.authProviderStore,
+    required this.signInWithAuthProvider,
     required this.smartTextStore,
     required this.nokhte,
     required this.beachWaves,
@@ -79,7 +78,7 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
 
   @action
   logTheUserIn(AuthProvider authProvider) async {
-    await authProviderStore.routeAuthProviderRequest(authProvider);
+    await signInWithAuthProvider.routeAuthProviderRequest(authProvider);
   }
 
   gestureListener() => reaction((p0) => swipe.directionsType, (p0) {

@@ -12,8 +12,8 @@ import '../../../fixtures/authentication_stack_mock_gen.mocks.dart';
 void main() {
   late MockBeachWavesStore mockBeachWavesStore;
   late MockSmartTextStore mockSmartTextStore;
-  late MockAuthProviderStore mockAuthProviderStore;
-  late MockAuthStateStore mockAuthStateStore;
+  late MockSignInWithAuthProviderStore mockAuthProviderStore;
+  late MockGetAuthStateStore mockAuthStateStore;
   late SwipeDetector mockSwipeDetector;
   late TapDetector mockTapDetector;
   late MockNokhteStore mockNokhteStore;
@@ -24,13 +24,13 @@ void main() {
     mockNokhteStore = MockNokhteStore();
     mockBeachWavesStore = MockBeachWavesStore();
     mockSmartTextStore = MockSmartTextStore();
-    mockAuthStateStore = MockAuthStateStore();
-    mockAuthProviderStore = MockAuthProviderStore();
+    mockAuthStateStore = MockGetAuthStateStore();
+    mockAuthProviderStore = MockSignInWithAuthProviderStore();
     mockSwipeDetector = SwipeDetector();
     mockTapDetector = TapDetector();
     testStore = LoginScreenCoordinator(
       nokhte: mockNokhteStore,
-      authProviderStore: mockAuthProviderStore,
+      signInWithAuthProvider: mockAuthProviderStore,
       smartTextStore: mockSmartTextStore,
       beachWaves: mockBeachWavesStore,
       authStateStore: mockAuthStateStore,
