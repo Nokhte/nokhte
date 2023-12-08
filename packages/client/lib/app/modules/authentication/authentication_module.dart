@@ -1,6 +1,7 @@
-import 'package:nokhte/app/core/widgets/module.dart';
 import 'package:nokhte/app/core/widgets/shared/constants/svg_animation_constants.dart';
+import 'package:nokhte/app/core/widgets/widget_modules/widget_modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/authentication/authentication_widgets_module.dart';
 import 'package:nokhte/app/modules/authentication/domain/domain.dart';
 import 'package:nokhte/app/modules/authentication/data/data.dart';
 import 'package:nokhte/app/modules/authentication/presentation/presentation.dart';
@@ -11,76 +12,67 @@ import 'package:nokhte/app/core/network/network_info.dart';
 class AuthenticationModule extends Module {
   @override
   List<Module> get imports => [
-        BeachWavesModule(),
+        AuthenticationWidgetsModule(),
         GesturesModule(),
-      ];
-  @override
-  List<Bind> get binds => [
-        Bind.singleton<AuthenticationRemoteSourceImpl>(
-          (i) => AuthenticationRemoteSourceImpl(
-            supabase: Modular.get<SupabaseClient>(),
-          ),
-        ),
-        Bind.singleton<AuthenticationContractImpl>(
-          (i) => AuthenticationContractImpl(
-            remoteSource: i<AuthenticationRemoteSourceImpl>(),
-            networkInfo: Modular.get<NetworkInfoImpl>(),
-          ),
-        ),
-        Bind.singleton<GetAuthState>(
-            (i) => GetAuthState(contract: i<AuthenticationContract>())),
-        Bind.singleton<SignInWithApple>(
-            (i) => SignInWithApple(contract: i<AuthenticationContract>())),
-        Bind.singleton<SignInWithGoogle>(
-            (i) => SignInWithGoogle(contract: i<AuthenticationContract>())),
-        Bind.singleton<GesturePillStore>(
-          (i) => GesturePillStore(
-            endingPath: SvgAnimtionConstants.circlePath,
-          ),
-        ),
-        Bind.singleton<NokhteStore>(
-          (i) => NokhteStore(),
-        ),
-        Bind.singleton<SmartTextStore>(
-          (i) => SmartTextStore(),
-        ),
-        Bind.singleton<SignInWithAuthProviderStore>(
-          (i) => SignInWithAuthProviderStore(
-            signInWithApple: i<SignInWithApple>(),
-            signInWithGoogle: i<SignInWithGoogle>(),
-          ),
-        ),
-        Bind.singleton<GetAuthStateStore>(
-          (i) => GetAuthStateStore(
-            logic: i<GetAuthState>(),
-          ),
-        ),
-        Bind.singleton<LoginScreenCoordinator>(
-          (i) => LoginScreenCoordinator(
-            nokhte: i<NokhteStore>(),
-            tap: Modular.get<TapDetector>(),
-            smartTextStore: i<SmartTextStore>(),
-            beachWaves: Modular.get<BeachWavesStore>(),
-            swipe: Modular.get<SwipeDetector>(),
-            signInWithAuthProvider: i<SignInWithAuthProviderStore>(),
-            authStateStore: i<GetAuthStateStore>(),
-          ),
-        ),
       ];
 
   @override
-  List<ChildRoute> get routes => [
-        ChildRoute(
-          "/",
-          child: (context, args) => LoginScreen(
-            coordinator: Modular.get<LoginScreenCoordinator>(),
-          ),
-          // guards: [
-          // AuthGuard(
-          //   supabase: Modular.get<SupabaseClient>(),
-          // ),
-          // ],
-          transition: TransitionType.noTransition,
-        )
-      ];
+  binds(i) {
+    i.addSingleton<AuthenticationRemoteSourceImpl>(
+      () => AuthenticationRemoteSourceImpl(
+        supabase: Modular.get<SupabaseClient>(),
+      ),
+    );
+    i.addSingleton<AuthenticationContractImpl>(
+      () => AuthenticationContractImpl(
+        remoteSource: i<AuthenticationRemoteSourceImpl>(),
+        networkInfo: Modular.get<NetworkInfoImpl>(),
+      ),
+    );
+    i.addSingleton<GetAuthState>(
+      () => GetAuthState(
+        contract: i.get<AuthenticationContractImpl>(),
+      ),
+    );
+    i.addSingleton<SignInWithApple>(
+      () => SignInWithApple(
+        contract: i.get<AuthenticationContractImpl>(),
+      ),
+    );
+    i.addSingleton<SignInWithGoogle>(
+      () => SignInWithGoogle(
+        contract: i.get<AuthenticationContractImpl>(),
+      ),
+    );
+    i.addSingleton<SignInWithAuthProviderStore>(
+      () => SignInWithAuthProviderStore(
+        signInWithApple: i.get<SignInWithApple>(),
+        signInWithGoogle: i.get<SignInWithGoogle>(),
+      ),
+    );
+    i.addSingleton<GetAuthStateStore>(
+      () => GetAuthStateStore(
+        logic: i<GetAuthState>(),
+      ),
+    );
+    i.addSingleton<LoginScreenCoordinator>(
+      () => LoginScreenCoordinator(
+        tap: Modular.get<TapDetector>(),
+        swipe: Modular.get<SwipeDetector>(),
+        widgets: Modular.get<LoginScreenWidgetsCoordinator>(),
+        signInWithAuthProvider: i<SignInWithAuthProviderStore>(),
+        authStateStore: i<GetAuthStateStore>(),
+      ),
+    );
+  }
+
+  @override
+  routes(r) {
+    r.child(
+      '/',
+      child: (context) => LoginScreen(
+        coordinator: Modular.get<LoginScreenCoordinator>(),
+      ),
+    );
+  }
 }
