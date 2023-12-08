@@ -1,6 +1,7 @@
 // ignore_for_file: no_logic_in_create_state
 
 import 'package:flutter/material.dart';
+import 'package:nokhte/app/core/hooks/use_center_offset.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/authentication/presentation/presentation.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -23,14 +24,9 @@ class LoginScreen extends HookWidget with WidgetsBindingObserver {
         onData: (isLoggedIn) {
       if (isLoggedIn) {}
     });
-    final centerX = MediaQuery.of(context).size.width / 2;
-    final centerY = MediaQuery.of(context).size.height / 2;
-    // todo make a hook for this later
+    final center = useCenterOffset();
     useEffect(() {
-      coordinator.screenConstructor();
-      coordinator.setCenterScreenCoordinates(
-        Offset(centerX, centerY),
-      );
+      coordinator.screenConstructor(center);
       WidgetsBinding.instance.addObserver(this);
       return null;
     }, []);
@@ -47,14 +43,19 @@ class LoginScreen extends HookWidget with WidgetsBindingObserver {
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
-                  child: BeachWaves(store: coordinator.beachWaves),
+                  child: BeachWaves(
+                    store: coordinator.widgets.beachWaves,
+                  ),
                 ),
-                Center(child: SmartText(store: coordinator.smartTextStore)),
+                Center(
+                    child: SmartText(
+                  store: coordinator.widgets.smartTextStore,
+                )),
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   child: Nokhte(
-                    store: coordinator.nokhte,
+                    store: coordinator.widgets.nokhte,
                   ),
                 ),
               ],
