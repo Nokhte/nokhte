@@ -16,19 +16,10 @@ class MAuthenticationContract extends Mock implements AuthenticationContract {}
 
 class MRemoteSource extends Mock implements AuthenticationRemoteSource {}
 
-// class MSignInWithGoogle extends Mock implements SignInWithGoogle {}
-
-// class MSignInWithApple extends Mock implements SignInWithApple {}
-
-// class MGetAuthState extends Mock implements GetAuthState {}
-
 @GenerateMocks([
   MAuthenticationRemoteSourceImpl,
   MRemoteSource,
   MAuthenticationContract,
-  // MSignInWithGoogle,
-  // MSignInWithApple,
-  // MGetAuthState,
 ])
 @GenerateNiceMocks([
   MockSpec<GetAuthState>(),
@@ -36,5 +27,6 @@ class MRemoteSource extends Mock implements AuthenticationRemoteSource {}
   MockSpec<SignInWithAuthProviderStore>(),
   MockSpec<SignInWithApple>(),
   MockSpec<SignInWithGoogle>(),
+  MockSpec<LoginScreenWidgetsCoordinator>()
 ])
 void main() {}
