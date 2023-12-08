@@ -13,7 +13,7 @@ abstract class _BaseCoordinatorBase extends Equatable with Store {
   @observable
   AppLifecycleState appState = AppLifecycleState.resumed;
 
-  foregroundAndBackgroundStateListener({
+  foregroundAndBackgroundStateReactor({
     required Function resumedCallback,
     required Function inactiveCallback,
     required Function detachedCallback,
