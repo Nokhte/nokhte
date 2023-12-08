@@ -850,109 +850,120 @@ class MockSmartTextStore extends _i1.Mock implements _i2.SmartTextStore {
       );
 }
 
-/// A class which mocks [SwipeDetector].
+/// A class which mocks [TrailingTextStore].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSwipeDetector extends _i1.Mock implements _i2.SwipeDetector {
+class MockTrailingTextStore extends _i1.Mock implements _i2.TrailingTextStore {
   @override
-  _i3.ObservableList<_i6.Offset> get mostRecentCoordinates =>
-      (super.noSuchMethod(
-        Invocation.getter(#mostRecentCoordinates),
-        returnValue: _FakeObservableList_11<_i6.Offset>(
-          this,
-          Invocation.getter(#mostRecentCoordinates),
-        ),
-        returnValueForMissingStub: _FakeObservableList_11<_i6.Offset>(
-          this,
-          Invocation.getter(#mostRecentCoordinates),
-        ),
-      ) as _i3.ObservableList<_i6.Offset>);
-
-  @override
-  set mostRecentCoordinates(_i3.ObservableList<_i6.Offset>? value) =>
-      super.noSuchMethod(
-        Invocation.setter(
-          #mostRecentCoordinates,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i8.DragType get dragType => (super.noSuchMethod(
-        Invocation.getter(#dragType),
-        returnValue: _i8.DragType.initial,
-        returnValueForMissingStub: _i8.DragType.initial,
-      ) as _i8.DragType);
-
-  @override
-  set dragType(_i8.DragType? value) => super.noSuchMethod(
-        Invocation.setter(
-          #dragType,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i8.GestureDirections get directionsType => (super.noSuchMethod(
-        Invocation.getter(#directionsType),
-        returnValue: _i8.GestureDirections.initial,
-        returnValueForMissingStub: _i8.GestureDirections.initial,
-      ) as _i8.GestureDirections);
-
-  @override
-  set directionsType(_i8.GestureDirections? value) => super.noSuchMethod(
-        Invocation.setter(
-          #directionsType,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  bool get resetTheDirectionType => (super.noSuchMethod(
-        Invocation.getter(#resetTheDirectionType),
+  bool get callsOnCompleteTwice => (super.noSuchMethod(
+        Invocation.getter(#callsOnCompleteTwice),
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
 
   @override
-  set resetTheDirectionType(bool? value) => super.noSuchMethod(
+  Stopwatch get localStopwatch => (super.noSuchMethod(
+        Invocation.getter(#localStopwatch),
+        returnValue: _FakeStopwatch_16(
+          this,
+          Invocation.getter(#localStopwatch),
+        ),
+        returnValueForMissingStub: _FakeStopwatch_16(
+          this,
+          Invocation.getter(#localStopwatch),
+        ),
+      ) as Stopwatch);
+
+  @override
+  set localStopwatch(Stopwatch? value) => super.noSuchMethod(
         Invocation.setter(
-          #resetTheDirectionType,
+          #localStopwatch,
           value,
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  _i8.HoldState get holdState => (super.noSuchMethod(
-        Invocation.getter(#holdState),
-        returnValue: _i8.HoldState.initial,
-        returnValueForMissingStub: _i8.HoldState.initial,
-      ) as _i8.HoldState);
+  _i5.MovieTween get movie => (super.noSuchMethod(
+        Invocation.getter(#movie),
+        returnValue: _FakeMovieTween_13(
+          this,
+          Invocation.getter(#movie),
+        ),
+        returnValueForMissingStub: _FakeMovieTween_13(
+          this,
+          Invocation.getter(#movie),
+        ),
+      ) as _i5.MovieTween);
 
   @override
-  set holdState(_i8.HoldState? value) => super.noSuchMethod(
+  set movie(_i5.MovieTween? value) => super.noSuchMethod(
         Invocation.setter(
-          #holdState,
+          #movie,
           value,
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  bool get hasAlreadyMadeGesture => (super.noSuchMethod(
-        Invocation.getter(#hasAlreadyMadeGesture),
+  _i5.Control get control => (super.noSuchMethod(
+        Invocation.getter(#control),
+        returnValue: _i5.Control.stop,
+        returnValueForMissingStub: _i5.Control.stop,
+      ) as _i5.Control);
+
+  @override
+  set control(_i5.Control? value) => super.noSuchMethod(
+        Invocation.setter(
+          #control,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get showWidget => (super.noSuchMethod(
+        Invocation.getter(#showWidget),
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
 
   @override
-  set hasAlreadyMadeGesture(bool? value) => super.noSuchMethod(
+  set showWidget(bool? value) => super.noSuchMethod(
         Invocation.setter(
-          #hasAlreadyMadeGesture,
+          #showWidget,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i8.MovieStatus get movieStatus => (super.noSuchMethod(
+        Invocation.getter(#movieStatus),
+        returnValue: _i8.MovieStatus.idle,
+        returnValueForMissingStub: _i8.MovieStatus.idle,
+      ) as _i8.MovieStatus);
+
+  @override
+  set movieStatus(_i8.MovieStatus? value) => super.noSuchMethod(
+        Invocation.setter(
+          #movieStatus,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  String get stopwatchMillseconds => (super.noSuchMethod(
+        Invocation.getter(#stopwatchMillseconds),
+        returnValue: '',
+        returnValueForMissingStub: '',
+      ) as String);
+
+  @override
+  set stopwatchMillseconds(String? value) => super.noSuchMethod(
+        Invocation.setter(
+          #stopwatchMillseconds,
           value,
         ),
         returnValueForMissingStub: null,
@@ -979,36 +990,28 @@ class MockSwipeDetector extends _i1.Mock implements _i2.SwipeDetector {
       ) as _i3.ReactiveContext);
 
   @override
-  dynamic setDirectionsType(_i8.GestureDirections? newDirectionsType) =>
-      super.noSuchMethod(
+  void setMovie(_i5.MovieTween? newMovie) => super.noSuchMethod(
         Invocation.method(
-          #setDirectionsType,
-          [newDirectionsType],
+          #setMovie,
+          [newMovie],
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  dynamic setDragType(_i8.DragType? newDragType) => super.noSuchMethod(
+  void setControl(_i5.Control? newControl) => super.noSuchMethod(
         Invocation.method(
-          #setDragType,
-          [newDragType],
+          #setControl,
+          [newControl],
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  dynamic onUpdateCallback(
-    _i6.Offset? mostRecentOffset,
-    _i8.DragType? newDragType,
-  ) =>
-      super.noSuchMethod(
+  dynamic setMovieStatus(_i8.MovieStatus? newMovieStatus) => super.noSuchMethod(
         Invocation.method(
-          #onUpdateCallback,
-          [
-            mostRecentOffset,
-            newDragType,
-          ],
+          #setMovieStatus,
+          [newMovieStatus],
         ),
         returnValueForMissingStub: null,
       );
