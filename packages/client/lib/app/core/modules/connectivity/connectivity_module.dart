@@ -7,7 +7,7 @@ class ConnectivityModule extends Module {
   ConnectivityModule({required this.connectivityInstance});
 
   @override
-  List<Bind> get binds => [
-        Bind.singleton<Connectivity>((i) => connectivityInstance),
+  binds(i) => [
+        i.addSingleton<Connectivity>(() => connectivityInstance),
       ];
 }
