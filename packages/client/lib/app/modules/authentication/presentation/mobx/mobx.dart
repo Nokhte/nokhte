@@ -1,2 +1,2 @@
 export 'main/main.dart';
-export './coordinator/login_screen_coordinator.dart';
+export './coordinators/coordinators.dart';
