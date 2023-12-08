@@ -10,8 +10,8 @@ import 'package:nokhte/app/core/interfaces/auth_providers.dart';
 import 'package:nokhte/app/core/modules/connectivity/connectivity_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/modules/authentication/authentication_module.dart';
-import 'package:nokhte/app/modules/authentication/presentation/mobx/main/auth_provider_store.dart';
-import 'package:nokhte/app/modules/authentication/presentation/mobx/main/auth_state_store.dart';
+import 'package:nokhte/app/modules/authentication/presentation/mobx/main/sign_in_with_auth_provider_store.dart';
+import 'package:nokhte/app/modules/authentication/presentation/mobx/main/get_auth_state_store.dart';
 import 'fixtures/supabase_module_auth_fixture.dart';
 import '../_module_helpers/module_mock_gen.mocks.dart';
 
@@ -52,7 +52,7 @@ void main() {
     test(
         'AUTHENTICATED: should set the store accordingly to the authState from the source (True)',
         () {
-      final authStateClass = Modular.get<AuthStateStore>();
+      final authStateClass = Modular.get<GetAuthStateStore>();
       final result = authStateClass.authState;
       expect(result, emits(true));
     });
@@ -62,7 +62,7 @@ void main() {
     test(
         'UNAUTHENTICATED: should set the store accordingly to the authState from the source',
         () {
-      final authStateClass = Modular.get<AuthStateStore>();
+      final authStateClass = Modular.get<GetAuthStateStore>();
       final result = authStateClass.authState;
       expect(result, emits(false));
     });
@@ -75,8 +75,8 @@ void main() {
       when(mockConnectivity.checkConnectivity())
           .thenAnswer((_) async => ConnectivityResult.wifi);
       when(mockNetwork.isConnected).thenAnswer((_) async => true);
-      final authProviderClass = Modular.get<AuthProviderStore>();
-      await authProviderClass.routeAuthProviderRequest(AuthProvider.apple);
+      final authProviderClass = Modular.get<SignInWithAuthProviderStore>();
+      await authProviderClass(AuthProvider.apple);
       final expected = authProviderClass.errorMessage;
       expect(expected, FailureConstants.authFailureMsg);
     });
@@ -89,8 +89,8 @@ void main() {
       when(mockConnectivity.checkConnectivity())
           .thenAnswer((_) async => ConnectivityResult.none);
       when(mockNetwork.isConnected).thenAnswer((_) async => false);
-      final authProviderClass = Modular.get<AuthProviderStore>();
-      await authProviderClass.routeAuthProviderRequest(AuthProvider.apple);
+      final authProviderClass = Modular.get<SignInWithAuthProviderStore>();
+      await authProviderClass(AuthProvider.apple);
       final expected = authProviderClass.errorMessage;
       expect(expected, FailureConstants.internetConnectionFailureMsg);
     });
@@ -103,8 +103,8 @@ void main() {
       when(mockConnectivity.checkConnectivity())
           .thenAnswer((_) async => ConnectivityResult.none);
       when(mockNetwork.isConnected).thenAnswer((_) async => false);
-      final authProviderClass = Modular.get<AuthProviderStore>();
-      await authProviderClass.routeAuthProviderRequest(AuthProvider.google);
+      final authProviderClass = Modular.get<SignInWithAuthProviderStore>();
+      await authProviderClass(AuthProvider.google);
       final expected = authProviderClass.errorMessage;
       expect(expected, FailureConstants.internetConnectionFailureMsg);
     });
@@ -114,8 +114,8 @@ void main() {
       when(mockConnectivity.checkConnectivity())
           .thenAnswer((_) async => ConnectivityResult.wifi);
       when(mockNetwork.isConnected).thenAnswer((_) async => true);
-      final authProviderClass = Modular.get<AuthProviderStore>();
-      await authProviderClass.routeAuthProviderRequest(AuthProvider.google);
+      final authProviderClass = Modular.get<SignInWithAuthProviderStore>();
+      await authProviderClass(AuthProvider.google);
       final expected = authProviderClass.errorMessage;
       expect(expected, FailureConstants.authFailureMsg);
     });
