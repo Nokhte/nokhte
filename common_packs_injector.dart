@@ -29,7 +29,7 @@ Future<List<Directory>> getSubfolder(Directory dir) async {
       }
     }
   }
-  folders.removeAt(0); // exclude core
+  folders.removeAt(0); // exclude nokhte core
   completer.complete(folders);
   return completer.future;
 }
