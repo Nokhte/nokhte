@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte/app/core/utilities/utilities.dart';
 
 void main() {
-  test("returns proper boolean with a variety of inputs", () async {
+  test("returns proper boolean with a variety of inputs", () {
     const input1 = "one";
     const input2 = "one two";
     const input3 = "one two three";
