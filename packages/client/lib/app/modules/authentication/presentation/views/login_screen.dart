@@ -15,11 +15,12 @@ class LoginScreen extends HookWidget with WidgetsBindingObserver {
   });
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) =>
-      coordinator.setAppState(state);
-
-  @override
   Widget build(BuildContext context) {
+    useOnAppLifecycleStateChange(
+      (previous, current) => coordinator.setAppState(
+        current,
+      ),
+    );
     useOnStreamChange<bool>(coordinator.authStateStore.authState,
         onData: (isLoggedIn) {
       if (isLoggedIn) {}
