@@ -33,10 +33,9 @@ dependencies:
   haptic_feedback: ^0.4.2
   http: ^1.1.0
   intl: ^0.18.1
-  leopard_flutter: ^1.2.1
+  leopard_flutter: ^2.0.1
   matrix4_transform: ^2.0.1
   mesh_gradient: ^1.1.5
-  meta: ^1.9.1
   mobx: ^2.2.1
   nokhte_backend:
     path: ../backend/dart

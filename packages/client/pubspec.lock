@@ -700,10 +700,10 @@ packages:
     dependency: "direct main"
     description:
       name: leopard_flutter
-      sha256: "35c1abcb55f9439236e32eb9f9d390ba3cbaa01bad9b722ffd9dd007ab66475e"
+      sha256: "64fc6ede6e7bf43c26eaf608c17f1a2bce87baddb1e200e6f3eff69c19ee014c"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.1"
+    version: "2.0.1"
   lints:
     dependency: transitive
     description:
@@ -761,7 +761,7 @@ packages:
     source: hosted
     version: "1.1.5"
   meta:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: meta
       sha256: "3c74dbf8763d36539f114c799d8a2d87343b5067e9d796ca22b5eb8437090ee3"
