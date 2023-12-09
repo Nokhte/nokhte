@@ -1,5 +1,3 @@
-// so how should we go about testing this as an abstract
-// * Testing & Mocking Libs
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/mobx/store_state.dart';

@@ -11,7 +11,6 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
     required super.supabase,
   });
 
-  // insert
   Future<List> createCollaborativeDocument({
     required String docType,
   }) async {
@@ -41,7 +40,6 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
     }
   }
 
-  // select
   Future<List> getDocInfo() async {
     await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     return await supabase
@@ -57,7 +55,6 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
         );
   }
 
-  // delete
   Future<void> deleteThedoc() async {
     await figureOutActiveCollaboratorInfoIfNotDoneAlready();
     await supabase
@@ -73,7 +70,6 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
         );
   }
 
-  // update
   Future<void> updateCommitDesireStatus({
     required bool wantsToCommitParam,
   }) async {

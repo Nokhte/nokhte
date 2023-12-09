@@ -1,13 +1,10 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-// * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-// * Mobx Codegen Inclusion
 part 'login_screen_widgets_coordinator.g.dart';
 
 class LoginScreenWidgetsCoordinator = _LoginScreenWidgetsCoordinatorBase

@@ -46,12 +46,12 @@ class GesturePillPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     canvas.drawPath(path, myPaint);
-    const circleRadius = 6.0; // Adjust the radius as needed
+    const circleRadius = 6.0;
     final lowerCirclePaint = Paint()
       ..color = Colors.white.withOpacity(centerCircleOpacity);
     final centerX = width / 2;
-    final lowerCircleCenterY = (height - circleRadius * 2) -
-        centerCircleAnimationConstant; // Position it near the bottom
+    final lowerCircleCenterY =
+        (height - circleRadius * 2) - centerCircleAnimationConstant;
     final higherCircleCenterY = (height - circleRadius * 2) - 27;
     final higherCircleRect = Rect.fromCircle(
         center: Offset(centerX, higherCircleCenterY), radius: circleRadius);

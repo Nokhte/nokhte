@@ -1,13 +1,9 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
 import 'dart:async';
-
 import 'package:mobx/mobx.dart';
-// * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:simple_animations/simple_animations.dart';
-// * Mobx Codegen Inclusion
 part 'base_custom_animated_widget_store.g.dart';
 
 class BaseCustomAnimatedWidgetStore<T> = _BaseCustomAnimatedWidgetStoreBase<T>
@@ -74,12 +70,6 @@ abstract class _BaseCustomAnimatedWidgetStoreBase<T> extends Equatable
   @action
   setMovieStatus(MovieStatus newMovieStatus) => movieStatus = newMovieStatus;
 
-  // @action
-  // onCompleted() {
-  //   print("did on completed run???");
-  //   setMovieStatus(MovieStatus.finished);
-  // }
-
   @action
   initMovie(T param) {}
 
@@ -96,7 +86,5 @@ abstract class _BaseCustomAnimatedWidgetStoreBase<T> extends Equatable
       });
 
   @override
-  List<Object> get props => [
-// some items
-      ];
+  List<Object> get props => [];
 }

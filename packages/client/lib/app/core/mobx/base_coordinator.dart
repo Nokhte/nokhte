@@ -1,10 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-// * Equatable Import
 import 'package:equatable/equatable.dart';
-// * Mobx Codegen Inclusion
 part 'base_coordinator.g.dart';
 
 class BaseCoordinator = _BaseCoordinatorBase with _$BaseCoordinator;

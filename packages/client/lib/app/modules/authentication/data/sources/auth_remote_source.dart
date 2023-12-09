@@ -33,7 +33,6 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
 
   @override
   Future<AuthProviderModel> signInWithApple() async {
-    // final authRes = await supabase.auth.signInWithApple();
     final rawNonce = MiscAlgos.generateRandomString();
     final hashedNonce = sha256.convert(utf8.encode(rawNonce)).toString();
 

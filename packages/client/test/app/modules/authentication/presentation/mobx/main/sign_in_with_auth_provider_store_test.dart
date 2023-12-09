@@ -19,7 +19,6 @@ void main() {
   const Either<Failure, AuthProviderEntity> tGoogleEntity = Right(
       AuthProviderEntity(
           authProvider: AuthProvider.google, authProviderStatus: true));
-  // const failure = AuthenticationFailure(message: message, failureCode: failureCode)
 
   setUp(() {
     mockSignInWithApple = MockSignInWithApple();

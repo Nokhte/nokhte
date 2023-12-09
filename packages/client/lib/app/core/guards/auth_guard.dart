@@ -10,7 +10,6 @@ class AuthGuard extends RouteGuard {
 
   @override
   Future<bool> canActivate(String path, ParallelRoute route) async {
-    // final supabase = Supabase.instance.client;
     final session = supabase.auth.currentSession ?? {};
     if (session.toString() == "{}") {
       return true;

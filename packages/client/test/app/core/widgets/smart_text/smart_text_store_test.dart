@@ -47,7 +47,6 @@ void main() {
       setUp(() {
         testStore.setMessagesData(MessagesData.loginList);
       });
-      // write these when you get back
       test("widget is visible at index 0", () {
         fakeAsync((async) {
           testStore.setControl(Control.playFromStart);

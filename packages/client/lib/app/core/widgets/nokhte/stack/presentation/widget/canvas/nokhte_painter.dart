@@ -27,7 +27,6 @@ class NokhtePainter extends CustomPainter {
       ).createShader(Rect.fromCircle(center: blueDotCoordinates, radius: 14.0));
 
     canvas.drawCircle(
-      // nokhteCoordinates,
       blueDotCoordinates,
       14.0,
       paint,

@@ -68,7 +68,6 @@ serve(async (req) => {
       message: "collaboration successfully forged",
     },
   ];
-  // }
   return new Response(JSON.stringify(returnRes), {
     headers: { "Content-Type": "application/json" },
   });

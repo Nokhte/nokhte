@@ -108,7 +108,6 @@ void main() {
     );
     collectiveSessionQueries.collaboratorInfo =
         perspectivesQueries.collaboratorInfo;
-    // perspectivesAudioStorageQueries.collaboratorInfo = perspectivesQueries.collaboratorInfo;
 
     final thePerspectivesCommitTimestampStr = (await supabase
             .from('p2p_perspectives_tracking')
@@ -245,14 +244,11 @@ void main() {
         .first["started_at"]);
 
     await perspectivesAudioStorageQueries.moveToCollectiveSpace(
-      // ohh here's the problem
       CollectiveSessionAudioExtrapolationInfo(
         perspectivesCommitTimestamp: thePerspectivesCommitTimestamp,
         individualSessionMetadata: sessionMetadata,
         collectiveSessionTimestamp: collectiveSessinTimestamp,
-        //
         individualSessionTimestamp: now,
-        // this can be left the same
       ),
     );
   });

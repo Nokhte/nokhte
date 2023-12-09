@@ -64,7 +64,6 @@ class StorageUtilities {
     CollectiveSessionAudioExtrapolationInfo extrapolationInfo,
     CollaboratorInfo collaboratorInfo,
   ) {
-    //
     final userUID = collaboratorInfo.theUsersUID;
     final collaboratorsUID = collaboratorInfo.theCollaboratorsUID;
     final collaborationID = getCollaborationID(collaboratorInfo);

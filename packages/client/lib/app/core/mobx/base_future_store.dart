@@ -1,16 +1,10 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
 import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/error/failure.dart';
-// * Core StoreState Type
 import './store_state.dart';
-// * Equatable Import
 import 'package:equatable/equatable.dart';
-// * Mobx Codegen Inclusion
 part 'base_future_store.g.dart';
-
-// Here's the thing all of our types will be Either<Failure, Entity>
 
 class BaseFutureStore<T> = _BaseFutureStoreBase<T> with _$BaseFutureStore;
 
