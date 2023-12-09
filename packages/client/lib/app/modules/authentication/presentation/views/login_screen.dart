@@ -55,6 +55,13 @@ class LoginScreen extends HookWidget with WidgetsBindingObserver {
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
+                  child: TrailingText(
+                    store: coordinator.widgets.trailingText,
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
                   child: Nokhte(
                     store: coordinator.widgets.nokhte,
                   ),
