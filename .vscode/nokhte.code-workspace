@@ -25,10 +25,10 @@
             "name": "🟨 client modules",
             "path": "../packages/client/lib/app/modules"
         },
-        // {
-        //     "name": "🟦 working widget",
-        //     "path": "../packages/client/lib/app/core/widgets/audio_clip_platform"
-        // },
+        {
+            "name": "🟦 working widget",
+            "path": "../packages/client/lib/app/core/widgets/trailing_text"
+        },
         {
             "name": "🟦 working module",
             "path": "../packages/client/lib/app/modules/authentication"
