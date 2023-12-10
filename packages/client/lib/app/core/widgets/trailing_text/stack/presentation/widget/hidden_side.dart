@@ -27,12 +27,12 @@ class HiddenSide extends StatelessWidget {
           )
         : Row(
             children: [
-              Expanded(child: Container()),
               Container(
                 width: size.width,
                 height: size.height,
                 color: hiddenSideColor,
               ),
+              Expanded(child: Container()),
             ],
           );
   }
