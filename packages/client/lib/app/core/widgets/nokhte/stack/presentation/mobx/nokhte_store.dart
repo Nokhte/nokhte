@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_custom_animated_widget_store.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/nokhte/stack/presentation/movies/movies.dart';
+import 'package:nokhte/app/core/widgets/nokhte/stack/stack.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'nokhte_store.g.dart';
 
@@ -12,16 +12,27 @@ class NokhteStore = _NokhteStoreBase with _$NokhteStore;
 abstract class _NokhteStoreBase extends BaseCustomAnimatedWidgetStore
     with Store {
   _NokhteStoreBase() {
-    reset();
+    setMovie(
+      SetNokhtePositionMovie.getMovie(Offset.zero, Offset.zero),
+    );
   }
+
+  @observable
+  Offset centerCoordinates = Offset.zero;
+
+  @observable
+  NokhteMovieModes movieMode = NokhteMovieModes.initial;
+
+  @action
+  setMovieModes(NokhteMovieModes newMovieMode) => movieMode = newMovieMode;
+
+  @action
+  setCenterCoordinates(Offset newCenter) => centerCoordinates = newCenter;
 
   @action
   reset() {
     setMovie(
-      SetNokhtePositionMovie.getMovie(
-        Offset.zero,
-        Offset.zero,
-      ),
+      SetNokhtePositionMovie.getMovie(Offset.zero, Offset.zero),
     );
     if (showWidget) {
       toggleWidgetVisibility();
@@ -31,9 +42,17 @@ abstract class _NokhteStoreBase extends BaseCustomAnimatedWidgetStore
   }
 
   @action
-  onCompleted() => setMovieStatus(MovieStatus.finished);
+  initMoveUpAndApparateMovie() {
+    setMovieModes(NokhteMovieModes.moveUpAndApparate);
+    setMovieStatus(MovieStatus.inProgress);
+    setMovie(MoveUpAndApparateMovie.getMovie(centerCoordinates));
+    setControl(Control.playFromStart);
+  }
 
+  @action
   setPositionMovie(Offset touchPoint, Offset centerPoint) {
+    setMovieModes(NokhteMovieModes.setPosition);
+    setCenterCoordinates(centerPoint);
     setMovie(SetNokhtePositionMovie.getMovie(touchPoint, centerPoint));
     Future.delayed(Seconds.get(0, milli: 190), () {
       toggleWidgetVisibility();
