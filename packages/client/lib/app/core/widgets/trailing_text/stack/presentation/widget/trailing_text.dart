@@ -40,6 +40,7 @@ class TrailingText extends HookWidget {
         child: CustomAnimationBuilder(
           tween: store.movie,
           duration: store.movie.duration,
+          onCompleted: () => store.onCompleted(),
           control: store.control,
           builder: (context, value, child) => Column(
             mainAxisAlignment: MainAxisAlignment.center,
