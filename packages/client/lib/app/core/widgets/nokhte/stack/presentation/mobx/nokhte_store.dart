@@ -30,11 +30,15 @@ abstract class _NokhteStoreBase extends BaseCustomAnimatedWidgetStore
     setControl(Control.stop);
   }
 
+  @action
+  onCompleted() => setMovieStatus(MovieStatus.finished);
+
   setPositionMovie(Offset touchPoint, Offset centerPoint) {
     setMovie(SetNokhtePositionMovie.getMovie(touchPoint, centerPoint));
     Future.delayed(Seconds.get(0, milli: 190), () {
       toggleWidgetVisibility();
       setControl(Control.playFromStart);
+      setMovieStatus(MovieStatus.inProgress);
     });
   }
 }

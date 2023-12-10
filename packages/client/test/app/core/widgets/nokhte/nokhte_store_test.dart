@@ -23,7 +23,13 @@ void main() {
         testStore.setPositionMovie(Offset.zero, Offset.zero);
         async.elapse(Seconds.get(0, milli: 190));
         expect(testStore.control, Control.playFromStart);
+        expect(testStore.movieStatus, MovieStatus.inProgress);
       });
+    });
+
+    test("onComplete", () {
+      testStore.onCompleted();
+      expect(testStore.movieStatus, MovieStatus.finished);
     });
 
     test("reset", () {

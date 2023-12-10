@@ -24,6 +24,17 @@ mixin _$NokhteStore on _NokhteStoreBase, Store {
   }
 
   @override
+  dynamic onCompleted() {
+    final _$actionInfo = _$_NokhteStoreBaseActionController.startAction(
+        name: '_NokhteStoreBase.onCompleted');
+    try {
+      return super.onCompleted();
+    } finally {
+      _$_NokhteStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 
