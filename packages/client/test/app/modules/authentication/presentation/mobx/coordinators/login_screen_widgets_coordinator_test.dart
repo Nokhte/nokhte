@@ -80,9 +80,9 @@ void main() {
 
     test("onTap", () {
       testStore.onTap(tCoordinates);
-      verify(mockSmartTextStore.startRotatingText(isResuming: true));
-      expect(testStore.hasNotMadeTheDot, false);
-      verify(mockNokhteStore.setPositionMovie(tCoordinates, Offset.zero));
+      expect(testStore.hasNotMadeTheDot, true);
+      verifyNever(mockSmartTextStore.startRotatingText(isResuming: true));
+      verifyNever(mockNokhteStore.setPositionMovie(tCoordinates, Offset.zero));
     });
   });
 
@@ -90,6 +90,8 @@ void main() {
     test("onNokhteAnimationCompleteReactor", () {
       verifyNever(mockBottomTrailingTextStore.initMovie(NoParams()));
       verifyNever(mockTopTrailingTextStore.initMovie(NoParams()));
+      verifyNever(mockBottomTrailingTextStore.toggleWidgetVisibility());
+      verifyNever(mockTopTrailingTextStore.toggleWidgetVisibility());
     });
   });
 }

@@ -47,9 +47,15 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
   setCenterScreenCoordinates(Offset newCoordinates) =>
       centerScreenCoordinates = newCoordinates;
 
-  onResumed() => Future.delayed(Seconds.get(0, milli: 200), () {
-        smartTextStore.startRotatingText();
-      });
+  onResumed() {
+    if (bottomTrailingText.showWidget) {
+      bottomTrailingText.reset();
+      topTrailingText.reset();
+    }
+    Future.delayed(Seconds.get(0, milli: 200), () {
+      smartTextStore.startRotatingText();
+    });
+  }
 
   onInactive() {
     smartTextStore.reset();
@@ -60,17 +66,23 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
   }
 
   onTap(Offset currentTapPosition) {
-    smartTextStore.startRotatingText(isResuming: true);
-    toggleHasMadeTheDot();
-    nokhte.setPositionMovie(
-      currentTapPosition,
-      centerScreenCoordinates,
-    );
+    if (Gestures.tap == smartTextStore.currentUnlockGesture) {
+      smartTextStore.startRotatingText(isResuming: true);
+      toggleHasMadeTheDot();
+      nokhte.setPositionMovie(
+        currentTapPosition,
+        centerScreenCoordinates,
+      );
+    }
   }
 
   onNokhteAnimationCompleteReactor() =>
       reaction((p0) => nokhte.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
+          if (!bottomTrailingText.showWidget) {
+            bottomTrailingText.toggleWidgetVisibility();
+            topTrailingText.toggleWidgetVisibility();
+          }
           bottomTrailingText.initMovie(NoParams());
           topTrailingText.initMovie(NoParams());
         }
