@@ -34,7 +34,7 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
 
   @action
   screenConstructor(Offset center) {
-    widgets.constructor(center);
+    widgets.constructor(center, logTheUserIn);
     initReactors();
     if (kDebugMode) {
       authProvider = AuthProvider.google;
@@ -52,14 +52,14 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
   }
 
   @action
-  logTheUserIn(AuthProvider authProvider) async {
+  logTheUserIn() async {
     await signInWithAuthProvider.routeAuthProviderRequest(authProvider);
   }
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.up:
-          // logTheUserIn(authProvider);
+            widgets.onSwipeUp();
           default:
             break;
         }

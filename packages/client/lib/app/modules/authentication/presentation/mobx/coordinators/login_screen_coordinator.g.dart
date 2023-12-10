@@ -29,9 +29,8 @@ mixin _$LoginScreenCoordinator on _LoginScreenCoordinatorBase, Store {
       AsyncAction('_LoginScreenCoordinatorBase.logTheUserIn', context: context);
 
   @override
-  Future logTheUserIn(AuthProvider authProvider) {
-    return _$logTheUserInAsyncAction
-        .run(() => super.logTheUserIn(authProvider));
+  Future logTheUserIn() {
+    return _$logTheUserInAsyncAction.run(() => super.logTheUserIn());
   }
 
   late final _$_LoginScreenCoordinatorBaseActionController =

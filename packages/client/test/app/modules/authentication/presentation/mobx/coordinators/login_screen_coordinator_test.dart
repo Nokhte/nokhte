@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/interfaces/auth_providers.dart';
-import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/authentication/presentation/presentation.dart';
 import '../../../fixtures/authentication_stack_mock_gen.mocks.dart';
@@ -39,11 +38,12 @@ void main() {
   group("actions", () {
     test("screenConstructor", () {
       testStore.screenConstructor(tCoordinates);
-      verify(mockWidgetsStore.constructor(tCoordinates));
+      verify(
+          mockWidgetsStore.constructor(tCoordinates, testStore.logTheUserIn));
     });
 
     test("logTheUserIn", () {
-      testStore.logTheUserIn(AuthProvider.apple);
+      testStore.logTheUserIn();
       verify(
           mockAuthProviderStore.routeAuthProviderRequest(AuthProvider.apple));
     });
@@ -52,8 +52,7 @@ void main() {
   group("reactors", () {
     test("swipeReactor", () {
       testStore.swipeReactor();
-      mockSwipeDetector.setDirectionsType(GestureDirections.up);
-      verifyNever(testStore.logTheUserIn(AuthProvider.apple));
+      verifyNever(mockWidgetsStore.onSwipeUp());
     });
 
     test("tapReactor", () {
