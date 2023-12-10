@@ -17,7 +17,7 @@ class AuthenticationWidgetsModule extends Module {
     i.addSingleton<SmartTextStore>(
       () => SmartTextStore(),
     );
-    i.addSingleton<TrailingTextStore>(
+    i.add<TrailingTextStore>(
       () => TrailingTextStore(),
     );
     i.addSingleton<LoginScreenWidgetsCoordinator>(
@@ -25,7 +25,8 @@ class AuthenticationWidgetsModule extends Module {
         nokhte: i.get<NokhteStore>(),
         smartTextStore: i.get<SmartTextStore>(),
         beachWaves: Modular.get<BeachWavesStore>(),
-        trailingText: i.get<TrailingTextStore>(),
+        bottomTrailingText: i.get<TrailingTextStore>(),
+        topTrailingText: i.get<TrailingTextStore>(),
       ),
     );
   }
