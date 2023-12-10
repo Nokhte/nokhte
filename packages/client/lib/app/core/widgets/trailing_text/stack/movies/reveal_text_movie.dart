@@ -8,6 +8,32 @@ class RevealTextMovie {
     TextRevealDirection revealDirection,
     double textLength,
   ) {
+    final padding = getPadding(textLength, revealDirection);
+    return MovieTween()
+      ..scene(
+        begin: Seconds.get(0),
+        end: Seconds.get(2),
+      )
+          .tween(
+            'leftPadding',
+            Tween<double>(
+              begin: padding.right,
+              end: padding.left + 15,
+            ),
+          )
+          .tween(
+            'rightPadding',
+            Tween<double>(
+              begin: padding.left,
+              end: padding.right + 15,
+            ),
+          );
+  }
+
+  static EdgeInsets getPadding(
+    double textLength,
+    TextRevealDirection revealDirection,
+  ) {
     double leftPadding = 0.0;
     double rightPadding = 0.0;
     switch (revealDirection) {
@@ -18,24 +44,9 @@ class RevealTextMovie {
       default:
         break;
     }
-    return MovieTween()
-      ..scene(
-        begin: Seconds.get(0),
-        end: Seconds.get(2),
-      )
-          .tween(
-            'leftPadding',
-            Tween<double>(
-              begin: rightPadding,
-              end: leftPadding + 15,
-            ),
-          )
-          .tween(
-            'rightPadding',
-            Tween<double>(
-              begin: leftPadding,
-              end: rightPadding + 15,
-            ),
-          );
+    return EdgeInsets.only(
+      left: leftPadding,
+      right: rightPadding,
+    );
   }
 }
