@@ -7,7 +7,7 @@ void main() {
     test("(15.0, TextRevealDirection.fromLeft)", () {
       final padding =
           RevealTextMovie.getPadding(15.0, TextRevealDirection.fromLeft);
-      expect(padding.right, 15.0);
+      expect(padding.right, 50.0);
       expect(padding.bottom, 0.0);
       expect(padding.top, 0.0);
       expect(padding.left, 0.0);
@@ -15,7 +15,7 @@ void main() {
     test("(15.0, TextRevealDirection.fromRight)", () {
       final padding =
           RevealTextMovie.getPadding(15.0, TextRevealDirection.fromRight);
-      expect(padding.left, 15.0);
+      expect(padding.left, 50.0);
       expect(padding.bottom, 0.0);
       expect(padding.top, 0.0);
       expect(padding.right, 0.0);
