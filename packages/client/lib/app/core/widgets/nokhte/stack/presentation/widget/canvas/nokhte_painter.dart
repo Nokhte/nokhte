@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nokhte/app/core/constants/constants.dart';
 
 class NokhtePainter extends CustomPainter {
   final Offset nokhteCoordinates;
@@ -17,11 +18,8 @@ class NokhtePainter extends CustomPainter {
 
   drawBlue(Canvas canvas, Size size) {
     final Paint paint = Paint()
-      ..shader = const LinearGradient(
-        colors: [
-          Color(0xFF4CD7FF),
-          Color(0xFF6AEAB9),
-        ],
+      ..shader = LinearGradient(
+        colors: Gradients.skyMint,
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ).createShader(Rect.fromCircle(center: blueDotCoordinates, radius: 14.0));
