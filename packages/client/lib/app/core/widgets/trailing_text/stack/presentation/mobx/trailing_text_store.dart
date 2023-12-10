@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/trailing_text/stack/movies/reveal_text_movie.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -33,12 +34,14 @@ abstract class _TrailingTextStoreBase
 
   @action
   initReverse() {
+    setMovieStatus(MovieStatus.inProgress);
     setControl(Control.playReverseFromEnd);
   }
 
   @action
   @override
   initMovie(NoParams params) {
+    setMovieStatus(MovieStatus.inProgress);
     setControl(Control.playFromStart);
   }
 }

@@ -40,9 +40,16 @@ void main() {
       expect(testStore.control, Control.stop);
     });
 
+    test("initReverse", () {
+      testStore.initReverse();
+      expect(testStore.control, Control.playReverseFromEnd);
+      expect(testStore.movieStatus, MovieStatus.inProgress);
+    });
+
     test("initMovie", () {
       testStore.initMovie(NoParams());
       expect(testStore.control, Control.playFromStart);
+      expect(testStore.movieStatus, MovieStatus.inProgress);
     });
   });
 }
