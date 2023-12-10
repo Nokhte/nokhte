@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -14,20 +15,23 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
   final BeachWavesStore beachWaves;
   final SmartTextStore smartTextStore;
   final NokhteStore nokhte;
-  final TrailingTextStore trailingText;
+  final TrailingTextStore bottomTrailingText;
+  final TrailingTextStore topTrailingText;
 
   _LoginScreenWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.smartTextStore,
     required this.nokhte,
-    required this.trailingText,
+    required this.bottomTrailingText,
+    required this.topTrailingText,
   });
 
   constructor(Offset center) {
     setCenterScreenCoordinates(center);
+    beachWaves.setMovieMode(BeachWaveMovieModes.blackOut);
     smartTextStore.setMessagesData(MessagesData.loginList);
     smartTextStore.startRotatingText();
-    beachWaves.setMovieMode(BeachWaveMovieModes.blackOut);
+    onNokhteAnimationCompleteReactor();
   }
 
   @observable
@@ -63,6 +67,14 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
       centerScreenCoordinates,
     );
   }
+
+  onNokhteAnimationCompleteReactor() =>
+      reaction((p0) => nokhte.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished) {
+          bottomTrailingText.initMovie(NoParams());
+          topTrailingText.initMovie(NoParams());
+        }
+      });
 
   @override
   List<Object> get props => [];

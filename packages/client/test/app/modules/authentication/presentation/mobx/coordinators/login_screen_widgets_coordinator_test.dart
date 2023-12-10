@@ -1,6 +1,7 @@
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/modules/authentication/presentation/presentation.dart';
@@ -10,7 +11,8 @@ void main() {
   late MockBeachWavesStore mockBeachWavesStore;
   late MockSmartTextStore mockSmartTextStore;
   late MockNokhteStore mockNokhteStore;
-  late MockTrailingTextStore mockTrailingTextStore;
+  late MockTrailingTextStore mockTopTrailingTextStore;
+  late MockTrailingTextStore mockBottomTrailingTextStore;
   late LoginScreenWidgetsCoordinator testStore;
   const tCoordinates = Offset(1, 1);
 
@@ -18,12 +20,14 @@ void main() {
     mockBeachWavesStore = MockBeachWavesStore();
     mockSmartTextStore = MockSmartTextStore();
     mockNokhteStore = MockNokhteStore();
-    mockTrailingTextStore = MockTrailingTextStore();
+    mockTopTrailingTextStore = MockTrailingTextStore();
+    mockBottomTrailingTextStore = MockTrailingTextStore();
     testStore = LoginScreenWidgetsCoordinator(
       beachWaves: mockBeachWavesStore,
       smartTextStore: mockSmartTextStore,
       nokhte: mockNokhteStore,
-      trailingText: mockTrailingTextStore,
+      bottomTrailingText: mockBottomTrailingTextStore,
+      topTrailingText: mockTopTrailingTextStore,
     );
   });
 
@@ -79,6 +83,13 @@ void main() {
       verify(mockSmartTextStore.startRotatingText(isResuming: true));
       expect(testStore.hasNotMadeTheDot, false);
       verify(mockNokhteStore.setPositionMovie(tCoordinates, Offset.zero));
+    });
+  });
+
+  group("reactors", () {
+    test("onNokhteAnimationCompleteReactor", () {
+      verifyNever(mockBottomTrailingTextStore.initMovie(NoParams()));
+      verifyNever(mockTopTrailingTextStore.initMovie(NoParams()));
     });
   });
 }
