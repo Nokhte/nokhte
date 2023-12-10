@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/nokhte/stack/presentation/mobx/nokhte_store.dart';
 import 'package:nokhte/app/core/widgets/nokhte/stack/presentation/widget/canvas/nokhte_painter.dart';
@@ -14,7 +15,7 @@ class Nokhte extends HookWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (context) => AnimatedOpacity(
-        opacity: store.showWidget ? 1 : 0,
+        opacity: useWidgetOpacity(store.showWidget),
         duration: Seconds.get(0, milli: 500),
         child: CustomAnimationBuilder(
           tween: store.movie,

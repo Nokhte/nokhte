@@ -2,12 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'canvas/beach_waves_painter.dart';
 
-class BeachWaves extends StatelessWidget {
+class BeachWaves extends HookWidget {
   final BeachWavesStore store;
   const BeachWaves({
     super.key,
@@ -17,7 +18,7 @@ class BeachWaves extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Observer(
       builder: (context) => Opacity(
-            opacity: store.currentStore.showWidget ? 1 : 0,
+            opacity: useWidgetOpacity(store.currentStore.showWidget),
             child: CustomAnimationBuilder(
               tween: store.currentMovie,
               duration: store.currentMovie.duration,

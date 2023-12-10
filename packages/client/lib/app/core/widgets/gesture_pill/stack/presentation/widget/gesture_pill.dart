@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:path_morph/path_morph.dart';
@@ -56,7 +57,7 @@ class _GestureCrossState extends State<GesturePill>
         control: stateTracker.pillController,
         onCompleted: () => stateTracker.onAnimationCompleted(),
         builder: (context, value, child) => AnimatedOpacity(
-          opacity: stateTracker.showWidget ? 1 : 0,
+          opacity: useWidgetOpacity(stateTracker.showWidget),
           duration: Seconds.get(1),
           child: Container(
             alignment: Alignment.topLeft,
