@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:nokhte/app/core/constants/fonts.dart';
+import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/trailing_text/stack/presentation/widget/hidden_side.dart';
@@ -12,21 +11,26 @@ import 'package:simple_animations/simple_animations.dart';
 class TrailingText extends HookWidget {
   final TrailingTextStore store;
   final TextRevealDirection textRevealDirection;
-  final TextStyle textStyle = Fonts.kantumruy(25.0, Colors.white);
+  final TextStyle fontStyle;
   final String textContent;
+  final List<Color> gradientList;
+  final EdgeInsets additionalPadding;
 
-  TrailingText({
+  const TrailingText({
     super.key,
     required this.textContent,
     required this.store,
     required this.textRevealDirection,
+    required this.fontStyle,
+    required this.gradientList,
+    this.additionalPadding = EdgeInsets.zero,
   });
 
   @override
   Widget build(BuildContext context) {
     final screenSize = useScreenSizeData();
     store.setTextSizeAndMovie(
-      newTextSize: useTextSize(textContent, textStyle),
+      newTextSize: useTextSize(textContent, fontStyle),
       newTextRevealDirection: textRevealDirection,
     );
     return Observer(
@@ -37,39 +41,48 @@ class TrailingText extends HookWidget {
           tween: store.movie,
           duration: store.movie.duration,
           control: store.control,
-          builder: (context, value, child) => Row(
+          builder: (context, value, child) => Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                width: screenSize.width,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    SizedBox(
-                      width: screenSize.width,
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                          left: value.get("leftPadding"),
-                          right: value.get("rightPadding"),
+              Row(
+                children: [
+                  SizedBox(
+                    width: screenSize.width,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        SizedBox(
+                          width: screenSize.width,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              left: value.get("leftPadding"),
+                              right: value.get("rightPadding"),
+                            ),
+                            child: GradientText(
+                              colors: gradientList,
+                              textContent,
+                              textAlign: TextAlign.center,
+                              style: fontStyle,
+                            ),
+                          ),
                         ),
-                        child: PlatformText(
-                          textContent,
-                          textAlign: TextAlign.center,
-                          style: textStyle,
+                        HiddenSide(
+                          textRevealDirection: textRevealDirection,
+                          hiddenSideColor: Colors.black,
+                          // hiddenSideColor: Colors.blue.withOpacity(.6),
+                          size: Size(
+                            (screenSize.width / 2),
+                            store.textSize.height,
+                          ),
                         ),
-                      ),
+                      ],
                     ),
-                    HiddenSide(
-                      textRevealDirection: textRevealDirection,
-                      // hiddenSideColor: Colors.blue.withOpacity(.9),
-                      hiddenSideColor: Colors.black,
-                      size: Size(
-                        (screenSize.width / 2),
-                        store.textSize.height,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
+              Padding(
+                padding: additionalPadding,
+              )
             ],
           ),
         ),
