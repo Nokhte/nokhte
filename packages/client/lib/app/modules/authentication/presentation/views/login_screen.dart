@@ -1,6 +1,7 @@
 // ignore_for_file: no_logic_in_create_state
 
 import 'package:flutter/material.dart';
+import 'package:nokhte/app/core/constants/constants.dart';
 import 'package:nokhte/app/core/hooks/use_center_offset.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/authentication/presentation/presentation.dart';
@@ -48,15 +49,36 @@ class LoginScreen extends HookWidget with WidgetsBindingObserver {
                     store: coordinator.widgets.beachWaves,
                   ),
                 ),
-                Center(
-                    child: SmartText(
-                  store: coordinator.widgets.smartTextStore,
-                )),
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   child: TrailingText(
-                    store: coordinator.widgets.trailingText,
+                    fontStyle: Fonts.kantumruy(
+                      fontSize: 25.0,
+                    ),
+                    gradientList: List.filled(2, Colors.white),
+                    store: coordinator.widgets.bottomTrailingText,
+                    textRevealDirection: TextRevealDirection.fromLeft,
+                    textContent: "Swipe Up",
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: TrailingText(
+                    fontStyle: Fonts.kantumruy(
+                      fontSize: 25.0,
+                    ),
+                    gradientList: Gradients.skyMint,
+                    store: coordinator.widgets.topTrailingText,
+                    textRevealDirection: TextRevealDirection.fromRight,
+                    textContent: "To Login",
+                    additionalPadding: const EdgeInsets.only(bottom: 280),
+                  ),
+                ),
+                Center(
+                  child: SmartText(
+                    store: coordinator.widgets.smartTextStore,
                   ),
                 ),
                 SizedBox(
