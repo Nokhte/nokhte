@@ -3,17 +3,17 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:ui' as _i7;
+import 'dart:ui' as _i6;
 
-import 'package:flutter/material.dart' as _i6;
 import 'package:mobx/mobx.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:nokhte/app/core/interfaces/logic.dart' as _i10;
 import 'package:nokhte/app/core/mobx/base_custom_animated_widget_store.dart'
     as _i4;
-import 'package:nokhte/app/core/types/types.dart' as _i9;
+import 'package:nokhte/app/core/types/types.dart' as _i8;
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart'
-    as _i8;
-import 'package:nokhte/app/core/widgets/widget_constants.dart' as _i10;
+    as _i7;
+import 'package:nokhte/app/core/widgets/widget_constants.dart' as _i9;
 import 'package:nokhte/app/core/widgets/widgets.dart' as _i2;
 import 'package:simple_animations/simple_animations.dart' as _i5;
 
@@ -212,22 +212,8 @@ class _FakeStopwatch_16 extends _i1.SmartFake implements Stopwatch {
         );
 }
 
-class _FakeTextStyle_17 extends _i1.SmartFake implements _i6.TextStyle {
-  _FakeTextStyle_17(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-
-  @override
-  String toString({_i6.DiagnosticLevel? minLevel = _i6.DiagnosticLevel.info}) =>
-      super.toString();
-}
-
-class _FakeSize_18 extends _i1.SmartFake implements _i7.Size {
-  _FakeSize_18(
+class _FakeSize_17 extends _i1.SmartFake implements _i6.Size {
+  _FakeSize_17(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -236,8 +222,8 @@ class _FakeSize_18 extends _i1.SmartFake implements _i7.Size {
         );
 }
 
-class _FakeOffset_19 extends _i1.SmartFake implements _i7.Offset {
-  _FakeOffset_19(
+class _FakeOffset_18 extends _i1.SmartFake implements _i6.Offset {
+  _FakeOffset_18(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -403,19 +389,19 @@ class MockBeachWavesStore extends _i1.Mock implements _i2.BeachWavesStore {
       ) as _i2.BlackOutMovieStore);
 
   @override
-  Map<_i8.BeachWaveMovieModes, _i4.BaseCustomAnimatedWidgetStore<dynamic>>
+  Map<_i7.BeachWaveMovieModes, _i4.BaseCustomAnimatedWidgetStore<dynamic>>
       get movieModeToStoreLookup => (super.noSuchMethod(
             Invocation.getter(#movieModeToStoreLookup),
-            returnValue: <_i8.BeachWaveMovieModes,
+            returnValue: <_i7.BeachWaveMovieModes,
                 _i4.BaseCustomAnimatedWidgetStore<dynamic>>{},
-            returnValueForMissingStub: <_i8.BeachWaveMovieModes,
+            returnValueForMissingStub: <_i7.BeachWaveMovieModes,
                 _i4.BaseCustomAnimatedWidgetStore<dynamic>>{},
-          ) as Map<_i8.BeachWaveMovieModes,
+          ) as Map<_i7.BeachWaveMovieModes,
               _i4.BaseCustomAnimatedWidgetStore<dynamic>>);
 
   @override
   set movieModeToStoreLookup(
-          Map<_i8.BeachWaveMovieModes,
+          Map<_i7.BeachWaveMovieModes,
                   _i4.BaseCustomAnimatedWidgetStore<dynamic>>?
               _movieModeToStoreLookup) =>
       super.noSuchMethod(
@@ -443,20 +429,20 @@ class MockBeachWavesStore extends _i1.Mock implements _i2.BeachWavesStore {
       );
 
   @override
-  _i3.ObservableList<_i8.ColorAndStop> get pivotColors => (super.noSuchMethod(
+  _i3.ObservableList<_i7.ColorAndStop> get pivotColors => (super.noSuchMethod(
         Invocation.getter(#pivotColors),
-        returnValue: _FakeObservableList_11<_i8.ColorAndStop>(
+        returnValue: _FakeObservableList_11<_i7.ColorAndStop>(
           this,
           Invocation.getter(#pivotColors),
         ),
-        returnValueForMissingStub: _FakeObservableList_11<_i8.ColorAndStop>(
+        returnValueForMissingStub: _FakeObservableList_11<_i7.ColorAndStop>(
           this,
           Invocation.getter(#pivotColors),
         ),
-      ) as _i3.ObservableList<_i8.ColorAndStop>);
+      ) as _i3.ObservableList<_i7.ColorAndStop>);
 
   @override
-  set pivotColors(_i3.ObservableList<_i8.ColorAndStop>? value) =>
+  set pivotColors(_i3.ObservableList<_i7.ColorAndStop>? value) =>
       super.noSuchMethod(
         Invocation.setter(
           #pivotColors,
@@ -466,14 +452,14 @@ class MockBeachWavesStore extends _i1.Mock implements _i2.BeachWavesStore {
       );
 
   @override
-  _i9.MovieStatus get movieStatus => (super.noSuchMethod(
+  _i8.MovieStatus get movieStatus => (super.noSuchMethod(
         Invocation.getter(#movieStatus),
-        returnValue: _i9.MovieStatus.idle,
-        returnValueForMissingStub: _i9.MovieStatus.idle,
-      ) as _i9.MovieStatus);
+        returnValue: _i8.MovieStatus.idle,
+        returnValueForMissingStub: _i8.MovieStatus.idle,
+      ) as _i8.MovieStatus);
 
   @override
-  set movieStatus(_i9.MovieStatus? value) => super.noSuchMethod(
+  set movieStatus(_i8.MovieStatus? value) => super.noSuchMethod(
         Invocation.setter(
           #movieStatus,
           value,
@@ -482,14 +468,14 @@ class MockBeachWavesStore extends _i1.Mock implements _i2.BeachWavesStore {
       );
 
   @override
-  _i8.BeachWaveMovieModes get movieMode => (super.noSuchMethod(
+  _i7.BeachWaveMovieModes get movieMode => (super.noSuchMethod(
         Invocation.getter(#movieMode),
-        returnValue: _i8.BeachWaveMovieModes.none,
-        returnValueForMissingStub: _i8.BeachWaveMovieModes.none,
-      ) as _i8.BeachWaveMovieModes);
+        returnValue: _i7.BeachWaveMovieModes.none,
+        returnValueForMissingStub: _i7.BeachWaveMovieModes.none,
+      ) as _i7.BeachWaveMovieModes);
 
   @override
-  set movieMode(_i8.BeachWaveMovieModes? value) => super.noSuchMethod(
+  set movieMode(_i7.BeachWaveMovieModes? value) => super.noSuchMethod(
         Invocation.setter(
           #movieMode,
           value,
@@ -520,11 +506,11 @@ class MockBeachWavesStore extends _i1.Mock implements _i2.BeachWavesStore {
       ) as _i5.Control);
 
   @override
-  _i9.MovieStatus get currentMovieStatus => (super.noSuchMethod(
+  _i8.MovieStatus get currentMovieStatus => (super.noSuchMethod(
         Invocation.getter(#currentMovieStatus),
-        returnValue: _i9.MovieStatus.idle,
-        returnValueForMissingStub: _i9.MovieStatus.idle,
-      ) as _i9.MovieStatus);
+        returnValue: _i8.MovieStatus.idle,
+        returnValueForMissingStub: _i8.MovieStatus.idle,
+      ) as _i8.MovieStatus);
 
   @override
   _i5.MovieTween get currentMovie => (super.noSuchMethod(
@@ -570,7 +556,7 @@ class MockBeachWavesStore extends _i1.Mock implements _i2.BeachWavesStore {
       );
 
   @override
-  dynamic setMovieMode(_i8.BeachWaveMovieModes? newMovieMode) =>
+  dynamic setMovieMode(_i7.BeachWaveMovieModes? newMovieMode) =>
       super.noSuchMethod(
         Invocation.method(
           #setMovieMode,
@@ -585,22 +571,21 @@ class MockBeachWavesStore extends _i1.Mock implements _i2.BeachWavesStore {
 /// See the documentation for Mockito's code generation for more information.
 class MockSmartTextStore extends _i1.Mock implements _i2.SmartTextStore {
   @override
-  _i3.ObservableList<_i10.RotatingTextData> get messagesData =>
+  _i3.ObservableList<_i9.RotatingTextData> get messagesData =>
       (super.noSuchMethod(
         Invocation.getter(#messagesData),
-        returnValue: _FakeObservableList_11<_i10.RotatingTextData>(
+        returnValue: _FakeObservableList_11<_i9.RotatingTextData>(
           this,
           Invocation.getter(#messagesData),
         ),
-        returnValueForMissingStub:
-            _FakeObservableList_11<_i10.RotatingTextData>(
+        returnValueForMissingStub: _FakeObservableList_11<_i9.RotatingTextData>(
           this,
           Invocation.getter(#messagesData),
         ),
-      ) as _i3.ObservableList<_i10.RotatingTextData>);
+      ) as _i3.ObservableList<_i9.RotatingTextData>);
 
   @override
-  set messagesData(_i3.ObservableList<_i10.RotatingTextData>? value) =>
+  set messagesData(_i3.ObservableList<_i9.RotatingTextData>? value) =>
       super.noSuchMethod(
         Invocation.setter(
           #messagesData,
@@ -687,11 +672,11 @@ class MockSmartTextStore extends _i1.Mock implements _i2.SmartTextStore {
       ) as Duration);
 
   @override
-  _i10.Gestures get currentUnlockGesture => (super.noSuchMethod(
+  _i9.Gestures get currentUnlockGesture => (super.noSuchMethod(
         Invocation.getter(#currentUnlockGesture),
-        returnValue: _i10.Gestures.doubleTap,
-        returnValueForMissingStub: _i10.Gestures.doubleTap,
-      ) as _i10.Gestures);
+        returnValue: _i9.Gestures.doubleTap,
+        returnValueForMissingStub: _i9.Gestures.doubleTap,
+      ) as _i9.Gestures);
 
   @override
   bool get callsOnCompleteTwice => (super.noSuchMethod(
@@ -777,14 +762,14 @@ class MockSmartTextStore extends _i1.Mock implements _i2.SmartTextStore {
       );
 
   @override
-  _i9.MovieStatus get movieStatus => (super.noSuchMethod(
+  _i8.MovieStatus get movieStatus => (super.noSuchMethod(
         Invocation.getter(#movieStatus),
-        returnValue: _i9.MovieStatus.idle,
-        returnValueForMissingStub: _i9.MovieStatus.idle,
-      ) as _i9.MovieStatus);
+        returnValue: _i8.MovieStatus.idle,
+        returnValueForMissingStub: _i8.MovieStatus.idle,
+      ) as _i8.MovieStatus);
 
   @override
-  set movieStatus(_i9.MovieStatus? value) => super.noSuchMethod(
+  set movieStatus(_i8.MovieStatus? value) => super.noSuchMethod(
         Invocation.setter(
           #movieStatus,
           value,
@@ -829,7 +814,7 @@ class MockSmartTextStore extends _i1.Mock implements _i2.SmartTextStore {
       ) as _i3.ReactiveContext);
 
   @override
-  dynamic setMessagesData(List<_i10.RotatingTextData>? newList) =>
+  dynamic setMessagesData(List<_i9.RotatingTextData>? newList) =>
       super.noSuchMethod(
         Invocation.method(
           #setMessagesData,
@@ -867,7 +852,7 @@ class MockSmartTextStore extends _i1.Mock implements _i2.SmartTextStore {
       );
 
   @override
-  dynamic setMovieStatus(_i9.MovieStatus? newMovieStatus) => super.noSuchMethod(
+  dynamic setMovieStatus(_i8.MovieStatus? newMovieStatus) => super.noSuchMethod(
         Invocation.method(
           #setMovieStatus,
           [newMovieStatus],
@@ -881,58 +866,20 @@ class MockSmartTextStore extends _i1.Mock implements _i2.SmartTextStore {
 /// See the documentation for Mockito's code generation for more information.
 class MockTrailingTextStore extends _i1.Mock implements _i2.TrailingTextStore {
   @override
-  String get textContent => (super.noSuchMethod(
-        Invocation.getter(#textContent),
-        returnValue: '',
-        returnValueForMissingStub: '',
-      ) as String);
-
-  @override
-  set textContent(String? value) => super.noSuchMethod(
-        Invocation.setter(
-          #textContent,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i6.TextStyle get textStyle => (super.noSuchMethod(
-        Invocation.getter(#textStyle),
-        returnValue: _FakeTextStyle_17(
-          this,
-          Invocation.getter(#textStyle),
-        ),
-        returnValueForMissingStub: _FakeTextStyle_17(
-          this,
-          Invocation.getter(#textStyle),
-        ),
-      ) as _i6.TextStyle);
-
-  @override
-  set textStyle(_i6.TextStyle? value) => super.noSuchMethod(
-        Invocation.setter(
-          #textStyle,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i7.Size get textSize => (super.noSuchMethod(
+  _i6.Size get textSize => (super.noSuchMethod(
         Invocation.getter(#textSize),
-        returnValue: _FakeSize_18(
+        returnValue: _FakeSize_17(
           this,
           Invocation.getter(#textSize),
         ),
-        returnValueForMissingStub: _FakeSize_18(
+        returnValueForMissingStub: _FakeSize_17(
           this,
           Invocation.getter(#textSize),
         ),
-      ) as _i7.Size);
+      ) as _i6.Size);
 
   @override
-  set textSize(_i7.Size? value) => super.noSuchMethod(
+  set textSize(_i6.Size? value) => super.noSuchMethod(
         Invocation.setter(
           #textSize,
           value,
@@ -1024,14 +971,14 @@ class MockTrailingTextStore extends _i1.Mock implements _i2.TrailingTextStore {
       );
 
   @override
-  _i9.MovieStatus get movieStatus => (super.noSuchMethod(
+  _i8.MovieStatus get movieStatus => (super.noSuchMethod(
         Invocation.getter(#movieStatus),
-        returnValue: _i9.MovieStatus.idle,
-        returnValueForMissingStub: _i9.MovieStatus.idle,
-      ) as _i9.MovieStatus);
+        returnValue: _i8.MovieStatus.idle,
+        returnValueForMissingStub: _i8.MovieStatus.idle,
+      ) as _i8.MovieStatus);
 
   @override
-  set movieStatus(_i9.MovieStatus? value) => super.noSuchMethod(
+  set movieStatus(_i8.MovieStatus? value) => super.noSuchMethod(
         Invocation.setter(
           #movieStatus,
           value,
@@ -1076,24 +1023,8 @@ class MockTrailingTextStore extends _i1.Mock implements _i2.TrailingTextStore {
       ) as _i3.ReactiveContext);
 
   @override
-  dynamic setTextContentAndStyle(
-    String? newTextContent,
-    _i6.TextStyle? newTextStyle,
-  ) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #setTextContentAndStyle,
-          [
-            newTextContent,
-            newTextStyle,
-          ],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
   dynamic setTextSizeAndMovie({
-    required _i7.Size? newTextSize,
+    required _i6.Size? newTextSize,
     required _i2.TextRevealDirection? newTextRevealDirection,
   }) =>
       super.noSuchMethod(
@@ -1104,6 +1035,15 @@ class MockTrailingTextStore extends _i1.Mock implements _i2.TrailingTextStore {
             #newTextSize: newTextSize,
             #newTextRevealDirection: newTextRevealDirection,
           },
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  dynamic initMovie(_i10.NoParams? params) => super.noSuchMethod(
+        Invocation.method(
+          #initMovie,
+          [params],
         ),
         returnValueForMissingStub: null,
       );
@@ -1127,7 +1067,7 @@ class MockTrailingTextStore extends _i1.Mock implements _i2.TrailingTextStore {
       );
 
   @override
-  dynamic setMovieStatus(_i9.MovieStatus? newMovieStatus) => super.noSuchMethod(
+  dynamic setMovieStatus(_i8.MovieStatus? newMovieStatus) => super.noSuchMethod(
         Invocation.method(
           #setMovieStatus,
           [newMovieStatus],
@@ -1224,14 +1164,14 @@ class MockNokhteStore extends _i1.Mock implements _i2.NokhteStore {
       );
 
   @override
-  _i9.MovieStatus get movieStatus => (super.noSuchMethod(
+  _i8.MovieStatus get movieStatus => (super.noSuchMethod(
         Invocation.getter(#movieStatus),
-        returnValue: _i9.MovieStatus.idle,
-        returnValueForMissingStub: _i9.MovieStatus.idle,
-      ) as _i9.MovieStatus);
+        returnValue: _i8.MovieStatus.idle,
+        returnValueForMissingStub: _i8.MovieStatus.idle,
+      ) as _i8.MovieStatus);
 
   @override
-  set movieStatus(_i9.MovieStatus? value) => super.noSuchMethod(
+  set movieStatus(_i8.MovieStatus? value) => super.noSuchMethod(
         Invocation.setter(
           #movieStatus,
           value,
@@ -1277,8 +1217,8 @@ class MockNokhteStore extends _i1.Mock implements _i2.NokhteStore {
 
   @override
   dynamic setPositionMovie(
-    _i7.Offset? touchPoint,
-    _i7.Offset? centerPoint,
+    _i6.Offset? touchPoint,
+    _i6.Offset? centerPoint,
   ) =>
       super.noSuchMethod(
         Invocation.method(
@@ -1310,7 +1250,7 @@ class MockNokhteStore extends _i1.Mock implements _i2.NokhteStore {
       );
 
   @override
-  dynamic setMovieStatus(_i9.MovieStatus? newMovieStatus) => super.noSuchMethod(
+  dynamic setMovieStatus(_i8.MovieStatus? newMovieStatus) => super.noSuchMethod(
         Invocation.method(
           #setMovieStatus,
           [newMovieStatus],
@@ -1340,20 +1280,20 @@ class MockTapDetector extends _i1.Mock implements _i2.TapDetector {
       );
 
   @override
-  _i7.Offset get currentTapPosition => (super.noSuchMethod(
+  _i6.Offset get currentTapPosition => (super.noSuchMethod(
         Invocation.getter(#currentTapPosition),
-        returnValue: _FakeOffset_19(
+        returnValue: _FakeOffset_18(
           this,
           Invocation.getter(#currentTapPosition),
         ),
-        returnValueForMissingStub: _FakeOffset_19(
+        returnValueForMissingStub: _FakeOffset_18(
           this,
           Invocation.getter(#currentTapPosition),
         ),
-      ) as _i7.Offset);
+      ) as _i6.Offset);
 
   @override
-  set currentTapPosition(_i7.Offset? value) => super.noSuchMethod(
+  set currentTapPosition(_i6.Offset? value) => super.noSuchMethod(
         Invocation.setter(
           #currentTapPosition,
           value,
@@ -1382,7 +1322,7 @@ class MockTapDetector extends _i1.Mock implements _i2.TapDetector {
       ) as _i3.ReactiveContext);
 
   @override
-  dynamic onTapDown(_i7.Offset? newOffset) => super.noSuchMethod(
+  dynamic onTapDown(_i6.Offset? newOffset) => super.noSuchMethod(
         Invocation.method(
           #onTapDown,
           [newOffset],
