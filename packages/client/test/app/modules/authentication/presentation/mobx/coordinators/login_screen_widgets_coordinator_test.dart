@@ -78,7 +78,7 @@ void main() {
 
     test("onTap", () {
       smartTextStore.setMessagesData(MessagesData.loginList);
-      smartTextStore.setCurrentIndex(3);
+      smartTextStore.currentIndex = 3;
       testStore.onTap(tCoordinates);
       expect(testStore.hasNotMadeTheDot, false);
       expect(nokhteStore.centerCoordinates, Offset.zero);
