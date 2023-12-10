@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'dart:async';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -11,15 +10,11 @@ class BaseCustomAnimatedWidgetStore<T> = _BaseCustomAnimatedWidgetStoreBase<T>
 
 abstract class _BaseCustomAnimatedWidgetStoreBase<T> extends Equatable
     with Store {
-  _BaseCustomAnimatedWidgetStoreBase({this.callsOnCompleteTwice = false}) {
-    controlListener();
-    stopwatchListener();
-  }
+  _BaseCustomAnimatedWidgetStoreBase({
+    this.callsOnCompleteTwice = false,
+  });
 
   final bool callsOnCompleteTwice;
-
-  @observable
-  Stopwatch localStopwatch = Stopwatch();
 
   @observable
   MovieTween movie = MovieTween();
@@ -46,44 +41,14 @@ abstract class _BaseCustomAnimatedWidgetStoreBase<T> extends Equatable
   void setControl(Control newControl) => control = newControl;
 
   @action
-  startAndResetStopWatch() {
-    localStopwatch.reset();
-    localStopwatch.start();
-    Timer.periodic(Seconds.get(0, milli: 1), (timer) {
-      stopwatchMillseconds = localStopwatch.elapsedMilliseconds.toString();
-      if (movieStatus == MovieStatus.finished) {
-        timer.cancel();
-      }
-    });
-  }
+  onCompleted() => setMovieStatus(MovieStatus.finished);
 
-  controlListener() => reaction((p0) => control, (p0) {
-        if (control == Control.playFromStart) {
-          localStopwatch.start();
-        } else if (control == Control.play) {
-          localStopwatch.start();
-        } else if (control == Control.stop) {
-          localStopwatch.stop();
-        }
-      });
-
+  @action
   @action
   setMovieStatus(MovieStatus newMovieStatus) => movieStatus = newMovieStatus;
 
   @action
   initMovie(T param) {}
-
-  stopwatchListener() => reaction((p0) => stopwatchMillseconds, (p0) {
-        if ((movie.duration.inMilliseconds - int.parse(p0)) < 1000) {
-          if (p0 == movie.duration.inMilliseconds.toString()) {
-            setMovieStatus(MovieStatus.finished);
-          }
-        } else if (int.parse(p0) > movie.duration.inMilliseconds) {
-          localStopwatch.stop();
-          localStopwatch.reset();
-          setMovieStatus(MovieStatus.idle);
-        }
-      });
 
   @override
   List<Object> get props => [];
