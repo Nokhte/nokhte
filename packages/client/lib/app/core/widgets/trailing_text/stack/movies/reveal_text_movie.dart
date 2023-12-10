@@ -18,14 +18,14 @@ class RevealTextMovie {
             'leftPadding',
             Tween<double>(
               begin: padding.right,
-              end: padding.left + 15,
+              end: padding.left,
             ),
           )
           .tween(
             'rightPadding',
             Tween<double>(
               begin: padding.left,
-              end: padding.right + 15,
+              end: padding.right,
             ),
           );
   }
@@ -38,9 +38,9 @@ class RevealTextMovie {
     double rightPadding = 0.0;
     switch (revealDirection) {
       case TextRevealDirection.fromLeft:
-        rightPadding = textLength;
+        rightPadding = textLength + 35;
       case TextRevealDirection.fromRight:
-        leftPadding = textLength;
+        leftPadding = textLength + 35;
       default:
         break;
     }
