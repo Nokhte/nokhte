@@ -25,6 +25,7 @@ class Nokhte extends HookWidget {
           builder: (context, value, child) {
             return CustomPaint(
               painter: NokhtePainter(
+                circleRadii: value.get('circleRadii'),
                 nokhteCoordinates:
                     Offset(value.get('nokhteX'), value.get('nokhteY')),
                 blueDotCoordinates:
