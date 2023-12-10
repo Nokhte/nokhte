@@ -812,15 +812,28 @@ class MockLoginScreenWidgetsCoordinator extends _i1.Mock
       ) as _i12.NokhteStore);
 
   @override
-  _i12.TrailingTextStore get trailingText => (super.noSuchMethod(
-        Invocation.getter(#trailingText),
+  _i12.TrailingTextStore get bottomTrailingText => (super.noSuchMethod(
+        Invocation.getter(#bottomTrailingText),
         returnValue: _FakeTrailingTextStore_14(
           this,
-          Invocation.getter(#trailingText),
+          Invocation.getter(#bottomTrailingText),
         ),
         returnValueForMissingStub: _FakeTrailingTextStore_14(
           this,
-          Invocation.getter(#trailingText),
+          Invocation.getter(#bottomTrailingText),
+        ),
+      ) as _i12.TrailingTextStore);
+
+  @override
+  _i12.TrailingTextStore get topTrailingText => (super.noSuchMethod(
+        Invocation.getter(#topTrailingText),
+        returnValue: _FakeTrailingTextStore_14(
+          this,
+          Invocation.getter(#topTrailingText),
+        ),
+        returnValueForMissingStub: _FakeTrailingTextStore_14(
+          this,
+          Invocation.getter(#topTrailingText),
         ),
       ) as _i12.TrailingTextStore);
 
