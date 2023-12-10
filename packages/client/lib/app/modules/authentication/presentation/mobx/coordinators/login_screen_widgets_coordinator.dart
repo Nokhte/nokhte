@@ -31,7 +31,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
     beachWaves.setMovieMode(BeachWaveMovieModes.blackOut);
     smartTextStore.setMessagesData(MessagesData.loginList);
     smartTextStore.startRotatingText();
-    onNokhteAnimationCompleteReactor();
+    onNokhteCompletedReactor();
   }
 
   @observable
@@ -47,6 +47,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
   setCenterScreenCoordinates(Offset newCoordinates) =>
       centerScreenCoordinates = newCoordinates;
 
+  @action
   onResumed() {
     if (bottomTrailingText.showWidget) {
       bottomTrailingText.reset();
@@ -57,6 +58,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
     });
   }
 
+  @action
   onInactive() {
     smartTextStore.reset();
     nokhte.reset();
@@ -65,6 +67,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
     }
   }
 
+  @action
   onTap(Offset currentTapPosition) {
     if (Gestures.tap == smartTextStore.currentUnlockGesture &&
         hasNotMadeTheDot) {
@@ -77,8 +80,16 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
     }
   }
 
-  onNokhteAnimationCompleteReactor() =>
-      reaction((p0) => nokhte.movieStatus, (p0) {
+  @action
+  onSwipeUp() {
+    topTrailingText.initReverse();
+    bottomTrailingText.initReverse();
+  }
+
+  // make a
+
+  onNokhteCompletedReactor() => reaction((p0) => nokhte.movieStatus, (p0) {
+        // we will need to add movie movies here
         if (p0 == MovieStatus.finished) {
           if (!bottomTrailingText.showWidget) {
             bottomTrailingText.toggleWidgetVisibility();
