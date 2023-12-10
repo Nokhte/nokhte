@@ -24,6 +24,19 @@ abstract class _TrailingTextStoreBase
     setMovie(RevealTextMovie.getMovie(newTextRevealDirection, textSize.width));
   }
 
+  @action
+  reset() {
+    toggleWidgetVisibility();
+    setControl(Control.playFromStart);
+    setControl(Control.stop);
+  }
+
+  @action
+  initReverse() {
+    setControl(Control.playReverseFromEnd);
+  }
+
+  @action
   @override
   initMovie(NoParams params) {
     setControl(Control.playFromStart);

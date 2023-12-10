@@ -44,6 +44,39 @@ mixin _$TrailingTextStore on _TrailingTextStoreBase, Store {
   }
 
   @override
+  dynamic reset() {
+    final _$actionInfo = _$_TrailingTextStoreBaseActionController.startAction(
+        name: '_TrailingTextStoreBase.reset');
+    try {
+      return super.reset();
+    } finally {
+      _$_TrailingTextStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic initReverse() {
+    final _$actionInfo = _$_TrailingTextStoreBaseActionController.startAction(
+        name: '_TrailingTextStoreBase.initReverse');
+    try {
+      return super.initReverse();
+    } finally {
+      _$_TrailingTextStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic initMovie(NoParams params) {
+    final _$actionInfo = _$_TrailingTextStoreBaseActionController.startAction(
+        name: '_TrailingTextStoreBase.initMovie');
+    try {
+      return super.initMovie(params);
+    } finally {
+      _$_TrailingTextStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 textSize: ${textSize}
