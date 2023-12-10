@@ -202,8 +202,8 @@ class _FakeDuration_15 extends _i1.SmartFake implements Duration {
         );
 }
 
-class _FakeStopwatch_16 extends _i1.SmartFake implements Stopwatch {
-  _FakeStopwatch_16(
+class _FakeSize_16 extends _i1.SmartFake implements _i6.Size {
+  _FakeSize_16(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -212,18 +212,8 @@ class _FakeStopwatch_16 extends _i1.SmartFake implements Stopwatch {
         );
 }
 
-class _FakeSize_17 extends _i1.SmartFake implements _i6.Size {
-  _FakeSize_17(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeOffset_18 extends _i1.SmartFake implements _i6.Offset {
-  _FakeOffset_18(
+class _FakeOffset_17 extends _i1.SmartFake implements _i6.Offset {
+  _FakeOffset_17(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -686,28 +676,6 @@ class MockSmartTextStore extends _i1.Mock implements _i2.SmartTextStore {
       ) as bool);
 
   @override
-  Stopwatch get localStopwatch => (super.noSuchMethod(
-        Invocation.getter(#localStopwatch),
-        returnValue: _FakeStopwatch_16(
-          this,
-          Invocation.getter(#localStopwatch),
-        ),
-        returnValueForMissingStub: _FakeStopwatch_16(
-          this,
-          Invocation.getter(#localStopwatch),
-        ),
-      ) as Stopwatch);
-
-  @override
-  set localStopwatch(Stopwatch? value) => super.noSuchMethod(
-        Invocation.setter(
-          #localStopwatch,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
   _i5.MovieTween get movie => (super.noSuchMethod(
         Invocation.getter(#movie),
         returnValue: _FakeMovieTween_13(
@@ -868,11 +836,11 @@ class MockTrailingTextStore extends _i1.Mock implements _i2.TrailingTextStore {
   @override
   _i6.Size get textSize => (super.noSuchMethod(
         Invocation.getter(#textSize),
-        returnValue: _FakeSize_17(
+        returnValue: _FakeSize_16(
           this,
           Invocation.getter(#textSize),
         ),
-        returnValueForMissingStub: _FakeSize_17(
+        returnValueForMissingStub: _FakeSize_16(
           this,
           Invocation.getter(#textSize),
         ),
@@ -893,28 +861,6 @@ class MockTrailingTextStore extends _i1.Mock implements _i2.TrailingTextStore {
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
-
-  @override
-  Stopwatch get localStopwatch => (super.noSuchMethod(
-        Invocation.getter(#localStopwatch),
-        returnValue: _FakeStopwatch_16(
-          this,
-          Invocation.getter(#localStopwatch),
-        ),
-        returnValueForMissingStub: _FakeStopwatch_16(
-          this,
-          Invocation.getter(#localStopwatch),
-        ),
-      ) as Stopwatch);
-
-  @override
-  set localStopwatch(Stopwatch? value) => super.noSuchMethod(
-        Invocation.setter(
-          #localStopwatch,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
 
   @override
   _i5.MovieTween get movie => (super.noSuchMethod(
@@ -1081,33 +1027,49 @@ class MockTrailingTextStore extends _i1.Mock implements _i2.TrailingTextStore {
 /// See the documentation for Mockito's code generation for more information.
 class MockNokhteStore extends _i1.Mock implements _i2.NokhteStore {
   @override
+  _i6.Offset get centerCoordinates => (super.noSuchMethod(
+        Invocation.getter(#centerCoordinates),
+        returnValue: _FakeOffset_17(
+          this,
+          Invocation.getter(#centerCoordinates),
+        ),
+        returnValueForMissingStub: _FakeOffset_17(
+          this,
+          Invocation.getter(#centerCoordinates),
+        ),
+      ) as _i6.Offset);
+
+  @override
+  set centerCoordinates(_i6.Offset? value) => super.noSuchMethod(
+        Invocation.setter(
+          #centerCoordinates,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i2.NokhteMovieModes get movieMode => (super.noSuchMethod(
+        Invocation.getter(#movieMode),
+        returnValue: _i2.NokhteMovieModes.moveUpAndApparate,
+        returnValueForMissingStub: _i2.NokhteMovieModes.moveUpAndApparate,
+      ) as _i2.NokhteMovieModes);
+
+  @override
+  set movieMode(_i2.NokhteMovieModes? value) => super.noSuchMethod(
+        Invocation.setter(
+          #movieMode,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   bool get callsOnCompleteTwice => (super.noSuchMethod(
         Invocation.getter(#callsOnCompleteTwice),
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
-
-  @override
-  Stopwatch get localStopwatch => (super.noSuchMethod(
-        Invocation.getter(#localStopwatch),
-        returnValue: _FakeStopwatch_16(
-          this,
-          Invocation.getter(#localStopwatch),
-        ),
-        returnValueForMissingStub: _FakeStopwatch_16(
-          this,
-          Invocation.getter(#localStopwatch),
-        ),
-      ) as Stopwatch);
-
-  @override
-  set localStopwatch(Stopwatch? value) => super.noSuchMethod(
-        Invocation.setter(
-          #localStopwatch,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
 
   @override
   _i5.MovieTween get movie => (super.noSuchMethod(
@@ -1216,6 +1178,25 @@ class MockNokhteStore extends _i1.Mock implements _i2.NokhteStore {
       ) as _i3.ReactiveContext);
 
   @override
+  dynamic setMovieModes(_i2.NokhteMovieModes? newMovieMode) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #setMovieModes,
+          [newMovieMode],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  dynamic setCenterCoordinates(_i6.Offset? newCenter) => super.noSuchMethod(
+        Invocation.method(
+          #setCenterCoordinates,
+          [newCenter],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   dynamic setPositionMovie(
     _i6.Offset? touchPoint,
     _i6.Offset? centerPoint,
@@ -1282,11 +1263,11 @@ class MockTapDetector extends _i1.Mock implements _i2.TapDetector {
   @override
   _i6.Offset get currentTapPosition => (super.noSuchMethod(
         Invocation.getter(#currentTapPosition),
-        returnValue: _FakeOffset_18(
+        returnValue: _FakeOffset_17(
           this,
           Invocation.getter(#currentTapPosition),
         ),
-        returnValueForMissingStub: _FakeOffset_18(
+        returnValueForMissingStub: _FakeOffset_17(
           this,
           Invocation.getter(#currentTapPosition),
         ),

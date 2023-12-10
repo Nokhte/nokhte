@@ -896,10 +896,17 @@ class MockLoginScreenWidgetsCoordinator extends _i1.Mock
       ) as _i9.ReactiveContext);
 
   @override
-  dynamic constructor(_i13.Offset? center) => super.noSuchMethod(
+  dynamic constructor(
+    _i13.Offset? center,
+    Function? loginBusinessLogic,
+  ) =>
+      super.noSuchMethod(
         Invocation.method(
           #constructor,
-          [center],
+          [
+            center,
+            loginBusinessLogic,
+          ],
         ),
         returnValueForMissingStub: null,
       );
@@ -919,6 +926,15 @@ class MockLoginScreenWidgetsCoordinator extends _i1.Mock
         Invocation.method(
           #onTap,
           [currentTapPosition],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  dynamic nokhteReactor(Function? loginBusinessLogic) => super.noSuchMethod(
+        Invocation.method(
+          #nokhteReactor,
+          [loginBusinessLogic],
         ),
         returnValueForMissingStub: null,
       );
