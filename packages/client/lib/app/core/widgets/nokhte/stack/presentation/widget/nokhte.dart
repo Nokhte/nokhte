@@ -20,6 +20,7 @@ class Nokhte extends HookWidget {
         child: CustomAnimationBuilder(
           tween: store.movie,
           duration: store.movie.duration,
+          onCompleted: () => store.onCompleted(),
           control: store.control,
           builder: (context, value, child) {
             return CustomPaint(
