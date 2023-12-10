@@ -77,6 +77,54 @@ mixin _$LoginScreenWidgetsCoordinator
   }
 
   @override
+  dynamic onResumed() {
+    final _$actionInfo = _$_LoginScreenWidgetsCoordinatorBaseActionController
+        .startAction(name: '_LoginScreenWidgetsCoordinatorBase.onResumed');
+    try {
+      return super.onResumed();
+    } finally {
+      _$_LoginScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onInactive() {
+    final _$actionInfo = _$_LoginScreenWidgetsCoordinatorBaseActionController
+        .startAction(name: '_LoginScreenWidgetsCoordinatorBase.onInactive');
+    try {
+      return super.onInactive();
+    } finally {
+      _$_LoginScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onTap(Offset currentTapPosition) {
+    final _$actionInfo = _$_LoginScreenWidgetsCoordinatorBaseActionController
+        .startAction(name: '_LoginScreenWidgetsCoordinatorBase.onTap');
+    try {
+      return super.onTap(currentTapPosition);
+    } finally {
+      _$_LoginScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onSwipeUp() {
+    final _$actionInfo = _$_LoginScreenWidgetsCoordinatorBaseActionController
+        .startAction(name: '_LoginScreenWidgetsCoordinatorBase.onSwipeUp');
+    try {
+      return super.onSwipeUp();
+    } finally {
+      _$_LoginScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 hasNotMadeTheDot: ${hasNotMadeTheDot},

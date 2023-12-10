@@ -6,6 +6,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:simple_animations/simple_animations.dart';
 part 'login_screen_widgets_coordinator.g.dart';
 
 class LoginScreenWidgetsCoordinator = _LoginScreenWidgetsCoordinatorBase
@@ -26,12 +27,13 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
     required this.topTrailingText,
   });
 
-  constructor(Offset center) {
+  constructor(Offset center, Function loginBusinessLogic) {
     setCenterScreenCoordinates(center);
     beachWaves.setMovieMode(BeachWaveMovieModes.blackOut);
     smartTextStore.setMessagesData(MessagesData.loginList);
     smartTextStore.startRotatingText();
-    onNokhteCompletedReactor();
+    nokhteReactor(loginBusinessLogic);
+    trailingTextReactor();
   }
 
   @observable
@@ -86,17 +88,27 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
     bottomTrailingText.initReverse();
   }
 
-  // make a
+  trailingTextReactor() =>
+      reaction((p0) => bottomTrailingText.movieStatus, (p0) {
+        if (bottomTrailingText.movieStatus == MovieStatus.finished &&
+            bottomTrailingText.control == Control.playReverseFromEnd) {
+          nokhte.initMoveUpAndApparateMovie();
+        }
+      });
 
-  onNokhteCompletedReactor() => reaction((p0) => nokhte.movieStatus, (p0) {
-        // we will need to add movie movies here
+  nokhteReactor(Function loginBusinessLogic) =>
+      reaction((p0) => nokhte.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          if (!bottomTrailingText.showWidget) {
-            bottomTrailingText.toggleWidgetVisibility();
-            topTrailingText.toggleWidgetVisibility();
+          if (nokhte.movieMode == NokhteMovieModes.setPosition) {
+            if (!bottomTrailingText.showWidget) {
+              bottomTrailingText.toggleWidgetVisibility();
+              topTrailingText.toggleWidgetVisibility();
+            }
+            bottomTrailingText.initMovie(NoParams());
+            topTrailingText.initMovie(NoParams());
+          } else if (nokhte.movieMode == NokhteMovieModes.moveUpAndApparate) {
+            loginBusinessLogic();
           }
-          bottomTrailingText.initMovie(NoParams());
-          topTrailingText.initMovie(NoParams());
         }
       });
 
