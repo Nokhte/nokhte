@@ -4,16 +4,17 @@ import 'package:nokhte/app/core/constants/constants.dart';
 class NokhtePainter extends CustomPainter {
   final Offset nokhteCoordinates;
   final Offset blueDotCoordinates;
+  final double circleRadii;
 
   NokhtePainter({
     required this.nokhteCoordinates,
     required this.blueDotCoordinates,
+    required this.circleRadii,
   });
 
   drawNokhte(Canvas canvas, Size size) {
     final Paint paint = Paint()..color = Colors.white;
-
-    canvas.drawCircle(nokhteCoordinates, 14.0, paint);
+    canvas.drawCircle(nokhteCoordinates, circleRadii, paint);
   }
 
   drawBlue(Canvas canvas, Size size) {
@@ -22,11 +23,11 @@ class NokhtePainter extends CustomPainter {
         colors: Gradients.skyMint,
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
-      ).createShader(Rect.fromCircle(center: blueDotCoordinates, radius: 14.0));
-
+      ).createShader(
+          Rect.fromCircle(center: blueDotCoordinates, radius: circleRadii));
     canvas.drawCircle(
       blueDotCoordinates,
-      14.0,
+      circleRadii,
       paint,
     );
   }
