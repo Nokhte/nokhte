@@ -31,16 +31,16 @@ class SmartText extends StatelessWidget {
                     store.currentMainText,
                     textAlign: TextAlign.center,
                     style: Fonts.kantumruy(
-                      store.currentMainTextFontSize,
-                      Colors.white,
+                      fontSize: store.currentMainTextFontSize,
+                      color: Colors.white,
                     ),
                   ),
                   PlatformText(
                     store.currentSubText,
                     textAlign: TextAlign.center,
                     style: Fonts.kantumruy(
-                      store.currentSubTextFontSize,
-                      Colors.white,
+                      fontSize: store.currentSubTextFontSize,
+                      color: Colors.white,
                     ),
                   ),
                 ],
