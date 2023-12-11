@@ -28,9 +28,9 @@ import 'package:simple_animations/simple_animations.dart' as _i5;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeTimesUpEndToTheDepthsMovieStore_0 extends _i1.SmartFake
-    implements _i2.TimesUpEndToTheDepthsMovieStore {
-  _FakeTimesUpEndToTheDepthsMovieStore_0(
+class _FakeBlackOutMovieStore_0 extends _i1.SmartFake
+    implements _i2.BlackOutMovieStore {
+  _FakeBlackOutMovieStore_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -39,9 +39,9 @@ class _FakeTimesUpEndToTheDepthsMovieStore_0 extends _i1.SmartFake
         );
 }
 
-class _FakeSuspendedAtTheDepthsMovieStore_1 extends _i1.SmartFake
-    implements _i2.SuspendedAtTheDepthsMovieStore {
-  _FakeSuspendedAtTheDepthsMovieStore_1(
+class _FakeBlackOutToDrySandMovieStore_1 extends _i1.SmartFake
+    implements _i2.BlackOutToDrySandMovieStore {
+  _FakeBlackOutToDrySandMovieStore_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -50,31 +50,9 @@ class _FakeSuspendedAtTheDepthsMovieStore_1 extends _i1.SmartFake
         );
 }
 
-class _FakeOnShoreToOceanDiveMovieStore_2 extends _i1.SmartFake
-    implements _i2.OnShoreToOceanDiveMovieStore {
-  _FakeOnShoreToOceanDiveMovieStore_2(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeOnShoreMovieStore_3 extends _i1.SmartFake
-    implements _i2.OnShoreMovieStore {
-  _FakeOnShoreMovieStore_3(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeOceanDiveToOnShoreMovieStore_4 extends _i1.SmartFake
+class _FakeOceanDiveToOnShoreMovieStore_2 extends _i1.SmartFake
     implements _i2.OceanDiveToOnShoreMovieStore {
-  _FakeOceanDiveToOnShoreMovieStore_4(
+  _FakeOceanDiveToOnShoreMovieStore_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -83,20 +61,9 @@ class _FakeOceanDiveToOnShoreMovieStore_4 extends _i1.SmartFake
         );
 }
 
-class _FakeSuspendedAtOceanDiveStore_5 extends _i1.SmartFake
-    implements _i2.SuspendedAtOceanDiveStore {
-  _FakeSuspendedAtOceanDiveStore_5(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeOceanDiveToTimesUpStartMovieStore_6 extends _i1.SmartFake
+class _FakeOceanDiveToTimesUpStartMovieStore_3 extends _i1.SmartFake
     implements _i2.OceanDiveToTimesUpStartMovieStore {
-  _FakeOceanDiveToTimesUpStartMovieStore_6(
+  _FakeOceanDiveToTimesUpStartMovieStore_3(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -105,20 +72,53 @@ class _FakeOceanDiveToTimesUpStartMovieStore_6 extends _i1.SmartFake
         );
 }
 
-class _FakeTimesUpMovieStore_7 extends _i1.SmartFake
+class _FakeOnShoreToOceanDiveMovieStore_4 extends _i1.SmartFake
+    implements _i2.OnShoreToOceanDiveMovieStore {
+  _FakeOnShoreToOceanDiveMovieStore_4(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeOnShoreMovieStore_5 extends _i1.SmartFake
+    implements _i2.OnShoreMovieStore {
+  _FakeOnShoreMovieStore_5(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeSuspendedAtOceanDiveStore_6 extends _i1.SmartFake
+    implements _i2.SuspendedAtOceanDiveStore {
+  _FakeSuspendedAtOceanDiveStore_6(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeSuspendedAtTheDepthsMovieStore_7 extends _i1.SmartFake
+    implements _i2.SuspendedAtTheDepthsMovieStore {
+  _FakeSuspendedAtTheDepthsMovieStore_7(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeTimesUpMovieStore_8 extends _i1.SmartFake
     implements _i2.TimesUpMovieStore {
-  _FakeTimesUpMovieStore_7(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeTimesUpEndToOceanDiveMovieStore_8 extends _i1.SmartFake
-    implements _i2.TimesUpEndToOceanDiveMovieStore {
-  _FakeTimesUpEndToOceanDiveMovieStore_8(
+  _FakeTimesUpMovieStore_8(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -138,9 +138,9 @@ class _FakeTimesUpDynamicPointToTheDepthsMovieStore_9 extends _i1.SmartFake
         );
 }
 
-class _FakeBlackOutMovieStore_10 extends _i1.SmartFake
-    implements _i2.BlackOutMovieStore {
-  _FakeBlackOutMovieStore_10(
+class _FakeTimesUpEndToOceanDiveMovieStore_10 extends _i1.SmartFake
+    implements _i2.TimesUpEndToOceanDiveMovieStore {
+  _FakeTimesUpEndToOceanDiveMovieStore_10(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -149,9 +149,20 @@ class _FakeBlackOutMovieStore_10 extends _i1.SmartFake
         );
 }
 
-class _FakeObservableList_11<T> extends _i1.SmartFake
+class _FakeTimesUpEndToTheDepthsMovieStore_11 extends _i1.SmartFake
+    implements _i2.TimesUpEndToTheDepthsMovieStore {
+  _FakeTimesUpEndToTheDepthsMovieStore_11(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeObservableList_12<T> extends _i1.SmartFake
     implements _i3.ObservableList<T> {
-  _FakeObservableList_11(
+  _FakeObservableList_12(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -160,9 +171,9 @@ class _FakeObservableList_11<T> extends _i1.SmartFake
         );
 }
 
-class _FakeBaseCustomAnimatedWidgetStore_12<T> extends _i1.SmartFake
+class _FakeBaseCustomAnimatedWidgetStore_13<T> extends _i1.SmartFake
     implements _i4.BaseCustomAnimatedWidgetStore<T> {
-  _FakeBaseCustomAnimatedWidgetStore_12(
+  _FakeBaseCustomAnimatedWidgetStore_13(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -171,8 +182,8 @@ class _FakeBaseCustomAnimatedWidgetStore_12<T> extends _i1.SmartFake
         );
 }
 
-class _FakeMovieTween_13 extends _i1.SmartFake implements _i5.MovieTween {
-  _FakeMovieTween_13(
+class _FakeMovieTween_14 extends _i1.SmartFake implements _i5.MovieTween {
+  _FakeMovieTween_14(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -181,9 +192,9 @@ class _FakeMovieTween_13 extends _i1.SmartFake implements _i5.MovieTween {
         );
 }
 
-class _FakeReactiveContext_14 extends _i1.SmartFake
+class _FakeReactiveContext_15 extends _i1.SmartFake
     implements _i3.ReactiveContext {
-  _FakeReactiveContext_14(
+  _FakeReactiveContext_15(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -192,8 +203,8 @@ class _FakeReactiveContext_14 extends _i1.SmartFake
         );
 }
 
-class _FakeDuration_15 extends _i1.SmartFake implements Duration {
-  _FakeDuration_15(
+class _FakeDuration_16 extends _i1.SmartFake implements Duration {
+  _FakeDuration_16(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -202,8 +213,8 @@ class _FakeDuration_15 extends _i1.SmartFake implements Duration {
         );
 }
 
-class _FakeSize_16 extends _i1.SmartFake implements _i6.Size {
-  _FakeSize_16(
+class _FakeSize_17 extends _i1.SmartFake implements _i6.Size {
+  _FakeSize_17(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -212,8 +223,8 @@ class _FakeSize_16 extends _i1.SmartFake implements _i6.Size {
         );
 }
 
-class _FakeOffset_17 extends _i1.SmartFake implements _i6.Offset {
-  _FakeOffset_17(
+class _FakeOffset_18 extends _i1.SmartFake implements _i6.Offset {
+  _FakeOffset_18(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -227,42 +238,69 @@ class _FakeOffset_17 extends _i1.SmartFake implements _i6.Offset {
 /// See the documentation for Mockito's code generation for more information.
 class MockBeachWavesStore extends _i1.Mock implements _i2.BeachWavesStore {
   @override
-  _i2.TimesUpEndToTheDepthsMovieStore get timesUpEndToTheDepthsMovieStore =>
-      (super.noSuchMethod(
-        Invocation.getter(#timesUpEndToTheDepthsMovieStore),
-        returnValue: _FakeTimesUpEndToTheDepthsMovieStore_0(
+  _i2.BlackOutMovieStore get blackOutMovie => (super.noSuchMethod(
+        Invocation.getter(#blackOutMovie),
+        returnValue: _FakeBlackOutMovieStore_0(
           this,
-          Invocation.getter(#timesUpEndToTheDepthsMovieStore),
+          Invocation.getter(#blackOutMovie),
         ),
-        returnValueForMissingStub: _FakeTimesUpEndToTheDepthsMovieStore_0(
+        returnValueForMissingStub: _FakeBlackOutMovieStore_0(
           this,
-          Invocation.getter(#timesUpEndToTheDepthsMovieStore),
+          Invocation.getter(#blackOutMovie),
         ),
-      ) as _i2.TimesUpEndToTheDepthsMovieStore);
+      ) as _i2.BlackOutMovieStore);
 
   @override
-  _i2.SuspendedAtTheDepthsMovieStore get suspendedAtTheDepthsMovieStore =>
+  _i2.BlackOutToDrySandMovieStore get blackOutToDrySandMovieStore =>
       (super.noSuchMethod(
-        Invocation.getter(#suspendedAtTheDepthsMovieStore),
-        returnValue: _FakeSuspendedAtTheDepthsMovieStore_1(
+        Invocation.getter(#blackOutToDrySandMovieStore),
+        returnValue: _FakeBlackOutToDrySandMovieStore_1(
           this,
-          Invocation.getter(#suspendedAtTheDepthsMovieStore),
+          Invocation.getter(#blackOutToDrySandMovieStore),
         ),
-        returnValueForMissingStub: _FakeSuspendedAtTheDepthsMovieStore_1(
+        returnValueForMissingStub: _FakeBlackOutToDrySandMovieStore_1(
           this,
-          Invocation.getter(#suspendedAtTheDepthsMovieStore),
+          Invocation.getter(#blackOutToDrySandMovieStore),
         ),
-      ) as _i2.SuspendedAtTheDepthsMovieStore);
+      ) as _i2.BlackOutToDrySandMovieStore);
+
+  @override
+  _i2.OceanDiveToOnShoreMovieStore get oceanDiveToOnShoreMovieStore =>
+      (super.noSuchMethod(
+        Invocation.getter(#oceanDiveToOnShoreMovieStore),
+        returnValue: _FakeOceanDiveToOnShoreMovieStore_2(
+          this,
+          Invocation.getter(#oceanDiveToOnShoreMovieStore),
+        ),
+        returnValueForMissingStub: _FakeOceanDiveToOnShoreMovieStore_2(
+          this,
+          Invocation.getter(#oceanDiveToOnShoreMovieStore),
+        ),
+      ) as _i2.OceanDiveToOnShoreMovieStore);
+
+  @override
+  _i2.OceanDiveToTimesUpStartMovieStore get oceanDiveToTimesUpStartMovieStore =>
+      (super.noSuchMethod(
+        Invocation.getter(#oceanDiveToTimesUpStartMovieStore),
+        returnValue: _FakeOceanDiveToTimesUpStartMovieStore_3(
+          this,
+          Invocation.getter(#oceanDiveToTimesUpStartMovieStore),
+        ),
+        returnValueForMissingStub: _FakeOceanDiveToTimesUpStartMovieStore_3(
+          this,
+          Invocation.getter(#oceanDiveToTimesUpStartMovieStore),
+        ),
+      ) as _i2.OceanDiveToTimesUpStartMovieStore);
 
   @override
   _i2.OnShoreToOceanDiveMovieStore get onShoreToOceanDiveMovieStore =>
       (super.noSuchMethod(
         Invocation.getter(#onShoreToOceanDiveMovieStore),
-        returnValue: _FakeOnShoreToOceanDiveMovieStore_2(
+        returnValue: _FakeOnShoreToOceanDiveMovieStore_4(
           this,
           Invocation.getter(#onShoreToOceanDiveMovieStore),
         ),
-        returnValueForMissingStub: _FakeOnShoreToOceanDiveMovieStore_2(
+        returnValueForMissingStub: _FakeOnShoreToOceanDiveMovieStore_4(
           this,
           Invocation.getter(#onShoreToOceanDiveMovieStore),
         ),
@@ -271,84 +309,56 @@ class MockBeachWavesStore extends _i1.Mock implements _i2.BeachWavesStore {
   @override
   _i2.OnShoreMovieStore get onShoreMovieStore => (super.noSuchMethod(
         Invocation.getter(#onShoreMovieStore),
-        returnValue: _FakeOnShoreMovieStore_3(
+        returnValue: _FakeOnShoreMovieStore_5(
           this,
           Invocation.getter(#onShoreMovieStore),
         ),
-        returnValueForMissingStub: _FakeOnShoreMovieStore_3(
+        returnValueForMissingStub: _FakeOnShoreMovieStore_5(
           this,
           Invocation.getter(#onShoreMovieStore),
         ),
       ) as _i2.OnShoreMovieStore);
 
   @override
-  _i2.OceanDiveToOnShoreMovieStore get oceanDiveToOnShoreMovieStore =>
-      (super.noSuchMethod(
-        Invocation.getter(#oceanDiveToOnShoreMovieStore),
-        returnValue: _FakeOceanDiveToOnShoreMovieStore_4(
-          this,
-          Invocation.getter(#oceanDiveToOnShoreMovieStore),
-        ),
-        returnValueForMissingStub: _FakeOceanDiveToOnShoreMovieStore_4(
-          this,
-          Invocation.getter(#oceanDiveToOnShoreMovieStore),
-        ),
-      ) as _i2.OceanDiveToOnShoreMovieStore);
-
-  @override
   _i2.SuspendedAtOceanDiveStore get suspendedAtOceanDiveStore =>
       (super.noSuchMethod(
         Invocation.getter(#suspendedAtOceanDiveStore),
-        returnValue: _FakeSuspendedAtOceanDiveStore_5(
+        returnValue: _FakeSuspendedAtOceanDiveStore_6(
           this,
           Invocation.getter(#suspendedAtOceanDiveStore),
         ),
-        returnValueForMissingStub: _FakeSuspendedAtOceanDiveStore_5(
+        returnValueForMissingStub: _FakeSuspendedAtOceanDiveStore_6(
           this,
           Invocation.getter(#suspendedAtOceanDiveStore),
         ),
       ) as _i2.SuspendedAtOceanDiveStore);
 
   @override
-  _i2.OceanDiveToTimesUpStartMovieStore get oceanDiveToTimesUpStartMovieStore =>
+  _i2.SuspendedAtTheDepthsMovieStore get suspendedAtTheDepthsMovieStore =>
       (super.noSuchMethod(
-        Invocation.getter(#oceanDiveToTimesUpStartMovieStore),
-        returnValue: _FakeOceanDiveToTimesUpStartMovieStore_6(
+        Invocation.getter(#suspendedAtTheDepthsMovieStore),
+        returnValue: _FakeSuspendedAtTheDepthsMovieStore_7(
           this,
-          Invocation.getter(#oceanDiveToTimesUpStartMovieStore),
+          Invocation.getter(#suspendedAtTheDepthsMovieStore),
         ),
-        returnValueForMissingStub: _FakeOceanDiveToTimesUpStartMovieStore_6(
+        returnValueForMissingStub: _FakeSuspendedAtTheDepthsMovieStore_7(
           this,
-          Invocation.getter(#oceanDiveToTimesUpStartMovieStore),
+          Invocation.getter(#suspendedAtTheDepthsMovieStore),
         ),
-      ) as _i2.OceanDiveToTimesUpStartMovieStore);
+      ) as _i2.SuspendedAtTheDepthsMovieStore);
 
   @override
   _i2.TimesUpMovieStore get timesUpMovieStore => (super.noSuchMethod(
         Invocation.getter(#timesUpMovieStore),
-        returnValue: _FakeTimesUpMovieStore_7(
+        returnValue: _FakeTimesUpMovieStore_8(
           this,
           Invocation.getter(#timesUpMovieStore),
         ),
-        returnValueForMissingStub: _FakeTimesUpMovieStore_7(
+        returnValueForMissingStub: _FakeTimesUpMovieStore_8(
           this,
           Invocation.getter(#timesUpMovieStore),
         ),
       ) as _i2.TimesUpMovieStore);
-
-  @override
-  _i2.TimesUpEndToOceanDiveMovieStore get timesUpEndToOceanDiveMovie =>
-      (super.noSuchMethod(
-        Invocation.getter(#timesUpEndToOceanDiveMovie),
-        returnValue: _FakeTimesUpEndToOceanDiveMovieStore_8(
-          this,
-          Invocation.getter(#timesUpEndToOceanDiveMovie),
-        ),
-        returnValueForMissingStub: _FakeTimesUpEndToOceanDiveMovieStore_8(
-          this,
-          Invocation.getter(#timesUpEndToOceanDiveMovie),
-        ),
-      ) as _i2.TimesUpEndToOceanDiveMovieStore);
 
   @override
   _i2.TimesUpDynamicPointToTheDepthsMovieStore
@@ -366,17 +376,32 @@ class MockBeachWavesStore extends _i1.Mock implements _i2.BeachWavesStore {
           ) as _i2.TimesUpDynamicPointToTheDepthsMovieStore);
 
   @override
-  _i2.BlackOutMovieStore get blackOutMovie => (super.noSuchMethod(
-        Invocation.getter(#blackOutMovie),
-        returnValue: _FakeBlackOutMovieStore_10(
+  _i2.TimesUpEndToOceanDiveMovieStore get timesUpEndToOceanDiveMovie =>
+      (super.noSuchMethod(
+        Invocation.getter(#timesUpEndToOceanDiveMovie),
+        returnValue: _FakeTimesUpEndToOceanDiveMovieStore_10(
           this,
-          Invocation.getter(#blackOutMovie),
+          Invocation.getter(#timesUpEndToOceanDiveMovie),
         ),
-        returnValueForMissingStub: _FakeBlackOutMovieStore_10(
+        returnValueForMissingStub: _FakeTimesUpEndToOceanDiveMovieStore_10(
           this,
-          Invocation.getter(#blackOutMovie),
+          Invocation.getter(#timesUpEndToOceanDiveMovie),
         ),
-      ) as _i2.BlackOutMovieStore);
+      ) as _i2.TimesUpEndToOceanDiveMovieStore);
+
+  @override
+  _i2.TimesUpEndToTheDepthsMovieStore get timesUpEndToTheDepthsMovieStore =>
+      (super.noSuchMethod(
+        Invocation.getter(#timesUpEndToTheDepthsMovieStore),
+        returnValue: _FakeTimesUpEndToTheDepthsMovieStore_11(
+          this,
+          Invocation.getter(#timesUpEndToTheDepthsMovieStore),
+        ),
+        returnValueForMissingStub: _FakeTimesUpEndToTheDepthsMovieStore_11(
+          this,
+          Invocation.getter(#timesUpEndToTheDepthsMovieStore),
+        ),
+      ) as _i2.TimesUpEndToTheDepthsMovieStore);
 
   @override
   Map<_i7.BeachWaveMovieModes, _i4.BaseCustomAnimatedWidgetStore<dynamic>>
@@ -421,11 +446,11 @@ class MockBeachWavesStore extends _i1.Mock implements _i2.BeachWavesStore {
   @override
   _i3.ObservableList<_i7.ColorAndStop> get pivotColors => (super.noSuchMethod(
         Invocation.getter(#pivotColors),
-        returnValue: _FakeObservableList_11<_i7.ColorAndStop>(
+        returnValue: _FakeObservableList_12<_i7.ColorAndStop>(
           this,
           Invocation.getter(#pivotColors),
         ),
-        returnValueForMissingStub: _FakeObservableList_11<_i7.ColorAndStop>(
+        returnValueForMissingStub: _FakeObservableList_12<_i7.ColorAndStop>(
           this,
           Invocation.getter(#pivotColors),
         ),
@@ -460,8 +485,8 @@ class MockBeachWavesStore extends _i1.Mock implements _i2.BeachWavesStore {
   @override
   _i7.BeachWaveMovieModes get movieMode => (super.noSuchMethod(
         Invocation.getter(#movieMode),
-        returnValue: _i7.BeachWaveMovieModes.none,
-        returnValueForMissingStub: _i7.BeachWaveMovieModes.none,
+        returnValue: _i7.BeachWaveMovieModes.blackOut,
+        returnValueForMissingStub: _i7.BeachWaveMovieModes.blackOut,
       ) as _i7.BeachWaveMovieModes);
 
   @override
@@ -477,12 +502,12 @@ class MockBeachWavesStore extends _i1.Mock implements _i2.BeachWavesStore {
   _i4.BaseCustomAnimatedWidgetStore<dynamic> get currentStore =>
       (super.noSuchMethod(
         Invocation.getter(#currentStore),
-        returnValue: _FakeBaseCustomAnimatedWidgetStore_12<dynamic>(
+        returnValue: _FakeBaseCustomAnimatedWidgetStore_13<dynamic>(
           this,
           Invocation.getter(#currentStore),
         ),
         returnValueForMissingStub:
-            _FakeBaseCustomAnimatedWidgetStore_12<dynamic>(
+            _FakeBaseCustomAnimatedWidgetStore_13<dynamic>(
           this,
           Invocation.getter(#currentStore),
         ),
@@ -505,11 +530,11 @@ class MockBeachWavesStore extends _i1.Mock implements _i2.BeachWavesStore {
   @override
   _i5.MovieTween get currentMovie => (super.noSuchMethod(
         Invocation.getter(#currentMovie),
-        returnValue: _FakeMovieTween_13(
+        returnValue: _FakeMovieTween_14(
           this,
           Invocation.getter(#currentMovie),
         ),
-        returnValueForMissingStub: _FakeMovieTween_13(
+        returnValueForMissingStub: _FakeMovieTween_14(
           this,
           Invocation.getter(#currentMovie),
         ),
@@ -525,11 +550,11 @@ class MockBeachWavesStore extends _i1.Mock implements _i2.BeachWavesStore {
   @override
   _i3.ReactiveContext get context => (super.noSuchMethod(
         Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_14(
+        returnValue: _FakeReactiveContext_15(
           this,
           Invocation.getter(#context),
         ),
-        returnValueForMissingStub: _FakeReactiveContext_14(
+        returnValueForMissingStub: _FakeReactiveContext_15(
           this,
           Invocation.getter(#context),
         ),
@@ -564,11 +589,11 @@ class MockSmartTextStore extends _i1.Mock implements _i2.SmartTextStore {
   _i3.ObservableList<_i9.RotatingTextData> get messagesData =>
       (super.noSuchMethod(
         Invocation.getter(#messagesData),
-        returnValue: _FakeObservableList_11<_i9.RotatingTextData>(
+        returnValue: _FakeObservableList_12<_i9.RotatingTextData>(
           this,
           Invocation.getter(#messagesData),
         ),
-        returnValueForMissingStub: _FakeObservableList_11<_i9.RotatingTextData>(
+        returnValueForMissingStub: _FakeObservableList_12<_i9.RotatingTextData>(
           this,
           Invocation.getter(#messagesData),
         ),
@@ -638,11 +663,11 @@ class MockSmartTextStore extends _i1.Mock implements _i2.SmartTextStore {
   @override
   Duration get currentInitialFadeInDelay => (super.noSuchMethod(
         Invocation.getter(#currentInitialFadeInDelay),
-        returnValue: _FakeDuration_15(
+        returnValue: _FakeDuration_16(
           this,
           Invocation.getter(#currentInitialFadeInDelay),
         ),
-        returnValueForMissingStub: _FakeDuration_15(
+        returnValueForMissingStub: _FakeDuration_16(
           this,
           Invocation.getter(#currentInitialFadeInDelay),
         ),
@@ -651,11 +676,11 @@ class MockSmartTextStore extends _i1.Mock implements _i2.SmartTextStore {
   @override
   Duration get currentOnScreenTime => (super.noSuchMethod(
         Invocation.getter(#currentOnScreenTime),
-        returnValue: _FakeDuration_15(
+        returnValue: _FakeDuration_16(
           this,
           Invocation.getter(#currentOnScreenTime),
         ),
-        returnValueForMissingStub: _FakeDuration_15(
+        returnValueForMissingStub: _FakeDuration_16(
           this,
           Invocation.getter(#currentOnScreenTime),
         ),
@@ -678,11 +703,11 @@ class MockSmartTextStore extends _i1.Mock implements _i2.SmartTextStore {
   @override
   _i5.MovieTween get movie => (super.noSuchMethod(
         Invocation.getter(#movie),
-        returnValue: _FakeMovieTween_13(
+        returnValue: _FakeMovieTween_14(
           this,
           Invocation.getter(#movie),
         ),
-        returnValueForMissingStub: _FakeMovieTween_13(
+        returnValueForMissingStub: _FakeMovieTween_14(
           this,
           Invocation.getter(#movie),
         ),
@@ -771,11 +796,11 @@ class MockSmartTextStore extends _i1.Mock implements _i2.SmartTextStore {
   @override
   _i3.ReactiveContext get context => (super.noSuchMethod(
         Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_14(
+        returnValue: _FakeReactiveContext_15(
           this,
           Invocation.getter(#context),
         ),
-        returnValueForMissingStub: _FakeReactiveContext_14(
+        returnValueForMissingStub: _FakeReactiveContext_15(
           this,
           Invocation.getter(#context),
         ),
@@ -845,11 +870,11 @@ class MockTrailingTextStore extends _i1.Mock implements _i2.TrailingTextStore {
   @override
   _i6.Size get textSize => (super.noSuchMethod(
         Invocation.getter(#textSize),
-        returnValue: _FakeSize_16(
+        returnValue: _FakeSize_17(
           this,
           Invocation.getter(#textSize),
         ),
-        returnValueForMissingStub: _FakeSize_16(
+        returnValueForMissingStub: _FakeSize_17(
           this,
           Invocation.getter(#textSize),
         ),
@@ -874,11 +899,11 @@ class MockTrailingTextStore extends _i1.Mock implements _i2.TrailingTextStore {
   @override
   _i5.MovieTween get movie => (super.noSuchMethod(
         Invocation.getter(#movie),
-        returnValue: _FakeMovieTween_13(
+        returnValue: _FakeMovieTween_14(
           this,
           Invocation.getter(#movie),
         ),
-        returnValueForMissingStub: _FakeMovieTween_13(
+        returnValueForMissingStub: _FakeMovieTween_14(
           this,
           Invocation.getter(#movie),
         ),
@@ -967,11 +992,11 @@ class MockTrailingTextStore extends _i1.Mock implements _i2.TrailingTextStore {
   @override
   _i3.ReactiveContext get context => (super.noSuchMethod(
         Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_14(
+        returnValue: _FakeReactiveContext_15(
           this,
           Invocation.getter(#context),
         ),
-        returnValueForMissingStub: _FakeReactiveContext_14(
+        returnValueForMissingStub: _FakeReactiveContext_15(
           this,
           Invocation.getter(#context),
         ),
@@ -1047,11 +1072,11 @@ class MockNokhteStore extends _i1.Mock implements _i2.NokhteStore {
   @override
   _i6.Offset get centerCoordinates => (super.noSuchMethod(
         Invocation.getter(#centerCoordinates),
-        returnValue: _FakeOffset_17(
+        returnValue: _FakeOffset_18(
           this,
           Invocation.getter(#centerCoordinates),
         ),
-        returnValueForMissingStub: _FakeOffset_17(
+        returnValueForMissingStub: _FakeOffset_18(
           this,
           Invocation.getter(#centerCoordinates),
         ),
@@ -1099,11 +1124,11 @@ class MockNokhteStore extends _i1.Mock implements _i2.NokhteStore {
   @override
   _i5.MovieTween get movie => (super.noSuchMethod(
         Invocation.getter(#movie),
-        returnValue: _FakeMovieTween_13(
+        returnValue: _FakeMovieTween_14(
           this,
           Invocation.getter(#movie),
         ),
-        returnValueForMissingStub: _FakeMovieTween_13(
+        returnValueForMissingStub: _FakeMovieTween_14(
           this,
           Invocation.getter(#movie),
         ),
@@ -1192,11 +1217,11 @@ class MockNokhteStore extends _i1.Mock implements _i2.NokhteStore {
   @override
   _i3.ReactiveContext get context => (super.noSuchMethod(
         Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_14(
+        returnValue: _FakeReactiveContext_15(
           this,
           Invocation.getter(#context),
         ),
-        returnValueForMissingStub: _FakeReactiveContext_14(
+        returnValueForMissingStub: _FakeReactiveContext_15(
           this,
           Invocation.getter(#context),
         ),
@@ -1297,11 +1322,11 @@ class MockTapDetector extends _i1.Mock implements _i2.TapDetector {
   @override
   _i6.Offset get currentTapPosition => (super.noSuchMethod(
         Invocation.getter(#currentTapPosition),
-        returnValue: _FakeOffset_17(
+        returnValue: _FakeOffset_18(
           this,
           Invocation.getter(#currentTapPosition),
         ),
-        returnValueForMissingStub: _FakeOffset_17(
+        returnValueForMissingStub: _FakeOffset_18(
           this,
           Invocation.getter(#currentTapPosition),
         ),
@@ -1326,11 +1351,11 @@ class MockTapDetector extends _i1.Mock implements _i2.TapDetector {
   @override
   _i3.ReactiveContext get context => (super.noSuchMethod(
         Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_14(
+        returnValue: _FakeReactiveContext_15(
           this,
           Invocation.getter(#context),
         ),
-        returnValueForMissingStub: _FakeReactiveContext_14(
+        returnValueForMissingStub: _FakeReactiveContext_15(
           this,
           Invocation.getter(#context),
         ),
