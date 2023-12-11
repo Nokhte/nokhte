@@ -714,6 +714,22 @@ class MockSmartTextStore extends _i1.Mock implements _i2.SmartTextStore {
       );
 
   @override
+  _i5.Control get pastControl => (super.noSuchMethod(
+        Invocation.getter(#pastControl),
+        returnValue: _i5.Control.stop,
+        returnValueForMissingStub: _i5.Control.stop,
+      ) as _i5.Control);
+
+  @override
+  set pastControl(_i5.Control? value) => super.noSuchMethod(
+        Invocation.setter(
+          #pastControl,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   bool get showWidget => (super.noSuchMethod(
         Invocation.getter(#showWidget),
         returnValue: false,
@@ -740,22 +756,6 @@ class MockSmartTextStore extends _i1.Mock implements _i2.SmartTextStore {
   set movieStatus(_i8.MovieStatus? value) => super.noSuchMethod(
         Invocation.setter(
           #movieStatus,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  String get stopwatchMillseconds => (super.noSuchMethod(
-        Invocation.getter(#stopwatchMillseconds),
-        returnValue: '',
-        returnValueForMissingStub: '',
-      ) as String);
-
-  @override
-  set stopwatchMillseconds(String? value) => super.noSuchMethod(
-        Invocation.setter(
-          #stopwatchMillseconds,
           value,
         ),
         returnValueForMissingStub: null,
@@ -797,6 +797,15 @@ class MockSmartTextStore extends _i1.Mock implements _i2.SmartTextStore {
           #startRotatingText,
           [],
           {#isResuming: isResuming},
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  dynamic setPastControl(_i5.Control? newControl) => super.noSuchMethod(
+        Invocation.method(
+          #setPastControl,
+          [newControl],
         ),
         returnValueForMissingStub: null,
       );
@@ -901,6 +910,22 @@ class MockTrailingTextStore extends _i1.Mock implements _i2.TrailingTextStore {
       );
 
   @override
+  _i5.Control get pastControl => (super.noSuchMethod(
+        Invocation.getter(#pastControl),
+        returnValue: _i5.Control.stop,
+        returnValueForMissingStub: _i5.Control.stop,
+      ) as _i5.Control);
+
+  @override
+  set pastControl(_i5.Control? value) => super.noSuchMethod(
+        Invocation.setter(
+          #pastControl,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   bool get showWidget => (super.noSuchMethod(
         Invocation.getter(#showWidget),
         returnValue: false,
@@ -927,22 +952,6 @@ class MockTrailingTextStore extends _i1.Mock implements _i2.TrailingTextStore {
   set movieStatus(_i8.MovieStatus? value) => super.noSuchMethod(
         Invocation.setter(
           #movieStatus,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  String get stopwatchMillseconds => (super.noSuchMethod(
-        Invocation.getter(#stopwatchMillseconds),
-        returnValue: '',
-        returnValueForMissingStub: '',
-      ) as String);
-
-  @override
-  set stopwatchMillseconds(String? value) => super.noSuchMethod(
-        Invocation.setter(
-          #stopwatchMillseconds,
           value,
         ),
         returnValueForMissingStub: null,
@@ -990,6 +999,15 @@ class MockTrailingTextStore extends _i1.Mock implements _i2.TrailingTextStore {
         Invocation.method(
           #initMovie,
           [params],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  dynamic setPastControl(_i5.Control? newControl) => super.noSuchMethod(
+        Invocation.method(
+          #setPastControl,
+          [newControl],
         ),
         returnValueForMissingStub: null,
       );
@@ -1110,6 +1128,22 @@ class MockNokhteStore extends _i1.Mock implements _i2.NokhteStore {
       );
 
   @override
+  _i5.Control get pastControl => (super.noSuchMethod(
+        Invocation.getter(#pastControl),
+        returnValue: _i5.Control.stop,
+        returnValueForMissingStub: _i5.Control.stop,
+      ) as _i5.Control);
+
+  @override
+  set pastControl(_i5.Control? value) => super.noSuchMethod(
+        Invocation.setter(
+          #pastControl,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   bool get showWidget => (super.noSuchMethod(
         Invocation.getter(#showWidget),
         returnValue: false,
@@ -1136,22 +1170,6 @@ class MockNokhteStore extends _i1.Mock implements _i2.NokhteStore {
   set movieStatus(_i8.MovieStatus? value) => super.noSuchMethod(
         Invocation.setter(
           #movieStatus,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  String get stopwatchMillseconds => (super.noSuchMethod(
-        Invocation.getter(#stopwatchMillseconds),
-        returnValue: '',
-        returnValueForMissingStub: '',
-      ) as String);
-
-  @override
-  set stopwatchMillseconds(String? value) => super.noSuchMethod(
-        Invocation.setter(
-          #stopwatchMillseconds,
           value,
         ),
         returnValueForMissingStub: null,
@@ -1197,17 +1215,26 @@ class MockNokhteStore extends _i1.Mock implements _i2.NokhteStore {
       );
 
   @override
-  dynamic setPositionMovie(
+  dynamic initPositionMovie(
     _i6.Offset? touchPoint,
     _i6.Offset? centerPoint,
   ) =>
       super.noSuchMethod(
         Invocation.method(
-          #setPositionMovie,
+          #initPositionMovie,
           [
             touchPoint,
             centerPoint,
           ],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  dynamic setPastControl(_i5.Control? newControl) => super.noSuchMethod(
+        Invocation.method(
+          #setPastControl,
+          [newControl],
         ),
         returnValueForMissingStub: null,
       );
