@@ -24,7 +24,8 @@ class AuthenticationWidgetsModule extends Module {
       () => LoginScreenWidgetsCoordinator(
         nokhte: i.get<NokhteStore>(),
         smartTextStore: i.get<SmartTextStore>(),
-        beachWaves: Modular.get<BeachWavesStore>(),
+        layer1BeachWaves: Modular.get<BeachWavesStore>(),
+        layer2BeachWaves: Modular.get<BeachWavesStore>(),
         bottomTrailingText: i.get<TrailingTextStore>(),
         topTrailingText: i.get<TrailingTextStore>(),
       ),
