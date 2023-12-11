@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/nokhte/nokhte.dart';
 import 'package:nokhte/app/core/widgets/nokhte/stack/presentation/mobx/nokhte_store.dart';
 import 'package:nokhte/app/core/widgets/nokhte/stack/presentation/widget/canvas/nokhte_painter.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -25,6 +26,7 @@ class Nokhte extends HookWidget {
           builder: (context, value, child) {
             return CustomPaint(
               painter: NokhtePainter(
+                isAboutToApparate: store.isAboutToApparate,
                 circleRadii: value.get('circleRadii'),
                 nokhteCoordinates:
                     Offset(value.get('nokhteX'), value.get('nokhteY')),
