@@ -8,6 +8,7 @@ import 'package:simple_animations/simple_animations.dart';
 void main() {
   late BeachWavesStore testStore;
   late OnShoreToOceanDiveMovieStore onShoreToOceanDiveMovieStore;
+  late BlackOutToDrySandMovieStore blackOutToDrySandMovieStore;
   late OnShoreMovieStore onShoreMovieStore;
   late SuspendedAtOceanDiveStore suspendedAtOceanDiveStore;
   late SuspendedAtTheDepthsMovieStore suspendedAtTheDepthsMovieStore;
@@ -41,6 +42,7 @@ void main() {
 
   setUp(() {
     blackOutMovieStore = BlackOutMovieStore();
+    blackOutToDrySandMovieStore = BlackOutToDrySandMovieStore();
     timesUpEndToTheDepthsMovieStore = TimesUpEndToTheDepthsMovieStore();
     suspendedAtTheDepthsMovieStore = SuspendedAtTheDepthsMovieStore();
     timesUpMovieStore = TimesUpMovieStore();
@@ -56,6 +58,7 @@ void main() {
     testStore = BeachWavesStore(
       blackOutMovie: blackOutMovieStore,
       timesUpEndToTheDepthsMovieStore: timesUpEndToTheDepthsMovieStore,
+      blackOutToDrySandMovieStore: blackOutToDrySandMovieStore,
       suspendedAtTheDepthsMovieStore: suspendedAtTheDepthsMovieStore,
       timesUpDynamicPointToTheDepthsMovie:
           timesUpDynamicPointToTheDepthsMovieStore,
