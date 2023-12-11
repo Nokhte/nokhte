@@ -10,7 +10,7 @@ abstract class _BaseBeachWaveMovieStore<T>
     extends BaseCustomAnimatedWidgetStore<T> with Store {
   final bool shouldPaintSand;
   _BaseBeachWaveMovieStore({
-    required this.shouldPaintSand,
+    this.shouldPaintSand = true,
     super.callsOnCompleteTwice = false,
   });
 }
