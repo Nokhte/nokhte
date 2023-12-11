@@ -9,14 +9,13 @@ part of 'beach_waves_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$BeachWavesStore on _BeachWavesStoreBase, Store {
-  Computed<BaseCustomAnimatedWidgetStore<dynamic>>? _$currentStoreComputed;
+  Computed<BaseBeachWaveMovieStore<dynamic>>? _$currentStoreComputed;
 
   @override
-  BaseCustomAnimatedWidgetStore<dynamic> get currentStore =>
-      (_$currentStoreComputed ??=
-              Computed<BaseCustomAnimatedWidgetStore<dynamic>>(
-                  () => super.currentStore,
-                  name: '_BeachWavesStoreBase.currentStore'))
+  BaseBeachWaveMovieStore<dynamic> get currentStore =>
+      (_$currentStoreComputed ??= Computed<BaseBeachWaveMovieStore<dynamic>>(
+              () => super.currentStore,
+              name: '_BeachWavesStoreBase.currentStore'))
           .value;
   Computed<Control>? _$currentControlComputed;
 
@@ -24,6 +23,13 @@ mixin _$BeachWavesStore on _BeachWavesStoreBase, Store {
   Control get currentControl => (_$currentControlComputed ??= Computed<Control>(
           () => super.currentControl,
           name: '_BeachWavesStoreBase.currentControl'))
+      .value;
+  Computed<bool>? _$shouldPaintSandOnCurrentComputed;
+
+  @override
+  bool get shouldPaintSandOnCurrent => (_$shouldPaintSandOnCurrentComputed ??=
+          Computed<bool>(() => super.shouldPaintSandOnCurrent,
+              name: '_BeachWavesStoreBase.shouldPaintSandOnCurrent'))
       .value;
   Computed<MovieStatus>? _$currentMovieStatusComputed;
 
@@ -149,6 +155,7 @@ movieStatus: ${movieStatus},
 movieMode: ${movieMode},
 currentStore: ${currentStore},
 currentControl: ${currentControl},
+shouldPaintSandOnCurrent: ${shouldPaintSandOnCurrent},
 currentMovieStatus: ${currentMovieStatus},
 currentMovie: ${currentMovie}
     ''';

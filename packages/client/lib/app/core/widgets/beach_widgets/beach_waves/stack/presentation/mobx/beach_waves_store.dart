@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:equatable/equatable.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/mobx/base_custom_animated_widget_store.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'dart:core';
@@ -48,7 +47,7 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
       BeachWaveMovieModes.onShore: onShoreMovieStore,
       BeachWaveMovieModes.onShoreToOceanDive: onShoreToOceanDiveMovieStore,
       BeachWaveMovieModes.onShoreToOceanDiveSetup: onShoreMovieStore,
-      BeachWaveMovieModes.none: BaseCustomAnimatedWidgetStore(),
+      BeachWaveMovieModes.none: BaseBeachWaveMovieStore(),
       BeachWaveMovieModes.timesUp: timesUpMovieStore,
       BeachWaveMovieModes.timesUpDynamicPointToTheDepths:
           timesUpDynamicPointToTheDepthsMovie,
@@ -62,9 +61,8 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
     };
   }
 
-  Map<BeachWaveMovieModes, BaseCustomAnimatedWidgetStore>
-      movieModeToStoreLookup = {
-    BeachWaveMovieModes.none: BaseCustomAnimatedWidgetStore(),
+  Map<BeachWaveMovieModes, BaseBeachWaveMovieStore> movieModeToStoreLookup = {
+    BeachWaveMovieModes.none: BaseBeachWaveMovieStore(),
   };
 
   @observable
@@ -113,15 +111,15 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
   }
 
   @computed
-  BaseCustomAnimatedWidgetStore get currentStore =>
-      movieModeToStoreLookup[movieMode] ?? BaseCustomAnimatedWidgetStore();
+  BaseBeachWaveMovieStore get currentStore =>
+      movieModeToStoreLookup[movieMode] ?? BaseBeachWaveMovieStore();
 
   @computed
   Control get currentControl =>
       movieModeToStoreLookup[movieMode]?.control ?? Control.stop;
 
-  // @computed
-  // bool get shouldPaintSandOnCurrent => 
+  @computed
+  bool get shouldPaintSandOnCurrent => currentStore.shouldPaintSand;
 
   @computed
   MovieStatus get currentMovieStatus =>
