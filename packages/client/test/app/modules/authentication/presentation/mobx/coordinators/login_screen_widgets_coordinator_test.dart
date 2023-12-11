@@ -24,7 +24,8 @@ void main() {
     topTrailingTextStore = TrailingTextStore();
     bottomTrailingTextStore = TrailingTextStore();
     testStore = LoginScreenWidgetsCoordinator(
-      beachWaves: mockBeachWavesStore,
+      layer1BeachWaves: mockBeachWavesStore,
+      layer2BeachWaves: mockBeachWavesStore,
       smartTextStore: smartTextStore,
       nokhte: nokhteStore,
       bottomTrailingText: bottomTrailingTextStore,
