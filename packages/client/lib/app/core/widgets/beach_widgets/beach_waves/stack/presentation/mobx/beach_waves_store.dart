@@ -12,31 +12,33 @@ part 'beach_waves_store.g.dart';
 class BeachWavesStore = _BeachWavesStoreBase with _$BeachWavesStore;
 
 abstract class _BeachWavesStoreBase extends Equatable with Store {
-  final TimesUpEndToTheDepthsMovieStore timesUpEndToTheDepthsMovieStore;
-  final SuspendedAtTheDepthsMovieStore suspendedAtTheDepthsMovieStore;
+  final BlackOutMovieStore blackOutMovie;
+  final BlackOutToDrySandMovieStore blackOutToDrySandMovieStore;
+  final OceanDiveToOnShoreMovieStore oceanDiveToOnShoreMovieStore;
+  final OceanDiveToTimesUpStartMovieStore oceanDiveToTimesUpStartMovieStore;
   final OnShoreToOceanDiveMovieStore onShoreToOceanDiveMovieStore;
   final OnShoreMovieStore onShoreMovieStore;
-  final OceanDiveToOnShoreMovieStore oceanDiveToOnShoreMovieStore;
   final SuspendedAtOceanDiveStore suspendedAtOceanDiveStore;
-  final OceanDiveToTimesUpStartMovieStore oceanDiveToTimesUpStartMovieStore;
+  final SuspendedAtTheDepthsMovieStore suspendedAtTheDepthsMovieStore;
   final TimesUpMovieStore timesUpMovieStore;
-  final TimesUpEndToOceanDiveMovieStore timesUpEndToOceanDiveMovie;
   final TimesUpDynamicPointToTheDepthsMovieStore
       timesUpDynamicPointToTheDepthsMovie;
-  final BlackOutMovieStore blackOutMovie;
+  final TimesUpEndToOceanDiveMovieStore timesUpEndToOceanDiveMovie;
+  final TimesUpEndToTheDepthsMovieStore timesUpEndToTheDepthsMovieStore;
 
   _BeachWavesStoreBase({
-    required this.timesUpEndToTheDepthsMovieStore,
-    required this.suspendedAtTheDepthsMovieStore,
-    required this.timesUpDynamicPointToTheDepthsMovie,
     required this.blackOutMovie,
-    required this.timesUpEndToOceanDiveMovie,
-    required this.timesUpMovieStore,
+    required this.blackOutToDrySandMovieStore,
+    required this.oceanDiveToOnShoreMovieStore,
     required this.oceanDiveToTimesUpStartMovieStore,
     required this.onShoreToOceanDiveMovieStore,
-    required this.suspendedAtOceanDiveStore,
     required this.onShoreMovieStore,
-    required this.oceanDiveToOnShoreMovieStore,
+    required this.suspendedAtOceanDiveStore,
+    required this.suspendedAtTheDepthsMovieStore,
+    required this.timesUpMovieStore,
+    required this.timesUpDynamicPointToTheDepthsMovie,
+    required this.timesUpEndToOceanDiveMovie,
+    required this.timesUpEndToTheDepthsMovieStore,
   }) {
     movieModeToStoreLookup = {
       BeachWaveMovieModes.blackOut: blackOutMovie,
