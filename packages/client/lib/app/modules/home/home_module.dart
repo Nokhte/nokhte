@@ -32,17 +32,17 @@ class HomeModule extends Module {
         ),
         i.addSingleton<AddNameToDatabase>(
           () => AddNameToDatabase(
-            contract: i<HomeContract>(),
+            contract: i<HomeContractImpl>(),
           ),
         ),
         i.addSingleton<GetCollaboratorPhrase>(
           () => GetCollaboratorPhrase(
-            contract: i<HomeContract>(),
+            contract: i<HomeContractImpl>(),
           ),
         ),
         i.addSingleton<GetExistingCollaborationsInfo>(
           () => GetExistingCollaborationsInfo(
-            contract: i<HomeContract>(),
+            contract: i<HomeContractImpl>(),
           ),
         ),
         i.addSingleton<GetExistingCollaborationsInfoStore>(
