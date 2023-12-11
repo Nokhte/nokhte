@@ -4,11 +4,13 @@ class BeachWavesPainter extends CustomPainter {
   final double waterValue;
   final List<Color> colorsList;
   final List<double> stopsList;
+  final bool shouldPaintSand;
 
   BeachWavesPainter({
     required this.waterValue,
     required this.colorsList,
     required this.stopsList,
+    required this.shouldPaintSand,
   });
 
   paintSand(Canvas canvas, Size size) {
@@ -65,7 +67,9 @@ class BeachWavesPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    paintSand(canvas, size);
+    if (shouldPaintSand) {
+      paintSand(canvas, size);
+    }
     paintWater(canvas, size);
   }
 
