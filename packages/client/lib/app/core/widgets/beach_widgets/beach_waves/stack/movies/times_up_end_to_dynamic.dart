@@ -1,10 +1,10 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/beach_waves/stack/types/base_beach_wave_movie.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:simple_animations/movie_tween/movie_tween.dart';
 
-class TimesUpEndToDynamic extends Equatable {
+class TimesUpEndToDynamic extends BaseBeachWaveMovie {
   static MovieTween getMovie(List<ColorAndStop> endingColors) => MovieTween()
     ..scene(
       begin: Seconds.get(0),

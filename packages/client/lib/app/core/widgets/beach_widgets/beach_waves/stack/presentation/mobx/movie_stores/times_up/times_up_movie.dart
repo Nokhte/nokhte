@@ -1,10 +1,9 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:nokhte/app/core/widgets/beach_widgets/beach_waves/stack/utils/time_allocator.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/movie_tween/movie_tween.dart';
 
-class TimesUpMovie extends Equatable {
+class TimesUpMovie extends BaseBeachWaveMovie {
   static MovieTween getMovie({required Duration timerLength}) {
     final durationsArr = TimeAllocator.generateDurations(
         duration: timerLength, numIncrements: 8);
