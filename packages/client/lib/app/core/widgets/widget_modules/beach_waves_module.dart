@@ -4,37 +4,37 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 class BeachWavesModule extends Module {
   @override
   exportedBinds(i) {
-    i.addSingleton<BlackOutMovieStore>(
+    i.add<BlackOutMovieStore>(
       () => BlackOutMovieStore(),
     );
-    i.addSingleton<SuspendedAtTheDepthsMovieStore>(
+    i.add<SuspendedAtTheDepthsMovieStore>(
       () => SuspendedAtTheDepthsMovieStore(),
     );
-    i.addSingleton<OceanDiveToTimesUpStartMovieStore>(
+    i.add<OceanDiveToTimesUpStartMovieStore>(
       () => OceanDiveToTimesUpStartMovieStore(),
     );
-    i.addSingleton<TimesUpEndToTheDepthsMovieStore>(
+    i.add<TimesUpEndToTheDepthsMovieStore>(
       () => TimesUpEndToTheDepthsMovieStore(),
     );
-    i.addSingleton<SuspendedAtOceanDiveStore>(
+    i.add<SuspendedAtOceanDiveStore>(
       () => SuspendedAtOceanDiveStore(),
     );
-    i.addSingleton<OceanDiveToOnShoreMovieStore>(
+    i.add<OceanDiveToOnShoreMovieStore>(
       () => OceanDiveToOnShoreMovieStore(),
     );
-    i.addSingleton<OnShoreToOceanDiveMovieStore>(
+    i.add<OnShoreToOceanDiveMovieStore>(
       () => OnShoreToOceanDiveMovieStore(),
     );
-    i.addSingleton<OnShoreMovieStore>(
+    i.add<OnShoreMovieStore>(
       () => OnShoreMovieStore(),
     );
-    i.addSingleton<TimesUpMovieStore>(
+    i.add<TimesUpMovieStore>(
       () => TimesUpMovieStore(),
     );
-    i.addSingleton<TimesUpEndToOceanDiveMovieStore>(
+    i.add<TimesUpEndToOceanDiveMovieStore>(
       () => TimesUpEndToOceanDiveMovieStore(),
     );
-    i.addSingleton<TimesUpDynamicPointToTheDepthsMovieStore>(
+    i.add<TimesUpDynamicPointToTheDepthsMovieStore>(
       () => TimesUpDynamicPointToTheDepthsMovieStore(),
     );
     i.add<BeachWavesStore>(
