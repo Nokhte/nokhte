@@ -13,7 +13,7 @@ class WaterFromTopToOnShoreMoviePart1 {
         .tween(
           'water movement',
           Tween<double>(
-            begin: -600,
+            begin: -225,
             end: 100,
           ),
         )
