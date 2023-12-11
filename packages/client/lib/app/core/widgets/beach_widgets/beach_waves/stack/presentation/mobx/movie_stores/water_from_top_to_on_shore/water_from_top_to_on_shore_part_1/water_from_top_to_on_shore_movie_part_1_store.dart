@@ -13,6 +13,7 @@ abstract class _WaterFromTopToOnShorePart1MovieStoreBase
   _WaterFromTopToOnShorePart1MovieStoreBase()
       : super(
           shouldPaintSand: WaterFromTopToOnShoreMoviePart1.shouldPaintSand,
+          callsOnCompleteTwice: true,
         ) {
     movie = WaterFromTopToOnShoreMoviePart1.movie;
   }
