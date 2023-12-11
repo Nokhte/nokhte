@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
-import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-class OceanDiveToShoreMovie extends BaseBeachWaveMovie {
+class OceanDiveToShoreMovie {
+  static bool get shouldPaintSand => true;
   static MovieTween get movie => MovieTween()
     ..scene(
       begin: Seconds.get(0),
@@ -249,7 +249,4 @@ class OceanDiveToShoreMovie extends BaseBeachWaveMovie {
             end: WaterColorsAndStops.onShoreWater[7].stop,
           ),
         );
-
-  @override
-  List<Object> get props => [];
 }

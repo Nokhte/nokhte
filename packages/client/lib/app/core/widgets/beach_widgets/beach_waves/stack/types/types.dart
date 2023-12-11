@@ -1,1 +1,1 @@
-export './base_beach_wave_movie.dart';
+export './base_beach_wave_movie_store.dart';

@@ -3,7 +3,8 @@ import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/movie_tween/movie_tween.dart';
 
-class TimesUpMovie extends BaseBeachWaveMovie {
+class TimesUpMovie {
+  static bool get shouldPaintSand => true;
   static MovieTween getMovie({required Duration timerLength}) {
     final durationsArr = TimeAllocator.generateDurations(
         duration: timerLength, numIncrements: 8);
@@ -994,7 +995,4 @@ class TimesUpMovie extends BaseBeachWaveMovie {
             ),
           );
   }
-
-  @override
-  List<Object> get props => [];
 }

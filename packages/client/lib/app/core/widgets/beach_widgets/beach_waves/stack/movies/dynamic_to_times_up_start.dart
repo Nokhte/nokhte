@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
-import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/movie_tween/movie_tween.dart';
 
-class DynamicToTimesUpStart extends BaseBeachWaveMovie {
+class DynamicToTimesUpStart {
+  static bool get shouldPaintSand => true;
   static MovieTween getMovie({
     required List<ColorAndStop> startingColors,
   }) {
@@ -133,7 +133,4 @@ class DynamicToTimesUpStart extends BaseBeachWaveMovie {
             ),
           );
   }
-
-  @override
-  List<Object> get props => [];
 }

@@ -120,6 +120,9 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
   Control get currentControl =>
       movieModeToStoreLookup[movieMode]?.control ?? Control.stop;
 
+  // @computed
+  // bool get shouldPaintSandOnCurrent => 
+
   @computed
   MovieStatus get currentMovieStatus =>
       movieModeToStoreLookup[movieMode]?.movieStatus ?? MovieStatus.idle;

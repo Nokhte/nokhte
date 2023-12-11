@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
-import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-class TimesUpDynamicPointToTheDepthsMovie extends BaseBeachWaveMovie {
+class TimesUpDynamicPointToTheDepthsMovie {
+  static bool get shouldPaintSand => true;
   static MovieTween getMovie(List<ColorAndStop> startingColors) {
     return MovieTween()
       ..scene(
