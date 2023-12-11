@@ -5,11 +5,13 @@ class NokhtePainter extends CustomPainter {
   final Offset nokhteCoordinates;
   final Offset blueDotCoordinates;
   final double circleRadii;
+  final bool isAboutToApparate;
 
   NokhtePainter({
     required this.nokhteCoordinates,
     required this.blueDotCoordinates,
     required this.circleRadii,
+    required this.isAboutToApparate,
   });
 
   drawNokhte(Canvas canvas, Size size) {
@@ -34,8 +36,13 @@ class NokhtePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    drawBlue(canvas, size);
-    drawNokhte(canvas, size);
+    if (isAboutToApparate) {
+      drawNokhte(canvas, size);
+      drawBlue(canvas, size);
+    } else {
+      drawBlue(canvas, size);
+      drawNokhte(canvas, size);
+    }
   }
 
   @override
