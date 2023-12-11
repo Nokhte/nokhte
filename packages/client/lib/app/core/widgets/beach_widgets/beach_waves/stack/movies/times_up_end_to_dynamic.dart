@@ -4,6 +4,7 @@ import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:simple_animations/movie_tween/movie_tween.dart';
 
 class TimesUpEndToDynamic {
+  static bool get shouldPaintSand => true;
   static MovieTween getMovie(List<ColorAndStop> endingColors) => MovieTween()
     ..scene(
       begin: Seconds.get(0),

@@ -11,5 +11,6 @@ abstract class _BaseBeachWaveMovieStore<T>
   final bool shouldPaintSand;
   _BaseBeachWaveMovieStore({
     required this.shouldPaintSand,
+    super.callsOnCompleteTwice = false,
   });
 }
