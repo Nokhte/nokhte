@@ -1,5 +1,3 @@
-// ignore_for_file: no_logic_in_create_state
-
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/constants/constants.dart';
 import 'package:nokhte/app/core/hooks/use_center_offset.dart';
@@ -42,7 +40,14 @@ class LoginScreen extends HookWidget with WidgetsBindingObserver {
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   child: BeachWaves(
-                    store: coordinator.widgets.beachWaves,
+                    store: coordinator.widgets.layer1BeachWaves,
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: BeachWaves(
+                    store: coordinator.widgets.layer2BeachWaves,
                   ),
                 ),
                 SizedBox(
