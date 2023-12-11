@@ -86,6 +86,9 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
         currentTapPosition,
         centerScreenCoordinates,
       );
+      if (!nokhte.showWidget) {
+        nokhte.toggleWidgetVisibility();
+      }
     }
   }
 
@@ -103,6 +106,9 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
         if (bottomTrailingText.movieStatus == MovieStatus.finished &&
             bottomTrailingText.pastControl == Control.playReverseFromEnd) {
           nokhte.initMoveUpAndApparateMovie();
+        } else if (bottomTrailingText.movieStatus == MovieStatus.finished &&
+            bottomTrailingText.pastControl == Control.playFromStart) {
+          setCanSwipeUp(true);
         }
       });
 
@@ -116,7 +122,6 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
             }
             bottomTrailingText.initMovie(NoParams());
             topTrailingText.initMovie(NoParams());
-            setCanSwipeUp(true);
           } else if (nokhte.movieMode == NokhteMovieModes.moveUpAndApparate) {
             loginBusinessLogic();
           }

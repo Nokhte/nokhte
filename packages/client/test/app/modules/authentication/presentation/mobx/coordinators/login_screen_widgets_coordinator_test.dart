@@ -91,15 +91,24 @@ void main() {
       testStore.onTap(tCoordinates);
       expect(testStore.hasNotMadeTheDot, false);
       expect(nokhteStore.centerCoordinates, Offset.zero);
+      expect(nokhteStore.showWidget, true);
     });
   });
 
   group("reactors", () {
-    test("trailingTextReactor", () {
-      testStore.trailingTextReactor();
-      bottomTrailingTextStore.initReverse();
-      bottomTrailingTextStore.onCompleted();
-      expect(nokhteStore.movieMode, NokhteMovieModes.moveUpAndApparate);
+    group("trailingTextReactor", () {
+      test("reverse completed", () {
+        testStore.trailingTextReactor();
+        bottomTrailingTextStore.initReverse();
+        bottomTrailingTextStore.onCompleted();
+        expect(nokhteStore.movieMode, NokhteMovieModes.moveUpAndApparate);
+      });
+      test("forward completed", () {
+        testStore.trailingTextReactor();
+        bottomTrailingTextStore.initMovie(NoParams());
+        bottomTrailingTextStore.onCompleted();
+        expect(testStore.canSwipeUp, true);
+      });
     });
     group("onNokhteAnimationCompleteReactor", () {
       test("movieMode == NokhteMovieModes.setPosition", () {
