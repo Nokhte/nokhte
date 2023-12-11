@@ -50,7 +50,7 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
     tapReactor();
     foregroundAndBackgroundStateReactor(
       resumedCallback: () => onResumed(),
-      inactiveCallback: () => widgets.onInactive(),
+      inactiveCallback: () => onInactive(),
       detachedCallback: () => null,
     );
   }
@@ -79,11 +79,20 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
       authStateStream.listen((event) => isLoggedIn = event);
 
   @action
-  onResumed() async {
+  onResumed() {
     if (isLoggedIn) {
-      widgets.onLoggedIn();
+      widgets.loggedInOnResumed();
     } else {
-      widgets.onResumed();
+      widgets.loggedOutOnResumed();
+    }
+  }
+
+  @action
+  onInactive() {
+    if (isLoggedIn) {
+      widgets.loggedInOnInactive();
+    } else {
+      widgets.loggedOutOnInactive();
     }
   }
 }

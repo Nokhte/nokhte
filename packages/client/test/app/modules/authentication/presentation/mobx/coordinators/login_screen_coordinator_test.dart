@@ -52,10 +52,26 @@ void main() {
           mockAuthProviderStore.routeAuthProviderRequest(AuthProvider.apple));
     });
 
-    group("onResumed", () {
+    group("OnResumed", () {
       test("!isLoggedIn", () {
         testStore.onResumed();
-        verify(mockWidgetsStore.onResumed());
+        verify(mockWidgetsStore.loggedOutOnResumed());
+      });
+      test("!isLoggedIn", () {
+        testStore.isLoggedIn = true;
+        testStore.onResumed();
+        verify(mockWidgetsStore.loggedInOnResumed());
+      });
+    });
+    group("OnInactive", () {
+      test("!isLoggedIn", () {
+        testStore.onInactive();
+        verify(mockWidgetsStore.loggedOutOnInactive());
+      });
+      test("!isLoggedIn", () {
+        testStore.isLoggedIn = true;
+        testStore.onInactive();
+        verify(mockWidgetsStore.loggedInOnInactive());
       });
     });
   });
