@@ -50,12 +50,11 @@ abstract class _NokhteStoreBase extends BaseCustomAnimatedWidgetStore
   }
 
   @action
-  setPositionMovie(Offset touchPoint, Offset centerPoint) {
+  initPositionMovie(Offset touchPoint, Offset centerPoint) {
     setMovieModes(NokhteMovieModes.setPosition);
     setCenterCoordinates(centerPoint);
     setMovie(SetNokhtePositionMovie.getMovie(touchPoint, centerPoint));
     Future.delayed(Seconds.get(0, milli: 190), () {
-      toggleWidgetVisibility();
       setControl(Control.playFromStart);
       setMovieStatus(MovieStatus.inProgress);
     });

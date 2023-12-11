@@ -89,11 +89,11 @@ mixin _$NokhteStore on _NokhteStoreBase, Store {
   }
 
   @override
-  dynamic setPositionMovie(Offset touchPoint, Offset centerPoint) {
+  dynamic initPositionMovie(Offset touchPoint, Offset centerPoint) {
     final _$actionInfo = _$_NokhteStoreBaseActionController.startAction(
-        name: '_NokhteStoreBase.setPositionMovie');
+        name: '_NokhteStoreBase.initPositionMovie');
     try {
-      return super.setPositionMovie(touchPoint, centerPoint);
+      return super.initPositionMovie(touchPoint, centerPoint);
     } finally {
       _$_NokhteStoreBaseActionController.endAction(_$actionInfo);
     }
