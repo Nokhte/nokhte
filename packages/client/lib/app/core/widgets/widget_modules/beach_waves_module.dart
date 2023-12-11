@@ -7,51 +7,66 @@ class BeachWavesModule extends Module {
     i.add<BlackOutMovieStore>(
       () => BlackOutMovieStore(),
     );
-    i.add<SuspendedAtTheDepthsMovieStore>(
-      () => SuspendedAtTheDepthsMovieStore(),
+
+    i.add<BlackOutToDrySandMovieStore>(
+      () => BlackOutToDrySandMovieStore(),
     );
-    i.add<OceanDiveToTimesUpStartMovieStore>(
-      () => OceanDiveToTimesUpStartMovieStore(),
-    );
-    i.add<TimesUpEndToTheDepthsMovieStore>(
-      () => TimesUpEndToTheDepthsMovieStore(),
-    );
-    i.add<SuspendedAtOceanDiveStore>(
-      () => SuspendedAtOceanDiveStore(),
-    );
+
     i.add<OceanDiveToOnShoreMovieStore>(
       () => OceanDiveToOnShoreMovieStore(),
     );
+
+    i.add<OceanDiveToTimesUpStartMovieStore>(
+      () => OceanDiveToTimesUpStartMovieStore(),
+    );
+
     i.add<OnShoreToOceanDiveMovieStore>(
       () => OnShoreToOceanDiveMovieStore(),
     );
+
     i.add<OnShoreMovieStore>(
       () => OnShoreMovieStore(),
     );
+
+    i.add<SuspendedAtOceanDiveStore>(
+      () => SuspendedAtOceanDiveStore(),
+    );
+
+    i.add<SuspendedAtTheDepthsMovieStore>(
+      () => SuspendedAtTheDepthsMovieStore(),
+    );
+
     i.add<TimesUpMovieStore>(
       () => TimesUpMovieStore(),
     );
+
+    i.add<TimesUpEndToTheDepthsMovieStore>(
+      () => TimesUpEndToTheDepthsMovieStore(),
+    );
+
     i.add<TimesUpEndToOceanDiveMovieStore>(
       () => TimesUpEndToOceanDiveMovieStore(),
     );
+
     i.add<TimesUpDynamicPointToTheDepthsMovieStore>(
       () => TimesUpDynamicPointToTheDepthsMovieStore(),
     );
     i.add<BeachWavesStore>(
       () => BeachWavesStore(
         blackOutMovie: i<BlackOutMovieStore>(),
-        timesUpEndToTheDepthsMovieStore: i<TimesUpEndToTheDepthsMovieStore>(),
-        suspendedAtTheDepthsMovieStore: i<SuspendedAtTheDepthsMovieStore>(),
-        timesUpDynamicPointToTheDepthsMovie:
-            i<TimesUpDynamicPointToTheDepthsMovieStore>(),
-        timesUpEndToOceanDiveMovie: i<TimesUpEndToOceanDiveMovieStore>(),
-        timesUpMovieStore: i<TimesUpMovieStore>(),
+        blackOutToDrySandMovieStore: i<BlackOutToDrySandMovieStore>(),
+        oceanDiveToOnShoreMovieStore: i<OceanDiveToOnShoreMovieStore>(),
         oceanDiveToTimesUpStartMovieStore:
             i<OceanDiveToTimesUpStartMovieStore>(),
-        suspendedAtOceanDiveStore: i<SuspendedAtOceanDiveStore>(),
-        oceanDiveToOnShoreMovieStore: i<OceanDiveToOnShoreMovieStore>(),
         onShoreToOceanDiveMovieStore: i<OnShoreToOceanDiveMovieStore>(),
         onShoreMovieStore: i<OnShoreMovieStore>(),
+        suspendedAtTheDepthsMovieStore: i<SuspendedAtTheDepthsMovieStore>(),
+        suspendedAtOceanDiveStore: i<SuspendedAtOceanDiveStore>(),
+        timesUpMovieStore: i<TimesUpMovieStore>(),
+        timesUpDynamicPointToTheDepthsMovie:
+            i<TimesUpDynamicPointToTheDepthsMovieStore>(),
+        timesUpEndToTheDepthsMovieStore: i<TimesUpEndToTheDepthsMovieStore>(),
+        timesUpEndToOceanDiveMovie: i<TimesUpEndToOceanDiveMovieStore>(),
       ),
     );
   }
