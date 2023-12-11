@@ -24,6 +24,10 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
       timesUpDynamicPointToTheDepthsMovie;
   final TimesUpEndToOceanDiveMovieStore timesUpEndToOceanDiveMovie;
   final TimesUpEndToTheDepthsMovieStore timesUpEndToTheDepthsMovieStore;
+  final WaterFromTopToOnShoreMoviePart1Store
+      waterFromTopToOnShoreMoviePart1Store;
+  final WaterFromTopToOnShoreMoviePart2Store
+      waterFromTopToOnShoreMoviePart2Store;
 
   _BeachWavesStoreBase({
     required this.blackOutMovie,
@@ -38,6 +42,8 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
     required this.timesUpDynamicPointToTheDepthsMovie,
     required this.timesUpEndToOceanDiveMovie,
     required this.timesUpEndToTheDepthsMovieStore,
+    required this.waterFromTopToOnShoreMoviePart1Store,
+    required this.waterFromTopToOnShoreMoviePart2Store,
   }) {
     movieModeToStoreLookup = {
       BeachWaveMovieModes.blackOut: blackOutMovie,
@@ -58,6 +64,10 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
       BeachWaveMovieModes.timesUpEndToOceanDive: timesUpEndToOceanDiveMovie,
       BeachWaveMovieModes.suspendedAtOceanDive: suspendedAtOceanDiveStore,
       BeachWaveMovieModes.suspendedAtTheDepths: suspendedAtTheDepthsMovieStore,
+      BeachWaveMovieModes.waterFromTopToOnShorePt1:
+          waterFromTopToOnShoreMoviePart1Store,
+      BeachWaveMovieModes.waterFromTopToOnShorePt2:
+          waterFromTopToOnShoreMoviePart2Store,
     };
   }
 

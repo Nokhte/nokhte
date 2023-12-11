@@ -51,6 +51,12 @@ class BeachWavesModule extends Module {
     i.add<TimesUpDynamicPointToTheDepthsMovieStore>(
       () => TimesUpDynamicPointToTheDepthsMovieStore(),
     );
+    i.add<WaterFromTopToOnShoreMoviePart1Store>(
+      () => WaterFromTopToOnShoreMoviePart1Store(),
+    );
+    i.add<WaterFromTopToOnShoreMoviePart2Store>(
+      () => WaterFromTopToOnShoreMoviePart2Store(),
+    );
     i.add<BeachWavesStore>(
       () => BeachWavesStore(
         blackOutMovie: i<BlackOutMovieStore>(),
@@ -67,6 +73,10 @@ class BeachWavesModule extends Module {
             i<TimesUpDynamicPointToTheDepthsMovieStore>(),
         timesUpEndToTheDepthsMovieStore: i<TimesUpEndToTheDepthsMovieStore>(),
         timesUpEndToOceanDiveMovie: i<TimesUpEndToOceanDiveMovieStore>(),
+        waterFromTopToOnShoreMoviePart1Store:
+            i<WaterFromTopToOnShoreMoviePart1Store>(),
+        waterFromTopToOnShoreMoviePart2Store:
+            i<WaterFromTopToOnShoreMoviePart2Store>(),
       ),
     );
   }

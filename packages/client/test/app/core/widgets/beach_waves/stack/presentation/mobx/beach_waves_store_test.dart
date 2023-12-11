@@ -20,6 +20,10 @@ void main() {
       timesUpDynamicPointToTheDepthsMovieStore;
   late TimesUpEndToTheDepthsMovieStore timesUpEndToTheDepthsMovieStore;
   late BlackOutMovieStore blackOutMovieStore;
+  late WaterFromTopToOnShoreMoviePart1Store
+      waterFromTopToOnShoreMoviePart1Store;
+  late WaterFromTopToOnShoreMoviePart2Store
+      waterFromTopToOnShoreMoviePart2Store;
   List mockAnimationValues = [
     0.0, // water y values
     Colors.black, // water colors
@@ -41,6 +45,10 @@ void main() {
   ];
 
   setUp(() {
+    waterFromTopToOnShoreMoviePart1Store =
+        WaterFromTopToOnShoreMoviePart1Store();
+    waterFromTopToOnShoreMoviePart2Store =
+        WaterFromTopToOnShoreMoviePart2Store();
     blackOutMovieStore = BlackOutMovieStore();
     blackOutToDrySandMovieStore = BlackOutToDrySandMovieStore();
     timesUpEndToTheDepthsMovieStore = TimesUpEndToTheDepthsMovieStore();
@@ -56,6 +64,10 @@ void main() {
         TimesUpDynamicPointToTheDepthsMovieStore();
 
     testStore = BeachWavesStore(
+      waterFromTopToOnShoreMoviePart1Store:
+          waterFromTopToOnShoreMoviePart1Store,
+      waterFromTopToOnShoreMoviePart2Store:
+          waterFromTopToOnShoreMoviePart2Store,
       blackOutMovie: blackOutMovieStore,
       timesUpEndToTheDepthsMovieStore: timesUpEndToTheDepthsMovieStore,
       blackOutToDrySandMovieStore: blackOutToDrySandMovieStore,
@@ -155,6 +167,12 @@ void main() {
             .movieModeToStoreLookup[BeachWaveMovieModes.suspendedAtTheDepths];
         expect(res?.movie.duration, Seconds.get(1));
       });
+
+      // test("waterFromTopToOnShore key", () {
+      //   final res = testStore
+      //       .movieModeToStoreLookup[BeachWaveMovieModes.waterFromTopToOnShore];
+      //   expect(res?.movie.duration, Seconds.get(1));
+      // });
     });
 
     group("computed values", () {
