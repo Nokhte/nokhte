@@ -4,14 +4,14 @@
             "name": "️⬜️",
             "path": "../",
         },
-        {
-            "name": "️⬜️ CORE",
-            "path": "../packages/core",
-        },
-        {
-            "name": "🟧 backend",
-            "path": "../packages/backend/dart"
-        },
+        // {
+        //     "name": "️⬜️ CORE",
+        //     "path": "../packages/core",
+        // },
+        // {
+        //     "name": "🟧 backend",
+        //     "path": "../packages/backend/dart"
+        // },
         {
             "name": "🟨 client core",
             "path": "../packages/client/lib/app/core"
@@ -27,7 +27,7 @@
         },
         {
             "name": "🟦 working widget",
-            "path": "../packages/client/lib/app/core/widgets/nokhte"
+            "path": "../packages/client/lib/app/core/widgets/beach_widgets/beach_waves"
         },
         {
             "name": "🟦 working module",
@@ -39,21 +39,17 @@
             "path": "../packages/client"
         },
         // {
-        //     "name": "👴🏽 old client root",
-        //     "path": "../packages/old_client"
+        //     "name": "🟩 supabase",
+        //     "path": "../packages/backend/supabase",
         // },
-        {
-            "name": "🟩 supabase",
-            "path": "../packages/backend/supabase",
-        },
-        {
-            "name": "🟫 client ios",
-            "path": "../packages/client/ios"
-        },
-        {
-            "name": "🟥 client android",
-            "path": "../packages/client/android"
-        },
+        // {
+        //     "name": "🟫 client ios",
+        //     "path": "../packages/client/ios"
+        // },
+        // {
+        //     "name": "🟥 client android",
+        //     "path": "../packages/client/android"
+        // },
 
     ],
     
