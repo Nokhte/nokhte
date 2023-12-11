@@ -5,6 +5,8 @@ import 'package:nokhte/app/modules/authentication/authentication_module.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'modules/home/home_module.dart';
+
 class AppModule extends Module {
   final SupabaseClient supabase;
   final Connectivity connectivityInstance;
@@ -25,5 +27,6 @@ class AppModule extends Module {
   @override
   void routes(r) {
     r.module('/', module: AuthenticationModule());
+    r.module('/home/', module: HomeModule());
   }
 }
