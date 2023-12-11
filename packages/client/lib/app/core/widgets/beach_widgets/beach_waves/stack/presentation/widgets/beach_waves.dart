@@ -41,7 +41,7 @@ class BeachWaves extends HookWidget {
                 return CustomPaint(
                   painter: BeachWavesPainter(
                     waterValue: currentAnimationValues.first,
-                    shouldPaintSand: true,
+                    shouldPaintSand: store.shouldPaintSandOnCurrent,
                     colorsList: [
                       currentAnimationValues[1],
                       currentAnimationValues[2],
