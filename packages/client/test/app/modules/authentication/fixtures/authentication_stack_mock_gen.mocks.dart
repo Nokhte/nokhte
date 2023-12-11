@@ -773,15 +773,28 @@ class MockSignInWithGoogle extends _i1.Mock implements _i11.SignInWithGoogle {
 class MockLoginScreenWidgetsCoordinator extends _i1.Mock
     implements _i18.LoginScreenWidgetsCoordinator {
   @override
-  _i12.BeachWavesStore get beachWaves => (super.noSuchMethod(
-        Invocation.getter(#beachWaves),
+  _i12.BeachWavesStore get layer1BeachWaves => (super.noSuchMethod(
+        Invocation.getter(#layer1BeachWaves),
         returnValue: _FakeBeachWavesStore_11(
           this,
-          Invocation.getter(#beachWaves),
+          Invocation.getter(#layer1BeachWaves),
         ),
         returnValueForMissingStub: _FakeBeachWavesStore_11(
           this,
-          Invocation.getter(#beachWaves),
+          Invocation.getter(#layer1BeachWaves),
+        ),
+      ) as _i12.BeachWavesStore);
+
+  @override
+  _i12.BeachWavesStore get layer2BeachWaves => (super.noSuchMethod(
+        Invocation.getter(#layer2BeachWaves),
+        returnValue: _FakeBeachWavesStore_11(
+          this,
+          Invocation.getter(#layer2BeachWaves),
+        ),
+        returnValueForMissingStub: _FakeBeachWavesStore_11(
+          this,
+          Invocation.getter(#layer2BeachWaves),
         ),
       ) as _i12.BeachWavesStore);
 
@@ -951,6 +964,15 @@ class MockLoginScreenWidgetsCoordinator extends _i1.Mock
         Invocation.method(
           #onTap,
           [currentTapPosition],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  dynamic initReactors(Function? loginBusinessLogic) => super.noSuchMethod(
+        Invocation.method(
+          #initReactors,
+          [loginBusinessLogic],
         ),
         returnValueForMissingStub: null,
       );
