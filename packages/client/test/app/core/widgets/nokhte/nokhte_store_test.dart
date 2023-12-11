@@ -1,4 +1,3 @@
-import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -52,12 +51,9 @@ void main() {
       expect(testStore.control, Control.playFromStart);
     });
     test('initPositionMovie', () {
-      fakeAsync((async) {
-        testStore.initPositionMovie(Offset.zero, Offset.zero);
-        async.elapse(Seconds.get(0, milli: 190));
-        expect(testStore.control, Control.playFromStart);
-        expect(testStore.movieStatus, MovieStatus.inProgress);
-      });
+      testStore.initPositionMovie(Offset.zero, Offset.zero);
+      expect(testStore.control, Control.playFromStart);
+      expect(testStore.movieStatus, MovieStatus.inProgress);
     });
   });
 
