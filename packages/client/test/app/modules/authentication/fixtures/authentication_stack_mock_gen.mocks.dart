@@ -876,6 +876,22 @@ class MockLoginScreenWidgetsCoordinator extends _i1.Mock
       );
 
   @override
+  bool get canSwipeUp => (super.noSuchMethod(
+        Invocation.getter(#canSwipeUp),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set canSwipeUp(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #canSwipeUp,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   List<Object> get props => (super.noSuchMethod(
         Invocation.getter(#props),
         returnValue: <Object>[],
@@ -907,6 +923,15 @@ class MockLoginScreenWidgetsCoordinator extends _i1.Mock
             center,
             loginBusinessLogic,
           ],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  dynamic setCanSwipeUp(bool? newBool) => super.noSuchMethod(
+        Invocation.method(
+          #setCanSwipeUp,
+          [newBool],
         ),
         returnValueForMissingStub: null,
       );
