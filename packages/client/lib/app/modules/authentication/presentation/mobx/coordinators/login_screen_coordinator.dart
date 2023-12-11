@@ -2,6 +2,7 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:haptic_feedback/haptic_feedback.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/auth_providers.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -79,8 +80,9 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
       authStateStream.listen((event) => isLoggedIn = event);
 
   @action
-  onResumed() {
+  onResumed() async {
     if (isLoggedIn) {
+      await Haptics.vibrate(HapticsType.medium);
       // todo animation transition logic
     } else {
       widgets.onResumed();

@@ -49,6 +49,14 @@ mixin _$LoginScreenCoordinator on _LoginScreenCoordinatorBase, Store {
     return _$logTheUserInAsyncAction.run(() => super.logTheUserIn());
   }
 
+  late final _$onResumedAsyncAction =
+      AsyncAction('_LoginScreenCoordinatorBase.onResumed', context: context);
+
+  @override
+  Future onResumed() {
+    return _$onResumedAsyncAction.run(() => super.onResumed());
+  }
+
   late final _$_LoginScreenCoordinatorBaseActionController =
       ActionController(name: '_LoginScreenCoordinatorBase', context: context);
 
@@ -69,17 +77,6 @@ mixin _$LoginScreenCoordinator on _LoginScreenCoordinatorBase, Store {
         .startAction(name: '_LoginScreenCoordinatorBase.authStateListener');
     try {
       return super.authStateListener(authStateStream);
-    } finally {
-      _$_LoginScreenCoordinatorBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic onResumed() {
-    final _$actionInfo = _$_LoginScreenCoordinatorBaseActionController
-        .startAction(name: '_LoginScreenCoordinatorBase.onResumed');
-    try {
-      return super.onResumed();
     } finally {
       _$_LoginScreenCoordinatorBaseActionController.endAction(_$actionInfo);
     }
