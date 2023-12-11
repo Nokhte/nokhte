@@ -42,6 +42,7 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
   }) {
     movieModeToStoreLookup = {
       BeachWaveMovieModes.blackOut: blackOutMovie,
+      BeachWaveMovieModes.blackOutToDrySand: blackOutToDrySandMovieStore,
       BeachWaveMovieModes.oceanDiveToTimesUp: oceanDiveToTimesUpStartMovieStore,
       BeachWaveMovieModes.oceanDiveToOnShore: oceanDiveToOnShoreMovieStore,
       BeachWaveMovieModes.onShore: onShoreMovieStore,
