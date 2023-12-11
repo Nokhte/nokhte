@@ -22,10 +22,6 @@ class LoginScreen extends HookWidget with WidgetsBindingObserver {
         current,
       ),
     );
-    useOnStreamChange<bool>(coordinator.authStateStore.authState,
-        onData: (isLoggedIn) {
-      if (isLoggedIn) {}
-    });
     final center = useCenterOffset();
     useEffect(() {
       coordinator.screenConstructor(center);
