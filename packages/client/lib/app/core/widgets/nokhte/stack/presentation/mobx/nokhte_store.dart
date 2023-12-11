@@ -59,4 +59,8 @@ abstract class _NokhteStoreBase extends BaseCustomAnimatedWidgetStore
       setMovieStatus(MovieStatus.inProgress);
     });
   }
+
+  @computed
+  bool get isAboutToApparate =>
+      movieMode == NokhteMovieModes.moveUpAndApparate ? true : false;
 }

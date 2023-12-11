@@ -60,4 +60,16 @@ void main() {
       });
     });
   });
+
+  group("computed", () {
+    group("isAboutToApparate", () {
+      test("false", () {
+        expect(testStore.isAboutToApparate, false);
+      });
+      test("true", () {
+        testStore.setMovieModes(NokhteMovieModes.moveUpAndApparate);
+        expect(testStore.isAboutToApparate, true);
+      });
+    });
+  });
 }
