@@ -42,6 +42,12 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
   @observable
   Offset centerScreenCoordinates = Offset.zero;
 
+  @observable
+  bool canSwipeUp = false;
+
+  @action
+  setCanSwipeUp(bool newBool) => canSwipeUp = newBool;
+
   @action
   toggleHasMadeTheDot() => hasNotMadeTheDot = !hasNotMadeTheDot;
 
@@ -64,6 +70,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
   onInactive() {
     smartTextStore.reset();
     nokhte.reset();
+    setCanSwipeUp(false);
     if (!hasNotMadeTheDot) {
       toggleHasMadeTheDot();
     }
@@ -84,8 +91,10 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
 
   @action
   onSwipeUp() {
-    topTrailingText.initReverse();
-    bottomTrailingText.initReverse();
+    if (canSwipeUp) {
+      topTrailingText.initReverse();
+      bottomTrailingText.initReverse();
+    }
   }
 
   trailingTextReactor() =>
@@ -106,6 +115,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
             }
             bottomTrailingText.initMovie(NoParams());
             topTrailingText.initMovie(NoParams());
+            setCanSwipeUp(true);
           } else if (nokhte.movieMode == NokhteMovieModes.moveUpAndApparate) {
             loginBusinessLogic();
           }

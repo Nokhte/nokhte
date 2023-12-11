@@ -40,9 +40,18 @@ void main() {
     test("centerScreenCoordinates", () {
       expect(testStore.centerScreenCoordinates, Offset.zero);
     });
+
+    test("canSwipeUp", () {
+      expect(testStore.canSwipeUp, false);
+    });
   });
 
   group("actions", () {
+    test('setCanSwipeUp', () {
+      testStore.setCanSwipeUp(true);
+      expect(testStore.canSwipeUp, true);
+    });
+
     test("toggleHasMadeTheDot", () {
       testStore.toggleHasMadeTheDot();
       expect(testStore.hasNotMadeTheDot, false);
@@ -72,7 +81,7 @@ void main() {
     test("onInactive", () {
       testStore.toggleHasMadeTheDot();
       testStore.onInactive();
-      // verify(smartTextStore.reset());
+      expect(testStore.canSwipeUp, false);
       expect(testStore.hasNotMadeTheDot, true);
     });
 

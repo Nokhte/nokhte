@@ -45,9 +45,37 @@ mixin _$LoginScreenWidgetsCoordinator
     });
   }
 
+  late final _$canSwipeUpAtom = Atom(
+      name: '_LoginScreenWidgetsCoordinatorBase.canSwipeUp', context: context);
+
+  @override
+  bool get canSwipeUp {
+    _$canSwipeUpAtom.reportRead();
+    return super.canSwipeUp;
+  }
+
+  @override
+  set canSwipeUp(bool value) {
+    _$canSwipeUpAtom.reportWrite(value, super.canSwipeUp, () {
+      super.canSwipeUp = value;
+    });
+  }
+
   late final _$_LoginScreenWidgetsCoordinatorBaseActionController =
       ActionController(
           name: '_LoginScreenWidgetsCoordinatorBase', context: context);
+
+  @override
+  dynamic setCanSwipeUp(bool newBool) {
+    final _$actionInfo = _$_LoginScreenWidgetsCoordinatorBaseActionController
+        .startAction(name: '_LoginScreenWidgetsCoordinatorBase.setCanSwipeUp');
+    try {
+      return super.setCanSwipeUp(newBool);
+    } finally {
+      _$_LoginScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic toggleHasMadeTheDot() {
@@ -128,7 +156,8 @@ mixin _$LoginScreenWidgetsCoordinator
   String toString() {
     return '''
 hasNotMadeTheDot: ${hasNotMadeTheDot},
-centerScreenCoordinates: ${centerScreenCoordinates}
+centerScreenCoordinates: ${centerScreenCoordinates},
+canSwipeUp: ${canSwipeUp}
     ''';
   }
 }
