@@ -75,7 +75,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
         hasNotMadeTheDot) {
       smartTextStore.startRotatingText(isResuming: true);
       toggleHasMadeTheDot();
-      nokhte.setPositionMovie(
+      nokhte.initPositionMovie(
         currentTapPosition,
         centerScreenCoordinates,
       );
@@ -91,7 +91,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
   trailingTextReactor() =>
       reaction((p0) => bottomTrailingText.movieStatus, (p0) {
         if (bottomTrailingText.movieStatus == MovieStatus.finished &&
-            bottomTrailingText.control == Control.playReverseFromEnd) {
+            bottomTrailingText.pastControl == Control.playReverseFromEnd) {
           nokhte.initMoveUpAndApparateMovie();
         }
       });
