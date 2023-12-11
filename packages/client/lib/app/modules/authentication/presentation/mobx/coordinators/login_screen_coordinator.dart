@@ -29,12 +29,16 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
   });
 
   @observable
+  bool isLoggedIn = false;
+
+  @observable
   AuthProvider authProvider =
       Platform.isAndroid ? AuthProvider.google : AuthProvider.apple;
 
   @action
   screenConstructor(Offset center) {
     widgets.constructor(center, logTheUserIn);
+    authStateListener(authStateStore.authState);
     initReactors();
     if (kDebugMode) {
       authProvider = AuthProvider.google;
@@ -45,7 +49,7 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
     swipeReactor();
     tapReactor();
     foregroundAndBackgroundStateReactor(
-      resumedCallback: () => widgets.onResumed(),
+      resumedCallback: () => onResumed(),
       inactiveCallback: () => widgets.onInactive(),
       detachedCallback: () => null,
     );
@@ -70,6 +74,16 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
         (p0) => widgets.onTap(tap.currentTapPosition),
       );
 
-  @override
-  List<Object> get props => [];
+  @action
+  authStateListener(Stream<bool> authStateStream) =>
+      authStateStream.listen((event) => isLoggedIn = event);
+
+  @action
+  onResumed() {
+    if (isLoggedIn) {
+      // todo animation transition logic
+    } else {
+      widgets.onResumed();
+    }
+  }
 }

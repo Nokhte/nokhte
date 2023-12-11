@@ -33,6 +33,10 @@ void main() {
     test("authProvider", () {
       expect(testStore.authProvider, AuthProvider.apple);
     });
+
+    test("isLoggedIn", () {
+      expect(testStore.isLoggedIn, false);
+    });
   });
 
   group("actions", () {
@@ -46,6 +50,13 @@ void main() {
       testStore.logTheUserIn();
       verify(
           mockAuthProviderStore.routeAuthProviderRequest(AuthProvider.apple));
+    });
+
+    group("onResumed", () {
+      test("!isLoggedIn", () {
+        testStore.onResumed();
+        verify(mockWidgetsStore.onResumed());
+      });
     });
   });
 
