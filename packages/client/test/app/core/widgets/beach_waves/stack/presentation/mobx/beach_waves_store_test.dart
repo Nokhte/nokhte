@@ -84,6 +84,12 @@ void main() {
         expect(res?.movie.duration, Seconds.get(1));
       });
 
+      test("blackOutToDrySand key", () {
+        final res = testStore
+            .movieModeToStoreLookup[BeachWaveMovieModes.blackOutToDrySand];
+        expect(res?.movie.duration, Seconds.get(2));
+      });
+
       test("oceanDiveToTimesUp key", () {
         final res = testStore
             .movieModeToStoreLookup[BeachWaveMovieModes.oceanDiveToTimesUp];
@@ -155,6 +161,11 @@ void main() {
       test("currentControl", () {
         final currentControlRes = testStore.currentControl;
         expect(currentControlRes, Control.mirror);
+      });
+
+      test("shouldPaintSandOnCurrent", () {
+        final currentControlRes = testStore.shouldPaintSandOnCurrent;
+        expect(currentControlRes, true);
       });
       test("currentMovie", () {
         final currentMovieDuration = testStore.currentMovie.duration;
