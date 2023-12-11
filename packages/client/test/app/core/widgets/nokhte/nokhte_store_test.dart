@@ -51,9 +51,9 @@ void main() {
       expect(testStore.movieStatus, MovieStatus.inProgress);
       expect(testStore.control, Control.playFromStart);
     });
-    test('setPositionMovie', () {
+    test('initPositionMovie', () {
       fakeAsync((async) {
-        testStore.setPositionMovie(Offset.zero, Offset.zero);
+        testStore.initPositionMovie(Offset.zero, Offset.zero);
         async.elapse(Seconds.get(0, milli: 190));
         expect(testStore.control, Control.playFromStart);
         expect(testStore.movieStatus, MovieStatus.inProgress);
