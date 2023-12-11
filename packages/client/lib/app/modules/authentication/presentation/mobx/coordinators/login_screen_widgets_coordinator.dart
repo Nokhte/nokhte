@@ -94,6 +94,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
     if (canSwipeUp) {
       topTrailingText.initReverse();
       bottomTrailingText.initReverse();
+      setCanSwipeUp(false);
     }
   }
 
