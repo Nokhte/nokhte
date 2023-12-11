@@ -153,6 +153,18 @@ mixin _$LoginScreenWidgetsCoordinator
   }
 
   @override
+  dynamic onLoggedIn() {
+    final _$actionInfo = _$_LoginScreenWidgetsCoordinatorBaseActionController
+        .startAction(name: '_LoginScreenWidgetsCoordinatorBase.onLoggedIn');
+    try {
+      return super.onLoggedIn();
+    } finally {
+      _$_LoginScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 hasNotMadeTheDot: ${hasNotMadeTheDot},
