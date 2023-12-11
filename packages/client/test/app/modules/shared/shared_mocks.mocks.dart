@@ -1083,6 +1083,13 @@ class MockNokhteStore extends _i1.Mock implements _i2.NokhteStore {
       );
 
   @override
+  bool get isAboutToApparate => (super.noSuchMethod(
+        Invocation.getter(#isAboutToApparate),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
   bool get callsOnCompleteTwice => (super.noSuchMethod(
         Invocation.getter(#callsOnCompleteTwice),
         returnValue: false,
