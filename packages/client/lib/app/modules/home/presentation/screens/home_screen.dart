@@ -37,11 +37,11 @@ class HomeScreen extends HookWidget {
                           child: BeachWaves(
                             store: coordinator.beachWaves,
                           )),
-                      Center(
-                        child: SmartText(
-                          store: coordinator.smartText,
-                        ),
-                      ),
+                      // Center(
+                      //   child: SmartText(
+                      //     store: coordinator.smartText,
+                      //   ),
+                      // ),
                       Column(
                         children: [
                           Expanded(
