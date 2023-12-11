@@ -42,6 +42,22 @@ mixin _$BaseCustomAnimatedWidgetStore<T>
     });
   }
 
+  late final _$pastControlAtom = Atom(
+      name: '_BaseCustomAnimatedWidgetStoreBase.pastControl', context: context);
+
+  @override
+  Control get pastControl {
+    _$pastControlAtom.reportRead();
+    return super.pastControl;
+  }
+
+  @override
+  set pastControl(Control value) {
+    _$pastControlAtom.reportWrite(value, super.pastControl, () {
+      super.pastControl = value;
+    });
+  }
+
   late final _$showWidgetAtom = Atom(
       name: '_BaseCustomAnimatedWidgetStoreBase.showWidget', context: context);
 
@@ -74,24 +90,6 @@ mixin _$BaseCustomAnimatedWidgetStore<T>
     });
   }
 
-  late final _$stopwatchMillsecondsAtom = Atom(
-      name: '_BaseCustomAnimatedWidgetStoreBase.stopwatchMillseconds',
-      context: context);
-
-  @override
-  String get stopwatchMillseconds {
-    _$stopwatchMillsecondsAtom.reportRead();
-    return super.stopwatchMillseconds;
-  }
-
-  @override
-  set stopwatchMillseconds(String value) {
-    _$stopwatchMillsecondsAtom.reportWrite(value, super.stopwatchMillseconds,
-        () {
-      super.stopwatchMillseconds = value;
-    });
-  }
-
   late final _$_BaseCustomAnimatedWidgetStoreBaseActionController =
       ActionController(
           name: '_BaseCustomAnimatedWidgetStoreBase', context: context);
@@ -103,6 +101,18 @@ mixin _$BaseCustomAnimatedWidgetStore<T>
             name: '_BaseCustomAnimatedWidgetStoreBase.toggleWidgetVisibility');
     try {
       return super.toggleWidgetVisibility();
+    } finally {
+      _$_BaseCustomAnimatedWidgetStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setPastControl(Control newControl) {
+    final _$actionInfo = _$_BaseCustomAnimatedWidgetStoreBaseActionController
+        .startAction(name: '_BaseCustomAnimatedWidgetStoreBase.setPastControl');
+    try {
+      return super.setPastControl(newControl);
     } finally {
       _$_BaseCustomAnimatedWidgetStoreBaseActionController
           .endAction(_$actionInfo);
@@ -174,9 +184,9 @@ mixin _$BaseCustomAnimatedWidgetStore<T>
     return '''
 movie: ${movie},
 control: ${control},
+pastControl: ${pastControl},
 showWidget: ${showWidget},
-movieStatus: ${movieStatus},
-stopwatchMillseconds: ${stopwatchMillseconds}
+movieStatus: ${movieStatus}
     ''';
   }
 }

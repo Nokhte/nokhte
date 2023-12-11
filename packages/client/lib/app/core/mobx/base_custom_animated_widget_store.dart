@@ -23,16 +23,19 @@ abstract class _BaseCustomAnimatedWidgetStoreBase<T> extends Equatable
   Control control = Control.stop;
 
   @observable
+  Control pastControl = Control.stop;
+
+  @observable
   bool showWidget = true;
 
   @observable
   MovieStatus movieStatus = MovieStatus.idle;
 
-  @observable
-  String stopwatchMillseconds = "";
-
   @action
   toggleWidgetVisibility() => showWidget = !showWidget;
+
+  @action
+  setPastControl(Control newControl) => pastControl = newControl;
 
   @action
   void setMovie(MovieTween newMovie) => movie = newMovie;
@@ -41,9 +44,12 @@ abstract class _BaseCustomAnimatedWidgetStoreBase<T> extends Equatable
   void setControl(Control newControl) => control = newControl;
 
   @action
-  onCompleted() => setMovieStatus(MovieStatus.finished);
+  onCompleted() {
+    setMovieStatus(MovieStatus.finished);
+    setPastControl(control);
+    setControl(Control.stop);
+  }
 
-  @action
   @action
   setMovieStatus(MovieStatus newMovieStatus) => movieStatus = newMovieStatus;
 
