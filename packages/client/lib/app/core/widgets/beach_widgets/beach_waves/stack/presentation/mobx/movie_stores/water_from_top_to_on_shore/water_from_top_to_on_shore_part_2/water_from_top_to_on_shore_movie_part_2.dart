@@ -8,7 +8,7 @@ class WaterFromTopToOnShoreMoviePart2 {
   static MovieTween get movie => MovieTween()
     ..scene(
       begin: Seconds.get(0),
-      end: Seconds.get(5),
+      end: Seconds.get(4),
     )
         .tween(
           'water movement',
