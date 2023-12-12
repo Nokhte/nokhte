@@ -61,9 +61,139 @@ mixin _$LoginScreenWidgetsCoordinator
     });
   }
 
+  late final _$hasCompletedSandTransitionAtom = Atom(
+      name: '_LoginScreenWidgetsCoordinatorBase.hasCompletedSandTransition',
+      context: context);
+
+  @override
+  bool get hasCompletedSandTransition {
+    _$hasCompletedSandTransitionAtom.reportRead();
+    return super.hasCompletedSandTransition;
+  }
+
+  @override
+  set hasCompletedSandTransition(bool value) {
+    _$hasCompletedSandTransitionAtom
+        .reportWrite(value, super.hasCompletedSandTransition, () {
+      super.hasCompletedSandTransition = value;
+    });
+  }
+
+  late final _$hasCompletedWaterFromTopToOnShorePt1Atom = Atom(
+      name:
+          '_LoginScreenWidgetsCoordinatorBase.hasCompletedWaterFromTopToOnShorePt1',
+      context: context);
+
+  @override
+  bool get hasCompletedWaterFromTopToOnShorePt1 {
+    _$hasCompletedWaterFromTopToOnShorePt1Atom.reportRead();
+    return super.hasCompletedWaterFromTopToOnShorePt1;
+  }
+
+  @override
+  set hasCompletedWaterFromTopToOnShorePt1(bool value) {
+    _$hasCompletedWaterFromTopToOnShorePt1Atom
+        .reportWrite(value, super.hasCompletedWaterFromTopToOnShorePt1, () {
+      super.hasCompletedWaterFromTopToOnShorePt1 = value;
+    });
+  }
+
+  late final _$hasCompletedWaterFromTopToOnShorePt2Atom = Atom(
+      name:
+          '_LoginScreenWidgetsCoordinatorBase.hasCompletedWaterFromTopToOnShorePt2',
+      context: context);
+
+  @override
+  bool get hasCompletedWaterFromTopToOnShorePt2 {
+    _$hasCompletedWaterFromTopToOnShorePt2Atom.reportRead();
+    return super.hasCompletedWaterFromTopToOnShorePt2;
+  }
+
+  @override
+  set hasCompletedWaterFromTopToOnShorePt2(bool value) {
+    _$hasCompletedWaterFromTopToOnShorePt2Atom
+        .reportWrite(value, super.hasCompletedWaterFromTopToOnShorePt2, () {
+      super.hasCompletedWaterFromTopToOnShorePt2 = value;
+    });
+  }
+
+  late final _$hasTriggeredLoginAnimationAtom = Atom(
+      name: '_LoginScreenWidgetsCoordinatorBase.hasTriggeredLoginAnimation',
+      context: context);
+
+  @override
+  bool get hasTriggeredLoginAnimation {
+    _$hasTriggeredLoginAnimationAtom.reportRead();
+    return super.hasTriggeredLoginAnimation;
+  }
+
+  @override
+  set hasTriggeredLoginAnimation(bool value) {
+    _$hasTriggeredLoginAnimationAtom
+        .reportWrite(value, super.hasTriggeredLoginAnimation, () {
+      super.hasTriggeredLoginAnimation = value;
+    });
+  }
+
   late final _$_LoginScreenWidgetsCoordinatorBaseActionController =
       ActionController(
           name: '_LoginScreenWidgetsCoordinatorBase', context: context);
+
+  @override
+  dynamic toggleHasCompletedSandTransition() {
+    final _$actionInfo =
+        _$_LoginScreenWidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_LoginScreenWidgetsCoordinatorBase.toggleHasCompletedSandTransition');
+    try {
+      return super.toggleHasCompletedSandTransition();
+    } finally {
+      _$_LoginScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic toggleHasCompletedWaterFromTopToOnShorePt1() {
+    final _$actionInfo =
+        _$_LoginScreenWidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_LoginScreenWidgetsCoordinatorBase.toggleHasCompletedWaterFromTopToOnShorePt1');
+    try {
+      return super.toggleHasCompletedWaterFromTopToOnShorePt1();
+    } finally {
+      _$_LoginScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic toggleHasCompletedWaterFromTopToOnShorePt2() {
+    final _$actionInfo =
+        _$_LoginScreenWidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_LoginScreenWidgetsCoordinatorBase.toggleHasCompletedWaterFromTopToOnShorePt2');
+    try {
+      return super.toggleHasCompletedWaterFromTopToOnShorePt2();
+    } finally {
+      _$_LoginScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic toggleHasTriggeredLoginAnimation() {
+    final _$actionInfo =
+        _$_LoginScreenWidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_LoginScreenWidgetsCoordinatorBase.toggleHasTriggeredLoginAnimation');
+    try {
+      return super.toggleHasTriggeredLoginAnimation();
+    } finally {
+      _$_LoginScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic setCanSwipeUp(bool newBool) {
@@ -105,11 +235,12 @@ mixin _$LoginScreenWidgetsCoordinator
   }
 
   @override
-  dynamic onResumed() {
-    final _$actionInfo = _$_LoginScreenWidgetsCoordinatorBaseActionController
-        .startAction(name: '_LoginScreenWidgetsCoordinatorBase.onResumed');
+  dynamic loggedOutOnResumed() {
+    final _$actionInfo =
+        _$_LoginScreenWidgetsCoordinatorBaseActionController.startAction(
+            name: '_LoginScreenWidgetsCoordinatorBase.loggedOutOnResumed');
     try {
-      return super.onResumed();
+      return super.loggedOutOnResumed();
     } finally {
       _$_LoginScreenWidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
@@ -117,11 +248,12 @@ mixin _$LoginScreenWidgetsCoordinator
   }
 
   @override
-  dynamic onInactive() {
-    final _$actionInfo = _$_LoginScreenWidgetsCoordinatorBaseActionController
-        .startAction(name: '_LoginScreenWidgetsCoordinatorBase.onInactive');
+  dynamic loggedOutOnInactive() {
+    final _$actionInfo =
+        _$_LoginScreenWidgetsCoordinatorBaseActionController.startAction(
+            name: '_LoginScreenWidgetsCoordinatorBase.loggedOutOnInactive');
     try {
-      return super.onInactive();
+      return super.loggedOutOnInactive();
     } finally {
       _$_LoginScreenWidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
@@ -153,11 +285,25 @@ mixin _$LoginScreenWidgetsCoordinator
   }
 
   @override
-  dynamic onLoggedIn() {
-    final _$actionInfo = _$_LoginScreenWidgetsCoordinatorBaseActionController
-        .startAction(name: '_LoginScreenWidgetsCoordinatorBase.onLoggedIn');
+  dynamic loggedInOnResumed() {
+    final _$actionInfo =
+        _$_LoginScreenWidgetsCoordinatorBaseActionController.startAction(
+            name: '_LoginScreenWidgetsCoordinatorBase.loggedInOnResumed');
     try {
-      return super.onLoggedIn();
+      return super.loggedInOnResumed();
+    } finally {
+      _$_LoginScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic loggedInOnInactive() {
+    final _$actionInfo =
+        _$_LoginScreenWidgetsCoordinatorBaseActionController.startAction(
+            name: '_LoginScreenWidgetsCoordinatorBase.loggedInOnInactive');
+    try {
+      return super.loggedInOnInactive();
     } finally {
       _$_LoginScreenWidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
@@ -169,7 +315,11 @@ mixin _$LoginScreenWidgetsCoordinator
     return '''
 hasNotMadeTheDot: ${hasNotMadeTheDot},
 centerScreenCoordinates: ${centerScreenCoordinates},
-canSwipeUp: ${canSwipeUp}
+canSwipeUp: ${canSwipeUp},
+hasCompletedSandTransition: ${hasCompletedSandTransition},
+hasCompletedWaterFromTopToOnShorePt1: ${hasCompletedWaterFromTopToOnShorePt1},
+hasCompletedWaterFromTopToOnShorePt2: ${hasCompletedWaterFromTopToOnShorePt2},
+hasTriggeredLoginAnimation: ${hasTriggeredLoginAnimation}
     ''';
   }
 }

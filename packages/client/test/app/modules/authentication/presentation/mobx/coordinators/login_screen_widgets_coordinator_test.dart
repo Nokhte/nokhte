@@ -9,7 +9,8 @@ import 'package:nokhte/app/modules/authentication/presentation/presentation.dart
 import '../../../../shared/shared_mocks.mocks.dart';
 
 void main() {
-  late MockBeachWavesStore mockBeachWavesStore;
+  late MockBeachWavesStore mockLayer1BeachWavesStore;
+  late MockBeachWavesStore mockLayer2BeachWavesStore;
   late SmartTextStore smartTextStore;
   late NokhteStore nokhteStore;
   late TrailingTextStore topTrailingTextStore;
@@ -18,14 +19,15 @@ void main() {
   const tCoordinates = Offset(1, 1);
 
   setUp(() {
-    mockBeachWavesStore = MockBeachWavesStore();
+    mockLayer1BeachWavesStore = MockBeachWavesStore();
+    mockLayer2BeachWavesStore = MockBeachWavesStore();
     smartTextStore = SmartTextStore();
     nokhteStore = NokhteStore();
     topTrailingTextStore = TrailingTextStore();
     bottomTrailingTextStore = TrailingTextStore();
     testStore = LoginScreenWidgetsCoordinator(
-      layer1BeachWaves: mockBeachWavesStore,
-      layer2BeachWaves: mockBeachWavesStore,
+      layer1BeachWaves: mockLayer1BeachWavesStore,
+      layer2BeachWaves: mockLayer2BeachWavesStore,
       smartTextStore: smartTextStore,
       nokhte: nokhteStore,
       bottomTrailingText: bottomTrailingTextStore,
@@ -45,9 +47,41 @@ void main() {
     test("canSwipeUp", () {
       expect(testStore.canSwipeUp, false);
     });
+
+    test("hasCompletedSandTransition", () {
+      expect(testStore.hasCompletedSandTransition, false);
+    });
+
+    test("hasCompletedWaterFromTopToOnShorePt1", () {
+      expect(testStore.hasCompletedWaterFromTopToOnShorePt1, false);
+    });
+
+    test("hasCompletedWaterFromTopToOnShorePt2", () {
+      expect(testStore.hasCompletedWaterFromTopToOnShorePt2, false);
+    });
+
+    test("hasTriggeredLoginAnimation", () {
+      expect(testStore.hasTriggeredLoginAnimation, false);
+    });
   });
 
   group("actions", () {
+    test("toggleHasCompletedSandTransition", () {
+      testStore.toggleHasCompletedSandTransition();
+      expect(testStore.hasCompletedSandTransition, true);
+    });
+    test("toggleHasCompletedWaterFromTopToOnShorePt1", () {
+      testStore.toggleHasCompletedWaterFromTopToOnShorePt1();
+      expect(testStore.hasCompletedWaterFromTopToOnShorePt1, true);
+    });
+    test("toggleHasCompletedWaterFromTopToOnShorePt2", () {
+      testStore.toggleHasCompletedWaterFromTopToOnShorePt2();
+      expect(testStore.hasCompletedWaterFromTopToOnShorePt2, true);
+    });
+    test("toggleHasTriggeredLoginAnimation", () {
+      testStore.toggleHasTriggeredLoginAnimation();
+      expect(testStore.hasTriggeredLoginAnimation, true);
+    });
     test('setCanSwipeUp', () {
       testStore.setCanSwipeUp(true);
       expect(testStore.canSwipeUp, true);
@@ -64,26 +98,48 @@ void main() {
     });
 
     test("screenConstructor", () {
+      when(mockLayer2BeachWavesStore.currentStore)
+          .thenAnswer((realInvocation) => OnShoreMovieStore());
       testStore.constructor(tCoordinates, () {});
       expect(testStore.centerScreenCoordinates, tCoordinates);
-      verify(mockBeachWavesStore.setMovieMode(BeachWaveMovieModes.blackOut));
+      verify(
+          mockLayer1BeachWavesStore.setMovieMode(BeachWaveMovieModes.blackOut));
     });
   });
 
   group("other functions", () {
-    test("onResumed", () {
+    test("triggerLoginAnimation", () {
       fakeAsync((async) {
-        smartTextStore.setMessagesData(MessagesData.loginList);
-        testStore.onResumed();
-        async.elapse(Seconds.get(0, milli: 200));
+        testStore.triggerLoginAnimation();
+        async.elapse(Seconds.get(0, milli: 500));
+        expect(bottomTrailingTextStore.showWidget, false);
+        expect(bottomTrailingTextStore.showWidget, false);
+        expect(testStore.hasTriggeredLoginAnimation, true);
       });
     });
 
-    test("onInactive", () {
-      testStore.toggleHasMadeTheDot();
-      testStore.onInactive();
-      expect(testStore.canSwipeUp, false);
-      expect(testStore.hasNotMadeTheDot, true);
+    group("loggedInOnResumed", () {
+      test("!hasTriggeredAnimation", () {
+        testStore.loggedInOnResumed();
+        expect(testStore.hasTriggeredLoginAnimation, true);
+      });
+
+      test("hasFinishedBlackOutToSand", () {
+        final res = testStore.hasFinishedBlackOutToSand(MovieStatus.finished);
+        expect(res, false);
+      });
+
+      test("hasFinishedWaterFromTopPart2", () {
+        final res =
+            testStore.hasFinishedWaterFromTopPart2(MovieStatus.finished);
+        expect(res, false);
+      });
+
+      test("hasFinishedWaterFromTopPart1", () {
+        final res =
+            testStore.hasFinishedWaterFromTopPart1(MovieStatus.finished);
+        expect(res, false);
+      });
     });
 
     test("onTap", () {

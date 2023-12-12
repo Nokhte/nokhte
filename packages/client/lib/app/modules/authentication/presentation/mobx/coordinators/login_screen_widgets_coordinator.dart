@@ -44,9 +44,37 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
 
   @observable
   Offset centerScreenCoordinates = Offset.zero;
-
   @observable
   bool canSwipeUp = false;
+
+  @observable
+  bool hasCompletedSandTransition = false;
+
+  @observable
+  bool hasCompletedWaterFromTopToOnShorePt1 = false;
+
+  @observable
+  bool hasCompletedWaterFromTopToOnShorePt2 = false;
+
+  @observable
+  bool hasTriggeredLoginAnimation = false;
+
+  @action
+  toggleHasCompletedSandTransition() =>
+      hasCompletedSandTransition = !hasCompletedSandTransition;
+
+  @action
+  toggleHasCompletedWaterFromTopToOnShorePt1() =>
+      hasCompletedWaterFromTopToOnShorePt1 =
+          !hasCompletedWaterFromTopToOnShorePt1;
+  @action
+  toggleHasCompletedWaterFromTopToOnShorePt2() =>
+      hasCompletedWaterFromTopToOnShorePt2 =
+          !hasCompletedWaterFromTopToOnShorePt2;
+
+  @action
+  toggleHasTriggeredLoginAnimation() =>
+      hasTriggeredLoginAnimation = !hasTriggeredLoginAnimation;
 
   @action
   setCanSwipeUp(bool newBool) => canSwipeUp = newBool;
@@ -59,7 +87,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
       centerScreenCoordinates = newCoordinates;
 
   @action
-  onResumed() {
+  loggedOutOnResumed() {
     if (bottomTrailingText.showWidget) {
       bottomTrailingText.reset();
       topTrailingText.reset();
@@ -70,7 +98,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
   }
 
   @action
-  onInactive() {
+  loggedOutOnInactive() {
     smartTextStore.reset();
     nokhte.reset();
     setCanSwipeUp(false);
@@ -104,14 +132,36 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
     }
   }
 
-  @action
-  onLoggedIn() {
+  triggerLoginAnimation() {
     bottomTrailingText.toggleWidgetVisibility();
     topTrailingText.toggleWidgetVisibility();
+    toggleHasTriggeredLoginAnimation();
     Future.delayed(Seconds.get(0, milli: 500), () {
       layer1BeachWaves.setMovieMode(BeachWaveMovieModes.blackOutToDrySand);
       layer1BeachWaves.currentStore.initMovie(NoParams());
     });
+  }
+
+  @action
+  loggedInOnResumed() {
+    if (!hasTriggeredLoginAnimation) {
+      triggerLoginAnimation();
+    } else if (!hasCompletedSandTransition) {
+      layer1BeachWaves.currentStore.setControl(Control.play);
+    } else if (!hasCompletedWaterFromTopToOnShorePt1 ||
+        !hasCompletedWaterFromTopToOnShorePt2) {
+      layer2BeachWaves.currentStore.setControl(Control.play);
+    }
+  }
+
+  @action
+  loggedInOnInactive() {
+    if (!hasCompletedSandTransition) {
+      layer1BeachWaves.currentStore.setControl(Control.stop);
+    } else if (!hasCompletedWaterFromTopToOnShorePt1 ||
+        !hasCompletedWaterFromTopToOnShorePt2) {
+      layer2BeachWaves.currentStore.setControl(Control.stop);
+    }
   }
 
   initReactors(Function loginBusinessLogic) {
@@ -150,9 +200,8 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
 
   layer1BeachWavesReactor() =>
       reaction((p0) => layer1BeachWaves.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished &&
-            layer1BeachWaves.movieMode ==
-                BeachWaveMovieModes.blackOutToDrySand) {
+        if (hasFinishedBlackOutToSand(p0)) {
+          toggleHasCompletedSandTransition();
           layer2BeachWaves.setMovieMode(
             BeachWaveMovieModes.waterFromTopToOnShorePt1,
           );
@@ -162,19 +211,33 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
 
   layer2BeachWavesReactor() =>
       reaction((p0) => layer2BeachWaves.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished &&
-            layer2BeachWaves.movieMode ==
-                BeachWaveMovieModes.waterFromTopToOnShorePt1) {
+        if (hasFinishedWaterFromTopPart1(p0)) {
           layer2BeachWaves.setMovieMode(
             BeachWaveMovieModes.waterFromTopToOnShorePt2,
           );
           layer2BeachWaves.currentStore.initMovie(NoParams());
-        } else if (p0 == MovieStatus.finished &&
-            layer2BeachWaves.movieMode ==
-                BeachWaveMovieModes.waterFromTopToOnShorePt2) {
+          toggleHasCompletedWaterFromTopToOnShorePt1();
+          layer2BeachWaves.currentStore.initMovie(NoParams());
+        } else if (hasFinishedWaterFromTopPart2(p0)) {
           Modular.to.navigate('/home/');
         }
       });
+
+  hasFinishedBlackOutToSand(MovieStatus movieStatus) =>
+      movieStatus == MovieStatus.finished &&
+      layer1BeachWaves.movieMode == BeachWaveMovieModes.blackOutToDrySand;
+
+  hasFinishedWaterFromTopPart2(MovieStatus movieStatus) =>
+      movieStatus == MovieStatus.finished &&
+      layer2BeachWaves.movieMode ==
+          BeachWaveMovieModes.waterFromTopToOnShorePt2 &&
+      hasCompletedWaterFromTopToOnShorePt1;
+
+  hasFinishedWaterFromTopPart1(MovieStatus movieStatus) =>
+      movieStatus == MovieStatus.finished &&
+      layer2BeachWaves.movieMode ==
+          BeachWaveMovieModes.waterFromTopToOnShorePt1 &&
+      hasCompletedSandTransition;
 
   @override
   List<Object> get props => [];
