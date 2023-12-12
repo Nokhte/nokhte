@@ -1,4 +1,3 @@
-import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -109,13 +108,12 @@ void main() {
 
   group("other functions", () {
     test("triggerLoginAnimation", () {
-      fakeAsync((async) {
-        testStore.triggerLoginAnimation();
-        async.elapse(Seconds.get(0, milli: 500));
-        expect(bottomTrailingTextStore.showWidget, false);
-        expect(bottomTrailingTextStore.showWidget, false);
-        expect(testStore.hasTriggeredLoginAnimation, true);
-      });
+      when(mockLayer2BeachWavesStore.currentStore)
+          .thenAnswer((realInvocation) => OnShoreMovieStore());
+      testStore.triggerLoginAnimation();
+      expect(bottomTrailingTextStore.showWidget, false);
+      expect(bottomTrailingTextStore.showWidget, false);
+      expect(testStore.hasTriggeredLoginAnimation, true);
     });
 
     group("loggedInOnResumed", () {
