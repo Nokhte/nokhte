@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:nokhte/app/core/constants/constants.dart';
 import 'package:nokhte/app/core/widgets/mobx.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
@@ -27,7 +26,7 @@ class SmartText extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  PlatformText(
+                  Text(
                     store.currentMainText,
                     textAlign: TextAlign.center,
                     style: Fonts.kantumruy(
@@ -35,7 +34,7 @@ class SmartText extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  PlatformText(
+                  Text(
                     store.currentSubText,
                     textAlign: TextAlign.center,
                     style: Fonts.kantumruy(
