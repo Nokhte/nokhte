@@ -13,6 +13,7 @@ import 'package:nokhte/app/core/error/failure.dart' as _i16;
 import 'package:nokhte/app/core/interfaces/auth_providers.dart' as _i20;
 import 'package:nokhte/app/core/interfaces/logic.dart' as _i17;
 import 'package:nokhte/app/core/mobx/mobx.dart' as _i19;
+import 'package:nokhte/app/core/types/types.dart' as _i21;
 import 'package:nokhte/app/core/widgets/widgets.dart' as _i12;
 import 'package:nokhte/app/modules/authentication/data/models/models.dart'
     as _i4;
@@ -905,6 +906,70 @@ class MockLoginScreenWidgetsCoordinator extends _i1.Mock
       );
 
   @override
+  bool get hasCompletedSandTransition => (super.noSuchMethod(
+        Invocation.getter(#hasCompletedSandTransition),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set hasCompletedSandTransition(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #hasCompletedSandTransition,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get hasCompletedWaterFromTopToOnShorePt1 => (super.noSuchMethod(
+        Invocation.getter(#hasCompletedWaterFromTopToOnShorePt1),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set hasCompletedWaterFromTopToOnShorePt1(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #hasCompletedWaterFromTopToOnShorePt1,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get hasCompletedWaterFromTopToOnShorePt2 => (super.noSuchMethod(
+        Invocation.getter(#hasCompletedWaterFromTopToOnShorePt2),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set hasCompletedWaterFromTopToOnShorePt2(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #hasCompletedWaterFromTopToOnShorePt2,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get hasTriggeredLoginAnimation => (super.noSuchMethod(
+        Invocation.getter(#hasTriggeredLoginAnimation),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set hasTriggeredLoginAnimation(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #hasTriggeredLoginAnimation,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   List<Object> get props => (super.noSuchMethod(
         Invocation.getter(#props),
         returnValue: <Object>[],
@@ -982,6 +1047,36 @@ class MockLoginScreenWidgetsCoordinator extends _i1.Mock
         Invocation.method(
           #nokhteReactor,
           [loginBusinessLogic],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  dynamic hasFinishedBlackOutToSand(_i21.MovieStatus? movieStatus) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #hasFinishedBlackOutToSand,
+          [movieStatus],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  dynamic hasFinishedWaterFromTopPart2(_i21.MovieStatus? movieStatus) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #hasFinishedWaterFromTopPart2,
+          [movieStatus],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  dynamic hasFinishedWaterFromTopPart1(_i21.MovieStatus? movieStatus) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #hasFinishedWaterFromTopPart1,
+          [movieStatus],
         ),
         returnValueForMissingStub: null,
       );
