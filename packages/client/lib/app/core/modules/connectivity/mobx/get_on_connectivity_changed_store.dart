@@ -12,6 +12,7 @@ class GetOnConnectivityChangedStore = _GetOnConnectivityChangedStoreBase
     with _$GetOnConnectivityChangedStore;
 
 abstract class _GetOnConnectivityChangedStoreBase extends Equatable with Store {
+  late StreamSubscription<ConnectivityResult> streamSub;
   final GetOnConnectivityChanged logic;
 
   _GetOnConnectivityChangedStoreBase({required this.logic});
@@ -28,10 +29,13 @@ abstract class _GetOnConnectivityChangedStoreBase extends Equatable with Store {
       mostRecentResult = newResult;
 
   @action
-  callAndListen() async {
+  callAndListen() {
     connectivityStream = ObservableStream(logic(NoParams()));
-    mostRecentResult = await connectivityStream.last;
+    streamSub =
+        connectivityStream.listen((value) => setMostRecentResult(value));
   }
+
+  dispose() => streamSub.cancel();
 
   @override
   List<Object> get props => [];

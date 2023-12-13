@@ -44,15 +44,6 @@ mixin _$GetOnConnectivityChangedStore
     });
   }
 
-  late final _$callAndListenAsyncAction = AsyncAction(
-      '_GetOnConnectivityChangedStoreBase.callAndListen',
-      context: context);
-
-  @override
-  Future callAndListen() {
-    return _$callAndListenAsyncAction.run(() => super.callAndListen());
-  }
-
   late final _$_GetOnConnectivityChangedStoreBaseActionController =
       ActionController(
           name: '_GetOnConnectivityChangedStoreBase', context: context);
@@ -64,6 +55,18 @@ mixin _$GetOnConnectivityChangedStore
             name: '_GetOnConnectivityChangedStoreBase.setMostRecentResult');
     try {
       return super.setMostRecentResult(newResult);
+    } finally {
+      _$_GetOnConnectivityChangedStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic callAndListen() {
+    final _$actionInfo = _$_GetOnConnectivityChangedStoreBaseActionController
+        .startAction(name: '_GetOnConnectivityChangedStoreBase.callAndListen');
+    try {
+      return super.callAndListen();
     } finally {
       _$_GetOnConnectivityChangedStoreBaseActionController
           .endAction(_$actionInfo);
