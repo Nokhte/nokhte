@@ -27,7 +27,7 @@
         },
         {
             "name": "🟦 working widget",
-            "path": "../packages/client/lib/app/core/widgets/beach_widgets/beach_waves"
+            "path": "../packages/client/lib/app/core/widgets/wifi_disconnect_overlay"
         },
         {
             "name": "🟦 working module",
