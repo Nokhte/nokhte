@@ -54,8 +54,6 @@
     ],
     
     "settings": 
-    
-    
     {
             "files.exclude": {
                 "**/_scripts/": true,
