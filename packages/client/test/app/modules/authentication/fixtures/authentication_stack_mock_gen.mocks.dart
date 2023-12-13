@@ -165,9 +165,20 @@ class _FakeSignInWithGoogle_10 extends _i1.SmartFake
         );
 }
 
-class _FakeBeachWavesStore_11 extends _i1.SmartFake
+class _FakeWifiDisconnectOverlayStore_11 extends _i1.SmartFake
+    implements _i12.WifiDisconnectOverlayStore {
+  _FakeWifiDisconnectOverlayStore_11(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeBeachWavesStore_12 extends _i1.SmartFake
     implements _i12.BeachWavesStore {
-  _FakeBeachWavesStore_11(
+  _FakeBeachWavesStore_12(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -176,9 +187,9 @@ class _FakeBeachWavesStore_11 extends _i1.SmartFake
         );
 }
 
-class _FakeSmartTextStore_12 extends _i1.SmartFake
+class _FakeSmartTextStore_13 extends _i1.SmartFake
     implements _i12.SmartTextStore {
-  _FakeSmartTextStore_12(
+  _FakeSmartTextStore_13(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -187,8 +198,8 @@ class _FakeSmartTextStore_12 extends _i1.SmartFake
         );
 }
 
-class _FakeNokhteStore_13 extends _i1.SmartFake implements _i12.NokhteStore {
-  _FakeNokhteStore_13(
+class _FakeNokhteStore_14 extends _i1.SmartFake implements _i12.NokhteStore {
+  _FakeNokhteStore_14(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -197,9 +208,9 @@ class _FakeNokhteStore_13 extends _i1.SmartFake implements _i12.NokhteStore {
         );
 }
 
-class _FakeTrailingTextStore_14 extends _i1.SmartFake
+class _FakeTrailingTextStore_15 extends _i1.SmartFake
     implements _i12.TrailingTextStore {
-  _FakeTrailingTextStore_14(
+  _FakeTrailingTextStore_15(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -208,8 +219,8 @@ class _FakeTrailingTextStore_14 extends _i1.SmartFake
         );
 }
 
-class _FakeOffset_15 extends _i1.SmartFake implements _i13.Offset {
-  _FakeOffset_15(
+class _FakeOffset_16 extends _i1.SmartFake implements _i13.Offset {
+  _FakeOffset_16(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -774,13 +785,27 @@ class MockSignInWithGoogle extends _i1.Mock implements _i11.SignInWithGoogle {
 class MockLoginScreenWidgetsCoordinator extends _i1.Mock
     implements _i18.LoginScreenWidgetsCoordinator {
   @override
+  _i12.WifiDisconnectOverlayStore get wifiDisconnectOverlay =>
+      (super.noSuchMethod(
+        Invocation.getter(#wifiDisconnectOverlay),
+        returnValue: _FakeWifiDisconnectOverlayStore_11(
+          this,
+          Invocation.getter(#wifiDisconnectOverlay),
+        ),
+        returnValueForMissingStub: _FakeWifiDisconnectOverlayStore_11(
+          this,
+          Invocation.getter(#wifiDisconnectOverlay),
+        ),
+      ) as _i12.WifiDisconnectOverlayStore);
+
+  @override
   _i12.BeachWavesStore get layer1BeachWaves => (super.noSuchMethod(
         Invocation.getter(#layer1BeachWaves),
-        returnValue: _FakeBeachWavesStore_11(
+        returnValue: _FakeBeachWavesStore_12(
           this,
           Invocation.getter(#layer1BeachWaves),
         ),
-        returnValueForMissingStub: _FakeBeachWavesStore_11(
+        returnValueForMissingStub: _FakeBeachWavesStore_12(
           this,
           Invocation.getter(#layer1BeachWaves),
         ),
@@ -789,11 +814,11 @@ class MockLoginScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i12.BeachWavesStore get layer2BeachWaves => (super.noSuchMethod(
         Invocation.getter(#layer2BeachWaves),
-        returnValue: _FakeBeachWavesStore_11(
+        returnValue: _FakeBeachWavesStore_12(
           this,
           Invocation.getter(#layer2BeachWaves),
         ),
-        returnValueForMissingStub: _FakeBeachWavesStore_11(
+        returnValueForMissingStub: _FakeBeachWavesStore_12(
           this,
           Invocation.getter(#layer2BeachWaves),
         ),
@@ -802,11 +827,11 @@ class MockLoginScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i12.SmartTextStore get smartTextStore => (super.noSuchMethod(
         Invocation.getter(#smartTextStore),
-        returnValue: _FakeSmartTextStore_12(
+        returnValue: _FakeSmartTextStore_13(
           this,
           Invocation.getter(#smartTextStore),
         ),
-        returnValueForMissingStub: _FakeSmartTextStore_12(
+        returnValueForMissingStub: _FakeSmartTextStore_13(
           this,
           Invocation.getter(#smartTextStore),
         ),
@@ -815,11 +840,11 @@ class MockLoginScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i12.NokhteStore get nokhte => (super.noSuchMethod(
         Invocation.getter(#nokhte),
-        returnValue: _FakeNokhteStore_13(
+        returnValue: _FakeNokhteStore_14(
           this,
           Invocation.getter(#nokhte),
         ),
-        returnValueForMissingStub: _FakeNokhteStore_13(
+        returnValueForMissingStub: _FakeNokhteStore_14(
           this,
           Invocation.getter(#nokhte),
         ),
@@ -828,11 +853,11 @@ class MockLoginScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i12.TrailingTextStore get bottomTrailingText => (super.noSuchMethod(
         Invocation.getter(#bottomTrailingText),
-        returnValue: _FakeTrailingTextStore_14(
+        returnValue: _FakeTrailingTextStore_15(
           this,
           Invocation.getter(#bottomTrailingText),
         ),
-        returnValueForMissingStub: _FakeTrailingTextStore_14(
+        returnValueForMissingStub: _FakeTrailingTextStore_15(
           this,
           Invocation.getter(#bottomTrailingText),
         ),
@@ -841,11 +866,11 @@ class MockLoginScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i12.TrailingTextStore get topTrailingText => (super.noSuchMethod(
         Invocation.getter(#topTrailingText),
-        returnValue: _FakeTrailingTextStore_14(
+        returnValue: _FakeTrailingTextStore_15(
           this,
           Invocation.getter(#topTrailingText),
         ),
-        returnValueForMissingStub: _FakeTrailingTextStore_14(
+        returnValueForMissingStub: _FakeTrailingTextStore_15(
           this,
           Invocation.getter(#topTrailingText),
         ),
@@ -870,11 +895,11 @@ class MockLoginScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i13.Offset get centerScreenCoordinates => (super.noSuchMethod(
         Invocation.getter(#centerScreenCoordinates),
-        returnValue: _FakeOffset_15(
+        returnValue: _FakeOffset_16(
           this,
           Invocation.getter(#centerScreenCoordinates),
         ),
-        returnValueForMissingStub: _FakeOffset_15(
+        returnValueForMissingStub: _FakeOffset_16(
           this,
           Invocation.getter(#centerScreenCoordinates),
         ),
