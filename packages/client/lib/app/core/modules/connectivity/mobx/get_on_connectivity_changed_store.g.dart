@@ -27,20 +27,19 @@ mixin _$GetOnConnectivityChangedStore
     });
   }
 
-  late final _$mostRecentResultAtom = Atom(
-      name: '_GetOnConnectivityChangedStoreBase.mostRecentResult',
-      context: context);
+  late final _$isConnectedAtom = Atom(
+      name: '_GetOnConnectivityChangedStoreBase.isConnected', context: context);
 
   @override
-  ConnectivityResult get mostRecentResult {
-    _$mostRecentResultAtom.reportRead();
-    return super.mostRecentResult;
+  bool get isConnected {
+    _$isConnectedAtom.reportRead();
+    return super.isConnected;
   }
 
   @override
-  set mostRecentResult(ConnectivityResult value) {
-    _$mostRecentResultAtom.reportWrite(value, super.mostRecentResult, () {
-      super.mostRecentResult = value;
+  set isConnected(bool value) {
+    _$isConnectedAtom.reportWrite(value, super.isConnected, () {
+      super.isConnected = value;
     });
   }
 
@@ -77,7 +76,7 @@ mixin _$GetOnConnectivityChangedStore
   String toString() {
     return '''
 connectivityStream: ${connectivityStream},
-mostRecentResult: ${mostRecentResult}
+isConnected: ${isConnected}
     ''';
   }
 }

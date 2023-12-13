@@ -21,20 +21,20 @@ void main() {
     });
 
     test("mostRecentResult", () {
-      expect(testStore.mostRecentResult, ConnectivityResult.none);
+      expect(testStore.isConnected, true);
     });
   });
 
   group("actions", () {
     test("setMostRecentResult", () {
-      testStore.setMostRecentResult(ConnectivityResult.bluetooth);
-      expect(testStore.mostRecentResult, ConnectivityResult.bluetooth);
+      testStore.setMostRecentResult(ConnectivityResult.none);
+      expect(testStore.isConnected, false);
     });
     test("callAndListen", () async {
       when(mockLogic(NoParams())).thenAnswer(
           (realInvocation) => Stream.value(ConnectivityResult.mobile));
       await testStore.callAndListen();
-      expect(testStore.mostRecentResult, ConnectivityResult.mobile);
+      expect(testStore.isConnected, true);
     });
   });
 }
