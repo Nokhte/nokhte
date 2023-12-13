@@ -26,9 +26,18 @@ void main() {
   });
 
   group("actions", () {
-    test("setMostRecentResult", () {
-      testStore.setMostRecentResult(ConnectivityResult.none);
-      expect(testStore.isConnected, false);
+    group("setMostRecentResult", () {
+      test("initial outage", () {
+        testStore.setMostRecentResult(ConnectivityResult.none);
+        expect(testStore.isConnected, false);
+      });
+
+      test("offline, then goes online", () {
+        testStore.setMostRecentResult(ConnectivityResult.none);
+        expect(testStore.isConnected, false);
+        testStore.setMostRecentResult(ConnectivityResult.wifi);
+        expect(testStore.isConnected, true);
+      });
     });
     test("callAndListen", () async {
       when(mockLogic(NoParams())).thenAnswer(

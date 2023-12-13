@@ -24,16 +24,24 @@ abstract class _GetOnConnectivityChangedStoreBase extends Equatable with Store {
   @observable
   bool isConnected = true;
 
+  @observable
+  ConnectivityResult mostRecentResult = ConnectivityResult.none;
+
   @action
   setMostRecentResult(ConnectivityResult newResult) {
-    if (newResult == ConnectivityResult.none) isConnected = false;
+    if (newResult == ConnectivityResult.none) {
+      isConnected = false;
+    } else {
+      isConnected = true;
+    }
   }
 
   @action
   callAndListen() {
     connectivityStream = ObservableStream(logic(NoParams()));
-    streamSub =
-        connectivityStream.listen((value) => setMostRecentResult(value));
+    streamSub = connectivityStream
+        .distinct()
+        .listen((value) => setMostRecentResult(value));
   }
 
   dispose() => streamSub.cancel();
