@@ -1,5 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:nokhte/app/core/modules/connectivity/connectivity_module.dart';
+import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/modules/authentication/authentication_module.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -15,7 +15,7 @@ class AppModule extends Module {
 
   @override
   List<Module> get imports => [
-        ConnectivityModule(connectivityInstance: connectivityInstance),
+        LegacyConnectivityModule(connectivityInstance: connectivityInstance),
       ];
 
   @override
