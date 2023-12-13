@@ -32,7 +32,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
     required this.topTrailingText,
   });
 
-  constructor(Offset center, Function loginBusinessLogic) {
+  constructor(Offset center, Function loginBusinessLogic) async {
     setCenterScreenCoordinates(center);
     layer1BeachWaves.setMovieMode(BeachWaveMovieModes.blackOut);
     layer2BeachWaves.currentStore.toggleWidgetVisibility();

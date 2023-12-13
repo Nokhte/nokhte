@@ -13,5 +13,7 @@ abstract class _WifiDisconnectOverlayStoreBase
 
   _WifiDisconnectOverlayStoreBase({
     required this.getOnConnectivityChanged,
-  });
+  }) {
+    getOnConnectivityChanged.callAndListen();
+  }
 }
