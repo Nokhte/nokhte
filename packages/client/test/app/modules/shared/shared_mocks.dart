@@ -2,6 +2,7 @@ import 'package:mockito/annotations.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
 @GenerateNiceMocks([
+  MockSpec<WifiDisconnectOverlayStore>(),
   MockSpec<BeachWavesStore>(),
   MockSpec<SmartTextStore>(),
   MockSpec<TrailingTextStore>(),
