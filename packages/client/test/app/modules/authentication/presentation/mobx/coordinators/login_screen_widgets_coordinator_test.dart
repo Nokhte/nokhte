@@ -14,10 +14,12 @@ void main() {
   late NokhteStore nokhteStore;
   late TrailingTextStore topTrailingTextStore;
   late TrailingTextStore bottomTrailingTextStore;
+  late MockWifiDisconnectOverlayStore wifiDisconnectOverlayStore;
   late LoginScreenWidgetsCoordinator testStore;
   const tCoordinates = Offset(1, 1);
 
   setUp(() {
+    wifiDisconnectOverlayStore = MockWifiDisconnectOverlayStore();
     mockLayer1BeachWavesStore = MockBeachWavesStore();
     mockLayer2BeachWavesStore = MockBeachWavesStore();
     smartTextStore = SmartTextStore();
@@ -25,6 +27,7 @@ void main() {
     topTrailingTextStore = TrailingTextStore();
     bottomTrailingTextStore = TrailingTextStore();
     testStore = LoginScreenWidgetsCoordinator(
+      wifiDisconnectOverlay: wifiDisconnectOverlayStore,
       layer1BeachWaves: mockLayer1BeachWavesStore,
       layer2BeachWaves: mockLayer2BeachWavesStore,
       smartTextStore: smartTextStore,

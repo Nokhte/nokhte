@@ -14,6 +14,7 @@ class LoginScreenWidgetsCoordinator = _LoginScreenWidgetsCoordinatorBase
     with _$LoginScreenWidgetsCoordinator;
 
 abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final BeachWavesStore layer1BeachWaves;
   final BeachWavesStore layer2BeachWaves;
   final SmartTextStore smartTextStore;
@@ -22,6 +23,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
   final TrailingTextStore topTrailingText;
 
   _LoginScreenWidgetsCoordinatorBase({
+    required this.wifiDisconnectOverlay,
     required this.layer1BeachWaves,
     required this.layer2BeachWaves,
     required this.smartTextStore,
