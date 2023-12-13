@@ -7,7 +7,7 @@ class LegacyConnectivityModule extends Module {
   LegacyConnectivityModule({required this.connectivityInstance});
 
   @override
-  binds(i) => [
-        i.addSingleton<Connectivity>(() => connectivityInstance),
-      ];
+  binds(i) {
+    i.addSingleton<Connectivity>(() => connectivityInstance);
+  }
 }
