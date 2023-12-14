@@ -399,6 +399,16 @@ class MockWifiDisconnectOverlayStore extends _i1.Mock
       ) as _i4.ReactiveContext);
 
   @override
+  dynamic attuneWidgetsBasedOnConnection(bool? isConnected) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #attuneWidgetsBasedOnConnection,
+          [isConnected],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   dynamic setPastControl(_i3.Control? newControl) => super.noSuchMethod(
         Invocation.method(
           #setPastControl,
