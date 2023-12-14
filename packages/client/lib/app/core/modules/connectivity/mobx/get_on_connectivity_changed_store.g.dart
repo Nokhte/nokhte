@@ -43,6 +43,23 @@ mixin _$GetOnConnectivityChangedStore
     });
   }
 
+  late final _$mostRecentResultAtom = Atom(
+      name: '_GetOnConnectivityChangedStoreBase.mostRecentResult',
+      context: context);
+
+  @override
+  ConnectivityResult get mostRecentResult {
+    _$mostRecentResultAtom.reportRead();
+    return super.mostRecentResult;
+  }
+
+  @override
+  set mostRecentResult(ConnectivityResult value) {
+    _$mostRecentResultAtom.reportWrite(value, super.mostRecentResult, () {
+      super.mostRecentResult = value;
+    });
+  }
+
   late final _$_GetOnConnectivityChangedStoreBaseActionController =
       ActionController(
           name: '_GetOnConnectivityChangedStoreBase', context: context);
@@ -76,7 +93,8 @@ mixin _$GetOnConnectivityChangedStore
   String toString() {
     return '''
 connectivityStream: ${connectivityStream},
-isConnected: ${isConnected}
+isConnected: ${isConnected},
+mostRecentResult: ${mostRecentResult}
     ''';
   }
 }
