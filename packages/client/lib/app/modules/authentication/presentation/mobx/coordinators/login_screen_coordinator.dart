@@ -53,6 +53,23 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
       inactiveCallback: () => onInactive(),
       detachedCallback: () => null,
     );
+    widgets.wifiDisconnectOverlay.connectionReactor(
+      onConnected: () {
+        if (disableAllTouchFeedback) {
+          toggleDisableAllTouchFeedback();
+        }
+        onInactive();
+        onResumed();
+      },
+      onDisconnected: () {
+        if (!disableAllTouchFeedback) {
+          toggleDisableAllTouchFeedback();
+        }
+        if (widgets.hasNotMadeTheDot) {
+          widgets.smartTextStore.reset();
+        }
+      },
+    );
   }
 
   @action
@@ -63,7 +80,7 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.up:
-            widgets.onSwipeUp();
+            ifTouchIsNotDisabled(() => widgets.onSwipeUp());
           default:
             break;
         }
@@ -71,7 +88,8 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
-        (p0) => widgets.onTap(tap.currentTapPosition),
+        (p0) =>
+            ifTouchIsNotDisabled(() => widgets.onTap(tap.currentTapPosition)),
       );
 
   @action
