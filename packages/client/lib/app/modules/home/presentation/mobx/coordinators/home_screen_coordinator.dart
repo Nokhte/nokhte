@@ -22,6 +22,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
   final BeachWavesStore beachWaves;
   final SwipeDetector swipe;
   final HoldDetector hold;
+  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final GetExistingCollaborationsInfoStore getExistingCollaborationInfo;
   final GesturePillStore gesturePillStore;
   final AddNameToDatabaseStore addNameToDatabaseStore;
@@ -29,6 +30,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
   final GetCollaboratorPhraseStore getCollaboratorPhraseStore;
 
   _HomeScreenCoordinatorStoreBase({
+    required this.wifiDisconnectOverlay,
     required this.beachWaves,
     required this.getExistingCollaborationInfo,
     required this.swipe,
@@ -55,7 +57,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
       const Color(0xFF69E9BC),
     ]));
 
-    gestureListener();
+    // gestureListener();
     // holdListener();
     await getExistingCollaborationInfo(NoParams());
     await addNameToDatabaseStore(NoParams());

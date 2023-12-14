@@ -2,6 +2,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/widgets/module.dart';
 import 'package:nokhte/app/core/widgets/shared/constants/svg_animation_constants.dart';
+import 'package:nokhte/app/core/widgets/widget_modules/wifi_disconnect_overlay_module.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/data/contracts/home_contract_impl.dart';
 import 'package:nokhte/app/modules/home/data/sources/home_remote_source.dart';
@@ -15,6 +16,7 @@ class HomeModule extends Module {
   List<Module> get imports => [
         BeachWavesModule(),
         GesturesModule(),
+        WifiDisconnectOverlayModule(),
       ];
   @override
   binds(i) => [
@@ -67,6 +69,7 @@ class HomeModule extends Module {
         ),
         i.addSingleton<HomeScreenCoordinatorStore>(
           () => HomeScreenCoordinatorStore(
+            wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
             beachWaves: Modular.get<BeachWavesStore>(),
             getExistingCollaborationInfo:
                 i<GetExistingCollaborationsInfoStore>(),
