@@ -14,13 +14,15 @@ mixin _$WifiDisconnectOverlayStore on _WifiDisconnectOverlayStoreBase, Store {
           name: '_WifiDisconnectOverlayStoreBase', context: context);
 
   @override
-  dynamic attuneWidgetsBasedOnConnection(bool isConnected) {
+  dynamic attuneWidgetsBasedOnConnection(
+      bool isConnected, Function onConnected, Function onDisconnected) {
     final _$actionInfo =
         _$_WifiDisconnectOverlayStoreBaseActionController.startAction(
             name:
                 '_WifiDisconnectOverlayStoreBase.attuneWidgetsBasedOnConnection');
     try {
-      return super.attuneWidgetsBasedOnConnection(isConnected);
+      return super.attuneWidgetsBasedOnConnection(
+          isConnected, onConnected, onDisconnected);
     } finally {
       _$_WifiDisconnectOverlayStoreBaseActionController.endAction(_$actionInfo);
     }

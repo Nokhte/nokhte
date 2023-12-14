@@ -19,21 +19,36 @@ abstract class _WifiDisconnectOverlayStoreBase
     getOnConnectivityChanged.callAndListen();
     setMovie(PlaceWifiDotInCenterMovie.movie);
     toggleWidgetVisibility();
-    connectionReactor();
+    // connectionReactor();
   }
 
-  connectionReactor() => reaction((p0) => getOnConnectivityChanged.isConnected,
-      (p0) => attuneWidgetsBasedOnConnection(p0));
+  connectionReactor({
+    required Function onConnected,
+    required Function onDisconnected,
+  }) =>
+      reaction(
+          (p0) => getOnConnectivityChanged.isConnected,
+          (p0) => attuneWidgetsBasedOnConnection(
+                p0,
+                onConnected,
+                onDisconnected,
+              ));
 
   @action
-  attuneWidgetsBasedOnConnection(bool isConnected) {
+  attuneWidgetsBasedOnConnection(
+    bool isConnected,
+    Function onConnected,
+    Function onDisconnected,
+  ) {
     if (isConnected) {
       if (showWidget) {
         toggleWidgetVisibility();
       }
+      onConnected();
       setControl(Control.playReverse);
     } else {
       setControl(Control.play);
+      onDisconnected();
       if (!showWidget) {
         toggleWidgetVisibility();
       }

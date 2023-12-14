@@ -34,26 +34,26 @@ void main() {
   group("actions", () {
     group("attunWidgetsBasedOnConnection", () {
       test("isConnected", () {
-        testStore.attuneWidgetsBasedOnConnection(true);
+        testStore.attuneWidgetsBasedOnConnection(true, () {}, () {});
         expect(testStore.showWidget, false);
         expect(testStore.control, Control.playReverse);
       });
 
       test("isNotConnected", () {
-        testStore.attuneWidgetsBasedOnConnection(false);
+        testStore.attuneWidgetsBasedOnConnection(false, () {}, () {});
         expect(testStore.showWidget, true);
         expect(testStore.control, Control.play);
       });
 
       test("isConnected then isNotConnected", () {
-        testStore.attuneWidgetsBasedOnConnection(true);
-        testStore.attuneWidgetsBasedOnConnection(false);
+        testStore.attuneWidgetsBasedOnConnection(true, () {}, () {});
+        testStore.attuneWidgetsBasedOnConnection(false, () {}, () {});
         expect(testStore.showWidget, true);
         expect(testStore.control, Control.play);
       });
       test("isNotConnected then isConnected", () {
-        testStore.attuneWidgetsBasedOnConnection(false);
-        testStore.attuneWidgetsBasedOnConnection(true);
+        testStore.attuneWidgetsBasedOnConnection(false, () {}, () {});
+        testStore.attuneWidgetsBasedOnConnection(true, () {}, () {});
         expect(testStore.showWidget, false);
         expect(testStore.control, Control.playReverse);
       });
