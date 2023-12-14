@@ -399,11 +399,36 @@ class MockWifiDisconnectOverlayStore extends _i1.Mock
       ) as _i4.ReactiveContext);
 
   @override
-  dynamic attuneWidgetsBasedOnConnection(bool? isConnected) =>
+  dynamic connectionReactor({
+    required Function? onConnected,
+    required Function? onDisconnected,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #connectionReactor,
+          [],
+          {
+            #onConnected: onConnected,
+            #onDisconnected: onDisconnected,
+          },
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  dynamic attuneWidgetsBasedOnConnection(
+    bool? isConnected,
+    Function? onConnected,
+    Function? onDisconnected,
+  ) =>
       super.noSuchMethod(
         Invocation.method(
           #attuneWidgetsBasedOnConnection,
-          [isConnected],
+          [
+            isConnected,
+            onConnected,
+            onDisconnected,
+          ],
         ),
         returnValueForMissingStub: null,
       );
