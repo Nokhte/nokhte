@@ -24,13 +24,13 @@ class HomeScreen extends HookWidget {
         builder: (context, constraints) {
           return Scaffold(
             resizeToAvoidBottomInset: false,
-            body: WifiDisconnectOverlay(
-              store: coordinator.wifiDisconnectOverlay,
-              child: GestureDetector(
-                child: Hold(
-                  trackerStore: coordinator.hold,
-                  child: Swipe(
-                    trackerStore: coordinator.swipe,
+            body: GestureDetector(
+              child: Hold(
+                trackerStore: coordinator.hold,
+                child: Swipe(
+                  trackerStore: coordinator.swipe,
+                  child: WifiDisconnectOverlay(
+                    store: coordinator.wifiDisconnectOverlay,
                     child: Stack(
                       children: [
                         SizedBox(

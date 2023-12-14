@@ -30,12 +30,12 @@ class LoginScreen extends HookWidget with WidgetsBindingObserver {
     return Builder(builder: (context) {
       return Scaffold(
         resizeToAvoidBottomInset: false,
-        body: WifiDisconnectOverlay(
-          store: coordinator.widgets.wifiDisconnectOverlay,
-          child: Tap(
-            trackerStore: coordinator.tap,
-            child: Swipe(
-              trackerStore: coordinator.swipe,
+        body: Tap(
+          trackerStore: coordinator.tap,
+          child: Swipe(
+            trackerStore: coordinator.swipe,
+            child: WifiDisconnectOverlay(
+              store: coordinator.widgets.wifiDisconnectOverlay,
               child: Stack(
                 children: [
                   SizedBox(
