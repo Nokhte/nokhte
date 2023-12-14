@@ -2,6 +2,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/connectivity/mobx/get_on_connectivity_changed_store.dart';
+import 'package:nokhte/app/core/widgets/wifi_disconnect_overlay/stack/movies/wifi_symbol_ripple_movie.dart';
 part 'wifi_disconnect_overlay_store.g.dart';
 
 class WifiDisconnectOverlayStore = _WifiDisconnectOverlayStoreBase
@@ -15,5 +16,6 @@ abstract class _WifiDisconnectOverlayStoreBase
     required this.getOnConnectivityChanged,
   }) {
     getOnConnectivityChanged.callAndListen();
+    setMovie(WifiSymbolRippleMovie.movie);
   }
 }
