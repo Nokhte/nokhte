@@ -24,44 +24,48 @@ class HomeScreen extends HookWidget {
         builder: (context, constraints) {
           return Scaffold(
             resizeToAvoidBottomInset: false,
-            body: GestureDetector(
-              child: Hold(
-                trackerStore: coordinator.hold,
-                child: Swipe(
-                  trackerStore: coordinator.swipe,
-                  child: Stack(
-                    children: [
-                      SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height,
-                          child: BeachWaves(
-                            store: coordinator.beachWaves,
-                          )),
-                      // Center(
-                      //   child: SmartText(
-                      //     store: coordinator.smartText,
-                      //   ),
-                      // ),
-                      Column(
-                        children: [
-                          Expanded(
-                            child: Container(),
-                          ),
-                          Stack(
-                            alignment: Alignment.bottomCenter,
-                            children: [
-                              GesturePill(
-                                size: size,
-                                stateTrackerStore: coordinator.gesturePillStore,
-                              ),
-                            ],
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(bottom: 20),
-                          ),
-                        ],
-                      ),
-                    ],
+            body: WifiDisconnectOverlay(
+              store: coordinator.wifiDisconnectOverlay,
+              child: GestureDetector(
+                child: Hold(
+                  trackerStore: coordinator.hold,
+                  child: Swipe(
+                    trackerStore: coordinator.swipe,
+                    child: Stack(
+                      children: [
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height,
+                            child: BeachWaves(
+                              store: coordinator.beachWaves,
+                            )),
+                        // Center(
+                        //   child: SmartText(
+                        //     store: coordinator.smartText,
+                        //   ),
+                        // ),
+                        Column(
+                          children: [
+                            Expanded(
+                              child: Container(),
+                            ),
+                            Stack(
+                              alignment: Alignment.bottomCenter,
+                              children: [
+                                GesturePill(
+                                  size: size,
+                                  stateTrackerStore:
+                                      coordinator.gesturePillStore,
+                                ),
+                              ],
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 20),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
