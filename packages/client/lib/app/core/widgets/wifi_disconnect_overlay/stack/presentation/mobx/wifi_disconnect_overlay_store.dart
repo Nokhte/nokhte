@@ -22,18 +22,21 @@ abstract class _WifiDisconnectOverlayStoreBase
     connectionReactor();
   }
 
-  connectionReactor() =>
-      reaction((p0) => getOnConnectivityChanged.isConnected, (p0) {
-        if (p0) {
-          if (showWidget) {
-            toggleWidgetVisibility();
-          }
-          setControl(Control.playReverse);
-        } else {
-          setControl(Control.play);
-          if (!showWidget) {
-            toggleWidgetVisibility();
-          }
-        }
-      });
+  connectionReactor() => reaction((p0) => getOnConnectivityChanged.isConnected,
+      (p0) => attuneWidgetsBasedOnConnection(p0));
+
+  @action
+  attuneWidgetsBasedOnConnection(bool isConnected) {
+    if (isConnected) {
+      if (showWidget) {
+        toggleWidgetVisibility();
+      }
+      setControl(Control.playReverse);
+    } else {
+      setControl(Control.play);
+      if (!showWidget) {
+        toggleWidgetVisibility();
+      }
+    }
+  }
 }
