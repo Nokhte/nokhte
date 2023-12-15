@@ -56,6 +56,10 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
       const Color(0xFF41D2F8),
       const Color(0xFF69E9BC),
     ]));
+    wifiDisconnectOverlay.connectionReactor(
+      onConnected: () {},
+      onDisconnected: () {},
+    );
 
     // gestureListener();
     // holdListener();
