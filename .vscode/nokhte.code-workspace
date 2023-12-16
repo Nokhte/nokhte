@@ -1,84 +1,79 @@
 {
-    "folders": [
-        {
-            "name": "️⬜️",
-            "path": "../",
-        },
-        {
-            "name": "️⬜️ CORE",
-            "path": "../packages/core",
-        },
-        {
-            "name": "🟧 backend",
-            "path": "../packages/backend/dart"
-        },
-        {
-            "name": "🟨 client core",
-            "path": "../packages/client/lib/app/core"
-        },
-        {
-            "name": "🟨 client core widgets",
-            "path": "../packages/client/lib/app/core/widgets"
-            
-        },
-        {
-            "name": "🟨 client modules",
-            "path": "../packages/client/lib/app/modules"
-        },
-        {
-            "name": "🟦 working widget",
-            "path": "../packages/client/lib/app/core/widgets/wifi_disconnect_overlay"
-        },
-        {
-            "name": "🟦 working module",
-            "path": "../packages/client/lib/app/modules/authentication"
-            
-        },
-        {
-            "name": "🟦 client root",
-            "path": "../packages/client"
-        },
-        {
-            "name": "🟩 supabase",
-            "path": "../packages/backend/supabase",
-        },
-        {
-            "name": "🟫 client ios",
-            "path": "../packages/client/ios"
-        },
-        {
-            "name": "🟥 client android",
-            "path": "../packages/client/android"
-        },
-
-    ],
-    
-    "settings": 
+  "folders": [
     {
-            "files.exclude": {
-                "**/_scripts/": true,
-                "**/_templates/": true,
-                "packages/": true,
-                "**/**.iml": true,
-                "**/**.g.dart": true,
-                "**/.gitignore": true,
-                "**/**.mocks.dart": true,
-                "**/.dart_tool": true,
-                "**/deprecated/**": true,
-                "**/build/**": true,
-                "**/.idea": true,
-                "**/**.lock": true,
-                "**/analysis_options.yaml": true,
-                "**/.flutter-plugins": true,
-                "**/.flutter-plugins-dependencies": true,
-                "**/version.yml": true,
-                "**/.metadata": true,
-                "**/.example.env": true,
-                
-            },
-            "deno.importMap": "./packages/backend/supabase/functions/import_map.json",
-            "deno.enable": true,
-            "deno.lint": true,
-            "deno.unstable": true
-        }
+      "name": "️⬜️",
+      "path": "../"
+    },
+    {
+      "name": "️⬜️ CORE",
+      "path": "../packages/core"
+    },
+    {
+      "name": "🟧 backend",
+      "path": "../packages/backend/dart"
+    },
+    {
+      "name": "🟨 client core",
+      "path": "../packages/client/lib/app/core"
+    },
+    {
+      "name": "🟨 client core widgets",
+      "path": "../packages/client/lib/app/core/widgets"
+    },
+    {
+      "name": "🟨 client modules",
+      "path": "../packages/client/lib/app/modules"
+    },
+    {
+      "name": "🟦 working widget",
+      "path": "../packages/client/lib/app/core/widgets/wifi_disconnect_overlay"
+    },
+    {
+      "name": "🟦 working module",
+      "path": "../packages/client/lib/app/modules/authentication"
+    },
+    {
+      "name": "🟦 client root",
+      "path": "../packages/client"
+    },
+    {
+      "name": "🟩 supabase",
+      "path": "../packages/backend/supabase"
+    },
+    {
+      "name": "🟫 client ios",
+      "path": "../packages/client/ios"
+    },
+    {
+      "name": "🟥 client android",
+      "path": "../packages/client/android"
+    }
+  ],
+
+  "settings": {
+    "files.exclude": {
+      "**/_scripts/": true,
+      "**/_templates/": true,
+      "packages/": true,
+      "**/**.iml": true,
+      "**/**.g.dart": true,
+      "**/.gitignore": true,
+      "**/**.mocks.dart": true,
+      "**/.dart_tool": true,
+      "**/deprecated/**": true,
+      "**/build/**": true,
+      "**/.idea": true,
+      "**/**.lock": true,
+      "**/analysis_options.yaml": true,
+      "**/.flutter-plugins": true,
+      "**/.flutter-plugins-dependencies": true,
+      "**/version.yml": true,
+      "**/.metadata": true,
+      "**/.example.env": true
+    },
+    "deno.importMap": "./packages/backend/supabase/functions/import_map.json",
+    "deno.enable": true,
+    "deno.lint": true,
+    "deno.unstable": true
+  }
 }
