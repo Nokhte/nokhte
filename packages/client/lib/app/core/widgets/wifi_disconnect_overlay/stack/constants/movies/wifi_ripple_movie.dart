@@ -6,7 +6,7 @@ class WifiRippleMovie {
   static MovieTween get movie => MovieTween()
     ..scene(
       begin: Seconds.get(0),
-      end: Seconds.get(1, milli: 500),
+      end: Seconds.get(1),
     )
         .tween(
           'blur',
@@ -19,7 +19,7 @@ class WifiRippleMovie {
           'circleOpacity',
           Tween<double>(
             begin: 0.0,
-            end: 0.0,
+            end: 1.0,
           ),
         )
         .tween(
@@ -72,23 +72,16 @@ class WifiRippleMovie {
           ),
         )
     ..scene(
-      begin: Seconds.get(1, milli: 500),
+      begin: Seconds.get(1),
       end: Seconds.get(2),
+    ).tween(
+      'circleRadius',
+      Tween<double>(
+        begin: 15.0,
+        end: 4.0,
+      ),
+      // curve: Curves.ease,
     )
-        .tween(
-          'circleRadius',
-          Tween<double>(
-            begin: 15.0,
-            end: 4.0,
-          ),
-        )
-        .tween(
-          'circleOpacity',
-          Tween<double>(
-            begin: 0.0,
-            end: 1.0,
-          ),
-        )
     ..scene(
       begin: Seconds.get(2),
       end: Seconds.get(2, milli: 500),
@@ -126,13 +119,6 @@ class WifiRippleMovie {
           ),
         )
         .tween(
-          'arc1Opacity',
-          Tween<double>(
-            begin: 1.0,
-            end: .75,
-          ),
-        )
-        .tween(
           'arc2Radius',
           Tween<double>(
             begin: 0.0,
@@ -165,24 +151,10 @@ class WifiRippleMovie {
           ),
         )
         .tween(
-          'arc1Opacity',
-          Tween<double>(
-            begin: 1.0,
-            end: 1.0,
-          ),
-        )
-        .tween(
           'arc2Radius',
           Tween<double>(
             begin: 15.0,
             end: 30.0,
-          ),
-        )
-        .tween(
-          'arc2Opacity',
-          Tween<double>(
-            begin: 1.0,
-            end: .75,
           ),
         )
         .tween(
@@ -195,8 +167,8 @@ class WifiRippleMovie {
         .tween(
           'arc3Opacity',
           Tween<double>(
-            begin: 0,
-            end: .25,
+            begin: 0.0,
+            end: 1.0,
           ),
         );
 }

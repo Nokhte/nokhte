@@ -26,8 +26,9 @@ class WifiDisconnectOverlayPainter extends CustomPainter {
       false,
       arcPaint,
     );
+
     Paint circlePaint = Paint()
-      ..color = Colors.white.withOpacity(opacity)
+      ..color = Colors.white.withOpacity(opacity / 2)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1;
     canvas.drawCircle(center, radius, circlePaint);
