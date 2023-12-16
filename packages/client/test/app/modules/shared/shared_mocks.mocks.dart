@@ -286,6 +286,38 @@ class MockWifiDisconnectOverlayStore extends _i1.Mock
       ) as _i2.GetOnConnectivityChangedStore);
 
   @override
+  _i5.WifiDisconnectMovieModes get movieMode => (super.noSuchMethod(
+        Invocation.getter(#movieMode),
+        returnValue: _i5.WifiDisconnectMovieModes.initial,
+        returnValueForMissingStub: _i5.WifiDisconnectMovieModes.initial,
+      ) as _i5.WifiDisconnectMovieModes);
+
+  @override
+  set movieMode(_i5.WifiDisconnectMovieModes? value) => super.noSuchMethod(
+        Invocation.setter(
+          #movieMode,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  int get rippleCount => (super.noSuchMethod(
+        Invocation.getter(#rippleCount),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
+  set rippleCount(int? value) => super.noSuchMethod(
+        Invocation.setter(
+          #rippleCount,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   bool get callsOnCompleteTwice => (super.noSuchMethod(
         Invocation.getter(#callsOnCompleteTwice),
         returnValue: false,
@@ -397,6 +429,16 @@ class MockWifiDisconnectOverlayStore extends _i1.Mock
           Invocation.getter(#context),
         ),
       ) as _i4.ReactiveContext);
+
+  @override
+  dynamic setMovieMode(_i5.WifiDisconnectMovieModes? newMovieModes) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #setMovieMode,
+          [newMovieModes],
+        ),
+        returnValueForMissingStub: null,
+      );
 
   @override
   dynamic connectionReactor({
