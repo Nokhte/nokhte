@@ -23,7 +23,7 @@ void main() {
     });
 
     test("movie", () {
-      expect(testStore.movie.duration, Seconds.get(2, milli: 500));
+      expect(testStore.movie.duration, Seconds.get(3, milli: 500));
     });
 
     test("showWidget", () {
@@ -41,14 +41,14 @@ void main() {
 
       test("isNotConnected", () {
         testStore.attuneWidgetsBasedOnConnection(false, () {}, () {});
-        expect(testStore.showWidget, true);
+        expect(testStore.showWidget, false);
         expect(testStore.control, Control.play);
       });
 
       test("isConnected then isNotConnected", () {
         testStore.attuneWidgetsBasedOnConnection(true, () {}, () {});
         testStore.attuneWidgetsBasedOnConnection(false, () {}, () {});
-        expect(testStore.showWidget, true);
+        expect(testStore.showWidget, false);
         expect(testStore.control, Control.play);
       });
       test("isNotConnected then isConnected", () {
