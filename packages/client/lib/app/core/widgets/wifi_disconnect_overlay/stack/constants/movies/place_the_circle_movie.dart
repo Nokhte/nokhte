@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class PlaceTheCircleMovie {
@@ -9,63 +10,105 @@ class PlaceTheCircleMovie {
       end: Seconds.get(1),
     )
         .tween(
-          'blur',
+          CircleMovieProps.blur,
           Tween<double>(
             begin: 0.0,
             end: 10.0,
           ),
         )
         .tween(
-          'circleOpacity',
+          CircleMovieProps.circleOpacity,
           Tween<double>(
             begin: 0.0,
             end: 1.0,
           ),
         )
         .tween(
-          'circleRadius',
+          CircleMovieProps.circleRadius,
           Tween<double>(
             begin: 15.0,
             end: 15.0,
           ),
         )
         .tween(
-          'arc1Radius',
+          CircleMovieProps.arc1Radius,
           Tween<double>(
             begin: 0.0,
             end: 0.0,
           ),
         )
         .tween(
-          'arc1Opacity',
+          CircleMovieProps.circle1Radius,
           Tween<double>(
             begin: 0.0,
             end: 0.0,
           ),
         )
         .tween(
-          'arc2Radius',
+          CircleMovieProps.arc1Opacity,
           Tween<double>(
             begin: 0.0,
             end: 0.0,
           ),
         )
         .tween(
-          'arc2Opacity',
+          CircleMovieProps.circle1Opacity,
           Tween<double>(
             begin: 0.0,
             end: 0.0,
           ),
         )
         .tween(
-          'arc3Radius',
+          CircleMovieProps.arc2Radius,
           Tween<double>(
             begin: 0.0,
             end: 0.0,
           ),
         )
         .tween(
-          'arc3Opacity',
+          CircleMovieProps.circle2Radius,
+          Tween<double>(
+            begin: 0.0,
+            end: 0.0,
+          ),
+        )
+        .tween(
+          CircleMovieProps.arc2Opacity,
+          Tween<double>(
+            begin: 0.0,
+            end: 0.0,
+          ),
+        )
+        .tween(
+          CircleMovieProps.circle2Opacity,
+          Tween<double>(
+            begin: 0.0,
+            end: 0.0,
+          ),
+        )
+        .tween(
+          CircleMovieProps.arc3Radius,
+          Tween<double>(
+            begin: 0.0,
+            end: 0.0,
+          ),
+        )
+        .tween(
+          CircleMovieProps.circle3Radius,
+          Tween<double>(
+            begin: 0.0,
+            end: 0.0,
+          ),
+        )
+        .tween(
+          CircleMovieProps.arc3Opacity,
+          Tween<double>(
+            begin: 0.0,
+            end: 0.0,
+          ),
+        )
+        .tween(
+          CircleMovieProps.circle3Opacity,
           Tween<double>(
             begin: 0.0,
             end: 0.0,
