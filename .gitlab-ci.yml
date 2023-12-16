@@ -21,8 +21,7 @@ variables:
   LC_ALL: "en_US.UTF-8"
   LANG: "en_US.UTF-8"
 
-# $ Backend-CI/CD JOBS START
-test-the-db-rules-and-edge-functions:
+Test Database Rules & Edge Functions:
   stage: development
   script:
     - melos bs
@@ -45,7 +44,7 @@ test-the-db-rules-and-edge-functions:
       when: always
     - when: never
 
-deploy-to-staging-db:
+Deploy To Staging Database:
   stage: staging
   script:
     - cd packages/backend
@@ -56,7 +55,7 @@ deploy-to-staging-db:
     - staging
   when: manual
 
-deploy-to-prod-db:
+Deply To Production Database:
   stage: production
   script:
     - cd packages/backend
@@ -68,7 +67,7 @@ deploy-to-prod-db:
   when: manual
 
   
-run-the-unit-tests:
+Run Client Unit Tests:
   stage: development
   script:
     - melos bs
@@ -89,7 +88,7 @@ run-the-unit-tests:
       when: always
     - when: never
 
-pre-build-check:
+Pre Build Check:
   stage: development
   script: 
     - melos bs
@@ -101,7 +100,7 @@ pre-build-check:
     - development
   when: manual
 
-internal-ios-staging:
+Deploy To Testflight:
   stage: staging
   tags:
     - shell
@@ -119,7 +118,7 @@ internal-ios-staging:
     - staging
   when: manual
 
-internal-android-staging:
+Deploy To Android Private Beta:
   stage: staging
   tags:
     - shell
@@ -137,7 +136,7 @@ internal-android-staging:
     - staging
   when: manual
 
-external-ios-beta-build:
+External iOS Beta Build:
   stage: production
   tags:
     - shell
@@ -155,7 +154,7 @@ external-ios-beta-build:
     - staging
   when: manual
 
-external-android-beta-build:
+External Android Beta Build:
   stage: production
   tags:
     - shell
