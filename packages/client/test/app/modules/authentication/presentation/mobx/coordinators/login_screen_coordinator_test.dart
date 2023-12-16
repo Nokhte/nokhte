@@ -42,8 +42,12 @@ void main() {
   group("actions", () {
     test("screenConstructor", () {
       testStore.screenConstructor(tCoordinates);
-      verify(
-          mockWidgetsStore.constructor(tCoordinates, testStore.logTheUserIn));
+      verify(mockWidgetsStore.constructor(
+        tCoordinates,
+        testStore.logTheUserIn,
+        testStore.onConnected,
+        testStore.onDisconnected,
+      ));
     });
 
     test("logTheUserIn", () {
