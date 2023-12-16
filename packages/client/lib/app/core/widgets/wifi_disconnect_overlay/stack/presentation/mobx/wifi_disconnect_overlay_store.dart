@@ -2,7 +2,8 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/connectivity/mobx/get_on_connectivity_changed_store.dart';
-import 'package:nokhte/app/core/widgets/wifi_disconnect_overlay/stack/movies/place_wifi_dot_in_center_movie.dart';
+import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/wifi_disconnect_overlay/stack/constants/movies/wifi_ripple_movie.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'wifi_disconnect_overlay_store.g.dart';
 
@@ -17,9 +18,9 @@ abstract class _WifiDisconnectOverlayStoreBase
     required this.getOnConnectivityChanged,
   }) {
     getOnConnectivityChanged.callAndListen();
-    setMovie(PlaceWifiDotInCenterMovie.movie);
+    setMovie(WifiRippleMovie.movie);
+    onCompletedReactor();
     toggleWidgetVisibility();
-    // connectionReactor();
   }
 
   connectionReactor({
@@ -49,9 +50,14 @@ abstract class _WifiDisconnectOverlayStoreBase
     } else {
       setControl(Control.play);
       onDisconnected();
-      if (!showWidget) {
-        toggleWidgetVisibility();
-      }
     }
   }
+
+  onCompletedReactor() => reaction((p0) => movieStatus, (p0) {
+        if (p0 == MovieStatus.finished && pastControl == Control.play) {
+          if (!showWidget) {
+            toggleWidgetVisibility();
+          }
+        }
+      });
 }
