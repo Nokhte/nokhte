@@ -1,49 +1,52 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class WifiDisconnectOverlayPainter extends CustomPainter {
-  final double circleRadius,
-      circleOpacity,
-      firstArcOpacity,
-      secondArcOpacity,
-      thirdArcOpacity;
+  final OpacityAndRadius circle, firstArc, secondArc, thirdArc;
 
   WifiDisconnectOverlayPainter({
-    required this.circleRadius,
-    required this.circleOpacity,
-    required this.firstArcOpacity,
-    required this.secondArcOpacity,
-    required this.thirdArcOpacity,
+    required this.circle,
+    required this.firstArc,
+    required this.secondArc,
+    required this.thirdArc,
   });
 
-  drawArc(Canvas canvas, Size size, double radius, double opacity) {
-    final center = Offset(size.width / 2, size.height / 2);
+  drawArc(
+      Canvas canvas, Size size, double radius, double opacity, Offset center) {
     Paint arcPaint = Paint()
       ..color = Colors.white.withOpacity(opacity)
       ..strokeCap = StrokeCap.square
-      ..strokeWidth = 1
-      ..style = PaintingStyle.stroke; // Set the painting style to
-
+      ..strokeWidth = 3
+      ..style = PaintingStyle.stroke;
     canvas.drawArc(
-      Rect.fromCircle(center: center, radius: radius),
-      pi + .83, // start angle in radians (330 degrees)
-      (pi / 6) + 1, // sweep angle in radians (30 degrees)
+      Rect.fromCircle(center: center, radius: radius - 1),
+      pi + .83,
+      (pi / 6) + 1,
       false,
       arcPaint,
     );
+    Paint circlePaint = Paint()
+      ..color = Colors.white.withOpacity(opacity)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1;
+    canvas.drawCircle(center, radius, circlePaint);
+  }
+
+  drawCenterCircle(
+      Canvas canvas, Size size, double radius, double opacity, Offset center) {
+    final Paint paint = Paint()
+      ..color = Colors.white.withOpacity(circle.opacity);
+    canvas.drawCircle(center, circle.radius, paint);
   }
 
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
-    drawArc(canvas, size, 15, firstArcOpacity);
-    drawArc(canvas, size, 30, secondArcOpacity);
-    drawArc(canvas, size, 45, thirdArcOpacity);
-
-    final Paint paint = Paint()
-      ..color = Colors.white.withOpacity(circleOpacity);
-    canvas.drawCircle(center, circleRadius, paint);
+    drawArc(canvas, size, firstArc.radius, firstArc.opacity, center);
+    drawArc(canvas, size, secondArc.radius, secondArc.opacity, center);
+    drawArc(canvas, size, thirdArc.radius, thirdArc.opacity, center);
+    drawCenterCircle(canvas, size, circle.radius, circle.opacity, center);
   }
 
   @override
