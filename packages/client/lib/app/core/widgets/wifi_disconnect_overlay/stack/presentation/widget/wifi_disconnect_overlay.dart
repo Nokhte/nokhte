@@ -5,6 +5,7 @@ import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
+import 'canvas/wifi_disconnect_overlay_painter.dart';
 
 class WifiDisconnectOverlay extends StatelessWidget {
   final Widget child;
@@ -21,6 +22,7 @@ class WifiDisconnectOverlay extends StatelessWidget {
           tween: store.movie,
           duration: store.movie.duration,
           control: store.control,
+          // onCompleted: () => store.onCompleted(),
           builder: (context, value, __) => Stack(
             children: [
               Blur(
@@ -32,25 +34,39 @@ class WifiDisconnectOverlay extends StatelessWidget {
                 child: AnimatedOpacity(
                   opacity: useWidgetOpacity(store.showWidget),
                   duration: Seconds.get(0, milli: 500),
-                  child: const Text(
-                    "Reconnect to Wifi",
-                    style: TextStyle(
-                      color: Colors.white,
+                  child: const Padding(
+                    padding: EdgeInsets.only(top: 130),
+                    child: Text(
+                      "Reconnect to Wifi",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
               ),
               // infront of the blur
-              // CustomPaint(
-              //   painter: WifiDisconnectOverlayPainter(
-              //     circleRadius: value.get('circleRadius'),
-              //     circleOpacity: value.get('circleOpacity'),
-              //     firstArcOpacity: value.get('arc1Opacity'),
-              //     secondArcOpacity: value.get('arc2Opacity'),
-              //     thirdArcOpacity: value.get('arc3Opacity'),
-              //   ),
-              //   size: MediaQuery.of(context).size,
-              // )
+              CustomPaint(
+                painter: WifiDisconnectOverlayPainter(
+                  circle: OpacityAndRadius(
+                    radius: value.get('circleRadius'),
+                    opacity: value.get('circleOpacity'),
+                  ),
+                  firstArc: OpacityAndRadius(
+                    radius: value.get('arc1Radius'),
+                    opacity: value.get('arc1Opacity'),
+                  ),
+                  secondArc: OpacityAndRadius(
+                    radius: value.get('arc2Radius'),
+                    opacity: value.get('arc2Opacity'),
+                  ),
+                  thirdArc: OpacityAndRadius(
+                    radius: value.get('arc3Radius'),
+                    opacity: value.get('arc3Opacity'),
+                  ),
+                ),
+                size: MediaQuery.of(context).size,
+              )
             ],
           ),
         ),
