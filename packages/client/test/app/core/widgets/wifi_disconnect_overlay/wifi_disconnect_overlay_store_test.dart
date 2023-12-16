@@ -24,7 +24,7 @@ void main() {
     });
 
     test("movie", () {
-      expect(testStore.movie.duration, Seconds.get(3, milli: 500));
+      expect(testStore.movie.duration, Seconds.get(2));
     });
 
     test("disconnectedStopwatch", () {
