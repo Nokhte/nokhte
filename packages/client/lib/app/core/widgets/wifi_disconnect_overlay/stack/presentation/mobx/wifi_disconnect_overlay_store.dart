@@ -1,9 +1,9 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/connectivity/mobx/get_on_connectivity_changed_store.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'wifi_disconnect_overlay_store.g.dart';
@@ -19,10 +19,13 @@ abstract class _WifiDisconnectOverlayStoreBase
     required this.getOnConnectivityChanged,
   }) {
     getOnConnectivityChanged.callAndListen();
-    setMovie(WifiRippleMovie.movie);
+    setMovie(PlaceTheCircleMovie.movie);
     onCompletedReactor();
     toggleWidgetVisibility();
   }
+
+  @observable
+  Stopwatch disconnectedStopwatch = Stopwatch();
 
   @observable
   WifiDisconnectMovieModes movieMode = WifiDisconnectMovieModes.initial;
@@ -50,30 +53,44 @@ abstract class _WifiDisconnectOverlayStoreBase
     Function onDisconnected,
   ) {
     if (isConnected) {
+      disconnectedStopwatch.stop();
       if (showWidget) {
         toggleWidgetVisibility();
       }
       onConnected();
-      // initRemoveTheCircle();
-      // setControl(Control.playReverse);
+      resetRippleCount();
+      if (disconnectedStopwatch.elapsedMilliseconds.isLessThan(1000)) {
+        setControl(Control.playReverse);
+      } else {
+        initLoopMovie(theControl: Control.playReverse);
+      }
+      disconnectedStopwatch.reset();
     } else {
-      // setControl(Control.play);
+      disconnectedStopwatch.start();
       initPlaceTheCircle();
       onDisconnected();
     }
   }
 
-  initPlaceTheCircle() {
+  @action
+  initPlaceTheCircle({Control theControl = Control.playFromStart}) {
     setMovieStatus(MovieStatus.inProgress);
     setMovie(PlaceTheCircleMovie.movie);
-    setControl(Control.playFromStart);
+    setControl(theControl);
     setMovieMode(WifiDisconnectMovieModes.placeTheCircle);
   }
 
-  initLoopMovie() {
+  initLoopMovie({Control theControl = Control.playFromStart}) {
     setMovieStatus(MovieStatus.inProgress);
     setMovie(WifiRippleMovie.movie);
     setMovieMode(WifiDisconnectMovieModes.rippleLoop);
+    setControl(theControl);
+  }
+
+  initRemoveTheCircle() {
+    setMovieStatus(MovieStatus.inProgress);
+    setMovie(RemoveTheCircleMovie.movie);
+    setMovieMode(WifiDisconnectMovieModes.removeTheCircle);
     setControl(Control.playFromStart);
   }
 
@@ -88,19 +105,17 @@ abstract class _WifiDisconnectOverlayStoreBase
 
   onCompletedReactor() => reaction((p0) => movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&
-            movieMode == WifiDisconnectMovieModes.placeTheCircle) {
+            movieMode == WifiDisconnectMovieModes.placeTheCircle &&
+            pastControl == Control.playFromStart) {
           initLoopMovie();
         } else if (p0 == MovieStatus.finished &&
             movieMode == WifiDisconnectMovieModes.rippleLoop) {
-          if (rippleCount < 2) {
+          if (pastControl == Control.playReverse) {
+            initRemoveTheCircle();
+          } else if (rippleCount < 2) {
             initLoopMovie();
             incrementRippleCount();
           }
         }
-        // if (p0 == MovieStatus.finished && pastControl == Control.play) {
-        //   if (!showWidget) {
-        //     toggleWidgetVisibility();
-        //   }
-        // }
       });
 }
