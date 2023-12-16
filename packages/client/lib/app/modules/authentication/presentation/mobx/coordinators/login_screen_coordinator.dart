@@ -37,7 +37,7 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
 
   @action
   screenConstructor(Offset center) {
-    widgets.constructor(center, logTheUserIn);
+    widgets.constructor(center, logTheUserIn, onConnected, onDisconnected);
     authStateListener(authStateStore.authState);
     initReactors();
     if (kDebugMode) {
@@ -53,23 +53,25 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
       inactiveCallback: () => onInactive(),
       detachedCallback: () => null,
     );
-    widgets.wifiDisconnectOverlay.connectionReactor(
-      onConnected: () {
-        if (disableAllTouchFeedback) {
-          toggleDisableAllTouchFeedback();
-        }
-        onInactive();
-        onResumed();
-      },
-      onDisconnected: () {
-        if (!disableAllTouchFeedback) {
-          toggleDisableAllTouchFeedback();
-        }
-        if (widgets.hasNotMadeTheDot) {
-          widgets.smartTextStore.reset();
-        }
-      },
-    );
+  }
+
+  @action
+  onConnected() {
+    if (disableAllTouchFeedback) {
+      toggleDisableAllTouchFeedback();
+    }
+    onInactive();
+    onResumed();
+  }
+
+  @action
+  onDisconnected() {
+    if (!disableAllTouchFeedback) {
+      toggleDisableAllTouchFeedback();
+    }
+    if (widgets.hasNotMadeTheDot) {
+      widgets.smartTextStore.reset();
+    }
   }
 
   @action

@@ -64,6 +64,28 @@ mixin _$LoginScreenCoordinator on _LoginScreenCoordinatorBase, Store {
   }
 
   @override
+  dynamic onConnected() {
+    final _$actionInfo = _$_LoginScreenCoordinatorBaseActionController
+        .startAction(name: '_LoginScreenCoordinatorBase.onConnected');
+    try {
+      return super.onConnected();
+    } finally {
+      _$_LoginScreenCoordinatorBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onDisconnected() {
+    final _$actionInfo = _$_LoginScreenCoordinatorBaseActionController
+        .startAction(name: '_LoginScreenCoordinatorBase.onDisconnected');
+    try {
+      return super.onDisconnected();
+    } finally {
+      _$_LoginScreenCoordinatorBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic authStateListener(Stream<bool> authStateStream) {
     final _$actionInfo = _$_LoginScreenCoordinatorBaseActionController
         .startAction(name: '_LoginScreenCoordinatorBase.authStateListener');
