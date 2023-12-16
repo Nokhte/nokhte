@@ -1018,6 +1018,8 @@ class MockLoginScreenWidgetsCoordinator extends _i1.Mock
   dynamic constructor(
     _i13.Offset? center,
     Function? loginBusinessLogic,
+    Function? onConnected,
+    Function? onDisconnected,
   ) =>
       super.noSuchMethod(
         Invocation.method(
@@ -1025,6 +1027,8 @@ class MockLoginScreenWidgetsCoordinator extends _i1.Mock
           [
             center,
             loginBusinessLogic,
+            onConnected,
+            onDisconnected,
           ],
         ),
         returnValueForMissingStub: null,
