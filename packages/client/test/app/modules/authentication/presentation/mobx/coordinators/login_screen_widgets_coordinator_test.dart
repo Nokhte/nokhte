@@ -99,10 +99,10 @@ void main() {
       expect(testStore.centerScreenCoordinates, tCoordinates);
     });
 
-    test("screenConstructor", () {
+    test("connstructor", () {
       when(mockLayer2BeachWavesStore.currentStore)
           .thenAnswer((realInvocation) => OnShoreMovieStore());
-      testStore.constructor(tCoordinates, () {});
+      testStore.constructor(tCoordinates, () {}, () {}, () {});
       expect(testStore.centerScreenCoordinates, tCoordinates);
       verify(
           mockLayer1BeachWavesStore.setMovieMode(BeachWaveMovieModes.blackOut));
