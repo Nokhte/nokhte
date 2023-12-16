@@ -22,7 +22,7 @@ class WifiDisconnectOverlay extends StatelessWidget {
           tween: store.movie,
           duration: store.movie.duration,
           control: store.control,
-          // onCompleted: () => store.onCompleted(),
+          onCompleted: () => store.onCompleted(),
           builder: (context, value, __) => Stack(
             children: [
               Blur(
