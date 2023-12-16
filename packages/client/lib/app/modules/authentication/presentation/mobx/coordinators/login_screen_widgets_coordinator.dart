@@ -32,13 +32,22 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
     required this.topTrailingText,
   });
 
-  constructor(Offset center, Function loginBusinessLogic) async {
+  constructor(
+    Offset center,
+    Function loginBusinessLogic,
+    Function onConnected,
+    Function onDisconnected,
+  ) async {
     setCenterScreenCoordinates(center);
     layer1BeachWaves.setMovieMode(BeachWaveMovieModes.blackOut);
     layer2BeachWaves.currentStore.toggleWidgetVisibility();
     smartTextStore.setMessagesData(MessagesData.loginList);
     smartTextStore.startRotatingText();
     initReactors(loginBusinessLogic);
+    wifiDisconnectOverlay.connectionReactor(
+      onConnected: onConnected,
+      onDisconnected: onDisconnected,
+    );
   }
 
   @observable
