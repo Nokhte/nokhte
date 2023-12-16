@@ -45,24 +45,35 @@ class WifiDisconnectOverlay extends StatelessWidget {
                   ),
                 ),
               ),
-              // infront of the blur
               CustomPaint(
                 painter: WifiDisconnectOverlayPainter(
                   circle: OpacityAndRadius(
-                    radius: value.get('circleRadius'),
-                    opacity: value.get('circleOpacity'),
+                    radius: value.get(CircleMovieProps.circleRadius),
+                    opacity: value.get(CircleMovieProps.circleOpacity),
                   ),
                   firstArc: OpacityAndRadius(
-                    radius: value.get('arc1Radius'),
-                    opacity: value.get('arc1Opacity'),
+                    radius: value.get(CircleMovieProps.arc1Radius),
+                    opacity: value.get(CircleMovieProps.arc1Opacity),
                   ),
                   secondArc: OpacityAndRadius(
-                    radius: value.get('arc2Radius'),
-                    opacity: value.get('arc2Opacity'),
+                    radius: value.get(CircleMovieProps.arc2Radius),
+                    opacity: value.get(CircleMovieProps.arc2Opacity),
                   ),
                   thirdArc: OpacityAndRadius(
-                    radius: value.get('arc3Radius'),
-                    opacity: value.get('arc3Opacity'),
+                    radius: value.get(CircleMovieProps.arc3Radius),
+                    opacity: value.get(CircleMovieProps.arc3Opacity),
+                  ),
+                  firstCircleOutline: OpacityAndRadius(
+                    radius: value.get(CircleMovieProps.circle1Radius),
+                    opacity: value.get(CircleMovieProps.circle1Opacity),
+                  ),
+                  secondCircleOutline: OpacityAndRadius(
+                    radius: value.get(CircleMovieProps.circle2Radius),
+                    opacity: value.get(CircleMovieProps.circle2Opacity),
+                  ),
+                  thirdCircleOutline: OpacityAndRadius(
+                    radius: value.get(CircleMovieProps.circle3Radius),
+                    opacity: value.get(CircleMovieProps.circle3Opacity),
                   ),
                 ),
                 size: MediaQuery.of(context).size,
