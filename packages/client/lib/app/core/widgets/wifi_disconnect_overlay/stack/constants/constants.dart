@@ -1,2 +1,2 @@
-export 'data/data.dart';
+export './movies/movies.dart';
 export 'types/types.dart';
