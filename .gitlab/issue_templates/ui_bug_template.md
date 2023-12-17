@@ -1,6 +1,4 @@
-## Title: [Brief Description of the UI Bug]
-
-## Description
+## Description: [Brief Description Of The Bug]
 
 - Steps To Reproduce:
 
@@ -15,4 +13,4 @@
 
 - Device (Specify If It Is Simulator Or Not):
 
-- Impact On Usability: (Low, Medium, High)
+- Impact On Usability: (Low, Medium, High):
