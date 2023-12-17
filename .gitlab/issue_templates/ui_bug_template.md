@@ -9,7 +9,7 @@
 
 - Actual Behavior:
 
-- Sreenshots / Recordings:
+- Screenshots / Recordings:
 
 - Device (Specify If It Is Simulator Or Not):
 
