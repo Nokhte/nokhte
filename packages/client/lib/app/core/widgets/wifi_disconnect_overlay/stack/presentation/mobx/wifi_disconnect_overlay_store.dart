@@ -60,7 +60,7 @@ abstract class _WifiDisconnectOverlayStoreBase
       onConnected();
       resetRippleCount();
       if (disconnectedStopwatch.elapsedMilliseconds.isLessThan(1000)) {
-        setControl(Control.playReverse);
+        initPlaceTheCircle(theControl: Control.playReverse);
       } else {
         initLoopMovie(theControl: Control.playReverse);
       }
