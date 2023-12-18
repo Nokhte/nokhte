@@ -433,6 +433,63 @@
         "code": ":cd",
         "description": "deploy"
       }
+    ],
+    "better-comments.tags": [
+      {
+        "tag": "!",
+        "color": "#FF2D00",
+        "strikethrough": false,
+        "underline": true,
+        "backgroundColor": "transparent",
+        "bold": false,
+        "italic": false
+      },
+      {
+        "tag": "?",
+        "color": "#3498DB",
+        "strikethrough": false,
+        "underline": false,
+        "backgroundColor": "transparent",
+        "bold": false,
+        "italic": false
+      },
+      {
+        "tag": "todo",
+        "color": "#FF8C00",
+        "strikethrough": false,
+        "underline": false,
+        "backgroundColor": "transparent",
+        "bold": false,
+        "italic": false
+      },
+      {
+        "tag": "*",
+        "color": "#71B86A"
+      },
+      {
+        "tag": "&",
+        "color": "#FF7E7E"
+      },
+      {
+        "tag": "@",
+        "color": "#00A9B4"
+      },
+      {
+        "tag": "^^",
+        "color": "#31F3FF"
+      },
+      {
+        "tag": "%",
+        "color": "#CE7DFF"
+      },
+      {
+        "tag": "$",
+        "color": "#E3BA86"
+      },
+      {
+        "tag": "#",
+        "color": "#FFC700"
+      }
     ]
   }
 }
