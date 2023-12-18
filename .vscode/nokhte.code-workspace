@@ -74,6 +74,365 @@
     "deno.importMap": "./packages/backend/supabase/functions/import_map.json",
     "deno.enable": true,
     "deno.lint": true,
-    "deno.unstable": true
+    "deno.unstable": true,
+    "gitmoji.onlyUseCustomEmoji": true,
+    "gitmoji.showEmojiCode": true,
+    "gitmoji.addCustomEmoji": [
+      {
+        "emoji": "1️⃣",
+        "code": ":scale/line",
+        "description": "commit on the scale of a line"
+      },
+      {
+        "emoji": "2️⃣️",
+        "code": ":scale/function",
+        "description": "commit on the scale of a function"
+      },
+      {
+        "emoji": "3️⃣",
+        "code": ":scale/class",
+        "description": "commit on the scale of a function"
+      },
+      {
+        "emoji": "4️⃣",
+        "code": ":scale/file",
+        "description": "commit on the scale of a file"
+      },
+      {
+        "emoji": "5️⃣",
+        "code": ":scale/files",
+        "description": "commit on the scale of a files"
+      },
+      {
+        "emoji": "♿️",
+        "code": ":code_type/ui/accessibility",
+        "description": "code related to accessibility"
+      },
+      {
+        "emoji": "🚸",
+        "code": ":code_type/ui/ux",
+        "description": "code related to user experience"
+      },
+      {
+        "emoji": "📱",
+        "code": ":code_type/ui/responsive",
+        "description": "code related to responsive ui"
+      },
+      {
+        "emoji": "💫",
+        "code": ":code_type/ui/animation",
+        "description": "code related to animation or transition code"
+      },
+      {
+        "emoji": "💄",
+        "code": ":code_type/ui/style",
+        "description": "code related to UI styling / fills"
+      },
+      {
+        "emoji": "🤡",
+        "code": ":code_type/test_related/mocks",
+        "description": "code related to mocks"
+      },
+      {
+        "emoji": "✅",
+        "code": ":code_type/test_related/passing_test",
+        "description": "code related to passing tests"
+      },
+      {
+        "emoji": "🧪",
+        "code": ":code_type/test_related/failing_test",
+        "description": "code related to failing tests"
+      },
+      {
+        "emoji": "📈",
+        "code": ":code_type/tracking_and_experimentation/analytics",
+        "description": "code related to analytics"
+      },
+      {
+        "emoji": "⚗️",
+        "code": ":code_type/tracking_and_experimentation/experiment",
+        "description": "experimental code"
+      },
+      {
+        "emoji": "🚩",
+        "code": ":code_type/tracking_and_experimentation/feature_flag",
+        "description": "code related to feature flags"
+      },
+      {
+        "emoji": "🧑‍💻",
+        "code": ":code_type/dev_generic/dx",
+        "description": "code generally related to developer experience"
+      },
+      {
+        "emoji": "🔨",
+        "code": ":code_type/dev_specific/dev_scripts",
+        "description": "code related to developer scripts"
+      },
+      {
+        "emoji": "🌱",
+        "code": ":code_type/dev_specific/seed_files",
+        "description": "code related to seed files"
+      },
+      {
+        "emoji": "🩺",
+        "code": ":code_type/dev_specific/health_checks",
+        "description": "code related to codebase health checks"
+      },
+      {
+        "emoji": "🧵",
+        "code": ":code_type/logic/concurrency",
+        "description": "code related to multi-threading / concurrency"
+      },
+      {
+        "emoji": "🥅",
+        "code": ":code_type/logic/error_handling",
+        "description": "code related to error handling"
+      },
+      {
+        "emoji": "👽️",
+        "code": ":code_type/logic/api_dependent",
+        "description": "api dependent code "
+      },
+      {
+        "emoji": "🛂",
+        "code": ":code_type/logic/auth",
+        "description": "code related to authentication, roles & permissions"
+      },
+      {
+        "emoji": "👔",
+        "code": ":code_type/logic/business",
+        "description": "code related to business logic"
+      },
+      {
+        "emoji": "🦺",
+        "code": ":code_type/logic/validation",
+        "description": "code related to validation"
+      },
+      {
+        "emoji": "💸",
+        "code": ":code_type/qualifier/money",
+        "description": "code related to monetization"
+      },
+      {
+        "emoji": "🌐",
+        "code": ":code_type/qualifier/internationalization",
+        "description": "code related to internationalization & localization"
+      },
+      {
+        "emoji": "💬",
+        "code": ":code_type/qualifier/text_literals",
+        "description": "code related to text literals"
+      },
+      {
+        "emoji": "🗃️",
+        "code": ":code_type/qualifier/db",
+        "description": "database related code"
+      },
+      {
+        "emoji": "🧱",
+        "code": ":code_type/qualifier/infra",
+        "description": "code related to infrastructure"
+      },
+      {
+        "emoji": "🔊",
+        "code": ":code_type/qualifier/logs",
+        "description": "code related to logs"
+      },
+      {
+        "emoji": "🏷️",
+        "code": ":code_type/qualifier/types",
+        "description": "code related to types"
+      },
+      {
+        "emoji": "🥚",
+        "code": ":code_type/qualifier/easter_eggs",
+        "description": "code related to easter_eggs"
+      },
+      {
+        "emoji": "💩",
+        "code": ":code_type/qualifier/bad_code",
+        "description": "code that needs to be refactored"
+      },
+      {
+        "emoji": "🔐",
+        "code": ":code_type/qualifier/secrets",
+        "description": "add or update secrets"
+      },
+      {
+        "emoji": "🔧",
+        "code": ":code_type/qualifier/configuration",
+        "description": "add or update configuration files"
+      },
+      {
+        "emoji": "⚰️",
+        "code": ":remove/dead_code",
+        "description": "remove dead code"
+      },
+      {
+        "emoji": "🔇",
+        "code": ":remove/logs",
+        "description": "remove logs"
+      },
+      {
+        "emoji": "🗑️",
+        "code": ":remove/deprecate",
+        "description": "deprecate code to be removed later"
+      },
+      {
+        "emoji": "🔥",
+        "code": ":remove/generic",
+        "description": "generic code removal"
+      },
+      {
+        "emoji": "🐛",
+        "code": ":bug/generic",
+        "description": "generic bug fix"
+      },
+      {
+        "emoji": "🔒️",
+        "code": ":bug/security",
+        "description": "security bug fix"
+      },
+      {
+        "emoji": "✏️",
+        "code": ":bug/typo",
+        "description": "typo bug fix"
+      },
+      {
+        "emoji": "🚑️",
+        "code": ":bug/hotfix",
+        "description": "Critical Hotfix"
+      },
+      {
+        "emoji": "🩹",
+        "code": ":bug/easy_fix",
+        "description": "easy fix for a non-critical issue"
+      },
+      {
+        "emoji": "♻️",
+        "code": ":refactor_intention/generic",
+        "description": "generic refactor w/ no intention"
+      },
+      {
+        "emoji": "🎨",
+        "code": ":refactor_intention/structure",
+        "description": "refactor with the intention of improving structure / format"
+      },
+      {
+        "emoji": "🏗️",
+        "code": ":refactor_intention/architecture",
+        "description": "refactor with the intention of making architeture changes"
+      },
+      {
+        "emoji": "🚚",
+        "code": ":refactor_intention/move_or_rename",
+        "description": "refactor with the intention to rename or move resources"
+      },
+      {
+        "emoji": "🚨",
+        "code": ":refactor_intention/compiler_warning",
+        "description": "refactor with the intention to fix compiler / linter warnings"
+      },
+      {
+        "emoji": "⚡️",
+        "code": ":refactor_intention/performance",
+        "description": "refactor with the intention to improve performance"
+      },
+      {
+        "emoji": "💥",
+        "code": ":refactor_intention/breaking_change",
+        "description": "refactor with the intention to introduce a breaking change"
+      },
+      {
+        "emoji": "☯️",
+        "code": ":refactor_intention/simplify",
+        "description": "refactor with the intention to simplify"
+      },
+      {
+        "emoji": "➕",
+        "code": ":dependency/add",
+        "description": "add a dependency"
+      },
+      {
+        "emoji": "⬆️",
+        "code": ":dependency/upgrade",
+        "description": "upgrade a dependency"
+      },
+      {
+        "emoji": "➖",
+        "code": ":dependency/remove",
+        "description": "remove a dependency"
+      },
+      {
+        "emoji": "⬇️",
+        "code": ":dependency/downgrade",
+        "description": "downgrade a dependency"
+      },
+      {
+        "emoji": "📌",
+        "code": ":dependency/pin",
+        "description": "pin a dependency to a specific version"
+      },
+      {
+        "emoji": "⏪️",
+        "code": ":git/revert",
+        "description": "revert changes"
+      },
+      {
+        "emoji": "🙈",
+        "code": ":git/ignore",
+        "description": "changes related to gitignore files"
+      },
+      {
+        "emoji": "🔀",
+        "code": ":git/merge",
+        "description": "merge branches"
+      },
+      {
+        "emoji": "🔖",
+        "code": ":git/tags",
+        "description": "release / version tags"
+      },
+      {
+        "emoji": "🍱",
+        "code": ":code_adjacent/assets",
+        "description": "add or update assets"
+      },
+      {
+        "emoji": "👥",
+        "code": ":code_adjacent/contributors",
+        "description": "add or update contributors"
+      },
+      {
+        "emoji": "📸",
+        "code": ":code_adjacent/snapshots",
+        "description": "add or update snapshots"
+      },
+      {
+        "emoji": "📄",
+        "code": ":code_adjacent/license",
+        "description": "add or update license"
+      },
+      {
+        "emoji": "📝",
+        "code": ":code_adjacent/docs",
+        "description": "add or update documentation"
+      },
+      {
+        "emoji": "💡",
+        "code": ":code_adjacent/comments",
+        "description": "add or update comments in source code"
+      },
+      {
+        "emoji": "👷",
+        "code": ":ci",
+        "description": "add or update CI pipelines"
+      },
+      {
+        "emoji": "🚀",
+        "code": ":cd",
+        "description": "deploy"
+      }
+    ]
   }
 }
