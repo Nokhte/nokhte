@@ -3,3 +3,4 @@
 melos_nokhte_core.iml
 build/**
 .DS_Store
+pubspec.lock
