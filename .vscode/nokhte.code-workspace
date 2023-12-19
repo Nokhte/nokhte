@@ -26,11 +26,11 @@
     },
     {
       "name": "🟦 working widget",
-      "path": "../packages/client/lib/app/core/widgets/wifi_disconnect_overlay"
+      "path": "../packages/client/lib/app/core/widgets/gesture_cross"
     },
     {
       "name": "🟦 working module",
-      "path": "../packages/client/lib/app/modules/authentication"
+      "path": "../packages/client/lib/app/modules/home"
     },
     {
       "name": "🟦 client root",
