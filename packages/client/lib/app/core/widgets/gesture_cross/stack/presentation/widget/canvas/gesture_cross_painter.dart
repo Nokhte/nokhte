@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nokhte/app/core/widgets/gesture_cross/stack/types/colors_and_stops.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class GestureCrossPainter extends CustomPainter {
