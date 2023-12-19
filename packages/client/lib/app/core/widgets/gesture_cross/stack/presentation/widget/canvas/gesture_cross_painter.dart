@@ -1,71 +1,74 @@
 import 'package:flutter/material.dart';
+import 'package:nokhte/app/core/widgets/gesture_cross/stack/types/colors_and_stops.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class GestureCrossPainter extends CustomPainter {
   Path path;
-  double centerCircleAnimationConstant;
-  double centerCircleOpacity;
   Rect pathBounds;
   late double height;
   late double width;
   late Paint myPaint;
-  Color firstGradientColor;
-  List<Color> upperCircleLinearGradient;
-  Color secondGradientColor;
+  ColorsAndStops crossGradient;
+  List<CircleInformation> circleInformation;
 
   GestureCrossPainter(
     this.path,
     Size size,
     this.pathBounds, {
-    required this.firstGradientColor,
-    required this.centerCircleOpacity,
-    required this.secondGradientColor,
-    required this.centerCircleAnimationConstant,
-    required this.upperCircleLinearGradient,
-  }) {
+    required this.circleInformation,
+    required this.crossGradient,
+  });
+
+  paintCross(Canvas canvas, Size size) {
     height = pathBounds.height;
     width = pathBounds.width;
-    myPaint = Paint()
+
+    final crossPaint = Paint()
       ..shader = RadialGradient(
-          radius: 1,
-          center: Alignment(
-            0.0,
-            1.0 - ((height * .3) / height),
-          ),
-          colors: [
-            firstGradientColor,
-            secondGradientColor,
-          ],
-          stops: const [
-            -.5,
-            2,
-          ]).createShader(
+        radius: 1.4,
+        colors: crossGradient.colors,
+        stops: crossGradient.stops,
+      ).createShader(
         pathBounds,
       );
+    canvas.drawPath(path, crossPaint);
+  }
+
+  paintCircles(
+    Canvas canvas,
+    Size size,
+    Offset center,
+    double radius,
+    List<CircleInformation> circleInformation,
+  ) {
+    Paint circlePaint = Paint();
+    for (final individualCircle in circleInformation) {
+      individualCircle.colorOrGradient.fold((color) {
+        circlePaint = Paint()
+          ..color = color
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1;
+      }, (gradient) {
+        circlePaint = Paint()
+          ..shader = LinearGradient(
+            begin: individualCircle.startingAlignment,
+            end: individualCircle.endingAlignment,
+            colors: gradient.colors,
+            stops: gradient.stops,
+          ).createShader(pathBounds);
+      });
+      final circleY = (height) - individualCircle.offset.dy;
+      final circleX = (center.dx) - individualCircle.offset.dx;
+      canvas.drawCircle(Offset(circleX, circleY), radius, circlePaint);
+    }
   }
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.drawPath(path, myPaint);
-    const circleRadius = 6.0;
-    final lowerCirclePaint = Paint()
-      ..color = Colors.white.withOpacity(centerCircleOpacity);
-    final centerX = width / 2;
-    final lowerCircleCenterY =
-        (height - circleRadius * 2) - centerCircleAnimationConstant;
-    final higherCircleCenterY = (height - circleRadius * 2) - 27;
-    final higherCircleRect = Rect.fromCircle(
-        center: Offset(centerX, higherCircleCenterY), radius: circleRadius);
-    final upperCirclePaint = Paint()
-      ..shader = LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: upperCircleLinearGradient,
-      ).createShader(higherCircleRect);
-
-    canvas.drawCircle(
-        Offset(centerX, lowerCircleCenterY), circleRadius, lowerCirclePaint);
-    canvas.drawCircle(
-        Offset(centerX, higherCircleCenterY), circleRadius, upperCirclePaint);
+    paintCross(canvas, size);
+    final center = Offset(width / 2, height / 2);
+    const radius = 4.5;
+    paintCircles(canvas, size, center, radius, circleInformation);
   }
 
   @override
