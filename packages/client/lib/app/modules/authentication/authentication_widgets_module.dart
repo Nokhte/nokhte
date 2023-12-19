@@ -1,6 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:nokhte/app/core/widgets/module.dart';
-import 'package:nokhte/app/core/widgets/widget_modules/wifi_disconnect_overlay_module.dart';
+import 'package:nokhte/app/core/widgets/modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/authentication/presentation/presentation.dart';
 
