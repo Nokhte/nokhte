@@ -1,8 +1,8 @@
 name: nokhte
 
 packages:
+  - packages/backend
   - packages/client
-  - packages/backend/dart
   - packages/core
 
 command:
