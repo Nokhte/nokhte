@@ -1,7 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/widgets/modules.dart';
-import 'package:nokhte/app/core/widgets/shared/constants/svg_animation_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/data/contracts/home_contract_impl.dart';
 import 'package:nokhte/app/modules/home/data/sources/home_remote_source.dart';
@@ -9,13 +8,13 @@ import 'package:nokhte/app/modules/home/domain/logic/logic.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 import 'package:nokhte/app/modules/home/presentation/screens/home_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'home_widgets_module.dart';
 
 class HomeModule extends Module {
   @override
   List<Module> get imports => [
-        BeachWavesModule(),
         GesturesModule(),
-        WifiDisconnectOverlayModule(),
+        HomeWidgetsModule(),
       ];
   @override
   binds(i) {
@@ -60,22 +59,13 @@ class HomeModule extends Module {
         logic: i<GetCollaboratorPhrase>(),
       ),
     );
-    i.addSingleton<SmartTextStore>(
-      () => SmartTextStore(),
-    );
-    i.addSingleton<GesturePillStore>(
-      () => GesturePillStore(endingPath: SvgAnimtionConstants.circlePath),
-    );
     i.addSingleton<HomeScreenCoordinatorStore>(
       () => HomeScreenCoordinatorStore(
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        beachWaves: Modular.get<BeachWavesStore>(),
+        widgets: Modular.get<HomeScreenWidgetsCoordinator>(),
         getExistingCollaborationInfo: i<GetExistingCollaborationsInfoStore>(),
         hold: Modular.get<HoldDetector>(),
         swipe: Modular.get<SwipeDetector>(),
-        gesturePillStore: i<GesturePillStore>(),
         addNameToDatabaseStore: i<AddNameToDatabaseStore>(),
-        smartText: i<SmartTextStore>(),
         getCollaboratorPhraseStore: i<GetCollaboratorPhraseStore>(),
       ),
     );
