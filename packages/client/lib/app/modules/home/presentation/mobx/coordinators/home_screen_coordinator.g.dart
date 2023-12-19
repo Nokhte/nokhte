@@ -27,22 +27,6 @@ mixin _$HomeScreenCoordinatorStore on _HomeScreenCoordinatorStoreBase, Store {
     });
   }
 
-  late final _$isNavigatingAtom = Atom(
-      name: '_HomeScreenCoordinatorStoreBase.isNavigating', context: context);
-
-  @override
-  bool get isNavigating {
-    _$isNavigatingAtom.reportRead();
-    return super.isNavigating;
-  }
-
-  @override
-  set isNavigating(bool value) {
-    _$isNavigatingAtom.reportWrite(value, super.isNavigating, () {
-      super.isNavigating = value;
-    });
-  }
-
   late final _$homeScreenConstructorCallbackAsyncAction = AsyncAction(
       '_HomeScreenCoordinatorStoreBase.homeScreenConstructorCallback',
       context: context);
@@ -53,52 +37,10 @@ mixin _$HomeScreenCoordinatorStore on _HomeScreenCoordinatorStoreBase, Store {
         .run(() => super.homeScreenConstructorCallback());
   }
 
-  late final _$_HomeScreenCoordinatorStoreBaseActionController =
-      ActionController(
-          name: '_HomeScreenCoordinatorStoreBase', context: context);
-
-  @override
-  dynamic toggleIsNavigating() {
-    final _$actionInfo =
-        _$_HomeScreenCoordinatorStoreBaseActionController.startAction(
-            name: '_HomeScreenCoordinatorStoreBase.toggleIsNavigating');
-    try {
-      return super.toggleIsNavigating();
-    } finally {
-      _$_HomeScreenCoordinatorStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic gestureListener() {
-    final _$actionInfo = _$_HomeScreenCoordinatorStoreBaseActionController
-        .startAction(name: '_HomeScreenCoordinatorStoreBase.gestureListener');
-    try {
-      return super.gestureListener();
-    } finally {
-      _$_HomeScreenCoordinatorStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic fadeTheTextOutAndWaterComesDown(
-      PlacesYouCanGo thePlaceTheyAreGoingParam) {
-    final _$actionInfo =
-        _$_HomeScreenCoordinatorStoreBaseActionController.startAction(
-            name:
-                '_HomeScreenCoordinatorStoreBase.fadeTheTextOutAndWaterComesDown');
-    try {
-      return super.fadeTheTextOutAndWaterComesDown(thePlaceTheyAreGoingParam);
-    } finally {
-      _$_HomeScreenCoordinatorStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
   @override
   String toString() {
     return '''
-thePlaceTheyAreGoing: ${thePlaceTheyAreGoing},
-isNavigating: ${isNavigating}
+thePlaceTheyAreGoing: ${thePlaceTheyAreGoing}
     ''';
   }
 }
