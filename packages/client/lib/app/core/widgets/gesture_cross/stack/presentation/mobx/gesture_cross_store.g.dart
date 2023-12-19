@@ -78,17 +78,6 @@ mixin _$GestureCrossStore on _GestureCrossStoreBase, Store {
   }
 
   @override
-  dynamic animationRenderingCallback(int i, Offset z) {
-    final _$actionInfo = _$_GestureCrossStoreBaseActionController.startAction(
-        name: '_GestureCrossStoreBase.animationRenderingCallback');
-    try {
-      return super.animationRenderingCallback(i, z);
-    } finally {
-      _$_GestureCrossStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic onAnimationCompleted() {
     final _$actionInfo = _$_GestureCrossStoreBaseActionController.startAction(
         name: '_GestureCrossStoreBase.onAnimationCompleted');
