@@ -30,20 +30,15 @@ class HomeScreen extends HookWidget {
                 child: Swipe(
                   trackerStore: coordinator.swipe,
                   child: WifiDisconnectOverlay(
-                    store: coordinator.wifiDisconnectOverlay,
+                    store: coordinator.widgets.wifiDisconnectOverlay,
                     child: Stack(
                       children: [
                         SizedBox(
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height,
                             child: BeachWaves(
-                              store: coordinator.beachWaves,
+                              store: coordinator.widgets.beachWaves,
                             )),
-                        // Center(
-                        //   child: SmartText(
-                        //     store: coordinator.smartText,
-                        //   ),
-                        // ),
                         Column(
                           children: [
                             Expanded(
@@ -52,11 +47,11 @@ class HomeScreen extends HookWidget {
                             Stack(
                               alignment: Alignment.bottomCenter,
                               children: [
-                                GesturePill(
+                                GestureCross(
                                   size: size,
                                   stateTrackerStore:
-                                      coordinator.gesturePillStore,
-                                ),
+                                      coordinator.widgets.gestureCross,
+                                )
                               ],
                             ),
                             const Padding(
