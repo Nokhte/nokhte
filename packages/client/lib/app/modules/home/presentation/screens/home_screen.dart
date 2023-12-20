@@ -46,6 +46,10 @@ class HomeScreen extends HookWidget {
                             store: coordinator.widgets.nokhteBlur,
                           ),
                         ),
+                        Center(
+                            child: SmartText(
+                          store: coordinator.widgets.smartText,
+                        )),
                         Column(
                           children: [
                             Expanded(
