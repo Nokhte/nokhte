@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:nokhte/app/core/widgets/nokhte_blur/stack/presentation/presentation.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 
@@ -13,14 +12,14 @@ void main() {
   late MockGestureCrossStore gestureCross;
   late MockSmartTextStore smartText;
   late HomeScreenWidgetsCoordinator testStore;
-  late NokhteBlurStore nokhteBlurStore;
+  late MockNokhteBlurStore nokhteBlurStore;
 
   setUp(() {
     spotlightHalo = MockSpotlightHaloStore();
     beachWaves = MockBeachWavesStore();
     wifiDisconnectOverlay = MockWifiDisconnectOverlayStore();
     gestureCross = MockGestureCrossStore();
-    nokhteBlurStore = NokhteBlurStore();
+    nokhteBlurStore = MockNokhteBlurStore();
     smartText = MockSmartTextStore();
 
     testStore = HomeScreenWidgetsCoordinator(
@@ -36,6 +35,9 @@ void main() {
   group("actions", () {
     test("constructor", () async {
       await testStore.constructor();
+      verify(smartText.setMessagesData(MessagesData.firstTimeHomeList));
+      verify(smartText.startRotatingText());
+      verify(nokhteBlurStore.init());
       verify(beachWaves.setMovieMode(BeachWaveMovieModes.onShore));
       verify(wifiDisconnectOverlay.connectionReactor(
         onConnected: testStore.onConnected,
