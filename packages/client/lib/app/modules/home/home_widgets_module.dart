@@ -18,6 +18,9 @@ class HomeWidgetsModule extends Module {
     i.addSingleton<GestureCrossStore>(
       () => GestureCrossStore(),
     );
+    i.addSingleton<SpotlightHaloStore>(
+      () => SpotlightHaloStore(),
+    );
     i.addSingleton<HomeScreenWidgetsCoordinator>(
       () => HomeScreenWidgetsCoordinator(
         smartText: i<SmartTextStore>(),
