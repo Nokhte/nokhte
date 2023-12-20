@@ -6,7 +6,4 @@ part 'spotlight_halo_store.g.dart';
 class SpotlightHaloStore = _SpotlightHaloStoreBase with _$SpotlightHaloStore;
 
 abstract class _SpotlightHaloStoreBase extends BaseCustomAnimatedWidgetStore
-    with Store {
-  @override
-  List<Object> get props => [];
-}
+    with Store {}
