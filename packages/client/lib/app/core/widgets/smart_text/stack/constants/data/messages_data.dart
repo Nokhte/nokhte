@@ -26,4 +26,18 @@ class MessagesData {
           onScreenTime: Seconds.get(2),
         ),
       ];
+  static List<RotatingTextData> get firstTimeHomeList => [
+        RotatingTextData(
+          initialFadeInDelay: Seconds.get(1),
+          mainMessage: "If you're ever confused, Tap on the cross",
+          onScreenTime: Seconds.get(2),
+          pauseHere: true,
+          unlockGesture: Gestures.tap,
+        ),
+        RotatingTextData(
+          initialFadeInDelay: Seconds.get(1),
+          mainMessage: "Symmetry is the foundation of Collaboration",
+          onScreenTime: Seconds.get(2),
+        ),
+      ];
 }
