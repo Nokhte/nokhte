@@ -4,16 +4,14 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/main/main.dart';
-import 'package:nokhte/app/modules/home/types/types.dart';
 import 'home_screen_widgets_coordinator.dart';
 
 part 'home_screen_coordinator.g.dart';
 
-class HomeScreenCoordinatorStore = _HomeScreenCoordinatorStoreBase
-    with _$HomeScreenCoordinatorStore;
+class HomeScreenCoordinator = _HomeScreenCoordinatorBase
+    with _$HomeScreenCoordinator;
 
-abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
-    with Store {
+abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
   final HomeScreenWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final HoldDetector hold;
@@ -21,7 +19,7 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
   final AddNameToDatabaseStore addNameToDatabaseStore;
   final GetCollaboratorPhraseStore getCollaboratorPhraseStore;
 
-  _HomeScreenCoordinatorStoreBase({
+  _HomeScreenCoordinatorBase({
     required this.widgets,
     required this.getExistingCollaborationInfo,
     required this.swipe,
@@ -29,9 +27,6 @@ abstract class _HomeScreenCoordinatorStoreBase extends BaseCoordinator
     required this.addNameToDatabaseStore,
     required this.getCollaboratorPhraseStore,
   });
-
-  @observable
-  PlacesYouCanGo thePlaceTheyAreGoing = PlacesYouCanGo.initial;
 
   @action
   homeScreenConstructorCallback() async {

@@ -6,7 +6,7 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/home_screen_coordinator.dart';
 
 class HomeScreen extends HookWidget {
-  final HomeScreenCoordinatorStore coordinator;
+  final HomeScreenCoordinator coordinator;
   const HomeScreen({
     super.key,
     required this.coordinator,
