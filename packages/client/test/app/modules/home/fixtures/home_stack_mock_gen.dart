@@ -5,13 +5,15 @@ import 'package:nokhte/app/modules/home/domain/contracts/home_contract.dart';
 import 'package:nokhte/app/modules/home/domain/logic/logic.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 
-@GenerateMocks([
-  HomeRemoteSourceImpl,
-  HomeContract,
-  HomeRemoteSource,
-  GetCollaboratorPhrase,
-  AddNameToDatabase,
-  AddNameToDatabaseStore,
-  GetCollaboratorPhraseStore,
+@GenerateNiceMocks([
+  MockSpec<HomeRemoteSourceImpl>(),
+  MockSpec<HomeContract>(),
+  MockSpec<HomeRemoteSource>(),
+  MockSpec<GetCollaboratorPhrase>(),
+  MockSpec<AddNameToDatabase>(),
+  MockSpec<AddNameToDatabaseStore>(),
+  MockSpec<GetExistingCollaborationsInfoStore>(),
+  MockSpec<GetCollaboratorPhraseStore>(),
+  MockSpec<HomeScreenWidgetsCoordinator>(),
 ])
 void main() {}
