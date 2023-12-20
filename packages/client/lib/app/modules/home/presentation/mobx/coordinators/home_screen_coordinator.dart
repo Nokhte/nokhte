@@ -29,7 +29,7 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
   });
 
   @action
-  homeScreenConstructorCallback() async {
+  constructor() async {
     widgets.constructor();
     await getExistingCollaborationInfo(NoParams());
     await addNameToDatabaseStore(NoParams());

@@ -16,7 +16,7 @@ class HomeScreen extends HookWidget {
   Widget build(BuildContext context) {
     final size = useSquareSize(relativeLength: .20);
     useEffect(() {
-      coordinator.homeScreenConstructorCallback();
+      coordinator.constructor();
       return null;
     }, []);
     return Builder(builder: (context) {
