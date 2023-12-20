@@ -15,9 +15,12 @@ class NokhteBlur extends StatelessWidget {
   Widget build(BuildContext context) => Observer(
         builder: (context) => CustomAnimationBuilder(
           tween: store.movie,
+          control: store.control,
           duration: store.movie.duration,
+          onCompleted: store.onCompleted(),
           builder: (context, value, child) {
             return Blur(
+              colorOpacity: 0.0,
               blur: value.get('blur'),
               child: Container(),
             );
