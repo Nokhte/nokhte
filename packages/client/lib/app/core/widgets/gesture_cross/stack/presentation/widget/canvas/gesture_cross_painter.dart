@@ -12,8 +12,8 @@ class GestureCrossPainter extends CustomPainter {
 
   GestureCrossPainter(
     this.path,
-    Size size,
-    this.pathBounds, {
+    this.pathBounds,
+    Size size, {
     required this.circleInformation,
     required this.crossGradient,
   });
@@ -40,8 +40,13 @@ class GestureCrossPainter extends CustomPainter {
     double radius,
     List<CircleInformation> circleInformation,
   ) {
-    Paint circlePaint = Paint();
     for (final individualCircle in circleInformation) {
+      Paint circlePaint = Paint();
+      final circleY = (height) - individualCircle.offset.dy;
+      final circleX = (center.dx) - individualCircle.offset.dx;
+      final circleCenter = Offset(circleX, circleY);
+      final Rect circleBounds =
+          Rect.fromCircle(center: circleCenter, radius: radius);
       individualCircle.colorOrGradient.fold((color) {
         circlePaint = Paint()
           ..color = color
@@ -54,10 +59,8 @@ class GestureCrossPainter extends CustomPainter {
             end: individualCircle.endingAlignment,
             colors: gradient.colors,
             stops: gradient.stops,
-          ).createShader(pathBounds);
+          ).createShader(circleBounds);
       });
-      final circleY = (height) - individualCircle.offset.dy;
-      final circleX = (center.dx) - individualCircle.offset.dx;
       canvas.drawCircle(Offset(circleX, circleY), radius, circlePaint);
     }
   }
