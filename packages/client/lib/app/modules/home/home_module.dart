@@ -59,8 +59,8 @@ class HomeModule extends Module {
         logic: i<GetCollaboratorPhrase>(),
       ),
     );
-    i.addSingleton<HomeScreenCoordinatorStore>(
-      () => HomeScreenCoordinatorStore(
+    i.addSingleton<HomeScreenCoordinator>(
+      () => HomeScreenCoordinator(
         widgets: Modular.get<HomeScreenWidgetsCoordinator>(),
         getExistingCollaborationInfo: i<GetExistingCollaborationsInfoStore>(),
         hold: Modular.get<HoldDetector>(),
