@@ -44,6 +44,11 @@ class HomeScreen extends HookWidget {
                             Expanded(
                               child: Container(),
                             ),
+                            Center(
+                              child: SpotlightHalo(
+                                store: coordinator.widgets.spotlightHalo,
+                              ),
+                            ),
                             Stack(
                               alignment: Alignment.bottomCenter,
                               children: [
