@@ -39,12 +39,24 @@ class HomeScreen extends HookWidget {
                             child: BeachWaves(
                               store: coordinator.widgets.beachWaves,
                             )),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height,
-                          child: SpotlightHalo(
-                            store: coordinator.widgets.spotlightHalo,
-                          ),
+                        Column(
+                          children: [
+                            Expanded(
+                              child: Container(),
+                            ),
+                            SizedBox(
+                              width: size.width,
+                              height: size.height,
+                              child: SpotlightHalo(
+                                store: coordinator.widgets.spotlightHalo,
+                              ),
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.only(
+                                bottom: 24,
+                              ),
+                            ),
+                          ],
                         ),
                         Column(
                           children: [
