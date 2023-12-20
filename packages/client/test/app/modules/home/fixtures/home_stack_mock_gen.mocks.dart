@@ -211,9 +211,20 @@ class _FakeSpotlightHaloStore_14 extends _i1.SmartFake
         );
 }
 
-class _FakeBeachWavesStore_15 extends _i1.SmartFake
+class _FakeNokhteBlurStore_15 extends _i1.SmartFake
+    implements _i13.NokhteBlurStore {
+  _FakeNokhteBlurStore_15(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeBeachWavesStore_16 extends _i1.SmartFake
     implements _i13.BeachWavesStore {
-  _FakeBeachWavesStore_15(
+  _FakeBeachWavesStore_16(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -222,9 +233,9 @@ class _FakeBeachWavesStore_15 extends _i1.SmartFake
         );
 }
 
-class _FakeWifiDisconnectOverlayStore_16 extends _i1.SmartFake
+class _FakeWifiDisconnectOverlayStore_17 extends _i1.SmartFake
     implements _i13.WifiDisconnectOverlayStore {
-  _FakeWifiDisconnectOverlayStore_16(
+  _FakeWifiDisconnectOverlayStore_17(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -233,9 +244,9 @@ class _FakeWifiDisconnectOverlayStore_16 extends _i1.SmartFake
         );
 }
 
-class _FakeGestureCrossStore_17 extends _i1.SmartFake
+class _FakeGestureCrossStore_18 extends _i1.SmartFake
     implements _i13.GestureCrossStore {
-  _FakeGestureCrossStore_17(
+  _FakeGestureCrossStore_18(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -244,9 +255,9 @@ class _FakeGestureCrossStore_17 extends _i1.SmartFake
         );
 }
 
-class _FakeSmartTextStore_18 extends _i1.SmartFake
+class _FakeSmartTextStore_19 extends _i1.SmartFake
     implements _i13.SmartTextStore {
-  _FakeSmartTextStore_18(
+  _FakeSmartTextStore_19(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -1226,13 +1237,26 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
       ) as _i13.SpotlightHaloStore);
 
   @override
+  _i13.NokhteBlurStore get nokhteBlur => (super.noSuchMethod(
+        Invocation.getter(#nokhteBlur),
+        returnValue: _FakeNokhteBlurStore_15(
+          this,
+          Invocation.getter(#nokhteBlur),
+        ),
+        returnValueForMissingStub: _FakeNokhteBlurStore_15(
+          this,
+          Invocation.getter(#nokhteBlur),
+        ),
+      ) as _i13.NokhteBlurStore);
+
+  @override
   _i13.BeachWavesStore get beachWaves => (super.noSuchMethod(
         Invocation.getter(#beachWaves),
-        returnValue: _FakeBeachWavesStore_15(
+        returnValue: _FakeBeachWavesStore_16(
           this,
           Invocation.getter(#beachWaves),
         ),
-        returnValueForMissingStub: _FakeBeachWavesStore_15(
+        returnValueForMissingStub: _FakeBeachWavesStore_16(
           this,
           Invocation.getter(#beachWaves),
         ),
@@ -1242,11 +1266,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   _i13.WifiDisconnectOverlayStore get wifiDisconnectOverlay =>
       (super.noSuchMethod(
         Invocation.getter(#wifiDisconnectOverlay),
-        returnValue: _FakeWifiDisconnectOverlayStore_16(
+        returnValue: _FakeWifiDisconnectOverlayStore_17(
           this,
           Invocation.getter(#wifiDisconnectOverlay),
         ),
-        returnValueForMissingStub: _FakeWifiDisconnectOverlayStore_16(
+        returnValueForMissingStub: _FakeWifiDisconnectOverlayStore_17(
           this,
           Invocation.getter(#wifiDisconnectOverlay),
         ),
@@ -1255,11 +1279,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i13.GestureCrossStore get gestureCross => (super.noSuchMethod(
         Invocation.getter(#gestureCross),
-        returnValue: _FakeGestureCrossStore_17(
+        returnValue: _FakeGestureCrossStore_18(
           this,
           Invocation.getter(#gestureCross),
         ),
-        returnValueForMissingStub: _FakeGestureCrossStore_17(
+        returnValueForMissingStub: _FakeGestureCrossStore_18(
           this,
           Invocation.getter(#gestureCross),
         ),
@@ -1268,11 +1292,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i13.SmartTextStore get smartText => (super.noSuchMethod(
         Invocation.getter(#smartText),
-        returnValue: _FakeSmartTextStore_18(
+        returnValue: _FakeSmartTextStore_19(
           this,
           Invocation.getter(#smartText),
         ),
-        returnValueForMissingStub: _FakeSmartTextStore_18(
+        returnValueForMissingStub: _FakeSmartTextStore_19(
           this,
           Invocation.getter(#smartText),
         ),
