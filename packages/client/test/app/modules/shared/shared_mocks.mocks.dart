@@ -1184,13 +1184,6 @@ class MockGestureCrossStore extends _i1.Mock implements _i5.GestureCrossStore {
 class MockSpotlightHaloStore extends _i1.Mock
     implements _i5.SpotlightHaloStore {
   @override
-  List<Object> get props => (super.noSuchMethod(
-        Invocation.getter(#props),
-        returnValue: <Object>[],
-        returnValueForMissingStub: <Object>[],
-      ) as List<Object>);
-
-  @override
   bool get callsOnCompleteTwice => (super.noSuchMethod(
         Invocation.getter(#callsOnCompleteTwice),
         returnValue: false,
@@ -1282,6 +1275,13 @@ class MockSpotlightHaloStore extends _i1.Mock
         ),
         returnValueForMissingStub: null,
       );
+
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+        returnValueForMissingStub: <Object>[],
+      ) as List<Object>);
 
   @override
   _i4.ReactiveContext get context => (super.noSuchMethod(
