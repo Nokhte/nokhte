@@ -13,7 +13,7 @@ class CircleInformation extends Equatable {
     required this.colorOrGradient,
     required this.offset,
     this.startingAlignment = Alignment.topCenter,
-    this.endingAlignment = Alignment.topCenter,
+    this.endingAlignment = Alignment.bottomCenter,
   });
   @override
   List<Object> get props => [colorOrGradient, offset];
