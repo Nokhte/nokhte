@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:nokhte/app/core/widgets/nokhte_blur/stack/presentation/presentation.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 
@@ -12,14 +13,18 @@ void main() {
   late MockGestureCrossStore gestureCross;
   late MockSmartTextStore smartText;
   late HomeScreenWidgetsCoordinator testStore;
+  late NokhteBlurStore nokhteBlurStore;
 
   setUp(() {
     spotlightHalo = MockSpotlightHaloStore();
     beachWaves = MockBeachWavesStore();
     wifiDisconnectOverlay = MockWifiDisconnectOverlayStore();
     gestureCross = MockGestureCrossStore();
+    nokhteBlurStore = NokhteBlurStore();
     smartText = MockSmartTextStore();
+
     testStore = HomeScreenWidgetsCoordinator(
+      nokhteBlur: nokhteBlurStore,
       spotlightHalo: spotlightHalo,
       beachWaves: beachWaves,
       wifiDisconnectOverlay: wifiDisconnectOverlay,
