@@ -49,8 +49,7 @@ class HomeScreen extends HookWidget {
                               children: [
                                 GestureCross(
                                   size: size,
-                                  stateTrackerStore:
-                                      coordinator.widgets.gestureCross,
+                                  store: coordinator.widgets.gestureCross,
                                 )
                               ],
                             ),
