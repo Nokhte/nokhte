@@ -4,7 +4,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:simple_animations/simple_animations.dart';
 
 import 'canvas/spotlight_halo_painter.dart';
 
@@ -18,14 +17,11 @@ class SpotlightHalo extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (context) => CustomAnimationBuilder(
-        tween: store.movie,
-        duration: store.movie.duration,
-        control: store.control,
-        onCompleted: store.onCompleted(),
-        builder: (context, value, child) => AnimatedOpacity(
-          opacity: useWidgetOpacity(store.showWidget),
-          duration: Seconds.get(1),
+      builder: (context) => AnimatedOpacity(
+        opacity: useWidgetOpacity(store.showWidget),
+        duration: Seconds.get(1),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 11.5),
           child: CustomPaint(
             painter: SpotlightHaloPainter(),
           ),
