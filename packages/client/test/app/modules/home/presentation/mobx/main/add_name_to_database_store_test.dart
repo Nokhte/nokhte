@@ -9,11 +9,11 @@ import '../../../constants/entities/entities.dart';
 import '../../../fixtures/home_stack_mock_gen.mocks.dart';
 
 void main() {
-  late MockMAddNameToDatabase mockGetterStore;
+  late MockAddNameToDatabase mockGetterStore;
   late AddNameToDatabaseStore addNameToDatabaseStore;
 
   setUp(() {
-    mockGetterStore = MockMAddNameToDatabase();
+    mockGetterStore = MockAddNameToDatabase();
     addNameToDatabaseStore = AddNameToDatabaseStore(
       logic: mockGetterStore,
     );

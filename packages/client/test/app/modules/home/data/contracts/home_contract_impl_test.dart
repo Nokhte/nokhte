@@ -12,11 +12,11 @@ import 'package:dartz/dartz.dart';
 
 void main() {
   late HomeContractImpl homeContract;
-  late MockMRemoteSource mockRemoteSource;
+  late MockHomeRemoteSource mockRemoteSource;
   late MockMNetworkInfo mockNetworkInfo;
 
   setUp(() {
-    mockRemoteSource = MockMRemoteSource();
+    mockRemoteSource = MockHomeRemoteSource();
     mockNetworkInfo = MockMNetworkInfo();
     homeContract = HomeContractImpl(
       remoteSource: mockRemoteSource,

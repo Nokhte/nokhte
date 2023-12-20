@@ -9,11 +9,11 @@ import '../../../constants/entities/entities.dart';
 import '../../../fixtures/home_stack_mock_gen.mocks.dart';
 
 void main() {
-  late MockMGetCollaboratorPhrase mockLogic;
+  late MockGetCollaboratorPhrase mockLogic;
   late GetCollaboratorPhraseStore getCollaboratorPhraseStore;
 
   setUp(() {
-    mockLogic = MockMGetCollaboratorPhrase();
+    mockLogic = MockGetCollaboratorPhrase();
     getCollaboratorPhraseStore = GetCollaboratorPhraseStore(
       logic: mockLogic,
     );

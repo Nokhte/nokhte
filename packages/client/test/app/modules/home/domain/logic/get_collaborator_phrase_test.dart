@@ -9,11 +9,11 @@ import '../../constants/entities/entities.dart';
 import '../../fixtures/home_stack_mock_gen.mocks.dart';
 
 void main() {
-  late MockMHomeContract mockContract;
+  late MockHomeContract mockContract;
   late GetCollaboratorPhrase logic;
 
   setUp(() {
-    mockContract = MockMHomeContract();
+    mockContract = MockHomeContract();
     logic = GetCollaboratorPhrase(contract: mockContract);
   });
 
