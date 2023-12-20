@@ -26,11 +26,11 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   @action
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
+    spotlightHalo.toggleWidgetVisibility();
     wifiDisconnectOverlay.connectionReactor(
       onConnected: onConnected,
       onDisconnected: onDisconnected,
     );
-    //
   }
 
   onConnected() => null;
