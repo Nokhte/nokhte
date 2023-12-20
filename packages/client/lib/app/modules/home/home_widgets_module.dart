@@ -23,7 +23,7 @@ class HomeWidgetsModule extends Module {
     );
     i.addSingleton<HomeScreenWidgetsCoordinator>(
       () => HomeScreenWidgetsCoordinator(
-        spotlightHaloStore: i<SpotlightHaloStore>(),
+        spotlightHalo: i<SpotlightHaloStore>(),
         smartText: i<SmartTextStore>(),
         wifiDisconnectOverlay: i<WifiDisconnectOverlayStore>(),
         gestureCross: i<GestureCrossStore>(),
