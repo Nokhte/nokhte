@@ -27,6 +27,9 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
 
   @action
   constructor() {
+    smartText.setMessagesData(MessagesData.firstTimeHomeList);
+    smartText.startRotatingText();
+    nokhteBlur.init();
     beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
     spotlightHalo.toggleWidgetVisibility();
     wifiDisconnectOverlay.connectionReactor(
