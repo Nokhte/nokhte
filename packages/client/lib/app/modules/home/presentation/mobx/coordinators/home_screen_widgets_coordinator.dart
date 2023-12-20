@@ -9,12 +9,14 @@ class HomeScreenWidgetsCoordinator = _HomeScreenWidgetsCoordinatorBase
     with _$HomeScreenWidgetsCoordinator;
 
 abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
+  final SpotlightHaloStore spotlightHaloStore;
   final BeachWavesStore beachWaves;
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final GestureCrossStore gestureCross;
   final SmartTextStore smartText;
 
   _HomeScreenWidgetsCoordinatorBase({
+    required this.spotlightHaloStore,
     required this.beachWaves,
     required this.wifiDisconnectOverlay,
     required this.gestureCross,
