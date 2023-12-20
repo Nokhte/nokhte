@@ -1,0 +1,141 @@
+// @dev: this is a starting workspace to organize the code
+// do NOT check your workspace into git, or alter this one
+// copy the file & title it `nokhte.code-workspace` to be
+// ignored & start editing to suit your needs
+{
+  "folders": [
+    {
+      "name": "️⬜️",
+      "path": "../"
+    },
+    {
+      "name": "️⬜️ CORE",
+      "path": "../packages/core"
+    },
+    {
+      "name": "🟧 backend",
+      "path": "../packages/backend/dart"
+    },
+    {
+      "name": "🟨 client core",
+      "path": "../packages/client/lib/app/core"
+    },
+    {
+      "name": "🟨 client core widgets",
+      "path": "../packages/client/lib/app/core/widgets"
+    },
+    {
+      "name": "🟨 client modules",
+      "path": "../packages/client/lib/app/modules"
+    },
+    {
+      "name": "🟦 working widget",
+      "path": "../packages/client/lib/app/core/widgets/${some_widget}"
+    },
+    {
+      "name": "🟦 working module",
+      "path": "../packages/client/lib/app/modules/${some_module}"
+    },
+    {
+      "name": "🟦 client root",
+      "path": "../packages/client"
+    },
+    {
+      "name": "🟩 supabase",
+      "path": "../packages/backend/supabase"
+    },
+    {
+      "name": "🟫 client ios",
+      "path": "../packages/client/ios"
+    },
+    {
+      "name": "🟥 client android",
+      "path": "../packages/client/android"
+    }
+  ],
+
+  "settings": {
+    "files.exclude": {
+      // comment out as you desire
+      // "**/_scripts/": true,
+      // "**/_templates/": true,
+      // "packages/": true,
+      // "**/**.iml": true,
+      // "**/**.g.dart": true,
+      // "**/.gitignore": true,
+      // "**/**.mocks.dart": true,
+      // "**/.dart_tool": true,
+      // "**/deprecated/**": true,
+      // "**/build/**": true,
+      // "**/.idea": true,
+      // "**/**.lock": true,
+      // "**/analysis_options.yaml": true,
+      // "**/.flutter-plugins": true,
+      // "**/.flutter-plugins-dependencies": true,
+      // "**/version.yml": true,
+      // "**/.metadata": true,
+      // "**/.example.env": true
+    },
+    "deno.importMap": "./packages/backend/supabase/functions/import_map.json",
+    "deno.enable": true,
+    "deno.lint": true,
+    "deno.unstable": true,
+    "better-comments.tags": [
+      {
+        "tag": "!",
+        "color": "#FF2D00",
+        "strikethrough": false,
+        "underline": true,
+        "backgroundColor": "transparent",
+        "bold": false,
+        "italic": false
+      },
+      {
+        "tag": "?",
+        "color": "#3498DB",
+        "strikethrough": false,
+        "underline": false,
+        "backgroundColor": "transparent",
+        "bold": false,
+        "italic": false
+      },
+      {
+        "tag": "todo",
+        "color": "#FF8C00",
+        "strikethrough": false,
+        "underline": false,
+        "backgroundColor": "transparent",
+        "bold": false,
+        "italic": false
+      },
+      {
+        "tag": "*",
+        "color": "#71B86A"
+      },
+      {
+        "tag": "&",
+        "color": "#FF7E7E"
+      },
+      {
+        "tag": "@",
+        "color": "#00A9B4"
+      },
+      {
+        "tag": "^^",
+        "color": "#31F3FF"
+      },
+      {
+        "tag": "%",
+        "color": "#CE7DFF"
+      },
+      {
+        "tag": "$",
+        "color": "#E3BA86"
+      },
+      {
+        "tag": "#",
+        "color": "#FFC700"
+      }
+    ]
+  }
+}
