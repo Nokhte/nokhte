@@ -17,6 +17,20 @@ class SpotlightHalo extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Observer(
+      builder: (context) => CustomAnimationBuilder(
+        tween: store.movie,
+        duration: store.movie.duration,
+        control: store.control,
+        onCompleted: store.onCompleted(),
+        builder: (context, value, child) => AnimatedOpacity(
+          opacity: useWidgetOpacity(store.showWidget),
+          duration: Seconds.get(1),
+          child: CustomPaint(
+            painter: SpotlightHaloPainter(),
+          ),
+        ),
+      ),
+    );
   }
 }
