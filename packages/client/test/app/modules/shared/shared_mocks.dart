@@ -8,6 +8,7 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
   MockSpec<SpotlightHaloStore>(),
   MockSpec<SmartTextStore>(),
   MockSpec<TrailingTextStore>(),
+  MockSpec<NokhteBlurStore>(),
   MockSpec<NokhteStore>(),
   MockSpec<TapDetector>(),
 ])
