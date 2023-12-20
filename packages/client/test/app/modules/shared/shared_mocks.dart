@@ -4,6 +4,8 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 @GenerateNiceMocks([
   MockSpec<WifiDisconnectOverlayStore>(),
   MockSpec<BeachWavesStore>(),
+  MockSpec<GestureCrossStore>(),
+  MockSpec<SpotlightHaloStore>(),
   MockSpec<SmartTextStore>(),
   MockSpec<TrailingTextStore>(),
   MockSpec<NokhteStore>(),

@@ -249,8 +249,8 @@ class _FakeBaseBeachWaveMovieStore_19<T> extends _i1.SmartFake
         );
 }
 
-class _FakeDuration_20 extends _i1.SmartFake implements Duration {
-  _FakeDuration_20(
+class _FakePath_20 extends _i1.SmartFake implements _i6.Path {
+  _FakePath_20(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -259,8 +259,8 @@ class _FakeDuration_20 extends _i1.SmartFake implements Duration {
         );
 }
 
-class _FakeSize_21 extends _i1.SmartFake implements _i6.Size {
-  _FakeSize_21(
+class _FakeRect_21 extends _i1.SmartFake implements _i6.Rect {
+  _FakeRect_21(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -269,8 +269,28 @@ class _FakeSize_21 extends _i1.SmartFake implements _i6.Size {
         );
 }
 
-class _FakeOffset_22 extends _i1.SmartFake implements _i6.Offset {
-  _FakeOffset_22(
+class _FakeDuration_22 extends _i1.SmartFake implements Duration {
+  _FakeDuration_22(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeSize_23 extends _i1.SmartFake implements _i6.Size {
+  _FakeSize_23(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeOffset_24 extends _i1.SmartFake implements _i6.Offset {
+  _FakeOffset_24(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -953,6 +973,366 @@ class MockBeachWavesStore extends _i1.Mock implements _i5.BeachWavesStore {
       );
 }
 
+/// A class which mocks [GestureCrossStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGestureCrossStore extends _i1.Mock implements _i5.GestureCrossStore {
+  @override
+  _i6.Path get path => (super.noSuchMethod(
+        Invocation.getter(#path),
+        returnValue: _FakePath_20(
+          this,
+          Invocation.getter(#path),
+        ),
+        returnValueForMissingStub: _FakePath_20(
+          this,
+          Invocation.getter(#path),
+        ),
+      ) as _i6.Path);
+
+  @override
+  _i6.Rect get bounds => (super.noSuchMethod(
+        Invocation.getter(#bounds),
+        returnValue: _FakeRect_21(
+          this,
+          Invocation.getter(#bounds),
+        ),
+        returnValueForMissingStub: _FakeRect_21(
+          this,
+          Invocation.getter(#bounds),
+        ),
+      ) as _i6.Rect);
+
+  @override
+  _i4.ObservableList<_i5.CircleInformation> get circleInformation =>
+      (super.noSuchMethod(
+        Invocation.getter(#circleInformation),
+        returnValue: _FakeObservableList_18<_i5.CircleInformation>(
+          this,
+          Invocation.getter(#circleInformation),
+        ),
+        returnValueForMissingStub:
+            _FakeObservableList_18<_i5.CircleInformation>(
+          this,
+          Invocation.getter(#circleInformation),
+        ),
+      ) as _i4.ObservableList<_i5.CircleInformation>);
+
+  @override
+  set circleInformation(_i4.ObservableList<_i5.CircleInformation>? value) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #circleInformation,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get callsOnCompleteTwice => (super.noSuchMethod(
+        Invocation.getter(#callsOnCompleteTwice),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  _i3.MovieTween get movie => (super.noSuchMethod(
+        Invocation.getter(#movie),
+        returnValue: _FakeMovieTween_2(
+          this,
+          Invocation.getter(#movie),
+        ),
+        returnValueForMissingStub: _FakeMovieTween_2(
+          this,
+          Invocation.getter(#movie),
+        ),
+      ) as _i3.MovieTween);
+
+  @override
+  set movie(_i3.MovieTween? value) => super.noSuchMethod(
+        Invocation.setter(
+          #movie,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i3.Control get control => (super.noSuchMethod(
+        Invocation.getter(#control),
+        returnValue: _i3.Control.stop,
+        returnValueForMissingStub: _i3.Control.stop,
+      ) as _i3.Control);
+
+  @override
+  set control(_i3.Control? value) => super.noSuchMethod(
+        Invocation.setter(
+          #control,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i3.Control get pastControl => (super.noSuchMethod(
+        Invocation.getter(#pastControl),
+        returnValue: _i3.Control.stop,
+        returnValueForMissingStub: _i3.Control.stop,
+      ) as _i3.Control);
+
+  @override
+  set pastControl(_i3.Control? value) => super.noSuchMethod(
+        Invocation.setter(
+          #pastControl,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get showWidget => (super.noSuchMethod(
+        Invocation.getter(#showWidget),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set showWidget(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #showWidget,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i7.MovieStatus get movieStatus => (super.noSuchMethod(
+        Invocation.getter(#movieStatus),
+        returnValue: _i7.MovieStatus.idle,
+        returnValueForMissingStub: _i7.MovieStatus.idle,
+      ) as _i7.MovieStatus);
+
+  @override
+  set movieStatus(_i7.MovieStatus? value) => super.noSuchMethod(
+        Invocation.setter(
+          #movieStatus,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+        returnValueForMissingStub: <Object>[],
+      ) as List<Object>);
+
+  @override
+  _i4.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_3(
+          this,
+          Invocation.getter(#context),
+        ),
+        returnValueForMissingStub: _FakeReactiveContext_3(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i4.ReactiveContext);
+
+  @override
+  dynamic setPastControl(_i3.Control? newControl) => super.noSuchMethod(
+        Invocation.method(
+          #setPastControl,
+          [newControl],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void setMovie(_i3.MovieTween? newMovie) => super.noSuchMethod(
+        Invocation.method(
+          #setMovie,
+          [newMovie],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void setControl(_i3.Control? newControl) => super.noSuchMethod(
+        Invocation.method(
+          #setControl,
+          [newControl],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  dynamic setMovieStatus(_i7.MovieStatus? newMovieStatus) => super.noSuchMethod(
+        Invocation.method(
+          #setMovieStatus,
+          [newMovieStatus],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [SpotlightHaloStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSpotlightHaloStore extends _i1.Mock
+    implements _i5.SpotlightHaloStore {
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+        returnValueForMissingStub: <Object>[],
+      ) as List<Object>);
+
+  @override
+  bool get callsOnCompleteTwice => (super.noSuchMethod(
+        Invocation.getter(#callsOnCompleteTwice),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  _i3.MovieTween get movie => (super.noSuchMethod(
+        Invocation.getter(#movie),
+        returnValue: _FakeMovieTween_2(
+          this,
+          Invocation.getter(#movie),
+        ),
+        returnValueForMissingStub: _FakeMovieTween_2(
+          this,
+          Invocation.getter(#movie),
+        ),
+      ) as _i3.MovieTween);
+
+  @override
+  set movie(_i3.MovieTween? value) => super.noSuchMethod(
+        Invocation.setter(
+          #movie,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i3.Control get control => (super.noSuchMethod(
+        Invocation.getter(#control),
+        returnValue: _i3.Control.stop,
+        returnValueForMissingStub: _i3.Control.stop,
+      ) as _i3.Control);
+
+  @override
+  set control(_i3.Control? value) => super.noSuchMethod(
+        Invocation.setter(
+          #control,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i3.Control get pastControl => (super.noSuchMethod(
+        Invocation.getter(#pastControl),
+        returnValue: _i3.Control.stop,
+        returnValueForMissingStub: _i3.Control.stop,
+      ) as _i3.Control);
+
+  @override
+  set pastControl(_i3.Control? value) => super.noSuchMethod(
+        Invocation.setter(
+          #pastControl,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get showWidget => (super.noSuchMethod(
+        Invocation.getter(#showWidget),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set showWidget(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #showWidget,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i7.MovieStatus get movieStatus => (super.noSuchMethod(
+        Invocation.getter(#movieStatus),
+        returnValue: _i7.MovieStatus.idle,
+        returnValueForMissingStub: _i7.MovieStatus.idle,
+      ) as _i7.MovieStatus);
+
+  @override
+  set movieStatus(_i7.MovieStatus? value) => super.noSuchMethod(
+        Invocation.setter(
+          #movieStatus,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i4.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_3(
+          this,
+          Invocation.getter(#context),
+        ),
+        returnValueForMissingStub: _FakeReactiveContext_3(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i4.ReactiveContext);
+
+  @override
+  dynamic setPastControl(_i3.Control? newControl) => super.noSuchMethod(
+        Invocation.method(
+          #setPastControl,
+          [newControl],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void setMovie(_i3.MovieTween? newMovie) => super.noSuchMethod(
+        Invocation.method(
+          #setMovie,
+          [newMovie],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void setControl(_i3.Control? newControl) => super.noSuchMethod(
+        Invocation.method(
+          #setControl,
+          [newControl],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  dynamic setMovieStatus(_i7.MovieStatus? newMovieStatus) => super.noSuchMethod(
+        Invocation.method(
+          #setMovieStatus,
+          [newMovieStatus],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
 /// A class which mocks [SmartTextStore].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -1047,11 +1427,11 @@ class MockSmartTextStore extends _i1.Mock implements _i5.SmartTextStore {
   @override
   Duration get currentInitialFadeInDelay => (super.noSuchMethod(
         Invocation.getter(#currentInitialFadeInDelay),
-        returnValue: _FakeDuration_20(
+        returnValue: _FakeDuration_22(
           this,
           Invocation.getter(#currentInitialFadeInDelay),
         ),
-        returnValueForMissingStub: _FakeDuration_20(
+        returnValueForMissingStub: _FakeDuration_22(
           this,
           Invocation.getter(#currentInitialFadeInDelay),
         ),
@@ -1060,11 +1440,11 @@ class MockSmartTextStore extends _i1.Mock implements _i5.SmartTextStore {
   @override
   Duration get currentOnScreenTime => (super.noSuchMethod(
         Invocation.getter(#currentOnScreenTime),
-        returnValue: _FakeDuration_20(
+        returnValue: _FakeDuration_22(
           this,
           Invocation.getter(#currentOnScreenTime),
         ),
-        returnValueForMissingStub: _FakeDuration_20(
+        returnValueForMissingStub: _FakeDuration_22(
           this,
           Invocation.getter(#currentOnScreenTime),
         ),
@@ -1254,11 +1634,11 @@ class MockTrailingTextStore extends _i1.Mock implements _i5.TrailingTextStore {
   @override
   _i6.Size get textSize => (super.noSuchMethod(
         Invocation.getter(#textSize),
-        returnValue: _FakeSize_21(
+        returnValue: _FakeSize_23(
           this,
           Invocation.getter(#textSize),
         ),
-        returnValueForMissingStub: _FakeSize_21(
+        returnValueForMissingStub: _FakeSize_23(
           this,
           Invocation.getter(#textSize),
         ),
@@ -1456,11 +1836,11 @@ class MockNokhteStore extends _i1.Mock implements _i5.NokhteStore {
   @override
   _i6.Offset get centerCoordinates => (super.noSuchMethod(
         Invocation.getter(#centerCoordinates),
-        returnValue: _FakeOffset_22(
+        returnValue: _FakeOffset_24(
           this,
           Invocation.getter(#centerCoordinates),
         ),
-        returnValueForMissingStub: _FakeOffset_22(
+        returnValueForMissingStub: _FakeOffset_24(
           this,
           Invocation.getter(#centerCoordinates),
         ),
@@ -1706,11 +2086,11 @@ class MockTapDetector extends _i1.Mock implements _i5.TapDetector {
   @override
   _i6.Offset get currentTapPosition => (super.noSuchMethod(
         Invocation.getter(#currentTapPosition),
-        returnValue: _FakeOffset_22(
+        returnValue: _FakeOffset_24(
           this,
           Invocation.getter(#currentTapPosition),
         ),
-        returnValueForMissingStub: _FakeOffset_22(
+        returnValueForMissingStub: _FakeOffset_24(
           this,
           Invocation.getter(#currentTapPosition),
         ),
