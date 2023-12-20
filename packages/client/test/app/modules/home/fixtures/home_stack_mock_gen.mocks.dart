@@ -8,23 +8,27 @@ import 'dart:async' as _i14;
 import 'package:dartz/dartz.dart' as _i7;
 import 'package:mobx/mobx.dart' as _i12;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i18;
+import 'package:mockito/src/dummies.dart' as _i19;
 import 'package:nokhte/app/core/error/failure.dart' as _i15;
 import 'package:nokhte/app/core/interfaces/logic.dart' as _i16;
 import 'package:nokhte/app/core/mobx/base_future_store.dart' as _i11;
-import 'package:nokhte/app/core/mobx/store_state.dart' as _i17;
+import 'package:nokhte/app/core/mobx/store_state.dart' as _i18;
+import 'package:nokhte/app/modules/home/data/sources/home_remote_source.dart'
+    as _i13;
 import 'package:nokhte/app/modules/home/domain/contracts/home_contract.dart'
     as _i8;
+import 'package:nokhte/app/modules/home/domain/domain.dart' as _i9;
 import 'package:nokhte/app/modules/home/domain/entities/entities.dart' as _i10;
-import 'package:nokhte/app/modules/home/domain/logic/logic.dart' as _i9;
+import 'package:nokhte/app/modules/home/presentation/mobx/main/add_name_to_database_store.dart'
+    as _i17;
+import 'package:nokhte/app/modules/home/presentation/mobx/main/get_collaborator_phrase_store.dart'
+    as _i20;
 import 'package:nokhte_backend/tables/collaborator_phrases.dart' as _i6;
 import 'package:nokhte_backend/tables/existing_collaborations.dart' as _i3;
 import 'package:nokhte_backend/tables/finished_collaborative_documents.dart'
     as _i5;
 import 'package:nokhte_backend/tables/p2p_perspectives_tracking.dart' as _i4;
 import 'package:supabase_flutter/supabase_flutter.dart' as _i2;
-
-import 'home_stack_mock_gen.dart' as _i13;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -180,12 +184,12 @@ class _FakeCollaboratorPhraseEntity_12 extends _i1.SmartFake
         );
 }
 
-/// A class which mocks [MHomeRemoteSourceImpl].
+/// A class which mocks [HomeRemoteSourceImpl].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMHomeRemoteSourceImpl extends _i1.Mock
-    implements _i13.MHomeRemoteSourceImpl {
-  MockMHomeRemoteSourceImpl() {
+class MockHomeRemoteSourceImpl extends _i1.Mock
+    implements _i13.HomeRemoteSourceImpl {
+  MockHomeRemoteSourceImpl() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -291,11 +295,11 @@ class MockMHomeRemoteSourceImpl extends _i1.Mock
       ) as _i14.Future<List<dynamic>>);
 }
 
-/// A class which mocks [MHomeContract].
+/// A class which mocks [HomeContract].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMHomeContract extends _i1.Mock implements _i13.MHomeContract {
-  MockMHomeContract() {
+class MockHomeContract extends _i1.Mock implements _i8.HomeContract {
+  MockHomeContract() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -361,11 +365,11 @@ class MockMHomeContract extends _i1.Mock implements _i13.MHomeContract {
               _i7.Either<_i15.Failure, _i10.ExistingCollaborationsInfoEntity>>);
 }
 
-/// A class which mocks [MRemoteSource].
+/// A class which mocks [HomeRemoteSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMRemoteSource extends _i1.Mock implements _i13.MRemoteSource {
-  MockMRemoteSource() {
+class MockHomeRemoteSource extends _i1.Mock implements _i13.HomeRemoteSource {
+  MockHomeRemoteSource() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -420,12 +424,12 @@ class MockMRemoteSource extends _i1.Mock implements _i13.MRemoteSource {
       ) as _i14.Future<List<dynamic>>);
 }
 
-/// A class which mocks [MGetCollaboratorPhrase].
+/// A class which mocks [GetCollaboratorPhrase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMGetCollaboratorPhrase extends _i1.Mock
-    implements _i13.MGetCollaboratorPhrase {
-  MockMGetCollaboratorPhrase() {
+class MockGetCollaboratorPhrase extends _i1.Mock
+    implements _i9.GetCollaboratorPhrase {
+  MockGetCollaboratorPhrase() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -459,12 +463,11 @@ class MockMGetCollaboratorPhrase extends _i1.Mock
           .Future<_i7.Either<_i15.Failure, _i10.CollaboratorPhraseEntity>>);
 }
 
-/// A class which mocks [MAddNameToDatabase].
+/// A class which mocks [AddNameToDatabase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMAddNameToDatabase extends _i1.Mock
-    implements _i13.MAddNameToDatabase {
-  MockMAddNameToDatabase() {
+class MockAddNameToDatabase extends _i1.Mock implements _i9.AddNameToDatabase {
+  MockAddNameToDatabase() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -498,12 +501,12 @@ class MockMAddNameToDatabase extends _i1.Mock
           .Future<_i7.Either<_i15.Failure, _i10.NameCreationStatusEntity>>);
 }
 
-/// A class which mocks [MAddNameToDatabaseStore].
+/// A class which mocks [AddNameToDatabaseStore].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMAddNameToDatabaseStore extends _i1.Mock
-    implements _i13.MAddNameToDatabaseStore {
-  MockMAddNameToDatabaseStore() {
+class MockAddNameToDatabaseStore extends _i1.Mock
+    implements _i17.AddNameToDatabaseStore {
+  MockAddNameToDatabaseStore() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -562,13 +565,13 @@ class MockMAddNameToDatabaseStore extends _i1.Mock
       ) as List<Object>);
 
   @override
-  _i17.StoreState get state => (super.noSuchMethod(
+  _i18.StoreState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i17.StoreState.initial,
-      ) as _i17.StoreState);
+        returnValue: _i18.StoreState.initial,
+      ) as _i18.StoreState);
 
   @override
-  set state(_i17.StoreState? value) => super.noSuchMethod(
+  set state(_i18.StoreState? value) => super.noSuchMethod(
         Invocation.setter(
           #state,
           value,
@@ -579,7 +582,7 @@ class MockMAddNameToDatabaseStore extends _i1.Mock
   @override
   String get errorMessage => (super.noSuchMethod(
         Invocation.getter(#errorMessage),
-        returnValue: _i18.dummyValue<String>(
+        returnValue: _i19.dummyValue<String>(
           this,
           Invocation.getter(#errorMessage),
         ),
@@ -630,7 +633,7 @@ class MockMAddNameToDatabaseStore extends _i1.Mock
           #mapFailureToMessage,
           [failure],
         ),
-        returnValue: _i18.dummyValue<String>(
+        returnValue: _i19.dummyValue<String>(
           this,
           Invocation.method(
             #mapFailureToMessage,
@@ -640,12 +643,12 @@ class MockMAddNameToDatabaseStore extends _i1.Mock
       ) as String);
 }
 
-/// A class which mocks [MGetCollaboratorPhraseStore].
+/// A class which mocks [GetCollaboratorPhraseStore].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMGetCollaboratorPhraseStore extends _i1.Mock
-    implements _i13.MGetCollaboratorPhraseStore {
-  MockMGetCollaboratorPhraseStore() {
+class MockGetCollaboratorPhraseStore extends _i1.Mock
+    implements _i20.GetCollaboratorPhraseStore {
+  MockGetCollaboratorPhraseStore() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -703,7 +706,7 @@ class MockMGetCollaboratorPhraseStore extends _i1.Mock
   @override
   String get collaboratorPhrase => (super.noSuchMethod(
         Invocation.getter(#collaboratorPhrase),
-        returnValue: _i18.dummyValue<String>(
+        returnValue: _i19.dummyValue<String>(
           this,
           Invocation.getter(#collaboratorPhrase),
         ),
@@ -719,13 +722,13 @@ class MockMGetCollaboratorPhraseStore extends _i1.Mock
       );
 
   @override
-  _i17.StoreState get state => (super.noSuchMethod(
+  _i18.StoreState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i17.StoreState.initial,
-      ) as _i17.StoreState);
+        returnValue: _i18.StoreState.initial,
+      ) as _i18.StoreState);
 
   @override
-  set state(_i17.StoreState? value) => super.noSuchMethod(
+  set state(_i18.StoreState? value) => super.noSuchMethod(
         Invocation.setter(
           #state,
           value,
@@ -736,7 +739,7 @@ class MockMGetCollaboratorPhraseStore extends _i1.Mock
   @override
   String get errorMessage => (super.noSuchMethod(
         Invocation.getter(#errorMessage),
-        returnValue: _i18.dummyValue<String>(
+        returnValue: _i19.dummyValue<String>(
           this,
           Invocation.getter(#errorMessage),
         ),
@@ -793,7 +796,7 @@ class MockMGetCollaboratorPhraseStore extends _i1.Mock
           #mapFailureToMessage,
           [failure],
         ),
-        returnValue: _i18.dummyValue<String>(
+        returnValue: _i19.dummyValue<String>(
           this,
           Invocation.method(
             #mapFailureToMessage,
