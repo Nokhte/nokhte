@@ -11,6 +11,15 @@ abstract class _NokhteBlurStoreBase extends BaseCustomAnimatedWidgetStore
     with Store {
   _NokhteBlurStoreBase() {
     setMovie(BlurMovie.movie);
+  }
+
+  @action
+  init() {
     setControl(Control.playFromStart);
+  }
+
+  @action
+  reverse() {
+    setControl(Control.playReverseFromEnd);
   }
 }
