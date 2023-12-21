@@ -34,15 +34,13 @@ class HomeScreen extends HookWidget {
                     store: coordinator.widgets.wifiDisconnectOverlay,
                     child: Stack(
                       children: [
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height,
+                        NokhteSizedBox(
+                            size: fullScreen,
                             child: BeachWaves(
                               store: coordinator.widgets.beachWaves,
                             )),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height,
+                        NokhteSizedBox(
+                          size: fullScreen,
                           child: NokhteBlur(
                             store: coordinator.widgets.nokhteBlur,
                           ),
@@ -51,25 +49,6 @@ class HomeScreen extends HookWidget {
                             child: SmartText(
                           store: coordinator.widgets.smartText,
                         )),
-                        Column(
-                          children: [
-                            Expanded(
-                              child: Container(),
-                            ),
-                            SizedBox(
-                              width: size.width,
-                              height: size.height,
-                              child: SpotlightHalo(
-                                store: coordinator.widgets.spotlightHalo,
-                              ),
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.only(
-                                bottom: 24,
-                              ),
-                            ),
-                          ],
-                        ),
                         Column(
                           children: [
                             Expanded(
