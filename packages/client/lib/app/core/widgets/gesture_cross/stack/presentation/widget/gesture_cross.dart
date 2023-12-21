@@ -24,32 +24,45 @@ class GestureCross extends StatelessWidget {
         duration: store.movie.duration,
         control: store.control,
         onCompleted: () => store.onCompleted(),
-        builder: (context, value, child) => AnimatedOpacity(
-          opacity: useWidgetOpacity(store.showWidget),
-          duration: Seconds.get(1),
-          child: Container(
-            alignment: Alignment.topLeft,
-            width: size.width,
-            height: size.height,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 10.0),
-              child: CustomPaint(
-                painter: GestureCrossPainter(
-                  store.path,
-                  store.bounds,
-                  size,
-                  crossGradient: ColorsAndStops(colors: [
-                    const Color(0xFF0A98FF),
-                    Colors.white.withOpacity(0)
-                  ], stops: const [
-                    0,
-                    .5
-                  ]),
-                  circleInformation: store.circleInformation,
+        builder: (context, value, child) => Column(
+          children: [
+            Expanded(
+              child: Container(),
+            ),
+            Container(
+              alignment: Alignment.bottomCenter,
+              child: AnimatedOpacity(
+                opacity: useWidgetOpacity(store.showWidget),
+                duration: Seconds.get(1),
+                child: Container(
+                  alignment: Alignment.topLeft,
+                  width: size.width,
+                  height: size.height,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: CustomPaint(
+                      painter: GestureCrossPainter(
+                        store.path,
+                        store.bounds,
+                        size,
+                        crossGradient: ColorsAndStops(colors: [
+                          const Color(0xFF0A98FF),
+                          Colors.white.withOpacity(0)
+                        ], stops: const [
+                          0,
+                          .5
+                        ]),
+                        circleInformation: store.circleInformation,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
+            const Padding(
+              padding: EdgeInsets.only(bottom: 20),
+            ),
+          ],
         ),
       ),
     );
