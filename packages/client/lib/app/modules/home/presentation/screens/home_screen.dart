@@ -46,25 +46,10 @@ class HomeScreen extends HookWidget {
                             child: SmartText(
                           store: coordinator.widgets.smartText,
                         )),
-                        Column(
-                          children: [
-                            Expanded(
-                              child: Container(),
-                            ),
-                            Stack(
-                              alignment: Alignment.bottomCenter,
-                              children: [
-                                GestureCross(
-                                  size: size,
-                                  store: coordinator.widgets.gestureCross,
-                                )
-                              ],
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.only(bottom: 20),
-                            ),
-                          ],
-                        ),
+                        GestureCross(
+                          size: size,
+                          store: coordinator.widgets.gestureCross,
+                        )
                       ],
                     ),
                   ),
