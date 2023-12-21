@@ -1,8 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class GradientCirclePainter extends CustomPainter {
+  final CircleGradientOptions gradient;
+
+  GradientCirclePainter({
+    required this.gradient,
+  });
+
   @override
-  void paint(Canvas canvas, Size size) {}
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    const double radius = 20.0;
+    final circleRect = Rect.fromCircle(center: center, radius: radius);
+    final circleStrokePaint = Paint()
+      ..color = Colors.white
+      ..strokeWidth = 2.0
+      ..style = PaintingStyle.stroke;
+    final gradientPaint = Paint()
+      ..shader = LinearGradient(
+        colors: gradient == CircleGradientOptions.collaborator
+            ? ModelGradients.collaboratorGradient
+            : ModelGradients.userGradient,
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+      ).createShader(circleRect);
+    canvas.drawCircle(center, radius, gradientPaint);
+    canvas.drawCircle(center, radius, circleStrokePaint);
+  }
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;

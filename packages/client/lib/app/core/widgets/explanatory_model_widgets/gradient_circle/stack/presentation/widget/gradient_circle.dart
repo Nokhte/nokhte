@@ -8,10 +8,12 @@ import 'package:simple_animations/simple_animations.dart';
 import 'canvas/gradient_circle_painter.dart';
 
 class GradientCircle extends StatelessWidget {
+  final CircleGradientOptions gradient;
   final GradientCircleStore store;
   const GradientCircle({
     super.key,
     required this.store,
+    required this.gradient,
   });
 
   @override
@@ -24,7 +26,9 @@ class GradientCircle extends StatelessWidget {
               opacity: useWidgetOpacity(store.showWidget),
               duration: Seconds.get(0),
               child: CustomPaint(
-                painter: GradientCirclePainter(),
+                painter: GradientCirclePainter(
+                  gradient: gradient,
+                ),
               ),
             ),
           ));
