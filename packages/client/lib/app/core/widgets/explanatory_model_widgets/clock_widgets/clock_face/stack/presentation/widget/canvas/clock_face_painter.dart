@@ -46,7 +46,7 @@ class ClockFacePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width.half(), size.height.half() - 130);
     final double radius = size.width * .4;
-    drawCircleAndBlur(canvas, size, center, radius);
+    // drawCircleAndBlur(canvas, size, center, radius);
     drawHourLines(canvas, center, radius);
   }
 
