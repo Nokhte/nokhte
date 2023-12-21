@@ -15,6 +15,7 @@ class LoginScreen extends HookWidget with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    final fullScreen = useFullScreenSize();
     useOnAppLifecycleStateChange(
       (previous, current) => coordinator.setAppState(
         current,
