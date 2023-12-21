@@ -9,6 +9,7 @@ class HomeScreenWidgetsCoordinator = _HomeScreenWidgetsCoordinatorBase
     with _$HomeScreenWidgetsCoordinator;
 
 abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
+  final ClockFaceStore clockFace;
   final GradientCircleStore gradientCircle;
   final SpotlightHaloStore spotlightHalo;
   final NokhteBlurStore nokhteBlur;
@@ -18,6 +19,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   final SmartTextStore smartText;
 
   _HomeScreenWidgetsCoordinatorBase({
+    required this.clockFace,
     required this.nokhteBlur,
     required this.gradientCircle,
     required this.spotlightHalo,
