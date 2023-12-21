@@ -29,6 +29,7 @@ class HomeWidgetsModule extends Module {
     );
     i.addSingleton<HomeScreenWidgetsCoordinator>(
       () => HomeScreenWidgetsCoordinator(
+        gradientCircle: i<GradientCircleStore>(),
         nokhteBlur: i<NokhteBlurStore>(),
         spotlightHalo: i<SpotlightHaloStore>(),
         smartText: i<SmartTextStore>(),
