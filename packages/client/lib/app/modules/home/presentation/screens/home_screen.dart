@@ -14,7 +14,6 @@ class HomeScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fullScreen = useFullScreenSize();
     final size = useSquareSize(relativeLength: .20);
     useEffect(() {
       coordinator.constructor();
@@ -34,13 +33,11 @@ class HomeScreen extends HookWidget {
                     store: coordinator.widgets.wifiDisconnectOverlay,
                     child: Stack(
                       children: [
-                        NokhteSizedBox(
-                            size: fullScreen,
+                        FullScreen(
                             child: BeachWaves(
-                              store: coordinator.widgets.beachWaves,
-                            )),
-                        NokhteSizedBox(
-                          size: fullScreen,
+                          store: coordinator.widgets.beachWaves,
+                        )),
+                        FullScreen(
                           child: NokhteBlur(
                             store: coordinator.widgets.nokhteBlur,
                           ),
