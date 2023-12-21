@@ -14,6 +14,7 @@ class HomeScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final fullScreen = useFullScreenSize();
     final size = useSquareSize(relativeLength: .20);
     useEffect(() {
       coordinator.constructor();
