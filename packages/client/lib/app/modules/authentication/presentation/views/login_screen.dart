@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/constants/constants.dart';
-import 'package:nokhte/app/core/hooks/use_center_offset.dart';
+import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/authentication/presentation/presentation.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
