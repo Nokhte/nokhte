@@ -11,6 +11,7 @@ void main() {
   late MockWifiDisconnectOverlayStore wifiDisconnectOverlay;
   late MockGestureCrossStore gestureCross;
   late MockSmartTextStore smartText;
+  late MockClockFaceStore clockFace;
   late HomeScreenWidgetsCoordinator testStore;
   late MockNokhteBlurStore nokhteBlurStore;
   late MockGradientCircleStore gradientCircleStore;
@@ -18,6 +19,7 @@ void main() {
   setUp(() {
     spotlightHalo = MockSpotlightHaloStore();
     beachWaves = MockBeachWavesStore();
+    clockFace = MockClockFaceStore();
     gradientCircleStore = MockGradientCircleStore();
     wifiDisconnectOverlay = MockWifiDisconnectOverlayStore();
     gestureCross = MockGestureCrossStore();
@@ -25,6 +27,7 @@ void main() {
     smartText = MockSmartTextStore();
 
     testStore = HomeScreenWidgetsCoordinator(
+      clockFace: clockFace,
       gradientCircle: gradientCircleStore,
       nokhteBlur: nokhteBlurStore,
       spotlightHalo: spotlightHalo,
