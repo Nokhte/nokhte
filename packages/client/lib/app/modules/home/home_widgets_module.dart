@@ -27,8 +27,12 @@ class HomeWidgetsModule extends Module {
     i.addSingleton<NokhteBlurStore>(
       () => NokhteBlurStore(),
     );
+    i.addSingleton<ClockFaceStore>(
+      () => ClockFaceStore(),
+    );
     i.addSingleton<HomeScreenWidgetsCoordinator>(
       () => HomeScreenWidgetsCoordinator(
+        clockFace: i<ClockFaceStore>(),
         gradientCircle: i<GradientCircleStore>(),
         nokhteBlur: i<NokhteBlurStore>(),
         spotlightHalo: i<SpotlightHaloStore>(),
