@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class GestureCrossPainter extends CustomPainter {
@@ -68,7 +69,7 @@ class GestureCrossPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     paintCross(canvas, size);
-    final center = Offset(width / 2, height / 2);
+    final center = Offset(width.half(), height.half());
     const radius = 4.5;
     paintCircles(canvas, size, center, radius, circleInformation);
   }

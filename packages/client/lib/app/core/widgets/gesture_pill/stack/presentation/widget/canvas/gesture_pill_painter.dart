@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nokhte/app/core/extensions/extensions.dart';
 
 class GesturePillPainter extends CustomPainter {
   Path path;
@@ -49,7 +50,7 @@ class GesturePillPainter extends CustomPainter {
     const circleRadius = 6.0;
     final lowerCirclePaint = Paint()
       ..color = Colors.white.withOpacity(centerCircleOpacity);
-    final centerX = width / 2;
+    final centerX = width.half();
     final lowerCircleCenterY =
         (height - circleRadius * 2) - centerCircleAnimationConstant;
     final higherCircleCenterY = (height - circleRadius * 2) - 27;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nokhte/app/core/extensions/extensions.dart';
 
 class BeachWavesPainter extends CustomPainter {
   final double waterValue;
@@ -52,9 +53,9 @@ class BeachWavesPainter extends CustomPainter {
         ..moveTo(0, waveOffset + yOffset)
         ..cubicTo(
           size.width / 3,
-          waveOffset + yOffset - waveAmplitude / 2,
+          waveOffset + yOffset - waveAmplitude.half(),
           2 * size.width / 3,
-          waveOffset + yOffset + waveAmplitude / 2,
+          waveOffset + yOffset + waveAmplitude.half(),
           size.width,
           waveOffset + yOffset,
         )

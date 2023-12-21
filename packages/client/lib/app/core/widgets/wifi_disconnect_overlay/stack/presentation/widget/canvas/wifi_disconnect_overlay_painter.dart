@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class WifiDisconnectOverlayPainter extends CustomPainter {
@@ -59,7 +60,10 @@ class WifiDisconnectOverlayPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
+    final center = Offset(
+      size.width.half(),
+      size.height.half(),
+    );
     drawArc(
       canvas,
       size,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -72,7 +73,7 @@ class TrailingText extends HookWidget {
                           hiddenSideColor: Colors.black,
                           // hiddenSideColor: Colors.blue.withOpacity(.6),
                           size: Size(
-                            (screenSize.width / 2),
+                            screenSize.width.half(),
                             store.textSize.height,
                           ),
                         ),
