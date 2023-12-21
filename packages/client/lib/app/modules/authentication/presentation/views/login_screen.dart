@@ -39,23 +39,20 @@ class LoginScreen extends HookWidget with WidgetsBindingObserver {
               store: coordinator.widgets.wifiDisconnectOverlay,
               child: Stack(
                 children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
+                  NokhteSizedBox(
+                    size: fullScreen,
                     child: BeachWaves(
                       store: coordinator.widgets.layer1BeachWaves,
                     ),
                   ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
+                  NokhteSizedBox(
+                    size: fullScreen,
                     child: BeachWaves(
                       store: coordinator.widgets.layer2BeachWaves,
                     ),
                   ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
+                  NokhteSizedBox(
+                    size: fullScreen,
                     child: TrailingText(
                       fontStyle: Fonts.kantumruy(
                         fontSize: 25.0,
@@ -66,9 +63,8 @@ class LoginScreen extends HookWidget with WidgetsBindingObserver {
                       textContent: "Swipe Up",
                     ),
                   ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
+                  NokhteSizedBox(
+                    size: fullScreen,
                     child: TrailingText(
                       fontStyle: Fonts.kantumruy(
                         fontSize: 25.0,
@@ -85,9 +81,8 @@ class LoginScreen extends HookWidget with WidgetsBindingObserver {
                       store: coordinator.widgets.smartTextStore,
                     ),
                   ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
+                  NokhteSizedBox(
+                    size: fullScreen,
                     child: Nokhte(
                       store: coordinator.widgets.nokhte,
                     ),
