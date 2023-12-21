@@ -5,6 +5,7 @@ export 'gesture_pill/gesture_pill.dart';
 export 'gesture_cross/gesture_cross.dart';
 export 'nokhte/nokhte.dart';
 export 'nokhte_blur/nokhte_blur.dart';
+export 'nokhte_sized_box/nokhte_sized_box.dart';
 export 'smart_text/smart_text.dart';
 export './spotlight_halo/spotlight_halo.dart';
 export 'trailing_text/trailing_text.dart';
