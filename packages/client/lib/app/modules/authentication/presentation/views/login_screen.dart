@@ -39,20 +39,17 @@ class LoginScreen extends HookWidget with WidgetsBindingObserver {
               store: coordinator.widgets.wifiDisconnectOverlay,
               child: Stack(
                 children: [
-                  NokhteSizedBox(
-                    size: fullScreen,
+                  FullScreen(
                     child: BeachWaves(
                       store: coordinator.widgets.layer1BeachWaves,
                     ),
                   ),
-                  NokhteSizedBox(
-                    size: fullScreen,
+                  FullScreen(
                     child: BeachWaves(
                       store: coordinator.widgets.layer2BeachWaves,
                     ),
                   ),
-                  NokhteSizedBox(
-                    size: fullScreen,
+                  FullScreen(
                     child: TrailingText(
                       fontStyle: Fonts.kantumruy(
                         fontSize: 25.0,
@@ -63,8 +60,7 @@ class LoginScreen extends HookWidget with WidgetsBindingObserver {
                       textContent: "Swipe Up",
                     ),
                   ),
-                  NokhteSizedBox(
-                    size: fullScreen,
+                  FullScreen(
                     child: TrailingText(
                       fontStyle: Fonts.kantumruy(
                         fontSize: 25.0,
@@ -81,8 +77,7 @@ class LoginScreen extends HookWidget with WidgetsBindingObserver {
                       store: coordinator.widgets.smartTextStore,
                     ),
                   ),
-                  NokhteSizedBox(
-                    size: fullScreen,
+                  FullScreen(
                     child: Nokhte(
                       store: coordinator.widgets.nokhte,
                     ),
