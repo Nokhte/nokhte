@@ -10,6 +10,23 @@ part of 'home_screen_widgets_coordinator.dart';
 
 mixin _$HomeScreenWidgetsCoordinator
     on _HomeScreenWidgetsCoordinatorBase, Store {
+  late final _$hasInitiatedBlurAtom = Atom(
+      name: '_HomeScreenWidgetsCoordinatorBase.hasInitiatedBlur',
+      context: context);
+
+  @override
+  bool get hasInitiatedBlur {
+    _$hasInitiatedBlurAtom.reportRead();
+    return super.hasInitiatedBlur;
+  }
+
+  @override
+  set hasInitiatedBlur(bool value) {
+    _$hasInitiatedBlurAtom.reportWrite(value, super.hasInitiatedBlur, () {
+      super.hasInitiatedBlur = value;
+    });
+  }
+
   late final _$_HomeScreenWidgetsCoordinatorBaseActionController =
       ActionController(
           name: '_HomeScreenWidgetsCoordinatorBase', context: context);
@@ -27,9 +44,22 @@ mixin _$HomeScreenWidgetsCoordinator
   }
 
   @override
+  dynamic toggleHasInitiatedBlur() {
+    final _$actionInfo =
+        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
+            name: '_HomeScreenWidgetsCoordinatorBase.toggleHasInitiatedBlur');
+    try {
+      return super.toggleHasInitiatedBlur();
+    } finally {
+      _$_HomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-
+hasInitiatedBlur: ${hasInitiatedBlur}
     ''';
   }
 }

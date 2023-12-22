@@ -1,6 +1,8 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 part 'home_screen_widgets_coordinator.g.dart';
@@ -29,16 +31,41 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   constructor() {
     smartText.setMessagesData(MessagesData.firstTimeHomeList);
     smartText.startRotatingText();
-    nokhteBlur.init();
     beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
+    initReactors();
+  }
+
+  onConnected() => null;
+  onDisconnected() => null;
+
+  @observable
+  bool hasInitiatedBlur = false;
+
+  @action
+  toggleHasInitiatedBlur() => hasInitiatedBlur = !hasInitiatedBlur;
+
+  initReactors() {
+    blurCompletionReactor();
+    gestureCrossTapReactor();
     wifiDisconnectOverlay.connectionReactor(
       onConnected: onConnected,
       onDisconnected: onDisconnected,
     );
   }
 
-  onConnected() => null;
-  onDisconnected() => null;
+  gestureCrossTapReactor() => reaction((p0) => gestureCross.tapCount, (p0) {
+        if (!hasInitiatedBlur) {
+          nokhteBlur.init();
+          smartText.startRotatingText(isResuming: true);
+          toggleHasInitiatedBlur();
+        }
+      });
+
+  blurCompletionReactor() => reaction((p0) => nokhteBlur.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished) {
+          Modular.to.navigate('/home/circle_explanation');
+        }
+      });
 
   @override
   List<Object> get props => [];
