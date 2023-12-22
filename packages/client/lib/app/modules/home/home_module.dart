@@ -4,6 +4,7 @@ import 'package:nokhte/app/modules/home/data/contracts/home_contract_impl.dart';
 import 'package:nokhte/app/modules/home/data/sources/home_remote_source.dart';
 import 'package:nokhte/app/modules/home/domain/logic/logic.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
+import 'package:nokhte/app/modules/home/presentation/presentation.dart';
 import 'package:nokhte/app/modules/home/presentation/screens/home_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'home_widgets_module.dart';
@@ -64,6 +65,9 @@ class HomeModule extends Module {
         getCollaboratorPhraseStore: i<GetCollaboratorPhraseStore>(),
       ),
     );
+    i.addSingleton<CircleExplanationCoordinator>(
+      () => CircleExplanationCoordinator(),
+    );
   }
 
   @override
@@ -73,6 +77,12 @@ class HomeModule extends Module {
       transition: TransitionType.noTransition,
       child: (context) => HomeScreen(
         coordinator: Modular.get<HomeScreenCoordinator>(),
+      ),
+    );
+    r.child(
+      '/circle_explanation',
+      child: (context) => CircleExplanationScreen(
+        coordinator: Modular.get<CircleExplanationCoordinator>(),
       ),
     );
   }
