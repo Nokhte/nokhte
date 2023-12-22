@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api, prefer_const_constructors, prefer_const_literals_to_create_immutables
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_custom_animated_widget_store.dart';
@@ -15,39 +14,12 @@ abstract class _GestureCrossStoreBase extends BaseCustomAnimatedWidgetStore
   final Rect bounds = SvgAnimtionConstants.crossPath.getBounds();
 
   @observable
-  ObservableList<CircleInformation> circleInformation = ObservableList.of(
-    [
-      //bottom
-      CircleInformation(
-        colorOrGradient: Left(Colors.white.withOpacity(.25)),
-        offset: CircleOffsets.bottom,
-      ),
-      // center
-      CircleInformation(
-        colorOrGradient: Right(ColorsAndStops(
-          colors: [Colors.white],
-          stops: [0],
-        )),
-        offset: CircleOffsets.center,
-      ),
-      // left
-      CircleInformation(
-        colorOrGradient: Left(Colors.white.withOpacity(.25)),
-        offset: CircleOffsets.left,
-      ),
-      // right
-      CircleInformation(
-        colorOrGradient: Left(Colors.white.withOpacity(.25)),
-        offset: CircleOffsets.right,
-      ),
-      // top
-      CircleInformation(
-        colorOrGradient: Right(ColorsAndStops(
-          colors: [Color(0xFF4CD7FC), Color(0xFF6AEAB9)],
-          stops: [.1, .6],
-        )),
-        offset: CircleOffsets.top,
-      ),
-    ],
-  );
+  ObservableList<CircleInformation> circleInformation =
+      ObservableList.of(StartingCirclePresets.homeScreen);
+
+  @observable
+  int touchCount = 0;
+
+  @action
+  incrementTouchCount() => touchCount++;
 }
