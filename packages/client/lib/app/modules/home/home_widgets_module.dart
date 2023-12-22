@@ -1,13 +1,14 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/widgets/modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/home_screen_widgets_coordinator.dart';
+import 'presentation/mobx/coordinators/home_screen_widgets_coordinator.dart';
 
 class HomeWidgetsModule extends Module {
   @override
   List<Module> get imports => [
         BeachWavesModule(),
         WifiDisconnectOverlayModule(),
+        ClockModelModule(),
       ];
 
   @override
@@ -32,10 +33,8 @@ class HomeWidgetsModule extends Module {
     );
     i.addSingleton<HomeScreenWidgetsCoordinator>(
       () => HomeScreenWidgetsCoordinator(
-        clockFace: i<ClockFaceStore>(),
-        gradientCircle: i<GradientCircleStore>(),
+        clockModelCoordinator: Modular.get<ClockModelCoordinator>(),
         nokhteBlur: i<NokhteBlurStore>(),
-        spotlightHalo: i<SpotlightHaloStore>(),
         smartText: i<SmartTextStore>(),
         wifiDisconnectOverlay: i<WifiDisconnectOverlayStore>(),
         gestureCross: i<GestureCrossStore>(),
