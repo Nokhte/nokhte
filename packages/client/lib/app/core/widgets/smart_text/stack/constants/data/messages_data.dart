@@ -35,9 +35,9 @@ class MessagesData {
           unlockGesture: Gestures.tap,
         ),
         RotatingTextData(
-          initialFadeInDelay: Seconds.get(1),
-          mainMessage: "Symmetry is the foundation of Collaboration",
-          onScreenTime: Seconds.get(2),
+          initialFadeInDelay: Seconds.get(0),
+          mainMessage: "",
+          onScreenTime: Seconds.get(0),
         ),
       ];
 }
