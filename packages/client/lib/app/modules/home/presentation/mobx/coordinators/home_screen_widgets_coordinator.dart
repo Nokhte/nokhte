@@ -9,9 +9,7 @@ class HomeScreenWidgetsCoordinator = _HomeScreenWidgetsCoordinatorBase
     with _$HomeScreenWidgetsCoordinator;
 
 abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
-  final ClockFaceStore clockFace;
-  final GradientCircleStore gradientCircle;
-  final SpotlightHaloStore spotlightHalo;
+  final ClockModelCoordinator clockModelCoordinator;
   final NokhteBlurStore nokhteBlur;
   final BeachWavesStore beachWaves;
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
@@ -19,10 +17,8 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   final SmartTextStore smartText;
 
   _HomeScreenWidgetsCoordinatorBase({
-    required this.clockFace,
+    required this.clockModelCoordinator,
     required this.nokhteBlur,
-    required this.gradientCircle,
-    required this.spotlightHalo,
     required this.beachWaves,
     required this.wifiDisconnectOverlay,
     required this.gestureCross,
@@ -35,7 +31,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     smartText.startRotatingText();
     nokhteBlur.init();
     beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
-    spotlightHalo.toggleWidgetVisibility();
     wifiDisconnectOverlay.connectionReactor(
       onConnected: onConnected,
       onDisconnected: onDisconnected,
