@@ -25,10 +25,41 @@ mixin _$GestureCrossStore on _GestureCrossStoreBase, Store {
     });
   }
 
+  late final _$tapCountAtom =
+      Atom(name: '_GestureCrossStoreBase.tapCount', context: context);
+
+  @override
+  int get tapCount {
+    _$tapCountAtom.reportRead();
+    return super.tapCount;
+  }
+
+  @override
+  set tapCount(int value) {
+    _$tapCountAtom.reportWrite(value, super.tapCount, () {
+      super.tapCount = value;
+    });
+  }
+
+  late final _$_GestureCrossStoreBaseActionController =
+      ActionController(name: '_GestureCrossStoreBase', context: context);
+
+  @override
+  dynamic incrementTapCount() {
+    final _$actionInfo = _$_GestureCrossStoreBaseActionController.startAction(
+        name: '_GestureCrossStoreBase.incrementTapCount');
+    try {
+      return super.incrementTapCount();
+    } finally {
+      _$_GestureCrossStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
-circleInformation: ${circleInformation}
+circleInformation: ${circleInformation},
+tapCount: ${tapCount}
     ''';
   }
 }
