@@ -5,6 +5,7 @@ import 'package:touchable/touchable.dart';
 
 class GestureCrossPainter extends CustomPainter {
   final BuildContext context;
+  Function onTap;
   Path path;
   Rect pathBounds;
   late double height;
@@ -18,6 +19,7 @@ class GestureCrossPainter extends CustomPainter {
     this.path,
     this.pathBounds,
     Size size, {
+    required this.onTap,
     required this.circleInformation,
     required this.crossGradient,
   });
@@ -35,14 +37,12 @@ class GestureCrossPainter extends CustomPainter {
         pathBounds,
       );
     canvas.drawPath(path, crossPaint, onTapDown: (details) {
-      print("hi you tapped $details");
-    }, onTapUp: (details) {
-      print("something");
+      onTap();
     });
   }
 
   paintCircles(
-    TouchyCanvas canvas,
+    Canvas canvas,
     Size size,
     Offset center,
     double radius,
@@ -69,12 +69,11 @@ class GestureCrossPainter extends CustomPainter {
             stops: gradient.stops,
           ).createShader(circleBounds);
       });
-      canvas.drawCircle(Offset(circleX, circleY), radius, circlePaint,
-          onTapDown: (details) {
-        print("hi you tapped $details");
-      }, onTapUp: (details) {
-        print("something");
-      });
+      canvas.drawCircle(
+        Offset(circleX, circleY),
+        radius,
+        circlePaint,
+      );
     }
   }
 
@@ -84,7 +83,7 @@ class GestureCrossPainter extends CustomPainter {
     paintCross(touchableCanvas, size);
     final center = Offset(width.half(), height.half());
     const radius = 4.5;
-    paintCircles(touchableCanvas, size, center, radius, circleInformation);
+    paintCircles(canvas, size, center, radius, circleInformation);
   }
 
   @override
