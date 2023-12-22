@@ -2,9 +2,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/modules/home/presentation/mobx/main/main.dart';
-import 'home_screen_widgets_coordinator.dart';
-
+import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 part 'home_screen_coordinator.g.dart';
 
 class HomeScreenCoordinator = _HomeScreenCoordinatorBase
