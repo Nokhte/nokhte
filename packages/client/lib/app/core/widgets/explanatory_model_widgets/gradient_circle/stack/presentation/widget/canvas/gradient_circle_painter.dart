@@ -3,7 +3,7 @@ import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class GradientCirclePainter extends CustomPainter {
-  final CircleGradientOptions gradient;
+  final ModelGradientOptions gradient;
 
   GradientCirclePainter({
     required this.gradient,
@@ -20,7 +20,7 @@ class GradientCirclePainter extends CustomPainter {
       ..style = PaintingStyle.stroke;
     final gradientPaint = Paint()
       ..shader = LinearGradient(
-        colors: gradient == CircleGradientOptions.collaborator
+        colors: gradient == ModelGradientOptions.collaborator
             ? ModelGradients.collaboratorGradient
             : ModelGradients.userGradient,
         begin: Alignment.topCenter,

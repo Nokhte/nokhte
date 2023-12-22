@@ -8,7 +8,7 @@ import 'package:simple_animations/simple_animations.dart';
 import 'canvas/gradient_circle_painter.dart';
 
 class GradientCircle extends StatelessWidget {
-  final CircleGradientOptions gradient;
+  final ModelGradientOptions gradient;
   final GradientCircleStore store;
   const GradientCircle({
     super.key,
