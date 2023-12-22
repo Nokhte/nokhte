@@ -31,61 +31,64 @@ class LoginScreen extends HookWidget with WidgetsBindingObserver {
       return Scaffold(
         resizeToAvoidBottomInset: false,
         body: Tap(
-          trackerStore: coordinator.tap,
+          store: coordinator.tap,
           child: Swipe(
             trackerStore: coordinator.swipe,
-            child: WifiDisconnectOverlay(
-              store: coordinator.widgets.wifiDisconnectOverlay,
-              child: Stack(
-                children: [
-                  FullScreen(
-                    child: BeachWaves(
-                      store: coordinator.widgets.layer1BeachWaves,
-                    ),
+            child: Stack(
+              children: [
+                FullScreen(
+                  child: BeachWaves(
+                    store: coordinator.widgets.layer1BeachWaves,
                   ),
-                  FullScreen(
-                    child: BeachWaves(
-                      store: coordinator.widgets.layer2BeachWaves,
-                    ),
+                ),
+                FullScreen(
+                  child: BeachWaves(
+                    store: coordinator.widgets.layer2BeachWaves,
                   ),
-                  FullScreen(
-                    child: TrailingText(
-                      fontStyle: Fonts.kantumruy(
-                        fontSize: 25.0,
-                      ),
-                      gradientList: List.filled(2, Colors.white),
-                      store: coordinator.widgets.bottomTrailingText,
-                      textRevealDirection: TextRevealDirection.fromLeft,
-                      textContent: "Swipe Up",
+                ),
+                FullScreen(
+                  child: TrailingText(
+                    fontStyle: Fonts.kantumruy(
+                      fontSize: 25.0,
                     ),
+                    gradientList: List.filled(2, Colors.white),
+                    store: coordinator.widgets.bottomTrailingText,
+                    textRevealDirection: TextRevealDirection.fromLeft,
+                    textContent: "Swipe Up",
                   ),
-                  FullScreen(
-                    child: TrailingText(
-                      fontStyle: Fonts.kantumruy(
-                        fontSize: 25.0,
-                      ),
-                      gradientList: Gradients.skyMint,
-                      store: coordinator.widgets.topTrailingText,
-                      textRevealDirection: TextRevealDirection.fromRight,
-                      textContent: "To Login",
-                      additionalPadding: const EdgeInsets.only(bottom: 280),
+                ),
+                FullScreen(
+                  child: TrailingText(
+                    fontStyle: Fonts.kantumruy(
+                      fontSize: 25.0,
                     ),
+                    gradientList: Gradients.skyMint,
+                    store: coordinator.widgets.topTrailingText,
+                    textRevealDirection: TextRevealDirection.fromRight,
+                    textContent: "To Login",
+                    additionalPadding: const EdgeInsets.only(bottom: 280),
                   ),
-                  Center(
-                    child: SmartText(
-                      store: coordinator.widgets.smartTextStore,
-                    ),
+                ),
+                Center(
+                  child: SmartText(
+                    store: coordinator.widgets.smartTextStore,
                   ),
-                  FullScreen(
-                    child: Nokhte(
-                      store: coordinator.widgets.nokhte,
-                    ),
+                ),
+                FullScreen(
+                  child: Nokhte(
+                    store: coordinator.widgets.nokhte,
                   ),
-                ],
-              ),
+                ),
+                FullScreen(
+                  child: WifiDisconnectOverlay(
+                    store: coordinator.widgets.wifiDisconnectOverlay,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
+        //   ),
       );
     });
   }
