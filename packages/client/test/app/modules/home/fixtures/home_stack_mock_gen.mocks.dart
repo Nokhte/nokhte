@@ -20,7 +20,7 @@ import 'package:nokhte/app/modules/home/domain/contracts/home_contract.dart'
     as _i8;
 import 'package:nokhte/app/modules/home/domain/domain.dart' as _i9;
 import 'package:nokhte/app/modules/home/domain/entities/entities.dart' as _i10;
-import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/home_screen_widgets_coordinator.dart'
+import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/widgets/home_screen_widgets_coordinator.dart'
     as _i23;
 import 'package:nokhte/app/modules/home/presentation/mobx/main/add_name_to_database_store.dart'
     as _i18;
