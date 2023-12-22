@@ -5,7 +5,6 @@ import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:simple_animations/simple_animations.dart';
 
 class AccompanyingText extends StatelessWidget {
   final AccompanyingTextStore store;
