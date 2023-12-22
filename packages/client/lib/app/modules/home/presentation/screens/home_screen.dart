@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/home_screen_coordinator.dart';
+import 'package:nokhte/app/modules/home/presentation/presentation.dart';
 
 class HomeScreen extends HookWidget {
   final HomeScreenCoordinator coordinator;
