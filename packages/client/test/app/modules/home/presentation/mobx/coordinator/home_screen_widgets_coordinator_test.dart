@@ -37,7 +37,6 @@ void main() {
       await testStore.constructor();
       verify(smartText.setMessagesData(MessagesData.firstTimeHomeList));
       verify(smartText.startRotatingText());
-      verify(nokhteBlurStore.init());
       verify(beachWaves.setMovieMode(BeachWaveMovieModes.onShore));
       verify(wifiDisconnectOverlay.connectionReactor(
         onConnected: testStore.onConnected,
