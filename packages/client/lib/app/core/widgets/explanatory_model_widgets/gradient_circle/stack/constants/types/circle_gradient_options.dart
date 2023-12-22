@@ -1,4 +1,0 @@
-enum CircleGradientOptions {
-  user,
-  collaborator,
-}
