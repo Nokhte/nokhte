@@ -24,38 +24,33 @@ class HomeScreen extends HookWidget {
         builder: (context, constraints) {
           return Scaffold(
             resizeToAvoidBottomInset: false,
-            body: GestureDetector(
-              child: Hold(
-                trackerStore: coordinator.hold,
-                child: Swipe(
-                  trackerStore: coordinator.swipe,
-                  child: WifiDisconnectOverlay(
-                    store: coordinator.widgets.wifiDisconnectOverlay,
-                    child: Stack(
-                      children: [
-                        FullScreen(
-                            child: BeachWaves(
-                          store: coordinator.widgets.beachWaves,
-                        )),
-                        FullScreen(
-                          child: NokhteBlur(
-                            store: coordinator.widgets.nokhteBlur,
-                          ),
-                        ),
-                        Center(
-                            child: SmartText(
-                          store: coordinator.widgets.smartText,
-                        )),
-                        GestureCross(
-                          size: size,
-                          store: coordinator.widgets.gestureCross,
-                        )
-                      ],
-                    ),
+            body: MultiHitStack(
+              children: [
+                FullScreen(
+                    child: BeachWaves(
+                  store: coordinator.widgets.beachWaves,
+                )),
+                FullScreen(
+                  child: NokhteBlur(
+                    store: coordinator.widgets.nokhteBlur,
                   ),
                 ),
-              ),
+                Center(
+                    child: SmartText(
+                  store: coordinator.widgets.smartText,
+                )),
+                GestureCross(
+                  size: size,
+                  store: coordinator.widgets.gestureCross,
+                ),
+                FullScreen(
+                  child: WifiDisconnectOverlay(
+                    store: coordinator.widgets.wifiDisconnectOverlay,
+                  ),
+                ),
+              ],
             ),
+            // ),
           );
         },
       );
