@@ -18,8 +18,8 @@ abstract class _GestureCrossStoreBase extends BaseCustomAnimatedWidgetStore
       ObservableList.of(StartingCirclePresets.homeScreen);
 
   @observable
-  int touchCount = 0;
+  int tapCount = 0;
 
   @action
-  incrementTouchCount() => touchCount++;
+  incrementTapCount() => tapCount++;
 }
