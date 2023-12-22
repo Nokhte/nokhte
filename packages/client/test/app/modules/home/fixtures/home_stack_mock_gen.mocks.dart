@@ -1303,6 +1303,22 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
       ) as _i13.SmartTextStore);
 
   @override
+  bool get hasInitiatedBlur => (super.noSuchMethod(
+        Invocation.getter(#hasInitiatedBlur),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set hasInitiatedBlur(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #hasInitiatedBlur,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   List<Object> get props => (super.noSuchMethod(
         Invocation.getter(#props),
         returnValue: <Object>[],

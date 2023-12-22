@@ -1073,6 +1073,22 @@ class MockGestureCrossStore extends _i1.Mock implements _i5.GestureCrossStore {
       );
 
   @override
+  int get tapCount => (super.noSuchMethod(
+        Invocation.getter(#tapCount),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
+  set tapCount(int? value) => super.noSuchMethod(
+        Invocation.setter(
+          #tapCount,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   bool get callsOnCompleteTwice => (super.noSuchMethod(
         Invocation.getter(#callsOnCompleteTwice),
         returnValue: false,
