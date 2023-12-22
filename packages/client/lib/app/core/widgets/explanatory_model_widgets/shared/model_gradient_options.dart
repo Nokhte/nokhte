@@ -1,0 +1,4 @@
+enum ModelGradientOptions {
+  user,
+  collaborator,
+}
