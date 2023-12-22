@@ -53,6 +53,7 @@ class GestureCross extends StatelessWidget {
                             store.path,
                             store.bounds,
                             size,
+                            onTap: store.incrementTouchCount,
                             crossGradient: ColorsAndStops(colors: [
                               const Color(0xFF0A98FF),
                               Colors.white.withOpacity(0)
