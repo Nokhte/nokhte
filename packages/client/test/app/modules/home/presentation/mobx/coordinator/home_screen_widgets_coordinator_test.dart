@@ -6,31 +6,25 @@ import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 import '../../../../shared/shared_mocks.mocks.dart';
 
 void main() {
-  late MockSpotlightHaloStore spotlightHalo;
   late MockBeachWavesStore beachWaves;
   late MockWifiDisconnectOverlayStore wifiDisconnectOverlay;
   late MockGestureCrossStore gestureCross;
   late MockSmartTextStore smartText;
-  late MockClockFaceStore clockFace;
   late HomeScreenWidgetsCoordinator testStore;
   late MockNokhteBlurStore nokhteBlurStore;
-  late MockGradientCircleStore gradientCircleStore;
+  late MockClockModelCoordinator mockClockModelCoordinator;
 
   setUp(() {
-    spotlightHalo = MockSpotlightHaloStore();
+    mockClockModelCoordinator = MockClockModelCoordinator();
     beachWaves = MockBeachWavesStore();
-    clockFace = MockClockFaceStore();
-    gradientCircleStore = MockGradientCircleStore();
     wifiDisconnectOverlay = MockWifiDisconnectOverlayStore();
     gestureCross = MockGestureCrossStore();
     nokhteBlurStore = MockNokhteBlurStore();
     smartText = MockSmartTextStore();
 
     testStore = HomeScreenWidgetsCoordinator(
-      clockFace: clockFace,
-      gradientCircle: gradientCircleStore,
+      clockModelCoordinator: mockClockModelCoordinator,
       nokhteBlur: nokhteBlurStore,
-      spotlightHalo: spotlightHalo,
       beachWaves: beachWaves,
       wifiDisconnectOverlay: wifiDisconnectOverlay,
       gestureCross: gestureCross,
