@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:touchable/touchable.dart';
 
 class GestureCrossPainter extends CustomPainter {
+  final BuildContext context;
   Path path;
   Rect pathBounds;
   late double height;
@@ -12,6 +14,7 @@ class GestureCrossPainter extends CustomPainter {
   List<CircleInformation> circleInformation;
 
   GestureCrossPainter(
+    this.context,
     this.path,
     this.pathBounds,
     Size size, {
@@ -19,7 +22,7 @@ class GestureCrossPainter extends CustomPainter {
     required this.crossGradient,
   });
 
-  paintCross(Canvas canvas, Size size) {
+  paintCross(TouchyCanvas canvas, Size size) {
     height = pathBounds.height;
     width = pathBounds.width;
 
@@ -31,11 +34,15 @@ class GestureCrossPainter extends CustomPainter {
       ).createShader(
         pathBounds,
       );
-    canvas.drawPath(path, crossPaint);
+    canvas.drawPath(path, crossPaint, onTapDown: (details) {
+      print("hi you tapped $details");
+    }, onTapUp: (details) {
+      print("something");
+    });
   }
 
   paintCircles(
-    Canvas canvas,
+    TouchyCanvas canvas,
     Size size,
     Offset center,
     double radius,
@@ -62,16 +69,22 @@ class GestureCrossPainter extends CustomPainter {
             stops: gradient.stops,
           ).createShader(circleBounds);
       });
-      canvas.drawCircle(Offset(circleX, circleY), radius, circlePaint);
+      canvas.drawCircle(Offset(circleX, circleY), radius, circlePaint,
+          onTapDown: (details) {
+        print("hi you tapped $details");
+      }, onTapUp: (details) {
+        print("something");
+      });
     }
   }
 
   @override
   void paint(Canvas canvas, Size size) {
-    paintCross(canvas, size);
+    final touchableCanvas = TouchyCanvas(context, canvas);
+    paintCross(touchableCanvas, size);
     final center = Offset(width.half(), height.half());
     const radius = 4.5;
-    paintCircles(canvas, size, center, radius, circleInformation);
+    paintCircles(touchableCanvas, size, center, radius, circleInformation);
   }
 
   @override
