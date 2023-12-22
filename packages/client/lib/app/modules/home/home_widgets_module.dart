@@ -9,40 +9,38 @@ class HomeWidgetsModule extends Module {
         BeachWavesModule(),
         WifiDisconnectOverlayModule(),
         ClockModelModule(),
+        CircleExplanationModule(),
       ];
 
   @override
   exportedBinds(i) {
-    i.addSingleton<SmartTextStore>(
+    i.add<SmartTextStore>(
       () => SmartTextStore(),
     );
-    i.addSingleton<GestureCrossStore>(
+    i.add<GestureCrossStore>(
       () => GestureCrossStore(),
     );
-    i.addSingleton<SpotlightHaloStore>(
-      () => SpotlightHaloStore(),
-    );
-    i.addSingleton<GradientCircleStore>(
-      () => GradientCircleStore(),
-    );
-    i.addSingleton<NokhteBlurStore>(
+    i.add<NokhteBlurStore>(
       () => NokhteBlurStore(),
-    );
-    i.addSingleton<ClockFaceStore>(
-      () => ClockFaceStore(),
     );
     i.addSingleton<HomeScreenWidgetsCoordinator>(
       () => HomeScreenWidgetsCoordinator(
         clockModelCoordinator: Modular.get<ClockModelCoordinator>(),
-        nokhteBlur: i<NokhteBlurStore>(),
-        smartText: i<SmartTextStore>(),
-        wifiDisconnectOverlay: i<WifiDisconnectOverlayStore>(),
-        gestureCross: i<GestureCrossStore>(),
-        beachWaves: i<BeachWavesStore>(),
+        nokhteBlur: Modular.get<NokhteBlurStore>(),
+        smartText: Modular.get<SmartTextStore>(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        gestureCross: Modular.get<GestureCrossStore>(),
+        beachWaves: Modular.get<BeachWavesStore>(),
       ),
     );
     i.addSingleton<CircleExplanationWidgetsCoordinator>(
-      () => CircleExplanationWidgetsCoordinator(),
+      () => CircleExplanationWidgetsCoordinator(
+          nokhteBlur: Modular.get<NokhteBlurStore>(),
+          beachWaves: Modular.get<BeachWavesStore>(),
+          wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+          smartText: Modular.get<SmartTextStore>(),
+          gestureCross: Modular.get<GestureCrossStore>(),
+          circleModel: Modular.get<CircleExplanationModelCoordinator>()),
     );
   }
 }
