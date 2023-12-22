@@ -200,9 +200,9 @@ class _FakeCollaboratorPhraseEntity_13 extends _i1.SmartFake
         );
 }
 
-class _FakeClockFaceStore_14 extends _i1.SmartFake
-    implements _i13.ClockFaceStore {
-  _FakeClockFaceStore_14(
+class _FakeClockModelCoordinator_14 extends _i1.SmartFake
+    implements _i13.ClockModelCoordinator {
+  _FakeClockModelCoordinator_14(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -211,31 +211,9 @@ class _FakeClockFaceStore_14 extends _i1.SmartFake
         );
 }
 
-class _FakeGradientCircleStore_15 extends _i1.SmartFake
-    implements _i13.GradientCircleStore {
-  _FakeGradientCircleStore_15(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeSpotlightHaloStore_16 extends _i1.SmartFake
-    implements _i13.SpotlightHaloStore {
-  _FakeSpotlightHaloStore_16(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeNokhteBlurStore_17 extends _i1.SmartFake
+class _FakeNokhteBlurStore_15 extends _i1.SmartFake
     implements _i13.NokhteBlurStore {
-  _FakeNokhteBlurStore_17(
+  _FakeNokhteBlurStore_15(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -244,9 +222,9 @@ class _FakeNokhteBlurStore_17 extends _i1.SmartFake
         );
 }
 
-class _FakeBeachWavesStore_18 extends _i1.SmartFake
+class _FakeBeachWavesStore_16 extends _i1.SmartFake
     implements _i13.BeachWavesStore {
-  _FakeBeachWavesStore_18(
+  _FakeBeachWavesStore_16(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -255,9 +233,9 @@ class _FakeBeachWavesStore_18 extends _i1.SmartFake
         );
 }
 
-class _FakeWifiDisconnectOverlayStore_19 extends _i1.SmartFake
+class _FakeWifiDisconnectOverlayStore_17 extends _i1.SmartFake
     implements _i13.WifiDisconnectOverlayStore {
-  _FakeWifiDisconnectOverlayStore_19(
+  _FakeWifiDisconnectOverlayStore_17(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -266,9 +244,9 @@ class _FakeWifiDisconnectOverlayStore_19 extends _i1.SmartFake
         );
 }
 
-class _FakeGestureCrossStore_20 extends _i1.SmartFake
+class _FakeGestureCrossStore_18 extends _i1.SmartFake
     implements _i13.GestureCrossStore {
-  _FakeGestureCrossStore_20(
+  _FakeGestureCrossStore_18(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -277,9 +255,9 @@ class _FakeGestureCrossStore_20 extends _i1.SmartFake
         );
 }
 
-class _FakeSmartTextStore_21 extends _i1.SmartFake
+class _FakeSmartTextStore_19 extends _i1.SmartFake
     implements _i13.SmartTextStore {
-  _FakeSmartTextStore_21(
+  _FakeSmartTextStore_19(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -1246,52 +1224,26 @@ class MockGetCollaboratorPhraseStore extends _i1.Mock
 class MockHomeScreenWidgetsCoordinator extends _i1.Mock
     implements _i23.HomeScreenWidgetsCoordinator {
   @override
-  _i13.ClockFaceStore get clockFace => (super.noSuchMethod(
-        Invocation.getter(#clockFace),
-        returnValue: _FakeClockFaceStore_14(
+  _i13.ClockModelCoordinator get clockModelCoordinator => (super.noSuchMethod(
+        Invocation.getter(#clockModelCoordinator),
+        returnValue: _FakeClockModelCoordinator_14(
           this,
-          Invocation.getter(#clockFace),
+          Invocation.getter(#clockModelCoordinator),
         ),
-        returnValueForMissingStub: _FakeClockFaceStore_14(
+        returnValueForMissingStub: _FakeClockModelCoordinator_14(
           this,
-          Invocation.getter(#clockFace),
+          Invocation.getter(#clockModelCoordinator),
         ),
-      ) as _i13.ClockFaceStore);
-
-  @override
-  _i13.GradientCircleStore get gradientCircle => (super.noSuchMethod(
-        Invocation.getter(#gradientCircle),
-        returnValue: _FakeGradientCircleStore_15(
-          this,
-          Invocation.getter(#gradientCircle),
-        ),
-        returnValueForMissingStub: _FakeGradientCircleStore_15(
-          this,
-          Invocation.getter(#gradientCircle),
-        ),
-      ) as _i13.GradientCircleStore);
-
-  @override
-  _i13.SpotlightHaloStore get spotlightHalo => (super.noSuchMethod(
-        Invocation.getter(#spotlightHalo),
-        returnValue: _FakeSpotlightHaloStore_16(
-          this,
-          Invocation.getter(#spotlightHalo),
-        ),
-        returnValueForMissingStub: _FakeSpotlightHaloStore_16(
-          this,
-          Invocation.getter(#spotlightHalo),
-        ),
-      ) as _i13.SpotlightHaloStore);
+      ) as _i13.ClockModelCoordinator);
 
   @override
   _i13.NokhteBlurStore get nokhteBlur => (super.noSuchMethod(
         Invocation.getter(#nokhteBlur),
-        returnValue: _FakeNokhteBlurStore_17(
+        returnValue: _FakeNokhteBlurStore_15(
           this,
           Invocation.getter(#nokhteBlur),
         ),
-        returnValueForMissingStub: _FakeNokhteBlurStore_17(
+        returnValueForMissingStub: _FakeNokhteBlurStore_15(
           this,
           Invocation.getter(#nokhteBlur),
         ),
@@ -1300,11 +1252,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i13.BeachWavesStore get beachWaves => (super.noSuchMethod(
         Invocation.getter(#beachWaves),
-        returnValue: _FakeBeachWavesStore_18(
+        returnValue: _FakeBeachWavesStore_16(
           this,
           Invocation.getter(#beachWaves),
         ),
-        returnValueForMissingStub: _FakeBeachWavesStore_18(
+        returnValueForMissingStub: _FakeBeachWavesStore_16(
           this,
           Invocation.getter(#beachWaves),
         ),
@@ -1314,11 +1266,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   _i13.WifiDisconnectOverlayStore get wifiDisconnectOverlay =>
       (super.noSuchMethod(
         Invocation.getter(#wifiDisconnectOverlay),
-        returnValue: _FakeWifiDisconnectOverlayStore_19(
+        returnValue: _FakeWifiDisconnectOverlayStore_17(
           this,
           Invocation.getter(#wifiDisconnectOverlay),
         ),
-        returnValueForMissingStub: _FakeWifiDisconnectOverlayStore_19(
+        returnValueForMissingStub: _FakeWifiDisconnectOverlayStore_17(
           this,
           Invocation.getter(#wifiDisconnectOverlay),
         ),
@@ -1327,11 +1279,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i13.GestureCrossStore get gestureCross => (super.noSuchMethod(
         Invocation.getter(#gestureCross),
-        returnValue: _FakeGestureCrossStore_20(
+        returnValue: _FakeGestureCrossStore_18(
           this,
           Invocation.getter(#gestureCross),
         ),
-        returnValueForMissingStub: _FakeGestureCrossStore_20(
+        returnValueForMissingStub: _FakeGestureCrossStore_18(
           this,
           Invocation.getter(#gestureCross),
         ),
@@ -1340,11 +1292,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i13.SmartTextStore get smartText => (super.noSuchMethod(
         Invocation.getter(#smartText),
-        returnValue: _FakeSmartTextStore_21(
+        returnValue: _FakeSmartTextStore_19(
           this,
           Invocation.getter(#smartText),
         ),
-        returnValueForMissingStub: _FakeSmartTextStore_21(
+        returnValueForMissingStub: _FakeSmartTextStore_19(
           this,
           Invocation.getter(#smartText),
         ),
