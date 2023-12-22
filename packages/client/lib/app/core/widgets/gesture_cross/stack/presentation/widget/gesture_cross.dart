@@ -5,6 +5,7 @@ import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
+import 'package:touchable/touchable.dart';
 import 'canvas/gesture_cross_painter.dart';
 
 class GestureCross extends StatelessWidget {
@@ -40,19 +41,28 @@ class GestureCross extends StatelessWidget {
                   height: size.height,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10.0),
-                    child: CustomPaint(
-                      painter: GestureCrossPainter(
-                        store.path,
-                        store.bounds,
-                        size,
-                        crossGradient: ColorsAndStops(colors: [
-                          const Color(0xFF0A98FF),
-                          Colors.white.withOpacity(0)
-                        ], stops: const [
-                          0,
-                          .5
-                        ]),
-                        circleInformation: store.circleInformation,
+                    child: SizedBox.expand(
+                      child: CanvasTouchDetector(
+                        gesturesToOverride: const [
+                          GestureType.onTapDown,
+                          GestureType.onTapUp,
+                        ],
+                        builder: (context) => CustomPaint(
+                          painter: GestureCrossPainter(
+                            context,
+                            store.path,
+                            store.bounds,
+                            size,
+                            crossGradient: ColorsAndStops(colors: [
+                              const Color(0xFF0A98FF),
+                              Colors.white.withOpacity(0)
+                            ], stops: const [
+                              0,
+                              .5
+                            ]),
+                            circleInformation: store.circleInformation,
+                          ),
+                        ),
                       ),
                     ),
                   ),
