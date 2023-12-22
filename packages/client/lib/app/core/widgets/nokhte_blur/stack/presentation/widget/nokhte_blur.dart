@@ -17,7 +17,7 @@ class NokhteBlur extends StatelessWidget {
           tween: store.movie,
           control: store.control,
           duration: store.movie.duration,
-          onCompleted: store.onCompleted(),
+          onCompleted: () => store.onCompleted(),
           builder: (context, value, child) {
             return Blur(
               colorOpacity: 0.0,
