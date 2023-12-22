@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/home_screen_coordinator.dart';
+import 'package:nokhte/app/modules/home/presentation/presentation.dart';
 
 import '../../../fixtures/home_stack_mock_gen.mocks.dart';
 
