@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/circle_explanation_coordinator.dart';
+import 'package:nokhte/app/modules/home/presentation/presentation.dart';
 
 class CircleExplanationScreen extends StatelessWidget {
   final CircleExplanationCoordinator coordinator;
