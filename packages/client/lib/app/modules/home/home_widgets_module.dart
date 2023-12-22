@@ -41,5 +41,8 @@ class HomeWidgetsModule extends Module {
         beachWaves: i<BeachWavesStore>(),
       ),
     );
+    i.addSingleton<CircleExplanationWidgetsCoordinator>(
+      () => CircleExplanationWidgetsCoordinator(),
+    );
   }
 }
