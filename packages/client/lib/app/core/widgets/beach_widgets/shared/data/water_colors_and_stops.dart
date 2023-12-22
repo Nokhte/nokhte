@@ -3,14 +3,14 @@ import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 
 class WaterColorsAndStops {
   static List<ColorAndStop> get onShoreWater => const [
-        ColorAndStop(Color(0xFF51A18D), 0),
-        ColorAndStop(Color(0xFF499384), .1563),
-        ColorAndStop(Color(0xFF3E8077), .3111),
-        ColorAndStop(Color(0xFF326562), .4583),
-        ColorAndStop(Color(0xFF274D4F), .5885),
-        ColorAndStop(Color(0xFF214147), .7240),
-        ColorAndStop(Color(0xFF1D3741), .8438),
-        ColorAndStop(Color(0xFF122430), 1.00),
+        ColorAndStop(Color(0xFF122430), 0),
+        ColorAndStop(Color(0xFF1D3741), .1563),
+        ColorAndStop(Color(0xFF214147), .3111),
+        ColorAndStop(Color(0xFF274D4F), .4583),
+        ColorAndStop(Color(0xFF326562), .5885),
+        ColorAndStop(Color(0xFF3E8077), .7240),
+        ColorAndStop(Color(0xFF499384), .8438),
+        ColorAndStop(Color(0xFF51A18D), 1.00),
       ];
 
   static List<ColorAndStop> get blackOut => const [
