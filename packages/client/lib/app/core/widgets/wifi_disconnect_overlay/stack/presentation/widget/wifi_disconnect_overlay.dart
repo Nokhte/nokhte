@@ -8,11 +8,9 @@ import 'package:simple_animations/simple_animations.dart';
 import 'canvas/wifi_disconnect_overlay_painter.dart';
 
 class WifiDisconnectOverlay extends StatelessWidget {
-  final Widget child;
   final WifiDisconnectOverlayStore store;
   const WifiDisconnectOverlay({
     super.key,
-    required this.child,
     required this.store,
   });
 
@@ -25,10 +23,12 @@ class WifiDisconnectOverlay extends StatelessWidget {
           onCompleted: () => store.onCompleted(),
           builder: (context, value, __) => Stack(
             children: [
-              Blur(
-                colorOpacity: 0.0,
-                blur: value.get('blur'),
-                child: child,
+              FullScreen(
+                child: Blur(
+                  colorOpacity: 0.0,
+                  blur: value.get('blur'),
+                  child: Container(),
+                ),
               ),
               Center(
                 child: AnimatedOpacity(
