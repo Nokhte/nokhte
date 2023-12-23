@@ -4,22 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 
 class ClockFacePainter extends CustomPainter {
-  late Path theGlowPath;
-
-  drawCircleAndBlur(Canvas canvas, Size size, Offset center, double radius) {
-    final blurPaint = Paint()
-      ..style = PaintingStyle.stroke
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4.0)
-      ..strokeWidth = 3.0
-      ..color = Colors.white;
-    final regularPaint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 3.0
-      ..color = Colors.white;
-    canvas.drawCircle(center, radius, blurPaint);
-    canvas.drawCircle(center, radius, regularPaint);
-  }
-
   drawHourLines(Canvas canvas, Offset center, double radius) {
     double lineLength;
     final Paint linePaint = Paint()
@@ -46,7 +30,6 @@ class ClockFacePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width.half(), size.height.half() - 130);
     final double radius = size.width * .4;
-    // drawCircleAndBlur(canvas, size, center, radius);
     drawHourLines(canvas, center, radius);
   }
 
