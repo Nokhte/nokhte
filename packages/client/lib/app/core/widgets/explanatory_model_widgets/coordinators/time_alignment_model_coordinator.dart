@@ -9,18 +9,16 @@ class TimeAlignmentModelCoordinator = _TimeAlignmentModelCoordinatorBase
 
 abstract class _TimeAlignmentModelCoordinatorBase extends Equatable with Store {
   final ClockFaceStore clockFace;
-  final AccompanyingTextStore primaryAccompanyingText;
-  final AccompanyingTextStore secondaryAccompanyingText;
-  final GradientCircleStore userGradientCircle;
-  final GradientCircleStore collaboratorGradientCircle;
+  final AccompanyingTextStore accompanyingText;
+  final GradientCircleStore userCircle;
+  final GradientCircleStore collaboratorCircle;
   final AvailabilitySectorsStore availabilitySectors;
 
   _TimeAlignmentModelCoordinatorBase({
     required this.clockFace,
-    required this.primaryAccompanyingText,
-    required this.secondaryAccompanyingText,
-    required this.userGradientCircle,
-    required this.collaboratorGradientCircle,
+    required this.accompanyingText,
+    required this.userCircle,
+    required this.collaboratorCircle,
     required this.availabilitySectors,
   });
 
