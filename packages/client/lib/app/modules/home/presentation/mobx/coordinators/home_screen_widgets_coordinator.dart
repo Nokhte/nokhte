@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -11,7 +10,8 @@ class HomeScreenWidgetsCoordinator = _HomeScreenWidgetsCoordinatorBase
     with _$HomeScreenWidgetsCoordinator;
 
 abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
-  final ClockModelCoordinator clockModelCoordinator;
+  final TimeAlignmentModelCoordinator timeModel;
+  final CircleExplanationModelCoordinator circleModel;
   final NokhteBlurStore nokhteBlur;
   final BeachWavesStore beachWaves;
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
@@ -19,7 +19,8 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   final SmartTextStore smartText;
 
   _HomeScreenWidgetsCoordinatorBase({
-    required this.clockModelCoordinator,
+    required this.timeModel,
+    required this.circleModel,
     required this.nokhteBlur,
     required this.beachWaves,
     required this.wifiDisconnectOverlay,
@@ -63,7 +64,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
 
   blurCompletionReactor() => reaction((p0) => nokhteBlur.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          Modular.to.navigate('/home/circle_explanation');
+          // show the model
         }
       });
 
