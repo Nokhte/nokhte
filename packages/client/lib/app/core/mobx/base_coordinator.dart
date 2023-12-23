@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 part 'base_coordinator.g.dart';
@@ -7,27 +6,6 @@ part 'base_coordinator.g.dart';
 class BaseCoordinator = _BaseCoordinatorBase with _$BaseCoordinator;
 
 abstract class _BaseCoordinatorBase extends Equatable with Store {
-  @observable
-  AppLifecycleState appState = AppLifecycleState.resumed;
-
-  foregroundAndBackgroundStateReactor({
-    required Function resumedCallback,
-    required Function inactiveCallback,
-    required Function detachedCallback,
-  }) =>
-      reaction((p0) => appState, (p0) async {
-        switch (p0) {
-          case AppLifecycleState.resumed:
-            await resumedCallback();
-          case AppLifecycleState.inactive:
-            await inactiveCallback();
-          case AppLifecycleState.detached:
-            await detachedCallback();
-          default:
-            break;
-        }
-      });
-
   @observable
   bool disableAllTouchFeedback = false;
 
@@ -38,9 +16,6 @@ abstract class _BaseCoordinatorBase extends Equatable with Store {
   ifTouchIsNotDisabled(Function callback) {
     if (!disableAllTouchFeedback) callback();
   }
-
-  @action
-  setAppState(AppLifecycleState newState) => appState = newState;
 
   @override
   List<Object> get props => [];
