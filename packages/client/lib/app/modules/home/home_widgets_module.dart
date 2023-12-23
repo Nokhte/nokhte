@@ -8,7 +8,7 @@ class HomeWidgetsModule extends Module {
   List<Module> get imports => [
         BeachWavesModule(),
         WifiDisconnectOverlayModule(),
-        ClockModelModule(),
+        TimeAlignmentModelModule(),
         CircleExplanationModule(),
       ];
 
@@ -20,27 +20,19 @@ class HomeWidgetsModule extends Module {
     i.add<GestureCrossStore>(
       () => GestureCrossStore(),
     );
-    i.add<NokhteBlurStore>(
+    i.addSingleton<NokhteBlurStore>(
       () => NokhteBlurStore(),
     );
     i.addSingleton<HomeScreenWidgetsCoordinator>(
       () => HomeScreenWidgetsCoordinator(
-        clockModelCoordinator: Modular.get<ClockModelCoordinator>(),
-        nokhteBlur: Modular.get<NokhteBlurStore>(),
+        timeModel: Modular.get<TimeAlignmentModelCoordinator>(),
+        circleModel: Modular.get<CircleExplanationModelCoordinator>(),
+        nokhteBlur: i<NokhteBlurStore>(),
         smartText: Modular.get<SmartTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         gestureCross: Modular.get<GestureCrossStore>(),
         beachWaves: Modular.get<BeachWavesStore>(),
       ),
-    );
-    i.addSingleton<CircleExplanationWidgetsCoordinator>(
-      () => CircleExplanationWidgetsCoordinator(
-          nokhteBlur: Modular.get<NokhteBlurStore>(),
-          beachWaves: Modular.get<BeachWavesStore>(),
-          wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-          smartText: Modular.get<SmartTextStore>(),
-          gestureCross: Modular.get<GestureCrossStore>(),
-          circleModel: Modular.get<CircleExplanationModelCoordinator>()),
     );
   }
 }
