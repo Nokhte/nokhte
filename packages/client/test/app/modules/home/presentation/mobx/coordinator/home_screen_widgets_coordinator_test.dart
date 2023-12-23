@@ -40,6 +40,7 @@ void main() {
       verify(smartText.setMessagesData(MessagesData.firstTimeHomeList));
       verify(smartText.startRotatingText());
       verify(beachWaves.setMovieMode(BeachWaveMovieModes.onShore));
+      verify(circleModel.constructor());
       verify(wifiDisconnectOverlay.connectionReactor(
         onConnected: testStore.onConnected,
         onDisconnected: testStore.onDisconnected,
