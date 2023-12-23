@@ -27,6 +27,23 @@ mixin _$HomeScreenWidgetsCoordinator
     });
   }
 
+  late final _$isDisconnectedAtom = Atom(
+      name: '_HomeScreenWidgetsCoordinatorBase.isDisconnected',
+      context: context);
+
+  @override
+  bool get isDisconnected {
+    _$isDisconnectedAtom.reportRead();
+    return super.isDisconnected;
+  }
+
+  @override
+  set isDisconnected(bool value) {
+    _$isDisconnectedAtom.reportWrite(value, super.isDisconnected, () {
+      super.isDisconnected = value;
+    });
+  }
+
   late final _$_HomeScreenWidgetsCoordinatorBaseActionController =
       ActionController(
           name: '_HomeScreenWidgetsCoordinatorBase', context: context);
@@ -37,6 +54,43 @@ mixin _$HomeScreenWidgetsCoordinator
         .startAction(name: '_HomeScreenWidgetsCoordinatorBase.constructor');
     try {
       return super.constructor();
+    } finally {
+      _$_HomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onConnected() {
+    final _$actionInfo = _$_HomeScreenWidgetsCoordinatorBaseActionController
+        .startAction(name: '_HomeScreenWidgetsCoordinatorBase.onConnected');
+    try {
+      return super.onConnected();
+    } finally {
+      _$_HomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onDisconnected() {
+    final _$actionInfo = _$_HomeScreenWidgetsCoordinatorBaseActionController
+        .startAction(name: '_HomeScreenWidgetsCoordinatorBase.onDisconnected');
+    try {
+      return super.onDisconnected();
+    } finally {
+      _$_HomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic toggleIsDisconnected() {
+    final _$actionInfo =
+        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
+            name: '_HomeScreenWidgetsCoordinatorBase.toggleIsDisconnected');
+    try {
+      return super.toggleIsDisconnected();
     } finally {
       _$_HomeScreenWidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
@@ -59,7 +113,8 @@ mixin _$HomeScreenWidgetsCoordinator
   @override
   String toString() {
     return '''
-hasInitiatedBlur: ${hasInitiatedBlur}
+hasInitiatedBlur: ${hasInitiatedBlur},
+isDisconnected: ${isDisconnected}
     ''';
   }
 }

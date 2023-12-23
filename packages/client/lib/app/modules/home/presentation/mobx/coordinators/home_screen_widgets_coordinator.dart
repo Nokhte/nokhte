@@ -37,11 +37,24 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     initReactors();
   }
 
-  onConnected() => null;
-  onDisconnected() => null;
+  @action
+  onConnected() {
+    if (isDisconnected) toggleIsDisconnected();
+  }
+
+  @action
+  onDisconnected() {
+    if (!isDisconnected) toggleIsDisconnected();
+  }
 
   @observable
   bool hasInitiatedBlur = false;
+
+  @observable
+  bool isDisconnected = false;
+
+  @action
+  toggleIsDisconnected() => isDisconnected = !isDisconnected;
 
   @action
   toggleHasInitiatedBlur() => hasInitiatedBlur = !hasInitiatedBlur;
@@ -56,17 +69,18 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   }
 
   gestureCrossTapReactor() => reaction((p0) => gestureCross.tapCount, (p0) {
-        if (!hasInitiatedBlur) {
-          nokhteBlur.init();
-          smartText.startRotatingText(isResuming: true);
-          toggleHasInitiatedBlur();
+        if (!isDisconnected) {
+          if (!hasInitiatedBlur) {
+            nokhteBlur.init();
+            smartText.startRotatingText(isResuming: true);
+            toggleHasInitiatedBlur();
+          }
         }
       });
 
   blurCompletionReactor() => reaction((p0) => nokhteBlur.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
           circleModel.initExplanation();
-          // show the model
         }
       });
 
