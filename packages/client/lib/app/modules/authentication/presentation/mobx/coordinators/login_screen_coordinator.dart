@@ -48,11 +48,22 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
   initReactors() {
     swipeReactor();
     tapReactor();
-    foregroundAndBackgroundStateReactor(
-      resumedCallback: () => onResumed(),
-      inactiveCallback: () => onInactive(),
-      detachedCallback: () => null,
-    );
+    // foregroundAndBackgroundStateReactor(
+    //   resumedCallback: () => onResumed(),
+    //   inactiveCallback: () => onInactive(),
+    //   detachedCallback: () => null,
+    // );
+  }
+
+  onAppLifeCycleStateChange(p0) {
+    switch (p0) {
+      case AppLifecycleState.resumed:
+        onResumed();
+      case AppLifecycleState.inactive:
+        onInactive();
+      default:
+        break;
+    }
   }
 
   @action
