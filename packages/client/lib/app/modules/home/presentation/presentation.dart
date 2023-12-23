@@ -1,2 +1,2 @@
 export 'mobx/mobx.dart';
-export 'screens/screens.dart';
+export 'screens/home_screen.dart';
