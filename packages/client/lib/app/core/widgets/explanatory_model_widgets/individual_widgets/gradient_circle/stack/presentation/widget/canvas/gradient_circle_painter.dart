@@ -12,7 +12,7 @@ class GradientCirclePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width.half(), size.height.half());
-    const double radius = 20.0;
+    const double radius = 25.0;
     final circleRect = Rect.fromCircle(center: center, radius: radius);
     final circleStrokePaint = Paint()
       ..color = Colors.white
