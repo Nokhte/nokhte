@@ -1,5 +1,4 @@
-export 'accompanying_text/accompanying_text.dart';
-export './clock_widgets/clock_widgets.dart';
-export './gradient_circle/gradient_circle.dart';
+export './individual_widgets/individual_widgets.dart';
+export './model_widgets/model_widgets.dart';
 export './shared/shared.dart';
 export 'coordinators/coordinators.dart';
