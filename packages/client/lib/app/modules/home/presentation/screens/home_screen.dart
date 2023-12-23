@@ -40,10 +40,14 @@ class HomeScreen extends HookWidget {
             size: size,
             store: coordinator.widgets.gestureCross,
           ),
-          FullScreen(
-            child: WifiDisconnectOverlay(
-              store: coordinator.widgets.wifiDisconnectOverlay,
-            ),
+          TimeAlignmentModelWidget(
+            store: coordinator.widgets.timeModel,
+          ),
+          CircleExplanationModelWidget(
+            coordinator: coordinator.widgets.circleModel,
+          ),
+          WifiDisconnectOverlay(
+            store: coordinator.widgets.wifiDisconnectOverlay,
           ),
         ],
       ),
