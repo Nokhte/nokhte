@@ -20,10 +20,9 @@ class TimeAlignmentModelModule extends Module {
       () => TimeAlignmentModelCoordinator(
         availabilitySectors: i<AvailabilitySectorsStore>(),
         clockFace: i<ClockFaceStore>(),
-        primaryAccompanyingText: Modular.get<AccompanyingTextStore>(),
-        secondaryAccompanyingText: Modular.get<AccompanyingTextStore>(),
-        userGradientCircle: Modular.get<GradientCircleStore>(),
-        collaboratorGradientCircle: Modular.get<GradientCircleStore>(),
+        accompanyingText: Modular.get<AccompanyingTextStore>(),
+        userCircle: Modular.get<GradientCircleStore>(),
+        collaboratorCircle: Modular.get<GradientCircleStore>(),
       ),
     );
   }
