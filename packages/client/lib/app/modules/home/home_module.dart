@@ -65,9 +65,6 @@ class HomeModule extends Module {
         getCollaboratorPhraseStore: i<GetCollaboratorPhraseStore>(),
       ),
     );
-    i.addSingleton<CircleExplanationCoordinator>(
-      () => CircleExplanationCoordinator(),
-    );
   }
 
   @override
@@ -77,12 +74,6 @@ class HomeModule extends Module {
       transition: TransitionType.noTransition,
       child: (context) => HomeScreen(
         coordinator: Modular.get<HomeScreenCoordinator>(),
-      ),
-    );
-    r.child(
-      '/circle_explanation',
-      child: (context) => CircleExplanationScreen(
-        coordinator: Modular.get<CircleExplanationCoordinator>(),
       ),
     );
   }
