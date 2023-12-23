@@ -19,41 +19,35 @@ class HomeScreen extends HookWidget {
       coordinator.constructor();
       return null;
     }, []);
-    return Builder(builder: (context) {
-      return LayoutBuilder(
-        builder: (context, constraints) {
-          return Scaffold(
-            resizeToAvoidBottomInset: false,
-            body: MultiHitStack(
-              children: [
-                FullScreen(
-                    child: BeachWaves(
-                  store: coordinator.widgets.beachWaves,
-                )),
-                FullScreen(
-                  child: NokhteBlur(
-                    store: coordinator.widgets.nokhteBlur,
-                  ),
-                ),
-                Center(
-                    child: SmartText(
-                  store: coordinator.widgets.smartText,
-                )),
-                GestureCross(
-                  size: size,
-                  store: coordinator.widgets.gestureCross,
-                ),
-                FullScreen(
-                  child: WifiDisconnectOverlay(
-                    store: coordinator.widgets.wifiDisconnectOverlay,
-                  ),
-                ),
-              ],
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: MultiHitStack(
+        children: [
+          FullScreen(
+              child: BeachWaves(
+            store: coordinator.widgets.beachWaves,
+          )),
+          FullScreen(
+            child: NokhteBlur(
+              store: coordinator.widgets.nokhteBlur,
             ),
-            // ),
-          );
-        },
-      );
-    });
+          ),
+          Center(
+              child: SmartText(
+            store: coordinator.widgets.smartText,
+          )),
+          GestureCross(
+            size: size,
+            store: coordinator.widgets.gestureCross,
+          ),
+          FullScreen(
+            child: WifiDisconnectOverlay(
+              store: coordinator.widgets.wifiDisconnectOverlay,
+            ),
+          ),
+        ],
+      ),
+      // ),
+    );
   }
 }
