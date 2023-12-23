@@ -15,15 +15,17 @@ class ClockFace extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) => Observer(
-      builder: (context) => CustomAnimationBuilder(
-            tween: store.movie,
-            duration: store.movie.duration,
-            control: store.control,
-            builder: (context, value, child) => AnimatedOpacity(
-              opacity: useWidgetOpacity(store.showWidget),
-              duration: Seconds.get(0),
-              child: CustomPaint(
-                painter: ClockFacePainter(),
+      builder: (context) => AnimatedOpacity(
+            opacity: useWidgetOpacity(store.showWidget),
+            duration: Seconds.get(1),
+            child: CustomAnimationBuilder(
+              tween: store.movie,
+              duration: store.movie.duration,
+              control: store.control,
+              builder: (context, value, child) => FullScreen(
+                child: CustomPaint(
+                  painter: ClockFacePainter(),
+                ),
               ),
             ),
           ));
