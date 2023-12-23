@@ -10,6 +10,26 @@ class TimeAlignmentModelWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return FullScreen(
+        child: MultiHitStack(
+      children: [
+        ClockFace(
+          store: store.clockFace,
+        ),
+        // GradientCircle(
+        //   store: store.userCircle,
+        //   gradient: ModelGradientOptions.user,
+        //   bottomPadding: 500.0,
+        // ),
+        // GradientCircle(
+        //   store: store.collaboratorCircle,
+        //   gradient: ModelGradientOptions.collaborator,
+        //   bottomPadding: 175.0,
+        // ),
+        // AvailabilitySectors(
+        //   store: store.availabilitySectors,
+        // ),
+      ],
+    ));
   }
 }
