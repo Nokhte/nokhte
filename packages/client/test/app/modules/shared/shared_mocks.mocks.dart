@@ -1289,55 +1289,41 @@ class MockTimeAlignmentModelCoordinator extends _i1.Mock
       ) as _i5.ClockFaceStore);
 
   @override
-  _i5.AccompanyingTextStore get primaryAccompanyingText => (super.noSuchMethod(
-        Invocation.getter(#primaryAccompanyingText),
+  _i5.AccompanyingTextStore get accompanyingText => (super.noSuchMethod(
+        Invocation.getter(#accompanyingText),
         returnValue: _FakeAccompanyingTextStore_23(
           this,
-          Invocation.getter(#primaryAccompanyingText),
+          Invocation.getter(#accompanyingText),
         ),
         returnValueForMissingStub: _FakeAccompanyingTextStore_23(
           this,
-          Invocation.getter(#primaryAccompanyingText),
+          Invocation.getter(#accompanyingText),
         ),
       ) as _i5.AccompanyingTextStore);
 
   @override
-  _i5.AccompanyingTextStore get secondaryAccompanyingText =>
-      (super.noSuchMethod(
-        Invocation.getter(#secondaryAccompanyingText),
-        returnValue: _FakeAccompanyingTextStore_23(
-          this,
-          Invocation.getter(#secondaryAccompanyingText),
-        ),
-        returnValueForMissingStub: _FakeAccompanyingTextStore_23(
-          this,
-          Invocation.getter(#secondaryAccompanyingText),
-        ),
-      ) as _i5.AccompanyingTextStore);
-
-  @override
-  _i5.GradientCircleStore get userGradientCircle => (super.noSuchMethod(
-        Invocation.getter(#userGradientCircle),
+  _i5.GradientCircleStore get userCircle => (super.noSuchMethod(
+        Invocation.getter(#userCircle),
         returnValue: _FakeGradientCircleStore_24(
           this,
-          Invocation.getter(#userGradientCircle),
+          Invocation.getter(#userCircle),
         ),
         returnValueForMissingStub: _FakeGradientCircleStore_24(
           this,
-          Invocation.getter(#userGradientCircle),
+          Invocation.getter(#userCircle),
         ),
       ) as _i5.GradientCircleStore);
 
   @override
-  _i5.GradientCircleStore get collaboratorGradientCircle => (super.noSuchMethod(
-        Invocation.getter(#collaboratorGradientCircle),
+  _i5.GradientCircleStore get collaboratorCircle => (super.noSuchMethod(
+        Invocation.getter(#collaboratorCircle),
         returnValue: _FakeGradientCircleStore_24(
           this,
-          Invocation.getter(#collaboratorGradientCircle),
+          Invocation.getter(#collaboratorCircle),
         ),
         returnValueForMissingStub: _FakeGradientCircleStore_24(
           this,
-          Invocation.getter(#collaboratorGradientCircle),
+          Invocation.getter(#collaboratorCircle),
         ),
       ) as _i5.GradientCircleStore);
 
