@@ -44,7 +44,7 @@ class HomeScreen extends HookWidget {
             store: coordinator.widgets.timeModel,
           ),
           CircleExplanationModelWidget(
-            coordinator: coordinator.widgets.circleModel,
+            store: coordinator.widgets.circleModel,
           ),
           WifiDisconnectOverlay(
             store: coordinator.widgets.wifiDisconnectOverlay,
