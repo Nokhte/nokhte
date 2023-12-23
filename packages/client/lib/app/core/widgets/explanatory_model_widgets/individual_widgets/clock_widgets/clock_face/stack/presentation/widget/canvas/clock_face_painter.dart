@@ -2,8 +2,15 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class ClockFacePainter extends CustomPainter {
+  final ClockFacePainterProperties props;
+
+  ClockFacePainter({
+    required this.props,
+  });
+
   drawHourLines(Canvas canvas, Offset center, double radius) {
     double lineLength;
     final Paint linePaint = Paint()
@@ -11,10 +18,10 @@ class ClockFacePainter extends CustomPainter {
       ..strokeWidth = 2.0;
 
     for (int i = 0; i < 12; i++) {
-      if (i % 3 == 0) {
-        lineLength = 20.0;
+      if (i % 3 == 0 && props.hourMarkLength.isGreaterThan(0)) {
+        lineLength = props.hourMarkLength + 5.0;
       } else {
-        lineLength = 15.0;
+        lineLength = props.hourMarkLength;
       }
       double angle = pi * 2 * (i / 12);
       double x1 = center.dx + cos(angle) * radius;
