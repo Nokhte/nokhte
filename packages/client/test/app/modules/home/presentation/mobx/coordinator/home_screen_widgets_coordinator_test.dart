@@ -34,7 +34,26 @@ void main() {
     );
   });
 
+  group("initial values", () {
+    test("hasInitiatedBlur", () {
+      expect(testStore.hasInitiatedBlur, false);
+    });
+
+    test("isDisconnected", () {
+      expect(testStore.isDisconnected, false);
+    });
+  });
+
   group("actions", () {
+    test("onConnected", () {
+      testStore.onConnected();
+      expect(testStore.isDisconnected, false);
+    });
+
+    test("onDisconnected", () {
+      testStore.onDisconnected();
+      expect(testStore.isDisconnected, true);
+    });
     test("constructor", () async {
       await testStore.constructor();
       verify(smartText.setMessagesData(MessagesData.firstTimeHomeList));
