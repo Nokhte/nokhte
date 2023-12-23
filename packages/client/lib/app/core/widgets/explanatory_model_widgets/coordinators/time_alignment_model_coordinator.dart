@@ -2,12 +2,12 @@
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-part 'clock_model_coordinator.g.dart';
+part 'time_alignment_model_coordinator.g.dart';
 
-class ClockModelCoordinator = _ClockModelCoordinatorBase
-    with _$ClockModelCoordinator;
+class TimeAlignmentModelCoordinator = _TimeAlignmentModelCoordinatorBase
+    with _$TimeAlignmentModelCoordinator;
 
-abstract class _ClockModelCoordinatorBase extends Equatable with Store {
+abstract class _TimeAlignmentModelCoordinatorBase extends Equatable with Store {
   final ClockFaceStore clockFace;
   final AccompanyingTextStore primaryAccompanyingText;
   final AccompanyingTextStore secondaryAccompanyingText;
@@ -15,7 +15,7 @@ abstract class _ClockModelCoordinatorBase extends Equatable with Store {
   final GradientCircleStore collaboratorGradientCircle;
   final AvailabilitySectorsStore availabilitySectors;
 
-  _ClockModelCoordinatorBase({
+  _TimeAlignmentModelCoordinatorBase({
     required this.clockFace,
     required this.primaryAccompanyingText,
     required this.secondaryAccompanyingText,
