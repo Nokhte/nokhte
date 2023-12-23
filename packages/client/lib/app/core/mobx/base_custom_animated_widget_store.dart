@@ -31,6 +31,12 @@ abstract class _BaseCustomAnimatedWidgetStoreBase<T> extends Equatable
   @observable
   MovieStatus movieStatus = MovieStatus.idle;
 
+  @observable
+  bool hasFadedIn = false;
+
+  @action
+  toggleHasFadedIn() => hasFadedIn = !hasFadedIn;
+
   @action
   toggleWidgetVisibility() => showWidget = !showWidget;
 

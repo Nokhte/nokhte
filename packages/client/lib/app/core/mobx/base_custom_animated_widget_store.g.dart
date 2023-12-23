@@ -90,9 +90,38 @@ mixin _$BaseCustomAnimatedWidgetStore<T>
     });
   }
 
+  late final _$hasFadedInAtom = Atom(
+      name: '_BaseCustomAnimatedWidgetStoreBase.hasFadedIn', context: context);
+
+  @override
+  bool get hasFadedIn {
+    _$hasFadedInAtom.reportRead();
+    return super.hasFadedIn;
+  }
+
+  @override
+  set hasFadedIn(bool value) {
+    _$hasFadedInAtom.reportWrite(value, super.hasFadedIn, () {
+      super.hasFadedIn = value;
+    });
+  }
+
   late final _$_BaseCustomAnimatedWidgetStoreBaseActionController =
       ActionController(
           name: '_BaseCustomAnimatedWidgetStoreBase', context: context);
+
+  @override
+  dynamic toggleHasFadedIn() {
+    final _$actionInfo =
+        _$_BaseCustomAnimatedWidgetStoreBaseActionController.startAction(
+            name: '_BaseCustomAnimatedWidgetStoreBase.toggleHasFadedIn');
+    try {
+      return super.toggleHasFadedIn();
+    } finally {
+      _$_BaseCustomAnimatedWidgetStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic toggleWidgetVisibility() {
@@ -186,7 +215,8 @@ movie: ${movie},
 control: ${control},
 pastControl: ${pastControl},
 showWidget: ${showWidget},
-movieStatus: ${movieStatus}
+movieStatus: ${movieStatus},
+hasFadedIn: ${hasFadedIn}
     ''';
   }
 }
