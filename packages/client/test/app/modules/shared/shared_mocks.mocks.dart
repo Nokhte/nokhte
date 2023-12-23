@@ -1238,11 +1238,11 @@ class MockGestureCrossStore extends _i1.Mock implements _i5.GestureCrossStore {
       );
 }
 
-/// A class which mocks [ClockModelCoordinator].
+/// A class which mocks [TimeAlignmentModelCoordinator].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockClockModelCoordinator extends _i1.Mock
-    implements _i5.ClockModelCoordinator {
+class MockTimeAlignmentModelCoordinator extends _i1.Mock
+    implements _i5.TimeAlignmentModelCoordinator {
   @override
   _i5.ClockFaceStore get clockFace => (super.noSuchMethod(
         Invocation.getter(#clockFace),
@@ -1321,6 +1321,85 @@ class MockClockModelCoordinator extends _i1.Mock
           Invocation.getter(#availabilitySectors),
         ),
       ) as _i5.AvailabilitySectorsStore);
+
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+        returnValueForMissingStub: <Object>[],
+      ) as List<Object>);
+
+  @override
+  _i4.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_3(
+          this,
+          Invocation.getter(#context),
+        ),
+        returnValueForMissingStub: _FakeReactiveContext_3(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i4.ReactiveContext);
+}
+
+/// A class which mocks [CircleExplanationModelCoordinator].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockCircleExplanationModelCoordinator extends _i1.Mock
+    implements _i5.CircleExplanationModelCoordinator {
+  @override
+  _i5.GradientCircleStore get userCircle => (super.noSuchMethod(
+        Invocation.getter(#userCircle),
+        returnValue: _FakeGradientCircleStore_24(
+          this,
+          Invocation.getter(#userCircle),
+        ),
+        returnValueForMissingStub: _FakeGradientCircleStore_24(
+          this,
+          Invocation.getter(#userCircle),
+        ),
+      ) as _i5.GradientCircleStore);
+
+  @override
+  _i5.GradientCircleStore get collaboratorCircle => (super.noSuchMethod(
+        Invocation.getter(#collaboratorCircle),
+        returnValue: _FakeGradientCircleStore_24(
+          this,
+          Invocation.getter(#collaboratorCircle),
+        ),
+        returnValueForMissingStub: _FakeGradientCircleStore_24(
+          this,
+          Invocation.getter(#collaboratorCircle),
+        ),
+      ) as _i5.GradientCircleStore);
+
+  @override
+  _i5.AccompanyingTextStore get userAccompanyingText => (super.noSuchMethod(
+        Invocation.getter(#userAccompanyingText),
+        returnValue: _FakeAccompanyingTextStore_23(
+          this,
+          Invocation.getter(#userAccompanyingText),
+        ),
+        returnValueForMissingStub: _FakeAccompanyingTextStore_23(
+          this,
+          Invocation.getter(#userAccompanyingText),
+        ),
+      ) as _i5.AccompanyingTextStore);
+
+  @override
+  _i5.AccompanyingTextStore get collaboratorAccompanyingText =>
+      (super.noSuchMethod(
+        Invocation.getter(#collaboratorAccompanyingText),
+        returnValue: _FakeAccompanyingTextStore_23(
+          this,
+          Invocation.getter(#collaboratorAccompanyingText),
+        ),
+        returnValueForMissingStub: _FakeAccompanyingTextStore_23(
+          this,
+          Invocation.getter(#collaboratorAccompanyingText),
+        ),
+      ) as _i5.AccompanyingTextStore);
 
   @override
   List<Object> get props => (super.noSuchMethod(
