@@ -22,12 +22,23 @@ void main() {
     test("showWidget", () {
       expect(testStore.showWidget, true);
     });
+
+    test("hasFadedIn", () {
+      expect(testStore.hasFadedIn, false);
+    });
   });
 
   group("actions", () {
     test("toggleWidgetVisibility", () {
       testStore.toggleWidgetVisibility();
       expect(testStore.showWidget, false);
+    });
+
+    test("toggleHasFadedIn", () {
+      testStore.toggleHasFadedIn();
+      expect(testStore.hasFadedIn, true);
+      testStore.toggleHasFadedIn();
+      expect(testStore.hasFadedIn, false);
     });
     test("setPastControl", () {
       testStore.setPastControl(Control.loop);
