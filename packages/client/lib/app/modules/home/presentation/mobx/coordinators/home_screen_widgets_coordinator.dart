@@ -33,6 +33,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     smartText.setMessagesData(MessagesData.firstTimeHomeList);
     smartText.startRotatingText();
     beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
+    circleModel.constructor();
     initReactors();
   }
 
@@ -64,6 +65,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
 
   blurCompletionReactor() => reaction((p0) => nokhteBlur.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
+          circleModel.initExplanation();
           // show the model
         }
       });
