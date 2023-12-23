@@ -1343,6 +1343,22 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
       );
 
   @override
+  bool get isDisconnected => (super.noSuchMethod(
+        Invocation.getter(#isDisconnected),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set isDisconnected(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #isDisconnected,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   List<Object> get props => (super.noSuchMethod(
         Invocation.getter(#props),
         returnValue: <Object>[],
