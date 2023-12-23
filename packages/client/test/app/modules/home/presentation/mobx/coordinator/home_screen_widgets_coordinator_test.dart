@@ -12,10 +12,11 @@ void main() {
   late MockSmartTextStore smartText;
   late HomeScreenWidgetsCoordinator testStore;
   late MockNokhteBlurStore nokhteBlurStore;
-  late MockClockModelCoordinator mockClockModelCoordinator;
-
+  late MockTimeAlignmentModelCoordinator mockTimeModel;
+  late MockCircleExplanationModelCoordinator circleModel;
   setUp(() {
-    mockClockModelCoordinator = MockClockModelCoordinator();
+    circleModel = MockCircleExplanationModelCoordinator();
+    mockTimeModel = MockTimeAlignmentModelCoordinator();
     beachWaves = MockBeachWavesStore();
     wifiDisconnectOverlay = MockWifiDisconnectOverlayStore();
     gestureCross = MockGestureCrossStore();
@@ -23,7 +24,8 @@ void main() {
     smartText = MockSmartTextStore();
 
     testStore = HomeScreenWidgetsCoordinator(
-      clockModelCoordinator: mockClockModelCoordinator,
+      circleModel: circleModel,
+      timeModel: mockTimeModel,
       nokhteBlur: nokhteBlurStore,
       beachWaves: beachWaves,
       wifiDisconnectOverlay: wifiDisconnectOverlay,
