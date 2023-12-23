@@ -26,7 +26,8 @@ class AccompanyingText extends StatelessWidget {
             children: [
               AnimatedOpacity(
                 opacity: useWidgetOpacity(store.showWidget),
-                duration: Seconds.get(0),
+                duration: Seconds.get(1),
+                onEnd: () => store.toggleHasFadedIn(),
                 child: GradientText(
                   content,
                   colors: gradient == ModelGradientOptions.user
