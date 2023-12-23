@@ -10,24 +10,39 @@ import 'canvas/gradient_circle_painter.dart';
 class GradientCircle extends StatelessWidget {
   final ModelGradientOptions gradient;
   final GradientCircleStore store;
+  final double bottomPadding;
   const GradientCircle({
     super.key,
     required this.store,
     required this.gradient,
+    this.bottomPadding = 0,
   });
 
   @override
   Widget build(BuildContext context) => Observer(
-      builder: (context) => CustomAnimationBuilder(
-            tween: store.movie,
-            duration: store.movie.duration,
-            control: store.control,
-            builder: (context, value, child) => AnimatedOpacity(
-              opacity: useWidgetOpacity(store.showWidget),
-              duration: Seconds.get(0),
-              child: CustomPaint(
-                painter: GradientCirclePainter(
-                  gradient: gradient,
+      builder: (context) => AnimatedOpacity(
+            onEnd: () => store.toggleHasFadedIn(),
+            opacity: useWidgetOpacity(store.showWidget),
+            duration: Seconds.get(1),
+            child: CustomAnimationBuilder(
+              tween: store.movie,
+              duration: store.movie.duration,
+              control: store.control,
+              builder: (context, value, child) => FullScreen(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomPaint(
+                      painter: GradientCirclePainter(
+                        gradient: gradient,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        bottom: bottomPadding,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
