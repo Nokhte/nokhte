@@ -510,6 +510,22 @@ class MockWifiDisconnectOverlayStore extends _i1.Mock
       );
 
   @override
+  bool get hasFadedIn => (super.noSuchMethod(
+        Invocation.getter(#hasFadedIn),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set hasFadedIn(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #hasFadedIn,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   List<Object> get props => (super.noSuchMethod(
         Invocation.getter(#props),
         returnValue: <Object>[],
@@ -1182,6 +1198,22 @@ class MockGestureCrossStore extends _i1.Mock implements _i5.GestureCrossStore {
       );
 
   @override
+  bool get hasFadedIn => (super.noSuchMethod(
+        Invocation.getter(#hasFadedIn),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set hasFadedIn(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #hasFadedIn,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   List<Object> get props => (super.noSuchMethod(
         Invocation.getter(#props),
         returnValue: <Object>[],
@@ -1400,6 +1432,22 @@ class MockCircleExplanationModelCoordinator extends _i1.Mock
           Invocation.getter(#collaboratorAccompanyingText),
         ),
       ) as _i5.AccompanyingTextStore);
+
+  @override
+  bool get hasCompletedExplanation => (super.noSuchMethod(
+        Invocation.getter(#hasCompletedExplanation),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set hasCompletedExplanation(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #hasCompletedExplanation,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
 
   @override
   List<Object> get props => (super.noSuchMethod(
@@ -1640,6 +1688,22 @@ class MockSmartTextStore extends _i1.Mock implements _i5.SmartTextStore {
       );
 
   @override
+  bool get hasFadedIn => (super.noSuchMethod(
+        Invocation.getter(#hasFadedIn),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set hasFadedIn(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #hasFadedIn,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   List<Object> get props => (super.noSuchMethod(
         Invocation.getter(#props),
         returnValue: <Object>[],
@@ -1836,6 +1900,22 @@ class MockTrailingTextStore extends _i1.Mock implements _i5.TrailingTextStore {
       );
 
   @override
+  bool get hasFadedIn => (super.noSuchMethod(
+        Invocation.getter(#hasFadedIn),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set hasFadedIn(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #hasFadedIn,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   List<Object> get props => (super.noSuchMethod(
         Invocation.getter(#props),
         returnValue: <Object>[],
@@ -2010,6 +2090,22 @@ class MockNokhteBlurStore extends _i1.Mock implements _i5.NokhteBlurStore {
   set movieStatus(_i7.MovieStatus? value) => super.noSuchMethod(
         Invocation.setter(
           #movieStatus,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get hasFadedIn => (super.noSuchMethod(
+        Invocation.getter(#hasFadedIn),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set hasFadedIn(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #hasFadedIn,
           value,
         ),
         returnValueForMissingStub: null,
@@ -2209,6 +2305,22 @@ class MockNokhteStore extends _i1.Mock implements _i5.NokhteStore {
   set movieStatus(_i7.MovieStatus? value) => super.noSuchMethod(
         Invocation.setter(
           #movieStatus,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get hasFadedIn => (super.noSuchMethod(
+        Invocation.getter(#hasFadedIn),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set hasFadedIn(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #hasFadedIn,
           value,
         ),
         returnValueForMissingStub: null,
