@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -12,25 +11,76 @@ class ClockFacePainter extends CustomPainter {
   });
 
   drawHourLines(Canvas canvas, Offset center, double radius) {
-    double lineLength;
+    double lineLength = 0.0;
     final Paint linePaint = Paint()
       ..color = Colors.white
       ..strokeWidth = 2.0;
 
     for (int i = 0; i < 12; i++) {
       if (i % 3 == 0 && props.hourMarkLength.isGreaterThan(0)) {
-        lineLength = props.hourMarkLength + 5.0;
+        if (isThreeHourMark(i)) {
+          lineLength = props.hourMarkLength + 10.0; // starts at 3
+          final coordinates = getCoordinates(
+            i,
+            center,
+            radius,
+            lineLength,
+            additionalRotation: props.three.threeLineOneRotation,
+            additionalXTranslation: props.three.threeLineOneTranslation,
+          );
+          canvas.drawLine(coordinates.startingCoordinates,
+              coordinates.endingCoordinates, linePaint);
+        } else if (isSixHourMark(i)) {
+          lineLength = props.hourMarkLength + 10.0; // starts at 6
+          final coordinates = getCoordinates(i, center, radius, lineLength);
+          canvas.drawLine(coordinates.startingCoordinates,
+              coordinates.endingCoordinates, linePaint);
+        } else if (isNineHourMark(i)) {
+          lineLength = props.hourMarkLength + 10.0; // starts at 9
+          final coordinates = getCoordinates(i, center, radius, lineLength);
+          canvas.drawLine(coordinates.startingCoordinates,
+              coordinates.endingCoordinates, linePaint);
+        } else if (isTwelveHourMark(i)) {
+          lineLength = props.hourMarkLength + 10.0; // 12
+          final coordinates = getCoordinates(i, center, radius, lineLength);
+          canvas.drawLine(coordinates.startingCoordinates,
+              coordinates.endingCoordinates, linePaint);
+        }
       } else {
         lineLength = props.hourMarkLength;
+        final coordinates = getCoordinates(i, center, radius, lineLength);
+        canvas.drawLine(coordinates.startingCoordinates,
+            coordinates.endingCoordinates, linePaint);
       }
-      double angle = pi * 2 * (i / 12);
-      double x1 = center.dx + cos(angle) * radius;
-      double y1 = center.dy + sin(angle) * radius;
-      double x2 = center.dx + cos(angle) * (radius - lineLength);
-      double y2 = center.dy + sin(angle) * (radius - lineLength);
-
-      canvas.drawLine(Offset(x1, y1), Offset(x2, y2), linePaint);
     }
+  }
+
+  HourMarkPainterInformation getCoordinates(
+    int i,
+    Offset center,
+    double radius,
+    double lineLength, {
+    double additionalXTranslation = 0.0,
+    double additionalYTranslation = 0.0,
+    double additionalRotation = 0.0,
+  }) {
+    double angle = (pi * 2 * (i / 12));
+
+    double centerX = center.dx + cos(angle) * radius;
+    double centerY = center.dy + sin(angle) * radius;
+
+    double x1 = centerX - (lineLength / 2) * cos(angle + additionalRotation);
+    double y1 = centerY - (lineLength / 2) * sin(angle + additionalRotation);
+
+    double x2 = centerX + (lineLength / 2) * cos(angle + additionalRotation);
+    double y2 = centerY + (lineLength / 2) * sin(angle + additionalRotation);
+
+    return HourMarkPainterInformation(
+      startingCoordinates:
+          Offset(x1 + additionalXTranslation, y1 + additionalYTranslation),
+      endingCoordinates:
+          Offset(x2 + additionalXTranslation, y2 + additionalYTranslation),
+    );
   }
 
   @override
@@ -42,4 +92,9 @@ class ClockFacePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(ClockFacePainter oldDelegate) => true;
+
+  bool isThreeHourMark(int i) => i == 0;
+  bool isSixHourMark(int i) => i == 3;
+  bool isNineHourMark(int i) => i == 6;
+  bool isTwelveHourMark(int i) => i == 9;
 }
