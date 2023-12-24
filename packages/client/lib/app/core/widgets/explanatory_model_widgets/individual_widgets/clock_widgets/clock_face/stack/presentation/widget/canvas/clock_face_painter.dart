@@ -25,8 +25,8 @@ class ClockFacePainter extends CustomPainter {
             center,
             radius,
             lineLength,
-            additionalRotation: props.three.threeLineOneRotation,
-            additionalXTranslation: props.three.threeLineOneTranslation,
+            additionalRotation: props.three.lineOneRotation,
+            additionalXTranslation: props.three.lineOneTranslation,
           );
           canvas.drawLine(coordinates.startingCoordinates,
               coordinates.endingCoordinates, linePaint);

@@ -1,38 +1,38 @@
 import 'package:equatable/equatable.dart';
 
 class SixProperties extends Equatable {
-  final double sixLineOneRotation;
-  final double sixLineOneTranslation;
-  final double sixLineTwoRotation;
-  final double sixLineTwoTranslation;
-  final double sixLineThreeRotation;
-  final double sixLineThreeTranslation;
+  final double lineOneRotation;
+  final double lineOneTranslation;
+  final double lineTwoRotation;
+  final double lineTwoTranslation;
+  final double lineThreeRotation;
+  final double lineThreeTranslation;
 
   const SixProperties({
-    required this.sixLineOneRotation,
-    required this.sixLineOneTranslation,
-    required this.sixLineTwoRotation,
-    required this.sixLineTwoTranslation,
-    required this.sixLineThreeRotation,
-    required this.sixLineThreeTranslation,
+    required this.lineOneRotation,
+    required this.lineOneTranslation,
+    required this.lineTwoRotation,
+    required this.lineTwoTranslation,
+    required this.lineThreeRotation,
+    required this.lineThreeTranslation,
   });
 
   factory SixProperties.zero() => const SixProperties(
-        sixLineOneRotation: 0,
-        sixLineOneTranslation: 0,
-        sixLineTwoRotation: 0,
-        sixLineTwoTranslation: 0,
-        sixLineThreeRotation: 0,
-        sixLineThreeTranslation: 0,
+        lineOneRotation: 0,
+        lineOneTranslation: 0,
+        lineTwoRotation: 0,
+        lineTwoTranslation: 0,
+        lineThreeRotation: 0,
+        lineThreeTranslation: 0,
       );
 
   @override
   List<Object> get props => [
-        sixLineOneRotation,
-        sixLineOneTranslation,
-        sixLineTwoRotation,
-        sixLineTwoTranslation,
-        sixLineThreeRotation,
-        sixLineThreeTranslation,
+        lineOneRotation,
+        lineOneTranslation,
+        lineTwoRotation,
+        lineTwoTranslation,
+        lineThreeRotation,
+        lineThreeTranslation,
       ];
 }

@@ -1,46 +1,46 @@
 import 'package:equatable/equatable.dart';
 
 class ThreeProperties extends Equatable {
-  final double threeLineOneRotation;
-  final double threeLineOneTranslation;
-  final double threeLineTwoRotation;
-  final double threeLineTwoTranslation;
-  final double threeLineThreeRotation;
-  final double threeLineThreeTranslation;
+  final double lineOneRotation;
+  final double lineOneTranslation;
+  final double lineTwoRotation;
+  final double lineTwoTranslation;
+  final double lineThreeRotation;
+  final double lineThreeTranslation;
 
   const ThreeProperties({
-    required this.threeLineOneRotation,
-    required this.threeLineOneTranslation,
-    required this.threeLineTwoRotation,
-    required this.threeLineTwoTranslation,
-    required this.threeLineThreeRotation,
-    required this.threeLineThreeTranslation,
+    required this.lineOneRotation,
+    required this.lineOneTranslation,
+    required this.lineTwoRotation,
+    required this.lineTwoTranslation,
+    required this.lineThreeRotation,
+    required this.lineThreeTranslation,
   });
 
   factory ThreeProperties.zero({
-    double threeLineOneRotation = 0.0,
-    double threeLineOneTranslation = 0.0,
-    double threeLineTwoRotation = 0.0,
-    double threeLineTwoTranslation = 0.0,
-    double threeLineThreeRotation = 0.0,
-    double threeLineThreeTranslation = 0.0,
+    double lineOneRotation = 0.0,
+    double lineOneTranslation = 0.0,
+    double lineTwoRotation = 0.0,
+    double lineTwoTranslation = 0.0,
+    double lineThreeRotation = 0.0,
+    double lineThreeTranslation = 0.0,
   }) =>
       ThreeProperties(
-        threeLineOneRotation: threeLineOneRotation,
-        threeLineOneTranslation: threeLineOneTranslation,
-        threeLineTwoRotation: threeLineTwoRotation,
-        threeLineTwoTranslation: threeLineTwoTranslation,
-        threeLineThreeRotation: threeLineThreeRotation,
-        threeLineThreeTranslation: threeLineThreeTranslation,
+        lineOneRotation: lineOneRotation,
+        lineOneTranslation: lineOneTranslation,
+        lineTwoRotation: lineTwoRotation,
+        lineTwoTranslation: lineTwoTranslation,
+        lineThreeRotation: lineThreeRotation,
+        lineThreeTranslation: lineThreeTranslation,
       );
 
   @override
   List<Object> get props => [
-        threeLineOneRotation,
-        threeLineOneTranslation,
-        threeLineTwoRotation,
-        threeLineTwoTranslation,
-        threeLineThreeRotation,
-        threeLineThreeTranslation,
+        lineOneRotation,
+        lineOneTranslation,
+        lineTwoRotation,
+        lineTwoTranslation,
+        lineThreeRotation,
+        lineThreeTranslation,
       ];
 }

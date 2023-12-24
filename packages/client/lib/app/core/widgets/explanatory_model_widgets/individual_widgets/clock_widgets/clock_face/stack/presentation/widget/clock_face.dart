@@ -28,7 +28,14 @@ class ClockFace extends StatelessWidget {
                     props: ClockFacePainterProperties(
                       hourMarkLength:
                           value.get(ClockFaceMovieProperties.hourMarkLength),
-                      three: ThreeProperties.zero(),
+                      three: ThreeProperties.zero(
+                        lineOneRotation: value.get(
+                          ClockFaceMovieProperties.threeLineOneRotation,
+                        ),
+                        lineOneTranslation: value.get(
+                          ClockFaceMovieProperties.threeLineOneTranslation,
+                        ),
+                      ),
                       six: SixProperties.zero(),
                       nine: NineProperties.zero(),
                       twelve: TwelveProperties.zero(),

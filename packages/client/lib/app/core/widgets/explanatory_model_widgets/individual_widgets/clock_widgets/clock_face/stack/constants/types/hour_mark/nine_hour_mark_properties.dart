@@ -1,38 +1,38 @@
 import 'package:equatable/equatable.dart';
 
 class NineProperties extends Equatable {
-  final double nineLineOneRotation;
-  final double nineLineOneTranslation;
-  final double nineLineTwoRotation;
-  final double nineLineTwoTranslation;
-  final double nineLineThreeRotation;
-  final double nineLineThreeTranslation;
+  final double lineOneRotation;
+  final double lineOneTranslation;
+  final double lineTwoRotation;
+  final double lineTwoTranslation;
+  final double lineThreeRotation;
+  final double lineThreeTranslation;
 
   const NineProperties({
-    required this.nineLineOneRotation,
-    required this.nineLineOneTranslation,
-    required this.nineLineTwoRotation,
-    required this.nineLineTwoTranslation,
-    required this.nineLineThreeRotation,
-    required this.nineLineThreeTranslation,
+    required this.lineOneRotation,
+    required this.lineOneTranslation,
+    required this.lineTwoRotation,
+    required this.lineTwoTranslation,
+    required this.lineThreeRotation,
+    required this.lineThreeTranslation,
   });
 
   factory NineProperties.zero() => const NineProperties(
-        nineLineOneRotation: 0.0,
-        nineLineOneTranslation: 0.0,
-        nineLineTwoRotation: 0.0,
-        nineLineTwoTranslation: 0.0,
-        nineLineThreeRotation: 0.0,
-        nineLineThreeTranslation: 0.0,
+        lineOneRotation: 0.0,
+        lineOneTranslation: 0.0,
+        lineTwoRotation: 0.0,
+        lineTwoTranslation: 0.0,
+        lineThreeRotation: 0.0,
+        lineThreeTranslation: 0.0,
       );
 
   @override
   List<Object> get props => [
-        nineLineOneRotation,
-        nineLineOneTranslation,
-        nineLineTwoRotation,
-        nineLineTwoTranslation,
-        nineLineThreeRotation,
-        nineLineThreeTranslation,
+        lineOneRotation,
+        lineOneTranslation,
+        lineTwoRotation,
+        lineTwoTranslation,
+        lineThreeRotation,
+        lineThreeTranslation,
       ];
 }
