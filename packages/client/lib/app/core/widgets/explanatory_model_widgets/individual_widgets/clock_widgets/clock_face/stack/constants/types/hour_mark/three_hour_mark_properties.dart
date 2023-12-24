@@ -17,13 +17,21 @@ class ThreeProperties extends Equatable {
     required this.threeLineThreeTranslation,
   });
 
-  factory ThreeProperties.zero() => const ThreeProperties(
-        threeLineOneRotation: 0,
-        threeLineOneTranslation: 0,
-        threeLineTwoRotation: 0,
-        threeLineTwoTranslation: 0,
-        threeLineThreeRotation: 0,
-        threeLineThreeTranslation: 0,
+  factory ThreeProperties.zero({
+    double threeLineOneRotation = 0.0,
+    double threeLineOneTranslation = 0.0,
+    double threeLineTwoRotation = 0.0,
+    double threeLineTwoTranslation = 0.0,
+    double threeLineThreeRotation = 0.0,
+    double threeLineThreeTranslation = 0.0,
+  }) =>
+      ThreeProperties(
+        threeLineOneRotation: threeLineOneRotation,
+        threeLineOneTranslation: threeLineOneTranslation,
+        threeLineTwoRotation: threeLineTwoRotation,
+        threeLineTwoTranslation: threeLineTwoTranslation,
+        threeLineThreeRotation: threeLineThreeRotation,
+        threeLineThreeTranslation: threeLineThreeTranslation,
       );
 
   @override
