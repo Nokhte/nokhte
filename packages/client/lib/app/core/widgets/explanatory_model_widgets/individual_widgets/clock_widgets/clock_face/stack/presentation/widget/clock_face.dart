@@ -24,7 +24,16 @@ class ClockFace extends StatelessWidget {
               control: store.control,
               builder: (context, value, child) => FullScreen(
                 child: CustomPaint(
-                  painter: ClockFacePainter(),
+                  painter: ClockFacePainter(
+                    props: ClockFacePainterProperties(
+                      hourMarkLength:
+                          value.get(ClockFaceMovieProperties.hourMarkLength),
+                      three: ThreeProperties.zero(),
+                      six: SixProperties.zero(),
+                      nine: NineProperties.zero(),
+                      twelve: TwelveProperties.zero(),
+                    ),
+                  ),
                 ),
               ),
             ),
