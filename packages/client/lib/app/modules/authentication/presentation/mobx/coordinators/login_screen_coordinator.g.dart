@@ -25,6 +25,23 @@ mixin _$LoginScreenCoordinator on _LoginScreenCoordinatorBase, Store {
     });
   }
 
+  late final _$hasAttemptedToLoginAtom = Atom(
+      name: '_LoginScreenCoordinatorBase.hasAttemptedToLogin',
+      context: context);
+
+  @override
+  bool get hasAttemptedToLogin {
+    _$hasAttemptedToLoginAtom.reportRead();
+    return super.hasAttemptedToLogin;
+  }
+
+  @override
+  set hasAttemptedToLogin(bool value) {
+    _$hasAttemptedToLoginAtom.reportWrite(value, super.hasAttemptedToLogin, () {
+      super.hasAttemptedToLogin = value;
+    });
+  }
+
   late final _$authProviderAtom =
       Atom(name: '_LoginScreenCoordinatorBase.authProvider', context: context);
 
@@ -51,6 +68,18 @@ mixin _$LoginScreenCoordinator on _LoginScreenCoordinatorBase, Store {
 
   late final _$_LoginScreenCoordinatorBaseActionController =
       ActionController(name: '_LoginScreenCoordinatorBase', context: context);
+
+  @override
+  dynamic toggleHasAttemptedToLogin() {
+    final _$actionInfo =
+        _$_LoginScreenCoordinatorBaseActionController.startAction(
+            name: '_LoginScreenCoordinatorBase.toggleHasAttemptedToLogin');
+    try {
+      return super.toggleHasAttemptedToLogin();
+    } finally {
+      _$_LoginScreenCoordinatorBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic screenConstructor(Offset center) {
@@ -122,6 +151,7 @@ mixin _$LoginScreenCoordinator on _LoginScreenCoordinatorBase, Store {
   String toString() {
     return '''
 isLoggedIn: ${isLoggedIn},
+hasAttemptedToLogin: ${hasAttemptedToLogin},
 authProvider: ${authProvider}
     ''';
   }
