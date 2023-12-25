@@ -3,31 +3,53 @@ class ClockFaceMovieProperties {
   // 12
   static String get twelveLineOneRotation => 'twelveLineOneRotation';
   static String get twelveLineOneTranslation => 'twelveLineOneTranslation';
+  static String get twelveLineOneLength => 'twelveLineOneLength';
+
   static String get twelveLineTwoRotation => 'twelveLineTwoRotation';
   static String get twelveLineTwoTranslation => 'twelveLineTwoTranslation';
+  static String get twelveLineTwoLength => 'twelveLineTwoLength';
+
   static String get twelveLineThreeRotation => 'twelveLineThreeRotation';
   static String get twelveLineThreeTranslation => 'twelveLineThreeTranslation';
+  static String get twelveLineThreeLength => 'twelveLineThreeLength';
+
   static String get twelveLineFourRotation => 'twelveLineFourRotation';
   static String get twelveLineFourTranslation => 'twelveLineFourTranslation';
+  static String get twelveLineFourLength => 'twelveLineFourLength';
   // 3
-  static String get threeLineOneRotation => 'twelveLineOneRotation';
-  static String get threeLineOneTranslation => 'twelveLineOneTranslation';
-  static String get threeLineTwoRotation => 'twelveLineTwoRotation';
-  static String get threeLineTwoTranslation => 'twelveLineTwoTranslation';
-  static String get threeLineThreeRotation => 'twelveLineThreeRotation';
-  static String get threeLineThreeTranslation => 'twelveLineThreeTranslation';
+  static String get threeLineOneRotation => 'threeLineOneRotation';
+  static String get threeLineOneTranslation => 'threeLineOneTranslation';
+  static String get threeLineOneLength => 'threeLineOneLength';
+
+  static String get threeLineTwoRotation => 'threeLineTwoRotation';
+  static String get threeLineTwoTranslation => 'threeLineTwoTranslation';
+  static String get threeLineTwoLength => 'threeLineTwoLength';
+
+  static String get threeLineThreeRotation => 'threeLineThreeRotation';
+  static String get threeLineThreeTranslation => 'threeLineThreeTranslation';
+  static String get threeLineThreeLength => 'threeLineThreeLength';
   // 6
-  static String get sixLineOneRotation => 'twelveLineOneRotation';
-  static String get sixLineOneTranslation => 'twelveLineOneTranslation';
-  static String get sixLineTwoRotation => 'twelveLineTwoRotation';
-  static String get sixLineTwoTranslation => 'twelveLineTwoTranslation';
-  static String get sixLineThreeRotation => 'twelveLineThreeRotation';
-  static String get sixLineThreeTranslation => 'twelveLineThreeTranslation';
+  static String get sixLineOneRotation => 'sixLineOneRotation';
+  static String get sixLineOneTranslation => 'sixLineOneTranslation';
+  static String get sixLineOneLength => 'sixLineOneLength';
+
+  static String get sixLineTwoRotation => 'sixLineTwoRotation';
+  static String get sixLineTwoTranslation => 'sixLineTwoTranslation';
+  static String get sixLineTwoLength => 'sixLineTwoLength';
+
+  static String get sixLineThreeRotation => 'sixLineThreeRotation';
+  static String get sixLineThreeTranslation => 'sixLineThreeTranslation';
+  static String get sixLineThreeLength => 'sixLineThreeLength';
   // 9
-  static String get nineLineOneRotation => 'twelveLineOneRotation';
-  static String get nineLineOneTranslation => 'twelveLineOneTranslation';
-  static String get nineLineTwoRotation => 'twelveLineTwoRotation';
-  static String get nineLineTwoTranslation => 'twelveLineTwoTranslation';
-  static String get nineLineThreeRotation => 'twelveLineThreeRotation';
-  static String get nineLineThreeTranslation => 'twelveLineThreeTranslation';
+  static String get nineLineOneRotation => 'nineLineOneRotation';
+  static String get nineLineOneTranslation => 'nineLineOneTranslation';
+  static String get nineLineOneLength => 'nineLineOneLength';
+
+  static String get nineLineTwoRotation => 'nineLineTwoRotation';
+  static String get nineLineTwoTranslation => 'nineLineTwoTranslation';
+  static String get nineLineTwoLength => 'nineLineTwoLength';
+
+  static String get nineLineThreeRotation => 'nineLineThreeRotation';
+  static String get nineLineThreeTranslation => 'nineLineThreeTranslation';
+  static String get nineLineThreeLength => 'nineLineThreeLength';
 }
