@@ -144,8 +144,13 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
   }
 
   triggerLoginAnimation() {
-    bottomTrailingText.toggleWidgetVisibility();
-    topTrailingText.toggleWidgetVisibility();
+    if (bottomTrailingText.showWidget) {
+      bottomTrailingText.toggleWidgetVisibility();
+      topTrailingText.toggleWidgetVisibility();
+    }
+    if (smartTextStore.showWidget) {
+      smartTextStore.toggleWidgetVisibility();
+    }
     toggleHasTriggeredLoginAnimation();
     Future.delayed(Seconds.get(0, milli: 500), () {
       layer1BeachWaves.setMovieMode(BeachWaveMovieModes.blackOutToDrySand);
