@@ -3,6 +3,7 @@ import 'package:nokhte/app/core/widgets/explanatory_model_widgets/individual_wid
 class TwelveProperties extends BaseHourMarkProperties {
   final double lineFourRotation;
   final double lineFourTranslation;
+  final double lineFourLength;
 
   const TwelveProperties({
     required super.lineOneRotation,
@@ -13,6 +14,10 @@ class TwelveProperties extends BaseHourMarkProperties {
     required super.lineThreeTranslation,
     required this.lineFourRotation,
     required this.lineFourTranslation,
+    required this.lineFourLength,
+    required super.lineOneLength,
+    required super.lineTwoLength,
+    required super.lineThreeLength,
   });
 
   factory TwelveProperties.zero({
@@ -24,6 +29,10 @@ class TwelveProperties extends BaseHourMarkProperties {
     lineThreeTranslation = 0.0,
     lineFourRotation = 0.0,
     lineFourTranslation = 0.0,
+    lineFourLength = 0.0,
+    lineOneLength = 0.0,
+    lineTwoLength = 0.0,
+    lineThreeLength = 0.0,
   }) =>
       TwelveProperties(
         lineOneRotation: lineOneRotation,
@@ -34,6 +43,10 @@ class TwelveProperties extends BaseHourMarkProperties {
         lineThreeTranslation: lineThreeTranslation,
         lineFourRotation: lineFourRotation,
         lineFourTranslation: lineFourTranslation,
+        lineFourLength: lineFourLength,
+        lineOneLength: lineOneLength,
+        lineThreeLength: lineThreeLength,
+        lineTwoLength: lineTwoLength,
       );
 
   @override
