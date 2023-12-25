@@ -5,127 +5,66 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class ClockFacePainter extends CustomPainter {
   final ClockFacePainterProperties props;
+  Paint linePaint = Paint()
+    ..color = Colors.white
+    ..strokeWidth = 2.0;
 
   ClockFacePainter({
     required this.props,
   });
 
   drawHourLines(Canvas canvas, Offset center, double radius) {
-    double lineLength = 0.0;
-    Paint linePaint = Paint()
-      ..color = Colors.white
-      ..strokeWidth = 2.0;
-
-    for (int i = 0; i < 12; i++) {
-      if (i % 3 == 0 && props.hourMarkLength.isGreaterThan(0)) {
-        lineLength = props.hourMarkLength + 10.0; // starts at 3
-        if (isThreeHourMark(i)) {
+    for (int hourLine = 0; hourLine < 12; hourLine++) {
+      if (hourLine % 3 == 0 && props.hourMarkLength.isGreaterThan(0)) {
+        if (isThreeHourMark(hourLine)) {
           drawHourMarkLines(
-            props.numberOfLinesByHourMark[i],
-            i,
+            props.numberOfLinesByHourMark[hourLine],
+            hourLine,
             center,
             radius,
-            lineLength,
             canvas,
-            linePaint,
-            [
-              props.three.lineOneRotation,
-              props.three.lineTwoRotation,
-              props.three.lineThreeRotation,
-            ],
-            [
-              props.three.lineOneTranslation,
-              props.three.lineTwoTranslation,
-              props.three.lineThreeTranslation,
-            ],
-            [
-              props.three.lineOneLength,
-              props.three.lineTwoLength,
-              props.three.lineThreeLength,
-            ],
+            props.three.rotations,
+            props.three.translations,
+            props.three.lengths,
           );
-        } else if (isSixHourMark(i)) {
+        } else if (isSixHourMark(hourLine)) {
           drawHourMarkLines(
-            props.numberOfLinesByHourMark[i],
-            i,
+            props.numberOfLinesByHourMark[hourLine],
+            hourLine,
             center,
             radius,
-            lineLength,
             canvas,
-            linePaint,
-            [
-              props.six.lineOneRotation,
-              props.six.lineTwoRotation,
-              props.six.lineThreeRotation,
-            ],
-            [
-              props.six.lineOneTranslation,
-              props.six.lineTwoTranslation,
-              props.six.lineThreeTranslation,
-            ],
-            [
-              props.six.lineOneLength,
-              props.six.lineTwoLength,
-              props.six.lineThreeLength,
-            ],
+            props.six.rotations,
+            props.six.translations,
+            props.six.lengths,
           );
-        } else if (isNineHourMark(i)) {
+        } else if (isNineHourMark(hourLine)) {
           drawHourMarkLines(
-            props.numberOfLinesByHourMark[i],
-            i,
+            props.numberOfLinesByHourMark[hourLine],
+            hourLine,
             center,
             radius,
-            lineLength,
             canvas,
-            linePaint,
-            [
-              props.nine.lineOneRotation,
-              props.nine.lineTwoRotation,
-              props.nine.lineThreeRotation,
-            ],
-            [
-              props.nine.lineOneTranslation,
-              props.nine.lineTwoTranslation,
-              props.nine.lineThreeTranslation,
-            ],
-            [
-              props.nine.lineOneLength,
-              props.nine.lineTwoLength,
-              props.nine.lineThreeLength,
-            ],
+            props.nine.rotations,
+            props.nine.translations,
+            props.nine.lengths,
           );
-        } else if (isTwelveHourMark(i)) {
+        } else if (isTwelveHourMark(hourLine)) {
           drawHourMarkLines(
-            props.numberOfLinesByHourMark[i],
-            i,
+            props.numberOfLinesByHourMark[hourLine],
+            hourLine,
             center,
             radius,
-            lineLength,
             canvas,
-            linePaint,
-            [
-              props.twelve.lineOneRotation,
-              props.twelve.lineTwoRotation,
-              props.twelve.lineThreeRotation,
-              props.twelve.lineFourRotation,
-            ],
-            [
-              props.twelve.lineOneTranslation,
-              props.twelve.lineTwoTranslation,
-              props.twelve.lineThreeTranslation,
-              props.twelve.lineFourTranslation,
-            ],
-            [
-              props.twelve.lineOneLength,
-              props.twelve.lineTwoLength,
-              props.twelve.lineThreeLength,
-              props.twelve.lineFourLength,
-            ],
+            props.twelve.rotations,
+            props.twelve.translations,
+            props.twelve.lengths,
           );
         }
       } else {
-        lineLength = props.hourMarkLength;
-        final coordinates = getCoordinates(i, center, radius, lineLength);
+        double lineLength = props.hourMarkLength;
+        final coordinates =
+            getCoordinates(hourLine, center, radius, lineLength);
         canvas.drawLine(coordinates.startingCoordinates,
             coordinates.endingCoordinates, linePaint);
       }
@@ -137,9 +76,7 @@ class ClockFacePainter extends CustomPainter {
     int hourMarkIndex,
     Offset center,
     double radius,
-    double lineLength,
     Canvas canvas,
-    Paint linePaint,
     List<double> rotations,
     List<double> translations,
     List<double> lengths,
@@ -159,7 +96,7 @@ class ClockFacePainter extends CustomPainter {
   }
 
   HourMarkPainterInformation getCoordinates(
-    int i,
+    int hourIndex,
     Offset center,
     double radius,
     double lineLength, {
@@ -167,7 +104,7 @@ class ClockFacePainter extends CustomPainter {
     double additionalYTranslation = 0.0,
     double additionalRotation = 0.0,
   }) {
-    double angle = (pi * 2 * (i / 12));
+    double angle = (pi * 2 * (hourIndex / 12));
 
     double centerX = center.dx + cos(angle) * radius;
     double centerY = center.dy + sin(angle) * radius;
