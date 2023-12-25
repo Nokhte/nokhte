@@ -30,6 +30,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
 
   @action
   constructor() {
+    smartText.reset();
     if (!smartText.showWidget) smartText.toggleWidgetVisibility();
     smartText.setMessagesData(MessagesData.firstTimeHomeList);
     smartText.startRotatingText();
