@@ -3,9 +3,7 @@ import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/modules/home/data/contracts/home_contract_impl.dart';
 import 'package:nokhte/app/modules/home/data/sources/home_remote_source.dart';
 import 'package:nokhte/app/modules/home/domain/logic/logic.dart';
-import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 import 'package:nokhte/app/modules/home/presentation/presentation.dart';
-import 'package:nokhte/app/modules/home/presentation/screens/home_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'home_widgets_module.dart';
 
