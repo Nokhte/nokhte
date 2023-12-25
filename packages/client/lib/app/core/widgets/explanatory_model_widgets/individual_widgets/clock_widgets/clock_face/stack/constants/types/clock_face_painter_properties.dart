@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
-import 'hour_mark/hour_mark.dart';
+import 'base_hour_mark_properties.dart';
 
 class ClockFacePainterProperties extends Equatable {
   final double hourMarkLength;
-  final ThreeProperties three;
-  final SixProperties six;
-  final NineProperties nine;
-  final TwelveProperties twelve;
+  final BaseHourMarkProperties three;
+  final BaseHourMarkProperties six;
+  final BaseHourMarkProperties nine;
+  final BaseHourMarkProperties twelve;
   final List<int> numberOfLinesByHourMark = [
     3, // 3 hour mark
     1,
