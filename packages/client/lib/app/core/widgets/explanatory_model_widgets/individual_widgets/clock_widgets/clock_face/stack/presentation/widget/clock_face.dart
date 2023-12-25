@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/explanatory_model_widgets/individual_widgets/clock_widgets/clock_face/stack/constants/types/base_hour_mark_properties.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-
 import 'canvas/clock_face_painter.dart';
 
 class ClockFace extends StatelessWidget {
@@ -28,130 +28,155 @@ class ClockFace extends StatelessWidget {
                     props: ClockFacePainterProperties(
                       hourMarkLength:
                           value.get(ClockFaceMovieProperties.hourMarkLength),
-                      three: ThreeProperties(
-                        lineOneRotation: value.get(
-                          ClockFaceMovieProperties.threeLineOneRotation,
-                        ),
-                        lineOneTranslation: value.get(
-                          ClockFaceMovieProperties.threeLineOneTranslation,
-                        ),
-                        lineOneLength: value.get(
-                          ClockFaceMovieProperties.threeLineOneLength,
-                        ),
-                        lineTwoRotation: value.get(
-                          ClockFaceMovieProperties.threeLineTwoRotation,
-                        ),
-                        lineTwoTranslation: value.get(
-                          ClockFaceMovieProperties.threeLineTwoTranslation,
-                        ),
-                        lineTwoLength: value.get(
-                          ClockFaceMovieProperties.threeLineTwoLength,
-                        ),
-                        lineThreeRotation: value.get(
-                          ClockFaceMovieProperties.threeLineThreeRotation,
-                        ),
-                        lineThreeTranslation: value.get(
-                          ClockFaceMovieProperties.threeLineThreeTranslation,
-                        ),
-                        lineThreeLength: value.get(
-                          ClockFaceMovieProperties.threeLineThreeLength,
-                        ),
+                      three: BaseHourMarkProperties(
+                        lengths: [
+                          value.get(
+                            ClockFaceMovieProperties.threeLineOneLength,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.threeLineTwoLength,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.threeLineThreeLength,
+                          ),
+                        ],
+                        rotations: [
+                          value.get(
+                            ClockFaceMovieProperties.threeLineOneRotation,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.threeLineTwoRotation,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.threeLineThreeRotation,
+                          ),
+                        ],
+                        translations: [
+                          value.get(
+                            ClockFaceMovieProperties.threeLineOneTranslation,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.threeLineTwoTranslation,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.threeLineThreeTranslation,
+                          ),
+                        ],
                       ),
-                      six: SixProperties(
-                        lineOneRotation: value.get(
-                          ClockFaceMovieProperties.sixLineOneRotation,
-                        ),
-                        lineOneLength: value.get(
-                          ClockFaceMovieProperties.sixLineOneLength,
-                        ),
-                        lineTwoLength: value.get(
-                          ClockFaceMovieProperties.sixLineTwoLength,
-                        ),
-                        lineThreeLength: value.get(
-                          ClockFaceMovieProperties.sixLineThreeLength,
-                        ),
-                        lineOneTranslation: value.get(
-                          ClockFaceMovieProperties.sixLineOneTranslation,
-                        ),
-                        lineTwoRotation: value.get(
-                          ClockFaceMovieProperties.sixLineTwoRotation,
-                        ),
-                        lineTwoTranslation: value.get(
-                          ClockFaceMovieProperties.sixLineTwoTranslation,
-                        ),
-                        lineThreeRotation: value.get(
-                          ClockFaceMovieProperties.sixLineThreeRotation,
-                        ),
-                        lineThreeTranslation: value.get(
-                          ClockFaceMovieProperties.sixLineThreeTranslation,
-                        ),
+                      six: BaseHourMarkProperties(
+                        lengths: [
+                          value.get(
+                            ClockFaceMovieProperties.sixLineOneLength,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.sixLineTwoLength,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.sixLineThreeLength,
+                          ),
+                        ],
+                        rotations: [
+                          value.get(
+                            ClockFaceMovieProperties.sixLineOneRotation,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.sixLineTwoRotation,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.sixLineThreeRotation,
+                          ),
+                        ],
+                        translations: [
+                          value.get(
+                            ClockFaceMovieProperties.sixLineOneTranslation,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.sixLineTwoTranslation,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.sixLineThreeTranslation,
+                          ),
+                        ],
                       ),
-                      nine: NineProperties(
-                        lineOneRotation: value.get(
-                          ClockFaceMovieProperties.nineLineOneRotation,
-                        ),
-                        lineOneTranslation: value.get(
-                          ClockFaceMovieProperties.nineLineOneTranslation,
-                        ),
-                        lineTwoRotation: value.get(
-                          ClockFaceMovieProperties.nineLineTwoRotation,
-                        ),
-                        lineTwoTranslation: value.get(
-                          ClockFaceMovieProperties.nineLineTwoTranslation,
-                        ),
-                        lineThreeRotation: value.get(
-                          ClockFaceMovieProperties.nineLineThreeRotation,
-                        ),
-                        lineThreeTranslation: value.get(
-                          ClockFaceMovieProperties.nineLineThreeTranslation,
-                        ),
-                        lineOneLength: value.get(
-                          ClockFaceMovieProperties.nineLineOneLength,
-                        ),
-                        lineTwoLength: value.get(
-                          ClockFaceMovieProperties.nineLineTwoLength,
-                        ),
-                        lineThreeLength: value.get(
-                          ClockFaceMovieProperties.nineLineThreeLength,
-                        ),
+                      nine: BaseHourMarkProperties(
+                        lengths: [
+                          value.get(
+                            ClockFaceMovieProperties.nineLineOneLength,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.nineLineTwoLength,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.nineLineThreeLength,
+                          ),
+                        ],
+                        rotations: [
+                          value.get(
+                            ClockFaceMovieProperties.nineLineOneRotation,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.nineLineTwoRotation,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.nineLineThreeRotation,
+                          ),
+                        ],
+                        translations: [
+                          //
+                          value.get(
+                            ClockFaceMovieProperties.nineLineOneTranslation,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.nineLineTwoTranslation,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.nineLineThreeTranslation,
+                          ),
+                        ],
                       ),
-                      twelve: TwelveProperties(
-                        lineOneRotation: value.get(
-                          ClockFaceMovieProperties.twelveLineOneRotation,
-                        ),
-                        lineOneTranslation: value.get(
-                          ClockFaceMovieProperties.twelveLineOneTranslation,
-                        ),
-                        lineTwoRotation: value.get(
-                          ClockFaceMovieProperties.twelveLineTwoRotation,
-                        ),
-                        lineTwoTranslation: value.get(
-                          ClockFaceMovieProperties.twelveLineTwoTranslation,
-                        ),
-                        lineThreeRotation: value.get(
-                          ClockFaceMovieProperties.twelveLineThreeRotation,
-                        ),
-                        lineThreeTranslation: value.get(
-                          ClockFaceMovieProperties.twelveLineThreeTranslation,
-                        ),
-                        lineFourTranslation: value.get(
-                          ClockFaceMovieProperties.twelveLineFourTranslation,
-                        ),
-                        lineFourRotation: value.get(
-                          ClockFaceMovieProperties.twelveLineFourRotation,
-                        ),
-                        lineOneLength: value.get(
-                          ClockFaceMovieProperties.twelveLineOneLength,
-                        ),
-                        lineTwoLength: value.get(
-                          ClockFaceMovieProperties.twelveLineTwoLength,
-                        ),
-                        lineThreeLength: value.get(
-                          ClockFaceMovieProperties.twelveLineThreeLength,
-                        ),
-                        lineFourLength: value.get(
-                          ClockFaceMovieProperties.twelveLineFourLength,
-                        ),
+                      twelve: BaseHourMarkProperties(
+                        lengths: [
+                          value.get(
+                            ClockFaceMovieProperties.twelveLineOneLength,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.twelveLineTwoLength,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.twelveLineThreeLength,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.twelveLineFourLength,
+                          ),
+                        ],
+                        rotations: [
+                          value.get(
+                            ClockFaceMovieProperties.twelveLineOneRotation,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.twelveLineTwoRotation,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.twelveLineThreeRotation,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.twelveLineFourRotation,
+                          ),
+                        ],
+                        translations: [
+                          value.get(
+                            ClockFaceMovieProperties.twelveLineOneTranslation,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.twelveLineTwoTranslation,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.twelveLineThreeTranslation,
+                          ),
+                          value.get(
+                            ClockFaceMovieProperties.twelveLineFourTranslation,
+                          ),
+                        ],
                       ),
                     ),
                   ),
