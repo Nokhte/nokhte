@@ -37,9 +37,19 @@ void main() {
     test("isLoggedIn", () {
       expect(testStore.isLoggedIn, false);
     });
+
+    test("hasAttemptedToLogin", () {
+      expect(testStore.hasAttemptedToLogin, false);
+    });
   });
 
   group("actions", () {
+    test("toggleHasAttemptedToLogin", () {
+      testStore.toggleHasAttemptedToLogin();
+      expect(testStore.hasAttemptedToLogin, true);
+      testStore.toggleHasAttemptedToLogin();
+      expect(testStore.hasAttemptedToLogin, false);
+    });
     test("screenConstructor", () {
       testStore.screenConstructor(tCoordinates);
       verify(mockWidgetsStore.constructor(
@@ -61,10 +71,10 @@ void main() {
         testStore.onResumed();
         verify(mockWidgetsStore.loggedOutOnResumed());
       });
-      test("!isLoggedIn", () {
-        testStore.isLoggedIn = true;
+      test("hasAttemptedToLogin", () {
+        testStore.toggleHasAttemptedToLogin();
         testStore.onResumed();
-        verify(mockWidgetsStore.loggedInOnResumed());
+        expect(testStore.hasAttemptedToLogin, false);
       });
     });
     group("OnInactive", () {
@@ -72,7 +82,7 @@ void main() {
         testStore.onInactive();
         verify(mockWidgetsStore.loggedOutOnInactive());
       });
-      test("!isLoggedIn", () {
+      test("isLoggedIn", () {
         testStore.isLoggedIn = true;
         testStore.onInactive();
         verify(mockWidgetsStore.loggedInOnInactive());
