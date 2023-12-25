@@ -32,6 +32,12 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
   bool isLoggedIn = false;
 
   @observable
+  bool hasAttemptedToLogin = false;
+
+  @action
+  toggleHasAttemptedToLogin() => hasAttemptedToLogin = !hasAttemptedToLogin;
+
+  @observable
   AuthProvider authProvider =
       Platform.isAndroid ? AuthProvider.google : AuthProvider.apple;
 
@@ -48,11 +54,7 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
   initReactors() {
     swipeReactor();
     tapReactor();
-    // foregroundAndBackgroundStateReactor(
-    //   resumedCallback: () => onResumed(),
-    //   inactiveCallback: () => onInactive(),
-    //   detachedCallback: () => null,
-    // );
+    authStateReactor();
   }
 
   onAppLifeCycleStateChange(p0) {
@@ -93,7 +95,10 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.up:
-            ifTouchIsNotDisabled(() => widgets.onSwipeUp());
+            ifTouchIsNotDisabled(() {
+              toggleHasAttemptedToLogin();
+              widgets.onSwipeUp();
+            });
           default:
             break;
         }
@@ -101,20 +106,28 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
-        (p0) =>
-            ifTouchIsNotDisabled(() => widgets.onTap(tap.currentTapPosition)),
+        (p0) => ifTouchIsNotDisabled(() => widgets.onTap(
+              tap.currentTapPosition,
+            )),
       );
 
   @action
   authStateListener(Stream<bool> authStateStream) =>
       authStateStream.listen((event) => isLoggedIn = event);
 
+  authStateReactor() => reaction((p0) => isLoggedIn, (p0) {
+        if (p0) {
+          widgets.loggedInOnResumed();
+        }
+      });
+
   @action
   onResumed() {
-    if (isLoggedIn) {
-      widgets.loggedInOnResumed();
-    } else {
+    if (!isLoggedIn) {
       widgets.loggedOutOnResumed();
+      if (hasAttemptedToLogin) {
+        toggleHasAttemptedToLogin();
+      }
     }
   }
 
