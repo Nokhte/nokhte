@@ -2,6 +2,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:simple_animations/simple_animations.dart';
 part 'time_alignment_model_coordinator.g.dart';
 
 class TimeAlignmentModelCoordinator = _TimeAlignmentModelCoordinatorBase
@@ -21,6 +22,12 @@ abstract class _TimeAlignmentModelCoordinatorBase extends Equatable with Store {
     required this.collaboratorCircle,
     required this.availabilitySectors,
   });
+
+  @action
+  init() {
+    clockFace.setControl(Control.playFromStart);
+    availabilitySectors.setControl(Control.playFromStart);
+  }
 
   @override
   List<Object> get props => [];

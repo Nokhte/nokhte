@@ -10,6 +10,22 @@ part of 'time_alignment_model_coordinator.dart';
 
 mixin _$TimeAlignmentModelCoordinator
     on _TimeAlignmentModelCoordinatorBase, Store {
+  late final _$_TimeAlignmentModelCoordinatorBaseActionController =
+      ActionController(
+          name: '_TimeAlignmentModelCoordinatorBase', context: context);
+
+  @override
+  dynamic init() {
+    final _$actionInfo = _$_TimeAlignmentModelCoordinatorBaseActionController
+        .startAction(name: '_TimeAlignmentModelCoordinatorBase.init');
+    try {
+      return super.init();
+    } finally {
+      _$_TimeAlignmentModelCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
