@@ -39,5 +39,16 @@ class MessagesData {
           mainMessage: "",
           onScreenTime: Seconds.get(0),
         ),
+        RotatingTextData(
+          initialFadeInDelay: Seconds.get(1),
+          mainMessage:
+              "Both of you need to be online at the same to make the collaboration.",
+          onScreenTime: Seconds.get(2),
+        ),
+        RotatingTextData(
+          initialFadeInDelay: Seconds.get(0),
+          mainMessage: "",
+          onScreenTime: Seconds.get(0),
+        ),
       ];
 }
