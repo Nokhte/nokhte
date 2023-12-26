@@ -7,12 +7,12 @@ void main() {
   late ClockFaceStore clockFace;
   late AvailabilitySectorsStore availabilitySectors;
   late AccompanyingTextStore accompanyingText;
-  late GradientCircleStore userCircle;
-  late GradientCircleStore collaboratorCircle;
+  late SmartGradientCircleStore userCircle;
+  late SmartGradientCircleStore collaboratorCircle;
 
   setUp(() {
-    userCircle = GradientCircleStore();
-    collaboratorCircle = GradientCircleStore();
+    userCircle = SmartGradientCircleStore();
+    collaboratorCircle = SmartGradientCircleStore();
     accompanyingText = AccompanyingTextStore();
     clockFace = ClockFaceStore();
     availabilitySectors = AvailabilitySectorsStore();

@@ -10,8 +10,8 @@ class TimeAlignmentModelModule extends Module {
     i.add<AccompanyingTextStore>(
       () => AccompanyingTextStore(),
     );
-    i.add<GradientCircleStore>(
-      () => GradientCircleStore(),
+    i.add<SmartGradientCircleStore>(
+      () => SmartGradientCircleStore(),
     );
     i.add<AvailabilitySectorsStore>(
       () => AvailabilitySectorsStore(),
@@ -21,8 +21,8 @@ class TimeAlignmentModelModule extends Module {
         availabilitySectors: i<AvailabilitySectorsStore>(),
         clockFace: i<ClockFaceStore>(),
         accompanyingText: Modular.get<AccompanyingTextStore>(),
-        userCircle: Modular.get<GradientCircleStore>(),
-        collaboratorCircle: Modular.get<GradientCircleStore>(),
+        userCircle: Modular.get<SmartGradientCircleStore>(),
+        collaboratorCircle: Modular.get<SmartGradientCircleStore>(),
       ),
     );
   }
