@@ -10,8 +10,8 @@ class CircleExplanationModelCoordinator = _CircleExplanationModelCoordinatorBase
 
 abstract class _CircleExplanationModelCoordinatorBase extends Equatable
     with Store {
-  final GradientCircleStore userCircle;
-  final GradientCircleStore collaboratorCircle;
+  final DumbGradientCircleStore userCircle;
+  final DumbGradientCircleStore collaboratorCircle;
   final AccompanyingTextStore userAccompanyingText;
   final AccompanyingTextStore collaboratorAccompanyingText;
 

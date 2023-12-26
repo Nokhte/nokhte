@@ -4,17 +4,17 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 class CircleExplanationModule extends Module {
   @override
   void exportedBinds(Injector i) {
-    i.add<GradientCircleStore>(
-      () => GradientCircleStore(),
+    i.add<DumbGradientCircleStore>(
+      () => DumbGradientCircleStore(),
     );
     i.add<AccompanyingTextStore>(
       () => AccompanyingTextStore(),
     );
     i.add<CircleExplanationModelCoordinator>(
       () => CircleExplanationModelCoordinator(
-        userCircle: Modular.get<GradientCircleStore>(),
+        userCircle: Modular.get<DumbGradientCircleStore>(),
         userAccompanyingText: Modular.get<AccompanyingTextStore>(),
-        collaboratorCircle: Modular.get<GradientCircleStore>(),
+        collaboratorCircle: Modular.get<DumbGradientCircleStore>(),
         collaboratorAccompanyingText: Modular.get<AccompanyingTextStore>(),
       ),
     );

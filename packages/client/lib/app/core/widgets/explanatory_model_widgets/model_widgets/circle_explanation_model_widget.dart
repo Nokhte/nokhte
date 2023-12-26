@@ -19,7 +19,7 @@ class CircleExplanationModelWidget extends StatelessWidget {
             gradient: ModelGradientOptions.user,
             bottomPadding: 625.0,
           ),
-          GradientCircle(
+          DumbGradientCircle(
             store: store.userCircle,
             gradient: ModelGradientOptions.user,
             bottomPadding: 500.0,
@@ -30,7 +30,7 @@ class CircleExplanationModelWidget extends StatelessWidget {
             gradient: ModelGradientOptions.collaborator,
             bottomPadding: 300.0,
           ),
-          GradientCircle(
+          DumbGradientCircle(
             store: store.collaboratorCircle,
             gradient: ModelGradientOptions.collaborator,
             bottomPadding: 175.0,

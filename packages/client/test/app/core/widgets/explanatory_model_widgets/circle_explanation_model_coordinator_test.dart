@@ -3,15 +3,15 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import './explanatory_model_widgets_mock_gen.mocks.dart';
 
 void main() {
-  late MockGradientCircleStore userCircle;
-  late MockGradientCircleStore collaboratorCircle;
+  late MockDumbGradientCircleStore userCircle;
+  late MockDumbGradientCircleStore collaboratorCircle;
   late MockAccompanyingTextStore userText;
   late MockAccompanyingTextStore collaboratorText;
   late CircleExplanationModelCoordinator testStore;
 
   setUp(() {
-    userCircle = MockGradientCircleStore();
-    collaboratorCircle = MockGradientCircleStore();
+    userCircle = MockDumbGradientCircleStore();
+    collaboratorCircle = MockDumbGradientCircleStore();
     userText = MockAccompanyingTextStore();
     collaboratorText = MockAccompanyingTextStore();
     testStore = CircleExplanationModelCoordinator(
