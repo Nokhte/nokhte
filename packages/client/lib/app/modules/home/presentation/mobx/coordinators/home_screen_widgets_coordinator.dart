@@ -68,6 +68,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
       onConnected: onConnected,
       onDisconnected: onDisconnected,
     );
+    circleModelCompletionReactor();
   }
 
   gestureCrossTapReactor() => reaction((p0) => gestureCross.tapCount, (p0) {
@@ -83,6 +84,13 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   blurCompletionReactor() => reaction((p0) => nokhteBlur.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
           circleModel.initExplanation();
+        }
+      });
+
+  circleModelCompletionReactor() =>
+      reaction((p0) => circleModel.hasCompletedExplanation, (p0) {
+        if (p0) {
+          timeModel.init();
         }
       });
 
