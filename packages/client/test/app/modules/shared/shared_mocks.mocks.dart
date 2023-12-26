@@ -291,9 +291,9 @@ class _FakeAccompanyingTextStore_23 extends _i1.SmartFake
         );
 }
 
-class _FakeGradientCircleStore_24 extends _i1.SmartFake
-    implements _i5.GradientCircleStore {
-  _FakeGradientCircleStore_24(
+class _FakeSmartGradientCircleStore_24 extends _i1.SmartFake
+    implements _i5.SmartGradientCircleStore {
+  _FakeSmartGradientCircleStore_24(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -313,8 +313,9 @@ class _FakeAvailabilitySectorsStore_25 extends _i1.SmartFake
         );
 }
 
-class _FakeDuration_26 extends _i1.SmartFake implements Duration {
-  _FakeDuration_26(
+class _FakeDumbGradientCircleStore_26 extends _i1.SmartFake
+    implements _i5.DumbGradientCircleStore {
+  _FakeDumbGradientCircleStore_26(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -323,8 +324,8 @@ class _FakeDuration_26 extends _i1.SmartFake implements Duration {
         );
 }
 
-class _FakeSize_27 extends _i1.SmartFake implements _i6.Size {
-  _FakeSize_27(
+class _FakeDuration_27 extends _i1.SmartFake implements Duration {
+  _FakeDuration_27(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -333,8 +334,18 @@ class _FakeSize_27 extends _i1.SmartFake implements _i6.Size {
         );
 }
 
-class _FakeOffset_28 extends _i1.SmartFake implements _i6.Offset {
-  _FakeOffset_28(
+class _FakeSize_28 extends _i1.SmartFake implements _i6.Size {
+  _FakeSize_28(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeOffset_29 extends _i1.SmartFake implements _i6.Offset {
+  _FakeOffset_29(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -1302,30 +1313,30 @@ class MockTimeAlignmentModelCoordinator extends _i1.Mock
       ) as _i5.AccompanyingTextStore);
 
   @override
-  _i5.GradientCircleStore get userCircle => (super.noSuchMethod(
+  _i5.SmartGradientCircleStore get userCircle => (super.noSuchMethod(
         Invocation.getter(#userCircle),
-        returnValue: _FakeGradientCircleStore_24(
+        returnValue: _FakeSmartGradientCircleStore_24(
           this,
           Invocation.getter(#userCircle),
         ),
-        returnValueForMissingStub: _FakeGradientCircleStore_24(
+        returnValueForMissingStub: _FakeSmartGradientCircleStore_24(
           this,
           Invocation.getter(#userCircle),
         ),
-      ) as _i5.GradientCircleStore);
+      ) as _i5.SmartGradientCircleStore);
 
   @override
-  _i5.GradientCircleStore get collaboratorCircle => (super.noSuchMethod(
+  _i5.SmartGradientCircleStore get collaboratorCircle => (super.noSuchMethod(
         Invocation.getter(#collaboratorCircle),
-        returnValue: _FakeGradientCircleStore_24(
+        returnValue: _FakeSmartGradientCircleStore_24(
           this,
           Invocation.getter(#collaboratorCircle),
         ),
-        returnValueForMissingStub: _FakeGradientCircleStore_24(
+        returnValueForMissingStub: _FakeSmartGradientCircleStore_24(
           this,
           Invocation.getter(#collaboratorCircle),
         ),
-      ) as _i5.GradientCircleStore);
+      ) as _i5.SmartGradientCircleStore);
 
   @override
   _i5.AvailabilitySectorsStore get availabilitySectors => (super.noSuchMethod(
@@ -1367,30 +1378,30 @@ class MockTimeAlignmentModelCoordinator extends _i1.Mock
 class MockCircleExplanationModelCoordinator extends _i1.Mock
     implements _i5.CircleExplanationModelCoordinator {
   @override
-  _i5.GradientCircleStore get userCircle => (super.noSuchMethod(
+  _i5.DumbGradientCircleStore get userCircle => (super.noSuchMethod(
         Invocation.getter(#userCircle),
-        returnValue: _FakeGradientCircleStore_24(
+        returnValue: _FakeDumbGradientCircleStore_26(
           this,
           Invocation.getter(#userCircle),
         ),
-        returnValueForMissingStub: _FakeGradientCircleStore_24(
+        returnValueForMissingStub: _FakeDumbGradientCircleStore_26(
           this,
           Invocation.getter(#userCircle),
         ),
-      ) as _i5.GradientCircleStore);
+      ) as _i5.DumbGradientCircleStore);
 
   @override
-  _i5.GradientCircleStore get collaboratorCircle => (super.noSuchMethod(
+  _i5.DumbGradientCircleStore get collaboratorCircle => (super.noSuchMethod(
         Invocation.getter(#collaboratorCircle),
-        returnValue: _FakeGradientCircleStore_24(
+        returnValue: _FakeDumbGradientCircleStore_26(
           this,
           Invocation.getter(#collaboratorCircle),
         ),
-        returnValueForMissingStub: _FakeGradientCircleStore_24(
+        returnValueForMissingStub: _FakeDumbGradientCircleStore_26(
           this,
           Invocation.getter(#collaboratorCircle),
         ),
-      ) as _i5.GradientCircleStore);
+      ) as _i5.DumbGradientCircleStore);
 
   @override
   _i5.AccompanyingTextStore get userAccompanyingText => (super.noSuchMethod(
@@ -1550,11 +1561,11 @@ class MockSmartTextStore extends _i1.Mock implements _i5.SmartTextStore {
   @override
   Duration get currentInitialFadeInDelay => (super.noSuchMethod(
         Invocation.getter(#currentInitialFadeInDelay),
-        returnValue: _FakeDuration_26(
+        returnValue: _FakeDuration_27(
           this,
           Invocation.getter(#currentInitialFadeInDelay),
         ),
-        returnValueForMissingStub: _FakeDuration_26(
+        returnValueForMissingStub: _FakeDuration_27(
           this,
           Invocation.getter(#currentInitialFadeInDelay),
         ),
@@ -1563,11 +1574,11 @@ class MockSmartTextStore extends _i1.Mock implements _i5.SmartTextStore {
   @override
   Duration get currentOnScreenTime => (super.noSuchMethod(
         Invocation.getter(#currentOnScreenTime),
-        returnValue: _FakeDuration_26(
+        returnValue: _FakeDuration_27(
           this,
           Invocation.getter(#currentOnScreenTime),
         ),
-        returnValueForMissingStub: _FakeDuration_26(
+        returnValueForMissingStub: _FakeDuration_27(
           this,
           Invocation.getter(#currentOnScreenTime),
         ),
@@ -1773,11 +1784,11 @@ class MockTrailingTextStore extends _i1.Mock implements _i5.TrailingTextStore {
   @override
   _i6.Size get textSize => (super.noSuchMethod(
         Invocation.getter(#textSize),
-        returnValue: _FakeSize_27(
+        returnValue: _FakeSize_28(
           this,
           Invocation.getter(#textSize),
         ),
-        returnValueForMissingStub: _FakeSize_27(
+        returnValueForMissingStub: _FakeSize_28(
           this,
           Invocation.getter(#textSize),
         ),
@@ -2161,11 +2172,11 @@ class MockNokhteStore extends _i1.Mock implements _i5.NokhteStore {
   @override
   _i6.Offset get centerCoordinates => (super.noSuchMethod(
         Invocation.getter(#centerCoordinates),
-        returnValue: _FakeOffset_28(
+        returnValue: _FakeOffset_29(
           this,
           Invocation.getter(#centerCoordinates),
         ),
-        returnValueForMissingStub: _FakeOffset_28(
+        returnValueForMissingStub: _FakeOffset_29(
           this,
           Invocation.getter(#centerCoordinates),
         ),
@@ -2427,11 +2438,11 @@ class MockTapDetector extends _i1.Mock implements _i5.TapDetector {
   @override
   _i6.Offset get currentTapPosition => (super.noSuchMethod(
         Invocation.getter(#currentTapPosition),
-        returnValue: _FakeOffset_28(
+        returnValue: _FakeOffset_29(
           this,
           Invocation.getter(#currentTapPosition),
         ),
-        returnValueForMissingStub: _FakeOffset_28(
+        returnValueForMissingStub: _FakeOffset_29(
           this,
           Invocation.getter(#currentTapPosition),
         ),
