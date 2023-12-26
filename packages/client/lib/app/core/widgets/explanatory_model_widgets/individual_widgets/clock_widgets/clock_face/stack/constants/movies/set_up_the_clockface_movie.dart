@@ -178,21 +178,21 @@ class SetUpTheClockfaceMovie {
           ClockFaceMovieProperties.nineLineOneTranslation,
           Tween<double>(
             begin: 0,
-            end: 0,
+            end: -15,
           ),
         )
         .tween(
           ClockFaceMovieProperties.nineLineTwoTranslation,
           Tween<double>(
             begin: 0,
-            end: 15,
+            end: 2,
           ),
         )
         .tween(
           ClockFaceMovieProperties.nineLineThreeTranslation,
           Tween<double>(
             begin: 0,
-            end: 15,
+            end: 2,
           ),
         )
         .tween(
@@ -231,21 +231,21 @@ class SetUpTheClockfaceMovie {
           ClockFaceMovieProperties.threeLineOneTranslation,
           Tween<double>(
             begin: 0,
-            end: -10,
+            end: -7,
           ),
         )
         .tween(
           ClockFaceMovieProperties.threeLineTwoTranslation,
           Tween<double>(
             begin: 0,
-            end: 0,
+            end: 3,
           ),
         )
         .tween(
           ClockFaceMovieProperties.threeLineThreeTranslation,
           Tween<double>(
             begin: 0,
-            end: 10,
+            end: 13,
           ),
         )
         .tween(
