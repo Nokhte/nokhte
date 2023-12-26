@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
-class GradientCirclePainter extends CustomPainter {
+class DumbGradientCirclePainter extends CustomPainter {
   final ModelGradientOptions gradient;
 
-  GradientCirclePainter({
+  DumbGradientCirclePainter({
     required this.gradient,
   });
 
