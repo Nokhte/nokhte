@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
-import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 part 'home_screen_widgets_coordinator.g.dart';
@@ -62,13 +61,12 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   toggleHasInitiatedBlur() => hasInitiatedBlur = !hasInitiatedBlur;
 
   initReactors() {
-    blurCompletionReactor();
+    smartTextReactor();
     gestureCrossTapReactor();
     wifiDisconnectOverlay.connectionReactor(
       onConnected: onConnected,
       onDisconnected: onDisconnected,
     );
-    circleModelCompletionReactor();
   }
 
   gestureCrossTapReactor() => reaction((p0) => gestureCross.tapCount, (p0) {
@@ -81,15 +79,8 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
         }
       });
 
-  blurCompletionReactor() => reaction((p0) => nokhteBlur.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished) {
-          circleModel.initExplanation();
-        }
-      });
-
-  circleModelCompletionReactor() =>
-      reaction((p0) => circleModel.hasCompletedExplanation, (p0) {
-        if (p0) {
+  smartTextReactor() => reaction((p0) => smartText.currentIndex, (p0) {
+        if (p0 == 3) {
           timeModel.init();
         }
       });
