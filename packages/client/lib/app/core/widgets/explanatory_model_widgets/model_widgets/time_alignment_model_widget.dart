@@ -19,16 +19,6 @@ class TimeAlignmentModelWidget extends StatelessWidget {
         AvailabilitySectors(
           store: store.availabilitySectors,
         ),
-        // GradientCircle(
-        //   store: store.userCircle,
-        //   gradient: ModelGradientOptions.user,
-        //   bottomPadding: 500.0,
-        // ),
-        // GradientCircle(
-        //   store: store.collaboratorCircle,
-        //   gradient: ModelGradientOptions.collaborator,
-        //   bottomPadding: 175.0,
-        // ),
       ],
     ));
   }
