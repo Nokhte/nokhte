@@ -109,11 +109,11 @@ class ClockFacePainter extends CustomPainter {
     double centerX = center.dx + cos(angle) * radius;
     double centerY = center.dy + sin(angle) * radius;
 
-    double x1 = centerX - (lineLength / 2) * cos(angle + additionalRotation);
-    double y1 = centerY - (lineLength / 2) * sin(angle + additionalRotation);
+    double x1 = centerX - lineLength.half() * cos(angle + additionalRotation);
+    double y1 = centerY - lineLength.half() * sin(angle + additionalRotation);
 
-    double x2 = centerX + (lineLength / 2) * cos(angle + additionalRotation);
-    double y2 = centerY + (lineLength / 2) * sin(angle + additionalRotation);
+    double x2 = centerX + lineLength.half() * cos(angle + additionalRotation);
+    double y2 = centerY + lineLength.half() * sin(angle + additionalRotation);
 
     return HourMarkPainterInformation(
       startingCoordinates:
