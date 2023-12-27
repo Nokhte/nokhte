@@ -8,17 +8,20 @@ import 'package:simple_animations/simple_animations.dart';
 
 class SmartText extends StatelessWidget {
   final SmartTextStore store;
+  final Duration opacityDuration;
   final double topPadding;
   const SmartText({
     super.key,
     required this.store,
+    this.opacityDuration = Duration.zero,
     this.topPadding = 0.0,
   });
 
   @override
   Widget build(BuildContext context) => Observer(
-        builder: (context) => Opacity(
+        builder: (context) => AnimatedOpacity(
           opacity: useWidgetOpacity(store.showWidget),
+          duration: opacityDuration,
           child: CustomAnimationBuilder(
             tween: FadeInAndOutMovie.movie,
             control: store.control,
