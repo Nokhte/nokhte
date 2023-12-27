@@ -51,4 +51,24 @@ class MessagesData {
           onScreenTime: Seconds.get(0),
         ),
       ];
+  static List<RotatingTextData> get firstTimeSecondaryHomeList => [
+        RotatingTextData(
+          initialFadeInDelay: Seconds.get(1),
+          mainMessage: "select the overlapping time.",
+          onScreenTime: Seconds.get(2),
+          pauseHere: true,
+          unlockGesture: Gestures.tap,
+        ),
+        RotatingTextData(
+          initialFadeInDelay: Seconds.get(1),
+          mainMessage: "select where red and blue overlap",
+          onScreenTime: Seconds.get(2),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          initialFadeInDelay: Seconds.get(0),
+          mainMessage: "",
+          onScreenTime: Seconds.get(0),
+        ),
+      ];
 }
