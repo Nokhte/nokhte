@@ -1,30 +1,37 @@
+import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
-
+import 'package:simple_animations/simple_animations.dart';
 import '../../../../shared/shared_mocks.mocks.dart';
+import '../../../../shared/shared_utils.dart';
 
 void main() {
-  late MockBeachWavesStore beachWaves;
+  late BeachWavesStore beachWaves;
   late MockWifiDisconnectOverlayStore wifiDisconnectOverlay;
-  late MockGestureCrossStore gestureCross;
-  late MockSmartTextStore primarySmartText;
-  late MockSmartTextStore secondarySmartText;
+  late GestureCrossStore gestureCross;
+  late SmartTextStore primarySmartText;
+  late SmartTextStore secondarySmartText;
   late HomeScreenWidgetsCoordinator testStore;
-  late MockNokhteBlurStore nokhteBlurStore;
-  late MockTimeAlignmentModelCoordinator mockTimeModel;
+  late NokhteBlurStore nokhteBlurStore;
+  late TimeAlignmentModelCoordinator timeModel;
   setUp(() {
-    mockTimeModel = MockTimeAlignmentModelCoordinator();
-    secondarySmartText = MockSmartTextStore();
-    beachWaves = MockBeachWavesStore();
+    timeModel = TimeAlignmentModelCoordinator(
+      clockFace: ClockFaceStore(),
+      availabilitySectors: AvailabilitySectorsStore(),
+    );
+    secondarySmartText = SmartTextStore();
+    beachWaves = SharedTestUtils.getBeachWaves();
     wifiDisconnectOverlay = MockWifiDisconnectOverlayStore();
-    gestureCross = MockGestureCrossStore();
-    nokhteBlurStore = MockNokhteBlurStore();
-    primarySmartText = MockSmartTextStore();
+    gestureCross = GestureCrossStore();
+    nokhteBlurStore = NokhteBlurStore();
+    primarySmartText = SmartTextStore();
 
     testStore = HomeScreenWidgetsCoordinator(
-      timeModel: mockTimeModel,
+      timeModel: timeModel,
       nokhteBlur: nokhteBlurStore,
       beachWaves: beachWaves,
       wifiDisconnectOverlay: wifiDisconnectOverlay,
@@ -77,13 +84,65 @@ void main() {
     });
     test("constructor", () async {
       await testStore.constructor();
-      verify(primarySmartText.setMessagesData(MessagesData.firstTimeHomeList));
-      verify(primarySmartText.startRotatingText());
-      verify(beachWaves.setMovieMode(BeachWaveMovieModes.onShore));
+      expect(primarySmartText.messagesData, MessagesData.firstTimeHomeList);
+      expect(secondarySmartText.messagesData,
+          MessagesData.firstTimeSecondaryHomeList);
+      expect(beachWaves.movieMode, BeachWaveMovieModes.onShore);
       verify(wifiDisconnectOverlay.connectionReactor(
         onConnected: testStore.onConnected,
         onDisconnected: testStore.onDisconnected,
       ));
+    });
+
+    group("constructor dependendent", () {
+      setUp(() => testStore.constructor());
+      test("onAvailabilitySectorMovieStatusFinished", () {
+        timeModel.availabilitySectors.setPastControl(Control.playFromStart);
+        testStore.onAvailabilitySectorMovieStatusFinished(MovieStatus.finished);
+        expect(timeModel.clockFace.control, Control.playReverseFromEnd);
+        expect(secondarySmartText.control, Control.stop);
+        expect(beachWaves.currentControl, Control.mirror);
+        expect(testStore.secondarySmartText.showWidget, false);
+        expect(nokhteBlurStore.control, Control.playReverseFromEnd);
+      });
+
+      test("onClockFaceAnimationFinished", () {
+        fakeAsync((async) {
+          testStore.onClockFaceAnimationFinished(MovieStatus.finished);
+          async.elapse(Seconds.get(10));
+          expect(secondarySmartText.control, Control.playFromStart);
+          expect(testStore.clockIsVisible, true);
+        });
+      });
+      test("onSecondarySmartTextTransitions", () {
+        fakeAsync((async) async {
+          await testStore.onSecondarySmartTextTransitions(2);
+          async.elapse(Seconds.get(10));
+          expect(testStore.secondaryTextIsInProgress, true);
+          expect(secondarySmartText.currentIndex, 0);
+          expect(secondarySmartText.control, Control.playFromStart);
+        });
+      });
+      group("onGestureCrossTap", () {
+        test("if !isDisconnected + !hasInitiatedBlur", () {
+          fakeAsync((async) async {
+            await testStore.onGestureCrossTap();
+            async.elapse(Seconds.get(10));
+            expect(nokhteBlurStore.control, Control.playFromStart);
+            expect(primarySmartText.control, Control.playFromStart);
+            expect(beachWaves.currentControl, Control.playFromStart);
+          });
+        });
+        test("if clockIsVisible && !secondaryTextIsInProgress", () {
+          testStore.toggleClockIsVisible();
+          fakeAsync((async) async {
+            await testStore.onGestureCrossTap();
+            async.elapse(Seconds.get(10));
+            expect(testStore.secondaryTextIsInProgress, true);
+            expect(secondarySmartText.control, Control.playReverse);
+          });
+        });
+      });
     });
   });
 }
