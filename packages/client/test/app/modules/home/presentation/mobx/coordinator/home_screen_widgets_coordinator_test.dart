@@ -9,28 +9,28 @@ void main() {
   late MockBeachWavesStore beachWaves;
   late MockWifiDisconnectOverlayStore wifiDisconnectOverlay;
   late MockGestureCrossStore gestureCross;
-  late MockSmartTextStore smartText;
+  late MockSmartTextStore primarySmartText;
+  late MockSmartTextStore secondarySmartText;
   late HomeScreenWidgetsCoordinator testStore;
   late MockNokhteBlurStore nokhteBlurStore;
   late MockTimeAlignmentModelCoordinator mockTimeModel;
-  late MockCircleExplanationModelCoordinator circleModel;
   setUp(() {
-    circleModel = MockCircleExplanationModelCoordinator();
     mockTimeModel = MockTimeAlignmentModelCoordinator();
+    secondarySmartText = MockSmartTextStore();
     beachWaves = MockBeachWavesStore();
     wifiDisconnectOverlay = MockWifiDisconnectOverlayStore();
     gestureCross = MockGestureCrossStore();
     nokhteBlurStore = MockNokhteBlurStore();
-    smartText = MockSmartTextStore();
+    primarySmartText = MockSmartTextStore();
 
     testStore = HomeScreenWidgetsCoordinator(
-      circleModel: circleModel,
       timeModel: mockTimeModel,
       nokhteBlur: nokhteBlurStore,
       beachWaves: beachWaves,
       wifiDisconnectOverlay: wifiDisconnectOverlay,
       gestureCross: gestureCross,
-      smartText: smartText,
+      primarySmartText: primarySmartText,
+      secondarySmartText: secondarySmartText,
     );
   });
 
@@ -39,12 +39,33 @@ void main() {
       expect(testStore.hasInitiatedBlur, false);
     });
 
+    test("secondaryTextIsInProgress", () {
+      expect(testStore.secondaryTextIsInProgress, false);
+    });
+
+    test("clockIsVisible", () {
+      expect(testStore.clockIsVisible, false);
+    });
+
     test("isDisconnected", () {
       expect(testStore.isDisconnected, false);
     });
   });
 
   group("actions", () {
+    test("toggleSecondaryTextIsInProgress", () {
+      testStore.toggleSecondaryTextIsInProgress();
+      expect(testStore.secondaryTextIsInProgress, true);
+      testStore.toggleSecondaryTextIsInProgress();
+      expect(testStore.secondaryTextIsInProgress, false);
+    });
+
+    test("toggleClockIsVisible", () {
+      testStore.toggleClockIsVisible();
+      expect(testStore.clockIsVisible, true);
+      testStore.toggleClockIsVisible();
+      expect(testStore.clockIsVisible, false);
+    });
     test("onConnected", () {
       testStore.onConnected();
       expect(testStore.isDisconnected, false);
@@ -56,10 +77,9 @@ void main() {
     });
     test("constructor", () async {
       await testStore.constructor();
-      verify(smartText.setMessagesData(MessagesData.firstTimeHomeList));
-      verify(smartText.startRotatingText());
+      verify(primarySmartText.setMessagesData(MessagesData.firstTimeHomeList));
+      verify(primarySmartText.startRotatingText());
       verify(beachWaves.setMovieMode(BeachWaveMovieModes.onShore));
-      verify(circleModel.constructor());
       verify(wifiDisconnectOverlay.connectionReactor(
         onConnected: testStore.onConnected,
         onDisconnected: testStore.onDisconnected,
