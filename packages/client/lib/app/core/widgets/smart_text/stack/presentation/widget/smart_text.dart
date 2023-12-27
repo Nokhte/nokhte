@@ -8,9 +8,11 @@ import 'package:simple_animations/simple_animations.dart';
 
 class SmartText extends StatelessWidget {
   final SmartTextStore store;
+  final double topPadding;
   const SmartText({
     super.key,
     required this.store,
+    this.topPadding = 0.0,
   });
 
   @override
@@ -25,7 +27,11 @@ class SmartText extends StatelessWidget {
             builder: (context, value, child) => Opacity(
               opacity: value.get('opacity'),
               child: Padding(
-                padding: const EdgeInsets.only(left: 50.0, right: 50.0),
+                padding: EdgeInsets.only(
+                  left: 50.0,
+                  right: 50.0,
+                  top: topPadding,
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
