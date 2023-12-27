@@ -10,13 +10,11 @@ class HomeWidgetsModule extends Module {
         WifiDisconnectOverlayModule(),
         TimeAlignmentModelModule(),
         CircleExplanationModule(),
+        SmartTextModule(),
       ];
 
   @override
   exportedBinds(i) {
-    i.add<SmartTextStore>(
-      () => SmartTextStore(),
-    );
     i.add<GestureCrossStore>(
       () => GestureCrossStore(),
     );
@@ -27,8 +25,8 @@ class HomeWidgetsModule extends Module {
       () => HomeScreenWidgetsCoordinator(
         timeModel: Modular.get<TimeAlignmentModelCoordinator>(),
         nokhteBlur: i<NokhteBlurStore>(),
-        primarySmartText: Modular.get<SmartTextStore>(),
-        secondarySmartText: Modular.get<SmartTextStore>(),
+        primarySmartText: i<SmartTextStore>(),
+        secondarySmartText: i<SmartTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         gestureCross: Modular.get<GestureCrossStore>(),
         beachWaves: Modular.get<BeachWavesStore>(),

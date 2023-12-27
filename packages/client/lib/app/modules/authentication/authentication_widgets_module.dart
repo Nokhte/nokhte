@@ -8,6 +8,7 @@ class AuthenticationWidgetsModule extends Module {
   List<Module> get imports => [
         BeachWavesModule(),
         WifiDisconnectOverlayModule(),
+        SmartTextModule(),
       ];
 
   @override
@@ -15,21 +16,18 @@ class AuthenticationWidgetsModule extends Module {
     i.addSingleton<NokhteStore>(
       () => NokhteStore(),
     );
-    i.addSingleton<SmartTextStore>(
-      () => SmartTextStore(),
-    );
     i.add<TrailingTextStore>(
       () => TrailingTextStore(),
     );
     i.addSingleton<LoginScreenWidgetsCoordinator>(
       () => LoginScreenWidgetsCoordinator(
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        nokhte: i.get<NokhteStore>(),
-        smartTextStore: i.get<SmartTextStore>(),
+        nokhte: i<NokhteStore>(),
+        smartTextStore: i<SmartTextStore>(),
         layer1BeachWaves: Modular.get<BeachWavesStore>(),
         layer2BeachWaves: Modular.get<BeachWavesStore>(),
-        bottomTrailingText: i.get<TrailingTextStore>(),
-        topTrailingText: i.get<TrailingTextStore>(),
+        bottomTrailingText: i<TrailingTextStore>(),
+        topTrailingText: i<TrailingTextStore>(),
       ),
     );
   }
