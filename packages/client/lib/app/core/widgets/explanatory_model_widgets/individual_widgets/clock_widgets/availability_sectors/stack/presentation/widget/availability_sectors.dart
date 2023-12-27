@@ -4,6 +4,7 @@ import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
+import 'package:touchable/touchable.dart';
 
 import 'canvas/availability_sectors_painter.dart';
 
@@ -23,22 +24,37 @@ class AvailabilitySectors extends StatelessWidget {
             tween: store.movie,
             duration: store.movie.duration,
             control: store.control,
+            onCompleted: () => store.onCompleted(),
             builder: (context, value, child) => FullScreen(
-              child: CustomPaint(
-                painter: AvailabilitySectorsPainter(
-                  redSectorLengths: SectorAnimationUtils.getRedSectorLengths(
-                    value,
-                  ),
-                  redSectorGradients:
-                      SectorAnimationUtils.getRedSectorGradients(value),
-                  redSectorRadii: SectorAnimationUtils.getRedSectorRadii(value),
-                  blueSectorLengths:
-                      SectorAnimationUtils.getBlueSectorLengths(value),
-                  blueSectorGradients:
-                      SectorAnimationUtils.getBlueSectorGradients(value),
-                  blueSectorRadii:
-                      SectorAnimationUtils.getBlueSectorRadii(value),
-                ),
+              child: SizedBox.expand(
+                child: CanvasTouchDetector(
+                    gesturesToOverride: const [
+                      GestureType.onTapDown,
+                      GestureType.onTapUp,
+                    ],
+                    builder: (context) {
+                      return CustomPaint(
+                        painter: AvailabilitySectorsPainter(
+                          touchCallback: () => store.initJoinAndFadeOutMovie(),
+                          context: context,
+                          redSectorLengths:
+                              SectorAnimationUtils.getRedSectorLengths(
+                            value,
+                          ),
+                          redSectorGradients:
+                              SectorAnimationUtils.getRedSectorGradients(value),
+                          redSectorRadii:
+                              SectorAnimationUtils.getRedSectorRadii(value),
+                          blueSectorLengths:
+                              SectorAnimationUtils.getBlueSectorLengths(value),
+                          blueSectorGradients:
+                              SectorAnimationUtils.getBlueSectorGradients(
+                                  value),
+                          blueSectorRadii:
+                              SectorAnimationUtils.getBlueSectorRadii(value),
+                        ),
+                      );
+                    }),
               ),
             ),
           ),
