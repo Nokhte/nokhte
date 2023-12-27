@@ -26,9 +26,9 @@ class HomeWidgetsModule extends Module {
     i.addSingleton<HomeScreenWidgetsCoordinator>(
       () => HomeScreenWidgetsCoordinator(
         timeModel: Modular.get<TimeAlignmentModelCoordinator>(),
-        circleModel: Modular.get<CircleExplanationModelCoordinator>(),
         nokhteBlur: i<NokhteBlurStore>(),
-        smartText: Modular.get<SmartTextStore>(),
+        primarySmartText: Modular.get<SmartTextStore>(),
+        secondarySmartText: Modular.get<SmartTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         gestureCross: Modular.get<GestureCrossStore>(),
         beachWaves: Modular.get<BeachWavesStore>(),
