@@ -21,6 +21,7 @@ class ClockFace extends StatelessWidget {
               tween: store.movie,
               duration: store.movie.duration,
               control: store.control,
+              onCompleted: () => store.onCompleted(),
               builder: (context, value, child) => FullScreen(
                 child: CustomPaint(
                   painter: ClockFacePainter(
