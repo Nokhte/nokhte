@@ -34,7 +34,12 @@ class HomeScreen extends HookWidget {
           ),
           Center(
               child: SmartText(
-            store: coordinator.widgets.smartText,
+            store: coordinator.widgets.primarySmartText,
+          )),
+          Center(
+              child: SmartText(
+            topPadding: 450,
+            store: coordinator.widgets.secondarySmartText,
           )),
           GestureCross(
             size: size,
@@ -42,9 +47,6 @@ class HomeScreen extends HookWidget {
           ),
           TimeAlignmentModelWidget(
             store: coordinator.widgets.timeModel,
-          ),
-          CircleExplanationModelWidget(
-            store: coordinator.widgets.circleModel,
           ),
           WifiDisconnectOverlay(
             store: coordinator.widgets.wifiDisconnectOverlay,
