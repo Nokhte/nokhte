@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:simple_animations/simple_animations.dart';
 part 'home_screen_widgets_coordinator.g.dart';
 
 class HomeScreenWidgetsCoordinator = _HomeScreenWidgetsCoordinatorBase
@@ -30,8 +31,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
 
   @action
   constructor() {
-    primarySmartText.reset();
-    if (!primarySmartText.showWidget) primarySmartText.toggleWidgetVisibility();
     primarySmartText.setMessagesData(MessagesData.firstTimeHomeList);
     secondarySmartText.setMessagesData(MessagesData.firstTimeSecondaryHomeList);
     primarySmartText.startRotatingText();
@@ -61,6 +60,13 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   @observable
   bool secondaryTextIsInProgress = false;
 
+  @observable
+  bool isDoubleTriggeringWindDown = false;
+
+  @action
+  toggleIsDoubleTriggeringWindDown() =>
+      isDoubleTriggeringWindDown = !isDoubleTriggeringWindDown;
+
   @action
   toggleClockIsVisible() => clockIsVisible = !clockIsVisible;
 
@@ -83,20 +89,13 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
       onDisconnected: onDisconnected,
     );
     clockFaceAnimationStatusReactor();
+    availabilitySectorsMovieStatusReactor();
   }
 
-  gestureCrossTapReactor() => reaction((p0) => gestureCross.tapCount, (p0) {
-        if (!isDisconnected) {
-          if (!hasInitiatedBlur) {
-            nokhteBlur.init();
-            primarySmartText.startRotatingText(isResuming: true);
-            toggleHasInitiatedBlur();
-          } else if (clockIsVisible && !secondaryTextIsInProgress) {
-            toggleSecondaryTextIsInProgress();
-            secondarySmartText.startRotatingText(isResuming: true);
-          }
-        }
-      });
+  gestureCrossTapReactor() => reaction(
+        (p0) => gestureCross.tapCount,
+        (p0) => onGestureCrossTap(),
+      );
 
   primarySmartTextReactor() =>
       reaction((p0) => primarySmartText.currentIndex, (p0) {
@@ -104,25 +103,64 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
           timeModel.init();
         }
       });
-  secondarySmartTextReactor() =>
-      reaction((p0) => secondarySmartText.currentIndex, (p0) {
-        if (!secondaryTextIsInProgress) {
-          toggleSecondaryTextIsInProgress();
-        }
-        toggleSecondaryTextIsInProgress();
-        if (p0 == 2) {
-          secondarySmartText.reset();
-          secondarySmartText.startRotatingText();
-        }
-      });
+  secondarySmartTextReactor() => reaction(
+      (p0) => secondarySmartText.currentIndex,
+      (p0) => onSecondarySmartTextTransitions(p0));
 
-  clockFaceAnimationStatusReactor() =>
-      reaction((p0) => timeModel.clockFace.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished) {
-          secondarySmartText.startRotatingText();
-          toggleClockIsVisible();
-        }
-      });
+  clockFaceAnimationStatusReactor() => reaction(
+      (p0) => timeModel.clockFace.movieStatus,
+      (p0) => onClockFaceAnimationFinished(p0));
+
+  availabilitySectorsMovieStatusReactor() => reaction(
+      (p0) => timeModel.availabilitySectors.movieStatus,
+      (p0) => onAvailabilitySectorMovieStatusFinished(p0));
+
+  @action
+  onGestureCrossTap() {
+    if (!isDisconnected) {
+      if (!hasInitiatedBlur) {
+        nokhteBlur.init();
+        primarySmartText.startRotatingText(isResuming: true);
+        beachWaves.currentStore.setControl(Control.stop);
+        toggleHasInitiatedBlur();
+      } else if (clockIsVisible && !secondaryTextIsInProgress) {
+        toggleSecondaryTextIsInProgress();
+        secondarySmartText.startRotatingText(isResuming: true);
+      }
+    }
+  }
+
+  @action
+  onSecondarySmartTextTransitions(int p0) {
+    if (!secondaryTextIsInProgress) {
+      toggleSecondaryTextIsInProgress();
+    }
+    toggleSecondaryTextIsInProgress();
+    if (p0 == 2) {
+      secondarySmartText.reset();
+      secondarySmartText.startRotatingText();
+    }
+  }
+
+  @action
+  onClockFaceAnimationFinished(p0) {
+    if (p0 == MovieStatus.finished) {
+      secondarySmartText.startRotatingText();
+      toggleClockIsVisible();
+    }
+  }
+
+  @action
+  onAvailabilitySectorMovieStatusFinished(MovieStatus p0) {
+    if (p0 == MovieStatus.finished &&
+        timeModel.availabilitySectors.pastControl == Control.playFromStart) {
+      timeModel.reverseClockFaceMovie();
+      secondarySmartText.setControl(Control.stop);
+      beachWaves.currentStore.setControl(Control.mirror);
+      secondarySmartText.toggleWidgetVisibility();
+      nokhteBlur.reverse();
+    }
+  }
 
   @override
   List<Object> get props => [];
