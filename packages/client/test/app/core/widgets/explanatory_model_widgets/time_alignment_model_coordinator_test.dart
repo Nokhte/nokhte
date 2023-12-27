@@ -31,7 +31,14 @@ void main() {
       testStore.init();
       expect(clockFace.control, Control.playFromStart);
       expect(clockFace.movieStatus, MovieStatus.inProgress);
-      expect(availabilitySectors.control, Control.playFromStart);
+      expect(availabilitySectors.control, Control.play);
+      expect(availabilitySectors.movieStatus, MovieStatus.inProgress);
+      expect(availabilitySectors.movieMode, AvailabilitySectorMovieModes.setup);
+    });
+
+    test("reverseClockFaceMovie", () {
+      testStore.reverseClockFaceMovie();
+      expect(clockFace.control, Control.playReverseFromEnd);
     });
   });
 }
