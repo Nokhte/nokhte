@@ -27,7 +27,12 @@ abstract class _TimeAlignmentModelCoordinatorBase extends Equatable with Store {
   @action
   init() {
     clockFace.initMovie(NoParams());
-    availabilitySectors.setControl(Control.playFromStart);
+    availabilitySectors.initMovie(NoParams());
+  }
+
+  @action
+  reverseClockFaceMovie() {
+    clockFace.setControl(Control.playReverseFromEnd);
   }
 
   @override
