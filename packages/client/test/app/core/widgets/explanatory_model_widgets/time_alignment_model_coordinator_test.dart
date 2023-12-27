@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 
@@ -29,6 +30,7 @@ void main() {
     test('init', () {
       testStore.init();
       expect(clockFace.control, Control.playFromStart);
+      expect(clockFace.movieStatus, MovieStatus.inProgress);
       expect(availabilitySectors.control, Control.playFromStart);
     });
   });
