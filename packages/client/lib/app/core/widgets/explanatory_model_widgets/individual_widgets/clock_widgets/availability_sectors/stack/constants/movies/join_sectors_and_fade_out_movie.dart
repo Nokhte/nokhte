@@ -208,19 +208,16 @@ class JoinSectorsAndFadeOutMovie {
             end: ModelGradients.successGradient[1],
           ),
         )
+        .tween(
+          AvailabilitySectorMovieProperties.blueSector2RadiusScalingFactor,
+          Tween<double>(
+            begin: 1,
+            end: .97,
+          ),
+        )
     ..scene(
       begin: Seconds.get(2),
-      end: Seconds.get(3),
-    ).tween(
-      AvailabilitySectorMovieProperties.blueSector2RadiusScalingFactor,
-      Tween<double>(
-        begin: 1,
-        end: .97,
-      ),
-    )
-    ..scene(
-      begin: Seconds.get(3),
-      end: Seconds.get(5),
+      end: Seconds.get(4),
     )
         .tween(
           AvailabilitySectorMovieProperties.blueSector2Length,
