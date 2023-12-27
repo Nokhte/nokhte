@@ -7,7 +7,7 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 import 'package:simple_animations/simple_animations.dart';
 import '../../../../shared/shared_mocks.mocks.dart';
-import '../../../../shared/shared_utils.dart';
+import '../../../../shared/shared_test_utils.dart';
 
 void main() {
   late BeachWavesStore beachWaves;
