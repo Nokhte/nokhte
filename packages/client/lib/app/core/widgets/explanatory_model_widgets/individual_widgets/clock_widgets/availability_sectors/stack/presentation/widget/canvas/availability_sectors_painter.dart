@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:touchable/touchable.dart';
 
 class AvailabilitySectorsPainter extends CustomPainter {
   final List<double> redSectorLengths;
@@ -10,6 +11,8 @@ class AvailabilitySectorsPainter extends CustomPainter {
   final List<List<Color>> redSectorGradients;
   final List<double> redSectorRadii;
   final List<double> blueSectorRadii;
+  final BuildContext context;
+  final Function touchCallback;
 
   AvailabilitySectorsPainter({
     required this.redSectorLengths,
@@ -18,6 +21,8 @@ class AvailabilitySectorsPainter extends CustomPainter {
     required this.blueSectorGradients,
     required this.blueSectorRadii,
     required this.redSectorRadii,
+    required this.context,
+    required this.touchCallback,
   });
 
   @override
@@ -35,7 +40,7 @@ class AvailabilitySectorsPainter extends CustomPainter {
       size.height.half() - 130,
     );
 
-    drawAvailabilitySectors(
+    drawGradientArcs(
       canvas,
       size,
       center,
@@ -46,7 +51,7 @@ class AvailabilitySectorsPainter extends CustomPainter {
       AvailabilitySectorConstants.userArcShouldReverseStops,
       blueSectorLengths,
     );
-    drawAvailabilitySectors(
+    drawGradientArcs(
       canvas,
       size,
       center,
@@ -57,9 +62,27 @@ class AvailabilitySectorsPainter extends CustomPainter {
       AvailabilitySectorConstants.collaboratorArcShouldReverseStops,
       redSectorLengths,
     );
+
+    final touchable = TouchyCanvas(context, canvas);
+    final Paint paint = Paint()
+      ..strokeWidth = 25.0
+      ..style = PaintingStyle.stroke
+      ..color = Colors.white.withOpacity(0.0);
+
+    touchable.drawArc(
+      Rect.fromCircle(center: center, radius: redArcRadius),
+      11.63,
+      pi - 3.45,
+      false,
+      paint,
+      onTapDown: (details) {
+        touchCallback();
+      },
+    );
+    // touchable.drawCircle(center, redArcRadius, paint);
   }
 
-  drawAvailabilitySectors(
+  drawGradientArcs(
     Canvas canvas,
     Size size,
     Offset center,
