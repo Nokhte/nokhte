@@ -4,14 +4,32 @@ import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class AvailabilitySectorsPainter extends CustomPainter {
-  final double sectorLength;
+  final List<double> redSectorLengths;
+  final List<double> blueSectorLengths;
+  final List<List<Color>> blueSectorGradients;
+  final List<List<Color>> redSectorGradients;
+  final List<double> redSectorRadii;
+  final List<double> blueSectorRadii;
+
   AvailabilitySectorsPainter({
-    required this.sectorLength,
+    required this.redSectorLengths,
+    required this.blueSectorLengths,
+    required this.redSectorGradients,
+    required this.blueSectorGradients,
+    required this.blueSectorRadii,
+    required this.redSectorRadii,
   });
+
   @override
   void paint(Canvas canvas, Size size) {
     final double redArcRadius = size.width * .46;
     final double blueArcRadius = size.width * .475;
+    final List<double> normalizedRedSectorRadii = [];
+    final List<double> normalizedBlueSectorRadii = [];
+    for (int i = 0; i < redSectorRadii.length; i++) {
+      normalizedRedSectorRadii.add(redArcRadius * redSectorRadii[i]);
+      normalizedBlueSectorRadii.add(blueArcRadius * blueSectorRadii[i]);
+    }
     final center = Offset(
       size.width.half(),
       size.height.half() - 130,
@@ -21,21 +39,23 @@ class AvailabilitySectorsPainter extends CustomPainter {
       canvas,
       size,
       center,
-      blueArcRadius,
+      normalizedBlueSectorRadii,
       AvailabilitySectorConstants.userArcStops,
       AvailabilitySectorConstants.userArcLengths,
-      ModelGradientOptions.user,
+      blueSectorGradients,
       AvailabilitySectorConstants.userArcShouldReverseStops,
+      blueSectorLengths,
     );
     drawAvailabilitySectors(
       canvas,
       size,
       center,
-      redArcRadius,
+      normalizedRedSectorRadii,
       AvailabilitySectorConstants.collaboratorArcStops,
       AvailabilitySectorConstants.collaboratorArcLengths,
-      ModelGradientOptions.collaborator,
+      redSectorGradients,
       AvailabilitySectorConstants.collaboratorArcShouldReverseStops,
+      redSectorLengths,
     );
   }
 
@@ -43,15 +63,13 @@ class AvailabilitySectorsPainter extends CustomPainter {
     Canvas canvas,
     Size size,
     Offset center,
-    double arcRadius,
+    List<double> arcRadii,
     List<List<double>> stops,
     List<double> arcLengths,
-    ModelGradientOptions gradient,
+    List<List<Color>> gradients,
     List<bool> shouldReverseColors,
+    List<double> sectorLengths,
   ) {
-    final chosenGradient = gradient == ModelGradientOptions.user
-        ? ModelGradients.userGradient
-        : ModelGradients.collaboratorGradient;
     for (int i = 0; i < stops.length; i++) {
       Paint arc1Paint = Paint()
         ..strokeCap = StrokeCap.square
@@ -59,14 +77,14 @@ class AvailabilitySectorsPainter extends CustomPainter {
         ..style = PaintingStyle.stroke
         ..shader = LinearGradient(
           colors: shouldReverseColors[i]
-              ? chosenGradient.reversed.toList()
-              : chosenGradient,
+              ? gradients[i].reversed.toList()
+              : gradients[i],
           stops: stops[i],
-        ).createShader(Rect.fromCircle(center: center, radius: arcRadius));
+        ).createShader(Rect.fromCircle(center: center, radius: arcRadii[i]));
       canvas.drawArc(
-        Rect.fromCircle(center: center, radius: arcRadius),
+        Rect.fromCircle(center: center, radius: arcRadii[i]),
         pi - arcLengths[i],
-        pi - sectorLength,
+        pi - sectorLengths[i],
         false,
         arc1Paint,
       );
