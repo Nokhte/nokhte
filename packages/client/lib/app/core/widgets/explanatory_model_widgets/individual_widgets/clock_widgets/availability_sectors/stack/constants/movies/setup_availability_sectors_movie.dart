@@ -177,15 +177,5 @@ class SetupAvailabilitySectorsMovies {
             begin: 1,
             end: 1,
           ),
-        )
-    ..scene(
-      begin: Seconds.get(3),
-      end: Seconds.get(4),
-    ).tween(
-      AvailabilitySectorMovieProperties.blueSector2RadiusScalingFactor,
-      Tween<double>(
-        begin: 1,
-        end: .97,
-      ),
-    );
+        );
 }
