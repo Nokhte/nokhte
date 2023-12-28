@@ -101,6 +101,21 @@ void main() {
 
     group("constructor dependendent", () {
       setUp(() => testStore.constructor());
+
+      test("onResumed", () {
+        testStore.toggleHasInitiatedBlur();
+        testStore.onResumed();
+        expect(primarySmartText.isPaused, false);
+        expect(beachWaves.currentControl, Control.mirror);
+        expect(nokhteBlurStore.control, Control.playReverseFromEnd);
+        expect(testStore.hasInitiatedBlur, false);
+      });
+
+      test("onInactive", () {
+        primarySmartText.currentIndex = 2;
+        testStore.onInactive();
+        expect(primarySmartText.currentIndex, 0);
+      });
       test("onAvailabilitySectorMovieStatusFinished", () {
         timeModel.availabilitySectors.setPastControl(Control.playFromStart);
         testStore.onAvailabilitySectorMovieStatusFinished(MovieStatus.finished);
@@ -115,7 +130,7 @@ void main() {
         fakeAsync((async) {
           testStore.onClockFaceAnimationFinished(MovieStatus.finished);
           async.elapse(Seconds.get(10));
-          expect(secondarySmartText.control, Control.playFromStart);
+          expect(secondarySmartText.control, Control.play);
           expect(testStore.clockIsVisible, true);
         });
       });
