@@ -17,6 +17,21 @@ mixin _$HomeScreenCoordinator on _HomeScreenCoordinatorBase, Store {
     return _$constructorAsyncAction.run(() => super.constructor());
   }
 
+  late final _$_HomeScreenCoordinatorBaseActionController =
+      ActionController(name: '_HomeScreenCoordinatorBase', context: context);
+
+  @override
+  dynamic onAppLifeCycleStateChange(dynamic p0) {
+    final _$actionInfo =
+        _$_HomeScreenCoordinatorBaseActionController.startAction(
+            name: '_HomeScreenCoordinatorBase.onAppLifeCycleStateChange');
+    try {
+      return super.onAppLifeCycleStateChange(p0);
+    } finally {
+      _$_HomeScreenCoordinatorBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
