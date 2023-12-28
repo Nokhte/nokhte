@@ -43,12 +43,12 @@ class HomeScreen extends HookWidget {
             store: coordinator.widgets.secondarySmartText,
             opacityDuration: Seconds.get(1),
           )),
+          TimeAlignmentModelWidget(
+            store: coordinator.widgets.timeModel,
+          ),
           GestureCross(
             size: size,
             store: coordinator.widgets.gestureCross,
-          ),
-          TimeAlignmentModelWidget(
-            store: coordinator.widgets.timeModel,
           ),
           WifiDisconnectOverlay(
             store: coordinator.widgets.wifiDisconnectOverlay,
