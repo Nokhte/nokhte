@@ -73,17 +73,12 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
     if (disableAllTouchFeedback) {
       toggleDisableAllTouchFeedback();
     }
-    onInactive();
-    onResumed();
   }
 
   @action
   onDisconnected() {
     if (!disableAllTouchFeedback) {
       toggleDisableAllTouchFeedback();
-    }
-    if (widgets.hasNotMadeTheDot) {
-      widgets.smartTextStore.reset();
     }
   }
 
