@@ -48,6 +48,30 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     if (!isDisconnected) toggleIsDisconnected();
   }
 
+  @action
+  onResumed() {
+    if (clockAnimationHasNotStarted) {
+      primarySmartText.resume();
+      primarySmartText.startRotatingText();
+      beachWaves.currentStore.setControl(Control.mirror);
+      if (hasInitiatedBlur) {
+        nokhteBlur.reverse();
+        toggleHasInitiatedBlur();
+      }
+    }
+  }
+
+  @action
+  onInactive() {
+    if (clockAnimationHasNotStarted) {
+      primarySmartText.pause();
+      primarySmartText.reset();
+    }
+  }
+
+  @observable
+  bool clockAnimationHasNotStarted = true;
+
   @observable
   bool clockIsVisible = false;
 
@@ -115,6 +139,21 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
       (p0) => timeModel.availabilitySectors.movieStatus,
       (p0) => onAvailabilitySectorMovieStatusFinished(p0));
 
+  wifiDisconnectOverlayReactor() =>
+      reaction((p0) => wifiDisconnectOverlay.movieStatus, (p0) {
+        if (wifiDisconnectOverlay.movieMode ==
+            WifiDisconnectMovieModes.removeTheCircle) {
+          if (clockAnimationHasNotStarted) {
+            primarySmartText.resume();
+          }
+        } else if (wifiDisconnectOverlay.movieMode ==
+            WifiDisconnectMovieModes.placeTheCircle) {
+          if (clockAnimationHasNotStarted) {
+            primarySmartText.pause();
+          }
+        }
+      });
+
   @action
   onGestureCrossTap() {
     if (!isDisconnected) {
@@ -147,6 +186,8 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     if (p0 == MovieStatus.finished) {
       secondarySmartText.startRotatingText();
       toggleClockIsVisible();
+    } else if (p0 == MovieStatus.inProgress) {
+      clockAnimationHasNotStarted = false;
     }
   }
 

@@ -10,6 +10,24 @@ part of 'home_screen_widgets_coordinator.dart';
 
 mixin _$HomeScreenWidgetsCoordinator
     on _HomeScreenWidgetsCoordinatorBase, Store {
+  late final _$clockAnimationHasNotStartedAtom = Atom(
+      name: '_HomeScreenWidgetsCoordinatorBase.clockAnimationHasNotStarted',
+      context: context);
+
+  @override
+  bool get clockAnimationHasNotStarted {
+    _$clockAnimationHasNotStartedAtom.reportRead();
+    return super.clockAnimationHasNotStarted;
+  }
+
+  @override
+  set clockAnimationHasNotStarted(bool value) {
+    _$clockAnimationHasNotStartedAtom
+        .reportWrite(value, super.clockAnimationHasNotStarted, () {
+      super.clockAnimationHasNotStarted = value;
+    });
+  }
+
   late final _$clockIsVisibleAtom = Atom(
       name: '_HomeScreenWidgetsCoordinatorBase.clockIsVisible',
       context: context);
@@ -131,6 +149,30 @@ mixin _$HomeScreenWidgetsCoordinator
         .startAction(name: '_HomeScreenWidgetsCoordinatorBase.onDisconnected');
     try {
       return super.onDisconnected();
+    } finally {
+      _$_HomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onResumed() {
+    final _$actionInfo = _$_HomeScreenWidgetsCoordinatorBaseActionController
+        .startAction(name: '_HomeScreenWidgetsCoordinatorBase.onResumed');
+    try {
+      return super.onResumed();
+    } finally {
+      _$_HomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onInactive() {
+    final _$actionInfo = _$_HomeScreenWidgetsCoordinatorBaseActionController
+        .startAction(name: '_HomeScreenWidgetsCoordinatorBase.onInactive');
+    try {
+      return super.onInactive();
     } finally {
       _$_HomeScreenWidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
@@ -262,6 +304,7 @@ mixin _$HomeScreenWidgetsCoordinator
   @override
   String toString() {
     return '''
+clockAnimationHasNotStarted: ${clockAnimationHasNotStarted},
 clockIsVisible: ${clockIsVisible},
 isDisconnected: ${isDisconnected},
 hasInitiatedBlur: ${hasInitiatedBlur},
