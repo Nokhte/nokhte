@@ -185,6 +185,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
     trailingTextReactor();
     layer1BeachWavesReactor();
     layer2BeachWavesReactor();
+    wifiDisconnectOverlayReactor();
   }
 
   nokhteReactor(Function loginBusinessLogic) =>
@@ -236,6 +237,23 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
           layer2BeachWaves.currentStore.initMovie(NoParams());
         } else if (hasFinishedWaterFromTopPart2(p0)) {
           Modular.to.navigate('/home/');
+        }
+      });
+
+  wifiDisconnectOverlayReactor() =>
+      reaction((p0) => wifiDisconnectOverlay.movieStatus, (p0) {
+        if (wifiDisconnectOverlay.movieMode ==
+            WifiDisconnectMovieModes.removeTheCircle) {
+          if (p0 == MovieStatus.inProgress && hasNotMadeTheDot) {
+            smartTextStore.reset();
+          } else if (p0 == MovieStatus.finished) {
+            smartTextStore.resume();
+          }
+        } else if (wifiDisconnectOverlay.movieMode ==
+            WifiDisconnectMovieModes.placeTheCircle) {
+          if (p0 == MovieStatus.inProgress && hasNotMadeTheDot) {
+            smartTextStore.pause();
+          }
         }
       });
 
