@@ -10,20 +10,20 @@ part of 'home_screen_widgets_coordinator.dart';
 
 mixin _$HomeScreenWidgetsCoordinator
     on _HomeScreenWidgetsCoordinatorBase, Store {
-  late final _$hasInitiatedBlurAtom = Atom(
-      name: '_HomeScreenWidgetsCoordinatorBase.hasInitiatedBlur',
+  late final _$clockIsVisibleAtom = Atom(
+      name: '_HomeScreenWidgetsCoordinatorBase.clockIsVisible',
       context: context);
 
   @override
-  bool get hasInitiatedBlur {
-    _$hasInitiatedBlurAtom.reportRead();
-    return super.hasInitiatedBlur;
+  bool get clockIsVisible {
+    _$clockIsVisibleAtom.reportRead();
+    return super.clockIsVisible;
   }
 
   @override
-  set hasInitiatedBlur(bool value) {
-    _$hasInitiatedBlurAtom.reportWrite(value, super.hasInitiatedBlur, () {
-      super.hasInitiatedBlur = value;
+  set clockIsVisible(bool value) {
+    _$clockIsVisibleAtom.reportWrite(value, super.clockIsVisible, () {
+      super.clockIsVisible = value;
     });
   }
 
@@ -41,6 +41,59 @@ mixin _$HomeScreenWidgetsCoordinator
   set isDisconnected(bool value) {
     _$isDisconnectedAtom.reportWrite(value, super.isDisconnected, () {
       super.isDisconnected = value;
+    });
+  }
+
+  late final _$hasInitiatedBlurAtom = Atom(
+      name: '_HomeScreenWidgetsCoordinatorBase.hasInitiatedBlur',
+      context: context);
+
+  @override
+  bool get hasInitiatedBlur {
+    _$hasInitiatedBlurAtom.reportRead();
+    return super.hasInitiatedBlur;
+  }
+
+  @override
+  set hasInitiatedBlur(bool value) {
+    _$hasInitiatedBlurAtom.reportWrite(value, super.hasInitiatedBlur, () {
+      super.hasInitiatedBlur = value;
+    });
+  }
+
+  late final _$secondaryTextIsInProgressAtom = Atom(
+      name: '_HomeScreenWidgetsCoordinatorBase.secondaryTextIsInProgress',
+      context: context);
+
+  @override
+  bool get secondaryTextIsInProgress {
+    _$secondaryTextIsInProgressAtom.reportRead();
+    return super.secondaryTextIsInProgress;
+  }
+
+  @override
+  set secondaryTextIsInProgress(bool value) {
+    _$secondaryTextIsInProgressAtom
+        .reportWrite(value, super.secondaryTextIsInProgress, () {
+      super.secondaryTextIsInProgress = value;
+    });
+  }
+
+  late final _$isDoubleTriggeringWindDownAtom = Atom(
+      name: '_HomeScreenWidgetsCoordinatorBase.isDoubleTriggeringWindDown',
+      context: context);
+
+  @override
+  bool get isDoubleTriggeringWindDown {
+    _$isDoubleTriggeringWindDownAtom.reportRead();
+    return super.isDoubleTriggeringWindDown;
+  }
+
+  @override
+  set isDoubleTriggeringWindDown(bool value) {
+    _$isDoubleTriggeringWindDownAtom
+        .reportWrite(value, super.isDoubleTriggeringWindDown, () {
+      super.isDoubleTriggeringWindDown = value;
     });
   }
 
@@ -85,6 +138,33 @@ mixin _$HomeScreenWidgetsCoordinator
   }
 
   @override
+  dynamic toggleIsDoubleTriggeringWindDown() {
+    final _$actionInfo =
+        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_HomeScreenWidgetsCoordinatorBase.toggleIsDoubleTriggeringWindDown');
+    try {
+      return super.toggleIsDoubleTriggeringWindDown();
+    } finally {
+      _$_HomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic toggleClockIsVisible() {
+    final _$actionInfo =
+        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
+            name: '_HomeScreenWidgetsCoordinatorBase.toggleClockIsVisible');
+    try {
+      return super.toggleClockIsVisible();
+    } finally {
+      _$_HomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic toggleIsDisconnected() {
     final _$actionInfo =
         _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
@@ -111,10 +191,82 @@ mixin _$HomeScreenWidgetsCoordinator
   }
 
   @override
+  dynamic toggleSecondaryTextIsInProgress() {
+    final _$actionInfo =
+        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_HomeScreenWidgetsCoordinatorBase.toggleSecondaryTextIsInProgress');
+    try {
+      return super.toggleSecondaryTextIsInProgress();
+    } finally {
+      _$_HomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onGestureCrossTap() {
+    final _$actionInfo =
+        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
+            name: '_HomeScreenWidgetsCoordinatorBase.onGestureCrossTap');
+    try {
+      return super.onGestureCrossTap();
+    } finally {
+      _$_HomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onSecondarySmartTextTransitions(int p0) {
+    final _$actionInfo =
+        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_HomeScreenWidgetsCoordinatorBase.onSecondarySmartTextTransitions');
+    try {
+      return super.onSecondarySmartTextTransitions(p0);
+    } finally {
+      _$_HomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onClockFaceAnimationFinished(dynamic p0) {
+    final _$actionInfo =
+        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_HomeScreenWidgetsCoordinatorBase.onClockFaceAnimationFinished');
+    try {
+      return super.onClockFaceAnimationFinished(p0);
+    } finally {
+      _$_HomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onAvailabilitySectorMovieStatusFinished(MovieStatus p0) {
+    final _$actionInfo =
+        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_HomeScreenWidgetsCoordinatorBase.onAvailabilitySectorMovieStatusFinished');
+    try {
+      return super.onAvailabilitySectorMovieStatusFinished(p0);
+    } finally {
+      _$_HomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
+clockIsVisible: ${clockIsVisible},
+isDisconnected: ${isDisconnected},
 hasInitiatedBlur: ${hasInitiatedBlur},
-isDisconnected: ${isDisconnected}
+secondaryTextIsInProgress: ${secondaryTextIsInProgress},
+isDoubleTriggeringWindDown: ${isDoubleTriggeringWindDown}
     ''';
   }
 }

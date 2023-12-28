@@ -27,6 +27,19 @@ mixin _$TimeAlignmentModelCoordinator
   }
 
   @override
+  dynamic reverseClockFaceMovie() {
+    final _$actionInfo =
+        _$_TimeAlignmentModelCoordinatorBaseActionController.startAction(
+            name: '_TimeAlignmentModelCoordinatorBase.reverseClockFaceMovie');
+    try {
+      return super.reverseClockFaceMovie();
+    } finally {
+      _$_TimeAlignmentModelCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 

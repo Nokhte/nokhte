@@ -99,6 +99,22 @@ mixin _$SmartTextStore on _SmartTextStoreBase, Store {
     });
   }
 
+  late final _$isPausedAtom =
+      Atom(name: '_SmartTextStoreBase.isPaused', context: context);
+
+  @override
+  bool get isPaused {
+    _$isPausedAtom.reportRead();
+    return super.isPaused;
+  }
+
+  @override
+  set isPaused(bool value) {
+    _$isPausedAtom.reportWrite(value, super.isPaused, () {
+      super.isPaused = value;
+    });
+  }
+
   late final _$_SmartTextStoreBaseActionController =
       ActionController(name: '_SmartTextStoreBase', context: context);
 
@@ -136,6 +152,28 @@ mixin _$SmartTextStore on _SmartTextStoreBase, Store {
   }
 
   @override
+  dynamic pause() {
+    final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
+        name: '_SmartTextStoreBase.pause');
+    try {
+      return super.pause();
+    } finally {
+      _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic resume() {
+    final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
+        name: '_SmartTextStoreBase.resume');
+    try {
+      return super.resume();
+    } finally {
+      _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic onOpacityTransitionComplete() {
     final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
         name: '_SmartTextStoreBase.onOpacityTransitionComplete');
@@ -151,6 +189,7 @@ mixin _$SmartTextStore on _SmartTextStoreBase, Store {
     return '''
 messagesData: ${messagesData},
 currentIndex: ${currentIndex},
+isPaused: ${isPaused},
 currentSubText: ${currentSubText},
 currentMainText: ${currentMainText},
 currentShouldPauseHere: ${currentShouldPauseHere},
