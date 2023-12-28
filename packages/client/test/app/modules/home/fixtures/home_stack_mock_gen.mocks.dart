@@ -1317,6 +1317,22 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
       ) as _i13.SmartTextStore);
 
   @override
+  bool get clockAnimationHasNotStarted => (super.noSuchMethod(
+        Invocation.getter(#clockAnimationHasNotStarted),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set clockAnimationHasNotStarted(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #clockAnimationHasNotStarted,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   bool get clockIsVisible => (super.noSuchMethod(
         Invocation.getter(#clockIsVisible),
         returnValue: false,
