@@ -16,6 +16,9 @@ abstract class _SmartTextStoreBase extends BaseCustomAnimatedWidgetStore
   @observable
   int currentIndex = 0;
 
+  @observable
+  bool isPaused = false;
+
   @action
   setMessagesData(List<RotatingTextData> newList) {
     messagesData = ObservableList.of(newList);
@@ -36,24 +39,41 @@ abstract class _SmartTextStoreBase extends BaseCustomAnimatedWidgetStore
   startRotatingText({bool isResuming = false}) {
     Future.delayed(currentInitialFadeInDelay, () {
       if (isResuming) {
-        setControl(Control.playReverseFromEnd);
+        setControl(Control.playReverse);
       } else {
-        setControl(Control.playFromStart);
+        setControl(Control.play);
       }
     });
   }
 
   @action
+  pause() {
+    // setPastControl(control);
+    setControl(Control.stop);
+    isPaused = true;
+  }
+
+  @action
+  resume() {
+    startRotatingText(isResuming: true);
+    isPaused = false;
+  }
+
+  @action
   onOpacityTransitionComplete() {
     if (currentIndex < messagesData.length - 1) {
-      if (control == Control.playFromStart && !currentShouldPauseHere) {
+      if (control != Control.playReverse && !currentShouldPauseHere) {
         Future.delayed(currentOnScreenTime, () {
-          setControl(Control.playReverseFromEnd);
+          if (!isPaused) {
+            setControl(Control.playReverse);
+          }
         });
-      } else if (control == Control.playReverseFromEnd) {
+      } else if (control == Control.playReverse) {
         currentIndex++;
         Future.delayed(Seconds.get(0, milli: 100), () {
-          setControl(Control.playFromStart);
+          if (!isPaused) {
+            setControl(Control.playFromStart);
+          }
         });
       }
     }
