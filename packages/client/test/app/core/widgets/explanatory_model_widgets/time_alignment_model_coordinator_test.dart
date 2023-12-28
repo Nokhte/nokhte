@@ -2,15 +2,19 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
+import '../wifi_disconnect_overlay/wifi_disconnect_mocks.mocks.dart';
 
 void main() {
   late TimeAlignmentModelCoordinator testStore;
   late ClockFaceStore clockFace;
   late AvailabilitySectorsStore availabilitySectors;
+  late MockGetOnConnectivityChangedStore mockConnectivity;
 
   setUp(() {
+    mockConnectivity = MockGetOnConnectivityChangedStore();
     clockFace = ClockFaceStore();
-    availabilitySectors = AvailabilitySectorsStore();
+    availabilitySectors =
+        AvailabilitySectorsStore(connectivity: mockConnectivity);
     testStore = TimeAlignmentModelCoordinator(
       clockFace: clockFace,
       availabilitySectors: availabilitySectors,
