@@ -15,6 +15,8 @@ class HomeScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    useOnAppLifecycleStateChange(
+        (previous, current) => coordinator.onAppLifeCycleStateChange(current));
     final size = useSquareSize(relativeLength: .20);
     useEffect(() {
       coordinator.constructor();
