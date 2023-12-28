@@ -80,7 +80,7 @@ abstract class _WifiDisconnectOverlayStoreBase
     setMovieMode(WifiDisconnectMovieModes.placeTheCircle);
   }
 
-  initLoopMovie({Control theControl = Control.playFromStart}) {
+  initLoopMovie({Control theControl = Control.loop}) {
     setMovieStatus(MovieStatus.inProgress);
     setMovie(WifiRippleMovie.movie);
     setMovieMode(WifiDisconnectMovieModes.rippleLoop);
