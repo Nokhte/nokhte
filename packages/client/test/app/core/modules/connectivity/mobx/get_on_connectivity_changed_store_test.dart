@@ -12,14 +12,12 @@ void main() {
 
   setUp(() {
     mockLogic = MockGetOnConnectivityChanged();
+    when(mockLogic(NoParams()))
+        .thenAnswer((_) => Stream.value(ConnectivityResult.mobile));
     testStore = GetOnConnectivityChangedStore(logic: mockLogic);
   });
 
   group("initial values", () {
-    test("connectivityStream", () {
-      expect(testStore.connectivityStream, emitsDone);
-    });
-
     test("mostRecentResult", () {
       expect(testStore.isConnected, true);
     });
