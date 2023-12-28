@@ -90,7 +90,7 @@ void main() {
       testStore.initLoopMovie();
       expect(testStore.movieStatus, MovieStatus.inProgress);
       expect(testStore.movie.duration, Seconds.get(4));
-      expect(testStore.control, Control.playFromStart);
+      expect(testStore.control, Control.loop);
       expect(testStore.movieMode, WifiDisconnectMovieModes.rippleLoop);
     });
     test("initRemovetheCircle", () {
