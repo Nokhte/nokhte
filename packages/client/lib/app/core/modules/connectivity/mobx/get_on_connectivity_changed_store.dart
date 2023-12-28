@@ -15,7 +15,9 @@ abstract class _GetOnConnectivityChangedStoreBase extends Equatable with Store {
   late StreamSubscription<ConnectivityResult> streamSub;
   final GetOnConnectivityChanged logic;
 
-  _GetOnConnectivityChangedStoreBase({required this.logic});
+  _GetOnConnectivityChangedStoreBase({required this.logic}) {
+    callAndListen();
+  }
 
   @observable
   ObservableStream<ConnectivityResult> connectivityStream =
