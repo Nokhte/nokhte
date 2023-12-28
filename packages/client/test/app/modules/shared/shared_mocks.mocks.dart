@@ -603,8 +603,7 @@ class MockWifiDisconnectOverlayStore extends _i1.Mock
       );
 
   @override
-  dynamic initLoopMovie(
-          {_i3.Control? theControl = _i3.Control.playFromStart}) =>
+  dynamic initLoopMovie({_i3.Control? theControl = _i3.Control.loop}) =>
       super.noSuchMethod(
         Invocation.method(
           #initLoopMovie,
