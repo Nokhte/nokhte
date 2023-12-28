@@ -31,14 +31,14 @@ void main() {
         fakeAsync((async) {
           testStore.startRotatingText();
           async.elapse(testStore.currentInitialFadeInDelay);
-          expect(testStore.control, Control.playFromStart);
+          expect(testStore.control, Control.play);
         });
       });
       test("is resuming", () {
         fakeAsync((async) {
           testStore.startRotatingText(isResuming: true);
           async.elapse(testStore.currentInitialFadeInDelay);
-          expect(testStore.control, Control.playReverseFromEnd);
+          expect(testStore.control, Control.playReverse);
         });
       });
     });
@@ -52,12 +52,12 @@ void main() {
           testStore.setControl(Control.playFromStart);
           testStore.onOpacityTransitionComplete();
           async.elapse(testStore.currentOnScreenTime);
-          expect(testStore.control, Control.playReverseFromEnd);
+          expect(testStore.control, Control.playReverse);
         });
       });
       test("widget is not visible at index 0", () {
         fakeAsync((async) {
-          testStore.setControl(Control.playReverseFromEnd);
+          testStore.setControl(Control.playReverse);
           testStore.onOpacityTransitionComplete();
           async.elapse(Seconds.get(0, milli: 100));
           expect(testStore.control, Control.playFromStart);
