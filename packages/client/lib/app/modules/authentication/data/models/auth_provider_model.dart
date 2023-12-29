@@ -6,10 +6,10 @@ class AuthProviderModel extends AuthProviderEntity {
   const AuthProviderModel(
       {required super.authProvider, required super.authProviderStatus});
 
-  static Future<AuthProviderModel> fromSupabase(
+  factory AuthProviderModel.fromSupabase(
     AuthProvider authProvider,
     AuthResponse authResponse,
-  ) async {
+  ) {
     if (authResponse.user?.email?.isNotEmpty == true) {
       return AuthProviderModel(
           authProvider: authProvider, authProviderStatus: true);

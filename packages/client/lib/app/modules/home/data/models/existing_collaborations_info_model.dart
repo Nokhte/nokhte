@@ -7,7 +7,7 @@ class ExistingCollaborationsInfoModel extends ExistingCollaborationsInfoEntity {
     required super.hasDoneThePerspectivesSession,
   });
 
-  static ExistingCollaborationsInfoModel fromSupabase({
+  factory ExistingCollaborationsInfoModel.fromSupabase({
     required List collaborationRes,
     required List perspectivesSessionRes,
     required List committedPurposeRes,
