@@ -39,8 +39,5 @@ class AuthenticationContractImpl implements AuthenticationContract {
   }
 
   @override
-  AuthStateEntity getAuthState() {
-    final authState = remoteSource.getAuthState();
-    return authState;
-  }
+  AuthStateEntity getAuthState() => remoteSource.getAuthState();
 }
