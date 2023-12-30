@@ -92,7 +92,7 @@ void main() {
       expect(primarySmartText.messagesData, MessagesData.firstTimeHomeList);
       expect(secondarySmartText.messagesData,
           MessagesData.firstTimeSecondaryHomeList);
-      expect(beachWaves.movieMode, BeachWaveMovieModes.onShore);
+      expect(beachWaves.movieMode, BeachWaveMovieModes.suspendedAtOceanDive);
       verify(wifiDisconnectOverlay.connectionReactor(
         onConnected: testStore.onConnected,
         onDisconnected: testStore.onDisconnected,
