@@ -34,7 +34,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     primarySmartText.setMessagesData(MessagesData.firstTimeHomeList);
     secondarySmartText.setMessagesData(MessagesData.firstTimeSecondaryHomeList);
     primarySmartText.startRotatingText();
-    beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
+    beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtOceanDive);
     initReactors();
   }
 
