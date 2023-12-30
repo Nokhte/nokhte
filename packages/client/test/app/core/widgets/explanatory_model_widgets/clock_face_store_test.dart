@@ -23,5 +23,11 @@ void main() {
       expect(testStore.control, Control.playFromStart);
       expect(testStore.movieStatus, MovieStatus.inProgress);
     });
+
+    test("reverse", () {
+      testStore.reverse();
+      expect(testStore.control, Control.playReverseFromEnd);
+      expect(testStore.movieStatus, MovieStatus.inProgress);
+    });
   });
 }
