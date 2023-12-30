@@ -229,13 +229,6 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
   layer2BeachWavesReactor() =>
       reaction((p0) => layer2BeachWaves.movieStatus, (p0) {
         if (hasFinishedWaterFromTopPart1(p0)) {
-          layer2BeachWaves.setMovieMode(
-            BeachWaveMovieModes.waterFromTopToOnShorePt2,
-          );
-          layer2BeachWaves.currentStore.initMovie(NoParams());
-          toggleHasCompletedWaterFromTopToOnShorePt1();
-          layer2BeachWaves.currentStore.initMovie(NoParams());
-        } else if (hasFinishedWaterFromTopPart2(p0)) {
           Modular.to.navigate('/home/');
         }
       });
