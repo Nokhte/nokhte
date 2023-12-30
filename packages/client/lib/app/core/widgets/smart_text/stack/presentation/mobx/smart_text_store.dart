@@ -27,12 +27,9 @@ abstract class _SmartTextStoreBase extends BaseCustomAnimatedWidgetStore
   @action
   reset() {
     currentIndex = 0;
-    if (control == Control.playReverseFromEnd) {
-      setControl(Control.stop);
-    } else if (control == Control.playFromStart) {
-      setControl(Control.playReverseFromEnd);
-      setControl(Control.stop);
-    }
+    if (isPaused) isPaused = !isPaused;
+    setControl(Control.playFromStart);
+    setControl(Control.stop);
   }
 
   @action
@@ -48,7 +45,6 @@ abstract class _SmartTextStoreBase extends BaseCustomAnimatedWidgetStore
 
   @action
   pause() {
-    // setPastControl(control);
     setControl(Control.stop);
     isPaused = true;
   }
