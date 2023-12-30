@@ -1381,22 +1381,6 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
       );
 
   @override
-  bool get secondaryTextIsInProgress => (super.noSuchMethod(
-        Invocation.getter(#secondaryTextIsInProgress),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool);
-
-  @override
-  set secondaryTextIsInProgress(bool? value) => super.noSuchMethod(
-        Invocation.setter(
-          #secondaryTextIsInProgress,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
   bool get isDoubleTriggeringWindDown => (super.noSuchMethod(
         Invocation.getter(#isDoubleTriggeringWindDown),
         returnValue: false,
@@ -1431,15 +1415,6 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
           Invocation.getter(#context),
         ),
       ) as _i12.ReactiveContext);
-
-  @override
-  dynamic onSecondarySmartTextTransitions(int? p0) => super.noSuchMethod(
-        Invocation.method(
-          #onSecondarySmartTextTransitions,
-          [p0],
-        ),
-        returnValueForMissingStub: null,
-      );
 
   @override
   dynamic onAvailabilitySectorMovieStatusFinished(_i24.MovieStatus? p0) =>
