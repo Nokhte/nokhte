@@ -34,6 +34,7 @@ void main() {
     test("reverseClockFaceMovie", () {
       testStore.reverseClockFaceMovie();
       expect(clockFace.control, Control.playReverseFromEnd);
+      expect(clockFace.movieStatus, MovieStatus.inProgress);
     });
   });
 }
