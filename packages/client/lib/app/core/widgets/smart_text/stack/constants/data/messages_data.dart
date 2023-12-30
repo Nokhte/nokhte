@@ -48,22 +48,34 @@ class MessagesData {
         RotatingTextData(
           initialFadeInDelay: Seconds.get(0),
           mainMessage: "",
+          pauseHere: true,
+          onScreenTime: Seconds.get(0),
+        ),
+        RotatingTextData(
+          initialFadeInDelay: Seconds.get(1),
+          mainMessage: "This is the collaboration page.",
+          onScreenTime: Seconds.get(2),
+        ),
+        RotatingTextData(
+          initialFadeInDelay: Seconds.get(1),
+          mainMessage:
+              "To make the connection you will need each other’s invitation",
+          onScreenTime: Seconds.get(2),
+        ),
+        RotatingTextData(
+          initialFadeInDelay: Seconds.get(0),
+          mainMessage: "Tap on the blue dot to make an invitation.",
           onScreenTime: Seconds.get(0),
         ),
       ];
+
   static List<RotatingTextData> get firstTimeSecondaryHomeList => [
         RotatingTextData(
           initialFadeInDelay: Seconds.get(0),
-          mainMessage: "select the overlapping time.",
+          mainMessage: "Tap on the overlapping time.",
           onScreenTime: Seconds.get(0),
           pauseHere: true,
           unlockGesture: Gestures.tap,
-        ),
-        RotatingTextData(
-          initialFadeInDelay: Seconds.get(0),
-          mainMessage: "select where red and blue overlap",
-          onScreenTime: Seconds.get(0),
-          pauseHere: true,
         ),
         RotatingTextData(
           initialFadeInDelay: Seconds.get(0),
