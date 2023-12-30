@@ -110,9 +110,9 @@ void main() {
         testStore.onAvailabilitySectorMovieStatusFinished(MovieStatus.finished);
         expect(timeModel.clockFace.control, Control.playReverseFromEnd);
         expect(secondarySmartText.control, Control.stop);
-        expect(beachWaves.currentControl, Control.mirror);
+        expect(beachWaves.currentControl, Control.stop);
         expect(testStore.secondarySmartText.showWidget, false);
-        expect(nokhteBlurStore.control, Control.playReverseFromEnd);
+        expect(nokhteBlurStore.control, Control.stop);
       });
 
       test("onClockFaceAnimationFinished", () {
