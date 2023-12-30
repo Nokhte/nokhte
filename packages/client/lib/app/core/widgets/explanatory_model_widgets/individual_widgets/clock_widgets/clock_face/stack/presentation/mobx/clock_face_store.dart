@@ -20,4 +20,9 @@ abstract class _ClockFaceStoreBase
     setMovieStatus(MovieStatus.inProgress);
     setControl(Control.playFromStart);
   }
+
+  reverse() {
+    setControl(Control.playReverseFromEnd);
+    setMovieStatus(MovieStatus.inProgress);
+  }
 }
