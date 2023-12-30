@@ -18,6 +18,12 @@ void main() {
     });
   });
   group("actions", () {
+    test("reset", () {
+      testStore.reset();
+      expect(testStore.currentIndex, 0);
+      expect(testStore.isPaused, false);
+      expect(testStore.control, Control.stop);
+    });
     test("setMessagesData", () {
       testStore.setMessagesData(MessagesData.loginList);
       expect(testStore.messagesData[0].mainMessage, "Howdy");
