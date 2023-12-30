@@ -51,10 +51,6 @@ void main() {
       expect(testStore.hasInitiatedBlur, false);
     });
 
-    test("secondaryTextIsInProgress", () {
-      expect(testStore.secondaryTextIsInProgress, false);
-    });
-
     test("clockIsVisible", () {
       expect(testStore.clockIsVisible, false);
     });
@@ -65,13 +61,6 @@ void main() {
   });
 
   group("actions", () {
-    test("toggleSecondaryTextIsInProgress", () {
-      testStore.toggleSecondaryTextIsInProgress();
-      expect(testStore.secondaryTextIsInProgress, true);
-      testStore.toggleSecondaryTextIsInProgress();
-      expect(testStore.secondaryTextIsInProgress, false);
-    });
-
     test("toggleClockIsVisible", () {
       testStore.toggleClockIsVisible();
       expect(testStore.clockIsVisible, true);
@@ -134,15 +123,6 @@ void main() {
           expect(testStore.clockIsVisible, true);
         });
       });
-      test("onSecondarySmartTextTransitions", () {
-        fakeAsync((async) async {
-          await testStore.onSecondarySmartTextTransitions(2);
-          async.elapse(Seconds.get(10));
-          expect(testStore.secondaryTextIsInProgress, true);
-          expect(secondarySmartText.currentIndex, 0);
-          expect(secondarySmartText.control, Control.playFromStart);
-        });
-      });
       group("onGestureCrossTap", () {
         test("if !isDisconnected + !hasInitiatedBlur", () {
           fakeAsync((async) async {
@@ -158,7 +138,6 @@ void main() {
           fakeAsync((async) async {
             await testStore.onGestureCrossTap();
             async.elapse(Seconds.get(10));
-            expect(testStore.secondaryTextIsInProgress, true);
             expect(secondarySmartText.control, Control.playReverse);
           });
         });
