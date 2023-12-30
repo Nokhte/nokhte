@@ -82,9 +82,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   bool hasInitiatedBlur = false;
 
   @observable
-  bool secondaryTextIsInProgress = false;
-
-  @observable
   bool isDoubleTriggeringWindDown = false;
 
   @action
@@ -100,13 +97,8 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   @action
   toggleHasInitiatedBlur() => hasInitiatedBlur = !hasInitiatedBlur;
 
-  @action
-  toggleSecondaryTextIsInProgress() =>
-      secondaryTextIsInProgress = !secondaryTextIsInProgress;
-
   initReactors() {
     primarySmartTextReactor();
-    secondarySmartTextReactor();
     gestureCrossTapReactor();
     wifiDisconnectOverlay.connectionReactor(
       onConnected: onConnected,
@@ -127,9 +119,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
           timeModel.init();
         }
       });
-  secondarySmartTextReactor() => reaction(
-      (p0) => secondarySmartText.currentIndex,
-      (p0) => onSecondarySmartTextTransitions(p0));
 
   clockFaceAnimationStatusReactor() => reaction(
       (p0) => timeModel.clockFace.movieStatus,
@@ -162,30 +151,19 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
         primarySmartText.startRotatingText(isResuming: true);
         beachWaves.currentStore.setControl(Control.stop);
         toggleHasInitiatedBlur();
-      } else if (clockIsVisible && !secondaryTextIsInProgress) {
-        toggleSecondaryTextIsInProgress();
-        secondarySmartText.startRotatingText(isResuming: true);
       }
-    }
-  }
-
-  @action
-  onSecondarySmartTextTransitions(int p0) {
-    if (!secondaryTextIsInProgress) {
-      toggleSecondaryTextIsInProgress();
-    }
-    toggleSecondaryTextIsInProgress();
-    if (p0 == 2) {
-      secondarySmartText.reset();
-      secondarySmartText.startRotatingText();
     }
   }
 
   @action
   onClockFaceAnimationFinished(p0) {
     if (p0 == MovieStatus.finished) {
-      secondarySmartText.startRotatingText();
-      toggleClockIsVisible();
+      if (timeModel.clockFace.pastControl == Control.playReverseFromEnd) {
+        primarySmartText.startRotatingText(isResuming: true);
+      } else {
+        secondarySmartText.startRotatingText();
+        toggleClockIsVisible();
+      }
     } else if (p0 == MovieStatus.inProgress) {
       clockAnimationHasNotStarted = false;
     }
@@ -196,10 +174,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     if (p0 == MovieStatus.finished &&
         timeModel.availabilitySectors.pastControl == Control.playFromStart) {
       timeModel.reverseClockFaceMovie();
-      secondarySmartText.setControl(Control.stop);
-      beachWaves.currentStore.setControl(Control.mirror);
       secondarySmartText.toggleWidgetVisibility();
-      nokhteBlur.reverse();
     }
   }
 

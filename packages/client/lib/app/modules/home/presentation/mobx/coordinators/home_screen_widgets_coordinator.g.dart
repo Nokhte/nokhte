@@ -79,24 +79,6 @@ mixin _$HomeScreenWidgetsCoordinator
     });
   }
 
-  late final _$secondaryTextIsInProgressAtom = Atom(
-      name: '_HomeScreenWidgetsCoordinatorBase.secondaryTextIsInProgress',
-      context: context);
-
-  @override
-  bool get secondaryTextIsInProgress {
-    _$secondaryTextIsInProgressAtom.reportRead();
-    return super.secondaryTextIsInProgress;
-  }
-
-  @override
-  set secondaryTextIsInProgress(bool value) {
-    _$secondaryTextIsInProgressAtom
-        .reportWrite(value, super.secondaryTextIsInProgress, () {
-      super.secondaryTextIsInProgress = value;
-    });
-  }
-
   late final _$isDoubleTriggeringWindDownAtom = Atom(
       name: '_HomeScreenWidgetsCoordinatorBase.isDoubleTriggeringWindDown',
       context: context);
@@ -233,40 +215,12 @@ mixin _$HomeScreenWidgetsCoordinator
   }
 
   @override
-  dynamic toggleSecondaryTextIsInProgress() {
-    final _$actionInfo =
-        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
-            name:
-                '_HomeScreenWidgetsCoordinatorBase.toggleSecondaryTextIsInProgress');
-    try {
-      return super.toggleSecondaryTextIsInProgress();
-    } finally {
-      _$_HomeScreenWidgetsCoordinatorBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic onGestureCrossTap() {
     final _$actionInfo =
         _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
             name: '_HomeScreenWidgetsCoordinatorBase.onGestureCrossTap');
     try {
       return super.onGestureCrossTap();
-    } finally {
-      _$_HomeScreenWidgetsCoordinatorBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic onSecondarySmartTextTransitions(int p0) {
-    final _$actionInfo =
-        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
-            name:
-                '_HomeScreenWidgetsCoordinatorBase.onSecondarySmartTextTransitions');
-    try {
-      return super.onSecondarySmartTextTransitions(p0);
     } finally {
       _$_HomeScreenWidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
@@ -308,7 +262,6 @@ clockAnimationHasNotStarted: ${clockAnimationHasNotStarted},
 clockIsVisible: ${clockIsVisible},
 isDisconnected: ${isDisconnected},
 hasInitiatedBlur: ${hasInitiatedBlur},
-secondaryTextIsInProgress: ${secondaryTextIsInProgress},
 isDoubleTriggeringWindDown: ${isDoubleTriggeringWindDown}
     ''';
   }
