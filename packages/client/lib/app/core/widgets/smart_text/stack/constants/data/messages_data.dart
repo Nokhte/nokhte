@@ -64,7 +64,7 @@ class MessagesData {
         ),
         RotatingTextData(
           initialFadeInDelay: Seconds.get(0),
-          mainMessage: "Tap on the blue dot to make an invitation.",
+          mainMessage: "Tap on the yellow dot to make an invitation.",
           onScreenTime: Seconds.get(0),
         ),
       ];
