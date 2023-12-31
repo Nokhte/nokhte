@@ -18,6 +18,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   final GestureCrossStore gestureCross;
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
+  final GradientTreeNodeStore gradientTreeNode;
 
   _HomeScreenWidgetsCoordinatorBase({
     required this.timeModel,
@@ -27,6 +28,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     required this.gestureCross,
     required this.primarySmartText,
     required this.secondarySmartText,
+    required this.gradientTreeNode,
   });
 
   @action
@@ -35,6 +37,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     secondarySmartText.setMessagesData(MessagesData.firstTimeSecondaryHomeList);
     primarySmartText.startRotatingText();
     beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtOceanDive);
+    gradientTreeNode.toggleWidgetVisibility();
     initReactors();
   }
 
@@ -106,6 +109,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     );
     clockFaceAnimationStatusReactor();
     availabilitySectorsMovieStatusReactor();
+    gradientTreeNodeTapReactor();
   }
 
   gestureCrossTapReactor() => reaction(
@@ -118,6 +122,9 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
         if (p0 == 3) {
           timeModel.init();
         }
+        if (p0 == 6) {
+          gradientTreeNode.toggleWidgetVisibility();
+        }
       });
 
   clockFaceAnimationStatusReactor() => reaction(
@@ -127,6 +134,11 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   availabilitySectorsMovieStatusReactor() => reaction(
       (p0) => timeModel.availabilitySectors.movieStatus,
       (p0) => onAvailabilitySectorMovieStatusFinished(p0));
+
+  gradientTreeNodeTapReactor() => reaction(
+        (p0) => gradientTreeNode.tapCount,
+        (p0) => onGradientTreeNodeTap(),
+      );
 
   wifiDisconnectOverlayReactor() =>
       reaction((p0) => wifiDisconnectOverlay.movieStatus, (p0) {
@@ -176,6 +188,11 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
       timeModel.reverseClockFaceMovie();
       secondarySmartText.toggleWidgetVisibility();
     }
+  }
+
+  @action
+  onGradientTreeNodeTap() {
+    // add dedicated functionality later
   }
 
   @override
