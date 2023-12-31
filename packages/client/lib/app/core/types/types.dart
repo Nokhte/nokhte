@@ -1,4 +1,5 @@
 export './call_actions.dart';
+export 'nokhte_gradient.dart';
 export './call_status.dart';
 export './directions.dart';
 export './drag_type.dart';
