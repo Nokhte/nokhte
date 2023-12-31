@@ -29,8 +29,10 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.nokhte.nokhte</string>
+				<string>nokhte</string>
 			</array>
+			<key>CFBundleURLName</key>
+			<string>com.nokhte.nokhte</string>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
@@ -80,5 +82,14 @@
     <true/>
     <key>UIFileSharingEnabled</key>
     <true/>
+	<key>branch_key</key>
+	<string>key_live_oFdaQmf0vYYD43VtksjHYlfmyzjlnKnL</string>
+	<key>branch_universal_link_domains</key>
+	<array>
+		<string>2cf02.app.link</string>
+		<string>2cf02-alternate.app.link</string>
+		<string>2cf02.test-app.link</string>
+		<string>2cf02-alternate.test-app.link</string>
+	</array>
 </dict>
 </plist>
