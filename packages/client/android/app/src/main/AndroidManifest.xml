@@ -25,7 +25,7 @@
 			<data android:mimeType="vnd.android.cursor.item/event" />
 		</intent>
 	</queries>
-	<application android:label="primala" android:name="${applicationName}" android:icon="@mipmap/ic_launcher">
+	<application android:label="Nokhte" android:name="${applicationName}" android:icon="@mipmap/ic_launcher">
 		<!--
 		<receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
 		<receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
@@ -49,19 +49,35 @@
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
-			<!-- !! Add this intent-filter for Deep Links -->
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
-				<!-- Accepts URIs that begin with YOUR_SCHEME://YOUR_HOST -->
-				<data android:scheme="com.primala.primala" android:host="login-callback" />
+				<data android:scheme="com.nokhte.nokhte" android:host="login-callback" />
 			</intent-filter>
+			<intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" android:host="2cf02.app.link" />
+                <data android:scheme="https" android:host="2cf02-alternate.app.link" />
+            </intent-filter>
+           <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" android:host="2cf02.test-app.link" />
+                <data android:scheme="https" android:host="2cf02-alternate.test-app.link" />
+            </intent-filter>
 			<meta-data android:name="com.posthog.posthog.API_KEY" android:value="phc_qeWzqB1Jrx9cxa5mwr7HPsaeyHXzQcu59zBZdfY0riT" />
 			<meta-data android:name="com.posthog.posthog.POSTHOG_HOST" android:value="https://app.posthog.com" />
 			<meta-data android:name="com.posthog.posthog.TRACK_APPLICATION_LIFECYCLE_EVENTS" android:value="false" />
 			<meta-data android:name="com.posthog.posthog.DEBUG" android:value="false" />
 		</activity>
+		   <!-- Branch init -->
+        <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_oFdaQmf0vYYD43VtksjHYlfmyzjlnKnL" />
+        <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_test_ayadRkn9EZ9xY7IFlqmQHnipzxiihPjD" />
+        <meta-data android:name="io.branch.sdk.TestMode" android:value="false" />     <!-- Set to true to use Branch_Test_Key (useful when simulating installs and/or switching between debug and production flavors) -->
 		<!--
 		Don't delete the meta-data below.
 		This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
