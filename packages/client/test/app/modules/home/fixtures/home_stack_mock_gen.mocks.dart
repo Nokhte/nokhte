@@ -267,6 +267,17 @@ class _FakeSmartTextStore_19 extends _i1.SmartFake
         );
 }
 
+class _FakeGradientTreeNodeStore_20 extends _i1.SmartFake
+    implements _i13.GradientTreeNodeStore {
+  _FakeGradientTreeNodeStore_20(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [HomeRemoteSourceImpl].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -1315,6 +1326,19 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
           Invocation.getter(#secondarySmartText),
         ),
       ) as _i13.SmartTextStore);
+
+  @override
+  _i13.GradientTreeNodeStore get gradientTreeNode => (super.noSuchMethod(
+        Invocation.getter(#gradientTreeNode),
+        returnValue: _FakeGradientTreeNodeStore_20(
+          this,
+          Invocation.getter(#gradientTreeNode),
+        ),
+        returnValueForMissingStub: _FakeGradientTreeNodeStore_20(
+          this,
+          Invocation.getter(#gradientTreeNode),
+        ),
+      ) as _i13.GradientTreeNodeStore);
 
   @override
   bool get clockAnimationHasNotStarted => (super.noSuchMethod(
