@@ -19,6 +19,7 @@ void main() {
   late HomeScreenWidgetsCoordinator testStore;
   late NokhteBlurStore nokhteBlurStore;
   late TimeAlignmentModelCoordinator timeModel;
+  late GradientTreeNodeStore gradientTreeNode;
   late MockGetOnConnectivityChangedStore mockConnectivity;
   setUp(() {
     mockConnectivity = MockGetOnConnectivityChangedStore();
@@ -28,6 +29,7 @@ void main() {
         connectivity: mockConnectivity,
       ),
     );
+    gradientTreeNode = GradientTreeNodeStore();
     secondarySmartText = SmartTextStore();
     beachWaves = SharedTestUtils.getBeachWaves();
     wifiDisconnectOverlay = MockWifiDisconnectOverlayStore();
@@ -36,6 +38,7 @@ void main() {
     primarySmartText = SmartTextStore();
 
     testStore = HomeScreenWidgetsCoordinator(
+      gradientTreeNode: gradientTreeNode,
       timeModel: timeModel,
       nokhteBlur: nokhteBlurStore,
       beachWaves: beachWaves,
