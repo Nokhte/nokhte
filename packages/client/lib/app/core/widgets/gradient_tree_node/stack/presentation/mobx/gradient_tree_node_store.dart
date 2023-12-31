@@ -7,4 +7,10 @@ class GradientTreeNodeStore = _GradientTreeNodeStoreBase
     with _$GradientTreeNodeStore;
 
 abstract class _GradientTreeNodeStoreBase extends BaseCustomAnimatedWidgetStore
-    with Store {}
+    with Store {
+  @observable
+  int tapCount = 0;
+
+  @action
+  incrementTapCount() => tapCount++;
+}
