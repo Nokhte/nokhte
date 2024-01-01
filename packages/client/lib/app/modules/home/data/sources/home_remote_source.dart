@@ -5,6 +5,7 @@ import 'package:nokhte_backend/tables/p2p_perspectives_tracking.dart';
 import 'package:nokhte_backend/tables/user_names.dart';
 import 'package:nokhte_backend/tables/collaborator_phrases.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:share_plus/share_plus.dart';
 
 abstract class HomeRemoteSource {
   Future<List> addNamesToDatabase({String theName = ""});
@@ -12,6 +13,7 @@ abstract class HomeRemoteSource {
   Future<List> checkIfTheyHaveACollaboration();
   Future<List> checkIfTheyHaveDonePerspectives();
   Future<List> checkIfTheyHaveCommittedAPurpose();
+  Future<ShareResult> shareCollaborationInvitation();
 }
 
 class HomeRemoteSourceImpl implements HomeRemoteSource {
@@ -78,4 +80,8 @@ class HomeRemoteSourceImpl implements HomeRemoteSource {
   Future<List> checkIfTheyHaveCommittedAPurpose() async =>
       await finishedCollaborativeP2PPurposeDocumentsQueries.getDocInfo(
           docType: 'purpose');
+
+  @override
+  Future<ShareResult> shareCollaborationInvitation() async =>
+      Share.shareWithResult("");
 }
