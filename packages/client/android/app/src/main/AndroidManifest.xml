@@ -59,7 +59,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="https" android:host="2cf02.app.link" />
+                <data android:scheme="https" android:host="app.nokhte.com" />
                 <data android:scheme="https" android:host="2cf02-alternate.app.link" />
             </intent-filter>
            <intent-filter android:autoVerify="true">
