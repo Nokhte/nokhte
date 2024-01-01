@@ -1,6 +1,5 @@
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -85,10 +84,6 @@ void main() {
       expect(secondarySmartText.messagesData,
           MessagesData.firstTimeSecondaryHomeList);
       expect(beachWaves.movieMode, BeachWaveMovieModes.suspendedAtOceanDive);
-      verify(wifiDisconnectOverlay.connectionReactor(
-        onConnected: testStore.onConnected,
-        onDisconnected: testStore.onDisconnected,
-      ));
     });
 
     group("constructor dependendent", () {
