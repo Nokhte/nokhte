@@ -256,19 +256,6 @@ mixin _$HomeScreenWidgetsCoordinator
   }
 
   @override
-  dynamic onGradientTreeNodeTap() {
-    final _$actionInfo =
-        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
-            name: '_HomeScreenWidgetsCoordinatorBase.onGradientTreeNodeTap');
-    try {
-      return super.onGradientTreeNodeTap();
-    } finally {
-      _$_HomeScreenWidgetsCoordinatorBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 clockAnimationHasNotStarted: ${clockAnimationHasNotStarted},

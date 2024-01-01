@@ -38,7 +38,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     primarySmartText.startRotatingText();
     beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtOceanDive);
     gradientTreeNode.toggleWidgetVisibility();
-    initReactors();
   }
 
   @action
@@ -100,7 +99,9 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   @action
   toggleHasInitiatedBlur() => hasInitiatedBlur = !hasInitiatedBlur;
 
-  initReactors() {
+  initReactors({
+    required Function onGradientTreeNodeTap,
+  }) {
     primarySmartTextReactor();
     gestureCrossTapReactor();
     wifiDisconnectOverlay.connectionReactor(
@@ -109,7 +110,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     );
     clockFaceAnimationStatusReactor();
     availabilitySectorsMovieStatusReactor();
-    gradientTreeNodeTapReactor();
+    gradientTreeNodeTapReactor(onGradientTreeNodeTap);
   }
 
   gestureCrossTapReactor() => reaction(
@@ -135,7 +136,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
       (p0) => timeModel.availabilitySectors.movieStatus,
       (p0) => onAvailabilitySectorMovieStatusFinished(p0));
 
-  gradientTreeNodeTapReactor() => reaction(
+  gradientTreeNodeTapReactor(Function onGradientTreeNodeTap) => reaction(
         (p0) => gradientTreeNode.tapCount,
         (p0) => onGradientTreeNodeTap(),
       );
@@ -188,11 +189,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
       timeModel.reverseClockFaceMovie();
       secondarySmartText.toggleWidgetVisibility();
     }
-  }
-
-  @action
-  onGradientTreeNodeTap() {
-    // add dedicated functionality later
   }
 
   @override
