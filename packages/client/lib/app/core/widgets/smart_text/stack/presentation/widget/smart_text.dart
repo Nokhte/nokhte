@@ -10,11 +10,13 @@ class SmartText extends StatelessWidget {
   final SmartTextStore store;
   final Duration opacityDuration;
   final double topPadding;
+  final double bottomPadding; // added
   const SmartText({
     super.key,
     required this.store,
     this.opacityDuration = Duration.zero,
     this.topPadding = 0.0,
+    this.bottomPadding = 0.0, //added
   });
 
   @override
@@ -28,12 +30,13 @@ class SmartText extends StatelessWidget {
             onCompleted: () => store.onOpacityTransitionComplete(),
             duration: FadeInAndOutMovie.movie.duration, // Adjust fade duration
             builder: (context, value, child) => Opacity(
-              opacity: value.get('opacity'),
+              opacity: value.get('opacity'), // <== like here
               child: Padding(
                 padding: EdgeInsets.only(
                   left: 50.0,
                   right: 50.0,
                   top: topPadding,
+                  bottom: bottomPadding,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
