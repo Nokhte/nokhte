@@ -68,4 +68,15 @@ class HomeContractImpl implements HomeContract {
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  Future<Either<Failure, CollaborationInvitationSendStatusModel>>
+      shareCollaborationInvitation(NoParams params) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.shareCollaborationInvitation();
+      return Right(CollaborationInvitationSendStatusModel.fromShareResult(res));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
 }
