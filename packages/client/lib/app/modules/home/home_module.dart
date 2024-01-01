@@ -30,6 +30,11 @@ class HomeModule extends Module {
         contract: i<HomeContractImpl>(),
       ),
     );
+    i.addSingleton<ShareCollaborationInvitation>(
+      () => ShareCollaborationInvitation(
+        contract: i<HomeContractImpl>(),
+      ),
+    );
     i.addSingleton<GetCollaboratorPhrase>(
       () => GetCollaboratorPhrase(
         contract: i<HomeContractImpl>(),
@@ -38,6 +43,11 @@ class HomeModule extends Module {
     i.addSingleton<GetExistingCollaborationsInfo>(
       () => GetExistingCollaborationsInfo(
         contract: i<HomeContractImpl>(),
+      ),
+    );
+    i.addSingleton<ShareCollaborationInvitationStore>(
+      () => ShareCollaborationInvitationStore(
+        logic: i<ShareCollaborationInvitation>(),
       ),
     );
     i.addSingleton<GetExistingCollaborationsInfoStore>(
@@ -58,6 +68,7 @@ class HomeModule extends Module {
     i.addSingleton<HomeScreenCoordinator>(
       () => HomeScreenCoordinator(
         widgets: Modular.get<HomeScreenWidgetsCoordinator>(),
+        shareCollaborationInvitation: i<ShareCollaborationInvitationStore>(),
         getExistingCollaborationInfo: i<GetExistingCollaborationsInfoStore>(),
         addNameToDatabaseStore: i<AddNameToDatabaseStore>(),
         getCollaboratorPhraseStore: i<GetCollaboratorPhraseStore>(),
