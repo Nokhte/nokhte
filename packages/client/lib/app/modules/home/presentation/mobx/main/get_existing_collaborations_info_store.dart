@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/constants/entities.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/modules/home/domain/domain.dart';
@@ -27,9 +26,9 @@ abstract class _GetExistingCollaborationsInfoStoreBase
   @observable
   BaseFutureStore<ExistingCollaborationsInfoEntity> futureStore =
       BaseFutureStore(
-    baseEntity: DefaultEntities.existingCollaborationsInfoEntity,
+    baseEntity: ExistingCollaborationsInfoEntity.initial,
     entityFutureParam: ObservableFuture(
-      Future.value(DefaultEntities.existingCollaborationsInfoEntity),
+      Future.value(ExistingCollaborationsInfoEntity.initial),
     ),
   );
 

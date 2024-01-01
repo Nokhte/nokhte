@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/constants/entities.dart';
 import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/base_future_store.dart';
@@ -25,9 +24,9 @@ abstract class _AddNameToDatabaseStoreBase
 
   @observable
   BaseFutureStore<NameCreationStatusEntity> futureStore = BaseFutureStore(
-    baseEntity: DefaultEntities.nameCreationStatusEntity,
+    baseEntity: NameCreationStatusEntity.initial,
     entityFutureParam: ObservableFuture(
-      Future.value(DefaultEntities.nameCreationStatusEntity),
+      Future.value(NameCreationStatusEntity.initial),
     ),
   );
 
