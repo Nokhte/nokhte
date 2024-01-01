@@ -33,6 +33,17 @@ mixin _$HomeScreenCoordinator on _HomeScreenCoordinatorBase, Store {
   }
 
   @override
+  dynamic onGradientTreeNodeTap() {
+    final _$actionInfo = _$_HomeScreenCoordinatorBaseActionController
+        .startAction(name: '_HomeScreenCoordinatorBase.onGradientTreeNodeTap');
+    try {
+      return super.onGradientTreeNodeTap();
+    } finally {
+      _$_HomeScreenCoordinatorBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 

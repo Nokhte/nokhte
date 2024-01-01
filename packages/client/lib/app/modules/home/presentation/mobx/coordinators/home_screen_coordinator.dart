@@ -14,17 +14,20 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
   final GetExistingCollaborationsInfoStore getExistingCollaborationInfo;
   final AddNameToDatabaseStore addNameToDatabaseStore;
   final GetCollaboratorPhraseStore getCollaboratorPhraseStore;
+  final ShareCollaborationInvitationStore shareCollaborationInvitation;
 
   _HomeScreenCoordinatorBase({
     required this.widgets,
     required this.getExistingCollaborationInfo,
     required this.addNameToDatabaseStore,
     required this.getCollaboratorPhraseStore,
+    required this.shareCollaborationInvitation,
   });
 
   @action
   constructor() async {
     widgets.constructor();
+    widgets.initReactors(onGradientTreeNodeTap: onGradientTreeNodeTap);
     await getExistingCollaborationInfo(NoParams());
     await addNameToDatabaseStore(NoParams());
     await getCollaboratorPhraseStore(NoParams());
@@ -40,6 +43,11 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
       default:
         break;
     }
+  }
+
+  @action
+  onGradientTreeNodeTap() {
+    shareCollaborationInvitation(NoParams());
   }
 
   @override
