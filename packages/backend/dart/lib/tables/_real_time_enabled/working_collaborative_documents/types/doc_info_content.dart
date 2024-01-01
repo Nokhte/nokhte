@@ -16,6 +16,16 @@ class DocInfoContent extends Equatable {
     required this.userCommitDesireStatus,
   });
 
+  static DocInfoContent get initial => DocInfoContent(
+        content: "",
+        lastEditor: LastEditedBy.initial,
+        collaboratorsCommitDesireStatus: false,
+        documentCommitStatus: false,
+        userCommitDesireStatus: false,
+      );
+
+  static Stream<DocInfoContent> get initialStream => Stream.value(initial);
+
   @override
   List<Object> get props => [
         content,

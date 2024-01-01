@@ -9,6 +9,13 @@ class CollaboratorDocInfo extends Equatable {
     required this.delta,
   });
 
+  static Stream<CollaboratorDocInfo> get initialStream => Stream.value(
+        CollaboratorDocInfo(
+          isPresent: false,
+          delta: -1,
+        ),
+      );
+
   @override
   List<Object> get props => [
         isPresent,

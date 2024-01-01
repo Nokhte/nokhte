@@ -15,6 +15,15 @@ class PerspectivesPositioning extends Equatable {
     required this.usersQuadrant,
   });
 
+  static Stream<PerspectivesPositioning> get initialStream =>
+      Stream.value(PerspectivesPositioning(
+        currentUserUID: "",
+        collaboratorsQuadrant: -1,
+        lastEditedBy: '',
+        stagingAreaInfo: const [],
+        usersQuadrant: -1,
+      ));
+
   @override
   List<Object> get props => [
         stagingAreaInfo,
