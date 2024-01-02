@@ -12,6 +12,8 @@ void main() {
   late SupabaseClient supabaseAdmin;
   late SupabaseClient supabase;
   late String? currentUserUID;
+  late UserNamesQueries user1Queries;
+  late UserNamesQueries adminQueries;
 
   setUpAll(() async {
     supabase = SupabaseClientConfigConstants.supabase;
@@ -20,13 +22,14 @@ void main() {
     final userIdResults = await UserSetupConstants.getUIDs();
     currentUserUID = userIdResults.first;
     await SignIn.user1(supabase: supabase);
+    user1Queries = UserNamesQueries(supabase: supabase);
+    adminQueries = UserNamesQueries(supabase: supabaseAdmin);
+    adminQueries.userUID = currentUserUID ?? '';
   });
 
   tearDown(() async {
-    await CommonUserNamesQueries.deleteUserInfo(
-        supabase: supabaseAdmin, userUID: currentUserUID);
-    await CommonUserNamesQueries.deleteCollaboratorPhraseInfo(
-        supabase: supabaseAdmin, userUID: currentUserUID);
+    await adminQueries.deleteUserInfo();
+    await adminQueries.deleteCollaboratorPhraseInfo();
   });
 
   tearDownAll(() async {
@@ -37,22 +40,16 @@ void main() {
   test(
       "✅ should be able to CREATE & READ a row in the table if their uid isn't present already",
       () async {
-    final userNamesRes = await CommonUserNamesQueries.insertUserInfo(
-      supabase: supabase,
-      userUID: currentUserUID,
+    final userNamesRes = await user1Queries.insertUserInfo(
       firstName: UserDataConstants.user1FirstName,
       lastName: UserDataConstants.user1LastName,
     );
     final collaboratorPhraseRes =
-        await CommonUserNamesQueries.getCollaboratorPhraseInfo(
-      supabase: supabase,
-      userUID: currentUserUID,
-    );
+        await user1Queries.getCollaboratorPhraseInfo();
 
     expect(userNamesRes.first['first_name'], UserDataConstants.user1FirstName);
     expect(userNamesRes.first["last_name"], UserDataConstants.user1LastName);
     expect(userNamesRes.first["uid"], currentUserUID);
-
     expect(collaboratorPhraseRes.first["uid"], currentUserUID);
     expect(collaboratorPhraseRes.first["collaborator_phrase"], isNotEmpty);
     expect(collaboratorPhraseRes.first["adjective_id"], isA<int>());
@@ -66,17 +63,13 @@ void main() {
 
   test("❌ shouldn't be able to insert another row if they already have one",
       () async {
-    await CommonUserNamesQueries.insertUserInfo(
-      supabase: supabase,
-      userUID: currentUserUID,
+    await user1Queries.insertUserInfo(
       firstName: UserDataConstants.user1FirstName,
       lastName: UserDataConstants.user1LastName,
     );
 
     try {
-      await CommonUserNamesQueries.insertUserInfo(
-        supabase: supabase,
-        userUID: currentUserUID,
+      await user1Queries.insertUserInfo(
         firstName: UserDataConstants.user1FirstName,
         lastName: UserDataConstants.user1LastName,
       );
@@ -86,9 +79,7 @@ void main() {
   });
   test("❌ SHOULDN'T be able to enter a UID that isn't theirs", () async {
     try {
-      await CommonUserNamesQueries.insertUserInfo(
-        supabase: supabase,
-        userUID: UserDataConstants.user1UID,
+      await user1Queries.insertUserInfo(
         firstName: UserDataConstants.user1FirstName,
         lastName: UserDataConstants.user1LastName,
       );
