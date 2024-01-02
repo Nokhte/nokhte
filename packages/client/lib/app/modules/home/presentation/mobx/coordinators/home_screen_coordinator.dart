@@ -50,7 +50,7 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
 
   @action
   onGradientTreeNodeTap() {
-    shareCollaborationInvitation(NoParams());
+    shareCollaborationInvitation(getInvitationURL.link);
   }
 
   @override
