@@ -33,6 +33,7 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
     await getExistingCollaborationInfo(NoParams());
     await addNameToDatabaseStore(NoParams());
     await getCollaboratorPhraseStore(NoParams());
+    await getInvitationURL(NoParams());
   }
 
   @action
