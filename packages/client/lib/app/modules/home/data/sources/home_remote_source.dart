@@ -1,3 +1,4 @@
+import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:nokhte/app/core/utilities/misc_algos.dart';
 import 'package:nokhte_backend/tables/existing_collaborations.dart';
 import 'package:nokhte_backend/tables/finished_collaborative_documents.dart';
@@ -82,6 +83,29 @@ class HomeRemoteSourceImpl implements HomeRemoteSource {
           docType: 'purpose');
 
   @override
-  Future<ShareResult> shareCollaborationInvitation() async =>
-      Share.shareWithResult("");
+  Future<ShareResult> shareCollaborationInvitation() async {
+    BranchUniversalObject buo = BranchUniversalObject(
+      canonicalIdentifier:
+          'collaboration_code/${supabase.auth.currentUser?.id.substring(1, 5)}',
+      title: 'Nokhte',
+      imageUrl:
+          'https://gitlab.com/nokhte/nokhte/-/raw/development/assets/logo.png',
+      contentDescription: 'Nokhte Description',
+      keywords: ['Collaboration', 'Symmetry'],
+    );
+    BranchLinkProperties linkProperties = BranchLinkProperties(
+        alias: buo.canonicalIdentifier,
+        feature: 'collaboration',
+        stage: 'new share',
+        tags: ['one', 'two', 'three']);
+    await FlutterBranchSdk.getShortUrl(
+        buo: buo, linkProperties: linkProperties);
+    await FlutterBranchSdk.showShareSheet(
+      buo: buo,
+      linkProperties: linkProperties,
+      messageText: 'Nokhte Collaboration',
+    );
+
+    return const ShareResult('', ShareResultStatus.success);
+  }
 }
