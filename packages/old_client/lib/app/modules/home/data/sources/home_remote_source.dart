@@ -50,8 +50,8 @@ class HomeRemoteSourceImpl implements HomeRemoteSource {
       final [firstName, lastName] = MiscAlgos.returnSplitName(fullName);
 
       insertRes = await userNamesQueries.insertUserInfo(
-        firstName: firstName,
-        lastName: lastName,
+        firstNameParam: firstName,
+        lastNameParam: lastName,
       );
     } else {
       insertRes = [];
