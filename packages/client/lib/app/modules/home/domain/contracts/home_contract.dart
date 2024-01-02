@@ -12,4 +12,6 @@ abstract class HomeContract {
       getExistingCollaborationInfo(NoParams params);
   Future<Either<Failure, CollaborationInvitationSendStatusEntity>>
       shareCollaborationInvitation(NoParams params);
+  Future<Either<Failure, CollaborationInvitationDataEntity>> getInvitationURL(
+      NoParams params);
 }
