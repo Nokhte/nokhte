@@ -1,7 +1,7 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class CommonUserNamesQueries {
-  static Future<dynamic> insertUserInfo({
+  static Future<List> insertUserInfo({
     required SupabaseClient supabase,
     required String? userUID,
     required String firstName,
@@ -14,7 +14,7 @@ class CommonUserNamesQueries {
     }).select();
   }
 
-  static Future<dynamic> getUserInfo({
+  static Future<List> getUserInfo({
     required SupabaseClient supabase,
     required String? userUID,
   }) async {
@@ -24,7 +24,7 @@ class CommonUserNamesQueries {
         );
   }
 
-  static Future<dynamic> getCollaboratorPhraseInfo({
+  static Future<List> getCollaboratorPhraseInfo({
     required SupabaseClient supabase,
     required String? userUID,
   }) async {
@@ -34,7 +34,7 @@ class CommonUserNamesQueries {
         .eq('uid', userUID);
   }
 
-  static Future<dynamic> deleteCollaboratorPhraseInfo(
+  static Future<void> deleteCollaboratorPhraseInfo(
       {required SupabaseClient supabase, required String? userUID}) async {
     return await supabase
         .from('collaborator_phrases')
@@ -42,7 +42,7 @@ class CommonUserNamesQueries {
         .eq('uid', userUID);
   }
 
-  static Future<dynamic> deleteUserInfo({
+  static Future<List> deleteUserInfo({
     required SupabaseClient supabase,
     required String? userUID,
   }) async {
