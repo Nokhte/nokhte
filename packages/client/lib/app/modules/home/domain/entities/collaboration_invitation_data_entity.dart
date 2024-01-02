@@ -7,6 +7,9 @@ class CollaborationInvitationDataEntity extends Equatable {
     required this.link,
   });
 
+  static CollaborationInvitationDataEntity get initial =>
+      const CollaborationInvitationDataEntity(link: '');
+
   @override
   List<Object> get props => [link];
 }
