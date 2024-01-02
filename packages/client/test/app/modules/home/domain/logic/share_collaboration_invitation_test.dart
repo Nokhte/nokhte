@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/error/failure.dart';
-import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/modules/home/domain/entities/entities.dart';
 import 'package:nokhte/app/modules/home/domain/logic/logic.dart';
 import '../../fixtures/home_stack_mock_gen.mocks.dart';
@@ -20,25 +19,25 @@ void main() {
   });
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
-    when(mockContract.shareCollaborationInvitation(NoParams()))
+    when(mockContract.shareCollaborationInvitation(''))
         .thenAnswer((_) async => tSuccess);
 
-    final result = await logic(NoParams());
+    final result = await logic('');
 
     expect(result, tSuccess);
-    verify(mockContract.shareCollaborationInvitation(NoParams()));
+    verify(mockContract.shareCollaborationInvitation(''));
     verifyNoMoreInteractions(mockContract);
   });
 
   test("✅ should pass A Failure from Contract ==> Logic", () async {
-    when(mockContract.shareCollaborationInvitation(NoParams())).thenAnswer(
+    when(mockContract.shareCollaborationInvitation('')).thenAnswer(
       (_) async => Left(FailureConstants.dbFailure),
     );
 
-    final result = await logic(NoParams());
+    final result = await logic('');
 
     expect(result, Left(FailureConstants.dbFailure));
-    verify(mockContract.shareCollaborationInvitation(NoParams()));
+    verify(mockContract.shareCollaborationInvitation(''));
     verifyNoMoreInteractions(mockContract);
   });
 }
