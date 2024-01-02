@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:math';
-
 import 'package:crypto/crypto.dart';
 
 class MiscAlgos {
@@ -35,9 +34,8 @@ class MiscAlgos {
     return [firstName, lastName];
   }
 
-  static bool isTwoWords(String inputStr) {
-    return inputStr.split(" ").length == 2 ? true : false;
-  }
+  static bool isTwoWords(String inputStr) =>
+      inputStr.split(" ").length == 2 ? true : false;
 
   static postgresUIDToInt(String inputUID) {
     String cleanUuid = inputUID.replaceAll('-', '');
