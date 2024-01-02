@@ -10,18 +10,20 @@ class HomeScreenCoordinator = _HomeScreenCoordinatorBase
     with _$HomeScreenCoordinator;
 
 abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
-  final HomeScreenWidgetsCoordinator widgets;
-  final GetExistingCollaborationsInfoStore getExistingCollaborationInfo;
   final AddNameToDatabaseStore addNameToDatabaseStore;
   final GetCollaboratorPhraseStore getCollaboratorPhraseStore;
+  final GetExistingCollaborationsInfoStore getExistingCollaborationInfo;
+  final GetInvitationURLStore getInvitationURL;
   final ShareCollaborationInvitationStore shareCollaborationInvitation;
+  final HomeScreenWidgetsCoordinator widgets;
 
   _HomeScreenCoordinatorBase({
-    required this.widgets,
-    required this.getExistingCollaborationInfo,
     required this.addNameToDatabaseStore,
     required this.getCollaboratorPhraseStore,
+    required this.getExistingCollaborationInfo,
+    required this.getInvitationURL,
     required this.shareCollaborationInvitation,
+    required this.widgets,
   });
 
   @action
