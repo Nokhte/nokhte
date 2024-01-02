@@ -2,7 +2,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/error/failure.dart';
-import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/modules/home/domain/entities/entities.dart';
 import 'package:nokhte/app/modules/home/domain/logic/logic.dart';
@@ -12,7 +11,7 @@ class ShareCollaborationInvitationStore = _ShareCollaborationInvitationStoreBase
     with _$ShareCollaborationInvitationStore;
 
 abstract class _ShareCollaborationInvitationStoreBase
-    extends BaseMobxDBStore<NoParams, CollaborationInvitationSendStatusEntity>
+    extends BaseMobxDBStore<String, CollaborationInvitationSendStatusEntity>
     with Store {
   final ShareCollaborationInvitation logic;
 
@@ -47,7 +46,7 @@ abstract class _ShareCollaborationInvitationStoreBase
 
   @override
   @action
-  Future<void> call(NoParams params) async {
+  Future<void> call(params) async {
     state = StoreState.loading;
     futureStore.entityOrFailureFuture = ObservableFuture(
       logic(params),

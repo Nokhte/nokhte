@@ -49,7 +49,7 @@ mixin _$ShareCollaborationInvitationStore
       context: context);
 
   @override
-  Future<void> call(NoParams params) {
+  Future<void> call(String params) {
     return _$callAsyncAction.run(() => super.call(params));
   }
 

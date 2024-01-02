@@ -3,7 +3,7 @@ import 'package:nokhte/app/modules/home/domain/domain.dart';
 
 class ShareCollaborationInvitation
     implements
-        AbstractFutureLogic<CollaborationInvitationSendStatusEntity, NoParams> {
+        AbstractFutureLogic<CollaborationInvitationSendStatusEntity, String> {
   final HomeContract contract;
 
   ShareCollaborationInvitation({
