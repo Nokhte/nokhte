@@ -25,6 +25,7 @@ class HomeRemoteSourceImpl implements HomeRemoteSource {
   final FinishedCollaborativeDocumentsQueries
       finishedCollaborativeP2PPurposeDocumentsQueries;
   final CollaboratorPhraseQueries collaboratorPhraseQueries;
+  final UserNamesQueries userNamesQueries;
 
   HomeRemoteSourceImpl({required this.supabase})
       : existingCollaborationsQueries =
@@ -34,14 +35,12 @@ class HomeRemoteSourceImpl implements HomeRemoteSource {
         finishedCollaborativeP2PPurposeDocumentsQueries =
             FinishedCollaborativeDocumentsQueries(supabase: supabase),
         collaboratorPhraseQueries =
-            CollaboratorPhraseQueries(supabase: supabase);
+            CollaboratorPhraseQueries(supabase: supabase),
+        userNamesQueries = UserNamesQueries(supabase: supabase);
 
   @override
   addNamesToDatabase({String theName = ""}) async {
-    final List nameCheck = await CommonUserNamesQueries.getUserInfo(
-      supabase: supabase,
-      userUID: supabase.auth.currentUser?.id ?? '',
-    );
+    final List nameCheck = await userNamesQueries.getUserInfo();
     List insertRes;
     String fullName;
     if (nameCheck.isEmpty) {
@@ -54,9 +53,7 @@ class HomeRemoteSourceImpl implements HomeRemoteSource {
       }
       final [firstName, lastName] = MiscAlgos.returnSplitName(fullName);
 
-      insertRes = await CommonUserNamesQueries.insertUserInfo(
-        supabase: supabase,
-        userUID: supabase.auth.currentUser?.id,
+      insertRes = await userNamesQueries.insertUserInfo(
         firstName: firstName,
         lastName: lastName,
       );
