@@ -10,7 +10,10 @@ import 'package:flutter/foundation.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await FlutterBranchSdk.init(disableTracking: true);
+  await FlutterBranchSdk.init(
+    disableTracking: true,
+    useTestKey: kDebugMode ? true : false,
+  );
   await dotenv.load();
 
   late String supabaseUrl;
