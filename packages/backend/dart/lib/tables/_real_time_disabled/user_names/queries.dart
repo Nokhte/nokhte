@@ -16,13 +16,13 @@ class UserNamesQueries {
   }) : userUID = supabase.auth.currentUser?.id ?? '';
 
   Future<List> insertUserInfo({
-    required String firstName,
-    required String lastName,
+    required String firstNameParam,
+    required String lastNameParam,
   }) async =>
       await supabase.from(tableName).insert({
         uid: userUID,
-        firstName: firstName,
-        lastName: lastName,
+        firstName: firstNameParam,
+        lastName: lastNameParam,
       }).select();
 
   Future<List> getUserInfo() async =>
