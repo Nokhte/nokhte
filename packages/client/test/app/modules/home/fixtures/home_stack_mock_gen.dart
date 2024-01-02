@@ -11,10 +11,12 @@ import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
   MockSpec<HomeRemoteSource>(),
   MockSpec<GetCollaboratorPhrase>(),
   MockSpec<AddNameToDatabase>(),
+  MockSpec<GetInvitationURL>(),
   MockSpec<ShareCollaborationInvitation>(),
   MockSpec<AddNameToDatabaseStore>(),
   MockSpec<GetExistingCollaborationsInfoStore>(),
   MockSpec<ShareCollaborationInvitationStore>(),
+  MockSpec<GetInvitationURLStore>(),
   MockSpec<GetCollaboratorPhraseStore>(),
   MockSpec<HomeScreenWidgetsCoordinator>(),
 ])
