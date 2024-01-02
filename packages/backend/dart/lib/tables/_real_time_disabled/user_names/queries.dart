@@ -1,55 +1,35 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class CommonUserNamesQueries {
-  static Future<List> insertUserInfo({
-    required SupabaseClient supabase,
-    required String? userUID,
+class UserNamesQueries {
+  final SupabaseClient supabase;
+  String userUID;
+
+  UserNamesQueries({
+    required this.supabase,
+  }) : userUID = supabase.auth.currentUser?.id ?? '';
+
+  Future<List> insertUserInfo({
     required String firstName,
     required String lastName,
-  }) async {
-    return await supabase.from('user_names').insert({
-      "uid": userUID,
-      "first_name": firstName,
-      "last_name": lastName,
-    }).select();
-  }
+  }) async =>
+      await supabase.from('user_names').insert({
+        "uid": userUID,
+        "first_name": firstName,
+        "last_name": lastName,
+      }).select();
 
-  static Future<List> getUserInfo({
-    required SupabaseClient supabase,
-    required String? userUID,
-  }) async {
-    return await supabase.from('user_names').select().eq(
-          'uid',
-          userUID,
-        );
-  }
+  Future<List> getUserInfo() async =>
+      await supabase.from('user_names').select().eq(
+            'uid',
+            userUID,
+          );
 
-  static Future<List> getCollaboratorPhraseInfo({
-    required SupabaseClient supabase,
-    required String? userUID,
-  }) async {
-    return await supabase
-        .from('collaborator_phrases')
-        .select()
-        .eq('uid', userUID);
-  }
+  Future<List> getCollaboratorPhraseInfo() async =>
+      await supabase.from('collaborator_phrases').select().eq('uid', userUID);
 
-  static Future<void> deleteCollaboratorPhraseInfo(
-      {required SupabaseClient supabase, required String? userUID}) async {
-    return await supabase
-        .from('collaborator_phrases')
-        .delete()
-        .eq('uid', userUID);
-  }
+  Future<void> deleteCollaboratorPhraseInfo() async =>
+      await supabase.from('collaborator_phrases').delete().eq('uid', userUID);
 
-  static Future<List> deleteUserInfo({
-    required SupabaseClient supabase,
-    required String? userUID,
-  }) async {
-    return await supabase
-        .from('user_names')
-        .delete()
-        .eq('uid', userUID)
-        .select();
-  }
+  Future<List> deleteUserInfo() async =>
+      await supabase.from('user_names').delete().eq('uid', userUID).select();
 }
