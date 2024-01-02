@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:nokhte_backend/tables/collaborator_phrases.dart';
 import 'package:nokhte_backend/tables/user_names.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:nokhte_backend/constants/constants.dart';
@@ -12,8 +13,10 @@ void main() {
   late SupabaseClient supabaseAdmin;
   late SupabaseClient supabase;
   late String? currentUserUID;
-  late UserNamesQueries user1Queries;
-  late UserNamesQueries adminQueries;
+  late UserNamesQueries user1UserNameQueries;
+  late CollaboratorPhraseQueries user1CollaboratorPhraseQueries;
+  late UserNamesQueries adminUserNameQueries;
+  late CollaboratorPhraseQueries adminCollaboratorPhraseQueries;
 
   setUpAll(() async {
     supabase = SupabaseClientConfigConstants.supabase;
@@ -22,14 +25,20 @@ void main() {
     final userIdResults = await UserSetupConstants.getUIDs();
     currentUserUID = userIdResults.first;
     await SignIn.user1(supabase: supabase);
-    user1Queries = UserNamesQueries(supabase: supabase);
-    adminQueries = UserNamesQueries(supabase: supabaseAdmin);
-    adminQueries.userUID = currentUserUID ?? '';
+    user1UserNameQueries = UserNamesQueries(supabase: supabase);
+    user1CollaboratorPhraseQueries =
+        CollaboratorPhraseQueries(supabase: supabase);
+    adminUserNameQueries = UserNamesQueries(supabase: supabaseAdmin);
+    adminCollaboratorPhraseQueries = CollaboratorPhraseQueries(
+      supabase: supabaseAdmin,
+    );
+    adminUserNameQueries.userUID = currentUserUID ?? '';
+    adminCollaboratorPhraseQueries.userUID = currentUserUID ?? '';
   });
 
   tearDown(() async {
-    await adminQueries.deleteUserInfo();
-    await adminQueries.deleteCollaboratorPhraseInfo();
+    await adminUserNameQueries.deleteUserInfo();
+    await adminCollaboratorPhraseQueries.deleteCollaboratorPhraseInfo();
   });
 
   tearDownAll(() async {
@@ -40,12 +49,12 @@ void main() {
   test(
       "✅ should be able to CREATE & READ a row in the table if their uid isn't present already",
       () async {
-    final userNamesRes = await user1Queries.insertUserInfo(
+    final userNamesRes = await user1UserNameQueries.insertUserInfo(
       firstName: UserDataConstants.user1FirstName,
       lastName: UserDataConstants.user1LastName,
     );
     final collaboratorPhraseRes =
-        await user1Queries.getCollaboratorPhraseInfo();
+        await user1CollaboratorPhraseQueries.getCollaboratorPhraseInfo();
 
     expect(userNamesRes.first['first_name'], UserDataConstants.user1FirstName);
     expect(userNamesRes.first["last_name"], UserDataConstants.user1LastName);
@@ -63,13 +72,13 @@ void main() {
 
   test("❌ shouldn't be able to insert another row if they already have one",
       () async {
-    await user1Queries.insertUserInfo(
+    await user1UserNameQueries.insertUserInfo(
       firstName: UserDataConstants.user1FirstName,
       lastName: UserDataConstants.user1LastName,
     );
 
     try {
-      await user1Queries.insertUserInfo(
+      await user1UserNameQueries.insertUserInfo(
         firstName: UserDataConstants.user1FirstName,
         lastName: UserDataConstants.user1LastName,
       );
@@ -79,7 +88,7 @@ void main() {
   });
   test("❌ SHOULDN'T be able to enter a UID that isn't theirs", () async {
     try {
-      await user1Queries.insertUserInfo(
+      await user1UserNameQueries.insertUserInfo(
         firstName: UserDataConstants.user1FirstName,
         lastName: UserDataConstants.user1LastName,
       );

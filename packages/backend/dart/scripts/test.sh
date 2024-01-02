@@ -1,4 +1,4 @@
-flutter test test/01_user_name_table_test.dart
+flutter test test/01_user_names_and_collaborator_phrase_tables_test.dart
 flutter test test/02_collaborator_phrases_table_test.dart
 flutter test test/03_synchronous_search_test.dart
 flutter test test/04_get_agora_token_test.dart
