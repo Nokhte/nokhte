@@ -11,15 +11,18 @@ void main() {
   late MockGetCollaboratorPhraseStore mockGetCollaboratorPhrase;
   late MockGetExistingCollaborationsInfoStore mockGetExistingCollaborationInfo;
   late MockShareCollaborationInvitationStore shareCollaborationInvitation;
+  late MockGetInvitationURLStore mockGetInvitationURLStore;
   late HomeScreenCoordinator testStore;
 
   setUp(() {
     mockWidgets = MockHomeScreenWidgetsCoordinator();
+    mockGetInvitationURLStore = MockGetInvitationURLStore();
     shareCollaborationInvitation = MockShareCollaborationInvitationStore();
     mockGetExistingCollaborationInfo = MockGetExistingCollaborationsInfoStore();
     mockAddNameToDatabase = MockAddNameToDatabaseStore();
     mockGetCollaboratorPhrase = MockGetCollaboratorPhraseStore();
     testStore = HomeScreenCoordinator(
+      getInvitationURL: mockGetInvitationURLStore,
       shareCollaborationInvitation: shareCollaborationInvitation,
       widgets: mockWidgets,
       getExistingCollaborationInfo: mockGetExistingCollaborationInfo,
