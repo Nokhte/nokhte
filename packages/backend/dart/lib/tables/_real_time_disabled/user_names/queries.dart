@@ -1,6 +1,13 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class UserNamesQueries {
+  static String get tableName => 'user_names';
+  static String get firstName => 'first_name';
+  static String get lastName => 'last_name';
+  static String get uid => 'uid';
+  static String get hasSentAnInvitation => 'has_sent_an_invitation';
+  static String get hasGoneThroughInvitationFlow =>
+      'has_gone_through_invitation_flow';
   final SupabaseClient supabase;
   String userUID;
 
@@ -12,24 +19,27 @@ class UserNamesQueries {
     required String firstName,
     required String lastName,
   }) async =>
-      await supabase.from('user_names').insert({
-        "uid": userUID,
-        "first_name": firstName,
-        "last_name": lastName,
+      await supabase.from(tableName).insert({
+        uid: userUID,
+        firstName: firstName,
+        lastName: lastName,
       }).select();
 
   Future<List> getUserInfo() async =>
-      await supabase.from('user_names').select().eq(
-            'uid',
-            userUID,
-          );
-
-  Future<List> getCollaboratorPhraseInfo() async =>
-      await supabase.from('collaborator_phrases').select().eq('uid', userUID);
-
-  Future<void> deleteCollaboratorPhraseInfo() async =>
-      await supabase.from('collaborator_phrases').delete().eq('uid', userUID);
+      await supabase.from(tableName).select().eq(uid, userUID);
 
   Future<List> deleteUserInfo() async =>
-      await supabase.from('user_names').delete().eq('uid', userUID).select();
+      await supabase.from(tableName).delete().eq(uid, userUID).select();
+
+  Future<List> updateHasSentAnInvitation(bool hasSentAnInvitationParam) async =>
+      await supabase.from(tableName).update({
+        hasSentAnInvitation: hasSentAnInvitationParam,
+      }).eq(uid, userUID);
+
+  Future<List> updateHasGoneThroughInvitationFlow(
+    bool hasGoneThroughInvitationFlowParam,
+  ) async =>
+      await supabase.from(tableName).update({
+        hasGoneThroughInvitationFlow: hasGoneThroughInvitationFlowParam,
+      }).eq(uid, userUID);
 }
