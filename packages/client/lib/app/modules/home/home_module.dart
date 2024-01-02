@@ -30,11 +30,6 @@ class HomeModule extends Module {
         contract: i<HomeContractImpl>(),
       ),
     );
-    i.addSingleton<ShareCollaborationInvitation>(
-      () => ShareCollaborationInvitation(
-        contract: i<HomeContractImpl>(),
-      ),
-    );
     i.addSingleton<GetCollaboratorPhrase>(
       () => GetCollaboratorPhrase(
         contract: i<HomeContractImpl>(),
@@ -45,14 +40,14 @@ class HomeModule extends Module {
         contract: i<HomeContractImpl>(),
       ),
     );
-    i.addSingleton<ShareCollaborationInvitationStore>(
-      () => ShareCollaborationInvitationStore(
-        logic: i<ShareCollaborationInvitation>(),
+    i.addSingleton<GetInvitationURL>(
+      () => GetInvitationURL(
+        contract: i<HomeContractImpl>(),
       ),
     );
-    i.addSingleton<GetExistingCollaborationsInfoStore>(
-      () => GetExistingCollaborationsInfoStore(
-        logic: i<GetExistingCollaborationsInfo>(),
+    i.addSingleton<ShareCollaborationInvitation>(
+      () => ShareCollaborationInvitation(
+        contract: i<HomeContractImpl>(),
       ),
     );
     i.addSingleton<AddNameToDatabaseStore>(
@@ -65,13 +60,29 @@ class HomeModule extends Module {
         logic: i<GetCollaboratorPhrase>(),
       ),
     );
+    i.addSingleton<GetExistingCollaborationsInfoStore>(
+      () => GetExistingCollaborationsInfoStore(
+        logic: i<GetExistingCollaborationsInfo>(),
+      ),
+    );
+    i.addSingleton<GetInvitationURLStore>(
+      () => GetInvitationURLStore(
+        logic: i<GetInvitationURL>(),
+      ),
+    );
+    i.addSingleton<ShareCollaborationInvitationStore>(
+      () => ShareCollaborationInvitationStore(
+        logic: i<ShareCollaborationInvitation>(),
+      ),
+    );
     i.addSingleton<HomeScreenCoordinator>(
       () => HomeScreenCoordinator(
-        widgets: Modular.get<HomeScreenWidgetsCoordinator>(),
-        shareCollaborationInvitation: i<ShareCollaborationInvitationStore>(),
-        getExistingCollaborationInfo: i<GetExistingCollaborationsInfoStore>(),
         addNameToDatabaseStore: i<AddNameToDatabaseStore>(),
         getCollaboratorPhraseStore: i<GetCollaboratorPhraseStore>(),
+        getExistingCollaborationInfo: i<GetExistingCollaborationsInfoStore>(),
+        getInvitationURL: i<GetInvitationURLStore>(),
+        shareCollaborationInvitation: i<ShareCollaborationInvitationStore>(),
+        widgets: Modular.get<HomeScreenWidgetsCoordinator>(),
       ),
     );
   }
