@@ -47,8 +47,7 @@ void main() {
     expect(res.first["${usersCollaboratorNumber}_uid"], usersUID);
     expect(res.first["doc_type"], "purpose");
     expect(res.first["${collaboratorsNumber}_uid"], collaboratorsUID);
-    expect(res.first["${usersCollaboratorNumber}_$content"], isEmpty);
-    expect(res.first["${collaboratorsNumber}_$content"], isEmpty);
+    expect(res.first[content], isEmpty);
     expect(res.first["collaborator_one_delta"], -1);
     expect(res.first["collaborator_two_delta"], -1);
     expect(res.first["collaborator_one_is_active"], false);
@@ -134,7 +133,7 @@ void main() {
     test("updateUsersDocContent", () async {
       await user1WorkingQueries.updateUsersDocContent(newContent: tContent);
       final res = await user1WorkingQueries.getDocInfo();
-      final usersDocContent = res.first["${usersCollaboratorNumber}_$content"];
+      final usersDocContent = res.first[content];
       expect(usersDocContent, tContent);
     });
   });
