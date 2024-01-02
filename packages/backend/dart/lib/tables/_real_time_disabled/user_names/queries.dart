@@ -32,14 +32,22 @@ class UserNamesQueries {
       await supabase.from(tableName).delete().eq(uid, userUID).select();
 
   Future<List> updateHasSentAnInvitation(bool hasSentAnInvitationParam) async =>
-      await supabase.from(tableName).update({
-        hasSentAnInvitation: hasSentAnInvitationParam,
-      }).eq(uid, userUID);
+      await supabase
+          .from(tableName)
+          .update({
+            hasSentAnInvitation: hasSentAnInvitationParam,
+          })
+          .eq(uid, userUID)
+          .select();
 
   Future<List> updateHasGoneThroughInvitationFlow(
     bool hasGoneThroughInvitationFlowParam,
   ) async =>
-      await supabase.from(tableName).update({
-        hasGoneThroughInvitationFlow: hasGoneThroughInvitationFlowParam,
-      }).eq(uid, userUID);
+      await supabase
+          .from(tableName)
+          .update({
+            hasGoneThroughInvitationFlow: hasGoneThroughInvitationFlowParam,
+          })
+          .eq(uid, userUID)
+          .select();
 }
