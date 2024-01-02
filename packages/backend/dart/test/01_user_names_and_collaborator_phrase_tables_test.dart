@@ -46,12 +46,13 @@ void main() {
       supabase: supabase,
     );
   });
+
   test(
       "✅ should be able to CREATE & READ a row in the table if their uid isn't present already",
       () async {
     final userNamesRes = await user1UserNameQueries.insertUserInfo(
-      firstName: UserDataConstants.user1FirstName,
-      lastName: UserDataConstants.user1LastName,
+      firstNameParam: UserDataConstants.user1FirstName,
+      lastNameParam: UserDataConstants.user1LastName,
     );
     final collaboratorPhraseRes =
         await user1CollaboratorPhraseQueries.getCollaboratorPhraseInfo();
@@ -70,17 +71,42 @@ void main() {
         false);
   });
 
+  test("should be able to update their `has_sent_invitation` field", () async {
+    final other = await user1UserNameQueries.insertUserInfo(
+      firstNameParam: UserDataConstants.user1FirstName,
+      lastNameParam: UserDataConstants.user1LastName,
+    );
+    print("other??????? $other");
+    final res = await user1UserNameQueries.updateHasSentAnInvitation(true);
+    print("RES??????? $res ");
+    final otherRes = await user1UserNameQueries.getUserInfo();
+    print("other res ==> $otherRes");
+    expect(res.first[UserNamesQueries.hasSentAnInvitation], true);
+  });
+
+  test(
+      "should be able to update their `has_gone_through_invitation_flow` field",
+      () async {
+    await user1UserNameQueries.insertUserInfo(
+      firstNameParam: UserDataConstants.user1FirstName,
+      lastNameParam: UserDataConstants.user1LastName,
+    );
+    final res =
+        await user1UserNameQueries.updateHasGoneThroughInvitationFlow(true);
+    expect(res.first[UserNamesQueries.hasGoneThroughInvitationFlow], true);
+  });
+
   test("❌ shouldn't be able to insert another row if they already have one",
       () async {
     await user1UserNameQueries.insertUserInfo(
-      firstName: UserDataConstants.user1FirstName,
-      lastName: UserDataConstants.user1LastName,
+      firstNameParam: UserDataConstants.user1FirstName,
+      lastNameParam: UserDataConstants.user1LastName,
     );
 
     try {
       await user1UserNameQueries.insertUserInfo(
-        firstName: UserDataConstants.user1FirstName,
-        lastName: UserDataConstants.user1LastName,
+        firstNameParam: UserDataConstants.user1FirstName,
+        lastNameParam: UserDataConstants.user1LastName,
       );
     } catch (e) {
       expect(e, isA<PostgrestException>());
@@ -89,8 +115,8 @@ void main() {
   test("❌ SHOULDN'T be able to enter a UID that isn't theirs", () async {
     try {
       await user1UserNameQueries.insertUserInfo(
-        firstName: UserDataConstants.user1FirstName,
-        lastName: UserDataConstants.user1LastName,
+        firstNameParam: UserDataConstants.user1FirstName,
+        lastNameParam: UserDataConstants.user1LastName,
       );
     } catch (e) {
       expect(e, isA<PostgrestException>());
