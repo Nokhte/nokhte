@@ -35,8 +35,17 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
 
   @action
   constructor() async {
-    widgets.constructor();
-    widgets.initReactors(onGradientTreeNodeTap: onGradientTreeNodeTap);
+    await getUserInfo(NoParams());
+    if (getUserInfo.hasGoneThroughInvitationFlow) {
+      widgets.alreadyDoneInvitationFlowConstructor();
+    } else {
+      widgets.constructor();
+    }
+    widgets.initReactors(
+      onGradientTreeNodeTap: onGradientTreeNodeTap,
+      onInvitationFlowFinished: () => updateHasGoneThroughInvitationFlow(true),
+    );
+    shareInvitationReactor();
     await getExistingCollaborationInfo(NoParams());
     await addNameToDatabaseStore(NoParams());
     await getCollaboratorPhraseStore(NoParams());
@@ -59,6 +68,13 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
   onGradientTreeNodeTap() {
     shareCollaborationInvitation(getInvitationURL.link);
   }
+
+  shareInvitationReactor() =>
+      reaction((p0) => shareCollaborationInvitation.isShared, (p0) {
+        if (p0) {
+          updateHasSentAnInvitation(true);
+        }
+      });
 
   @override
   List<Object> get props => [];
