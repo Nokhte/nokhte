@@ -80,10 +80,30 @@ void main() {
     });
     test("constructor", () async {
       await testStore.constructor();
+      expect(primarySmartText.messagesData, MessagesData.empty);
+      expect(secondarySmartText.messagesData, MessagesData.empty);
+      expect(beachWaves.movieMode, BeachWaveMovieModes.suspendedAtOceanDive);
+      expect(gradientTreeNode.showWidget, false);
+    });
+
+    test("invitationFlowConstructor", () {
+      testStore.constructor();
+      testStore.invitationFlowConstructor();
       expect(primarySmartText.messagesData, MessagesData.firstTimeHomeList);
       expect(secondarySmartText.messagesData,
           MessagesData.firstTimeSecondaryHomeList);
       expect(beachWaves.movieMode, BeachWaveMovieModes.suspendedAtOceanDive);
+      expect(gradientTreeNode.showWidget, false);
+    });
+
+    test("postInvitationFlowConstuctor", () {
+      testStore.constructor();
+      testStore.postInvitationFlowConstuctor();
+      expect(
+          primarySmartText.messagesData, MessagesData.postInvitationFlowText);
+      expect(secondarySmartText.messagesData, MessagesData.empty);
+      expect(beachWaves.movieMode, BeachWaveMovieModes.suspendedAtOceanDive);
+      expect(gradientTreeNode.showWidget, true);
     });
 
     group("constructor dependendent", () {
