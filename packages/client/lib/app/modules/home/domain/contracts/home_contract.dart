@@ -14,10 +14,10 @@ abstract class HomeContract {
       shareCollaborationInvitation(String link);
   Future<Either<Failure, CollaborationInvitationDataEntity>> getInvitationURL(
       NoParams params);
+  Future<Either<Failure, UserJourneyInfoEntity>> getUserInfo(NoParams params);
   Future<Either<Failure, HasSentAnInvitationUpdateStatusEntity>>
       updateHasSentAnInvitation(bool hasSentAnInvitationParam);
   Future<Either<Failure, HasGoneThroughInvitationFlowUpdateStatusEntity>>
       updateHasGoneThroughInvitationFlow(
           bool hasGoneThroughInvitationFlowParam);
-  Future<Either<Failure, UserJourneyInfoEntity>> getUserInfo(NoParams params);
 }
