@@ -35,11 +35,12 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
 
   @action
   constructor() async {
+    widgets.constructor();
     await getUserInfo(NoParams());
     if (getUserInfo.hasGoneThroughInvitationFlow) {
-      widgets.alreadyDoneInvitationFlowConstructor();
+      widgets.postInvitationFlowConstuctor();
     } else {
-      widgets.constructor();
+      widgets.invitationFlowConstructor();
     }
     widgets.initReactors(
       onGradientTreeNodeTap: onGradientTreeNodeTap,
