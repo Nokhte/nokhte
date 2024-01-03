@@ -20,7 +20,7 @@ abstract class _ShareCollaborationInvitationStoreBase
   });
 
   @observable
-  bool isSent = false;
+  bool isShared = false;
 
   @observable
   BaseFutureStore<CollaborationInvitationSendStatusEntity> futureStore =
@@ -39,7 +39,7 @@ abstract class _ShareCollaborationInvitationStoreBase
         state = StoreState.initial;
       },
       (invitationStatusEntity) {
-        isSent = invitationStatusEntity.isSent;
+        isShared = invitationStatusEntity.isSent;
       },
     );
   }

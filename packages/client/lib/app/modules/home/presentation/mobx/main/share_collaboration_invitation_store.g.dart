@@ -10,19 +10,20 @@ part of 'share_collaboration_invitation_store.dart';
 
 mixin _$ShareCollaborationInvitationStore
     on _ShareCollaborationInvitationStoreBase, Store {
-  late final _$isSentAtom = Atom(
-      name: '_ShareCollaborationInvitationStoreBase.isSent', context: context);
+  late final _$isSharedAtom = Atom(
+      name: '_ShareCollaborationInvitationStoreBase.isShared',
+      context: context);
 
   @override
-  bool get isSent {
-    _$isSentAtom.reportRead();
-    return super.isSent;
+  bool get isShared {
+    _$isSharedAtom.reportRead();
+    return super.isShared;
   }
 
   @override
-  set isSent(bool value) {
-    _$isSentAtom.reportWrite(value, super.isSent, () {
-      super.isSent = value;
+  set isShared(bool value) {
+    _$isSharedAtom.reportWrite(value, super.isShared, () {
+      super.isShared = value;
     });
   }
 
@@ -56,7 +57,7 @@ mixin _$ShareCollaborationInvitationStore
   @override
   String toString() {
     return '''
-isSent: ${isSent},
+isShared: ${isShared},
 futureStore: ${futureStore}
     ''';
   }
