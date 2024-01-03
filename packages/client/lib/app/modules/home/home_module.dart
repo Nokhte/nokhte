@@ -1,5 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
+import 'package:nokhte/app/core/widgets/modules.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/data/contracts/home_contract_impl.dart';
 import 'package:nokhte/app/modules/home/data/sources/home_remote_source.dart';
 import 'package:nokhte/app/modules/home/domain/logic/logic.dart';
@@ -11,6 +13,7 @@ class HomeModule extends Module {
   @override
   List<Module> get imports => [
         HomeWidgetsModule(),
+        GesturesModule(),
       ];
   @override
   binds(i) {
@@ -108,6 +111,7 @@ class HomeModule extends Module {
     );
     i.addSingleton<HomeScreenCoordinator>(
       () => HomeScreenCoordinator(
+        swipe: Modular.get<SwipeDetector>(),
         addNameToDatabaseStore: i<AddNameToDatabaseStore>(),
         getCollaboratorPhraseStore: i<GetCollaboratorPhraseStore>(),
         getExistingCollaborationInfo: i<GetExistingCollaborationsInfoStore>(),
