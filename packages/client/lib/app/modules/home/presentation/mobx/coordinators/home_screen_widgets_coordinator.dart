@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
+import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -18,7 +19,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   final GestureCrossStore gestureCross;
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
-  final GradientTreeNodeStore gradientTreeNode;
 
   _HomeScreenWidgetsCoordinatorBase({
     required this.timeModel,
@@ -28,15 +28,13 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     required this.gestureCross,
     required this.primarySmartText,
     required this.secondarySmartText,
-    required this.gradientTreeNode,
   });
 
   @action
   constructor() {
-    gradientTreeNode.toggleWidgetVisibility();
     primarySmartText.setMessagesData(MessagesData.empty);
     secondarySmartText.setMessagesData(MessagesData.empty);
-    beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtOceanDive);
+    beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
   }
 
   @action
@@ -44,16 +42,12 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     primarySmartText.setMessagesData(MessagesData.firstTimeHomeList);
     secondarySmartText.setMessagesData(MessagesData.firstTimeSecondaryHomeList);
     primarySmartText.startRotatingText();
-    beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtOceanDive);
   }
 
   @action
   postInvitationFlowConstuctor() {
     primarySmartText.setMessagesData(MessagesData.postInvitationFlowText);
     primarySmartText.startRotatingText();
-    secondarySmartText.setMessagesData(MessagesData.empty);
-    beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtOceanDive);
-    gradientTreeNode.toggleWidgetVisibility();
   }
 
   @action
@@ -87,6 +81,17 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     }
   }
 
+  @action
+  onSwipeUp() {
+    if (primarySmartText.currentIndex.equals(4) && !hasSwipedUp) {
+      toggleHasSwipedUp();
+      nokhteBlur.reverse();
+      primarySmartText.startRotatingText(isResuming: true);
+      beachWaves.currentStore.setControl(Control.mirror);
+      beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDiveSetup);
+    }
+  }
+
   @observable
   bool clockAnimationHasNotStarted = true;
 
@@ -101,6 +106,12 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
 
   @observable
   bool isDoubleTriggeringWindDown = false;
+
+  @observable
+  bool hasSwipedUp = false;
+
+  @action
+  toggleHasSwipedUp() => hasSwipedUp = !hasSwipedUp;
 
   @action
   toggleIsDoubleTriggeringWindDown() =>
@@ -127,7 +138,8 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     );
     clockFaceAnimationStatusReactor();
     availabilitySectorsMovieStatusReactor();
-    gradientTreeNodeTapReactor(onGradientTreeNodeTap);
+    beachWavesMovieStatusReactor();
+    nokhteBlurReactor();
   }
 
   gestureCrossTapReactor() => reaction(
@@ -140,8 +152,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
         if (p0 == 3) {
           timeModel.init();
         }
-        if (p0 == 6) {
-          gradientTreeNode.toggleWidgetVisibility();
+        if (p0 == 4) {
           onInvitationFlowFinished();
         }
       });
@@ -153,11 +164,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   availabilitySectorsMovieStatusReactor() => reaction(
       (p0) => timeModel.availabilitySectors.movieStatus,
       (p0) => onAvailabilitySectorMovieStatusFinished(p0));
-
-  gradientTreeNodeTapReactor(Function onGradientTreeNodeTap) => reaction(
-        (p0) => gradientTreeNode.tapCount,
-        (p0) => onGradientTreeNodeTap(),
-      );
 
   wifiDisconnectOverlayReactor() =>
       reaction((p0) => wifiDisconnectOverlay.movieStatus, (p0) {
@@ -172,6 +178,19 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
             primarySmartText.pause();
           }
         }
+      });
+
+  beachWavesMovieStatusReactor() =>
+      reaction((p0) => beachWaves.movieStatus, (p0) {
+        if (beachWaves.movieStatus == MovieStatus.finished &&
+            beachWaves.movieMode == BeachWaveMovieModes.onShoreToOceanDive) {
+          // modular.to.navigate('/collaboration/');
+        }
+      });
+
+  nokhteBlurReactor() => reaction((p0) => nokhteBlur.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished &&
+            nokhteBlur.pastControl == Control.playReverseFromEnd) {}
       });
 
   @action

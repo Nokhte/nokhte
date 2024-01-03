@@ -97,6 +97,22 @@ mixin _$HomeScreenWidgetsCoordinator
     });
   }
 
+  late final _$hasSwipedUpAtom = Atom(
+      name: '_HomeScreenWidgetsCoordinatorBase.hasSwipedUp', context: context);
+
+  @override
+  bool get hasSwipedUp {
+    _$hasSwipedUpAtom.reportRead();
+    return super.hasSwipedUp;
+  }
+
+  @override
+  set hasSwipedUp(bool value) {
+    _$hasSwipedUpAtom.reportWrite(value, super.hasSwipedUp, () {
+      super.hasSwipedUp = value;
+    });
+  }
+
   late final _$_HomeScreenWidgetsCoordinatorBaseActionController =
       ActionController(
           name: '_HomeScreenWidgetsCoordinatorBase', context: context);
@@ -183,6 +199,31 @@ mixin _$HomeScreenWidgetsCoordinator
         .startAction(name: '_HomeScreenWidgetsCoordinatorBase.onInactive');
     try {
       return super.onInactive();
+    } finally {
+      _$_HomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onSwipeUp() {
+    final _$actionInfo = _$_HomeScreenWidgetsCoordinatorBaseActionController
+        .startAction(name: '_HomeScreenWidgetsCoordinatorBase.onSwipeUp');
+    try {
+      return super.onSwipeUp();
+    } finally {
+      _$_HomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic toggleHasSwipedUp() {
+    final _$actionInfo =
+        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
+            name: '_HomeScreenWidgetsCoordinatorBase.toggleHasSwipedUp');
+    try {
+      return super.toggleHasSwipedUp();
     } finally {
       _$_HomeScreenWidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
@@ -290,7 +331,8 @@ clockAnimationHasNotStarted: ${clockAnimationHasNotStarted},
 clockIsVisible: ${clockIsVisible},
 isDisconnected: ${isDisconnected},
 hasInitiatedBlur: ${hasInitiatedBlur},
-isDoubleTriggeringWindDown: ${isDoubleTriggeringWindDown}
+isDoubleTriggeringWindDown: ${isDoubleTriggeringWindDown},
+hasSwipedUp: ${hasSwipedUp}
     ''';
   }
 }
