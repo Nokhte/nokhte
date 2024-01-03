@@ -136,6 +136,17 @@ mixin _$BeachWavesStore on _BeachWavesStoreBase, Store {
   }
 
   @override
+  dynamic setMovieStatus(MovieStatus newMovieStatus) {
+    final _$actionInfo = _$_BeachWavesStoreBaseActionController.startAction(
+        name: '_BeachWavesStoreBase.setMovieStatus');
+    try {
+      return super.setMovieStatus(newMovieStatus);
+    } finally {
+      _$_BeachWavesStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setMovieMode(BeachWaveMovieModes newMovieMode) {
     final _$actionInfo = _$_BeachWavesStoreBaseActionController.startAction(
         name: '_BeachWavesStoreBase.setMovieMode');
