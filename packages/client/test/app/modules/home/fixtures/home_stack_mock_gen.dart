@@ -12,12 +12,18 @@ import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
   MockSpec<GetCollaboratorPhrase>(),
   MockSpec<AddNameToDatabase>(),
   MockSpec<GetInvitationURL>(),
+  MockSpec<GetUserInfo>(),
   MockSpec<ShareCollaborationInvitation>(),
+  MockSpec<UpdateHasGoneThroughInvitationFlow>(),
+  MockSpec<UpdateHasSentAnInvitation>(),
   MockSpec<AddNameToDatabaseStore>(),
   MockSpec<GetExistingCollaborationsInfoStore>(),
   MockSpec<ShareCollaborationInvitationStore>(),
   MockSpec<GetInvitationURLStore>(),
+  MockSpec<GetUserInfoStore>(),
   MockSpec<GetCollaboratorPhraseStore>(),
+  MockSpec<UpdateHasGoneThroughInvitationFlowStore>(),
+  MockSpec<UpdateHasSentAnInvitationStore>(),
   MockSpec<HomeScreenWidgetsCoordinator>(),
 ])
 void main() {}
