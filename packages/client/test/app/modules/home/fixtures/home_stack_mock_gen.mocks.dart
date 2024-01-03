@@ -783,6 +783,35 @@ class MockHomeContract extends _i1.Mock implements _i11.HomeContract {
 
   @override
   _i18.Future<
+      _i10.Either<_i19.Failure, _i13.UserJourneyInfoEntity>> getUserInfo(
+          _i20.NoParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getUserInfo,
+          [params],
+        ),
+        returnValue: _i18.Future<
+                _i10.Either<_i19.Failure, _i13.UserJourneyInfoEntity>>.value(
+            _FakeEither_8<_i19.Failure, _i13.UserJourneyInfoEntity>(
+          this,
+          Invocation.method(
+            #getUserInfo,
+            [params],
+          ),
+        )),
+        returnValueForMissingStub: _i18.Future<
+                _i10.Either<_i19.Failure, _i13.UserJourneyInfoEntity>>.value(
+            _FakeEither_8<_i19.Failure, _i13.UserJourneyInfoEntity>(
+          this,
+          Invocation.method(
+            #getUserInfo,
+            [params],
+          ),
+        )),
+      ) as _i18.Future<_i10.Either<_i19.Failure, _i13.UserJourneyInfoEntity>>);
+
+  @override
+  _i18.Future<
           _i10.Either<_i19.Failure, _i13.HasSentAnInvitationUpdateStatusEntity>>
       updateHasSentAnInvitation(bool? hasSentAnInvitationParam) =>
           (super.noSuchMethod(
@@ -856,35 +885,6 @@ class MockHomeContract extends _i1.Mock implements _i11.HomeContract {
           ) as _i18.Future<
               _i10.Either<_i19.Failure,
                   _i13.HasGoneThroughInvitationFlowUpdateStatusEntity>>);
-
-  @override
-  _i18.Future<
-      _i10.Either<_i19.Failure, _i13.UserJourneyInfoEntity>> getUserInfo(
-          _i20.NoParams? params) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getUserInfo,
-          [params],
-        ),
-        returnValue: _i18.Future<
-                _i10.Either<_i19.Failure, _i13.UserJourneyInfoEntity>>.value(
-            _FakeEither_8<_i19.Failure, _i13.UserJourneyInfoEntity>(
-          this,
-          Invocation.method(
-            #getUserInfo,
-            [params],
-          ),
-        )),
-        returnValueForMissingStub: _i18.Future<
-                _i10.Either<_i19.Failure, _i13.UserJourneyInfoEntity>>.value(
-            _FakeEither_8<_i19.Failure, _i13.UserJourneyInfoEntity>(
-          this,
-          Invocation.method(
-            #getUserInfo,
-            [params],
-          ),
-        )),
-      ) as _i18.Future<_i10.Either<_i19.Failure, _i13.UserJourneyInfoEntity>>);
 }
 
 /// A class which mocks [HomeRemoteSource].
