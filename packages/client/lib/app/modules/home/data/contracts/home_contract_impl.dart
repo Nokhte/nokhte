@@ -3,11 +3,8 @@ import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/modules/home/data/models/models.dart';
 import 'package:nokhte/app/modules/home/data/sources/home_remote_source.dart';
-import 'package:nokhte/app/modules/home/domain/contracts/home_contract.dart';
-import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
-import 'package:nokhte/app/modules/home/domain/entities/collaborator_phrase_entity.dart';
-import 'package:nokhte/app/modules/home/domain/entities/name_creation_status_entity.dart';
+import 'package:nokhte/app/modules/home/domain/domain.dart';
 
 class HomeContractImpl implements HomeContract {
   final HomeRemoteSource remoteSource;
@@ -19,8 +16,7 @@ class HomeContractImpl implements HomeContract {
   });
 
   @override
-  Future<Either<Failure, NameCreationStatusEntity>> addNameToDatabase(
-      NoParams params) async {
+  addNameToDatabase(NoParams params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.addNamesToDatabase();
       return Right(NameCreationStatusModel.fromSupabase(res));
@@ -30,8 +26,7 @@ class HomeContractImpl implements HomeContract {
   }
 
   @override
-  Future<Either<Failure, CollaboratorPhraseEntity>> getCollaboratorPhrase(
-      NoParams params) async {
+  getCollaboratorPhrase(NoParams params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.getCollaboratorPhrase();
       return Right(CollaboratorPhraseModel.fromSupabase(res));
@@ -41,8 +36,7 @@ class HomeContractImpl implements HomeContract {
   }
 
   @override
-  Future<Either<Failure, ExistingCollaborationsInfoModel>>
-      getExistingCollaborationInfo(NoParams params) async {
+  getExistingCollaborationInfo(NoParams params) async {
     if (await networkInfo.isConnected) {
       final collaborationRes =
           await remoteSource.checkIfTheyHaveACollaboration();
@@ -70,8 +64,7 @@ class HomeContractImpl implements HomeContract {
   }
 
   @override
-  Future<Either<Failure, CollaborationInvitationSendStatusModel>>
-      shareCollaborationInvitation(String link) async {
+  shareCollaborationInvitation(String link) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.shareCollaborationInvitation(link);
       return Right(CollaborationInvitationSendStatusModel.fromShareResult(res));
@@ -81,8 +74,7 @@ class HomeContractImpl implements HomeContract {
   }
 
   @override
-  Future<Either<Failure, CollaborationInvitationDataModel>> getInvitationURL(
-      NoParams params) async {
+  getInvitationURL(NoParams params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.getInvitationURL();
       return Right(CollaborationInvitationDataModel(link: res.result));
@@ -92,8 +84,7 @@ class HomeContractImpl implements HomeContract {
   }
 
   @override
-  Future<Either<Failure, UserJourneyInfoModel>> getUserInfo(
-      NoParams params) async {
+  getUserInfo(NoParams params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.getUserInfo();
       return Right(UserJourneyInfoModel.fromSupabase(res));
@@ -103,9 +94,8 @@ class HomeContractImpl implements HomeContract {
   }
 
   @override
-  Future<Either<Failure, HasGoneThroughInvitationFlowUpdateStatusModel>>
-      updateHasGoneThroughInvitationFlow(
-          bool hasGoneThroughInvitationFlowParam) async {
+  updateHasGoneThroughInvitationFlow(
+      bool hasGoneThroughInvitationFlowParam) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.updateHasGoneThroughInvitationFlow(
           hasGoneThroughInvitationFlowParam);
@@ -117,8 +107,7 @@ class HomeContractImpl implements HomeContract {
   }
 
   @override
-  Future<Either<Failure, HasSentAnInvitationUpdateStatusModel>>
-      updateHasSentAnInvitation(bool hasSentAnInvitationParam) async {
+  updateHasSentAnInvitation(bool hasSentAnInvitationParam) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource
           .updateHasSentAnInvitation(hasSentAnInvitationParam);
