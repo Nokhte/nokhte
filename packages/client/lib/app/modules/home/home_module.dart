@@ -86,7 +86,6 @@ class HomeModule extends Module {
         logic: i<GetInvitationURL>(),
       ),
     );
-    // get user info
     i.add<GetUserInfoStore>(
       () => GetUserInfoStore(
         logic: i<GetUserInfo>(),
@@ -97,13 +96,11 @@ class HomeModule extends Module {
         logic: i<ShareCollaborationInvitation>(),
       ),
     );
-    // update has gone through
     i.add<UpdateHasGoneThroughInvitationFlowStore>(
       () => UpdateHasGoneThroughInvitationFlowStore(
         logic: i<UpdateHasGoneThroughInvitationFlow>(),
       ),
     );
-    // update has sent
     i.add<UpdateHasSentAnInvitationStore>(
       () => UpdateHasSentAnInvitationStore(
         logic: i<UpdateHasSentAnInvitation>(),
