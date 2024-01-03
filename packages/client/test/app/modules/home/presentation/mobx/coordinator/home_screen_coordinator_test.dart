@@ -6,28 +6,41 @@ import 'package:nokhte/app/modules/home/presentation/presentation.dart';
 import '../../../fixtures/home_stack_mock_gen.mocks.dart';
 
 void main() {
-  late MockHomeScreenWidgetsCoordinator mockWidgets;
   late MockAddNameToDatabaseStore mockAddNameToDatabase;
   late MockGetCollaboratorPhraseStore mockGetCollaboratorPhrase;
   late MockGetExistingCollaborationsInfoStore mockGetExistingCollaborationInfo;
-  late MockShareCollaborationInvitationStore shareCollaborationInvitation;
   late MockGetInvitationURLStore mockGetInvitationURLStore;
+  late MockGetUserInfoStore mockGetUserInfoStore;
+  late MockShareCollaborationInvitationStore mockShareCollaborationInvitation;
+  late MockHomeScreenWidgetsCoordinator mockWidgets;
+  late MockUpdateHasGoneThroughInvitationFlowStore
+      mockUpdateHasGoneThroughInvitationFlow;
+  late MockUpdateHasSentAnInvitationStore mockUpdateHasSentAnInvitationStore;
   late HomeScreenCoordinator testStore;
 
   setUp(() {
-    mockWidgets = MockHomeScreenWidgetsCoordinator();
-    mockGetInvitationURLStore = MockGetInvitationURLStore();
-    shareCollaborationInvitation = MockShareCollaborationInvitationStore();
-    mockGetExistingCollaborationInfo = MockGetExistingCollaborationsInfoStore();
     mockAddNameToDatabase = MockAddNameToDatabaseStore();
     mockGetCollaboratorPhrase = MockGetCollaboratorPhraseStore();
+    mockGetExistingCollaborationInfo = MockGetExistingCollaborationsInfoStore();
+    mockGetInvitationURLStore = MockGetInvitationURLStore();
+    mockGetUserInfoStore = MockGetUserInfoStore();
+    mockShareCollaborationInvitation = MockShareCollaborationInvitationStore();
+    mockWidgets = MockHomeScreenWidgetsCoordinator();
+    mockUpdateHasGoneThroughInvitationFlow =
+        MockUpdateHasGoneThroughInvitationFlowStore();
+    mockUpdateHasSentAnInvitationStore = MockUpdateHasSentAnInvitationStore();
+
     testStore = HomeScreenCoordinator(
-      getInvitationURL: mockGetInvitationURLStore,
-      shareCollaborationInvitation: shareCollaborationInvitation,
-      widgets: mockWidgets,
-      getExistingCollaborationInfo: mockGetExistingCollaborationInfo,
       addNameToDatabaseStore: mockAddNameToDatabase,
+      getInvitationURL: mockGetInvitationURLStore,
+      getUserInfo: mockGetUserInfoStore,
+      getExistingCollaborationInfo: mockGetExistingCollaborationInfo,
       getCollaboratorPhraseStore: mockGetCollaboratorPhrase,
+      shareCollaborationInvitation: mockShareCollaborationInvitation,
+      updateHasGoneThroughInvitationFlow:
+          mockUpdateHasGoneThroughInvitationFlow,
+      updateHasSentAnInvitation: mockUpdateHasSentAnInvitationStore,
+      widgets: mockWidgets,
     );
   });
 
