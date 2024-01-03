@@ -8,6 +8,11 @@ class UserJourneyInfoEntity extends Equatable {
     required this.hasSentAnInvitation,
   });
 
+  static UserJourneyInfoEntity get initial => const UserJourneyInfoEntity(
+        hasGoneThroughInvitationFlow: false,
+        hasSentAnInvitation: false,
+      );
+
   @override
   List<Object> get props => [hasGoneThroughInvitationFlow, hasSentAnInvitation];
 }

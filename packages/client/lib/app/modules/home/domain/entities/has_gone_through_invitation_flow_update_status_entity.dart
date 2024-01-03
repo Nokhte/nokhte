@@ -5,4 +5,7 @@ class HasGoneThroughInvitationFlowUpdateStatusEntity
   const HasGoneThroughInvitationFlowUpdateStatusEntity(
       {required bool isUpdated})
       : super(isSent: isUpdated);
+
+  static HasGoneThroughInvitationFlowUpdateStatusEntity get initial =>
+      const HasGoneThroughInvitationFlowUpdateStatusEntity(isUpdated: false);
 }
