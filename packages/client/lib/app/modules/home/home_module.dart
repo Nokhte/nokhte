@@ -45,8 +45,24 @@ class HomeModule extends Module {
         contract: i<HomeContractImpl>(),
       ),
     );
+    i.addSingleton<GetUserInfo>(
+      () => GetUserInfo(
+        contract: i<HomeContractImpl>(),
+      ),
+    );
+
     i.addSingleton<ShareCollaborationInvitation>(
       () => ShareCollaborationInvitation(
+        contract: i<HomeContractImpl>(),
+      ),
+    );
+    i.addSingleton<UpdateHasGoneThroughInvitationFlow>(
+      () => UpdateHasGoneThroughInvitationFlow(
+        contract: i<HomeContractImpl>(),
+      ),
+    );
+    i.addSingleton<UpdateHasSentAnInvitation>(
+      () => UpdateHasSentAnInvitation(
         contract: i<HomeContractImpl>(),
       ),
     );
@@ -70,9 +86,27 @@ class HomeModule extends Module {
         logic: i<GetInvitationURL>(),
       ),
     );
+    // get user info
+    i.add<GetUserInfoStore>(
+      () => GetUserInfoStore(
+        logic: i<GetUserInfo>(),
+      ),
+    );
     i.addSingleton<ShareCollaborationInvitationStore>(
       () => ShareCollaborationInvitationStore(
         logic: i<ShareCollaborationInvitation>(),
+      ),
+    );
+    // update has gone through
+    i.add<UpdateHasGoneThroughInvitationFlowStore>(
+      () => UpdateHasGoneThroughInvitationFlowStore(
+        logic: i<UpdateHasGoneThroughInvitationFlow>(),
+      ),
+    );
+    // update has sent
+    i.add<UpdateHasSentAnInvitationStore>(
+      () => UpdateHasSentAnInvitationStore(
+        logic: i<UpdateHasSentAnInvitation>(),
       ),
     );
     i.addSingleton<HomeScreenCoordinator>(
@@ -81,7 +115,11 @@ class HomeModule extends Module {
         getCollaboratorPhraseStore: i<GetCollaboratorPhraseStore>(),
         getExistingCollaborationInfo: i<GetExistingCollaborationsInfoStore>(),
         getInvitationURL: i<GetInvitationURLStore>(),
+        getUserInfo: i<GetUserInfoStore>(),
         shareCollaborationInvitation: i<ShareCollaborationInvitationStore>(),
+        updateHasGoneThroughInvitationFlow:
+            i<UpdateHasGoneThroughInvitationFlowStore>(),
+        updateHasSentAnInvitation: i<UpdateHasSentAnInvitationStore>(),
         widgets: Modular.get<HomeScreenWidgetsCoordinator>(),
       ),
     );
