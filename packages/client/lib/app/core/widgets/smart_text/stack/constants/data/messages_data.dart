@@ -68,6 +68,15 @@ class MessagesData {
           onScreenTime: Seconds.get(0),
         ),
       ];
+  static List<RotatingTextData> get postInvitationFlowText => [
+        RotatingTextData(
+          initialFadeInDelay: Seconds.get(0),
+          mainMessage: "Tap on the yellow dot to make an invitation.",
+          onScreenTime: Seconds.get(0),
+          pauseHere: true,
+          unlockGesture: Gestures.tap,
+        ),
+      ];
 
   static List<RotatingTextData> get firstTimeSecondaryHomeList => [
         RotatingTextData(
