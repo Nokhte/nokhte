@@ -14,7 +14,11 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
   final GetCollaboratorPhraseStore getCollaboratorPhraseStore;
   final GetExistingCollaborationsInfoStore getExistingCollaborationInfo;
   final GetInvitationURLStore getInvitationURL;
+  final GetUserInfoStore getUserInfo;
   final ShareCollaborationInvitationStore shareCollaborationInvitation;
+  final UpdateHasGoneThroughInvitationFlowStore
+      updateHasGoneThroughInvitationFlow;
+  final UpdateHasSentAnInvitationStore updateHasSentAnInvitation;
   final HomeScreenWidgetsCoordinator widgets;
 
   _HomeScreenCoordinatorBase({
@@ -22,7 +26,10 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
     required this.getCollaboratorPhraseStore,
     required this.getExistingCollaborationInfo,
     required this.getInvitationURL,
+    required this.getUserInfo,
     required this.shareCollaborationInvitation,
+    required this.updateHasGoneThroughInvitationFlow,
+    required this.updateHasSentAnInvitation,
     required this.widgets,
   });
 
