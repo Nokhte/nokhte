@@ -19,5 +19,5 @@ abstract class HomeContract {
   Future<Either<Failure, HasGoneThroughInvitationFlowUpdateStatusEntity>>
       updateHasGoneThroughInvitationFlow(
           bool hasGoneThroughInvitationFlowParam);
-  Future<Either<Failure, UserJourneyInfoEntity>> getUserInfo();
+  Future<Either<Failure, UserJourneyInfoEntity>> getUserInfo(NoParams params);
 }
