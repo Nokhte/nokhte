@@ -3,28 +3,27 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/gestures/stack/presentation/mobx/swipe_detector.dart';
 
 class Swipe extends StatelessWidget {
-  final SwipeDetector trackerStore;
+  final SwipeDetector store;
   final Widget child;
   const Swipe({
     super.key,
-    required this.trackerStore,
+    required this.store,
     required this.child,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onHorizontalDragUpdate: (details) => trackerStore.onUpdateCallback(
+      onHorizontalDragUpdate: (details) => store.onUpdateCallback(
         details.globalPosition,
         DragType.horizontal,
       ),
-      onHorizontalDragEnd: (details) =>
-          trackerStore.onFinishedGestureCallback(),
-      onVerticalDragUpdate: (details) => trackerStore.onUpdateCallback(
+      onHorizontalDragEnd: (details) => store.onFinishedGestureCallback(),
+      onVerticalDragUpdate: (details) => store.onUpdateCallback(
         details.globalPosition,
         DragType.vertical,
       ),
-      onVerticalDragEnd: (details) => trackerStore.onFinishedGestureCallback(),
+      onVerticalDragEnd: (details) => store.onFinishedGestureCallback(),
       child: child,
     );
   }
