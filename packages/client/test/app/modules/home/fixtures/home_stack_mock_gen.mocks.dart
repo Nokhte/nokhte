@@ -1782,16 +1782,16 @@ class MockShareCollaborationInvitationStore extends _i1.Mock
       ) as _i12.ShareCollaborationInvitation);
 
   @override
-  bool get isSent => (super.noSuchMethod(
-        Invocation.getter(#isSent),
+  bool get isShared => (super.noSuchMethod(
+        Invocation.getter(#isShared),
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
 
   @override
-  set isSent(bool? value) => super.noSuchMethod(
+  set isShared(bool? value) => super.noSuchMethod(
         Invocation.setter(
-          #isSent,
+          #isShared,
           value,
         ),
         returnValueForMissingStub: null,
@@ -3015,12 +3015,28 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
       ) as _i15.ReactiveContext);
 
   @override
-  dynamic initReactors({required Function? onGradientTreeNodeTap}) =>
+  dynamic initReactors({
+    required Function? onGradientTreeNodeTap,
+    required Function? onInvitationFlowFinished,
+  }) =>
       super.noSuchMethod(
         Invocation.method(
           #initReactors,
           [],
-          {#onGradientTreeNodeTap: onGradientTreeNodeTap},
+          {
+            #onGradientTreeNodeTap: onGradientTreeNodeTap,
+            #onInvitationFlowFinished: onInvitationFlowFinished,
+          },
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  dynamic primarySmartTextReactor(Function? onInvitationFlowFinished) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #primarySmartTextReactor,
+          [onInvitationFlowFinished],
         ),
         returnValueForMissingStub: null,
       );
