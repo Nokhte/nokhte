@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/gradient_tree_node/stack/constants/tree_node_gradients.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/presentation.dart';
 
@@ -25,46 +24,42 @@ class HomeScreen extends HookWidget {
     }, []);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: MultiHitStack(
-        children: [
-          FullScreen(
-              child: BeachWaves(
-            store: coordinator.widgets.beachWaves,
-          )),
-          FullScreen(
-            child: NokhteBlur(
-              store: coordinator.widgets.nokhteBlur,
+      body: Swipe(
+        store: coordinator.swipe,
+        child: MultiHitStack(
+          children: [
+            FullScreen(
+                child: BeachWaves(
+              store: coordinator.widgets.beachWaves,
+            )),
+            FullScreen(
+              child: NokhteBlur(
+                store: coordinator.widgets.nokhteBlur,
+              ),
             ),
-          ),
-          Center(
-              child: SmartText(
-            store: coordinator.widgets.primarySmartText,
-            bottomPadding: 180,
-          )),
-          Center(
-              child: SmartText(
-            topPadding: 450,
-            store: coordinator.widgets.secondarySmartText,
-            opacityDuration: Seconds.get(1),
-          )),
-          TimeAlignmentModelWidget(
-            store: coordinator.widgets.timeModel,
-          ),
-          FullScreen(
-            child: GradientTreeNode(
-              store: coordinator.widgets.gradientTreeNode,
-              gradient: TreeNodeGradients.yellow,
-              padding: const EdgeInsets.only(top: 400.0),
+            Center(
+                child: SmartText(
+              store: coordinator.widgets.primarySmartText,
+              bottomPadding: 180,
+            )),
+            Center(
+                child: SmartText(
+              topPadding: 450,
+              store: coordinator.widgets.secondarySmartText,
+              opacityDuration: Seconds.get(1),
+            )),
+            TimeAlignmentModelWidget(
+              store: coordinator.widgets.timeModel,
             ),
-          ),
-          GestureCross(
-            size: size,
-            store: coordinator.widgets.gestureCross,
-          ),
-          WifiDisconnectOverlay(
-            store: coordinator.widgets.wifiDisconnectOverlay,
-          ),
-        ],
+            GestureCross(
+              size: size,
+              store: coordinator.widgets.gestureCross,
+            ),
+            WifiDisconnectOverlay(
+              store: coordinator.widgets.wifiDisconnectOverlay,
+            ),
+          ],
+        ),
       ),
       // ),
     );
