@@ -6,7 +6,7 @@ class BlurMovie {
   static MovieTween get movie => MovieTween()
     ..scene(
       begin: Seconds.get(0),
-      end: Seconds.get(2),
+      end: Seconds.get(1),
     ).tween(
       'blur',
       Tween<double>(
