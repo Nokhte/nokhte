@@ -83,4 +83,10 @@ class MessagesData {
           onScreenTime: Seconds.get(0),
         ),
       ];
+  static List<RotatingTextData> get empty => [
+        RotatingTextData(
+          mainMessage: "",
+          onScreenTime: Seconds.get(0),
+        ),
+      ];
 }
