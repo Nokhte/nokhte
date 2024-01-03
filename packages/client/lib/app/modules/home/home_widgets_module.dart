@@ -21,12 +21,8 @@ class HomeWidgetsModule extends Module {
     i.addSingleton<NokhteBlurStore>(
       () => NokhteBlurStore(),
     );
-    i.addSingleton<GradientTreeNodeStore>(
-      () => GradientTreeNodeStore(),
-    );
     i.addSingleton<HomeScreenWidgetsCoordinator>(
       () => HomeScreenWidgetsCoordinator(
-        gradientTreeNode: i<GradientTreeNodeStore>(),
         timeModel: Modular.get<TimeAlignmentModelCoordinator>(),
         nokhteBlur: i<NokhteBlurStore>(),
         primarySmartText: i<SmartTextStore>(),
