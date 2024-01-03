@@ -53,18 +53,14 @@ class MessagesData {
         ),
         RotatingTextData(
           initialFadeInDelay: Seconds.get(1),
-          mainMessage: "This is the collaboration page.",
+          mainMessage: "Swipe Up to Enter The Collaboration Page.",
           onScreenTime: Seconds.get(2),
-        ),
-        RotatingTextData(
-          initialFadeInDelay: Seconds.get(1),
-          mainMessage:
-              "To make the connection you will need each other’s invitation",
-          onScreenTime: Seconds.get(2),
+          pauseHere: true,
         ),
         RotatingTextData(
           initialFadeInDelay: Seconds.get(0),
-          mainMessage: "Tap on the yellow dot to make an invitation.",
+          mainMessage: "",
+          pauseHere: true,
           onScreenTime: Seconds.get(0),
         ),
       ];
