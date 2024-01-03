@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 part 'home_screen_coordinator.g.dart';
 
@@ -20,6 +22,7 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
       updateHasGoneThroughInvitationFlow;
   final UpdateHasSentAnInvitationStore updateHasSentAnInvitation;
   final HomeScreenWidgetsCoordinator widgets;
+  final SwipeDetector swipe;
 
   _HomeScreenCoordinatorBase({
     required this.addNameToDatabaseStore,
@@ -30,23 +33,24 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
     required this.shareCollaborationInvitation,
     required this.updateHasGoneThroughInvitationFlow,
     required this.updateHasSentAnInvitation,
+    required this.swipe,
     required this.widgets,
   });
 
   @action
   constructor() async {
     widgets.constructor();
-    await getUserInfo(NoParams());
-    if (getUserInfo.hasGoneThroughInvitationFlow) {
-      widgets.postInvitationFlowConstuctor();
-    } else {
-      widgets.invitationFlowConstructor();
-    }
+    // await getUserInfo(NoParams());
+    // if (getUserInfo.hasGoneThroughInvitationFlow) {
+    // widgets.postInvitationFlowConstuctor();
+    // } else {
+    widgets.invitationFlowConstructor();
+    // }
     widgets.initReactors(
       onGradientTreeNodeTap: onGradientTreeNodeTap,
       onInvitationFlowFinished: () => updateHasGoneThroughInvitationFlow(true),
     );
-    shareInvitationReactor();
+    initReactors();
     await getExistingCollaborationInfo(NoParams());
     await addNameToDatabaseStore(NoParams());
     await getCollaboratorPhraseStore(NoParams());
@@ -65,6 +69,11 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
     }
   }
 
+  initReactors() {
+    swipeReactor();
+    shareInvitationReactor();
+  }
+
   @action
   onGradientTreeNodeTap() {
     shareCollaborationInvitation(getInvitationURL.link);
@@ -77,6 +86,14 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
         }
       });
 
-  @override
-  List<Object> get props => [];
+  swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
+        switch (p0) {
+          case GestureDirections.up:
+            ifTouchIsNotDisabled(() {
+              widgets.onSwipeUp();
+            });
+          default:
+            break;
+        }
+      });
 }
