@@ -90,4 +90,41 @@ class HomeContractImpl implements HomeContract {
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  Future<Either<Failure, UserJourneyInfoModel>> getUserInfo(
+      NoParams params) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.getUserInfo();
+      return Right(UserJourneyInfoModel.fromSupabase(res));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, HasGoneThroughInvitationFlowUpdateStatusModel>>
+      updateHasGoneThroughInvitationFlow(
+          bool hasGoneThroughInvitationFlowParam) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.updateHasGoneThroughInvitationFlow(
+          hasGoneThroughInvitationFlowParam);
+      return Right(
+          HasGoneThroughInvitationFlowUpdateStatusModel.fromSupabase(res));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, HasSentAnInvitationUpdateStatusModel>>
+      updateHasSentAnInvitation(bool hasSentAnInvitationParam) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource
+          .updateHasSentAnInvitation(hasSentAnInvitationParam);
+      return Right(HasSentAnInvitationUpdateStatusModel.fromSupabase(res));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
 }
