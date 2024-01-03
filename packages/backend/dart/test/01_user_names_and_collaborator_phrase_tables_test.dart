@@ -72,16 +72,14 @@ void main() {
   });
 
   test("should be able to update their `has_sent_invitation` field", () async {
-    final other = await user1UserNameQueries.insertUserInfo(
+    await user1UserNameQueries.insertUserInfo(
       firstNameParam: UserDataConstants.user1FirstName,
       lastNameParam: UserDataConstants.user1LastName,
     );
-    print("other??????? $other");
     final res = await user1UserNameQueries.updateHasSentAnInvitation(true);
-    print("RES??????? $res ");
-    final otherRes = await user1UserNameQueries.getUserInfo();
-    print("other res ==> $otherRes");
+    final dupRes = await user1UserNameQueries.updateHasSentAnInvitation(true);
     expect(res.first[UserNamesQueries.hasSentAnInvitation], true);
+    expect(dupRes.first[UserNamesQueries.hasSentAnInvitation], true);
   });
 
   test(
@@ -93,7 +91,10 @@ void main() {
     );
     final res =
         await user1UserNameQueries.updateHasGoneThroughInvitationFlow(true);
+    final dupRes =
+        await user1UserNameQueries.updateHasGoneThroughInvitationFlow(true);
     expect(res.first[UserNamesQueries.hasGoneThroughInvitationFlow], true);
+    expect(dupRes.first[UserNamesQueries.hasGoneThroughInvitationFlow], true);
   });
 
   test("❌ shouldn't be able to insert another row if they already have one",
