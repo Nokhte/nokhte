@@ -114,6 +114,20 @@ mixin _$HomeScreenWidgetsCoordinator
   }
 
   @override
+  dynamic alreadyDoneInvitationFlowConstructor() {
+    final _$actionInfo =
+        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_HomeScreenWidgetsCoordinatorBase.alreadyDoneInvitationFlowConstructor');
+    try {
+      return super.alreadyDoneInvitationFlowConstructor();
+    } finally {
+      _$_HomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic onConnected() {
     final _$actionInfo = _$_HomeScreenWidgetsCoordinatorBaseActionController
         .startAction(name: '_HomeScreenWidgetsCoordinatorBase.onConnected');

@@ -41,6 +41,13 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   }
 
   @action
+  alreadyDoneInvitationFlowConstructor() {
+    primarySmartText.setMessagesData(MessagesData.empty);
+    secondarySmartText.setMessagesData(MessagesData.empty);
+    beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtOceanDive);
+  }
+
+  @action
   onConnected() {
     if (isDisconnected) toggleIsDisconnected();
   }
@@ -101,8 +108,9 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
 
   initReactors({
     required Function onGradientTreeNodeTap,
+    required Function onInvitationFlowFinished,
   }) {
-    primarySmartTextReactor();
+    primarySmartTextReactor(onInvitationFlowFinished);
     gestureCrossTapReactor();
     wifiDisconnectOverlay.connectionReactor(
       onConnected: onConnected,
@@ -118,13 +126,14 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
         (p0) => onGestureCrossTap(),
       );
 
-  primarySmartTextReactor() =>
+  primarySmartTextReactor(Function onInvitationFlowFinished) =>
       reaction((p0) => primarySmartText.currentIndex, (p0) {
         if (p0 == 3) {
           timeModel.init();
         }
         if (p0 == 6) {
           gradientTreeNode.toggleWidgetVisibility();
+          onInvitationFlowFinished();
         }
       });
 
