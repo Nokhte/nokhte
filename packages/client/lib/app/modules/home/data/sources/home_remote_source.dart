@@ -16,6 +16,10 @@ abstract class HomeRemoteSource {
   Future<List> checkIfTheyHaveCommittedAPurpose();
   Future<ShareResult> shareCollaborationInvitation(String invitationURL);
   Future<BranchResponse> getInvitationURL();
+  Future<List> updateHasSentAnInvitation(bool hasSentAnInvitationParam);
+  Future<List> updateHasGoneThroughInvitationFlow(
+      bool hasGoneThroughInvitationFlowParam);
+  Future<List> getUserInfo();
 }
 
 class HomeRemoteSourceImpl implements HomeRemoteSource {
@@ -102,4 +106,18 @@ class HomeRemoteSourceImpl implements HomeRemoteSource {
     String invitationURL,
   ) async =>
       await Share.shareWithResult(invitationURL);
+
+  @override
+  Future<List> updateHasGoneThroughInvitationFlow(
+          bool hasGoneThroughInvitationFlowParam) async =>
+      await userNamesQueries.updateHasGoneThroughInvitationFlow(
+          hasGoneThroughInvitationFlowParam);
+
+  @override
+  Future<List> updateHasSentAnInvitation(bool hasSentAnInvitationParam) async =>
+      await userNamesQueries
+          .updateHasSentAnInvitation(hasSentAnInvitationParam);
+
+  @override
+  Future<List> getUserInfo() async => await userNamesQueries.getUserInfo();
 }
