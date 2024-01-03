@@ -29,7 +29,7 @@ class LoginScreen extends HookWidget {
         body: Tap(
           store: coordinator.tap,
           child: Swipe(
-            trackerStore: coordinator.swipe,
+            store: coordinator.swipe,
             child: Stack(
               children: [
                 FullScreen(
