@@ -33,15 +33,22 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
 
   @action
   constructor() {
+    gradientTreeNode.toggleWidgetVisibility();
+    primarySmartText.setMessagesData(MessagesData.empty);
+    secondarySmartText.setMessagesData(MessagesData.empty);
+    beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtOceanDive);
+  }
+
+  @action
+  invitationFlowConstructor() {
     primarySmartText.setMessagesData(MessagesData.firstTimeHomeList);
     secondarySmartText.setMessagesData(MessagesData.firstTimeSecondaryHomeList);
     primarySmartText.startRotatingText();
     beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtOceanDive);
-    gradientTreeNode.toggleWidgetVisibility();
   }
 
   @action
-  alreadyDoneInvitationFlowConstructor() {
+  postInvitationFlowConstuctor() {
     primarySmartText.setMessagesData(MessagesData.empty);
     secondarySmartText.setMessagesData(MessagesData.empty);
     beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtOceanDive);

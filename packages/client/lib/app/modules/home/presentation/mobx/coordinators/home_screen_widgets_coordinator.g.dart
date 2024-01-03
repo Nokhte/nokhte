@@ -114,13 +114,27 @@ mixin _$HomeScreenWidgetsCoordinator
   }
 
   @override
-  dynamic alreadyDoneInvitationFlowConstructor() {
+  dynamic invitationFlowConstructor() {
     final _$actionInfo =
         _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
             name:
-                '_HomeScreenWidgetsCoordinatorBase.alreadyDoneInvitationFlowConstructor');
+                '_HomeScreenWidgetsCoordinatorBase.invitationFlowConstructor');
     try {
-      return super.alreadyDoneInvitationFlowConstructor();
+      return super.invitationFlowConstructor();
+    } finally {
+      _$_HomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic postInvitationFlowConstuctor() {
+    final _$actionInfo =
+        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_HomeScreenWidgetsCoordinatorBase.postInvitationFlowConstuctor');
+    try {
+      return super.postInvitationFlowConstuctor();
     } finally {
       _$_HomeScreenWidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
