@@ -6,14 +6,12 @@ import 'package:touchable/touchable.dart';
 import 'canvas/gradient_cross_nokhte_painter.dart';
 
 class GradientCrossNokhte extends StatelessWidget {
-  final Size size;
   final GradientCrossNokhteStore store;
   final List<Offset> offsets;
 
   const GradientCrossNokhte({
     super.key,
     required this.store,
-    required this.size,
     required this.offsets,
   });
 
@@ -32,7 +30,6 @@ class GradientCrossNokhte extends StatelessWidget {
             ],
             builder: (context) => CustomPaint(
               painter: GradientCrossNokhtePainter(
-                canvasSize: size,
                 context: context,
                 offsets: offsets,
                 gradients: [

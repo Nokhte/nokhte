@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 
 class GradientCrossNokhtePainter extends CustomPainter {
-  final Size canvasSize;
   final BuildContext context;
   final List<Offset> offsets;
   final List<List<Color>> gradients;
   final List<List<double>> stops;
 
   GradientCrossNokhtePainter({
-    required this.canvasSize,
     required this.context,
     required this.offsets,
     required this.gradients,
