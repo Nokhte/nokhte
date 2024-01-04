@@ -11,6 +11,7 @@ class HomeWidgetsModule extends Module {
         TimeAlignmentModelModule(),
         CircleExplanationModule(),
         SmartTextModule(),
+        GestureCrossModule(),
       ];
 
   @override
@@ -28,7 +29,7 @@ class HomeWidgetsModule extends Module {
         primarySmartText: i<SmartTextStore>(),
         secondarySmartText: i<SmartTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        gestureCross: Modular.get<CrossStore>(),
+        gestureCross: Modular.get<GestureCrossStore>(),
         beachWaves: Modular.get<BeachWavesStore>(),
       ),
     );
