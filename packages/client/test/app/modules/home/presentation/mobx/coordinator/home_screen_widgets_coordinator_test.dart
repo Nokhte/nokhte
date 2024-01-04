@@ -79,7 +79,7 @@ void main() {
       await testStore.constructor();
       expect(primarySmartText.messagesData, MessagesData.empty);
       expect(secondarySmartText.messagesData, MessagesData.empty);
-      expect(beachWaves.movieMode, BeachWaveMovieModes.suspendedAtOceanDive);
+      expect(beachWaves.movieMode, BeachWaveMovieModes.onShore);
     });
 
     test("invitationFlowConstructor", () {
@@ -88,7 +88,7 @@ void main() {
       expect(primarySmartText.messagesData, MessagesData.firstTimeHomeList);
       expect(secondarySmartText.messagesData,
           MessagesData.firstTimeSecondaryHomeList);
-      expect(beachWaves.movieMode, BeachWaveMovieModes.suspendedAtOceanDive);
+      expect(beachWaves.movieMode, BeachWaveMovieModes.onShore);
     });
 
     test("postInvitationFlowConstuctor", () {
@@ -97,7 +97,7 @@ void main() {
       expect(
           primarySmartText.messagesData, MessagesData.postInvitationFlowText);
       expect(secondarySmartText.messagesData, MessagesData.empty);
-      expect(beachWaves.movieMode, BeachWaveMovieModes.suspendedAtOceanDive);
+      expect(beachWaves.movieMode, BeachWaveMovieModes.onShore);
     });
 
     group("constructor dependendent", () {
@@ -122,7 +122,7 @@ void main() {
         testStore.onAvailabilitySectorMovieStatusFinished(MovieStatus.finished);
         expect(timeModel.clockFace.control, Control.playReverseFromEnd);
         expect(secondarySmartText.control, Control.stop);
-        expect(beachWaves.currentControl, Control.stop);
+        expect(beachWaves.currentControl, Control.mirror);
         expect(testStore.secondarySmartText.showWidget, false);
         expect(nokhteBlurStore.control, Control.stop);
       });
