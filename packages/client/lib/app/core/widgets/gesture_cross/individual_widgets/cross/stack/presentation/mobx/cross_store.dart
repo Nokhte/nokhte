@@ -4,11 +4,11 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_custom_animated_widget_store.dart';
 import 'package:nokhte/app/core/widgets/shared/constants/svg_animation_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-part 'gesture_cross_store.g.dart';
+part 'cross_store.g.dart';
 
-class GestureCrossStore = _GestureCrossStoreBase with _$GestureCrossStore;
+class CrossStore = _CrossStoreBase with _$CrossStore;
 
-abstract class _GestureCrossStoreBase extends BaseCustomAnimatedWidgetStore
+abstract class _CrossStoreBase extends BaseCustomAnimatedWidgetStore
     with Store {
   final Path path = SvgAnimtionConstants.crossPath;
   final Rect bounds = SvgAnimtionConstants.crossPath.getBounds();

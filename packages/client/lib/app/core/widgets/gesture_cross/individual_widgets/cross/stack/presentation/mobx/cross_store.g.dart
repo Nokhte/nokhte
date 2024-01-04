@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'gesture_cross_store.dart';
+part of 'cross_store.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,9 +8,9 @@ part of 'gesture_cross_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$GestureCrossStore on _GestureCrossStoreBase, Store {
+mixin _$CrossStore on _CrossStoreBase, Store {
   late final _$circleInformationAtom =
-      Atom(name: '_GestureCrossStoreBase.circleInformation', context: context);
+      Atom(name: '_CrossStoreBase.circleInformation', context: context);
 
   @override
   ObservableList<CircleInformation> get circleInformation {
@@ -26,7 +26,7 @@ mixin _$GestureCrossStore on _GestureCrossStoreBase, Store {
   }
 
   late final _$tapCountAtom =
-      Atom(name: '_GestureCrossStoreBase.tapCount', context: context);
+      Atom(name: '_CrossStoreBase.tapCount', context: context);
 
   @override
   int get tapCount {
@@ -41,17 +41,17 @@ mixin _$GestureCrossStore on _GestureCrossStoreBase, Store {
     });
   }
 
-  late final _$_GestureCrossStoreBaseActionController =
-      ActionController(name: '_GestureCrossStoreBase', context: context);
+  late final _$_CrossStoreBaseActionController =
+      ActionController(name: '_CrossStoreBase', context: context);
 
   @override
   dynamic incrementTapCount() {
-    final _$actionInfo = _$_GestureCrossStoreBaseActionController.startAction(
-        name: '_GestureCrossStoreBase.incrementTapCount');
+    final _$actionInfo = _$_CrossStoreBaseActionController.startAction(
+        name: '_CrossStoreBase.incrementTapCount');
     try {
       return super.incrementTapCount();
     } finally {
-      _$_GestureCrossStoreBaseActionController.endAction(_$actionInfo);
+      _$_CrossStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 

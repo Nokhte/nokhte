@@ -6,12 +6,12 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:touchable/touchable.dart';
-import 'canvas/gesture_cross_painter.dart';
+import 'canvas/cross_painter.dart';
 
-class GestureCross extends StatelessWidget {
+class Cross extends StatelessWidget {
   final Size size;
-  final GestureCrossStore store;
-  const GestureCross({
+  final CrossStore store;
+  const Cross({
     super.key,
     required this.size,
     required this.store,
@@ -48,7 +48,7 @@ class GestureCross extends StatelessWidget {
                           GestureType.onTapUp,
                         ],
                         builder: (context) => CustomPaint(
-                          painter: GestureCrossPainter(
+                          painter: CrossPainter(
                             context,
                             store.path,
                             store.bounds,

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:touchable/touchable.dart';
 
-class GestureCrossPainter extends CustomPainter {
+class CrossPainter extends CustomPainter {
   final BuildContext context;
   Function onTap;
   Path path;
@@ -14,7 +14,7 @@ class GestureCrossPainter extends CustomPainter {
   ColorsAndStops crossGradient;
   List<CircleInformation> circleInformation;
 
-  GestureCrossPainter(
+  CrossPainter(
     this.context,
     this.path,
     this.pathBounds,
@@ -87,5 +87,5 @@ class GestureCrossPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(GestureCrossPainter oldDelegate) => true;
+  bool shouldRepaint(CrossPainter oldDelegate) => true;
 }
