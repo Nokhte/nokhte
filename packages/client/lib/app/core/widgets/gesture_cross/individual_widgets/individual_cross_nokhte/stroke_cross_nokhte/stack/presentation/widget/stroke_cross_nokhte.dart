@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class GradientCrossNokhte extends StatelessWidget {
-  const GradientCrossNokhte({super.key});
+class StrokeCrossNokhte extends StatelessWidget {
+  const StrokeCrossNokhte({super.key});
 
   @override
   Widget build(BuildContext context) {
