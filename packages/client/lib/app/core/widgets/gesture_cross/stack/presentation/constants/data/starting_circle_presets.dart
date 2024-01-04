@@ -32,3 +32,16 @@ class StartingCirclePresets {
         ),
       ];
 }
+
+        // CircleInformation(
+        //   colorOrGradient: const Right(ColorsAndStops(
+        //     colors: [
+        //       Color(0xFF407F74),
+        //       Color(0xFF53A28F),
+        //       Color(0xFF866243),
+        //       Color(0xFFCBB28E),
+        //     ],
+        //     stops: [0, .55, .56, 1],
+        //   )),
+        //   offset: CircleOffsets.center,
+        // ),
