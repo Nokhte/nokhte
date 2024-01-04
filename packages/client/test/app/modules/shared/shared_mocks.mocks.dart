@@ -1022,6 +1022,15 @@ class MockBeachWavesStore extends _i1.Mock implements _i5.BeachWavesStore {
       );
 
   @override
+  dynamic setMovieStatus(_i7.MovieStatus? newMovieStatus) => super.noSuchMethod(
+        Invocation.method(
+          #setMovieStatus,
+          [newMovieStatus],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   dynamic setMovieMode(_i8.BeachWaveMovieModes? newMovieMode) =>
       super.noSuchMethod(
         Invocation.method(

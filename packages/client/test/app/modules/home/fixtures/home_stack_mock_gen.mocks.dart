@@ -366,17 +366,6 @@ class _FakeSmartTextStore_27 extends _i1.SmartFake
         );
 }
 
-class _FakeGradientTreeNodeStore_28 extends _i1.SmartFake
-    implements _i16.GradientTreeNodeStore {
-  _FakeGradientTreeNodeStore_28(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
 /// A class which mocks [HomeRemoteSourceImpl].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -2902,19 +2891,6 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
       ) as _i16.SmartTextStore);
 
   @override
-  _i16.GradientTreeNodeStore get gradientTreeNode => (super.noSuchMethod(
-        Invocation.getter(#gradientTreeNode),
-        returnValue: _FakeGradientTreeNodeStore_28(
-          this,
-          Invocation.getter(#gradientTreeNode),
-        ),
-        returnValueForMissingStub: _FakeGradientTreeNodeStore_28(
-          this,
-          Invocation.getter(#gradientTreeNode),
-        ),
-      ) as _i16.GradientTreeNodeStore);
-
-  @override
   bool get clockAnimationHasNotStarted => (super.noSuchMethod(
         Invocation.getter(#clockAnimationHasNotStarted),
         returnValue: false,
@@ -2995,6 +2971,22 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
       );
 
   @override
+  bool get hasSwipedUp => (super.noSuchMethod(
+        Invocation.getter(#hasSwipedUp),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set hasSwipedUp(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #hasSwipedUp,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   List<Object> get props => (super.noSuchMethod(
         Invocation.getter(#props),
         returnValue: <Object>[],
@@ -3037,16 +3029,6 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
         Invocation.method(
           #primarySmartTextReactor,
           [onInvitationFlowFinished],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  dynamic gradientTreeNodeTapReactor(Function? onGradientTreeNodeTap) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #gradientTreeNodeTapReactor,
-          [onGradientTreeNodeTap],
         ),
         returnValueForMissingStub: null,
       );
