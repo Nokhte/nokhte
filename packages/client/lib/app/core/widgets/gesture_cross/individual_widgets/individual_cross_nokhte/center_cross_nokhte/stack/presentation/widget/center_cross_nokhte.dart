@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SolidColorCrossNokhte extends StatelessWidget {
-  const SolidColorCrossNokhte({super.key});
+class CenterCrossNokhte extends StatelessWidget {
+  const CenterCrossNokhte({super.key});
 
   @override
   Widget build(BuildContext context) {
