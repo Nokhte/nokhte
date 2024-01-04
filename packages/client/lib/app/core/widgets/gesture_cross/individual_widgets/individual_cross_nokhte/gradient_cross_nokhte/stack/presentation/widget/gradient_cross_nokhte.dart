@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:nokhte/app/core/widgets/gesture_cross/individual_widgets/individual_cross_nokhte/gradient_cross_nokhte/stack/utils/gradient_cross_nokhte_utils.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:touchable/touchable.dart';
@@ -8,11 +9,13 @@ import 'canvas/gradient_cross_nokhte_painter.dart';
 class GradientCrossNokhte extends StatelessWidget {
   final GradientCrossNokhteStore store;
   final List<Offset> offsets;
+  final List<int> gradientColorLengths;
 
   const GradientCrossNokhte({
     super.key,
     required this.store,
     required this.offsets,
+    required this.gradientColorLengths,
   });
 
   @override
@@ -32,22 +35,16 @@ class GradientCrossNokhte extends StatelessWidget {
               painter: GradientCrossNokhtePainter(
                 context: context,
                 offsets: offsets,
-                gradients: [
-                  [
-                    value.get('color1'),
-                    value.get('color2'),
-                    value.get('color3'),
-                    value.get('color4'),
-                  ]
-                ],
-                stops: [
-                  [
-                    value.get('stop1'),
-                    value.get('stop2'),
-                    value.get('stop3'),
-                    value.get('stop4'),
-                  ]
-                ],
+                gradients: GradientCrossNokhteUtils.getGradients(
+                  value,
+                  offsets,
+                  gradientColorLengths,
+                ),
+                stops: GradientCrossNokhteUtils.getStops(
+                  value,
+                  offsets,
+                  gradientColorLengths,
+                ),
               ),
             ),
           ),
