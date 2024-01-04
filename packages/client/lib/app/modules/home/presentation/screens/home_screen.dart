@@ -52,6 +52,9 @@ class HomeScreen extends HookWidget {
               store: coordinator.widgets.timeModel,
             ),
             GestureCross(
+              config: const GestureCrossConfiguration(
+                top: GestureCrossNokhteTypes.gradient,
+              ),
               size: size,
               store: coordinator.widgets.gestureCross,
             ),
