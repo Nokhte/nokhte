@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nokhte/app/core/extensions/extensions.dart';
+// import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:touchable/touchable.dart';
 
@@ -81,9 +81,9 @@ class GestureCrossPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final touchableCanvas = TouchyCanvas(context, canvas);
     paintCross(touchableCanvas, size);
-    final center = Offset(width.half(), height.half());
-    const radius = 4.5;
-    paintCircles(canvas, size, center, radius, circleInformation);
+    // final center = Offset(width.half(), height.half());
+    // const radius = 4.5;
+    // paintCircles(canvas, size, center, radius, circleInformation);
   }
 
   @override
