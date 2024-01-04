@@ -8,4 +8,6 @@ class CircleOffsets {
 
   static Offset get top => const Offset(.5, 28);
   static Offset get bottom => const Offset(.5, -20);
+
+  static List<Offset> get directions => [top, bottom, left, right];
 }
