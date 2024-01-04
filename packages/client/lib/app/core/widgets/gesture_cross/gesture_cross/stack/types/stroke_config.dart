@@ -1,0 +1,3 @@
+class StrokeConfig {
+  const StrokeConfig();
+}
