@@ -18,7 +18,6 @@ void main() {
   late HomeScreenWidgetsCoordinator testStore;
   late NokhteBlurStore nokhteBlurStore;
   late TimeAlignmentModelCoordinator timeModel;
-  late GradientTreeNodeStore gradientTreeNode;
   late MockGetOnConnectivityChangedStore mockConnectivity;
   setUp(() {
     mockConnectivity = MockGetOnConnectivityChangedStore();
@@ -28,7 +27,6 @@ void main() {
         connectivity: mockConnectivity,
       ),
     );
-    gradientTreeNode = GradientTreeNodeStore();
     secondarySmartText = SmartTextStore();
     beachWaves = SharedTestUtils.getBeachWaves();
     wifiDisconnectOverlay = MockWifiDisconnectOverlayStore();
@@ -37,7 +35,6 @@ void main() {
     primarySmartText = SmartTextStore();
 
     testStore = HomeScreenWidgetsCoordinator(
-      gradientTreeNode: gradientTreeNode,
       timeModel: timeModel,
       nokhteBlur: nokhteBlurStore,
       beachWaves: beachWaves,
@@ -83,7 +80,6 @@ void main() {
       expect(primarySmartText.messagesData, MessagesData.empty);
       expect(secondarySmartText.messagesData, MessagesData.empty);
       expect(beachWaves.movieMode, BeachWaveMovieModes.suspendedAtOceanDive);
-      expect(gradientTreeNode.showWidget, false);
     });
 
     test("invitationFlowConstructor", () {
@@ -93,7 +89,6 @@ void main() {
       expect(secondarySmartText.messagesData,
           MessagesData.firstTimeSecondaryHomeList);
       expect(beachWaves.movieMode, BeachWaveMovieModes.suspendedAtOceanDive);
-      expect(gradientTreeNode.showWidget, false);
     });
 
     test("postInvitationFlowConstuctor", () {
@@ -103,7 +98,6 @@ void main() {
           primarySmartText.messagesData, MessagesData.postInvitationFlowText);
       expect(secondarySmartText.messagesData, MessagesData.empty);
       expect(beachWaves.movieMode, BeachWaveMovieModes.suspendedAtOceanDive);
-      expect(gradientTreeNode.showWidget, true);
     });
 
     group("constructor dependendent", () {
