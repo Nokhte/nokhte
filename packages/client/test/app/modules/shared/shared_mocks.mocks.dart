@@ -249,8 +249,8 @@ class _FakeBaseBeachWaveMovieStore_19<T> extends _i1.SmartFake
         );
 }
 
-class _FakePath_20 extends _i1.SmartFake implements _i6.Path {
-  _FakePath_20(
+class _FakeCrossStore_20 extends _i1.SmartFake implements _i5.CrossStore {
+  _FakeCrossStore_20(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -259,8 +259,9 @@ class _FakePath_20 extends _i1.SmartFake implements _i6.Path {
         );
 }
 
-class _FakeRect_21 extends _i1.SmartFake implements _i6.Rect {
-  _FakeRect_21(
+class _FakeGradientCrossNokhteStore_21 extends _i1.SmartFake
+    implements _i5.GradientCrossNokhteStore {
+  _FakeGradientCrossNokhteStore_21(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -1041,185 +1042,35 @@ class MockBeachWavesStore extends _i1.Mock implements _i5.BeachWavesStore {
       );
 }
 
-/// A class which mocks [CrossStore].
+/// A class which mocks [GestureCrossStore].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCrossStore extends _i1.Mock implements _i5.CrossStore {
+class MockGestureCrossStore extends _i1.Mock implements _i5.GestureCrossStore {
   @override
-  _i6.Path get path => (super.noSuchMethod(
-        Invocation.getter(#path),
-        returnValue: _FakePath_20(
+  _i5.CrossStore get cross => (super.noSuchMethod(
+        Invocation.getter(#cross),
+        returnValue: _FakeCrossStore_20(
           this,
-          Invocation.getter(#path),
+          Invocation.getter(#cross),
         ),
-        returnValueForMissingStub: _FakePath_20(
+        returnValueForMissingStub: _FakeCrossStore_20(
           this,
-          Invocation.getter(#path),
+          Invocation.getter(#cross),
         ),
-      ) as _i6.Path);
+      ) as _i5.CrossStore);
 
   @override
-  _i6.Rect get bounds => (super.noSuchMethod(
-        Invocation.getter(#bounds),
-        returnValue: _FakeRect_21(
+  _i5.GradientCrossNokhteStore get gradientNokhte => (super.noSuchMethod(
+        Invocation.getter(#gradientNokhte),
+        returnValue: _FakeGradientCrossNokhteStore_21(
           this,
-          Invocation.getter(#bounds),
+          Invocation.getter(#gradientNokhte),
         ),
-        returnValueForMissingStub: _FakeRect_21(
+        returnValueForMissingStub: _FakeGradientCrossNokhteStore_21(
           this,
-          Invocation.getter(#bounds),
+          Invocation.getter(#gradientNokhte),
         ),
-      ) as _i6.Rect);
-
-  @override
-  _i4.ObservableList<_i5.CircleInformation> get circleInformation =>
-      (super.noSuchMethod(
-        Invocation.getter(#circleInformation),
-        returnValue: _FakeObservableList_18<_i5.CircleInformation>(
-          this,
-          Invocation.getter(#circleInformation),
-        ),
-        returnValueForMissingStub:
-            _FakeObservableList_18<_i5.CircleInformation>(
-          this,
-          Invocation.getter(#circleInformation),
-        ),
-      ) as _i4.ObservableList<_i5.CircleInformation>);
-
-  @override
-  set circleInformation(_i4.ObservableList<_i5.CircleInformation>? value) =>
-      super.noSuchMethod(
-        Invocation.setter(
-          #circleInformation,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  int get tapCount => (super.noSuchMethod(
-        Invocation.getter(#tapCount),
-        returnValue: 0,
-        returnValueForMissingStub: 0,
-      ) as int);
-
-  @override
-  set tapCount(int? value) => super.noSuchMethod(
-        Invocation.setter(
-          #tapCount,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  bool get callsOnCompleteTwice => (super.noSuchMethod(
-        Invocation.getter(#callsOnCompleteTwice),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool);
-
-  @override
-  _i3.MovieTween get movie => (super.noSuchMethod(
-        Invocation.getter(#movie),
-        returnValue: _FakeMovieTween_2(
-          this,
-          Invocation.getter(#movie),
-        ),
-        returnValueForMissingStub: _FakeMovieTween_2(
-          this,
-          Invocation.getter(#movie),
-        ),
-      ) as _i3.MovieTween);
-
-  @override
-  set movie(_i3.MovieTween? value) => super.noSuchMethod(
-        Invocation.setter(
-          #movie,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i3.Control get control => (super.noSuchMethod(
-        Invocation.getter(#control),
-        returnValue: _i3.Control.stop,
-        returnValueForMissingStub: _i3.Control.stop,
-      ) as _i3.Control);
-
-  @override
-  set control(_i3.Control? value) => super.noSuchMethod(
-        Invocation.setter(
-          #control,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i3.Control get pastControl => (super.noSuchMethod(
-        Invocation.getter(#pastControl),
-        returnValue: _i3.Control.stop,
-        returnValueForMissingStub: _i3.Control.stop,
-      ) as _i3.Control);
-
-  @override
-  set pastControl(_i3.Control? value) => super.noSuchMethod(
-        Invocation.setter(
-          #pastControl,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  bool get showWidget => (super.noSuchMethod(
-        Invocation.getter(#showWidget),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool);
-
-  @override
-  set showWidget(bool? value) => super.noSuchMethod(
-        Invocation.setter(
-          #showWidget,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i7.MovieStatus get movieStatus => (super.noSuchMethod(
-        Invocation.getter(#movieStatus),
-        returnValue: _i7.MovieStatus.idle,
-        returnValueForMissingStub: _i7.MovieStatus.idle,
-      ) as _i7.MovieStatus);
-
-  @override
-  set movieStatus(_i7.MovieStatus? value) => super.noSuchMethod(
-        Invocation.setter(
-          #movieStatus,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  bool get hasFadedIn => (super.noSuchMethod(
-        Invocation.getter(#hasFadedIn),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool);
-
-  @override
-  set hasFadedIn(bool? value) => super.noSuchMethod(
-        Invocation.setter(
-          #hasFadedIn,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
+      ) as _i5.GradientCrossNokhteStore);
 
   @override
   List<Object> get props => (super.noSuchMethod(
@@ -1240,42 +1091,6 @@ class MockCrossStore extends _i1.Mock implements _i5.CrossStore {
           Invocation.getter(#context),
         ),
       ) as _i4.ReactiveContext);
-
-  @override
-  dynamic setPastControl(_i3.Control? newControl) => super.noSuchMethod(
-        Invocation.method(
-          #setPastControl,
-          [newControl],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void setMovie(_i3.MovieTween? newMovie) => super.noSuchMethod(
-        Invocation.method(
-          #setMovie,
-          [newMovie],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void setControl(_i3.Control? newControl) => super.noSuchMethod(
-        Invocation.method(
-          #setControl,
-          [newControl],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  dynamic setMovieStatus(_i7.MovieStatus? newMovieStatus) => super.noSuchMethod(
-        Invocation.method(
-          #setMovieStatus,
-          [newMovieStatus],
-        ),
-        returnValueForMissingStub: null,
-      );
 }
 
 /// A class which mocks [TimeAlignmentModelCoordinator].

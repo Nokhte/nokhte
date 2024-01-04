@@ -344,8 +344,9 @@ class _FakeWifiDisconnectOverlayStore_25 extends _i1.SmartFake
         );
 }
 
-class _FakeCrossStore_26 extends _i1.SmartFake implements _i16.CrossStore {
-  _FakeCrossStore_26(
+class _FakeGestureCrossStore_26 extends _i1.SmartFake
+    implements _i16.GestureCrossStore {
+  _FakeGestureCrossStore_26(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -2851,17 +2852,17 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
       ) as _i16.WifiDisconnectOverlayStore);
 
   @override
-  _i16.CrossStore get gestureCross => (super.noSuchMethod(
+  _i16.GestureCrossStore get gestureCross => (super.noSuchMethod(
         Invocation.getter(#gestureCross),
-        returnValue: _FakeCrossStore_26(
+        returnValue: _FakeGestureCrossStore_26(
           this,
           Invocation.getter(#gestureCross),
         ),
-        returnValueForMissingStub: _FakeCrossStore_26(
+        returnValueForMissingStub: _FakeGestureCrossStore_26(
           this,
           Invocation.getter(#gestureCross),
         ),
-      ) as _i16.CrossStore);
+      ) as _i16.GestureCrossStore);
 
   @override
   _i16.SmartTextStore get primarySmartText => (super.noSuchMethod(
