@@ -2,7 +2,6 @@ export 'beach_widgets/beach_widgets.dart';
 export 'explanatory_model_widgets/explanatory_model_widgets.dart';
 export 'full_screen/full_screen.dart';
 export 'gesture_cross/gesture_cross.dart';
-export 'gesture_pill/gesture_pill.dart';
 export 'gestures/gestures.dart';
 export 'gradient_tree_node/gradient_tree_node.dart';
 export 'multi_hit_stack/multi_hit_stack.dart';
