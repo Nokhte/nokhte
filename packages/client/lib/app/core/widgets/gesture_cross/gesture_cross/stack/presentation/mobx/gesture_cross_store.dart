@@ -9,10 +9,12 @@ class GestureCrossStore = _GestureCrossStoreBase with _$GestureCrossStore;
 abstract class _GestureCrossStoreBase extends Equatable with Store {
   final CrossStore cross;
   final GradientCrossNokhteStore gradientNokhte;
+  final CenterCrossNokhteStore centerCrossNokhte;
 
   _GestureCrossStoreBase({
     required this.cross,
     required this.gradientNokhte,
+    required this.centerCrossNokhte,
   });
 
   @override
