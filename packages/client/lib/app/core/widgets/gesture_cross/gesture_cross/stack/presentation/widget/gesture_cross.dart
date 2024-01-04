@@ -5,10 +5,12 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 class GestureCross extends StatelessWidget {
   final Size size;
   final GestureCrossStore store;
+  final GestureCrossConfiguration config;
   const GestureCross({
     super.key,
     required this.store,
     required this.size,
+    required this.config,
   });
 
   @override
@@ -34,16 +36,14 @@ class GestureCross extends StatelessWidget {
                         size: size,
                         store: store.cross,
                       ),
-                      StrokeCrossNokhte(offsets: [
-                        CircleOffsets.bottom,
-                        CircleOffsets.left,
-                        CircleOffsets.right,
-                      ]),
+                      StrokeCrossNokhte(
+                        offsets: config.getStrokeOffsets(),
+                      ),
                       CenterCrossNokhte(
                         store: store.centerCrossNokhte,
                       ),
                       GradientCrossNokhte(
-                        offsets: [CircleOffsets.top],
+                        offsets: config.getGradientOffsets(),
                         store: store.gradientNokhte,
                       ),
                     ],
