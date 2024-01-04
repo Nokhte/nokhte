@@ -1,1 +1,1 @@
-export 'stack/stack.dart';
+export 'widget/stroke_cross_nokhte.dart';
