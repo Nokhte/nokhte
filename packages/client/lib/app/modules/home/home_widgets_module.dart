@@ -15,8 +15,8 @@ class HomeWidgetsModule extends Module {
 
   @override
   exportedBinds(i) {
-    i.add<GestureCrossStore>(
-      () => GestureCrossStore(),
+    i.add<CrossStore>(
+      () => CrossStore(),
     );
     i.addSingleton<NokhteBlurStore>(
       () => NokhteBlurStore(),
@@ -28,7 +28,7 @@ class HomeWidgetsModule extends Module {
         primarySmartText: i<SmartTextStore>(),
         secondarySmartText: i<SmartTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        gestureCross: Modular.get<GestureCrossStore>(),
+        gestureCross: Modular.get<CrossStore>(),
         beachWaves: Modular.get<BeachWavesStore>(),
       ),
     );

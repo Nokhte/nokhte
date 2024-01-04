@@ -51,7 +51,7 @@ class HomeScreen extends HookWidget {
             TimeAlignmentModelWidget(
               store: coordinator.widgets.timeModel,
             ),
-            GestureCross(
+            Cross(
               size: size,
               store: coordinator.widgets.gestureCross,
             ),

@@ -1041,10 +1041,10 @@ class MockBeachWavesStore extends _i1.Mock implements _i5.BeachWavesStore {
       );
 }
 
-/// A class which mocks [GestureCrossStore].
+/// A class which mocks [CrossStore].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGestureCrossStore extends _i1.Mock implements _i5.GestureCrossStore {
+class MockCrossStore extends _i1.Mock implements _i5.CrossStore {
   @override
   _i6.Path get path => (super.noSuchMethod(
         Invocation.getter(#path),

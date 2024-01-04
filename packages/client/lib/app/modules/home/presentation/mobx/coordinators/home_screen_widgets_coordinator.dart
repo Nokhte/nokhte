@@ -16,7 +16,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   final NokhteBlurStore nokhteBlur;
   final BeachWavesStore beachWaves;
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
-  final GestureCrossStore gestureCross;
+  final CrossStore gestureCross;
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
 
