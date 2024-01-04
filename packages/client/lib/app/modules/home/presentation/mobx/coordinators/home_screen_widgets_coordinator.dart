@@ -16,7 +16,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   final NokhteBlurStore nokhteBlur;
   final BeachWavesStore beachWaves;
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
-  final CrossStore gestureCross;
+  final GestureCrossStore gestureCross;
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
 
@@ -143,7 +143,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   }
 
   gestureCrossTapReactor() => reaction(
-        (p0) => gestureCross.tapCount,
+        (p0) => gestureCross.cross.tapCount,
         (p0) => onGestureCrossTap(),
       );
 
