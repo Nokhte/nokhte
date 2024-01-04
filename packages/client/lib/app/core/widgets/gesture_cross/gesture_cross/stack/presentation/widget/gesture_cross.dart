@@ -34,6 +34,11 @@ class GestureCross extends StatelessWidget {
                         size: size,
                         store: store.cross,
                       ),
+                      StrokeCrossNokhte(offsets: [
+                        CircleOffsets.bottom,
+                        CircleOffsets.left,
+                        CircleOffsets.right,
+                      ]),
                       CenterCrossNokhte(
                         store: store.centerCrossNokhte,
                       ),
