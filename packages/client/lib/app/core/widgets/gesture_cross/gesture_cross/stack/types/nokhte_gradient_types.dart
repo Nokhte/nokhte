@@ -1,0 +1,4 @@
+enum NokhteGradientTypes {
+  vibrantBlue,
+  water,
+}
