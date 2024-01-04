@@ -12,7 +12,7 @@ import '../../../../shared/shared_test_utils.dart';
 void main() {
   late BeachWavesStore beachWaves;
   late MockWifiDisconnectOverlayStore wifiDisconnectOverlay;
-  late CrossStore gestureCross;
+  late MockGestureCrossStore gestureCross;
   late SmartTextStore primarySmartText;
   late SmartTextStore secondarySmartText;
   late HomeScreenWidgetsCoordinator testStore;
@@ -30,7 +30,7 @@ void main() {
     secondarySmartText = SmartTextStore();
     beachWaves = SharedTestUtils.getBeachWaves();
     wifiDisconnectOverlay = MockWifiDisconnectOverlayStore();
-    gestureCross = CrossStore();
+    gestureCross = MockGestureCrossStore();
     nokhteBlurStore = NokhteBlurStore();
     primarySmartText = SmartTextStore();
 
