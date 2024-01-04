@@ -9,28 +9,28 @@ class WaterGradientNokhteMovie {
       end: Seconds.get(2),
     )
         .tween(
-          'color1',
+          'circle1color1',
           ColorTween(
             begin: const Color(0xFF407F74),
             end: const Color(0xFF407F74),
           ),
         )
         .tween(
-          'stop1',
+          'circle1stop1',
           Tween<double>(
             begin: 0,
             end: 0,
           ),
         )
         .tween(
-          'color2',
+          'circle1color2',
           ColorTween(
             begin: const Color(0xFF53A28F),
             end: const Color(0xFF53A28F),
           ),
         )
         .tween(
-          'stop2',
+          'circle1stop2',
           Tween<double>(
             begin: 0.35,
             end: 0.6,
@@ -38,14 +38,14 @@ class WaterGradientNokhteMovie {
           curve: Curves.easeOut,
         )
         .tween(
-          'color3',
+          'circle1color3',
           ColorTween(
             begin: const Color(0xFF866243),
             end: const Color(0xFF866243),
           ),
         )
         .tween(
-          'stop3',
+          'circle1stop3',
           Tween<double>(
             begin: 0.36,
             end: 0.61,
@@ -53,14 +53,14 @@ class WaterGradientNokhteMovie {
           curve: Curves.easeOut,
         )
         .tween(
-          'color4',
+          'circle1color4',
           ColorTween(
             begin: const Color(0xFFCBB28E),
             end: const Color(0xFFCBB28E),
           ),
         )
         .tween(
-          'stop4',
+          'circle1stop4',
           Tween<double>(
             begin: 1,
             end: 1,
