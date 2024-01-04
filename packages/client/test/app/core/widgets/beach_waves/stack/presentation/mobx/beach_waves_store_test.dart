@@ -120,7 +120,7 @@ void main() {
       test("onShoreToOceanDive key", () {
         final res = testStore
             .movieModeToStoreLookup[BeachWaveMovieModes.onShoreToOceanDive];
-        expect(res?.movie.duration, Seconds.get(5));
+        expect(res?.movie.duration, Seconds.get(3));
       });
       test("onShoreToOceanDive key", () {
         final oceanDiveRes = testStore
