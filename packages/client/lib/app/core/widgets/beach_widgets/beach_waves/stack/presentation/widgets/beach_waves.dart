@@ -30,15 +30,16 @@ class BeachWaves extends HookWidget {
                     GetCurrentWaterAnimation.values(value);
                 if (store.movieMode ==
                     BeachWaveMovieModes.onShoreToOceanDiveSetup) {
+                  store.setMovieStatus(MovieStatus.inProgress);
                   store.setMovieMode(BeachWaveMovieModes.onShoreToOceanDive);
                   store.currentStore.initMovie(currentAnimationValues.first);
                 } else if (store.movieMode ==
                     BeachWaveMovieModes.timesUpDynamicPointToTheDepthsSetup) {
                   store.setPivotColors(currentAnimationValues);
-                  store.setMovieStatus(MovieStatus.inProgress);
                   store.setMovieMode(
                       BeachWaveMovieModes.timesUpDynamicPointToTheDepths);
                   store.currentStore.initMovie(store.pivotColors);
+                  store.setMovieStatus(MovieStatus.inProgress);
                 }
                 return CustomPaint(
                   painter: BeachWavesPainter(
