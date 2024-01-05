@@ -24,6 +24,17 @@ mixin _$GestureCrossStore on _GestureCrossStoreBase, Store {
   }
 
   @override
+  dynamic setCollaborationHomeScreen() {
+    final _$actionInfo = _$_GestureCrossStoreBaseActionController.startAction(
+        name: '_GestureCrossStoreBase.setCollaborationHomeScreen');
+    try {
+      return super.setCollaborationHomeScreen();
+    } finally {
+      _$_GestureCrossStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic initMoveAndRegenerate(Offset endDirection) {
     final _$actionInfo = _$_GestureCrossStoreBaseActionController.startAction(
         name: '_GestureCrossStoreBase.initMoveAndRegenerate');
