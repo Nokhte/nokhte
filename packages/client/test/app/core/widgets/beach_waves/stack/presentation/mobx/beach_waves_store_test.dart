@@ -5,25 +5,10 @@ import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 
+import '../../../../../../modules/shared/shared_test_utils.dart';
+
 void main() {
   late BeachWavesStore testStore;
-  late OnShoreToOceanDiveMovieStore onShoreToOceanDiveMovieStore;
-  late BlackOutToDrySandMovieStore blackOutToDrySandMovieStore;
-  late OnShoreMovieStore onShoreMovieStore;
-  late SuspendedAtOceanDiveStore suspendedAtOceanDiveStore;
-  late SuspendedAtTheDepthsMovieStore suspendedAtTheDepthsMovieStore;
-  late OceanDiveToOnShoreMovieStore oceanDiveToOnShoreMovieStore;
-  late TimesUpMovieStore timesUpMovieStore;
-  late OceanDiveToTimesUpStartMovieStore oceanDiveToTimesUpStartMovieStore;
-  late TimesUpEndToOceanDiveMovieStore timesUpEndToOceanDiveMovie;
-  late TimesUpDynamicPointToTheDepthsMovieStore
-      timesUpDynamicPointToTheDepthsMovieStore;
-  late TimesUpEndToTheDepthsMovieStore timesUpEndToTheDepthsMovieStore;
-  late BlackOutMovieStore blackOutMovieStore;
-  late WaterFromTopToOnShoreMoviePart1Store
-      waterFromTopToOnShoreMoviePart1Store;
-  late WaterFromTopToOnShoreMoviePart2Store
-      waterFromTopToOnShoreMoviePart2Store;
   List mockAnimationValues = [
     0.0, // water y values
     Colors.black, // water colors
@@ -45,43 +30,7 @@ void main() {
   ];
 
   setUp(() {
-    waterFromTopToOnShoreMoviePart1Store =
-        WaterFromTopToOnShoreMoviePart1Store();
-    waterFromTopToOnShoreMoviePart2Store =
-        WaterFromTopToOnShoreMoviePart2Store();
-    blackOutMovieStore = BlackOutMovieStore();
-    blackOutToDrySandMovieStore = BlackOutToDrySandMovieStore();
-    timesUpEndToTheDepthsMovieStore = TimesUpEndToTheDepthsMovieStore();
-    suspendedAtTheDepthsMovieStore = SuspendedAtTheDepthsMovieStore();
-    timesUpMovieStore = TimesUpMovieStore();
-    oceanDiveToTimesUpStartMovieStore = OceanDiveToTimesUpStartMovieStore();
-    suspendedAtOceanDiveStore = SuspendedAtOceanDiveStore();
-    onShoreToOceanDiveMovieStore = OnShoreToOceanDiveMovieStore();
-    onShoreMovieStore = OnShoreMovieStore();
-    oceanDiveToOnShoreMovieStore = OceanDiveToOnShoreMovieStore();
-    timesUpEndToOceanDiveMovie = TimesUpEndToOceanDiveMovieStore();
-    timesUpDynamicPointToTheDepthsMovieStore =
-        TimesUpDynamicPointToTheDepthsMovieStore();
-
-    testStore = BeachWavesStore(
-      waterFromTopToOnShoreMoviePart1Store:
-          waterFromTopToOnShoreMoviePart1Store,
-      waterFromTopToOnShoreMoviePart2Store:
-          waterFromTopToOnShoreMoviePart2Store,
-      blackOutMovie: blackOutMovieStore,
-      timesUpEndToTheDepthsMovieStore: timesUpEndToTheDepthsMovieStore,
-      blackOutToDrySandMovieStore: blackOutToDrySandMovieStore,
-      suspendedAtTheDepthsMovieStore: suspendedAtTheDepthsMovieStore,
-      timesUpDynamicPointToTheDepthsMovie:
-          timesUpDynamicPointToTheDepthsMovieStore,
-      timesUpEndToOceanDiveMovie: timesUpEndToOceanDiveMovie,
-      timesUpMovieStore: timesUpMovieStore,
-      oceanDiveToTimesUpStartMovieStore: oceanDiveToTimesUpStartMovieStore,
-      suspendedAtOceanDiveStore: suspendedAtOceanDiveStore,
-      oceanDiveToOnShoreMovieStore: oceanDiveToOnShoreMovieStore,
-      onShoreToOceanDiveMovieStore: onShoreToOceanDiveMovieStore,
-      onShoreMovieStore: onShoreMovieStore,
-    );
+    testStore = SharedTestUtils.getBeachWaves();
   });
 
   group("initial values", () {
@@ -120,12 +69,12 @@ void main() {
       test("onShoreToOceanDive key", () {
         final res = testStore
             .movieModeToStoreLookup[BeachWaveMovieModes.onShoreToOceanDive];
-        expect(res?.movie.duration, Seconds.get(3));
+        expect(res?.movie.duration, Seconds.get(2, milli: 1));
       });
       test("onShoreToOceanDive key", () {
         final oceanDiveRes = testStore
             .movieModeToStoreLookup[BeachWaveMovieModes.onShoreToOceanDive];
-        expect(oceanDiveRes?.movie.duration, Seconds.get(3));
+        expect(oceanDiveRes?.movie.duration, Seconds.get(2, milli: 1));
       });
       test("none key", () {
         final noneRes =
