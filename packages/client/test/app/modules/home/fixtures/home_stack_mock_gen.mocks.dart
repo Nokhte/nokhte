@@ -1761,17 +1761,6 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
       ) as _i15.ReactiveContext);
 
   @override
-  dynamic initReactors({required Function? onGradientTreeNodeTap}) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #initReactors,
-          [],
-          {#onGradientTreeNodeTap: onGradientTreeNodeTap},
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
   dynamic onAvailabilitySectorMovieStatusFinished(_i28.MovieStatus? p0) =>
       super.noSuchMethod(
         Invocation.method(
