@@ -37,6 +37,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     primarySmartText.setMessagesData(MessagesData.empty);
     secondarySmartText.setMessagesData(MessagesData.empty);
     beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
+    initReactors();
   }
 
   @action
@@ -129,9 +130,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   @action
   toggleHasInitiatedBlur() => hasInitiatedBlur = !hasInitiatedBlur;
 
-  initReactors({
-    required Function onGradientTreeNodeTap,
-  }) {
+  initReactors() {
     primarySmartTextReactor();
     gestureCrossTapReactor();
     wifiDisconnectOverlay.connectionReactor(
