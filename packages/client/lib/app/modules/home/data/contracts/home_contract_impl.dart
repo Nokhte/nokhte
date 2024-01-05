@@ -62,24 +62,4 @@ class HomeContractImpl implements HomeContract {
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
-
-  @override
-  shareCollaborationInvitation(String link) async {
-    if (await networkInfo.isConnected) {
-      final res = await remoteSource.shareCollaborationInvitation(link);
-      return Right(CollaborationInvitationSendStatusModel.fromShareResult(res));
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
-
-  @override
-  getInvitationURL(NoParams params) async {
-    if (await networkInfo.isConnected) {
-      final res = await remoteSource.getInvitationURL();
-      return Right(CollaborationInvitationDataModel(link: res.result));
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
 }
