@@ -47,8 +47,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   @action
   constructor() {
     gestureCross.setHomeScreen();
-    primarySmartText.setMessagesData(MessagesData.empty);
-    secondarySmartText.setMessagesData(MessagesData.empty);
     beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
     primarySmartText.setMessagesData(MessagesData.firstTimeHomeList);
     secondarySmartText.setMessagesData(MessagesData.firstTimeSecondaryHomeList);
