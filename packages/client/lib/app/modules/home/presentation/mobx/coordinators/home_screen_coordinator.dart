@@ -15,8 +15,7 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
   final AddNameToDatabaseStore addNameToDatabaseStore;
   final GetCollaboratorPhraseStore getCollaboratorPhraseStore;
   final GetExistingCollaborationsInfoStore getExistingCollaborationInfo;
-  final GetInvitationURLStore getInvitationURL;
-  final ShareCollaborationInvitationStore shareCollaborationInvitation;
+
   final HomeScreenWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final UserInformationCoordinator userInformation;
@@ -25,9 +24,7 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
     required this.addNameToDatabaseStore,
     required this.getCollaboratorPhraseStore,
     required this.getExistingCollaborationInfo,
-    required this.getInvitationURL,
     required this.userInformation,
-    required this.shareCollaborationInvitation,
     required this.swipe,
     required this.widgets,
   });
@@ -48,7 +45,7 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
     await getExistingCollaborationInfo(NoParams());
     await addNameToDatabaseStore(NoParams());
     await getCollaboratorPhraseStore(NoParams());
-    await getInvitationURL(NoParams());
+    // await getInvitationURL(NoParams());
   }
 
   initReactors() {
@@ -57,7 +54,7 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
 
   @action
   onGradientTreeNodeTap() {
-    shareCollaborationInvitation(getInvitationURL.link);
+    // shareCollaborationInvitation(getInvitationURL.link);
   }
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
