@@ -163,6 +163,22 @@ class MockDumbGradientCircleStore extends _i1.Mock
       );
 
   @override
+  int get tapCount => (super.noSuchMethod(
+        Invocation.getter(#tapCount),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
+  set tapCount(int? value) => super.noSuchMethod(
+        Invocation.setter(
+          #tapCount,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   List<Object> get props => (super.noSuchMethod(
         Invocation.getter(#props),
         returnValue: <Object>[],
@@ -334,6 +350,22 @@ class MockSmartGradientCircleStore extends _i1.Mock
       );
 
   @override
+  int get tapCount => (super.noSuchMethod(
+        Invocation.getter(#tapCount),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
+  set tapCount(int? value) => super.noSuchMethod(
+        Invocation.setter(
+          #tapCount,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   List<Object> get props => (super.noSuchMethod(
         Invocation.getter(#props),
         returnValue: <Object>[],
@@ -499,6 +531,22 @@ class MockAccompanyingTextStore extends _i1.Mock
   set hasFadedIn(bool? value) => super.noSuchMethod(
         Invocation.setter(
           #hasFadedIn,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  int get tapCount => (super.noSuchMethod(
+        Invocation.getter(#tapCount),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
+  set tapCount(int? value) => super.noSuchMethod(
+        Invocation.setter(
+          #tapCount,
           value,
         ),
         returnValueForMissingStub: null,
