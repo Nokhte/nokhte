@@ -1,10 +1,10 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/modules/home/domain/domain.dart';
+import 'package:nokhte/app/core/modules/user_information/domain/domain.dart';
 
 class UpdateHasSentAnInvitation
     implements
         AbstractFutureLogic<HasSentAnInvitationUpdateStatusEntity, bool> {
-  final HomeContract contract;
+  final UserInformationContract contract;
 
   UpdateHasSentAnInvitation({required this.contract});
 

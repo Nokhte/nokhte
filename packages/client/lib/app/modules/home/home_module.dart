@@ -1,4 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/widgets/modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -14,6 +16,7 @@ class HomeModule extends Module {
   List<Module> get imports => [
         HomeWidgetsModule(),
         GesturesModule(),
+        UserInformationModule(),
       ];
   @override
   binds(i) {
@@ -48,24 +51,9 @@ class HomeModule extends Module {
         contract: i<HomeContractImpl>(),
       ),
     );
-    i.addSingleton<GetUserInfo>(
-      () => GetUserInfo(
-        contract: i<HomeContractImpl>(),
-      ),
-    );
 
     i.addSingleton<ShareCollaborationInvitation>(
       () => ShareCollaborationInvitation(
-        contract: i<HomeContractImpl>(),
-      ),
-    );
-    i.addSingleton<UpdateHasGoneThroughInvitationFlow>(
-      () => UpdateHasGoneThroughInvitationFlow(
-        contract: i<HomeContractImpl>(),
-      ),
-    );
-    i.addSingleton<UpdateHasSentAnInvitation>(
-      () => UpdateHasSentAnInvitation(
         contract: i<HomeContractImpl>(),
       ),
     );
@@ -89,38 +77,21 @@ class HomeModule extends Module {
         logic: i<GetInvitationURL>(),
       ),
     );
-    i.add<GetUserInfoStore>(
-      () => GetUserInfoStore(
-        logic: i<GetUserInfo>(),
-      ),
-    );
     i.addSingleton<ShareCollaborationInvitationStore>(
       () => ShareCollaborationInvitationStore(
         logic: i<ShareCollaborationInvitation>(),
       ),
     );
-    i.add<UpdateHasGoneThroughInvitationFlowStore>(
-      () => UpdateHasGoneThroughInvitationFlowStore(
-        logic: i<UpdateHasGoneThroughInvitationFlow>(),
-      ),
-    );
-    i.add<UpdateHasSentAnInvitationStore>(
-      () => UpdateHasSentAnInvitationStore(
-        logic: i<UpdateHasSentAnInvitation>(),
-      ),
-    );
+
     i.addSingleton<HomeScreenCoordinator>(
       () => HomeScreenCoordinator(
+        userInformation: Modular.get<UserInformationCoordinator>(),
         swipe: Modular.get<SwipeDetector>(),
         addNameToDatabaseStore: i<AddNameToDatabaseStore>(),
         getCollaboratorPhraseStore: i<GetCollaboratorPhraseStore>(),
         getExistingCollaborationInfo: i<GetExistingCollaborationsInfoStore>(),
         getInvitationURL: i<GetInvitationURLStore>(),
-        getUserInfo: i<GetUserInfoStore>(),
         shareCollaborationInvitation: i<ShareCollaborationInvitationStore>(),
-        updateHasGoneThroughInvitationFlow:
-            i<UpdateHasGoneThroughInvitationFlowStore>(),
-        updateHasSentAnInvitation: i<UpdateHasSentAnInvitationStore>(),
         widgets: Modular.get<HomeScreenWidgetsCoordinator>(),
       ),
     );

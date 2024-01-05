@@ -2,7 +2,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:dartz/dartz.dart';
-import 'package:nokhte/app/modules/home/domain/domain.dart';
+import 'package:nokhte/app/core/modules/user_information/domain/domain.dart';
 part 'update_has_sent_an_invitation_store.g.dart';
 
 class UpdateHasSentAnInvitationStore = _UpdateHasSentAnInvitationStoreBase

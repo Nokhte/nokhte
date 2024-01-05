@@ -2,6 +2,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
@@ -15,23 +16,18 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
   final GetCollaboratorPhraseStore getCollaboratorPhraseStore;
   final GetExistingCollaborationsInfoStore getExistingCollaborationInfo;
   final GetInvitationURLStore getInvitationURL;
-  final GetUserInfoStore getUserInfo;
   final ShareCollaborationInvitationStore shareCollaborationInvitation;
-  final UpdateHasGoneThroughInvitationFlowStore
-      updateHasGoneThroughInvitationFlow;
-  final UpdateHasSentAnInvitationStore updateHasSentAnInvitation;
   final HomeScreenWidgetsCoordinator widgets;
   final SwipeDetector swipe;
+  final UserInformationCoordinator userInformation;
 
   _HomeScreenCoordinatorBase({
     required this.addNameToDatabaseStore,
     required this.getCollaboratorPhraseStore,
     required this.getExistingCollaborationInfo,
     required this.getInvitationURL,
-    required this.getUserInfo,
+    required this.userInformation,
     required this.shareCollaborationInvitation,
-    required this.updateHasGoneThroughInvitationFlow,
-    required this.updateHasSentAnInvitation,
     required this.swipe,
     required this.widgets,
   });
@@ -47,7 +43,8 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
     // }
     widgets.initReactors(
       onGradientTreeNodeTap: onGradientTreeNodeTap,
-      onInvitationFlowFinished: () => updateHasGoneThroughInvitationFlow(true),
+      // onInvitationFlowFinished: () => updateHasGoneThroughInvitationFlow(true),
+      onInvitationFlowFinished: () => null,
     );
     initReactors();
     await getExistingCollaborationInfo(NoParams());
@@ -69,7 +66,7 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
   shareInvitationReactor() =>
       reaction((p0) => shareCollaborationInvitation.isShared, (p0) {
         if (p0) {
-          updateHasSentAnInvitation(true);
+          // updateHasSentAnInvitation(true);
         }
       });
 

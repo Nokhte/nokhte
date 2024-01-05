@@ -2,7 +2,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:dartz/dartz.dart';
-import 'package:nokhte/app/modules/home/domain/domain.dart';
+import 'package:nokhte/app/core/modules/user_information/domain/domain.dart';
 part 'update_has_gone_through_invitation_flow_store.g.dart';
 
 class UpdateHasGoneThroughInvitationFlowStore = _UpdateHasGoneThroughInvitationFlowStoreBase

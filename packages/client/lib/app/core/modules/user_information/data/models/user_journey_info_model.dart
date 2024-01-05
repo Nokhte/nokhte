@@ -1,4 +1,4 @@
-import 'package:nokhte/app/modules/home/domain/domain.dart';
+import 'package:nokhte/app/core/modules/user_information/domain/domain.dart';
 import 'package:nokhte_backend/tables/user_names.dart';
 
 class UserJourneyInfoModel extends UserJourneyInfoEntity {

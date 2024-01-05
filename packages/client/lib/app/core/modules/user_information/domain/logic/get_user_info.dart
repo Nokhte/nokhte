@@ -1,9 +1,9 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/modules/home/domain/domain.dart';
+import 'package:nokhte/app/core/modules/user_information/domain/domain.dart';
 
 class GetUserInfo
     implements AbstractFutureLogic<UserJourneyInfoEntity, NoParams> {
-  final HomeContract contract;
+  final UserInformationContract contract;
 
   GetUserInfo({required this.contract});
 
