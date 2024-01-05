@@ -93,7 +93,7 @@ void main() {
 
     test("postInvitationFlowConstuctor", () {
       testStore.constructor();
-      testStore.postInvitationFlowConstuctor();
+      testStore.postInvitationFlowConstructor();
       expect(
           primarySmartText.messagesData, MessagesData.postInvitationFlowText);
       expect(secondarySmartText.messagesData, MessagesData.empty);
