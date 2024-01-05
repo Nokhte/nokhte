@@ -25,41 +25,10 @@ mixin _$CrossStore on _CrossStoreBase, Store {
     });
   }
 
-  late final _$tapCountAtom =
-      Atom(name: '_CrossStoreBase.tapCount', context: context);
-
-  @override
-  int get tapCount {
-    _$tapCountAtom.reportRead();
-    return super.tapCount;
-  }
-
-  @override
-  set tapCount(int value) {
-    _$tapCountAtom.reportWrite(value, super.tapCount, () {
-      super.tapCount = value;
-    });
-  }
-
-  late final _$_CrossStoreBaseActionController =
-      ActionController(name: '_CrossStoreBase', context: context);
-
-  @override
-  dynamic incrementTapCount() {
-    final _$actionInfo = _$_CrossStoreBaseActionController.startAction(
-        name: '_CrossStoreBase.incrementTapCount');
-    try {
-      return super.incrementTapCount();
-    } finally {
-      _$_CrossStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
   @override
   String toString() {
     return '''
-circleInformation: ${circleInformation},
-tapCount: ${tapCount}
+circleInformation: ${circleInformation}
     ''';
   }
 }

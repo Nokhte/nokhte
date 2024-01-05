@@ -10,16 +10,14 @@ class CrossStore = _CrossStoreBase with _$CrossStore;
 
 abstract class _CrossStoreBase extends BaseCustomAnimatedWidgetStore
     with Store {
+  _CrossStoreBase() {
+    toggleWidgetVisibility();
+  }
+
   final Path path = SvgAnimtionConstants.crossPath;
   final Rect bounds = SvgAnimtionConstants.crossPath.getBounds();
 
   @observable
   ObservableList<CircleInformation> circleInformation =
       ObservableList.of(StartingCirclePresets.homeScreen);
-
-  @observable
-  int tapCount = 0;
-
-  @action
-  incrementTapCount() => tapCount++;
 }
