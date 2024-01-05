@@ -49,5 +49,21 @@ class MoveAndRegengerateMovie {
         begin: 0,
         end: 4.5,
       ),
-    );
+    )
+    ..scene(
+      begin: Seconds.get(2),
+      end: Seconds.get(2, milli: 1),
+    )
+        .tween(
+            'dx1',
+            Tween<double>(
+              begin: CircleOffsets.center.dx,
+              end: CircleOffsets.center.dx,
+            ))
+        .tween(
+            'dy1',
+            Tween<double>(
+              begin: CircleOffsets.center.dy,
+              end: CircleOffsets.center.dy,
+            ));
 }
