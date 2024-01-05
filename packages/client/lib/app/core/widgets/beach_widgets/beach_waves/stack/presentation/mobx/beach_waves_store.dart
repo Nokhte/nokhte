@@ -84,10 +84,10 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
       if (finishedCount == 0) {
         finishedCount++;
       } else {
-        movieStatus = MovieStatus.finished;
+        setMovieStatus(MovieStatus.finished);
       }
     } else {
-      movieStatus = MovieStatus.finished;
+      setMovieStatus(MovieStatus.finished);
     }
   }
 
