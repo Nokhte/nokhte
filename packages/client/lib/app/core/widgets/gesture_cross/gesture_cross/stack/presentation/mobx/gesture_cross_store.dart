@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -16,6 +17,16 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
     required this.gradientNokhte,
     required this.centerCrossNokhte,
   });
+
+  @action
+  setHomeScreen() {
+    gradientNokhte.setMovie(VibrantBlueGradientNokhteMovie.movie);
+  }
+
+  @action
+  initMoveAndRegenerate(Offset endDirection) {
+    centerCrossNokhte.initMoveAndRegenerate(endDirection);
+  }
 
   @override
   List<Object> get props => [];
