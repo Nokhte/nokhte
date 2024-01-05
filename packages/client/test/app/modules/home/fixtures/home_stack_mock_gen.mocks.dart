@@ -16,7 +16,7 @@ import 'package:nokhte/app/core/mobx/base_future_store.dart' as _i14;
 import 'package:nokhte/app/core/mobx/store_state.dart' as _i23;
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart'
     as _i16;
-import 'package:nokhte/app/core/types/types.dart' as _i30;
+import 'package:nokhte/app/core/types/types.dart' as _i28;
 import 'package:nokhte/app/core/widgets/widgets.dart' as _i17;
 import 'package:nokhte/app/modules/home/data/sources/home_remote_source.dart'
     as _i18;
@@ -25,17 +25,13 @@ import 'package:nokhte/app/modules/home/domain/contracts/home_contract.dart'
 import 'package:nokhte/app/modules/home/domain/domain.dart' as _i12;
 import 'package:nokhte/app/modules/home/domain/entities/entities.dart' as _i13;
 import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/home_screen_widgets_coordinator.dart'
-    as _i29;
+    as _i27;
 import 'package:nokhte/app/modules/home/presentation/mobx/main/add_name_to_database_store.dart'
     as _i22;
 import 'package:nokhte/app/modules/home/presentation/mobx/main/get_collaborator_phrase_store.dart'
-    as _i28;
+    as _i26;
 import 'package:nokhte/app/modules/home/presentation/mobx/main/get_existing_collaborations_info_store.dart'
     as _i25;
-import 'package:nokhte/app/modules/home/presentation/mobx/main/get_invitation_url_store.dart'
-    as _i27;
-import 'package:nokhte/app/modules/home/presentation/mobx/main/share_collaboration_invitation_store.dart'
-    as _i26;
 import 'package:nokhte_backend/tables/collaborator_phrases.dart' as _i6;
 import 'package:nokhte_backend/tables/existing_collaborations.dart' as _i3;
 import 'package:nokhte_backend/tables/finished_collaborative_documents.dart'
@@ -220,31 +216,9 @@ class _FakeGetExistingCollaborationsInfo_14 extends _i1.SmartFake
         );
 }
 
-class _FakeShareCollaborationInvitation_15 extends _i1.SmartFake
-    implements _i12.ShareCollaborationInvitation {
-  _FakeShareCollaborationInvitation_15(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeGetInvitationURL_16 extends _i1.SmartFake
-    implements _i12.GetInvitationURL {
-  _FakeGetInvitationURL_16(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeGetUserInfoStore_17 extends _i1.SmartFake
+class _FakeGetUserInfoStore_15 extends _i1.SmartFake
     implements _i16.GetUserInfoStore {
-  _FakeGetUserInfoStore_17(
+  _FakeGetUserInfoStore_15(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -253,9 +227,9 @@ class _FakeGetUserInfoStore_17 extends _i1.SmartFake
         );
 }
 
-class _FakeUpdateHasGoneThroughInvitationFlowStore_18 extends _i1.SmartFake
+class _FakeUpdateHasGoneThroughInvitationFlowStore_16 extends _i1.SmartFake
     implements _i16.UpdateHasGoneThroughInvitationFlowStore {
-  _FakeUpdateHasGoneThroughInvitationFlowStore_18(
+  _FakeUpdateHasGoneThroughInvitationFlowStore_16(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -264,9 +238,9 @@ class _FakeUpdateHasGoneThroughInvitationFlowStore_18 extends _i1.SmartFake
         );
 }
 
-class _FakeUpdateHasSentAnInvitationStore_19 extends _i1.SmartFake
+class _FakeUpdateHasSentAnInvitationStore_17 extends _i1.SmartFake
     implements _i16.UpdateHasSentAnInvitationStore {
-  _FakeUpdateHasSentAnInvitationStore_19(
+  _FakeUpdateHasSentAnInvitationStore_17(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -275,9 +249,9 @@ class _FakeUpdateHasSentAnInvitationStore_19 extends _i1.SmartFake
         );
 }
 
-class _FakeGetCollaboratorPhrase_20 extends _i1.SmartFake
+class _FakeGetCollaboratorPhrase_18 extends _i1.SmartFake
     implements _i12.GetCollaboratorPhrase {
-  _FakeGetCollaboratorPhrase_20(
+  _FakeGetCollaboratorPhrase_18(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -286,9 +260,9 @@ class _FakeGetCollaboratorPhrase_20 extends _i1.SmartFake
         );
 }
 
-class _FakeCollaboratorPhraseEntity_21 extends _i1.SmartFake
+class _FakeCollaboratorPhraseEntity_19 extends _i1.SmartFake
     implements _i13.CollaboratorPhraseEntity {
-  _FakeCollaboratorPhraseEntity_21(
+  _FakeCollaboratorPhraseEntity_19(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -297,9 +271,9 @@ class _FakeCollaboratorPhraseEntity_21 extends _i1.SmartFake
         );
 }
 
-class _FakeTimeAlignmentModelCoordinator_22 extends _i1.SmartFake
+class _FakeTimeAlignmentModelCoordinator_20 extends _i1.SmartFake
     implements _i17.TimeAlignmentModelCoordinator {
-  _FakeTimeAlignmentModelCoordinator_22(
+  _FakeTimeAlignmentModelCoordinator_20(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -308,9 +282,9 @@ class _FakeTimeAlignmentModelCoordinator_22 extends _i1.SmartFake
         );
 }
 
-class _FakeNokhteBlurStore_23 extends _i1.SmartFake
+class _FakeNokhteBlurStore_21 extends _i1.SmartFake
     implements _i17.NokhteBlurStore {
-  _FakeNokhteBlurStore_23(
+  _FakeNokhteBlurStore_21(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -319,9 +293,9 @@ class _FakeNokhteBlurStore_23 extends _i1.SmartFake
         );
 }
 
-class _FakeBeachWavesStore_24 extends _i1.SmartFake
+class _FakeBeachWavesStore_22 extends _i1.SmartFake
     implements _i17.BeachWavesStore {
-  _FakeBeachWavesStore_24(
+  _FakeBeachWavesStore_22(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -330,9 +304,9 @@ class _FakeBeachWavesStore_24 extends _i1.SmartFake
         );
 }
 
-class _FakeWifiDisconnectOverlayStore_25 extends _i1.SmartFake
+class _FakeWifiDisconnectOverlayStore_23 extends _i1.SmartFake
     implements _i17.WifiDisconnectOverlayStore {
-  _FakeWifiDisconnectOverlayStore_25(
+  _FakeWifiDisconnectOverlayStore_23(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -341,9 +315,9 @@ class _FakeWifiDisconnectOverlayStore_25 extends _i1.SmartFake
         );
 }
 
-class _FakeGestureCrossStore_26 extends _i1.SmartFake
+class _FakeGestureCrossStore_24 extends _i1.SmartFake
     implements _i17.GestureCrossStore {
-  _FakeGestureCrossStore_26(
+  _FakeGestureCrossStore_24(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -352,9 +326,9 @@ class _FakeGestureCrossStore_26 extends _i1.SmartFake
         );
 }
 
-class _FakeSmartTextStore_27 extends _i1.SmartFake
+class _FakeSmartTextStore_25 extends _i1.SmartFake
     implements _i17.SmartTextStore {
-  _FakeSmartTextStore_27(
+  _FakeSmartTextStore_25(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -698,74 +672,6 @@ class MockHomeContract extends _i1.Mock implements _i11.HomeContract {
           ) as _i19.Future<
               _i10
               .Either<_i20.Failure, _i13.ExistingCollaborationsInfoEntity>>);
-
-  @override
-  _i19.Future<
-          _i10
-          .Either<_i20.Failure, _i13.CollaborationInvitationSendStatusEntity>>
-      shareCollaborationInvitation(String? link) => (super.noSuchMethod(
-            Invocation.method(
-              #shareCollaborationInvitation,
-              [link],
-            ),
-            returnValue: _i19.Future<
-                    _i10.Either<_i20.Failure,
-                        _i13.CollaborationInvitationSendStatusEntity>>.value(
-                _FakeEither_8<_i20.Failure,
-                    _i13.CollaborationInvitationSendStatusEntity>(
-              this,
-              Invocation.method(
-                #shareCollaborationInvitation,
-                [link],
-              ),
-            )),
-            returnValueForMissingStub: _i19.Future<
-                    _i10.Either<_i20.Failure,
-                        _i13.CollaborationInvitationSendStatusEntity>>.value(
-                _FakeEither_8<_i20.Failure,
-                    _i13.CollaborationInvitationSendStatusEntity>(
-              this,
-              Invocation.method(
-                #shareCollaborationInvitation,
-                [link],
-              ),
-            )),
-          ) as _i19.Future<
-              _i10.Either<_i20.Failure,
-                  _i13.CollaborationInvitationSendStatusEntity>>);
-
-  @override
-  _i19.Future<_i10.Either<_i20.Failure, _i13.CollaborationInvitationDataEntity>>
-      getInvitationURL(_i21.NoParams? params) => (super.noSuchMethod(
-            Invocation.method(
-              #getInvitationURL,
-              [params],
-            ),
-            returnValue: _i19.Future<
-                    _i10.Either<_i20.Failure,
-                        _i13.CollaborationInvitationDataEntity>>.value(
-                _FakeEither_8<_i20.Failure,
-                    _i13.CollaborationInvitationDataEntity>(
-              this,
-              Invocation.method(
-                #getInvitationURL,
-                [params],
-              ),
-            )),
-            returnValueForMissingStub: _i19.Future<
-                    _i10.Either<_i20.Failure,
-                        _i13.CollaborationInvitationDataEntity>>.value(
-                _FakeEither_8<_i20.Failure,
-                    _i13.CollaborationInvitationDataEntity>(
-              this,
-              Invocation.method(
-                #getInvitationURL,
-                [params],
-              ),
-            )),
-          ) as _i19.Future<
-              _i10
-              .Either<_i20.Failure, _i13.CollaborationInvitationDataEntity>>);
 }
 
 /// A class which mocks [HomeRemoteSource].
@@ -1014,111 +920,6 @@ class MockAddNameToDatabase extends _i1.Mock implements _i12.AddNameToDatabase {
         )),
       ) as _i19
           .Future<_i10.Either<_i20.Failure, _i13.NameCreationStatusEntity>>);
-}
-
-/// A class which mocks [GetInvitationURL].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockGetInvitationURL extends _i1.Mock implements _i12.GetInvitationURL {
-  @override
-  _i11.HomeContract get contract => (super.noSuchMethod(
-        Invocation.getter(#contract),
-        returnValue: _FakeHomeContract_9(
-          this,
-          Invocation.getter(#contract),
-        ),
-        returnValueForMissingStub: _FakeHomeContract_9(
-          this,
-          Invocation.getter(#contract),
-        ),
-      ) as _i11.HomeContract);
-
-  @override
-  _i19.Future<
-      _i10.Either<_i20.Failure, _i13.CollaborationInvitationDataEntity>> call(
-          _i21.NoParams? params) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #call,
-          [params],
-        ),
-        returnValue: _i19.Future<
-                _i10.Either<_i20.Failure,
-                    _i13.CollaborationInvitationDataEntity>>.value(
-            _FakeEither_8<_i20.Failure, _i13.CollaborationInvitationDataEntity>(
-          this,
-          Invocation.method(
-            #call,
-            [params],
-          ),
-        )),
-        returnValueForMissingStub: _i19.Future<
-                _i10.Either<_i20.Failure,
-                    _i13.CollaborationInvitationDataEntity>>.value(
-            _FakeEither_8<_i20.Failure, _i13.CollaborationInvitationDataEntity>(
-          this,
-          Invocation.method(
-            #call,
-            [params],
-          ),
-        )),
-      ) as _i19.Future<
-          _i10.Either<_i20.Failure, _i13.CollaborationInvitationDataEntity>>);
-}
-
-/// A class which mocks [ShareCollaborationInvitation].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockShareCollaborationInvitation extends _i1.Mock
-    implements _i12.ShareCollaborationInvitation {
-  @override
-  _i11.HomeContract get contract => (super.noSuchMethod(
-        Invocation.getter(#contract),
-        returnValue: _FakeHomeContract_9(
-          this,
-          Invocation.getter(#contract),
-        ),
-        returnValueForMissingStub: _FakeHomeContract_9(
-          this,
-          Invocation.getter(#contract),
-        ),
-      ) as _i11.HomeContract);
-
-  @override
-  _i19.Future<
-      _i10
-      .Either<_i20.Failure, _i13.CollaborationInvitationSendStatusEntity>> call(
-          String? params) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #call,
-          [params],
-        ),
-        returnValue: _i19.Future<
-                _i10.Either<_i20.Failure,
-                    _i13.CollaborationInvitationSendStatusEntity>>.value(
-            _FakeEither_8<_i20.Failure,
-                _i13.CollaborationInvitationSendStatusEntity>(
-          this,
-          Invocation.method(
-            #call,
-            [params],
-          ),
-        )),
-        returnValueForMissingStub: _i19.Future<
-                _i10.Either<_i20.Failure,
-                    _i13.CollaborationInvitationSendStatusEntity>>.value(
-            _FakeEither_8<_i20.Failure,
-                _i13.CollaborationInvitationSendStatusEntity>(
-          this,
-          Invocation.method(
-            #call,
-            [params],
-          ),
-        )),
-      ) as _i19.Future<
-          _i10
-          .Either<_i20.Failure, _i13.CollaborationInvitationSendStatusEntity>>);
 }
 
 /// A class which mocks [AddNameToDatabaseStore].
@@ -1485,344 +1286,6 @@ class MockGetExistingCollaborationsInfoStore extends _i1.Mock
       ) as String);
 }
 
-/// A class which mocks [ShareCollaborationInvitationStore].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockShareCollaborationInvitationStore extends _i1.Mock
-    implements _i26.ShareCollaborationInvitationStore {
-  @override
-  _i12.ShareCollaborationInvitation get logic => (super.noSuchMethod(
-        Invocation.getter(#logic),
-        returnValue: _FakeShareCollaborationInvitation_15(
-          this,
-          Invocation.getter(#logic),
-        ),
-        returnValueForMissingStub: _FakeShareCollaborationInvitation_15(
-          this,
-          Invocation.getter(#logic),
-        ),
-      ) as _i12.ShareCollaborationInvitation);
-
-  @override
-  bool get isShared => (super.noSuchMethod(
-        Invocation.getter(#isShared),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool);
-
-  @override
-  set isShared(bool? value) => super.noSuchMethod(
-        Invocation.setter(
-          #isShared,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i14.BaseFutureStore<_i13.CollaborationInvitationSendStatusEntity>
-      get futureStore => (super.noSuchMethod(
-            Invocation.getter(#futureStore),
-            returnValue: _FakeBaseFutureStore_12<
-                _i13.CollaborationInvitationSendStatusEntity>(
-              this,
-              Invocation.getter(#futureStore),
-            ),
-            returnValueForMissingStub: _FakeBaseFutureStore_12<
-                _i13.CollaborationInvitationSendStatusEntity>(
-              this,
-              Invocation.getter(#futureStore),
-            ),
-          ) as _i14
-              .BaseFutureStore<_i13.CollaborationInvitationSendStatusEntity>);
-
-  @override
-  set futureStore(
-          _i14.BaseFutureStore<_i13.CollaborationInvitationSendStatusEntity>?
-              value) =>
-      super.noSuchMethod(
-        Invocation.setter(
-          #futureStore,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i23.StoreState get state => (super.noSuchMethod(
-        Invocation.getter(#state),
-        returnValue: _i23.StoreState.initial,
-        returnValueForMissingStub: _i23.StoreState.initial,
-      ) as _i23.StoreState);
-
-  @override
-  set state(_i23.StoreState? value) => super.noSuchMethod(
-        Invocation.setter(
-          #state,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  String get errorMessage => (super.noSuchMethod(
-        Invocation.getter(#errorMessage),
-        returnValue: _i24.dummyValue<String>(
-          this,
-          Invocation.getter(#errorMessage),
-        ),
-        returnValueForMissingStub: _i24.dummyValue<String>(
-          this,
-          Invocation.getter(#errorMessage),
-        ),
-      ) as String);
-
-  @override
-  set errorMessage(String? value) => super.noSuchMethod(
-        Invocation.setter(
-          #errorMessage,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  List<Object> get props => (super.noSuchMethod(
-        Invocation.getter(#props),
-        returnValue: <Object>[],
-        returnValueForMissingStub: <Object>[],
-      ) as List<Object>);
-
-  @override
-  _i15.ReactiveContext get context => (super.noSuchMethod(
-        Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_13(
-          this,
-          Invocation.getter(#context),
-        ),
-        returnValueForMissingStub: _FakeReactiveContext_13(
-          this,
-          Invocation.getter(#context),
-        ),
-      ) as _i15.ReactiveContext);
-
-  @override
-  void stateOrErrorUpdater(
-          _i10.Either<_i20.Failure,
-                  _i13.CollaborationInvitationSendStatusEntity>?
-              result) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #stateOrErrorUpdater,
-          [result],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i19.Future<void> call(String? params) => (super.noSuchMethod(
-        Invocation.method(
-          #call,
-          [params],
-        ),
-        returnValue: _i19.Future<void>.value(),
-        returnValueForMissingStub: _i19.Future<void>.value(),
-      ) as _i19.Future<void>);
-
-  @override
-  String mapFailureToMessage(_i20.Failure? failure) => (super.noSuchMethod(
-        Invocation.method(
-          #mapFailureToMessage,
-          [failure],
-        ),
-        returnValue: _i24.dummyValue<String>(
-          this,
-          Invocation.method(
-            #mapFailureToMessage,
-            [failure],
-          ),
-        ),
-        returnValueForMissingStub: _i24.dummyValue<String>(
-          this,
-          Invocation.method(
-            #mapFailureToMessage,
-            [failure],
-          ),
-        ),
-      ) as String);
-}
-
-/// A class which mocks [GetInvitationURLStore].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockGetInvitationURLStore extends _i1.Mock
-    implements _i27.GetInvitationURLStore {
-  @override
-  String get link => (super.noSuchMethod(
-        Invocation.getter(#link),
-        returnValue: _i24.dummyValue<String>(
-          this,
-          Invocation.getter(#link),
-        ),
-        returnValueForMissingStub: _i24.dummyValue<String>(
-          this,
-          Invocation.getter(#link),
-        ),
-      ) as String);
-
-  @override
-  set link(String? value) => super.noSuchMethod(
-        Invocation.setter(
-          #link,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i12.GetInvitationURL get logic => (super.noSuchMethod(
-        Invocation.getter(#logic),
-        returnValue: _FakeGetInvitationURL_16(
-          this,
-          Invocation.getter(#logic),
-        ),
-        returnValueForMissingStub: _FakeGetInvitationURL_16(
-          this,
-          Invocation.getter(#logic),
-        ),
-      ) as _i12.GetInvitationURL);
-
-  @override
-  _i14.BaseFutureStore<_i13.CollaborationInvitationDataEntity>
-      get futureStore => (super.noSuchMethod(
-            Invocation.getter(#futureStore),
-            returnValue:
-                _FakeBaseFutureStore_12<_i13.CollaborationInvitationDataEntity>(
-              this,
-              Invocation.getter(#futureStore),
-            ),
-            returnValueForMissingStub:
-                _FakeBaseFutureStore_12<_i13.CollaborationInvitationDataEntity>(
-              this,
-              Invocation.getter(#futureStore),
-            ),
-          ) as _i14.BaseFutureStore<_i13.CollaborationInvitationDataEntity>);
-
-  @override
-  set futureStore(
-          _i14.BaseFutureStore<_i13.CollaborationInvitationDataEntity>?
-              value) =>
-      super.noSuchMethod(
-        Invocation.setter(
-          #futureStore,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i23.StoreState get state => (super.noSuchMethod(
-        Invocation.getter(#state),
-        returnValue: _i23.StoreState.initial,
-        returnValueForMissingStub: _i23.StoreState.initial,
-      ) as _i23.StoreState);
-
-  @override
-  set state(_i23.StoreState? value) => super.noSuchMethod(
-        Invocation.setter(
-          #state,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  String get errorMessage => (super.noSuchMethod(
-        Invocation.getter(#errorMessage),
-        returnValue: _i24.dummyValue<String>(
-          this,
-          Invocation.getter(#errorMessage),
-        ),
-        returnValueForMissingStub: _i24.dummyValue<String>(
-          this,
-          Invocation.getter(#errorMessage),
-        ),
-      ) as String);
-
-  @override
-  set errorMessage(String? value) => super.noSuchMethod(
-        Invocation.setter(
-          #errorMessage,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  List<Object> get props => (super.noSuchMethod(
-        Invocation.getter(#props),
-        returnValue: <Object>[],
-        returnValueForMissingStub: <Object>[],
-      ) as List<Object>);
-
-  @override
-  _i15.ReactiveContext get context => (super.noSuchMethod(
-        Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_13(
-          this,
-          Invocation.getter(#context),
-        ),
-        returnValueForMissingStub: _FakeReactiveContext_13(
-          this,
-          Invocation.getter(#context),
-        ),
-      ) as _i15.ReactiveContext);
-
-  @override
-  void stateOrErrorUpdater(
-          _i10.Either<_i20.Failure, _i13.CollaborationInvitationDataEntity>?
-              result) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #stateOrErrorUpdater,
-          [result],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i19.Future<void> call(_i21.NoParams? params) => (super.noSuchMethod(
-        Invocation.method(
-          #call,
-          [params],
-        ),
-        returnValue: _i19.Future<void>.value(),
-        returnValueForMissingStub: _i19.Future<void>.value(),
-      ) as _i19.Future<void>);
-
-  @override
-  String mapFailureToMessage(_i20.Failure? failure) => (super.noSuchMethod(
-        Invocation.method(
-          #mapFailureToMessage,
-          [failure],
-        ),
-        returnValue: _i24.dummyValue<String>(
-          this,
-          Invocation.method(
-            #mapFailureToMessage,
-            [failure],
-          ),
-        ),
-        returnValueForMissingStub: _i24.dummyValue<String>(
-          this,
-          Invocation.method(
-            #mapFailureToMessage,
-            [failure],
-          ),
-        ),
-      ) as String);
-}
-
 /// A class which mocks [UserInformationCoordinator].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -1831,11 +1294,11 @@ class MockUserInformationCoordinator extends _i1.Mock
   @override
   _i16.GetUserInfoStore get getUserInfo => (super.noSuchMethod(
         Invocation.getter(#getUserInfo),
-        returnValue: _FakeGetUserInfoStore_17(
+        returnValue: _FakeGetUserInfoStore_15(
           this,
           Invocation.getter(#getUserInfo),
         ),
-        returnValueForMissingStub: _FakeGetUserInfoStore_17(
+        returnValueForMissingStub: _FakeGetUserInfoStore_15(
           this,
           Invocation.getter(#getUserInfo),
         ),
@@ -1845,12 +1308,12 @@ class MockUserInformationCoordinator extends _i1.Mock
   _i16.UpdateHasGoneThroughInvitationFlowStore
       get updateHasGoneThroughInvitationFlow => (super.noSuchMethod(
             Invocation.getter(#updateHasGoneThroughInvitationFlow),
-            returnValue: _FakeUpdateHasGoneThroughInvitationFlowStore_18(
+            returnValue: _FakeUpdateHasGoneThroughInvitationFlowStore_16(
               this,
               Invocation.getter(#updateHasGoneThroughInvitationFlow),
             ),
             returnValueForMissingStub:
-                _FakeUpdateHasGoneThroughInvitationFlowStore_18(
+                _FakeUpdateHasGoneThroughInvitationFlowStore_16(
               this,
               Invocation.getter(#updateHasGoneThroughInvitationFlow),
             ),
@@ -1860,11 +1323,11 @@ class MockUserInformationCoordinator extends _i1.Mock
   _i16.UpdateHasSentAnInvitationStore get updateHasSentAnInvitation =>
       (super.noSuchMethod(
         Invocation.getter(#updateHasSentAnInvitation),
-        returnValue: _FakeUpdateHasSentAnInvitationStore_19(
+        returnValue: _FakeUpdateHasSentAnInvitationStore_17(
           this,
           Invocation.getter(#updateHasSentAnInvitation),
         ),
-        returnValueForMissingStub: _FakeUpdateHasSentAnInvitationStore_19(
+        returnValueForMissingStub: _FakeUpdateHasSentAnInvitationStore_17(
           this,
           Invocation.getter(#updateHasSentAnInvitation),
         ),
@@ -1895,15 +1358,15 @@ class MockUserInformationCoordinator extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGetCollaboratorPhraseStore extends _i1.Mock
-    implements _i28.GetCollaboratorPhraseStore {
+    implements _i26.GetCollaboratorPhraseStore {
   @override
   _i12.GetCollaboratorPhrase get logic => (super.noSuchMethod(
         Invocation.getter(#logic),
-        returnValue: _FakeGetCollaboratorPhrase_20(
+        returnValue: _FakeGetCollaboratorPhrase_18(
           this,
           Invocation.getter(#logic),
         ),
-        returnValueForMissingStub: _FakeGetCollaboratorPhrase_20(
+        returnValueForMissingStub: _FakeGetCollaboratorPhrase_18(
           this,
           Invocation.getter(#logic),
         ),
@@ -1913,11 +1376,11 @@ class MockGetCollaboratorPhraseStore extends _i1.Mock
   _i13.CollaboratorPhraseEntity get collaboratorPhraseEntity =>
       (super.noSuchMethod(
         Invocation.getter(#collaboratorPhraseEntity),
-        returnValue: _FakeCollaboratorPhraseEntity_21(
+        returnValue: _FakeCollaboratorPhraseEntity_19(
           this,
           Invocation.getter(#collaboratorPhraseEntity),
         ),
-        returnValueForMissingStub: _FakeCollaboratorPhraseEntity_21(
+        returnValueForMissingStub: _FakeCollaboratorPhraseEntity_19(
           this,
           Invocation.getter(#collaboratorPhraseEntity),
         ),
@@ -2088,15 +1551,15 @@ class MockGetCollaboratorPhraseStore extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockHomeScreenWidgetsCoordinator extends _i1.Mock
-    implements _i29.HomeScreenWidgetsCoordinator {
+    implements _i27.HomeScreenWidgetsCoordinator {
   @override
   _i17.TimeAlignmentModelCoordinator get timeModel => (super.noSuchMethod(
         Invocation.getter(#timeModel),
-        returnValue: _FakeTimeAlignmentModelCoordinator_22(
+        returnValue: _FakeTimeAlignmentModelCoordinator_20(
           this,
           Invocation.getter(#timeModel),
         ),
-        returnValueForMissingStub: _FakeTimeAlignmentModelCoordinator_22(
+        returnValueForMissingStub: _FakeTimeAlignmentModelCoordinator_20(
           this,
           Invocation.getter(#timeModel),
         ),
@@ -2105,11 +1568,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i17.NokhteBlurStore get nokhteBlur => (super.noSuchMethod(
         Invocation.getter(#nokhteBlur),
-        returnValue: _FakeNokhteBlurStore_23(
+        returnValue: _FakeNokhteBlurStore_21(
           this,
           Invocation.getter(#nokhteBlur),
         ),
-        returnValueForMissingStub: _FakeNokhteBlurStore_23(
+        returnValueForMissingStub: _FakeNokhteBlurStore_21(
           this,
           Invocation.getter(#nokhteBlur),
         ),
@@ -2118,11 +1581,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i17.BeachWavesStore get beachWaves => (super.noSuchMethod(
         Invocation.getter(#beachWaves),
-        returnValue: _FakeBeachWavesStore_24(
+        returnValue: _FakeBeachWavesStore_22(
           this,
           Invocation.getter(#beachWaves),
         ),
-        returnValueForMissingStub: _FakeBeachWavesStore_24(
+        returnValueForMissingStub: _FakeBeachWavesStore_22(
           this,
           Invocation.getter(#beachWaves),
         ),
@@ -2132,11 +1595,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   _i17.WifiDisconnectOverlayStore get wifiDisconnectOverlay =>
       (super.noSuchMethod(
         Invocation.getter(#wifiDisconnectOverlay),
-        returnValue: _FakeWifiDisconnectOverlayStore_25(
+        returnValue: _FakeWifiDisconnectOverlayStore_23(
           this,
           Invocation.getter(#wifiDisconnectOverlay),
         ),
-        returnValueForMissingStub: _FakeWifiDisconnectOverlayStore_25(
+        returnValueForMissingStub: _FakeWifiDisconnectOverlayStore_23(
           this,
           Invocation.getter(#wifiDisconnectOverlay),
         ),
@@ -2145,11 +1608,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i17.GestureCrossStore get gestureCross => (super.noSuchMethod(
         Invocation.getter(#gestureCross),
-        returnValue: _FakeGestureCrossStore_26(
+        returnValue: _FakeGestureCrossStore_24(
           this,
           Invocation.getter(#gestureCross),
         ),
-        returnValueForMissingStub: _FakeGestureCrossStore_26(
+        returnValueForMissingStub: _FakeGestureCrossStore_24(
           this,
           Invocation.getter(#gestureCross),
         ),
@@ -2158,11 +1621,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i17.SmartTextStore get primarySmartText => (super.noSuchMethod(
         Invocation.getter(#primarySmartText),
-        returnValue: _FakeSmartTextStore_27(
+        returnValue: _FakeSmartTextStore_25(
           this,
           Invocation.getter(#primarySmartText),
         ),
-        returnValueForMissingStub: _FakeSmartTextStore_27(
+        returnValueForMissingStub: _FakeSmartTextStore_25(
           this,
           Invocation.getter(#primarySmartText),
         ),
@@ -2171,11 +1634,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i17.SmartTextStore get secondarySmartText => (super.noSuchMethod(
         Invocation.getter(#secondarySmartText),
-        returnValue: _FakeSmartTextStore_27(
+        returnValue: _FakeSmartTextStore_25(
           this,
           Invocation.getter(#secondarySmartText),
         ),
-        returnValueForMissingStub: _FakeSmartTextStore_27(
+        returnValueForMissingStub: _FakeSmartTextStore_25(
           this,
           Invocation.getter(#secondarySmartText),
         ),
@@ -2309,7 +1772,7 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
       );
 
   @override
-  dynamic onAvailabilitySectorMovieStatusFinished(_i30.MovieStatus? p0) =>
+  dynamic onAvailabilitySectorMovieStatusFinished(_i28.MovieStatus? p0) =>
       super.noSuchMethod(
         Invocation.method(
           #onAvailabilitySectorMovieStatusFinished,
