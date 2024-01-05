@@ -1645,6 +1645,38 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
       ) as _i17.SmartTextStore);
 
   @override
+  bool get hasCompletedInvitationFlow => (super.noSuchMethod(
+        Invocation.getter(#hasCompletedInvitationFlow),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set hasCompletedInvitationFlow(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #hasCompletedInvitationFlow,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get hasSwipedUp => (super.noSuchMethod(
+        Invocation.getter(#hasSwipedUp),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set hasSwipedUp(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #hasSwipedUp,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   bool get clockAnimationHasNotStarted => (super.noSuchMethod(
         Invocation.getter(#clockAnimationHasNotStarted),
         returnValue: false,
@@ -1725,22 +1757,6 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
       );
 
   @override
-  bool get hasSwipedUp => (super.noSuchMethod(
-        Invocation.getter(#hasSwipedUp),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool);
-
-  @override
-  set hasSwipedUp(bool? value) => super.noSuchMethod(
-        Invocation.setter(
-          #hasSwipedUp,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
   List<Object> get props => (super.noSuchMethod(
         Invocation.getter(#props),
         returnValue: <Object>[],
@@ -1759,6 +1775,58 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
           Invocation.getter(#context),
         ),
       ) as _i15.ReactiveContext);
+
+  @override
+  dynamic invitationFlowConstructor({bool? skipFirstMessage = false}) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #invitationFlowConstructor,
+          [],
+          {#skipFirstMessage: skipFirstMessage},
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  dynamic prepForNavigation({bool? excludeUnBlur = false}) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #prepForNavigation,
+          [],
+          {#excludeUnBlur: excludeUnBlur},
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  dynamic initReactors(Function? resetFlowCompletionStatus) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #initReactors,
+          [resetFlowCompletionStatus],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  dynamic gestureCrossTapReactor(Function? resetFlowCompletionStatus) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #gestureCrossTapReactor,
+          [resetFlowCompletionStatus],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  dynamic onGestureCrossTap(Function? resetFlowCompletionStatus) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #onGestureCrossTap,
+          [resetFlowCompletionStatus],
+        ),
+        returnValueForMissingStub: null,
+      );
 
   @override
   dynamic onAvailabilitySectorMovieStatusFinished(_i28.MovieStatus? p0) =>
