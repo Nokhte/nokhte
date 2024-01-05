@@ -19,12 +19,12 @@ class HomeWidgetsModule extends Module {
     i.add<CrossStore>(
       () => CrossStore(),
     );
-    i.addSingleton<NokhteBlurStore>(
+    i.add<NokhteBlurStore>(
       () => NokhteBlurStore(),
     );
-    i.addSingleton<HomeScreenWidgetsCoordinator>(
+    i.add<HomeScreenWidgetsCoordinator>(
       () => HomeScreenWidgetsCoordinator(
-        timeModel: Modular.get<TimeAlignmentModelCoordinator>(),
+        timeModel: i<TimeAlignmentModelCoordinator>(),
         nokhteBlur: i<NokhteBlurStore>(),
         primarySmartText: i<SmartTextStore>(),
         secondarySmartText: i<SmartTextStore>(),
