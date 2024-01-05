@@ -51,6 +51,17 @@ mixin _$GestureCrossStore on _GestureCrossStoreBase, Store {
   }
 
   @override
+  dynamic setLoginScreen() {
+    final _$actionInfo = _$_GestureCrossStoreBaseActionController.startAction(
+        name: '_GestureCrossStoreBase.setLoginScreen');
+    try {
+      return super.setLoginScreen();
+    } finally {
+      _$_GestureCrossStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic startBlinking() {
     final _$actionInfo = _$_GestureCrossStoreBaseActionController.startAction(
         name: '_GestureCrossStoreBase.startBlinking');

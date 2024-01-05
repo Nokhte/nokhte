@@ -65,6 +65,13 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
   }
 
   @action
+  setLoginScreen() {
+    gradientNokhte.setMovie(VibrantBlueGradientNokhteMovie.movie);
+    cross.toggleWidgetVisibility();
+    centerCrossNokhte.toggleWidgetVisibility();
+  }
+
+  @action
   startBlinking() => cross.setControl(Control.mirror);
 
   @action
