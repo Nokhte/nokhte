@@ -34,6 +34,12 @@ abstract class _BaseCustomAnimatedWidgetStoreBase<T> extends Equatable
   @observable
   bool hasFadedIn = false;
 
+  @observable
+  int tapCount = 0;
+
+  @action
+  incrementTapCount() => tapCount++;
+
   @action
   toggleHasFadedIn() => hasFadedIn = !hasFadedIn;
 

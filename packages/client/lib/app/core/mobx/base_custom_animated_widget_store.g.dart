@@ -106,9 +106,38 @@ mixin _$BaseCustomAnimatedWidgetStore<T>
     });
   }
 
+  late final _$tapCountAtom = Atom(
+      name: '_BaseCustomAnimatedWidgetStoreBase.tapCount', context: context);
+
+  @override
+  int get tapCount {
+    _$tapCountAtom.reportRead();
+    return super.tapCount;
+  }
+
+  @override
+  set tapCount(int value) {
+    _$tapCountAtom.reportWrite(value, super.tapCount, () {
+      super.tapCount = value;
+    });
+  }
+
   late final _$_BaseCustomAnimatedWidgetStoreBaseActionController =
       ActionController(
           name: '_BaseCustomAnimatedWidgetStoreBase', context: context);
+
+  @override
+  dynamic incrementTapCount() {
+    final _$actionInfo =
+        _$_BaseCustomAnimatedWidgetStoreBaseActionController.startAction(
+            name: '_BaseCustomAnimatedWidgetStoreBase.incrementTapCount');
+    try {
+      return super.incrementTapCount();
+    } finally {
+      _$_BaseCustomAnimatedWidgetStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic toggleHasFadedIn() {
@@ -216,7 +245,8 @@ control: ${control},
 pastControl: ${pastControl},
 showWidget: ${showWidget},
 movieStatus: ${movieStatus},
-hasFadedIn: ${hasFadedIn}
+hasFadedIn: ${hasFadedIn},
+tapCount: ${tapCount}
     ''';
   }
 }
