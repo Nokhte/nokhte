@@ -17,5 +17,8 @@ import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
   MockSpec<UserInformationCoordinator>(),
   MockSpec<GetCollaboratorPhraseStore>(),
   MockSpec<HomeScreenWidgetsCoordinator>(),
+  MockSpec<GetUserInfoStore>(),
+  MockSpec<UpdateHasGoneThroughInvitationFlowStore>(),
+  MockSpec<UpdateHasSentAnInvitationStore>(),
 ])
 void main() {}
