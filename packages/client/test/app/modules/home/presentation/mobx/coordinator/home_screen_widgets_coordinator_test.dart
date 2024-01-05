@@ -77,8 +77,9 @@ void main() {
     });
     test("constructor", () async {
       await testStore.constructor();
-      expect(primarySmartText.messagesData, MessagesData.empty);
-      expect(secondarySmartText.messagesData, MessagesData.empty);
+      expect(primarySmartText.messagesData, MessagesData.firstTimeHomeList);
+      expect(secondarySmartText.messagesData,
+          MessagesData.firstTimeSecondaryHomeList);
       expect(beachWaves.movieMode, BeachWaveMovieModes.onShore);
     });
 
@@ -94,9 +95,9 @@ void main() {
     test("postInvitationFlowConstuctor", () {
       testStore.constructor();
       testStore.postInvitationFlowConstructor();
-      expect(
-          primarySmartText.messagesData, MessagesData.postInvitationFlowText);
-      expect(secondarySmartText.messagesData, MessagesData.empty);
+      expect(primarySmartText.messagesData, MessagesData.firstTimeHomeList);
+      expect(secondarySmartText.messagesData,
+          MessagesData.firstTimeSecondaryHomeList);
       expect(beachWaves.movieMode, BeachWaveMovieModes.onShore);
     });
 
