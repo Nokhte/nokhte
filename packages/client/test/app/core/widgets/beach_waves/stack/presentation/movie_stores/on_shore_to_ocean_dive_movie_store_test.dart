@@ -12,7 +12,7 @@ void main() {
 
   group("initial values", () {
     test("movie duration should be the ocean dive duration", () {
-      expect(testStore.movie.duration, Seconds.get(3));
+      expect(testStore.movie.duration, Seconds.get(2, milli: 1));
     });
 
     test("control should be control.stop", () {
