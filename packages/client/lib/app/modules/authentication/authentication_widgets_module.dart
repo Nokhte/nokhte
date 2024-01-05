@@ -9,6 +9,7 @@ class AuthenticationWidgetsModule extends Module {
         BeachWavesModule(),
         WifiDisconnectOverlayModule(),
         SmartTextModule(),
+        GestureCrossModule(),
       ];
 
   @override
@@ -21,6 +22,7 @@ class AuthenticationWidgetsModule extends Module {
     );
     i.addSingleton<LoginScreenWidgetsCoordinator>(
       () => LoginScreenWidgetsCoordinator(
+        gestureCross: Modular.get<GestureCrossStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         nokhte: i<NokhteStore>(),
         smartTextStore: i<SmartTextStore>(),
