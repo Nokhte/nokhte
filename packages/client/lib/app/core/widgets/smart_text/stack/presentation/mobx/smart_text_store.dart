@@ -21,6 +21,7 @@ abstract class _SmartTextStoreBase extends BaseCustomAnimatedWidgetStore
 
   @action
   setMessagesData(List<RotatingTextData> newList) {
+    currentIndex = 0;
     messagesData = ObservableList.of(newList);
   }
 
