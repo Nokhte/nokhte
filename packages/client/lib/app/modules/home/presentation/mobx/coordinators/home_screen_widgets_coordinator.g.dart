@@ -190,13 +190,13 @@ mixin _$HomeScreenWidgetsCoordinator
   }
 
   @override
-  dynamic postInvitationFlowConstuctor() {
+  dynamic postInvitationFlowConstructor() {
     final _$actionInfo =
         _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
             name:
-                '_HomeScreenWidgetsCoordinatorBase.postInvitationFlowConstuctor');
+                '_HomeScreenWidgetsCoordinatorBase.postInvitationFlowConstructor');
     try {
-      return super.postInvitationFlowConstuctor();
+      return super.postInvitationFlowConstructor();
     } finally {
       _$_HomeScreenWidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);

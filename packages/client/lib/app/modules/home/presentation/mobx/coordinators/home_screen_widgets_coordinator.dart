@@ -65,7 +65,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   }
 
   @action
-  postInvitationFlowConstuctor() {
+  postInvitationFlowConstructor() {
     toggleHasCompletedInvitationFlow();
     Future.delayed(Seconds.get(3), () {
       gestureCross.startBlinking();
