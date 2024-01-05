@@ -1,10 +1,10 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/modules/home/domain/domain.dart';
+import 'package:nokhte/app/modules/collaboration/domain/domain.dart';
 
 class ShareCollaborationInvitation
     implements
         AbstractFutureLogic<CollaborationInvitationSendStatusEntity, String> {
-  final HomeContract contract;
+  final CollaborationContract contract;
 
   ShareCollaborationInvitation({
     required this.contract,

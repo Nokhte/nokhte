@@ -3,8 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/modules/home/domain/entities/entities.dart';
-import 'package:nokhte/app/modules/home/domain/logic/logic.dart';
+import 'package:nokhte/app/modules/collaboration/domain/domain.dart';
 part 'share_collaboration_invitation_store.g.dart';
 
 class ShareCollaborationInvitationStore = _ShareCollaborationInvitationStoreBase

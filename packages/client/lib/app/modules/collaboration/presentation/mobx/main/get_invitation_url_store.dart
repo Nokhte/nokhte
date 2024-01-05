@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/modules/home/domain/domain.dart';
+import 'package:nokhte/app/modules/collaboration/domain/domain.dart';
 part 'get_invitation_url_store.g.dart';
 
 class GetInvitationURLStore = _GetInvitationURLStoreBase
