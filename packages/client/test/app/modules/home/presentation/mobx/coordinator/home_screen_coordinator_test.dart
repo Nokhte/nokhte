@@ -10,8 +10,6 @@ void main() {
   late MockAddNameToDatabaseStore mockAddNameToDatabase;
   late MockGetCollaboratorPhraseStore mockGetCollaboratorPhrase;
   late MockGetExistingCollaborationsInfoStore mockGetExistingCollaborationInfo;
-  late MockGetInvitationURLStore mockGetInvitationURLStore;
-  late MockShareCollaborationInvitationStore mockShareCollaborationInvitation;
   late MockHomeScreenWidgetsCoordinator mockWidgets;
   late HomeScreenCoordinator testStore;
 
@@ -19,17 +17,13 @@ void main() {
     mockAddNameToDatabase = MockAddNameToDatabaseStore();
     mockGetCollaboratorPhrase = MockGetCollaboratorPhraseStore();
     mockGetExistingCollaborationInfo = MockGetExistingCollaborationsInfoStore();
-    mockGetInvitationURLStore = MockGetInvitationURLStore();
-    mockShareCollaborationInvitation = MockShareCollaborationInvitationStore();
     mockWidgets = MockHomeScreenWidgetsCoordinator();
 
     testStore = HomeScreenCoordinator(
       swipe: SwipeDetector(),
       addNameToDatabaseStore: mockAddNameToDatabase,
-      getInvitationURL: mockGetInvitationURLStore,
       getExistingCollaborationInfo: mockGetExistingCollaborationInfo,
       getCollaboratorPhraseStore: mockGetCollaboratorPhrase,
-      shareCollaborationInvitation: mockShareCollaborationInvitation,
       userInformation: MockUserInformationCoordinator(),
       widgets: mockWidgets,
     );
