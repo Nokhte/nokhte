@@ -35,6 +35,9 @@ class GestureCross extends StatelessWidget {
                       size: size,
                       store: store.cross,
                     ),
+                    CenterCrossNokhte(
+                      store: store.centerCrossNokhte,
+                    ),
                     StrokeCrossNokhte(
                       store: store.strokeCrossNokhte,
                       offsets: config.getStrokeOffsets(),
@@ -43,9 +46,6 @@ class GestureCross extends StatelessWidget {
                       offsets: config.getGradientOffsets(),
                       store: store.gradientNokhte,
                       gradientColorLengths: config.gradientColorLengths,
-                    ),
-                    CenterCrossNokhte(
-                      store: store.centerCrossNokhte,
                     ),
                   ],
                 ),
