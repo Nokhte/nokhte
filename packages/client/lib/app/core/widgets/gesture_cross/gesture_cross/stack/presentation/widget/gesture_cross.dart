@@ -29,26 +29,25 @@ class GestureCross extends StatelessWidget {
               height: size.height,
               child: Padding(
                 padding: const EdgeInsets.only(left: 10.0),
-                child: SizedBox.expand(
-                  child: MultiHitStack(
-                    children: [
-                      Cross(
-                        size: size,
-                        store: store.cross,
-                      ),
-                      StrokeCrossNokhte(
-                        offsets: config.getStrokeOffsets(),
-                      ),
-                      CenterCrossNokhte(
-                        store: store.centerCrossNokhte,
-                      ),
-                      GradientCrossNokhte(
-                        offsets: config.getGradientOffsets(),
-                        store: store.gradientNokhte,
-                        gradientColorLengths: config.gradientColorLengths,
-                      ),
-                    ],
-                  ),
+                child: MultiHitStack(
+                  children: [
+                    Cross(
+                      size: size,
+                      store: store.cross,
+                    ),
+                    StrokeCrossNokhte(
+                      store: store.strokeCrossNokhte,
+                      offsets: config.getStrokeOffsets(),
+                    ),
+                    GradientCrossNokhte(
+                      offsets: config.getGradientOffsets(),
+                      store: store.gradientNokhte,
+                      gradientColorLengths: config.gradientColorLengths,
+                    ),
+                    CenterCrossNokhte(
+                      store: store.centerCrossNokhte,
+                    ),
+                  ],
                 ),
               ),
             ),
