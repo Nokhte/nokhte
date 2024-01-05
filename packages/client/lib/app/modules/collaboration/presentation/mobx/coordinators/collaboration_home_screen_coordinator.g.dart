@@ -10,17 +10,71 @@ part of 'collaboration_home_screen_coordinator.dart';
 
 mixin _$CollaborationHomeScreenCoordinator
     on _CollaborationHomeScreenCoordinatorBase, Store {
+  late final _$isNavigatingAwayAtom = Atom(
+      name: '_CollaborationHomeScreenCoordinatorBase.isNavigatingAway',
+      context: context);
+
+  @override
+  bool get isNavigatingAway {
+    _$isNavigatingAwayAtom.reportRead();
+    return super.isNavigatingAway;
+  }
+
+  @override
+  set isNavigatingAway(bool value) {
+    _$isNavigatingAwayAtom.reportWrite(value, super.isNavigatingAway, () {
+      super.isNavigatingAway = value;
+    });
+  }
+
+  late final _$constructorAsyncAction = AsyncAction(
+      '_CollaborationHomeScreenCoordinatorBase.constructor',
+      context: context);
+
+  @override
+  Future constructor() {
+    return _$constructorAsyncAction.run(() => super.constructor());
+  }
+
   late final _$_CollaborationHomeScreenCoordinatorBaseActionController =
       ActionController(
           name: '_CollaborationHomeScreenCoordinatorBase', context: context);
 
   @override
-  dynamic constructor() {
+  dynamic toggleIsNavigatingAway() {
     final _$actionInfo =
         _$_CollaborationHomeScreenCoordinatorBaseActionController.startAction(
-            name: '_CollaborationHomeScreenCoordinatorBase.constructor');
+            name:
+                '_CollaborationHomeScreenCoordinatorBase.toggleIsNavigatingAway');
     try {
-      return super.constructor();
+      return super.toggleIsNavigatingAway();
+    } finally {
+      _$_CollaborationHomeScreenCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onGradientTreeNodeTap() {
+    final _$actionInfo =
+        _$_CollaborationHomeScreenCoordinatorBaseActionController.startAction(
+            name:
+                '_CollaborationHomeScreenCoordinatorBase.onGradientTreeNodeTap');
+    try {
+      return super.onGradientTreeNodeTap();
+    } finally {
+      _$_CollaborationHomeScreenCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onFlowCompleted() {
+    final _$actionInfo =
+        _$_CollaborationHomeScreenCoordinatorBaseActionController.startAction(
+            name: '_CollaborationHomeScreenCoordinatorBase.onFlowCompleted');
+    try {
+      return super.onFlowCompleted();
     } finally {
       _$_CollaborationHomeScreenCoordinatorBaseActionController
           .endAction(_$actionInfo);
@@ -30,7 +84,7 @@ mixin _$CollaborationHomeScreenCoordinator
   @override
   String toString() {
     return '''
-
+isNavigatingAway: ${isNavigatingAway}
     ''';
   }
 }
