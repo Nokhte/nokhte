@@ -15,16 +15,15 @@ abstract class _OnShoreToOceanDiveMovieStoreBase
           callsOnCompleteTwice: true,
           shouldPaintSand: OnShoreToOceanDiveMovie.shouldPaintSand,
         ) {
-    movie =
-        OnShoreToOceanDiveMovie.getOceanDiveMovie(startingWaterMovement: 0.0);
+    movie = OnShoreMovie.movie;
   }
 
   @override
   @action
   initMovie(double startingWaterPosition) {
+    setMovie(OnShoreToOceanDiveMovie.getOceanDiveMovie(
+        startingWaterMovement: startingWaterPosition));
+    setControl(Control.playFromStart);
     setMovieStatus(MovieStatus.inProgress);
-    movie = OnShoreToOceanDiveMovie.getOceanDiveMovie(
-        startingWaterMovement: startingWaterPosition);
-    control = Control.playFromStart;
   }
 }
