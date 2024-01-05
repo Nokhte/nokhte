@@ -12,6 +12,7 @@ abstract class _CrossStoreBase extends BaseCustomAnimatedWidgetStore
     with Store {
   _CrossStoreBase() {
     toggleWidgetVisibility();
+    setMovie(CrossExpansionAndContractionMovie.movie);
   }
 
   final Path path = SvgAnimtionConstants.crossPath;
