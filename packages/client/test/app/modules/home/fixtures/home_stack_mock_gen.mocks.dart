@@ -1777,17 +1777,6 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
       ) as _i15.ReactiveContext);
 
   @override
-  dynamic invitationFlowConstructor({bool? skipFirstMessage = false}) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #invitationFlowConstructor,
-          [],
-          {#skipFirstMessage: skipFirstMessage},
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
   dynamic prepForNavigation({bool? excludeUnBlur = false}) =>
       super.noSuchMethod(
         Invocation.method(
