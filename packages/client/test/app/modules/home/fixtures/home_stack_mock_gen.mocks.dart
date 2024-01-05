@@ -2298,28 +2298,12 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
       ) as _i15.ReactiveContext);
 
   @override
-  dynamic initReactors({
-    required Function? onGradientTreeNodeTap,
-    required Function? onInvitationFlowFinished,
-  }) =>
+  dynamic initReactors({required Function? onGradientTreeNodeTap}) =>
       super.noSuchMethod(
         Invocation.method(
           #initReactors,
           [],
-          {
-            #onGradientTreeNodeTap: onGradientTreeNodeTap,
-            #onInvitationFlowFinished: onInvitationFlowFinished,
-          },
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  dynamic primarySmartTextReactor(Function? onInvitationFlowFinished) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #primarySmartTextReactor,
-          [onInvitationFlowFinished],
+          {#onGradientTreeNodeTap: onGradientTreeNodeTap},
         ),
         returnValueForMissingStub: null,
       );
