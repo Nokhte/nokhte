@@ -10,14 +10,18 @@ class GestureCrossModule extends Module {
     i.add<CrossStore>(
       () => CrossStore(),
     );
+    i.add<StrokeCrossNokhteStore>(
+      () => StrokeCrossNokhteStore(),
+    );
     i.add<CenterCrossNokhteStore>(
       () => CenterCrossNokhteStore(),
     );
     i.add<GestureCrossStore>(
       () => GestureCrossStore(
-        cross: Modular.get<CrossStore>(),
-        gradientNokhte: Modular.get<GradientCrossNokhteStore>(),
-        centerCrossNokhte: Modular.get<CenterCrossNokhteStore>(),
+        strokeCrossNokhte: i<StrokeCrossNokhteStore>(),
+        cross: i<CrossStore>(),
+        gradientNokhte: i<GradientCrossNokhteStore>(),
+        centerCrossNokhte: i<CenterCrossNokhteStore>(),
       ),
     );
   }
