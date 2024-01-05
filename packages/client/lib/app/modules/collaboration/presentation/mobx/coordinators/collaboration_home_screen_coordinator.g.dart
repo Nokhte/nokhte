@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'collaboration_home_widgets_coordinator.dart';
+part of 'collaboration_home_screen_coordinator.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,21 +8,21 @@ part of 'collaboration_home_widgets_coordinator.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$CollaborationHomeWidgetsCoordinator
-    on _CollaborationHomeWidgetsCoordinatorBase, Store {
-  late final _$_CollaborationHomeWidgetsCoordinatorBaseActionController =
+mixin _$CollaborationHomeScreenCoordinator
+    on _CollaborationHomeScreenCoordinatorBase, Store {
+  late final _$_CollaborationHomeScreenCoordinatorBaseActionController =
       ActionController(
-          name: '_CollaborationHomeWidgetsCoordinatorBase', context: context);
+          name: '_CollaborationHomeScreenCoordinatorBase', context: context);
 
   @override
   dynamic constructor() {
     final _$actionInfo =
-        _$_CollaborationHomeWidgetsCoordinatorBaseActionController.startAction(
-            name: '_CollaborationHomeWidgetsCoordinatorBase.constructor');
+        _$_CollaborationHomeScreenCoordinatorBaseActionController.startAction(
+            name: '_CollaborationHomeScreenCoordinatorBase.constructor');
     try {
       return super.constructor();
     } finally {
-      _$_CollaborationHomeWidgetsCoordinatorBaseActionController
+      _$_CollaborationHomeScreenCoordinatorBaseActionController
           .endAction(_$actionInfo);
     }
   }

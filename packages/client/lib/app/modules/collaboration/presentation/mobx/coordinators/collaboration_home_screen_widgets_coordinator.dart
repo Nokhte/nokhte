@@ -3,12 +3,12 @@ import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-part 'collaboration_home_widgets_coordinator.g.dart';
+part 'collaboration_home_screen_widgets_coordinator.g.dart';
 
-class CollaborationHomeWidgetsCoordinator = _CollaborationHomeWidgetsCoordinatorBase
-    with _$CollaborationHomeWidgetsCoordinator;
+class CollaborationHomeScreenWidgetsCoordinator = _CollaborationHomeScreenWidgetsCoordinatorBase
+    with _$CollaborationHomeScreenWidgetsCoordinator;
 
-abstract class _CollaborationHomeWidgetsCoordinatorBase extends Equatable
+abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
     with Store {
   final BeachWavesStore beachWaves;
   final GradientTreeNodeStore gradientTreeNode;
@@ -16,7 +16,7 @@ abstract class _CollaborationHomeWidgetsCoordinatorBase extends Equatable
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final GestureCrossStore gestureCross;
 
-  _CollaborationHomeWidgetsCoordinatorBase({
+  _CollaborationHomeScreenWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.gestureCross,
     required this.gradientTreeNode,
@@ -29,8 +29,25 @@ abstract class _CollaborationHomeWidgetsCoordinatorBase extends Equatable
     beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtOceanDive);
     gestureCross.setCollaborationHomeScreen();
     gradientTreeNode.toggleWidgetVisibility();
-    smartText.setMessagesData(MessagesData.empty);
+    smartText.setMessagesData(MessagesData.firstTimeCollaborationList);
+    smartText.startRotatingText();
   }
+
+  initReactors(Function onGradientTreeNodeTap) {
+    smartTextReactor();
+    gradientTreeNodeTapReactor(onGradientTreeNodeTap);
+  }
+
+  smartTextReactor() => reaction((p0) => smartText.currentIndex, (p0) {
+        if (p0 == 2) {
+          gradientTreeNode.toggleWidgetVisibility();
+        }
+      });
+
+  gradientTreeNodeTapReactor(Function onGradientTreeNodeTap) => reaction(
+        (p0) => gradientTreeNode.tapCount,
+        (p0) => onGradientTreeNodeTap(),
+      );
 
   @override
   List<Object> get props => [];
