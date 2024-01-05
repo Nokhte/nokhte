@@ -138,7 +138,7 @@ void main() {
       group("onGestureCrossTap", () {
         test("if !isDisconnected + !hasInitiatedBlur", () {
           fakeAsync((async) async {
-            await testStore.onGestureCrossTap();
+            await testStore.onGestureCrossTap(() {});
             async.elapse(Seconds.get(10));
             expect(nokhteBlurStore.control, Control.playFromStart);
             expect(primarySmartText.control, Control.playFromStart);
@@ -148,7 +148,7 @@ void main() {
         test("if clockIsVisible && !secondaryTextIsInProgress", () {
           testStore.toggleClockIsVisible();
           fakeAsync((async) async {
-            await testStore.onGestureCrossTap();
+            await testStore.onGestureCrossTap(() {});
             async.elapse(Seconds.get(10));
             expect(secondarySmartText.control, Control.playReverse);
           });
