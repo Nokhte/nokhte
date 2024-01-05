@@ -6,7 +6,7 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
 
 class CollaborationHomeScreen extends HookWidget {
-  final CollaborationHomeCoordinator coordinator;
+  final CollaborationHomeScreenCoordinator coordinator;
   const CollaborationHomeScreen({
     super.key,
     required this.coordinator,
