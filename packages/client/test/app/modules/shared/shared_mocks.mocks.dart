@@ -1115,6 +1115,15 @@ class MockGestureCrossStore extends _i1.Mock implements _i5.GestureCrossStore {
           Invocation.getter(#context),
         ),
       ) as _i4.ReactiveContext);
+
+  @override
+  dynamic initMoveAndRegenerate(_i6.Offset? endDirection) => super.noSuchMethod(
+        Invocation.method(
+          #initMoveAndRegenerate,
+          [endDirection],
+        ),
+        returnValueForMissingStub: null,
+      );
 }
 
 /// A class which mocks [TimeAlignmentModelCoordinator].
