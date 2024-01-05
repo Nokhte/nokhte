@@ -64,6 +64,33 @@ class MessagesData {
           onScreenTime: Seconds.get(0),
         ),
       ];
+
+  static List<RotatingTextData> get firstTimeCollaborationList => [
+        RotatingTextData(
+          initialFadeInDelay: Seconds.get(1),
+          mainMessage: "This is the collaboration page.",
+          onScreenTime: Seconds.get(2),
+        ),
+        RotatingTextData(
+          initialFadeInDelay: Seconds.get(0),
+          mainMessage:
+              "To make the connection you will need each other's invitation.",
+          onScreenTime: Seconds.get(0),
+        ),
+        RotatingTextData(
+          initialFadeInDelay: Seconds.get(1),
+          mainMessage: "To make an invitation tap on the yellow dot.",
+          onScreenTime: Seconds.get(0),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          initialFadeInDelay: Seconds.get(1),
+          mainMessage: "Swipe Down to go Home.",
+          onScreenTime: Seconds.get(2),
+          pauseHere: true,
+        ),
+      ];
+
   static List<RotatingTextData> get postInvitationFlowText => [
         RotatingTextData(
           initialFadeInDelay: Seconds.get(0),
