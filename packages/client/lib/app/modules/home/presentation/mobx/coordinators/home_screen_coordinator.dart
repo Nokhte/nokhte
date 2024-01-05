@@ -32,9 +32,10 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
   @action
   constructor() async {
     widgets.constructor();
+    widgets.initReactors(resetFlowCompletionStatus);
     await userInformation.getUserInfo(NoParams());
     if (userInformation.getUserInfo.hasGoneThroughInvitationFlow) {
-      // widgets.postInvitationFlowConstuctor();
+      widgets.postInvitationFlowConstuctor();
     } else {
       widgets.invitationFlowConstructor();
     }
@@ -47,6 +48,10 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
   initReactors() {
     swipeReactor();
   }
+
+  @action
+  resetFlowCompletionStatus() =>
+      userInformation.updateHasGoneThroughInvitationFlow(false);
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
