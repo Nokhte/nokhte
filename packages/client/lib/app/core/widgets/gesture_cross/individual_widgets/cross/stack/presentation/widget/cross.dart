@@ -44,9 +44,9 @@ class Cross extends StatelessWidget {
                   crossGradient: ColorsAndStops(colors: [
                     const Color(0xFF0A98FF),
                     Colors.white.withOpacity(0)
-                  ], stops: const [
+                  ], stops: [
                     0,
-                    .5
+                    value.get('stop'),
                   ]),
                   circleInformation: store.circleInformation,
                 ),
