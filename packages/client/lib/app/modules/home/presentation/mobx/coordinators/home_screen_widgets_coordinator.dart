@@ -89,6 +89,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
       primarySmartText.startRotatingText(isResuming: true);
       beachWaves.currentStore.setControl(Control.mirror);
       beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDiveSetup);
+      gestureCross.initMoveAndRegenerate(CircleOffsets.top);
     }
   }
 
