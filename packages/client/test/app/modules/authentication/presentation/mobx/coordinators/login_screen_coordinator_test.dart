@@ -51,7 +51,7 @@ void main() {
       expect(testStore.hasAttemptedToLogin, false);
     });
     test("screenConstructor", () {
-      testStore.screenConstructor(tCoordinates);
+      testStore.constructor(tCoordinates);
       verify(mockWidgetsStore.constructor(
         tCoordinates,
         testStore.logTheUserIn,
