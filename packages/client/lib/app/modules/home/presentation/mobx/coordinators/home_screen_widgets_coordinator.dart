@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
@@ -185,7 +186,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (beachWaves.movieStatus == MovieStatus.finished &&
             beachWaves.movieMode == BeachWaveMovieModes.onShoreToOceanDive) {
-          // modular.to.navigate('/collaboration/');
+          Modular.to.navigate('/collaboration/');
         }
       });
 
