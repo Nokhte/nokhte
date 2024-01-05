@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -55,18 +54,6 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
     await addNameToDatabaseStore(NoParams());
     await getCollaboratorPhraseStore(NoParams());
     await getInvitationURL(NoParams());
-  }
-
-  @action
-  onAppLifeCycleStateChange(p0) {
-    switch (p0) {
-      case AppLifecycleState.resumed:
-        widgets.onResumed();
-      case AppLifecycleState.inactive:
-        widgets.onInactive();
-      default:
-        break;
-    }
   }
 
   initReactors() {

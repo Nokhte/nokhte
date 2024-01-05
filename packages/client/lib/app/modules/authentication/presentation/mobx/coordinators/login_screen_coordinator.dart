@@ -57,17 +57,6 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
     authStateReactor();
   }
 
-  onAppLifeCycleStateChange(p0) {
-    switch (p0) {
-      case AppLifecycleState.resumed:
-        onResumed();
-      case AppLifecycleState.inactive:
-        onInactive();
-      default:
-        break;
-    }
-  }
-
   @action
   onConnected() {
     if (disableAllTouchFeedback) {
