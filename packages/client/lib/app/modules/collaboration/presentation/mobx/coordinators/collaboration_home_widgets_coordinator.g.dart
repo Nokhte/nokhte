@@ -10,6 +10,23 @@ part of 'collaboration_home_widgets_coordinator.dart';
 
 mixin _$CollaborationHomeWidgetsCoordinator
     on _CollaborationHomeWidgetsCoordinatorBase, Store {
+  late final _$_CollaborationHomeWidgetsCoordinatorBaseActionController =
+      ActionController(
+          name: '_CollaborationHomeWidgetsCoordinatorBase', context: context);
+
+  @override
+  dynamic constructor() {
+    final _$actionInfo =
+        _$_CollaborationHomeWidgetsCoordinatorBaseActionController.startAction(
+            name: '_CollaborationHomeWidgetsCoordinatorBase.constructor');
+    try {
+      return super.constructor();
+    } finally {
+      _$_CollaborationHomeWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
