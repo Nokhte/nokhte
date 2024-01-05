@@ -51,6 +51,28 @@ mixin _$GestureCrossStore on _GestureCrossStoreBase, Store {
   }
 
   @override
+  dynamic startBlinking() {
+    final _$actionInfo = _$_GestureCrossStoreBaseActionController.startAction(
+        name: '_GestureCrossStoreBase.startBlinking');
+    try {
+      return super.startBlinking();
+    } finally {
+      _$_GestureCrossStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic stopBlinking() {
+    final _$actionInfo = _$_GestureCrossStoreBaseActionController.startAction(
+        name: '_GestureCrossStoreBase.stopBlinking');
+    try {
+      return super.stopBlinking();
+    } finally {
+      _$_GestureCrossStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic toggleAll() {
     final _$actionInfo = _$_GestureCrossStoreBaseActionController.startAction(
         name: '_GestureCrossStoreBase.toggleAll');

@@ -56,10 +56,19 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
   @action
   setHomeScreen() {
     gradientNokhte.setMovie(VibrantBlueGradientNokhteMovie.movie);
+    cross.toggleWidgetVisibility();
+    centerCrossNokhte.toggleWidgetVisibility();
     Future.delayed(Seconds.get(0, milli: 500), () {
-      toggleAll();
+      strokeCrossNokhte.toggleWidgetVisibility();
+      gradientNokhte.toggleWidgetVisibility();
     });
   }
+
+  @action
+  startBlinking() => cross.setControl(Control.mirror);
+
+  @action
+  stopBlinking() => cross.setControl(Control.playReverse);
 
   @action
   toggleAll() {
