@@ -63,6 +63,36 @@ mixin _$CollaborationHomeScreenWidgetsCoordinator
   }
 
   @override
+  dynamic invitationFlowConstructor() {
+    final _$actionInfo =
+        _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_CollaborationHomeScreenWidgetsCoordinatorBase.invitationFlowConstructor');
+    try {
+      return super.invitationFlowConstructor();
+    } finally {
+      _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic postInvitationFlowConstructor() {
+    final _$actionInfo =
+        _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_CollaborationHomeScreenWidgetsCoordinatorBase.postInvitationFlowConstructor');
+    try {
+      return super.postInvitationFlowConstructor();
+    } finally {
+      _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic onSwipeDown() {
     final _$actionInfo =
         _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController

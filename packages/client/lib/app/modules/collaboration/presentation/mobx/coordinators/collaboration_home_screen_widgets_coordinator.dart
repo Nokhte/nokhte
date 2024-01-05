@@ -37,8 +37,18 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtOceanDive);
     gestureCross.setCollaborationHomeScreen();
-    gradientTreeNode.toggleWidgetVisibility();
     smartText.setMessagesData(MessagesData.firstTimeCollaborationList);
+    gradientTreeNode.toggleWidgetVisibility();
+  }
+
+  @action
+  invitationFlowConstructor() {
+    smartText.startRotatingText();
+  }
+
+  @action
+  postInvitationFlowConstructor() {
+    smartText.setCurrentIndex(2);
     smartText.startRotatingText();
   }
 
