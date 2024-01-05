@@ -42,7 +42,7 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
       Platform.isAndroid ? AuthProvider.google : AuthProvider.apple;
 
   @action
-  screenConstructor(Offset center) {
+  constructor(Offset center) {
     widgets.constructor(center, logTheUserIn, onConnected, onDisconnected);
     authStateListener(authStateStore.authState);
     initReactors();

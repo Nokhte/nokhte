@@ -82,11 +82,11 @@ mixin _$LoginScreenCoordinator on _LoginScreenCoordinatorBase, Store {
   }
 
   @override
-  dynamic screenConstructor(Offset center) {
+  dynamic constructor(Offset center) {
     final _$actionInfo = _$_LoginScreenCoordinatorBaseActionController
-        .startAction(name: '_LoginScreenCoordinatorBase.screenConstructor');
+        .startAction(name: '_LoginScreenCoordinatorBase.constructor');
     try {
-      return super.screenConstructor(center);
+      return super.constructor(center);
     } finally {
       _$_LoginScreenCoordinatorBaseActionController.endAction(_$actionInfo);
     }

@@ -23,9 +23,11 @@ class LoginScreen extends HookWidget {
             ));
     final center = useCenterOffset();
     useEffect(() {
-      coordinator.screenConstructor(center);
+      coordinator.constructor(center);
+      print("is this working???");
       return null;
     }, []);
+    final size = useSquareSize(relativeLength: .20);
 
     return Builder(builder: (context) {
       return Scaffold(
@@ -68,6 +70,11 @@ class LoginScreen extends HookWidget {
                     textContent: "To Login",
                     additionalPadding: const EdgeInsets.only(bottom: 280),
                   ),
+                ),
+                GestureCross(
+                  config: GestureCrossConfiguration(),
+                  size: size,
+                  store: coordinator.widgets.gestureCross,
                 ),
                 Center(
                   child: SmartText(
