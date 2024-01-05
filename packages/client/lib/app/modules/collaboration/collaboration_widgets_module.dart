@@ -16,8 +16,8 @@ class CollaborationWidgetsModule extends Module {
     i.add<GradientTreeNodeStore>(
       () => GradientTreeNodeStore(),
     );
-    i.add<CollaborationHomeWidgetsCoordinator>(
-      () => CollaborationHomeWidgetsCoordinator(
+    i.add<CollaborationHomeScreenWidgetsCoordinator>(
+      () => CollaborationHomeScreenWidgetsCoordinator(
         gestureCross: Modular.get<GestureCrossStore>(),
         beachWaves: Modular.get<BeachWavesStore>(),
         gradientTreeNode: i<GradientTreeNodeStore>(),
@@ -25,6 +25,5 @@ class CollaborationWidgetsModule extends Module {
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
       ),
     );
-    //
   }
 }
