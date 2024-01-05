@@ -131,9 +131,8 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
 
   initReactors({
     required Function onGradientTreeNodeTap,
-    required Function onInvitationFlowFinished,
   }) {
-    primarySmartTextReactor(onInvitationFlowFinished);
+    primarySmartTextReactor();
     gestureCrossTapReactor();
     wifiDisconnectOverlay.connectionReactor(
       onConnected: onConnected,
@@ -166,13 +165,10 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
         (p0) => onGestureCrossTap(),
       );
 
-  primarySmartTextReactor(Function onInvitationFlowFinished) =>
+  primarySmartTextReactor() =>
       reaction((p0) => primarySmartText.currentIndex, (p0) {
         if (p0 == 3) {
           timeModel.init();
-        }
-        if (p0 == 4) {
-          onInvitationFlowFinished();
         }
       });
 

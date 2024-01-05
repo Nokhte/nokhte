@@ -35,16 +35,14 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
   @action
   constructor() async {
     widgets.constructor();
-    // await getUserInfo(NoParams());
-    // if (getUserInfo.hasGoneThroughInvitationFlow) {
-    // widgets.postInvitationFlowConstuctor();
-    // } else {
-    widgets.invitationFlowConstructor();
-    // }
+    await userInformation.getUserInfo(NoParams());
+    if (userInformation.getUserInfo.hasGoneThroughInvitationFlow) {
+      // widgets.postInvitationFlowConstuctor();
+    } else {
+      widgets.invitationFlowConstructor();
+    }
     widgets.initReactors(
       onGradientTreeNodeTap: onGradientTreeNodeTap,
-      // onInvitationFlowFinished: () => updateHasGoneThroughInvitationFlow(true),
-      onInvitationFlowFinished: () => null,
     );
     initReactors();
     await getExistingCollaborationInfo(NoParams());
@@ -55,20 +53,12 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
 
   initReactors() {
     swipeReactor();
-    shareInvitationReactor();
   }
 
   @action
   onGradientTreeNodeTap() {
     shareCollaborationInvitation(getInvitationURL.link);
   }
-
-  shareInvitationReactor() =>
-      reaction((p0) => shareCollaborationInvitation.isShared, (p0) {
-        if (p0) {
-          // updateHasSentAnInvitation(true);
-        }
-      });
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
