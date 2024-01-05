@@ -27,6 +27,7 @@ void main() {
     topTrailingTextStore = TrailingTextStore();
     bottomTrailingTextStore = TrailingTextStore();
     testStore = LoginScreenWidgetsCoordinator(
+      gestureCross: MockGestureCrossStore(),
       wifiDisconnectOverlay: wifiDisconnectOverlayStore,
       layer1BeachWaves: mockLayer1BeachWavesStore,
       layer2BeachWaves: mockLayer2BeachWavesStore,
