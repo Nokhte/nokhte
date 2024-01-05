@@ -11,12 +11,8 @@ void main() {
   late MockGetCollaboratorPhraseStore mockGetCollaboratorPhrase;
   late MockGetExistingCollaborationsInfoStore mockGetExistingCollaborationInfo;
   late MockGetInvitationURLStore mockGetInvitationURLStore;
-  late MockGetUserInfoStore mockGetUserInfoStore;
   late MockShareCollaborationInvitationStore mockShareCollaborationInvitation;
   late MockHomeScreenWidgetsCoordinator mockWidgets;
-  late MockUpdateHasGoneThroughInvitationFlowStore
-      mockUpdateHasGoneThroughInvitationFlow;
-  late MockUpdateHasSentAnInvitationStore mockUpdateHasSentAnInvitationStore;
   late HomeScreenCoordinator testStore;
 
   setUp(() {
@@ -24,24 +20,17 @@ void main() {
     mockGetCollaboratorPhrase = MockGetCollaboratorPhraseStore();
     mockGetExistingCollaborationInfo = MockGetExistingCollaborationsInfoStore();
     mockGetInvitationURLStore = MockGetInvitationURLStore();
-    mockGetUserInfoStore = MockGetUserInfoStore();
     mockShareCollaborationInvitation = MockShareCollaborationInvitationStore();
     mockWidgets = MockHomeScreenWidgetsCoordinator();
-    mockUpdateHasGoneThroughInvitationFlow =
-        MockUpdateHasGoneThroughInvitationFlowStore();
-    mockUpdateHasSentAnInvitationStore = MockUpdateHasSentAnInvitationStore();
 
     testStore = HomeScreenCoordinator(
       swipe: SwipeDetector(),
       addNameToDatabaseStore: mockAddNameToDatabase,
       getInvitationURL: mockGetInvitationURLStore,
-      getUserInfo: mockGetUserInfoStore,
       getExistingCollaborationInfo: mockGetExistingCollaborationInfo,
       getCollaboratorPhraseStore: mockGetCollaboratorPhrase,
       shareCollaborationInvitation: mockShareCollaborationInvitation,
-      updateHasGoneThroughInvitationFlow:
-          mockUpdateHasGoneThroughInvitationFlow,
-      updateHasSentAnInvitation: mockUpdateHasSentAnInvitationStore,
+      userInformation: MockUserInformationCoordinator(),
       widgets: mockWidgets,
     );
   });
