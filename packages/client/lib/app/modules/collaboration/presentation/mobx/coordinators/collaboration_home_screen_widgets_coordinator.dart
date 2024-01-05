@@ -1,6 +1,9 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 part 'collaboration_home_screen_widgets_coordinator.g.dart';
@@ -24,6 +27,12 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
     required this.wifiDisconnectOverlay,
   });
 
+  @observable
+  bool invitationIsSent = false;
+
+  @action
+  toggleInvitationIsSent() => invitationIsSent = !invitationIsSent;
+
   @action
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtOceanDive);
@@ -33,21 +42,62 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
     smartText.startRotatingText();
   }
 
-  initReactors(Function onGradientTreeNodeTap) {
-    smartTextReactor();
-    gradientTreeNodeTapReactor(onGradientTreeNodeTap);
+  @action
+  onSwipeDown() {
+    if (gradientTreeNode.showWidget) {
+      gradientTreeNode.toggleWidgetVisibility();
+    }
+    smartText.pause();
+    smartText.toggleWidgetVisibility();
+    gestureCross.initMoveAndRegenerate(CircleOffsets.bottom);
+    beachWaves.setMovieMode(BeachWaveMovieModes.oceanDiveToOnShore);
+    beachWaves.currentStore.initMovie(NoParams());
   }
 
-  smartTextReactor() => reaction((p0) => smartText.currentIndex, (p0) {
+  initReactors(Function onGradientTreeNodeTap, Function onFlowCompleted) {
+    smartTextReactor(onFlowCompleted);
+    gradientTreeNodeTapReactor(onGradientTreeNodeTap);
+    invitationSendStatusReactor();
+    centerCrossNokhteReactor();
+    beachWavesMovieStatusReactor();
+  }
+
+  smartTextReactor(Function onFlowCompleted) =>
+      reaction((p0) => smartText.currentIndex, (p0) {
         if (p0 == 2) {
           gradientTreeNode.toggleWidgetVisibility();
+          onFlowCompleted();
         }
       });
 
-  gradientTreeNodeTapReactor(Function onGradientTreeNodeTap) => reaction(
-        (p0) => gradientTreeNode.tapCount,
-        (p0) => onGradientTreeNodeTap(),
-      );
+  gradientTreeNodeTapReactor(Function onGradientTreeNodeTap) =>
+      reaction((p0) => gradientTreeNode.tapCount, (p0) {
+        onGradientTreeNodeTap();
+      });
+
+  invitationSendStatusReactor() => reaction((p0) => invitationIsSent, (p0) {
+        if (p0) {
+          smartText.startRotatingText(isResuming: true);
+        }
+      });
+
+  centerCrossNokhteReactor() =>
+      reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished) {
+          gestureCross.gradientNokhte.toggleWidgetVisibility();
+          gestureCross.strokeCrossNokhte.toggleWidgetVisibility();
+        }
+      });
+
+  beachWavesMovieStatusReactor() =>
+      reaction((p0) => beachWaves.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished &&
+            beachWaves.movieMode == BeachWaveMovieModes.oceanDiveToOnShore) {
+          Modular.to.navigate('/home/');
+        }
+      });
+
+  // add beach waves listener
 
   @override
   List<Object> get props => [];

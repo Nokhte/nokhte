@@ -10,10 +10,42 @@ part of 'collaboration_home_screen_widgets_coordinator.dart';
 
 mixin _$CollaborationHomeScreenWidgetsCoordinator
     on _CollaborationHomeScreenWidgetsCoordinatorBase, Store {
+  late final _$invitationIsSentAtom = Atom(
+      name: '_CollaborationHomeScreenWidgetsCoordinatorBase.invitationIsSent',
+      context: context);
+
+  @override
+  bool get invitationIsSent {
+    _$invitationIsSentAtom.reportRead();
+    return super.invitationIsSent;
+  }
+
+  @override
+  set invitationIsSent(bool value) {
+    _$invitationIsSentAtom.reportWrite(value, super.invitationIsSent, () {
+      super.invitationIsSent = value;
+    });
+  }
+
   late final _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController =
       ActionController(
           name: '_CollaborationHomeScreenWidgetsCoordinatorBase',
           context: context);
+
+  @override
+  dynamic toggleInvitationIsSent() {
+    final _$actionInfo =
+        _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_CollaborationHomeScreenWidgetsCoordinatorBase.toggleInvitationIsSent');
+    try {
+      return super.toggleInvitationIsSent();
+    } finally {
+      _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic constructor() {
@@ -31,9 +63,24 @@ mixin _$CollaborationHomeScreenWidgetsCoordinator
   }
 
   @override
+  dynamic onSwipeDown() {
+    final _$actionInfo =
+        _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_CollaborationHomeScreenWidgetsCoordinatorBase.onSwipeDown');
+    try {
+      return super.onSwipeDown();
+    } finally {
+      _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-
+invitationIsSent: ${invitationIsSent}
     ''';
   }
 }
