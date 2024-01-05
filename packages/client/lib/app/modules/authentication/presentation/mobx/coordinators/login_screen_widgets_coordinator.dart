@@ -17,6 +17,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final BeachWavesStore layer1BeachWaves;
   final BeachWavesStore layer2BeachWaves;
+  final GestureCrossStore gestureCross;
   final SmartTextStore smartTextStore;
   final NokhteStore nokhte;
   final TrailingTextStore bottomTrailingText;
@@ -26,6 +27,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
     required this.wifiDisconnectOverlay,
     required this.layer1BeachWaves,
     required this.layer2BeachWaves,
+    required this.gestureCross,
     required this.smartTextStore,
     required this.nokhte,
     required this.bottomTrailingText,
@@ -37,7 +39,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
     Function loginBusinessLogic,
     Function onConnected,
     Function onDisconnected,
-  ) async {
+  ) {
     setCenterScreenCoordinates(center);
     layer1BeachWaves.setMovieMode(BeachWaveMovieModes.blackOut);
     layer2BeachWaves.currentStore.toggleWidgetVisibility();
@@ -233,6 +235,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
             BeachWaveMovieModes.waterFromTopToOnShorePt2,
           );
           layer2BeachWaves.currentStore.initMovie(NoParams());
+          gestureCross.setLoginScreen();
           toggleHasCompletedWaterFromTopToOnShorePt1();
           layer2BeachWaves.currentStore.initMovie(NoParams());
         } else if (hasFinishedWaterFromTopPart2(p0)) {
