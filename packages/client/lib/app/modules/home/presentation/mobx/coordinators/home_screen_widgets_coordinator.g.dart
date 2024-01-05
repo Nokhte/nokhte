@@ -175,14 +175,13 @@ mixin _$HomeScreenWidgetsCoordinator
   }
 
   @override
-  dynamic invitationFlowConstructor({bool skipFirstMessage = false}) {
+  dynamic invitationFlowConstructor() {
     final _$actionInfo =
         _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
             name:
                 '_HomeScreenWidgetsCoordinatorBase.invitationFlowConstructor');
     try {
-      return super
-          .invitationFlowConstructor(skipFirstMessage: skipFirstMessage);
+      return super.invitationFlowConstructor();
     } finally {
       _$_HomeScreenWidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);

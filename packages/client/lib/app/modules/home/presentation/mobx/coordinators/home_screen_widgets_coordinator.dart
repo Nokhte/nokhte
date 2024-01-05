@@ -50,17 +50,12 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     primarySmartText.setMessagesData(MessagesData.empty);
     secondarySmartText.setMessagesData(MessagesData.empty);
     beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
+    primarySmartText.setMessagesData(MessagesData.firstTimeHomeList);
+    secondarySmartText.setMessagesData(MessagesData.firstTimeSecondaryHomeList);
   }
 
   @action
-  invitationFlowConstructor({bool skipFirstMessage = false}) {
-    primarySmartText.setMessagesData(MessagesData.firstTimeHomeList);
-    secondarySmartText.setMessagesData(MessagesData.firstTimeSecondaryHomeList);
-    if (skipFirstMessage) {
-      primarySmartText.setCurrentIndex(1);
-      beachWaves.currentStore.setControl(Control.stop);
-      nokhteBlur.init();
-    }
+  invitationFlowConstructor() {
     primarySmartText.startRotatingText();
   }
 
@@ -68,7 +63,10 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   postInvitationFlowConstructor() {
     toggleHasCompletedInvitationFlow();
     Future.delayed(Seconds.get(3), () {
-      gestureCross.startBlinking();
+      if (!hasSwipedUp) {
+        gestureCross.startBlinking();
+        primarySmartText.startRotatingText();
+      }
     });
   }
 
@@ -228,15 +226,13 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   onGestureCrossTap(Function resetFlowCompletionStatus) {
     if (!isDisconnected && !hasInitiatedBlur) {
       if (hasCompletedInvitationFlow) {
-        gestureCross.stopBlinking();
-        invitationFlowConstructor(skipFirstMessage: true);
         resetFlowCompletionStatus();
-      } else {
-        nokhteBlur.init();
-        primarySmartText.startRotatingText(isResuming: true);
-        beachWaves.currentStore.setControl(Control.stop);
-        toggleHasInitiatedBlur();
+        gestureCross.stopBlinking();
       }
+      nokhteBlur.init();
+      primarySmartText.startRotatingText(isResuming: true);
+      beachWaves.currentStore.setControl(Control.stop);
+      toggleHasInitiatedBlur();
     }
   }
 
