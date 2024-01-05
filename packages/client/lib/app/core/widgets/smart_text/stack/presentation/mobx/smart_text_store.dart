@@ -20,6 +20,9 @@ abstract class _SmartTextStoreBase extends BaseCustomAnimatedWidgetStore
   bool isPaused = false;
 
   @action
+  setCurrentIndex(newIndex) => currentIndex = newIndex;
+
+  @action
   setMessagesData(List<RotatingTextData> newList) {
     currentIndex = 0;
     messagesData = ObservableList.of(newList);

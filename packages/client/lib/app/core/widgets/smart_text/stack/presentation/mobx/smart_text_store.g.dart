@@ -119,6 +119,17 @@ mixin _$SmartTextStore on _SmartTextStoreBase, Store {
       ActionController(name: '_SmartTextStoreBase', context: context);
 
   @override
+  dynamic setCurrentIndex(dynamic newIndex) {
+    final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
+        name: '_SmartTextStoreBase.setCurrentIndex');
+    try {
+      return super.setCurrentIndex(newIndex);
+    } finally {
+      _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setMessagesData(List<RotatingTextData> newList) {
     final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
         name: '_SmartTextStoreBase.setMessagesData');
