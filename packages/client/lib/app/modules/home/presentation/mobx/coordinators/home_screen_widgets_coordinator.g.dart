@@ -10,6 +10,40 @@ part of 'home_screen_widgets_coordinator.dart';
 
 mixin _$HomeScreenWidgetsCoordinator
     on _HomeScreenWidgetsCoordinatorBase, Store {
+  late final _$hasCompletedInvitationFlowAtom = Atom(
+      name: '_HomeScreenWidgetsCoordinatorBase.hasCompletedInvitationFlow',
+      context: context);
+
+  @override
+  bool get hasCompletedInvitationFlow {
+    _$hasCompletedInvitationFlowAtom.reportRead();
+    return super.hasCompletedInvitationFlow;
+  }
+
+  @override
+  set hasCompletedInvitationFlow(bool value) {
+    _$hasCompletedInvitationFlowAtom
+        .reportWrite(value, super.hasCompletedInvitationFlow, () {
+      super.hasCompletedInvitationFlow = value;
+    });
+  }
+
+  late final _$hasSwipedUpAtom = Atom(
+      name: '_HomeScreenWidgetsCoordinatorBase.hasSwipedUp', context: context);
+
+  @override
+  bool get hasSwipedUp {
+    _$hasSwipedUpAtom.reportRead();
+    return super.hasSwipedUp;
+  }
+
+  @override
+  set hasSwipedUp(bool value) {
+    _$hasSwipedUpAtom.reportWrite(value, super.hasSwipedUp, () {
+      super.hasSwipedUp = value;
+    });
+  }
+
   late final _$clockAnimationHasNotStartedAtom = Atom(
       name: '_HomeScreenWidgetsCoordinatorBase.clockAnimationHasNotStarted',
       context: context);
@@ -97,25 +131,36 @@ mixin _$HomeScreenWidgetsCoordinator
     });
   }
 
-  late final _$hasSwipedUpAtom = Atom(
-      name: '_HomeScreenWidgetsCoordinatorBase.hasSwipedUp', context: context);
-
-  @override
-  bool get hasSwipedUp {
-    _$hasSwipedUpAtom.reportRead();
-    return super.hasSwipedUp;
-  }
-
-  @override
-  set hasSwipedUp(bool value) {
-    _$hasSwipedUpAtom.reportWrite(value, super.hasSwipedUp, () {
-      super.hasSwipedUp = value;
-    });
-  }
-
   late final _$_HomeScreenWidgetsCoordinatorBaseActionController =
       ActionController(
           name: '_HomeScreenWidgetsCoordinatorBase', context: context);
+
+  @override
+  dynamic toggleHasCompletedInvitationFlow() {
+    final _$actionInfo =
+        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_HomeScreenWidgetsCoordinatorBase.toggleHasCompletedInvitationFlow');
+    try {
+      return super.toggleHasCompletedInvitationFlow();
+    } finally {
+      _$_HomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic toggleHasSwipedUp() {
+    final _$actionInfo =
+        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
+            name: '_HomeScreenWidgetsCoordinatorBase.toggleHasSwipedUp');
+    try {
+      return super.toggleHasSwipedUp();
+    } finally {
+      _$_HomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic constructor() {
@@ -130,13 +175,14 @@ mixin _$HomeScreenWidgetsCoordinator
   }
 
   @override
-  dynamic invitationFlowConstructor() {
+  dynamic invitationFlowConstructor({bool skipFirstMessage = false}) {
     final _$actionInfo =
         _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
             name:
                 '_HomeScreenWidgetsCoordinatorBase.invitationFlowConstructor');
     try {
-      return super.invitationFlowConstructor();
+      return super
+          .invitationFlowConstructor(skipFirstMessage: skipFirstMessage);
     } finally {
       _$_HomeScreenWidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
@@ -206,11 +252,12 @@ mixin _$HomeScreenWidgetsCoordinator
   }
 
   @override
-  dynamic onSwipeUp() {
-    final _$actionInfo = _$_HomeScreenWidgetsCoordinatorBaseActionController
-        .startAction(name: '_HomeScreenWidgetsCoordinatorBase.onSwipeUp');
+  dynamic prepForNavigation({bool excludeUnBlur = false}) {
+    final _$actionInfo =
+        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
+            name: '_HomeScreenWidgetsCoordinatorBase.prepForNavigation');
     try {
-      return super.onSwipeUp();
+      return super.prepForNavigation(excludeUnBlur: excludeUnBlur);
     } finally {
       _$_HomeScreenWidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
@@ -218,12 +265,11 @@ mixin _$HomeScreenWidgetsCoordinator
   }
 
   @override
-  dynamic toggleHasSwipedUp() {
-    final _$actionInfo =
-        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
-            name: '_HomeScreenWidgetsCoordinatorBase.toggleHasSwipedUp');
+  dynamic onSwipeUp() {
+    final _$actionInfo = _$_HomeScreenWidgetsCoordinatorBaseActionController
+        .startAction(name: '_HomeScreenWidgetsCoordinatorBase.onSwipeUp');
     try {
-      return super.toggleHasSwipedUp();
+      return super.onSwipeUp();
     } finally {
       _$_HomeScreenWidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
@@ -284,12 +330,12 @@ mixin _$HomeScreenWidgetsCoordinator
   }
 
   @override
-  dynamic onGestureCrossTap() {
+  dynamic onGestureCrossTap(Function resetFlowCompletionStatus) {
     final _$actionInfo =
         _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
             name: '_HomeScreenWidgetsCoordinatorBase.onGestureCrossTap');
     try {
-      return super.onGestureCrossTap();
+      return super.onGestureCrossTap(resetFlowCompletionStatus);
     } finally {
       _$_HomeScreenWidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
@@ -327,12 +373,13 @@ mixin _$HomeScreenWidgetsCoordinator
   @override
   String toString() {
     return '''
+hasCompletedInvitationFlow: ${hasCompletedInvitationFlow},
+hasSwipedUp: ${hasSwipedUp},
 clockAnimationHasNotStarted: ${clockAnimationHasNotStarted},
 clockIsVisible: ${clockIsVisible},
 isDisconnected: ${isDisconnected},
 hasInitiatedBlur: ${hasInitiatedBlur},
-isDoubleTriggeringWindDown: ${isDoubleTriggeringWindDown},
-hasSwipedUp: ${hasSwipedUp}
+isDoubleTriggeringWindDown: ${isDoubleTriggeringWindDown}
     ''';
   }
 }

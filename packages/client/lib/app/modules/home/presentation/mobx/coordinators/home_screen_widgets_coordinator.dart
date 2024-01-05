@@ -31,26 +31,45 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     required this.secondarySmartText,
   });
 
+  @observable
+  bool hasCompletedInvitationFlow = false;
+
+  @action
+  toggleHasCompletedInvitationFlow() =>
+      hasCompletedInvitationFlow = !hasCompletedInvitationFlow;
+
+  @observable
+  bool hasSwipedUp = false;
+
+  @action
+  toggleHasSwipedUp() => hasSwipedUp = !hasSwipedUp;
+
   @action
   constructor() {
     gestureCross.setHomeScreen();
     primarySmartText.setMessagesData(MessagesData.empty);
     secondarySmartText.setMessagesData(MessagesData.empty);
     beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
-    initReactors();
   }
 
   @action
-  invitationFlowConstructor() {
+  invitationFlowConstructor({bool skipFirstMessage = false}) {
     primarySmartText.setMessagesData(MessagesData.firstTimeHomeList);
     secondarySmartText.setMessagesData(MessagesData.firstTimeSecondaryHomeList);
+    if (skipFirstMessage) {
+      primarySmartText.setCurrentIndex(1);
+      beachWaves.currentStore.setControl(Control.stop);
+      nokhteBlur.init();
+    }
     primarySmartText.startRotatingText();
   }
 
   @action
   postInvitationFlowConstuctor() {
-    primarySmartText.setMessagesData(MessagesData.postInvitationFlowText);
-    primarySmartText.startRotatingText();
+    toggleHasCompletedInvitationFlow();
+    Future.delayed(Seconds.get(3), () {
+      gestureCross.startBlinking();
+    });
   }
 
   @action
@@ -85,14 +104,26 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   }
 
   @action
-  onSwipeUp() {
-    if (primarySmartText.currentIndex.equals(4) && !hasSwipedUp) {
-      toggleHasSwipedUp();
+  prepForNavigation({bool excludeUnBlur = false}) {
+    toggleHasSwipedUp();
+    if (!excludeUnBlur) {
       nokhteBlur.reverse();
-      primarySmartText.startRotatingText(isResuming: true);
-      beachWaves.currentStore.setControl(Control.mirror);
-      beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDiveSetup);
-      gestureCross.initMoveAndRegenerate(CircleOffsets.top);
+    }
+    gestureCross.stopBlinking();
+    primarySmartText.startRotatingText(isResuming: true);
+    beachWaves.currentStore.setControl(Control.mirror);
+    beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDiveSetup);
+    gestureCross.initMoveAndRegenerate(CircleOffsets.top);
+  }
+
+  @action
+  onSwipeUp() {
+    if (primarySmartText.currentIndex.equals(4) &&
+        !hasSwipedUp &&
+        !hasCompletedInvitationFlow) {
+      prepForNavigation();
+    } else if (!hasSwipedUp && hasCompletedInvitationFlow) {
+      prepForNavigation(excludeUnBlur: true);
     }
   }
 
@@ -111,12 +142,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   @observable
   bool isDoubleTriggeringWindDown = false;
 
-  @observable
-  bool hasSwipedUp = false;
-
-  @action
-  toggleHasSwipedUp() => hasSwipedUp = !hasSwipedUp;
-
   @action
   toggleIsDoubleTriggeringWindDown() =>
       isDoubleTriggeringWindDown = !isDoubleTriggeringWindDown;
@@ -130,9 +155,9 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   @action
   toggleHasInitiatedBlur() => hasInitiatedBlur = !hasInitiatedBlur;
 
-  initReactors() {
+  initReactors(Function resetFlowCompletionStatus) {
     primarySmartTextReactor();
-    gestureCrossTapReactor();
+    gestureCrossTapReactor(resetFlowCompletionStatus);
     wifiDisconnectOverlay.connectionReactor(
       onConnected: onConnected,
       onDisconnected: onDisconnected,
@@ -154,14 +179,14 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
 
   gradientNokhteOpacityListener() =>
       reaction((p0) => gestureCross.gradientNokhte.hasFadedIn, (p0) {
-        if (!gestureCross.gradientNokhte.showWidget) {
+        if (!gestureCross.gradientNokhte.showWidget && hasSwipedUp) {
           Modular.to.navigate('/collaboration/');
         }
       });
 
-  gestureCrossTapReactor() => reaction(
+  gestureCrossTapReactor(Function resetFlowCompletionStatus) => reaction(
         (p0) => gestureCross.tapCount,
-        (p0) => onGestureCrossTap(),
+        (p0) => onGestureCrossTap(resetFlowCompletionStatus),
       );
 
   primarySmartTextReactor() =>
@@ -200,9 +225,13 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
       });
 
   @action
-  onGestureCrossTap() {
-    if (!isDisconnected) {
-      if (!hasInitiatedBlur) {
+  onGestureCrossTap(Function resetFlowCompletionStatus) {
+    if (!isDisconnected && !hasInitiatedBlur) {
+      if (hasCompletedInvitationFlow) {
+        gestureCross.stopBlinking();
+        invitationFlowConstructor(skipFirstMessage: true);
+        resetFlowCompletionStatus();
+      } else {
         nokhteBlur.init();
         primarySmartText.startRotatingText(isResuming: true);
         beachWaves.currentStore.setControl(Control.stop);
