@@ -108,7 +108,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
       nokhteBlur.reverse();
     }
     gestureCross.stopBlinking();
-    primarySmartText.startRotatingText(isResuming: true);
+    primarySmartText.toggleWidgetVisibility();
     beachWaves.currentStore.setControl(Control.mirror);
     beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDiveSetup);
     gestureCross.initMoveAndRegenerate(CircleOffsets.top);
