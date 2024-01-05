@@ -17,20 +17,6 @@ mixin _$HomeScreenCoordinator on _HomeScreenCoordinatorBase, Store {
     return _$constructorAsyncAction.run(() => super.constructor());
   }
 
-  late final _$_HomeScreenCoordinatorBaseActionController =
-      ActionController(name: '_HomeScreenCoordinatorBase', context: context);
-
-  @override
-  dynamic onGradientTreeNodeTap() {
-    final _$actionInfo = _$_HomeScreenCoordinatorBaseActionController
-        .startAction(name: '_HomeScreenCoordinatorBase.onGradientTreeNodeTap');
-    try {
-      return super.onGradientTreeNodeTap();
-    } finally {
-      _$_HomeScreenCoordinatorBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
   @override
   String toString() {
     return '''

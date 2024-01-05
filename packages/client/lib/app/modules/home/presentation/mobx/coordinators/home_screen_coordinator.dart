@@ -38,23 +38,14 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
     } else {
       widgets.invitationFlowConstructor();
     }
-    widgets.initReactors(
-      onGradientTreeNodeTap: onGradientTreeNodeTap,
-    );
     initReactors();
     await getExistingCollaborationInfo(NoParams());
     await addNameToDatabaseStore(NoParams());
     await getCollaboratorPhraseStore(NoParams());
-    // await getInvitationURL(NoParams());
   }
 
   initReactors() {
     swipeReactor();
-  }
-
-  @action
-  onGradientTreeNodeTap() {
-    // shareCollaborationInvitation(getInvitationURL.link);
   }
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
