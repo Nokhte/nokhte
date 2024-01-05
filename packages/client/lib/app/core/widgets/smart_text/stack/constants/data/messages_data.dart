@@ -75,7 +75,7 @@ class MessagesData {
           initialFadeInDelay: Seconds.get(0),
           mainMessage:
               "To make the connection you will need each other's invitation.",
-          onScreenTime: Seconds.get(0),
+          onScreenTime: Seconds.get(2),
         ),
         RotatingTextData(
           initialFadeInDelay: Seconds.get(1),
