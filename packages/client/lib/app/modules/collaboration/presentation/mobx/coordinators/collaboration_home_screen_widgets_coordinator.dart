@@ -58,6 +58,20 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
   }
 
   @action
+  onResumed() {
+    if (smartText.isPaused && !isDisconnected) {
+      smartText.resume();
+    }
+  }
+
+  @action
+  onInactive() {
+    if (!smartText.isPaused && !isDisconnected) {
+      smartText.pause();
+    }
+  }
+
+  @action
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtOceanDive);
     gestureCross.setCollaborationHomeScreen();

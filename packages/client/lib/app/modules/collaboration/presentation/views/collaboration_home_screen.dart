@@ -17,6 +17,12 @@ class CollaborationHomeScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final size = useSquareSize(relativeLength: .20);
+    useOnAppLifecycleStateChange(
+        (previous, current) => coordinator.onAppLifeCycleStateChange(
+              current,
+              onResumed: () => coordinator.widgets.onResumed(),
+              onInactive: () => coordinator.widgets.onInactive(),
+            ));
     useEffect(() {
       coordinator.constructor();
       return null;
