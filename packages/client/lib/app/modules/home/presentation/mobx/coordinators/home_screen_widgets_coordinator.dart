@@ -43,6 +43,13 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   @observable
   bool hasSwipedUp = false;
 
+  @observable
+  bool gracePeriodHasExpired = false;
+
+  @action
+  toggleGracePeriodHasExpired() =>
+      gracePeriodHasExpired = !gracePeriodHasExpired;
+
   @action
   toggleHasSwipedUp() => hasSwipedUp = !hasSwipedUp;
 
@@ -66,6 +73,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
       if (!hasSwipedUp) {
         gestureCross.startBlinking();
         primarySmartText.startRotatingText();
+        toggleGracePeriodHasExpired();
       }
     });
   }
@@ -75,7 +83,9 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     if (primarySmartText.isPaused &&
         wifiDisconnectOverlay.movieMode ==
             WifiDisconnectMovieModes.placeTheCircle) {
-      primarySmartText.resume();
+      if (primarySmartText.currentIndex.isLessThan(3)) {
+        primarySmartText.resume();
+      }
       if (isDisconnected) toggleIsDisconnected();
     }
   }
@@ -84,7 +94,12 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   onDisconnected() {
     if (!isDisconnected) toggleIsDisconnected();
     if (!primarySmartText.isPaused) {
-      primarySmartText.pause();
+      if (primarySmartText.currentIndex.isLessThan(3)) {
+        primarySmartText.pause();
+      }
+    }
+    if (hasSwipedUp) {
+      beachWaves.currentStore.setControl(Control.playReverse);
     }
   }
 
@@ -93,7 +108,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     if (clockAnimationHasNotStarted) {
       primarySmartText.resume();
       primarySmartText.startRotatingText();
-      beachWaves.currentStore.setControl(Control.mirror);
+      // beachWaves.currentStore.setControl(Control.mirror);
       if (hasInitiatedBlur) {
         nokhteBlur.reverse();
         toggleHasInitiatedBlur();
@@ -117,7 +132,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     }
     gestureCross.stopBlinking();
     primarySmartText.toggleWidgetVisibility();
-    beachWaves.currentStore.setControl(Control.mirror);
     beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDiveSetup);
     gestureCross.initMoveAndRegenerate(CircleOffsets.top);
   }
@@ -174,8 +188,10 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     availabilitySectorsMovieStatusReactor();
     nokhteBlurReactor();
     centerCrossNokhteReactor();
-    gradientNokhteOpacityListener();
     wifiDisconnectOverlayReactor();
+    availabilitySectorReactor();
+    beachWavesMovieStatusReactor();
+    beachWavesMovieModeReactor();
   }
 
   centerCrossNokhteReactor() =>
@@ -183,13 +199,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
         if (p0 == MovieStatus.finished) {
           gestureCross.gradientNokhte.toggleWidgetVisibility();
           gestureCross.strokeCrossNokhte.toggleWidgetVisibility();
-        }
-      });
-
-  gradientNokhteOpacityListener() =>
-      reaction((p0) => gestureCross.gradientNokhte.hasFadedIn, (p0) {
-        if (!gestureCross.gradientNokhte.showWidget && hasSwipedUp) {
-          Modular.to.navigate('/collaboration/');
         }
       });
 
@@ -221,6 +230,11 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
           if (primarySmartText.isPaused) {
             primarySmartText.resume();
           }
+
+          if (hasSwipedUp) {
+            beachWaves.currentStore.setControl(Control.playFromStart);
+            beachWaves.setMovieStatus(MovieStatus.inProgress);
+          }
         }
       });
 
@@ -229,12 +243,41 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
             nokhteBlur.pastControl == Control.playReverseFromEnd) {}
       });
 
+  availabilitySectorReactor() =>
+      reaction((p0) => timeModel.availabilitySectors.tapCount, (p0) {
+        if (!isDoubleTriggeringWindDown && !isDisconnected) {
+          timeModel.availabilitySectors.initJoinAndFadeOutMovie();
+          toggleIsDoubleTriggeringWindDown();
+        }
+      });
+
+  beachWavesMovieStatusReactor() =>
+      reaction((p0) => beachWaves.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished &&
+            beachWaves.movieMode == BeachWaveMovieModes.onShoreToOceanDive &&
+            !isDisconnected) {
+          Modular.to.navigate('/collaboration/');
+        }
+      });
+
+  beachWavesMovieModeReactor() => reaction((p0) => beachWaves.movieMode, (p0) {
+        if (p0 == BeachWaveMovieModes.onShoreToOceanDiveSetup) {
+          beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDive);
+          beachWaves.setMovieStatus(MovieStatus.inProgress);
+          beachWaves.currentStore
+              .initMovie(beachWaves.currentAnimationValues.first);
+        }
+      });
+
   @action
   onGestureCrossTap(Function resetFlowCompletionStatus) {
     if (!isDisconnected && !hasInitiatedBlur) {
       if (hasCompletedInvitationFlow) {
         resetFlowCompletionStatus();
         gestureCross.stopBlinking();
+      }
+      if (!gracePeriodHasExpired) {
+        primarySmartText.setCurrentIndex(1);
       }
       nokhteBlur.init();
       primarySmartText.startRotatingText(isResuming: true);
