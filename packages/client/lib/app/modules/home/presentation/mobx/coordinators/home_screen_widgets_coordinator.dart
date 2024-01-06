@@ -72,22 +72,20 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
 
   @action
   onConnected() {
-    if (isDisconnected) toggleIsDisconnected();
     if (primarySmartText.isPaused &&
         wifiDisconnectOverlay.movieMode ==
             WifiDisconnectMovieModes.placeTheCircle) {
       primarySmartText.resume();
+      if (isDisconnected) toggleIsDisconnected();
     }
   }
 
   @action
   onDisconnected() {
     if (!isDisconnected) toggleIsDisconnected();
-    // if (clockAnimationHasNotStarted) {
     if (!primarySmartText.isPaused) {
       primarySmartText.pause();
     }
-    // }
   }
 
   @action
@@ -126,12 +124,14 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
 
   @action
   onSwipeUp() {
-    if (primarySmartText.currentIndex.equals(4) &&
-        !hasSwipedUp &&
-        !hasCompletedInvitationFlow) {
-      prepForNavigation();
-    } else if (!hasSwipedUp && hasCompletedInvitationFlow) {
-      prepForNavigation(excludeUnBlur: true);
+    if (!isDisconnected) {
+      if (primarySmartText.currentIndex.equals(4) &&
+          !hasSwipedUp &&
+          !hasCompletedInvitationFlow) {
+        prepForNavigation();
+      } else if (!hasSwipedUp && hasCompletedInvitationFlow) {
+        prepForNavigation(excludeUnBlur: true);
+      }
     }
   }
 
@@ -217,6 +217,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
       reaction((p0) => wifiDisconnectOverlay.movieStatus, (p0) {
         if (wifiDisconnectOverlay.movieMode ==
             WifiDisconnectMovieModes.removeTheCircle) {
+          if (isDisconnected) toggleIsDisconnected();
           if (primarySmartText.isPaused) {
             primarySmartText.resume();
           }
