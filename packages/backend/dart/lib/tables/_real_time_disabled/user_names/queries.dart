@@ -8,6 +8,8 @@ class UserNamesQueries {
   static String get hasSentAnInvitation => 'has_sent_an_invitation';
   static String get hasGoneThroughInvitationFlow =>
       'has_gone_through_invitation_flow';
+  static String get wantsToRepeatInvitationFlow =>
+      'wants_to_repeat_invitation_flow';
   final SupabaseClient supabase;
   String userUID;
 
@@ -58,6 +60,24 @@ class UserNamesQueries {
           .from(tableName)
           .update({
             hasGoneThroughInvitationFlow: hasGoneThroughInvitationFlowParam,
+          })
+          .eq(uid, userUID)
+          .select();
+    }
+  }
+
+  Future<List> updateWantsToRepeatInvitationFlow(
+    bool wantsToRepeatInvitationFlowParam,
+  ) async {
+    final getRes = await getUserInfo();
+    if (getRes.first[wantsToRepeatInvitationFlow] ==
+        wantsToRepeatInvitationFlowParam) {
+      return getRes;
+    } else {
+      return await supabase
+          .from(tableName)
+          .update({
+            wantsToRepeatInvitationFlow: wantsToRepeatInvitationFlowParam,
           })
           .eq(uid, userUID)
           .select();
