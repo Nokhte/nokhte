@@ -6,6 +6,8 @@ abstract class UserInformationRemoteSource {
   Future<List> updateHasGoneThroughInvitationFlow(
       bool hasGoneThroughInvitationFlowParam);
   Future<List> getUserInfo();
+  Future<List> updateWantsToRepeatInvitationFlow(
+      bool wantsToRepeatInvitationFlowParam);
 }
 
 class UserInformationRemoteSourceImpl implements UserInformationRemoteSource {
@@ -28,4 +30,10 @@ class UserInformationRemoteSourceImpl implements UserInformationRemoteSource {
 
   @override
   Future<List> getUserInfo() async => await userNamesQueries.getUserInfo();
+
+  @override
+  Future<List> updateWantsToRepeatInvitationFlow(
+          bool wantsToRepeatInvitationFlowParam) async =>
+      await userNamesQueries
+          .updateWantsToRepeatInvitationFlow(wantsToRepeatInvitationFlowParam);
 }
