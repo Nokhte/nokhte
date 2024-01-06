@@ -2,7 +2,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/base_custom_animated_widget_store.dart';
-import 'package:nokhte/app/core/modules/connectivity/mobx/get_on_connectivity_changed_store.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -13,10 +12,7 @@ class AvailabilitySectorsStore = _AvailabilitySectorsStoreBase
 
 abstract class _AvailabilitySectorsStoreBase
     extends BaseCustomAnimatedWidgetStore<NoParams> with Store {
-  final GetOnConnectivityChangedStore connectivity;
-  _AvailabilitySectorsStoreBase({
-    required this.connectivity,
-  }) {
+  _AvailabilitySectorsStoreBase() {
     setMovie(SetupAvailabilitySectorsMovies.movie);
   }
 
@@ -39,14 +35,12 @@ abstract class _AvailabilitySectorsStoreBase
 
   @action
   initJoinAndFadeOutMovie() {
-    if (connectivity.isConnected) {
-      if (movieStatus == MovieStatus.finished &&
-          movieMode == AvailabilitySectorMovieModes.setup) {
-        setMovieStatus(MovieStatus.inProgress);
-        setMovieMode(AvailabilitySectorMovieModes.joinAndFadeOut);
-        setMovie(JoinSectorsAndFadeOutMovie.movie);
-        setControl(Control.playFromStart);
-      }
+    if (movieStatus == MovieStatus.finished &&
+        movieMode == AvailabilitySectorMovieModes.setup) {
+      setMovieStatus(MovieStatus.inProgress);
+      setMovieMode(AvailabilitySectorMovieModes.joinAndFadeOut);
+      setMovie(JoinSectorsAndFadeOutMovie.movie);
+      setControl(Control.playFromStart);
     }
   }
 }
