@@ -12,11 +12,14 @@ abstract class _UserInformationCoordinatorBase extends Equatable with Store {
   final UpdateHasGoneThroughInvitationFlowStore
       updateHasGoneThroughInvitationFlow;
   final UpdateHasSentAnInvitationStore updateHasSentAnInvitation;
+  final UpdateWantsToRepeatInvitationFlowStore
+      updateWantsToRepeatInvitationFlow;
 
   _UserInformationCoordinatorBase({
     required this.getUserInfo,
     required this.updateHasGoneThroughInvitationFlow,
     required this.updateHasSentAnInvitation,
+    required this.updateWantsToRepeatInvitationFlow,
   });
 
   @override
