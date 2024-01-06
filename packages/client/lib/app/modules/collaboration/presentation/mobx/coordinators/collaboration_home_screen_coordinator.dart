@@ -37,6 +37,7 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
   constructor() async {
     widgets.constructor();
     widgets.initReactors(onGradientTreeNodeTap, onFlowCompleted);
+    initReactors();
     await userInformation.getUserInfo(NoParams());
     if (userInformation.getUserInfo.hasGoneThroughInvitationFlow) {
       widgets.postInvitationFlowConstructor();
@@ -44,7 +45,6 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
       widgets.invitationFlowConstructor();
     }
     await getInvitationURL(NoParams());
-    initReactors();
   }
 
   @action
