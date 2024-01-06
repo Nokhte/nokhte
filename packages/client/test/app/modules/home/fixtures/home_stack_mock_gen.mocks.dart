@@ -1900,6 +1900,22 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
       );
 
   @override
+  bool get wantsToRepeatInvitationFlow => (super.noSuchMethod(
+        Invocation.getter(#wantsToRepeatInvitationFlow),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set wantsToRepeatInvitationFlow(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #wantsToRepeatInvitationFlow,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   bool get hasSwipedUp => (super.noSuchMethod(
         Invocation.getter(#hasSwipedUp),
         returnValue: false,
@@ -2043,31 +2059,28 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
       );
 
   @override
-  dynamic initReactors(Function? resetFlowCompletionStatus) =>
-      super.noSuchMethod(
+  dynamic initReactors(Function? repeatTheFlow) => super.noSuchMethod(
         Invocation.method(
           #initReactors,
-          [resetFlowCompletionStatus],
+          [repeatTheFlow],
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  dynamic gestureCrossTapReactor(Function? resetFlowCompletionStatus) =>
-      super.noSuchMethod(
+  dynamic gestureCrossTapReactor(Function? repeatTheFlow) => super.noSuchMethod(
         Invocation.method(
           #gestureCrossTapReactor,
-          [resetFlowCompletionStatus],
+          [repeatTheFlow],
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  dynamic onGestureCrossTap(Function? resetFlowCompletionStatus) =>
-      super.noSuchMethod(
+  dynamic onGestureCrossTap(Function? repeatTheFlow) => super.noSuchMethod(
         Invocation.method(
           #onGestureCrossTap,
-          [resetFlowCompletionStatus],
+          [repeatTheFlow],
         ),
         returnValueForMissingStub: null,
       );

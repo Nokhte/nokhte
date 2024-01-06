@@ -1244,6 +1244,131 @@ class MockTimeAlignmentModelCoordinator extends _i1.Mock
       ) as List<Object>);
 
   @override
+  bool get callsOnCompleteTwice => (super.noSuchMethod(
+        Invocation.getter(#callsOnCompleteTwice),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  _i3.MovieTween get movie => (super.noSuchMethod(
+        Invocation.getter(#movie),
+        returnValue: _FakeMovieTween_2(
+          this,
+          Invocation.getter(#movie),
+        ),
+        returnValueForMissingStub: _FakeMovieTween_2(
+          this,
+          Invocation.getter(#movie),
+        ),
+      ) as _i3.MovieTween);
+
+  @override
+  set movie(_i3.MovieTween? value) => super.noSuchMethod(
+        Invocation.setter(
+          #movie,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i3.Control get control => (super.noSuchMethod(
+        Invocation.getter(#control),
+        returnValue: _i3.Control.stop,
+        returnValueForMissingStub: _i3.Control.stop,
+      ) as _i3.Control);
+
+  @override
+  set control(_i3.Control? value) => super.noSuchMethod(
+        Invocation.setter(
+          #control,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i3.Control get pastControl => (super.noSuchMethod(
+        Invocation.getter(#pastControl),
+        returnValue: _i3.Control.stop,
+        returnValueForMissingStub: _i3.Control.stop,
+      ) as _i3.Control);
+
+  @override
+  set pastControl(_i3.Control? value) => super.noSuchMethod(
+        Invocation.setter(
+          #pastControl,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get showWidget => (super.noSuchMethod(
+        Invocation.getter(#showWidget),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set showWidget(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #showWidget,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i7.MovieStatus get movieStatus => (super.noSuchMethod(
+        Invocation.getter(#movieStatus),
+        returnValue: _i7.MovieStatus.idle,
+        returnValueForMissingStub: _i7.MovieStatus.idle,
+      ) as _i7.MovieStatus);
+
+  @override
+  set movieStatus(_i7.MovieStatus? value) => super.noSuchMethod(
+        Invocation.setter(
+          #movieStatus,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get hasFadedIn => (super.noSuchMethod(
+        Invocation.getter(#hasFadedIn),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set hasFadedIn(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #hasFadedIn,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  int get tapCount => (super.noSuchMethod(
+        Invocation.getter(#tapCount),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
+  set tapCount(int? value) => super.noSuchMethod(
+        Invocation.setter(
+          #tapCount,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   _i4.ReactiveContext get context => (super.noSuchMethod(
         Invocation.getter(#context),
         returnValue: _FakeReactiveContext_3(
@@ -1255,6 +1380,42 @@ class MockTimeAlignmentModelCoordinator extends _i1.Mock
           Invocation.getter(#context),
         ),
       ) as _i4.ReactiveContext);
+
+  @override
+  dynamic setPastControl(_i3.Control? newControl) => super.noSuchMethod(
+        Invocation.method(
+          #setPastControl,
+          [newControl],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void setMovie(_i3.MovieTween? newMovie) => super.noSuchMethod(
+        Invocation.method(
+          #setMovie,
+          [newMovie],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void setControl(_i3.Control? newControl) => super.noSuchMethod(
+        Invocation.method(
+          #setControl,
+          [newControl],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  dynamic setMovieStatus(_i7.MovieStatus? newMovieStatus) => super.noSuchMethod(
+        Invocation.method(
+          #setMovieStatus,
+          [newMovieStatus],
+        ),
+        returnValueForMissingStub: null,
+      );
 }
 
 /// A class which mocks [CircleExplanationModelCoordinator].
