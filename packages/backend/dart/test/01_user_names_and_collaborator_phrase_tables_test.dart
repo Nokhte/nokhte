@@ -97,6 +97,20 @@ void main() {
     expect(dupRes.first[UserNamesQueries.hasGoneThroughInvitationFlow], true);
   });
 
+  test("should be able to update their `wants_to_repeat_invitation_flow` field",
+      () async {
+    await user1UserNameQueries.insertUserInfo(
+      firstNameParam: UserDataConstants.user1FirstName,
+      lastNameParam: UserDataConstants.user1LastName,
+    );
+    final res =
+        await user1UserNameQueries.updateWantsToRepeatInvitationFlow(true);
+    final dupRes =
+        await user1UserNameQueries.updateWantsToRepeatInvitationFlow(true);
+    expect(res.first[UserNamesQueries.wantsToRepeatInvitationFlow], true);
+    expect(dupRes.first[UserNamesQueries.wantsToRepeatInvitationFlow], true);
+  });
+
   test("❌ shouldn't be able to insert another row if they already have one",
       () async {
     await user1UserNameQueries.insertUserInfo(
