@@ -16,6 +16,9 @@ abstract class _GetUserInfoStoreBase
   @observable
   bool hasSentAnInvitation = false;
 
+  @observable
+  bool wantsToRepeatInvitationFlow = false;
+
   final GetUserInfo logic;
   _GetUserInfoStoreBase({required this.logic});
 
@@ -36,6 +39,8 @@ abstract class _GetUserInfoStoreBase
       hasGoneThroughInvitationFlow =
           journeyInfoEntity.hasGoneThroughInvitationFlow;
       hasSentAnInvitation = journeyInfoEntity.hasSentAnInvitation;
+      wantsToRepeatInvitationFlow =
+          journeyInfoEntity.wantsToRepeatInvitationFlow;
     });
   }
 
