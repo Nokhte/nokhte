@@ -25,6 +25,8 @@ void main() {
       updateHasGoneThroughInvitationFlow:
           MockUpdateHasGoneThroughInvitationFlowStore(),
       updateHasSentAnInvitation: MockUpdateHasSentAnInvitationStore(),
+      updateWantsToRepeatInvitationFlow:
+          MockUpdateWantsToRepeatInvitationFlowStore(),
     );
 
     testStore = HomeScreenCoordinator(
