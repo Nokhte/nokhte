@@ -913,6 +913,29 @@ class MockBeachWavesStore extends _i1.Mock implements _i5.BeachWavesStore {
       );
 
   @override
+  _i4.ObservableList<dynamic> get currentAnimationValues => (super.noSuchMethod(
+        Invocation.getter(#currentAnimationValues),
+        returnValue: _FakeObservableList_18<dynamic>(
+          this,
+          Invocation.getter(#currentAnimationValues),
+        ),
+        returnValueForMissingStub: _FakeObservableList_18<dynamic>(
+          this,
+          Invocation.getter(#currentAnimationValues),
+        ),
+      ) as _i4.ObservableList<dynamic>);
+
+  @override
+  set currentAnimationValues(_i4.ObservableList<dynamic>? value) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #currentAnimationValues,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   int get finishedCount => (super.noSuchMethod(
         Invocation.getter(#finishedCount),
         returnValue: 0,
