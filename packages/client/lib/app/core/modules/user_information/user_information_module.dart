@@ -8,32 +8,38 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class UserInformationModule extends Module {
   @override
   void exportedBinds(Injector i) {
-    i.addSingleton<UserInformationRemoteSourceImpl>(
+    i.add<UserInformationRemoteSourceImpl>(
       () => UserInformationRemoteSourceImpl(
         supabase: Modular.get<SupabaseClient>(),
       ),
     );
-    i.addSingleton<HomeContractImpl>(
+    i.add<HomeContractImpl>(
       () => HomeContractImpl(
         remoteSource: i<UserInformationRemoteSourceImpl>(),
         networkInfo: Modular.get<NetworkInfoImpl>(),
       ),
     );
-    i.addSingleton<GetUserInfo>(
+    i.add<GetUserInfo>(
       () => GetUserInfo(
         contract: i<HomeContractImpl>(),
       ),
     );
-    i.addSingleton<UpdateHasGoneThroughInvitationFlow>(
+    i.add<UpdateHasGoneThroughInvitationFlow>(
       () => UpdateHasGoneThroughInvitationFlow(
         contract: i<HomeContractImpl>(),
       ),
     );
-    i.addSingleton<UpdateHasSentAnInvitation>(
+    i.add<UpdateHasSentAnInvitation>(
       () => UpdateHasSentAnInvitation(
         contract: i<HomeContractImpl>(),
       ),
     );
+    i.add<UpdateWantsToRepeatInvitationFlow>(
+      () => UpdateWantsToRepeatInvitationFlow(
+        contract: i<HomeContractImpl>(),
+      ),
+    );
+
     i.add<GetUserInfoStore>(
       () => GetUserInfoStore(
         logic: i<GetUserInfo>(),
@@ -49,12 +55,19 @@ class UserInformationModule extends Module {
         logic: i<UpdateHasSentAnInvitation>(),
       ),
     );
+    i.add<UpdateWantsToRepeatInvitationFlowStore>(
+      () => UpdateWantsToRepeatInvitationFlowStore(
+        logic: i<UpdateWantsToRepeatInvitationFlow>(),
+      ),
+    );
     i.add<UserInformationCoordinator>(
       () => UserInformationCoordinator(
         getUserInfo: i<GetUserInfoStore>(),
         updateHasGoneThroughInvitationFlow:
             i<UpdateHasGoneThroughInvitationFlowStore>(),
         updateHasSentAnInvitation: i<UpdateHasSentAnInvitationStore>(),
+        updateWantsToRepeatInvitationFlow:
+            i<UpdateWantsToRepeatInvitationFlowStore>(),
       ),
     );
   }
