@@ -136,13 +136,15 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     if (!excludeUnBlur) {
       nokhteBlur.reverse();
     }
-    if (wantsToRepeatInvitationFlow) {
-      beachWaves.finishedCount = 1;
-    }
+    // if (wantsToRepeatInvitationFlow) {
+    // beachWaves.finishedCount = 1;
+    // }
     gestureCross.stopBlinking();
     primarySmartText.toggleWidgetVisibility();
     timeModel.toggleWidgetVisibility();
-    secondarySmartText.toggleWidgetVisibility();
+    if (secondarySmartText.showWidget) {
+      secondarySmartText.toggleWidgetVisibility();
+    }
     beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDiveSetup);
     gestureCross.initMoveAndRegenerate(CircleOffsets.top);
   }
@@ -265,7 +267,8 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&
-            beachWaves.movieMode == BeachWaveMovieModes.onShoreToOceanDive) {
+            beachWaves.movieMode == BeachWaveMovieModes.onShoreToOceanDive &&
+            !isDisconnected) {
           Modular.to.navigate('/collaboration/');
         }
       });
@@ -286,9 +289,9 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
         repeatTheFlow();
         toggleWantsToRepeatInvitationFlow();
         gestureCross.stopBlinking();
-      }
-      if (!gracePeriodHasExpired) {
-        primarySmartText.setCurrentIndex(1);
+        if (!gracePeriodHasExpired) {
+          primarySmartText.setCurrentIndex(1);
+        }
       }
       nokhteBlur.init();
       primarySmartText.startRotatingText(isResuming: true);
