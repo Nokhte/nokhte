@@ -28,6 +28,24 @@ mixin _$HomeScreenWidgetsCoordinator
     });
   }
 
+  late final _$wantsToRepeatInvitationFlowAtom = Atom(
+      name: '_HomeScreenWidgetsCoordinatorBase.wantsToRepeatInvitationFlow',
+      context: context);
+
+  @override
+  bool get wantsToRepeatInvitationFlow {
+    _$wantsToRepeatInvitationFlowAtom.reportRead();
+    return super.wantsToRepeatInvitationFlow;
+  }
+
+  @override
+  set wantsToRepeatInvitationFlow(bool value) {
+    _$wantsToRepeatInvitationFlowAtom
+        .reportWrite(value, super.wantsToRepeatInvitationFlow, () {
+      super.wantsToRepeatInvitationFlow = value;
+    });
+  }
+
   late final _$hasSwipedUpAtom = Atom(
       name: '_HomeScreenWidgetsCoordinatorBase.hasSwipedUp', context: context);
 
@@ -152,6 +170,20 @@ mixin _$HomeScreenWidgetsCoordinator
   late final _$_HomeScreenWidgetsCoordinatorBaseActionController =
       ActionController(
           name: '_HomeScreenWidgetsCoordinatorBase', context: context);
+
+  @override
+  dynamic toggleWantsToRepeatInvitationFlow() {
+    final _$actionInfo =
+        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_HomeScreenWidgetsCoordinatorBase.toggleWantsToRepeatInvitationFlow');
+    try {
+      return super.toggleWantsToRepeatInvitationFlow();
+    } finally {
+      _$_HomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic toggleHasCompletedInvitationFlow() {
@@ -361,12 +393,12 @@ mixin _$HomeScreenWidgetsCoordinator
   }
 
   @override
-  dynamic onGestureCrossTap(Function resetFlowCompletionStatus) {
+  dynamic onGestureCrossTap(Function repeatTheFlow) {
     final _$actionInfo =
         _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
             name: '_HomeScreenWidgetsCoordinatorBase.onGestureCrossTap');
     try {
-      return super.onGestureCrossTap(resetFlowCompletionStatus);
+      return super.onGestureCrossTap(repeatTheFlow);
     } finally {
       _$_HomeScreenWidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
@@ -405,6 +437,7 @@ mixin _$HomeScreenWidgetsCoordinator
   String toString() {
     return '''
 hasCompletedInvitationFlow: ${hasCompletedInvitationFlow},
+wantsToRepeatInvitationFlow: ${wantsToRepeatInvitationFlow},
 hasSwipedUp: ${hasSwipedUp},
 gracePeriodHasExpired: ${gracePeriodHasExpired},
 clockAnimationHasNotStarted: ${clockAnimationHasNotStarted},

@@ -21,12 +21,11 @@ mixin _$HomeScreenCoordinator on _HomeScreenCoordinatorBase, Store {
       ActionController(name: '_HomeScreenCoordinatorBase', context: context);
 
   @override
-  dynamic resetFlowCompletionStatus() {
-    final _$actionInfo =
-        _$_HomeScreenCoordinatorBaseActionController.startAction(
-            name: '_HomeScreenCoordinatorBase.resetFlowCompletionStatus');
+  dynamic repeatTheFlow() {
+    final _$actionInfo = _$_HomeScreenCoordinatorBaseActionController
+        .startAction(name: '_HomeScreenCoordinatorBase.repeatTheFlow');
     try {
-      return super.resetFlowCompletionStatus();
+      return super.repeatTheFlow();
     } finally {
       _$_HomeScreenCoordinatorBaseActionController.endAction(_$actionInfo);
     }
