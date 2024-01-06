@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
@@ -81,13 +82,23 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
 
   @action
   invitationFlowConstructor() {
-    smartText.startRotatingText();
+    Timer.periodic(Seconds.get(0, milli: 100), (timer) {
+      if (!smartText.isPaused) {
+        smartText.startRotatingText();
+        timer.cancel();
+      }
+    });
   }
 
   @action
   postInvitationFlowConstructor() {
-    smartText.setCurrentIndex(2);
-    smartText.startRotatingText();
+    Timer.periodic(Seconds.get(0, milli: 100), (timer) {
+      if (!smartText.isPaused) {
+        smartText.setCurrentIndex(2);
+        smartText.startRotatingText();
+        timer.cancel();
+      }
+    });
   }
 
   @action
