@@ -5,7 +5,6 @@ import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 import 'package:simple_animations/simple_animations.dart';
-import '../../../../../core/widgets/wifi_disconnect_overlay/wifi_disconnect_mocks.mocks.dart';
 import '../../../../shared/shared_mocks.mocks.dart';
 import '../../../../shared/shared_test_utils.dart';
 
@@ -18,14 +17,10 @@ void main() {
   late HomeScreenWidgetsCoordinator testStore;
   late NokhteBlurStore nokhteBlurStore;
   late TimeAlignmentModelCoordinator timeModel;
-  late MockGetOnConnectivityChangedStore mockConnectivity;
   setUp(() {
-    mockConnectivity = MockGetOnConnectivityChangedStore();
     timeModel = TimeAlignmentModelCoordinator(
       clockFace: ClockFaceStore(),
-      availabilitySectors: AvailabilitySectorsStore(
-        connectivity: mockConnectivity,
-      ),
+      availabilitySectors: AvailabilitySectorsStore(),
     );
     secondarySmartText = SmartTextStore();
     beachWaves = SharedTestUtils.getBeachWaves();
