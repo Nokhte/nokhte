@@ -76,6 +76,13 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
   };
 
   @observable
+  ObservableList currentAnimationValues = ObservableList.of([]);
+
+  @action
+  setCurrentAnimationValues(newList) =>
+      currentAnimationValues = ObservableList.of(newList);
+
+  @observable
   int finishedCount = 0;
 
   @action
@@ -85,9 +92,11 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
         finishedCount++;
       } else {
         setMovieStatus(MovieStatus.finished);
+        currentStore.setMovieStatus(MovieStatus.finished);
       }
     } else {
       setMovieStatus(MovieStatus.finished);
+      currentStore.setMovieStatus(MovieStatus.finished);
     }
   }
 
