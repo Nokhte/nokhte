@@ -7,17 +7,17 @@ import 'package:flutter_modular/flutter_modular.dart';
 class ConnectivityModule extends Module {
   @override
   exportedBinds(i) {
-    i.addSingleton<ConnectivityRemoteSourceImpl>(
+    i.add<ConnectivityRemoteSourceImpl>(
       () => ConnectivityRemoteSourceImpl(
         connectivity: Connectivity(),
       ),
     );
-    i.addSingleton<GetOnConnectivityChanged>(
+    i.add<GetOnConnectivityChanged>(
       () => GetOnConnectivityChanged(
         remoteSource: i<ConnectivityRemoteSourceImpl>(),
       ),
     );
-    i.addSingleton<GetOnConnectivityChangedStore>(
+    i.add<GetOnConnectivityChangedStore>(
       () => GetOnConnectivityChangedStore(
         logic: i<GetOnConnectivityChanged>(),
       ),
