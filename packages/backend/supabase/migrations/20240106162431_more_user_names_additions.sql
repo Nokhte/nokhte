@@ -1,0 +1,1 @@
+alter table "public"."user_names" add column "wants_to_repeat_invitation_flow" boolean not null default false;
