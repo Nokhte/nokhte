@@ -13,9 +13,7 @@ void main() {
 
   setUp(() {
     mock = MockGetOnConnectivityChangedStore();
-    testStore = AvailabilitySectorsStore(
-      connectivity: mock,
-    );
+    testStore = AvailabilitySectorsStore();
   });
 
   group("initial values", () {
