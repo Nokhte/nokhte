@@ -12,7 +12,7 @@ abstract class _OnShoreToOceanDiveMovieStoreBase
     extends BaseBeachWaveMovieStore<double> with Store {
   _OnShoreToOceanDiveMovieStoreBase()
       : super(
-          // callsOnCompleteTwice: true,
+          callsOnCompleteTwice: true,
           shouldPaintSand: OnShoreToOceanDiveMovie.shouldPaintSand,
         ) {
     movie = OnShoreMovie.movie;
