@@ -35,7 +35,8 @@ class AvailabilitySectors extends StatelessWidget {
                     builder: (context) {
                       return CustomPaint(
                         painter: AvailabilitySectorsPainter(
-                          touchCallback: () => store.initJoinAndFadeOutMovie(),
+                          // touchCallback: () => store.initJoinAndFadeOutMovie(),
+                          touchCallback: () => store.incrementTapCount(),
                           context: context,
                           redSectorLengths:
                               SectorAnimationUtils.getRedSectorLengths(
