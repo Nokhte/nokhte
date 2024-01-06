@@ -136,16 +136,18 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     if (!excludeUnBlur) {
       nokhteBlur.reverse();
     }
-    // if (wantsToRepeatInvitationFlow) {
-    // beachWaves.finishedCount = 1;
-    // }
+    if (hasInitiatedBlur) {
+      beachWaves.finishedCount = 1;
+    }
     gestureCross.stopBlinking();
     primarySmartText.toggleWidgetVisibility();
     timeModel.toggleWidgetVisibility();
     if (secondarySmartText.showWidget) {
       secondarySmartText.toggleWidgetVisibility();
     }
-    beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDiveSetup);
+    beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDive);
+    beachWaves.setMovieStatus(MovieStatus.inProgress);
+    beachWaves.currentStore.initMovie(beachWaves.currentAnimationValues.first);
     gestureCross.initMoveAndRegenerate(CircleOffsets.top);
   }
 
@@ -204,7 +206,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     wifiDisconnectOverlayReactor();
     availabilitySectorReactor();
     beachWavesMovieStatusReactor();
-    beachWavesMovieModeReactor();
   }
 
   centerCrossNokhteReactor() =>
@@ -270,15 +271,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
             beachWaves.movieMode == BeachWaveMovieModes.onShoreToOceanDive &&
             !isDisconnected) {
           Modular.to.navigate('/collaboration/');
-        }
-      });
-
-  beachWavesMovieModeReactor() => reaction((p0) => beachWaves.movieMode, (p0) {
-        if (p0 == BeachWaveMovieModes.onShoreToOceanDiveSetup) {
-          beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDive);
-          beachWaves.setMovieStatus(MovieStatus.inProgress);
-          beachWaves.currentStore
-              .initMovie(beachWaves.currentAnimationValues.first);
         }
       });
 
