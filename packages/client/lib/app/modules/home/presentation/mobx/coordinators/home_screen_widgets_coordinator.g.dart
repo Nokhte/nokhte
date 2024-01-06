@@ -44,6 +44,24 @@ mixin _$HomeScreenWidgetsCoordinator
     });
   }
 
+  late final _$gracePeriodHasExpiredAtom = Atom(
+      name: '_HomeScreenWidgetsCoordinatorBase.gracePeriodHasExpired',
+      context: context);
+
+  @override
+  bool get gracePeriodHasExpired {
+    _$gracePeriodHasExpiredAtom.reportRead();
+    return super.gracePeriodHasExpired;
+  }
+
+  @override
+  set gracePeriodHasExpired(bool value) {
+    _$gracePeriodHasExpiredAtom.reportWrite(value, super.gracePeriodHasExpired,
+        () {
+      super.gracePeriodHasExpired = value;
+    });
+  }
+
   late final _$clockAnimationHasNotStartedAtom = Atom(
       name: '_HomeScreenWidgetsCoordinatorBase.clockAnimationHasNotStarted',
       context: context);
@@ -143,6 +161,20 @@ mixin _$HomeScreenWidgetsCoordinator
                 '_HomeScreenWidgetsCoordinatorBase.toggleHasCompletedInvitationFlow');
     try {
       return super.toggleHasCompletedInvitationFlow();
+    } finally {
+      _$_HomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic toggleGracePeriodHasExpired() {
+    final _$actionInfo =
+        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_HomeScreenWidgetsCoordinatorBase.toggleGracePeriodHasExpired');
+    try {
+      return super.toggleGracePeriodHasExpired();
     } finally {
       _$_HomeScreenWidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
@@ -374,6 +406,7 @@ mixin _$HomeScreenWidgetsCoordinator
     return '''
 hasCompletedInvitationFlow: ${hasCompletedInvitationFlow},
 hasSwipedUp: ${hasSwipedUp},
+gracePeriodHasExpired: ${gracePeriodHasExpired},
 clockAnimationHasNotStarted: ${clockAnimationHasNotStarted},
 clockIsVisible: ${clockIsVisible},
 isDisconnected: ${isDisconnected},

@@ -46,6 +46,23 @@ mixin _$BeachWavesStore on _BeachWavesStoreBase, Store {
               name: '_BeachWavesStoreBase.currentMovie'))
           .value;
 
+  late final _$currentAnimationValuesAtom = Atom(
+      name: '_BeachWavesStoreBase.currentAnimationValues', context: context);
+
+  @override
+  ObservableList<dynamic> get currentAnimationValues {
+    _$currentAnimationValuesAtom.reportRead();
+    return super.currentAnimationValues;
+  }
+
+  @override
+  set currentAnimationValues(ObservableList<dynamic> value) {
+    _$currentAnimationValuesAtom
+        .reportWrite(value, super.currentAnimationValues, () {
+      super.currentAnimationValues = value;
+    });
+  }
+
   late final _$finishedCountAtom =
       Atom(name: '_BeachWavesStoreBase.finishedCount', context: context);
 
@@ -114,6 +131,17 @@ mixin _$BeachWavesStore on _BeachWavesStoreBase, Store {
       ActionController(name: '_BeachWavesStoreBase', context: context);
 
   @override
+  dynamic setCurrentAnimationValues(dynamic newList) {
+    final _$actionInfo = _$_BeachWavesStoreBaseActionController.startAction(
+        name: '_BeachWavesStoreBase.setCurrentAnimationValues');
+    try {
+      return super.setCurrentAnimationValues(newList);
+    } finally {
+      _$_BeachWavesStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic onCompleted() {
     final _$actionInfo = _$_BeachWavesStoreBaseActionController.startAction(
         name: '_BeachWavesStoreBase.onCompleted');
@@ -160,6 +188,7 @@ mixin _$BeachWavesStore on _BeachWavesStoreBase, Store {
   @override
   String toString() {
     return '''
+currentAnimationValues: ${currentAnimationValues},
 finishedCount: ${finishedCount},
 pivotColors: ${pivotColors},
 movieStatus: ${movieStatus},

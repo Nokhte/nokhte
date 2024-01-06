@@ -43,6 +43,24 @@ mixin _$GetUserInfoStore on _GetUserInfoStoreBase, Store {
     });
   }
 
+  late final _$wantsToRepeatInvitationFlowAtom = Atom(
+      name: '_GetUserInfoStoreBase.wantsToRepeatInvitationFlow',
+      context: context);
+
+  @override
+  bool get wantsToRepeatInvitationFlow {
+    _$wantsToRepeatInvitationFlowAtom.reportRead();
+    return super.wantsToRepeatInvitationFlow;
+  }
+
+  @override
+  set wantsToRepeatInvitationFlow(bool value) {
+    _$wantsToRepeatInvitationFlowAtom
+        .reportWrite(value, super.wantsToRepeatInvitationFlow, () {
+      super.wantsToRepeatInvitationFlow = value;
+    });
+  }
+
   late final _$futureStoreAtom =
       Atom(name: '_GetUserInfoStoreBase.futureStore', context: context);
 
@@ -72,6 +90,7 @@ mixin _$GetUserInfoStore on _GetUserInfoStoreBase, Store {
     return '''
 hasGoneThroughInvitationFlow: ${hasGoneThroughInvitationFlow},
 hasSentAnInvitation: ${hasSentAnInvitation},
+wantsToRepeatInvitationFlow: ${wantsToRepeatInvitationFlow},
 futureStore: ${futureStore}
     ''';
   }

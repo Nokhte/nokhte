@@ -27,10 +27,42 @@ mixin _$CollaborationHomeScreenWidgetsCoordinator
     });
   }
 
+  late final _$isDisconnectedAtom = Atom(
+      name: '_CollaborationHomeScreenWidgetsCoordinatorBase.isDisconnected',
+      context: context);
+
+  @override
+  bool get isDisconnected {
+    _$isDisconnectedAtom.reportRead();
+    return super.isDisconnected;
+  }
+
+  @override
+  set isDisconnected(bool value) {
+    _$isDisconnectedAtom.reportWrite(value, super.isDisconnected, () {
+      super.isDisconnected = value;
+    });
+  }
+
   late final _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController =
       ActionController(
           name: '_CollaborationHomeScreenWidgetsCoordinatorBase',
           context: context);
+
+  @override
+  dynamic toggleIsDisconnected() {
+    final _$actionInfo =
+        _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_CollaborationHomeScreenWidgetsCoordinatorBase.toggleIsDisconnected');
+    try {
+      return super.toggleIsDisconnected();
+    } finally {
+      _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic toggleInvitationIsSent() {
@@ -41,6 +73,66 @@ mixin _$CollaborationHomeScreenWidgetsCoordinator
                     '_CollaborationHomeScreenWidgetsCoordinatorBase.toggleInvitationIsSent');
     try {
       return super.toggleInvitationIsSent();
+    } finally {
+      _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onConnected() {
+    final _$actionInfo =
+        _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_CollaborationHomeScreenWidgetsCoordinatorBase.onConnected');
+    try {
+      return super.onConnected();
+    } finally {
+      _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onDisconnected() {
+    final _$actionInfo =
+        _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_CollaborationHomeScreenWidgetsCoordinatorBase.onDisconnected');
+    try {
+      return super.onDisconnected();
+    } finally {
+      _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onResumed() {
+    final _$actionInfo =
+        _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_CollaborationHomeScreenWidgetsCoordinatorBase.onResumed');
+    try {
+      return super.onResumed();
+    } finally {
+      _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onInactive() {
+    final _$actionInfo =
+        _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_CollaborationHomeScreenWidgetsCoordinatorBase.onInactive');
+    try {
+      return super.onInactive();
     } finally {
       _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
@@ -110,7 +202,8 @@ mixin _$CollaborationHomeScreenWidgetsCoordinator
   @override
   String toString() {
     return '''
-invitationIsSent: ${invitationIsSent}
+invitationIsSent: ${invitationIsSent},
+isDisconnected: ${isDisconnected}
     ''';
   }
 }
