@@ -30,8 +30,32 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
   @observable
   bool invitationIsSent = false;
 
+  @observable
+  bool isDisconnected = false;
+
+  @action
+  toggleIsDisconnected() => isDisconnected = !isDisconnected;
+
   @action
   toggleInvitationIsSent() => invitationIsSent = !invitationIsSent;
+
+  @action
+  onConnected() {
+    if (isDisconnected) toggleIsDisconnected();
+    if (smartText.isPaused &&
+        wifiDisconnectOverlay.movieMode ==
+            WifiDisconnectMovieModes.placeTheCircle) {
+      smartText.resume();
+    }
+  }
+
+  @action
+  onDisconnected() {
+    if (!isDisconnected) toggleIsDisconnected();
+    if (!smartText.isPaused) {
+      smartText.pause();
+    }
+  }
 
   @action
   constructor() {
@@ -54,14 +78,16 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
 
   @action
   onSwipeDown() {
-    if (gradientTreeNode.showWidget) {
-      gradientTreeNode.toggleWidgetVisibility();
+    if (!isDisconnected) {
+      if (gradientTreeNode.showWidget) {
+        gradientTreeNode.toggleWidgetVisibility();
+      }
+      smartText.pause();
+      smartText.toggleWidgetVisibility();
+      gestureCross.initMoveAndRegenerate(CircleOffsets.bottom);
+      beachWaves.setMovieMode(BeachWaveMovieModes.oceanDiveToOnShore);
+      beachWaves.currentStore.initMovie(NoParams());
     }
-    smartText.pause();
-    smartText.toggleWidgetVisibility();
-    gestureCross.initMoveAndRegenerate(CircleOffsets.bottom);
-    beachWaves.setMovieMode(BeachWaveMovieModes.oceanDiveToOnShore);
-    beachWaves.currentStore.initMovie(NoParams());
   }
 
   initReactors(Function onGradientTreeNodeTap, Function onFlowCompleted) {
@@ -70,6 +96,11 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
     invitationSendStatusReactor();
     centerCrossNokhteReactor();
     beachWavesMovieStatusReactor();
+    wifiDisconnectOverlay.connectionReactor(
+      onConnected: onConnected,
+      onDisconnected: onDisconnected,
+    );
+    wifiDisconnectOverlayReactor();
   }
 
   smartTextReactor(Function onFlowCompleted) =>
@@ -82,7 +113,9 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
 
   gradientTreeNodeTapReactor(Function onGradientTreeNodeTap) =>
       reaction((p0) => gradientTreeNode.tapCount, (p0) {
-        onGradientTreeNodeTap();
+        if (!isDisconnected) {
+          onGradientTreeNodeTap();
+        }
       });
 
   invitationSendStatusReactor() => reaction((p0) => invitationIsSent, (p0) {
@@ -104,6 +137,16 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
         if (p0 == MovieStatus.finished &&
             beachWaves.movieMode == BeachWaveMovieModes.oceanDiveToOnShore) {
           Modular.to.navigate('/home/');
+        }
+      });
+
+  wifiDisconnectOverlayReactor() =>
+      reaction((p0) => wifiDisconnectOverlay.movieStatus, (p0) {
+        if (wifiDisconnectOverlay.movieMode ==
+            WifiDisconnectMovieModes.removeTheCircle) {
+          if (smartText.isPaused) {
+            smartText.resume();
+          }
         }
       });
 
