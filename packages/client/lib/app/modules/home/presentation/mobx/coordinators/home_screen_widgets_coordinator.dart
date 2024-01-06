@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
@@ -71,11 +73,21 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   @action
   onConnected() {
     if (isDisconnected) toggleIsDisconnected();
+    if (primarySmartText.isPaused &&
+        wifiDisconnectOverlay.movieMode ==
+            WifiDisconnectMovieModes.placeTheCircle) {
+      primarySmartText.resume();
+    }
   }
 
   @action
   onDisconnected() {
     if (!isDisconnected) toggleIsDisconnected();
+    // if (clockAnimationHasNotStarted) {
+    if (!primarySmartText.isPaused) {
+      primarySmartText.pause();
+    }
+    // }
   }
 
   @action
@@ -163,6 +175,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     nokhteBlurReactor();
     centerCrossNokhteReactor();
     gradientNokhteOpacityListener();
+    wifiDisconnectOverlayReactor();
   }
 
   centerCrossNokhteReactor() =>
@@ -204,13 +217,8 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
       reaction((p0) => wifiDisconnectOverlay.movieStatus, (p0) {
         if (wifiDisconnectOverlay.movieMode ==
             WifiDisconnectMovieModes.removeTheCircle) {
-          if (clockAnimationHasNotStarted) {
+          if (primarySmartText.isPaused) {
             primarySmartText.resume();
-          }
-        } else if (wifiDisconnectOverlay.movieMode ==
-            WifiDisconnectMovieModes.placeTheCircle) {
-          if (clockAnimationHasNotStarted) {
-            primarySmartText.pause();
           }
         }
       });
@@ -238,7 +246,12 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   onClockFaceAnimationFinished(p0) {
     if (p0 == MovieStatus.finished) {
       if (timeModel.clockFace.pastControl == Control.playReverseFromEnd) {
-        primarySmartText.startRotatingText(isResuming: true);
+        Timer.periodic(Seconds.get(0, milli: 100), (timer) {
+          if (!primarySmartText.isPaused) {
+            primarySmartText.startRotatingText(isResuming: true);
+            timer.cancel();
+          }
+        });
       } else {
         secondarySmartText.startRotatingText();
         toggleClockIsVisible();
