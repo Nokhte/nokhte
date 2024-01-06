@@ -10,4 +10,6 @@ abstract class UserInformationContract {
   Future<Either<Failure, HasGoneThroughInvitationFlowUpdateStatusEntity>>
       updateHasGoneThroughInvitationFlow(
           bool hasGoneThroughInvitationFlowParam);
+  Future<Either<Failure, WantsToRepeatInvitationFlowUpdateStatusEntity>>
+      updateWantsToRepeatInvitationFlow(bool wantsToRepeatInvitationFlowParam);
 }
