@@ -5,7 +5,6 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/gesture_cross/individual_widgets/individual_cross_nokhte/gradient_cross_nokhte/stack/utils/gradient_cross_nokhte_utils.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-import 'package:touchable/touchable.dart';
 import 'canvas/gradient_cross_nokhte_painter.dart';
 
 class GradientCrossNokhte extends StatelessWidget {
@@ -32,26 +31,18 @@ class GradientCrossNokhte extends StatelessWidget {
           duration: store.movie.duration,
           control: store.control,
           builder: (context, value, child) => SizedBox.expand(
-            child: CanvasTouchDetector(
-              gesturesToOverride: const [
-                GestureType.onTapDown,
-                GestureType.onTapUp,
-              ],
-              builder: (context) => CustomPaint(
-                painter: GradientCrossNokhtePainter(
-                  onTapDown: () => store.incrementTapCount(),
-                  context: context,
-                  offsets: offsets,
-                  gradients: GradientCrossNokhteUtils.getGradients(
-                    value,
-                    offsets,
-                    gradientColorLengths,
-                  ),
-                  stops: GradientCrossNokhteUtils.getStops(
-                    value,
-                    offsets,
-                    gradientColorLengths,
-                  ),
+            child: CustomPaint(
+              painter: GradientCrossNokhtePainter(
+                offsets: offsets,
+                gradients: GradientCrossNokhteUtils.getGradients(
+                  value,
+                  offsets,
+                  gradientColorLengths,
+                ),
+                stops: GradientCrossNokhteUtils.getStops(
+                  value,
+                  offsets,
+                  gradientColorLengths,
                 ),
               ),
             ),

@@ -5,7 +5,6 @@ import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-import 'package:touchable/touchable.dart';
 import 'canvas/cross_painter.dart';
 
 class Cross extends StatelessWidget {
@@ -29,27 +28,19 @@ class Cross extends StatelessWidget {
           control: store.control,
           onCompleted: () => store.onCompleted(),
           builder: (context, value, child) => SizedBox.expand(
-            child: CanvasTouchDetector(
-              gesturesToOverride: const [
-                GestureType.onTapDown,
-                GestureType.onTapUp,
-              ],
-              builder: (context) => CustomPaint(
-                painter: CrossPainter(
-                  context,
-                  store.path,
-                  store.bounds,
-                  size,
-                  onTap: store.incrementTapCount,
-                  crossGradient: ColorsAndStops(colors: [
-                    const Color(0xFF0A98FF),
-                    Colors.white.withOpacity(0)
-                  ], stops: [
-                    0,
-                    value.get('stop'),
-                  ]),
-                  circleInformation: store.circleInformation,
-                ),
+            child: CustomPaint(
+              painter: CrossPainter(
+                store.path,
+                store.bounds,
+                size,
+                crossGradient: ColorsAndStops(colors: [
+                  const Color(0xFF0A98FF),
+                  Colors.white.withOpacity(0)
+                ], stops: [
+                  0,
+                  value.get('stop'),
+                ]),
+                circleInformation: store.circleInformation,
               ),
             ),
           ),

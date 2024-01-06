@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:touchable/touchable.dart';
 
 class CrossPainter extends CustomPainter {
-  final BuildContext context;
-  Function onTap;
   Path path;
   Rect pathBounds;
   late double height;
@@ -14,16 +11,14 @@ class CrossPainter extends CustomPainter {
   List<CircleInformation> circleInformation;
 
   CrossPainter(
-    this.context,
     this.path,
     this.pathBounds,
     Size size, {
-    required this.onTap,
     required this.circleInformation,
     required this.crossGradient,
   });
 
-  paintCross(TouchyCanvas canvas, Size size) {
+  paintCross(Canvas canvas, Size size) {
     height = pathBounds.height;
     width = pathBounds.width;
 
@@ -35,15 +30,12 @@ class CrossPainter extends CustomPainter {
       ).createShader(
         pathBounds,
       );
-    canvas.drawPath(path, crossPaint, onTapDown: (details) {
-      onTap();
-    });
+    canvas.drawPath(path, crossPaint);
   }
 
   @override
   void paint(Canvas canvas, Size size) {
-    final touchableCanvas = TouchyCanvas(context, canvas);
-    paintCross(touchableCanvas, size);
+    paintCross(canvas, size);
   }
 
   @override

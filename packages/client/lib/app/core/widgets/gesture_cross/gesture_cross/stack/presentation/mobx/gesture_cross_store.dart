@@ -20,38 +20,13 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
     required this.gradientNokhte,
     required this.centerCrossNokhte,
     required this.strokeCrossNokhte,
-  }) {
-    initReactors();
-  }
+  });
 
   @observable
   int tapCount = 0;
 
   @action
   incrementTapCount() => tapCount++;
-
-  initReactors() {
-    crossTapReactor();
-    centerCircleReactor();
-    strokeCircleReactor();
-    gradientCircleReactor();
-  }
-
-  crossTapReactor() => reaction((p0) => cross.tapCount, (p0) {
-        incrementTapCount();
-      });
-
-  centerCircleReactor() => reaction((p0) => centerCrossNokhte.tapCount, (p0) {
-        incrementTapCount();
-      });
-
-  strokeCircleReactor() => reaction((p0) => strokeCrossNokhte.tapCount, (p0) {
-        incrementTapCount();
-      });
-
-  gradientCircleReactor() => reaction((p0) => gradientNokhte.tapCount, (p0) {
-        incrementTapCount();
-      });
 
   @action
   setHomeScreen() {
