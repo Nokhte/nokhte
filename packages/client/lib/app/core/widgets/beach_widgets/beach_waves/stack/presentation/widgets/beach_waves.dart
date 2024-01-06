@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
-import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'canvas/beach_waves_painter.dart';
@@ -28,19 +26,15 @@ class BeachWaves extends HookWidget {
               builder: (context, value, child) {
                 final currentAnimationValues =
                     GetCurrentWaterAnimation.values(value);
-                if (store.movieMode ==
-                    BeachWaveMovieModes.onShoreToOceanDiveSetup) {
-                  store.setMovieMode(BeachWaveMovieModes.onShoreToOceanDive);
-                  store.currentStore.initMovie(currentAnimationValues.first);
-                  store.setMovieStatus(MovieStatus.inProgress);
-                } else if (store.movieMode ==
-                    BeachWaveMovieModes.timesUpDynamicPointToTheDepthsSetup) {
-                  store.setPivotColors(currentAnimationValues);
-                  store.setMovieMode(
-                      BeachWaveMovieModes.timesUpDynamicPointToTheDepths);
-                  store.currentStore.initMovie(store.pivotColors);
-                  store.setMovieStatus(MovieStatus.inProgress);
-                }
+                store.setCurrentAnimationValues(currentAnimationValues);
+                //  if (store.movieMode ==
+                //     BeachWaveMovieModes.timesUpDynamicPointToTheDepthsSetup) {
+                //   store.setPivotColors(currentAnimationValues);
+                //   store.setMovieMode(
+                //       BeachWaveMovieModes.timesUpDynamicPointToTheDepths);
+                //   store.currentStore.initMovie(store.pivotColors);
+                //   store.setMovieStatus(MovieStatus.inProgress);
+                // }
                 return CustomPaint(
                   painter: BeachWavesPainter(
                     waterValue: currentAnimationValues.first,
