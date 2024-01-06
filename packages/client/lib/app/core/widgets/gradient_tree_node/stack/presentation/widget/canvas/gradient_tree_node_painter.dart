@@ -17,7 +17,7 @@ class GradientTreeNodePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final touchableCanvas = TouchyCanvas(context, canvas);
-    final center = Offset(size.width.half(), size.height.half());
+    final center = Offset(size.width.half() + 5, size.height.half());
 
     const double radius = 25.0;
 
