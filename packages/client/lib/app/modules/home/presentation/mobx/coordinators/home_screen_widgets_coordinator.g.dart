@@ -340,6 +340,19 @@ mixin _$HomeScreenWidgetsCoordinator
   }
 
   @override
+  dynamic onGestureCrossTap(Function repeatTheFlow) {
+    final _$actionInfo =
+        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
+            name: '_HomeScreenWidgetsCoordinatorBase.onGestureCrossTap');
+    try {
+      return super.onGestureCrossTap(repeatTheFlow);
+    } finally {
+      _$_HomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic toggleIsDoubleTriggeringWindDown() {
     final _$actionInfo =
         _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
@@ -386,19 +399,6 @@ mixin _$HomeScreenWidgetsCoordinator
             name: '_HomeScreenWidgetsCoordinatorBase.toggleHasInitiatedBlur');
     try {
       return super.toggleHasInitiatedBlur();
-    } finally {
-      _$_HomeScreenWidgetsCoordinatorBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic onGestureCrossTap(Function repeatTheFlow) {
-    final _$actionInfo =
-        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
-            name: '_HomeScreenWidgetsCoordinatorBase.onGestureCrossTap');
-    try {
-      return super.onGestureCrossTap(repeatTheFlow);
     } finally {
       _$_HomeScreenWidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);

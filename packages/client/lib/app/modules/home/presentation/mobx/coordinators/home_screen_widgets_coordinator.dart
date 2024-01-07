@@ -127,6 +127,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     if (clockAnimationHasNotStarted) {
       primarySmartText.pause();
       primarySmartText.reset();
+      beachWaves.currentStore.setControl(Control.mirror);
     }
   }
 
@@ -161,6 +162,24 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
       } else if (!hasSwipedUp && hasCompletedInvitationFlow) {
         prepForNavigation(excludeUnBlur: true);
       }
+    }
+  }
+
+  @action
+  onGestureCrossTap(Function repeatTheFlow) {
+    if (!isDisconnected && !hasInitiatedBlur) {
+      if (hasCompletedInvitationFlow) {
+        repeatTheFlow();
+        toggleWantsToRepeatInvitationFlow();
+        gestureCross.stopBlinking();
+        if (!gracePeriodHasExpired) {
+          primarySmartText.setCurrentIndex(1);
+        }
+      }
+      nokhteBlur.init();
+      primarySmartText.startRotatingText(isResuming: true);
+      beachWaves.currentStore.setControl(Control.stop);
+      toggleHasInitiatedBlur();
     }
   }
 
@@ -273,24 +292,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
           Modular.to.navigate('/collaboration/');
         }
       });
-
-  @action
-  onGestureCrossTap(Function repeatTheFlow) {
-    if (!isDisconnected && !hasInitiatedBlur) {
-      if (hasCompletedInvitationFlow) {
-        repeatTheFlow();
-        toggleWantsToRepeatInvitationFlow();
-        gestureCross.stopBlinking();
-        if (!gracePeriodHasExpired) {
-          primarySmartText.setCurrentIndex(1);
-        }
-      }
-      nokhteBlur.init();
-      primarySmartText.startRotatingText(isResuming: true);
-      beachWaves.currentStore.setControl(Control.stop);
-      toggleHasInitiatedBlur();
-    }
-  }
 
   @action
   onClockFaceAnimationFinished(p0) {
