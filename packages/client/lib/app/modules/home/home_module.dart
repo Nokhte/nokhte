@@ -20,50 +20,50 @@ class HomeModule extends Module {
       ];
   @override
   binds(i) {
-    i.addSingleton<HomeRemoteSourceImpl>(
+    i.add<HomeRemoteSourceImpl>(
       () => HomeRemoteSourceImpl(
         supabase: Modular.get<SupabaseClient>(),
       ),
     );
-    i.addSingleton<HomeContractImpl>(
+    i.add<HomeContractImpl>(
       () => HomeContractImpl(
         remoteSource: i<HomeRemoteSourceImpl>(),
         networkInfo: Modular.get<NetworkInfoImpl>(),
       ),
     );
-    i.addSingleton<AddNameToDatabase>(
+    i.add<AddNameToDatabase>(
       () => AddNameToDatabase(
         contract: i<HomeContractImpl>(),
       ),
     );
-    i.addSingleton<GetCollaboratorPhrase>(
+    i.add<GetCollaboratorPhrase>(
       () => GetCollaboratorPhrase(
         contract: i<HomeContractImpl>(),
       ),
     );
-    i.addSingleton<GetExistingCollaborationsInfo>(
+    i.add<GetExistingCollaborationsInfo>(
       () => GetExistingCollaborationsInfo(
         contract: i<HomeContractImpl>(),
       ),
     );
 
-    i.addSingleton<AddNameToDatabaseStore>(
+    i.add<AddNameToDatabaseStore>(
       () => AddNameToDatabaseStore(
         logic: i<AddNameToDatabase>(),
       ),
     );
-    i.addSingleton<GetCollaboratorPhraseStore>(
+    i.add<GetCollaboratorPhraseStore>(
       () => GetCollaboratorPhraseStore(
         logic: i<GetCollaboratorPhrase>(),
       ),
     );
-    i.addSingleton<GetExistingCollaborationsInfoStore>(
+    i.add<GetExistingCollaborationsInfoStore>(
       () => GetExistingCollaborationsInfoStore(
         logic: i<GetExistingCollaborationsInfo>(),
       ),
     );
 
-    i.addSingleton<HomeScreenCoordinator>(
+    i.add<HomeScreenCoordinator>(
       () => HomeScreenCoordinator(
         userInformation: Modular.get<UserInformationCoordinator>(),
         swipe: Modular.get<SwipeDetector>(),
