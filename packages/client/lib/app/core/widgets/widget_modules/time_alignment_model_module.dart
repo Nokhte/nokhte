@@ -4,7 +4,7 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 class TimeAlignmentModelModule extends Module {
   @override
   void exportedBinds(i) {
-    i.addSingleton<ClockFaceStore>(
+    i.add<ClockFaceStore>(
       () => ClockFaceStore(),
     );
     i.add<AvailabilitySectorsStore>(
