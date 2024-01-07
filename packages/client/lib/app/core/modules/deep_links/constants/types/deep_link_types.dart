@@ -1,0 +1,4 @@
+enum DeepLinkTypes {
+  none,
+  collaboratorInvitation,
+}
