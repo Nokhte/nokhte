@@ -2059,6 +2059,15 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
       );
 
   @override
+  dynamic onGestureCrossTap(Function? repeatTheFlow) => super.noSuchMethod(
+        Invocation.method(
+          #onGestureCrossTap,
+          [repeatTheFlow],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   dynamic initReactors(Function? repeatTheFlow) => super.noSuchMethod(
         Invocation.method(
           #initReactors,
@@ -2071,15 +2080,6 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   dynamic gestureCrossTapReactor(Function? repeatTheFlow) => super.noSuchMethod(
         Invocation.method(
           #gestureCrossTapReactor,
-          [repeatTheFlow],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  dynamic onGestureCrossTap(Function? repeatTheFlow) => super.noSuchMethod(
-        Invocation.method(
-          #onGestureCrossTap,
           [repeatTheFlow],
         ),
         returnValueForMissingStub: null,
