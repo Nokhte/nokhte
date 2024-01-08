@@ -43,6 +43,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
     setCenterScreenCoordinates(center);
     layer1BeachWaves.setMovieMode(BeachWaveMovieModes.blackOut);
     layer2BeachWaves.currentStore.toggleWidgetVisibility();
+    smartTextStore.setDisablePausing(true);
     smartTextStore.setMessagesData(MessagesData.loginList);
     smartTextStore.startRotatingText();
     initReactors(loginBusinessLogic);
