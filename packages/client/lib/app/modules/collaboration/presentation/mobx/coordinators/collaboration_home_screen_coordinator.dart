@@ -2,6 +2,9 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/deep_links/domain/domain.dart';
+import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/deep_links/constants/types/deep_link_types.dart';
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -14,15 +17,13 @@ class CollaborationHomeScreenCoordinator = _CollaborationHomeScreenCoordinatorBa
 abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
     with Store {
   final CollaborationHomeScreenWidgetsCoordinator widgets;
-  final GetInvitationURLStore getInvitationURL;
-  final ShareCollaborationInvitationStore shareCollaborationInvitation;
   final UserInformationCoordinator userInformation;
   final SwipeDetector swipe;
+  final DeepLinksCoordinator deepLinks;
 
   _CollaborationHomeScreenCoordinatorBase({
-    required this.getInvitationURL,
-    required this.shareCollaborationInvitation,
     required this.widgets,
+    required this.deepLinks,
     required this.userInformation,
     required this.swipe,
   });
@@ -44,12 +45,16 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
     } else {
       widgets.invitationFlowConstructor();
     }
-    await getInvitationURL(NoParams());
+    await deepLinks.getDeepLinkURL(
+      const GetDeepLinkURLParams(
+        type: DeepLinkTypes.collaboratorInvitation,
+      ),
+    );
   }
 
   @action
   onGradientTreeNodeTap() => ifTouchIsNotDisabled(() {
-        shareCollaborationInvitation(getInvitationURL.link);
+        deepLinks.sendDeepLink(deepLinks.getDeepLinkURL.link);
       });
 
   @action
@@ -61,7 +66,7 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
   }
 
   shareInvitationReactor() =>
-      reaction((p0) => shareCollaborationInvitation.isShared, (p0) {
+      reaction((p0) => deepLinks.sendDeepLink.isShared, (p0) {
         if (p0) {
           userInformation.updateHasSentAnInvitation(true);
           widgets.toggleInvitationIsSent();
