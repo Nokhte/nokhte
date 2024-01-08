@@ -15,14 +15,8 @@ class DeepLinksContractImpl implements DeepLinksContract {
   });
 
   @override
-  getLatestOpenedDeeplink(NoParams params) async {
-    if (await networkInfo.isConnected) {
-      final res = await remoteSource.getLatestOpenedDeepLink();
-      return Right(DeepLinkInfoModel.fromBranch(res));
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
+  listenForOpenedDeepLink(NoParams params) =>
+      remoteSource.listenForOpenedDeepLink();
 
   @override
   getDeepLinkURL(GetDeepLinkURLParams params) async {
