@@ -115,8 +115,35 @@ mixin _$SmartTextStore on _SmartTextStoreBase, Store {
     });
   }
 
+  late final _$disablePausingAtom =
+      Atom(name: '_SmartTextStoreBase.disablePausing', context: context);
+
+  @override
+  bool get disablePausing {
+    _$disablePausingAtom.reportRead();
+    return super.disablePausing;
+  }
+
+  @override
+  set disablePausing(bool value) {
+    _$disablePausingAtom.reportWrite(value, super.disablePausing, () {
+      super.disablePausing = value;
+    });
+  }
+
   late final _$_SmartTextStoreBaseActionController =
       ActionController(name: '_SmartTextStoreBase', context: context);
+
+  @override
+  dynamic setDisablePausing(bool newDisablePausing) {
+    final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
+        name: '_SmartTextStoreBase.setDisablePausing');
+    try {
+      return super.setDisablePausing(newDisablePausing);
+    } finally {
+      _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic setCurrentIndex(dynamic newIndex) {
@@ -201,6 +228,7 @@ mixin _$SmartTextStore on _SmartTextStoreBase, Store {
 messagesData: ${messagesData},
 currentIndex: ${currentIndex},
 isPaused: ${isPaused},
+disablePausing: ${disablePausing},
 currentSubText: ${currentSubText},
 currentMainText: ${currentMainText},
 currentShouldPauseHere: ${currentShouldPauseHere},

@@ -19,6 +19,13 @@ abstract class _SmartTextStoreBase extends BaseCustomAnimatedWidgetStore
   @observable
   bool isPaused = false;
 
+  @observable
+  bool disablePausing = false;
+
+  @action
+  setDisablePausing(bool newDisablePausing) =>
+      disablePausing = newDisablePausing;
+
   @action
   setCurrentIndex(newIndex) => currentIndex = newIndex;
 
@@ -31,7 +38,7 @@ abstract class _SmartTextStoreBase extends BaseCustomAnimatedWidgetStore
   @action
   reset() {
     currentIndex = 0;
-    if (isPaused) isPaused = !isPaused;
+    isPaused = false;
     setControl(Control.playFromStart);
     setControl(Control.stop);
   }
@@ -50,13 +57,11 @@ abstract class _SmartTextStoreBase extends BaseCustomAnimatedWidgetStore
   @action
   pause() {
     setControl(Control.stop);
-    isPaused = true;
   }
 
   @action
   resume() {
     startRotatingText(isResuming: true);
-    isPaused = false;
   }
 
   @action
@@ -64,15 +69,23 @@ abstract class _SmartTextStoreBase extends BaseCustomAnimatedWidgetStore
     if (currentIndex < messagesData.length - 1) {
       if (control != Control.playReverse && !currentShouldPauseHere) {
         Future.delayed(currentOnScreenTime, () {
-          if (!isPaused) {
+          if (disablePausing) {
             setControl(Control.playReverse);
+          } else {
+            if (!isPaused) {
+              setControl(Control.playReverse);
+            }
           }
         });
       } else if (control == Control.playReverse) {
         currentIndex++;
         Future.delayed(Seconds.get(0, milli: 100), () {
-          if (!isPaused) {
+          if (disablePausing) {
             setControl(Control.playFromStart);
+          } else {
+            if (!isPaused) {
+              setControl(Control.playFromStart);
+            }
           }
         });
       }
