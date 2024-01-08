@@ -127,7 +127,9 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
     if (clockAnimationHasNotStarted) {
       primarySmartText.pause();
       primarySmartText.reset();
-      beachWaves.currentStore.setControl(Control.mirror);
+      if (!hasSwipedUp) {
+        beachWaves.currentStore.setControl(Control.mirror);
+      }
     }
   }
 
