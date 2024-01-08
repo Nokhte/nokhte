@@ -9,12 +9,12 @@ class DeepLinksCoordinator = _DeepLinksCoordinatorBase
 
 abstract class _DeepLinksCoordinatorBase extends Equatable with Store {
   final GetDeepLinkURLStore getDeepLinkURL;
-  final GetLatestOpenedDeepLinkStore getLatestOpenedDeepLink;
+  final ListenForOpenedDeepLinkStore listenForOpenedDeepLink;
   final SendDeepLinkStore sendDeepLink;
 
   _DeepLinksCoordinatorBase({
     required this.getDeepLinkURL,
-    required this.getLatestOpenedDeepLink,
+    required this.listenForOpenedDeepLink,
     required this.sendDeepLink,
   });
 
