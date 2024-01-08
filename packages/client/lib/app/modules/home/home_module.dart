@@ -1,4 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:nokhte/app/core/modules/deep_links/deep_links_module.dart';
+import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
@@ -17,6 +19,7 @@ class HomeModule extends Module {
         HomeWidgetsModule(),
         GesturesModule(),
         UserInformationModule(),
+        DeepLinksModule(),
       ];
   @override
   binds(i) {
@@ -65,6 +68,7 @@ class HomeModule extends Module {
 
     i.add<HomeScreenCoordinator>(
       () => HomeScreenCoordinator(
+        deepLinks: Modular.get<DeepLinksCoordinator>(),
         userInformation: Modular.get<UserInformationCoordinator>(),
         swipe: Modular.get<SwipeDetector>(),
         addNameToDatabaseStore: i<AddNameToDatabaseStore>(),
