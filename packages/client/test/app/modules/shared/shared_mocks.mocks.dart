@@ -1574,6 +1574,22 @@ class MockSmartTextStore extends _i1.Mock implements _i5.SmartTextStore {
       );
 
   @override
+  bool get disablePausing => (super.noSuchMethod(
+        Invocation.getter(#disablePausing),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set disablePausing(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #disablePausing,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   String get currentSubText => (super.noSuchMethod(
         Invocation.getter(#currentSubText),
         returnValue: _i10.dummyValue<String>(
@@ -1797,6 +1813,15 @@ class MockSmartTextStore extends _i1.Mock implements _i5.SmartTextStore {
           Invocation.getter(#context),
         ),
       ) as _i4.ReactiveContext);
+
+  @override
+  dynamic setDisablePausing(bool? newDisablePausing) => super.noSuchMethod(
+        Invocation.method(
+          #setDisablePausing,
+          [newDisablePausing],
+        ),
+        returnValueForMissingStub: null,
+      );
 
   @override
   dynamic setMessagesData(List<_i9.RotatingTextData>? newList) =>
