@@ -6,7 +6,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class DeepLinksRemoteSource {
-  Future<Map> getLatestOpenedDeepLink();
+  Stream<Map> listenForOpenedDeepLink();
   Future<BranchResponse> getDeepLinkURL(GetDeepLinkURLParams params);
   Future<ShareResult> sendDeepLink(String invitationURL);
 }
@@ -20,8 +20,10 @@ class DeepLinksRemoteSourceImpl implements DeepLinksRemoteSource {
   }) : userNames = UserNamesQueries(supabase: supabase);
 
   @override
-  Future<Map> getLatestOpenedDeepLink() async =>
-      await FlutterBranchSdk.getLatestReferringParams();
+  Stream<Map> listenForOpenedDeepLink() {
+    FlutterBranchSdk.disableTracking(true);
+    return FlutterBranchSdk.listSession();
+  }
 
   @override
   Future<BranchResponse> getDeepLinkURL(GetDeepLinkURLParams params) async {
