@@ -25,10 +25,13 @@ class DeepLinksModule extends Module {
         contract: i<DeepLinksContractImpl>(),
       ),
     );
-    i.add<GetLatestOpenedDeepLink>(
-      () => GetLatestOpenedDeepLink(
+    i.add<ListenForOpenedDeepLink>(
+      () => ListenForOpenedDeepLink(
         contract: i<DeepLinksContractImpl>(),
       ),
+    );
+    i.add<InterpretDeepLink>(
+      () => InterpretDeepLink(),
     );
     i.add<SendDeepLink>(
       () => SendDeepLink(
@@ -40,9 +43,10 @@ class DeepLinksModule extends Module {
         logic: i<GetDeepLinkURL>(),
       ),
     );
-    i.add<GetLatestOpenedDeepLinkStore>(
-      () => GetLatestOpenedDeepLinkStore(
-        logic: i<GetLatestOpenedDeepLink>(),
+    i.add<ListenForOpenedDeepLinkStore>(
+      () => ListenForOpenedDeepLinkStore(
+        logic: i<ListenForOpenedDeepLink>(),
+        interpretDeepLink: i<InterpretDeepLink>(),
       ),
     );
     i.add<SendDeepLinkStore>(
@@ -53,7 +57,7 @@ class DeepLinksModule extends Module {
     i.add<DeepLinksCoordinator>(
       () => DeepLinksCoordinator(
         getDeepLinkURL: i<GetDeepLinkURLStore>(),
-        getLatestOpenedDeepLink: i<GetLatestOpenedDeepLinkStore>(),
+        listenForOpenedDeepLink: i<ListenForOpenedDeepLinkStore>(),
         sendDeepLink: i<SendDeepLinkStore>(),
       ),
     );
