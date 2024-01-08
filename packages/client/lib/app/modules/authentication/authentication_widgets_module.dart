@@ -25,7 +25,7 @@ class AuthenticationWidgetsModule extends Module {
         gestureCross: Modular.get<GestureCrossStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         nokhte: i<NokhteStore>(),
-        smartTextStore: i<SmartTextStore>(),
+        smartTextStore: Modular.get<SmartTextStore>(),
         layer1BeachWaves: Modular.get<BeachWavesStore>(),
         layer2BeachWaves: Modular.get<BeachWavesStore>(),
         bottomTrailingText: i<TrailingTextStore>(),
