@@ -15,7 +15,6 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
   final AddNameToDatabaseStore addNameToDatabaseStore;
   final GetCollaboratorPhraseStore getCollaboratorPhraseStore;
   final GetExistingCollaborationsInfoStore getExistingCollaborationInfo;
-
   final HomeScreenWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final UserInformationCoordinator userInformation;
