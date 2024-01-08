@@ -4,7 +4,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/deep_links/domain/domain.dart';
 
 abstract class DeepLinksContract {
-  Future<Either<Failure, DeepLinkInfoEntity>> getLatestOpenedDeeplink(
+  Stream<Map> listenForOpenedDeepLink(
     NoParams params,
   );
   Future<Either<Failure, DeepLinkUrlEntity>> getDeepLinkURL(
