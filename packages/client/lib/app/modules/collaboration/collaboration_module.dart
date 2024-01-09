@@ -81,13 +81,18 @@ class CollaborationModule extends Module {
       () => CollaborationHomeScreenCoordinator(
         getCollaboratorSearchStatus: i<GetCollaboratorSearchStatusStore>(),
         enterCollaboratorPool: i<EnterCollaboratorPoolStore>(),
-        exitCollaboratorPool: i<ExitCollaboratorPoolStore>(),
-        cancelCollaboratorSearchStream:
-            i<CancelCollaboratorSearchStreamStore>(),
         swipe: Modular.get<SwipeDetector>(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
         widgets: Modular.get<CollaborationHomeScreenWidgetsCoordinator>(),
         userInformation: i<UserInformationCoordinator>(),
+      ),
+    );
+    i.add<CollaboratorPoolScreenCoordinator>(
+      () => CollaboratorPoolScreenCoordinator(
+        widgets: Modular.get<CollaboratorPoolScreenWidgetsCoordinator>(),
+        exitCollaboratorPool: i<ExitCollaboratorPoolStore>(),
+        cancelCollaboratorSearchStream:
+            i<CancelCollaboratorSearchStreamStore>(),
       ),
     );
   }
@@ -101,6 +106,12 @@ class CollaborationModule extends Module {
         coordinator: Modular.get<CollaborationHomeScreenCoordinator>(),
       ),
     );
-    //
+    r.child(
+      '/pool',
+      transition: TransitionType.noTransition,
+      child: (context) => CollaboratorPoolScreen(
+        coordinator: Modular.get<CollaboratorPoolScreenCoordinator>(),
+      ),
+    );
   }
 }
