@@ -46,9 +46,7 @@ class P2PCollaboratorPoolRemoteSourceImpl
 
   @override
   enterThePool(CollaboratorPhraseIDs phraseIDs) async =>
-      await initiateCollaboratorSearch.invoke(
-        phraseIDs,
-      );
+      await initiateCollaboratorSearch.invoke("");
 
   @override
   Future<FunctionResponse> exitThePool() async =>
