@@ -10,6 +10,24 @@ part of 'collaboration_home_screen_coordinator.dart';
 
 mixin _$CollaborationHomeScreenCoordinator
     on _CollaborationHomeScreenCoordinatorBase, Store {
+  late final _$additionalRoutingDataAtom = Atom(
+      name: '_CollaborationHomeScreenCoordinatorBase.additionalRoutingData',
+      context: context);
+
+  @override
+  ObservableMap<dynamic, dynamic> get additionalRoutingData {
+    _$additionalRoutingDataAtom.reportRead();
+    return super.additionalRoutingData;
+  }
+
+  @override
+  set additionalRoutingData(ObservableMap<dynamic, dynamic> value) {
+    _$additionalRoutingDataAtom.reportWrite(value, super.additionalRoutingData,
+        () {
+      super.additionalRoutingData = value;
+    });
+  }
+
   late final _$isNavigatingAwayAtom = Atom(
       name: '_CollaborationHomeScreenCoordinatorBase.isNavigatingAway',
       context: context);
@@ -39,6 +57,20 @@ mixin _$CollaborationHomeScreenCoordinator
   late final _$_CollaborationHomeScreenCoordinatorBaseActionController =
       ActionController(
           name: '_CollaborationHomeScreenCoordinatorBase', context: context);
+
+  @override
+  dynamic setAdditionalRoutingData(Map<dynamic, dynamic>? newMap) {
+    final _$actionInfo =
+        _$_CollaborationHomeScreenCoordinatorBaseActionController.startAction(
+            name:
+                '_CollaborationHomeScreenCoordinatorBase.setAdditionalRoutingData');
+    try {
+      return super.setAdditionalRoutingData(newMap);
+    } finally {
+      _$_CollaborationHomeScreenCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic toggleIsNavigatingAway() {
@@ -84,6 +116,7 @@ mixin _$CollaborationHomeScreenCoordinator
   @override
   String toString() {
     return '''
+additionalRoutingData: ${additionalRoutingData},
 isNavigatingAway: ${isNavigatingAway}
     ''';
   }

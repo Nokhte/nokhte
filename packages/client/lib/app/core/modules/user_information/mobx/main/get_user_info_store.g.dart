@@ -61,6 +61,38 @@ mixin _$GetUserInfoStore on _GetUserInfoStoreBase, Store {
     });
   }
 
+  late final _$userUIDAtom =
+      Atom(name: '_GetUserInfoStoreBase.userUID', context: context);
+
+  @override
+  String get userUID {
+    _$userUIDAtom.reportRead();
+    return super.userUID;
+  }
+
+  @override
+  set userUID(String value) {
+    _$userUIDAtom.reportWrite(value, super.userUID, () {
+      super.userUID = value;
+    });
+  }
+
+  late final _$entityAtom =
+      Atom(name: '_GetUserInfoStoreBase.entity', context: context);
+
+  @override
+  UserJourneyInfoEntity get entity {
+    _$entityAtom.reportRead();
+    return super.entity;
+  }
+
+  @override
+  set entity(UserJourneyInfoEntity value) {
+    _$entityAtom.reportWrite(value, super.entity, () {
+      super.entity = value;
+    });
+  }
+
   late final _$futureStoreAtom =
       Atom(name: '_GetUserInfoStoreBase.futureStore', context: context);
 
@@ -91,6 +123,8 @@ mixin _$GetUserInfoStore on _GetUserInfoStoreBase, Store {
 hasGoneThroughInvitationFlow: ${hasGoneThroughInvitationFlow},
 hasSentAnInvitation: ${hasSentAnInvitation},
 wantsToRepeatInvitationFlow: ${wantsToRepeatInvitationFlow},
+userUID: ${userUID},
+entity: ${entity},
 futureStore: ${futureStore}
     ''';
   }
