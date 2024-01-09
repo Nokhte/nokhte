@@ -271,15 +271,8 @@ void main() {
 
   test("put npc in the pool searching for user ", () async {
     final realPersonUID = await returnNonNPCUID();
-    final realPersonPhraseIDRes = await supabaseAdmin
-        .from('collaborator_phrases')
-        .select()
-        .eq('uid', realPersonUID);
     await npcInitiateCollaboratorSearch.invoke(
-      CollaboratorPhraseIDs(
-        adjectiveID: realPersonPhraseIDRes.first["adjective_id"],
-        nounID: realPersonPhraseIDRes.first["noun_id"],
-      ),
+      realPersonUID,
     );
   });
 
@@ -288,17 +281,8 @@ void main() {
     () async {
       final userIdResults = await UserSetupConstants.getUIDs();
       final npcUserUID = userIdResults[1];
-      final npcPhraseRes = await supabaseAdmin
-          .from('collaborator_phrases')
-          .select()
-          .eq('uid', npcUserUID);
       final edge = InitiateCollaboratorSearch(supabase: supabase);
-      await edge.invoke(
-        CollaboratorPhraseIDs(
-          adjectiveID: npcPhraseRes.first["adjective_id"],
-          nounID: npcPhraseRes.first["noun_id"],
-        ),
-      );
+      await edge.invoke(npcUserUID);
     },
   );
 }
