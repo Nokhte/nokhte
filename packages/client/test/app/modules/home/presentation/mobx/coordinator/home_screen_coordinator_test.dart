@@ -7,7 +7,6 @@ import '../../../fixtures/home_stack_mock_gen.mocks.dart';
 
 void main() {
   late MockAddNameToDatabaseStore mockAddNameToDatabase;
-  late MockGetCollaboratorPhraseStore mockGetCollaboratorPhrase;
   late MockGetExistingCollaborationsInfoStore mockGetExistingCollaborationInfo;
   late MockHomeScreenWidgetsCoordinator mockWidgets;
   late HomeScreenCoordinator testStore;
@@ -17,7 +16,6 @@ void main() {
   setUp(() {
     mockAddNameToDatabase = MockAddNameToDatabaseStore();
     mockDeepLinks = MockDeepLinksCoordinator();
-    mockGetCollaboratorPhrase = MockGetCollaboratorPhraseStore();
     mockGetExistingCollaborationInfo = MockGetExistingCollaborationsInfoStore();
     mockWidgets = MockHomeScreenWidgetsCoordinator();
     mockUserInformation = UserInformationCoordinator(
@@ -34,7 +32,6 @@ void main() {
       addNameToDatabaseStore: mockAddNameToDatabase,
       deepLinks: mockDeepLinks,
       getExistingCollaborationInfo: mockGetExistingCollaborationInfo,
-      getCollaboratorPhraseStore: mockGetCollaboratorPhrase,
       userInformation: mockUserInformation,
       widgets: mockWidgets,
     );
