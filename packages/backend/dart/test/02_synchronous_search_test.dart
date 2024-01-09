@@ -1,13 +1,10 @@
 // ignore_for_file: file_names
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nokhte_backend/constants/constants.dart';
 import 'package:nokhte_backend/edge_functions/edge_functions.dart';
 import 'package:nokhte_backend/tables/existing_collaborations.dart';
 import 'shared/shared.dart';
 
 void main() {
-  late CollaboratorPhraseIDs user1PhraseIDs;
-  late CollaboratorPhraseIDs user2PhraseIDs;
   late ExistingCollaborationsStream user1Streams;
   late ExistingCollaborationsQueries user1Queries;
   late InitiateCollaboratorSearch user1StartEdgeFunctions;
@@ -26,12 +23,6 @@ void main() {
     user2EdgeFunctions =
         InitiateCollaboratorSearch(supabase: tSetup.user2Supabase);
     user1Streams = ExistingCollaborationsStream(supabase: tSetup.user1Supabase);
-    final phraseIdResults = await UserSetupConstants.getCollaboratorPhraseIDs(
-      supabaseAdmin: tSetup.supabaseAdmin,
-    );
-
-    user1PhraseIDs = phraseIdResults.first;
-    user2PhraseIDs = phraseIdResults[1];
   });
 
   tearDownAll(() async {
@@ -39,7 +30,7 @@ void main() {
   });
 
   test("user should be able to enter the pool", () async {
-    await user1StartEdgeFunctions.invoke(user2PhraseIDs);
+    await user1StartEdgeFunctions.invoke(tSetup.secondUserUID);
     final firstPoolRes =
         await tSetup.supabaseAdmin.from('p2p_collaborator_pool').select();
 
@@ -56,8 +47,8 @@ void main() {
   });
 
   test("user should be able to make a collaboration", () async {
-    await user1StartEdgeFunctions.invoke(user2PhraseIDs);
-    await user2EdgeFunctions.invoke(user1PhraseIDs);
+    await user1StartEdgeFunctions.invoke(tSetup.secondUserUID);
+    await user2EdgeFunctions.invoke(tSetup.firstUserUID);
     final user1Stream = user1Streams.getCollaboratorSearchAndEntryStatus();
     expect(
         user1Stream,
