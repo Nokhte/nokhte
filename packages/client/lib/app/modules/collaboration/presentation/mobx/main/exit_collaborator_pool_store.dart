@@ -6,28 +6,31 @@ import 'package:nokhte/app/core/mobx/base_future_store.dart';
 import 'package:nokhte/app/core/mobx/base_mobx_db_store.dart';
 import 'package:nokhte/app/core/mobx/store_state.dart';
 import 'package:nokhte/app/modules/collaboration/domain/domain.dart';
-part 'cancel_collaborator_stream_store.g.dart';
+part 'exit_collaborator_pool_store.g.dart';
 
-class CancelCollaboratorStreamStore = _CancelCollaboratorStreamStoreBase
-    with _$CancelCollaboratorStreamStore;
+class ExitCollaboratorPoolStore = _ExitCollaboratorPoolStoreBase
+    with _$ExitCollaboratorPoolStore;
 
-abstract class _CancelCollaboratorStreamStoreBase extends BaseMobxDBStore<
-    NoParams, CollaboratorStreamCancellationStatusEntity> with Store {
-  final CancelCollaboratorSearchStream logic;
+abstract class _ExitCollaboratorPoolStoreBase
+    extends BaseMobxDBStore<NoParams, CollaboratorPoolExitStatusEntity>
+    with Store {
+  final ExitCollaboratorPool logic;
 
-  _CancelCollaboratorStreamStoreBase({
+  _ExitCollaboratorPoolStoreBase({
     required this.logic,
   });
 
   @observable
-  bool isListening = false;
+  bool hasLeft = false;
 
   @observable
-  BaseFutureStore<CollaboratorStreamCancellationStatusEntity> futureStore =
+  BaseFutureStore<CollaboratorPoolExitStatusEntity> futureStore =
       BaseFutureStore(
-    baseEntity: Right(CollaboratorStreamCancellationStatusEntity.initial()),
+    baseEntity: Right(CollaboratorPoolExitStatusEntity.initial()),
     entityFutureParam: ObservableFuture(
-      Future.value(Right(CollaboratorStreamCancellationStatusEntity.initial())),
+      Future.value(
+        Right(CollaboratorPoolExitStatusEntity.initial()),
+      ),
     ),
   );
 
@@ -37,7 +40,7 @@ abstract class _CancelCollaboratorStreamStoreBase extends BaseMobxDBStore<
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
     }, (entryStatusEntity) {
-      isListening = entryStatusEntity.isSent;
+      hasLeft = entryStatusEntity.isSent;
     });
   }
 
@@ -45,9 +48,7 @@ abstract class _CancelCollaboratorStreamStoreBase extends BaseMobxDBStore<
   @action
   Future<void> call(params) async {
     state = StoreState.loading;
-    futureStore.entityOrFailureFuture = ObservableFuture(
-      logic(params),
-    );
+    futureStore.entityOrFailureFuture = ObservableFuture(logic(params));
     futureStore.unwrappedEntityOrFailure =
         await futureStore.entityOrFailureFuture;
     stateOrErrorUpdater(futureStore.unwrappedEntityOrFailure);
