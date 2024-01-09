@@ -9,12 +9,16 @@ class InterpretCollaboratorCodeDeepLink
   @override
   call(params) {
     if (params.hasGoneThroughInvitationFlow) {
-      return InterpretedDeepLinkEntity(
-          path: "/collaboration/",
-          additionalMetadata: {
-            "hasSentAnInvitation": params.hasSentAnInvitation,
-            "collaboratorUID": params.collaboratorUID,
-          });
+      if (params.userUID == params.collaboratorUID) {
+        return const InterpretedDeepLinkEntity();
+      } else {
+        return InterpretedDeepLinkEntity(
+            path: "/collaboration/",
+            additionalMetadata: {
+              "hasSentAnInvitation": params.hasSentAnInvitation,
+              "collaboratorUID": params.collaboratorUID,
+            });
+      }
     } else {
       return const InterpretedDeepLinkEntity();
     }
