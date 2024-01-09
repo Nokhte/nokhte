@@ -19,6 +19,12 @@ abstract class _GetUserInfoStoreBase
   @observable
   bool wantsToRepeatInvitationFlow = false;
 
+  @observable
+  String userUID = "";
+
+  @observable
+  UserJourneyInfoEntity entity = UserJourneyInfoEntity.initial;
+
   final GetUserInfo logic;
   _GetUserInfoStoreBase({required this.logic});
 
@@ -36,6 +42,7 @@ abstract class _GetUserInfoStoreBase
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
     }, (journeyInfoEntity) {
+      entity = journeyInfoEntity;
       hasGoneThroughInvitationFlow =
           journeyInfoEntity.hasGoneThroughInvitationFlow;
       hasSentAnInvitation = journeyInfoEntity.hasSentAnInvitation;
