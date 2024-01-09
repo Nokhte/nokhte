@@ -3,10 +3,17 @@ import 'package:nokhte/app/core/modules/deep_links/data/contracts/deep_links_con
 import 'package:nokhte/app/core/modules/deep_links/data/sources/deep_links_remote_source.dart';
 import 'package:nokhte/app/core/modules/deep_links/domain/domain.dart';
 import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/user_information/mobx/coordinators/user_information_coordinator.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class DeepLinksModule extends Module {
+  @override
+  List<Module> get imports => [
+        UserInformationModule(),
+      ];
+
   @override
   void exportedBinds(i) {
     i.add<DeepLinksRemoteSourceImpl>(
@@ -30,8 +37,8 @@ class DeepLinksModule extends Module {
         contract: i<DeepLinksContractImpl>(),
       ),
     );
-    i.add<InterpretDeepLink>(
-      () => InterpretDeepLink(),
+    i.add<InterpretCollaboratorCodeDeepLink>(
+      () => InterpretCollaboratorCodeDeepLink(),
     );
     i.add<SendDeepLink>(
       () => SendDeepLink(
@@ -45,8 +52,9 @@ class DeepLinksModule extends Module {
     );
     i.add<ListenForOpenedDeepLinkStore>(
       () => ListenForOpenedDeepLinkStore(
+        userInformation: Modular.get<UserInformationCoordinator>(),
         logic: i<ListenForOpenedDeepLink>(),
-        interpretDeepLink: i<InterpretDeepLink>(),
+        interpretCollaboratorCode: i<InterpretCollaboratorCodeDeepLink>(),
       ),
     );
     i.add<SendDeepLinkStore>(
