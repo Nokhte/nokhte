@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:simple_animations/simple_animations.dart';
 import 'package:touchable/touchable.dart';
 import 'canvas/gradient_tree_node_painter.dart';
 
@@ -23,25 +24,44 @@ class GradientTreeNode extends StatelessWidget {
             onEnd: () => store.toggleHasFadedIn(),
             opacity: useWidgetOpacity(store.showWidget),
             duration: Seconds.get(1),
-            child: Padding(
-              padding: padding,
-              child: FullScreen(
-                child: CanvasTouchDetector(
-                  gesturesToOverride: const [
-                    GestureType.onTapDown,
-                    GestureType.onTapUp,
-                  ],
-                  builder: (context) {
-                    return CustomPaint(
-                      painter: GradientTreeNodePainter(
-                        onTap: () => store.incrementTapCount(),
-                        gradient: gradient,
-                        context: context,
+            child: CustomAnimationBuilder(
+                tween: store.movie,
+                control: store.control,
+                duration: store.movie.duration,
+                builder: (context, value, child) {
+                  return Padding(
+                    padding: padding,
+                    child: FullScreen(
+                      child: CanvasTouchDetector(
+                        gesturesToOverride: const [
+                          GestureType.onTapDown,
+                          GestureType.onTapUp,
+                        ],
+                        builder: (context) {
+                          return CustomPaint(
+                            painter: GradientTreeNodePainter(
+                              strokeWidth: value.get('strokeWidth'),
+                              radius: value.get('radius'),
+                              offset: Offset(
+                                value.get('x1'),
+                                value.get('y1'),
+                              ),
+                              onTap: () => store.incrementTapCount(),
+                              gradient: NokhteGradient(
+                                colors: [
+                                  value.get('color1'),
+                                  value.get('color2'),
+                                  value.get('color3')
+                                ],
+                                stops: const [0.0, .5, 1.0],
+                              ),
+                              context: context,
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
-              ),
-            ),
+                    ),
+                  );
+                }),
           ));
 }
