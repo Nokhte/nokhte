@@ -21,12 +21,20 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
   final UserInformationCoordinator userInformation;
   final SwipeDetector swipe;
   final DeepLinksCoordinator deepLinks;
+  final CancelCollaboratorSearchStreamStore cancelCollaboratorSearchStream;
+  final EnterCollaboratorPoolStore enterCollaboratorPool;
+  final ExitCollaboratorPoolStore exitCollaboratorPool;
+  final GetCollaboratorSearchStatusStore getCollaboratorSearchStatus;
 
   _CollaborationHomeScreenCoordinatorBase({
     required this.widgets,
     required this.deepLinks,
     required this.userInformation,
     required this.swipe,
+    required this.cancelCollaboratorSearchStream,
+    required this.enterCollaboratorPool,
+    required this.exitCollaboratorPool,
+    required this.getCollaboratorSearchStatus,
   });
 
   @observable
