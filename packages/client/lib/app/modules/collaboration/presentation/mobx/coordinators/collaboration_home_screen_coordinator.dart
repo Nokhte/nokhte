@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -29,6 +30,13 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
   });
 
   @observable
+  ObservableMap additionalRoutingData = ObservableMap.of({});
+
+  @action
+  setAdditionalRoutingData(Map? newMap) =>
+      additionalRoutingData = ObservableMap.of(newMap ?? {});
+
+  @observable
   bool isNavigatingAway = false;
 
   @action
@@ -36,12 +44,22 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
 
   @action
   constructor() async {
+    setAdditionalRoutingData(Modular.args.data);
     widgets.constructor();
     widgets.initReactors(onGradientTreeNodeTap, onFlowCompleted);
     initReactors();
     await userInformation.getUserInfo(NoParams());
     if (userInformation.getUserInfo.hasGoneThroughInvitationFlow) {
-      widgets.postInvitationFlowConstructor();
+      if (additionalRoutingData.isEmpty) {
+        widgets.postInvitationFlowConstructor();
+      } else {
+        if (additionalRoutingData["hasSentAnInvitation"] == true) {
+          print("entering collaborator pool");
+          // init Collaborator Pool
+        } else {
+          widgets.postInvitationFlowNoInviteConstructor();
+        }
+      }
     } else {
       widgets.invitationFlowConstructor();
     }
