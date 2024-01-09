@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class SuspendedAtTheDepthsMovie {
@@ -11,119 +12,119 @@ class SuspendedAtTheDepthsMovie {
       end: Seconds.get(1),
     )
         .tween(
-          'water movement',
+          BeachWaveAnimationKeys.waterMovement,
           Tween<double>(
             begin: 100,
             end: 100,
           ),
         )
         .tween(
-          '1st Water Gradient Color',
+          BeachWaveAnimationKeys.color1,
           ColorTween(
             begin: WaterColorsAndStops.toTheDepthsWater.first.color,
             end: WaterColorsAndStops.toTheDepthsWater.first.color,
           ),
         )
         .tween(
-          '2nd Water Gradient Color',
+          BeachWaveAnimationKeys.color2,
           ColorTween(
             begin: WaterColorsAndStops.toTheDepthsWater[1].color,
             end: WaterColorsAndStops.toTheDepthsWater[1].color,
           ),
         )
         .tween(
-          '3rd Water Gradient Color',
+          BeachWaveAnimationKeys.color3,
           ColorTween(
             begin: WaterColorsAndStops.toTheDepthsWater[2].color,
             end: WaterColorsAndStops.toTheDepthsWater[2].color,
           ),
         )
         .tween(
-          '4th Water Gradient Color',
+          BeachWaveAnimationKeys.color4,
           ColorTween(
             begin: WaterColorsAndStops.toTheDepthsWater[3].color,
             end: WaterColorsAndStops.toTheDepthsWater[3].color,
           ),
         )
         .tween(
-          '5th Water Gradient Color',
+          BeachWaveAnimationKeys.color5,
           ColorTween(
             begin: WaterColorsAndStops.toTheDepthsWater[4].color,
             end: WaterColorsAndStops.toTheDepthsWater[4].color,
           ),
         )
         .tween(
-          '6th Water Gradient Color',
+          BeachWaveAnimationKeys.color6,
           ColorTween(
             begin: WaterColorsAndStops.toTheDepthsWater[5].color,
             end: WaterColorsAndStops.toTheDepthsWater[5].color,
           ),
         )
         .tween(
-          '7th Water Gradient Color',
+          BeachWaveAnimationKeys.color7,
           ColorTween(
             begin: WaterColorsAndStops.toTheDepthsWater[6].color,
             end: WaterColorsAndStops.toTheDepthsWater[6].color,
           ),
         )
         .tween(
-          '8th Water Gradient Color',
+          BeachWaveAnimationKeys.color8,
           ColorTween(
             begin: WaterColorsAndStops.toTheDepthsWater[7].color,
             end: WaterColorsAndStops.toTheDepthsWater[7].color,
           ),
         )
         .tween(
-          '1st Water Gradient Stop',
+          BeachWaveAnimationKeys.stop1,
           Tween<double>(
             begin: WaterColorsAndStops.toTheDepthsWater.first.stop,
             end: WaterColorsAndStops.toTheDepthsWater.first.stop,
           ),
         )
         .tween(
-          '2nd Water Gradient Stop',
+          BeachWaveAnimationKeys.stop2,
           Tween<double>(
             begin: WaterColorsAndStops.toTheDepthsWater[1].stop,
             end: WaterColorsAndStops.toTheDepthsWater[1].stop,
           ),
         )
         .tween(
-          '3rd Water Gradient Stop',
+          BeachWaveAnimationKeys.stop3,
           Tween<double>(
             begin: WaterColorsAndStops.toTheDepthsWater[2].stop,
             end: WaterColorsAndStops.toTheDepthsWater[2].stop,
           ),
         )
         .tween(
-          '4th Water Gradient Stop',
+          BeachWaveAnimationKeys.stop4,
           Tween<double>(
             begin: WaterColorsAndStops.toTheDepthsWater[3].stop,
             end: WaterColorsAndStops.toTheDepthsWater[3].stop,
           ),
         )
         .tween(
-          '5th Water Gradient Stop',
+          BeachWaveAnimationKeys.stop5,
           Tween<double>(
             begin: WaterColorsAndStops.toTheDepthsWater[4].stop,
             end: WaterColorsAndStops.toTheDepthsWater[4].stop,
           ),
         )
         .tween(
-          '6th Water Gradient Stop',
+          BeachWaveAnimationKeys.stop6,
           Tween<double>(
             begin: WaterColorsAndStops.toTheDepthsWater[5].stop,
             end: WaterColorsAndStops.toTheDepthsWater[5].stop,
           ),
         )
         .tween(
-          '7th Water Gradient Stop',
+          BeachWaveAnimationKeys.stop7,
           Tween<double>(
             begin: WaterColorsAndStops.toTheDepthsWater[6].stop,
             end: WaterColorsAndStops.toTheDepthsWater[6].stop,
           ),
         )
         .tween(
-          '8th Water Gradient Stop',
+          BeachWaveAnimationKeys.stop8,
           Tween<double>(
             begin: WaterColorsAndStops.toTheDepthsWater[7].stop,
             end: WaterColorsAndStops.toTheDepthsWater[7].stop,
