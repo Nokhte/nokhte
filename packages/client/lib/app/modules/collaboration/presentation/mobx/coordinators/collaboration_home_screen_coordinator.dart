@@ -44,6 +44,7 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
 
   @action
   constructor() async {
+    deepLinks.listenForOpenedDeepLink(NoParams());
     setAdditionalRoutingData(Modular.args.data);
     widgets.constructor();
     widgets.initReactors(onGradientTreeNodeTap, onFlowCompleted);
@@ -54,9 +55,9 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
         widgets.postInvitationFlowConstructor();
       } else {
         if (additionalRoutingData["hasSentAnInvitation"] == true) {
-          print("entering collaborator pool");
-          // init Collaborator Pool
+          // print("entering collaborator pool");
         } else {
+          // print("send an invite bruh");
           widgets.postInvitationFlowNoInviteConstructor();
         }
       }
@@ -81,7 +82,19 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
   initReactors() {
     swipeReactor();
     shareInvitationReactor();
+    deepLinksReactor();
   }
+
+  deepLinksReactor() =>
+      reaction((p0) => deepLinks.listenForOpenedDeepLink.path, (p0) {
+        if (p0 == '/collaboration/') {
+          setAdditionalRoutingData(
+            deepLinks.listenForOpenedDeepLink.additionalMetadata,
+          );
+          // so this would need to be aware of the current mode & current state
+          // and know what to do so this one will be a litter more complicated
+        }
+      });
 
   shareInvitationReactor() =>
       reaction((p0) => deepLinks.sendDeepLink.isShared, (p0) {
