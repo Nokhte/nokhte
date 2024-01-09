@@ -39,11 +39,6 @@ class HomeModule extends Module {
         contract: i<HomeContractImpl>(),
       ),
     );
-    i.add<GetCollaboratorPhrase>(
-      () => GetCollaboratorPhrase(
-        contract: i<HomeContractImpl>(),
-      ),
-    );
     i.add<GetExistingCollaborationsInfo>(
       () => GetExistingCollaborationsInfo(
         contract: i<HomeContractImpl>(),
@@ -53,11 +48,6 @@ class HomeModule extends Module {
     i.add<AddNameToDatabaseStore>(
       () => AddNameToDatabaseStore(
         logic: i<AddNameToDatabase>(),
-      ),
-    );
-    i.add<GetCollaboratorPhraseStore>(
-      () => GetCollaboratorPhraseStore(
-        logic: i<GetCollaboratorPhrase>(),
       ),
     );
     i.add<GetExistingCollaborationsInfoStore>(
@@ -72,7 +62,6 @@ class HomeModule extends Module {
         userInformation: Modular.get<UserInformationCoordinator>(),
         swipe: Modular.get<SwipeDetector>(),
         addNameToDatabaseStore: i<AddNameToDatabaseStore>(),
-        getCollaboratorPhraseStore: i<GetCollaboratorPhraseStore>(),
         getExistingCollaborationInfo: i<GetExistingCollaborationsInfoStore>(),
         widgets: Modular.get<HomeScreenWidgetsCoordinator>(),
       ),

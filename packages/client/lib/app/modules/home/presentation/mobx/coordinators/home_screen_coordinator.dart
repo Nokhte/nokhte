@@ -14,7 +14,6 @@ class HomeScreenCoordinator = _HomeScreenCoordinatorBase
 
 abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
   final AddNameToDatabaseStore addNameToDatabaseStore;
-  final GetCollaboratorPhraseStore getCollaboratorPhraseStore;
   final GetExistingCollaborationsInfoStore getExistingCollaborationInfo;
   final HomeScreenWidgetsCoordinator widgets;
   final SwipeDetector swipe;
@@ -23,7 +22,6 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
 
   _HomeScreenCoordinatorBase({
     required this.addNameToDatabaseStore,
-    required this.getCollaboratorPhraseStore,
     required this.getExistingCollaborationInfo,
     required this.userInformation,
     required this.swipe,
@@ -46,7 +44,6 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
     initReactors();
     await getExistingCollaborationInfo(NoParams());
     await addNameToDatabaseStore(NoParams());
-    await getCollaboratorPhraseStore(NoParams());
   }
 
   initReactors() {

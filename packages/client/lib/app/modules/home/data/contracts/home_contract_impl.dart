@@ -26,16 +26,6 @@ class HomeContractImpl implements HomeContract {
   }
 
   @override
-  getCollaboratorPhrase(NoParams params) async {
-    if (await networkInfo.isConnected) {
-      final res = await remoteSource.getCollaboratorPhrase();
-      return Right(CollaboratorPhraseModel.fromSupabase(res));
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
-
-  @override
   getExistingCollaborationInfo(NoParams params) async {
     if (await networkInfo.isConnected) {
       final collaborationRes =

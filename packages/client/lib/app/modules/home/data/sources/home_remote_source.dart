@@ -64,9 +64,6 @@ class HomeRemoteSourceImpl implements HomeRemoteSource {
   }
 
   @override
-  Future<List> getCollaboratorPhrase() async => [];
-
-  @override
   Future<List> checkIfTheyHaveACollaboration() async =>
       await existingCollaborationsQueries.getActiveCollaborationInfo();
 
