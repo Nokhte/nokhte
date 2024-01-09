@@ -1,20 +1,15 @@
-import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:nokhte/app/core/utilities/misc_algos.dart';
 import 'package:nokhte_backend/tables/existing_collaborations.dart';
 import 'package:nokhte_backend/tables/finished_collaborative_documents.dart';
 import 'package:nokhte_backend/tables/p2p_perspectives_tracking.dart';
 import 'package:nokhte_backend/tables/user_names.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:share_plus/share_plus.dart';
 
 abstract class HomeRemoteSource {
   Future<List> addNamesToDatabase({String theName = ""});
-  Future<List> getCollaboratorPhrase();
   Future<List> checkIfTheyHaveACollaboration();
   Future<List> checkIfTheyHaveDonePerspectives();
   Future<List> checkIfTheyHaveCommittedAPurpose();
-  Future<ShareResult> shareCollaborationInvitation(String invitationURL);
-  Future<BranchResponse> getInvitationURL();
   Future<List> updateHasSentAnInvitation(bool hasSentAnInvitationParam);
   Future<List> updateHasGoneThroughInvitationFlow(
       bool hasGoneThroughInvitationFlowParam);
@@ -74,30 +69,6 @@ class HomeRemoteSourceImpl implements HomeRemoteSource {
   Future<List> checkIfTheyHaveCommittedAPurpose() async =>
       await finishedCollaborativeP2PPurposeDocumentsQueries.getDocInfo(
           docType: 'purpose');
-
-  @override
-  Future<BranchResponse> getInvitationURL() async {
-    BranchUniversalObject buo = BranchUniversalObject(
-      canonicalIdentifier:
-          'collaboration_code/${supabase.auth.currentUser?.id}',
-      title: 'Collaborate with Person',
-      imageUrl:
-          'https://gitlab.com/nokhte/nokhte/-/raw/development/assets/logo.png',
-    );
-    BranchLinkProperties linkProperties = BranchLinkProperties(
-        alias: buo.canonicalIdentifier,
-        feature: 'collaboration',
-        stage: 'new share',
-        tags: ['one', 'two', 'three']);
-    return await FlutterBranchSdk.getShortUrl(
-        buo: buo, linkProperties: linkProperties);
-  }
-
-  @override
-  Future<ShareResult> shareCollaborationInvitation(
-    String invitationURL,
-  ) async =>
-      await Share.shareWithResult(invitationURL);
 
   @override
   Future<List> updateHasGoneThroughInvitationFlow(
