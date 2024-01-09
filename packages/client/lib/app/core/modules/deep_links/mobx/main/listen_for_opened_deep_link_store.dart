@@ -3,7 +3,9 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/modules/deep_links/constants/constants.dart';
 import 'package:nokhte/app/core/modules/deep_links/domain/domain.dart';
+import 'package:nokhte/app/core/modules/user_information/mobx/coordinators/user_information_coordinator.dart';
 part 'listen_for_opened_deep_link_store.g.dart';
 
 class ListenForOpenedDeepLinkStore = _ListenForOpenedDeepLinkStoreBase
@@ -11,11 +13,13 @@ class ListenForOpenedDeepLinkStore = _ListenForOpenedDeepLinkStoreBase
 
 abstract class _ListenForOpenedDeepLinkStoreBase extends Equatable with Store {
   final ListenForOpenedDeepLink logic;
-  final InterpretDeepLink interpretDeepLink;
+  final UserInformationCoordinator userInformation;
+  final InterpretCollaboratorCodeDeepLink interpretCollaboratorCode;
 
   _ListenForOpenedDeepLinkStoreBase({
     required this.logic,
-    required this.interpretDeepLink,
+    required this.interpretCollaboratorCode,
+    required this.userInformation,
   }) {
     interpretedDeepLinkReactor();
   }
@@ -35,10 +39,24 @@ abstract class _ListenForOpenedDeepLinkStoreBase extends Equatable with Store {
   call(NoParams params) {
     final result = logic(NoParams());
     deepLinkSream = ObservableStream(result);
-    deepLinkSream.listen((value) {
-      final res = interpretDeepLink(value);
-      path = res.path;
-      additionalMetadata = ObservableMap.of(res.additionalMetadata);
+    deepLinkSream.listen((value) async {
+      if (value.isNotEmpty) {
+        final List<String> splitLink =
+            value["\$canonical_identifier"].split('/');
+        final String linkType = splitLink.first;
+        if (linkType == DeepLinkPrefixes.collaboratorCode) {
+          final getUserInfo = userInformation.getUserInfo;
+          await getUserInfo(NoParams());
+          final res = interpretCollaboratorCode(
+            InterpretCollaboratorCodeDeepLinkParams.fromUserJourneyInfo(
+              getUserInfo.entity,
+              splitLink[1],
+            ),
+          );
+          path = res.path;
+          additionalMetadata = ObservableMap.of(res.additionalMetadata);
+        }
+      }
     });
   }
 
