@@ -32,7 +32,7 @@ class ChangeColorGlowAndMoveUpMovies {
         )
     ..scene(
       begin: Seconds.get(1),
-      end: Seconds.get(3),
+      end: Seconds.get(1, milli: 810),
     )
         .tween(
           'x1',
@@ -48,10 +48,6 @@ class ChangeColorGlowAndMoveUpMovies {
             end: -200.0,
           ),
         )
-    ..scene(
-      begin: Seconds.get(3),
-      end: Seconds.get(3, milli: 810),
-    )
         .tween(
           'radius',
           Tween<double>(
