@@ -91,6 +91,18 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
   }
 
   @action
+  postInvitationFlowNoInviteConstructor() {
+    smartText.setMessagesData(MessagesData.postInvitationNoInvite);
+    gradientTreeNode.toggleWidgetVisibility();
+    Timer.periodic(Seconds.get(0, milli: 100), (timer) {
+      if (!smartText.isPaused) {
+        smartText.startRotatingText();
+        timer.cancel();
+      }
+    });
+  }
+
+  @action
   postInvitationFlowConstructor() {
     Timer.periodic(Seconds.get(0, milli: 100), (timer) {
       if (!smartText.isPaused) {
