@@ -20,8 +20,14 @@ class CollaborationWidgetsModule extends Module {
       () => CollaborationHomeScreenWidgetsCoordinator(
         gestureCross: Modular.get<GestureCrossStore>(),
         beachWaves: Modular.get<BeachWavesStore>(),
-        gradientTreeNode: i<GradientTreeNodeStore>(),
+        gradientTreeNode: Modular.get<GradientTreeNodeStore>(),
         smartText: Modular.get<SmartTextStore>(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+      ),
+    );
+    i.add<CollaboratorPoolScreenWidgetsCoordinator>(
+      () => CollaboratorPoolScreenWidgetsCoordinator(
+        beachWaves: Modular.get<BeachWavesStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
       ),
     );
