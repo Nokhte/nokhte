@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nokhte_backend/tables/collaborator_phrases.dart';
 import 'package:nokhte_backend/tables/user_names.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:nokhte_backend/constants/constants.dart';
@@ -14,9 +13,7 @@ void main() {
   late SupabaseClient supabase;
   late String? currentUserUID;
   late UserNamesQueries user1UserNameQueries;
-  late CollaboratorPhraseQueries user1CollaboratorPhraseQueries;
   late UserNamesQueries adminUserNameQueries;
-  late CollaboratorPhraseQueries adminCollaboratorPhraseQueries;
 
   setUpAll(() async {
     supabase = SupabaseClientConfigConstants.supabase;
@@ -26,19 +23,12 @@ void main() {
     currentUserUID = userIdResults.first;
     await SignIn.user1(supabase: supabase);
     user1UserNameQueries = UserNamesQueries(supabase: supabase);
-    user1CollaboratorPhraseQueries =
-        CollaboratorPhraseQueries(supabase: supabase);
     adminUserNameQueries = UserNamesQueries(supabase: supabaseAdmin);
-    adminCollaboratorPhraseQueries = CollaboratorPhraseQueries(
-      supabase: supabaseAdmin,
-    );
     adminUserNameQueries.userUID = currentUserUID ?? '';
-    adminCollaboratorPhraseQueries.userUID = currentUserUID ?? '';
   });
 
   tearDown(() async {
     await adminUserNameQueries.deleteUserInfo();
-    await adminCollaboratorPhraseQueries.deleteCollaboratorPhraseInfo();
   });
 
   tearDownAll(() async {
@@ -54,21 +44,9 @@ void main() {
       firstNameParam: UserDataConstants.user1FirstName,
       lastNameParam: UserDataConstants.user1LastName,
     );
-    final collaboratorPhraseRes =
-        await user1CollaboratorPhraseQueries.getCollaboratorPhraseInfo();
-
     expect(userNamesRes.first['first_name'], UserDataConstants.user1FirstName);
     expect(userNamesRes.first["last_name"], UserDataConstants.user1LastName);
     expect(userNamesRes.first["uid"], currentUserUID);
-    expect(collaboratorPhraseRes.first["uid"], currentUserUID);
-    expect(collaboratorPhraseRes.first["collaborator_phrase"], isNotEmpty);
-    expect(collaboratorPhraseRes.first["adjective_id"], isA<int>());
-    expect(collaboratorPhraseRes.first["noun_id"], isA<int>());
-    expect(collaboratorPhraseRes.first["is_visible"], false);
-    expect(
-        collaboratorPhraseRes
-            .first["has_an_existing_collaborator_relationship"],
-        false);
   });
 
   test("should be able to update their `has_sent_invitation` field", () async {
