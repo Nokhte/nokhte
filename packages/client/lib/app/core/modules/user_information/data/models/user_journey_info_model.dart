@@ -6,6 +6,7 @@ class UserJourneyInfoModel extends UserJourneyInfoEntity {
     required super.hasGoneThroughInvitationFlow,
     required super.hasSentAnInvitation,
     required super.wantsToRepeatInvitationFlow,
+    required super.userUID,
   });
 
   factory UserJourneyInfoModel.fromSupabase(List res) {
@@ -14,9 +15,11 @@ class UserJourneyInfoModel extends UserJourneyInfoEntity {
         hasGoneThroughInvitationFlow: false,
         hasSentAnInvitation: false,
         wantsToRepeatInvitationFlow: false,
+        userUID: "",
       );
     } else {
       return UserJourneyInfoModel(
+        userUID: res.first[UserNamesQueries.uid],
         hasGoneThroughInvitationFlow:
             res.first[UserNamesQueries.hasGoneThroughInvitationFlow],
         hasSentAnInvitation: res.first[UserNamesQueries.hasSentAnInvitation],
