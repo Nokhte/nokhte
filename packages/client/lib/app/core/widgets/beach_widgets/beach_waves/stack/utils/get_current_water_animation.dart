@@ -1,24 +1,25 @@
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class GetCurrentWaterAnimation {
   static List<dynamic> values(Movie value) {
-    final currentWaterValue = value.get('water movement');
-    final firstWaterGradient = value.get('1st Water Gradient Color');
-    final secondWaterGradient = value.get('2nd Water Gradient Color');
-    final thirdWaterGradient = value.get('3rd Water Gradient Color');
-    final fourthWaterGradient = value.get('4th Water Gradient Color');
-    final fifthWaterGradient = value.get('5th Water Gradient Color');
-    final sixthWaterGradient = value.get('6th Water Gradient Color');
-    final seventhWaterGradient = value.get('7th Water Gradient Color');
-    final eighthWaterGradient = value.get('8th Water Gradient Color');
-    final firstWaterGradientStop = value.get('1st Water Gradient Stop');
-    final secondWaterGradientStop = value.get('2nd Water Gradient Stop');
-    final thirdWaterGradientStop = value.get('3rd Water Gradient Stop');
-    final fourthWaterGradientStop = value.get('4th Water Gradient Stop');
-    final fifthWaterGradientStop = value.get('5th Water Gradient Stop');
-    final sixthWaterGradientStop = value.get('6th Water Gradient Stop');
-    final seventhWaterGradientStop = value.get('7th Water Gradient Stop');
-    final eighthWaterGradientStop = value.get('8th Water Gradient Stop');
+    final currentWaterValue = value.get(BeachWaveAnimationKeys.waterMovement);
+    final firstWaterGradient = value.get(BeachWaveAnimationKeys.color1);
+    final secondWaterGradient = value.get(BeachWaveAnimationKeys.color2);
+    final thirdWaterGradient = value.get(BeachWaveAnimationKeys.color3);
+    final fourthWaterGradient = value.get(BeachWaveAnimationKeys.color4);
+    final fifthWaterGradient = value.get(BeachWaveAnimationKeys.color5);
+    final sixthWaterGradient = value.get(BeachWaveAnimationKeys.color6);
+    final seventhWaterGradient = value.get(BeachWaveAnimationKeys.color7);
+    final eighthWaterGradient = value.get(BeachWaveAnimationKeys.color8);
+    final firstWaterGradientStop = value.get(BeachWaveAnimationKeys.stop1);
+    final secondWaterGradientStop = value.get(BeachWaveAnimationKeys.stop2);
+    final thirdWaterGradientStop = value.get(BeachWaveAnimationKeys.stop3);
+    final fourthWaterGradientStop = value.get(BeachWaveAnimationKeys.stop4);
+    final fifthWaterGradientStop = value.get(BeachWaveAnimationKeys.stop5);
+    final sixthWaterGradientStop = value.get(BeachWaveAnimationKeys.stop6);
+    final seventhWaterGradientStop = value.get(BeachWaveAnimationKeys.stop7);
+    final eighthWaterGradientStop = value.get(BeachWaveAnimationKeys.stop8);
 
     return [
       currentWaterValue,
