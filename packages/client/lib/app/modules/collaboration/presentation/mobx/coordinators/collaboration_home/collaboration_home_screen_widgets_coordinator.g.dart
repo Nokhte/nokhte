@@ -44,10 +44,44 @@ mixin _$CollaborationHomeScreenWidgetsCoordinator
     });
   }
 
+  late final _$shouldEnterCollaboratorPoolAtom = Atom(
+      name:
+          '_CollaborationHomeScreenWidgetsCoordinatorBase.shouldEnterCollaboratorPool',
+      context: context);
+
+  @override
+  bool get shouldEnterCollaboratorPool {
+    _$shouldEnterCollaboratorPoolAtom.reportRead();
+    return super.shouldEnterCollaboratorPool;
+  }
+
+  @override
+  set shouldEnterCollaboratorPool(bool value) {
+    _$shouldEnterCollaboratorPoolAtom
+        .reportWrite(value, super.shouldEnterCollaboratorPool, () {
+      super.shouldEnterCollaboratorPool = value;
+    });
+  }
+
   late final _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController =
       ActionController(
           name: '_CollaborationHomeScreenWidgetsCoordinatorBase',
           context: context);
+
+  @override
+  dynamic toggleShouldEnterCollaboratorPool() {
+    final _$actionInfo =
+        _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_CollaborationHomeScreenWidgetsCoordinatorBase.toggleShouldEnterCollaboratorPool');
+    try {
+      return super.toggleShouldEnterCollaboratorPool();
+    } finally {
+      _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic toggleIsDisconnected() {
@@ -185,6 +219,21 @@ mixin _$CollaborationHomeScreenWidgetsCoordinator
   }
 
   @override
+  dynamic enterCollaboratorPoolConstructor() {
+    final _$actionInfo =
+        _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_CollaborationHomeScreenWidgetsCoordinatorBase.enterCollaboratorPoolConstructor');
+    try {
+      return super.enterCollaboratorPoolConstructor();
+    } finally {
+      _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic postInvitationFlowConstructor() {
     final _$actionInfo =
         _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
@@ -218,7 +267,8 @@ mixin _$CollaborationHomeScreenWidgetsCoordinator
   String toString() {
     return '''
 invitationIsSent: ${invitationIsSent},
-isDisconnected: ${isDisconnected}
+isDisconnected: ${isDisconnected},
+shouldEnterCollaboratorPool: ${shouldEnterCollaboratorPool}
     ''';
   }
 }

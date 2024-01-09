@@ -114,6 +114,20 @@ mixin _$CollaborationHomeScreenCoordinator
   }
 
   @override
+  dynamic onEnterCollaboratorPool() {
+    final _$actionInfo =
+        _$_CollaborationHomeScreenCoordinatorBaseActionController.startAction(
+            name:
+                '_CollaborationHomeScreenCoordinatorBase.onEnterCollaboratorPool');
+    try {
+      return super.onEnterCollaboratorPool();
+    } finally {
+      _$_CollaborationHomeScreenCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 additionalRoutingData: ${additionalRoutingData},

@@ -34,6 +34,13 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
   @observable
   bool isDisconnected = false;
 
+  @observable
+  bool shouldEnterCollaboratorPool = false;
+
+  @action
+  toggleShouldEnterCollaboratorPool() =>
+      shouldEnterCollaboratorPool = !shouldEnterCollaboratorPool;
+
   @action
   toggleIsDisconnected() => isDisconnected = !isDisconnected;
 
@@ -103,6 +110,12 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
   }
 
   @action
+  enterCollaboratorPoolConstructor() {
+    gradientTreeNode.toggleWidgetVisibility();
+    toggleShouldEnterCollaboratorPool();
+  }
+
+  @action
   postInvitationFlowConstructor() {
     Timer.periodic(Seconds.get(0, milli: 100), (timer) {
       if (!smartText.isPaused) {
@@ -127,7 +140,8 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
     }
   }
 
-  initReactors(Function onGradientTreeNodeTap, Function onFlowCompleted) {
+  initReactors(Function onGradientTreeNodeTap, Function onFlowCompleted,
+      Function enterCollaboratorPool) {
     smartTextReactor(onFlowCompleted);
     gradientTreeNodeTapReactor(onGradientTreeNodeTap);
     invitationSendStatusReactor();
@@ -138,6 +152,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
       onDisconnected: onDisconnected,
     );
     wifiDisconnectOverlayReactor();
+    gradientTreeNodeOpacityReactor(enterCollaboratorPool);
   }
 
   smartTextReactor(Function onFlowCompleted) =>
@@ -152,6 +167,15 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
       reaction((p0) => gradientTreeNode.tapCount, (p0) {
         if (!isDisconnected) {
           onGradientTreeNodeTap();
+        }
+      });
+
+  gradientTreeNodeOpacityReactor(Function enterCollaboratorPool) =>
+      reaction((p0) => gradientTreeNode.hasFadedIn, (p0) async {
+        if (shouldEnterCollaboratorPool && p0) {
+          gradientTreeNode.initMovie(NoParams());
+          gestureCross.toggleAll();
+          await enterCollaboratorPool();
         }
       });
 

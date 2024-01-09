@@ -1,11 +1,13 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/deep_links/constants/constants.dart';
 import 'package:nokhte/app/core/modules/deep_links/domain/domain.dart';
 import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/deep_links/constants/types/deep_link_types.dart';
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -21,9 +23,8 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
   final UserInformationCoordinator userInformation;
   final SwipeDetector swipe;
   final DeepLinksCoordinator deepLinks;
-  final CancelCollaboratorSearchStreamStore cancelCollaboratorSearchStream;
   final EnterCollaboratorPoolStore enterCollaboratorPool;
-  final ExitCollaboratorPoolStore exitCollaboratorPool;
+
   final GetCollaboratorSearchStatusStore getCollaboratorSearchStatus;
 
   _CollaborationHomeScreenCoordinatorBase({
@@ -31,9 +32,7 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
     required this.deepLinks,
     required this.userInformation,
     required this.swipe,
-    required this.cancelCollaboratorSearchStream,
     required this.enterCollaboratorPool,
-    required this.exitCollaboratorPool,
     required this.getCollaboratorSearchStatus,
   });
 
@@ -55,17 +54,21 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
     deepLinks.listenForOpenedDeepLink(NoParams());
     setAdditionalRoutingData(Modular.args.data);
     widgets.constructor();
-    widgets.initReactors(onGradientTreeNodeTap, onFlowCompleted);
+    widgets.initReactors(
+      onGradientTreeNodeTap,
+      onFlowCompleted,
+      onEnterCollaboratorPool,
+    );
     initReactors();
     await userInformation.getUserInfo(NoParams());
     if (userInformation.getUserInfo.hasGoneThroughInvitationFlow) {
       if (additionalRoutingData.isEmpty) {
         widgets.postInvitationFlowConstructor();
       } else {
-        if (additionalRoutingData["hasSentAnInvitation"] == true) {
-          // print("entering collaborator pool");
+        if (additionalRoutingData[CollaborationCodeKeys.hasSentAnInvitation] ==
+            true) {
+          widgets.enterCollaboratorPoolConstructor();
         } else {
-          // print("send an invite bruh");
           widgets.postInvitationFlowNoInviteConstructor();
         }
       }
@@ -87,10 +90,15 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
   @action
   onFlowCompleted() => userInformation.updateHasGoneThroughInvitationFlow(true);
 
+  @action
+  onEnterCollaboratorPool() => enterCollaboratorPool(
+      additionalRoutingData[CollaborationCodeKeys.collaboratorUID]);
+
   initReactors() {
     swipeReactor();
     shareInvitationReactor();
     deepLinksReactor();
+    collaboratorPoolEntryReactor();
   }
 
   deepLinksReactor() =>
@@ -99,8 +107,6 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
           setAdditionalRoutingData(
             deepLinks.listenForOpenedDeepLink.additionalMetadata,
           );
-          // so this would need to be aware of the current mode & current state
-          // and know what to do so this one will be a litter more complicated
         }
       });
 
@@ -124,6 +130,18 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
             default:
               break;
           }
+        }
+      });
+
+  collaboratorPoolEntryReactor() =>
+      reaction((p0) => enterCollaboratorPool.hasEntered, (p0) {
+        if (p0) {
+          Timer.periodic(Seconds.get(0, milli: 100), (timer) {
+            if (widgets.gradientTreeNode.movieStatus == MovieStatus.finished) {
+              Modular.to.navigate('/collaboration/pool');
+              timer.cancel();
+            }
+          });
         }
       });
 
