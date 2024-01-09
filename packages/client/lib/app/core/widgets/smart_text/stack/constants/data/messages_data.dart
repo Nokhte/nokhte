@@ -101,6 +101,17 @@ class MessagesData {
         ),
       ];
 
+  static List<RotatingTextData> get postInvitationNoInvite => [
+        RotatingTextData(
+          initialFadeInDelay: Seconds.get(0),
+          mainMessage:
+              "Send An Invitation To Open Your Collaborator's Invitation.",
+          onScreenTime: Seconds.get(0),
+          pauseHere: true,
+          unlockGesture: Gestures.tap,
+        ),
+      ];
+
   static List<RotatingTextData> get firstTimeSecondaryHomeList => [
         RotatingTextData(
           initialFadeInDelay: Seconds.get(0),
