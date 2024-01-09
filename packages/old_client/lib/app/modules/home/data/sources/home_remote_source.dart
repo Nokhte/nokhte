@@ -3,7 +3,6 @@ import 'package:nokhte_backend/tables/existing_collaborations.dart';
 import 'package:nokhte_backend/tables/finished_collaborative_documents.dart';
 import 'package:nokhte_backend/tables/p2p_perspectives_tracking.dart';
 import 'package:nokhte_backend/tables/user_names.dart';
-import 'package:nokhte_backend/tables/collaborator_phrases.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class HomeRemoteSource {
@@ -20,7 +19,6 @@ class HomeRemoteSourceImpl implements HomeRemoteSource {
   final P2PPerspectivesTrackingQueries perspectivesQueries;
   final FinishedCollaborativeDocumentsQueries
       finishedCollaborativeP2PPurposeDocumentsQueries;
-  final CollaboratorPhraseQueries collaboratorPhraseQueries;
   final UserNamesQueries userNamesQueries;
 
   HomeRemoteSourceImpl({required this.supabase})
@@ -30,8 +28,6 @@ class HomeRemoteSourceImpl implements HomeRemoteSource {
             P2PPerspectivesTrackingQueries(supabase: supabase),
         finishedCollaborativeP2PPurposeDocumentsQueries =
             FinishedCollaborativeDocumentsQueries(supabase: supabase),
-        collaboratorPhraseQueries =
-            CollaboratorPhraseQueries(supabase: supabase),
         userNamesQueries = UserNamesQueries(supabase: supabase);
 
   @override
@@ -60,8 +56,7 @@ class HomeRemoteSourceImpl implements HomeRemoteSource {
   }
 
   @override
-  Future<List> getCollaboratorPhrase() async =>
-      await collaboratorPhraseQueries.getUserInfo();
+  Future<List> getCollaboratorPhrase() async => [];
 
   @override
   Future<List> checkIfTheyHaveACollaboration() async =>
