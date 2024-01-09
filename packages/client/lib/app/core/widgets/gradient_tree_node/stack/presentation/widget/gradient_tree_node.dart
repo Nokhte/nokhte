@@ -28,6 +28,7 @@ class GradientTreeNode extends StatelessWidget {
                 tween: store.movie,
                 control: store.control,
                 duration: store.movie.duration,
+                onCompleted: () => store.onCompleted(),
                 builder: (context, value, child) {
                   return Padding(
                     padding: padding,
