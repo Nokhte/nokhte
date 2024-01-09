@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cancel_collaborator_stream_store.dart';
+part of 'cancel_collaborator_search_stream_store.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,10 +8,11 @@ part of 'cancel_collaborator_stream_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$CancelCollaboratorStreamStore
-    on _CancelCollaboratorStreamStoreBase, Store {
+mixin _$CancelCollaboratorSearchStreamStore
+    on _CancelCollaboratorSearchStreamStoreBase, Store {
   late final _$isListeningAtom = Atom(
-      name: '_CancelCollaboratorStreamStoreBase.isListening', context: context);
+      name: '_CancelCollaboratorSearchStreamStoreBase.isListening',
+      context: context);
 
   @override
   bool get isListening {
@@ -27,7 +28,8 @@ mixin _$CancelCollaboratorStreamStore
   }
 
   late final _$futureStoreAtom = Atom(
-      name: '_CancelCollaboratorStreamStoreBase.futureStore', context: context);
+      name: '_CancelCollaboratorSearchStreamStoreBase.futureStore',
+      context: context);
 
   @override
   BaseFutureStore<CollaboratorStreamCancellationStatusEntity> get futureStore {
@@ -43,8 +45,9 @@ mixin _$CancelCollaboratorStreamStore
     });
   }
 
-  late final _$callAsyncAction =
-      AsyncAction('_CancelCollaboratorStreamStoreBase.call', context: context);
+  late final _$callAsyncAction = AsyncAction(
+      '_CancelCollaboratorSearchStreamStoreBase.call',
+      context: context);
 
   @override
   Future<void> call(NoParams params) {
