@@ -104,6 +104,9 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
           setAdditionalRoutingData(
             deepLinks.listenForOpenedDeepLink.additionalMetadata,
           );
+          if (!widgets.shouldEnterCollaboratorPool) {
+            widgets.enterCollaboratorPoolConstructor();
+          }
         }
       });
 
