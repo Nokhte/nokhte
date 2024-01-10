@@ -54,7 +54,7 @@ class GradientTreeNode extends StatelessWidget {
                                   value.get('color2'),
                                   value.get('color3')
                                 ],
-                                stops: const [0.0, .5, 1.0],
+                                stops: const [0.0, .3, 1.0],
                               ),
                               context: context,
                             ),
