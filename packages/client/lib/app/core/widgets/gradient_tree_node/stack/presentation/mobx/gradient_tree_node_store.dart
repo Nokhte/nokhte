@@ -2,7 +2,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/widgets/gradient_tree_node/stack/stack.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'gradient_tree_node_store.g.dart';
 
@@ -12,7 +12,7 @@ class GradientTreeNodeStore = _GradientTreeNodeStoreBase
 abstract class _GradientTreeNodeStoreBase
     extends BaseCustomAnimatedWidgetStore<NoParams> with Store {
   _GradientTreeNodeStoreBase() {
-    setMovie(ChangeColorGlowAndMoveUpMovies.movie);
+    setMovie(ChangeColorAndMoveUpMovies.movie);
   }
 
   @override
