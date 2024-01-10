@@ -12,15 +12,26 @@ abstract class _CollaboratorPoolScreenCoordinatorBase extends BaseCoordinator
   final CollaboratorPoolScreenWidgetsCoordinator widgets;
   final CancelCollaboratorSearchStreamStore cancelCollaboratorSearchStream;
   final ExitCollaboratorPoolStore exitCollaboratorPool;
+  final GetCollaboratorSearchStatusStore getCollaboratorSearchStatus;
 
   _CollaboratorPoolScreenCoordinatorBase({
     required this.widgets,
     required this.cancelCollaboratorSearchStream,
     required this.exitCollaboratorPool,
+    required this.getCollaboratorSearchStatus,
   });
 
   @action
   constructor() {
     widgets.constructor();
+    getCollaboratorSearchStatus();
+    searchStatusReactor();
   }
+
+  searchStatusReactor() =>
+      reaction((p0) => getCollaboratorSearchStatus.hasFoundCollaborator, (p0) {
+        if (p0) {
+          widgets.initTransitionToPurposeSession();
+        }
+      });
 }
