@@ -111,15 +111,15 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
       });
 
   shareInvitationReactor() =>
-      reaction((p0) => deepLinks.sendDeepLink.isShared, (p0) {
+      reaction((p0) => deepLinks.sendDeepLink.isShared, (p0) async {
         if (p0) {
-          if (additionalRoutingData.isNotEmpty &&
-              !widgets.shouldEnterCollaboratorPool) {
-            widgets.enterCollaboratorPoolConstructor();
+          if (additionalRoutingData.isNotEmpty) {
+            widgets.enterCollaboratorPool();
+            await onEnterCollaboratorPool();
           } else {
-            userInformation.updateHasSentAnInvitation(true);
             widgets.toggleInvitationIsSent();
           }
+          userInformation.updateHasSentAnInvitation(true);
         }
       });
 
