@@ -31,6 +31,21 @@ mixin _$CollaboratorPoolScreenWidgetsCoordinator
   }
 
   @override
+  dynamic onInactive() {
+    final _$actionInfo =
+        _$_CollaboratorPoolScreenWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_CollaboratorPoolScreenWidgetsCoordinatorBase.onInactive');
+    try {
+      return super.onInactive();
+    } finally {
+      _$_CollaboratorPoolScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic initTransitionToPurposeSession() {
     final _$actionInfo =
         _$_CollaboratorPoolScreenWidgetsCoordinatorBaseActionController.startAction(
@@ -38,6 +53,35 @@ mixin _$CollaboratorPoolScreenWidgetsCoordinator
                 '_CollaboratorPoolScreenWidgetsCoordinatorBase.initTransitionToPurposeSession');
     try {
       return super.initTransitionToPurposeSession();
+    } finally {
+      _$_CollaboratorPoolScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onConnected() {
+    final _$actionInfo =
+        _$_CollaboratorPoolScreenWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_CollaboratorPoolScreenWidgetsCoordinatorBase.onConnected');
+    try {
+      return super.onConnected();
+    } finally {
+      _$_CollaboratorPoolScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onDisconnected() {
+    final _$actionInfo =
+        _$_CollaboratorPoolScreenWidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_CollaboratorPoolScreenWidgetsCoordinatorBase.onDisconnected');
+    try {
+      return super.onDisconnected();
     } finally {
       _$_CollaboratorPoolScreenWidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
