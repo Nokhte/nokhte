@@ -31,6 +31,20 @@ mixin _$CollaboratorPoolScreenWidgetsCoordinator
   }
 
   @override
+  dynamic initTransitionToPurposeSession() {
+    final _$actionInfo =
+        _$_CollaboratorPoolScreenWidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_CollaboratorPoolScreenWidgetsCoordinatorBase.initTransitionToPurposeSession');
+    try {
+      return super.initTransitionToPurposeSession();
+    } finally {
+      _$_CollaboratorPoolScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 
