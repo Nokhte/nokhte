@@ -10,6 +10,23 @@ part of 'collaborator_pool_screen_coordinator.dart';
 
 mixin _$CollaboratorPoolScreenCoordinator
     on _CollaboratorPoolScreenCoordinatorBase, Store {
+  late final _$_CollaboratorPoolScreenCoordinatorBaseActionController =
+      ActionController(
+          name: '_CollaboratorPoolScreenCoordinatorBase', context: context);
+
+  @override
+  dynamic constructor() {
+    final _$actionInfo =
+        _$_CollaboratorPoolScreenCoordinatorBaseActionController.startAction(
+            name: '_CollaboratorPoolScreenCoordinatorBase.constructor');
+    try {
+      return super.constructor();
+    } finally {
+      _$_CollaboratorPoolScreenCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

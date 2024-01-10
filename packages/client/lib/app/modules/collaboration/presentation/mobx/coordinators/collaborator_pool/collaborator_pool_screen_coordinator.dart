@@ -2,7 +2,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
-import 'collaborator_pool_screen_widgets_coordinator.dart';
 part 'collaborator_pool_screen_coordinator.g.dart';
 
 class CollaboratorPoolScreenCoordinator = _CollaboratorPoolScreenCoordinatorBase
@@ -19,4 +18,9 @@ abstract class _CollaboratorPoolScreenCoordinatorBase extends BaseCoordinator
     required this.cancelCollaboratorSearchStream,
     required this.exitCollaboratorPool,
   });
+
+  @action
+  constructor() {
+    widgets.constructor();
+  }
 }
