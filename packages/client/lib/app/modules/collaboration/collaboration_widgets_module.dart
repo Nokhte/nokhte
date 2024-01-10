@@ -29,6 +29,7 @@ class CollaborationWidgetsModule extends Module {
       () => CollaboratorPoolScreenWidgetsCoordinator(
         beachWaves: Modular.get<BeachWavesStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        gestureCross: Modular.get<GestureCrossStore>(),
       ),
     );
   }
