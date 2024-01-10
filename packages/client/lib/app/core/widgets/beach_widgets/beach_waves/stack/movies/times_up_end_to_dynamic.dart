@@ -21,112 +21,112 @@ class TimesUpEndToDynamic {
         .tween(
           BeachWaveAnimationKeys.color1,
           ColorTween(
-            begin: WaterColorsAndStops.timesUpPhase8.first.color,
+            begin: WaterColorsAndStops.timesUpPhase9.first.color,
             end: endingColors.first.color,
           ),
         )
         .tween(
           BeachWaveAnimationKeys.color2,
           ColorTween(
-            begin: WaterColorsAndStops.timesUpPhase8[1].color,
+            begin: WaterColorsAndStops.timesUpPhase9[1].color,
             end: endingColors[1].color,
           ),
         )
         .tween(
           BeachWaveAnimationKeys.color3,
           ColorTween(
-            begin: WaterColorsAndStops.timesUpPhase8[2].color,
+            begin: WaterColorsAndStops.timesUpPhase9[2].color,
             end: endingColors[2].color,
           ),
         )
         .tween(
           BeachWaveAnimationKeys.color4,
           ColorTween(
-            begin: WaterColorsAndStops.timesUpPhase8[3].color,
+            begin: WaterColorsAndStops.timesUpPhase9[3].color,
             end: endingColors[3].color,
           ),
         )
         .tween(
           BeachWaveAnimationKeys.color5,
           ColorTween(
-            begin: WaterColorsAndStops.timesUpPhase8[4].color,
+            begin: WaterColorsAndStops.timesUpPhase9[4].color,
             end: endingColors[4].color,
           ),
         )
         .tween(
           BeachWaveAnimationKeys.color6,
           ColorTween(
-            begin: WaterColorsAndStops.timesUpPhase8[5].color,
+            begin: WaterColorsAndStops.timesUpPhase9[5].color,
             end: endingColors[5].color,
           ),
         )
         .tween(
           BeachWaveAnimationKeys.color7,
           ColorTween(
-            begin: WaterColorsAndStops.timesUpPhase8[6].color,
+            begin: WaterColorsAndStops.timesUpPhase9[6].color,
             end: endingColors[6].color,
           ),
         )
         .tween(
           BeachWaveAnimationKeys.color8,
           ColorTween(
-            begin: WaterColorsAndStops.timesUpPhase8[7].color,
+            begin: WaterColorsAndStops.timesUpPhase9[7].color,
             end: endingColors[7].color,
           ),
         )
         .tween(
           BeachWaveAnimationKeys.stop1,
           Tween<double>(
-            begin: WaterColorsAndStops.timesUpPhase8.first.stop,
+            begin: WaterColorsAndStops.timesUpPhase9.first.stop,
             end: endingColors.first.stop,
           ),
         )
         .tween(
           BeachWaveAnimationKeys.stop2,
           Tween<double>(
-            begin: WaterColorsAndStops.timesUpPhase8[1].stop,
+            begin: WaterColorsAndStops.timesUpPhase9[1].stop,
             end: endingColors[1].stop,
           ),
         )
         .tween(
           BeachWaveAnimationKeys.stop3,
           Tween<double>(
-            begin: WaterColorsAndStops.timesUpPhase8[2].stop,
+            begin: WaterColorsAndStops.timesUpPhase9[2].stop,
             end: endingColors[2].stop,
           ),
         )
         .tween(
           BeachWaveAnimationKeys.stop4,
           Tween<double>(
-            begin: WaterColorsAndStops.timesUpPhase8[3].stop,
+            begin: WaterColorsAndStops.timesUpPhase9[3].stop,
             end: endingColors[3].stop,
           ),
         )
         .tween(
           BeachWaveAnimationKeys.stop5,
           Tween<double>(
-            begin: WaterColorsAndStops.timesUpPhase8[4].stop,
+            begin: WaterColorsAndStops.timesUpPhase9[4].stop,
             end: endingColors[4].stop,
           ),
         )
         .tween(
           BeachWaveAnimationKeys.stop6,
           Tween<double>(
-            begin: WaterColorsAndStops.timesUpPhase8[5].stop,
+            begin: WaterColorsAndStops.timesUpPhase9[5].stop,
             end: endingColors[5].stop,
           ),
         )
         .tween(
           BeachWaveAnimationKeys.stop7,
           Tween<double>(
-            begin: WaterColorsAndStops.timesUpPhase8[6].stop,
+            begin: WaterColorsAndStops.timesUpPhase9[6].stop,
             end: endingColors[6].stop,
           ),
         )
         .tween(
           BeachWaveAnimationKeys.stop8,
           Tween<double>(
-            begin: WaterColorsAndStops.timesUpPhase8[7].stop,
+            begin: WaterColorsAndStops.timesUpPhase9[7].stop,
             end: endingColors[7].stop,
           ),
         );
