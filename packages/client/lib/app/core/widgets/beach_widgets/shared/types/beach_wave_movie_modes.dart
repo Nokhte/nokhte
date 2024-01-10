@@ -14,6 +14,7 @@ enum BeachWaveMovieModes {
   timesUpDynamicPointToTheDepthsSetup,
   timesUpEndToOceanDive,
   timesUpEndToTheDepths,
+  vibrantBlueGradientToTimesUp,
   waterFromTopToOnShorePt1,
   waterFromTopToOnShorePt2,
 }
