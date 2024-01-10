@@ -115,23 +115,6 @@ mixin _$HomeScreenWidgetsCoordinator
     });
   }
 
-  late final _$isDisconnectedAtom = Atom(
-      name: '_HomeScreenWidgetsCoordinatorBase.isDisconnected',
-      context: context);
-
-  @override
-  bool get isDisconnected {
-    _$isDisconnectedAtom.reportRead();
-    return super.isDisconnected;
-  }
-
-  @override
-  set isDisconnected(bool value) {
-    _$isDisconnectedAtom.reportWrite(value, super.isDisconnected, () {
-      super.isDisconnected = value;
-    });
-  }
-
   late final _$hasInitiatedBlurAtom = Atom(
       name: '_HomeScreenWidgetsCoordinatorBase.hasInitiatedBlur',
       context: context);
@@ -380,19 +363,6 @@ mixin _$HomeScreenWidgetsCoordinator
   }
 
   @override
-  dynamic toggleIsDisconnected() {
-    final _$actionInfo =
-        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
-            name: '_HomeScreenWidgetsCoordinatorBase.toggleIsDisconnected');
-    try {
-      return super.toggleIsDisconnected();
-    } finally {
-      _$_HomeScreenWidgetsCoordinatorBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic toggleHasInitiatedBlur() {
     final _$actionInfo =
         _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
@@ -442,7 +412,6 @@ hasSwipedUp: ${hasSwipedUp},
 gracePeriodHasExpired: ${gracePeriodHasExpired},
 clockAnimationHasNotStarted: ${clockAnimationHasNotStarted},
 clockIsVisible: ${clockIsVisible},
-isDisconnected: ${isDisconnected},
 hasInitiatedBlur: ${hasInitiatedBlur},
 isDoubleTriggeringWindDown: ${isDoubleTriggeringWindDown}
     ''';

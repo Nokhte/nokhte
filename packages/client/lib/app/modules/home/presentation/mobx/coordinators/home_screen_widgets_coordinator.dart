@@ -3,8 +3,8 @@ import 'dart:async';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -14,7 +14,8 @@ part 'home_screen_widgets_coordinator.g.dart';
 class HomeScreenWidgetsCoordinator = _HomeScreenWidgetsCoordinatorBase
     with _$HomeScreenWidgetsCoordinator;
 
-abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
+abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
+    with Store {
   final TimeAlignmentModelCoordinator timeModel;
   final NokhteBlurStore nokhteBlur;
   final BeachWavesStore beachWaves;
@@ -192,9 +193,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
   bool clockIsVisible = false;
 
   @observable
-  bool isDisconnected = false;
-
-  @observable
   bool hasInitiatedBlur = false;
 
   @observable
@@ -206,9 +204,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
 
   @action
   toggleClockIsVisible() => clockIsVisible = !clockIsVisible;
-
-  @action
-  toggleIsDisconnected() => isDisconnected = !isDisconnected;
 
   @action
   toggleHasInitiatedBlur() => hasInitiatedBlur = !hasInitiatedBlur;
@@ -322,7 +317,4 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends Equatable with Store {
       secondarySmartText.toggleWidgetVisibility();
     }
   }
-
-  @override
-  List<Object> get props => [];
 }
