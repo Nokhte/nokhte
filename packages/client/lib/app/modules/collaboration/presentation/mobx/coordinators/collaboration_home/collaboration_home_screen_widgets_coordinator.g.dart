@@ -249,6 +249,21 @@ mixin _$CollaborationHomeScreenWidgetsCoordinator
   }
 
   @override
+  dynamic enterCollaboratorPool() {
+    final _$actionInfo =
+        _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_CollaborationHomeScreenWidgetsCoordinatorBase.enterCollaboratorPool');
+    try {
+      return super.enterCollaboratorPool();
+    } finally {
+      _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic onSwipeDown() {
     final _$actionInfo =
         _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
