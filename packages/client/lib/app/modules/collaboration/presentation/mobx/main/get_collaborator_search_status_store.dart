@@ -23,6 +23,12 @@ abstract class _GetCollaboratorSearchStatusStoreBase extends Equatable
   @observable
   String errorMessage = "";
 
+  @observable
+  bool hasFoundCollaborator = false;
+
+  @action
+  toggleHasFoundCollaborator() => hasFoundCollaborator = !hasFoundCollaborator;
+
   @action
   resetStream() {
     searchStatus = ObservableStream(const Stream.empty());
@@ -51,6 +57,9 @@ abstract class _GetCollaboratorSearchStatusStoreBase extends Equatable
       state = StoreState.initial;
     }, (stream) {
       searchStatus = ObservableStream(stream);
+      searchStatus.listen((value) {
+        hasFoundCollaborator = value.hasFoundTheirCollaborator;
+      });
     });
   }
 

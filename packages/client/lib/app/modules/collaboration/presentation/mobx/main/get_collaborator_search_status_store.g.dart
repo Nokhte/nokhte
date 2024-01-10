@@ -44,6 +44,24 @@ mixin _$GetCollaboratorSearchStatusStore
     });
   }
 
+  late final _$hasFoundCollaboratorAtom = Atom(
+      name: '_GetCollaboratorSearchStatusStoreBase.hasFoundCollaborator',
+      context: context);
+
+  @override
+  bool get hasFoundCollaborator {
+    _$hasFoundCollaboratorAtom.reportRead();
+    return super.hasFoundCollaborator;
+  }
+
+  @override
+  set hasFoundCollaborator(bool value) {
+    _$hasFoundCollaboratorAtom.reportWrite(value, super.hasFoundCollaborator,
+        () {
+      super.hasFoundCollaborator = value;
+    });
+  }
+
   late final _$stateAtom = Atom(
       name: '_GetCollaboratorSearchStatusStoreBase.state', context: context);
 
@@ -65,6 +83,20 @@ mixin _$GetCollaboratorSearchStatusStore
           name: '_GetCollaboratorSearchStatusStoreBase', context: context);
 
   @override
+  dynamic toggleHasFoundCollaborator() {
+    final _$actionInfo =
+        _$_GetCollaboratorSearchStatusStoreBaseActionController.startAction(
+            name:
+                '_GetCollaboratorSearchStatusStoreBase.toggleHasFoundCollaborator');
+    try {
+      return super.toggleHasFoundCollaborator();
+    } finally {
+      _$_GetCollaboratorSearchStatusStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic resetStream() {
     final _$actionInfo = _$_GetCollaboratorSearchStatusStoreBaseActionController
         .startAction(name: '_GetCollaboratorSearchStatusStoreBase.resetStream');
@@ -81,6 +113,7 @@ mixin _$GetCollaboratorSearchStatusStore
     return '''
 searchStatus: ${searchStatus},
 errorMessage: ${errorMessage},
+hasFoundCollaborator: ${hasFoundCollaborator},
 state: ${state}
     ''';
   }
