@@ -9,5 +9,6 @@ export 'nokhte/nokhte.dart';
 export 'nokhte_blur/nokhte_blur.dart';
 export 'spotlight_halo/spotlight_halo.dart';
 export 'smart_text/smart_text.dart';
+export "smart_vertical_text/smart_vertical_text.dart";
 export 'trailing_text/trailing_text.dart';
 export 'wifi_disconnect_overlay/wifi_disconnect_overlay.dart';
