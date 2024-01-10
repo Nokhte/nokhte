@@ -113,8 +113,13 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
   shareInvitationReactor() =>
       reaction((p0) => deepLinks.sendDeepLink.isShared, (p0) {
         if (p0) {
-          userInformation.updateHasSentAnInvitation(true);
-          widgets.toggleInvitationIsSent();
+          if (additionalRoutingData.isNotEmpty &&
+              !widgets.shouldEnterCollaboratorPool) {
+            widgets.enterCollaboratorPoolConstructor();
+          } else {
+            userInformation.updateHasSentAnInvitation(true);
+            widgets.toggleInvitationIsSent();
+          }
         }
       });
 
