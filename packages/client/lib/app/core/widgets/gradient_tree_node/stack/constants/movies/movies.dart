@@ -1,1 +1,1 @@
-export "change_color_glow_and_move_up_movie.dart";
+export 'change_color_and_move_up_movie.dart';
