@@ -79,7 +79,6 @@ class CollaborationModule extends Module {
 
     i.add<CollaborationHomeScreenCoordinator>(
       () => CollaborationHomeScreenCoordinator(
-        getCollaboratorSearchStatus: i<GetCollaboratorSearchStatusStore>(),
         enterCollaboratorPool: i<EnterCollaboratorPoolStore>(),
         swipe: Modular.get<SwipeDetector>(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
@@ -89,10 +88,11 @@ class CollaborationModule extends Module {
     );
     i.add<CollaboratorPoolScreenCoordinator>(
       () => CollaboratorPoolScreenCoordinator(
-        widgets: Modular.get<CollaboratorPoolScreenWidgetsCoordinator>(),
-        exitCollaboratorPool: i<ExitCollaboratorPoolStore>(),
         cancelCollaboratorSearchStream:
             i<CancelCollaboratorSearchStreamStore>(),
+        exitCollaboratorPool: i<ExitCollaboratorPoolStore>(),
+        getCollaboratorSearchStatus: i<GetCollaboratorSearchStatusStore>(),
+        widgets: Modular.get<CollaboratorPoolScreenWidgetsCoordinator>(),
       ),
     );
   }
