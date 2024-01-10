@@ -1556,22 +1556,6 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
       );
 
   @override
-  bool get isDisconnected => (super.noSuchMethod(
-        Invocation.getter(#isDisconnected),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool);
-
-  @override
-  set isDisconnected(bool? value) => super.noSuchMethod(
-        Invocation.setter(
-          #isDisconnected,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
   bool get hasInitiatedBlur => (super.noSuchMethod(
         Invocation.getter(#hasInitiatedBlur),
         returnValue: false,
@@ -1598,6 +1582,22 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   set isDoubleTriggeringWindDown(bool? value) => super.noSuchMethod(
         Invocation.setter(
           #isDoubleTriggeringWindDown,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get isDisconnected => (super.noSuchMethod(
+        Invocation.getter(#isDisconnected),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set isDisconnected(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #isDisconnected,
           value,
         ),
         returnValueForMissingStub: null,
