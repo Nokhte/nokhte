@@ -12,6 +12,10 @@ class CollaboratorPoolScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    useEffect(() {
+      coordinator.constructor();
+      return null;
+    }, []);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(
