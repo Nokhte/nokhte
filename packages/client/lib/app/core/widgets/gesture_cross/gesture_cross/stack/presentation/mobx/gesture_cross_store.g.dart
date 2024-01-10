@@ -51,11 +51,11 @@ mixin _$GestureCrossStore on _GestureCrossStoreBase, Store {
   }
 
   @override
-  dynamic setLoginScreen() {
+  dynamic fadeInTheCross() {
     final _$actionInfo = _$_GestureCrossStoreBaseActionController.startAction(
-        name: '_GestureCrossStoreBase.setLoginScreen');
+        name: '_GestureCrossStoreBase.fadeInTheCross');
     try {
-      return super.setLoginScreen();
+      return super.fadeInTheCross();
     } finally {
       _$_GestureCrossStoreBaseActionController.endAction(_$actionInfo);
     }

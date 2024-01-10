@@ -40,7 +40,7 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
   }
 
   @action
-  setLoginScreen() {
+  fadeInTheCross() {
     gradientNokhte.setMovie(VibrantBlueGradientNokhteMovie.movie);
     cross.toggleWidgetVisibility();
     centerCrossNokhte.toggleWidgetVisibility();
