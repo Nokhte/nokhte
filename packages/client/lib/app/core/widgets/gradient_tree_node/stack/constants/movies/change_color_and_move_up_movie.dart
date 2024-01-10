@@ -3,7 +3,7 @@ import 'package:nokhte/app/core/types/seconds.dart';
 import 'package:nokhte/app/core/widgets/gradient_tree_node/stack/stack.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-class ChangeColorGlowAndMoveUpMovies {
+class ChangeColorAndMoveUpMovies {
   static MovieTween get movie => MovieTween()
     ..scene(
       begin: Seconds.get(0),
@@ -32,6 +32,16 @@ class ChangeColorGlowAndMoveUpMovies {
         )
     ..scene(
       begin: Seconds.get(1),
+      end: Seconds.get(1, milli: 1),
+    ).tween(
+      'strokeWidth',
+      Tween<double>(
+        begin: 2.0,
+        end: 0.0,
+      ),
+    )
+    ..scene(
+      begin: Seconds.get(1),
       end: Seconds.get(1, milli: 810),
     )
         .tween(
@@ -53,13 +63,6 @@ class ChangeColorGlowAndMoveUpMovies {
           Tween<double>(
             begin: 25.0,
             end: 500.0,
-          ),
-        )
-        .tween(
-          'strokeWidth',
-          Tween<double>(
-            begin: 2.0,
-            end: 0.0,
           ),
         );
 }
