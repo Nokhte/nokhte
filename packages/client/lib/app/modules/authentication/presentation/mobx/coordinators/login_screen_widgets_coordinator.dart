@@ -236,7 +236,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
             BeachWaveMovieModes.waterFromTopToOnShorePt2,
           );
           layer2BeachWaves.currentStore.initMovie(NoParams());
-          gestureCross.setLoginScreen();
+          gestureCross.fadeInTheCross();
           toggleHasCompletedWaterFromTopToOnShorePt1();
           layer2BeachWaves.currentStore.initMovie(NoParams());
         } else if (hasFinishedWaterFromTopPart2(p0)) {
