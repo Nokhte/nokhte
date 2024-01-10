@@ -46,6 +46,17 @@ class WaterColorsAndStops {
         ColorAndStop(Color(0xFF6AEAB9), 1.00),
       ];
 
+  static List<ColorAndStop> get vibrantBlueGrad => const [
+        ColorAndStop(Color(0xFF44D3FE), 0),
+        ColorAndStop(Color(0xFF44D3FE), .3),
+        ColorAndStop(Color(0xFF6BE9BB), 1.0),
+        ColorAndStop(Color(0xFF6BE9BB), 1.0),
+        ColorAndStop(Color(0xFF6BE9BB), 1.0),
+        ColorAndStop(Color(0xFF6BE9BB), 1.0),
+        ColorAndStop(Color(0xFF6BE9BB), 1.0),
+        ColorAndStop(Color(0xFF6BE9BB), 1.0),
+      ];
+
   static List<ColorAndStop> get timesUpPhase1 => const [
         ColorAndStop(Color(0xFFFFFFE3), 0),
         ColorAndStop(Color(0xFF49D6EF), 0.1005),
