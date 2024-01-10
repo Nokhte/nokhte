@@ -111,7 +111,9 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
 
   @action
   enterCollaboratorPoolConstructor() {
-    gradientTreeNode.toggleWidgetVisibility();
+    if (!gradientTreeNode.showWidget) {
+      gradientTreeNode.toggleWidgetVisibility();
+    }
     toggleShouldEnterCollaboratorPool();
   }
 
