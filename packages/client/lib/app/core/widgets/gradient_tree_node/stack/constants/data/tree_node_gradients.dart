@@ -9,7 +9,7 @@ class TreeNodeGradients {
       ];
   static List<Color> get blueColors => const [
         Color(0xFF44D3FE),
-        Color(0xFF4CE1DA),
+        Color(0xFF44D3FE),
         Color(0xFF6BE9BB),
       ];
   static List<double> get yellowStops => [0, .5, 1];
