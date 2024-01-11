@@ -1,4 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:nokhte/app/core/modules/deep_links/deep_links_module.dart';
+import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'presentation/mobx/mobx.dart';
@@ -12,6 +14,7 @@ class HomeWidgetsModule extends Module {
         CircleExplanationModule(),
         SmartTextModule(),
         GestureCrossModule(),
+        DeepLinksModule(),
       ];
 
   @override
@@ -24,6 +27,7 @@ class HomeWidgetsModule extends Module {
     );
     i.add<HomeScreenWidgetsCoordinator>(
       () => HomeScreenWidgetsCoordinator(
+        deepLinks: Modular.get<DeepLinksCoordinator>(),
         timeModel: Modular.get<TimeAlignmentModelCoordinator>(),
         nokhteBlur: Modular.get<NokhteBlurStore>(),
         primarySmartText: Modular.get<SmartTextStore>(),
