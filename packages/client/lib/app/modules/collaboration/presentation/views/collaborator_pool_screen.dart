@@ -22,6 +22,7 @@ class CollaboratorPoolScreen extends HookWidget {
               current,
               onResumed: () => null,
               onInactive: () => coordinator.widgets.onInactive(),
+              onDetached: () => coordinator.exitThePool(),
             ));
     final size = useSquareSize(relativeLength: .20);
     return Scaffold(
