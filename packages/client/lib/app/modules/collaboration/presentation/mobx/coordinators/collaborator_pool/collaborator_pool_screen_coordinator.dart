@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
 part 'collaborator_pool_screen_coordinator.g.dart';
@@ -27,6 +28,9 @@ abstract class _CollaboratorPoolScreenCoordinatorBase extends BaseCoordinator
     getCollaboratorSearchStatus();
     searchStatusReactor();
   }
+
+  @action
+  exitThePool() async => await exitCollaboratorPool(NoParams());
 
   searchStatusReactor() =>
       reaction((p0) => getCollaboratorSearchStatus.hasFoundCollaborator, (p0) {

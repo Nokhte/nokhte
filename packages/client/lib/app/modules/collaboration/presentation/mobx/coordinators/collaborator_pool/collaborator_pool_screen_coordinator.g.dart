@@ -10,6 +10,15 @@ part of 'collaborator_pool_screen_coordinator.dart';
 
 mixin _$CollaboratorPoolScreenCoordinator
     on _CollaboratorPoolScreenCoordinatorBase, Store {
+  late final _$exitThePoolAsyncAction = AsyncAction(
+      '_CollaboratorPoolScreenCoordinatorBase.exitThePool',
+      context: context);
+
+  @override
+  Future exitThePool() {
+    return _$exitThePoolAsyncAction.run(() => super.exitThePool());
+  }
+
   late final _$_CollaboratorPoolScreenCoordinatorBaseActionController =
       ActionController(
           name: '_CollaboratorPoolScreenCoordinatorBase', context: context);

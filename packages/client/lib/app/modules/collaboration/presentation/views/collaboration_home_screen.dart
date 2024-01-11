@@ -21,6 +21,7 @@ class CollaborationHomeScreen extends HookWidget {
               current,
               onResumed: () => coordinator.widgets.onResumed(),
               onInactive: () => coordinator.widgets.onInactive(),
+              onDetached: () => null,
             ));
     useEffect(() {
       coordinator.constructor();

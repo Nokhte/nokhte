@@ -20,6 +20,7 @@ class LoginScreen extends HookWidget {
               current,
               onResumed: () => coordinator.onResumed(),
               onInactive: () => coordinator.onInactive(),
+              onDetached: () => null,
             ));
     final center = useCenterOffset();
     useEffect(() {
