@@ -104,9 +104,7 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
           setAdditionalRoutingData(
             deepLinks.listenForOpenedDeepLink.additionalMetadata,
           );
-          if (!widgets.shouldEnterCollaboratorPool) {
-            widgets.enterCollaboratorPoolConstructor();
-          }
+          widgets.initCollaboratorPoolWidgets();
         }
       });
 
@@ -114,7 +112,7 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
       reaction((p0) => deepLinks.sendDeepLink.isShared, (p0) async {
         if (p0) {
           if (additionalRoutingData.isNotEmpty) {
-            widgets.enterCollaboratorPool();
+            widgets.initCollaboratorPoolWidgets();
             await onEnterCollaboratorPool();
           } else {
             widgets.toggleInvitationIsSent();
