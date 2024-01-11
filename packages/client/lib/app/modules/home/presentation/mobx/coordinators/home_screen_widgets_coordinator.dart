@@ -4,7 +4,9 @@ import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -23,6 +25,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   final GestureCrossStore gestureCross;
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
+  final DeepLinksCoordinator deepLinks;
 
   _HomeScreenWidgetsCoordinatorBase({
     required this.timeModel,
@@ -32,6 +35,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     required this.gestureCross,
     required this.primarySmartText,
     required this.secondarySmartText,
+    required this.deepLinks,
   });
 
   @observable
@@ -63,6 +67,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   constructor() {
+    deepLinks.listenForOpenedDeepLink(NoParams());
     gestureCross.setHomeScreen();
     beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
     primarySmartText.setMessagesData(MessagesData.firstTimeHomeList);
@@ -286,7 +291,10 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
         if (p0 == MovieStatus.finished &&
             beachWaves.movieMode == BeachWaveMovieModes.onShoreToOceanDive &&
             !isDisconnected) {
-          Modular.to.navigate('/collaboration/');
+          Modular.to.navigate(
+            '/collaboration/',
+            arguments: deepLinks.listenForOpenedDeepLink.additionalMetadata,
+          );
         }
       });
 

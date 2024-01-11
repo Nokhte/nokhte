@@ -2,7 +2,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -18,7 +17,6 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
   final HomeScreenWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final UserInformationCoordinator userInformation;
-  final DeepLinksCoordinator deepLinks;
 
   _HomeScreenCoordinatorBase({
     required this.addNameToDatabaseStore,
@@ -26,14 +24,13 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
     required this.userInformation,
     required this.swipe,
     required this.widgets,
-    required this.deepLinks,
   });
 
   @action
   constructor() async {
-    widgets.constructor();
     widgets.initReactors(repeatTheFlow);
-    deepLinks.listenForOpenedDeepLink(NoParams());
+    widgets.constructor();
+
     await userInformation.getUserInfo(NoParams());
     if (userInformation.getUserInfo.hasGoneThroughInvitationFlow) {
       widgets.postInvitationFlowConstructor();
