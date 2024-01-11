@@ -7,6 +7,7 @@ import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 import 'package:simple_animations/simple_animations.dart';
 import '../../../../shared/shared_mocks.mocks.dart';
 import '../../../../shared/shared_test_utils.dart';
+import '../../../fixtures/home_stack_mock_gen.mocks.dart';
 
 void main() {
   late BeachWavesStore beachWaves;
@@ -32,6 +33,7 @@ void main() {
     testStore = HomeScreenWidgetsCoordinator(
       timeModel: timeModel,
       nokhteBlur: nokhteBlurStore,
+      deepLinks: MockDeepLinksCoordinator(),
       beachWaves: beachWaves,
       wifiDisconnectOverlay: wifiDisconnectOverlay,
       gestureCross: gestureCross,
