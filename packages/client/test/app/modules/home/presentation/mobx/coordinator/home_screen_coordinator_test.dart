@@ -30,7 +30,6 @@ void main() {
     testStore = HomeScreenCoordinator(
       swipe: SwipeDetector(),
       addNameToDatabaseStore: mockAddNameToDatabase,
-      deepLinks: mockDeepLinks,
       getExistingCollaborationInfo: mockGetExistingCollaborationInfo,
       userInformation: mockUserInformation,
       widgets: mockWidgets,
