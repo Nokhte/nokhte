@@ -303,9 +303,20 @@ class _FakeSmartTextStore_22 extends _i1.SmartFake
         );
 }
 
-class _FakeGetDeepLinkURLStore_23 extends _i1.SmartFake
+class _FakeDeepLinksCoordinator_23 extends _i1.SmartFake
+    implements _i16.DeepLinksCoordinator {
+  _FakeDeepLinksCoordinator_23(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeGetDeepLinkURLStore_24 extends _i1.SmartFake
     implements _i16.GetDeepLinkURLStore {
-  _FakeGetDeepLinkURLStore_23(
+  _FakeGetDeepLinkURLStore_24(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -314,9 +325,9 @@ class _FakeGetDeepLinkURLStore_23 extends _i1.SmartFake
         );
 }
 
-class _FakeListenForOpenedDeepLinkStore_24 extends _i1.SmartFake
+class _FakeListenForOpenedDeepLinkStore_25 extends _i1.SmartFake
     implements _i16.ListenForOpenedDeepLinkStore {
-  _FakeListenForOpenedDeepLinkStore_24(
+  _FakeListenForOpenedDeepLinkStore_25(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -325,9 +336,9 @@ class _FakeListenForOpenedDeepLinkStore_24 extends _i1.SmartFake
         );
 }
 
-class _FakeSendDeepLinkStore_25 extends _i1.SmartFake
+class _FakeSendDeepLinkStore_26 extends _i1.SmartFake
     implements _i16.SendDeepLinkStore {
-  _FakeSendDeepLinkStore_25(
+  _FakeSendDeepLinkStore_26(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -336,9 +347,9 @@ class _FakeSendDeepLinkStore_25 extends _i1.SmartFake
         );
 }
 
-class _FakeUserJourneyInfoEntity_26 extends _i1.SmartFake
+class _FakeUserJourneyInfoEntity_27 extends _i1.SmartFake
     implements _i14.UserJourneyInfoEntity {
-  _FakeUserJourneyInfoEntity_26(
+  _FakeUserJourneyInfoEntity_27(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -347,8 +358,8 @@ class _FakeUserJourneyInfoEntity_26 extends _i1.SmartFake
         );
 }
 
-class _FakeGetUserInfo_27 extends _i1.SmartFake implements _i14.GetUserInfo {
-  _FakeGetUserInfo_27(
+class _FakeGetUserInfo_28 extends _i1.SmartFake implements _i14.GetUserInfo {
+  _FakeGetUserInfo_28(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -357,9 +368,9 @@ class _FakeGetUserInfo_27 extends _i1.SmartFake implements _i14.GetUserInfo {
         );
 }
 
-class _FakeUpdateHasGoneThroughInvitationFlow_28 extends _i1.SmartFake
+class _FakeUpdateHasGoneThroughInvitationFlow_29 extends _i1.SmartFake
     implements _i14.UpdateHasGoneThroughInvitationFlow {
-  _FakeUpdateHasGoneThroughInvitationFlow_28(
+  _FakeUpdateHasGoneThroughInvitationFlow_29(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -368,9 +379,9 @@ class _FakeUpdateHasGoneThroughInvitationFlow_28 extends _i1.SmartFake
         );
 }
 
-class _FakeUpdateHasSentAnInvitation_29 extends _i1.SmartFake
+class _FakeUpdateHasSentAnInvitation_30 extends _i1.SmartFake
     implements _i14.UpdateHasSentAnInvitation {
-  _FakeUpdateHasSentAnInvitation_29(
+  _FakeUpdateHasSentAnInvitation_30(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -1460,6 +1471,19 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
       ) as _i15.SmartTextStore);
 
   @override
+  _i16.DeepLinksCoordinator get deepLinks => (super.noSuchMethod(
+        Invocation.getter(#deepLinks),
+        returnValue: _FakeDeepLinksCoordinator_23(
+          this,
+          Invocation.getter(#deepLinks),
+        ),
+        returnValueForMissingStub: _FakeDeepLinksCoordinator_23(
+          this,
+          Invocation.getter(#deepLinks),
+        ),
+      ) as _i16.DeepLinksCoordinator);
+
+  @override
   bool get hasCompletedInvitationFlow => (super.noSuchMethod(
         Invocation.getter(#hasCompletedInvitationFlow),
         returnValue: false,
@@ -1680,11 +1704,11 @@ class MockDeepLinksCoordinator extends _i1.Mock
   @override
   _i16.GetDeepLinkURLStore get getDeepLinkURL => (super.noSuchMethod(
         Invocation.getter(#getDeepLinkURL),
-        returnValue: _FakeGetDeepLinkURLStore_23(
+        returnValue: _FakeGetDeepLinkURLStore_24(
           this,
           Invocation.getter(#getDeepLinkURL),
         ),
-        returnValueForMissingStub: _FakeGetDeepLinkURLStore_23(
+        returnValueForMissingStub: _FakeGetDeepLinkURLStore_24(
           this,
           Invocation.getter(#getDeepLinkURL),
         ),
@@ -1694,11 +1718,11 @@ class MockDeepLinksCoordinator extends _i1.Mock
   _i16.ListenForOpenedDeepLinkStore get listenForOpenedDeepLink =>
       (super.noSuchMethod(
         Invocation.getter(#listenForOpenedDeepLink),
-        returnValue: _FakeListenForOpenedDeepLinkStore_24(
+        returnValue: _FakeListenForOpenedDeepLinkStore_25(
           this,
           Invocation.getter(#listenForOpenedDeepLink),
         ),
-        returnValueForMissingStub: _FakeListenForOpenedDeepLinkStore_24(
+        returnValueForMissingStub: _FakeListenForOpenedDeepLinkStore_25(
           this,
           Invocation.getter(#listenForOpenedDeepLink),
         ),
@@ -1707,11 +1731,11 @@ class MockDeepLinksCoordinator extends _i1.Mock
   @override
   _i16.SendDeepLinkStore get sendDeepLink => (super.noSuchMethod(
         Invocation.getter(#sendDeepLink),
-        returnValue: _FakeSendDeepLinkStore_25(
+        returnValue: _FakeSendDeepLinkStore_26(
           this,
           Invocation.getter(#sendDeepLink),
         ),
-        returnValueForMissingStub: _FakeSendDeepLinkStore_25(
+        returnValueForMissingStub: _FakeSendDeepLinkStore_26(
           this,
           Invocation.getter(#sendDeepLink),
         ),
@@ -1815,11 +1839,11 @@ class MockGetUserInfoStore extends _i1.Mock implements _i13.GetUserInfoStore {
   @override
   _i14.UserJourneyInfoEntity get entity => (super.noSuchMethod(
         Invocation.getter(#entity),
-        returnValue: _FakeUserJourneyInfoEntity_26(
+        returnValue: _FakeUserJourneyInfoEntity_27(
           this,
           Invocation.getter(#entity),
         ),
-        returnValueForMissingStub: _FakeUserJourneyInfoEntity_26(
+        returnValueForMissingStub: _FakeUserJourneyInfoEntity_27(
           this,
           Invocation.getter(#entity),
         ),
@@ -1837,11 +1861,11 @@ class MockGetUserInfoStore extends _i1.Mock implements _i13.GetUserInfoStore {
   @override
   _i14.GetUserInfo get logic => (super.noSuchMethod(
         Invocation.getter(#logic),
-        returnValue: _FakeGetUserInfo_27(
+        returnValue: _FakeGetUserInfo_28(
           this,
           Invocation.getter(#logic),
         ),
-        returnValueForMissingStub: _FakeGetUserInfo_27(
+        returnValueForMissingStub: _FakeGetUserInfo_28(
           this,
           Invocation.getter(#logic),
         ),
@@ -1998,11 +2022,11 @@ class MockUpdateHasGoneThroughInvitationFlowStore extends _i1.Mock
   @override
   _i14.UpdateHasGoneThroughInvitationFlow get logic => (super.noSuchMethod(
         Invocation.getter(#logic),
-        returnValue: _FakeUpdateHasGoneThroughInvitationFlow_28(
+        returnValue: _FakeUpdateHasGoneThroughInvitationFlow_29(
           this,
           Invocation.getter(#logic),
         ),
-        returnValueForMissingStub: _FakeUpdateHasGoneThroughInvitationFlow_28(
+        returnValueForMissingStub: _FakeUpdateHasGoneThroughInvitationFlow_29(
           this,
           Invocation.getter(#logic),
         ),
@@ -2166,11 +2190,11 @@ class MockUpdateHasSentAnInvitationStore extends _i1.Mock
   @override
   _i14.UpdateHasSentAnInvitation get logic => (super.noSuchMethod(
         Invocation.getter(#logic),
-        returnValue: _FakeUpdateHasSentAnInvitation_29(
+        returnValue: _FakeUpdateHasSentAnInvitation_30(
           this,
           Invocation.getter(#logic),
         ),
-        returnValueForMissingStub: _FakeUpdateHasSentAnInvitation_29(
+        returnValueForMissingStub: _FakeUpdateHasSentAnInvitation_30(
           this,
           Invocation.getter(#logic),
         ),
