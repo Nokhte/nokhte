@@ -20,7 +20,10 @@ class InterpretCollaboratorCodeDeepLink
             });
       }
     } else {
-      return const InterpretedDeepLinkEntity();
+      return InterpretedDeepLinkEntity(additionalMetadata: {
+        "hasSentAnInvitation": params.hasSentAnInvitation,
+        "collaboratorUID": params.collaboratorUID,
+      });
     }
   }
 }
