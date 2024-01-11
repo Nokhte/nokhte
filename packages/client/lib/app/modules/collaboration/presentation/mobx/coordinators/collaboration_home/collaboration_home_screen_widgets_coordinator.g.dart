@@ -249,14 +249,14 @@ mixin _$CollaborationHomeScreenWidgetsCoordinator
   }
 
   @override
-  dynamic enterCollaboratorPool() {
+  dynamic initCollaboratorPoolWidgets() {
     final _$actionInfo =
         _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
             .startAction(
                 name:
-                    '_CollaborationHomeScreenWidgetsCoordinatorBase.enterCollaboratorPool');
+                    '_CollaborationHomeScreenWidgetsCoordinatorBase.initCollaboratorPoolWidgets');
     try {
-      return super.enterCollaboratorPool();
+      return super.initCollaboratorPoolWidgets();
     } finally {
       _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);

@@ -111,9 +111,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
 
   @action
   enterCollaboratorPoolConstructor() {
-    if (!gradientTreeNode.showWidget) {
-      gradientTreeNode.toggleWidgetVisibility();
-    }
+    gradientTreeNode.toggleWidgetVisibility();
     toggleShouldEnterCollaboratorPool();
   }
 
@@ -129,7 +127,10 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
   }
 
   @action
-  enterCollaboratorPool() {
+  initCollaboratorPoolWidgets() {
+    if (!shouldEnterCollaboratorPool) {
+      toggleShouldEnterCollaboratorPool();
+    }
     gradientTreeNode.initMovie(NoParams());
     gestureCross.toggleAll();
   }
@@ -181,7 +182,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
   gradientTreeNodeOpacityReactor(Function enterCollaboratorPool) =>
       reaction((p0) => gradientTreeNode.hasFadedIn, (p0) async {
         if (shouldEnterCollaboratorPool && p0) {
-          enterCollaboratorPool();
+          initCollaboratorPoolWidgets();
           await enterCollaboratorPool();
         }
       });
