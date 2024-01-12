@@ -17,19 +17,24 @@ abstract class _CollaboratorPoolScreenWidgetsCoordinatorBase
   final GestureCrossStore gestureCross;
   final BeachWavesStore beachWaves;
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
-  // add waitingOnCollaborator text;
+  final WaitingTextStore waitingText;
 
   _CollaboratorPoolScreenWidgetsCoordinatorBase({
     required this.gestureCross,
     required this.beachWaves,
     required this.wifiDisconnectOverlay,
+    required this.waitingText,
   });
 
   @action
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradientToTimesUp);
+    waitingText.toggleWidgetVisibility();
     beachWaves.currentStore.initMovie(NoParams());
     initReactors();
+    Future.delayed(Seconds.get(0, milli: 100), () {
+      waitingText.toggleWidgetVisibility();
+    });
   }
 
   initReactors() {
@@ -48,9 +53,11 @@ abstract class _CollaboratorPoolScreenWidgetsCoordinatorBase
               BeachWaveMovieModes.vibrantBlueGradientToTimesUp) {
             beachWaves.setMovieMode(BeachWaveMovieModes.timesUp);
             beachWaves.currentStore.initMovie(Seconds.get(63));
+            waitingText.setControl(Control.loop);
           } else if (beachWaves.movieMode == BeachWaveMovieModes.timesUp &&
               beachWaves.currentControl != Control.stop) {
             beachWaves.setMovieMode(BeachWaveMovieModes.timesUpEndToOceanDive);
+            waitingText.toggleWidgetVisibility();
             gestureCross.fadeInTheCross();
             beachWaves.currentStore.initMovie(NoParams());
           } else if (beachWaves.movieMode ==
