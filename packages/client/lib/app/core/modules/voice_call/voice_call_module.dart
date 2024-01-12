@@ -38,11 +38,6 @@ class VoiceCallModule extends Module {
         contract: i<VoiceCallContractImpl>(),
       ),
     );
-    i.add<InstantiateAgoraSdk>(
-      () => InstantiateAgoraSdk(
-        contract: i<VoiceCallContractImpl>(),
-      ),
-    );
     i.add<JoinCall>(
       () => JoinCall(
         contract: i<VoiceCallContractImpl>(),
