@@ -1,13 +1,10 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// * Mobx Import
 import 'package:mobx/mobx.dart';
-// * Equatable Import
 import 'package:equatable/equatable.dart';
 import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/logic/logic.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
-// * Mobx Codegen Inclusion
 part 'voice_call_coordinator.g.dart';
 
 class VoiceCallCoordinator = _VoiceCallCoordinatorBase
