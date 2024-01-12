@@ -1,6 +1,5 @@
 import 'package:http/http.dart';
 import 'package:nokhte/app/core/utilities/utilities.dart';
-import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:nokhte_backend/token_server/token_server.dart';
 import 'package:nokhte_backend/tables/existing_collaborations.dart';
@@ -8,8 +7,6 @@ import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 
 abstract class VoiceCallRemoteSource {
   Future<Response> getAgoraToken({required String channelName});
-
-  Future instantiateAgoraSDK();
 
   Future joinCall({required String token, required String channelId});
 
@@ -25,14 +22,12 @@ abstract class VoiceCallRemoteSource {
 class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
   final SupabaseClient supabase;
   final ExistingCollaborationsQueries existingCollaborationsQueries;
-  final AgoraCallbacksStore agoraCallbacksStore;
   final String currentUserUID;
   final int currentAgoraUID;
   final RtcEngine agoraEngine;
 
   VoiceCallRemoteSourceImpl({
     required this.supabase,
-    required this.agoraCallbacksStore,
     required this.agoraEngine,
   })  : currentUserUID = supabase.auth.currentUser?.id ?? '',
         currentAgoraUID = MiscAlgos.postgresUIDToInt(
