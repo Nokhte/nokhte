@@ -88,10 +88,10 @@ class VoiceCallModule extends Module {
     );
     i.add<VoiceCallCoordinator>(
       (i) => VoiceCallCoordinator(
-        voiceCallActionsStore: i<VoiceCallActionsStore>(),
-        instantiateAgoraSdkStore: i<InstantiateAgoraSdkStore>(),
-        getAgoraTokenStore: i<GetAgoraTokenStore>(),
-        getChannelIdStore: i<GetChannelIdStore>(),
+        voiceCallActions: i<VoiceCallActionsStore>(),
+        voiceCallStatus: i<VoiceCallStatusStore>(),
+        getAgoraToken: i<GetAgoraTokenStore>(),
+        getChannelId: i<GetChannelIdStore>(),
       ),
     );
   }

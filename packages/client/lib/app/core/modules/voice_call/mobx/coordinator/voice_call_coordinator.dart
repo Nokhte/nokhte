@@ -14,50 +14,47 @@ class VoiceCallCoordinator = _VoiceCallCoordinatorBase
     with _$VoiceCallCoordinator;
 
 abstract class _VoiceCallCoordinatorBase extends Equatable with Store {
-  final InstantiateAgoraSdkStore instantiateAgoraSdkStore;
-  final VoiceCallActionsStore voiceCallActionsStore;
-  final GetAgoraTokenStore getAgoraTokenStore;
-  final GetChannelIdStore getChannelIdStore;
+  final VoiceCallStatusStore voiceCallStatus;
+  final VoiceCallActionsStore voiceCallActions;
+  final GetAgoraTokenStore getAgoraToken;
+  final GetChannelIdStore getChannelId;
   _VoiceCallCoordinatorBase({
-    required this.instantiateAgoraSdkStore,
-    required this.voiceCallActionsStore,
-    required this.getAgoraTokenStore,
-    required this.getChannelIdStore,
+    required this.voiceCallStatus,
+    required this.voiceCallActions,
+    required this.getAgoraToken,
+    required this.getChannelId,
   });
 
   @action
   joinCall({
     required bool shouldEnterTheCallMuted,
   }) async {
-    await instantiateAgoraSdkStore(NoParams());
-    await getChannelIdStore(NoParams());
-    await getAgoraTokenStore(
+    await getChannelId(NoParams());
+    await getAgoraToken(
       GetAgoraTokenParams(
-        channelName: getChannelIdStore.channelId,
+        channelName: getChannelId.channelId,
       ),
     );
-    await voiceCallActionsStore.enterOrLeaveCall(
+    await voiceCallActions.enterOrLeaveCall(
       Right(
         JoinCallParams(
-          token: getAgoraTokenStore.token,
-          channelId: getChannelIdStore.channelId,
+          token: getAgoraToken.token,
+          channelId: getChannelId.channelId,
         ),
       ),
     );
-    await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
+    await voiceCallActions.muteOrUnmuteAudio(wantToMute: true);
   }
 
   @action
-  unmute() async =>
-      await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
+  unmute() async => await voiceCallActions.muteOrUnmuteAudio(wantToMute: true);
 
   @action
-  mute() async =>
-      await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);
+  mute() async => await voiceCallActions.muteOrUnmuteAudio(wantToMute: false);
 
   @action
   leaveCall() async =>
-      await voiceCallActionsStore.enterOrLeaveCall(Left(NoParams()));
+      await voiceCallActions.enterOrLeaveCall(Left(NoParams()));
 
   @override
   List<Object> get props => [
