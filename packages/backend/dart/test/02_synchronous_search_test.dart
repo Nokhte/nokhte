@@ -6,7 +6,6 @@ import 'shared/shared.dart';
 
 void main() {
   late ExistingCollaborationsStream user1Streams;
-  late ExistingCollaborationsQueries user1Queries;
   late InitiateCollaboratorSearch user1StartEdgeFunctions;
   late EndCollaboratorSearch user1EndEdgeFunctions;
   late InitiateCollaboratorSearch user2EdgeFunctions;
@@ -14,8 +13,6 @@ void main() {
 
   setUpAll(() async {
     await tSetup.setUp(shouldMakeCollaboration: false);
-    user1Queries =
-        ExistingCollaborationsQueries(supabase: tSetup.user1Supabase);
     user1StartEdgeFunctions =
         InitiateCollaboratorSearch(supabase: tSetup.user1Supabase);
     user1EndEdgeFunctions =
@@ -52,16 +49,7 @@ void main() {
     final user1Stream = user1Streams.getCollaboratorSearchAndEntryStatus();
     expect(
         user1Stream,
-        emits(CollaboratorSearchAndEntryStatus(
-            hasEntered: false, hasFoundTheirCollaborator: true)));
-  });
-  test("should update the stream accordingly if they make update query",
-      () async {
-    await user1Queries.updateUserHasEnteredStatus(newEntryStatus: true);
-    final user1Stream = user1Streams.getCollaboratorSearchAndEntryStatus();
-    expect(
-        user1Stream,
-        emits(CollaboratorSearchAndEntryStatus(
-            hasEntered: true, hasFoundTheirCollaborator: true)));
+        emits(
+            CollaboratorSearchAndEntryStatus(hasFoundTheirCollaborator: true)));
   });
 }
