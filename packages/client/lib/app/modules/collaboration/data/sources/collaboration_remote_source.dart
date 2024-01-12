@@ -7,7 +7,7 @@ abstract class CollaborationRemoteSource {
 
   Future<FunctionResponse> exitThePool();
 
-  Stream<CollaboratorSearchAndEntryStatus> getCollaboratorSearchStatus();
+  Stream<bool> getCollaboratorSearchStatus();
 
   bool cancelStream();
 }
@@ -37,7 +37,7 @@ class CollaborationRemoteSourceImpl implements CollaborationRemoteSource {
       await endCollaboratorSearch.invoke();
 
   @override
-  Stream<CollaboratorSearchAndEntryStatus> getCollaboratorSearchStatus() =>
+  Stream<bool> getCollaboratorSearchStatus() =>
       existingCollaborationsStream.getCollaboratorSearchAndEntryStatus();
 
   @override

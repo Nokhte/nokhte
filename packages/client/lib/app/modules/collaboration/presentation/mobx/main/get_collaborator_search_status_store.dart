@@ -6,7 +6,7 @@ import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/store_state.dart';
 import 'package:nokhte/app/modules/collaboration/domain/domain.dart';
-import 'package:nokhte_backend/tables/existing_collaborations.dart';
+// import 'package:nokhte_backend/tables/existing_collaborations.dart';
 part 'get_collaborator_search_status_store.g.dart';
 
 class GetCollaboratorSearchStatusStore = _GetCollaboratorSearchStatusStoreBase
@@ -17,8 +17,7 @@ abstract class _GetCollaboratorSearchStatusStoreBase extends Equatable
   final GetCollaboratorSearchStatus logic;
 
   @observable
-  ObservableStream<CollaboratorSearchAndEntryStatus> searchStatus =
-      ObservableStream(const Stream.empty());
+  ObservableStream<bool> searchStatus = ObservableStream(const Stream.empty());
 
   @observable
   String errorMessage = "";
@@ -58,7 +57,7 @@ abstract class _GetCollaboratorSearchStatusStoreBase extends Equatable
     }, (stream) {
       searchStatus = ObservableStream(stream);
       searchStatus.listen((value) {
-        hasFoundCollaborator = value.hasFoundTheirCollaborator;
+        hasFoundCollaborator = value;
       });
     });
   }

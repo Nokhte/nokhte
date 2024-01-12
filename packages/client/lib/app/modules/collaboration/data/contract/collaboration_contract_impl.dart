@@ -48,8 +48,8 @@ class CollaborationContractImpl implements CollaborationContract {
   }
 
   @override
-  Future<Either<Failure, Stream<CollaboratorSearchAndEntryStatus>>>
-      getCollaboratorSearchStatus(NoParams params) async {
+  Future<Either<Failure, Stream<bool>>> getCollaboratorSearchStatus(
+      NoParams params) async {
     if (await networkInfo.isConnected) {
       return Right(remoteSource.getCollaboratorSearchStatus());
     } else {
