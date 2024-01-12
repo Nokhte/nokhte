@@ -2,6 +2,8 @@ import 'package:nokhte_backend/tables/_real_time_enabled/existing_collaborations
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class CollaborativeQueries {
+  static const collaboratorONE = "collaborator_one";
+  static const collaboratorTWO = "collaborator_two";
   final SupabaseClient supabase;
   String currentUserUID = '';
   CollaboratorInfo collaboratorInfo = CollaboratorInfo(
@@ -18,52 +20,40 @@ class CollaborativeQueries {
     supabase.storage.setAuth(supabase.auth.currentSession?.accessToken ?? '');
   }
 
-  Future<void> figureOutActiveCollaboratorInfo() async {
-    collaboratorInfo = await computeActiveCollaboratorInfo();
-  }
-
-  Future<void> figureOutActiveCollaboratorInfoIfNotDoneAlready() async {
+  Future<void> ensureActiveCollaboratorInfo() async {
     if (collaboratorInfo.theCollaboratorsUID.isEmpty) {
-      await figureOutActiveCollaboratorInfo();
+      collaboratorInfo = await _computeActiveCollaboratorInfo();
     }
   }
 
-  Future<CollaboratorInfo> computeActiveCollaboratorInfo() async {
+  Future<CollaboratorInfo> _computeActiveCollaboratorInfo() async {
     final res = await getActiveCollaboratorsUIDAndNumber();
-    return res[1] == 1
-        ? CollaboratorInfo(
-            theCollaboratorsNumber: 'collaborator_one',
-            theCollaboratorsUID: res.first,
-            theUsersCollaboratorNumber: 'collaborator_two',
-            theUsersUID: currentUserUID,
-          )
-        : CollaboratorInfo(
-            theCollaboratorsNumber: 'collaborator_two',
-            theCollaboratorsUID: res.first,
-            theUsersCollaboratorNumber: 'collaborator_one',
-            theUsersUID: currentUserUID,
-          );
-  }
-
-  Future<List<dynamic>> getActiveCollaborationInfo() async {
-    return await supabase
-        .from("existing_collaborations")
-        .select()
-        .or('collaborator_one.eq.$currentUserUID,collaborator_two.eq.$currentUserUID')
-        .eq('is_currently_active', true);
+    return CollaboratorInfo(
+      theCollaboratorsNumber: res[1] == 1 ? collaboratorONE : collaboratorTWO,
+      theCollaboratorsUID: res.first,
+      theUsersCollaboratorNumber:
+          res[1] == 1 ? collaboratorTWO : collaboratorONE,
+      theUsersUID: currentUserUID,
+    );
   }
 
   Future<List> getActiveCollaboratorsUIDAndNumber() async {
-    final collabRes = await getActiveCollaborationInfo();
-    final collaboratorOne = collabRes.first["collaborator_one"];
-    final collaboratorTwo = collabRes.first["collaborator_two"];
-    return collaboratorOne == currentUserUID
-        ? [collaboratorTwo, 2]
-        : [collaboratorOne, 1];
+    final collabRes = await getCollaborations(filterForIsActive: true);
+    final collaboratorOneRes = collabRes.first[collaboratorONE];
+    final collaboratorTwoRes = collabRes.first[collaboratorTWO];
+    return collaboratorOneRes == currentUserUID
+        ? [collaboratorTwoRes, 2]
+        : [collaboratorOneRes, 1];
   }
 
-  Future<List<dynamic>> getAllCollaborationInfo() async {
-    return await supabase.from("existing_collaborations").select().or(
-        'collaborator_one.eq.$currentUserUID,collaborator_two.eq.$currentUserUID');
+  Future<List<dynamic>> getCollaborations(
+      {bool filterForIsActive = false}) async {
+    var baseQuery = supabase.from("existing_collaborations").select().or(
+        '$collaboratorONE.eq.$currentUserUID,$collaboratorTWO.eq.$currentUserUID');
+    if (filterForIsActive) {
+      return await baseQuery.eq('is_currently_active', true);
+    } else {
+      return await baseQuery;
+    }
   }
 }
