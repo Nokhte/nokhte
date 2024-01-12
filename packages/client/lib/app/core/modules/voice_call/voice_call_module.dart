@@ -73,9 +73,9 @@ class VoiceCallModule extends Module {
         logic: i<GetChannelId>(),
       ),
     );
-    i.add<InstantiateAgoraSdkStore>(
-      (i) => InstantiateAgoraSdkStore(
-        logic: i<InstantiateAgoraSdk>(),
+    i.add<VoiceCallStatusStore>(
+      (i) => VoiceCallStatusStore(
+        agoraEngine: i<RtcEngine>(),
       ),
     );
     i.add<VoiceCallActionsStore>(
