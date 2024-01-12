@@ -42,7 +42,6 @@ void main() async {
       debugMode: true,
       module: AppModule(
         supabase: supabaseClient,
-        connectivityInstance: Connectivity(),
       ),
       child: const AppWidget(),
     ),
