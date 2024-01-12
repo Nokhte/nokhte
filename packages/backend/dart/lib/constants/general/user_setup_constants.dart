@@ -1,5 +1,4 @@
 import 'package:nokhte_backend/constants/general/user_data_constants.dart';
-import 'package:nokhte_backend/constants/types/types.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'sign_in.dart';
 import 'supabase_client_constants.dart';
@@ -41,10 +40,6 @@ class UserSetupConstants {
             'uid',
             userUID,
           );
-      await supabaseAdmin.from('collaborator_phrases').delete().eq(
-            'uid',
-            userUID,
-          );
     }
   }
 
@@ -61,22 +56,5 @@ class UserSetupConstants {
         },
       );
     }
-  }
-
-  static Future<List<CollaboratorPhraseIDs>> getCollaboratorPhraseIDs(
-      {required SupabaseClient supabaseAdmin}) async {
-    final List<CollaboratorPhraseIDs> phraseIDs = [];
-    final userUIDs = await getUIDs();
-    for (var userUID in userUIDs) {
-      final collaboratorPhraseRes = await supabaseAdmin
-          .from('collaborator_phrases')
-          .select()
-          .eq('uid', userUID);
-      phraseIDs.add(CollaboratorPhraseIDs(
-        adjectiveID: collaboratorPhraseRes.first["adjective_id"],
-        nounID: collaboratorPhraseRes.first["noun_id"],
-      ));
-    }
-    return phraseIDs;
   }
 }
