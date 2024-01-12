@@ -14,7 +14,7 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
   Future<List> createCollaborativeDocument({
     required String docType,
   }) async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     final checkRes = await supabase
         .from(tableName)
         .select()
@@ -41,7 +41,7 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
   }
 
   Future<List> getDocInfo() async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     return await supabase
         .from(tableName)
         .select()
@@ -56,7 +56,7 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
   }
 
   Future<void> deleteThedoc() async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     await supabase
         .from(tableName)
         .delete()
@@ -73,7 +73,7 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
   Future<void> updateCommitDesireStatus({
     required bool wantsToCommitParam,
   }) async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     await supabase
         .from(tableName)
         .update({
@@ -91,7 +91,7 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
   }
 
   Future<void> updateDelta({required int deltaParam}) async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     await supabase
         .from(tableName)
         .update({
@@ -108,7 +108,7 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
   }
 
   Future<void> updatePresence({required bool isPresent}) async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     await supabase
         .from(tableName)
         .update({
@@ -127,7 +127,7 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
   Future<void> updateUsersDocContent({
     required String newContent,
   }) async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     await supabase
         .from(tableName)
         .update({

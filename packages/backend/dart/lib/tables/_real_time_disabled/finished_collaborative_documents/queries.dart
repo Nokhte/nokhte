@@ -6,7 +6,7 @@ class FinishedCollaborativeDocumentsQueries extends CollaborativeQueries {
   Future<List> getDocInfo({
     required String docType,
   }) async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     return await supabase
         .from(tableName)
         .select()
@@ -30,7 +30,7 @@ class FinishedCollaborativeDocumentsQueries extends CollaborativeQueries {
     required String docType,
     required String content,
   }) async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     return await supabase.from(tableName).insert({
       "${collaboratorInfo.theCollaboratorsNumber}_uid":
           collaboratorInfo.theCollaboratorsUID,
@@ -42,7 +42,7 @@ class FinishedCollaborativeDocumentsQueries extends CollaborativeQueries {
   }
 
   Future<void> deleteADoc() async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     return await supabase
         .from(tableName)
         .delete()

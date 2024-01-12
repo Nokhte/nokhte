@@ -13,7 +13,7 @@ class SoloSharableDocumentQueries extends CollaborativeQueries {
   static const createdAt = "created_at";
 
   Future<List> createSoloDoc({required String desiredDocType}) async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     return await supabase.from(table).insert({
       ownerUID: collaboratorInfo.theUsersUID,
       collaboratorUID: collaboratorInfo.theCollaboratorsUID,
@@ -22,7 +22,7 @@ class SoloSharableDocumentQueries extends CollaborativeQueries {
   }
 
   Future<List> getDocInfo({required bool getCollaboratorsDoc}) async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     return await supabase
         .from(table)
         .select()
@@ -43,7 +43,7 @@ class SoloSharableDocumentQueries extends CollaborativeQueries {
   }
 
   Future<List> updateDocContent(String contentParam) async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     return await supabase
         .from(table)
         .update({
@@ -61,7 +61,7 @@ class SoloSharableDocumentQueries extends CollaborativeQueries {
   Future<List> updateDocVisibility({
     required bool makeVisible,
   }) async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     return await supabase
         .from(table)
         .update({
@@ -77,7 +77,7 @@ class SoloSharableDocumentQueries extends CollaborativeQueries {
   }
 
   Future<List> sealDocument() async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     return await supabase
         .from(table)
         .update({
@@ -93,7 +93,7 @@ class SoloSharableDocumentQueries extends CollaborativeQueries {
   }
 
   Future<void> deleteDocument() async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     return await supabase
         .from(table)
         .delete()

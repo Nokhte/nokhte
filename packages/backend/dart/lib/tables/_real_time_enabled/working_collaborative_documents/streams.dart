@@ -27,7 +27,7 @@ class WorkingCollaborativeDocumentsStreams extends CollaborativeQueries {
 
   Stream<DocInfoContent> docContentStream() async* {
     docContentListeningStatus = true;
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     await for (var event in supabase
         .from('working_collaborative_documents')
         .stream(primaryKey: ['id']).eq(
@@ -78,7 +78,7 @@ class WorkingCollaborativeDocumentsStreams extends CollaborativeQueries {
 
   Stream<CollaboratorDocInfo> getCollaboratorDocumentInfo() async* {
     collaboratorPresenceListeningStatus = true;
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     await for (var event in supabase
         .from('working_collaborative_documents')
         .stream(primaryKey: ['id']).eq(

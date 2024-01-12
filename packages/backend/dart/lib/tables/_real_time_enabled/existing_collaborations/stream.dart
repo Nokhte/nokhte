@@ -26,7 +26,7 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
       }
       if (event.isNotEmpty) {
         if (isANewCollaboration(event)) {
-          await figureOutActiveCollaboratorInfo();
+          await ensureActiveCollaboratorInfo();
           yield CollaboratorSearchAndEntryStatus(
             hasEntered: event.first[
                 "${collaboratorInfo.theUsersCollaboratorNumber}_has_entered"],
@@ -53,7 +53,7 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
   cancelWhoIsTalkingtream() => whoIsTalkingListeningStatus = false;
 
   Stream<bool> checkIfCollaboratorIsTalking() async* {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     whoIsTalkingListeningStatus = true;
     await for (var event in supabase
         .from('existing_collaborations')

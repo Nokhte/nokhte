@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 import 'package:flutter_test/flutter_test.dart';
+import 'package:nokhte_backend/tables/_real_time_enabled/shared/collaborative_queries.dart';
 import 'package:nokhte_backend/tables/existing_collaborations.dart';
 
 import 'shared/shared.dart';
@@ -7,6 +8,7 @@ import 'shared/shared.dart';
 void main() {
   late ExistingCollaborationsQueries user1Queries;
   late ExistingCollaborationsQueries user2Queries;
+  late CollaborativeQueries user1CollaborativeQueries;
   late ExistingCollaborationsStream user1Stream;
   final tSetup = CommonCollaborativeTestFunctions();
 
@@ -16,11 +18,13 @@ void main() {
         ExistingCollaborationsQueries(supabase: tSetup.user1Supabase);
     user2Queries =
         ExistingCollaborationsQueries(supabase: tSetup.user2Supabase);
+    user1CollaborativeQueries =
+        CollaborativeQueries(supabase: tSetup.user1Supabase);
     user1Stream = ExistingCollaborationsStream(supabase: tSetup.user1Supabase);
   });
 
   test("should be able to read from the table", () async {
-    final res = await user1Queries.getActiveCollaborationInfo();
+    final res = await user1Queries.getCollaborations(filterForIsActive: true);
 
     expect(res, isNotEmpty);
     expect(res.first["collaborator_one"], tSetup.firstUserUID);
@@ -30,7 +34,8 @@ void main() {
   });
 
   test("should be properly identified as collaborator_one", () async {
-    final res = await user1Queries.getActiveCollaboratorsUIDAndNumber();
+    final res =
+        await user1CollaborativeQueries.getActiveCollaboratorsUIDAndNumber();
 
     expect(res, isNotEmpty);
     expect(res.first, tSetup.secondUserUID);
@@ -63,7 +68,7 @@ void main() {
       () async {
     await user1Queries.updateActivityStatus(newActivityStatus: false);
 
-    final res = await user1Queries.getAllCollaborationInfo();
+    final res = await user1Queries.getCollaborations();
     print("res $res");
     expect(res, isNotEmpty);
     expect(res.first["collaborator_one"], tSetup.firstUserUID);
@@ -99,7 +104,7 @@ void main() {
       "should be able to abort a collaboration that is active and un-consecrated",
       () async {
     await user1Queries.abortUnConsecratedTheCollaboration();
-    final res = await user1Queries.getAllCollaborationInfo();
+    final res = await user1Queries.getCollaborations();
     expect(res, isEmpty);
   });
 }

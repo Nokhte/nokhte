@@ -9,7 +9,7 @@ class WorkingPerspectivesPositioningQueries extends CollaborativeQueries {
   });
 
   Future<List> createPositioningSession() async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     final List checkRes = await supabase
         .from(
           WorkingPerspectivesPositioningConstants.tableName,
@@ -37,7 +37,7 @@ class WorkingPerspectivesPositioningQueries extends CollaborativeQueries {
   }
 
   Future<List> updateCurrentQuadrant({required int newQuadrant}) async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     print("Is this thing running??? $newQuadrant");
     return await supabase
         .from(
@@ -55,7 +55,7 @@ class WorkingPerspectivesPositioningQueries extends CollaborativeQueries {
   }
 
   Future<List> updateStagingAreaArr({required List<String> newArr}) async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     return await supabase
         .from(
           WorkingPerspectivesPositioningConstants.tableName,

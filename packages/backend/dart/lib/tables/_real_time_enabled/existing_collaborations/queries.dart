@@ -25,7 +25,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
 
   Future<List> consecrateTheCollaboration(
       {bool shouldConsecrate = true}) async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     return await supabase
         .from(tableName)
         .update({isConsecrated: shouldConsecrate})
@@ -42,7 +42,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
 
   Future<List> updateUserHasEnteredStatus(
       {required bool newEntryStatus}) async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     return await supabase
         .from(tableName)
         .update({
@@ -63,7 +63,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   Future<List> updateActivityStatus({
     required bool newActivityStatus,
   }) async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     return await supabase
         .from(tableName)
         .update({isCurrentlyActive: newActivityStatus})
@@ -80,7 +80,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   }
 
   Future<List> getWhoIsTalkingQueue() async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     return (await supabase
             .from(tableName)
             .select()
@@ -115,9 +115,10 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   }
 
   Future<bool> checkIfUserHasTheQuestion() async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     final whoHasTheQuestionResponse =
-        (await getActiveCollaborationInfo()).first[whoGetsTheQuestion];
+        (await getCollaborations(filterForIsActive: true))
+            .first[whoGetsTheQuestion];
     final int collaboratorNumber =
         collaboratorInfo.theUsersCollaboratorNumber == collaboratorOne ? 1 : 2;
     return collaboratorNumber == whoHasTheQuestionResponse;
@@ -126,7 +127,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   Future<void> clearTheCurrentTalker() async {
     final List currentQueue = await getWhoIsTalkingQueue();
     currentQueue.removeAt(0);
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     return await supabase
         .from(tableName)
         .update({
@@ -143,7 +144,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   }
 
   Future<void> abortUnConsecratedTheCollaboration() async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     return await supabase
         .from(tableName)
         .delete()
@@ -160,7 +161,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   }
 
   Future<void> deleteExistingCollaboration() async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     return await supabase
         .from(tableName)
         .delete()

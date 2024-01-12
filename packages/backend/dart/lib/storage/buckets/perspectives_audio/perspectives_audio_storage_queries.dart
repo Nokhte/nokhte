@@ -10,7 +10,7 @@ class PerspectivesAudioStorageQueries extends CollaborativeQueries {
   });
 
   uploadPerspective(IndividualSessionAudioClip audioClipData) async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     final storageURL = StorageUtilities.getPersonalPerspectivesPath(
       collaboratorInfo: collaboratorInfo,
       audioClipData: audioClipData,
@@ -27,7 +27,7 @@ class PerspectivesAudioStorageQueries extends CollaborativeQueries {
   moveToCollectiveSpace(
     CollectiveSessionAudioExtrapolationInfo extrapolationInfo,
   ) async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     final List<StartAndEndPaths> paths =
         StorageUtilities.getCollectiveSessionPaths(
             collaboratorInfo: collaboratorInfo,
@@ -43,7 +43,7 @@ class PerspectivesAudioStorageQueries extends CollaborativeQueries {
   Future<List<PathAndBytes>> downloadTheCollaboratorsAudioClips(
     CollectiveSessionAudioExtrapolationInfo extrapolationInfo,
   ) async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     final List<PathAndBytes> theList = [];
     final List<StartAndEndPaths> paths =
         StorageUtilities.getCollectiveSessionPaths(

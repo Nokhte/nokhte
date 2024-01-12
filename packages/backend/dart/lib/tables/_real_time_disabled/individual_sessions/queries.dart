@@ -9,7 +9,7 @@ class IndividualSessionsQueries extends CollaborativeQueries {
   IndividualSessionsQueries({required super.supabase});
 
   Future<List> createNewSession() async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     return await supabase.from(tableName).insert({
       ownerUID: collaboratorInfo.theUsersUID,
       "${collaboratorInfo.theCollaboratorsNumber}_uid":
@@ -21,7 +21,7 @@ class IndividualSessionsQueries extends CollaborativeQueries {
   }
 
   Future<List> getLatestSessionInfo() async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     return await supabase
         .from(tableName)
         .select()
@@ -37,7 +37,7 @@ class IndividualSessionsQueries extends CollaborativeQueries {
   }
 
   Future<List> updateSessionMetadata({required Map newMetadata}) async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     return await supabase
         .from(tableName)
         .update({

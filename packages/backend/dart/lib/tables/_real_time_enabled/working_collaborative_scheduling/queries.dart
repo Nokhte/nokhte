@@ -8,7 +8,7 @@ class WorkingCollaborativeSchedulingQueries extends CollaborativeQueries {
   Future<List> createSchedulingSession({
     required String sessionTypeBeingPlanned,
   }) async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     final checkRes = await supabase
         .from(table)
         .select()
@@ -34,7 +34,7 @@ class WorkingCollaborativeSchedulingQueries extends CollaborativeQueries {
   }
 
   Future<void> deleteSchedulingSession() async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     await supabase
         .from(table)
         .delete()
@@ -87,7 +87,7 @@ class WorkingCollaborativeSchedulingQueries extends CollaborativeQueries {
 
   Future<void> updateTimeOrDate(DateTime date,
       {required bool updateDate}) async {
-    await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     if (updateDate) {
       updateTheDate(date);
     } else {

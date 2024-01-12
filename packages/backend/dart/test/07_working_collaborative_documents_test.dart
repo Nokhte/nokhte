@@ -25,7 +25,7 @@ void main() {
     user1WorkingQueries =
         WorkingCollaborativeDocumentsQueries(supabase: tSetup.user1Supabase);
 
-    await user1WorkingQueries.figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await user1WorkingQueries.ensureActiveCollaboratorInfo();
     usersCollaboratorNumber =
         user1WorkingQueries.collaboratorInfo.theUsersCollaboratorNumber;
     usersUID = user1WorkingQueries.collaboratorInfo.theUsersUID;

@@ -11,7 +11,7 @@ class WorkingCollaborativeSchedulingStream extends CollaborativeQueries {
 
   Stream<CollaboratorsDateAndTime> collaboratorsDateAndTimeStream() async* {
     listeningStatus = true;
-        await figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await ensureActiveCollaboratorInfo();
     await for (var event in supabase
         .from('working_collaborative_scheduling')
         .stream(primaryKey: ['id']).eq(
