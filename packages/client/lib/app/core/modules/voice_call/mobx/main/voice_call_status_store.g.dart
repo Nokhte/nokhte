@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'agora_callbacks_store.dart';
+part of 'voice_call_status_store.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,9 +8,9 @@ part of 'agora_callbacks_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$AgoraCallbacksStore on _AgoraCallbacksStoreBase, Store {
+mixin _$VoiceCallStatusStore on _VoiceCallStatusStoreBase, Store {
   late final _$inCallAtom =
-      Atom(name: '_AgoraCallbacksStoreBase.inCall', context: context);
+      Atom(name: '_VoiceCallStatusStoreBase.inCall', context: context);
 
   @override
   CallStatus get inCall {
@@ -26,7 +26,8 @@ mixin _$AgoraCallbacksStore on _AgoraCallbacksStoreBase, Store {
   }
 
   late final _$hasCollaboratorJoinedAtom = Atom(
-      name: '_AgoraCallbacksStoreBase.hasCollaboratorJoined', context: context);
+      name: '_VoiceCallStatusStoreBase.hasCollaboratorJoined',
+      context: context);
 
   @override
   bool get hasCollaboratorJoined {
@@ -42,50 +43,50 @@ mixin _$AgoraCallbacksStore on _AgoraCallbacksStoreBase, Store {
     });
   }
 
-  late final _$_AgoraCallbacksStoreBaseActionController =
-      ActionController(name: '_AgoraCallbacksStoreBase', context: context);
+  late final _$_VoiceCallStatusStoreBaseActionController =
+      ActionController(name: '_VoiceCallStatusStoreBase', context: context);
 
   @override
   dynamic onCallJoined() {
-    final _$actionInfo = _$_AgoraCallbacksStoreBaseActionController.startAction(
-        name: '_AgoraCallbacksStoreBase.onCallJoined');
+    final _$actionInfo = _$_VoiceCallStatusStoreBaseActionController
+        .startAction(name: '_VoiceCallStatusStoreBase.onCallJoined');
     try {
       return super.onCallJoined();
     } finally {
-      _$_AgoraCallbacksStoreBaseActionController.endAction(_$actionInfo);
+      _$_VoiceCallStatusStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic collaboratorHasJoined() {
-    final _$actionInfo = _$_AgoraCallbacksStoreBaseActionController.startAction(
-        name: '_AgoraCallbacksStoreBase.collaboratorHasJoined');
+    final _$actionInfo = _$_VoiceCallStatusStoreBaseActionController
+        .startAction(name: '_VoiceCallStatusStoreBase.collaboratorHasJoined');
     try {
       return super.collaboratorHasJoined();
     } finally {
-      _$_AgoraCallbacksStoreBaseActionController.endAction(_$actionInfo);
+      _$_VoiceCallStatusStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic collaboratorHasLeft() {
-    final _$actionInfo = _$_AgoraCallbacksStoreBaseActionController.startAction(
-        name: '_AgoraCallbacksStoreBase.collaboratorHasLeft');
+    final _$actionInfo = _$_VoiceCallStatusStoreBaseActionController
+        .startAction(name: '_VoiceCallStatusStoreBase.collaboratorHasLeft');
     try {
       return super.collaboratorHasLeft();
     } finally {
-      _$_AgoraCallbacksStoreBaseActionController.endAction(_$actionInfo);
+      _$_VoiceCallStatusStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic onCallLeft() {
-    final _$actionInfo = _$_AgoraCallbacksStoreBaseActionController.startAction(
-        name: '_AgoraCallbacksStoreBase.onCallLeft');
+    final _$actionInfo = _$_VoiceCallStatusStoreBaseActionController
+        .startAction(name: '_VoiceCallStatusStoreBase.onCallLeft');
     try {
       return super.onCallLeft();
     } finally {
-      _$_AgoraCallbacksStoreBaseActionController.endAction(_$actionInfo);
+      _$_VoiceCallStatusStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
