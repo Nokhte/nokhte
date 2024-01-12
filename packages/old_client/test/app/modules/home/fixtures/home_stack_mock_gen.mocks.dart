@@ -16,11 +16,11 @@ import 'package:nokhte/app/modules/home/domain/contracts/home_contract.dart'
     as _i8;
 import 'package:nokhte/app/modules/home/domain/entities/entities.dart' as _i10;
 import 'package:nokhte/app/modules/home/domain/logic/logic.dart' as _i9;
-import 'package:nokhte_backend/tables/collaborator_phrases.dart' as _i6;
 import 'package:nokhte_backend/tables/existing_collaborations.dart' as _i3;
 import 'package:nokhte_backend/tables/finished_collaborative_documents.dart'
     as _i5;
 import 'package:nokhte_backend/tables/p2p_perspectives_tracking.dart' as _i4;
+import 'package:nokhte_backend/tables/user_names.dart' as _i6;
 import 'package:supabase_flutter/supabase_flutter.dart' as _i2;
 
 import 'home_stack_mock_gen.dart' as _i13;
@@ -80,9 +80,9 @@ class _FakeFinishedCollaborativeDocumentsQueries_3 extends _i1.SmartFake
         );
 }
 
-class _FakeCollaboratorPhraseQueries_4 extends _i1.SmartFake
-    implements _i6.CollaboratorPhraseQueries {
-  _FakeCollaboratorPhraseQueries_4(
+class _FakeUserNamesQueries_4 extends _i1.SmartFake
+    implements _i6.UserNamesQueries {
+  _FakeUserNamesQueries_4(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -228,14 +228,13 @@ class MockMHomeRemoteSourceImpl extends _i1.Mock
           ) as _i5.FinishedCollaborativeDocumentsQueries);
 
   @override
-  _i6.CollaboratorPhraseQueries get collaboratorPhraseQueries =>
-      (super.noSuchMethod(
-        Invocation.getter(#collaboratorPhraseQueries),
-        returnValue: _FakeCollaboratorPhraseQueries_4(
+  _i6.UserNamesQueries get userNamesQueries => (super.noSuchMethod(
+        Invocation.getter(#userNamesQueries),
+        returnValue: _FakeUserNamesQueries_4(
           this,
-          Invocation.getter(#collaboratorPhraseQueries),
+          Invocation.getter(#userNamesQueries),
         ),
-      ) as _i6.CollaboratorPhraseQueries);
+      ) as _i6.UserNamesQueries);
 
   @override
   _i14.Future<List<dynamic>> addNamesToDatabase({String? theName = r''}) =>

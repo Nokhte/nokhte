@@ -31,7 +31,7 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
   @observable
   bool canEnterTheCollaboration = false;
 
-  late StreamSubscription<CollaboratorSearchAndEntryStatus> stream;
+  late StreamSubscription<bool> stream;
 
   @action
   toggleCanEnterTheCollaboration() =>
@@ -57,7 +57,7 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
   searchStatusListener() =>
       reaction((p0) => getCollaboratorSearchStatusStore.searchStatus, (p0) {
         stream = p0.listen((value) async {
-          if (value.hasFoundTheirCollaborator) {
+          if (value) {
             newBeachWaves.setMovieMode(
                 BeachWaveMovieModes.timesUpDynamicPointToTheDepthsSetup);
             fadeInAndColorTextStore.teeUpFadeOut();

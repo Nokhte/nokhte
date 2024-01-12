@@ -1,19 +1,14 @@
 import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/modules/p2p_collaborator_pool/data/models/models.dart';
-import 'package:nokhte_backend/tables/existing_collaborations.dart';
 
 class ConstantCollaboratorSearchStatusStatusModel {
   static CollaboratorSearchStatusModel get successCase =>
       CollaboratorSearchStatusModel(
-          searchAndEntryStatusStream: Stream.value(
-              CollaboratorSearchAndEntryStatus(
-                  hasFoundTheirCollaborator: true)));
+          searchAndEntryStatusStream: Stream.value(true));
   static CollaboratorSearchStatusModel get notSuccessCase =>
       CollaboratorSearchStatusModel(
-          searchAndEntryStatusStream: Stream.value(
-              CollaboratorSearchAndEntryStatus(
-                  hasFoundTheirCollaborator: false)));
+          searchAndEntryStatusStream: Stream.value(false));
 
   static Either<Failure, CollaboratorSearchStatusModel>
       get wrappedSuccessCase => Right(successCase);

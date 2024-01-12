@@ -62,8 +62,7 @@ class P2PCollaboratorPoolContractImpl implements P2PCollaboratorPoolContract {
   }
 
   @override
-  Future<Either<Failure, CollaboratorSearchStatusModel>>
-      getCollaboratorSearchStatus() async {
+  getCollaboratorSearchStatus() async {
     if (await networkInfo.isConnected) {
       final res = remoteSource.getCollaboratorSearchStatus();
       return Right(

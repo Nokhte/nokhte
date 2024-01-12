@@ -11,7 +11,6 @@ import 'package:nokhte/app/core/error/failure.dart' as _i5;
 import 'package:nokhte/app/core/interfaces/logic.dart' as _i6;
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/domain/contracts/abort_purpose_session_artifacts_contract.dart'
     as _i3;
-import 'package:nokhte/app/core/modules/timer/domain/domain.dart' as _i7;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -120,33 +119,4 @@ class MockAbortPurposeSessionArtifactsContract extends _i1.Mock
               ),
             )),
           ) as _i4.Future<_i2.Either<_i5.Failure, _i6.NoEntity>>);
-
-  @override
-  _i4.Future<
-      _i2.Either<_i5.Failure, _i7.TimerDeletionStatusEntity>> deleteTheTimer(
-          _i6.NoParams? params) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #deleteTheTimer,
-          [params],
-        ),
-        returnValue: _i4.Future<
-                _i2.Either<_i5.Failure, _i7.TimerDeletionStatusEntity>>.value(
-            _FakeEither_0<_i5.Failure, _i7.TimerDeletionStatusEntity>(
-          this,
-          Invocation.method(
-            #deleteTheTimer,
-            [params],
-          ),
-        )),
-        returnValueForMissingStub: _i4.Future<
-                _i2.Either<_i5.Failure, _i7.TimerDeletionStatusEntity>>.value(
-            _FakeEither_0<_i5.Failure, _i7.TimerDeletionStatusEntity>(
-          this,
-          Invocation.method(
-            #deleteTheTimer,
-            [params],
-          ),
-        )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, _i7.TimerDeletionStatusEntity>>);
 }

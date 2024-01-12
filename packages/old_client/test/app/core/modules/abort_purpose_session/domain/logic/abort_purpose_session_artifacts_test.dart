@@ -30,7 +30,6 @@ void main() {
 
     await logic(p1Params);
     verify(mockContract.abortTheCollaboration(tParams));
-    verifyNever(mockContract.deleteTheTimer(tParams));
     verifyNever(mockContract.deleteSoloDocuments(tParams));
     verifyNever(mockContract.deleteWorkingCollaborativeDocument(tParams));
   });
@@ -38,7 +37,6 @@ void main() {
   test("✅ should make proper contract calls w/ phase 2", () async {
     await logic(p2Params);
     verify(mockContract.abortTheCollaboration(tParams));
-    verify(mockContract.deleteTheTimer(tParams));
     verifyNever(mockContract.deleteSoloDocuments(tParams));
     verifyNever(mockContract.deleteWorkingCollaborativeDocument(tParams));
   });
@@ -46,7 +44,6 @@ void main() {
   test("✅ should make proper contract calls w/ phase 3", () async {
     await logic(p3Params);
     verify(mockContract.abortTheCollaboration(tParams));
-    verify(mockContract.deleteTheTimer(tParams));
     verify(mockContract.deleteSoloDocuments(tParams));
     verifyNever(mockContract.deleteWorkingCollaborativeDocument(tParams));
   });
@@ -54,7 +51,6 @@ void main() {
   test("✅ should make proper contract calls w/ phase 4", () async {
     await logic(p4Params);
     verify(mockContract.abortTheCollaboration(tParams));
-    verify(mockContract.deleteTheTimer(tParams));
     verify(mockContract.deleteSoloDocuments(tParams));
     verifyNever(mockContract.deleteWorkingCollaborativeDocument(tParams));
   });
@@ -62,7 +58,6 @@ void main() {
   test("✅ should make proper contract calls w/ phase 5", () async {
     await logic(p5Params);
     verify(mockContract.abortTheCollaboration(tParams));
-    verifyNever(mockContract.deleteTheTimer(tParams));
     verify(mockContract.deleteSoloDocuments(tParams));
     verify(mockContract.deleteWorkingCollaborativeDocument(tParams));
   });
