@@ -57,7 +57,7 @@ abstract class _CollaboratorPoolScreenCoordinatorStoreBase
   searchStatusListener() =>
       reaction((p0) => getCollaboratorSearchStatusStore.searchStatus, (p0) {
         stream = p0.listen((value) async {
-          if (value.hasFoundTheirCollaborator && !value.hasEntered) {
+          if (value.hasFoundTheirCollaborator) {
             newBeachWaves.setMovieMode(
                 BeachWaveMovieModes.timesUpDynamicPointToTheDepthsSetup);
             fadeInAndColorTextStore.teeUpFadeOut();

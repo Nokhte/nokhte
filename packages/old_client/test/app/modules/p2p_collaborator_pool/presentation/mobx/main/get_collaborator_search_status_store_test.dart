@@ -28,8 +28,8 @@ void main() {
       await shareSoloDocStore();
       expect(
         shareSoloDocStore.searchStatus,
-        emits(CollaboratorSearchAndEntryStatus(
-            hasEntered: false, hasFoundTheirCollaborator: true)),
+        emits(
+            CollaboratorSearchAndEntryStatus(hasFoundTheirCollaborator: true)),
       );
       expect(shareSoloDocStore.errorMessage, "");
     });

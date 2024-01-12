@@ -8,12 +8,12 @@ class ConstantCollaboratorSearchStatusStatusModel {
       CollaboratorSearchStatusModel(
           searchAndEntryStatusStream: Stream.value(
               CollaboratorSearchAndEntryStatus(
-                  hasEntered: false, hasFoundTheirCollaborator: true)));
+                  hasFoundTheirCollaborator: true)));
   static CollaboratorSearchStatusModel get notSuccessCase =>
       CollaboratorSearchStatusModel(
           searchAndEntryStatusStream: Stream.value(
               CollaboratorSearchAndEntryStatus(
-                  hasEntered: false, hasFoundTheirCollaborator: false)));
+                  hasFoundTheirCollaborator: false)));
 
   static Either<Failure, CollaboratorSearchStatusModel>
       get wrappedSuccessCase => Right(successCase);

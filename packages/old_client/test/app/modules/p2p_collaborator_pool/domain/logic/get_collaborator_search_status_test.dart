@@ -28,7 +28,6 @@ void main() {
       expect(
           entity.searchAndEntryStatusStream,
           emits(CollaboratorSearchAndEntryStatus(
-            hasEntered: false,
             hasFoundTheirCollaborator: true,
           )));
     });

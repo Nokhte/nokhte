@@ -154,7 +154,7 @@ void main() {
           expect(
               entity.searchAndEntryStatusStream,
               emits(CollaboratorSearchAndEntryStatus(
-                  hasEntered: false, hasFoundTheirCollaborator: true)));
+                  hasFoundTheirCollaborator: true)));
         });
         expect(res,
             const TypeMatcher<Right<Failure, CollaboratorSearchStatusModel>>());
