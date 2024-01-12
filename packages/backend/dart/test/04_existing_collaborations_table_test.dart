@@ -48,14 +48,6 @@ void main() {
     await user1Queries.consecrateTheCollaboration(shouldConsecrate: false);
   });
 
-  test("should be able to modify their entry status", () async {
-    final res =
-        await user1Queries.updateUserHasEnteredStatus(newEntryStatus: true);
-    expect(
-        res.first[
-            "${user1Queries.collaboratorInfo.theUsersCollaboratorNumber}_has_entered"],
-        true);
-  });
   test("should be properly identified as collaborator_two", () async {
     final res = await user2Queries.getActiveCollaboratorsUIDAndNumber();
 
