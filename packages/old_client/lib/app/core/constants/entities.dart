@@ -9,7 +9,6 @@ import 'package:nokhte/app/core/modules/get_current_perspectives/domain/domain.d
 import 'package:nokhte/app/core/modules/local_speech_to_text/constants/constants.dart';
 import 'package:nokhte/app/core/modules/one_talker_at_a_time/domain/domain.dart';
 import 'package:nokhte/app/core/modules/scheduling/domain/domain.dart';
-import 'package:nokhte/app/core/modules/timer/domain/domain.dart';
 import 'package:nokhte/app/core/modules/existing_collaborations/domain/domain.dart';
 import 'package:nokhte/app/modules/collective_session/domain/entities/entities.dart';
 import 'package:nokhte/app/modules/home/domain/entities/entities.dart';
@@ -21,7 +20,7 @@ import 'package:nokhte/app/core/modules/local_speech_to_text/domain/domain.dart'
 import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
 import 'package:nokhte/app/modules/p2p_perspectives_session/domain/domain.dart';
 import 'package:nokhte_backend/tables/phrase_components.dart';
-import 'package:nokhte_backend/tables/timer_information.dart';
+// import 'package:nokhte_backend/tables/timer_information.dart';
 import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
 import 'package:nokhte_backend/tables/working_collaborative_scheduling.dart';
 import 'package:nokhte_backend/tables/working_perspectives_positioning.dart';
@@ -212,29 +211,6 @@ class DefaultEntities {
               hasDoneThePerspectivesSession: false,
             ),
           );
-
-  static Either<Failure, PresenceUpdateStatusEntity>
-      get presenceUpdateStatusEntity =>
-          const Right(PresenceUpdateStatusEntity(isUpdated: false));
-
-  static Either<Failure, TimerDeletionStatusEntity>
-      get timerDeletionStatusEntity =>
-          const Right(TimerDeletionStatusEntity(isDeleted: false));
-
-  static Stream<PresenceAndTimerCompletion> get timerInformationStream =>
-      const Stream.empty();
-
-  static Either<Failure, TimerCompletionStatusEntity>
-      get timerMarkdownStatusEntity =>
-          const Right(TimerCompletionStatusEntity(isCompleted: false));
-
-  static Either<Failure, TimerRunningUpdateStatusEntity>
-      get timerRunningUpdateStatusEntity =>
-          const Right(TimerRunningUpdateStatusEntity(isUpdated: false));
-
-  static Either<Failure, TimerCreationStatusEntity>
-      get timerCreationStatusEntity =>
-          const Right(TimerCreationStatusEntity(isCreated: false));
 
   static Either<Failure, WhoIsTalkingUpdateStatusEntity>
       get whoIsTalkingUpdateStatusEntity =>

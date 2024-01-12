@@ -41,7 +41,7 @@ class AbortPurposeSessionArtifacts
     }
 
     if (shouldDeleteTimer(screen)) {
-      await contract.deleteTheTimer(NoParams());
+      // await contract.deleteTheTimer(NoParams());
     }
 
     if (shouldDeleteCollaborativeDocument(screen)) {

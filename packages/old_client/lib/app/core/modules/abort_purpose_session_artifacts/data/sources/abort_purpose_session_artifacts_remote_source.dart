@@ -1,22 +1,22 @@
-import 'package:nokhte/app/core/modules/timer/data/data.dart';
 import 'package:nokhte_backend/tables/existing_collaborations.dart';
 import 'package:nokhte_backend/tables/solo_sharable_documents.dart';
 import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-abstract class AbortPurposeSessionArtifactsRemoteSource
-    with DeleteTheTimerRemoteSourceInterface {
+abstract class AbortPurposeSessionArtifactsRemoteSource {
   Future<void> abortTheCollaboration();
   Future<void> deleteSoloDocuments();
   Future<void> deleteWorkingCollaborativeDocument();
 }
 
-class AbortPurposeSessionArtifactsRemoteSourceImpl extends TimerRemoteSourceImpl
+class AbortPurposeSessionArtifactsRemoteSourceImpl
     implements AbortPurposeSessionArtifactsRemoteSource {
+  final SupabaseClient supabase;
   final ExistingCollaborationsQueries existingCollaborationsQueries;
   final SoloSharableDocumentQueries soloSharableDocumentQueries;
   final WorkingCollaborativeDocumentsQueries
       workingCollaborativeDocumentsQueries;
-  AbortPurposeSessionArtifactsRemoteSourceImpl({required super.supabase})
+  AbortPurposeSessionArtifactsRemoteSourceImpl({required this.supabase})
       : existingCollaborationsQueries =
             ExistingCollaborationsQueries(supabase: supabase),
         soloSharableDocumentQueries =

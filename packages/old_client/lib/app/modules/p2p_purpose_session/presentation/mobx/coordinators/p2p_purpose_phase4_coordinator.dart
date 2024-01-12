@@ -6,9 +6,9 @@ import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/domain/d
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/types/types.dart';
 import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
 import 'package:nokhte/app/core/modules/solo_doc/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/timer/domain/logic/logic.dart';
+// import 'package:nokhte/app/core/modules/timer/domain/logic/logic.dart';
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/timer/mobx/mobx.dart';
+// import 'package:nokhte/app/core/modules/timer/mobx/mobx.dart';
 import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/widget_coordinators/p2p_purpose_phase4_widgets_coordinator.dart';
 part 'p2p_purpose_phase4_coordinator.g.dart';
 
@@ -19,18 +19,19 @@ abstract class _P2PPurposePhase4CoordinatorBase extends BaseCoordinator
     with Store {
   final AbortPurposeSessionArtifactsStore abortPurposeSessionArtifactsStore;
   final SoloDocCoordinator soloDoc;
-  final TimerCoordinator timer;
+  // final TimerCoordinator timer;
   final P2PPurposePhase4WidgetsCoordinator widgets;
 
   _P2PPurposePhase4CoordinatorBase({
-    required this.timer,
+    // required this.timer,
     required this.widgets,
     required this.abortPurposeSessionArtifactsStore,
     required this.soloDoc,
   });
 
   @action
-  cleanUpAndTransition() async => await timer.deleteTheTimer(NoParams());
+  cleanUpAndTransition() async => null;
+  // await timer.deleteTheTimer(NoParams());
 
   @action
   screenConstructor() async {
@@ -38,15 +39,9 @@ abstract class _P2PPurposePhase4CoordinatorBase extends BaseCoordinator
     widgets.beachWavesMovieStatusWatcher(
         onTimesUpComplete: cleanUpAndTransition);
     widgets.constructor(collaboratorsDocContent: soloDoc.getSoloDoc.docContent);
-    await timer.setupAndStreamListenerActivation(
-      const CreateTimerParams(timerLengthInMinutes: 5),
-      timerUICallback: widgets.initOrPauseTimesUp,
-      onBothCollaboratorTimersCompleted: cleanUpAndTransition,
-    );
-    await timer.updateTimerRunningStatus(true);
     foregroundAndBackgroundStateListener(
-      resumedCallback: () async => await timer.setOnlineStatus(true),
-      inactiveCallback: () async => await timer.setOnlineStatus(false),
+      resumedCallback: () async => null,
+      inactiveCallback: () async => null,
       detachedCallback: () async => await abortPurposeSessionArtifactsStore(
         const AbortPurposeSessionArtifactsParams(
           currentScreen: PurposeSessionScreens.phase4ReciprocateAttention,

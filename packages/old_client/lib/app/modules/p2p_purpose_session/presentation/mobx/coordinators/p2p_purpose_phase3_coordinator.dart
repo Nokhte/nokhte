@@ -7,8 +7,8 @@ import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/types/ty
 import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
 import 'package:nokhte/app/core/modules/solo_doc/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/timer/domain/domain.dart';
-import 'package:nokhte/app/core/modules/timer/mobx/mobx.dart';
+// import 'package:nokhte/app/core/modules/timer/domain/domain.dart';
+// import 'package:nokhte/app/core/modules/timer/mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/mobx.dart';
 import 'package:nokhte/app/modules/p2p_purpose_session/presentation/mobx/mobx.dart';
 part 'p2p_purpose_phase3_coordinator.g.dart';
@@ -22,10 +22,10 @@ abstract class _P2PPurposePhase3CoordinatorBase extends BaseCoordinator
   final P2PPurposePhase3WidgetsCoordinator widgets;
   final SoloDocCoordinator soloDoc;
   final SwipeDetector swipe;
-  final TimerCoordinator timer;
+  // final TimerCoordinator timer;
 
   _P2PPurposePhase3CoordinatorBase({
-    required this.timer,
+    // required this.timer,
     required this.swipe,
     required this.widgets,
     required this.abortPurposeSessionArtifactsStore,
@@ -34,7 +34,7 @@ abstract class _P2PPurposePhase3CoordinatorBase extends BaseCoordinator
 
   cleanUpAndTransition() async {
     final currentText = widgets.textEditor.controller.text;
-    await timer.deleteTheTimer(NoParams());
+    // await timer.deleteTheTimer(NoParams());
     await soloDoc.createSoloDoc(const CreateSoloDocParams(docType: 'purpose'));
     await soloDoc.submitSoloDoc(SubmitSoloDocParams(content: currentText));
     await soloDoc.shareSoloDoc(NoParams());
@@ -47,20 +47,22 @@ abstract class _P2PPurposePhase3CoordinatorBase extends BaseCoordinator
     );
     widgets.constructor();
     foregroundAndBackgroundStateListener(
-      resumedCallback: () async => await timer.setOnlineStatus(true),
-      inactiveCallback: () async => await timer.setOnlineStatus(false),
+      // resumedCallback: () async => await timer.setOnlineStatus(true),
+      // inactiveCallback: () async => await timer.setOnlineStatus(false),
+      resumedCallback: () async => null,
+      inactiveCallback: () async => null,
       detachedCallback: () async => await abortPurposeSessionArtifactsStore(
         const AbortPurposeSessionArtifactsParams(
           currentScreen: PurposeSessionScreens.phase3IndividualReflection,
         ),
       ),
     );
-    await timer.setupAndStreamListenerActivation(
-      const CreateTimerParams(timerLengthInMinutes: 5),
-      timerUICallback: widgets.initOrPauseTimesUp,
-      onBothCollaboratorTimersCompleted: cleanUpAndTransition,
-    );
-    await timer.updateTimerRunningStatus(true);
+    // await timer.setupAndStreamListenerActivation(
+    //   const CreateTimerParams(timerLengthInMinutes: 5),
+    //   timerUICallback: widgets.initOrPauseTimesUp,
+    //   onBothCollaboratorTimersCompleted: cleanUpAndTransition,
+    // );
+    // await timer.updateTimerRunningStatus(true);
   }
 
   @override

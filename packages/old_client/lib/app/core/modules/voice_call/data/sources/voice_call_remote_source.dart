@@ -91,7 +91,8 @@ class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
   @override
   Future<List> getCollaboratorInfo() async {
     return [
-      await existingCollaborationsQueries.getActiveCollaborationInfo(),
+      await existingCollaborationsQueries.getCollaborations(
+          filterForIsActive: true),
       currentUserUID
     ];
   }

@@ -11,8 +11,8 @@ import 'package:nokhte/app/core/modules/scheduling/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/scheduling/scheduling_module.dart';
 import 'package:nokhte/app/core/modules/solo_doc/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/solo_doc/solo_doc_module.dart';
-import 'package:nokhte/app/core/modules/timer/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/timer/timer_module.dart';
+// import 'package:nokhte/app/core/modules/timer/mobx/mobx.dart';
+// import 'package:nokhte/app/core/modules/timer/timer_module.dart';
 import 'package:nokhte/app/core/modules/existing_collaborations/mobx/coordinator/existing_collaborations_coordinator.dart';
 import 'package:nokhte/app/core/modules/existing_collaborations/existing_collaborations_module.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/coordinator/voice_call_coordinator.dart';
@@ -36,7 +36,7 @@ class P2PCollaboratorSessionModule extends Module {
         ConveyerBeltTextWidgetModule(),
         GesturesModule(),
         SchedulingModule(),
-        TimerModule(),
+        // TimerModule(),
       ];
 
   @override
@@ -56,7 +56,7 @@ class P2PCollaboratorSessionModule extends Module {
                   abortPurposeSessionArtifactsStore:
                       i<AbortPurposeSessionArtifactsStore>(),
                   oneTalkerAtATime: Modular.get<OneTalkerAtATimeCoordinator>(),
-                  timer: Modular.get<TimerCoordinator>(),
+                  // timer: Modular.get<TimerCoordinator>(),
                   hold: Modular.get<HoldDetector>(),
                   swipe: Modular.get<SwipeDetector>(),
                   voiceCallCoordinator: Modular.get<VoiceCallCoordinator>(),
@@ -66,7 +66,7 @@ class P2PCollaboratorSessionModule extends Module {
           (i) => P2PPurposePhase3Coordinator(
             abortPurposeSessionArtifactsStore:
                 i<AbortPurposeSessionArtifactsStore>(),
-            timer: Modular.get<TimerCoordinator>(),
+            // timer: Modular.get<TimerCoordinator>(),
             swipe: Modular.get<SwipeDetector>(),
             soloDoc: i<SoloDocCoordinator>(),
             widgets: Modular.get<P2PPurposePhase3WidgetsCoordinator>(),
@@ -77,7 +77,7 @@ class P2PCollaboratorSessionModule extends Module {
             widgets: Modular.get<P2PPurposePhase4WidgetsCoordinator>(),
             abortPurposeSessionArtifactsStore:
                 i<AbortPurposeSessionArtifactsStore>(),
-            timer: Modular.get<TimerCoordinator>(),
+            // timer: Modular.get<TimerCoordinator>(),
             soloDoc: i<SoloDocCoordinator>(),
           ),
         ),

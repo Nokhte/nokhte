@@ -7,8 +7,6 @@ import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/mobx/mob
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/types/purpose_session_screens.dart';
 import 'package:nokhte/app/core/modules/existing_collaborations/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/one_talker_at_a_time/mobx/one_talker_at_a_time_coordinator.dart';
-import 'package:nokhte/app/core/modules/timer/domain/logic/logic.dart';
-import 'package:nokhte/app/core/modules/timer/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/coordinator/voice_call_coordinator.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/p2p_purpose_session/presentation/presentation.dart';
@@ -26,11 +24,9 @@ abstract class _P2PPurposePhase2CoordinatorBase extends BaseCoordinator
   final P2PPurposePhase2WidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final HoldDetector hold;
-  final TimerCoordinator timer;
 
   _P2PPurposePhase2CoordinatorBase({
     required this.existingCollaborations,
-    required this.timer,
     required this.abortPurposeSessionArtifactsStore,
     required this.oneTalkerAtATime,
     required this.swipe,
@@ -64,14 +60,16 @@ abstract class _P2PPurposePhase2CoordinatorBase extends BaseCoordinator
             ? "Ask: What Could We Collectively Create?"
             : "Wait For Your Collaborator To Start The Conversation";
     widgets.constructor(mainOnScreenMessage: mainOnScreenMessage);
-    await timer.setupAndStreamListenerActivation(
-      const CreateTimerParams(timerLengthInMinutes: 5),
-      timerUICallback: widgets.initOrPauseTimesUp,
-      onBothCollaboratorTimersCompleted: cleanUpAndTransition,
-    );
+    // await timer.setupAndStreamListenerActivation(
+    //   const CreateTimerParams(timerLengthInMinutes: 5),
+    //   timerUICallback: widgets.initOrPauseTimesUp,
+    //   onBothCollaboratorTimersCompleted: cleanUpAndTransition,
+    // );
     foregroundAndBackgroundStateListener(
-      resumedCallback: () async => await timer.setOnlineStatus(true),
-      inactiveCallback: () async => await timer.setOnlineStatus(false),
+      // resumedCallback: () async => await timer.setOnlineStatus(true),
+      // inactiveCallback: () async => await timer.setOnlineStatus(false),
+      resumedCallback: () async => null,
+      inactiveCallback: () async => null,
       detachedCallback: () async => await abortPurposeSessionArtifactsStore(
         const AbortPurposeSessionArtifactsParams(
           currentScreen: PurposeSessionScreens.phase2Consultation,
@@ -93,7 +91,7 @@ abstract class _P2PPurposePhase2CoordinatorBase extends BaseCoordinator
       });
 
   cleanUpAndTransition() async {
-    await timer.deleteTheTimer(NoParams());
+    // await timer.deleteTheTimer(NoParams());
     await voiceCallCoordinator.leaveCall();
   }
 
@@ -110,8 +108,8 @@ abstract class _P2PPurposePhase2CoordinatorBase extends BaseCoordinator
   @action
   audioButtonHoldStartCallback() async {
     widgets.audioButtonHoldStartCallback(
-        firstTimeTalkingCallback: () async =>
-            await timer.updateTimerRunningStatus(true),
+        firstTimeTalkingCallback: () async => null,
+        // await timer.updateTimerRunningStatus(true),
         everyTimeCallback: () async {
           oneTalkerAtATime.markUserAsTheTalker();
           voiceCallCoordinator.unmute();

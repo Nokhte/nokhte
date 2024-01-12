@@ -4,7 +4,6 @@ import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/domain/domain.dart';
 import 'package:nokhte/app/core/modules/abort_purpose_session_artifacts/data/data.dart';
-import 'package:nokhte/app/core/modules/timer/domain/entities/timer_deletion_status_entity.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 
 class AbortPurposeSessionArtifactsContractImpl
@@ -31,17 +30,6 @@ class AbortPurposeSessionArtifactsContractImpl
     if (await networkInfo.isConnected) {
       await remoteSource.deleteSoloDocuments();
       return Right(NoEntity());
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
-
-  @override
-  Future<Either<Failure, TimerDeletionStatusEntity>> deleteTheTimer(
-      NoParams params) async {
-    if (await networkInfo.isConnected) {
-      await remoteSource.deleteTheTimer(params);
-      return const Right(TimerDeletionStatusEntity(isDeleted: true));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }

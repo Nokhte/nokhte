@@ -51,7 +51,7 @@ class CollaborativeDocRemoteSourceImpl implements CollaborativeDocRemoteSource {
 
   @override
   Future<List> createCollaborativeDoc({required String docType}) async {
-    await workingQueries.figureOutActiveCollaboratorInfoIfNotDoneAlready();
+    await workingQueries.ensureActiveCollaboratorInfo();
     return await StringComparison.isCollaborator(
         chosenCollaboratorNumber: chosenCollaboratorNumber,
         input: workingQueries.collaboratorInfo.theUsersCollaboratorNumber,
