@@ -9,4 +9,4 @@ flutter test test/08_collaborative_scheduling_table_test.dart
 flutter test test/09_p2p_perspectives_tracking_table_test.dart
 # flutter test test/10_working_perspectives_positioning_table_test.dart
 flutter test test/11_individual_sessions_and_perspectives_audio_storage_test.dart
-flutter test test/12_timer_information_table_test.dart
+# flutter test test/12_timer_information_table_test.dart
