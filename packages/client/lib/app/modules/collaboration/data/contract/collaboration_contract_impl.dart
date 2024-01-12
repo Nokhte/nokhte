@@ -5,7 +5,6 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/modules/collaboration/domain/domain.dart';
 import 'package:nokhte/app/modules/collaboration/data/data.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
-import 'package:nokhte_backend/tables/_real_time_enabled/existing_collaborations/types/collaborator_search_and_entry_status.dart';
 
 class CollaborationContractImpl implements CollaborationContract {
   final CollaborationRemoteSource remoteSource;
