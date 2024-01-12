@@ -15,8 +15,7 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
           event.first["collaborator_two"] == userUID) &&
       event.first["is_consecrated"] == false;
 
-  Stream<CollaboratorSearchAndEntryStatus>
-      getCollaboratorSearchAndEntryStatus() async* {
+  Stream<bool> getCollaboratorSearchAndEntryStatus() async* {
     collaboratorSearchListeningStatus = true;
     await for (var event in supabase
         .from('existing_collaborations')
@@ -27,18 +26,12 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
       if (event.isNotEmpty) {
         if (isANewCollaboration(event)) {
           await ensureActiveCollaboratorInfo();
-          yield CollaboratorSearchAndEntryStatus(
-            hasFoundTheirCollaborator: true,
-          );
+          yield true;
         } else {
-          yield CollaboratorSearchAndEntryStatus(
-            hasFoundTheirCollaborator: false,
-          );
+          yield false;
         }
       } else {
-        yield CollaboratorSearchAndEntryStatus(
-          hasFoundTheirCollaborator: false,
-        );
+        yield false;
       }
     }
   }
