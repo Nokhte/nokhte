@@ -71,24 +71,6 @@ class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
   }
 
   @override
-  Future<void> instantiateAgoraSDK() async {
-    await agoraEngine.initialize(
-        const RtcEngineContext(appId: '050b22b688f44464b2533fac484c7300'));
-    agoraEngine.registerEventHandler(
-      RtcEngineEventHandler(
-        onJoinChannelSuccess: (connection, elapsed) =>
-            agoraCallbacksStore.onCallJoined(),
-        onLeaveChannel: (connection, elapsed) =>
-            agoraCallbacksStore.onCallLeft(),
-        onUserJoined: (connection, remoteUid, elapsed) =>
-            agoraCallbacksStore.collaboratorHasJoined(),
-        onUserOffline: (connection, remoteUid, reason) =>
-            agoraCallbacksStore.collaboratorHasLeft(),
-      ),
-    );
-  }
-
-  @override
   Future<List> getCollaboratorInfo() async {
     return [
       await existingCollaborationsQueries.getActiveCollaborationInfo(),

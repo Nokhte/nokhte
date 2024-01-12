@@ -37,16 +37,6 @@ class VoiceCallContractImpl implements VoiceCallContract {
   }
 
   @override
-  Future<Either<Failure, AgoraSdkStatusModel>> instantiateAgoraSdk() async {
-    if (await networkInfo.isConnected) {
-      await remoteSource.instantiateAgoraSDK();
-      return const Right(AgoraSdkStatusModel(isInstantiated: true));
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
-
-  @override
   Future<Either<Failure, CallStatusModel>> joinCall(
       String token, String channelId) async {
     if (await networkInfo.isConnected) {

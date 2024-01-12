@@ -10,16 +10,15 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class VoiceCallModule extends Module {
   @override
   void exportedBinds(Injector i) {
-    i.add<RtcEngine>(
-      () => createAgoraRtcEngine(),
-    );
-    i.add<AgoraCallbacksStore>(
-      () => AgoraCallbacksStore(),
-    );
+    i.addSingleton<RtcEngine>(() async {
+      final agoraEngine = createAgoraRtcEngine();
+      await agoraEngine.initialize(
+          const RtcEngineContext(appId: '050b22b688f44464b2533fac484c7300'));
+      return agoraEngine;
+    });
     i.add<VoiceCallRemoteSourceImpl>(
       () => VoiceCallRemoteSourceImpl(
         supabase: Modular.get<SupabaseClient>(),
-        agoraCallbacksStore: i<AgoraCallbacksStore>(),
         agoraEngine: i<RtcEngine>(),
       ),
     );

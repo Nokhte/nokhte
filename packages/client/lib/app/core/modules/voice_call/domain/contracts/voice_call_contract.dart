@@ -6,7 +6,6 @@ abstract class VoiceCallContract {
   Future<Either<Failure, AgoraCallTokenEntity>> getAgoraToken(
       {required String channelName});
   Future<Either<Failure, ChannelIdEntity>> getChannelId();
-  Future<Either<Failure, AgoraSdkStatusEntity>> instantiateAgoraSdk();
   Future<Either<Failure, CallStatusEntity>> joinCall(
       String token, String channelId);
   Future<Either<Failure, CallStatusEntity>> leaveCall();
