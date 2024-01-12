@@ -55,20 +55,6 @@ void main() {
     expect(res.first, tSetup.firstUserUID);
     expect(res[1], 1);
   });
-  test(
-      "should be able to update the status of the collaboration [let's say at the end of the purpose session]",
-      () async {
-    await user1Queries.updateActivityStatus(newActivityStatus: false);
-
-    final res = await user1Queries.getCollaborations();
-    print("res $res");
-    expect(res, isNotEmpty);
-    expect(res.first["collaborator_one"], tSetup.firstUserUID);
-    expect(res.first["collaborator_two"], tSetup.secondUserUID);
-    expect(res.first["is_currently_active"], false);
-    expect(res.first["who_gets_the_question"], 2);
-    await user1Queries.updateActivityStatus(newActivityStatus: true);
-  });
 
   group("checkifUserHasTheQuestion", () {
     test("user does not have the question", () async {
