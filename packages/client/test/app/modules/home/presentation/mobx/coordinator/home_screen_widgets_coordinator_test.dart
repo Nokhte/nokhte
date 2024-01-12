@@ -1,5 +1,6 @@
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -33,7 +34,11 @@ void main() {
     testStore = HomeScreenWidgetsCoordinator(
       timeModel: timeModel,
       nokhteBlur: nokhteBlurStore,
-      deepLinks: MockDeepLinksCoordinator(),
+      deepLinks: DeepLinksCoordinator(
+        getDeepLinkURL: MockGetDeepLinkURLStore(),
+        listenForOpenedDeepLink: MockListenForOpenedDeepLinkStore(),
+        sendDeepLink: MockSendDeepLinkStore(),
+      ),
       beachWaves: beachWaves,
       wifiDisconnectOverlay: wifiDisconnectOverlay,
       gestureCross: gestureCross,
