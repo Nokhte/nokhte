@@ -162,6 +162,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
     );
     wifiDisconnectOverlayReactor();
     gradientTreeNodeOpacityReactor(enterCollaboratorPool);
+    gradientTreeNodeMovieStatusReactor();
   }
 
   smartTextReactor(Function onFlowCompleted) =>
@@ -184,6 +185,13 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
         if (shouldEnterCollaboratorPool && p0) {
           initCollaboratorPoolWidgets();
           await enterCollaboratorPool();
+        }
+      });
+
+  gradientTreeNodeMovieStatusReactor() =>
+      reaction((p0) => gradientTreeNode.movieStatus, (p0) async {
+        if (shouldEnterCollaboratorPool && p0 == MovieStatus.finished) {
+          Modular.to.navigate('/collaboration/pool');
         }
       });
 
