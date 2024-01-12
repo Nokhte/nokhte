@@ -26,8 +26,7 @@ class AbortPurposeSessionArtifactsRemoteSourceImpl
 
   @override
   Future<void> abortTheCollaboration() async =>
-      await existingCollaborationsQueries.deleteExistingCollaboration(
-          filterForUnconsecrated: true);
+      await existingCollaborationsQueries.abortUnConsecratedTheCollaboration();
   @override
   Future<void> deleteSoloDocuments() async =>
       await soloSharableDocumentQueries.deleteDocument();

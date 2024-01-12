@@ -34,7 +34,8 @@ class ExistingCollaborationsRemoteSourceImpl
   @override
   Future<List> updateIndividualCollaboratorEntryStatus(
           {required bool isEntering}) async =>
-      await queries.updateUserHasEnteredStatus(newEntryStatus: isEntering);
+      [];
+  // await queries.updateUserHasEnteredStatus(newEntryStatus: isEntering);
 
   @override
   Future<bool> checkIfUserHasTheQuestion() async =>
