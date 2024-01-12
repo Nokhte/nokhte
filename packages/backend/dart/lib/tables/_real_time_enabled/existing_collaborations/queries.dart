@@ -9,9 +9,16 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   static const whoGetsTheQuestion = "who_gets_the_question";
   static const collaborationID = "collaboration_id";
   static const talkingQueue = "talking_queue";
+
+  List<List<String>> isTheCurrentCollaborator() => [
+        [
+          collaboratorInfo.theCollaboratorsNumber,
+          collaboratorInfo.theCollaboratorsUID,
+        ]
+      ];
+
   ExistingCollaborationsQueries({required super.supabase});
 
-  // insert queries
   Future<List> createNewCollaboration({
     required String collaboratorOneUID,
     required String collaboratorTwoUID,
@@ -24,104 +31,47 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
     }).select();
   }
 
+  Future<List> _updateCollaboration(Map<String, dynamic> updates,
+      List<List<String>> additionalConditions) async {
+    await ensureActiveCollaboratorInfo();
+    var query = supabase.from(tableName).update(updates);
+
+    for (var condition in additionalConditions) {
+      query = query.eq(condition[0], condition[1]);
+    }
+
+    return await query.select();
+  }
+
   Future<List> consecrateTheCollaboration(
       {bool shouldConsecrate = true}) async {
-    await ensureActiveCollaboratorInfo();
-    return await supabase
-        .from(tableName)
-        .update({isConsecrated: shouldConsecrate})
-        .eq(
-          collaboratorInfo.theCollaboratorsNumber,
-          collaboratorInfo.theCollaboratorsUID,
-        )
-        .eq(
-          collaboratorInfo.theUsersCollaboratorNumber,
-          collaboratorInfo.theUsersUID,
-        )
-        .select();
-  }
-
-  // update queries
-
-  Future<List> updateUserHasEnteredStatus(
-      {required bool newEntryStatus}) async {
-    await ensureActiveCollaboratorInfo();
-    return await supabase
-        .from(tableName)
-        .update({
-          "${collaboratorInfo.theUsersCollaboratorNumber}_has_entered":
-              newEntryStatus
-        })
-        .eq(
-          collaboratorInfo.theCollaboratorsNumber,
-          collaboratorInfo.theCollaboratorsUID,
-        )
-        .eq(
-          collaboratorInfo.theUsersCollaboratorNumber,
-          collaboratorInfo.theUsersUID,
-        )
-        .select();
-  }
-
-  Future<List> updateActivityStatus({
-    required bool newActivityStatus,
-  }) async {
-    await ensureActiveCollaboratorInfo();
-    return await supabase
-        .from(tableName)
-        .update({isCurrentlyActive: newActivityStatus})
-        .eq(
-          collaboratorInfo.theCollaboratorsNumber,
-          collaboratorInfo.theCollaboratorsUID,
-        )
-        .eq(
-          collaboratorInfo.theUsersCollaboratorNumber,
-          collaboratorInfo.theUsersUID,
-        )
-        .eq(isCurrentlyActive, !newActivityStatus)
-        .select();
+    return await _updateCollaboration(
+      {isConsecrated: shouldConsecrate},
+      isTheCurrentCollaborator(),
+    );
   }
 
   Future<List> setUserAsTheCurrentTalker() async {
     final currentQueue = await getWhoIsTalkingQueue();
     currentQueue.add(collaboratorInfo.theUsersUID);
-    return await supabase
-        .from(tableName)
-        .update({
-          talkingQueue: currentQueue,
-        })
-        .eq(
-          collaboratorInfo.theCollaboratorsNumber,
-          collaboratorInfo.theCollaboratorsUID,
-        )
-        .eq(
-          collaboratorInfo.theUsersCollaboratorNumber,
-          collaboratorInfo.theUsersUID,
-        )
-        .select();
+
+    return await _updateCollaboration(
+      {talkingQueue: currentQueue},
+      isTheCurrentCollaborator(),
+    );
+  }
+
+  Future<List> clearTheCurrentTalker() async {
+    final List currentQueue = await getWhoIsTalkingQueue();
+    currentQueue.removeAt(0);
+
+    return await _updateCollaboration(
+      {talkingQueue: currentQueue},
+      isTheCurrentCollaborator(),
+    );
   }
 
   // select queries
-
-  Future<void> clearTheCurrentTalker() async {
-    final List currentQueue = await getWhoIsTalkingQueue();
-    currentQueue.removeAt(0);
-    await ensureActiveCollaboratorInfo();
-    return await supabase
-        .from(tableName)
-        .update({
-          talkingQueue: currentQueue,
-        })
-        .eq(
-          collaboratorInfo.theCollaboratorsNumber,
-          collaboratorInfo.theCollaboratorsUID,
-        )
-        .eq(
-          collaboratorInfo.theUsersCollaboratorNumber,
-          collaboratorInfo.theUsersUID,
-        );
-  }
-
   Future<List> getWhoIsTalkingQueue() async {
     await ensureActiveCollaboratorInfo();
     return (await supabase
@@ -146,25 +96,6 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
     final int collaboratorNumber =
         collaboratorInfo.theUsersCollaboratorNumber == collaboratorOne ? 1 : 2;
     return collaboratorNumber == whoHasTheQuestionResponse;
-  }
-
-  // delete queries
-
-  Future<void> abortUnConsecratedTheCollaboration() async {
-    await ensureActiveCollaboratorInfo();
-    return await supabase
-        .from(tableName)
-        .delete()
-        .eq(isCurrentlyActive, true)
-        .eq(isConsecrated, false)
-        .eq(
-          collaboratorInfo.theCollaboratorsNumber,
-          collaboratorInfo.theCollaboratorsUID,
-        )
-        .eq(
-          collaboratorInfo.theUsersCollaboratorNumber,
-          collaboratorInfo.theUsersUID,
-        );
   }
 
   Future<void> deleteExistingCollaboration(
