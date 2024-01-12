@@ -80,6 +80,7 @@ abstract class _CollaboratorPoolScreenWidgetsCoordinatorBase
 
   @action
   initTransitionToPurposeSession() {
+    waitingText.toggleWidgetVisibility();
     beachWaves.setMovieMode(BeachWaveMovieModes.timesUpDynamicPointToTheDepths);
     beachWaves.currentStore.initMovie([
       ColorAndStop(beachWaves.currentAnimationValues[1],
