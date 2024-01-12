@@ -68,6 +68,37 @@ void main() {
     });
   });
 
+  test("getWhoIsOnline", () async {
+    final res = await user1Queries.getWhoIsOnline();
+    expect(res, [false, false]);
+  });
+
+  test("getWhoIsOnTheCall", () async {
+    final res = await user1Queries.getWhoIsOnTheCall();
+    expect(res, [false, false]);
+  });
+
+  test("getTimerInitStatuses", () async {
+    final res = await user1Queries.getTimerInitStatuses();
+    expect(res, [false, false]);
+  });
+
+  test("setOnlineStatus", () async {
+    final res = await user1Queries.setOnlineStatus(true);
+    expect(res.first[ExistingCollaborationsQueries.isOnline], [true, false]);
+  });
+
+  test("setOnCallStatus", () async {
+    final res = await user1Queries.setOnCallStatus(true);
+    expect(res.first[ExistingCollaborationsQueries.isOnCall], [true, false]);
+  });
+
+  test("setTimerInitStatus", () async {
+    final res = await user1Queries.setTimerInitStatus(true);
+    expect(res.first[ExistingCollaborationsQueries.timerInitStatus],
+        [true, false]);
+  });
+
   test(
       "should be able to update talking status & receive changes in the stream",
       () async {
