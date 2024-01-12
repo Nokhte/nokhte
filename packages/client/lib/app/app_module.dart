@@ -11,19 +11,12 @@ import 'modules/home/home_module.dart';
 
 class AppModule extends Module {
   final SupabaseClient supabase;
-  final Connectivity connectivityInstance;
 
-  AppModule({required this.supabase, required this.connectivityInstance});
-
-  @override
-  List<Module> get imports => [
-        LegacyConnectivityModule(connectivityInstance: connectivityInstance),
-      ];
+  AppModule({required this.supabase});
 
   @override
   void binds(i) {
     i.addSingleton(() => supabase);
-    i.addSingleton(() => NetworkInfoImpl(connectivityInstance));
   }
 
   @override
@@ -31,6 +24,6 @@ class AppModule extends Module {
     r.module('/', module: AuthenticationModule());
     r.module('/home/', module: HomeModule());
     r.module('/collaboration/', module: CollaborationModule());
-    r.module('/purpose_session', module: PurposeSessionModule());
+    r.module('/purpose_session/', module: PurposeSessionModule());
   }
 }
