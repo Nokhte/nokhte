@@ -1,6 +1,6 @@
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:nokhte/app/core/modules/voice_call/mobx/coordinator/voice_call_coordinator.dart';
+import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/modules/voice_call/data/data.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
@@ -9,10 +9,15 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class VoiceCallModule extends Module {
   @override
+  List<Module> get imports => [
+        LegacyConnectivityModule(),
+      ];
+
+  @override
   void exportedBinds(Injector i) {
-    i.addSingleton<RtcEngine>(() async {
+    i.addSingleton<RtcEngine>(() {
       final agoraEngine = createAgoraRtcEngine();
-      await agoraEngine.initialize(
+      agoraEngine.initialize(
           const RtcEngineContext(appId: '050b22b688f44464b2533fac484c7300'));
       return agoraEngine;
     });
@@ -24,8 +29,8 @@ class VoiceCallModule extends Module {
     );
     i.add<VoiceCallContractImpl>(
       () => VoiceCallContractImpl(
-        networkInfo: Modular.get<NetworkInfo>(),
-        remoteSource: i<VoiceCallRemoteSource>(),
+        networkInfo: Modular.get<NetworkInfoImpl>(),
+        remoteSource: i<VoiceCallRemoteSourceImpl>(),
       ),
     );
     i.add<GetAgoraToken>(
@@ -64,17 +69,17 @@ class VoiceCallModule extends Module {
       ),
     );
     i.add<GetChannelIdStore>(
-      (i) => GetChannelIdStore(
+      () => GetChannelIdStore(
         logic: i<GetChannelId>(),
       ),
     );
     i.add<VoiceCallStatusStore>(
-      (i) => VoiceCallStatusStore(
+      () => VoiceCallStatusStore(
         agoraEngine: i<RtcEngine>(),
       ),
     );
     i.add<VoiceCallActionsStore>(
-      (i) => VoiceCallActionsStore(
+      () => VoiceCallActionsStore(
         joinCall: i<JoinCall>(),
         leaveCall: i<LeaveCall>(),
         muteAudio: i<MuteLocalAudio>(),
@@ -82,7 +87,7 @@ class VoiceCallModule extends Module {
       ),
     );
     i.add<VoiceCallCoordinator>(
-      (i) => VoiceCallCoordinator(
+      () => VoiceCallCoordinator(
         voiceCallActions: i<VoiceCallActionsStore>(),
         voiceCallStatus: i<VoiceCallStatusStore>(),
         getAgoraToken: i<GetAgoraTokenStore>(),
