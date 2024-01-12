@@ -47,9 +47,6 @@ void main() {
     await user1StartEdgeFunctions.invoke(tSetup.secondUserUID);
     await user2EdgeFunctions.invoke(tSetup.firstUserUID);
     final user1Stream = user1Streams.getCollaboratorSearchAndEntryStatus();
-    expect(
-        user1Stream,
-        emits(
-            CollaboratorSearchAndEntryStatus(hasFoundTheirCollaborator: true)));
+    expect(user1Stream, emits(true));
   });
 }
