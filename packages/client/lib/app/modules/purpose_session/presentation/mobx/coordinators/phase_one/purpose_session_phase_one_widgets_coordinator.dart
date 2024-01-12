@@ -25,7 +25,9 @@ abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
   @action
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtTheDepths);
-    primarySmartText.setMessagesData(MessagesData.empty);
-    secondarySmartText.setMessagesData(MessagesData.empty);
+    primarySmartText
+        .setMessagesData(MessagesData.primaryPurposeSessionPhase1List);
+    secondarySmartText
+        .setMessagesData(MessagesData.secondaryPurposeSessionPhase1List);
   }
 }
