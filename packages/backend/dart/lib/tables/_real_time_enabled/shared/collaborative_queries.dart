@@ -4,6 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class CollaborativeQueries {
   static const collaboratorONE = "collaborator_one";
   static const collaboratorTWO = "collaborator_two";
+  static const isCurrentlyActive = "is_currently_active";
   final SupabaseClient supabase;
   String currentUserUID = '';
   CollaboratorInfo collaboratorInfo = CollaboratorInfo(
@@ -46,14 +47,28 @@ class CollaborativeQueries {
         : [collaboratorOneRes, 1];
   }
 
-  Future<List<dynamic>> getCollaborations(
-      {bool filterForIsActive = false}) async {
-    var baseQuery = supabase.from("existing_collaborations").select().or(
+  Future<List<dynamic>> getCollaborations({
+    bool filterForIsActive = false,
+  }) async {
+    final List res = await supabase.from("existing_collaborations").select().or(
         '$collaboratorONE.eq.$currentUserUID,$collaboratorTWO.eq.$currentUserUID');
     if (filterForIsActive) {
-      return await baseQuery.eq('is_currently_active', true);
-    } else {
-      return await baseQuery;
+      res.removeWhere((element) => element[isCurrentlyActive] == false);
     }
+    return res;
+  }
+
+  onCurrentActiveCollaboration(PostgrestFilterBuilder theQuery) {
+    return theQuery
+        .eq(isCurrentlyActive, true)
+        .eq(
+          collaboratorInfo.theCollaboratorsNumber,
+          collaboratorInfo.theCollaboratorsUID,
+        )
+        .eq(
+          collaboratorInfo.theUsersCollaboratorNumber,
+          collaboratorInfo.theUsersUID,
+        )
+        .select();
   }
 }
