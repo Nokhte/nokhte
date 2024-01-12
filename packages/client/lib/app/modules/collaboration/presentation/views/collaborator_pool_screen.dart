@@ -33,6 +33,9 @@ class CollaboratorPoolScreen extends HookWidget {
               child: BeachWaves(
             store: coordinator.widgets.beachWaves,
           )),
+          WaitingText(
+            store: coordinator.widgets.waitingText,
+          ),
           GestureCross(
             config: GestureCrossConfiguration(),
             size: size,
