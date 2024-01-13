@@ -141,7 +141,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
     );
   }
 
-  Future<void> abortUnConsecratedTheCollaboration() async {
+  Future<void> deleteUnConsecratedTheCollaboration() async {
     await ensureActiveCollaboratorInfo();
     return await onCurrentActiveCollaboration(
       supabase.from(tableName).delete().eq(

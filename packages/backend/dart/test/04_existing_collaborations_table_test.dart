@@ -119,7 +119,7 @@ void main() {
   test(
       "should be able to abort a collaboration that is active and un-consecrated",
       () async {
-    await user1Queries.abortUnConsecratedTheCollaboration();
+    await user1Queries.deleteUnConsecratedTheCollaboration();
     final res = await user1Queries.getCollaborations();
     expect(res, isEmpty);
   });
