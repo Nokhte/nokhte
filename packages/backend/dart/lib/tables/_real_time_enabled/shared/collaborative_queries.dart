@@ -71,4 +71,7 @@ class CollaborativeQueries {
         )
         .select();
   }
+
+  int getIndexForCollaboratorNumber(String collaboratorNumber) =>
+      collaboratorNumber == collaboratorONE ? 0 : 1;
 }
