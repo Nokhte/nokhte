@@ -2,6 +2,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'purpose_session_phase_one_widgets_coordinator.dart';
 part 'purpose_session_phase_one_coordinator.g.dart';
 
@@ -21,5 +22,14 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
   @action
   constructor() {
     widgets.constructor();
+    voiceCall.joinCall(shouldEnterTheCallMuted: true);
+    onCallJoinedReactor();
   }
+
+  onCallJoinedReactor() =>
+      reaction((p0) => voiceCall.voiceCallStatus.inCall, (p0) {
+        if (p0 == CallStatus.joined) {
+          widgets.onCallJoined();
+        }
+      });
 }
