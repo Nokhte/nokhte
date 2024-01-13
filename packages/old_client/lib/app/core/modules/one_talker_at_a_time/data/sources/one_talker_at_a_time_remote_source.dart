@@ -18,8 +18,8 @@ class OneTalkerAtATimeRemoteSourceImpl implements OneTalkerAtATimeRemoteSource {
         stream = ExistingCollaborationsStream(supabase: supabase);
 
   @override
-  Stream<bool> checkIfCollaboratorIsTalking() =>
-      stream.checkIfCollaboratorIsTalking();
+  Stream<bool> checkIfCollaboratorIsTalking() => Stream.empty();
+  // stream.checkIfCollaboratorIsTalking();
 
   @override
   Future<void> clearTheCurrentTalker() async =>
