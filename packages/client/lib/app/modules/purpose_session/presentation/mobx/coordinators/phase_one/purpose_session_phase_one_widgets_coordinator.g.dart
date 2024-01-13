@@ -31,6 +31,35 @@ mixin _$PurposeSessionPhaseOneWidgetsCoordinator
   }
 
   @override
+  dynamic onCallJoined() {
+    final _$actionInfo =
+        _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_PurposeSessionPhaseOneWidgetsCoordinatorBase.onCallJoined');
+    try {
+      return super.onCallJoined();
+    } finally {
+      _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onCollaboratorJoined() {
+    final _$actionInfo =
+        _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_PurposeSessionPhaseOneWidgetsCoordinatorBase.onCollaboratorJoined');
+    try {
+      return super.onCollaboratorJoined();
+    } finally {
+      _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 

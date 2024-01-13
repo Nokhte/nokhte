@@ -14,20 +14,45 @@ abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
+  final NokhteBlurStore nokhteBlur;
 
   _PurposeSessionPhaseOneWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.wifiDisconnectOverlay,
     required this.primarySmartText,
     required this.secondarySmartText,
+    required this.nokhteBlur,
   });
 
   @action
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtTheDepths);
-    primarySmartText
-        .setMessagesData(MessagesData.primaryPurposeSessionPhase1List);
-    secondarySmartText
-        .setMessagesData(MessagesData.secondaryPurposeSessionPhase1List);
+    nokhteBlur.init();
+    primarySmartText.setMessagesData(MessagesData.purposeSessionBootUpList);
+    secondarySmartText.setMessagesData(MessagesData.empty);
+    primarySmartText.startRotatingText();
   }
+
+  @action
+  onCallJoined() {
+    primarySmartText.startRotatingText(isResuming: true);
+  }
+
+  @action
+  onCollaboratorJoined() {
+    primarySmartText.startRotatingText();
+  }
+
+  smartTextIndexReactor() =>
+      reaction((p0) => primarySmartText.currentIndex, (p0) {
+        if (p0 == 2 &&
+            primarySmartText.messagesData ==
+                MessagesData.purposeSessionBootUpList) {
+          nokhteBlur.reverse();
+          primarySmartText.setMessagesData(
+            MessagesData.primaryPurposeSessionPhase1List,
+          );
+          primarySmartText.startRotatingText();
+        }
+      });
 }
