@@ -15,17 +15,32 @@ abstract class _VoiceCallCoordinatorBase extends Equatable with Store {
   final VoiceCallActionsStore voiceCallActions;
   final GetAgoraTokenStore getAgoraToken;
   final GetChannelIdStore getChannelId;
+  final InitAgoraSdkStore initAgoraSdk;
   _VoiceCallCoordinatorBase({
     required this.voiceCallStatus,
     required this.voiceCallActions,
     required this.getAgoraToken,
     required this.getChannelId,
+    required this.initAgoraSdk,
   });
+
+  @observable
+  bool isInitialized = false;
+
+  @action
+  initSdk() async {
+    if (!isInitialized) {
+      await initAgoraSdk(NoParams());
+      voiceCallStatus.registerCallbacks(initAgoraSdk.rtcEngine);
+      isInitialized = true;
+    }
+  }
 
   @action
   joinCall({
     required bool shouldEnterTheCallMuted,
   }) async {
+    await initSdk();
     await getChannelId(NoParams());
     await getAgoraToken(
       GetAgoraTokenParams(
@@ -54,7 +69,5 @@ abstract class _VoiceCallCoordinatorBase extends Equatable with Store {
       await voiceCallActions.enterOrLeaveCall(Left(NoParams()));
 
   @override
-  List<Object> get props => [
-// some items
-      ];
+  List<Object> get props => [];
 }
