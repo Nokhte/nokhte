@@ -69,6 +69,18 @@ void main() {
     );
   });
 
+  test("mark npc as having joined the call", () async {
+    await existingCollaborationsQueries.setOnCallStatus(true);
+  });
+
+  test("mark npc has being online", () async {
+    await existingCollaborationsQueries.setOnlineStatus(true);
+  });
+
+  test("mark npc as having initialized the timer", () async {
+    await existingCollaborationsQueries.setTimerRunningStatus(true);
+  });
+
   test("make a purpose between npc & person", () async {
     final userIdResults = await UserSetupConstants.getUIDs();
     final npcUserUID = userIdResults[1];
