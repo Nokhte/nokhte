@@ -20,7 +20,7 @@ class RotatingTextData extends Equatable {
     this.subMessageFontSize = 15.0,
     this.pauseHere = false,
     this.unlockGesture = Gestures.none,
-    required this.onScreenTime,
+    this.onScreenTime = Duration.zero,
   });
 
   @override
