@@ -249,15 +249,5 @@ class WaitingTextStoneSkipMovie {
         begin: -1,
         end: -.09,
       ),
-    )
-    ..scene(
-      begin: Seconds.get(11),
-      end: Seconds.get(11, milli: 500),
-    ).tween(
-      'topLengthScalar',
-      Tween<double>(
-        begin: -.09,
-        end: -.09,
-      ),
     );
 }
