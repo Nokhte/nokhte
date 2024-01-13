@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/error/failure.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/types/call_status.dart';
 import 'package:nokhte/app/core/modules/voice_call/data/data.dart';
@@ -77,4 +78,7 @@ class VoiceCallContractImpl implements VoiceCallContract {
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  initAgoraSdk(NoParams params) async => await remoteSource.initAgoraSdk();
 }
