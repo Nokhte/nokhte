@@ -7,7 +7,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   static const isCurrentlyActive = 'is_currently_active';
   static const isOnCall = "is_on_call";
   static const isOnline = "is_online";
-  static const timerInitStatus = "timer_init_status";
+  static const timerShouldRun = "timer_should_run";
   static const isConsecrated = "is_consecrated";
   static const whoGetsTheQuestion = "who_gets_the_question";
   static const collaborationID = "collaboration_id";
@@ -63,9 +63,6 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
         .first[property];
   }
 
-  int getProperArrayIndex(String collaboratorNumber) =>
-      collaboratorNumber == collaboratorOne ? 0 : 1;
-
   Future<List> getWhoIsTalkingQueue() async =>
       await _getCollaborationProperty(talkingQueue);
 
@@ -75,13 +72,10 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   Future<List> getWhoIsOnTheCall() async =>
       await _getCollaborationProperty(isOnCall);
 
-  Future<List> getTimerInitStatuses() async =>
-      await _getCollaborationProperty(timerInitStatus);
-
   Future<List> setOnlineStatus(bool isOnlineParam) async {
     final currentOnlineStatus = await getWhoIsOnline();
-    final indexToEdit =
-        getProperArrayIndex(collaboratorInfo.theUsersCollaboratorNumber);
+    final indexToEdit = getIndexForCollaboratorNumber(
+        collaboratorInfo.theUsersCollaboratorNumber);
     currentOnlineStatus[indexToEdit] = isOnlineParam;
     return await onCurrentActiveCollaboration(supabase.from(tableName).update({
       isOnline: currentOnlineStatus,
@@ -90,8 +84,8 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
 
   Future<List> setOnCallStatus(bool isOnCallParam) async {
     final currentOnCallStatus = await getWhoIsOnTheCall();
-    final indexToEdit =
-        getProperArrayIndex(collaboratorInfo.theUsersCollaboratorNumber);
+    final indexToEdit = getIndexForCollaboratorNumber(
+        collaboratorInfo.theUsersCollaboratorNumber);
     currentOnCallStatus[indexToEdit] = isOnCallParam;
     return await onCurrentActiveCollaboration(
       supabase.from(tableName).update({
@@ -100,14 +94,10 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
     );
   }
 
-  Future<List> setTimerInitStatus(bool shouldInitTimer) async {
-    final currentTimerInitStatus = await getTimerInitStatuses();
-    final indexToEdit =
-        getProperArrayIndex(collaboratorInfo.theUsersCollaboratorNumber);
-    currentTimerInitStatus[indexToEdit] = shouldInitTimer;
+  Future<List> setTimerRunningStatus(bool shouldRun) async {
     return await onCurrentActiveCollaboration(
       supabase.from(tableName).update({
-        timerInitStatus: currentTimerInitStatus,
+        timerShouldRun: shouldRun,
       }),
     );
   }
