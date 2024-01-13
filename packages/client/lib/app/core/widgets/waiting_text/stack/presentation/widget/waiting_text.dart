@@ -21,64 +21,75 @@ class WaitingText extends HookWidget {
           opacity: useWidgetOpacity(store.showWidget),
           duration: Seconds.get(0, milli: 500),
           child: CustomAnimationBuilder(
-            tween: store.movie,
-            duration: store.movie.duration,
-            control: store.control,
-            onCompleted: () => store.onCompleted(),
-            builder: (context, value, child) => HookBuilder(
-              builder: (context) => Center(
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    left: useFullScreenSize().width * .01,
-                    right: useFullScreenSize().width * .01,
-                  ),
-                  child: Stack(
-                    children: [
-                      CustomPaint(
-                        size: useFullScreenSize(),
-                        painter: WaitingTextPainter(
-                          ripple1Arc1:
-                              // OpacityAndRadius(opacity: 0, radius: 0),
-
-                              OpacityAndRadius(
-                            opacity: value.get('ripple1Arc1Opacity'),
-                            radius: value.get('ripple1Arc1Radius'),
-                          ),
-                          ripple1Arc2:
-                              // OpacityAndRadius(opacity: 0, radius: 0),
-                              OpacityAndRadius(
-                            opacity: value.get('ripple1Arc2Opacity'),
-                            radius: value.get('ripple1Arc2Radius'),
-                          ),
-                          ripple1Arc3: OpacityAndRadius(opacity: 0, radius: 0),
-                          circleXOffset: value.get('circleXOffset'),
-                          circleYOffset: value.get('circleYOffset'),
-                          circleRadius: value.get('circleRadius'),
-                          circleOpacity: value.get('circleOpacity'),
-                          rectOpacity: value.get('rectOpacity'),
-                          roundness: value.get('roundness'),
-                          topLengthScalar: value.get('topLengthScalar'),
+              tween: store.altMovie,
+              duration: store.altMovie.duration,
+              control: store.altControl,
+              builder: (context, secondaryValue, child) {
+                return CustomAnimationBuilder(
+                  tween: store.movie,
+                  duration: store.movie.duration,
+                  control: store.control,
+                  onCompleted: () => store.onCompleted(),
+                  builder: (context, primaryValue, child) => HookBuilder(
+                    builder: (context) => Center(
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          left: useFullScreenSize().width * .01,
+                          right: useFullScreenSize().width * .01,
                         ),
-                      ),
-                      Center(
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                              bottom: useFullScreenSize().height * .25),
-                          child: Text(
-                            "WAIT NG",
-                            style: GoogleFonts.jost(
-                              fontSize: useFullScreenSize().width * .15,
-                              color: Colors.white,
+                        child: Stack(
+                          children: [
+                            CustomPaint(
+                              size: useFullScreenSize(),
+                              painter: WaitingTextPainter(
+                                rectColor: secondaryValue.get('rectColor'),
+                                ripple1Color:
+                                    secondaryValue.get('ripple1Color'),
+                                ripple2Color:
+                                    secondaryValue.get('ripple2Color'),
+                                ripple1: OpacityAndRadius(
+                                  opacity:
+                                      primaryValue.get('ripple1Arc1Opacity'),
+                                  radius: primaryValue.get('ripple1Arc1Radius'),
+                                ),
+                                ripple2: OpacityAndRadius(
+                                  opacity:
+                                      primaryValue.get('ripple1Arc2Opacity'),
+                                  radius: primaryValue.get('ripple1Arc2Radius'),
+                                ),
+                                circleXOffset:
+                                    primaryValue.get('circleXOffset'),
+                                circleYOffset:
+                                    primaryValue.get('circleYOffset'),
+                                circleRadius: primaryValue.get('circleRadius'),
+                                circleOpacity:
+                                    primaryValue.get('circleOpacity'),
+                                rectOpacity: primaryValue.get('rectOpacity'),
+                                roundness: primaryValue.get('roundness'),
+                                topLengthScalar:
+                                    primaryValue.get('topLengthScalar'),
+                              ),
                             ),
-                          ),
+                            Center(
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    bottom: useFullScreenSize().height * .25),
+                                child: Text(
+                                  "WAIT NG",
+                                  style: GoogleFonts.jost(
+                                    fontSize: useFullScreenSize().width * .15,
+                                    color: secondaryValue.get('rectColor'),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            ),
-          ),
+                );
+              }),
         ),
       );
 }
