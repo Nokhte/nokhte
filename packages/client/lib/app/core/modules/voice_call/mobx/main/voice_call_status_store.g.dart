@@ -47,6 +47,17 @@ mixin _$VoiceCallStatusStore on _VoiceCallStatusStoreBase, Store {
       ActionController(name: '_VoiceCallStatusStoreBase', context: context);
 
   @override
+  dynamic registerCallbacks(RtcEngine agoraEngine) {
+    final _$actionInfo = _$_VoiceCallStatusStoreBaseActionController
+        .startAction(name: '_VoiceCallStatusStoreBase.registerCallbacks');
+    try {
+      return super.registerCallbacks(agoraEngine);
+    } finally {
+      _$_VoiceCallStatusStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic onCallJoined() {
     final _$actionInfo = _$_VoiceCallStatusStoreBaseActionController
         .startAction(name: '_VoiceCallStatusStoreBase.onCallJoined');

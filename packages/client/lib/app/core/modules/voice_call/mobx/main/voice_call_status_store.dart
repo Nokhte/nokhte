@@ -9,11 +9,8 @@ class VoiceCallStatusStore = _VoiceCallStatusStoreBase
     with _$VoiceCallStatusStore;
 
 abstract class _VoiceCallStatusStoreBase extends Equatable with Store {
-  final RtcEngine agoraEngine;
-
-  _VoiceCallStatusStoreBase({
-    required this.agoraEngine,
-  }) {
+  @action
+  registerCallbacks(RtcEngine agoraEngine) {
     agoraEngine.registerEventHandler(
       RtcEngineEventHandler(
         onJoinChannelSuccess: (connection, elapsed) => onCallJoined(),
