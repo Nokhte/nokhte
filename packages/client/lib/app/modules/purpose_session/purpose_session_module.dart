@@ -33,7 +33,7 @@ class PurposeSessionModule extends Module {
     r.child(
       '/',
       transition: TransitionType.noTransition,
-      child: (context) => PurposeSessionPhaseOneGreeter(
+      child: (context) => PurposeSessionPhaseOneConsultation(
         coordinator: Modular.get<PurposeSessionPhaseOneCoordinator>(),
       ),
     );
