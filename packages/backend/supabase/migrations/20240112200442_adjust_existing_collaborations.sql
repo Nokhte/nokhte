@@ -19,3 +19,9 @@ alter table "public"."existing_collaborations" validate constraint "existing_col
 alter table "public"."existing_collaborations" add constraint "existing_collaborations_timer_init_status_check" CHECK ((array_length(timer_init_status, 1) = 2)) not valid;
 
 alter table "public"."existing_collaborations" validate constraint "existing_collaborations_timer_init_status_check";
+
+alter table "public"."existing_collaborations" drop constraint "existing_collaborations_timer_init_status_check";
+
+alter table "public"."existing_collaborations" drop column "timer_init_status";
+
+alter table "public"."existing_collaborations" add column "timer_should_run" boolean not null default false;
