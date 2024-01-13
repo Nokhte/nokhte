@@ -17,6 +17,8 @@ abstract class VoiceCallRemoteSource {
   Future unmuteLocalAudio();
 
   Future<List<dynamic>> getCollaboratorInfo();
+
+  Future<RtcEngine> initAgoraSdk();
 }
 
 class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
@@ -28,13 +30,20 @@ class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
 
   VoiceCallRemoteSourceImpl({
     required this.supabase,
-    required this.agoraEngine,
-  })  : currentUserUID = supabase.auth.currentUser?.id ?? '',
+  })  : agoraEngine = createAgoraRtcEngine(),
+        currentUserUID = supabase.auth.currentUser?.id ?? '',
         currentAgoraUID = MiscAlgos.postgresUIDToInt(
           supabase.auth.currentUser?.id ?? '',
         ),
         existingCollaborationsQueries =
             ExistingCollaborationsQueries(supabase: supabase);
+
+  @override
+  Future<RtcEngine> initAgoraSdk() async {
+    await agoraEngine.initialize(
+        const RtcEngineContext(appId: '050b22b688f44464b2533fac484c7300'));
+    return agoraEngine;
+  }
 
   @override
   Future<Response> getAgoraToken({
