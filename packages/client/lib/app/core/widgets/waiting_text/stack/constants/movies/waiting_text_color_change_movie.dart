@@ -42,6 +42,5 @@ class WaitingTextColorChangeMovie {
           end: WaterColorsAndStops.vibrantBlueGrad.first.color,
         ),
       );
-    ;
   }
 }
