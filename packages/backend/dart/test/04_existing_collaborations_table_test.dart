@@ -78,11 +78,6 @@ void main() {
     expect(res, [false, false]);
   });
 
-  test("getTimerInitStatuses", () async {
-    final res = await user1Queries.getTimerInitStatuses();
-    expect(res, [false, false]);
-  });
-
   test("setOnlineStatus", () async {
     final res = await user1Queries.setOnlineStatus(true);
     expect(res.first[ExistingCollaborationsQueries.isOnline], [true, false]);
@@ -94,19 +89,31 @@ void main() {
   });
 
   test("setTimerInitStatus", () async {
-    final res = await user1Queries.setTimerInitStatus(true);
-    expect(res.first[ExistingCollaborationsQueries.timerInitStatus],
-        [true, false]);
+    final res = await user1Queries.setTimerRunningStatus(true);
+    expect(res.first[ExistingCollaborationsQueries.timerShouldRun], true);
   });
 
-  test(
-      "should be able to update talking status & receive changes in the stream",
-      () async {
-    final stream = user1Stream.checkIfCollaboratorIsTalking();
+  test("getSessionMetadata", () async {
+    final stream = user1Stream.getSessionMetadata();
     await user1Queries.setUserAsTheCurrentTalker();
-    await user2Queries.setUserAsTheCurrentTalker();
-    await user1Queries.clearTheCurrentTalker();
-    expect(stream, emits(true));
+    await user1Queries.setOnCallStatus(true);
+    await user2Queries.setOnCallStatus(true);
+    await user1Queries.setOnlineStatus(true);
+    await user2Queries.setOnlineStatus(true);
+    await user1Queries.setTimerRunningStatus(true);
+    expect(
+      stream,
+      emits(
+        CollaborationSessionMetadata(
+          userIsOnCall: true,
+          collaboratorIsOnCall: true,
+          userIsOnline: true,
+          collaboratorIsOnline: true,
+          timerShouldRun: true,
+          collaboratorIsTalking: false,
+        ),
+      ),
+    );
   });
 
   test(
