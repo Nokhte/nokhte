@@ -9,6 +9,7 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
 
   bool collaboratorSearchListeningStatus = false;
   bool whoIsTalkingListeningStatus = false;
+  bool sessionMetadataListeningStatus = false;
 
   bool isANewCollaboration(event) =>
       (event.first["collaborator_one"] == userUID ||
@@ -41,26 +42,37 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
 
   cancelWhoIsTalkingtream() => whoIsTalkingListeningStatus = false;
 
-  Stream<bool> checkIfCollaboratorIsTalking() async* {
+  Stream<CollaborationSessionMetadata> getSessionMetadata() async* {
     await ensureActiveCollaboratorInfo();
-    whoIsTalkingListeningStatus = true;
+    sessionMetadataListeningStatus = true;
     await for (var event in supabase
         .from('existing_collaborations')
         .stream(primaryKey: ['id']).eq(
       collaboratorInfo.theUsersCollaboratorNumber,
       collaboratorInfo.theUsersUID,
     )) {
-      if (!whoIsTalkingListeningStatus) {
-        break;
-      }
       if (event.isEmpty) {
-        yield false;
-      } else if (event
-          .first[ExistingCollaborationsQueries.talkingQueue].isEmpty) {
-        yield false;
+        yield CollaborationSessionMetadata.initial();
       } else {
-        yield event.first[ExistingCollaborationsQueries.talkingQueue].first ==
-            collaboratorInfo.theCollaboratorsUID;
+        final userIndex = getIndexForCollaboratorNumber(
+            collaboratorInfo.theUsersCollaboratorNumber);
+        final collaboratorIndex = getIndexForCollaboratorNumber(
+            collaboratorInfo.theCollaboratorsNumber);
+        final onCallList = event.first[ExistingCollaborationsQueries.isOnCall];
+        final isOnlineList =
+            event.first[ExistingCollaborationsQueries.isOnline];
+        final talkingQueue =
+            event.first[ExistingCollaborationsQueries.talkingQueue];
+        yield CollaborationSessionMetadata(
+          userIsOnCall: onCallList[userIndex],
+          collaboratorIsOnCall: onCallList[collaboratorIndex],
+          userIsOnline: isOnlineList[userIndex],
+          collaboratorIsOnline: isOnlineList[collaboratorIndex],
+          timerShouldRun:
+              event.first[ExistingCollaborationsQueries.timerShouldRun],
+          collaboratorIsTalking:
+              talkingQueue.isEmpty ? false : talkingQueue.first != userUID,
+        );
       }
     }
   }
