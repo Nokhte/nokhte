@@ -9,9 +9,12 @@ class WaitingTextPainter extends CustomPainter {
   final double circleRadius;
   final double circleXOffset;
   final double circleYOffset;
-  final OpacityAndRadius ripple1Arc1, ripple1Arc2, ripple1Arc3;
+  final OpacityAndRadius ripple1, ripple2;
   late Offset firstRippleOffset;
   late Offset secondRippleOffset;
+  final Color rectColor;
+  final Color ripple1Color;
+  final Color ripple2Color;
   WaitingTextPainter({
     required this.topLengthScalar,
     required this.roundness,
@@ -20,9 +23,11 @@ class WaitingTextPainter extends CustomPainter {
     required this.circleRadius,
     required this.circleXOffset,
     required this.circleYOffset,
-    required this.ripple1Arc1,
-    required this.ripple1Arc2,
-    required this.ripple1Arc3,
+    required this.ripple1,
+    required this.ripple2,
+    required this.rectColor,
+    required this.ripple1Color,
+    required this.ripple2Color,
   });
 
   @override
@@ -45,9 +50,9 @@ class WaitingTextPainter extends CustomPainter {
       Offset(centerX * 1.11 + 1, lineEndY + -1),
     );
 
-    final rectPaint = Paint()..color = Colors.white.withOpacity(rectOpacity);
+    final rectPaint = Paint()..color = rectColor.withOpacity(rectOpacity);
     final circlePaint = Paint()
-      ..color = Colors.white.withOpacity(circleOpacity);
+      ..color = ripple1Color.withOpacity(circleOpacity);
 
     final rrect = RRect.fromRectAndRadius(
       rect,
@@ -60,17 +65,17 @@ class WaitingTextPainter extends CustomPainter {
     secondRippleOffset =
         Offset((centerX * 1.11 - 1) + -30.0, (lineStartY - 1) + 150.0);
     Paint arc1Paint = Paint()
-      ..color = Colors.white.withOpacity(ripple1Arc1.opacity)
+      ..color = ripple1Color.withOpacity(ripple1.opacity)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.0;
 
-    canvas.drawCircle(firstRippleOffset, ripple1Arc1.radius, arc1Paint);
+    canvas.drawCircle(firstRippleOffset, ripple1.radius, arc1Paint);
 
     Paint arc2Paint = Paint()
-      ..color = Colors.white.withOpacity(ripple1Arc2.opacity)
+      ..color = ripple2Color.withOpacity(ripple2.opacity)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.0;
-    canvas.drawCircle(secondRippleOffset, ripple1Arc2.radius, arc2Paint);
+    canvas.drawCircle(secondRippleOffset, ripple2.radius, arc2Paint);
 
     canvas.drawRRect(rrect, rectPaint);
     canvas.drawCircle(
