@@ -11,6 +11,19 @@ abstract class _WaitingTextStoreBase extends BaseCustomAnimatedWidgetStore
     with Store {
   _WaitingTextStoreBase() {
     setMovie(WaitingTextStoneSkipMovie.movie);
-    setControl(Control.loop);
   }
+
+  @action
+  setAltMovie(Duration timerLength) {
+    altMovie = WaitingTextColorChangeMovie.getMovie(timerLength: timerLength);
+  }
+
+  @action
+  setAltControl(Control control) => altControl = control;
+
+  @observable
+  MovieTween altMovie = MovieTween();
+
+  @observable
+  Control altControl = Control.stop;
 }
