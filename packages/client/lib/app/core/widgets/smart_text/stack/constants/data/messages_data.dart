@@ -166,4 +166,18 @@ class MessagesData {
           unlockGesture: Gestures.tap,
         ),
       ];
+  static List<RotatingTextData> get purposeSessionBootUpList => [
+        RotatingTextData(
+          mainMessage: "Joining Call",
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "Waiting On Collaborator",
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
+      ];
 }
