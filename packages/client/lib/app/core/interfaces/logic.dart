@@ -6,6 +6,10 @@ abstract class AbstractFutureLogic<Type, Params> {
   Future<Either<Failure, Type>> call(Params params);
 }
 
+abstract class AbstractFutureNoFailureLogic<Type, Params> {
+  Future<Type> call(Params params);
+}
+
 abstract class AbstractSyncLogic<Type, Params> {
   Either<Failure, Type> call(Params params);
 }
