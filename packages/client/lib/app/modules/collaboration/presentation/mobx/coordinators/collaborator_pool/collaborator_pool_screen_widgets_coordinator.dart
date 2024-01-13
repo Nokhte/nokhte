@@ -26,9 +26,11 @@ abstract class _CollaboratorPoolScreenWidgetsCoordinatorBase
     required this.waitingText,
   });
 
+  final timerDuration = Seconds.get(63);
   @action
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradientToTimesUp);
+    waitingText.setAltMovie(timerDuration);
     waitingText.toggleWidgetVisibility();
     beachWaves.currentStore.initMovie(NoParams());
     initReactors();
@@ -52,7 +54,8 @@ abstract class _CollaboratorPoolScreenWidgetsCoordinatorBase
           if (beachWaves.movieMode ==
               BeachWaveMovieModes.vibrantBlueGradientToTimesUp) {
             beachWaves.setMovieMode(BeachWaveMovieModes.timesUp);
-            beachWaves.currentStore.initMovie(Seconds.get(63));
+            beachWaves.currentStore.initMovie(timerDuration);
+            waitingText.setAltControl(Control.play);
             waitingText.setControl(Control.loop);
           } else if (beachWaves.movieMode == BeachWaveMovieModes.timesUp &&
               beachWaves.currentControl != Control.stop) {
