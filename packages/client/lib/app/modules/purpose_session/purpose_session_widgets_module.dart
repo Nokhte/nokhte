@@ -13,13 +13,16 @@ class PurposeSessionWidgetsModule extends Module {
 
   @override
   void exportedBinds(Injector i) {
+    i.add<NokhteBlurStore>(
+      () => NokhteBlurStore(),
+    );
     i.add(
       () => PurposeSessionPhaseOneWidgetsCoordinator(
-        beachWaves: Modular.get<BeachWavesStore>(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        primarySmartText: Modular.get<SmartTextStore>(),
-        secondarySmartText: Modular.get<SmartTextStore>(),
-      ),
+          beachWaves: Modular.get<BeachWavesStore>(),
+          wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+          primarySmartText: Modular.get<SmartTextStore>(),
+          secondarySmartText: Modular.get<SmartTextStore>(),
+          nokhteBlur: Modular.get<NokhteBlurStore>()),
     );
   }
 }
