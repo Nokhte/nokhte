@@ -1,4 +1,3 @@
-import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
@@ -15,16 +14,9 @@ class VoiceCallModule extends Module {
 
   @override
   void exportedBinds(Injector i) {
-    i.addSingleton<RtcEngine>(() {
-      final agoraEngine = createAgoraRtcEngine();
-      agoraEngine.initialize(
-          const RtcEngineContext(appId: '050b22b688f44464b2533fac484c7300'));
-      return agoraEngine;
-    });
     i.add<VoiceCallRemoteSourceImpl>(
       () => VoiceCallRemoteSourceImpl(
         supabase: Modular.get<SupabaseClient>(),
-        agoraEngine: i<RtcEngine>(),
       ),
     );
     i.add<VoiceCallContractImpl>(
@@ -48,6 +40,11 @@ class VoiceCallModule extends Module {
         contract: i<VoiceCallContractImpl>(),
       ),
     );
+    i.add<InitAgoraSdk>(
+      () => InitAgoraSdk(
+        contract: i<VoiceCallContractImpl>(),
+      ),
+    );
     i.add<LeaveCall>(
       () => LeaveCall(
         contract: i<VoiceCallContractImpl>(),
@@ -63,6 +60,11 @@ class VoiceCallModule extends Module {
         contract: i<VoiceCallContractImpl>(),
       ),
     );
+    i.add<InitAgoraSdkStore>(
+      () => InitAgoraSdkStore(
+        logic: i<InitAgoraSdk>(),
+      ),
+    );
     i.add<GetAgoraTokenStore>(
       () => GetAgoraTokenStore(
         logic: i<GetAgoraToken>(),
@@ -74,9 +76,7 @@ class VoiceCallModule extends Module {
       ),
     );
     i.add<VoiceCallStatusStore>(
-      () => VoiceCallStatusStore(
-        agoraEngine: i<RtcEngine>(),
-      ),
+      () => VoiceCallStatusStore(),
     );
     i.add<VoiceCallActionsStore>(
       () => VoiceCallActionsStore(
@@ -88,6 +88,7 @@ class VoiceCallModule extends Module {
     );
     i.add<VoiceCallCoordinator>(
       () => VoiceCallCoordinator(
+        initAgoraSdk: i<InitAgoraSdkStore>(),
         voiceCallActions: i<VoiceCallActionsStore>(),
         voiceCallStatus: i<VoiceCallStatusStore>(),
         getAgoraToken: i<GetAgoraTokenStore>(),
