@@ -72,20 +72,30 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   Future<List> getWhoIsOnTheCall() async =>
       await _getCollaborationProperty(isOnCall);
 
-  Future<List> setOnlineStatus(bool isOnlineParam) async {
+  Future<List> setOnlineStatus(
+    bool isOnlineParam, {
+    bool shouldEditCollaboratorsInfo = false,
+  }) async {
     final currentOnlineStatus = await getWhoIsOnline();
     final indexToEdit = getIndexForCollaboratorNumber(
-        collaboratorInfo.theUsersCollaboratorNumber);
+        shouldEditCollaboratorsInfo
+            ? collaboratorInfo.theCollaboratorsNumber
+            : collaboratorInfo.theUsersCollaboratorNumber);
     currentOnlineStatus[indexToEdit] = isOnlineParam;
     return await onCurrentActiveCollaboration(supabase.from(tableName).update({
       isOnline: currentOnlineStatus,
     }));
   }
 
-  Future<List> setOnCallStatus(bool isOnCallParam) async {
+  Future<List> setOnCallStatus(
+    bool isOnCallParam, {
+    bool shouldEditCollaboratorsInfo = false,
+  }) async {
     final currentOnCallStatus = await getWhoIsOnTheCall();
     final indexToEdit = getIndexForCollaboratorNumber(
-        collaboratorInfo.theUsersCollaboratorNumber);
+        shouldEditCollaboratorsInfo
+            ? collaboratorInfo.theCollaboratorsNumber
+            : collaboratorInfo.theUsersCollaboratorNumber);
     currentOnCallStatus[indexToEdit] = isOnCallParam;
     return await onCurrentActiveCollaboration(
       supabase.from(tableName).update({
