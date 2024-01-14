@@ -20,8 +20,8 @@ class PurposeSessionPhaseOneConsultation extends HookWidget {
     useOnAppLifecycleStateChange(
         (previous, current) => coordinator.onAppLifeCycleStateChange(
               current,
-              onResumed: () => coordinator.onResumed(),
-              onInactive: () => coordinator.onInactive(),
+              onResumed: () => null,
+              onInactive: () => null,
               onDetached: () => coordinator.onDetached(),
             ));
     return Scaffold(

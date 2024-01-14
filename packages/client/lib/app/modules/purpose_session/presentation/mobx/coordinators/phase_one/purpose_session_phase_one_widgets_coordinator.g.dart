@@ -93,36 +93,6 @@ mixin _$PurposeSessionPhaseOneWidgetsCoordinator
   }
 
   @override
-  dynamic onInactive() {
-    final _$actionInfo =
-        _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
-            .startAction(
-                name:
-                    '_PurposeSessionPhaseOneWidgetsCoordinatorBase.onInactive');
-    try {
-      return super.onInactive();
-    } finally {
-      _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic onResumed() {
-    final _$actionInfo =
-        _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
-            .startAction(
-                name:
-                    '_PurposeSessionPhaseOneWidgetsCoordinatorBase.onResumed');
-    try {
-      return super.onResumed();
-    } finally {
-      _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic resumeTimer() {
     final _$actionInfo =
         _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController

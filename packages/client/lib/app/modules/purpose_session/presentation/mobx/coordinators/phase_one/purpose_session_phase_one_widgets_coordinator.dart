@@ -41,7 +41,6 @@ abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
 
   @action
   onCallLeft() {
-    print("call left widget");
     isInTheCall = false;
     nokhteBlur.init();
     errorText.setCurrentIndex(0);
@@ -70,19 +69,6 @@ abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
     secondarySmartText
         .setMessagesData(MessagesData.secondaryPurposeSessionPhase1List);
     secondarySmartText.startRotatingText();
-  }
-
-  @action
-  onInactive() {
-    // if (beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
-    // }
-  }
-
-  @action
-  onResumed() {
-    // if (beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
-    //   beachWaves.currentStore.setControl(Control.play);
-    // }
   }
 
   @action

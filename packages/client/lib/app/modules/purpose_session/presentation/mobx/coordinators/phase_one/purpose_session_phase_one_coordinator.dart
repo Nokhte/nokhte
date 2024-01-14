@@ -52,7 +52,6 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
 
   @action
   onInactive() async {
-    widgets.onInactive();
     await collaboratorPresence.updateTimerStatus(false);
     await collaboratorPresence
         .updateOnlineStatus(const UpdateOnlineStatusParams(
@@ -62,7 +61,6 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
 
   @action
   onResumed() async {
-    widgets.onResumed();
     await collaboratorPresence.updateTimerStatus(true);
     await collaboratorPresence
         .updateOnlineStatus(const UpdateOnlineStatusParams(
