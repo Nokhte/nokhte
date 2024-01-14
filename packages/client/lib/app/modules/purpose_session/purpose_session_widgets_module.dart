@@ -21,6 +21,7 @@ class PurposeSessionWidgetsModule extends Module {
           beachWaves: Modular.get<BeachWavesStore>(),
           wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
           primarySmartText: Modular.get<SmartTextStore>(),
+          errorText: Modular.get<SmartTextStore>(),
           secondarySmartText: Modular.get<SmartTextStore>(),
           nokhteBlur: Modular.get<NokhteBlurStore>()),
     );
