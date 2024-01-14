@@ -33,9 +33,9 @@ class WorkingCollaborativeSchedulingQueries extends CollaborativeQueries {
     }
   }
 
-  Future<void> deleteSchedulingSession() async {
+  Future<List> deleteSchedulingSession() async {
     await ensureActiveCollaboratorInfo();
-    await supabase
+    return await supabase
         .from(table)
         .delete()
         .eq(
@@ -45,7 +45,8 @@ class WorkingCollaborativeSchedulingQueries extends CollaborativeQueries {
         .eq(
           "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
           collaboratorInfo.theUsersUID,
-        );
+        )
+        .select();
   }
 
   updateTheDate(DateTime date) async {

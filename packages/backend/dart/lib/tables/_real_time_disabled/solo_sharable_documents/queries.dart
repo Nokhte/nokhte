@@ -92,7 +92,7 @@ class SoloSharableDocumentQueries extends CollaborativeQueries {
         .select();
   }
 
-  Future<void> deleteDocument() async {
+  Future<List> deleteDocument() async {
     await ensureActiveCollaboratorInfo();
     return await supabase
         .from(table)
@@ -101,6 +101,8 @@ class SoloSharableDocumentQueries extends CollaborativeQueries {
         .order(
           createdAt,
           ascending: false,
-        );
+        )
+        .limit(1)
+        .select();
   }
 }

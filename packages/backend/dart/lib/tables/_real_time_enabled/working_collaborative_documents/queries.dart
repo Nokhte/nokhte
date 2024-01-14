@@ -55,9 +55,9 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
         );
   }
 
-  Future<void> deleteThedoc() async {
+  Future<List> deleteThedoc() async {
     await ensureActiveCollaboratorInfo();
-    await supabase
+    return await supabase
         .from(tableName)
         .delete()
         .eq(
@@ -67,7 +67,8 @@ class WorkingCollaborativeDocumentsQueries extends CollaborativeQueries {
         .eq(
           "${collaboratorInfo.theUsersCollaboratorNumber}_uid",
           collaboratorInfo.theUsersUID,
-        );
+        )
+        .select();
   }
 
   Future<void> updateCommitDesireStatus({
