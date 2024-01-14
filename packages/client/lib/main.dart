@@ -34,14 +34,14 @@ void main() async {
     url: supabaseUrl,
     anonKey: supabaseAnonKey,
   );
-  final supabaseClient = Supabase.instance.client;
+  // final supabaseClient = Supabase.instance.client;
 
   runApp(
     ModularApp(
       debugMode: true,
       module: AppModule(
-        supabase: supabaseClient,
-      ),
+          // supabase: supabaseClient,
+          ),
       child: const AppWidget(),
     ),
   );
