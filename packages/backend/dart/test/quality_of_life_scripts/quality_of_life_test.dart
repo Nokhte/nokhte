@@ -70,15 +70,15 @@ void main() {
   });
 
   test("mark npc as having joined the call", () async {
-    await existingCollaborationsQueries.setOnCallStatus(true);
+    await existingCollaborationsQueries.updateOnCallStatus(true);
   });
 
   test("mark npc has being online", () async {
-    await existingCollaborationsQueries.setOnlineStatus(true);
+    await existingCollaborationsQueries.updateOnlineStatus(true);
   });
 
   test("mark npc as having initialized the timer", () async {
-    await existingCollaborationsQueries.setTimerRunningStatus(true);
+    await existingCollaborationsQueries.updateTimerRunningStatus(true);
   });
 
   test("make a purpose between npc & person", () async {
