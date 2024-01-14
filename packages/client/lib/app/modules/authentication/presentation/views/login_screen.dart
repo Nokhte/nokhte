@@ -25,7 +25,6 @@ class LoginScreen extends HookWidget {
     final center = useCenterOffset();
     useEffect(() {
       coordinator.constructor(center);
-      print("is this working???");
       return null;
     }, []);
     final size = useSquareSize(relativeLength: .20);
