@@ -17,6 +17,13 @@ class PurposeSessionPhaseOneConsultation extends HookWidget {
       coordinator.constructor();
       return null;
     }, []);
+    useOnAppLifecycleStateChange(
+        (previous, current) => coordinator.onAppLifeCycleStateChange(
+              current,
+              onResumed: () => coordinator.onResumed(),
+              onInactive: () => coordinator.onInactive(),
+              onDetached: () => coordinator.onDetached(),
+            ));
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: MultiHitStack(
@@ -32,12 +39,18 @@ class PurposeSessionPhaseOneConsultation extends HookWidget {
             store: coordinator.widgets.secondarySmartText,
             opacityDuration: Seconds.get(1),
           )),
+          Center(
+              child: SmartText(
+            store: coordinator.widgets.primarySmartText,
+            bottomPadding: 180,
+            opacityDuration: Seconds.get(1),
+          )),
           NokhteBlur(
             store: coordinator.widgets.nokhteBlur,
           ),
           Center(
               child: SmartText(
-            store: coordinator.widgets.primarySmartText,
+            store: coordinator.widgets.errorText,
             bottomPadding: 180,
             opacityDuration: Seconds.get(1),
           )),
