@@ -1,8 +1,8 @@
-import 'package:nokhte/app/core/entities/default_db_status_entity.dart';
+import 'package:nokhte/app/core/entities/base_single_boolean_entity.dart';
 
-class HasSentAnInvitationUpdateStatusEntity extends DefaultDBStatusEntity {
+class HasSentAnInvitationUpdateStatusEntity extends BaseSingleBooleanEntity {
   const HasSentAnInvitationUpdateStatusEntity({required bool isUpdated})
-      : super(isSent: isUpdated);
+      : super(isTrue: isUpdated);
 
   static HasSentAnInvitationUpdateStatusEntity get initial =>
       const HasSentAnInvitationUpdateStatusEntity(isUpdated: false);

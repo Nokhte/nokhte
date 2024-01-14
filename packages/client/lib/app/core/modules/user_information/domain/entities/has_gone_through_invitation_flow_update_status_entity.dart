@@ -1,10 +1,10 @@
-import 'package:nokhte/app/core/entities/default_db_status_entity.dart';
+import 'package:nokhte/app/core/entities/base_single_boolean_entity.dart';
 
 class HasGoneThroughInvitationFlowUpdateStatusEntity
-    extends DefaultDBStatusEntity {
+    extends BaseSingleBooleanEntity {
   const HasGoneThroughInvitationFlowUpdateStatusEntity(
       {required bool isUpdated})
-      : super(isSent: isUpdated);
+      : super(isTrue: isUpdated);
 
   static HasGoneThroughInvitationFlowUpdateStatusEntity get initial =>
       const HasGoneThroughInvitationFlowUpdateStatusEntity(isUpdated: false);

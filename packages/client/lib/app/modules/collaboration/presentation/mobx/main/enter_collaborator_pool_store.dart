@@ -39,7 +39,7 @@ abstract class _EnterCollaboratorPoolStoreBase
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
     }, (entryStatusEntity) {
-      hasEntered = entryStatusEntity.isSent;
+      hasEntered = entryStatusEntity.isTrue;
     });
   }
 

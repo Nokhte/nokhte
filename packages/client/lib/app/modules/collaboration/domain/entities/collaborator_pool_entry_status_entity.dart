@@ -1,8 +1,8 @@
-import 'package:nokhte/app/core/entities/default_db_status_entity.dart';
+import 'package:nokhte/app/core/entities/base_single_boolean_entity.dart';
 
-class CollaboratorPoolEntryStatusEntity extends DefaultDBStatusEntity {
+class CollaboratorPoolEntryStatusEntity extends BaseSingleBooleanEntity {
   const CollaboratorPoolEntryStatusEntity({required hasEntered})
-      : super(isSent: hasEntered);
+      : super(isTrue: hasEntered);
 
   factory CollaboratorPoolEntryStatusEntity.initial() =>
       const CollaboratorPoolEntryStatusEntity(hasEntered: false);

@@ -34,7 +34,7 @@ abstract class _SendDeepLinkStoreBase
         state = StoreState.initial;
       },
       (invitationStatusEntity) {
-        isShared = invitationStatusEntity.isSent;
+        isShared = invitationStatusEntity.isTrue;
       },
     );
   }

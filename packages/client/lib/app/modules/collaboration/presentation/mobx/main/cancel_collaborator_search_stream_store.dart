@@ -37,7 +37,7 @@ abstract class _CancelCollaboratorSearchStreamStoreBase extends BaseMobxDBStore<
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
     }, (entryStatusEntity) {
-      isListening = entryStatusEntity.isSent;
+      isListening = entryStatusEntity.isTrue;
     });
   }
 

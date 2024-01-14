@@ -1,8 +1,9 @@
-import 'package:nokhte/app/core/entities/default_db_status_entity.dart';
+import 'package:nokhte/app/core/entities/base_single_boolean_entity.dart';
 
-class CollaboratorStreamCancellationStatusEntity extends DefaultDBStatusEntity {
+class CollaboratorStreamCancellationStatusEntity
+    extends BaseSingleBooleanEntity {
   const CollaboratorStreamCancellationStatusEntity({required isCancelled})
-      : super(isSent: isCancelled);
+      : super(isTrue: isCancelled);
 
   factory CollaboratorStreamCancellationStatusEntity.initial() =>
       const CollaboratorStreamCancellationStatusEntity(isCancelled: false);

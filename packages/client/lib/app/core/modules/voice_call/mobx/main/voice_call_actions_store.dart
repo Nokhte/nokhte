@@ -38,7 +38,7 @@ abstract class _VoiceCallActionsStoreBase extends BaseMobxDBStore with Store {
       state = StoreState.initial;
       isMuted = true;
     }, (localAudioStreamStatusEntity) {
-      isMuted = localAudioStreamStatusEntity.isSent;
+      isMuted = localAudioStreamStatusEntity.isTrue;
     });
   }
 

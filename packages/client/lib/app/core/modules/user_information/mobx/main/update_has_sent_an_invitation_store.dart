@@ -32,7 +32,7 @@ abstract class _UpdateHasSentAnInvitationStoreBase
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
     }, (updateStatusEntity) {
-      isUpdated = updateStatusEntity.isSent;
+      isUpdated = updateStatusEntity.isTrue;
     });
   }
 

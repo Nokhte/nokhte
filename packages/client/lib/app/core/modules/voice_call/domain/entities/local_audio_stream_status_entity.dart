@@ -1,6 +1,6 @@
-import 'package:nokhte/app/core/entities/default_db_status_entity.dart';
+import 'package:nokhte/app/core/entities/base_single_boolean_entity.dart';
 
-class LocalAudioStreamStatusEntity extends DefaultDBStatusEntity {
+class LocalAudioStreamStatusEntity extends BaseSingleBooleanEntity {
   const LocalAudioStreamStatusEntity({required isMuted})
-      : super(isSent: isMuted);
+      : super(isTrue: isMuted);
 }

@@ -40,7 +40,7 @@ abstract class _ExitCollaboratorPoolStoreBase
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
     }, (entryStatusEntity) {
-      hasLeft = entryStatusEntity.isSent;
+      hasLeft = entryStatusEntity.isTrue;
     });
   }
 

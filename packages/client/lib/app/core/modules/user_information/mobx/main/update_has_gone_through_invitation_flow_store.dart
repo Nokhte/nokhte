@@ -33,7 +33,7 @@ abstract class _UpdateHasGoneThroughInvitationFlowStoreBase
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
     }, (StatusEntity) {
-      isUpdated = StatusEntity.isSent;
+      isUpdated = StatusEntity.isTrue;
     });
   }
 
