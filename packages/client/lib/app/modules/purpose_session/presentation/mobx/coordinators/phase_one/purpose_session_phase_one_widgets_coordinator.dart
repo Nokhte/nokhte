@@ -3,6 +3,7 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:simple_animations/animation_builder/custom_animation_builder.dart';
 part 'purpose_session_phase_one_widgets_coordinator.g.dart';
 
 class PurposeSessionPhaseOneWidgetsCoordinator = _PurposeSessionPhaseOneWidgetsCoordinatorBase
@@ -14,6 +15,7 @@ abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
+  final SmartTextStore errorText;
   final NokhteBlurStore nokhteBlur;
 
   _PurposeSessionPhaseOneWidgetsCoordinatorBase({
@@ -21,26 +23,100 @@ abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
     required this.wifiDisconnectOverlay,
     required this.primarySmartText,
     required this.secondarySmartText,
+    required this.errorText,
     required this.nokhteBlur,
   });
+
+  @observable
+  bool isInTheCall = false;
 
   @action
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtTheDepths);
-    nokhteBlur.init();
-    primarySmartText.setMessagesData(MessagesData.purposeSessionBootUpList);
+    errorText.toggleWidgetVisibility();
+    errorText.setMessagesData(MessagesData.purposeSessionBootUpList);
+    primarySmartText.setMessagesData(MessagesData.empty);
     secondarySmartText.setMessagesData(MessagesData.empty);
-    primarySmartText.startRotatingText();
+  }
+
+  @action
+  onCallLeft() {
+    print("call left widget");
+    isInTheCall = false;
+    nokhteBlur.init();
+    errorText.setCurrentIndex(0);
+    if (!errorText.showWidget) {
+      errorText.toggleWidgetVisibility();
+    }
+    errorText.startRotatingText();
   }
 
   @action
   onCallJoined() {
-    primarySmartText.startRotatingText(isResuming: true);
+    isInTheCall = true;
+    if (errorText.currentIndex == 0) {
+      errorText.startRotatingText(isResuming: true);
+    }
+  }
+
+  @action
+  initTimer() {
+    nokhteBlur.reverse();
+    primarySmartText
+        .setMessagesData(MessagesData.primaryPurposeSessionPhase1List);
+    primarySmartText.startRotatingText();
+    beachWaves.setMovieMode(BeachWaveMovieModes.timesUp);
+    beachWaves.currentStore.initMovie(const Duration(minutes: 5));
+    secondarySmartText
+        .setMessagesData(MessagesData.secondaryPurposeSessionPhase1List);
+    secondarySmartText.startRotatingText();
+  }
+
+  @action
+  onInactive() {
+    // if (beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
+    // }
+  }
+
+  @action
+  onResumed() {
+    // if (beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
+    //   beachWaves.currentStore.setControl(Control.play);
+    // }
+  }
+
+  @action
+  resumeTimer() {
+    beachWaves.currentStore.setControl(Control.play);
+  }
+
+  @action
+  pausetimer() {
+    beachWaves.currentStore.setControl(Control.play);
+    beachWaves.currentStore.setControl(Control.stop);
   }
 
   @action
   onCollaboratorJoined() {
-    primarySmartText.startRotatingText();
+    if (errorText.showWidget) {
+      errorText.toggleWidgetVisibility();
+    }
+  }
+
+  @action
+  onCollaboratorLeft() {
+    if (isInTheCall) {
+      nokhteBlur.init();
+      if (errorText.currentIndex == 0) {
+        errorText.setCurrentIndex(1);
+      }
+      if (!errorText.showWidget) {
+        errorText.toggleWidgetVisibility();
+      }
+      errorText.startRotatingText();
+    } else {
+      errorText.startRotatingText(isResuming: true);
+    }
   }
 
   smartTextIndexReactor() =>

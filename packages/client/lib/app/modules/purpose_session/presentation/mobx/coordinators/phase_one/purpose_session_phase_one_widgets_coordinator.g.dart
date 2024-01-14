@@ -10,6 +10,23 @@ part of 'purpose_session_phase_one_widgets_coordinator.dart';
 
 mixin _$PurposeSessionPhaseOneWidgetsCoordinator
     on _PurposeSessionPhaseOneWidgetsCoordinatorBase, Store {
+  late final _$isInTheCallAtom = Atom(
+      name: '_PurposeSessionPhaseOneWidgetsCoordinatorBase.isInTheCall',
+      context: context);
+
+  @override
+  bool get isInTheCall {
+    _$isInTheCallAtom.reportRead();
+    return super.isInTheCall;
+  }
+
+  @override
+  set isInTheCall(bool value) {
+    _$isInTheCallAtom.reportWrite(value, super.isInTheCall, () {
+      super.isInTheCall = value;
+    });
+  }
+
   late final _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController =
       ActionController(
           name: '_PurposeSessionPhaseOneWidgetsCoordinatorBase',
@@ -24,6 +41,21 @@ mixin _$PurposeSessionPhaseOneWidgetsCoordinator
                     '_PurposeSessionPhaseOneWidgetsCoordinatorBase.constructor');
     try {
       return super.constructor();
+    } finally {
+      _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onCallLeft() {
+    final _$actionInfo =
+        _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_PurposeSessionPhaseOneWidgetsCoordinatorBase.onCallLeft');
+    try {
+      return super.onCallLeft();
     } finally {
       _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
@@ -46,6 +78,81 @@ mixin _$PurposeSessionPhaseOneWidgetsCoordinator
   }
 
   @override
+  dynamic initTimer() {
+    final _$actionInfo =
+        _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_PurposeSessionPhaseOneWidgetsCoordinatorBase.initTimer');
+    try {
+      return super.initTimer();
+    } finally {
+      _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onInactive() {
+    final _$actionInfo =
+        _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_PurposeSessionPhaseOneWidgetsCoordinatorBase.onInactive');
+    try {
+      return super.onInactive();
+    } finally {
+      _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onResumed() {
+    final _$actionInfo =
+        _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_PurposeSessionPhaseOneWidgetsCoordinatorBase.onResumed');
+    try {
+      return super.onResumed();
+    } finally {
+      _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic resumeTimer() {
+    final _$actionInfo =
+        _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_PurposeSessionPhaseOneWidgetsCoordinatorBase.resumeTimer');
+    try {
+      return super.resumeTimer();
+    } finally {
+      _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic pausetimer() {
+    final _$actionInfo =
+        _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_PurposeSessionPhaseOneWidgetsCoordinatorBase.pausetimer');
+    try {
+      return super.pausetimer();
+    } finally {
+      _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic onCollaboratorJoined() {
     final _$actionInfo =
         _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController.startAction(
@@ -60,9 +167,23 @@ mixin _$PurposeSessionPhaseOneWidgetsCoordinator
   }
 
   @override
+  dynamic onCollaboratorLeft() {
+    final _$actionInfo =
+        _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_PurposeSessionPhaseOneWidgetsCoordinatorBase.onCollaboratorLeft');
+    try {
+      return super.onCollaboratorLeft();
+    } finally {
+      _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-
+isInTheCall: ${isInTheCall}
     ''';
   }
 }
