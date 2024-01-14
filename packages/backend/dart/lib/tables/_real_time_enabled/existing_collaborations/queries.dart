@@ -91,6 +91,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
     bool isOnCallParam, {
     bool shouldEditCollaboratorsInfo = false,
   }) async {
+    await ensureActiveCollaboratorInfo();
     final currentOnCallStatus = await getWhoIsOnTheCall();
     final indexToEdit = getIndexForCollaboratorNumber(
         shouldEditCollaboratorsInfo
@@ -105,6 +106,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   }
 
   Future<List> updateTimerRunningStatus(bool shouldRun) async {
+    await ensureActiveCollaboratorInfo();
     return await onCurrentActiveCollaboration(
       supabase.from(tableName).update({
         timerShouldRun: shouldRun,
@@ -113,6 +115,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   }
 
   Future<List> setUserAsTheCurrentTalker() async {
+    await ensureActiveCollaboratorInfo();
     final currentQueue = await getWhoIsTalkingQueue();
     currentQueue.add(collaboratorInfo.theUsersUID);
     return await onCurrentActiveCollaboration(
@@ -131,9 +134,9 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   }
 
   Future<void> clearTheCurrentTalker() async {
+    await ensureActiveCollaboratorInfo();
     final List currentQueue = await getWhoIsTalkingQueue();
     currentQueue.removeAt(0);
-    await ensureActiveCollaboratorInfo();
     return await onCurrentActiveCollaboration(
       supabase.from(tableName).update({
         talkingQueue: currentQueue,
