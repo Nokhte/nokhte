@@ -1,10 +1,15 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
+import 'package:nokhte/app/core/modules/collaborator_presence/domain/domain.dart';
 import 'package:nokhte/app/core/modules/collaborator_presence/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/modules/purpose_session/presentation/mobx/mobx.dart';
+import 'package:nokhte/app/modules/purpose_session/types/purpose_session_screen.dart';
 part 'purpose_session_phase_one_coordinator.g.dart';
 
 class PurposeSessionPhaseOneCoordinator = _PurposeSessionPhaseOneCoordinatorBase
@@ -24,17 +29,99 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
     required this.deleteCollaborationArtifacts,
   });
 
+  @observable
+  bool isFirstTimeInitializingTimer = true;
+
   @action
-  constructor() {
+  constructor() async {
     widgets.constructor();
+    widgets.onCallLeft();
     voiceCall.joinCall(shouldEnterTheCallMuted: true);
-    onCallJoinedReactor();
+    initReactors();
+    collaboratorPresence.updateOnlineStatus(const UpdateOnlineStatusParams(
+      newStatus: true,
+    ));
+    await collaboratorPresence.getSessionMetadata(NoParams());
   }
 
-  onCallJoinedReactor() =>
-      reaction((p0) => voiceCall.voiceCallStatus.inCall, (p0) {
+  initReactors() {
+    onCallStatusChangeReactor();
+    onCollaboratorCallPresenceChangeReactor();
+    timerReactor();
+  }
+
+  @action
+  onInactive() async {
+    widgets.onInactive();
+    await collaboratorPresence.updateTimerStatus(false);
+    await collaboratorPresence
+        .updateOnlineStatus(const UpdateOnlineStatusParams(
+      newStatus: false,
+    ));
+  }
+
+  @action
+  onResumed() async {
+    widgets.onResumed();
+    await collaboratorPresence.updateTimerStatus(true);
+    await collaboratorPresence
+        .updateOnlineStatus(const UpdateOnlineStatusParams(
+      newStatus: true,
+    ));
+  }
+
+  @action
+  onDetached() async => await deleteCollaborationArtifacts(
+      PurposeSessionScreen.phase1Consultation);
+
+  onCallStatusChangeReactor() =>
+      reaction((p0) => voiceCall.voiceCallStatus.inCall, (p0) async {
         if (p0 == CallStatus.joined) {
           widgets.onCallJoined();
+          await collaboratorPresence.updateOnCallStatus(
+              const UpdateOnCallStatusParams(newStatus: true));
+        } else if (p0 == CallStatus.left) {
+          widgets.onCallLeft();
+          await collaboratorPresence.updateOnCallStatus(
+              const UpdateOnCallStatusParams(newStatus: false));
+        }
+      });
+
+  onCollaboratorCallPresenceChangeReactor() => reaction(
+          (p0) => collaboratorPresence.getSessionMetadata.collaboratorIsOnline,
+          (p0) async {
+        if (p0) {
+          widgets.onCollaboratorJoined();
+          await collaboratorPresence.updateTimerStatus(true);
+        } else {
+          widgets.onCollaboratorLeft();
+          await collaboratorPresence
+              .updateOnCallStatus(const UpdateOnCallStatusParams(
+            newStatus: false,
+            shouldUpdateCollaboratorsIndex: true,
+          ));
+        }
+      });
+  timerReactor() =>
+      reaction((p0) => collaboratorPresence.getSessionMetadata.timerShouldRun,
+          (p0) {
+        if (p0) {
+          if (isFirstTimeInitializingTimer) {
+            Timer.periodic(const Duration(seconds: 1), (timer) {
+              if (collaboratorPresence
+                      .getSessionMetadata.collaboratorIsOnCall &&
+                  collaboratorPresence
+                      .getSessionMetadata.collaboratorIsOnline) {
+                widgets.initTimer();
+                isFirstTimeInitializingTimer = false;
+                timer.cancel();
+              }
+            });
+          } else {
+            widgets.resumeTimer();
+          }
+        } else {
+          widgets.pausetimer();
         }
       });
 }
