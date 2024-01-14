@@ -1,8 +1,12 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:nokhte/app/core/modules/collaborator_presence/collaborator_presence_module.dart';
+import 'package:nokhte/app/core/modules/collaborator_presence/mobx/coordinators/collaborator_presence_coordinator.dart';
 import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity_module.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/voice_call_module.dart';
+import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/modules/purpose_session/data/data.dart';
+import 'package:nokhte/app/modules/purpose_session/domain/logic/logic.dart';
 import 'package:nokhte/app/modules/purpose_session/presentation/presentation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'purpose_session_widgets_module.dart';
@@ -13,6 +17,7 @@ class PurposeSessionModule extends Module {
         PurposeSessionWidgetsModule(),
         VoiceCallModule(),
         LegacyConnectivityModule(),
+        CollaboratorPresenceModule(),
       ];
   @override
   void binds(i) {
@@ -21,8 +26,50 @@ class PurposeSessionModule extends Module {
         supabase: Modular.get<SupabaseClient>(),
       ),
     );
+    i.add<PurposeSessionContractImpl>(
+      () => PurposeSessionContractImpl(
+        remoteSource: Modular.get<PurposeSessionRemoteSourceImpl>(),
+        networkInfo: Modular.get<NetworkInfoImpl>(),
+      ),
+    );
+    i.add<DeleteCapsuleArrangement>(
+      () => DeleteCapsuleArrangement(
+        contract: Modular.get<PurposeSessionContractImpl>(),
+      ),
+    );
+    i.add<DeleteCollaborativeDocument>(
+      () => DeleteCollaborativeDocument(
+        contract: Modular.get<PurposeSessionContractImpl>(),
+      ),
+    );
+    i.add<DeleteSchedulingSession>(() => DeleteSchedulingSession(
+          contract: Modular.get<PurposeSessionContractImpl>(),
+        ));
+    i.add<DeleteSoloDocument>(
+      () => DeleteSoloDocument(
+        contract: Modular.get<PurposeSessionContractImpl>(),
+      ),
+    );
+    i.add<DeleteTheCollaboration>(
+      () => DeleteTheCollaboration(
+        contract: Modular.get<PurposeSessionContractImpl>(),
+      ),
+    );
+    i.add<DeleteCollaborationArtifactsStore>(
+      () => DeleteCollaborationArtifactsStore(
+        deleteCollaborativeDocument: Modular.get<DeleteCollaborativeDocument>(),
+        deleteSchedulingSession: Modular.get<DeleteSchedulingSession>(),
+        deleteTheCollaboration: Modular.get<DeleteTheCollaboration>(),
+        deleteCapsuleArrangement: Modular.get<DeleteCapsuleArrangement>(),
+        deleteSoloDocument: Modular.get<DeleteSoloDocument>(),
+      ),
+    );
+
     i.add<PurposeSessionPhaseOneCoordinator>(
       () => PurposeSessionPhaseOneCoordinator(
+          deleteCollaborationArtifacts:
+              Modular.get<DeleteCollaborationArtifactsStore>(),
+          collaboratorPresence: Modular.get<CollaboratorPresenceCoordinator>(),
           widgets: Modular.get<PurposeSessionPhaseOneWidgetsCoordinator>(),
           voiceCall: Modular.get<VoiceCallCoordinator>()),
     );
