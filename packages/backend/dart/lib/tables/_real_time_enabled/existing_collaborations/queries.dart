@@ -72,7 +72,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   Future<List> getWhoIsOnTheCall() async =>
       await _getCollaborationProperty(isOnCall);
 
-  Future<List> setOnlineStatus(
+  Future<List> updateOnlineStatus(
     bool isOnlineParam, {
     bool shouldEditCollaboratorsInfo = false,
   }) async {
@@ -87,7 +87,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
     }));
   }
 
-  Future<List> setOnCallStatus(
+  Future<List> updateOnCallStatus(
     bool isOnCallParam, {
     bool shouldEditCollaboratorsInfo = false,
   }) async {
@@ -104,7 +104,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
     );
   }
 
-  Future<List> setTimerRunningStatus(bool shouldRun) async {
+  Future<List> updateTimerRunningStatus(bool shouldRun) async {
     return await onCurrentActiveCollaboration(
       supabase.from(tableName).update({
         timerShouldRun: shouldRun,
@@ -141,7 +141,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
     );
   }
 
-  Future<void> deleteUnConsecratedTheCollaboration() async {
+  Future<List> deleteUnConsecratedTheCollaboration() async {
     await ensureActiveCollaboratorInfo();
     return await onCurrentActiveCollaboration(
       supabase.from(tableName).delete().eq(
@@ -151,7 +151,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
     );
   }
 
-  Future<void> deleteExistingCollaboration() async {
+  Future<List> deleteExistingCollaboration() async {
     await ensureActiveCollaboratorInfo();
     return await onCurrentActiveCollaboration(
         supabase.from(tableName).delete());
