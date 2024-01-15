@@ -1,6 +1,4 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'dart:async';
-
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
@@ -21,16 +19,18 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
   final CollaboratorPresenceCoordinator collaboratorPresence;
   final DeleteCollaborationArtifactsStore deleteCollaborationArtifacts;
   final PurposeSessionPhaseOneWidgetsCoordinator widgets;
+  final CheckIfUserHasTheQuestionStore checkIfUserHasTheQuestion;
 
   _PurposeSessionPhaseOneCoordinatorBase({
     required this.widgets,
     required this.voiceCall,
     required this.collaboratorPresence,
     required this.deleteCollaborationArtifacts,
+    required this.checkIfUserHasTheQuestion,
   });
 
   @observable
-  bool isFirstTimeInitializingTimer = true;
+  bool isFirstTimeBothAreInSync = true;
 
   @action
   constructor() async {
@@ -42,12 +42,15 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
       newStatus: true,
     ));
     await collaboratorPresence.getSessionMetadata(NoParams());
+    await checkIfUserHasTheQuestion(NoParams());
+    widgets.setHasTheQuesion(checkIfUserHasTheQuestion.hasTheQuestion);
   }
 
   initReactors() {
     onCallStatusChangeReactor();
     onCollaboratorCallPresenceChangeReactor();
-    timerReactor();
+    bothCollaboratorsAreOnCallAndOnlineReactor();
+    // timerReactor();
   }
 
   @action
@@ -100,26 +103,36 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
           ));
         }
       });
-  timerReactor() =>
-      reaction((p0) => collaboratorPresence.getSessionMetadata.timerShouldRun,
-          (p0) {
-        if (p0) {
-          if (isFirstTimeInitializingTimer) {
-            Timer.periodic(const Duration(seconds: 1), (timer) {
-              if (collaboratorPresence
-                      .getSessionMetadata.collaboratorIsOnCall &&
-                  collaboratorPresence
-                      .getSessionMetadata.collaboratorIsOnline) {
-                widgets.initTimer();
-                isFirstTimeInitializingTimer = false;
-                timer.cancel();
-              }
-            });
-          } else {
-            widgets.resumeTimer();
-          }
-        } else {
-          widgets.pausetimer();
+
+  bothCollaboratorsAreOnCallAndOnlineReactor() => reaction(
+          (p0) => collaboratorPresence
+              .getSessionMetadata.bothCollaboratorsAreOnCallAndOnline, (p0) {
+        if (p0 && isFirstTimeBothAreInSync) {
+          isFirstTimeBothAreInSync = false;
+          widgets.onFirstTimeUsersAreInSync();
         }
       });
+
+  // timerReactor() =>
+  //     reaction((p0) => collaboratorPresence.getSessionMetadata.timerShouldRun,
+  //         (p0) {
+  //       if (p0) {
+  //         if (isFirstTimeInitializingTimer) {
+  //           Timer.periodic(const Duration(seconds: 1), (timer) {
+  //             if (collaboratorPresence
+  //                     .getSessionMetadata.collaboratorIsOnCall &&
+  //                 collaboratorPresence
+  //                     .getSessionMetadata.collaboratorIsOnline) {
+  //               widgets.initTimer();
+  //               isFirstTimeInitializingTimer = false;
+  //               timer.cancel();
+  //             }
+  //           });
+  //         } else {
+  //           widgets.resumeTimer();
+  //         }
+  //       } else {
+  //         widgets.pausetimer();
+  //       }
+  //     });
 }

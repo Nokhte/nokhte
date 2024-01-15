@@ -10,22 +10,21 @@ part of 'purpose_session_phase_one_coordinator.dart';
 
 mixin _$PurposeSessionPhaseOneCoordinator
     on _PurposeSessionPhaseOneCoordinatorBase, Store {
-  late final _$isFirstTimeInitializingTimerAtom = Atom(
-      name:
-          '_PurposeSessionPhaseOneCoordinatorBase.isFirstTimeInitializingTimer',
+  late final _$isFirstTimeBothAreInSyncAtom = Atom(
+      name: '_PurposeSessionPhaseOneCoordinatorBase.isFirstTimeBothAreInSync',
       context: context);
 
   @override
-  bool get isFirstTimeInitializingTimer {
-    _$isFirstTimeInitializingTimerAtom.reportRead();
-    return super.isFirstTimeInitializingTimer;
+  bool get isFirstTimeBothAreInSync {
+    _$isFirstTimeBothAreInSyncAtom.reportRead();
+    return super.isFirstTimeBothAreInSync;
   }
 
   @override
-  set isFirstTimeInitializingTimer(bool value) {
-    _$isFirstTimeInitializingTimerAtom
-        .reportWrite(value, super.isFirstTimeInitializingTimer, () {
-      super.isFirstTimeInitializingTimer = value;
+  set isFirstTimeBothAreInSync(bool value) {
+    _$isFirstTimeBothAreInSyncAtom
+        .reportWrite(value, super.isFirstTimeBothAreInSync, () {
+      super.isFirstTimeBothAreInSync = value;
     });
   }
 
@@ -68,7 +67,7 @@ mixin _$PurposeSessionPhaseOneCoordinator
   @override
   String toString() {
     return '''
-isFirstTimeInitializingTimer: ${isFirstTimeInitializingTimer}
+isFirstTimeBothAreInSync: ${isFirstTimeBothAreInSync}
     ''';
   }
 }
