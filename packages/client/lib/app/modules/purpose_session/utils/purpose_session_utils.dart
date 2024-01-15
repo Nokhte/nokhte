@@ -1,6 +1,9 @@
 import 'package:nokhte/app/modules/purpose_session/types/types.dart';
 
 class PurposeSessionUtils {
+  static bool isPhase0(PurposeSessionScreen screen) =>
+      screen == PurposeSessionScreen.phase0Greeter;
+
   static bool isPhase1(PurposeSessionScreen screen) =>
       screen == PurposeSessionScreen.phase1Consultation;
 
@@ -23,7 +26,7 @@ class PurposeSessionUtils {
       !isPhase6(screen);
 
   static bool shouldDeleteSoloDocument(PurposeSessionScreen screen) =>
-      !isPhase1(screen) && !isPhase6(screen);
+      !isPhase0(screen) && !isPhase1(screen) && !isPhase6(screen);
 
   static bool shouldDeleteCapsuleArrangement(PurposeSessionScreen screen) =>
       isPhase4(screen) || isPhase5(screen);
