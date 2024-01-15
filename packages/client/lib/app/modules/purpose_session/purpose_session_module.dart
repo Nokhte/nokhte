@@ -32,6 +32,11 @@ class PurposeSessionModule extends Module {
         networkInfo: Modular.get<NetworkInfoImpl>(),
       ),
     );
+    i.add<CheckIfUserHasTheQuestion>(
+      () => CheckIfUserHasTheQuestion(
+        contract: Modular.get<PurposeSessionContractImpl>(),
+      ),
+    );
     i.add<DeleteCapsuleArrangement>(
       () => DeleteCapsuleArrangement(
         contract: Modular.get<PurposeSessionContractImpl>(),
@@ -55,6 +60,11 @@ class PurposeSessionModule extends Module {
         contract: Modular.get<PurposeSessionContractImpl>(),
       ),
     );
+    i.add<CheckIfUserHasTheQuestionStore>(
+      () => CheckIfUserHasTheQuestionStore(
+        logic: Modular.get<CheckIfUserHasTheQuestion>(),
+      ),
+    );
     i.add<DeleteCollaborationArtifactsStore>(
       () => DeleteCollaborationArtifactsStore(
         deleteCollaborativeDocument: Modular.get<DeleteCollaborativeDocument>(),
@@ -64,9 +74,18 @@ class PurposeSessionModule extends Module {
         deleteSoloDocument: Modular.get<DeleteSoloDocument>(),
       ),
     );
+    i.add<PurposeSessionPhaseZeroCoordinator>(
+      () => PurposeSessionPhaseZeroCoordinator(
+        widgets: Modular.get<PurposeSessionPhaseZeroWidgetsCoordinator>(),
+        deleteCollaborationArtifacts:
+            Modular.get<DeleteCollaborationArtifactsStore>(),
+      ),
+    );
 
     i.add<PurposeSessionPhaseOneCoordinator>(
       () => PurposeSessionPhaseOneCoordinator(
+          checkIfUserHasTheQuestion:
+              Modular.get<CheckIfUserHasTheQuestionStore>(),
           deleteCollaborationArtifacts:
               Modular.get<DeleteCollaborationArtifactsStore>(),
           collaboratorPresence: Modular.get<CollaboratorPresenceCoordinator>(),
@@ -79,6 +98,13 @@ class PurposeSessionModule extends Module {
   void routes(r) {
     r.child(
       '/',
+      transition: TransitionType.noTransition,
+      child: (context) => PurposeSessionPhaseZeroGreeter(
+        coordinator: Modular.get<PurposeSessionPhaseZeroCoordinator>(),
+      ),
+    );
+    r.child(
+      '/phase_one',
       transition: TransitionType.noTransition,
       child: (context) => PurposeSessionPhaseOneConsultation(
         coordinator: Modular.get<PurposeSessionPhaseOneCoordinator>(),
