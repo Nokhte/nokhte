@@ -133,7 +133,32 @@ class MessagesData {
         ),
       ];
 
-  static List<RotatingTextData> get primaryPurposeSessionPhase1List => [
+  static List<RotatingTextData> get primaryPurposeSessionHasTheQuestion => [
+        RotatingTextData(
+          mainMessage: "Ask: What can we collectively create?",
+          onScreenTime: Seconds.get(0),
+          pauseHere: true,
+          unlockGesture: Gestures.tap,
+        ),
+      ];
+
+  static List<RotatingTextData>
+      get primaryPurposeSessionDoesNotHaveTheQuestion => [
+            RotatingTextData(
+              mainMessage: "",
+              onScreenTime: Seconds.get(0),
+              pauseHere: true,
+              unlockGesture: Gestures.tap,
+            ),
+            RotatingTextData(
+              mainMessage: "Ask: What can we collectively create?",
+              onScreenTime: Seconds.get(0),
+              pauseHere: true,
+              unlockGesture: Gestures.tap,
+            ),
+          ];
+
+  static List<RotatingTextData> get primaryPurposeSessionPhase0List => [
         RotatingTextData(
           initialFadeInDelay: Seconds.get(0),
           mainMessage: "This is the starting point of the collaboration",
@@ -146,17 +171,10 @@ class MessagesData {
         ),
         RotatingTextData(
           mainMessage: "",
-          onScreenTime: Seconds.get(0),
           pauseHere: true,
-          unlockGesture: Gestures.tap,
-        ),
-        RotatingTextData(
-          mainMessage: "Ask: What can we collectively create?",
-          onScreenTime: Seconds.get(0),
-          pauseHere: true,
-          unlockGesture: Gestures.tap,
         ),
       ];
+
   static List<RotatingTextData> get secondaryPurposeSessionPhase1List => [
         RotatingTextData(
           mainMessage: "hold anywhere to speak",
