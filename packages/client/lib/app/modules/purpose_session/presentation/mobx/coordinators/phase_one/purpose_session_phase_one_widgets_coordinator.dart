@@ -28,6 +28,15 @@ abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
   });
 
   @observable
+  bool hasTheQuestion = false;
+
+  @action
+  setHasTheQuesion(bool newVal) => hasTheQuestion = newVal;
+
+  @observable
+  bool hasInitializedTimer = false;
+
+  @observable
   bool isInTheCall = false;
 
   @action
@@ -60,15 +69,8 @@ abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
 
   @action
   initTimer() {
-    nokhteBlur.reverse();
-    primarySmartText
-        .setMessagesData(MessagesData.primaryPurposeSessionPhase1List);
-    primarySmartText.startRotatingText();
     beachWaves.setMovieMode(BeachWaveMovieModes.timesUp);
     beachWaves.currentStore.initMovie(const Duration(minutes: 5));
-    secondarySmartText
-        .setMessagesData(MessagesData.secondaryPurposeSessionPhase1List);
-    secondarySmartText.startRotatingText();
   }
 
   @action
@@ -87,6 +89,18 @@ abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
     if (errorText.showWidget) {
       errorText.toggleWidgetVisibility();
     }
+    nokhteBlur.reverse();
+  }
+
+  @action
+  onFirstTimeUsersAreInSync() {
+    nokhteBlur.reverse();
+    primarySmartText.setMessagesData(
+      hasTheQuestion
+          ? MessagesData.primaryPurposeSessionHasTheQuestion
+          : MessagesData.primaryPurposeSessionDoesNotHaveTheQuestion,
+    );
+    primarySmartText.startRotatingText();
   }
 
   @action
@@ -104,17 +118,4 @@ abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
       errorText.startRotatingText(isResuming: true);
     }
   }
-
-  smartTextIndexReactor() =>
-      reaction((p0) => primarySmartText.currentIndex, (p0) {
-        if (p0 == 2 &&
-            primarySmartText.messagesData ==
-                MessagesData.purposeSessionBootUpList) {
-          nokhteBlur.reverse();
-          primarySmartText.setMessagesData(
-            MessagesData.primaryPurposeSessionPhase1List,
-          );
-          primarySmartText.startRotatingText();
-        }
-      });
 }

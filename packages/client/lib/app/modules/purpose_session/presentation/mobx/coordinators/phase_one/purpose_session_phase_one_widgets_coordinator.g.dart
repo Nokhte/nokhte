@@ -10,6 +10,40 @@ part of 'purpose_session_phase_one_widgets_coordinator.dart';
 
 mixin _$PurposeSessionPhaseOneWidgetsCoordinator
     on _PurposeSessionPhaseOneWidgetsCoordinatorBase, Store {
+  late final _$hasTheQuestionAtom = Atom(
+      name: '_PurposeSessionPhaseOneWidgetsCoordinatorBase.hasTheQuestion',
+      context: context);
+
+  @override
+  bool get hasTheQuestion {
+    _$hasTheQuestionAtom.reportRead();
+    return super.hasTheQuestion;
+  }
+
+  @override
+  set hasTheQuestion(bool value) {
+    _$hasTheQuestionAtom.reportWrite(value, super.hasTheQuestion, () {
+      super.hasTheQuestion = value;
+    });
+  }
+
+  late final _$hasInitializedTimerAtom = Atom(
+      name: '_PurposeSessionPhaseOneWidgetsCoordinatorBase.hasInitializedTimer',
+      context: context);
+
+  @override
+  bool get hasInitializedTimer {
+    _$hasInitializedTimerAtom.reportRead();
+    return super.hasInitializedTimer;
+  }
+
+  @override
+  set hasInitializedTimer(bool value) {
+    _$hasInitializedTimerAtom.reportWrite(value, super.hasInitializedTimer, () {
+      super.hasInitializedTimer = value;
+    });
+  }
+
   late final _$isInTheCallAtom = Atom(
       name: '_PurposeSessionPhaseOneWidgetsCoordinatorBase.isInTheCall',
       context: context);
@@ -31,6 +65,20 @@ mixin _$PurposeSessionPhaseOneWidgetsCoordinator
       ActionController(
           name: '_PurposeSessionPhaseOneWidgetsCoordinatorBase',
           context: context);
+
+  @override
+  dynamic setHasTheQuesion(bool newVal) {
+    final _$actionInfo =
+        _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_PurposeSessionPhaseOneWidgetsCoordinatorBase.setHasTheQuesion');
+    try {
+      return super.setHasTheQuesion(newVal);
+    } finally {
+      _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic constructor() {
@@ -137,6 +185,20 @@ mixin _$PurposeSessionPhaseOneWidgetsCoordinator
   }
 
   @override
+  dynamic onFirstTimeUsersAreInSync() {
+    final _$actionInfo =
+        _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_PurposeSessionPhaseOneWidgetsCoordinatorBase.onFirstTimeUsersAreInSync');
+    try {
+      return super.onFirstTimeUsersAreInSync();
+    } finally {
+      _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic onCollaboratorLeft() {
     final _$actionInfo =
         _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController.startAction(
@@ -153,6 +215,8 @@ mixin _$PurposeSessionPhaseOneWidgetsCoordinator
   @override
   String toString() {
     return '''
+hasTheQuestion: ${hasTheQuestion},
+hasInitializedTimer: ${hasInitializedTimer},
 isInTheCall: ${isInTheCall}
     ''';
   }
