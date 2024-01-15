@@ -1,4 +1,5 @@
 enum PurposeSessionScreen {
+  phase0Greeter,
   phase1Consultation,
   phase2IndividualSynthesis,
   phase3BuildOnCollaboratorIdeas,
