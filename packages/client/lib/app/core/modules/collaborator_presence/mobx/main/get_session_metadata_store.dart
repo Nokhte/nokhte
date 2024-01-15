@@ -33,6 +33,13 @@ abstract class _GetSessionMetadataStoreBase
   @observable
   bool collaboratorIsTalking = false;
 
+  @computed
+  bool get bothCollaboratorsAreOnCallAndOnline =>
+      userIsOnCall &&
+      collaboratorIsOnCall &&
+      userIsOnline &&
+      collaboratorIsOnline;
+
   @observable
   ObservableStream<CollaborationSessionMetadata> sessionMetadata =
       ObservableStream(const Stream.empty());

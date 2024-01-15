@@ -9,6 +9,16 @@ part of 'get_session_metadata_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$GetSessionMetadataStore on _GetSessionMetadataStoreBase, Store {
+  Computed<bool>? _$bothCollaboratorsAreOnCallAndOnlineComputed;
+
+  @override
+  bool get bothCollaboratorsAreOnCallAndOnline =>
+      (_$bothCollaboratorsAreOnCallAndOnlineComputed ??= Computed<bool>(
+              () => super.bothCollaboratorsAreOnCallAndOnline,
+              name:
+                  '_GetSessionMetadataStoreBase.bothCollaboratorsAreOnCallAndOnline'))
+          .value;
+
   late final _$userIsOnCallAtom =
       Atom(name: '_GetSessionMetadataStoreBase.userIsOnCall', context: context);
 
@@ -144,7 +154,8 @@ userIsOnline: ${userIsOnline},
 collaboratorIsOnline: ${collaboratorIsOnline},
 timerShouldRun: ${timerShouldRun},
 collaboratorIsTalking: ${collaboratorIsTalking},
-sessionMetadata: ${sessionMetadata}
+sessionMetadata: ${sessionMetadata},
+bothCollaboratorsAreOnCallAndOnline: ${bothCollaboratorsAreOnCallAndOnline}
     ''';
   }
 }
