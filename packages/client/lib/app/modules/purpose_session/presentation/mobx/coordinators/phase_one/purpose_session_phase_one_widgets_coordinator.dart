@@ -30,6 +30,8 @@ abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
     required this.borderGlow,
   });
 
+  final timerLength = const Duration(minutes: 5);
+
   @observable
   bool hasTheQuestion = false;
 
@@ -97,17 +99,22 @@ abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
   initTimer() {
     beachWaves.setMovieMode(BeachWaveMovieModes.timesUp);
     beachWaves.currentStore.initMovie(const Duration(minutes: 5));
+    primarySmartText.setAltMovie(timerLength);
+    primarySmartText.setAltControl(Control.playFromStart);
   }
 
   @action
   resumeTimer() {
     beachWaves.currentStore.setControl(Control.play);
+    primarySmartText.setAltControl(Control.play);
   }
 
   @action
   pausetimer() {
     beachWaves.currentStore.setControl(Control.play);
     beachWaves.currentStore.setControl(Control.stop);
+    primarySmartText.setAltControl(Control.play);
+    primarySmartText.setAltControl(Control.stop);
   }
 
   @action
