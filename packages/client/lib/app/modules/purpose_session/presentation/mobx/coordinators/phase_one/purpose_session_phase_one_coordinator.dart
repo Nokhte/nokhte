@@ -55,6 +55,9 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
     await Permission.microphone.request();
     await voiceCall.joinCall(shouldEnterTheCallMuted: true);
     await collaboratorPresence.getSessionMetadata(NoParams());
+    collaboratorPresence.updateOnlineStatus(const UpdateOnlineStatusParams(
+      newStatus: true,
+    ));
     await checkIfUserHasTheQuestion(NoParams());
     widgets.setHasTheQuesion(checkIfUserHasTheQuestion.hasTheQuestion);
     if (checkIfUserHasTheQuestion.hasTheQuestion) {
@@ -148,10 +151,6 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
           widgets.onCallJoined();
           await collaboratorPresence.updateOnCallStatus(
               const UpdateOnCallStatusParams(newStatus: true));
-          collaboratorPresence
-              .updateOnlineStatus(const UpdateOnlineStatusParams(
-            newStatus: true,
-          ));
         } else if (p0 == CallStatus.left) {
           widgets.onCallLeft();
           await collaboratorPresence.updateOnCallStatus(
