@@ -5,6 +5,8 @@ import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity_
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/voice_call_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
+import 'package:nokhte/app/core/widgets/modules.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/purpose_session/data/data.dart';
 import 'package:nokhte/app/modules/purpose_session/domain/logic/logic.dart';
 import 'package:nokhte/app/modules/purpose_session/presentation/presentation.dart';
@@ -18,6 +20,7 @@ class PurposeSessionModule extends Module {
         VoiceCallModule(),
         LegacyConnectivityModule(),
         CollaboratorPresenceModule(),
+        GesturesModule(),
       ];
   @override
   void binds(i) {
@@ -84,6 +87,7 @@ class PurposeSessionModule extends Module {
 
     i.add<PurposeSessionPhaseOneCoordinator>(
       () => PurposeSessionPhaseOneCoordinator(
+          hold: Modular.get<HoldDetector>(),
           checkIfUserHasTheQuestion:
               Modular.get<CheckIfUserHasTheQuestionStore>(),
           deleteCollaborationArtifacts:
