@@ -6,9 +6,11 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class CommonCollaborativeTestFunctions {
   late SupabaseClient user1Supabase;
   late SupabaseClient user2Supabase;
+  late SupabaseClient user3Supabase;
   late SupabaseClient supabaseAdmin;
   late String firstUserUID;
   late String secondUserUID;
+  late String thirdUserUID;
   late ExistingCollaborationsQueries existingCollaborationsQueries;
   late P2PPerspectivesTrackingQueries user1PerspectivesQueries;
   late P2PPerspectivesTrackingQueries adminPerspectivesQueries;
@@ -18,6 +20,7 @@ class CommonCollaborativeTestFunctions {
   CommonCollaborativeTestFunctions() {
     user1Supabase = SupabaseClientConfigConstants.supabase;
     user2Supabase = SupabaseClientConfigConstants.supabase;
+    user3Supabase = SupabaseClientConfigConstants.supabase;
     supabaseAdmin = SupabaseClientConfigConstants.supabaseAdmin;
   }
 
@@ -27,10 +30,12 @@ class CommonCollaborativeTestFunctions {
   }) async {
     await SignIn.user1(supabase: user1Supabase);
     await SignIn.user2(supabase: user2Supabase);
+    await SignIn.user3(supabase: user1Supabase);
 
     final userIdResults = await UserSetupConstants.getUIDs();
     firstUserUID = userIdResults.first;
     secondUserUID = userIdResults[1];
+    thirdUserUID = userIdResults[2];
 
     existingCollaborationsQueries =
         ExistingCollaborationsQueries(supabase: supabaseAdmin);
@@ -62,6 +67,8 @@ class CommonCollaborativeTestFunctions {
         user1PerspectivesQueries.collaboratorInfo;
     if (shouldTeardownCollaboration) {
       await existingCollaborationsQueries.deleteExistingCollaboration();
+      await supabaseAdmin.from('existing_collaborations').delete().or(
+          'collaborator_one.eq.$firstUserUID,collaborator_two.eq.$firstUserUID,collaborator_one.eq.$secondUserUID,collaborator_two.eq.$secondUserUID,collaborator_one.eq.$thirdUserUID,collaborator_two.eq.$thirdUserUID');
     }
 
     if (shouldTearDownPerspectives) {
