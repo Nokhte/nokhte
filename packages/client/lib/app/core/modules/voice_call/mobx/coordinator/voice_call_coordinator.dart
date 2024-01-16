@@ -47,6 +47,15 @@ abstract class _VoiceCallCoordinatorBase extends Equatable with Store {
         channelName: getChannelId.channelId,
       ),
     );
+    voiceCallActions.enterOrLeaveCall(
+      Right(
+        JoinCallParams(
+          token: getAgoraToken.token,
+          channelId: getChannelId.channelId,
+        ),
+      ),
+    );
+    await voiceCallActions.enterOrLeaveCall(Left(NoParams()));
     await voiceCallActions.enterOrLeaveCall(
       Right(
         JoinCallParams(
@@ -55,7 +64,8 @@ abstract class _VoiceCallCoordinatorBase extends Equatable with Store {
         ),
       ),
     );
-    await voiceCallActions.muteOrUnmuteAudio(wantToMute: true);
+    await voiceCallActions.muteOrUnmuteAudio(
+        wantToMute: shouldEnterTheCallMuted);
   }
 
   @action
