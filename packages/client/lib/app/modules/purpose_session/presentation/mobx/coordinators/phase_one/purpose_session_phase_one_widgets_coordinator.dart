@@ -44,7 +44,9 @@ abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
 
   @action
   constructor() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtTheDepths);
+    beachWaves
+        .setMovieMode(BeachWaveMovieModes.suspendedAtTheDepthsToTimesUpStart);
+    beachWaves.currentStore.initMovie(NoParams());
     errorText.toggleWidgetVisibility();
     errorText.setMessagesData(MessagesData.purposeSessionBootUpList);
     primarySmartText.setMessagesData(MessagesData.empty);
