@@ -42,6 +42,7 @@ class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
   Future<RtcEngine> initAgoraSdk() async {
     await agoraEngine.initialize(
         const RtcEngineContext(appId: '050b22b688f44464b2533fac484c7300'));
+    await muteLocalAudio();
     return agoraEngine;
   }
 
