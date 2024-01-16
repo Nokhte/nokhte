@@ -199,6 +199,34 @@ mixin _$PurposeSessionPhaseOneWidgetsCoordinator
   }
 
   @override
+  dynamic onHold() {
+    final _$actionInfo =
+        _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+            .startAction(
+                name: '_PurposeSessionPhaseOneWidgetsCoordinatorBase.onHold');
+    try {
+      return super.onHold();
+    } finally {
+      _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onLetGo() {
+    final _$actionInfo =
+        _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+            .startAction(
+                name: '_PurposeSessionPhaseOneWidgetsCoordinatorBase.onLetGo');
+    try {
+      return super.onLetGo();
+    } finally {
+      _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic onCollaboratorLeft() {
     final _$actionInfo =
         _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController.startAction(
