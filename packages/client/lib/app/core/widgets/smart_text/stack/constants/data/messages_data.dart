@@ -145,13 +145,13 @@ class MessagesData {
   static List<RotatingTextData>
       get primaryPurposeSessionDoesNotHaveTheQuestion => [
             RotatingTextData(
-              mainMessage: "",
+              mainMessage: "Wait For The Question.",
               onScreenTime: Seconds.get(0),
               pauseHere: true,
               unlockGesture: Gestures.tap,
             ),
             RotatingTextData(
-              mainMessage: "Ask: What can we collectively create?",
+              mainMessage: "What can we collectively create?",
               onScreenTime: Seconds.get(0),
               pauseHere: true,
               unlockGesture: Gestures.tap,
