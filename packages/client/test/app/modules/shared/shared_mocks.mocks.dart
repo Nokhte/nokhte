@@ -1570,6 +1570,44 @@ class MockCircleExplanationModelCoordinator extends _i1.Mock
 /// See the documentation for Mockito's code generation for more information.
 class MockSmartTextStore extends _i1.Mock implements _i5.SmartTextStore {
   @override
+  _i3.MovieTween get altMovie => (super.noSuchMethod(
+        Invocation.getter(#altMovie),
+        returnValue: _FakeMovieTween_2(
+          this,
+          Invocation.getter(#altMovie),
+        ),
+        returnValueForMissingStub: _FakeMovieTween_2(
+          this,
+          Invocation.getter(#altMovie),
+        ),
+      ) as _i3.MovieTween);
+
+  @override
+  set altMovie(_i3.MovieTween? value) => super.noSuchMethod(
+        Invocation.setter(
+          #altMovie,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i3.Control get altControl => (super.noSuchMethod(
+        Invocation.getter(#altControl),
+        returnValue: _i3.Control.stop,
+        returnValueForMissingStub: _i3.Control.stop,
+      ) as _i3.Control);
+
+  @override
+  set altControl(_i3.Control? value) => super.noSuchMethod(
+        Invocation.setter(
+          #altControl,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   _i4.ObservableList<_i9.RotatingTextData> get messagesData =>
       (super.noSuchMethod(
         Invocation.getter(#messagesData),
@@ -1865,6 +1903,24 @@ class MockSmartTextStore extends _i1.Mock implements _i5.SmartTextStore {
           Invocation.getter(#context),
         ),
       ) as _i4.ReactiveContext);
+
+  @override
+  dynamic setAltMovie(Duration? timerLength) => super.noSuchMethod(
+        Invocation.method(
+          #setAltMovie,
+          [timerLength],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  dynamic setAltControl(_i3.Control? control) => super.noSuchMethod(
+        Invocation.method(
+          #setAltControl,
+          [control],
+        ),
+        returnValueForMissingStub: null,
+      );
 
   @override
   dynamic setDisablePausing(bool? newDisablePausing) => super.noSuchMethod(
