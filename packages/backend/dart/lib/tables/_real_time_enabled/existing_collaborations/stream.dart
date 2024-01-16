@@ -11,10 +11,19 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
   bool whoIsTalkingListeningStatus = false;
   bool sessionMetadataListeningStatus = false;
 
-  bool isANewCollaboration(event) =>
-      (event.first["collaborator_one"] == userUID ||
-          event.first["collaborator_two"] == userUID) &&
-      event.first["is_consecrated"] == false;
+  bool isANewCollaboration(events) {
+    bool isNew = false;
+    for (var event in events) {
+      if ((event["collaborator_one"] == userUID ||
+              event["collaborator_two"] == userUID) &&
+          !event["is_consecrated"] &&
+          event["is_currently_active"]) {
+        isNew = true;
+        break;
+      }
+    }
+    return isNew;
+  }
 
   Stream<bool> getCollaboratorSearchAndEntryStatus() async* {
     collaboratorSearchListeningStatus = true;
@@ -26,7 +35,6 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
       }
       if (event.isNotEmpty) {
         if (isANewCollaboration(event)) {
-          await ensureActiveCollaboratorInfo();
           yield true;
         } else {
           yield false;
