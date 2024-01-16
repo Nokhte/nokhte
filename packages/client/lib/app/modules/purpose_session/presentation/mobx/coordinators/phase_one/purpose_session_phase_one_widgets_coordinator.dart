@@ -17,6 +17,7 @@ abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
   final SmartTextStore secondarySmartText;
   final SmartTextStore errorText;
   final NokhteBlurStore nokhteBlur;
+  final BorderGlowStore borderGlow;
 
   _PurposeSessionPhaseOneWidgetsCoordinatorBase({
     required this.beachWaves,
@@ -25,6 +26,7 @@ abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
     required this.secondarySmartText,
     required this.errorText,
     required this.nokhteBlur,
+    required this.borderGlow,
   });
 
   @observable
