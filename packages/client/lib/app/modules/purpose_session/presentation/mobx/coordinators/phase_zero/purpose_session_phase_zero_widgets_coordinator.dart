@@ -22,11 +22,27 @@ abstract class _PurposeSessionPhaseZeroWidgetsCoordinatorBase
     required this.primarySmartText,
   });
 
-  @action
-  onInactive() => primarySmartText.reset();
+  @observable
+  bool isConnected = true;
 
   @action
-  onResumed() => primarySmartText.startRotatingText();
+  setIsConnected(bool newVal) => isConnected = newVal;
+
+  @action
+  onInactive() {
+    print(" inactive SisConnected: $isConnected");
+    if (isConnected) {
+      primarySmartText.reset();
+    }
+  }
+
+  @action
+  onResumed() {
+    print(" resumed isConnected: $isConnected");
+    if (isConnected) {
+      primarySmartText.startRotatingText();
+    }
+  }
 
   @action
   constructor() {
@@ -39,8 +55,12 @@ abstract class _PurposeSessionPhaseZeroWidgetsCoordinatorBase
 
   initReactors() {
     wifiDisconnectOverlay.connectionReactor(
-      onConnected: () {},
-      onDisconnected: () {},
+      onConnected: () {
+        setIsConnected(true);
+      },
+      onDisconnected: () {
+        setIsConnected(false);
+      },
     );
     smartTextReactor();
     wifiDisconnectOverlayReactor();
