@@ -45,6 +45,9 @@ class PurposeSessionPhaseOneConsultation extends HookWidget {
             bottomPadding: 180,
             opacityDuration: Seconds.get(1),
           )),
+          BorderGlow(
+            store: coordinator.widgets.borderGlow,
+          ),
           NokhteBlur(
             store: coordinator.widgets.nokhteBlur,
           ),
