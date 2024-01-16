@@ -27,14 +27,6 @@ class BeachWaves extends HookWidget {
                 final currentAnimationValues =
                     GetCurrentWaterAnimation.values(value);
                 store.setCurrentAnimationValues(currentAnimationValues);
-                //  if (store.movieMode ==
-                //     BeachWaveMovieModes.timesUpDynamicPointToTheDepthsSetup) {
-                //   store.setPivotColors(currentAnimationValues);
-                //   store.setMovieMode(
-                //       BeachWaveMovieModes.timesUpDynamicPointToTheDepths);
-                //   store.currentStore.initMovie(store.pivotColors);
-                //   store.setMovieStatus(MovieStatus.inProgress);
-                // }
                 return CustomPaint(
                   painter: BeachWavesPainter(
                     waterValue: currentAnimationValues.first,
