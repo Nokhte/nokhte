@@ -10,6 +10,23 @@ part of 'purpose_session_phase_one_coordinator.dart';
 
 mixin _$PurposeSessionPhaseOneCoordinator
     on _PurposeSessionPhaseOneCoordinatorBase, Store {
+  late final _$canSpeakAtom = Atom(
+      name: '_PurposeSessionPhaseOneCoordinatorBase.canSpeak',
+      context: context);
+
+  @override
+  bool get canSpeak {
+    _$canSpeakAtom.reportRead();
+    return super.canSpeak;
+  }
+
+  @override
+  set canSpeak(bool value) {
+    _$canSpeakAtom.reportWrite(value, super.canSpeak, () {
+      super.canSpeak = value;
+    });
+  }
+
   late final _$isFirstTimeBothAreInSyncAtom = Atom(
       name: '_PurposeSessionPhaseOneCoordinatorBase.isFirstTimeBothAreInSync',
       context: context);
@@ -25,6 +42,23 @@ mixin _$PurposeSessionPhaseOneCoordinator
     _$isFirstTimeBothAreInSyncAtom
         .reportWrite(value, super.isFirstTimeBothAreInSync, () {
       super.isFirstTimeBothAreInSync = value;
+    });
+  }
+
+  late final _$speakerCountAtom = Atom(
+      name: '_PurposeSessionPhaseOneCoordinatorBase.speakerCount',
+      context: context);
+
+  @override
+  int get speakerCount {
+    _$speakerCountAtom.reportRead();
+    return super.speakerCount;
+  }
+
+  @override
+  set speakerCount(int value) {
+    _$speakerCountAtom.reportWrite(value, super.speakerCount, () {
+      super.speakerCount = value;
     });
   }
 
@@ -67,7 +101,9 @@ mixin _$PurposeSessionPhaseOneCoordinator
   @override
   String toString() {
     return '''
-isFirstTimeBothAreInSync: ${isFirstTimeBothAreInSync}
+canSpeak: ${canSpeak},
+isFirstTimeBothAreInSync: ${isFirstTimeBothAreInSync},
+speakerCount: ${speakerCount}
     ''';
   }
 }
