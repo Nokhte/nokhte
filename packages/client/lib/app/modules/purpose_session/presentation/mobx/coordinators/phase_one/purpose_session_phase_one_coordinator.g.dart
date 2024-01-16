@@ -45,6 +45,25 @@ mixin _$PurposeSessionPhaseOneCoordinator
     });
   }
 
+  late final _$isFirstTimeInitializingTimerAtom = Atom(
+      name:
+          '_PurposeSessionPhaseOneCoordinatorBase.isFirstTimeInitializingTimer',
+      context: context);
+
+  @override
+  bool get isFirstTimeInitializingTimer {
+    _$isFirstTimeInitializingTimerAtom.reportRead();
+    return super.isFirstTimeInitializingTimer;
+  }
+
+  @override
+  set isFirstTimeInitializingTimer(bool value) {
+    _$isFirstTimeInitializingTimerAtom
+        .reportWrite(value, super.isFirstTimeInitializingTimer, () {
+      super.isFirstTimeInitializingTimer = value;
+    });
+  }
+
   late final _$speakerCountAtom = Atom(
       name: '_PurposeSessionPhaseOneCoordinatorBase.speakerCount',
       context: context);
@@ -103,6 +122,7 @@ mixin _$PurposeSessionPhaseOneCoordinator
     return '''
 canSpeak: ${canSpeak},
 isFirstTimeBothAreInSync: ${isFirstTimeBothAreInSync},
+isFirstTimeInitializingTimer: ${isFirstTimeInitializingTimer},
 speakerCount: ${speakerCount}
     ''';
   }
