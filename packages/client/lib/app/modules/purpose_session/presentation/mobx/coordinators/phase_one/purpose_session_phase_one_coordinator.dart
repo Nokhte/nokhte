@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
@@ -46,7 +48,7 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
   constructor() async {
     widgets.constructor();
     widgets.onCallLeft();
-    // voiceCall.joinCall(shouldEnterTheCallMuted: true);
+    voiceCall.joinCall(shouldEnterTheCallMuted: true);
     initReactors();
 
     await Permission.microphone.request();
@@ -57,12 +59,6 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
       canSpeak = true;
     }
   }
-
-  // what we need now is this...
-  // first we need a hold reactor
-  // second we then need to tether that to a callback that
-  // puts then as the talker as well as initiating the
-  // talking animation
 
   @action
   onInactive() async {
@@ -108,6 +104,7 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
   letGoReactor() => reaction((p0) => hold.letGoCount, (p0) async {
         if (canSpeak && voiceCall.voiceCallStatus.inCall == CallStatus.joined) {
           widgets.onLetGo();
+
           await collaboratorPresence
               .updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
           await voiceCall.voiceCallActions.muteAudio(NoParams());
@@ -124,6 +121,9 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
           speakerCount++;
           canSpeak = false;
         } else {
+          if (!checkIfUserHasTheQuestion.hasTheQuestion && speakerCount == 1) {
+            widgets.onFirstCollaboratorFinishSpeaking();
+          }
           canSpeak = true;
         }
       });
@@ -138,6 +138,9 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
               .updateOnlineStatus(const UpdateOnlineStatusParams(
             newStatus: true,
           ));
+          // if (checkIfUserHasTheQuestion.hasTheQuestion) {
+          //   widgets.showSecondaryText();
+          // }
         } else if (p0 == CallStatus.left) {
           widgets.onCallLeft();
           await collaboratorPresence.updateOnCallStatus(
