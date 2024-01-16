@@ -53,6 +53,10 @@ abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
     errorText.setMessagesData(MessagesData.purposeSessionBootUpList);
     primarySmartText.setMessagesData(MessagesData.empty);
     secondarySmartText.setMessagesData(MessagesData.empty);
+    wifiDisconnectOverlay.connectionReactor(
+      onConnected: onConnected,
+      onDisconnected: onDisconnected,
+    );
   }
 
   @action
@@ -72,6 +76,20 @@ abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
     if (errorText.currentIndex == 0) {
       errorText.startRotatingText(isResuming: true);
     }
+  }
+
+  @action
+  onConnected() {
+    if (primarySmartText.isPaused &&
+        wifiDisconnectOverlay.movieMode ==
+            WifiDisconnectMovieModes.placeTheCircle) {
+      if (isDisconnected) toggleIsDisconnected();
+    }
+  }
+
+  @action
+  onDisconnected() {
+    if (!isDisconnected) toggleIsDisconnected();
   }
 
   @action
@@ -166,4 +184,12 @@ abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
       errorText.startRotatingText(isResuming: true);
     }
   }
+
+  wifiDisconnectOverlayReactor({required Function onConnectionFinished}) =>
+      reaction((p0) => wifiDisconnectOverlay.movieStatus, (p0) {
+        if (wifiDisconnectOverlay.movieMode ==
+            WifiDisconnectMovieModes.removeTheCircle) {
+          if (isDisconnected) toggleIsDisconnected();
+        }
+      });
 }

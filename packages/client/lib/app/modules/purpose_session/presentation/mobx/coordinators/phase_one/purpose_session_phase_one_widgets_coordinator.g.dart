@@ -126,6 +126,35 @@ mixin _$PurposeSessionPhaseOneWidgetsCoordinator
   }
 
   @override
+  dynamic onConnected() {
+    final _$actionInfo =
+        _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_PurposeSessionPhaseOneWidgetsCoordinatorBase.onConnected');
+    try {
+      return super.onConnected();
+    } finally {
+      _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onDisconnected() {
+    final _$actionInfo =
+        _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_PurposeSessionPhaseOneWidgetsCoordinatorBase.onDisconnected');
+    try {
+      return super.onDisconnected();
+    } finally {
+      _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic showSecondaryText() {
     final _$actionInfo =
         _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController.startAction(
