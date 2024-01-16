@@ -29,8 +29,8 @@ class SmartText extends StatelessWidget {
             control: store.control,
             onCompleted: () => store.onOpacityTransitionComplete(),
             duration: FadeInAndOutMovie.movie.duration, // Adjust fade duration
-            builder: (context, value, child) => Opacity(
-              opacity: value.get('opacity'), // <== like here
+            builder: (context, primaryValue, child) => Opacity(
+              opacity: primaryValue.get('opacity'), // <== like here
               child: Padding(
                 padding: EdgeInsets.only(
                   left: 50.0,
@@ -38,27 +38,33 @@ class SmartText extends StatelessWidget {
                   top: topPadding,
                   bottom: bottomPadding,
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      store.currentMainText,
-                      textAlign: TextAlign.center,
-                      style: Fonts.kantumruy(
-                        fontSize: store.currentMainTextFontSize,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text(
-                      store.currentSubText,
-                      textAlign: TextAlign.center,
-                      style: Fonts.kantumruy(
-                        fontSize: store.currentSubTextFontSize,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
+                child: CustomAnimationBuilder(
+                    tween: store.altMovie,
+                    control: store.altControl,
+                    duration: store.altMovie.duration,
+                    builder: (context, altValue, child) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            store.currentMainText,
+                            textAlign: TextAlign.center,
+                            style: Fonts.kantumruy(
+                              fontSize: store.currentMainTextFontSize,
+                              color: altValue.get('color'),
+                            ),
+                          ),
+                          Text(
+                            store.currentSubText,
+                            textAlign: TextAlign.center,
+                            style: Fonts.kantumruy(
+                              fontSize: store.currentSubTextFontSize,
+                              color: altValue.get('color'),
+                            ),
+                          ),
+                        ],
+                      );
+                    }),
               ),
             ),
           ),
