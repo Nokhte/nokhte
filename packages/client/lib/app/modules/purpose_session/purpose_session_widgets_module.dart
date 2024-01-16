@@ -17,6 +17,9 @@ class PurposeSessionWidgetsModule extends Module {
     i.add<NokhteBlurStore>(
       () => NokhteBlurStore(),
     );
+    i.add<BorderGlowStore>(
+      () => BorderGlowStore(),
+    );
     i.add<PurposeSessionPhaseZeroWidgetsCoordinator>(
       () => PurposeSessionPhaseZeroWidgetsCoordinator(
         beachWaves: Modular.get<BeachWavesStore>(),
@@ -26,6 +29,7 @@ class PurposeSessionWidgetsModule extends Module {
     );
     i.add<PurposeSessionPhaseOneWidgetsCoordinator>(
       () => PurposeSessionPhaseOneWidgetsCoordinator(
+          borderGlow: i<BorderGlowStore>(),
           beachWaves: Modular.get<BeachWavesStore>(),
           wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
           primarySmartText: Modular.get<SmartTextStore>(),
