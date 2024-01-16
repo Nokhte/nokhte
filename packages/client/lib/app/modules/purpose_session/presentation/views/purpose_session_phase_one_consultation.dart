@@ -26,43 +26,46 @@ class PurposeSessionPhaseOneConsultation extends HookWidget {
             ));
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: MultiHitStack(
-        children: [
-          FullScreen(
-            child: BeachWaves(
-              store: coordinator.widgets.beachWaves,
+      body: Hold(
+        store: coordinator.hold,
+        child: MultiHitStack(
+          children: [
+            FullScreen(
+              child: BeachWaves(
+                store: coordinator.widgets.beachWaves,
+              ),
             ),
-          ),
-          Center(
-              child: SmartText(
-            topPadding: 450,
-            store: coordinator.widgets.secondarySmartText,
-            opacityDuration: Seconds.get(1),
-          )),
-          Center(
-              child: SmartText(
-            store: coordinator.widgets.primarySmartText,
-            bottomPadding: 180,
-            opacityDuration: Seconds.get(1),
-          )),
-          BorderGlow(
-            store: coordinator.widgets.borderGlow,
-          ),
-          NokhteBlur(
-            store: coordinator.widgets.nokhteBlur,
-          ),
-          Center(
-              child: SmartText(
-            store: coordinator.widgets.errorText,
-            bottomPadding: 180,
-            opacityDuration: Seconds.get(1),
-          )),
-          WifiDisconnectOverlay(
-            store: coordinator.widgets.wifiDisconnectOverlay,
-          ),
+            BorderGlow(
+              store: coordinator.widgets.borderGlow,
+            ),
+            Center(
+                child: SmartText(
+              topPadding: 450,
+              store: coordinator.widgets.secondarySmartText,
+              opacityDuration: Seconds.get(1),
+            )),
+            Center(
+                child: SmartText(
+              store: coordinator.widgets.primarySmartText,
+              bottomPadding: 180,
+              opacityDuration: Seconds.get(1),
+            )),
+            NokhteBlur(
+              store: coordinator.widgets.nokhteBlur,
+            ),
+            Center(
+                child: SmartText(
+              store: coordinator.widgets.errorText,
+              bottomPadding: 180,
+              opacityDuration: Seconds.get(1),
+            )),
+            WifiDisconnectOverlay(
+              store: coordinator.widgets.wifiDisconnectOverlay,
+            ),
 
-          // FullScreen(child: BeachWaves(store: coo,))
-        ],
+            // FullScreen(child: BeachWaves(store: coo,))
+          ],
+        ),
       ),
     );
   }
