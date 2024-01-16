@@ -85,11 +85,11 @@ class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
 
   @override
   Future muteLocalAudio() async {
-    return await agoraEngine.enableAudio();
+    return await agoraEngine.muteLocalAudioStream(true);
   }
 
   @override
   Future unmuteLocalAudio() async {
-    return await agoraEngine.disableAudio();
+    return await agoraEngine.muteLocalAudioStream(false);
   }
 }
