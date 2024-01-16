@@ -71,6 +71,27 @@ abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
   }
 
   @action
+  showSecondaryText() {
+    secondarySmartText.setMessagesData(
+      MessagesData.secondaryPurposeSessionPhase1List,
+    );
+    secondarySmartText.startRotatingText();
+  }
+
+  @action
+  onFirstCollaboratorFinishSpeaking() {
+    showSecondaryText();
+    primarySmartText.startRotatingText(isResuming: true);
+  }
+
+  @action
+  hideSecondaryText() {
+    if (secondarySmartText.showWidget) {
+      secondarySmartText.toggleWidgetVisibility();
+    }
+  }
+
+  @action
   initTimer() {
     beachWaves.setMovieMode(BeachWaveMovieModes.timesUp);
     beachWaves.currentStore.initMovie(const Duration(minutes: 5));
@@ -98,11 +119,15 @@ abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
   @action
   onFirstTimeUsersAreInSync() {
     nokhteBlur.reverse();
-    primarySmartText.setMessagesData(
-      hasTheQuestion
-          ? MessagesData.primaryPurposeSessionHasTheQuestion
-          : MessagesData.primaryPurposeSessionDoesNotHaveTheQuestion,
-    );
+    if (hasTheQuestion) {
+      primarySmartText
+          .setMessagesData(MessagesData.primaryPurposeSessionHasTheQuestion);
+      showSecondaryText();
+    } else {
+      primarySmartText.setMessagesData(
+        MessagesData.primaryPurposeSessionDoesNotHaveTheQuestion,
+      );
+    }
     primarySmartText.startRotatingText();
   }
 
@@ -114,6 +139,7 @@ abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
   @action
   onLetGo() {
     borderGlow.initGlowDown();
+    hideSecondaryText();
   }
 
   @action

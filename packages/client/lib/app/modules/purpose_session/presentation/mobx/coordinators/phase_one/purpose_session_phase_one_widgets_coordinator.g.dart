@@ -126,6 +126,48 @@ mixin _$PurposeSessionPhaseOneWidgetsCoordinator
   }
 
   @override
+  dynamic showSecondaryText() {
+    final _$actionInfo =
+        _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_PurposeSessionPhaseOneWidgetsCoordinatorBase.showSecondaryText');
+    try {
+      return super.showSecondaryText();
+    } finally {
+      _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onFirstCollaboratorFinishSpeaking() {
+    final _$actionInfo =
+        _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_PurposeSessionPhaseOneWidgetsCoordinatorBase.onFirstCollaboratorFinishSpeaking');
+    try {
+      return super.onFirstCollaboratorFinishSpeaking();
+    } finally {
+      _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic hideSecondaryText() {
+    final _$actionInfo =
+        _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_PurposeSessionPhaseOneWidgetsCoordinatorBase.hideSecondaryText');
+    try {
+      return super.hideSecondaryText();
+    } finally {
+      _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic initTimer() {
     final _$actionInfo =
         _$_PurposeSessionPhaseOneWidgetsCoordinatorBaseActionController
