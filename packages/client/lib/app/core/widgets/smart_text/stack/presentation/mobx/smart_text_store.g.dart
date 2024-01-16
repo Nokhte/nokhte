@@ -67,6 +67,38 @@ mixin _$SmartTextStore on _SmartTextStoreBase, Store {
               name: '_SmartTextStoreBase.currentUnlockGesture'))
       .value;
 
+  late final _$altMovieAtom =
+      Atom(name: '_SmartTextStoreBase.altMovie', context: context);
+
+  @override
+  MovieTween get altMovie {
+    _$altMovieAtom.reportRead();
+    return super.altMovie;
+  }
+
+  @override
+  set altMovie(MovieTween value) {
+    _$altMovieAtom.reportWrite(value, super.altMovie, () {
+      super.altMovie = value;
+    });
+  }
+
+  late final _$altControlAtom =
+      Atom(name: '_SmartTextStoreBase.altControl', context: context);
+
+  @override
+  Control get altControl {
+    _$altControlAtom.reportRead();
+    return super.altControl;
+  }
+
+  @override
+  set altControl(Control value) {
+    _$altControlAtom.reportWrite(value, super.altControl, () {
+      super.altControl = value;
+    });
+  }
+
   late final _$messagesDataAtom =
       Atom(name: '_SmartTextStoreBase.messagesData', context: context);
 
@@ -133,6 +165,28 @@ mixin _$SmartTextStore on _SmartTextStoreBase, Store {
 
   late final _$_SmartTextStoreBaseActionController =
       ActionController(name: '_SmartTextStoreBase', context: context);
+
+  @override
+  dynamic setAltMovie(Duration timerLength) {
+    final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
+        name: '_SmartTextStoreBase.setAltMovie');
+    try {
+      return super.setAltMovie(timerLength);
+    } finally {
+      _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setAltControl(Control control) {
+    final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
+        name: '_SmartTextStoreBase.setAltControl');
+    try {
+      return super.setAltControl(control);
+    } finally {
+      _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic setDisablePausing(bool newDisablePausing) {
@@ -225,6 +279,8 @@ mixin _$SmartTextStore on _SmartTextStoreBase, Store {
   @override
   String toString() {
     return '''
+altMovie: ${altMovie},
+altControl: ${altControl},
 messagesData: ${messagesData},
 currentIndex: ${currentIndex},
 isPaused: ${isPaused},

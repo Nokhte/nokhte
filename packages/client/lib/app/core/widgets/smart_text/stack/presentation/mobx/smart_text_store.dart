@@ -10,6 +10,22 @@ class SmartTextStore = _SmartTextStoreBase with _$SmartTextStore;
 
 abstract class _SmartTextStoreBase extends BaseCustomAnimatedWidgetStore
     with Store {
+  _SmartTextStoreBase() {
+    setAltMovie(Seconds.get(500));
+  }
+  @action
+  setAltMovie(Duration timerLength) {
+    altMovie = SmartTextColorChangeMovie.getMovie(timerLength: timerLength);
+  }
+
+  @action
+  setAltControl(Control control) => altControl = control;
+
+  @observable
+  MovieTween altMovie = MovieTween();
+
+  @observable
+  Control altControl = Control.stop;
   @observable
   ObservableList<RotatingTextData> messagesData = ObservableList.of([]);
 
