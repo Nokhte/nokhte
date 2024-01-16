@@ -92,14 +92,23 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
     holdReactor();
     letGoReactor();
     timerReactor();
+    widgets.wifiDisconnectOverlayReactor(
+      onConnectionFinished: () async {
+        await collaboratorPresence.updateOnCallStatus(
+            const UpdateOnCallStatusParams(newStatus: true));
+      },
+    );
   }
 
   holdReactor() => reaction((p0) => hold.holdCount, (p0) async {
-        if (canSpeak && voiceCall.voiceCallStatus.inCall == CallStatus.joined) {
+        if (canSpeak &&
+            voiceCall.voiceCallStatus.inCall == CallStatus.joined &&
+            !widgets.isDisconnected &&
+            collaboratorPresence.getSessionMetadata.collaboratorIsOnline) {
           widgets.onHold();
           await collaboratorPresence
               .updateWhoIsTalking(UpdateWhoIsTalkingParams.setUserAsTalker);
-          // await voiceCall.voiceCallActions.unmuteAudio(NoParams());
+          await voiceCall.voiceCallActions.unmuteAudio(NoParams());
           if (isFirstTimeInitializingTimer) {
             await collaboratorPresence.updateTimerStatus(true);
           }
@@ -107,7 +116,10 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
       });
 
   letGoReactor() => reaction((p0) => hold.letGoCount, (p0) async {
-        if (canSpeak && voiceCall.voiceCallStatus.inCall == CallStatus.joined) {
+        if (canSpeak &&
+            voiceCall.voiceCallStatus.inCall == CallStatus.joined &&
+            !widgets.isDisconnected &&
+            collaboratorPresence.getSessionMetadata.collaboratorIsOnline) {
           widgets.onLetGo();
 
           await collaboratorPresence
@@ -120,9 +132,6 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
           (p0) => collaboratorPresence.getSessionMetadata.collaboratorIsTalking,
           (p0) {
         if (p0) {
-          // if (speakerCount == 0 && checkIfUserHasTheQuestion.hasTheQuestion) {
-          //   // initTimer
-          // }
           speakerCount++;
           canSpeak = false;
         } else {
