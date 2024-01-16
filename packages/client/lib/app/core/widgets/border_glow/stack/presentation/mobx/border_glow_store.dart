@@ -21,7 +21,7 @@ abstract class _BorderGlowStoreBase
   initMovie(param) {
     setMovie(BorderGlowUpMovie.movie);
     setMovieStatus(MovieStatus.inProgress);
-    setControl(Control.play);
+    setControl(Control.playFromStart);
   }
 
   @action
