@@ -14,6 +14,7 @@ abstract class _CollaboratorPresenceCoordinatorBase extends Equatable
   final UpdateTimerStatusStore updateTimerStatus;
   final UpdateWhoIsTalkingStore updateWhoIsTalking;
   final GetSessionMetadataStore getSessionMetadata;
+  final UpdateMeetingIdAndTokenStore updateMeetingIdAndToken;
 
   _CollaboratorPresenceCoordinatorBase({
     required this.getSessionMetadata,
@@ -21,6 +22,7 @@ abstract class _CollaboratorPresenceCoordinatorBase extends Equatable
     required this.updateOnlineStatus,
     required this.updateTimerStatus,
     required this.updateWhoIsTalking,
+    required this.updateMeetingIdAndToken,
   });
 
   @override
