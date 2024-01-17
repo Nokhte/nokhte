@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:nokhte_backend/tables/_real_time_enabled/shared/shared.dart';
+import 'package:nokhte_backend/videosdk/videosdk.dart';
 
 class ExistingCollaborationsQueries extends CollaborativeQueries {
   static const tableName = "existing_collaborations";
@@ -9,6 +12,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   static const isOnline = "is_online";
   static const timerShouldRun = "timer_should_run";
   static const isConsecrated = "is_consecrated";
+  static const meetingID = "meeting_id";
   static const whoGetsTheQuestion = "who_gets_the_question";
   static const collaborationID = "collaboration_id";
   static const talkingQueue = "talking_queue";
@@ -72,6 +76,9 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   Future<List> getWhoIsOnTheCall() async =>
       await _getCollaborationProperty(isOnCall);
 
+  Future<List> getMeetingId() async =>
+      await _getCollaborationProperty(meetingID);
+
   Future<List> updateOnlineStatus(
     bool isOnlineParam, {
     bool shouldEditCollaboratorsInfo = false,
@@ -110,6 +117,19 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
     return await onCurrentActiveCollaboration(
       supabase.from(tableName).update({
         timerShouldRun: shouldRun,
+      }),
+    );
+  }
+
+  Future<List> updateMeetingId() async {
+    await ensureActiveCollaboratorInfo();
+    final tokenRes =
+        jsonDecode(((await VideoSdkServices.getToken()).body))["token"];
+    final meetingIDRes = jsonDecode(
+        (await VideoSdkServices.createMeeting(tokenRes)).body)["roomId"];
+    return await onCurrentActiveCollaboration(
+      supabase.from(tableName).update({
+        meetingID: meetingIDRes,
       }),
     );
   }
