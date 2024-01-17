@@ -7,7 +7,6 @@ import 'package:nokhte/app/core/mobx/base_coordinator.dart';
 import 'package:nokhte/app/core/modules/collaborator_presence/domain/domain.dart';
 import 'package:nokhte/app/core/modules/collaborator_presence/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
-import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/purpose_session/presentation/mobx/mobx.dart';
 import 'package:nokhte/app/modules/purpose_session/types/purpose_session_screen.dart';
@@ -53,7 +52,10 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
     widgets.onCallLeft();
     initReactors();
     await Permission.microphone.request();
-    await voiceCall.joinCall(shouldEnterTheCallMuted: true);
+    await collaboratorPresence.updateMeetingIdAndToken(
+      UpdateMeetingIdAndTokenParams.refresh,
+    );
+
     await collaboratorPresence.getSessionMetadata(NoParams());
     collaboratorPresence.updateOnlineStatus(const UpdateOnlineStatusParams(
       newStatus: true,
@@ -101,17 +103,25 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
             const UpdateOnCallStatusParams(newStatus: true));
       },
     );
+    meetingIDReactor();
   }
+
+  meetingIDReactor() =>
+      reaction((p0) => collaboratorPresence.getSessionMetadata.meetingId,
+          (p0) async {
+        await voiceCall.getRoomInformation(NoParams());
+        await voiceCall.joinCall();
+      });
 
   holdReactor() => reaction((p0) => hold.holdCount, (p0) async {
         if (canSpeak &&
-            voiceCall.voiceCallStatus.inCall == CallStatus.joined &&
+            voiceCall.hasJoinedCall &&
             !widgets.isDisconnected &&
             collaboratorPresence.getSessionMetadata.collaboratorIsOnline) {
           widgets.onHold();
           await collaboratorPresence
               .updateWhoIsTalking(UpdateWhoIsTalkingParams.setUserAsTalker);
-          await voiceCall.voiceCallActions.unmuteAudio(NoParams());
+          await voiceCall.unmute();
           if (isFirstTimeInitializingTimer) {
             await collaboratorPresence.updateTimerStatus(true);
           }
@@ -120,14 +130,14 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
 
   letGoReactor() => reaction((p0) => hold.letGoCount, (p0) async {
         if (canSpeak &&
-            voiceCall.voiceCallStatus.inCall == CallStatus.joined &&
+            voiceCall.hasJoinedCall &&
             !widgets.isDisconnected &&
             collaboratorPresence.getSessionMetadata.collaboratorIsOnline) {
           widgets.onLetGo();
 
           await collaboratorPresence
               .updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
-          await voiceCall.voiceCallActions.muteAudio(NoParams());
+          await voiceCall.mute();
         }
       });
 
@@ -146,12 +156,12 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
       });
 
   onCallStatusChangeReactor() =>
-      reaction((p0) => voiceCall.voiceCallStatus.inCall, (p0) async {
-        if (p0 == CallStatus.joined) {
+      reaction((p0) => voiceCall.hasJoinedCall, (p0) async {
+        if (p0) {
           widgets.onCallJoined();
           await collaboratorPresence.updateOnCallStatus(
               const UpdateOnCallStatusParams(newStatus: true));
-        } else if (p0 == CallStatus.left) {
+        } else {
           widgets.onCallLeft();
           await collaboratorPresence.updateOnCallStatus(
               const UpdateOnCallStatusParams(newStatus: false));
