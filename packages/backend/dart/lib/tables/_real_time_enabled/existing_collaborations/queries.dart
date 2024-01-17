@@ -125,7 +125,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
     );
   }
 
-  Future<List> updateMeetingId({bool shouldClearOut = false}) async {
+  Future<List> updateMeetingIdAndToken({bool shouldClearOut = false}) async {
     await ensureActiveCollaboratorInfo();
     String tokenRes = '';
     String meetingIDRes = '';
