@@ -15,4 +15,6 @@ abstract class CollaboratorPresenceContract {
       bool params);
   Future<Either<Failure, Stream<CollaborationSessionMetadata>>>
       getSessionMetadata(NoParams params);
+  Future<Either<Failure, MeetingIdAndTokenUpdateStatusEntity>>
+      updateMeetingIdAndToken(UpdateMeetingIdAndTokenParams params);
 }
