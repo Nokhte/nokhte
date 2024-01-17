@@ -78,6 +78,12 @@ void main() {
     expect(res, [false, false]);
   });
 
+  test("getMeetingId", () async {
+    await user1Queries.updateMeetingId();
+    final res = await user1Queries.getWhoIsOnTheCall();
+    expect(res, isNotEmpty);
+  });
+
   test("updateOnlineStatus", () async {
     final res = await user1Queries.updateOnlineStatus(true);
     expect(res.first[ExistingCollaborationsQueries.isOnline], [true, false]);
@@ -116,9 +122,14 @@ void main() {
     );
   });
 
-  test(
-      "should be able to abort a collaboration that is active and un-consecrated",
-      () async {
+  test("updateMeetingId", () async {
+    final beforeId = await user1Queries.getMeetingId();
+    final res = await user1Queries.updateMeetingId();
+    expect(
+        res.first[ExistingCollaborationsQueries.meetingID] != beforeId, true);
+  });
+
+  test("deleteUnConsecratedTheCollaboration", () async {
     await user1Queries.deleteUnConsecratedTheCollaboration();
     final res = await user1Queries.getCollaborations();
     expect(res, isEmpty);
