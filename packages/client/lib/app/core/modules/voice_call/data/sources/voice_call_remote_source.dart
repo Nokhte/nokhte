@@ -1,96 +1,30 @@
-import 'package:http/http.dart';
-import 'package:nokhte/app/core/utilities/utilities.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:nokhte_backend/token_server/token_server.dart';
 import 'package:nokhte_backend/tables/existing_collaborations.dart';
-import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 
 abstract class VoiceCallRemoteSource {
-  Future<Response> getAgoraToken({required String channelName});
+  Future<String> getMeetingId();
 
-  Future joinCall({required String token, required String channelId});
+  Future<String> getMeetingToken();
 
-  Future leaveCall();
-
-  Future muteLocalAudio();
-
-  Future unmuteLocalAudio();
-
-  Future<List<dynamic>> getCollaboratorInfo();
-
-  Future<RtcEngine> initAgoraSdk();
+  String getUserUID();
 }
 
 class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
   final SupabaseClient supabase;
-  final ExistingCollaborationsQueries existingCollaborationsQueries;
+  final ExistingCollaborationsQueries queries;
   final String currentUserUID;
-  final int currentAgoraUID;
-  final RtcEngine agoraEngine;
 
   VoiceCallRemoteSourceImpl({
     required this.supabase,
-  })  : agoraEngine = createAgoraRtcEngine(),
-        currentUserUID = supabase.auth.currentUser?.id ?? '',
-        currentAgoraUID = MiscAlgos.postgresUIDToInt(
-          supabase.auth.currentUser?.id ?? '',
-        ),
-        existingCollaborationsQueries =
-            ExistingCollaborationsQueries(supabase: supabase);
+  })  : currentUserUID = supabase.auth.currentUser?.id ?? '',
+        queries = ExistingCollaborationsQueries(supabase: supabase);
 
   @override
-  Future<RtcEngine> initAgoraSdk() async {
-    await agoraEngine.initialize(
-        const RtcEngineContext(appId: '050b22b688f44464b2533fac484c7300'));
-    await muteLocalAudio();
-    return agoraEngine;
-  }
+  Future<String> getMeetingId() async => await queries.getMeetingId();
 
   @override
-  Future<Response> getAgoraToken({
-    required String channelName,
-  }) async {
-    return await TokenServices.getAgoraToken(
-      currentUserUID: currentAgoraUID,
-      channelName: channelName,
-    );
-  }
+  Future<String> getMeetingToken() async => await queries.getMeetingToken();
 
   @override
-  Future<void> joinCall(
-      {required String token, required String channelId}) async {
-    ChannelMediaOptions options = const ChannelMediaOptions(
-      clientRoleType: ClientRoleType.clientRoleBroadcaster,
-    );
-    return await agoraEngine.joinChannel(
-      token: token,
-      channelId: channelId,
-      uid: currentAgoraUID,
-      options: options,
-    );
-  }
-
-  @override
-  Future<void> leaveCall() async {
-    return await agoraEngine.leaveChannel();
-  }
-
-  @override
-  Future<List> getCollaboratorInfo() async {
-    return [
-      await existingCollaborationsQueries.getCollaborations(
-          filterForIsActive: true),
-      currentUserUID
-    ];
-  }
-
-  @override
-  Future muteLocalAudio() async {
-    return await agoraEngine.muteLocalAudioStream(true);
-  }
-
-  @override
-  Future unmuteLocalAudio() async {
-    return await agoraEngine.muteLocalAudioStream(false);
-  }
+  String getUserUID() => currentUserUID;
 }
