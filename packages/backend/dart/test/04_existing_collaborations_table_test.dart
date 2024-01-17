@@ -78,8 +78,8 @@ void main() {
     expect(res, [false, false]);
   });
 
-  test("getMeetingId", () async {
-    await user1Queries.updateMeetingId();
+  test("getMeetingIdAndToken", () async {
+    await user1Queries.updateMeetingIdAndToken();
     final res = await user1Queries.getWhoIsOnTheCall();
     expect(res, isNotEmpty);
   });
@@ -111,22 +111,23 @@ void main() {
       stream,
       emits(
         CollaborationSessionMetadata(
-          userIsOnCall: true,
-          collaboratorIsOnCall: true,
-          userIsOnline: true,
-          collaboratorIsOnline: true,
-          timerShouldRun: true,
-          collaboratorIsTalking: false,
-        ),
+            userIsOnCall: true,
+            collaboratorIsOnCall: true,
+            userIsOnline: true,
+            collaboratorIsOnline: true,
+            timerShouldRun: true,
+            collaboratorIsTalking: false,
+            meetingId: '',
+            meetingToken: ''),
       ),
     );
   });
 
   test("updateMeetingId", () async {
     final beforeId = await user1Queries.getMeetingId();
-    final res = await user1Queries.updateMeetingId();
+    final res = await user1Queries.updateMeetingIdAndToken();
     expect(
-        res.first[ExistingCollaborationsQueries.meetingID] != beforeId, true);
+        res.first[ExistingCollaborationsQueries.meetingId] != beforeId, true);
   });
 
   test("deleteUnConsecratedTheCollaboration", () async {
