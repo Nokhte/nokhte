@@ -80,6 +80,8 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
               event.first[ExistingCollaborationsQueries.timerShouldRun],
           collaboratorIsTalking:
               talkingQueue.isEmpty ? false : talkingQueue.first != userUID,
+          meetingId: event.first[ExistingCollaborationsQueries.meetingId],
+          meetingToken: event.first[ExistingCollaborationsQueries.meetingToken],
         );
       }
     }
