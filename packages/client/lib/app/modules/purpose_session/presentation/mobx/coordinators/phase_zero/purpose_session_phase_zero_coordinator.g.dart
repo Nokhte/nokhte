@@ -10,6 +10,15 @@ part of 'purpose_session_phase_zero_coordinator.dart';
 
 mixin _$PurposeSessionPhaseZeroCoordinator
     on _PurposeSessionPhaseZeroCoordinatorBase, Store {
+  late final _$constructorAsyncAction = AsyncAction(
+      '_PurposeSessionPhaseZeroCoordinatorBase.constructor',
+      context: context);
+
+  @override
+  Future constructor() {
+    return _$constructorAsyncAction.run(() => super.constructor());
+  }
+
   late final _$onDetachedAsyncAction = AsyncAction(
       '_PurposeSessionPhaseZeroCoordinatorBase.onDetached',
       context: context);
@@ -22,19 +31,6 @@ mixin _$PurposeSessionPhaseZeroCoordinator
   late final _$_PurposeSessionPhaseZeroCoordinatorBaseActionController =
       ActionController(
           name: '_PurposeSessionPhaseZeroCoordinatorBase', context: context);
-
-  @override
-  dynamic constructor() {
-    final _$actionInfo =
-        _$_PurposeSessionPhaseZeroCoordinatorBaseActionController.startAction(
-            name: '_PurposeSessionPhaseZeroCoordinatorBase.constructor');
-    try {
-      return super.constructor();
-    } finally {
-      _$_PurposeSessionPhaseZeroCoordinatorBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
 
   @override
   dynamic onInactive() {

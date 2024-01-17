@@ -52,6 +52,8 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
     widgets.onCallLeft();
     initReactors();
     await Permission.microphone.request();
+    await voiceCall.getRoomInformation(NoParams());
+    await voiceCall.joinCall();
     await collaboratorPresence.updateMeetingIdAndToken(
       UpdateMeetingIdAndTokenParams.refresh,
     );
@@ -103,15 +105,7 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
             const UpdateOnCallStatusParams(newStatus: true));
       },
     );
-    meetingIDReactor();
   }
-
-  meetingIDReactor() =>
-      reaction((p0) => collaboratorPresence.getSessionMetadata.meetingId,
-          (p0) async {
-        await voiceCall.getRoomInformation(NoParams());
-        await voiceCall.joinCall();
-      });
 
   holdReactor() => reaction((p0) => hold.holdCount, (p0) async {
         if (canSpeak &&
