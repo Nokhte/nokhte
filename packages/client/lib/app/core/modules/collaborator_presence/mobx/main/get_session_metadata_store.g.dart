@@ -121,6 +121,38 @@ mixin _$GetSessionMetadataStore on _GetSessionMetadataStoreBase, Store {
     });
   }
 
+  late final _$meetingTokenAtom =
+      Atom(name: '_GetSessionMetadataStoreBase.meetingToken', context: context);
+
+  @override
+  String get meetingToken {
+    _$meetingTokenAtom.reportRead();
+    return super.meetingToken;
+  }
+
+  @override
+  set meetingToken(String value) {
+    _$meetingTokenAtom.reportWrite(value, super.meetingToken, () {
+      super.meetingToken = value;
+    });
+  }
+
+  late final _$meetingIdAtom =
+      Atom(name: '_GetSessionMetadataStoreBase.meetingId', context: context);
+
+  @override
+  String get meetingId {
+    _$meetingIdAtom.reportRead();
+    return super.meetingId;
+  }
+
+  @override
+  set meetingId(String value) {
+    _$meetingIdAtom.reportWrite(value, super.meetingId, () {
+      super.meetingId = value;
+    });
+  }
+
   late final _$sessionMetadataAtom = Atom(
       name: '_GetSessionMetadataStoreBase.sessionMetadata', context: context);
 
@@ -154,6 +186,8 @@ userIsOnline: ${userIsOnline},
 collaboratorIsOnline: ${collaboratorIsOnline},
 timerShouldRun: ${timerShouldRun},
 collaboratorIsTalking: ${collaboratorIsTalking},
+meetingToken: ${meetingToken},
+meetingId: ${meetingId},
 sessionMetadata: ${sessionMetadata},
 bothCollaboratorsAreOnCallAndOnline: ${bothCollaboratorsAreOnCallAndOnline}
     ''';
