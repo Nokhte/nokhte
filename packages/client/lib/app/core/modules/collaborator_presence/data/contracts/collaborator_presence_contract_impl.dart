@@ -69,4 +69,14 @@ class CollaboratorPresenceContractImpl implements CollaboratorPresenceContract {
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  updateMeetingIdAndToken(params) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.updateMeetingIdAndToken(params);
+      return Right(MeetingIdAndTokenUpdateStatusModel.fromSupabase(res));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
 }
