@@ -4,6 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:nokhte_backend/token_server/token_server.dart';
 import 'package:nokhte_backend/tables/existing_collaborations.dart';
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 abstract class VoiceCallRemoteSource {
   Future<Response> getAgoraToken({required String channelName});
@@ -40,8 +41,8 @@ class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
 
   @override
   Future<RtcEngine> initAgoraSdk() async {
-    await agoraEngine.initialize(
-        const RtcEngineContext(appId: '050b22b688f44464b2533fac484c7300'));
+    final agoraAppId = dotenv.env["AGORA_APP_ID"] ?? '';
+    await agoraEngine.initialize(RtcEngineContext(appId: agoraAppId));
     return agoraEngine;
   }
 

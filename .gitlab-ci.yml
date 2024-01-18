@@ -108,6 +108,7 @@ Deploy To Testflight:
     - melos bs
     - cd packages/client
     - echo "LEOPARD_MODEL_PATH=assets/leopard_model.pv" >> .env
+    - echo "AGORA_APP_ID=$AGORA_APP_ID" >> .env
     - echo "LEOPARD_ACCESS_KEY=$LEOPARD_ACCESS_KEY" >> .env
     - echo "PROD_SUPABASE_URL=$STAGING_SUPABASE_URL" >> .env
     - echo "PROD_SUPABASE_ANON_KEY=$STAGING_SUPABASE_ANON_KEY" >> .env
@@ -126,6 +127,7 @@ Deploy To Android Private Beta:
     - melos bs
     - cd packages/client
     - echo "LEOPARD_MODEL_PATH=assets/leopard_model.pv" >> .env
+    - echo "AGORA_APP_ID=$AGORA_APP_ID" >> .env
     - echo "LEOPARD_ACCESS_KEY=$LEOPARD_ACCESS_KEY" >> .env
     - echo "PROD_SUPABASE_URL=$STAGING_SUPABASE_URL" >> .env
     - echo "PROD_SUPABASE_ANON_KEY=$STAGING_SUPABASE_ANON_KEY" >> .env
@@ -144,6 +146,7 @@ External iOS Beta Build:
     - melos bs
     - cd packages/client
     - echo "LEOPARD_MODEL_PATH=assets/leopard_model.pv" >> .env
+    - echo "AGORA_APP_ID=$AGORA_APP_ID" >> .env
     - echo "LEOPARD_ACCESS_KEY=$LEOPARD_ACCESS_KEY" >> .env
     - echo "PROD_SUPABASE_URL=$PROD_SUPABASE_URL" >> .env
     - echo "PROD_SUPABASE_ANON_KEY=$PROD_SUPABASE_ANON_KEY" >> .env
@@ -161,6 +164,7 @@ External Android Beta Build:
   script:
     - melos bs
     - cd packages/client
+    - echo "AGORA_APP_ID=$AGORA_APP_ID" >> .env
     - echo "LEOPARD_MODEL_PATH=assets/leopard_model.pv" >> .env
     - echo "LEOPARD_ACCESS_KEY=$LEOPARD_ACCESS_KEY" >> .env
     - echo "PROD_SUPABASE_URL=$PROD_SUPABASE_URL" >> .env
