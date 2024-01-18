@@ -12,8 +12,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   static const isOnline = "is_online";
   static const timerShouldRun = "timer_should_run";
   static const isConsecrated = "is_consecrated";
-  static const meetingToken = "meeting_token";
-  static const meetingId = "meeting_id";
+  static const meetingID = "meeting_id";
   static const whoGetsTheQuestion = "who_gets_the_question";
   static const collaborationID = "collaboration_id";
   static const talkingQueue = "talking_queue";
@@ -77,11 +76,8 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   Future<List> getWhoIsOnTheCall() async =>
       await _getCollaborationProperty(isOnCall);
 
-  Future<String> getMeetingId() async =>
-      await _getCollaborationProperty(meetingId);
-
-  Future<String> getMeetingToken() async =>
-      await _getCollaborationProperty(meetingToken);
+  Future<List> getMeetingId() async =>
+      await _getCollaborationProperty(meetingID);
 
   Future<List> updateOnlineStatus(
     bool isOnlineParam, {
@@ -125,21 +121,15 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
     );
   }
 
-  Future<List> updateMeetingId({bool shouldClearOut = false}) async {
+  Future<List> updateMeetingId() async {
     await ensureActiveCollaboratorInfo();
-    String tokenRes = '';
-    String meetingIDRes = '';
-    if (!shouldClearOut) {
-      tokenRes =
-          await jsonDecode(((await VideoSdkServices.getToken()).body))["token"];
-      meetingIDRes = await jsonDecode(
-          (await VideoSdkServices.createMeeting(tokenRes)).body)["roomId"];
-      print("tokenRes: $tokenRes  meetingIDRes: $meetingIDRes");
-    }
+    final tokenRes =
+        jsonDecode(((await VideoSdkServices.getToken()).body))["token"];
+    final meetingIDRes = jsonDecode(
+        (await VideoSdkServices.createMeeting(tokenRes)).body)["roomId"];
     return await onCurrentActiveCollaboration(
       supabase.from(tableName).update({
-        meetingId: meetingIDRes,
-        meetingToken: tokenRes,
+        meetingID: meetingIDRes,
       }),
     );
   }
