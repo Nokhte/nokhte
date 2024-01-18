@@ -5,18 +5,17 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/modules/home/data/contracts/home_contract_impl.dart';
 import '../../constants/models/models.dart';
 import '../../fixtures/home_stack_mock_gen.mocks.dart';
-import '../../../_module_helpers/shared_mocks_gen.mocks.dart'
-    show MockMNetworkInfo;
+import '../../../_module_helpers/shared_mocks_gen.mocks.dart';
 import 'package:dartz/dartz.dart';
 
 void main() {
   late HomeContractImpl homeContract;
   late MockHomeRemoteSource mockRemoteSource;
-  late MockMNetworkInfo mockNetworkInfo;
+  late MockNetworkInfo mockNetworkInfo;
 
   setUp(() {
     mockRemoteSource = MockHomeRemoteSource();
-    mockNetworkInfo = MockMNetworkInfo();
+    mockNetworkInfo = MockNetworkInfo();
     homeContract = HomeContractImpl(
       remoteSource: mockRemoteSource,
       networkInfo: mockNetworkInfo,
