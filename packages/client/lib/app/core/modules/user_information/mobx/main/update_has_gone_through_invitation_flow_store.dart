@@ -32,8 +32,8 @@ abstract class _UpdateHasGoneThroughInvitationFlowStoreBase
     result.fold((failure) {
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
-    }, (StatusEntity) {
-      isUpdated = StatusEntity.isTrue;
+    }, (updateStatusEntity) {
+      isUpdated = updateStatusEntity.isTrue;
     });
   }
 
