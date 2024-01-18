@@ -1914,10 +1914,10 @@ class MockSmartTextStore extends _i1.Mock implements _i5.SmartTextStore {
       );
 
   @override
-  dynamic setAltControl(_i3.Control? control) => super.noSuchMethod(
+  dynamic setAltControl(_i3.Control? newControl) => super.noSuchMethod(
         Invocation.method(
           #setAltControl,
-          [control],
+          [newControl],
         ),
         returnValueForMissingStub: null,
       );
