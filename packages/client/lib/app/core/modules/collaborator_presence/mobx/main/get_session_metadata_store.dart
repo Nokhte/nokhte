@@ -33,12 +33,6 @@ abstract class _GetSessionMetadataStoreBase
   @observable
   bool collaboratorIsTalking = false;
 
-  @observable
-  String meetingToken = '';
-
-  @observable
-  String meetingId = '';
-
   @computed
   bool get bothCollaboratorsAreOnCallAndOnline =>
       userIsOnCall &&
@@ -61,15 +55,13 @@ abstract class _GetSessionMetadataStoreBase
       },
       (stream) {
         sessionMetadata = ObservableStream(stream);
-        sessionMetadata.distinct().listen((value) {
+        sessionMetadata.listen((value) {
           userIsOnCall = value.userIsOnCall;
           collaboratorIsOnCall = value.collaboratorIsOnCall;
           userIsOnline = value.userIsOnline;
           collaboratorIsOnline = value.collaboratorIsOnline;
           timerShouldRun = value.timerShouldRun;
           collaboratorIsTalking = value.collaboratorIsTalking;
-          meetingId = value.meetingId;
-          meetingToken = value.meetingToken;
         });
         state = StoreState.loaded;
       },
