@@ -14,9 +14,11 @@ void main() {
   late HomeScreenCoordinator testStore;
   late UserInformationCoordinator mockUserInformation;
   late MockDeepLinksCoordinator mockDeepLinks;
+  late MockDeleteUnconsecratedCollaborationsCoordinator mockDelete;
 
   setUp(() {
     mockAddNameToDatabase = MockAddNameToDatabaseStore();
+    mockDelete = MockDeleteUnconsecratedCollaborationsCoordinator();
     mockDeepLinks = MockDeepLinksCoordinator();
     mockGetExistingCollaborationInfo = MockGetExistingCollaborationsInfoStore();
     mockWidgets = MockHomeScreenWidgetsCoordinator();
@@ -30,6 +32,7 @@ void main() {
     );
 
     testStore = HomeScreenCoordinator(
+      deleteUnconsecratedCollaborations: mockDelete,
       swipe: SwipeDetector(),
       addNameToDatabaseStore: mockAddNameToDatabase,
       getExistingCollaborationInfo: mockGetExistingCollaborationInfo,
