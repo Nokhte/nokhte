@@ -5,7 +5,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 abstract class CollaboratorPresenceRemoteSource {
   Future<List> updateOnlineStatus(UpdateOnlineStatusParams params);
   Future<List> updateOnCallStatus(UpdateOnCallStatusParams params);
-  Future<List> updateMeetingIdAndToken(UpdateMeetingIdAndTokenParams params);
   Future<List> updateTimerStatus(bool params);
   Future<List> setUserAsCurrentTalker();
   Future<void> clearTheCurrentTalker();
@@ -52,20 +51,4 @@ class CollaboratorPresenceRemoteSourceImpl
   @override
   Stream<CollaborationSessionMetadata> getSessionMetadata() =>
       stream.getSessionMetadata();
-
-  @override
-  Future<List> updateMeetingIdAndToken(params) async {
-    await queries.ensureActiveCollaboratorInfo();
-    switch (params) {
-      case UpdateMeetingIdAndTokenParams.refresh:
-        if (queries.collaboratorInfo.theUsersCollaboratorNumber ==
-            "collaborator_two") {
-          return await queries.updateMeetingIdAndToken();
-        } else {
-          return [];
-        }
-      case UpdateMeetingIdAndTokenParams.clearOut:
-        return await queries.updateMeetingIdAndToken(shouldClearOut: true);
-    }
-  }
 }
