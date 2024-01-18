@@ -178,11 +178,11 @@ mixin _$SmartTextStore on _SmartTextStoreBase, Store {
   }
 
   @override
-  dynamic setAltControl(Control control) {
+  dynamic setAltControl(Control newControl) {
     final _$actionInfo = _$_SmartTextStoreBaseActionController.startAction(
         name: '_SmartTextStoreBase.setAltControl');
     try {
-      return super.setAltControl(control);
+      return super.setAltControl(newControl);
     } finally {
       _$_SmartTextStoreBaseActionController.endAction(_$actionInfo);
     }

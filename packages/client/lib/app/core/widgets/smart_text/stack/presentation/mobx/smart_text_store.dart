@@ -19,13 +19,14 @@ abstract class _SmartTextStoreBase extends BaseCustomAnimatedWidgetStore
   }
 
   @action
-  setAltControl(Control control) => altControl = control;
+  setAltControl(Control newControl) => altControl = newControl;
 
   @observable
   MovieTween altMovie = MovieTween();
 
   @observable
   Control altControl = Control.stop;
+
   @observable
   ObservableList<RotatingTextData> messagesData = ObservableList.of([]);
 
