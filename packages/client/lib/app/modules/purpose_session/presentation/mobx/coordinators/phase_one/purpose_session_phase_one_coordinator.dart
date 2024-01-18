@@ -105,7 +105,6 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
             const UpdateOnCallStatusParams(newStatus: true));
       },
     );
-    onCollaboratorCallStatusChangeReactor();
   }
 
   holdReactor() => reaction((p0) => hold.holdCount, (p0) async {
@@ -160,19 +159,6 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
           widgets.onCallLeft();
           await collaboratorPresence.updateOnCallStatus(
               const UpdateOnCallStatusParams(newStatus: false));
-        }
-      });
-
-  onCollaboratorCallStatusChangeReactor() =>
-      reaction((p0) => voiceCall.collaboratorHasJoined, (p0) async {
-        if (p0) {
-          await collaboratorPresence.updateOnCallStatus(
-              const UpdateOnCallStatusParams(
-                  newStatus: true, shouldUpdateCollaboratorsIndex: true));
-        } else {
-          await collaboratorPresence.updateOnCallStatus(
-              const UpdateOnCallStatusParams(
-                  newStatus: false, shouldUpdateCollaboratorsIndex: true));
         }
       });
 
