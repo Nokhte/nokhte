@@ -8,19 +8,18 @@ import 'package:nokhte/app/modules/authentication/data/models/auth_provider_mode
 import 'package:nokhte/app/modules/authentication/data/models/auth_state_model.dart';
 import 'package:nokhte/app/core/interfaces/auth_providers.dart';
 import '../../fixtures/authentication_stack_mock_gen.mocks.dart';
-import '../../../_module_helpers/shared_mocks_gen.mocks.dart'
-    show MockMNetworkInfo;
+import '../../../_module_helpers/shared_mocks_gen.mocks.dart';
 import 'package:dartz/dartz.dart';
 
 void main() {
   late AuthenticationContractImpl authContract;
   late MockMRemoteSource mockRemoteSource;
-  late MockMNetworkInfo mockNetworkInfo;
+  late MockNetworkInfo mockNetworkInfo;
   late AuthProviderModel tAuthProviderModel;
 
   setUp(() {
     mockRemoteSource = MockMRemoteSource();
-    mockNetworkInfo = MockMNetworkInfo();
+    mockNetworkInfo = MockNetworkInfo();
     authContract = AuthenticationContractImpl(
       remoteSource: mockRemoteSource,
       networkInfo: mockNetworkInfo,
