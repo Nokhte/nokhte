@@ -25,14 +25,74 @@ class VoiceCallModule extends Module {
         remoteSource: i<VoiceCallRemoteSourceImpl>(),
       ),
     );
-    i.add<GetRoomInformation>(
-      () => GetRoomInformation(
+    i.add<GetAgoraToken>(
+      () => GetAgoraToken(
         contract: i<VoiceCallContractImpl>(),
+      ),
+    );
+    i.add<GetChannelId>(
+      () => GetChannelId(
+        contract: i<VoiceCallContractImpl>(),
+      ),
+    );
+    i.add<JoinCall>(
+      () => JoinCall(
+        contract: i<VoiceCallContractImpl>(),
+      ),
+    );
+    i.add<InitAgoraSdk>(
+      () => InitAgoraSdk(
+        contract: i<VoiceCallContractImpl>(),
+      ),
+    );
+    i.add<LeaveCall>(
+      () => LeaveCall(
+        contract: i<VoiceCallContractImpl>(),
+      ),
+    );
+    i.add<MuteLocalAudio>(
+      () => MuteLocalAudio(
+        contract: i<VoiceCallContractImpl>(),
+      ),
+    );
+    i.add<UnmuteLocalAudio>(
+      () => UnmuteLocalAudio(
+        contract: i<VoiceCallContractImpl>(),
+      ),
+    );
+    i.add<InitAgoraSdkStore>(
+      () => InitAgoraSdkStore(
+        logic: i<InitAgoraSdk>(),
+      ),
+    );
+    i.add<GetAgoraTokenStore>(
+      () => GetAgoraTokenStore(
+        logic: i<GetAgoraToken>(),
+      ),
+    );
+    i.add<GetChannelIdStore>(
+      () => GetChannelIdStore(
+        logic: i<GetChannelId>(),
+      ),
+    );
+    i.add<VoiceCallStatusStore>(
+      () => VoiceCallStatusStore(),
+    );
+    i.add<VoiceCallActionsStore>(
+      () => VoiceCallActionsStore(
+        joinCall: i<JoinCall>(),
+        leaveCall: i<LeaveCall>(),
+        muteAudio: i<MuteLocalAudio>(),
+        unmuteAudio: i<UnmuteLocalAudio>(),
       ),
     );
     i.add<VoiceCallCoordinator>(
       () => VoiceCallCoordinator(
-        logic: i<GetRoomInformation>(),
+        initAgoraSdk: i<InitAgoraSdkStore>(),
+        voiceCallActions: i<VoiceCallActionsStore>(),
+        voiceCallStatus: i<VoiceCallStatusStore>(),
+        getAgoraToken: i<GetAgoraTokenStore>(),
+        getChannelId: i<GetChannelIdStore>(),
       ),
     );
   }
