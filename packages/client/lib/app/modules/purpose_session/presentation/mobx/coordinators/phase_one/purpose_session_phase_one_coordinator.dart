@@ -61,7 +61,10 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
     await checkIfUserHasTheQuestion(NoParams());
     widgets.setHasTheQuesion(checkIfUserHasTheQuestion.hasTheQuestion);
     if (checkIfUserHasTheQuestion.hasTheQuestion) {
+      widgets.hasTheQuestionConstructor();
       canSpeak = true;
+    } else {
+      widgets.doesNotHaveTheQuestionConstructor();
     }
   }
 
@@ -84,8 +87,9 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
   }
 
   @action
-  onDetached() async => await deleteCollaborationArtifacts(
-      PurposeSessionScreen.phase1Consultation);
+  onDetached() async {
+    await deleteCollaborationArtifacts(PurposeSessionScreen.phase1Consultation);
+  }
 
   initReactors() {
     onCallStatusChangeReactor();
@@ -95,6 +99,7 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
     holdReactor();
     letGoReactor();
     timerReactor();
+    onCollaboratorCallStatusChangeReactor();
     widgets.wifiDisconnectOverlayReactor(
       onConnectionFinished: () async {
         await collaboratorPresence.updateOnCallStatus(
@@ -155,6 +160,21 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
           widgets.onCallLeft();
           await collaboratorPresence.updateOnCallStatus(
               const UpdateOnCallStatusParams(newStatus: false));
+        }
+      });
+
+  onCollaboratorCallStatusChangeReactor() =>
+      reaction((p0) => voiceCall.voiceCallStatus.hasCollaboratorJoined,
+          (p0) async {
+        if (p0) {
+          await collaboratorPresence.updateOnCallStatus(
+              const UpdateOnCallStatusParams(
+                  newStatus: true, shouldUpdateCollaboratorsIndex: true));
+        } else {
+          widgets.onCallLeft();
+          await collaboratorPresence.updateOnCallStatus(
+              const UpdateOnCallStatusParams(
+                  newStatus: false, shouldUpdateCollaboratorsIndex: true));
         }
       });
 

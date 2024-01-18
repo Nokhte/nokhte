@@ -144,18 +144,23 @@ abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
   }
 
   @action
+  hasTheQuestionConstructor() {
+    primarySmartText
+        .setMessagesData(MessagesData.primaryPurposeSessionHasTheQuestion);
+    showSecondaryText();
+    primarySmartText.startRotatingText();
+  }
+
+  @action
+  doesNotHaveTheQuestionConstructor() {
+    primarySmartText.setMessagesData(
+        MessagesData.primaryPurposeSessionDoesNotHaveTheQuestion);
+    primarySmartText.startRotatingText();
+  }
+
+  @action
   onFirstTimeUsersAreInSync() {
     nokhteBlur.reverse();
-    if (hasTheQuestion) {
-      primarySmartText
-          .setMessagesData(MessagesData.primaryPurposeSessionHasTheQuestion);
-      showSecondaryText();
-    } else {
-      primarySmartText.setMessagesData(
-        MessagesData.primaryPurposeSessionDoesNotHaveTheQuestion,
-      );
-    }
-    primarySmartText.startRotatingText();
   }
 
   @action
