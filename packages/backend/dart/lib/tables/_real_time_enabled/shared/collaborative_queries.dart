@@ -5,6 +5,7 @@ class CollaborativeQueries {
   static const collaboratorONE = "collaborator_one";
   static const collaboratorTWO = "collaborator_two";
   static const isCurrentlyActive = "is_currently_active";
+  static const isConsecrated = "is_consecrated";
   final SupabaseClient supabase;
   String currentUserUID = '';
   CollaboratorInfo collaboratorInfo = CollaboratorInfo(
@@ -49,11 +50,14 @@ class CollaborativeQueries {
 
   Future<List<dynamic>> getCollaborations({
     bool filterForIsActive = false,
+    bool filterForUnconsecrated = false,
   }) async {
     final List res = await supabase.from("existing_collaborations").select().or(
         '$collaboratorONE.eq.$currentUserUID,$collaboratorTWO.eq.$currentUserUID');
-    if (filterForIsActive) {
+    if (filterForIsActive && !filterForUnconsecrated) {
       res.removeWhere((element) => element[isCurrentlyActive] == false);
+    } else if (filterForUnconsecrated && !filterForIsActive) {
+      res.removeWhere((element) => element[isConsecrated] == true);
     }
     return res;
   }
