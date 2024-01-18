@@ -6,8 +6,7 @@
 import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
-
-import 'shared_mocks_gen.dart' as _i2;
+import 'package:nokhte/app/core/network/network_info.dart' as _i2;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -22,17 +21,14 @@ import 'shared_mocks_gen.dart' as _i2;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-/// A class which mocks [MNetworkInfo].
+/// A class which mocks [NetworkInfo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMNetworkInfo extends _i1.Mock implements _i2.MNetworkInfo {
-  MockMNetworkInfo() {
-    _i1.throwOnMissingStub(this);
-  }
-
+class MockNetworkInfo extends _i1.Mock implements _i2.NetworkInfo {
   @override
   _i3.Future<bool> get isConnected => (super.noSuchMethod(
         Invocation.getter(#isConnected),
         returnValue: _i3.Future<bool>.value(false),
+        returnValueForMissingStub: _i3.Future<bool>.value(false),
       ) as _i3.Future<bool>);
 }
