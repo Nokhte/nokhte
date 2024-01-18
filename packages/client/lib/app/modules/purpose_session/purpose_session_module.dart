@@ -80,7 +80,6 @@ class PurposeSessionModule extends Module {
     i.add<PurposeSessionPhaseZeroCoordinator>(
       () => PurposeSessionPhaseZeroCoordinator(
         widgets: Modular.get<PurposeSessionPhaseZeroWidgetsCoordinator>(),
-        collaboratorPresence: Modular.get<CollaboratorPresenceCoordinator>(),
         deleteCollaborationArtifacts:
             Modular.get<DeleteCollaborationArtifactsStore>(),
       ),
