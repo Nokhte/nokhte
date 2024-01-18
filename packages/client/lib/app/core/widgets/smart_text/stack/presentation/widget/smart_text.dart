@@ -38,33 +38,35 @@ class SmartText extends StatelessWidget {
                   top: topPadding,
                   bottom: bottomPadding,
                 ),
-                child: CustomAnimationBuilder(
-                    tween: store.altMovie,
-                    control: store.altControl,
-                    duration: store.altMovie.duration,
-                    builder: (context, altValue, child) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            store.currentMainText,
-                            textAlign: TextAlign.center,
-                            style: Fonts.kantumruy(
-                              fontSize: store.currentMainTextFontSize,
-                              color: altValue.get('color'),
+                child: Observer(builder: (context) {
+                  return CustomAnimationBuilder(
+                      tween: store.altMovie,
+                      control: store.altControl,
+                      duration: store.altMovie.duration,
+                      builder: (context, altValue, child) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              store.currentMainText,
+                              textAlign: TextAlign.center,
+                              style: Fonts.kantumruy(
+                                fontSize: store.currentMainTextFontSize,
+                                color: altValue.get('color'),
+                              ),
                             ),
-                          ),
-                          Text(
-                            store.currentSubText,
-                            textAlign: TextAlign.center,
-                            style: Fonts.kantumruy(
-                              fontSize: store.currentSubTextFontSize,
-                              color: altValue.get('color'),
+                            Text(
+                              store.currentSubText,
+                              textAlign: TextAlign.center,
+                              style: Fonts.kantumruy(
+                                fontSize: store.currentSubTextFontSize,
+                                color: altValue.get('color'),
+                              ),
                             ),
-                          ),
-                        ],
-                      );
-                    }),
+                          ],
+                        );
+                      });
+                }),
               ),
             ),
           ),
