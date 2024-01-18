@@ -55,6 +55,8 @@ abstract class _VoiceCallCoordinatorBase extends Equatable with Store {
         ),
       ),
     );
+    // await voiceCallActions.muteOrUnmuteAudio(
+    //     wantToMute: shouldEnterTheCallMuted);
   }
 
   @action
