@@ -1,6 +1,6 @@
 flutter test test/01_user_names_table_test.dart
 flutter test test/02_synchronous_search_test.dart
-flutter test test/03_video_sdk_services_test.dart
+flutter test test/03_get_agora_token_test.dart
 flutter test test/04_existing_collaborations_table_test.dart
 flutter test test/05_solo_sharable_documents_table_test.dart
 flutter test test/06_finished_collaborative_documents_test.dart
