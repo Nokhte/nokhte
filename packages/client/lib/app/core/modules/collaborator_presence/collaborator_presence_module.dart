@@ -34,11 +34,6 @@ class CollaboratorPresenceModule extends Module {
         contract: i<CollaboratorPresenceContractImpl>(),
       ),
     );
-    i.add<UpdateMeetingIdAndToken>(
-      () => UpdateMeetingIdAndToken(
-        contract: i<CollaboratorPresenceContractImpl>(),
-      ),
-    );
     i.add<UpdateOnlineStatus>(
       () => UpdateOnlineStatus(
         contract: i<CollaboratorPresenceContractImpl>(),
@@ -59,11 +54,7 @@ class CollaboratorPresenceModule extends Module {
         logic: i<GetSessionMetadata>(),
       ),
     );
-    i.add<UpdateMeetingIdAndTokenStore>(
-      () => UpdateMeetingIdAndTokenStore(
-        logic: i<UpdateMeetingIdAndToken>(),
-      ),
-    );
+
     i.add<UpdateOnCallStatusStore>(
       () => UpdateOnCallStatusStore(
         logic: i<UpdateOnCallStatus>(),
@@ -86,7 +77,6 @@ class CollaboratorPresenceModule extends Module {
     );
     i.add<CollaboratorPresenceCoordinator>(
       () => CollaboratorPresenceCoordinator(
-        updateMeetingIdAndToken: i<UpdateMeetingIdAndTokenStore>(),
         getSessionMetadata: i<GetSessionMetadataStore>(),
         updateOnCallStatus: i<UpdateOnCallStatusStore>(),
         updateOnlineStatus: i<UpdateOnlineStatusStore>(),
