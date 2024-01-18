@@ -9,12 +9,12 @@ class SmartTextColorChangeMovie {
     final durationsArr = TimeAllocator.generateWithTransitionPeriods(
       duration: timerLength,
       numIncrements: 2,
-      transitionPeriod: Seconds.get(10),
+      transitionPeriod: Seconds.get(1),
     );
     return MovieTween()
       ..scene(
-        begin: durationsArr[1].begin + const Duration(seconds: 45),
-        end: durationsArr[1].end + const Duration(seconds: 45),
+        begin: durationsArr[1].begin + const Duration(seconds: 65),
+        end: durationsArr[1].end + const Duration(seconds: 65),
       ).tween(
         'color',
         ColorTween(
