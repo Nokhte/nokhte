@@ -1,4 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/delete_unconsecrated_collaborations_module.dart';
+import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity_module.dart';
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information_module.dart';
@@ -19,6 +21,7 @@ class HomeModule extends Module {
         GesturesModule(),
         UserInformationModule(),
         LegacyConnectivityModule(),
+        DeleteUnconsecratedCollaborationsModule(),
       ];
   @override
   binds(i) {
@@ -57,6 +60,8 @@ class HomeModule extends Module {
 
     i.add<HomeScreenCoordinator>(
       () => HomeScreenCoordinator(
+        deleteUnconsecratedCollaborations:
+            Modular.get<DeleteUnconsecratedCollaborationsCoordinator>(),
         userInformation: Modular.get<UserInformationCoordinator>(),
         swipe: Modular.get<SwipeDetector>(),
         addNameToDatabaseStore: i<AddNameToDatabaseStore>(),
