@@ -1,7 +1,9 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -12,6 +14,8 @@ class HomeScreenCoordinator = _HomeScreenCoordinatorBase
     with _$HomeScreenCoordinator;
 
 abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
+  final DeleteUnconsecratedCollaborationsCoordinator
+      deleteUnconsecratedCollaborations;
   final AddNameToDatabaseStore addNameToDatabaseStore;
   final GetExistingCollaborationsInfoStore getExistingCollaborationInfo;
   final HomeScreenWidgetsCoordinator widgets;
@@ -19,6 +23,7 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
   final UserInformationCoordinator userInformation;
 
   _HomeScreenCoordinatorBase({
+    required this.deleteUnconsecratedCollaborations,
     required this.addNameToDatabaseStore,
     required this.getExistingCollaborationInfo,
     required this.userInformation,
@@ -30,7 +35,7 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
   constructor() async {
     widgets.initReactors(repeatTheFlow);
     widgets.constructor();
-
+    await deleteUnconsecratedCollaborations(NoParams());
     await userInformation.getUserInfo(NoParams());
     if (userInformation.getUserInfo.hasGoneThroughInvitationFlow) {
       widgets.postInvitationFlowConstructor();
