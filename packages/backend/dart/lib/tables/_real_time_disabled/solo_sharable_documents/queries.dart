@@ -98,6 +98,7 @@ class SoloSharableDocumentQueries extends CollaborativeQueries {
         .from(table)
         .delete()
         .eq(ownerUID, collaboratorInfo.theUsersUID)
+        .eq(collaboratorUID, collaboratorInfo.theCollaboratorsUID)
         .order(
           createdAt,
           ascending: false,
