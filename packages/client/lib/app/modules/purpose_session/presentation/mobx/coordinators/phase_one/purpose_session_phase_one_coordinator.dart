@@ -10,7 +10,6 @@ import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/purpose_session/presentation/mobx/mobx.dart';
-import 'package:nokhte/app/modules/purpose_session/types/purpose_session_screen.dart';
 import 'package:permission_handler/permission_handler.dart';
 part 'purpose_session_phase_one_coordinator.g.dart';
 
@@ -21,7 +20,6 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
     with Store {
   final VoiceCallCoordinator voiceCall;
   final CollaboratorPresenceCoordinator collaboratorPresence;
-  final DeleteCollaborationArtifactsStore deleteCollaborationArtifacts;
   final PurposeSessionPhaseOneWidgetsCoordinator widgets;
   final CheckIfUserHasTheQuestionStore checkIfUserHasTheQuestion;
   final HoldDetector hold;
@@ -30,7 +28,6 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
     required this.widgets,
     required this.voiceCall,
     required this.collaboratorPresence,
-    required this.deleteCollaborationArtifacts,
     required this.checkIfUserHasTheQuestion,
     required this.hold,
   });
@@ -42,7 +39,7 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
   bool isFirstTimeBothAreInSync = true;
 
   @observable
-  bool isFirstTimeInitializingTimer = true;
+  bool hasInitializedTimer = false;
 
   @observable
   int speakerCount = 0;
@@ -86,11 +83,6 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
     ));
   }
 
-  @action
-  onDetached() async {
-    await deleteCollaborationArtifacts(PurposeSessionScreen.phase1Consultation);
-  }
-
   initReactors() {
     onCallStatusChangeReactor();
     onCollaboratorCallPresenceChangeReactor();
@@ -117,8 +109,12 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
           await collaboratorPresence
               .updateWhoIsTalking(UpdateWhoIsTalkingParams.setUserAsTalker);
           await voiceCall.voiceCallActions.unmuteAudio(NoParams());
-          if (isFirstTimeInitializingTimer) {
+          if (!hasInitializedTimer &&
+              checkIfUserHasTheQuestion.hasTheQuestion) {
             await collaboratorPresence.updateTimerStatus(true);
+            hasInitializedTimer = true;
+            print("hold init timer");
+            widgets.initTimer();
           }
         }
       });
@@ -206,22 +202,25 @@ abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
       reaction((p0) => collaboratorPresence.getSessionMetadata.timerShouldRun,
           (p0) {
         if (p0) {
-          if (isFirstTimeInitializingTimer) {
+          if (!hasInitializedTimer) {
             Timer.periodic(const Duration(seconds: 1), (timer) {
               if (collaboratorPresence
                       .getSessionMetadata.collaboratorIsOnCall &&
                   collaboratorPresence
                       .getSessionMetadata.collaboratorIsOnline) {
+                print("reactor init timer");
                 widgets.initTimer();
-                isFirstTimeInitializingTimer = false;
+                hasInitializedTimer = true;
                 timer.cancel();
               }
             });
           } else {
             widgets.resumeTimer();
+            print("resume");
           }
         } else {
           widgets.pausetimer();
+          print("pause");
         }
       });
 }

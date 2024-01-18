@@ -2,7 +2,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/modules/purpose_session/presentation/presentation.dart';
-import 'package:nokhte/app/modules/purpose_session/types/types.dart';
 part 'purpose_session_phase_zero_coordinator.g.dart';
 
 class PurposeSessionPhaseZeroCoordinator = _PurposeSessionPhaseZeroCoordinatorBase
@@ -11,11 +10,9 @@ class PurposeSessionPhaseZeroCoordinator = _PurposeSessionPhaseZeroCoordinatorBa
 abstract class _PurposeSessionPhaseZeroCoordinatorBase extends BaseCoordinator
     with Store {
   final PurposeSessionPhaseZeroWidgetsCoordinator widgets;
-  final DeleteCollaborationArtifactsStore deleteCollaborationArtifacts;
 
   _PurposeSessionPhaseZeroCoordinatorBase({
     required this.widgets,
-    required this.deleteCollaborationArtifacts,
   });
 
   @action
@@ -26,8 +23,4 @@ abstract class _PurposeSessionPhaseZeroCoordinatorBase extends BaseCoordinator
 
   @action
   onResumed() => widgets.onResumed();
-
-  @action
-  onDetached() async => await deleteCollaborationArtifacts
-      .call(PurposeSessionScreen.phase0Greeter);
 }

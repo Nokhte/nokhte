@@ -39,9 +39,6 @@ abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
   setHasTheQuesion(bool newVal) => hasTheQuestion = newVal;
 
   @observable
-  bool hasInitializedTimer = false;
-
-  @observable
   bool isInTheCall = false;
 
   @action
@@ -116,7 +113,7 @@ abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
   @action
   initTimer() {
     beachWaves.setMovieMode(BeachWaveMovieModes.timesUp);
-    beachWaves.currentStore.initMovie(const Duration(minutes: 5));
+    beachWaves.currentStore.initMovie(timerLength);
     primarySmartText.setAltMovie(timerLength);
     primarySmartText.setAltControl(Control.playFromStart);
   }
@@ -186,6 +183,7 @@ abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
       }
       errorText.startRotatingText();
     } else {
+      // nokhteBlur.init();
       errorText.startRotatingText(isResuming: true);
     }
   }

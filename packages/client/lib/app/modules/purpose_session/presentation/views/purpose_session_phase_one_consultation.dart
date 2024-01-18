@@ -22,7 +22,7 @@ class PurposeSessionPhaseOneConsultation extends HookWidget {
               current,
               onResumed: () => coordinator.onResumed(),
               onInactive: () => coordinator.onInactive(),
-              onDetached: () => coordinator.onDetached(),
+              onDetached: () => null,
             ));
     return Scaffold(
       resizeToAvoidBottomInset: false,

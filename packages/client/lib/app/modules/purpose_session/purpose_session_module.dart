@@ -40,48 +40,14 @@ class PurposeSessionModule extends Module {
         contract: Modular.get<PurposeSessionContractImpl>(),
       ),
     );
-    i.add<DeleteCapsuleArrangement>(
-      () => DeleteCapsuleArrangement(
-        contract: Modular.get<PurposeSessionContractImpl>(),
-      ),
-    );
-    i.add<DeleteCollaborativeDocument>(
-      () => DeleteCollaborativeDocument(
-        contract: Modular.get<PurposeSessionContractImpl>(),
-      ),
-    );
-    i.add<DeleteSchedulingSession>(() => DeleteSchedulingSession(
-          contract: Modular.get<PurposeSessionContractImpl>(),
-        ));
-    i.add<DeleteSoloDocument>(
-      () => DeleteSoloDocument(
-        contract: Modular.get<PurposeSessionContractImpl>(),
-      ),
-    );
-    i.add<DeleteTheCollaboration>(
-      () => DeleteTheCollaboration(
-        contract: Modular.get<PurposeSessionContractImpl>(),
-      ),
-    );
     i.add<CheckIfUserHasTheQuestionStore>(
       () => CheckIfUserHasTheQuestionStore(
         logic: Modular.get<CheckIfUserHasTheQuestion>(),
       ),
     );
-    i.add<DeleteCollaborationArtifactsStore>(
-      () => DeleteCollaborationArtifactsStore(
-        deleteCollaborativeDocument: Modular.get<DeleteCollaborativeDocument>(),
-        deleteSchedulingSession: Modular.get<DeleteSchedulingSession>(),
-        deleteTheCollaboration: Modular.get<DeleteTheCollaboration>(),
-        deleteCapsuleArrangement: Modular.get<DeleteCapsuleArrangement>(),
-        deleteSoloDocument: Modular.get<DeleteSoloDocument>(),
-      ),
-    );
     i.add<PurposeSessionPhaseZeroCoordinator>(
       () => PurposeSessionPhaseZeroCoordinator(
         widgets: Modular.get<PurposeSessionPhaseZeroWidgetsCoordinator>(),
-        deleteCollaborationArtifacts:
-            Modular.get<DeleteCollaborationArtifactsStore>(),
       ),
     );
 
@@ -90,8 +56,6 @@ class PurposeSessionModule extends Module {
           hold: Modular.get<HoldDetector>(),
           checkIfUserHasTheQuestion:
               Modular.get<CheckIfUserHasTheQuestionStore>(),
-          deleteCollaborationArtifacts:
-              Modular.get<DeleteCollaborationArtifactsStore>(),
           collaboratorPresence: Modular.get<CollaboratorPresenceCoordinator>(),
           widgets: Modular.get<PurposeSessionPhaseOneWidgetsCoordinator>(),
           voiceCall: Modular.get<VoiceCallCoordinator>()),

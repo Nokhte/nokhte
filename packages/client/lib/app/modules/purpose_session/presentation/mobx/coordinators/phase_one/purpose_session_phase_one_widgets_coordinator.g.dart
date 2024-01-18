@@ -27,23 +27,6 @@ mixin _$PurposeSessionPhaseOneWidgetsCoordinator
     });
   }
 
-  late final _$hasInitializedTimerAtom = Atom(
-      name: '_PurposeSessionPhaseOneWidgetsCoordinatorBase.hasInitializedTimer',
-      context: context);
-
-  @override
-  bool get hasInitializedTimer {
-    _$hasInitializedTimerAtom.reportRead();
-    return super.hasInitializedTimer;
-  }
-
-  @override
-  set hasInitializedTimer(bool value) {
-    _$hasInitializedTimerAtom.reportWrite(value, super.hasInitializedTimer, () {
-      super.hasInitializedTimer = value;
-    });
-  }
-
   late final _$isInTheCallAtom = Atom(
       name: '_PurposeSessionPhaseOneWidgetsCoordinatorBase.isInTheCall',
       context: context);
@@ -343,7 +326,6 @@ mixin _$PurposeSessionPhaseOneWidgetsCoordinator
   String toString() {
     return '''
 hasTheQuestion: ${hasTheQuestion},
-hasInitializedTimer: ${hasInitializedTimer},
 isInTheCall: ${isInTheCall}
     ''';
   }

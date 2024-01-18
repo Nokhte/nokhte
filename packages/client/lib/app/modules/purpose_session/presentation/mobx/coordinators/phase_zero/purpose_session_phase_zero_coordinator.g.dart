@@ -10,15 +10,6 @@ part of 'purpose_session_phase_zero_coordinator.dart';
 
 mixin _$PurposeSessionPhaseZeroCoordinator
     on _PurposeSessionPhaseZeroCoordinatorBase, Store {
-  late final _$onDetachedAsyncAction = AsyncAction(
-      '_PurposeSessionPhaseZeroCoordinatorBase.onDetached',
-      context: context);
-
-  @override
-  Future onDetached() {
-    return _$onDetachedAsyncAction.run(() => super.onDetached());
-  }
-
   late final _$_PurposeSessionPhaseZeroCoordinatorBaseActionController =
       ActionController(
           name: '_PurposeSessionPhaseZeroCoordinatorBase', context: context);
