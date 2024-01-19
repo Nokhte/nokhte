@@ -30,7 +30,7 @@ void main() {
       test(
           "should return a valid model when user has fully completed apple authentication",
           () async {
-        final AuthProviderModel result = await AuthProviderModel.fromSupabase(
+        final AuthProviderModel result = AuthProviderModel.fromSupabase(
           AuthProvider.apple,
           tAuthResponse,
         );
@@ -54,7 +54,7 @@ void main() {
     test(
         "should return a valid model when user hasn't fully completed apple authentication",
         () async {
-      final AuthProviderModel result = await AuthProviderModel.fromSupabase(
+      final AuthProviderModel result = AuthProviderModel.fromSupabase(
         AuthProvider.apple,
         tAuthResponse,
       );
