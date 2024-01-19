@@ -2,9 +2,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/collaborator_presence/domain/domain.dart';
 
 class UpdateWhoIsTalking
-    implements
-        AbstractFutureLogic<WhoIsTalkingUpdateStatusEntity,
-            UpdateWhoIsTalkingParams> {
+    implements AbstractFutureLogic<bool, UpdateWhoIsTalkingParams> {
   final CollaboratorPresenceContract contract;
 
   UpdateWhoIsTalking({required this.contract});

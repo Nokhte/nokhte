@@ -2,9 +2,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/collaborator_presence/domain/domain.dart';
 
 class UpdateOnCallStatus
-    implements
-        AbstractFutureLogic<CallUpdateStatusEntity,
-            UpdatePresencePropertyParams> {
+    implements AbstractFutureLogic<bool, UpdatePresencePropertyParams> {
   final CollaboratorPresenceContract contract;
 
   UpdateOnCallStatus({required this.contract});

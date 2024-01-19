@@ -3,8 +3,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/collaborator_presence/domain/domain.dart';
 
 class UpdateCurrentPhase
-    implements
-        AbstractFutureLogic<PhaseUpdateStatusEntity, UpdateCurrentPhaseParams> {
+    implements AbstractFutureLogic<bool, UpdateCurrentPhaseParams> {
   final CollaboratorPresenceContract contract;
 
   UpdateCurrentPhase({required this.contract});
