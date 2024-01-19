@@ -12,8 +12,7 @@ class ExitCollaboratorPoolStore = _ExitCollaboratorPoolStoreBase
     with _$ExitCollaboratorPoolStore;
 
 abstract class _ExitCollaboratorPoolStoreBase
-    extends BaseMobxDBStore<NoParams, CollaboratorPoolExitStatusEntity>
-    with Store {
+    extends BaseMobxDBStore<NoParams, bool> with Store {
   final ExitCollaboratorPool logic;
 
   _ExitCollaboratorPoolStoreBase({
@@ -24,12 +23,11 @@ abstract class _ExitCollaboratorPoolStoreBase
   bool hasLeft = false;
 
   @observable
-  BaseFutureStore<CollaboratorPoolExitStatusEntity> futureStore =
-      BaseFutureStore(
-    baseEntity: Right(CollaboratorPoolExitStatusEntity.initial()),
+  BaseFutureStore<bool> futureStore = BaseFutureStore(
+    baseEntity: const Right(false),
     entityFutureParam: ObservableFuture(
       Future.value(
-        Right(CollaboratorPoolExitStatusEntity.initial()),
+        const Right(false),
       ),
     ),
   );
@@ -39,8 +37,8 @@ abstract class _ExitCollaboratorPoolStoreBase
     result.fold((failure) {
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
-    }, (entryStatusEntity) {
-      hasLeft = entryStatusEntity.isTrue;
+    }, (exitStatus) {
+      hasLeft = exitStatus;
     });
   }
 
