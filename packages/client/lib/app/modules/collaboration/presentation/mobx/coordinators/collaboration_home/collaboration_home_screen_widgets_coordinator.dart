@@ -227,8 +227,6 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
         }
       });
 
-  // add beach waves listener
-
   @override
   List<Object> get props => [];
 }
