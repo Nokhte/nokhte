@@ -202,7 +202,7 @@ abstract class _SpeakTheCollaboratorPhraseCoordinatorStoreBase extends Equatable
     if (validateQueryStore.isValidated == ValidationStatus.valid) {
       enterCollaboratorPoolStore(validateQueryStore.phraseIDs);
       enterCollaboratorPoolStore(validateQueryStore.phraseIDs);
-      print("did this run??");
+      // print("did this run??");
       widgetStore.transitionToTimesUp();
       // widgetStore.toTheDepthsWidgetChanges();
     }

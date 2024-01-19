@@ -40,7 +40,7 @@ abstract class _P2PPurposePhase6WidgetsCoordinatorBase extends Equatable
     reaction((p0) => beachWaves.movieStatus, (p0) {
       if (beachWaves.movieStatus == MovieStatus.finished &&
           beachWaves.movieMode == BeachWaveMovieModes.shallowsToShore) {
-        print("hey did the movie finish & back to home");
+        // print("hey did the movie finish & back to home");
         Modular.to.navigate('/home/');
       }
     });

@@ -191,7 +191,7 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
 
   @action
   startRecordingAudioClip() async {
-    print("started recording");
+    // print("started recording");
     hasntRecordedForAudioIndex = false;
     formattedPerspective = StorageUtilities.getFormattedPerspective(
       currentIndex: chosenIndex,
@@ -223,7 +223,7 @@ abstract class _IndividualSessionScreenCoordinatorStoreBase
 
   @action
   stopRecordingAudioClip() async {
-    print("ended recording");
+    // print("ended recording");
     await setRecordingStatus(
       ChangePerspectivesAudioRecordingStatusParams(
         recordingAction: PerspectivesAudioRecordingActions.stopRecording,
