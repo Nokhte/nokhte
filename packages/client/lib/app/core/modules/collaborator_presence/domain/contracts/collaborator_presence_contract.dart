@@ -5,15 +5,14 @@ import 'package:nokhte/app/core/modules/collaborator_presence/domain/domain.dart
 import 'package:nokhte_backend/tables/existing_collaborations.dart';
 
 abstract class CollaboratorPresenceContract {
-  Future<Either<Failure, OnlineUpdateStatusEntity>> updateOnlineStatus(
+  Future<Either<Failure, bool>> updateOnlineStatus(
       UpdatePresencePropertyParams params);
-  Future<Either<Failure, CallUpdateStatusEntity>> updateOnCallStatus(
+  Future<Either<Failure, bool>> updateOnCallStatus(
       UpdatePresencePropertyParams params);
-  Future<Either<Failure, WhoIsTalkingUpdateStatusEntity>> updateWhoIsTalking(
+  Future<Either<Failure, bool>> updateWhoIsTalking(
       UpdateWhoIsTalkingParams params);
-  Future<Either<Failure, TimerUpdateStatusEntity>> updateTimerStatus(
-      bool params);
-  Future<Either<Failure, PhaseUpdateStatusEntity>> updateCurrentPhase(
+  Future<Either<Failure, bool>> updateTimerStatus(bool params);
+  Future<Either<Failure, bool>> updateCurrentPhase(
     UpdateCurrentPhaseParams params,
   );
   Future<Either<Failure, Stream<CollaborationSessionMetadata>>>
