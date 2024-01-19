@@ -1,13 +1,14 @@
-import 'package:nokhte/app/core/entities/base_single_boolean_entity.dart';
+import 'package:equatable/equatable.dart';
 
-class UnconsecratedCollaborationCheckerEntity extends BaseSingleBooleanEntity {
+class UnconsecratedCollaborationCheckerEntity extends Equatable {
   final String collaboratorOneUID;
   final String collaboratorTwoUID;
+  final bool hasOne;
   const UnconsecratedCollaborationCheckerEntity({
-    required bool hasOne,
+    required this.hasOne,
     required this.collaboratorOneUID,
     required this.collaboratorTwoUID,
-  }) : super(isTrue: hasOne);
+  });
 
   factory UnconsecratedCollaborationCheckerEntity.initial() =>
       const UnconsecratedCollaborationCheckerEntity(
@@ -15,4 +16,7 @@ class UnconsecratedCollaborationCheckerEntity extends BaseSingleBooleanEntity {
         collaboratorTwoUID: '',
         hasOne: false,
       );
+
+  @override
+  List<Object> get props => [collaboratorOneUID, collaboratorTwoUID, hasOne];
 }
