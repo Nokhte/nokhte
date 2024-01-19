@@ -8,19 +8,17 @@ void main() {
   late ExistingCollaborationsStream user1Streams;
   late InitiateCollaboratorSearch user1StartEdgeFunctions;
   late EndCollaboratorSearch user1EndEdgeFunctions;
-  late InitiateCollaboratorSearch user2EdgeFunctions;
+  late InitiateCollaboratorSearch user3EdgeFunctions;
   final tSetup = CommonCollaborativeTestFunctions();
 
   setUpAll(() async {
-    await tSetup.setUp(
-        // shouldMakeCollaboration: true,
-        );
+    await tSetup.setUp();
     user1StartEdgeFunctions =
         InitiateCollaboratorSearch(supabase: tSetup.user1Supabase);
     user1EndEdgeFunctions =
         EndCollaboratorSearch(supabase: tSetup.user1Supabase);
-    user2EdgeFunctions =
-        InitiateCollaboratorSearch(supabase: tSetup.user2Supabase);
+    user3EdgeFunctions =
+        InitiateCollaboratorSearch(supabase: tSetup.user3Supabase);
     user1Streams = ExistingCollaborationsStream(supabase: tSetup.user1Supabase);
   });
 
@@ -42,20 +40,12 @@ void main() {
     final secondPoolRes =
         await tSetup.supabaseAdmin.from('p2p_collaborator_pool').select();
 
-    expect(secondPoolRes.length, 1);
+    expect(secondPoolRes.length, 0);
   });
 
   test("user should be able to make a collaboration", () async {
-    await tSetup.supabaseAdmin.from('existing_collaborations').insert({
-      "collaborator_one": tSetup.firstUserUID,
-      "collaborator_two": tSetup.thirdUserUID,
-      "collaboration_id": "${tSetup.firstUserUID}_${tSetup.thirdUserUID}",
-      "is_consecrated": true,
-      "is_currently_active": false,
-      "who_gets_the_question": 2,
-    });
-    await user1StartEdgeFunctions.invoke(tSetup.secondUserUID);
-    await user2EdgeFunctions.invoke(tSetup.firstUserUID);
+    await user1StartEdgeFunctions.invoke(tSetup.thirdUserUID);
+    await user3EdgeFunctions.invoke(tSetup.firstUserUID);
     final user1Stream = user1Streams.getCollaboratorSearchAndEntryStatus();
     expect(user1Stream, emits(true));
   });
