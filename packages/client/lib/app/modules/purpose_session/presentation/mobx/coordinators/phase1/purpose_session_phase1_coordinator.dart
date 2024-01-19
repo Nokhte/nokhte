@@ -11,20 +11,20 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/purpose_session/presentation/mobx/mobx.dart';
 import 'package:permission_handler/permission_handler.dart';
-part 'purpose_session_phase_one_coordinator.g.dart';
+part 'purpose_session_phase1_coordinator.g.dart';
 
-class PurposeSessionPhaseOneCoordinator = _PurposeSessionPhaseOneCoordinatorBase
-    with _$PurposeSessionPhaseOneCoordinator;
+class PurposeSessionPhase1Coordinator = _PurposeSessionPhase1CoordinatorBase
+    with _$PurposeSessionPhase1Coordinator;
 
-abstract class _PurposeSessionPhaseOneCoordinatorBase extends BaseCoordinator
+abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
     with Store {
   final VoiceCallCoordinator voiceCall;
   final CollaboratorPresenceCoordinator collaboratorPresence;
-  final PurposeSessionPhaseOneWidgetsCoordinator widgets;
+  final PurposeSessionPhase1WidgetsCoordinator widgets;
   final CheckIfUserHasTheQuestionStore checkIfUserHasTheQuestion;
   final HoldDetector hold;
 
-  _PurposeSessionPhaseOneCoordinatorBase({
+  _PurposeSessionPhase1CoordinatorBase({
     required this.widgets,
     required this.voiceCall,
     required this.collaboratorPresence,

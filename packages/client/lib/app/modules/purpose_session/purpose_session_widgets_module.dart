@@ -1,8 +1,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/widgets/widget_modules/widget_modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/purpose_session/presentation/mobx/coordinators/phase_one/phase_one.dart';
-import 'package:nokhte/app/modules/purpose_session/presentation/mobx/coordinators/phase_zero/purpose_session_phase_zero_widgets_coordinator.dart';
+
+import 'presentation/presentation.dart';
 
 class PurposeSessionWidgetsModule extends Module {
   @override
@@ -20,15 +20,15 @@ class PurposeSessionWidgetsModule extends Module {
     i.add<BorderGlowStore>(
       () => BorderGlowStore(),
     );
-    i.add<PurposeSessionPhaseZeroWidgetsCoordinator>(
-      () => PurposeSessionPhaseZeroWidgetsCoordinator(
+    i.add<PurposeSessionPhase0WidgetsCoordinator>(
+      () => PurposeSessionPhase0WidgetsCoordinator(
         beachWaves: Modular.get<BeachWavesStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         primarySmartText: Modular.get<SmartTextStore>(),
       ),
     );
-    i.add<PurposeSessionPhaseOneWidgetsCoordinator>(
-      () => PurposeSessionPhaseOneWidgetsCoordinator(
+    i.add<PurposeSessionPhase1WidgetsCoordinator>(
+      () => PurposeSessionPhase1WidgetsCoordinator(
           borderGlow: i<BorderGlowStore>(),
           beachWaves: Modular.get<BeachWavesStore>(),
           wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'purpose_session_phase_one_coordinator.dart';
+part of 'purpose_session_phase1_coordinator.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,11 +8,10 @@ part of 'purpose_session_phase_one_coordinator.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$PurposeSessionPhaseOneCoordinator
-    on _PurposeSessionPhaseOneCoordinatorBase, Store {
+mixin _$PurposeSessionPhase1Coordinator
+    on _PurposeSessionPhase1CoordinatorBase, Store {
   late final _$canSpeakAtom = Atom(
-      name: '_PurposeSessionPhaseOneCoordinatorBase.canSpeak',
-      context: context);
+      name: '_PurposeSessionPhase1CoordinatorBase.canSpeak', context: context);
 
   @override
   bool get canSpeak {
@@ -28,7 +27,7 @@ mixin _$PurposeSessionPhaseOneCoordinator
   }
 
   late final _$isFirstTimeBothAreInSyncAtom = Atom(
-      name: '_PurposeSessionPhaseOneCoordinatorBase.isFirstTimeBothAreInSync',
+      name: '_PurposeSessionPhase1CoordinatorBase.isFirstTimeBothAreInSync',
       context: context);
 
   @override
@@ -46,7 +45,7 @@ mixin _$PurposeSessionPhaseOneCoordinator
   }
 
   late final _$hasInitializedTimerAtom = Atom(
-      name: '_PurposeSessionPhaseOneCoordinatorBase.hasInitializedTimer',
+      name: '_PurposeSessionPhase1CoordinatorBase.hasInitializedTimer',
       context: context);
 
   @override
@@ -63,7 +62,7 @@ mixin _$PurposeSessionPhaseOneCoordinator
   }
 
   late final _$speakerCountAtom = Atom(
-      name: '_PurposeSessionPhaseOneCoordinatorBase.speakerCount',
+      name: '_PurposeSessionPhase1CoordinatorBase.speakerCount',
       context: context);
 
   @override
@@ -80,7 +79,7 @@ mixin _$PurposeSessionPhaseOneCoordinator
   }
 
   late final _$constructorAsyncAction = AsyncAction(
-      '_PurposeSessionPhaseOneCoordinatorBase.constructor',
+      '_PurposeSessionPhase1CoordinatorBase.constructor',
       context: context);
 
   @override
@@ -89,7 +88,7 @@ mixin _$PurposeSessionPhaseOneCoordinator
   }
 
   late final _$onInactiveAsyncAction = AsyncAction(
-      '_PurposeSessionPhaseOneCoordinatorBase.onInactive',
+      '_PurposeSessionPhase1CoordinatorBase.onInactive',
       context: context);
 
   @override
@@ -98,7 +97,7 @@ mixin _$PurposeSessionPhaseOneCoordinator
   }
 
   late final _$onResumedAsyncAction = AsyncAction(
-      '_PurposeSessionPhaseOneCoordinatorBase.onResumed',
+      '_PurposeSessionPhase1CoordinatorBase.onResumed',
       context: context);
 
   @override

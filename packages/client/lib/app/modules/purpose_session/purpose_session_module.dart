@@ -45,19 +45,19 @@ class PurposeSessionModule extends Module {
         logic: Modular.get<CheckIfUserHasTheQuestion>(),
       ),
     );
-    i.add<PurposeSessionPhaseZeroCoordinator>(
-      () => PurposeSessionPhaseZeroCoordinator(
-        widgets: Modular.get<PurposeSessionPhaseZeroWidgetsCoordinator>(),
+    i.add<PurposeSessionPhase0Coordinator>(
+      () => PurposeSessionPhase0Coordinator(
+        widgets: Modular.get<PurposeSessionPhase0WidgetsCoordinator>(),
       ),
     );
 
-    i.add<PurposeSessionPhaseOneCoordinator>(
-      () => PurposeSessionPhaseOneCoordinator(
+    i.add<PurposeSessionPhase1Coordinator>(
+      () => PurposeSessionPhase1Coordinator(
           hold: Modular.get<HoldDetector>(),
           checkIfUserHasTheQuestion:
               Modular.get<CheckIfUserHasTheQuestionStore>(),
           collaboratorPresence: Modular.get<CollaboratorPresenceCoordinator>(),
-          widgets: Modular.get<PurposeSessionPhaseOneWidgetsCoordinator>(),
+          widgets: Modular.get<PurposeSessionPhase1WidgetsCoordinator>(),
           voiceCall: Modular.get<VoiceCallCoordinator>()),
     );
   }
@@ -67,15 +67,15 @@ class PurposeSessionModule extends Module {
     r.child(
       '/',
       transition: TransitionType.noTransition,
-      child: (context) => PurposeSessionPhaseZeroGreeter(
-        coordinator: Modular.get<PurposeSessionPhaseZeroCoordinator>(),
+      child: (context) => PurposeSessionPhase0Greeter(
+        coordinator: Modular.get<PurposeSessionPhase0Coordinator>(),
       ),
     );
     r.child(
       '/phase_one',
       transition: TransitionType.noTransition,
-      child: (context) => PurposeSessionPhaseOneConsultation(
-        coordinator: Modular.get<PurposeSessionPhaseOneCoordinator>(),
+      child: (context) => PurposeSessionPhase1Consultation(
+        coordinator: Modular.get<PurposeSessionPhase1Coordinator>(),
       ),
     );
   }

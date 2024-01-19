@@ -2,16 +2,16 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/modules/purpose_session/presentation/presentation.dart';
-part 'purpose_session_phase_zero_coordinator.g.dart';
+part 'purpose_session_phase0_coordinator.g.dart';
 
-class PurposeSessionPhaseZeroCoordinator = _PurposeSessionPhaseZeroCoordinatorBase
-    with _$PurposeSessionPhaseZeroCoordinator;
+class PurposeSessionPhase0Coordinator = _PurposeSessionPhase0CoordinatorBase
+    with _$PurposeSessionPhase0Coordinator;
 
-abstract class _PurposeSessionPhaseZeroCoordinatorBase extends BaseCoordinator
+abstract class _PurposeSessionPhase0CoordinatorBase extends BaseCoordinator
     with Store {
-  final PurposeSessionPhaseZeroWidgetsCoordinator widgets;
+  final PurposeSessionPhase0WidgetsCoordinator widgets;
 
-  _PurposeSessionPhaseZeroCoordinatorBase({
+  _PurposeSessionPhase0CoordinatorBase({
     required this.widgets,
   });
 

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'purpose_session_phase_zero_widgets_coordinator.dart';
+part of 'purpose_session_phase0_widgets_coordinator.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,10 +8,10 @@ part of 'purpose_session_phase_zero_widgets_coordinator.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$PurposeSessionPhaseZeroWidgetsCoordinator
-    on _PurposeSessionPhaseZeroWidgetsCoordinatorBase, Store {
+mixin _$PurposeSessionPhase0WidgetsCoordinator
+    on _PurposeSessionPhase0WidgetsCoordinatorBase, Store {
   late final _$isConnectedAtom = Atom(
-      name: '_PurposeSessionPhaseZeroWidgetsCoordinatorBase.isConnected',
+      name: '_PurposeSessionPhase0WidgetsCoordinatorBase.isConnected',
       context: context);
 
   @override
@@ -27,22 +27,20 @@ mixin _$PurposeSessionPhaseZeroWidgetsCoordinator
     });
   }
 
-  late final _$_PurposeSessionPhaseZeroWidgetsCoordinatorBaseActionController =
+  late final _$_PurposeSessionPhase0WidgetsCoordinatorBaseActionController =
       ActionController(
-          name: '_PurposeSessionPhaseZeroWidgetsCoordinatorBase',
+          name: '_PurposeSessionPhase0WidgetsCoordinatorBase',
           context: context);
 
   @override
   dynamic setIsConnected(bool newVal) {
     final _$actionInfo =
-        _$_PurposeSessionPhaseZeroWidgetsCoordinatorBaseActionController
-            .startAction(
-                name:
-                    '_PurposeSessionPhaseZeroWidgetsCoordinatorBase.setIsConnected');
+        _$_PurposeSessionPhase0WidgetsCoordinatorBaseActionController.startAction(
+            name: '_PurposeSessionPhase0WidgetsCoordinatorBase.setIsConnected');
     try {
       return super.setIsConnected(newVal);
     } finally {
-      _$_PurposeSessionPhaseZeroWidgetsCoordinatorBaseActionController
+      _$_PurposeSessionPhase0WidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
     }
   }
@@ -50,14 +48,13 @@ mixin _$PurposeSessionPhaseZeroWidgetsCoordinator
   @override
   dynamic onInactive() {
     final _$actionInfo =
-        _$_PurposeSessionPhaseZeroWidgetsCoordinatorBaseActionController
+        _$_PurposeSessionPhase0WidgetsCoordinatorBaseActionController
             .startAction(
-                name:
-                    '_PurposeSessionPhaseZeroWidgetsCoordinatorBase.onInactive');
+                name: '_PurposeSessionPhase0WidgetsCoordinatorBase.onInactive');
     try {
       return super.onInactive();
     } finally {
-      _$_PurposeSessionPhaseZeroWidgetsCoordinatorBaseActionController
+      _$_PurposeSessionPhase0WidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
     }
   }
@@ -65,14 +62,13 @@ mixin _$PurposeSessionPhaseZeroWidgetsCoordinator
   @override
   dynamic onResumed() {
     final _$actionInfo =
-        _$_PurposeSessionPhaseZeroWidgetsCoordinatorBaseActionController
+        _$_PurposeSessionPhase0WidgetsCoordinatorBaseActionController
             .startAction(
-                name:
-                    '_PurposeSessionPhaseZeroWidgetsCoordinatorBase.onResumed');
+                name: '_PurposeSessionPhase0WidgetsCoordinatorBase.onResumed');
     try {
       return super.onResumed();
     } finally {
-      _$_PurposeSessionPhaseZeroWidgetsCoordinatorBaseActionController
+      _$_PurposeSessionPhase0WidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
     }
   }
@@ -80,14 +76,14 @@ mixin _$PurposeSessionPhaseZeroWidgetsCoordinator
   @override
   dynamic constructor() {
     final _$actionInfo =
-        _$_PurposeSessionPhaseZeroWidgetsCoordinatorBaseActionController
+        _$_PurposeSessionPhase0WidgetsCoordinatorBaseActionController
             .startAction(
                 name:
-                    '_PurposeSessionPhaseZeroWidgetsCoordinatorBase.constructor');
+                    '_PurposeSessionPhase0WidgetsCoordinatorBase.constructor');
     try {
       return super.constructor();
     } finally {
-      _$_PurposeSessionPhaseZeroWidgetsCoordinatorBaseActionController
+      _$_PurposeSessionPhase0WidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
     }
   }

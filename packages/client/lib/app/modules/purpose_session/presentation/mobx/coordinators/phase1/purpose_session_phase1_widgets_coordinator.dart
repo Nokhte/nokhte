@@ -5,12 +5,12 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/animation_builder/custom_animation_builder.dart';
-part 'purpose_session_phase_one_widgets_coordinator.g.dart';
+part 'purpose_session_phase1_widgets_coordinator.g.dart';
 
-class PurposeSessionPhaseOneWidgetsCoordinator = _PurposeSessionPhaseOneWidgetsCoordinatorBase
-    with _$PurposeSessionPhaseOneWidgetsCoordinator;
+class PurposeSessionPhase1WidgetsCoordinator = _PurposeSessionPhase1WidgetsCoordinatorBase
+    with _$PurposeSessionPhase1WidgetsCoordinator;
 
-abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
+abstract class _PurposeSessionPhase1WidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final BeachWavesStore beachWaves;
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
@@ -20,7 +20,7 @@ abstract class _PurposeSessionPhaseOneWidgetsCoordinatorBase
   final NokhteBlurStore nokhteBlur;
   final BorderGlowStore borderGlow;
 
-  _PurposeSessionPhaseOneWidgetsCoordinatorBase({
+  _PurposeSessionPhase1WidgetsCoordinatorBase({
     required this.beachWaves,
     required this.wifiDisconnectOverlay,
     required this.primarySmartText,

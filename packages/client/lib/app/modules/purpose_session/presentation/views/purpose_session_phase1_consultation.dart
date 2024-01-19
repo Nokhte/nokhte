@@ -4,9 +4,9 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/purpose_session/presentation/presentation.dart';
 
-class PurposeSessionPhaseOneConsultation extends HookWidget {
-  final PurposeSessionPhaseOneCoordinator coordinator;
-  const PurposeSessionPhaseOneConsultation({
+class PurposeSessionPhase1Consultation extends HookWidget {
+  final PurposeSessionPhase1Coordinator coordinator;
+  const PurposeSessionPhase1Consultation({
     super.key,
     required this.coordinator,
   });

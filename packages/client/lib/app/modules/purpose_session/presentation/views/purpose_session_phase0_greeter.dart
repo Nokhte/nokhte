@@ -4,9 +4,9 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/purpose_session/presentation/presentation.dart';
 
-class PurposeSessionPhaseZeroGreeter extends HookWidget {
-  final PurposeSessionPhaseZeroCoordinator coordinator;
-  const PurposeSessionPhaseZeroGreeter({
+class PurposeSessionPhase0Greeter extends HookWidget {
+  final PurposeSessionPhase0Coordinator coordinator;
+  const PurposeSessionPhase0Greeter({
     super.key,
     required this.coordinator,
   });
