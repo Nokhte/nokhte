@@ -1,8 +1,7 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 
-class MuteLocalAudio
-    extends AbstractFutureLogic<LocalAudioStreamStatusEntity, NoParams> {
+class MuteLocalAudio extends AbstractFutureLogic<bool, NoParams> {
   final VoiceCallContract contract;
 
   MuteLocalAudio({required this.contract});
