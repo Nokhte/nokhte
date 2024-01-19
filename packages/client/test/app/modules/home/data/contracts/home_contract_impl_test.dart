@@ -3,7 +3,6 @@ import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/modules/home/data/contracts/home_contract_impl.dart';
-import '../../constants/models/models.dart';
 import '../../fixtures/home_stack_mock_gen.mocks.dart';
 import '../../../_module_helpers/shared_mocks_gen.mocks.dart';
 import 'package:dartz/dartz.dart';
@@ -31,13 +30,13 @@ void main() {
         when(mockRemoteSource.addNamesToDatabase())
             .thenAnswer((realInvocation) async => [{}]);
         final res = await homeContract.addNameToDatabase(NoParams());
-        expect(res, ConstantNameCreationStatusModels.wrappedSuccessCase);
+        expect(res, const Right(true));
       });
       test("when online and empty should return a model", () async {
         when(mockRemoteSource.addNamesToDatabase())
             .thenAnswer((realInvocation) async => []);
         final res = await homeContract.addNameToDatabase(NoParams());
-        expect(res, ConstantNameCreationStatusModels.wrappedNotSuccessCase);
+        expect(res, const Right(false));
       });
     });
     group("is not Online", () {

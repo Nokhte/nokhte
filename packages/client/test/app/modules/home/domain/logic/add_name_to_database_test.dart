@@ -4,8 +4,6 @@ import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/modules/home/domain/logic/add_name_to_database.dart';
-
-import '../../constants/entities/entities.dart';
 import '../../fixtures/home_stack_mock_gen.mocks.dart';
 
 void main() {
@@ -19,12 +17,12 @@ void main() {
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
     when(mockContract.addNameToDatabase(NoParams())).thenAnswer(
-      (_) async => ConstantNameCreationStatusEntities.wrappedSuccessCase,
+      (_) async => const Right(true),
     );
 
     final result = await logic(NoParams());
 
-    expect(result, ConstantNameCreationStatusEntities.wrappedSuccessCase);
+    expect(result, const Right(true));
     verify(mockContract.addNameToDatabase(NoParams()));
     verifyNoMoreInteractions(mockContract);
   });
