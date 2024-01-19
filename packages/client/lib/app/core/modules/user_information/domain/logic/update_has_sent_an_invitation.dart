@@ -1,9 +1,7 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/user_information/domain/domain.dart';
 
-class UpdateHasSentAnInvitation
-    implements
-        AbstractFutureLogic<HasSentAnInvitationUpdateStatusEntity, bool> {
+class UpdateHasSentAnInvitation implements AbstractFutureLogic<bool, bool> {
   final UserInformationContract contract;
 
   UpdateHasSentAnInvitation({required this.contract});

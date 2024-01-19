@@ -2,9 +2,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/user_information/domain/domain.dart';
 
 class UpdateWantsToRepeatInvitationFlow
-    implements
-        AbstractFutureLogic<WantsToRepeatInvitationFlowUpdateStatusEntity,
-            bool> {
+    implements AbstractFutureLogic<bool, bool> {
   final UserInformationContract contract;
 
   UpdateWantsToRepeatInvitationFlow({required this.contract});
