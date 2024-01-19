@@ -54,6 +54,16 @@ mixin _$CollaborationHomeScreenCoordinator
     return _$constructorAsyncAction.run(() => super.constructor());
   }
 
+  late final _$onInvitationSharedAsyncAction = AsyncAction(
+      '_CollaborationHomeScreenCoordinatorBase.onInvitationShared',
+      context: context);
+
+  @override
+  Future onInvitationShared(bool isShared) {
+    return _$onInvitationSharedAsyncAction
+        .run(() => super.onInvitationShared(isShared));
+  }
+
   late final _$_CollaborationHomeScreenCoordinatorBaseActionController =
       ActionController(
           name: '_CollaborationHomeScreenCoordinatorBase', context: context);
@@ -121,6 +131,32 @@ mixin _$CollaborationHomeScreenCoordinator
                 '_CollaborationHomeScreenCoordinatorBase.onEnterCollaboratorPool');
     try {
       return super.onEnterCollaboratorPool();
+    } finally {
+      _$_CollaborationHomeScreenCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onDeepLinkOpened(String path) {
+    final _$actionInfo =
+        _$_CollaborationHomeScreenCoordinatorBaseActionController.startAction(
+            name: '_CollaborationHomeScreenCoordinatorBase.onDeepLinkOpened');
+    try {
+      return super.onDeepLinkOpened(path);
+    } finally {
+      _$_CollaborationHomeScreenCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onSwipe(GestureDirections direction) {
+    final _$actionInfo =
+        _$_CollaborationHomeScreenCoordinatorBaseActionController.startAction(
+            name: '_CollaborationHomeScreenCoordinatorBase.onSwipe');
+    try {
+      return super.onSwipe(direction);
     } finally {
       _$_CollaborationHomeScreenCoordinatorBaseActionController
           .endAction(_$actionInfo);

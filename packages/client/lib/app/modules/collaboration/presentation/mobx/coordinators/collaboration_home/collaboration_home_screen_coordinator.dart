@@ -98,55 +98,67 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
     collaboratorPoolEntryReactor();
   }
 
-  deepLinksReactor() =>
-      reaction((p0) => deepLinks.listenForOpenedDeepLink.path, (p0) {
-        if (p0 == '/collaboration/') {
-          setAdditionalRoutingData(
-            deepLinks.listenForOpenedDeepLink.additionalMetadata,
-          );
-          widgets.initCollaboratorPoolWidgets();
-        }
-      });
+  deepLinksReactor() => reaction((p0) => deepLinks.listenForOpenedDeepLink.path,
+      (p0) => onDeepLinkOpened(p0));
 
-  shareInvitationReactor() =>
-      reaction((p0) => deepLinks.sendDeepLink.isShared, (p0) async {
-        if (p0) {
-          if (additionalRoutingData.isNotEmpty) {
-            widgets.initCollaboratorPoolWidgets();
-            await onEnterCollaboratorPool();
-          } else {
-            widgets.toggleInvitationIsSent();
-          }
-          userInformation.updateHasSentAnInvitation(true);
-        }
-      });
+  @action
+  onDeepLinkOpened(String path) {
+    if (path == '/collaboration/') {
+      setAdditionalRoutingData(
+        deepLinks.listenForOpenedDeepLink.additionalMetadata,
+      );
+      widgets.initCollaboratorPoolWidgets();
+    }
+  }
 
-  swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
-        if (!isNavigatingAway) {
-          switch (p0) {
-            case GestureDirections.down:
-              toggleIsNavigatingAway();
-              ifTouchIsNotDisabled(() {
-                widgets.onSwipeDown();
-              });
-              toggleDisableAllTouchFeedback();
-            default:
-              break;
-          }
-        }
-      });
+  shareInvitationReactor() => reaction((p0) => deepLinks.sendDeepLink.isShared,
+      (p0) async => await onInvitationShared(p0));
 
-  collaboratorPoolEntryReactor() =>
-      reaction((p0) => enterCollaboratorPool.hasEntered, (p0) {
-        if (p0) {
-          Timer.periodic(Seconds.get(0, milli: 100), (timer) {
-            if (widgets.gradientTreeNode.movieStatus == MovieStatus.finished) {
-              Modular.to.navigate('/collaboration/pool');
-              timer.cancel();
-            }
+  @action
+  onInvitationShared(bool isShared) async {
+    if (isShared) {
+      if (additionalRoutingData.isNotEmpty) {
+        widgets.initCollaboratorPoolWidgets();
+        await onEnterCollaboratorPool();
+      } else {
+        widgets.toggleInvitationIsSent();
+      }
+      userInformation.updateHasSentAnInvitation(true);
+    }
+  }
+
+  swipeReactor() => reaction((p0) => swipe.directionsType, (p0) => onSwipe(p0));
+
+  @action
+  onSwipe(GestureDirections direction) {
+    if (!isNavigatingAway) {
+      switch (direction) {
+        case GestureDirections.down:
+          toggleIsNavigatingAway();
+          ifTouchIsNotDisabled(() {
+            widgets.onSwipeDown();
           });
+          toggleDisableAllTouchFeedback();
+        default:
+          break;
+      }
+    }
+  }
+
+  collaboratorPoolEntryReactor() => reaction(
+      (p0) => enterCollaboratorPool.hasEntered,
+      (p0) => onCollaboratorPoolEntered(p0));
+
+  onCollaboratorPoolEntered(bool hasEntered) {
+    if (hasEntered) {
+      Timer.periodic(Seconds.get(0, milli: 100), (timer) {
+        if (widgets.gradientTreeNode.movieStatus == MovieStatus.finished) {
+          Modular.to.navigate('/collaboration/pool');
+          timer.cancel();
         }
       });
+    }
+  }
 
   @override
   List<Object> get props => [];
