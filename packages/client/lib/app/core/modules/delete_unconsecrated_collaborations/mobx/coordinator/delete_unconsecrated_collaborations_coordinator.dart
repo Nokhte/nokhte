@@ -10,8 +10,7 @@ class DeleteUnconsecratedCollaborationsCoordinator = _DeleteUnconsecratedCollabo
     with _$DeleteUnconsecratedCollaborationsCoordinator;
 
 abstract class _DeleteUnconsecratedCollaborationsCoordinatorBase
-    extends BaseMobxDBStore<NoParams, CollaborationArtifactDeleteStatusEntity>
-    with Store {
+    extends BaseMobxDBStore<NoParams, bool> with Store {
   @observable
   bool collaborationIsDeleted = false;
 
