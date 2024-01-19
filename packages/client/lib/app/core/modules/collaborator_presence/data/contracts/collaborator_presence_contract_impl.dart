@@ -15,7 +15,7 @@ class CollaboratorPresenceContractImpl implements CollaboratorPresenceContract {
   });
 
   @override
-  updateOnCallStatus(UpdateOnCallStatusParams params) async {
+  updateOnCallStatus(params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.updateOnCallStatus(params);
       return Right(CallUpdateStatusModel.fromSupabase(res));
@@ -25,7 +25,7 @@ class CollaboratorPresenceContractImpl implements CollaboratorPresenceContract {
   }
 
   @override
-  updateOnlineStatus(UpdateOnlineStatusParams params) async {
+  updateOnlineStatus(params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.updateOnlineStatus(params);
       return Right(OnlineUpdateStatusModel.fromSupabase(res));
