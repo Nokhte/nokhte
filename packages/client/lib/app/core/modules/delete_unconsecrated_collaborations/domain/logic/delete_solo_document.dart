@@ -1,9 +1,7 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/domain/domain.dart';
 
-class DeleteSoloDocument
-    implements
-        AbstractFutureLogic<CollaborationArtifactDeleteStatusEntity, NoParams> {
+class DeleteSoloDocument implements AbstractFutureLogic<bool, NoParams> {
   final DeleteUnconsecratedCollaborationsContract contract;
 
   DeleteSoloDocument({required this.contract});

@@ -1,9 +1,7 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/domain/domain.dart';
 
-class DeleteSchedulingSession
-    implements
-        AbstractFutureLogic<CollaborationArtifactDeleteStatusEntity, NoParams> {
+class DeleteSchedulingSession implements AbstractFutureLogic<bool, NoParams> {
   final DeleteUnconsecratedCollaborationsContract contract;
 
   DeleteSchedulingSession({required this.contract});

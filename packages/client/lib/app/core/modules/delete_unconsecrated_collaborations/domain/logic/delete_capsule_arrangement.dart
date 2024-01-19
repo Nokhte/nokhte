@@ -3,7 +3,7 @@ import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/doma
 
 class DeleteCapsuleArrangement
     implements
-        AbstractFutureLogic<CollaborationArtifactDeleteStatusEntity, NoParams> {
+        AbstractFutureLogic<bool, NoParams> {
   final DeleteUnconsecratedCollaborationsContract contract;
 
   DeleteCapsuleArrangement({required this.contract});
