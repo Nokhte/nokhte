@@ -31,14 +31,13 @@ mixin _$UpdateHasSentAnInvitationStore
       context: context);
 
   @override
-  BaseFutureStore<HasSentAnInvitationUpdateStatusEntity> get futureStore {
+  BaseFutureStore<bool> get futureStore {
     _$futureStoreAtom.reportRead();
     return super.futureStore;
   }
 
   @override
-  set futureStore(
-      BaseFutureStore<HasSentAnInvitationUpdateStatusEntity> value) {
+  set futureStore(BaseFutureStore<bool> value) {
     _$futureStoreAtom.reportWrite(value, super.futureStore, () {
       super.futureStore = value;
     });

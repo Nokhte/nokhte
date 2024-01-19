@@ -9,8 +9,7 @@ class UpdateHasSentAnInvitationStore = _UpdateHasSentAnInvitationStoreBase
     with _$UpdateHasSentAnInvitationStore;
 
 abstract class _UpdateHasSentAnInvitationStoreBase
-    extends BaseMobxDBStore<bool, HasSentAnInvitationUpdateStatusEntity>
-    with Store {
+    extends BaseMobxDBStore<bool, bool> with Store {
   @observable
   bool isUpdated = false;
 
@@ -18,11 +17,10 @@ abstract class _UpdateHasSentAnInvitationStoreBase
   _UpdateHasSentAnInvitationStoreBase({required this.logic});
 
   @observable
-  BaseFutureStore<HasSentAnInvitationUpdateStatusEntity> futureStore =
-      BaseFutureStore(
-    baseEntity: Right(HasSentAnInvitationUpdateStatusEntity.initial),
+  BaseFutureStore<bool> futureStore = BaseFutureStore(
+    baseEntity: const Right(false),
     entityFutureParam: ObservableFuture(
-      Future.value(Right(HasSentAnInvitationUpdateStatusEntity.initial)),
+      Future.value(const Right(false)),
     ),
   );
 
@@ -31,8 +29,8 @@ abstract class _UpdateHasSentAnInvitationStoreBase
     result.fold((failure) {
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
-    }, (updateStatusEntity) {
-      isUpdated = updateStatusEntity.isTrue;
+    }, (updateStatus) {
+      isUpdated = updateStatus;
     });
   }
 
