@@ -9,17 +9,33 @@ part of 'add_name_to_database_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$AddNameToDatabaseStore on _AddNameToDatabaseStoreBase, Store {
+  late final _$nameIsAddedAtom =
+      Atom(name: '_AddNameToDatabaseStoreBase.nameIsAdded', context: context);
+
+  @override
+  bool get nameIsAdded {
+    _$nameIsAddedAtom.reportRead();
+    return super.nameIsAdded;
+  }
+
+  @override
+  set nameIsAdded(bool value) {
+    _$nameIsAddedAtom.reportWrite(value, super.nameIsAdded, () {
+      super.nameIsAdded = value;
+    });
+  }
+
   late final _$futureStoreAtom =
       Atom(name: '_AddNameToDatabaseStoreBase.futureStore', context: context);
 
   @override
-  BaseFutureStore<NameCreationStatusEntity> get futureStore {
+  BaseFutureStore<bool> get futureStore {
     _$futureStoreAtom.reportRead();
     return super.futureStore;
   }
 
   @override
-  set futureStore(BaseFutureStore<NameCreationStatusEntity> value) {
+  set futureStore(BaseFutureStore<bool> value) {
     _$futureStoreAtom.reportWrite(value, super.futureStore, () {
       super.futureStore = value;
     });
@@ -36,6 +52,7 @@ mixin _$AddNameToDatabaseStore on _AddNameToDatabaseStoreBase, Store {
   @override
   String toString() {
     return '''
+nameIsAdded: ${nameIsAdded},
 futureStore: ${futureStore}
     ''';
   }

@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/base_future_store.dart';
 import 'package:nokhte/app/core/mobx/base_mobx_db_store.dart';
@@ -13,32 +12,31 @@ class AddNameToDatabaseStore = _AddNameToDatabaseStoreBase
     with _$AddNameToDatabaseStore;
 
 abstract class _AddNameToDatabaseStoreBase
-    extends BaseMobxDBStore<NoParams, NameCreationStatusEntity> with Store {
+    extends BaseMobxDBStore<NoParams, bool> with Store {
   final AddNameToDatabase logic;
 
   _AddNameToDatabaseStoreBase({required this.logic});
 
-  NameCreationStatusEntity nameCreationStatus = const NameCreationStatusEntity(
-    isSent: false,
-  );
+  @observable
+  bool nameIsAdded = false;
 
   @observable
-  BaseFutureStore<NameCreationStatusEntity> futureStore = BaseFutureStore(
-    baseEntity: NameCreationStatusEntity.initial,
+  BaseFutureStore<bool> futureStore = BaseFutureStore(
+    baseEntity: const Right(false),
     entityFutureParam: ObservableFuture(
-      Future.value(NameCreationStatusEntity.initial),
+      Future.value(const Right(false)),
     ),
   );
 
   @override
-  void stateOrErrorUpdater(Either<Failure, NameCreationStatusEntity> result) {
+  void stateOrErrorUpdater(result) {
     return result.fold(
       (failure) {
         errorMessage = mapFailureToMessage(failure);
         state = StoreState.initial;
       },
-      (nameStatusEntity) {
-        nameCreationStatus = nameStatusEntity;
+      (nameAddStatus) {
+        nameIsAdded = nameAddStatus;
       },
     );
   }
