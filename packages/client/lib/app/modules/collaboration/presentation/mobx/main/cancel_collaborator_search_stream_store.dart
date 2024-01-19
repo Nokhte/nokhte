@@ -6,13 +6,13 @@ import 'package:nokhte/app/core/mobx/base_future_store.dart';
 import 'package:nokhte/app/core/mobx/base_mobx_db_store.dart';
 import 'package:nokhte/app/core/mobx/store_state.dart';
 import 'package:nokhte/app/modules/collaboration/domain/domain.dart';
-part 'cancel_collaborator_stream_store.g.dart';
+part 'cancel_collaborator_search_stream_store.g.dart';
 
 class CancelCollaboratorSearchStreamStore = _CancelCollaboratorSearchStreamStoreBase
     with _$CancelCollaboratorSearchStreamStore;
 
-abstract class _CancelCollaboratorSearchStreamStoreBase extends BaseMobxDBStore<
-    NoParams, CollaboratorStreamCancellationStatusEntity> with Store {
+abstract class _CancelCollaboratorSearchStreamStoreBase
+    extends BaseMobxDBStore<NoParams, bool> with Store {
   final CancelCollaboratorSearchStream logic;
 
   _CancelCollaboratorSearchStreamStoreBase({
@@ -20,14 +20,13 @@ abstract class _CancelCollaboratorSearchStreamStoreBase extends BaseMobxDBStore<
   });
 
   @observable
-  bool isListening = false;
+  bool isListening = true;
 
   @observable
-  BaseFutureStore<CollaboratorStreamCancellationStatusEntity> futureStore =
-      BaseFutureStore(
-    baseEntity: Right(CollaboratorStreamCancellationStatusEntity.initial()),
+  BaseFutureStore<bool> futureStore = BaseFutureStore(
+    baseEntity: const Right(false),
     entityFutureParam: ObservableFuture(
-      Future.value(Right(CollaboratorStreamCancellationStatusEntity.initial())),
+      Future.value(const Right(false)),
     ),
   );
 
@@ -36,8 +35,8 @@ abstract class _CancelCollaboratorSearchStreamStoreBase extends BaseMobxDBStore<
     result.fold((failure) {
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
-    }, (entryStatusEntity) {
-      isListening = entryStatusEntity.isTrue;
+    }, (entryStatus) {
+      isListening = entryStatus;
     });
   }
 
