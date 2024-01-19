@@ -115,6 +115,8 @@ void main() {
       stream,
       emits(
         CollaborationSessionMetadata(
+          userPhase: 1,
+          collaboratorPhase: 0,
           userIsOnCall: true,
           collaboratorIsOnCall: true,
           userIsOnline: true,
