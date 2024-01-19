@@ -29,13 +29,13 @@ mixin _$UpdateWhoIsTalkingStore on _UpdateWhoIsTalkingStoreBase, Store {
       Atom(name: '_UpdateWhoIsTalkingStoreBase.futureStore', context: context);
 
   @override
-  BaseFutureStore<WhoIsTalkingUpdateStatusEntity> get futureStore {
+  BaseFutureStore<bool> get futureStore {
     _$futureStoreAtom.reportRead();
     return super.futureStore;
   }
 
   @override
-  set futureStore(BaseFutureStore<WhoIsTalkingUpdateStatusEntity> value) {
+  set futureStore(BaseFutureStore<bool> value) {
     _$futureStoreAtom.reportWrite(value, super.futureStore, () {
       super.futureStore = value;
     });

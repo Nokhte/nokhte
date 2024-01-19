@@ -8,8 +8,8 @@ part 'update_who_is_talking_store.g.dart';
 class UpdateWhoIsTalkingStore = _UpdateWhoIsTalkingStoreBase
     with _$UpdateWhoIsTalkingStore;
 
-abstract class _UpdateWhoIsTalkingStoreBase extends BaseMobxDBStore<
-    UpdateWhoIsTalkingParams, WhoIsTalkingUpdateStatusEntity> with Store {
+abstract class _UpdateWhoIsTalkingStoreBase
+    extends BaseMobxDBStore<UpdateWhoIsTalkingParams, bool> with Store {
   @observable
   bool isUpdated = false;
 
@@ -17,10 +17,10 @@ abstract class _UpdateWhoIsTalkingStoreBase extends BaseMobxDBStore<
   _UpdateWhoIsTalkingStoreBase({required this.logic});
 
   @observable
-  BaseFutureStore<WhoIsTalkingUpdateStatusEntity> futureStore = BaseFutureStore(
-    baseEntity: Right(WhoIsTalkingUpdateStatusEntity.initial()),
+  BaseFutureStore<bool> futureStore = BaseFutureStore(
+    baseEntity: const Right(false),
     entityFutureParam: ObservableFuture(
-      Future.value(Right(WhoIsTalkingUpdateStatusEntity.initial())),
+      Future.value(const Right(false)),
     ),
   );
 
@@ -29,8 +29,8 @@ abstract class _UpdateWhoIsTalkingStoreBase extends BaseMobxDBStore<
     result.fold((failure) {
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
-    }, (updateStatusEntity) {
-      isUpdated = updateStatusEntity.isTrue;
+    }, (updateStatus) {
+      isUpdated = updateStatus;
     });
   }
 
