@@ -37,5 +37,11 @@ class PurposeSessionWidgetsModule extends Module {
           secondarySmartText: Modular.get<SmartTextStore>(),
           nokhteBlur: Modular.get<NokhteBlurStore>()),
     );
+    i.add<PurposeSessionPhase2WidgetsCoordinator>(
+      () => PurposeSessionPhase2WidgetsCoordinator(),
+    );
+    i.add<PurposeSessionPhase3WidgetsCoordinator>(
+      () => PurposeSessionPhase3WidgetsCoordinator(),
+    );
   }
 }
