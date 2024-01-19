@@ -18,6 +18,45 @@ mixin _$GetSessionMetadataStore on _GetSessionMetadataStoreBase, Store {
               name:
                   '_GetSessionMetadataStoreBase.bothCollaboratorsAreOnCallAndOnline'))
           .value;
+  Computed<bool>? _$collaboratorHasMovedOnComputed;
+
+  @override
+  bool get collaboratorHasMovedOn => (_$collaboratorHasMovedOnComputed ??=
+          Computed<bool>(() => super.collaboratorHasMovedOn,
+              name: '_GetSessionMetadataStoreBase.collaboratorHasMovedOn'))
+      .value;
+
+  late final _$userPhaseAtom =
+      Atom(name: '_GetSessionMetadataStoreBase.userPhase', context: context);
+
+  @override
+  int get userPhase {
+    _$userPhaseAtom.reportRead();
+    return super.userPhase;
+  }
+
+  @override
+  set userPhase(int value) {
+    _$userPhaseAtom.reportWrite(value, super.userPhase, () {
+      super.userPhase = value;
+    });
+  }
+
+  late final _$collaboratorPhaseAtom = Atom(
+      name: '_GetSessionMetadataStoreBase.collaboratorPhase', context: context);
+
+  @override
+  int get collaboratorPhase {
+    _$collaboratorPhaseAtom.reportRead();
+    return super.collaboratorPhase;
+  }
+
+  @override
+  set collaboratorPhase(int value) {
+    _$collaboratorPhaseAtom.reportWrite(value, super.collaboratorPhase, () {
+      super.collaboratorPhase = value;
+    });
+  }
 
   late final _$userIsOnCallAtom =
       Atom(name: '_GetSessionMetadataStoreBase.userIsOnCall', context: context);
@@ -148,6 +187,8 @@ mixin _$GetSessionMetadataStore on _GetSessionMetadataStoreBase, Store {
   @override
   String toString() {
     return '''
+userPhase: ${userPhase},
+collaboratorPhase: ${collaboratorPhase},
 userIsOnCall: ${userIsOnCall},
 collaboratorIsOnCall: ${collaboratorIsOnCall},
 userIsOnline: ${userIsOnline},
@@ -155,7 +196,8 @@ collaboratorIsOnline: ${collaboratorIsOnline},
 timerShouldRun: ${timerShouldRun},
 collaboratorIsTalking: ${collaboratorIsTalking},
 sessionMetadata: ${sessionMetadata},
-bothCollaboratorsAreOnCallAndOnline: ${bothCollaboratorsAreOnCallAndOnline}
+bothCollaboratorsAreOnCallAndOnline: ${bothCollaboratorsAreOnCallAndOnline},
+collaboratorHasMovedOn: ${collaboratorHasMovedOn}
     ''';
   }
 }

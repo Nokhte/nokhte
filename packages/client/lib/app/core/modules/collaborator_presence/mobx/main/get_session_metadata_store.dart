@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/collaborator_presence/domain/domain.dart';
@@ -14,6 +15,12 @@ abstract class _GetSessionMetadataStoreBase
     with Store {
   final GetSessionMetadata logic;
   _GetSessionMetadataStoreBase({required this.logic});
+
+  @observable
+  int userPhase = 0;
+
+  @observable
+  int collaboratorPhase = 0;
 
   @observable
   bool userIsOnCall = false;
@@ -40,6 +47,9 @@ abstract class _GetSessionMetadataStoreBase
       userIsOnline &&
       collaboratorIsOnline;
 
+  @computed
+  bool get collaboratorHasMovedOn => collaboratorPhase.isGreaterThan(1);
+
   @observable
   ObservableStream<CollaborationSessionMetadata> sessionMetadata =
       ObservableStream(const Stream.empty());
@@ -62,6 +72,8 @@ abstract class _GetSessionMetadataStoreBase
           collaboratorIsOnline = value.collaboratorIsOnline;
           timerShouldRun = value.timerShouldRun;
           collaboratorIsTalking = value.collaboratorIsTalking;
+          userPhase = value.userPhase;
+          collaboratorPhase = value.collaboratorPhase;
         });
         state = StoreState.loaded;
       },
