@@ -52,9 +52,8 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
     await Permission.microphone.request();
     await voiceCall.joinCall(shouldEnterTheCallMuted: true);
     await collaboratorPresence.getSessionMetadata(NoParams());
-    collaboratorPresence.updateOnlineStatus(const UpdateOnlineStatusParams(
-      newStatus: true,
-    ));
+    collaboratorPresence
+        .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
     await checkIfUserHasTheQuestion(NoParams());
     widgets.setHasTheQuesion(checkIfUserHasTheQuestion.hasTheQuestion);
     if (checkIfUserHasTheQuestion.hasTheQuestion) {
@@ -69,19 +68,31 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
   onInactive() async {
     await collaboratorPresence.updateTimerStatus(false);
     await collaboratorPresence
-        .updateOnlineStatus(const UpdateOnlineStatusParams(
-      newStatus: false,
-    ));
+        .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
   }
 
   @action
   onResumed() async {
     await collaboratorPresence.updateTimerStatus(true);
     await collaboratorPresence
-        .updateOnlineStatus(const UpdateOnlineStatusParams(
-      newStatus: true,
-    ));
+        .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
   }
+
+  // @action
+  // onTimesUpCompleted() async {
+  //   // await collaboratorPresence.updateTimerStatus(false);
+  //   // await collaboratorPresence .updateOnCallStatus(UpdatePresencePropertyParams.userNegative());
+  //   // await collaboratorPresence.updateOnlineStatus
+  //   // ^^ Im not sure this is what we need, what we want is basically
+  //   // ** to track the phase that they are currently in should be b/c
+  //   // ** think about it these clients will always be SLIGHTLY off which
+  //   // ** means we need a mechanism to deal with such reality
+  //   // ** I would recommend that we add an extra property into existing
+  //   // ** collaborations that indicates the phase they are on I'm thinking
+  //   // ** an List<int> should do I would say commit some of the changes and get to that
+
+  //   await voiceCall.leaveCall();
+  // }
 
   initReactors() {
     onCallStatusChangeReactor();
@@ -94,10 +105,11 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
     onCollaboratorCallStatusChangeReactor();
     widgets.wifiDisconnectOverlayReactor(
       onConnectionFinished: () async {
-        await collaboratorPresence.updateOnCallStatus(
-            const UpdateOnCallStatusParams(newStatus: true));
+        await collaboratorPresence
+            .updateOnCallStatus(UpdatePresencePropertyParams.userAffirmative());
       },
     );
+    // widgets.beachWavesMovieStatusReactor();
   }
 
   holdReactor() => reaction((p0) => hold.holdCount, (p0) async {
@@ -113,7 +125,6 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
               checkIfUserHasTheQuestion.hasTheQuestion) {
             await collaboratorPresence.updateTimerStatus(true);
             hasInitializedTimer = true;
-            print("hold init timer");
             widgets.initTimer();
           }
         }
@@ -151,11 +162,11 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
         if (p0 == CallStatus.joined) {
           widgets.onCallJoined();
           await collaboratorPresence.updateOnCallStatus(
-              const UpdateOnCallStatusParams(newStatus: true));
+              UpdatePresencePropertyParams.userAffirmative());
         } else if (p0 == CallStatus.left) {
           widgets.onCallLeft();
-          await collaboratorPresence.updateOnCallStatus(
-              const UpdateOnCallStatusParams(newStatus: false));
+          await collaboratorPresence
+              .updateOnCallStatus(UpdatePresencePropertyParams.userNegative());
         }
       });
 
@@ -164,13 +175,11 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
           (p0) async {
         if (p0) {
           await collaboratorPresence.updateOnCallStatus(
-              const UpdateOnCallStatusParams(
-                  newStatus: true, shouldUpdateCollaboratorsIndex: true));
+              UpdatePresencePropertyParams.collaboratorAffirmative());
         } else {
           widgets.onCallLeft();
           await collaboratorPresence.updateOnCallStatus(
-              const UpdateOnCallStatusParams(
-                  newStatus: false, shouldUpdateCollaboratorsIndex: true));
+              UpdatePresencePropertyParams.collaboratorNegative());
         }
       });
 
@@ -181,11 +190,8 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
           widgets.onCollaboratorJoined();
         } else {
           widgets.onCollaboratorLeft();
-          await collaboratorPresence
-              .updateOnCallStatus(const UpdateOnCallStatusParams(
-            newStatus: false,
-            shouldUpdateCollaboratorsIndex: true,
-          ));
+          await collaboratorPresence.updateOnCallStatus(
+              UpdatePresencePropertyParams.collaboratorNegative());
         }
       });
 
@@ -208,7 +214,6 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
                       .getSessionMetadata.collaboratorIsOnCall &&
                   collaboratorPresence
                       .getSessionMetadata.collaboratorIsOnline) {
-                print("reactor init timer");
                 widgets.initTimer();
                 hasInitializedTimer = true;
                 timer.cancel();
@@ -216,11 +221,9 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
             });
           } else {
             widgets.resumeTimer();
-            print("resume");
           }
         } else {
           widgets.pausetimer();
-          print("pause");
         }
       });
 }
