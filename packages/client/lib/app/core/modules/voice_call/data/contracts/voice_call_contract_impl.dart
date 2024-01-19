@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
-import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/types/call_status.dart';
@@ -16,9 +15,7 @@ class VoiceCallContractImpl implements VoiceCallContract {
   });
 
   @override
-  Future<Either<Failure, AgoraCallTokenModel>> getAgoraToken({
-    required String channelName,
-  }) async {
+  getAgoraToken({required String channelName}) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.getAgoraToken(channelName: channelName);
       return Right(AgoraCallTokenModel.fromTokenServer(res));
@@ -28,7 +25,7 @@ class VoiceCallContractImpl implements VoiceCallContract {
   }
 
   @override
-  Future<Either<Failure, ChannelIdEntity>> getChannelId() async {
+  getChannelId() async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.getCollaboratorInfo();
       return Right(ChannelIdModel.fromSupabase(res));
@@ -38,8 +35,7 @@ class VoiceCallContractImpl implements VoiceCallContract {
   }
 
   @override
-  Future<Either<Failure, CallStatusModel>> joinCall(
-      String token, String channelId) async {
+  joinCall(String token, String channelId) async {
     if (await networkInfo.isConnected) {
       await remoteSource.joinCall(token: token, channelId: channelId);
       return const Right(CallStatusModel(callStatus: CallStatus.joining));
@@ -49,7 +45,7 @@ class VoiceCallContractImpl implements VoiceCallContract {
   }
 
   @override
-  Future<Either<Failure, CallStatusModel>> leaveCall() async {
+  leaveCall() async {
     if (await networkInfo.isConnected) {
       await remoteSource.leaveCall();
       return const Right(CallStatusModel(callStatus: CallStatus.leaving));
@@ -59,21 +55,20 @@ class VoiceCallContractImpl implements VoiceCallContract {
   }
 
   @override
-  Future<Either<Failure, LocalAudioStreamStatusModel>> muteLocalAudio() async {
+  muteLocalAudio() async {
     if (await networkInfo.isConnected) {
       await remoteSource.muteLocalAudio();
-      return const Right(LocalAudioStreamStatusModel(isMuted: true));
+      return const Right(true);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
 
   @override
-  Future<Either<Failure, LocalAudioStreamStatusModel>>
-      unmuteLocalAudio() async {
+  unmuteLocalAudio() async {
     if (await networkInfo.isConnected) {
       await remoteSource.unmuteLocalAudio();
-      return const Right(LocalAudioStreamStatusModel(isMuted: false));
+      return const Right(false);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }

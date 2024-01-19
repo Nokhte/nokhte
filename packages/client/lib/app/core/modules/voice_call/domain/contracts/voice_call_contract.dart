@@ -11,7 +11,7 @@ abstract class VoiceCallContract {
   Future<Either<Failure, CallStatusEntity>> joinCall(
       String token, String channelId);
   Future<Either<Failure, CallStatusEntity>> leaveCall();
-  Future<Either<Failure, LocalAudioStreamStatusEntity>> muteLocalAudio();
-  Future<Either<Failure, LocalAudioStreamStatusEntity>> unmuteLocalAudio();
+  Future<Either<Failure, bool>> muteLocalAudio();
+  Future<Either<Failure, bool>> unmuteLocalAudio();
   Future<RtcEngine> initAgoraSdk(NoParams params);
 }
