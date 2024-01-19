@@ -32,15 +32,13 @@ mixin _$UpdateHasGoneThroughInvitationFlowStore
       context: context);
 
   @override
-  BaseFutureStore<HasGoneThroughInvitationFlowUpdateStatusEntity>
-      get futureStore {
+  BaseFutureStore<bool> get futureStore {
     _$futureStoreAtom.reportRead();
     return super.futureStore;
   }
 
   @override
-  set futureStore(
-      BaseFutureStore<HasGoneThroughInvitationFlowUpdateStatusEntity> value) {
+  set futureStore(BaseFutureStore<bool> value) {
     _$futureStoreAtom.reportWrite(value, super.futureStore, () {
       super.futureStore = value;
     });

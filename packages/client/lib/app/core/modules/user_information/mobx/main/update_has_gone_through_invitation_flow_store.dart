@@ -9,8 +9,7 @@ class UpdateHasGoneThroughInvitationFlowStore = _UpdateHasGoneThroughInvitationF
     with _$UpdateHasGoneThroughInvitationFlowStore;
 
 abstract class _UpdateHasGoneThroughInvitationFlowStoreBase
-    extends BaseMobxDBStore<bool,
-        HasGoneThroughInvitationFlowUpdateStatusEntity> with Store {
+    extends BaseMobxDBStore<bool, bool> with Store {
   @observable
   bool isUpdated = false;
 
@@ -18,12 +17,10 @@ abstract class _UpdateHasGoneThroughInvitationFlowStoreBase
   _UpdateHasGoneThroughInvitationFlowStoreBase({required this.logic});
 
   @observable
-  BaseFutureStore<HasGoneThroughInvitationFlowUpdateStatusEntity> futureStore =
-      BaseFutureStore(
-    baseEntity: Right(HasGoneThroughInvitationFlowUpdateStatusEntity.initial),
+  BaseFutureStore<bool> futureStore = BaseFutureStore(
+    baseEntity: const Right(false),
     entityFutureParam: ObservableFuture(
-      Future.value(
-          Right(HasGoneThroughInvitationFlowUpdateStatusEntity.initial)),
+      Future.value(const Right(false)),
     ),
   );
 
@@ -32,8 +29,8 @@ abstract class _UpdateHasGoneThroughInvitationFlowStoreBase
     result.fold((failure) {
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
-    }, (updateStatusEntity) {
-      isUpdated = updateStatusEntity.isTrue;
+    }, (updateStatus) {
+      isUpdated = updateStatus;
     });
   }
 
