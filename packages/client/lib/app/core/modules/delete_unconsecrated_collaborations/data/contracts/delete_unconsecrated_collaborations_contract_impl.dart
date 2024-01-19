@@ -1,11 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mixins/response_to_status.dart';
 import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/data/data.dart';
 import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/domain/domain.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 
 class DeleteUnconsecratedCollaborationsContractImpl
+    with ResponseToStatus
     implements DeleteUnconsecratedCollaborationsContract {
   final DeleteUnconsecratedCollaborationsRemoteSource remoteSource;
   final NetworkInfo networkInfo;
@@ -17,7 +19,7 @@ class DeleteUnconsecratedCollaborationsContractImpl
   deleteCapsuleArrangement(NoParams params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.deleteCapsuleArrangement();
-      return Right(CollaborationArtifactDeleteStatusModel.fromSupabase(res));
+      return Right(fromSupabase(res));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
@@ -27,7 +29,7 @@ class DeleteUnconsecratedCollaborationsContractImpl
   deleteCollaborativeDocument(NoParams params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.deleteCollaborativeDocument();
-      return Right(CollaborationArtifactDeleteStatusModel.fromSupabase(res));
+      return Right(fromSupabase(res));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
@@ -37,7 +39,7 @@ class DeleteUnconsecratedCollaborationsContractImpl
   deleteSchedulingSession(NoParams params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.deleteSchedulingSession();
-      return Right(CollaborationArtifactDeleteStatusModel.fromSupabase(res));
+      return Right(fromSupabase(res));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
@@ -47,7 +49,7 @@ class DeleteUnconsecratedCollaborationsContractImpl
   deleteSoloDocument(NoParams params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.deleteSoloDocument();
-      return Right(CollaborationArtifactDeleteStatusModel.fromSupabase(res));
+      return Right(fromSupabase(res));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
@@ -57,7 +59,7 @@ class DeleteUnconsecratedCollaborationsContractImpl
   deleteTheCollaboration(params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.deleteTheCollaboration();
-      return Right(CollaborationArtifactDeleteStatusModel.fromSupabase(res));
+      return Right(fromSupabase(res));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
