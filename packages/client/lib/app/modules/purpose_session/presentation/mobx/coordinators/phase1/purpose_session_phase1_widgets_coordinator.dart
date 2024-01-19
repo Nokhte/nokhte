@@ -1,7 +1,11 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/animation_builder/custom_animation_builder.dart';
@@ -193,6 +197,23 @@ abstract class _PurposeSessionPhase1WidgetsCoordinatorBase
         if (wifiDisconnectOverlay.movieMode ==
             WifiDisconnectMovieModes.removeTheCircle) {
           if (isDisconnected) toggleIsDisconnected();
+        }
+      });
+
+  beachWavesMovieStatusReactor({
+    required Function onTimesUpCompleted,
+  }) =>
+      reaction((p0) => beachWaves.movieStatus, (p0) {
+        if (beachWaves.movieMode == BeachWaveMovieModes.timesUp &&
+            p0 == MovieStatus.finished) {
+          Timer.periodic(Seconds.get(1), (timer) async {
+            if (!isDisconnected) {
+              timer.cancel();
+              await onTimesUpCompleted();
+
+              Modular.to.navigate('/phase_two');
+            }
+          });
         }
       });
 }
