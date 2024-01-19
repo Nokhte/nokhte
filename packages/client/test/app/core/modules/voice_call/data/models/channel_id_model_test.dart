@@ -15,7 +15,7 @@ void main() {
   test(
       "`fromSupabase` should return the proper model with a not-successful response",
       () {
-    final res = ChannelIdModel.fromSupabase([]);
+    final res = ChannelIdModel.fromSupabase(const []);
     expect(res, ConstantChannelIdModel.notSuccessCase);
   });
 }

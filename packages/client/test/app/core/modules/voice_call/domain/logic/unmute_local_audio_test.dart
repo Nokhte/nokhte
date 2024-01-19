@@ -4,7 +4,6 @@ import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
-import '../../constants/entities/entities.dart';
 import '../../fixtures/voice_call_mock_gen.mocks.dart';
 
 void main() {
@@ -18,12 +17,12 @@ void main() {
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
     when(mockContract.unmuteLocalAudio()).thenAnswer(
-      (_) async => ConstantLocalAudioStreamStatusEntity.wrappedUnmutedCase,
+      (_) async => const Right(false),
     );
 
     final result = await logic(NoParams());
 
-    expect(result, ConstantLocalAudioStreamStatusEntity.wrappedUnmutedCase);
+    expect(result, const Right(false));
     verify(mockContract.unmuteLocalAudio());
     verifyNoMoreInteractions(mockContract);
   });

@@ -36,7 +36,7 @@ void main() {
         "✅ Success Unmute Local Audio Case: should update accordingly if state is passed",
         () {
       voiceCallCoordinator.audioStateOrErrorUpdater(
-        ConstantLocalAudioStreamStatusEntity.wrappedUnmutedCase,
+        const Right(false),
       );
       expect(
         voiceCallCoordinator.isMuted,
@@ -47,7 +47,7 @@ void main() {
         "✅ Success Mute Local Audio Case: should update accordingly if state is passed",
         () {
       voiceCallCoordinator.stateOrErrorUpdater(
-        ConstantLocalAudioStreamStatusEntity.wrappedMutedCase,
+        const Right(true),
       );
       expect(
         voiceCallCoordinator.isMuted,
@@ -101,7 +101,7 @@ void main() {
     test("✅ Success Unmute Case: should update accordingly if state is passed",
         () async {
       when(mockUnmuteLocalAudio(NoParams())).thenAnswer(
-        (_) async => ConstantLocalAudioStreamStatusEntity.wrappedUnmutedCase,
+        (_) async => const Right(false),
       );
       await voiceCallCoordinator.muteOrUnmuteAudio(wantToMute: false);
       expect(
@@ -113,7 +113,7 @@ void main() {
     test("✅ Success Mute Case: should update accordingly if state is passed",
         () async {
       when(mockMuteLocalAudio(NoParams())).thenAnswer(
-        (_) async => ConstantLocalAudioStreamStatusEntity.wrappedMutedCase,
+        (_) async => const Right(true),
       );
       await voiceCallCoordinator.muteOrUnmuteAudio(wantToMute: true);
       expect(

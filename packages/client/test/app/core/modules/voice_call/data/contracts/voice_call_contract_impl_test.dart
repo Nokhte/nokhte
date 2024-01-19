@@ -178,7 +178,7 @@ void main() {
           () async {
         when(mockRemoteSource.muteLocalAudio()).thenAnswer((_) async {});
         final res = await contractImpl.muteLocalAudio();
-        expect(res, ConstantLocalAudioStreamStatusModel.wrappedMutedCase);
+        expect(res, const Right(true));
       });
     });
     group("is not online", () {
@@ -203,7 +203,7 @@ void main() {
           () async {
         when(mockRemoteSource.unmuteLocalAudio()).thenAnswer((_) async {});
         final res = await contractImpl.unmuteLocalAudio();
-        expect(res, ConstantLocalAudioStreamStatusModel.wrappedUnmutedCase);
+        expect(res, const Right(false));
       });
     });
     group("is not online", () {
