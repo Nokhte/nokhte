@@ -13,9 +13,9 @@ abstract class VoiceCallRemoteSource {
 
   Future leaveCall();
 
-  Future muteLocalAudio();
+  Future<void> muteLocalAudio();
 
-  Future unmuteLocalAudio();
+  Future<void> unmuteLocalAudio();
 
   Future<List<dynamic>> getCollaboratorInfo();
 
@@ -85,12 +85,12 @@ class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
   }
 
   @override
-  Future muteLocalAudio() async {
+  Future<void> muteLocalAudio() async {
     return await agoraEngine.muteLocalAudioStream(true);
   }
 
   @override
-  Future unmuteLocalAudio() async {
+  Future<void> unmuteLocalAudio() async {
     return await agoraEngine.muteLocalAudioStream(false);
   }
 }
