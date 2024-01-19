@@ -29,13 +29,13 @@ mixin _$UpdateOnCallStatusStore on _UpdateOnCallStatusStoreBase, Store {
       Atom(name: '_UpdateOnCallStatusStoreBase.futureStore', context: context);
 
   @override
-  BaseFutureStore<CallUpdateStatusEntity> get futureStore {
+  BaseFutureStore<bool> get futureStore {
     _$futureStoreAtom.reportRead();
     return super.futureStore;
   }
 
   @override
-  set futureStore(BaseFutureStore<CallUpdateStatusEntity> value) {
+  set futureStore(BaseFutureStore<bool> value) {
     _$futureStoreAtom.reportWrite(value, super.futureStore, () {
       super.futureStore = value;
     });
