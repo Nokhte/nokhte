@@ -6,9 +6,9 @@ import 'package:nokhte_backend/tables/existing_collaborations.dart';
 
 abstract class CollaboratorPresenceContract {
   Future<Either<Failure, OnlineUpdateStatusEntity>> updateOnlineStatus(
-      UpdateOnlineStatusParams params);
+      UpdatePresencePropertyParams params);
   Future<Either<Failure, CallUpdateStatusEntity>> updateOnCallStatus(
-      UpdateOnCallStatusParams params);
+      UpdatePresencePropertyParams params);
   Future<Either<Failure, WhoIsTalkingUpdateStatusEntity>> updateWhoIsTalking(
       UpdateWhoIsTalkingParams params);
   Future<Either<Failure, TimerUpdateStatusEntity>> updateTimerStatus(
