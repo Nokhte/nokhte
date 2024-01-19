@@ -31,14 +31,13 @@ abstract class _VoiceCallActionsStoreBase extends BaseMobxDBStore with Store {
   @observable
   bool isMuted = true;
 
-  audioStateOrErrorUpdater(
-      Either<Failure, LocalAudioStreamStatusEntity> result) {
+  audioStateOrErrorUpdater(Either<Failure, bool> result) {
     result.fold((failure) {
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
       isMuted = true;
-    }, (localAudioStreamStatusEntity) {
-      isMuted = localAudioStreamStatusEntity.isTrue;
+    }, (localAudioStreamStatus) {
+      isMuted = localAudioStreamStatus;
     });
   }
 
