@@ -29,13 +29,13 @@ mixin _$UpdateTimerStatusStore on _UpdateTimerStatusStoreBase, Store {
       Atom(name: '_UpdateTimerStatusStoreBase.futureStore', context: context);
 
   @override
-  BaseFutureStore<TimerUpdateStatusEntity> get futureStore {
+  BaseFutureStore<bool> get futureStore {
     _$futureStoreAtom.reportRead();
     return super.futureStore;
   }
 
   @override
-  set futureStore(BaseFutureStore<TimerUpdateStatusEntity> value) {
+  set futureStore(BaseFutureStore<bool> value) {
     _$futureStoreAtom.reportWrite(value, super.futureStore, () {
       super.futureStore = value;
     });

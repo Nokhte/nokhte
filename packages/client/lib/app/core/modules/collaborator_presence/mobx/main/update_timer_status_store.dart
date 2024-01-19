@@ -8,8 +8,8 @@ part 'update_timer_status_store.g.dart';
 class UpdateTimerStatusStore = _UpdateTimerStatusStoreBase
     with _$UpdateTimerStatusStore;
 
-abstract class _UpdateTimerStatusStoreBase
-    extends BaseMobxDBStore<bool, TimerUpdateStatusEntity> with Store {
+abstract class _UpdateTimerStatusStoreBase extends BaseMobxDBStore<bool, bool>
+    with Store {
   @observable
   bool isUpdated = false;
 
@@ -17,10 +17,10 @@ abstract class _UpdateTimerStatusStoreBase
   _UpdateTimerStatusStoreBase({required this.logic});
 
   @observable
-  BaseFutureStore<TimerUpdateStatusEntity> futureStore = BaseFutureStore(
-    baseEntity: Right(TimerUpdateStatusEntity.initial()),
+  BaseFutureStore<bool> futureStore = BaseFutureStore(
+    baseEntity: const Right(false),
     entityFutureParam: ObservableFuture(
-      Future.value(Right(TimerUpdateStatusEntity.initial())),
+      Future.value(const Right(false)),
     ),
   );
 
@@ -29,8 +29,8 @@ abstract class _UpdateTimerStatusStoreBase
     result.fold((failure) {
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
-    }, (updateStatusEntity) {
-      isUpdated = updateStatusEntity.isTrue;
+    }, (updateStatus) {
+      isUpdated = updateStatus;
     });
   }
 
