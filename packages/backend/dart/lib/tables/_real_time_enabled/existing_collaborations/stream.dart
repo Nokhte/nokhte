@@ -69,6 +69,8 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
         final onCallList = event.first[ExistingCollaborationsQueries.isOnCall];
         final isOnlineList =
             event.first[ExistingCollaborationsQueries.isOnline];
+        final phasesList =
+            event.first[ExistingCollaborationsQueries.currentPhases];
         final talkingQueue =
             event.first[ExistingCollaborationsQueries.talkingQueue];
         yield CollaborationSessionMetadata(
@@ -76,6 +78,8 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
           collaboratorIsOnCall: onCallList[collaboratorIndex],
           userIsOnline: isOnlineList[userIndex],
           collaboratorIsOnline: isOnlineList[collaboratorIndex],
+          userPhase: phasesList[userIndex],
+          collaboratorPhase: phasesList[collaboratorIndex],
           timerShouldRun:
               event.first[ExistingCollaborationsQueries.timerShouldRun],
           collaboratorIsTalking:
