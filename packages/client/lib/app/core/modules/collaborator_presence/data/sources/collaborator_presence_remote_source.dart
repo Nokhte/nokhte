@@ -3,8 +3,8 @@ import 'package:nokhte_backend/tables/existing_collaborations.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class CollaboratorPresenceRemoteSource {
-  Future<List> updateOnlineStatus(UpdateOnlineStatusParams params);
-  Future<List> updateOnCallStatus(UpdateOnCallStatusParams params);
+  Future<List> updateOnlineStatus(UpdatePresencePropertyParams params);
+  Future<List> updateOnCallStatus(UpdatePresencePropertyParams params);
   Future<List> updateTimerStatus(bool params);
   Future<List> setUserAsCurrentTalker();
   Future<void> clearTheCurrentTalker();
@@ -23,15 +23,13 @@ class CollaboratorPresenceRemoteSourceImpl
         stream = ExistingCollaborationsStream(supabase: supabase);
 
   @override
-  updateOnCallStatus(UpdateOnCallStatusParams params) async =>
-      queries.updateOnCallStatus(
+  updateOnCallStatus(params) async => queries.updateOnCallStatus(
         params.newStatus,
         shouldEditCollaboratorsInfo: params.shouldUpdateCollaboratorsIndex,
       );
 
   @override
-  updateOnlineStatus(UpdateOnlineStatusParams params) async =>
-      queries.updateOnlineStatus(
+  updateOnlineStatus(params) async => queries.updateOnlineStatus(
         params.newStatus,
         shouldEditCollaboratorsInfo: params.shouldUpdateCollaboratorsIndex,
       );
