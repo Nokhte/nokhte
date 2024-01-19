@@ -33,7 +33,7 @@ abstract class _CheckForUnconsecratedCollaborationStoreBase
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
     }, (updateStatusEntity) {
-      hasAnUnconsecratedCollaboration = updateStatusEntity.isTrue;
+      hasAnUnconsecratedCollaboration = updateStatusEntity.hasOne;
     });
   }
 
