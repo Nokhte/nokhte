@@ -78,6 +78,11 @@ void main() {
     expect(res, [false, false]);
   });
 
+  test("getCurrentPhases", () async {
+    final res = await user1Queries.getCurrentPhases();
+    expect(res, [0, 0]);
+  });
+
   test("updateOnlineStatus", () async {
     final res = await user1Queries.updateOnlineStatus(true);
     expect(res.first[ExistingCollaborationsQueries.isOnline], [true, false]);
@@ -86,6 +91,11 @@ void main() {
   test("updateOnCallStatus", () async {
     final res = await user1Queries.updateOnCallStatus(true);
     expect(res.first[ExistingCollaborationsQueries.isOnCall], [true, false]);
+  });
+
+  test("updateCurrentPhases", () async {
+    final res = await user1Queries.updateCurrentPhases(1);
+    expect(res.first[ExistingCollaborationsQueries.currentPhases], [1, 0]);
   });
 
   test("setTimerInitStatus", () async {
