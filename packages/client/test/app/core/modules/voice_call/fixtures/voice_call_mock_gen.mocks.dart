@@ -355,24 +355,24 @@ class MockVoiceCallRemoteSourceImpl extends _i1.Mock
       ) as _i12.Future<List<dynamic>>);
 
   @override
-  _i12.Future<dynamic> muteLocalAudio() => (super.noSuchMethod(
+  _i12.Future<void> muteLocalAudio() => (super.noSuchMethod(
         Invocation.method(
           #muteLocalAudio,
           [],
         ),
-        returnValue: _i12.Future<dynamic>.value(),
-        returnValueForMissingStub: _i12.Future<dynamic>.value(),
-      ) as _i12.Future<dynamic>);
+        returnValue: _i12.Future<void>.value(),
+        returnValueForMissingStub: _i12.Future<void>.value(),
+      ) as _i12.Future<void>);
 
   @override
-  _i12.Future<dynamic> unmuteLocalAudio() => (super.noSuchMethod(
+  _i12.Future<void> unmuteLocalAudio() => (super.noSuchMethod(
         Invocation.method(
           #unmuteLocalAudio,
           [],
         ),
-        returnValue: _i12.Future<dynamic>.value(),
-        returnValueForMissingStub: _i12.Future<dynamic>.value(),
-      ) as _i12.Future<dynamic>);
+        returnValue: _i12.Future<void>.value(),
+        returnValueForMissingStub: _i12.Future<void>.value(),
+      ) as _i12.Future<void>);
 }
 
 /// A class which mocks [VoiceCallContract].
@@ -504,64 +504,56 @@ class MockVoiceCallContract extends _i1.Mock implements _i7.VoiceCallContract {
       ) as _i12.Future<_i6.Either<_i13.Failure, _i7.CallStatusEntity>>);
 
   @override
-  _i12.Future<_i6.Either<_i13.Failure, _i7.LocalAudioStreamStatusEntity>>
-      muteLocalAudio() => (super.noSuchMethod(
-            Invocation.method(
-              #muteLocalAudio,
-              [],
-            ),
-            returnValue: _i12.Future<
-                    _i6.Either<_i13.Failure,
-                        _i7.LocalAudioStreamStatusEntity>>.value(
-                _FakeEither_4<_i13.Failure, _i7.LocalAudioStreamStatusEntity>(
-              this,
-              Invocation.method(
-                #muteLocalAudio,
-                [],
-              ),
-            )),
-            returnValueForMissingStub: _i12.Future<
-                    _i6.Either<_i13.Failure,
-                        _i7.LocalAudioStreamStatusEntity>>.value(
-                _FakeEither_4<_i13.Failure, _i7.LocalAudioStreamStatusEntity>(
-              this,
-              Invocation.method(
-                #muteLocalAudio,
-                [],
-              ),
-            )),
-          ) as _i12.Future<
-              _i6.Either<_i13.Failure, _i7.LocalAudioStreamStatusEntity>>);
+  _i12.Future<_i6.Either<_i13.Failure, bool>> muteLocalAudio() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #muteLocalAudio,
+          [],
+        ),
+        returnValue: _i12.Future<_i6.Either<_i13.Failure, bool>>.value(
+            _FakeEither_4<_i13.Failure, bool>(
+          this,
+          Invocation.method(
+            #muteLocalAudio,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i12.Future<_i6.Either<_i13.Failure, bool>>.value(
+                _FakeEither_4<_i13.Failure, bool>(
+          this,
+          Invocation.method(
+            #muteLocalAudio,
+            [],
+          ),
+        )),
+      ) as _i12.Future<_i6.Either<_i13.Failure, bool>>);
 
   @override
-  _i12.Future<_i6.Either<_i13.Failure, _i7.LocalAudioStreamStatusEntity>>
-      unmuteLocalAudio() => (super.noSuchMethod(
-            Invocation.method(
-              #unmuteLocalAudio,
-              [],
-            ),
-            returnValue: _i12.Future<
-                    _i6.Either<_i13.Failure,
-                        _i7.LocalAudioStreamStatusEntity>>.value(
-                _FakeEither_4<_i13.Failure, _i7.LocalAudioStreamStatusEntity>(
-              this,
-              Invocation.method(
-                #unmuteLocalAudio,
-                [],
-              ),
-            )),
-            returnValueForMissingStub: _i12.Future<
-                    _i6.Either<_i13.Failure,
-                        _i7.LocalAudioStreamStatusEntity>>.value(
-                _FakeEither_4<_i13.Failure, _i7.LocalAudioStreamStatusEntity>(
-              this,
-              Invocation.method(
-                #unmuteLocalAudio,
-                [],
-              ),
-            )),
-          ) as _i12.Future<
-              _i6.Either<_i13.Failure, _i7.LocalAudioStreamStatusEntity>>);
+  _i12.Future<_i6.Either<_i13.Failure, bool>> unmuteLocalAudio() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #unmuteLocalAudio,
+          [],
+        ),
+        returnValue: _i12.Future<_i6.Either<_i13.Failure, bool>>.value(
+            _FakeEither_4<_i13.Failure, bool>(
+          this,
+          Invocation.method(
+            #unmuteLocalAudio,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i12.Future<_i6.Either<_i13.Failure, bool>>.value(
+                _FakeEither_4<_i13.Failure, bool>(
+          this,
+          Invocation.method(
+            #unmuteLocalAudio,
+            [],
+          ),
+        )),
+      ) as _i12.Future<_i6.Either<_i13.Failure, bool>>);
 
   @override
   _i12.Future<_i4.RtcEngine> initAgoraSdk(_i14.NoParams? params) =>
@@ -831,35 +823,30 @@ class MockMuteLocalAudio extends _i1.Mock implements _i7.MuteLocalAudio {
       ) as _i7.VoiceCallContract);
 
   @override
-  _i12.Future<_i6.Either<_i13.Failure, _i7.LocalAudioStreamStatusEntity>> call(
-          _i14.NoParams? params) =>
+  _i12.Future<_i6.Either<_i13.Failure, bool>> call(_i14.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i12.Future<
-                _i6
-                .Either<_i13.Failure, _i7.LocalAudioStreamStatusEntity>>.value(
-            _FakeEither_4<_i13.Failure, _i7.LocalAudioStreamStatusEntity>(
+        returnValue: _i12.Future<_i6.Either<_i13.Failure, bool>>.value(
+            _FakeEither_4<_i13.Failure, bool>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-        returnValueForMissingStub: _i12.Future<
-                _i6
-                .Either<_i13.Failure, _i7.LocalAudioStreamStatusEntity>>.value(
-            _FakeEither_4<_i13.Failure, _i7.LocalAudioStreamStatusEntity>(
+        returnValueForMissingStub:
+            _i12.Future<_i6.Either<_i13.Failure, bool>>.value(
+                _FakeEither_4<_i13.Failure, bool>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i12
-          .Future<_i6.Either<_i13.Failure, _i7.LocalAudioStreamStatusEntity>>);
+      ) as _i12.Future<_i6.Either<_i13.Failure, bool>>);
 }
 
 /// A class which mocks [UnmuteLocalAudio].
@@ -880,35 +867,30 @@ class MockUnmuteLocalAudio extends _i1.Mock implements _i7.UnmuteLocalAudio {
       ) as _i7.VoiceCallContract);
 
   @override
-  _i12.Future<_i6.Either<_i13.Failure, _i7.LocalAudioStreamStatusEntity>> call(
-          _i14.NoParams? params) =>
+  _i12.Future<_i6.Either<_i13.Failure, bool>> call(_i14.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i12.Future<
-                _i6
-                .Either<_i13.Failure, _i7.LocalAudioStreamStatusEntity>>.value(
-            _FakeEither_4<_i13.Failure, _i7.LocalAudioStreamStatusEntity>(
+        returnValue: _i12.Future<_i6.Either<_i13.Failure, bool>>.value(
+            _FakeEither_4<_i13.Failure, bool>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-        returnValueForMissingStub: _i12.Future<
-                _i6
-                .Either<_i13.Failure, _i7.LocalAudioStreamStatusEntity>>.value(
-            _FakeEither_4<_i13.Failure, _i7.LocalAudioStreamStatusEntity>(
+        returnValueForMissingStub:
+            _i12.Future<_i6.Either<_i13.Failure, bool>>.value(
+                _FakeEither_4<_i13.Failure, bool>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i12
-          .Future<_i6.Either<_i13.Failure, _i7.LocalAudioStreamStatusEntity>>);
+      ) as _i12.Future<_i6.Either<_i13.Failure, bool>>);
 }
 
 /// A class which mocks [GetAgoraTokenStore].
@@ -1531,8 +1513,7 @@ class MockVoiceCallActionsStore extends _i1.Mock
       ) as _i9.ReactiveContext);
 
   @override
-  dynamic audioStateOrErrorUpdater(
-          _i6.Either<_i13.Failure, _i7.LocalAudioStreamStatusEntity>? result) =>
+  dynamic audioStateOrErrorUpdater(_i6.Either<_i13.Failure, bool>? result) =>
       super.noSuchMethod(
         Invocation.method(
           #audioStateOrErrorUpdater,

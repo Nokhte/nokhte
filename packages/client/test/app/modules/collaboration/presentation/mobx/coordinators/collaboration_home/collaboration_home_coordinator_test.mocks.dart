@@ -470,25 +470,20 @@ class MockEnterCollaboratorPoolStore extends _i1.Mock
       );
 
   @override
-  _i6.BaseFutureStore<_i5.CollaboratorPoolEntryStatusEntity> get futureStore =>
-      (super.noSuchMethod(
+  _i6.BaseFutureStore<bool> get futureStore => (super.noSuchMethod(
         Invocation.getter(#futureStore),
-        returnValue:
-            _FakeBaseFutureStore_11<_i5.CollaboratorPoolEntryStatusEntity>(
+        returnValue: _FakeBaseFutureStore_11<bool>(
           this,
           Invocation.getter(#futureStore),
         ),
-        returnValueForMissingStub:
-            _FakeBaseFutureStore_11<_i5.CollaboratorPoolEntryStatusEntity>(
+        returnValueForMissingStub: _FakeBaseFutureStore_11<bool>(
           this,
           Invocation.getter(#futureStore),
         ),
-      ) as _i6.BaseFutureStore<_i5.CollaboratorPoolEntryStatusEntity>);
+      ) as _i6.BaseFutureStore<bool>);
 
   @override
-  set futureStore(
-          _i6.BaseFutureStore<_i5.CollaboratorPoolEntryStatusEntity>? value) =>
-      super.noSuchMethod(
+  set futureStore(_i6.BaseFutureStore<bool>? value) => super.noSuchMethod(
         Invocation.setter(
           #futureStore,
           value,
@@ -555,9 +550,7 @@ class MockEnterCollaboratorPoolStore extends _i1.Mock
       ) as _i3.ReactiveContext);
 
   @override
-  void stateOrErrorUpdater(
-          _i11.Either<_i12.Failure, _i5.CollaboratorPoolEntryStatusEntity>?
-              result) =>
+  void stateOrErrorUpdater(_i11.Either<_i12.Failure, bool>? result) =>
       super.noSuchMethod(
         Invocation.method(
           #stateOrErrorUpdater,
