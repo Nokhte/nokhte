@@ -1,15 +1,18 @@
 import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mixins/response_to_status.dart';
 import 'package:nokhte/app/core/modules/user_information/data/data.dart';
 import 'package:nokhte/app/core/modules/user_information/domain/domain.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 
-class HomeContractImpl implements UserInformationContract {
+class UserInformationContractImpl
+    with ResponseToStatus
+    implements UserInformationContract {
   final UserInformationRemoteSource remoteSource;
   final NetworkInfo networkInfo;
 
-  HomeContractImpl({
+  UserInformationContractImpl({
     required this.remoteSource,
     required this.networkInfo,
   });
@@ -30,8 +33,7 @@ class HomeContractImpl implements UserInformationContract {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.updateHasGoneThroughInvitationFlow(
           hasGoneThroughInvitationFlowParam);
-      return Right(
-          HasGoneThroughInvitationFlowUpdateStatusModel.fromSupabase(res));
+      return Right(fromSupabase(res));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
@@ -42,7 +44,7 @@ class HomeContractImpl implements UserInformationContract {
     if (await networkInfo.isConnected) {
       final res = await remoteSource
           .updateHasSentAnInvitation(hasSentAnInvitationParam);
-      return Right(HasSentAnInvitationUpdateStatusModel.fromSupabase(res));
+      return Right(fromSupabase(res));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
@@ -54,8 +56,7 @@ class HomeContractImpl implements UserInformationContract {
     if (await networkInfo.isConnected) {
       final res = await remoteSource
           .updateWantsToRepeatInvitationFlow(wantsToRepeatInvitationFlowParam);
-      return Right(
-          WantsToRepeatInvitationFlowUpdateStatusModel.fromSupabase(res));
+      return Right(fromSupabase(res));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }

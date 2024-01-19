@@ -13,30 +13,30 @@ class UserInformationModule extends Module {
         supabase: Modular.get<SupabaseClient>(),
       ),
     );
-    i.add<HomeContractImpl>(
-      () => HomeContractImpl(
+    i.add<UserInformationContractImpl>(
+      () => UserInformationContractImpl(
         remoteSource: i<UserInformationRemoteSourceImpl>(),
         networkInfo: Modular.get<NetworkInfoImpl>(),
       ),
     );
     i.add<GetUserInfo>(
       () => GetUserInfo(
-        contract: i<HomeContractImpl>(),
+        contract: i<UserInformationContractImpl>(),
       ),
     );
     i.add<UpdateHasGoneThroughInvitationFlow>(
       () => UpdateHasGoneThroughInvitationFlow(
-        contract: i<HomeContractImpl>(),
+        contract: i<UserInformationContractImpl>(),
       ),
     );
     i.add<UpdateHasSentAnInvitation>(
       () => UpdateHasSentAnInvitation(
-        contract: i<HomeContractImpl>(),
+        contract: i<UserInformationContractImpl>(),
       ),
     );
     i.add<UpdateWantsToRepeatInvitationFlow>(
       () => UpdateWantsToRepeatInvitationFlow(
-        contract: i<HomeContractImpl>(),
+        contract: i<UserInformationContractImpl>(),
       ),
     );
 

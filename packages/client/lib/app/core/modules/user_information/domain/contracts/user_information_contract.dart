@@ -5,11 +5,10 @@ import 'package:nokhte/app/core/modules/user_information/domain/domain.dart';
 
 abstract class UserInformationContract {
   Future<Either<Failure, UserJourneyInfoEntity>> getUserInfo(NoParams params);
-  Future<Either<Failure, HasSentAnInvitationUpdateStatusEntity>>
-      updateHasSentAnInvitation(bool hasSentAnInvitationParam);
-  Future<Either<Failure, HasGoneThroughInvitationFlowUpdateStatusEntity>>
-      updateHasGoneThroughInvitationFlow(
-          bool hasGoneThroughInvitationFlowParam);
-  Future<Either<Failure, WantsToRepeatInvitationFlowUpdateStatusEntity>>
-      updateWantsToRepeatInvitationFlow(bool wantsToRepeatInvitationFlowParam);
+  Future<Either<Failure, bool>> updateHasSentAnInvitation(
+      bool hasSentAnInvitationParam);
+  Future<Either<Failure, bool>> updateHasGoneThroughInvitationFlow(
+      bool hasGoneThroughInvitationFlowParam);
+  Future<Either<Failure, bool>> updateWantsToRepeatInvitationFlow(
+      bool wantsToRepeatInvitationFlowParam);
 }
