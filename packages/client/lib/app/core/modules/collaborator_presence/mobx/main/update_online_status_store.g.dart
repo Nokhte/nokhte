@@ -45,7 +45,7 @@ mixin _$UpdateOnlineStatusStore on _UpdateOnlineStatusStoreBase, Store {
       AsyncAction('_UpdateOnlineStatusStoreBase.call', context: context);
 
   @override
-  Future<void> call(UpdateOnlineStatusParams params) {
+  Future<void> call(UpdatePresencePropertyParams params) {
     return _$callAsyncAction.run(() => super.call(params));
   }
 

@@ -45,7 +45,7 @@ mixin _$UpdateOnCallStatusStore on _UpdateOnCallStatusStoreBase, Store {
       AsyncAction('_UpdateOnCallStatusStoreBase.call', context: context);
 
   @override
-  Future<void> call(UpdateOnCallStatusParams params) {
+  Future<void> call(UpdatePresencePropertyParams params) {
     return _$callAsyncAction.run(() => super.call(params));
   }
 

@@ -8,9 +8,8 @@ part 'update_on_call_status_store.g.dart';
 class UpdateOnCallStatusStore = _UpdateOnCallStatusStoreBase
     with _$UpdateOnCallStatusStore;
 
-abstract class _UpdateOnCallStatusStoreBase
-    extends BaseMobxDBStore<UpdateOnCallStatusParams, CallUpdateStatusEntity>
-    with Store {
+abstract class _UpdateOnCallStatusStoreBase extends BaseMobxDBStore<
+    UpdatePresencePropertyParams, CallUpdateStatusEntity> with Store {
   @observable
   bool isUpdated = false;
 

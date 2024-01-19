@@ -8,9 +8,8 @@ part 'update_online_status_store.g.dart';
 class UpdateOnlineStatusStore = _UpdateOnlineStatusStoreBase
     with _$UpdateOnlineStatusStore;
 
-abstract class _UpdateOnlineStatusStoreBase
-    extends BaseMobxDBStore<UpdateOnlineStatusParams, OnlineUpdateStatusEntity>
-    with Store {
+abstract class _UpdateOnlineStatusStoreBase extends BaseMobxDBStore<
+    UpdatePresencePropertyParams, OnlineUpdateStatusEntity> with Store {
   @observable
   bool isUpdated = false;
 
