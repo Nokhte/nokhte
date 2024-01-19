@@ -1,8 +1,7 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/modules/purpose_session/domain/domain.dart';
 
-class CheckIfUserHasTheQuestion
-    implements AbstractFutureLogic<WhoHasTheQuestionEntity, NoParams> {
+class CheckIfUserHasTheQuestion implements AbstractFutureLogic<bool, NoParams> {
   final PurposeSessionContract contract;
 
   CheckIfUserHasTheQuestion({required this.contract});
