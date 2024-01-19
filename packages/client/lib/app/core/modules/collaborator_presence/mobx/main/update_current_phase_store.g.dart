@@ -29,13 +29,13 @@ mixin _$UpdateCurrentPhaseStore on _UpdateCurrentPhaseStoreBase, Store {
       Atom(name: '_UpdateCurrentPhaseStoreBase.futureStore', context: context);
 
   @override
-  BaseFutureStore<PhaseUpdateStatusEntity> get futureStore {
+  BaseFutureStore<bool> get futureStore {
     _$futureStoreAtom.reportRead();
     return super.futureStore;
   }
 
   @override
-  set futureStore(BaseFutureStore<PhaseUpdateStatusEntity> value) {
+  set futureStore(BaseFutureStore<bool> value) {
     _$futureStoreAtom.reportWrite(value, super.futureStore, () {
       super.futureStore = value;
     });

@@ -9,8 +9,7 @@ class UpdateCurrentPhaseStore = _UpdateCurrentPhaseStoreBase
     with _$UpdateCurrentPhaseStore;
 
 abstract class _UpdateCurrentPhaseStoreBase
-    extends BaseMobxDBStore<UpdateCurrentPhaseParams, PhaseUpdateStatusEntity>
-    with Store {
+    extends BaseMobxDBStore<UpdateCurrentPhaseParams, bool> with Store {
   @observable
   bool isUpdated = false;
 
@@ -18,10 +17,10 @@ abstract class _UpdateCurrentPhaseStoreBase
   _UpdateCurrentPhaseStoreBase({required this.logic});
 
   @observable
-  BaseFutureStore<PhaseUpdateStatusEntity> futureStore = BaseFutureStore(
-    baseEntity: Right(PhaseUpdateStatusEntity.initial()),
+  BaseFutureStore<bool> futureStore = BaseFutureStore(
+    baseEntity: const Right(false),
     entityFutureParam: ObservableFuture(
-      Future.value(Right(PhaseUpdateStatusEntity.initial())),
+      Future.value(const Right(false)),
     ),
   );
 
@@ -30,8 +29,8 @@ abstract class _UpdateCurrentPhaseStoreBase
     result.fold((failure) {
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
-    }, (updateStatusEntity) {
-      isUpdated = updateStatusEntity.isTrue;
+    }, (updateStatus) {
+      isUpdated = updateStatus;
     });
   }
 
