@@ -1,15 +1,14 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/deep_links/domain/domain.dart';
 part 'send_deep_link_store.g.dart';
 
 class SendDeepLinkStore = _SendDeepLinkStoreBase with _$SendDeepLinkStore;
 
-abstract class _SendDeepLinkStoreBase
-    extends BaseMobxDBStore<String, DeepLinkSendStatusEntity> with Store {
+abstract class _SendDeepLinkStoreBase extends BaseMobxDBStore<String, bool>
+    with Store {
   final SendDeepLink logic;
 
   _SendDeepLinkStoreBase({
@@ -20,21 +19,21 @@ abstract class _SendDeepLinkStoreBase
   bool isShared = false;
 
   @observable
-  BaseFutureStore<DeepLinkSendStatusEntity> futureStore = BaseFutureStore(
-      baseEntity: DeepLinkSendStatusEntity.initial,
+  BaseFutureStore<bool> futureStore = BaseFutureStore(
+      baseEntity: const Right(false),
       entityFutureParam: ObservableFuture(Future.value(
-        DeepLinkSendStatusEntity.initial,
+        const Right(false),
       )));
 
   @override
-  void stateOrErrorUpdater(Either<Failure, DeepLinkSendStatusEntity> result) {
+  void stateOrErrorUpdater(result) {
     return result.fold(
       (failure) {
         errorMessage = mapFailureToMessage(failure);
         state = StoreState.initial;
       },
-      (invitationStatusEntity) {
-        isShared = invitationStatusEntity.isTrue;
+      (invitationShareStatus) {
+        isShared = invitationShareStatus;
       },
     );
   }

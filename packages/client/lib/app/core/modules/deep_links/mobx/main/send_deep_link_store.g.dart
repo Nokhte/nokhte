@@ -29,13 +29,13 @@ mixin _$SendDeepLinkStore on _SendDeepLinkStoreBase, Store {
       Atom(name: '_SendDeepLinkStoreBase.futureStore', context: context);
 
   @override
-  BaseFutureStore<DeepLinkSendStatusEntity> get futureStore {
+  BaseFutureStore<bool> get futureStore {
     _$futureStoreAtom.reportRead();
     return super.futureStore;
   }
 
   @override
-  set futureStore(BaseFutureStore<DeepLinkSendStatusEntity> value) {
+  set futureStore(BaseFutureStore<bool> value) {
     _$futureStoreAtom.reportWrite(value, super.futureStore, () {
       super.futureStore = value;
     });
