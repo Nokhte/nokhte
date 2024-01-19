@@ -7,6 +7,8 @@ class CollaborationSessionMetadata extends Equatable {
   final bool collaboratorIsOnline;
   final bool timerShouldRun;
   final bool collaboratorIsTalking;
+  final int collaboratorPhase;
+  final int userPhase;
 
   CollaborationSessionMetadata({
     required this.userIsOnCall,
@@ -15,6 +17,8 @@ class CollaborationSessionMetadata extends Equatable {
     required this.collaboratorIsOnline,
     required this.timerShouldRun,
     required this.collaboratorIsTalking,
+    required this.collaboratorPhase,
+    required this.userPhase,
   });
 
   factory CollaborationSessionMetadata.initial({
@@ -24,6 +28,8 @@ class CollaborationSessionMetadata extends Equatable {
     bool collaboratorIsOnlineParam = false,
     bool timerShouldRunParam = false,
     bool collaboratorIsTalkingParam = false,
+    int userPhaseParam = 0,
+    int collaboratorPhaseParam = 0,
   }) =>
       CollaborationSessionMetadata(
         collaboratorIsOnCall: userIsOnCallParam,
@@ -32,6 +38,8 @@ class CollaborationSessionMetadata extends Equatable {
         collaboratorIsOnline: collaboratorIsOnlineParam,
         timerShouldRun: timerShouldRunParam,
         collaboratorIsTalking: collaboratorIsTalkingParam,
+        userPhase: userPhaseParam,
+        collaboratorPhase: collaboratorPhaseParam,
       );
 
   @override
@@ -42,5 +50,7 @@ class CollaborationSessionMetadata extends Equatable {
         collaboratorIsOnline,
         timerShouldRun,
         collaboratorIsTalking,
+        userPhase,
+        collaboratorPhase
       ];
 }
