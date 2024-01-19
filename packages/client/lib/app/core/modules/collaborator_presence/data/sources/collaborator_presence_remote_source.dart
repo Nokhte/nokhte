@@ -8,6 +8,7 @@ abstract class CollaboratorPresenceRemoteSource {
   Future<List> updateTimerStatus(bool params);
   Future<List> setUserAsCurrentTalker();
   Future<void> clearTheCurrentTalker();
+  Future<List> updateCurrentPhase(UpdateCurrentPhaseParams params);
   Stream<CollaborationSessionMetadata> getSessionMetadata();
 }
 
@@ -49,4 +50,9 @@ class CollaboratorPresenceRemoteSourceImpl
   @override
   Stream<CollaborationSessionMetadata> getSessionMetadata() =>
       stream.getSessionMetadata();
+
+  @override
+  updateCurrentPhase(params) async =>
+      await queries.updateCurrentPhases(params.newPhase,
+          shouldEditCollaboratorsInfo: params.shouldUpdateCollaboratorsIndex);
 }
