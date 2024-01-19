@@ -60,6 +60,18 @@ class PurposeSessionModule extends Module {
           widgets: Modular.get<PurposeSessionPhase1WidgetsCoordinator>(),
           voiceCall: Modular.get<VoiceCallCoordinator>()),
     );
+
+    i.add<PurposeSessionPhase2Coordinator>(
+      () => PurposeSessionPhase2Coordinator(
+        widgets: Modular.get<PurposeSessionPhase2WidgetsCoordinator>(),
+      ),
+    );
+
+    i.add<PurposeSessionPhase3Coordinator>(
+      () => PurposeSessionPhase3Coordinator(
+        widgets: Modular.get<PurposeSessionPhase3WidgetsCoordinator>(),
+      ),
+    );
   }
 
   @override
@@ -76,6 +88,20 @@ class PurposeSessionModule extends Module {
       transition: TransitionType.noTransition,
       child: (context) => PurposeSessionPhase1Consultation(
         coordinator: Modular.get<PurposeSessionPhase1Coordinator>(),
+      ),
+    );
+    r.child(
+      '/phase_two',
+      transition: TransitionType.noTransition,
+      child: (context) => PurposeSessionPhase2Reflection(
+        coordinator: Modular.get<PurposeSessionPhase2Coordinator>(),
+      ),
+    );
+    r.child(
+      '/phase_three',
+      transition: TransitionType.noTransition,
+      child: (context) => PurposeSessionPhase3ExpandTheirIdeas(
+        coordinator: Modular.get<PurposeSessionPhase3Coordinator>(),
       ),
     );
   }
