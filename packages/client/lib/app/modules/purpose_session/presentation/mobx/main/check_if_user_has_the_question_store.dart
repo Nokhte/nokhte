@@ -10,7 +10,7 @@ class CheckIfUserHasTheQuestionStore = _CheckIfUserHasTheQuestionStoreBase
     with _$CheckIfUserHasTheQuestionStore;
 
 abstract class _CheckIfUserHasTheQuestionStoreBase
-    extends BaseMobxDBStore<NoParams, WhoHasTheQuestionEntity> with Store {
+    extends BaseMobxDBStore<NoParams, bool> with Store {
   @observable
   bool hasTheQuestion = false;
 
@@ -18,10 +18,10 @@ abstract class _CheckIfUserHasTheQuestionStoreBase
   _CheckIfUserHasTheQuestionStoreBase({required this.logic});
 
   @observable
-  BaseFutureStore<WhoHasTheQuestionEntity> futureStore = BaseFutureStore(
-    baseEntity: Right(WhoHasTheQuestionEntity.initial()),
+  BaseFutureStore<bool> futureStore = BaseFutureStore(
+    baseEntity: const Right(false),
     entityFutureParam: ObservableFuture(
-      Future.value(Right(WhoHasTheQuestionEntity.initial())),
+      Future.value(const Right(false)),
     ),
   );
 
@@ -30,8 +30,8 @@ abstract class _CheckIfUserHasTheQuestionStoreBase
     result.fold((failure) {
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
-    }, (questionEntity) {
-      hasTheQuestion = questionEntity.isTrue;
+    }, (hasTheQuestionRes) {
+      hasTheQuestion = hasTheQuestionRes;
     });
   }
 

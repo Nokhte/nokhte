@@ -32,13 +32,13 @@ mixin _$CheckIfUserHasTheQuestionStore
       context: context);
 
   @override
-  BaseFutureStore<WhoHasTheQuestionEntity> get futureStore {
+  BaseFutureStore<bool> get futureStore {
     _$futureStoreAtom.reportRead();
     return super.futureStore;
   }
 
   @override
-  set futureStore(BaseFutureStore<WhoHasTheQuestionEntity> value) {
+  set futureStore(BaseFutureStore<bool> value) {
     _$futureStoreAtom.reportWrite(value, super.futureStore, () {
       super.futureStore = value;
     });
