@@ -8,8 +8,8 @@ part 'update_online_status_store.g.dart';
 class UpdateOnlineStatusStore = _UpdateOnlineStatusStoreBase
     with _$UpdateOnlineStatusStore;
 
-abstract class _UpdateOnlineStatusStoreBase extends BaseMobxDBStore<
-    UpdatePresencePropertyParams, OnlineUpdateStatusEntity> with Store {
+abstract class _UpdateOnlineStatusStoreBase
+    extends BaseMobxDBStore<UpdatePresencePropertyParams, bool> with Store {
   @observable
   bool isUpdated = false;
 
@@ -17,10 +17,10 @@ abstract class _UpdateOnlineStatusStoreBase extends BaseMobxDBStore<
   _UpdateOnlineStatusStoreBase({required this.logic});
 
   @observable
-  BaseFutureStore<OnlineUpdateStatusEntity> futureStore = BaseFutureStore(
-    baseEntity: Right(OnlineUpdateStatusEntity.initial()),
+  BaseFutureStore<bool> futureStore = BaseFutureStore(
+    baseEntity: const Right(false),
     entityFutureParam: ObservableFuture(
-      Future.value(Right(OnlineUpdateStatusEntity.initial())),
+      Future.value(const Right(false)),
     ),
   );
 
@@ -29,8 +29,8 @@ abstract class _UpdateOnlineStatusStoreBase extends BaseMobxDBStore<
     result.fold((failure) {
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
-    }, (updateStatusEntity) {
-      isUpdated = updateStatusEntity.isTrue;
+    }, (updateStatus) {
+      isUpdated = updateStatus;
     });
   }
 

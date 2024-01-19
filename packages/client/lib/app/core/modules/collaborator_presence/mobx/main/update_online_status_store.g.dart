@@ -29,13 +29,13 @@ mixin _$UpdateOnlineStatusStore on _UpdateOnlineStatusStoreBase, Store {
       Atom(name: '_UpdateOnlineStatusStoreBase.futureStore', context: context);
 
   @override
-  BaseFutureStore<OnlineUpdateStatusEntity> get futureStore {
+  BaseFutureStore<bool> get futureStore {
     _$futureStoreAtom.reportRead();
     return super.futureStore;
   }
 
   @override
-  set futureStore(BaseFutureStore<OnlineUpdateStatusEntity> value) {
+  set futureStore(BaseFutureStore<bool> value) {
     _$futureStoreAtom.reportWrite(value, super.futureStore, () {
       super.futureStore = value;
     });
