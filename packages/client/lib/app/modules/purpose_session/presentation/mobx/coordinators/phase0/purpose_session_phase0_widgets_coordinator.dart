@@ -11,7 +11,7 @@ class PurposeSessionPhase0WidgetsCoordinator = _PurposeSessionPhase0WidgetsCoord
     with _$PurposeSessionPhase0WidgetsCoordinator;
 
 abstract class _PurposeSessionPhase0WidgetsCoordinatorBase
-    extends BaseWidgetsCoordinator with Store {
+    extends BaseCoordinator with Store {
   final BeachWavesStore beachWaves;
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final SmartTextStore primarySmartText;
@@ -30,7 +30,6 @@ abstract class _PurposeSessionPhase0WidgetsCoordinatorBase
 
   @action
   onInactive() {
-    print(" inactive SisConnected: $isConnected");
     if (isConnected) {
       primarySmartText.reset();
     }
@@ -38,7 +37,6 @@ abstract class _PurposeSessionPhase0WidgetsCoordinatorBase
 
   @action
   onResumed() {
-    print(" resumed isConnected: $isConnected");
     if (isConnected) {
       primarySmartText.startRotatingText();
     }

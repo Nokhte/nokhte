@@ -45,12 +45,6 @@ class PurposeSessionModule extends Module {
         logic: Modular.get<CheckIfUserHasTheQuestion>(),
       ),
     );
-    i.add<PurposeSessionPhase0Coordinator>(
-      () => PurposeSessionPhase0Coordinator(
-        widgets: Modular.get<PurposeSessionPhase0WidgetsCoordinator>(),
-      ),
-    );
-
     i.add<PurposeSessionPhase1Coordinator>(
       () => PurposeSessionPhase1Coordinator(
           hold: Modular.get<HoldDetector>(),
@@ -80,7 +74,7 @@ class PurposeSessionModule extends Module {
       '/',
       transition: TransitionType.noTransition,
       child: (context) => PurposeSessionPhase0Greeter(
-        coordinator: Modular.get<PurposeSessionPhase0Coordinator>(),
+        coordinator: Modular.get<PurposeSessionPhase0WidgetsCoordinator>(),
       ),
     );
     r.child(
