@@ -11,8 +11,7 @@ class EnterCollaboratorPoolStore = _EnterCollaboratorPoolStoreBase
     with _$EnterCollaboratorPoolStore;
 
 abstract class _EnterCollaboratorPoolStoreBase
-    extends BaseMobxDBStore<String, CollaboratorPoolEntryStatusEntity>
-    with Store {
+    extends BaseMobxDBStore<String, bool> with Store {
   final EnterCollaboratorPool logic;
 
   @observable
@@ -23,12 +22,11 @@ abstract class _EnterCollaboratorPoolStoreBase
   });
 
   @observable
-  BaseFutureStore<CollaboratorPoolEntryStatusEntity> futureStore =
-      BaseFutureStore(
-    baseEntity: Right(CollaboratorPoolEntryStatusEntity.initial()),
+  BaseFutureStore<bool> futureStore = BaseFutureStore(
+    baseEntity: const Right(false),
     entityFutureParam: ObservableFuture(
       Future.value(
-        Right(CollaboratorPoolEntryStatusEntity.initial()),
+        const Right(false),
       ),
     ),
   );
@@ -38,8 +36,8 @@ abstract class _EnterCollaboratorPoolStoreBase
     result.fold((failure) {
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
-    }, (entryStatusEntity) {
-      hasEntered = entryStatusEntity.isTrue;
+    }, (entryStatus) {
+      hasEntered = entryStatus;
     });
   }
 

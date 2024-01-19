@@ -29,13 +29,13 @@ mixin _$EnterCollaboratorPoolStore on _EnterCollaboratorPoolStoreBase, Store {
       name: '_EnterCollaboratorPoolStoreBase.futureStore', context: context);
 
   @override
-  BaseFutureStore<CollaboratorPoolEntryStatusEntity> get futureStore {
+  BaseFutureStore<bool> get futureStore {
     _$futureStoreAtom.reportRead();
     return super.futureStore;
   }
 
   @override
-  set futureStore(BaseFutureStore<CollaboratorPoolEntryStatusEntity> value) {
+  set futureStore(BaseFutureStore<bool> value) {
     _$futureStoreAtom.reportWrite(value, super.futureStore, () {
       super.futureStore = value;
     });
