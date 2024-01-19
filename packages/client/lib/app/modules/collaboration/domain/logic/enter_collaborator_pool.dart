@@ -1,8 +1,7 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/modules/collaboration/domain/domain.dart';
 
-class EnterCollaboratorPool
-    extends AbstractFutureLogic<CollaboratorPoolEntryStatusEntity, String> {
+class EnterCollaboratorPool extends AbstractFutureLogic<bool, String> {
   final CollaborationContract contract;
 
   EnterCollaboratorPool({required this.contract});

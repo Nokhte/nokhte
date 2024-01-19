@@ -1,8 +1,8 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/modules/collaboration/domain/domain.dart';
 
-class CancelCollaboratorSearchStream extends AbstractFutureLogic<
-    CollaboratorStreamCancellationStatusEntity, NoParams> {
+class CancelCollaboratorSearchStream
+    extends AbstractFutureLogic<bool, NoParams> {
   final CollaborationContract contract;
 
   CancelCollaboratorSearchStream({
