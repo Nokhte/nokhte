@@ -13,6 +13,9 @@ abstract class CollaboratorPresenceContract {
       UpdateWhoIsTalkingParams params);
   Future<Either<Failure, TimerUpdateStatusEntity>> updateTimerStatus(
       bool params);
+  Future<Either<Failure, PhaseUpdateStatusEntity>> updateCurrentPhase(
+    UpdateCurrentPhaseParams params,
+  );
   Future<Either<Failure, Stream<CollaborationSessionMetadata>>>
       getSessionMetadata(NoParams params);
 }
