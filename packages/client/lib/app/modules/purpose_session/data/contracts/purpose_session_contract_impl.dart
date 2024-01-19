@@ -16,7 +16,7 @@ class PurposeSessionContractImpl implements PurposeSessionContract {
   checkIfUserHasTheQuestion(NoParams params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.checkIfUserHasTheQuestion();
-      return Right(WhoHasTheQuestionModel(hasTheQuestion: res));
+      return Right(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
