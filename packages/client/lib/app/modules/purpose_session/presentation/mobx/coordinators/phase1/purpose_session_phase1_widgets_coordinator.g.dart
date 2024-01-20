@@ -44,6 +44,25 @@ mixin _$PurposeSessionPhase1WidgetsCoordinator
     });
   }
 
+  late final _$timesUpCallbackHasBeenCalledAtom = Atom(
+      name:
+          '_PurposeSessionPhase1WidgetsCoordinatorBase.timesUpCallbackHasBeenCalled',
+      context: context);
+
+  @override
+  bool get timesUpCallbackHasBeenCalled {
+    _$timesUpCallbackHasBeenCalledAtom.reportRead();
+    return super.timesUpCallbackHasBeenCalled;
+  }
+
+  @override
+  set timesUpCallbackHasBeenCalled(bool value) {
+    _$timesUpCallbackHasBeenCalledAtom
+        .reportWrite(value, super.timesUpCallbackHasBeenCalled, () {
+      super.timesUpCallbackHasBeenCalled = value;
+    });
+  }
+
   late final _$_PurposeSessionPhase1WidgetsCoordinatorBaseActionController =
       ActionController(
           name: '_PurposeSessionPhase1WidgetsCoordinatorBase',
@@ -322,7 +341,8 @@ mixin _$PurposeSessionPhase1WidgetsCoordinator
   String toString() {
     return '''
 hasTheQuestion: ${hasTheQuestion},
-isInTheCall: ${isInTheCall}
+isInTheCall: ${isInTheCall},
+timesUpCallbackHasBeenCalled: ${timesUpCallbackHasBeenCalled}
     ''';
   }
 }

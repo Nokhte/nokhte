@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -34,7 +35,8 @@ abstract class _PurposeSessionPhase1WidgetsCoordinatorBase
     required this.borderGlow,
   });
 
-  final timerLength = const Duration(minutes: 5);
+  final timerLength =
+      kDebugMode ? const Duration(seconds: 5) : const Duration(minutes: 5);
 
   @observable
   bool hasTheQuestion = false;
@@ -44,6 +46,9 @@ abstract class _PurposeSessionPhase1WidgetsCoordinatorBase
 
   @observable
   bool isInTheCall = false;
+
+  @observable
+  bool timesUpCallbackHasBeenCalled = false;
 
   @action
   constructor() {
@@ -62,13 +67,15 @@ abstract class _PurposeSessionPhase1WidgetsCoordinatorBase
 
   @action
   onCallLeft() {
-    isInTheCall = false;
-    nokhteBlur.init();
-    errorText.setCurrentIndex(0);
-    if (!errorText.showWidget) {
-      errorText.toggleWidgetVisibility();
+    if (!timesUpCallbackHasBeenCalled) {
+      isInTheCall = false;
+      nokhteBlur.init();
+      errorText.setCurrentIndex(0);
+      if (!errorText.showWidget) {
+        errorText.toggleWidgetVisibility();
+      }
+      errorText.startRotatingText();
     }
-    errorText.startRotatingText();
   }
 
   @action
@@ -177,18 +184,20 @@ abstract class _PurposeSessionPhase1WidgetsCoordinatorBase
 
   @action
   onCollaboratorLeft() {
-    if (isInTheCall) {
-      nokhteBlur.init();
-      if (errorText.currentIndex == 0) {
-        errorText.setCurrentIndex(1);
+    if (!timesUpCallbackHasBeenCalled) {
+      if (isInTheCall) {
+        nokhteBlur.init();
+        if (errorText.currentIndex == 0) {
+          errorText.setCurrentIndex(1);
+        }
+        if (!errorText.showWidget) {
+          errorText.toggleWidgetVisibility();
+        }
+        errorText.startRotatingText();
+      } else {
+        // nokhteBlur.init();
+        errorText.startRotatingText(isResuming: true);
       }
-      if (!errorText.showWidget) {
-        errorText.toggleWidgetVisibility();
-      }
-      errorText.startRotatingText();
-    } else {
-      // nokhteBlur.init();
-      errorText.startRotatingText(isResuming: true);
     }
   }
 
@@ -203,17 +212,28 @@ abstract class _PurposeSessionPhase1WidgetsCoordinatorBase
   beachWavesMovieStatusReactor({
     required Function onTimesUpCompleted,
   }) =>
-      reaction((p0) => beachWaves.movieStatus, (p0) {
-        if (beachWaves.movieMode == BeachWaveMovieModes.timesUp &&
-            p0 == MovieStatus.finished) {
-          Timer.periodic(Seconds.get(1), (timer) async {
-            if (!isDisconnected) {
-              timer.cancel();
-              await onTimesUpCompleted();
-
-              Modular.to.navigate('/phase_two');
+      reaction((p0) => beachWaves.movieStatus, (p0) async {
+        if (p0 == MovieStatus.finished) {
+          if (beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
+            timesUpCallbackHasBeenCalled = true;
+            beachWaves.setMovieMode(BeachWaveMovieModes.timesUpEndToTheDepths);
+            beachWaves.currentStore.initMovie(NoParams());
+            if (primarySmartText.showWidget) {
+              primarySmartText.toggleWidgetVisibility();
             }
-          });
+            if (secondarySmartText.showWidget) {
+              secondarySmartText.toggleWidgetVisibility();
+            }
+            await onTimesUpCompleted();
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.timesUpEndToTheDepths) {
+            Timer.periodic(Seconds.get(0, milli: 100), (timer) async {
+              if (!isDisconnected) {
+                Modular.to.navigate('/purpose_session/phase_two');
+                timer.cancel();
+              }
+            });
+          }
         }
       });
 }
