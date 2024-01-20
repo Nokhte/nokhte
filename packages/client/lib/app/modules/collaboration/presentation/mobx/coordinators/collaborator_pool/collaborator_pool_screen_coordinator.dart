@@ -33,8 +33,11 @@ abstract class _CollaboratorPoolScreenCoordinatorBase extends BaseCoordinator
   exitThePool() async => await exitCollaboratorPool(NoParams());
 
   searchStatusReactor() =>
-      reaction((p0) => getCollaboratorSearchStatus.hasFoundCollaborator, (p0) {
+      reaction((p0) => getCollaboratorSearchStatus.hasFoundCollaborator,
+          (p0) async {
         if (p0) {
+          cancelCollaboratorSearchStream(NoParams());
+          await getCollaboratorSearchStatus.dispose();
           widgets.initTransitionToPurposeSession();
         }
       });
