@@ -78,6 +78,15 @@ mixin _$GetCollaboratorSearchStatusStore
     });
   }
 
+  late final _$disposeAsyncAction = AsyncAction(
+      '_GetCollaboratorSearchStatusStoreBase.dispose',
+      context: context);
+
+  @override
+  Future dispose() {
+    return _$disposeAsyncAction.run(() => super.dispose());
+  }
+
   late final _$_GetCollaboratorSearchStatusStoreBaseActionController =
       ActionController(
           name: '_GetCollaboratorSearchStatusStoreBase', context: context);

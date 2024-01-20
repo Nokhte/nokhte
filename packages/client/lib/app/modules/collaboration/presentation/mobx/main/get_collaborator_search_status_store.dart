@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api, type_literal_in_constant_pattern
+import 'dart:async';
+
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
@@ -18,6 +20,9 @@ abstract class _GetCollaboratorSearchStatusStoreBase extends Equatable
 
   @observable
   ObservableStream<bool> searchStatus = ObservableStream(const Stream.empty());
+
+  StreamSubscription searchSubscription =
+      Stream.value(false).listen((event) {});
 
   @observable
   String errorMessage = "";
@@ -49,6 +54,12 @@ abstract class _GetCollaboratorSearchStatusStoreBase extends Equatable
     }
   }
 
+  @action
+  dispose() async {
+    await searchStatus.close();
+    await searchSubscription.cancel();
+  }
+
   Future<void> call() async {
     final result = await logic(NoParams());
     result.fold((failure) {
@@ -56,7 +67,7 @@ abstract class _GetCollaboratorSearchStatusStoreBase extends Equatable
       state = StoreState.initial;
     }, (stream) {
       searchStatus = ObservableStream(stream);
-      searchStatus.listen((value) {
+      searchSubscription = searchStatus.listen((value) {
         hasFoundCollaborator = value;
       });
     });
