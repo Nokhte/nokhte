@@ -26,17 +26,33 @@ mixin _$GetSessionMetadataStore on _GetSessionMetadataStoreBase, Store {
               name: '_GetSessionMetadataStoreBase.collaboratorHasMovedOn'))
       .value;
 
+  late final _$currentPhaseAtom =
+      Atom(name: '_GetSessionMetadataStoreBase.currentPhase', context: context);
+
+  @override
+  double get currentPhase {
+    _$currentPhaseAtom.reportRead();
+    return super.currentPhase;
+  }
+
+  @override
+  set currentPhase(double value) {
+    _$currentPhaseAtom.reportWrite(value, super.currentPhase, () {
+      super.currentPhase = value;
+    });
+  }
+
   late final _$userPhaseAtom =
       Atom(name: '_GetSessionMetadataStoreBase.userPhase', context: context);
 
   @override
-  int get userPhase {
+  double get userPhase {
     _$userPhaseAtom.reportRead();
     return super.userPhase;
   }
 
   @override
-  set userPhase(int value) {
+  set userPhase(double value) {
     _$userPhaseAtom.reportWrite(value, super.userPhase, () {
       super.userPhase = value;
     });
@@ -46,13 +62,13 @@ mixin _$GetSessionMetadataStore on _GetSessionMetadataStoreBase, Store {
       name: '_GetSessionMetadataStoreBase.collaboratorPhase', context: context);
 
   @override
-  int get collaboratorPhase {
+  double get collaboratorPhase {
     _$collaboratorPhaseAtom.reportRead();
     return super.collaboratorPhase;
   }
 
   @override
-  set collaboratorPhase(int value) {
+  set collaboratorPhase(double value) {
     _$collaboratorPhaseAtom.reportWrite(value, super.collaboratorPhase, () {
       super.collaboratorPhase = value;
     });
@@ -184,9 +200,24 @@ mixin _$GetSessionMetadataStore on _GetSessionMetadataStoreBase, Store {
     return _$callAsyncAction.run(() => super.call(params));
   }
 
+  late final _$_GetSessionMetadataStoreBaseActionController =
+      ActionController(name: '_GetSessionMetadataStoreBase', context: context);
+
+  @override
+  dynamic setCurrentPhase(double newDouble) {
+    final _$actionInfo = _$_GetSessionMetadataStoreBaseActionController
+        .startAction(name: '_GetSessionMetadataStoreBase.setCurrentPhase');
+    try {
+      return super.setCurrentPhase(newDouble);
+    } finally {
+      _$_GetSessionMetadataStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
+currentPhase: ${currentPhase},
 userPhase: ${userPhase},
 collaboratorPhase: ${collaboratorPhase},
 userIsOnCall: ${userIsOnCall},
