@@ -1,5 +1,4 @@
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
-import 'package:nokhte/app/core/modules/deep_links/domain/domain.dart';
 import 'package:nokhte/app/core/modules/deep_links/constants/types/types.dart';
 import 'package:nokhte_backend/tables/user_names.dart';
 import 'package:share_plus/share_plus.dart';
@@ -7,7 +6,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class DeepLinksRemoteSource {
   Stream<Map> listenForOpenedDeepLink();
-  Future<BranchResponse> getDeepLinkURL(GetDeepLinkURLParams params);
+  Future<BranchResponse> getDeepLinkURL(DeepLinkTypes params);
   Future<ShareResult> sendDeepLink(String invitationURL);
 }
 
@@ -26,8 +25,8 @@ class DeepLinksRemoteSourceImpl implements DeepLinksRemoteSource {
   }
 
   @override
-  Future<BranchResponse> getDeepLinkURL(GetDeepLinkURLParams params) async {
-    switch (params.type) {
+  Future<BranchResponse> getDeepLinkURL(params) async {
+    switch (params) {
       case DeepLinkTypes.collaboratorInvitation:
         final invitationInfo = await _assembleCollaboratorInvitation();
         return await FlutterBranchSdk.getShortUrl(
