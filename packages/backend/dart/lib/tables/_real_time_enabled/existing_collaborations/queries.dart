@@ -110,7 +110,7 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   }
 
   Future<List> updateCurrentPhases(
-    int newPhase, {
+    double newPhase, {
     bool shouldEditCollaboratorsInfo = false,
   }) async {
     await ensureActiveCollaboratorInfo();

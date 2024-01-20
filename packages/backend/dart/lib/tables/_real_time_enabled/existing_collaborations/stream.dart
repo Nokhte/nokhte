@@ -78,8 +78,9 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
           collaboratorIsOnCall: onCallList[collaboratorIndex],
           userIsOnline: isOnlineList[userIndex],
           collaboratorIsOnline: isOnlineList[collaboratorIndex],
-          userPhase: phasesList[userIndex],
-          collaboratorPhase: phasesList[collaboratorIndex],
+          userPhase: double.parse(phasesList[userIndex].toString()),
+          collaboratorPhase:
+              double.parse(phasesList[collaboratorIndex].toString()),
           timerShouldRun:
               event.first[ExistingCollaborationsQueries.timerShouldRun],
           collaboratorIsTalking:
