@@ -45,11 +45,6 @@ class DeepLinksModule extends Module {
         contract: i<DeepLinksContractImpl>(),
       ),
     );
-    i.add<GetDeepLinkURLStore>(
-      () => GetDeepLinkURLStore(
-        logic: i<GetDeepLinkURL>(),
-      ),
-    );
     i.add<ListenForOpenedDeepLinkStore>(
       () => ListenForOpenedDeepLinkStore(
         userInformation: Modular.get<UserInformationCoordinator>(),
@@ -57,16 +52,11 @@ class DeepLinksModule extends Module {
         interpretCollaboratorCode: i<InterpretCollaboratorCodeDeepLink>(),
       ),
     );
-    i.add<SendDeepLinkStore>(
-      () => SendDeepLinkStore(
-        logic: i<SendDeepLink>(),
-      ),
-    );
     i.add<DeepLinksCoordinator>(
       () => DeepLinksCoordinator(
-        getDeepLinkURL: i<GetDeepLinkURLStore>(),
-        listenForOpenedDeepLink: i<ListenForOpenedDeepLinkStore>(),
-        sendDeepLink: i<SendDeepLinkStore>(),
+        getDeepLinkURL: i<GetDeepLinkURL>(),
+        listenForOpenedDeepLinkStore: i<ListenForOpenedDeepLinkStore>(),
+        sendDeepLink: i<SendDeepLink>(),
       ),
     );
   }
