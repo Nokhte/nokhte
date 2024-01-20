@@ -26,6 +26,12 @@ abstract class _BaseMobxDBStoreBase<Params, T> extends Equatable with Store {
     }
   }
 
+  @action
+  errorUpdater(Failure failure) {
+    errorMessage = mapFailureToMessage(failure);
+    state = StoreState.initial;
+  }
+
   void stateOrErrorUpdater(Either<Failure, T> result) {}
 
   @action

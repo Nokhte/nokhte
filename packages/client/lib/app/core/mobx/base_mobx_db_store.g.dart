@@ -49,6 +49,20 @@ mixin _$BaseMobxDBStore<Params, T> on _BaseMobxDBStoreBase<Params, T>, Store {
     return _$callAsyncAction.run(() => super.call(params));
   }
 
+  late final _$_BaseMobxDBStoreBaseActionController =
+      ActionController(name: '_BaseMobxDBStoreBase', context: context);
+
+  @override
+  dynamic errorUpdater(Failure failure) {
+    final _$actionInfo = _$_BaseMobxDBStoreBaseActionController.startAction(
+        name: '_BaseMobxDBStoreBase.errorUpdater');
+    try {
+      return super.errorUpdater(failure);
+    } finally {
+      _$_BaseMobxDBStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
