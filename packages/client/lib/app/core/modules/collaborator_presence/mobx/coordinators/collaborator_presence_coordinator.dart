@@ -15,6 +15,7 @@ abstract class _CollaboratorPresenceCoordinatorBase extends Equatable
   final UpdateWhoIsTalkingStore updateWhoIsTalking;
   final GetSessionMetadataStore getSessionMetadata;
   final UpdateCurrentPhaseStore updateCurrentPhase;
+  final CancelSessionMetadataStreamStore cancelSessionMetadataStream;
 
   _CollaboratorPresenceCoordinatorBase({
     required this.getSessionMetadata,
@@ -23,6 +24,7 @@ abstract class _CollaboratorPresenceCoordinatorBase extends Equatable
     required this.updateTimerStatus,
     required this.updateWhoIsTalking,
     required this.updateCurrentPhase,
+    required this.cancelSessionMetadataStream,
   });
 
   @override
