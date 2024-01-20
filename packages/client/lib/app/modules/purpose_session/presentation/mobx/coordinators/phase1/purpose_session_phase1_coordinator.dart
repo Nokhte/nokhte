@@ -84,6 +84,8 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
       const UpdateCurrentPhaseParams(newPhase: 1.5),
     );
     await voiceCall.leaveCall();
+    await collaboratorPresence.getSessionMetadata.dispose();
+    collaboratorPresence.cancelSessionMetadataStream(NoParams());
   }
 
   initReactors() {
