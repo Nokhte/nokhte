@@ -59,51 +59,20 @@ class CollaboratorPresenceModule extends Module {
         contract: i<CollaboratorPresenceContractImpl>(),
       ),
     );
-    i.add<CancelSessionMetadataStreamStore>(
-      () => CancelSessionMetadataStreamStore(
-        logic: i<CancelSessionMetadataStream>(),
-      ),
-    );
     i.add<GetSessionMetadataStore>(
       () => GetSessionMetadataStore(
         logic: i<GetSessionMetadata>(),
       ),
     );
-    i.add<UpdateCurrentPhaseStore>(
-      () => UpdateCurrentPhaseStore(
-        logic: i<UpdateCurrentPhase>(),
-      ),
-    );
-
-    i.add<UpdateOnCallStatusStore>(
-      () => UpdateOnCallStatusStore(
-        logic: i<UpdateOnCallStatus>(),
-      ),
-    );
-    i.add<UpdateOnlineStatusStore>(
-      () => UpdateOnlineStatusStore(
-        logic: i<UpdateOnlineStatus>(),
-      ),
-    );
-    i.add<UpdateTimerStatusStore>(
-      () => UpdateTimerStatusStore(
-        logic: i<UpdateTimerStatus>(),
-      ),
-    );
-    i.add<UpdateWhoIsTalkingStore>(
-      () => UpdateWhoIsTalkingStore(
-        logic: i<UpdateWhoIsTalking>(),
-      ),
-    );
     i.add<CollaboratorPresenceCoordinator>(
       () => CollaboratorPresenceCoordinator(
-        cancelSessionMetadataStream: i<CancelSessionMetadataStreamStore>(),
-        updateCurrentPhase: i<UpdateCurrentPhaseStore>(),
+        cancelSessionMetadataStream: i<CancelSessionMetadataStream>(),
+        currentPhase: i<UpdateCurrentPhase>(),
         getSessionMetadata: i<GetSessionMetadataStore>(),
-        updateOnCallStatus: i<UpdateOnCallStatusStore>(),
-        updateOnlineStatus: i<UpdateOnlineStatusStore>(),
-        updateTimerStatus: i<UpdateTimerStatusStore>(),
-        updateWhoIsTalking: i<UpdateWhoIsTalkingStore>(),
+        callStatus: i<UpdateOnCallStatus>(),
+        onlineStatus: i<UpdateOnlineStatus>(),
+        timerStatus: i<UpdateTimerStatus>(),
+        whoIsTalking: i<UpdateWhoIsTalking>(),
       ),
     );
   }
