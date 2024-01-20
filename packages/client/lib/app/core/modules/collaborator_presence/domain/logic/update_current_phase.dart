@@ -14,7 +14,7 @@ class UpdateCurrentPhase
 
 class UpdateCurrentPhaseParams extends Equatable {
   final bool shouldUpdateCollaboratorsIndex;
-  final int newPhase;
+  final double newPhase;
 
   const UpdateCurrentPhaseParams({
     required this.newPhase,
