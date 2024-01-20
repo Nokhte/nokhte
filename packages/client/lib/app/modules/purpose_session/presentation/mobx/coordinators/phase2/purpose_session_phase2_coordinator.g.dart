@@ -10,6 +10,22 @@ part of 'purpose_session_phase2_coordinator.dart';
 
 mixin _$PurposeSessionPhase2Coordinator
     on _PurposeSessionPhase2CoordinatorBase, Store {
+  late final _$_PurposeSessionPhase2CoordinatorBaseActionController =
+      ActionController(
+          name: '_PurposeSessionPhase2CoordinatorBase', context: context);
+
+  @override
+  dynamic constructor() {
+    final _$actionInfo = _$_PurposeSessionPhase2CoordinatorBaseActionController
+        .startAction(name: '_PurposeSessionPhase2CoordinatorBase.constructor');
+    try {
+      return super.constructor();
+    } finally {
+      _$_PurposeSessionPhase2CoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
