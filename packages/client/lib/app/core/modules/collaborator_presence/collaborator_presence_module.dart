@@ -39,6 +39,11 @@ class CollaboratorPresenceModule extends Module {
         contract: i<CollaboratorPresenceContractImpl>(),
       ),
     );
+    i.add<CancelSessionMetadataStream>(
+      () => CancelSessionMetadataStream(
+        contract: i<CollaboratorPresenceContractImpl>(),
+      ),
+    );
     i.add<UpdateOnlineStatus>(
       () => UpdateOnlineStatus(
         contract: i<CollaboratorPresenceContractImpl>(),
@@ -52,6 +57,11 @@ class CollaboratorPresenceModule extends Module {
     i.add<UpdateWhoIsTalking>(
       () => UpdateWhoIsTalking(
         contract: i<CollaboratorPresenceContractImpl>(),
+      ),
+    );
+    i.add<CancelSessionMetadataStreamStore>(
+      () => CancelSessionMetadataStreamStore(
+        logic: i<CancelSessionMetadataStream>(),
       ),
     );
     i.add<GetSessionMetadataStore>(
@@ -87,6 +97,7 @@ class CollaboratorPresenceModule extends Module {
     );
     i.add<CollaboratorPresenceCoordinator>(
       () => CollaboratorPresenceCoordinator(
+        cancelSessionMetadataStream: i<CancelSessionMetadataStreamStore>(),
         updateCurrentPhase: i<UpdateCurrentPhaseStore>(),
         getSessionMetadata: i<GetSessionMetadataStore>(),
         updateOnCallStatus: i<UpdateOnCallStatusStore>(),
