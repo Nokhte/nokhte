@@ -105,6 +105,16 @@ mixin _$PurposeSessionPhase1Coordinator
     return _$onResumedAsyncAction.run(() => super.onResumed());
   }
 
+  late final _$onTimesUpCompletedAsyncAction = AsyncAction(
+      '_PurposeSessionPhase1CoordinatorBase.onTimesUpCompleted',
+      context: context);
+
+  @override
+  Future onTimesUpCompleted() {
+    return _$onTimesUpCompletedAsyncAction
+        .run(() => super.onTimesUpCompleted());
+  }
+
   @override
   String toString() {
     return '''

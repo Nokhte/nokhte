@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
@@ -78,21 +77,13 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
         .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
   }
 
-  // @action
-  // onTimesUpCompleted() async {
-  //   // await collaboratorPresence.updateTimerStatus(false);
-  //   // await collaboratorPresence .updateOnCallStatus(UpdatePresencePropertyParams.userNegative());
-  //   // await collaboratorPresence.updateOnlineStatus
-  //   // ^^ Im not sure this is what we need, what we want is basically
-  //   // ** to track the phase that they are currently in should be b/c
-  //   // ** think about it these clients will always be SLIGHTLY off which
-  //   // ** means we need a mechanism to deal with such reality
-  //   // ** I would recommend that we add an extra property into existing
-  //   // ** collaborations that indicates the phase they are on I'm thinking
-  //   // ** an List<int> should do I would say commit some of the changes and get to that
-
-  //   await voiceCall.leaveCall();
-  // }
+  @action
+  onTimesUpCompleted() async {
+    await collaboratorPresence.updateCurrentPhase(
+      const UpdateCurrentPhaseParams(newPhase: 2),
+    );
+    await voiceCall.leaveCall();
+  }
 
   initReactors() {
     onCallStatusChangeReactor();
@@ -109,7 +100,8 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
             .updateOnCallStatus(UpdatePresencePropertyParams.userAffirmative());
       },
     );
-    // widgets.beachWavesMovieStatusReactor();
+    widgets.beachWavesMovieStatusReactor(
+        onTimesUpCompleted: onTimesUpCompleted);
   }
 
   holdReactor() => reaction((p0) => hold.holdCount, (p0) async {
@@ -164,7 +156,9 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
           await collaboratorPresence.updateOnCallStatus(
               UpdatePresencePropertyParams.userAffirmative());
         } else if (p0 == CallStatus.left) {
-          widgets.onCallLeft();
+          if (!collaboratorPresence.getSessionMetadata.collaboratorHasMovedOn) {
+            widgets.onCallLeft();
+          }
           await collaboratorPresence
               .updateOnCallStatus(UpdatePresencePropertyParams.userNegative());
         }
@@ -177,7 +171,9 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
           await collaboratorPresence.updateOnCallStatus(
               UpdatePresencePropertyParams.collaboratorAffirmative());
         } else {
-          widgets.onCallLeft();
+          if (!collaboratorPresence.getSessionMetadata.collaboratorHasMovedOn) {
+            widgets.onCallLeft();
+          }
           await collaboratorPresence.updateOnCallStatus(
               UpdatePresencePropertyParams.collaboratorNegative());
         }
