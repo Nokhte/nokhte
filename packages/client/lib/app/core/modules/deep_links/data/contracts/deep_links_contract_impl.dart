@@ -20,10 +20,10 @@ class DeepLinksContractImpl with ResponseToStatus implements DeepLinksContract {
       remoteSource.listenForOpenedDeepLink();
 
   @override
-  getDeepLinkURL(GetDeepLinkURLParams params) async {
+  getDeepLinkURL(params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.getDeepLinkURL(params);
-      return Right(DeepLinkUrlEntity(link: res.result));
+      return Right(res.result);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
