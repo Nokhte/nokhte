@@ -31,6 +31,21 @@ mixin _$PurposeSessionPhase2WidgetsCoordinator
   }
 
   @override
+  dynamic initReactors() {
+    final _$actionInfo =
+        _$_PurposeSessionPhase2WidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_PurposeSessionPhase2WidgetsCoordinatorBase.initReactors');
+    try {
+      return super.initReactors();
+    } finally {
+      _$_PurposeSessionPhase2WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 

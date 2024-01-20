@@ -30,9 +30,23 @@ abstract class _PurposeSessionPhase2WidgetsCoordinatorBase
         .setMovieMode(BeachWaveMovieModes.suspendedAtTheDepthsToTimesUpStart);
     beachWaves.currentStore.initMovie(NoParams());
     primarySmartText.setMessagesData(MessagesData.purposeSessionPhase2List);
+    primarySmartText.startRotatingText();
+    initReactors();
+  }
+
+  @action
+  initReactors() {
+    smartTextIndexReactor();
     wifiDisconnectOverlay.connectionReactor(
       onConnected: () {},
       onDisconnected: () {},
     );
   }
+
+  smartTextIndexReactor() =>
+      reaction((p0) => primarySmartText.currentIndex, (p0) {
+        if (p0 == 1) {
+          // show document
+        }
+      });
 }
