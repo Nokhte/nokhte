@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mixins/response_to_status.dart';
 import 'package:nokhte/app/core/modules/collaborator_presence/domain/domain.dart';
 import 'package:nokhte/app/core/modules/collaborator_presence/data/data.dart';
@@ -81,4 +82,8 @@ class CollaboratorPresenceContractImpl
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  cancelSessionMetadataStream(NoParams params) =>
+      remoteSource.cancelSessionMetadataStream();
 }

@@ -17,4 +17,5 @@ abstract class CollaboratorPresenceContract {
   );
   Future<Either<Failure, Stream<CollaborationSessionMetadata>>>
       getSessionMetadata(NoParams params);
+  bool cancelSessionMetadataStream(NoParams params);
 }
