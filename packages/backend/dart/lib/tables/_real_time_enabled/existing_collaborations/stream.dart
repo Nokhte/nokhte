@@ -45,10 +45,15 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
     }
   }
 
-  cancelGetCollaboratorSearchStream() =>
-      collaboratorSearchListeningStatus = false;
+  cancelGetCollaboratorSearchStream() {
+    collaboratorSearchListeningStatus = false;
+    return collaboratorSearchListeningStatus;
+  }
 
-  cancelWhoIsTalkingtream() => whoIsTalkingListeningStatus = false;
+  cancelGetSessionMetadataStream() {
+    sessionMetadataListeningStatus = false;
+    return sessionMetadataListeningStatus;
+  }
 
   Stream<CollaborationSessionMetadata> getSessionMetadata() async* {
     await ensureActiveCollaboratorInfo();
