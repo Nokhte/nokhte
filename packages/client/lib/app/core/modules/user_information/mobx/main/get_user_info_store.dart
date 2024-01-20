@@ -23,16 +23,16 @@ abstract class _GetUserInfoStoreBase
   String userUID = "";
 
   @observable
-  UserJourneyInfoEntity entity = UserJourneyInfoEntity.initial;
+  UserJourneyInfoEntity entity = UserJourneyInfoEntity.initial();
 
   final GetUserInfo logic;
   _GetUserInfoStoreBase({required this.logic});
 
   @observable
   BaseFutureStore<UserJourneyInfoEntity> futureStore = BaseFutureStore(
-    baseEntity: Right(UserJourneyInfoEntity.initial),
+    baseEntity: Right(UserJourneyInfoEntity.initial()),
     entityFutureParam: ObservableFuture(
-      Future.value(Right(UserJourneyInfoEntity.initial)),
+      Future.value(Right(UserJourneyInfoEntity.initial())),
     ),
   );
 

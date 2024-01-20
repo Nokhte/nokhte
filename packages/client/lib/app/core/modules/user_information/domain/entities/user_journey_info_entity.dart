@@ -12,7 +12,7 @@ class UserJourneyInfoEntity extends Equatable {
     required this.userUID,
   });
 
-  static UserJourneyInfoEntity get initial => const UserJourneyInfoEntity(
+  factory UserJourneyInfoEntity.initial() => const UserJourneyInfoEntity(
         hasGoneThroughInvitationFlow: false,
         hasSentAnInvitation: false,
         wantsToRepeatInvitationFlow: false,
