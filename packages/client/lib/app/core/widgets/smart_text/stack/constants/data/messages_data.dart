@@ -198,4 +198,11 @@ class MessagesData {
           pauseHere: true,
         ),
       ];
+
+  static List<RotatingTextData> get purposeSessionPhase2List => [
+        RotatingTextData(
+          mainMessage: "Answer: What can we collectively create?",
+          onScreenTime: Seconds.get(3),
+        ),
+      ];
 }
