@@ -204,5 +204,9 @@ class MessagesData {
           mainMessage: "Answer: What can we collectively create?",
           onScreenTime: Seconds.get(3),
         ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
       ];
 }
