@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -61,6 +63,14 @@ abstract class _GetSessionMetadataStoreBase
   ObservableStream<CollaborationSessionMetadata> sessionMetadata =
       ObservableStream(const Stream.empty());
 
+  StreamSubscription<CollaborationSessionMetadata> streamSubscription =
+      Stream.value(CollaborationSessionMetadata.initial()).listen((event) {});
+
+  dispose() async {
+    await streamSubscription.cancel();
+    await sessionMetadata.close();
+  }
+
   @override
   @action
   Future<void> call(params) async {
@@ -72,7 +82,8 @@ abstract class _GetSessionMetadataStoreBase
       },
       (stream) {
         sessionMetadata = ObservableStream(stream);
-        sessionMetadata.listen((value) {
+        streamSubscription = sessionMetadata.listen((value) {
+          print("new values $value");
           userIsOnCall = value.userIsOnCall;
           collaboratorIsOnCall = value.collaboratorIsOnCall;
           userIsOnline = value.userIsOnline;
