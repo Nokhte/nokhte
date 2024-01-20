@@ -10,6 +10,7 @@ class PurposeSessionWidgetsModule extends Module {
         BeachWavesModule(),
         WifiDisconnectOverlayModule(),
         SmartTextModule(),
+        GestureCrossModule(),
       ];
 
   @override
@@ -38,7 +39,12 @@ class PurposeSessionWidgetsModule extends Module {
           nokhteBlur: Modular.get<NokhteBlurStore>()),
     );
     i.add<PurposeSessionPhase2WidgetsCoordinator>(
-      () => PurposeSessionPhase2WidgetsCoordinator(),
+      () => PurposeSessionPhase2WidgetsCoordinator(
+        gestureCross: i<GestureCrossStore>(),
+        beachWaves: Modular.get<BeachWavesStore>(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        primarySmartText: Modular.get<SmartTextStore>(),
+      ),
     );
     i.add<PurposeSessionPhase3WidgetsCoordinator>(
       () => PurposeSessionPhase3WidgetsCoordinator(),
