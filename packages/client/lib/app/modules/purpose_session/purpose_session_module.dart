@@ -57,6 +57,7 @@ class PurposeSessionModule extends Module {
 
     i.add<PurposeSessionPhase2Coordinator>(
       () => PurposeSessionPhase2Coordinator(
+        swipe: Modular.get<SwipeDetector>(),
         widgets: Modular.get<PurposeSessionPhase2WidgetsCoordinator>(),
       ),
     );
