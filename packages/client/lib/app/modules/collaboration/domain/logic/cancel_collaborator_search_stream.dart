@@ -2,7 +2,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/modules/collaboration/domain/domain.dart';
 
 class CancelCollaboratorSearchStream
-    extends AbstractFutureLogic<bool, NoParams> {
+    extends AbstractSyncNoFailureLogic<bool, NoParams> {
   final CollaborationContract contract;
 
   CancelCollaboratorSearchStream({
@@ -10,5 +10,5 @@ class CancelCollaboratorSearchStream
   });
 
   @override
-  call(params) async => await contract.cancelCollaboratorSearchStream(params);
+  call(params) => contract.cancelCollaboratorSearchStream(params);
 }

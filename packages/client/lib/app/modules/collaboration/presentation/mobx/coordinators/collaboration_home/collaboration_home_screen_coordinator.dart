@@ -6,7 +6,6 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/deep_links/constants/constants.dart';
-import 'package:nokhte/app/core/modules/deep_links/domain/domain.dart';
 import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -23,14 +22,14 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
   final UserInformationCoordinator userInformation;
   final SwipeDetector swipe;
   final DeepLinksCoordinator deepLinks;
-  final EnterCollaboratorPoolStore enterCollaboratorPool;
+  final CollaborationLogicCoordinator logic;
 
   _CollaborationHomeScreenCoordinatorBase({
     required this.widgets,
     required this.deepLinks,
     required this.userInformation,
     required this.swipe,
-    required this.enterCollaboratorPool,
+    required this.logic,
   });
 
   @observable
@@ -48,7 +47,7 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
 
   @action
   constructor() async {
-    deepLinks.listenForOpenedDeepLink(NoParams());
+    deepLinks.listenForOpenedDeepLinkStore(NoParams());
     setAdditionalRoutingData(Modular.args.data);
     widgets.constructor();
     widgets.initReactors(
@@ -72,24 +71,20 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
     } else {
       widgets.invitationFlowConstructor();
     }
-    await deepLinks.getDeepLinkURL(
-      const GetDeepLinkURLParams(
-        type: DeepLinkTypes.collaboratorInvitation,
-      ),
-    );
+    await deepLinks.getDeepLinkURL(DeepLinkTypes.collaboratorInvitation);
   }
 
   @action
   onGradientTreeNodeTap() => ifTouchIsNotDisabled(() {
-        deepLinks.sendDeepLink(deepLinks.getDeepLinkURL.link);
+        deepLinks.sendDeepLink(deepLinks.link);
       });
 
   @action
   onFlowCompleted() => userInformation.updateHasGoneThroughInvitationFlow(true);
 
   @action
-  onEnterCollaboratorPool() => enterCollaboratorPool(
-      additionalRoutingData[CollaborationCodeKeys.collaboratorUID]);
+  onEnterCollaboratorPool() =>
+      logic.enter(additionalRoutingData[CollaborationCodeKeys.collaboratorUID]);
 
   initReactors() {
     swipeReactor();
@@ -98,21 +93,22 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
     collaboratorPoolEntryReactor();
   }
 
-  deepLinksReactor() => reaction((p0) => deepLinks.listenForOpenedDeepLink.path,
+  deepLinksReactor() => reaction(
+      (p0) => deepLinks.listenForOpenedDeepLinkStore.path,
       (p0) => onDeepLinkOpened(p0));
 
   @action
   onDeepLinkOpened(String path) {
     if (path == '/collaboration/') {
       setAdditionalRoutingData(
-        deepLinks.listenForOpenedDeepLink.additionalMetadata,
+        deepLinks.listenForOpenedDeepLinkStore.additionalMetadata,
       );
       widgets.initCollaboratorPoolWidgets();
     }
   }
 
-  shareInvitationReactor() => reaction((p0) => deepLinks.sendDeepLink.isShared,
-      (p0) async => await onInvitationShared(p0));
+  shareInvitationReactor() => reaction(
+      (p0) => deepLinks.isShared, (p0) async => await onInvitationShared(p0));
 
   @action
   onInvitationShared(bool isShared) async {
@@ -145,9 +141,8 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
     }
   }
 
-  collaboratorPoolEntryReactor() => reaction(
-      (p0) => enterCollaboratorPool.hasEntered,
-      (p0) => onCollaboratorPoolEntered(p0));
+  collaboratorPoolEntryReactor() =>
+      reaction((p0) => logic.hasEntered, (p0) => onCollaboratorPoolEntered(p0));
 
   onCollaboratorPoolEntered(bool hasEntered) {
     if (hasEntered) {

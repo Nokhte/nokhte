@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
 part 'collaborator_pool_screen_coordinator.g.dart';
@@ -11,33 +10,27 @@ class CollaboratorPoolScreenCoordinator = _CollaboratorPoolScreenCoordinatorBase
 abstract class _CollaboratorPoolScreenCoordinatorBase extends BaseCoordinator
     with Store {
   final CollaboratorPoolScreenWidgetsCoordinator widgets;
-  final CancelCollaboratorSearchStreamStore cancelCollaboratorSearchStream;
-  final ExitCollaboratorPoolStore exitCollaboratorPool;
-  final GetCollaboratorSearchStatusStore getCollaboratorSearchStatus;
+  final CollaborationLogicCoordinator logic;
 
   _CollaboratorPoolScreenCoordinatorBase({
     required this.widgets,
-    required this.cancelCollaboratorSearchStream,
-    required this.exitCollaboratorPool,
-    required this.getCollaboratorSearchStatus,
+    required this.logic,
   });
 
   @action
   constructor() {
     widgets.constructor();
-    getCollaboratorSearchStatus();
+    logic.listen();
     searchStatusReactor();
   }
 
   @action
-  exitThePool() async => await exitCollaboratorPool(NoParams());
+  exitThePool() async => await logic.exit();
 
   searchStatusReactor() =>
-      reaction((p0) => getCollaboratorSearchStatus.hasFoundCollaborator,
-          (p0) async {
+      reaction((p0) => logic.hasFoundCollaborator, (p0) async {
         if (p0) {
-          cancelCollaboratorSearchStream(NoParams());
-          await getCollaboratorSearchStatus.dispose();
+          await logic.dispose();
           widgets.initTransitionToPurposeSession();
         }
       });

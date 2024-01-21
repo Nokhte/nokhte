@@ -8,5 +8,5 @@ abstract class CollaborationContract {
   Future<Either<Failure, bool>> exitCollaboratorPool(NoParams params);
   Future<Either<Failure, Stream<bool>>> getCollaboratorSearchStatus(
       NoParams params);
-  Future<Either<Failure, bool>> cancelCollaboratorSearchStream(NoParams params);
+  bool cancelCollaboratorSearchStream(NoParams params);
 }
