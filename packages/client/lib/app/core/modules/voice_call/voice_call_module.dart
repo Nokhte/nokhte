@@ -60,21 +60,6 @@ class VoiceCallModule extends Module {
         contract: i<VoiceCallContractImpl>(),
       ),
     );
-    i.add<InitAgoraSdkStore>(
-      () => InitAgoraSdkStore(
-        logic: i<InitAgoraSdk>(),
-      ),
-    );
-    i.add<GetAgoraTokenStore>(
-      () => GetAgoraTokenStore(
-        logic: i<GetAgoraToken>(),
-      ),
-    );
-    i.add<GetChannelIdStore>(
-      () => GetChannelIdStore(
-        logic: i<GetChannelId>(),
-      ),
-    );
     i.add<VoiceCallStatusStore>(
       () => VoiceCallStatusStore(),
     );
@@ -88,11 +73,11 @@ class VoiceCallModule extends Module {
     );
     i.add<VoiceCallCoordinator>(
       () => VoiceCallCoordinator(
-        initAgoraSdk: i<InitAgoraSdkStore>(),
+        initAgoraSdk: i<InitAgoraSdk>(),
         voiceCallActions: i<VoiceCallActionsStore>(),
         voiceCallStatus: i<VoiceCallStatusStore>(),
-        getAgoraToken: i<GetAgoraTokenStore>(),
-        getChannelId: i<GetChannelIdStore>(),
+        getAgoraToken: i<GetAgoraToken>(),
+        getChannelId: i<GetChannelId>(),
       ),
     );
   }
