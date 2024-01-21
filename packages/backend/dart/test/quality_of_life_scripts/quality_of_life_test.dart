@@ -266,7 +266,7 @@ void main() {
   });
 
   test("make a solo npc-owned doc & share it with the user", () async {
-    await soloDocQueries.createSoloDoc(desiredDocType: 'purpose');
+    await soloDocQueries.createSoloDoc('purpose');
     await soloDocQueries.updateDocContent('npc content');
     await soloDocQueries.updateDocVisibility(makeVisible: true);
   });
