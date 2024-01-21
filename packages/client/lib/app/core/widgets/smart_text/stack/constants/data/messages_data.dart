@@ -208,5 +208,21 @@ class MessagesData {
           mainMessage: "",
           pauseHere: true,
         ),
+        RotatingTextData(
+          mainMessage: "Swipe Up If you are done",
+          onScreenTime: Seconds.get(2),
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "Waiting On Collaborator",
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
       ];
 }
