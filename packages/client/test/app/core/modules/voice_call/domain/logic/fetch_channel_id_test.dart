@@ -17,12 +17,12 @@ void main() {
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
     when(mockContract.getChannelId()).thenAnswer(
-      (_) async => Right("channelId"),
+      (_) async => const Right("channelId"),
     );
 
     final result = await logic(NoParams());
 
-    expect(result, Right("channelId"));
+    expect(result, const Right("channelId"));
     verify(mockContract.getChannelId());
     verifyNoMoreInteractions(mockContract);
   });

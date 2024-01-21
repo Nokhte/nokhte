@@ -17,12 +17,12 @@ void main() {
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
     when(mockContract.getAgoraToken(channelName: 'hi')).thenAnswer(
-      (_) async => Right("token"),
+      (_) async => const Right("token"),
     );
 
     final result = await logic(tParams);
 
-    expect(result, Right("token"));
+    expect(result, const Right("token"));
     verify(mockContract.getAgoraToken(channelName: 'hi'));
     verifyNoMoreInteractions(mockContract);
   });
