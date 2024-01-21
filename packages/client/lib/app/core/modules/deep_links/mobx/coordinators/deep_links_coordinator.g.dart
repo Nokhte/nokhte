@@ -57,6 +57,20 @@ mixin _$DeepLinksCoordinator on _DeepLinksCoordinatorBase, Store {
     return _$shareAsyncAction.run(() => super.share(link));
   }
 
+  late final _$_DeepLinksCoordinatorBaseActionController =
+      ActionController(name: '_DeepLinksCoordinatorBase', context: context);
+
+  @override
+  dynamic listen() {
+    final _$actionInfo = _$_DeepLinksCoordinatorBaseActionController
+        .startAction(name: '_DeepLinksCoordinatorBase.listen');
+    try {
+      return super.listen();
+    } finally {
+      _$_DeepLinksCoordinatorBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

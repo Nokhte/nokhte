@@ -4,7 +4,6 @@ import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
-import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -67,7 +66,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   constructor() {
-    deepLinks.listenForOpenedDeepLink(NoParams());
+    deepLinks.listen();
     gestureCross.setHomeScreen();
     beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
     primarySmartText.setMessagesData(MessagesData.firstTimeHomeList);
@@ -293,7 +292,8 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
             !isDisconnected) {
           Modular.to.navigate(
             '/collaboration/',
-            arguments: deepLinks.listenForOpenedDeepLink.additionalMetadata,
+            arguments:
+                deepLinks.listenForOpenedDeepLinkStore.additionalMetadata,
           );
         }
       });

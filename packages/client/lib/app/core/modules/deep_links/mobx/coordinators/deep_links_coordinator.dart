@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/deep_links/constants/types/deep_link_types.dart';
 import 'package:nokhte/app/core/modules/deep_links/domain/domain.dart';
@@ -42,4 +43,7 @@ abstract class _DeepLinksCoordinatorBase extends BaseMobxDBStore with Store {
         (isShared) => this.isShared = isShared);
     state = StoreState.loaded;
   }
+
+  @action
+  listen() => listenForOpenedDeepLinkStore(NoParams());
 }
