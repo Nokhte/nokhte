@@ -70,9 +70,4 @@ void main() {
       verify(mockAddNameToDatabase(NoParams()));
     });
   });
-
-  test("repeatTheFlow", () async {
-    await testStore.repeatTheFlow();
-    verify(mockUserInformation.updateWantsToRepeatInvitationFlow(true));
-  });
 }

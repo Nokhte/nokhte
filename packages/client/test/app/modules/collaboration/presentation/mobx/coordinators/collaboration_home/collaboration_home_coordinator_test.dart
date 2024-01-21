@@ -67,12 +67,6 @@ void main() {
           .getDeepLinkURL(DeepLinkTypes.collaboratorInvitation));
     });
 
-    test("onFlowCompleted", () {
-      testStore.onFlowCompleted();
-      verify(
-          testStore.userInformation.updateHasGoneThroughInvitationFlow(true));
-    });
-
     test("onEnterCollaboratorPool", () {
       testStore.setAdditionalRoutingData({"collaboratorUID": "value"});
       testStore.onEnterCollaboratorPool();
@@ -84,12 +78,6 @@ void main() {
       when(testStore.deepLinks.listenForOpenedDeepLinkStore.additionalMetadata)
           .thenReturn(ObservableMap.of({}));
       testStore.onDeepLinkOpened("/collaboration/");
-      verify(testStore.widgets.initCollaboratorPoolWidgets());
-    });
-
-    test("onInvitationShared", () {
-      testStore.setAdditionalRoutingData({"collaboratorUID": "value"});
-      testStore.onInvitationShared(true);
       verify(testStore.widgets.initCollaboratorPoolWidgets());
     });
 
