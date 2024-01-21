@@ -21,6 +21,9 @@ class PurposeSessionWidgetsModule extends Module {
     i.add<BorderGlowStore>(
       () => BorderGlowStore(),
     );
+    i.add<TextEditorStore>(
+      () => TextEditorStore(),
+    );
     i.add<PurposeSessionPhase0WidgetsCoordinator>(
       () => PurposeSessionPhase0WidgetsCoordinator(
         beachWaves: Modular.get<BeachWavesStore>(),
@@ -40,7 +43,9 @@ class PurposeSessionWidgetsModule extends Module {
     );
     i.add<PurposeSessionPhase2WidgetsCoordinator>(
       () => PurposeSessionPhase2WidgetsCoordinator(
-        gestureCross: i<GestureCrossStore>(),
+        textEditor: Modular.get<TextEditorStore>(),
+        unsubmittedGestureCross: Modular.get<GestureCrossStore>(),
+        submittedGestureCross: Modular.get<GestureCrossStore>(),
         beachWaves: Modular.get<BeachWavesStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         primarySmartText: Modular.get<SmartTextStore>(),
