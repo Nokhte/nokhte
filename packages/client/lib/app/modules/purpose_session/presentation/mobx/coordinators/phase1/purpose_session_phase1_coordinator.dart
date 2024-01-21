@@ -48,10 +48,10 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
     widgets.constructor();
     widgets.onCallLeft();
     initReactors();
-    collaboratorPresence.getSessionMetadata.setCurrentPhase(1.0);
+    collaboratorPresence.setCurrentPhase(1.0);
     await Permission.microphone.request();
     await voiceCall.joinCall(shouldEnterTheCallMuted: true);
-    await collaboratorPresence.getSessionMetadata(NoParams());
+    await collaboratorPresence.listen();
     collaboratorPresence
         .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
     await checkIfUserHasTheQuestion(NoParams());
@@ -84,8 +84,7 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
       const UpdateCurrentPhaseParams(newPhase: 1.5),
     );
     await voiceCall.leaveCall();
-    await collaboratorPresence.getSessionMetadata.dispose();
-    collaboratorPresence.cancelSessionMetadataStream(NoParams());
+    await collaboratorPresence.dispose();
   }
 
   initReactors() {
@@ -100,7 +99,7 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
     widgets.wifiDisconnectOverlayReactor(
       onConnectionFinished: () async {
         await collaboratorPresence
-            .updateOnCallStatus(UpdatePresencePropertyParams.userAffirmative());
+            .updateCallStatus(UpdatePresencePropertyParams.userAffirmative());
       },
     );
     widgets.beachWavesMovieStatusReactor(
@@ -156,14 +155,14 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
       reaction((p0) => voiceCall.voiceCallStatus.inCall, (p0) async {
         if (p0 == CallStatus.joined) {
           widgets.onCallJoined();
-          await collaboratorPresence.updateOnCallStatus(
-              UpdatePresencePropertyParams.userAffirmative());
+          await collaboratorPresence
+              .updateCallStatus(UpdatePresencePropertyParams.userAffirmative());
         } else if (p0 == CallStatus.left) {
           if (!collaboratorPresence.getSessionMetadata.collaboratorHasMovedOn) {
             widgets.onCallLeft();
           }
           await collaboratorPresence
-              .updateOnCallStatus(UpdatePresencePropertyParams.userNegative());
+              .updateCallStatus(UpdatePresencePropertyParams.userNegative());
         }
       });
 
@@ -171,13 +170,13 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
       reaction((p0) => voiceCall.voiceCallStatus.hasCollaboratorJoined,
           (p0) async {
         if (p0) {
-          await collaboratorPresence.updateOnCallStatus(
+          await collaboratorPresence.updateCallStatus(
               UpdatePresencePropertyParams.collaboratorAffirmative());
         } else {
           if (!collaboratorPresence.getSessionMetadata.collaboratorHasMovedOn) {
             widgets.onCallLeft();
           }
-          await collaboratorPresence.updateOnCallStatus(
+          await collaboratorPresence.updateCallStatus(
               UpdatePresencePropertyParams.collaboratorNegative());
         }
       });
@@ -189,7 +188,7 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
           widgets.onCollaboratorJoined();
         } else {
           widgets.onCollaboratorLeft();
-          await collaboratorPresence.updateOnCallStatus(
+          await collaboratorPresence.updateCallStatus(
               UpdatePresencePropertyParams.collaboratorNegative());
         }
       });
