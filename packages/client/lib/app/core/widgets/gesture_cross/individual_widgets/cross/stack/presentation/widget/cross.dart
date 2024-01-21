@@ -10,10 +10,12 @@ import 'canvas/cross_painter.dart';
 class Cross extends StatelessWidget {
   final Size size;
   final CrossStore store;
+  final bool showGlowAndOutline;
   const Cross({
     super.key,
     required this.size,
     required this.store,
+    required this.showGlowAndOutline,
   });
 
   @override
@@ -30,6 +32,7 @@ class Cross extends StatelessWidget {
           builder: (context, value, child) => SizedBox.expand(
             child: CustomPaint(
               painter: CrossPainter(
+                showGlowAndOutline: showGlowAndOutline,
                 store.path,
                 store.bounds,
                 size,
