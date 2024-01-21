@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
-import '../../constants/entities/entities.dart';
 import '../../fixtures/voice_call_mock_gen.mocks.dart';
 
 void main() {
@@ -23,7 +22,7 @@ void main() {
 
     final result = await logic(tParams);
 
-    expect(result, ConstantAgoraCallTokenEntity.wrappedSuccessCase);
+    expect(result, Right("token"));
     verify(mockContract.getAgoraToken(channelName: 'hi'));
     verifyNoMoreInteractions(mockContract);
   });

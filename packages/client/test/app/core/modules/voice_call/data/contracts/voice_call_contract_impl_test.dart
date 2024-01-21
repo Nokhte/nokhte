@@ -35,7 +35,7 @@ void main() {
         when(mockRemoteSource.getAgoraToken(channelName: 'hi')).thenAnswer(
             (realInvocation) async => TokenServerResponse.successfulResponse);
         final res = await contractImpl.getAgoraToken(channelName: 'hi');
-        expect(res, ConstantAgoraCallTokenModel.wrappedSuccessCase);
+        expect(res, Right("someReturnedToken"));
       });
 
       test("when online and not approved should return a proper model",
@@ -44,7 +44,7 @@ void main() {
             (realInvocation) async =>
                 TokenServerResponse.notSuccessfulResponse);
         final res = await contractImpl.getAgoraToken(channelName: 'hi');
-        expect(res, ConstantAgoraCallTokenModel.wrappedNotSuccessCase);
+        expect(res, Right(""));
       });
     });
     group("is not online", () {
@@ -70,7 +70,7 @@ void main() {
           (realInvocation) async => ExistingCollaboratorsTable.response,
         );
         final res = await contractImpl.getChannelId();
-        expect(res, ConstantChannelIdModel.wrappedSuccessCase);
+        expect(res, Right("11111111111111111112222222222222222222"));
       });
 
       test(
@@ -79,7 +79,7 @@ void main() {
         when(mockRemoteSource.getCollaboratorInfo())
             .thenAnswer((realInvocation) async => []);
         final res = await contractImpl.getChannelId();
-        expect(res, ConstantChannelIdModel.wrappedNotSuccessCase);
+        expect(res, Right(""));
       });
     });
     group("is not online", () {
