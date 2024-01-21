@@ -16,14 +16,8 @@ class CollaborationContractImpl
       {required this.remoteSource, required this.networkInfo});
 
   @override
-  cancelCollaboratorSearchStream(NoParams params) async {
-    if (await networkInfo.isConnected) {
-      final res = remoteSource.cancelStream();
-      return Right(res);
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
+  cancelCollaboratorSearchStream(NoParams params) =>
+      remoteSource.cancelStream();
 
   @override
   enterTheCollaboratorPool(String collaboratorUID) async {
