@@ -45,29 +45,14 @@ class UserInformationModule extends Module {
         logic: i<GetUserInfo>(),
       ),
     );
-    i.add<UpdateHasGoneThroughInvitationFlowStore>(
-      () => UpdateHasGoneThroughInvitationFlowStore(
-        logic: i<UpdateHasGoneThroughInvitationFlow>(),
-      ),
-    );
-    i.add<UpdateHasSentAnInvitationStore>(
-      () => UpdateHasSentAnInvitationStore(
-        logic: i<UpdateHasSentAnInvitation>(),
-      ),
-    );
-    i.add<UpdateWantsToRepeatInvitationFlowStore>(
-      () => UpdateWantsToRepeatInvitationFlowStore(
-        logic: i<UpdateWantsToRepeatInvitationFlow>(),
-      ),
-    );
     i.add<UserInformationCoordinator>(
       () => UserInformationCoordinator(
         getUserInfo: i<GetUserInfoStore>(),
-        updateHasGoneThroughInvitationFlow:
-            i<UpdateHasGoneThroughInvitationFlowStore>(),
-        updateHasSentAnInvitation: i<UpdateHasSentAnInvitationStore>(),
-        updateWantsToRepeatInvitationFlow:
-            i<UpdateWantsToRepeatInvitationFlowStore>(),
+        updateHasGoneThroughInvitationFlowLogic:
+            i<UpdateHasGoneThroughInvitationFlow>(),
+        updateHasSentAnInvitationLogic: i<UpdateHasSentAnInvitation>(),
+        updateWantsToRepeatInvitationFlowLogic:
+            i<UpdateWantsToRepeatInvitationFlow>(),
       ),
     );
   }
