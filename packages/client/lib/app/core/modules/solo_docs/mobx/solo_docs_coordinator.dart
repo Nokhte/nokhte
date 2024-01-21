@@ -3,19 +3,19 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/base_mobx_db_store.dart';
 import 'package:nokhte/app/core/mobx/store_state.dart';
-import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
-part 'solo_doc_coordinator.g.dart';
+import 'package:nokhte/app/core/modules/solo_docs/domain/domain.dart';
+part 'solo_docs_coordinator.g.dart';
 
-class SoloDocCoordinator = _SoloDocCoordinatorBase with _$SoloDocCoordinator;
+class SoloDocsCoordinator = _SoloDocsCoordinatorBase with _$SoloDocsCoordinator;
 
-abstract class _SoloDocCoordinatorBase extends BaseMobxDBStore with Store {
+abstract class _SoloDocsCoordinatorBase extends BaseMobxDBStore with Store {
   final CreateSoloDoc createSoloDoc;
   final GetSoloDoc getSoloDoc;
   final SealSoloDoc sealSoloDoc;
   final ShareSoloDoc shareSoloDoc;
   final SubmitSoloDoc submitSoloDoc;
 
-  _SoloDocCoordinatorBase({
+  _SoloDocsCoordinatorBase({
     required this.createSoloDoc,
     required this.getSoloDoc,
     required this.sealSoloDoc,
@@ -39,7 +39,7 @@ abstract class _SoloDocCoordinatorBase extends BaseMobxDBStore with Store {
   String remoteDocContent = "";
 
   @action
-  create(CreateSoloDocParams params) async {
+  create(SoloDocTypes params) async {
     state = StoreState.loading;
     final res = await createSoloDoc.call(params);
     res.fold((failure) => errorUpdater(failure),
@@ -55,23 +55,23 @@ abstract class _SoloDocCoordinatorBase extends BaseMobxDBStore with Store {
   }
 
   @action
-  seal(NoParams params) async {
+  seal() async {
     state = StoreState.loading;
-    final res = await sealSoloDoc.call(params);
+    final res = await sealSoloDoc.call(NoParams());
     res.fold((failure) => errorUpdater(failure),
         (sealStatus) => isSealed = sealStatus);
   }
 
   @action
-  share(NoParams params) async {
+  share() async {
     state = StoreState.loading;
-    final res = await shareSoloDoc.call(params);
+    final res = await shareSoloDoc.call(NoParams());
     res.fold((failure) => errorUpdater(failure),
         (shareStatus) => isShared = shareStatus);
   }
 
   @action
-  submit(SubmitSoloDocParams params) async {
+  submit(String params) async {
     state = StoreState.loading;
     final res = await submitSoloDoc.call(params);
     res.fold((failure) => errorUpdater(failure),

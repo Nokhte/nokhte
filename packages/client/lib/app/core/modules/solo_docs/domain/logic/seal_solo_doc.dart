@@ -1,8 +1,8 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
+import 'package:nokhte/app/core/modules/solo_docs/domain/domain.dart';
 
 class SealSoloDoc extends AbstractFutureLogic<bool, NoParams> {
-  final SoloDocContract contract;
+  final SoloDocsContract contract;
 
   SealSoloDoc({
     required this.contract,

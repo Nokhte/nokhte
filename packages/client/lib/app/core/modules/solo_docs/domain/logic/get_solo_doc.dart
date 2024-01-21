@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
+import 'package:nokhte/app/core/modules/solo_docs/domain/domain.dart';
 
 class GetSoloDoc extends AbstractFutureLogic<String, GetSoloDocParams> {
-  final SoloDocContract contract;
+  final SoloDocsContract contract;
 
   GetSoloDoc({
     required this.contract,

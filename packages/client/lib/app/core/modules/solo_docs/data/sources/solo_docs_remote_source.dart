@@ -1,10 +1,10 @@
-import 'package:nokhte/app/core/modules/solo_doc/domain/domain.dart';
+import 'package:nokhte/app/core/modules/solo_docs/domain/domain.dart';
 import 'package:nokhte_backend/tables/existing_collaborations.dart';
 import 'package:nokhte_backend/tables/solo_sharable_documents.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-abstract class SoloDocRemoteSource {
-  Future<List> createSoloDoc(CreateSoloDocParams params);
+abstract class SoloDocsRemoteSource {
+  Future<List> createSoloDoc(SoloDocTypes params);
 
   Future<List> getSoloDocContent(GetSoloDocParams params);
 
@@ -12,16 +12,21 @@ abstract class SoloDocRemoteSource {
 
   Future<List> shareSoloDoc();
 
-  Future<List> submitDocContent(SubmitSoloDocParams params);
+  Future<List> submitDocContent(String params);
 }
 
-class SoloDocRemoteSourceImpl implements SoloDocRemoteSource {
+class SoloDocsRemoteSourceImpl implements SoloDocsRemoteSource {
   final SupabaseClient supabase;
   final ExistingCollaborationsQueries existingCollaborationsQueries;
   late CollaboratorInfo collaborationInfo;
   late SoloSharableDocumentQueries soloDocQueries;
 
-  SoloDocRemoteSourceImpl({
+  static const Map<SoloDocTypes, String> docTypeMap = {
+    SoloDocTypes.collective: "collective",
+    SoloDocTypes.purpose: "purpose",
+  };
+
+  SoloDocsRemoteSourceImpl({
     required this.supabase,
   })  : existingCollaborationsQueries =
             ExistingCollaborationsQueries(supabase: supabase),
@@ -29,7 +34,7 @@ class SoloDocRemoteSourceImpl implements SoloDocRemoteSource {
 
   @override
   Future<List> createSoloDoc(params) async =>
-      await soloDocQueries.createSoloDoc(desiredDocType: params.docType);
+      await soloDocQueries.createSoloDoc(docTypeMap[params] as String);
 
   @override
   Future<List> getSoloDocContent(params) async =>
@@ -47,5 +52,5 @@ class SoloDocRemoteSourceImpl implements SoloDocRemoteSource {
 
   @override
   Future<List> submitDocContent(params) async =>
-      await soloDocQueries.updateDocContent(params.content);
+      await soloDocQueries.updateDocContent(params);
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'solo_doc_coordinator.dart';
+part of 'solo_docs_coordinator.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,9 +8,9 @@ part of 'solo_doc_coordinator.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$SoloDocCoordinator on _SoloDocCoordinatorBase, Store {
+mixin _$SoloDocsCoordinator on _SoloDocsCoordinatorBase, Store {
   late final _$isCreatedAtom =
-      Atom(name: '_SoloDocCoordinatorBase.isCreated', context: context);
+      Atom(name: '_SoloDocsCoordinatorBase.isCreated', context: context);
 
   @override
   bool get isCreated {
@@ -26,7 +26,7 @@ mixin _$SoloDocCoordinator on _SoloDocCoordinatorBase, Store {
   }
 
   late final _$isSealedAtom =
-      Atom(name: '_SoloDocCoordinatorBase.isSealed', context: context);
+      Atom(name: '_SoloDocsCoordinatorBase.isSealed', context: context);
 
   @override
   bool get isSealed {
@@ -42,7 +42,7 @@ mixin _$SoloDocCoordinator on _SoloDocCoordinatorBase, Store {
   }
 
   late final _$isSharedAtom =
-      Atom(name: '_SoloDocCoordinatorBase.isShared', context: context);
+      Atom(name: '_SoloDocsCoordinatorBase.isShared', context: context);
 
   @override
   bool get isShared {
@@ -58,7 +58,7 @@ mixin _$SoloDocCoordinator on _SoloDocCoordinatorBase, Store {
   }
 
   late final _$isSubmittedAtom =
-      Atom(name: '_SoloDocCoordinatorBase.isSubmitted', context: context);
+      Atom(name: '_SoloDocsCoordinatorBase.isSubmitted', context: context);
 
   @override
   bool get isSubmitted {
@@ -74,7 +74,7 @@ mixin _$SoloDocCoordinator on _SoloDocCoordinatorBase, Store {
   }
 
   late final _$remoteDocContentAtom =
-      Atom(name: '_SoloDocCoordinatorBase.remoteDocContent', context: context);
+      Atom(name: '_SoloDocsCoordinatorBase.remoteDocContent', context: context);
 
   @override
   String get remoteDocContent {
@@ -90,15 +90,15 @@ mixin _$SoloDocCoordinator on _SoloDocCoordinatorBase, Store {
   }
 
   late final _$createAsyncAction =
-      AsyncAction('_SoloDocCoordinatorBase.create', context: context);
+      AsyncAction('_SoloDocsCoordinatorBase.create', context: context);
 
   @override
-  Future create(CreateSoloDocParams params) {
+  Future create(SoloDocTypes params) {
     return _$createAsyncAction.run(() => super.create(params));
   }
 
   late final _$getDocAsyncAction =
-      AsyncAction('_SoloDocCoordinatorBase.getDoc', context: context);
+      AsyncAction('_SoloDocsCoordinatorBase.getDoc', context: context);
 
   @override
   Future getDoc(GetSoloDocParams params) {
@@ -106,26 +106,26 @@ mixin _$SoloDocCoordinator on _SoloDocCoordinatorBase, Store {
   }
 
   late final _$sealAsyncAction =
-      AsyncAction('_SoloDocCoordinatorBase.seal', context: context);
+      AsyncAction('_SoloDocsCoordinatorBase.seal', context: context);
 
   @override
-  Future seal(NoParams params) {
-    return _$sealAsyncAction.run(() => super.seal(params));
+  Future seal() {
+    return _$sealAsyncAction.run(() => super.seal());
   }
 
   late final _$shareAsyncAction =
-      AsyncAction('_SoloDocCoordinatorBase.share', context: context);
+      AsyncAction('_SoloDocsCoordinatorBase.share', context: context);
 
   @override
-  Future share(NoParams params) {
-    return _$shareAsyncAction.run(() => super.share(params));
+  Future share() {
+    return _$shareAsyncAction.run(() => super.share());
   }
 
   late final _$submitAsyncAction =
-      AsyncAction('_SoloDocCoordinatorBase.submit', context: context);
+      AsyncAction('_SoloDocsCoordinatorBase.submit', context: context);
 
   @override
-  Future submit(SubmitSoloDocParams params) {
+  Future submit(String params) {
     return _$submitAsyncAction.run(() => super.submit(params));
   }
 
