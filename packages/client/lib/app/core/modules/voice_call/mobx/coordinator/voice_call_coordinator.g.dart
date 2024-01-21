@@ -25,12 +25,76 @@ mixin _$VoiceCallCoordinator on _VoiceCallCoordinatorBase, Store {
     });
   }
 
+  late final _$channelIdAtom =
+      Atom(name: '_VoiceCallCoordinatorBase.channelId', context: context);
+
+  @override
+  String get channelId {
+    _$channelIdAtom.reportRead();
+    return super.channelId;
+  }
+
+  @override
+  set channelId(String value) {
+    _$channelIdAtom.reportWrite(value, super.channelId, () {
+      super.channelId = value;
+    });
+  }
+
+  late final _$tokenAtom =
+      Atom(name: '_VoiceCallCoordinatorBase.token', context: context);
+
+  @override
+  String get token {
+    _$tokenAtom.reportRead();
+    return super.token;
+  }
+
+  @override
+  set token(String value) {
+    _$tokenAtom.reportWrite(value, super.token, () {
+      super.token = value;
+    });
+  }
+
+  late final _$rtcEngineAtom =
+      Atom(name: '_VoiceCallCoordinatorBase.rtcEngine', context: context);
+
+  @override
+  RtcEngine get rtcEngine {
+    _$rtcEngineAtom.reportRead();
+    return super.rtcEngine;
+  }
+
+  @override
+  set rtcEngine(RtcEngine value) {
+    _$rtcEngineAtom.reportWrite(value, super.rtcEngine, () {
+      super.rtcEngine = value;
+    });
+  }
+
   late final _$initSdkAsyncAction =
       AsyncAction('_VoiceCallCoordinatorBase.initSdk', context: context);
 
   @override
   Future initSdk() {
     return _$initSdkAsyncAction.run(() => super.initSdk());
+  }
+
+  late final _$_getChannelIdAsyncAction =
+      AsyncAction('_VoiceCallCoordinatorBase._getChannelId', context: context);
+
+  @override
+  Future _getChannelId() {
+    return _$_getChannelIdAsyncAction.run(() => super._getChannelId());
+  }
+
+  late final _$_getTokenAsyncAction =
+      AsyncAction('_VoiceCallCoordinatorBase._getToken', context: context);
+
+  @override
+  Future _getToken() {
+    return _$_getTokenAsyncAction.run(() => super._getToken());
   }
 
   late final _$joinCallAsyncAction =
@@ -69,7 +133,10 @@ mixin _$VoiceCallCoordinator on _VoiceCallCoordinatorBase, Store {
   @override
   String toString() {
     return '''
-isInitialized: ${isInitialized}
+isInitialized: ${isInitialized},
+channelId: ${channelId},
+token: ${token},
+rtcEngine: ${rtcEngine}
     ''';
   }
 }
