@@ -1,7 +1,7 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 
-class GetChannelId extends AbstractFutureLogic<ChannelIdEntity, NoParams> {
+class GetChannelId extends AbstractFutureLogic<String, NoParams> {
   final VoiceCallContract contract;
 
   GetChannelId({

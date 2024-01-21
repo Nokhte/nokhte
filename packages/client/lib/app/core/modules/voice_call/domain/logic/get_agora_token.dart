@@ -2,8 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 
-class GetAgoraToken
-    extends AbstractFutureLogic<AgoraCallTokenEntity, GetAgoraTokenParams> {
+class GetAgoraToken extends AbstractFutureLogic<String, GetAgoraTokenParams> {
   final VoiceCallContract contract;
   GetAgoraToken({required this.contract});
 
