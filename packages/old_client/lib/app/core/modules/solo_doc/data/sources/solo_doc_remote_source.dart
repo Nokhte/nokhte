@@ -28,7 +28,7 @@ class SoloDocRemoteSourceImpl implements SoloDocRemoteSource {
 
   @override
   Future<List> createSoloDoc({required String docType}) async =>
-      await soloDocQueries.createSoloDoc(desiredDocType: docType);
+      await soloDocQueries.createSoloDoc(docType);
 
   @override
   Future<List> getSoloDocContent({required bool getCollaboratorsDoc}) async =>
