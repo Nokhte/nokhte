@@ -58,30 +58,19 @@ class CollaborationModule extends Module {
         contract: i<CollaborationContractImpl>(),
       ),
     );
-
-    i.add<CancelCollaboratorSearchStreamStore>(
-      () => CancelCollaboratorSearchStreamStore(
-          logic: i<CancelCollaboratorSearchStream>()),
-    );
-    i.add<EnterCollaboratorPoolStore>(
-      () => EnterCollaboratorPoolStore(
-        logic: i<EnterCollaboratorPool>(),
-      ),
-    );
-    i.add<ExitCollaboratorPoolStore>(
-      () => ExitCollaboratorPoolStore(
-        logic: i<ExitCollaboratorPool>(),
-      ),
-    );
-    i.add<GetCollaboratorSearchStatusStore>(
-      () => GetCollaboratorSearchStatusStore(
-        logic: i<GetCollaboratorSearchStatus>(),
+    i.add<CollaborationLogicCoordinator>(
+      () => CollaborationLogicCoordinator(
+        cancelCollaboratorSearchStreamLogic:
+            i<CancelCollaboratorSearchStream>(),
+        enterCollaboratorPoolLogic: i<EnterCollaboratorPool>(),
+        exitCollaboratorPoolLogic: i<ExitCollaboratorPool>(),
+        getCollaboratorSearchStatusLogic: i<GetCollaboratorSearchStatus>(),
       ),
     );
 
     i.add<CollaborationHomeScreenCoordinator>(
       () => CollaborationHomeScreenCoordinator(
-        enterCollaboratorPool: i<EnterCollaboratorPoolStore>(),
+        logic: Modular.get<CollaborationLogicCoordinator>(),
         swipe: Modular.get<SwipeDetector>(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
         widgets: Modular.get<CollaborationHomeScreenWidgetsCoordinator>(),
@@ -90,10 +79,7 @@ class CollaborationModule extends Module {
     );
     i.add<CollaboratorPoolScreenCoordinator>(
       () => CollaboratorPoolScreenCoordinator(
-        cancelCollaboratorSearchStream:
-            i<CancelCollaboratorSearchStreamStore>(),
-        exitCollaboratorPool: i<ExitCollaboratorPoolStore>(),
-        getCollaboratorSearchStatus: i<GetCollaboratorSearchStatusStore>(),
+        logic: Modular.get<CollaborationLogicCoordinator>(),
         widgets: Modular.get<CollaboratorPoolScreenWidgetsCoordinator>(),
       ),
     );
