@@ -12,7 +12,7 @@ class SoloSharableDocumentQueries extends CollaborativeQueries {
   static const collaboratorUID = "collaborator_uid";
   static const createdAt = "created_at";
 
-  Future<List> createSoloDoc({required String desiredDocType}) async {
+  Future<List> createSoloDoc(String desiredDocType) async {
     await ensureActiveCollaboratorInfo();
     return await supabase.from(table).insert({
       ownerUID: collaboratorInfo.theUsersUID,
