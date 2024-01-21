@@ -6,11 +6,13 @@ class GestureCross extends StatelessWidget {
   final Size size;
   final GestureCrossStore store;
   final GestureCrossConfiguration config;
+  final bool showGlowAndOutline;
   const GestureCross({
     super.key,
     required this.store,
     required this.size,
     required this.config,
+    this.showGlowAndOutline = false,
   });
 
   @override
@@ -34,6 +36,7 @@ class GestureCross extends StatelessWidget {
                   child: MultiHitStack(
                     children: [
                       Cross(
+                        showGlowAndOutline: showGlowAndOutline,
                         size: size,
                         store: store.cross,
                       ),
