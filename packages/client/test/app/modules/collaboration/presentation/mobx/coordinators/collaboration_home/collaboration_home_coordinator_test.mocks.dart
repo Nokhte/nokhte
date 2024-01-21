@@ -3,22 +3,23 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i13;
+import 'dart:async' as _i7;
 
-import 'package:dartz/dartz.dart' as _i11;
+import 'package:dartz/dartz.dart' as _i12;
 import 'package:mobx/mobx.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i10;
-import 'package:nokhte/app/core/error/failure.dart' as _i12;
-import 'package:nokhte/app/core/mobx/base_future_store.dart' as _i6;
-import 'package:nokhte/app/core/mobx/store_state.dart' as _i9;
+import 'package:nokhte/app/core/error/failure.dart' as _i11;
+import 'package:nokhte/app/core/mobx/mobx.dart' as _i9;
+import 'package:nokhte/app/core/modules/user_information/domain/domain.dart'
+    as _i5;
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart' as _i4;
 import 'package:nokhte/app/core/widgets/widgets.dart' as _i2;
-import 'package:nokhte/app/modules/collaboration/domain/domain.dart' as _i5;
+import 'package:nokhte/app/modules/collaboration/domain/domain.dart' as _i6;
 import 'package:nokhte/app/modules/collaboration/presentation/mobx/coordinators/collaboration_home/collaboration_home_screen_widgets_coordinator.dart'
-    as _i7;
-import 'package:nokhte/app/modules/collaboration/presentation/mobx/main/enter_collaborator_pool_store.dart'
     as _i8;
+import 'package:nokhte/app/modules/collaboration/presentation/mobx/coordinators/logic/collaboration_logic_coordinator.dart'
+    as _i13;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -110,9 +111,9 @@ class _FakeGetUserInfoStore_6 extends _i1.SmartFake
         );
 }
 
-class _FakeUpdateHasGoneThroughInvitationFlowStore_7 extends _i1.SmartFake
-    implements _i4.UpdateHasGoneThroughInvitationFlowStore {
-  _FakeUpdateHasGoneThroughInvitationFlowStore_7(
+class _FakeUpdateHasGoneThroughInvitationFlow_7 extends _i1.SmartFake
+    implements _i5.UpdateHasGoneThroughInvitationFlow {
+  _FakeUpdateHasGoneThroughInvitationFlow_7(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -121,9 +122,9 @@ class _FakeUpdateHasGoneThroughInvitationFlowStore_7 extends _i1.SmartFake
         );
 }
 
-class _FakeUpdateHasSentAnInvitationStore_8 extends _i1.SmartFake
-    implements _i4.UpdateHasSentAnInvitationStore {
-  _FakeUpdateHasSentAnInvitationStore_8(
+class _FakeUpdateHasSentAnInvitation_8 extends _i1.SmartFake
+    implements _i5.UpdateHasSentAnInvitation {
+  _FakeUpdateHasSentAnInvitation_8(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -132,9 +133,9 @@ class _FakeUpdateHasSentAnInvitationStore_8 extends _i1.SmartFake
         );
 }
 
-class _FakeUpdateWantsToRepeatInvitationFlowStore_9 extends _i1.SmartFake
-    implements _i4.UpdateWantsToRepeatInvitationFlowStore {
-  _FakeUpdateWantsToRepeatInvitationFlowStore_9(
+class _FakeUpdateWantsToRepeatInvitationFlow_9 extends _i1.SmartFake
+    implements _i5.UpdateWantsToRepeatInvitationFlow {
+  _FakeUpdateWantsToRepeatInvitationFlow_9(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -143,9 +144,9 @@ class _FakeUpdateWantsToRepeatInvitationFlowStore_9 extends _i1.SmartFake
         );
 }
 
-class _FakeEnterCollaboratorPool_10 extends _i1.SmartFake
-    implements _i5.EnterCollaboratorPool {
-  _FakeEnterCollaboratorPool_10(
+class _FakeCancelCollaboratorSearchStream_10 extends _i1.SmartFake
+    implements _i6.CancelCollaboratorSearchStream {
+  _FakeCancelCollaboratorSearchStream_10(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -154,9 +155,53 @@ class _FakeEnterCollaboratorPool_10 extends _i1.SmartFake
         );
 }
 
-class _FakeBaseFutureStore_11<T> extends _i1.SmartFake
-    implements _i6.BaseFutureStore<T> {
-  _FakeBaseFutureStore_11(
+class _FakeEnterCollaboratorPool_11 extends _i1.SmartFake
+    implements _i6.EnterCollaboratorPool {
+  _FakeEnterCollaboratorPool_11(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeExitCollaboratorPool_12 extends _i1.SmartFake
+    implements _i6.ExitCollaboratorPool {
+  _FakeExitCollaboratorPool_12(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeGetCollaboratorSearchStatus_13 extends _i1.SmartFake
+    implements _i6.GetCollaboratorSearchStatus {
+  _FakeGetCollaboratorSearchStatus_13(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeObservableStream_14<T> extends _i1.SmartFake
+    implements _i3.ObservableStream<T> {
+  _FakeObservableStream_14(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeStreamSubscription_15<T> extends _i1.SmartFake
+    implements _i7.StreamSubscription<T> {
+  _FakeStreamSubscription_15(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -169,7 +214,7 @@ class _FakeBaseFutureStore_11<T> extends _i1.SmartFake
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockCollaborationHomeScreenWidgetsCoordinator extends _i1.Mock
-    implements _i7.CollaborationHomeScreenWidgetsCoordinator {
+    implements _i8.CollaborationHomeScreenWidgetsCoordinator {
   @override
   _i2.BeachWavesStore get beachWaves => (super.noSuchMethod(
         Invocation.getter(#beachWaves),
@@ -371,121 +416,92 @@ class MockUserInformationCoordinator extends _i1.Mock
       ) as _i4.GetUserInfoStore);
 
   @override
-  _i4.UpdateHasGoneThroughInvitationFlowStore
-      get updateHasGoneThroughInvitationFlow => (super.noSuchMethod(
-            Invocation.getter(#updateHasGoneThroughInvitationFlow),
-            returnValue: _FakeUpdateHasGoneThroughInvitationFlowStore_7(
+  _i5.UpdateHasGoneThroughInvitationFlow
+      get updateHasGoneThroughInvitationFlowLogic => (super.noSuchMethod(
+            Invocation.getter(#updateHasGoneThroughInvitationFlowLogic),
+            returnValue: _FakeUpdateHasGoneThroughInvitationFlow_7(
               this,
-              Invocation.getter(#updateHasGoneThroughInvitationFlow),
+              Invocation.getter(#updateHasGoneThroughInvitationFlowLogic),
             ),
             returnValueForMissingStub:
-                _FakeUpdateHasGoneThroughInvitationFlowStore_7(
+                _FakeUpdateHasGoneThroughInvitationFlow_7(
               this,
-              Invocation.getter(#updateHasGoneThroughInvitationFlow),
+              Invocation.getter(#updateHasGoneThroughInvitationFlowLogic),
             ),
-          ) as _i4.UpdateHasGoneThroughInvitationFlowStore);
+          ) as _i5.UpdateHasGoneThroughInvitationFlow);
 
   @override
-  _i4.UpdateHasSentAnInvitationStore get updateHasSentAnInvitation =>
+  _i5.UpdateHasSentAnInvitation get updateHasSentAnInvitationLogic =>
       (super.noSuchMethod(
-        Invocation.getter(#updateHasSentAnInvitation),
-        returnValue: _FakeUpdateHasSentAnInvitationStore_8(
+        Invocation.getter(#updateHasSentAnInvitationLogic),
+        returnValue: _FakeUpdateHasSentAnInvitation_8(
           this,
-          Invocation.getter(#updateHasSentAnInvitation),
+          Invocation.getter(#updateHasSentAnInvitationLogic),
         ),
-        returnValueForMissingStub: _FakeUpdateHasSentAnInvitationStore_8(
+        returnValueForMissingStub: _FakeUpdateHasSentAnInvitation_8(
           this,
-          Invocation.getter(#updateHasSentAnInvitation),
+          Invocation.getter(#updateHasSentAnInvitationLogic),
         ),
-      ) as _i4.UpdateHasSentAnInvitationStore);
+      ) as _i5.UpdateHasSentAnInvitation);
 
   @override
-  _i4.UpdateWantsToRepeatInvitationFlowStore
-      get updateWantsToRepeatInvitationFlow => (super.noSuchMethod(
-            Invocation.getter(#updateWantsToRepeatInvitationFlow),
-            returnValue: _FakeUpdateWantsToRepeatInvitationFlowStore_9(
+  _i5.UpdateWantsToRepeatInvitationFlow
+      get updateWantsToRepeatInvitationFlowLogic => (super.noSuchMethod(
+            Invocation.getter(#updateWantsToRepeatInvitationFlowLogic),
+            returnValue: _FakeUpdateWantsToRepeatInvitationFlow_9(
               this,
-              Invocation.getter(#updateWantsToRepeatInvitationFlow),
+              Invocation.getter(#updateWantsToRepeatInvitationFlowLogic),
             ),
-            returnValueForMissingStub:
-                _FakeUpdateWantsToRepeatInvitationFlowStore_9(
+            returnValueForMissingStub: _FakeUpdateWantsToRepeatInvitationFlow_9(
               this,
-              Invocation.getter(#updateWantsToRepeatInvitationFlow),
+              Invocation.getter(#updateWantsToRepeatInvitationFlowLogic),
             ),
-          ) as _i4.UpdateWantsToRepeatInvitationFlowStore);
+          ) as _i5.UpdateWantsToRepeatInvitationFlow);
 
   @override
-  List<Object> get props => (super.noSuchMethod(
-        Invocation.getter(#props),
-        returnValue: <Object>[],
-        returnValueForMissingStub: <Object>[],
-      ) as List<Object>);
-
-  @override
-  _i3.ReactiveContext get context => (super.noSuchMethod(
-        Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_5(
-          this,
-          Invocation.getter(#context),
-        ),
-        returnValueForMissingStub: _FakeReactiveContext_5(
-          this,
-          Invocation.getter(#context),
-        ),
-      ) as _i3.ReactiveContext);
-}
-
-/// A class which mocks [EnterCollaboratorPoolStore].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockEnterCollaboratorPoolStore extends _i1.Mock
-    implements _i8.EnterCollaboratorPoolStore {
-  @override
-  _i5.EnterCollaboratorPool get logic => (super.noSuchMethod(
-        Invocation.getter(#logic),
-        returnValue: _FakeEnterCollaboratorPool_10(
-          this,
-          Invocation.getter(#logic),
-        ),
-        returnValueForMissingStub: _FakeEnterCollaboratorPool_10(
-          this,
-          Invocation.getter(#logic),
-        ),
-      ) as _i5.EnterCollaboratorPool);
-
-  @override
-  bool get hasEntered => (super.noSuchMethod(
-        Invocation.getter(#hasEntered),
+  bool get invitationFlowCompletionStatusIsUpdated => (super.noSuchMethod(
+        Invocation.getter(#invitationFlowCompletionStatusIsUpdated),
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
 
   @override
-  set hasEntered(bool? value) => super.noSuchMethod(
+  set invitationFlowCompletionStatusIsUpdated(bool? value) =>
+      super.noSuchMethod(
         Invocation.setter(
-          #hasEntered,
+          #invitationFlowCompletionStatusIsUpdated,
           value,
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  _i6.BaseFutureStore<bool> get futureStore => (super.noSuchMethod(
-        Invocation.getter(#futureStore),
-        returnValue: _FakeBaseFutureStore_11<bool>(
-          this,
-          Invocation.getter(#futureStore),
-        ),
-        returnValueForMissingStub: _FakeBaseFutureStore_11<bool>(
-          this,
-          Invocation.getter(#futureStore),
-        ),
-      ) as _i6.BaseFutureStore<bool>);
+  bool get invitationSendStatusIsUpdated => (super.noSuchMethod(
+        Invocation.getter(#invitationSendStatusIsUpdated),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
 
   @override
-  set futureStore(_i6.BaseFutureStore<bool>? value) => super.noSuchMethod(
+  set invitationSendStatusIsUpdated(bool? value) => super.noSuchMethod(
         Invocation.setter(
-          #futureStore,
+          #invitationSendStatusIsUpdated,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get invitationRepeatStatusIsUpdated => (super.noSuchMethod(
+        Invocation.getter(#invitationRepeatStatusIsUpdated),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set invitationRepeatStatusIsUpdated(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #invitationRepeatStatusIsUpdated,
           value,
         ),
         returnValueForMissingStub: null,
@@ -550,27 +566,40 @@ class MockEnterCollaboratorPoolStore extends _i1.Mock
       ) as _i3.ReactiveContext);
 
   @override
-  void stateOrErrorUpdater(_i11.Either<_i12.Failure, bool>? result) =>
-      super.noSuchMethod(
+  _i7.Future<dynamic> updateHasGoneThroughInvitationFlow(bool? newStatus) =>
+      (super.noSuchMethod(
         Invocation.method(
-          #stateOrErrorUpdater,
-          [result],
+          #updateHasGoneThroughInvitationFlow,
+          [newStatus],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
 
   @override
-  _i13.Future<void> call(String? params) => (super.noSuchMethod(
+  _i7.Future<dynamic> updateHasSentAnInvitation(bool? newStatus) =>
+      (super.noSuchMethod(
         Invocation.method(
-          #call,
-          [params],
+          #updateHasSentAnInvitation,
+          [newStatus],
         ),
-        returnValue: _i13.Future<void>.value(),
-        returnValueForMissingStub: _i13.Future<void>.value(),
-      ) as _i13.Future<void>);
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
 
   @override
-  String mapFailureToMessage(_i12.Failure? failure) => (super.noSuchMethod(
+  _i7.Future<dynamic> updateWantsToRepeatInvitationFlow(bool? newStatus) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateWantsToRepeatInvitationFlow,
+          [newStatus],
+        ),
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
+
+  @override
+  String mapFailureToMessage(_i11.Failure? failure) => (super.noSuchMethod(
         Invocation.method(
           #mapFailureToMessage,
           [failure],
@@ -590,4 +619,337 @@ class MockEnterCollaboratorPoolStore extends _i1.Mock
           ),
         ),
       ) as String);
+
+  @override
+  dynamic errorUpdater(_i11.Failure? failure) => super.noSuchMethod(
+        Invocation.method(
+          #errorUpdater,
+          [failure],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void stateOrErrorUpdater(_i12.Either<_i11.Failure, dynamic>? result) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #stateOrErrorUpdater,
+          [result],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i7.Future<void> call(dynamic params) => (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+}
+
+/// A class which mocks [CollaborationLogicCoordinator].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockCollaborationLogicCoordinator extends _i1.Mock
+    implements _i13.CollaborationLogicCoordinator {
+  @override
+  _i6.CancelCollaboratorSearchStream get cancelCollaboratorSearchStreamLogic =>
+      (super.noSuchMethod(
+        Invocation.getter(#cancelCollaboratorSearchStreamLogic),
+        returnValue: _FakeCancelCollaboratorSearchStream_10(
+          this,
+          Invocation.getter(#cancelCollaboratorSearchStreamLogic),
+        ),
+        returnValueForMissingStub: _FakeCancelCollaboratorSearchStream_10(
+          this,
+          Invocation.getter(#cancelCollaboratorSearchStreamLogic),
+        ),
+      ) as _i6.CancelCollaboratorSearchStream);
+
+  @override
+  _i6.EnterCollaboratorPool get enterCollaboratorPoolLogic =>
+      (super.noSuchMethod(
+        Invocation.getter(#enterCollaboratorPoolLogic),
+        returnValue: _FakeEnterCollaboratorPool_11(
+          this,
+          Invocation.getter(#enterCollaboratorPoolLogic),
+        ),
+        returnValueForMissingStub: _FakeEnterCollaboratorPool_11(
+          this,
+          Invocation.getter(#enterCollaboratorPoolLogic),
+        ),
+      ) as _i6.EnterCollaboratorPool);
+
+  @override
+  _i6.ExitCollaboratorPool get exitCollaboratorPoolLogic => (super.noSuchMethod(
+        Invocation.getter(#exitCollaboratorPoolLogic),
+        returnValue: _FakeExitCollaboratorPool_12(
+          this,
+          Invocation.getter(#exitCollaboratorPoolLogic),
+        ),
+        returnValueForMissingStub: _FakeExitCollaboratorPool_12(
+          this,
+          Invocation.getter(#exitCollaboratorPoolLogic),
+        ),
+      ) as _i6.ExitCollaboratorPool);
+
+  @override
+  _i6.GetCollaboratorSearchStatus get getCollaboratorSearchStatusLogic =>
+      (super.noSuchMethod(
+        Invocation.getter(#getCollaboratorSearchStatusLogic),
+        returnValue: _FakeGetCollaboratorSearchStatus_13(
+          this,
+          Invocation.getter(#getCollaboratorSearchStatusLogic),
+        ),
+        returnValueForMissingStub: _FakeGetCollaboratorSearchStatus_13(
+          this,
+          Invocation.getter(#getCollaboratorSearchStatusLogic),
+        ),
+      ) as _i6.GetCollaboratorSearchStatus);
+
+  @override
+  bool get searchStatusIsListening => (super.noSuchMethod(
+        Invocation.getter(#searchStatusIsListening),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set searchStatusIsListening(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #searchStatusIsListening,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get hasEntered => (super.noSuchMethod(
+        Invocation.getter(#hasEntered),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set hasEntered(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #hasEntered,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i3.ObservableStream<bool> get searchStatus => (super.noSuchMethod(
+        Invocation.getter(#searchStatus),
+        returnValue: _FakeObservableStream_14<bool>(
+          this,
+          Invocation.getter(#searchStatus),
+        ),
+        returnValueForMissingStub: _FakeObservableStream_14<bool>(
+          this,
+          Invocation.getter(#searchStatus),
+        ),
+      ) as _i3.ObservableStream<bool>);
+
+  @override
+  set searchStatus(_i3.ObservableStream<bool>? value) => super.noSuchMethod(
+        Invocation.setter(
+          #searchStatus,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get hasFoundCollaborator => (super.noSuchMethod(
+        Invocation.getter(#hasFoundCollaborator),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set hasFoundCollaborator(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #hasFoundCollaborator,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i7.StreamSubscription<dynamic> get searchSubscription => (super.noSuchMethod(
+        Invocation.getter(#searchSubscription),
+        returnValue: _FakeStreamSubscription_15<dynamic>(
+          this,
+          Invocation.getter(#searchSubscription),
+        ),
+        returnValueForMissingStub: _FakeStreamSubscription_15<dynamic>(
+          this,
+          Invocation.getter(#searchSubscription),
+        ),
+      ) as _i7.StreamSubscription<dynamic>);
+
+  @override
+  set searchSubscription(
+          _i7.StreamSubscription<dynamic>? _searchSubscription) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #searchSubscription,
+          _searchSubscription,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+        returnValueForMissingStub: <Object>[],
+      ) as List<Object>);
+
+  @override
+  _i9.StoreState get state => (super.noSuchMethod(
+        Invocation.getter(#state),
+        returnValue: _i9.StoreState.initial,
+        returnValueForMissingStub: _i9.StoreState.initial,
+      ) as _i9.StoreState);
+
+  @override
+  set state(_i9.StoreState? value) => super.noSuchMethod(
+        Invocation.setter(
+          #state,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  String get errorMessage => (super.noSuchMethod(
+        Invocation.getter(#errorMessage),
+        returnValue: _i10.dummyValue<String>(
+          this,
+          Invocation.getter(#errorMessage),
+        ),
+        returnValueForMissingStub: _i10.dummyValue<String>(
+          this,
+          Invocation.getter(#errorMessage),
+        ),
+      ) as String);
+
+  @override
+  set errorMessage(String? value) => super.noSuchMethod(
+        Invocation.setter(
+          #errorMessage,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i3.ReactiveContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeReactiveContext_5(
+          this,
+          Invocation.getter(#context),
+        ),
+        returnValueForMissingStub: _FakeReactiveContext_5(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i3.ReactiveContext);
+
+  @override
+  _i7.Future<dynamic> dispose() => (super.noSuchMethod(
+        Invocation.method(
+          #dispose,
+          [],
+        ),
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
+
+  @override
+  _i7.Future<dynamic> listen() => (super.noSuchMethod(
+        Invocation.method(
+          #listen,
+          [],
+        ),
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
+
+  @override
+  _i7.Future<dynamic> enter(String? collaboratorUID) => (super.noSuchMethod(
+        Invocation.method(
+          #enter,
+          [collaboratorUID],
+        ),
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
+
+  @override
+  _i7.Future<dynamic> exit() => (super.noSuchMethod(
+        Invocation.method(
+          #exit,
+          [],
+        ),
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
+
+  @override
+  String mapFailureToMessage(_i11.Failure? failure) => (super.noSuchMethod(
+        Invocation.method(
+          #mapFailureToMessage,
+          [failure],
+        ),
+        returnValue: _i10.dummyValue<String>(
+          this,
+          Invocation.method(
+            #mapFailureToMessage,
+            [failure],
+          ),
+        ),
+        returnValueForMissingStub: _i10.dummyValue<String>(
+          this,
+          Invocation.method(
+            #mapFailureToMessage,
+            [failure],
+          ),
+        ),
+      ) as String);
+
+  @override
+  dynamic errorUpdater(_i11.Failure? failure) => super.noSuchMethod(
+        Invocation.method(
+          #errorUpdater,
+          [failure],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void stateOrErrorUpdater(_i12.Either<_i11.Failure, dynamic>? result) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #stateOrErrorUpdater,
+          [result],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i7.Future<void> call(dynamic params) => (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
 }

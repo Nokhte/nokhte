@@ -26,11 +26,11 @@ void main() {
     mockWidgets = MockHomeScreenWidgetsCoordinator();
     mockUserInformation = UserInformationCoordinator(
       getUserInfo: MockGetUserInfoStore(),
-      updateHasGoneThroughInvitationFlow:
-          MockUpdateHasGoneThroughInvitationFlowStore(),
-      updateHasSentAnInvitation: MockUpdateHasSentAnInvitationStore(),
-      updateWantsToRepeatInvitationFlow:
-          MockUpdateWantsToRepeatInvitationFlowStore(),
+      updateHasGoneThroughInvitationFlowLogic:
+          MockUpdateHasGoneThroughInvitationFlow(),
+      updateHasSentAnInvitationLogic: MockUpdateHasSentAnInvitation(),
+      updateWantsToRepeatInvitationFlowLogic:
+          MockUpdateWantsToRepeatInvitationFlow(),
     );
 
     testStore = HomeScreenCoordinator(

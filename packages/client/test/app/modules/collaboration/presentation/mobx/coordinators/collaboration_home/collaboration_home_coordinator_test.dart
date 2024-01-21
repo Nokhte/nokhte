@@ -5,7 +5,6 @@ import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/deep_links/constants/data/data.dart';
 import 'package:nokhte/app/core/modules/deep_links/constants/types/deep_link_types.dart';
-import 'package:nokhte/app/core/modules/deep_links/domain/domain.dart';
 import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -17,30 +16,29 @@ import 'collaboration_home_coordinator_test.mocks.dart';
 @GenerateNiceMocks([
   MockSpec<CollaborationHomeScreenWidgetsCoordinator>(),
   MockSpec<UserInformationCoordinator>(),
-  MockSpec<EnterCollaboratorPoolStore>(),
+  MockSpec<CollaborationLogicCoordinator>(),
 ])
 void main() {
   late CollaborationHomeScreenCoordinator testStore;
 
   setUp(() {
     testStore = CollaborationHomeScreenCoordinator(
-      widgets: MockCollaborationHomeScreenWidgetsCoordinator(),
-      deepLinks: DeepLinksCoordinator(
-        getDeepLinkURL: MockGetDeepLinkURLStore(),
-        listenForOpenedDeepLink: MockListenForOpenedDeepLinkStore(),
-        sendDeepLink: MockSendDeepLinkStore(),
-      ),
-      userInformation: UserInformationCoordinator(
-        getUserInfo: MockGetUserInfoStore(),
-        updateHasGoneThroughInvitationFlow:
-            MockUpdateHasGoneThroughInvitationFlowStore(),
-        updateHasSentAnInvitation: MockUpdateHasSentAnInvitationStore(),
-        updateWantsToRepeatInvitationFlow:
-            MockUpdateWantsToRepeatInvitationFlowStore(),
-      ),
-      swipe: SwipeDetector(),
-      enterCollaboratorPool: MockEnterCollaboratorPoolStore(),
-    );
+        widgets: MockCollaborationHomeScreenWidgetsCoordinator(),
+        deepLinks: DeepLinksCoordinator(
+          getDeepLinkURL: MockGetDeepLinkURL(),
+          listenForOpenedDeepLinkStore: MockListenForOpenedDeepLinkStore(),
+          sendDeepLink: MockSendDeepLink(),
+        ),
+        userInformation: UserInformationCoordinator(
+          getUserInfo: MockGetUserInfoStore(),
+          updateHasGoneThroughInvitationFlowLogic:
+              MockUpdateHasGoneThroughInvitationFlow(),
+          updateHasSentAnInvitationLogic: MockUpdateHasSentAnInvitation(),
+          updateWantsToRepeatInvitationFlowLogic:
+              MockUpdateWantsToRepeatInvitationFlow(),
+        ),
+        swipe: SwipeDetector(),
+        logic: MockCollaborationLogicCoordinator());
   });
 
   group("actions", () {
@@ -56,7 +54,7 @@ void main() {
 
     test("constructor", () async {
       await testStore.constructor();
-      verify(testStore.deepLinks.listenForOpenedDeepLink(NoParams()));
+      verify(testStore.deepLinks.listenForOpenedDeepLinkStore(NoParams()));
       expect(testStore.additionalRoutingData, {});
       verify(testStore.widgets.constructor());
       verify(testStore.widgets.initReactors(
@@ -65,9 +63,8 @@ void main() {
         testStore.onEnterCollaboratorPool,
       ));
       verify(testStore.userInformation.getUserInfo(NoParams()));
-      verify(testStore.deepLinks.getDeepLinkURL(
-        const GetDeepLinkURLParams(type: DeepLinkTypes.collaboratorInvitation),
-      ));
+      verify(testStore.deepLinks
+          .getDeepLinkURL(DeepLinkTypes.collaboratorInvitation));
     });
 
     test("onFlowCompleted", () {
@@ -79,12 +76,12 @@ void main() {
     test("onEnterCollaboratorPool", () {
       testStore.setAdditionalRoutingData({"collaboratorUID": "value"});
       testStore.onEnterCollaboratorPool();
-      verify(testStore.enterCollaboratorPool(testStore
+      verify(testStore.logic.enter(testStore
           .additionalRoutingData[CollaborationCodeKeys.collaboratorUID]));
     });
 
     test("onDeepLinkOpened", () {
-      when(testStore.deepLinks.listenForOpenedDeepLink.additionalMetadata)
+      when(testStore.deepLinks.listenForOpenedDeepLinkStore.additionalMetadata)
           .thenReturn(ObservableMap.of({}));
       testStore.onDeepLinkOpened("/collaboration/");
       verify(testStore.widgets.initCollaboratorPoolWidgets());

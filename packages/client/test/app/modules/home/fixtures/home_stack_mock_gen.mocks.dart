@@ -13,6 +13,8 @@ import 'package:nokhte/app/core/error/failure.dart' as _i21;
 import 'package:nokhte/app/core/interfaces/logic.dart' as _i22;
 import 'package:nokhte/app/core/mobx/base_future_store.dart' as _i10;
 import 'package:nokhte/app/core/mobx/store_state.dart' as _i25;
+import 'package:nokhte/app/core/modules/deep_links/constants/types/deep_link_types.dart'
+    as _i28;
 import 'package:nokhte/app/core/modules/deep_links/domain/domain.dart' as _i14;
 import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart' as _i16;
 import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/domain/domain.dart'
@@ -23,7 +25,7 @@ import 'package:nokhte/app/core/modules/user_information/domain/domain.dart'
     as _i13;
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart'
     as _i12;
-import 'package:nokhte/app/core/types/types.dart' as _i29;
+import 'package:nokhte/app/core/types/types.dart' as _i30;
 import 'package:nokhte/app/core/widgets/widgets.dart' as _i15;
 import 'package:nokhte/app/modules/home/data/sources/home_remote_source.dart'
     as _i19;
@@ -32,7 +34,7 @@ import 'package:nokhte/app/modules/home/domain/contracts/home_contract.dart'
 import 'package:nokhte/app/modules/home/domain/domain.dart' as _i9;
 import 'package:nokhte/app/modules/home/domain/entities/entities.dart' as _i23;
 import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/home_screen_widgets_coordinator.dart'
-    as _i28;
+    as _i29;
 import 'package:nokhte/app/modules/home/presentation/mobx/main/add_name_to_database_store.dart'
     as _i24;
 import 'package:nokhte/app/modules/home/presentation/mobx/main/get_existing_collaborations_info_store.dart'
@@ -187,9 +189,9 @@ class _FakeGetUserInfoStore_11 extends _i1.SmartFake
         );
 }
 
-class _FakeUpdateHasGoneThroughInvitationFlowStore_12 extends _i1.SmartFake
-    implements _i12.UpdateHasGoneThroughInvitationFlowStore {
-  _FakeUpdateHasGoneThroughInvitationFlowStore_12(
+class _FakeUpdateHasGoneThroughInvitationFlow_12 extends _i1.SmartFake
+    implements _i13.UpdateHasGoneThroughInvitationFlow {
+  _FakeUpdateHasGoneThroughInvitationFlow_12(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -198,9 +200,9 @@ class _FakeUpdateHasGoneThroughInvitationFlowStore_12 extends _i1.SmartFake
         );
 }
 
-class _FakeUpdateHasSentAnInvitationStore_13 extends _i1.SmartFake
-    implements _i12.UpdateHasSentAnInvitationStore {
-  _FakeUpdateHasSentAnInvitationStore_13(
+class _FakeUpdateHasSentAnInvitation_13 extends _i1.SmartFake
+    implements _i13.UpdateHasSentAnInvitation {
+  _FakeUpdateHasSentAnInvitation_13(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -209,20 +211,9 @@ class _FakeUpdateHasSentAnInvitationStore_13 extends _i1.SmartFake
         );
 }
 
-class _FakeUpdateWantsToRepeatInvitationFlowStore_14 extends _i1.SmartFake
-    implements _i12.UpdateWantsToRepeatInvitationFlowStore {
-  _FakeUpdateWantsToRepeatInvitationFlowStore_14(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeUpdateWantsToRepeatInvitationFlow_15 extends _i1.SmartFake
+class _FakeUpdateWantsToRepeatInvitationFlow_14 extends _i1.SmartFake
     implements _i13.UpdateWantsToRepeatInvitationFlow {
-  _FakeUpdateWantsToRepeatInvitationFlow_15(
+  _FakeUpdateWantsToRepeatInvitationFlow_14(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -231,9 +222,20 @@ class _FakeUpdateWantsToRepeatInvitationFlow_15 extends _i1.SmartFake
         );
 }
 
-class _FakeGetDeepLinkURL_16 extends _i1.SmartFake
-    implements _i14.GetDeepLinkURL {
-  _FakeGetDeepLinkURL_16(
+class _FakeUserInformationContract_15 extends _i1.SmartFake
+    implements _i13.UserInformationContract {
+  _FakeUserInformationContract_15(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeDeepLinksContract_16 extends _i1.SmartFake
+    implements _i14.DeepLinksContract {
+  _FakeDeepLinksContract_16(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -297,19 +299,9 @@ class _FakeObservableMap_21<K, V> extends _i1.SmartFake
         );
 }
 
-class _FakeSendDeepLink_22 extends _i1.SmartFake implements _i14.SendDeepLink {
-  _FakeSendDeepLink_22(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeTimeAlignmentModelCoordinator_23 extends _i1.SmartFake
+class _FakeTimeAlignmentModelCoordinator_22 extends _i1.SmartFake
     implements _i15.TimeAlignmentModelCoordinator {
-  _FakeTimeAlignmentModelCoordinator_23(
+  _FakeTimeAlignmentModelCoordinator_22(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -318,9 +310,9 @@ class _FakeTimeAlignmentModelCoordinator_23 extends _i1.SmartFake
         );
 }
 
-class _FakeNokhteBlurStore_24 extends _i1.SmartFake
+class _FakeNokhteBlurStore_23 extends _i1.SmartFake
     implements _i15.NokhteBlurStore {
-  _FakeNokhteBlurStore_24(
+  _FakeNokhteBlurStore_23(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -329,9 +321,9 @@ class _FakeNokhteBlurStore_24 extends _i1.SmartFake
         );
 }
 
-class _FakeBeachWavesStore_25 extends _i1.SmartFake
+class _FakeBeachWavesStore_24 extends _i1.SmartFake
     implements _i15.BeachWavesStore {
-  _FakeBeachWavesStore_25(
+  _FakeBeachWavesStore_24(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -340,9 +332,9 @@ class _FakeBeachWavesStore_25 extends _i1.SmartFake
         );
 }
 
-class _FakeWifiDisconnectOverlayStore_26 extends _i1.SmartFake
+class _FakeWifiDisconnectOverlayStore_25 extends _i1.SmartFake
     implements _i15.WifiDisconnectOverlayStore {
-  _FakeWifiDisconnectOverlayStore_26(
+  _FakeWifiDisconnectOverlayStore_25(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -351,9 +343,9 @@ class _FakeWifiDisconnectOverlayStore_26 extends _i1.SmartFake
         );
 }
 
-class _FakeGestureCrossStore_27 extends _i1.SmartFake
+class _FakeGestureCrossStore_26 extends _i1.SmartFake
     implements _i15.GestureCrossStore {
-  _FakeGestureCrossStore_27(
+  _FakeGestureCrossStore_26(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -362,9 +354,9 @@ class _FakeGestureCrossStore_27 extends _i1.SmartFake
         );
 }
 
-class _FakeSmartTextStore_28 extends _i1.SmartFake
+class _FakeSmartTextStore_27 extends _i1.SmartFake
     implements _i15.SmartTextStore {
-  _FakeSmartTextStore_28(
+  _FakeSmartTextStore_27(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -373,9 +365,9 @@ class _FakeSmartTextStore_28 extends _i1.SmartFake
         );
 }
 
-class _FakeDeepLinksCoordinator_29 extends _i1.SmartFake
+class _FakeDeepLinksCoordinator_28 extends _i1.SmartFake
     implements _i16.DeepLinksCoordinator {
-  _FakeDeepLinksCoordinator_29(
+  _FakeDeepLinksCoordinator_28(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -384,9 +376,19 @@ class _FakeDeepLinksCoordinator_29 extends _i1.SmartFake
         );
 }
 
-class _FakeGetDeepLinkURLStore_30 extends _i1.SmartFake
-    implements _i16.GetDeepLinkURLStore {
-  _FakeGetDeepLinkURLStore_30(
+class _FakeGetDeepLinkURL_29 extends _i1.SmartFake
+    implements _i14.GetDeepLinkURL {
+  _FakeGetDeepLinkURL_29(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeSendDeepLink_30 extends _i1.SmartFake implements _i14.SendDeepLink {
+  _FakeSendDeepLink_30(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -406,20 +408,9 @@ class _FakeListenForOpenedDeepLinkStore_31 extends _i1.SmartFake
         );
 }
 
-class _FakeSendDeepLinkStore_32 extends _i1.SmartFake
-    implements _i16.SendDeepLinkStore {
-  _FakeSendDeepLinkStore_32(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeUserJourneyInfoEntity_33 extends _i1.SmartFake
+class _FakeUserJourneyInfoEntity_32 extends _i1.SmartFake
     implements _i13.UserJourneyInfoEntity {
-  _FakeUserJourneyInfoEntity_33(
+  _FakeUserJourneyInfoEntity_32(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -428,8 +419,8 @@ class _FakeUserJourneyInfoEntity_33 extends _i1.SmartFake
         );
 }
 
-class _FakeGetUserInfo_34 extends _i1.SmartFake implements _i13.GetUserInfo {
-  _FakeGetUserInfo_34(
+class _FakeGetUserInfo_33 extends _i1.SmartFake implements _i13.GetUserInfo {
+  _FakeGetUserInfo_33(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -438,31 +429,9 @@ class _FakeGetUserInfo_34 extends _i1.SmartFake implements _i13.GetUserInfo {
         );
 }
 
-class _FakeUpdateHasGoneThroughInvitationFlow_35 extends _i1.SmartFake
-    implements _i13.UpdateHasGoneThroughInvitationFlow {
-  _FakeUpdateHasGoneThroughInvitationFlow_35(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeUpdateHasSentAnInvitation_36 extends _i1.SmartFake
-    implements _i13.UpdateHasSentAnInvitation {
-  _FakeUpdateHasSentAnInvitation_36(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeDeleteCapsuleArrangement_37 extends _i1.SmartFake
+class _FakeDeleteCapsuleArrangement_34 extends _i1.SmartFake
     implements _i17.DeleteCapsuleArrangement {
-  _FakeDeleteCapsuleArrangement_37(
+  _FakeDeleteCapsuleArrangement_34(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -471,9 +440,9 @@ class _FakeDeleteCapsuleArrangement_37 extends _i1.SmartFake
         );
 }
 
-class _FakeDeleteCollaborativeDocument_38 extends _i1.SmartFake
+class _FakeDeleteCollaborativeDocument_35 extends _i1.SmartFake
     implements _i17.DeleteCollaborativeDocument {
-  _FakeDeleteCollaborativeDocument_38(
+  _FakeDeleteCollaborativeDocument_35(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -482,9 +451,9 @@ class _FakeDeleteCollaborativeDocument_38 extends _i1.SmartFake
         );
 }
 
-class _FakeDeleteSchedulingSession_39 extends _i1.SmartFake
+class _FakeDeleteSchedulingSession_36 extends _i1.SmartFake
     implements _i17.DeleteSchedulingSession {
-  _FakeDeleteSchedulingSession_39(
+  _FakeDeleteSchedulingSession_36(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -493,9 +462,9 @@ class _FakeDeleteSchedulingSession_39 extends _i1.SmartFake
         );
 }
 
-class _FakeDeleteTheCollaboration_40 extends _i1.SmartFake
+class _FakeDeleteTheCollaboration_37 extends _i1.SmartFake
     implements _i17.DeleteTheCollaboration {
-  _FakeDeleteTheCollaboration_40(
+  _FakeDeleteTheCollaboration_37(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -504,9 +473,9 @@ class _FakeDeleteTheCollaboration_40 extends _i1.SmartFake
         );
 }
 
-class _FakeDeleteSoloDocument_41 extends _i1.SmartFake
+class _FakeDeleteSoloDocument_38 extends _i1.SmartFake
     implements _i17.DeleteSoloDocument {
-  _FakeDeleteSoloDocument_41(
+  _FakeDeleteSoloDocument_38(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -515,9 +484,9 @@ class _FakeDeleteSoloDocument_41 extends _i1.SmartFake
         );
 }
 
-class _FakeCheckForUnconsecratedCollaborationStore_42 extends _i1.SmartFake
+class _FakeCheckForUnconsecratedCollaborationStore_39 extends _i1.SmartFake
     implements _i18.CheckForUnconsecratedCollaborationStore {
-  _FakeCheckForUnconsecratedCollaborationStore_42(
+  _FakeCheckForUnconsecratedCollaborationStore_39(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -1043,6 +1012,15 @@ class MockAddNameToDatabaseStore extends _i1.Mock
           ),
         ),
       ) as String);
+
+  @override
+  dynamic errorUpdater(_i21.Failure? failure) => super.noSuchMethod(
+        Invocation.method(
+          #errorUpdater,
+          [failure],
+        ),
+        returnValueForMissingStub: null,
+      );
 }
 
 /// A class which mocks [GetExistingCollaborationsInfoStore].
@@ -1239,6 +1217,15 @@ class MockGetExistingCollaborationsInfoStore extends _i1.Mock
           ),
         ),
       ) as String);
+
+  @override
+  dynamic errorUpdater(_i21.Failure? failure) => super.noSuchMethod(
+        Invocation.method(
+          #errorUpdater,
+          [failure],
+        ),
+        returnValueForMissingStub: null,
+      );
 }
 
 /// A class which mocks [UserInformationCoordinator].
@@ -1260,125 +1247,104 @@ class MockUserInformationCoordinator extends _i1.Mock
       ) as _i12.GetUserInfoStore);
 
   @override
-  _i12.UpdateHasGoneThroughInvitationFlowStore
-      get updateHasGoneThroughInvitationFlow => (super.noSuchMethod(
-            Invocation.getter(#updateHasGoneThroughInvitationFlow),
-            returnValue: _FakeUpdateHasGoneThroughInvitationFlowStore_12(
+  _i13.UpdateHasGoneThroughInvitationFlow
+      get updateHasGoneThroughInvitationFlowLogic => (super.noSuchMethod(
+            Invocation.getter(#updateHasGoneThroughInvitationFlowLogic),
+            returnValue: _FakeUpdateHasGoneThroughInvitationFlow_12(
               this,
-              Invocation.getter(#updateHasGoneThroughInvitationFlow),
+              Invocation.getter(#updateHasGoneThroughInvitationFlowLogic),
             ),
             returnValueForMissingStub:
-                _FakeUpdateHasGoneThroughInvitationFlowStore_12(
+                _FakeUpdateHasGoneThroughInvitationFlow_12(
               this,
-              Invocation.getter(#updateHasGoneThroughInvitationFlow),
+              Invocation.getter(#updateHasGoneThroughInvitationFlowLogic),
             ),
-          ) as _i12.UpdateHasGoneThroughInvitationFlowStore);
+          ) as _i13.UpdateHasGoneThroughInvitationFlow);
 
   @override
-  _i12.UpdateHasSentAnInvitationStore get updateHasSentAnInvitation =>
+  _i13.UpdateHasSentAnInvitation get updateHasSentAnInvitationLogic =>
       (super.noSuchMethod(
-        Invocation.getter(#updateHasSentAnInvitation),
-        returnValue: _FakeUpdateHasSentAnInvitationStore_13(
+        Invocation.getter(#updateHasSentAnInvitationLogic),
+        returnValue: _FakeUpdateHasSentAnInvitation_13(
           this,
-          Invocation.getter(#updateHasSentAnInvitation),
+          Invocation.getter(#updateHasSentAnInvitationLogic),
         ),
-        returnValueForMissingStub: _FakeUpdateHasSentAnInvitationStore_13(
+        returnValueForMissingStub: _FakeUpdateHasSentAnInvitation_13(
           this,
-          Invocation.getter(#updateHasSentAnInvitation),
+          Invocation.getter(#updateHasSentAnInvitationLogic),
         ),
-      ) as _i12.UpdateHasSentAnInvitationStore);
+      ) as _i13.UpdateHasSentAnInvitation);
 
   @override
-  _i12.UpdateWantsToRepeatInvitationFlowStore
-      get updateWantsToRepeatInvitationFlow => (super.noSuchMethod(
-            Invocation.getter(#updateWantsToRepeatInvitationFlow),
-            returnValue: _FakeUpdateWantsToRepeatInvitationFlowStore_14(
+  _i13.UpdateWantsToRepeatInvitationFlow
+      get updateWantsToRepeatInvitationFlowLogic => (super.noSuchMethod(
+            Invocation.getter(#updateWantsToRepeatInvitationFlowLogic),
+            returnValue: _FakeUpdateWantsToRepeatInvitationFlow_14(
               this,
-              Invocation.getter(#updateWantsToRepeatInvitationFlow),
+              Invocation.getter(#updateWantsToRepeatInvitationFlowLogic),
             ),
             returnValueForMissingStub:
-                _FakeUpdateWantsToRepeatInvitationFlowStore_14(
+                _FakeUpdateWantsToRepeatInvitationFlow_14(
               this,
-              Invocation.getter(#updateWantsToRepeatInvitationFlow),
+              Invocation.getter(#updateWantsToRepeatInvitationFlowLogic),
             ),
-          ) as _i12.UpdateWantsToRepeatInvitationFlowStore);
+          ) as _i13.UpdateWantsToRepeatInvitationFlow);
 
   @override
-  List<Object> get props => (super.noSuchMethod(
-        Invocation.getter(#props),
-        returnValue: <Object>[],
-        returnValueForMissingStub: <Object>[],
-      ) as List<Object>);
-
-  @override
-  _i11.ReactiveContext get context => (super.noSuchMethod(
-        Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_9(
-          this,
-          Invocation.getter(#context),
-        ),
-        returnValueForMissingStub: _FakeReactiveContext_9(
-          this,
-          Invocation.getter(#context),
-        ),
-      ) as _i11.ReactiveContext);
-}
-
-/// A class which mocks [UpdateWantsToRepeatInvitationFlowStore].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockUpdateWantsToRepeatInvitationFlowStore extends _i1.Mock
-    implements _i12.UpdateWantsToRepeatInvitationFlowStore {
-  @override
-  bool get isUpdated => (super.noSuchMethod(
-        Invocation.getter(#isUpdated),
+  bool get invitationFlowCompletionStatusIsUpdated => (super.noSuchMethod(
+        Invocation.getter(#invitationFlowCompletionStatusIsUpdated),
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
 
   @override
-  set isUpdated(bool? value) => super.noSuchMethod(
+  set invitationFlowCompletionStatusIsUpdated(bool? value) =>
+      super.noSuchMethod(
         Invocation.setter(
-          #isUpdated,
+          #invitationFlowCompletionStatusIsUpdated,
           value,
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  _i13.UpdateWantsToRepeatInvitationFlow get logic => (super.noSuchMethod(
-        Invocation.getter(#logic),
-        returnValue: _FakeUpdateWantsToRepeatInvitationFlow_15(
-          this,
-          Invocation.getter(#logic),
-        ),
-        returnValueForMissingStub: _FakeUpdateWantsToRepeatInvitationFlow_15(
-          this,
-          Invocation.getter(#logic),
-        ),
-      ) as _i13.UpdateWantsToRepeatInvitationFlow);
+  bool get invitationSendStatusIsUpdated => (super.noSuchMethod(
+        Invocation.getter(#invitationSendStatusIsUpdated),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
 
   @override
-  _i10.BaseFutureStore<bool> get futureStore => (super.noSuchMethod(
-        Invocation.getter(#futureStore),
-        returnValue: _FakeBaseFutureStore_8<bool>(
-          this,
-          Invocation.getter(#futureStore),
-        ),
-        returnValueForMissingStub: _FakeBaseFutureStore_8<bool>(
-          this,
-          Invocation.getter(#futureStore),
-        ),
-      ) as _i10.BaseFutureStore<bool>);
-
-  @override
-  set futureStore(_i10.BaseFutureStore<bool>? value) => super.noSuchMethod(
+  set invitationSendStatusIsUpdated(bool? value) => super.noSuchMethod(
         Invocation.setter(
-          #futureStore,
+          #invitationSendStatusIsUpdated,
           value,
         ),
         returnValueForMissingStub: null,
       );
+
+  @override
+  bool get invitationRepeatStatusIsUpdated => (super.noSuchMethod(
+        Invocation.getter(#invitationRepeatStatusIsUpdated),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set invitationRepeatStatusIsUpdated(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #invitationRepeatStatusIsUpdated,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  List<Object> get props => (super.noSuchMethod(
+        Invocation.getter(#props),
+        returnValue: <Object>[],
+        returnValueForMissingStub: <Object>[],
+      ) as List<Object>);
 
   @override
   _i25.StoreState get state => (super.noSuchMethod(
@@ -1419,13 +1385,6 @@ class MockUpdateWantsToRepeatInvitationFlowStore extends _i1.Mock
       );
 
   @override
-  List<Object> get props => (super.noSuchMethod(
-        Invocation.getter(#props),
-        returnValue: <Object>[],
-        returnValueForMissingStub: <Object>[],
-      ) as List<Object>);
-
-  @override
   _i11.ReactiveContext get context => (super.noSuchMethod(
         Invocation.getter(#context),
         returnValue: _FakeReactiveContext_9(
@@ -1439,24 +1398,37 @@ class MockUpdateWantsToRepeatInvitationFlowStore extends _i1.Mock
       ) as _i11.ReactiveContext);
 
   @override
-  void stateOrErrorUpdater(_i7.Either<_i21.Failure, bool>? result) =>
-      super.noSuchMethod(
+  _i20.Future<dynamic> updateHasGoneThroughInvitationFlow(bool? newStatus) =>
+      (super.noSuchMethod(
         Invocation.method(
-          #stateOrErrorUpdater,
-          [result],
+          #updateHasGoneThroughInvitationFlow,
+          [newStatus],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i20.Future<dynamic>.value(),
+        returnValueForMissingStub: _i20.Future<dynamic>.value(),
+      ) as _i20.Future<dynamic>);
 
   @override
-  _i20.Future<void> call(bool? params) => (super.noSuchMethod(
+  _i20.Future<dynamic> updateHasSentAnInvitation(bool? newStatus) =>
+      (super.noSuchMethod(
         Invocation.method(
-          #call,
-          [params],
+          #updateHasSentAnInvitation,
+          [newStatus],
         ),
-        returnValue: _i20.Future<void>.value(),
-        returnValueForMissingStub: _i20.Future<void>.value(),
-      ) as _i20.Future<void>);
+        returnValue: _i20.Future<dynamic>.value(),
+        returnValueForMissingStub: _i20.Future<dynamic>.value(),
+      ) as _i20.Future<dynamic>);
+
+  @override
+  _i20.Future<dynamic> updateWantsToRepeatInvitationFlow(bool? newStatus) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateWantsToRepeatInvitationFlow,
+          [newStatus],
+        ),
+        returnValue: _i20.Future<dynamic>.value(),
+        returnValueForMissingStub: _i20.Future<dynamic>.value(),
+      ) as _i20.Future<dynamic>);
 
   @override
   String mapFailureToMessage(_i21.Failure? failure) => (super.noSuchMethod(
@@ -1479,174 +1451,125 @@ class MockUpdateWantsToRepeatInvitationFlowStore extends _i1.Mock
           ),
         ),
       ) as String);
+
+  @override
+  dynamic errorUpdater(_i21.Failure? failure) => super.noSuchMethod(
+        Invocation.method(
+          #errorUpdater,
+          [failure],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void stateOrErrorUpdater(_i7.Either<_i21.Failure, dynamic>? result) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #stateOrErrorUpdater,
+          [result],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i20.Future<void> call(dynamic params) => (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i20.Future<void>.value(),
+        returnValueForMissingStub: _i20.Future<void>.value(),
+      ) as _i20.Future<void>);
 }
 
-/// A class which mocks [GetDeepLinkURLStore].
+/// A class which mocks [UpdateWantsToRepeatInvitationFlow].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetDeepLinkURLStore extends _i1.Mock
-    implements _i16.GetDeepLinkURLStore {
+class MockUpdateWantsToRepeatInvitationFlow extends _i1.Mock
+    implements _i13.UpdateWantsToRepeatInvitationFlow {
   @override
-  String get link => (super.noSuchMethod(
-        Invocation.getter(#link),
-        returnValue: _i26.dummyValue<String>(
+  _i13.UserInformationContract get contract => (super.noSuchMethod(
+        Invocation.getter(#contract),
+        returnValue: _FakeUserInformationContract_15(
           this,
-          Invocation.getter(#link),
+          Invocation.getter(#contract),
         ),
-        returnValueForMissingStub: _i26.dummyValue<String>(
+        returnValueForMissingStub: _FakeUserInformationContract_15(
           this,
-          Invocation.getter(#link),
+          Invocation.getter(#contract),
         ),
-      ) as String);
+      ) as _i13.UserInformationContract);
 
   @override
-  set link(String? value) => super.noSuchMethod(
-        Invocation.setter(
-          #link,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i14.GetDeepLinkURL get logic => (super.noSuchMethod(
-        Invocation.getter(#logic),
-        returnValue: _FakeGetDeepLinkURL_16(
-          this,
-          Invocation.getter(#logic),
-        ),
-        returnValueForMissingStub: _FakeGetDeepLinkURL_16(
-          this,
-          Invocation.getter(#logic),
-        ),
-      ) as _i14.GetDeepLinkURL);
-
-  @override
-  _i10.BaseFutureStore<_i14.DeepLinkUrlEntity> get futureStore =>
-      (super.noSuchMethod(
-        Invocation.getter(#futureStore),
-        returnValue: _FakeBaseFutureStore_8<_i14.DeepLinkUrlEntity>(
-          this,
-          Invocation.getter(#futureStore),
-        ),
-        returnValueForMissingStub:
-            _FakeBaseFutureStore_8<_i14.DeepLinkUrlEntity>(
-          this,
-          Invocation.getter(#futureStore),
-        ),
-      ) as _i10.BaseFutureStore<_i14.DeepLinkUrlEntity>);
-
-  @override
-  set futureStore(_i10.BaseFutureStore<_i14.DeepLinkUrlEntity>? value) =>
-      super.noSuchMethod(
-        Invocation.setter(
-          #futureStore,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i25.StoreState get state => (super.noSuchMethod(
-        Invocation.getter(#state),
-        returnValue: _i25.StoreState.initial,
-        returnValueForMissingStub: _i25.StoreState.initial,
-      ) as _i25.StoreState);
-
-  @override
-  set state(_i25.StoreState? value) => super.noSuchMethod(
-        Invocation.setter(
-          #state,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  String get errorMessage => (super.noSuchMethod(
-        Invocation.getter(#errorMessage),
-        returnValue: _i26.dummyValue<String>(
-          this,
-          Invocation.getter(#errorMessage),
-        ),
-        returnValueForMissingStub: _i26.dummyValue<String>(
-          this,
-          Invocation.getter(#errorMessage),
-        ),
-      ) as String);
-
-  @override
-  set errorMessage(String? value) => super.noSuchMethod(
-        Invocation.setter(
-          #errorMessage,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  List<Object> get props => (super.noSuchMethod(
-        Invocation.getter(#props),
-        returnValue: <Object>[],
-        returnValueForMissingStub: <Object>[],
-      ) as List<Object>);
-
-  @override
-  _i11.ReactiveContext get context => (super.noSuchMethod(
-        Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_9(
-          this,
-          Invocation.getter(#context),
-        ),
-        returnValueForMissingStub: _FakeReactiveContext_9(
-          this,
-          Invocation.getter(#context),
-        ),
-      ) as _i11.ReactiveContext);
-
-  @override
-  void stateOrErrorUpdater(
-          _i7.Either<_i21.Failure, _i14.DeepLinkUrlEntity>? result) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #stateOrErrorUpdater,
-          [result],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i20.Future<void> call(_i14.GetDeepLinkURLParams? params) =>
+  _i20.Future<_i7.Either<_i21.Failure, bool>> call(bool? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i20.Future<void>.value(),
-        returnValueForMissingStub: _i20.Future<void>.value(),
-      ) as _i20.Future<void>);
+        returnValue: _i20.Future<_i7.Either<_i21.Failure, bool>>.value(
+            _FakeEither_5<_i21.Failure, bool>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i20.Future<_i7.Either<_i21.Failure, bool>>.value(
+                _FakeEither_5<_i21.Failure, bool>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i20.Future<_i7.Either<_i21.Failure, bool>>);
+}
+
+/// A class which mocks [GetDeepLinkURL].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGetDeepLinkURL extends _i1.Mock implements _i14.GetDeepLinkURL {
+  @override
+  _i14.DeepLinksContract get contract => (super.noSuchMethod(
+        Invocation.getter(#contract),
+        returnValue: _FakeDeepLinksContract_16(
+          this,
+          Invocation.getter(#contract),
+        ),
+        returnValueForMissingStub: _FakeDeepLinksContract_16(
+          this,
+          Invocation.getter(#contract),
+        ),
+      ) as _i14.DeepLinksContract);
 
   @override
-  String mapFailureToMessage(_i21.Failure? failure) => (super.noSuchMethod(
+  _i20.Future<_i7.Either<_i21.Failure, String>> call(
+          _i28.DeepLinkTypes? params) =>
+      (super.noSuchMethod(
         Invocation.method(
-          #mapFailureToMessage,
-          [failure],
+          #call,
+          [params],
         ),
-        returnValue: _i26.dummyValue<String>(
+        returnValue: _i20.Future<_i7.Either<_i21.Failure, String>>.value(
+            _FakeEither_5<_i21.Failure, String>(
           this,
           Invocation.method(
-            #mapFailureToMessage,
-            [failure],
+            #call,
+            [params],
           ),
-        ),
-        returnValueForMissingStub: _i26.dummyValue<String>(
+        )),
+        returnValueForMissingStub:
+            _i20.Future<_i7.Either<_i21.Failure, String>>.value(
+                _FakeEither_5<_i21.Failure, String>(
           this,
           Invocation.method(
-            #mapFailureToMessage,
-            [failure],
+            #call,
+            [params],
           ),
-        ),
-      ) as String);
+        )),
+      ) as _i20.Future<_i7.Either<_i21.Failure, String>>);
 }
 
 /// A class which mocks [ListenForOpenedDeepLinkStore].
@@ -1795,175 +1718,63 @@ class MockListenForOpenedDeepLinkStore extends _i1.Mock
       );
 }
 
-/// A class which mocks [SendDeepLinkStore].
+/// A class which mocks [SendDeepLink].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSendDeepLinkStore extends _i1.Mock implements _i16.SendDeepLinkStore {
+class MockSendDeepLink extends _i1.Mock implements _i14.SendDeepLink {
   @override
-  _i14.SendDeepLink get logic => (super.noSuchMethod(
-        Invocation.getter(#logic),
-        returnValue: _FakeSendDeepLink_22(
+  _i14.DeepLinksContract get contract => (super.noSuchMethod(
+        Invocation.getter(#contract),
+        returnValue: _FakeDeepLinksContract_16(
           this,
-          Invocation.getter(#logic),
+          Invocation.getter(#contract),
         ),
-        returnValueForMissingStub: _FakeSendDeepLink_22(
+        returnValueForMissingStub: _FakeDeepLinksContract_16(
           this,
-          Invocation.getter(#logic),
+          Invocation.getter(#contract),
         ),
-      ) as _i14.SendDeepLink);
+      ) as _i14.DeepLinksContract);
 
   @override
-  bool get isShared => (super.noSuchMethod(
-        Invocation.getter(#isShared),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool);
-
-  @override
-  set isShared(bool? value) => super.noSuchMethod(
-        Invocation.setter(
-          #isShared,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i10.BaseFutureStore<bool> get futureStore => (super.noSuchMethod(
-        Invocation.getter(#futureStore),
-        returnValue: _FakeBaseFutureStore_8<bool>(
-          this,
-          Invocation.getter(#futureStore),
-        ),
-        returnValueForMissingStub: _FakeBaseFutureStore_8<bool>(
-          this,
-          Invocation.getter(#futureStore),
-        ),
-      ) as _i10.BaseFutureStore<bool>);
-
-  @override
-  set futureStore(_i10.BaseFutureStore<bool>? value) => super.noSuchMethod(
-        Invocation.setter(
-          #futureStore,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i25.StoreState get state => (super.noSuchMethod(
-        Invocation.getter(#state),
-        returnValue: _i25.StoreState.initial,
-        returnValueForMissingStub: _i25.StoreState.initial,
-      ) as _i25.StoreState);
-
-  @override
-  set state(_i25.StoreState? value) => super.noSuchMethod(
-        Invocation.setter(
-          #state,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  String get errorMessage => (super.noSuchMethod(
-        Invocation.getter(#errorMessage),
-        returnValue: _i26.dummyValue<String>(
-          this,
-          Invocation.getter(#errorMessage),
-        ),
-        returnValueForMissingStub: _i26.dummyValue<String>(
-          this,
-          Invocation.getter(#errorMessage),
-        ),
-      ) as String);
-
-  @override
-  set errorMessage(String? value) => super.noSuchMethod(
-        Invocation.setter(
-          #errorMessage,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  List<Object> get props => (super.noSuchMethod(
-        Invocation.getter(#props),
-        returnValue: <Object>[],
-        returnValueForMissingStub: <Object>[],
-      ) as List<Object>);
-
-  @override
-  _i11.ReactiveContext get context => (super.noSuchMethod(
-        Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_9(
-          this,
-          Invocation.getter(#context),
-        ),
-        returnValueForMissingStub: _FakeReactiveContext_9(
-          this,
-          Invocation.getter(#context),
-        ),
-      ) as _i11.ReactiveContext);
-
-  @override
-  void stateOrErrorUpdater(_i7.Either<_i21.Failure, bool>? result) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #stateOrErrorUpdater,
-          [result],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i20.Future<void> call(String? params) => (super.noSuchMethod(
+  _i20.Future<_i7.Either<_i21.Failure, bool>> call(String? params) =>
+      (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i20.Future<void>.value(),
-        returnValueForMissingStub: _i20.Future<void>.value(),
-      ) as _i20.Future<void>);
-
-  @override
-  String mapFailureToMessage(_i21.Failure? failure) => (super.noSuchMethod(
-        Invocation.method(
-          #mapFailureToMessage,
-          [failure],
-        ),
-        returnValue: _i26.dummyValue<String>(
+        returnValue: _i20.Future<_i7.Either<_i21.Failure, bool>>.value(
+            _FakeEither_5<_i21.Failure, bool>(
           this,
           Invocation.method(
-            #mapFailureToMessage,
-            [failure],
+            #call,
+            [params],
           ),
-        ),
-        returnValueForMissingStub: _i26.dummyValue<String>(
+        )),
+        returnValueForMissingStub:
+            _i20.Future<_i7.Either<_i21.Failure, bool>>.value(
+                _FakeEither_5<_i21.Failure, bool>(
           this,
           Invocation.method(
-            #mapFailureToMessage,
-            [failure],
+            #call,
+            [params],
           ),
-        ),
-      ) as String);
+        )),
+      ) as _i20.Future<_i7.Either<_i21.Failure, bool>>);
 }
 
 /// A class which mocks [HomeScreenWidgetsCoordinator].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockHomeScreenWidgetsCoordinator extends _i1.Mock
-    implements _i28.HomeScreenWidgetsCoordinator {
+    implements _i29.HomeScreenWidgetsCoordinator {
   @override
   _i15.TimeAlignmentModelCoordinator get timeModel => (super.noSuchMethod(
         Invocation.getter(#timeModel),
-        returnValue: _FakeTimeAlignmentModelCoordinator_23(
+        returnValue: _FakeTimeAlignmentModelCoordinator_22(
           this,
           Invocation.getter(#timeModel),
         ),
-        returnValueForMissingStub: _FakeTimeAlignmentModelCoordinator_23(
+        returnValueForMissingStub: _FakeTimeAlignmentModelCoordinator_22(
           this,
           Invocation.getter(#timeModel),
         ),
@@ -1972,11 +1783,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i15.NokhteBlurStore get nokhteBlur => (super.noSuchMethod(
         Invocation.getter(#nokhteBlur),
-        returnValue: _FakeNokhteBlurStore_24(
+        returnValue: _FakeNokhteBlurStore_23(
           this,
           Invocation.getter(#nokhteBlur),
         ),
-        returnValueForMissingStub: _FakeNokhteBlurStore_24(
+        returnValueForMissingStub: _FakeNokhteBlurStore_23(
           this,
           Invocation.getter(#nokhteBlur),
         ),
@@ -1985,11 +1796,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i15.BeachWavesStore get beachWaves => (super.noSuchMethod(
         Invocation.getter(#beachWaves),
-        returnValue: _FakeBeachWavesStore_25(
+        returnValue: _FakeBeachWavesStore_24(
           this,
           Invocation.getter(#beachWaves),
         ),
-        returnValueForMissingStub: _FakeBeachWavesStore_25(
+        returnValueForMissingStub: _FakeBeachWavesStore_24(
           this,
           Invocation.getter(#beachWaves),
         ),
@@ -1999,11 +1810,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   _i15.WifiDisconnectOverlayStore get wifiDisconnectOverlay =>
       (super.noSuchMethod(
         Invocation.getter(#wifiDisconnectOverlay),
-        returnValue: _FakeWifiDisconnectOverlayStore_26(
+        returnValue: _FakeWifiDisconnectOverlayStore_25(
           this,
           Invocation.getter(#wifiDisconnectOverlay),
         ),
-        returnValueForMissingStub: _FakeWifiDisconnectOverlayStore_26(
+        returnValueForMissingStub: _FakeWifiDisconnectOverlayStore_25(
           this,
           Invocation.getter(#wifiDisconnectOverlay),
         ),
@@ -2012,11 +1823,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i15.GestureCrossStore get gestureCross => (super.noSuchMethod(
         Invocation.getter(#gestureCross),
-        returnValue: _FakeGestureCrossStore_27(
+        returnValue: _FakeGestureCrossStore_26(
           this,
           Invocation.getter(#gestureCross),
         ),
-        returnValueForMissingStub: _FakeGestureCrossStore_27(
+        returnValueForMissingStub: _FakeGestureCrossStore_26(
           this,
           Invocation.getter(#gestureCross),
         ),
@@ -2025,11 +1836,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i15.SmartTextStore get primarySmartText => (super.noSuchMethod(
         Invocation.getter(#primarySmartText),
-        returnValue: _FakeSmartTextStore_28(
+        returnValue: _FakeSmartTextStore_27(
           this,
           Invocation.getter(#primarySmartText),
         ),
-        returnValueForMissingStub: _FakeSmartTextStore_28(
+        returnValueForMissingStub: _FakeSmartTextStore_27(
           this,
           Invocation.getter(#primarySmartText),
         ),
@@ -2038,11 +1849,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i15.SmartTextStore get secondarySmartText => (super.noSuchMethod(
         Invocation.getter(#secondarySmartText),
-        returnValue: _FakeSmartTextStore_28(
+        returnValue: _FakeSmartTextStore_27(
           this,
           Invocation.getter(#secondarySmartText),
         ),
-        returnValueForMissingStub: _FakeSmartTextStore_28(
+        returnValueForMissingStub: _FakeSmartTextStore_27(
           this,
           Invocation.getter(#secondarySmartText),
         ),
@@ -2051,11 +1862,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i16.DeepLinksCoordinator get deepLinks => (super.noSuchMethod(
         Invocation.getter(#deepLinks),
-        returnValue: _FakeDeepLinksCoordinator_29(
+        returnValue: _FakeDeepLinksCoordinator_28(
           this,
           Invocation.getter(#deepLinks),
         ),
-        returnValueForMissingStub: _FakeDeepLinksCoordinator_29(
+        returnValueForMissingStub: _FakeDeepLinksCoordinator_28(
           this,
           Invocation.getter(#deepLinks),
         ),
@@ -2264,7 +2075,7 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
       );
 
   @override
-  dynamic onAvailabilitySectorMovieStatusFinished(_i29.MovieStatus? p0) =>
+  dynamic onAvailabilitySectorMovieStatusFinished(_i30.MovieStatus? p0) =>
       super.noSuchMethod(
         Invocation.method(
           #onAvailabilitySectorMovieStatusFinished,
@@ -2280,44 +2091,120 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
 class MockDeepLinksCoordinator extends _i1.Mock
     implements _i16.DeepLinksCoordinator {
   @override
-  _i16.GetDeepLinkURLStore get getDeepLinkURL => (super.noSuchMethod(
+  _i14.GetDeepLinkURL get getDeepLinkURL => (super.noSuchMethod(
         Invocation.getter(#getDeepLinkURL),
-        returnValue: _FakeGetDeepLinkURLStore_30(
+        returnValue: _FakeGetDeepLinkURL_29(
           this,
           Invocation.getter(#getDeepLinkURL),
         ),
-        returnValueForMissingStub: _FakeGetDeepLinkURLStore_30(
+        returnValueForMissingStub: _FakeGetDeepLinkURL_29(
           this,
           Invocation.getter(#getDeepLinkURL),
         ),
-      ) as _i16.GetDeepLinkURLStore);
+      ) as _i14.GetDeepLinkURL);
 
   @override
-  _i16.ListenForOpenedDeepLinkStore get listenForOpenedDeepLink =>
+  _i14.SendDeepLink get sendDeepLink => (super.noSuchMethod(
+        Invocation.getter(#sendDeepLink),
+        returnValue: _FakeSendDeepLink_30(
+          this,
+          Invocation.getter(#sendDeepLink),
+        ),
+        returnValueForMissingStub: _FakeSendDeepLink_30(
+          this,
+          Invocation.getter(#sendDeepLink),
+        ),
+      ) as _i14.SendDeepLink);
+
+  @override
+  _i16.ListenForOpenedDeepLinkStore get listenForOpenedDeepLinkStore =>
       (super.noSuchMethod(
-        Invocation.getter(#listenForOpenedDeepLink),
+        Invocation.getter(#listenForOpenedDeepLinkStore),
         returnValue: _FakeListenForOpenedDeepLinkStore_31(
           this,
-          Invocation.getter(#listenForOpenedDeepLink),
+          Invocation.getter(#listenForOpenedDeepLinkStore),
         ),
         returnValueForMissingStub: _FakeListenForOpenedDeepLinkStore_31(
           this,
-          Invocation.getter(#listenForOpenedDeepLink),
+          Invocation.getter(#listenForOpenedDeepLinkStore),
         ),
       ) as _i16.ListenForOpenedDeepLinkStore);
 
   @override
-  _i16.SendDeepLinkStore get sendDeepLink => (super.noSuchMethod(
-        Invocation.getter(#sendDeepLink),
-        returnValue: _FakeSendDeepLinkStore_32(
+  String get link => (super.noSuchMethod(
+        Invocation.getter(#link),
+        returnValue: _i26.dummyValue<String>(
           this,
-          Invocation.getter(#sendDeepLink),
+          Invocation.getter(#link),
         ),
-        returnValueForMissingStub: _FakeSendDeepLinkStore_32(
+        returnValueForMissingStub: _i26.dummyValue<String>(
           this,
-          Invocation.getter(#sendDeepLink),
+          Invocation.getter(#link),
         ),
-      ) as _i16.SendDeepLinkStore);
+      ) as String);
+
+  @override
+  set link(String? value) => super.noSuchMethod(
+        Invocation.setter(
+          #link,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get isShared => (super.noSuchMethod(
+        Invocation.getter(#isShared),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set isShared(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #isShared,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i25.StoreState get state => (super.noSuchMethod(
+        Invocation.getter(#state),
+        returnValue: _i25.StoreState.initial,
+        returnValueForMissingStub: _i25.StoreState.initial,
+      ) as _i25.StoreState);
+
+  @override
+  set state(_i25.StoreState? value) => super.noSuchMethod(
+        Invocation.setter(
+          #state,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  String get errorMessage => (super.noSuchMethod(
+        Invocation.getter(#errorMessage),
+        returnValue: _i26.dummyValue<String>(
+          this,
+          Invocation.getter(#errorMessage),
+        ),
+        returnValueForMissingStub: _i26.dummyValue<String>(
+          this,
+          Invocation.getter(#errorMessage),
+        ),
+      ) as String);
+
+  @override
+  set errorMessage(String? value) => super.noSuchMethod(
+        Invocation.setter(
+          #errorMessage,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
 
   @override
   List<Object> get props => (super.noSuchMethod(
@@ -2338,6 +2225,78 @@ class MockDeepLinksCoordinator extends _i1.Mock
           Invocation.getter(#context),
         ),
       ) as _i11.ReactiveContext);
+
+  @override
+  _i20.Future<dynamic> getDeepLink(_i28.DeepLinkTypes? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getDeepLink,
+          [params],
+        ),
+        returnValue: _i20.Future<dynamic>.value(),
+        returnValueForMissingStub: _i20.Future<dynamic>.value(),
+      ) as _i20.Future<dynamic>);
+
+  @override
+  _i20.Future<dynamic> share(String? link) => (super.noSuchMethod(
+        Invocation.method(
+          #share,
+          [link],
+        ),
+        returnValue: _i20.Future<dynamic>.value(),
+        returnValueForMissingStub: _i20.Future<dynamic>.value(),
+      ) as _i20.Future<dynamic>);
+
+  @override
+  String mapFailureToMessage(_i21.Failure? failure) => (super.noSuchMethod(
+        Invocation.method(
+          #mapFailureToMessage,
+          [failure],
+        ),
+        returnValue: _i26.dummyValue<String>(
+          this,
+          Invocation.method(
+            #mapFailureToMessage,
+            [failure],
+          ),
+        ),
+        returnValueForMissingStub: _i26.dummyValue<String>(
+          this,
+          Invocation.method(
+            #mapFailureToMessage,
+            [failure],
+          ),
+        ),
+      ) as String);
+
+  @override
+  dynamic errorUpdater(_i21.Failure? failure) => super.noSuchMethod(
+        Invocation.method(
+          #errorUpdater,
+          [failure],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void stateOrErrorUpdater(_i7.Either<_i21.Failure, dynamic>? result) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #stateOrErrorUpdater,
+          [result],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i20.Future<void> call(dynamic params) => (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i20.Future<void>.value(),
+        returnValueForMissingStub: _i20.Future<void>.value(),
+      ) as _i20.Future<void>);
 }
 
 /// A class which mocks [GetUserInfoStore].
@@ -2417,11 +2376,11 @@ class MockGetUserInfoStore extends _i1.Mock implements _i12.GetUserInfoStore {
   @override
   _i13.UserJourneyInfoEntity get entity => (super.noSuchMethod(
         Invocation.getter(#entity),
-        returnValue: _FakeUserJourneyInfoEntity_33(
+        returnValue: _FakeUserJourneyInfoEntity_32(
           this,
           Invocation.getter(#entity),
         ),
-        returnValueForMissingStub: _FakeUserJourneyInfoEntity_33(
+        returnValueForMissingStub: _FakeUserJourneyInfoEntity_32(
           this,
           Invocation.getter(#entity),
         ),
@@ -2439,11 +2398,11 @@ class MockGetUserInfoStore extends _i1.Mock implements _i12.GetUserInfoStore {
   @override
   _i13.GetUserInfo get logic => (super.noSuchMethod(
         Invocation.getter(#logic),
-        returnValue: _FakeGetUserInfo_34(
+        returnValue: _FakeGetUserInfo_33(
           this,
           Invocation.getter(#logic),
         ),
-        returnValueForMissingStub: _FakeGetUserInfo_34(
+        returnValueForMissingStub: _FakeGetUserInfo_33(
           this,
           Invocation.getter(#logic),
         ),
@@ -2574,320 +2533,105 @@ class MockGetUserInfoStore extends _i1.Mock implements _i12.GetUserInfoStore {
           ),
         ),
       ) as String);
+
+  @override
+  dynamic errorUpdater(_i21.Failure? failure) => super.noSuchMethod(
+        Invocation.method(
+          #errorUpdater,
+          [failure],
+        ),
+        returnValueForMissingStub: null,
+      );
 }
 
-/// A class which mocks [UpdateHasGoneThroughInvitationFlowStore].
+/// A class which mocks [UpdateHasGoneThroughInvitationFlow].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUpdateHasGoneThroughInvitationFlowStore extends _i1.Mock
-    implements _i12.UpdateHasGoneThroughInvitationFlowStore {
+class MockUpdateHasGoneThroughInvitationFlow extends _i1.Mock
+    implements _i13.UpdateHasGoneThroughInvitationFlow {
   @override
-  bool get isUpdated => (super.noSuchMethod(
-        Invocation.getter(#isUpdated),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool);
-
-  @override
-  set isUpdated(bool? value) => super.noSuchMethod(
-        Invocation.setter(
-          #isUpdated,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i13.UpdateHasGoneThroughInvitationFlow get logic => (super.noSuchMethod(
-        Invocation.getter(#logic),
-        returnValue: _FakeUpdateHasGoneThroughInvitationFlow_35(
+  _i13.UserInformationContract get contract => (super.noSuchMethod(
+        Invocation.getter(#contract),
+        returnValue: _FakeUserInformationContract_15(
           this,
-          Invocation.getter(#logic),
+          Invocation.getter(#contract),
         ),
-        returnValueForMissingStub: _FakeUpdateHasGoneThroughInvitationFlow_35(
+        returnValueForMissingStub: _FakeUserInformationContract_15(
           this,
-          Invocation.getter(#logic),
+          Invocation.getter(#contract),
         ),
-      ) as _i13.UpdateHasGoneThroughInvitationFlow);
+      ) as _i13.UserInformationContract);
 
   @override
-  _i10.BaseFutureStore<bool> get futureStore => (super.noSuchMethod(
-        Invocation.getter(#futureStore),
-        returnValue: _FakeBaseFutureStore_8<bool>(
-          this,
-          Invocation.getter(#futureStore),
-        ),
-        returnValueForMissingStub: _FakeBaseFutureStore_8<bool>(
-          this,
-          Invocation.getter(#futureStore),
-        ),
-      ) as _i10.BaseFutureStore<bool>);
-
-  @override
-  set futureStore(_i10.BaseFutureStore<bool>? value) => super.noSuchMethod(
-        Invocation.setter(
-          #futureStore,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i25.StoreState get state => (super.noSuchMethod(
-        Invocation.getter(#state),
-        returnValue: _i25.StoreState.initial,
-        returnValueForMissingStub: _i25.StoreState.initial,
-      ) as _i25.StoreState);
-
-  @override
-  set state(_i25.StoreState? value) => super.noSuchMethod(
-        Invocation.setter(
-          #state,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  String get errorMessage => (super.noSuchMethod(
-        Invocation.getter(#errorMessage),
-        returnValue: _i26.dummyValue<String>(
-          this,
-          Invocation.getter(#errorMessage),
-        ),
-        returnValueForMissingStub: _i26.dummyValue<String>(
-          this,
-          Invocation.getter(#errorMessage),
-        ),
-      ) as String);
-
-  @override
-  set errorMessage(String? value) => super.noSuchMethod(
-        Invocation.setter(
-          #errorMessage,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  List<Object> get props => (super.noSuchMethod(
-        Invocation.getter(#props),
-        returnValue: <Object>[],
-        returnValueForMissingStub: <Object>[],
-      ) as List<Object>);
-
-  @override
-  _i11.ReactiveContext get context => (super.noSuchMethod(
-        Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_9(
-          this,
-          Invocation.getter(#context),
-        ),
-        returnValueForMissingStub: _FakeReactiveContext_9(
-          this,
-          Invocation.getter(#context),
-        ),
-      ) as _i11.ReactiveContext);
-
-  @override
-  void stateOrErrorUpdater(_i7.Either<_i21.Failure, bool>? result) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #stateOrErrorUpdater,
-          [result],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i20.Future<void> call(bool? params) => (super.noSuchMethod(
+  _i20.Future<_i7.Either<_i21.Failure, bool>> call(bool? params) =>
+      (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i20.Future<void>.value(),
-        returnValueForMissingStub: _i20.Future<void>.value(),
-      ) as _i20.Future<void>);
-
-  @override
-  String mapFailureToMessage(_i21.Failure? failure) => (super.noSuchMethod(
-        Invocation.method(
-          #mapFailureToMessage,
-          [failure],
-        ),
-        returnValue: _i26.dummyValue<String>(
+        returnValue: _i20.Future<_i7.Either<_i21.Failure, bool>>.value(
+            _FakeEither_5<_i21.Failure, bool>(
           this,
           Invocation.method(
-            #mapFailureToMessage,
-            [failure],
+            #call,
+            [params],
           ),
-        ),
-        returnValueForMissingStub: _i26.dummyValue<String>(
+        )),
+        returnValueForMissingStub:
+            _i20.Future<_i7.Either<_i21.Failure, bool>>.value(
+                _FakeEither_5<_i21.Failure, bool>(
           this,
           Invocation.method(
-            #mapFailureToMessage,
-            [failure],
+            #call,
+            [params],
           ),
-        ),
-      ) as String);
+        )),
+      ) as _i20.Future<_i7.Either<_i21.Failure, bool>>);
 }
 
-/// A class which mocks [UpdateHasSentAnInvitationStore].
+/// A class which mocks [UpdateHasSentAnInvitation].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUpdateHasSentAnInvitationStore extends _i1.Mock
-    implements _i12.UpdateHasSentAnInvitationStore {
+class MockUpdateHasSentAnInvitation extends _i1.Mock
+    implements _i13.UpdateHasSentAnInvitation {
   @override
-  bool get isUpdated => (super.noSuchMethod(
-        Invocation.getter(#isUpdated),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool);
-
-  @override
-  set isUpdated(bool? value) => super.noSuchMethod(
-        Invocation.setter(
-          #isUpdated,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i13.UpdateHasSentAnInvitation get logic => (super.noSuchMethod(
-        Invocation.getter(#logic),
-        returnValue: _FakeUpdateHasSentAnInvitation_36(
+  _i13.UserInformationContract get contract => (super.noSuchMethod(
+        Invocation.getter(#contract),
+        returnValue: _FakeUserInformationContract_15(
           this,
-          Invocation.getter(#logic),
+          Invocation.getter(#contract),
         ),
-        returnValueForMissingStub: _FakeUpdateHasSentAnInvitation_36(
+        returnValueForMissingStub: _FakeUserInformationContract_15(
           this,
-          Invocation.getter(#logic),
+          Invocation.getter(#contract),
         ),
-      ) as _i13.UpdateHasSentAnInvitation);
+      ) as _i13.UserInformationContract);
 
   @override
-  _i10.BaseFutureStore<bool> get futureStore => (super.noSuchMethod(
-        Invocation.getter(#futureStore),
-        returnValue: _FakeBaseFutureStore_8<bool>(
-          this,
-          Invocation.getter(#futureStore),
-        ),
-        returnValueForMissingStub: _FakeBaseFutureStore_8<bool>(
-          this,
-          Invocation.getter(#futureStore),
-        ),
-      ) as _i10.BaseFutureStore<bool>);
-
-  @override
-  set futureStore(_i10.BaseFutureStore<bool>? value) => super.noSuchMethod(
-        Invocation.setter(
-          #futureStore,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i25.StoreState get state => (super.noSuchMethod(
-        Invocation.getter(#state),
-        returnValue: _i25.StoreState.initial,
-        returnValueForMissingStub: _i25.StoreState.initial,
-      ) as _i25.StoreState);
-
-  @override
-  set state(_i25.StoreState? value) => super.noSuchMethod(
-        Invocation.setter(
-          #state,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  String get errorMessage => (super.noSuchMethod(
-        Invocation.getter(#errorMessage),
-        returnValue: _i26.dummyValue<String>(
-          this,
-          Invocation.getter(#errorMessage),
-        ),
-        returnValueForMissingStub: _i26.dummyValue<String>(
-          this,
-          Invocation.getter(#errorMessage),
-        ),
-      ) as String);
-
-  @override
-  set errorMessage(String? value) => super.noSuchMethod(
-        Invocation.setter(
-          #errorMessage,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  List<Object> get props => (super.noSuchMethod(
-        Invocation.getter(#props),
-        returnValue: <Object>[],
-        returnValueForMissingStub: <Object>[],
-      ) as List<Object>);
-
-  @override
-  _i11.ReactiveContext get context => (super.noSuchMethod(
-        Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_9(
-          this,
-          Invocation.getter(#context),
-        ),
-        returnValueForMissingStub: _FakeReactiveContext_9(
-          this,
-          Invocation.getter(#context),
-        ),
-      ) as _i11.ReactiveContext);
-
-  @override
-  void stateOrErrorUpdater(_i7.Either<_i21.Failure, bool>? result) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #stateOrErrorUpdater,
-          [result],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i20.Future<void> call(bool? params) => (super.noSuchMethod(
+  _i20.Future<_i7.Either<_i21.Failure, bool>> call(bool? params) =>
+      (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i20.Future<void>.value(),
-        returnValueForMissingStub: _i20.Future<void>.value(),
-      ) as _i20.Future<void>);
-
-  @override
-  String mapFailureToMessage(_i21.Failure? failure) => (super.noSuchMethod(
-        Invocation.method(
-          #mapFailureToMessage,
-          [failure],
-        ),
-        returnValue: _i26.dummyValue<String>(
+        returnValue: _i20.Future<_i7.Either<_i21.Failure, bool>>.value(
+            _FakeEither_5<_i21.Failure, bool>(
           this,
           Invocation.method(
-            #mapFailureToMessage,
-            [failure],
+            #call,
+            [params],
           ),
-        ),
-        returnValueForMissingStub: _i26.dummyValue<String>(
+        )),
+        returnValueForMissingStub:
+            _i20.Future<_i7.Either<_i21.Failure, bool>>.value(
+                _FakeEither_5<_i21.Failure, bool>(
           this,
           Invocation.method(
-            #mapFailureToMessage,
-            [failure],
+            #call,
+            [params],
           ),
-        ),
-      ) as String);
+        )),
+      ) as _i20.Future<_i7.Either<_i21.Failure, bool>>);
 }
 
 /// A class which mocks [DeleteUnconsecratedCollaborationsCoordinator].
@@ -2979,11 +2723,11 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
   _i17.DeleteCapsuleArrangement get deleteCapsuleArrangement =>
       (super.noSuchMethod(
         Invocation.getter(#deleteCapsuleArrangement),
-        returnValue: _FakeDeleteCapsuleArrangement_37(
+        returnValue: _FakeDeleteCapsuleArrangement_34(
           this,
           Invocation.getter(#deleteCapsuleArrangement),
         ),
-        returnValueForMissingStub: _FakeDeleteCapsuleArrangement_37(
+        returnValueForMissingStub: _FakeDeleteCapsuleArrangement_34(
           this,
           Invocation.getter(#deleteCapsuleArrangement),
         ),
@@ -2993,11 +2737,11 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
   _i17.DeleteCollaborativeDocument get deleteCollaborativeDocument =>
       (super.noSuchMethod(
         Invocation.getter(#deleteCollaborativeDocument),
-        returnValue: _FakeDeleteCollaborativeDocument_38(
+        returnValue: _FakeDeleteCollaborativeDocument_35(
           this,
           Invocation.getter(#deleteCollaborativeDocument),
         ),
-        returnValueForMissingStub: _FakeDeleteCollaborativeDocument_38(
+        returnValueForMissingStub: _FakeDeleteCollaborativeDocument_35(
           this,
           Invocation.getter(#deleteCollaborativeDocument),
         ),
@@ -3007,11 +2751,11 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
   _i17.DeleteSchedulingSession get deleteSchedulingSession =>
       (super.noSuchMethod(
         Invocation.getter(#deleteSchedulingSession),
-        returnValue: _FakeDeleteSchedulingSession_39(
+        returnValue: _FakeDeleteSchedulingSession_36(
           this,
           Invocation.getter(#deleteSchedulingSession),
         ),
-        returnValueForMissingStub: _FakeDeleteSchedulingSession_39(
+        returnValueForMissingStub: _FakeDeleteSchedulingSession_36(
           this,
           Invocation.getter(#deleteSchedulingSession),
         ),
@@ -3020,11 +2764,11 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
   @override
   _i17.DeleteTheCollaboration get deleteTheCollaboration => (super.noSuchMethod(
         Invocation.getter(#deleteTheCollaboration),
-        returnValue: _FakeDeleteTheCollaboration_40(
+        returnValue: _FakeDeleteTheCollaboration_37(
           this,
           Invocation.getter(#deleteTheCollaboration),
         ),
-        returnValueForMissingStub: _FakeDeleteTheCollaboration_40(
+        returnValueForMissingStub: _FakeDeleteTheCollaboration_37(
           this,
           Invocation.getter(#deleteTheCollaboration),
         ),
@@ -3033,11 +2777,11 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
   @override
   _i17.DeleteSoloDocument get deleteSoloDocument => (super.noSuchMethod(
         Invocation.getter(#deleteSoloDocument),
-        returnValue: _FakeDeleteSoloDocument_41(
+        returnValue: _FakeDeleteSoloDocument_38(
           this,
           Invocation.getter(#deleteSoloDocument),
         ),
-        returnValueForMissingStub: _FakeDeleteSoloDocument_41(
+        returnValueForMissingStub: _FakeDeleteSoloDocument_38(
           this,
           Invocation.getter(#deleteSoloDocument),
         ),
@@ -3047,12 +2791,12 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
   _i18.CheckForUnconsecratedCollaborationStore
       get checkForUnconsecratedCollaboration => (super.noSuchMethod(
             Invocation.getter(#checkForUnconsecratedCollaboration),
-            returnValue: _FakeCheckForUnconsecratedCollaborationStore_42(
+            returnValue: _FakeCheckForUnconsecratedCollaborationStore_39(
               this,
               Invocation.getter(#checkForUnconsecratedCollaboration),
             ),
             returnValueForMissingStub:
-                _FakeCheckForUnconsecratedCollaborationStore_42(
+                _FakeCheckForUnconsecratedCollaborationStore_39(
               this,
               Invocation.getter(#checkForUnconsecratedCollaboration),
             ),
@@ -3147,6 +2891,15 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
           ),
         ),
       ) as String);
+
+  @override
+  dynamic errorUpdater(_i21.Failure? failure) => super.noSuchMethod(
+        Invocation.method(
+          #errorUpdater,
+          [failure],
+        ),
+        returnValueForMissingStub: null,
+      );
 
   @override
   void stateOrErrorUpdater(_i7.Either<_i21.Failure, bool>? result) =>
