@@ -1,12 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mixins/response_to_status.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/types/call_status.dart';
 import 'package:nokhte/app/core/modules/voice_call/data/data.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 
-class VoiceCallContractImpl implements VoiceCallContract {
+class VoiceCallContractImpl with ResponseToStatus implements VoiceCallContract {
   final VoiceCallRemoteSource remoteSource;
   final NetworkInfo networkInfo;
   VoiceCallContractImpl({
@@ -18,7 +19,7 @@ class VoiceCallContractImpl implements VoiceCallContract {
   getAgoraToken({required String channelName}) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.getAgoraToken(channelName: channelName);
-      return Right(AgoraCallTokenModel.fromTokenServer(res));
+      return Right(fromHTTPResponseProperty<String>(res, "rtcToken", ""));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
