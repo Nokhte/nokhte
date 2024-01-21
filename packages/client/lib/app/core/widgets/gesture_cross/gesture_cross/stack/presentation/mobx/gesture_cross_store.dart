@@ -40,6 +40,11 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
   }
 
   @action
+  setPhase2PurposeSession() {
+    gradientNokhte.setMovie(VibrantBlueGradientNokhteMovie.movie);
+  }
+
+  @action
   fadeInTheCross() {
     gradientNokhte.setMovie(VibrantBlueGradientNokhteMovie.movie);
     cross.toggleWidgetVisibility();
