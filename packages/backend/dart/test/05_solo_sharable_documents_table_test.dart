@@ -23,7 +23,7 @@ void main() {
   });
 
   test("User Can Create a document", () async {
-    final res = await user1Queries.createSoloDoc(desiredDocType: 'purpose');
+    final res = await user1Queries.createSoloDoc('purpose');
 
     expect(res.first["owner_uid"], tSetup.firstUserUID);
     expect(res.first["collaborator_uid"], tSetup.secondUserUID);
