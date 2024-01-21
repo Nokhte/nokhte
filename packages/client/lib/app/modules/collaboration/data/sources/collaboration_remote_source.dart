@@ -41,8 +41,6 @@ class CollaborationRemoteSourceImpl implements CollaborationRemoteSource {
       existingCollaborationsStream.getCollaboratorSearchAndEntryStatus();
 
   @override
-  bool cancelStream() {
-    existingCollaborationsStream.cancelGetCollaboratorSearchStream();
-    return existingCollaborationsStream.collaboratorSearchListeningStatus;
-  }
+  bool cancelStream() =>
+      existingCollaborationsStream.cancelGetCollaboratorSearchStream();
 }
