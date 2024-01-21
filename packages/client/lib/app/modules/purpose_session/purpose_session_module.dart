@@ -2,6 +2,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/collaborator_presence/collaborator_presence_module.dart';
 import 'package:nokhte/app/core/modules/collaborator_presence/mobx/coordinators/collaborator_presence_coordinator.dart';
 import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity_module.dart';
+import 'package:nokhte/app/core/modules/solo_docs/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/solo_docs/solo_docs_module.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/voice_call_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
@@ -21,6 +23,7 @@ class PurposeSessionModule extends Module {
         LegacyConnectivityModule(),
         CollaboratorPresenceModule(),
         GesturesModule(),
+        SoloDocsModule(),
       ];
   @override
   void binds(i) {
@@ -57,6 +60,7 @@ class PurposeSessionModule extends Module {
 
     i.add<PurposeSessionPhase2Coordinator>(
       () => PurposeSessionPhase2Coordinator(
+        soloDoc: Modular.get<SoloDocsCoordinator>(),
         swipe: Modular.get<SwipeDetector>(),
         widgets: Modular.get<PurposeSessionPhase2WidgetsCoordinator>(),
       ),
