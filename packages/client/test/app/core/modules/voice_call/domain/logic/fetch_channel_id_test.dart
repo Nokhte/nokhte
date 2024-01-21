@@ -18,7 +18,7 @@ void main() {
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
     when(mockContract.getChannelId()).thenAnswer(
-      (_) async => ConstantChannelIdEntity.wrappedSuccessCase,
+      (_) async => Right("channelId"),
     );
 
     final result = await logic(NoParams());

@@ -18,7 +18,7 @@ void main() {
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
     when(mockContract.getAgoraToken(channelName: 'hi')).thenAnswer(
-      (_) async => ConstantAgoraCallTokenEntity.wrappedSuccessCase,
+      (_) async => Right("token"),
     );
 
     final result = await logic(tParams);

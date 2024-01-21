@@ -14,9 +14,6 @@ import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
   MockSpec<LeaveCall>(),
   MockSpec<MuteLocalAudio>(),
   MockSpec<UnmuteLocalAudio>(),
-  MockSpec<GetAgoraTokenStore>(),
-  MockSpec<GetChannelIdStore>(),
-  MockSpec<InitAgoraSdkStore>(),
   MockSpec<VoiceCallActionsStore>(),
 ])
 void main() {}
