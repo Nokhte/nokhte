@@ -10,6 +10,7 @@ export 'nokhte/nokhte.dart';
 export 'nokhte_blur/nokhte_blur.dart';
 export 'spotlight_halo/spotlight_halo.dart';
 export 'smart_text/smart_text.dart';
+export "text_editor/text_editor.dart";
 export 'trailing_text/trailing_text.dart';
 export "waiting_text/waiting_text.dart";
 export 'wifi_disconnect_overlay/wifi_disconnect_overlay.dart';
