@@ -708,6 +708,15 @@ class MockSignInWithAuthProviderStore extends _i1.Mock
       ) as String);
 
   @override
+  dynamic errorUpdater(_i16.Failure? failure) => super.noSuchMethod(
+        Invocation.method(
+          #errorUpdater,
+          [failure],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   void stateOrErrorUpdater(
           _i5.Either<_i16.Failure, _i6.AuthProviderEntity>? result) =>
       super.noSuchMethod(
