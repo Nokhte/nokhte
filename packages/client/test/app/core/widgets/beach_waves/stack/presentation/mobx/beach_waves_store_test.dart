@@ -91,11 +91,6 @@ void main() {
             BeachWaveMovieModes.timesUpDynamicPointToTheDepths];
         expect(res?.movie.duration, Seconds.get(3));
       });
-      test("timesUpDynamicPoinToTheDepthsSetup key", () {
-        final res = testStore.movieModeToStoreLookup[
-            BeachWaveMovieModes.timesUpDynamicPointToTheDepthsSetup];
-        expect(res?.movie.duration, Seconds.get(45));
-      });
       test("timesUpEndToTheDepths key", () {
         final res = testStore
             .movieModeToStoreLookup[BeachWaveMovieModes.timesUpEndToTheDepths];
@@ -143,8 +138,8 @@ void main() {
 
   group("actions", () {
     test('setMovieMode', () {
-      testStore.setMovieMode(BeachWaveMovieModes.onShoreToOceanDiveSetup);
-      expect(testStore.movieMode, BeachWaveMovieModes.onShoreToOceanDiveSetup);
+      testStore.setMovieMode(BeachWaveMovieModes.onShoreToOceanDive);
+      expect(testStore.movieMode, BeachWaveMovieModes.onShoreToOceanDive);
     });
   });
 
