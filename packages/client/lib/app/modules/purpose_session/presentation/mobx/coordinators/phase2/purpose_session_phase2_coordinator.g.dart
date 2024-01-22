@@ -10,6 +10,41 @@ part of 'purpose_session_phase2_coordinator.dart';
 
 mixin _$PurposeSessionPhase2Coordinator
     on _PurposeSessionPhase2CoordinatorBase, Store {
+  late final _$hasInitializedTimerAtom = Atom(
+      name: '_PurposeSessionPhase2CoordinatorBase.hasInitializedTimer',
+      context: context);
+
+  @override
+  bool get hasInitializedTimer {
+    _$hasInitializedTimerAtom.reportRead();
+    return super.hasInitializedTimer;
+  }
+
+  @override
+  set hasInitializedTimer(bool value) {
+    _$hasInitializedTimerAtom.reportWrite(value, super.hasInitializedTimer, () {
+      super.hasInitializedTimer = value;
+    });
+  }
+
+  late final _$isFirstTimeBothAreInSyncAtom = Atom(
+      name: '_PurposeSessionPhase2CoordinatorBase.isFirstTimeBothAreInSync',
+      context: context);
+
+  @override
+  bool get isFirstTimeBothAreInSync {
+    _$isFirstTimeBothAreInSyncAtom.reportRead();
+    return super.isFirstTimeBothAreInSync;
+  }
+
+  @override
+  set isFirstTimeBothAreInSync(bool value) {
+    _$isFirstTimeBothAreInSyncAtom
+        .reportWrite(value, super.isFirstTimeBothAreInSync, () {
+      super.isFirstTimeBothAreInSync = value;
+    });
+  }
+
   late final _$canSwipeUpAtom = Atom(
       name: '_PurposeSessionPhase2CoordinatorBase.canSwipeUp',
       context: context);
@@ -53,6 +88,42 @@ mixin _$PurposeSessionPhase2Coordinator
     return _$constructorAsyncAction.run(() => super.constructor());
   }
 
+  late final _$onInactiveAsyncAction = AsyncAction(
+      '_PurposeSessionPhase2CoordinatorBase.onInactive',
+      context: context);
+
+  @override
+  Future onInactive() {
+    return _$onInactiveAsyncAction.run(() => super.onInactive());
+  }
+
+  late final _$onResumedAsyncAction = AsyncAction(
+      '_PurposeSessionPhase2CoordinatorBase.onResumed',
+      context: context);
+
+  @override
+  Future onResumed() {
+    return _$onResumedAsyncAction.run(() => super.onResumed());
+  }
+
+  late final _$onPhaseChangeAsyncAction = AsyncAction(
+      '_PurposeSessionPhase2CoordinatorBase.onPhaseChange',
+      context: context);
+
+  @override
+  Future onPhaseChange() {
+    return _$onPhaseChangeAsyncAction.run(() => super.onPhaseChange());
+  }
+
+  late final _$onTimesUpAsyncAction = AsyncAction(
+      '_PurposeSessionPhase2CoordinatorBase.onTimesUp',
+      context: context);
+
+  @override
+  Future onTimesUp() {
+    return _$onTimesUpAsyncAction.run(() => super.onTimesUp());
+  }
+
   late final _$_PurposeSessionPhase2CoordinatorBaseActionController =
       ActionController(
           name: '_PurposeSessionPhase2CoordinatorBase', context: context);
@@ -85,6 +156,8 @@ mixin _$PurposeSessionPhase2Coordinator
   @override
   String toString() {
     return '''
+hasInitializedTimer: ${hasInitializedTimer},
+isFirstTimeBothAreInSync: ${isFirstTimeBothAreInSync},
 canSwipeUp: ${canSwipeUp},
 hasSwipedUp: ${hasSwipedUp}
     ''';

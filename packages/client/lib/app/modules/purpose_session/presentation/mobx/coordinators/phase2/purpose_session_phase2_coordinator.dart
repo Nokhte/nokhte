@@ -1,6 +1,10 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/collaborator_presence/domain/domain.dart';
+import 'package:nokhte/app/core/modules/collaborator_presence/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/solo_docs/domain/domain.dart';
 import 'package:nokhte/app/core/modules/solo_docs/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -15,13 +19,21 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
     with Store {
   final SwipeDetector swipe;
   final PurposeSessionPhase2WidgetsCoordinator widgets;
+  final CollaboratorPresenceCoordinator collaboratorPresence;
   final SoloDocsCoordinator soloDoc;
 
   _PurposeSessionPhase2CoordinatorBase({
     required this.widgets,
     required this.swipe,
+    required this.collaboratorPresence,
     required this.soloDoc,
   });
+
+  @observable
+  bool hasInitializedTimer = false;
+
+  @observable
+  bool isFirstTimeBothAreInSync = true;
 
   @observable
   bool canSwipeUp = false;
@@ -31,12 +43,12 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
 
   @action
   constructor() async {
-    widgets.constructor(
-      onKeyboardDown: onKeyboardDown,
-      onKeyboardUp: onKeyboardUp,
-    );
+    widgets.constructor();
+    await collaboratorPresence.listen();
+    await collaboratorPresence.updateCurrentPhase(2.0);
+    collaboratorPresence.setBasePhaseForScreen(2.0);
     await soloDoc.create(SoloDocTypes.purpose);
-    swipeReactor();
+    initReactors();
   }
 
   @action
@@ -51,6 +63,89 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
     }
   }
 
+  @action
+  onInactive() async {
+    await collaboratorPresence.updateTimerStatus(false);
+    await collaboratorPresence
+        .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
+  }
+
+  @action
+  onResumed() async {
+    await collaboratorPresence.updateTimerStatus(true);
+    await collaboratorPresence
+        .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
+  }
+
+  initReactors() {
+    onCollaboratorOnlinePresenceChangeReactor();
+    bothCollaboratorsAreOnlineAndInSyncReactor();
+    timerReactor();
+    swipeReactor();
+    widgets.initReactors(
+      onKeyboardUp: onKeyboardUp,
+      onKeyboardDown: onKeyboardDown,
+      onTimesUp: onTimesUp,
+    );
+  }
+
+  onCollaboratorOnlinePresenceChangeReactor() => reaction(
+          (p0) => collaboratorPresence.getSessionMetadata.collaboratorIsOnline,
+          (p0) async {
+        if (p0) {
+          widgets.onCollaboratorJoined();
+        } else {
+          widgets.onCollaboratorLeft();
+          await collaboratorPresence.updateCallStatus(
+              UpdatePresencePropertyParams.collaboratorNegative());
+        }
+      });
+
+  bothCollaboratorsAreOnlineAndInSyncReactor() => reaction(
+          (p0) => collaboratorPresence
+              .getSessionMetadata.bothCollaboratorsAreInSyncAndOnline, (p0) {
+        if (p0 && isFirstTimeBothAreInSync) {
+          isFirstTimeBothAreInSync = false;
+          widgets.initTimer();
+          hasInitializedTimer = true;
+        }
+      });
+
+  timerReactor() =>
+      reaction((p0) => collaboratorPresence.getSessionMetadata.timerShouldRun,
+          (p0) {
+        if (p0) {
+          if (!hasInitializedTimer) {
+            widgets.initTimer();
+            hasInitializedTimer = true;
+          } else {
+            widgets.resumeTimer();
+          }
+        } else {
+          widgets.pausetimer();
+        }
+      });
+
+  @action
+  onPhaseChange() async {
+    if (collaboratorPresence.getSessionMetadata.collaboratorPhase == 2.5 &&
+        collaboratorPresence.getSessionMetadata.userPhase == 2.5) {
+      await soloDoc.share();
+      widgets.onEarlyRelease();
+    }
+  }
+
+  @action
+  onTimesUp() async {
+    await soloDoc.submit(widgets.textEditor.controller.text);
+    await soloDoc.share();
+    await collaboratorPresence.updateCurrentPhase(2.5);
+  }
+
+  currentPhaseReactor() => reaction(
+      (p0) => collaboratorPresence.getSessionMetadata.collaboratorPhase,
+      (p0) => onPhaseChange());
+
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) async {
         switch (p0) {
           case GestureDirections.up:
@@ -60,12 +155,15 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
               hasSwipedUp = true;
               canSwipeUp = false;
               await soloDoc.submit(widgets.textEditor.controller.text);
+              await collaboratorPresence.updateCurrentPhase(2.5);
+              onPhaseChange();
               widgets.onSwipeUp();
             }
           case GestureDirections.down:
             if (hasSwipedUp) {
               widgets.onSwipeDown();
               hasSwipedUp = false;
+              await collaboratorPresence.updateCurrentPhase(2);
               canSwipeUp = true;
             }
           default:
