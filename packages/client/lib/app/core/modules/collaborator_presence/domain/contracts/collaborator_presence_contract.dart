@@ -12,9 +12,7 @@ abstract class CollaboratorPresenceContract {
   Future<Either<Failure, bool>> updateWhoIsTalking(
       UpdateWhoIsTalkingParams params);
   Future<Either<Failure, bool>> updateTimerStatus(bool params);
-  Future<Either<Failure, bool>> updateCurrentPhase(
-    UpdateCurrentPhaseParams params,
-  );
+  Future<Either<Failure, bool>> updateCurrentPhase(double params);
   Future<Either<Failure, Stream<CollaborationSessionMetadata>>>
       getSessionMetadata(NoParams params);
   bool cancelSessionMetadataStream(NoParams params);

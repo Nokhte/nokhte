@@ -85,7 +85,7 @@ abstract class _CollaboratorPresenceCoordinatorBase extends BaseMobxDBStore
   }
 
   @action
-  updateCurrentPhase(UpdateCurrentPhaseParams params) async {
+  updateCurrentPhase(double params) async {
     currentPhaseIsUpdated = false;
     state = StoreState.loading;
     final res = await currentPhase(params);
@@ -108,7 +108,7 @@ abstract class _CollaboratorPresenceCoordinatorBase extends BaseMobxDBStore
   }
 
   @action
-  setCurrentPhase(double currentPhase) =>
+  setBasePhaseForScreen(double currentPhase) =>
       getSessionMetadata.setCurrentPhase(currentPhase);
 
   @override

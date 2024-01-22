@@ -161,7 +161,7 @@ mixin _$CollaboratorPresenceCoordinator
       context: context);
 
   @override
-  Future updateCurrentPhase(UpdateCurrentPhaseParams params) {
+  Future updateCurrentPhase(double params) {
     return _$updateCurrentPhaseAsyncAction
         .run(() => super.updateCurrentPhase(params));
   }
@@ -192,12 +192,12 @@ mixin _$CollaboratorPresenceCoordinator
   }
 
   @override
-  dynamic setCurrentPhase(double currentPhase) {
+  dynamic setBasePhaseForScreen(double currentPhase) {
     final _$actionInfo =
         _$_CollaboratorPresenceCoordinatorBaseActionController.startAction(
-            name: '_CollaboratorPresenceCoordinatorBase.setCurrentPhase');
+            name: '_CollaboratorPresenceCoordinatorBase.setBasePhaseForScreen');
     try {
-      return super.setCurrentPhase(currentPhase);
+      return super.setBasePhaseForScreen(currentPhase);
     } finally {
       _$_CollaboratorPresenceCoordinatorBaseActionController
           .endAction(_$actionInfo);
