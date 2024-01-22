@@ -22,7 +22,6 @@ class PurposeSessionPhase0Greeter extends HookWidget {
               current,
               onResumed: () => coordinator.onResumed(),
               onInactive: () => coordinator.onInactive(),
-              onDetached: () => null,
             ));
     return Scaffold(
       resizeToAvoidBottomInset: false,
