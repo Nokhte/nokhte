@@ -69,6 +69,19 @@ void main() {
     );
   });
 
+  test("reset values in existing collaborations", () async {
+    final realPersonUID = await returnNonNPCUID();
+    print("realPersonUID: $realPersonUID");
+    await supabaseAdmin.from("existing_collaborations").update({
+      "is_on_call": [false, false],
+      "is_online": [false, false],
+      "current_phases": [1, 1],
+      "timer_should_run": false,
+    }).or(
+        "collaborator_one.eq.$realPersonUID,collaborator_two.eq.$realPersonUID");
+    ;
+  });
+
   test("mark npc as having joined the call", () async {
     await existingCollaborationsQueries.updateOnCallStatus(true);
   });
