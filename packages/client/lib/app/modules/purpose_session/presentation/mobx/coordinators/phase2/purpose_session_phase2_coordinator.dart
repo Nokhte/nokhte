@@ -68,12 +68,14 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
 
   @action
   onInactive() async {
+    await collaboratorPresence.updateTimerStatus(false);
     await collaboratorPresence
         .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
   }
 
   @action
   onResumed() async {
+    await collaboratorPresence.updateTimerStatus(true);
     await collaboratorPresence
         .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
   }
