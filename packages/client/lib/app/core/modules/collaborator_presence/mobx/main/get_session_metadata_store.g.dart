@@ -18,6 +18,15 @@ mixin _$GetSessionMetadataStore on _GetSessionMetadataStoreBase, Store {
               name:
                   '_GetSessionMetadataStoreBase.bothCollaboratorsAreOnCallAndOnline'))
           .value;
+  Computed<bool>? _$bothCollaboratorsAreInSyncAndOnlineComputed;
+
+  @override
+  bool get bothCollaboratorsAreInSyncAndOnline =>
+      (_$bothCollaboratorsAreInSyncAndOnlineComputed ??= Computed<bool>(
+              () => super.bothCollaboratorsAreInSyncAndOnline,
+              name:
+                  '_GetSessionMetadataStoreBase.bothCollaboratorsAreInSyncAndOnline'))
+          .value;
   Computed<bool>? _$collaboratorHasMovedOnComputed;
 
   @override
@@ -228,6 +237,7 @@ timerShouldRun: ${timerShouldRun},
 collaboratorIsTalking: ${collaboratorIsTalking},
 sessionMetadata: ${sessionMetadata},
 bothCollaboratorsAreOnCallAndOnline: ${bothCollaboratorsAreOnCallAndOnline},
+bothCollaboratorsAreInSyncAndOnline: ${bothCollaboratorsAreInSyncAndOnline},
 collaboratorHasMovedOn: ${collaboratorHasMovedOn}
     ''';
   }

@@ -56,6 +56,13 @@ abstract class _GetSessionMetadataStoreBase
       collaboratorIsOnline;
 
   @computed
+  bool get bothCollaboratorsAreInSyncAndOnline =>
+      userIsOnline &&
+      collaboratorIsOnline &&
+      userPhase.isGreaterThanOrEqualTo(currentPhase) &&
+      collaboratorPhase.isGreaterThanOrEqualTo(currentPhase);
+
+  @computed
   bool get collaboratorHasMovedOn =>
       collaboratorPhase.isGreaterThan(currentPhase);
 
