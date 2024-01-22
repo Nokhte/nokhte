@@ -71,7 +71,7 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
     } else {
       widgets.invitationFlowConstructor();
     }
-    await deepLinks.getDeepLinkURL(DeepLinkTypes.collaboratorInvitation);
+    await deepLinks.getDeepLink(DeepLinkTypes.collaboratorInvitation);
   }
 
   @action
