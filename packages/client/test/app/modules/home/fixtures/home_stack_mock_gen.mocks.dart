@@ -2083,6 +2083,15 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
         ),
         returnValueForMissingStub: null,
       );
+
+  @override
+  dynamic setIsDisconnected(bool? newValue) => super.noSuchMethod(
+        Invocation.method(
+          #setIsDisconnected,
+          [newValue],
+        ),
+        returnValueForMissingStub: null,
+      );
 }
 
 /// A class which mocks [DeepLinksCoordinator].
