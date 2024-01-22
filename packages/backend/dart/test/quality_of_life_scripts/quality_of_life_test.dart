@@ -79,7 +79,6 @@ void main() {
       "timer_should_run": false,
     }).or(
         "collaborator_one.eq.$realPersonUID,collaborator_two.eq.$realPersonUID");
-    ;
   });
 
   test("mark npc as having joined the call", () async {
