@@ -225,4 +225,18 @@ class MessagesData {
           pauseHere: true,
         ),
       ];
+  static List<RotatingTextData> get purposeSessionPhase2ErrorList => [
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "Collaborator Is Offline",
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
+      ];
 }
