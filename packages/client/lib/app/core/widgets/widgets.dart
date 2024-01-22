@@ -8,6 +8,7 @@ export 'gradient_tree_node/gradient_tree_node.dart';
 export 'multi_hit_stack/multi_hit_stack.dart';
 export 'nokhte/nokhte.dart';
 export 'nokhte_blur/nokhte_blur.dart';
+export "./nokhte_custom_animation_builder/nokhte_custom_animation_builder.dart";
 export 'spotlight_halo/spotlight_halo.dart';
 export 'smart_text/smart_text.dart';
 export "text_editor/text_editor.dart";
