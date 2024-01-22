@@ -21,7 +21,6 @@ class HomeScreen extends HookWidget {
               current,
               onResumed: () => coordinator.widgets.onResumed(),
               onInactive: () => coordinator.widgets.onInactive(),
-              onDetached: () => null,
             ));
     final size = useSquareSize(relativeLength: .20);
     useEffect(() {
