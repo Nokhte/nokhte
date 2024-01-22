@@ -108,7 +108,8 @@ mixin _$PurposeSessionPhase2WidgetsCoordinator
   dynamic initReactors(
       {required Function onKeyboardUp,
       required Function onKeyboardDown,
-      required Function onTimesUp}) {
+      required Function onTimesUp,
+      required Function onSwipeUpCompleted}) {
     final _$actionInfo =
         _$_PurposeSessionPhase2WidgetsCoordinatorBaseActionController
             .startAction(
@@ -118,7 +119,8 @@ mixin _$PurposeSessionPhase2WidgetsCoordinator
       return super.initReactors(
           onKeyboardUp: onKeyboardUp,
           onKeyboardDown: onKeyboardDown,
-          onTimesUp: onTimesUp);
+          onTimesUp: onTimesUp,
+          onSwipeUpCompleted: onSwipeUpCompleted);
     } finally {
       _$_PurposeSessionPhase2WidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
@@ -154,13 +156,13 @@ mixin _$PurposeSessionPhase2WidgetsCoordinator
   }
 
   @override
-  dynamic onSwipeUp() {
+  dynamic onSwipeUp({bool collaboratorIsFinished = false}) {
     final _$actionInfo =
         _$_PurposeSessionPhase2WidgetsCoordinatorBaseActionController
             .startAction(
                 name: '_PurposeSessionPhase2WidgetsCoordinatorBase.onSwipeUp');
     try {
-      return super.onSwipeUp();
+      return super.onSwipeUp(collaboratorIsFinished: collaboratorIsFinished);
     } finally {
       _$_PurposeSessionPhase2WidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);

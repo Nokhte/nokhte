@@ -40,7 +40,7 @@ abstract class _PurposeSessionPhase2WidgetsCoordinatorBase
   });
 
   final timerLength =
-      kDebugMode ? const Duration(seconds: 30) : const Duration(minutes: 5);
+      kDebugMode ? const Duration(seconds: 45) : const Duration(minutes: 5);
 
   @action
   constructor() {
@@ -71,6 +71,7 @@ abstract class _PurposeSessionPhase2WidgetsCoordinatorBase
     required Function onKeyboardUp,
     required Function onKeyboardDown,
     required Function onTimesUp,
+    required Function onSwipeUpCompleted,
   }) {
     smartTextIndexReactor();
     wifiDisconnectOverlay.connectionReactor(
@@ -98,7 +99,7 @@ abstract class _PurposeSessionPhase2WidgetsCoordinatorBase
     });
     threeWordsReactor();
     submittedGestureCrossReactor();
-    unsubmittedGestureCrossReactor();
+    unsubmittedGestureCrossReactor(onSwipeUpCompleted);
     errorTextReactor();
     wifiDisconnectOverlayReactor();
     beachWavesMovieStatusReactor(onTimesUpCompleted: onTimesUp);
@@ -119,11 +120,13 @@ abstract class _PurposeSessionPhase2WidgetsCoordinatorBase
   }
 
   @action
-  onSwipeUp() {
+  onSwipeUp({bool collaboratorIsFinished = false}) {
     textEditor.toggleWidgetVisibility();
     unsubmittedGestureCross.initMoveAndRegenerate(CircleOffsets.top);
-    if (primarySmartText.currentIndex == 3) {
-      primarySmartText.startRotatingText(isResuming: true);
+    if (!collaboratorIsFinished) {
+      if (primarySmartText.currentIndex == 3) {
+        primarySmartText.startRotatingText(isResuming: true);
+      }
     }
   }
 
@@ -172,8 +175,9 @@ abstract class _PurposeSessionPhase2WidgetsCoordinatorBase
 
   @action
   onEarlyRelease() {
-    primarySmartText.startRotatingText(isResuming: true);
-    beachWaves.setMovieMode(BeachWaveMovieModes.timesUpDynamicPointToTheDepths);
+    primarySmartText.toggleWidgetVisibility();
+    beachWaves
+        .setMovieMode(BeachWaveMovieModes.timesUpDynamicPointToTimesUpStart);
     beachWaves.currentStore.initMovie([
       ColorAndStop(beachWaves.currentAnimationValues[1],
           beachWaves.currentAnimationValues[9]),
@@ -225,12 +229,13 @@ abstract class _PurposeSessionPhase2WidgetsCoordinatorBase
         }
       });
 
-  unsubmittedGestureCrossReactor() =>
+  unsubmittedGestureCrossReactor(Function onSwipeUpCompleted) =>
       reaction((p0) => unsubmittedGestureCross.centerCrossNokhte.movieStatus,
-          (p0) {
+          (p0) async {
         if (p0 == MovieStatus.finished) {
           unsubmittedGestureCross.toggleAll();
           submittedGestureCross.toggleAll();
+          await onSwipeUpCompleted();
         }
       });
 
@@ -293,9 +298,10 @@ abstract class _PurposeSessionPhase2WidgetsCoordinatorBase
               }
             });
           } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.timesUpDynamicPointToTheDepths) {
+              BeachWaveMovieModes.timesUpDynamicPointToTimesUpStart) {
             Timer.periodic(Seconds.get(0, milli: 100), (timer) async {
               if (!isDisconnected) {
+                print("navigate away!!");
                 Modular.to.navigate('/purpose_session/phase_three');
                 timer.cancel();
               }

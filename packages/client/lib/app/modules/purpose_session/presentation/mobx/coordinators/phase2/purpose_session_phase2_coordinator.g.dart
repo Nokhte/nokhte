@@ -154,6 +154,18 @@ mixin _$PurposeSessionPhase2Coordinator
   }
 
   @override
+  dynamic initTimer() {
+    final _$actionInfo = _$_PurposeSessionPhase2CoordinatorBaseActionController
+        .startAction(name: '_PurposeSessionPhase2CoordinatorBase.initTimer');
+    try {
+      return super.initTimer();
+    } finally {
+      _$_PurposeSessionPhase2CoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 hasInitializedTimer: ${hasInitializedTimer},

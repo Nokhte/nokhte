@@ -46,6 +46,9 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
     widgets.constructor();
     await collaboratorPresence.listen();
     await collaboratorPresence.updateCurrentPhase(2.0);
+    if (collaboratorPresence.getSessionMetadata.collaboratorPhase == 2) {
+      initTimer();
+    }
     collaboratorPresence.setBasePhaseForScreen(2.0);
     await soloDoc.create(SoloDocTypes.purpose);
     initReactors();
@@ -65,14 +68,12 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
 
   @action
   onInactive() async {
-    await collaboratorPresence.updateTimerStatus(false);
     await collaboratorPresence
         .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
   }
 
   @action
   onResumed() async {
-    await collaboratorPresence.updateTimerStatus(true);
     await collaboratorPresence
         .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
   }
@@ -80,12 +81,14 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
   initReactors() {
     onCollaboratorOnlinePresenceChangeReactor();
     bothCollaboratorsAreOnlineAndInSyncReactor();
+    currentPhaseReactor();
     timerReactor();
     swipeReactor();
     widgets.initReactors(
       onKeyboardUp: onKeyboardUp,
       onKeyboardDown: onKeyboardDown,
       onTimesUp: onTimesUp,
+      onSwipeUpCompleted: onPhaseChange,
     );
   }
 
@@ -101,13 +104,20 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
         }
       });
 
+  @action
+  initTimer() {
+    widgets.initTimer();
+    hasInitializedTimer = true;
+  }
+
   bothCollaboratorsAreOnlineAndInSyncReactor() => reaction(
           (p0) => collaboratorPresence
               .getSessionMetadata.bothCollaboratorsAreInSyncAndOnline, (p0) {
         if (p0 && isFirstTimeBothAreInSync) {
           isFirstTimeBothAreInSync = false;
-          widgets.initTimer();
-          hasInitializedTimer = true;
+          initTimer();
+          // widgets.initTimer();
+          // hasInitializedTimer = true;
         }
       });
 
@@ -115,12 +125,12 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
       reaction((p0) => collaboratorPresence.getSessionMetadata.timerShouldRun,
           (p0) {
         if (p0) {
-          if (!hasInitializedTimer) {
-            widgets.initTimer();
-            hasInitializedTimer = true;
-          } else {
-            widgets.resumeTimer();
-          }
+          // if (!hasInitializedTimer) {
+          //   widgets.initTimer();
+          //   hasInitializedTimer = true;
+          // } else {
+          widgets.resumeTimer();
+          // }
         } else {
           widgets.pausetimer();
         }
@@ -128,8 +138,9 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
 
   @action
   onPhaseChange() async {
-    if (collaboratorPresence.getSessionMetadata.collaboratorPhase == 2.5 &&
-        collaboratorPresence.getSessionMetadata.userPhase == 2.5) {
+    print(
+        "??? ${collaboratorPresence.getSessionMetadata.collaboratorPhase} ${collaboratorPresence.getSessionMetadata.userPhase}");
+    if (collaboratorPresence.getSessionMetadata.collaboratorPhase == 2.5) {
       await soloDoc.share();
       widgets.onEarlyRelease();
     }
@@ -152,12 +163,15 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
             if (canSwipeUp &&
                 !hasSwipedUp &&
                 widgets.hasCompletedIntroduction) {
+              final collaboratorIsFinished =
+                  collaboratorPresence.getSessionMetadata.collaboratorPhase ==
+                      2.5;
+              widgets.onSwipeUp(collaboratorIsFinished: collaboratorIsFinished);
               hasSwipedUp = true;
               canSwipeUp = false;
               await soloDoc.submit(widgets.textEditor.controller.text);
               await collaboratorPresence.updateCurrentPhase(2.5);
-              onPhaseChange();
-              widgets.onSwipeUp();
+              // onPhaseChange();
             }
           case GestureDirections.down:
             if (hasSwipedUp) {
