@@ -23,12 +23,15 @@ abstract class _BaseCoordinatorBase extends Equatable with Store {
     p0, {
     required Function onResumed,
     required Function onInactive,
+    Function? onDetached,
   }) {
     switch (p0) {
       case AppLifecycleState.resumed:
         onResumed();
       case AppLifecycleState.inactive:
         onInactive();
+      case AppLifecycleState.detached:
+        onDetached?.call();
       default:
         break;
     }

@@ -42,12 +42,14 @@ mixin _$BaseCoordinator on _BaseCoordinatorBase, Store {
 
   @override
   dynamic onAppLifeCycleStateChange(dynamic p0,
-      {required Function onResumed, required Function onInactive}) {
+      {required Function onResumed,
+      required Function onInactive,
+      Function? onDetached}) {
     final _$actionInfo = _$_BaseCoordinatorBaseActionController.startAction(
         name: '_BaseCoordinatorBase.onAppLifeCycleStateChange');
     try {
       return super.onAppLifeCycleStateChange(p0,
-          onResumed: onResumed, onInactive: onInactive);
+          onResumed: onResumed, onInactive: onInactive, onDetached: onDetached);
     } finally {
       _$_BaseCoordinatorBaseActionController.endAction(_$actionInfo);
     }
