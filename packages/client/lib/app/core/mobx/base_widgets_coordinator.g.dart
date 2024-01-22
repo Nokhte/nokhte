@@ -40,6 +40,17 @@ mixin _$BaseWidgetsCoordinator on _BaseWidgetsCoordinatorBase, Store {
   }
 
   @override
+  dynamic setIsDisconnected(bool newValue) {
+    final _$actionInfo = _$_BaseWidgetsCoordinatorBaseActionController
+        .startAction(name: '_BaseWidgetsCoordinatorBase.setIsDisconnected');
+    try {
+      return super.setIsDisconnected(newValue);
+    } finally {
+      _$_BaseWidgetsCoordinatorBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 isDisconnected: ${isDisconnected}

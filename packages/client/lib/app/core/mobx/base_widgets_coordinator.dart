@@ -13,6 +13,9 @@ abstract class _BaseWidgetsCoordinatorBase extends Equatable with Store {
   @action
   toggleIsDisconnected() => isDisconnected = !isDisconnected;
 
+  @action
+  setIsDisconnected(bool newValue) => isDisconnected = newValue;
+
   @override
   List<Object> get props => [];
 }
