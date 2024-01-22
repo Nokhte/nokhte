@@ -4,7 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/purpose_session/presentation/mobx/coordinators/phase2/phase2.dart';
+import 'package:nokhte/app/modules/purpose_session/presentation/presentation.dart';
 
 class PurposeSessionPhase2Reflection extends HookWidget {
   final PurposeSessionPhase2Coordinator coordinator;
@@ -23,9 +23,8 @@ class PurposeSessionPhase2Reflection extends HookWidget {
     useOnAppLifecycleStateChange(
         (previous, current) => coordinator.onAppLifeCycleStateChange(
               current,
-              onResumed: () => null,
-              onInactive: () => null,
-              onDetached: () => null,
+              onResumed: () => coordinator.onResumed(),
+              onInactive: () => coordinator.onInactive(),
             ));
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -75,7 +74,16 @@ class PurposeSessionPhase2Reflection extends HookWidget {
               size: size,
               store: coordinator.widgets.submittedGestureCross,
             ),
-            // add solo doc
+            NokhteBlur(
+              store: coordinator.widgets.nokhteBlur,
+            ),
+            Center(
+              child: SmartText(
+                store: coordinator.widgets.errorText,
+                bottomPadding: 180,
+                opacityDuration: Seconds.get(1),
+              ),
+            ),
             WifiDisconnectOverlay(
               store: coordinator.widgets.wifiDisconnectOverlay,
             ),
