@@ -22,7 +22,6 @@ class PurposeSessionPhase1Consultation extends HookWidget {
               current,
               onResumed: () => coordinator.onResumed(),
               onInactive: () => coordinator.onInactive(),
-              onDetached: () => null,
             ));
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -39,11 +38,12 @@ class PurposeSessionPhase1Consultation extends HookWidget {
               store: coordinator.widgets.borderGlow,
             ),
             Center(
-                child: SmartText(
-              topPadding: 450,
-              store: coordinator.widgets.secondarySmartText,
-              opacityDuration: Seconds.get(1),
-            )),
+              child: SmartText(
+                topPadding: 450,
+                store: coordinator.widgets.secondarySmartText,
+                opacityDuration: Seconds.get(1),
+              ),
+            ),
             Center(
                 child: SmartText(
               store: coordinator.widgets.primarySmartText,
@@ -54,16 +54,15 @@ class PurposeSessionPhase1Consultation extends HookWidget {
               store: coordinator.widgets.nokhteBlur,
             ),
             Center(
-                child: SmartText(
-              store: coordinator.widgets.errorText,
-              bottomPadding: 180,
-              opacityDuration: Seconds.get(1),
-            )),
+              child: SmartText(
+                store: coordinator.widgets.errorText,
+                bottomPadding: 180,
+                opacityDuration: Seconds.get(1),
+              ),
+            ),
             WifiDisconnectOverlay(
               store: coordinator.widgets.wifiDisconnectOverlay,
             ),
-
-            // FullScreen(child: BeachWaves(store: coo,))
           ],
         ),
       ),
