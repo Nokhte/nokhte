@@ -52,9 +52,7 @@ abstract class _PurposeSessionPhase1WidgetsCoordinatorBase
 
   @action
   constructor() {
-    beachWaves
-        .setMovieMode(BeachWaveMovieModes.suspendedAtTheDepthsToTimesUpStart);
-    beachWaves.currentStore.initMovie(NoParams());
+    beachWaves.setMovieMode(BeachWaveMovieModes.timesUp);
     errorText.toggleWidgetVisibility();
     errorText.setMessagesData(MessagesData.purposeSessionBootUpList);
     primarySmartText.setMessagesData(MessagesData.empty);
@@ -123,7 +121,6 @@ abstract class _PurposeSessionPhase1WidgetsCoordinatorBase
 
   @action
   initTimer() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.timesUp);
     beachWaves.currentStore.initMovie(timerLength);
     primarySmartText.setAltMovie(timerLength);
     primarySmartText.setAltControl(Control.playFromStart);
@@ -216,7 +213,8 @@ abstract class _PurposeSessionPhase1WidgetsCoordinatorBase
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
             timesUpCallbackHasBeenCalled = true;
-            beachWaves.setMovieMode(BeachWaveMovieModes.timesUpEndToTheDepths);
+            beachWaves
+                .setMovieMode(BeachWaveMovieModes.timesUpEndToTimesUpStart);
             beachWaves.currentStore.initMovie(NoParams());
             if (primarySmartText.showWidget) {
               primarySmartText.toggleWidgetVisibility();
@@ -226,7 +224,7 @@ abstract class _PurposeSessionPhase1WidgetsCoordinatorBase
             }
             await onTimesUpCompleted();
           } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.timesUpEndToTheDepths) {
+              BeachWaveMovieModes.timesUpEndToTimesUpStart) {
             Timer.periodic(Seconds.get(0, milli: 100), (timer) async {
               if (!isDisconnected) {
                 Modular.to.navigate('/purpose_session/phase_two');
