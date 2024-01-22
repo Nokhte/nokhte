@@ -32,8 +32,12 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
   final TimesUpDynamicPointToTheDepthsMovieStore
       timesUpDynamicPointToTheDepthsMovie =
       TimesUpDynamicPointToTheDepthsMovieStore();
+  final timesUpDynamicPointToTimesUpStart =
+      TimesUpDynamicPointToTimesUpStartMovieStore();
   final TimesUpEndToOceanDiveMovieStore timesUpEndToOceanDiveMovie =
       TimesUpEndToOceanDiveMovieStore();
+  final timesUpEndToTimesUpStartMovieStore =
+      TimesUpEndToTimesUpStartMovieStore();
   final TimesUpEndToTheDepthsMovieStore timesUpEndToTheDepthsMovieStore =
       TimesUpEndToTheDepthsMovieStore();
   final WaterFromTopToOnShoreMoviePart1Store
@@ -54,15 +58,16 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
       BeachWaveMovieModes.oceanDiveToOnShore: oceanDiveToOnShoreMovieStore,
       BeachWaveMovieModes.onShore: onShoreMovieStore,
       BeachWaveMovieModes.onShoreToOceanDive: onShoreToOceanDiveMovieStore,
-      BeachWaveMovieModes.onShoreToOceanDiveSetup: onShoreMovieStore,
       BeachWaveMovieModes.none: BaseBeachWaveMovieStore(),
       BeachWaveMovieModes.timesUp: timesUpMovieStore,
       BeachWaveMovieModes.timesUpDynamicPointToTheDepths:
           timesUpDynamicPointToTheDepthsMovie,
-      BeachWaveMovieModes.timesUpDynamicPointToTheDepthsSetup:
-          timesUpMovieStore,
+      BeachWaveMovieModes.timesUpDynamicPointToTimesUpStart:
+          timesUpDynamicPointToTimesUpStart,
       BeachWaveMovieModes.timesUpEndToTheDepths:
           timesUpEndToTheDepthsMovieStore,
+      BeachWaveMovieModes.timesUpEndToTimesUpStart:
+          timesUpEndToTimesUpStartMovieStore,
       BeachWaveMovieModes.timesUpEndToOceanDive: timesUpEndToOceanDiveMovie,
       BeachWaveMovieModes.suspendedAtOceanDive: suspendedAtOceanDiveStore,
       BeachWaveMovieModes.suspendedAtTheDepths: suspendedAtTheDepthsMovieStore,
