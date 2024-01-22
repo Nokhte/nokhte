@@ -33,17 +33,20 @@ class PurposeSessionWidgetsModule extends Module {
     );
     i.add<PurposeSessionPhase1WidgetsCoordinator>(
       () => PurposeSessionPhase1WidgetsCoordinator(
-          borderGlow: i<BorderGlowStore>(),
-          beachWaves: Modular.get<BeachWavesStore>(),
-          wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-          primarySmartText: Modular.get<SmartTextStore>(),
-          errorText: Modular.get<SmartTextStore>(),
-          secondarySmartText: Modular.get<SmartTextStore>(),
-          nokhteBlur: Modular.get<NokhteBlurStore>()),
+        borderGlow: i<BorderGlowStore>(),
+        beachWaves: Modular.get<BeachWavesStore>(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        primarySmartText: Modular.get<SmartTextStore>(),
+        errorText: Modular.get<SmartTextStore>(),
+        secondarySmartText: Modular.get<SmartTextStore>(),
+        nokhteBlur: Modular.get<NokhteBlurStore>(),
+      ),
     );
     i.add<PurposeSessionPhase2WidgetsCoordinator>(
       () => PurposeSessionPhase2WidgetsCoordinator(
         textEditor: Modular.get<TextEditorStore>(),
+        errorText: Modular.get<SmartTextStore>(),
+        nokhteBlur: Modular.get<NokhteBlurStore>(),
         unsubmittedGestureCross: Modular.get<GestureCrossStore>(),
         submittedGestureCross: Modular.get<GestureCrossStore>(),
         beachWaves: Modular.get<BeachWavesStore>(),
