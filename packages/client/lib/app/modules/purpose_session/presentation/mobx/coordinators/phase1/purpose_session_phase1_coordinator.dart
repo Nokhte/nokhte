@@ -48,7 +48,7 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
     widgets.constructor();
     widgets.onCallLeft();
     initReactors();
-    collaboratorPresence.setCurrentPhase(1.0);
+    collaboratorPresence.setBasePhaseForScreen(1.0);
     await Permission.microphone.request();
     await voiceCall.joinCall(shouldEnterTheCallMuted: true);
     await collaboratorPresence.listen();
@@ -80,9 +80,7 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
 
   @action
   onTimesUpCompleted() async {
-    await collaboratorPresence.updateCurrentPhase(
-      const UpdateCurrentPhaseParams(newPhase: 1.5),
-    );
+    await collaboratorPresence.updateCurrentPhase(1.5);
     await voiceCall.leaveCall();
     await collaboratorPresence.dispose();
   }
