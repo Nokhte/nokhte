@@ -36,7 +36,7 @@ abstract class _PurposeSessionPhase1WidgetsCoordinatorBase
   });
 
   final timerLength =
-      kDebugMode ? const Duration(seconds: 5) : const Duration(minutes: 5);
+      kDebugMode ? const Duration(seconds: 30) : const Duration(minutes: 5);
 
   @observable
   bool hasTheQuestion = false;
