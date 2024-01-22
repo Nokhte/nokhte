@@ -1,4 +1,8 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -7,6 +11,7 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:nokhte/app/core/widgets/smart_text/stack/constants/constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:simple_animations/simple_animations.dart';
 part 'purpose_session_phase2_widgets_coordinator.g.dart';
 
 class PurposeSessionPhase2WidgetsCoordinator = _PurposeSessionPhase2WidgetsCoordinatorBase
@@ -16,38 +21,41 @@ abstract class _PurposeSessionPhase2WidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final BeachWavesStore beachWaves;
   final SmartTextStore primarySmartText;
+  final SmartTextStore errorText;
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final GestureCrossStore unsubmittedGestureCross;
   final GestureCrossStore submittedGestureCross;
   final TextEditorStore textEditor;
+  final NokhteBlurStore nokhteBlur;
 
   _PurposeSessionPhase2WidgetsCoordinatorBase({
     required this.beachWaves,
     required this.primarySmartText,
     required this.wifiDisconnectOverlay,
     required this.submittedGestureCross,
+    required this.errorText,
+    required this.nokhteBlur,
     required this.unsubmittedGestureCross,
     required this.textEditor,
   });
 
+  final timerLength =
+      kDebugMode ? const Duration(seconds: 30) : const Duration(minutes: 5);
+
   @action
-  constructor({
-    required Function onKeyboardUp,
-    required Function onKeyboardDown,
-  }) {
-    beachWaves
-        .setMovieMode(BeachWaveMovieModes.suspendedAtTheDepthsToTimesUpStart);
+  constructor() {
+    errorText.setMessagesData(MessagesData.purposeSessionPhase2ErrorList);
+    errorText.startRotatingText();
     unsubmittedGestureCross.setPhase2PurposeSession();
     submittedGestureCross.setPhase2PurposeSession();
-    beachWaves.currentStore.initMovie(NoParams());
+    beachWaves.setMovieMode(BeachWaveMovieModes.timesUp);
     primarySmartText.setMessagesData(MessagesData.purposeSessionPhase2List);
     primarySmartText.startRotatingText();
     textEditor.toggleWidgetVisibility();
-    initReactors(
-      onKeyboardDown: onKeyboardDown,
-      onKeyboardUp: onKeyboardUp,
-    );
   }
+
+  @observable
+  bool timesUpCallbackHasBeenCalled = false;
 
   @observable
   bool isOverThreeWords = false;
@@ -62,11 +70,16 @@ abstract class _PurposeSessionPhase2WidgetsCoordinatorBase
   initReactors({
     required Function onKeyboardUp,
     required Function onKeyboardDown,
+    required Function onTimesUp,
   }) {
     smartTextIndexReactor();
     wifiDisconnectOverlay.connectionReactor(
-      onConnected: () {},
-      onDisconnected: () {},
+      onConnected: () {
+        setIsDisconnected(false);
+      },
+      onDisconnected: () {
+        setIsDisconnected(true);
+      },
     );
     textEditor.focusNode.addListener(() {
       if (!textEditor.focusNode.hasFocus) {
@@ -86,6 +99,23 @@ abstract class _PurposeSessionPhase2WidgetsCoordinatorBase
     threeWordsReactor();
     submittedGestureCrossReactor();
     unsubmittedGestureCrossReactor();
+    errorTextReactor();
+    wifiDisconnectOverlayReactor();
+    beachWavesMovieStatusReactor(onTimesUpCompleted: onTimesUp);
+  }
+
+  @action
+  onInactive() {
+    if (!isDisconnected) {
+      primarySmartText.reset();
+    }
+  }
+
+  @action
+  onResumed() {
+    if (!isDisconnected) {
+      primarySmartText.startRotatingText();
+    }
   }
 
   @action
@@ -104,6 +134,86 @@ abstract class _PurposeSessionPhase2WidgetsCoordinatorBase
       primarySmartText.startRotatingText(isResuming: true);
     }
   }
+
+  @action
+  initTimer() {
+    beachWaves.currentStore.initMovie(timerLength);
+    beachWaves.currentStore.setControl(Control.play);
+    primarySmartText.setAltMovie(timerLength);
+    primarySmartText.setAltControl(Control.playFromStart);
+    primarySmartText.setAltControl(Control.play);
+  }
+
+  @action
+  resumeTimer() {
+    beachWaves.currentStore.setControl(Control.play);
+    primarySmartText.setAltControl(Control.play);
+  }
+
+  @action
+  pausetimer() {
+    beachWaves.currentStore.setControl(Control.play);
+    beachWaves.currentStore.setControl(Control.stop);
+    primarySmartText.setAltControl(Control.play);
+    primarySmartText.setAltControl(Control.stop);
+  }
+
+  @action
+  onCollaboratorJoined() {
+    errorText.startRotatingText(isResuming: true);
+    nokhteBlur.reverse();
+  }
+
+  @action
+  onCollaboratorLeft() {
+    nokhteBlur.init();
+    errorText.startRotatingText(isResuming: true);
+  }
+
+  @action
+  onEarlyRelease() {
+    primarySmartText.startRotatingText(isResuming: true);
+    beachWaves.setMovieMode(BeachWaveMovieModes.timesUpDynamicPointToTheDepths);
+    beachWaves.currentStore.initMovie([
+      ColorAndStop(beachWaves.currentAnimationValues[1],
+          beachWaves.currentAnimationValues[9]),
+      ColorAndStop(beachWaves.currentAnimationValues[2],
+          beachWaves.currentAnimationValues[10]),
+      ColorAndStop(beachWaves.currentAnimationValues[3],
+          beachWaves.currentAnimationValues[11]),
+      ColorAndStop(beachWaves.currentAnimationValues[4],
+          beachWaves.currentAnimationValues[12]),
+      ColorAndStop(beachWaves.currentAnimationValues[5],
+          beachWaves.currentAnimationValues[13]),
+      ColorAndStop(beachWaves.currentAnimationValues[6],
+          beachWaves.currentAnimationValues[14]),
+      ColorAndStop(beachWaves.currentAnimationValues[7],
+          beachWaves.currentAnimationValues[15]),
+      ColorAndStop(beachWaves.currentAnimationValues[8],
+          beachWaves.currentAnimationValues[16]),
+    ]);
+  }
+
+  wifiDisconnectOverlayReactor() =>
+      reaction((p0) => wifiDisconnectOverlay.movieStatus, (p0) {
+        if (wifiDisconnectOverlay.movieMode ==
+            WifiDisconnectMovieModes.removeTheCircle) {
+          if (p0 == MovieStatus.finished) {
+            primarySmartText.resume();
+          }
+        } else if (wifiDisconnectOverlay.movieMode ==
+            WifiDisconnectMovieModes.placeTheCircle) {
+          if (p0 == MovieStatus.inProgress) {
+            primarySmartText.pause();
+          }
+        }
+      });
+
+  errorTextReactor() => reaction((p0) => errorText.currentIndex, (p0) {
+        if (p0 == 2) {
+          errorText.setCurrentIndex(0);
+        }
+      });
 
   submittedGestureCrossReactor() =>
       reaction((p0) => submittedGestureCross.centerCrossNokhte.movieStatus,
@@ -149,6 +259,48 @@ abstract class _PurposeSessionPhase2WidgetsCoordinatorBase
           }
         } else {
           unsubmittedGestureCross.toggleAll();
+        }
+      });
+
+  beachWavesMovieStatusReactor({
+    required Function onTimesUpCompleted,
+  }) =>
+      reaction((p0) => beachWaves.movieStatus, (p0) async {
+        if (p0 == MovieStatus.finished) {
+          if (beachWaves.movieMode == BeachWaveMovieModes.timesUp) {
+            timesUpCallbackHasBeenCalled = true;
+            beachWaves.setMovieMode(BeachWaveMovieModes.timesUpEndToTheDepths);
+            beachWaves.currentStore.initMovie(NoParams());
+            if (textEditor.showWidget) {
+              textEditor.toggleWidgetVisibility();
+            }
+            if (primarySmartText.currentIndex == 2) {
+              primarySmartText.toggleWidgetVisibility();
+            }
+            if (unsubmittedGestureCross.cross.showWidget) {
+              unsubmittedGestureCross.toggleAll();
+            }
+            if (submittedGestureCross.cross.showWidget) {
+              submittedGestureCross.toggleAll();
+            }
+            await onTimesUpCompleted();
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.timesUpEndToTheDepths) {
+            Timer.periodic(Seconds.get(0, milli: 100), (timer) async {
+              if (!isDisconnected) {
+                Modular.to.navigate('/purpose_session/phase_three');
+                timer.cancel();
+              }
+            });
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.timesUpDynamicPointToTheDepths) {
+            Timer.periodic(Seconds.get(0, milli: 100), (timer) async {
+              if (!isDisconnected) {
+                Modular.to.navigate('/purpose_session/phase_three');
+                timer.cancel();
+              }
+            });
+          }
         }
       });
 }

@@ -10,6 +10,25 @@ part of 'purpose_session_phase2_widgets_coordinator.dart';
 
 mixin _$PurposeSessionPhase2WidgetsCoordinator
     on _PurposeSessionPhase2WidgetsCoordinatorBase, Store {
+  late final _$timesUpCallbackHasBeenCalledAtom = Atom(
+      name:
+          '_PurposeSessionPhase2WidgetsCoordinatorBase.timesUpCallbackHasBeenCalled',
+      context: context);
+
+  @override
+  bool get timesUpCallbackHasBeenCalled {
+    _$timesUpCallbackHasBeenCalledAtom.reportRead();
+    return super.timesUpCallbackHasBeenCalled;
+  }
+
+  @override
+  set timesUpCallbackHasBeenCalled(bool value) {
+    _$timesUpCallbackHasBeenCalledAtom
+        .reportWrite(value, super.timesUpCallbackHasBeenCalled, () {
+      super.timesUpCallbackHasBeenCalled = value;
+    });
+  }
+
   late final _$isOverThreeWordsAtom = Atom(
       name: '_PurposeSessionPhase2WidgetsCoordinatorBase.isOverThreeWords',
       context: context);
@@ -71,16 +90,14 @@ mixin _$PurposeSessionPhase2WidgetsCoordinator
           context: context);
 
   @override
-  dynamic constructor(
-      {required Function onKeyboardUp, required Function onKeyboardDown}) {
+  dynamic constructor() {
     final _$actionInfo =
         _$_PurposeSessionPhase2WidgetsCoordinatorBaseActionController
             .startAction(
                 name:
                     '_PurposeSessionPhase2WidgetsCoordinatorBase.constructor');
     try {
-      return super.constructor(
-          onKeyboardUp: onKeyboardUp, onKeyboardDown: onKeyboardDown);
+      return super.constructor();
     } finally {
       _$_PurposeSessionPhase2WidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
@@ -89,7 +106,9 @@ mixin _$PurposeSessionPhase2WidgetsCoordinator
 
   @override
   dynamic initReactors(
-      {required Function onKeyboardUp, required Function onKeyboardDown}) {
+      {required Function onKeyboardUp,
+      required Function onKeyboardDown,
+      required Function onTimesUp}) {
     final _$actionInfo =
         _$_PurposeSessionPhase2WidgetsCoordinatorBaseActionController
             .startAction(
@@ -97,7 +116,37 @@ mixin _$PurposeSessionPhase2WidgetsCoordinator
                     '_PurposeSessionPhase2WidgetsCoordinatorBase.initReactors');
     try {
       return super.initReactors(
-          onKeyboardUp: onKeyboardUp, onKeyboardDown: onKeyboardDown);
+          onKeyboardUp: onKeyboardUp,
+          onKeyboardDown: onKeyboardDown,
+          onTimesUp: onTimesUp);
+    } finally {
+      _$_PurposeSessionPhase2WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onInactive() {
+    final _$actionInfo =
+        _$_PurposeSessionPhase2WidgetsCoordinatorBaseActionController
+            .startAction(
+                name: '_PurposeSessionPhase2WidgetsCoordinatorBase.onInactive');
+    try {
+      return super.onInactive();
+    } finally {
+      _$_PurposeSessionPhase2WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onResumed() {
+    final _$actionInfo =
+        _$_PurposeSessionPhase2WidgetsCoordinatorBaseActionController
+            .startAction(
+                name: '_PurposeSessionPhase2WidgetsCoordinatorBase.onResumed');
+    try {
+      return super.onResumed();
     } finally {
       _$_PurposeSessionPhase2WidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
@@ -134,8 +183,93 @@ mixin _$PurposeSessionPhase2WidgetsCoordinator
   }
 
   @override
+  dynamic initTimer() {
+    final _$actionInfo =
+        _$_PurposeSessionPhase2WidgetsCoordinatorBaseActionController
+            .startAction(
+                name: '_PurposeSessionPhase2WidgetsCoordinatorBase.initTimer');
+    try {
+      return super.initTimer();
+    } finally {
+      _$_PurposeSessionPhase2WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic resumeTimer() {
+    final _$actionInfo =
+        _$_PurposeSessionPhase2WidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_PurposeSessionPhase2WidgetsCoordinatorBase.resumeTimer');
+    try {
+      return super.resumeTimer();
+    } finally {
+      _$_PurposeSessionPhase2WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic pausetimer() {
+    final _$actionInfo =
+        _$_PurposeSessionPhase2WidgetsCoordinatorBaseActionController
+            .startAction(
+                name: '_PurposeSessionPhase2WidgetsCoordinatorBase.pausetimer');
+    try {
+      return super.pausetimer();
+    } finally {
+      _$_PurposeSessionPhase2WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onCollaboratorJoined() {
+    final _$actionInfo =
+        _$_PurposeSessionPhase2WidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_PurposeSessionPhase2WidgetsCoordinatorBase.onCollaboratorJoined');
+    try {
+      return super.onCollaboratorJoined();
+    } finally {
+      _$_PurposeSessionPhase2WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onCollaboratorLeft() {
+    final _$actionInfo =
+        _$_PurposeSessionPhase2WidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_PurposeSessionPhase2WidgetsCoordinatorBase.onCollaboratorLeft');
+    try {
+      return super.onCollaboratorLeft();
+    } finally {
+      _$_PurposeSessionPhase2WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onEarlyRelease() {
+    final _$actionInfo =
+        _$_PurposeSessionPhase2WidgetsCoordinatorBaseActionController.startAction(
+            name: '_PurposeSessionPhase2WidgetsCoordinatorBase.onEarlyRelease');
+    try {
+      return super.onEarlyRelease();
+    } finally {
+      _$_PurposeSessionPhase2WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
+timesUpCallbackHasBeenCalled: ${timesUpCallbackHasBeenCalled},
 isOverThreeWords: ${isOverThreeWords},
 isFirstTimeOverThreeWords: ${isFirstTimeOverThreeWords},
 hasCompletedIntroduction: ${hasCompletedIntroduction}
