@@ -50,18 +50,20 @@ class PurposeSessionModule extends Module {
     );
     i.add<PurposeSessionPhase1Coordinator>(
       () => PurposeSessionPhase1Coordinator(
-          hold: Modular.get<HoldDetector>(),
-          checkIfUserHasTheQuestion:
-              Modular.get<CheckIfUserHasTheQuestionStore>(),
-          collaboratorPresence: Modular.get<CollaboratorPresenceCoordinator>(),
-          widgets: Modular.get<PurposeSessionPhase1WidgetsCoordinator>(),
-          voiceCall: Modular.get<VoiceCallCoordinator>()),
+        hold: Modular.get<HoldDetector>(),
+        checkIfUserHasTheQuestion:
+            Modular.get<CheckIfUserHasTheQuestionStore>(),
+        collaboratorPresence: Modular.get<CollaboratorPresenceCoordinator>(),
+        widgets: Modular.get<PurposeSessionPhase1WidgetsCoordinator>(),
+        voiceCall: Modular.get<VoiceCallCoordinator>(),
+      ),
     );
 
     i.add<PurposeSessionPhase2Coordinator>(
       () => PurposeSessionPhase2Coordinator(
         soloDoc: Modular.get<SoloDocsCoordinator>(),
         swipe: Modular.get<SwipeDetector>(),
+        collaboratorPresence: Modular.get<CollaboratorPresenceCoordinator>(),
         widgets: Modular.get<PurposeSessionPhase2WidgetsCoordinator>(),
       ),
     );
