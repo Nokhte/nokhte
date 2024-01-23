@@ -50,6 +50,7 @@ class PurposeSessionModule extends Module {
     );
     i.add<PurposeSessionPhase1Coordinator>(
       () => PurposeSessionPhase1Coordinator(
+        tap: Modular.get<TapDetector>(),
         hold: Modular.get<HoldDetector>(),
         checkIfUserHasTheQuestion:
             Modular.get<CheckIfUserHasTheQuestionStore>(),
