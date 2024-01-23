@@ -92,6 +92,16 @@ class SoloSharableDocumentQueries extends CollaborativeQueries {
         .select();
   }
 
+  Future<List> deleteAllAssociatedWith(
+      String ownerUID, String collaboratorUID) async {
+    return await supabase
+        .from(table)
+        .delete()
+        .eq(ownerUID, ownerUID)
+        .eq(collaboratorUID, collaboratorUID)
+        .select();
+  }
+
   Future<List> deleteDocument() async {
     await ensureActiveCollaboratorInfo();
     return await supabase
