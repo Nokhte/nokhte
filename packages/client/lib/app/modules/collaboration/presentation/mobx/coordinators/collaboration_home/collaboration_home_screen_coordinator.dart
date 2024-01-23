@@ -56,8 +56,8 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
       onEnterCollaboratorPool,
     );
     initReactors();
-    await userInformation.getUserInfo(NoParams());
-    if (userInformation.getUserInfo.hasGoneThroughInvitationFlow) {
+    await userInformation.getUserInfoStore(NoParams());
+    if (userInformation.getUserInfoStore.hasGoneThroughInvitationFlow) {
       if (additionalRoutingData.isEmpty) {
         widgets.postInvitationFlowConstructor();
       } else {
