@@ -90,7 +90,8 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
     onCallStatusChangeReactor();
     onCollaboratorCallPresenceChangeReactor();
     bothCollaboratorsAreOnCallAndOnlineReactor();
-    oneTalkerAtATimeReactor();
+    collaboratorTalkingStatusReactor();
+    userTalkingStatusReactor();
     holdReactor();
     letGoReactor();
     timerReactor();
@@ -111,16 +112,8 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
             voiceCall.voiceCallStatusStore.inCall == CallStatus.joined &&
             !widgets.isDisconnected &&
             collaboratorPresence.getSessionMetadataStore.collaboratorIsOnline) {
-          widgets.onHold();
           await collaboratorPresence
               .updateWhoIsTalking(UpdateWhoIsTalkingParams.setUserAsTalker);
-          await voiceCall.voiceCallActionsStore.unmuteAudio(NoParams());
-          if (!hasInitializedTimer &&
-              checkIfUserHasTheQuestion.hasTheQuestion) {
-            await collaboratorPresence.updateTimerStatus(true);
-            hasInitializedTimer = true;
-            widgets.initTimer();
-          }
         }
       });
 
@@ -129,15 +122,12 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
             voiceCall.voiceCallStatusStore.inCall == CallStatus.joined &&
             !widgets.isDisconnected &&
             collaboratorPresence.getSessionMetadataStore.collaboratorIsOnline) {
-          widgets.onLetGo();
-
           await collaboratorPresence
               .updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
-          await voiceCall.voiceCallActionsStore.muteAudio(NoParams());
         }
       });
 
-  oneTalkerAtATimeReactor() => reaction(
+  collaboratorTalkingStatusReactor() => reaction(
           (p0) => collaboratorPresence
               .getSessionMetadataStore.collaboratorIsTalking, (p0) {
         if (p0) {
@@ -148,6 +138,23 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
             widgets.onFirstCollaboratorFinishSpeaking();
           }
           canSpeak = true;
+        }
+      });
+  userTalkingStatusReactor() => reaction(
+          (p0) => collaboratorPresence.getSessionMetadataStore.userIsTalking,
+          (p0) async {
+        if (p0) {
+          await voiceCall.voiceCallActionsStore.unmuteAudio(NoParams());
+          widgets.onHold();
+          if (!hasInitializedTimer &&
+              checkIfUserHasTheQuestion.hasTheQuestion) {
+            await collaboratorPresence.updateTimerStatus(true);
+            hasInitializedTimer = true;
+            widgets.initTimer();
+          }
+        } else {
+          widgets.onLetGo();
+          await voiceCall.voiceCallActionsStore.muteAudio(NoParams());
         }
       });
 
