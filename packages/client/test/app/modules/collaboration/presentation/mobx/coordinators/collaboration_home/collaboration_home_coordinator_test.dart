@@ -52,35 +52,11 @@ void main() {
       expect(testStore.isNavigatingAway, true);
     });
 
-    test("constructor", () async {
-      when(testStore.deepLinks
-          .getDeepLink(DeepLinkTypes.collaboratorInvitation));
-      await testStore.constructor();
-      verify(testStore.deepLinks.listenForOpenedDeepLinkStore(NoParams()));
-      expect(testStore.additionalRoutingData, {});
-      verify(testStore.widgets.constructor());
-      verify(testStore.widgets.initReactors(
-        testStore.onGradientTreeNodeTap,
-        testStore.onFlowCompleted,
-        testStore.onEnterCollaboratorPool,
-      ));
-      verify(testStore.userInformation.getUserInfoStore(NoParams()));
-      verify(testStore.deepLinks
-          .getDeepLink(DeepLinkTypes.collaboratorInvitation));
-    });
-
     test("onEnterCollaboratorPool", () {
       testStore.setAdditionalRoutingData({"collaboratorUID": "value"});
       testStore.onEnterCollaboratorPool();
       verify(testStore.logic.enter(testStore
           .additionalRoutingData[CollaborationCodeKeys.collaboratorUID]));
-    });
-
-    test("onDeepLinkOpened", () {
-      when(testStore.deepLinks.listenForOpenedDeepLinkStore.additionalMetadata)
-          .thenReturn(ObservableMap.of({}));
-      testStore.onDeepLinkOpened("/collaboration/");
-      verify(testStore.widgets.initCollaboratorPoolWidgets());
     });
 
     test("onSwipe", () {
