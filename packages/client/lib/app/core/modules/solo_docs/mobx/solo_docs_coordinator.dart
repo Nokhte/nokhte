@@ -9,18 +9,18 @@ part 'solo_docs_coordinator.g.dart';
 class SoloDocsCoordinator = _SoloDocsCoordinatorBase with _$SoloDocsCoordinator;
 
 abstract class _SoloDocsCoordinatorBase extends BaseMobxDBStore with Store {
-  final CreateSoloDoc createSoloDoc;
-  final GetSoloDoc getSoloDoc;
-  final SealSoloDoc sealSoloDoc;
-  final ShareSoloDoc shareSoloDoc;
-  final SubmitSoloDoc submitSoloDoc;
+  final CreateSoloDoc createSoloDocLogic;
+  final GetSoloDoc getSoloDocLogic;
+  final SealSoloDoc sealSoloDocLogic;
+  final ShareSoloDoc shareSoloDocLogic;
+  final SubmitSoloDoc submitSoloDocLogic;
 
   _SoloDocsCoordinatorBase({
-    required this.createSoloDoc,
-    required this.getSoloDoc,
-    required this.sealSoloDoc,
-    required this.shareSoloDoc,
-    required this.submitSoloDoc,
+    required this.createSoloDocLogic,
+    required this.getSoloDocLogic,
+    required this.sealSoloDocLogic,
+    required this.shareSoloDocLogic,
+    required this.submitSoloDocLogic,
   });
 
   @observable
@@ -41,7 +41,7 @@ abstract class _SoloDocsCoordinatorBase extends BaseMobxDBStore with Store {
   @action
   create(SoloDocTypes params) async {
     state = StoreState.loading;
-    final res = await createSoloDoc.call(params);
+    final res = await createSoloDocLogic.call(params);
     res.fold((failure) => errorUpdater(failure),
         (createStatus) => isCreated = createStatus);
   }
@@ -49,7 +49,7 @@ abstract class _SoloDocsCoordinatorBase extends BaseMobxDBStore with Store {
   @action
   getDoc(GetSoloDocParams params) async {
     state = StoreState.loading;
-    final res = await getSoloDoc.call(params);
+    final res = await getSoloDocLogic.call(params);
     res.fold((failure) => errorUpdater(failure),
         (docContent) => remoteDocContent = docContent);
   }
@@ -57,7 +57,7 @@ abstract class _SoloDocsCoordinatorBase extends BaseMobxDBStore with Store {
   @action
   seal() async {
     state = StoreState.loading;
-    final res = await sealSoloDoc.call(NoParams());
+    final res = await sealSoloDocLogic.call(NoParams());
     res.fold((failure) => errorUpdater(failure),
         (sealStatus) => isSealed = sealStatus);
   }
@@ -65,7 +65,7 @@ abstract class _SoloDocsCoordinatorBase extends BaseMobxDBStore with Store {
   @action
   share() async {
     state = StoreState.loading;
-    final res = await shareSoloDoc.call(NoParams());
+    final res = await shareSoloDocLogic.call(NoParams());
     res.fold((failure) => errorUpdater(failure),
         (shareStatus) => isShared = shareStatus);
   }
@@ -73,7 +73,7 @@ abstract class _SoloDocsCoordinatorBase extends BaseMobxDBStore with Store {
   @action
   submit(String params) async {
     state = StoreState.loading;
-    final res = await submitSoloDoc.call(params);
+    final res = await submitSoloDocLogic.call(params);
     res.fold((failure) => errorUpdater(failure),
         (submitStatus) => isSubmitted = submitStatus);
   }

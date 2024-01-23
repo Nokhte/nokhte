@@ -54,11 +54,11 @@ class SoloDocsModule extends Module {
     );
     i.add<SoloDocsCoordinator>(
       () => SoloDocsCoordinator(
-        getSoloDoc: i<GetSoloDoc>(),
-        createSoloDoc: i<CreateSoloDoc>(),
-        sealSoloDoc: i<SealSoloDoc>(),
-        shareSoloDoc: i<ShareSoloDoc>(),
-        submitSoloDoc: i<SubmitSoloDoc>(),
+        getSoloDocLogic: i<GetSoloDoc>(),
+        createSoloDocLogic: i<CreateSoloDoc>(),
+        sealSoloDocLogic: i<SealSoloDoc>(),
+        shareSoloDocLogic: i<ShareSoloDoc>(),
+        submitSoloDocLogic: i<SubmitSoloDoc>(),
       ),
     );
   }
