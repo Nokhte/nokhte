@@ -29,17 +29,6 @@ mixin _$BaseWidgetsCoordinator on _BaseWidgetsCoordinatorBase, Store {
       ActionController(name: '_BaseWidgetsCoordinatorBase', context: context);
 
   @override
-  dynamic toggleIsDisconnected() {
-    final _$actionInfo = _$_BaseWidgetsCoordinatorBaseActionController
-        .startAction(name: '_BaseWidgetsCoordinatorBase.toggleIsDisconnected');
-    try {
-      return super.toggleIsDisconnected();
-    } finally {
-      _$_BaseWidgetsCoordinatorBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic setIsDisconnected(bool newValue) {
     final _$actionInfo = _$_BaseWidgetsCoordinatorBaseActionController
         .startAction(name: '_BaseWidgetsCoordinatorBase.setIsDisconnected');

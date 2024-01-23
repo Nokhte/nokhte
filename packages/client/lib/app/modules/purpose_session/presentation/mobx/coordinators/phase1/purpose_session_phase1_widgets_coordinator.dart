@@ -93,13 +93,13 @@ abstract class _PurposeSessionPhase1WidgetsCoordinatorBase
     if (primarySmartText.isPaused &&
         wifiDisconnectOverlay.movieMode ==
             WifiDisconnectMovieModes.placeTheCircle) {
-      if (isDisconnected) toggleIsDisconnected();
+      setIsDisconnected(false);
     }
   }
 
   @action
   onDisconnected() {
-    if (!isDisconnected) toggleIsDisconnected();
+    setIsDisconnected(true);
   }
 
   @action
@@ -206,7 +206,7 @@ abstract class _PurposeSessionPhase1WidgetsCoordinatorBase
       reaction((p0) => wifiDisconnectOverlay.movieStatus, (p0) {
         if (wifiDisconnectOverlay.movieMode ==
             WifiDisconnectMovieModes.removeTheCircle) {
-          if (isDisconnected) toggleIsDisconnected();
+          setIsDisconnected(false);
         }
       });
 
