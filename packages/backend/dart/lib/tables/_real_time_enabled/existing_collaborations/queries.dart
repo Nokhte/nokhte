@@ -10,8 +10,9 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   static const isOnCall = "is_on_call";
   static const isOnline = "is_online";
   static const tableName = "existing_collaborations";
-  static const talkingQueue = "talking_queue";
+  static const speakerSpotlight = "speaker_spotlight";
   static const timerShouldRun = "timer_should_run";
+  static const hasDeletedArtifacts = "has_deleted_artifacts";
   static const whoGetsTheQuestion = "who_gets_the_question";
   ExistingCollaborationsQueries({required super.supabase});
 
@@ -64,8 +65,11 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
         .first[property];
   }
 
-  Future<List> getWhoIsTalkingQueue() async =>
-      await _getCollaborationProperty(talkingQueue);
+  Future<List> getHasDeletedArtifacts() async =>
+      await _getCollaborationProperty(hasDeletedArtifacts);
+
+  Future<String?> getSpeakerSpotlight() async =>
+      await _getCollaborationProperty(speakerSpotlight);
 
   Future<List> getWhoIsOnline() async =>
       await _getCollaborationProperty(isOnline);
@@ -88,6 +92,19 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
     currentOnlineStatus[indexToEdit] = isOnlineParam;
     return await onCurrentActiveCollaboration(supabase.from(tableName).update({
       isOnline: currentOnlineStatus,
+    }));
+  }
+
+  Future<List> updateHasDeletedArtifactsStatus(
+    bool hasDeletedArtifactsParam, {
+    bool shouldEditCollaboratorsInfo = false,
+  }) async {
+    final currentHasDeletedArtifacts = await getHasDeletedArtifacts();
+    final indexToEdit = getIndexForCollaboratorNumber(
+        collaboratorInfo.theUsersCollaboratorNumber);
+    currentHasDeletedArtifacts[indexToEdit] = hasDeletedArtifactsParam;
+    return await onCurrentActiveCollaboration(supabase.from(tableName).update({
+      hasDeletedArtifacts: currentHasDeletedArtifacts,
     }));
   }
 
@@ -120,7 +137,6 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
             ? collaboratorInfo.theCollaboratorsNumber
             : collaboratorInfo.theUsersCollaboratorNumber);
     currentPhasesRes[indexToEdit] = newPhase;
-    print(currentPhases);
     return await onCurrentActiveCollaboration(
       supabase.from(tableName).update({
         currentPhases: currentPhasesRes,
@@ -139,11 +155,16 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
 
   Future<List> setUserAsTheCurrentTalker() async {
     await ensureActiveCollaboratorInfo();
-    final currentQueue = await getWhoIsTalkingQueue();
-    currentQueue.add(collaboratorInfo.theUsersUID);
-    return await onCurrentActiveCollaboration(
-      supabase.from(tableName).update({talkingQueue: currentQueue}),
-    );
+    final currentSpeaker = await getSpeakerSpotlight();
+    if (currentSpeaker == null) {
+      return await onCurrentActiveCollaboration(
+        supabase.from(tableName).update({
+          speakerSpotlight: collaboratorInfo.theUsersUID,
+        }),
+      );
+    } else {
+      return [];
+    }
   }
 
   Future<bool> checkIfUserHasTheQuestion() async {
@@ -156,15 +177,15 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
     return collaboratorNumber == whoHasTheQuestionResponse;
   }
 
-  Future<void> clearTheCurrentTalker() async {
+  Future<List> clearTheCurrentTalker() async {
     await ensureActiveCollaboratorInfo();
-    final List currentQueue = await getWhoIsTalkingQueue();
-    currentQueue.removeAt(0);
-    return await onCurrentActiveCollaboration(
-      supabase.from(tableName).update({
-        talkingQueue: currentQueue,
-      }),
-    );
+    final currentSpeaker = await getSpeakerSpotlight();
+    if (currentSpeaker == collaboratorInfo.theUsersUID) {
+      return await onCurrentActiveCollaboration(
+          supabase.from(tableName).update({speakerSpotlight: null}));
+    } else {
+      return [];
+    }
   }
 
   Future<List> deleteUnConsecratedTheCollaboration() async {
