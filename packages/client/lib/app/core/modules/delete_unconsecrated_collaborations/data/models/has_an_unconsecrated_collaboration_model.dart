@@ -5,24 +5,20 @@ class UnconsecratedCollaborationCheckerModel
     extends UnconsecratedCollaborationCheckerEntity {
   const UnconsecratedCollaborationCheckerModel({
     required super.hasOne,
-    required super.collaboratorOneUID,
-    required super.collaboratorTwoUID,
+    required super.collaboratorInfo,
   });
 
-  factory UnconsecratedCollaborationCheckerModel.fromSupabase(List res) {
+  factory UnconsecratedCollaborationCheckerModel.fromSupabase(
+      List res, CollaboratorInfo collaboratorInfoParam) {
     if (res.isEmpty) {
-      return const UnconsecratedCollaborationCheckerModel(
-        collaboratorOneUID: '',
-        collaboratorTwoUID: '',
+      return UnconsecratedCollaborationCheckerModel(
+        collaboratorInfo: CollaboratorInfo.initial(),
         hasOne: false,
       );
     } else {
       return UnconsecratedCollaborationCheckerModel(
         hasOne: true,
-        collaboratorOneUID:
-            res.first[ExistingCollaborationsQueries.collaboratorOne],
-        collaboratorTwoUID:
-            res.first[ExistingCollaborationsQueries.collaboratorTwo],
+        collaboratorInfo: collaboratorInfoParam,
       );
     }
   }
