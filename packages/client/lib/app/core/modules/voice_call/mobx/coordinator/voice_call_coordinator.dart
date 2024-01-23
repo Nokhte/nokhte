@@ -12,17 +12,17 @@ class VoiceCallCoordinator = _VoiceCallCoordinatorBase
     with _$VoiceCallCoordinator;
 
 abstract class _VoiceCallCoordinatorBase extends BaseMobxDBStore with Store {
-  final VoiceCallStatusStore voiceCallStatus;
-  final VoiceCallActionsStore voiceCallActions;
-  final GetAgoraToken getAgoraToken;
-  final GetChannelId getChannelId;
-  final InitAgoraSdk initAgoraSdk;
+  final VoiceCallStatusStore voiceCallStatusStore;
+  final VoiceCallActionsStore voiceCallActionsStore;
+  final GetAgoraToken getAgoraTokenLogic;
+  final GetChannelId getChannelIdLogic;
+  final InitAgoraSdk initAgoraSdkLogic;
   _VoiceCallCoordinatorBase({
-    required this.voiceCallStatus,
-    required this.voiceCallActions,
-    required this.getAgoraToken,
-    required this.getChannelId,
-    required this.initAgoraSdk,
+    required this.voiceCallStatusStore,
+    required this.voiceCallActionsStore,
+    required this.getAgoraTokenLogic,
+    required this.getChannelIdLogic,
+    required this.initAgoraSdkLogic,
   });
 
   @observable
@@ -41,8 +41,8 @@ abstract class _VoiceCallCoordinatorBase extends BaseMobxDBStore with Store {
   initSdk() async {
     if (!isInitialized) {
       state = StoreState.loading;
-      rtcEngine = await initAgoraSdk(NoParams());
-      voiceCallStatus.registerCallbacks(rtcEngine);
+      rtcEngine = await initAgoraSdkLogic(NoParams());
+      voiceCallStatusStore.registerCallbacks(rtcEngine);
       isInitialized = true;
       state = StoreState.loaded;
     }
@@ -51,7 +51,7 @@ abstract class _VoiceCallCoordinatorBase extends BaseMobxDBStore with Store {
   @action
   _getChannelId() async {
     state = StoreState.loading;
-    final res = await getChannelId(NoParams());
+    final res = await getChannelIdLogic(NoParams());
     res.fold(
       (failure) => errorUpdater(failure),
       (newChannelId) => channelId = newChannelId,
@@ -62,7 +62,7 @@ abstract class _VoiceCallCoordinatorBase extends BaseMobxDBStore with Store {
   _getToken() async {
     state = StoreState.loading;
     final res =
-        await getAgoraToken(GetAgoraTokenParams(channelName: channelId));
+        await getAgoraTokenLogic(GetAgoraTokenParams(channelName: channelId));
     res.fold(
       (failure) => errorUpdater(failure),
       (newToken) => token = newToken,
@@ -76,7 +76,7 @@ abstract class _VoiceCallCoordinatorBase extends BaseMobxDBStore with Store {
     await initSdk();
     await _getChannelId();
     await _getToken();
-    await voiceCallActions.enterOrLeaveCall(
+    await voiceCallActionsStore.enterOrLeaveCall(
       Right(
         JoinCallParams(
           token: token,
@@ -84,19 +84,21 @@ abstract class _VoiceCallCoordinatorBase extends BaseMobxDBStore with Store {
         ),
       ),
     );
-    await voiceCallActions.muteOrUnmuteAudio(
+    await voiceCallActionsStore.muteOrUnmuteAudio(
         wantToMute: shouldEnterTheCallMuted);
   }
 
   @action
-  unmute() async => await voiceCallActions.muteOrUnmuteAudio(wantToMute: true);
+  unmute() async =>
+      await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
 
   @action
-  mute() async => await voiceCallActions.muteOrUnmuteAudio(wantToMute: false);
+  mute() async =>
+      await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);
 
   @action
   leaveCall() async =>
-      await voiceCallActions.enterOrLeaveCall(Left(NoParams()));
+      await voiceCallActionsStore.enterOrLeaveCall(Left(NoParams()));
 
   @override
   List<Object> get props => [];
