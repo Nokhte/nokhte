@@ -1,22 +1,20 @@
 import 'package:equatable/equatable.dart';
+import 'package:nokhte_backend/tables/existing_collaborations.dart';
 
 class UnconsecratedCollaborationCheckerEntity extends Equatable {
-  final String collaboratorOneUID;
-  final String collaboratorTwoUID;
+  final CollaboratorInfo collaboratorInfo;
   final bool hasOne;
   const UnconsecratedCollaborationCheckerEntity({
     required this.hasOne,
-    required this.collaboratorOneUID,
-    required this.collaboratorTwoUID,
+    required this.collaboratorInfo,
   });
 
   factory UnconsecratedCollaborationCheckerEntity.initial() =>
-      const UnconsecratedCollaborationCheckerEntity(
-        collaboratorOneUID: '',
-        collaboratorTwoUID: '',
+      UnconsecratedCollaborationCheckerEntity(
+        collaboratorInfo: CollaboratorInfo.initial(),
         hasOne: false,
       );
 
   @override
-  List<Object> get props => [collaboratorOneUID, collaboratorTwoUID, hasOne];
+  List<Object> get props => [collaboratorInfo, hasOne];
 }
