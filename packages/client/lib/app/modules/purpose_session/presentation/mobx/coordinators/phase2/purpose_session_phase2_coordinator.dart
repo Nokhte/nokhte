@@ -46,7 +46,7 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
     widgets.constructor();
     await collaboratorPresence.listen();
     await collaboratorPresence.updateCurrentPhase(2.0);
-    if (collaboratorPresence.getSessionMetadata.collaboratorPhase == 2) {
+    if (collaboratorPresence.getSessionMetadataStore.collaboratorPhase == 2) {
       initTimer();
     }
     collaboratorPresence.setBasePhaseForScreen(2.0);
@@ -95,7 +95,8 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
   }
 
   onCollaboratorOnlinePresenceChangeReactor() => reaction(
-          (p0) => collaboratorPresence.getSessionMetadata.collaboratorIsOnline,
+          (p0) =>
+              collaboratorPresence.getSessionMetadataStore.collaboratorIsOnline,
           (p0) async {
         if (p0) {
           widgets.onCollaboratorJoined();
@@ -113,8 +114,8 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
   }
 
   bothCollaboratorsAreOnlineAndInSyncReactor() => reaction(
-          (p0) => collaboratorPresence
-              .getSessionMetadata.bothCollaboratorsAreInSyncAndOnline, (p0) {
+          (p0) => collaboratorPresence.getSessionMetadataStore
+              .bothCollaboratorsAreInSyncAndOnline, (p0) {
         if (p0 && isFirstTimeBothAreInSync) {
           isFirstTimeBothAreInSync = false;
           initTimer();
@@ -123,8 +124,8 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
         }
       });
 
-  timerReactor() =>
-      reaction((p0) => collaboratorPresence.getSessionMetadata.timerShouldRun,
+  timerReactor() => reaction(
+          (p0) => collaboratorPresence.getSessionMetadataStore.timerShouldRun,
           (p0) {
         if (p0) {
           // if (!hasInitializedTimer) {
@@ -141,8 +142,8 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
   @action
   onPhaseChange() async {
     print(
-        "??? ${collaboratorPresence.getSessionMetadata.collaboratorPhase} ${collaboratorPresence.getSessionMetadata.userPhase}");
-    if (collaboratorPresence.getSessionMetadata.collaboratorPhase == 2.5) {
+        "??? ${collaboratorPresence.getSessionMetadataStore.collaboratorPhase} ${collaboratorPresence.getSessionMetadataStore.userPhase}");
+    if (collaboratorPresence.getSessionMetadataStore.collaboratorPhase == 2.5) {
       await soloDoc.share();
       widgets.onEarlyRelease();
     }
@@ -156,7 +157,7 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
   }
 
   currentPhaseReactor() => reaction(
-      (p0) => collaboratorPresence.getSessionMetadata.collaboratorPhase,
+      (p0) => collaboratorPresence.getSessionMetadataStore.collaboratorPhase,
       (p0) => onPhaseChange());
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) async {
@@ -165,9 +166,9 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
             if (canSwipeUp &&
                 !hasSwipedUp &&
                 widgets.hasCompletedIntroduction) {
-              final collaboratorIsFinished =
-                  collaboratorPresence.getSessionMetadata.collaboratorPhase ==
-                      2.5;
+              final collaboratorIsFinished = collaboratorPresence
+                      .getSessionMetadataStore.collaboratorPhase ==
+                  2.5;
               widgets.onSwipeUp(collaboratorIsFinished: collaboratorIsFinished);
               hasSwipedUp = true;
               canSwipeUp = false;

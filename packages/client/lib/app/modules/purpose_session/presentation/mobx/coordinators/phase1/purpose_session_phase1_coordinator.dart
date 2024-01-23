@@ -106,13 +106,13 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
 
   holdReactor() => reaction((p0) => hold.holdCount, (p0) async {
         if (canSpeak &&
-            voiceCall.voiceCallStatus.inCall == CallStatus.joined &&
+            voiceCall.voiceCallStatusStore.inCall == CallStatus.joined &&
             !widgets.isDisconnected &&
-            collaboratorPresence.getSessionMetadata.collaboratorIsOnline) {
+            collaboratorPresence.getSessionMetadataStore.collaboratorIsOnline) {
           widgets.onHold();
           await collaboratorPresence
               .updateWhoIsTalking(UpdateWhoIsTalkingParams.setUserAsTalker);
-          await voiceCall.voiceCallActions.unmuteAudio(NoParams());
+          await voiceCall.voiceCallActionsStore.unmuteAudio(NoParams());
           if (!hasInitializedTimer &&
               checkIfUserHasTheQuestion.hasTheQuestion) {
             await collaboratorPresence.updateTimerStatus(true);
@@ -124,20 +124,20 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
 
   letGoReactor() => reaction((p0) => hold.letGoCount, (p0) async {
         if (canSpeak &&
-            voiceCall.voiceCallStatus.inCall == CallStatus.joined &&
+            voiceCall.voiceCallStatusStore.inCall == CallStatus.joined &&
             !widgets.isDisconnected &&
-            collaboratorPresence.getSessionMetadata.collaboratorIsOnline) {
+            collaboratorPresence.getSessionMetadataStore.collaboratorIsOnline) {
           widgets.onLetGo();
 
           await collaboratorPresence
               .updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
-          await voiceCall.voiceCallActions.muteAudio(NoParams());
+          await voiceCall.voiceCallActionsStore.muteAudio(NoParams());
         }
       });
 
   oneTalkerAtATimeReactor() => reaction(
-          (p0) => collaboratorPresence.getSessionMetadata.collaboratorIsTalking,
-          (p0) {
+          (p0) => collaboratorPresence
+              .getSessionMetadataStore.collaboratorIsTalking, (p0) {
         if (p0) {
           speakerCount++;
           canSpeak = false;
@@ -150,13 +150,14 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
       });
 
   onCallStatusChangeReactor() =>
-      reaction((p0) => voiceCall.voiceCallStatus.inCall, (p0) async {
+      reaction((p0) => voiceCall.voiceCallStatusStore.inCall, (p0) async {
         if (p0 == CallStatus.joined) {
           widgets.onCallJoined();
           await collaboratorPresence
               .updateCallStatus(UpdatePresencePropertyParams.userAffirmative());
         } else if (p0 == CallStatus.left) {
-          if (!collaboratorPresence.getSessionMetadata.collaboratorHasMovedOn) {
+          if (!collaboratorPresence
+              .getSessionMetadataStore.collaboratorHasMovedOn) {
             widgets.onCallLeft();
           }
           await collaboratorPresence
@@ -165,13 +166,14 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
       });
 
   onCollaboratorCallStatusChangeReactor() =>
-      reaction((p0) => voiceCall.voiceCallStatus.hasCollaboratorJoined,
+      reaction((p0) => voiceCall.voiceCallStatusStore.hasCollaboratorJoined,
           (p0) async {
         if (p0) {
           await collaboratorPresence.updateCallStatus(
               UpdatePresencePropertyParams.collaboratorAffirmative());
         } else {
-          if (!collaboratorPresence.getSessionMetadata.collaboratorHasMovedOn) {
+          if (!collaboratorPresence
+              .getSessionMetadataStore.collaboratorHasMovedOn) {
             widgets.onCallLeft();
           }
           await collaboratorPresence.updateCallStatus(
@@ -180,7 +182,8 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
       });
 
   onCollaboratorCallPresenceChangeReactor() => reaction(
-          (p0) => collaboratorPresence.getSessionMetadata.collaboratorIsOnline,
+          (p0) =>
+              collaboratorPresence.getSessionMetadataStore.collaboratorIsOnline,
           (p0) async {
         if (p0) {
           widgets.onCollaboratorJoined();
@@ -192,24 +195,24 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
       });
 
   bothCollaboratorsAreOnCallAndOnlineReactor() => reaction(
-          (p0) => collaboratorPresence
-              .getSessionMetadata.bothCollaboratorsAreOnCallAndOnline, (p0) {
+          (p0) => collaboratorPresence.getSessionMetadataStore
+              .bothCollaboratorsAreOnCallAndOnline, (p0) {
         if (p0 && isFirstTimeBothAreInSync) {
           isFirstTimeBothAreInSync = false;
           widgets.onFirstTimeUsersAreInSync();
         }
       });
 
-  timerReactor() =>
-      reaction((p0) => collaboratorPresence.getSessionMetadata.timerShouldRun,
+  timerReactor() => reaction(
+          (p0) => collaboratorPresence.getSessionMetadataStore.timerShouldRun,
           (p0) {
         if (p0) {
           if (!hasInitializedTimer) {
             Timer.periodic(const Duration(seconds: 1), (timer) {
               if (collaboratorPresence
-                      .getSessionMetadata.collaboratorIsOnCall &&
+                      .getSessionMetadataStore.collaboratorIsOnCall &&
                   collaboratorPresence
-                      .getSessionMetadata.collaboratorIsOnline) {
+                      .getSessionMetadataStore.collaboratorIsOnline) {
                 widgets.initTimer();
                 hasInitializedTimer = true;
                 timer.cancel();
