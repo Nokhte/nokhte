@@ -76,8 +76,8 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
             event.first[ExistingCollaborationsQueries.isOnline];
         final phasesList =
             event.first[ExistingCollaborationsQueries.currentPhases];
-        final talkingQueue =
-            event.first[ExistingCollaborationsQueries.talkingQueue];
+        final speakerSpotlight =
+            event.first[ExistingCollaborationsQueries.speakerSpotlight];
         yield CollaborationSessionMetadata(
           userIsOnCall: onCallList[userIndex],
           collaboratorIsOnCall: onCallList[collaboratorIndex],
@@ -89,7 +89,8 @@ class ExistingCollaborationsStream extends CollaborativeQueries {
           timerShouldRun:
               event.first[ExistingCollaborationsQueries.timerShouldRun],
           collaboratorIsTalking:
-              talkingQueue.isEmpty ? false : talkingQueue.first != userUID,
+              speakerSpotlight == collaboratorInfo.theCollaboratorsUID,
+          userIsTalking: speakerSpotlight == collaboratorInfo.theUsersUID,
         );
       }
     }
