@@ -1,9 +1,9 @@
-## Description: [Brief Description Of The Bug]
+**Description**: [Brief Description Of The Bug]
 
-- Steps To Reproduce:
+**Steps To Reproduce**:
 
-  1. [Step 1]
-  2. [Step 2]
+1. [Step 1]
+2. [Step 2]
 
 - Expected Behavior:
 
