@@ -105,6 +105,112 @@ mixin _$DeleteUnconsecratedCollaborationsCoordinator
     });
   }
 
+  late final _$hasAnUnconsecratedCollaboorationAtom = Atom(
+      name:
+          '_DeleteUnconsecratedCollaborationsCoordinatorBase.hasAnUnconsecratedCollabooration',
+      context: context);
+
+  @override
+  bool get hasAnUnconsecratedCollabooration {
+    _$hasAnUnconsecratedCollaboorationAtom.reportRead();
+    return super.hasAnUnconsecratedCollabooration;
+  }
+
+  @override
+  set hasAnUnconsecratedCollabooration(bool value) {
+    _$hasAnUnconsecratedCollaboorationAtom
+        .reportWrite(value, super.hasAnUnconsecratedCollabooration, () {
+      super.hasAnUnconsecratedCollabooration = value;
+    });
+  }
+
+  late final _$collaboratorHasDeletedArtifactsAtom = Atom(
+      name:
+          '_DeleteUnconsecratedCollaborationsCoordinatorBase.collaboratorHasDeletedArtifacts',
+      context: context);
+
+  @override
+  bool get collaboratorHasDeletedArtifacts {
+    _$collaboratorHasDeletedArtifactsAtom.reportRead();
+    return super.collaboratorHasDeletedArtifacts;
+  }
+
+  @override
+  set collaboratorHasDeletedArtifacts(bool value) {
+    _$collaboratorHasDeletedArtifactsAtom
+        .reportWrite(value, super.collaboratorHasDeletedArtifacts, () {
+      super.collaboratorHasDeletedArtifacts = value;
+    });
+  }
+
+  late final _$collaboratorInfoAtom = Atom(
+      name:
+          '_DeleteUnconsecratedCollaborationsCoordinatorBase.collaboratorInfo',
+      context: context);
+
+  @override
+  CollaboratorInfo get collaboratorInfo {
+    _$collaboratorInfoAtom.reportRead();
+    return super.collaboratorInfo;
+  }
+
+  @override
+  set collaboratorInfo(CollaboratorInfo value) {
+    _$collaboratorInfoAtom.reportWrite(value, super.collaboratorInfo, () {
+      super.collaboratorInfo = value;
+    });
+  }
+
+  late final _$checkIfCollaboratorHasDeletedArtifactsAsyncAction = AsyncAction(
+      '_DeleteUnconsecratedCollaborationsCoordinatorBase.checkIfCollaboratorHasDeletedArtifacts',
+      context: context);
+
+  @override
+  Future checkIfCollaboratorHasDeletedArtifacts() {
+    return _$checkIfCollaboratorHasDeletedArtifactsAsyncAction
+        .run(() => super.checkIfCollaboratorHasDeletedArtifacts());
+  }
+
+  late final _$checkForUnconsecratedCollaborationAsyncAction = AsyncAction(
+      '_DeleteUnconsecratedCollaborationsCoordinatorBase.checkForUnconsecratedCollaboration',
+      context: context);
+
+  @override
+  Future checkForUnconsecratedCollaboration() {
+    return _$checkForUnconsecratedCollaborationAsyncAction
+        .run(() => super.checkForUnconsecratedCollaboration());
+  }
+
+  late final _$deleteTheCollaborationAsyncAction = AsyncAction(
+      '_DeleteUnconsecratedCollaborationsCoordinatorBase.deleteTheCollaboration',
+      context: context);
+
+  @override
+  Future deleteTheCollaboration() {
+    return _$deleteTheCollaborationAsyncAction
+        .run(() => super.deleteTheCollaboration());
+  }
+
+  late final _$deleteSoloDocumentsAsyncAction = AsyncAction(
+      '_DeleteUnconsecratedCollaborationsCoordinatorBase.deleteSoloDocuments',
+      context: context);
+
+  @override
+  Future deleteSoloDocuments() {
+    return _$deleteSoloDocumentsAsyncAction
+        .run(() => super.deleteSoloDocuments());
+  }
+
+  late final _$updateHasDeletedArtifactsAsyncAction = AsyncAction(
+      '_DeleteUnconsecratedCollaborationsCoordinatorBase.updateHasDeletedArtifacts',
+      context: context);
+
+  @override
+  Future updateHasDeletedArtifacts() {
+    return _$updateHasDeletedArtifactsAsyncAction
+        .run(() => super.updateHasDeletedArtifacts());
+  }
+
   late final _$callAsyncAction = AsyncAction(
       '_DeleteUnconsecratedCollaborationsCoordinatorBase.call',
       context: context);
@@ -121,7 +227,10 @@ collaborationIsDeleted: ${collaborationIsDeleted},
 soloDocumentIsDeleted: ${soloDocumentIsDeleted},
 capsuleArrangementIsDeleted: ${capsuleArrangementIsDeleted},
 collaborativeDocumentIsDeleted: ${collaborativeDocumentIsDeleted},
-schedulingSessionIsDeleted: ${schedulingSessionIsDeleted}
+schedulingSessionIsDeleted: ${schedulingSessionIsDeleted},
+hasAnUnconsecratedCollabooration: ${hasAnUnconsecratedCollabooration},
+collaboratorHasDeletedArtifacts: ${collaboratorHasDeletedArtifacts},
+collaboratorInfo: ${collaboratorInfo}
     ''';
   }
 }
