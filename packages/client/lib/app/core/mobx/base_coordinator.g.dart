@@ -41,6 +41,17 @@ mixin _$BaseCoordinator on _BaseCoordinatorBase, Store {
   }
 
   @override
+  dynamic setDisableAllTouchFeedback(bool newValue) {
+    final _$actionInfo = _$_BaseCoordinatorBaseActionController.startAction(
+        name: '_BaseCoordinatorBase.setDisableAllTouchFeedback');
+    try {
+      return super.setDisableAllTouchFeedback(newValue);
+    } finally {
+      _$_BaseCoordinatorBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic onAppLifeCycleStateChange(dynamic p0,
       {required Function onResumed,
       required Function onInactive,

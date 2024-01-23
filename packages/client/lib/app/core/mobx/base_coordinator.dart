@@ -14,6 +14,10 @@ abstract class _BaseCoordinatorBase extends Equatable with Store {
   toggleDisableAllTouchFeedback() =>
       disableAllTouchFeedback = !disableAllTouchFeedback;
 
+  @action
+  setDisableAllTouchFeedback(bool newValue) =>
+      disableAllTouchFeedback = newValue;
+
   ifTouchIsNotDisabled(Function callback) {
     if (!disableAllTouchFeedback) callback();
   }
