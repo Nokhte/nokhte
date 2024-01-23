@@ -38,7 +38,6 @@ class WorkingPerspectivesPositioningQueries extends CollaborativeQueries {
 
   Future<List> updateCurrentQuadrant({required int newQuadrant}) async {
     await ensureActiveCollaboratorInfo();
-    print("Is this thing running??? $newQuadrant");
     return await supabase
         .from(
           WorkingPerspectivesPositioningConstants.tableName,
