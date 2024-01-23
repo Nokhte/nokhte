@@ -19,14 +19,16 @@ import 'package:nokhte/app/core/modules/deep_links/domain/domain.dart' as _i14;
 import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart' as _i16;
 import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/domain/domain.dart'
     as _i17;
-import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/mobx/mobx.dart'
-    as _i18;
+import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/mobx/delete_unconsecrated_collaborations_coordinator.dart'
+    as _i31;
 import 'package:nokhte/app/core/modules/user_information/domain/domain.dart'
     as _i13;
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart'
     as _i12;
 import 'package:nokhte/app/core/types/types.dart' as _i30;
 import 'package:nokhte/app/core/widgets/widgets.dart' as _i15;
+import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart'
+    as _i18;
 import 'package:nokhte/app/modules/home/data/sources/home_remote_source.dart'
     as _i19;
 import 'package:nokhte/app/modules/home/domain/contracts/home_contract.dart'
@@ -429,9 +431,20 @@ class _FakeGetUserInfo_33 extends _i1.SmartFake implements _i13.GetUserInfo {
         );
 }
 
-class _FakeDeleteCapsuleArrangement_34 extends _i1.SmartFake
+class _FakeCollaboratorInfo_34 extends _i1.SmartFake
+    implements _i3.CollaboratorInfo {
+  _FakeCollaboratorInfo_34(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeDeleteCapsuleArrangement_35 extends _i1.SmartFake
     implements _i17.DeleteCapsuleArrangement {
-  _FakeDeleteCapsuleArrangement_34(
+  _FakeDeleteCapsuleArrangement_35(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -440,9 +453,9 @@ class _FakeDeleteCapsuleArrangement_34 extends _i1.SmartFake
         );
 }
 
-class _FakeDeleteCollaborativeDocument_35 extends _i1.SmartFake
+class _FakeDeleteCollaborativeDocument_36 extends _i1.SmartFake
     implements _i17.DeleteCollaborativeDocument {
-  _FakeDeleteCollaborativeDocument_35(
+  _FakeDeleteCollaborativeDocument_36(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -451,9 +464,9 @@ class _FakeDeleteCollaborativeDocument_35 extends _i1.SmartFake
         );
 }
 
-class _FakeDeleteSchedulingSession_36 extends _i1.SmartFake
+class _FakeDeleteSchedulingSession_37 extends _i1.SmartFake
     implements _i17.DeleteSchedulingSession {
-  _FakeDeleteSchedulingSession_36(
+  _FakeDeleteSchedulingSession_37(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -462,9 +475,9 @@ class _FakeDeleteSchedulingSession_36 extends _i1.SmartFake
         );
 }
 
-class _FakeDeleteTheCollaboration_37 extends _i1.SmartFake
+class _FakeDeleteTheCollaboration_38 extends _i1.SmartFake
     implements _i17.DeleteTheCollaboration {
-  _FakeDeleteTheCollaboration_37(
+  _FakeDeleteTheCollaboration_38(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -473,9 +486,9 @@ class _FakeDeleteTheCollaboration_37 extends _i1.SmartFake
         );
 }
 
-class _FakeDeleteSoloDocument_38 extends _i1.SmartFake
+class _FakeDeleteSoloDocument_39 extends _i1.SmartFake
     implements _i17.DeleteSoloDocument {
-  _FakeDeleteSoloDocument_38(
+  _FakeDeleteSoloDocument_39(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -484,9 +497,42 @@ class _FakeDeleteSoloDocument_38 extends _i1.SmartFake
         );
 }
 
-class _FakeCheckForUnconsecratedCollaborationStore_39 extends _i1.SmartFake
-    implements _i18.CheckForUnconsecratedCollaborationStore {
-  _FakeCheckForUnconsecratedCollaborationStore_39(
+class _FakeCheckIfCollaboratorHasDeletedArtifacts_40 extends _i1.SmartFake
+    implements _i17.CheckIfCollaboratorHasDeletedArtifacts {
+  _FakeCheckIfCollaboratorHasDeletedArtifacts_40(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeCheckForUnconsecratedCollaboration_41 extends _i1.SmartFake
+    implements _i17.CheckForUnconsecratedCollaboration {
+  _FakeCheckForUnconsecratedCollaboration_41(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeCollaborationLogicCoordinator_42 extends _i1.SmartFake
+    implements _i18.CollaborationLogicCoordinator {
+  _FakeCollaborationLogicCoordinator_42(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeUpdateHasDeletedArtifacts_43 extends _i1.SmartFake
+    implements _i17.UpdateHasDeletedArtifacts {
+  _FakeUpdateHasDeletedArtifacts_43(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -2647,7 +2693,7 @@ class MockUpdateHasSentAnInvitation extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
-    implements _i18.DeleteUnconsecratedCollaborationsCoordinator {
+    implements _i31.DeleteUnconsecratedCollaborationsCoordinator {
   @override
   bool get collaborationIsDeleted => (super.noSuchMethod(
         Invocation.getter(#collaborationIsDeleted),
@@ -2729,87 +2775,185 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
       );
 
   @override
-  _i17.DeleteCapsuleArrangement get deleteCapsuleArrangement =>
-      (super.noSuchMethod(
-        Invocation.getter(#deleteCapsuleArrangement),
-        returnValue: _FakeDeleteCapsuleArrangement_34(
-          this,
-          Invocation.getter(#deleteCapsuleArrangement),
+  bool get hasAnUnconsecratedCollabooration => (super.noSuchMethod(
+        Invocation.getter(#hasAnUnconsecratedCollabooration),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set hasAnUnconsecratedCollabooration(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #hasAnUnconsecratedCollabooration,
+          value,
         ),
-        returnValueForMissingStub: _FakeDeleteCapsuleArrangement_34(
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get collaboratorHasDeletedArtifacts => (super.noSuchMethod(
+        Invocation.getter(#collaboratorHasDeletedArtifacts),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set collaboratorHasDeletedArtifacts(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #collaboratorHasDeletedArtifacts,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i3.CollaboratorInfo get collaboratorInfo => (super.noSuchMethod(
+        Invocation.getter(#collaboratorInfo),
+        returnValue: _FakeCollaboratorInfo_34(
           this,
-          Invocation.getter(#deleteCapsuleArrangement),
+          Invocation.getter(#collaboratorInfo),
+        ),
+        returnValueForMissingStub: _FakeCollaboratorInfo_34(
+          this,
+          Invocation.getter(#collaboratorInfo),
+        ),
+      ) as _i3.CollaboratorInfo);
+
+  @override
+  set collaboratorInfo(_i3.CollaboratorInfo? value) => super.noSuchMethod(
+        Invocation.setter(
+          #collaboratorInfo,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i17.DeleteCapsuleArrangement get deleteCapsuleArrangementLogic =>
+      (super.noSuchMethod(
+        Invocation.getter(#deleteCapsuleArrangementLogic),
+        returnValue: _FakeDeleteCapsuleArrangement_35(
+          this,
+          Invocation.getter(#deleteCapsuleArrangementLogic),
+        ),
+        returnValueForMissingStub: _FakeDeleteCapsuleArrangement_35(
+          this,
+          Invocation.getter(#deleteCapsuleArrangementLogic),
         ),
       ) as _i17.DeleteCapsuleArrangement);
 
   @override
-  _i17.DeleteCollaborativeDocument get deleteCollaborativeDocument =>
+  _i17.DeleteCollaborativeDocument get deleteCollaborativeDocumentLogic =>
       (super.noSuchMethod(
-        Invocation.getter(#deleteCollaborativeDocument),
-        returnValue: _FakeDeleteCollaborativeDocument_35(
+        Invocation.getter(#deleteCollaborativeDocumentLogic),
+        returnValue: _FakeDeleteCollaborativeDocument_36(
           this,
-          Invocation.getter(#deleteCollaborativeDocument),
+          Invocation.getter(#deleteCollaborativeDocumentLogic),
         ),
-        returnValueForMissingStub: _FakeDeleteCollaborativeDocument_35(
+        returnValueForMissingStub: _FakeDeleteCollaborativeDocument_36(
           this,
-          Invocation.getter(#deleteCollaborativeDocument),
+          Invocation.getter(#deleteCollaborativeDocumentLogic),
         ),
       ) as _i17.DeleteCollaborativeDocument);
 
   @override
-  _i17.DeleteSchedulingSession get deleteSchedulingSession =>
+  _i17.DeleteSchedulingSession get deleteSchedulingSessionLogic =>
       (super.noSuchMethod(
-        Invocation.getter(#deleteSchedulingSession),
-        returnValue: _FakeDeleteSchedulingSession_36(
+        Invocation.getter(#deleteSchedulingSessionLogic),
+        returnValue: _FakeDeleteSchedulingSession_37(
           this,
-          Invocation.getter(#deleteSchedulingSession),
+          Invocation.getter(#deleteSchedulingSessionLogic),
         ),
-        returnValueForMissingStub: _FakeDeleteSchedulingSession_36(
+        returnValueForMissingStub: _FakeDeleteSchedulingSession_37(
           this,
-          Invocation.getter(#deleteSchedulingSession),
+          Invocation.getter(#deleteSchedulingSessionLogic),
         ),
       ) as _i17.DeleteSchedulingSession);
 
   @override
-  _i17.DeleteTheCollaboration get deleteTheCollaboration => (super.noSuchMethod(
-        Invocation.getter(#deleteTheCollaboration),
-        returnValue: _FakeDeleteTheCollaboration_37(
+  _i17.DeleteTheCollaboration get deleteTheCollaborationLogic =>
+      (super.noSuchMethod(
+        Invocation.getter(#deleteTheCollaborationLogic),
+        returnValue: _FakeDeleteTheCollaboration_38(
           this,
-          Invocation.getter(#deleteTheCollaboration),
+          Invocation.getter(#deleteTheCollaborationLogic),
         ),
-        returnValueForMissingStub: _FakeDeleteTheCollaboration_37(
+        returnValueForMissingStub: _FakeDeleteTheCollaboration_38(
           this,
-          Invocation.getter(#deleteTheCollaboration),
+          Invocation.getter(#deleteTheCollaborationLogic),
         ),
       ) as _i17.DeleteTheCollaboration);
 
   @override
-  _i17.DeleteSoloDocument get deleteSoloDocument => (super.noSuchMethod(
-        Invocation.getter(#deleteSoloDocument),
-        returnValue: _FakeDeleteSoloDocument_38(
+  _i17.DeleteSoloDocument get deleteSoloDocumentLogic => (super.noSuchMethod(
+        Invocation.getter(#deleteSoloDocumentLogic),
+        returnValue: _FakeDeleteSoloDocument_39(
           this,
-          Invocation.getter(#deleteSoloDocument),
+          Invocation.getter(#deleteSoloDocumentLogic),
         ),
-        returnValueForMissingStub: _FakeDeleteSoloDocument_38(
+        returnValueForMissingStub: _FakeDeleteSoloDocument_39(
           this,
-          Invocation.getter(#deleteSoloDocument),
+          Invocation.getter(#deleteSoloDocumentLogic),
         ),
       ) as _i17.DeleteSoloDocument);
 
   @override
-  _i18.CheckForUnconsecratedCollaborationStore
-      get checkForUnconsecratedCollaboration => (super.noSuchMethod(
-            Invocation.getter(#checkForUnconsecratedCollaboration),
-            returnValue: _FakeCheckForUnconsecratedCollaborationStore_39(
+  _i17.CheckIfCollaboratorHasDeletedArtifacts
+      get checkIfCollaboratorHasDeletedArtifactsLogic => (super.noSuchMethod(
+            Invocation.getter(#checkIfCollaboratorHasDeletedArtifactsLogic),
+            returnValue: _FakeCheckIfCollaboratorHasDeletedArtifacts_40(
               this,
-              Invocation.getter(#checkForUnconsecratedCollaboration),
+              Invocation.getter(#checkIfCollaboratorHasDeletedArtifactsLogic),
             ),
             returnValueForMissingStub:
-                _FakeCheckForUnconsecratedCollaborationStore_39(
+                _FakeCheckIfCollaboratorHasDeletedArtifacts_40(
               this,
-              Invocation.getter(#checkForUnconsecratedCollaboration),
+              Invocation.getter(#checkIfCollaboratorHasDeletedArtifactsLogic),
             ),
-          ) as _i18.CheckForUnconsecratedCollaborationStore);
+          ) as _i17.CheckIfCollaboratorHasDeletedArtifacts);
+
+  @override
+  _i17.CheckForUnconsecratedCollaboration
+      get checkForUnconsecratedCollaborationLogic => (super.noSuchMethod(
+            Invocation.getter(#checkForUnconsecratedCollaborationLogic),
+            returnValue: _FakeCheckForUnconsecratedCollaboration_41(
+              this,
+              Invocation.getter(#checkForUnconsecratedCollaborationLogic),
+            ),
+            returnValueForMissingStub:
+                _FakeCheckForUnconsecratedCollaboration_41(
+              this,
+              Invocation.getter(#checkForUnconsecratedCollaborationLogic),
+            ),
+          ) as _i17.CheckForUnconsecratedCollaboration);
+
+  @override
+  _i18.CollaborationLogicCoordinator get collaborationLogicCoordinator =>
+      (super.noSuchMethod(
+        Invocation.getter(#collaborationLogicCoordinator),
+        returnValue: _FakeCollaborationLogicCoordinator_42(
+          this,
+          Invocation.getter(#collaborationLogicCoordinator),
+        ),
+        returnValueForMissingStub: _FakeCollaborationLogicCoordinator_42(
+          this,
+          Invocation.getter(#collaborationLogicCoordinator),
+        ),
+      ) as _i18.CollaborationLogicCoordinator);
+
+  @override
+  _i17.UpdateHasDeletedArtifacts get updateHasDeletedArtifactsLogic =>
+      (super.noSuchMethod(
+        Invocation.getter(#updateHasDeletedArtifactsLogic),
+        returnValue: _FakeUpdateHasDeletedArtifacts_43(
+          this,
+          Invocation.getter(#updateHasDeletedArtifactsLogic),
+        ),
+        returnValueForMissingStub: _FakeUpdateHasDeletedArtifacts_43(
+          this,
+          Invocation.getter(#updateHasDeletedArtifactsLogic),
+        ),
+      ) as _i17.UpdateHasDeletedArtifacts);
 
   @override
   _i25.StoreState get state => (super.noSuchMethod(
@@ -2868,6 +3012,58 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
           Invocation.getter(#context),
         ),
       ) as _i11.ReactiveContext);
+
+  @override
+  _i20.Future<dynamic> checkIfCollaboratorHasDeletedArtifacts() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #checkIfCollaboratorHasDeletedArtifacts,
+          [],
+        ),
+        returnValue: _i20.Future<dynamic>.value(),
+        returnValueForMissingStub: _i20.Future<dynamic>.value(),
+      ) as _i20.Future<dynamic>);
+
+  @override
+  _i20.Future<dynamic> checkForUnconsecratedCollaboration() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #checkForUnconsecratedCollaboration,
+          [],
+        ),
+        returnValue: _i20.Future<dynamic>.value(),
+        returnValueForMissingStub: _i20.Future<dynamic>.value(),
+      ) as _i20.Future<dynamic>);
+
+  @override
+  _i20.Future<dynamic> deleteTheCollaboration() => (super.noSuchMethod(
+        Invocation.method(
+          #deleteTheCollaboration,
+          [],
+        ),
+        returnValue: _i20.Future<dynamic>.value(),
+        returnValueForMissingStub: _i20.Future<dynamic>.value(),
+      ) as _i20.Future<dynamic>);
+
+  @override
+  _i20.Future<dynamic> deleteSoloDocuments() => (super.noSuchMethod(
+        Invocation.method(
+          #deleteSoloDocuments,
+          [],
+        ),
+        returnValue: _i20.Future<dynamic>.value(),
+        returnValueForMissingStub: _i20.Future<dynamic>.value(),
+      ) as _i20.Future<dynamic>);
+
+  @override
+  _i20.Future<dynamic> updateHasDeletedArtifacts() => (super.noSuchMethod(
+        Invocation.method(
+          #updateHasDeletedArtifacts,
+          [],
+        ),
+        returnValue: _i20.Future<dynamic>.value(),
+        returnValueForMissingStub: _i20.Future<dynamic>.value(),
+      ) as _i20.Future<dynamic>);
 
   @override
   _i20.Future<void> call(_i22.NoParams? params) => (super.noSuchMethod(
