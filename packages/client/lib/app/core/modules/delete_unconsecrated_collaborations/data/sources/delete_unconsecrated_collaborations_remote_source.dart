@@ -1,3 +1,4 @@
+import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/domain/domain.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:nokhte_backend/tables/existing_collaborations.dart';
 import 'package:nokhte_backend/tables/solo_sharable_documents.dart';
@@ -8,9 +9,12 @@ abstract class DeleteUnconsecratedCollaborationsRemoteSource {
   Future<List> deleteCapsuleArrangement();
   Future<List> deleteCollaborativeDocument();
   Future<List> deleteSchedulingSession();
-  Future<List> deleteSoloDocument();
+  Future<List> deleteSoloDocument(DeleteSoloDocumentParams params);
   Future<List> deleteTheCollaboration();
   Future<List> checkForUnconsecratedCollaboration();
+  CollaboratorInfo getCollaboratorInfo();
+  Future<List> checkIfCollaboratorHasDeletedArtifacts();
+  Future<List> updateHasDeletedArtifacts(bool params);
 }
 
 class DeleteUnconsecratedCollaborationsRemoteSourceImpl
@@ -42,8 +46,17 @@ class DeleteUnconsecratedCollaborationsRemoteSourceImpl
       await workingCollaborativeDocumentsQueries.deleteThedoc();
 
   @override
-  Future<List> deleteSoloDocument() async =>
-      await soloSharableDocumentQueries.deleteDocument();
+  CollaboratorInfo getCollaboratorInfo() =>
+      existingCollaborations.collaboratorInfo;
+
+  @override
+  Future<List> deleteSoloDocument(params) async =>
+      await soloSharableDocumentQueries.deleteAllAssociatedWith(
+          params.ownerUID, params.collaboratorUID);
+
+  @override
+  Future<List> checkIfCollaboratorHasDeletedArtifacts() async =>
+      await existingCollaborations.getHasDeletedArtifacts();
 
   @override
   Future<List> deleteSchedulingSession() async =>
@@ -61,4 +74,8 @@ class DeleteUnconsecratedCollaborationsRemoteSourceImpl
     );
     return res;
   }
+
+  @override
+  Future<List> updateHasDeletedArtifacts(bool params) async =>
+      await existingCollaborations.updateHasDeletedArtifactsStatus(params);
 }
