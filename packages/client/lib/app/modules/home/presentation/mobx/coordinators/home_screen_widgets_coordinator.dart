@@ -98,13 +98,13 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
       if (primarySmartText.currentIndex.isLessThan(3)) {
         primarySmartText.resume();
       }
-      if (isDisconnected) toggleIsDisconnected();
     }
+    setIsDisconnected(false);
   }
 
   @action
   onDisconnected() {
-    if (!isDisconnected) toggleIsDisconnected();
+    setIsDisconnected(true);
     if (!primarySmartText.isPaused) {
       if (primarySmartText.currentIndex.isLessThan(3)) {
         primarySmartText.pause();
@@ -260,7 +260,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
       reaction((p0) => wifiDisconnectOverlay.movieStatus, (p0) {
         if (wifiDisconnectOverlay.movieMode ==
             WifiDisconnectMovieModes.removeTheCircle) {
-          if (isDisconnected) toggleIsDisconnected();
+          if (isDisconnected) setIsDisconnected(false);
           if (primarySmartText.isPaused) {
             primarySmartText.resume();
           }

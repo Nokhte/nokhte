@@ -110,13 +110,13 @@ abstract class _CollaboratorPoolScreenWidgetsCoordinatorBase
     if (wifiDisconnectOverlay.movieMode ==
         WifiDisconnectMovieModes.placeTheCircle) {
       beachWaves.currentStore.setControl(Control.play);
-      if (isDisconnected) toggleIsDisconnected();
+      setIsDisconnected(false);
     }
   }
 
   @action
   onDisconnected() {
-    if (!isDisconnected) toggleIsDisconnected();
+    setIsDisconnected(true);
     if (beachWaves.currentControl == Control.playFromStart) {
       beachWaves.currentStore.setControl(Control.stop);
     }
@@ -126,7 +126,7 @@ abstract class _CollaboratorPoolScreenWidgetsCoordinatorBase
       reaction((p0) => wifiDisconnectOverlay.movieStatus, (p0) {
         if (wifiDisconnectOverlay.movieMode ==
             WifiDisconnectMovieModes.removeTheCircle) {
-          if (isDisconnected) toggleIsDisconnected();
+          setIsDisconnected(false);
           if (beachWaves.currentControl == Control.stop) {
             beachWaves.currentStore.setControl(Control.play);
           }
