@@ -119,8 +119,6 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
         if (p0 && isFirstTimeBothAreInSync) {
           isFirstTimeBothAreInSync = false;
           initTimer();
-          // widgets.initTimer();
-          // hasInitializedTimer = true;
         }
       });
 
@@ -128,12 +126,7 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
           (p0) => collaboratorPresence.getSessionMetadataStore.timerShouldRun,
           (p0) {
         if (p0) {
-          // if (!hasInitializedTimer) {
-          //   widgets.initTimer();
-          //   hasInitializedTimer = true;
-          // } else {
           widgets.resumeTimer();
-          // }
         } else {
           widgets.pausetimer();
         }
@@ -141,11 +134,11 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
 
   @action
   onPhaseChange() async {
-    print(
-        "??? ${collaboratorPresence.getSessionMetadataStore.collaboratorPhase} ${collaboratorPresence.getSessionMetadataStore.userPhase}");
-    if (collaboratorPresence.getSessionMetadataStore.collaboratorPhase == 2.5) {
+    if (collaboratorPresence.getSessionMetadataStore.collaboratorPhase == 2.5 &&
+        collaboratorPresence.getSessionMetadataStore.userPhase == 2.5) {
       await soloDoc.share();
       widgets.onEarlyRelease();
+      await collaboratorPresence.dispose();
     }
   }
 
@@ -154,6 +147,7 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
     await soloDoc.submit(widgets.textEditor.controller.text);
     await soloDoc.share();
     await collaboratorPresence.updateCurrentPhase(2.5);
+    await collaboratorPresence.dispose();
   }
 
   currentPhaseReactor() => reaction(
@@ -169,12 +163,12 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
               final collaboratorIsFinished = collaboratorPresence
                       .getSessionMetadataStore.collaboratorPhase ==
                   2.5;
+
               widgets.onSwipeUp(collaboratorIsFinished: collaboratorIsFinished);
               hasSwipedUp = true;
               canSwipeUp = false;
               await soloDoc.submit(widgets.textEditor.controller.text);
               await collaboratorPresence.updateCurrentPhase(2.5);
-              // onPhaseChange();
             }
           case GestureDirections.down:
             if (hasSwipedUp) {
