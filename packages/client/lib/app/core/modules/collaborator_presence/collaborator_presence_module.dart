@@ -66,13 +66,13 @@ class CollaboratorPresenceModule extends Module {
     );
     i.add<CollaboratorPresenceCoordinator>(
       () => CollaboratorPresenceCoordinator(
-        cancelSessionMetadataStream: i<CancelSessionMetadataStream>(),
-        currentPhase: i<UpdateCurrentPhase>(),
-        getSessionMetadata: i<GetSessionMetadataStore>(),
-        callStatus: i<UpdateOnCallStatus>(),
-        onlineStatus: i<UpdateOnlineStatus>(),
-        timerStatus: i<UpdateTimerStatus>(),
-        whoIsTalking: i<UpdateWhoIsTalking>(),
+        cancelSessionMetadataStreamLogic: i<CancelSessionMetadataStream>(),
+        updateCurrentPhaseLogic: i<UpdateCurrentPhase>(),
+        getSessionMetadataStore: i<GetSessionMetadataStore>(),
+        updateCallStatusLogic: i<UpdateOnCallStatus>(),
+        updateOnlineStatusLogic: i<UpdateOnlineStatus>(),
+        updateTimerStatusLogic: i<UpdateTimerStatus>(),
+        updateWhoIsTalkingLogic: i<UpdateWhoIsTalking>(),
       ),
     );
   }

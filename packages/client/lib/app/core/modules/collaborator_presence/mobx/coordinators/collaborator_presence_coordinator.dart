@@ -12,22 +12,22 @@ class CollaboratorPresenceCoordinator = _CollaboratorPresenceCoordinatorBase
 
 abstract class _CollaboratorPresenceCoordinatorBase extends BaseMobxDBStore
     with Store {
-  final UpdateOnCallStatus callStatus;
-  final UpdateOnlineStatus onlineStatus;
-  final UpdateTimerStatus timerStatus;
-  final UpdateWhoIsTalking whoIsTalking;
-  final GetSessionMetadataStore getSessionMetadata;
-  final UpdateCurrentPhase currentPhase;
-  final CancelSessionMetadataStream cancelSessionMetadataStream;
+  final UpdateOnCallStatus updateCallStatusLogic;
+  final UpdateOnlineStatus updateOnlineStatusLogic;
+  final UpdateTimerStatus updateTimerStatusLogic;
+  final UpdateWhoIsTalking updateWhoIsTalkingLogic;
+  final GetSessionMetadataStore getSessionMetadataStore;
+  final UpdateCurrentPhase updateCurrentPhaseLogic;
+  final CancelSessionMetadataStream cancelSessionMetadataStreamLogic;
 
   _CollaboratorPresenceCoordinatorBase({
-    required this.whoIsTalking,
-    required this.callStatus,
-    required this.cancelSessionMetadataStream,
-    required this.currentPhase,
-    required this.onlineStatus,
-    required this.timerStatus,
-    required this.getSessionMetadata,
+    required this.updateWhoIsTalkingLogic,
+    required this.updateCallStatusLogic,
+    required this.cancelSessionMetadataStreamLogic,
+    required this.updateCurrentPhaseLogic,
+    required this.updateOnlineStatusLogic,
+    required this.updateTimerStatusLogic,
+    required this.getSessionMetadataStore,
   });
 
   @observable
@@ -52,7 +52,7 @@ abstract class _CollaboratorPresenceCoordinatorBase extends BaseMobxDBStore
   updateCallStatus(UpdatePresencePropertyParams params) async {
     callStatusIsUpdated = false;
     state = StoreState.loading;
-    final res = await callStatus(params);
+    final res = await updateCallStatusLogic(params);
     res.fold((failure) => errorUpdater(failure),
         (status) => callStatusIsUpdated = status);
   }
@@ -61,7 +61,7 @@ abstract class _CollaboratorPresenceCoordinatorBase extends BaseMobxDBStore
   updateOnlineStatus(UpdatePresencePropertyParams params) async {
     onlineStatusIsUpdated = false;
     state = StoreState.loading;
-    final res = await onlineStatus(params);
+    final res = await updateOnlineStatusLogic(params);
     res.fold((failure) => errorUpdater(failure),
         (status) => onlineStatusIsUpdated = status);
   }
@@ -70,7 +70,7 @@ abstract class _CollaboratorPresenceCoordinatorBase extends BaseMobxDBStore
   updateTimerStatus(bool params) async {
     timerStatusIsUpdated = false;
     state = StoreState.loading;
-    final res = await timerStatus(params);
+    final res = await updateTimerStatusLogic(params);
     res.fold((failure) => errorUpdater(failure),
         (status) => timerStatusIsUpdated = status);
   }
@@ -79,7 +79,7 @@ abstract class _CollaboratorPresenceCoordinatorBase extends BaseMobxDBStore
   updateWhoIsTalking(UpdateWhoIsTalkingParams params) async {
     whoIsTalkingIsUpdated = false;
     state = StoreState.loading;
-    final res = await whoIsTalking(params);
+    final res = await updateWhoIsTalkingLogic(params);
     res.fold((failure) => errorUpdater(failure),
         (status) => whoIsTalkingIsUpdated = status);
   }
@@ -88,7 +88,7 @@ abstract class _CollaboratorPresenceCoordinatorBase extends BaseMobxDBStore
   updateCurrentPhase(double params) async {
     currentPhaseIsUpdated = false;
     state = StoreState.loading;
-    final res = await currentPhase(params);
+    final res = await updateCurrentPhaseLogic(params);
     res.fold((failure) => errorUpdater(failure),
         (status) => currentPhaseIsUpdated = status);
   }
@@ -96,20 +96,20 @@ abstract class _CollaboratorPresenceCoordinatorBase extends BaseMobxDBStore
   @action
   dispose() async {
     state = StoreState.loading;
-    final res = cancelSessionMetadataStream(NoParams());
-    await getSessionMetadata.dispose();
+    final res = cancelSessionMetadataStreamLogic(NoParams());
+    await getSessionMetadataStore.dispose();
     isListening = res;
   }
 
   @action
   listen() {
     state = StoreState.loading;
-    getSessionMetadata(NoParams());
+    getSessionMetadataStore(NoParams());
   }
 
   @action
-  setBasePhaseForScreen(double currentPhase) =>
-      getSessionMetadata.setCurrentPhase(currentPhase);
+  setBasePhaseForScreen(double updateCurrentPhaseLogic) =>
+      getSessionMetadataStore.setCurrentPhase(updateCurrentPhaseLogic);
 
   @override
   List<Object> get props => [];
