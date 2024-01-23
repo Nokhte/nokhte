@@ -47,7 +47,7 @@ class UserInformationModule extends Module {
     );
     i.add<UserInformationCoordinator>(
       () => UserInformationCoordinator(
-        getUserInfo: i<GetUserInfoStore>(),
+        getUserInfoStore: i<GetUserInfoStore>(),
         updateHasGoneThroughInvitationFlowLogic:
             i<UpdateHasGoneThroughInvitationFlow>(),
         updateHasSentAnInvitationLogic: i<UpdateHasSentAnInvitation>(),

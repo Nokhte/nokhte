@@ -10,7 +10,7 @@ class UserInformationCoordinator = _UserInformationCoordinatorBase
 
 abstract class _UserInformationCoordinatorBase extends BaseMobxDBStore
     with Store {
-  final GetUserInfoStore getUserInfo;
+  final GetUserInfoStore getUserInfoStore;
   final UpdateHasGoneThroughInvitationFlow
       updateHasGoneThroughInvitationFlowLogic;
   final UpdateHasSentAnInvitation updateHasSentAnInvitationLogic;
@@ -18,7 +18,7 @@ abstract class _UserInformationCoordinatorBase extends BaseMobxDBStore
       updateWantsToRepeatInvitationFlowLogic;
 
   _UserInformationCoordinatorBase({
-    required this.getUserInfo,
+    required this.getUserInfoStore,
     required this.updateHasGoneThroughInvitationFlowLogic,
     required this.updateHasSentAnInvitationLogic,
     required this.updateWantsToRepeatInvitationFlowLogic,
