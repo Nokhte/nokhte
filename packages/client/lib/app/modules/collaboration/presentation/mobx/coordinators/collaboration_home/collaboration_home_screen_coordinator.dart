@@ -76,7 +76,7 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
 
   @action
   onGradientTreeNodeTap() => ifTouchIsNotDisabled(() {
-        deepLinks.sendDeepLink(deepLinks.link);
+        deepLinks.share(deepLinks.link);
       });
 
   @action

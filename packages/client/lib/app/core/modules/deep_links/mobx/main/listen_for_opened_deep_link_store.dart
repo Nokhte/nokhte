@@ -45,7 +45,7 @@ abstract class _ListenForOpenedDeepLinkStoreBase extends Equatable with Store {
             value["\$canonical_identifier"].split('/');
         final String linkType = splitLink.first;
         if (linkType == DeepLinkPrefixes.collaboratorCode) {
-          final getUserInfo = userInformation.getUserInfo;
+          final getUserInfo = userInformation.getUserInfoStore;
           await getUserInfo(NoParams());
           final res = interpretCollaboratorCode(
             InterpretCollaboratorCodeDeepLinkParams.fromUserJourneyInfo(

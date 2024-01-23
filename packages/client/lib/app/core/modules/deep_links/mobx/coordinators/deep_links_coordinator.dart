@@ -11,13 +11,13 @@ class DeepLinksCoordinator = _DeepLinksCoordinatorBase
     with _$DeepLinksCoordinator;
 
 abstract class _DeepLinksCoordinatorBase extends BaseMobxDBStore with Store {
-  final GetDeepLinkURL getDeepLinkURL;
-  final SendDeepLink sendDeepLink;
+  final GetDeepLinkURL getDeepLinkUrlLogic;
+  final SendDeepLink sendDeepLinkLogic;
   final ListenForOpenedDeepLinkStore listenForOpenedDeepLinkStore;
 
   _DeepLinksCoordinatorBase({
-    required this.getDeepLinkURL,
-    required this.sendDeepLink,
+    required this.getDeepLinkUrlLogic,
+    required this.sendDeepLinkLogic,
     required this.listenForOpenedDeepLinkStore,
   });
 
@@ -30,7 +30,7 @@ abstract class _DeepLinksCoordinatorBase extends BaseMobxDBStore with Store {
   @action
   getDeepLink(DeepLinkTypes params) async {
     state = StoreState.loading;
-    final res = await getDeepLinkURL(params);
+    final res = await getDeepLinkUrlLogic(params);
     res.fold((failure) => errorUpdater(failure), (url) => link = url);
     state = StoreState.loaded;
   }
@@ -38,7 +38,7 @@ abstract class _DeepLinksCoordinatorBase extends BaseMobxDBStore with Store {
   @action
   share(String link) async {
     state = StoreState.loading;
-    final res = await sendDeepLink(link);
+    final res = await sendDeepLinkLogic(link);
     res.fold((failure) => errorUpdater(failure),
         (isShared) => this.isShared = isShared);
     state = StoreState.loaded;

@@ -54,9 +54,9 @@ class DeepLinksModule extends Module {
     );
     i.add<DeepLinksCoordinator>(
       () => DeepLinksCoordinator(
-        getDeepLinkURL: i<GetDeepLinkURL>(),
+        getDeepLinkUrlLogic: i<GetDeepLinkURL>(),
         listenForOpenedDeepLinkStore: i<ListenForOpenedDeepLinkStore>(),
-        sendDeepLink: i<SendDeepLink>(),
+        sendDeepLinkLogic: i<SendDeepLink>(),
       ),
     );
   }
