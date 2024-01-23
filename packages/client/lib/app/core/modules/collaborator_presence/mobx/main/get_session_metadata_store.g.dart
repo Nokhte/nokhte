@@ -133,6 +133,22 @@ mixin _$GetSessionMetadataStore on _GetSessionMetadataStoreBase, Store {
     });
   }
 
+  late final _$userIsTalkingAtom = Atom(
+      name: '_GetSessionMetadataStoreBase.userIsTalking', context: context);
+
+  @override
+  bool get userIsTalking {
+    _$userIsTalkingAtom.reportRead();
+    return super.userIsTalking;
+  }
+
+  @override
+  set userIsTalking(bool value) {
+    _$userIsTalkingAtom.reportWrite(value, super.userIsTalking, () {
+      super.userIsTalking = value;
+    });
+  }
+
   late final _$collaboratorIsOnlineAtom = Atom(
       name: '_GetSessionMetadataStoreBase.collaboratorIsOnline',
       context: context);
@@ -232,6 +248,7 @@ collaboratorPhase: ${collaboratorPhase},
 userIsOnCall: ${userIsOnCall},
 collaboratorIsOnCall: ${collaboratorIsOnCall},
 userIsOnline: ${userIsOnline},
+userIsTalking: ${userIsTalking},
 collaboratorIsOnline: ${collaboratorIsOnline},
 timerShouldRun: ${timerShouldRun},
 collaboratorIsTalking: ${collaboratorIsTalking},

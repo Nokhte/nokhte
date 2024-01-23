@@ -40,6 +40,9 @@ abstract class _GetSessionMetadataStoreBase
   bool userIsOnline = false;
 
   @observable
+  bool userIsTalking = false;
+
+  @observable
   bool collaboratorIsOnline = false;
 
   @observable
@@ -90,10 +93,11 @@ abstract class _GetSessionMetadataStoreBase
       (stream) {
         sessionMetadata = ObservableStream(stream);
         streamSubscription = sessionMetadata.listen((value) {
-          print("new values $value");
+          print("$value");
           userIsOnCall = value.userIsOnCall;
           collaboratorIsOnCall = value.collaboratorIsOnCall;
           userIsOnline = value.userIsOnline;
+          userIsTalking = value.userIsTalking;
           collaboratorIsOnline = value.collaboratorIsOnline;
           timerShouldRun = value.timerShouldRun;
           collaboratorIsTalking = value.collaboratorIsTalking;
