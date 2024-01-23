@@ -37,7 +37,7 @@ abstract class _PurposeSessionPhase1WidgetsCoordinatorBase
 
   @observable
   Duration timerLength =
-      kDebugMode ? const Duration(seconds: 30) : const Duration(minutes: 5);
+      kDebugMode ? const Duration(seconds: 10) : const Duration(minutes: 5);
 
   @action
   setTimerLength(Duration newTimerLength) => timerLength = newTimerLength;
