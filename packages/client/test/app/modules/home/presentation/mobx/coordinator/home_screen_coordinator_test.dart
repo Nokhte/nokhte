@@ -25,7 +25,7 @@ void main() {
     mockGetExistingCollaborationInfo = MockGetExistingCollaborationsInfoStore();
     mockWidgets = MockHomeScreenWidgetsCoordinator();
     mockUserInformation = UserInformationCoordinator(
-      getUserInfo: MockGetUserInfoStore(),
+      getUserInfoStore: MockGetUserInfoStore(),
       updateHasGoneThroughInvitationFlowLogic:
           MockUpdateHasGoneThroughInvitationFlow(),
       updateHasSentAnInvitationLogic: MockUpdateHasSentAnInvitation(),
@@ -45,26 +45,26 @@ void main() {
 
   group('constructor', () {
     test("hasGoneThroughInvitationFlow", () async {
-      when(mockUserInformation.getUserInfo.hasGoneThroughInvitationFlow)
+      when(mockUserInformation.getUserInfoStore.hasGoneThroughInvitationFlow)
           .thenAnswer((realInvocation) => true);
       await testStore.constructor();
       verify(mockWidgets.initReactors(testStore.repeatTheFlow));
       verify(mockWidgets.constructor());
       verify(testStore.deleteUnconsecratedCollaborations(NoParams()));
-      verify(mockUserInformation.getUserInfo(NoParams()));
+      verify(mockUserInformation.getUserInfoStore(NoParams()));
       verify(mockWidgets.postInvitationFlowConstructor());
       verify(mockGetExistingCollaborationInfo(NoParams()));
       verify(mockAddNameToDatabase(NoParams()));
     });
 
     test("!hasGoneThroughInvitationFlow", () async {
-      when(mockUserInformation.getUserInfo.hasGoneThroughInvitationFlow)
+      when(mockUserInformation.getUserInfoStore.hasGoneThroughInvitationFlow)
           .thenAnswer((realInvocation) => false);
       await testStore.constructor();
       verify(mockWidgets.initReactors(testStore.repeatTheFlow));
       verify(mockWidgets.constructor());
       verify(testStore.deleteUnconsecratedCollaborations(NoParams()));
-      verify(mockUserInformation.getUserInfo(NoParams()));
+      verify(mockUserInformation.getUserInfoStore(NoParams()));
       verify(mockWidgets.invitationFlowConstructor());
       verify(mockGetExistingCollaborationInfo(NoParams()));
       verify(mockAddNameToDatabase(NoParams()));

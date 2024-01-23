@@ -25,12 +25,12 @@ void main() {
     testStore = CollaborationHomeScreenCoordinator(
         widgets: MockCollaborationHomeScreenWidgetsCoordinator(),
         deepLinks: DeepLinksCoordinator(
-          getDeepLinkURL: MockGetDeepLinkURL(),
+          getDeepLinkUrlLogic: MockGetDeepLinkURL(),
           listenForOpenedDeepLinkStore: MockListenForOpenedDeepLinkStore(),
-          sendDeepLink: MockSendDeepLink(),
+          sendDeepLinkLogic: MockSendDeepLink(),
         ),
         userInformation: UserInformationCoordinator(
-          getUserInfo: MockGetUserInfoStore(),
+          getUserInfoStore: MockGetUserInfoStore(),
           updateHasGoneThroughInvitationFlowLogic:
               MockUpdateHasGoneThroughInvitationFlow(),
           updateHasSentAnInvitationLogic: MockUpdateHasSentAnInvitation(),
@@ -53,6 +53,8 @@ void main() {
     });
 
     test("constructor", () async {
+      when(testStore.deepLinks
+          .getDeepLink(DeepLinkTypes.collaboratorInvitation));
       await testStore.constructor();
       verify(testStore.deepLinks.listenForOpenedDeepLinkStore(NoParams()));
       expect(testStore.additionalRoutingData, {});
@@ -62,9 +64,9 @@ void main() {
         testStore.onFlowCompleted,
         testStore.onEnterCollaboratorPool,
       ));
-      verify(testStore.userInformation.getUserInfo(NoParams()));
+      verify(testStore.userInformation.getUserInfoStore(NoParams()));
       verify(testStore.deepLinks
-          .getDeepLinkURL(DeepLinkTypes.collaboratorInvitation));
+          .getDeepLink(DeepLinkTypes.collaboratorInvitation));
     });
 
     test("onEnterCollaboratorPool", () {

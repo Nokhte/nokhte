@@ -48,9 +48,9 @@ void main() {
         timeModel: timeModel,
         nokhteBlur: nokhteBlurStore,
         deepLinks: DeepLinksCoordinator(
-          getDeepLinkURL: MockGetDeepLinkURL(),
+          getDeepLinkUrlLogic: MockGetDeepLinkURL(),
           listenForOpenedDeepLinkStore: MockListenForOpenedDeepLinkStore(),
-          sendDeepLink: MockSendDeepLink(),
+          sendDeepLinkLogic: MockSendDeepLink(),
         ),
         beachWaves: beachWaves,
         wifiDisconnectOverlay: wifiDisconnectOverlay,
