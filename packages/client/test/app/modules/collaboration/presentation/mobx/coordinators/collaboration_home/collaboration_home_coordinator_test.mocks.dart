@@ -403,15 +403,15 @@ class MockCollaborationHomeScreenWidgetsCoordinator extends _i1.Mock
 class MockUserInformationCoordinator extends _i1.Mock
     implements _i4.UserInformationCoordinator {
   @override
-  _i4.GetUserInfoStore get getUserInfo => (super.noSuchMethod(
-        Invocation.getter(#getUserInfo),
+  _i4.GetUserInfoStore get getUserInfoStore => (super.noSuchMethod(
+        Invocation.getter(#getUserInfoStore),
         returnValue: _FakeGetUserInfoStore_6(
           this,
-          Invocation.getter(#getUserInfo),
+          Invocation.getter(#getUserInfoStore),
         ),
         returnValueForMissingStub: _FakeGetUserInfoStore_6(
           this,
-          Invocation.getter(#getUserInfo),
+          Invocation.getter(#getUserInfoStore),
         ),
       ) as _i4.GetUserInfoStore);
 

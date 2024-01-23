@@ -1234,15 +1234,15 @@ class MockGetExistingCollaborationsInfoStore extends _i1.Mock
 class MockUserInformationCoordinator extends _i1.Mock
     implements _i12.UserInformationCoordinator {
   @override
-  _i12.GetUserInfoStore get getUserInfo => (super.noSuchMethod(
-        Invocation.getter(#getUserInfo),
+  _i12.GetUserInfoStore get getUserInfoStore => (super.noSuchMethod(
+        Invocation.getter(#getUserInfoStore),
         returnValue: _FakeGetUserInfoStore_11(
           this,
-          Invocation.getter(#getUserInfo),
+          Invocation.getter(#getUserInfoStore),
         ),
         returnValueForMissingStub: _FakeGetUserInfoStore_11(
           this,
-          Invocation.getter(#getUserInfo),
+          Invocation.getter(#getUserInfoStore),
         ),
       ) as _i12.GetUserInfoStore);
 
@@ -2100,28 +2100,28 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
 class MockDeepLinksCoordinator extends _i1.Mock
     implements _i16.DeepLinksCoordinator {
   @override
-  _i14.GetDeepLinkURL get getDeepLinkURL => (super.noSuchMethod(
-        Invocation.getter(#getDeepLinkURL),
+  _i14.GetDeepLinkURL get getDeepLinkUrlLogic => (super.noSuchMethod(
+        Invocation.getter(#getDeepLinkUrlLogic),
         returnValue: _FakeGetDeepLinkURL_29(
           this,
-          Invocation.getter(#getDeepLinkURL),
+          Invocation.getter(#getDeepLinkUrlLogic),
         ),
         returnValueForMissingStub: _FakeGetDeepLinkURL_29(
           this,
-          Invocation.getter(#getDeepLinkURL),
+          Invocation.getter(#getDeepLinkUrlLogic),
         ),
       ) as _i14.GetDeepLinkURL);
 
   @override
-  _i14.SendDeepLink get sendDeepLink => (super.noSuchMethod(
-        Invocation.getter(#sendDeepLink),
+  _i14.SendDeepLink get sendDeepLinkLogic => (super.noSuchMethod(
+        Invocation.getter(#sendDeepLinkLogic),
         returnValue: _FakeSendDeepLink_30(
           this,
-          Invocation.getter(#sendDeepLink),
+          Invocation.getter(#sendDeepLinkLogic),
         ),
         returnValueForMissingStub: _FakeSendDeepLink_30(
           this,
-          Invocation.getter(#sendDeepLink),
+          Invocation.getter(#sendDeepLinkLogic),
         ),
       ) as _i14.SendDeepLink);
 

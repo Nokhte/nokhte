@@ -192,12 +192,12 @@ mixin _$CollaboratorPresenceCoordinator
   }
 
   @override
-  dynamic setBasePhaseForScreen(double currentPhase) {
+  dynamic setBasePhaseForScreen(double updateCurrentPhaseLogic) {
     final _$actionInfo =
         _$_CollaboratorPresenceCoordinatorBaseActionController.startAction(
             name: '_CollaboratorPresenceCoordinatorBase.setBasePhaseForScreen');
     try {
-      return super.setBasePhaseForScreen(currentPhase);
+      return super.setBasePhaseForScreen(updateCurrentPhaseLogic);
     } finally {
       _$_CollaboratorPresenceCoordinatorBaseActionController
           .endAction(_$actionInfo);

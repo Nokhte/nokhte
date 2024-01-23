@@ -64,6 +64,7 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
         if (additionalRoutingData[CollaborationCodeKeys.hasSentAnInvitation] ==
             true) {
           widgets.enterCollaboratorPoolConstructor();
+          setDisableAllTouchFeedback(true);
         } else {
           widgets.postInvitationFlowNoInviteConstructor();
         }
