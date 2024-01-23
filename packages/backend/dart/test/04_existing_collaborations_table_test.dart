@@ -80,7 +80,12 @@ void main() {
 
   test("getCurrentPhases", () async {
     final res = await user1Queries.getCurrentPhases();
-    expect(res, [0, 0]);
+    expect(res, [1, 1]);
+  });
+
+  test("getSpeakerSpotlight", () async {
+    final res = await user1Queries.getSpeakerSpotlight();
+    expect(res, null);
   });
 
   test("updateOnlineStatus", () async {
@@ -94,13 +99,32 @@ void main() {
   });
 
   test("updateCurrentPhases", () async {
-    final res = await user1Queries.updateCurrentPhases(1);
-    expect(res.first[ExistingCollaborationsQueries.currentPhases], [1, 0]);
+    final res = await user1Queries.updateCurrentPhases(2);
+    expect(res.first[ExistingCollaborationsQueries.currentPhases], [2, 1]);
   });
 
-  test("setTimerInitStatus", () async {
+  test("updateTimerRunningStatus", () async {
     final res = await user1Queries.updateTimerRunningStatus(true);
     expect(res.first[ExistingCollaborationsQueries.timerShouldRun], true);
+  });
+
+  test("setUserAsTheCurrentTalker", () async {
+    final res = await user1Queries.setUserAsTheCurrentTalker();
+    expect(res.first[ExistingCollaborationsQueries.speakerSpotlight],
+        tSetup.firstUserUID);
+  });
+
+  group("clearTheCurrentTalker", () {
+    test("collaborator attempt (shouldn't do anything)", () async {
+      final res = await user2Queries.clearTheCurrentTalker();
+      expect(await user1Queries.getSpeakerSpotlight(), tSetup.firstUserUID);
+      expect(res, []);
+    });
+
+    test("user attempt (should work)", () async {
+      await user1Queries.clearTheCurrentTalker();
+      expect(await user1Queries.getSpeakerSpotlight(), null);
+    });
   });
 
   test("getSessionMetadata", () async {
@@ -115,14 +139,15 @@ void main() {
       stream,
       emits(
         CollaborationSessionMetadata(
-          userPhase: 1,
-          collaboratorPhase: 0,
+          userPhase: 2,
+          collaboratorPhase: 1,
           userIsOnCall: true,
           collaboratorIsOnCall: true,
           userIsOnline: true,
           collaboratorIsOnline: true,
           timerShouldRun: true,
           collaboratorIsTalking: false,
+          userIsTalking: true,
         ),
       ),
     );
