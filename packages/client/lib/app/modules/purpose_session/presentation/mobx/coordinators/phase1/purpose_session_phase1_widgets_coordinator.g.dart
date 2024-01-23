@@ -10,6 +10,23 @@ part of 'purpose_session_phase1_widgets_coordinator.dart';
 
 mixin _$PurposeSessionPhase1WidgetsCoordinator
     on _PurposeSessionPhase1WidgetsCoordinatorBase, Store {
+  late final _$timerLengthAtom = Atom(
+      name: '_PurposeSessionPhase1WidgetsCoordinatorBase.timerLength',
+      context: context);
+
+  @override
+  Duration get timerLength {
+    _$timerLengthAtom.reportRead();
+    return super.timerLength;
+  }
+
+  @override
+  set timerLength(Duration value) {
+    _$timerLengthAtom.reportWrite(value, super.timerLength, () {
+      super.timerLength = value;
+    });
+  }
+
   late final _$hasTheQuestionAtom = Atom(
       name: '_PurposeSessionPhase1WidgetsCoordinatorBase.hasTheQuestion',
       context: context);
@@ -67,6 +84,19 @@ mixin _$PurposeSessionPhase1WidgetsCoordinator
       ActionController(
           name: '_PurposeSessionPhase1WidgetsCoordinatorBase',
           context: context);
+
+  @override
+  dynamic setTimerLength(Duration newTimerLength) {
+    final _$actionInfo =
+        _$_PurposeSessionPhase1WidgetsCoordinatorBaseActionController.startAction(
+            name: '_PurposeSessionPhase1WidgetsCoordinatorBase.setTimerLength');
+    try {
+      return super.setTimerLength(newTimerLength);
+    } finally {
+      _$_PurposeSessionPhase1WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic setHasTheQuesion(bool newVal) {
@@ -340,6 +370,7 @@ mixin _$PurposeSessionPhase1WidgetsCoordinator
   @override
   String toString() {
     return '''
+timerLength: ${timerLength},
 hasTheQuestion: ${hasTheQuestion},
 isInTheCall: ${isInTheCall},
 timesUpCallbackHasBeenCalled: ${timesUpCallbackHasBeenCalled}

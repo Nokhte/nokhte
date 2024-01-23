@@ -35,8 +35,12 @@ abstract class _PurposeSessionPhase1WidgetsCoordinatorBase
     required this.borderGlow,
   });
 
-  final timerLength =
+  @observable
+  Duration timerLength =
       kDebugMode ? const Duration(seconds: 30) : const Duration(minutes: 5);
+
+  @action
+  setTimerLength(Duration newTimerLength) => timerLength = newTimerLength;
 
   @observable
   bool hasTheQuestion = false;

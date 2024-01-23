@@ -22,14 +22,15 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
   final PurposeSessionPhase1WidgetsCoordinator widgets;
   final CheckIfUserHasTheQuestionStore checkIfUserHasTheQuestion;
   final HoldDetector hold;
+  final TapDetector tap;
 
-  _PurposeSessionPhase1CoordinatorBase({
-    required this.widgets,
-    required this.voiceCall,
-    required this.collaboratorPresence,
-    required this.checkIfUserHasTheQuestion,
-    required this.hold,
-  });
+  _PurposeSessionPhase1CoordinatorBase(
+      {required this.widgets,
+      required this.voiceCall,
+      required this.collaboratorPresence,
+      required this.checkIfUserHasTheQuestion,
+      required this.hold,
+      required this.tap});
 
   @observable
   bool canSpeak = false;
@@ -102,6 +103,7 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
     );
     widgets.beachWavesMovieStatusReactor(
         onTimesUpCompleted: onTimesUpCompleted);
+    tapReactor();
   }
 
   holdReactor() => reaction((p0) => hold.holdCount, (p0) async {
@@ -223,6 +225,12 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
           }
         } else {
           widgets.pausetimer();
+        }
+      });
+
+  tapReactor() => reaction((p0) => tap.tapCount, (p0) {
+        if (p0 == 9) {
+          widgets.setTimerLength(Seconds.get(9));
         }
       });
 }

@@ -25,45 +25,48 @@ class PurposeSessionPhase1Consultation extends HookWidget {
             ));
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Hold(
-        store: coordinator.hold,
-        child: MultiHitStack(
-          children: [
-            FullScreen(
-              child: BeachWaves(
-                store: coordinator.widgets.beachWaves,
+      body: Tap(
+        store: coordinator.tap,
+        child: Hold(
+          store: coordinator.hold,
+          child: MultiHitStack(
+            children: [
+              FullScreen(
+                child: BeachWaves(
+                  store: coordinator.widgets.beachWaves,
+                ),
               ),
-            ),
-            BorderGlow(
-              store: coordinator.widgets.borderGlow,
-            ),
-            Center(
-              child: SmartText(
-                topPadding: 450,
-                store: coordinator.widgets.secondarySmartText,
-                opacityDuration: Seconds.get(1),
+              BorderGlow(
+                store: coordinator.widgets.borderGlow,
               ),
-            ),
-            Center(
+              Center(
                 child: SmartText(
-              store: coordinator.widgets.primarySmartText,
-              bottomPadding: 180,
-              opacityDuration: Seconds.get(1),
-            )),
-            NokhteBlur(
-              store: coordinator.widgets.nokhteBlur,
-            ),
-            Center(
-              child: SmartText(
-                store: coordinator.widgets.errorText,
+                  topPadding: 450,
+                  store: coordinator.widgets.secondarySmartText,
+                  opacityDuration: Seconds.get(1),
+                ),
+              ),
+              Center(
+                  child: SmartText(
+                store: coordinator.widgets.primarySmartText,
                 bottomPadding: 180,
                 opacityDuration: Seconds.get(1),
+              )),
+              NokhteBlur(
+                store: coordinator.widgets.nokhteBlur,
               ),
-            ),
-            WifiDisconnectOverlay(
-              store: coordinator.widgets.wifiDisconnectOverlay,
-            ),
-          ],
+              Center(
+                child: SmartText(
+                  store: coordinator.widgets.errorText,
+                  bottomPadding: 180,
+                  opacityDuration: Seconds.get(1),
+                ),
+              ),
+              WifiDisconnectOverlay(
+                store: coordinator.widgets.wifiDisconnectOverlay,
+              ),
+            ],
+          ),
         ),
       ),
     );
