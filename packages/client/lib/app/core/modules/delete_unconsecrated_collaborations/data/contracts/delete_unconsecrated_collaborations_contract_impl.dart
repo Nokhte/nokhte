@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mixins/response_to_status.dart';
 import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/data/data.dart';
@@ -46,9 +47,9 @@ class DeleteUnconsecratedCollaborationsContractImpl
   }
 
   @override
-  deleteSoloDocument(NoParams params) async {
+  deleteSoloDocument(DeleteSoloDocumentParams params) async {
     if (await networkInfo.isConnected) {
-      final res = await remoteSource.deleteSoloDocument();
+      final res = await remoteSource.deleteSoloDocument(params);
       return Right(fromSupabase(res));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
@@ -69,7 +70,29 @@ class DeleteUnconsecratedCollaborationsContractImpl
   checkForUnconsecratedCollaboration(NoParams params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.checkForUnconsecratedCollaboration();
-      return Right(UnconsecratedCollaborationCheckerModel.fromSupabase(res));
+      final collaboratorInfo = remoteSource.getCollaboratorInfo();
+      return Right(UnconsecratedCollaborationCheckerModel.fromSupabase(
+          res, collaboratorInfo));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
+
+  @override
+  checkIfCollaboratorHasDeletedArtifacts(params) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.checkIfCollaboratorHasDeletedArtifacts();
+      return Right(res.contains(false) ? false : true);
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> updateHasDeletedArtifacts(bool params) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.updateHasDeletedArtifacts(params);
+      return Right(fromSupabase(res));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
