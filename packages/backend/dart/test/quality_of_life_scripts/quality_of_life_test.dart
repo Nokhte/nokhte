@@ -77,6 +77,7 @@ void main() {
       "is_online": [false, false],
       "current_phases": [1, 1],
       "timer_should_run": false,
+      "speaker_spotlight": null,
     }).or(
         "collaborator_one.eq.$realPersonUID,collaborator_two.eq.$realPersonUID");
   });
