@@ -3,6 +3,8 @@ import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/data
 import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/domain/domain.dart';
 import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
+import 'package:nokhte/app/modules/collaboration/collaboration_logic_module.dart';
+import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
 import 'package:nokhte/app/modules/purpose_session/domain/logic/logic.dart';
 import 'package:nokhte/app/modules/purpose_session/presentation/presentation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -12,6 +14,7 @@ class DeleteUnconsecratedCollaborationsModule extends Module {
   @override
   List<Module> get imports => [
         LegacyConnectivityModule(),
+        CollaborationLogicModule(),
       ];
   @override
   void exportedBinds(i) {
@@ -32,6 +35,13 @@ class DeleteUnconsecratedCollaborationsModule extends Module {
         contract: Modular.get<DeleteUnconsecratedCollaborationsContractImpl>(),
       ),
     );
+
+    i.add<CheckIfCollaboratorHasDeletedArtifacts>(
+      () => CheckIfCollaboratorHasDeletedArtifacts(
+        contract: Modular.get<DeleteUnconsecratedCollaborationsContractImpl>(),
+      ),
+    );
+
     i.add<DeleteCapsuleArrangement>(
       () => DeleteCapsuleArrangement(
         contract: Modular.get<DeleteUnconsecratedCollaborationsContractImpl>(),
@@ -42,10 +52,16 @@ class DeleteUnconsecratedCollaborationsModule extends Module {
         contract: Modular.get<DeleteUnconsecratedCollaborationsContractImpl>(),
       ),
     );
-    i.add<DeleteSchedulingSession>(() => DeleteSchedulingSession(
-          contract:
-              Modular.get<DeleteUnconsecratedCollaborationsContractImpl>(),
-        ));
+    i.add<DeleteSchedulingSession>(
+      () => DeleteSchedulingSession(
+        contract: Modular.get<DeleteUnconsecratedCollaborationsContractImpl>(),
+      ),
+    );
+    i.add<UpdateHasDeletedArtifacts>(
+      () => UpdateHasDeletedArtifacts(
+        contract: Modular.get<DeleteUnconsecratedCollaborationsContractImpl>(),
+      ),
+    );
     i.add<DeleteSoloDocument>(
       () => DeleteSoloDocument(
         contract: Modular.get<DeleteUnconsecratedCollaborationsContractImpl>(),
@@ -61,20 +77,22 @@ class DeleteUnconsecratedCollaborationsModule extends Module {
         logic: Modular.get<CheckIfUserHasTheQuestion>(),
       ),
     );
-    i.add<CheckForUnconsecratedCollaborationStore>(
-      () => CheckForUnconsecratedCollaborationStore(
-        logic: Modular.get<CheckForUnconsecratedCollaboration>(),
-      ),
-    );
     i.add<DeleteUnconsecratedCollaborationsCoordinator>(
       () => DeleteUnconsecratedCollaborationsCoordinator(
-        checkForUnconsecratedCollaboration:
-            Modular.get<CheckForUnconsecratedCollaborationStore>(),
-        deleteCollaborativeDocument: Modular.get<DeleteCollaborativeDocument>(),
-        deleteSchedulingSession: Modular.get<DeleteSchedulingSession>(),
-        deleteTheCollaboration: Modular.get<DeleteTheCollaboration>(),
-        deleteCapsuleArrangement: Modular.get<DeleteCapsuleArrangement>(),
-        deleteSoloDocument: Modular.get<DeleteSoloDocument>(),
+        updateHasDeletedArtifactsLogic:
+            Modular.get<UpdateHasDeletedArtifacts>(),
+        checkIfCollaboratorHasDeletedArtifactsLogic:
+            Modular.get<CheckIfCollaboratorHasDeletedArtifacts>(),
+        collaborationLogicCoordinator:
+            Modular.get<CollaborationLogicCoordinator>(),
+        checkForUnconsecratedCollaborationLogic:
+            Modular.get<CheckForUnconsecratedCollaboration>(),
+        deleteCollaborativeDocumentLogic:
+            Modular.get<DeleteCollaborativeDocument>(),
+        deleteSchedulingSessionLogic: Modular.get<DeleteSchedulingSession>(),
+        deleteTheCollaborationLogic: Modular.get<DeleteTheCollaboration>(),
+        deleteCapsuleArrangementLogic: Modular.get<DeleteCapsuleArrangement>(),
+        deleteSoloDocumentLogic: Modular.get<DeleteSoloDocument>(),
       ),
     );
   }
