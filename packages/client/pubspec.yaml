@@ -69,6 +69,7 @@ dev_dependencies:
   logger: ^2.0.2+1
   mobx_codegen: ^2.2.0
   mockito: ^5.4.0
+  patrol: ^2.3.2
 
 flutter:
   # uses-material-design: true
