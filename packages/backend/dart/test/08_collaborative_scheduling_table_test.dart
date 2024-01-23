@@ -34,7 +34,6 @@ void main() {
     );
     expect(res.first["collaborator_one_uid"], tSetup.firstUserUID);
     expect(res.first["collaborator_two_uid"], tSetup.secondUserUID);
-    print("hey here's the res ${res.first}");
     await user1Queries.updateTimeOrDate(dateOnly, updateDate: true);
   });
 }
