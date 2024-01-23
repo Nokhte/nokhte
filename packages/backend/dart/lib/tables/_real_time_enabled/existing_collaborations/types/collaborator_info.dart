@@ -13,6 +13,13 @@ class CollaboratorInfo extends Equatable {
     required this.theUsersUID,
   });
 
+  factory CollaboratorInfo.initial() => CollaboratorInfo(
+        theCollaboratorsNumber: '',
+        theCollaboratorsUID: '',
+        theUsersCollaboratorNumber: '',
+        theUsersUID: '',
+      );
+
   @override
   List<Object> get props => [
         theCollaboratorsNumber,
