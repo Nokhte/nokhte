@@ -42,10 +42,10 @@ abstract class _CollaboratorPoolScreenWidgetsCoordinatorBase
   initReactors() {
     wifiDisconnectOverlayReactor();
     beachWavesMovieStatusReactor();
-    wifiDisconnectOverlay.connectionReactor(
-      onConnected: onConnected,
-      onDisconnected: onDisconnected,
-    );
+    wifiDisconnectOverlay.initReactors(
+        onQuickConnected: () => null,
+        onDisconnected: onDisconnected,
+        onLongReConnected: onConnected);
   }
 
   beachWavesMovieStatusReactor() =>
