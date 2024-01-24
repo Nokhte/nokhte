@@ -61,19 +61,11 @@ abstract class _PurposeSessionPhase1WidgetsCoordinatorBase
     errorText.setMessagesData(MessagesData.purposeSessionBootUpList);
     primarySmartText.setMessagesData(MessagesData.empty);
     secondarySmartText.setMessagesData(MessagesData.empty);
-    wifiDisconnectOverlay.connectionReactor(
-      onConnected: onConnected,
-      onDisconnected: onDisconnected,
-    );
   }
 
   @action
   onConnected() {
-    if (primarySmartText.isPaused &&
-        wifiDisconnectOverlay.movieMode ==
-            WifiDisconnectMovieModes.placeTheCircle) {
-      setIsDisconnected(false);
-    }
+    setIsDisconnected(false);
   }
 
   @action

@@ -92,16 +92,13 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
   initReactors() {
     voiceCall.initReactors(onBothJoinedCall: () {
       setDisableAllTouchFeedback(false);
-      print("both joined");
     });
     collaboratorPresence.initReactors(
       onCollaboratorJoined: () {
         setDisableAllTouchFeedback(false);
-        print("collaborator joined");
       },
       onCollaboratorLeft: () {
         setDisableAllTouchFeedback(true);
-        print("collaborator left");
       },
     );
     bothCollaboratorsAreOnCallAndOnlineReactor();
@@ -191,9 +188,8 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
           if (!hasInitializedTimer) {
             Timer.periodic(const Duration(seconds: 1), (timer) {
               if (collaboratorPresence
-                      .getSessionMetadataStore.collaboratorIsOnCall &&
-                  collaboratorPresence
-                      .getSessionMetadataStore.collaboratorIsOnline) {
+                      .getSessionMetadataStore.collaboratorIsOnline &&
+                  voiceCall.voiceCallStatusStore.hasCollaboratorJoined) {
                 widgets.initTimer();
                 hasInitializedTimer = true;
                 timer.cancel();
