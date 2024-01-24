@@ -55,6 +55,14 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
     swipeReactor();
     tapReactor();
     authStateReactor();
+    widgets.wifiDisconnectOverlay.initReactors(onQuickConnected: () {
+      setDisableAllTouchFeedback(false);
+    }, onLongReConnected: () {
+      widgets.onLongReConnected();
+      setDisableAllTouchFeedback(false);
+    }, onDisconnected: () {
+      setDisableAllTouchFeedback(true);
+    });
   }
 
   @action
@@ -107,7 +115,9 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
 
   @action
   onResumed() {
-    if (!isLoggedIn) {
+    if (disableAllTouchFeedback) {
+      widgets.smartTextStore.pause();
+    } else if (!isLoggedIn) {
       widgets.loggedOutOnResumed();
       if (hasAttemptedToLogin) {
         toggleHasAttemptedToLogin();

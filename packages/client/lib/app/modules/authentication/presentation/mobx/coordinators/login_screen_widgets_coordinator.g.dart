@@ -248,6 +248,19 @@ mixin _$LoginScreenWidgetsCoordinator
   }
 
   @override
+  dynamic onLongReConnected() {
+    final _$actionInfo =
+        _$_LoginScreenWidgetsCoordinatorBaseActionController.startAction(
+            name: '_LoginScreenWidgetsCoordinatorBase.onLongReConnected');
+    try {
+      return super.onLongReConnected();
+    } finally {
+      _$_LoginScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic loggedOutOnInactive() {
     final _$actionInfo =
         _$_LoginScreenWidgetsCoordinatorBaseActionController.startAction(
