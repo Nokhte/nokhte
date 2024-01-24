@@ -46,7 +46,11 @@ abstract class _GetOnConnectivityChangedStoreBase extends Equatable with Store {
         .listen((value) => setMostRecentResult(value));
   }
 
-  dispose() => streamSub.cancel();
+  dispose() async {
+    await connectivityStream.close();
+
+    await streamSub.cancel();
+  }
 
   @override
   List<Object> get props => [];
