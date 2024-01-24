@@ -25,6 +25,9 @@ abstract class _DeleteUnconsecratedCollaborationsCoordinatorBase
   bool collaborativeDocumentIsDeleted = false;
 
   @observable
+  bool userHasDeletedArtifacts = false;
+
+  @observable
   bool schedulingSessionIsDeleted = false;
 
   @observable
@@ -63,8 +66,10 @@ abstract class _DeleteUnconsecratedCollaborationsCoordinatorBase
   @action
   checkIfCollaboratorHasDeletedArtifacts() async {
     final res = await checkIfCollaboratorHasDeletedArtifactsLogic(NoParams());
-    res.fold((failure) => errorUpdater(failure),
-        (deleteStatus) => collaboratorHasDeletedArtifacts = deleteStatus);
+    res.fold(
+      (failure) => errorUpdater(failure),
+      (deleteStatus) => collaboratorHasDeletedArtifacts = deleteStatus,
+    );
   }
 
   @action
@@ -103,7 +108,7 @@ abstract class _DeleteUnconsecratedCollaborationsCoordinatorBase
     final res = await updateHasDeletedArtifactsLogic(true);
     res.fold(
       (failure) => errorUpdater(failure),
-      (deleteStatus) => collaboratorHasDeletedArtifacts = deleteStatus,
+      (deleteStatus) => userHasDeletedArtifacts = deleteStatus,
     );
   }
 
@@ -113,12 +118,13 @@ abstract class _DeleteUnconsecratedCollaborationsCoordinatorBase
     state = StoreState.loading;
     await checkForUnconsecratedCollaboration();
     if (hasAnUnconsecratedCollabooration) {
+      await checkIfCollaboratorHasDeletedArtifacts();
+      await updateHasDeletedArtifacts();
+      await deleteSoloDocuments();
+      await collaborationLogicCoordinator.exit();
       if (collaboratorHasDeletedArtifacts) {
         await deleteTheCollaboration();
       }
-      await deleteSoloDocuments();
-      await collaborationLogicCoordinator.exit();
-      await updateHasDeletedArtifacts();
     }
   }
 }
