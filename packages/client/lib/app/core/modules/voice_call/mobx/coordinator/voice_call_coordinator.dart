@@ -6,6 +6,9 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/logic/logic.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
+import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/voice_call_incidents_overlay/voice_call_incidents_overlay.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 part 'voice_call_coordinator.g.dart';
 
 class VoiceCallCoordinator = _VoiceCallCoordinatorBase
@@ -17,13 +20,25 @@ abstract class _VoiceCallCoordinatorBase extends BaseMobxDBStore with Store {
   final GetAgoraToken getAgoraTokenLogic;
   final GetChannelId getChannelIdLogic;
   final InitAgoraSdk initAgoraSdkLogic;
+  final VoiceCallIncidentsOverlayStore incidentsOverlayWidgetStore;
+  final NokhteBlurStore blur;
   _VoiceCallCoordinatorBase({
     required this.voiceCallStatusStore,
     required this.voiceCallActionsStore,
     required this.getAgoraTokenLogic,
     required this.getChannelIdLogic,
     required this.initAgoraSdkLogic,
-  });
+    required this.blur,
+  }) : incidentsOverlayWidgetStore = VoiceCallIncidentsOverlayStore(
+          voiceCallStatusStore: voiceCallStatusStore,
+          blur: blur,
+        );
+
+  @action
+  initReactors() {
+    onCallStatusReactor();
+    onCollaboratorCallStatusChangeReactor();
+  }
 
   @observable
   bool isInitialized = false;
@@ -73,6 +88,7 @@ abstract class _VoiceCallCoordinatorBase extends BaseMobxDBStore with Store {
   joinCall({
     required bool shouldEnterTheCallMuted,
   }) async {
+    incidentsOverlayWidgetStore.constructor();
     await initSdk();
     await _getChannelId();
     await _getToken();
@@ -99,6 +115,26 @@ abstract class _VoiceCallCoordinatorBase extends BaseMobxDBStore with Store {
   @action
   leaveCall() async =>
       await voiceCallActionsStore.enterOrLeaveCall(Left(NoParams()));
+
+  onCallStatusReactor() => reaction((p0) => voiceCallStatusStore.inCall, (p0) {
+        if (p0 == CallStatus.left) {
+        } else if (p0 == CallStatus.joined) {
+          incidentsOverlayWidgetStore.setShowJoiningCall(false);
+          if (voiceCallStatusStore.hasCollaboratorJoined) {
+            blur.reverse();
+          } else {
+            incidentsOverlayWidgetStore.setShowWaitingOnCollaborator(true);
+          }
+        }
+      });
+
+  onCollaboratorCallStatusChangeReactor() =>
+      reaction((p0) => voiceCallStatusStore.hasCollaboratorJoined, (p0) async {
+        if (p0) {
+          incidentsOverlayWidgetStore.setShowWaitingOnCollaborator(false);
+          blur.reverse();
+        }
+      });
 
   @override
   List<Object> get props => [];

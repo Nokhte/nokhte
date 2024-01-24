@@ -130,6 +130,20 @@ mixin _$VoiceCallCoordinator on _VoiceCallCoordinatorBase, Store {
     return _$leaveCallAsyncAction.run(() => super.leaveCall());
   }
 
+  late final _$_VoiceCallCoordinatorBaseActionController =
+      ActionController(name: '_VoiceCallCoordinatorBase', context: context);
+
+  @override
+  dynamic initReactors() {
+    final _$actionInfo = _$_VoiceCallCoordinatorBaseActionController
+        .startAction(name: '_VoiceCallCoordinatorBase.initReactors');
+    try {
+      return super.initReactors();
+    } finally {
+      _$_VoiceCallCoordinatorBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
