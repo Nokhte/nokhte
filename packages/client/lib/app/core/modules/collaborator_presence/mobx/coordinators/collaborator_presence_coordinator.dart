@@ -5,6 +5,8 @@ import 'package:nokhte/app/core/mobx/base_mobx_db_store.dart';
 import 'package:nokhte/app/core/mobx/store_state.dart';
 import 'package:nokhte/app/core/modules/collaborator_presence/domain/logic/logic.dart';
 import 'package:nokhte/app/core/modules/collaborator_presence/mobx/mobx.dart';
+import 'package:nokhte/app/core/widgets/collaborator_presence_incidents_overlay/stack/presentation/mobx/collaborator_presence_incidents_overlay_store.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 part 'collaborator_presence_coordinator.g.dart';
 
 class CollaboratorPresenceCoordinator = _CollaboratorPresenceCoordinatorBase
@@ -19,6 +21,8 @@ abstract class _CollaboratorPresenceCoordinatorBase extends BaseMobxDBStore
   final GetSessionMetadataStore getSessionMetadataStore;
   final UpdateCurrentPhase updateCurrentPhaseLogic;
   final CancelSessionMetadataStream cancelSessionMetadataStreamLogic;
+  final NokhteBlurStore blur;
+  final CollaboratorPresenceIncidentsOverlayStore incidentsOverlayStore;
 
   _CollaboratorPresenceCoordinatorBase({
     required this.updateWhoIsTalkingLogic,
@@ -28,7 +32,11 @@ abstract class _CollaboratorPresenceCoordinatorBase extends BaseMobxDBStore
     required this.updateOnlineStatusLogic,
     required this.updateTimerStatusLogic,
     required this.getSessionMetadataStore,
-  });
+    required this.blur,
+  }) : incidentsOverlayStore = CollaboratorPresenceIncidentsOverlayStore(
+          sessionMetadataStore: getSessionMetadataStore,
+          blur: blur,
+        );
 
   @observable
   bool callStatusIsUpdated = false;
@@ -47,6 +55,15 @@ abstract class _CollaboratorPresenceCoordinatorBase extends BaseMobxDBStore
 
   @observable
   bool isListening = false;
+
+  @action
+  initReactors({
+    required Function onCollaboratorJoined,
+    required Function onCollaboratorLeft,
+  }) {
+    incidentsOverlayStore.collaboratorPresenceReactor(
+        onCollaboratorJoined, onCollaboratorLeft);
+  }
 
   @action
   updateCallStatus(UpdatePresencePropertyParams params) async {

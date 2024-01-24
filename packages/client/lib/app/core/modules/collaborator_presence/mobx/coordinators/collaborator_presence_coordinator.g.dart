@@ -180,6 +180,22 @@ mixin _$CollaboratorPresenceCoordinator
           name: '_CollaboratorPresenceCoordinatorBase', context: context);
 
   @override
+  dynamic initReactors(
+      {required Function onCollaboratorJoined,
+      required Function onCollaboratorLeft}) {
+    final _$actionInfo = _$_CollaboratorPresenceCoordinatorBaseActionController
+        .startAction(name: '_CollaboratorPresenceCoordinatorBase.initReactors');
+    try {
+      return super.initReactors(
+          onCollaboratorJoined: onCollaboratorJoined,
+          onCollaboratorLeft: onCollaboratorLeft);
+    } finally {
+      _$_CollaboratorPresenceCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic listen() {
     final _$actionInfo = _$_CollaboratorPresenceCoordinatorBaseActionController
         .startAction(name: '_CollaboratorPresenceCoordinatorBase.listen');
