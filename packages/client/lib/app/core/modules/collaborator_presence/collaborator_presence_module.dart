@@ -1,6 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/supabase/supabase_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'domain/domain.dart';
 import 'mobx/mobx.dart';
@@ -64,8 +65,12 @@ class CollaboratorPresenceModule extends Module {
         logic: i<GetSessionMetadata>(),
       ),
     );
+    i.add<NokhteBlurStore>(
+      () => NokhteBlurStore(),
+    );
     i.add<CollaboratorPresenceCoordinator>(
       () => CollaboratorPresenceCoordinator(
+        blur: i<NokhteBlurStore>(),
         cancelSessionMetadataStreamLogic: i<CancelSessionMetadataStream>(),
         updateCurrentPhaseLogic: i<UpdateCurrentPhase>(),
         getSessionMetadataStore: i<GetSessionMetadataStore>(),
