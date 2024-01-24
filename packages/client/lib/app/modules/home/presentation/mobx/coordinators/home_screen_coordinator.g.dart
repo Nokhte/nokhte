@@ -21,6 +21,28 @@ mixin _$HomeScreenCoordinator on _HomeScreenCoordinatorBase, Store {
       ActionController(name: '_HomeScreenCoordinatorBase', context: context);
 
   @override
+  dynamic onResumed() {
+    final _$actionInfo = _$_HomeScreenCoordinatorBaseActionController
+        .startAction(name: '_HomeScreenCoordinatorBase.onResumed');
+    try {
+      return super.onResumed();
+    } finally {
+      _$_HomeScreenCoordinatorBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onInactive() {
+    final _$actionInfo = _$_HomeScreenCoordinatorBaseActionController
+        .startAction(name: '_HomeScreenCoordinatorBase.onInactive');
+    try {
+      return super.onInactive();
+    } finally {
+      _$_HomeScreenCoordinatorBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic repeatTheFlow() {
     final _$actionInfo = _$_HomeScreenCoordinatorBaseActionController
         .startAction(name: '_HomeScreenCoordinatorBase.repeatTheFlow');

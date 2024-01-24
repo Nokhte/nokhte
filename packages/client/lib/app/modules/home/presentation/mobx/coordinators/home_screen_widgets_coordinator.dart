@@ -92,33 +92,17 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   onConnected() {
-    if (primarySmartText.isPaused &&
-        wifiDisconnectOverlay.movieMode ==
-            WifiDisconnectMovieModes.placeTheCircle) {
-      if (primarySmartText.currentIndex.isLessThan(3)) {
-        primarySmartText.resume();
-      }
-    }
-    setIsDisconnected(false);
+    onResumed();
   }
 
   @action
   onDisconnected() {
-    setIsDisconnected(true);
-    if (!primarySmartText.isPaused) {
-      if (primarySmartText.currentIndex.isLessThan(3)) {
-        primarySmartText.pause();
-      }
-    }
-    if (hasSwipedUp) {
-      beachWaves.currentStore.setControl(Control.playReverse);
-    }
+    onInactive();
   }
 
   @action
   onResumed() {
     if (clockAnimationHasNotStarted) {
-      primarySmartText.resume();
       primarySmartText.startRotatingText();
       if (hasInitiatedBlur) {
         nokhteBlur.reverse();
@@ -130,7 +114,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   @action
   onInactive() {
     if (clockAnimationHasNotStarted) {
-      primarySmartText.pause();
       primarySmartText.reset();
       if (!hasSwipedUp) {
         beachWaves.currentStore.setControl(Control.mirror);
@@ -144,9 +127,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     if (!excludeUnBlur) {
       nokhteBlur.reverse();
     }
-    if (hasInitiatedBlur) {
-      beachWaves.finishedCount = 1;
-    }
     gestureCross.stopBlinking();
     primarySmartText.toggleWidgetVisibility();
     timeModel.toggleWidgetVisibility();
@@ -154,7 +134,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
       secondarySmartText.toggleWidgetVisibility();
     }
     beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDive);
-    beachWaves.setMovieStatus(MovieStatus.inProgress);
     beachWaves.currentStore.initMovie(beachWaves.currentAnimationValues.first);
     gestureCross.initMoveAndRegenerate(CircleOffsets.top);
   }
