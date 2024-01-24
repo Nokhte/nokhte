@@ -97,6 +97,32 @@ mixin _$CollaborationHomeScreenCoordinator
   }
 
   @override
+  dynamic onResumed() {
+    final _$actionInfo =
+        _$_CollaborationHomeScreenCoordinatorBaseActionController.startAction(
+            name: '_CollaborationHomeScreenCoordinatorBase.onResumed');
+    try {
+      return super.onResumed();
+    } finally {
+      _$_CollaborationHomeScreenCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onInactive() {
+    final _$actionInfo =
+        _$_CollaborationHomeScreenCoordinatorBaseActionController.startAction(
+            name: '_CollaborationHomeScreenCoordinatorBase.onInactive');
+    try {
+      return super.onInactive();
+    } finally {
+      _$_CollaborationHomeScreenCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic onGradientTreeNodeTap() {
     final _$actionInfo =
         _$_CollaborationHomeScreenCoordinatorBaseActionController.startAction(

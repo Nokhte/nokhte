@@ -19,8 +19,8 @@ class CollaborationHomeScreen extends HookWidget {
     useOnAppLifecycleStateChange(
         (previous, current) => coordinator.onAppLifeCycleStateChange(
               current,
-              onResumed: () => coordinator.widgets.onResumed(),
-              onInactive: () => coordinator.widgets.onInactive(),
+              onResumed: () => coordinator.onResumed(),
+              onInactive: () => coordinator.onInactive(),
             ));
     useEffect(() {
       coordinator.constructor();

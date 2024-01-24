@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
+import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
@@ -31,8 +32,8 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
   @observable
   bool invitationIsSent = false;
 
-  @observable
-  bool isDisconnected = false;
+  // @observable
+  // bool isDisconnected = false;
 
   @observable
   bool shouldEnterCollaboratorPool = false;
@@ -42,39 +43,22 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
       shouldEnterCollaboratorPool = !shouldEnterCollaboratorPool;
 
   @action
-  toggleIsDisconnected() => isDisconnected = !isDisconnected;
-
-  @action
   toggleInvitationIsSent() => invitationIsSent = !invitationIsSent;
 
   @action
-  onConnected() {
-    if (isDisconnected) toggleIsDisconnected();
-    if (smartText.isPaused &&
-        wifiDisconnectOverlay.movieMode ==
-            WifiDisconnectMovieModes.placeTheCircle) {
-      smartText.resume();
-    }
-  }
-
-  @action
-  onDisconnected() {
-    if (!isDisconnected) toggleIsDisconnected();
-    if (!smartText.isPaused) {
-      smartText.pause();
-    }
-  }
-
-  @action
   onResumed() {
-    if (smartText.isPaused && !isDisconnected) {
-      smartText.resume();
+    if (smartText.currentIndex.isLessThanOrEqualTo(1) &&
+        smartText.messagesData.length == 4) {
+      smartText.reset();
+      smartText.startRotatingText();
+      print("is resumed running");
     }
   }
 
   @action
   onInactive() {
-    if (!smartText.isPaused && !isDisconnected) {
+    if (smartText.currentIndex.isLessThanOrEqualTo(1) &&
+        smartText.messagesData.length == 4) {
       smartText.pause();
     }
   }
@@ -137,30 +121,22 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
 
   @action
   onSwipeDown() {
-    if (!isDisconnected) {
-      if (gradientTreeNode.showWidget) {
-        gradientTreeNode.toggleWidgetVisibility();
-      }
-      smartText.pause();
-      smartText.toggleWidgetVisibility();
-      gestureCross.initMoveAndRegenerate(CircleOffsets.bottom);
-      beachWaves.setMovieMode(BeachWaveMovieModes.oceanDiveToOnShore);
-      beachWaves.currentStore.initMovie(NoParams());
+    if (gradientTreeNode.showWidget) {
+      gradientTreeNode.toggleWidgetVisibility();
     }
+    smartText.pause();
+    smartText.toggleWidgetVisibility();
+    gestureCross.initMoveAndRegenerate(CircleOffsets.bottom);
+    beachWaves.setMovieMode(BeachWaveMovieModes.oceanDiveToOnShore);
+    beachWaves.currentStore.initMovie(NoParams());
   }
 
-  initReactors(Function onGradientTreeNodeTap, Function onFlowCompleted,
-      Function enterCollaboratorPool) {
+  initReactors(Function onFlowCompleted, Function enterCollaboratorPool) {
     smartTextReactor(onFlowCompleted);
-    gradientTreeNodeTapReactor(onGradientTreeNodeTap);
+
     invitationSendStatusReactor();
     centerCrossNokhteReactor();
     beachWavesMovieStatusReactor();
-    wifiDisconnectOverlay.connectionReactor(
-      onConnected: onConnected,
-      onDisconnected: onDisconnected,
-    );
-    wifiDisconnectOverlayReactor();
     gradientTreeNodeOpacityReactor(enterCollaboratorPool);
     gradientTreeNodeMovieStatusReactor();
   }
@@ -170,13 +146,6 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
         if (p0 == 2) {
           gradientTreeNode.toggleWidgetVisibility();
           onFlowCompleted();
-        }
-      });
-
-  gradientTreeNodeTapReactor(Function onGradientTreeNodeTap) =>
-      reaction((p0) => gradientTreeNode.tapCount, (p0) {
-        if (!isDisconnected) {
-          onGradientTreeNodeTap();
         }
       });
 
@@ -217,15 +186,15 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
         }
       });
 
-  wifiDisconnectOverlayReactor() =>
-      reaction((p0) => wifiDisconnectOverlay.movieStatus, (p0) {
-        if (wifiDisconnectOverlay.movieMode ==
-            WifiDisconnectMovieModes.removeTheCircle) {
-          if (smartText.isPaused) {
-            smartText.resume();
-          }
-        }
-      });
+  // wifiDisconnectOverlayReactor() =>
+  //     reaction((p0) => wifiDisconnectOverlay.movieStatus, (p0) {
+  //       if (wifiDisconnectOverlay.movieMode ==
+  //           WifiDisconnectMovieModes.removeTheCircle) {
+  //         if (smartText.isPaused) {
+  //           smartText.resume();
+  //         }
+  //       }
+  //     });
 
   @override
   List<Object> get props => [];

@@ -46,12 +46,25 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
   toggleIsNavigatingAway() => isNavigatingAway = !isNavigatingAway;
 
   @action
+  onResumed() {
+    ifTouchIsNotDisabled(() {
+      widgets.onResumed();
+    });
+  }
+
+  @action
+  onInactive() {
+    ifTouchIsNotDisabled(() {
+      widgets.onInactive();
+    });
+  }
+
+  @action
   constructor() async {
     deepLinks.listenForOpenedDeepLinkStore(NoParams());
     setAdditionalRoutingData(Modular.args.data);
     widgets.constructor();
     widgets.initReactors(
-      onGradientTreeNodeTap,
       onFlowCompleted,
       onEnterCollaboratorPool,
     );
@@ -92,6 +105,18 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
     shareInvitationReactor();
     deepLinksReactor();
     collaboratorPoolEntryReactor();
+    gradientTreeNodeTapReactor(onGradientTreeNodeTap);
+    widgets.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => setDisableAllTouchFeedback(false),
+      onLongReConnected: () {
+        setDisableAllTouchFeedback(false);
+        widgets.onResumed();
+      },
+      onDisconnected: () {
+        widgets.onInactive();
+        setDisableAllTouchFeedback(true);
+      },
+    );
   }
 
   deepLinksReactor() => reaction(
@@ -131,11 +156,11 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
     if (!isNavigatingAway) {
       switch (direction) {
         case GestureDirections.down:
-          toggleIsNavigatingAway();
           ifTouchIsNotDisabled(() {
+            toggleIsNavigatingAway();
             widgets.onSwipeDown();
+            setDisableAllTouchFeedback(true);
           });
-          toggleDisableAllTouchFeedback();
         default:
           break;
       }
@@ -155,6 +180,13 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
       });
     }
   }
+
+  gradientTreeNodeTapReactor(Function onGradientTreeNodeTap) =>
+      reaction((p0) => widgets.gradientTreeNode.tapCount, (p0) {
+        ifTouchIsNotDisabled(() async {
+          await onGradientTreeNodeTap();
+        });
+      });
 
   @override
   List<Object> get props => [];
