@@ -70,7 +70,7 @@ class DeleteUnconsecratedCollaborationsContractImpl
   checkForUnconsecratedCollaboration(NoParams params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.checkForUnconsecratedCollaboration();
-      final collaboratorInfo = remoteSource.getCollaboratorInfo();
+      final collaboratorInfo = await remoteSource.getCollaboratorInfo();
       return Right(UnconsecratedCollaborationCheckerModel.fromSupabase(
           res, collaboratorInfo));
     } else {
