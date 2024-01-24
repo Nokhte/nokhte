@@ -62,6 +62,7 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
         widgets.onDisconnected();
       },
     );
+    availabilitySectorReactor();
   }
 
   @action
@@ -75,6 +76,14 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
             });
           default:
             break;
+        }
+      });
+
+  availabilitySectorReactor() =>
+      reaction((p0) => widgets.timeModel.availabilitySectors.tapCount, (p0) {
+        if (!widgets.isDoubleTriggeringWindDown && !disableAllTouchFeedback) {
+          widgets.timeModel.availabilitySectors.initJoinAndFadeOutMovie();
+          widgets.toggleIsDoubleTriggeringWindDown();
         }
       });
 }

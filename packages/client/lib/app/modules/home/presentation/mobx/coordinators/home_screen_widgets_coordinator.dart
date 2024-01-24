@@ -172,9 +172,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   onGestureCrossTap(Function repeatTheFlow) {
-    if (
-        // !isDisconnected &&
-        !hasInitiatedBlur) {
+    if (!hasInitiatedBlur) {
       if (hasCompletedInvitationFlow) {
         repeatTheFlow();
         toggleWantsToRepeatInvitationFlow();
@@ -219,7 +217,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     availabilitySectorsMovieStatusReactor();
     nokhteBlurReactor();
     centerCrossNokhteReactor();
-    availabilitySectorReactor();
     beachWavesMovieStatusReactor();
   }
 
@@ -270,14 +267,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   nokhteBlurReactor() => reaction((p0) => nokhteBlur.movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&
             nokhteBlur.pastControl == Control.playReverseFromEnd) {}
-      });
-
-  availabilitySectorReactor() =>
-      reaction((p0) => timeModel.availabilitySectors.tapCount, (p0) {
-        if (!isDoubleTriggeringWindDown && !isDisconnected) {
-          timeModel.availabilitySectors.initJoinAndFadeOutMovie();
-          toggleIsDoubleTriggeringWindDown();
-        }
       });
 
   beachWavesMovieStatusReactor() =>
