@@ -40,7 +40,7 @@ abstract class _PurposeSessionPhase2WidgetsCoordinatorBase
   });
 
   final timerLength =
-      kDebugMode ? const Duration(seconds: 45) : const Duration(minutes: 5);
+      kDebugMode ? const Duration(minutes: 2) : const Duration(minutes: 5);
 
   @action
   constructor() {
@@ -74,14 +74,14 @@ abstract class _PurposeSessionPhase2WidgetsCoordinatorBase
     required Function onSwipeUpCompleted,
   }) {
     smartTextIndexReactor();
-    wifiDisconnectOverlay.connectionReactor(
-      onConnected: () {
-        setIsDisconnected(false);
-      },
-      onDisconnected: () {
-        setIsDisconnected(true);
-      },
-    );
+    // wifiDisconnectOverlay.connectionReactor(
+    //   onConnected: () {
+    //     setIsDisconnected(false);
+    //   },
+    //   onDisconnected: () {
+    //     setIsDisconnected(true);
+    //   },
+    // );
     textEditor.focusNode.addListener(() {
       if (!textEditor.focusNode.hasFocus) {
         if (textEditor.controller.text

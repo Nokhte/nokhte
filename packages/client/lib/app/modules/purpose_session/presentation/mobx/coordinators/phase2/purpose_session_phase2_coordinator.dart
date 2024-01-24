@@ -92,6 +92,17 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
       onTimesUp: onTimesUp,
       onSwipeUpCompleted: onPhaseChange,
     );
+    widgets.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () => setDisableAllTouchFeedback(false),
+      onLongReConnected: () {
+        setDisableAllTouchFeedback(false);
+        widgets.textEditor.setIsReadOnly(false);
+      },
+      onDisconnected: () {
+        widgets.textEditor.setIsReadOnly(true);
+        setDisableAllTouchFeedback(true);
+      },
+    );
   }
 
   onCollaboratorOnlinePresenceChangeReactor() => reaction(
@@ -100,8 +111,10 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
           (p0) async {
         if (p0) {
           widgets.onCollaboratorJoined();
+          widgets.textEditor.setIsReadOnly(false);
         } else {
           widgets.onCollaboratorLeft();
+          widgets.textEditor.setIsReadOnly(true);
           await collaboratorPresence.updateCallStatus(
               UpdatePresencePropertyParams.collaboratorNegative());
         }
