@@ -468,22 +468,6 @@ class MockWifiDisconnectOverlayStore extends _i1.Mock
       );
 
   @override
-  int get rippleCount => (super.noSuchMethod(
-        Invocation.getter(#rippleCount),
-        returnValue: 0,
-        returnValueForMissingStub: 0,
-      ) as int);
-
-  @override
-  set rippleCount(int? value) => super.noSuchMethod(
-        Invocation.setter(
-          #rippleCount,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
   bool get callsOnCompleteTwice => (super.noSuchMethod(
         Invocation.getter(#callsOnCompleteTwice),
         returnValue: false,
@@ -639,8 +623,27 @@ class MockWifiDisconnectOverlayStore extends _i1.Mock
       );
 
   @override
+  dynamic initReactors({
+    required Function? onQuickConnected,
+    required Function? onLongReConnected,
+    required Function? onDisconnected,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #initReactors,
+          [],
+          {
+            #onQuickConnected: onQuickConnected,
+            #onLongReConnected: onLongReConnected,
+            #onDisconnected: onDisconnected,
+          },
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   dynamic connectionReactor({
-    required Function? onConnected,
+    required Function? onQuickConnected,
     required Function? onDisconnected,
   }) =>
       super.noSuchMethod(
@@ -648,7 +651,7 @@ class MockWifiDisconnectOverlayStore extends _i1.Mock
           #connectionReactor,
           [],
           {
-            #onConnected: onConnected,
+            #onQuickConnected: onQuickConnected,
             #onDisconnected: onDisconnected,
           },
         ),
@@ -692,6 +695,15 @@ class MockWifiDisconnectOverlayStore extends _i1.Mock
           #initLoopMovie,
           [],
           {#theControl: theControl},
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  dynamic onCompletedReactor(Function? onLongReconnected) => super.noSuchMethod(
+        Invocation.method(
+          #onCompletedReactor,
+          [onLongReconnected],
         ),
         returnValueForMissingStub: null,
       );
@@ -1734,22 +1746,6 @@ class MockSmartTextStore extends _i1.Mock implements _i5.SmartTextStore {
       );
 
   @override
-  bool get disablePausing => (super.noSuchMethod(
-        Invocation.getter(#disablePausing),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool);
-
-  @override
-  set disablePausing(bool? value) => super.noSuchMethod(
-        Invocation.setter(
-          #disablePausing,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
   String get currentSubText => (super.noSuchMethod(
         Invocation.getter(#currentSubText),
         returnValue: _i10.dummyValue<String>(
@@ -1988,15 +1984,6 @@ class MockSmartTextStore extends _i1.Mock implements _i5.SmartTextStore {
         Invocation.method(
           #setAltControl,
           [newControl],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  dynamic setDisablePausing(bool? newDisablePausing) => super.noSuchMethod(
-        Invocation.method(
-          #setDisablePausing,
-          [newDisablePausing],
         ),
         returnValueForMissingStub: null,
       );
