@@ -697,6 +697,15 @@ class MockWifiDisconnectOverlayStore extends _i1.Mock
       );
 
   @override
+  dynamic setWidgetVisibility(bool? newVal) => super.noSuchMethod(
+        Invocation.method(
+          #setWidgetVisibility,
+          [newVal],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   dynamic setPastControl(_i3.Control? newControl) => super.noSuchMethod(
         Invocation.method(
           #setPastControl,
@@ -1486,6 +1495,15 @@ class MockTimeAlignmentModelCoordinator extends _i1.Mock
       ) as _i4.ReactiveContext);
 
   @override
+  dynamic setWidgetVisibility(bool? newVal) => super.noSuchMethod(
+        Invocation.method(
+          #setWidgetVisibility,
+          [newVal],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   dynamic setPastControl(_i3.Control? newControl) => super.noSuchMethod(
         Invocation.method(
           #setPastControl,
@@ -2004,6 +2022,15 @@ class MockSmartTextStore extends _i1.Mock implements _i5.SmartTextStore {
       );
 
   @override
+  dynamic setWidgetVisibility(bool? newVal) => super.noSuchMethod(
+        Invocation.method(
+          #setWidgetVisibility,
+          [newVal],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   dynamic setPastControl(_i3.Control? newControl) => super.noSuchMethod(
         Invocation.method(
           #setPastControl,
@@ -2238,6 +2265,15 @@ class MockTrailingTextStore extends _i1.Mock implements _i5.TrailingTextStore {
       );
 
   @override
+  dynamic setWidgetVisibility(bool? newVal) => super.noSuchMethod(
+        Invocation.method(
+          #setWidgetVisibility,
+          [newVal],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   dynamic setPastControl(_i3.Control? newControl) => super.noSuchMethod(
         Invocation.method(
           #setPastControl,
@@ -2422,6 +2458,15 @@ class MockNokhteBlurStore extends _i1.Mock implements _i5.NokhteBlurStore {
           Invocation.getter(#context),
         ),
       ) as _i4.ReactiveContext);
+
+  @override
+  dynamic setWidgetVisibility(bool? newVal) => super.noSuchMethod(
+        Invocation.method(
+          #setWidgetVisibility,
+          [newVal],
+        ),
+        returnValueForMissingStub: null,
+      );
 
   @override
   dynamic setPastControl(_i3.Control? newControl) => super.noSuchMethod(
@@ -2685,6 +2730,15 @@ class MockNokhteStore extends _i1.Mock implements _i5.NokhteStore {
             touchPoint,
             centerPoint,
           ],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  dynamic setWidgetVisibility(bool? newVal) => super.noSuchMethod(
+        Invocation.method(
+          #setWidgetVisibility,
+          [newVal],
         ),
         returnValueForMissingStub: null,
       );

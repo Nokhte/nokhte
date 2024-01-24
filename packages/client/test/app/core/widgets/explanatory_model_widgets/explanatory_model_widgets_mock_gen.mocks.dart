@@ -199,6 +199,15 @@ class MockDumbGradientCircleStore extends _i1.Mock
       ) as _i3.ReactiveContext);
 
   @override
+  dynamic setWidgetVisibility(bool? newVal) => super.noSuchMethod(
+        Invocation.method(
+          #setWidgetVisibility,
+          [newVal],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   dynamic setPastControl(_i2.Control? newControl) => super.noSuchMethod(
         Invocation.method(
           #setPastControl,
@@ -386,6 +395,15 @@ class MockSmartGradientCircleStore extends _i1.Mock
       ) as _i3.ReactiveContext);
 
   @override
+  dynamic setWidgetVisibility(bool? newVal) => super.noSuchMethod(
+        Invocation.method(
+          #setWidgetVisibility,
+          [newVal],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   dynamic setPastControl(_i2.Control? newControl) => super.noSuchMethod(
         Invocation.method(
           #setPastControl,
@@ -571,6 +589,15 @@ class MockAccompanyingTextStore extends _i1.Mock
           Invocation.getter(#context),
         ),
       ) as _i3.ReactiveContext);
+
+  @override
+  dynamic setWidgetVisibility(bool? newVal) => super.noSuchMethod(
+        Invocation.method(
+          #setWidgetVisibility,
+          [newVal],
+        ),
+        returnValueForMissingStub: null,
+      );
 
   @override
   dynamic setPastControl(_i2.Control? newControl) => super.noSuchMethod(
