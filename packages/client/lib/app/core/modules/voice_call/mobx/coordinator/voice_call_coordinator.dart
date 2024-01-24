@@ -35,9 +35,9 @@ abstract class _VoiceCallCoordinatorBase extends BaseMobxDBStore with Store {
         );
 
   @action
-  initReactors() {
-    onCallStatusReactor();
-    onCollaboratorCallStatusChangeReactor();
+  initReactors({required Function onBothJoinedCall}) {
+    onCallStatusReactor(onBothJoinedCall);
+    onCollaboratorCallStatusChangeReactor(onBothJoinedCall);
   }
 
   @observable
@@ -116,9 +116,11 @@ abstract class _VoiceCallCoordinatorBase extends BaseMobxDBStore with Store {
   leaveCall() async =>
       await voiceCallActionsStore.enterOrLeaveCall(Left(NoParams()));
 
-  onCallStatusReactor() => reaction((p0) => voiceCallStatusStore.inCall, (p0) {
-        if (p0 == CallStatus.left) {
-        } else if (p0 == CallStatus.joined) {
+  onCallStatusReactor(
+    Function onBothJoinedCall,
+  ) =>
+      reaction((p0) => voiceCallStatusStore.inCall, (p0) {
+        if (p0 == CallStatus.joined) {
           incidentsOverlayWidgetStore.setShowJoiningCall(false);
           if (voiceCallStatusStore.hasCollaboratorJoined) {
             blur.reverse();
@@ -128,9 +130,12 @@ abstract class _VoiceCallCoordinatorBase extends BaseMobxDBStore with Store {
         }
       });
 
-  onCollaboratorCallStatusChangeReactor() =>
+  onCollaboratorCallStatusChangeReactor(
+    Function onBothJoinedCall,
+  ) =>
       reaction((p0) => voiceCallStatusStore.hasCollaboratorJoined, (p0) async {
         if (p0) {
+          onBothJoinedCall();
           incidentsOverlayWidgetStore.setShowWaitingOnCollaborator(false);
           blur.reverse();
         }

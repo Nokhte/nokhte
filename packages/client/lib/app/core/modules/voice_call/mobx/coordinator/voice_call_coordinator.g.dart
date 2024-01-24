@@ -134,11 +134,11 @@ mixin _$VoiceCallCoordinator on _VoiceCallCoordinatorBase, Store {
       ActionController(name: '_VoiceCallCoordinatorBase', context: context);
 
   @override
-  dynamic initReactors() {
+  dynamic initReactors({required Function onBothJoinedCall}) {
     final _$actionInfo = _$_VoiceCallCoordinatorBaseActionController
         .startAction(name: '_VoiceCallCoordinatorBase.initReactors');
     try {
-      return super.initReactors();
+      return super.initReactors(onBothJoinedCall: onBothJoinedCall);
     } finally {
       _$_VoiceCallCoordinatorBaseActionController.endAction(_$actionInfo);
     }
