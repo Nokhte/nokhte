@@ -298,22 +298,6 @@ class MockCollaborationHomeScreenWidgetsCoordinator extends _i1.Mock
       );
 
   @override
-  bool get isDisconnected => (super.noSuchMethod(
-        Invocation.getter(#isDisconnected),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool);
-
-  @override
-  set isDisconnected(bool? value) => super.noSuchMethod(
-        Invocation.setter(
-          #isDisconnected,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
   bool get shouldEnterCollaboratorPool => (super.noSuchMethod(
         Invocation.getter(#shouldEnterCollaboratorPool),
         returnValue: false,
@@ -351,7 +335,6 @@ class MockCollaborationHomeScreenWidgetsCoordinator extends _i1.Mock
 
   @override
   dynamic initReactors(
-    Function? onGradientTreeNodeTap,
     Function? onFlowCompleted,
     Function? enterCollaboratorPool,
   ) =>
@@ -359,7 +342,6 @@ class MockCollaborationHomeScreenWidgetsCoordinator extends _i1.Mock
         Invocation.method(
           #initReactors,
           [
-            onGradientTreeNodeTap,
             onFlowCompleted,
             enterCollaboratorPool,
           ],
@@ -372,16 +354,6 @@ class MockCollaborationHomeScreenWidgetsCoordinator extends _i1.Mock
         Invocation.method(
           #smartTextReactor,
           [onFlowCompleted],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  dynamic gradientTreeNodeTapReactor(Function? onGradientTreeNodeTap) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #gradientTreeNodeTapReactor,
-          [onGradientTreeNodeTap],
         ),
         returnValueForMissingStub: null,
       );
