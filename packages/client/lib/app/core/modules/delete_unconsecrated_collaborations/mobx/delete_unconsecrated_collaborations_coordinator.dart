@@ -116,12 +116,12 @@ abstract class _DeleteUnconsecratedCollaborationsCoordinatorBase
   @action
   Future<void> call(NoParams params) async {
     state = StoreState.loading;
+    await collaborationLogicCoordinator.exit();
     await checkForUnconsecratedCollaboration();
     if (hasAnUnconsecratedCollabooration) {
       await checkIfCollaboratorHasDeletedArtifacts();
       await updateHasDeletedArtifacts();
       await deleteSoloDocuments();
-      await collaborationLogicCoordinator.exit();
       if (collaboratorHasDeletedArtifacts) {
         await deleteTheCollaboration();
       }
