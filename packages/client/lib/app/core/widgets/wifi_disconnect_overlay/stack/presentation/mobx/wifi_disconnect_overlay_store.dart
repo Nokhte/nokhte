@@ -20,7 +20,6 @@ abstract class _WifiDisconnectOverlayStoreBase
   }) {
     getOnConnectivityChanged.callAndListen();
     setMovie(PlaceTheCircleMovie.movie);
-    onCompletedReactor();
     toggleWidgetVisibility();
   }
 
@@ -34,15 +33,28 @@ abstract class _WifiDisconnectOverlayStoreBase
   setMovieMode(WifiDisconnectMovieModes newMovieModes) =>
       movieMode = newMovieModes;
 
+  initReactors({
+    required Function onQuickConnected,
+    required Function onLongReConnected,
+    required Function onDisconnected,
+  }) {
+    print("you inited??");
+    connectionReactor(
+      onQuickConnected: onQuickConnected,
+      onDisconnected: onDisconnected,
+    );
+    onCompletedReactor(onLongReConnected);
+  }
+
   connectionReactor({
-    required Function onConnected,
+    required Function onQuickConnected,
     required Function onDisconnected,
   }) =>
       reaction(
           (p0) => getOnConnectivityChanged.isConnected,
           (p0) => attuneWidgetsBasedOnConnection(
                 p0,
-                onConnected,
+                onQuickConnected,
                 onDisconnected,
               ));
 
@@ -57,9 +69,8 @@ abstract class _WifiDisconnectOverlayStoreBase
       if (showWidget) {
         toggleWidgetVisibility();
       }
-      onConnected();
-      resetRippleCount();
       if (disconnectedStopwatch.elapsedMilliseconds.isLessThan(1000)) {
+        onConnected();
         initPlaceTheCircle(theControl: Control.playReverse);
       } else {
         initLoopMovie(theControl: Control.playReverse);
@@ -94,27 +105,18 @@ abstract class _WifiDisconnectOverlayStoreBase
     setControl(Control.playFromStart);
   }
 
-  @observable
-  int rippleCount = 0;
-
-  @action
-  incrementRippleCount() => rippleCount++;
-
-  @action
-  resetRippleCount() => rippleCount = 0;
-
-  onCompletedReactor() => reaction((p0) => movieStatus, (p0) {
-        if (p0 == MovieStatus.finished &&
-            movieMode == WifiDisconnectMovieModes.placeTheCircle &&
-            pastControl == Control.playFromStart) {
-          initLoopMovie();
-        } else if (p0 == MovieStatus.finished &&
-            movieMode == WifiDisconnectMovieModes.rippleLoop) {
-          if (pastControl == Control.playReverse) {
-            initRemoveTheCircle();
-          } else if (rippleCount < 2) {
+  onCompletedReactor(Function onLongReconnected) =>
+      reaction((p0) => movieStatus, (p0) {
+        if (p0 == MovieStatus.finished) {
+          if (movieMode == WifiDisconnectMovieModes.placeTheCircle &&
+              pastControl == Control.playFromStart) {
             initLoopMovie();
-            incrementRippleCount();
+          } else if (movieMode == WifiDisconnectMovieModes.rippleLoop) {
+            if (pastControl == Control.playReverse) {
+              initRemoveTheCircle();
+            }
+          } else if (movieMode == WifiDisconnectMovieModes.removeTheCircle) {
+            onLongReconnected();
           }
         }
       });

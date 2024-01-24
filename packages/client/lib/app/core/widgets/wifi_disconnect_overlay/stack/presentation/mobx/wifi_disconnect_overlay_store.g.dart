@@ -43,22 +43,6 @@ mixin _$WifiDisconnectOverlayStore on _WifiDisconnectOverlayStoreBase, Store {
     });
   }
 
-  late final _$rippleCountAtom = Atom(
-      name: '_WifiDisconnectOverlayStoreBase.rippleCount', context: context);
-
-  @override
-  int get rippleCount {
-    _$rippleCountAtom.reportRead();
-    return super.rippleCount;
-  }
-
-  @override
-  set rippleCount(int value) {
-    _$rippleCountAtom.reportWrite(value, super.rippleCount, () {
-      super.rippleCount = value;
-    });
-  }
-
   late final _$_WifiDisconnectOverlayStoreBaseActionController =
       ActionController(
           name: '_WifiDisconnectOverlayStoreBase', context: context);
@@ -102,34 +86,10 @@ mixin _$WifiDisconnectOverlayStore on _WifiDisconnectOverlayStoreBase, Store {
   }
 
   @override
-  dynamic incrementRippleCount() {
-    final _$actionInfo =
-        _$_WifiDisconnectOverlayStoreBaseActionController.startAction(
-            name: '_WifiDisconnectOverlayStoreBase.incrementRippleCount');
-    try {
-      return super.incrementRippleCount();
-    } finally {
-      _$_WifiDisconnectOverlayStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic resetRippleCount() {
-    final _$actionInfo = _$_WifiDisconnectOverlayStoreBaseActionController
-        .startAction(name: '_WifiDisconnectOverlayStoreBase.resetRippleCount');
-    try {
-      return super.resetRippleCount();
-    } finally {
-      _$_WifiDisconnectOverlayStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 disconnectedStopwatch: ${disconnectedStopwatch},
-movieMode: ${movieMode},
-rippleCount: ${rippleCount}
+movieMode: ${movieMode}
     ''';
   }
 }
