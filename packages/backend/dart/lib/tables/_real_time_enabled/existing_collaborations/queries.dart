@@ -96,9 +96,8 @@ class ExistingCollaborationsQueries extends CollaborativeQueries {
   }
 
   Future<List> updateHasDeletedArtifactsStatus(
-    bool hasDeletedArtifactsParam, {
-    bool shouldEditCollaboratorsInfo = false,
-  }) async {
+    bool hasDeletedArtifactsParam,
+  ) async {
     final currentHasDeletedArtifacts = await getHasDeletedArtifacts();
     final indexToEdit = getIndexForCollaboratorNumber(
         collaboratorInfo.theUsersCollaboratorNumber);
