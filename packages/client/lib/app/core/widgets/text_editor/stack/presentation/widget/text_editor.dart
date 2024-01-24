@@ -52,7 +52,7 @@ class TextEditor extends HookWidget {
                 controller: store.controller,
                 focusNode: store.focusNode,
                 maxLines: maxLines,
-                readOnly: false,
+                readOnly: store.isReadOnly,
                 maxLength: maxLength,
                 maxLengthEnforcement: MaxLengthEnforcement.enforced,
                 style: GoogleFonts.jost(

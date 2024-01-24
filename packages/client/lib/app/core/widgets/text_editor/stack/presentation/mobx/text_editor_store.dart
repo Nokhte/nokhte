@@ -20,6 +20,12 @@ abstract class _TextEditorStoreBase extends BaseCustomAnimatedWidgetStore
   @action
   handleTap() {}
 
+  @observable
+  bool isReadOnly = false;
+
+  @action
+  setIsReadOnly(bool newBool) => isReadOnly = newBool;
+
   @action
   addEventListeners() {}
 

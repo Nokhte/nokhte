@@ -41,6 +41,22 @@ mixin _$TextEditorStore on _TextEditorStoreBase, Store {
     });
   }
 
+  late final _$isReadOnlyAtom =
+      Atom(name: '_TextEditorStoreBase.isReadOnly', context: context);
+
+  @override
+  bool get isReadOnly {
+    _$isReadOnlyAtom.reportRead();
+    return super.isReadOnly;
+  }
+
+  @override
+  set isReadOnly(bool value) {
+    _$isReadOnlyAtom.reportWrite(value, super.isReadOnly, () {
+      super.isReadOnly = value;
+    });
+  }
+
   late final _$_TextEditorStoreBaseActionController =
       ActionController(name: '_TextEditorStoreBase', context: context);
 
@@ -61,6 +77,17 @@ mixin _$TextEditorStore on _TextEditorStoreBase, Store {
         name: '_TextEditorStoreBase.handleTap');
     try {
       return super.handleTap();
+    } finally {
+      _$_TextEditorStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setIsReadOnly(bool newBool) {
+    final _$actionInfo = _$_TextEditorStoreBaseActionController.startAction(
+        name: '_TextEditorStoreBase.setIsReadOnly');
+    try {
+      return super.setIsReadOnly(newBool);
     } finally {
       _$_TextEditorStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -92,7 +119,8 @@ mixin _$TextEditorStore on _TextEditorStoreBase, Store {
   String toString() {
     return '''
 controller: ${controller},
-focusNode: ${focusNode}
+focusNode: ${focusNode},
+isReadOnly: ${isReadOnly}
     ''';
   }
 }
