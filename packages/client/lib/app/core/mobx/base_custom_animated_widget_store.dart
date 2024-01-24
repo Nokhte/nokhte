@@ -47,6 +47,9 @@ abstract class _BaseCustomAnimatedWidgetStoreBase<T> extends Equatable
   toggleWidgetVisibility() => showWidget = !showWidget;
 
   @action
+  setWidgetVisibility(bool newVal) => showWidget = newVal;
+
+  @action
   setPastControl(Control newControl) => pastControl = newControl;
 
   @action

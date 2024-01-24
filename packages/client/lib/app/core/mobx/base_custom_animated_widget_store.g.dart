@@ -166,6 +166,19 @@ mixin _$BaseCustomAnimatedWidgetStore<T>
   }
 
   @override
+  dynamic setWidgetVisibility(bool newVal) {
+    final _$actionInfo =
+        _$_BaseCustomAnimatedWidgetStoreBaseActionController.startAction(
+            name: '_BaseCustomAnimatedWidgetStoreBase.setWidgetVisibility');
+    try {
+      return super.setWidgetVisibility(newVal);
+    } finally {
+      _$_BaseCustomAnimatedWidgetStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setPastControl(Control newControl) {
     final _$actionInfo = _$_BaseCustomAnimatedWidgetStoreBaseActionController
         .startAction(name: '_BaseCustomAnimatedWidgetStoreBase.setPastControl');
