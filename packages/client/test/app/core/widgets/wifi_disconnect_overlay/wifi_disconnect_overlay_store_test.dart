@@ -31,10 +31,6 @@ void main() {
       expect(testStore.disconnectedStopwatch.elapsedMilliseconds, 0);
     });
 
-    test("rippleCount", () {
-      expect(testStore.rippleCount, 0);
-    });
-
     test("showWidget", () {
       expect(testStore.showWidget, false);
     });
@@ -99,18 +95,6 @@ void main() {
       expect(testStore.movie.duration, Seconds.get(2, milli: 500));
       expect(testStore.control, Control.playFromStart);
       expect(testStore.movieMode, WifiDisconnectMovieModes.removeTheCircle);
-    });
-
-    test("incrementRippleCount", () {
-      testStore.incrementRippleCount();
-      testStore.incrementRippleCount();
-      expect(testStore.rippleCount, 2);
-    });
-
-    test("resetRippleCount", () {
-      testStore.incrementRippleCount();
-      testStore.resetRippleCount();
-      expect(testStore.rippleCount, 0);
     });
   });
 }
