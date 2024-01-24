@@ -3,7 +3,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 part 'purpose_session_phase0_widgets_coordinator.g.dart';
@@ -31,14 +30,13 @@ abstract class _PurposeSessionPhase0WidgetsCoordinatorBase
 
   @action
   onInactive() {
-    if (isConnected) {
-      primarySmartText.reset();
-    }
+    primarySmartText.reset();
   }
 
   @action
   onResumed() {
     if (isConnected) {
+      primarySmartText.reset();
       primarySmartText.startRotatingText();
     }
   }
@@ -55,36 +53,21 @@ abstract class _PurposeSessionPhase0WidgetsCoordinatorBase
   }
 
   initReactors() {
-    wifiDisconnectOverlay.connectionReactor(
-      onConnected: () {
-        setIsConnected(true);
-      },
-      onDisconnected: () {
-        setIsConnected(false);
-      },
-    );
+    wifiDisconnectOverlay.initReactors(onQuickConnected: () {
+      setIsConnected(true);
+    }, onDisconnected: () {
+      setIsConnected(false);
+      onInactive();
+    }, onLongReConnected: () {
+      setIsConnected(true);
+      primarySmartText.startRotatingText();
+    });
     smartTextReactor();
-    wifiDisconnectOverlayReactor();
   }
 
   smartTextReactor() => reaction((p0) => primarySmartText.currentIndex, (p0) {
         if (p0 == 2) {
           Modular.to.navigate('/purpose_session/phase_one');
-        }
-      });
-
-  wifiDisconnectOverlayReactor() =>
-      reaction((p0) => wifiDisconnectOverlay.movieStatus, (p0) {
-        if (wifiDisconnectOverlay.movieMode ==
-            WifiDisconnectMovieModes.removeTheCircle) {
-          if (p0 == MovieStatus.finished) {
-            primarySmartText.resume();
-          }
-        } else if (wifiDisconnectOverlay.movieMode ==
-            WifiDisconnectMovieModes.placeTheCircle) {
-          if (p0 == MovieStatus.inProgress) {
-            primarySmartText.pause();
-          }
         }
       });
 }
