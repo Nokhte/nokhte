@@ -40,7 +40,7 @@ abstract class _ListenForOpenedDeepLinkStoreBase extends Equatable with Store {
     final result = logic(NoParams());
     deepLinkSream = ObservableStream(result);
     deepLinkSream.listen((value) async {
-      if (value.isNotEmpty) {
+      if (value["\$canonical_identifier"] != null) {
         final List<String> splitLink =
             value["\$canonical_identifier"].split('/');
         final String linkType = splitLink.first;
