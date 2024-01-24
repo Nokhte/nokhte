@@ -161,20 +161,20 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   onSwipeUp() {
-    if (!isDisconnected) {
-      if (primarySmartText.currentIndex.equals(4) &&
-          !hasSwipedUp &&
-          !hasCompletedInvitationFlow) {
-        prepForNavigation();
-      } else if (!hasSwipedUp && hasCompletedInvitationFlow) {
-        prepForNavigation(excludeUnBlur: true);
-      }
+    if (primarySmartText.currentIndex.equals(4) &&
+        !hasSwipedUp &&
+        !hasCompletedInvitationFlow) {
+      prepForNavigation();
+    } else if (!hasSwipedUp && hasCompletedInvitationFlow) {
+      prepForNavigation(excludeUnBlur: true);
     }
   }
 
   @action
   onGestureCrossTap(Function repeatTheFlow) {
-    if (!isDisconnected && !hasInitiatedBlur) {
+    if (
+        // !isDisconnected &&
+        !hasInitiatedBlur) {
       if (hasCompletedInvitationFlow) {
         repeatTheFlow();
         toggleWantsToRepeatInvitationFlow();
@@ -215,15 +215,10 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   initReactors(Function repeatTheFlow) {
     primarySmartTextReactor();
     gestureCrossTapReactor(repeatTheFlow);
-    wifiDisconnectOverlay.connectionReactor(
-      onConnected: onConnected,
-      onDisconnected: onDisconnected,
-    );
     clockFaceAnimationStatusReactor();
     availabilitySectorsMovieStatusReactor();
     nokhteBlurReactor();
     centerCrossNokhteReactor();
-    wifiDisconnectOverlayReactor();
     availabilitySectorReactor();
     beachWavesMovieStatusReactor();
   }
@@ -256,21 +251,21 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
       (p0) => timeModel.availabilitySectors.movieStatus,
       (p0) => onAvailabilitySectorMovieStatusFinished(p0));
 
-  wifiDisconnectOverlayReactor() =>
-      reaction((p0) => wifiDisconnectOverlay.movieStatus, (p0) {
-        if (wifiDisconnectOverlay.movieMode ==
-            WifiDisconnectMovieModes.removeTheCircle) {
-          if (isDisconnected) setIsDisconnected(false);
-          if (primarySmartText.isPaused) {
-            primarySmartText.resume();
-          }
+  @action
+  onLongReconnected() {
+    if (wifiDisconnectOverlay.movieMode ==
+        WifiDisconnectMovieModes.removeTheCircle) {
+      if (isDisconnected) setIsDisconnected(false);
+      if (primarySmartText.isPaused) {
+        primarySmartText.resume();
+      }
 
-          if (hasSwipedUp) {
-            beachWaves.currentStore.setControl(Control.playFromStart);
-            beachWaves.setMovieStatus(MovieStatus.inProgress);
-          }
-        }
-      });
+      if (hasSwipedUp) {
+        beachWaves.currentStore.setControl(Control.playFromStart);
+        beachWaves.setMovieStatus(MovieStatus.inProgress);
+      }
+    }
+  }
 
   nokhteBlurReactor() => reaction((p0) => nokhteBlur.movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&

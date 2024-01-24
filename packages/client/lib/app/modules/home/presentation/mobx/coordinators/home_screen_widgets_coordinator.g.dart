@@ -376,6 +376,19 @@ mixin _$HomeScreenWidgetsCoordinator
   }
 
   @override
+  dynamic onLongReconnected() {
+    final _$actionInfo =
+        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
+            name: '_HomeScreenWidgetsCoordinatorBase.onLongReconnected');
+    try {
+      return super.onLongReconnected();
+    } finally {
+      _$_HomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic onClockFaceAnimationFinished(dynamic p0) {
     final _$actionInfo =
         _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(

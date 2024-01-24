@@ -48,6 +48,20 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
 
   initReactors() {
     swipeReactor();
+    widgets.wifiDisconnectOverlay.initReactors(
+      onQuickConnected: () {
+        setDisableAllTouchFeedback(false);
+      },
+      onLongReConnected: () {
+        widgets.onLongReconnected();
+        setDisableAllTouchFeedback(false);
+        widgets.onConnected();
+      },
+      onDisconnected: () {
+        setDisableAllTouchFeedback(true);
+        widgets.onDisconnected();
+      },
+    );
   }
 
   @action
