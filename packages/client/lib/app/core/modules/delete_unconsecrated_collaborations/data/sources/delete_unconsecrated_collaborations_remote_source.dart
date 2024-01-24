@@ -12,7 +12,7 @@ abstract class DeleteUnconsecratedCollaborationsRemoteSource {
   Future<List> deleteSoloDocument(DeleteSoloDocumentParams params);
   Future<List> deleteTheCollaboration();
   Future<List> checkForUnconsecratedCollaboration();
-  CollaboratorInfo getCollaboratorInfo();
+  Future<CollaboratorInfo> getCollaboratorInfo();
   Future<List> checkIfCollaboratorHasDeletedArtifacts();
   Future<List> updateHasDeletedArtifacts(bool params);
 }
@@ -46,8 +46,10 @@ class DeleteUnconsecratedCollaborationsRemoteSourceImpl
       await workingCollaborativeDocumentsQueries.deleteThedoc();
 
   @override
-  CollaboratorInfo getCollaboratorInfo() =>
-      existingCollaborations.collaboratorInfo;
+  Future<CollaboratorInfo> getCollaboratorInfo() async {
+    await existingCollaborations.ensureActiveCollaboratorInfo();
+    return existingCollaborations.collaboratorInfo;
+  }
 
   @override
   Future<List> deleteSoloDocument(params) async =>
