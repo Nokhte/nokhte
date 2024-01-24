@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/collaborator_presence_incidents_overlay/stack/presentation/presentation.dart';
 import 'package:nokhte/app/core/widgets/voice_call_incidents_overlay/voice_call_incidents_overlay.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/purpose_session/presentation/presentation.dart';
@@ -55,6 +56,9 @@ class PurposeSessionPhase1Consultation extends HookWidget {
               )),
               VoiceCallIncidentsOverlay(
                 store: coordinator.voiceCall.incidentsOverlayWidgetStore,
+              ),
+              CollaboratorPresenceIncidentsOverlay(
+                store: coordinator.collaboratorPresence.incidentsOverlayStore,
               ),
               WifiDisconnectOverlay(
                 store: coordinator.widgets.wifiDisconnectOverlay,
