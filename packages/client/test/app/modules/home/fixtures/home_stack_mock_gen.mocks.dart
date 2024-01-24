@@ -2759,6 +2759,22 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
       );
 
   @override
+  bool get userHasDeletedArtifacts => (super.noSuchMethod(
+        Invocation.getter(#userHasDeletedArtifacts),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set userHasDeletedArtifacts(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #userHasDeletedArtifacts,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   bool get schedulingSessionIsDeleted => (super.noSuchMethod(
         Invocation.getter(#schedulingSessionIsDeleted),
         returnValue: false,
