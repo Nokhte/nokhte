@@ -30,6 +30,7 @@ class CollaborativeQueries {
 
   Future<CollaboratorInfo> _computeActiveCollaboratorInfo() async {
     final res = await getActiveCollaboratorsUIDAndNumber();
+    if (res.isEmpty) return CollaboratorInfo.initial();
     return CollaboratorInfo(
       theCollaboratorsNumber: res[1] == 1 ? collaboratorONE : collaboratorTWO,
       theCollaboratorsUID: res.first,
@@ -41,6 +42,7 @@ class CollaborativeQueries {
 
   Future<List> getActiveCollaboratorsUIDAndNumber() async {
     final collabRes = await getCollaborations(filterForIsActive: true);
+    if (collabRes.isEmpty) return [];
     final collaboratorOneRes = collabRes.first[collaboratorONE];
     final collaboratorTwoRes = collabRes.first[collaboratorTWO];
     return collaboratorOneRes == currentUserUID
@@ -54,6 +56,7 @@ class CollaborativeQueries {
   }) async {
     final List res = await supabase.from("existing_collaborations").select().or(
         '$collaboratorONE.eq.$currentUserUID,$collaboratorTWO.eq.$currentUserUID');
+    if (res.isEmpty) return [];
     if (filterForIsActive && !filterForUnconsecrated) {
       res.removeWhere((element) => element[isCurrentlyActive] == false);
     } else if (filterForUnconsecrated && !filterForIsActive) {
