@@ -86,6 +86,25 @@ mixin _$DeleteUnconsecratedCollaborationsCoordinator
     });
   }
 
+  late final _$userHasDeletedArtifactsAtom = Atom(
+      name:
+          '_DeleteUnconsecratedCollaborationsCoordinatorBase.userHasDeletedArtifacts',
+      context: context);
+
+  @override
+  bool get userHasDeletedArtifacts {
+    _$userHasDeletedArtifactsAtom.reportRead();
+    return super.userHasDeletedArtifacts;
+  }
+
+  @override
+  set userHasDeletedArtifacts(bool value) {
+    _$userHasDeletedArtifactsAtom
+        .reportWrite(value, super.userHasDeletedArtifacts, () {
+      super.userHasDeletedArtifacts = value;
+    });
+  }
+
   late final _$schedulingSessionIsDeletedAtom = Atom(
       name:
           '_DeleteUnconsecratedCollaborationsCoordinatorBase.schedulingSessionIsDeleted',
@@ -227,6 +246,7 @@ collaborationIsDeleted: ${collaborationIsDeleted},
 soloDocumentIsDeleted: ${soloDocumentIsDeleted},
 capsuleArrangementIsDeleted: ${capsuleArrangementIsDeleted},
 collaborativeDocumentIsDeleted: ${collaborativeDocumentIsDeleted},
+userHasDeletedArtifacts: ${userHasDeletedArtifacts},
 schedulingSessionIsDeleted: ${schedulingSessionIsDeleted},
 hasAnUnconsecratedCollabooration: ${hasAnUnconsecratedCollabooration},
 collaboratorHasDeletedArtifacts: ${collaboratorHasDeletedArtifacts},
