@@ -46,6 +46,7 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
 
   @action
   constructor() async {
+    setDisableAllTouchFeedback(true);
     widgets.constructor();
     initReactors();
     collaboratorPresence.setBasePhaseForScreen(1.0);
@@ -76,6 +77,9 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
     await collaboratorPresence.updateTimerStatus(true);
     await collaboratorPresence
         .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
+    if (collaboratorPresence.getSessionMetadataStore.collaboratorIsOnline) {
+      collaboratorPresence.incidentsOverlayStore.onCollaboratorJoined();
+    }
   }
 
   @action
@@ -86,8 +90,20 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
   }
 
   initReactors() {
-    voiceCall.initReactors();
-    onCollaboratorCallPresenceChangeReactor();
+    voiceCall.initReactors(onBothJoinedCall: () {
+      setDisableAllTouchFeedback(false);
+      print("both joined");
+    });
+    collaboratorPresence.initReactors(
+      onCollaboratorJoined: () {
+        setDisableAllTouchFeedback(false);
+        print("collaborator joined");
+      },
+      onCollaboratorLeft: () {
+        setDisableAllTouchFeedback(true);
+        print("collaborator left");
+      },
+    );
     bothCollaboratorsAreOnCallAndOnlineReactor();
     collaboratorTalkingStatusReactor();
     userTalkingStatusReactor();
@@ -106,13 +122,16 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
   }
 
   holdReactor() => reaction((p0) => hold.holdCount, (p0) async {
-        if (canSpeak &&
-            voiceCall.voiceCallStatusStore.inCall == CallStatus.joined &&
-            !widgets.isDisconnected &&
-            collaboratorPresence.getSessionMetadataStore.collaboratorIsOnline) {
-          await collaboratorPresence
-              .updateWhoIsTalking(UpdateWhoIsTalkingParams.setUserAsTalker);
-        }
+        ifTouchIsNotDisabled(() async {
+          if (canSpeak &&
+              voiceCall.voiceCallStatusStore.inCall == CallStatus.joined &&
+              !widgets.isDisconnected &&
+              collaboratorPresence
+                  .getSessionMetadataStore.collaboratorIsOnline) {
+            await collaboratorPresence
+                .updateWhoIsTalking(UpdateWhoIsTalkingParams.setUserAsTalker);
+          }
+        });
       });
 
   letGoReactor() => reaction((p0) => hold.letGoCount, (p0) async {
@@ -153,19 +172,6 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
         } else {
           widgets.onLetGo();
           await voiceCall.voiceCallActionsStore.muteAudio(NoParams());
-        }
-      });
-
-  onCollaboratorCallPresenceChangeReactor() => reaction(
-          (p0) =>
-              collaboratorPresence.getSessionMetadataStore.collaboratorIsOnline,
-          (p0) async {
-        if (p0) {
-          widgets.onCollaboratorJoined();
-        } else {
-          widgets.onCollaboratorLeft();
-          await collaboratorPresence.updateCallStatus(
-              UpdatePresencePropertyParams.collaboratorNegative());
         }
       });
 
