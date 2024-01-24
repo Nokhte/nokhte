@@ -7,3 +7,4 @@ pubspec.lock
 packages/client/ios/Gemfile.lock
 packages/client/ios/Podfile.lock
 ./.vscode/nokhte.code-workspace
+.patrol.env
