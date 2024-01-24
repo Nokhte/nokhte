@@ -128,35 +128,6 @@ mixin _$PurposeSessionPhase1WidgetsCoordinator
   }
 
   @override
-  dynamic onCallLeft() {
-    final _$actionInfo =
-        _$_PurposeSessionPhase1WidgetsCoordinatorBaseActionController
-            .startAction(
-                name: '_PurposeSessionPhase1WidgetsCoordinatorBase.onCallLeft');
-    try {
-      return super.onCallLeft();
-    } finally {
-      _$_PurposeSessionPhase1WidgetsCoordinatorBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic onCallJoined() {
-    final _$actionInfo =
-        _$_PurposeSessionPhase1WidgetsCoordinatorBaseActionController
-            .startAction(
-                name:
-                    '_PurposeSessionPhase1WidgetsCoordinatorBase.onCallJoined');
-    try {
-      return super.onCallJoined();
-    } finally {
-      _$_PurposeSessionPhase1WidgetsCoordinatorBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic onConnected() {
     final _$actionInfo =
         _$_PurposeSessionPhase1WidgetsCoordinatorBaseActionController

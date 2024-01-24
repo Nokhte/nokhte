@@ -68,27 +68,6 @@ abstract class _PurposeSessionPhase1WidgetsCoordinatorBase
   }
 
   @action
-  onCallLeft() {
-    if (!timesUpCallbackHasBeenCalled) {
-      isInTheCall = false;
-      nokhteBlur.init();
-      errorText.setCurrentIndex(0);
-      if (!errorText.showWidget) {
-        errorText.toggleWidgetVisibility();
-      }
-      errorText.startRotatingText();
-    }
-  }
-
-  @action
-  onCallJoined() {
-    isInTheCall = true;
-    if (errorText.currentIndex == 0) {
-      errorText.startRotatingText(isResuming: true);
-    }
-  }
-
-  @action
   onConnected() {
     if (primarySmartText.isPaused &&
         wifiDisconnectOverlay.movieMode ==

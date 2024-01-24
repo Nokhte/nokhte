@@ -47,7 +47,6 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
   @action
   constructor() async {
     widgets.constructor();
-    widgets.onCallLeft();
     initReactors();
     collaboratorPresence.setBasePhaseForScreen(1.0);
     await Permission.microphone.request();
@@ -87,7 +86,7 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
   }
 
   initReactors() {
-    onCallStatusChangeReactor();
+    voiceCall.initReactors();
     onCollaboratorCallPresenceChangeReactor();
     bothCollaboratorsAreOnCallAndOnlineReactor();
     collaboratorTalkingStatusReactor();
@@ -95,7 +94,6 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
     holdReactor();
     letGoReactor();
     timerReactor();
-    onCollaboratorCallStatusChangeReactor();
     widgets.wifiDisconnectOverlayReactor(
       onConnectionFinished: () async {
         await collaboratorPresence
@@ -155,38 +153,6 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
         } else {
           widgets.onLetGo();
           await voiceCall.voiceCallActionsStore.muteAudio(NoParams());
-        }
-      });
-
-  onCallStatusChangeReactor() =>
-      reaction((p0) => voiceCall.voiceCallStatusStore.inCall, (p0) async {
-        if (p0 == CallStatus.joined) {
-          widgets.onCallJoined();
-          await collaboratorPresence
-              .updateCallStatus(UpdatePresencePropertyParams.userAffirmative());
-        } else if (p0 == CallStatus.left) {
-          if (!collaboratorPresence
-              .getSessionMetadataStore.collaboratorHasMovedOn) {
-            widgets.onCallLeft();
-          }
-          await collaboratorPresence
-              .updateCallStatus(UpdatePresencePropertyParams.userNegative());
-        }
-      });
-
-  onCollaboratorCallStatusChangeReactor() =>
-      reaction((p0) => voiceCall.voiceCallStatusStore.hasCollaboratorJoined,
-          (p0) async {
-        if (p0) {
-          await collaboratorPresence.updateCallStatus(
-              UpdatePresencePropertyParams.collaboratorAffirmative());
-        } else {
-          if (!collaboratorPresence
-              .getSessionMetadataStore.collaboratorHasMovedOn) {
-            widgets.onCallLeft();
-          }
-          await collaboratorPresence.updateCallStatus(
-              UpdatePresencePropertyParams.collaboratorNegative());
         }
       });
 
