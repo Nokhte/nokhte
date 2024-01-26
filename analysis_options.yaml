@@ -1,0 +1,4 @@
+analyzer:
+  exclude:
+    - packages/i1_client/**
+    - packages/i2_client/**
