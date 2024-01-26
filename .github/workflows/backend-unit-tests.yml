@@ -1,0 +1,30 @@
+name: backend-unit-tests
+run-name: Backend Unit Tests
+on:
+  push:
+    branches:
+      - development
+    paths:
+      - "packages/backend/**"
+  pull_request:
+    branches:
+      - development
+    paths:
+      - "packages/backend/**"
+
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/backend/dart
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.13.9"
+          channel: "stable"
+      - uses: supabase/setup-cli@v1
+      - run: cd .. && supabase start
+      - run: flutter test
