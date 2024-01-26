@@ -1,0 +1,2 @@
+cd android
+bundle exec fastlane external_android_beta_build
