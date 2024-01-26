@@ -8,7 +8,6 @@ class NokhteCustomAnimationBuilder<T> extends StatefulWidget {
     required this.builder,
     required this.tween,
     required this.duration,
-    // test to see if the ci/cd works
     this.control = Control.play,
     this.curve = Curves.linear,
     this.delay = Duration.zero,
