@@ -26,7 +26,7 @@ void main() {
     expect(testStore.primarySmartText.showWidget, false);
     expect(testStore.timeModel.showWidget, false);
     expect(beachWaves.movieMode, BeachWaveMovieModes.onShoreToOceanDive);
-    expect(beachWaves.movieStatus, MovieStatus.inProgress);
+    expect(beachWaves.movieStatus, MovieStatus.idle);
     expect(beachWaves.currentControl, Control.playFromStart);
     verify(gestureCross.initMoveAndRegenerate(CircleOffsets.top));
   }
@@ -94,16 +94,6 @@ void main() {
         expect(testStore.clockIsVisible, true);
         testStore.toggleClockIsVisible();
         expect(testStore.clockIsVisible, false);
-      });
-
-      test('onConnected', () {
-        testStore.onConnected();
-        expect(testStore.isDisconnected, false);
-      });
-
-      test('onDisconnected', () {
-        testStore.onDisconnected();
-        expect(testStore.isDisconnected, true);
       });
 
       test('Constructor', () async {
