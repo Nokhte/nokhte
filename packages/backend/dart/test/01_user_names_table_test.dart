@@ -14,7 +14,6 @@ void main() {
   late String? currentUserUID;
   late UserNamesQueries user1UserNameQueries;
   late UserNamesQueries adminUserNameQueries;
-  // test commit
 
   setUpAll(() async {
     supabase = SupabaseClientConfigConstants.supabase;
