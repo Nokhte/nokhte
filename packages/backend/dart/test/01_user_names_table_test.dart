@@ -10,7 +10,6 @@ import 'package:nokhte_backend/constants/constants.dart';
 
 void main() {
   late SupabaseClient supabaseAdmin;
-  // test commit
   late SupabaseClient supabase;
   late String? currentUserUID;
   late UserNamesQueries user1UserNameQueries;
