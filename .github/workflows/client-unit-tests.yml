@@ -3,8 +3,7 @@ run-name: Client Unit Tests
 on:
   push:
     paths:
-      - 'packages/client/**'
-
+      - "packages/client/**"
 
 jobs:
   run-tests:
@@ -15,8 +14,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
-        with: 
-          flutter-version: '3.13.9'
-          channel: 'stable'
+        with:
+          flutter-version: "3.13.9"
+          channel: "stable"
+      - run: touch .env
       - run: flutter pub get
       - run: flutter test
