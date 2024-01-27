@@ -26,8 +26,8 @@ jobs:
         with:
           flutter-version: "3.13.9"
           channel: "stable"
-      - run: echo "export GOOGLE_CLIENT_ID='${{secrets.GOOGLE_CLIENT_ID}}'" >> .env
-      - run: echo "export GOOGLE_CLIENT_SECRET='${{secrets.GOOGLE_CLIENT_SECRET}}'" >> .env
+      - run: cd supabase && echo "export GOOGLE_CLIENT_ID='${{secrets.GOOGLE_CLIENT_ID}}'" >> .env
+      - run: cd supabase && echo "export GOOGLE_CLIENT_SECRET='${{secrets.GOOGLE_CLIENT_SECRET}}'" >> .env
       - run: supabase start
       - run: supabase start
       - run: supabase functions serve
