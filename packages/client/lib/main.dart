@@ -8,6 +8,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/foundation.dart';
 
 void main() async {
+  // test gitlab sync
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterBranchSdk.init(
     disableTracking: true,
