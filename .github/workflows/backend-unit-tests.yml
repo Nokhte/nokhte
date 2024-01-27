@@ -33,7 +33,6 @@ jobs:
       - run: echo "GOOGLE_CLIENT_ID='$GOOGLE_CLIENT_ID'" >> .env
       - run: echo "GOOGLE_CLIENT_SECRET='$GOOGLE_CLIENT_SECRET'" >> .env
       - run: supabase start
-      - run: supabase functions serve initiate-collaborator-search
-      - run: supabase functions serve end-collaborator-search
+      - run: cd supabase && supabase functions serve
       - run: cd dart && flutter pub get
       - run: cd dart && scripts/test.sh
