@@ -25,15 +25,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: supabase/setup-cli@v1
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.13.9"
           channel: "stable"
-      - run: cargo install --locked cargo-pgrx
-      - run: cargo pgrx run
       - run: echo "GOOGLE_CLIENT_ID='$GOOGLE_CLIENT_ID'" >> .env
       - run: echo "GOOGLE_CLIENT_SECRET='$GOOGLE_CLIENT_SECRET'" >> .env
       - run: supabase start
