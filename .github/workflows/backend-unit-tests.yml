@@ -25,6 +25,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: supabase/setup-cli@v1
+        with: 
+          version: 1.29.3
+
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.13.9"
