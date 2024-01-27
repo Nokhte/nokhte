@@ -24,18 +24,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: supabase/setup-cli@v1
-
         with:
           version: 1.29.3
-
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.13.9"
           channel: "stable"
-      - uses: bluefireteam/melos-action@v3
-      - run: cd ../.. && melos bs
       - run: echo "GOOGLE_CLIENT_ID='$GOOGLE_CLIENT_ID'" >> .env
       - run: echo "GOOGLE_CLIENT_SECRET='$GOOGLE_CLIENT_SECRET'" >> .env
       - run: supabase start
       - run: cd dart && flutter pub get
-      - run: ./dart/scripts/test.sh
+      - run: cd dart && scripts/test.sh
