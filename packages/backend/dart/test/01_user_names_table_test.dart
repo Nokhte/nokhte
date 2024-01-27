@@ -14,6 +14,7 @@ void main() {
   late String? currentUserUID;
   late UserNamesQueries user1UserNameQueries;
   late UserNamesQueries adminUserNameQueries;
+  //
 
   setUpAll(() async {
     supabase = SupabaseClientConfigConstants.supabase;
