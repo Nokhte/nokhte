@@ -26,7 +26,14 @@ jobs:
         with:
           flutter-version: "3.13.9"
           channel: "stable"
-      - run: echo "${{ secrets.BACKEND_ENV_FILE}}" | base64 --decode > .env
+      - shell: bash
+        env: 
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          echo "GOOGLE_CLIENT_ID='$GOOGLE_CLIENT_ID'" >> .env
+          echo "GOOGLE_CLIENT_SECRET='$GOOGLE_CLIENT_SECRET'" >> .env
+      - run: supabase start
       - run: supabase start
       - run: supabase functions serve
       - run: cd dart && flutter test
