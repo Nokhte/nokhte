@@ -12,6 +12,7 @@ on:
     paths:
       - "packages/backend/**"
 
+      
 jobs:
   run-tests:
     runs-on: ubuntu-latest
@@ -20,12 +21,12 @@ jobs:
         working-directory: packages/backend
     steps:
       - uses: actions/checkout@v4
+      - uses: supabase/setup-cli@v1
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.13.9"
           channel: "stable"
-      - uses: supabase/setup-cli@v1
-      - run: cd supabase && echo "${{ secrets.BACKEND_ENV_FILE}}" > .env
+      - run: echo "${{ secrets.BACKEND_ENV_FILE}}" | base64 --decode > .env
       - run: supabase start
       - run: supabase functions serve
       - run: cd dart && flutter test
