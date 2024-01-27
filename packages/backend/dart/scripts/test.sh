@@ -1,4 +1,3 @@
-cd packages/backend/dart
 flutter test test/01_user_names_table_test.dart
 flutter test test/02_synchronous_search_test.dart
 flutter test test/03_get_agora_token_test.dart
