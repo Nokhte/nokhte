@@ -26,7 +26,6 @@ void main() {
     adminUserNameQueries = UserNamesQueries(supabase: supabaseAdmin);
     adminUserNameQueries.userUID = currentUserUID ?? '';
   });
-  //
 
   tearDown(() async {
     await adminUserNameQueries.deleteUserInfo();
