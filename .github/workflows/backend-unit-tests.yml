@@ -16,6 +16,9 @@ on:
 jobs:
   run-tests:
     runs-on: ubuntu-latest
+    env:
+        GOOGLE_CLIENT_ID: ${{secrets.GOOGLE_CLIENT_ID}}
+        GOOGLE_CLIENT_SECRET: ${{secrets.GOOGLE_CLIENT_SECRET}}
     defaults:
       run:
         working-directory: packages/backend
@@ -26,8 +29,8 @@ jobs:
         with:
           flutter-version: "3.13.9"
           channel: "stable"
-      - run: cd supabase && echo "export GOOGLE_CLIENT_ID='${{secrets.GOOGLE_CLIENT_ID}}'" >> .env
-      - run: cd supabase && echo "export GOOGLE_CLIENT_SECRET='${{secrets.GOOGLE_CLIENT_SECRET}}'" >> .env
+      - run: echo "GOOGLE_CLIENT_ID='$GOOGLE_CLIENT_ID'" >> .env
+      - run: echo "GOOGLE_CLIENT_SECRET='GOOGLE_CLIENT_SECRET'" >> .env
       - run: supabase start
       - run: supabase start
       - run: supabase functions serve
