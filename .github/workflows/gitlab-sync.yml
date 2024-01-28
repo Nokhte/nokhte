@@ -6,11 +6,6 @@ on:
       - development
       - staging
       - production
-  pull_request:
-    branches:
-      - development
-      - staging
-      - production
 
 jobs:
   sync:
