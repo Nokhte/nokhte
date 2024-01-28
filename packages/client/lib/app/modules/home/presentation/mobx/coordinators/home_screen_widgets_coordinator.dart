@@ -131,7 +131,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   onSwipeUp() {
-    if (primarySmartText.currentIndex.equals(4) &&
+    if (primarySmartText.currentIndex.equals(1) &&
         !hasSwipedUp &&
         !hasCompletedInvitationFlow) {
       prepForNavigation();
