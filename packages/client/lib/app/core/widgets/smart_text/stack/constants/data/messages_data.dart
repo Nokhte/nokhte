@@ -239,4 +239,22 @@ class MessagesData {
           pauseHere: true,
         ),
       ];
+
+  static List<RotatingTextData> get primaryNokhteSessionPhase0List => [
+        RotatingTextData(
+          initialFadeInDelay: Seconds.get(0),
+          mainMessage:
+              "You will have some questions to orient the conversation",
+          onScreenTime: Seconds.get(2),
+        ),
+        RotatingTextData(
+          initialFadeInDelay: Seconds.get(0),
+          mainMessage: "The aim is to create a single statement together",
+          onScreenTime: Seconds.get(2),
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
+      ];
 }
