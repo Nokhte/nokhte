@@ -59,21 +59,18 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
         widgets.onInactive();
       },
     );
-    availabilitySectorReactor();
   }
 
   @action
   onResumed() {
     ifTouchIsNotDisabled(() {
       widgets.onResumed();
-      print("are you running???? onResumed");
     });
   }
 
   @action
   onInactive() {
     ifTouchIsNotDisabled(() {
-      print("are you running???? onInactive");
       widgets.onInactive();
     });
   }
@@ -89,14 +86,6 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
             });
           default:
             break;
-        }
-      });
-
-  availabilitySectorReactor() =>
-      reaction((p0) => widgets.timeModel.availabilitySectors.tapCount, (p0) {
-        if (!widgets.isDoubleTriggeringWindDown && !disableAllTouchFeedback) {
-          widgets.timeModel.availabilitySectors.initJoinAndFadeOutMovie();
-          widgets.toggleIsDoubleTriggeringWindDown();
         }
       });
 }
