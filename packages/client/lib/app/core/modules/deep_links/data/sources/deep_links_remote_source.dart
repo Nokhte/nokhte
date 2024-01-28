@@ -33,6 +33,12 @@ class DeepLinksRemoteSourceImpl implements DeepLinksRemoteSource {
           linkProperties: invitationInfo.linkProperties,
           buo: invitationInfo.universalObject,
         );
+      case DeepLinkTypes.nokhteSession:
+        final invitationInfo = await _assembleNokhteSessionInvitation();
+        return await FlutterBranchSdk.getShortUrl(
+          linkProperties: invitationInfo.linkProperties,
+          buo: invitationInfo.universalObject,
+        );
       default:
         return BranchResponse.error(
             errorMessage: "deep link type not specified", errorCode: "409");
@@ -49,6 +55,12 @@ class DeepLinksRemoteSourceImpl implements DeepLinksRemoteSource {
       uid: uid,
     ).getBranchLinkProperties();
   }
+
+  Future<BranchUniversalObjectAndLinkProperties>
+      _assembleNokhteSessionInvitation() async =>
+          NokhteSessionInvitationInformation(
+            senderUID: supabase.auth.currentUser?.id ?? '',
+          ).getBranchLinkProperties();
 
   @override
   Future<ShareResult> sendDeepLink(

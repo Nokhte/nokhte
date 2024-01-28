@@ -2,23 +2,20 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:nokhte/app/core/modules/deep_links/constants/constants.dart';
 
-class CollaboratorInvitationInformation extends Equatable {
-  final String uid;
-  final String firstName;
-  const CollaboratorInvitationInformation({
-    required this.firstName,
-    required this.uid,
-  });
+class NokhteSessionInvitationInformation extends Equatable {
+  final String senderUID;
+
+  const NokhteSessionInvitationInformation({required this.senderUID});
 
   BranchUniversalObjectAndLinkProperties getBranchLinkProperties() {
     final branchObject = BranchUniversalObject(
-      canonicalIdentifier: "${DeepLinkPrefixes.collaboratorCode}/$uid",
-      title: "Collaborate With $firstName",
+      canonicalIdentifier: "${DeepLinkPrefixes.nokhteCode}/$senderUID",
+      title: "Join Nokhte Session",
       imageUrl: DeepLinkConstants.nokhteImageURL,
     );
     final linkProperties = BranchLinkProperties(
       alias: branchObject.canonicalIdentifier,
-      feature: "collaboration",
+      feature: "nokhte_session",
       stage: "new invitation",
     );
     return BranchUniversalObjectAndLinkProperties(
@@ -28,5 +25,5 @@ class CollaboratorInvitationInformation extends Equatable {
   }
 
   @override
-  List<Object?> get props => [firstName, uid];
+  List<Object> get props => [senderUID];
 }

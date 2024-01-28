@@ -257,9 +257,20 @@ class _FakeListenForOpenedDeepLink_17 extends _i1.SmartFake
         );
 }
 
-class _FakeUserInformationCoordinator_18 extends _i1.SmartFake
+class _FakeInterpretNokhteSessionDeepLink_18 extends _i1.SmartFake
+    implements _i14.InterpretNokhteSessionDeepLink {
+  _FakeInterpretNokhteSessionDeepLink_18(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeUserInformationCoordinator_19 extends _i1.SmartFake
     implements _i12.UserInformationCoordinator {
-  _FakeUserInformationCoordinator_18(
+  _FakeUserInformationCoordinator_19(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -268,9 +279,9 @@ class _FakeUserInformationCoordinator_18 extends _i1.SmartFake
         );
 }
 
-class _FakeInterpretCollaboratorCodeDeepLink_19 extends _i1.SmartFake
+class _FakeInterpretCollaboratorCodeDeepLink_20 extends _i1.SmartFake
     implements _i14.InterpretCollaboratorCodeDeepLink {
-  _FakeInterpretCollaboratorCodeDeepLink_19(
+  _FakeInterpretCollaboratorCodeDeepLink_20(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -279,9 +290,9 @@ class _FakeInterpretCollaboratorCodeDeepLink_19 extends _i1.SmartFake
         );
 }
 
-class _FakeObservableStream_20<T> extends _i1.SmartFake
+class _FakeObservableStream_21<T> extends _i1.SmartFake
     implements _i11.ObservableStream<T> {
-  _FakeObservableStream_20(
+  _FakeObservableStream_21(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -290,9 +301,9 @@ class _FakeObservableStream_20<T> extends _i1.SmartFake
         );
 }
 
-class _FakeObservableMap_21<K, V> extends _i1.SmartFake
+class _FakeObservableMap_22<K, V> extends _i1.SmartFake
     implements _i11.ObservableMap<K, V> {
-  _FakeObservableMap_21(
+  _FakeObservableMap_22(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -301,9 +312,9 @@ class _FakeObservableMap_21<K, V> extends _i1.SmartFake
         );
 }
 
-class _FakeTimeAlignmentModelCoordinator_22 extends _i1.SmartFake
+class _FakeTimeAlignmentModelCoordinator_23 extends _i1.SmartFake
     implements _i15.TimeAlignmentModelCoordinator {
-  _FakeTimeAlignmentModelCoordinator_22(
+  _FakeTimeAlignmentModelCoordinator_23(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -312,9 +323,9 @@ class _FakeTimeAlignmentModelCoordinator_22 extends _i1.SmartFake
         );
 }
 
-class _FakeNokhteBlurStore_23 extends _i1.SmartFake
+class _FakeNokhteBlurStore_24 extends _i1.SmartFake
     implements _i15.NokhteBlurStore {
-  _FakeNokhteBlurStore_23(
+  _FakeNokhteBlurStore_24(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -323,9 +334,9 @@ class _FakeNokhteBlurStore_23 extends _i1.SmartFake
         );
 }
 
-class _FakeBeachWavesStore_24 extends _i1.SmartFake
+class _FakeBeachWavesStore_25 extends _i1.SmartFake
     implements _i15.BeachWavesStore {
-  _FakeBeachWavesStore_24(
+  _FakeBeachWavesStore_25(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -334,9 +345,9 @@ class _FakeBeachWavesStore_24 extends _i1.SmartFake
         );
 }
 
-class _FakeWifiDisconnectOverlayStore_25 extends _i1.SmartFake
+class _FakeWifiDisconnectOverlayStore_26 extends _i1.SmartFake
     implements _i15.WifiDisconnectOverlayStore {
-  _FakeWifiDisconnectOverlayStore_25(
+  _FakeWifiDisconnectOverlayStore_26(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -345,9 +356,9 @@ class _FakeWifiDisconnectOverlayStore_25 extends _i1.SmartFake
         );
 }
 
-class _FakeGestureCrossStore_26 extends _i1.SmartFake
+class _FakeGestureCrossStore_27 extends _i1.SmartFake
     implements _i15.GestureCrossStore {
-  _FakeGestureCrossStore_26(
+  _FakeGestureCrossStore_27(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -356,9 +367,9 @@ class _FakeGestureCrossStore_26 extends _i1.SmartFake
         );
 }
 
-class _FakeSmartTextStore_27 extends _i1.SmartFake
+class _FakeSmartTextStore_28 extends _i1.SmartFake
     implements _i15.SmartTextStore {
-  _FakeSmartTextStore_27(
+  _FakeSmartTextStore_28(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -367,9 +378,9 @@ class _FakeSmartTextStore_27 extends _i1.SmartFake
         );
 }
 
-class _FakeDeepLinksCoordinator_28 extends _i1.SmartFake
+class _FakeDeepLinksCoordinator_29 extends _i1.SmartFake
     implements _i16.DeepLinksCoordinator {
-  _FakeDeepLinksCoordinator_28(
+  _FakeDeepLinksCoordinator_29(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -378,9 +389,9 @@ class _FakeDeepLinksCoordinator_28 extends _i1.SmartFake
         );
 }
 
-class _FakeGetDeepLinkURL_29 extends _i1.SmartFake
+class _FakeGetDeepLinkURL_30 extends _i1.SmartFake
     implements _i14.GetDeepLinkURL {
-  _FakeGetDeepLinkURL_29(
+  _FakeGetDeepLinkURL_30(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -389,8 +400,8 @@ class _FakeGetDeepLinkURL_29 extends _i1.SmartFake
         );
 }
 
-class _FakeSendDeepLink_30 extends _i1.SmartFake implements _i14.SendDeepLink {
-  _FakeSendDeepLink_30(
+class _FakeSendDeepLink_31 extends _i1.SmartFake implements _i14.SendDeepLink {
+  _FakeSendDeepLink_31(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -399,9 +410,9 @@ class _FakeSendDeepLink_30 extends _i1.SmartFake implements _i14.SendDeepLink {
         );
 }
 
-class _FakeListenForOpenedDeepLinkStore_31 extends _i1.SmartFake
+class _FakeListenForOpenedDeepLinkStore_32 extends _i1.SmartFake
     implements _i16.ListenForOpenedDeepLinkStore {
-  _FakeListenForOpenedDeepLinkStore_31(
+  _FakeListenForOpenedDeepLinkStore_32(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -410,9 +421,9 @@ class _FakeListenForOpenedDeepLinkStore_31 extends _i1.SmartFake
         );
 }
 
-class _FakeUserJourneyInfoEntity_32 extends _i1.SmartFake
+class _FakeUserJourneyInfoEntity_33 extends _i1.SmartFake
     implements _i13.UserJourneyInfoEntity {
-  _FakeUserJourneyInfoEntity_32(
+  _FakeUserJourneyInfoEntity_33(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -421,8 +432,8 @@ class _FakeUserJourneyInfoEntity_32 extends _i1.SmartFake
         );
 }
 
-class _FakeGetUserInfo_33 extends _i1.SmartFake implements _i13.GetUserInfo {
-  _FakeGetUserInfo_33(
+class _FakeGetUserInfo_34 extends _i1.SmartFake implements _i13.GetUserInfo {
+  _FakeGetUserInfo_34(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -431,9 +442,9 @@ class _FakeGetUserInfo_33 extends _i1.SmartFake implements _i13.GetUserInfo {
         );
 }
 
-class _FakeCollaboratorInfo_34 extends _i1.SmartFake
+class _FakeCollaboratorInfo_35 extends _i1.SmartFake
     implements _i3.CollaboratorInfo {
-  _FakeCollaboratorInfo_34(
+  _FakeCollaboratorInfo_35(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -442,9 +453,9 @@ class _FakeCollaboratorInfo_34 extends _i1.SmartFake
         );
 }
 
-class _FakeDeleteCapsuleArrangement_35 extends _i1.SmartFake
+class _FakeDeleteCapsuleArrangement_36 extends _i1.SmartFake
     implements _i17.DeleteCapsuleArrangement {
-  _FakeDeleteCapsuleArrangement_35(
+  _FakeDeleteCapsuleArrangement_36(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -453,9 +464,9 @@ class _FakeDeleteCapsuleArrangement_35 extends _i1.SmartFake
         );
 }
 
-class _FakeDeleteCollaborativeDocument_36 extends _i1.SmartFake
+class _FakeDeleteCollaborativeDocument_37 extends _i1.SmartFake
     implements _i17.DeleteCollaborativeDocument {
-  _FakeDeleteCollaborativeDocument_36(
+  _FakeDeleteCollaborativeDocument_37(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -464,9 +475,9 @@ class _FakeDeleteCollaborativeDocument_36 extends _i1.SmartFake
         );
 }
 
-class _FakeDeleteSchedulingSession_37 extends _i1.SmartFake
+class _FakeDeleteSchedulingSession_38 extends _i1.SmartFake
     implements _i17.DeleteSchedulingSession {
-  _FakeDeleteSchedulingSession_37(
+  _FakeDeleteSchedulingSession_38(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -475,9 +486,9 @@ class _FakeDeleteSchedulingSession_37 extends _i1.SmartFake
         );
 }
 
-class _FakeDeleteTheCollaboration_38 extends _i1.SmartFake
+class _FakeDeleteTheCollaboration_39 extends _i1.SmartFake
     implements _i17.DeleteTheCollaboration {
-  _FakeDeleteTheCollaboration_38(
+  _FakeDeleteTheCollaboration_39(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -486,9 +497,9 @@ class _FakeDeleteTheCollaboration_38 extends _i1.SmartFake
         );
 }
 
-class _FakeDeleteSoloDocument_39 extends _i1.SmartFake
+class _FakeDeleteSoloDocument_40 extends _i1.SmartFake
     implements _i17.DeleteSoloDocument {
-  _FakeDeleteSoloDocument_39(
+  _FakeDeleteSoloDocument_40(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -497,9 +508,9 @@ class _FakeDeleteSoloDocument_39 extends _i1.SmartFake
         );
 }
 
-class _FakeCheckIfCollaboratorHasDeletedArtifacts_40 extends _i1.SmartFake
+class _FakeCheckIfCollaboratorHasDeletedArtifacts_41 extends _i1.SmartFake
     implements _i17.CheckIfCollaboratorHasDeletedArtifacts {
-  _FakeCheckIfCollaboratorHasDeletedArtifacts_40(
+  _FakeCheckIfCollaboratorHasDeletedArtifacts_41(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -508,9 +519,9 @@ class _FakeCheckIfCollaboratorHasDeletedArtifacts_40 extends _i1.SmartFake
         );
 }
 
-class _FakeCheckForUnconsecratedCollaboration_41 extends _i1.SmartFake
+class _FakeCheckForUnconsecratedCollaboration_42 extends _i1.SmartFake
     implements _i17.CheckForUnconsecratedCollaboration {
-  _FakeCheckForUnconsecratedCollaboration_41(
+  _FakeCheckForUnconsecratedCollaboration_42(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -519,9 +530,9 @@ class _FakeCheckForUnconsecratedCollaboration_41 extends _i1.SmartFake
         );
 }
 
-class _FakeCollaborationLogicCoordinator_42 extends _i1.SmartFake
+class _FakeCollaborationLogicCoordinator_43 extends _i1.SmartFake
     implements _i18.CollaborationLogicCoordinator {
-  _FakeCollaborationLogicCoordinator_42(
+  _FakeCollaborationLogicCoordinator_43(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -530,9 +541,9 @@ class _FakeCollaborationLogicCoordinator_42 extends _i1.SmartFake
         );
 }
 
-class _FakeUpdateHasDeletedArtifacts_43 extends _i1.SmartFake
+class _FakeUpdateHasDeletedArtifacts_44 extends _i1.SmartFake
     implements _i17.UpdateHasDeletedArtifacts {
-  _FakeUpdateHasDeletedArtifacts_43(
+  _FakeUpdateHasDeletedArtifacts_44(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -1637,13 +1648,27 @@ class MockListenForOpenedDeepLinkStore extends _i1.Mock
       ) as _i14.ListenForOpenedDeepLink);
 
   @override
+  _i14.InterpretNokhteSessionDeepLink get interpretNokhteSessionDeepLink =>
+      (super.noSuchMethod(
+        Invocation.getter(#interpretNokhteSessionDeepLink),
+        returnValue: _FakeInterpretNokhteSessionDeepLink_18(
+          this,
+          Invocation.getter(#interpretNokhteSessionDeepLink),
+        ),
+        returnValueForMissingStub: _FakeInterpretNokhteSessionDeepLink_18(
+          this,
+          Invocation.getter(#interpretNokhteSessionDeepLink),
+        ),
+      ) as _i14.InterpretNokhteSessionDeepLink);
+
+  @override
   _i12.UserInformationCoordinator get userInformation => (super.noSuchMethod(
         Invocation.getter(#userInformation),
-        returnValue: _FakeUserInformationCoordinator_18(
+        returnValue: _FakeUserInformationCoordinator_19(
           this,
           Invocation.getter(#userInformation),
         ),
-        returnValueForMissingStub: _FakeUserInformationCoordinator_18(
+        returnValueForMissingStub: _FakeUserInformationCoordinator_19(
           this,
           Invocation.getter(#userInformation),
         ),
@@ -1653,11 +1678,11 @@ class MockListenForOpenedDeepLinkStore extends _i1.Mock
   _i14.InterpretCollaboratorCodeDeepLink get interpretCollaboratorCode =>
       (super.noSuchMethod(
         Invocation.getter(#interpretCollaboratorCode),
-        returnValue: _FakeInterpretCollaboratorCodeDeepLink_19(
+        returnValue: _FakeInterpretCollaboratorCodeDeepLink_20(
           this,
           Invocation.getter(#interpretCollaboratorCode),
         ),
-        returnValueForMissingStub: _FakeInterpretCollaboratorCodeDeepLink_19(
+        returnValueForMissingStub: _FakeInterpretCollaboratorCodeDeepLink_20(
           this,
           Invocation.getter(#interpretCollaboratorCode),
         ),
@@ -1667,12 +1692,12 @@ class MockListenForOpenedDeepLinkStore extends _i1.Mock
   _i11.ObservableStream<Map<dynamic, dynamic>> get deepLinkSream =>
       (super.noSuchMethod(
         Invocation.getter(#deepLinkSream),
-        returnValue: _FakeObservableStream_20<Map<dynamic, dynamic>>(
+        returnValue: _FakeObservableStream_21<Map<dynamic, dynamic>>(
           this,
           Invocation.getter(#deepLinkSream),
         ),
         returnValueForMissingStub:
-            _FakeObservableStream_20<Map<dynamic, dynamic>>(
+            _FakeObservableStream_21<Map<dynamic, dynamic>>(
           this,
           Invocation.getter(#deepLinkSream),
         ),
@@ -1714,11 +1739,11 @@ class MockListenForOpenedDeepLinkStore extends _i1.Mock
   _i11.ObservableMap<dynamic, dynamic> get additionalMetadata =>
       (super.noSuchMethod(
         Invocation.getter(#additionalMetadata),
-        returnValue: _FakeObservableMap_21<dynamic, dynamic>(
+        returnValue: _FakeObservableMap_22<dynamic, dynamic>(
           this,
           Invocation.getter(#additionalMetadata),
         ),
-        returnValueForMissingStub: _FakeObservableMap_21<dynamic, dynamic>(
+        returnValueForMissingStub: _FakeObservableMap_22<dynamic, dynamic>(
           this,
           Invocation.getter(#additionalMetadata),
         ),
@@ -1816,11 +1841,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i15.TimeAlignmentModelCoordinator get timeModel => (super.noSuchMethod(
         Invocation.getter(#timeModel),
-        returnValue: _FakeTimeAlignmentModelCoordinator_22(
+        returnValue: _FakeTimeAlignmentModelCoordinator_23(
           this,
           Invocation.getter(#timeModel),
         ),
-        returnValueForMissingStub: _FakeTimeAlignmentModelCoordinator_22(
+        returnValueForMissingStub: _FakeTimeAlignmentModelCoordinator_23(
           this,
           Invocation.getter(#timeModel),
         ),
@@ -1829,11 +1854,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i15.NokhteBlurStore get nokhteBlur => (super.noSuchMethod(
         Invocation.getter(#nokhteBlur),
-        returnValue: _FakeNokhteBlurStore_23(
+        returnValue: _FakeNokhteBlurStore_24(
           this,
           Invocation.getter(#nokhteBlur),
         ),
-        returnValueForMissingStub: _FakeNokhteBlurStore_23(
+        returnValueForMissingStub: _FakeNokhteBlurStore_24(
           this,
           Invocation.getter(#nokhteBlur),
         ),
@@ -1842,11 +1867,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i15.BeachWavesStore get beachWaves => (super.noSuchMethod(
         Invocation.getter(#beachWaves),
-        returnValue: _FakeBeachWavesStore_24(
+        returnValue: _FakeBeachWavesStore_25(
           this,
           Invocation.getter(#beachWaves),
         ),
-        returnValueForMissingStub: _FakeBeachWavesStore_24(
+        returnValueForMissingStub: _FakeBeachWavesStore_25(
           this,
           Invocation.getter(#beachWaves),
         ),
@@ -1856,11 +1881,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   _i15.WifiDisconnectOverlayStore get wifiDisconnectOverlay =>
       (super.noSuchMethod(
         Invocation.getter(#wifiDisconnectOverlay),
-        returnValue: _FakeWifiDisconnectOverlayStore_25(
+        returnValue: _FakeWifiDisconnectOverlayStore_26(
           this,
           Invocation.getter(#wifiDisconnectOverlay),
         ),
-        returnValueForMissingStub: _FakeWifiDisconnectOverlayStore_25(
+        returnValueForMissingStub: _FakeWifiDisconnectOverlayStore_26(
           this,
           Invocation.getter(#wifiDisconnectOverlay),
         ),
@@ -1869,11 +1894,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i15.GestureCrossStore get gestureCross => (super.noSuchMethod(
         Invocation.getter(#gestureCross),
-        returnValue: _FakeGestureCrossStore_26(
+        returnValue: _FakeGestureCrossStore_27(
           this,
           Invocation.getter(#gestureCross),
         ),
-        returnValueForMissingStub: _FakeGestureCrossStore_26(
+        returnValueForMissingStub: _FakeGestureCrossStore_27(
           this,
           Invocation.getter(#gestureCross),
         ),
@@ -1882,11 +1907,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i15.SmartTextStore get primarySmartText => (super.noSuchMethod(
         Invocation.getter(#primarySmartText),
-        returnValue: _FakeSmartTextStore_27(
+        returnValue: _FakeSmartTextStore_28(
           this,
           Invocation.getter(#primarySmartText),
         ),
-        returnValueForMissingStub: _FakeSmartTextStore_27(
+        returnValueForMissingStub: _FakeSmartTextStore_28(
           this,
           Invocation.getter(#primarySmartText),
         ),
@@ -1895,11 +1920,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i15.SmartTextStore get secondarySmartText => (super.noSuchMethod(
         Invocation.getter(#secondarySmartText),
-        returnValue: _FakeSmartTextStore_27(
+        returnValue: _FakeSmartTextStore_28(
           this,
           Invocation.getter(#secondarySmartText),
         ),
-        returnValueForMissingStub: _FakeSmartTextStore_27(
+        returnValueForMissingStub: _FakeSmartTextStore_28(
           this,
           Invocation.getter(#secondarySmartText),
         ),
@@ -1908,11 +1933,11 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
   @override
   _i16.DeepLinksCoordinator get deepLinks => (super.noSuchMethod(
         Invocation.getter(#deepLinks),
-        returnValue: _FakeDeepLinksCoordinator_28(
+        returnValue: _FakeDeepLinksCoordinator_29(
           this,
           Invocation.getter(#deepLinks),
         ),
-        returnValueForMissingStub: _FakeDeepLinksCoordinator_28(
+        returnValueForMissingStub: _FakeDeepLinksCoordinator_29(
           this,
           Invocation.getter(#deepLinks),
         ),
@@ -2148,11 +2173,11 @@ class MockDeepLinksCoordinator extends _i1.Mock
   @override
   _i14.GetDeepLinkURL get getDeepLinkUrlLogic => (super.noSuchMethod(
         Invocation.getter(#getDeepLinkUrlLogic),
-        returnValue: _FakeGetDeepLinkURL_29(
+        returnValue: _FakeGetDeepLinkURL_30(
           this,
           Invocation.getter(#getDeepLinkUrlLogic),
         ),
-        returnValueForMissingStub: _FakeGetDeepLinkURL_29(
+        returnValueForMissingStub: _FakeGetDeepLinkURL_30(
           this,
           Invocation.getter(#getDeepLinkUrlLogic),
         ),
@@ -2161,11 +2186,11 @@ class MockDeepLinksCoordinator extends _i1.Mock
   @override
   _i14.SendDeepLink get sendDeepLinkLogic => (super.noSuchMethod(
         Invocation.getter(#sendDeepLinkLogic),
-        returnValue: _FakeSendDeepLink_30(
+        returnValue: _FakeSendDeepLink_31(
           this,
           Invocation.getter(#sendDeepLinkLogic),
         ),
-        returnValueForMissingStub: _FakeSendDeepLink_30(
+        returnValueForMissingStub: _FakeSendDeepLink_31(
           this,
           Invocation.getter(#sendDeepLinkLogic),
         ),
@@ -2175,11 +2200,11 @@ class MockDeepLinksCoordinator extends _i1.Mock
   _i16.ListenForOpenedDeepLinkStore get listenForOpenedDeepLinkStore =>
       (super.noSuchMethod(
         Invocation.getter(#listenForOpenedDeepLinkStore),
-        returnValue: _FakeListenForOpenedDeepLinkStore_31(
+        returnValue: _FakeListenForOpenedDeepLinkStore_32(
           this,
           Invocation.getter(#listenForOpenedDeepLinkStore),
         ),
-        returnValueForMissingStub: _FakeListenForOpenedDeepLinkStore_31(
+        returnValueForMissingStub: _FakeListenForOpenedDeepLinkStore_32(
           this,
           Invocation.getter(#listenForOpenedDeepLinkStore),
         ),
@@ -2431,11 +2456,11 @@ class MockGetUserInfoStore extends _i1.Mock implements _i12.GetUserInfoStore {
   @override
   _i13.UserJourneyInfoEntity get entity => (super.noSuchMethod(
         Invocation.getter(#entity),
-        returnValue: _FakeUserJourneyInfoEntity_32(
+        returnValue: _FakeUserJourneyInfoEntity_33(
           this,
           Invocation.getter(#entity),
         ),
-        returnValueForMissingStub: _FakeUserJourneyInfoEntity_32(
+        returnValueForMissingStub: _FakeUserJourneyInfoEntity_33(
           this,
           Invocation.getter(#entity),
         ),
@@ -2453,11 +2478,11 @@ class MockGetUserInfoStore extends _i1.Mock implements _i12.GetUserInfoStore {
   @override
   _i13.GetUserInfo get logic => (super.noSuchMethod(
         Invocation.getter(#logic),
-        returnValue: _FakeGetUserInfo_33(
+        returnValue: _FakeGetUserInfo_34(
           this,
           Invocation.getter(#logic),
         ),
-        returnValueForMissingStub: _FakeGetUserInfo_33(
+        returnValueForMissingStub: _FakeGetUserInfo_34(
           this,
           Invocation.getter(#logic),
         ),
@@ -2825,11 +2850,11 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
   @override
   _i3.CollaboratorInfo get collaboratorInfo => (super.noSuchMethod(
         Invocation.getter(#collaboratorInfo),
-        returnValue: _FakeCollaboratorInfo_34(
+        returnValue: _FakeCollaboratorInfo_35(
           this,
           Invocation.getter(#collaboratorInfo),
         ),
-        returnValueForMissingStub: _FakeCollaboratorInfo_34(
+        returnValueForMissingStub: _FakeCollaboratorInfo_35(
           this,
           Invocation.getter(#collaboratorInfo),
         ),
@@ -2848,11 +2873,11 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
   _i17.DeleteCapsuleArrangement get deleteCapsuleArrangementLogic =>
       (super.noSuchMethod(
         Invocation.getter(#deleteCapsuleArrangementLogic),
-        returnValue: _FakeDeleteCapsuleArrangement_35(
+        returnValue: _FakeDeleteCapsuleArrangement_36(
           this,
           Invocation.getter(#deleteCapsuleArrangementLogic),
         ),
-        returnValueForMissingStub: _FakeDeleteCapsuleArrangement_35(
+        returnValueForMissingStub: _FakeDeleteCapsuleArrangement_36(
           this,
           Invocation.getter(#deleteCapsuleArrangementLogic),
         ),
@@ -2862,11 +2887,11 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
   _i17.DeleteCollaborativeDocument get deleteCollaborativeDocumentLogic =>
       (super.noSuchMethod(
         Invocation.getter(#deleteCollaborativeDocumentLogic),
-        returnValue: _FakeDeleteCollaborativeDocument_36(
+        returnValue: _FakeDeleteCollaborativeDocument_37(
           this,
           Invocation.getter(#deleteCollaborativeDocumentLogic),
         ),
-        returnValueForMissingStub: _FakeDeleteCollaborativeDocument_36(
+        returnValueForMissingStub: _FakeDeleteCollaborativeDocument_37(
           this,
           Invocation.getter(#deleteCollaborativeDocumentLogic),
         ),
@@ -2876,11 +2901,11 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
   _i17.DeleteSchedulingSession get deleteSchedulingSessionLogic =>
       (super.noSuchMethod(
         Invocation.getter(#deleteSchedulingSessionLogic),
-        returnValue: _FakeDeleteSchedulingSession_37(
+        returnValue: _FakeDeleteSchedulingSession_38(
           this,
           Invocation.getter(#deleteSchedulingSessionLogic),
         ),
-        returnValueForMissingStub: _FakeDeleteSchedulingSession_37(
+        returnValueForMissingStub: _FakeDeleteSchedulingSession_38(
           this,
           Invocation.getter(#deleteSchedulingSessionLogic),
         ),
@@ -2890,11 +2915,11 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
   _i17.DeleteTheCollaboration get deleteTheCollaborationLogic =>
       (super.noSuchMethod(
         Invocation.getter(#deleteTheCollaborationLogic),
-        returnValue: _FakeDeleteTheCollaboration_38(
+        returnValue: _FakeDeleteTheCollaboration_39(
           this,
           Invocation.getter(#deleteTheCollaborationLogic),
         ),
-        returnValueForMissingStub: _FakeDeleteTheCollaboration_38(
+        returnValueForMissingStub: _FakeDeleteTheCollaboration_39(
           this,
           Invocation.getter(#deleteTheCollaborationLogic),
         ),
@@ -2903,11 +2928,11 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
   @override
   _i17.DeleteSoloDocument get deleteSoloDocumentLogic => (super.noSuchMethod(
         Invocation.getter(#deleteSoloDocumentLogic),
-        returnValue: _FakeDeleteSoloDocument_39(
+        returnValue: _FakeDeleteSoloDocument_40(
           this,
           Invocation.getter(#deleteSoloDocumentLogic),
         ),
-        returnValueForMissingStub: _FakeDeleteSoloDocument_39(
+        returnValueForMissingStub: _FakeDeleteSoloDocument_40(
           this,
           Invocation.getter(#deleteSoloDocumentLogic),
         ),
@@ -2917,12 +2942,12 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
   _i17.CheckIfCollaboratorHasDeletedArtifacts
       get checkIfCollaboratorHasDeletedArtifactsLogic => (super.noSuchMethod(
             Invocation.getter(#checkIfCollaboratorHasDeletedArtifactsLogic),
-            returnValue: _FakeCheckIfCollaboratorHasDeletedArtifacts_40(
+            returnValue: _FakeCheckIfCollaboratorHasDeletedArtifacts_41(
               this,
               Invocation.getter(#checkIfCollaboratorHasDeletedArtifactsLogic),
             ),
             returnValueForMissingStub:
-                _FakeCheckIfCollaboratorHasDeletedArtifacts_40(
+                _FakeCheckIfCollaboratorHasDeletedArtifacts_41(
               this,
               Invocation.getter(#checkIfCollaboratorHasDeletedArtifactsLogic),
             ),
@@ -2932,12 +2957,12 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
   _i17.CheckForUnconsecratedCollaboration
       get checkForUnconsecratedCollaborationLogic => (super.noSuchMethod(
             Invocation.getter(#checkForUnconsecratedCollaborationLogic),
-            returnValue: _FakeCheckForUnconsecratedCollaboration_41(
+            returnValue: _FakeCheckForUnconsecratedCollaboration_42(
               this,
               Invocation.getter(#checkForUnconsecratedCollaborationLogic),
             ),
             returnValueForMissingStub:
-                _FakeCheckForUnconsecratedCollaboration_41(
+                _FakeCheckForUnconsecratedCollaboration_42(
               this,
               Invocation.getter(#checkForUnconsecratedCollaborationLogic),
             ),
@@ -2947,11 +2972,11 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
   _i18.CollaborationLogicCoordinator get collaborationLogicCoordinator =>
       (super.noSuchMethod(
         Invocation.getter(#collaborationLogicCoordinator),
-        returnValue: _FakeCollaborationLogicCoordinator_42(
+        returnValue: _FakeCollaborationLogicCoordinator_43(
           this,
           Invocation.getter(#collaborationLogicCoordinator),
         ),
-        returnValueForMissingStub: _FakeCollaborationLogicCoordinator_42(
+        returnValueForMissingStub: _FakeCollaborationLogicCoordinator_43(
           this,
           Invocation.getter(#collaborationLogicCoordinator),
         ),
@@ -2961,11 +2986,11 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
   _i17.UpdateHasDeletedArtifacts get updateHasDeletedArtifactsLogic =>
       (super.noSuchMethod(
         Invocation.getter(#updateHasDeletedArtifactsLogic),
-        returnValue: _FakeUpdateHasDeletedArtifacts_43(
+        returnValue: _FakeUpdateHasDeletedArtifacts_44(
           this,
           Invocation.getter(#updateHasDeletedArtifactsLogic),
         ),
-        returnValueForMissingStub: _FakeUpdateHasDeletedArtifacts_43(
+        returnValueForMissingStub: _FakeUpdateHasDeletedArtifacts_44(
           this,
           Invocation.getter(#updateHasDeletedArtifactsLogic),
         ),
