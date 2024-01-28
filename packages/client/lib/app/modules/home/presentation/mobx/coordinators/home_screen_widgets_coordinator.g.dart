@@ -389,34 +389,6 @@ mixin _$HomeScreenWidgetsCoordinator
   }
 
   @override
-  dynamic onClockFaceAnimationFinished(dynamic p0) {
-    final _$actionInfo =
-        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
-            name:
-                '_HomeScreenWidgetsCoordinatorBase.onClockFaceAnimationFinished');
-    try {
-      return super.onClockFaceAnimationFinished(p0);
-    } finally {
-      _$_HomeScreenWidgetsCoordinatorBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic onAvailabilitySectorMovieStatusFinished(MovieStatus p0) {
-    final _$actionInfo =
-        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
-            name:
-                '_HomeScreenWidgetsCoordinatorBase.onAvailabilitySectorMovieStatusFinished');
-    try {
-      return super.onAvailabilitySectorMovieStatusFinished(p0);
-    } finally {
-      _$_HomeScreenWidgetsCoordinatorBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 hasCompletedInvitationFlow: ${hasCompletedInvitationFlow},

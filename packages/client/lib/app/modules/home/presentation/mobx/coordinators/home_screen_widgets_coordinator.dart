@@ -17,23 +17,19 @@ class HomeScreenWidgetsCoordinator = _HomeScreenWidgetsCoordinatorBase
 
 abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     with Store {
-  final TimeAlignmentModelCoordinator timeModel;
   final NokhteBlurStore nokhteBlur;
   final BeachWavesStore beachWaves;
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final GestureCrossStore gestureCross;
   final SmartTextStore primarySmartText;
-  final SmartTextStore secondarySmartText;
   final DeepLinksCoordinator deepLinks;
 
   _HomeScreenWidgetsCoordinatorBase({
-    required this.timeModel,
     required this.nokhteBlur,
     required this.beachWaves,
     required this.wifiDisconnectOverlay,
     required this.gestureCross,
     required this.primarySmartText,
-    required this.secondarySmartText,
     required this.deepLinks,
   });
 
@@ -70,7 +66,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     gestureCross.setHomeScreen();
     beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
     primarySmartText.setMessagesData(MessagesData.firstTimeHomeList);
-    secondarySmartText.setMessagesData(MessagesData.firstTimeSecondaryHomeList);
   }
 
   @action
@@ -129,10 +124,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     }
     gestureCross.stopBlinking();
     primarySmartText.toggleWidgetVisibility();
-    timeModel.toggleWidgetVisibility();
-    if (secondarySmartText.showWidget) {
-      secondarySmartText.toggleWidgetVisibility();
-    }
     beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDive);
     beachWaves.currentStore.initMovie(beachWaves.currentAnimationValues.first);
     gestureCross.initMoveAndRegenerate(CircleOffsets.top);
@@ -190,10 +181,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   toggleHasInitiatedBlur() => hasInitiatedBlur = !hasInitiatedBlur;
 
   initReactors(Function repeatTheFlow) {
-    primarySmartTextReactor();
     gestureCrossTapReactor(repeatTheFlow);
-    clockFaceAnimationStatusReactor();
-    availabilitySectorsMovieStatusReactor();
     nokhteBlurReactor();
     centerCrossNokhteReactor();
     beachWavesMovieStatusReactor();
@@ -211,21 +199,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
         (p0) => gestureCross.tapCount,
         (p0) => onGestureCrossTap(repeatTheFlow),
       );
-
-  primarySmartTextReactor() =>
-      reaction((p0) => primarySmartText.currentIndex, (p0) {
-        if (p0 == 3) {
-          timeModel.init();
-        }
-      });
-
-  clockFaceAnimationStatusReactor() => reaction(
-      (p0) => timeModel.clockFace.movieStatus,
-      (p0) => onClockFaceAnimationFinished(p0));
-
-  availabilitySectorsMovieStatusReactor() => reaction(
-      (p0) => timeModel.availabilitySectors.movieStatus,
-      (p0) => onAvailabilitySectorMovieStatusFinished(p0));
 
   @action
   onLongReconnected() {
@@ -260,32 +233,4 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
           );
         }
       });
-
-  @action
-  onClockFaceAnimationFinished(p0) {
-    if (p0 == MovieStatus.finished) {
-      if (timeModel.clockFace.pastControl == Control.playReverseFromEnd) {
-        Timer.periodic(Seconds.get(0, milli: 100), (timer) {
-          if (!primarySmartText.isPaused) {
-            primarySmartText.startRotatingText(isResuming: true);
-            timer.cancel();
-          }
-        });
-      } else {
-        secondarySmartText.startRotatingText();
-        toggleClockIsVisible();
-      }
-    } else if (p0 == MovieStatus.inProgress) {
-      clockAnimationHasNotStarted = false;
-    }
-  }
-
-  @action
-  onAvailabilitySectorMovieStatusFinished(MovieStatus p0) {
-    if (p0 == MovieStatus.finished &&
-        timeModel.availabilitySectors.pastControl == Control.playFromStart) {
-      timeModel.reverseClockFaceMovie();
-      secondarySmartText.toggleWidgetVisibility();
-    }
-  }
 }
