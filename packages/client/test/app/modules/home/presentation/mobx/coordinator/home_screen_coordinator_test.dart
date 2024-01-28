@@ -44,7 +44,6 @@ void main() {
     nokhteBlurStore = NokhteBlurStore();
     primarySmartText = SmartTextStore();
     mockWidgets = HomeScreenWidgetsCoordinator(
-      timeModel: timeModel,
       nokhteBlur: nokhteBlurStore,
       deepLinks: DeepLinksCoordinator(
         getDeepLinkUrlLogic: MockGetDeepLinkURL(),
@@ -55,7 +54,6 @@ void main() {
       wifiDisconnectOverlay: wifiDisconnectOverlay,
       gestureCross: gestureCross,
       primarySmartText: primarySmartText,
-      secondarySmartText: secondarySmartText,
     );
     mockUserInformation = UserInformationCoordinator(
       getUserInfoStore: MockGetUserInfoStore(),
