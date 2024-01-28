@@ -4,8 +4,6 @@ import 'package:nokhte/app/core/modules/deep_links/constants/constants.dart';
 
 class CollaboratorInvitationInformation extends Equatable {
   final String uid;
-  final String imageURL =
-      "https://gitlab.com/nokhte/nokhte/-/raw/development/assets/logo.png";
   final String firstName;
   const CollaboratorInvitationInformation({
     required this.firstName,
@@ -16,7 +14,7 @@ class CollaboratorInvitationInformation extends Equatable {
     final branchObject = BranchUniversalObject(
       canonicalIdentifier: "${DeepLinkPrefixes.collaboratorCode}/$uid",
       title: "Collaborate With $firstName",
-      imageUrl: imageURL,
+      imageUrl: DeepLinkConstants.nokhteImageURL,
     );
     final linkProperties = BranchLinkProperties(
       alias: branchObject.canonicalIdentifier,
