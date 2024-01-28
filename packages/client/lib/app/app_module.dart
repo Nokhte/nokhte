@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:nokhte/app/modules/nokhte_session/nokhte_session_module.dart';
 import 'core/modules/supabase/supabase_module.dart';
 import 'modules/authentication/authentication_module.dart';
 import 'modules/collaboration/collaboration_module.dart';
@@ -17,5 +18,6 @@ class AppModule extends Module {
     r.module('/home/', module: HomeModule());
     r.module('/collaboration/', module: CollaborationModule());
     r.module('/purpose_session/', module: PurposeSessionModule());
+    r.module('/nokhte_session/', module: NokhteSessionModule());
   }
 }
