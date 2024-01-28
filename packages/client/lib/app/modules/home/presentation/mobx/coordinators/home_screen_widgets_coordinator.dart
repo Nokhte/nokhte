@@ -39,14 +39,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   @observable
   bool wantsToRepeatInvitationFlow = false;
 
-  @action
-  toggleWantsToRepeatInvitationFlow() =>
-      wantsToRepeatInvitationFlow = !wantsToRepeatInvitationFlow;
-
-  @action
-  toggleHasCompletedInvitationFlow() =>
-      hasCompletedInvitationFlow = !hasCompletedInvitationFlow;
-
   @observable
   bool hasSwipedUp = false;
 
@@ -59,6 +51,14 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   toggleHasSwipedUp() => hasSwipedUp = !hasSwipedUp;
+
+  @action
+  toggleWantsToRepeatInvitationFlow() =>
+      wantsToRepeatInvitationFlow = !wantsToRepeatInvitationFlow;
+
+  @action
+  toggleHasCompletedInvitationFlow() =>
+      hasCompletedInvitationFlow = !hasCompletedInvitationFlow;
 
   @action
   constructor() {
@@ -97,7 +97,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   onResumed() {
-    if (clockAnimationHasNotStarted) {
+    if (!hasInitiatedBlur) {
       primarySmartText.startRotatingText();
       if (hasInitiatedBlur) {
         nokhteBlur.reverse();
@@ -108,7 +108,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   onInactive() {
-    if (clockAnimationHasNotStarted) {
+    if (!hasInitiatedBlur) {
       primarySmartText.reset();
       if (!hasSwipedUp) {
         beachWaves.currentStore.setControl(Control.mirror);
@@ -123,7 +123,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
       nokhteBlur.reverse();
     }
     gestureCross.stopBlinking();
-    primarySmartText.toggleWidgetVisibility();
+    primarySmartText.startRotatingText(isResuming: true);
     beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDive);
     beachWaves.currentStore.initMovie(beachWaves.currentAnimationValues.first);
     gestureCross.initMoveAndRegenerate(CircleOffsets.top);
@@ -159,12 +159,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   }
 
   @observable
-  bool clockAnimationHasNotStarted = true;
-
-  @observable
-  bool clockIsVisible = false;
-
-  @observable
   bool hasInitiatedBlur = false;
 
   @observable
@@ -173,9 +167,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   @action
   toggleIsDoubleTriggeringWindDown() =>
       isDoubleTriggeringWindDown = !isDoubleTriggeringWindDown;
-
-  @action
-  toggleClockIsVisible() => clockIsVisible = !clockIsVisible;
 
   @action
   toggleHasInitiatedBlur() => hasInitiatedBlur = !hasInitiatedBlur;
