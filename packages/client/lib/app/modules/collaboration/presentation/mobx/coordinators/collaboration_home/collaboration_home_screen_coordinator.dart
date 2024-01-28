@@ -78,8 +78,6 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
             true) {
           widgets.enterCollaboratorPoolConstructor();
           setDisableAllTouchFeedback(true);
-        } else {
-          widgets.postInvitationFlowNoInviteConstructor();
         }
       }
     } else {

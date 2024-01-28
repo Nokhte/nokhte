@@ -2,9 +2,9 @@
 import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -13,8 +13,8 @@ part 'collaboration_home_screen_widgets_coordinator.g.dart';
 class CollaborationHomeScreenWidgetsCoordinator = _CollaborationHomeScreenWidgetsCoordinatorBase
     with _$CollaborationHomeScreenWidgetsCoordinator;
 
-abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
-    with Store {
+abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
+    extends BaseWidgetsCoordinator with Store {
   final BeachWavesStore beachWaves;
   final GradientTreeNodeStore gradientTreeNode;
   final SmartTextStore smartText;
@@ -32,9 +32,6 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
   @observable
   bool invitationIsSent = false;
 
-  // @observable
-  // bool isDisconnected = false;
-
   @observable
   bool shouldEnterCollaboratorPool = false;
 
@@ -48,17 +45,16 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
   @action
   onResumed() {
     if (smartText.currentIndex.isLessThanOrEqualTo(1) &&
-        smartText.messagesData.length == 4) {
+        smartText.messagesData.length == 3) {
       smartText.reset();
       smartText.startRotatingText();
-      print("is resumed running");
     }
   }
 
   @action
   onInactive() {
     if (smartText.currentIndex.isLessThanOrEqualTo(1) &&
-        smartText.messagesData.length == 4) {
+        smartText.messagesData.length == 3) {
       smartText.pause();
     }
   }
@@ -82,18 +78,6 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
   }
 
   @action
-  postInvitationFlowNoInviteConstructor() {
-    smartText.setMessagesData(MessagesData.postInvitationNoInvite);
-    gradientTreeNode.toggleWidgetVisibility();
-    Timer.periodic(Seconds.get(0, milli: 100), (timer) {
-      if (!smartText.isPaused) {
-        smartText.startRotatingText();
-        timer.cancel();
-      }
-    });
-  }
-
-  @action
   enterCollaboratorPoolConstructor() {
     gradientTreeNode.toggleWidgetVisibility();
     toggleShouldEnterCollaboratorPool();
@@ -103,7 +87,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
   postInvitationFlowConstructor() {
     Timer.periodic(Seconds.get(0, milli: 100), (timer) {
       if (!smartText.isPaused) {
-        smartText.setCurrentIndex(2);
+        smartText.setCurrentIndex(1);
         smartText.startRotatingText();
         timer.cancel();
       }
@@ -143,7 +127,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
 
   smartTextReactor(Function onFlowCompleted) =>
       reaction((p0) => smartText.currentIndex, (p0) {
-        if (p0 == 2) {
+        if (p0 == 1) {
           gradientTreeNode.toggleWidgetVisibility();
           onFlowCompleted();
         }
@@ -185,17 +169,4 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
           Modular.to.navigate('/home/');
         }
       });
-
-  // wifiDisconnectOverlayReactor() =>
-  //     reaction((p0) => wifiDisconnectOverlay.movieStatus, (p0) {
-  //       if (wifiDisconnectOverlay.movieMode ==
-  //           WifiDisconnectMovieModes.removeTheCircle) {
-  //         if (smartText.isPaused) {
-  //           smartText.resume();
-  //         }
-  //       }
-  //     });
-
-  @override
-  List<Object> get props => [];
 }

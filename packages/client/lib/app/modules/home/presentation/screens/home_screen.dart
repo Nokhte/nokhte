@@ -48,15 +48,6 @@ class HomeScreen extends HookWidget {
               bottomPadding: 180,
               opacityDuration: Seconds.get(1),
             )),
-            Center(
-                child: SmartText(
-              topPadding: 450,
-              store: coordinator.widgets.secondarySmartText,
-              opacityDuration: Seconds.get(1),
-            )),
-            TimeAlignmentModelWidget(
-              store: coordinator.widgets.timeModel,
-            ),
             GestureCross(
               config: GestureCrossConfiguration(
                 top: Right(

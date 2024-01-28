@@ -142,21 +142,6 @@ mixin _$CollaborationHomeScreenWidgetsCoordinator
   }
 
   @override
-  dynamic postInvitationFlowNoInviteConstructor() {
-    final _$actionInfo =
-        _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
-            .startAction(
-                name:
-                    '_CollaborationHomeScreenWidgetsCoordinatorBase.postInvitationFlowNoInviteConstructor');
-    try {
-      return super.postInvitationFlowNoInviteConstructor();
-    } finally {
-      _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic enterCollaboratorPoolConstructor() {
     final _$actionInfo =
         _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController

@@ -10,7 +10,6 @@ class HomeWidgetsModule extends Module {
   List<Module> get imports => [
         BeachWavesModule(),
         WifiDisconnectOverlayModule(),
-        TimeAlignmentModelModule(),
         CircleExplanationModule(),
         SmartTextModule(),
         GestureCrossModule(),
@@ -28,10 +27,8 @@ class HomeWidgetsModule extends Module {
     i.add<HomeScreenWidgetsCoordinator>(
       () => HomeScreenWidgetsCoordinator(
         deepLinks: Modular.get<DeepLinksCoordinator>(),
-        timeModel: Modular.get<TimeAlignmentModelCoordinator>(),
         nokhteBlur: Modular.get<NokhteBlurStore>(),
         primarySmartText: Modular.get<SmartTextStore>(),
-        secondarySmartText: Modular.get<SmartTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         gestureCross: Modular.get<GestureCrossStore>(),
         beachWaves: Modular.get<BeachWavesStore>(),

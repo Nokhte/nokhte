@@ -80,41 +80,6 @@ mixin _$HomeScreenWidgetsCoordinator
     });
   }
 
-  late final _$clockAnimationHasNotStartedAtom = Atom(
-      name: '_HomeScreenWidgetsCoordinatorBase.clockAnimationHasNotStarted',
-      context: context);
-
-  @override
-  bool get clockAnimationHasNotStarted {
-    _$clockAnimationHasNotStartedAtom.reportRead();
-    return super.clockAnimationHasNotStarted;
-  }
-
-  @override
-  set clockAnimationHasNotStarted(bool value) {
-    _$clockAnimationHasNotStartedAtom
-        .reportWrite(value, super.clockAnimationHasNotStarted, () {
-      super.clockAnimationHasNotStarted = value;
-    });
-  }
-
-  late final _$clockIsVisibleAtom = Atom(
-      name: '_HomeScreenWidgetsCoordinatorBase.clockIsVisible',
-      context: context);
-
-  @override
-  bool get clockIsVisible {
-    _$clockIsVisibleAtom.reportRead();
-    return super.clockIsVisible;
-  }
-
-  @override
-  set clockIsVisible(bool value) {
-    _$clockIsVisibleAtom.reportWrite(value, super.clockIsVisible, () {
-      super.clockIsVisible = value;
-    });
-  }
-
   late final _$hasInitiatedBlurAtom = Atom(
       name: '_HomeScreenWidgetsCoordinatorBase.hasInitiatedBlur',
       context: context);
@@ -155,6 +120,33 @@ mixin _$HomeScreenWidgetsCoordinator
           name: '_HomeScreenWidgetsCoordinatorBase', context: context);
 
   @override
+  dynamic toggleGracePeriodHasExpired() {
+    final _$actionInfo =
+        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_HomeScreenWidgetsCoordinatorBase.toggleGracePeriodHasExpired');
+    try {
+      return super.toggleGracePeriodHasExpired();
+    } finally {
+      _$_HomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic toggleHasSwipedUp() {
+    final _$actionInfo =
+        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
+            name: '_HomeScreenWidgetsCoordinatorBase.toggleHasSwipedUp');
+    try {
+      return super.toggleHasSwipedUp();
+    } finally {
+      _$_HomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic toggleWantsToRepeatInvitationFlow() {
     final _$actionInfo =
         _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
@@ -176,33 +168,6 @@ mixin _$HomeScreenWidgetsCoordinator
                 '_HomeScreenWidgetsCoordinatorBase.toggleHasCompletedInvitationFlow');
     try {
       return super.toggleHasCompletedInvitationFlow();
-    } finally {
-      _$_HomeScreenWidgetsCoordinatorBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic toggleGracePeriodHasExpired() {
-    final _$actionInfo =
-        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
-            name:
-                '_HomeScreenWidgetsCoordinatorBase.toggleGracePeriodHasExpired');
-    try {
-      return super.toggleGracePeriodHasExpired();
-    } finally {
-      _$_HomeScreenWidgetsCoordinatorBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic toggleHasSwipedUp() {
-    final _$actionInfo =
-        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
-            name: '_HomeScreenWidgetsCoordinatorBase.toggleHasSwipedUp');
-    try {
-      return super.toggleHasSwipedUp();
     } finally {
       _$_HomeScreenWidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
@@ -350,19 +315,6 @@ mixin _$HomeScreenWidgetsCoordinator
   }
 
   @override
-  dynamic toggleClockIsVisible() {
-    final _$actionInfo =
-        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
-            name: '_HomeScreenWidgetsCoordinatorBase.toggleClockIsVisible');
-    try {
-      return super.toggleClockIsVisible();
-    } finally {
-      _$_HomeScreenWidgetsCoordinatorBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic toggleHasInitiatedBlur() {
     final _$actionInfo =
         _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
@@ -389,42 +341,12 @@ mixin _$HomeScreenWidgetsCoordinator
   }
 
   @override
-  dynamic onClockFaceAnimationFinished(dynamic p0) {
-    final _$actionInfo =
-        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
-            name:
-                '_HomeScreenWidgetsCoordinatorBase.onClockFaceAnimationFinished');
-    try {
-      return super.onClockFaceAnimationFinished(p0);
-    } finally {
-      _$_HomeScreenWidgetsCoordinatorBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic onAvailabilitySectorMovieStatusFinished(MovieStatus p0) {
-    final _$actionInfo =
-        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
-            name:
-                '_HomeScreenWidgetsCoordinatorBase.onAvailabilitySectorMovieStatusFinished');
-    try {
-      return super.onAvailabilitySectorMovieStatusFinished(p0);
-    } finally {
-      _$_HomeScreenWidgetsCoordinatorBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 hasCompletedInvitationFlow: ${hasCompletedInvitationFlow},
 wantsToRepeatInvitationFlow: ${wantsToRepeatInvitationFlow},
 hasSwipedUp: ${hasSwipedUp},
 gracePeriodHasExpired: ${gracePeriodHasExpired},
-clockAnimationHasNotStarted: ${clockAnimationHasNotStarted},
-clockIsVisible: ${clockIsVisible},
 hasInitiatedBlur: ${hasInitiatedBlur},
 isDoubleTriggeringWindDown: ${isDoubleTriggeringWindDown}
     ''';
