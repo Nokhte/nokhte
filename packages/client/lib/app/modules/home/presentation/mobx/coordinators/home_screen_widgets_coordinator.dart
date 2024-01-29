@@ -123,7 +123,11 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
       nokhteBlur.reverse();
     }
     gestureCross.stopBlinking();
-    primarySmartText.startRotatingText(isResuming: true);
+    if (primarySmartText.currentIndex == 0) {
+      primarySmartText.toggleWidgetVisibility();
+    } else {
+      primarySmartText.startRotatingText(isResuming: true);
+    }
     beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDive);
     beachWaves.currentStore.initMovie(beachWaves.currentAnimationValues.first);
     gestureCross.initMoveAndRegenerate(CircleOffsets.top);
