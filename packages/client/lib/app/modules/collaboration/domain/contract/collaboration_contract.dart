@@ -10,4 +10,6 @@ abstract class CollaborationContract {
   Future<Either<Failure, Stream<bool>>> getCollaboratorSearchStatus(
       NoParams params);
   bool cancelCollaboratorSearchStream(NoParams params);
+  Future<Either<Failure, Stream<bool>>> getNokhteSessionSearchStatus(
+      NoParams params);
 }

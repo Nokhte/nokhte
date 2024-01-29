@@ -47,4 +47,13 @@ class CollaborationContractImpl
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  getNokhteSessionSearchStatus(params) async {
+    if (await networkInfo.isConnected) {
+      return Right(remoteSource.getNokhteSessionSearchStatus());
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
 }
