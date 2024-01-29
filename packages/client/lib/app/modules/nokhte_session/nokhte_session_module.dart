@@ -9,12 +9,21 @@ class NokhteSessionModule extends Module {
       ];
 
   @override
+  void binds(Injector i) {
+    i.add<NokhteSessionPhase0Coordinator>(
+      () => NokhteSessionPhase0Coordinator(
+        widgets: Modular.get<NokhteSessionPhase0WidgetsCoordinator>(),
+      ),
+    );
+  }
+
+  @override
   void routes(r) {
     r.child(
       '/',
       transition: TransitionType.noTransition,
       child: (context) => NokhteSessionPhase0Greeter(
-        coordinator: Modular.get<NokhteSessionPhase0WidgetsCoordinator>(),
+        coordinator: Modular.get<NokhteSessionPhase0Coordinator>(),
       ),
     );
   }
