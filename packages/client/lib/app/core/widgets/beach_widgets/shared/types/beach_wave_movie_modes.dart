@@ -5,7 +5,7 @@ enum BeachWaveMovieModes {
   oceanDiveToTimesUp,
   onShore,
   onShoreToOceanDive,
-  onShoreToTimesUp,
+  onShoreToVibrantBlue,
   none,
   suspendedAtOceanDive,
   suspendedAtTheDepths,
