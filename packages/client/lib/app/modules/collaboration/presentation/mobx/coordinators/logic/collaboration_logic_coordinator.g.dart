@@ -101,7 +101,7 @@ mixin _$CollaborationLogicCoordinator
       AsyncAction('_CollaborationLogicCoordinatorBase.enter', context: context);
 
   @override
-  Future enter(String collaboratorUID) {
+  Future enter(EnterCollaboratorPoolParams collaboratorUID) {
     return _$enterAsyncAction.run(() => super.enter(collaboratorUID));
   }
 

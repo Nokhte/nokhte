@@ -58,7 +58,7 @@ abstract class _CollaborationLogicCoordinatorBase extends BaseMobxDBStore
   }
 
   @action
-  enter(String collaboratorUID) async {
+  enter(EnterCollaboratorPoolParams collaboratorUID) async {
     final result = await enterCollaboratorPoolLogic(collaboratorUID);
     result.fold((failure) => errorUpdater(failure),
         (entryStatus) => hasEntered = entryStatus);
