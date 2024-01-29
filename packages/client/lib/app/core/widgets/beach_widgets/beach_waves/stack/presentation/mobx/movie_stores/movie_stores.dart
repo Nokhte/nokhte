@@ -3,7 +3,7 @@ export 'black_out_to_dry_sand/black_out_to_dry_sand.dart';
 export 'ocean_dive_to_on_shore/ocean_dive_to_on_shore.dart';
 export 'ocean_dive_to_times_up_start/ocean_dive_to_times_up_start.dart';
 export 'on_shore/on_shore.dart';
-export "on_shore_to_times_up/on_shore_to_times_up.dart";
+export "on_shore_to_vibrant_blue/on_shore_to_vibrant_blue.dart";
 export 'on_shore_to_ocean_dive/on_shore_to_ocean_dive.dart';
 export 'times_up/times_up.dart';
 export 'times_up_dynamic_point_to_the_depths/times_up_dynamic_point_to_the_depths.dart';
