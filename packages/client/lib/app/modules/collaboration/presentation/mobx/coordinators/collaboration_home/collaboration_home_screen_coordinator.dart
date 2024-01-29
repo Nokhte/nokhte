@@ -128,6 +128,8 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
         deepLinks.listenForOpenedDeepLinkStore.additionalMetadata,
       );
       widgets.initCollaboratorPoolWidgets();
+    } else if (path == '/nokhte_session/') {
+      widgets.onNokhteSessionLinkOpened();
     }
   }
 
