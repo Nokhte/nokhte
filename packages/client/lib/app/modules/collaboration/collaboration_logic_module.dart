@@ -34,6 +34,11 @@ class CollaborationLogicModule extends Module {
         contract: i<CollaborationContractImpl>(),
       ),
     );
+    i.add<GetNokhteSessionSearchStatus>(
+      () => GetNokhteSessionSearchStatus(
+        contract: i<CollaborationContractImpl>(),
+      ),
+    );
     i.add<EnterCollaboratorPool>(
       () => EnterCollaboratorPool(
         contract: i<CollaborationContractImpl>(),
