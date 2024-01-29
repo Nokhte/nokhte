@@ -1,9 +1,10 @@
+import 'package:nokhte/app/modules/collaboration/domain/logic/enter_collaborator_pool.dart';
 import 'package:nokhte_backend/tables/existing_collaborations.dart';
 import 'package:nokhte_backend/edge_functions/edge_functions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class CollaborationRemoteSource {
-  Future<FunctionResponse> enterThePool(String collaboratorUID);
+  Future<FunctionResponse> enterThePool(EnterCollaboratorPoolParams params);
 
   Future<FunctionResponse> exitThePool();
 
@@ -29,8 +30,8 @@ class CollaborationRemoteSourceImpl implements CollaborationRemoteSource {
         currentUserUID = supabase.auth.currentUser?.id ?? '';
 
   @override
-  enterThePool(String collaboratorUID) async => await initiateCollaboratorSearch
-      .invoke(collaboratorUID, InvitationType.collaborationSession);
+  enterThePool(params) async => await initiateCollaboratorSearch.invoke(
+      params.collaboratorUID, params.invitationType);
 
   @override
   Future<FunctionResponse> exitThePool() async =>
