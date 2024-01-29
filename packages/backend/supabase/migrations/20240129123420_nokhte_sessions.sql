@@ -103,7 +103,5 @@ drop function if exists "internal_functions"."adj_or_noun_dispenser"(is_a_noun b
 
 drop function if exists "internal_functions"."collaborator_phrase_assigner"();
 
-drop function if exists "internal_functions"."enforce_unique_wayfarers"();
-
-
 drop trigger if exists "enforce_unique_wayfarers" on "public"."p2p_collaborator_pool";
+drop function if exists "internal_functions"."enforce_unique_wayfarers"();
