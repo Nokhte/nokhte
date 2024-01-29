@@ -8,6 +8,7 @@ import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/presentation.dart';
 
+import '../../../../collaboration/presentation/mobx/coordinators/collaboration_home/collaboration_home_coordinator_test.mocks.dart';
 import '../../../../shared/shared_mocks.mocks.dart';
 import '../../../fixtures/home_stack_mock_gen.mocks.dart';
 
@@ -45,11 +46,6 @@ void main() {
     primarySmartText = SmartTextStore();
     mockWidgets = HomeScreenWidgetsCoordinator(
       nokhteBlur: nokhteBlurStore,
-      deepLinks: DeepLinksCoordinator(
-        getDeepLinkUrlLogic: MockGetDeepLinkURL(),
-        listenForOpenedDeepLinkStore: MockListenForOpenedDeepLinkStore(),
-        sendDeepLinkLogic: MockSendDeepLink(),
-      ),
       beachWaves: beachWaves,
       wifiDisconnectOverlay: wifiDisconnectOverlay,
       gestureCross: gestureCross,
@@ -65,6 +61,12 @@ void main() {
     );
 
     testStore = HomeScreenCoordinator(
+      collaborationLogic: MockCollaborationLogicCoordinator(),
+      deepLinks: DeepLinksCoordinator(
+        getDeepLinkUrlLogic: MockGetDeepLinkURL(),
+        listenForOpenedDeepLinkStore: MockListenForOpenedDeepLinkStore(),
+        sendDeepLinkLogic: MockSendDeepLink(),
+      ),
       deleteUnconsecratedCollaborations: mockDelete,
       swipe: SwipeDetector(),
       addNameToDatabaseStore: mockAddNameToDatabase,
