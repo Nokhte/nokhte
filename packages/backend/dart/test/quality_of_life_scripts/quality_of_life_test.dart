@@ -297,8 +297,7 @@ void main() {
   test("put npc in the pool searching for user ", () async {
     final realPersonUID = await returnNonNPCUID();
     await npcInitiateCollaboratorSearch.invoke(
-      realPersonUID,
-    );
+        realPersonUID, InvitationType.nokhteSession);
   });
 
   test(
@@ -307,7 +306,7 @@ void main() {
       final userIdResults = await UserSetupConstants.getUIDs();
       final npcUserUID = userIdResults[1];
       final edge = InitiateCollaboratorSearch(supabase: supabase);
-      await edge.invoke(npcUserUID);
+      await edge.invoke(npcUserUID, InvitationType.nokhteSession);
     },
   );
 }
