@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:equatable/equatable.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/deep_links/constants/constants.dart';
@@ -22,9 +21,7 @@ abstract class _ListenForOpenedDeepLinkStoreBase extends Equatable with Store {
     required this.interpretCollaboratorCode,
     required this.userInformation,
     required this.interpretNokhteSessionDeepLink,
-  }) {
-    interpretedDeepLinkReactor();
-  }
+  });
 
   @observable
   ObservableStream<Map> deepLinkSream = ObservableStream(
@@ -70,12 +67,6 @@ abstract class _ListenForOpenedDeepLinkStoreBase extends Equatable with Store {
       }
     });
   }
-
-  interpretedDeepLinkReactor() => reaction((p0) => path, (p0) {
-        if (p0.isNotEmpty) {
-          Modular.to.navigate(path, arguments: additionalMetadata);
-        }
-      });
 
   @override
   List<Object?> get props => [];
