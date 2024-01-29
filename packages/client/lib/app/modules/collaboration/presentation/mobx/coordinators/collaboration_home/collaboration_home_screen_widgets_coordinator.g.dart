@@ -82,6 +82,21 @@ mixin _$CollaborationHomeScreenWidgetsCoordinator
   }
 
   @override
+  dynamic constructor() {
+    final _$actionInfo =
+        _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_CollaborationHomeScreenWidgetsCoordinatorBase.constructor');
+    try {
+      return super.constructor();
+    } finally {
+      _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic onResumed() {
     final _$actionInfo =
         _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
@@ -105,21 +120,6 @@ mixin _$CollaborationHomeScreenWidgetsCoordinator
                     '_CollaborationHomeScreenWidgetsCoordinatorBase.onInactive');
     try {
       return super.onInactive();
-    } finally {
-      _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic constructor() {
-    final _$actionInfo =
-        _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
-            .startAction(
-                name:
-                    '_CollaborationHomeScreenWidgetsCoordinatorBase.constructor');
-    try {
-      return super.constructor();
     } finally {
       _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
@@ -165,6 +165,21 @@ mixin _$CollaborationHomeScreenWidgetsCoordinator
                     '_CollaborationHomeScreenWidgetsCoordinatorBase.postInvitationFlowConstructor');
     try {
       return super.postInvitationFlowConstructor();
+    } finally {
+      _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onNokhteSessionLinkOpened() {
+    final _$actionInfo =
+        _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_CollaborationHomeScreenWidgetsCoordinatorBase.onNokhteSessionLinkOpened');
+    try {
+      return super.onNokhteSessionLinkOpened();
     } finally {
       _$_CollaborationHomeScreenWidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
