@@ -139,9 +139,9 @@ class _FakeOnShoreMovieStore_9 extends _i1.SmartFake
         );
 }
 
-class _FakeOnShoreToTimesUpMovieStore_10 extends _i1.SmartFake
-    implements _i5.OnShoreToTimesUpMovieStore {
-  _FakeOnShoreToTimesUpMovieStore_10(
+class _FakeOnShoreToVibrantBlueMovieStore_10 extends _i1.SmartFake
+    implements _i5.OnShoreToVibrantBlueMovieStore {
+  _FakeOnShoreToVibrantBlueMovieStore_10(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -852,18 +852,18 @@ class MockBeachWavesStore extends _i1.Mock implements _i5.BeachWavesStore {
       ) as _i5.OnShoreMovieStore);
 
   @override
-  _i5.OnShoreToTimesUpMovieStore get onShoreToTimesUpStartMovieStore =>
+  _i5.OnShoreToVibrantBlueMovieStore get onShoreToVibrantBlueMovieStore =>
       (super.noSuchMethod(
-        Invocation.getter(#onShoreToTimesUpStartMovieStore),
-        returnValue: _FakeOnShoreToTimesUpMovieStore_10(
+        Invocation.getter(#onShoreToVibrantBlueMovieStore),
+        returnValue: _FakeOnShoreToVibrantBlueMovieStore_10(
           this,
-          Invocation.getter(#onShoreToTimesUpStartMovieStore),
+          Invocation.getter(#onShoreToVibrantBlueMovieStore),
         ),
-        returnValueForMissingStub: _FakeOnShoreToTimesUpMovieStore_10(
+        returnValueForMissingStub: _FakeOnShoreToVibrantBlueMovieStore_10(
           this,
-          Invocation.getter(#onShoreToTimesUpStartMovieStore),
+          Invocation.getter(#onShoreToVibrantBlueMovieStore),
         ),
-      ) as _i5.OnShoreToTimesUpMovieStore);
+      ) as _i5.OnShoreToVibrantBlueMovieStore);
 
   @override
   _i5.SuspendedAtOceanDiveStore get suspendedAtOceanDiveStore =>
