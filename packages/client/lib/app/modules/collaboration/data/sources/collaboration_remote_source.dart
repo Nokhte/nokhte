@@ -29,8 +29,8 @@ class CollaborationRemoteSourceImpl implements CollaborationRemoteSource {
         currentUserUID = supabase.auth.currentUser?.id ?? '';
 
   @override
-  enterThePool(String collaboratorUID) async =>
-      await initiateCollaboratorSearch.invoke(collaboratorUID);
+  enterThePool(String collaboratorUID) async => await initiateCollaboratorSearch
+      .invoke(collaboratorUID, InvitationType.collaborationSession);
 
   @override
   Future<FunctionResponse> exitThePool() async =>
