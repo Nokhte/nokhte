@@ -123,7 +123,11 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
       nokhteBlur.reverse();
     }
     gestureCross.stopBlinking();
-    primarySmartText.startRotatingText(isResuming: true);
+    if (primarySmartText.currentIndex == 0) {
+      primarySmartText.toggleWidgetVisibility();
+    } else {
+      primarySmartText.startRotatingText(isResuming: true);
+    }
     beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDive);
     beachWaves.currentStore.initMovie(beachWaves.currentAnimationValues.first);
     gestureCross.initMoveAndRegenerate(CircleOffsets.top);
@@ -176,6 +180,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     nokhteBlurReactor();
     centerCrossNokhteReactor();
     beachWavesMovieStatusReactor();
+    openedDeepLinksReactor();
   }
 
   centerCrossNokhteReactor() =>
@@ -214,14 +219,32 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished &&
-            beachWaves.movieMode == BeachWaveMovieModes.onShoreToOceanDive &&
-            !isDisconnected) {
-          Modular.to.navigate(
-            '/collaboration/',
-            arguments:
-                deepLinks.listenForOpenedDeepLinkStore.additionalMetadata,
+        if (p0 == MovieStatus.finished) {
+          if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToOceanDive) {
+            Modular.to.navigate(
+              '/collaboration/',
+              arguments:
+                  deepLinks.listenForOpenedDeepLinkStore.additionalMetadata,
+            );
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.onShoreToTimesUp) {
+            Modular.to.navigate(
+              '/nokhte_session/',
+              arguments:
+                  deepLinks.listenForOpenedDeepLinkStore.additionalMetadata,
+            );
+          }
+        }
+      });
+
+  openedDeepLinksReactor() =>
+      reaction((p0) => deepLinks.listenForOpenedDeepLinkStore.path, (p0) {
+        if (p0 == '/nokhte_session/') {
+          beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToTimesUp);
+          beachWaves.currentStore.initMovie(
+            beachWaves.currentAnimationValues.first,
           );
+          gestureCross.toggleAll();
         }
       });
 }

@@ -10,16 +10,20 @@ class InterpretNokhteSessionDeepLink
   call(params) {
     return InterpretedDeepLinkEntity(
       path: '/nokhte_session/',
-      additionalMetadata: {"isTheUsersInvitation": params.isTheUsersInvitation},
+      additionalMetadata: {
+        "isTheUsersInvitation": params.isTheUsersInvitation,
+        "deepLinkUID": params.deepLinkUID,
+      },
     );
   }
 }
 
 class InterpretNokhteSessionDeepLinkParams extends Equatable {
   final bool isTheUsersInvitation;
+  final String deepLinkUID;
 
   const InterpretNokhteSessionDeepLinkParams({
-    required String deepLinkUID,
+    required this.deepLinkUID,
     required String usersUID,
   }) : isTheUsersInvitation = usersUID == deepLinkUID;
 

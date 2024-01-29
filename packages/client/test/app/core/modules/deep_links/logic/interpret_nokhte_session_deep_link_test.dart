@@ -18,7 +18,10 @@ void main() {
 
       // Assert
       expect(result.path, '/nokhte_session/');
-      expect(result.additionalMetadata, {'isTheUsersInvitation': false});
+      expect(result.additionalMetadata, {
+        'isTheUsersInvitation': false,
+        "deepLinkUID": "exampleDeepLinkUID",
+      });
     });
   });
 

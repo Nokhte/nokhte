@@ -43,6 +43,14 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
   toggleInvitationIsSent() => invitationIsSent = !invitationIsSent;
 
   @action
+  constructor() {
+    beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtOceanDive);
+    gestureCross.setCollaborationHomeScreen();
+    smartText.setMessagesData(MessagesData.firstTimeCollaborationList);
+    gradientTreeNode.toggleWidgetVisibility();
+  }
+
+  @action
   onResumed() {
     if (smartText.currentIndex.isLessThanOrEqualTo(1) &&
         smartText.messagesData.length == 3) {
@@ -57,14 +65,6 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
         smartText.messagesData.length == 3) {
       smartText.pause();
     }
-  }
-
-  @action
-  constructor() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtOceanDive);
-    gestureCross.setCollaborationHomeScreen();
-    smartText.setMessagesData(MessagesData.firstTimeCollaborationList);
-    gradientTreeNode.toggleWidgetVisibility();
   }
 
   @action
@@ -92,6 +92,19 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
         timer.cancel();
       }
     });
+  }
+
+  @action
+  onNokhteSessionLinkOpened() {
+    beachWaves.setMovieMode(BeachWaveMovieModes.oceanDiveToTimesUp);
+    beachWaves.currentStore.initMovie(NoParams());
+    gestureCross.toggleAll();
+    if (gradientTreeNode.showWidget) {
+      gradientTreeNode.toggleWidgetVisibility();
+    }
+    if (smartText.showWidget) {
+      smartText.toggleWidgetVisibility();
+    }
   }
 
   @action
@@ -164,9 +177,13 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
 
   beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished &&
-            beachWaves.movieMode == BeachWaveMovieModes.oceanDiveToOnShore) {
-          Modular.to.navigate('/home/');
+        if (p0 == MovieStatus.finished) {
+          if (beachWaves.movieMode == BeachWaveMovieModes.oceanDiveToOnShore) {
+            Modular.to.navigate('/home/');
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.oceanDiveToTimesUp) {
+            Modular.to.navigate('/nokhte_session/');
+          }
         }
       });
 }

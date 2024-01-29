@@ -19,15 +19,6 @@ void main() {
   late HomeScreenWidgetsCoordinator testStore;
   late NokhteBlurStore nokhteBlurStore;
 
-  prepForNavigationWasCalled() {
-    verify(gestureCross.stopBlinking());
-    expect(testStore.primarySmartText.showWidget, true);
-    expect(beachWaves.movieMode, BeachWaveMovieModes.onShoreToOceanDive);
-    expect(beachWaves.movieStatus, MovieStatus.idle);
-    expect(beachWaves.currentControl, Control.playFromStart);
-    verify(gestureCross.initMoveAndRegenerate(CircleOffsets.top));
-  }
-
   group('HomeScreenWidgetsCoordinator', () {
     setUp(() {
       beachWaves = SharedTestUtils.getBeachWaves();
@@ -119,7 +110,12 @@ void main() {
 
         test("prepForNavigation", () {
           testStore.prepForNavigation();
-          prepForNavigationWasCalled();
+          verify(gestureCross.stopBlinking());
+          expect(testStore.primarySmartText.showWidget, false);
+          expect(beachWaves.movieMode, BeachWaveMovieModes.onShoreToOceanDive);
+          expect(beachWaves.movieStatus, MovieStatus.idle);
+          expect(beachWaves.currentControl, Control.playFromStart);
+          verify(gestureCross.initMoveAndRegenerate(CircleOffsets.top));
         });
 
         group("onSwipeUp", () {
@@ -130,14 +126,26 @@ void main() {
             testStore.hasCompletedInvitationFlow = false;
             testStore.hasSwipedUp = false;
             testStore.onSwipeUp();
-            prepForNavigationWasCalled();
+            verify(gestureCross.stopBlinking());
+            expect(testStore.primarySmartText.showWidget, true);
+            expect(
+                beachWaves.movieMode, BeachWaveMovieModes.onShoreToOceanDive);
+            expect(beachWaves.movieStatus, MovieStatus.idle);
+            expect(beachWaves.currentControl, Control.playFromStart);
+            verify(gestureCross.initMoveAndRegenerate(CircleOffsets.top));
           });
 
           test('!hasSwipedUp && hasCompletedInvitationFlow', () {
             testStore.hasSwipedUp = false;
             testStore.hasCompletedInvitationFlow = true;
             testStore.onSwipeUp();
-            prepForNavigationWasCalled();
+            verify(gestureCross.stopBlinking());
+            expect(testStore.primarySmartText.showWidget, false);
+            expect(
+                beachWaves.movieMode, BeachWaveMovieModes.onShoreToOceanDive);
+            expect(beachWaves.movieStatus, MovieStatus.idle);
+            expect(beachWaves.currentControl, Control.playFromStart);
+            verify(gestureCross.initMoveAndRegenerate(CircleOffsets.top));
           });
         });
 
