@@ -20,5 +20,8 @@ class NokhteSessionWidgetsModule extends Module {
         primarySmartText: Modular.get<SmartTextStore>(),
       ),
     );
+    i.add<NokhteSessionPhase1WidgetsCoordinator>(
+      () => NokhteSessionPhase1WidgetsCoordinator(),
+    );
   }
 }

@@ -15,6 +15,8 @@ class NokhteSessionModule extends Module {
         widgets: Modular.get<NokhteSessionPhase0WidgetsCoordinator>(),
       ),
     );
+    i.add<NokhteSessionPhase1Coordinator>(() => NokhteSessionPhase1Coordinator(
+        widgets: Modular.get<NokhteSessionPhase1WidgetsCoordinator>()));
   }
 
   @override
@@ -24,6 +26,12 @@ class NokhteSessionModule extends Module {
       transition: TransitionType.noTransition,
       child: (context) => NokhteSessionPhase0Greeter(
         coordinator: Modular.get<NokhteSessionPhase0Coordinator>(),
+      ),
+    );
+    r.child(
+      '/phase_one',
+      child: (context) => NokhteSessionPhase1(
+        coordinator: Modular.get<NokhteSessionPhase1Coordinator>(),
       ),
     );
   }
