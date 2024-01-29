@@ -56,6 +56,8 @@ class CollaborationLogicModule extends Module {
     );
     i.add<CollaborationLogicCoordinator>(
       () => CollaborationLogicCoordinator(
+        getNokhteSessionSearchStatusLogic:
+            Modular.get<GetNokhteSessionSearchStatus>(),
         cancelCollaboratorSearchStreamLogic:
             i<CancelCollaboratorSearchStream>(),
         enterCollaboratorPoolLogic: i<EnterCollaboratorPool>(),
