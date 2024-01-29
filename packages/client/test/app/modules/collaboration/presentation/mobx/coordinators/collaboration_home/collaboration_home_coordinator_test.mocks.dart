@@ -880,7 +880,8 @@ class MockCollaborationLogicCoordinator extends _i1.Mock
       ) as _i7.Future<dynamic>);
 
   @override
-  _i7.Future<dynamic> enter(String? collaboratorUID) => (super.noSuchMethod(
+  _i7.Future<dynamic> enter(_i6.EnterCollaboratorPoolParams? collaboratorUID) =>
+      (super.noSuchMethod(
         Invocation.method(
           #enter,
           [collaboratorUID],
