@@ -54,6 +54,16 @@ mixin _$CollaborationHomeScreenCoordinator
     return _$constructorAsyncAction.run(() => super.constructor());
   }
 
+  late final _$onDeepLinkOpenedAsyncAction = AsyncAction(
+      '_CollaborationHomeScreenCoordinatorBase.onDeepLinkOpened',
+      context: context);
+
+  @override
+  Future onDeepLinkOpened(String path) {
+    return _$onDeepLinkOpenedAsyncAction
+        .run(() => super.onDeepLinkOpened(path));
+  }
+
   late final _$onInvitationSharedAsyncAction = AsyncAction(
       '_CollaborationHomeScreenCoordinatorBase.onInvitationShared',
       context: context);
@@ -157,19 +167,6 @@ mixin _$CollaborationHomeScreenCoordinator
                 '_CollaborationHomeScreenCoordinatorBase.onEnterCollaboratorPool');
     try {
       return super.onEnterCollaboratorPool();
-    } finally {
-      _$_CollaborationHomeScreenCoordinatorBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic onDeepLinkOpened(String path) {
-    final _$actionInfo =
-        _$_CollaborationHomeScreenCoordinatorBaseActionController.startAction(
-            name: '_CollaborationHomeScreenCoordinatorBase.onDeepLinkOpened');
-    try {
-      return super.onDeepLinkOpened(path);
     } finally {
       _$_CollaborationHomeScreenCoordinatorBaseActionController
           .endAction(_$actionInfo);
