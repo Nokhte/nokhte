@@ -13,6 +13,11 @@ class ActiveNokhteSessionsStream {
   ActiveNokhteSessionsStream({required this.supabase})
       : userUID = supabase.auth.currentUser?.id ?? '';
 
+  cancelGetActiveNokhteSessionCreationStatus() {
+    getActiveNokhteSessionCreationListingingStatus = false;
+    return getActiveNokhteSessionCreationListingingStatus;
+  }
+
   Stream<bool> getActiveNokhteSessionCreationStatus() async* {
     getActiveNokhteSessionCreationListingingStatus = true;
     await for (var event
