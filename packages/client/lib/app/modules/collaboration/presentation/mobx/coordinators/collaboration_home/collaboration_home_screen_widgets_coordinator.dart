@@ -180,9 +180,6 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode == BeachWaveMovieModes.oceanDiveToOnShore) {
             Modular.to.navigate('/home/');
-          } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.oceanDiveToTimesUp) {
-            Modular.to.navigate('/nokhte_session/');
           }
         }
       });
