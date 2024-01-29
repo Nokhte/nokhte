@@ -1,11 +1,8 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -22,7 +19,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final GestureCrossStore gestureCross;
   final SmartTextStore primarySmartText;
-  final DeepLinksCoordinator deepLinks;
+  // final DeepLinksCoordinator deepLinks;
 
   _HomeScreenWidgetsCoordinatorBase({
     required this.nokhteBlur,
@@ -30,7 +27,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     required this.wifiDisconnectOverlay,
     required this.gestureCross,
     required this.primarySmartText,
-    required this.deepLinks,
   });
 
   @observable
@@ -62,7 +58,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   constructor() {
-    deepLinks.listen();
     gestureCross.setHomeScreen();
     beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
     primarySmartText.setMessagesData(MessagesData.firstTimeHomeList);
@@ -179,8 +174,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     gestureCrossTapReactor(repeatTheFlow);
     nokhteBlurReactor();
     centerCrossNokhteReactor();
-    beachWavesMovieStatusReactor();
-    openedDeepLinksReactor();
   }
 
   centerCrossNokhteReactor() =>
@@ -217,34 +210,28 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
             nokhteBlur.pastControl == Control.playReverseFromEnd) {}
       });
 
-  beachWavesMovieStatusReactor() =>
+  beachWavesMovieStatusReactor(
+    Function onShoreToOceanDiveComplete,
+    Function onShoreToVibrantBlueComplete,
+  ) =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToOceanDive) {
-            Modular.to.navigate(
-              '/collaboration/',
-              arguments:
-                  deepLinks.listenForOpenedDeepLinkStore.additionalMetadata,
-            );
+            onShoreToOceanDiveComplete();
           } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.onShoreToTimesUp) {
-            Modular.to.navigate(
-              '/nokhte_session/',
-              arguments:
-                  deepLinks.listenForOpenedDeepLinkStore.additionalMetadata,
-            );
+              BeachWaveMovieModes.onShoreToVibrantBlue) {
+            onShoreToVibrantBlueComplete();
           }
         }
       });
 
-  openedDeepLinksReactor() =>
-      reaction((p0) => deepLinks.listenForOpenedDeepLinkStore.path, (p0) {
-        if (p0 == '/nokhte_session/') {
-          beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToTimesUp);
-          beachWaves.currentStore.initMovie(
-            beachWaves.currentAnimationValues.first,
-          );
-          gestureCross.toggleAll();
-        }
-      });
+  @action
+  onDeepLinkOpened() {
+    primarySmartText.toggleWidgetVisibility();
+    beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToVibrantBlue);
+    beachWaves.currentStore.initMovie(
+      beachWaves.currentAnimationValues.first,
+    );
+    gestureCross.toggleAll();
+  }
 }
