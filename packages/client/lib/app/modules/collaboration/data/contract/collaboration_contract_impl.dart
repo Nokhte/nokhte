@@ -20,7 +20,7 @@ class CollaborationContractImpl
       remoteSource.cancelStream();
 
   @override
-  enterTheCollaboratorPool(String collaboratorUID) async {
+  enterTheCollaboratorPool(collaboratorUID) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.enterThePool(collaboratorUID);
       return Right(fromFunctionResponse(res));
