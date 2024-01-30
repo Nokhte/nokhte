@@ -56,7 +56,6 @@ class CollaborationRemoteSourceImpl implements CollaborationRemoteSource {
 
   @override
   Stream<bool> getNokhteSessionSearchStatus() {
-    print("called in rs");
     return activeNokhteSessionsStream.getActiveNokhteSessionCreationStatus();
   }
 }
