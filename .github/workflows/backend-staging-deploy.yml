@@ -27,6 +27,6 @@ jobs:
       - run: echo "GOOGLE_CLIENT_ID='$GOOGLE_CLIENT_ID'" >> .env
       - run: echo "GOOGLE_CLIENT_SECRET='$GOOGLE_CLIENT_SECRET'" >> .env
       - run: supabase start
-      - run: supabase link --project-ref '$SUPABASE_STAGING_PROJECT_ID' --password '$SUPABASE_STAGING_DB_PASSWORD'
+      - run: supabase link --project-ref $SUPABASE_STAGING_PROJECT_ID --password $SUPABASE_STAGING_DB_PASSWORD
       - run: supabase functions deploy
       - run: supabase db push
