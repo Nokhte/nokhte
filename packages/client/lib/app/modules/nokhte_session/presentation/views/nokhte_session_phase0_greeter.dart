@@ -5,7 +5,7 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/nokhte_session/presentation/presentation.dart';
 
 class NokhteSessionPhase0Greeter extends HookWidget {
-  final NokhteSessionPhase0WidgetsCoordinator coordinator;
+  final NokhteSessionPhase0Coordinator coordinator;
   const NokhteSessionPhase0Greeter({
     super.key,
     required this.coordinator,
@@ -29,17 +29,17 @@ class NokhteSessionPhase0Greeter extends HookWidget {
         children: [
           FullScreen(
             child: BeachWaves(
-              store: coordinator.beachWaves,
+              store: coordinator.widgets.beachWaves,
             ),
           ),
           Center(
               child: SmartText(
-            store: coordinator.primarySmartText,
+            store: coordinator.widgets.primarySmartText,
             bottomPadding: 180,
             opacityDuration: Seconds.get(1),
           )),
           WifiDisconnectOverlay(
-            store: coordinator.wifiDisconnectOverlay,
+            store: coordinator.widgets.wifiDisconnectOverlay,
           ),
 
           // FullScreen(child: BeachWaves(store: coo,))

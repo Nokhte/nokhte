@@ -10,21 +10,40 @@ part of 'collaboration_logic_coordinator.dart';
 
 mixin _$CollaborationLogicCoordinator
     on _CollaborationLogicCoordinatorBase, Store {
-  late final _$searchStatusIsListeningAtom = Atom(
-      name: '_CollaborationLogicCoordinatorBase.searchStatusIsListening',
+  late final _$collaboratorSearchStatusIsListeningAtom = Atom(
+      name:
+          '_CollaborationLogicCoordinatorBase.collaboratorSearchStatusIsListening',
       context: context);
 
   @override
-  bool get searchStatusIsListening {
-    _$searchStatusIsListeningAtom.reportRead();
-    return super.searchStatusIsListening;
+  bool get collaboratorSearchStatusIsListening {
+    _$collaboratorSearchStatusIsListeningAtom.reportRead();
+    return super.collaboratorSearchStatusIsListening;
   }
 
   @override
-  set searchStatusIsListening(bool value) {
-    _$searchStatusIsListeningAtom
-        .reportWrite(value, super.searchStatusIsListening, () {
-      super.searchStatusIsListening = value;
+  set collaboratorSearchStatusIsListening(bool value) {
+    _$collaboratorSearchStatusIsListeningAtom
+        .reportWrite(value, super.collaboratorSearchStatusIsListening, () {
+      super.collaboratorSearchStatusIsListening = value;
+    });
+  }
+
+  late final _$nokhteSearchStatusIsListeningAtom = Atom(
+      name: '_CollaborationLogicCoordinatorBase.nokhteSearchStatusIsListening',
+      context: context);
+
+  @override
+  bool get nokhteSearchStatusIsListening {
+    _$nokhteSearchStatusIsListeningAtom.reportRead();
+    return super.nokhteSearchStatusIsListening;
+  }
+
+  @override
+  set nokhteSearchStatusIsListening(bool value) {
+    _$nokhteSearchStatusIsListeningAtom
+        .reportWrite(value, super.nokhteSearchStatusIsListening, () {
+      super.nokhteSearchStatusIsListening = value;
     });
   }
 
@@ -44,20 +63,38 @@ mixin _$CollaborationLogicCoordinator
     });
   }
 
-  late final _$searchStatusAtom = Atom(
-      name: '_CollaborationLogicCoordinatorBase.searchStatus',
+  late final _$collaboratorSearchStatusAtom = Atom(
+      name: '_CollaborationLogicCoordinatorBase.collaboratorSearchStatus',
       context: context);
 
   @override
-  ObservableStream<bool> get searchStatus {
-    _$searchStatusAtom.reportRead();
-    return super.searchStatus;
+  ObservableStream<bool> get collaboratorSearchStatus {
+    _$collaboratorSearchStatusAtom.reportRead();
+    return super.collaboratorSearchStatus;
   }
 
   @override
-  set searchStatus(ObservableStream<bool> value) {
-    _$searchStatusAtom.reportWrite(value, super.searchStatus, () {
-      super.searchStatus = value;
+  set collaboratorSearchStatus(ObservableStream<bool> value) {
+    _$collaboratorSearchStatusAtom
+        .reportWrite(value, super.collaboratorSearchStatus, () {
+      super.collaboratorSearchStatus = value;
+    });
+  }
+
+  late final _$nokhteSearchStatusAtom = Atom(
+      name: '_CollaborationLogicCoordinatorBase.nokhteSearchStatus',
+      context: context);
+
+  @override
+  ObservableStream<bool> get nokhteSearchStatus {
+    _$nokhteSearchStatusAtom.reportRead();
+    return super.nokhteSearchStatus;
+  }
+
+  @override
+  set nokhteSearchStatus(ObservableStream<bool> value) {
+    _$nokhteSearchStatusAtom.reportWrite(value, super.nokhteSearchStatus, () {
+      super.nokhteSearchStatus = value;
     });
   }
 
@@ -79,6 +116,24 @@ mixin _$CollaborationLogicCoordinator
     });
   }
 
+  late final _$hasFoundNokhteSessionAtom = Atom(
+      name: '_CollaborationLogicCoordinatorBase.hasFoundNokhteSession',
+      context: context);
+
+  @override
+  bool get hasFoundNokhteSession {
+    _$hasFoundNokhteSessionAtom.reportRead();
+    return super.hasFoundNokhteSession;
+  }
+
+  @override
+  set hasFoundNokhteSession(bool value) {
+    _$hasFoundNokhteSessionAtom.reportWrite(value, super.hasFoundNokhteSession,
+        () {
+      super.hasFoundNokhteSession = value;
+    });
+  }
+
   late final _$disposeAsyncAction = AsyncAction(
       '_CollaborationLogicCoordinatorBase.dispose',
       context: context);
@@ -88,20 +143,31 @@ mixin _$CollaborationLogicCoordinator
     return _$disposeAsyncAction.run(() => super.dispose());
   }
 
-  late final _$listenAsyncAction = AsyncAction(
-      '_CollaborationLogicCoordinatorBase.listen',
+  late final _$listenToCollaboratorSearchAsyncAction = AsyncAction(
+      '_CollaborationLogicCoordinatorBase.listenToCollaboratorSearch',
       context: context);
 
   @override
-  Future listen() {
-    return _$listenAsyncAction.run(() => super.listen());
+  Future listenToCollaboratorSearch() {
+    return _$listenToCollaboratorSearchAsyncAction
+        .run(() => super.listenToCollaboratorSearch());
+  }
+
+  late final _$listenToNokhteSearchAsyncAction = AsyncAction(
+      '_CollaborationLogicCoordinatorBase.listenToNokhteSearch',
+      context: context);
+
+  @override
+  Future listenToNokhteSearch() {
+    return _$listenToNokhteSearchAsyncAction
+        .run(() => super.listenToNokhteSearch());
   }
 
   late final _$enterAsyncAction =
       AsyncAction('_CollaborationLogicCoordinatorBase.enter', context: context);
 
   @override
-  Future enter(String collaboratorUID) {
+  Future enter(EnterCollaboratorPoolParams collaboratorUID) {
     return _$enterAsyncAction.run(() => super.enter(collaboratorUID));
   }
 
@@ -116,10 +182,13 @@ mixin _$CollaborationLogicCoordinator
   @override
   String toString() {
     return '''
-searchStatusIsListening: ${searchStatusIsListening},
+collaboratorSearchStatusIsListening: ${collaboratorSearchStatusIsListening},
+nokhteSearchStatusIsListening: ${nokhteSearchStatusIsListening},
 hasEntered: ${hasEntered},
-searchStatus: ${searchStatus},
-hasFoundCollaborator: ${hasFoundCollaborator}
+collaboratorSearchStatus: ${collaboratorSearchStatus},
+nokhteSearchStatus: ${nokhteSearchStatus},
+hasFoundCollaborator: ${hasFoundCollaborator},
+hasFoundNokhteSession: ${hasFoundNokhteSession}
     ''';
   }
 }

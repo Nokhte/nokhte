@@ -93,3 +93,15 @@ using (((auth.uid() = collaborator_one_uid) OR (auth.uid() = collaborator_two_ui
 
 alter
   publication supabase_realtime add table public.active_nokhte_sessions;
+
+
+CREATE UNIQUE INDEX p2p_collaborator_pool_wayfarer_uid_key ON public.p2p_collaborator_pool USING btree (wayfarer_uid);
+
+alter table "public"."p2p_collaborator_pool" add constraint "p2p_collaborator_pool_wayfarer_uid_key" UNIQUE using index "p2p_collaborator_pool_wayfarer_uid_key";
+
+drop function if exists "internal_functions"."adj_or_noun_dispenser"(is_a_noun boolean, word_id integer);
+
+drop function if exists "internal_functions"."collaborator_phrase_assigner"();
+
+drop trigger if exists "enforce_unique_wayfarers" on "public"."p2p_collaborator_pool";
+drop function if exists "internal_functions"."enforce_unique_wayfarers"();

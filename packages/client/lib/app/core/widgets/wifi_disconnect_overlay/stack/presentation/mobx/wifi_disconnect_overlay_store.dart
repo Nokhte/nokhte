@@ -38,7 +38,6 @@ abstract class _WifiDisconnectOverlayStoreBase
     required Function onLongReConnected,
     required Function onDisconnected,
   }) {
-    print("you inited??");
     connectionReactor(
       onQuickConnected: onQuickConnected,
       onDisconnected: onDisconnected,

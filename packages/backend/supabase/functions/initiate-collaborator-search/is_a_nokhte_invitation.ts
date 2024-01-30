@@ -3,16 +3,18 @@ import { supabaseAdmin } from "../constants/supabase.ts";
 import { isEmptyOrNull, isNotEmptyOrNull } from "../utils/array_utils.ts";
 
 async function isANokhteInvitation(queryUID: string, mostRecentEntrant: any) {
+  const userUID = mostRecentEntrant.data?.[0]["wayfarer_uid"];
+  const meetingUID = mostRecentEntrant.data?.[0]["query_uid"];
   const wayfarerQueryRes = await supabaseAdmin
     .from("p2p_collaborator_pool")
     .select()
     .eq("query_uid", queryUID)
+    .neq("wayfarer_uid", userUID)
+
     .eq("invitation_type", "NOKHTE_SESSION");
 
   if (isNotEmptyOrNull(wayfarerQueryRes?.data)) {
     const matchedUID = wayfarerQueryRes.data?.[0]?.["wayfarer_uid"];
-    const userUID = mostRecentEntrant.data?.[0]["wayfarer_uid"];
-    const meetingUID = mostRecentEntrant.data?.[0]["query_uid"];
 
     const checkRes = await supabaseAdmin
       .from("active_nokhte_sessions")

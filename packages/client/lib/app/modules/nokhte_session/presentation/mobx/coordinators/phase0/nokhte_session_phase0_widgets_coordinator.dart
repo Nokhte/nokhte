@@ -10,7 +10,7 @@ class NokhteSessionPhase0WidgetsCoordinator = _NokhteSessionPhase0WidgetsCoordin
     with _$NokhteSessionPhase0WidgetsCoordinator;
 
 abstract class _NokhteSessionPhase0WidgetsCoordinatorBase
-    extends BaseCoordinator with Store {
+    extends BaseWidgetsCoordinator with Store {
   final BeachWavesStore beachWaves;
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final SmartTextStore primarySmartText;

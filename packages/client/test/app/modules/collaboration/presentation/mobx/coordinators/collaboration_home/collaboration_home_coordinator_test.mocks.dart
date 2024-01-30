@@ -188,9 +188,9 @@ class _FakeGetCollaboratorSearchStatus_13 extends _i1.SmartFake
         );
 }
 
-class _FakeObservableStream_14<T> extends _i1.SmartFake
-    implements _i3.ObservableStream<T> {
-  _FakeObservableStream_14(
+class _FakeGetNokhteSessionSearchStatus_14 extends _i1.SmartFake
+    implements _i6.GetNokhteSessionSearchStatus {
+  _FakeGetNokhteSessionSearchStatus_14(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -199,9 +199,20 @@ class _FakeObservableStream_14<T> extends _i1.SmartFake
         );
 }
 
-class _FakeStreamSubscription_15<T> extends _i1.SmartFake
+class _FakeObservableStream_15<T> extends _i1.SmartFake
+    implements _i3.ObservableStream<T> {
+  _FakeObservableStream_15(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeStreamSubscription_16<T> extends _i1.SmartFake
     implements _i7.StreamSubscription<T> {
-  _FakeStreamSubscription_15(
+  _FakeStreamSubscription_16(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -708,16 +719,46 @@ class MockCollaborationLogicCoordinator extends _i1.Mock
       ) as _i6.GetCollaboratorSearchStatus);
 
   @override
-  bool get searchStatusIsListening => (super.noSuchMethod(
-        Invocation.getter(#searchStatusIsListening),
+  _i6.GetNokhteSessionSearchStatus get getNokhteSessionSearchStatusLogic =>
+      (super.noSuchMethod(
+        Invocation.getter(#getNokhteSessionSearchStatusLogic),
+        returnValue: _FakeGetNokhteSessionSearchStatus_14(
+          this,
+          Invocation.getter(#getNokhteSessionSearchStatusLogic),
+        ),
+        returnValueForMissingStub: _FakeGetNokhteSessionSearchStatus_14(
+          this,
+          Invocation.getter(#getNokhteSessionSearchStatusLogic),
+        ),
+      ) as _i6.GetNokhteSessionSearchStatus);
+
+  @override
+  bool get collaboratorSearchStatusIsListening => (super.noSuchMethod(
+        Invocation.getter(#collaboratorSearchStatusIsListening),
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
 
   @override
-  set searchStatusIsListening(bool? value) => super.noSuchMethod(
+  set collaboratorSearchStatusIsListening(bool? value) => super.noSuchMethod(
         Invocation.setter(
-          #searchStatusIsListening,
+          #collaboratorSearchStatusIsListening,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get nokhteSearchStatusIsListening => (super.noSuchMethod(
+        Invocation.getter(#nokhteSearchStatusIsListening),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set nokhteSearchStatusIsListening(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #nokhteSearchStatusIsListening,
           value,
         ),
         returnValueForMissingStub: null,
@@ -740,22 +781,47 @@ class MockCollaborationLogicCoordinator extends _i1.Mock
       );
 
   @override
-  _i3.ObservableStream<bool> get searchStatus => (super.noSuchMethod(
-        Invocation.getter(#searchStatus),
-        returnValue: _FakeObservableStream_14<bool>(
+  _i3.ObservableStream<bool> get collaboratorSearchStatus =>
+      (super.noSuchMethod(
+        Invocation.getter(#collaboratorSearchStatus),
+        returnValue: _FakeObservableStream_15<bool>(
           this,
-          Invocation.getter(#searchStatus),
+          Invocation.getter(#collaboratorSearchStatus),
         ),
-        returnValueForMissingStub: _FakeObservableStream_14<bool>(
+        returnValueForMissingStub: _FakeObservableStream_15<bool>(
           this,
-          Invocation.getter(#searchStatus),
+          Invocation.getter(#collaboratorSearchStatus),
         ),
       ) as _i3.ObservableStream<bool>);
 
   @override
-  set searchStatus(_i3.ObservableStream<bool>? value) => super.noSuchMethod(
+  set collaboratorSearchStatus(_i3.ObservableStream<bool>? value) =>
+      super.noSuchMethod(
         Invocation.setter(
-          #searchStatus,
+          #collaboratorSearchStatus,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i3.ObservableStream<bool> get nokhteSearchStatus => (super.noSuchMethod(
+        Invocation.getter(#nokhteSearchStatus),
+        returnValue: _FakeObservableStream_15<bool>(
+          this,
+          Invocation.getter(#nokhteSearchStatus),
+        ),
+        returnValueForMissingStub: _FakeObservableStream_15<bool>(
+          this,
+          Invocation.getter(#nokhteSearchStatus),
+        ),
+      ) as _i3.ObservableStream<bool>);
+
+  @override
+  set nokhteSearchStatus(_i3.ObservableStream<bool>? value) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #nokhteSearchStatus,
           value,
         ),
         returnValueForMissingStub: null,
@@ -778,13 +844,29 @@ class MockCollaborationLogicCoordinator extends _i1.Mock
       );
 
   @override
+  bool get hasFoundNokhteSession => (super.noSuchMethod(
+        Invocation.getter(#hasFoundNokhteSession),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set hasFoundNokhteSession(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #hasFoundNokhteSession,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   _i7.StreamSubscription<dynamic> get searchSubscription => (super.noSuchMethod(
         Invocation.getter(#searchSubscription),
-        returnValue: _FakeStreamSubscription_15<dynamic>(
+        returnValue: _FakeStreamSubscription_16<dynamic>(
           this,
           Invocation.getter(#searchSubscription),
         ),
-        returnValueForMissingStub: _FakeStreamSubscription_15<dynamic>(
+        returnValueForMissingStub: _FakeStreamSubscription_16<dynamic>(
           this,
           Invocation.getter(#searchSubscription),
         ),
@@ -797,6 +879,30 @@ class MockCollaborationLogicCoordinator extends _i1.Mock
         Invocation.setter(
           #searchSubscription,
           _searchSubscription,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i7.StreamSubscription<dynamic> get nokhteSubscription => (super.noSuchMethod(
+        Invocation.getter(#nokhteSubscription),
+        returnValue: _FakeStreamSubscription_16<dynamic>(
+          this,
+          Invocation.getter(#nokhteSubscription),
+        ),
+        returnValueForMissingStub: _FakeStreamSubscription_16<dynamic>(
+          this,
+          Invocation.getter(#nokhteSubscription),
+        ),
+      ) as _i7.StreamSubscription<dynamic>);
+
+  @override
+  set nokhteSubscription(
+          _i7.StreamSubscription<dynamic>? _nokhteSubscription) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #nokhteSubscription,
+          _nokhteSubscription,
         ),
         returnValueForMissingStub: null,
       );
@@ -870,9 +976,9 @@ class MockCollaborationLogicCoordinator extends _i1.Mock
       ) as _i7.Future<dynamic>);
 
   @override
-  _i7.Future<dynamic> listen() => (super.noSuchMethod(
+  _i7.Future<dynamic> listenToCollaboratorSearch() => (super.noSuchMethod(
         Invocation.method(
-          #listen,
+          #listenToCollaboratorSearch,
           [],
         ),
         returnValue: _i7.Future<dynamic>.value(),
@@ -880,7 +986,18 @@ class MockCollaborationLogicCoordinator extends _i1.Mock
       ) as _i7.Future<dynamic>);
 
   @override
-  _i7.Future<dynamic> enter(String? collaboratorUID) => (super.noSuchMethod(
+  _i7.Future<dynamic> listenToNokhteSearch() => (super.noSuchMethod(
+        Invocation.method(
+          #listenToNokhteSearch,
+          [],
+        ),
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
+
+  @override
+  _i7.Future<dynamic> enter(_i6.EnterCollaboratorPoolParams? collaboratorUID) =>
+      (super.noSuchMethod(
         Invocation.method(
           #enter,
           [collaboratorUID],

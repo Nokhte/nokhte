@@ -20,18 +20,18 @@ abstract class _CollaboratorPoolScreenCoordinatorBase extends BaseCoordinator
   @action
   constructor() {
     widgets.constructor();
-    logic.listen();
-    searchStatusReactor();
+    logic.listenToNokhteSearch();
+    nokhteSearchStatusReactor();
   }
 
   @action
   exitThePool() async => await logic.exit();
 
-  searchStatusReactor() =>
-      reaction((p0) => logic.hasFoundCollaborator, (p0) async {
+  nokhteSearchStatusReactor() =>
+      reaction((p0) => logic.hasFoundNokhteSession, (p0) async {
         if (p0) {
           await logic.dispose();
-          widgets.initTransitionToPurposeSession();
+          widgets.initTransition(isNokhteSession: true);
         }
       });
 }

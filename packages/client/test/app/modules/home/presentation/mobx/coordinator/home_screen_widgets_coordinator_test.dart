@@ -1,7 +1,6 @@
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -9,7 +8,6 @@ import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 import 'package:simple_animations/simple_animations.dart';
 import '../../../../shared/shared_mocks.mocks.dart';
 import '../../../../shared/shared_test_utils.dart';
-import '../../../fixtures/home_stack_mock_gen.mocks.dart';
 
 void main() {
   late BeachWavesStore beachWaves;
@@ -29,11 +27,6 @@ void main() {
 
       testStore = HomeScreenWidgetsCoordinator(
         nokhteBlur: nokhteBlurStore,
-        deepLinks: DeepLinksCoordinator(
-          getDeepLinkUrlLogic: MockGetDeepLinkURL(),
-          listenForOpenedDeepLinkStore: MockListenForOpenedDeepLinkStore(),
-          sendDeepLinkLogic: MockSendDeepLink(),
-        ),
         beachWaves: beachWaves,
         wifiDisconnectOverlay: wifiDisconnectOverlay,
         gestureCross: gestureCross,

@@ -341,6 +341,19 @@ mixin _$HomeScreenWidgetsCoordinator
   }
 
   @override
+  dynamic onDeepLinkOpened() {
+    final _$actionInfo =
+        _$_HomeScreenWidgetsCoordinatorBaseActionController.startAction(
+            name: '_HomeScreenWidgetsCoordinatorBase.onDeepLinkOpened');
+    try {
+      return super.onDeepLinkOpened();
+    } finally {
+      _$_HomeScreenWidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 hasCompletedInvitationFlow: ${hasCompletedInvitationFlow},
