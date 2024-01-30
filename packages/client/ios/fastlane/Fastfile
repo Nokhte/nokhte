@@ -57,7 +57,7 @@ platform :ios do
   desc "rebuild iOS Archive (PREREQ No. 1)"
   lane :rebuild_ios_archive do
     setup_ci
-    match(type: 'appstore', readonly: true)
+    match(type: 'appstore', readonly: true, git_basic_authorization: ENV['MATCH_BASIC_GIT_AUTHORIZATION'])
     Dir.chdir("../..") do
       sh "flutter packages get"
       sh "flutter clean"
