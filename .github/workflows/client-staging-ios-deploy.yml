@@ -14,8 +14,7 @@ jobs:
     defaults:
       run:
         working-directory: packages/client
-    env:
-      STAGING_CLIENT_ENV: ${{ secrets.STAGING_CLIENT_ENV }}
+
     steps:
       - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v2
@@ -23,7 +22,14 @@ jobs:
           flutter-version: "3.13.9"
           channel: "stable"
       - uses: bluefireteam/melos-action@v3
-      - run: echo '$STAGING_CLIENT_ENV' > .env
+      - run: |
+            echo "PROD_SUPABASE_URL='$STAGING_SUPABASE_URL'"
+            echo "PROD_SUPABASE_ANON_KEY='$STAGING_SUPABASE_ANON_KEY'"
+            echo "AGORA_APP_ID='AGORA_APP_ID'"
+        env:
+          STAGING_SUPABASE_URL: ${{ secrets.STAGING_SUPABASE_URL }}
+          STAGING_SUPABASE_ANON_KEY: ${{ secrets.STAGING_SUPABASE_ANON_KEY }}
+          AGORA_APP_ID: ${{ secrets.AGORA_APP_ID }}
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0' 
