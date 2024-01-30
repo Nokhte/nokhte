@@ -7,8 +7,6 @@ packages:
 
 command:
   bootstrap:
-    hooks:
-      pre: dart run common_packs_injector.dart
     runPubGetInParallel: false
     usePubspecOverrides: true
 
