@@ -34,6 +34,11 @@ class CollaborationLogicModule extends Module {
         contract: i<CollaborationContractImpl>(),
       ),
     );
+    i.add<GetNokhteSessionSearchStatus>(
+      () => GetNokhteSessionSearchStatus(
+        contract: i<CollaborationContractImpl>(),
+      ),
+    );
     i.add<EnterCollaboratorPool>(
       () => EnterCollaboratorPool(
         contract: i<CollaborationContractImpl>(),
@@ -51,6 +56,8 @@ class CollaborationLogicModule extends Module {
     );
     i.add<CollaborationLogicCoordinator>(
       () => CollaborationLogicCoordinator(
+        getNokhteSessionSearchStatusLogic:
+            Modular.get<GetNokhteSessionSearchStatus>(),
         cancelCollaboratorSearchStreamLogic:
             i<CancelCollaboratorSearchStream>(),
         enterCollaboratorPoolLogic: i<EnterCollaboratorPool>(),

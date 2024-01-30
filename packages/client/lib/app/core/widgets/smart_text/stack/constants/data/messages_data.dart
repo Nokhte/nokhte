@@ -35,23 +35,6 @@ class MessagesData {
           unlockGesture: Gestures.tap,
         ),
         RotatingTextData(
-          initialFadeInDelay: Seconds.get(0),
-          mainMessage: "",
-          onScreenTime: Seconds.get(0),
-        ),
-        RotatingTextData(
-          initialFadeInDelay: Seconds.get(1),
-          mainMessage:
-              "Both of you need to be online at the same to make the collaboration.",
-          onScreenTime: Seconds.get(2),
-        ),
-        RotatingTextData(
-          initialFadeInDelay: Seconds.get(0),
-          mainMessage: "",
-          pauseHere: true,
-          onScreenTime: Seconds.get(0),
-        ),
-        RotatingTextData(
           initialFadeInDelay: Seconds.get(1),
           mainMessage: "Swipe Up to Enter The Collaboration Page.",
           onScreenTime: Seconds.get(2),
@@ -69,12 +52,6 @@ class MessagesData {
         RotatingTextData(
           initialFadeInDelay: Seconds.get(1),
           mainMessage: "This is the collaboration page.",
-          onScreenTime: Seconds.get(2),
-        ),
-        RotatingTextData(
-          initialFadeInDelay: Seconds.get(0),
-          mainMessage:
-              "To make the connection you will need each other's invitation.",
           onScreenTime: Seconds.get(2),
         ),
         RotatingTextData(
@@ -233,6 +210,24 @@ class MessagesData {
         RotatingTextData(
           mainMessage: "Collaborator Is Offline",
           pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
+      ];
+
+  static List<RotatingTextData> get primaryNokhteSessionPhase0List => [
+        RotatingTextData(
+          initialFadeInDelay: Seconds.get(0),
+          mainMessage:
+              "You will have some questions to orient the conversation",
+          onScreenTime: Seconds.get(2),
+        ),
+        RotatingTextData(
+          initialFadeInDelay: Seconds.get(0),
+          mainMessage: "The aim is to create a single statement together",
+          onScreenTime: Seconds.get(2),
         ),
         RotatingTextData(
           mainMessage: "",

@@ -43,6 +43,30 @@ mixin _$HomeScreenCoordinator on _HomeScreenCoordinatorBase, Store {
   }
 
   @override
+  dynamic onShoreToOceanDiveComplete() {
+    final _$actionInfo =
+        _$_HomeScreenCoordinatorBaseActionController.startAction(
+            name: '_HomeScreenCoordinatorBase.onShoreToOceanDiveComplete');
+    try {
+      return super.onShoreToOceanDiveComplete();
+    } finally {
+      _$_HomeScreenCoordinatorBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onShoreToVibrantBlueComplete() {
+    final _$actionInfo =
+        _$_HomeScreenCoordinatorBaseActionController.startAction(
+            name: '_HomeScreenCoordinatorBase.onShoreToVibrantBlueComplete');
+    try {
+      return super.onShoreToVibrantBlueComplete();
+    } finally {
+      _$_HomeScreenCoordinatorBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic repeatTheFlow() {
     final _$actionInfo = _$_HomeScreenCoordinatorBaseActionController
         .startAction(name: '_HomeScreenCoordinatorBase.repeatTheFlow');

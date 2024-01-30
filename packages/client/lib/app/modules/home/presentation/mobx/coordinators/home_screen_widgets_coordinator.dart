@@ -1,11 +1,8 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -17,24 +14,19 @@ class HomeScreenWidgetsCoordinator = _HomeScreenWidgetsCoordinatorBase
 
 abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     with Store {
-  final TimeAlignmentModelCoordinator timeModel;
   final NokhteBlurStore nokhteBlur;
   final BeachWavesStore beachWaves;
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final GestureCrossStore gestureCross;
   final SmartTextStore primarySmartText;
-  final SmartTextStore secondarySmartText;
-  final DeepLinksCoordinator deepLinks;
+  // final DeepLinksCoordinator deepLinks;
 
   _HomeScreenWidgetsCoordinatorBase({
-    required this.timeModel,
     required this.nokhteBlur,
     required this.beachWaves,
     required this.wifiDisconnectOverlay,
     required this.gestureCross,
     required this.primarySmartText,
-    required this.secondarySmartText,
-    required this.deepLinks,
   });
 
   @observable
@@ -42,14 +34,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @observable
   bool wantsToRepeatInvitationFlow = false;
-
-  @action
-  toggleWantsToRepeatInvitationFlow() =>
-      wantsToRepeatInvitationFlow = !wantsToRepeatInvitationFlow;
-
-  @action
-  toggleHasCompletedInvitationFlow() =>
-      hasCompletedInvitationFlow = !hasCompletedInvitationFlow;
 
   @observable
   bool hasSwipedUp = false;
@@ -65,12 +49,18 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   toggleHasSwipedUp() => hasSwipedUp = !hasSwipedUp;
 
   @action
+  toggleWantsToRepeatInvitationFlow() =>
+      wantsToRepeatInvitationFlow = !wantsToRepeatInvitationFlow;
+
+  @action
+  toggleHasCompletedInvitationFlow() =>
+      hasCompletedInvitationFlow = !hasCompletedInvitationFlow;
+
+  @action
   constructor() {
-    deepLinks.listen();
     gestureCross.setHomeScreen();
     beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
     primarySmartText.setMessagesData(MessagesData.firstTimeHomeList);
-    secondarySmartText.setMessagesData(MessagesData.firstTimeSecondaryHomeList);
   }
 
   @action
@@ -102,7 +92,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   onResumed() {
-    if (clockAnimationHasNotStarted) {
+    if (!hasInitiatedBlur) {
       primarySmartText.startRotatingText();
       if (hasInitiatedBlur) {
         nokhteBlur.reverse();
@@ -113,7 +103,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   onInactive() {
-    if (clockAnimationHasNotStarted) {
+    if (!hasInitiatedBlur) {
       primarySmartText.reset();
       if (!hasSwipedUp) {
         beachWaves.currentStore.setControl(Control.mirror);
@@ -128,10 +118,10 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
       nokhteBlur.reverse();
     }
     gestureCross.stopBlinking();
-    primarySmartText.toggleWidgetVisibility();
-    timeModel.toggleWidgetVisibility();
-    if (secondarySmartText.showWidget) {
-      secondarySmartText.toggleWidgetVisibility();
+    if (primarySmartText.currentIndex == 0) {
+      primarySmartText.toggleWidgetVisibility();
+    } else {
+      primarySmartText.startRotatingText(isResuming: true);
     }
     beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDive);
     beachWaves.currentStore.initMovie(beachWaves.currentAnimationValues.first);
@@ -140,7 +130,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   onSwipeUp() {
-    if (primarySmartText.currentIndex.equals(4) &&
+    if (primarySmartText.currentIndex.equals(1) &&
         !hasSwipedUp &&
         !hasCompletedInvitationFlow) {
       prepForNavigation();
@@ -168,12 +158,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   }
 
   @observable
-  bool clockAnimationHasNotStarted = true;
-
-  @observable
-  bool clockIsVisible = false;
-
-  @observable
   bool hasInitiatedBlur = false;
 
   @observable
@@ -184,19 +168,12 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
       isDoubleTriggeringWindDown = !isDoubleTriggeringWindDown;
 
   @action
-  toggleClockIsVisible() => clockIsVisible = !clockIsVisible;
-
-  @action
   toggleHasInitiatedBlur() => hasInitiatedBlur = !hasInitiatedBlur;
 
   initReactors(Function repeatTheFlow) {
-    primarySmartTextReactor();
     gestureCrossTapReactor(repeatTheFlow);
-    clockFaceAnimationStatusReactor();
-    availabilitySectorsMovieStatusReactor();
     nokhteBlurReactor();
     centerCrossNokhteReactor();
-    beachWavesMovieStatusReactor();
   }
 
   centerCrossNokhteReactor() =>
@@ -211,21 +188,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
         (p0) => gestureCross.tapCount,
         (p0) => onGestureCrossTap(repeatTheFlow),
       );
-
-  primarySmartTextReactor() =>
-      reaction((p0) => primarySmartText.currentIndex, (p0) {
-        if (p0 == 3) {
-          timeModel.init();
-        }
-      });
-
-  clockFaceAnimationStatusReactor() => reaction(
-      (p0) => timeModel.clockFace.movieStatus,
-      (p0) => onClockFaceAnimationFinished(p0));
-
-  availabilitySectorsMovieStatusReactor() => reaction(
-      (p0) => timeModel.availabilitySectors.movieStatus,
-      (p0) => onAvailabilitySectorMovieStatusFinished(p0));
 
   @action
   onLongReconnected() {
@@ -248,44 +210,28 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
             nokhteBlur.pastControl == Control.playReverseFromEnd) {}
       });
 
-  beachWavesMovieStatusReactor() =>
+  beachWavesMovieStatusReactor(
+    Function onShoreToOceanDiveComplete,
+    Function onShoreToVibrantBlueComplete,
+  ) =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished &&
-            beachWaves.movieMode == BeachWaveMovieModes.onShoreToOceanDive &&
-            !isDisconnected) {
-          Modular.to.navigate(
-            '/collaboration/',
-            arguments:
-                deepLinks.listenForOpenedDeepLinkStore.additionalMetadata,
-          );
+        if (p0 == MovieStatus.finished) {
+          if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToOceanDive) {
+            onShoreToOceanDiveComplete();
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.onShoreToVibrantBlue) {
+            onShoreToVibrantBlueComplete();
+          }
         }
       });
 
   @action
-  onClockFaceAnimationFinished(p0) {
-    if (p0 == MovieStatus.finished) {
-      if (timeModel.clockFace.pastControl == Control.playReverseFromEnd) {
-        Timer.periodic(Seconds.get(0, milli: 100), (timer) {
-          if (!primarySmartText.isPaused) {
-            primarySmartText.startRotatingText(isResuming: true);
-            timer.cancel();
-          }
-        });
-      } else {
-        secondarySmartText.startRotatingText();
-        toggleClockIsVisible();
-      }
-    } else if (p0 == MovieStatus.inProgress) {
-      clockAnimationHasNotStarted = false;
-    }
-  }
-
-  @action
-  onAvailabilitySectorMovieStatusFinished(MovieStatus p0) {
-    if (p0 == MovieStatus.finished &&
-        timeModel.availabilitySectors.pastControl == Control.playFromStart) {
-      timeModel.reverseClockFaceMovie();
-      secondarySmartText.toggleWidgetVisibility();
-    }
+  onDeepLinkOpened() {
+    primarySmartText.toggleWidgetVisibility();
+    beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToVibrantBlue);
+    beachWaves.currentStore.initMovie(
+      beachWaves.currentAnimationValues.first,
+    );
+    gestureCross.toggleAll();
   }
 }

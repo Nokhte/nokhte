@@ -9,8 +9,11 @@ import 'package:nokhte/app/core/modules/deep_links/constants/constants.dart';
 import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/collaboration/domain/domain.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
+import 'package:nokhte_backend/edge_functions/edge_functions.dart';
 part 'collaboration_home_screen_coordinator.g.dart';
 
 class CollaborationHomeScreenCoordinator = _CollaborationHomeScreenCoordinatorBase
@@ -78,14 +81,12 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
             true) {
           widgets.enterCollaboratorPoolConstructor();
           setDisableAllTouchFeedback(true);
-        } else {
-          widgets.postInvitationFlowNoInviteConstructor();
         }
       }
     } else {
       widgets.invitationFlowConstructor();
     }
-    await deepLinks.getDeepLink(DeepLinkTypes.collaboratorInvitation);
+    await deepLinks.getDeepLink(DeepLinkTypes.nokhteSession);
   }
 
   @action
@@ -97,8 +98,11 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
   onFlowCompleted() => userInformation.updateHasGoneThroughInvitationFlow(true);
 
   @action
-  onEnterCollaboratorPool() =>
-      logic.enter(additionalRoutingData[CollaborationCodeKeys.collaboratorUID]);
+  onEnterCollaboratorPool() => logic.enter(EnterCollaboratorPoolParams(
+        collaboratorUID: additionalRoutingData["deepLinkUID"] ??
+            additionalRoutingData[CollaborationCodeKeys.collaboratorUID],
+        invitationType: InvitationType.nokhteSession,
+      ));
 
   initReactors() {
     swipeReactor();
@@ -124,12 +128,19 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
       (p0) => onDeepLinkOpened(p0));
 
   @action
-  onDeepLinkOpened(String path) {
+  onDeepLinkOpened(String path) async {
     if (path == '/collaboration/') {
       setAdditionalRoutingData(
         deepLinks.listenForOpenedDeepLinkStore.additionalMetadata,
       );
-      widgets.initCollaboratorPoolWidgets();
+      if (deepLinks.listenForOpenedDeepLinkStore
+              .additionalMetadata["isTheUsersInvitation"] !=
+          null) {
+        widgets.onNokhteSessionLinkOpened();
+        await onEnterCollaboratorPool();
+      } else {
+        // widgets.initCollaboratorPoolWidgets();
+      }
     }
   }
 
@@ -173,7 +184,9 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
   onCollaboratorPoolEntered(bool hasEntered) {
     if (hasEntered) {
       Timer.periodic(Seconds.get(0, milli: 100), (timer) {
-        if (widgets.gradientTreeNode.movieStatus == MovieStatus.finished) {
+        if (widgets.beachWaves.movieStatus == MovieStatus.finished &&
+            widgets.beachWaves.movieMode ==
+                BeachWaveMovieModes.oceanDiveToTimesUp) {
           Modular.to.navigate('/collaboration/pool');
           timer.cancel();
         }

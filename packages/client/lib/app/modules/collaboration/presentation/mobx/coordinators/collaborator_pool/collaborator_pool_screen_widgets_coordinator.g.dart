@@ -10,6 +10,25 @@ part of 'collaborator_pool_screen_widgets_coordinator.dart';
 
 mixin _$CollaboratorPoolScreenWidgetsCoordinator
     on _CollaboratorPoolScreenWidgetsCoordinatorBase, Store {
+  late final _$isTransitioningToNokhteSessionAtom = Atom(
+      name:
+          '_CollaboratorPoolScreenWidgetsCoordinatorBase.isTransitioningToNokhteSession',
+      context: context);
+
+  @override
+  bool get isTransitioningToNokhteSession {
+    _$isTransitioningToNokhteSessionAtom.reportRead();
+    return super.isTransitioningToNokhteSession;
+  }
+
+  @override
+  set isTransitioningToNokhteSession(bool value) {
+    _$isTransitioningToNokhteSessionAtom
+        .reportWrite(value, super.isTransitioningToNokhteSession, () {
+      super.isTransitioningToNokhteSession = value;
+    });
+  }
+
   late final _$_CollaboratorPoolScreenWidgetsCoordinatorBaseActionController =
       ActionController(
           name: '_CollaboratorPoolScreenWidgetsCoordinatorBase',
@@ -46,13 +65,13 @@ mixin _$CollaboratorPoolScreenWidgetsCoordinator
   }
 
   @override
-  dynamic initTransitionToPurposeSession() {
+  dynamic initTransition({bool isNokhteSession = false}) {
     final _$actionInfo =
         _$_CollaboratorPoolScreenWidgetsCoordinatorBaseActionController.startAction(
             name:
-                '_CollaboratorPoolScreenWidgetsCoordinatorBase.initTransitionToPurposeSession');
+                '_CollaboratorPoolScreenWidgetsCoordinatorBase.initTransition');
     try {
-      return super.initTransitionToPurposeSession();
+      return super.initTransition(isNokhteSession: isNokhteSession);
     } finally {
       _$_CollaboratorPoolScreenWidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);
@@ -91,7 +110,7 @@ mixin _$CollaboratorPoolScreenWidgetsCoordinator
   @override
   String toString() {
     return '''
-
+isTransitioningToNokhteSession: ${isTransitioningToNokhteSession}
     ''';
   }
 }

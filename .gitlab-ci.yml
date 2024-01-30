@@ -1,9 +1,4 @@
 stages:
-  - development
-  - staging
-  - production
-stages:
-  - development
   - staging
   - production
 
