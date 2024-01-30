@@ -23,7 +23,6 @@ jobs:
           flutter-version: "3.13.9"
           channel: "stable"
       - uses: bluefireteam/melos-action@v3
-      - run: cd .. && melos bs
       - run: echo '$STAGING_CLIENT_ENV' > .env
       - run: chmod u+x ./_scripts/ios/*.sh
       - run: ./_scripts/ios/build_ios.sh
