@@ -59,8 +59,6 @@ platform :ios do
     setup_ci
     match(type: 'appstore', readonly: true, git_basic_authorization: ENV['MATCH_BASIC_GIT_AUTHORIZATION'])
     Dir.chdir("../..") do
-      sh "flutter packages get"
-      sh "flutter clean"
       sh "flutter build ios"
     end
   end
