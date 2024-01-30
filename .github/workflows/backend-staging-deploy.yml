@@ -1,5 +1,5 @@
-name: Backend Deployment
-run-name: Backend Deployment
+name: Backend Staging Deployment
+run-name: Backend Staging Deployment
 on:
   push:
     branches:
