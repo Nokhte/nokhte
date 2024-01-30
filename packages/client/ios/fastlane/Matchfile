@@ -1,7 +1,6 @@
-gitlab_project("nokhte/nokhte")
-# gitlab_host("")
+git_url("https://github.com/nokhte/match_certificates")
 
-storage_mode("gitlab_secure_files")
+storage_mode("git")
 
 type("development") # The default type, can be: appstore, adhoc, enterprise or development
 
