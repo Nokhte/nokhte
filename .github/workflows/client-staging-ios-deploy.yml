@@ -32,4 +32,5 @@ jobs:
       - run: cd ios && fastlane rebuild_ios_archive
         env:
             MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+            MATCH_BASIC_GIT_AUTHORIZATION: ${{ secrets.MATCH_BASIC_GIT_AUTHORIZATION }}
       - run: ./_scripts/ios/distribute_ios_beta.sh
