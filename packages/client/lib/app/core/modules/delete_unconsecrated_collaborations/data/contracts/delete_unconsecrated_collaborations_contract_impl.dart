@@ -97,4 +97,14 @@ class DeleteUnconsecratedCollaborationsContractImpl
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  deleteActiveNokhteSession(params) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.deleteActiveNokhteSession();
+      return Right(fromSupabase(res));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
 }
