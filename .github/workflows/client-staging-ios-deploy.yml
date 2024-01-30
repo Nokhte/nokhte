@@ -1,0 +1,29 @@
+name: Client Staging iOS Deploy
+on:
+  push:
+    branches:
+      - staging
+    paths:
+      - "packages/client/**"
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: macos-latest
+    defaults:
+        run:
+          working-directory: packages/client
+    env:
+      STAGING_CLIENT_ENV: ${{ secrets.STAGING_CLIENT_ENV }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v2
+        with:
+            flutter-version: "3.13.9"
+            channel: "stable"
+      - uses: bluefireteam/melos-action@v3
+      - run: cd .. && melos bs
+      - run: echo '$STAGING_CLIENT_ENV' > .env
+      - run: ./_scripts/ios/build_ios.sh
+      - run: ./_scripts/ios/distribute_ios_beta.sh
