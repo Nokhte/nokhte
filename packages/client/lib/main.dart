@@ -8,7 +8,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/foundation.dart';
 
 void main() async {
-  //test commit
+  //test commit new test commit
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterBranchSdk.init(
     disableTracking: true,
