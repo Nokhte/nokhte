@@ -29,6 +29,7 @@ jobs:
           ruby-version: '3.0' 
           bundler-cache: true
       - run: cd ios && bundle install
+      - run: cd ios && fastlane bump_minor
       - run: cd ios && fastlane rebuild_ios_archive
         env:
             MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
