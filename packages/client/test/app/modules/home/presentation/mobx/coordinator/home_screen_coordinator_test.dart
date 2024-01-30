@@ -81,7 +81,6 @@ void main() {
       when(mockUserInformation.getUserInfoStore.hasGoneThroughInvitationFlow)
           .thenAnswer((realInvocation) => true);
       await testStore.constructor();
-      verify(testStore.deleteUnconsecratedCollaborations(NoParams()));
       verify(mockUserInformation.getUserInfoStore(NoParams()));
       verify(mockGetExistingCollaborationInfo(NoParams()));
       verify(mockAddNameToDatabase(NoParams()));
@@ -91,7 +90,6 @@ void main() {
       when(mockUserInformation.getUserInfoStore.hasGoneThroughInvitationFlow)
           .thenAnswer((realInvocation) => false);
       await testStore.constructor();
-      verify(testStore.deleteUnconsecratedCollaborations(NoParams()));
       verify(mockUserInformation.getUserInfoStore(NoParams()));
       verify(mockGetExistingCollaborationInfo(NoParams()));
       verify(mockAddNameToDatabase(NoParams()));
