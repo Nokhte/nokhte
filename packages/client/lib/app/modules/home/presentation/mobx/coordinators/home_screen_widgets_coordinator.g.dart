@@ -46,6 +46,24 @@ mixin _$HomeScreenWidgetsCoordinator
     });
   }
 
+  late final _$isEnteringNokhteSessionAtom = Atom(
+      name: '_HomeScreenWidgetsCoordinatorBase.isEnteringNokhteSession',
+      context: context);
+
+  @override
+  bool get isEnteringNokhteSession {
+    _$isEnteringNokhteSessionAtom.reportRead();
+    return super.isEnteringNokhteSession;
+  }
+
+  @override
+  set isEnteringNokhteSession(bool value) {
+    _$isEnteringNokhteSessionAtom
+        .reportWrite(value, super.isEnteringNokhteSession, () {
+      super.isEnteringNokhteSession = value;
+    });
+  }
+
   late final _$hasSwipedUpAtom = Atom(
       name: '_HomeScreenWidgetsCoordinatorBase.hasSwipedUp', context: context);
 
@@ -358,6 +376,7 @@ mixin _$HomeScreenWidgetsCoordinator
     return '''
 hasCompletedInvitationFlow: ${hasCompletedInvitationFlow},
 wantsToRepeatInvitationFlow: ${wantsToRepeatInvitationFlow},
+isEnteringNokhteSession: ${isEnteringNokhteSession},
 hasSwipedUp: ${hasSwipedUp},
 gracePeriodHasExpired: ${gracePeriodHasExpired},
 hasInitiatedBlur: ${hasInitiatedBlur},

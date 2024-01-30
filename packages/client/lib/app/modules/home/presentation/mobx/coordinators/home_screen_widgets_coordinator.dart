@@ -36,6 +36,9 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   bool wantsToRepeatInvitationFlow = false;
 
   @observable
+  bool isEnteringNokhteSession = false;
+
+  @observable
   bool hasSwipedUp = false;
 
   @observable
@@ -87,7 +90,13 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   onDisconnected() {
+    print("DISCONNECTED!!!!!!! ==> ${beachWaves.movieMode}");
     onInactive();
+    if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToVibrantBlue) {
+      print("is this running");
+      isEnteringNokhteSession = false;
+      beachWaves.currentStore.setControl(Control.playReverse);
+    }
   }
 
   @action
@@ -105,7 +114,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   onInactive() {
     if (!hasInitiatedBlur) {
       primarySmartText.reset();
-      if (!hasSwipedUp) {
+      if (!hasSwipedUp && beachWaves.movieMode == BeachWaveMovieModes.onShore) {
         beachWaves.currentStore.setControl(Control.mirror);
       }
     }
@@ -197,10 +206,13 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
       if (primarySmartText.isPaused) {
         primarySmartText.resume();
       }
-
       if (hasSwipedUp) {
         beachWaves.currentStore.setControl(Control.playFromStart);
         beachWaves.setMovieStatus(MovieStatus.inProgress);
+      }
+      if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToVibrantBlue) {
+        isEnteringNokhteSession = true;
+        beachWaves.currentStore.setControl(Control.playFromStart);
       }
     }
   }
@@ -220,13 +232,18 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
             onShoreToOceanDiveComplete();
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.onShoreToVibrantBlue) {
-            onShoreToVibrantBlueComplete();
+            if (isEnteringNokhteSession) {
+              onShoreToVibrantBlueComplete();
+            } else {
+              beachWaves.setMovieStatus(MovieStatus.inProgress);
+            }
           }
         }
       });
 
   @action
   onDeepLinkOpened() {
+    isEnteringNokhteSession = true;
     primarySmartText.toggleWidgetVisibility();
     beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToVibrantBlue);
     beachWaves.currentStore.initMovie(
