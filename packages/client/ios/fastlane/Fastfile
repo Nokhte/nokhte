@@ -67,10 +67,7 @@ platform :ios do
   # Do Distribution Manually to cut CI/CD computation time
   desc "Generic Beta Build"
   lane :generic_ios_beta_build do
-      setup_ci
-      match(type: 'appstore', readonly: true)
-
-    build_app(
+  build_app(
   export_method: "app-store",
   configuration: "Release",
   archive_path: "../build/ios/archive/Runner.xcarchive"
