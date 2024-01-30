@@ -67,6 +67,7 @@ platform :ios do
   # Do Distribution Manually to cut CI/CD computation time
   desc "Generic Beta Build"
   lane :generic_ios_beta_build do
+  match(type: 'appstore', readonly: true, git_basic_authorization: ENV['MATCH_BASIC_GIT_AUTHORIZATION'])
   build_app(
   export_method: "app-store",
   configuration: "Release",
