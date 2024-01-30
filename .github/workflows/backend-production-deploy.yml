@@ -1,0 +1,27 @@
+name: Backend Deployment
+run-name: Backend Deployment
+on:
+  push:
+    branches:
+      - production
+    paths:
+      - packages/backend/**
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_PROD_PROJECT_ID: ${{secrets.SUPABASE_PROD_PROJECT_ID}}
+      SUPABASE_PROD_DB_PASSWORD: ${{secrets.SUPABASE_PROD_DB_PASSWORD}}
+    defaults:
+      run:
+        working-directory: packages/backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      - run: supabase link --project-ref $SUPABASE_PROD_PROJECT_ID --password $SUPABASE_PROD_DB_PASSWORD
+      - run: supabase functions deploy
+      - run: supabase db push
