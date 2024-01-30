@@ -14,13 +14,6 @@ void main() {
     user1Queries = ActiveNokhteSessionQueries(supabase: tSetup.user1Supabase);
   });
 
-  tearDownAll(() async {
-    await tSetup.supabaseAdmin
-        .from("active_nokhte_sessions")
-        .delete()
-        .eq("meeting_uid", tSetup.firstUserUID);
-  });
-
   test("select", () async {
     await tSetup.supabaseAdmin.from("active_nokhte_sessions").insert({
       "meeting_uid": tSetup.firstUserUID,
@@ -29,5 +22,11 @@ void main() {
     });
     final res = await user1Queries.select(tSetup.firstUserUID);
     expect(res, isNotEmpty);
+  });
+
+  test("delete", () async {
+    await user1Queries.delete();
+    final res = await user1Queries.select(tSetup.firstUserUID);
+    expect(res, isEmpty);
   });
 }

@@ -9,11 +9,18 @@ class ActiveNokhteSessionQueries {
   static const MEETING_UID = 'meeting_uid';
 
   final SupabaseClient supabase;
+  final String currentUserUID;
 
   ActiveNokhteSessionQueries({
     required this.supabase,
-  });
+  }) : currentUserUID = supabase.auth.currentUser?.id ?? '';
 
   select(String meetingUID) async =>
       await supabase.from(TABLE_NAME).select().eq(MEETING_UID, meetingUID);
+
+  delete() async => await supabase
+      .from(TABLE_NAME)
+      .delete()
+      .or('collaborator_one_uid.eq.$currentUserUID, collaborator_two_uid.eq.$currentUserUID')
+      .select();
 }

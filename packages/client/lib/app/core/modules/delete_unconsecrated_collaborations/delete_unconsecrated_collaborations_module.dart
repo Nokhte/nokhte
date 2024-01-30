@@ -41,6 +41,11 @@ class DeleteUnconsecratedCollaborationsModule extends Module {
         contract: Modular.get<DeleteUnconsecratedCollaborationsContractImpl>(),
       ),
     );
+    i.add<DeleteActiveNokhteSession>(
+      () => DeleteActiveNokhteSession(
+        contract: Modular.get<DeleteUnconsecratedCollaborationsContractImpl>(),
+      ),
+    );
 
     i.add<DeleteCapsuleArrangement>(
       () => DeleteCapsuleArrangement(
@@ -79,6 +84,7 @@ class DeleteUnconsecratedCollaborationsModule extends Module {
     );
     i.add<DeleteUnconsecratedCollaborationsCoordinator>(
       () => DeleteUnconsecratedCollaborationsCoordinator(
+        deleteActiveNokhteSession: Modular.get<DeleteActiveNokhteSession>(),
         updateHasDeletedArtifactsLogic:
             Modular.get<UpdateHasDeletedArtifacts>(),
         checkIfCollaboratorHasDeletedArtifactsLogic:
