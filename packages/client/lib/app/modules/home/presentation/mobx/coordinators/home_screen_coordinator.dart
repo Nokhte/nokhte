@@ -45,6 +45,7 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
   constructor() async {
     widgets.initReactors(repeatTheFlow);
     widgets.constructor();
+    await deleteUnconsecratedCollaborations(NoParams());
     await userInformation.getUserInfoStore(NoParams());
     if (userInformation.getUserInfoStore.hasGoneThroughInvitationFlow) {
       widgets.postInvitationFlowConstructor();
@@ -62,12 +63,12 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
     widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        widgets.onResumed();
+        widgets.onLongReconnected();
         setDisableAllTouchFeedback(false);
       },
       onDisconnected: () {
         setDisableAllTouchFeedback(true);
-        widgets.onInactive();
+        widgets.onDisconnected();
       },
     );
     widgets.beachWavesMovieStatusReactor(
@@ -124,9 +125,10 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
           Timer.periodic(
             const Duration(seconds: 1),
             (timer) async {
-              if (widgets.beachWaves.movieStatus == MovieStatus.finished) {
-                timer.cancel();
+              if (widgets.beachWaves.movieStatus == MovieStatus.finished &&
+                  widgets.isEnteringNokhteSession) {
                 Modular.to.navigate('/collaboration/pool');
+                timer.cancel();
               }
             },
           );

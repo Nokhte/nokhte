@@ -30,6 +30,7 @@ class NokhteSessionModule extends Module {
     );
     r.child(
       '/phase_one',
+      transition: TransitionType.noTransition,
       child: (context) => NokhteSessionPhase1(
         coordinator: Modular.get<NokhteSessionPhase1Coordinator>(),
       ),

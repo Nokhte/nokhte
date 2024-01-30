@@ -430,9 +430,20 @@ class _FakeCollaboratorInfo_33 extends _i1.SmartFake
         );
 }
 
-class _FakeDeleteCapsuleArrangement_34 extends _i1.SmartFake
+class _FakeDeleteActiveNokhteSession_34 extends _i1.SmartFake
+    implements _i17.DeleteActiveNokhteSession {
+  _FakeDeleteActiveNokhteSession_34(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeDeleteCapsuleArrangement_35 extends _i1.SmartFake
     implements _i17.DeleteCapsuleArrangement {
-  _FakeDeleteCapsuleArrangement_34(
+  _FakeDeleteCapsuleArrangement_35(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -441,9 +452,9 @@ class _FakeDeleteCapsuleArrangement_34 extends _i1.SmartFake
         );
 }
 
-class _FakeDeleteCollaborativeDocument_35 extends _i1.SmartFake
+class _FakeDeleteCollaborativeDocument_36 extends _i1.SmartFake
     implements _i17.DeleteCollaborativeDocument {
-  _FakeDeleteCollaborativeDocument_35(
+  _FakeDeleteCollaborativeDocument_36(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -452,9 +463,9 @@ class _FakeDeleteCollaborativeDocument_35 extends _i1.SmartFake
         );
 }
 
-class _FakeDeleteSchedulingSession_36 extends _i1.SmartFake
+class _FakeDeleteSchedulingSession_37 extends _i1.SmartFake
     implements _i17.DeleteSchedulingSession {
-  _FakeDeleteSchedulingSession_36(
+  _FakeDeleteSchedulingSession_37(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -463,9 +474,9 @@ class _FakeDeleteSchedulingSession_36 extends _i1.SmartFake
         );
 }
 
-class _FakeDeleteTheCollaboration_37 extends _i1.SmartFake
+class _FakeDeleteTheCollaboration_38 extends _i1.SmartFake
     implements _i17.DeleteTheCollaboration {
-  _FakeDeleteTheCollaboration_37(
+  _FakeDeleteTheCollaboration_38(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -474,9 +485,9 @@ class _FakeDeleteTheCollaboration_37 extends _i1.SmartFake
         );
 }
 
-class _FakeDeleteSoloDocument_38 extends _i1.SmartFake
+class _FakeDeleteSoloDocument_39 extends _i1.SmartFake
     implements _i17.DeleteSoloDocument {
-  _FakeDeleteSoloDocument_38(
+  _FakeDeleteSoloDocument_39(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -485,9 +496,9 @@ class _FakeDeleteSoloDocument_38 extends _i1.SmartFake
         );
 }
 
-class _FakeCheckIfCollaboratorHasDeletedArtifacts_39 extends _i1.SmartFake
+class _FakeCheckIfCollaboratorHasDeletedArtifacts_40 extends _i1.SmartFake
     implements _i17.CheckIfCollaboratorHasDeletedArtifacts {
-  _FakeCheckIfCollaboratorHasDeletedArtifacts_39(
+  _FakeCheckIfCollaboratorHasDeletedArtifacts_40(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -496,9 +507,9 @@ class _FakeCheckIfCollaboratorHasDeletedArtifacts_39 extends _i1.SmartFake
         );
 }
 
-class _FakeCheckForUnconsecratedCollaboration_40 extends _i1.SmartFake
+class _FakeCheckForUnconsecratedCollaboration_41 extends _i1.SmartFake
     implements _i17.CheckForUnconsecratedCollaboration {
-  _FakeCheckForUnconsecratedCollaboration_40(
+  _FakeCheckForUnconsecratedCollaboration_41(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -507,9 +518,9 @@ class _FakeCheckForUnconsecratedCollaboration_40 extends _i1.SmartFake
         );
 }
 
-class _FakeCollaborationLogicCoordinator_41 extends _i1.SmartFake
+class _FakeCollaborationLogicCoordinator_42 extends _i1.SmartFake
     implements _i18.CollaborationLogicCoordinator {
-  _FakeCollaborationLogicCoordinator_41(
+  _FakeCollaborationLogicCoordinator_42(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -518,9 +529,9 @@ class _FakeCollaborationLogicCoordinator_41 extends _i1.SmartFake
         );
 }
 
-class _FakeUpdateHasDeletedArtifacts_42 extends _i1.SmartFake
+class _FakeUpdateHasDeletedArtifacts_43 extends _i1.SmartFake
     implements _i17.UpdateHasDeletedArtifacts {
-  _FakeUpdateHasDeletedArtifacts_42(
+  _FakeUpdateHasDeletedArtifacts_43(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -1914,6 +1925,22 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
       );
 
   @override
+  bool get isEnteringNokhteSession => (super.noSuchMethod(
+        Invocation.getter(#isEnteringNokhteSession),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set isEnteringNokhteSession(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #isEnteringNokhteSession,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   bool get hasSwipedUp => (super.noSuchMethod(
         Invocation.getter(#hasSwipedUp),
         returnValue: false,
@@ -2782,14 +2809,28 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
       );
 
   @override
+  _i17.DeleteActiveNokhteSession get deleteActiveNokhteSession =>
+      (super.noSuchMethod(
+        Invocation.getter(#deleteActiveNokhteSession),
+        returnValue: _FakeDeleteActiveNokhteSession_34(
+          this,
+          Invocation.getter(#deleteActiveNokhteSession),
+        ),
+        returnValueForMissingStub: _FakeDeleteActiveNokhteSession_34(
+          this,
+          Invocation.getter(#deleteActiveNokhteSession),
+        ),
+      ) as _i17.DeleteActiveNokhteSession);
+
+  @override
   _i17.DeleteCapsuleArrangement get deleteCapsuleArrangementLogic =>
       (super.noSuchMethod(
         Invocation.getter(#deleteCapsuleArrangementLogic),
-        returnValue: _FakeDeleteCapsuleArrangement_34(
+        returnValue: _FakeDeleteCapsuleArrangement_35(
           this,
           Invocation.getter(#deleteCapsuleArrangementLogic),
         ),
-        returnValueForMissingStub: _FakeDeleteCapsuleArrangement_34(
+        returnValueForMissingStub: _FakeDeleteCapsuleArrangement_35(
           this,
           Invocation.getter(#deleteCapsuleArrangementLogic),
         ),
@@ -2799,11 +2840,11 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
   _i17.DeleteCollaborativeDocument get deleteCollaborativeDocumentLogic =>
       (super.noSuchMethod(
         Invocation.getter(#deleteCollaborativeDocumentLogic),
-        returnValue: _FakeDeleteCollaborativeDocument_35(
+        returnValue: _FakeDeleteCollaborativeDocument_36(
           this,
           Invocation.getter(#deleteCollaborativeDocumentLogic),
         ),
-        returnValueForMissingStub: _FakeDeleteCollaborativeDocument_35(
+        returnValueForMissingStub: _FakeDeleteCollaborativeDocument_36(
           this,
           Invocation.getter(#deleteCollaborativeDocumentLogic),
         ),
@@ -2813,11 +2854,11 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
   _i17.DeleteSchedulingSession get deleteSchedulingSessionLogic =>
       (super.noSuchMethod(
         Invocation.getter(#deleteSchedulingSessionLogic),
-        returnValue: _FakeDeleteSchedulingSession_36(
+        returnValue: _FakeDeleteSchedulingSession_37(
           this,
           Invocation.getter(#deleteSchedulingSessionLogic),
         ),
-        returnValueForMissingStub: _FakeDeleteSchedulingSession_36(
+        returnValueForMissingStub: _FakeDeleteSchedulingSession_37(
           this,
           Invocation.getter(#deleteSchedulingSessionLogic),
         ),
@@ -2827,11 +2868,11 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
   _i17.DeleteTheCollaboration get deleteTheCollaborationLogic =>
       (super.noSuchMethod(
         Invocation.getter(#deleteTheCollaborationLogic),
-        returnValue: _FakeDeleteTheCollaboration_37(
+        returnValue: _FakeDeleteTheCollaboration_38(
           this,
           Invocation.getter(#deleteTheCollaborationLogic),
         ),
-        returnValueForMissingStub: _FakeDeleteTheCollaboration_37(
+        returnValueForMissingStub: _FakeDeleteTheCollaboration_38(
           this,
           Invocation.getter(#deleteTheCollaborationLogic),
         ),
@@ -2840,11 +2881,11 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
   @override
   _i17.DeleteSoloDocument get deleteSoloDocumentLogic => (super.noSuchMethod(
         Invocation.getter(#deleteSoloDocumentLogic),
-        returnValue: _FakeDeleteSoloDocument_38(
+        returnValue: _FakeDeleteSoloDocument_39(
           this,
           Invocation.getter(#deleteSoloDocumentLogic),
         ),
-        returnValueForMissingStub: _FakeDeleteSoloDocument_38(
+        returnValueForMissingStub: _FakeDeleteSoloDocument_39(
           this,
           Invocation.getter(#deleteSoloDocumentLogic),
         ),
@@ -2854,12 +2895,12 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
   _i17.CheckIfCollaboratorHasDeletedArtifacts
       get checkIfCollaboratorHasDeletedArtifactsLogic => (super.noSuchMethod(
             Invocation.getter(#checkIfCollaboratorHasDeletedArtifactsLogic),
-            returnValue: _FakeCheckIfCollaboratorHasDeletedArtifacts_39(
+            returnValue: _FakeCheckIfCollaboratorHasDeletedArtifacts_40(
               this,
               Invocation.getter(#checkIfCollaboratorHasDeletedArtifactsLogic),
             ),
             returnValueForMissingStub:
-                _FakeCheckIfCollaboratorHasDeletedArtifacts_39(
+                _FakeCheckIfCollaboratorHasDeletedArtifacts_40(
               this,
               Invocation.getter(#checkIfCollaboratorHasDeletedArtifactsLogic),
             ),
@@ -2869,12 +2910,12 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
   _i17.CheckForUnconsecratedCollaboration
       get checkForUnconsecratedCollaborationLogic => (super.noSuchMethod(
             Invocation.getter(#checkForUnconsecratedCollaborationLogic),
-            returnValue: _FakeCheckForUnconsecratedCollaboration_40(
+            returnValue: _FakeCheckForUnconsecratedCollaboration_41(
               this,
               Invocation.getter(#checkForUnconsecratedCollaborationLogic),
             ),
             returnValueForMissingStub:
-                _FakeCheckForUnconsecratedCollaboration_40(
+                _FakeCheckForUnconsecratedCollaboration_41(
               this,
               Invocation.getter(#checkForUnconsecratedCollaborationLogic),
             ),
@@ -2884,11 +2925,11 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
   _i18.CollaborationLogicCoordinator get collaborationLogicCoordinator =>
       (super.noSuchMethod(
         Invocation.getter(#collaborationLogicCoordinator),
-        returnValue: _FakeCollaborationLogicCoordinator_41(
+        returnValue: _FakeCollaborationLogicCoordinator_42(
           this,
           Invocation.getter(#collaborationLogicCoordinator),
         ),
-        returnValueForMissingStub: _FakeCollaborationLogicCoordinator_41(
+        returnValueForMissingStub: _FakeCollaborationLogicCoordinator_42(
           this,
           Invocation.getter(#collaborationLogicCoordinator),
         ),
@@ -2898,11 +2939,11 @@ class MockDeleteUnconsecratedCollaborationsCoordinator extends _i1.Mock
   _i17.UpdateHasDeletedArtifacts get updateHasDeletedArtifactsLogic =>
       (super.noSuchMethod(
         Invocation.getter(#updateHasDeletedArtifactsLogic),
-        returnValue: _FakeUpdateHasDeletedArtifacts_42(
+        returnValue: _FakeUpdateHasDeletedArtifacts_43(
           this,
           Invocation.getter(#updateHasDeletedArtifactsLogic),
         ),
-        returnValueForMissingStub: _FakeUpdateHasDeletedArtifacts_42(
+        returnValueForMissingStub: _FakeUpdateHasDeletedArtifacts_43(
           this,
           Invocation.getter(#updateHasDeletedArtifactsLogic),
         ),
