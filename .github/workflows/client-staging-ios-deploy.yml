@@ -24,6 +24,12 @@ jobs:
           channel: "stable"
       - uses: bluefireteam/melos-action@v3
       - run: echo '$STAGING_CLIENT_ENV' > .env
-      - run: chmod u+x ./_scripts/ios/*.sh
-      - run: ./_scripts/ios/build_ios.sh
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0' 
+          bundler-cache: true
+      - run: cd ios && bundle install
+      - run: cd ios && fastlane rebuild_ios_archive
+        env:
+            MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
       - run: ./_scripts/ios/distribute_ios_beta.sh
