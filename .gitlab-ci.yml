@@ -16,28 +16,6 @@ variables:
   LC_ALL: "en_US.UTF-8"
   LANG: "en_US.UTF-8"
 
-Deploy To Staging Database:
-  stage: staging
-  script:
-    - cd packages/backend
-    - supabase link --project-ref $SUPABASE_STAGING_PROJECT_ID --password $SUPABASE_STAGING_DB_PASSWORD
-    - supabase functions deploy
-    - supabase db push
-  only:
-    - staging
-  when: manual
-
-Deply To Production Database:
-  stage: production
-  script:
-    - cd packages/backend
-    - supabase link --project-ref $SUPABASE_PROD_PROJECT_ID --password $SUPABASE_PROD_DB_PASSWORD
-    - supabase functions deploy
-    - supabase db push
-  only:
-    - production
-  when: manual
-
 Deploy To Testflight:
   stage: staging
   tags:
