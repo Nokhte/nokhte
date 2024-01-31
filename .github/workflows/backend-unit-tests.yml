@@ -1,5 +1,4 @@
-name: backend-unit-tests
-run-name: Backend Unit Tests
+name: Backend Unit Tests
 on:
   push:
     branches:

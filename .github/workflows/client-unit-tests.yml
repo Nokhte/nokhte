@@ -1,5 +1,4 @@
-name: client-unit-tests
-run-name: Client Unit Tests
+name: Client Unit Tests
 on:
   push:
     branches:
