@@ -68,14 +68,19 @@ void main() {
 
   group("nokhte invitations", () {
     test("user should be able to make a nokhte session", () async {
+      final firstStream = user1ActiveNokhteSessionsStreams
+          .getActiveNokhteSessionCreationStatus();
       await user1StartEdgeFunctions.invoke(
           tSetup.firstUserUID, InvitationType.nokhteSession);
+      expect(firstStream, emits(false));
+    });
+
+    test("user should be able to make a nokhte session", () async {
       await user3EdgeFunctions.invoke(
           tSetup.firstUserUID, InvitationType.nokhteSession);
-
-      final user1Stream = user1ActiveNokhteSessionsStreams
+      final secondStream = user1ActiveNokhteSessionsStreams
           .getActiveNokhteSessionCreationStatus();
-      expect(user1Stream, emits(true));
+      expect(secondStream, emits(true));
     });
   });
 
