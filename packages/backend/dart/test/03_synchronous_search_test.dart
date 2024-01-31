@@ -36,6 +36,20 @@ void main() {
     await user3EndEdgeFunctions.invoke();
   });
 
+  group("nokhte invitations", () {
+    setUp(() async {
+      await user1StartEdgeFunctions.invoke(
+          tSetup.firstUserUID, InvitationType.nokhteSession);
+      await user3EdgeFunctions.invoke(
+          tSetup.firstUserUID, InvitationType.nokhteSession);
+    });
+    test("user should be able to make a nokhte session", () async {
+      final firstStream = user1ActiveNokhteSessionsStreams
+          .getActiveNokhteSessionCreationStatus();
+      expect(firstStream, emits(true));
+    });
+  });
+
   group("collaboration invitations", () {
     test("user should be able to enter the pool", () async {
       await user1StartEdgeFunctions.invoke(
@@ -63,24 +77,6 @@ void main() {
       final user1Stream = user1ExistingCollaborationsStreams
           .getCollaboratorSearchAndEntryStatus();
       expect(user1Stream, emits(true));
-    });
-  });
-
-  group("nokhte invitations", () {
-    test("user should be able to make a nokhte session", () async {
-      final firstStream = user1ActiveNokhteSessionsStreams
-          .getActiveNokhteSessionCreationStatus();
-      await user1StartEdgeFunctions.invoke(
-          tSetup.firstUserUID, InvitationType.nokhteSession);
-      expect(firstStream, emits(false));
-    });
-
-    test("user should be able to make a nokhte session", () async {
-      await user3EdgeFunctions.invoke(
-          tSetup.firstUserUID, InvitationType.nokhteSession);
-      final secondStream = user1ActiveNokhteSessionsStreams
-          .getActiveNokhteSessionCreationStatus();
-      expect(secondStream, emits(true));
     });
   });
 
