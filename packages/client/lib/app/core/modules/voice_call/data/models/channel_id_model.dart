@@ -3,7 +3,7 @@ import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 class ChannelIdModel extends ChannelIdEntity {
   const ChannelIdModel({required super.channelId});
 
-  static String fromSupabase(List sbQueryRes) {
+  static String fromCollaborationRow(List sbQueryRes) {
     if (sbQueryRes.isEmpty) {
       return '';
     } else {
