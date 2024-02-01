@@ -5,6 +5,7 @@ import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/voice_call/data/data.dart';
+import 'package:nokhte/app/core/modules/voice_call/domain/logic/logic.dart';
 import '../../../../../modules/_module_helpers/shared_mocks_gen.mocks.dart';
 import '../../constants/models/models.dart';
 import '../../constants/response/response.dart';
@@ -69,7 +70,8 @@ void main() {
         when(mockRemoteSource.getCollaboratorInfo()).thenAnswer(
           (realInvocation) async => ExistingCollaboratorsTable.response,
         );
-        final res = await contractImpl.getChannelId();
+        final res = await contractImpl
+            .getChannelId(GetChannelIdParams.forCollaboration);
         expect(res, const Right("11111111111111111112222222222222222222"));
       });
 
@@ -78,7 +80,8 @@ void main() {
           () async {
         when(mockRemoteSource.getCollaboratorInfo())
             .thenAnswer((realInvocation) async => []);
-        final res = await contractImpl.getChannelId();
+        final res = await contractImpl
+            .getChannelId(GetChannelIdParams.forCollaboration);
         expect(res, const Right(""));
       });
     });
@@ -88,7 +91,8 @@ void main() {
             .thenAnswer((realInvocation) async => false);
       });
       test("When offline should return an internet connection error", () async {
-        final res = await contractImpl.getChannelId();
+        final res = await contractImpl
+            .getChannelId(GetChannelIdParams.forCollaboration);
         expect(res, Left(FailureConstants.internetConnectionFailure));
       });
     });

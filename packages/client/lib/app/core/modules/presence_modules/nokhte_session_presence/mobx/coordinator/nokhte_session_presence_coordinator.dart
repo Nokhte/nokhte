@@ -2,7 +2,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/widgets/collaborator_presence_incidents_overlay/stack/presentation/presentation.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 part 'nokhte_session_presence_coordinator.g.dart';
@@ -49,7 +48,7 @@ abstract class _NokhteSessionPresenceCoordinatorBase
   @action
   listen() {
     state = StoreState.loading;
-    getSessionMetadataStore(NoParams());
+    getSessionMetadataStore.get(NoParams());
   }
 
   @action

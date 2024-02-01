@@ -3,23 +3,24 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i11;
+import 'dart:async' as _i12;
 
-import 'package:agora_rtc_engine/agora_rtc_engine.dart' as _i4;
-import 'package:dartz/dartz.dart' as _i6;
-import 'package:http/http.dart' as _i5;
-import 'package:mobx/mobx.dart' as _i8;
+import 'package:agora_rtc_engine/agora_rtc_engine.dart' as _i5;
+import 'package:dartz/dartz.dart' as _i7;
+import 'package:http/http.dart' as _i6;
+import 'package:mobx/mobx.dart' as _i9;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i10;
-import 'package:nokhte/app/core/error/failure.dart' as _i12;
-import 'package:nokhte/app/core/interfaces/logic.dart' as _i13;
-import 'package:nokhte/app/core/mobx/store_state.dart' as _i16;
+import 'package:mockito/src/dummies.dart' as _i11;
+import 'package:nokhte/app/core/error/failure.dart' as _i13;
+import 'package:nokhte/app/core/interfaces/logic.dart' as _i14;
+import 'package:nokhte/app/core/mobx/store_state.dart' as _i17;
 import 'package:nokhte/app/core/modules/voice_call/data/sources/voice_call_remote_source.dart'
-    as _i9;
-import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart' as _i7;
+    as _i10;
+import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart' as _i8;
 import 'package:nokhte/app/core/modules/voice_call/mobx/main/voice_call_actions_store.dart'
-    as _i14;
-import 'package:nokhte/app/core/types/types.dart' as _i15;
+    as _i15;
+import 'package:nokhte/app/core/types/types.dart' as _i16;
+import 'package:nokhte_backend/tables/active_nokhte_sessions.dart' as _i4;
 import 'package:nokhte_backend/tables/existing_collaborations.dart' as _i3;
 import 'package:supabase_flutter/supabase_flutter.dart' as _i2;
 
@@ -58,8 +59,9 @@ class _FakeExistingCollaborationsQueries_1 extends _i1.SmartFake
         );
 }
 
-class _FakeRtcEngine_2 extends _i1.SmartFake implements _i4.RtcEngine {
-  _FakeRtcEngine_2(
+class _FakeActiveNokhteSessionQueries_2 extends _i1.SmartFake
+    implements _i4.ActiveNokhteSessionQueries {
+  _FakeActiveNokhteSessionQueries_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -68,8 +70,8 @@ class _FakeRtcEngine_2 extends _i1.SmartFake implements _i4.RtcEngine {
         );
 }
 
-class _FakeResponse_3 extends _i1.SmartFake implements _i5.Response {
-  _FakeResponse_3(
+class _FakeRtcEngine_3 extends _i1.SmartFake implements _i5.RtcEngine {
+  _FakeRtcEngine_3(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -78,8 +80,8 @@ class _FakeResponse_3 extends _i1.SmartFake implements _i5.Response {
         );
 }
 
-class _FakeEither_4<L, R> extends _i1.SmartFake implements _i6.Either<L, R> {
-  _FakeEither_4(
+class _FakeResponse_4 extends _i1.SmartFake implements _i6.Response {
+  _FakeResponse_4(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -88,9 +90,8 @@ class _FakeEither_4<L, R> extends _i1.SmartFake implements _i6.Either<L, R> {
         );
 }
 
-class _FakeVoiceCallContract_5 extends _i1.SmartFake
-    implements _i7.VoiceCallContract {
-  _FakeVoiceCallContract_5(
+class _FakeEither_5<L, R> extends _i1.SmartFake implements _i7.Either<L, R> {
+  _FakeEither_5(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -99,8 +100,9 @@ class _FakeVoiceCallContract_5 extends _i1.SmartFake
         );
 }
 
-class _FakeJoinCall_6 extends _i1.SmartFake implements _i7.JoinCall {
-  _FakeJoinCall_6(
+class _FakeVoiceCallContract_6 extends _i1.SmartFake
+    implements _i8.VoiceCallContract {
+  _FakeVoiceCallContract_6(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -109,8 +111,8 @@ class _FakeJoinCall_6 extends _i1.SmartFake implements _i7.JoinCall {
         );
 }
 
-class _FakeLeaveCall_7 extends _i1.SmartFake implements _i7.LeaveCall {
-  _FakeLeaveCall_7(
+class _FakeJoinCall_7 extends _i1.SmartFake implements _i8.JoinCall {
+  _FakeJoinCall_7(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -119,9 +121,8 @@ class _FakeLeaveCall_7 extends _i1.SmartFake implements _i7.LeaveCall {
         );
 }
 
-class _FakeMuteLocalAudio_8 extends _i1.SmartFake
-    implements _i7.MuteLocalAudio {
-  _FakeMuteLocalAudio_8(
+class _FakeLeaveCall_8 extends _i1.SmartFake implements _i8.LeaveCall {
+  _FakeLeaveCall_8(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -130,9 +131,9 @@ class _FakeMuteLocalAudio_8 extends _i1.SmartFake
         );
 }
 
-class _FakeUnmuteLocalAudio_9 extends _i1.SmartFake
-    implements _i7.UnmuteLocalAudio {
-  _FakeUnmuteLocalAudio_9(
+class _FakeMuteLocalAudio_9 extends _i1.SmartFake
+    implements _i8.MuteLocalAudio {
+  _FakeMuteLocalAudio_9(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -141,9 +142,20 @@ class _FakeUnmuteLocalAudio_9 extends _i1.SmartFake
         );
 }
 
-class _FakeReactiveContext_10 extends _i1.SmartFake
-    implements _i8.ReactiveContext {
-  _FakeReactiveContext_10(
+class _FakeUnmuteLocalAudio_10 extends _i1.SmartFake
+    implements _i8.UnmuteLocalAudio {
+  _FakeUnmuteLocalAudio_10(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeReactiveContext_11 extends _i1.SmartFake
+    implements _i9.ReactiveContext {
+  _FakeReactiveContext_11(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -156,7 +168,7 @@ class _FakeReactiveContext_10 extends _i1.SmartFake
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockVoiceCallRemoteSourceImpl extends _i1.Mock
-    implements _i9.VoiceCallRemoteSourceImpl {
+    implements _i10.VoiceCallRemoteSourceImpl {
   @override
   _i2.SupabaseClient get supabase => (super.noSuchMethod(
         Invocation.getter(#supabase),
@@ -185,13 +197,27 @@ class MockVoiceCallRemoteSourceImpl extends _i1.Mock
       ) as _i3.ExistingCollaborationsQueries);
 
   @override
+  _i4.ActiveNokhteSessionQueries get activeNokhteSessionQueries =>
+      (super.noSuchMethod(
+        Invocation.getter(#activeNokhteSessionQueries),
+        returnValue: _FakeActiveNokhteSessionQueries_2(
+          this,
+          Invocation.getter(#activeNokhteSessionQueries),
+        ),
+        returnValueForMissingStub: _FakeActiveNokhteSessionQueries_2(
+          this,
+          Invocation.getter(#activeNokhteSessionQueries),
+        ),
+      ) as _i4.ActiveNokhteSessionQueries);
+
+  @override
   String get currentUserUID => (super.noSuchMethod(
         Invocation.getter(#currentUserUID),
-        returnValue: _i10.dummyValue<String>(
+        returnValue: _i11.dummyValue<String>(
           this,
           Invocation.getter(#currentUserUID),
         ),
-        returnValueForMissingStub: _i10.dummyValue<String>(
+        returnValueForMissingStub: _i11.dummyValue<String>(
           this,
           Invocation.getter(#currentUserUID),
         ),
@@ -205,25 +231,25 @@ class MockVoiceCallRemoteSourceImpl extends _i1.Mock
       ) as int);
 
   @override
-  _i4.RtcEngine get agoraEngine => (super.noSuchMethod(
+  _i5.RtcEngine get agoraEngine => (super.noSuchMethod(
         Invocation.getter(#agoraEngine),
-        returnValue: _FakeRtcEngine_2(
+        returnValue: _FakeRtcEngine_3(
           this,
           Invocation.getter(#agoraEngine),
         ),
-        returnValueForMissingStub: _FakeRtcEngine_2(
+        returnValueForMissingStub: _FakeRtcEngine_3(
           this,
           Invocation.getter(#agoraEngine),
         ),
-      ) as _i4.RtcEngine);
+      ) as _i5.RtcEngine);
 
   @override
-  _i11.Future<_i4.RtcEngine> initAgoraSdk() => (super.noSuchMethod(
+  _i12.Future<_i5.RtcEngine> initAgoraSdk() => (super.noSuchMethod(
         Invocation.method(
           #initAgoraSdk,
           [],
         ),
-        returnValue: _i11.Future<_i4.RtcEngine>.value(_FakeRtcEngine_2(
+        returnValue: _i12.Future<_i5.RtcEngine>.value(_FakeRtcEngine_3(
           this,
           Invocation.method(
             #initAgoraSdk,
@@ -231,24 +257,24 @@ class MockVoiceCallRemoteSourceImpl extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i11.Future<_i4.RtcEngine>.value(_FakeRtcEngine_2(
+            _i12.Future<_i5.RtcEngine>.value(_FakeRtcEngine_3(
           this,
           Invocation.method(
             #initAgoraSdk,
             [],
           ),
         )),
-      ) as _i11.Future<_i4.RtcEngine>);
+      ) as _i12.Future<_i5.RtcEngine>);
 
   @override
-  _i11.Future<_i5.Response> getAgoraToken({required String? channelName}) =>
+  _i12.Future<_i6.Response> getAgoraToken({required String? channelName}) =>
       (super.noSuchMethod(
         Invocation.method(
           #getAgoraToken,
           [],
           {#channelName: channelName},
         ),
-        returnValue: _i11.Future<_i5.Response>.value(_FakeResponse_3(
+        returnValue: _i12.Future<_i6.Response>.value(_FakeResponse_4(
           this,
           Invocation.method(
             #getAgoraToken,
@@ -257,7 +283,7 @@ class MockVoiceCallRemoteSourceImpl extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i11.Future<_i5.Response>.value(_FakeResponse_3(
+            _i12.Future<_i6.Response>.value(_FakeResponse_4(
           this,
           Invocation.method(
             #getAgoraToken,
@@ -265,10 +291,10 @@ class MockVoiceCallRemoteSourceImpl extends _i1.Mock
             {#channelName: channelName},
           ),
         )),
-      ) as _i11.Future<_i5.Response>);
+      ) as _i12.Future<_i6.Response>);
 
   @override
-  _i11.Future<void> joinCall({
+  _i12.Future<void> joinCall({
     required String? token,
     required String? channelId,
   }) =>
@@ -281,58 +307,81 @@ class MockVoiceCallRemoteSourceImpl extends _i1.Mock
             #channelId: channelId,
           },
         ),
-        returnValue: _i11.Future<void>.value(),
-        returnValueForMissingStub: _i11.Future<void>.value(),
-      ) as _i11.Future<void>);
+        returnValue: _i12.Future<void>.value(),
+        returnValueForMissingStub: _i12.Future<void>.value(),
+      ) as _i12.Future<void>);
 
   @override
-  _i11.Future<void> leaveCall() => (super.noSuchMethod(
+  _i12.Future<void> leaveCall() => (super.noSuchMethod(
         Invocation.method(
           #leaveCall,
           [],
         ),
-        returnValue: _i11.Future<void>.value(),
-        returnValueForMissingStub: _i11.Future<void>.value(),
-      ) as _i11.Future<void>);
+        returnValue: _i12.Future<void>.value(),
+        returnValueForMissingStub: _i12.Future<void>.value(),
+      ) as _i12.Future<void>);
 
   @override
-  _i11.Future<List<dynamic>> getCollaboratorInfo() => (super.noSuchMethod(
+  _i12.Future<List<dynamic>> getCollaboratorInfo() => (super.noSuchMethod(
         Invocation.method(
           #getCollaboratorInfo,
           [],
         ),
-        returnValue: _i11.Future<List<dynamic>>.value(<dynamic>[]),
+        returnValue: _i12.Future<List<dynamic>>.value(<dynamic>[]),
         returnValueForMissingStub:
-            _i11.Future<List<dynamic>>.value(<dynamic>[]),
-      ) as _i11.Future<List<dynamic>>);
+            _i12.Future<List<dynamic>>.value(<dynamic>[]),
+      ) as _i12.Future<List<dynamic>>);
 
   @override
-  _i11.Future<void> muteLocalAudio() => (super.noSuchMethod(
+  _i12.Future<void> muteLocalAudio() => (super.noSuchMethod(
         Invocation.method(
           #muteLocalAudio,
           [],
         ),
-        returnValue: _i11.Future<void>.value(),
-        returnValueForMissingStub: _i11.Future<void>.value(),
-      ) as _i11.Future<void>);
+        returnValue: _i12.Future<void>.value(),
+        returnValueForMissingStub: _i12.Future<void>.value(),
+      ) as _i12.Future<void>);
 
   @override
-  _i11.Future<void> unmuteLocalAudio() => (super.noSuchMethod(
+  _i12.Future<void> unmuteLocalAudio() => (super.noSuchMethod(
         Invocation.method(
           #unmuteLocalAudio,
           [],
         ),
-        returnValue: _i11.Future<void>.value(),
-        returnValueForMissingStub: _i11.Future<void>.value(),
-      ) as _i11.Future<void>);
+        returnValue: _i12.Future<void>.value(),
+        returnValueForMissingStub: _i12.Future<void>.value(),
+      ) as _i12.Future<void>);
+
+  @override
+  _i12.Future<String> getNokhteSessionMeetingId() => (super.noSuchMethod(
+        Invocation.method(
+          #getNokhteSessionMeetingId,
+          [],
+        ),
+        returnValue: _i12.Future<String>.value(_i11.dummyValue<String>(
+          this,
+          Invocation.method(
+            #getNokhteSessionMeetingId,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i12.Future<String>.value(_i11.dummyValue<String>(
+          this,
+          Invocation.method(
+            #getNokhteSessionMeetingId,
+            [],
+          ),
+        )),
+      ) as _i12.Future<String>);
 }
 
 /// A class which mocks [VoiceCallContract].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockVoiceCallContract extends _i1.Mock implements _i7.VoiceCallContract {
+class MockVoiceCallContract extends _i1.Mock implements _i8.VoiceCallContract {
   @override
-  _i11.Future<_i6.Either<_i12.Failure, String>> getAgoraToken(
+  _i12.Future<_i7.Either<_i13.Failure, String>> getAgoraToken(
           {required String? channelName}) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -340,8 +389,8 @@ class MockVoiceCallContract extends _i1.Mock implements _i7.VoiceCallContract {
           [],
           {#channelName: channelName},
         ),
-        returnValue: _i11.Future<_i6.Either<_i12.Failure, String>>.value(
-            _FakeEither_4<_i12.Failure, String>(
+        returnValue: _i12.Future<_i7.Either<_i13.Failure, String>>.value(
+            _FakeEither_5<_i13.Failure, String>(
           this,
           Invocation.method(
             #getAgoraToken,
@@ -350,8 +399,8 @@ class MockVoiceCallContract extends _i1.Mock implements _i7.VoiceCallContract {
           ),
         )),
         returnValueForMissingStub:
-            _i11.Future<_i6.Either<_i12.Failure, String>>.value(
-                _FakeEither_4<_i12.Failure, String>(
+            _i12.Future<_i7.Either<_i13.Failure, String>>.value(
+                _FakeEither_5<_i13.Failure, String>(
           this,
           Invocation.method(
             #getAgoraToken,
@@ -359,36 +408,37 @@ class MockVoiceCallContract extends _i1.Mock implements _i7.VoiceCallContract {
             {#channelName: channelName},
           ),
         )),
-      ) as _i11.Future<_i6.Either<_i12.Failure, String>>);
+      ) as _i12.Future<_i7.Either<_i13.Failure, String>>);
 
   @override
-  _i11.Future<_i6.Either<_i12.Failure, String>> getChannelId() =>
+  _i12.Future<_i7.Either<_i13.Failure, String>> getChannelId(
+          _i8.GetChannelIdParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #getChannelId,
-          [],
+          [params],
         ),
-        returnValue: _i11.Future<_i6.Either<_i12.Failure, String>>.value(
-            _FakeEither_4<_i12.Failure, String>(
+        returnValue: _i12.Future<_i7.Either<_i13.Failure, String>>.value(
+            _FakeEither_5<_i13.Failure, String>(
           this,
           Invocation.method(
             #getChannelId,
-            [],
+            [params],
           ),
         )),
         returnValueForMissingStub:
-            _i11.Future<_i6.Either<_i12.Failure, String>>.value(
-                _FakeEither_4<_i12.Failure, String>(
+            _i12.Future<_i7.Either<_i13.Failure, String>>.value(
+                _FakeEither_5<_i13.Failure, String>(
           this,
           Invocation.method(
             #getChannelId,
-            [],
+            [params],
           ),
         )),
-      ) as _i11.Future<_i6.Either<_i12.Failure, String>>);
+      ) as _i12.Future<_i7.Either<_i13.Failure, String>>);
 
   @override
-  _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>> joinCall(
+  _i12.Future<_i7.Either<_i13.Failure, _i8.CallStatusEntity>> joinCall(
     String? token,
     String? channelId,
   ) =>
@@ -401,8 +451,8 @@ class MockVoiceCallContract extends _i1.Mock implements _i7.VoiceCallContract {
           ],
         ),
         returnValue:
-            _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>>.value(
-                _FakeEither_4<_i12.Failure, _i7.CallStatusEntity>(
+            _i12.Future<_i7.Either<_i13.Failure, _i8.CallStatusEntity>>.value(
+                _FakeEither_5<_i13.Failure, _i8.CallStatusEntity>(
           this,
           Invocation.method(
             #joinCall,
@@ -413,8 +463,8 @@ class MockVoiceCallContract extends _i1.Mock implements _i7.VoiceCallContract {
           ),
         )),
         returnValueForMissingStub:
-            _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>>.value(
-                _FakeEither_4<_i12.Failure, _i7.CallStatusEntity>(
+            _i12.Future<_i7.Either<_i13.Failure, _i8.CallStatusEntity>>.value(
+                _FakeEither_5<_i13.Failure, _i8.CallStatusEntity>(
           this,
           Invocation.method(
             #joinCall,
@@ -424,18 +474,18 @@ class MockVoiceCallContract extends _i1.Mock implements _i7.VoiceCallContract {
             ],
           ),
         )),
-      ) as _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>>);
+      ) as _i12.Future<_i7.Either<_i13.Failure, _i8.CallStatusEntity>>);
 
   @override
-  _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>> leaveCall() =>
+  _i12.Future<_i7.Either<_i13.Failure, _i8.CallStatusEntity>> leaveCall() =>
       (super.noSuchMethod(
         Invocation.method(
           #leaveCall,
           [],
         ),
         returnValue:
-            _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>>.value(
-                _FakeEither_4<_i12.Failure, _i7.CallStatusEntity>(
+            _i12.Future<_i7.Either<_i13.Failure, _i8.CallStatusEntity>>.value(
+                _FakeEither_5<_i13.Failure, _i8.CallStatusEntity>(
           this,
           Invocation.method(
             #leaveCall,
@@ -443,25 +493,25 @@ class MockVoiceCallContract extends _i1.Mock implements _i7.VoiceCallContract {
           ),
         )),
         returnValueForMissingStub:
-            _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>>.value(
-                _FakeEither_4<_i12.Failure, _i7.CallStatusEntity>(
+            _i12.Future<_i7.Either<_i13.Failure, _i8.CallStatusEntity>>.value(
+                _FakeEither_5<_i13.Failure, _i8.CallStatusEntity>(
           this,
           Invocation.method(
             #leaveCall,
             [],
           ),
         )),
-      ) as _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>>);
+      ) as _i12.Future<_i7.Either<_i13.Failure, _i8.CallStatusEntity>>);
 
   @override
-  _i11.Future<_i6.Either<_i12.Failure, bool>> muteLocalAudio() =>
+  _i12.Future<_i7.Either<_i13.Failure, bool>> muteLocalAudio() =>
       (super.noSuchMethod(
         Invocation.method(
           #muteLocalAudio,
           [],
         ),
-        returnValue: _i11.Future<_i6.Either<_i12.Failure, bool>>.value(
-            _FakeEither_4<_i12.Failure, bool>(
+        returnValue: _i12.Future<_i7.Either<_i13.Failure, bool>>.value(
+            _FakeEither_5<_i13.Failure, bool>(
           this,
           Invocation.method(
             #muteLocalAudio,
@@ -469,25 +519,25 @@ class MockVoiceCallContract extends _i1.Mock implements _i7.VoiceCallContract {
           ),
         )),
         returnValueForMissingStub:
-            _i11.Future<_i6.Either<_i12.Failure, bool>>.value(
-                _FakeEither_4<_i12.Failure, bool>(
+            _i12.Future<_i7.Either<_i13.Failure, bool>>.value(
+                _FakeEither_5<_i13.Failure, bool>(
           this,
           Invocation.method(
             #muteLocalAudio,
             [],
           ),
         )),
-      ) as _i11.Future<_i6.Either<_i12.Failure, bool>>);
+      ) as _i12.Future<_i7.Either<_i13.Failure, bool>>);
 
   @override
-  _i11.Future<_i6.Either<_i12.Failure, bool>> unmuteLocalAudio() =>
+  _i12.Future<_i7.Either<_i13.Failure, bool>> unmuteLocalAudio() =>
       (super.noSuchMethod(
         Invocation.method(
           #unmuteLocalAudio,
           [],
         ),
-        returnValue: _i11.Future<_i6.Either<_i12.Failure, bool>>.value(
-            _FakeEither_4<_i12.Failure, bool>(
+        returnValue: _i12.Future<_i7.Either<_i13.Failure, bool>>.value(
+            _FakeEither_5<_i13.Failure, bool>(
           this,
           Invocation.method(
             #unmuteLocalAudio,
@@ -495,24 +545,24 @@ class MockVoiceCallContract extends _i1.Mock implements _i7.VoiceCallContract {
           ),
         )),
         returnValueForMissingStub:
-            _i11.Future<_i6.Either<_i12.Failure, bool>>.value(
-                _FakeEither_4<_i12.Failure, bool>(
+            _i12.Future<_i7.Either<_i13.Failure, bool>>.value(
+                _FakeEither_5<_i13.Failure, bool>(
           this,
           Invocation.method(
             #unmuteLocalAudio,
             [],
           ),
         )),
-      ) as _i11.Future<_i6.Either<_i12.Failure, bool>>);
+      ) as _i12.Future<_i7.Either<_i13.Failure, bool>>);
 
   @override
-  _i11.Future<_i4.RtcEngine> initAgoraSdk(_i13.NoParams? params) =>
+  _i12.Future<_i5.RtcEngine> initAgoraSdk(_i14.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #initAgoraSdk,
           [params],
         ),
-        returnValue: _i11.Future<_i4.RtcEngine>.value(_FakeRtcEngine_2(
+        returnValue: _i12.Future<_i5.RtcEngine>.value(_FakeRtcEngine_3(
           this,
           Invocation.method(
             #initAgoraSdk,
@@ -520,43 +570,43 @@ class MockVoiceCallContract extends _i1.Mock implements _i7.VoiceCallContract {
           ),
         )),
         returnValueForMissingStub:
-            _i11.Future<_i4.RtcEngine>.value(_FakeRtcEngine_2(
+            _i12.Future<_i5.RtcEngine>.value(_FakeRtcEngine_3(
           this,
           Invocation.method(
             #initAgoraSdk,
             [params],
           ),
         )),
-      ) as _i11.Future<_i4.RtcEngine>);
+      ) as _i12.Future<_i5.RtcEngine>);
 }
 
 /// A class which mocks [GetAgoraToken].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetAgoraToken extends _i1.Mock implements _i7.GetAgoraToken {
+class MockGetAgoraToken extends _i1.Mock implements _i8.GetAgoraToken {
   @override
-  _i7.VoiceCallContract get contract => (super.noSuchMethod(
+  _i8.VoiceCallContract get contract => (super.noSuchMethod(
         Invocation.getter(#contract),
-        returnValue: _FakeVoiceCallContract_5(
+        returnValue: _FakeVoiceCallContract_6(
           this,
           Invocation.getter(#contract),
         ),
-        returnValueForMissingStub: _FakeVoiceCallContract_5(
+        returnValueForMissingStub: _FakeVoiceCallContract_6(
           this,
           Invocation.getter(#contract),
         ),
-      ) as _i7.VoiceCallContract);
+      ) as _i8.VoiceCallContract);
 
   @override
-  _i11.Future<_i6.Either<_i12.Failure, String>> call(
-          _i7.GetAgoraTokenParams? params) =>
+  _i12.Future<_i7.Either<_i13.Failure, String>> call(
+          _i8.GetAgoraTokenParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i11.Future<_i6.Either<_i12.Failure, String>>.value(
-            _FakeEither_4<_i12.Failure, String>(
+        returnValue: _i12.Future<_i7.Either<_i13.Failure, String>>.value(
+            _FakeEither_5<_i13.Failure, String>(
           this,
           Invocation.method(
             #call,
@@ -564,43 +614,44 @@ class MockGetAgoraToken extends _i1.Mock implements _i7.GetAgoraToken {
           ),
         )),
         returnValueForMissingStub:
-            _i11.Future<_i6.Either<_i12.Failure, String>>.value(
-                _FakeEither_4<_i12.Failure, String>(
+            _i12.Future<_i7.Either<_i13.Failure, String>>.value(
+                _FakeEither_5<_i13.Failure, String>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i11.Future<_i6.Either<_i12.Failure, String>>);
+      ) as _i12.Future<_i7.Either<_i13.Failure, String>>);
 }
 
 /// A class which mocks [GetChannelId].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetChannelId extends _i1.Mock implements _i7.GetChannelId {
+class MockGetChannelId extends _i1.Mock implements _i8.GetChannelId {
   @override
-  _i7.VoiceCallContract get contract => (super.noSuchMethod(
+  _i8.VoiceCallContract get contract => (super.noSuchMethod(
         Invocation.getter(#contract),
-        returnValue: _FakeVoiceCallContract_5(
+        returnValue: _FakeVoiceCallContract_6(
           this,
           Invocation.getter(#contract),
         ),
-        returnValueForMissingStub: _FakeVoiceCallContract_5(
+        returnValueForMissingStub: _FakeVoiceCallContract_6(
           this,
           Invocation.getter(#contract),
         ),
-      ) as _i7.VoiceCallContract);
+      ) as _i8.VoiceCallContract);
 
   @override
-  _i11.Future<_i6.Either<_i12.Failure, String>> call(_i13.NoParams? params) =>
+  _i12.Future<_i7.Either<_i13.Failure, String>> call(
+          _i8.GetChannelIdParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i11.Future<_i6.Either<_i12.Failure, String>>.value(
-            _FakeEither_4<_i12.Failure, String>(
+        returnValue: _i12.Future<_i7.Either<_i13.Failure, String>>.value(
+            _FakeEither_5<_i13.Failure, String>(
           this,
           Invocation.method(
             #call,
@@ -608,41 +659,41 @@ class MockGetChannelId extends _i1.Mock implements _i7.GetChannelId {
           ),
         )),
         returnValueForMissingStub:
-            _i11.Future<_i6.Either<_i12.Failure, String>>.value(
-                _FakeEither_4<_i12.Failure, String>(
+            _i12.Future<_i7.Either<_i13.Failure, String>>.value(
+                _FakeEither_5<_i13.Failure, String>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i11.Future<_i6.Either<_i12.Failure, String>>);
+      ) as _i12.Future<_i7.Either<_i13.Failure, String>>);
 }
 
 /// A class which mocks [InitAgoraSdk].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockInitAgoraSdk extends _i1.Mock implements _i7.InitAgoraSdk {
+class MockInitAgoraSdk extends _i1.Mock implements _i8.InitAgoraSdk {
   @override
-  _i7.VoiceCallContract get contract => (super.noSuchMethod(
+  _i8.VoiceCallContract get contract => (super.noSuchMethod(
         Invocation.getter(#contract),
-        returnValue: _FakeVoiceCallContract_5(
+        returnValue: _FakeVoiceCallContract_6(
           this,
           Invocation.getter(#contract),
         ),
-        returnValueForMissingStub: _FakeVoiceCallContract_5(
+        returnValueForMissingStub: _FakeVoiceCallContract_6(
           this,
           Invocation.getter(#contract),
         ),
-      ) as _i7.VoiceCallContract);
+      ) as _i8.VoiceCallContract);
 
   @override
-  _i11.Future<_i4.RtcEngine> call(_i13.NoParams? params) => (super.noSuchMethod(
+  _i12.Future<_i5.RtcEngine> call(_i14.NoParams? params) => (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i11.Future<_i4.RtcEngine>.value(_FakeRtcEngine_2(
+        returnValue: _i12.Future<_i5.RtcEngine>.value(_FakeRtcEngine_3(
           this,
           Invocation.method(
             #call,
@@ -650,44 +701,44 @@ class MockInitAgoraSdk extends _i1.Mock implements _i7.InitAgoraSdk {
           ),
         )),
         returnValueForMissingStub:
-            _i11.Future<_i4.RtcEngine>.value(_FakeRtcEngine_2(
+            _i12.Future<_i5.RtcEngine>.value(_FakeRtcEngine_3(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i11.Future<_i4.RtcEngine>);
+      ) as _i12.Future<_i5.RtcEngine>);
 }
 
 /// A class which mocks [JoinCall].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockJoinCall extends _i1.Mock implements _i7.JoinCall {
+class MockJoinCall extends _i1.Mock implements _i8.JoinCall {
   @override
-  _i7.VoiceCallContract get contract => (super.noSuchMethod(
+  _i8.VoiceCallContract get contract => (super.noSuchMethod(
         Invocation.getter(#contract),
-        returnValue: _FakeVoiceCallContract_5(
+        returnValue: _FakeVoiceCallContract_6(
           this,
           Invocation.getter(#contract),
         ),
-        returnValueForMissingStub: _FakeVoiceCallContract_5(
+        returnValueForMissingStub: _FakeVoiceCallContract_6(
           this,
           Invocation.getter(#contract),
         ),
-      ) as _i7.VoiceCallContract);
+      ) as _i8.VoiceCallContract);
 
   @override
-  _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>> call(
-          _i7.JoinCallParams? params) =>
+  _i12.Future<_i7.Either<_i13.Failure, _i8.CallStatusEntity>> call(
+          _i8.JoinCallParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
         returnValue:
-            _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>>.value(
-                _FakeEither_4<_i12.Failure, _i7.CallStatusEntity>(
+            _i12.Future<_i7.Either<_i13.Failure, _i8.CallStatusEntity>>.value(
+                _FakeEither_5<_i13.Failure, _i8.CallStatusEntity>(
           this,
           Invocation.method(
             #call,
@@ -695,45 +746,45 @@ class MockJoinCall extends _i1.Mock implements _i7.JoinCall {
           ),
         )),
         returnValueForMissingStub:
-            _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>>.value(
-                _FakeEither_4<_i12.Failure, _i7.CallStatusEntity>(
+            _i12.Future<_i7.Either<_i13.Failure, _i8.CallStatusEntity>>.value(
+                _FakeEither_5<_i13.Failure, _i8.CallStatusEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>>);
+      ) as _i12.Future<_i7.Either<_i13.Failure, _i8.CallStatusEntity>>);
 }
 
 /// A class which mocks [LeaveCall].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLeaveCall extends _i1.Mock implements _i7.LeaveCall {
+class MockLeaveCall extends _i1.Mock implements _i8.LeaveCall {
   @override
-  _i7.VoiceCallContract get contract => (super.noSuchMethod(
+  _i8.VoiceCallContract get contract => (super.noSuchMethod(
         Invocation.getter(#contract),
-        returnValue: _FakeVoiceCallContract_5(
+        returnValue: _FakeVoiceCallContract_6(
           this,
           Invocation.getter(#contract),
         ),
-        returnValueForMissingStub: _FakeVoiceCallContract_5(
+        returnValueForMissingStub: _FakeVoiceCallContract_6(
           this,
           Invocation.getter(#contract),
         ),
-      ) as _i7.VoiceCallContract);
+      ) as _i8.VoiceCallContract);
 
   @override
-  _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>> call(
-          _i13.NoParams? params) =>
+  _i12.Future<_i7.Either<_i13.Failure, _i8.CallStatusEntity>> call(
+          _i14.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
         returnValue:
-            _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>>.value(
-                _FakeEither_4<_i12.Failure, _i7.CallStatusEntity>(
+            _i12.Future<_i7.Either<_i13.Failure, _i8.CallStatusEntity>>.value(
+                _FakeEither_5<_i13.Failure, _i8.CallStatusEntity>(
           this,
           Invocation.method(
             #call,
@@ -741,43 +792,43 @@ class MockLeaveCall extends _i1.Mock implements _i7.LeaveCall {
           ),
         )),
         returnValueForMissingStub:
-            _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>>.value(
-                _FakeEither_4<_i12.Failure, _i7.CallStatusEntity>(
+            _i12.Future<_i7.Either<_i13.Failure, _i8.CallStatusEntity>>.value(
+                _FakeEither_5<_i13.Failure, _i8.CallStatusEntity>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i11.Future<_i6.Either<_i12.Failure, _i7.CallStatusEntity>>);
+      ) as _i12.Future<_i7.Either<_i13.Failure, _i8.CallStatusEntity>>);
 }
 
 /// A class which mocks [MuteLocalAudio].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMuteLocalAudio extends _i1.Mock implements _i7.MuteLocalAudio {
+class MockMuteLocalAudio extends _i1.Mock implements _i8.MuteLocalAudio {
   @override
-  _i7.VoiceCallContract get contract => (super.noSuchMethod(
+  _i8.VoiceCallContract get contract => (super.noSuchMethod(
         Invocation.getter(#contract),
-        returnValue: _FakeVoiceCallContract_5(
+        returnValue: _FakeVoiceCallContract_6(
           this,
           Invocation.getter(#contract),
         ),
-        returnValueForMissingStub: _FakeVoiceCallContract_5(
+        returnValueForMissingStub: _FakeVoiceCallContract_6(
           this,
           Invocation.getter(#contract),
         ),
-      ) as _i7.VoiceCallContract);
+      ) as _i8.VoiceCallContract);
 
   @override
-  _i11.Future<_i6.Either<_i12.Failure, bool>> call(_i13.NoParams? params) =>
+  _i12.Future<_i7.Either<_i13.Failure, bool>> call(_i14.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i11.Future<_i6.Either<_i12.Failure, bool>>.value(
-            _FakeEither_4<_i12.Failure, bool>(
+        returnValue: _i12.Future<_i7.Either<_i13.Failure, bool>>.value(
+            _FakeEither_5<_i13.Failure, bool>(
           this,
           Invocation.method(
             #call,
@@ -785,43 +836,43 @@ class MockMuteLocalAudio extends _i1.Mock implements _i7.MuteLocalAudio {
           ),
         )),
         returnValueForMissingStub:
-            _i11.Future<_i6.Either<_i12.Failure, bool>>.value(
-                _FakeEither_4<_i12.Failure, bool>(
+            _i12.Future<_i7.Either<_i13.Failure, bool>>.value(
+                _FakeEither_5<_i13.Failure, bool>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i11.Future<_i6.Either<_i12.Failure, bool>>);
+      ) as _i12.Future<_i7.Either<_i13.Failure, bool>>);
 }
 
 /// A class which mocks [UnmuteLocalAudio].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUnmuteLocalAudio extends _i1.Mock implements _i7.UnmuteLocalAudio {
+class MockUnmuteLocalAudio extends _i1.Mock implements _i8.UnmuteLocalAudio {
   @override
-  _i7.VoiceCallContract get contract => (super.noSuchMethod(
+  _i8.VoiceCallContract get contract => (super.noSuchMethod(
         Invocation.getter(#contract),
-        returnValue: _FakeVoiceCallContract_5(
+        returnValue: _FakeVoiceCallContract_6(
           this,
           Invocation.getter(#contract),
         ),
-        returnValueForMissingStub: _FakeVoiceCallContract_5(
+        returnValueForMissingStub: _FakeVoiceCallContract_6(
           this,
           Invocation.getter(#contract),
         ),
-      ) as _i7.VoiceCallContract);
+      ) as _i8.VoiceCallContract);
 
   @override
-  _i11.Future<_i6.Either<_i12.Failure, bool>> call(_i13.NoParams? params) =>
+  _i12.Future<_i7.Either<_i13.Failure, bool>> call(_i14.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i11.Future<_i6.Either<_i12.Failure, bool>>.value(
-            _FakeEither_4<_i12.Failure, bool>(
+        returnValue: _i12.Future<_i7.Either<_i13.Failure, bool>>.value(
+            _FakeEither_5<_i13.Failure, bool>(
           this,
           Invocation.method(
             #call,
@@ -829,83 +880,83 @@ class MockUnmuteLocalAudio extends _i1.Mock implements _i7.UnmuteLocalAudio {
           ),
         )),
         returnValueForMissingStub:
-            _i11.Future<_i6.Either<_i12.Failure, bool>>.value(
-                _FakeEither_4<_i12.Failure, bool>(
+            _i12.Future<_i7.Either<_i13.Failure, bool>>.value(
+                _FakeEither_5<_i13.Failure, bool>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i11.Future<_i6.Either<_i12.Failure, bool>>);
+      ) as _i12.Future<_i7.Either<_i13.Failure, bool>>);
 }
 
 /// A class which mocks [VoiceCallActionsStore].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockVoiceCallActionsStore extends _i1.Mock
-    implements _i14.VoiceCallActionsStore {
+    implements _i15.VoiceCallActionsStore {
   @override
-  _i7.JoinCall get joinCall => (super.noSuchMethod(
+  _i8.JoinCall get joinCall => (super.noSuchMethod(
         Invocation.getter(#joinCall),
-        returnValue: _FakeJoinCall_6(
+        returnValue: _FakeJoinCall_7(
           this,
           Invocation.getter(#joinCall),
         ),
-        returnValueForMissingStub: _FakeJoinCall_6(
+        returnValueForMissingStub: _FakeJoinCall_7(
           this,
           Invocation.getter(#joinCall),
         ),
-      ) as _i7.JoinCall);
+      ) as _i8.JoinCall);
 
   @override
-  _i7.LeaveCall get leaveCall => (super.noSuchMethod(
+  _i8.LeaveCall get leaveCall => (super.noSuchMethod(
         Invocation.getter(#leaveCall),
-        returnValue: _FakeLeaveCall_7(
+        returnValue: _FakeLeaveCall_8(
           this,
           Invocation.getter(#leaveCall),
         ),
-        returnValueForMissingStub: _FakeLeaveCall_7(
+        returnValueForMissingStub: _FakeLeaveCall_8(
           this,
           Invocation.getter(#leaveCall),
         ),
-      ) as _i7.LeaveCall);
+      ) as _i8.LeaveCall);
 
   @override
-  _i7.MuteLocalAudio get muteAudio => (super.noSuchMethod(
+  _i8.MuteLocalAudio get muteAudio => (super.noSuchMethod(
         Invocation.getter(#muteAudio),
-        returnValue: _FakeMuteLocalAudio_8(
+        returnValue: _FakeMuteLocalAudio_9(
           this,
           Invocation.getter(#muteAudio),
         ),
-        returnValueForMissingStub: _FakeMuteLocalAudio_8(
+        returnValueForMissingStub: _FakeMuteLocalAudio_9(
           this,
           Invocation.getter(#muteAudio),
         ),
-      ) as _i7.MuteLocalAudio);
+      ) as _i8.MuteLocalAudio);
 
   @override
-  _i7.UnmuteLocalAudio get unmuteAudio => (super.noSuchMethod(
+  _i8.UnmuteLocalAudio get unmuteAudio => (super.noSuchMethod(
         Invocation.getter(#unmuteAudio),
-        returnValue: _FakeUnmuteLocalAudio_9(
+        returnValue: _FakeUnmuteLocalAudio_10(
           this,
           Invocation.getter(#unmuteAudio),
         ),
-        returnValueForMissingStub: _FakeUnmuteLocalAudio_9(
+        returnValueForMissingStub: _FakeUnmuteLocalAudio_10(
           this,
           Invocation.getter(#unmuteAudio),
         ),
-      ) as _i7.UnmuteLocalAudio);
+      ) as _i8.UnmuteLocalAudio);
 
   @override
-  _i15.CallStatus get callStatus => (super.noSuchMethod(
+  _i16.CallStatus get callStatus => (super.noSuchMethod(
         Invocation.getter(#callStatus),
-        returnValue: _i15.CallStatus.initial,
-        returnValueForMissingStub: _i15.CallStatus.initial,
-      ) as _i15.CallStatus);
+        returnValue: _i16.CallStatus.initial,
+        returnValueForMissingStub: _i16.CallStatus.initial,
+      ) as _i16.CallStatus);
 
   @override
-  set callStatus(_i15.CallStatus? value) => super.noSuchMethod(
+  set callStatus(_i16.CallStatus? value) => super.noSuchMethod(
         Invocation.setter(
           #callStatus,
           value,
@@ -937,14 +988,14 @@ class MockVoiceCallActionsStore extends _i1.Mock
       ) as List<Object>);
 
   @override
-  _i16.StoreState get state => (super.noSuchMethod(
+  _i17.StoreState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i16.StoreState.initial,
-        returnValueForMissingStub: _i16.StoreState.initial,
-      ) as _i16.StoreState);
+        returnValue: _i17.StoreState.initial,
+        returnValueForMissingStub: _i17.StoreState.initial,
+      ) as _i17.StoreState);
 
   @override
-  set state(_i16.StoreState? value) => super.noSuchMethod(
+  set state(_i17.StoreState? value) => super.noSuchMethod(
         Invocation.setter(
           #state,
           value,
@@ -955,11 +1006,11 @@ class MockVoiceCallActionsStore extends _i1.Mock
   @override
   String get errorMessage => (super.noSuchMethod(
         Invocation.getter(#errorMessage),
-        returnValue: _i10.dummyValue<String>(
+        returnValue: _i11.dummyValue<String>(
           this,
           Invocation.getter(#errorMessage),
         ),
-        returnValueForMissingStub: _i10.dummyValue<String>(
+        returnValueForMissingStub: _i11.dummyValue<String>(
           this,
           Invocation.getter(#errorMessage),
         ),
@@ -975,20 +1026,20 @@ class MockVoiceCallActionsStore extends _i1.Mock
       );
 
   @override
-  _i8.ReactiveContext get context => (super.noSuchMethod(
+  _i9.ReactiveContext get context => (super.noSuchMethod(
         Invocation.getter(#context),
-        returnValue: _FakeReactiveContext_10(
+        returnValue: _FakeReactiveContext_11(
           this,
           Invocation.getter(#context),
         ),
-        returnValueForMissingStub: _FakeReactiveContext_10(
+        returnValueForMissingStub: _FakeReactiveContext_11(
           this,
           Invocation.getter(#context),
         ),
-      ) as _i8.ReactiveContext);
+      ) as _i9.ReactiveContext);
 
   @override
-  dynamic audioStateOrErrorUpdater(_i6.Either<_i12.Failure, bool>? result) =>
+  dynamic audioStateOrErrorUpdater(_i7.Either<_i13.Failure, bool>? result) =>
       super.noSuchMethod(
         Invocation.method(
           #audioStateOrErrorUpdater,
@@ -999,7 +1050,7 @@ class MockVoiceCallActionsStore extends _i1.Mock
 
   @override
   dynamic callStateOrErrorUpdater(
-          _i6.Either<_i12.Failure, _i7.CallStatusEntity>? result) =>
+          _i7.Either<_i13.Failure, _i8.CallStatusEntity>? result) =>
       super.noSuchMethod(
         Invocation.method(
           #callStateOrErrorUpdater,
@@ -1009,43 +1060,43 @@ class MockVoiceCallActionsStore extends _i1.Mock
       );
 
   @override
-  _i11.Future<void> muteOrUnmuteAudio({required bool? wantToMute}) =>
+  _i12.Future<void> muteOrUnmuteAudio({required bool? wantToMute}) =>
       (super.noSuchMethod(
         Invocation.method(
           #muteOrUnmuteAudio,
           [],
           {#wantToMute: wantToMute},
         ),
-        returnValue: _i11.Future<void>.value(),
-        returnValueForMissingStub: _i11.Future<void>.value(),
-      ) as _i11.Future<void>);
+        returnValue: _i12.Future<void>.value(),
+        returnValueForMissingStub: _i12.Future<void>.value(),
+      ) as _i12.Future<void>);
 
   @override
-  _i11.Future<void> enterOrLeaveCall(
-          _i6.Either<_i13.NoParams, _i7.JoinCallParams>? params) =>
+  _i12.Future<void> enterOrLeaveCall(
+          _i7.Either<_i14.NoParams, _i8.JoinCallParams>? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #enterOrLeaveCall,
           [params],
         ),
-        returnValue: _i11.Future<void>.value(),
-        returnValueForMissingStub: _i11.Future<void>.value(),
-      ) as _i11.Future<void>);
+        returnValue: _i12.Future<void>.value(),
+        returnValueForMissingStub: _i12.Future<void>.value(),
+      ) as _i12.Future<void>);
 
   @override
-  String mapFailureToMessage(_i12.Failure? failure) => (super.noSuchMethod(
+  String mapFailureToMessage(_i13.Failure? failure) => (super.noSuchMethod(
         Invocation.method(
           #mapFailureToMessage,
           [failure],
         ),
-        returnValue: _i10.dummyValue<String>(
+        returnValue: _i11.dummyValue<String>(
           this,
           Invocation.method(
             #mapFailureToMessage,
             [failure],
           ),
         ),
-        returnValueForMissingStub: _i10.dummyValue<String>(
+        returnValueForMissingStub: _i11.dummyValue<String>(
           this,
           Invocation.method(
             #mapFailureToMessage,
@@ -1055,7 +1106,7 @@ class MockVoiceCallActionsStore extends _i1.Mock
       ) as String);
 
   @override
-  dynamic errorUpdater(_i12.Failure? failure) => super.noSuchMethod(
+  dynamic errorUpdater(_i13.Failure? failure) => super.noSuchMethod(
         Invocation.method(
           #errorUpdater,
           [failure],
@@ -1064,7 +1115,7 @@ class MockVoiceCallActionsStore extends _i1.Mock
       );
 
   @override
-  void stateOrErrorUpdater(_i6.Either<_i12.Failure, dynamic>? result) =>
+  void stateOrErrorUpdater(_i7.Either<_i13.Failure, dynamic>? result) =>
       super.noSuchMethod(
         Invocation.method(
           #stateOrErrorUpdater,
@@ -1074,12 +1125,12 @@ class MockVoiceCallActionsStore extends _i1.Mock
       );
 
   @override
-  _i11.Future<void> call(dynamic params) => (super.noSuchMethod(
+  _i12.Future<void> call(dynamic params) => (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i11.Future<void>.value(),
-        returnValueForMissingStub: _i11.Future<void>.value(),
-      ) as _i11.Future<void>);
+        returnValue: _i12.Future<void>.value(),
+        returnValueForMissingStub: _i12.Future<void>.value(),
+      ) as _i12.Future<void>);
 }
