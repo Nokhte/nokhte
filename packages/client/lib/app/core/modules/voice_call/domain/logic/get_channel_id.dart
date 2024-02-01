@@ -1,7 +1,7 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 
-class GetChannelId extends AbstractFutureLogic<String, NoParams> {
+class GetChannelId extends AbstractFutureLogic<String, GetChannelIdParams> {
   final VoiceCallContract contract;
 
   GetChannelId({
@@ -9,5 +9,10 @@ class GetChannelId extends AbstractFutureLogic<String, NoParams> {
   });
 
   @override
-  call(NoParams params) async => await contract.getChannelId();
+  call(params) async => await contract.getChannelId(params);
+}
+
+enum GetChannelIdParams {
+  forCollaboration,
+  forNokhteSession,
 }
