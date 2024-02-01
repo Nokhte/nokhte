@@ -3,8 +3,7 @@ import 'dart:async';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
-import 'package:nokhte/app/core/modules/presence_modules/modules/modules.dart';
-import 'package:nokhte/app/core/modules/presence_modules/modules/shared/shared.dart';
+import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -18,7 +17,7 @@ class PurposeSessionPhase1Coordinator = _PurposeSessionPhase1CoordinatorBase
 abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
     with Store {
   final VoiceCallCoordinator voiceCall;
-  final CollaboratorPresenceCoordinator collaboratorPresence;
+  final PurposeSessionPresenceCoordinator collaboratorPresence;
   final PurposeSessionPhase1WidgetsCoordinator widgets;
   final CheckIfUserHasTheQuestionStore checkIfUserHasTheQuestion;
   final HoldDetector hold;
