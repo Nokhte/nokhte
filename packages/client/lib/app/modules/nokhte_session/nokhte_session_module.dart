@@ -1,7 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/modules/nokhte_session/presentation/presentation.dart';
-import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'nokhte_session_widgets_module.dart';
 
 class NokhteSessionModule extends Module {
