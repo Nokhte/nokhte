@@ -61,7 +61,7 @@ class NokhteSessionPresenceModule extends Module {
     );
     i.add<NokhteSessionPresenceCoordinator>(
       () => NokhteSessionPresenceCoordinator(
-        blur: i<NokhteBlurStore>(),
+        blur: Modular.get<NokhteBlurStore>(),
         cancelSessionMetadataStreamLogic: i<CancelSessionMetadataStream>(),
         updateCurrentPhaseLogic: i<UpdateCurrentPhase>(),
         getSessionMetadataStore: i<GetNokhteSessionMetadataStore>(),

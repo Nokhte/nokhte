@@ -81,7 +81,7 @@ class VoiceCallModule extends Module {
         voiceCallStatusStore: i<VoiceCallStatusStore>(),
         getAgoraTokenLogic: i<GetAgoraToken>(),
         getChannelIdLogic: i<GetChannelId>(),
-        blur: i<NokhteBlurStore>(),
+        blur: Modular.get<NokhteBlurStore>(),
       ),
     );
   }
