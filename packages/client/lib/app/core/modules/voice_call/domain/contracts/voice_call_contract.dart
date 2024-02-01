@@ -6,7 +6,7 @@ import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 
 abstract class VoiceCallContract {
   Future<Either<Failure, String>> getAgoraToken({required String channelName});
-  Future<Either<Failure, String>> getChannelId();
+  Future<Either<Failure, String>> getChannelId(GetChannelIdParams params);
   Future<Either<Failure, CallStatusEntity>> joinCall(
       String token, String channelId);
   Future<Either<Failure, CallStatusEntity>> leaveCall();
