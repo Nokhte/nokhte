@@ -1,5 +1,6 @@
 import 'package:http/http.dart';
 import 'package:nokhte/app/core/utilities/utilities.dart';
+import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:nokhte_backend/token_server/token_server.dart';
 import 'package:nokhte_backend/tables/existing_collaborations.dart';
@@ -19,12 +20,15 @@ abstract class VoiceCallRemoteSource {
 
   Future<List<dynamic>> getCollaboratorInfo();
 
+  Future<String> getNokhteSessionMeetingId();
+
   Future<RtcEngine> initAgoraSdk();
 }
 
 class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
   final SupabaseClient supabase;
   final ExistingCollaborationsQueries existingCollaborationsQueries;
+  final ActiveNokhteSessionQueries activeNokhteSessionQueries;
   final String currentUserUID;
   final int currentAgoraUID;
   final RtcEngine agoraEngine;
@@ -37,7 +41,9 @@ class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
           supabase.auth.currentUser?.id ?? '',
         ),
         existingCollaborationsQueries =
-            ExistingCollaborationsQueries(supabase: supabase);
+            ExistingCollaborationsQueries(supabase: supabase),
+        activeNokhteSessionQueries =
+            ActiveNokhteSessionQueries(supabase: supabase);
 
   @override
   Future<RtcEngine> initAgoraSdk() async {
@@ -93,4 +99,8 @@ class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
   Future<void> unmuteLocalAudio() async {
     return await agoraEngine.muteLocalAudioStream(false);
   }
+
+  @override
+  Future<String> getNokhteSessionMeetingId() async =>
+      activeNokhteSessionQueries.getMeetingUID();
 }
