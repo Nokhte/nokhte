@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
-import 'package:nokhte/app/core/modules/collaborator_presence/domain/domain.dart';
-import 'package:nokhte/app/core/modules/collaborator_presence/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/presence_modules/modules/modules.dart';
+import 'package:nokhte/app/core/modules/presence_modules/modules/shared/shared.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -101,17 +101,14 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
         setDisableAllTouchFeedback(true);
       },
     );
-    bothCollaboratorsAreOnCallAndOnlineReactor();
+    // bothCollaboratorsAreOnCallAndOnlineReactor();
     collaboratorTalkingStatusReactor();
     userTalkingStatusReactor();
     holdReactor();
     letGoReactor();
     timerReactor();
     widgets.wifiDisconnectOverlayReactor(
-      onConnectionFinished: () async {
-        await collaboratorPresence
-            .updateCallStatus(UpdatePresencePropertyParams.userAffirmative());
-      },
+      onConnectionFinished: () async {},
     );
     widgets.beachWavesMovieStatusReactor(
         onTimesUpCompleted: onTimesUpCompleted);
@@ -172,14 +169,14 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
         }
       });
 
-  bothCollaboratorsAreOnCallAndOnlineReactor() => reaction(
-          (p0) => collaboratorPresence.getSessionMetadataStore
-              .bothCollaboratorsAreOnCallAndOnline, (p0) {
-        if (p0 && isFirstTimeBothAreInSync) {
-          isFirstTimeBothAreInSync = false;
-          widgets.onFirstTimeUsersAreInSync();
-        }
-      });
+  // bothCollaboratorsAreOnCallAndOnlineReactor() => reaction(
+  //         (p0) => collaboratorPresence.getSessionMetadataStore
+  //             .bothCollaboratorsAreOnCallAndOnline, (p0) {
+  //       if (p0 && isFirstTimeBothAreInSync) {
+  //         isFirstTimeBothAreInSync = false;
+  //         widgets.onFirstTimeUsersAreInSync();
+  //       }
+  //     });
 
   timerReactor() => reaction(
           (p0) => collaboratorPresence.getSessionMetadataStore.timerShouldRun,
