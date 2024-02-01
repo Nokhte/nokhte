@@ -10,6 +10,30 @@ part of 'nokhte_session_phase1_coordinator.dart';
 
 mixin _$NokhteSessionPhase1Coordinator
     on _NokhteSessionPhase1CoordinatorBase, Store {
+  Computed<bool>? _$speakerCountIsOddComputed;
+
+  @override
+  bool get speakerCountIsOdd => (_$speakerCountIsOddComputed ??= Computed<bool>(
+          () => super.speakerCountIsOdd,
+          name: '_NokhteSessionPhase1CoordinatorBase.speakerCountIsOdd'))
+      .value;
+  Computed<bool>? _$speakerCountIsEvenComputed;
+
+  @override
+  bool get speakerCountIsEven => (_$speakerCountIsEvenComputed ??=
+          Computed<bool>(() => super.speakerCountIsEven,
+              name: '_NokhteSessionPhase1CoordinatorBase.speakerCountIsEven'))
+      .value;
+  Computed<bool>? _$shouldIncrementSpeakerCountComputed;
+
+  @override
+  bool get shouldIncrementSpeakerCount =>
+      (_$shouldIncrementSpeakerCountComputed ??= Computed<bool>(
+              () => super.shouldIncrementSpeakerCount,
+              name:
+                  '_NokhteSessionPhase1CoordinatorBase.shouldIncrementSpeakerCount'))
+          .value;
+
   late final _$canSpeakAtom = Atom(
       name: '_NokhteSessionPhase1CoordinatorBase.canSpeak', context: context);
 
@@ -40,6 +64,23 @@ mixin _$NokhteSessionPhase1Coordinator
   set speakerCount(int value) {
     _$speakerCountAtom.reportWrite(value, super.speakerCount, () {
       super.speakerCount = value;
+    });
+  }
+
+  late final _$questionIndexTypeAtom = Atom(
+      name: '_NokhteSessionPhase1CoordinatorBase.questionIndexType',
+      context: context);
+
+  @override
+  QuestionIndexType get questionIndexType {
+    _$questionIndexTypeAtom.reportRead();
+    return super.questionIndexType;
+  }
+
+  @override
+  set questionIndexType(QuestionIndexType value) {
+    _$questionIndexTypeAtom.reportWrite(value, super.questionIndexType, () {
+      super.questionIndexType = value;
     });
   }
 
@@ -74,7 +115,11 @@ mixin _$NokhteSessionPhase1Coordinator
   String toString() {
     return '''
 canSpeak: ${canSpeak},
-speakerCount: ${speakerCount}
+speakerCount: ${speakerCount},
+questionIndexType: ${questionIndexType},
+speakerCountIsOdd: ${speakerCountIsOdd},
+speakerCountIsEven: ${speakerCountIsEven},
+shouldIncrementSpeakerCount: ${shouldIncrementSpeakerCount}
     ''';
   }
 }
