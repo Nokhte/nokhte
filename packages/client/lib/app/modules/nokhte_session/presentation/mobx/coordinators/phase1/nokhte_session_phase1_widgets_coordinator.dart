@@ -90,7 +90,7 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
   hasTheQuestionConstructor() {
     primarySmartText
         .setMessagesData(MessagesData.primaryPurposeSessionHasTheQuestion);
-    // showSecondaryText();
+    showSecondaryText();
     primarySmartText.startRotatingText();
   }
 
@@ -99,6 +99,25 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
     primarySmartText.setMessagesData(
         MessagesData.primaryPurposeSessionDoesNotHaveTheQuestion);
     primarySmartText.startRotatingText();
+  }
+
+  @action
+  showSecondaryText() {
+    if (!secondarySmartText.showWidget) {
+      secondarySmartText.toggleWidgetVisibility();
+    }
+
+    secondarySmartText.setMessagesData(
+      MessagesData.secondaryPurposeSessionPhase1List,
+    );
+    secondarySmartText.startRotatingText();
+  }
+
+  @action
+  hideSecondaryText() {
+    if (secondarySmartText.showWidget) {
+      secondarySmartText.toggleWidgetVisibility();
+    }
   }
 
   wifiDisconnectOverlayReactor({required Function onConnectionFinished}) =>

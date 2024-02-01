@@ -189,6 +189,34 @@ mixin _$NokhteSessionPhase1WidgetsCoordinator
   }
 
   @override
+  dynamic showSecondaryText() {
+    final _$actionInfo =
+        _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_NokhteSessionPhase1WidgetsCoordinatorBase.showSecondaryText');
+    try {
+      return super.showSecondaryText();
+    } finally {
+      _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic hideSecondaryText() {
+    final _$actionInfo =
+        _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_NokhteSessionPhase1WidgetsCoordinatorBase.hideSecondaryText');
+    try {
+      return super.hideSecondaryText();
+    } finally {
+      _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 hasTheQuestion: ${hasTheQuestion},
