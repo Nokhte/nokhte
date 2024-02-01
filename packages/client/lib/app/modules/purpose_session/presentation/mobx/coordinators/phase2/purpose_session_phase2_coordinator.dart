@@ -3,8 +3,7 @@ import 'dart:async';
 
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/presence_modules/modules/modules.dart';
-import 'package:nokhte/app/core/modules/presence_modules/modules/shared/shared.dart';
+import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/modules/solo_docs/domain/domain.dart';
 import 'package:nokhte/app/core/modules/solo_docs/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -19,7 +18,7 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
     with Store {
   final SwipeDetector swipe;
   final PurposeSessionPhase2WidgetsCoordinator widgets;
-  final CollaboratorPresenceCoordinator collaboratorPresence;
+  final PurposeSessionPresenceCoordinator collaboratorPresence;
   final SoloDocsCoordinator soloDoc;
 
   _PurposeSessionPhase2CoordinatorBase({

@@ -45,7 +45,8 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
   constructor() async {
     widgets.initReactors(repeatTheFlow);
     widgets.constructor();
-    await deleteUnconsecratedCollaborations(NoParams());
+    Modular.to.navigate('/nokhte_session/');
+    // await deleteUnconsecratedCollaborations(NoParams());
     await userInformation.getUserInfoStore(NoParams());
     if (userInformation.getUserInfoStore.hasGoneThroughInvitationFlow) {
       widgets.postInvitationFlowConstructor();
