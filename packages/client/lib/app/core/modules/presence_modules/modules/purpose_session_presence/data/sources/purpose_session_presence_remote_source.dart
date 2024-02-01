@@ -1,20 +1,14 @@
-import 'package:nokhte/app/core/modules/collaborator_presence/domain/domain.dart';
+import 'package:nokhte/app/core/modules/presence_modules/modules/shared/shared.dart';
 import 'package:nokhte_backend/tables/existing_collaborations.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-abstract class CollaboratorPresenceRemoteSource {
-  Future<List> updateOnlineStatus(UpdatePresencePropertyParams params);
-  Future<List> updateOnCallStatus(UpdatePresencePropertyParams params);
+abstract class PurposeSessionPresenceRemoteSource
+    extends BasePresenceRemoteSource<CollaborationSessionMetadata> {
   Future<List> updateTimerStatus(bool params);
-  Future<List> setUserAsCurrentTalker();
-  Future<void> clearTheCurrentTalker();
-  Future<List> updateCurrentPhase(double params);
-  Stream<CollaborationSessionMetadata> getSessionMetadata();
-  bool cancelSessionMetadataStream();
 }
 
 class CollaboratorPresenceRemoteSourceImpl
-    implements CollaboratorPresenceRemoteSource {
+    implements PurposeSessionPresenceRemoteSource {
   final SupabaseClient supabase;
   final ExistingCollaborationsQueries queries;
   final ExistingCollaborationsStream stream;
@@ -23,12 +17,6 @@ class CollaboratorPresenceRemoteSourceImpl
     required this.supabase,
   })  : queries = ExistingCollaborationsQueries(supabase: supabase),
         stream = ExistingCollaborationsStream(supabase: supabase);
-
-  @override
-  updateOnCallStatus(params) async => queries.updateOnCallStatus(
-        params.newStatus,
-        shouldEditCollaboratorsInfo: params.shouldUpdateCollaboratorsIndex,
-      );
 
   @override
   updateOnlineStatus(params) async => queries.updateOnlineStatus(
