@@ -69,6 +69,17 @@ void main() {
     );
   });
 
+  test("create nokhte session", () async {
+    final userIdResults = await UserSetupConstants.getUIDs();
+    final npcUserUID = userIdResults[1];
+    final realPersonUID = await returnNonNPCUID();
+    await supabase.from("active_nokhte_sessions").insert({
+      "meeting_uid": realPersonUID,
+      "collaborator_one_uid": realPersonUID,
+      "collaborator_two_uid": npcUserUID,
+    });
+  });
+
   test("make npc join for nokhte session", () async {
     final realPersonUID = await returnNonNPCUID();
     await npcInitiateCollaboratorSearch.invoke(
