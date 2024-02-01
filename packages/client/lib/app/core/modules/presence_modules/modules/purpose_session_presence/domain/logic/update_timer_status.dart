@@ -1,8 +1,8 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/collaborator_presence/domain/domain.dart';
+import 'package:nokhte/app/core/modules/presence_modules/modules/modules.dart';
 
 class UpdateTimerStatus implements AbstractFutureLogic<bool, bool> {
-  final CollaboratorPresenceContract contract;
+  final PurposeSessionPresenceContract contract;
 
   UpdateTimerStatus({required this.contract});
 
