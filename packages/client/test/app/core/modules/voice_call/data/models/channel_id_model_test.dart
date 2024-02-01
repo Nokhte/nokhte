@@ -4,17 +4,17 @@ import '../../constants/response/response.dart';
 
 void main() {
   test(
-      "`fromSupabase` should return the proper model with a successful response",
+      "`fromCollaborationRow` should return the proper model with a successful response",
       () {
-    final res = ChannelIdModel.fromSupabase(
+    final res = ChannelIdModel.fromCollaborationRow(
       ExistingCollaboratorsTable.response,
     );
     expect(res, "11111111111111111112222222222222222222");
   });
   test(
-      "`fromSupabase` should return the proper model with a not-successful response",
+      "`fromCollaborationRow` should return the proper model with a not-successful response",
       () {
-    final res = ChannelIdModel.fromSupabase(const []);
+    final res = ChannelIdModel.fromCollaborationRow(const []);
     expect(res, "");
   });
 }
