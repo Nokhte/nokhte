@@ -3,7 +3,6 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/store_state.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
-import 'package:nokhte/app/core/widgets/collaborator_presence_incidents_overlay/stack/presentation/presentation.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 part 'purpose_session_presence_coordinator.g.dart';
 
