@@ -2,10 +2,11 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/supabase/supabase_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte_backend/tables/existing_collaborations.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'domain/domain.dart';
-import 'mobx/mobx.dart';
-import 'data/data.dart';
+import 'purpose_session_presence/purpose_session_presence.dart';
+export 'purpose_session_presence/purpose_session_presence.dart';
+import 'shared/shared.dart';
 
 class CollaboratorPresenceModule extends Module {
   @override
@@ -19,50 +20,45 @@ class CollaboratorPresenceModule extends Module {
         supabase: Modular.get<SupabaseClient>(),
       ),
     );
-    i.add<CollaboratorPresenceContractImpl>(
-      () => CollaboratorPresenceContractImpl(
+    i.add<PurposeSessionPresenceContractImpl>(
+      () => PurposeSessionPresenceContractImpl(
         remoteSource: i<CollaboratorPresenceRemoteSourceImpl>(),
         networkInfo: Modular.get<NetworkInfoImpl>(),
       ),
     );
-    i.add<GetSessionMetadata>(
-      () => GetSessionMetadata(
-        contract: i<CollaboratorPresenceContractImpl>(),
+    i.add<BaseGetSessionMetadata<CollaborationSessionMetadata>>(
+      () => BaseGetSessionMetadata<CollaborationSessionMetadata>(
+        contract: i<PurposeSessionPresenceContractImpl>(),
       ),
     );
     i.add<UpdateCurrentPhase>(
       () => UpdateCurrentPhase(
-        contract: i<CollaboratorPresenceContractImpl>(),
-      ),
-    );
-    i.add<UpdateOnCallStatus>(
-      () => UpdateOnCallStatus(
-        contract: i<CollaboratorPresenceContractImpl>(),
+        contract: i<PurposeSessionPresenceContractImpl>(),
       ),
     );
     i.add<CancelSessionMetadataStream>(
       () => CancelSessionMetadataStream(
-        contract: i<CollaboratorPresenceContractImpl>(),
+        contract: i<PurposeSessionPresenceContractImpl>(),
       ),
     );
     i.add<UpdateOnlineStatus>(
       () => UpdateOnlineStatus(
-        contract: i<CollaboratorPresenceContractImpl>(),
+        contract: i<PurposeSessionPresenceContractImpl>(),
       ),
     );
     i.add<UpdateTimerStatus>(
       () => UpdateTimerStatus(
-        contract: i<CollaboratorPresenceContractImpl>(),
+        contract: i<PurposeSessionPresenceContractImpl>(),
       ),
     );
     i.add<UpdateWhoIsTalking>(
       () => UpdateWhoIsTalking(
-        contract: i<CollaboratorPresenceContractImpl>(),
+        contract: i<PurposeSessionPresenceContractImpl>(),
       ),
     );
     i.add<GetSessionMetadataStore>(
       () => GetSessionMetadataStore(
-        logic: i<GetSessionMetadata>(),
+        logic: i<BaseGetSessionMetadata<CollaborationSessionMetadata>>(),
       ),
     );
     i.add<NokhteBlurStore>(
@@ -74,7 +70,6 @@ class CollaboratorPresenceModule extends Module {
         cancelSessionMetadataStreamLogic: i<CancelSessionMetadataStream>(),
         updateCurrentPhaseLogic: i<UpdateCurrentPhase>(),
         getSessionMetadataStore: i<GetSessionMetadataStore>(),
-        updateCallStatusLogic: i<UpdateOnCallStatus>(),
         updateOnlineStatusLogic: i<UpdateOnlineStatus>(),
         updateTimerStatusLogic: i<UpdateTimerStatus>(),
         updateWhoIsTalkingLogic: i<UpdateWhoIsTalking>(),
