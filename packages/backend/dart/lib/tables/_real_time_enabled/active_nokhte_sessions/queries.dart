@@ -72,7 +72,7 @@ class ActiveNokhteSessionQueries with ActiveNokhteSessionsConstants {
   }
 
   Future<List> updateCurrentPhases(
-    int newPhase, {
+    double newPhase, {
     bool shouldEditCollaboratorsInfo = false,
   }) async {
     await computeCollaboratorInformation();

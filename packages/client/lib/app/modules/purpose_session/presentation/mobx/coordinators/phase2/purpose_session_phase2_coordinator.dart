@@ -3,8 +3,8 @@ import 'dart:async';
 
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/collaborator_presence/domain/domain.dart';
-import 'package:nokhte/app/core/modules/collaborator_presence/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/presence_modules/modules/modules.dart';
+import 'package:nokhte/app/core/modules/presence_modules/modules/shared/shared.dart';
 import 'package:nokhte/app/core/modules/solo_docs/domain/domain.dart';
 import 'package:nokhte/app/core/modules/solo_docs/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -115,8 +115,6 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
         } else {
           widgets.onCollaboratorLeft();
           widgets.textEditor.setIsReadOnly(true);
-          await collaboratorPresence.updateCallStatus(
-              UpdatePresencePropertyParams.collaboratorNegative());
         }
       });
 
