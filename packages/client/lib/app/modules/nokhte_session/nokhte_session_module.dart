@@ -1,17 +1,53 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity_module.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
+import 'package:nokhte/app/core/modules/voice_call/mobx/coordinator/voice_call_coordinator.dart';
+import 'package:nokhte/app/core/modules/voice_call/voice_call_module.dart';
+import 'package:nokhte/app/core/network/network_info.dart';
+import 'package:nokhte/app/core/widgets/modules.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/nokhte_session/data/data.dart';
+import 'package:nokhte/app/modules/nokhte_session/domain/domain.dart';
+import 'package:nokhte/app/modules/nokhte_session/presentation/mobx/coordinators/logic/nokhte_session_logic_coordinator.dart';
 import 'package:nokhte/app/modules/nokhte_session/presentation/presentation.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'nokhte_session_widgets_module.dart';
 
 class NokhteSessionModule extends Module {
   @override
   List<Module> get imports => [
         NokhteSessionWidgetsModule(),
+        LegacyConnectivityModule(),
+        GesturesModule(),
+        VoiceCallModule(),
         NokhteSessionPresenceModule(),
       ];
 
   @override
   void binds(Injector i) {
+    i.add<NokhteSessionRemoteSourceImpl>(
+      () => NokhteSessionRemoteSourceImpl(
+        supabase: Modular.get<SupabaseClient>(),
+      ),
+    );
+    i.add<NokhteSessionContractImpl>(
+      () => NokhteSessionContractImpl(
+        remoteSource: Modular.get<NokhteSessionRemoteSourceImpl>(),
+        networkInfo: Modular.get<NetworkInfoImpl>(),
+      ),
+    );
+    i.add<CheckIfUserHasTheQuestion>(
+      () => CheckIfUserHasTheQuestion(
+        contract: Modular.get<NokhteSessionContractImpl>(),
+      ),
+    );
+    i.add<NokhteSessionLogicCoordinator>(
+      () => NokhteSessionLogicCoordinator(
+        checkIfUserHasTheQuestionLogic:
+            Modular.get<CheckIfUserHasTheQuestion>(),
+      ),
+    );
+
     i.add<NokhteSessionPhase0Coordinator>(
       () => NokhteSessionPhase0Coordinator(
         widgets: Modular.get<NokhteSessionPhase0WidgetsCoordinator>(),
@@ -19,6 +55,10 @@ class NokhteSessionModule extends Module {
     );
     i.add<NokhteSessionPhase1Coordinator>(
       () => NokhteSessionPhase1Coordinator(
+        voiceCall: Modular.get<VoiceCallCoordinator>(),
+        hold: Modular.get<HoldDetector>(),
+        swipe: Modular.get<SwipeDetector>(),
+        logic: Modular.get<NokhteSessionLogicCoordinator>(),
         widgets: Modular.get<NokhteSessionPhase1WidgetsCoordinator>(),
         presence: Modular.get<NokhteSessionPresenceCoordinator>(),
       ),
@@ -37,7 +77,7 @@ class NokhteSessionModule extends Module {
     r.child(
       '/phase_one',
       transition: TransitionType.noTransition,
-      child: (context) => NokhteSessionPhase1(
+      child: (context) => NokhteSessionPhase1Consulatation(
         coordinator: Modular.get<NokhteSessionPhase1Coordinator>(),
       ),
     );
