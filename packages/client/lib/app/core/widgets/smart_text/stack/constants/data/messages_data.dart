@@ -234,4 +234,35 @@ class MessagesData {
           pauseHere: true,
         ),
       ];
+
+  static List<RotatingTextData> get primaryNokhteSessionPhase1HasTheQuestion =>
+      [
+        RotatingTextData(
+          mainMessage: "Ask: What Are We Here To Do?",
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
+      ];
+  static List<RotatingTextData>
+      get primaryNokhteSessionPhase1DoesNotHaveTheQuestion => [
+            RotatingTextData(
+              mainMessage: "Wait For The Question.",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "Ask: What Can We Collectively Create?",
+              pauseHere: true,
+            ),
+          ];
 }
