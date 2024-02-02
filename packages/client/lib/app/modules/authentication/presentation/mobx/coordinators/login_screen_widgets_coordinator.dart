@@ -174,16 +174,6 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
     }
   }
 
-  @action
-  loggedInOnInactive() {
-    if (!hasCompletedSandTransition) {
-      layer1BeachWaves.currentStore.setControl(Control.stop);
-    } else if (!hasCompletedWaterFromTopToOnShorePt1 ||
-        !hasCompletedWaterFromTopToOnShorePt2) {
-      layer2BeachWaves.currentStore.setControl(Control.stop);
-    }
-  }
-
   initReactors(Function loginBusinessLogic) {
     nokhteReactor(loginBusinessLogic);
     trailingTextReactor();
