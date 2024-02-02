@@ -89,7 +89,7 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
   @action
   hasTheQuestionConstructor() {
     primarySmartText
-        .setMessagesData(MessagesData.primaryPurposeSessionHasTheQuestion);
+        .setMessagesData(MessagesData.primaryNokhteSessionPhase1HasTheQuestion);
     showSecondaryText();
     primarySmartText.startRotatingText();
   }
@@ -97,7 +97,7 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
   @action
   doesNotHaveTheQuestionConstructor() {
     primarySmartText.setMessagesData(
-        MessagesData.primaryPurposeSessionDoesNotHaveTheQuestion);
+        MessagesData.primaryNokhteSessionPhase1DoesNotHaveTheQuestion);
     primarySmartText.startRotatingText();
   }
 
@@ -125,6 +125,7 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
         if (wifiDisconnectOverlay.movieMode ==
             WifiDisconnectMovieModes.removeTheCircle) {
           setIsDisconnected(false);
+          onConnectionFinished();
         }
       });
 }

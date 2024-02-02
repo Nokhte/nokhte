@@ -24,6 +24,13 @@ mixin _$NokhteSessionPhase1Coordinator
           Computed<bool>(() => super.speakerCountIsEven,
               name: '_NokhteSessionPhase1CoordinatorBase.speakerCountIsEven'))
       .value;
+  Computed<bool>? _$hasEvenSpeakerCountsComputed;
+
+  @override
+  bool get hasEvenSpeakerCounts => (_$hasEvenSpeakerCountsComputed ??=
+          Computed<bool>(() => super.hasEvenSpeakerCounts,
+              name: '_NokhteSessionPhase1CoordinatorBase.hasEvenSpeakerCounts'))
+      .value;
   Computed<bool>? _$shouldIncrementSpeakerCountComputed;
 
   @override
@@ -64,6 +71,23 @@ mixin _$NokhteSessionPhase1Coordinator
   set speakerCount(int value) {
     _$speakerCountAtom.reportWrite(value, super.speakerCount, () {
       super.speakerCount = value;
+    });
+  }
+
+  late final _$silenceStopwatchAtom = Atom(
+      name: '_NokhteSessionPhase1CoordinatorBase.silenceStopwatch',
+      context: context);
+
+  @override
+  Stopwatch get silenceStopwatch {
+    _$silenceStopwatchAtom.reportRead();
+    return super.silenceStopwatch;
+  }
+
+  @override
+  set silenceStopwatch(Stopwatch value) {
+    _$silenceStopwatchAtom.reportWrite(value, super.silenceStopwatch, () {
+      super.silenceStopwatch = value;
     });
   }
 
@@ -116,9 +140,11 @@ mixin _$NokhteSessionPhase1Coordinator
     return '''
 canSpeak: ${canSpeak},
 speakerCount: ${speakerCount},
+silenceStopwatch: ${silenceStopwatch},
 questionIndexType: ${questionIndexType},
 speakerCountIsOdd: ${speakerCountIsOdd},
 speakerCountIsEven: ${speakerCountIsEven},
+hasEvenSpeakerCounts: ${hasEvenSpeakerCounts},
 shouldIncrementSpeakerCount: ${shouldIncrementSpeakerCount}
     ''';
   }
