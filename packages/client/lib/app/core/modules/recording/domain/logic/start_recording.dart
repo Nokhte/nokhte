@@ -1,7 +1,7 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/recording/domain/domain.dart';
 
-class StartRecording implements AbstractFutureLogic<bool, String> {
+class StartRecording implements AbstractFutureNoFailureLogic<bool, String> {
   final RecordingContract contract;
 
   StartRecording({required this.contract});
