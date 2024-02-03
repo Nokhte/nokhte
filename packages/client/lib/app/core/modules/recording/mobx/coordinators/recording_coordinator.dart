@@ -27,18 +27,13 @@ abstract class _RecordingCoordinatorBase extends BaseMobxDBStore with Store {
   @action
   startRecording(String path) async {
     final res = await startRecordingLogic(path);
-    res.fold(
-      (failure) => errorUpdater(failure),
-      (status) => isRecording = status,
-    );
+    isRecording = res;
   }
 
   @action
   stopRecording(NoParams params) async {
     final res = await stopRecordingLogic(params);
-    res.fold((failure) => errorUpdater(failure), (file) {
-      recording = file;
-      isRecording = false;
-    });
+    recording = res;
+    isRecording = false;
   }
 }
