@@ -83,4 +83,24 @@ class VoiceCallContractImpl with ResponseToStatus implements VoiceCallContract {
 
   @override
   initAgoraSdk(NoParams params) async => await remoteSource.initAgoraSdk();
+
+  @override
+  startRecording(path) async {
+    if (await networkInfo.isConnected) {
+      await remoteSource.startRecording(path);
+      return const Right(true);
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
+
+  @override
+  stopRecording(params) async {
+    if (await networkInfo.isConnected) {
+      await remoteSource.stopRecording();
+      return const Right(false);
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
 }
