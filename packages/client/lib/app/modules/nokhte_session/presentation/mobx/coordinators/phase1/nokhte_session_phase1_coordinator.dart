@@ -1,9 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
-import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/logic/logic.dart';
@@ -96,7 +94,6 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
     await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
     silenceStopwatch.reset();
     silenceStopwatch.stop();
-    print("STOP + RESET");
   }
 
   @action
@@ -109,7 +106,6 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
     if (!widgets.isDisconnected) {
       if (speakerCount.isGreaterThan(0)) {
         silenceStopwatch.start();
-        print("START AGAIN");
       }
     }
   }
@@ -123,14 +119,12 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
       onCollaboratorJoined: () {
         if (speakerCount.isGreaterThan(0)) {
           silenceStopwatch.start();
-          print("START AGAIN");
         }
         setDisableAllTouchFeedback(false);
       },
       onCollaboratorLeft: () async {
         silenceStopwatch.reset();
         silenceStopwatch.stop();
-        print("STOP + RESET");
         setDisableAllTouchFeedback(true);
         await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
       },
@@ -143,10 +137,7 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
       onConnectionFinished: () async {
         if (speakerCount.isGreaterThan(0)) {
           silenceStopwatch.start();
-          print("START AGAIN WIFI DISCONNECT");
         }
-        // ok bug don't foget the person who disconnects doesn't get their
-        // stopwatch running for some reason figure this out when you get back
         await presence
             .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
       },
@@ -159,12 +150,8 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
               voiceCall.voiceCallStatusStore.inCall == CallStatus.joined &&
               !widgets.isDisconnected &&
               presence.getSessionMetadataStore.collaboratorIsOnline) {
-            // if (speakerCount != 0) {
             silenceStopwatch.reset();
             silenceStopwatch.stop();
-            print("RESET * STOPPED");
-            // }
-
             await presence
                 .updateWhoIsTalking(UpdateWhoIsTalkingParams.setUserAsTalker);
           }
@@ -178,7 +165,6 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
             presence.getSessionMetadataStore.collaboratorIsOnline) {
           await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
           silenceStopwatch.start();
-          print("started");
           if (shouldIncrementSpeakerCount) {
             speakerCount++;
             if (speakerCount == 3 && hasEvenSpeakerCounts) {
@@ -198,14 +184,11 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
           canSpeak = false;
           silenceStopwatch.reset();
           silenceStopwatch.stop();
-          print("RESET & STOP");
         } else {
           silenceStopwatch.start();
           if (speakerCount == 0 && !hasEvenSpeakerCounts) {
-            print("STARTED");
             Timer.periodic(Seconds.get(9), (timer) {
               if (silenceStopwatch.elapsedMilliseconds.isGreaterThan(9000)) {
-                print("9 SECOND SILENCE REACHED");
                 widgets.primarySmartText.startRotatingText(isResuming: true);
                 timer.cancel();
               }
