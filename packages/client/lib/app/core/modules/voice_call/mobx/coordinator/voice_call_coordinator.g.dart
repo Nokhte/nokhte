@@ -124,6 +124,23 @@ mixin _$VoiceCallCoordinator on _VoiceCallCoordinatorBase, Store {
     return _$muteAsyncAction.run(() => super.mute());
   }
 
+  late final _$startRecordingAsyncAction =
+      AsyncAction('_VoiceCallCoordinatorBase.startRecording', context: context);
+
+  @override
+  Future startRecording(String fileName) {
+    return _$startRecordingAsyncAction
+        .run(() => super.startRecording(fileName));
+  }
+
+  late final _$stopRecordingAsyncAction =
+      AsyncAction('_VoiceCallCoordinatorBase.stopRecording', context: context);
+
+  @override
+  Future stopRecording() {
+    return _$stopRecordingAsyncAction.run(() => super.stopRecording());
+  }
+
   late final _$leaveCallAsyncAction =
       AsyncAction('_VoiceCallCoordinatorBase.leaveCall', context: context);
 

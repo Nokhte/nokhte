@@ -1,7 +1,8 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
+import 'package:nokhte/app/core/types/types.dart';
 
-class LeaveCall extends AbstractFutureLogic<CallStatusEntity, NoParams> {
+class LeaveCall extends AbstractFutureLogic<CallStatus, NoParams> {
   final VoiceCallContract contract;
 
   LeaveCall({required this.contract});

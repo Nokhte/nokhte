@@ -6,7 +6,7 @@ void main() {
   test(
       "`fromCollaborationRow` should return the proper model with a successful response",
       () {
-    final res = ChannelIdModel.fromCollaborationRow(
+    final res = ChannelIdMapper.fromCollaborationRow(
       ExistingCollaboratorsTable.response,
     );
     expect(res, "11111111111111111112222222222222222222");
@@ -14,7 +14,7 @@ void main() {
   test(
       "`fromCollaborationRow` should return the proper model with a not-successful response",
       () {
-    final res = ChannelIdModel.fromCollaborationRow(const []);
+    final res = ChannelIdMapper.fromCollaborationRow(const []);
     expect(res, "");
   });
 }

@@ -6,8 +6,8 @@ import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/voice_call/data/data.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/logic/logic.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import '../../../../../modules/_module_helpers/shared_mocks_gen.mocks.dart';
-import '../../constants/models/models.dart';
 import '../../constants/response/response.dart';
 import '../../fixtures/voice_call_mock_gen.mocks.dart';
 
@@ -128,7 +128,7 @@ void main() {
           channelId: 'someChannelId',
         )).thenAnswer((_) async {});
         final res = await contractImpl.joinCall('someTokenId', 'someChannelId');
-        expect(res, ConstantCallStatusModel.wrappedInProgressCase);
+        expect(res, const Right(CallStatus.joining));
       });
     });
     group("is not online", () {
@@ -157,7 +157,7 @@ void main() {
           () async {
         when(mockRemoteSource.leaveCall()).thenAnswer((_) async {});
         final res = await contractImpl.leaveCall();
-        expect(res, ConstantCallStatusModel.wrappedLeavingInProgressCase);
+        expect(res, const Right(CallStatus.leaving));
       });
     });
     group("is not online", () {

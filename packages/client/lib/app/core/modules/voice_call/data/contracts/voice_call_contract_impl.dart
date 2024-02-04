@@ -31,7 +31,7 @@ class VoiceCallContractImpl with ResponseToStatus implements VoiceCallContract {
       switch (params) {
         case GetChannelIdParams.forCollaboration:
           final res = await remoteSource.getCollaboratorInfo();
-          return Right(ChannelIdModel.fromCollaborationRow(res));
+          return Right(ChannelIdMapper.fromCollaborationRow(res));
         case GetChannelIdParams.forNokhteSession:
           final res = await remoteSource.getNokhteSessionMeetingId();
           return Right(res);
@@ -45,7 +45,7 @@ class VoiceCallContractImpl with ResponseToStatus implements VoiceCallContract {
   joinCall(String token, String channelId) async {
     if (await networkInfo.isConnected) {
       await remoteSource.joinCall(token: token, channelId: channelId);
-      return const Right(CallStatusModel(callStatus: CallStatus.joining));
+      return const Right(CallStatus.joining);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
@@ -55,7 +55,7 @@ class VoiceCallContractImpl with ResponseToStatus implements VoiceCallContract {
   leaveCall() async {
     if (await networkInfo.isConnected) {
       await remoteSource.leaveCall();
-      return const Right(CallStatusModel(callStatus: CallStatus.leaving));
+      return const Right(CallStatus.leaving);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
@@ -83,4 +83,24 @@ class VoiceCallContractImpl with ResponseToStatus implements VoiceCallContract {
 
   @override
   initAgoraSdk(NoParams params) async => await remoteSource.initAgoraSdk();
+
+  @override
+  startRecording(path) async {
+    if (await networkInfo.isConnected) {
+      await remoteSource.startRecording(path);
+      return const Right(true);
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
+
+  @override
+  stopRecording(params) async {
+    if (await networkInfo.isConnected) {
+      await remoteSource.stopRecording();
+      return const Right(false);
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
 }

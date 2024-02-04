@@ -154,7 +154,7 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
           (p0) => collaboratorPresence.getSessionMetadataStore.userIsTalking,
           (p0) async {
         if (p0) {
-          await voiceCall.voiceCallActionsStore.unmuteAudio(NoParams());
+          await voiceCall.unmute();
           widgets.onHold();
           if (!hasInitializedTimer &&
               checkIfUserHasTheQuestion.hasTheQuestion) {
@@ -164,7 +164,7 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
           }
         } else {
           widgets.onLetGo();
-          await voiceCall.voiceCallActionsStore.muteAudio(NoParams());
+          await voiceCall.mute();
         }
       });
 
