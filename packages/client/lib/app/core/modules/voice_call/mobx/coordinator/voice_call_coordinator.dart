@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:mobx/mobx.dart';
-import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/logic/logic.dart';
@@ -92,29 +91,32 @@ abstract class _VoiceCallCoordinatorBase extends BaseMobxDBStore with Store {
     await initSdk();
     await _getChannelId(callType);
     await _getToken();
-    await voiceCallActionsStore.enterOrLeaveCall(
-      Right(
-        JoinCallParams(
-          token: token,
-          channelId: channelId,
-        ),
+    await voiceCallActionsStore.joinCall(
+      JoinCallParams(
+        token: token,
+        channelId: channelId,
       ),
     );
-    await voiceCallActionsStore.muteOrUnmuteAudio(
-        wantToMute: shouldEnterTheCallMuted);
+    if (shouldEnterTheCallMuted) {
+      await voiceCallActionsStore.mute();
+    }
   }
 
   @action
-  unmute() async =>
-      await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
+  unmute() async => await voiceCallActionsStore.unmute();
 
   @action
-  mute() async =>
-      await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);
+  mute() async => await voiceCallActionsStore.mute();
 
   @action
-  leaveCall() async =>
-      await voiceCallActionsStore.enterOrLeaveCall(Left(NoParams()));
+  startRecording(String fileName) async =>
+      await voiceCallActionsStore.startRecording(fileName);
+
+  @action
+  stopRecording() async => await voiceCallActionsStore.stopRecording();
+
+  @action
+  leaveCall() async => await voiceCallActionsStore.leaveCall(NoParams());
 
   onCallStatusReactor(
     Function onBothJoinedCall,
