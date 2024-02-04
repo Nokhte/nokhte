@@ -6,6 +6,7 @@ import 'package:nokhte_backend/token_server/token_server.dart';
 import 'package:nokhte_backend/tables/existing_collaborations.dart';
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:path_provider/path_provider.dart';
 
 abstract class VoiceCallRemoteSource {
   Future<Response> getAgoraToken({required String channelName});
@@ -23,6 +24,8 @@ abstract class VoiceCallRemoteSource {
   Future<String> getNokhteSessionMeetingId();
 
   Future<RtcEngine> initAgoraSdk();
+  Future<void> startRecording(String fileName);
+  Future<void> stopRecording();
 }
 
 class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
@@ -102,5 +105,18 @@ class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
 
   @override
   Future<String> getNokhteSessionMeetingId() async =>
-      activeNokhteSessionQueries.getMeetingUID();
+      await activeNokhteSessionQueries.getMeetingUID();
+
+  @override
+  stopRecording() async => await agoraEngine.stopAudioRecording();
+
+  @override
+  startRecording(String fileName) async =>
+      await agoraEngine.startAudioRecording(
+        AudioRecordingConfiguration(
+          filePath: '${(await getTemporaryDirectory()).path}/$fileName.wav',
+          fileRecordingType: AudioFileRecordingType.audioFileRecordingMic,
+          quality: AudioRecordingQualityType.audioRecordingQualityHigh,
+        ),
+      );
 }
