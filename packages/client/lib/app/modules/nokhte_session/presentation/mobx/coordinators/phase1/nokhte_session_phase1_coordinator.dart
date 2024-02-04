@@ -213,11 +213,13 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
       reaction((p0) => presence.getSessionMetadataStore.userIsTalking,
           (p0) async {
         if (p0) {
-          await voiceCall.voiceCallActionsStore.unmuteAudio(NoParams());
+          await voiceCall.startRecording('most_recent_clip');
+          await voiceCall.unmute();
           widgets.onHold();
         } else {
           widgets.onLetGo();
-          await voiceCall.voiceCallActionsStore.muteAudio(NoParams());
+          await voiceCall.stopRecording();
+          await voiceCall.mute();
         }
       });
 }
