@@ -3,5 +3,7 @@ export 'join_call.dart';
 export "init_agora_sdk.dart";
 export 'leave_call.dart';
 export 'mute_local_audio.dart';
+export 'start_recording.dart';
+export 'stop_recording.dart';
 export 'unmute_local_audio.dart';
 export 'get_channel_id.dart';
