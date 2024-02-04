@@ -1,8 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
+import 'package:nokhte/app/core/types/types.dart';
 
-class JoinCall extends AbstractFutureLogic<CallStatusEntity, JoinCallParams> {
+class JoinCall extends AbstractFutureLogic<CallStatus, JoinCallParams> {
   final VoiceCallContract contract;
 
   JoinCall({required this.contract});
