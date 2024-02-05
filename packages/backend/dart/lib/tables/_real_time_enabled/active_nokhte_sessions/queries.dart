@@ -119,11 +119,16 @@ class ActiveNokhteSessionQueries with ActiveNokhteSessionsConstants {
     return meetingUID == userUID;
   }
 
+  Future<String> composePath(String audioID) async {
+    await computeCollaboratorInformation();
+    if (timestamp.isEmpty) {
+      timestamp = await getCreatedAt();
+    }
+    return '${collaboratorOneUID}_$collaboratorTwoUID/$timestamp/$audioID.wav';
+  }
+
   _onCurrentActiveNokhteSession(PostgrestFilterBuilder query) async {
     await computeCollaboratorInformation();
-    return await query
-        .eq(userColumn, userUID)
-        .eq(collaboratorColumn, collaboratorUID)
-        .select();
+    return await query.eq(COLLABORATOR_UIDS, collaboratorUIDs).select();
   }
 }
