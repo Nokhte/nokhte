@@ -1,5 +1,5 @@
 // ignore_for_file: constant_identifier_names
-
+import 'package:nokhte_backend/tables/finished_nokhte_sessions.dart';
 import 'constants/constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
