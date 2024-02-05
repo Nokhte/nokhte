@@ -10,7 +10,6 @@ class ActiveNokhteSessionsStream extends ActiveNokhteSessionQueries
   bool sessionMetadataListeningStatus = false;
 
   ActiveNokhteSessionsStream({required super.supabase});
-  // : userUID = supabase.auth.currentUser?.id ?? '';
 
   cancelGetActiveNokhteSessionCreationStatus() {
     getActiveNokhteSessionCreationListingingStatus = false;
@@ -19,8 +18,7 @@ class ActiveNokhteSessionsStream extends ActiveNokhteSessionQueries
 
   Stream<bool> getActiveNokhteSessionCreationStatus() async* {
     getActiveNokhteSessionCreationListingingStatus = true;
-    await for (var event
-        in supabase.from(TABLE_NAME).stream(primaryKey: ['id'])) {
+    await for (var event in supabase.from(TABLE).stream(primaryKey: ['id'])) {
       if (!getActiveNokhteSessionCreationListingingStatus) {
         break;
       }
@@ -37,10 +35,9 @@ class ActiveNokhteSessionsStream extends ActiveNokhteSessionQueries
     return sessionMetadataListeningStatus;
   }
 
-  Stream<NokhteSessionMetadata> getSessionMetadata() async* {
+  Stream<NokhteSessionMetadata> getPresenceMetadata() async* {
     sessionMetadataListeningStatus = true;
-    await for (var event
-        in supabase.from(TABLE_NAME).stream(primaryKey: ['id'])) {
+    await for (var event in supabase.from(TABLE).stream(primaryKey: ['id'])) {
       if (event.isEmpty) {
         yield NokhteSessionMetadata.initial();
       } else {
