@@ -9,24 +9,27 @@ class ActiveNokhteSessionQueries with ActiveNokhteSessionsConstants {
   int userIndex = -1;
   int collaboratorIndex = -1;
   String collaboratorUID = '';
-  String userColumn = '';
-  String collaboratorColumn = '';
+  String timestamp = '';
+  String collaboratorOneUID = '';
+  String collaboratorTwoUID = '';
+  List collaboratorUIDs = [];
 
   computeCollaboratorInformation() async {
     if (userIndex == -1) {
       final row = (await select()).first;
-      if (row[COLLABORATOR_ONE_UID] == userUID) {
+      if (row[COLLABORATOR_UIDS][0] == userUID) {
+        collaboratorUIDs = row[COLLABORATOR_UIDS];
         userIndex = 0;
+        collaboratorOneUID = userUID;
+        collaboratorTwoUID = row[COLLABORATOR_UIDS][1];
         collaboratorIndex = 1;
-        collaboratorUID = row[COLLABORATOR_TWO_UID];
-        userColumn = COLLABORATOR_ONE_UID;
-        collaboratorColumn = COLLABORATOR_TWO_UID;
+        collaboratorUID = row[COLLABORATOR_UIDS][1];
       } else {
+        collaboratorTwoUID = userUID;
+        collaboratorOneUID = row[COLLABORATOR_UIDS][0];
         userIndex = 1;
         collaboratorIndex = 0;
-        collaboratorUID = row[COLLABORATOR_ONE_UID];
-        userColumn = COLLABORATOR_TWO_UID;
-        collaboratorColumn = COLLABORATOR_ONE_UID;
+        collaboratorUID = row[COLLABORATOR_UIDS][0];
       }
     }
   }
