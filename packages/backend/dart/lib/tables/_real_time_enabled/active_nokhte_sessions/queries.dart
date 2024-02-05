@@ -156,6 +156,20 @@ class ActiveNokhteSessionQueries with ActiveNokhteSessionsConstants {
     );
   }
 
+  updateCurrentMetadataIndexContent(String newContent) async {
+    await computeCollaboratorInformation();
+    final currentMetadataIndex = await getMetadataIndex();
+    final currentSessionMetadata = await getSessionMetadata();
+    currentSessionMetadata[currentMetadataIndex]['content'] = newContent;
+    return await _onCurrentActiveNokhteSession(
+      supabase.from(TABLE).update(
+        {
+          SESSION_METADATA: currentSessionMetadata,
+        },
+      ),
+    );
+  }
+
   _onCurrentActiveNokhteSession(PostgrestFilterBuilder query) async {
     await computeCollaboratorInformation();
     return await query.eq(COLLABORATOR_UIDS, collaboratorUIDs).select();
