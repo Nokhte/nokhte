@@ -19,7 +19,7 @@ class NokhteSessionPresenceRemoteSourceImpl
   clearTheCurrentTalker() async => await queries.clearTheCurrentTalker();
 
   @override
-  getSessionMetadata() => stream.getSessionMetadata();
+  getSessionMetadata() => stream.getPresenceMetadata();
 
   @override
   setUserAsCurrentTalker() async => await queries.setUserAsTheCurrentTalker();
