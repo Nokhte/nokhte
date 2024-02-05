@@ -3,9 +3,10 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class FinishedNokhteSessionQueries {
-  static const TABLE_NAME = 'finished_nokhte_sessions';
-  static const COLLABORATOR_ONE_UID = 'collaborator_one_uid';
-  static const COLLABORATOR_TWO_UID = 'collaborator_two_uid';
+  static const TABLE = 'finished_nokhte_sessions';
+  static const COLLABORATOR_UIDS = 'collaborator_uids';
+  static const SESSION_TIMESTAMP = 'session_timestamp';
+  static const SESSION_METADATA = 'session_metadata';
 
   final SupabaseClient supabase;
   final String userUID;
