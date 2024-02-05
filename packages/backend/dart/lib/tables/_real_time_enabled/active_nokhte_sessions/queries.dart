@@ -137,6 +137,25 @@ class ActiveNokhteSessionQueries with ActiveNokhteSessionsConstants {
     );
   }
 
+  addNewAudioClipToSessionMetadata(String newAudioID) async {
+    await computeCollaboratorInformation();
+    final currentSessionMetadata = await getSessionMetadata();
+    currentSessionMetadata.add({
+      'audioID': newAudioID,
+      'content': '',
+    });
+    if (currentSessionMetadata.length > 1) {
+      await incrementMetadataIndex();
+    }
+    return await _onCurrentActiveNokhteSession(
+      supabase.from(TABLE).update(
+        {
+          SESSION_METADATA: currentSessionMetadata,
+        },
+      ),
+    );
+  }
+
   _onCurrentActiveNokhteSession(PostgrestFilterBuilder query) async {
     await computeCollaboratorInformation();
     return await query.eq(COLLABORATOR_UIDS, collaboratorUIDs).select();
