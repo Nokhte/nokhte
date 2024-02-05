@@ -38,26 +38,27 @@ class ActiveNokhteSessionQueries with ActiveNokhteSessionsConstants {
     required this.supabase,
   }) : userUID = supabase.auth.currentUser?.id ?? '';
 
-  select() async => await supabase.from(TABLE_NAME).select();
+  select() async => await supabase.from(TABLE).select();
 
-  delete() async => await supabase
-      .from(TABLE_NAME)
-      .delete()
-      .or('collaborator_one_uid.eq.$userUID, collaborator_two_uid.eq.$userUID')
-      .select();
+  delete() async =>
+      await _onCurrentActiveNokhteSession(supabase.from(TABLE).delete());
 
   Future _getProperty(String property) async =>
       (await select()).first[property];
 
   Future<String> getMeetingUID() async => await _getProperty(MEETING_UID);
   Future<String> getCollaboratorOne() async =>
-      await _getProperty(COLLABORATOR_ONE_UID);
+      (await _getProperty(COLLABORATOR_UIDS))[0];
   Future<String> getCollaboratorTwo() async =>
-      await _getProperty(COLLABORATOR_TWO_UID);
+      (await _getProperty(COLLABORATOR_UIDS))[1];
   Future<List> getWhoIsOnline() async => await _getProperty(IS_ONLINE);
   Future<String?> getSpeakerSpotlight() async =>
       await _getProperty(SPEAKER_SPOTLIGHT);
   Future<List> getCurrentPhases() async => await _getProperty(CURRENT_PHASES);
+  Future<String> getCreatedAt() async => await _getProperty(CREATED_AT);
+  Future<int> getMetadataIndex() async => await _getProperty(METADATA_INDEX);
+  Future<List> getSessionMetadata() async =>
+      await _getProperty(SESSION_METADATA);
 
   Future<List> updateOnlineStatus(
     bool isOnlineParam, {
