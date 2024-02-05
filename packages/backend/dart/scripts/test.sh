@@ -11,3 +11,4 @@ flutter test test/09_p2p_perspectives_tracking_table_test.dart
 flutter test test/10_active_nokhte_sessions_table_test.dart
 flutter test test/11_individual_sessions_and_perspectives_audio_storage_test.dart
 flutter test test/12_finished_nokhte_sessions_table_test.dart
+flutter test test/13_nokhte_sessions_audio_bucket_test.dart
