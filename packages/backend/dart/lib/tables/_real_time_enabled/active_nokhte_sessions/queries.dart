@@ -170,6 +170,25 @@ class ActiveNokhteSessionQueries with ActiveNokhteSessionsConstants {
     );
   }
 
+  getAudioIds() async {
+    final sessionMetadata = await getSessionMetadata();
+    final List<String> audioIDs = [];
+    for (int i = 0; i < sessionMetadata.length; i++) {
+      audioIDs.add(sessionMetadata[i]['audioID']);
+    }
+    return audioIDs;
+  }
+
+  getAudioIdPaths() async {
+    final List<String> audioPathsList = [];
+    final audioIds = await getAudioIds();
+    for (int i = 0; i < audioIds.length; i++) {
+      final fullPath = await composePath(audioIds[i]);
+      audioPathsList.add(fullPath);
+    }
+    return audioPathsList;
+  }
+
   _onCurrentActiveNokhteSession(PostgrestFilterBuilder query) async {
     await computeCollaboratorInformation();
     return await query.eq(COLLABORATOR_UIDS, collaboratorUIDs).select();
