@@ -68,8 +68,7 @@ class ActiveNokhteSessionQueries with ActiveNokhteSessionsConstants {
     final indexToEdit =
         shouldEditCollaboratorsInfo ? collaboratorIndex : userIndex;
     currentOnlineStatus[indexToEdit] = isOnlineParam;
-    return await _onCurrentActiveNokhteSession(
-        supabase.from(TABLE_NAME).update({
+    return await _onCurrentActiveNokhteSession(supabase.from(TABLE).update({
       IS_ONLINE: currentOnlineStatus,
     }));
   }
@@ -83,8 +82,7 @@ class ActiveNokhteSessionQueries with ActiveNokhteSessionsConstants {
     final indexToEdit =
         shouldEditCollaboratorsInfo ? collaboratorIndex : userIndex;
     currentPhases[indexToEdit] = newPhase;
-    return await _onCurrentActiveNokhteSession(
-        supabase.from(TABLE_NAME).update({
+    return await _onCurrentActiveNokhteSession(supabase.from(TABLE).update({
       CURRENT_PHASES: currentPhases,
     }));
   }
@@ -94,7 +92,7 @@ class ActiveNokhteSessionQueries with ActiveNokhteSessionsConstants {
     final currentSpeaker = await getSpeakerSpotlight();
     if (currentSpeaker == null) {
       return await _onCurrentActiveNokhteSession(
-        supabase.from(TABLE_NAME).update({
+        supabase.from(TABLE).update({
           SPEAKER_SPOTLIGHT: userUID,
         }),
       );
@@ -108,7 +106,7 @@ class ActiveNokhteSessionQueries with ActiveNokhteSessionsConstants {
     final currentSpeaker = await getSpeakerSpotlight();
     if (currentSpeaker == userUID) {
       return await _onCurrentActiveNokhteSession(
-          supabase.from(TABLE_NAME).update({SPEAKER_SPOTLIGHT: null}));
+          supabase.from(TABLE).update({SPEAKER_SPOTLIGHT: null}));
     } else {
       return [];
     }
