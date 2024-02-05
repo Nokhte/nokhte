@@ -127,6 +127,16 @@ class ActiveNokhteSessionQueries with ActiveNokhteSessionsConstants {
     return '${collaboratorOneUID}_$collaboratorTwoUID/$timestamp/$audioID.wav';
   }
 
+  Future<List> incrementMetadataIndex() async {
+    await computeCollaboratorInformation();
+    final currentMetadataIndex = await getMetadataIndex();
+    return await _onCurrentActiveNokhteSession(
+      supabase.from(TABLE).update({
+        METADATA_INDEX: currentMetadataIndex + 1,
+      }),
+    );
+  }
+
   _onCurrentActiveNokhteSession(PostgrestFilterBuilder query) async {
     await computeCollaboratorInformation();
     return await query.eq(COLLABORATOR_UIDS, collaboratorUIDs).select();
