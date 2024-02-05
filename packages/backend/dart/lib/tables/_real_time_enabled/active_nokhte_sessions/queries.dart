@@ -189,6 +189,17 @@ class ActiveNokhteSessionQueries with ActiveNokhteSessionsConstants {
     return audioPathsList;
   }
 
+  completeSession() async {
+    final sessionMetadata = await getSessionMetadata();
+    final sessionTimestamp = await getCreatedAt();
+    await supabase.from(FinishedNokhteSessionQueries.TABLE).insert({
+      FinishedNokhteSessionQueries.COLLABORATOR_UIDS: collaboratorUIDs,
+      FinishedNokhteSessionQueries.SESSION_METADATA: sessionMetadata,
+      FinishedNokhteSessionQueries.SESSION_TIMESTAMP: sessionTimestamp,
+    });
+    await delete();
+  }
+
   _onCurrentActiveNokhteSession(PostgrestFilterBuilder query) async {
     await computeCollaboratorInformation();
     return await query.eq(COLLABORATOR_UIDS, collaboratorUIDs).select();
