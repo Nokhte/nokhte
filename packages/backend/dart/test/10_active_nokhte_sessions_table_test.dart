@@ -46,12 +46,12 @@ void main() {
 
   test("GetCollaboratorOne", () async {
     final res = await user1Queries.getCollaboratorOne();
-    expect(res, tSetup.firstUserUID);
+    expect(res, sortedArr[0]);
   });
 
   test("getCollaboratorTwo", () async {
     final res = await user1Queries.getCollaboratorTwo();
-    expect(res, tSetup.secondUserUID);
+    expect(res, sortedArr[1]);
   });
 
   test("getWhoIsOnline", () async {
@@ -139,7 +139,7 @@ void main() {
   test("composePath", () async {
     final res = await user1Queries.composePath("test");
     final timeStamp = await user1Queries.getCreatedAt();
-    expect(res.split('/')[0], "${tSetup.firstUserUID}_${tSetup.secondUserUID}");
+    expect(res.split('/')[0], "${sortedArr[0]}_${sortedArr[1]}");
     expect(res.split('/')[1], timeStamp);
     expect(res.split('/')[2], "test.wav");
   });
