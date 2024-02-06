@@ -1,6 +1,7 @@
 // deno-lint-ignore-file no-explicit-any
 import { supabaseAdmin } from "../constants/supabase.ts";
 import { isEmptyOrNull, isNotEmptyOrNull } from "../utils/array_utils.ts";
+import { updateAuthorizedViewers } from "./update_authorized_viewers.ts";
 
 async function isANokhteInvitation(queryUID: string, mostRecentEntrant: any) {
   const userUID = mostRecentEntrant.data?.[0]["wayfarer_uid"];
@@ -22,11 +23,27 @@ async function isANokhteInvitation(queryUID: string, mostRecentEntrant: any) {
       .eq("meeting_uid", meetingUID);
 
     if (isEmptyOrNull(checkRes?.data)) {
-      await supabaseAdmin.from("active_nokhte_sessions").insert({
-        collaborator_one_uid: userUID,
-        collaborator_two_uid: matchedUID,
-        meeting_uid: meetingUID,
-      });
+      const checkForExistingSessionsRes = await supabaseAdmin
+        .from("finished_nokhte_sessions")
+        .select()
+        .or(
+          `collaboration_id.eq.${userUID}_${matchedUID},collaboration_id.eq.${matchedUID}_${userUID}`
+        );
+      if (isEmptyOrNull(checkForExistingSessionsRes?.data)) {
+        await updateAuthorizedViewers(matchedUID, userUID);
+        const uids = [matchedUID, userUID];
+        uids.sort();
+        await supabaseAdmin.from("active_nokhte_sessions").insert({
+          collaborator_uids: uids,
+          meeting_uid: meetingUID,
+        });
+      } else {
+        await supabaseAdmin.from("active_nokhte_sessions").insert({
+          collaboration_uids:
+            checkForExistingSessionsRes.data?.[0]["collaborator_uids"],
+          meeting_uid: meetingUID,
+        });
+      }
       await supabaseAdmin
         .from("p2p_collaborator_pool")
         .delete()

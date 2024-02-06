@@ -67,10 +67,9 @@ class CommonCollaborativeTestFunctions {
         user1PerspectivesQueries.collaboratorInfo;
     if (shouldTeardownCollaboration) {
       await existingCollaborationsQueries.deleteExistingCollaboration();
-      await supabaseAdmin.from('active_nokhte_sessions').delete().or(
-          'collaborator_one_uid.eq.$firstUserUID,collaborator_two_uid.eq.$firstUserUID,collaborator_one_uid.eq.$secondUserUID,collaborator_two_uid.eq.$secondUserUID,collaborator_one_uid.eq.$thirdUserUID,collaborator_two_uid.eq.$thirdUserUID');
       await supabaseAdmin.from('existing_collaborations').delete().or(
-          'collaborator_one.eq.$firstUserUID,collaborator_two.eq.$firstUserUID,collaborator_one.eq.$secondUserUID,collaborator_two.eq.$secondUserUID,collaborator_one.eq.$thirdUserUID,collaborator_two.eq.$thirdUserUID');
+            'collaborator_one.eq.$firstUserUID,collaborator_two.eq.$firstUserUID,collaborator_one.eq.$secondUserUID,collaborator_two.eq.$secondUserUID,collaborator_one.eq.$thirdUserUID,collaborator_two.eq.$thirdUserUID',
+          );
     }
 
     if (shouldTearDownPerspectives) {

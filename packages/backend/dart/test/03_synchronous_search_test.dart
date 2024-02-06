@@ -32,6 +32,10 @@ void main() {
 
   tearDownAll(() async {
     await tSetup.tearDownAll();
+    await tSetup.supabaseAdmin.from('active_nokhte_sessions').delete().eq(
+          "collaborator_uids",
+          [tSetup.thirdUserUID, tSetup.firstUserUID]..sort(),
+        );
     await user1EndEdgeFunctions.invoke();
     await user3EndEdgeFunctions.invoke();
   });

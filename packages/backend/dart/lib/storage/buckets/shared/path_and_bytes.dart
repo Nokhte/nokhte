@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:equatable/equatable.dart';
 
 class PathAndBytes extends Equatable {
