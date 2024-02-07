@@ -84,6 +84,7 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
     } else {
       questionIndexType = QuestionIndexType.odd;
       widgets.doesNotHaveTheQuestionConstructor();
+      canSpeak = true;
     }
   }
 
@@ -213,12 +214,10 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
       reaction((p0) => presence.getSessionMetadataStore.userIsTalking,
           (p0) async {
         if (p0) {
-          await voiceCall.startRecording('most_recent_clip');
           await voiceCall.unmute();
           widgets.onHold();
         } else {
           widgets.onLetGo();
-          await voiceCall.stopRecording();
           await voiceCall.mute();
         }
       });
