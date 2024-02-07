@@ -16,20 +16,23 @@ class ActiveNokhteSessionQueries with ActiveNokhteSessionsConstants {
 
   computeCollaboratorInformation() async {
     if (userIndex == -1) {
-      final row = (await select()).first;
-      if (row[COLLABORATOR_UIDS][0] == userUID) {
-        collaboratorUIDs = row[COLLABORATOR_UIDS];
-        userIndex = 0;
-        collaboratorOneUID = userUID;
-        collaboratorTwoUID = row[COLLABORATOR_UIDS][1];
-        collaboratorIndex = 1;
-        collaboratorUID = row[COLLABORATOR_UIDS][1];
-      } else {
-        collaboratorTwoUID = userUID;
-        collaboratorOneUID = row[COLLABORATOR_UIDS][0];
-        userIndex = 1;
-        collaboratorIndex = 0;
-        collaboratorUID = row[COLLABORATOR_UIDS][0];
+      final res = (await select());
+      if (res.isNotEmpty) {
+        final row = res.first;
+        if (row[COLLABORATOR_UIDS][0] == userUID) {
+          collaboratorUIDs = row[COLLABORATOR_UIDS];
+          userIndex = 0;
+          collaboratorOneUID = userUID;
+          collaboratorTwoUID = row[COLLABORATOR_UIDS][1];
+          collaboratorIndex = 1;
+          collaboratorUID = row[COLLABORATOR_UIDS][1];
+        } else {
+          collaboratorTwoUID = userUID;
+          collaboratorOneUID = row[COLLABORATOR_UIDS][0];
+          userIndex = 1;
+          collaboratorIndex = 0;
+          collaboratorUID = row[COLLABORATOR_UIDS][0];
+        }
       }
     }
   }
@@ -202,6 +205,10 @@ class ActiveNokhteSessionQueries with ActiveNokhteSessionsConstants {
 
   _onCurrentActiveNokhteSession(PostgrestFilterBuilder query) async {
     await computeCollaboratorInformation();
-    return await query.eq(COLLABORATOR_UIDS, collaboratorUIDs).select();
+    if (userIndex != -1) {
+      return await query.eq(COLLABORATOR_UIDS, collaboratorUIDs).select();
+    } else {
+      return [];
+    }
   }
 }
