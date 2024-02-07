@@ -138,13 +138,8 @@ class MessagesData {
   static List<RotatingTextData> get primaryPurposeSessionPhase0List => [
         RotatingTextData(
           initialFadeInDelay: Seconds.get(0),
-          mainMessage: "This is the starting point of the collaboration",
-          onScreenTime: Seconds.get(2),
-        ),
-        RotatingTextData(
-          initialFadeInDelay: Seconds.get(0),
-          mainMessage: "One of you has a question to start the collaboration.",
-          onScreenTime: Seconds.get(2),
+          mainMessage: "To Complete The Call, Swipe Up At The Same Time.",
+          onScreenTime: Seconds.get(3),
         ),
         RotatingTextData(
           mainMessage: "",

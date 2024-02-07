@@ -65,7 +65,7 @@ abstract class _NokhteSessionPhase0WidgetsCoordinatorBase
         if (!isConnected) {
           primarySmartText.reset();
         } else {
-          if (p0 == 2) {
+          if (p0 == 1) {
             Modular.to.navigate('/nokhte_session/phase_one');
           }
         }
