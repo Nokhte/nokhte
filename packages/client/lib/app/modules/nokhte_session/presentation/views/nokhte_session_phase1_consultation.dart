@@ -43,12 +43,6 @@ class NokhteSessionPhase1Consulatation extends HookWidget {
                 opacityDuration: Seconds.get(1),
               ),
             ),
-            Center(
-                child: SmartText(
-              store: coordinator.widgets.primarySmartText,
-              bottomPadding: 180,
-              opacityDuration: Seconds.get(1),
-            )),
             VoiceCallIncidentsOverlay(
               store: coordinator.voiceCall.incidentsOverlayWidgetStore,
             ),
