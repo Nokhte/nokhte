@@ -19,8 +19,8 @@ class ActiveNokhteSessionQueries with ActiveNokhteSessionsConstants {
       final res = (await select());
       if (res.isNotEmpty) {
         final row = res.first;
+        collaboratorUIDs = row[COLLABORATOR_UIDS];
         if (row[COLLABORATOR_UIDS][0] == userUID) {
-          collaboratorUIDs = row[COLLABORATOR_UIDS];
           userIndex = 0;
           collaboratorOneUID = userUID;
           collaboratorTwoUID = row[COLLABORATOR_UIDS][1];
