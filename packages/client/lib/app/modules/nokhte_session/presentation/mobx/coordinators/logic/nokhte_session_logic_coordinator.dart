@@ -11,19 +11,32 @@ class NokhteSessionLogicCoordinator = _NokhteSessionLogicCoordinatorBase
 abstract class _NokhteSessionLogicCoordinatorBase extends BaseMobxDBStore
     with Store {
   final CheckIfUserHasTheQuestion checkIfUserHasTheQuestionLogic;
+  final ChangeDesireToLeave changeDesireToLeaveLogic;
 
   _NokhteSessionLogicCoordinatorBase({
     required this.checkIfUserHasTheQuestionLogic,
+    required this.changeDesireToLeaveLogic,
   });
 
   @observable
   bool hasTheQuestion = false;
+
+
+  @observable
+  bool hasUpdatedDesireToLeave  = false;
 
   @action
   checkIfUserHasTheQuestion() async {
     final res = await checkIfUserHasTheQuestionLogic(NoParams());
     res.fold((failure) => errorUpdater(failure),
         (status) => hasTheQuestion = status);
+  }
+
+  @action
+changeDesireToLeave(ChangeDesireToLeaveParams params) async {
+    final res = await changeDesireToLeaveLogic(params);
+    res.fold((failure) => errorUpdater(failure), (status) => hasUpdatedDesireToLeave = status);
+
   }
 
   @override
