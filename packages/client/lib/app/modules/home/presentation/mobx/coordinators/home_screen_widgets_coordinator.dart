@@ -90,10 +90,10 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   onDisconnected() {
-    print("DISCONNECTED!!!!!!! ==> ${beachWaves.movieMode}");
+    // print("DISCONNECTED!!!!!!! ==> ${beachWaves.movieMode}");
     onInactive();
     if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToVibrantBlue) {
-      print("is this running");
+      // print("is this running");
       isEnteringNokhteSession = false;
       beachWaves.currentStore.setControl(Control.playReverse);
     }

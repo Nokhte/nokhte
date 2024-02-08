@@ -1,17 +1,15 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:nokhte_backend/tables/_real_time_enabled/active_nokhte_sessions/queries.dart';
+import 'constants/constants.dart';
+import 'types/types.dart';
 
-class ActiveNokhteSessionsStream {
-  final String userUID;
-  final SupabaseClient supabase;
-
-  static const TABLE_NAME = 'active_nokhte_sessions';
-
+class ActiveNokhteSessionsStream extends ActiveNokhteSessionQueries
+    with ActiveNokhteSessionsConstants {
   bool getActiveNokhteSessionCreationListingingStatus = false;
+  bool sessionMetadataListeningStatus = false;
 
-  ActiveNokhteSessionsStream({required this.supabase})
-      : userUID = supabase.auth.currentUser?.id ?? '';
+  ActiveNokhteSessionsStream({required super.supabase});
 
   cancelGetActiveNokhteSessionCreationStatus() {
     getActiveNokhteSessionCreationListingingStatus = false;
@@ -20,8 +18,7 @@ class ActiveNokhteSessionsStream {
 
   Stream<bool> getActiveNokhteSessionCreationStatus() async* {
     getActiveNokhteSessionCreationListingingStatus = true;
-    await for (var event
-        in supabase.from(TABLE_NAME).stream(primaryKey: ['id'])) {
+    await for (var event in supabase.from(TABLE).stream(primaryKey: ['id'])) {
       if (!getActiveNokhteSessionCreationListingingStatus) {
         break;
       }
@@ -29,6 +26,34 @@ class ActiveNokhteSessionsStream {
         yield true;
       } else {
         yield false;
+      }
+    }
+  }
+
+  cancelGetSessionMetadataStream() {
+    sessionMetadataListeningStatus = false;
+    return sessionMetadataListeningStatus;
+  }
+
+  Stream<NokhteSessionMetadata> getPresenceMetadata() async* {
+    sessionMetadataListeningStatus = true;
+    await for (var event in supabase.from(TABLE).stream(primaryKey: ['id'])) {
+      if (event.isEmpty) {
+        yield NokhteSessionMetadata.initial();
+      } else {
+        await computeCollaboratorInformation();
+        final isOnlineList = event.first[IS_ONLINE];
+        final phasesList = event.first[CURRENT_PHASES];
+        final speakerSpotlight = event.first[SPEAKER_SPOTLIGHT];
+        yield NokhteSessionMetadata(
+          userIsOnline: isOnlineList[userIndex],
+          collaboratorIsOnline: isOnlineList[collaboratorIndex],
+          userPhase: double.parse(phasesList[userIndex].toString()),
+          collaboratorPhase:
+              double.parse(phasesList[collaboratorIndex].toString()),
+          collaboratorIsTalking: speakerSpotlight == collaboratorUID,
+          userIsTalking: speakerSpotlight == userUID,
+        );
       }
     }
   }

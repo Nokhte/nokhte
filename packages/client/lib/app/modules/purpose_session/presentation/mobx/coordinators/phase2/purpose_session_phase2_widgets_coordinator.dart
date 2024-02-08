@@ -301,7 +301,7 @@ abstract class _PurposeSessionPhase2WidgetsCoordinatorBase
               BeachWaveMovieModes.timesUpDynamicPointToTimesUpStart) {
             Timer.periodic(Seconds.get(0, milli: 100), (timer) async {
               if (!isDisconnected) {
-                print("navigate away!!");
+                // print("navigate away!!");
                 Modular.to.navigate('/purpose_session/phase_three');
                 timer.cancel();
               }

@@ -120,14 +120,14 @@ abstract class _DeleteUnconsecratedCollaborationsCoordinatorBase
     state = StoreState.loading;
     await collaborationLogicCoordinator.exit();
     await deleteActiveNokhteSession(NoParams());
-    await checkForUnconsecratedCollaboration();
-    if (hasAnUnconsecratedCollabooration) {
-      await checkIfCollaboratorHasDeletedArtifacts();
-      await updateHasDeletedArtifacts();
-      await deleteSoloDocuments();
-      if (collaboratorHasDeletedArtifacts) {
-        await deleteTheCollaboration();
-      }
-    }
+    // await checkForUnconsecratedCollaboration();
+    // if (hasAnUnconsecratedCollabooration) {
+    // await checkIfCollaboratorHasDeletedArtifacts();
+    // await updateHasDeletedArtifacts();
+    // await deleteSoloDocuments();
+    // if (collaboratorHasDeletedArtifacts) {
+    // await deleteTheCollaboration();
+    // }
+    // }
   }
 }

@@ -127,9 +127,7 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
 
   @action
   onInactive() {
-    if (isLoggedIn) {
-      widgets.loggedInOnInactive();
-    } else {
+    if (!isLoggedIn) {
       widgets.loggedOutOnInactive();
     }
   }

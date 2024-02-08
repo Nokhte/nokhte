@@ -1,13 +1,11 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:mobx/mobx.dart';
-import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/logic/logic.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/voice_call_incidents_overlay/voice_call_incidents_overlay.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 part 'voice_call_coordinator.g.dart';
 
@@ -64,9 +62,9 @@ abstract class _VoiceCallCoordinatorBase extends BaseMobxDBStore with Store {
   }
 
   @action
-  _getChannelId() async {
+  _getChannelId(GetChannelIdParams callType) async {
     state = StoreState.loading;
-    final res = await getChannelIdLogic(NoParams());
+    final res = await getChannelIdLogic(callType);
     res.fold(
       (failure) => errorUpdater(failure),
       (newChannelId) => channelId = newChannelId,
@@ -87,34 +85,38 @@ abstract class _VoiceCallCoordinatorBase extends BaseMobxDBStore with Store {
   @action
   joinCall({
     required bool shouldEnterTheCallMuted,
+    GetChannelIdParams callType = GetChannelIdParams.forCollaboration,
   }) async {
     incidentsOverlayWidgetStore.constructor();
     await initSdk();
-    await _getChannelId();
+    await _getChannelId(callType);
     await _getToken();
-    await voiceCallActionsStore.enterOrLeaveCall(
-      Right(
-        JoinCallParams(
-          token: token,
-          channelId: channelId,
-        ),
+    await voiceCallActionsStore.joinCall(
+      JoinCallParams(
+        token: token,
+        channelId: channelId,
       ),
     );
-    await voiceCallActionsStore.muteOrUnmuteAudio(
-        wantToMute: shouldEnterTheCallMuted);
+    if (shouldEnterTheCallMuted) {
+      await voiceCallActionsStore.mute();
+    }
   }
 
   @action
-  unmute() async =>
-      await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: true);
+  unmute() async => await voiceCallActionsStore.unmute();
 
   @action
-  mute() async =>
-      await voiceCallActionsStore.muteOrUnmuteAudio(wantToMute: false);
+  mute() async => await voiceCallActionsStore.mute();
 
   @action
-  leaveCall() async =>
-      await voiceCallActionsStore.enterOrLeaveCall(Left(NoParams()));
+  startRecording(String fileName) async =>
+      await voiceCallActionsStore.startRecording(fileName);
+
+  @action
+  stopRecording() async => await voiceCallActionsStore.stopRecording();
+
+  @action
+  leaveCall() async => await voiceCallActionsStore.leaveCall(NoParams());
 
   onCallStatusReactor(
     Function onBothJoinedCall,

@@ -10,10 +10,277 @@ part of 'nokhte_session_phase1_widgets_coordinator.dart';
 
 mixin _$NokhteSessionPhase1WidgetsCoordinator
     on _NokhteSessionPhase1WidgetsCoordinatorBase, Store {
+  late final _$hasTheQuestionAtom = Atom(
+      name: '_NokhteSessionPhase1WidgetsCoordinatorBase.hasTheQuestion',
+      context: context);
+
+  @override
+  bool get hasTheQuestion {
+    _$hasTheQuestionAtom.reportRead();
+    return super.hasTheQuestion;
+  }
+
+  @override
+  set hasTheQuestion(bool value) {
+    _$hasTheQuestionAtom.reportWrite(value, super.hasTheQuestion, () {
+      super.hasTheQuestion = value;
+    });
+  }
+
+  late final _$isTransitioningHomeAtom = Atom(
+      name: '_NokhteSessionPhase1WidgetsCoordinatorBase.isTransitioningHome',
+      context: context);
+
+  @override
+  bool get isTransitioningHome {
+    _$isTransitioningHomeAtom.reportRead();
+    return super.isTransitioningHome;
+  }
+
+  @override
+  set isTransitioningHome(bool value) {
+    _$isTransitioningHomeAtom.reportWrite(value, super.isTransitioningHome, () {
+      super.isTransitioningHome = value;
+    });
+  }
+
+  late final _$isInTheCallAtom = Atom(
+      name: '_NokhteSessionPhase1WidgetsCoordinatorBase.isInTheCall',
+      context: context);
+
+  @override
+  bool get isInTheCall {
+    _$isInTheCallAtom.reportRead();
+    return super.isInTheCall;
+  }
+
+  @override
+  set isInTheCall(bool value) {
+    _$isInTheCallAtom.reportWrite(value, super.isInTheCall, () {
+      super.isInTheCall = value;
+    });
+  }
+
+  late final _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController =
+      ActionController(
+          name: '_NokhteSessionPhase1WidgetsCoordinatorBase', context: context);
+
+  @override
+  dynamic setHasTheQuesion(bool newVal) {
+    final _$actionInfo =
+        _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_NokhteSessionPhase1WidgetsCoordinatorBase.setHasTheQuesion');
+    try {
+      return super.setHasTheQuesion(newVal);
+    } finally {
+      _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic constructor() {
+    final _$actionInfo =
+        _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
+            .startAction(
+                name: '_NokhteSessionPhase1WidgetsCoordinatorBase.constructor');
+    try {
+      return super.constructor();
+    } finally {
+      _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic initReactors() {
+    final _$actionInfo =
+        _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
+            .startAction(
+                name:
+                    '_NokhteSessionPhase1WidgetsCoordinatorBase.initReactors');
+    try {
+      return super.initReactors();
+    } finally {
+      _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onConnected() {
+    final _$actionInfo =
+        _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
+            .startAction(
+                name: '_NokhteSessionPhase1WidgetsCoordinatorBase.onConnected');
+    try {
+      return super.onConnected();
+    } finally {
+      _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onDisconnected() {
+    final _$actionInfo =
+        _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController.startAction(
+            name: '_NokhteSessionPhase1WidgetsCoordinatorBase.onDisconnected');
+    try {
+      return super.onDisconnected();
+    } finally {
+      _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onHold() {
+    final _$actionInfo =
+        _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
+            .startAction(
+                name: '_NokhteSessionPhase1WidgetsCoordinatorBase.onHold');
+    try {
+      return super.onHold();
+    } finally {
+      _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onLetGo() {
+    final _$actionInfo =
+        _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
+            .startAction(
+                name: '_NokhteSessionPhase1WidgetsCoordinatorBase.onLetGo');
+    try {
+      return super.onLetGo();
+    } finally {
+      _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic onInactive() {
+    final _$actionInfo =
+        _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
+            .startAction(
+                name: '_NokhteSessionPhase1WidgetsCoordinatorBase.onInactive');
+    try {
+      return super.onInactive();
+    } finally {
+      _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic hasTheQuestionConstructor() {
+    final _$actionInfo =
+        _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_NokhteSessionPhase1WidgetsCoordinatorBase.hasTheQuestionConstructor');
+    try {
+      return super.hasTheQuestionConstructor();
+    } finally {
+      _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic doesNotHaveTheQuestionConstructor() {
+    final _$actionInfo =
+        _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_NokhteSessionPhase1WidgetsCoordinatorBase.doesNotHaveTheQuestionConstructor');
+    try {
+      return super.doesNotHaveTheQuestionConstructor();
+    } finally {
+      _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic showSecondaryText() {
+    final _$actionInfo =
+        _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_NokhteSessionPhase1WidgetsCoordinatorBase.showSecondaryText');
+    try {
+      return super.showSecondaryText();
+    } finally {
+      _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic hideSecondaryText() {
+    final _$actionInfo =
+        _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_NokhteSessionPhase1WidgetsCoordinatorBase.hideSecondaryText');
+    try {
+      return super.hideSecondaryText();
+    } finally {
+      _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic initWaitingWidgets() {
+    final _$actionInfo =
+        _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_NokhteSessionPhase1WidgetsCoordinatorBase.initWaitingWidgets');
+    try {
+      return super.initWaitingWidgets();
+    } finally {
+      _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic revertWaitingWidgets() {
+    final _$actionInfo =
+        _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_NokhteSessionPhase1WidgetsCoordinatorBase.revertWaitingWidgets');
+    try {
+      return super.revertWaitingWidgets();
+    } finally {
+      _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic initTransitionToHome() {
+    final _$actionInfo =
+        _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_NokhteSessionPhase1WidgetsCoordinatorBase.initTransitionToHome');
+    try {
+      return super.initTransitionToHome();
+    } finally {
+      _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
-
+hasTheQuestion: ${hasTheQuestion},
+isTransitioningHome: ${isTransitioningHome},
+isInTheCall: ${isInTheCall}
     ''';
   }
 }

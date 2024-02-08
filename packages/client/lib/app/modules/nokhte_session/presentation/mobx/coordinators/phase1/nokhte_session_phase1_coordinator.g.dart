@@ -10,10 +10,195 @@ part of 'nokhte_session_phase1_coordinator.dart';
 
 mixin _$NokhteSessionPhase1Coordinator
     on _NokhteSessionPhase1CoordinatorBase, Store {
+  Computed<bool>? _$speakerCountIsOddComputed;
+
+  @override
+  bool get speakerCountIsOdd => (_$speakerCountIsOddComputed ??= Computed<bool>(
+          () => super.speakerCountIsOdd,
+          name: '_NokhteSessionPhase1CoordinatorBase.speakerCountIsOdd'))
+      .value;
+  Computed<bool>? _$speakerCountIsEvenComputed;
+
+  @override
+  bool get speakerCountIsEven => (_$speakerCountIsEvenComputed ??=
+          Computed<bool>(() => super.speakerCountIsEven,
+              name: '_NokhteSessionPhase1CoordinatorBase.speakerCountIsEven'))
+      .value;
+  Computed<bool>? _$hasEvenSpeakerCountsComputed;
+
+  @override
+  bool get hasEvenSpeakerCounts => (_$hasEvenSpeakerCountsComputed ??=
+          Computed<bool>(() => super.hasEvenSpeakerCounts,
+              name: '_NokhteSessionPhase1CoordinatorBase.hasEvenSpeakerCounts'))
+      .value;
+  Computed<bool>? _$shouldIncrementSpeakerCountComputed;
+
+  @override
+  bool get shouldIncrementSpeakerCount =>
+      (_$shouldIncrementSpeakerCountComputed ??= Computed<bool>(
+              () => super.shouldIncrementSpeakerCount,
+              name:
+                  '_NokhteSessionPhase1CoordinatorBase.shouldIncrementSpeakerCount'))
+          .value;
+
+  late final _$canSpeakAtom = Atom(
+      name: '_NokhteSessionPhase1CoordinatorBase.canSpeak', context: context);
+
+  @override
+  bool get canSpeak {
+    _$canSpeakAtom.reportRead();
+    return super.canSpeak;
+  }
+
+  @override
+  set canSpeak(bool value) {
+    _$canSpeakAtom.reportWrite(value, super.canSpeak, () {
+      super.canSpeak = value;
+    });
+  }
+
+  late final _$hasSwipedUpAtom = Atom(
+      name: '_NokhteSessionPhase1CoordinatorBase.hasSwipedUp',
+      context: context);
+
+  @override
+  bool get hasSwipedUp {
+    _$hasSwipedUpAtom.reportRead();
+    return super.hasSwipedUp;
+  }
+
+  @override
+  set hasSwipedUp(bool value) {
+    _$hasSwipedUpAtom.reportWrite(value, super.hasSwipedUp, () {
+      super.hasSwipedUp = value;
+    });
+  }
+
+  late final _$canSwipeUpAtom = Atom(
+      name: '_NokhteSessionPhase1CoordinatorBase.canSwipeUp', context: context);
+
+  @override
+  bool get canSwipeUp {
+    _$canSwipeUpAtom.reportRead();
+    return super.canSwipeUp;
+  }
+
+  @override
+  set canSwipeUp(bool value) {
+    _$canSwipeUpAtom.reportWrite(value, super.canSwipeUp, () {
+      super.canSwipeUp = value;
+    });
+  }
+
+  late final _$speakerCountAtom = Atom(
+      name: '_NokhteSessionPhase1CoordinatorBase.speakerCount',
+      context: context);
+
+  @override
+  int get speakerCount {
+    _$speakerCountAtom.reportRead();
+    return super.speakerCount;
+  }
+
+  @override
+  set speakerCount(int value) {
+    _$speakerCountAtom.reportWrite(value, super.speakerCount, () {
+      super.speakerCount = value;
+    });
+  }
+
+  late final _$isTransitioningHomeAtom = Atom(
+      name: '_NokhteSessionPhase1CoordinatorBase.isTransitioningHome',
+      context: context);
+
+  @override
+  bool get isTransitioningHome {
+    _$isTransitioningHomeAtom.reportRead();
+    return super.isTransitioningHome;
+  }
+
+  @override
+  set isTransitioningHome(bool value) {
+    _$isTransitioningHomeAtom.reportWrite(value, super.isTransitioningHome, () {
+      super.isTransitioningHome = value;
+    });
+  }
+
+  late final _$silenceStopwatchAtom = Atom(
+      name: '_NokhteSessionPhase1CoordinatorBase.silenceStopwatch',
+      context: context);
+
+  @override
+  Stopwatch get silenceStopwatch {
+    _$silenceStopwatchAtom.reportRead();
+    return super.silenceStopwatch;
+  }
+
+  @override
+  set silenceStopwatch(Stopwatch value) {
+    _$silenceStopwatchAtom.reportWrite(value, super.silenceStopwatch, () {
+      super.silenceStopwatch = value;
+    });
+  }
+
+  late final _$questionIndexTypeAtom = Atom(
+      name: '_NokhteSessionPhase1CoordinatorBase.questionIndexType',
+      context: context);
+
+  @override
+  QuestionIndexType get questionIndexType {
+    _$questionIndexTypeAtom.reportRead();
+    return super.questionIndexType;
+  }
+
+  @override
+  set questionIndexType(QuestionIndexType value) {
+    _$questionIndexTypeAtom.reportWrite(value, super.questionIndexType, () {
+      super.questionIndexType = value;
+    });
+  }
+
+  late final _$constructorAsyncAction = AsyncAction(
+      '_NokhteSessionPhase1CoordinatorBase.constructor',
+      context: context);
+
+  @override
+  Future constructor() {
+    return _$constructorAsyncAction.run(() => super.constructor());
+  }
+
+  late final _$onInactiveAsyncAction = AsyncAction(
+      '_NokhteSessionPhase1CoordinatorBase.onInactive',
+      context: context);
+
+  @override
+  Future onInactive() {
+    return _$onInactiveAsyncAction.run(() => super.onInactive());
+  }
+
+  late final _$onResumedAsyncAction = AsyncAction(
+      '_NokhteSessionPhase1CoordinatorBase.onResumed',
+      context: context);
+
+  @override
+  Future onResumed() {
+    return _$onResumedAsyncAction.run(() => super.onResumed());
+  }
+
   @override
   String toString() {
     return '''
-
+canSpeak: ${canSpeak},
+hasSwipedUp: ${hasSwipedUp},
+canSwipeUp: ${canSwipeUp},
+speakerCount: ${speakerCount},
+isTransitioningHome: ${isTransitioningHome},
+silenceStopwatch: ${silenceStopwatch},
+questionIndexType: ${questionIndexType},
+speakerCountIsOdd: ${speakerCountIsOdd},
+speakerCountIsEven: ${speakerCountIsEven},
+hasEvenSpeakerCounts: ${hasEvenSpeakerCounts},
+shouldIncrementSpeakerCount: ${shouldIncrementSpeakerCount}
     ''';
   }
 }

@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
-import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 import '../../fixtures/voice_call_mock_gen.mocks.dart';
 
@@ -16,26 +15,28 @@ void main() {
   });
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
-    when(mockContract.getChannelId()).thenAnswer(
+    when(mockContract.getChannelId(GetChannelIdParams.forCollaboration))
+        .thenAnswer(
       (_) async => const Right("channelId"),
     );
 
-    final result = await logic(NoParams());
+    final result = await logic(GetChannelIdParams.forCollaboration);
 
     expect(result, const Right("channelId"));
-    verify(mockContract.getChannelId());
+    verify(mockContract.getChannelId(GetChannelIdParams.forCollaboration));
     verifyNoMoreInteractions(mockContract);
   });
 
   test("✅ should pass A Failure from Contract ==> Logic", () async {
-    when(mockContract.getChannelId()).thenAnswer(
+    when(mockContract.getChannelId(GetChannelIdParams.forCollaboration))
+        .thenAnswer(
       (_) async => Left(FailureConstants.dbFailure),
     );
 
-    final result = await logic(NoParams());
+    final result = await logic(GetChannelIdParams.forCollaboration);
 
     expect(result, Left(FailureConstants.dbFailure));
-    verify(mockContract.getChannelId());
+    verify(mockContract.getChannelId(GetChannelIdParams.forCollaboration));
     verifyNoMoreInteractions(mockContract);
   });
 }

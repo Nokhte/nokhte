@@ -35,14 +35,13 @@ abstract class _NokhteSessionPhase0WidgetsCoordinatorBase
   @action
   onResumed() {
     if (isConnected) {
-      primarySmartText.reset();
-      primarySmartText.startRotatingText();
+      primarySmartText.startRotatingText(isResuming: true);
     }
   }
 
   @action
   constructor() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.timesUp);
+    beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradientToTimesUp);
     primarySmartText
         .setMessagesData(MessagesData.primaryPurposeSessionPhase0List);
     primarySmartText.startRotatingText();
@@ -63,8 +62,12 @@ abstract class _NokhteSessionPhase0WidgetsCoordinatorBase
   }
 
   smartTextReactor() => reaction((p0) => primarySmartText.currentIndex, (p0) {
-        if (p0 == 2) {
-          Modular.to.navigate('/nokhte_session/phase_one');
+        if (!isConnected) {
+          primarySmartText.reset();
+        } else {
+          if (p0 == 1) {
+            Modular.to.navigate('/nokhte_session/phase_one');
+          }
         }
       });
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/collaborator_presence_incidents_overlay/stack/presentation/presentation.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class CollaboratorPresenceIncidentsOverlay extends StatelessWidget {

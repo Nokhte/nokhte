@@ -311,19 +311,6 @@ mixin _$LoginScreenWidgetsCoordinator
   }
 
   @override
-  dynamic loggedInOnInactive() {
-    final _$actionInfo =
-        _$_LoginScreenWidgetsCoordinatorBaseActionController.startAction(
-            name: '_LoginScreenWidgetsCoordinatorBase.loggedInOnInactive');
-    try {
-      return super.loggedInOnInactive();
-    } finally {
-      _$_LoginScreenWidgetsCoordinatorBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 hasNotMadeTheDot: ${hasNotMadeTheDot},

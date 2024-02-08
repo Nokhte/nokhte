@@ -1,7 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:nokhte/app/core/modules/collaborator_presence/collaborator_presence_module.dart';
-import 'package:nokhte/app/core/modules/collaborator_presence/mobx/coordinators/collaborator_presence_coordinator.dart';
 import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity_module.dart';
+import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/modules/solo_docs/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/solo_docs/solo_docs_module.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
@@ -54,7 +53,7 @@ class PurposeSessionModule extends Module {
         hold: Modular.get<HoldDetector>(),
         checkIfUserHasTheQuestion:
             Modular.get<CheckIfUserHasTheQuestionStore>(),
-        collaboratorPresence: Modular.get<CollaboratorPresenceCoordinator>(),
+        collaboratorPresence: Modular.get<PurposeSessionPresenceCoordinator>(),
         widgets: Modular.get<PurposeSessionPhase1WidgetsCoordinator>(),
         voiceCall: Modular.get<VoiceCallCoordinator>(),
       ),
@@ -64,7 +63,7 @@ class PurposeSessionModule extends Module {
       () => PurposeSessionPhase2Coordinator(
         soloDoc: Modular.get<SoloDocsCoordinator>(),
         swipe: Modular.get<SwipeDetector>(),
-        collaboratorPresence: Modular.get<CollaboratorPresenceCoordinator>(),
+        collaboratorPresence: Modular.get<PurposeSessionPresenceCoordinator>(),
         widgets: Modular.get<PurposeSessionPhase2WidgetsCoordinator>(),
       ),
     );

@@ -25,6 +25,20 @@ mixin _$CrossStore on _CrossStoreBase, Store {
     });
   }
 
+  late final _$_CrossStoreBaseActionController =
+      ActionController(name: '_CrossStoreBase', context: context);
+
+  @override
+  dynamic initOutlineFadeOut() {
+    final _$actionInfo = _$_CrossStoreBaseActionController.startAction(
+        name: '_CrossStoreBase.initOutlineFadeOut');
+    try {
+      return super.initOutlineFadeOut();
+    } finally {
+      _$_CrossStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

@@ -2,6 +2,8 @@ import 'package:nokhte_backend/storage/buckets/utilities/storage_utilities.dart'
 import 'package:nokhte_backend/tables/_real_time_enabled/shared/shared.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'types/types.dart';
+import "../shared/shared.dart";
+export "../shared/shared.dart";
 
 class PerspectivesAudioStorageQueries extends CollaborativeQueries {
   static get bucketName => "perspectives_audio";

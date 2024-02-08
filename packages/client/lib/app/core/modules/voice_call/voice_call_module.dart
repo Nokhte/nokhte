@@ -56,6 +56,17 @@ class VoiceCallModule extends Module {
         contract: i<VoiceCallContractImpl>(),
       ),
     );
+    i.add<StartRecording>(
+      () => StartRecording(
+        contract: i<VoiceCallContractImpl>(),
+      ),
+    );
+    i.add<StopRecording>(
+      () => StopRecording(
+        contract: i<VoiceCallContractImpl>(),
+      ),
+    );
+
     i.add<UnmuteLocalAudio>(
       () => UnmuteLocalAudio(
         contract: i<VoiceCallContractImpl>(),
@@ -66,10 +77,12 @@ class VoiceCallModule extends Module {
     );
     i.add<VoiceCallActionsStore>(
       () => VoiceCallActionsStore(
-        joinCall: i<JoinCall>(),
-        leaveCall: i<LeaveCall>(),
-        muteAudio: i<MuteLocalAudio>(),
-        unmuteAudio: i<UnmuteLocalAudio>(),
+        startRecordingLogic: i<StartRecording>(),
+        stopRecordingLogic: i<StopRecording>(),
+        joinCallLogic: i<JoinCall>(),
+        leaveCallLogic: i<LeaveCall>(),
+        muteAudioLogic: i<MuteLocalAudio>(),
+        unmuteAudioLogic: i<UnmuteLocalAudio>(),
       ),
     );
     i.add<NokhteBlurStore>(() => NokhteBlurStore());
@@ -81,7 +94,7 @@ class VoiceCallModule extends Module {
         voiceCallStatusStore: i<VoiceCallStatusStore>(),
         getAgoraTokenLogic: i<GetAgoraToken>(),
         getChannelIdLogic: i<GetChannelId>(),
-        blur: i<NokhteBlurStore>(),
+        blur: Modular.get<NokhteBlurStore>(),
       ),
     );
   }

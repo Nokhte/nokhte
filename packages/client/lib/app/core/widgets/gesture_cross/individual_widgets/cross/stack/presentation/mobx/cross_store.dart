@@ -4,6 +4,7 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_custom_animated_widget_store.dart';
 import 'package:nokhte/app/core/widgets/shared/constants/svg_animation_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:simple_animations/simple_animations.dart';
 part 'cross_store.g.dart';
 
 class CrossStore = _CrossStoreBase with _$CrossStore;
@@ -21,4 +22,10 @@ abstract class _CrossStoreBase extends BaseCustomAnimatedWidgetStore
   @observable
   ObservableList<CircleInformation> circleInformation =
       ObservableList.of(StartingCirclePresets.homeScreen);
+
+  @action
+  initOutlineFadeOut() {
+    setMovie(FadeOutCrossOutlineMovie.movie);
+    setControl(Control.playFromStart);
+  }
 }

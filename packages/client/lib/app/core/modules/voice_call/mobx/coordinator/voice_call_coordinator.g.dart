@@ -85,8 +85,8 @@ mixin _$VoiceCallCoordinator on _VoiceCallCoordinatorBase, Store {
       AsyncAction('_VoiceCallCoordinatorBase._getChannelId', context: context);
 
   @override
-  Future _getChannelId() {
-    return _$_getChannelIdAsyncAction.run(() => super._getChannelId());
+  Future _getChannelId(GetChannelIdParams callType) {
+    return _$_getChannelIdAsyncAction.run(() => super._getChannelId(callType));
   }
 
   late final _$_getTokenAsyncAction =
@@ -101,9 +101,11 @@ mixin _$VoiceCallCoordinator on _VoiceCallCoordinatorBase, Store {
       AsyncAction('_VoiceCallCoordinatorBase.joinCall', context: context);
 
   @override
-  Future joinCall({required bool shouldEnterTheCallMuted}) {
-    return _$joinCallAsyncAction.run(
-        () => super.joinCall(shouldEnterTheCallMuted: shouldEnterTheCallMuted));
+  Future joinCall(
+      {required bool shouldEnterTheCallMuted,
+      GetChannelIdParams callType = GetChannelIdParams.forCollaboration}) {
+    return _$joinCallAsyncAction.run(() => super.joinCall(
+        shouldEnterTheCallMuted: shouldEnterTheCallMuted, callType: callType));
   }
 
   late final _$unmuteAsyncAction =
@@ -120,6 +122,23 @@ mixin _$VoiceCallCoordinator on _VoiceCallCoordinatorBase, Store {
   @override
   Future mute() {
     return _$muteAsyncAction.run(() => super.mute());
+  }
+
+  late final _$startRecordingAsyncAction =
+      AsyncAction('_VoiceCallCoordinatorBase.startRecording', context: context);
+
+  @override
+  Future startRecording(String fileName) {
+    return _$startRecordingAsyncAction
+        .run(() => super.startRecording(fileName));
+  }
+
+  late final _$stopRecordingAsyncAction =
+      AsyncAction('_VoiceCallCoordinatorBase.stopRecording', context: context);
+
+  @override
+  Future stopRecording() {
+    return _$stopRecordingAsyncAction.run(() => super.stopRecording());
   }
 
   late final _$leaveCallAsyncAction =
