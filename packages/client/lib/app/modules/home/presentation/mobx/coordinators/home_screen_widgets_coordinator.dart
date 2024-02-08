@@ -72,15 +72,19 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   }
 
   @action
-  postInvitationFlowConstructor() {
+  postInvitationFlowConstructor({required bool hasDoneASession}) {
     toggleHasCompletedInvitationFlow();
-    Future.delayed(Seconds.get(3), () {
-      if (!hasSwipedUp) {
-        gestureCross.startBlinking();
-        primarySmartText.startRotatingText();
-        toggleGracePeriodHasExpired();
-      }
-    });
+    if (!hasDoneASession) {
+      Future.delayed(Seconds.get(3), () {
+        if (!hasSwipedUp) {
+          gestureCross.startBlinking();
+          primarySmartText.startRotatingText();
+          toggleGracePeriodHasExpired();
+        }
+      });
+    } else {
+      toggleGracePeriodHasExpired();
+    }
   }
 
   @action
@@ -90,7 +94,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   onDisconnected() {
-    // print("DISCONNECTED!!!!!!! ==> ${beachWaves.movieMode}");
     onInactive();
     if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToVibrantBlue) {
       // print("is this running");
