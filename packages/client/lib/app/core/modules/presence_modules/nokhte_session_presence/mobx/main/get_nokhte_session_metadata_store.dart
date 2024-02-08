@@ -19,8 +19,7 @@ abstract class _GetNokhteSessionMetadataStoreBase
   bool get userWantsToExit => userPhase == 2.0;
 
   @computed
-  bool get collaboratorWantsToExit => userPhase == 2.0;
-  
+  bool get collaboratorWantsToExit => collaboratorPhase == 2.0;
 
   @action
   Future<void> get(params) async {
