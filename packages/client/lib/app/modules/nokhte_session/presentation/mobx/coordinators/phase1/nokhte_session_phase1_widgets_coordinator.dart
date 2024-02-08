@@ -2,6 +2,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:nokhte/app/core/widgets/smart_text/stack/constants/constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -18,6 +19,7 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
   final SmartTextStore secondarySmartText;
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final TextEditorStore textEditor;
+  final GestureCrossStore gestureCross;
 
   _NokhteSessionPhase1WidgetsCoordinatorBase({
     required this.beachWaves,
@@ -26,6 +28,7 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
     required this.secondarySmartText,
     required this.wifiDisconnectOverlay,
     required this.textEditor,
+    required this.gestureCross,
   });
 
   @observable
@@ -39,6 +42,11 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
 
   @action
   constructor() {
+    gestureCross.setHomeScreen();
+    gestureCross.toggleAll();
+    Future.delayed(Seconds.get(1), () {
+      gestureCross.toggleAll();
+    });
     beachWaves.setMovieMode(BeachWaveMovieModes.timesUp);
     primarySmartText.setMessagesData(MessagesData.empty);
     secondarySmartText.setMessagesData(MessagesData.empty);
