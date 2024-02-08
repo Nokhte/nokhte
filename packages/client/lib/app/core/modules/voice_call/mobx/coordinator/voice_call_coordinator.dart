@@ -5,7 +5,6 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/logic/logic.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
-import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 part 'voice_call_coordinator.g.dart';
 
@@ -34,7 +33,6 @@ abstract class _VoiceCallCoordinatorBase extends BaseMobxDBStore with Store {
 
   @action
   initReactors({required Function onBothJoinedCall}) {
-    onCallStatusReactor(onBothJoinedCall);
     onCollaboratorCallStatusChangeReactor(onBothJoinedCall);
   }
 
@@ -117,20 +115,6 @@ abstract class _VoiceCallCoordinatorBase extends BaseMobxDBStore with Store {
 
   @action
   leaveCall() async => await voiceCallActionsStore.leaveCall(NoParams());
-
-  onCallStatusReactor(
-    Function onBothJoinedCall,
-  ) =>
-      reaction((p0) => voiceCallStatusStore.inCall, (p0) {
-        if (p0 == CallStatus.joined) {
-          incidentsOverlayWidgetStore.setShowJoiningCall(false);
-          if (voiceCallStatusStore.hasCollaboratorJoined) {
-            blur.reverse();
-          } else {
-            incidentsOverlayWidgetStore.setShowWaitingOnCollaborator(true);
-          }
-        }
-      });
 
   onCollaboratorCallStatusChangeReactor(
     Function onBothJoinedCall,
