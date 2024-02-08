@@ -57,6 +57,39 @@ mixin _$NokhteSessionPhase1Coordinator
     });
   }
 
+  late final _$hasSwipedUpAtom = Atom(
+      name: '_NokhteSessionPhase1CoordinatorBase.hasSwipedUp',
+      context: context);
+
+  @override
+  bool get hasSwipedUp {
+    _$hasSwipedUpAtom.reportRead();
+    return super.hasSwipedUp;
+  }
+
+  @override
+  set hasSwipedUp(bool value) {
+    _$hasSwipedUpAtom.reportWrite(value, super.hasSwipedUp, () {
+      super.hasSwipedUp = value;
+    });
+  }
+
+  late final _$canSwipeUpAtom = Atom(
+      name: '_NokhteSessionPhase1CoordinatorBase.canSwipeUp', context: context);
+
+  @override
+  bool get canSwipeUp {
+    _$canSwipeUpAtom.reportRead();
+    return super.canSwipeUp;
+  }
+
+  @override
+  set canSwipeUp(bool value) {
+    _$canSwipeUpAtom.reportWrite(value, super.canSwipeUp, () {
+      super.canSwipeUp = value;
+    });
+  }
+
   late final _$speakerCountAtom = Atom(
       name: '_NokhteSessionPhase1CoordinatorBase.speakerCount',
       context: context);
@@ -71,6 +104,23 @@ mixin _$NokhteSessionPhase1Coordinator
   set speakerCount(int value) {
     _$speakerCountAtom.reportWrite(value, super.speakerCount, () {
       super.speakerCount = value;
+    });
+  }
+
+  late final _$isTransitioningHomeAtom = Atom(
+      name: '_NokhteSessionPhase1CoordinatorBase.isTransitioningHome',
+      context: context);
+
+  @override
+  bool get isTransitioningHome {
+    _$isTransitioningHomeAtom.reportRead();
+    return super.isTransitioningHome;
+  }
+
+  @override
+  set isTransitioningHome(bool value) {
+    _$isTransitioningHomeAtom.reportWrite(value, super.isTransitioningHome, () {
+      super.isTransitioningHome = value;
     });
   }
 
@@ -139,7 +189,10 @@ mixin _$NokhteSessionPhase1Coordinator
   String toString() {
     return '''
 canSpeak: ${canSpeak},
+hasSwipedUp: ${hasSwipedUp},
+canSwipeUp: ${canSwipeUp},
 speakerCount: ${speakerCount},
+isTransitioningHome: ${isTransitioningHome},
 silenceStopwatch: ${silenceStopwatch},
 questionIndexType: ${questionIndexType},
 speakerCountIsOdd: ${speakerCountIsOdd},
