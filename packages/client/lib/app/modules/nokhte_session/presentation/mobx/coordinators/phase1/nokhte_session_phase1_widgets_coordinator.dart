@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -6,6 +7,7 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:nokhte/app/core/widgets/smart_text/stack/constants/constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:simple_animations/simple_animations.dart';
 part 'nokhte_session_phase1_widgets_coordinator.g.dart';
 
 class NokhteSessionPhase1WidgetsCoordinator = _NokhteSessionPhase1WidgetsCoordinatorBase
@@ -20,6 +22,8 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final TextEditorStore textEditor;
   final GestureCrossStore gestureCross;
+  final WaitingTextStore waitingText;
+  final NokhteBlurStore blur;
 
   _NokhteSessionPhase1WidgetsCoordinatorBase({
     required this.beachWaves,
@@ -29,10 +33,15 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
     required this.wifiDisconnectOverlay,
     required this.textEditor,
     required this.gestureCross,
+    required this.waitingText,
+    required this.blur,
   });
 
   @observable
   bool hasTheQuestion = false;
+
+  @observable
+  bool isTransitioningHome = false;
 
   @action
   setHasTheQuesion(bool newVal) => hasTheQuestion = newVal;
@@ -44,10 +53,12 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
   constructor() {
     gestureCross.setHomeScreen();
     gestureCross.toggleAll();
+    waitingText.setAltMovie(Seconds.get(1000));
+    waitingText.toggleWidgetVisibility();
     Future.delayed(Seconds.get(1), () {
       gestureCross.toggleAll();
     });
-    beachWaves.setMovieMode(BeachWaveMovieModes.timesUp);
+    beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradientToTimesUp);
     primarySmartText.setMessagesData(MessagesData.empty);
     secondarySmartText.setMessagesData(MessagesData.empty);
     initReactors();
@@ -66,6 +77,8 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
         setIsDisconnected(true);
       },
     );
+    beachWavesMovieStatusReactor();
+    centerNokhteReactor();
   }
 
   @action
@@ -127,6 +140,63 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
       secondarySmartText.toggleWidgetVisibility();
     }
   }
+
+  @action
+  initWaitingWidgets() {
+    gestureCross.initMoveAndRegenerate(CircleOffsets.top);
+    blur.init();
+    if (!waitingText.showWidget) {
+      waitingText.toggleWidgetVisibility();
+    }
+    if (secondarySmartText.showWidget) {
+      secondarySmartText.toggleWidgetVisibility();
+    }
+    waitingText.initMovie(NoParams());
+    waitingText.setControl(Control.play);
+  }
+
+  @action
+  revertWaitingWidgets() {
+    if (waitingText.showWidget) {
+      waitingText.toggleWidgetVisibility();
+    }
+    if (!secondarySmartText.showWidget) {
+      secondarySmartText.toggleWidgetVisibility();
+    }
+    waitingText.setControl(Control.stop);
+    blur.reverse();
+  }
+
+  @action
+  initTransitionToHome() {
+    isTransitioningHome = true;
+    if (waitingText.showWidget) {
+      waitingText.toggleWidgetVisibility();
+    }
+    if (secondarySmartText.showWidget) {
+      secondarySmartText.toggleWidgetVisibility();
+    }
+    gestureCross.transitionFromNokhteSessionToHomeScreen();
+    beachWaves.setMovieMode(
+      BeachWaveMovieModes.onShoreToVibrantBlue,
+    );
+    beachWaves.currentStore.reverseMovie(NoParams());
+    beachWaves.finishedCount = 1;
+  }
+
+  beachWavesMovieStatusReactor() =>
+      reaction((p0) => beachWaves.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished) {
+          Modular.to.navigate("/home/");
+        }
+      });
+  centerNokhteReactor() =>
+      reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
+        if (isTransitioningHome) {
+          gestureCross.gradientNokhte.toggleWidgetVisibility();
+          gestureCross.strokeCrossNokhte.toggleWidgetVisibility();
+        }
+      });
 
   wifiDisconnectOverlayReactor({required Function onConnectionFinished}) =>
       reaction((p0) => wifiDisconnectOverlay.movieStatus, (p0) {
