@@ -12,6 +12,15 @@ abstract class _GetNokhteSessionMetadataStoreBase
     extends BaseGetSessionMetadataStore<NokhteSessionMetadata> with Store {
   _GetNokhteSessionMetadataStoreBase({required super.logic});
 
+  @computed
+  bool get isAllowedToExit => userWantsToExit && collaboratorWantsToExit;
+
+  @computed
+  bool get userWantsToExit => userPhase == 2.0;
+
+  @computed
+  bool get collaboratorWantsToExit => collaboratorPhase == 2.0;
+
   @action
   Future<void> get(params) async {
     final result = await logic(params);

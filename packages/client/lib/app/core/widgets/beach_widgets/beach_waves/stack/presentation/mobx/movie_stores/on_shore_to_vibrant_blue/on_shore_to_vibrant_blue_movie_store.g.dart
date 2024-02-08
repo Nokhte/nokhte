@@ -27,6 +27,18 @@ mixin _$OnShoreToVibrantBlueMovieStore
   }
 
   @override
+  dynamic reverseMovie(dynamic params) {
+    final _$actionInfo = _$_OnShoreToVibrantBlueMovieStoreBaseActionController
+        .startAction(name: '_OnShoreToVibrantBlueMovieStoreBase.reverseMovie');
+    try {
+      return super.reverseMovie(params);
+    } finally {
+      _$_OnShoreToVibrantBlueMovieStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 

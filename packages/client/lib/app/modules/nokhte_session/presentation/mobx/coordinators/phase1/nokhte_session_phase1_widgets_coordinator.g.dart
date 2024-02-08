@@ -27,6 +27,23 @@ mixin _$NokhteSessionPhase1WidgetsCoordinator
     });
   }
 
+  late final _$isTransitioningHomeAtom = Atom(
+      name: '_NokhteSessionPhase1WidgetsCoordinatorBase.isTransitioningHome',
+      context: context);
+
+  @override
+  bool get isTransitioningHome {
+    _$isTransitioningHomeAtom.reportRead();
+    return super.isTransitioningHome;
+  }
+
+  @override
+  set isTransitioningHome(bool value) {
+    _$isTransitioningHomeAtom.reportWrite(value, super.isTransitioningHome, () {
+      super.isTransitioningHome = value;
+    });
+  }
+
   late final _$isInTheCallAtom = Atom(
       name: '_NokhteSessionPhase1WidgetsCoordinatorBase.isInTheCall',
       context: context);
@@ -217,9 +234,52 @@ mixin _$NokhteSessionPhase1WidgetsCoordinator
   }
 
   @override
+  dynamic initWaitingWidgets() {
+    final _$actionInfo =
+        _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_NokhteSessionPhase1WidgetsCoordinatorBase.initWaitingWidgets');
+    try {
+      return super.initWaitingWidgets();
+    } finally {
+      _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic revertWaitingWidgets() {
+    final _$actionInfo =
+        _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_NokhteSessionPhase1WidgetsCoordinatorBase.revertWaitingWidgets');
+    try {
+      return super.revertWaitingWidgets();
+    } finally {
+      _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic initTransitionToHome() {
+    final _$actionInfo =
+        _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController.startAction(
+            name:
+                '_NokhteSessionPhase1WidgetsCoordinatorBase.initTransitionToHome');
+    try {
+      return super.initTransitionToHome();
+    } finally {
+      _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 hasTheQuestion: ${hasTheQuestion},
+isTransitioningHome: ${isTransitioningHome},
 isInTheCall: ${isInTheCall}
     ''';
   }

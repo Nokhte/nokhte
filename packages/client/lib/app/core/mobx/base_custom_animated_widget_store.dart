@@ -71,6 +71,9 @@ abstract class _BaseCustomAnimatedWidgetStoreBase<T> extends Equatable
   @action
   initMovie(T param) {}
 
+  @action
+  reverseMovie(params) {}
+
   @override
   List<Object> get props => [];
 }

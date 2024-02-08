@@ -3,6 +3,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/nokhte_session/presentation/mobx/coordinators/phase1/nokhte_session_phase1_coordinator.dart';
+import 'package:dartz/dartz.dart';
+import 'package:nokhte/app/core/hooks/hooks.dart';
 
 class NokhteSessionPhase1Consulatation extends HookWidget {
   final NokhteSessionPhase1Coordinator coordinator;
@@ -16,6 +18,7 @@ class NokhteSessionPhase1Consulatation extends HookWidget {
       coordinator.constructor();
       return null;
     }, []);
+    final size = useSquareSize(relativeLength: .20);
     useOnAppLifecycleStateChange(
         (previous, current) => coordinator.onAppLifeCycleStateChange(
               current,
@@ -26,39 +29,51 @@ class NokhteSessionPhase1Consulatation extends HookWidget {
       resizeToAvoidBottomInset: false,
       body: Hold(
         store: coordinator.hold,
-        child: MultiHitStack(
-          children: [
-            FullScreen(
-              child: BeachWaves(
-                store: coordinator.widgets.beachWaves,
+        child: Swipe(
+          store: coordinator.swipe,
+          child: MultiHitStack(
+            children: [
+              FullScreen(
+                child: BeachWaves(
+                  store: coordinator.widgets.beachWaves,
+                ),
               ),
-            ),
-            BorderGlow(
-              store: coordinator.widgets.borderGlow,
-            ),
-            Center(
-              child: SmartText(
-                topPadding: 450,
-                store: coordinator.widgets.secondarySmartText,
-                opacityDuration: Seconds.get(1),
+              BorderGlow(
+                store: coordinator.widgets.borderGlow,
               ),
-            ),
-            Center(
+              Center(
                 child: SmartText(
-              store: coordinator.widgets.primarySmartText,
-              bottomPadding: 180,
-              opacityDuration: Seconds.get(1),
-            )),
-            VoiceCallIncidentsOverlay(
-              store: coordinator.voiceCall.incidentsOverlayWidgetStore,
-            ),
-            CollaboratorPresenceIncidentsOverlay(
-              store: coordinator.presence.incidentsOverlayStore,
-            ),
-            WifiDisconnectOverlay(
-              store: coordinator.widgets.wifiDisconnectOverlay,
-            ),
-          ],
+                  topPadding: 450,
+                  store: coordinator.widgets.secondarySmartText,
+                  opacityDuration: Seconds.get(1),
+                ),
+              ),
+              GestureCross(
+                config: GestureCrossConfiguration(
+                  top: Right(
+                    NokhteGradientConfig(
+                      gradientType: NokhteGradientTypes.vibrantBlue,
+                    ),
+                  ),
+                ),
+                showGlowAndOutline: true,
+                size: size,
+                store: coordinator.widgets.gestureCross,
+              ),
+              WaitingText(
+                store: coordinator.widgets.waitingText,
+              ),
+              VoiceCallIncidentsOverlay(
+                store: coordinator.voiceCall.incidentsOverlayWidgetStore,
+              ),
+              CollaboratorPresenceIncidentsOverlay(
+                store: coordinator.presence.incidentsOverlayStore,
+              ),
+              WifiDisconnectOverlay(
+                store: coordinator.widgets.wifiDisconnectOverlay,
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -51,6 +51,17 @@ mixin _$GestureCrossStore on _GestureCrossStoreBase, Store {
   }
 
   @override
+  dynamic transitionFromNokhteSessionToHomeScreen() {
+    final _$actionInfo = _$_GestureCrossStoreBaseActionController.startAction(
+        name: '_GestureCrossStoreBase.transitionFromNokhteSessionToHomeScreen');
+    try {
+      return super.transitionFromNokhteSessionToHomeScreen();
+    } finally {
+      _$_GestureCrossStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setPhase2PurposeSession() {
     final _$actionInfo = _$_GestureCrossStoreBaseActionController.startAction(
         name: '_GestureCrossStoreBase.setPhase2PurposeSession');
