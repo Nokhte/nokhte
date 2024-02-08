@@ -27,6 +27,24 @@ mixin _$NokhteSessionLogicCoordinator
     });
   }
 
+  late final _$hasUpdatedDesireToLeaveAtom = Atom(
+      name: '_NokhteSessionLogicCoordinatorBase.hasUpdatedDesireToLeave',
+      context: context);
+
+  @override
+  bool get hasUpdatedDesireToLeave {
+    _$hasUpdatedDesireToLeaveAtom.reportRead();
+    return super.hasUpdatedDesireToLeave;
+  }
+
+  @override
+  set hasUpdatedDesireToLeave(bool value) {
+    _$hasUpdatedDesireToLeaveAtom
+        .reportWrite(value, super.hasUpdatedDesireToLeave, () {
+      super.hasUpdatedDesireToLeave = value;
+    });
+  }
+
   late final _$checkIfUserHasTheQuestionAsyncAction = AsyncAction(
       '_NokhteSessionLogicCoordinatorBase.checkIfUserHasTheQuestion',
       context: context);
@@ -37,10 +55,21 @@ mixin _$NokhteSessionLogicCoordinator
         .run(() => super.checkIfUserHasTheQuestion());
   }
 
+  late final _$changeDesireToLeaveAsyncAction = AsyncAction(
+      '_NokhteSessionLogicCoordinatorBase.changeDesireToLeave',
+      context: context);
+
+  @override
+  Future changeDesireToLeave(ChangeDesireToLeaveParams params) {
+    return _$changeDesireToLeaveAsyncAction
+        .run(() => super.changeDesireToLeave(params));
+  }
+
   @override
   String toString() {
     return '''
-hasTheQuestion: ${hasTheQuestion}
+hasTheQuestion: ${hasTheQuestion},
+hasUpdatedDesireToLeave: ${hasUpdatedDesireToLeave}
     ''';
   }
 }
