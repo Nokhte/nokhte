@@ -111,9 +111,11 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.up:
-            ifTouchIsNotDisabled(() {
-              widgets.onSwipeUp();
-            });
+            if (!widgets.isEnteringNokhteSession) {
+              ifTouchIsNotDisabled(() {
+                widgets.onSwipeUp();
+              });
+            }
           default:
             break;
         }
