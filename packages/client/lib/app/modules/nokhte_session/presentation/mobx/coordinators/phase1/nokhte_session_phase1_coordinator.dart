@@ -217,7 +217,10 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
       });
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) async {
-        if (!hasSwipedUp && canSwipeUp) {
+        if (!hasSwipedUp &&
+            canSwipeUp &&
+            !widgets.isDisconnected &&
+            presence.getSessionMetadataStore.collaboratorIsOnline) {
           hasSwipedUp = true;
           await logic
               .changeDesireToLeaveLogic(ChangeDesireToLeaveParams.affirmative);
