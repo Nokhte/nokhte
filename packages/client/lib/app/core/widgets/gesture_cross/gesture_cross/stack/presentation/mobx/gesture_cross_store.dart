@@ -40,6 +40,11 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
   }
 
   @action
+  transitionFromNokhteSessionToHomeScreen() {
+    cross.initOutlineFadeOut();
+  }
+
+  @action
   setPhase2PurposeSession() {
     gradientNokhte.setMovie(VibrantBlueGradientNokhteMovie.movie);
   }
