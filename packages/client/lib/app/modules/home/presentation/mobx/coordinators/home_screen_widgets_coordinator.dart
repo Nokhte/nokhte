@@ -150,7 +150,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   onGestureCrossTap(Function repeatTheFlow) {
-    if (!hasInitiatedBlur) {
+    if (!hasInitiatedBlur && !isEnteringNokhteSession) {
       if (hasCompletedInvitationFlow) {
         repeatTheFlow();
         toggleWantsToRepeatInvitationFlow();
