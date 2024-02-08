@@ -10,6 +10,29 @@ part of 'get_nokhte_session_metadata_store.dart';
 
 mixin _$GetNokhteSessionMetadataStore
     on _GetNokhteSessionMetadataStoreBase, Store {
+  Computed<bool>? _$isAllowedToExitComputed;
+
+  @override
+  bool get isAllowedToExit =>
+      (_$isAllowedToExitComputed ??= Computed<bool>(() => super.isAllowedToExit,
+              name: '_GetNokhteSessionMetadataStoreBase.isAllowedToExit'))
+          .value;
+  Computed<bool>? _$userWantsToExitComputed;
+
+  @override
+  bool get userWantsToExit =>
+      (_$userWantsToExitComputed ??= Computed<bool>(() => super.userWantsToExit,
+              name: '_GetNokhteSessionMetadataStoreBase.userWantsToExit'))
+          .value;
+  Computed<bool>? _$collaboratorWantsToExitComputed;
+
+  @override
+  bool get collaboratorWantsToExit => (_$collaboratorWantsToExitComputed ??=
+          Computed<bool>(() => super.collaboratorWantsToExit,
+              name:
+                  '_GetNokhteSessionMetadataStoreBase.collaboratorWantsToExit'))
+      .value;
+
   late final _$getAsyncAction =
       AsyncAction('_GetNokhteSessionMetadataStoreBase.get', context: context);
 
@@ -21,7 +44,9 @@ mixin _$GetNokhteSessionMetadataStore
   @override
   String toString() {
     return '''
-
+isAllowedToExit: ${isAllowedToExit},
+userWantsToExit: ${userWantsToExit},
+collaboratorWantsToExit: ${collaboratorWantsToExit}
     ''';
   }
 }
