@@ -5,17 +5,17 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: update_fastlane" time="1.869359">
+      <testcase classname="fastlane.lanes" name="0: update_fastlane" time="0.000427">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.000507">
+      <testcase classname="fastlane.lanes" name="1: default_platform" time="9.0e-05">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: flutter_version_manager" time="0.097554">
+      <testcase classname="fastlane.lanes" name="2: flutter_version_manager" time="0.057998">
         
       </testcase>
     
