@@ -41,7 +41,7 @@ abstract class _NokhteSessionPhase0WidgetsCoordinatorBase
 
   @action
   constructor() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.timesUp);
+    beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradientToTimesUp);
     primarySmartText
         .setMessagesData(MessagesData.primaryPurposeSessionPhase0List);
     primarySmartText.startRotatingText();
