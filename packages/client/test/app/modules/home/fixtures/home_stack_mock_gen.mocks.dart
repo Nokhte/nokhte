@@ -2041,6 +2041,17 @@ class MockHomeScreenWidgetsCoordinator extends _i1.Mock
       ) as _i11.ReactiveContext);
 
   @override
+  dynamic postInvitationFlowConstructor({required bool? hasDoneASession}) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #postInvitationFlowConstructor,
+          [],
+          {#hasDoneASession: hasDoneASession},
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   dynamic prepForNavigation({bool? excludeUnBlur = false}) =>
       super.noSuchMethod(
         Invocation.method(
@@ -2365,6 +2376,22 @@ class MockGetUserInfoStore extends _i1.Mock implements _i12.GetUserInfoStore {
   set wantsToRepeatInvitationFlow(bool? value) => super.noSuchMethod(
         Invocation.setter(
           #wantsToRepeatInvitationFlow,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get hasDoneASession => (super.noSuchMethod(
+        Invocation.getter(#hasDoneASession),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set hasDoneASession(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #hasDoneASession,
           value,
         ),
         returnValueForMissingStub: null,
