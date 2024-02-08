@@ -25,7 +25,7 @@ jobs:
       - run: |
             echo "PROD_SUPABASE_URL='$STAGING_SUPABASE_URL'" >> .env
             echo "PROD_SUPABASE_ANON_KEY='$STAGING_SUPABASE_ANON_KEY'" >> .env
-            echo "AGORA_APP_ID='AGORA_APP_ID'" >> .env
+            echo "AGORA_APP_ID='$AGORA_APP_ID'" >> .env
         env:
           STAGING_SUPABASE_URL: ${{ secrets.STAGING_SUPABASE_URL }}
           STAGING_SUPABASE_ANON_KEY: ${{ secrets.STAGING_SUPABASE_ANON_KEY }}
