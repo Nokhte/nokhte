@@ -251,6 +251,18 @@ mixin _$BaseCustomAnimatedWidgetStore<T>
   }
 
   @override
+  dynamic reverseMovie(dynamic params) {
+    final _$actionInfo = _$_BaseCustomAnimatedWidgetStoreBaseActionController
+        .startAction(name: '_BaseCustomAnimatedWidgetStoreBase.reverseMovie');
+    try {
+      return super.reverseMovie(params);
+    } finally {
+      _$_BaseCustomAnimatedWidgetStoreBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 movie: ${movie},
