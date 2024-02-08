@@ -56,8 +56,12 @@ class NokhteSessionPhase1Consulatation extends HookWidget {
                     ),
                   ),
                 ),
+                showGlowAndOutline: true,
                 size: size,
                 store: coordinator.widgets.gestureCross,
+              ),
+              WaitingText(
+                store: coordinator.widgets.waitingText,
               ),
               VoiceCallIncidentsOverlay(
                 store: coordinator.voiceCall.incidentsOverlayWidgetStore,
