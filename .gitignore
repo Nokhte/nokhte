@@ -9,3 +9,5 @@ packages/client/ios/Podfile.lock
 ./.vscode/nokhte.code-workspace
 .patrol.env
 melos_nokhte.iml
+**.g.dart
+**.mocks.dart
