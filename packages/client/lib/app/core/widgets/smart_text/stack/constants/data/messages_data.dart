@@ -139,7 +139,7 @@ class MessagesData {
         RotatingTextData(
           initialFadeInDelay: Seconds.get(0),
           mainMessage: "To Complete The Call, Swipe Up At The Same Time.",
-          onScreenTime: Seconds.get(5),
+          onScreenTime: Seconds.get(5, milli: 400),
         ),
         RotatingTextData(
           mainMessage: "",

@@ -12,12 +12,10 @@ abstract class _NokhteSessionLogicCoordinatorBase extends BaseMobxDBStore
     with Store {
   final CheckIfUserHasTheQuestion checkIfUserHasTheQuestionLogic;
   final ChangeDesireToLeave changeDesireToLeaveLogic;
-  final DeleteActiveNokhteSession deleteActiveSessionLogic;
 
   _NokhteSessionLogicCoordinatorBase({
     required this.checkIfUserHasTheQuestionLogic,
     required this.changeDesireToLeaveLogic,
-    required this.deleteActiveSessionLogic,
   });
 
   @observable
@@ -41,15 +39,6 @@ abstract class _NokhteSessionLogicCoordinatorBase extends BaseMobxDBStore
     final res = await changeDesireToLeaveLogic(params);
     res.fold((failure) => errorUpdater(failure),
         (status) => hasUpdatedDesireToLeave = status);
-  }
-
-  @action
-  deleteTheSession() async {
-    final res = await deleteActiveSessionLogic(NoParams());
-    res.fold(
-      (failure) => errorUpdater(failure),
-      (status) => hasDeletedSession,
-    );
   }
 
   @override

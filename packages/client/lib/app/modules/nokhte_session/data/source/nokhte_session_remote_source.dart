@@ -5,7 +5,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 abstract class NokhteSessionRemoteSource {
   Future<bool> checkifUserHasTheQuestion();
   Future<List> changeDesireToLeave(ChangeDesireToLeaveParams params);
-  Future<List> deleteActiveNokhteSession();
 }
 
 class NokhteSessionRemoteSourceImpl implements NokhteSessionRemoteSource {
@@ -27,7 +26,4 @@ class NokhteSessionRemoteSourceImpl implements NokhteSessionRemoteSource {
     await queries.updateCurrentPhases(value);
     return await queries.updateCurrentPhases(value);
   }
-
-  @override
-  deleteActiveNokhteSession() async => await queries.delete();
 }
