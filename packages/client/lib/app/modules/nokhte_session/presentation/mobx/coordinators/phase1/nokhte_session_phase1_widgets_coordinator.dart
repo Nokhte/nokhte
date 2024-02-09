@@ -145,7 +145,6 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
     gestureCross.initMoveAndRegenerate(CircleOffsets.top);
     blur.init();
     if (!isReadyToExit) {
-      print("is not ready to exit");
       waitingText.setWidgetVisibility(true);
       waitingText.setControl(Control.play);
     } else {
