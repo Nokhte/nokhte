@@ -41,6 +41,9 @@ class NokhteSessionModule extends Module {
         contract: Modular.get<NokhteSessionContractImpl>(),
       ),
     );
+    i.add<DeleteActiveNokhteSession>(() => DeleteActiveNokhteSession(
+          contract: Modular.get<NokhteSessionContractImpl>(),
+        ));
     i.add<ChangeDesireToLeave>(
       () => ChangeDesireToLeave(
         contract: Modular.get<NokhteSessionContractImpl>(),
@@ -48,10 +51,10 @@ class NokhteSessionModule extends Module {
     );
     i.add<NokhteSessionLogicCoordinator>(
       () => NokhteSessionLogicCoordinator(
+        deleteActiveSessionLogic: Modular.get<DeleteActiveNokhteSession>(),
         checkIfUserHasTheQuestionLogic:
             Modular.get<CheckIfUserHasTheQuestion>(),
-        changeDesireToLeaveLogic:
-            Modular.get<ChangeDesireToLeave>(),
+        changeDesireToLeaveLogic: Modular.get<ChangeDesireToLeave>(),
       ),
     );
 
