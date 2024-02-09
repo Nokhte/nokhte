@@ -41,6 +41,7 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
 
   @action
   transitionFromNokhteSessionToHomeScreen() {
+    strokeCrossNokhte.setWidgetVisibility(false);
     cross.initOutlineFadeOut();
   }
 
