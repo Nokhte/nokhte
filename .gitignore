@@ -11,3 +11,5 @@ packages/client/ios/Podfile.lock
 melos_nokhte.iml
 **.g.dart
 **.mocks.dart
+**/i1_client/**
+**/i2_client/**
