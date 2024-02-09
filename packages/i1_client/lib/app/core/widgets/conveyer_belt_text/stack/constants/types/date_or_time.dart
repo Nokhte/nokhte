@@ -1,4 +1,0 @@
-enum DateOrTime {
-  date,
-  time,
-}
