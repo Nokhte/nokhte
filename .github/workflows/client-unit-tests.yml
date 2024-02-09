@@ -25,4 +25,5 @@ jobs:
           channel: "stable"
       - run: touch .env
       - run: flutter pub get
+      - run: flutter pub run build_runner build
       - run: flutter test
