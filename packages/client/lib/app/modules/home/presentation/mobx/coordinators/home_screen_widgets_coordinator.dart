@@ -19,7 +19,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final GestureCrossStore gestureCross;
   final SmartTextStore primarySmartText;
-  // final DeepLinksCoordinator deepLinks;
 
   _HomeScreenWidgetsCoordinatorBase({
     required this.nokhteBlur,
@@ -43,6 +42,9 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @observable
   bool gracePeriodHasExpired = false;
+
+  @observable
+  bool hasCompletedASession = false;
 
   @action
   toggleGracePeriodHasExpired() =>
@@ -84,6 +86,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
       });
     } else {
       toggleGracePeriodHasExpired();
+      hasCompletedASession = true;
     }
   }
 
@@ -96,7 +99,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   onDisconnected() {
     onInactive();
     if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToVibrantBlue) {
-      // print("is this running");
       isEnteringNokhteSession = false;
       beachWaves.currentStore.setControl(Control.playReverse);
     }
@@ -154,18 +156,22 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   @action
   onGestureCrossTap(Function repeatTheFlow) {
     if (!hasInitiatedBlur && !isEnteringNokhteSession) {
-      if (hasCompletedInvitationFlow) {
+      nokhteBlur.init();
+      beachWaves.currentStore.setControl(Control.stop);
+      toggleHasInitiatedBlur();
+      if (hasCompletedInvitationFlow || hasCompletedASession) {
         repeatTheFlow();
         toggleWantsToRepeatInvitationFlow();
         gestureCross.stopBlinking();
-        if (!gracePeriodHasExpired) {
+        if (gracePeriodHasExpired) {
+          primarySmartText.startRotatingText(isResuming: true);
+        } else if (!gracePeriodHasExpired) {
           primarySmartText.setCurrentIndex(1);
+          primarySmartText.startRotatingText();
         }
+      } else {
+        primarySmartText.startRotatingText(isResuming: true);
       }
-      nokhteBlur.init();
-      primarySmartText.startRotatingText(isResuming: true);
-      beachWaves.currentStore.setControl(Control.stop);
-      toggleHasInitiatedBlur();
     }
   }
 

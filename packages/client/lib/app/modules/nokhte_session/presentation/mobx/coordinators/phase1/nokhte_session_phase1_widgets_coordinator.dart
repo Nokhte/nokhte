@@ -142,13 +142,15 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
 
   @action
   initWaitingWidgets({required bool isReadyToExit}) {
-    gestureCross.initMoveAndRegenerate(CircleOffsets.top);
     blur.init();
     if (!isReadyToExit) {
+      gestureCross.initMoveAndRegenerate(CircleOffsets.top);
       waitingText.setWidgetVisibility(true);
       waitingText.setControl(Control.play);
     } else {
       isTransitioningHome = true;
+      gestureCross.gradientNokhte.setWidgetVisibility(false);
+      gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
     }
     secondarySmartText.setWidgetVisibility(false);
   }
