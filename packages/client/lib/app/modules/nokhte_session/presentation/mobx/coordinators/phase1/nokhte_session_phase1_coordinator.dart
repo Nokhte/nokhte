@@ -244,6 +244,7 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
       reaction((p0) => presence.getSessionMetadataStore.isAllowedToExit,
           (p0) async {
         if (p0) {
+          await logic.deleteTheSession();
           await voiceCall.leaveCall();
           widgets.secondarySmartText.setWidgetVisibility(true);
           widgets.initTransitionToHome();

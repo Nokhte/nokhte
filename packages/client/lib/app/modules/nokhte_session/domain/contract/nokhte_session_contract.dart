@@ -5,5 +5,7 @@ import 'package:nokhte/app/modules/nokhte_session/domain/logic/logic.dart';
 
 abstract class NokhteSessionContract {
   Future<Either<Failure, bool>> checkIfUserHasTheQuestion(NoParams params);
-  Future<Either<Failure, bool>> changeDesireToLeave(ChangeDesireToLeaveParams params);
+  Future<Either<Failure, bool>> changeDesireToLeave(
+      ChangeDesireToLeaveParams params);
+  Future<Either<Failure, bool>> deleteActiveNokhteSession(NoParams params);
 }
