@@ -146,7 +146,7 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
     if (!isReadyToExit) {
       gestureCross.initMoveAndRegenerate(CircleOffsets.top);
       waitingText.setWidgetVisibility(true);
-      waitingText.setControl(Control.play);
+      waitingText.setControl(Control.loop);
     } else {
       isTransitioningHome = true;
       gestureCross.gradientNokhte.setWidgetVisibility(false);

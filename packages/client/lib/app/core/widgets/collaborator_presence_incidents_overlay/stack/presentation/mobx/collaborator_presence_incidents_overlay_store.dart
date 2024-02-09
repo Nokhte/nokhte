@@ -20,6 +20,9 @@ abstract class _CollaboratorPresenceIncidentsOverlayStoreBase
     setWidgetVisibility(false);
   }
 
+  @observable
+  int joinCount = 0;
+
   @action
   onCollaboratorLeft() {
     blur.init();
@@ -28,8 +31,12 @@ abstract class _CollaboratorPresenceIncidentsOverlayStoreBase
 
   @action
   onCollaboratorJoined() {
-    blur.reverse();
-    setWidgetVisibility(false);
+    if (joinCount == 0) {
+      joinCount++;
+    } else {
+      blur.reverse();
+      setWidgetVisibility(false);
+    }
   }
 
   collaboratorPresenceReactor(Function onJoined, Function onLeft) =>
