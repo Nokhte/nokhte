@@ -234,13 +234,13 @@ mixin _$NokhteSessionPhase1WidgetsCoordinator
   }
 
   @override
-  dynamic initWaitingWidgets() {
+  dynamic initWaitingWidgets({required bool isReadyToExit}) {
     final _$actionInfo =
         _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController.startAction(
             name:
                 '_NokhteSessionPhase1WidgetsCoordinatorBase.initWaitingWidgets');
     try {
-      return super.initWaitingWidgets();
+      return super.initWaitingWidgets(isReadyToExit: isReadyToExit);
     } finally {
       _$_NokhteSessionPhase1WidgetsCoordinatorBaseActionController
           .endAction(_$actionInfo);

@@ -48,7 +48,9 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
     await deleteUnconsecratedCollaborations(NoParams());
     await userInformation.getUserInfoStore(NoParams());
     if (userInformation.getUserInfoStore.hasGoneThroughInvitationFlow) {
-      widgets.postInvitationFlowConstructor();
+      widgets.postInvitationFlowConstructor(
+        hasDoneASession: userInformation.getUserInfoStore.hasDoneASession,
+      );
     } else {
       widgets.invitationFlowConstructor();
     }
@@ -111,9 +113,11 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.up:
-            ifTouchIsNotDisabled(() {
-              widgets.onSwipeUp();
-            });
+            if (!widgets.isEnteringNokhteSession) {
+              ifTouchIsNotDisabled(() {
+                widgets.onSwipeUp();
+              });
+            }
           default:
             break;
         }

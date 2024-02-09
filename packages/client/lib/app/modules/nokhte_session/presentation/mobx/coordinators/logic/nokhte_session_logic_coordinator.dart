@@ -21,9 +21,8 @@ abstract class _NokhteSessionLogicCoordinatorBase extends BaseMobxDBStore
   @observable
   bool hasTheQuestion = false;
 
-
   @observable
-  bool hasUpdatedDesireToLeave  = false;
+  bool hasUpdatedDesireToLeave = false;
 
   @action
   checkIfUserHasTheQuestion() async {
@@ -33,10 +32,10 @@ abstract class _NokhteSessionLogicCoordinatorBase extends BaseMobxDBStore
   }
 
   @action
-changeDesireToLeave(ChangeDesireToLeaveParams params) async {
+  changeDesireToLeave(ChangeDesireToLeaveParams params) async {
     final res = await changeDesireToLeaveLogic(params);
-    res.fold((failure) => errorUpdater(failure), (status) => hasUpdatedDesireToLeave = status);
-
+    res.fold((failure) => errorUpdater(failure),
+        (status) => hasUpdatedDesireToLeave = status);
   }
 
   @override

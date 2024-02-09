@@ -76,6 +76,7 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
   constructor() async {
     setDisableAllTouchFeedback(true);
     widgets.constructor();
+    await logic.changeDesireToLeaveLogic(ChangeDesireToLeaveParams.negative);
     await Permission.microphone.request();
     await voiceCall.joinCall(
       shouldEnterTheCallMuted: true,
@@ -225,7 +226,9 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
           await logic
               .changeDesireToLeaveLogic(ChangeDesireToLeaveParams.affirmative);
           await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
-          widgets.initWaitingWidgets();
+          widgets.initWaitingWidgets(
+            isReadyToExit: presence.getSessionMetadataStore.isAllowedToExit,
+          );
           Timer(Seconds.get(5), () async {
             if (!isTransitioningHome) {
               hasSwipedUp = false;
@@ -242,6 +245,7 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
           (p0) async {
         if (p0) {
           await voiceCall.leaveCall();
+          widgets.secondarySmartText.setWidgetVisibility(true);
           widgets.initTransitionToHome();
           isTransitioningHome = true;
         }
