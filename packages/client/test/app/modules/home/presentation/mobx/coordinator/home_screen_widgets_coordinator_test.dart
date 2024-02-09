@@ -75,7 +75,7 @@ void main() {
 
       test('PostInvitationFlowConstructor', () {
         testStore.constructor();
-        testStore.postInvitationFlowConstructor();
+        testStore.postInvitationFlowConstructor(hasDoneASession: false);
         expect(primarySmartText.messagesData, MessagesData.firstTimeHomeList);
         expect(beachWaves.movieMode, BeachWaveMovieModes.onShore);
       });

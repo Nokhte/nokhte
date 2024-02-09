@@ -61,6 +61,22 @@ mixin _$GetUserInfoStore on _GetUserInfoStoreBase, Store {
     });
   }
 
+  late final _$hasDoneASessionAtom =
+      Atom(name: '_GetUserInfoStoreBase.hasDoneASession', context: context);
+
+  @override
+  bool get hasDoneASession {
+    _$hasDoneASessionAtom.reportRead();
+    return super.hasDoneASession;
+  }
+
+  @override
+  set hasDoneASession(bool value) {
+    _$hasDoneASessionAtom.reportWrite(value, super.hasDoneASession, () {
+      super.hasDoneASession = value;
+    });
+  }
+
   late final _$userUIDAtom =
       Atom(name: '_GetUserInfoStoreBase.userUID', context: context);
 
@@ -123,6 +139,7 @@ mixin _$GetUserInfoStore on _GetUserInfoStoreBase, Store {
 hasGoneThroughInvitationFlow: ${hasGoneThroughInvitationFlow},
 hasSentAnInvitation: ${hasSentAnInvitation},
 wantsToRepeatInvitationFlow: ${wantsToRepeatInvitationFlow},
+hasDoneASession: ${hasDoneASession},
 userUID: ${userUID},
 entity: ${entity},
 futureStore: ${futureStore}

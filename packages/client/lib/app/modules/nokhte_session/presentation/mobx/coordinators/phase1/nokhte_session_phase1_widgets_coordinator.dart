@@ -99,7 +99,6 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
   @action
   onLetGo() {
     borderGlow.initGlowDown();
-    // hideSecondaryText();
   }
 
   @action
@@ -142,40 +141,32 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
   }
 
   @action
-  initWaitingWidgets() {
+  initWaitingWidgets({required bool isReadyToExit}) {
     gestureCross.initMoveAndRegenerate(CircleOffsets.top);
     blur.init();
-    if (!waitingText.showWidget) {
-      waitingText.toggleWidgetVisibility();
+    if (!isReadyToExit) {
+      waitingText.setWidgetVisibility(true);
+      waitingText.setControl(Control.play);
+    } else {
+      isTransitioningHome = true;
     }
-    if (secondarySmartText.showWidget) {
-      secondarySmartText.toggleWidgetVisibility();
-    }
-    waitingText.initMovie(NoParams());
-    waitingText.setControl(Control.play);
+    secondarySmartText.setWidgetVisibility(false);
   }
 
   @action
   revertWaitingWidgets() {
-    if (waitingText.showWidget) {
-      waitingText.toggleWidgetVisibility();
-    }
-    if (!secondarySmartText.showWidget) {
-      secondarySmartText.toggleWidgetVisibility();
-    }
     waitingText.setControl(Control.stop);
+    waitingText.setWidgetVisibility(false);
+    secondarySmartText.setWidgetVisibility(true);
     blur.reverse();
   }
 
   @action
   initTransitionToHome() {
     isTransitioningHome = true;
-    if (waitingText.showWidget) {
-      waitingText.toggleWidgetVisibility();
-    }
-    if (secondarySmartText.showWidget) {
-      secondarySmartText.toggleWidgetVisibility();
-    }
+    blur.reverse();
+    waitingText.setWidgetVisibility(false);
+    secondarySmartText.setWidgetVisibility(false);
     gestureCross.transitionFromNokhteSessionToHomeScreen();
     beachWaves.setMovieMode(
       BeachWaveMovieModes.onShoreToVibrantBlue,
@@ -193,8 +184,10 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
   centerNokhteReactor() =>
       reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
         if (isTransitioningHome) {
-          gestureCross.gradientNokhte.toggleWidgetVisibility();
-          gestureCross.strokeCrossNokhte.toggleWidgetVisibility();
+          Future.delayed(Seconds.get(0, milli: 200), () {
+            gestureCross.gradientNokhte.setWidgetVisibility(false);
+            gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
+          });
         }
       });
 

@@ -21,6 +21,9 @@ class NokhteSessionRemoteSourceImpl implements NokhteSessionRemoteSource {
       await queries.checkIfUserHasTheQuestion();
 
   @override
-  Future<List> changeDesireToLeave(params) async =>
-      await queries.updateCurrentPhases(params == ChangeDesireToLeaveParams.affirmative ? 2.0 :1.0);
+  Future<List> changeDesireToLeave(params) async {
+    final value = params == ChangeDesireToLeaveParams.affirmative ? 2.0 : 1.0;
+    await queries.updateCurrentPhases(value);
+    return await queries.updateCurrentPhases(value);
+  }
 }
