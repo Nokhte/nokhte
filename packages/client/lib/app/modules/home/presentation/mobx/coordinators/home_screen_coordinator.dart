@@ -53,10 +53,10 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
     } else {
       widgets.invitationFlowConstructor();
     }
+    await deleteUnconsecratedCollaborations(NoParams());
     initReactors();
     await getExistingCollaborationInfo(NoParams());
     await addNameToDatabaseStore(NoParams());
-    await deleteUnconsecratedCollaborations(NoParams());
   }
 
   initReactors() {
