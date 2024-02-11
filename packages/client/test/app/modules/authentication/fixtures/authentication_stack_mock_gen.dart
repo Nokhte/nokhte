@@ -1,12 +1,8 @@
 // ignore_for_file: must_be_immutable
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
-
 import 'package:nokhte/app/modules/authentication/data/sources/auth_remote_source.dart';
-import 'package:nokhte/app/modules/authentication/domain/contracts/authentication_contract.dart';
-import 'package:nokhte/app/modules/authentication/domain/logic/get_auth_state.dart';
-import 'package:nokhte/app/modules/authentication/domain/logic/sign_in_with_apple.dart';
-import 'package:nokhte/app/modules/authentication/domain/logic/sign_in_with_google.dart';
+import 'package:nokhte/app/modules/authentication/domain/domain.dart';
 import 'package:nokhte/app/modules/authentication/presentation/presentation.dart';
 
 class MAuthenticationRemoteSourceImpl extends Mock
@@ -25,6 +21,7 @@ class MRemoteSource extends Mock implements AuthenticationRemoteSource {}
   MockSpec<GetAuthState>(),
   MockSpec<GetAuthStateStore>(),
   MockSpec<SignInWithAuthProviderStore>(),
+  MockSpec<AddName>(),
   MockSpec<SignInWithApple>(),
   MockSpec<SignInWithGoogle>(),
   MockSpec<LoginScreenWidgetsCoordinator>()
