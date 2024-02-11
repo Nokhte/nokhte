@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -22,7 +21,6 @@ class HomeScreenCoordinator = _HomeScreenCoordinatorBase
 abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
   final DeleteUnconsecratedCollaborationsCoordinator
       deleteUnconsecratedCollaborations;
-  final AddNameToDatabaseStore addNameToDatabaseStore;
   final GetExistingCollaborationsInfoStore getExistingCollaborationInfo;
   final HomeScreenWidgetsCoordinator widgets;
   final SwipeDetector swipe;
@@ -32,7 +30,6 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
 
   _HomeScreenCoordinatorBase({
     required this.deleteUnconsecratedCollaborations,
-    required this.addNameToDatabaseStore,
     required this.getExistingCollaborationInfo,
     required this.userInformation,
     required this.collaborationLogic,
@@ -56,7 +53,6 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
     await deleteUnconsecratedCollaborations(NoParams());
     initReactors();
     await getExistingCollaborationInfo(NoParams());
-    await addNameToDatabaseStore(NoParams());
   }
 
   initReactors() {
