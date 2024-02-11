@@ -42,20 +42,9 @@ class HomeModule extends Module {
         networkInfo: Modular.get<NetworkInfoImpl>(),
       ),
     );
-    i.add<AddNameToDatabase>(
-      () => AddNameToDatabase(
-        contract: i<HomeContractImpl>(),
-      ),
-    );
     i.add<GetExistingCollaborationsInfo>(
       () => GetExistingCollaborationsInfo(
         contract: i<HomeContractImpl>(),
-      ),
-    );
-
-    i.add<AddNameToDatabaseStore>(
-      () => AddNameToDatabaseStore(
-        logic: i<AddNameToDatabase>(),
       ),
     );
     i.add<GetExistingCollaborationsInfoStore>(
@@ -72,7 +61,6 @@ class HomeModule extends Module {
             Modular.get<DeleteUnconsecratedCollaborationsCoordinator>(),
         userInformation: Modular.get<UserInformationCoordinator>(),
         swipe: Modular.get<SwipeDetector>(),
-        addNameToDatabaseStore: i<AddNameToDatabaseStore>(),
         getExistingCollaborationInfo: i<GetExistingCollaborationsInfoStore>(),
         widgets: Modular.get<HomeScreenWidgetsCoordinator>(),
       ),
