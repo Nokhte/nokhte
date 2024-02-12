@@ -34,6 +34,6 @@ abstract class _VoiceCallIncidentsOverlayStoreBase
   @action
   constructor() {
     blur.init();
-    setShowWaitingOnCollaborator(true);
+    setShowJoiningCall(true);
   }
 }
