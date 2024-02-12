@@ -1,5 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mixins/response_to_status.dart';
 import 'package:nokhte/app/modules/authentication/domain/domain.dart';
 import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
@@ -7,7 +9,9 @@ import 'package:nokhte/app/modules/authentication/data/sources/auth_remote_sourc
 
 typedef _AppleOrGoogleChooser = Future<dynamic> Function();
 
-class AuthenticationContractImpl implements AuthenticationContract {
+class AuthenticationContractImpl
+    with ResponseToStatus
+    implements AuthenticationContract {
   final AuthenticationRemoteSource remoteSource;
   final NetworkInfo networkInfo;
 
@@ -17,11 +21,11 @@ class AuthenticationContractImpl implements AuthenticationContract {
   });
 
   @override
-  Future<Either<Failure, AuthProviderEntity>> googleSignIn() async =>
+  Future<Either<Failure, AuthProviderEntity>> googleSignIn(params) async =>
       await _signInWith(() => remoteSource.signInWithGoogle());
 
   @override
-  Future<Either<Failure, AuthProviderEntity>> appleSignIn() async =>
+  Future<Either<Failure, AuthProviderEntity>> appleSignIn(params) async =>
       await _signInWith(() => remoteSource.signInWithApple());
 
   Future<Either<Failure, AuthProviderEntity>> _signInWith(
@@ -39,5 +43,15 @@ class AuthenticationContractImpl implements AuthenticationContract {
   }
 
   @override
-  AuthStateEntity getAuthState() => remoteSource.getAuthState();
+  AuthStateEntity getAuthState(params) => remoteSource.getAuthState();
+
+  @override
+  addName(NoParams params) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.addName();
+      return Right(fromSupabase(res));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
 }
