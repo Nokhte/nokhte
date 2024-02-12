@@ -38,6 +38,7 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
 
   @action
   constructor() async {
+    setDisableAllTouchFeedback(true);
     widgets.constructor();
     widgets.initReactors(repeatTheFlow);
     await userInformation.getUserInfoStore(NoParams());
@@ -50,6 +51,7 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
     }
     await deleteUnconsecratedCollaborations(NoParams());
     initReactors();
+    setDisableAllTouchFeedback(false);
   }
 
   initReactors() {
@@ -133,17 +135,22 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
       });
 
   openedDeepLinksReactor() =>
-      reaction((p0) => deepLinks.listenForOpenedDeepLinkStore.path, (p0) async {
+      reaction((p0) => deepLinks.listenForOpenedDeepLinkStore.path, (p0) {
         if (deepLinks.listenForOpenedDeepLinkStore
                 .additionalMetadata["isTheUsersInvitation"] !=
             null) {
-          final additionalMetadata =
-              deepLinks.listenForOpenedDeepLinkStore.additionalMetadata;
-          await collaborationLogic.enter(EnterCollaboratorPoolParams(
-            collaboratorUID: additionalMetadata["deepLinkUID"],
-            invitationType: InvitationType.nokhteSession,
-          ));
-          widgets.onDeepLinkOpened();
+          Timer.periodic(Seconds.get(0, milli: 500), (timer) async {
+            if (deleteUnconsecratedCollaborations.state == StoreState.loaded) {
+              final additionalMetadata =
+                  deepLinks.listenForOpenedDeepLinkStore.additionalMetadata;
+              await collaborationLogic.enter(EnterCollaboratorPoolParams(
+                collaboratorUID: additionalMetadata["deepLinkUID"],
+                invitationType: InvitationType.nokhteSession,
+              ));
+              widgets.onDeepLinkOpened();
+              timer.cancel();
+            }
+          });
         }
       });
 }
