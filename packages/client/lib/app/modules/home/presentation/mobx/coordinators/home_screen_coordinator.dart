@@ -21,7 +21,6 @@ class HomeScreenCoordinator = _HomeScreenCoordinatorBase
 abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
   final DeleteUnconsecratedCollaborationsCoordinator
       deleteUnconsecratedCollaborations;
-  final GetExistingCollaborationsInfoStore getExistingCollaborationInfo;
   final HomeScreenWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final UserInformationCoordinator userInformation;
@@ -30,7 +29,6 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
 
   _HomeScreenCoordinatorBase({
     required this.deleteUnconsecratedCollaborations,
-    required this.getExistingCollaborationInfo,
     required this.userInformation,
     required this.collaborationLogic,
     required this.swipe,
@@ -52,7 +50,6 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
     }
     await deleteUnconsecratedCollaborations(NoParams());
     initReactors();
-    await getExistingCollaborationInfo(NoParams());
   }
 
   initReactors() {
