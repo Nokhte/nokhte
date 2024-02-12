@@ -78,7 +78,6 @@ void main() {
           .thenAnswer((realInvocation) => true);
       await testStore.constructor();
       verify(mockUserInformation.getUserInfoStore(NoParams()));
-      verify(mockGetExistingCollaborationInfo(NoParams()));
     });
 
     test("!hasGoneThroughInvitationFlow", () async {
@@ -86,7 +85,6 @@ void main() {
           .thenAnswer((realInvocation) => false);
       await testStore.constructor();
       verify(mockUserInformation.getUserInfoStore(NoParams()));
-      verify(mockGetExistingCollaborationInfo(NoParams()));
     });
   });
 }
