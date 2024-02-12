@@ -1,6 +1,6 @@
 import 'package:nokhte/app/modules/authentication/data/models/models.dart';
 import 'package:nokhte/app/core/interfaces/auth_providers.dart';
-import 'package:nokhte/app/modules/home/data/sources/home_remote_source.dart';
+import 'package:nokhte_backend/tables/user_names.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:nokhte/app/core/utilities/misc_algos.dart';
@@ -12,16 +12,18 @@ abstract class AuthenticationRemoteSource {
   Future<AuthProviderModel> signInWithGoogle();
   Future<AuthProviderModel> signInWithApple();
   AuthStateModel getAuthState();
+  Future<List> addName({String theName = ""});
 }
 
 class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
   final SupabaseClient supabase;
-  late HomeRemoteSourceImpl homeRemoteSource;
+  late UserNamesQueries queries;
 
-  AuthenticationRemoteSourceImpl({required this.supabase});
+  AuthenticationRemoteSourceImpl({required this.supabase})
+      : queries = UserNamesQueries(supabase: supabase);
 
   @override
-  Future<AuthProviderModel> signInWithGoogle() async {
+  signInWithGoogle() async {
     final res = await supabase.auth.signInWithOAuth(
       Provider.google,
       scopes: 'email profile openid',
@@ -32,7 +34,7 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
   }
 
   @override
-  Future<AuthProviderModel> signInWithApple() async {
+  signInWithApple() async {
     final rawNonce = MiscAlgos.generateRandomString();
     final hashedNonce = sha256.convert(utf8.encode(rawNonce)).toString();
 
@@ -43,8 +45,8 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
       ],
       nonce: hashedNonce,
     );
-    final fullName = "${credential.givenName} ${credential.familyName}";
-
+    final firstName = credential.givenName ?? '';
+    final lastName = credential.familyName ?? '';
     final idToken = credential.identityToken ?? '';
 
     final authRes = await supabase.auth.signInWithIdToken(
@@ -52,9 +54,9 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
       idToken: idToken,
       nonce: rawNonce,
     );
-    homeRemoteSource = HomeRemoteSourceImpl(supabase: supabase);
+    queries = UserNamesQueries(supabase: supabase);
 
-    await homeRemoteSource.addNamesToDatabase(theName: fullName);
+    await queries.insertUserInfo(firstName: firstName, lastName: lastName);
     return AuthProviderModel.fromSupabase(
       AuthProvider.apple,
       authRes,
@@ -62,7 +64,33 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
   }
 
   @override
-  AuthStateModel getAuthState() {
+  getAuthState() {
     return AuthStateModel.fromSupabase(supabase.auth.onAuthStateChange);
+  }
+
+  @override
+  addName({String theName = ""}) async {
+    queries = UserNamesQueries(supabase: supabase);
+    final List nameCheck = await queries.getUserInfo();
+    List insertRes;
+    String fullName;
+    if (nameCheck.isEmpty) {
+      if (theName.isEmpty) {
+        fullName = supabase.auth.currentUser?.userMetadata?["full_name"] ??
+            supabase.auth.currentUser?.userMetadata?["name"] ??
+            supabase.auth.currentUser?.userMetadata?["email"];
+      } else {
+        fullName = theName;
+      }
+      final [firstName, lastName] = MiscAlgos.returnSplitName(fullName);
+
+      insertRes = await queries.insertUserInfo(
+        firstName: firstName,
+        lastName: lastName,
+      );
+    } else {
+      insertRes = [];
+    }
+    return nameCheck.isEmpty ? insertRes : nameCheck;
   }
 }

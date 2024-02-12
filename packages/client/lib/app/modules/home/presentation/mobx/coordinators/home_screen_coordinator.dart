@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -22,8 +21,6 @@ class HomeScreenCoordinator = _HomeScreenCoordinatorBase
 abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
   final DeleteUnconsecratedCollaborationsCoordinator
       deleteUnconsecratedCollaborations;
-  final AddNameToDatabaseStore addNameToDatabaseStore;
-  final GetExistingCollaborationsInfoStore getExistingCollaborationInfo;
   final HomeScreenWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final UserInformationCoordinator userInformation;
@@ -32,8 +29,6 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
 
   _HomeScreenCoordinatorBase({
     required this.deleteUnconsecratedCollaborations,
-    required this.addNameToDatabaseStore,
-    required this.getExistingCollaborationInfo,
     required this.userInformation,
     required this.collaborationLogic,
     required this.swipe,
@@ -43,6 +38,7 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
 
   @action
   constructor() async {
+    setDisableAllTouchFeedback(true);
     widgets.constructor();
     widgets.initReactors(repeatTheFlow);
     await userInformation.getUserInfoStore(NoParams());
@@ -53,10 +49,9 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
     } else {
       widgets.invitationFlowConstructor();
     }
-    await deleteUnconsecratedCollaborations(NoParams());
+    setDisableAllTouchFeedback(false);
     initReactors();
-    await getExistingCollaborationInfo(NoParams());
-    await addNameToDatabaseStore(NoParams());
+    await deleteUnconsecratedCollaborations(NoParams());
   }
 
   initReactors() {
@@ -140,17 +135,22 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
       });
 
   openedDeepLinksReactor() =>
-      reaction((p0) => deepLinks.listenForOpenedDeepLinkStore.path, (p0) async {
+      reaction((p0) => deepLinks.listenForOpenedDeepLinkStore.path, (p0) {
         if (deepLinks.listenForOpenedDeepLinkStore
                 .additionalMetadata["isTheUsersInvitation"] !=
             null) {
-          final additionalMetadata =
-              deepLinks.listenForOpenedDeepLinkStore.additionalMetadata;
-          await collaborationLogic.enter(EnterCollaboratorPoolParams(
-            collaboratorUID: additionalMetadata["deepLinkUID"],
-            invitationType: InvitationType.nokhteSession,
-          ));
-          widgets.onDeepLinkOpened();
+          Timer.periodic(Seconds.get(0, milli: 500), (timer) async {
+            if (deleteUnconsecratedCollaborations.state == StoreState.loaded) {
+              final additionalMetadata =
+                  deepLinks.listenForOpenedDeepLinkStore.additionalMetadata;
+              await collaborationLogic.enter(EnterCollaboratorPoolParams(
+                collaboratorUID: additionalMetadata["deepLinkUID"],
+                invitationType: InvitationType.nokhteSession,
+              ));
+              widgets.onDeepLinkOpened();
+              timer.cancel();
+            }
+          });
         }
       });
 }

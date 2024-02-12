@@ -4,9 +4,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/auth_providers.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/authentication/domain/logic/logic.dart';
 import 'package:nokhte/app/modules/authentication/presentation/presentation.dart';
 part 'login_screen_coordinator.g.dart';
 
@@ -16,6 +18,7 @@ class LoginScreenCoordinator = _LoginScreenCoordinatorBase
 abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
   final LoginScreenWidgetsCoordinator widgets;
   final SignInWithAuthProviderStore signInWithAuthProvider;
+  final AddName addName;
   final GetAuthStateStore authStateStore;
   final SwipeDetector swipe;
   final TapDetector tap;
@@ -24,6 +27,7 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
     required this.signInWithAuthProvider,
     required this.widgets,
     required this.authStateStore,
+    required this.addName,
     required this.tap,
     required this.swipe,
   });
@@ -107,8 +111,9 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
   authStateListener(Stream<bool> authStateStream) =>
       authStateStream.listen((event) => isLoggedIn = event);
 
-  authStateReactor() => reaction((p0) => isLoggedIn, (p0) {
+  authStateReactor() => reaction((p0) => isLoggedIn, (p0) async {
         if (p0) {
+          await addName(NoParams());
           widgets.loggedInOnResumed();
         }
       });

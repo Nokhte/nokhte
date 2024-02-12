@@ -32,12 +32,12 @@ void main() {
     test(
       "should pass the AuthProvider Model from the contract to the Apple Sign In Logic",
       () async {
-        when(mockAuthenticationContract.appleSignIn())
+        when(mockAuthenticationContract.appleSignIn(NoParams()))
             .thenAnswer((_) async => Right(tAuthProviderEntity));
         final result = await appleLogic(NoParams());
 
         expect(result, Right(tAuthProviderEntity));
-        verify(mockAuthenticationContract.appleSignIn());
+        verify(mockAuthenticationContract.appleSignIn(NoParams()));
         verifyNoMoreInteractions(mockAuthenticationContract);
       },
     );
@@ -45,12 +45,12 @@ void main() {
     test(
         "should pass the Failure Contract result & pass it to the Apple Sign In Logic",
         () async {
-      when(mockAuthenticationContract.appleSignIn())
+      when(mockAuthenticationContract.appleSignIn(NoParams()))
           .thenAnswer((realInvocation) async => const Left(authFailure));
       final result = await appleLogic(NoParams());
 
       expect(result, const Left(authFailure));
-      verify(mockAuthenticationContract.appleSignIn());
+      verify(mockAuthenticationContract.appleSignIn(NoParams()));
       verifyNoMoreInteractions(mockAuthenticationContract);
     });
   });
@@ -64,12 +64,12 @@ void main() {
     test(
       "should pass boolean contract result & pass it to the Google Sign In Logic",
       () async {
-        when(mockAuthenticationContract.googleSignIn())
+        when(mockAuthenticationContract.googleSignIn(NoParams()))
             .thenAnswer((_) async => Right(tAuthProviderEntity));
         final result = await googleLogic(NoParams());
 
         expect(result, Right(tAuthProviderEntity));
-        verify(mockAuthenticationContract.googleSignIn());
+        verify(mockAuthenticationContract.googleSignIn(NoParams()));
         verifyNoMoreInteractions(mockAuthenticationContract);
       },
     );
@@ -77,12 +77,12 @@ void main() {
     test(
         "should pass the Failure Contract result & pass it to the Google Sign In Logic",
         () async {
-      when(mockAuthenticationContract.googleSignIn())
+      when(mockAuthenticationContract.googleSignIn(NoParams()))
           .thenAnswer((realInvocation) async => const Left(authFailure));
       final result = await googleLogic(NoParams());
 
       expect(result, const Left(authFailure));
-      verify(mockAuthenticationContract.googleSignIn());
+      verify(mockAuthenticationContract.googleSignIn(NoParams()));
       verifyNoMoreInteractions(mockAuthenticationContract);
     });
   });

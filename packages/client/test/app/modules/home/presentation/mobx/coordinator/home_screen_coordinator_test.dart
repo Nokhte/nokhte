@@ -13,7 +13,6 @@ import '../../../../shared/shared_mocks.mocks.dart';
 import '../../../fixtures/home_stack_mock_gen.mocks.dart';
 
 void main() {
-  late MockAddNameToDatabaseStore mockAddNameToDatabase;
   late MockGetExistingCollaborationsInfoStore mockGetExistingCollaborationInfo;
   late HomeScreenWidgetsCoordinator mockWidgets;
   late HomeScreenCoordinator testStore;
@@ -30,7 +29,6 @@ void main() {
   late TimeAlignmentModelCoordinator timeModel;
 
   setUp(() {
-    mockAddNameToDatabase = MockAddNameToDatabaseStore();
     mockDelete = MockDeleteUnconsecratedCollaborationsCoordinator();
     mockDeepLinks = MockDeepLinksCoordinator();
     mockGetExistingCollaborationInfo = MockGetExistingCollaborationsInfoStore();
@@ -69,8 +67,6 @@ void main() {
       ),
       deleteUnconsecratedCollaborations: mockDelete,
       swipe: SwipeDetector(),
-      addNameToDatabaseStore: mockAddNameToDatabase,
-      getExistingCollaborationInfo: mockGetExistingCollaborationInfo,
       userInformation: mockUserInformation,
       widgets: mockWidgets,
     );
@@ -82,8 +78,6 @@ void main() {
           .thenAnswer((realInvocation) => true);
       await testStore.constructor();
       verify(mockUserInformation.getUserInfoStore(NoParams()));
-      verify(mockGetExistingCollaborationInfo(NoParams()));
-      verify(mockAddNameToDatabase(NoParams()));
     });
 
     test("!hasGoneThroughInvitationFlow", () async {
@@ -91,8 +85,6 @@ void main() {
           .thenAnswer((realInvocation) => false);
       await testStore.constructor();
       verify(mockUserInformation.getUserInfoStore(NoParams()));
-      verify(mockGetExistingCollaborationInfo(NoParams()));
-      verify(mockAddNameToDatabase(NoParams()));
     });
   });
 }

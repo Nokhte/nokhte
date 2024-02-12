@@ -83,9 +83,7 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
       callType: GetChannelIdParams.forNokhteSession,
     );
     initReactors();
-    await presence.listen();
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
+
     await logic.checkIfUserHasTheQuestion();
     widgets.setHasTheQuesion(logic.hasTheQuestion);
     if (logic.hasTheQuestion) {
@@ -125,7 +123,10 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
 
   initReactors() {
     speakerCountReactor();
-    voiceCall.initReactors(onBothJoinedCall: () {
+    voiceCall.initReactors(onBothJoinedCall: () async {
+      await presence
+          .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
+      await presence.listen();
       setDisableAllTouchFeedback(false);
       canSwipeUp = true;
     });

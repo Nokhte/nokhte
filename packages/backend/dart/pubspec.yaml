@@ -14,8 +14,6 @@ dependencies:
   http: ^1.1.0
   intl: ^0.18.1
   supabase_flutter: ^1.10.9
-  nokhte_core:
-    path: ../../core
 
 dev_dependencies:
   flutter_test:

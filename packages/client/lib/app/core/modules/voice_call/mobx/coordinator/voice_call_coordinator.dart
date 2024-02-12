@@ -40,6 +40,9 @@ abstract class _VoiceCallCoordinatorBase extends BaseMobxDBStore with Store {
   bool isInitialized = false;
 
   @observable
+  bool isInitialJoin = true;
+
+  @observable
   String channelId = "";
 
   @observable
@@ -120,10 +123,11 @@ abstract class _VoiceCallCoordinatorBase extends BaseMobxDBStore with Store {
     Function onBothJoinedCall,
   ) =>
       reaction((p0) => voiceCallStatusStore.hasCollaboratorJoined, (p0) async {
-        if (p0) {
+        if (p0 && isInitialJoin) {
           onBothJoinedCall();
-          incidentsOverlayWidgetStore.setShowWaitingOnCollaborator(false);
+          incidentsOverlayWidgetStore.setShowJoiningCall(false);
           blur.reverse();
+          isInitialJoin = false;
         }
       });
 
