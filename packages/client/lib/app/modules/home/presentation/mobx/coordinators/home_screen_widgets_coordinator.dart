@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -46,6 +47,9 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   @observable
   bool hasCompletedASession = false;
 
+  @observable
+  bool hasCompletedQueries = false;
+
   @action
   toggleGracePeriodHasExpired() =>
       gracePeriodHasExpired = !gracePeriodHasExpired;
@@ -71,6 +75,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   @action
   invitationFlowConstructor() {
     primarySmartText.startRotatingText();
+    hasCompletedQueries = true;
   }
 
   @action
@@ -88,6 +93,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
       toggleGracePeriodHasExpired();
       hasCompletedASession = true;
     }
+    hasCompletedQueries = true;
   }
 
   @action
@@ -155,7 +161,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   onGestureCrossTap(Function repeatTheFlow) {
-    if (!hasInitiatedBlur && !isEnteringNokhteSession) {
+    if (!hasInitiatedBlur && !isEnteringNokhteSession && hasCompletedQueries) {
       nokhteBlur.init();
       beachWaves.currentStore.setControl(Control.stop);
       toggleHasInitiatedBlur();
@@ -247,6 +253,9 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
               beachWaves.setMovieStatus(MovieStatus.inProgress);
             }
           }
+        } else if (beachWaves.movieStatus == MovieStatus.finished &&
+            isEnteringNokhteSession) {
+          Modular.to.navigate('/collaboration/pool');
         }
       });
 

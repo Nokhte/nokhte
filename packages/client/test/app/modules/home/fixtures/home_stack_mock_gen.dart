@@ -7,15 +7,12 @@ import 'package:nokhte/app/core/modules/user_information/domain/domain.dart';
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
 import 'package:nokhte/app/modules/home/data/sources/home_remote_source.dart';
 import 'package:nokhte/app/modules/home/domain/contracts/home_contract.dart';
-import 'package:nokhte/app/modules/home/domain/logic/logic.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 
 @GenerateNiceMocks([
   MockSpec<HomeRemoteSourceImpl>(),
   MockSpec<HomeContract>(),
   MockSpec<HomeRemoteSource>(),
-  MockSpec<AddNameToDatabase>(),
-  MockSpec<AddNameToDatabaseStore>(),
   MockSpec<GetExistingCollaborationsInfoStore>(),
   MockSpec<UserInformationCoordinator>(),
   MockSpec<UpdateWantsToRepeatInvitationFlow>(),

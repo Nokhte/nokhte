@@ -8,5 +8,5 @@ class GetAuthState
   GetAuthState({required this.contract});
 
   @override
-  AuthStateEntity call(NoParams params) => contract.getAuthState();
+  AuthStateEntity call(NoParams params) => contract.getAuthState(params);
 }

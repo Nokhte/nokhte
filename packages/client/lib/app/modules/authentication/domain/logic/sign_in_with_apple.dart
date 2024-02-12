@@ -11,6 +11,6 @@ class SignInWithApple
 
   @override
   Future<Either<Failure, AuthProviderEntity>> call(NoParams params) async {
-    return await contract.appleSignIn();
+    return await contract.appleSignIn(params);
   }
 }

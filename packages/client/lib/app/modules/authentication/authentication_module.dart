@@ -20,47 +20,53 @@ class AuthenticationModule extends Module {
 
   @override
   binds(i) {
-    i.addSingleton<AuthenticationRemoteSourceImpl>(
+    i.add<AuthenticationRemoteSourceImpl>(
       () => AuthenticationRemoteSourceImpl(
         supabase: Modular.get<SupabaseClient>(),
       ),
     );
-    i.addSingleton<AuthenticationContractImpl>(
+    i.add<AuthenticationContractImpl>(
       () => AuthenticationContractImpl(
         remoteSource: i<AuthenticationRemoteSourceImpl>(),
         networkInfo: Modular.get<NetworkInfoImpl>(),
       ),
     );
-    i.addSingleton<GetAuthState>(
+    i.add<AddName>(
+      () => AddName(
+        contract: i.get<AuthenticationContractImpl>(),
+      ),
+    );
+    i.add<GetAuthState>(
       () => GetAuthState(
         contract: i.get<AuthenticationContractImpl>(),
       ),
     );
-    i.addSingleton<SignInWithApple>(
+    i.add<SignInWithApple>(
       () => SignInWithApple(
         contract: i.get<AuthenticationContractImpl>(),
       ),
     );
-    i.addSingleton<SignInWithGoogle>(
+    i.add<SignInWithGoogle>(
       () => SignInWithGoogle(
         contract: i.get<AuthenticationContractImpl>(),
       ),
     );
-    i.addSingleton<SignInWithAuthProviderStore>(
+    i.add<SignInWithAuthProviderStore>(
       () => SignInWithAuthProviderStore(
         signInWithApple: i.get<SignInWithApple>(),
         signInWithGoogle: i.get<SignInWithGoogle>(),
       ),
     );
-    i.addSingleton<GetAuthStateStore>(
+    i.add<GetAuthStateStore>(
       () => GetAuthStateStore(
         logic: i<GetAuthState>(),
       ),
     );
-    i.addSingleton<LoginScreenCoordinator>(
+    i.add<LoginScreenCoordinator>(
       () => LoginScreenCoordinator(
         tap: Modular.get<TapDetector>(),
         swipe: Modular.get<SwipeDetector>(),
+        addName: Modular.get<AddName>(),
         widgets: Modular.get<LoginScreenWidgetsCoordinator>(),
         signInWithAuthProvider: i<SignInWithAuthProviderStore>(),
         authStateStore: i<GetAuthStateStore>(),
