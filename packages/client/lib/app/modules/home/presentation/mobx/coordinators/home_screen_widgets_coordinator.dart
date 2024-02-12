@@ -169,9 +169,10 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
         repeatTheFlow();
         toggleWantsToRepeatInvitationFlow();
         gestureCross.stopBlinking();
-        if (gracePeriodHasExpired) {
+        if (gracePeriodHasExpired && !hasCompletedASession) {
           primarySmartText.startRotatingText(isResuming: true);
-        } else if (!gracePeriodHasExpired) {
+        } else if (!gracePeriodHasExpired ||
+            (gracePeriodHasExpired && hasCompletedASession)) {
           primarySmartText.setCurrentIndex(1);
           primarySmartText.startRotatingText();
         }
