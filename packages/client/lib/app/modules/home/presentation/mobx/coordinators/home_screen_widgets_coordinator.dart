@@ -47,6 +47,9 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   @observable
   bool hasCompletedASession = false;
 
+  @observable
+  bool hasCompletedQueries = false;
+
   @action
   toggleGracePeriodHasExpired() =>
       gracePeriodHasExpired = !gracePeriodHasExpired;
@@ -72,6 +75,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   @action
   invitationFlowConstructor() {
     primarySmartText.startRotatingText();
+    hasCompletedQueries = true;
   }
 
   @action
@@ -89,6 +93,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
       toggleGracePeriodHasExpired();
       hasCompletedASession = true;
     }
+    hasCompletedQueries = true;
   }
 
   @action
@@ -156,7 +161,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   onGestureCrossTap(Function repeatTheFlow) {
-    if (!hasInitiatedBlur && !isEnteringNokhteSession) {
+    if (!hasInitiatedBlur && !isEnteringNokhteSession && hasCompletedQueries) {
       nokhteBlur.init();
       beachWaves.currentStore.setControl(Control.stop);
       toggleHasInitiatedBlur();
