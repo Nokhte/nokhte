@@ -6,16 +6,11 @@ import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/mobx
 import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity_module.dart';
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information_module.dart';
-import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/widgets/modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/collaboration/collaboration_logic_module.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
-import 'package:nokhte/app/modules/home/data/contracts/home_contract_impl.dart';
-import 'package:nokhte/app/modules/home/data/sources/home_remote_source.dart';
-import 'package:nokhte/app/modules/home/domain/logic/logic.dart';
 import 'package:nokhte/app/modules/home/presentation/presentation.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'home_widgets_module.dart';
 
 class HomeModule extends Module {
@@ -31,38 +26,15 @@ class HomeModule extends Module {
       ];
   @override
   binds(i) {
-    i.add<HomeRemoteSourceImpl>(
-      () => HomeRemoteSourceImpl(
-        supabase: Modular.get<SupabaseClient>(),
-      ),
-    );
-    i.add<HomeContractImpl>(
-      () => HomeContractImpl(
-        remoteSource: i<HomeRemoteSourceImpl>(),
-        networkInfo: Modular.get<NetworkInfoImpl>(),
-      ),
-    );
-    i.add<GetExistingCollaborationsInfo>(
-      () => GetExistingCollaborationsInfo(
-        contract: i<HomeContractImpl>(),
-      ),
-    );
-    i.add<GetExistingCollaborationsInfoStore>(
-      () => GetExistingCollaborationsInfoStore(
-        logic: i<GetExistingCollaborationsInfo>(),
-      ),
-    );
-
     i.add<HomeScreenCoordinator>(
       () => HomeScreenCoordinator(
-        deepLinks: Modular.get<DeepLinksCoordinator>(),
-        collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
         deleteUnconsecratedCollaborations:
             Modular.get<DeleteUnconsecratedCollaborationsCoordinator>(),
         userInformation: Modular.get<UserInformationCoordinator>(),
+        collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
         swipe: Modular.get<SwipeDetector>(),
-        getExistingCollaborationInfo: i<GetExistingCollaborationsInfoStore>(),
         widgets: Modular.get<HomeScreenWidgetsCoordinator>(),
+        deepLinks: Modular.get<DeepLinksCoordinator>(),
       ),
     );
   }
