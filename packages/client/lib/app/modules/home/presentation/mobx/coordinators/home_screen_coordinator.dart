@@ -49,9 +49,9 @@ abstract class _HomeScreenCoordinatorBase extends BaseCoordinator with Store {
     } else {
       widgets.invitationFlowConstructor();
     }
-    await deleteUnconsecratedCollaborations(NoParams());
-    initReactors();
     setDisableAllTouchFeedback(false);
+    initReactors();
+    await deleteUnconsecratedCollaborations(NoParams());
   }
 
   initReactors() {
