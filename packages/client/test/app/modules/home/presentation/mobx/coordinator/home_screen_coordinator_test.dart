@@ -67,7 +67,6 @@ void main() {
       ),
       deleteUnconsecratedCollaborations: mockDelete,
       swipe: SwipeDetector(),
-      getExistingCollaborationInfo: mockGetExistingCollaborationInfo,
       userInformation: mockUserInformation,
       widgets: mockWidgets,
     );
