@@ -50,7 +50,7 @@ void main() {
     verify(testStore.gestureCross.setCollaborationHomeScreen());
     verify(testStore.smartText
         .setMessagesData(MessagesData.firstTimeCollaborationList));
-    verify(testStore.gradientTreeNode.setWidgetVisibility(true));
+    verify(testStore.gradientTreeNode.setWidgetVisibility(false));
   });
 
   group("smartTextDependent", () {
