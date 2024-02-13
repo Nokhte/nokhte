@@ -33,6 +33,9 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   @observable
   bool hasSwipedUp = false;
 
+  @observable
+  ResumeOnShoreParams params = ResumeOnShoreParams.initial();
+
   @action
   toggleHasSwipedUp() => hasSwipedUp = !hasSwipedUp;
 

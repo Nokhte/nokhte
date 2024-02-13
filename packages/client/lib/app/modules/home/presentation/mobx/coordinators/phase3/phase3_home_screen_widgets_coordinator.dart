@@ -21,7 +21,7 @@ abstract class _Phase3HomeScreenWidgetsCoordinatorBase
   });
 
   @observable
-  ResumeOnShoreParams params = ResumeOnShoreParams.initial();
+  bool gracePeriodHasExpired = false;
 
   @action
   constructor() {

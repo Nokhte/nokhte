@@ -21,9 +21,6 @@ abstract class _Phase1HomeScreenWidgetsCoordinatorBase
     required super.primarySmartText,
   });
 
-  @observable
-  ResumeOnShoreParams params = ResumeOnShoreParams.initial();
-
   @action
   constructor() {
     if (Modular.args.data["resumeOnShoreParams"] != null) {

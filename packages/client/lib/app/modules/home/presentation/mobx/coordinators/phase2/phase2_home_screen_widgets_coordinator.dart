@@ -31,9 +31,6 @@ abstract class _Phase2HomeScreenWidgetsCoordinatorBase
   toggleGracePeriodHasExpired() =>
       gracePeriodHasExpired = !gracePeriodHasExpired;
 
-  @observable
-  ResumeOnShoreParams params = ResumeOnShoreParams.initial();
-
   @action
   constructor() {
     if (Modular.args.data["resumeOnShoreParams"] != null) {
