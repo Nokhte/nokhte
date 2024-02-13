@@ -73,19 +73,23 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
 
   @action
   prepForNavigation({bool excludeUnBlur = false}) {
-    toggleHasSwipedUp();
-    if (!excludeUnBlur) {
-      nokhteBlur.reverse();
+    if (!hasSwipedUp) {
+      toggleHasSwipedUp();
+
+      if (!excludeUnBlur) {
+        nokhteBlur.reverse();
+      }
+      gestureCross.stopBlinking();
+      if (primarySmartText.currentIndex == 0) {
+        primarySmartText.toggleWidgetVisibility();
+      } else {
+        primarySmartText.startRotatingText(isResuming: true);
+      }
+      beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDive);
+      beachWaves.currentStore
+          .initMovie(beachWaves.currentAnimationValues.first);
+      gestureCross.initMoveAndRegenerate(CircleOffsets.top);
     }
-    gestureCross.stopBlinking();
-    if (primarySmartText.currentIndex == 0) {
-      primarySmartText.toggleWidgetVisibility();
-    } else {
-      primarySmartText.startRotatingText(isResuming: true);
-    }
-    beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDive);
-    beachWaves.currentStore.initMovie(beachWaves.currentAnimationValues.first);
-    gestureCross.initMoveAndRegenerate(CircleOffsets.top);
   }
 
   @observable

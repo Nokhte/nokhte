@@ -43,12 +43,7 @@ abstract class _Phase3HomeScreenWidgetsCoordinatorBase
   }
 
   @action
-  onSwipeUp() {
-    if (!hasSwipedUp) {
-      toggleHasSwipedUp();
-      prepForNavigation(excludeUnBlur: !hasSwipedUp);
-    }
-  }
+  onSwipeUp() => prepForNavigation(excludeUnBlur: !hasInitiatedBlur);
 
   gestureCrossTapReactor() => reaction(
         (p0) => gestureCross.tapCount,
