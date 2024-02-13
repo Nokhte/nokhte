@@ -1,3 +1,4 @@
+import 'package:nokhte/app/core/modules/user_information/data/data.dart';
 import 'package:nokhte/app/modules/authentication/data/models/models.dart';
 import 'package:nokhte/app/core/interfaces/auth_providers.dart';
 import 'package:nokhte_backend/tables/user_names.dart';
@@ -13,11 +14,13 @@ abstract class AuthenticationRemoteSource {
   Future<AuthProviderModel> signInWithApple();
   AuthStateModel getAuthState();
   Future<List> addName({String theName = ""});
+  Future<List> getUserInfo();
 }
 
 class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
   final SupabaseClient supabase;
   late UserNamesQueries queries;
+  late UserInformationRemoteSourceImpl userInfoRemoteSource;
 
   AuthenticationRemoteSourceImpl({required this.supabase})
       : queries = UserNamesQueries(supabase: supabase);
@@ -92,5 +95,11 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
       insertRes = [];
     }
     return nameCheck.isEmpty ? insertRes : nameCheck;
+  }
+
+  @override
+  Future<List> getUserInfo() async {
+    queries = UserNamesQueries(supabase: supabase);
+    return await queries.getUserInfo();
   }
 }
