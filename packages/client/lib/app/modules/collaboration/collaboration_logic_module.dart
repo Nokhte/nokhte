@@ -15,7 +15,7 @@ class CollaborationLogicModule extends Module {
       ];
 
   @override
-  void binds(Injector i) {
+  void exportedBinds(Injector i) {
     i.add<CollaborationRemoteSourceImpl>(
       () => CollaborationRemoteSourceImpl(
         supabase: Modular.get<SupabaseClient>(),
