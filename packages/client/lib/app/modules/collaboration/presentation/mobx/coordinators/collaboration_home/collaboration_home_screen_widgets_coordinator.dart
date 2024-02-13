@@ -47,7 +47,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
     beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtOceanDive);
     gestureCross.setCollaborationHomeScreen();
     smartText.setMessagesData(MessagesData.firstTimeCollaborationList);
-    gradientTreeNode.setWidgetVisibility(true);
+    gradientTreeNode.setWidgetVisibility(false);
   }
 
   @action
