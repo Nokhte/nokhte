@@ -21,8 +21,33 @@ class HomeWidgetsModule extends Module {
     i.add<NokhteBlurStore>(
       () => NokhteBlurStore(),
     );
-    i.add<HomeScreenWidgetsCoordinator>(
-      () => HomeScreenWidgetsCoordinator(
+    i.add<Phase0HomeScreenWidgetsCoordinator>(
+      () => Phase0HomeScreenWidgetsCoordinator(
+        gestureCross: Modular.get<GestureCrossStore>(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        beachWaves: Modular.get<BeachWavesStore>(),
+      ),
+    );
+    i.add<Phase1HomeScreenWidgetsCoordinator>(
+      () => Phase1HomeScreenWidgetsCoordinator(
+        nokhteBlur: Modular.get<NokhteBlurStore>(),
+        primarySmartText: Modular.get<SmartTextStore>(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        gestureCross: Modular.get<GestureCrossStore>(),
+        beachWaves: Modular.get<BeachWavesStore>(),
+      ),
+    );
+    i.add<Phase2HomeScreenWidgetsCoordinator>(
+      () => Phase2HomeScreenWidgetsCoordinator(
+        nokhteBlur: Modular.get<NokhteBlurStore>(),
+        primarySmartText: Modular.get<SmartTextStore>(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        gestureCross: Modular.get<GestureCrossStore>(),
+        beachWaves: Modular.get<BeachWavesStore>(),
+      ),
+    );
+    i.add<Phase3HomeScreenWidgetsCoordinator>(
+      () => Phase3HomeScreenWidgetsCoordinator(
         nokhteBlur: Modular.get<NokhteBlurStore>(),
         primarySmartText: Modular.get<SmartTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
