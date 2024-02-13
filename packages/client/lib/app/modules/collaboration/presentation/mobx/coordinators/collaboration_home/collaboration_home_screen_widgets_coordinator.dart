@@ -47,7 +47,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
     beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtOceanDive);
     gestureCross.setCollaborationHomeScreen();
     smartText.setMessagesData(MessagesData.firstTimeCollaborationList);
-    gradientTreeNode.toggleWidgetVisibility();
+    gradientTreeNode.setWidgetVisibility(true);
   }
 
   @action
@@ -79,7 +79,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
 
   @action
   enterCollaboratorPoolConstructor() {
-    gradientTreeNode.toggleWidgetVisibility();
+    gradientTreeNode.setWidgetVisibility(false);
     toggleShouldEnterCollaboratorPool();
   }
 
@@ -99,9 +99,9 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
     beachWaves.setMovieMode(BeachWaveMovieModes.oceanDiveToTimesUp);
     beachWaves.currentStore.initMovie(NoParams());
     gestureCross.toggleAll();
-    if (gradientTreeNode.showWidget) {
-      gradientTreeNode.toggleWidgetVisibility();
-    }
+    // if (gradientTreeNode.showWidget) {
+    gradientTreeNode.setWidgetVisibility(false);
+    // }
     if (smartText.showWidget) {
       smartText.toggleWidgetVisibility();
     }
@@ -118,9 +118,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
 
   @action
   onSwipeDown() {
-    if (gradientTreeNode.showWidget) {
-      gradientTreeNode.toggleWidgetVisibility();
-    }
+    gradientTreeNode.setWidgetVisibility(false);
     smartText.pause();
     smartText.toggleWidgetVisibility();
     gestureCross.initMoveAndRegenerate(CircleOffsets.bottom);
@@ -141,7 +139,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
   smartTextReactor(Function onFlowCompleted) =>
       reaction((p0) => smartText.currentIndex, (p0) {
         if (p0 == 1) {
-          gradientTreeNode.toggleWidgetVisibility();
+          gradientTreeNode.setWidgetVisibility(true);
           onFlowCompleted();
         }
       });

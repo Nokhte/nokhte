@@ -31,9 +31,6 @@ abstract class _Phase2HomeScreenWidgetsCoordinatorBase
   toggleGracePeriodHasExpired() =>
       gracePeriodHasExpired = !gracePeriodHasExpired;
 
-  @observable
-  ResumeOnShoreParams params = ResumeOnShoreParams.initial();
-
   @action
   constructor() {
     if (Modular.args.data["resumeOnShoreParams"] != null) {
@@ -61,12 +58,7 @@ abstract class _Phase2HomeScreenWidgetsCoordinatorBase
   }
 
   @action
-  onSwipeUp() {
-    if (!hasSwipedUp) {
-      toggleHasSwipedUp();
-      prepForNavigation(excludeUnBlur: !hasSwipedUp);
-    }
-  }
+  onSwipeUp() => prepForNavigation(excludeUnBlur: !hasInitiatedBlur);
 
   gestureCrossTapReactor() => reaction(
         (p0) => gestureCross.tapCount,

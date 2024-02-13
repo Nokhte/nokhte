@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/shared/base_home_screen_widgets_coordinator.dart';
@@ -21,7 +22,11 @@ abstract class _Phase3HomeScreenWidgetsCoordinatorBase
   });
 
   @observable
-  ResumeOnShoreParams params = ResumeOnShoreParams.initial();
+  bool gracePeriodHasExpired = false;
+
+  @action
+  toggleGracePeriodHasExpired() =>
+      gracePeriodHasExpired = !gracePeriodHasExpired;
 
   @action
   constructor() {
@@ -32,6 +37,13 @@ abstract class _Phase3HomeScreenWidgetsCoordinatorBase
     beachWaves.currentStore.initMovie(Modular.args.data["resumeOnShoreParams"]);
     gestureCross.setHomeScreen();
     primarySmartText.setMessagesData(MessagesData.firstTimeHomeList);
+    Future.delayed(Seconds.get(3), () {
+      if (!hasSwipedUp) {
+        gestureCross.startBlinking();
+        primarySmartText.startRotatingText();
+        toggleGracePeriodHasExpired();
+      }
+    });
     initReactors();
   }
 
@@ -43,12 +55,7 @@ abstract class _Phase3HomeScreenWidgetsCoordinatorBase
   }
 
   @action
-  onSwipeUp() {
-    if (!hasSwipedUp) {
-      toggleHasSwipedUp();
-      prepForNavigation(excludeUnBlur: !hasSwipedUp);
-    }
-  }
+  onSwipeUp() => prepForNavigation(excludeUnBlur: !hasInitiatedBlur);
 
   gestureCrossTapReactor() => reaction(
         (p0) => gestureCross.tapCount,
@@ -62,9 +69,12 @@ abstract class _Phase3HomeScreenWidgetsCoordinatorBase
       beachWaves.currentStore.setControl(Control.stop);
       toggleHasInitiatedBlur();
       gestureCross.stopBlinking();
-
-      primarySmartText.setCurrentIndex(1);
-      primarySmartText.startRotatingText();
+      if (gracePeriodHasExpired) {
+        primarySmartText.startRotatingText(isResuming: true);
+      } else {
+        primarySmartText.setCurrentIndex(1);
+        primarySmartText.startRotatingText();
+      }
     }
   }
 }
