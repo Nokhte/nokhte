@@ -1,27 +1,25 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'home_screen_widgets_coordinator.g.dart';
+part 'base_home_screen_widgets_coordinator.g.dart';
 
-class HomeScreenWidgetsCoordinator = _HomeScreenWidgetsCoordinatorBase
-    with _$HomeScreenWidgetsCoordinator;
+class BaseHomeScreenWidgetsCoordinator = _BaseHomeScreenWidgetsCoordinatorBase
+    with _$BaseHomeScreenWidgetsCoordinator;
 
-abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
-    with Store {
+abstract class _BaseHomeScreenWidgetsCoordinatorBase
+    extends BaseWidgetsCoordinator with Store {
   final NokhteBlurStore nokhteBlur;
   final BeachWavesStore beachWaves;
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final GestureCrossStore gestureCross;
   final SmartTextStore primarySmartText;
 
-  _HomeScreenWidgetsCoordinatorBase({
+  _BaseHomeScreenWidgetsCoordinatorBase({
     required this.nokhteBlur,
     required this.beachWaves,
     required this.wifiDisconnectOverlay,
@@ -30,71 +28,13 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   });
 
   @observable
-  bool hasCompletedInvitationFlow = false;
-
-  @observable
-  bool wantsToRepeatInvitationFlow = false;
-
-  @observable
   bool isEnteringNokhteSession = false;
 
   @observable
   bool hasSwipedUp = false;
 
-  @observable
-  bool gracePeriodHasExpired = false;
-
-  @observable
-  bool hasCompletedASession = false;
-
-  @observable
-  bool hasCompletedQueries = false;
-
-  @action
-  toggleGracePeriodHasExpired() =>
-      gracePeriodHasExpired = !gracePeriodHasExpired;
-
   @action
   toggleHasSwipedUp() => hasSwipedUp = !hasSwipedUp;
-
-  @action
-  toggleWantsToRepeatInvitationFlow() =>
-      wantsToRepeatInvitationFlow = !wantsToRepeatInvitationFlow;
-
-  @action
-  toggleHasCompletedInvitationFlow() =>
-      hasCompletedInvitationFlow = !hasCompletedInvitationFlow;
-
-  @action
-  constructor() {
-    gestureCross.setHomeScreen();
-    beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
-    primarySmartText.setMessagesData(MessagesData.firstTimeHomeList);
-  }
-
-  @action
-  invitationFlowConstructor() {
-    primarySmartText.startRotatingText();
-    hasCompletedQueries = true;
-  }
-
-  @action
-  postInvitationFlowConstructor({required bool hasDoneASession}) {
-    toggleHasCompletedInvitationFlow();
-    if (!hasDoneASession) {
-      Future.delayed(Seconds.get(3), () {
-        if (!hasSwipedUp) {
-          gestureCross.startBlinking();
-          primarySmartText.startRotatingText();
-          toggleGracePeriodHasExpired();
-        }
-      });
-    } else {
-      toggleGracePeriodHasExpired();
-      hasCompletedASession = true;
-    }
-    hasCompletedQueries = true;
-  }
 
   @action
   onConnected() {
@@ -148,40 +88,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     gestureCross.initMoveAndRegenerate(CircleOffsets.top);
   }
 
-  @action
-  onSwipeUp() {
-    if (primarySmartText.currentIndex.equals(1) &&
-        !hasSwipedUp &&
-        !hasCompletedInvitationFlow) {
-      prepForNavigation();
-    } else if (!hasSwipedUp && hasCompletedInvitationFlow) {
-      prepForNavigation(excludeUnBlur: true);
-    }
-  }
-
-  @action
-  onGestureCrossTap(Function repeatTheFlow) {
-    if (!hasInitiatedBlur && !isEnteringNokhteSession && hasCompletedQueries) {
-      nokhteBlur.init();
-      beachWaves.currentStore.setControl(Control.stop);
-      toggleHasInitiatedBlur();
-      if (hasCompletedInvitationFlow || hasCompletedASession) {
-        repeatTheFlow();
-        toggleWantsToRepeatInvitationFlow();
-        gestureCross.stopBlinking();
-        if (gracePeriodHasExpired && !hasCompletedASession) {
-          primarySmartText.startRotatingText(isResuming: true);
-        } else if (!gracePeriodHasExpired ||
-            (gracePeriodHasExpired && hasCompletedASession)) {
-          primarySmartText.setCurrentIndex(1);
-          primarySmartText.startRotatingText();
-        }
-      } else {
-        primarySmartText.startRotatingText(isResuming: true);
-      }
-    }
-  }
-
   @observable
   bool hasInitiatedBlur = false;
 
@@ -195,8 +101,7 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   @action
   toggleHasInitiatedBlur() => hasInitiatedBlur = !hasInitiatedBlur;
 
-  initReactors(Function repeatTheFlow) {
-    gestureCrossTapReactor(repeatTheFlow);
+  initReactors() {
     nokhteBlurReactor();
     centerCrossNokhteReactor();
   }
@@ -208,11 +113,6 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
           gestureCross.strokeCrossNokhte.toggleWidgetVisibility();
         }
       });
-
-  gestureCrossTapReactor(Function repeatTheFlow) => reaction(
-        (p0) => gestureCross.tapCount,
-        (p0) => onGestureCrossTap(repeatTheFlow),
-      );
 
   @action
   onLongReconnected() {
@@ -253,6 +153,9 @@ abstract class _HomeScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
             } else {
               beachWaves.setMovieStatus(MovieStatus.inProgress);
             }
+          } else if (p0 == MovieStatus.finished &&
+              beachWaves.movieMode == BeachWaveMovieModes.resumeOnShore) {
+            beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
           }
         } else if (beachWaves.movieStatus == MovieStatus.finished &&
             isEnteringNokhteSession) {

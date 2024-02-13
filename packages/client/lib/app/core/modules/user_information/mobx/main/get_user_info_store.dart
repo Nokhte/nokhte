@@ -4,6 +4,7 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/user_information/domain/domain.dart';
+import 'package:nokhte/app/core/modules/user_information/shared/shared.dart';
 part 'get_user_info_store.g.dart';
 
 class GetUserInfoStore = _GetUserInfoStoreBase with _$GetUserInfoStore;
@@ -28,7 +29,7 @@ abstract class _GetUserInfoStoreBase
   @observable
   UserJourneyInfoEntity entity = UserJourneyInfoEntity.initial();
 
-  final GetUserInfo logic;
+  final BaseGetUserInfo logic;
   _GetUserInfoStoreBase({required this.logic});
 
   @observable

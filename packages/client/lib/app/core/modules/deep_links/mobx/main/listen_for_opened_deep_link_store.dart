@@ -61,8 +61,8 @@ abstract class _ListenForOpenedDeepLinkStoreBase extends Equatable with Store {
               usersUID: getUserInfo.entity.userUID,
             ),
           );
-          path = res.path;
           additionalMetadata = ObservableMap.of(res.additionalMetadata);
+          path = res.path;
         }
       }
     });

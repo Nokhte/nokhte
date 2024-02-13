@@ -26,14 +26,36 @@ class HomeModule extends Module {
       ];
   @override
   binds(i) {
-    i.add<HomeScreenCoordinator>(
-      () => HomeScreenCoordinator(
+    i.add<Phase0HomeScreenCoordinator>(
+      () => Phase0HomeScreenCoordinator(
         deleteUnconsecratedCollaborations:
             Modular.get<DeleteUnconsecratedCollaborationsCoordinator>(),
-        userInformation: Modular.get<UserInformationCoordinator>(),
+        getUserInfo: Modular.get<GetUserInfoStore>(),
+        collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
+        widgets: Modular.get<Phase0HomeScreenWidgetsCoordinator>(),
+      ),
+    );
+    i.add<Phase1HomeScreenCoordinator>(
+      () => Phase1HomeScreenCoordinator(
         collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
         swipe: Modular.get<SwipeDetector>(),
-        widgets: Modular.get<HomeScreenWidgetsCoordinator>(),
+        widgets: Modular.get<Phase1HomeScreenWidgetsCoordinator>(),
+        deepLinks: Modular.get<DeepLinksCoordinator>(),
+      ),
+    );
+    i.add<Phase2HomeScreenCoordinator>(
+      () => Phase2HomeScreenCoordinator(
+        collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
+        swipe: Modular.get<SwipeDetector>(),
+        widgets: Modular.get<Phase2HomeScreenWidgetsCoordinator>(),
+        deepLinks: Modular.get<DeepLinksCoordinator>(),
+      ),
+    );
+    i.add<Phase3HomeScreenCoordinator>(
+      () => Phase3HomeScreenCoordinator(
+        collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
+        swipe: Modular.get<SwipeDetector>(),
+        widgets: Modular.get<Phase3HomeScreenWidgetsCoordinator>(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
       ),
     );
@@ -44,8 +66,29 @@ class HomeModule extends Module {
     r.child(
       "/",
       transition: TransitionType.noTransition,
-      child: (context) => HomeScreen(
-        coordinator: Modular.get<HomeScreenCoordinator>(),
+      child: (context) => Phase0HomeScreen(
+        coordinator: Modular.get<Phase0HomeScreenCoordinator>(),
+      ),
+    );
+    r.child(
+      "/phase1",
+      transition: TransitionType.noTransition,
+      child: (context) => Phase1HomeScreen(
+        coordinator: Modular.get<Phase1HomeScreenCoordinator>(),
+      ),
+    );
+    r.child(
+      "/phase2",
+      transition: TransitionType.noTransition,
+      child: (context) => Phase2HomeScreen(
+        coordinator: Modular.get<Phase2HomeScreenCoordinator>(),
+      ),
+    );
+    r.child(
+      "/phase3",
+      transition: TransitionType.noTransition,
+      child: (context) => Phase3HomeScreen(
+        coordinator: Modular.get<Phase3HomeScreenCoordinator>(),
       ),
     );
   }
