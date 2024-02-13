@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mixins/response_to_status.dart';
+import 'package:nokhte/app/core/modules/user_information/data/data.dart';
 import 'package:nokhte/app/modules/authentication/domain/domain.dart';
 import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
@@ -50,6 +51,16 @@ class AuthenticationContractImpl
     if (await networkInfo.isConnected) {
       final res = await remoteSource.addName();
       return Right(fromSupabase(res));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
+
+  @override
+  getUserInfo(params) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.getUserInfo();
+      return Right(UserJourneyInfoModel.fromSupabase(res));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
