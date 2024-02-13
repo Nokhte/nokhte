@@ -38,7 +38,9 @@ abstract class _Phase0HomeScreenCoordinatorBase
     widgets.constructor();
     initReactors();
     await deleteUnconsecratedCollaborations(NoParams());
-    await decideAndRoute(setParams);
+    if (isConnected) {
+      await decideAndRoute(setParams);
+    }
   }
 
   @action

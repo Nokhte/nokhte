@@ -28,7 +28,7 @@ abstract class _Phase0HomeScreenWidgetsCoordinatorBase
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
     beachWaves.currentStore.setControl(Control.mirror);
-    gestureCross.setHomeScreen();
+    gestureCross.fadeInTheCross();
   }
 
   @action
