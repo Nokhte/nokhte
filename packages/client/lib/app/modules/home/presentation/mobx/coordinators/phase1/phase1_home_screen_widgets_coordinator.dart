@@ -46,7 +46,7 @@ abstract class _Phase1HomeScreenWidgetsCoordinatorBase
 
   @action
   onSwipeUp() {
-    if (primarySmartText.currentIndex.equals(1) && !hasSwipedUp) {
+    if (primarySmartText.currentIndex.equals(1)) {
       prepForNavigation();
     }
   }
