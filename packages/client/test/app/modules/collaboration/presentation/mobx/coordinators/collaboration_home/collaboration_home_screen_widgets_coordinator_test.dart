@@ -50,7 +50,7 @@ void main() {
     verify(testStore.gestureCross.setCollaborationHomeScreen());
     verify(testStore.smartText
         .setMessagesData(MessagesData.firstTimeCollaborationList));
-    verify(testStore.gradientTreeNode.toggleWidgetVisibility());
+    verify(testStore.gradientTreeNode.setWidgetVisibility(true));
   });
 
   group("smartTextDependent", () {
@@ -79,7 +79,7 @@ void main() {
 
   test("enterCollaboratorPoolConstructor", () {
     testStore.enterCollaboratorPoolConstructor();
-    verify(testStore.gradientTreeNode.toggleWidgetVisibility());
+    verify(testStore.gradientTreeNode.setWidgetVisibility(false));
     expect(testStore.shouldEnterCollaboratorPool, true);
   });
 
