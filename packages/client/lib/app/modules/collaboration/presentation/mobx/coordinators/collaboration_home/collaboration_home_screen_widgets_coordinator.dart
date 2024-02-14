@@ -99,12 +99,8 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
     beachWaves.setMovieMode(BeachWaveMovieModes.oceanDiveToTimesUp);
     beachWaves.currentStore.initMovie(NoParams());
     gestureCross.toggleAll();
-    // if (gradientTreeNode.showWidget) {
     gradientTreeNode.setWidgetVisibility(false);
-    // }
-    if (smartText.showWidget) {
-      smartText.toggleWidgetVisibility();
-    }
+    smartText.setWidgetVisibility(false);
   }
 
   @action
@@ -120,7 +116,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
   onSwipeDown() {
     gradientTreeNode.setWidgetVisibility(false);
     smartText.pause();
-    smartText.toggleWidgetVisibility();
+    smartText.setWidgetVisibility(false);
     gestureCross.initMoveAndRegenerate(CircleOffsets.bottom);
     beachWaves.setMovieMode(BeachWaveMovieModes.oceanDiveToOnShore);
     beachWaves.currentStore.initMovie(NoParams());
@@ -131,7 +127,6 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
 
     invitationSendStatusReactor();
     centerCrossNokhteReactor();
-    beachWavesMovieStatusReactor();
     gradientTreeNodeOpacityReactor(enterCollaboratorPool);
     gradientTreeNodeMovieStatusReactor();
   }
@@ -168,16 +163,17 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
   centerCrossNokhteReactor() =>
       reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          gestureCross.gradientNokhte.toggleWidgetVisibility();
-          gestureCross.strokeCrossNokhte.toggleWidgetVisibility();
+          gestureCross.gradientNokhte.setWidgetVisibility(false);
+          gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
         }
       });
 
-  beachWavesMovieStatusReactor() =>
+  beachWavesMovieStatusReactor(Function onNavigationHome) =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode == BeachWaveMovieModes.oceanDiveToOnShore) {
-            Modular.to.navigate('/home/');
+            onNavigationHome();
+            // Modular.to.navigate('/home/');
           }
         }
       });
