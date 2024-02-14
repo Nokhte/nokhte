@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/logic/logic.dart';
@@ -10,7 +9,7 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/nokhte_session/domain/logic/change_desire_to_leave.dart';
 import 'package:nokhte/app/modules/nokhte_session/presentation/mobx/coordinators/logic/nokhte_session_logic_coordinator.dart';
-import 'package:nokhte/app/modules/nokhte_session/types/question_index_type.dart';
+import 'package:nokhte/app/modules/nokhte_session/types/types.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'nokhte_session_phase1_widgets_coordinator.dart';
 part 'nokhte_session_phase1_coordinator.g.dart';
@@ -52,10 +51,7 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
   bool isTransitioningHome = false;
 
   @observable
-  Stopwatch silenceStopwatch = Stopwatch();
-
-  @observable
-  QuestionIndexType questionIndexType = QuestionIndexType.initial;
+  SpeakerIndexType speakerIndexType = SpeakerIndexType.initial;
 
   @computed
   bool get speakerCountIsOdd => speakerCount % 2 == 1;
@@ -64,11 +60,11 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
   bool get speakerCountIsEven => speakerCount % 2 == 0;
 
   @computed
-  bool get hasEvenSpeakerCounts => questionIndexType == QuestionIndexType.even;
+  bool get hasEvenSpeakerCounts => speakerIndexType == SpeakerIndexType.even;
 
   @computed
   bool get shouldIncrementSpeakerCount =>
-      questionIndexType == QuestionIndexType.even
+      speakerIndexType == SpeakerIndexType.even
           ? speakerCountIsEven
           : speakerCountIsOdd;
 
@@ -83,18 +79,9 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
       callType: GetChannelIdParams.forNokhteSession,
     );
     initReactors();
-
     await logic.checkIfUserHasTheQuestion();
     widgets.setHasTheQuesion(logic.hasTheQuestion);
-    if (logic.hasTheQuestion) {
-      questionIndexType = QuestionIndexType.even;
-      widgets.hasTheQuestionConstructor();
-      canSpeak = true;
-    } else {
-      questionIndexType = QuestionIndexType.odd;
-      widgets.doesNotHaveTheQuestionConstructor();
-      canSpeak = true;
-    }
+
     await logic.changeDesireToLeaveLogic(ChangeDesireToLeaveParams.negative);
   }
 
@@ -103,8 +90,6 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
     await presence
         .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
     await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
-    silenceStopwatch.reset();
-    silenceStopwatch.stop();
   }
 
   @action
@@ -114,11 +99,7 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
     if (presence.getSessionMetadataStore.collaboratorIsOnline) {
       presence.incidentsOverlayStore.onCollaboratorJoined();
     }
-    if (!widgets.isDisconnected) {
-      if (speakerCount.isGreaterThan(0)) {
-        silenceStopwatch.start();
-      }
-    }
+    if (!widgets.isDisconnected) {}
   }
 
   initReactors() {
@@ -127,19 +108,22 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
       await presence
           .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
       await presence.listen();
+      if (logic.hasTheQuestion) {
+        speakerIndexType = SpeakerIndexType.even;
+        widgets.showSecondaryText();
+        canSpeak = true;
+      } else {
+        speakerIndexType = SpeakerIndexType.odd;
+        canSpeak = true;
+      }
       setDisableAllTouchFeedback(false);
       canSwipeUp = true;
     });
     presence.initReactors(
       onCollaboratorJoined: () {
-        if (speakerCount.isGreaterThan(0)) {
-          silenceStopwatch.start();
-        }
         setDisableAllTouchFeedback(false);
       },
       onCollaboratorLeft: () async {
-        silenceStopwatch.reset();
-        silenceStopwatch.stop();
         setDisableAllTouchFeedback(true);
         await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
       },
@@ -150,9 +134,6 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
     letGoReactor();
     widgets.wifiDisconnectOverlayReactor(
       onConnectionFinished: () async {
-        if (speakerCount.isGreaterThan(0)) {
-          silenceStopwatch.start();
-        }
         await presence
             .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
       },
@@ -167,8 +148,6 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
               voiceCall.voiceCallStatusStore.inCall == CallStatus.joined &&
               !widgets.isDisconnected &&
               presence.getSessionMetadataStore.collaboratorIsOnline) {
-            silenceStopwatch.reset();
-            silenceStopwatch.stop();
             await presence
                 .updateWhoIsTalking(UpdateWhoIsTalkingParams.setUserAsTalker);
           }
@@ -181,12 +160,8 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
             !widgets.isDisconnected &&
             presence.getSessionMetadataStore.collaboratorIsOnline) {
           await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
-          silenceStopwatch.start();
           if (shouldIncrementSpeakerCount) {
             speakerCount++;
-            if (speakerCount == 3 && hasEvenSpeakerCounts) {
-              widgets.primarySmartText.startRotatingText(isResuming: true);
-            }
           }
         }
       });
@@ -194,23 +169,10 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
   collaboratorTalkingStatusReactor() =>
       reaction((p0) => presence.getSessionMetadataStore.collaboratorIsTalking,
           (p0) {
-        if (speakerCount == 0 && !hasEvenSpeakerCounts) {
-          widgets.primarySmartText.startRotatingText(isResuming: true);
-        }
         if (p0) {
           canSpeak = false;
-          silenceStopwatch.reset();
-          silenceStopwatch.stop();
         } else {
-          silenceStopwatch.start();
-          if (speakerCount == 0 && !hasEvenSpeakerCounts) {
-            Timer.periodic(Seconds.get(9), (timer) {
-              if (silenceStopwatch.elapsedMilliseconds.isGreaterThan(9000)) {
-                widgets.primarySmartText.startRotatingText(isResuming: true);
-                timer.cancel();
-              }
-            });
-          }
+          if (speakerCount == 0 && !hasEvenSpeakerCounts) {}
           if (!shouldIncrementSpeakerCount) {
             speakerCount++;
           }
@@ -224,20 +186,9 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
             !widgets.isDisconnected &&
             presence.getSessionMetadataStore.collaboratorIsOnline) {
           hasSwipedUp = true;
-          await logic
-              .changeDesireToLeaveLogic(ChangeDesireToLeaveParams.affirmative);
           await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
-          widgets.initWaitingWidgets(
-            isReadyToExit: presence.getSessionMetadataStore.isAllowedToExit,
-          );
-          Timer(Seconds.get(5), () async {
-            if (!isTransitioningHome) {
-              hasSwipedUp = false;
-              await logic
-                  .changeDesireToLeaveLogic(ChangeDesireToLeaveParams.negative);
-              widgets.revertWaitingWidgets();
-            }
-          });
+          await voiceCall.leaveCall();
+          widgets.initTransitionToWaiting();
         }
       });
 

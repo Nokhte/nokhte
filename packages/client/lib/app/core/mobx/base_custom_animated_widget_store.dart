@@ -14,7 +14,7 @@ abstract class _BaseCustomAnimatedWidgetStoreBase<T> extends Equatable
     this.callsOnCompleteTwice = false,
   });
 
-  final bool callsOnCompleteTwice;
+  bool callsOnCompleteTwice;
 
   @observable
   MovieTween movie = MovieTween();
@@ -42,6 +42,9 @@ abstract class _BaseCustomAnimatedWidgetStoreBase<T> extends Equatable
 
   @action
   toggleHasFadedIn() => hasFadedIn = !hasFadedIn;
+
+  @action
+  setHasFadedIn(bool newVal) => hasFadedIn = newVal;
 
   @action
   toggleWidgetVisibility() => showWidget = !showWidget;

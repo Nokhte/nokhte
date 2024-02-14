@@ -18,17 +18,14 @@ abstract class _VoiceCallCoordinatorBase extends BaseMobxDBStore with Store {
   final GetChannelId getChannelIdLogic;
   final InitAgoraSdk initAgoraSdkLogic;
   final VoiceCallIncidentsOverlayStore incidentsOverlayWidgetStore;
-  final NokhteBlurStore blur;
   _VoiceCallCoordinatorBase({
     required this.voiceCallStatusStore,
     required this.voiceCallActionsStore,
     required this.getAgoraTokenLogic,
     required this.getChannelIdLogic,
     required this.initAgoraSdkLogic,
-    required this.blur,
   }) : incidentsOverlayWidgetStore = VoiceCallIncidentsOverlayStore(
           voiceCallStatusStore: voiceCallStatusStore,
-          blur: blur,
         );
 
   @action
@@ -126,7 +123,6 @@ abstract class _VoiceCallCoordinatorBase extends BaseMobxDBStore with Store {
         if (p0 && isInitialJoin) {
           onBothJoinedCall();
           incidentsOverlayWidgetStore.setShowJoiningCall(false);
-          blur.reverse();
           isInitialJoin = false;
         }
       });

@@ -42,9 +42,17 @@ class NokhteSessionWidgetsModule extends Module {
         borderGlow: i<BorderGlowStore>(),
         beachWaves: Modular.get<BeachWavesStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        primarySmartText: Modular.get<SmartTextStore>(),
         secondarySmartText: Modular.get<SmartTextStore>(),
         textEditor: Modular.get<TextEditorStore>(),
+      ),
+    );
+    i.add<NokhteSessionPhase2WidgetsCoordinator>(
+      () => NokhteSessionPhase2WidgetsCoordinator(
+        gestureCross: i<GestureCrossStore>(),
+        waitingText: i<WaitingTextStore>(),
+        blur: i<NokhteBlurStore>(),
+        beachWaves: Modular.get<BeachWavesStore>(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
       ),
     );
   }

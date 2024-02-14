@@ -10,6 +10,7 @@ import 'package:nokhte/app/modules/nokhte_session/data/data.dart';
 import 'package:nokhte/app/modules/nokhte_session/domain/domain.dart';
 import 'package:nokhte/app/modules/nokhte_session/presentation/mobx/coordinators/logic/nokhte_session_logic_coordinator.dart';
 import 'package:nokhte/app/modules/nokhte_session/presentation/presentation.dart';
+import 'package:nokhte/app/modules/nokhte_session/presentation/views/nokhte_session_phase2_wait_to_exit.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'nokhte_session_widgets_module.dart';
 
@@ -69,6 +70,16 @@ class NokhteSessionModule extends Module {
         presence: Modular.get<NokhteSessionPresenceCoordinator>(),
       ),
     );
+    i.add<NokhteSessionPhase2Coordinator>(
+      () => NokhteSessionPhase2Coordinator(
+        voiceCall: Modular.get<VoiceCallCoordinator>(),
+        hold: Modular.get<HoldDetector>(),
+        swipe: Modular.get<SwipeDetector>(),
+        logic: Modular.get<NokhteSessionLogicCoordinator>(),
+        widgets: Modular.get<NokhteSessionPhase2WidgetsCoordinator>(),
+        presence: Modular.get<NokhteSessionPresenceCoordinator>(),
+      ),
+    );
   }
 
   @override
@@ -85,6 +96,13 @@ class NokhteSessionModule extends Module {
       transition: TransitionType.noTransition,
       child: (context) => NokhteSessionPhase1Consulatation(
         coordinator: Modular.get<NokhteSessionPhase1Coordinator>(),
+      ),
+    );
+    r.child(
+      '/phase_two',
+      transition: TransitionType.noTransition,
+      child: (context) => NokhteSessionPhase2WaitToExit(
+        coordinator: Modular.get<NokhteSessionPhase2Coordinator>(),
       ),
     );
   }
