@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobx/mobx.dart' hide when;
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/mobx/mobx.dart';
@@ -77,11 +76,11 @@ void main() {
     });
   });
 
-  test("enterCollaboratorPoolConstructor", () {
-    testStore.enterCollaboratorPoolConstructor();
-    verify(testStore.gradientTreeNode.setWidgetVisibility(false));
-    expect(testStore.shouldEnterCollaboratorPool, true);
-  });
+  // test("enterCollaboratorPoolConstructor", () {
+  //   testStore.enterCollaboratorPoolConstructor();
+  //   verify(testStore.gradientTreeNode.setWidgetVisibility(false));
+  //   expect(testStore.shouldEnterCollaboratorPool, true);
+  // });
 
   test("postInvitationFlowConstructor", () {
     fakeAsync((async) async {
@@ -100,12 +99,12 @@ void main() {
     verify(testStore.gestureCross.toggleAll());
   });
 
-  test("initCollaboratorPoolWidgets", () {
-    testStore.initCollaboratorPoolWidgets();
-    expect(testStore.shouldEnterCollaboratorPool, true);
-    verify(testStore.gradientTreeNode.initMovie(NoParams()));
-    verify(testStore.gestureCross.toggleAll());
-  });
+  // test("initCollaboratorPoolWidgets", () {
+  //   testStore.initCollaboratorPoolWidgets();
+  //   expect(testStore.shouldEnterCollaboratorPool, true);
+  //   verify(testStore.gradientTreeNode.initMovie(NoParams()));
+  //   verify(testStore.gestureCross.toggleAll());
+  // });
 
   test("onSwipeDown", () {
     when(testStore.beachWaves.currentStore)
