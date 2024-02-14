@@ -50,11 +50,11 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
   @action
   constructor() {
     gestureCross.setHomeScreen();
-    gestureCross.toggleAll();
+    gestureCross.fadeAllOut();
     waitingText.setAltMovie(Seconds.get(1000));
     waitingText.toggleWidgetVisibility();
     Future.delayed(Seconds.get(1), () {
-      gestureCross.toggleAll();
+      gestureCross.fadeAllIn();
     });
     beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradientToTimesUp);
     secondarySmartText.setMessagesData(MessagesData.empty);
@@ -74,8 +74,8 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
         setIsDisconnected(true);
       },
     );
-    beachWavesMovieStatusReactor();
     centerNokhteReactor();
+    gradientNokhteOpacityReactor();
   }
 
   @action
@@ -128,17 +128,8 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
   }
 
   @action
-  initWaitingWidgets({required bool isReadyToExit}) {
-    blur.init();
-    if (!isReadyToExit) {
-      gestureCross.initMoveAndRegenerate(CircleOffsets.top);
-      waitingText.setWidgetVisibility(true);
-      waitingText.setControl(Control.loop);
-    } else {
-      isTransitioningHome = true;
-      gestureCross.gradientNokhte.setWidgetVisibility(false);
-      gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
-    }
+  initTransitionToWaiting() {
+    gestureCross.initMoveAndRegenerate(CircleOffsets.top);
     secondarySmartText.setWidgetVisibility(false);
   }
 
@@ -164,19 +155,18 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
     beachWaves.finishedCount = 1;
   }
 
-  beachWavesMovieStatusReactor() =>
-      reaction((p0) => beachWaves.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished) {
-          Modular.to.navigate("/home/");
-        }
-      });
   centerNokhteReactor() =>
       reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
-        if (isTransitioningHome) {
-          Future.delayed(Seconds.get(0, milli: 200), () {
-            gestureCross.gradientNokhte.setWidgetVisibility(false);
-            gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
-          });
+        if (p0 == MovieStatus.finished) {
+          gestureCross.gradientNokhte.setWidgetVisibility(false);
+          gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
+        }
+      });
+
+  gradientNokhteOpacityReactor() =>
+      reaction((p0) => gestureCross.gradientNokhte.hasFadedIn, (p0) {
+        if (!p0) {
+          Modular.to.navigate("/nokhte_session/phase_two");
         }
       });
 
