@@ -9,7 +9,7 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/nokhte_session/domain/logic/change_desire_to_leave.dart';
 import 'package:nokhte/app/modules/nokhte_session/presentation/mobx/coordinators/logic/nokhte_session_logic_coordinator.dart';
-import 'package:nokhte/app/modules/nokhte_session/types/question_index_type.dart';
+import 'package:nokhte/app/modules/nokhte_session/types/types.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'nokhte_session_phase1_widgets_coordinator.dart';
 part 'nokhte_session_phase1_coordinator.g.dart';
@@ -51,7 +51,7 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
   bool isTransitioningHome = false;
 
   @observable
-  QuestionIndexType questionIndexType = QuestionIndexType.initial;
+  SpeakerIndexType speakerIndexType = SpeakerIndexType.initial;
 
   @computed
   bool get speakerCountIsOdd => speakerCount % 2 == 1;
@@ -60,11 +60,11 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
   bool get speakerCountIsEven => speakerCount % 2 == 0;
 
   @computed
-  bool get hasEvenSpeakerCounts => questionIndexType == QuestionIndexType.even;
+  bool get hasEvenSpeakerCounts => speakerIndexType == SpeakerIndexType.even;
 
   @computed
   bool get shouldIncrementSpeakerCount =>
-      questionIndexType == QuestionIndexType.even
+      speakerIndexType == SpeakerIndexType.even
           ? speakerCountIsEven
           : speakerCountIsOdd;
 
@@ -83,11 +83,11 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
     await logic.checkIfUserHasTheQuestion();
     widgets.setHasTheQuesion(logic.hasTheQuestion);
     if (logic.hasTheQuestion) {
-      questionIndexType = QuestionIndexType.even;
+      speakerIndexType = SpeakerIndexType.even;
       widgets.showSecondaryText();
       canSpeak = true;
     } else {
-      questionIndexType = QuestionIndexType.odd;
+      speakerIndexType = SpeakerIndexType.odd;
       canSpeak = true;
     }
     await logic.changeDesireToLeaveLogic(ChangeDesireToLeaveParams.negative);
