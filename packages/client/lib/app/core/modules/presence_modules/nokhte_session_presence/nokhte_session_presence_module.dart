@@ -51,7 +51,7 @@ class NokhteSessionPresenceModule extends Module {
         contract: i<BasePresenceContractImpl<NokhteSessionMetadata>>(),
       ),
     );
-    i.add<GetNokhteSessionMetadataStore>(
+    i.addSingleton<GetNokhteSessionMetadataStore>(
       () => GetNokhteSessionMetadataStore(
         logic: i<BaseGetSessionMetadata<NokhteSessionMetadata>>(),
       ),
