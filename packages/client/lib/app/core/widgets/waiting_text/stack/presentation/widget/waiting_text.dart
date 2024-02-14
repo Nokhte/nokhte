@@ -21,6 +21,7 @@ class WaitingText extends HookWidget {
         child: Observer(
           builder: (context) => AnimatedOpacity(
             opacity: useWidgetOpacity(store.showWidget),
+            onEnd: () => store.toggleHasFadedIn(),
             duration: Seconds.get(0, milli: 500),
             child: CustomAnimationBuilder(
                 tween: store.altMovie,
