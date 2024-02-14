@@ -42,7 +42,6 @@ class NokhteSessionWidgetsModule extends Module {
         borderGlow: i<BorderGlowStore>(),
         beachWaves: Modular.get<BeachWavesStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        primarySmartText: Modular.get<SmartTextStore>(),
         secondarySmartText: Modular.get<SmartTextStore>(),
         textEditor: Modular.get<TextEditorStore>(),
       ),
