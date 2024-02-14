@@ -17,7 +17,6 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final BeachWavesStore beachWaves;
   final BorderGlowStore borderGlow;
-  final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final TextEditorStore textEditor;
@@ -28,7 +27,6 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
   _NokhteSessionPhase1WidgetsCoordinatorBase({
     required this.beachWaves,
     required this.borderGlow,
-    required this.primarySmartText,
     required this.secondarySmartText,
     required this.wifiDisconnectOverlay,
     required this.textEditor,
@@ -59,7 +57,6 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
       gestureCross.toggleAll();
     });
     beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradientToTimesUp);
-    primarySmartText.setMessagesData(MessagesData.empty);
     secondarySmartText.setMessagesData(MessagesData.empty);
     initReactors();
   }
@@ -108,17 +105,7 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
 
   @action
   hasTheQuestionConstructor() {
-    primarySmartText
-        .setMessagesData(MessagesData.primaryNokhteSessionPhase1HasTheQuestion);
     showSecondaryText();
-    primarySmartText.startRotatingText();
-  }
-
-  @action
-  doesNotHaveTheQuestionConstructor() {
-    primarySmartText.setMessagesData(
-        MessagesData.primaryNokhteSessionPhase1DoesNotHaveTheQuestion);
-    primarySmartText.startRotatingText();
   }
 
   @action
