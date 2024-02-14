@@ -88,11 +88,10 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
     widgets.setHasTheQuesion(logic.hasTheQuestion);
     if (logic.hasTheQuestion) {
       questionIndexType = QuestionIndexType.even;
-      widgets.hasTheQuestionConstructor();
+      widgets.showSecondaryText();
       canSpeak = true;
     } else {
       questionIndexType = QuestionIndexType.odd;
-      widgets.doesNotHaveTheQuestionConstructor();
       canSpeak = true;
     }
     await logic.changeDesireToLeaveLogic(ChangeDesireToLeaveParams.negative);
@@ -184,9 +183,6 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
           silenceStopwatch.start();
           if (shouldIncrementSpeakerCount) {
             speakerCount++;
-            if (speakerCount == 3 && hasEvenSpeakerCounts) {
-              widgets.primarySmartText.startRotatingText(isResuming: true);
-            }
           }
         }
       });
@@ -194,23 +190,13 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
   collaboratorTalkingStatusReactor() =>
       reaction((p0) => presence.getSessionMetadataStore.collaboratorIsTalking,
           (p0) {
-        if (speakerCount == 0 && !hasEvenSpeakerCounts) {
-          widgets.primarySmartText.startRotatingText(isResuming: true);
-        }
         if (p0) {
           canSpeak = false;
           silenceStopwatch.reset();
           silenceStopwatch.stop();
         } else {
           silenceStopwatch.start();
-          if (speakerCount == 0 && !hasEvenSpeakerCounts) {
-            Timer.periodic(Seconds.get(9), (timer) {
-              if (silenceStopwatch.elapsedMilliseconds.isGreaterThan(9000)) {
-                widgets.primarySmartText.startRotatingText(isResuming: true);
-                timer.cancel();
-              }
-            });
-          }
+          if (speakerCount == 0 && !hasEvenSpeakerCounts) {}
           if (!shouldIncrementSpeakerCount) {
             speakerCount++;
           }
