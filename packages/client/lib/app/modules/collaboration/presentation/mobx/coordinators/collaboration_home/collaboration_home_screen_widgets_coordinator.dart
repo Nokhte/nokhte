@@ -78,12 +78,6 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
   }
 
   @action
-  enterCollaboratorPoolConstructor() {
-    gradientTreeNode.setWidgetVisibility(false);
-    toggleShouldEnterCollaboratorPool();
-  }
-
-  @action
   postInvitationFlowConstructor() {
     Timer.periodic(Seconds.get(0, milli: 100), (timer) {
       if (!smartText.isPaused) {
@@ -104,15 +98,6 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
   }
 
   @action
-  initCollaboratorPoolWidgets() {
-    if (!shouldEnterCollaboratorPool) {
-      toggleShouldEnterCollaboratorPool();
-    }
-    gradientTreeNode.initMovie(NoParams());
-    gestureCross.toggleAll();
-  }
-
-  @action
   onSwipeDown() {
     gradientTreeNode.setWidgetVisibility(false);
     smartText.pause();
@@ -127,7 +112,6 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
 
     invitationSendStatusReactor();
     centerCrossNokhteReactor();
-    gradientTreeNodeOpacityReactor(enterCollaboratorPool);
     gradientTreeNodeMovieStatusReactor();
   }
 
@@ -136,14 +120,6 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
         if (p0 == 1) {
           gradientTreeNode.setWidgetVisibility(true);
           onFlowCompleted();
-        }
-      });
-
-  gradientTreeNodeOpacityReactor(Function enterCollaboratorPool) =>
-      reaction((p0) => gradientTreeNode.hasFadedIn, (p0) async {
-        if (shouldEnterCollaboratorPool && p0) {
-          initCollaboratorPoolWidgets();
-          await enterCollaboratorPool();
         }
       });
 
@@ -172,8 +148,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode == BeachWaveMovieModes.oceanDiveToOnShore) {
-            onNavigationHome();
-            // Modular.to.navigate('/home/');
+            onNavigationHome(() {});
           }
         }
       });

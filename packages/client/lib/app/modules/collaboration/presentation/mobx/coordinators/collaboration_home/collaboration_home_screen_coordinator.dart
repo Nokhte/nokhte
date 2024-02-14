@@ -79,7 +79,6 @@ abstract class _CollaborationHomeScreenCoordinatorBase
       } else {
         if (additionalRoutingData[CollaborationCodeKeys.hasSentAnInvitation] ==
             true) {
-          widgets.enterCollaboratorPoolConstructor();
           setDisableAllTouchFeedback(true);
         }
       }
@@ -110,7 +109,7 @@ abstract class _CollaborationHomeScreenCoordinatorBase
     deepLinksReactor();
     collaboratorPoolEntryReactor();
     gradientTreeNodeTapReactor(onGradientTreeNodeTap);
-    widgets.beachWavesMovieStatusReactor(onAnimationComplete);
+    widgets.beachWavesMovieStatusReactor(decideAndRoute);
     widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
@@ -139,9 +138,7 @@ abstract class _CollaborationHomeScreenCoordinatorBase
           null) {
         widgets.onNokhteSessionLinkOpened();
         await onEnterCollaboratorPool();
-      } else {
-        // widgets.initCollaboratorPoolWidgets();
-      }
+      } else {}
     }
   }
 
@@ -152,7 +149,6 @@ abstract class _CollaborationHomeScreenCoordinatorBase
   onInvitationShared(bool isShared) async {
     if (isShared) {
       if (additionalRoutingData.isNotEmpty) {
-        widgets.initCollaboratorPoolWidgets();
         await onEnterCollaboratorPool();
       } else {
         widgets.toggleInvitationIsSent();
