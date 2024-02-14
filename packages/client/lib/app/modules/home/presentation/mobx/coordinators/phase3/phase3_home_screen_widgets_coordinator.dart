@@ -63,7 +63,7 @@ abstract class _Phase3HomeScreenWidgetsCoordinatorBase
 
   @action
   onGestureCrossTap() {
-    if (!hasInitiatedBlur && !isEnteringNokhteSession) {
+    if (!hasInitiatedBlur && !isEnteringNokhteSession && !hasSwipedUp) {
       nokhteBlur.init();
       beachWaves.currentStore.setControl(Control.stop);
       toggleHasInitiatedBlur();
