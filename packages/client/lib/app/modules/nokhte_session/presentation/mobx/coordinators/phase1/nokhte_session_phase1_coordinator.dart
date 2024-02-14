@@ -79,17 +79,9 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
       callType: GetChannelIdParams.forNokhteSession,
     );
     initReactors();
-
     await logic.checkIfUserHasTheQuestion();
     widgets.setHasTheQuesion(logic.hasTheQuestion);
-    if (logic.hasTheQuestion) {
-      speakerIndexType = SpeakerIndexType.even;
-      widgets.showSecondaryText();
-      canSpeak = true;
-    } else {
-      speakerIndexType = SpeakerIndexType.odd;
-      canSpeak = true;
-    }
+
     await logic.changeDesireToLeaveLogic(ChangeDesireToLeaveParams.negative);
   }
 
@@ -116,6 +108,14 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
       await presence
           .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
       await presence.listen();
+      if (logic.hasTheQuestion) {
+        speakerIndexType = SpeakerIndexType.even;
+        widgets.showSecondaryText();
+        canSpeak = true;
+      } else {
+        speakerIndexType = SpeakerIndexType.odd;
+        canSpeak = true;
+      }
       setDisableAllTouchFeedback(false);
       canSwipeUp = true;
     });
@@ -186,20 +186,9 @@ abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
             !widgets.isDisconnected &&
             presence.getSessionMetadataStore.collaboratorIsOnline) {
           hasSwipedUp = true;
-          await logic
-              .changeDesireToLeaveLogic(ChangeDesireToLeaveParams.affirmative);
           await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
-          widgets.initWaitingWidgets(
-            isReadyToExit: presence.getSessionMetadataStore.isAllowedToExit,
-          );
-          Timer(Seconds.get(5), () async {
-            if (!isTransitioningHome) {
-              hasSwipedUp = false;
-              await logic
-                  .changeDesireToLeaveLogic(ChangeDesireToLeaveParams.negative);
-              widgets.revertWaitingWidgets();
-            }
-          });
+          await voiceCall.leaveCall();
+          widgets.initTransitionToWaiting();
         }
       });
 
