@@ -17,11 +17,6 @@ class VoiceCallIncidentsOverlay extends StatelessWidget {
       builder: (context) {
         return Stack(
           children: [
-            FullScreen(
-              child: NokhteBlur(
-                store: store.blur,
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.only(bottom: 150.0),
               child: Center(

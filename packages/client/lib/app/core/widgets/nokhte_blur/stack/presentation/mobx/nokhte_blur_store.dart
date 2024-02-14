@@ -14,14 +14,19 @@ abstract class _NokhteBlurStoreBase extends BaseCustomAnimatedWidgetStore
     setMovie(BlurMovie.movie);
   }
 
+  @observable
+  bool hasBlurredIn = false;
+
   @action
   init() {
+    hasBlurredIn = true;
     setMovieStatus(MovieStatus.inProgress);
     setControl(Control.playFromStart);
   }
 
   @action
   reverse() {
+    hasBlurredIn = false;
     setMovieStatus(MovieStatus.inProgress);
     setControl(Control.playReverseFromEnd);
   }

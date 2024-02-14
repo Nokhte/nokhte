@@ -1,4 +1,4 @@
-enum QuestionIndexType {
+enum SpeakerIndexType {
   even,
   odd,
   initial,
