@@ -111,7 +111,7 @@ void main() {
         .thenAnswer((_) => OceanDiveToTimesUpStartMovieStore());
     testStore.onSwipeDown();
     verify(testStore.smartText.pause());
-    verify(testStore.smartText.toggleWidgetVisibility());
+    verify(testStore.smartText.setWidgetVisibility(false));
     verify(testStore.gestureCross.initMoveAndRegenerate(CircleOffsets.bottom));
     verify(testStore.beachWaves
         .setMovieMode(BeachWaveMovieModes.oceanDiveToOnShore));
