@@ -4,7 +4,6 @@ import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/modules/voice_call/data/data.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
-import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class VoiceCallModule extends Module {
@@ -85,8 +84,6 @@ class VoiceCallModule extends Module {
         unmuteAudioLogic: i<UnmuteLocalAudio>(),
       ),
     );
-    i.add<NokhteBlurStore>(() => NokhteBlurStore());
-
     i.add<VoiceCallCoordinator>(
       () => VoiceCallCoordinator(
         initAgoraSdkLogic: i<InitAgoraSdk>(),
@@ -94,7 +91,6 @@ class VoiceCallModule extends Module {
         voiceCallStatusStore: i<VoiceCallStatusStore>(),
         getAgoraTokenLogic: i<GetAgoraToken>(),
         getChannelIdLogic: i<GetChannelId>(),
-        blur: Modular.get<NokhteBlurStore>(),
       ),
     );
   }
