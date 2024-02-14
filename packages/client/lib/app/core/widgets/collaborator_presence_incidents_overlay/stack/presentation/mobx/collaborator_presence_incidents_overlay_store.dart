@@ -28,7 +28,9 @@ abstract class _CollaboratorPresenceIncidentsOverlayStoreBase
 
   @action
   onCollaboratorJoined() {
-    blur.reverse();
+    if (blur.hasBlurredIn) {
+      blur.reverse();
+    }
     setWidgetVisibility(false);
   }
 
