@@ -1,0 +1,50 @@
+name: Client Production iOS Deploy
+on:
+  push:
+    branches:
+      - production
+    paths:
+      - "packages/client/**"
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: External Staging Deployment
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: packages/client
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.13.9"
+          channel: "stable"
+      - uses: bluefireteam/melos-action@v3
+      - run: |
+          echo "PROD_SUPABASE_URL='$PROD_SUPABASE_URL'" >> .env
+          echo "PROD_SUPABASE_ANON_KEY='$PROD_SUPABASE_ANON_KEY'" >> .env
+          echo "AGORA_APP_ID='$AGORA_APP_ID'" >> .env
+        env:
+          STAGING_SUPABASE_URL: ${{ secrets.PROD_SUPABASE_URL }}
+          STAGING_SUPABASE_ANON_KEY: ${{ secrets.PROD_SUPABASE_ANON_KEY }}
+          AGORA_APP_ID: ${{ secrets.AGORA_APP_ID }}
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.0"
+          bundler-cache: true
+      - run: flutter pub run build_runner build
+      - run: cd ios && bundle install
+      - run: cd ios && fastlane rebuild_ios_archive
+        env:
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          MATCH_BASIC_GIT_AUTHORIZATION: ${{ secrets.MATCH_BASIC_GIT_AUTHORIZATION }}
+      - run: cd ios && fastlane external_ios_beta_build
+        env:
+          APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY_ID }}
+          APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }}
+          APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY }}
+          APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64: ${{secrets.APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64}}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          MATCH_BASIC_GIT_AUTHORIZATION: ${{ secrets.MATCH_BASIC_GIT_AUTHORIZATION }}
