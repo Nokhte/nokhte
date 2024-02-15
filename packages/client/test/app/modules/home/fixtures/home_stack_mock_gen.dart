@@ -19,7 +19,6 @@ import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
   MockSpec<GetDeepLinkURL>(),
   MockSpec<ListenForOpenedDeepLinkStore>(),
   MockSpec<SendDeepLink>(),
-  MockSpec<HomeScreenWidgetsCoordinator>(),
   MockSpec<DeepLinksCoordinator>(),
   MockSpec<GetUserInfoStore>(),
   MockSpec<UpdateHasGoneThroughInvitationFlow>(),
