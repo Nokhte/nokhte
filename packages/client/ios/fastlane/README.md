@@ -63,10 +63,10 @@ Patch Version Bump
 
 rebuild iOS Archive (PREREQ No. 1)
 
-### ios interal_ios_beta_build
+### ios internal_ios_beta_build
 
 ```sh
-[bundle exec] fastlane ios interal_ios_beta_build
+[bundle exec] fastlane ios internal_ios_beta_build
 ```
 
 Interal Testing Beta Build
