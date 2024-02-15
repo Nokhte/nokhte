@@ -21,15 +21,15 @@ class HomeWidgetsModule extends Module {
     i.add<NokhteBlurStore>(
       () => NokhteBlurStore(),
     );
-    i.add<Phase0HomeScreenWidgetsCoordinator>(
-      () => Phase0HomeScreenWidgetsCoordinator(
+    i.add<HomeScreenPhase0WidgetsCoordinator>(
+      () => HomeScreenPhase0WidgetsCoordinator(
         gestureCross: Modular.get<GestureCrossStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         beachWaves: Modular.get<BeachWavesStore>(),
       ),
     );
-    i.add<Phase1HomeScreenWidgetsCoordinator>(
-      () => Phase1HomeScreenWidgetsCoordinator(
+    i.add<HomeScreenPhase1WidgetsCoordinator>(
+      () => HomeScreenPhase1WidgetsCoordinator(
         nokhteBlur: Modular.get<NokhteBlurStore>(),
         primarySmartText: Modular.get<SmartTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
@@ -37,8 +37,8 @@ class HomeWidgetsModule extends Module {
         beachWaves: Modular.get<BeachWavesStore>(),
       ),
     );
-    i.add<Phase2HomeScreenWidgetsCoordinator>(
-      () => Phase2HomeScreenWidgetsCoordinator(
+    i.add<HomeScreenPhase2WidgetsCoordinator>(
+      () => HomeScreenPhase2WidgetsCoordinator(
         nokhteBlur: Modular.get<NokhteBlurStore>(),
         primarySmartText: Modular.get<SmartTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
@@ -46,8 +46,8 @@ class HomeWidgetsModule extends Module {
         beachWaves: Modular.get<BeachWavesStore>(),
       ),
     );
-    i.add<Phase3HomeScreenWidgetsCoordinator>(
-      () => Phase3HomeScreenWidgetsCoordinator(
+    i.add<HomeScreenPhase3WidgetsCoordinator>(
+      () => HomeScreenPhase3WidgetsCoordinator(
         nokhteBlur: Modular.get<NokhteBlurStore>(),
         primarySmartText: Modular.get<SmartTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
