@@ -1,4 +1,4 @@
-import { PostHog } from "https://esm.sh/posthog-node@3.6.2";
+import { PostHog } from "posthog";
 
 export const PostHogClient = new PostHog(
   Deno.env.get("POSTHOG_API_KEY") ?? "",
