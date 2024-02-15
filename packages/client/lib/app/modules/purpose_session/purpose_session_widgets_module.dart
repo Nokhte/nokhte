@@ -1,4 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:nokhte/app/core/modules/posthog/domain/logic/logic.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog_module.dart';
 import 'package:nokhte/app/core/widgets/widget_modules/widget_modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
@@ -11,6 +13,7 @@ class PurposeSessionWidgetsModule extends Module {
         WifiDisconnectOverlayModule(),
         SmartTextModule(),
         GestureCrossModule(),
+        PosthogModule(),
       ];
 
   @override
@@ -26,6 +29,7 @@ class PurposeSessionWidgetsModule extends Module {
     );
     i.add<PurposeSessionPhase0WidgetsCoordinator>(
       () => PurposeSessionPhase0WidgetsCoordinator(
+        captureScreen: Modular.get<CaptureScreen>(),
         beachWaves: Modular.get<BeachWavesStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         primarySmartText: Modular.get<SmartTextStore>(),

@@ -1,5 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity_module.dart';
+import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog_module.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/modules/solo_docs/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/solo_docs/solo_docs_module.dart';
@@ -23,6 +25,7 @@ class PurposeSessionModule extends Module {
         CollaboratorPresenceModule(),
         GesturesModule(),
         SoloDocsModule(),
+        PosthogModule(),
       ];
   @override
   void binds(i) {
@@ -49,6 +52,7 @@ class PurposeSessionModule extends Module {
     );
     i.add<PurposeSessionPhase1Coordinator>(
       () => PurposeSessionPhase1Coordinator(
+        captureScreen: Modular.get<CaptureScreen>(),
         tap: Modular.get<TapDetector>(),
         hold: Modular.get<HoldDetector>(),
         checkIfUserHasTheQuestion:
@@ -61,6 +65,7 @@ class PurposeSessionModule extends Module {
 
     i.add<PurposeSessionPhase2Coordinator>(
       () => PurposeSessionPhase2Coordinator(
+        captureScreen: Modular.get<CaptureScreen>(),
         soloDoc: Modular.get<SoloDocsCoordinator>(),
         swipe: Modular.get<SwipeDetector>(),
         collaboratorPresence: Modular.get<PurposeSessionPresenceCoordinator>(),
@@ -70,6 +75,7 @@ class PurposeSessionModule extends Module {
 
     i.add<PurposeSessionPhase3Coordinator>(
       () => PurposeSessionPhase3Coordinator(
+        captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<PurposeSessionPhase3WidgetsCoordinator>(),
       ),
     );
