@@ -94,8 +94,8 @@ void main() {
     when(testStore.beachWaves.currentStore)
         .thenAnswer((_) => OceanDiveToTimesUpStartMovieStore());
     testStore.onNokhteSessionLinkOpened();
-    verify(testStore.beachWaves
-        .setMovieMode(BeachWaveMovieModes.oceanDiveToTimesUp));
+    verify(testStore.beachWaves.setMovieMode(
+        BeachWaveMovieModes.suspendedAtOceanDiveToVibrantBlueGradient));
     verify(testStore.gestureCross.toggleAll());
   });
 
