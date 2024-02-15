@@ -6,6 +6,8 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/deep_links/constants/constants.dart';
 import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/posthog/constants/constants.dart';
+import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
@@ -26,6 +28,7 @@ abstract class _CollaborationHomeScreenCoordinatorBase
   final SwipeDetector swipe;
   final DeepLinksCoordinator deepLinks;
   final CollaborationLogicCoordinator logic;
+  final CaptureShareNokhteSessionInvitation captureShareNokhteSessionInvitation;
 
   _CollaborationHomeScreenCoordinatorBase({
     required this.widgets,
@@ -33,6 +36,8 @@ abstract class _CollaborationHomeScreenCoordinatorBase
     required this.userInformation,
     required this.swipe,
     required this.logic,
+    required this.captureShareNokhteSessionInvitation,
+    required super.captureScreen,
   }) : super(getUserInfo: userInformation.getUserInfoStore);
 
   @observable
@@ -86,6 +91,7 @@ abstract class _CollaborationHomeScreenCoordinatorBase
       widgets.invitationFlowConstructor();
     }
     await deepLinks.getDeepLink(DeepLinkTypes.nokhteSession);
+    await captureScreen(Screens.collaborationHome);
   }
 
   @action
@@ -148,6 +154,7 @@ abstract class _CollaborationHomeScreenCoordinatorBase
   @action
   onInvitationShared(bool isShared) async {
     if (isShared) {
+      await captureShareNokhteSessionInvitation(NoParams());
       if (additionalRoutingData.isNotEmpty) {
         await onEnterCollaboratorPool();
       } else {
