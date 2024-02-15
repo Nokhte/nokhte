@@ -1,5 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity_module.dart';
+import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog_module.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/coordinator/voice_call_coordinator.dart';
 import 'package:nokhte/app/core/modules/voice_call/voice_call_module.dart';
@@ -22,6 +24,7 @@ class NokhteSessionModule extends Module {
         GesturesModule(),
         VoiceCallModule(),
         NokhteSessionPresenceModule(),
+        PosthogModule(),
       ];
 
   @override
@@ -57,11 +60,14 @@ class NokhteSessionModule extends Module {
 
     i.add<NokhteSessionPhase0Coordinator>(
       () => NokhteSessionPhase0Coordinator(
+        captureScreen: Modular.get<CaptureScreen>(),
+        captureNokhteSessionStart: Modular.get<CaptureNokhteSessionStart>(),
         widgets: Modular.get<NokhteSessionPhase0WidgetsCoordinator>(),
       ),
     );
     i.add<NokhteSessionPhase1Coordinator>(
       () => NokhteSessionPhase1Coordinator(
+        captureScreen: Modular.get<CaptureScreen>(),
         voiceCall: Modular.get<VoiceCallCoordinator>(),
         hold: Modular.get<HoldDetector>(),
         swipe: Modular.get<SwipeDetector>(),
@@ -72,6 +78,8 @@ class NokhteSessionModule extends Module {
     );
     i.add<NokhteSessionPhase2Coordinator>(
       () => NokhteSessionPhase2Coordinator(
+        captureScreen: Modular.get<CaptureScreen>(),
+        captureNokhteSessionEnd: Modular.get<CaptureNokhteSessionEnd>(),
         voiceCall: Modular.get<VoiceCallCoordinator>(),
         hold: Modular.get<HoldDetector>(),
         swipe: Modular.get<SwipeDetector>(),
