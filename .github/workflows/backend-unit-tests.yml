@@ -17,6 +17,7 @@ jobs:
     env:
       GOOGLE_CLIENT_ID: ${{secrets.GOOGLE_CLIENT_ID}}
       GOOGLE_CLIENT_SECRET: ${{secrets.GOOGLE_CLIENT_SECRET}}
+      POSTHOG_API_KEY: ${{secrets.POSTHOG_API_KEY}}
     defaults:
       run:
         working-directory: packages/backend
@@ -31,6 +32,7 @@ jobs:
           channel: "stable"
       - run: echo "GOOGLE_CLIENT_ID='$GOOGLE_CLIENT_ID'" >> .env
       - run: echo "GOOGLE_CLIENT_SECRET='$GOOGLE_CLIENT_SECRET'" >> .env
+      - run: echo "POSTHOG_API_KEY='$POSTHOG_API_KEY'" >> .env
       - run: supabase start
       - run: supabase functions serve &
       - run: SERVER_PID=$!
