@@ -115,7 +115,7 @@ abstract class _CollaborationHomeScreenCoordinatorBase
     deepLinksReactor();
     collaboratorPoolEntryReactor();
     gradientTreeNodeTapReactor(onGradientTreeNodeTap);
-    widgets.beachWavesMovieStatusReactor(decideAndRoute);
+    widgets.beachWavesMovieStatusReactor(onAnimationComplete);
     widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
@@ -155,6 +155,7 @@ abstract class _CollaborationHomeScreenCoordinatorBase
   onInvitationShared(bool isShared) async {
     if (isShared) {
       await captureShareNokhteSessionInvitation(NoParams());
+      await getUserInfo(NoParams());
       if (additionalRoutingData.isNotEmpty) {
         await onEnterCollaboratorPool();
       } else {
