@@ -149,7 +149,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode == BeachWaveMovieModes.oceanDiveToOnShore) {
-            onNavigationHome(() {});
+            onNavigationHome();
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.suspendedAtOceanDiveToVibrantBlueGradient) {
             Modular.to.navigate('/collaboration/pool');
