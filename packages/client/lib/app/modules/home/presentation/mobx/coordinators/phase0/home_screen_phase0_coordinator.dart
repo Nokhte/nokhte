@@ -1,24 +1,26 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'dart:async';
+// import 'dart:async';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/posthog/constants/screens.dart';
+import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/shared/base_home_screen_router_coordinator.dart';
+import 'home_screen_phase0_widgets_coordinator.dart';
+part 'home_screen_phase0_coordinator.g.dart';
 
-import 'phase0_home_screen_widgets_coordinator.dart';
-part 'phase0_home_screen_coordinator.g.dart';
+class HomeScreenPhase0Coordinator = _HomeScreenPhase0CoordinatorBase
+    with _$HomeScreenPhase0Coordinator;
 
-class Phase0HomeScreenCoordinator = _Phase0HomeScreenCoordinatorBase
-    with _$Phase0HomeScreenCoordinator;
-
-abstract class _Phase0HomeScreenCoordinatorBase
+abstract class _HomeScreenPhase0CoordinatorBase
     extends BaseHomeScreenRouterCoordinator with Store {
   final DeleteUnconsecratedCollaborationsCoordinator
       deleteUnconsecratedCollaborations;
-  final Phase0HomeScreenWidgetsCoordinator widgets;
+  final HomeScreenPhase0WidgetsCoordinator widgets;
   final CollaborationLogicCoordinator collaborationLogic;
+  final IdentifyUser identifyUser;
 
   @observable
   bool isConnected = true;
@@ -26,17 +28,21 @@ abstract class _Phase0HomeScreenCoordinatorBase
   @action
   setIsConnected(bool newVal) => isConnected = newVal;
 
-  _Phase0HomeScreenCoordinatorBase({
+  _HomeScreenPhase0CoordinatorBase({
     required this.deleteUnconsecratedCollaborations,
     required super.getUserInfo,
     required this.collaborationLogic,
     required this.widgets,
+    required this.identifyUser,
+    required super.captureScreen,
   });
 
   @action
   constructor() async {
     widgets.constructor();
     initReactors();
+    await identifyUser(NoParams());
+    await captureScreen(Screens.homePhase0);
     await deleteUnconsecratedCollaborations(NoParams());
     if (isConnected) {
       await decideAndRoute(setParams);

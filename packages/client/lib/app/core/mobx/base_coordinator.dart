@@ -2,11 +2,18 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
+import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
 part 'base_coordinator.g.dart';
 
 class BaseCoordinator = _BaseCoordinatorBase with _$BaseCoordinator;
 
 abstract class _BaseCoordinatorBase extends Equatable with Store {
+  final CaptureScreen captureScreen;
+
+  _BaseCoordinatorBase({
+    required this.captureScreen,
+  });
+
   @observable
   bool disableAllTouchFeedback = false;
 

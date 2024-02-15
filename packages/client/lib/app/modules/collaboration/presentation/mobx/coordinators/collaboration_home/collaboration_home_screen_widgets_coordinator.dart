@@ -90,7 +90,8 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
 
   @action
   onNokhteSessionLinkOpened() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.oceanDiveToTimesUp);
+    beachWaves.setMovieMode(
+        BeachWaveMovieModes.suspendedAtOceanDiveToVibrantBlueGradient);
     beachWaves.currentStore.initMovie(NoParams());
     gestureCross.toggleAll();
     gradientTreeNode.setWidgetVisibility(false);
@@ -149,6 +150,9 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode == BeachWaveMovieModes.oceanDiveToOnShore) {
             onNavigationHome(() {});
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.suspendedAtOceanDiveToVibrantBlueGradient) {
+            Modular.to.navigate('/collaboration/pool');
           }
         }
       });

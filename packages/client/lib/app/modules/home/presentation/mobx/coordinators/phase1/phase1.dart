@@ -1,2 +1,2 @@
-export 'phase1_home_screen_coordinator.dart';
-export 'phase1_home_screen_widgets_coordinator.dart';
+export 'home_screen_phase1_coordinator.dart';
+export 'home_screen_phase1_widgets_coordinator.dart';

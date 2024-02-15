@@ -7,9 +7,9 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/presentation.dart';
 
-class Phase1HomeScreen extends HookWidget {
-  final Phase1HomeScreenCoordinator coordinator;
-  const Phase1HomeScreen({
+class HomeScreenPhase2DoneInvitationFlowNoSession extends HookWidget {
+  final HomeScreenPhase2Coordinator coordinator;
+  const HomeScreenPhase2DoneInvitationFlowNoSession({
     super.key,
     required this.coordinator,
   });
@@ -64,7 +64,6 @@ class Phase1HomeScreen extends HookWidget {
           ],
         ),
       ),
-      // ),
     );
   }
 }

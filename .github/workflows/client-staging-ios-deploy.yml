@@ -9,7 +9,7 @@ on:
 
 jobs:
   deploy:
-    name: Deploy
+    name: Internal Staging Deployment
     runs-on: macos-latest
     defaults:
       run:
@@ -36,12 +36,11 @@ jobs:
           bundler-cache: true
       - run: flutter pub run build_runner build
       - run: cd ios && bundle install
-      - run: cd ios && fastlane bump_minor
       - run: cd ios && fastlane rebuild_ios_archive
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           MATCH_BASIC_GIT_AUTHORIZATION: ${{ secrets.MATCH_BASIC_GIT_AUTHORIZATION }}
-      - run: cd ios && fastlane generic_ios_beta_build
+      - run: cd ios && fastlane internal_ios_beta_build
         env:
           APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY_ID }}
           APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }}

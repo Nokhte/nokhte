@@ -25,6 +25,7 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
 
   _PurposeSessionPhase1CoordinatorBase(
       {required this.widgets,
+      required super.captureScreen,
       required this.voiceCall,
       required this.collaboratorPresence,
       required this.checkIfUserHasTheQuestion,

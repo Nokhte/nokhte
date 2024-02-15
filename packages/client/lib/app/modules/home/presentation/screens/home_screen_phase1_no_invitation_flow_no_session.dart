@@ -7,21 +7,15 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/presentation.dart';
 
-class HomeScreen extends HookWidget {
-  final HomeScreenCoordinator coordinator;
-  const HomeScreen({
+class HomeScreenPhase1NoInvitationFlowNoSession extends HookWidget {
+  final HomeScreenPhase1Coordinator coordinator;
+  const HomeScreenPhase1NoInvitationFlowNoSession({
     super.key,
     required this.coordinator,
   });
 
   @override
   Widget build(BuildContext context) {
-    useOnAppLifecycleStateChange(
-        (previous, current) => coordinator.onAppLifeCycleStateChange(
-              current,
-              onResumed: () => coordinator.onResumed(),
-              onInactive: () => coordinator.onInactive(),
-            ));
     final size = useSquareSize(relativeLength: .20);
     useEffect(() {
       coordinator.constructor();
@@ -33,21 +27,26 @@ class HomeScreen extends HookWidget {
         store: coordinator.swipe,
         child: MultiHitStack(
           children: [
-            FullScreen(
+            Hero(
+              tag: 'beach',
+              child: FullScreen(
                 child: BeachWaves(
-              store: coordinator.widgets.beachWaves,
-            )),
+                  store: coordinator.widgets.beachWaves,
+                ),
+              ),
+            ),
             FullScreen(
               child: NokhteBlur(
                 store: coordinator.widgets.nokhteBlur,
               ),
             ),
             Center(
-                child: SmartText(
-              store: coordinator.widgets.primarySmartText,
-              bottomPadding: 180,
-              opacityDuration: Seconds.get(1),
-            )),
+              child: SmartText(
+                store: coordinator.widgets.primarySmartText,
+                bottomPadding: 180,
+                opacityDuration: Seconds.get(1),
+              ),
+            ),
             GestureCross(
               config: GestureCrossConfiguration(
                 top: Right(

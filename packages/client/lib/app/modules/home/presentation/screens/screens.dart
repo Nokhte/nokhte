@@ -1,4 +1,4 @@
-export "./phase0_home_screen.dart";
-export "./phase1_home_screen.dart";
-export "./phase2_home_screen.dart";
-export "./phase3_home_screen.dart";
+export 'home_screen_phase0_root_decider.dart';
+export 'home_screen_phase1_no_invitation_flow_no_session.dart';
+export 'home_screen_phase2_done_invitation_flow_no_session.dart';
+export 'home_screen_phase3_has_done_session.dart';

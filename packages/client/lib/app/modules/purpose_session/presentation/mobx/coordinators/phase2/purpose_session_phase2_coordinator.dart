@@ -22,6 +22,7 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
   final SoloDocsCoordinator soloDoc;
 
   _PurposeSessionPhase2CoordinatorBase({
+    required super.captureScreen,
     required this.widgets,
     required this.swipe,
     required this.collaboratorPresence,

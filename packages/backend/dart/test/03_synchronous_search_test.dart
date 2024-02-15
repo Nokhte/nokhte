@@ -1,12 +1,14 @@
 // ignore_for_file: file_names
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte_backend/edge_functions/edge_functions.dart';
+import 'package:nokhte_backend/tables/_real_time_disabled/user_names/queries.dart';
 import 'package:nokhte_backend/tables/_real_time_enabled/active_nokhte_sessions/streams.dart';
 import 'package:nokhte_backend/tables/existing_collaborations.dart';
 import 'shared/shared.dart';
 
 void main() {
   late ExistingCollaborationsStream user1ExistingCollaborationsStreams;
+  late UserNamesQueries user1UserNamesQueries;
   late ActiveNokhteSessionsStream user1ActiveNokhteSessionsStreams;
   late InitiateCollaboratorSearch user1StartEdgeFunctions;
   late EndCollaboratorSearch user1EndEdgeFunctions;
@@ -18,6 +20,7 @@ void main() {
     await tSetup.setUp();
     user1StartEdgeFunctions =
         InitiateCollaboratorSearch(supabase: tSetup.user1Supabase);
+    user1UserNamesQueries = UserNamesQueries(supabase: tSetup.user1Supabase);
     user1ActiveNokhteSessionsStreams =
         ActiveNokhteSessionsStream(supabase: tSetup.user1Supabase);
     user1EndEdgeFunctions =
@@ -51,6 +54,12 @@ void main() {
       final firstStream = user1ActiveNokhteSessionsStreams
           .getActiveNokhteSessionCreationStatus();
       expect(firstStream, emits(true));
+      final collaboratorRowRes =
+          await user1UserNamesQueries.getCollaboratorRows();
+      final userAuthorizedViewers = (await user1UserNamesQueries.getUserInfo())
+          .first['authorized_viewers'];
+      expect(collaboratorRowRes, isNotEmpty);
+      expect(userAuthorizedViewers, isNotEmpty);
     });
   });
 

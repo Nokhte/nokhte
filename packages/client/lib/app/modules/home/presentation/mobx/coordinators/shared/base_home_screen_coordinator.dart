@@ -28,6 +28,7 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
     required this.swipe,
     required this.widgets,
     required this.deepLinks,
+    required super.captureScreen,
   });
 
   initReactors() {
