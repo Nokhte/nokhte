@@ -16,6 +16,7 @@ abstract class _BaseHomeScreenRouterCoordinatorBase extends BaseCoordinator
 
   _BaseHomeScreenRouterCoordinatorBase({
     required this.getUserInfo,
+    required super.captureScreen,
   });
 
   @observable
