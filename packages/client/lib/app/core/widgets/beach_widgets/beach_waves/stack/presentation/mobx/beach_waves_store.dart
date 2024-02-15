@@ -27,6 +27,9 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
       ResumeOnShoreMovieStore();
   final SuspendedAtOceanDiveStore suspendedAtOceanDiveStore =
       SuspendedAtOceanDiveStore();
+  final SuspendedAtOceanDiveToVibrantBlueGradientMovieStore
+      suspendedAtOceanDiveToVibrantBlueGradientMovieStore =
+      SuspendedAtOceanDiveToVibrantBlueGradientMovieStore();
   final SuspendedAtTheDepthsMovieStore suspendedAtTheDepthsMovieStore =
       SuspendedAtTheDepthsMovieStore();
   final SuspendedAtTheDepthsToTimesUpStartMovieStore
@@ -75,6 +78,8 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
           timesUpEndToTimesUpStartMovieStore,
       BeachWaveMovieModes.resumeOnShore: resumeOnShoreMovieStore,
       BeachWaveMovieModes.timesUpEndToOceanDive: timesUpEndToOceanDiveMovie,
+      BeachWaveMovieModes.suspendedAtOceanDiveToVibrantBlueGradient:
+          suspendedAtOceanDiveToVibrantBlueGradientMovieStore,
       BeachWaveMovieModes.suspendedAtOceanDive: suspendedAtOceanDiveStore,
       BeachWaveMovieModes.suspendedAtTheDepths: suspendedAtTheDepthsMovieStore,
       BeachWaveMovieModes.suspendedAtTheDepthsToTimesUpStart:

@@ -4,18 +4,18 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'phase0_home_screen_widgets_coordinator.g.dart';
+part 'home_screen_phase0_widgets_coordinator.g.dart';
 
-class Phase0HomeScreenWidgetsCoordinator = _Phase0HomeScreenWidgetsCoordinatorBase
-    with _$Phase0HomeScreenWidgetsCoordinator;
+class HomeScreenPhase0WidgetsCoordinator = _HomeScreenPhase0WidgetsCoordinatorBase
+    with _$HomeScreenPhase0WidgetsCoordinator;
 
-abstract class _Phase0HomeScreenWidgetsCoordinatorBase
+abstract class _HomeScreenPhase0WidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final BeachWavesStore beachWaves;
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final GestureCrossStore gestureCross;
 
-  _Phase0HomeScreenWidgetsCoordinatorBase({
+  _HomeScreenPhase0WidgetsCoordinatorBase({
     required this.beachWaves,
     required this.wifiDisconnectOverlay,
     required this.gestureCross,

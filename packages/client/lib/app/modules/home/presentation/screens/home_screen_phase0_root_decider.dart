@@ -6,9 +6,9 @@ import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/presentation.dart';
 
-class Phase0HomeScreen extends HookWidget {
-  final Phase0HomeScreenCoordinator coordinator;
-  const Phase0HomeScreen({
+class HomeScreenPhase0RootDecider extends HookWidget {
+  final HomeScreenPhase0Coordinator coordinator;
+  const HomeScreenPhase0RootDecider({
     super.key,
     required this.coordinator,
   });

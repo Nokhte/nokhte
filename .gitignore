@@ -13,3 +13,4 @@ melos_nokhte.iml
 **.mocks.dart
 **/i1_client/**
 **/i2_client/**
+**/.env

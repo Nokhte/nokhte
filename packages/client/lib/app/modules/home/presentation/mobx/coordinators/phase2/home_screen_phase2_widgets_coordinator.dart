@@ -5,14 +5,14 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/shared/base_home_screen_widgets_coordinator.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'phase2_home_screen_widgets_coordinator.g.dart';
+part 'home_screen_phase2_widgets_coordinator.g.dart';
 
-class Phase2HomeScreenWidgetsCoordinator = _Phase2HomeScreenWidgetsCoordinatorBase
-    with _$Phase2HomeScreenWidgetsCoordinator;
+class HomeScreenPhase2WidgetsCoordinator = _HomeScreenPhase2WidgetsCoordinatorBase
+    with _$HomeScreenPhase2WidgetsCoordinator;
 
-abstract class _Phase2HomeScreenWidgetsCoordinatorBase
+abstract class _HomeScreenPhase2WidgetsCoordinatorBase
     extends BaseHomeScreenWidgetsCoordinator with Store {
-  _Phase2HomeScreenWidgetsCoordinatorBase({
+  _HomeScreenPhase2WidgetsCoordinatorBase({
     required super.nokhteBlur,
     required super.beachWaves,
     required super.wifiDisconnectOverlay,
