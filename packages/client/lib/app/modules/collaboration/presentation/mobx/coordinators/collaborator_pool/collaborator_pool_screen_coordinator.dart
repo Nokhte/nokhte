@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/posthog/constants/constants.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
 part 'collaborator_pool_screen_coordinator.g.dart';
 
@@ -15,13 +16,15 @@ abstract class _CollaboratorPoolScreenCoordinatorBase extends BaseCoordinator
   _CollaboratorPoolScreenCoordinatorBase({
     required this.widgets,
     required this.logic,
+    required super.captureScreen,
   });
 
   @action
-  constructor() {
+  constructor() async {
     widgets.constructor();
     logic.listenToNokhteSearch();
     nokhteSearchStatusReactor();
+    await captureScreen(Screens.collaboratorPool);
   }
 
   @action
