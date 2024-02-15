@@ -1,6 +1,9 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/posthog/constants/constants.dart';
+import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -20,6 +23,7 @@ abstract class _NokhteSessionPhase2CoordinatorBase extends BaseCoordinator
   final HoldDetector hold;
   final SwipeDetector swipe;
   final NokhteSessionLogicCoordinator logic;
+  final CaptureNokhteSessionEnd captureNokhteSessionEnd;
 
   _NokhteSessionPhase2CoordinatorBase({
     required this.widgets,
@@ -28,12 +32,15 @@ abstract class _NokhteSessionPhase2CoordinatorBase extends BaseCoordinator
     required this.hold,
     required this.swipe,
     required this.logic,
+    required this.captureNokhteSessionEnd,
+    required super.captureScreen,
   });
 
   @action
   constructor() async {
     widgets.constructor(onWidgetsSet, onTimeExpired);
     desireToLeaveStatusReactor();
+    await captureScreen(Screens.nokhteSessionPhase2);
   }
 
   @action
@@ -50,6 +57,7 @@ abstract class _NokhteSessionPhase2CoordinatorBase extends BaseCoordinator
           (p0) async {
         if (p0) {
           await presence.dispose();
+          await captureNokhteSessionEnd(NoParams());
           widgets.initTransitionBackHome();
         }
       });
