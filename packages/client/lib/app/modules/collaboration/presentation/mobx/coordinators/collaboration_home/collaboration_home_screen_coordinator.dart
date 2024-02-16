@@ -4,25 +4,31 @@ import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/deep_links/constants/constants.dart';
 import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/posthog/constants/constants.dart';
+import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/collaboration/domain/domain.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
+import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/shared/base_home_screen_router_coordinator.dart';
+import 'package:nokhte_backend/edge_functions/edge_functions.dart';
 part 'collaboration_home_screen_coordinator.g.dart';
 
 class CollaborationHomeScreenCoordinator = _CollaborationHomeScreenCoordinatorBase
     with _$CollaborationHomeScreenCoordinator;
 
-abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
-    with Store {
+abstract class _CollaborationHomeScreenCoordinatorBase
+    extends BaseHomeScreenRouterCoordinator with Store {
   final CollaborationHomeScreenWidgetsCoordinator widgets;
   final UserInformationCoordinator userInformation;
   final SwipeDetector swipe;
   final DeepLinksCoordinator deepLinks;
   final CollaborationLogicCoordinator logic;
+  final CaptureShareNokhteSessionInvitation captureShareNokhteSessionInvitation;
 
   _CollaborationHomeScreenCoordinatorBase({
     required this.widgets,
@@ -30,7 +36,9 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
     required this.userInformation,
     required this.swipe,
     required this.logic,
-  });
+    required this.captureShareNokhteSessionInvitation,
+    required super.captureScreen,
+  }) : super(getUserInfo: userInformation.getUserInfoStore);
 
   @observable
   ObservableMap additionalRoutingData = ObservableMap.of({});
@@ -76,16 +84,14 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
       } else {
         if (additionalRoutingData[CollaborationCodeKeys.hasSentAnInvitation] ==
             true) {
-          widgets.enterCollaboratorPoolConstructor();
           setDisableAllTouchFeedback(true);
-        } else {
-          widgets.postInvitationFlowNoInviteConstructor();
         }
       }
     } else {
       widgets.invitationFlowConstructor();
     }
-    await deepLinks.getDeepLink(DeepLinkTypes.collaboratorInvitation);
+    await deepLinks.getDeepLink(DeepLinkTypes.nokhteSession);
+    await captureScreen(Screens.collaborationHome);
   }
 
   @action
@@ -97,8 +103,11 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
   onFlowCompleted() => userInformation.updateHasGoneThroughInvitationFlow(true);
 
   @action
-  onEnterCollaboratorPool() =>
-      logic.enter(additionalRoutingData[CollaborationCodeKeys.collaboratorUID]);
+  onEnterCollaboratorPool() => logic.enter(EnterCollaboratorPoolParams(
+        collaboratorUID: additionalRoutingData["deepLinkUID"] ??
+            additionalRoutingData[CollaborationCodeKeys.collaboratorUID],
+        invitationType: InvitationType.nokhteSession,
+      ));
 
   initReactors() {
     swipeReactor();
@@ -106,6 +115,7 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
     deepLinksReactor();
     collaboratorPoolEntryReactor();
     gradientTreeNodeTapReactor(onGradientTreeNodeTap);
+    widgets.beachWavesMovieStatusReactor(onAnimationComplete);
     widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
@@ -124,12 +134,17 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
       (p0) => onDeepLinkOpened(p0));
 
   @action
-  onDeepLinkOpened(String path) {
+  onDeepLinkOpened(String path) async {
     if (path == '/collaboration/') {
       setAdditionalRoutingData(
         deepLinks.listenForOpenedDeepLinkStore.additionalMetadata,
       );
-      widgets.initCollaboratorPoolWidgets();
+      if (deepLinks.listenForOpenedDeepLinkStore
+              .additionalMetadata["isTheUsersInvitation"] !=
+          null) {
+        widgets.onNokhteSessionLinkOpened();
+        await onEnterCollaboratorPool();
+      } else {}
     }
   }
 
@@ -139,8 +154,9 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
   @action
   onInvitationShared(bool isShared) async {
     if (isShared) {
+      await captureShareNokhteSessionInvitation(NoParams());
+      await getUserInfo(NoParams());
       if (additionalRoutingData.isNotEmpty) {
-        widgets.initCollaboratorPoolWidgets();
         await onEnterCollaboratorPool();
       } else {
         widgets.toggleInvitationIsSent();
@@ -173,7 +189,9 @@ abstract class _CollaborationHomeScreenCoordinatorBase extends BaseCoordinator
   onCollaboratorPoolEntered(bool hasEntered) {
     if (hasEntered) {
       Timer.periodic(Seconds.get(0, milli: 100), (timer) {
-        if (widgets.gradientTreeNode.movieStatus == MovieStatus.finished) {
+        if (widgets.beachWaves.movieStatus == MovieStatus.finished &&
+            widgets.beachWaves.movieMode ==
+                BeachWaveMovieModes.oceanDiveToTimesUp) {
           Modular.to.navigate('/collaboration/pool');
           timer.cancel();
         }

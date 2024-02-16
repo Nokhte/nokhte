@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -174,21 +173,10 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
     }
   }
 
-  @action
-  loggedInOnInactive() {
-    if (!hasCompletedSandTransition) {
-      layer1BeachWaves.currentStore.setControl(Control.stop);
-    } else if (!hasCompletedWaterFromTopToOnShorePt1 ||
-        !hasCompletedWaterFromTopToOnShorePt2) {
-      layer2BeachWaves.currentStore.setControl(Control.stop);
-    }
-  }
-
   initReactors(Function loginBusinessLogic) {
     nokhteReactor(loginBusinessLogic);
     trailingTextReactor();
     layer1BeachWavesReactor();
-    layer2BeachWavesReactor();
   }
 
   nokhteReactor(Function loginBusinessLogic) =>
@@ -229,7 +217,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
         }
       });
 
-  layer2BeachWavesReactor() =>
+  layer2BeachWavesReactor(Function onPt2Finished) =>
       reaction((p0) => layer2BeachWaves.movieStatus, (p0) {
         if (hasFinishedWaterFromTopPart1(p0)) {
           layer2BeachWaves.setMovieMode(
@@ -240,26 +228,10 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
           toggleHasCompletedWaterFromTopToOnShorePt1();
           layer2BeachWaves.currentStore.initMovie(NoParams());
         } else if (hasFinishedWaterFromTopPart2(p0)) {
-          Modular.to.navigate('/home/');
+          onPt2Finished();
+          // Modular.to.navigate('/home/');
         }
       });
-
-  // wifiDisconnectOverlayReactor() =>
-  //     reaction((p0) => wifiDisconnectOverlay.movieStatus, (p0) {
-  //       if (wifiDisconnectOverlay.movieMode ==
-  //           WifiDisconnectMovieModes.removeTheCircle) {
-  //         if (p0 == MovieStatus.inProgress && hasNotMadeTheDot) {
-  // smartTextStore.reset();
-  //         } else if (p0 == MovieStatus.finished) {
-  //           smartTextStore.resume();
-  //         }
-  //       } else if (wifiDisconnectOverlay.movieMode ==
-  //           WifiDisconnectMovieModes.placeTheCircle) {
-  //         if (p0 == MovieStatus.inProgress && hasNotMadeTheDot) {
-  //           smartTextStore.pause();
-  //         }
-  //       }
-  //     });
 
   hasFinishedBlackOutToSand(MovieStatus movieStatus) =>
       movieStatus == MovieStatus.finished &&

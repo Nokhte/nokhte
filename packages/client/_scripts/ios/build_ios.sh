@@ -1,4 +1,3 @@
-/bin/bash --login
 flutter pub get
 cd ios
 gem install bundler

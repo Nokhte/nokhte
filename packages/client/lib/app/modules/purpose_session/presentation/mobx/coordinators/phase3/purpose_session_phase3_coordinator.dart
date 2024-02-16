@@ -13,5 +13,6 @@ abstract class _PurposeSessionPhase3CoordinatorBase extends BaseCoordinator
 
   _PurposeSessionPhase3CoordinatorBase({
     required this.widgets,
+    required super.captureScreen,
   });
 }

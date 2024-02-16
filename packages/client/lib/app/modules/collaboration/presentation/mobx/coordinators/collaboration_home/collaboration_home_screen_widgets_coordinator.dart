@@ -2,9 +2,9 @@
 import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -13,8 +13,8 @@ part 'collaboration_home_screen_widgets_coordinator.g.dart';
 class CollaborationHomeScreenWidgetsCoordinator = _CollaborationHomeScreenWidgetsCoordinatorBase
     with _$CollaborationHomeScreenWidgetsCoordinator;
 
-abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
-    with Store {
+abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
+    extends BaseWidgetsCoordinator with Store {
   final BeachWavesStore beachWaves;
   final GradientTreeNodeStore gradientTreeNode;
   final SmartTextStore smartText;
@@ -32,9 +32,6 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
   @observable
   bool invitationIsSent = false;
 
-  // @observable
-  // bool isDisconnected = false;
-
   @observable
   bool shouldEnterCollaboratorPool = false;
 
@@ -46,29 +43,28 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
   toggleInvitationIsSent() => invitationIsSent = !invitationIsSent;
 
   @action
+  constructor() {
+    beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtOceanDive);
+    gestureCross.setCollaborationHomeScreen();
+    smartText.setMessagesData(MessagesData.firstTimeCollaborationList);
+    gradientTreeNode.setWidgetVisibility(false);
+  }
+
+  @action
   onResumed() {
     if (smartText.currentIndex.isLessThanOrEqualTo(1) &&
-        smartText.messagesData.length == 4) {
+        smartText.messagesData.length == 3) {
       smartText.reset();
       smartText.startRotatingText();
-      print("is resumed running");
     }
   }
 
   @action
   onInactive() {
     if (smartText.currentIndex.isLessThanOrEqualTo(1) &&
-        smartText.messagesData.length == 4) {
+        smartText.messagesData.length == 3) {
       smartText.pause();
     }
-  }
-
-  @action
-  constructor() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtOceanDive);
-    gestureCross.setCollaborationHomeScreen();
-    smartText.setMessagesData(MessagesData.firstTimeCollaborationList);
-    gradientTreeNode.toggleWidgetVisibility();
   }
 
   @action
@@ -82,28 +78,10 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
   }
 
   @action
-  postInvitationFlowNoInviteConstructor() {
-    smartText.setMessagesData(MessagesData.postInvitationNoInvite);
-    gradientTreeNode.toggleWidgetVisibility();
-    Timer.periodic(Seconds.get(0, milli: 100), (timer) {
-      if (!smartText.isPaused) {
-        smartText.startRotatingText();
-        timer.cancel();
-      }
-    });
-  }
-
-  @action
-  enterCollaboratorPoolConstructor() {
-    gradientTreeNode.toggleWidgetVisibility();
-    toggleShouldEnterCollaboratorPool();
-  }
-
-  @action
   postInvitationFlowConstructor() {
     Timer.periodic(Seconds.get(0, milli: 100), (timer) {
       if (!smartText.isPaused) {
-        smartText.setCurrentIndex(2);
+        smartText.setCurrentIndex(1);
         smartText.startRotatingText();
         timer.cancel();
       }
@@ -111,21 +89,20 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
   }
 
   @action
-  initCollaboratorPoolWidgets() {
-    if (!shouldEnterCollaboratorPool) {
-      toggleShouldEnterCollaboratorPool();
-    }
-    gradientTreeNode.initMovie(NoParams());
+  onNokhteSessionLinkOpened() {
+    beachWaves.setMovieMode(
+        BeachWaveMovieModes.suspendedAtOceanDiveToVibrantBlueGradient);
+    beachWaves.currentStore.initMovie(NoParams());
     gestureCross.toggleAll();
+    gradientTreeNode.setWidgetVisibility(false);
+    smartText.setWidgetVisibility(false);
   }
 
   @action
   onSwipeDown() {
-    if (gradientTreeNode.showWidget) {
-      gradientTreeNode.toggleWidgetVisibility();
-    }
+    gradientTreeNode.setWidgetVisibility(false);
     smartText.pause();
-    smartText.toggleWidgetVisibility();
+    smartText.setWidgetVisibility(false);
     gestureCross.initMoveAndRegenerate(CircleOffsets.bottom);
     beachWaves.setMovieMode(BeachWaveMovieModes.oceanDiveToOnShore);
     beachWaves.currentStore.initMovie(NoParams());
@@ -136,24 +113,14 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
 
     invitationSendStatusReactor();
     centerCrossNokhteReactor();
-    beachWavesMovieStatusReactor();
-    gradientTreeNodeOpacityReactor(enterCollaboratorPool);
     gradientTreeNodeMovieStatusReactor();
   }
 
   smartTextReactor(Function onFlowCompleted) =>
       reaction((p0) => smartText.currentIndex, (p0) {
-        if (p0 == 2) {
-          gradientTreeNode.toggleWidgetVisibility();
+        if (p0 == 1) {
+          gradientTreeNode.setWidgetVisibility(true);
           onFlowCompleted();
-        }
-      });
-
-  gradientTreeNodeOpacityReactor(Function enterCollaboratorPool) =>
-      reaction((p0) => gradientTreeNode.hasFadedIn, (p0) async {
-        if (shouldEnterCollaboratorPool && p0) {
-          initCollaboratorPoolWidgets();
-          await enterCollaboratorPool();
         }
       });
 
@@ -173,29 +140,20 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase extends Equatable
   centerCrossNokhteReactor() =>
       reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          gestureCross.gradientNokhte.toggleWidgetVisibility();
-          gestureCross.strokeCrossNokhte.toggleWidgetVisibility();
+          gestureCross.gradientNokhte.setWidgetVisibility(false);
+          gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
         }
       });
 
-  beachWavesMovieStatusReactor() =>
+  beachWavesMovieStatusReactor(Function onNavigationHome) =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished &&
-            beachWaves.movieMode == BeachWaveMovieModes.oceanDiveToOnShore) {
-          Modular.to.navigate('/home/');
+        if (p0 == MovieStatus.finished) {
+          if (beachWaves.movieMode == BeachWaveMovieModes.oceanDiveToOnShore) {
+            onNavigationHome();
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.suspendedAtOceanDiveToVibrantBlueGradient) {
+            Modular.to.navigate('/collaboration/pool');
+          }
         }
       });
-
-  // wifiDisconnectOverlayReactor() =>
-  //     reaction((p0) => wifiDisconnectOverlay.movieStatus, (p0) {
-  //       if (wifiDisconnectOverlay.movieMode ==
-  //           WifiDisconnectMovieModes.removeTheCircle) {
-  //         if (smartText.isPaused) {
-  //           smartText.resume();
-  //         }
-  //       }
-  //     });
-
-  @override
-  List<Object> get props => [];
 }

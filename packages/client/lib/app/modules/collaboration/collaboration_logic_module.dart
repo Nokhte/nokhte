@@ -15,7 +15,7 @@ class CollaborationLogicModule extends Module {
       ];
 
   @override
-  void binds(Injector i) {
+  void exportedBinds(Injector i) {
     i.add<CollaborationRemoteSourceImpl>(
       () => CollaborationRemoteSourceImpl(
         supabase: Modular.get<SupabaseClient>(),
@@ -31,6 +31,11 @@ class CollaborationLogicModule extends Module {
 
     i.add<CancelCollaboratorSearchStream>(
       () => CancelCollaboratorSearchStream(
+        contract: i<CollaborationContractImpl>(),
+      ),
+    );
+    i.add<GetNokhteSessionSearchStatus>(
+      () => GetNokhteSessionSearchStatus(
         contract: i<CollaborationContractImpl>(),
       ),
     );
@@ -51,6 +56,8 @@ class CollaborationLogicModule extends Module {
     );
     i.add<CollaborationLogicCoordinator>(
       () => CollaborationLogicCoordinator(
+        getNokhteSessionSearchStatusLogic:
+            Modular.get<GetNokhteSessionSearchStatus>(),
         cancelCollaboratorSearchStreamLogic:
             i<CancelCollaboratorSearchStream>(),
         enterCollaboratorPoolLogic: i<EnterCollaboratorPool>(),

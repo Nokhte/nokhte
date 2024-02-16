@@ -1,9 +1,4 @@
 stages:
-  - development
-  - staging
-  - production
-stages:
-  - development
   - staging
   - production
 
@@ -21,47 +16,6 @@ variables:
   LC_ALL: "en_US.UTF-8"
   LANG: "en_US.UTF-8"
 
-Deploy To Staging Database:
-  stage: staging
-  script:
-    - cd packages/backend
-    - supabase link --project-ref $SUPABASE_STAGING_PROJECT_ID --password $SUPABASE_STAGING_DB_PASSWORD
-    - supabase functions deploy
-    - supabase db push
-  only:
-    - staging
-  when: manual
-
-Deply To Production Database:
-  stage: production
-  script:
-    - cd packages/backend
-    - supabase link --project-ref $SUPABASE_PROD_PROJECT_ID --password $SUPABASE_PROD_DB_PASSWORD
-    - supabase functions deploy
-    - supabase db push
-  only:
-    - production
-  when: manual
-
-Deploy To Testflight:
-  stage: staging
-  tags:
-    - shell
-  script:
-    - melos bs
-    - cd packages/client
-    - echo "LEOPARD_MODEL_PATH=assets/leopard_model.pv" >> .env
-    - echo "AGORA_APP_ID=$AGORA_APP_ID" >> .env
-    - echo "LEOPARD_ACCESS_KEY=$LEOPARD_ACCESS_KEY" >> .env
-    - echo "PROD_SUPABASE_URL=$STAGING_SUPABASE_URL" >> .env
-    - echo "PROD_SUPABASE_ANON_KEY=$STAGING_SUPABASE_ANON_KEY" >> .env
-    - chmod u+x ./_scripts/ios/*.sh
-    - ./_scripts/ios/build_ios.sh
-    - ./_scripts/ios/distribute_ios_beta.sh
-  only:
-    - staging
-  when: manual
-
 Deploy To Android Private Beta:
   stage: staging
   tags:
@@ -77,25 +31,6 @@ Deploy To Android Private Beta:
     - chmod u+x ./_scripts/android/*.sh
     - ./_scripts/android/build_android.sh
     - ./_scripts/android/distribute_android_staging.sh
-  only:
-    - staging
-  when: manual
-
-External iOS Beta Build:
-  stage: production
-  tags:
-    - shell
-  script:
-    - melos bs
-    - cd packages/client
-    - echo "LEOPARD_MODEL_PATH=assets/leopard_model.pv" >> .env
-    - echo "AGORA_APP_ID=$AGORA_APP_ID" >> .env
-    - echo "LEOPARD_ACCESS_KEY=$LEOPARD_ACCESS_KEY" >> .env
-    - echo "PROD_SUPABASE_URL=$PROD_SUPABASE_URL" >> .env
-    - echo "PROD_SUPABASE_ANON_KEY=$PROD_SUPABASE_ANON_KEY" >> .env
-    - chmod u+x ./_scripts/ios/*.sh
-    - ./_scripts/ios/build_ios.sh
-    - ./_scripts/ios/distribute_ios_beta.sh
   only:
     - staging
   when: manual

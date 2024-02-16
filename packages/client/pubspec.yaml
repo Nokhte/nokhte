@@ -2,7 +2,7 @@ name: nokhte
 description: A new Flutter project.
 publish_to: "none"
 
-version: 0.1.0+103197407
+version: 1.0.1+109409362
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -39,8 +39,6 @@ dependencies:
   mobx: ^2.2.1
   nokhte_backend:
     path: ../backend/dart
-  nokhte_core:
-    path: ../core
   path_drawing: ^1.0.1
   path_morph: ^1.1.1
   path_provider: ^2.1.1

@@ -21,8 +21,15 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
   final OnShoreToOceanDiveMovieStore onShoreToOceanDiveMovieStore =
       OnShoreToOceanDiveMovieStore();
   final OnShoreMovieStore onShoreMovieStore = OnShoreMovieStore();
+  final OnShoreToVibrantBlueMovieStore onShoreToVibrantBlueMovieStore =
+      OnShoreToVibrantBlueMovieStore();
+  final ResumeOnShoreMovieStore resumeOnShoreMovieStore =
+      ResumeOnShoreMovieStore();
   final SuspendedAtOceanDiveStore suspendedAtOceanDiveStore =
       SuspendedAtOceanDiveStore();
+  final SuspendedAtOceanDiveToVibrantBlueGradientMovieStore
+      suspendedAtOceanDiveToVibrantBlueGradientMovieStore =
+      SuspendedAtOceanDiveToVibrantBlueGradientMovieStore();
   final SuspendedAtTheDepthsMovieStore suspendedAtTheDepthsMovieStore =
       SuspendedAtTheDepthsMovieStore();
   final SuspendedAtTheDepthsToTimesUpStartMovieStore
@@ -58,6 +65,7 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
       BeachWaveMovieModes.oceanDiveToOnShore: oceanDiveToOnShoreMovieStore,
       BeachWaveMovieModes.onShore: onShoreMovieStore,
       BeachWaveMovieModes.onShoreToOceanDive: onShoreToOceanDiveMovieStore,
+      BeachWaveMovieModes.onShoreToVibrantBlue: onShoreToVibrantBlueMovieStore,
       BeachWaveMovieModes.none: BaseBeachWaveMovieStore(),
       BeachWaveMovieModes.timesUp: timesUpMovieStore,
       BeachWaveMovieModes.timesUpDynamicPointToTheDepths:
@@ -68,7 +76,10 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
           timesUpEndToTheDepthsMovieStore,
       BeachWaveMovieModes.timesUpEndToTimesUpStart:
           timesUpEndToTimesUpStartMovieStore,
+      BeachWaveMovieModes.resumeOnShore: resumeOnShoreMovieStore,
       BeachWaveMovieModes.timesUpEndToOceanDive: timesUpEndToOceanDiveMovie,
+      BeachWaveMovieModes.suspendedAtOceanDiveToVibrantBlueGradient:
+          suspendedAtOceanDiveToVibrantBlueGradientMovieStore,
       BeachWaveMovieModes.suspendedAtOceanDive: suspendedAtOceanDiveStore,
       BeachWaveMovieModes.suspendedAtTheDepths: suspendedAtTheDepthsMovieStore,
       BeachWaveMovieModes.suspendedAtTheDepthsToTimesUpStart:

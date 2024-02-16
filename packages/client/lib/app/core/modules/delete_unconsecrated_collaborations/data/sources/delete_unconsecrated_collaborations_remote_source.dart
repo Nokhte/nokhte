@@ -1,4 +1,5 @@
 import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/domain/domain.dart';
+import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:nokhte_backend/tables/existing_collaborations.dart';
 import 'package:nokhte_backend/tables/solo_sharable_documents.dart';
@@ -15,6 +16,7 @@ abstract class DeleteUnconsecratedCollaborationsRemoteSource {
   Future<CollaboratorInfo> getCollaboratorInfo();
   Future<List> checkIfCollaboratorHasDeletedArtifacts();
   Future<List> updateHasDeletedArtifacts(bool params);
+  Future<List> deleteActiveNokhteSession();
 }
 
 class DeleteUnconsecratedCollaborationsRemoteSourceImpl
@@ -22,6 +24,7 @@ class DeleteUnconsecratedCollaborationsRemoteSourceImpl
   final SupabaseClient supabase;
   final ExistingCollaborationsQueries existingCollaborations;
   final SoloSharableDocumentQueries soloSharableDocumentQueries;
+  final ActiveNokhteSessionQueries activeNokhteSessionQueries;
   final WorkingCollaborativeSchedulingQueries
       workingCollaborativeSchedulingQueries;
   final WorkingCollaborativeDocumentsQueries
@@ -32,6 +35,8 @@ class DeleteUnconsecratedCollaborationsRemoteSourceImpl
             ExistingCollaborationsQueries(supabase: supabase),
         soloSharableDocumentQueries =
             SoloSharableDocumentQueries(supabase: supabase),
+        activeNokhteSessionQueries =
+            ActiveNokhteSessionQueries(supabase: supabase),
         workingCollaborativeDocumentsQueries =
             WorkingCollaborativeDocumentsQueries(supabase: supabase),
         workingCollaborativeSchedulingQueries =
@@ -68,6 +73,10 @@ class DeleteUnconsecratedCollaborationsRemoteSourceImpl
   Future<List> deleteCapsuleArrangement() async {
     return [];
   }
+
+  @override
+  Future<List> deleteActiveNokhteSession() async =>
+      await activeNokhteSessionQueries.delete();
 
   @override
   Future<List> checkForUnconsecratedCollaboration() async {

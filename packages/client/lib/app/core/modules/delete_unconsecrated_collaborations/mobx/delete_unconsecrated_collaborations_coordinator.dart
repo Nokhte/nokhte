@@ -39,6 +39,7 @@ abstract class _DeleteUnconsecratedCollaborationsCoordinatorBase
   @observable
   CollaboratorInfo collaboratorInfo = CollaboratorInfo.initial();
 
+  final DeleteActiveNokhteSession deleteActiveNokhteSession;
   final DeleteCapsuleArrangement deleteCapsuleArrangementLogic;
   final DeleteCollaborativeDocument deleteCollaborativeDocumentLogic;
   final DeleteSchedulingSession deleteSchedulingSessionLogic;
@@ -52,6 +53,7 @@ abstract class _DeleteUnconsecratedCollaborationsCoordinatorBase
   final UpdateHasDeletedArtifacts updateHasDeletedArtifactsLogic;
 
   _DeleteUnconsecratedCollaborationsCoordinatorBase({
+    required this.deleteActiveNokhteSession,
     required this.deleteCollaborativeDocumentLogic,
     required this.deleteSchedulingSessionLogic,
     required this.deleteTheCollaborationLogic,
@@ -117,14 +119,7 @@ abstract class _DeleteUnconsecratedCollaborationsCoordinatorBase
   Future<void> call(NoParams params) async {
     state = StoreState.loading;
     await collaborationLogicCoordinator.exit();
-    await checkForUnconsecratedCollaboration();
-    if (hasAnUnconsecratedCollabooration) {
-      await checkIfCollaboratorHasDeletedArtifacts();
-      await updateHasDeletedArtifacts();
-      await deleteSoloDocuments();
-      if (collaboratorHasDeletedArtifacts) {
-        await deleteTheCollaboration();
-      }
-    }
+    await deleteActiveNokhteSession(NoParams());
+    state = StoreState.loaded;
   }
 }

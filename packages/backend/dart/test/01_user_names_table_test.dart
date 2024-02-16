@@ -11,7 +11,7 @@ import 'package:nokhte_backend/constants/constants.dart';
 void main() {
   late SupabaseClient supabaseAdmin;
   late SupabaseClient supabase;
-  late String? currentUserUID;
+  late String? firstUserUID;
   late UserNamesQueries user1UserNameQueries;
   late UserNamesQueries adminUserNameQueries;
 
@@ -20,11 +20,11 @@ void main() {
     supabaseAdmin = SupabaseClientConfigConstants.supabaseAdmin;
     await UserSetupConstants.wipeUsernamesTable(supabaseAdmin: supabaseAdmin);
     final userIdResults = await UserSetupConstants.getUIDs();
-    currentUserUID = userIdResults.first;
+    firstUserUID = userIdResults.first;
     await SignIn.user1(supabase: supabase);
     user1UserNameQueries = UserNamesQueries(supabase: supabase);
     adminUserNameQueries = UserNamesQueries(supabase: supabaseAdmin);
-    adminUserNameQueries.userUID = currentUserUID ?? '';
+    adminUserNameQueries.userUID = firstUserUID ?? '';
   });
 
   tearDown(() async {
@@ -41,65 +41,69 @@ void main() {
       "✅ should be able to CREATE & READ a row in the table if their uid isn't present already",
       () async {
     final userNamesRes = await user1UserNameQueries.insertUserInfo(
-      firstNameParam: UserDataConstants.user1FirstName,
-      lastNameParam: UserDataConstants.user1LastName,
+      firstName: UserDataConstants.user1FirstName,
+      lastName: UserDataConstants.user1LastName,
     );
     expect(userNamesRes.first['first_name'], UserDataConstants.user1FirstName);
     expect(userNamesRes.first["last_name"], UserDataConstants.user1LastName);
-    expect(userNamesRes.first["uid"], currentUserUID);
+    expect(userNamesRes.first["uid"], firstUserUID);
   });
 
   test("should be able to update their `has_sent_invitation` field", () async {
     await user1UserNameQueries.insertUserInfo(
-      firstNameParam: UserDataConstants.user1FirstName,
-      lastNameParam: UserDataConstants.user1LastName,
+      firstName: UserDataConstants.user1FirstName,
+      lastName: UserDataConstants.user1LastName,
     );
     final res = await user1UserNameQueries.updateHasSentAnInvitation(true);
     final dupRes = await user1UserNameQueries.updateHasSentAnInvitation(true);
-    expect(res.first[UserNamesQueries.hasSentAnInvitation], true);
-    expect(dupRes.first[UserNamesQueries.hasSentAnInvitation], true);
+    expect(res.first[user1UserNameQueries.HAS_SENT_AN_INVITATION], true);
+    expect(dupRes.first[user1UserNameQueries.HAS_SENT_AN_INVITATION], true);
   });
 
   test(
       "should be able to update their `has_gone_through_invitation_flow` field",
       () async {
     await user1UserNameQueries.insertUserInfo(
-      firstNameParam: UserDataConstants.user1FirstName,
-      lastNameParam: UserDataConstants.user1LastName,
+      firstName: UserDataConstants.user1FirstName,
+      lastName: UserDataConstants.user1LastName,
     );
     final res =
         await user1UserNameQueries.updateHasGoneThroughInvitationFlow(true);
     final dupRes =
         await user1UserNameQueries.updateHasGoneThroughInvitationFlow(true);
-    expect(res.first[UserNamesQueries.hasGoneThroughInvitationFlow], true);
-    expect(dupRes.first[UserNamesQueries.hasGoneThroughInvitationFlow], true);
+    expect(
+        res.first[user1UserNameQueries.HAS_GONE_THROUGH_INVITATION_FLOW], true);
+    expect(dupRes.first[user1UserNameQueries.HAS_GONE_THROUGH_INVITATION_FLOW],
+        true);
   });
 
   test("should be able to update their `wants_to_repeat_invitation_flow` field",
       () async {
     await user1UserNameQueries.insertUserInfo(
-      firstNameParam: UserDataConstants.user1FirstName,
-      lastNameParam: UserDataConstants.user1LastName,
+      firstName: UserDataConstants.user1FirstName,
+      lastName: UserDataConstants.user1LastName,
     );
     final res =
         await user1UserNameQueries.updateWantsToRepeatInvitationFlow(true);
     final dupRes =
         await user1UserNameQueries.updateWantsToRepeatInvitationFlow(true);
-    expect(res.first[UserNamesQueries.wantsToRepeatInvitationFlow], true);
-    expect(dupRes.first[UserNamesQueries.wantsToRepeatInvitationFlow], true);
+    expect(
+        res.first[user1UserNameQueries.WANTS_TO_REPEAT_INVITATION_FLOW], true);
+    expect(dupRes.first[user1UserNameQueries.WANTS_TO_REPEAT_INVITATION_FLOW],
+        true);
   });
 
   test("❌ shouldn't be able to insert another row if they already have one",
       () async {
     await user1UserNameQueries.insertUserInfo(
-      firstNameParam: UserDataConstants.user1FirstName,
-      lastNameParam: UserDataConstants.user1LastName,
+      firstName: UserDataConstants.user1FirstName,
+      lastName: UserDataConstants.user1LastName,
     );
 
     try {
       await user1UserNameQueries.insertUserInfo(
-        firstNameParam: UserDataConstants.user1FirstName,
-        lastNameParam: UserDataConstants.user1LastName,
+        firstName: UserDataConstants.user1FirstName,
+        lastName: UserDataConstants.user1LastName,
       );
     } catch (e) {
       expect(e, isA<PostgrestException>());
@@ -108,8 +112,8 @@ void main() {
   test("❌ SHOULDN'T be able to enter a UID that isn't theirs", () async {
     try {
       await user1UserNameQueries.insertUserInfo(
-        firstNameParam: UserDataConstants.user1FirstName,
-        lastNameParam: UserDataConstants.user1LastName,
+        firstName: UserDataConstants.user1FirstName,
+        lastName: UserDataConstants.user1LastName,
       );
     } catch (e) {
       expect(e, isA<PostgrestException>());

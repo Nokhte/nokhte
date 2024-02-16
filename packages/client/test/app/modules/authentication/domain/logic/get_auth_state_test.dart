@@ -20,7 +20,7 @@ void main() {
       tAuthEntity = AuthStateEntity(isAuthenticated: Stream.value(true));
     });
     test('should return the AuthEntity with true from the AuthContract', () {
-      when(mockAuthenticationContract.getAuthState())
+      when(mockAuthenticationContract.getAuthState(NoParams()))
           .thenAnswer((_) => tAuthEntity);
       final result = getAuthState(NoParams());
       expect(result.isAuthenticated, emitsInOrder([true]));
@@ -34,7 +34,7 @@ void main() {
     test(
         'should return stream of a false value from the mocked auth state contract',
         () {
-      when(mockAuthenticationContract.getAuthState())
+      when(mockAuthenticationContract.getAuthState(NoParams()))
           .thenAnswer((_) => tAuthEntity);
       final result = getAuthState(NoParams());
       expect(result.isAuthenticated, emitsInOrder([false]));

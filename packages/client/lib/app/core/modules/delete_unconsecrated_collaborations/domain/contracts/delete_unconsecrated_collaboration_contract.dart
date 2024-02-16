@@ -15,4 +15,5 @@ abstract class DeleteUnconsecratedCollaborationsContract {
   Future<Either<Failure, bool>> checkIfCollaboratorHasDeletedArtifacts(
       NoParams params);
   Future<Either<Failure, bool>> updateHasDeletedArtifacts(bool params);
+  Future<Either<Failure, bool>> deleteActiveNokhteSession(NoParams params);
 }

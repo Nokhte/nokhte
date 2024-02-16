@@ -40,6 +40,12 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
   }
 
   @action
+  transitionFromNokhteSessionToHomeScreen() {
+    cross.initOutlineFadeOut();
+    strokeCrossNokhte.setWidgetVisibility(false);
+  }
+
+  @action
   setPhase2PurposeSession() {
     gradientNokhte.setMovie(VibrantBlueGradientNokhteMovie.movie);
   }
@@ -63,6 +69,22 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
     strokeCrossNokhte.toggleWidgetVisibility();
     centerCrossNokhte.toggleWidgetVisibility();
     gradientNokhte.toggleWidgetVisibility();
+  }
+
+  @action
+  fadeAllOut() {
+    cross.setWidgetVisibility(false);
+    strokeCrossNokhte.setWidgetVisibility(false);
+    centerCrossNokhte.setWidgetVisibility(false);
+    gradientNokhte.setWidgetVisibility(false);
+  }
+
+  @action
+  fadeAllIn() {
+    cross.setWidgetVisibility(true);
+    strokeCrossNokhte.setWidgetVisibility(true);
+    centerCrossNokhte.setWidgetVisibility(true);
+    gradientNokhte.setWidgetVisibility(true);
   }
 
   @action

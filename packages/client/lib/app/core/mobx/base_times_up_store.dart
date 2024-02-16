@@ -17,6 +17,7 @@ abstract class _BaseTimesUpStoreBase extends BaseCoordinator with Store {
   _BaseTimesUpStoreBase({
     required this.newBeachWaves,
     required this.productionTimerLength,
+    required super.captureScreen,
   });
 
   @observable

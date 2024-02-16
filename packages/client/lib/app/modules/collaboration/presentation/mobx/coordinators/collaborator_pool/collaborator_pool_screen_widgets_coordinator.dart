@@ -26,6 +26,9 @@ abstract class _CollaboratorPoolScreenWidgetsCoordinatorBase
     required this.waitingText,
   });
 
+  @observable
+  bool isTransitioningToNokhteSession = false;
+
   final timerDuration = Seconds.get(63);
   @action
   constructor() {
@@ -65,7 +68,9 @@ abstract class _CollaboratorPoolScreenWidgetsCoordinatorBase
             beachWaves.currentStore.initMovie(NoParams());
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.timesUpDynamicPointToTheDepths) {
-            Modular.to.navigate("/purpose_session/");
+            Modular.to.navigate(isTransitioningToNokhteSession
+                ? "/nokhte_session/"
+                : "/purpose_session/");
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.timesUpEndToOceanDive) {
             Modular.to.navigate("/collaboration/");
@@ -82,7 +87,8 @@ abstract class _CollaboratorPoolScreenWidgetsCoordinatorBase
   }
 
   @action
-  initTransitionToPurposeSession() {
+  initTransition({bool isNokhteSession = false}) {
+    isTransitioningToNokhteSession = isNokhteSession;
     waitingText.toggleWidgetVisibility();
     beachWaves.setMovieMode(BeachWaveMovieModes.timesUpDynamicPointToTheDepths);
     beachWaves.currentStore.initMovie([

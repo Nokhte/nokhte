@@ -17,16 +17,6 @@ class HomeContractImpl with ResponseToStatus implements HomeContract {
   });
 
   @override
-  addNameToDatabase(NoParams params) async {
-    if (await networkInfo.isConnected) {
-      final res = await remoteSource.addNamesToDatabase();
-      return Right(fromSupabase(res));
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
-
-  @override
   getExistingCollaborationInfo(NoParams params) async {
     if (await networkInfo.isConnected) {
       final collaborationRes =

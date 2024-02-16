@@ -35,23 +35,6 @@ class MessagesData {
           unlockGesture: Gestures.tap,
         ),
         RotatingTextData(
-          initialFadeInDelay: Seconds.get(0),
-          mainMessage: "",
-          onScreenTime: Seconds.get(0),
-        ),
-        RotatingTextData(
-          initialFadeInDelay: Seconds.get(1),
-          mainMessage:
-              "Both of you need to be online at the same to make the collaboration.",
-          onScreenTime: Seconds.get(2),
-        ),
-        RotatingTextData(
-          initialFadeInDelay: Seconds.get(0),
-          mainMessage: "",
-          pauseHere: true,
-          onScreenTime: Seconds.get(0),
-        ),
-        RotatingTextData(
           initialFadeInDelay: Seconds.get(1),
           mainMessage: "Swipe Up to Enter The Collaboration Page.",
           onScreenTime: Seconds.get(2),
@@ -69,12 +52,6 @@ class MessagesData {
         RotatingTextData(
           initialFadeInDelay: Seconds.get(1),
           mainMessage: "This is the collaboration page.",
-          onScreenTime: Seconds.get(2),
-        ),
-        RotatingTextData(
-          initialFadeInDelay: Seconds.get(0),
-          mainMessage:
-              "To make the connection you will need each other's invitation.",
           onScreenTime: Seconds.get(2),
         ),
         RotatingTextData(
@@ -161,13 +138,8 @@ class MessagesData {
   static List<RotatingTextData> get primaryPurposeSessionPhase0List => [
         RotatingTextData(
           initialFadeInDelay: Seconds.get(0),
-          mainMessage: "This is the starting point of the collaboration",
-          onScreenTime: Seconds.get(2),
-        ),
-        RotatingTextData(
-          initialFadeInDelay: Seconds.get(0),
-          mainMessage: "One of you has a question to start the collaboration.",
-          onScreenTime: Seconds.get(2),
+          mainMessage: "To Complete The Call, Swipe Up At The Same Time.",
+          onScreenTime: Seconds.get(5, milli: 400),
         ),
         RotatingTextData(
           mainMessage: "",
@@ -239,4 +211,53 @@ class MessagesData {
           pauseHere: true,
         ),
       ];
+
+  static List<RotatingTextData> get primaryNokhteSessionPhase0List => [
+        RotatingTextData(
+          initialFadeInDelay: Seconds.get(0),
+          mainMessage:
+              "You will have some questions to orient the conversation",
+          onScreenTime: Seconds.get(2),
+        ),
+        RotatingTextData(
+          initialFadeInDelay: Seconds.get(0),
+          mainMessage: "The aim is to create a single statement together",
+          onScreenTime: Seconds.get(2),
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
+      ];
+
+  static List<RotatingTextData> get primaryNokhteSessionPhase1HasTheQuestion =>
+      [
+        RotatingTextData(
+          mainMessage: "Ask: What Are We Here To Do?",
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
+      ];
+  static List<RotatingTextData>
+      get primaryNokhteSessionPhase1DoesNotHaveTheQuestion => [
+            RotatingTextData(
+              mainMessage: "Wait For The Question.",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "Ask: What Can We Collectively Create?",
+              pauseHere: true,
+            ),
+          ];
 }

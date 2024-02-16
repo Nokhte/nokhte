@@ -1,0 +1,32 @@
+name: Backend Production Deployment
+on:
+  push:
+    branches:
+      - production
+    paths:
+      - packages/backend/**
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_PROD_PROJECT_ID: ${{secrets.SUPABASE_PROD_PROJECT_ID}}
+      SUPABASE_PROD_DB_PASSWORD: ${{secrets.SUPABASE_PROD_DB_PASSWORD}}
+      GOOGLE_CLIENT_ID: ${{secrets.GOOGLE_CLIENT_ID}}
+      GOOGLE_CLIENT_SECRET: ${{secrets.GOOGLE_CLIENT_SECRET}}
+      SUPABASE_ACCESS_TOKEN: ${{secrets.SUPABASE_ACCESS_TOKEN}}
+    defaults:
+      run:
+        working-directory: packages/backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      - run: echo "GOOGLE_CLIENT_ID='$GOOGLE_CLIENT_ID'" >> .env
+      - run: echo "GOOGLE_CLIENT_SECRET='$GOOGLE_CLIENT_SECRET'" >> .env
+      - run: supabase start
+      - run: supabase link --project-ref $SUPABASE_PROD_PROJECT_ID
+      - run: supabase db push --password $SUPABASE_PROD_DB_PASSWORD
+      - run: supabase functions deploy

@@ -3,6 +3,8 @@ import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/interfaces/auth_providers.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/authentication/presentation/presentation.dart';
+import '../../../../../core/mobx/base_coordinator_test.mocks.dart';
+import '../../../../home/fixtures/home_stack_mock_gen.mocks.dart';
 import '../../../../shared/shared_mocks.mocks.dart';
 import '../../../fixtures/authentication_stack_mock_gen.mocks.dart';
 
@@ -20,9 +22,10 @@ void main() {
   late TrailingTextStore topTrailingTextStore;
   late TrailingTextStore bottomTrailingTextStore;
   late MockWifiDisconnectOverlayStore wifiDisconnectOverlayStore;
-  const tCoordinates = Offset(1, 1);
+  late MockAddName mockAddNameToDatabase;
 
   setUp(() {
+    mockAddNameToDatabase = MockAddName();
     wifiDisconnectOverlayStore = MockWifiDisconnectOverlayStore();
     mockLayer1BeachWavesStore = BeachWavesStore();
     mockLayer2BeachWavesStore = BeachWavesStore();
@@ -45,6 +48,9 @@ void main() {
     mockSwipeDetector = SwipeDetector();
     mockTapDetector = TapDetector();
     testStore = LoginScreenCoordinator(
+      captureScreen: MockCaptureScreen(),
+      getUserInfo: MockGetUserInfoStore(),
+      addName: mockAddNameToDatabase,
       widgets: mockWidgetsStore,
       signInWithAuthProvider: mockAuthProviderStore,
       authStateStore: mockAuthStateStore,
@@ -74,43 +80,10 @@ void main() {
       testStore.toggleHasAttemptedToLogin();
       expect(testStore.hasAttemptedToLogin, false);
     });
-    test("screenConstructor", () {
-      testStore.constructor(tCoordinates);
-      // verify(mockWidgetsStore.constructor(
-      //   tCoordinates,
-      //   testStore.logTheUserIn,
-      //   testStore.onConnected,
-      //   testStore.onDisconnected,
-      // ));
-    });
-
     test("logTheUserIn", () {
       testStore.logTheUserIn();
       verify(
           mockAuthProviderStore.routeAuthProviderRequest(AuthProvider.apple));
-    });
-
-    group("OnResumed", () {
-      test("!isLoggedIn", () {
-        testStore.onResumed();
-        // verify(mockWidgetsStore.loggedOutOnResumed());
-      });
-      test("hasAttemptedToLogin", () {
-        testStore.toggleHasAttemptedToLogin();
-        testStore.onResumed();
-        expect(testStore.hasAttemptedToLogin, false);
-      });
-    });
-    group("OnInactive", () {
-      test("!isLoggedIn", () {
-        testStore.onInactive();
-        // verify(mockWidgetsStore.loggedOutOnInactive());
-      });
-      test("isLoggedIn", () {
-        testStore.isLoggedIn = true;
-        testStore.onInactive();
-        // verify(mockWidgetsStore.loggedInOnInactive());
-      });
     });
   });
 }

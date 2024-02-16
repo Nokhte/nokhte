@@ -40,6 +40,9 @@ class DeepLinksModule extends Module {
     i.add<InterpretCollaboratorCodeDeepLink>(
       () => InterpretCollaboratorCodeDeepLink(),
     );
+    i.add<InterpretNokhteSessionDeepLink>(
+      () => InterpretNokhteSessionDeepLink(),
+    );
     i.add<SendDeepLink>(
       () => SendDeepLink(
         contract: i<DeepLinksContractImpl>(),
@@ -47,6 +50,7 @@ class DeepLinksModule extends Module {
     );
     i.add<ListenForOpenedDeepLinkStore>(
       () => ListenForOpenedDeepLinkStore(
+        interpretNokhteSessionDeepLink: i<InterpretNokhteSessionDeepLink>(),
         userInformation: Modular.get<UserInformationCoordinator>(),
         logic: i<ListenForOpenedDeepLink>(),
         interpretCollaboratorCode: i<InterpretCollaboratorCodeDeepLink>(),
