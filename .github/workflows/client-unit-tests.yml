@@ -1,5 +1,4 @@
-name: client-unit-tests
-run-name: Client Unit Tests
+name: Client Unit Tests
 on:
   push:
     branches:
@@ -26,4 +25,5 @@ jobs:
           channel: "stable"
       - run: touch .env
       - run: flutter pub get
+      - run: flutter pub run build_runner build
       - run: flutter test

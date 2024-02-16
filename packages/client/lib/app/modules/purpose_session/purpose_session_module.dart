@@ -1,7 +1,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:nokhte/app/core/modules/collaborator_presence/collaborator_presence_module.dart';
-import 'package:nokhte/app/core/modules/collaborator_presence/mobx/coordinators/collaborator_presence_coordinator.dart';
 import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity_module.dart';
+import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog_module.dart';
+import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/modules/solo_docs/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/solo_docs/solo_docs_module.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
@@ -24,6 +25,7 @@ class PurposeSessionModule extends Module {
         CollaboratorPresenceModule(),
         GesturesModule(),
         SoloDocsModule(),
+        PosthogModule(),
       ];
   @override
   void binds(i) {
@@ -50,11 +52,12 @@ class PurposeSessionModule extends Module {
     );
     i.add<PurposeSessionPhase1Coordinator>(
       () => PurposeSessionPhase1Coordinator(
+        captureScreen: Modular.get<CaptureScreen>(),
         tap: Modular.get<TapDetector>(),
         hold: Modular.get<HoldDetector>(),
         checkIfUserHasTheQuestion:
             Modular.get<CheckIfUserHasTheQuestionStore>(),
-        collaboratorPresence: Modular.get<CollaboratorPresenceCoordinator>(),
+        collaboratorPresence: Modular.get<PurposeSessionPresenceCoordinator>(),
         widgets: Modular.get<PurposeSessionPhase1WidgetsCoordinator>(),
         voiceCall: Modular.get<VoiceCallCoordinator>(),
       ),
@@ -62,15 +65,17 @@ class PurposeSessionModule extends Module {
 
     i.add<PurposeSessionPhase2Coordinator>(
       () => PurposeSessionPhase2Coordinator(
+        captureScreen: Modular.get<CaptureScreen>(),
         soloDoc: Modular.get<SoloDocsCoordinator>(),
         swipe: Modular.get<SwipeDetector>(),
-        collaboratorPresence: Modular.get<CollaboratorPresenceCoordinator>(),
+        collaboratorPresence: Modular.get<PurposeSessionPresenceCoordinator>(),
         widgets: Modular.get<PurposeSessionPhase2WidgetsCoordinator>(),
       ),
     );
 
     i.add<PurposeSessionPhase3Coordinator>(
       () => PurposeSessionPhase3Coordinator(
+        captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<PurposeSessionPhase3WidgetsCoordinator>(),
       ),
     );

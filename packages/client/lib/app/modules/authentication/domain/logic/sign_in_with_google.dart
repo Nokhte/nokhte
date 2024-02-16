@@ -11,6 +11,6 @@ class SignInWithGoogle
 
   @override
   Future<Either<Failure, AuthProviderEntity>> call(NoParams params) async {
-    return await contract.googleSignIn();
+    return await contract.googleSignIn(params);
   }
 }

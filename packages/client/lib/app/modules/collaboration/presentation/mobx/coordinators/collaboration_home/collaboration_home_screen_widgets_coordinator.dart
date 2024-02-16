@@ -47,7 +47,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
     beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtOceanDive);
     gestureCross.setCollaborationHomeScreen();
     smartText.setMessagesData(MessagesData.firstTimeCollaborationList);
-    gradientTreeNode.toggleWidgetVisibility();
+    gradientTreeNode.setWidgetVisibility(false);
   }
 
   @action
@@ -78,12 +78,6 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
   }
 
   @action
-  enterCollaboratorPoolConstructor() {
-    gradientTreeNode.toggleWidgetVisibility();
-    toggleShouldEnterCollaboratorPool();
-  }
-
-  @action
   postInvitationFlowConstructor() {
     Timer.periodic(Seconds.get(0, milli: 100), (timer) {
       if (!smartText.isPaused) {
@@ -96,33 +90,19 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
 
   @action
   onNokhteSessionLinkOpened() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.oceanDiveToTimesUp);
+    beachWaves.setMovieMode(
+        BeachWaveMovieModes.suspendedAtOceanDiveToVibrantBlueGradient);
     beachWaves.currentStore.initMovie(NoParams());
     gestureCross.toggleAll();
-    if (gradientTreeNode.showWidget) {
-      gradientTreeNode.toggleWidgetVisibility();
-    }
-    if (smartText.showWidget) {
-      smartText.toggleWidgetVisibility();
-    }
-  }
-
-  @action
-  initCollaboratorPoolWidgets() {
-    if (!shouldEnterCollaboratorPool) {
-      toggleShouldEnterCollaboratorPool();
-    }
-    gradientTreeNode.initMovie(NoParams());
-    gestureCross.toggleAll();
+    gradientTreeNode.setWidgetVisibility(false);
+    smartText.setWidgetVisibility(false);
   }
 
   @action
   onSwipeDown() {
-    if (gradientTreeNode.showWidget) {
-      gradientTreeNode.toggleWidgetVisibility();
-    }
+    gradientTreeNode.setWidgetVisibility(false);
     smartText.pause();
-    smartText.toggleWidgetVisibility();
+    smartText.setWidgetVisibility(false);
     gestureCross.initMoveAndRegenerate(CircleOffsets.bottom);
     beachWaves.setMovieMode(BeachWaveMovieModes.oceanDiveToOnShore);
     beachWaves.currentStore.initMovie(NoParams());
@@ -133,24 +113,14 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
 
     invitationSendStatusReactor();
     centerCrossNokhteReactor();
-    beachWavesMovieStatusReactor();
-    gradientTreeNodeOpacityReactor(enterCollaboratorPool);
     gradientTreeNodeMovieStatusReactor();
   }
 
   smartTextReactor(Function onFlowCompleted) =>
       reaction((p0) => smartText.currentIndex, (p0) {
         if (p0 == 1) {
-          gradientTreeNode.toggleWidgetVisibility();
+          gradientTreeNode.setWidgetVisibility(true);
           onFlowCompleted();
-        }
-      });
-
-  gradientTreeNodeOpacityReactor(Function enterCollaboratorPool) =>
-      reaction((p0) => gradientTreeNode.hasFadedIn, (p0) async {
-        if (shouldEnterCollaboratorPool && p0) {
-          initCollaboratorPoolWidgets();
-          await enterCollaboratorPool();
         }
       });
 
@@ -170,16 +140,19 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
   centerCrossNokhteReactor() =>
       reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          gestureCross.gradientNokhte.toggleWidgetVisibility();
-          gestureCross.strokeCrossNokhte.toggleWidgetVisibility();
+          gestureCross.gradientNokhte.setWidgetVisibility(false);
+          gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
         }
       });
 
-  beachWavesMovieStatusReactor() =>
+  beachWavesMovieStatusReactor(Function onNavigationHome) =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode == BeachWaveMovieModes.oceanDiveToOnShore) {
-            Modular.to.navigate('/home/');
+            onNavigationHome();
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.suspendedAtOceanDiveToVibrantBlueGradient) {
+            Modular.to.navigate('/collaboration/pool');
           }
         }
       });

@@ -11,7 +11,7 @@ class PurposeSessionPhase3ExpandTheirIdeas extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(child: Text("phase 3")),
     );
   }

@@ -49,7 +49,7 @@ class DeepLinksRemoteSourceImpl implements DeepLinksRemoteSource {
       _assembleCollaboratorInvitation() async {
     final uid = supabase.auth.currentUser?.id ?? '';
     final firstName =
-        (await userNames.getUserInfo()).first[UserNamesQueries.firstName];
+        (await userNames.getUserInfo()).first[userNames.FIRST_NAME];
     return CollaboratorInvitationInformation(
       firstName: firstName,
       uid: uid,

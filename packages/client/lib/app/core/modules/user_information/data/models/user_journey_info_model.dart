@@ -1,5 +1,4 @@
 import 'package:nokhte/app/core/modules/user_information/domain/domain.dart';
-import 'package:nokhte_backend/tables/user_names.dart';
 
 class UserJourneyInfoModel extends UserJourneyInfoEntity {
   const UserJourneyInfoModel({
@@ -7,6 +6,7 @@ class UserJourneyInfoModel extends UserJourneyInfoEntity {
     required super.hasSentAnInvitation,
     required super.wantsToRepeatInvitationFlow,
     required super.userUID,
+    required super.authorizedViewers,
   });
 
   factory UserJourneyInfoModel.fromSupabase(List res) {
@@ -16,15 +16,17 @@ class UserJourneyInfoModel extends UserJourneyInfoEntity {
         hasSentAnInvitation: false,
         wantsToRepeatInvitationFlow: false,
         userUID: "",
+        authorizedViewers: [],
       );
     } else {
       return UserJourneyInfoModel(
-        userUID: res.first[UserNamesQueries.uid],
+        userUID: res.first['uid'],
         hasGoneThroughInvitationFlow:
-            res.first[UserNamesQueries.hasGoneThroughInvitationFlow],
-        hasSentAnInvitation: res.first[UserNamesQueries.hasSentAnInvitation],
+            res.first['has_gone_through_invitation_flow'],
+        hasSentAnInvitation: res.first['has_sent_an_invitation'],
         wantsToRepeatInvitationFlow:
-            res.first[UserNamesQueries.wantsToRepeatInvitationFlow],
+            res.first['wants_to_repeat_invitation_flow'],
+        authorizedViewers: res.first["authorized_viewers"],
       );
     }
   }

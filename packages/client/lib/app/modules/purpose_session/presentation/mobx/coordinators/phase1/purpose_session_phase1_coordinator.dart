@@ -3,8 +3,7 @@ import 'dart:async';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
-import 'package:nokhte/app/core/modules/collaborator_presence/domain/domain.dart';
-import 'package:nokhte/app/core/modules/collaborator_presence/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -18,7 +17,7 @@ class PurposeSessionPhase1Coordinator = _PurposeSessionPhase1CoordinatorBase
 abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
     with Store {
   final VoiceCallCoordinator voiceCall;
-  final CollaboratorPresenceCoordinator collaboratorPresence;
+  final PurposeSessionPresenceCoordinator collaboratorPresence;
   final PurposeSessionPhase1WidgetsCoordinator widgets;
   final CheckIfUserHasTheQuestionStore checkIfUserHasTheQuestion;
   final HoldDetector hold;
@@ -26,6 +25,7 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
 
   _PurposeSessionPhase1CoordinatorBase(
       {required this.widgets,
+      required super.captureScreen,
       required this.voiceCall,
       required this.collaboratorPresence,
       required this.checkIfUserHasTheQuestion,
@@ -101,17 +101,14 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
         setDisableAllTouchFeedback(true);
       },
     );
-    bothCollaboratorsAreOnCallAndOnlineReactor();
+    // bothCollaboratorsAreOnCallAndOnlineReactor();
     collaboratorTalkingStatusReactor();
     userTalkingStatusReactor();
     holdReactor();
     letGoReactor();
     timerReactor();
     widgets.wifiDisconnectOverlayReactor(
-      onConnectionFinished: () async {
-        await collaboratorPresence
-            .updateCallStatus(UpdatePresencePropertyParams.userAffirmative());
-      },
+      onConnectionFinished: () async {},
     );
     widgets.beachWavesMovieStatusReactor(
         onTimesUpCompleted: onTimesUpCompleted);
@@ -158,7 +155,7 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
           (p0) => collaboratorPresence.getSessionMetadataStore.userIsTalking,
           (p0) async {
         if (p0) {
-          await voiceCall.voiceCallActionsStore.unmuteAudio(NoParams());
+          await voiceCall.unmute();
           widgets.onHold();
           if (!hasInitializedTimer &&
               checkIfUserHasTheQuestion.hasTheQuestion) {
@@ -168,18 +165,18 @@ abstract class _PurposeSessionPhase1CoordinatorBase extends BaseCoordinator
           }
         } else {
           widgets.onLetGo();
-          await voiceCall.voiceCallActionsStore.muteAudio(NoParams());
+          await voiceCall.mute();
         }
       });
 
-  bothCollaboratorsAreOnCallAndOnlineReactor() => reaction(
-          (p0) => collaboratorPresence.getSessionMetadataStore
-              .bothCollaboratorsAreOnCallAndOnline, (p0) {
-        if (p0 && isFirstTimeBothAreInSync) {
-          isFirstTimeBothAreInSync = false;
-          widgets.onFirstTimeUsersAreInSync();
-        }
-      });
+  // bothCollaboratorsAreOnCallAndOnlineReactor() => reaction(
+  //         (p0) => collaboratorPresence.getSessionMetadataStore
+  //             .bothCollaboratorsAreOnCallAndOnline, (p0) {
+  //       if (p0 && isFirstTimeBothAreInSync) {
+  //         isFirstTimeBothAreInSync = false;
+  //         widgets.onFirstTimeUsersAreInSync();
+  //       }
+  //     });
 
   timerReactor() => reaction(
           (p0) => collaboratorPresence.getSessionMetadataStore.timerShouldRun,

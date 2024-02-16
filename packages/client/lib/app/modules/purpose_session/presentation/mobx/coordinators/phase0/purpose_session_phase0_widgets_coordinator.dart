@@ -17,6 +17,7 @@ abstract class _PurposeSessionPhase0WidgetsCoordinatorBase
   final SmartTextStore primarySmartText;
 
   _PurposeSessionPhase0WidgetsCoordinatorBase({
+    required super.captureScreen,
     required this.beachWaves,
     required this.wifiDisconnectOverlay,
     required this.primarySmartText,

@@ -75,13 +75,13 @@ abstract class _CollaborationLogicCoordinatorBase extends BaseMobxDBStore
 
   @action
   listenToNokhteSearch() async {
-    print("are you being called??");
+    // print("are you being called??");
     nokhteSearchStatusIsListening = true;
     final result = await getNokhteSessionSearchStatusLogic(NoParams());
     result.fold((failure) => errorUpdater(failure), (stream) {
       nokhteSearchStatus = ObservableStream(stream);
       nokhteSubscription = nokhteSearchStatus.listen((value) {
-        print("hey is this one working??");
+        // print("hey is this one working??");
         hasFoundNokhteSession = value;
       });
     });

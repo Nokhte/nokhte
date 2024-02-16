@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/voice_call_incidents_overlay/stack/presentation/mobx/voice_call_incidents_overlay_store.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class VoiceCallIncidentsOverlay extends StatelessWidget {
@@ -18,11 +17,6 @@ class VoiceCallIncidentsOverlay extends StatelessWidget {
       builder: (context) {
         return Stack(
           children: [
-            FullScreen(
-              child: NokhteBlur(
-                store: store.blur,
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.only(bottom: 150.0),
               child: Center(

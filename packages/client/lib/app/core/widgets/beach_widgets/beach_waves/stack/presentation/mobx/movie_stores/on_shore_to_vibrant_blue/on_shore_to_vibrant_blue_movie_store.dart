@@ -21,9 +21,23 @@ abstract class _OnShoreToVibrantBlueMovieStoreBase
   @override
   @action
   initMovie(double startingWaterPosition) {
+    callsOnCompleteTwice = true;
     setMovie(OnShoreToVibrantBlue.getOceanDiveMovie(
         startingWaterMovement: startingWaterPosition));
     setControl(Control.playFromStart);
+    setMovieStatus(MovieStatus.inProgress);
+  }
+
+  @override
+  @action
+  reverseMovie(params) {
+    callsOnCompleteTwice = false;
+    setMovie(
+      OnShoreToVibrantBlue.getOceanDiveMovie(
+        startingWaterMovement: -10.0,
+      ),
+    );
+    setControl(Control.playReverseFromEnd);
     setMovieStatus(MovieStatus.inProgress);
   }
 }

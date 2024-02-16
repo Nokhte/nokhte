@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/domain.dart';
-import '../../constants/entities/entities.dart';
+import 'package:nokhte/app/core/types/call_status.dart';
 import '../../fixtures/voice_call_mock_gen.mocks.dart';
 
 void main() {
@@ -18,13 +18,12 @@ void main() {
   });
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
-    when(mockContract.joinCall(tParams.token, tParams.channelId)).thenAnswer(
-      (_) async => ConstantCallStatusEntity.wrappedJoiningCase,
-    );
+    when(mockContract.joinCall(tParams.token, tParams.channelId))
+        .thenAnswer((_) async => const Right(CallStatus.joining));
 
     final result = await logic(tParams);
 
-    expect(result, ConstantCallStatusEntity.wrappedJoiningCase);
+    expect(result, const Right(CallStatus.joining));
     verify(mockContract.joinCall(tParams.token, tParams.channelId));
     verifyNoMoreInteractions(mockContract);
   });

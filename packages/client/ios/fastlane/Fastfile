@@ -65,8 +65,8 @@ platform :ios do
 
 
   # Do Distribution Manually to cut CI/CD computation time
-  desc "Generic Beta Build"
-  lane :generic_ios_beta_build do
+  desc "Interal Testing Beta Build"
+  lane :internal_ios_beta_build do
   match(type: 'appstore', readonly: true, git_basic_authorization: ENV['MATCH_BASIC_GIT_AUTHORIZATION'])
   build_app(
   export_method: "app-store",
@@ -86,6 +86,38 @@ excluded_markdown_elements: ['-', '###'],
 section_identifier: version
 )
 upload_to_testflight(
+  notify_external_testers: false,
+  expire_previous_builds: true,
+  skip_waiting_for_build_processing: true,
+  changelog: changelogOutput
+)
+  end
+
+  # Do Distribution Manually to cut CI/CD computation time
+  desc "External Testing Beta Build"
+  lane :external_ios_beta_build do
+  match(type: 'appstore', readonly: true, git_basic_authorization: ENV['MATCH_BASIC_GIT_AUTHORIZATION'])
+  build_app(
+  export_method: "app-store",
+  configuration: "Release",
+  archive_path: "../build/ios/archive/Runner.xcarchive"
+)
+api_key = app_store_connect_api_key(
+  key_id: ENV["APP_STORE_CONNECT_API_KEY_KEY_ID"],
+  issuer_id: ENV["APP_STORE_CONNECT_API_KEY_ISSUER_ID"],
+  key_content: ENV["APP_STORE_CONNECT_API_KEY_KEY"],
+  is_key_content_base64: ENV["APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64"]
+)
+version = getVersionStringForChangelog()
+changelogOutput = read_changelog(
+changelog_path: '../changelog.md',
+excluded_markdown_elements: ['-', '###'],
+section_identifier: version
+)
+upload_to_testflight(
+  notify_external_testers: true,
+  distribute_external: true,
+  groups: ["External Beta Users"],
   expire_previous_builds: true,
   skip_waiting_for_build_processing: true,
   changelog: changelogOutput

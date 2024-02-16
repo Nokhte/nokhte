@@ -10,6 +10,8 @@ enum BeachWaveMovieModes {
   suspendedAtOceanDive,
   suspendedAtTheDepths,
   suspendedAtTheDepthsToTimesUpStart,
+  suspendedAtOceanDiveToVibrantBlueGradient,
+  resumeOnShore,
   timesUp,
   timesUpDynamicPointToTheDepths,
   timesUpDynamicPointToTimesUpStart,

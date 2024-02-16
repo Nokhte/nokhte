@@ -4,18 +4,23 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/auth_providers.dart';
-import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/modules/posthog/constants/constants.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/authentication/domain/logic/logic.dart';
 import 'package:nokhte/app/modules/authentication/presentation/presentation.dart';
+import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/shared/base_home_screen_router_coordinator.dart';
 part 'login_screen_coordinator.g.dart';
 
 class LoginScreenCoordinator = _LoginScreenCoordinatorBase
     with _$LoginScreenCoordinator;
 
-abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
+abstract class _LoginScreenCoordinatorBase
+    extends BaseHomeScreenRouterCoordinator with Store {
   final LoginScreenWidgetsCoordinator widgets;
   final SignInWithAuthProviderStore signInWithAuthProvider;
+  final AddName addName;
   final GetAuthStateStore authStateStore;
   final SwipeDetector swipe;
   final TapDetector tap;
@@ -24,8 +29,11 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
     required this.signInWithAuthProvider,
     required this.widgets,
     required this.authStateStore,
+    required this.addName,
+    required super.getUserInfo,
     required this.tap,
     required this.swipe,
+    required super.captureScreen,
   });
 
   @observable
@@ -42,13 +50,14 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
       Platform.isAndroid ? AuthProvider.google : AuthProvider.apple;
 
   @action
-  constructor(Offset center) {
+  constructor(Offset center) async {
     widgets.constructor(center, logTheUserIn, onConnected, onDisconnected);
     authStateListener(authStateStore.authState);
     initReactors();
     if (kDebugMode) {
       authProvider = AuthProvider.google;
     }
+    await captureScreen(Screens.login);
   }
 
   initReactors() {
@@ -63,6 +72,7 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
     }, onDisconnected: () {
       setDisableAllTouchFeedback(true);
     });
+    widgets.layer2BeachWavesReactor(onAnimationComplete);
   }
 
   @action
@@ -107,8 +117,10 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
   authStateListener(Stream<bool> authStateStream) =>
       authStateStream.listen((event) => isLoggedIn = event);
 
-  authStateReactor() => reaction((p0) => isLoggedIn, (p0) {
+  authStateReactor() => reaction((p0) => isLoggedIn, (p0) async {
         if (p0) {
+          await addName(NoParams());
+          await getUserInfo(NoParams());
           widgets.loggedInOnResumed();
         }
       });
@@ -127,9 +139,7 @@ abstract class _LoginScreenCoordinatorBase extends BaseCoordinator with Store {
 
   @action
   onInactive() {
-    if (isLoggedIn) {
-      widgets.loggedInOnInactive();
-    } else {
+    if (!isLoggedIn) {
       widgets.loggedOutOnInactive();
     }
   }

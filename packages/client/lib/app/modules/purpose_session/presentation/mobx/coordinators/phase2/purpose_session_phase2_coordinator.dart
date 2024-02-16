@@ -3,8 +3,7 @@ import 'dart:async';
 
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/collaborator_presence/domain/domain.dart';
-import 'package:nokhte/app/core/modules/collaborator_presence/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/modules/solo_docs/domain/domain.dart';
 import 'package:nokhte/app/core/modules/solo_docs/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -19,10 +18,11 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
     with Store {
   final SwipeDetector swipe;
   final PurposeSessionPhase2WidgetsCoordinator widgets;
-  final CollaboratorPresenceCoordinator collaboratorPresence;
+  final PurposeSessionPresenceCoordinator collaboratorPresence;
   final SoloDocsCoordinator soloDoc;
 
   _PurposeSessionPhase2CoordinatorBase({
+    required super.captureScreen,
     required this.widgets,
     required this.swipe,
     required this.collaboratorPresence,
@@ -115,8 +115,6 @@ abstract class _PurposeSessionPhase2CoordinatorBase extends BaseCoordinator
         } else {
           widgets.onCollaboratorLeft();
           widgets.textEditor.setIsReadOnly(true);
-          await collaboratorPresence.updateCallStatus(
-              UpdatePresencePropertyParams.collaboratorNegative());
         }
       });
 
