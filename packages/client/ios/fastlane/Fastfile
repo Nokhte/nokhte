@@ -64,7 +64,6 @@ platform :ios do
   end
 
 
-  # Do Distribution Manually to cut CI/CD computation time
   desc "Interal Testing Beta Build"
   lane :internal_ios_beta_build do
   match(type: 'appstore', readonly: true, git_basic_authorization: ENV['MATCH_BASIC_GIT_AUTHORIZATION'])
@@ -86,14 +85,14 @@ excluded_markdown_elements: ['-', '###'],
 section_identifier: version
 )
 upload_to_testflight(
-  notify_external_testers: false,
+  app_identifier: 'com.staging.nokhte',
   expire_previous_builds: true,
   skip_waiting_for_build_processing: true,
   changelog: changelogOutput
 )
   end
 
-  # Do Distribution Manually to cut CI/CD computation time
+
   desc "External Testing Beta Build"
   lane :external_ios_beta_build do
   match(type: 'appstore', readonly: true, git_basic_authorization: ENV['MATCH_BASIC_GIT_AUTHORIZATION'])
