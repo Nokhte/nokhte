@@ -14,8 +14,6 @@ void main() async {
   final shouldUseTestKey =
       dotenv.env["APP_ID"]!.contains('staging') || kDebugMode;
 
-  print("shouldUseTestKey: $shouldUseTestKey");
-
   await FlutterBranchSdk.init(
     disableTracking: true,
     useTestKey: shouldUseTestKey,
