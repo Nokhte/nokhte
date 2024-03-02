@@ -85,10 +85,10 @@
 	</dict>
 	<key>branch_universal_link_domains</key>
 	<array>
-		<string>59q6i.app.link</string>
-		<string>59q6i-alternate.app.link</string>
-		<string>59q6i.test-app.link</string>
-		<string>59q6i-alternate.test-app.link</string>
+		<string>app.nokhte.com</string>
+		<string>2cf02-alternate.app.link</string>
+		<string>2cf02.test-app.link</string>
+		<string>2cf02-alternate.test-app.link</string>
 	</array>
 	<key>com.posthog.posthog.API_KEY</key>
 	<string>phc_qeWzqB1Jrx9cxa5mwr7HPsaeyHXzQcu59zBZdfY0riT</string>
