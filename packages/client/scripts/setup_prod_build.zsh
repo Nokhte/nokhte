@@ -2,6 +2,8 @@
 cd ios/Runner
 # CFBundleURLName & Scheme
 sed -i '' -e 's/com.nokhte.staging/com.nokhte.nokhte/' info.plist  
+# CFBundleDisplayName
+sed -i '' -e 's/Nokhte Staging/Nokhte/' info.plist  
 # fastlane configs
 cd ../fastlane
 sed -i '' -e 's/staging_match_certificates/match_certificates/' Matchfile 
