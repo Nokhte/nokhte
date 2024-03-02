@@ -26,14 +26,19 @@ jobs:
           echo "PROD_SUPABASE_URL='$PROD_SUPABASE_URL'" >> .env
           echo "PROD_SUPABASE_ANON_KEY='$PROD_SUPABASE_ANON_KEY'" >> .env
           echo "AGORA_APP_ID='$AGORA_APP_ID'" >> .env
+          echo "APP_ID='$APP_ID'" >> .env
         env:
           PROD_SUPABASE_URL: ${{ secrets.PROD_SUPABASE_URL }}
           PROD_SUPABASE_ANON_KEY: ${{ secrets.PROD_SUPABASE_ANON_KEY }}
           AGORA_APP_ID: ${{ secrets.AGORA_APP_ID }}
+          APP_ID: ${{ secrets.PROD_APP_ID }}
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.0"
           bundler-cache: true
+      - run: |
+          chmod +x ./scripts/setup_prod_build.zsh
+          ./scripts/setup_prod_build.zsh
       - run: flutter pub run build_runner build
       - run: cd ios && bundle install
       - run: cd ios && fastlane rebuild_ios_archive

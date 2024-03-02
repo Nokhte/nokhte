@@ -40,10 +40,9 @@ file_size_limit = "50MiB"
 [auth]
 # The base URL of your website. Used as an allow-list for redirects and for constructing URLs used
 # in emails.
-site_url = "com.nokhte.nokhte"
-# site_url = "com.primala.primala"
+site_url = "com.nokhte.staging"
 # A list of *exact* URLs that auth providers are permitted to redirect to post authentication.
-additional_redirect_urls = ["com.nokhte.nokhte://login-callback"]
+additional_redirect_urls = ["com.nokhte.staging://login-callback"]
 # additional_redirect_urls = ["com.primala.primala://login-callback"]
 # How long tokens are valid for, in seconds. Defaults to 3600 (1 hour), maximum 604,800 seconds (one
 # week).
