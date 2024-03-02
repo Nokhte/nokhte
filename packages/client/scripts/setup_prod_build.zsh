@@ -9,3 +9,4 @@ sed -i '' -e 's/com.staging.nokhte/com.nokhte.nokhte/' Appfile
 # bundle id
 cd ../Runner.xcodeproj
 sed -i '' -e 's/PRODUCT_BUNDLE_IDENTIFIER = com.staging.nokhte/PRODUCT_BUNDLE_IDENTIFIER = com.nokhte.nokhte/' project.pbxproj  
+sed -i '' -e 's/INFOPLIST_KEY_CFBundleDisplayName = "Nokhte Staging";/INFOPLIST_KEY_CFBundleDisplayName = Nokhte;/' project.pbxproj  
