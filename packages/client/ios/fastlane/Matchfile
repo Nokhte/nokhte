@@ -1,4 +1,4 @@
-git_url("https://github.com/nokhte/match_certificates")
+git_url("https://github.com/nokhte/staging_match_certificates")
 
 storage_mode("git")
 

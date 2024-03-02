@@ -1,3 +1,4 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:nokhte/app/core/modules/user_information/data/data.dart';
 import 'package:nokhte/app/modules/authentication/data/models/models.dart';
 import 'package:nokhte/app/core/interfaces/auth_providers.dart';
@@ -27,10 +28,12 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
 
   @override
   signInWithGoogle() async {
+    await dotenv.load();
+    final bundleID = dotenv.env["APP_ID"];
     final res = await supabase.auth.signInWithOAuth(
       Provider.google,
       scopes: 'email profile openid',
-      redirectTo: kIsWeb ? null : 'com.nokhte.nokhte://login-callback',
+      redirectTo: kIsWeb ? null : '$bundleID://login-callback',
     );
     return AuthProviderModel(
         authProvider: AuthProvider.google, authProviderStatus: res);
