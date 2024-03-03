@@ -4,9 +4,9 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/legacy_virtual_nokhte_session/presentation/presentation.dart';
 
-class NokhteSessionPhase0Greeter extends HookWidget {
-  final NokhteSessionPhase0Coordinator coordinator;
-  const NokhteSessionPhase0Greeter({
+class LegacyVirtualNokhteSessionPhase0Greeter extends HookWidget {
+  final LegacyVirtualNokhteSessionPhase0Coordinator coordinator;
+  const LegacyVirtualNokhteSessionPhase0Greeter({
     super.key,
     required this.coordinator,
   });
