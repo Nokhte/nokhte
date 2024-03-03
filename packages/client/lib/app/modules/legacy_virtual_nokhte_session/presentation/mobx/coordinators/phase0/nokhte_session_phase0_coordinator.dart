@@ -4,7 +4,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/constants/constants.dart';
 import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
-import 'package:nokhte/app/modules/nokhte_session/presentation/presentation.dart';
+import 'package:nokhte/app/modules/legacy_virtual_nokhte_session/presentation/presentation.dart';
 part 'nokhte_session_phase0_coordinator.g.dart';
 
 class NokhteSessionPhase0Coordinator = _NokhteSessionPhase0CoordinatorBase

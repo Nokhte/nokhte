@@ -7,8 +7,8 @@ import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/nokhte_session/domain/domain.dart';
-import 'package:nokhte/app/modules/nokhte_session/presentation/mobx/coordinators/logic/nokhte_session_logic_coordinator.dart';
+import 'package:nokhte/app/modules/legacy_virtual_nokhte_session/domain/domain.dart';
+import 'package:nokhte/app/modules/legacy_virtual_nokhte_session/presentation/mobx/coordinators/logic/nokhte_session_logic_coordinator.dart';
 import 'nokhte_session_phase2_widgets_coordinator.dart';
 part 'nokhte_session_phase2_coordinator.g.dart';
 

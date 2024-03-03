@@ -8,11 +8,11 @@ import 'package:nokhte/app/core/modules/voice_call/voice_call_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/widgets/modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/nokhte_session/data/data.dart';
-import 'package:nokhte/app/modules/nokhte_session/domain/domain.dart';
-import 'package:nokhte/app/modules/nokhte_session/presentation/mobx/coordinators/logic/nokhte_session_logic_coordinator.dart';
-import 'package:nokhte/app/modules/nokhte_session/presentation/presentation.dart';
-import 'package:nokhte/app/modules/nokhte_session/presentation/views/nokhte_session_phase2_wait_to_exit.dart';
+import 'package:nokhte/app/modules/legacy_virtual_nokhte_session/data/data.dart';
+import 'package:nokhte/app/modules/legacy_virtual_nokhte_session/domain/domain.dart';
+import 'package:nokhte/app/modules/legacy_virtual_nokhte_session/presentation/mobx/coordinators/logic/nokhte_session_logic_coordinator.dart';
+import 'package:nokhte/app/modules/legacy_virtual_nokhte_session/presentation/presentation.dart';
+import 'package:nokhte/app/modules/legacy_virtual_nokhte_session/presentation/views/nokhte_session_phase2_wait_to_exit.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'nokhte_session_widgets_module.dart';
 
