@@ -26,7 +26,9 @@ jobs:
           echo "PROD_SUPABASE_URL='$STAGING_SUPABASE_URL'" >> .env
           echo "PROD_SUPABASE_ANON_KEY='$STAGING_SUPABASE_ANON_KEY'" >> .env
           echo "AGORA_APP_ID='$AGORA_APP_ID'" >> .env
+          echo "APP_ID='$APP_ID'" >> .env
         env:
+          APP_ID: ${{ secrets.STAGING_APP_ID }}
           STAGING_SUPABASE_URL: ${{ secrets.STAGING_SUPABASE_URL }}
           STAGING_SUPABASE_ANON_KEY: ${{ secrets.STAGING_SUPABASE_ANON_KEY }}
           AGORA_APP_ID: ${{ secrets.AGORA_APP_ID }}
@@ -38,7 +40,7 @@ jobs:
       - run: cd ios && bundle install
       - run: cd ios && fastlane rebuild_ios_archive
         env:
-          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          MATCH_PASSWORD: ${{ secrets.STAGING_MATCH_PASSWORD }}
           MATCH_BASIC_GIT_AUTHORIZATION: ${{ secrets.MATCH_BASIC_GIT_AUTHORIZATION }}
       - run: cd ios && fastlane internal_ios_beta_build
         env:
@@ -46,5 +48,5 @@ jobs:
           APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }}
           APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY }}
           APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64: ${{secrets.APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64}}
-          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          MATCH_PASSWORD: ${{ secrets.STAGING_MATCH_PASSWORD }}
           MATCH_BASIC_GIT_AUTHORIZATION: ${{ secrets.MATCH_BASIC_GIT_AUTHORIZATION }}

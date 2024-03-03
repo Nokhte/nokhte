@@ -2,7 +2,7 @@ name: nokhte
 description: A new Flutter project.
 publish_to: "none"
 
-version: 1.0.2+109426614
+version: 1.0.4+110790825
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -29,7 +29,7 @@ dependencies:
   flutter_mobx: ^2.2.0
   flutter_modular: ^6.3.2
   flutter_platform_widgets: ^3.3.5
-  google_fonts: ^6.1.0
+  google_fonts: ^5.1.0
   google_sign_in: ^6.1.4
   haptic_feedback: ^0.4.2
   http: ^1.1.0

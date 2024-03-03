@@ -9,11 +9,15 @@ import 'package:flutter/foundation.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load();
+
+  final shouldUseTestKey =
+      dotenv.env["APP_ID"]!.contains('staging') || kDebugMode;
+
   await FlutterBranchSdk.init(
     disableTracking: true,
-    useTestKey: kDebugMode ? true : false,
+    useTestKey: shouldUseTestKey,
   );
-  await dotenv.load();
 
   late String supabaseUrl;
   late String supabaseAnonKey;
