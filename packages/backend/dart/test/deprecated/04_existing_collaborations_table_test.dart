@@ -1,9 +1,11 @@
 // ignore_for_file: file_names
 import 'package:flutter_test/flutter_test.dart';
+import 'package:nokhte_backend/deprecated/_real_time_enabled/existing_collaborations/queries.dart';
+import 'package:nokhte_backend/deprecated/_real_time_enabled/existing_collaborations/stream.dart';
+import 'package:nokhte_backend/deprecated/_real_time_enabled/existing_collaborations/types/collaboration_session_metadata.dart';
 import 'package:nokhte_backend/tables/_real_time_enabled/shared/collaborative_queries.dart';
-import 'package:nokhte_backend/tables/existing_collaborations.dart';
 
-import 'shared/shared.dart';
+import '../shared/shared.dart';
 
 void main() {
   late ExistingCollaborationsQueries user1Queries;
