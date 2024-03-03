@@ -36,9 +36,8 @@ jobs:
         with:
           ruby-version: "3.0"
           bundler-cache: true
-      - run: |
-          chmod +x ./scripts/setup_prod_build.zsh
-          ./scripts/setup_prod_build.zsh
+      - run: chmod +x ./scripts/setup_prod_build.sh
+      - run: ./scripts/setup_prod_build.sh
       - run: flutter pub run build_runner build
       - run: cd ios && bundle install
       - run: cd ios && fastlane rebuild_ios_archive
