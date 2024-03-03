@@ -1,8 +1,8 @@
 // ignore_for_file: file_names
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nokhte_backend/tables/solo_sharable_documents.dart';
+import 'package:nokhte_backend/deprecated/_real_time_disabled/solo_sharable_documents/queries.dart';
 
-import 'shared/shared.dart';
+import '../shared/shared.dart';
 
 void main() {
   late SoloSharableDocumentQueries user1Queries;
