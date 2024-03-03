@@ -4,18 +4,18 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
-part 'nokhte_session_presence_coordinator.g.dart';
+part 'legacy_virtual_nokhte_session_presence_coordinator.g.dart';
 
-class NokhteSessionPresenceCoordinator = _NokhteSessionPresenceCoordinatorBase
-    with _$NokhteSessionPresenceCoordinator;
+class LegacyVirtualNokhteSessionPresenceCoordinator = _LegacyVirtualNokhteSessionPresenceCoordinatorBase
+    with _$LegacyVirtualNokhteSessionPresenceCoordinator;
 
-abstract class _NokhteSessionPresenceCoordinatorBase
+abstract class _LegacyVirtualNokhteSessionPresenceCoordinatorBase
     extends BasePresenceCoordinator with Store {
   final GetNokhteSessionMetadataStore getSessionMetadataStore;
   final NokhteBlurStore blur;
   final CollaboratorPresenceIncidentsOverlayStore incidentsOverlayStore;
 
-  _NokhteSessionPresenceCoordinatorBase({
+  _LegacyVirtualNokhteSessionPresenceCoordinatorBase({
     required super.updateWhoIsTalkingLogic,
     required super.cancelSessionMetadataStreamLogic,
     required super.updateCurrentPhaseLogic,
