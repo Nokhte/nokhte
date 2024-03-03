@@ -3,12 +3,12 @@ import 'package:nokhte_backend/tables/_real_time_enabled/active_nokhte_sessions/
 import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class NokhteSessionPresenceRemoteSourceImpl
+class LegacyVirtualNokhteSessionPresenceRemoteSourceImpl
     implements BasePresenceRemoteSource<NokhteSessionMetadata> {
   final SupabaseClient supabase;
   final ActiveNokhteSessionQueries queries;
   final ActiveNokhteSessionsStream stream;
-  NokhteSessionPresenceRemoteSourceImpl({required this.supabase})
+  LegacyVirtualNokhteSessionPresenceRemoteSourceImpl({required this.supabase})
       : queries = ActiveNokhteSessionQueries(supabase: supabase),
         stream = ActiveNokhteSessionsStream(supabase: supabase);
 
