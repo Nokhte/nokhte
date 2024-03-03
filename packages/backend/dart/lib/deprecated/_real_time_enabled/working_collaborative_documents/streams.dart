@@ -1,5 +1,5 @@
 import 'package:nokhte_backend/tables/_real_time_enabled/shared/shared.dart';
-import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
+import 'package:nokhte_backend/deprecated/_real_time_enabled/working_collaborative_documents/working_collaborative_documents.dart';
 
 class WorkingCollaborativeDocumentsStreams extends CollaborativeQueries {
   bool docContentListeningStatus = false;
