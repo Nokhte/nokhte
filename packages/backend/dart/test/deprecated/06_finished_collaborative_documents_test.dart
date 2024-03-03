@@ -1,9 +1,9 @@
 // ignore_for_file: file_names
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nokhte_backend/tables/finished_collaborative_documents.dart';
+import 'package:nokhte_backend/deprecated/_real_time_disabled/finished_collaborative_documents/queries.dart';
 
-import 'shared/shared.dart';
+import '../shared/shared.dart';
 
 void main() {
   final tSetup = CommonCollaborativeTestFunctions();
