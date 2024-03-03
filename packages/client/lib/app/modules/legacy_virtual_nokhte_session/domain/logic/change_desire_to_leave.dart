@@ -3,7 +3,7 @@ import 'package:nokhte/app/modules/legacy_virtual_nokhte_session/domain/domain.d
 
 class ChangeDesireToLeave
     implements AbstractFutureLogic<bool, ChangeDesireToLeaveParams> {
-  final NokhteSessionContract contract;
+  final LegacyVirtualNokhteSessionContract contract;
 
   ChangeDesireToLeave({required this.contract});
 

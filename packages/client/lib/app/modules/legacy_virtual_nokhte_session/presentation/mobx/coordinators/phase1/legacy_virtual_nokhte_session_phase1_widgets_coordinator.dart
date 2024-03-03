@@ -8,12 +8,12 @@ import 'package:nokhte/app/core/widgets/beach_widgets/shared/types/types.dart';
 import 'package:nokhte/app/core/widgets/smart_text/stack/constants/constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'nokhte_session_phase1_widgets_coordinator.g.dart';
+part 'legacy_virtual_nokhte_session_phase1_widgets_coordinator.g.dart';
 
-class NokhteSessionPhase1WidgetsCoordinator = _NokhteSessionPhase1WidgetsCoordinatorBase
-    with _$NokhteSessionPhase1WidgetsCoordinator;
+class LegacyVirtualNokhteSessionPhase1WidgetsCoordinator = _LegacyVirtualNokhteSessionPhase1WidgetsCoordinatorBase
+    with _$LegacyVirtualNokhteSessionPhase1WidgetsCoordinator;
 
-abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
+abstract class _LegacyVirtualNokhteSessionPhase1WidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final BeachWavesStore beachWaves;
   final BorderGlowStore borderGlow;
@@ -24,7 +24,7 @@ abstract class _NokhteSessionPhase1WidgetsCoordinatorBase
   final WaitingTextStore waitingText;
   final NokhteBlurStore blur;
 
-  _NokhteSessionPhase1WidgetsCoordinatorBase({
+  _LegacyVirtualNokhteSessionPhase1WidgetsCoordinatorBase({
     required this.beachWaves,
     required this.borderGlow,
     required this.secondarySmartText,

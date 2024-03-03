@@ -3,17 +3,17 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/modules/legacy_virtual_nokhte_session/domain/domain.dart';
-part 'nokhte_session_logic_coordinator.g.dart';
+part 'legacy_virtual_nokhte_session_logic_coordinator.g.dart';
 
-class NokhteSessionLogicCoordinator = _NokhteSessionLogicCoordinatorBase
-    with _$NokhteSessionLogicCoordinator;
+class LegacyVirtualNokhteSessionLogicCoordinator = _LegacyVirtualNokhteSessionLogicCoordinatorBase
+    with _$LegacyVirtualNokhteSessionLogicCoordinator;
 
-abstract class _NokhteSessionLogicCoordinatorBase extends BaseMobxDBStore
-    with Store {
+abstract class _LegacyVirtualNokhteSessionLogicCoordinatorBase
+    extends BaseMobxDBStore with Store {
   final CheckIfUserHasTheQuestion checkIfUserHasTheQuestionLogic;
   final ChangeDesireToLeave changeDesireToLeaveLogic;
 
-  _NokhteSessionLogicCoordinatorBase({
+  _LegacyVirtualNokhteSessionLogicCoordinatorBase({
     required this.checkIfUserHasTheQuestionLogic,
     required this.changeDesireToLeaveLogic,
   });

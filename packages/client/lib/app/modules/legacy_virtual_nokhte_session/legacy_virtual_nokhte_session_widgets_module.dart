@@ -3,7 +3,7 @@ import 'package:nokhte/app/core/widgets/widget_modules/widget_modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'presentation/presentation.dart';
 
-class NokhteSessionWidgetsModule extends Module {
+class LegacyVirtualNokhteSessionWidgetsModule extends Module {
   @override
   List<Module> get imports => [
         BeachWavesModule(),
@@ -27,15 +27,15 @@ class NokhteSessionWidgetsModule extends Module {
     i.add<WaitingTextStore>(
       () => WaitingTextStore(),
     );
-    i.add<NokhteSessionPhase0WidgetsCoordinator>(
-      () => NokhteSessionPhase0WidgetsCoordinator(
+    i.add<LegacyVirtualNokhteSessionPhase0WidgetsCoordinator>(
+      () => LegacyVirtualNokhteSessionPhase0WidgetsCoordinator(
         beachWaves: Modular.get<BeachWavesStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         primarySmartText: Modular.get<SmartTextStore>(),
       ),
     );
-    i.add<NokhteSessionPhase1WidgetsCoordinator>(
-      () => NokhteSessionPhase1WidgetsCoordinator(
+    i.add<LegacyVirtualNokhteSessionPhase1WidgetsCoordinator>(
+      () => LegacyVirtualNokhteSessionPhase1WidgetsCoordinator(
         gestureCross: i<GestureCrossStore>(),
         waitingText: i<WaitingTextStore>(),
         blur: i<NokhteBlurStore>(),
@@ -46,8 +46,8 @@ class NokhteSessionWidgetsModule extends Module {
         textEditor: Modular.get<TextEditorStore>(),
       ),
     );
-    i.add<NokhteSessionPhase2WidgetsCoordinator>(
-      () => NokhteSessionPhase2WidgetsCoordinator(
+    i.add<LegacyVirtualNokhteSessionPhase2WidgetsCoordinator>(
+      () => LegacyVirtualNokhteSessionPhase2WidgetsCoordinator(
         gestureCross: i<GestureCrossStore>(),
         waitingText: i<WaitingTextStore>(),
         blur: i<NokhteBlurStore>(),
