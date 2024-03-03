@@ -9,12 +9,12 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'nokhte_session_phase2_widgets_coordinator.g.dart';
+part 'legacy_virtual_nokhte_session_phase2_widgets_coordinator.g.dart';
 
-class NokhteSessionPhase2WidgetsCoordinator = _NokhteSessionPhase2WidgetsCoordinatorBase
-    with _$NokhteSessionPhase2WidgetsCoordinator;
+class LegacyVirtualNokhteSessionPhase2WidgetsCoordinator = _LegacyVirtualNokhteSessionPhase2WidgetsCoordinatorBase
+    with _$LegacyVirtualNokhteSessionPhase2WidgetsCoordinator;
 
-abstract class _NokhteSessionPhase2WidgetsCoordinatorBase
+abstract class _LegacyVirtualNokhteSessionPhase2WidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final BeachWavesStore beachWaves;
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
@@ -22,7 +22,7 @@ abstract class _NokhteSessionPhase2WidgetsCoordinatorBase
   final WaitingTextStore waitingText;
   final NokhteBlurStore blur;
 
-  _NokhteSessionPhase2WidgetsCoordinatorBase({
+  _LegacyVirtualNokhteSessionPhase2WidgetsCoordinatorBase({
     required this.beachWaves,
     required this.wifiDisconnectOverlay,
     required this.gestureCross,

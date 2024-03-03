@@ -5,13 +5,13 @@ import 'package:nokhte/app/modules/legacy_virtual_nokhte_session/domain/domain.d
 import 'package:nokhte/app/modules/legacy_virtual_nokhte_session/data/data.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 
-class NokhteSessionContractImpl
+class LegacyVirtualNokhteSessionContractImpl
     with ResponseToStatus
-    implements NokhteSessionContract {
-  final NokhteSessionRemoteSource remoteSource;
+    implements LegacyVirtualNokhteSessionContract {
+  final LegacyVirtualNokhteSessionRemoteSource remoteSource;
   final NetworkInfo networkInfo;
 
-  NokhteSessionContractImpl(
+  LegacyVirtualNokhteSessionContractImpl(
       {required this.remoteSource, required this.networkInfo});
 
   @override

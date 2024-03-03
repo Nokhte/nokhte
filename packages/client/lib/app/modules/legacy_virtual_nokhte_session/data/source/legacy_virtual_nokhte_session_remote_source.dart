@@ -2,17 +2,18 @@ import 'package:nokhte/app/modules/legacy_virtual_nokhte_session/domain/logic/lo
 import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-abstract class NokhteSessionRemoteSource {
+abstract class LegacyVirtualNokhteSessionRemoteSource {
   Future<bool> checkifUserHasTheQuestion();
   Future<List> changeDesireToLeave(ChangeDesireToLeaveParams params);
 }
 
-class NokhteSessionRemoteSourceImpl implements NokhteSessionRemoteSource {
+class LegacyVirtualNokhteSessionRemoteSourceImpl
+    implements LegacyVirtualNokhteSessionRemoteSource {
   final SupabaseClient supabase;
 
   final ActiveNokhteSessionQueries queries;
 
-  NokhteSessionRemoteSourceImpl({
+  LegacyVirtualNokhteSessionRemoteSourceImpl({
     required this.supabase,
   }) : queries = ActiveNokhteSessionQueries(supabase: supabase);
 

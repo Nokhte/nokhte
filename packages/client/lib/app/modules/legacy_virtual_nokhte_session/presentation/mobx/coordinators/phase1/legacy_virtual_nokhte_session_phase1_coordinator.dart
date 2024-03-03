@@ -9,25 +9,24 @@ import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/legacy_virtual_nokhte_session/domain/logic/change_desire_to_leave.dart';
-import 'package:nokhte/app/modules/legacy_virtual_nokhte_session/presentation/mobx/coordinators/logic/nokhte_session_logic_coordinator.dart';
+import 'package:nokhte/app/modules/legacy_virtual_nokhte_session/presentation/mobx/coordinators/coordinators.dart';
 import 'package:nokhte/app/modules/legacy_virtual_nokhte_session/types/types.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'nokhte_session_phase1_widgets_coordinator.dart';
-part 'nokhte_session_phase1_coordinator.g.dart';
+part 'legacy_virtual_nokhte_session_phase1_coordinator.g.dart';
 
-class NokhteSessionPhase1Coordinator = _NokhteSessionPhase1CoordinatorBase
-    with _$NokhteSessionPhase1Coordinator;
+class LegacyVirtualNokhteSessionPhase1Coordinator = _LegacyVirtualNokhteSessionPhase1CoordinatorBase
+    with _$LegacyVirtualNokhteSessionPhase1Coordinator;
 
-abstract class _NokhteSessionPhase1CoordinatorBase extends BaseCoordinator
-    with Store {
-  final NokhteSessionPhase1WidgetsCoordinator widgets;
-  final NokhteSessionPresenceCoordinator presence;
+abstract class _LegacyVirtualNokhteSessionPhase1CoordinatorBase
+    extends BaseCoordinator with Store {
+  final LegacyVirtualNokhteSessionPhase1WidgetsCoordinator widgets;
+  final LegacyVirtualNokhteSessionPresenceCoordinator presence;
   final VoiceCallCoordinator voiceCall;
   final HoldDetector hold;
   final SwipeDetector swipe;
-  final NokhteSessionLogicCoordinator logic;
+  final LegacyVirtualNokhteSessionLogicCoordinator logic;
 
-  _NokhteSessionPhase1CoordinatorBase({
+  _LegacyVirtualNokhteSessionPhase1CoordinatorBase({
     required this.widgets,
     required this.presence,
     required this.voiceCall,
