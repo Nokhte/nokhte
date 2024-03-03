@@ -7,7 +7,7 @@ import 'package:nokhte_backend/storage/buckets/nokhte_sessions_audio/nokhte_sess
 import 'package:nokhte_backend/storage/buckets/nokhte_sessions_audio/types/types.dart';
 import 'package:nokhte_backend/tables/_real_time_disabled/finished_nokhte_sessions/queries.dart';
 import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
-import 'shared/common_collaborative_test_functions.dart';
+import '../shared/common_collaborative_test_functions.dart';
 
 void main() {
   late NokhteSessionsAudioStorageQueries user1Storage;
