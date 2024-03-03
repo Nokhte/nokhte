@@ -1,4 +1,4 @@
-import 'package:nokhte_backend/tables/_real_time_disabled/p2p_perspectives_tracking/types/types.dart';
+import 'package:nokhte_backend/deprecated/_real_time_disabled/p2p_perspectives_tracking/types/types.dart';
 import 'package:nokhte_backend/tables/_real_time_enabled/shared/shared.dart';
 
 class P2PPerspectivesTrackingQueries extends CollaborativeQueries {
