@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/legacy_virtual_nokhte_session/presentation/mobx/coordinators/phase1/nokhte_session_phase1_coordinator.dart';
 import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
+import 'package:nokhte/app/modules/legacy_virtual_nokhte_session/presentation/presentation.dart';
 
-class NokhteSessionPhase1Consulatation extends HookWidget {
-  final NokhteSessionPhase1Coordinator coordinator;
-  const NokhteSessionPhase1Consulatation({
+class LegacyVirtualNokhteSessionPhase1Consulatation extends HookWidget {
+  final LegacyVirtualNokhteSessionPhase1Coordinator coordinator;
+  const LegacyVirtualNokhteSessionPhase1Consulatation({
     super.key,
     required this.coordinator,
   });
