@@ -1,4 +1,4 @@
-import 'package:nokhte_backend/tables/_real_time_enabled/existing_collaborations/existing_collaborations.dart';
+import 'package:nokhte_backend/deprecated/_real_time_enabled/existing_collaborations/existing_collaborations.dart';
 import 'package:nokhte_backend/tables/_real_time_enabled/shared/shared.dart';
 
 class ExistingCollaborationsStream extends CollaborativeQueries {
