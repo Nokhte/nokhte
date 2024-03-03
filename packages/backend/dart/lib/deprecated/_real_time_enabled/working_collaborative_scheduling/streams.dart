@@ -1,5 +1,5 @@
+import 'package:nokhte_backend/deprecated/_real_time_enabled/working_collaborative_scheduling/types/collaborators_date_and_time.dart';
 import 'package:nokhte_backend/tables/_real_time_enabled/shared/collaborative_queries.dart';
-import 'package:nokhte_backend/tables/working_collaborative_scheduling.dart';
 
 class WorkingCollaborativeSchedulingStream extends CollaborativeQueries {
   WorkingCollaborativeSchedulingStream({required super.supabase});
