@@ -1,11 +1,11 @@
 // ignore_for_file: file_names
 import 'package:flutter_test/flutter_test.dart';
+import 'package:nokhte_backend/deprecated/_real_time_disabled/individual_sessions/queries.dart';
 import 'package:nokhte_backend/storage/buckets/utilities/storage_utilities.dart';
 import 'package:nokhte_backend/storage/perspectives_audio.dart';
-import 'package:nokhte_backend/tables/_real_time_disabled/individual_sessions/queries.dart';
 
-import 'constants/individual_and_collective_session_fixtures.dart';
-import 'shared/shared.dart';
+import '../constants/individual_and_collective_session_fixtures.dart';
+import '../shared/shared.dart';
 
 void main() {
   late IndividualSessionsQueries user1Queries;
