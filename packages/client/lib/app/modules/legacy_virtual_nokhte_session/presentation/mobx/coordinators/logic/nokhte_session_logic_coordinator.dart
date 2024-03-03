@@ -2,7 +2,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/modules/nokhte_session/domain/domain.dart';
+import 'package:nokhte/app/modules/legacy_virtual_nokhte_session/domain/domain.dart';
 part 'nokhte_session_logic_coordinator.g.dart';
 
 class NokhteSessionLogicCoordinator = _NokhteSessionLogicCoordinatorBase
