@@ -73,7 +73,7 @@ class LegacyNokhteSessionModule extends Module {
         logic: Modular.get<LegacyVirtualNokhteSessionLogicCoordinator>(),
         widgets:
             Modular.get<LegacyVirtualNokhteSessionPhase1WidgetsCoordinator>(),
-        presence: Modular.get<LegacyVirtualNokhteSessionPresenceCoordinator>(),
+        presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
       ),
     );
     i.add<LegacyVirtualNokhteSessionPhase2Coordinator>(
@@ -86,7 +86,7 @@ class LegacyNokhteSessionModule extends Module {
         logic: Modular.get<LegacyVirtualNokhteSessionLogicCoordinator>(),
         widgets:
             Modular.get<LegacyVirtualNokhteSessionPhase2WidgetsCoordinator>(),
-        presence: Modular.get<LegacyVirtualNokhteSessionPresenceCoordinator>(),
+        presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
       ),
     );
   }

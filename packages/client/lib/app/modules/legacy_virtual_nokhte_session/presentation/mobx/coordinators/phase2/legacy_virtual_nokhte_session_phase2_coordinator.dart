@@ -17,7 +17,7 @@ class LegacyVirtualNokhteSessionPhase2Coordinator = _LegacyVirtualNokhteSessionP
 abstract class _LegacyVirtualNokhteSessionPhase2CoordinatorBase
     extends BaseCoordinator with Store {
   final LegacyVirtualNokhteSessionPhase2WidgetsCoordinator widgets;
-  final LegacyVirtualNokhteSessionPresenceCoordinator presence;
+  final IrlNokhteSessionPresenceCoordinator presence;
   final VoiceCallCoordinator voiceCall;
   final HoldDetector hold;
   final SwipeDetector swipe;
