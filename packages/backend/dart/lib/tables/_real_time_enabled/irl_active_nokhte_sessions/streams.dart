@@ -1,15 +1,14 @@
 // ignore_for_file: constant_identifier_names
-
-import 'package:nokhte_backend/tables/_real_time_enabled/active_nokhte_sessions/queries.dart';
 import 'constants/constants.dart';
 import 'types/types.dart';
+import 'queries.dart';
 
-class ActiveNokhteSessionsStream extends ActiveNokhteSessionQueries
-    with ActiveNokhteSessionsConstants {
+class IrlActiveNokhteSessionsStream extends IrlActiveNokhteSessionQueries
+    with IrlActiveNokhteSessionsConstants {
   bool getActiveNokhteSessionCreationListingingStatus = false;
   bool sessionMetadataListeningStatus = false;
 
-  ActiveNokhteSessionsStream({required super.supabase});
+  IrlActiveNokhteSessionsStream({required super.supabase});
 
   cancelGetActiveNokhteSessionCreationStatus() {
     getActiveNokhteSessionCreationListingingStatus = false;
@@ -35,17 +34,17 @@ class ActiveNokhteSessionsStream extends ActiveNokhteSessionQueries
     return sessionMetadataListeningStatus;
   }
 
-  Stream<NokhteSessionMetadata> getPresenceMetadata() async* {
+  Stream<IrlNokhteSessionMetadata> getPresenceMetadata() async* {
     sessionMetadataListeningStatus = true;
     await for (var event in supabase.from(TABLE).stream(primaryKey: ['id'])) {
       if (event.isEmpty) {
-        yield NokhteSessionMetadata.initial();
+        yield IrlNokhteSessionMetadata.initial();
       } else {
         await computeCollaboratorInformation();
         final isOnlineList = event.first[IS_ONLINE];
         final phasesList = event.first[CURRENT_PHASES];
         final speakerSpotlight = event.first[SPEAKER_SPOTLIGHT];
-        yield NokhteSessionMetadata(
+        yield IrlNokhteSessionMetadata(
           userIsOnline: isOnlineList[userIndex],
           collaboratorIsOnline: isOnlineList[collaboratorIndex],
           userPhase: double.parse(phasesList[userIndex].toString()),

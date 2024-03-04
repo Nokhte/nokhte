@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class NokhteSessionMetadata extends Equatable {
+class IrlNokhteSessionMetadata extends Equatable {
   final bool userIsOnline;
   final bool collaboratorIsOnline;
   final bool collaboratorIsTalking;
@@ -8,7 +8,7 @@ class NokhteSessionMetadata extends Equatable {
   final double collaboratorPhase;
   final double userPhase;
 
-  NokhteSessionMetadata({
+  IrlNokhteSessionMetadata({
     required this.userIsOnline,
     required this.collaboratorIsOnline,
     required this.collaboratorIsTalking,
@@ -17,7 +17,7 @@ class NokhteSessionMetadata extends Equatable {
     required this.userIsTalking,
   });
 
-  factory NokhteSessionMetadata.initial({
+  factory IrlNokhteSessionMetadata.initial({
     bool userIsOnlineParam = false,
     bool collaboratorIsOnlineParam = false,
     bool collaboratorIsTalkingParam = false,
@@ -25,7 +25,7 @@ class NokhteSessionMetadata extends Equatable {
     double collaboratorPhaseParam = 0,
     bool userIsTalkingParam = false,
   }) =>
-      NokhteSessionMetadata(
+      IrlNokhteSessionMetadata(
         userIsOnline: userIsOnlineParam,
         collaboratorIsOnline: collaboratorIsOnlineParam,
         collaboratorIsTalking: collaboratorIsTalkingParam,
