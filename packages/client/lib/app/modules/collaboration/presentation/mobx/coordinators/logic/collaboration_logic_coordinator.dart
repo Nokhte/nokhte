@@ -11,25 +11,20 @@ class CollaborationLogicCoordinator = _CollaborationLogicCoordinatorBase
 
 abstract class _CollaborationLogicCoordinatorBase extends BaseMobxDBStore
     with Store {
-  final CancelCollaboratorSearchStream cancelCollaboratorSearchStreamLogic;
+  final CancelNokhteSessionSearchStream cancelNokhteSessionSearchStreamLogic;
   final EnterCollaboratorPool enterCollaboratorPoolLogic;
   final ExitCollaboratorPool exitCollaboratorPoolLogic;
-  final GetCollaboratorSearchStatus getCollaboratorSearchStatusLogic;
   final GetNokhteSessionSearchStatus getNokhteSessionSearchStatusLogic;
 
   _CollaborationLogicCoordinatorBase({
-    required this.cancelCollaboratorSearchStreamLogic,
+    required this.cancelNokhteSessionSearchStreamLogic,
     required this.enterCollaboratorPoolLogic,
     required this.exitCollaboratorPoolLogic,
-    required this.getCollaboratorSearchStatusLogic,
     required this.getNokhteSessionSearchStatusLogic,
   });
 
   @observable
-  bool collaboratorSearchStatusIsListening = false;
-
-  @observable
-  bool nokhteSearchStatusIsListening = false;
+  bool nokhteSessionSearchStatusIsListening = false;
 
   @observable
   bool hasEntered = false;
@@ -55,33 +50,19 @@ abstract class _CollaborationLogicCoordinatorBase extends BaseMobxDBStore
 
   @action
   dispose() async {
-    collaboratorSearchStatusIsListening =
-        cancelCollaboratorSearchStreamLogic(NoParams());
+    nokhteSessionSearchStatusIsListening =
+        cancelNokhteSessionSearchStreamLogic(NoParams());
     await collaboratorSearchStatus.close();
     await searchSubscription.cancel();
   }
 
   @action
-  listenToCollaboratorSearch() async {
-    collaboratorSearchStatusIsListening = true;
-    final result = await getCollaboratorSearchStatusLogic(NoParams());
-    result.fold((failure) => errorUpdater(failure), (stream) {
-      collaboratorSearchStatus = ObservableStream(stream);
-      searchSubscription = collaboratorSearchStatus.listen(
-        (value) => hasFoundCollaborator = value,
-      );
-    });
-  }
-
-  @action
   listenToNokhteSearch() async {
-    // print("are you being called??");
-    nokhteSearchStatusIsListening = true;
+    nokhteSessionSearchStatusIsListening = true;
     final result = await getNokhteSessionSearchStatusLogic(NoParams());
     result.fold((failure) => errorUpdater(failure), (stream) {
       nokhteSearchStatus = ObservableStream(stream);
       nokhteSubscription = nokhteSearchStatus.listen((value) {
-        // print("hey is this one working??");
         hasFoundNokhteSession = value;
       });
     });
