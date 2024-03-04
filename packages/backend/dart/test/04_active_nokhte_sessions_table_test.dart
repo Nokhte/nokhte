@@ -2,15 +2,15 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte_backend/tables/_real_time_disabled/finished_nokhte_sessions/queries.dart';
-import 'package:nokhte_backend/tables/_real_time_enabled/active_nokhte_sessions/active_nohte_sessions.dart';
-import 'package:nokhte_backend/tables/_real_time_enabled/active_nokhte_sessions/types/nokhte_session_metadata.dart';
+import 'package:nokhte_backend/tables/_real_time_enabled/irl_active_nokhte_sessions/types/types.dart';
+import 'package:nokhte_backend/tables/irl_active_nokhte_sessions.dart';
 
 import 'shared/shared.dart';
 
 void main() {
-  late ActiveNokhteSessionQueries user1Queries;
-  late ActiveNokhteSessionQueries user2Queries;
-  late ActiveNokhteSessionsStream user1Stream;
+  late IrlActiveNokhteSessionQueries user1Queries;
+  late IrlActiveNokhteSessionQueries user2Queries;
+  late IrlActiveNokhteSessionsStream user1Stream;
   late FinishedNokhteSessionQueries user1FinishedQueries;
   final tSetup = CommonCollaborativeTestFunctions();
   List sortedArr = [];
@@ -18,11 +18,13 @@ void main() {
   setUpAll(() async {
     await tSetup.setUp(shouldMakeCollaboration: false);
     sortedArr = [tSetup.firstUserUID, tSetup.secondUserUID]..sort();
-    user1Queries = ActiveNokhteSessionQueries(supabase: tSetup.user1Supabase);
+    user1Queries =
+        IrlActiveNokhteSessionQueries(supabase: tSetup.user1Supabase);
     user1FinishedQueries =
         FinishedNokhteSessionQueries(supabase: tSetup.user1Supabase);
-    user1Stream = ActiveNokhteSessionsStream(supabase: tSetup.user1Supabase);
-    user2Queries = ActiveNokhteSessionQueries(supabase: tSetup.user2Supabase);
+    user1Stream = IrlActiveNokhteSessionsStream(supabase: tSetup.user1Supabase);
+    user2Queries =
+        IrlActiveNokhteSessionQueries(supabase: tSetup.user2Supabase);
   });
 
   tearDownAll(() async {
@@ -124,7 +126,7 @@ void main() {
     expect(
       stream,
       emits(
-        NokhteSessionMetadata(
+        IrlNokhteSessionMetadata(
           userIsOnline: true,
           collaboratorIsOnline: true,
           collaboratorIsTalking: false,

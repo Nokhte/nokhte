@@ -1,6 +1,6 @@
 import 'package:nokhte/app/modules/collaboration/domain/logic/enter_collaborator_pool.dart';
-import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
 import 'package:nokhte_backend/edge_functions/edge_functions.dart';
+import 'package:nokhte_backend/tables/irl_active_nokhte_sessions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class CollaborationRemoteSource {
@@ -18,7 +18,7 @@ class CollaborationRemoteSourceImpl implements CollaborationRemoteSource {
   final String currentUserUID;
   final InitiateCollaboratorSearch initiateCollaboratorSearch;
   final EndCollaboratorSearch endCollaboratorSearch;
-  final ActiveNokhteSessionsStream activeNokhteSessionsStream;
+  final IrlActiveNokhteSessionsStream activeNokhteSessionsStream;
 
   CollaborationRemoteSourceImpl({
     required this.supabase,
@@ -26,7 +26,7 @@ class CollaborationRemoteSourceImpl implements CollaborationRemoteSource {
             InitiateCollaboratorSearch(supabase: supabase),
         endCollaboratorSearch = EndCollaboratorSearch(supabase: supabase),
         activeNokhteSessionsStream =
-            ActiveNokhteSessionsStream(supabase: supabase),
+            IrlActiveNokhteSessionsStream(supabase: supabase),
         currentUserUID = supabase.auth.currentUser?.id ?? '';
 
   @override
@@ -38,8 +38,8 @@ class CollaborationRemoteSourceImpl implements CollaborationRemoteSource {
       await endCollaboratorSearch.invoke();
 
   @override
-  bool cancelNokhteSessionSearchStream() => 
-   activeNokhteSessionsStream.cancelGetActiveNokhteSessionCreationStatus();
+  bool cancelNokhteSessionSearchStream() =>
+      activeNokhteSessionsStream.cancelGetActiveNokhteSessionCreationStatus();
 
   @override
   Stream<bool> getNokhteSessionSearchStatus() {

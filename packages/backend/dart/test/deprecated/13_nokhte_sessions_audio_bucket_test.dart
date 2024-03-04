@@ -6,13 +6,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte_backend/storage/buckets/nokhte_sessions_audio/nokhte_sessions_audio_storage_queries.dart';
 import 'package:nokhte_backend/storage/buckets/nokhte_sessions_audio/types/types.dart';
 import 'package:nokhte_backend/tables/_real_time_disabled/finished_nokhte_sessions/queries.dart';
-import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
+import 'package:nokhte_backend/tables/irl_active_nokhte_sessions.dart';
 import '../shared/common_collaborative_test_functions.dart';
 
 void main() {
   late NokhteSessionsAudioStorageQueries user1Storage;
   late FinishedNokhteSessionQueries user1FinishedQueries;
-  late ActiveNokhteSessionQueries user1ActiveQueries;
+  late IrlActiveNokhteSessionQueries user1ActiveQueries;
   final tSetup = CommonCollaborativeTestFunctions();
   setUpAll(() async {
     await tSetup.setUp(shouldMakeCollaboration: false);
@@ -22,7 +22,7 @@ void main() {
     user1FinishedQueries = FinishedNokhteSessionQueries(
       supabase: tSetup.user1Supabase,
     );
-    user1ActiveQueries = ActiveNokhteSessionQueries(
+    user1ActiveQueries = IrlActiveNokhteSessionQueries(
       supabase: tSetup.user1Supabase,
     );
   });

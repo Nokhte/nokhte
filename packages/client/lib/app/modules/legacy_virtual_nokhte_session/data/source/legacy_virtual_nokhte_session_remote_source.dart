@@ -1,5 +1,5 @@
 import 'package:nokhte/app/modules/legacy_virtual_nokhte_session/domain/logic/logic.dart';
-import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
+import 'package:nokhte_backend/tables/irl_active_nokhte_sessions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class LegacyVirtualNokhteSessionRemoteSource {
@@ -11,11 +11,11 @@ class LegacyVirtualNokhteSessionRemoteSourceImpl
     implements LegacyVirtualNokhteSessionRemoteSource {
   final SupabaseClient supabase;
 
-  final ActiveNokhteSessionQueries queries;
+  final IrlActiveNokhteSessionQueries queries;
 
   LegacyVirtualNokhteSessionRemoteSourceImpl({
     required this.supabase,
-  }) : queries = ActiveNokhteSessionQueries(supabase: supabase);
+  }) : queries = IrlActiveNokhteSessionQueries(supabase: supabase);
 
   @override
   checkifUserHasTheQuestion() async =>

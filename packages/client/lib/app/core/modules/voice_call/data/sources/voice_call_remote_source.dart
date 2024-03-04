@@ -1,6 +1,6 @@
 import 'package:http/http.dart';
 import 'package:nokhte/app/core/utilities/utilities.dart';
-import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
+import 'package:nokhte_backend/tables/irl_active_nokhte_sessions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:nokhte_backend/token_server/token_server.dart';
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
@@ -27,7 +27,7 @@ abstract class VoiceCallRemoteSource {
 
 class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
   final SupabaseClient supabase;
-  final ActiveNokhteSessionQueries activeNokhteSessionQueries;
+  final IrlActiveNokhteSessionQueries activeNokhteSessionQueries;
   final String currentUserUID;
   final int currentAgoraUID;
   final RtcEngine agoraEngine;
@@ -40,7 +40,7 @@ class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
           supabase.auth.currentUser?.id ?? '',
         ),
         activeNokhteSessionQueries =
-            ActiveNokhteSessionQueries(supabase: supabase);
+            IrlActiveNokhteSessionQueries(supabase: supabase);
 
   @override
   Future<RtcEngine> initAgoraSdk() async {

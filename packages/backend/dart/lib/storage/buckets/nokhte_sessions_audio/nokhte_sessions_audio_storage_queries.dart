@@ -1,7 +1,7 @@
 // ignore_for_file: constant_identifier_names
 import 'package:nokhte_backend/storage/buckets/shared/path_and_bytes.dart';
-import 'package:nokhte_backend/tables//active_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/_real_time_disabled/finished_nokhte_sessions/queries.dart';
+import 'package:nokhte_backend/tables/irl_active_nokhte_sessions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'types/types.dart';
 import 'constants/constants.dart';
@@ -9,12 +9,12 @@ import "../shared/shared.dart";
 export "../shared/shared.dart";
 
 class NokhteSessionsAudioStorageQueries with NokhteSessionsAudioConstants {
-  final ActiveNokhteSessionQueries activeQueries;
+  final IrlActiveNokhteSessionQueries activeQueries;
   final FinishedNokhteSessionQueries finishedQueries;
   final SupabaseClient supabase;
   NokhteSessionsAudioStorageQueries({
     required this.supabase,
-  })  : activeQueries = ActiveNokhteSessionQueries(supabase: supabase),
+  })  : activeQueries = IrlActiveNokhteSessionQueries(supabase: supabase),
         finishedQueries = FinishedNokhteSessionQueries(supabase: supabase) {
     supabase.storage.setAuth(supabase.auth.currentSession?.accessToken ?? '');
   }
