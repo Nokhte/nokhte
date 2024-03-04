@@ -7,9 +7,7 @@ abstract class CollaborationContract {
   Future<Either<Failure, bool>> enterTheCollaboratorPool(
       EnterCollaboratorPoolParams collaboratorUID);
   Future<Either<Failure, bool>> exitCollaboratorPool(NoParams params);
-  Future<Either<Failure, Stream<bool>>> getCollaboratorSearchStatus(
-      NoParams params);
-  bool cancelCollaboratorSearchStream(NoParams params);
+  bool cancelNokhteSessionSearchStream(NoParams params);
   Future<Either<Failure, Stream<bool>>> getNokhteSessionSearchStatus(
       NoParams params);
 }
