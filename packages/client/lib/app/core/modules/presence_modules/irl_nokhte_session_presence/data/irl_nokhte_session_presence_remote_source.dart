@@ -1,16 +1,16 @@
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
-import 'package:nokhte_backend/tables/_real_time_enabled/active_nokhte_sessions/types/types.dart';
-import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
+import 'package:nokhte_backend/tables/_real_time_enabled/irl_active_nokhte_sessions/types/types.dart';
+import 'package:nokhte_backend/tables/irl_active_nokhte_sessions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class LegacyVirtualNokhteSessionPresenceRemoteSourceImpl
-    implements BasePresenceRemoteSource<NokhteSessionMetadata> {
+class IrlNokhteSessionPresenceRemoteSourceImpl
+    implements BasePresenceRemoteSource<IrlNokhteSessionMetadata> {
   final SupabaseClient supabase;
-  final ActiveNokhteSessionQueries queries;
-  final ActiveNokhteSessionsStream stream;
-  LegacyVirtualNokhteSessionPresenceRemoteSourceImpl({required this.supabase})
-      : queries = ActiveNokhteSessionQueries(supabase: supabase),
-        stream = ActiveNokhteSessionsStream(supabase: supabase);
+  final IrlActiveNokhteSessionQueries queries;
+  final IrlActiveNokhteSessionsStream stream;
+  IrlNokhteSessionPresenceRemoteSourceImpl({required this.supabase})
+      : queries = IrlActiveNokhteSessionQueries(supabase: supabase),
+        stream = IrlActiveNokhteSessionsStream(supabase: supabase);
 
   @override
   cancelSessionMetadataStream() => stream.cancelGetSessionMetadataStream();
