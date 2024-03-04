@@ -15,28 +15,28 @@ void main() {
   });
 
   test("✅ should pass the Status Entity from Contract ==> Logic", () async {
-    when(mockContract.getChannelId(GetChannelIdParams.forCollaboration))
+    when(mockContract.getChannelId(GetChannelIdParams.forNokhteSession))
         .thenAnswer(
       (_) async => const Right("channelId"),
     );
 
-    final result = await logic(GetChannelIdParams.forCollaboration);
+    final result = await logic(GetChannelIdParams.forNokhteSession);
 
     expect(result, const Right("channelId"));
-    verify(mockContract.getChannelId(GetChannelIdParams.forCollaboration));
+    verify(mockContract.getChannelId(GetChannelIdParams.forNokhteSession));
     verifyNoMoreInteractions(mockContract);
   });
 
   test("✅ should pass A Failure from Contract ==> Logic", () async {
-    when(mockContract.getChannelId(GetChannelIdParams.forCollaboration))
+    when(mockContract.getChannelId(GetChannelIdParams.forNokhteSession))
         .thenAnswer(
       (_) async => Left(FailureConstants.dbFailure),
     );
 
-    final result = await logic(GetChannelIdParams.forCollaboration);
+    final result = await logic(GetChannelIdParams.forNokhteSession);
 
     expect(result, Left(FailureConstants.dbFailure));
-    verify(mockContract.getChannelId(GetChannelIdParams.forCollaboration));
+    verify(mockContract.getChannelId(GetChannelIdParams.forNokhteSession));
     verifyNoMoreInteractions(mockContract);
   });
 }
