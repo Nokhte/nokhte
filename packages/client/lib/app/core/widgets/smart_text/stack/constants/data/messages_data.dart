@@ -260,4 +260,20 @@ class MessagesData {
               pauseHere: true,
             ),
           ];
+
+  static List<RotatingTextData> get irlNokhteSessionPhase0PrimaryList => [
+        RotatingTextData(
+          mainMessage: "Put both phones in a position both of you can reach",
+          pauseHere: true,
+          mainMessageFontSize: 24.0,
+        ),
+      ];
+
+  static List<RotatingTextData> get irlNokhteSessionPhase0SecondaryList => [
+        RotatingTextData(
+          mainMessage: "Tap when you have done so",
+          pauseHere: true,
+          mainMessageFontSize: 20.0,
+        ),
+      ];
 }
