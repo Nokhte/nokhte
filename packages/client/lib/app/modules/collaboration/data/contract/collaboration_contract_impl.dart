@@ -16,8 +16,8 @@ class CollaborationContractImpl
       {required this.remoteSource, required this.networkInfo});
 
   @override
-  cancelCollaboratorSearchStream(NoParams params) =>
-      remoteSource.cancelStream();
+  cancelNokhteSessionSearchStream(NoParams params) =>
+      remoteSource.cancelNokhteSessionSearchStream();
 
   @override
   enterTheCollaboratorPool(collaboratorUID) async {
