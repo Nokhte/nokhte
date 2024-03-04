@@ -3,7 +3,6 @@ import 'package:nokhte/app/core/utilities/utilities.dart';
 import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:nokhte_backend/token_server/token_server.dart';
-import 'package:nokhte_backend/tables/existing_collaborations.dart';
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:path_provider/path_provider.dart';
@@ -19,8 +18,6 @@ abstract class VoiceCallRemoteSource {
 
   Future<void> unmuteLocalAudio();
 
-  Future<List<dynamic>> getCollaboratorInfo();
-
   Future<String> getNokhteSessionMeetingId();
 
   Future<RtcEngine> initAgoraSdk();
@@ -30,7 +27,6 @@ abstract class VoiceCallRemoteSource {
 
 class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
   final SupabaseClient supabase;
-  final ExistingCollaborationsQueries existingCollaborationsQueries;
   final ActiveNokhteSessionQueries activeNokhteSessionQueries;
   final String currentUserUID;
   final int currentAgoraUID;
@@ -43,8 +39,6 @@ class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
         currentAgoraUID = MiscAlgos.postgresUIDToInt(
           supabase.auth.currentUser?.id ?? '',
         ),
-        existingCollaborationsQueries =
-            ExistingCollaborationsQueries(supabase: supabase),
         activeNokhteSessionQueries =
             ActiveNokhteSessionQueries(supabase: supabase);
 
@@ -82,15 +76,6 @@ class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
   @override
   Future<void> leaveCall() async {
     return await agoraEngine.leaveChannel();
-  }
-
-  @override
-  Future<List> getCollaboratorInfo() async {
-    return [
-      await existingCollaborationsQueries.getCollaborations(
-          filterForIsActive: true),
-      currentUserUID
-    ];
   }
 
   @override
