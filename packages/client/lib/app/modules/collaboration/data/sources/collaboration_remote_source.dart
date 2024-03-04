@@ -1,6 +1,5 @@
 import 'package:nokhte/app/modules/collaboration/domain/logic/enter_collaborator_pool.dart';
 import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
-import 'package:nokhte_backend/tables/existing_collaborations.dart';
 import 'package:nokhte_backend/edge_functions/edge_functions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -9,17 +8,14 @@ abstract class CollaborationRemoteSource {
 
   Future<FunctionResponse> exitThePool();
 
-  Stream<bool> getCollaboratorSearchStatus();
-
   Stream<bool> getNokhteSessionSearchStatus();
 
-  bool cancelStream();
+  bool cancelNokhteSessionSearchStream();
 }
 
 class CollaborationRemoteSourceImpl implements CollaborationRemoteSource {
   final SupabaseClient supabase;
   final String currentUserUID;
-  final ExistingCollaborationsStream existingCollaborationsStream;
   final InitiateCollaboratorSearch initiateCollaboratorSearch;
   final EndCollaboratorSearch endCollaboratorSearch;
   final ActiveNokhteSessionsStream activeNokhteSessionsStream;
@@ -29,8 +25,6 @@ class CollaborationRemoteSourceImpl implements CollaborationRemoteSource {
   })  : initiateCollaboratorSearch =
             InitiateCollaboratorSearch(supabase: supabase),
         endCollaboratorSearch = EndCollaboratorSearch(supabase: supabase),
-        existingCollaborationsStream =
-            ExistingCollaborationsStream(supabase: supabase),
         activeNokhteSessionsStream =
             ActiveNokhteSessionsStream(supabase: supabase),
         currentUserUID = supabase.auth.currentUser?.id ?? '';
@@ -44,15 +38,8 @@ class CollaborationRemoteSourceImpl implements CollaborationRemoteSource {
       await endCollaboratorSearch.invoke();
 
   @override
-  Stream<bool> getCollaboratorSearchStatus() =>
-      existingCollaborationsStream.getCollaboratorSearchAndEntryStatus();
-
-  @override
-  bool cancelStream() {
-    existingCollaborationsStream.cancelGetCollaboratorSearchStream();
-    return activeNokhteSessionsStream
-        .cancelGetActiveNokhteSessionCreationStatus();
-  }
+  bool cancelNokhteSessionSearchStream() => 
+   activeNokhteSessionsStream.cancelGetActiveNokhteSessionCreationStatus();
 
   @override
   Stream<bool> getNokhteSessionSearchStatus() {
