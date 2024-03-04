@@ -50,7 +50,7 @@ class SmartText extends StatelessWidget {
                             Text(
                               store.currentMainText,
                               textAlign: TextAlign.center,
-                              style: Fonts.kantumruy(
+                              style: Fonts.jost(
                                 fontSize: store.currentMainTextFontSize,
                                 color: altValue.get('color'),
                               ),
@@ -58,7 +58,7 @@ class SmartText extends StatelessWidget {
                             Text(
                               store.currentSubText,
                               textAlign: TextAlign.center,
-                              style: Fonts.kantumruy(
+                              style: Fonts.jost(
                                 fontSize: store.currentSubTextFontSize,
                                 color: altValue.get('color'),
                               ),
