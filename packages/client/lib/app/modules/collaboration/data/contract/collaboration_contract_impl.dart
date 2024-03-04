@@ -40,15 +40,6 @@ class CollaborationContractImpl
   }
 
   @override
-  getCollaboratorSearchStatus(NoParams params) async {
-    if (await networkInfo.isConnected) {
-      return Right(remoteSource.getCollaboratorSearchStatus());
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
-
-  @override
   getNokhteSessionSearchStatus(params) async {
     if (await networkInfo.isConnected) {
       return Right(remoteSource.getNokhteSessionSearchStatus());
