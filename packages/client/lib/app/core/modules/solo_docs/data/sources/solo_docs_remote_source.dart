@@ -1,6 +1,4 @@
 import 'package:nokhte/app/core/modules/solo_docs/domain/domain.dart';
-import 'package:nokhte_backend/tables/existing_collaborations.dart';
-import 'package:nokhte_backend/tables/solo_sharable_documents.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class SoloDocsRemoteSource {
@@ -17,9 +15,6 @@ abstract class SoloDocsRemoteSource {
 
 class SoloDocsRemoteSourceImpl implements SoloDocsRemoteSource {
   final SupabaseClient supabase;
-  final ExistingCollaborationsQueries existingCollaborationsQueries;
-  late CollaboratorInfo collaborationInfo;
-  late SoloSharableDocumentQueries soloDocQueries;
 
   static const Map<SoloDocTypes, String> docTypeMap = {
     SoloDocTypes.collective: "collective",
@@ -28,29 +23,19 @@ class SoloDocsRemoteSourceImpl implements SoloDocsRemoteSource {
 
   SoloDocsRemoteSourceImpl({
     required this.supabase,
-  })  : existingCollaborationsQueries =
-            ExistingCollaborationsQueries(supabase: supabase),
-        soloDocQueries = SoloSharableDocumentQueries(supabase: supabase);
+  });
 
   @override
-  Future<List> createSoloDoc(params) async =>
-      await soloDocQueries.createSoloDoc(docTypeMap[params] as String);
+  createSoloDoc(params) async => throw UnimplementedError();
 
   @override
-  Future<List> getSoloDocContent(params) async =>
-      await soloDocQueries.getDocInfo(
-        getCollaboratorsDoc: params.getCollaboratorsDoc,
-      );
+  getSoloDocContent(params) async => throw UnimplementedError();
 
   @override
-  Future<List> sealSoloDoc() async => await soloDocQueries.sealDocument();
+  sealSoloDoc() async => throw UnimplementedError();
 
   @override
-  Future<List> shareSoloDoc() async => await soloDocQueries.updateDocVisibility(
-        makeVisible: true,
-      );
-
+  shareSoloDoc() async => throw UnimplementedError();
   @override
-  Future<List> submitDocContent(params) async =>
-      await soloDocQueries.updateDocContent(params);
+  submitDocContent(params) async => throw UnimplementedError();
 }
