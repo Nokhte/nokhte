@@ -21,7 +21,7 @@ class LegacyNokhteSessionModule extends Module {
         LegacyConnectivityModule(),
         GesturesModule(),
         VoiceCallModule(),
-        NokhteSessionPresenceModule(),
+        IrlNokhteSessionPresenceModule(),
         PosthogModule(),
       ];
 

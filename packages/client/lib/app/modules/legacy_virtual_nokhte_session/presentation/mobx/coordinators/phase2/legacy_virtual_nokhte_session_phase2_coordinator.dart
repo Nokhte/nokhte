@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/constants/constants.dart';
 import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
@@ -51,13 +50,13 @@ abstract class _LegacyVirtualNokhteSessionPhase2CoordinatorBase
     await logic.changeDesireToLeave(ChangeDesireToLeaveParams.negative);
   }
 
-  desireToLeaveStatusReactor() =>
-      reaction((p0) => presence.getSessionMetadataStore.isAllowedToExit,
-          (p0) async {
-        if (p0) {
-          await presence.dispose();
-          await captureNokhteSessionEnd(NoParams());
-          widgets.initTransitionBackHome();
-        }
-      });
+  desireToLeaveStatusReactor() => null;
+  // reaction((p0) => presence.getSessionMetadataStore.isAllowedToExit,
+  //     (p0) async {
+  //   if (p0) {
+  //     await presence.dispose();
+  //     await captureNokhteSessionEnd(NoParams());
+  //     widgets.initTransitionBackHome();
+  //   }
+  // });
 }

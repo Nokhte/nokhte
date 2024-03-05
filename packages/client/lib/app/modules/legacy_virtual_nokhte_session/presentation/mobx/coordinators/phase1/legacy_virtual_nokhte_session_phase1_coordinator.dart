@@ -194,16 +194,16 @@ abstract class _LegacyVirtualNokhteSessionPhase1CoordinatorBase
         }
       });
 
-  desireToLeaveStatusReactor() =>
-      reaction((p0) => presence.getSessionMetadataStore.isAllowedToExit,
-          (p0) async {
-        if (p0) {
-          await voiceCall.leaveCall();
-          widgets.secondarySmartText.setWidgetVisibility(true);
-          widgets.initTransitionToHome();
-          isTransitioningHome = true;
-        }
-      });
+  desireToLeaveStatusReactor() => null;
+  // reaction((p0) => presence.getSessionMetadataStore.isAllowedToExit,
+  //     (p0) async {
+  //   if (p0) {
+  //     await voiceCall.leaveCall();
+  //     widgets.secondarySmartText.setWidgetVisibility(true);
+  //     widgets.initTransitionToHome();
+  //     isTransitioningHome = true;
+  //   }
+  // });
 
   speakerCountReactor() => reaction((p0) => speakerCount, (p0) {
         if (shouldIncrementSpeakerCount) {
