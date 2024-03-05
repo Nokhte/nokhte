@@ -170,3 +170,5 @@ to authenticated
 using ((auth.uid() = ANY (collaborator_uids)))
 with check ((auth.uid() = ANY (collaborator_uids)));
 
+
+alter table "public"."active_irl_nokhte_sessions" alter column "current_phases" set default '{0,0}'::real[];
