@@ -20,6 +20,12 @@ class IrlNokhteSessionPhase0Screen extends HookWidget {
       coordinator.constructor();
       return null;
     }, []);
+    useOnAppLifecycleStateChange(
+        (previous, current) => coordinator.onAppLifeCycleStateChange(
+              current,
+              onResumed: () => coordinator.onResumed(),
+              onInactive: () => coordinator.onInactive(),
+            ));
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Tap(
@@ -50,6 +56,9 @@ class IrlNokhteSessionPhase0Screen extends HookWidget {
               child: TouchRipple(
                 store: coordinator.widgets.rippleTouch,
               ),
+            ),
+            CollaboratorPresenceIncidentsOverlay(
+              store: coordinator.presence.incidentsOverlayStore,
             ),
             WifiDisconnectOverlay(
               store: coordinator.widgets.wifiDisconnectOverlay,
