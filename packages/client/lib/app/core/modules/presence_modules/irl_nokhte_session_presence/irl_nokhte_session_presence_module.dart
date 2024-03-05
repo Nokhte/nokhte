@@ -7,7 +7,7 @@ import 'package:nokhte_backend/tables/_real_time_enabled/irl_active_nokhte_sessi
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 
-class NokhteSessionPresenceModule extends Module {
+class IrlNokhteSessionPresenceModule extends Module {
   @override
   List<Module> get imports => [
         SupabaseModule(),
