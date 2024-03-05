@@ -14,13 +14,15 @@ class TouchRipple extends StatelessWidget {
 
   _returnRipples() {
     List<Widget> temp = [];
-    for (var ripple in store.info) {
+    for (int i = 0; i < store.info.length; i++) {
+      final ripple = store.info[i];
+      final isLastOne = i == store.info.length - 1;
       temp.add(
         CustomAnimationBuilder(
           tween: ripple.movie,
           duration: ripple.movie.duration,
           control: ripple.control,
-          onCompleted: () => store.onCompleted(),
+          onCompleted: () => isLastOne ? store.onCompleted() : null,
           builder: (context, value, __) => CustomPaint(
             painter: TouchRipplePainter(
               position: ripple.position,
