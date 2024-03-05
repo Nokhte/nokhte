@@ -267,6 +267,14 @@ class MessagesData {
           pauseHere: true,
           mainMessageFontSize: 24.0,
         ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "Tap on the other phone to continue",
+          pauseHere: true,
+        ),
       ];
 
   static List<RotatingTextData> get irlNokhteSessionPhase0SecondaryList => [
