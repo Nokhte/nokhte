@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
@@ -41,7 +42,17 @@ abstract class _IrlNokhteSessionPhase0WidgetsCoordinatorBase
   }
 
   @action
-  initReactors() {
-    //
+  invisiblizePrimarySmartText() => primarySmartText.setWidgetVisibility(false);
+
+  @action
+  onTap(Offset tapPosition) {
+    rippleTouch.onTap(tapPosition);
+    primarySmartText.startRotatingText(isResuming: true);
+    secondarySmartText.setWidgetVisibility(false);
+  }
+
+  @action
+  onTenSecondLapse() {
+    primarySmartText.startRotatingText(isResuming: true);
   }
 }
