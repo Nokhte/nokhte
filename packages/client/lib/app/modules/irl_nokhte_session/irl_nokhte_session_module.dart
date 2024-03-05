@@ -13,6 +13,7 @@ class IrlNokhteSessionModule extends Module {
   @override
   void routes(r) {
     r.child(
+      transition: TransitionType.noTransition,
       '/',
       child: (context) => IrlNokhteSessionPhase0Screen(
         coordinator: Modular.get<IrlNokhteSessionPhase0Coordinator>(),

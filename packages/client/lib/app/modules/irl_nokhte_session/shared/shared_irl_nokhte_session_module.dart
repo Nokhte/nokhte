@@ -4,9 +4,7 @@ import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog_module.dart';
 import 'package:nokhte/app/core/widgets/modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/irl_nokhte_session/shared/shared_irl_nokhte_session_widgets_module.dart';
-
-import 'presentation/mobx/mobx.dart';
+import 'package:nokhte/app/modules/irl_nokhte_session/shared/shared.dart';
 
 class SharedIrlNokhteSessionModule extends Module {
   @override

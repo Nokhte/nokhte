@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // import 'dart:async';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -29,8 +28,8 @@ abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
 
   @action
   constructor() async {
-    Modular.to.navigate('/nokhte_session/');
     widgets.constructor();
+    initReactors();
   }
 
   @action
@@ -46,5 +45,12 @@ abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
         setDisableAllTouchFeedback(true);
       },
     );
+    tapReactor();
   }
+
+  tapReactor() => reaction((p0) => tap.tapCount, (p0) {
+        widgets.rippleTouch.onTap(tap.currentTapPosition);
+        widgets.primarySmartText.setWidgetVisibility(false);
+        widgets.secondarySmartText.setWidgetVisibility(false);
+      });
 }

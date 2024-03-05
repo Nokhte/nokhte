@@ -46,6 +46,11 @@ class IrlNokhteSessionPhase0Screen extends HookWidget {
                 opacityDuration: Seconds.get(1),
               ),
             ),
+            FullScreen(
+              child: TouchRipple(
+                store: coordinator.widgets.rippleTouch,
+              ),
+            ),
             WifiDisconnectOverlay(
               store: coordinator.widgets.wifiDisconnectOverlay,
             ),

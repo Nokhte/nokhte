@@ -15,14 +15,14 @@ abstract class _IrlNokhteSessionPhase0WidgetsCoordinatorBase
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
-  // final RippleTouchStore rippleTouch;
+  final TouchRippleStore rippleTouch;
 
   _IrlNokhteSessionPhase0WidgetsCoordinatorBase({
     required this.beachWaves,
     required this.wifiDisconnectOverlay,
     required this.primarySmartText,
     required this.secondarySmartText,
-    // required this.rippleTouch,
+    required this.rippleTouch,
   });
 
   @action
