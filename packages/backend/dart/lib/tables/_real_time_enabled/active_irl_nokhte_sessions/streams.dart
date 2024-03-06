@@ -3,12 +3,12 @@ import 'constants/constants.dart';
 import 'types/types.dart';
 import 'queries.dart';
 
-class IrlActiveNokhteSessionsStream extends IrlActiveNokhteSessionQueries
-    with IrlActiveNokhteSessionsConstants {
+class ActiveIrlNokhteSessionsStream extends ActiveIrlNokhteSessionQueries
+    with ActiveIrlNokhteSessionsConstants {
   bool getActiveNokhteSessionCreationListingingStatus = false;
   bool sessionMetadataListeningStatus = false;
 
-  IrlActiveNokhteSessionsStream({required super.supabase});
+  ActiveIrlNokhteSessionsStream({required super.supabase});
 
   cancelGetActiveNokhteSessionCreationStatus() {
     getActiveNokhteSessionCreationListingingStatus = false;
