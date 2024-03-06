@@ -5,11 +5,12 @@ import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'irl_nokhte_session_phase0_widgets_coordinator.dart';
+import 'package:nokhte/app/modules/irl_nokhte_session/irl_nokhte_session.dart';
 part 'irl_nokhte_session_phase0_coordinator.g.dart';
 
 class IrlNokhteSessionPhase0Coordinator = _IrlNokhteSessionPhase0CoordinatorBase
@@ -17,6 +18,7 @@ class IrlNokhteSessionPhase0Coordinator = _IrlNokhteSessionPhase0CoordinatorBase
 
 abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
     with Store {
+  final DecidePhoneRole decidePhoneRoleLogic;
   final IrlNokhteSessionPhase0WidgetsCoordinator widgets;
   final TapDetector tap;
   final IrlNokhteSessionPresenceCoordinator presence;
@@ -25,6 +27,7 @@ abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
   _IrlNokhteSessionPhase0CoordinatorBase({
     required super.captureScreen,
     required this.widgets,
+    required this.decidePhoneRoleLogic,
     required this.tap,
     required this.presence,
   }) : sessionMetadata = presence.getSessionMetadataStore;
@@ -35,11 +38,20 @@ abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
   @observable
   bool isNavigatingAway = false;
 
+  @observable
+  IrlNokhteSessionPhoneRole phoneRole = IrlNokhteSessionPhoneRole.initial;
+
+  @computed
+  String get pathIntoSession => phoneRole == IrlNokhteSessionPhoneRole.talking
+      ? '/irl_nokhte_session/talking'
+      : '/irl_nokhte_session/notes';
+
   @action
   constructor() async {
     widgets.constructor();
     await presence.listen();
     initReactors();
+    await decidePhoneRole();
   }
 
   @action
@@ -85,6 +97,13 @@ abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
     userPhaseReactor();
   }
 
+  @action
+  decidePhoneRole() async {
+    final res = await decidePhoneRoleLogic(NoParams());
+    res.fold((failure) => errorUpdater(failure),
+        (assignedRole) => phoneRole = assignedRole);
+  }
+
   collaboratorPhaseReactor() =>
       reaction((p0) => sessionMetadata.collaboratorPhase, (p0) {
         if (sessionMetadata.canMoveIntoSession &&
@@ -92,8 +111,7 @@ abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
             tap.tapCount.isGreaterThan(0)) {
           widgets.invisiblizePrimarySmartText();
           isNavigatingAway = true;
-          // todo preload the route based on if they are the notes || speaking phone
-          Modular.to.navigate("/irl_nokhte_session/phase_one");
+          Modular.to.navigate(pathIntoSession);
         }
       });
 
@@ -122,7 +140,7 @@ abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
         if (p0 == MovieStatus.finished &&
             presence.getSessionMetadataStore.canMoveIntoSession) {
           isNavigatingAway = true;
-          Modular.to.navigate("/irl_nokhte_session/phase_one");
+          Modular.to.navigate(pathIntoSession);
         }
       });
 }
