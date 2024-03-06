@@ -82,6 +82,7 @@ abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
     tapReactor();
     rippleCompletionStatusReactor();
     collaboratorPhaseReactor();
+    userPhaseReactor();
   }
 
   collaboratorPhaseReactor() =>
@@ -96,19 +97,22 @@ abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
         }
       });
 
+  userPhaseReactor() => reaction((p0) => sessionMetadata.userPhase, (p0) {
+        if (sessionMetadata.userPhase == 1.0) {
+          Timer(Seconds.get(10), () {
+            if (!isNavigatingAway) {
+              widgets.onTenSecondLapse();
+            }
+          });
+        }
+      });
+
   tapReactor() => reaction(
         (p0) => tap.tapCount,
         (p0) => ifTouchIsNotDisabled(() async {
+          widgets.onTap(tap.currentTapPosition);
           if (sessionMetadata.currentPhase == 0.0) {
             await presence.updateCurrentPhase(1.0);
-            if (sessionMetadata.userPhase == 1.0) {
-              widgets.onTap(tap.currentTapPosition);
-              Timer(Seconds.get(10), () {
-                if (!isNavigatingAway) {
-                  widgets.onTenSecondLapse();
-                }
-              });
-            }
           }
         }),
       );
