@@ -1,7 +1,6 @@
 import { serve } from "std/server";
 import { supabaseAdmin } from "../constants/supabase.ts";
 import { isANokhteInvitation } from "./is_a_nokhte_invitation.ts";
-import { isAColaborationInvitation } from "./is_a_collaboration_invitation.ts";
 
 serve(async (req) => {
   const { wayfarerUID, queryUID, invitationType } = await req.json();
@@ -20,8 +19,6 @@ serve(async (req) => {
     .select();
   if (invitationType === "NOKHTE_SESSION") {
     isANokhteInvitation(queryUID, mostRecentEntrant);
-  } else {
-    isAColaborationInvitation(queryUID, wayfarerUID, mostRecentEntrant);
   }
   const returnRes = [
     {

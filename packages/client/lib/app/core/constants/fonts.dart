@@ -10,4 +10,14 @@ class Fonts {
         fontSize: fontSize,
         color: color,
       );
+
+  static TextStyle jost({
+    required double fontSize,
+    Color color = Colors.white,
+  }) =>
+      GoogleFonts.jost(
+        fontSize: fontSize,
+        fontWeight: FontWeight.w400,
+        color: color,
+      );
 }
