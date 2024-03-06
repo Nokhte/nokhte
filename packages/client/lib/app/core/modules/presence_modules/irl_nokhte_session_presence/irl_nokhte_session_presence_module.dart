@@ -3,7 +3,7 @@ import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity_
 import 'package:nokhte/app/core/modules/supabase/supabase_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte_backend/tables/_real_time_enabled/irl_active_nokhte_sessions/types/types.dart';
+import 'package:nokhte_backend/tables/_real_time_enabled/active_irl_nokhte_sessions/types/types.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 

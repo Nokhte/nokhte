@@ -9,12 +9,12 @@ import "../shared/shared.dart";
 export "../shared/shared.dart";
 
 class NokhteSessionsAudioStorageQueries with NokhteSessionsAudioConstants {
-  final IrlActiveNokhteSessionQueries activeQueries;
+  final ActiveIrlNokhteSessionQueries activeQueries;
   final FinishedNokhteSessionQueries finishedQueries;
   final SupabaseClient supabase;
   NokhteSessionsAudioStorageQueries({
     required this.supabase,
-  })  : activeQueries = IrlActiveNokhteSessionQueries(supabase: supabase),
+  })  : activeQueries = ActiveIrlNokhteSessionQueries(supabase: supabase),
         finishedQueries = FinishedNokhteSessionQueries(supabase: supabase) {
     supabase.storage.setAuth(supabase.auth.currentSession?.accessToken ?? '');
   }

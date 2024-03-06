@@ -7,7 +7,7 @@ import 'shared/shared.dart';
 
 void main() {
   late UserNamesQueries user1UserNamesQueries;
-  late IrlActiveNokhteSessionsStream user1ActiveNokhteSessionsStreams;
+  late ActiveIrlNokhteSessionsStream user1ActiveNokhteSessionsStreams;
   late InitiateCollaboratorSearch user1StartEdgeFunctions;
   late EndCollaboratorSearch user1EndEdgeFunctions;
   late EndCollaboratorSearch user3EndEdgeFunctions;
@@ -20,7 +20,7 @@ void main() {
         InitiateCollaboratorSearch(supabase: tSetup.user1Supabase);
     user1UserNamesQueries = UserNamesQueries(supabase: tSetup.user1Supabase);
     user1ActiveNokhteSessionsStreams =
-        IrlActiveNokhteSessionsStream(supabase: tSetup.user1Supabase);
+        ActiveIrlNokhteSessionsStream(supabase: tSetup.user1Supabase);
     user1EndEdgeFunctions =
         EndCollaboratorSearch(supabase: tSetup.user1Supabase);
     user3EdgeFunctions =

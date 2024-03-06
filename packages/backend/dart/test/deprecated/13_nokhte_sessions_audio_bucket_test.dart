@@ -12,7 +12,7 @@ import '../shared/common_collaborative_test_functions.dart';
 void main() {
   late NokhteSessionsAudioStorageQueries user1Storage;
   late FinishedNokhteSessionQueries user1FinishedQueries;
-  late IrlActiveNokhteSessionQueries user1ActiveQueries;
+  late ActiveIrlNokhteSessionQueries user1ActiveQueries;
   final tSetup = CommonCollaborativeTestFunctions();
   setUpAll(() async {
     await tSetup.setUp(shouldMakeCollaboration: false);
@@ -22,7 +22,7 @@ void main() {
     user1FinishedQueries = FinishedNokhteSessionQueries(
       supabase: tSetup.user1Supabase,
     );
-    user1ActiveQueries = IrlActiveNokhteSessionQueries(
+    user1ActiveQueries = ActiveIrlNokhteSessionQueries(
       supabase: tSetup.user1Supabase,
     );
   });
