@@ -19,8 +19,13 @@ class IrlNokhteSessionModule extends Module {
     );
     r.child(
       transition: TransitionType.noTransition,
-      '/phase_one',
-      child: (context) => const IrlNokhteSessionPhase1PlaceHolderScreen(),
+      '/talking',
+      child: (context) => const IrlNokhteSessionTalkingPlaceHolderScreen(),
+    );
+    r.child(
+      transition: TransitionType.noTransition,
+      '/notes',
+      child: (context) => const IrlNokhteSessionNotesPlaceHolderScreen(),
     );
   }
 }
