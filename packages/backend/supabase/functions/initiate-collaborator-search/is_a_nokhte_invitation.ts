@@ -11,14 +11,13 @@ async function isANokhteInvitation(queryUID: string, mostRecentEntrant: any) {
     .select()
     .eq("query_uid", queryUID)
     .neq("wayfarer_uid", userUID)
-
     .eq("invitation_type", "NOKHTE_SESSION");
 
   if (isNotEmptyOrNull(wayfarerQueryRes?.data)) {
     const matchedUID = wayfarerQueryRes.data?.[0]?.["wayfarer_uid"];
 
     const checkRes = await supabaseAdmin
-      .from("active_nokhte_sessions")
+      .from("active_irl_nokhte_sessions")
       .select()
       .eq("meeting_uid", meetingUID);
 
@@ -33,12 +32,12 @@ async function isANokhteInvitation(queryUID: string, mostRecentEntrant: any) {
         await updateAuthorizedViewers(matchedUID, userUID);
         const uids = [matchedUID, userUID];
         uids.sort();
-        await supabaseAdmin.from("active_nokhte_sessions").insert({
+        await supabaseAdmin.from("active_irl_nokhte_sessions").insert({
           collaborator_uids: uids,
           meeting_uid: meetingUID,
         });
       } else {
-        await supabaseAdmin.from("active_nokhte_sessions").insert({
+        await supabaseAdmin.from("active_irl_nokhte_sessions").insert({
           collaboration_uids:
             checkForExistingSessionsRes.data?.[0]["collaborator_uids"],
           meeting_uid: meetingUID,
