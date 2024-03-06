@@ -28,9 +28,9 @@ class SmartText extends StatelessWidget {
             tween: FadeInAndOutMovie.movie,
             control: store.control,
             onCompleted: () => store.onOpacityTransitionComplete(),
-            duration: FadeInAndOutMovie.movie.duration, // Adjust fade duration
+            duration: FadeInAndOutMovie.movie.duration,
             builder: (context, primaryValue, child) => Opacity(
-              opacity: primaryValue.get('opacity'), // <== like here
+              opacity: primaryValue.get('opacity'),
               child: Padding(
                 padding: EdgeInsets.only(
                   left: 50.0,
