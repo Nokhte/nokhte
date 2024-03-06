@@ -11,85 +11,42 @@ part 'beach_waves_store.g.dart';
 class BeachWavesStore = _BeachWavesStoreBase with _$BeachWavesStore;
 
 abstract class _BeachWavesStoreBase extends Equatable with Store {
-  final BlackOutMovieStore blackOutMovie = BlackOutMovieStore();
-  final BlackOutToDrySandMovieStore blackOutToDrySandMovieStore =
-      BlackOutToDrySandMovieStore();
-  final OceanDiveToOnShoreMovieStore oceanDiveToOnShoreMovieStore =
-      OceanDiveToOnShoreMovieStore();
-  final OceanDiveToTimesUpStartMovieStore oceanDiveToTimesUpStartMovieStore =
-      OceanDiveToTimesUpStartMovieStore();
-  final OnShoreToOceanDiveMovieStore onShoreToOceanDiveMovieStore =
-      OnShoreToOceanDiveMovieStore();
-  final OnShoreMovieStore onShoreMovieStore = OnShoreMovieStore();
-  final OnShoreToVibrantBlueMovieStore onShoreToVibrantBlueMovieStore =
-      OnShoreToVibrantBlueMovieStore();
-  final ResumeOnShoreMovieStore resumeOnShoreMovieStore =
-      ResumeOnShoreMovieStore();
-  final SuspendedAtOceanDiveStore suspendedAtOceanDiveStore =
-      SuspendedAtOceanDiveStore();
-  final SuspendedAtOceanDiveToVibrantBlueGradientMovieStore
-      suspendedAtOceanDiveToVibrantBlueGradientMovieStore =
-      SuspendedAtOceanDiveToVibrantBlueGradientMovieStore();
-  final SuspendedAtTheDepthsMovieStore suspendedAtTheDepthsMovieStore =
-      SuspendedAtTheDepthsMovieStore();
-  final SuspendedAtTheDepthsToTimesUpStartMovieStore
-      suspendedAtTheDepthsToTimesUpStartMovieStore =
-      SuspendedAtTheDepthsToTimesUpStartMovieStore();
-  final TimesUpMovieStore timesUpMovieStore = TimesUpMovieStore();
-  final TimesUpDynamicPointToTheDepthsMovieStore
-      timesUpDynamicPointToTheDepthsMovie =
-      TimesUpDynamicPointToTheDepthsMovieStore();
-  final timesUpDynamicPointToTimesUpStart =
-      TimesUpDynamicPointToTimesUpStartMovieStore();
-  final TimesUpEndToOceanDiveMovieStore timesUpEndToOceanDiveMovie =
-      TimesUpEndToOceanDiveMovieStore();
-  final timesUpEndToTimesUpStartMovieStore =
-      TimesUpEndToTimesUpStartMovieStore();
-  final TimesUpEndToTheDepthsMovieStore timesUpEndToTheDepthsMovieStore =
-      TimesUpEndToTheDepthsMovieStore();
-  final WaterFromTopToOnShoreMoviePart1Store
-      waterFromTopToOnShoreMoviePart1Store =
-      WaterFromTopToOnShoreMoviePart1Store();
-  final VibrantBlueGradientToTimesUpMovieStore
-      vibrantBlueGradientToTimesUpMovieStore =
-      VibrantBlueGradientToTimesUpMovieStore();
-  final WaterFromTopToOnShoreMoviePart2Store
-      waterFromTopToOnShoreMoviePart2Store =
-      WaterFromTopToOnShoreMoviePart2Store();
-
   _BeachWavesStoreBase() {
     movieModeToStoreLookup = {
-      BeachWaveMovieModes.blackOut: blackOutMovie,
-      BeachWaveMovieModes.blackOutToDrySand: blackOutToDrySandMovieStore,
-      BeachWaveMovieModes.oceanDiveToTimesUp: oceanDiveToTimesUpStartMovieStore,
-      BeachWaveMovieModes.oceanDiveToOnShore: oceanDiveToOnShoreMovieStore,
-      BeachWaveMovieModes.onShore: onShoreMovieStore,
-      BeachWaveMovieModes.onShoreToOceanDive: onShoreToOceanDiveMovieStore,
-      BeachWaveMovieModes.onShoreToVibrantBlue: onShoreToVibrantBlueMovieStore,
+      BeachWaveMovieModes.blackOut: StaticBlackOutMovieStore(),
+      BeachWaveMovieModes.blackOutToDrySand: BlackOutToDrySandMovieStore(),
+      BeachWaveMovieModes.depthsToTimesUpStart:
+          DepthsToTimesUpStartMovieStore(),
       BeachWaveMovieModes.none: BaseBeachWaveMovieStore(),
-      BeachWaveMovieModes.timesUp: timesUpMovieStore,
+      BeachWaveMovieModes.oceanDiveToOnShore: OceanDiveToOnShoreMovieStore(),
+      BeachWaveMovieModes.oceanDiveToTimesUp:
+          OceanDiveToTimesUpStartMovieStore(),
+      BeachWaveMovieModes.oceanDiveToVibrantBlueGradient:
+          OceanDiveToVibrantBlueGradientMovieStore(),
+      BeachWaveMovieModes.onShore: OnShoreMovieStore(),
+      BeachWaveMovieModes.onShoreToOceanDive: OnShoreToOceanDiveMovieStore(),
+      BeachWaveMovieModes.onShoreToVibrantBlue:
+          OnShoreToVibrantBlueMovieStore(),
+      BeachWaveMovieModes.resumeOnShore: ResumeOnShoreMovieStore(),
+      BeachWaveMovieModes.staticDepths: StaticDepthsMovieStore(),
+      BeachWaveMovieModes.staticOceanDive: StaticOceanDiveStore(),
+      BeachWaveMovieModes.timesUp: TimesUpMovieStore(),
       BeachWaveMovieModes.timesUpDynamicPointToTheDepths:
-          timesUpDynamicPointToTheDepthsMovie,
+          TimesUpDynamicPointToTheDepthsMovieStore(),
       BeachWaveMovieModes.timesUpDynamicPointToTimesUpStart:
-          timesUpDynamicPointToTimesUpStart,
+          TimesUpDynamicPointToTimesUpStartMovieStore(),
+      BeachWaveMovieModes.timesUpEndToOceanDive:
+          TimesUpEndToOceanDiveMovieStore(),
       BeachWaveMovieModes.timesUpEndToTheDepths:
-          timesUpEndToTheDepthsMovieStore,
+          TimesUpEndToOceanDiveMovieStore(),
       BeachWaveMovieModes.timesUpEndToTimesUpStart:
-          timesUpEndToTimesUpStartMovieStore,
-      BeachWaveMovieModes.resumeOnShore: resumeOnShoreMovieStore,
-      BeachWaveMovieModes.timesUpEndToOceanDive: timesUpEndToOceanDiveMovie,
-      BeachWaveMovieModes.suspendedAtOceanDiveToVibrantBlueGradient:
-          suspendedAtOceanDiveToVibrantBlueGradientMovieStore,
-      BeachWaveMovieModes.suspendedAtOceanDive: suspendedAtOceanDiveStore,
-      BeachWaveMovieModes.suspendedAtTheDepths: suspendedAtTheDepthsMovieStore,
-      BeachWaveMovieModes.suspendedAtTheDepthsToTimesUpStart:
-          suspendedAtTheDepthsToTimesUpStartMovieStore,
+          TimesUpEndToTimesUpStartMovieStore(),
       BeachWaveMovieModes.vibrantBlueGradientToTimesUp:
-          vibrantBlueGradientToTimesUpMovieStore,
+          VibrantBlueGradientToTimesUpMovieStore(),
       BeachWaveMovieModes.waterFromTopToOnShorePt1:
-          waterFromTopToOnShoreMoviePart1Store,
+          WaterFromTopToOnShoreMoviePart1Store(),
       BeachWaveMovieModes.waterFromTopToOnShorePt2:
-          waterFromTopToOnShoreMoviePart2Store,
+          WaterFromTopToOnShoreMoviePart2Store(),
     };
   }
 
