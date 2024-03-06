@@ -68,9 +68,7 @@ abstract class _CollaboratorPoolScreenWidgetsCoordinatorBase
             beachWaves.currentStore.initMovie(NoParams());
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.timesUpDynamicPointToTheDepths) {
-            Modular.to.navigate(isTransitioningToNokhteSession
-                ? "/nokhte_session/"
-                : "/purpose_session/");
+            Modular.to.navigate("/irl_nokhte_session/");
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.timesUpEndToOceanDive) {
             Modular.to.navigate("/collaboration/");

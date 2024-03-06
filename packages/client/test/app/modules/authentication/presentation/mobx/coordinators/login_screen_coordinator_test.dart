@@ -4,7 +4,6 @@ import 'package:nokhte/app/core/interfaces/auth_providers.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/authentication/presentation/presentation.dart';
 import '../../../../../core/mobx/base_coordinator_test.mocks.dart';
-import '../../../../home/fixtures/home_stack_mock_gen.mocks.dart';
 import '../../../../shared/shared_mocks.mocks.dart';
 import '../../../fixtures/authentication_stack_mock_gen.mocks.dart';
 

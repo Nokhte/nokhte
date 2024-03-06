@@ -4,7 +4,6 @@ import 'package:nokhte/app/core/mixins/response_to_status.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/modules/solo_docs/data/data.dart';
 import 'package:nokhte/app/core/modules/solo_docs/domain/domain.dart';
-import 'package:nokhte_backend/tables/solo_sharable_documents.dart';
 
 class SoloDocsContractImpl with ResponseToStatus implements SoloDocsContract {
   final SoloDocsRemoteSource remoteSource;
@@ -29,10 +28,7 @@ class SoloDocsContractImpl with ResponseToStatus implements SoloDocsContract {
   getSoloDocContent(params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.getSoloDocContent(params);
-      return Right(
-        fromSupabaseProperty<String>(
-            res, SoloSharableDocumentQueries.content, ""),
-      );
+      return Right(fromSupabaseProperty<String>(res, "content", ""));
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
