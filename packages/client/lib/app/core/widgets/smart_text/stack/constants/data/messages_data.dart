@@ -284,4 +284,58 @@ class MessagesData {
           mainMessageFontSize: 20.0,
         ),
       ];
+
+  static List<RotatingTextData>
+      get irlNokhteSessionSpeakingPhonePrimaryPhase0List => [
+            RotatingTextData(
+              mainMessage: "Hold on This Side When You Are Speaking",
+              pauseHere: true,
+              mainMessageFontSize: 22.0,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "Say: One person can speak at a time",
+              pauseHere: true,
+              mainMessageFontSize: 22.0,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "Continue on the other phone",
+              pauseHere: true,
+              mainMessageFontSize: 22.0,
+            ),
+          ];
+
+  static List<RotatingTextData>
+      get irlNokhteSessionSpeakingPhoneSecondaryPhase0List => [
+            RotatingTextData(
+              mainMessage: "Tap to confirm",
+              pauseHere: true,
+              mainMessageFontSize: 19.0,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "Tap to confirm",
+              pauseHere: true,
+              mainMessageFontSize: 19.0,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "Hold to speak",
+              pauseHere: true,
+              mainMessageFontSize: 19.0,
+            ),
+          ];
 }
