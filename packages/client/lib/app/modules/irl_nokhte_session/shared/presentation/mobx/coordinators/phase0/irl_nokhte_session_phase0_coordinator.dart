@@ -43,7 +43,7 @@ abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
 
   @computed
   String get pathIntoSession => phoneRole == IrlNokhteSessionPhoneRole.talking
-      ? '/irl_nokhte_session/talking'
+      ? '/irl_nokhte_session/talking_instructions'
       : '/irl_nokhte_session/notes';
 
   @action
@@ -107,7 +107,7 @@ abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
   collaboratorPhaseReactor() =>
       reaction((p0) => sessionMetadata.collaboratorPhase, (p0) {
         if (sessionMetadata.canMoveIntoSession &&
-            widgets.rippleTouch.movieStatus != MovieStatus.inProgress &&
+            widgets.touchRipple.movieStatus != MovieStatus.inProgress &&
             tap.tapCount.isGreaterThan(0)) {
           widgets.invisiblizePrimarySmartText();
           isNavigatingAway = true;
@@ -136,7 +136,7 @@ abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
       );
 
   rippleCompletionStatusReactor() =>
-      reaction((p0) => widgets.rippleTouch.movieStatus, (p0) {
+      reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&
             presence.getSessionMetadataStore.canMoveIntoSession) {
           isNavigatingAway = true;

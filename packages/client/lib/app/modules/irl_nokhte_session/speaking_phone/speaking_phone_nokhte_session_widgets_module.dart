@@ -11,19 +11,17 @@ class SpeakingPhoneNokhteSessionWidgetsModule extends Module {
   List<Module> get imports => [
         MirroredTextModule(),
         WifiDisconnectOverlayModule(),
-        BeachWavesModule(),
       ];
   @override
   void exportedBinds(Injector i) {
-    i.add<BorderGlowStore>(
-      () => BorderGlowStore(),
-    );
-    i.add<IrlNokhteSessionSpeakingScreenWidgetsCoordinator>(
-      () => IrlNokhteSessionSpeakingScreenWidgetsCoordinator(
-          mirroredText: Modular.get<MirroredTextStore>(),
-          borderGlow: Modular.get<BorderGlowStore>(),
-          wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-          beachWaves: Modular.get<BeachWavesStore>()),
+    i.add<IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinator>(
+      () => IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinator(
+        touchRipple: TouchRippleStore(),
+        mirroredText: Modular.get<MirroredTextStore>(),
+        borderGlow: BorderGlowStore(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        beachWaves: BeachWavesStore(),
+      ),
     );
   }
 }

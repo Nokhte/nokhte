@@ -5,22 +5,24 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-part 'irl_nokhte_session_speaking_screen_widgets_coordinator.g.dart';
+part 'irl_nokhte_session_speaking_instructions_screen_widgets_coordinator.g.dart';
 
-class IrlNokhteSessionSpeakingScreenWidgetsCoordinator = _IrlNokhteSessionSpeakingScreenWidgetsCoordinatorBase
-    with _$IrlNokhteSessionSpeakingScreenWidgetsCoordinator;
+class IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinator = _IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinatorBase
+    with _$IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinator;
 
-abstract class _IrlNokhteSessionSpeakingScreenWidgetsCoordinatorBase
+abstract class _IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final MirroredTextStore mirroredText;
   final BeachWavesStore beachWaves;
   final BorderGlowStore borderGlow;
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
-  _IrlNokhteSessionSpeakingScreenWidgetsCoordinatorBase({
+  final TouchRippleStore touchRipple;
+  _IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinatorBase({
     required this.mirroredText,
     required this.beachWaves,
     required this.borderGlow,
     required this.wifiDisconnectOverlay,
+    required this.touchRipple,
   });
 
   @action

@@ -16,14 +16,14 @@ abstract class _IrlNokhteSessionPhase0WidgetsCoordinatorBase
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
-  final TouchRippleStore rippleTouch;
+  final TouchRippleStore touchRipple;
 
   _IrlNokhteSessionPhase0WidgetsCoordinatorBase({
     required this.beachWaves,
     required this.wifiDisconnectOverlay,
     required this.primarySmartText,
     required this.secondarySmartText,
-    required this.rippleTouch,
+    required this.touchRipple,
   });
 
   @action
@@ -46,7 +46,7 @@ abstract class _IrlNokhteSessionPhase0WidgetsCoordinatorBase
 
   @action
   onTap(Offset tapPosition) {
-    rippleTouch.onTap(tapPosition);
+    touchRipple.onTap(tapPosition);
     primarySmartText.startRotatingText(isResuming: true);
     secondarySmartText.setWidgetVisibility(false);
   }

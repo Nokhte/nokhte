@@ -21,9 +21,10 @@ class IrlNokhteSessionModule extends Module {
     );
     r.child(
       transition: TransitionType.noTransition,
-      '/talking',
-      child: (context) => IrlNokhteSessionSpeakingScreen(
-        coordinator: Modular.get<IrlNokhteSessionSpeakingScreenCoordinator>(),
+      '/talking_instructions',
+      child: (context) => IrlNokhteSessionSpeakingInstructionsScreen(
+        coordinator: Modular.get<
+            IrlNokhteSessionSpeakingInstructionsScreenCoordinator>(),
       ),
     );
     r.child(

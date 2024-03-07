@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/irl_nokhte_session/speaking_phone/presentation/mobx/coordinators/irl_nokhte_session_speaking_screen_coordinator.dart';
+import 'package:nokhte/app/modules/irl_nokhte_session/irl_nokhte_session.dart';
 
-class IrlNokhteSessionSpeakingScreen extends HookWidget {
+class IrlNokhteSessionSpeakingInstructionsScreen extends HookWidget {
   final IrlNokhteSessionSpeakingScreenCoordinator coordinator;
-  const IrlNokhteSessionSpeakingScreen({
+  const IrlNokhteSessionSpeakingInstructionsScreen({
     super.key,
     required this.coordinator,
   });
@@ -31,7 +31,7 @@ class IrlNokhteSessionSpeakingScreen extends HookWidget {
               ),
               MirroredText(
                 store: coordinator.widgets.mirroredText,
-              )
+              ),
               // Center(
               //   child: SmartText(
               //     store: coordinator.widgets.primarySmartText,
@@ -47,11 +47,11 @@ class IrlNokhteSessionSpeakingScreen extends HookWidget {
               //     opacityDuration: Seconds.get(1),
               //   ),
               // ),
-              // FullScreen(
-              //   child: TouchRipple(
-              //     store: coordinator.widgets.rippleTouch,
-              //   ),
-              // ),
+              FullScreen(
+                child: TouchRipple(
+                  store: coordinator.widgets.touchRipple,
+                ),
+              ),
               // CollaboratorPresenceIncidentsOverlay(
               //   store: coordinator.presence.incidentsOverlayStore,
               // ),

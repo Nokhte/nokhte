@@ -15,11 +15,11 @@ class SpeakingPhoneNokhteSessionModule extends Module {
 
   @override
   void exportedBinds(i) {
-    i.add<IrlNokhteSessionSpeakingScreenCoordinator>(
-      () => IrlNokhteSessionSpeakingScreenCoordinator(
+    i.add<IrlNokhteSessionSpeakingInstructionsScreenCoordinator>(
+      () => IrlNokhteSessionSpeakingInstructionsScreenCoordinator(
         captureScreen: Modular.get<CaptureScreen>(),
-        widgets:
-            Modular.get<IrlNokhteSessionSpeakingScreenWidgetsCoordinator>(),
+        widgets: Modular.get<
+            IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinator>(),
         hold: Modular.get<HoldDetector>(),
         swipe: Modular.get<SwipeDetector>(),
       ),
