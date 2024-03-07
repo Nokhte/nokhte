@@ -1,8 +1,10 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/irl_nokhte_session/shared/constants/constants.dart';
 part 'mirrored_text_store.g.dart';
 
 class MirroredTextStore = _MirroredTextStoreBase with _$MirroredTextStore;
@@ -20,27 +22,30 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
     required this.primaryUpsideDownText,
     required this.secondaryUpsideDownText,
   }) {
-    primaryRightSideUpText.setStaticAltMovie(MirroredTextColors.blue);
-    secondaryRightSideUpText.setStaticAltMovie(MirroredTextColors.blue);
+    primaryRightSideUpText.setStaticAltMovie(NokhteSessionConstants.blue);
+    secondaryRightSideUpText.setStaticAltMovie(NokhteSessionConstants.blue);
   }
 
   @action
   setMessagesData(
     MirroredTextContentOptions types,
   ) {
-    List<RotatingTextData> primaryMessageData = [];
     List<RotatingTextData> secondaryMessageData = [];
     switch (types) {
       case MirroredTextContentOptions.irlNokhteSessionSpeakingPhone:
-        primaryMessageData =
-            MessagesData.irlNokhteSessionSpeakingPhonePrimaryPhase0List;
         secondaryMessageData =
             MessagesData.irlNokhteSessionSpeakingPhoneSecondaryPhase0List;
+        primaryRightSideUpText.setMessagesData(
+          MessagesData.getIrlNokhteSessionSpeakingPhonePrimaryPhase0List(
+              MirroredTextOrientations.rightSideUp),
+        );
+        primaryUpsideDownText.setMessagesData(
+          MessagesData.getIrlNokhteSessionSpeakingPhonePrimaryPhase0List(
+              MirroredTextOrientations.upsideDown),
+        );
       default:
         break;
     }
-    primaryRightSideUpText.setMessagesData(primaryMessageData);
-    primaryUpsideDownText.setMessagesData(primaryMessageData);
     secondaryRightSideUpText.setMessagesData(secondaryMessageData);
     secondaryUpsideDownText.setMessagesData(secondaryMessageData);
   }
@@ -57,18 +62,33 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
     secondaryUpsideDownText.startRotatingText(isResuming: isResuming);
   }
 
-  startRotatingText({
-    required MirroredTextOrientations orientation,
+  @action
+  startBothRotatingText({
     bool isResuming = false,
   }) {
-    switch (orientation) {
-      case MirroredTextOrientations.rightSideUp:
-        startRotatingRightSideUp(isResuming: isResuming);
-      case MirroredTextOrientations.upsideDown:
-        startRotatingUpsideDown(isResuming: isResuming);
-      case MirroredTextOrientations.both:
-        startRotatingRightSideUp(isResuming: isResuming);
-        startRotatingUpsideDown(isResuming: isResuming);
-    }
+    startRotatingRightSideUp(isResuming: isResuming);
+    startRotatingUpsideDown(isResuming: isResuming);
   }
+
+  @computed
+  String get primaryRightSideUpCurrentMessage =>
+      primaryRightSideUpText.currentMainText;
+
+  @computed
+  String get primaryUpsideDownCurrentMessage =>
+      primaryUpsideDownText.currentMainText;
+
+  @computed
+  bool get eitherOneIsFadedInAndOtherIsFadedOut =>
+      ((primaryRightSideUpCurrentMessage.isEmpty &&
+              primaryUpsideDownCurrentMessage.isNotEmpty) ||
+          (primaryRightSideUpCurrentMessage.isNotEmpty &&
+              primaryUpsideDownCurrentMessage.isEmpty));
+
+  @computed
+  bool get textIsDoneAnimating =>
+      (primaryRightSideUpText.movieStatus != MovieStatus.inProgress &&
+          eitherOneIsFadedInAndOtherIsFadedOut) &&
+      (primaryUpsideDownText.movieStatus != MovieStatus.inProgress &&
+          eitherOneIsFadedInAndOtherIsFadedOut);
 }
