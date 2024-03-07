@@ -61,6 +61,7 @@ abstract class _SmartTextStoreBase extends BaseCustomAnimatedWidgetStore
 
   @action
   startRotatingText({bool isResuming = false}) {
+    movieStatus = MovieStatus.inProgress;
     if (isPaused) return;
     Future.delayed(currentInitialFadeInDelay, () {
       if (isResuming) {
@@ -83,6 +84,7 @@ abstract class _SmartTextStoreBase extends BaseCustomAnimatedWidgetStore
 
   @action
   onOpacityTransitionComplete() {
+    movieStatus = MovieStatus.finished;
     if (currentIndex < messagesData.length - 1) {
       if (control != Control.playReverse && !currentShouldPauseHere) {
         Future.delayed(currentOnScreenTime, () {
