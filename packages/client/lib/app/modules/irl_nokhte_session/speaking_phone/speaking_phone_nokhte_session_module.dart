@@ -20,8 +20,7 @@ class SpeakingPhoneNokhteSessionModule extends Module {
         captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<
             IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinator>(),
-        hold: Modular.get<HoldDetector>(),
-        swipe: Modular.get<SwipeDetector>(),
+        tap: Modular.get<TapDetector>(),
       ),
     );
   }
