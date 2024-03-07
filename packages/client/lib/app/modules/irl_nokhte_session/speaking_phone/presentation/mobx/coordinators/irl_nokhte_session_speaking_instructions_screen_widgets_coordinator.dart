@@ -54,7 +54,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinatorBase
   }
 
   @action
-  onTap(Offset tapPosition) {
+  onTap(Offset tapPosition, {required Function onFlowFinished}) async {
     if (!disableTouchInput) {
       touchRipple.onTap(tapPosition, adjustColorBasedOnPosition: true);
       if (hasTappedOnTheRightSide && textIsDoneFadingInOrOut) {
@@ -64,6 +64,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinatorBase
           mirroredText.startRotatingRightSideUp(isResuming: true);
         } else if (isStillInMutualInstructionMode) {
           mirroredText.startBothRotatingText(isResuming: true);
+          await onFlowFinished();
         }
         tapCount++;
       }
