@@ -12,42 +12,7 @@ class BeachWavesStore = _BeachWavesStoreBase with _$BeachWavesStore;
 
 abstract class _BeachWavesStoreBase extends Equatable with Store {
   _BeachWavesStoreBase() {
-    movieModeToStoreLookup = {
-      BeachWaveMovieModes.blackOut: StaticBlackOutMovieStore(),
-      BeachWaveMovieModes.blackOutToDrySand: BlackOutToDrySandMovieStore(),
-      BeachWaveMovieModes.depthsToTimesUpStart:
-          DepthsToTimesUpStartMovieStore(),
-      BeachWaveMovieModes.none: BaseBeachWaveMovieStore(),
-      BeachWaveMovieModes.oceanDiveToOnShore: OceanDiveToOnShoreMovieStore(),
-      BeachWaveMovieModes.oceanDiveToTimesUp:
-          OceanDiveToTimesUpStartMovieStore(),
-      BeachWaveMovieModes.oceanDiveToVibrantBlueGradient:
-          OceanDiveToVibrantBlueGradientMovieStore(),
-      BeachWaveMovieModes.onShore: OnShoreMovieStore(),
-      BeachWaveMovieModes.onShoreToOceanDive: OnShoreToOceanDiveMovieStore(),
-      BeachWaveMovieModes.onShoreToVibrantBlue:
-          OnShoreToVibrantBlueMovieStore(),
-      BeachWaveMovieModes.resumeOnShore: ResumeOnShoreMovieStore(),
-      BeachWaveMovieModes.staticDepths: StaticDepthsMovieStore(),
-      BeachWaveMovieModes.staticOceanDive: StaticOceanDiveStore(),
-      BeachWaveMovieModes.timesUp: TimesUpMovieStore(),
-      BeachWaveMovieModes.timesUpDynamicPointToTheDepths:
-          TimesUpDynamicPointToTheDepthsMovieStore(),
-      BeachWaveMovieModes.timesUpDynamicPointToTimesUpStart:
-          TimesUpDynamicPointToTimesUpStartMovieStore(),
-      BeachWaveMovieModes.timesUpEndToOceanDive:
-          TimesUpEndToOceanDiveMovieStore(),
-      BeachWaveMovieModes.timesUpEndToTheDepths:
-          TimesUpEndToOceanDiveMovieStore(),
-      BeachWaveMovieModes.timesUpEndToTimesUpStart:
-          TimesUpEndToTimesUpStartMovieStore(),
-      BeachWaveMovieModes.vibrantBlueGradientToTimesUp:
-          VibrantBlueGradientToTimesUpMovieStore(),
-      BeachWaveMovieModes.waterFromTopToOnShorePt1:
-          WaterFromTopToOnShoreMoviePart1Store(),
-      BeachWaveMovieModes.waterFromTopToOnShorePt2:
-          WaterFromTopToOnShoreMoviePart2Store(),
-    };
+    movieModeToStoreLookup = BeachWaveMovieModesLookup.lookup;
   }
 
   Map<BeachWaveMovieModes, BaseBeachWaveMovieStore> movieModeToStoreLookup = {};
