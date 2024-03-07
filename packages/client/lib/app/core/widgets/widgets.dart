@@ -8,6 +8,7 @@ export 'gestures/gestures.dart';
 export 'gradient_tree_node/gradient_tree_node.dart';
 export "jost/jost.dart";
 export 'multi_hit_stack/multi_hit_stack.dart';
+export 'mirrored_text/mirrored_text.dart';
 export 'nokhte/nokhte.dart';
 export 'nokhte_blur/nokhte_blur.dart';
 export "nokhte_custom_animation_builder/nokhte_custom_animation_builder.dart";
