@@ -257,4 +257,15 @@ class WaterColorsAndStops {
         ColorAndStop(Color(0xFFF4DD98), .862),
         ColorAndStop(Color(0xFFF5DC91), 1.00)
       ];
+
+  static List<ColorAndStop> get halfWaterAndSand => const [
+        ColorAndStop(Color(0xFF43D3F5), 0.0),
+        ColorAndStop(Color(0xFF49D6EF), .19),
+        ColorAndStop(Color(0xFF4FD9E8), .38),
+        ColorAndStop(Color(0xFF53DCE3), .47),
+        ColorAndStop(Color(0xFFF9EFB7), .66),
+        ColorAndStop(Color(0xFFFAF2C3), .79),
+        ColorAndStop(Color(0xFFFFFFDC), .9),
+        ColorAndStop(Color(0xFFF5DC91), 1.00)
+      ];
 }
