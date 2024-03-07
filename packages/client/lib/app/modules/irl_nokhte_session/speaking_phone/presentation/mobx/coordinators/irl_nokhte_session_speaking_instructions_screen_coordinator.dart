@@ -10,18 +10,26 @@ class IrlNokhteSessionSpeakingInstructionsScreenCoordinator = _IrlNokhteSessionS
 
 abstract class _IrlNokhteSessionSpeakingInstructionsScreenCoordinatorBase
     extends BaseCoordinator with Store {
-  final HoldDetector hold;
-  final SwipeDetector swipe;
-  final IrlNokhteSessionSpeakingScreenWidgetsCoordinator widgets;
+  final TapDetector tap;
+  final IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinator widgets;
   _IrlNokhteSessionSpeakingInstructionsScreenCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
-    required this.hold,
-    required this.swipe,
+    required this.tap,
   });
 
   @action
   constructor() {
     widgets.constructor();
+    tapReactor();
   }
+
+  tapReactor() => reaction(
+        (p0) => tap.tapCount,
+        (p0) => ifTouchIsNotDisabled(
+          () async {
+            widgets.onTap(tap.currentTapPosition);
+          },
+        ),
+      );
 }
