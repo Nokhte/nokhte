@@ -1,0 +1,4 @@
+enum MirroredTextContentOptions {
+  irlNokhteSessionSpeakingPhone,
+  irlNokhteSessionNotesPhone,
+}
