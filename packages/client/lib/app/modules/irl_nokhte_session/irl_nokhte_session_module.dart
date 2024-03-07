@@ -1,11 +1,13 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/modules/irl_nokhte_session/shared/presentation/presentation.dart';
 import 'shared/shared_irl_nokhte_session_module.dart';
+import 'speaking_phone/speaking_phone.dart';
 
 class IrlNokhteSessionModule extends Module {
   @override
   List<Module> get imports => [
         SharedIrlNokhteSessionModule(),
+        SpeakingPhoneNokhteSessionModule(),
       ];
 
   @override
@@ -20,7 +22,9 @@ class IrlNokhteSessionModule extends Module {
     r.child(
       transition: TransitionType.noTransition,
       '/talking',
-      child: (context) => const IrlNokhteSessionTalkingPlaceHolderScreen(),
+      child: (context) => IrlNokhteSessionSpeakingScreen(
+        coordinator: Modular.get<IrlNokhteSessionSpeakingScreenCoordinator>(),
+      ),
     );
     r.child(
       transition: TransitionType.noTransition,
