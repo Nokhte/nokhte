@@ -1,0 +1,1 @@
+enum TapPlacement { topHalf, bottomHalf }
