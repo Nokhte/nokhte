@@ -2,6 +2,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 part 'irl_nokhte_session_speaking_screen_widgets_coordinator.g.dart';
@@ -24,8 +25,27 @@ abstract class _IrlNokhteSessionSpeakingScreenWidgetsCoordinatorBase
 
   @action
   constructor() {
-    beachWaves.setMovieMode(
-        BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf); // set transition
+    beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
     beachWaves.currentStore.initMovie(NoParams());
+    mirroredText.setMessagesData(
+      MirroredTextContentOptions.irlNokhteSessionSpeakingPhone,
+    );
+    initReactors();
   }
+
+  @action
+  initReactors() {
+    beachWavesMovieStatusReactor();
+  }
+
+  beachWavesMovieStatusReactor() =>
+      reaction((p0) => beachWaves.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished &&
+            beachWaves.movieMode ==
+                BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf) {
+          mirroredText.startRotatingText(
+            orientation: MirroredTextOrientations.rightSideUp,
+          );
+        }
+      });
 }
