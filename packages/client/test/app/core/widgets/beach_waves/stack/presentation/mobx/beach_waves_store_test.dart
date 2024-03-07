@@ -89,7 +89,7 @@ void main() {
       test("timesUpDynamicPointToTheDepths key", () {
         final res = testStore.movieModeToStoreLookup[
             BeachWaveMovieModes.timesUpDynamicPointToTheDepths];
-        expect(res?.movie.duration, Seconds.get(3));
+        expect(res?.movie.duration, Seconds.get(2));
       });
       test("timesUpEndToTheDepths key", () {
         final res = testStore
