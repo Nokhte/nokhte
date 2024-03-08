@@ -44,8 +44,8 @@ void main() {
 
   test("constructor", () {
     testStore.constructor();
-    verify(testStore.beachWaves
-        .setMovieMode(BeachWaveMovieModes.suspendedAtOceanDive));
+    verify(
+        testStore.beachWaves.setMovieMode(BeachWaveMovieModes.staticOceanDive));
     verify(testStore.gestureCross.setCollaborationHomeScreen());
     verify(testStore.smartText
         .setMessagesData(MessagesData.firstTimeCollaborationList));
@@ -94,8 +94,8 @@ void main() {
     when(testStore.beachWaves.currentStore)
         .thenAnswer((_) => OceanDiveToTimesUpStartMovieStore());
     testStore.onNokhteSessionLinkOpened();
-    verify(testStore.beachWaves.setMovieMode(
-        BeachWaveMovieModes.suspendedAtOceanDiveToVibrantBlueGradient));
+    verify(testStore.beachWaves
+        .setMovieMode(BeachWaveMovieModes.oceanDiveToVibrantBlueGradient));
     verify(testStore.gestureCross.toggleAll());
   });
 

@@ -2,15 +2,15 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte_backend/tables/_real_time_disabled/finished_nokhte_sessions/queries.dart';
-import 'package:nokhte_backend/tables/_real_time_enabled/irl_active_nokhte_sessions/types/types.dart';
+import 'package:nokhte_backend/tables/_real_time_enabled/active_irl_nokhte_sessions/types/types.dart';
 import 'package:nokhte_backend/tables/irl_active_nokhte_sessions.dart';
 
 import 'shared/shared.dart';
 
 void main() {
-  late IrlActiveNokhteSessionQueries user1Queries;
-  late IrlActiveNokhteSessionQueries user2Queries;
-  late IrlActiveNokhteSessionsStream user1Stream;
+  late ActiveIrlNokhteSessionQueries user1Queries;
+  late ActiveIrlNokhteSessionQueries user2Queries;
+  late ActiveIrlNokhteSessionsStream user1Stream;
   late FinishedNokhteSessionQueries user1FinishedQueries;
   final tSetup = CommonCollaborativeTestFunctions();
   List sortedArr = [];
@@ -19,12 +19,12 @@ void main() {
     await tSetup.setUp(shouldMakeCollaboration: false);
     sortedArr = [tSetup.firstUserUID, tSetup.secondUserUID]..sort();
     user1Queries =
-        IrlActiveNokhteSessionQueries(supabase: tSetup.user1Supabase);
+        ActiveIrlNokhteSessionQueries(supabase: tSetup.user1Supabase);
     user1FinishedQueries =
         FinishedNokhteSessionQueries(supabase: tSetup.user1Supabase);
-    user1Stream = IrlActiveNokhteSessionsStream(supabase: tSetup.user1Supabase);
+    user1Stream = ActiveIrlNokhteSessionsStream(supabase: tSetup.user1Supabase);
     user2Queries =
-        IrlActiveNokhteSessionQueries(supabase: tSetup.user2Supabase);
+        ActiveIrlNokhteSessionQueries(supabase: tSetup.user2Supabase);
   });
 
   tearDownAll(() async {

@@ -2,7 +2,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
-import 'package:nokhte_backend/tables/_real_time_enabled/irl_active_nokhte_sessions/types/types.dart';
+import 'package:nokhte_backend/tables/_real_time_enabled/active_irl_nokhte_sessions/types/types.dart';
 part 'get_irl_nokhte_session_metadata_store.g.dart';
 
 class GetIrlNokhteSessionMetadataStore = _GetIrlNokhteSessionMetadataStoreBase
@@ -13,7 +13,11 @@ abstract class _GetIrlNokhteSessionMetadataStoreBase
   _GetIrlNokhteSessionMetadataStoreBase({required super.logic});
 
   @computed
-  bool get canMoveIntoSession => userPhase == 1.0 && collaboratorPhase == 1.0;
+  bool get canMoveIntoInstructions =>
+      userPhase == 1.0 && collaboratorPhase == 1.0;
+
+  @computed
+  bool get canMoveIntoSession => userPhase == 2.0 && collaboratorPhase == 2.0;
 
   @action
   Future<void> get(params) async {

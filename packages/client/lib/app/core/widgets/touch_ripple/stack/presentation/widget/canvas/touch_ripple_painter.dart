@@ -4,6 +4,7 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class TouchRipplePainter extends CustomPainter {
   final OpacityAndRadius firstCircle, secondCircle, thirdCircle;
+  final Color rippleColor;
   final Offset position;
 
   TouchRipplePainter({
@@ -11,6 +12,7 @@ class TouchRipplePainter extends CustomPainter {
     required this.secondCircle,
     required this.thirdCircle,
     required this.position,
+    required this.rippleColor,
   });
 
   drawCircle(
@@ -21,7 +23,7 @@ class TouchRipplePainter extends CustomPainter {
     required double circleOpacity,
   }) {
     Paint circlePaint = Paint()
-      ..color = Colors.white.withOpacity(circleOpacity)
+      ..color = rippleColor.withOpacity(circleOpacity)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1;
     canvas.drawCircle(center, circleRadius, circlePaint);
@@ -29,10 +31,6 @@ class TouchRipplePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    // final center = Offset(
-    //   size.width.half(),
-    //   size.height.half(),
-    // );
     drawCircle(
       canvas,
       size,

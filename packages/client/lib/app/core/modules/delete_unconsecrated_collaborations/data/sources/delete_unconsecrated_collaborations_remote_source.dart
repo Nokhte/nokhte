@@ -8,11 +8,11 @@ abstract class DeleteUnconsecratedCollaborationsRemoteSource {
 class DeleteUnconsecratedCollaborationsRemoteSourceImpl
     implements DeleteUnconsecratedCollaborationsRemoteSource {
   final SupabaseClient supabase;
-  final IrlActiveNokhteSessionQueries irlActiveNokhteSessionQueries;
+  final ActiveIrlNokhteSessionQueries irlActiveNokhteSessionQueries;
   DeleteUnconsecratedCollaborationsRemoteSourceImpl({
     required this.supabase,
   }) : irlActiveNokhteSessionQueries =
-            IrlActiveNokhteSessionQueries(supabase: supabase);
+            ActiveIrlNokhteSessionQueries(supabase: supabase);
 
   @override
   Future<List> deleteIrlActiveNokhteSession() async =>

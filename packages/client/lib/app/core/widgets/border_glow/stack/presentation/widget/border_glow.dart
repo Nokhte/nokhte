@@ -15,41 +15,42 @@ class BorderGlow extends HookWidget {
   });
 
   @override
-  Widget build(BuildContext context) => Observer(
-        builder: (context) => AnimatedOpacity(
-          onEnd: () => store.toggleHasFadedIn(),
-          opacity: useWidgetOpacity(store.showWidget),
-          duration: Seconds.get(1),
-          child: CustomAnimationBuilder(
-            tween: store.movie,
-            control: store.control,
-            duration: store.movie.duration,
-            onCompleted: () => store.onCompleted(),
-            builder: (context, value, child) {
-              store.setAnimationValues(
-                color: value.get('color'),
-                blur: value.get('blur'),
-                width: value.get('width'),
-              );
-              return Container(
+  Widget build(BuildContext context) {
+    return Observer(
+      builder: (context) => AnimatedOpacity(
+        onEnd: () => store.toggleHasFadedIn(),
+        opacity: useWidgetOpacity(store.showWidget),
+        duration: Seconds.get(1),
+        child: CustomAnimationBuilder(
+          tween: store.movie,
+          control: store.control,
+          duration: store.movie.duration,
+          onCompleted: () => store.onCompleted(),
+          builder: (context, value, child) {
+            store.setAnimationValues(
+              color: value.get('color'),
+              width: value.get('width'),
+            );
+            return ClipPath(
+              child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: value.get('color'),
                     width: value.get('width'),
                   ),
                 ),
-                child: ClipPath(
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(
-                      sigmaX: value.get('blur'),
-                      sigmaY: value.get('blur'),
-                    ),
-                    child: Container(),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(
+                    sigmaX: 40,
+                    sigmaY: 40,
                   ),
+                  child: Container(),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
-      );
+      ),
+    );
+  }
 }

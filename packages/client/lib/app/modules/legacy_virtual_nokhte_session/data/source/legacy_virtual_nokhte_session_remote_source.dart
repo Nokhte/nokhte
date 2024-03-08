@@ -11,11 +11,11 @@ class LegacyVirtualNokhteSessionRemoteSourceImpl
     implements LegacyVirtualNokhteSessionRemoteSource {
   final SupabaseClient supabase;
 
-  final IrlActiveNokhteSessionQueries queries;
+  final ActiveIrlNokhteSessionQueries queries;
 
   LegacyVirtualNokhteSessionRemoteSourceImpl({
     required this.supabase,
-  }) : queries = IrlActiveNokhteSessionQueries(supabase: supabase);
+  }) : queries = ActiveIrlNokhteSessionQueries(supabase: supabase);
 
   @override
   checkifUserHasTheQuestion() async =>

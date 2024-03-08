@@ -89,7 +89,7 @@ void main() {
       test("timesUpDynamicPointToTheDepths key", () {
         final res = testStore.movieModeToStoreLookup[
             BeachWaveMovieModes.timesUpDynamicPointToTheDepths];
-        expect(res?.movie.duration, Seconds.get(3));
+        expect(res?.movie.duration, Seconds.get(2));
       });
       test("timesUpEndToTheDepths key", () {
         final res = testStore
@@ -103,12 +103,12 @@ void main() {
       });
       test("suspendedAtOceanDive key", () {
         final res = testStore
-            .movieModeToStoreLookup[BeachWaveMovieModes.suspendedAtOceanDive];
+            .movieModeToStoreLookup[BeachWaveMovieModes.staticOceanDive];
         expect(res?.movie.duration, Seconds.get(1));
       });
       test("suspendedAtTheDepths key", () {
-        final res = testStore
-            .movieModeToStoreLookup[BeachWaveMovieModes.suspendedAtTheDepths];
+        final res =
+            testStore.movieModeToStoreLookup[BeachWaveMovieModes.staticDepths];
         expect(res?.movie.duration, Seconds.get(1));
       });
 

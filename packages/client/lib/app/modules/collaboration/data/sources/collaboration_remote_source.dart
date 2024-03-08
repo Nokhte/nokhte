@@ -18,7 +18,7 @@ class CollaborationRemoteSourceImpl implements CollaborationRemoteSource {
   final String currentUserUID;
   final InitiateCollaboratorSearch initiateCollaboratorSearch;
   final EndCollaboratorSearch endCollaboratorSearch;
-  final IrlActiveNokhteSessionsStream activeNokhteSessionsStream;
+  final ActiveIrlNokhteSessionsStream activeNokhteSessionsStream;
 
   CollaborationRemoteSourceImpl({
     required this.supabase,
@@ -26,7 +26,7 @@ class CollaborationRemoteSourceImpl implements CollaborationRemoteSource {
             InitiateCollaboratorSearch(supabase: supabase),
         endCollaboratorSearch = EndCollaboratorSearch(supabase: supabase),
         activeNokhteSessionsStream =
-            IrlActiveNokhteSessionsStream(supabase: supabase),
+            ActiveIrlNokhteSessionsStream(supabase: supabase),
         currentUserUID = supabase.auth.currentUser?.id ?? '';
 
   @override

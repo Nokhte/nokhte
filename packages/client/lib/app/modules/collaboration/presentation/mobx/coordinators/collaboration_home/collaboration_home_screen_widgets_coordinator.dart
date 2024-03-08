@@ -44,7 +44,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
 
   @action
   constructor() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtOceanDive);
+    beachWaves.setMovieMode(BeachWaveMovieModes.staticOceanDive);
     gestureCross.setCollaborationHomeScreen();
     smartText.setMessagesData(MessagesData.firstTimeCollaborationList);
     gradientTreeNode.setWidgetVisibility(false);
@@ -90,8 +90,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
 
   @action
   onNokhteSessionLinkOpened() {
-    beachWaves.setMovieMode(
-        BeachWaveMovieModes.suspendedAtOceanDiveToVibrantBlueGradient);
+    beachWaves.setMovieMode(BeachWaveMovieModes.oceanDiveToVibrantBlueGradient);
     beachWaves.currentStore.initMovie(NoParams());
     gestureCross.toggleAll();
     gradientTreeNode.setWidgetVisibility(false);
@@ -151,7 +150,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
           if (beachWaves.movieMode == BeachWaveMovieModes.oceanDiveToOnShore) {
             onNavigationHome();
           } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.suspendedAtOceanDiveToVibrantBlueGradient) {
+              BeachWaveMovieModes.oceanDiveToVibrantBlueGradient) {
             Modular.to.navigate('/collaboration/pool');
           }
         }

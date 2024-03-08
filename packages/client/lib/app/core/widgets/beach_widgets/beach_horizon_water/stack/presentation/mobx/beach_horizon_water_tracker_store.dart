@@ -14,12 +14,11 @@ class BeachHorizonWaterTrackerStore = _BeachHorizonWaterTrackerStoreBase
 abstract class _BeachHorizonWaterTrackerStoreBase
     extends BaseAnimatedSchedulingWidgetStore<ColorAndStop, List<ColorAndStop>,
         IsATimeMobxParams> with Store {
-          
   _BeachHorizonWaterTrackerStoreBase({required this.isGoingToFullSky}) {
     movie = AnywhereToHorizonWaters.getMovie(
       WaterColorsAndStops.toTheDepthsWater,
-      WaterColorsAndStops.schedulingEveningWaterFullScreen,
-      WaterColorsAndStops.schedulingEveningWaterFullScreen,
+      DeprecatedWaterColorsAndStops.schedulingEveningWaterFullScreen,
+      DeprecatedWaterColorsAndStops.schedulingEveningWaterFullScreen,
     );
   }
 
@@ -107,14 +106,15 @@ abstract class _BeachHorizonWaterTrackerStoreBase
   @action
   void isADuskTime(IsATimeMobxParams param) {
     if (param.isAStartingValue) {
-      startingGrad = WaterColorsAndStops.schedulingDuskWaterHalfScreen;
+      startingGrad =
+          DeprecatedWaterColorsAndStops.schedulingDuskWaterHalfScreen;
       if (param.hour == 5) {
         movieIsLonger = true;
       } else {
         movieIsLonger = false;
       }
     } else {
-      endingGrad = WaterColorsAndStops.schedulingDuskWaterHalfScreen;
+      endingGrad = DeprecatedWaterColorsAndStops.schedulingDuskWaterHalfScreen;
     }
   }
 
@@ -122,14 +122,16 @@ abstract class _BeachHorizonWaterTrackerStoreBase
   @action
   void isAMorningTime(IsATimeMobxParams params) {
     if (params.isAStartingValue) {
-      startingGrad = WaterColorsAndStops.schedulingMorningWaterHalfScreen;
+      startingGrad =
+          DeprecatedWaterColorsAndStops.schedulingMorningWaterHalfScreen;
       if (params.hour == 9) {
         movieIsLonger = true;
       } else {
         movieIsLonger = false;
       }
     } else {
-      endingGrad = WaterColorsAndStops.schedulingMorningWaterHalfScreen;
+      endingGrad =
+          DeprecatedWaterColorsAndStops.schedulingMorningWaterHalfScreen;
     }
   }
 
@@ -137,10 +139,10 @@ abstract class _BeachHorizonWaterTrackerStoreBase
   @action
   void isADayTime(IsATimeMobxParams params) {
     if (params.isAStartingValue) {
-      startingGrad = WaterColorsAndStops.schedulingDayWaterHalfScreen;
+      startingGrad = DeprecatedWaterColorsAndStops.schedulingDayWaterHalfScreen;
       movieIsLonger = false;
     } else {
-      endingGrad = WaterColorsAndStops.schedulingDayWaterHalfScreen;
+      endingGrad = DeprecatedWaterColorsAndStops.schedulingDayWaterHalfScreen;
     }
   }
 
@@ -148,14 +150,16 @@ abstract class _BeachHorizonWaterTrackerStoreBase
   @action
   void isAEveningTime(IsATimeMobxParams params) {
     if (params.isAStartingValue) {
-      startingGrad = WaterColorsAndStops.schedulingEveningWaterHalfScreen;
+      startingGrad =
+          DeprecatedWaterColorsAndStops.schedulingEveningWaterHalfScreen;
       if (params.hour == 20) {
         movieIsLonger = true;
       } else {
         movieIsLonger = false;
       }
     } else {
-      endingGrad = WaterColorsAndStops.schedulingEveningWaterHalfScreen;
+      endingGrad =
+          DeprecatedWaterColorsAndStops.schedulingEveningWaterHalfScreen;
     }
   }
 
@@ -195,8 +199,8 @@ abstract class _BeachHorizonWaterTrackerStoreBase
   @override
   @action
   void initDuskCallback(params) {
-    startingGrad = WaterColorsAndStops.schedulingDuskWaterFullScreen;
-    endingGrad = WaterColorsAndStops.schedulingDuskWaterHalfScreen;
+    startingGrad = DeprecatedWaterColorsAndStops.schedulingDuskWaterFullScreen;
+    endingGrad = DeprecatedWaterColorsAndStops.schedulingDuskWaterHalfScreen;
     setMovie(AnywhereToHorizonWaters.getMovie(
       params,
       startingGrad,
@@ -207,8 +211,9 @@ abstract class _BeachHorizonWaterTrackerStoreBase
   @override
   @action
   void initMorningCallback(params) {
-    startingGrad = WaterColorsAndStops.schedulingMorningWaterFullScreen;
-    endingGrad = WaterColorsAndStops.schedulingMorningWaterHalfScreen;
+    startingGrad =
+        DeprecatedWaterColorsAndStops.schedulingMorningWaterFullScreen;
+    endingGrad = DeprecatedWaterColorsAndStops.schedulingMorningWaterHalfScreen;
     setMovie(AnywhereToHorizonWaters.getMovie(
       params,
       startingGrad,
@@ -219,8 +224,8 @@ abstract class _BeachHorizonWaterTrackerStoreBase
   @override
   @action
   void initDayCallback(params) {
-    startingGrad = WaterColorsAndStops.schedulingDayWaterFullScreen;
-    endingGrad = WaterColorsAndStops.schedulingDayWaterHalfScreen;
+    startingGrad = DeprecatedWaterColorsAndStops.schedulingDayWaterFullScreen;
+    endingGrad = DeprecatedWaterColorsAndStops.schedulingDayWaterHalfScreen;
     setMovie(AnywhereToHorizonWaters.getMovie(
       params,
       startingGrad,
@@ -231,8 +236,9 @@ abstract class _BeachHorizonWaterTrackerStoreBase
   @override
   @action
   void initEveningCallback(params) {
-    startingGrad = WaterColorsAndStops.schedulingEveningWaterFullScreen;
-    endingGrad = WaterColorsAndStops.schedulingEveningWaterHalfScreen;
+    startingGrad =
+        DeprecatedWaterColorsAndStops.schedulingEveningWaterFullScreen;
+    endingGrad = DeprecatedWaterColorsAndStops.schedulingEveningWaterHalfScreen;
     setMovie(AnywhereToHorizonWaters.getMovie(
       params,
       startingGrad,
@@ -259,22 +265,22 @@ abstract class _BeachHorizonWaterTrackerStoreBase
     final hour = currentTime.hour;
     if (hour >= 21 || hour < 6) {
       movie = BackToShorePreReqMovie.getMovie(
-        WaterColorsAndStops.schedulingDuskWaterHalfScreen,
+        DeprecatedWaterColorsAndStops.schedulingDuskWaterHalfScreen,
       );
       control = Control.playFromStart;
     } else if (hour >= 6 && hour < 10) {
       movie = BackToShorePreReqMovie.getMovie(
-        WaterColorsAndStops.schedulingMorningWaterHalfScreen,
+        DeprecatedWaterColorsAndStops.schedulingMorningWaterHalfScreen,
       );
       control = Control.playFromStart;
     } else if (hour >= 10 && hour < 17) {
       movie = BackToShorePreReqMovie.getMovie(
-        WaterColorsAndStops.schedulingDayWaterHalfScreen,
+        DeprecatedWaterColorsAndStops.schedulingDayWaterHalfScreen,
       );
       control = Control.playFromStart;
     } else {
       movie = BackToShorePreReqMovie.getMovie(
-        WaterColorsAndStops.schedulingEveningWaterHalfScreen,
+        DeprecatedWaterColorsAndStops.schedulingEveningWaterHalfScreen,
       );
       control = Control.playFromStart;
     }
@@ -286,5 +292,4 @@ abstract class _BeachHorizonWaterTrackerStoreBase
     selectTimeBasedMovie(currentTime, WaterColorsAndStops.oceanDiveWater);
     setControl(Control.playReverseFromEnd);
   }
-
 }

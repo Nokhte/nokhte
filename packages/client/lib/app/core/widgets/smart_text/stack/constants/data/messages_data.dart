@@ -1,5 +1,6 @@
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class MessagesData {
   static List<RotatingTextData> get loginList => [
@@ -284,4 +285,77 @@ class MessagesData {
           mainMessageFontSize: 20.0,
         ),
       ];
+
+  static List<RotatingTextData>
+      getIrlNokhteSessionSpeakingInstructionsPrimaryPhase0List(
+          MirroredTextOrientations orientation) {
+    final arr = [
+      RotatingTextData(
+        mainMessage: "Hold on This Side When You Are Speaking",
+        pauseHere: true,
+        mainMessageFontSize: 22.0,
+      ),
+      RotatingTextData(
+        mainMessage: "",
+        pauseHere: true,
+      ),
+      RotatingTextData(
+        mainMessage: "Say: One person can speak at a time",
+        pauseHere: true,
+        mainMessageFontSize: 22.0,
+      ),
+      RotatingTextData(
+        mainMessage: "",
+        pauseHere: true,
+      ),
+      RotatingTextData(
+        mainMessage: "Continue on the other phone",
+        pauseHere: true,
+        mainMessageFontSize: 22.0,
+      ),
+      RotatingTextData(
+        mainMessage: "",
+        pauseHere: true,
+        mainMessageFontSize: 22.0,
+      ),
+    ];
+    if (orientation == MirroredTextOrientations.upsideDown) {
+      arr.removeAt(3);
+    }
+    return arr;
+  }
+
+  static List<RotatingTextData>
+      get irlNokhteSessionSpeakingInstructionsSecondaryPhase0List => [
+            RotatingTextData(
+              mainMessage: "Tap to confirm",
+              pauseHere: true,
+              mainMessageFontSize: 19.0,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "Tap to confirm",
+              pauseHere: true,
+              mainMessageFontSize: 19.0,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
+          ];
+  static List<RotatingTextData>
+      get irlNokhteSessionSpeakingPhoneSecondaryPhase0List => [
+            RotatingTextData(
+              mainMessage: "Hold to speak",
+              pauseHere: true,
+              mainMessageFontSize: 19.0,
+            ),
+          ];
 }

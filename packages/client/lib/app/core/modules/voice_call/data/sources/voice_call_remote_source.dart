@@ -27,7 +27,7 @@ abstract class VoiceCallRemoteSource {
 
 class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
   final SupabaseClient supabase;
-  final IrlActiveNokhteSessionQueries activeNokhteSessionQueries;
+  final ActiveIrlNokhteSessionQueries activeNokhteSessionQueries;
   final String currentUserUID;
   final int currentAgoraUID;
   final RtcEngine agoraEngine;
@@ -40,7 +40,7 @@ class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
           supabase.auth.currentUser?.id ?? '',
         ),
         activeNokhteSessionQueries =
-            IrlActiveNokhteSessionQueries(supabase: supabase);
+            ActiveIrlNokhteSessionQueries(supabase: supabase);
 
   @override
   Future<RtcEngine> initAgoraSdk() async {
