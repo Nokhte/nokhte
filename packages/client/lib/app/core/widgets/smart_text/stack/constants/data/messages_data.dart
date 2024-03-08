@@ -287,7 +287,7 @@ class MessagesData {
       ];
 
   static List<RotatingTextData>
-      getIrlNokhteSessionSpeakingPhonePrimaryPhase0List(
+      getIrlNokhteSessionSpeakingInstructionsPrimaryPhase0List(
           MirroredTextOrientations orientation) {
     final arr = [
       RotatingTextData(
@@ -313,6 +313,11 @@ class MessagesData {
         pauseHere: true,
         mainMessageFontSize: 22.0,
       ),
+      RotatingTextData(
+        mainMessage: "",
+        pauseHere: true,
+        mainMessageFontSize: 22.0,
+      ),
     ];
     if (orientation == MirroredTextOrientations.upsideDown) {
       arr.removeAt(3);
@@ -321,28 +326,36 @@ class MessagesData {
   }
 
   static List<RotatingTextData>
+      get irlNokhteSessionSpeakingInstructionsSecondaryPhase0List => [
+            RotatingTextData(
+              mainMessage: "Tap to confirm",
+              pauseHere: true,
+              mainMessageFontSize: 19.0,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "Tap to confirm",
+              pauseHere: true,
+              mainMessageFontSize: 19.0,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
+          ];
+  static List<RotatingTextData>
       get irlNokhteSessionSpeakingPhoneSecondaryPhase0List => [
             RotatingTextData(
-              mainMessage: "Tap to confirm",
+              mainMessage: "Hold to speak",
               pauseHere: true,
               mainMessageFontSize: 19.0,
-            ),
-            RotatingTextData(
-              mainMessage: "",
-              pauseHere: true,
-            ),
-            RotatingTextData(
-              mainMessage: "Tap to confirm",
-              pauseHere: true,
-              mainMessageFontSize: 19.0,
-            ),
-            RotatingTextData(
-              mainMessage: "",
-              pauseHere: true,
-            ),
-            RotatingTextData(
-              mainMessage: "",
-              pauseHere: true,
             ),
           ];
 }
