@@ -75,6 +75,15 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
     startRotatingUpsideDown(isResuming: isResuming);
   }
 
+  @override
+  @action
+  setWidgetVisibility(bool isVisible) {
+    primaryRightSideUpText.setWidgetVisibility(isVisible);
+    secondaryRightSideUpText.setWidgetVisibility(isVisible);
+    primaryUpsideDownText.setWidgetVisibility(isVisible);
+    secondaryUpsideDownText.setWidgetVisibility(isVisible);
+  }
+
   @computed
   String get primaryRightSideUpCurrentMessage =>
       primaryRightSideUpText.currentMainText;
