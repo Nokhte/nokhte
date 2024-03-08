@@ -14,9 +14,14 @@ class IrlNokhteSessionSpeakingInstructionsScreen extends HookWidget {
   Widget build(BuildContext context) {
     useEffect(() {
       coordinator.constructor();
-
       return null;
     }, []);
+    useOnAppLifecycleStateChange(
+        (previous, current) => coordinator.onAppLifeCycleStateChange(
+              current,
+              onResumed: () => coordinator.onResumed(),
+              onInactive: () => coordinator.onInactive(),
+            ));
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Tap(
