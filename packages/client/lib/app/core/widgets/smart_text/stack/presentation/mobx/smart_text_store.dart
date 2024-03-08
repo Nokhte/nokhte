@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:ui';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_custom_animated_widget_store.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -16,6 +17,11 @@ abstract class _SmartTextStoreBase extends BaseCustomAnimatedWidgetStore
   @action
   setAltMovie(Duration timerLength) {
     altMovie = SmartTextColorChangeMovie.getMovie(timerLength: timerLength);
+  }
+
+  @action
+  setStaticAltMovie(Color color) {
+    altMovie = StaticSmartTextColorMovie.getMovie(color);
   }
 
   @action
@@ -55,6 +61,7 @@ abstract class _SmartTextStoreBase extends BaseCustomAnimatedWidgetStore
 
   @action
   startRotatingText({bool isResuming = false}) {
+    movieStatus = MovieStatus.inProgress;
     if (isPaused) return;
     Future.delayed(currentInitialFadeInDelay, () {
       if (isResuming) {
@@ -77,6 +84,7 @@ abstract class _SmartTextStoreBase extends BaseCustomAnimatedWidgetStore
 
   @action
   onOpacityTransitionComplete() {
+    movieStatus = MovieStatus.finished;
     if (currentIndex < messagesData.length - 1) {
       if (control != Control.playReverse && !currentShouldPauseHere) {
         Future.delayed(currentOnScreenTime, () {

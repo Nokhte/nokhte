@@ -1,13 +1,13 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:equatable/equatable.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
 part 'base_coordinator.g.dart';
 
 class BaseCoordinator = _BaseCoordinatorBase with _$BaseCoordinator;
 
-abstract class _BaseCoordinatorBase extends Equatable with Store {
+abstract class _BaseCoordinatorBase extends BaseMobxDBStore with Store {
   final CaptureScreen captureScreen;
 
   _BaseCoordinatorBase({

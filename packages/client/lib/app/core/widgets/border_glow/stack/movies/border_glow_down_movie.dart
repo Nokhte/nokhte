@@ -6,7 +6,6 @@ class BorderGlowDownMovie {
   static MovieTween getMovie({
     required Color lastColor,
     required double lastWidth,
-    required double lastBlur,
   }) =>
       MovieTween()
         ..scene(
@@ -17,20 +16,13 @@ class BorderGlowDownMovie {
               'color',
               ColorTween(
                 begin: lastColor,
-                end: lastColor,
+                end: Colors.transparent,
               ),
             )
             .tween(
               'width',
               Tween<double>(
                 begin: lastWidth,
-                end: 0,
-              ),
-            )
-            .tween(
-              'blur',
-              Tween<double>(
-                begin: lastBlur,
                 end: 0,
               ),
             );

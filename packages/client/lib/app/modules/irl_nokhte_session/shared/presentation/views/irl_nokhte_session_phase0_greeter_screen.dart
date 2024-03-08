@@ -54,7 +54,7 @@ class IrlNokhteSessionPhase0Screen extends HookWidget {
             ),
             FullScreen(
               child: TouchRipple(
-                store: coordinator.widgets.rippleTouch,
+                store: coordinator.widgets.touchRipple,
               ),
             ),
             CollaboratorPresenceIncidentsOverlay(

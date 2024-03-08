@@ -15,7 +15,7 @@ class SharedIrlNokhteSessionWidgetsModule extends Module {
     i.add<TouchRippleStore>(() => TouchRippleStore());
     i.add<IrlNokhteSessionPhase0WidgetsCoordinator>(
       () => IrlNokhteSessionPhase0WidgetsCoordinator(
-          rippleTouch: Modular.get<TouchRippleStore>(),
+          touchRipple: Modular.get<TouchRippleStore>(),
           primarySmartText: Modular.get<SmartTextStore>(),
           secondarySmartText: Modular.get<SmartTextStore>(),
           wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),

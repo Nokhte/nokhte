@@ -16,9 +16,13 @@ abstract class _BorderGlowStoreBase
     setMovie(BorderGlowUpMovie.movie);
   }
 
+  @observable
+  bool isGlowingUp = false;
+
   @action
   @override
   initMovie(param) {
+    isGlowingUp = true;
     setMovie(BorderGlowUpMovie.movie);
     setMovieStatus(MovieStatus.inProgress);
     setControl(Control.playFromStart);
@@ -26,14 +30,12 @@ abstract class _BorderGlowStoreBase
 
   @action
   initGlowDown() {
+    isGlowingUp = false;
     setMovie(BorderGlowDownMovie.getMovie(
       lastColor: currentColor,
       lastWidth: currentWidth,
-      lastBlur: currentBlur,
     ));
     setControl(Control.playFromStart);
-    setControl(Control.stop);
-    setControl(Control.play);
   }
 
   @observable
@@ -42,17 +44,12 @@ abstract class _BorderGlowStoreBase
   @observable
   double currentWidth = 0.0;
 
-  @observable
-  double currentBlur = 0.0;
-
   @action
   setAnimationValues({
     required Color color,
     required double width,
-    required double blur,
   }) {
     currentColor = color;
     currentWidth = width;
-    currentBlur = blur;
   }
 }

@@ -1,2 +1,2 @@
-export 'on_shore_movie.dart';
-export 'on_shore_movie_store.dart';
+export './main/main.dart';
+export './resume_on_shore/resume_on_shore.dart';

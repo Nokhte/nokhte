@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-
 import 'canvas/touch_ripple_painter.dart';
 
-class TouchRipple extends StatelessWidget {
+class TouchRipple extends HookWidget {
   final TouchRippleStore store;
   const TouchRipple({
     super.key,
@@ -25,6 +26,7 @@ class TouchRipple extends StatelessWidget {
           onCompleted: () => isLastOne ? store.onCompleted() : null,
           builder: (context, value, __) => CustomPaint(
             painter: TouchRipplePainter(
+              rippleColor: ripple.rippleColor,
               position: ripple.position,
               firstCircle: OpacityAndRadius(
                 radius: value.get(TouchRippleMovieProps.circle1Radius),
@@ -47,9 +49,14 @@ class TouchRipple extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => Observer(
-        builder: (context) => Stack(
-          children: _returnRipples(),
-        ),
-      );
+  Widget build(BuildContext context) {
+    if (store.screenHeight == -1) {
+      store.setScreenHeight(useFullScreenSize().height);
+    }
+    return Observer(
+      builder: (context) => Stack(
+        children: _returnRipples(),
+      ),
+    );
+  }
 }
