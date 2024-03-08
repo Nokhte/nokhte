@@ -24,6 +24,7 @@ class SpeakingPhoneNokhteSessionWidgetsModule extends Module {
     );
     i.add<IrlNokhteSessionSpeakingScreenWidgetsCoordinator>(
         () => IrlNokhteSessionSpeakingScreenWidgetsCoordinator(
+              speakLessSmileMore: SpeakLessSmileMoreStore(),
               touchRipple: TouchRippleStore(),
               mirroredText: Modular.get<MirroredTextStore>(),
               wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
