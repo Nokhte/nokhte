@@ -9,6 +9,8 @@ mixin BeachWaveMovieModesLookup {
         DrySandToVibrantBlueGradMovieStore(),
     BeachWaveMovieModes.halfAndHalfToDrySand: HalfAndHalfToDrySandMovieStore(),
     BeachWaveMovieModes.depthsToTimesUpStart: DepthsToTimesUpStartMovieStore(),
+    BeachWaveMovieModes.dynamicPointToHalfAndHalf:
+        DynamicPointToHalfAndHalfMovieStore(),
     BeachWaveMovieModes.none: BaseBeachWaveMovieStore(),
     BeachWaveMovieModes.oceanDiveToOnShore: OceanDiveToOnShoreMovieStore(),
     BeachWaveMovieModes.oceanDiveToTimesUp: OceanDiveToTimesUpStartMovieStore(),
