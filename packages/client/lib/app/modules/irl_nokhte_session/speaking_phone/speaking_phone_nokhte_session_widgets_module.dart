@@ -18,7 +18,6 @@ class SpeakingPhoneNokhteSessionWidgetsModule extends Module {
       () => IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinator(
         touchRipple: TouchRippleStore(),
         mirroredText: Modular.get<MirroredTextStore>(),
-        borderGlow: BorderGlowStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         beachWaves: BeachWavesStore(),
       ),

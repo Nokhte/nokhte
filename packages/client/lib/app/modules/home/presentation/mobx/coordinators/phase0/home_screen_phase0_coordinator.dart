@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // import 'dart:async';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/mobx/mobx.dart';
@@ -39,14 +40,15 @@ abstract class _HomeScreenPhase0CoordinatorBase
 
   @action
   constructor() async {
+    Modular.to.navigate('/irl_nokhte_session/');
     widgets.constructor();
     initReactors();
     await identifyUser(NoParams());
     await captureScreen(Screens.homePhase0);
-    await deleteUnconsecratedCollaborations(NoParams());
-    if (isConnected) {
-      await decideAndRoute(setParams);
-    }
+    // await deleteUnconsecratedCollaborations(NoParams());
+    // if (isConnected) {
+    //   await decideAndRoute(setParams);
+    // }
   }
 
   @action
