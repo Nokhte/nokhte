@@ -16,7 +16,7 @@ class BorderGlowDownMovie {
               'color',
               ColorTween(
                 begin: lastColor,
-                end: lastColor,
+                end: Colors.transparent,
               ),
             )
             .tween(
