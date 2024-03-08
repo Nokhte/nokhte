@@ -17,12 +17,12 @@ class IrlNokhteSessionSpeakingScreen extends HookWidget {
 
       return null;
     }, []);
-    // useOnAppLifecycleStateChange(
-    // (previous, current) => coordinator.onAppLifeCycleStateChange(
-    //       current,
-    //       onResumed: () => coordinator.onResumed(),
-    //       onInactive: () => coordinator.onInactive(),
-    //     ));
+    useOnAppLifecycleStateChange(
+        (previous, current) => coordinator.onAppLifeCycleStateChange(
+              current,
+              onResumed: () => coordinator.onResumed(),
+              onInactive: () => coordinator.onInactive(),
+            ));
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Swipe(
@@ -41,6 +41,9 @@ class IrlNokhteSessionSpeakingScreen extends HookWidget {
               ),
               MirroredText(
                 store: coordinator.widgets.mirroredText,
+              ),
+              SpeakLessSmileMore(
+                store: coordinator.widgets.speakLessSmileMore,
               ),
               FullScreen(
                 child: TouchRipple(
