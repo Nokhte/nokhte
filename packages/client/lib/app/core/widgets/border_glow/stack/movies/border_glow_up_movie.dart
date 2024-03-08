@@ -26,7 +26,7 @@ class BorderGlowUpMovie {
           'color',
           ColorTween(
             begin: Colors.transparent,
-            end: const Color(0x6305FF00),
+            end: const Color(0xFF04FF00),
           ),
         )
     ..scene(
@@ -35,8 +35,8 @@ class BorderGlowUpMovie {
     ).tween(
       'color',
       ColorTween(
-        begin: const Color(0x6305FF00),
-        end: const Color(0x80FAFF00),
+        begin: const Color(0xFF04FF00),
+        end: const Color(0xFFFBFF00),
       ),
     )
     ..scene(
@@ -45,44 +45,18 @@ class BorderGlowUpMovie {
     ).tween(
       'color',
       ColorTween(
-        begin: const Color(0x80FAFF00),
-        end: const Color(0x82FF0000),
+        begin: const Color(0xFFFBFF00),
+        end: const Color(0xFFCB3B44),
       ),
     )
     ..scene(
       begin: Seconds.get(90),
       end: Seconds.get(120),
-    )
-        .tween(
-          'blur',
-          Tween<double>(
-            begin: 40,
-            end: 160.0,
-          ),
-        )
-        .tween(
-          'color',
-          ColorTween(
-            begin: const Color(0x82FF0000),
-            end: const Color(0x91FF0000),
-          ),
-        )
-    ..scene(
-      begin: Seconds.get(290),
-      end: Seconds.get(300),
-    )
-        .tween(
-          'blur',
-          Tween<double>(
-            begin: 160.0,
-            end: 400.0,
-          ),
-        )
-        .tween(
-          'color',
-          ColorTween(
-            begin: const Color(0x91FF0000),
-            end: const Color(0xFFFF0000),
-          ),
-        );
+    ).tween(
+      'width',
+      Tween<double>(
+        begin: 1,
+        end: 200.0,
+      ),
+    );
 }
