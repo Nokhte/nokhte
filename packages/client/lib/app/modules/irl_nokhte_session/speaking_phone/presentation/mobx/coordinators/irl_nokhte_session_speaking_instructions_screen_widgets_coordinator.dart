@@ -31,6 +31,9 @@ abstract class _IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinatorBase
   @observable
   bool disableTouchInput = true;
 
+  @action
+  setDisableTouchInput(bool newValue) => disableTouchInput = newValue;
+
   @observable
   MirroredTextOrientations currentActiveOrientation =
       MirroredTextOrientations.rightSideUp;
