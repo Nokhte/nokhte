@@ -1,6 +1,7 @@
 export 'black_out_to_dry_sand_movie_store.dart';
 export 'dry_sand_to_vibrant_blue_grad_movie_store.dart';
 export 'depths_to_times_up_start_movie_store.dart';
+export 'dynamic_point_to_half_and_and_half_movie_store.dart';
 export 'ocean_dive_to_times_up_start_movie_store.dart';
 export 'ocean_dive_to_vibrant_blue_gradient_movie_store.dart';
 export 'half_and_half_to_dry_sand_movie_store.dart';
