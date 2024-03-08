@@ -32,17 +32,22 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
   ) {
     List<RotatingTextData> secondaryMessageData = [];
     switch (types) {
-      case MirroredTextContentOptions.irlNokhteSessionSpeakingPhone:
-        secondaryMessageData =
-            MessagesData.irlNokhteSessionSpeakingPhoneSecondaryPhase0List;
+      case MirroredTextContentOptions.irlNokhteSessionSpeakingInstructions:
+        secondaryMessageData = MessagesData
+            .irlNokhteSessionSpeakingInstructionsSecondaryPhase0List;
         primaryRightSideUpText.setMessagesData(
-          MessagesData.getIrlNokhteSessionSpeakingPhonePrimaryPhase0List(
+          MessagesData.getIrlNokhteSessionSpeakingInstructionsPrimaryPhase0List(
               MirroredTextOrientations.rightSideUp),
         );
         primaryUpsideDownText.setMessagesData(
-          MessagesData.getIrlNokhteSessionSpeakingPhonePrimaryPhase0List(
+          MessagesData.getIrlNokhteSessionSpeakingInstructionsPrimaryPhase0List(
               MirroredTextOrientations.upsideDown),
         );
+      case MirroredTextContentOptions.irlNokhteSessionSpeakingPhone:
+        primaryRightSideUpText.setMessagesData(MessagesData.empty);
+        primaryUpsideDownText.setMessagesData(MessagesData.empty);
+        secondaryMessageData =
+            MessagesData.irlNokhteSessionSpeakingPhoneSecondaryPhase0List;
       default:
         break;
     }
