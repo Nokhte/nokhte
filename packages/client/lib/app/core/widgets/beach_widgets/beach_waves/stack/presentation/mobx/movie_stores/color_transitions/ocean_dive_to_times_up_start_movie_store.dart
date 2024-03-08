@@ -13,7 +13,7 @@ abstract class _OceanDiveToTimesUpStartMovieStoreBase
     extends BaseBeachWaveMovieStore<NoParams> with Store {
   _OceanDiveToTimesUpStartMovieStoreBase()
       : super(
-          shouldPaintSand: DynamicToTimesUpStart.shouldPaintSand,
+          shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
       WaterColorsAndStops.oceanDiveWater,
