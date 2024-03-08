@@ -23,8 +23,9 @@ abstract class _DepthsToTimesUpStartMovieStoreBase
 
   @override
   initMovie(NoParams params) {
-    movie = DynamicToTimesUpStart.getMovie(
-      startingColors: WaterColorsAndStops.toTheDepthsWater,
+    movie = TwoSecondBeachTransitionMovie.getMovie(
+      WaterColorsAndStops.toTheDepthsWater,
+      WaterColorsAndStops.timesUpPhase1,
     );
     control = Control.playFromStart;
   }
