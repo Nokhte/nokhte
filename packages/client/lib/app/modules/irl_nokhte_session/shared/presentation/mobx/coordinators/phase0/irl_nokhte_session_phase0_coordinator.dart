@@ -43,8 +43,8 @@ abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
 
   @computed
   String get pathIntoSession => phoneRole == IrlNokhteSessionPhoneRole.talking
-      ? '/irl_nokhte_session/talking_instructions'
-      : '/irl_nokhte_session/notes';
+      ? '/irl_nokhte_session/speaking_instructions'
+      : '/irl_nokhte_session/notes_instructions';
 
   @action
   constructor() async {
