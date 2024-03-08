@@ -5,6 +5,9 @@ mixin BeachWaveMovieModesLookup {
   static Map<BeachWaveMovieModes, BaseBeachWaveMovieStore> lookup = {
     BeachWaveMovieModes.blackOut: StaticBlackOutMovieStore(),
     BeachWaveMovieModes.blackOutToDrySand: BlackOutToDrySandMovieStore(),
+    BeachWaveMovieModes.drySandToVibrantBlueGrad:
+        DrySandToVibrantBlueGradMovieStore(),
+    BeachWaveMovieModes.halfAndHalfToDrySand: HalfAndHalfToDrySandMovieStore(),
     BeachWaveMovieModes.depthsToTimesUpStart: DepthsToTimesUpStartMovieStore(),
     BeachWaveMovieModes.none: BaseBeachWaveMovieStore(),
     BeachWaveMovieModes.oceanDiveToOnShore: OceanDiveToOnShoreMovieStore(),
