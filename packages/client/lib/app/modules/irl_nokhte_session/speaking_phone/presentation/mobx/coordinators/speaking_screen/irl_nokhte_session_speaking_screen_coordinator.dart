@@ -26,9 +26,8 @@ abstract class _IrlNokhteSessionSpeakingScreenCoordinatorBase
   }) : sessionMetadata = presence.getSessionMetadataStore;
 
   @action
-  constructor() async {
+  constructor() {
     widgets.constructor();
-    await presence.listen();
     initReactors();
   }
 
