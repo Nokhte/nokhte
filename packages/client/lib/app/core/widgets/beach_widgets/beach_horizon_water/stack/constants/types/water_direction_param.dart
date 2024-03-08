@@ -1,0 +1,4 @@
+enum WaterDirectionParam {
+  fromBottom,
+  fromTop,
+}
