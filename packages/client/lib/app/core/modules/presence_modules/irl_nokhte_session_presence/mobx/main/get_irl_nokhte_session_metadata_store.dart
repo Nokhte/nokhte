@@ -13,7 +13,11 @@ abstract class _GetIrlNokhteSessionMetadataStoreBase
   _GetIrlNokhteSessionMetadataStoreBase({required super.logic});
 
   @computed
-  bool get canMoveIntoSession => userPhase == 1.0 && collaboratorPhase == 1.0;
+  bool get canMoveIntoInstructions =>
+      userPhase == 1.0 && collaboratorPhase == 1.0;
+
+  @computed
+  bool get canMoveIntoSession => userPhase == 2.0 && collaboratorPhase == 2.0;
 
   @action
   Future<void> get(params) async {
