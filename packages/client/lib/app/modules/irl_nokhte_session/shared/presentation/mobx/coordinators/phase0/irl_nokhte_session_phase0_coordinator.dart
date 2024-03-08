@@ -106,7 +106,7 @@ abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
 
   collaboratorPhaseReactor() =>
       reaction((p0) => sessionMetadata.collaboratorPhase, (p0) {
-        if (sessionMetadata.canMoveIntoSession &&
+        if (sessionMetadata.canMoveIntoInstructions &&
             widgets.touchRipple.movieStatus != MovieStatus.inProgress &&
             tap.tapCount.isGreaterThan(0)) {
           widgets.invisiblizePrimarySmartText();
@@ -138,7 +138,7 @@ abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
   rippleCompletionStatusReactor() =>
       reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&
-            presence.getSessionMetadataStore.canMoveIntoSession) {
+            presence.getSessionMetadataStore.canMoveIntoInstructions) {
           isNavigatingAway = true;
           Modular.to.navigate(pathIntoSession);
         }
