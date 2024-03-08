@@ -6,8 +6,8 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'half_and_half_to_dry_sand_movie_store.g.dart';
 
-class HalfAndHalfDrySandMovieStore = _HalfAndHalfToDrySandMovieStoreBase
-    with _$HalfAndHalfDrySandMovieStore;
+class HalfAndHalfToDrySandMovieStore = _HalfAndHalfToDrySandMovieStoreBase
+    with _$HalfAndHalfToDrySandMovieStore;
 
 abstract class _HalfAndHalfToDrySandMovieStoreBase
     extends BaseBeachWaveMovieStore<NoParams> with Store {
