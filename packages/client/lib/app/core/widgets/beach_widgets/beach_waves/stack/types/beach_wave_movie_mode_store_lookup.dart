@@ -15,6 +15,7 @@ mixin BeachWaveMovieModesLookup {
     BeachWaveMovieModes.onShoreToOceanDive: OnShoreToOceanDiveMovieStore(),
     BeachWaveMovieModes.onShoreToVibrantBlue: OnShoreToVibrantBlueMovieStore(),
     BeachWaveMovieModes.resumeOnShore: ResumeOnShoreMovieStore(),
+    BeachWaveMovieModes.staticHalfAndHalf: StaticHalfAndHalfMovieStore(),
     BeachWaveMovieModes.staticDepths: StaticDepthsMovieStore(),
     BeachWaveMovieModes.staticOceanDive: StaticOceanDiveStore(),
     BeachWaveMovieModes.timesUp: TimesUpMovieStore(),
