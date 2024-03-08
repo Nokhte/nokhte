@@ -22,5 +22,13 @@ class SpeakingPhoneNokhteSessionWidgetsModule extends Module {
         beachWaves: BeachWavesStore(),
       ),
     );
+    i.add<IrlNokhteSessionSpeakingScreenWidgetsCoordinator>(
+        () => IrlNokhteSessionSpeakingScreenWidgetsCoordinator(
+              touchRipple: TouchRippleStore(),
+              mirroredText: Modular.get<MirroredTextStore>(),
+              wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+              beachWaves: BeachWavesStore(),
+              borderGlow: BorderGlowStore(),
+            ));
   }
 }
