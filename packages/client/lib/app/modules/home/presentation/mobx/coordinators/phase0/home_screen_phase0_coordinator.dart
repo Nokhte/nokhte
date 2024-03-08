@@ -40,15 +40,14 @@ abstract class _HomeScreenPhase0CoordinatorBase
 
   @action
   constructor() async {
-    Modular.to.navigate('/irl_nokhte_session/');
     widgets.constructor();
     initReactors();
     await identifyUser(NoParams());
     await captureScreen(Screens.homePhase0);
-    // await deleteUnconsecratedCollaborations(NoParams());
-    // if (isConnected) {
-    //   await decideAndRoute(setParams);
-    // }
+    await deleteUnconsecratedCollaborations(NoParams());
+    if (isConnected) {
+      await decideAndRoute(setParams);
+    }
   }
 
   @action
