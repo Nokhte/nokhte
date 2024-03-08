@@ -36,12 +36,12 @@ class IrlNokhteSessionSpeakingInstructionsScreen extends HookWidget {
                 store: coordinator.widgets.touchRipple,
               ),
             ),
-            // CollaboratorPresenceIncidentsOverlay(
-            //   store: coordinator.presence.incidentsOverlayStore,
-            // ),
-            // WifiDisconnectOverlay(
-            //   store: coordinator.widgets.wifiDisconnectOverlay,
-            // ),
+            CollaboratorPresenceIncidentsOverlay(
+              store: coordinator.presence.incidentsOverlayStore,
+            ),
+            WifiDisconnectOverlay(
+              store: coordinator.widgets.wifiDisconnectOverlay,
+            ),
           ],
         ),
       ),
