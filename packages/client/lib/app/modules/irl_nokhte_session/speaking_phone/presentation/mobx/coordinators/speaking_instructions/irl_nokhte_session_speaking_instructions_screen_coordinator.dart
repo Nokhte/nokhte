@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
@@ -58,7 +57,6 @@ abstract class _IrlNokhteSessionSpeakingInstructionsScreenCoordinatorBase
   onInactive() async {
     await presence
         .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
-    // await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
   }
 
   @action
@@ -86,7 +84,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsScreenCoordinatorBase
         (p0) => sessionMetadata.collaboratorPhase,
         (p0) {
           if (sessionMetadata.canMoveIntoSession) {
-            // Modular.to.navigate("/irl_nokhte_session/speaking_screen")
+            widgets.mirroredText.startBothRotatingText(isResuming: true);
           }
         },
       );

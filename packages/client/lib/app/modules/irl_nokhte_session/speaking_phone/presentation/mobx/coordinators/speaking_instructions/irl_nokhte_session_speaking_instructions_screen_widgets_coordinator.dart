@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:ui';
 
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -44,7 +45,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinatorBase
     beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
     beachWaves.currentStore.initMovie(NoParams());
     mirroredText.setMessagesData(
-      MirroredTextContentOptions.irlNokhteSessionSpeakingPhone,
+      MirroredTextContentOptions.irlNokhteSessionSpeakingInstructions,
     );
     initReactors();
   }
@@ -52,6 +53,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinatorBase
   @action
   initReactors() {
     beachWavesMovieStatusReactor();
+    rightSideUpTextIndexReactor();
   }
 
   @action
@@ -91,6 +93,13 @@ abstract class _IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinatorBase
                 BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf) {
           mirroredText.startRotatingRightSideUp();
           disableTouchInput = false;
+        }
+      });
+
+  rightSideUpTextIndexReactor() =>
+      reaction((p0) => mirroredText.primaryRightSideUpText.currentIndex, (p0) {
+        if (p0 == 5) {
+          Modular.to.navigate("/irl_nokhte_session/speaking");
         }
       });
 
