@@ -2,6 +2,7 @@ enum BeachWaveMovieModes {
   blackOut,
   blackOutToDrySand,
   drySandToVibrantBlueGrad,
+  dynamicPointToHalfAndHalf,
   halfAndHalfToDrySand,
   oceanDiveToOnShore,
   oceanDiveToTimesUp,
