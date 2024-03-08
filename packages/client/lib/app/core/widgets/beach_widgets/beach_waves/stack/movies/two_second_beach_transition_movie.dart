@@ -7,13 +7,12 @@ import 'package:simple_animations/simple_animations.dart';
 class TwoSecondBeachTransitionMovie {
   static bool get shouldPaintSand => true;
   static MovieTween getMovie(
-    List<ColorAndStop> startingColors,
-    List<ColorAndStop> endingColors,
-  ) =>
+          List<ColorAndStop> startingColors, List<ColorAndStop> endingColors,
+          {int seconds = 2}) =>
       MovieTween()
         ..scene(
           begin: Seconds.get(0),
-          end: Seconds.get(2),
+          end: Seconds.get(seconds),
         )
             .tween(
               BeachWaveAnimationKeys.waterMovement,
