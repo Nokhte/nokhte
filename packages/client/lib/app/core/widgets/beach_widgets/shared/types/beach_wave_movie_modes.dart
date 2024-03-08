@@ -7,6 +7,7 @@ enum BeachWaveMovieModes {
   onShoreToOceanDive,
   onShoreToVibrantBlue,
   none,
+  staticHalfAndHalf,
   staticOceanDive,
   staticDepths,
   depthsToTimesUpStart,
