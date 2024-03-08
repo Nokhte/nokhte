@@ -29,7 +29,6 @@ abstract class _BorderGlowStoreBase
     setMovie(BorderGlowDownMovie.getMovie(
       lastColor: currentColor,
       lastWidth: currentWidth,
-      lastBlur: currentBlur,
     ));
     setControl(Control.playFromStart);
     setControl(Control.stop);
@@ -42,17 +41,12 @@ abstract class _BorderGlowStoreBase
   @observable
   double currentWidth = 0.0;
 
-  @observable
-  double currentBlur = 0.0;
-
   @action
   setAnimationValues({
     required Color color,
     required double width,
-    required double blur,
   }) {
     currentColor = color;
     currentWidth = width;
-    currentBlur = blur;
   }
 }
