@@ -38,6 +38,15 @@ class IrlNokhteSessionModule extends Module {
         tap: Modular.get<TapDetector>(),
       ),
     );
+    i.add<IrlNokhteSessionSpeakingScreenCoordinator>(
+      () => IrlNokhteSessionSpeakingScreenCoordinator(
+          captureScreen: Modular.get<CaptureScreen>(),
+          widgets:
+              Modular.get<IrlNokhteSessionSpeakingScreenWidgetsCoordinator>(),
+          presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
+          hold: Modular.get<HoldDetector>(),
+          swipe: Modular.get<SwipeDetector>()),
+    );
   }
 
   @override
@@ -51,7 +60,7 @@ class IrlNokhteSessionModule extends Module {
     );
     r.child(
       transition: TransitionType.noTransition,
-      '/talking_instructions',
+      '/speaking_instructions',
       child: (context) => IrlNokhteSessionSpeakingInstructionsScreen(
         coordinator: Modular.get<
             IrlNokhteSessionSpeakingInstructionsScreenCoordinator>(),
@@ -59,7 +68,14 @@ class IrlNokhteSessionModule extends Module {
     );
     r.child(
       transition: TransitionType.noTransition,
-      '/notes',
+      '/speaking',
+      child: (context) => IrlNokhteSessionSpeakingScreen(
+        coordinator: Modular.get<IrlNokhteSessionSpeakingScreenCoordinator>(),
+      ),
+    );
+    r.child(
+      transition: TransitionType.noTransition,
+      '/notes_instructions',
       child: (context) => const IrlNokhteSessionNotesPlaceHolderScreen(),
     );
   }
