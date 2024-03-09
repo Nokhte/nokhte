@@ -59,7 +59,7 @@ abstract class _IrlNokhteSessionSpeakingScreenCoordinatorBase
     );
   }
 
-  holdReactor() => reaction((p0) => hold.holdCount, (p0) async {
+  holdReactor() => reaction((p0) => hold.holdCount, (p0) {
         ifTouchIsNotDisabled(() {
           if (presence.getSessionMetadataStore.collaboratorIsOnline) {
             widgets.onHold();
@@ -67,7 +67,7 @@ abstract class _IrlNokhteSessionSpeakingScreenCoordinatorBase
         });
       });
 
-  letGoReactor() => reaction((p0) => hold.letGoCount, (p0) async {
+  letGoReactor() => reaction((p0) => hold.letGoCount, (p0) {
         ifTouchIsNotDisabled(() {
           if (presence.getSessionMetadataStore.collaboratorIsOnline) {
             widgets.onLetGo();
@@ -89,6 +89,4 @@ abstract class _IrlNokhteSessionSpeakingScreenCoordinatorBase
       presence.incidentsOverlayStore.onCollaboratorJoined();
     }
   }
-
-  // letgo
 }
