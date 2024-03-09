@@ -15,35 +15,34 @@ class BorderGlow extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (context) => CustomAnimationBuilder(
-        tween: store.movie,
-        control: store.control,
-        duration: store.movie.duration,
-        onCompleted: () => store.onCompleted(),
-        builder: (context, value, child) {
-          store.setAnimationValues(
-            color: value.get('color'),
-            width: value.get('width'),
-          );
-          return ClipPath(
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
+        builder: (context) => CustomAnimationBuilder(
+              tween: store.activeMovie,
+              control: store.activeControl,
+              duration: store.activeMovie.duration,
+              onCompleted: () => store.onCompleted(),
+              builder: (context, value, child) {
+                store.setAnimationValues(
                   color: value.get('color'),
                   width: value.get('width'),
-                ),
-              ),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(
-                  sigmaX: 40,
-                  sigmaY: 40,
-                ),
-                child: Container(),
-              ),
-            ),
-          );
-        },
-      ),
-    );
+                );
+                return ClipPath(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: value.get('color'),
+                        width: value.get('width'),
+                      ),
+                    ),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(
+                        sigmaX: 40,
+                        sigmaY: 40,
+                      ),
+                      child: Container(),
+                    ),
+                  ),
+                );
+              },
+            ));
   }
 }
