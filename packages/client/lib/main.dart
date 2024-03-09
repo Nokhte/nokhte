@@ -7,7 +7,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/foundation.dart';
 
-//test commit
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
