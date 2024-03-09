@@ -19,6 +19,12 @@ abstract class _BorderGlowStoreBase
   @observable
   bool isGlowingUp = false;
 
+  @computed
+  MovieTween get activeMovie => isGlowingUp ? movie : altMovie;
+
+  @computed
+  Control get activeControl => isGlowingUp ? control : altControl;
+
   @action
   @override
   initMovie(param) {
@@ -31,11 +37,7 @@ abstract class _BorderGlowStoreBase
   @action
   initGlowDown() {
     isGlowingUp = false;
-    setMovie(BorderGlowDownMovie.getMovie(
-      lastColor: currentColor,
-      lastWidth: currentWidth,
-    ));
-    setControl(Control.playFromStart);
+    altControl = Control.playFromStart;
   }
 
   @observable
@@ -44,12 +46,25 @@ abstract class _BorderGlowStoreBase
   @observable
   double currentWidth = 0.0;
 
+  @observable
+  Control altControl = Control.stop;
+
+  @observable
+  MovieTween altMovie = BorderGlowDownMovie.getMovie();
+
   @action
   setAnimationValues({
     required Color color,
     required double width,
   }) {
-    currentColor = color;
-    currentWidth = width;
+    if (isGlowingUp) {
+      currentColor = color;
+      currentWidth = width;
+
+      altMovie = BorderGlowDownMovie.getMovie(
+        lastColor: currentColor,
+        lastWidth: currentWidth,
+      );
+    }
   }
 }

@@ -28,6 +28,9 @@ abstract class _IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinatorBase
   });
 
   @observable
+  Stopwatch cooldownStopwatch = Stopwatch();
+
+  @observable
   bool disableTouchInput = true;
 
   @action
@@ -59,6 +62,11 @@ abstract class _IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinatorBase
   @action
   onTap(Offset tapPosition, {required Function onFlowFinished}) async {
     if (!disableTouchInput) {
+      if (cooldownStopwatch.elapsedMilliseconds.isLessThan(950)) {
+        return;
+      } else {
+        cooldownStopwatch.reset();
+      }
       touchRipple.onTap(tapPosition, adjustColorBasedOnPosition: true);
       if (hasTappedOnTheRightSide && textIsDoneFadingInOrOut) {
         toggleCurrentActiveOrientation();
@@ -92,6 +100,8 @@ abstract class _IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinatorBase
             beachWaves.movieMode ==
                 BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf) {
           mirroredText.startRotatingRightSideUp();
+          cooldownStopwatch.start();
+
           disableTouchInput = false;
         }
       });

@@ -4,8 +4,8 @@ import 'package:simple_animations/simple_animations.dart';
 
 class BorderGlowDownMovie {
   static MovieTween getMovie({
-    required Color lastColor,
-    required double lastWidth,
+    Color lastColor = Colors.transparent,
+    double lastWidth = 0.0,
   }) =>
       MovieTween()
         ..scene(
