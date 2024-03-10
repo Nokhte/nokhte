@@ -75,7 +75,9 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
           mirroredText.startRotatingRightSideUp(isResuming: true);
         } else if (isStillInMutualInstructionMode) {
           mirroredText.startBothRotatingText(isResuming: true);
-          await onFlowFinished();
+          if (isLastTap) {
+            await onFlowFinished();
+          }
         }
         tapCount++;
       }
@@ -139,6 +141,9 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
 
   @computed
   bool get isFirstTap => tapCount == 0;
+
+  @computed
+  bool get isLastTap => tapCount == 3;
 
   @computed
   bool get textIsDoneFadingInOrOut =>
