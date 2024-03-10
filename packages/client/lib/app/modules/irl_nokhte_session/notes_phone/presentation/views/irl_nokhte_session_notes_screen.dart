@@ -33,8 +33,10 @@ class IrlNokhteSessionNotesScreen extends HookWidget {
                 store: coordinator.widgets.beachWaves,
               ),
             ),
-            MirroredText(
-              store: coordinator.widgets.mirroredText,
+            Center(
+              child: TextEditor(
+                store: coordinator.widgets.textEditor,
+              ),
             ),
             CollaboratorPresenceIncidentsOverlay(
               store: coordinator.presence.incidentsOverlayStore,
