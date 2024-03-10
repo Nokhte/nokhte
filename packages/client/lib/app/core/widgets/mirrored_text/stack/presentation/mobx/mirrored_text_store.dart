@@ -21,20 +21,17 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
     required this.secondaryRightSideUpText,
     required this.primaryUpsideDownText,
     required this.secondaryUpsideDownText,
-  }) {
-    primaryRightSideUpText.setStaticAltMovie(NokhteSessionConstants.blue);
-    secondaryRightSideUpText.setStaticAltMovie(NokhteSessionConstants.blue);
-  }
+  });
 
   @action
   setMessagesData(
     MirroredTextContentOptions types,
   ) {
-    List<RotatingTextData> secondaryMessageData = [];
     switch (types) {
       case MirroredTextContentOptions.irlNokhteSessionSpeakingInstructions:
-        secondaryMessageData = MessagesData
-            .irlNokhteSessionSpeakingInstructionsSecondaryPhase0List;
+        prepForSplitScreen();
+        setSecondaryMessagesData(MessagesData
+            .irlNokhteSessionSpeakingInstructionsSecondaryPhase0List);
         primaryRightSideUpText.setMessagesData(
           MessagesData.getIrlNokhteSessionSpeakingInstructionsPrimaryPhase0List(
               MirroredTextOrientations.rightSideUp),
@@ -44,15 +41,53 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
               MirroredTextOrientations.upsideDown),
         );
       case MirroredTextContentOptions.irlNokhteSessionSpeakingPhone:
-        primaryRightSideUpText.setMessagesData(MessagesData.empty);
-        primaryUpsideDownText.setMessagesData(MessagesData.empty);
-        secondaryMessageData =
-            MessagesData.irlNokhteSessionSpeakingPhoneSecondaryPhase0List;
+        prepForSplitScreen();
+        setPrimaryMessagesData(MessagesData.empty);
+        setSecondaryMessagesData(
+          MessagesData.irlNokhteSessionSpeakingPhoneSecondaryPhase0List,
+        );
+      case MirroredTextContentOptions.irlNokhteSessionNotesInstructions:
+        primaryRightSideUpText.setMessagesData(
+          MessagesData.getIrlNokhteSessionNotesInstructionsPrimaryPhase0List(
+            MirroredTextOrientations.rightSideUp,
+          ),
+        );
+        primaryUpsideDownText.setMessagesData(
+          MessagesData.getIrlNokhteSessionNotesInstructionsPrimaryPhase0List(
+            MirroredTextOrientations.upsideDown,
+          ),
+        );
+        secondaryRightSideUpText.setMessagesData(
+          MessagesData.getIrlNokhteSessionNotesInstructionsSecondaryPhase0List(
+            MirroredTextOrientations.rightSideUp,
+          ),
+        );
+        secondaryUpsideDownText.setMessagesData(
+          MessagesData.getIrlNokhteSessionNotesInstructionsSecondaryPhase0List(
+            MirroredTextOrientations.upsideDown,
+          ),
+        );
       default:
         break;
     }
-    secondaryRightSideUpText.setMessagesData(secondaryMessageData);
-    secondaryUpsideDownText.setMessagesData(secondaryMessageData);
+  }
+
+  @action
+  prepForSplitScreen() {
+    primaryRightSideUpText.setStaticAltMovie(NokhteSessionConstants.blue);
+    secondaryRightSideUpText.setStaticAltMovie(NokhteSessionConstants.blue);
+  }
+
+  @action
+  setPrimaryMessagesData(List<RotatingTextData> messagesData) {
+    primaryRightSideUpText.setMessagesData(messagesData);
+    primaryUpsideDownText.setMessagesData(messagesData);
+  }
+
+  @action
+  setSecondaryMessagesData(List<RotatingTextData> messagesData) {
+    secondaryRightSideUpText.setMessagesData(messagesData);
+    secondaryUpsideDownText.setMessagesData(messagesData);
   }
 
   @action
