@@ -5,20 +5,20 @@ import 'package:nokhte/app/core/mobx/base_coordinator.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'irl_nokhte_session_speaking_instructions_screen_widgets_coordinator.dart';
-part 'irl_nokhte_session_speaking_instructions_screen_coordinator.g.dart';
+import 'irl_nokhte_session_speaking_instructions_widgets_coordinator.dart';
+part 'irl_nokhte_session_speaking_instructions_coordinator.g.dart';
 
-class IrlNokhteSessionSpeakingInstructionsScreenCoordinator = _IrlNokhteSessionSpeakingInstructionsScreenCoordinatorBase
-    with _$IrlNokhteSessionSpeakingInstructionsScreenCoordinator;
+class IrlNokhteSessionSpeakingInstructionsCoordinator = _IrlNokhteSessionSpeakingInstructionsCoordinatorBase
+    with _$IrlNokhteSessionSpeakingInstructionsCoordinator;
 
-abstract class _IrlNokhteSessionSpeakingInstructionsScreenCoordinatorBase
+abstract class _IrlNokhteSessionSpeakingInstructionsCoordinatorBase
     extends BaseCoordinator with Store {
   final TapDetector tap;
-  final IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinator widgets;
+  final IrlNokhteSessionSpeakingInstructionsWidgetsCoordinator widgets;
   final IrlNokhteSessionPresenceCoordinator presence;
   final GetIrlNokhteSessionMetadataStore sessionMetadata;
 
-  _IrlNokhteSessionSpeakingInstructionsScreenCoordinatorBase({
+  _IrlNokhteSessionSpeakingInstructionsCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
     required this.tap,

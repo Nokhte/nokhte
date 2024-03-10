@@ -5,7 +5,7 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 
 import 'presentation/presentation.dart';
 
-class SpeakingPhoneNokhteSessionWidgetsModule extends Module {
+class NotesPhoneNokhteSessionWidgetsModule extends Module {
   @override
   @override
   List<Module> get imports => [
@@ -14,22 +14,19 @@ class SpeakingPhoneNokhteSessionWidgetsModule extends Module {
       ];
   @override
   void exportedBinds(Injector i) {
-    i.add<IrlNokhteSessionSpeakingInstructionsWidgetsCoordinator>(
-      () => IrlNokhteSessionSpeakingInstructionsWidgetsCoordinator(
+    i.add<IrlNokhteSessionNotesInstructionsWidgetsCoordinator>(
+      () => IrlNokhteSessionNotesInstructionsWidgetsCoordinator(
         touchRipple: TouchRippleStore(),
         mirroredText: Modular.get<MirroredTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         beachWaves: BeachWavesStore(),
       ),
     );
-    i.add<IrlNokhteSessionSpeakingWidgetsCoordinator>(
-        () => IrlNokhteSessionSpeakingWidgetsCoordinator(
-              speakLessSmileMore: SpeakLessSmileMoreStore(),
-              touchRipple: TouchRippleStore(),
+    i.add<IrlNokhteSessionNotesWidgetsCoordinator>(
+        () => IrlNokhteSessionNotesWidgetsCoordinator(
               mirroredText: Modular.get<MirroredTextStore>(),
               wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
               beachWaves: BeachWavesStore(),
-              borderGlow: BorderGlowStore(),
             ));
   }
 }

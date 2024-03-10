@@ -4,6 +4,7 @@ import 'package:nokhte/app/core/modules/posthog/posthog_module.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/widgets/modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'notes_phone/notes_phone.dart';
 import 'speaking_phone/speaking_phone.dart';
 import 'shared/shared.dart';
 
@@ -12,6 +13,7 @@ class IrlNokhteSessionModule extends Module {
   List<Module> get imports => [
         SharedIrlNokhteSessionModule(),
         SharedIrlNokhteSessionWidgetsModule(),
+        NotesPhoneNokhteSessionWidgetsModule(),
         SpeakingPhoneNokhteSessionWidgetsModule(),
         PosthogModule(),
         IrlNokhteSessionPresenceModule(),
@@ -29,22 +31,37 @@ class IrlNokhteSessionModule extends Module {
         tap: Modular.get<TapDetector>(),
       ),
     );
-    i.add<IrlNokhteSessionSpeakingInstructionsScreenCoordinator>(
-      () => IrlNokhteSessionSpeakingInstructionsScreenCoordinator(
+    i.add<IrlNokhteSessionSpeakingInstructionsCoordinator>(
+      () => IrlNokhteSessionSpeakingInstructionsCoordinator(
         presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<
-            IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinator>(),
+            IrlNokhteSessionSpeakingInstructionsWidgetsCoordinator>(),
         tap: Modular.get<TapDetector>(),
       ),
     );
-    i.add<IrlNokhteSessionSpeakingScreenCoordinator>(
-      () => IrlNokhteSessionSpeakingScreenCoordinator(
+    i.add<IrlNokhteSessionSpeakingCoordinator>(
+      () => IrlNokhteSessionSpeakingCoordinator(
           captureScreen: Modular.get<CaptureScreen>(),
-          widgets:
-              Modular.get<IrlNokhteSessionSpeakingScreenWidgetsCoordinator>(),
+          widgets: Modular.get<IrlNokhteSessionSpeakingWidgetsCoordinator>(),
           presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
           hold: Modular.get<HoldDetector>(),
+          swipe: Modular.get<SwipeDetector>()),
+    );
+    i.add<IrlNokhteSessionNotesInstructionsCoordinator>(
+      () => IrlNokhteSessionNotesInstructionsCoordinator(
+        presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        widgets:
+            Modular.get<IrlNokhteSessionNotesInstructionsWidgetsCoordinator>(),
+        tap: Modular.get<TapDetector>(),
+      ),
+    );
+    i.add<IrlNokhteSessionNotesCoordinator>(
+      () => IrlNokhteSessionNotesCoordinator(
+          captureScreen: Modular.get<CaptureScreen>(),
+          widgets: Modular.get<IrlNokhteSessionNotesWidgetsCoordinator>(),
+          presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
           swipe: Modular.get<SwipeDetector>()),
     );
   }
@@ -62,21 +79,32 @@ class IrlNokhteSessionModule extends Module {
       transition: TransitionType.noTransition,
       '/speaking_instructions',
       child: (context) => IrlNokhteSessionSpeakingInstructionsScreen(
-        coordinator: Modular.get<
-            IrlNokhteSessionSpeakingInstructionsScreenCoordinator>(),
+        coordinator:
+            Modular.get<IrlNokhteSessionSpeakingInstructionsCoordinator>(),
       ),
     );
     r.child(
       transition: TransitionType.noTransition,
       '/speaking',
       child: (context) => IrlNokhteSessionSpeakingScreen(
-        coordinator: Modular.get<IrlNokhteSessionSpeakingScreenCoordinator>(),
+        coordinator: Modular.get<IrlNokhteSessionSpeakingCoordinator>(),
       ),
     );
     r.child(
       transition: TransitionType.noTransition,
       '/notes_instructions',
-      child: (context) => const IrlNokhteSessionNotesPlaceHolderScreen(),
+      child: (context) => IrlNokhteSessionNotesInstructionsScreen(
+        coordinator:
+            Modular.get<IrlNokhteSessionNotesInstructionsCoordinator>(),
+      ),
+    );
+    r.child(
+      transition: TransitionType.noTransition,
+      '/notes',
+      child: (context) => IrlNokhteSessionNotesInstructionsScreen(
+        coordinator:
+            Modular.get<IrlNokhteSessionNotesInstructionsCoordinator>(),
+      ),
     );
   }
 }

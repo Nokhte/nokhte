@@ -4,20 +4,20 @@ import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'irl_nokhte_session_speaking_screen_widgets_coordinator.dart';
-part 'irl_nokhte_session_speaking_screen_coordinator.g.dart';
+import 'irl_nokhte_session_speaking_widgets_coordinator.dart';
+part 'irl_nokhte_session_speaking_coordinator.g.dart';
 
-class IrlNokhteSessionSpeakingScreenCoordinator = _IrlNokhteSessionSpeakingScreenCoordinatorBase
-    with _$IrlNokhteSessionSpeakingScreenCoordinator;
+class IrlNokhteSessionSpeakingCoordinator = _IrlNokhteSessionSpeakingCoordinatorBase
+    with _$IrlNokhteSessionSpeakingCoordinator;
 
-abstract class _IrlNokhteSessionSpeakingScreenCoordinatorBase
-    extends BaseCoordinator with Store {
-  final IrlNokhteSessionSpeakingScreenWidgetsCoordinator widgets;
+abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
+    with Store {
+  final IrlNokhteSessionSpeakingWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final HoldDetector hold;
   final IrlNokhteSessionPresenceCoordinator presence;
   final GetIrlNokhteSessionMetadataStore sessionMetadata;
-  _IrlNokhteSessionSpeakingScreenCoordinatorBase({
+  _IrlNokhteSessionSpeakingCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
     required this.swipe,

@@ -6,12 +6,12 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'irl_nokhte_session_speaking_screen_widgets_coordinator.g.dart';
+part 'irl_nokhte_session_speaking_widgets_coordinator.g.dart';
 
-class IrlNokhteSessionSpeakingScreenWidgetsCoordinator = _IrlNokhteSessionSpeakingScreenWidgetsCoordinatorBase
-    with _$IrlNokhteSessionSpeakingScreenWidgetsCoordinator;
+class IrlNokhteSessionSpeakingWidgetsCoordinator = _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
+    with _$IrlNokhteSessionSpeakingWidgetsCoordinator;
 
-abstract class _IrlNokhteSessionSpeakingScreenWidgetsCoordinatorBase
+abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final MirroredTextStore mirroredText;
   final BeachWavesStore beachWaves;
@@ -20,7 +20,7 @@ abstract class _IrlNokhteSessionSpeakingScreenWidgetsCoordinatorBase
   final TouchRippleStore touchRipple;
   final SpeakLessSmileMoreStore speakLessSmileMore;
 
-  _IrlNokhteSessionSpeakingScreenWidgetsCoordinatorBase({
+  _IrlNokhteSessionSpeakingWidgetsCoordinatorBase({
     required this.mirroredText,
     required this.beachWaves,
     required this.borderGlow,

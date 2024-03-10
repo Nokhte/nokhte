@@ -1,2 +1,2 @@
-export 'irl_nokhte_session_speaking_instructions_screen_coordinator.dart';
-export 'irl_nokhte_session_speaking_instructions_screen_widgets_coordinator.dart';
+export 'irl_nokhte_session_speaking_instructions_coordinator.dart';
+export 'irl_nokhte_session_speaking_instructions_widgets_coordinator.dart';

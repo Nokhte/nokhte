@@ -9,18 +9,18 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-part 'irl_nokhte_session_speaking_instructions_screen_widgets_coordinator.g.dart';
+part 'irl_nokhte_session_speaking_instructions_widgets_coordinator.g.dart';
 
-class IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinator = _IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinatorBase
-    with _$IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinator;
+class IrlNokhteSessionSpeakingInstructionsWidgetsCoordinator = _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
+    with _$IrlNokhteSessionSpeakingInstructionsWidgetsCoordinator;
 
-abstract class _IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinatorBase
+abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final MirroredTextStore mirroredText;
   final BeachWavesStore beachWaves;
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final TouchRippleStore touchRipple;
-  _IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinatorBase({
+  _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase({
     required this.mirroredText,
     required this.beachWaves,
     required this.wifiDisconnectOverlay,
