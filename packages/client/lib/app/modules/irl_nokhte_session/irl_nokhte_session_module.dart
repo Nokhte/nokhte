@@ -101,9 +101,8 @@ class IrlNokhteSessionModule extends Module {
     r.child(
       transition: TransitionType.noTransition,
       '/notes',
-      child: (context) => IrlNokhteSessionNotesInstructionsScreen(
-        coordinator:
-            Modular.get<IrlNokhteSessionNotesInstructionsCoordinator>(),
+      child: (context) => IrlNokhteSessionNotesScreen(
+        coordinator: Modular.get<IrlNokhteSessionNotesCoordinator>(),
       ),
     );
   }
