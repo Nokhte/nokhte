@@ -358,4 +358,79 @@ class MessagesData {
               mainMessageFontSize: 19.0,
             ),
           ];
+
+  static List<RotatingTextData>
+      getIrlNokhteSessionNotesInstructionsPrimaryPhase0List(
+          MirroredTextOrientations orientation) {
+    final arr = [
+      RotatingTextData(
+        mainMessage: "Look at the other phone",
+        pauseHere: true,
+        mainMessageFontSize: 22.0,
+      ),
+      RotatingTextData(
+        mainMessage: "",
+        pauseHere: true,
+      ),
+      RotatingTextData(
+        mainMessage: "This phone will be used for notes",
+        pauseHere: true,
+        mainMessageFontSize: 22.0,
+      ),
+      RotatingTextData(
+        mainMessage: "",
+        pauseHere: true,
+      ),
+      RotatingTextData(
+        mainMessage: "To complete the session swipe down on both phones",
+        pauseHere: true,
+        mainMessageFontSize: 22.0,
+      ),
+      RotatingTextData(
+        mainMessage: "",
+        pauseHere: true,
+      ),
+    ];
+    if (orientation == MirroredTextOrientations.rightSideUp) {
+      arr.removeAt(1);
+    }
+    return arr;
+  }
+
+  static List<RotatingTextData>
+      getIrlNokhteSessionNotesInstructionsSecondaryPhase0List(
+          MirroredTextOrientations orientation) {
+    final arr = [
+      RotatingTextData(
+        mainMessage: "",
+        pauseHere: true,
+      ),
+      RotatingTextData(
+        mainMessage: "",
+        pauseHere: true,
+      ),
+      RotatingTextData(
+        mainMessage: "Tap to confirm",
+        pauseHere: true,
+        mainMessageFontSize: 19.0,
+      ),
+      RotatingTextData(
+        mainMessage: "",
+        pauseHere: true,
+      ),
+      RotatingTextData(
+        mainMessage: "Tap to confirm",
+        pauseHere: true,
+        mainMessageFontSize: 19.0,
+      ),
+      RotatingTextData(
+        mainMessage: "",
+        pauseHere: true,
+      ),
+    ];
+    if (orientation == MirroredTextOrientations.rightSideUp) {
+      arr.removeAt(1);
+    }
+    return arr;
+  }
 }
