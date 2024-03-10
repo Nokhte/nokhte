@@ -17,8 +17,7 @@ class WaitingText extends HookWidget {
 
   @override
   Widget build(BuildContext context) => MediaQuery(
-        data: MediaQuery.of(context)
-            .copyWith(textScaler: const TextScaler.linear(1.0)),
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
         child: Observer(
           builder: (context) => AnimatedOpacity(
             opacity: useWidgetOpacity(store.showWidget),
