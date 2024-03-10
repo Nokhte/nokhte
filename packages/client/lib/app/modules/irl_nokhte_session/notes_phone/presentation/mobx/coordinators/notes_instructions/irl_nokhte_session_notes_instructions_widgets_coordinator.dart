@@ -1,5 +1,8 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -22,12 +25,113 @@ abstract class _IrlNokhteSessionNotesInstructionsWidgetsCoordinatorBase
     required this.wifiDisconnectOverlay,
   });
 
+  @observable
+  Stopwatch cooldownStopwatch = Stopwatch();
+
+  @observable
+  bool disableTouchInput = true;
+
+  @action
+  setDisableTouchInput(bool newValue) => disableTouchInput = newValue;
+
+  @observable
+  MirroredTextOrientations currentActiveOrientation =
+      MirroredTextOrientations.rightSideUp;
+
+  @observable
+  int tapCount = 0;
+
   @action
   constructor() {
+    cooldownStopwatch.start();
     beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
     mirroredText.setMessagesData(
-      MirroredTextContentOptions.irlNokhteSessionSpeakingInstructions,
+      MirroredTextContentOptions.irlNokhteSessionNotesInstructions,
     );
-    // initReactors();
+    mirroredText.startBothRotatingText();
+    setDisableTouchInput(true);
+    upsideDownTextIndexReactor();
   }
+
+  @action
+  toggleCurrentActiveOrientation() {
+    switch (currentActiveOrientation) {
+      case MirroredTextOrientations.rightSideUp:
+        currentActiveOrientation = MirroredTextOrientations.upsideDown;
+      case MirroredTextOrientations.upsideDown:
+        currentActiveOrientation = MirroredTextOrientations.rightSideUp;
+      default:
+        break;
+    }
+  }
+
+  @action
+  onTap(Offset tapPosition, {required Function onFlowFinished}) async {
+    if (!disableTouchInput) {
+      if (cooldownStopwatch.elapsedMilliseconds.isLessThan(950)) {
+        return;
+      } else {
+        cooldownStopwatch.reset();
+      }
+      touchRipple.onTap(tapPosition);
+      if (hasTappedOnTheRightSide && textIsDoneFadingInOrOut) {
+        toggleCurrentActiveOrientation();
+        if (isStillInMutualInstructionMode) {
+          mirroredText.startBothRotatingText(isResuming: true);
+          if (isLastTap) {
+            await onFlowFinished();
+            print("onFlowFinished!!");
+          }
+        }
+        tapCount++;
+      }
+    }
+  }
+
+  @action
+  onInstructionModeUnlocked() {
+    mirroredText.startBothRotatingText(isResuming: true);
+    setDisableTouchInput(false);
+  }
+
+  upsideDownTextIndexReactor() =>
+      reaction((p0) => mirroredText.primaryUpsideDownText.currentIndex, (p0) {
+        if (p0 == 5) {
+          Modular.to.navigate("/irl_nokhte_session/notes");
+        }
+      });
+
+  @computed
+  bool get hasTappedOnTheRightSide =>
+      rightSideUpTextIsVisible && hasTappedOnTheBottomHalf ||
+      upsideDownTextIsVisible && hasTappedOnTheTopHalf;
+
+  @computed
+  bool get rightSideUpTextIsVisible =>
+      currentActiveOrientation == MirroredTextOrientations.rightSideUp;
+
+  @computed
+  bool get hasTappedOnTheBottomHalf =>
+      touchRipple.tapPlacement == TapPlacement.bottomHalf;
+
+  @computed
+  bool get upsideDownTextIsVisible =>
+      currentActiveOrientation == MirroredTextOrientations.upsideDown;
+
+  @computed
+  bool get hasTappedOnTheTopHalf =>
+      touchRipple.tapPlacement == TapPlacement.topHalf;
+
+  @computed
+  bool get isStillInMutualInstructionMode => tapCount.isLessThan(4);
+
+  @computed
+  bool get isFirstTap => tapCount == 0;
+
+  @computed
+  bool get isLastTap => tapCount == 3;
+
+  @computed
+  bool get textIsDoneFadingInOrOut =>
+      mirroredText.textIsDoneAnimating || isFirstTap;
 }
