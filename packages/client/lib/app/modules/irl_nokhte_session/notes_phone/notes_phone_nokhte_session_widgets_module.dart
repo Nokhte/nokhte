@@ -23,10 +23,13 @@ class NotesPhoneNokhteSessionWidgetsModule extends Module {
       ),
     );
     i.add<IrlNokhteSessionNotesWidgetsCoordinator>(
-        () => IrlNokhteSessionNotesWidgetsCoordinator(
-              mirroredText: Modular.get<MirroredTextStore>(),
-              wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-              beachWaves: BeachWavesStore(),
-            ));
+      () => IrlNokhteSessionNotesWidgetsCoordinator(
+        throwingStone: ThrowingStoneStore(),
+        touchRipple: TouchRippleStore(),
+        textEditor: TextEditorStore(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        beachWaves: BeachWavesStore(),
+      ),
+    );
   }
 }
