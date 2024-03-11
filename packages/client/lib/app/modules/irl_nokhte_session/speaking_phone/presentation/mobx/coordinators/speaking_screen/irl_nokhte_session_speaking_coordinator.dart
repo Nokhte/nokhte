@@ -26,14 +26,18 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
   }) : sessionMetadata = presence.getSessionMetadataStore;
 
   @action
-  constructor() {
+  constructor() async {
     widgets.constructor();
     initReactors();
+    await presence.listen();
   }
 
   initReactors() {
     holdReactor();
     letGoReactor();
+    widgets.beachWavesMovieStatusReactor(() {
+      setDisableAllTouchFeedback(false);
+    });
     widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
@@ -71,6 +75,7 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
         ifTouchIsNotDisabled(() {
           if (presence.getSessionMetadataStore.collaboratorIsOnline) {
             widgets.onLetGo();
+            setDisableAllTouchFeedback(true);
           }
         });
       });
