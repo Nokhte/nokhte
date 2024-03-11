@@ -17,7 +17,6 @@ export 'spotlight_halo/spotlight_halo.dart';
 export 'smart_text/smart_text.dart';
 export "text_editor/text_editor.dart";
 export 'touch_ripple/touch_ripple.dart';
-export 'throwing_stone/throwing_stone.dart';
 export 'trailing_text/trailing_text.dart';
 export "voice_call_incidents_overlay/voice_call_incidents_overlay.dart";
 export "waiting_text/waiting_text.dart";
