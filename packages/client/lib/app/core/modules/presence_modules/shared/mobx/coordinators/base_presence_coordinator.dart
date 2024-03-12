@@ -11,12 +11,10 @@ class BasePresenceCoordinator<T> = _BasePresenceCoordinatorBase<T>
 abstract class _BasePresenceCoordinatorBase<T> extends BaseMobxDBStore
     with Store {
   final UpdateOnlineStatus updateOnlineStatusLogic;
-  final UpdateWhoIsTalking updateWhoIsTalkingLogic;
   final UpdateCurrentPhase updateCurrentPhaseLogic;
   final CancelSessionMetadataStream cancelSessionMetadataStreamLogic;
 
   _BasePresenceCoordinatorBase({
-    required this.updateWhoIsTalkingLogic,
     required this.cancelSessionMetadataStreamLogic,
     required this.updateCurrentPhaseLogic,
     required this.updateOnlineStatusLogic,
@@ -50,15 +48,6 @@ abstract class _BasePresenceCoordinatorBase<T> extends BaseMobxDBStore
     final res = await updateOnlineStatusLogic(params);
     res.fold((failure) => errorUpdater(failure),
         (status) => onlineStatusIsUpdated = status);
-  }
-
-  @action
-  updateWhoIsTalking(UpdateWhoIsTalkingParams params) async {
-    whoIsTalkingIsUpdated = false;
-    state = StoreState.loading;
-    final res = await updateWhoIsTalkingLogic(params);
-    res.fold((failure) => errorUpdater(failure),
-        (status) => whoIsTalkingIsUpdated = status);
   }
 
   @action

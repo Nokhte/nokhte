@@ -9,16 +9,7 @@ void main() {
   late FinishedNokhteSessionQueries user1Queries;
   final tSetup = CommonCollaborativeTestFunctions();
   late List<String> sortedUIDs;
-  final tSessionMetadata = [
-    {"audioID": "s1t1", "content": "s1t1"},
-    {"audioID": "s1t2", "content": "s1t2"},
-    {"audioID": "s1t3", "content": "s1t3"},
-  ];
-  final t2SessionMetadata = [
-    {"audioID": "s2t1", "content": "s2t1"},
-    {"audioID": "s2t2", "content": "s2t2"},
-    {"audioID": "s2t3", "content": "s2t3"},
-  ];
+  final tSessionContent = ["test1", 'test2', 'test3'];
   final now = DateTime.now().toIso8601String();
 
   setUpAll(() async {
@@ -41,13 +32,12 @@ void main() {
     sortedUIDs = [tSetup.firstUserUID, tSetup.secondUserUID]..sort();
     final res = await user1Queries.insert(
       collaboratorUIDs: sortedUIDs,
-      sessionMetadata: tSessionMetadata,
+      sessionContent: tSessionContent,
       sessionTimestamp: now,
     );
     expect(
         res.first[FinishedNokhteSessionQueries.COLLABORATOR_UIDS], sortedUIDs);
-    expect(res.first[FinishedNokhteSessionQueries.SESSION_METADATA],
-        tSessionMetadata);
+    expect(res.first[FinishedNokhteSessionQueries.CONTENT], tSessionContent);
   });
 
   test("select", () async {
@@ -59,29 +49,11 @@ void main() {
     final user1And3 = [tSetup.firstUserUID, tSetup.thirdUserUID]..sort();
     await user1Queries.insert(
       collaboratorUIDs: user1And3,
-      sessionMetadata: tSessionMetadata,
+      sessionContent: tSessionContent,
       sessionTimestamp: now,
     );
     final res = await user1Queries.selectByCollaborationId(tSetup.thirdUserUID);
     expect(
         res.first[FinishedNokhteSessionQueries.COLLABORATOR_UIDS], user1And3);
-  });
-
-  test("getAudioPathsFromSession", () async {
-    await user1Queries.insert(
-      collaboratorUIDs: sortedUIDs,
-      sessionMetadata: t2SessionMetadata,
-      sessionTimestamp: now,
-    );
-    final session1res =
-        await user1Queries.getAudioPathsFromSession(tSetup.secondUserUID, 0);
-    expect(session1res.first, contains('s1t1.wav'));
-    expect(session1res[1], contains('s1t2.wav'));
-    expect(session1res[2], contains('s1t3.wav'));
-    final session2res =
-        await user1Queries.getAudioPathsFromSession(tSetup.secondUserUID, 1);
-    expect(session2res.first, contains('s2t1.wav'));
-    expect(session2res[1], contains('s2t2.wav'));
-    expect(session2res[2], contains('s2t3.wav'));
   });
 }

@@ -89,8 +89,8 @@ class VoiceCallRemoteSourceImpl implements VoiceCallRemoteSource {
   }
 
   @override
-  Future<String> getNokhteSessionMeetingId() async =>
-      await activeNokhteSessionQueries.getMeetingUID();
+  Future<String> getNokhteSessionMeetingId() async => '';
+  // await activeNokhteSessionQueries.getMeetingUID();
 
   @override
   stopRecording() async => await agoraEngine.stopAudioRecording();

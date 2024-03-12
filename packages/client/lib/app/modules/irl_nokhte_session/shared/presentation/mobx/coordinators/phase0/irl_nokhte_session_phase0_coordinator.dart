@@ -58,7 +58,6 @@ abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
   onInactive() async {
     await presence
         .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
-    await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
   }
 
   @action

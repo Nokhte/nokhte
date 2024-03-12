@@ -2,19 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class WaitingTextPainter extends CustomPainter {
-  final double topLengthScalar;
-  final double roundness;
-  final double circleOpacity;
-  final double rectOpacity;
-  final double circleRadius;
-  final double circleXOffset;
-  final double circleYOffset;
+  final double topLengthScalar,
+      roundness,
+      circleOpacity,
+      rectOpacity,
+      circleRadius,
+      circleXOffset,
+      circleYOffset;
   final OpacityAndRadius ripple1, ripple2;
-  late Offset firstRippleOffset;
-  late Offset secondRippleOffset;
-  final Color rectColor;
-  final Color ripple1Color;
-  final Color ripple2Color;
+  late Offset firstRippleOffset, secondRippleOffset;
+  final Color rectColor, ripple1Color, ripple2Color;
   WaitingTextPainter({
     required this.topLengthScalar,
     required this.roundness,

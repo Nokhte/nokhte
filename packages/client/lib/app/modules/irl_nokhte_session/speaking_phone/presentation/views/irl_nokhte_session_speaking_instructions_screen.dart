@@ -4,7 +4,7 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/irl_nokhte_session/irl_nokhte_session.dart';
 
 class IrlNokhteSessionSpeakingInstructionsScreen extends HookWidget {
-  final IrlNokhteSessionSpeakingInstructionsScreenCoordinator coordinator;
+  final IrlNokhteSessionSpeakingInstructionsCoordinator coordinator;
   const IrlNokhteSessionSpeakingInstructionsScreen({
     super.key,
     required this.coordinator,

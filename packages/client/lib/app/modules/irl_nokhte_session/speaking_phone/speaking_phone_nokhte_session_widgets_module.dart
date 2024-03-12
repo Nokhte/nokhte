@@ -14,16 +14,16 @@ class SpeakingPhoneNokhteSessionWidgetsModule extends Module {
       ];
   @override
   void exportedBinds(Injector i) {
-    i.add<IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinator>(
-      () => IrlNokhteSessionSpeakingInstructionsScreenWidgetsCoordinator(
+    i.add<IrlNokhteSessionSpeakingInstructionsWidgetsCoordinator>(
+      () => IrlNokhteSessionSpeakingInstructionsWidgetsCoordinator(
         touchRipple: TouchRippleStore(),
         mirroredText: Modular.get<MirroredTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         beachWaves: BeachWavesStore(),
       ),
     );
-    i.add<IrlNokhteSessionSpeakingScreenWidgetsCoordinator>(
-        () => IrlNokhteSessionSpeakingScreenWidgetsCoordinator(
+    i.add<IrlNokhteSessionSpeakingWidgetsCoordinator>(
+        () => IrlNokhteSessionSpeakingWidgetsCoordinator(
               speakLessSmileMore: SpeakLessSmileMoreStore(),
               touchRipple: TouchRippleStore(),
               mirroredText: Modular.get<MirroredTextStore>(),

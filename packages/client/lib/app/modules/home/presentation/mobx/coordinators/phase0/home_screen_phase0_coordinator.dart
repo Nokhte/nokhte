@@ -1,8 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// import 'dart:async';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/constants/screens.dart';
 import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -16,8 +15,7 @@ class HomeScreenPhase0Coordinator = _HomeScreenPhase0CoordinatorBase
 
 abstract class _HomeScreenPhase0CoordinatorBase
     extends BaseHomeScreenRouterCoordinator with Store {
-  final DeleteUnconsecratedCollaborationsCoordinator
-      deleteUnconsecratedCollaborations;
+  final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
   final HomeScreenPhase0WidgetsCoordinator widgets;
   final CollaborationLogicCoordinator collaborationLogic;
   final IdentifyUser identifyUser;
@@ -29,7 +27,7 @@ abstract class _HomeScreenPhase0CoordinatorBase
   setIsConnected(bool newVal) => isConnected = newVal;
 
   _HomeScreenPhase0CoordinatorBase({
-    required this.deleteUnconsecratedCollaborations,
+    required this.cleanUpCollaborationArtifacts,
     required super.getUserInfo,
     required this.collaborationLogic,
     required this.widgets,
@@ -43,7 +41,7 @@ abstract class _HomeScreenPhase0CoordinatorBase
     initReactors();
     await identifyUser(NoParams());
     await captureScreen(Screens.homePhase0);
-    await deleteUnconsecratedCollaborations(NoParams());
+    await cleanUpCollaborationArtifacts(NoParams());
     if (isConnected) {
       await decideAndRoute(setParams);
     }
