@@ -7,7 +7,6 @@ import 'presentation/presentation.dart';
 
 class NotesPhoneNokhteSessionWidgetsModule extends Module {
   @override
-  @override
   List<Module> get imports => [
         MirroredTextModule(),
         WifiDisconnectOverlayModule(),
@@ -24,7 +23,7 @@ class NotesPhoneNokhteSessionWidgetsModule extends Module {
     );
     i.add<IrlNokhteSessionNotesWidgetsCoordinator>(
       () => IrlNokhteSessionNotesWidgetsCoordinator(
-        throwingStone: ThrowingStoneStore(),
+        smartText: SmartTextStore(),
         touchRipple: TouchRippleStore(),
         textEditor: TextEditorStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
