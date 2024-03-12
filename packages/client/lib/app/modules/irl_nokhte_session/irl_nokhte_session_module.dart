@@ -4,6 +4,8 @@ import 'package:nokhte/app/core/modules/gyroscopic/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog_module.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
+import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information_module.dart';
 import 'package:nokhte/app/core/widgets/modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'notes_phone/notes_phone.dart';
@@ -21,6 +23,7 @@ class IrlNokhteSessionModule extends Module {
         IrlNokhteSessionPresenceModule(),
         GesturesModule(),
         GyroscopicModule(),
+        UserInformationModule(),
       ];
 
   @override
@@ -69,6 +72,16 @@ class IrlNokhteSessionModule extends Module {
           presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
           swipe: Modular.get<SwipeDetector>()),
     );
+    i.add<IrlNokhteSessionPhase3Coordinator>(
+      () => IrlNokhteSessionPhase3Coordinator(
+        decidePhoneRoleLogic: Modular.get<DecidePhoneRole>(),
+        getUserInfo: Modular.get<GetUserInfoStore>(),
+        swipe: Modular.get<SwipeDetector>(),
+        widgets: Modular.get<IrlNokhteSessionPhase3WidgetsCoordinator>(),
+        presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+      ),
+    );
   }
 
   @override
@@ -108,6 +121,13 @@ class IrlNokhteSessionModule extends Module {
       '/notes',
       child: (context) => IrlNokhteSessionNotesScreen(
         coordinator: Modular.get<IrlNokhteSessionNotesCoordinator>(),
+      ),
+    );
+    r.child(
+      transition: TransitionType.noTransition,
+      '/exit',
+      child: (context) => IrlNokhteSessionPhase3Screen(
+        coordinator: Modular.get<IrlNokhteSessionPhase3Coordinator>(),
       ),
     );
   }
