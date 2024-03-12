@@ -16,7 +16,7 @@ class CleanUpCollaborationArtifactsContractImpl
       {required this.remoteSource, required this.networkInfo});
 
   @override
-  deleteIrlActiveNokhteSession(NoParams params) async {
+  cleanUpNokhteSession(NoParams params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.deleteIrlActiveNokhteSession();
       return Right(fromSupabase(res));
