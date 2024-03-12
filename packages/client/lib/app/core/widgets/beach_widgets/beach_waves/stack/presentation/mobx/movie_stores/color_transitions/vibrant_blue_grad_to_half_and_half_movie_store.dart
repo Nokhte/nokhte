@@ -26,4 +26,10 @@ abstract class _VibrantBlueGradToHalfAndHalfMovieStoreBase
   initMovie(NoParams params) {
     control = Control.playFromStart;
   }
+
+  @override
+  @action
+  reverseMovie(params) {
+    control = Control.playReverseFromEnd;
+  }
 }
