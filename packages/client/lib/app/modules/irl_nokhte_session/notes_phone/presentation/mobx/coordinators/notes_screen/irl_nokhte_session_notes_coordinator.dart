@@ -85,9 +85,12 @@ abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
 
   collaboratorPhaseReactor() => reaction(
         (p0) => sessionMetadata.collaboratorPhase,
-        (p0) {
+        (p0) async {
           if (sessionMetadata.canExitTheSession) {
-            // widgets.onExit();
+            if (widgets.textEditor.controller.text.isNotEmpty) {
+              await onSwipeUp(widgets.textEditor.controller.text);
+            }
+            widgets.onExit();
           }
         },
       );
