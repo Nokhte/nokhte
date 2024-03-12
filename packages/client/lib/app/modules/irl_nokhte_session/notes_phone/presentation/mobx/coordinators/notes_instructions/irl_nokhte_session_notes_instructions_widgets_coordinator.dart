@@ -80,7 +80,6 @@ abstract class _IrlNokhteSessionNotesInstructionsWidgetsCoordinatorBase
           mirroredText.startBothRotatingText(isResuming: true);
           if (isLastTap) {
             await onFlowFinished();
-            print("onFlowFinished!!");
           }
         }
         tapCount++;
