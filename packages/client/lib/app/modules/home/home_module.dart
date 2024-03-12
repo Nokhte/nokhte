@@ -1,8 +1,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/deep_links/deep_links_module.dart';
 import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/delete_unconsecrated_collaborations_module.dart';
-import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts_module.dart';
+import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity_module.dart';
 import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog_module.dart';
@@ -21,7 +21,7 @@ class HomeModule extends Module {
         HomeWidgetsModule(),
         GesturesModule(),
         CollaborationLogicModule(),
-        DeleteUnconsecratedCollaborationsModule(),
+        CleanUpCollaborationArtifactsModule(),
         UserInformationModule(),
         DeepLinksModule(),
         LegacyConnectivityModule(),

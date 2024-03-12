@@ -1,1 +1,0 @@
-export "./delete_unconsecrated_collaborations_coordinator.dart";

@@ -2,7 +2,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/domain/domain.dart';
+import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/domain/domain.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
 part 'delete_unconsecrated_collaborations_coordinator.g.dart';
 

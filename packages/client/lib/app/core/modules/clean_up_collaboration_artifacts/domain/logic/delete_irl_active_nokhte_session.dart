@@ -1,9 +1,9 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/domain/domain.dart';
+import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/domain/domain.dart';
 
 class DeleteIrlActiveNokhteSession
     implements AbstractFutureLogic<bool, NoParams> {
-  final DeleteUnconsecratedCollaborationsContract contract;
+  final CleanUpCollaborationArtifactsContract contract;
 
   DeleteIrlActiveNokhteSession({required this.contract});
 
