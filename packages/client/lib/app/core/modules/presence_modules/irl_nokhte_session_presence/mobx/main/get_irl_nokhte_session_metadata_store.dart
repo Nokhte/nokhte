@@ -13,11 +13,17 @@ abstract class _GetIrlNokhteSessionMetadataStoreBase
   _GetIrlNokhteSessionMetadataStoreBase({required super.logic});
 
   @computed
-  bool get canMoveIntoInstructions =>
-      userPhase == 1.0 && collaboratorPhase == 1.0;
+  bool get canMoveIntoInstructions => userPhase == 1 && collaboratorPhase == 1;
 
   @computed
-  bool get canMoveIntoSession => userPhase == 2.0 && collaboratorPhase == 2.0;
+  bool get canMoveIntoSession => userPhase == 2 && collaboratorPhase == 2;
+
+  @computed
+  bool get canExitTheSession => userPhase == 3 && collaboratorPhase == 3;
+
+  @computed
+  bool get canMoveIntoSecondInstructionsSet =>
+      userPhase == 1 && collaboratorPhase == 2;
 
   @action
   Future<void> get(params) async {
@@ -31,9 +37,7 @@ abstract class _GetIrlNokhteSessionMetadataStoreBase
         sessionMetadata = ObservableStream(stream);
         streamSubscription = sessionMetadata.listen((value) {
           userIsOnline = value.userIsOnline;
-          userIsTalking = value.userIsTalking;
           collaboratorIsOnline = value.collaboratorIsOnline;
-          collaboratorIsTalking = value.collaboratorIsTalking;
           userPhase = value.userPhase;
           collaboratorPhase = value.collaboratorPhase;
         });

@@ -43,15 +43,12 @@ class ActiveIrlNokhteSessionsStream extends ActiveIrlNokhteSessionQueries
         await computeCollaboratorInformation();
         final isOnlineList = event.first[IS_ONLINE];
         final phasesList = event.first[CURRENT_PHASES];
-        final speakerSpotlight = event.first[SPEAKER_SPOTLIGHT];
         yield IrlNokhteSessionMetadata(
           userIsOnline: isOnlineList[userIndex],
           collaboratorIsOnline: isOnlineList[collaboratorIndex],
           userPhase: double.parse(phasesList[userIndex].toString()),
           collaboratorPhase:
               double.parse(phasesList[collaboratorIndex].toString()),
-          collaboratorIsTalking: speakerSpotlight == collaboratorUID,
-          userIsTalking: speakerSpotlight == userUID,
         );
       }
     }

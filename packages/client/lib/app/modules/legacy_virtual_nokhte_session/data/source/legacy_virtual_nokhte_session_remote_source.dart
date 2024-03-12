@@ -18,8 +18,7 @@ class LegacyVirtualNokhteSessionRemoteSourceImpl
   }) : queries = ActiveIrlNokhteSessionQueries(supabase: supabase);
 
   @override
-  checkifUserHasTheQuestion() async =>
-      await queries.checkIfUserHasTheQuestion();
+  checkifUserHasTheQuestion() async => false;
 
   @override
   Future<List> changeDesireToLeave(params) async {

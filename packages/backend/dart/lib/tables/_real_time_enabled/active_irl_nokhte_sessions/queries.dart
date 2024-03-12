@@ -49,7 +49,6 @@ class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
   Future _getProperty(String property) async =>
       (await select()).first[property];
 
-  Future<String> getMeetingUID() async => await _getProperty(MEETING_UID);
   Future<String> getCollaboratorOne() async =>
       (await _getProperty(COLLABORATOR_UIDS))[0];
   Future<String> getCollaboratorTwo() async =>
@@ -60,8 +59,7 @@ class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
   Future<List> getCurrentPhases() async => await _getProperty(CURRENT_PHASES);
   Future<String> getCreatedAt() async => await _getProperty(CREATED_AT);
   Future<int> getMetadataIndex() async => await _getProperty(METADATA_INDEX);
-  Future<List> getSessionMetadata() async =>
-      await _getProperty(SESSION_METADATA);
+  Future<List> getContent() async => await _getProperty(CONTENT);
 
   Future<List> updateOnlineStatus(
     bool isOnlineParam, {
@@ -91,116 +89,27 @@ class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
     }));
   }
 
-  Future<List> setUserAsTheCurrentTalker() async {
+  addContent(String content) async {
     await computeCollaboratorInformation();
-    final currentSpeaker = await getSpeakerSpotlight();
-    if (currentSpeaker == null) {
-      return await _onCurrentActiveNokhteSession(
-        supabase.from(TABLE).update({
-          SPEAKER_SPOTLIGHT: userUID,
-        }),
-      );
-    } else {
-      return [];
-    }
-  }
-
-  Future<List> clearTheCurrentTalker() async {
-    await computeCollaboratorInformation();
-    final currentSpeaker = await getSpeakerSpotlight();
-    if (currentSpeaker == userUID) {
-      return await _onCurrentActiveNokhteSession(
-          supabase.from(TABLE).update({SPEAKER_SPOTLIGHT: null}));
-    } else {
-      return [];
-    }
-  }
-
-  Future<bool> checkIfUserHasTheQuestion() async {
-    await computeCollaboratorInformation();
-    final meetingUID = await getMeetingUID();
-    return meetingUID == userUID;
-  }
-
-  Future<String> composePath(String audioID) async {
-    await computeCollaboratorInformation();
-    if (timestamp.isEmpty) {
-      timestamp = await getCreatedAt();
-    }
-    return '${collaboratorOneUID}_$collaboratorTwoUID/$timestamp/$audioID.wav';
-  }
-
-  Future<List> incrementMetadataIndex() async {
-    await computeCollaboratorInformation();
-    final currentMetadataIndex = await getMetadataIndex();
+    final currentContent = await getContent();
+    currentContent.add(content);
     return await _onCurrentActiveNokhteSession(
       supabase.from(TABLE).update({
-        METADATA_INDEX: currentMetadataIndex + 1,
+        CONTENT: currentContent,
       }),
     );
   }
 
-  addNewAudioClipToSessionMetadata(String newAudioID) async {
-    await computeCollaboratorInformation();
-    final currentSessionMetadata = await getSessionMetadata();
-    currentSessionMetadata.add({
-      'audioID': newAudioID,
-      'content': '',
-    });
-    if (currentSessionMetadata.length > 1) {
-      await incrementMetadataIndex();
-    }
-    return await _onCurrentActiveNokhteSession(
-      supabase.from(TABLE).update(
-        {
-          SESSION_METADATA: currentSessionMetadata,
-        },
-      ),
-    );
-  }
-
-  updateCurrentMetadataIndexContent(String newContent) async {
-    await computeCollaboratorInformation();
-    final currentMetadataIndex = await getMetadataIndex();
-    final currentSessionMetadata = await getSessionMetadata();
-    currentSessionMetadata[currentMetadataIndex]['content'] = newContent;
-    return await _onCurrentActiveNokhteSession(
-      supabase.from(TABLE).update(
-        {
-          SESSION_METADATA: currentSessionMetadata,
-        },
-      ),
-    );
-  }
-
-  getAudioIds() async {
-    final sessionMetadata = await getSessionMetadata();
-    final List<String> audioIDs = [];
-    for (int i = 0; i < sessionMetadata.length; i++) {
-      audioIDs.add(sessionMetadata[i]['audioID']);
-    }
-    return audioIDs;
-  }
-
-  getAudioIdPaths() async {
-    final List<String> audioPathsList = [];
-    final audioIds = await getAudioIds();
-    for (int i = 0; i < audioIds.length; i++) {
-      final fullPath = await composePath(audioIds[i]);
-      audioPathsList.add(fullPath);
-    }
-    return audioPathsList;
-  }
-
-  completeSession() async {
-    final sessionMetadata = await getSessionMetadata();
+  completeTheSession() async {
+    final content = await getContent();
     final sessionTimestamp = await getCreatedAt();
-    await supabase.from(FinishedNokhteSessionQueries.TABLE).insert({
+    final res = await supabase.from(FinishedNokhteSessionQueries.TABLE).insert({
       FinishedNokhteSessionQueries.COLLABORATOR_UIDS: collaboratorUIDs,
-      FinishedNokhteSessionQueries.SESSION_METADATA: sessionMetadata,
+      FinishedNokhteSessionQueries.CONTENT: content,
       FinishedNokhteSessionQueries.SESSION_TIMESTAMP: sessionTimestamp,
-    });
+    }).select();
     await delete();
+    return res;
   }
 
   _onCurrentActiveNokhteSession(PostgrestFilterBuilder query) async {

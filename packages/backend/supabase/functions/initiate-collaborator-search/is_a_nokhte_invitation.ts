@@ -34,13 +34,11 @@ async function isANokhteInvitation(queryUID: string, mostRecentEntrant: any) {
         uids.sort();
         await supabaseAdmin.from("active_irl_nokhte_sessions").insert({
           collaborator_uids: uids,
-          meeting_uid: meetingUID,
         });
       } else {
         await supabaseAdmin.from("active_irl_nokhte_sessions").insert({
           collaboration_uids:
             checkForExistingSessionsRes.data?.[0]["collaborator_uids"],
-          meeting_uid: meetingUID,
         });
       }
       await supabaseAdmin
