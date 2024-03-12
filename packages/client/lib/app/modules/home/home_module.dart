@@ -33,8 +33,8 @@ class HomeModule extends Module {
       () => HomeScreenPhase0Coordinator(
         captureScreen: Modular.get<CaptureScreen>(),
         identifyUser: Modular.get<IdentifyUser>(),
-        deleteUnconsecratedCollaborations:
-            Modular.get<DeleteUnconsecratedCollaborationsCoordinator>(),
+        cleanUpCollaborationArtifacts:
+            Modular.get<CleanUpCollaborationArtifactsCoordinator>(),
         getUserInfo: Modular.get<GetUserInfoStore>(),
         collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
         widgets: Modular.get<HomeScreenPhase0WidgetsCoordinator>(),

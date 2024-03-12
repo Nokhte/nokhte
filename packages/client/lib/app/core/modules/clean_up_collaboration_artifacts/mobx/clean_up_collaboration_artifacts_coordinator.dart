@@ -4,19 +4,19 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/domain/domain.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
-part 'delete_unconsecrated_collaborations_coordinator.g.dart';
+part 'clean_up_collaboration_artifacts_coordinator.g.dart';
 
-class DeleteUnconsecratedCollaborationsCoordinator = _DeleteUnconsecratedCollaborationsCoordinatorBase
-    with _$DeleteUnconsecratedCollaborationsCoordinator;
+class CleanUpCollaborationArtifactsCoordinator = _CleanUpCollaborationArtifactsCoordinatorBase
+    with _$CleanUpCollaborationArtifactsCoordinator;
 
-abstract class _DeleteUnconsecratedCollaborationsCoordinatorBase
+abstract class _CleanUpCollaborationArtifactsCoordinatorBase
     extends BaseMobxDBStore<NoParams, bool> with Store {
   final CollaborationLogicCoordinator collaborationLogicCoordinator;
-  final DeleteIrlActiveNokhteSession deleteIrlActiveNokhteSession;
+  final CleanUpNokhteSession cleanUpNokhteSession;
 
-  _DeleteUnconsecratedCollaborationsCoordinatorBase({
+  _CleanUpCollaborationArtifactsCoordinatorBase({
     required this.collaborationLogicCoordinator,
-    required this.deleteIrlActiveNokhteSession,
+    required this.cleanUpNokhteSession,
   });
 
   @override
@@ -24,7 +24,7 @@ abstract class _DeleteUnconsecratedCollaborationsCoordinatorBase
   Future<void> call(NoParams params) async {
     state = StoreState.loading;
     await collaborationLogicCoordinator.exit();
-    await deleteIrlActiveNokhteSession(NoParams());
+    await cleanUpNokhteSession(NoParams());
     state = StoreState.loaded;
   }
 }

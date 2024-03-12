@@ -1,1 +1,1 @@
-export "delete_unconsecrated_collaborations_coordinator.dart";
+export "clean_up_collaboration_artifacts_coordinator.dart";

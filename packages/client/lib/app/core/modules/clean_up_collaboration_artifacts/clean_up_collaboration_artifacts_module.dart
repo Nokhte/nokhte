@@ -26,16 +26,15 @@ class CleanUpCollaborationArtifactsModule extends Module {
         networkInfo: Modular.get<NetworkInfoImpl>(),
       ),
     );
-    i.add<DeleteIrlActiveNokhteSession>(
-      () => DeleteIrlActiveNokhteSession(
+    i.add<CleanUpNokhteSession>(
+      () => CleanUpNokhteSession(
         contract: Modular.get<CleanUpCollaborationArtifactsContractImpl>(),
       ),
     );
-    i.add<DeleteUnconsecratedCollaborationsCoordinator>(
-      () => DeleteUnconsecratedCollaborationsCoordinator(
+    i.add<CleanUpCollaborationArtifactsCoordinator>(
+      () => CleanUpCollaborationArtifactsCoordinator(
         collaborationLogicCoordinator: i<CollaborationLogicCoordinator>(),
-        deleteIrlActiveNokhteSession:
-            Modular.get<DeleteIrlActiveNokhteSession>(),
+        cleanUpNokhteSession: Modular.get<CleanUpNokhteSession>(),
       ),
     );
   }

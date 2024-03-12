@@ -1,2 +1,2 @@
 export 'logic/logic.dart';
-export 'contracts/delete_unconsecrated_collaborations_contract.dart';
+export 'contracts/clean_up_collaboration_artifacts_contract.dart';
