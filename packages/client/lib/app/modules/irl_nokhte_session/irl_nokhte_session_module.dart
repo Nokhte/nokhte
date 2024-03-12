@@ -1,4 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic_module.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog_module.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
@@ -18,6 +20,7 @@ class IrlNokhteSessionModule extends Module {
         PosthogModule(),
         IrlNokhteSessionPresenceModule(),
         GesturesModule(),
+        GyroscopicModule(),
       ];
 
   @override
@@ -42,6 +45,7 @@ class IrlNokhteSessionModule extends Module {
     );
     i.add<IrlNokhteSessionSpeakingCoordinator>(
       () => IrlNokhteSessionSpeakingCoordinator(
+          getTiltStream: Modular.get<GetTiltStreamStore>(),
           captureScreen: Modular.get<CaptureScreen>(),
           widgets: Modular.get<IrlNokhteSessionSpeakingWidgetsCoordinator>(),
           presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
@@ -59,6 +63,7 @@ class IrlNokhteSessionModule extends Module {
     );
     i.add<IrlNokhteSessionNotesCoordinator>(
       () => IrlNokhteSessionNotesCoordinator(
+          getTiltStream: Modular.get<GetTiltStreamStore>(),
           captureScreen: Modular.get<CaptureScreen>(),
           widgets: Modular.get<IrlNokhteSessionNotesWidgetsCoordinator>(),
           presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
