@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:nokhte/app/core/hooks/hooks.dart';
+import 'package:nokhte/app/core/types/seconds.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/irl_nokhte_session/notes_phone/notes_phone.dart';
 
@@ -31,6 +33,13 @@ class IrlNokhteSessionNotesScreen extends HookWidget {
             FullScreen(
               child: BeachWaves(
                 store: coordinator.widgets.beachWaves,
+              ),
+            ),
+            Center(
+              child: SmartText(
+                store: coordinator.widgets.smartText,
+                topPadding: useFullScreenSize().height * .8,
+                opacityDuration: Seconds.get(1),
               ),
             ),
             Center(
