@@ -4,7 +4,6 @@ import 'dart:async';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/data/tilt/tilt.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/domain/domain.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
 part 'get_tilt_stream_store.g.dart';
