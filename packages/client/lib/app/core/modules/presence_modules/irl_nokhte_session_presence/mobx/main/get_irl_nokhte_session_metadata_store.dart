@@ -34,9 +34,7 @@ abstract class _GetIrlNokhteSessionMetadataStoreBase
         sessionMetadata = ObservableStream(stream);
         streamSubscription = sessionMetadata.listen((value) {
           userIsOnline = value.userIsOnline;
-          userIsTalking = value.userIsTalking;
           collaboratorIsOnline = value.collaboratorIsOnline;
-          collaboratorIsTalking = value.collaboratorIsTalking;
           userPhase = value.userPhase;
           collaboratorPhase = value.collaboratorPhase;
         });
