@@ -382,7 +382,7 @@ class MessagesData {
         pauseHere: true,
       ),
       RotatingTextData(
-        mainMessage: "To complete the session swipe down on both phones",
+        mainMessage: "To complete the session pick up both phones",
         pauseHere: true,
         mainMessageFontSize: 22.0,
       ),
@@ -437,6 +437,21 @@ class MessagesData {
   static List<RotatingTextData> get notesSessionPrimaryList => [
         RotatingTextData(
           mainMessage: "Swipe up to submit",
+          pauseHere: true,
+          mainMessageFontSize: 22.0,
+        ),
+      ];
+
+  static List<RotatingTextData> get nokhteSessionExitScreenTopText => [
+        RotatingTextData(
+          mainMessage: "Swipe up to Exit",
+          pauseHere: true,
+          mainMessageFontSize: 22.0,
+        ),
+      ];
+  static List<RotatingTextData> get nokhteSessionExitScreenBottom => [
+        RotatingTextData(
+          mainMessage: "Swipe down to continue",
           pauseHere: true,
           mainMessageFontSize: 22.0,
         ),
