@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
 
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
@@ -60,9 +61,16 @@ abstract class _IrlNokhteSessionNotesInstructionsCoordinatorBase
         }
       },
     );
+    rippleCompletionStatusReactor();
   }
 
-  // ok so the tap protocol is basically
+  rippleCompletionStatusReactor() =>
+      reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished &&
+            presence.getSessionMetadataStore.canMoveIntoSession) {
+          Modular.to.navigate('/irl_nokhte_session/notes');
+        }
+      });
 
   @action
   onInactive() async {
@@ -84,7 +92,6 @@ abstract class _IrlNokhteSessionNotesInstructionsCoordinatorBase
         (p0) {
           if (sessionMetadata.canMoveIntoSecondInstructionsSet) {
             widgets.onInstructionModeUnlocked();
-            // widgets.mirroredText.startBothRotatingText(isResuming: true);
           }
         },
       );

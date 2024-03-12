@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -50,7 +49,6 @@ abstract class _IrlNokhteSessionNotesInstructionsWidgetsCoordinatorBase
     );
     mirroredText.startBothRotatingText();
     setDisableTouchInput(true);
-    upsideDownTextIndexReactor();
   }
 
   @action
@@ -92,13 +90,6 @@ abstract class _IrlNokhteSessionNotesInstructionsWidgetsCoordinatorBase
     mirroredText.startBothRotatingText(isResuming: true);
     setDisableTouchInput(false);
   }
-
-  upsideDownTextIndexReactor() =>
-      reaction((p0) => mirroredText.primaryUpsideDownText.currentIndex, (p0) {
-        if (p0 == 5) {
-          Modular.to.navigate("/irl_nokhte_session/notes");
-        }
-      });
 
   @computed
   bool get hasTappedOnTheRightSide =>
