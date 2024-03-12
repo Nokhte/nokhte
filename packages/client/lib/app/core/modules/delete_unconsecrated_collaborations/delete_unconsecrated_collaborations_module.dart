@@ -33,9 +33,8 @@ class DeleteUnconsecratedCollaborationsModule extends Module {
     );
     i.add<DeleteUnconsecratedCollaborationsCoordinator>(
       () => DeleteUnconsecratedCollaborationsCoordinator(
-        collaborationLogicCoordinator:
-            Modular.get<CollaborationLogicCoordinator>(),
-        deleteIrlActiveNokTheSession:
+        collaborationLogicCoordinator: i<CollaborationLogicCoordinator>(),
+        deleteIrlActiveNokhteSession:
             Modular.get<DeleteIrlActiveNokhteSession>(),
       ),
     );
