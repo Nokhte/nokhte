@@ -6,7 +6,7 @@ class FinishedNokhteSessionQueries {
   static const TABLE = 'finished_nokhte_sessions';
   static const COLLABORATOR_UIDS = 'collaborator_uids';
   static const SESSION_TIMESTAMP = 'session_timestamp';
-  static const SESSION_METADATA = 'session_metadata';
+  static const CONTENT = 'content';
 
   final SupabaseClient supabase;
   final String userUID;
@@ -16,12 +16,12 @@ class FinishedNokhteSessionQueries {
 
   Future<List> insert({
     required List<String> collaboratorUIDs,
-    required List<Map> sessionMetadata,
+    required List<String> sessionContent,
     required String sessionTimestamp,
   }) async =>
       await supabase.from(TABLE).insert({
         COLLABORATOR_UIDS: collaboratorUIDs,
-        SESSION_METADATA: sessionMetadata,
+        CONTENT: sessionContent,
         SESSION_TIMESTAMP: sessionTimestamp,
       }).select();
 
@@ -33,25 +33,5 @@ class FinishedNokhteSessionQueries {
         .from(TABLE)
         .select()
         .eq(COLLABORATOR_UIDS, sortedCollaboratorUIDs);
-  }
-
-  Future<List<String>> getAudioPathsFromSession(
-      String collaboratorUID, int sessionIndex) async {
-    final sessions = await selectByCollaborationId(collaboratorUID);
-    if (sessions.isEmpty) {
-      return [];
-    } else {
-      final List<String> paths = [];
-      final session = sessions[sessionIndex];
-      final collaboratorIDs = session[COLLABORATOR_UIDS].join('_');
-      final sessionTimestamp = session[SESSION_TIMESTAMP];
-      final sessionMetadata = session[SESSION_METADATA];
-      for (int i = 0; i < sessionMetadata.length; i++) {
-        paths.add(
-          '$collaboratorIDs/$sessionTimestamp/${sessionMetadata[i]["audioID"]}.wav',
-        );
-      }
-      return paths;
-    }
   }
 }

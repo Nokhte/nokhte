@@ -45,9 +45,7 @@ void main() {
     final timeStamp = await user1ActiveQueries.getCreatedAt();
     await user1FinishedQueries.insert(
       collaboratorUIDs: sorted,
-      sessionMetadata: [
-        {"audioID": "s1t1", "content": "s1t1"},
-      ],
+      sessionContent: ["audioID", "s1t1", "content", "s1t1"],
       sessionTimestamp: timeStamp,
     );
     final file = File('${Directory.current.path}/test/assets/star_wars.wav');
