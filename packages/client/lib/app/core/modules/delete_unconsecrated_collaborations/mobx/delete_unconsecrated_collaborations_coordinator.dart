@@ -12,11 +12,11 @@ class DeleteUnconsecratedCollaborationsCoordinator = _DeleteUnconsecratedCollabo
 abstract class _DeleteUnconsecratedCollaborationsCoordinatorBase
     extends BaseMobxDBStore<NoParams, bool> with Store {
   final CollaborationLogicCoordinator collaborationLogicCoordinator;
-  final DeleteIrlActiveNokhteSession deleteIrlActiveNokTheSession;
+  final DeleteIrlActiveNokhteSession deleteIrlActiveNokhteSession;
 
   _DeleteUnconsecratedCollaborationsCoordinatorBase({
     required this.collaborationLogicCoordinator,
-    required this.deleteIrlActiveNokTheSession,
+    required this.deleteIrlActiveNokhteSession,
   });
 
   @override
@@ -24,7 +24,7 @@ abstract class _DeleteUnconsecratedCollaborationsCoordinatorBase
   Future<void> call(NoParams params) async {
     state = StoreState.loading;
     await collaborationLogicCoordinator.exit();
-    await deleteIrlActiveNokTheSession(NoParams());
+    await deleteIrlActiveNokhteSession(NoParams());
     state = StoreState.loaded;
   }
 }
