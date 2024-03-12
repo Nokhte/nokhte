@@ -19,6 +19,9 @@ abstract class _GetIrlNokhteSessionMetadataStoreBase
   bool get canMoveIntoSession => userPhase == 2 && collaboratorPhase == 2;
 
   @computed
+  bool get canExitTheSession => userPhase == 3 && collaboratorPhase == 3;
+
+  @computed
   bool get canMoveIntoSecondInstructionsSet =>
       userPhase == 1 && collaboratorPhase == 2;
 
