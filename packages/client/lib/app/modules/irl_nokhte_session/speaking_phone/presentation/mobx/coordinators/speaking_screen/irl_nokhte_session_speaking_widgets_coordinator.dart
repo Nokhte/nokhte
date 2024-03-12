@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -63,6 +64,10 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
             beachWaves.movieMode ==
                 BeachWaveMovieModes.dynamicPointToHalfAndHalf) {
           onReturnComplete();
+        } else if (p0 == MovieStatus.finished &&
+            beachWaves.movieMode ==
+                BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf) {
+          Modular.to.navigate("/irl_nokhte_session/exit");
         }
       });
 
@@ -83,6 +88,13 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
     beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
     beachWaves.currentStore.initMovie(NoParams());
     mirroredText.setWidgetVisibility(false);
+  }
+
+  @action
+  onExit() {
+    mirroredText.setWidgetVisibility(false);
+    beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
+    beachWaves.currentStore.reverseMovie(NoParams());
   }
 
   @action

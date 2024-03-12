@@ -100,8 +100,7 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
         (p0) => sessionMetadata.collaboratorPhase,
         (p0) {
           if (sessionMetadata.canExitTheSession) {
-            print("You can exit");
-            // widgets.onExit();
+            widgets.onExit();
           }
         },
       );
