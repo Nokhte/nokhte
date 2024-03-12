@@ -19,7 +19,6 @@ abstract class _IrlNokhteSessionPresenceCoordinatorBase
   final CompleteTheSession completeTheSessionLogic;
 
   _IrlNokhteSessionPresenceCoordinatorBase({
-    required super.updateWhoIsTalkingLogic,
     required super.cancelSessionMetadataStreamLogic,
     required super.updateCurrentPhaseLogic,
     required super.updateOnlineStatusLogic,

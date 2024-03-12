@@ -91,7 +91,7 @@ abstract class _LegacyVirtualNokhteSessionPhase1CoordinatorBase
   onInactive() async {
     await presence
         .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
-    await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
+    // await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
   }
 
   @action
@@ -127,7 +127,7 @@ abstract class _LegacyVirtualNokhteSessionPhase1CoordinatorBase
       },
       onCollaboratorLeft: () async {
         setDisableAllTouchFeedback(true);
-        await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
+        // await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
       },
     );
     collaboratorTalkingStatusReactor();
@@ -150,8 +150,8 @@ abstract class _LegacyVirtualNokhteSessionPhase1CoordinatorBase
               voiceCall.voiceCallStatusStore.inCall == CallStatus.joined &&
               !widgets.isDisconnected &&
               presence.getSessionMetadataStore.collaboratorIsOnline) {
-            await presence
-                .updateWhoIsTalking(UpdateWhoIsTalkingParams.setUserAsTalker);
+            // await presence
+            //     .updateWhoIsTalking(UpdateWhoIsTalkingParams.setUserAsTalker);
           }
         });
       });
@@ -161,7 +161,7 @@ abstract class _LegacyVirtualNokhteSessionPhase1CoordinatorBase
             voiceCall.voiceCallStatusStore.inCall == CallStatus.joined &&
             !widgets.isDisconnected &&
             presence.getSessionMetadataStore.collaboratorIsOnline) {
-          await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
+          // await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
           if (shouldIncrementSpeakerCount) {
             speakerCount++;
           }
@@ -188,7 +188,7 @@ abstract class _LegacyVirtualNokhteSessionPhase1CoordinatorBase
             !widgets.isDisconnected &&
             presence.getSessionMetadataStore.collaboratorIsOnline) {
           hasSwipedUp = true;
-          await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
+          // await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
           await voiceCall.leaveCall();
           widgets.initTransitionToWaiting();
         }

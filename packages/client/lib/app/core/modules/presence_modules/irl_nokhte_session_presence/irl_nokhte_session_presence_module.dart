@@ -81,7 +81,6 @@ class IrlNokhteSessionPresenceModule extends Module {
         updateCurrentPhaseLogic: i<UpdateCurrentPhase>(),
         getSessionMetadataStore: i<GetIrlNokhteSessionMetadataStore>(),
         updateOnlineStatusLogic: i<UpdateOnlineStatus>(),
-        updateWhoIsTalkingLogic: i<UpdateWhoIsTalking>(),
       ),
     );
   }
