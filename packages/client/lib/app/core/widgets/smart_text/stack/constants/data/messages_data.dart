@@ -433,4 +433,12 @@ class MessagesData {
     }
     return arr;
   }
+
+  static List<RotatingTextData> get notesSessionPrimaryList => [
+        RotatingTextData(
+          mainMessage: "Swipe up to submit",
+          pauseHere: true,
+          mainMessageFontSize: 22.0,
+        ),
+      ];
 }
