@@ -101,6 +101,8 @@ class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
   }
 
   Future<List> completeTheSession() async {
+    await computeCollaboratorInformation();
+    if (userIndex == -1) return [];
     final content = await getContent();
     final sessionTimestamp = await getCreatedAt();
     await supabase.from(FinishedNokhteSessionQueries.TABLE).insert({
