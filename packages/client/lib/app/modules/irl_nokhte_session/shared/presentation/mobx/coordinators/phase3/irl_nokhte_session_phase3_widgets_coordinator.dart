@@ -71,7 +71,7 @@ abstract class _IrlNokhteSessionPhase3WidgetsCoordinatorBase
     if (phoneRole == IrlNokhteSessionPhoneRole.talking) {
       beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
       beachWaves.currentStore.initMovie(NoParams());
-    } else {
+    } else if (phoneRole == IrlNokhteSessionPhoneRole.notes) {
       Future.delayed(Seconds.get(1), () {
         Modular.to.navigate('/irl_nokhte_session/notes');
       });
