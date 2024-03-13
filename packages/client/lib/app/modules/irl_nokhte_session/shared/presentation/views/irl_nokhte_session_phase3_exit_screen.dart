@@ -54,6 +54,12 @@ class IrlNokhteSessionPhase3Screen extends HookWidget {
                 opacityDuration: Seconds.get(1),
               ),
             ),
+            Center(
+              child: SmartText(
+                store: coordinator.widgets.tertiarySmartText,
+                opacityDuration: Seconds.get(1),
+              ),
+            ),
             GestureCross(
               config: GestureCrossConfiguration(
                 top: Right(

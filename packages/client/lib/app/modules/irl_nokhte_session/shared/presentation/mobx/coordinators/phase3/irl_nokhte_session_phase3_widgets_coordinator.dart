@@ -19,6 +19,7 @@ abstract class _IrlNokhteSessionPhase3WidgetsCoordinatorBase
   final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
+  final SmartTextStore tertiarySmartText;
   final GestureCrossStore gestureCross;
 
   _IrlNokhteSessionPhase3WidgetsCoordinatorBase({
@@ -26,6 +27,7 @@ abstract class _IrlNokhteSessionPhase3WidgetsCoordinatorBase
     required this.wifiDisconnectOverlay,
     required this.primarySmartText,
     required this.secondarySmartText,
+    required this.tertiarySmartText,
     required this.gestureCross,
   });
 
@@ -40,24 +42,30 @@ abstract class _IrlNokhteSessionPhase3WidgetsCoordinatorBase
     secondarySmartText.setMessagesData(
       MessagesData.nokhteSessionExitScreenBottom,
     );
+    tertiarySmartText.setMessagesData(
+      MessagesData.nokhteSessionExitWaiting,
+    );
     primarySmartText.startRotatingText();
     secondarySmartText.startRotatingText();
   }
 
   @action
-  invisiblizePrimarySmartText() => primarySmartText.setWidgetVisibility(false);
-
-  @action
-  onSwipeUp() {
+  onReadyToGoHome() {
     beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToVibrantBlue);
     beachWaves.currentStore.reverseMovie(NoParams());
-    primarySmartText.setWidgetVisibility(false);
-    secondarySmartText.setWidgetVisibility(false);
+    tertiarySmartText.setWidgetVisibility(false);
     gestureCross.fadeInTheCross();
   }
 
   @action
-  onSwipeDown(IrlNokhteSessionPhoneRole phoneRole) {
+  onSwipeUp() {
+    primarySmartText.setWidgetVisibility(false);
+    secondarySmartText.setWidgetVisibility(false);
+    tertiarySmartText.startRotatingText();
+  }
+
+  @action
+  onReadyToGoBack(IrlNokhteSessionPhoneRole phoneRole) {
     primarySmartText.setWidgetVisibility(false);
     secondarySmartText.setWidgetVisibility(false);
     if (phoneRole == IrlNokhteSessionPhoneRole.talking) {
