@@ -35,6 +35,7 @@ abstract class _IrlNokhteSessionPhase3CoordinatorBase
     widgets.constructor();
     initReactors();
     await getUserInfo(NoParams());
+    await decidePhoneRoleLogic(NoParams());
   }
 
   @action
