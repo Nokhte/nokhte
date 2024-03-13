@@ -100,16 +100,18 @@ class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
     );
   }
 
-  completeTheSession() async {
+  Future<List> completeTheSession() async {
+    await computeCollaboratorInformation();
+    if (userIndex == -1) return [];
     final content = await getContent();
     final sessionTimestamp = await getCreatedAt();
-    final res = await supabase.from(FinishedNokhteSessionQueries.TABLE).insert({
+    await supabase.from(FinishedNokhteSessionQueries.TABLE).insert({
       FinishedNokhteSessionQueries.COLLABORATOR_UIDS: collaboratorUIDs,
       FinishedNokhteSessionQueries.CONTENT: content,
       FinishedNokhteSessionQueries.SESSION_TIMESTAMP: sessionTimestamp,
     }).select();
     await delete();
-    return res;
+    return [];
   }
 
   _onCurrentActiveNokhteSession(PostgrestFilterBuilder query) async {
