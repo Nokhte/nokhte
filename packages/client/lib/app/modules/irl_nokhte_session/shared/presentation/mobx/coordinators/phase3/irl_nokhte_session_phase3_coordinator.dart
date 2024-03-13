@@ -1,7 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // import 'dart:async';
-import 'dart:async';
-
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -89,24 +87,46 @@ abstract class _IrlNokhteSessionPhase3CoordinatorBase
           Modular.to.navigate('/irl_nokhte_session/speaking'),
     );
     swipeReactor();
+    collaboratorPhaseReactor();
+    canReturnHomeReactor();
   }
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.up:
-            ifTouchIsNotDisabled(() {
+            ifTouchIsNotDisabled(() async {
+              await presence.updateCurrentPhase(4.0);
               widgets.onSwipeUp();
               setDisableAllTouchFeedback(true);
             });
           case GestureDirections.down:
-            ifTouchIsNotDisabled(() {
-              widgets.onSwipeDown(phoneRole);
+            ifTouchIsNotDisabled(() async {
+              await presence.updateCurrentPhase(2.0);
               setDisableAllTouchFeedback(true);
             });
           default:
             break;
         }
       });
+
+  collaboratorPhaseReactor() => reaction(
+        (p0) => presence.getSessionMetadataStore.collaboratorPhase,
+        (p0) async {
+          if (p0 == 2.0) {
+            await presence.updateCurrentPhase(2.0);
+            widgets.onReadyToGoBack(phoneRole);
+          }
+        },
+      );
+
+  canReturnHomeReactor() => reaction(
+        (p0) => presence.getSessionMetadataStore.canReturnHome,
+        (p0) async {
+          if (p0) {
+            widgets.onReadyToGoHome();
+          }
+        },
+      );
 
   @computed
   String get pathIntoSession => phoneRole == IrlNokhteSessionPhoneRole.talking
