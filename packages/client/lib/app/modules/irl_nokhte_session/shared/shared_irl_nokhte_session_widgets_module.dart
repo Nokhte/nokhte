@@ -24,6 +24,7 @@ class SharedIrlNokhteSessionWidgetsModule extends Module {
         gestureCross: Modular.get<GestureCrossStore>(),
         primarySmartText: SmartTextStore(),
         secondarySmartText: SmartTextStore(),
+        tertiarySmartText: SmartTextStore(),
         beachWaves: BeachWavesStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
       ),
