@@ -12,7 +12,51 @@ class BeachWavesStore = _BeachWavesStoreBase with _$BeachWavesStore;
 
 abstract class _BeachWavesStoreBase extends Equatable with Store {
   _BeachWavesStoreBase() {
-    movieModeToStoreLookup = BeachWaveMovieModesLookup.lookup;
+    movieModeToStoreLookup = {
+      BeachWaveMovieModes.blackOut: StaticBlackOutMovieStore(),
+      BeachWaveMovieModes.blackOutToDrySand: BlackOutToDrySandMovieStore(),
+      BeachWaveMovieModes.drySandToVibrantBlueGrad:
+          DrySandToVibrantBlueGradMovieStore(),
+      BeachWaveMovieModes.halfAndHalfToDrySand:
+          HalfAndHalfToDrySandMovieStore(),
+      BeachWaveMovieModes.depthsToTimesUpStart:
+          DepthsToTimesUpStartMovieStore(),
+      BeachWaveMovieModes.dynamicPointToHalfAndHalf:
+          DynamicPointToHalfAndHalfMovieStore(),
+      BeachWaveMovieModes.none: BaseBeachWaveMovieStore(),
+      BeachWaveMovieModes.oceanDiveToOnShore: OceanDiveToOnShoreMovieStore(),
+      BeachWaveMovieModes.oceanDiveToTimesUp:
+          OceanDiveToTimesUpStartMovieStore(),
+      BeachWaveMovieModes.oceanDiveToVibrantBlueGradient:
+          OceanDiveToVibrantBlueGradientMovieStore(),
+      BeachWaveMovieModes.onShore: OnShoreMovieStore(),
+      BeachWaveMovieModes.onShoreToOceanDive: OnShoreToOceanDiveMovieStore(),
+      BeachWaveMovieModes.onShoreToVibrantBlue:
+          OnShoreToVibrantBlueMovieStore(),
+      BeachWaveMovieModes.resumeOnShore: ResumeOnShoreMovieStore(),
+      BeachWaveMovieModes.staticHalfAndHalf: StaticHalfAndHalfMovieStore(),
+      BeachWaveMovieModes.staticDepths: StaticDepthsMovieStore(),
+      BeachWaveMovieModes.staticOceanDive: StaticOceanDiveStore(),
+      BeachWaveMovieModes.timesUp: TimesUpMovieStore(),
+      BeachWaveMovieModes.timesUpDynamicPointToTheDepths:
+          TimesUpDynamicPointToTheDepthsMovieStore(),
+      BeachWaveMovieModes.timesUpDynamicPointToTimesUpStart:
+          TimesUpDynamicPointToTimesUpStartMovieStore(),
+      BeachWaveMovieModes.timesUpEndToOceanDive:
+          TimesUpEndToOceanDiveMovieStore(),
+      BeachWaveMovieModes.timesUpEndToTheDepths:
+          TimesUpEndToOceanDiveMovieStore(),
+      BeachWaveMovieModes.timesUpEndToTimesUpStart:
+          TimesUpEndToTimesUpStartMovieStore(),
+      BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf:
+          VibrantBlueGradToHalfAndHalfMovieStore(),
+      BeachWaveMovieModes.vibrantBlueGradientToTimesUp:
+          VibrantBlueGradientToTimesUpMovieStore(),
+      BeachWaveMovieModes.waterFromTopToOnShorePt1:
+          WaterFromTopToOnShoreMoviePart1Store(),
+      BeachWaveMovieModes.waterFromTopToOnShorePt2:
+          WaterFromTopToOnShoreMoviePart2Store(),
+    };
   }
 
   Map<BeachWaveMovieModes, BaseBeachWaveMovieStore> movieModeToStoreLookup = {};
@@ -88,11 +132,11 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
 
   @computed
   BaseBeachWaveMovieStore get currentStore =>
-      movieModeToStoreLookup[movieMode] ?? BaseBeachWaveMovieStore();
+      movieModeToStoreLookup[movieMode] ?? OnShoreMovieStore();
 
   @computed
   Control get currentControl =>
-      movieModeToStoreLookup[movieMode]?.control ?? Control.stop;
+      movieModeToStoreLookup[movieMode]?.control ?? Control.mirror;
 
   @computed
   bool get shouldPaintSandOnCurrent => currentStore.shouldPaintSand;
