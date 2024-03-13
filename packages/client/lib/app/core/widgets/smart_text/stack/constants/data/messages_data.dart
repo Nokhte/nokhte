@@ -456,4 +456,11 @@ class MessagesData {
           mainMessageFontSize: 22.0,
         ),
       ];
+
+  static List<RotatingTextData> get nokhteSessionExitWaiting => [
+        RotatingTextData(
+          mainMessage: "Waiting",
+          pauseHere: true,
+        ),
+      ];
 }
