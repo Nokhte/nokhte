@@ -34,7 +34,7 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
   constructor() async {
     widgets.constructor();
     initReactors();
-    getTiltStream(NoParams());
+    getTiltStream.listen(NoParams());
   }
 
   initReactors() {
