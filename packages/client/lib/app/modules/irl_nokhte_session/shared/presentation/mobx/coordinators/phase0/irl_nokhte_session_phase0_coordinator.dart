@@ -128,10 +128,7 @@ abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
         (p0) => tap.tapCount,
         (p0) => ifTouchIsNotDisabled(() async {
           widgets.onTap(tap.currentTapPosition);
-          // if (sessionMetadata.userPhase != 1.0) {
-          await presence.updateCurrentPhase(1.0);
-          await presence.updateCurrentPhase(1.0);
-          // }
+          await presence.updateCurrentPhase(1);
         }),
       );
 
