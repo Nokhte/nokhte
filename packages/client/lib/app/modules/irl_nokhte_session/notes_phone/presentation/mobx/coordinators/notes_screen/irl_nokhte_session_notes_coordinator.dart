@@ -87,10 +87,7 @@ abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
         if (!blockPhoneTiltReactor) {
           if (p0 == PhoneHoldingState.isPickedUp) {
             await presence.updateCurrentPhase(3);
-            await presence.updateCurrentPhase(3);
           } else if (p0 == PhoneHoldingState.isDown) {
-            print("put down");
-            await presence.updateCurrentPhase(2);
             await presence.updateCurrentPhase(2);
           }
         }
@@ -99,7 +96,6 @@ abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
   collaboratorPhaseReactor() => reaction(
         (p0) => sessionMetadata.collaboratorPhase,
         (p0) async {
-          print("from notes, are they allowed to exitw/ collabPhase reactor??");
           if (sessionMetadata.canExitTheSession) {
             if (widgets.textEditor.controller.text.isNotEmpty) {
               await onSwipeUp(widgets.textEditor.controller.text);
@@ -114,7 +110,6 @@ abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
   userPhaseReactor() => reaction(
         (p0) => sessionMetadata.userPhase,
         (p0) async {
-          print("from notes, are they allowed to exitw/ userPhase reactor??");
           if (sessionMetadata.canExitTheSession) {
             if (widgets.textEditor.controller.text.isNotEmpty) {
               await onSwipeUp(widgets.textEditor.controller.text);

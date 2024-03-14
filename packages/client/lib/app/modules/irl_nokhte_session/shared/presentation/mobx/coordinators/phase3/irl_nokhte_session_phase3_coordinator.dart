@@ -36,6 +36,7 @@ abstract class _IrlNokhteSessionPhase3CoordinatorBase
     initReactors();
     await getUserInfo(NoParams());
     await decidePhoneRole();
+    await presence.updateCurrentPhase(4.0);
   }
 
   @action
@@ -96,14 +97,13 @@ abstract class _IrlNokhteSessionPhase3CoordinatorBase
         switch (p0) {
           case GestureDirections.up:
             ifTouchIsNotDisabled(() async {
-              await presence.updateCurrentPhase(4.0);
-              await presence.updateCurrentPhase(4.0);
+              await presence.updateCurrentPhase(5.0);
               widgets.onSwipeUp();
               setDisableAllTouchFeedback(true);
             });
           case GestureDirections.down:
             ifTouchIsNotDisabled(() async {
-              await presence.updateCurrentPhase(2.0);
+              await presence.updateCurrentPhase(3.5);
               setDisableAllTouchFeedback(true);
             });
           default:
@@ -114,8 +114,8 @@ abstract class _IrlNokhteSessionPhase3CoordinatorBase
   collaboratorPhaseReactor() => reaction(
         (p0) => presence.getSessionMetadataStore.collaboratorPhase,
         (p0) async {
-          if (p0 == 2.0) {
-            await presence.updateCurrentPhase(2.0);
+          if (p0 == 3.5) {
+            await presence.updateCurrentPhase(3.5);
             widgets.onReadyToGoBack(phoneRole);
           }
         },
