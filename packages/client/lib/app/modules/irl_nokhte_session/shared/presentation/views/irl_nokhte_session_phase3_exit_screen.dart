@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
@@ -61,13 +60,7 @@ class IrlNokhteSessionPhase3Screen extends HookWidget {
               ),
             ),
             GestureCross(
-              config: GestureCrossConfiguration(
-                top: Right(
-                  NokhteGradientConfig(
-                    gradientType: NokhteGradientTypes.vibrantBlue,
-                  ),
-                ),
-              ),
+              config: GestureCrossConfiguration(),
               size: size,
               store: coordinator.widgets.gestureCross,
             ),

@@ -35,7 +35,14 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
     widgets.constructor();
     initReactors();
     getTiltStream.listen(NoParams());
+    setBlockPhoneTiltReactor(false);
   }
+
+  @observable
+  bool blockPhoneTiltReactor = false;
+
+  @action
+  setBlockPhoneTiltReactor(bool newValue) => blockPhoneTiltReactor = newValue;
 
   initReactors() {
     holdReactor();
@@ -67,6 +74,7 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
       },
     );
     phoneTiltStateReactor();
+    userPhaseReactor();
     collaboratorPhaseReactor();
   }
 
@@ -89,18 +97,36 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
 
   phoneTiltStateReactor() =>
       reaction((p0) => getTiltStream.holdingState, (p0) async {
-        if (p0 == PhoneHoldingState.isPickedUp) {
-          await presence.updateCurrentPhase(3);
-        } else if (p0 == PhoneHoldingState.isDown) {
-          await presence.updateCurrentPhase(2);
+        if (!blockPhoneTiltReactor &&
+            sessionMetadata.collaboratorPhase.isGreaterThanOrEqualTo(2)) {
+          if (p0 == PhoneHoldingState.isPickedUp) {
+            await presence.updateCurrentPhase(3);
+            await presence.updateCurrentPhase(3);
+          } else if (p0 == PhoneHoldingState.isDown) {
+            await presence.updateCurrentPhase(2);
+            await presence.updateCurrentPhase(2);
+          }
         }
       });
 
   collaboratorPhaseReactor() => reaction(
         (p0) => sessionMetadata.collaboratorPhase,
-        (p0) {
+        (p0) async {
           if (sessionMetadata.canExitTheSession) {
+            await getTiltStream.dispose();
             widgets.onExit();
+            setBlockPhoneTiltReactor(true);
+          }
+        },
+      );
+
+  userPhaseReactor() => reaction(
+        (p0) => sessionMetadata.userPhase,
+        (p0) async {
+          if (sessionMetadata.canExitTheSession) {
+            await getTiltStream.dispose();
+            widgets.onExit();
+            setBlockPhoneTiltReactor(true);
           }
         },
       );

@@ -35,7 +35,7 @@ abstract class _IrlNokhteSessionPhase3CoordinatorBase
     widgets.constructor();
     initReactors();
     await getUserInfo(NoParams());
-    await decidePhoneRoleLogic(NoParams());
+    await decidePhoneRole();
   }
 
   @action
@@ -97,6 +97,7 @@ abstract class _IrlNokhteSessionPhase3CoordinatorBase
           case GestureDirections.up:
             ifTouchIsNotDisabled(() async {
               await presence.updateCurrentPhase(4.0);
+              await presence.updateCurrentPhase(4.0);
               widgets.onSwipeUp();
               setDisableAllTouchFeedback(true);
             });
@@ -122,7 +123,7 @@ abstract class _IrlNokhteSessionPhase3CoordinatorBase
 
   canReturnHomeReactor() => reaction(
         (p0) => presence.getSessionMetadataStore.canReturnHome,
-        (p0) async {
+        (p0) {
           if (p0) {
             widgets.onReadyToGoHome();
           }

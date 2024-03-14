@@ -34,7 +34,14 @@ abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
     widgets.constructor();
     initReactors();
     getTiltStream.listen(NoParams());
+    setBlockPhoneTiltReactor(false);
   }
+
+  @observable
+  bool blockPhoneTiltReactor = false;
+
+  @action
+  setBlockPhoneTiltReactor(bool newValue) => blockPhoneTiltReactor = newValue;
 
   initReactors() {
     swipeReactor();
@@ -47,6 +54,7 @@ abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
       onLongReConnected: () => setDisableAllTouchFeedback(false),
       onDisconnected: () => setDisableAllTouchFeedback(true),
     );
+    userPhaseReactor();
     touchFeedbackStatusReactor();
     phoneTiltStateReactor();
     collaboratorPhaseReactor();
@@ -76,20 +84,43 @@ abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
 
   phoneTiltStateReactor() =>
       reaction((p0) => getTiltStream.holdingState, (p0) async {
-        if (p0 == PhoneHoldingState.isPickedUp) {
-          await presence.updateCurrentPhase(3);
-        } else if (p0 == PhoneHoldingState.isDown) {
-          await presence.updateCurrentPhase(2);
+        if (!blockPhoneTiltReactor) {
+          if (p0 == PhoneHoldingState.isPickedUp) {
+            await presence.updateCurrentPhase(3);
+            await presence.updateCurrentPhase(3);
+          } else if (p0 == PhoneHoldingState.isDown) {
+            print("put down");
+            await presence.updateCurrentPhase(2);
+            await presence.updateCurrentPhase(2);
+          }
         }
       });
 
   collaboratorPhaseReactor() => reaction(
         (p0) => sessionMetadata.collaboratorPhase,
         (p0) async {
+          print("from notes, are they allowed to exitw/ collabPhase reactor??");
           if (sessionMetadata.canExitTheSession) {
             if (widgets.textEditor.controller.text.isNotEmpty) {
               await onSwipeUp(widgets.textEditor.controller.text);
             }
+            await getTiltStream.dispose();
+            setBlockPhoneTiltReactor(true);
+            widgets.onExit();
+          }
+        },
+      );
+
+  userPhaseReactor() => reaction(
+        (p0) => sessionMetadata.userPhase,
+        (p0) async {
+          print("from notes, are they allowed to exitw/ userPhase reactor??");
+          if (sessionMetadata.canExitTheSession) {
+            if (widgets.textEditor.controller.text.isNotEmpty) {
+              await onSwipeUp(widgets.textEditor.controller.text);
+            }
+            setBlockPhoneTiltReactor(true);
+            await getTiltStream.dispose();
             widgets.onExit();
           }
         },
