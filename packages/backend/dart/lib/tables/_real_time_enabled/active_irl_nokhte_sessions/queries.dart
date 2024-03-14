@@ -80,13 +80,13 @@ class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
     bool shouldEditCollaboratorsInfo = false,
   }) async {
     await computeCollaboratorInformation();
-    final currentPhases = await getCurrentPhases();
-    final indexToEdit =
-        shouldEditCollaboratorsInfo ? collaboratorIndex : userIndex;
-    currentPhases[indexToEdit] = newPhase;
-    return await _onCurrentActiveNokhteSession(supabase.from(TABLE).update({
-      CURRENT_PHASES: currentPhases,
-    }));
+    await supabase.rpc('update_nokhte_session_phase', params: {
+      'incoming_uids': collaboratorUIDs,
+      'index_to_edit':
+          shouldEditCollaboratorsInfo ? collaboratorIndex : userIndex,
+      'new_value': newPhase,
+    });
+    return [];
   }
 
   addContent(String content) async {
