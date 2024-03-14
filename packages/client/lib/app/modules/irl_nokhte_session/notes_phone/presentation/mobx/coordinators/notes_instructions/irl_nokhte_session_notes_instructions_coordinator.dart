@@ -66,8 +66,7 @@ abstract class _IrlNokhteSessionNotesInstructionsCoordinatorBase
 
   rippleCompletionStatusReactor() =>
       reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished &&
-            presence.getSessionMetadataStore.canMoveIntoSession) {
+        if (p0 == MovieStatus.finished && widgets.hasCompletedInstructions) {
           Modular.to.navigate('/irl_nokhte_session/notes');
         }
       });
@@ -102,7 +101,8 @@ abstract class _IrlNokhteSessionNotesInstructionsCoordinatorBase
           () async {
             widgets.onTap(
               tap.currentTapPosition,
-              onFlowFinished: () async => await updateCurrentPhase(),
+              // onFlowFinished: () async => await updateCurrentPhase(),
+              onFlowFinished: () => null,
             );
           },
         ),

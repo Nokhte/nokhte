@@ -122,6 +122,9 @@ abstract class _IrlNokhteSessionNotesInstructionsWidgetsCoordinatorBase
   bool get isLastTap => tapCount == 3;
 
   @computed
+  bool get hasCompletedInstructions => tapCount == 4;
+
+  @computed
   bool get textIsDoneFadingInOrOut =>
       mirroredText.textIsDoneAnimating || isFirstTap;
 }

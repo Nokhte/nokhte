@@ -53,13 +53,15 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
 
   @action
   onSwipeUp(Function(String) onSwipeUp) async {
-    await onSwipeUp(textEditor.controller.text);
-    smartText.setWidgetVisibility(false);
-    textEditor.setWidgetVisibility(false);
-    Future.delayed(Seconds.get(1), () {
-      textEditor.controller.clear();
-      textEditor.setWidgetVisibility(true);
-    });
+    if (textEditor.controller.text.isNotEmpty) {
+      await onSwipeUp(textEditor.controller.text);
+      smartText.setWidgetVisibility(false);
+      textEditor.setWidgetVisibility(false);
+      Future.delayed(Seconds.get(1), () {
+        textEditor.controller.clear();
+        textEditor.setWidgetVisibility(true);
+      });
+    }
   }
 
   @action
