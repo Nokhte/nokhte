@@ -2,6 +2,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:nokhte/app/core/modules/user_information/data/data.dart';
 import 'package:nokhte/app/modules/authentication/data/models/models.dart';
 import 'package:nokhte/app/core/interfaces/auth_providers.dart';
+import 'package:nokhte_backend/tables/finished_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/user_names.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter/foundation.dart';
@@ -16,15 +17,14 @@ abstract class AuthenticationRemoteSource {
   AuthStateModel getAuthState();
   Future<List> addName({String theName = ""});
   Future<List> getUserInfo();
+  Future<List> getFinishedNokhteSessions();
 }
 
 class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
   final SupabaseClient supabase;
-  late UserNamesQueries queries;
   late UserInformationRemoteSourceImpl userInfoRemoteSource;
 
-  AuthenticationRemoteSourceImpl({required this.supabase})
-      : queries = UserNamesQueries(supabase: supabase);
+  AuthenticationRemoteSourceImpl({required this.supabase});
 
   @override
   signInWithGoogle() async {
@@ -60,7 +60,7 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
       idToken: idToken,
       nonce: rawNonce,
     );
-    queries = UserNamesQueries(supabase: supabase);
+    final queries = UserNamesQueries(supabase: supabase);
 
     await queries.insertUserInfo(firstName: firstName, lastName: lastName);
     return AuthProviderModel.fromSupabase(
@@ -76,7 +76,7 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
 
   @override
   addName({String theName = ""}) async {
-    queries = UserNamesQueries(supabase: supabase);
+    final queries = UserNamesQueries(supabase: supabase);
     final List nameCheck = await queries.getUserInfo();
     List insertRes;
     String fullName;
@@ -102,7 +102,13 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
 
   @override
   Future<List> getUserInfo() async {
-    queries = UserNamesQueries(supabase: supabase);
+    final queries = UserNamesQueries(supabase: supabase);
     return await queries.getUserInfo();
+  }
+
+  @override
+  Future<List> getFinishedNokhteSessions() async {
+    final queries = FinishedNokhteSessionQueries(supabase: supabase);
+    return await queries.select();
   }
 }
