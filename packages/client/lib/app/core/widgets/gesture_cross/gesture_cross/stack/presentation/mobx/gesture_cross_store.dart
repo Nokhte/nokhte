@@ -30,7 +30,16 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
 
   @action
   setHomeScreen() {
-    gradientNokhte.setMovie(VibrantBlueGradientNokhteMovie.movie);
+    cross.toggleWidgetVisibility();
+    centerCrossNokhte.toggleWidgetVisibility();
+    Future.delayed(Seconds.get(0, milli: 500), () {
+      strokeCrossNokhte.toggleWidgetVisibility();
+      gradientNokhte.toggleWidgetVisibility();
+    });
+  }
+
+  @action
+  setHomeScreenPhase3() {
     cross.toggleWidgetVisibility();
     centerCrossNokhte.toggleWidgetVisibility();
     Future.delayed(Seconds.get(0, milli: 500), () {
@@ -46,13 +55,10 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
   }
 
   @action
-  setPhase2PurposeSession() {
-    gradientNokhte.setMovie(VibrantBlueGradientNokhteMovie.movie);
-  }
+  setPhase2PurposeSession() {}
 
   @action
   fadeInTheCross() {
-    gradientNokhte.setMovie(VibrantBlueGradientNokhteMovie.movie);
     cross.toggleWidgetVisibility();
     centerCrossNokhte.toggleWidgetVisibility();
   }
@@ -89,7 +95,6 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
 
   @action
   setCollaborationHomeScreen() {
-    gradientNokhte.setMovie(WaterGradientNokhteMovie.movie);
     gradientNokhte.setControl(Control.mirror);
     cross.toggleWidgetVisibility();
     centerCrossNokhte.toggleWidgetVisibility();
