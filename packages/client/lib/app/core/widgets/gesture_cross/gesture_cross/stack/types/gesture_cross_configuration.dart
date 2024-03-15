@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:nokhte/app/core/widgets/gesture_cross/gesture_cross/stack/types/gradient_nokhte_information.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class GestureCrossConfiguration {
@@ -7,7 +8,6 @@ class GestureCrossConfiguration {
   final Either<StrokeConfig, NokhteGradientConfig> bottom;
   final Either<StrokeConfig, NokhteGradientConfig> left;
   final Either<StrokeConfig, NokhteGradientConfig> right;
-  List<int> gradientColorLengths = [];
 
   List get directions => [top, bottom, left, right];
 
@@ -28,15 +28,25 @@ class GestureCrossConfiguration {
       }, (gradient) {
         if (type == GestureCrossNokhteTypes.gradient) {
           offsets.add(CircleOffsets.directions[i]);
-          gradientColorLengths.add(gradient.gradientLength);
         }
       });
     }
     return offsets;
   }
 
-  List<Offset> getGradientOffsets() =>
-      _getOffsetsForType(GestureCrossNokhteTypes.gradient);
+  List<GradientNokhteInformation> getGradientInformation() {
+    final List<GradientNokhteInformation> temp = [];
+    for (int i = 0; i < directions.length; i++) {
+      directions[i].fold((stroke) {}, (NokhteGradientConfig gradient) {
+        temp.add(GradientNokhteInformation(
+          colors: gradient.colors,
+          offsets: CircleOffsets.directions[i],
+          stops: gradient.stops,
+        ));
+      });
+    }
+    return temp;
+  }
 
   List<Offset> getStrokeOffsets() =>
       _getOffsetsForType(GestureCrossNokhteTypes.stroke);
