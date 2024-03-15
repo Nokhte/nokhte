@@ -34,6 +34,7 @@ abstract class _HomeScreenPhase3WidgetsCoordinatorBase
     beachWaves.setMovieMode(BeachWaveMovieModes.resumeOnShore);
     beachWaves.currentStore.initMovie(params);
     gestureCross.fadeIn();
+    gestureCross.cross.initOutlineFadeIn();
     primarySmartText.setMessagesData(MessagesData.homeListHasDoneASession);
     primarySmartText.startRotatingText();
     initReactors();
