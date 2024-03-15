@@ -33,8 +33,8 @@ abstract class _HomeScreenPhase3WidgetsCoordinatorBase
       params = Modular.args.data["resumeOnShoreParams"];
     }
     beachWaves.setMovieMode(BeachWaveMovieModes.resumeOnShore);
-    beachWaves.currentStore.initMovie(Modular.args.data["resumeOnShoreParams"]);
-    gestureCross.setHomeScreen();
+    beachWaves.currentStore.initMovie(params);
+    gestureCross.setHomeScreenPhase3();
     primarySmartText.setMessagesData(MessagesData.firstTimeHomeList);
     Future.delayed(Seconds.get(3), () {
       if (!hasSwipedUp) {
