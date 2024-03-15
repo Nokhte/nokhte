@@ -27,6 +27,13 @@ class MessagesData {
           onScreenTime: Seconds.get(2),
         ),
       ];
+
+  static List<RotatingTextData> get homeListHasDoneASession => [
+        RotatingTextData(
+          mainMessage: "Swipe right to see session notes",
+          pauseHere: true,
+        ),
+      ];
   static List<RotatingTextData> get firstTimeHomeList => [
         RotatingTextData(
           initialFadeInDelay: Seconds.get(1),
