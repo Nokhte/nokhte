@@ -37,7 +37,7 @@ class InterpretCollaboratorCodeDeepLinkParams extends UserJourneyInfoEntity {
     required super.hasSentAnInvitation,
     required super.wantsToRepeatInvitationFlow,
     required super.userUID,
-    required super.authorizedViewers,
+    required super.hasCompletedNoktheSession,
   });
 
   factory InterpretCollaboratorCodeDeepLinkParams.fromUserJourneyInfo(
@@ -51,6 +51,6 @@ class InterpretCollaboratorCodeDeepLinkParams extends UserJourneyInfoEntity {
         hasSentAnInvitation: journeyEntity.hasSentAnInvitation,
         wantsToRepeatInvitationFlow: journeyEntity.wantsToRepeatInvitationFlow,
         userUID: journeyEntity.userUID,
-        authorizedViewers: journeyEntity.authorizedViewers,
+        hasCompletedNoktheSession: journeyEntity.hasCompletedNoktheSession,
       );
 }
