@@ -52,7 +52,7 @@ abstract class _GetUserInfoStoreBase
       hasSentAnInvitation = journeyInfoEntity.hasSentAnInvitation;
       wantsToRepeatInvitationFlow =
           journeyInfoEntity.wantsToRepeatInvitationFlow;
-      hasDoneASession = journeyInfoEntity.authorizedViewers.isNotEmpty;
+      hasDoneASession = journeyInfoEntity.hasCompletedNoktheSession;
     });
   }
 
