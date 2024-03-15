@@ -48,7 +48,7 @@ abstract class _LegacyVirtualNokhteSessionPhase1WidgetsCoordinatorBase
 
   @action
   constructor() {
-    gestureCross.setHomeScreen();
+    gestureCross.fadeIn();
     gestureCross.fadeAllOut();
     waitingText.setAltMovie(Seconds.get(1000));
     waitingText.toggleWidgetVisibility();

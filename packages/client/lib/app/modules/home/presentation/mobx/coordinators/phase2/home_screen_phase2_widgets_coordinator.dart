@@ -38,7 +38,7 @@ abstract class _HomeScreenPhase2WidgetsCoordinatorBase
     beachWaves.setMovieMode(BeachWaveMovieModes.resumeOnShore);
     beachWaves.currentStore.initMovie(Modular.args.data["resumeOnShoreParams"]);
     primarySmartText.setMessagesData(MessagesData.firstTimeHomeList);
-    gestureCross.setHomeScreen();
+    gestureCross.fadeIn();
     Future.delayed(Seconds.get(3), () {
       if (!hasSwipedUp) {
         gestureCross.startBlinking();

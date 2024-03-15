@@ -29,17 +29,7 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
   incrementTapCount() => tapCount++;
 
   @action
-  setHomeScreen() {
-    cross.toggleWidgetVisibility();
-    centerCrossNokhte.toggleWidgetVisibility();
-    Future.delayed(Seconds.get(0, milli: 500), () {
-      strokeCrossNokhte.toggleWidgetVisibility();
-      gradientNokhte.toggleWidgetVisibility();
-    });
-  }
-
-  @action
-  setHomeScreenPhase3() {
+  fadeIn() {
     cross.toggleWidgetVisibility();
     centerCrossNokhte.toggleWidgetVisibility();
     Future.delayed(Seconds.get(0, milli: 500), () {
