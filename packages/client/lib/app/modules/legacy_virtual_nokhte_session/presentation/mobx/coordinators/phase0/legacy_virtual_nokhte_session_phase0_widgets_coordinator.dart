@@ -12,12 +12,11 @@ class LegacyVirtualNokhteSessionPhase0WidgetsCoordinator = _LegacyVirtualNokhteS
 abstract class _LegacyVirtualNokhteSessionPhase0WidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final BeachWavesStore beachWaves;
-  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final SmartTextStore primarySmartText;
 
   _LegacyVirtualNokhteSessionPhase0WidgetsCoordinatorBase({
     required this.beachWaves,
-    required this.wifiDisconnectOverlay,
+    required super.wifiDisconnectOverlay,
     required this.primarySmartText,
   });
 

@@ -17,14 +17,13 @@ class LegacyVirtualNokhteSessionPhase2WidgetsCoordinator = _LegacyVirtualNokhteS
 abstract class _LegacyVirtualNokhteSessionPhase2WidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final BeachWavesStore beachWaves;
-  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final GestureCrossStore gestureCross;
   final WaitingTextStore waitingText;
   final NokhteBlurStore blur;
 
   _LegacyVirtualNokhteSessionPhase2WidgetsCoordinatorBase({
     required this.beachWaves,
-    required this.wifiDisconnectOverlay,
+    required super.wifiDisconnectOverlay,
     required this.gestureCross,
     required this.waitingText,
     required this.blur,

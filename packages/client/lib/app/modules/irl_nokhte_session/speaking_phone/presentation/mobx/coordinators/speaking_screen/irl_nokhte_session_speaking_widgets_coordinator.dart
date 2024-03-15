@@ -17,7 +17,6 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
   final MirroredTextStore mirroredText;
   final BeachWavesStore beachWaves;
   final BorderGlowStore borderGlow;
-  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final TouchRippleStore touchRipple;
   final SpeakLessSmileMoreStore speakLessSmileMore;
 
@@ -25,7 +24,7 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
     required this.mirroredText,
     required this.beachWaves,
     required this.borderGlow,
-    required this.wifiDisconnectOverlay,
+    required super.wifiDisconnectOverlay,
     required this.touchRipple,
     required this.speakLessSmileMore,
   });

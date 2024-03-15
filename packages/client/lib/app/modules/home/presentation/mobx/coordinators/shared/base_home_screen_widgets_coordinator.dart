@@ -15,14 +15,13 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final NokhteBlurStore nokhteBlur;
   final BeachWavesStore beachWaves;
-  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final GestureCrossStore gestureCross;
   final SmartTextStore primarySmartText;
 
   _BaseHomeScreenWidgetsCoordinatorBase({
     required this.nokhteBlur,
     required this.beachWaves,
-    required this.wifiDisconnectOverlay,
+    required super.wifiDisconnectOverlay,
     required this.gestureCross,
     required this.primarySmartText,
   });
