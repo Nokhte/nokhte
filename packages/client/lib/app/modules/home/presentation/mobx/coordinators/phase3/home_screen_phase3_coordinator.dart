@@ -32,7 +32,10 @@ abstract class _HomeScreenPhase3CoordinatorBase
     super.initReactors();
     swipeReactor(
       onSwipeUp: widgets.onSwipeUp,
-      onSwipeRight: widgets.onSwipeRight,
+      onSwipeRight: () {
+        widgets.onSwipeRight();
+        setDisableAllTouchFeedback(true);
+      },
     );
   }
 }
