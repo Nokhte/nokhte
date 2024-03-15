@@ -1,4 +1,5 @@
 enum NokhteGradientTypes {
   vibrantBlue,
-  water,
+  onShore,
+  oceanDive,
 }
