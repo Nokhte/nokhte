@@ -158,7 +158,7 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
             if (isEnteringNokhteSession) {
               onShoreToVibrantBlueComplete();
             } else {
-              beachWaves.setMovieStatus(MovieStatus.inProgress);
+              Modular.to.navigate("/storage/");
             }
           } else if (p0 == MovieStatus.finished &&
               beachWaves.movieMode == BeachWaveMovieModes.resumeOnShore) {
