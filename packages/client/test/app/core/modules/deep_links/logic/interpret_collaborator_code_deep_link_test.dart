@@ -17,7 +17,7 @@ void main() {
           hasGoneThroughInvitationFlow: true,
           hasSentAnInvitation: true,
           wantsToRepeatInvitationFlow: true,
-          authorizedViewers: [],
+          hasCompletedNoktheSession: false,
         ));
         expect(res, const InterpretedDeepLinkEntity());
       });
@@ -29,7 +29,7 @@ void main() {
           hasGoneThroughInvitationFlow: true,
           hasSentAnInvitation: true,
           wantsToRepeatInvitationFlow: true,
-          authorizedViewers: [],
+          hasCompletedNoktheSession: false,
         ));
         expect(
             res,
@@ -50,7 +50,7 @@ void main() {
         hasGoneThroughInvitationFlow: false,
         hasSentAnInvitation: false,
         wantsToRepeatInvitationFlow: false,
-        authorizedViewers: [],
+        hasCompletedNoktheSession: false,
       ));
       expect(
           res,
