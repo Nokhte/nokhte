@@ -29,6 +29,6 @@ abstract class _HomeScreenPhase1CoordinatorBase
   @override
   initReactors() {
     super.initReactors();
-    swipeReactor(widgets.onSwipeUp);
+    swipeReactor(onSwipeUp: widgets.onSwipeUp, onSwipeRight: () {});
   }
 }
