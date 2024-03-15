@@ -55,9 +55,6 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
   }
 
   @action
-  setPhase2PurposeSession() {}
-
-  @action
   fadeInTheCross() {
     cross.toggleWidgetVisibility();
     centerCrossNokhte.toggleWidgetVisibility();
