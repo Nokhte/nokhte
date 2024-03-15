@@ -28,4 +28,10 @@ abstract class _CrossStoreBase extends BaseCustomAnimatedWidgetStore
     setMovie(FadeOutCrossOutlineMovie.movie);
     setControl(Control.playFromStart);
   }
+
+  @action
+  initOutlineFadeIn() {
+    setMovie(FadeOutCrossOutlineMovie.movie);
+    setControl(Control.playReverseFromEnd);
+  }
 }
