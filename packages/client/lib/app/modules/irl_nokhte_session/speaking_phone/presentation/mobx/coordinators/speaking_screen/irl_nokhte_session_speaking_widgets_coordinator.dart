@@ -46,9 +46,10 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
   @action
   initReactors() {
     borderGlowReactor();
+    beachWavesMovieStatusReactor();
   }
 
-  beachWavesMovieStatusReactor(Function onReturnComplete) =>
+  beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&
             beachWaves.movieMode == BeachWaveMovieModes.halfAndHalfToDrySand &&
@@ -60,10 +61,6 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
                 BeachWaveMovieModes.drySandToVibrantBlueGrad &&
             beachWaves.currentStore.control == Control.playFromStart) {
           borderGlow.initMovie(NoParams());
-        } else if (p0 == MovieStatus.finished &&
-            beachWaves.movieMode ==
-                BeachWaveMovieModes.dynamicPointToHalfAndHalf) {
-          onReturnComplete();
         } else if (p0 == MovieStatus.finished &&
             beachWaves.movieMode ==
                 BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf) {
