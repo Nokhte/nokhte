@@ -1,6 +1,7 @@
 import 'package:nokhte/app/modules/storage/domain/domain.dart';
 import 'package:nokhte_backend/tables/finished_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/user_names.dart';
+import 'package:intl/intl.dart';
 
 class NokhteSessionArtifactModel extends NokhteSessionArtifactEntity {
   const NokhteSessionArtifactModel({
@@ -9,6 +10,11 @@ class NokhteSessionArtifactModel extends NokhteSessionArtifactEntity {
     required super.id,
     required super.date,
   });
+
+  static formatDate(DateTime date) {
+    DateFormat formatter = DateFormat('MMMM d, yyyy');
+    return formatter.format(date);
+  }
 
   static List<NokhteSessionArtifactModel> fromSupabase({
     required List nokhteSessionRes,
@@ -36,9 +42,10 @@ class NokhteSessionArtifactModel extends NokhteSessionArtifactEntity {
             title =
                 nokhteSession[FinishedNokhteSessionQueries.ALIASES][userIndex];
           }
+          final date = DateTime.parse(
+              nokhteSession[FinishedNokhteSessionQueries.SESSION_TIMESTAMP]);
           temp.add(NokhteSessionArtifactModel(
-            date: DateTime.parse(
-                nokhteSession[FinishedNokhteSessionQueries.SESSION_TIMESTAMP]),
+            date: formatDate(date),
             title: title,
             content: nokhteSession[FinishedNokhteSessionQueries.CONTENT],
             id: nokhteSession[FinishedNokhteSessionQueries.ID],
