@@ -470,4 +470,12 @@ class MessagesData {
           pauseHere: true,
         ),
       ];
+
+  static List<RotatingTextData> get storageHeader => [
+        RotatingTextData(
+          mainMessage: "Sessions:",
+          pauseHere: true,
+          mainMessageFontSize: 40.0,
+        ),
+      ];
 }
