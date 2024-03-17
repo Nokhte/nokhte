@@ -11,4 +11,5 @@ mixin UserNamesConstants {
       'has_gone_through_invitation_flow';
   static const WANTS_TO_REPEAT_INVITATION_FLOW =
       'wants_to_repeat_invitation_flow';
+  static const HAS_ENTERED_STORAGE = 'has_entered_storage';
 }
