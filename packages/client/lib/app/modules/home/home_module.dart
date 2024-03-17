@@ -13,6 +13,8 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/collaboration/collaboration_logic_module.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
 import 'package:nokhte/app/modules/home/presentation/presentation.dart';
+import 'package:nokhte/app/modules/storage/domain/domain.dart';
+import 'package:nokhte/app/modules/storage/storage_logic_module.dart';
 import 'home_widgets_module.dart';
 
 class HomeModule extends Module {
@@ -26,6 +28,7 @@ class HomeModule extends Module {
         DeepLinksModule(),
         LegacyConnectivityModule(),
         PosthogModule(),
+        StorageLogicModule(),
       ];
   @override
   binds(i) {
@@ -60,10 +63,24 @@ class HomeModule extends Module {
     );
     i.add<HomeScreenPhase3Coordinator>(
       () => HomeScreenPhase3Coordinator(
+        getNokhteSessionArtifactsLogic:
+            Modular.get<GetNokhteSessionArtifacts>(),
         collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         swipe: Modular.get<SwipeDetector>(),
         widgets: Modular.get<HomeScreenPhase3WidgetsCoordinator>(),
+        deepLinks: Modular.get<DeepLinksCoordinator>(),
+        userInformation: Modular.get<UserInformationCoordinator>(),
+      ),
+    );
+    i.add<HomeScreenPhase4Coordinator>(
+      () => HomeScreenPhase4Coordinator(
+        getNokhteSessionArtifactsLogic:
+            Modular.get<GetNokhteSessionArtifacts>(),
+        collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        swipe: Modular.get<SwipeDetector>(),
+        widgets: Modular.get<HomeScreenPhase4WidgetsCoordinator>(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
       ),
     );
@@ -97,6 +114,13 @@ class HomeModule extends Module {
       transition: TransitionType.noTransition,
       child: (context) => HomeScreenPhase3HasDoneSession(
         coordinator: Modular.get<HomeScreenPhase3Coordinator>(),
+      ),
+    );
+    r.child(
+      "/phase4",
+      transition: TransitionType.noTransition,
+      child: (context) => HomeScreenPhase4HasGoneIntoStorage(
+        coordinator: Modular.get<HomeScreenPhase4Coordinator>(),
       ),
     );
   }
