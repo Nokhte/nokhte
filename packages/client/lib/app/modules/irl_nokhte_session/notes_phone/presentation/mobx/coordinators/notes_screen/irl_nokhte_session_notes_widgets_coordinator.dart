@@ -15,11 +15,10 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
   final BeachWavesStore beachWaves;
   final TouchRippleStore touchRipple;
   final TextEditorStore textEditor;
-  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final SmartTextStore smartText;
   _IrlNokhteSessionNotesWidgetsCoordinatorBase({
     required this.beachWaves,
-    required this.wifiDisconnectOverlay,
+    required super.wifiDisconnectOverlay,
     required this.touchRipple,
     required this.textEditor,
     required this.smartText,

@@ -39,6 +39,11 @@ class UserInformationModule extends Module {
         contract: i<UserInformationContractImpl>(),
       ),
     );
+    i.add<UpdateHasEnteredStorage>(
+      () => UpdateHasEnteredStorage(
+        contract: i<UserInformationContractImpl>(),
+      ),
+    );
 
     i.add<GetUserInfoStore>(
       () => GetUserInfoStore(
@@ -53,6 +58,7 @@ class UserInformationModule extends Module {
         updateHasSentAnInvitationLogic: i<UpdateHasSentAnInvitation>(),
         updateWantsToRepeatInvitationFlowLogic:
             i<UpdateWantsToRepeatInvitationFlow>(),
+        updateHasEnteredStorageLogic: i<UpdateHasEnteredStorage>(),
       ),
     );
   }

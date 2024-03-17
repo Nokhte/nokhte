@@ -109,6 +109,10 @@ class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
       FinishedNokhteSessionQueries.COLLABORATOR_UIDS: collaboratorUIDs,
       FinishedNokhteSessionQueries.CONTENT: content,
       FinishedNokhteSessionQueries.SESSION_TIMESTAMP: sessionTimestamp,
+      FinishedNokhteSessionQueries.ALIASES: List.filled(
+        collaboratorUIDs.length,
+        "",
+      )
     }).select();
     await delete();
     return [];

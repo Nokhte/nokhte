@@ -16,7 +16,6 @@ class IrlNokhteSessionPhase3WidgetsCoordinator = _IrlNokhteSessionPhase3WidgetsC
 abstract class _IrlNokhteSessionPhase3WidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final BeachWavesStore beachWaves;
-  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
   final SmartTextStore tertiarySmartText;
@@ -24,7 +23,7 @@ abstract class _IrlNokhteSessionPhase3WidgetsCoordinatorBase
 
   _IrlNokhteSessionPhase3WidgetsCoordinatorBase({
     required this.beachWaves,
-    required this.wifiDisconnectOverlay,
+    required super.wifiDisconnectOverlay,
     required this.primarySmartText,
     required this.secondarySmartText,
     required this.tertiarySmartText,

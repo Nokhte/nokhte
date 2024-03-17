@@ -29,13 +29,15 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
   incrementTapCount() => tapCount++;
 
   @action
-  setHomeScreen() {
-    gradientNokhte.setMovie(VibrantBlueGradientNokhteMovie.movie);
-    cross.toggleWidgetVisibility();
-    centerCrossNokhte.toggleWidgetVisibility();
-    Future.delayed(Seconds.get(0, milli: 500), () {
-      strokeCrossNokhte.toggleWidgetVisibility();
-      gradientNokhte.toggleWidgetVisibility();
+  fadeIn({bool initOutlineFadeIn = false}) {
+    cross.setWidgetVisibility(true);
+    centerCrossNokhte.setWidgetVisibility(true);
+    if (initOutlineFadeIn) {
+      cross.initOutlineFadeIn();
+    }
+    Future.delayed(Seconds.get(0, milli: 1), () {
+      strokeCrossNokhte.setWidgetVisibility(true);
+      gradientNokhte.setWidgetVisibility(true);
     });
   }
 
@@ -46,13 +48,7 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
   }
 
   @action
-  setPhase2PurposeSession() {
-    gradientNokhte.setMovie(VibrantBlueGradientNokhteMovie.movie);
-  }
-
-  @action
   fadeInTheCross() {
-    gradientNokhte.setMovie(VibrantBlueGradientNokhteMovie.movie);
     cross.toggleWidgetVisibility();
     centerCrossNokhte.toggleWidgetVisibility();
   }
@@ -89,7 +85,6 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
 
   @action
   setCollaborationHomeScreen() {
-    gradientNokhte.setMovie(WaterGradientNokhteMovie.movie);
     gradientNokhte.setControl(Control.mirror);
     cross.toggleWidgetVisibility();
     centerCrossNokhte.toggleWidgetVisibility();

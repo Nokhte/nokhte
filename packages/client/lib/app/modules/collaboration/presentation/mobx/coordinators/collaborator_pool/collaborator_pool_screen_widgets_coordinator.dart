@@ -16,13 +16,12 @@ abstract class _CollaboratorPoolScreenWidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final GestureCrossStore gestureCross;
   final BeachWavesStore beachWaves;
-  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final WaitingTextStore waitingText;
 
   _CollaboratorPoolScreenWidgetsCoordinatorBase({
     required this.gestureCross,
     required this.beachWaves,
-    required this.wifiDisconnectOverlay,
+    required super.wifiDisconnectOverlay,
     required this.waitingText,
   });
 

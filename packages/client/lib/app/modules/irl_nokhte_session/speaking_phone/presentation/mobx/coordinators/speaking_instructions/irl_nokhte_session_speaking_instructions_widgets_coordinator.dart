@@ -18,12 +18,11 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final MirroredTextStore mirroredText;
   final BeachWavesStore beachWaves;
-  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final TouchRippleStore touchRipple;
   _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase({
     required this.mirroredText,
     required this.beachWaves,
-    required this.wifiDisconnectOverlay,
+    required super.wifiDisconnectOverlay,
     required this.touchRipple,
   });
 

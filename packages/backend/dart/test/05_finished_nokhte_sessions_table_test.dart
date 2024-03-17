@@ -56,4 +56,14 @@ void main() {
     expect(
         res.first[FinishedNokhteSessionQueries.COLLABORATOR_UIDS], user1And3);
   });
+
+  test("updateAlias", () async {
+    final id =
+        (await user1Queries.select()).first[FinishedNokhteSessionQueries.ID];
+    final res = await user1Queries.updateAlias(newAlias: 'test', id: id);
+    expect(
+      res.first[FinishedNokhteSessionQueries.ALIASES].contains('test'),
+      true,
+    );
+  });
 }

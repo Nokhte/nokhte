@@ -6,6 +6,7 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'irl_nokhte_session_speaking_widgets_coordinator.dart';
 part 'irl_nokhte_session_speaking_coordinator.g.dart';
@@ -47,9 +48,6 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
   initReactors() {
     holdReactor();
     letGoReactor();
-    widgets.beachWavesMovieStatusReactor(() {
-      setDisableAllTouchFeedback(false);
-    });
     widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
@@ -82,17 +80,18 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
         ifTouchIsNotDisabled(() {
           if (presence.getSessionMetadataStore.collaboratorIsOnline) {
             widgets.onHold();
+            setDisableAllTouchFeedback(true);
           }
         });
       });
 
   letGoReactor() => reaction((p0) => hold.letGoCount, (p0) {
-        ifTouchIsNotDisabled(() {
-          if (presence.getSessionMetadataStore.collaboratorIsOnline) {
-            widgets.onLetGo();
-            setDisableAllTouchFeedback(true);
-          }
-        });
+        if (presence.getSessionMetadataStore.collaboratorIsOnline) {
+          widgets.onLetGo();
+          Future.delayed(Seconds.get(2), () {
+            setDisableAllTouchFeedback(false);
+          });
+        }
       });
 
   phoneTiltStateReactor() =>
@@ -101,9 +100,7 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
             sessionMetadata.collaboratorPhase.isGreaterThanOrEqualTo(2)) {
           if (p0 == PhoneHoldingState.isPickedUp) {
             await presence.updateCurrentPhase(3);
-            await presence.updateCurrentPhase(3);
           } else if (p0 == PhoneHoldingState.isDown) {
-            await presence.updateCurrentPhase(2);
             await presence.updateCurrentPhase(2);
           }
         }

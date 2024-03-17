@@ -51,7 +51,7 @@ class HomeScreenPhase2DoneInvitationFlowNoSession extends HookWidget {
               config: GestureCrossConfiguration(
                 top: Right(
                   NokhteGradientConfig(
-                    gradientType: NokhteGradientTypes.vibrantBlue,
+                    gradientType: NokhteGradientTypes.oceanDive,
                   ),
                 ),
               ),
