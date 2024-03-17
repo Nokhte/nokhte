@@ -44,7 +44,8 @@ class FinishedNokhteSessionQueries {
   }) async {
     final sessionRes = await supabase.from(TABLE).select().eq(ID, id);
     final aliases = sessionRes.first[ALIASES];
-    final userIndex = sessionRes.first[COLLABORATOR_UIDS] == userUID ? 0 : 1;
+    final userIndex =
+        sessionRes.first[COLLABORATOR_UIDS].first == userUID ? 0 : 1;
     aliases[userIndex] = newAlias;
     return await supabase
         .from(TABLE)
