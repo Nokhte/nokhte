@@ -32,12 +32,13 @@ class InterpretCollaboratorCodeDeepLinkParams extends UserJourneyInfoEntity {
   final String collaboratorUID;
 
   const InterpretCollaboratorCodeDeepLinkParams({
+    required super.hasEnteredStorage,
     required this.collaboratorUID,
     required super.hasGoneThroughInvitationFlow,
     required super.hasSentAnInvitation,
     required super.wantsToRepeatInvitationFlow,
     required super.userUID,
-    required super.authorizedViewers,
+    required super.hasCompletedNoktheSession,
   });
 
   factory InterpretCollaboratorCodeDeepLinkParams.fromUserJourneyInfo(
@@ -45,12 +46,13 @@ class InterpretCollaboratorCodeDeepLinkParams extends UserJourneyInfoEntity {
     String collaboratorUID,
   ) =>
       InterpretCollaboratorCodeDeepLinkParams(
+        hasEnteredStorage: false,
         collaboratorUID: collaboratorUID,
         hasGoneThroughInvitationFlow:
             journeyEntity.hasGoneThroughInvitationFlow,
         hasSentAnInvitation: journeyEntity.hasSentAnInvitation,
         wantsToRepeatInvitationFlow: journeyEntity.wantsToRepeatInvitationFlow,
         userUID: journeyEntity.userUID,
-        authorizedViewers: journeyEntity.authorizedViewers,
+        hasCompletedNoktheSession: journeyEntity.hasCompletedNoktheSession,
       );
 }

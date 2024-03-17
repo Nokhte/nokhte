@@ -29,6 +29,11 @@ abstract class _HomeScreenPhase1CoordinatorBase
   @override
   initReactors() {
     super.initReactors();
-    swipeReactor(widgets.onSwipeUp);
+    swipeReactor(onSwipeUp: widgets.onSwipeUp, onSwipeRight: () {});
+    widgets.beachWavesMovieStatusReactor(
+        onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
+        onShoreToVibrantBlueComplete: onShoreToVibrantBlueComplete,
+        onVirginStorageEntry: () {},
+        onSubsequentStorageEntry: () {});
   }
 }

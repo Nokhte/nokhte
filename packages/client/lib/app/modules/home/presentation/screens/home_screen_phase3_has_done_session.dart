@@ -49,12 +49,16 @@ class HomeScreenPhase3HasDoneSession extends HookWidget {
             ),
             GestureCross(
               config: GestureCrossConfiguration(
-                top: Right(
-                  NokhteGradientConfig(
-                    gradientType: NokhteGradientTypes.vibrantBlue,
+                  top: Right(
+                    NokhteGradientConfig(
+                      gradientType: NokhteGradientTypes.oceanDive,
+                    ),
                   ),
-                ),
-              ),
+                  right: Right(
+                    NokhteGradientConfig(
+                      gradientType: NokhteGradientTypes.vibrantBlue,
+                    ),
+                  )),
               size: size,
               store: coordinator.widgets.gestureCross,
             ),

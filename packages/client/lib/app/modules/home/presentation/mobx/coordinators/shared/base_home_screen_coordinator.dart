@@ -44,10 +44,6 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
         widgets.onDisconnected();
       },
     );
-    widgets.beachWavesMovieStatusReactor(
-      onShoreToOceanDiveComplete,
-      onShoreToVibrantBlueComplete,
-    );
     collaboratorPoolEntryReactor();
     openedDeepLinksReactor();
   }
@@ -78,7 +74,10 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
         arguments: deepLinks.listenForOpenedDeepLinkStore.additionalMetadata,
       );
 
-  swipeReactor(Function onSwipeUp) =>
+  swipeReactor({
+    required Function onSwipeUp,
+    required Function onSwipeRight,
+  }) =>
       reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.up:
@@ -87,6 +86,10 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
                 onSwipeUp();
               });
             }
+          case GestureDirections.right:
+            ifTouchIsNotDisabled(() {
+              onSwipeRight();
+            });
           default:
             break;
         }

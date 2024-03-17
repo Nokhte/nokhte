@@ -9,6 +9,7 @@ enum BeachWaveMovieModes {
   onShore,
   onShoreToOceanDive,
   onShoreToVibrantBlue,
+  onShoreToDrySand,
   none,
   staticHalfAndHalf,
   staticOceanDive,
@@ -24,6 +25,7 @@ enum BeachWaveMovieModes {
   timesUpEndToTimesUpStart,
   vibrantBlueGradientToTimesUp,
   vibrantBlueGradToHalfAndHalf,
+  vibrantBlueGradToDrySand,
   waterFromTopToOnShorePt1,
   waterFromTopToOnShorePt2,
 }

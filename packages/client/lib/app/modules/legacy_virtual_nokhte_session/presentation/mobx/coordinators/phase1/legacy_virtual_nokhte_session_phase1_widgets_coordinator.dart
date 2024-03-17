@@ -18,7 +18,6 @@ abstract class _LegacyVirtualNokhteSessionPhase1WidgetsCoordinatorBase
   final BeachWavesStore beachWaves;
   final BorderGlowStore borderGlow;
   final SmartTextStore secondarySmartText;
-  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final TextEditorStore textEditor;
   final GestureCrossStore gestureCross;
   final WaitingTextStore waitingText;
@@ -28,7 +27,7 @@ abstract class _LegacyVirtualNokhteSessionPhase1WidgetsCoordinatorBase
     required this.beachWaves,
     required this.borderGlow,
     required this.secondarySmartText,
-    required this.wifiDisconnectOverlay,
+    required super.wifiDisconnectOverlay,
     required this.textEditor,
     required this.gestureCross,
     required this.waitingText,
@@ -49,7 +48,7 @@ abstract class _LegacyVirtualNokhteSessionPhase1WidgetsCoordinatorBase
 
   @action
   constructor() {
-    gestureCross.setHomeScreen();
+    gestureCross.fadeIn();
     gestureCross.fadeAllOut();
     waitingText.setAltMovie(Seconds.get(1000));
     waitingText.toggleWidgetVisibility();

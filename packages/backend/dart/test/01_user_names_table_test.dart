@@ -56,8 +56,8 @@ void main() {
     );
     final res = await user1UserNameQueries.updateHasSentAnInvitation(true);
     final dupRes = await user1UserNameQueries.updateHasSentAnInvitation(true);
-    expect(res.first[user1UserNameQueries.HAS_SENT_AN_INVITATION], true);
-    expect(dupRes.first[user1UserNameQueries.HAS_SENT_AN_INVITATION], true);
+    expect(res.first[UserNamesConstants.HAS_SENT_AN_INVITATION], true);
+    expect(dupRes.first[UserNamesConstants.HAS_SENT_AN_INVITATION], true);
   });
 
   test(
@@ -72,8 +72,8 @@ void main() {
     final dupRes =
         await user1UserNameQueries.updateHasGoneThroughInvitationFlow(true);
     expect(
-        res.first[user1UserNameQueries.HAS_GONE_THROUGH_INVITATION_FLOW], true);
-    expect(dupRes.first[user1UserNameQueries.HAS_GONE_THROUGH_INVITATION_FLOW],
+        res.first[UserNamesConstants.HAS_GONE_THROUGH_INVITATION_FLOW], true);
+    expect(dupRes.first[UserNamesConstants.HAS_GONE_THROUGH_INVITATION_FLOW],
         true);
   });
 
@@ -87,10 +87,16 @@ void main() {
         await user1UserNameQueries.updateWantsToRepeatInvitationFlow(true);
     final dupRes =
         await user1UserNameQueries.updateWantsToRepeatInvitationFlow(true);
+    expect(res.first[UserNamesConstants.WANTS_TO_REPEAT_INVITATION_FLOW], true);
     expect(
-        res.first[user1UserNameQueries.WANTS_TO_REPEAT_INVITATION_FLOW], true);
-    expect(dupRes.first[user1UserNameQueries.WANTS_TO_REPEAT_INVITATION_FLOW],
-        true);
+        dupRes.first[UserNamesConstants.WANTS_TO_REPEAT_INVITATION_FLOW], true);
+  });
+
+  test("updateHasEnteredStorage", () async {
+    final res = await user1UserNameQueries.updateHasEnteredStorage(true);
+    final dupRes = await user1UserNameQueries.updateHasEnteredStorage(true);
+    expect(res.first[UserNamesConstants.HAS_ENTERED_STORAGE], true);
+    expect(dupRes.first[UserNamesConstants.HAS_ENTERED_STORAGE], true);
   });
 
   test("❌ shouldn't be able to insert another row if they already have one",

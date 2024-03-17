@@ -20,8 +20,14 @@ class UserInformationContractImpl
   @override
   getUserInfo(NoParams params) async {
     if (await networkInfo.isConnected) {
-      final res = await remoteSource.getUserInfo();
-      return Right(UserJourneyInfoModel.fromSupabase(res));
+      final userInfoRes = await remoteSource.getUserInfo();
+      final nokhteSessionsRes = await remoteSource.getFinishedNokhteSessions();
+      return Right(
+        UserJourneyInfoModel.fromSupabase(
+          userNamesRes: userInfoRes,
+          finishedNokhteSessionsRes: nokhteSessionsRes,
+        ),
+      );
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
@@ -56,6 +62,16 @@ class UserInformationContractImpl
     if (await networkInfo.isConnected) {
       final res = await remoteSource
           .updateWantsToRepeatInvitationFlow(wantsToRepeatInvitationFlowParam);
+      return Right(fromSupabase(res));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
+
+  @override
+  updateHasEnteredStorage(newEntryStatus) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.updateHasEnteredStorage(newEntryStatus);
       return Right(fromSupabase(res));
     } else {
       return Left(FailureConstants.internetConnectionFailure);

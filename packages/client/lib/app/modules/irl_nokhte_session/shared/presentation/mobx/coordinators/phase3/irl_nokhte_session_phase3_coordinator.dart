@@ -123,8 +123,9 @@ abstract class _IrlNokhteSessionPhase3CoordinatorBase
 
   canReturnHomeReactor() => reaction(
         (p0) => presence.getSessionMetadataStore.canReturnHome,
-        (p0) {
+        (p0) async {
           if (p0) {
+            await presence.dispose();
             widgets.onReadyToGoHome();
           }
         },

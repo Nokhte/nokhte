@@ -59,8 +59,14 @@ class AuthenticationContractImpl
   @override
   getUserInfo(params) async {
     if (await networkInfo.isConnected) {
-      final res = await remoteSource.getUserInfo();
-      return Right(UserJourneyInfoModel.fromSupabase(res));
+      final userNamesRes = await remoteSource.getUserInfo();
+      final nokhteSessionsRes = await remoteSource.getFinishedNokhteSessions();
+      return Right(
+        UserJourneyInfoModel.fromSupabase(
+          userNamesRes: userNamesRes,
+          finishedNokhteSessionsRes: nokhteSessionsRes,
+        ),
+      );
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }

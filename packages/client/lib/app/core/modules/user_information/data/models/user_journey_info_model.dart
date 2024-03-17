@@ -6,27 +6,32 @@ class UserJourneyInfoModel extends UserJourneyInfoEntity {
     required super.hasSentAnInvitation,
     required super.wantsToRepeatInvitationFlow,
     required super.userUID,
-    required super.authorizedViewers,
+    required super.hasCompletedNoktheSession,
+    required super.hasEnteredStorage,
   });
 
-  factory UserJourneyInfoModel.fromSupabase(List res) {
-    if (res.isEmpty) {
+  factory UserJourneyInfoModel.fromSupabase({
+    required List userNamesRes,
+    required List finishedNokhteSessionsRes,
+  }) {
+    if (userNamesRes.isEmpty) {
       return const UserJourneyInfoModel(
-        hasGoneThroughInvitationFlow: false,
-        hasSentAnInvitation: false,
-        wantsToRepeatInvitationFlow: false,
-        userUID: "",
-        authorizedViewers: [],
-      );
+          hasGoneThroughInvitationFlow: false,
+          hasSentAnInvitation: false,
+          wantsToRepeatInvitationFlow: false,
+          hasEnteredStorage: false,
+          userUID: "",
+          hasCompletedNoktheSession: false);
     } else {
       return UserJourneyInfoModel(
-        userUID: res.first['uid'],
+        userUID: userNamesRes.first['uid'],
         hasGoneThroughInvitationFlow:
-            res.first['has_gone_through_invitation_flow'],
-        hasSentAnInvitation: res.first['has_sent_an_invitation'],
+            userNamesRes.first['has_gone_through_invitation_flow'],
+        hasSentAnInvitation: userNamesRes.first['has_sent_an_invitation'],
         wantsToRepeatInvitationFlow:
-            res.first['wants_to_repeat_invitation_flow'],
-        authorizedViewers: res.first["authorized_viewers"],
+            userNamesRes.first['wants_to_repeat_invitation_flow'],
+        hasCompletedNoktheSession: finishedNokhteSessionsRes.isNotEmpty,
+        hasEnteredStorage: userNamesRes.first['has_entered_storage'],
       );
     }
   }

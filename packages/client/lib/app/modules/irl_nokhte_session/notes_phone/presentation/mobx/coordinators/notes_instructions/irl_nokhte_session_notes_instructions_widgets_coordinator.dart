@@ -15,13 +15,12 @@ abstract class _IrlNokhteSessionNotesInstructionsWidgetsCoordinatorBase
   final BeachWavesStore beachWaves;
   final MirroredTextStore mirroredText;
   final TouchRippleStore touchRipple;
-  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
 
   _IrlNokhteSessionNotesInstructionsWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.mirroredText,
     required this.touchRipple,
-    required this.wifiDisconnectOverlay,
+    required super.wifiDisconnectOverlay,
   });
 
   @observable

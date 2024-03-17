@@ -53,7 +53,7 @@ class CollaborationHomeScreen extends HookWidget {
               config: GestureCrossConfiguration(
                 bottom: Right(
                   NokhteGradientConfig(
-                    gradientType: NokhteGradientTypes.water,
+                    gradientType: NokhteGradientTypes.onShore,
                   ),
                 ),
               ),

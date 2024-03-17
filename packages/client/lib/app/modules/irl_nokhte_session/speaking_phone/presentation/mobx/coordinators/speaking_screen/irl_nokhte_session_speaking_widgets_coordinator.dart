@@ -17,7 +17,6 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
   final MirroredTextStore mirroredText;
   final BeachWavesStore beachWaves;
   final BorderGlowStore borderGlow;
-  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final TouchRippleStore touchRipple;
   final SpeakLessSmileMoreStore speakLessSmileMore;
 
@@ -25,7 +24,7 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
     required this.mirroredText,
     required this.beachWaves,
     required this.borderGlow,
-    required this.wifiDisconnectOverlay,
+    required super.wifiDisconnectOverlay,
     required this.touchRipple,
     required this.speakLessSmileMore,
   });
@@ -46,9 +45,10 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
   @action
   initReactors() {
     borderGlowReactor();
+    beachWavesMovieStatusReactor();
   }
 
-  beachWavesMovieStatusReactor(Function onReturnComplete) =>
+  beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&
             beachWaves.movieMode == BeachWaveMovieModes.halfAndHalfToDrySand &&
@@ -60,10 +60,6 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
                 BeachWaveMovieModes.drySandToVibrantBlueGrad &&
             beachWaves.currentStore.control == Control.playFromStart) {
           borderGlow.initMovie(NoParams());
-        } else if (p0 == MovieStatus.finished &&
-            beachWaves.movieMode ==
-                BeachWaveMovieModes.dynamicPointToHalfAndHalf) {
-          onReturnComplete();
         } else if (p0 == MovieStatus.finished &&
             beachWaves.movieMode ==
                 BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf) {

@@ -7,6 +7,8 @@ class FinishedNokhteSessionQueries {
   static const COLLABORATOR_UIDS = 'collaborator_uids';
   static const SESSION_TIMESTAMP = 'session_timestamp';
   static const CONTENT = 'content';
+  static const ALIASES = 'aliases';
+  static const ID = 'id';
 
   final SupabaseClient supabase;
   final String userUID;
@@ -23,6 +25,7 @@ class FinishedNokhteSessionQueries {
         COLLABORATOR_UIDS: collaboratorUIDs,
         CONTENT: sessionContent,
         SESSION_TIMESTAMP: sessionTimestamp,
+        ALIASES: List.filled(collaboratorUIDs.length, ""),
       }).select();
 
   Future<List> select() async => await supabase.from(TABLE).select();
@@ -33,5 +36,21 @@ class FinishedNokhteSessionQueries {
         .from(TABLE)
         .select()
         .eq(COLLABORATOR_UIDS, sortedCollaboratorUIDs);
+  }
+
+  Future<List> updateAlias({
+    required String newAlias,
+    required int id,
+  }) async {
+    final sessionRes = await supabase.from(TABLE).select().eq(ID, id);
+    final aliases = sessionRes.first[ALIASES];
+    final userIndex =
+        sessionRes.first[COLLABORATOR_UIDS].first == userUID ? 0 : 1;
+    aliases[userIndex] = newAlias;
+    return await supabase
+        .from(TABLE)
+        .update({ALIASES: aliases})
+        .eq(ID, id)
+        .select();
   }
 }

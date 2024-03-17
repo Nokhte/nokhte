@@ -55,5 +55,14 @@ class HomeWidgetsModule extends Module {
         beachWaves: Modular.get<BeachWavesStore>(),
       ),
     );
+    i.add<HomeScreenPhase4WidgetsCoordinator>(
+      () => HomeScreenPhase4WidgetsCoordinator(
+        nokhteBlur: Modular.get<NokhteBlurStore>(),
+        primarySmartText: Modular.get<SmartTextStore>(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        gestureCross: Modular.get<GestureCrossStore>(),
+        beachWaves: Modular.get<BeachWavesStore>(),
+      ),
+    );
   }
 }

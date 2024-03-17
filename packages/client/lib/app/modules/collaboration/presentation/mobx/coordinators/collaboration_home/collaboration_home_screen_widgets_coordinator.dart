@@ -18,7 +18,6 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
   final BeachWavesStore beachWaves;
   final GradientTreeNodeStore gradientTreeNode;
   final SmartTextStore smartText;
-  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final GestureCrossStore gestureCross;
 
   _CollaborationHomeScreenWidgetsCoordinatorBase({
@@ -26,7 +25,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
     required this.gestureCross,
     required this.gradientTreeNode,
     required this.smartText,
-    required this.wifiDisconnectOverlay,
+    required super.wifiDisconnectOverlay,
   });
 
   @observable

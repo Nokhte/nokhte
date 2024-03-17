@@ -12,12 +12,11 @@ class HomeScreenPhase0WidgetsCoordinator = _HomeScreenPhase0WidgetsCoordinatorBa
 abstract class _HomeScreenPhase0WidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final BeachWavesStore beachWaves;
-  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final GestureCrossStore gestureCross;
 
   _HomeScreenPhase0WidgetsCoordinatorBase({
     required this.beachWaves,
-    required this.wifiDisconnectOverlay,
+    required super.wifiDisconnectOverlay,
     required this.gestureCross,
   });
 
