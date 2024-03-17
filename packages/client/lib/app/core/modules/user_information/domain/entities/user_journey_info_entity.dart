@@ -5,6 +5,7 @@ class UserJourneyInfoEntity extends Equatable {
   final bool hasSentAnInvitation;
   final bool wantsToRepeatInvitationFlow;
   final bool hasCompletedNoktheSession;
+  final bool hasEnteredStorage;
   final String userUID;
   const UserJourneyInfoEntity({
     required this.hasGoneThroughInvitationFlow,
@@ -12,6 +13,7 @@ class UserJourneyInfoEntity extends Equatable {
     required this.wantsToRepeatInvitationFlow,
     required this.userUID,
     required this.hasCompletedNoktheSession,
+    required this.hasEnteredStorage,
   });
 
   factory UserJourneyInfoEntity.initial() => const UserJourneyInfoEntity(
@@ -20,6 +22,7 @@ class UserJourneyInfoEntity extends Equatable {
         wantsToRepeatInvitationFlow: false,
         userUID: "",
         hasCompletedNoktheSession: false,
+        hasEnteredStorage: false,
       );
 
   @override
@@ -28,6 +31,7 @@ class UserJourneyInfoEntity extends Equatable {
         hasSentAnInvitation,
         wantsToRepeatInvitationFlow,
         hasCompletedNoktheSession,
+        hasEnteredStorage,
         userUID,
       ];
 }

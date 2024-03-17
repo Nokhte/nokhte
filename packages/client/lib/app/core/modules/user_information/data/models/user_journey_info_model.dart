@@ -7,6 +7,7 @@ class UserJourneyInfoModel extends UserJourneyInfoEntity {
     required super.wantsToRepeatInvitationFlow,
     required super.userUID,
     required super.hasCompletedNoktheSession,
+    required super.hasEnteredStorage,
   });
 
   factory UserJourneyInfoModel.fromSupabase({
@@ -18,6 +19,7 @@ class UserJourneyInfoModel extends UserJourneyInfoEntity {
           hasGoneThroughInvitationFlow: false,
           hasSentAnInvitation: false,
           wantsToRepeatInvitationFlow: false,
+          hasEnteredStorage: false,
           userUID: "",
           hasCompletedNoktheSession: false);
     } else {
@@ -29,6 +31,7 @@ class UserJourneyInfoModel extends UserJourneyInfoEntity {
         wantsToRepeatInvitationFlow:
             userNamesRes.first['wants_to_repeat_invitation_flow'],
         hasCompletedNoktheSession: finishedNokhteSessionsRes.isNotEmpty,
+        hasEnteredStorage: userNamesRes.first['has_entered_storage'],
       );
     }
   }

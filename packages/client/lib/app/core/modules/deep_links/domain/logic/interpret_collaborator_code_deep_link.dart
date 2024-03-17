@@ -32,6 +32,7 @@ class InterpretCollaboratorCodeDeepLinkParams extends UserJourneyInfoEntity {
   final String collaboratorUID;
 
   const InterpretCollaboratorCodeDeepLinkParams({
+    required super.hasEnteredStorage,
     required this.collaboratorUID,
     required super.hasGoneThroughInvitationFlow,
     required super.hasSentAnInvitation,
@@ -45,6 +46,7 @@ class InterpretCollaboratorCodeDeepLinkParams extends UserJourneyInfoEntity {
     String collaboratorUID,
   ) =>
       InterpretCollaboratorCodeDeepLinkParams(
+        hasEnteredStorage: false,
         collaboratorUID: collaboratorUID,
         hasGoneThroughInvitationFlow:
             journeyEntity.hasGoneThroughInvitationFlow,
