@@ -10,6 +10,7 @@ abstract class UserInformationRemoteSource {
   Future<List> getFinishedNokhteSessions();
   Future<List> updateWantsToRepeatInvitationFlow(
       bool wantsToRepeatInvitationFlowParam);
+  Future<List> updateHasEnteredStorage(bool newEntryStatus);
 }
 
 class UserInformationRemoteSourceImpl implements UserInformationRemoteSource {
@@ -45,4 +46,8 @@ class UserInformationRemoteSourceImpl implements UserInformationRemoteSource {
   @override
   getFinishedNokhteSessions() async =>
       await finishedNokhteSessionQueries.select();
+
+  @override
+  Future<List> updateHasEnteredStorage(bool newEntryStatus) async =>
+      await userNamesQueries.updateHasEnteredStorage(newEntryStatus);
 }
