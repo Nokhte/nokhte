@@ -1,0 +1,70 @@
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/shared/base_home_screen_router_coordinator.dart';
+import 'package:nokhte/app/modules/storage/domain/domain.dart';
+import 'storage_content_widgets_coordinator.dart';
+part 'storage_content_coordinator.g.dart';
+
+class StorageContentCoordinator = _StorageContentCoordinatorBase
+    with _$StorageContentCoordinator;
+
+abstract class _StorageContentCoordinatorBase
+    extends BaseHomeScreenRouterCoordinator with Store {
+  final StorageContentWidgetsCoordinator widgets;
+
+  final SwipeDetector swipe;
+  _StorageContentCoordinatorBase({
+    required super.getUserInfo,
+    required super.captureScreen,
+    required this.widgets,
+    required this.swipe,
+  });
+
+  @observable
+  NokhteSessionArtifactEntity nokhteSessionArtifacts =
+      NokhteSessionArtifactEntity.initial();
+
+  @observable
+  bool aliasIsUpdated = false;
+
+  @action
+  constructor() async {
+    bool isFirstTime = false;
+    if (Modular.args.data["content"] != null) {
+      nokhteSessionArtifacts = Modular.args.data["content"];
+      isFirstTime = Modular.args.data["isFirstTime"];
+    }
+    widgets.constructor(isFirstTime);
+    initReactors();
+    await getUserInfo(NoParams());
+  }
+
+  initReactors() {
+    swipeReactor();
+    beachWavesMovieStatusReactor();
+  }
+
+  swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
+        switch (p0) {
+          case GestureDirections.left:
+            ifTouchIsNotDisabled(() {
+              widgets.onSwipeLeft();
+              setDisableAllTouchFeedback(true);
+            });
+          default:
+            break;
+        }
+      });
+
+  beachWavesMovieStatusReactor() =>
+      reaction((p0) => widgets.beachWaves.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished &&
+            widgets.beachWaves.movieMode ==
+                BeachWaveMovieModes.vibrantBlueGradToDrySand) {}
+      });
+}
