@@ -44,10 +44,6 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
         widgets.onDisconnected();
       },
     );
-    widgets.beachWavesMovieStatusReactor(
-      onShoreToOceanDiveComplete,
-      onShoreToVibrantBlueComplete,
-    );
     collaboratorPoolEntryReactor();
     openedDeepLinksReactor();
   }
