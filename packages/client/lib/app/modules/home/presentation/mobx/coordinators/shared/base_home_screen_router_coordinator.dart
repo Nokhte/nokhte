@@ -26,15 +26,7 @@ abstract class _BaseHomeScreenRouterCoordinatorBase extends BaseCoordinator
   decideAndRoute(Function setParams) async {
     await getUserInfo(NoParams());
     setParams();
-    final args = {"resumeOnShoreParams": params};
-    if (!getUserInfo.hasGoneThroughInvitationFlow) {
-      Modular.to.navigate("/home/phase1", arguments: args);
-    } else if (getUserInfo.hasGoneThroughInvitationFlow &&
-        !getUserInfo.hasDoneASession) {
-      Modular.to.navigate("/home/phase2", arguments: args);
-    } else if (getUserInfo.hasDoneASession) {
-      Modular.to.navigate("/home/phase3", arguments: args);
-    }
+    onAnimationComplete();
   }
 
   @action
@@ -45,8 +37,10 @@ abstract class _BaseHomeScreenRouterCoordinatorBase extends BaseCoordinator
     } else if (getUserInfo.hasGoneThroughInvitationFlow &&
         !getUserInfo.hasDoneASession) {
       Modular.to.navigate("/home/phase2", arguments: args);
-    } else if (getUserInfo.hasDoneASession) {
+    } else if (getUserInfo.hasDoneASession && !getUserInfo.hasEnteredStorage) {
       Modular.to.navigate("/home/phase3", arguments: args);
+    } else if (getUserInfo.hasDoneASession && getUserInfo.hasEnteredStorage) {
+      Modular.to.navigate("/home/phase4", arguments: args);
     }
   }
 
