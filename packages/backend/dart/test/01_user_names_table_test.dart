@@ -92,6 +92,13 @@ void main() {
         dupRes.first[UserNamesConstants.WANTS_TO_REPEAT_INVITATION_FLOW], true);
   });
 
+  test("updateHasEnteredStorage", () async {
+    final res = await user1UserNameQueries.updateHasEnteredStorage(true);
+    final dupRes = await user1UserNameQueries.updateHasEnteredStorage(true);
+    expect(res.first[UserNamesConstants.HAS_ENTERED_STORAGE], true);
+    expect(dupRes.first[UserNamesConstants.HAS_ENTERED_STORAGE], true);
+  });
+
   test("❌ shouldn't be able to insert another row if they already have one",
       () async {
     await user1UserNameQueries.insertUserInfo(
