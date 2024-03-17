@@ -83,6 +83,22 @@ class UserNamesQueries with UserNamesConstants {
     }
   }
 
+  Future<List> updateHasEnteredStorage(bool hasEnteredStorage) async {
+    final getRes = await getUserInfo();
+    if (getRes.first[UserNamesConstants.HAS_ENTERED_STORAGE] ==
+        hasEnteredStorage) {
+      return getRes;
+    } else {
+      return await supabase
+          .from(UserNamesConstants.TABLE)
+          .update({
+            UserNamesConstants.HAS_ENTERED_STORAGE: hasEnteredStorage,
+          })
+          .eq(UserNamesConstants.UID, userUID)
+          .select();
+    }
+  }
+
   Future<List> getCollaboratorRows() async => await supabase
       .from(UserNamesConstants.TABLE)
       .select()
