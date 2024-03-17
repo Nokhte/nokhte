@@ -18,6 +18,7 @@ void main() {
           hasSentAnInvitation: true,
           wantsToRepeatInvitationFlow: true,
           hasCompletedNoktheSession: false,
+          hasEnteredStorage: false,
         ));
         expect(res, const InterpretedDeepLinkEntity());
       });
@@ -30,6 +31,7 @@ void main() {
           hasSentAnInvitation: true,
           wantsToRepeatInvitationFlow: true,
           hasCompletedNoktheSession: false,
+          hasEnteredStorage: false,
         ));
         expect(
             res,
@@ -45,13 +47,13 @@ void main() {
 
     test("!hasGoneThroughInvitationFlow", () {
       final res = tLogic(const InterpretCollaboratorCodeDeepLinkParams(
-        collaboratorUID: "collaboratorUID",
-        userUID: 'userUID',
-        hasGoneThroughInvitationFlow: false,
-        hasSentAnInvitation: false,
-        wantsToRepeatInvitationFlow: false,
-        hasCompletedNoktheSession: false,
-      ));
+          collaboratorUID: "collaboratorUID",
+          userUID: 'userUID',
+          hasGoneThroughInvitationFlow: false,
+          hasSentAnInvitation: false,
+          wantsToRepeatInvitationFlow: false,
+          hasCompletedNoktheSession: false,
+          hasEnteredStorage: false));
       expect(
           res,
           const InterpretedDeepLinkEntity(additionalMetadata: {
