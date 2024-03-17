@@ -5,11 +5,9 @@ import 'package:nokhte/app/core/modules/posthog/posthog_module.dart';
 import 'package:nokhte/app/core/modules/supabase/supabase_module.dart';
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information_module.dart';
-import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/storage/data/data.dart';
 import 'package:nokhte/app/modules/storage/domain/domain.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:nokhte/app/modules/storage/storage_logic_module.dart';
 import 'presentation/presentation.dart';
 import 'storage_widgets_module.dart';
 
@@ -21,31 +19,10 @@ class StorageModule extends Module {
         PosthogModule(),
         UserInformationModule(),
         SupabaseModule(),
+        StorageLogicModule(),
       ];
   @override
   void binds(i) {
-    i.add<StorageRemoteSourceImpl>(
-      () => StorageRemoteSourceImpl(
-        supabase: Modular.get<SupabaseClient>(),
-      ),
-    );
-    i.add<StorageContractImpl>(
-      () => StorageContractImpl(
-        networkInfo: Modular.get<NetworkInfoImpl>(),
-        remoteSource: Modular.get<StorageRemoteSourceImpl>(),
-      ),
-    );
-
-    i.add<GetNokhteSessionArtifacts>(
-      () => GetNokhteSessionArtifacts(
-        contract: Modular.get<StorageContractImpl>(),
-      ),
-    );
-    i.add<UpdateSessionAlias>(
-      () => UpdateSessionAlias(
-        contract: Modular.get<StorageContractImpl>(),
-      ),
-    );
     i.add<StorageHomeCoordinator>(
       () => StorageHomeCoordinator(
         getNokhteSessionArtifactsLogic:
@@ -57,6 +34,12 @@ class StorageModule extends Module {
         getUserInfo: Modular.get<GetUserInfoStore>(),
       ),
     );
+    i.add<StorageContentCoordinator>(() => StorageContentCoordinator(
+          captureScreen: Modular.get<CaptureScreen>(),
+          widgets: Modular.get<StorageContentWidgetsCoordinator>(),
+          swipe: SwipeDetector(),
+          getUserInfo: Modular.get<GetUserInfoStore>(),
+        ));
   }
 
   @override
@@ -66,6 +49,13 @@ class StorageModule extends Module {
       transition: TransitionType.noTransition,
       child: (context) => StorageHomeScreen(
         coordinator: Modular.get<StorageHomeCoordinator>(),
+      ),
+    );
+    r.child(
+      '/content',
+      transition: TransitionType.noTransition,
+      child: (context) => StorageContentScreen(
+        coordinator: Modular.get<StorageContentCoordinator>(),
       ),
     );
   }
