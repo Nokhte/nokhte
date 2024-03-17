@@ -5,6 +5,7 @@ import 'package:nokhte/app/core/modules/deep_links/domain/domain.dart';
 import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
 import 'package:nokhte/app/core/modules/user_information/domain/domain.dart';
+import 'package:nokhte/app/core/modules/user_information/domain/logic/logic.dart';
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -26,6 +27,7 @@ import 'collaboration_home_coordinator_test.mocks.dart';
   MockSpec<UpdateHasGoneThroughInvitationFlow>(),
   MockSpec<UpdateHasSentAnInvitation>(),
   MockSpec<UpdateWantsToRepeatInvitationFlow>(),
+  MockSpec<UpdateHasEnteredStorage>()
 ])
 void main() {
   late CollaborationHomeScreenCoordinator testStore;
@@ -42,6 +44,7 @@ void main() {
           sendDeepLinkLogic: MockSendDeepLink(),
         ),
         userInformation: UserInformationCoordinator(
+          updateHasEnteredStorageLogic: MockUpdateHasEnteredStorage(),
           getUserInfoStore: MockGetUserInfoStore(),
           updateHasGoneThroughInvitationFlowLogic:
               MockUpdateHasGoneThroughInvitationFlow(),
