@@ -30,14 +30,14 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
 
   @action
   fadeIn({bool initOutlineFadeIn = false}) {
-    cross.toggleWidgetVisibility();
-    centerCrossNokhte.toggleWidgetVisibility();
+    cross.setWidgetVisibility(true);
+    centerCrossNokhte.setWidgetVisibility(true);
     if (initOutlineFadeIn) {
       cross.initOutlineFadeIn();
     }
-    Future.delayed(Seconds.get(0, milli: 500), () {
-      strokeCrossNokhte.toggleWidgetVisibility();
-      gradientNokhte.toggleWidgetVisibility();
+    Future.delayed(Seconds.get(0, milli: 1), () {
+      strokeCrossNokhte.setWidgetVisibility(true);
+      gradientNokhte.setWidgetVisibility(true);
     });
   }
 
