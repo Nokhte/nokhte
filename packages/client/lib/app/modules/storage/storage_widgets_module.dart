@@ -13,6 +13,17 @@ class StorageWidgetsModule extends Module {
   exportedBinds(i) {
     i.add<StorageHomeWidgetsCoordinator>(
       () => StorageHomeWidgetsCoordinator(
+        sessionCard: SessionCardStore(),
+        smartText: SmartTextStore(),
+        beachWaves: BeachWavesStore(),
+        gestureCross: Modular.get<GestureCrossStore>(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+      ),
+    );
+    i.add<StorageContentWidgetsCoordinator>(
+      () => StorageContentWidgetsCoordinator(
+        contentCard: ContentCardStore(),
+        smartText: SmartTextStore(),
         beachWaves: BeachWavesStore(),
         gestureCross: Modular.get<GestureCrossStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
