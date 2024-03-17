@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -144,10 +143,12 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
             nokhteBlur.pastControl == Control.playReverseFromEnd) {}
       });
 
-  beachWavesMovieStatusReactor(
-    Function onShoreToOceanDiveComplete,
-    Function onShoreToVibrantBlueComplete,
-  ) =>
+  beachWavesMovieStatusReactor({
+    required Function onShoreToOceanDiveComplete,
+    required Function onShoreToVibrantBlueComplete,
+    required Function onVirginStorageEntry,
+    required Function onSubsequentStorageEntry,
+  }) =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToOceanDive) {
@@ -157,15 +158,15 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
             if (isEnteringNokhteSession) {
               onShoreToVibrantBlueComplete();
             } else {
-              Modular.to.navigate("/storage/");
+              onSubsequentStorageEntry();
             }
-          } else if (p0 == MovieStatus.finished &&
-              beachWaves.movieMode == BeachWaveMovieModes.resumeOnShore) {
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.resumeOnShore) {
             beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.onShoreToDrySand) {
+            onVirginStorageEntry();
           }
-        } else if (beachWaves.movieStatus == MovieStatus.finished &&
-            isEnteringNokhteSession) {
-          Modular.to.navigate('/collaboration/pool');
         }
       });
 
