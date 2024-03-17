@@ -10,18 +10,17 @@ import 'canvas/cross_painter.dart';
 class Cross extends StatelessWidget {
   final Size size;
   final CrossStore store;
+  final bool useObserver;
   final bool showGlowAndOutline;
   const Cross({
     super.key,
     required this.size,
     required this.store,
     required this.showGlowAndOutline,
+    required this.useObserver,
   });
 
-  @override
-  Widget build(BuildContext context) {
-    return Observer(
-      builder: (context) => AnimatedOpacity(
+  _getCross() => AnimatedOpacity(
         opacity: useWidgetOpacity(store.showWidget),
         duration: Seconds.get(1),
         child: CustomAnimationBuilder(
@@ -50,7 +49,14 @@ class Cross extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    return useObserver
+        ? Observer(
+            builder: (context) => _getCross(),
+          )
+        : _getCross();
   }
 }
