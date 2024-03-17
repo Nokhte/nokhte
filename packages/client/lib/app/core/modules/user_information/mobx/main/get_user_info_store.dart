@@ -24,6 +24,9 @@ abstract class _GetUserInfoStoreBase
   bool hasDoneASession = false;
 
   @observable
+  bool hasEnteredStorage = false;
+
+  @observable
   String userUID = "";
 
   @observable
@@ -49,6 +52,7 @@ abstract class _GetUserInfoStoreBase
       entity = journeyInfoEntity;
       hasGoneThroughInvitationFlow =
           journeyInfoEntity.hasGoneThroughInvitationFlow;
+      hasEnteredStorage = journeyInfoEntity.hasEnteredStorage;
       hasSentAnInvitation = journeyInfoEntity.hasSentAnInvitation;
       wantsToRepeatInvitationFlow =
           journeyInfoEntity.wantsToRepeatInvitationFlow;
