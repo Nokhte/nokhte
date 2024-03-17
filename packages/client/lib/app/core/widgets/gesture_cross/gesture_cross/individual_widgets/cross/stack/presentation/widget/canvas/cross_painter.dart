@@ -62,5 +62,5 @@ class CrossPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(CrossPainter oldDelegate) => true;
+  bool shouldRepaint(oldDelegate) => true;
 }
