@@ -9,4 +9,5 @@ abstract class UserInformationContract extends BaseGetUserInfoContract {
       bool hasGoneThroughInvitationFlowParam);
   Future<Either<Failure, bool>> updateWantsToRepeatInvitationFlow(
       bool wantsToRepeatInvitationFlowParam);
+  Future<Either<Failure, bool>> updateHasEnteredStorage(bool newEntryStatus);
 }

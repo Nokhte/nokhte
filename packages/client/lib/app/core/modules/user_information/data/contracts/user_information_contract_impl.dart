@@ -67,4 +67,14 @@ class UserInformationContractImpl
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  updateHasEnteredStorage(newEntryStatus) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.updateHasEnteredStorage(newEntryStatus);
+      return Right(fromSupabase(res));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
 }
