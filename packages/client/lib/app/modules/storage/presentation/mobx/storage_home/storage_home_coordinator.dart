@@ -77,6 +77,7 @@ abstract class _StorageHomeCoordinatorBase
     swipeReactor();
     beachWavesMovieStatusReactor();
     sessionCardEditReactor();
+    sessionCardTapReactor();
   }
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
@@ -120,4 +121,12 @@ abstract class _StorageHomeCoordinatorBase
           );
         },
       );
+
+  sessionCardTapReactor() =>
+      reaction((p0) => widgets.sessionCard.lastTappedIndex, (p0) {
+        ifTouchIsNotDisabled(() {
+          widgets.onSessionCardTapped();
+          setDisableAllTouchFeedback(true);
+        });
+      });
 }

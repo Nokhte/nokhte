@@ -3,7 +3,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/shared/base_home_screen_router_coordinator.dart';
 import 'package:nokhte/app/modules/storage/domain/domain.dart';
@@ -40,13 +39,8 @@ abstract class _StorageContentCoordinatorBase
       isFirstTime = Modular.args.data["isFirstTime"];
     }
     widgets.constructor(isFirstTime);
-    initReactors();
-    await getUserInfo(NoParams());
-  }
-
-  initReactors() {
     swipeReactor();
-    beachWavesMovieStatusReactor();
+    await getUserInfo(NoParams());
   }
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
@@ -59,12 +53,5 @@ abstract class _StorageContentCoordinatorBase
           default:
             break;
         }
-      });
-
-  beachWavesMovieStatusReactor() =>
-      reaction((p0) => widgets.beachWaves.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished &&
-            widgets.beachWaves.movieMode ==
-                BeachWaveMovieModes.vibrantBlueGradToDrySand) {}
       });
 }

@@ -37,7 +37,6 @@ abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   initReactors() {
     centerCrossNokhteReactor();
-    sessionCardTapReactor();
   }
 
   @action
@@ -67,9 +66,4 @@ abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     gestureCross.gradientNokhte.toggleWidgetVisibility();
     gestureCross.strokeCrossNokhte.toggleWidgetVisibility();
   }
-
-  sessionCardTapReactor() =>
-      reaction((p0) => sessionCard.lastTappedIndex, (p0) {
-        onSessionCardTapped();
-      });
 }
