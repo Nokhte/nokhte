@@ -1,2 +1,2 @@
-export 'storage_home_coordinator.dart';
-export 'storage_home_widgets_coordinator.dart';
+export 'storage_home/storage_home.dart';
+export 'storage_content/storage_content.dart';
