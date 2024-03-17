@@ -30,6 +30,7 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
       BeachWaveMovieModes.oceanDiveToVibrantBlueGradient:
           OceanDiveToVibrantBlueGradientMovieStore(),
       BeachWaveMovieModes.onShore: OnShoreMovieStore(),
+      BeachWaveMovieModes.onShoreToDrySand: OnShoreToDrySandMovieStore(),
       BeachWaveMovieModes.onShoreToOceanDive: OnShoreToOceanDiveMovieStore(),
       BeachWaveMovieModes.onShoreToVibrantBlue:
           OnShoreToVibrantBlueMovieStore(),
@@ -52,6 +53,8 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
           VibrantBlueGradToHalfAndHalfMovieStore(),
       BeachWaveMovieModes.vibrantBlueGradientToTimesUp:
           VibrantBlueGradientToTimesUpMovieStore(),
+      BeachWaveMovieModes.vibrantBlueGradToDrySand:
+          VibrantBlueGradToDrySandMovieStore(),
       BeachWaveMovieModes.waterFromTopToOnShorePt1:
           WaterFromTopToOnShoreMoviePart1Store(),
       BeachWaveMovieModes.waterFromTopToOnShorePt2:
