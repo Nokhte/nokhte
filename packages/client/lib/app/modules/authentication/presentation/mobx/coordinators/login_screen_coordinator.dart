@@ -10,7 +10,7 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/authentication/domain/logic/logic.dart';
 import 'package:nokhte/app/modules/authentication/presentation/presentation.dart';
-import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/shared/base_home_screen_router_coordinator.dart';
+import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 part 'login_screen_coordinator.g.dart';
 
 class LoginScreenCoordinator = _LoginScreenCoordinatorBase

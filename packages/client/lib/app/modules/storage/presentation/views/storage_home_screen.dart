@@ -48,7 +48,6 @@ class StorageHomeScreen extends HookWidget {
                 ),
               ),
               GestureCross(
-                crossShouldUseObserver: coordinator.crossShouldUseObserver,
                 showGlowAndOutline: true,
                 config: GestureCrossConfiguration(
                   left: Right(

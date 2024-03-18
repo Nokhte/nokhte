@@ -1,12 +1,14 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // import 'dart:async';
+import 'dart:async';
+
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/shared/base_home_screen_router_coordinator.dart';
+import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 import 'package:nokhte/app/modules/irl_nokhte_session/irl_nokhte_session.dart';
 part 'irl_nokhte_session_phase3_coordinator.g.dart';
 
@@ -38,6 +40,12 @@ abstract class _IrlNokhteSessionPhase3CoordinatorBase
     await decidePhoneRole();
     await presence.updateCurrentPhase(4.0);
   }
+
+  @observable
+  bool isGoingHome = false;
+
+  @action
+  setIsGoingHome(bool newVal) => isGoingHome = newVal;
 
   @action
   onInactive() async {
@@ -100,6 +108,13 @@ abstract class _IrlNokhteSessionPhase3CoordinatorBase
               await presence.updateCurrentPhase(5.0);
               widgets.onSwipeUp();
               setDisableAllTouchFeedback(true);
+              Timer(Seconds.get(9), () async {
+                if (!isGoingHome) {
+                  await presence.updateCurrentPhase(4);
+                  widgets.onNineSecondsLapsed();
+                  setDisableAllTouchFeedback(false);
+                }
+              });
             });
           case GestureDirections.down:
             ifTouchIsNotDisabled(() async {
@@ -115,6 +130,7 @@ abstract class _IrlNokhteSessionPhase3CoordinatorBase
         (p0) => presence.getSessionMetadataStore.collaboratorPhase,
         (p0) async {
           if (p0 == 3.5) {
+            setIsGoingHome(true);
             await presence.updateCurrentPhase(3.5);
             widgets.onReadyToGoBack(phoneRole);
           }

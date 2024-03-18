@@ -26,13 +26,13 @@ abstract class _StorageContentWidgetsCoordinatorBase
   });
 
   @action
-  constructor(bool isFirstTime) {
+  constructor() {
     contentCard.initFadeIn();
     smartText.setMessagesData(MessagesData.storageHeader);
     smartText.startRotatingText();
     beachWaves.setMovieMode(BeachWaveMovieModes.drySandToVibrantBlueGrad);
-    gestureCross.fadeIn(initOutlineFadeIn: isFirstTime);
-
+    gestureCross.fadeIn();
+    gestureCross.cross.initStaticGlow();
     initReactors();
   }
 

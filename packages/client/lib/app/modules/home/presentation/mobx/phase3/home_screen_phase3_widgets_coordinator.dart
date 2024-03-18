@@ -3,15 +3,15 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/shared/base_home_screen_widgets_coordinator.dart';
-part 'home_screen_phase4_widgets_coordinator.g.dart';
+import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
+part 'home_screen_phase3_widgets_coordinator.g.dart';
 
-class HomeScreenPhase4WidgetsCoordinator = _HomeScreenPhase4WidgetsCoordinatorBase
-    with _$HomeScreenPhase4WidgetsCoordinator;
+class HomeScreenPhase3WidgetsCoordinator = _HomeScreenPhase3WidgetsCoordinatorBase
+    with _$HomeScreenPhase3WidgetsCoordinator;
 
-abstract class _HomeScreenPhase4WidgetsCoordinatorBase
+abstract class _HomeScreenPhase3WidgetsCoordinatorBase
     extends BaseHomeScreenWidgetsCoordinator with Store {
-  _HomeScreenPhase4WidgetsCoordinatorBase({
+  _HomeScreenPhase3WidgetsCoordinatorBase({
     required super.nokhteBlur,
     required super.beachWaves,
     required super.wifiDisconnectOverlay,
@@ -33,8 +33,9 @@ abstract class _HomeScreenPhase4WidgetsCoordinatorBase
     }
     beachWaves.setMovieMode(BeachWaveMovieModes.resumeOnShore);
     beachWaves.currentStore.initMovie(params);
-    gestureCross.fadeIn(initOutlineFadeIn: true);
-    primarySmartText.setMessagesData(MessagesData.empty);
+    gestureCross.fadeIn();
+    primarySmartText.setMessagesData(MessagesData.homeListHasDoneASession);
+    primarySmartText.startRotatingText();
     initReactors();
   }
 
@@ -49,11 +50,12 @@ abstract class _HomeScreenPhase4WidgetsCoordinatorBase
 
   @action
   onSwipeRight() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToVibrantBlue);
+    beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToDrySand);
     beachWaves.currentStore.initMovie(
       beachWaves.currentAnimationValues.first,
     );
     gestureCross.initMoveAndRegenerate(CircleOffsets.right);
+    gestureCross.cross.initOutlineFadeIn();
     primarySmartText.setWidgetVisibility(false);
   }
 }

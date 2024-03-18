@@ -6,7 +6,7 @@ import 'package:nokhte/app/core/modules/posthog/constants/screens.dart';
 import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
-import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/shared/base_home_screen_router_coordinator.dart';
+import 'package:nokhte/app/modules/home/presentation/mobx/shared/base_home_screen_router_coordinator.dart';
 import 'home_screen_phase0_widgets_coordinator.dart';
 part 'home_screen_phase0_coordinator.g.dart';
 
