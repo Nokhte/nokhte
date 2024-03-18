@@ -18,15 +18,15 @@ class CrossExpansionAndContractionMovie {
         .tween(
           'outlineOpacity',
           Tween<double>(
-            begin: 1.0,
-            end: 1.0,
+            begin: 0.0,
+            end: 0.0,
           ),
         )
         .tween(
           'outlineBlur',
           Tween<double>(
-            begin: 6.0,
-            end: 6.0,
+            begin: 0.0,
+            end: 0.0,
           ),
         );
 }
