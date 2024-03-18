@@ -60,13 +60,18 @@ abstract class _IrlNokhteSessionPhase3WidgetsCoordinatorBase
   onSwipeUp() {
     primarySmartText.setWidgetVisibility(false);
     secondarySmartText.setWidgetVisibility(false);
-    tertiarySmartText.startRotatingText();
+    if (tertiarySmartText.currentIndex == 0) {
+      tertiarySmartText.startRotatingText();
+    } else {
+      tertiarySmartText.setWidgetVisibility(true);
+    }
   }
 
   @action
   onReadyToGoBack(IrlNokhteSessionPhoneRole phoneRole) {
     primarySmartText.setWidgetVisibility(false);
     secondarySmartText.setWidgetVisibility(false);
+    tertiarySmartText.setWidgetVisibility(false);
     if (phoneRole == IrlNokhteSessionPhoneRole.talking) {
       beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
       beachWaves.currentStore.initMovie(NoParams());
@@ -75,6 +80,13 @@ abstract class _IrlNokhteSessionPhase3WidgetsCoordinatorBase
         Modular.to.navigate('/irl_nokhte_session/notes');
       });
     }
+  }
+
+  @action
+  onNineSecondsLapsed() {
+    primarySmartText.setWidgetVisibility(true);
+    secondarySmartText.setWidgetVisibility(true);
+    tertiarySmartText.setWidgetVisibility(false);
   }
 
   beachWavesMovieStatusReactor({
