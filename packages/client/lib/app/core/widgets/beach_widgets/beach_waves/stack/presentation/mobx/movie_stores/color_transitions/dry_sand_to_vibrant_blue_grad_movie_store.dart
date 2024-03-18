@@ -14,6 +14,7 @@ abstract class _DrySandToVibrantBlueGradMovieStoreBase
   _DrySandToVibrantBlueGradMovieStoreBase()
       : super(
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
+          callsOnCompleteTwice: true,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
       WaterColorsAndStops.drySand,
