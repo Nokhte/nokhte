@@ -1,4 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts_module.dart';
+import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic_module.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
@@ -19,6 +21,7 @@ class IrlNokhteSessionModule extends Module {
         SharedIrlNokhteSessionWidgetsModule(),
         NotesPhoneNokhteSessionWidgetsModule(),
         SpeakingPhoneNokhteSessionWidgetsModule(),
+        CleanUpCollaborationArtifactsModule(),
         PosthogModule(),
         IrlNokhteSessionPresenceModule(),
         GesturesModule(),
@@ -74,6 +77,8 @@ class IrlNokhteSessionModule extends Module {
     );
     i.add<IrlNokhteSessionPhase3Coordinator>(
       () => IrlNokhteSessionPhase3Coordinator(
+        cleanUpCollaborationArtifacts:
+            Modular.get<CleanUpCollaborationArtifactsCoordinator>(),
         decidePhoneRoleLogic: Modular.get<DecidePhoneRole>(),
         getUserInfo: Modular.get<GetUserInfoStore>(),
         swipe: Modular.get<SwipeDetector>(),
