@@ -34,4 +34,9 @@ abstract class _CrossStoreBase extends BaseCustomAnimatedWidgetStore
     setMovie(FadeOutCrossOutlineMovie.movie);
     setControl(Control.playReverseFromEnd);
   }
+
+  @action
+  initStaticGlow() {
+    setMovie(StaticGlowOutlineMovie.movie);
+  }
 }
