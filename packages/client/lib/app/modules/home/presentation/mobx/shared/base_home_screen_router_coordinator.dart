@@ -50,7 +50,4 @@ abstract class _BaseHomeScreenRouterCoordinatorBase extends BaseCoordinator
       Modular.to.navigate("/home/phase5", arguments: args);
     }
   }
-
-  @override
-  List<Object> get props => [];
 }

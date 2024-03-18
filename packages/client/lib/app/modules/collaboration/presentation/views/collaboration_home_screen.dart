@@ -46,7 +46,7 @@ class CollaborationHomeScreen extends HookWidget {
               child: GradientTreeNode(
                 store: coordinator.widgets.gradientTreeNode,
                 gradient: TreeNodeGradients.yellow,
-                padding: const EdgeInsets.only(top: 400.0),
+                padding: EdgeInsets.only(top: useFullScreenSize().height * .45),
               ),
             ),
             GestureCross(

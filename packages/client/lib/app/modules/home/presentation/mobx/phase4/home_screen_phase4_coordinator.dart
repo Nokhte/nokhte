@@ -40,7 +40,10 @@ abstract class _HomeScreenPhase4CoordinatorBase
   initReactors() {
     super.initReactors();
     swipeReactor(
-      onSwipeUp: widgets.onSwipeUp,
+      onSwipeUp: () {
+        setDisableAllTouchFeedback(true);
+        widgets.onSwipeUp();
+      },
       onSwipeRight: () {
         widgets.onSwipeRight();
         setDisableAllTouchFeedback(true);

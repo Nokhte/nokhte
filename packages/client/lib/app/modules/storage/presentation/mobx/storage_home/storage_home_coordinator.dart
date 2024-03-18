@@ -79,7 +79,6 @@ abstract class _StorageHomeCoordinatorBase
         switch (p0) {
           case GestureDirections.left:
             ifTouchIsNotDisabled(() {
-              setCrossShouldUseObserver(true);
               widgets.onSwipeLeft();
               setDisableAllTouchFeedback(true);
             });

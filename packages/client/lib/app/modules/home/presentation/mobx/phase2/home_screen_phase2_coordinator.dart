@@ -34,6 +34,11 @@ abstract class _HomeScreenPhase2CoordinatorBase
       onSubsequentStorageEntry: () {},
     );
     super.initReactors();
-    swipeReactor(onSwipeUp: widgets.onSwipeUp, onSwipeRight: () {});
+    swipeReactor(
+        onSwipeUp: () {
+          setDisableAllTouchFeedback(true);
+          widgets.onSwipeUp();
+        },
+        onSwipeRight: () {});
   }
 }
