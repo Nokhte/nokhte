@@ -66,11 +66,6 @@ abstract class _HomeScreenPhase4CoordinatorBase
 
   @action
   onSubsequentStorageEntry() {
-    Modular.to.navigate(
-      '/storage/',
-      arguments: {
-        "crosShouldGlowUp": true,
-      },
-    );
+    Modular.to.navigate('/storage/');
   }
 }

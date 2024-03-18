@@ -33,7 +33,7 @@ abstract class _HomeScreenPhase4WidgetsCoordinatorBase
     }
     beachWaves.setMovieMode(BeachWaveMovieModes.resumeOnShore);
     beachWaves.currentStore.initMovie(params);
-    gestureCross.fadeIn(initOutlineFadeIn: true);
+    gestureCross.fadeIn();
     primarySmartText.setMessagesData(MessagesData.empty);
     initReactors();
   }
@@ -54,6 +54,7 @@ abstract class _HomeScreenPhase4WidgetsCoordinatorBase
       beachWaves.currentAnimationValues.first,
     );
     gestureCross.initMoveAndRegenerate(CircleOffsets.right);
+    gestureCross.cross.initOutlineFadeIn();
     primarySmartText.setWidgetVisibility(false);
   }
 }

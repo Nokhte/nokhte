@@ -55,6 +55,7 @@ abstract class _HomeScreenPhase3WidgetsCoordinatorBase
       beachWaves.currentAnimationValues.first,
     );
     gestureCross.initMoveAndRegenerate(CircleOffsets.right);
+    gestureCross.cross.initOutlineFadeIn();
     primarySmartText.setWidgetVisibility(false);
   }
 }
