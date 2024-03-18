@@ -135,7 +135,7 @@ class HomeModule extends Module {
       ),
     );
     r.child(
-      "/phase4",
+      "/phase5",
       transition: TransitionType.noTransition,
       child: (context) => HomeScreenPhase5HasGoneIntoStorageNoInvitationFlow(
         coordinator: Modular.get<HomeScreenPhase5Coordinator>(),
