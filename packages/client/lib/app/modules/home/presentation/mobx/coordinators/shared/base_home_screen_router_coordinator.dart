@@ -32,7 +32,8 @@ abstract class _BaseHomeScreenRouterCoordinatorBase extends BaseCoordinator
   @action
   onAnimationComplete() {
     final args = {"resumeOnShoreParams": params};
-    if (!getUserInfo.hasGoneThroughInvitationFlow) {
+    if (!getUserInfo.hasGoneThroughInvitationFlow &&
+        !getUserInfo.hasDoneASession) {
       Modular.to.navigate("/home/phase1", arguments: args);
     } else if (getUserInfo.hasGoneThroughInvitationFlow &&
         !getUserInfo.hasDoneASession) {
@@ -42,6 +43,7 @@ abstract class _BaseHomeScreenRouterCoordinatorBase extends BaseCoordinator
     } else if (getUserInfo.hasDoneASession && getUserInfo.hasEnteredStorage) {
       Modular.to.navigate("/home/phase4", arguments: args);
     }
+    // TODO add support for phase5: hasDoneASession && hasEnteredStorage && !hasGoneThroughInvitationFlow
   }
 
   @override
