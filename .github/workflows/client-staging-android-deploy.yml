@@ -1,4 +1,4 @@
-name: Client Staging Deploy
+name: Client Android Staging Deploy
 on:
   push:
     branches:

@@ -1,4 +1,4 @@
-name: Client Production Deploy
+name: Client Android Production Deploy
 on:
   push:
     branches:
