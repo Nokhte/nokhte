@@ -39,7 +39,6 @@ abstract class _IrlNokhteSessionPhase3CoordinatorBase
   constructor() async {
     widgets.constructor();
     initReactors();
-    await getUserInfo(NoParams());
     await decidePhoneRole();
     await presence.updateCurrentPhase(4.0);
   }
@@ -148,6 +147,7 @@ abstract class _IrlNokhteSessionPhase3CoordinatorBase
             if (phoneRole == IrlNokhteSessionPhoneRole.talking) {
               await cleanUpCollaborationArtifacts.nokhteSession(NoParams());
             }
+            await getUserInfo(NoParams());
             widgets.onReadyToGoHome();
           }
         },
