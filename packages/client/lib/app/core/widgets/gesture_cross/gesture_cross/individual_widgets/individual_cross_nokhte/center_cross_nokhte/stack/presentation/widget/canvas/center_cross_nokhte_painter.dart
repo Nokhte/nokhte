@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nokhte/app/core/extensions/extensions.dart';
 
 class CenterCrossNokhtePainter extends CustomPainter {
   final Function onTap;
@@ -16,8 +15,8 @@ class CenterCrossNokhtePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     for (int i = 0; i < offsets.length; i++) {
       final center = Offset(
-        size.width.half() - offsets[i].dx,
-        size.height.half() - offsets[i].dy,
+        offsets[i].dx,
+        offsets[i].dy,
       );
       final paint = Paint()..color = Colors.white;
       canvas.drawCircle(center, radii[i], paint);

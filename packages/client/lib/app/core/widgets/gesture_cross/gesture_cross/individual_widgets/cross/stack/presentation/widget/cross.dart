@@ -8,12 +8,10 @@ import 'package:simple_animations/simple_animations.dart';
 import 'canvas/cross_painter.dart';
 
 class Cross extends StatelessWidget {
-  final Size size;
   final CrossStore store;
   final bool showGlowAndOutline;
   const Cross({
     super.key,
-    required this.size,
     required this.store,
     required this.showGlowAndOutline,
   });
@@ -37,7 +35,6 @@ class Cross extends StatelessWidget {
                 showGlowAndOutline: showGlowAndOutline,
                 store.path,
                 store.bounds,
-                size,
                 crossGradient: ColorsAndStops(colors: [
                   const Color(0xFF0A98FF),
                   Colors.white.withOpacity(0)
