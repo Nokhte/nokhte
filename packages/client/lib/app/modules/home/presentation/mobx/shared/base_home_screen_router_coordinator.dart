@@ -40,7 +40,9 @@ abstract class _BaseHomeScreenRouterCoordinatorBase extends BaseCoordinator
       Modular.to.navigate("/home/phase2", arguments: args);
     } else if (getUserInfo.hasDoneASession && !getUserInfo.hasEnteredStorage) {
       Modular.to.navigate("/home/phase3", arguments: args);
-    } else if (getUserInfo.hasDoneASession && getUserInfo.hasEnteredStorage) {
+    } else if (getUserInfo.hasDoneASession &&
+        getUserInfo.hasEnteredStorage &&
+        getUserInfo.hasGoneThroughInvitationFlow) {
       Modular.to.navigate("/home/phase4", arguments: args);
     } else if (getUserInfo.hasDoneASession &&
         getUserInfo.hasEnteredStorage &&
