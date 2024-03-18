@@ -48,6 +48,7 @@ class HomeScreenPhase3HasDoneSession extends HookWidget {
               ),
             ),
             GestureCross(
+              showGlowAndOutline: true,
               config: GestureCrossConfiguration(
                   top: Right(
                     NokhteGradientConfig(

@@ -40,6 +40,7 @@ class HomeScreenPhase4HasGoneIntoStorage extends HookWidget {
               ),
             ),
             GestureCross(
+              showGlowAndOutline: true,
               config: GestureCrossConfiguration(
                   top: Right(
                     NokhteGradientConfig(
