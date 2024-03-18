@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -21,6 +22,7 @@ abstract class _IrlNokhteSessionPhase3CoordinatorBase
   final SwipeDetector swipe;
   final IrlNokhteSessionPresenceCoordinator presence;
   final GetIrlNokhteSessionMetadataStore sessionMetadata;
+  final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
   final DecidePhoneRole decidePhoneRoleLogic;
 
   _IrlNokhteSessionPhase3CoordinatorBase({
@@ -28,6 +30,7 @@ abstract class _IrlNokhteSessionPhase3CoordinatorBase
     required this.widgets,
     required this.swipe,
     required this.presence,
+    required this.cleanUpCollaborationArtifacts,
     required super.getUserInfo,
     required this.decidePhoneRoleLogic,
   }) : sessionMetadata = presence.getSessionMetadataStore;
@@ -142,6 +145,9 @@ abstract class _IrlNokhteSessionPhase3CoordinatorBase
         (p0) async {
           if (p0) {
             await presence.dispose();
+            if (phoneRole == IrlNokhteSessionPhoneRole.talking) {
+              await cleanUpCollaborationArtifacts.nokhteSession(NoParams());
+            }
             widgets.onReadyToGoHome();
           }
         },
