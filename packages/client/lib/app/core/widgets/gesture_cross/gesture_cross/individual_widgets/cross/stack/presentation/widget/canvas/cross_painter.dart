@@ -16,7 +16,7 @@ class CrossPainter extends CustomPainter {
   CrossPainter(
     this.path,
     this.pathBounds,
-    Size size, {
+   {
     required this.circleInformation,
     required this.outlineBlur,
     required this.crossGradient,
