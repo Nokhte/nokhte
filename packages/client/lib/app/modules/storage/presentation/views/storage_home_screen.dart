@@ -42,7 +42,7 @@ class StorageHomeScreen extends HookWidget {
               )),
               Padding(
                 padding:
-                    EdgeInsets.only(top: height * .13, bottom: height * .12),
+                    EdgeInsets.only(top: height * .13, bottom: height * .15),
                 child: SessionCard(
                   store: coordinator.widgets.sessionCard,
                   sessions: coordinator.nokhteSessionArtifacts,
