@@ -14,7 +14,7 @@ import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/collaboration/domain/domain.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
-import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/shared/base_home_screen_router_coordinator.dart';
+import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 import 'package:nokhte_backend/edge_functions/edge_functions.dart';
 part 'collaboration_home_screen_coordinator.g.dart';
 
