@@ -116,6 +116,7 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
         if (deepLinks.listenForOpenedDeepLinkStore
                 .additionalMetadata["isTheUsersInvitation"] !=
             null) {
+          setDisableAllTouchFeedback(true);
           final additionalMetadata =
               deepLinks.listenForOpenedDeepLinkStore.additionalMetadata;
           await collaborationLogic.enter(EnterCollaboratorPoolParams(

@@ -26,6 +26,7 @@ class SessionCard extends HookWidget {
           duration: Seconds.get(1),
           child: ListView.separated(
             itemCount: sessions.length,
+            addAutomaticKeepAlives: true,
             separatorBuilder: (context, index) => Padding(
               padding: EdgeInsets.all(height * .02),
               child: Container(),
@@ -33,8 +34,8 @@ class SessionCard extends HookWidget {
             itemBuilder: (context, index) {
               return HookBuilder(builder: (context) {
                 if (!store.hasBeenInitiallySet[index]) {
-                  final newFocusNode = useFocusNode();
-                  final newController = useTextEditingController();
+                final newFocusNode = FocusNode();
+                final newController = TextEditingController();
                   store.focusNodes.add(newFocusNode);
                   store.textEditingControllers.add(newController);
                   newController.text = sessions[index].title;

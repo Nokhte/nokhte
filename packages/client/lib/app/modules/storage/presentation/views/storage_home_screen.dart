@@ -41,7 +41,8 @@ class StorageHomeScreen extends HookWidget {
                 opacityDuration: Seconds.get(1),
               )),
               Padding(
-                padding: EdgeInsets.only(top: height * .11),
+                padding:
+                    EdgeInsets.only(top: height * .13, bottom: height * .12),
                 child: SessionCard(
                   store: coordinator.widgets.sessionCard,
                   sessions: coordinator.nokhteSessionArtifacts,

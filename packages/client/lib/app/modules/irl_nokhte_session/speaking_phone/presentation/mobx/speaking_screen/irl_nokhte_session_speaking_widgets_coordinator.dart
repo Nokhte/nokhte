@@ -48,11 +48,27 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
     beachWavesMovieStatusReactor();
   }
 
+  @observable
+  bool canHold = true;
+
+  @action
+  setCanHold(bool newBool) => canHold = newBool;
+
+  @action
+  @action
+  onLetGoCompleted({bool addDelay = false}) {
+    Future.delayed(Seconds.get(addDelay ? 2 : 0), () {
+      letGoIsTriggered = false;
+      setCanHold(true);
+      mirroredText.setWidgetVisibility(true);
+      holdCount++;
+    });
+  }
+
   beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&
-            beachWaves.movieMode == BeachWaveMovieModes.halfAndHalfToDrySand &&
-            beachWaves.currentStore.control == Control.playFromStart) {
+            beachWaves.movieMode == BeachWaveMovieModes.halfAndHalfToDrySand) {
           beachWaves.setMovieMode(BeachWaveMovieModes.drySandToVibrantBlueGrad);
           beachWaves.currentStore.initMovie(NoParams());
         } else if (p0 == MovieStatus.finished &&
@@ -64,6 +80,14 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
             beachWaves.movieMode ==
                 BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf) {
           Modular.to.navigate("/irl_nokhte_session/exit");
+        } else if (p0 == MovieStatus.finished &&
+            beachWaves.movieMode ==
+                BeachWaveMovieModes.dynamicPointToHalfAndHalf) {
+          if (holdCount == 0) {
+            onLetGoCompleted();
+          } else {
+            onLetGoCompleted(addDelay: true);
+          }
         }
       });
 
@@ -78,12 +102,17 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
         }
       });
 
+  @observable
+  int holdCount = 0;
+
   @action
   onHold() {
-    letGoIsTriggered = false;
-    beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
-    beachWaves.currentStore.initMovie(NoParams());
-    mirroredText.setWidgetVisibility(false);
+    if (canHold && !letGoIsTriggered) {
+      beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
+      beachWaves.currentStore.initMovie(NoParams());
+      mirroredText.setWidgetVisibility(false);
+      setCanHold(false);
+    }
   }
 
   @action
@@ -95,11 +124,13 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
 
   @action
   onLetGo() {
-    letGoIsTriggered = true;
-    borderGlow.initGlowDown();
-    beachWaves.setMovieMode(BeachWaveMovieModes.dynamicPointToHalfAndHalf);
-    beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
-    speakLessSmileMore.hideBoth();
-    mirroredText.setWidgetVisibility(true);
+    if (!canHold) {
+      setCanHold(true);
+      letGoIsTriggered = true;
+      borderGlow.initGlowDown();
+      beachWaves.setMovieMode(BeachWaveMovieModes.dynamicPointToHalfAndHalf);
+      beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
+      speakLessSmileMore.hideBoth();
+    }
   }
 }
