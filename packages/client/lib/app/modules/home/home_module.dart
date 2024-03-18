@@ -84,6 +84,17 @@ class HomeModule extends Module {
         deepLinks: Modular.get<DeepLinksCoordinator>(),
       ),
     );
+    i.add<HomeScreenPhase5Coordinator>(
+      () => HomeScreenPhase5Coordinator(
+        getNokhteSessionArtifactsLogic:
+            Modular.get<GetNokhteSessionArtifacts>(),
+        collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        swipe: Modular.get<SwipeDetector>(),
+        widgets: Modular.get<HomeScreenPhase5WidgetsCoordinator>(),
+        deepLinks: Modular.get<DeepLinksCoordinator>(),
+      ),
+    );
   }
 
   @override
@@ -121,6 +132,13 @@ class HomeModule extends Module {
       transition: TransitionType.noTransition,
       child: (context) => HomeScreenPhase4HasGoneIntoStorage(
         coordinator: Modular.get<HomeScreenPhase4Coordinator>(),
+      ),
+    );
+    r.child(
+      "/phase4",
+      transition: TransitionType.noTransition,
+      child: (context) => HomeScreenPhase5HasGoneIntoStorageNoInvitationFlow(
+        coordinator: Modular.get<HomeScreenPhase5Coordinator>(),
       ),
     );
   }
