@@ -34,7 +34,8 @@ class StorageContentScreen extends HookWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: height * .11),
+                padding:
+                    EdgeInsets.only(top: height * .11, bottom: height * .12),
                 child: ContentCard(
                   store: coordinator.widgets.contentCard,
                   content: coordinator.nokhteSessionArtifacts.content,

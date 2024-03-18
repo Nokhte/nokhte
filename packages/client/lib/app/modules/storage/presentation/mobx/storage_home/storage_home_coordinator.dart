@@ -93,10 +93,12 @@ abstract class _StorageHomeCoordinatorBase
         if (p0 == MovieStatus.finished &&
             widgets.beachWaves.movieMode ==
                 BeachWaveMovieModes.onShoreToVibrantBlue) {
+          widgets.dispose();
           onAnimationComplete();
         } else if (p0 == MovieStatus.finished &&
             widgets.beachWaves.movieMode ==
                 BeachWaveMovieModes.vibrantBlueGradToDrySand) {
+          widgets.dispose();
           Modular.to.navigate("/storage/content", arguments: {
             "content":
                 nokhteSessionArtifacts[widgets.sessionCard.lastTappedIndex],

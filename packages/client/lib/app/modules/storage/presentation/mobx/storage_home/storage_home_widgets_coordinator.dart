@@ -66,4 +66,9 @@ abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     gestureCross.gradientNokhte.toggleWidgetVisibility();
     gestureCross.strokeCrossNokhte.toggleWidgetVisibility();
   }
+
+  @action
+  dispose() {
+    sessionCard.dispose();
+  }
 }
