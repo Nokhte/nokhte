@@ -47,3 +47,4 @@ jobs:
         env:
             BASE_64_KEY_PROPERTIES: ${{secrets.BASE_64_KEY_PROPERTIES}}
             BASE_64_UPLOAD_KEYSTORE: ${{secrets.BASE_64_UPLOAD_KEYSTORE}}
+            SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_PLAY_STORE_JSON_KEY_DATA}}
