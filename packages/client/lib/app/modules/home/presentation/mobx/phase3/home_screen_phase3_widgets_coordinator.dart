@@ -3,7 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/shared/base_home_screen_widgets_coordinator.dart';
+import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 part 'home_screen_phase3_widgets_coordinator.g.dart';
 
 class HomeScreenPhase3WidgetsCoordinator = _HomeScreenPhase3WidgetsCoordinatorBase

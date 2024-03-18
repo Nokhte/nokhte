@@ -3,7 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
-import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/shared/base_home_screen_widgets_coordinator.dart';
+import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'home_screen_phase1_widgets_coordinator.g.dart';
 

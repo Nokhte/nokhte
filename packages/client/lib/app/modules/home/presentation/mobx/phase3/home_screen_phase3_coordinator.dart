@@ -3,25 +3,27 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/posthog/constants/constants.dart';
-import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/shared/base_home_screen_coordinator.dart';
+import 'package:nokhte/app/core/modules/user_information/mobx/coordinators/user_information_coordinator.dart';
+import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 import 'package:nokhte/app/modules/storage/domain/domain.dart';
-import 'home_screen_phase4_widgets_coordinator.dart';
-part 'home_screen_phase4_coordinator.g.dart';
+part 'home_screen_phase3_coordinator.g.dart';
 
-class HomeScreenPhase4Coordinator = _HomeScreenPhase4CoordinatorBase
-    with _$HomeScreenPhase4Coordinator;
+class HomeScreenPhase3Coordinator = _HomeScreenPhase3CoordinatorBase
+    with _$HomeScreenPhase3Coordinator;
 
-abstract class _HomeScreenPhase4CoordinatorBase
+abstract class _HomeScreenPhase3CoordinatorBase
     extends BaseHomeScreenCoordinator with Store {
-  final HomeScreenPhase4WidgetsCoordinator widgets;
+  final HomeScreenPhase3WidgetsCoordinator widgets;
   final GetNokhteSessionArtifacts getNokhteSessionArtifactsLogic;
+  final UserInformationCoordinator userInformation;
 
-  _HomeScreenPhase4CoordinatorBase({
+  _HomeScreenPhase3CoordinatorBase({
     required super.collaborationLogic,
     required super.swipe,
     required super.deepLinks,
     required this.widgets,
     required this.getNokhteSessionArtifactsLogic,
+    required this.userInformation,
     required super.captureScreen,
   }) : super(widgets: widgets);
 
@@ -42,16 +44,17 @@ abstract class _HomeScreenPhase4CoordinatorBase
     super.initReactors();
     swipeReactor(
       onSwipeUp: widgets.onSwipeUp,
-      onSwipeRight: () {
+      onSwipeRight: () async {
         widgets.onSwipeRight();
         setDisableAllTouchFeedback(true);
+        await userInformation.updateHasEnteredStorageLogic(true);
       },
     );
     widgets.beachWavesMovieStatusReactor(
       onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
       onShoreToVibrantBlueComplete: onShoreToVibrantBlueComplete,
-      onVirginStorageEntry: () {},
-      onSubsequentStorageEntry: onSubsequentStorageEntry,
+      onVirginStorageEntry: onVirginStorageEntry,
+      onSubsequentStorageEntry: () {},
     );
   }
 
@@ -65,7 +68,13 @@ abstract class _HomeScreenPhase4CoordinatorBase
   }
 
   @action
-  onSubsequentStorageEntry() {
-    Modular.to.navigate('/storage/');
+  onVirginStorageEntry() {
+    Modular.to.navigate(
+      '/storage/content',
+      arguments: {
+        "content": nokhteSessionArtifacts.first,
+        "isFirstTime": true,
+      },
+    );
   }
 }
