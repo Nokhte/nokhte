@@ -44,12 +44,7 @@ abstract class _StorageHomeCoordinatorBase
 
   @action
   constructor() async {
-    bool crossShouldGlowUp = true;
-    setCrossShouldUseObserver(false);
-    if (Modular.args.data["crossShouldGlowUp"] != null) {
-      crossShouldGlowUp = Modular.args.data["crossShouldGlowUp"];
-    }
-    widgets.constructor(crossShouldGlowUp);
+    widgets.constructor();
     initReactors();
     await getUserInfo(NoParams());
     await getNokhteSessionArtifacts();

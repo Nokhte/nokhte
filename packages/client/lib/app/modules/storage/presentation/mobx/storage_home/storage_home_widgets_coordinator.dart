@@ -25,13 +25,13 @@ abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   });
 
   @action
-  constructor(bool crossShouldGlowUp) {
+  constructor() {
     sessionCard.initFadeIn();
     smartText.setMessagesData(MessagesData.storageHeader);
     smartText.startRotatingText();
     beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
-    gestureCross.fadeIn(initOutlineFadeIn: crossShouldGlowUp);
-
+    gestureCross.fadeIn();
+    gestureCross.cross.initStaticGlow();
     initReactors();
   }
 

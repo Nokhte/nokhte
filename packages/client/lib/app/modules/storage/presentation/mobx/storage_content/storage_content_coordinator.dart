@@ -33,12 +33,10 @@ abstract class _StorageContentCoordinatorBase
 
   @action
   constructor() async {
-    bool isFirstTime = false;
     if (Modular.args.data["content"] != null) {
       nokhteSessionArtifacts = Modular.args.data["content"];
-      isFirstTime = Modular.args.data["isFirstTime"];
     }
-    widgets.constructor(isFirstTime);
+    widgets.constructor();
     swipeReactor();
     await getUserInfo(NoParams());
   }
