@@ -14,6 +14,7 @@ abstract class _HalfAndHalfToDrySandMovieStoreBase
   _HalfAndHalfToDrySandMovieStoreBase()
       : super(
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
+          callsOnCompleteTwice: true,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
       WaterColorsAndStops.halfWaterAndSand,
