@@ -5,7 +5,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/shared/base_home_screen_router_coordinator.dart';
+import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 import 'package:nokhte/app/modules/storage/domain/domain.dart';
 import 'storage_home_widgets_coordinator.dart';
 part 'storage_home_coordinator.g.dart';
@@ -44,12 +44,7 @@ abstract class _StorageHomeCoordinatorBase
 
   @action
   constructor() async {
-    bool crossShouldGlowUp = true;
-    setCrossShouldUseObserver(false);
-    if (Modular.args.data["crossShouldGlowUp"] != null) {
-      crossShouldGlowUp = Modular.args.data["crossShouldGlowUp"];
-    }
-    widgets.constructor(crossShouldGlowUp);
+    widgets.constructor();
     initReactors();
     await getUserInfo(NoParams());
     await getNokhteSessionArtifacts();

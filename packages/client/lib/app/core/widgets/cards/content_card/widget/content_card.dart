@@ -10,18 +10,18 @@ import 'package:gradient_borders/gradient_borders.dart';
 class ContentCard extends HookWidget {
   final ContentCardStore store;
   final List content;
-  ContentCard({
+  const ContentCard({
     super.key,
     required this.content,
     required this.store,
   });
 
-  final Shader linearGradient = const LinearGradient(
-    colors: <Color>[
+  static const blueGrad = LinearGradient(
+    colors: [
       Color(0xFF1F5BD0),
       Color(0xFF1FB0D0),
     ],
-  ).createShader(const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +44,7 @@ class ContentCard extends HookWidget {
                   borderRadius: BorderRadius.circular(20),
                   // border: Border.all(width: 2, color: Colors.white)),
                   border: const GradientBoxBorder(
-                    gradient: LinearGradient(
-                      colors: [
-                        Color(0xFF1F5BD0),
-                        Color(0xFF1FB0D0),
-                      ],
-                    ),
+                    gradient: blueGrad,
                     width: 2,
                   ),
                 ),
@@ -60,18 +55,24 @@ class ContentCard extends HookWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 5.0, horizontal: 5.0),
-                      child: TextFormField(
-                        readOnly: true,
-                        maxLines: null,
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.jost(
-                          fontSize: 18,
-                          foreground: Paint()..shader = linearGradient,
+                      child: ShaderMask(
+                        blendMode: BlendMode.srcIn,
+                        shaderCallback: (bounds) => blueGrad.createShader(
+                          Rect.fromLTWH(0, 0, bounds.width, bounds.height),
                         ),
-                        initialValue: content[index],
-                        cursorColor: Colors.white,
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
+                        child: TextFormField(
+                          readOnly: true,
+                          maxLines: null,
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.jost(
+                            fontSize: 18,
+                            // foreground: Paint()..shader = linearGradient,
+                          ),
+                          initialValue: content[index],
+                          cursorColor: Colors.white,
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                          ),
                         ),
                       ),
                     ),

@@ -1,17 +1,19 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/home/presentation/mobx/coordinators/shared/base_home_screen_widgets_coordinator.dart';
-part 'home_screen_phase3_widgets_coordinator.g.dart';
+import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
+import 'package:simple_animations/simple_animations.dart';
+part 'home_screen_phase5_widgets_coordinator.g.dart';
 
-class HomeScreenPhase3WidgetsCoordinator = _HomeScreenPhase3WidgetsCoordinatorBase
-    with _$HomeScreenPhase3WidgetsCoordinator;
+class HomeScreenPhase5WidgetsCoordinator = _HomeScreenPhase5WidgetsCoordinatorBase
+    with _$HomeScreenPhase5WidgetsCoordinator;
 
-abstract class _HomeScreenPhase3WidgetsCoordinatorBase
+abstract class _HomeScreenPhase5WidgetsCoordinatorBase
     extends BaseHomeScreenWidgetsCoordinator with Store {
-  _HomeScreenPhase3WidgetsCoordinatorBase({
+  _HomeScreenPhase5WidgetsCoordinatorBase({
     required super.nokhteBlur,
     required super.beachWaves,
     required super.wifiDisconnectOverlay,
@@ -34,27 +36,48 @@ abstract class _HomeScreenPhase3WidgetsCoordinatorBase
     beachWaves.setMovieMode(BeachWaveMovieModes.resumeOnShore);
     beachWaves.currentStore.initMovie(params);
     gestureCross.fadeIn();
-    primarySmartText.setMessagesData(MessagesData.homeListHasDoneASession);
+    primarySmartText.setMessagesData(MessagesData.firstTimeHomeList);
     primarySmartText.startRotatingText();
     initReactors();
+  }
+
+  @action
+  onSwipeUp() {
+    if (primarySmartText.currentIndex.equals(1)) {
+      prepForNavigation();
+    }
   }
 
   @action
   @override
   initReactors() {
     super.initReactors();
+    gestureCrossTapReactor();
   }
 
   @action
-  onSwipeUp() => prepForNavigation(excludeUnBlur: !hasInitiatedBlur);
-
-  @action
   onSwipeRight() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToDrySand);
+    beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToVibrantBlue);
     beachWaves.currentStore.initMovie(
       beachWaves.currentAnimationValues.first,
     );
     gestureCross.initMoveAndRegenerate(CircleOffsets.right);
+    gestureCross.cross.initOutlineFadeIn();
     primarySmartText.setWidgetVisibility(false);
+  }
+
+  gestureCrossTapReactor() => reaction(
+        (p0) => gestureCross.tapCount,
+        (p0) => onGestureCrossTap(),
+      );
+
+  @action
+  onGestureCrossTap() {
+    if (!hasInitiatedBlur && !isEnteringNokhteSession) {
+      nokhteBlur.init();
+      beachWaves.currentStore.setControl(Control.stop);
+      toggleHasInitiatedBlur();
+      primarySmartText.startRotatingText(isResuming: true);
+    }
   }
 }
