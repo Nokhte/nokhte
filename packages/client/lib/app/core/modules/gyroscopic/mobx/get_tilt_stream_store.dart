@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api, argument_type_not_assignable_to_error_handler
 import 'dart:async';
 
 import 'package:mobx/mobx.dart';
@@ -30,6 +30,9 @@ abstract class _GetTiltStreamStoreBase extends BaseMobxDBStore with Store {
   listen(NoParams params) {
     stream = ObservableStream(logic(NoParams()));
     streamSubscription = stream.listen((value) => holdingState = value);
+    streamSubscription.onError((e) {
+      holdingState = PhoneHoldingState.noGryoscope;
+    });
   }
 
   @action
