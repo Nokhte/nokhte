@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
@@ -8,8 +7,8 @@ import 'package:nokhte/app/modules/authentication/presentation/presentation.dart
 import '../../../../shared/shared_mocks.mocks.dart';
 
 void main() {
-  late MockBeachWavesStore mockLayer1BeachWavesStore;
-  late MockBeachWavesStore mockLayer2BeachWavesStore;
+  late BeachWavesStore layer1BeachWavesStore;
+  late BeachWavesStore layer2BeachWavesStore;
   late SmartTextStore smartTextStore;
   late NokhteStore nokhteStore;
   late TrailingTextStore topTrailingTextStore;
@@ -20,8 +19,8 @@ void main() {
 
   setUp(() {
     wifiDisconnectOverlayStore = MockWifiDisconnectOverlayStore();
-    mockLayer1BeachWavesStore = MockBeachWavesStore();
-    mockLayer2BeachWavesStore = MockBeachWavesStore();
+    layer1BeachWavesStore = BeachWavesStore();
+    layer2BeachWavesStore = BeachWavesStore();
     smartTextStore = SmartTextStore();
     nokhteStore = NokhteStore();
     topTrailingTextStore = TrailingTextStore();
@@ -29,8 +28,8 @@ void main() {
     testStore = LoginScreenWidgetsCoordinator(
       gestureCross: MockGestureCrossStore(),
       wifiDisconnectOverlay: wifiDisconnectOverlayStore,
-      layer1BeachWaves: mockLayer1BeachWavesStore,
-      layer2BeachWaves: mockLayer2BeachWavesStore,
+      layer1BeachWaves: layer1BeachWavesStore,
+      layer2BeachWaves: layer2BeachWavesStore,
       smartTextStore: smartTextStore,
       nokhte: nokhteStore,
       bottomTrailingText: bottomTrailingTextStore,
@@ -101,19 +100,15 @@ void main() {
     });
 
     test("connstructor", () {
-      when(mockLayer2BeachWavesStore.currentStore)
-          .thenAnswer((realInvocation) => OnShoreMovieStore());
       testStore.constructor(tCoordinates, () {}, () {}, () {});
       expect(testStore.centerScreenCoordinates, tCoordinates);
-      verify(
-          mockLayer1BeachWavesStore.setMovieMode(BeachWaveMovieModes.blackOut));
+      expect(layer1BeachWavesStore.movieMode, BeachWaveMovieModes.blackOut);
+      expect(layer2BeachWavesStore.movieMode, BeachWaveMovieModes.onShore);
     });
   });
 
   group("other functions", () {
     test("triggerLoginAnimation", () {
-      when(mockLayer2BeachWavesStore.currentStore)
-          .thenAnswer((realInvocation) => OnShoreMovieStore());
       testStore.triggerLoginAnimation();
       expect(bottomTrailingTextStore.showWidget, false);
       expect(bottomTrailingTextStore.showWidget, false);
