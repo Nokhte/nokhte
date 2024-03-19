@@ -28,7 +28,7 @@ jobs:
             echo "AGORA_APP_ID='$AGORA_APP_ID'" >> .env
             echo "APP_ID='$APP_ID'" >> .env
         env:
-          APP_ID: ${{ secrets.STAGING_APP_ID }}
+          APP_ID: ${{ secrets.PROD_APP_ID }}
           STAGING_SUPABASE_URL: ${{ secrets.STAGING_SUPABASE_URL }}
           STAGING_SUPABASE_ANON_KEY: ${{ secrets.STAGING_SUPABASE_ANON_KEY }}
           AGORA_APP_ID: ${{ secrets.AGORA_APP_ID }}
