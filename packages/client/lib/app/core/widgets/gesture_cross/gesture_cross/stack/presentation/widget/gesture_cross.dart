@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:nokhte/app/core/extensions/extensions.dart';
-import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class GestureCross extends HookWidget {

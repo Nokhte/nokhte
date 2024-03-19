@@ -147,7 +147,7 @@ abstract class _IrlNokhteSessionPhase3CoordinatorBase
             if (phoneRole == IrlNokhteSessionPhoneRole.talking) {
               await cleanUpCollaborationArtifacts.nokhteSession(NoParams());
             }
-            Future.delayed(Seconds.get(1), () async {
+            Timer(Seconds.get(1), () async {
               await getUserInfo(NoParams());
             });
             widgets.onReadyToGoHome();

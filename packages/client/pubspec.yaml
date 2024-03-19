@@ -2,7 +2,7 @@ name: nokhte
 description: A new Flutter project.
 publish_to: "none"
 
-version: 1.0.20+112178858
+version: 1.0.23+112236292
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -43,7 +43,7 @@ dependencies:
   path_morph: ^1.1.1
   path_provider: ^2.1.1
   permission_handler: ^11.0.0
-  posthog_flutter: ^3.2.0
+  posthog_flutter: ^4.2.0
   record: ^5.0.1
   record_darwin: ^1.0.1-beta.1
   sensors_plus: ^4.0.2
@@ -71,7 +71,7 @@ dev_dependencies:
   patrol: ^2.3.2
 
 flutter:
-  # uses-material-design: true
+  uses-material-design: true
   assets:
     - .env
     - assets/app_logo.png

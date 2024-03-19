@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -52,7 +54,7 @@ abstract class _LegacyVirtualNokhteSessionPhase1WidgetsCoordinatorBase
     gestureCross.fadeAllOut();
     waitingText.setAltMovie(Seconds.get(1000));
     waitingText.toggleWidgetVisibility();
-    Future.delayed(Seconds.get(1), () {
+    Timer(Seconds.get(1), () {
       gestureCross.fadeAllIn();
     });
     beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradientToTimesUp);

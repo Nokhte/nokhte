@@ -47,13 +47,21 @@ Patch Version Bump
 
 
 
-### android beta
+### android internal_android_beta_build
 
 ```sh
-[bundle exec] fastlane android beta
+[bundle exec] fastlane android internal_android_beta_build
 ```
 
-Submit a new Beta Build to the Google Play store
+Submit a new Internal Beta Build to the Google Play store
+
+### android external_android_beta_build
+
+```sh
+[bundle exec] fastlane android external_android_beta_build
+```
+
+Submit a new External Beta Build to the Google Play store
 
 ### android build
 

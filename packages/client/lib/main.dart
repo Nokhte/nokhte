@@ -11,8 +11,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
 
-  final shouldUseTestKey =
-      dotenv.env["APP_ID"]!.contains('staging') || kDebugMode;
+  bool shouldUseTestKey = false;
+  if (dotenv.env["PROD_SUPABASE_URL"]!.contains('oczkzhgjpgeyqrgtqjag') ||
+      kDebugMode) {
+    shouldUseTestKey = true;
+  }
 
   await FlutterBranchSdk.init(
     disableTracking: true,

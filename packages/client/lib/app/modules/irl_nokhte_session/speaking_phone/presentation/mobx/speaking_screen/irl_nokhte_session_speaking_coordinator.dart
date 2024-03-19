@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -88,7 +90,7 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
   letGoReactor() => reaction((p0) => hold.letGoCount, (p0) {
         if (presence.getSessionMetadataStore.collaboratorIsOnline) {
           widgets.onLetGo();
-          Future.delayed(Seconds.get(2), () {
+          Timer(Seconds.get(2), () {
             setDisableAllTouchFeedback(false);
           });
         }

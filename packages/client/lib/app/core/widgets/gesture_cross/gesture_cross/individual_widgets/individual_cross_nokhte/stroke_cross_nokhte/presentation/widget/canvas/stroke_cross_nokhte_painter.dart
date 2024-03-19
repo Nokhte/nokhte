@@ -8,7 +8,7 @@ class StrokeCrossNokhtePainter extends CustomPainter {
   });
 
   @override
-  void paint(Canvas canvas, Size _) {
+  void paint(Canvas canvas, Size size) {
     for (int i = 0; i < offsets.length; i++) {
       const radius = 4.50;
       final center = Offset(

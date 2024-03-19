@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -57,7 +59,7 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
   @action
   @action
   onLetGoCompleted({bool addDelay = false}) {
-    Future.delayed(Seconds.get(addDelay ? 2 : 0), () {
+    Timer(Seconds.get(addDelay ? 2 : 0), () {
       letGoIsTriggered = false;
       setCanHold(true);
       mirroredText.setWidgetVisibility(true);
@@ -94,7 +96,7 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
   borderGlowReactor() => reaction((p0) => borderGlow.movieStatus, (p0) {
         if (p0 == MovieStatus.finished && borderGlow.isGlowingUp) {
           speakLessSmileMore.setSpeakLess(true);
-          Future.delayed(Seconds.get(2), () {
+          Timer(Seconds.get(2), () {
             if (!letGoIsTriggered) {
               speakLessSmileMore.setSmileMore(true);
             }

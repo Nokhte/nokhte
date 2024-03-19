@@ -13,7 +13,7 @@ abstract class _NokhteStoreBase extends BaseCustomAnimatedWidgetStore
     with Store {
   _NokhteStoreBase() {
     setMovie(
-      SetNokhtePositionMovie.getMovie(Offset(-10, -10), Offset.zero),
+      SetNokhtePositionMovie.getMovie(const Offset(-10, -10), Offset.zero),
     );
   }
 

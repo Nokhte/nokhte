@@ -51,7 +51,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
 
   @action
   onResumed() {
-    if (smartText.currentIndex.isLessThanOrEqualTo(1) &&
+    if (smartText.currentIndex.isLessThan(1) &&
         smartText.messagesData.length == 3) {
       smartText.reset();
       smartText.startRotatingText();
@@ -60,7 +60,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
 
   @action
   onInactive() {
-    if (smartText.currentIndex.isLessThanOrEqualTo(1) &&
+    if (smartText.currentIndex.isLessThan(1) &&
         smartText.messagesData.length == 3) {
       smartText.pause();
     }

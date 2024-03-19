@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
 import 'dart:ui';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_custom_animated_widget_store.dart';
@@ -63,7 +64,7 @@ abstract class _SmartTextStoreBase extends BaseCustomAnimatedWidgetStore
   startRotatingText({bool isResuming = false}) {
     movieStatus = MovieStatus.inProgress;
     if (isPaused) return;
-    Future.delayed(currentInitialFadeInDelay, () {
+    Timer(currentInitialFadeInDelay, () {
       if (isResuming) {
         setControl(Control.playReverse);
       } else {
@@ -87,14 +88,14 @@ abstract class _SmartTextStoreBase extends BaseCustomAnimatedWidgetStore
     movieStatus = MovieStatus.finished;
     if (currentIndex < messagesData.length - 1) {
       if (control != Control.playReverse && !currentShouldPauseHere) {
-        Future.delayed(currentOnScreenTime, () {
+        Timer(currentOnScreenTime, () {
           if (!isPaused) {
             setControl(Control.playReverse);
           }
         });
       } else if (control == Control.playReverse) {
         currentIndex++;
-        Future.delayed(Seconds.get(0, milli: 100), () {
+        Timer(Seconds.get(0, milli: 100), () {
           if (!isPaused) {
             setControl(Control.playFromStart);
           }

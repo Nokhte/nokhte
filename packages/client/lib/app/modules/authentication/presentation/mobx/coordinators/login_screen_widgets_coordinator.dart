@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
@@ -100,7 +102,8 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
       bottomTrailingText.reset();
       topTrailingText.reset();
     }
-    Future.delayed(Seconds.get(0, milli: 200), () {
+    smartTextStore.startRotatingText();
+    Timer(Seconds.get(0, milli: 200), () {
       smartTextStore.startRotatingText();
     });
   }
@@ -155,10 +158,8 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
       smartTextStore.toggleWidgetVisibility();
     }
     toggleHasTriggeredLoginAnimation();
-    Future.delayed(Seconds.get(0, milli: 500), () {
-      layer1BeachWaves.setMovieMode(BeachWaveMovieModes.blackOutToDrySand);
-      layer1BeachWaves.currentStore.initMovie(NoParams());
-    });
+    layer1BeachWaves.setMovieMode(BeachWaveMovieModes.blackOutToDrySand);
+    layer1BeachWaves.currentStore.initMovie(NoParams());
   }
 
   @action
