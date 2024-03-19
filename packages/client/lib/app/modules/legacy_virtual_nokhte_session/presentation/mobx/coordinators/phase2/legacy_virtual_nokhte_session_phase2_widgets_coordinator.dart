@@ -42,7 +42,7 @@ abstract class _LegacyVirtualNokhteSessionPhase2WidgetsCoordinatorBase
     waitingText.setWidgetVisibility(false);
     gestureCross.fadeInTheCross();
     initReactors();
-    Future.delayed(Seconds.get(0, milli: 1), () async {
+    Timer(Seconds.get(0, milli: 1), () async {
       waitingText.setWidgetVisibility(true);
       waitingText.setControl(Control.loop);
       await onWidgetsSet();

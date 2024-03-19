@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -56,7 +58,7 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
       await onSwipeUp(textEditor.controller.text);
       smartText.setWidgetVisibility(false);
       textEditor.setWidgetVisibility(false);
-      Future.delayed(Seconds.get(1), () {
+      Timer(Seconds.get(1), () {
         textEditor.controller.clear();
         textEditor.setWidgetVisibility(true);
       });
@@ -66,7 +68,7 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
   @action
   onExit() {
     textEditor.setWidgetVisibility(false);
-    Future.delayed(Seconds.get(1), () {
+    Timer(Seconds.get(1), () {
       Modular.to.navigate("/irl_nokhte_session/exit");
     });
   }

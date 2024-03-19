@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
@@ -32,7 +34,7 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
   fadeIn() {
     cross.setWidgetVisibility(true);
     centerCrossNokhte.setWidgetVisibility(true);
-    Future.delayed(Seconds.get(0, milli: 1), () {
+    Timer(Seconds.get(0, milli: 1), () {
       strokeCrossNokhte.setWidgetVisibility(true);
       gradientNokhte.setWidgetVisibility(true);
     });
@@ -85,7 +87,7 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
     gradientNokhte.setControl(Control.mirror);
     cross.toggleWidgetVisibility();
     centerCrossNokhte.toggleWidgetVisibility();
-    Future.delayed(Seconds.get(0, milli: 500), () {
+    Timer(Seconds.get(0, milli: 500), () {
       strokeCrossNokhte.toggleWidgetVisibility();
       gradientNokhte.toggleWidgetVisibility();
     });

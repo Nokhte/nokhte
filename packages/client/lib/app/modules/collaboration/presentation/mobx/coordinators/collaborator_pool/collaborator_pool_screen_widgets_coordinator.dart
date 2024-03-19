@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -36,7 +38,7 @@ abstract class _CollaboratorPoolScreenWidgetsCoordinatorBase
     waitingText.toggleWidgetVisibility();
     beachWaves.currentStore.initMovie(NoParams());
     initReactors();
-    Future.delayed(Seconds.get(0, milli: 100), () {
+    Timer(Seconds.get(0, milli: 100), () {
       waitingText.toggleWidgetVisibility();
     });
   }

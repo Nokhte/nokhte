@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // import 'dart:async';
+import 'dart:async';
+
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -76,7 +78,7 @@ abstract class _IrlNokhteSessionPhase3WidgetsCoordinatorBase
       beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
       beachWaves.currentStore.initMovie(NoParams());
     } else if (phoneRole == IrlNokhteSessionPhoneRole.notes) {
-      Future.delayed(Seconds.get(1), () {
+      Timer(Seconds.get(1), () {
         Modular.to.navigate('/irl_nokhte_session/notes');
       });
     }

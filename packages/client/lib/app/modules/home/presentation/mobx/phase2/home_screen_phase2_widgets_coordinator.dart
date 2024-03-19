@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -39,7 +41,7 @@ abstract class _HomeScreenPhase2WidgetsCoordinatorBase
     beachWaves.currentStore.initMovie(Modular.args.data["resumeOnShoreParams"]);
     primarySmartText.setMessagesData(MessagesData.firstTimeHomeList);
     gestureCross.fadeIn();
-    Future.delayed(Seconds.get(3), () {
+    Timer(Seconds.get(3), () {
       if (!hasSwipedUp) {
         gestureCross.startBlinking();
         primarySmartText.startRotatingText();
