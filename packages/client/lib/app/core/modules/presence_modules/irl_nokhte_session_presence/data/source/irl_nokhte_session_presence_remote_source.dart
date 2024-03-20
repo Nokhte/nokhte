@@ -7,6 +7,7 @@ abstract class IrlNokhteSessionPresenceRemoteSource
     extends BasePresenceRemoteSource<IrlNokhteSessionMetadata> {
   Future<List> addContent(String content);
   Future<List> completeTheSession();
+  Future<List> updateHasGyroscope(bool hasGyroscope);
 }
 
 class IrlNokhteSessionPresenceRemoteSourceImpl
