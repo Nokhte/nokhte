@@ -67,7 +67,7 @@ mixin PosthogPageNameConstants {
         return nokhteSessionNotesScreen;
       case Screens.nokhteSessionSpeakingInstructions:
         return nokhteSessionSpeakingInstructions;
-      case Screens.nokhteSeessionSpeaking:
+      case Screens.nokhteSessionSpeaking:
         return nokhteSeessionSpeakingScreen;
       case Screens.nokhteSessionPhase3:
         return nokhteSessionPhase3;
