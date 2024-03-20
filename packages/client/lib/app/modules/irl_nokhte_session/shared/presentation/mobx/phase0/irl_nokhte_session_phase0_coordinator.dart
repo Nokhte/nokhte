@@ -7,6 +7,7 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/mobx/gyroscopic_coordinator.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -23,6 +24,7 @@ abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
   final TapDetector tap;
   final IrlNokhteSessionPresenceCoordinator presence;
   final GetIrlNokhteSessionMetadataStore sessionMetadata;
+  final GyroscopicCoordinator gyroscopic;
 
   _IrlNokhteSessionPhase0CoordinatorBase({
     required super.captureScreen,
@@ -30,6 +32,7 @@ abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
     required this.decidePhoneRoleLogic,
     required this.tap,
     required this.presence,
+    required this.gyroscopic,
   }) : sessionMetadata = presence.getSessionMetadataStore;
 
   @observable
@@ -51,6 +54,7 @@ abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
     widgets.constructor();
     await presence.listen();
     initReactors();
+    await gyroscopic.checkIfDeviceHasGyroscope();
     await decidePhoneRole();
   }
 
@@ -71,6 +75,7 @@ abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
 
   @action
   initReactors() {
+    deviceGyroscopeStatusReactor();
     widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
@@ -138,6 +143,13 @@ abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
             presence.getSessionMetadataStore.canMoveIntoInstructions) {
           isNavigatingAway = true;
           Modular.to.navigate(pathIntoSession);
+        }
+      });
+
+  deviceGyroscopeStatusReactor() =>
+      reaction((p0) => gyroscopic.deviceHasGyroscope, (p0) async {
+        if (!p0) {
+          await presence.updateHasGyroscope(false);
         }
       });
 }
