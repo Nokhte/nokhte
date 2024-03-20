@@ -8,6 +8,7 @@ import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/mobx/gyroscopic_coordinator.dart';
+import 'package:nokhte/app/core/modules/posthog/constants/constants.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -54,6 +55,7 @@ abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
     widgets.constructor();
     await presence.listen();
     initReactors();
+    await captureScreen(Screens.nokhteSessionPhase0);
     await gyroscopic.checkIfDeviceHasGyroscope();
     await decidePhoneRole();
   }

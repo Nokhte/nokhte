@@ -84,7 +84,7 @@ abstract class _LegacyVirtualNokhteSessionPhase1CoordinatorBase
     widgets.setHasTheQuesion(logic.hasTheQuestion);
 
     await logic.changeDesireToLeaveLogic(ChangeDesireToLeaveParams.negative);
-    await captureScreen(Screens.nokhteSessionPhase1);
+    // await captureScreen(Screens.nokhteSessionPhase1);
   }
 
   @action

@@ -38,7 +38,7 @@ abstract class _LegacyVirtualNokhteSessionPhase2CoordinatorBase
   constructor() async {
     widgets.constructor(onWidgetsSet, onTimeExpired);
     desireToLeaveStatusReactor();
-    await captureScreen(Screens.nokhteSessionPhase2);
+    // await captureScreen(Screens.nokhteSessionPhase2);
   }
 
   @action
