@@ -25,8 +25,9 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
 
   @action
   setMessagesData(
-    MirroredTextContentOptions types,
-  ) {
+    MirroredTextContentOptions types, {
+    bool shouldAdjustToFallbackExitProtocol = false,
+  }) {
     switch (types) {
       case MirroredTextContentOptions.irlNokhteSessionSpeakingInstructions:
         prepForSplitScreen();
@@ -50,11 +51,15 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
         primaryRightSideUpText.setMessagesData(
           MessagesData.getIrlNokhteSessionNotesInstructionsPrimaryPhase0List(
             MirroredTextOrientations.rightSideUp,
+            shouldAdjustToFallbackExitProtocol:
+                shouldAdjustToFallbackExitProtocol,
           ),
         );
         primaryUpsideDownText.setMessagesData(
           MessagesData.getIrlNokhteSessionNotesInstructionsPrimaryPhase0List(
             MirroredTextOrientations.upsideDown,
+            shouldAdjustToFallbackExitProtocol:
+                shouldAdjustToFallbackExitProtocol,
           ),
         );
         secondaryRightSideUpText.setMessagesData(

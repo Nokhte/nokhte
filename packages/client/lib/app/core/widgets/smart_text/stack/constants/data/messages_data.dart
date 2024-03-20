@@ -204,7 +204,7 @@ class MessagesData {
   static List<RotatingTextData>
       getIrlNokhteSessionNotesInstructionsPrimaryPhase0List(
     MirroredTextOrientations orientation, {
-    bool useGyroscopeAccessibility = false,
+    bool shouldAdjustToFallbackExitProtocol = false,
   }) {
     final arr = [
       RotatingTextData(
@@ -227,7 +227,7 @@ class MessagesData {
       ),
       RotatingTextData(
         mainMessage:
-            "To complete the session ${useGyroscopeAccessibility ? "swipe down on both phones" : "pick up both phones"}",
+            "To complete the session ${shouldAdjustToFallbackExitProtocol ? "swipe down on both phones" : "pick up both phones"}",
         pauseHere: true,
         mainMessageFontSize: 22.0,
       ),
