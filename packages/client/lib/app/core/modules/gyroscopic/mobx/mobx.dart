@@ -1,1 +1,1 @@
-export 'get_tilt_stream_store.dart';
+export 'gyroscopic_coordinator.dart';
