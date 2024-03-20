@@ -60,6 +60,8 @@ class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
   Future<String> getCreatedAt() async => await _getProperty(CREATED_AT);
   Future<int> getMetadataIndex() async => await _getProperty(METADATA_INDEX);
   Future<List> getContent() async => await _getProperty(CONTENT);
+  Future<List> getHaveGyroscopees() async =>
+      await _getProperty(HAVE_GYROSCOPES);
 
   Future<List> updateOnlineStatus(
     bool isOnlineParam, {
@@ -116,6 +118,19 @@ class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
     }).select();
     await delete();
     return [];
+  }
+
+  Future<List> updateHasGyroscopes(bool newStatus) async {
+    await computeCollaboratorInformation();
+    final currentHaveGyroscopees = await getHaveGyroscopees();
+    currentHaveGyroscopees[userIndex] = newStatus;
+    return await _onCurrentActiveNokhteSession(
+      supabase.from(TABLE).update(
+        {
+          HAVE_GYROSCOPES: currentHaveGyroscopees,
+        },
+      ),
+    );
   }
 
   _onCurrentActiveNokhteSession(PostgrestFilterBuilder query) async {
