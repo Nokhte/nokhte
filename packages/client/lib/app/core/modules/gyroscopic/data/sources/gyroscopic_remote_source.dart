@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/data/data.dart';
+import 'package:android_package_manager/android_package_manager.dart';
 
 abstract class GyroscopicRemoteSource {
   Stream<PhoneHoldingState> getTiltStream();
+  Future<bool> checkIfDeviceHasGyroscope();
 }
 
 class GyroscopicRemoteSourceImpl implements GyroscopicRemoteSource {
@@ -19,4 +23,17 @@ class GyroscopicRemoteSourceImpl implements GyroscopicRemoteSource {
             ? PhoneHoldingState.isPickedUp
             : PhoneHoldingState.isDown,
       );
+
+  @override
+  checkIfDeviceHasGyroscope() async {
+    if (Platform.isAndroid) {
+      AndroidPackageManager packageManager = AndroidPackageManager();
+      return await packageManager.hasSystemFeature(
+          featureName: 'FEATURE_SENSOR_GYROSCOPE');
+    } else if (Platform.isIOS) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
