@@ -115,9 +115,9 @@ abstract class _LegacyVirtualNokhteSessionPhase1WidgetsCoordinatorBase
       secondarySmartText.toggleWidgetVisibility();
     }
 
-    secondarySmartText.setMessagesData(
-      MessagesData.secondaryPurposeSessionPhase1List,
-    );
+    // secondarySmartText.setMessagesData(
+    //   MessagesData.secondaryPurposeSessionPhase1List,
+    // );
     secondarySmartText.startRotatingText();
   }
 

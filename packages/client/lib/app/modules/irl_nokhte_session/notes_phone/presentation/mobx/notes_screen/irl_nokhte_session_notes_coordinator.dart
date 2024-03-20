@@ -4,6 +4,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
+import 'package:nokhte/app/core/modules/posthog/constants/screens.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -19,22 +20,24 @@ abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
   final IrlNokhteSessionPresenceCoordinator presence;
   final GetIrlNokhteSessionMetadataStore sessionMetadata;
   final SwipeDetector swipe;
-  final GetTiltStreamStore getTiltStream;
+  final GyroscopicCoordinator gyroscopic;
 
   _IrlNokhteSessionNotesCoordinatorBase({
     required this.widgets,
     required super.captureScreen,
     required this.presence,
     required this.swipe,
-    required this.getTiltStream,
+    required this.gyroscopic,
   }) : sessionMetadata = presence.getSessionMetadataStore;
 
   @action
   constructor() async {
     widgets.constructor();
-    initReactors();
-    getTiltStream.listen(NoParams());
+    initReactors(sessionMetadata.shouldAdjustToFallbackExitProtocol);
+    gyroscopic.listen(NoParams());
     setBlockPhoneTiltReactor(false);
+    await presence.updateCurrentPhase(2.0);
+    await captureScreen(Screens.nokhteSessionNotes);
   }
 
   @observable
@@ -43,7 +46,7 @@ abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
   @action
   setBlockPhoneTiltReactor(bool newValue) => blockPhoneTiltReactor = newValue;
 
-  initReactors() {
+  initReactors(bool shouldAdjustToFallbackExitProtocol) {
     swipeReactor();
     presence.initReactors(
       onCollaboratorJoined: () => setDisableAllTouchFeedback(false),
@@ -54,9 +57,11 @@ abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
       onLongReConnected: () => setDisableAllTouchFeedback(false),
       onDisconnected: () => setDisableAllTouchFeedback(true),
     );
+    if (!shouldAdjustToFallbackExitProtocol) {
+      phoneTiltStateReactor();
+    }
     userPhaseReactor();
     touchFeedbackStatusReactor();
-    phoneTiltStateReactor();
     collaboratorPhaseReactor();
   }
 
@@ -83,7 +88,7 @@ abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
       });
 
   phoneTiltStateReactor() =>
-      reaction((p0) => getTiltStream.holdingState, (p0) async {
+      reaction((p0) => gyroscopic.holdingState, (p0) async {
         if (!blockPhoneTiltReactor) {
           if (p0 == PhoneHoldingState.isPickedUp) {
             await presence.updateCurrentPhase(3);
@@ -100,7 +105,7 @@ abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
             if (widgets.textEditor.controller.text.isNotEmpty) {
               await onSwipeUp(widgets.textEditor.controller.text);
             }
-            await getTiltStream.dispose();
+            await gyroscopic.dispose();
             setBlockPhoneTiltReactor(true);
             widgets.onExit();
           }
@@ -115,7 +120,7 @@ abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
               await onSwipeUp(widgets.textEditor.controller.text);
             }
             setBlockPhoneTiltReactor(true);
-            await getTiltStream.dispose();
+            await gyroscopic.dispose();
             widgets.onExit();
           }
         },
@@ -126,6 +131,12 @@ abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
           case GestureDirections.up:
             ifTouchIsNotDisabled(() {
               widgets.onSwipeUp(onSwipeUp);
+            });
+          case GestureDirections.down:
+            ifTouchIsNotDisabled(() async {
+              if (sessionMetadata.shouldAdjustToFallbackExitProtocol) {
+                await presence.updateCurrentPhase(3);
+              }
             });
           default:
             break;

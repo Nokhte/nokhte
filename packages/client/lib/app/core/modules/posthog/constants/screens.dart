@@ -4,9 +4,14 @@ enum Screens {
   homePhase1,
   homePhase2,
   homePhase3,
+  homePhase4,
+  homePhase5,
   collaborationHome,
   collaboratorPool,
   nokhteSessionPhase0,
-  nokhteSessionPhase1,
-  nokhteSessionPhase2
+  nokhteSessionNotesInstructions,
+  nokhteSessionNotes,
+  nokhteSessionSpeakingInstructions,
+  nokhteSessionSpeaking,
+  nokhteSessionPhase3
 }

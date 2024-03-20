@@ -23,9 +23,16 @@ class GyroscopicModule extends Module {
         contract: Modular.get<GyroscopicContractImpl>(),
       ),
     );
-    i.add<GetTiltStreamStore>(
-      () => GetTiltStreamStore(
-        logic: Modular.get<GetTiltStream>(),
+    i.add<CheckIfDeviceHasGyroscope>(
+      () => CheckIfDeviceHasGyroscope(
+        contract: Modular.get<GyroscopicContractImpl>(),
+      ),
+    );
+    i.add<GyroscopicCoordinator>(
+      () => GyroscopicCoordinator(
+        getTiltStreamLogic: Modular.get<GetTiltStream>(),
+        checkIfDeviceHasGyroscopeLogic:
+            Modular.get<CheckIfDeviceHasGyroscope>(),
       ),
     );
   }

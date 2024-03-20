@@ -32,7 +32,7 @@ abstract class _HomeScreenPhase4CoordinatorBase
   constructor() async {
     widgets.constructor();
     initReactors();
-    await captureScreen(Screens.homePhase3);
+    await captureScreen(Screens.homePhase4);
     await getNokhteSessionArtifacts();
   }
 

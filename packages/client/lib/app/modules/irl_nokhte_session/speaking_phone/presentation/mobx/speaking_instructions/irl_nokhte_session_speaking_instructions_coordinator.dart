@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
+import 'package:nokhte/app/core/modules/posthog/constants/constants.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -26,9 +27,10 @@ abstract class _IrlNokhteSessionSpeakingInstructionsCoordinatorBase
   }) : sessionMetadata = presence.getSessionMetadataStore;
 
   @action
-  constructor() {
+  constructor() async {
     widgets.constructor();
     initReactors();
+    await captureScreen(Screens.nokhteSessionSpeakingInstructions);
   }
 
   initReactors() {

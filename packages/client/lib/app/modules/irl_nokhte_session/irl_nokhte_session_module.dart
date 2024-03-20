@@ -34,6 +34,7 @@ class IrlNokhteSessionModule extends Module {
     i.add<IrlNokhteSessionPhase0Coordinator>(
       () => IrlNokhteSessionPhase0Coordinator(
         decidePhoneRoleLogic: Modular.get<DecidePhoneRole>(),
+        gyroscopic: Modular.get<GyroscopicCoordinator>(),
         presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<IrlNokhteSessionPhase0WidgetsCoordinator>(),
@@ -51,12 +52,13 @@ class IrlNokhteSessionModule extends Module {
     );
     i.add<IrlNokhteSessionSpeakingCoordinator>(
       () => IrlNokhteSessionSpeakingCoordinator(
-          getTiltStream: Modular.get<GetTiltStreamStore>(),
-          captureScreen: Modular.get<CaptureScreen>(),
-          widgets: Modular.get<IrlNokhteSessionSpeakingWidgetsCoordinator>(),
-          presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
-          hold: Modular.get<HoldDetector>(),
-          swipe: Modular.get<SwipeDetector>()),
+        gyroscopic: Modular.get<GyroscopicCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        widgets: Modular.get<IrlNokhteSessionSpeakingWidgetsCoordinator>(),
+        presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
+        hold: Modular.get<HoldDetector>(),
+        swipe: Modular.get<SwipeDetector>(),
+      ),
     );
     i.add<IrlNokhteSessionNotesInstructionsCoordinator>(
       () => IrlNokhteSessionNotesInstructionsCoordinator(
@@ -69,7 +71,7 @@ class IrlNokhteSessionModule extends Module {
     );
     i.add<IrlNokhteSessionNotesCoordinator>(
       () => IrlNokhteSessionNotesCoordinator(
-          getTiltStream: Modular.get<GetTiltStreamStore>(),
+          gyroscopic: Modular.get<GyroscopicCoordinator>(),
           captureScreen: Modular.get<CaptureScreen>(),
           widgets: Modular.get<IrlNokhteSessionNotesWidgetsCoordinator>(),
           presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),

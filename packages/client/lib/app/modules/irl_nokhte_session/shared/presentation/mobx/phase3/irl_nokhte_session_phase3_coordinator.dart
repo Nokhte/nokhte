@@ -6,6 +6,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/posthog/constants/screens.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -41,6 +42,7 @@ abstract class _IrlNokhteSessionPhase3CoordinatorBase
     initReactors();
     await decidePhoneRole();
     await presence.updateCurrentPhase(4.0);
+    await captureScreen(Screens.nokhteSessionPhase3);
   }
 
   @observable

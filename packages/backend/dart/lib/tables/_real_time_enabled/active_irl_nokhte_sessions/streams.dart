@@ -43,7 +43,10 @@ class ActiveIrlNokhteSessionsStream extends ActiveIrlNokhteSessionQueries
         await computeCollaboratorInformation();
         final isOnlineList = event.first[IS_ONLINE];
         final phasesList = event.first[CURRENT_PHASES];
+        final haveGyroscopesList = event.first[HAVE_GYROSCOPES];
         yield IrlNokhteSessionMetadata(
+          userHasGyroscope: haveGyroscopesList[userIndex],
+          collaboratorHasGyroscope: haveGyroscopesList[collaboratorIndex],
           userIsOnline: isOnlineList[userIndex],
           collaboratorIsOnline: isOnlineList[collaboratorIndex],
           userPhase: double.parse(phasesList[userIndex].toString()),

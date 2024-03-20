@@ -38,4 +38,14 @@ class IrlNokhteSessionPresenceContractImpl
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  updateHasGyroscope(params) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.updateHasGyroscope(params);
+      return Right(fromSupabase(res));
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
 }
