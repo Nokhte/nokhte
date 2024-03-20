@@ -12,21 +12,11 @@ abstract class _GetIrlNokhteSessionMetadataStoreBase
     extends BaseGetSessionMetadataStore<IrlNokhteSessionMetadata> with Store {
   _GetIrlNokhteSessionMetadataStoreBase({required super.logic});
 
-  @computed
-  bool get canMoveIntoInstructions => userPhase == 1 && collaboratorPhase == 1;
+  @observable
+  bool userHasGyroscope = true;
 
-  @computed
-  bool get canMoveIntoSession => userPhase == 2 && collaboratorPhase == 2;
-
-  @computed
-  bool get canExitTheSession => userPhase == 3 && collaboratorPhase == 3;
-
-  @computed
-  bool get canReturnHome => userPhase == 5 && collaboratorPhase == 5;
-
-  @computed
-  bool get canMoveIntoSecondInstructionsSet =>
-      userPhase == 1 && collaboratorPhase == 2;
+  @observable
+  bool collaboratorHasGyroscope = true;
 
   @action
   Future<void> get(params) async {
@@ -43,9 +33,31 @@ abstract class _GetIrlNokhteSessionMetadataStoreBase
           collaboratorIsOnline = value.collaboratorIsOnline;
           userPhase = value.userPhase;
           collaboratorPhase = value.collaboratorPhase;
+          userHasGyroscope = value.userHasGyroscope;
+          collaboratorHasGyroscope = value.collaboratorHasGyroscope;
         });
         state = StoreState.loaded;
       },
     );
   }
+
+  @computed
+  bool get shouldAdjustToFallbackExitProtocol =>
+      !userHasGyroscope || !collaboratorHasGyroscope;
+
+  @computed
+  bool get canMoveIntoInstructions => userPhase == 1 && collaboratorPhase == 1;
+
+  @computed
+  bool get canMoveIntoSession => userPhase == 2 && collaboratorPhase == 2;
+
+  @computed
+  bool get canExitTheSession => userPhase == 3 && collaboratorPhase == 3;
+
+  @computed
+  bool get canReturnHome => userPhase == 5 && collaboratorPhase == 5;
+
+  @computed
+  bool get canMoveIntoSecondInstructionsSet =>
+      userPhase == 1 && collaboratorPhase == 2;
 }
