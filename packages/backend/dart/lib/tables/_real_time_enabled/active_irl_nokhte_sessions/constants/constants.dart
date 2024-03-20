@@ -9,4 +9,5 @@ mixin ActiveIrlNokhteSessionsConstants {
   String CREATED_AT = 'created_at';
   String CONTENT = 'content';
   String METADATA_INDEX = 'metadata_index';
+  String HAVE_GYROSCOPES = 'have_gyroscopes';
 }

@@ -64,6 +64,11 @@ class IrlNokhteSessionPresenceModule extends Module {
         contract: i<IrlNokhteSessionPresenceContractImpl>(),
       ),
     );
+    i.add<UpdateHasGyroscope>(
+      () => UpdateHasGyroscope(
+        contract: i<IrlNokhteSessionPresenceContractImpl>(),
+      ),
+    );
     i.addSingleton<GetIrlNokhteSessionMetadataStore>(
       () => GetIrlNokhteSessionMetadataStore(
         logic: i<BaseGetSessionMetadata<IrlNokhteSessionMetadata>>(),
@@ -74,6 +79,7 @@ class IrlNokhteSessionPresenceModule extends Module {
     );
     i.add<IrlNokhteSessionPresenceCoordinator>(
       () => IrlNokhteSessionPresenceCoordinator(
+        updateHasGyroscopeLogic: Modular.get<UpdateHasGyroscope>(),
         addContentLogic: Modular.get<AddContent>(),
         completeTheSessionLogic: Modular.get<CompleteTheSession>(),
         blur: Modular.get<NokhteBlurStore>(),

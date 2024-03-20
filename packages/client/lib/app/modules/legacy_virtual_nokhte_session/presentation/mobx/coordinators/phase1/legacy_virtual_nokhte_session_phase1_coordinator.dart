@@ -2,7 +2,6 @@
 import 'dart:async';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/posthog/constants/constants.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/logic/logic.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
@@ -84,7 +83,7 @@ abstract class _LegacyVirtualNokhteSessionPhase1CoordinatorBase
     widgets.setHasTheQuesion(logic.hasTheQuestion);
 
     await logic.changeDesireToLeaveLogic(ChangeDesireToLeaveParams.negative);
-    await captureScreen(Screens.nokhteSessionPhase1);
+    // await captureScreen(Screens.nokhteSessionPhase1);
   }
 
   @action

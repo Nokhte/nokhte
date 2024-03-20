@@ -81,6 +81,12 @@ void main() {
     expect(onlineStatus2, [false, false]);
   });
 
+  test("updateHasGyroscope", () async {
+    await user1Queries.updateHasGyroscope(false);
+    final gyroscopesRes = await user1Queries.getHaveGyroscopees();
+    expect(gyroscopesRes, [false, true]);
+  });
+
   test("addContent", () async {
     await user1Queries.addContent('test');
     final res = await user1Queries.getContent();
@@ -107,6 +113,8 @@ void main() {
           collaboratorIsOnline: false,
           collaboratorPhase: 1.0,
           userPhase: 1.0,
+          userHasGyroscope: false,
+          collaboratorHasGyroscope: true,
         ),
       ),
     );

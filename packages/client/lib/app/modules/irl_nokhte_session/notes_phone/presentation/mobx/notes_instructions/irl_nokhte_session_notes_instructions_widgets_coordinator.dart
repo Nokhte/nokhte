@@ -40,11 +40,12 @@ abstract class _IrlNokhteSessionNotesInstructionsWidgetsCoordinatorBase
   int tapCount = 0;
 
   @action
-  constructor() {
+  constructor(bool shouldAdjustToFallbackExitProtocol) {
     cooldownStopwatch.start();
     beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
     mirroredText.setMessagesData(
       MirroredTextContentOptions.irlNokhteSessionNotesInstructions,
+      shouldAdjustToFallbackExitProtocol: shouldAdjustToFallbackExitProtocol,
     );
     mirroredText.startBothRotatingText();
     setDisableTouchInput(true);

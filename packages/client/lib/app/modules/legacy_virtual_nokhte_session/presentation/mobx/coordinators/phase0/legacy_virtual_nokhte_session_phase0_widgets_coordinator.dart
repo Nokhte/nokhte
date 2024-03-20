@@ -41,8 +41,8 @@ abstract class _LegacyVirtualNokhteSessionPhase0WidgetsCoordinatorBase
   @action
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradientToTimesUp);
-    primarySmartText
-        .setMessagesData(MessagesData.primaryPurposeSessionPhase0List);
+    // primarySmartText
+    //     .setMessagesData(MessagesData.primaryPurposeSessionPhase0List);
     primarySmartText.startRotatingText();
     initReactors();
   }

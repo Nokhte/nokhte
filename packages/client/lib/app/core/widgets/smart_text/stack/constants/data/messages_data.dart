@@ -97,177 +97,12 @@ class MessagesData {
         ),
       ];
 
-  static List<RotatingTextData> get firstTimeSecondaryHomeList => [
-        RotatingTextData(
-          initialFadeInDelay: Seconds.get(0),
-          mainMessage: "Tap on the overlapping time.",
-          onScreenTime: Seconds.get(0),
-          pauseHere: true,
-          unlockGesture: Gestures.tap,
-        ),
-        RotatingTextData(
-          initialFadeInDelay: Seconds.get(0),
-          mainMessage: "",
-          onScreenTime: Seconds.get(0),
-        ),
-      ];
   static List<RotatingTextData> get empty => [
         RotatingTextData(
           mainMessage: "",
           onScreenTime: Seconds.get(0),
         ),
       ];
-
-  static List<RotatingTextData> get primaryPurposeSessionHasTheQuestion => [
-        RotatingTextData(
-          mainMessage: "Ask: What can we collectively create?",
-          onScreenTime: Seconds.get(0),
-          pauseHere: true,
-          unlockGesture: Gestures.tap,
-        ),
-      ];
-
-  static List<RotatingTextData>
-      get primaryPurposeSessionDoesNotHaveTheQuestion => [
-            RotatingTextData(
-              mainMessage: "Wait For The Question.",
-              onScreenTime: Seconds.get(0),
-              pauseHere: true,
-              unlockGesture: Gestures.tap,
-            ),
-            RotatingTextData(
-              mainMessage: "What can we collectively create?",
-              onScreenTime: Seconds.get(0),
-              pauseHere: true,
-              unlockGesture: Gestures.tap,
-            ),
-          ];
-
-  static List<RotatingTextData> get primaryPurposeSessionPhase0List => [
-        RotatingTextData(
-          initialFadeInDelay: Seconds.get(0),
-          mainMessage: "To Complete The Call, Swipe Up At The Same Time.",
-          onScreenTime: Seconds.get(5, milli: 400),
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-      ];
-
-  static List<RotatingTextData> get secondaryPurposeSessionPhase1List => [
-        RotatingTextData(
-          mainMessage: "hold anywhere to speak",
-          onScreenTime: Seconds.get(0),
-          pauseHere: true,
-          mainMessageFontSize: 20.0,
-          unlockGesture: Gestures.tap,
-        ),
-      ];
-  static List<RotatingTextData> get purposeSessionBootUpList => [
-        RotatingTextData(
-          mainMessage: "Joining Call",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "Waiting On Collaborator",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-      ];
-
-  static List<RotatingTextData> get purposeSessionPhase2List => [
-        RotatingTextData(
-          mainMessage: "Answer: What can we collectively create?",
-          onScreenTime: Seconds.get(3),
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "Swipe Up If you are done",
-          onScreenTime: Seconds.get(2),
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "Waiting On Collaborator",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-      ];
-  static List<RotatingTextData> get purposeSessionPhase2ErrorList => [
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "Collaborator Is Offline",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-      ];
-
-  static List<RotatingTextData> get primaryNokhteSessionPhase0List => [
-        RotatingTextData(
-          initialFadeInDelay: Seconds.get(0),
-          mainMessage:
-              "You will have some questions to orient the conversation",
-          onScreenTime: Seconds.get(2),
-        ),
-        RotatingTextData(
-          initialFadeInDelay: Seconds.get(0),
-          mainMessage: "The aim is to create a single statement together",
-          onScreenTime: Seconds.get(2),
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-      ];
-
-  static List<RotatingTextData> get primaryNokhteSessionPhase1HasTheQuestion =>
-      [
-        RotatingTextData(
-          mainMessage: "Ask: What Are We Here To Do?",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-      ];
-  static List<RotatingTextData>
-      get primaryNokhteSessionPhase1DoesNotHaveTheQuestion => [
-            RotatingTextData(
-              mainMessage: "Wait For The Question.",
-              pauseHere: true,
-            ),
-            RotatingTextData(
-              mainMessage: "",
-              pauseHere: true,
-            ),
-            RotatingTextData(
-              mainMessage: "",
-              pauseHere: true,
-            ),
-            RotatingTextData(
-              mainMessage: "Ask: What Can We Collectively Create?",
-              pauseHere: true,
-            ),
-          ];
 
   static List<RotatingTextData> get irlNokhteSessionPhase0PrimaryList => [
         RotatingTextData(
@@ -368,7 +203,9 @@ class MessagesData {
 
   static List<RotatingTextData>
       getIrlNokhteSessionNotesInstructionsPrimaryPhase0List(
-          MirroredTextOrientations orientation) {
+    MirroredTextOrientations orientation, {
+    bool shouldAdjustToFallbackExitProtocol = false,
+  }) {
     final arr = [
       RotatingTextData(
         mainMessage: "Look at the other phone",
@@ -389,7 +226,8 @@ class MessagesData {
         pauseHere: true,
       ),
       RotatingTextData(
-        mainMessage: "To complete the session pick up both phones",
+        mainMessage:
+            "To complete the session ${shouldAdjustToFallbackExitProtocol ? "swipe down on both phones" : "pick up both phones"}",
         pauseHere: true,
         mainMessageFontSize: 22.0,
       ),

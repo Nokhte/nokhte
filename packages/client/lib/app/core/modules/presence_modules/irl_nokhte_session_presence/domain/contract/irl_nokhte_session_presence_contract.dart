@@ -8,4 +8,5 @@ abstract class IrlNokhteSessionPresenceContract
     extends BasePresenceContract<IrlNokhteSessionMetadata> {
   Future<Either<Failure, bool>> addContent(String params);
   Future<Either<Failure, bool>> completeTheSession(NoParams params);
+  Future<Either<Failure, bool>> updateHasGyroscope(bool params);
 }
