@@ -22,22 +22,22 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
   final SwipeDetector swipe;
   final HoldDetector hold;
   final IrlNokhteSessionPresenceCoordinator presence;
-  final GetTiltStreamStore getTiltStream;
+  final GyroscopicCoordinator gyroscopic;
   final GetIrlNokhteSessionMetadataStore sessionMetadata;
   _IrlNokhteSessionSpeakingCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
     required this.swipe,
     required this.hold,
-    required this.getTiltStream,
+    required this.gyroscopic,
     required this.presence,
   }) : sessionMetadata = presence.getSessionMetadataStore;
 
   @action
   constructor() async {
     widgets.constructor();
-    initReactors();
-    getTiltStream.listen(NoParams());
+    initReactors(sessionMetadata.shouldAdjustToFallbackExitProtocol);
+    gyroscopic.listen(NoParams());
     setBlockPhoneTiltReactor(false);
   }
 
@@ -47,7 +47,7 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
   @action
   setBlockPhoneTiltReactor(bool newValue) => blockPhoneTiltReactor = newValue;
 
-  initReactors() {
+  initReactors(bool shouldAdjustToFallbackExitProtocol) {
     holdReactor();
     letGoReactor();
     widgets.wifiDisconnectOverlay.initReactors(
@@ -73,10 +73,25 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
         }
       },
     );
-    phoneTiltStateReactor();
+    if (shouldAdjustToFallbackExitProtocol) {
+      swipeReactor();
+    } else {
+      phoneTiltStateReactor();
+    }
     userPhaseReactor();
     collaboratorPhaseReactor();
   }
+
+  swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
+        switch (p0) {
+          case GestureDirections.down:
+            ifTouchIsNotDisabled(() async {
+              await presence.updateCurrentPhase(3);
+            });
+          default:
+            break;
+        }
+      });
 
   holdReactor() => reaction((p0) => hold.holdCount, (p0) {
         ifTouchIsNotDisabled(() {
@@ -97,7 +112,7 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
       });
 
   phoneTiltStateReactor() =>
-      reaction((p0) => getTiltStream.holdingState, (p0) async {
+      reaction((p0) => gyroscopic.holdingState, (p0) async {
         if (!blockPhoneTiltReactor &&
             sessionMetadata.collaboratorPhase.isGreaterThanOrEqualTo(2)) {
           if (p0 == PhoneHoldingState.isPickedUp) {
@@ -112,7 +127,7 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
         (p0) => sessionMetadata.collaboratorPhase,
         (p0) async {
           if (sessionMetadata.canExitTheSession) {
-            await getTiltStream.dispose();
+            await gyroscopic.dispose();
             widgets.onExit();
             setBlockPhoneTiltReactor(true);
           }
@@ -123,7 +138,7 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
         (p0) => sessionMetadata.userPhase,
         (p0) async {
           if (sessionMetadata.canExitTheSession) {
-            await getTiltStream.dispose();
+            await gyroscopic.dispose();
             widgets.onExit();
             setBlockPhoneTiltReactor(true);
           }
