@@ -32,7 +32,7 @@ abstract class _IrlNokhteSessionNotesInstructionsCoordinatorBase
 
   @action
   constructor() async {
-    widgets.constructor();
+    widgets.constructor(sessionMetadata.shouldAdjustToFallbackExitProtocol);
     initReactors();
   }
 
