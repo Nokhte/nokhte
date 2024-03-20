@@ -17,6 +17,7 @@ abstract class _IrlNokhteSessionPresenceCoordinatorBase
   final CollaboratorPresenceIncidentsOverlayStore incidentsOverlayStore;
   final AddContent addContentLogic;
   final CompleteTheSession completeTheSessionLogic;
+  final UpdateHasGyroscope updateHasGyroscopeLogic;
 
   _IrlNokhteSessionPresenceCoordinatorBase({
     required super.cancelSessionMetadataStreamLogic,
@@ -25,6 +26,7 @@ abstract class _IrlNokhteSessionPresenceCoordinatorBase
     required this.getSessionMetadataStore,
     required this.addContentLogic,
     required this.completeTheSessionLogic,
+    required this.updateHasGyroscopeLogic,
     required this.blur,
   }) : incidentsOverlayStore = CollaboratorPresenceIncidentsOverlayStore(
           sessionMetadataStore: getSessionMetadataStore,
@@ -36,6 +38,9 @@ abstract class _IrlNokhteSessionPresenceCoordinatorBase
 
   @observable
   bool sessionIsFinished = false;
+
+  @observable
+  bool gyroscopeAvailabilityIsUpdated = false;
 
   @override
   @action
@@ -80,6 +85,12 @@ abstract class _IrlNokhteSessionPresenceCoordinatorBase
   }
 
   @action
-  setBasePhaseForScreen(double updateCurrentPhaseLogic) =>
-      getSessionMetadataStore.setCurrentPhase(updateCurrentPhaseLogic);
+  updateHasGyroscope(bool param) async {
+    final res = await updateHasGyroscopeLogic(param);
+    res.fold(
+      (failure) => errorUpdater(failure),
+      (gyroscopeUpdateStatus) =>
+          gyroscopeAvailabilityIsUpdated = gyroscopeUpdateStatus,
+    );
+  }
 }
