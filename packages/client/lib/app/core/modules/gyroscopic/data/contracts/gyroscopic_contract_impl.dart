@@ -10,4 +10,8 @@ class GyroscopicContractImpl implements GyroscopicContract {
   @override
   Stream<PhoneHoldingState> getTiltStream(params) =>
       remoteSource.getTiltStream();
+
+  @override
+  checkIfDeviceHasGyroscope(params) async =>
+      await remoteSource.checkIfDeviceHasGyroscope();
 }
