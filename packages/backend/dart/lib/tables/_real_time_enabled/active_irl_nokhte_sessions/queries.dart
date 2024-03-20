@@ -120,7 +120,7 @@ class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
     return [];
   }
 
-  Future<List> updateHasGyroscopes(bool newStatus) async {
+  Future<List> updateHasGyroscope(bool newStatus) async {
     await computeCollaboratorInformation();
     final currentHaveGyroscopees = await getHaveGyroscopees();
     currentHaveGyroscopees[userIndex] = newStatus;

@@ -81,8 +81,8 @@ void main() {
     expect(onlineStatus2, [false, false]);
   });
 
-  test("updateHaveGyroscopes", () async {
-    await user1Queries.updateHasGyroscopes(false);
+  test("updateHasGyroscope", () async {
+    await user1Queries.updateHasGyroscope(false);
     final gyroscopesRes = await user1Queries.getHaveGyroscopees();
     expect(gyroscopesRes, [false, true]);
   });
