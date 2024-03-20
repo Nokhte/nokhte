@@ -45,4 +45,8 @@ class IrlNokhteSessionPresenceRemoteSourceImpl
 
   @override
   addContent(content) async => await queries.addContent(content);
+
+  @override
+  updateHasGyroscope(hasGyroscope) async =>
+      await queries.updateHasGyroscope(hasGyroscope);
 }
