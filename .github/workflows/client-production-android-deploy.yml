@@ -36,15 +36,17 @@ jobs:
         with:
           ruby-version: "3.0"
           bundler-cache: true
+      - run: chmod +x ./scropts/setup_prod_android_build.sh
+      - run: ./scripts/setup_prod_android_build.sh
       - run: flutter pub run build_runner build
       - run: cd android && bundle install
       - run: |
-            cd android 
-            echo "$BASE_64_KEY_PROPERTIES" | base64 -d > key.properties
-            echo "$BASE_64_UPLOAD_KEYSTORE" | base64 -d > primala-upload-key.keystore
-            fastlane build
-            fastlane external_android_beta_build
+          cd android 
+          echo "$BASE_64_KEY_PROPERTIES" | base64 -d > key.properties
+          echo "$BASE_64_UPLOAD_KEYSTORE" | base64 -d > primala-upload-key.keystore
+          fastlane build
+          fastlane external_android_beta_build
         env:
-            BASE_64_KEY_PROPERTIES: ${{secrets.BASE_64_KEY_PROPERTIES}}
-            BASE_64_UPLOAD_KEYSTORE: ${{secrets.BASE_64_UPLOAD_KEYSTORE}}
-            SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_PLAY_STORE_JSON_KEY_DATA}}
+          BASE_64_KEY_PROPERTIES: ${{secrets.BASE_64_KEY_PROPERTIES}}
+          BASE_64_UPLOAD_KEYSTORE: ${{secrets.BASE_64_UPLOAD_KEYSTORE}}
+          SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_PLAY_STORE_JSON_KEY_DATA}}
