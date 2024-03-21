@@ -18,7 +18,6 @@ void main() async {
   }
 
   await FlutterBranchSdk.init(
-    disableTracking: true,
     useTestKey: shouldUseTestKey,
   );
 
