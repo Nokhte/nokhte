@@ -1,4 +1,5 @@
 enum BeachWaveMovieModes {
+  anyToOnShore,
   blackOut,
   blackOutToDrySand,
   drySandToVibrantBlueGrad,
