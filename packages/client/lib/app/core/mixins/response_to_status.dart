@@ -1,6 +1,9 @@
 import 'dart:convert';
 
+import 'package:dartz/dartz.dart';
 import 'package:http/http.dart';
+import 'package:nokhte/app/core/constants/failure_constants.dart';
+import 'package:nokhte/app/core/error/failure.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -38,11 +41,11 @@ mixin ResponseToStatus {
     }
   }
 
-  bool fromFunctionResponse(FunctionResponse res) {
-    if (res.status == 200) {
-      return true;
+  Either<Failure, bool> fromFunctionResponse(FunctionResponse res) {
+    if (res.data["status"] == 200) {
+      return const Right(true);
     } else {
-      return false;
+      return Left(FailureConstants.invalidDeepLinkFailure);
     }
   }
 }
