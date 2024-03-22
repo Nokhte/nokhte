@@ -30,9 +30,20 @@ class UserJourneyInfoModel extends UserJourneyInfoEntity {
         hasSentAnInvitation: userNamesRes.first['has_sent_an_invitation'],
         wantsToRepeatInvitationFlow:
             userNamesRes.first['wants_to_repeat_invitation_flow'],
-        hasCompletedNoktheSession: finishedNokhteSessionsRes.isNotEmpty,
+        hasCompletedNoktheSession:
+            hasCompletedNokhteSession(finishedNokhteSessionsRes),
         hasEnteredStorage: userNamesRes.first['has_entered_storage'],
       );
     }
+  }
+
+  static bool hasCompletedNokhteSession(List nokhteSessionRes) {
+    bool hasCompletedNokhteSession = false;
+    for (var session in nokhteSessionRes) {
+      if (session['content'].isNotEmpty) {
+        hasCompletedNokhteSession = true;
+      }
+    }
+    return hasCompletedNokhteSession;
   }
 }
