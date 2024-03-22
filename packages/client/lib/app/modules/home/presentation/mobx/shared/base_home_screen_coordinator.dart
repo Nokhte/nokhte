@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -22,14 +21,25 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
   final SwipeDetector swipe;
   final CollaborationLogicCoordinator collaborationLogic;
   final DeepLinksCoordinator deepLinks;
+  final TapDetector tap;
 
   _BaseHomeScreenCoordinatorBase({
     required this.collaborationLogic,
     required this.swipe,
+    required this.tap,
     required this.widgets,
     required this.deepLinks,
     required super.captureScreen,
   });
+
+  @observable
+  bool isInErrorMode = false;
+
+  @action
+  setIsInErrorMode(bool p0) => isInErrorMode = p0;
+
+  @action
+  constructor() {}
 
   initReactors() {
     deepLinks.listen();
@@ -46,6 +56,8 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
     );
     collaboratorPoolEntryReactor();
     openedDeepLinksReactor();
+    collaboratorPoolEntryErrorReactor();
+    tapReactor();
   }
 
   @action
@@ -98,16 +110,31 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
   collaboratorPoolEntryReactor() =>
       reaction((p0) => collaborationLogic.hasEntered, (p0) async {
         if (p0) {
-          Timer.periodic(
-            const Duration(seconds: 1),
-            (timer) async {
-              if (widgets.beachWaves.movieStatus == MovieStatus.finished &&
-                  widgets.isEnteringNokhteSession) {
-                Modular.to.navigate('/collaboration/pool');
-                timer.cancel();
-              }
-            },
-          );
+          print("so you say we have entered??");
+          // Timer.periodic(
+          //   const Duration(seconds: 1),
+          //   (timer) async {
+          //     if (widgets.beachWaves.movieStatus == MovieStatus.finished &&
+          //         widgets.isEnteringNokhteSession) {
+          //       Modular.to.navigate('/collaboration/pool');
+          //       timer.cancel();
+          //     }
+          //   },
+          // );
+        }
+      });
+
+  collaboratorPoolEntryErrorReactor() =>
+      reaction((p0) => collaborationLogic.errorMessage, (p0) async {
+        setDisableAllTouchFeedback(true);
+        setIsInErrorMode(true);
+        widgets.onError(p0);
+      });
+
+  tapReactor() => reaction((p0) => tap.tapCount, (p0) async {
+        if (isInErrorMode) {
+          setIsInErrorMode(true);
+          widgets.onErrorResolved();
         }
       });
 
@@ -123,6 +150,7 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
             collaboratorUID: additionalMetadata["deepLinkUID"],
             invitationType: InvitationType.nokhteSession,
           ));
+          deepLinks.reset();
           widgets.onDeepLinkOpened();
         }
       });
