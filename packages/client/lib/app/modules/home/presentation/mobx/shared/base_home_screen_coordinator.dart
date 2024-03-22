@@ -129,6 +129,7 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
         setDisableAllTouchFeedback(true);
         setIsInErrorMode(true);
         widgets.onError(p0);
+        deepLinks.reset();
       });
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) async {
