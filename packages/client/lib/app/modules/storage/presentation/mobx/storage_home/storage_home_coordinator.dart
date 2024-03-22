@@ -90,8 +90,7 @@ abstract class _StorageHomeCoordinatorBase
   beachWavesMovieStatusReactor() =>
       reaction((p0) => widgets.beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&
-            widgets.beachWaves.movieMode ==
-                BeachWaveMovieModes.onShoreToVibrantBlue) {
+            widgets.beachWaves.movieMode == BeachWaveMovieModes.anyToOnShore) {
           widgets.dispose();
           onAnimationComplete();
         } else if (p0 == MovieStatus.finished &&
