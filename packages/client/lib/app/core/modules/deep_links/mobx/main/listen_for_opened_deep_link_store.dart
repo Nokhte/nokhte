@@ -35,6 +35,12 @@ abstract class _ListenForOpenedDeepLinkStoreBase extends Equatable with Store {
   ObservableMap additionalMetadata = ObservableMap.of({});
 
   @action
+  reset() {
+    path = "";
+    additionalMetadata = ObservableMap.of({});
+  }
+
+  @action
   call(NoParams params) {
     final result = logic(NoParams());
     deepLinkSream = ObservableStream(result);

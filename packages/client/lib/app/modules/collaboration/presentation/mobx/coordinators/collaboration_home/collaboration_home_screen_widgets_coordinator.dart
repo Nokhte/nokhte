@@ -6,6 +6,7 @@ import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 part 'collaboration_home_screen_widgets_coordinator.g.dart';
@@ -102,8 +103,8 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
     smartText.pause();
     smartText.setWidgetVisibility(false);
     gestureCross.initMoveAndRegenerate(CircleOffsets.bottom);
-    beachWaves.setMovieMode(BeachWaveMovieModes.oceanDiveToOnShore);
-    beachWaves.currentStore.initMovie(NoParams());
+    beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
+    beachWaves.currentStore.initMovie(WaterColorsAndStops.oceanDiveWater);
   }
 
   initReactors(Function onFlowCompleted, Function enterCollaboratorPool) {
@@ -146,7 +147,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
   beachWavesMovieStatusReactor(Function onNavigationHome) =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          if (beachWaves.movieMode == BeachWaveMovieModes.oceanDiveToOnShore) {
+          if (beachWaves.movieMode == BeachWaveMovieModes.anyToOnShore) {
             onNavigationHome();
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.oceanDiveToVibrantBlueGradient) {

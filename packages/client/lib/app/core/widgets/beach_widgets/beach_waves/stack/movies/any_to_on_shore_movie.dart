@@ -12,7 +12,7 @@ class AnyToShoreMovie {
       MovieTween()
         ..scene(
           begin: Seconds.get(0),
-          end: Seconds.get(2),
+          end: Seconds.get(3),
         )
             .tween(
               BeachWaveAnimationKeys.color1,
@@ -126,11 +126,8 @@ class AnyToShoreMovie {
                 end: WaterColorsAndStops.onShoreWater[7].stop,
               ),
             )
-        ..scene(
-          begin: Seconds.get(2),
-          end: Seconds.get(5),
-        ).tween(
-          BeachWaveAnimationKeys.waterMovement,
-          Tween<double>(begin: 100, end: -10.0),
-        );
+            .tween(
+              BeachWaveAnimationKeys.waterMovement,
+              Tween<double>(begin: 100, end: -10.0),
+            );
 }

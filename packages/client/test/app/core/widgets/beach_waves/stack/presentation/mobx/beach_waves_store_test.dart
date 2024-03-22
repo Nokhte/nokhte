@@ -56,11 +56,6 @@ void main() {
             .movieModeToStoreLookup[BeachWaveMovieModes.oceanDiveToTimesUp];
         expect(res?.movie.duration, Seconds.get(2));
       });
-      test("oceanDiveToOnShore key", () {
-        final res = testStore
-            .movieModeToStoreLookup[BeachWaveMovieModes.oceanDiveToOnShore];
-        expect(res?.movie.duration, Seconds.get(5));
-      });
       test("onShore key", () {
         final onShoreRes =
             testStore.movieModeToStoreLookup[BeachWaveMovieModes.onShore];

@@ -3,6 +3,7 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/movie_status.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 part 'storage_home_widgets_coordinator.g.dart';
@@ -42,8 +43,8 @@ abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   @action
   onSwipeLeft() {
     smartText.setWidgetVisibility(false);
-    beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToVibrantBlue);
-    beachWaves.currentStore.reverseMovie(NoParams());
+    beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
+    beachWaves.currentStore.initMovie(WaterColorsAndStops.vibrantBlueGrad);
     gestureCross.cross.initOutlineFadeOut();
     gestureCross.initMoveAndRegenerate(CircleOffsets.left);
     sessionCard.setWidgetVisibility(false);

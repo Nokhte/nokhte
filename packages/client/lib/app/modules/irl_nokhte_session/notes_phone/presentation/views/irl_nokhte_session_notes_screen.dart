@@ -44,6 +44,7 @@ class IrlNokhteSessionNotesScreen extends HookWidget {
             ),
             Center(
               child: TextEditor(
+                placeholderText: "Your thoughtful thought",
                 store: coordinator.widgets.textEditor,
               ),
             ),

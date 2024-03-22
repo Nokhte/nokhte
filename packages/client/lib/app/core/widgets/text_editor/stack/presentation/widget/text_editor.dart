@@ -14,6 +14,7 @@ class TextEditor extends HookWidget {
   final int maxLength;
   final double bottomPadding;
   final double fontScalar;
+  final String placeholderText;
 
   const TextEditor({
     super.key,
@@ -23,6 +24,7 @@ class TextEditor extends HookWidget {
     this.maxLines = 6,
     this.bottomPadding = 0.0,
     this.fontScalar = 0.04,
+    this.placeholderText = 'Your Answer',
   });
 
   @override
@@ -61,7 +63,7 @@ class TextEditor extends HookWidget {
                 ),
                 cursorColor: Colors.white,
                 decoration: InputDecoration(
-                  hintText: "Your Answer",
+                  hintText: placeholderText,
                   hintStyle: TextStyle(color: Colors.white.withOpacity(.4)),
                   counterStyle: GoogleFonts.jost(
                     color: Colors.white,

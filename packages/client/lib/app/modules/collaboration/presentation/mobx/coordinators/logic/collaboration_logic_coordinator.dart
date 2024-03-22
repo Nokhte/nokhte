@@ -1,6 +1,8 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/constants/constants.dart';
+import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/modules/collaboration/domain/domain.dart';
@@ -22,6 +24,18 @@ abstract class _CollaborationLogicCoordinatorBase extends BaseMobxDBStore
     required this.exitCollaboratorPoolLogic,
     required this.getNokhteSessionSearchStatusLogic,
   });
+
+  @override
+  String mapFailureToMessage(Failure failure) {
+    switch (failure.runtimeType) {
+      case const (NetworkConnectionFailure):
+        return FailureConstants.internetConnectionFailureMsg;
+      case const (UserInputFailure):
+        return FailureConstants.invalidDeepLinkMsg;
+      default:
+        return FailureConstants.genericFailureMsg;
+    }
+  }
 
   @observable
   bool nokhteSessionSearchStatusIsListening = false;

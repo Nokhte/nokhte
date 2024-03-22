@@ -9,6 +9,8 @@ class FailureConstants {
   static String get serverFailureMsg =>
       "Something's Wrong with our Servers, Try Again.";
   static String get genericFailureMsg => "Unexpected Error, Try Again.";
+  static String get invalidDeepLinkMsg =>
+      "Invalid invitation, try another invitation";
 
   static NetworkConnectionFailure get internetConnectionFailure =>
       const NetworkConnectionFailure(
@@ -26,4 +28,8 @@ class FailureConstants {
       AndroidPlatformFailure(
           failureCode: 'NOT_AVAILABLE_ON_ANDROID_ERROR',
           message: androidPlatformFailureMsg);
+  static UserInputFailure get invalidDeepLinkFailure => UserInputFailure(
+        message: invalidDeepLinkMsg,
+        failureCode: "INVALID_DEEP_LINK",
+      );
 }
