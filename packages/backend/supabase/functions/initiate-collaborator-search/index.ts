@@ -17,15 +17,21 @@ serve(async (req) => {
       invitation_type: invitationType,
     })
     .select();
+
+  let returnRes = {
+    status: 200,
+    message: "collaboration successfully forged",
+  };
+  if (mostRecentEntrant.error != null) {
+    returnRes = {
+      status: 400,
+      message: "collaboration uid conflict",
+    };
+  }
   if (invitationType === "NOKHTE_SESSION") {
     isANokhteInvitation(queryUID, mostRecentEntrant);
   }
-  const returnRes = [
-    {
-      status: 200,
-      message: "collaboration successfully forged",
-    },
-  ];
+  console.log(returnRes);
   return new Response(JSON.stringify(returnRes), {
     headers: { "Content-Type": "application/json" },
   });
