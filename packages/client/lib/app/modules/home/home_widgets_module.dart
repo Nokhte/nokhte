@@ -30,15 +30,19 @@ class HomeWidgetsModule extends Module {
     );
     i.add<HomeScreenPhase1WidgetsCoordinator>(
       () => HomeScreenPhase1WidgetsCoordinator(
+        errorSmartText: SmartTextStore(),
         nokhteBlur: Modular.get<NokhteBlurStore>(),
         primarySmartText: Modular.get<SmartTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         gestureCross: Modular.get<GestureCrossStore>(),
         beachWaves: Modular.get<BeachWavesStore>(),
+        secondaryErrorSmartText: SmartTextStore(),
       ),
     );
     i.add<HomeScreenPhase2WidgetsCoordinator>(
       () => HomeScreenPhase2WidgetsCoordinator(
+        secondaryErrorSmartText: SmartTextStore(),
+        errorSmartText: SmartTextStore(),
         nokhteBlur: Modular.get<NokhteBlurStore>(),
         primarySmartText: Modular.get<SmartTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
@@ -48,6 +52,8 @@ class HomeWidgetsModule extends Module {
     );
     i.add<HomeScreenPhase3WidgetsCoordinator>(
       () => HomeScreenPhase3WidgetsCoordinator(
+        secondaryErrorSmartText: SmartTextStore(),
+        errorSmartText: SmartTextStore(),
         nokhteBlur: Modular.get<NokhteBlurStore>(),
         primarySmartText: Modular.get<SmartTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
@@ -57,6 +63,8 @@ class HomeWidgetsModule extends Module {
     );
     i.add<HomeScreenPhase4WidgetsCoordinator>(
       () => HomeScreenPhase4WidgetsCoordinator(
+        secondaryErrorSmartText: SmartTextStore(),
+        errorSmartText: SmartTextStore(),
         nokhteBlur: Modular.get<NokhteBlurStore>(),
         primarySmartText: Modular.get<SmartTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
@@ -66,6 +74,8 @@ class HomeWidgetsModule extends Module {
     );
     i.add<HomeScreenPhase5WidgetsCoordinator>(
       () => HomeScreenPhase5WidgetsCoordinator(
+        secondaryErrorSmartText: SmartTextStore(),
+        errorSmartText: SmartTextStore(),
         nokhteBlur: Modular.get<NokhteBlurStore>(),
         primarySmartText: Modular.get<SmartTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),

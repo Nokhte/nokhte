@@ -23,7 +23,7 @@ class CollaborationContractImpl
   enterTheCollaboratorPool(collaboratorUID) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.enterThePool(collaboratorUID);
-      return Right(fromFunctionResponse(res));
+      return fromFunctionResponse(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
@@ -33,7 +33,7 @@ class CollaborationContractImpl
   exitCollaboratorPool(NoParams params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.exitThePool();
-      return Right(fromFunctionResponse(res));
+      return fromFunctionResponse(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }

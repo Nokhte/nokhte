@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
@@ -19,6 +18,8 @@ abstract class _HomeScreenPhase5WidgetsCoordinatorBase
     required super.wifiDisconnectOverlay,
     required super.gestureCross,
     required super.primarySmartText,
+    required super.errorSmartText,
+    required super.secondaryErrorSmartText,
   });
 
   @observable
@@ -28,14 +29,10 @@ abstract class _HomeScreenPhase5WidgetsCoordinatorBase
   toggleGracePeriodHasExpired() =>
       gracePeriodHasExpired = !gracePeriodHasExpired;
 
+  @override
   @action
   constructor() {
-    if (Modular.args.data["resumeOnShoreParams"] != null) {
-      params = Modular.args.data["resumeOnShoreParams"];
-    }
-    beachWaves.setMovieMode(BeachWaveMovieModes.resumeOnShore);
-    beachWaves.currentStore.initMovie(params);
-    gestureCross.fadeIn();
+    super.constructor();
     primarySmartText.setMessagesData(MessagesData.firstTimeHomeList);
     primarySmartText.startRotatingText();
     initReactors();

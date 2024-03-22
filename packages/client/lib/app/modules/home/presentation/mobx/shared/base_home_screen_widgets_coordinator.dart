@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -16,6 +17,8 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   final BeachWavesStore beachWaves;
   final GestureCrossStore gestureCross;
   final SmartTextStore primarySmartText;
+  final SmartTextStore errorSmartText;
+  final SmartTextStore secondaryErrorSmartText;
 
   _BaseHomeScreenWidgetsCoordinatorBase({
     required this.nokhteBlur,
@@ -23,7 +26,27 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     required super.wifiDisconnectOverlay,
     required this.gestureCross,
     required this.primarySmartText,
+    required this.errorSmartText,
+    required this.secondaryErrorSmartText,
   });
+
+  @action
+  constructor() {
+    if (Modular.args.data["resumeOnShoreParams"] != null) {
+      params = Modular.args.data["resumeOnShoreParams"];
+    }
+    beachWaves.setMovieMode(BeachWaveMovieModes.resumeOnShore);
+    beachWaves.currentStore.initMovie(Modular.args.data["resumeOnShoreParams"]);
+    gestureCross.fadeIn();
+    errorSmartText.setMessagesData(MessagesData.empty);
+    secondaryErrorSmartText.setMessagesData(MessagesData.errorConfirmList);
+  }
+
+  @observable
+  bool isInErrorMode = false;
+
+  @action
+  setIsInErrorMode(bool value) => isInErrorMode = value;
 
   @observable
   bool isEnteringNokhteSession = false;
@@ -93,6 +116,30 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     }
   }
 
+  @action
+  onError(String errorMessage) {
+    errorSmartText.reset();
+    errorSmartText.setWidgetVisibility(true);
+    errorSmartText.setMessagesData(MessagesData.getErrorList(errorMessage));
+    errorSmartText.startRotatingText();
+    secondaryErrorSmartText.startRotatingText();
+    nokhteBlur.init();
+    setIsInErrorMode(true);
+  }
+
+  @action
+  onErrorResolved() {
+    beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
+    beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
+    nokhteBlur.reverse();
+    errorSmartText.setWidgetVisibility(false);
+    gestureCross.fadeInTheCross();
+    gestureCross.fadeIn();
+    secondaryErrorSmartText.setWidgetVisibility(false);
+    setIsInErrorMode(false);
+    isEnteringNokhteSession = false;
+  }
+
   @observable
   bool hasInitiatedBlur = false;
 
@@ -148,6 +195,7 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     required Function onShoreToVibrantBlueComplete,
     required Function onVirginStorageEntry,
     required Function onSubsequentStorageEntry,
+    required Function onAnyToShoreComplete,
   }) =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
@@ -156,16 +204,23 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.onShoreToVibrantBlue) {
             if (isEnteringNokhteSession) {
-              onShoreToVibrantBlueComplete();
+              if (!isInErrorMode) {
+                onShoreToVibrantBlueComplete();
+              }
             } else {
               onSubsequentStorageEntry();
             }
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.resumeOnShore) {
             beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
+            // beachWaves.currentStore.initMovie(NoParams());
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.onShoreToDrySand) {
             onVirginStorageEntry();
+          } else if (beachWaves.movieMode == BeachWaveMovieModes.anyToOnShore) {
+            onAnyToShoreComplete();
+            beachWaves.setMovieMode(BeachWaveMovieModes.resumeOnShore);
+            beachWaves.currentStore.initMovie(ResumeOnShoreParams.initial());
           }
         }
       });

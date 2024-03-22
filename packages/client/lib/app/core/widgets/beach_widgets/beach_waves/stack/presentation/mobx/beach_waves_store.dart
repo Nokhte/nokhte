@@ -13,6 +13,7 @@ class BeachWavesStore = _BeachWavesStoreBase with _$BeachWavesStore;
 abstract class _BeachWavesStoreBase extends Equatable with Store {
   _BeachWavesStoreBase() {
     movieModeToStoreLookup = {
+      BeachWaveMovieModes.anyToOnShore: AnyToOnShoreMovieStore(),
       BeachWaveMovieModes.blackOut: StaticBlackOutMovieStore(),
       BeachWaveMovieModes.blackOutToDrySand: BlackOutToDrySandMovieStore(),
       BeachWaveMovieModes.drySandToVibrantBlueGrad:
@@ -24,7 +25,6 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
       BeachWaveMovieModes.dynamicPointToHalfAndHalf:
           DynamicPointToHalfAndHalfMovieStore(),
       BeachWaveMovieModes.none: BaseBeachWaveMovieStore(),
-      BeachWaveMovieModes.oceanDiveToOnShore: OceanDiveToOnShoreMovieStore(),
       BeachWaveMovieModes.oceanDiveToTimesUp:
           OceanDiveToTimesUpStartMovieStore(),
       BeachWaveMovieModes.oceanDiveToVibrantBlueGradient:
@@ -129,6 +129,7 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
 
   @action
   setMovieMode(BeachWaveMovieModes newMovieMode) {
+    finishedCount = 0;
     movieStatus = MovieStatus.idle;
     movieMode = newMovieMode;
   }

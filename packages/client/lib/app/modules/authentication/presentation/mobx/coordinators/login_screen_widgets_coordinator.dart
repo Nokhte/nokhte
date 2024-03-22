@@ -158,8 +158,10 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
       smartTextStore.toggleWidgetVisibility();
     }
     toggleHasTriggeredLoginAnimation();
-    layer1BeachWaves.setMovieMode(BeachWaveMovieModes.blackOutToDrySand);
-    layer1BeachWaves.currentStore.initMovie(NoParams());
+    Timer(Seconds.get(0, milli: 500), () {
+      layer1BeachWaves.setMovieMode(BeachWaveMovieModes.blackOutToDrySand);
+      layer1BeachWaves.currentStore.initMovie(NoParams());
+    });
   }
 
   @action

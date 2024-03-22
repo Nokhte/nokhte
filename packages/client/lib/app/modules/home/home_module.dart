@@ -45,15 +45,17 @@ class HomeModule extends Module {
     );
     i.add<HomeScreenPhase1Coordinator>(
       () => HomeScreenPhase1Coordinator(
+        tap: TapDetector(),
         collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
-        swipe: Modular.get<SwipeDetector>(),
+        swipe: SwipeDetector(),
         widgets: Modular.get<HomeScreenPhase1WidgetsCoordinator>(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
       ),
     );
     i.add<HomeScreenPhase2Coordinator>(
       () => HomeScreenPhase2Coordinator(
+        tap: TapDetector(),
         captureScreen: Modular.get<CaptureScreen>(),
         collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
         swipe: Modular.get<SwipeDetector>(),
@@ -63,6 +65,7 @@ class HomeModule extends Module {
     );
     i.add<HomeScreenPhase3Coordinator>(
       () => HomeScreenPhase3Coordinator(
+        tap: TapDetector(),
         getNokhteSessionArtifactsLogic:
             Modular.get<GetNokhteSessionArtifacts>(),
         collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
@@ -77,6 +80,7 @@ class HomeModule extends Module {
       () => HomeScreenPhase4Coordinator(
         getNokhteSessionArtifactsLogic:
             Modular.get<GetNokhteSessionArtifacts>(),
+        tap: TapDetector(),
         collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         swipe: Modular.get<SwipeDetector>(),
@@ -86,6 +90,7 @@ class HomeModule extends Module {
     );
     i.add<HomeScreenPhase5Coordinator>(
       () => HomeScreenPhase5Coordinator(
+        tap: TapDetector(),
         getNokhteSessionArtifactsLogic:
             Modular.get<GetNokhteSessionArtifacts>(),
         collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
