@@ -25,12 +25,14 @@ abstract class _HomeScreenPhase3CoordinatorBase
     required this.getNokhteSessionArtifactsLogic,
     required this.userInformation,
     required super.captureScreen,
+    required super.tap,
   }) : super(widgets: widgets);
 
   @observable
   ObservableList<NokhteSessionArtifactEntity> nokhteSessionArtifacts =
       ObservableList();
 
+  @override
   @action
   constructor() async {
     widgets.constructor();
@@ -58,6 +60,9 @@ abstract class _HomeScreenPhase3CoordinatorBase
       onShoreToVibrantBlueComplete: onShoreToVibrantBlueComplete,
       onVirginStorageEntry: onVirginStorageEntry,
       onSubsequentStorageEntry: () {},
+      onAnyToShoreComplete: () {
+        setDisableAllTouchFeedback(false);
+      },
     );
   }
 

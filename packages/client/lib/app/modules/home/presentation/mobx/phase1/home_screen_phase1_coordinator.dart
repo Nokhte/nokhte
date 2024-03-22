@@ -16,8 +16,10 @@ abstract class _HomeScreenPhase1CoordinatorBase
     required this.widgets,
     required super.deepLinks,
     required super.captureScreen,
+    required super.tap,
   }) : super(widgets: widgets);
 
+  @override
   @action
   constructor() async {
     widgets.constructor();
@@ -35,9 +37,13 @@ abstract class _HomeScreenPhase1CoordinatorBase
         },
         onSwipeRight: () {});
     widgets.beachWavesMovieStatusReactor(
-        onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
-        onShoreToVibrantBlueComplete: onShoreToVibrantBlueComplete,
-        onVirginStorageEntry: () {},
-        onSubsequentStorageEntry: () {});
+      onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
+      onShoreToVibrantBlueComplete: onShoreToVibrantBlueComplete,
+      onVirginStorageEntry: () {},
+      onSubsequentStorageEntry: () {},
+      onAnyToShoreComplete: () {
+        setDisableAllTouchFeedback(false);
+      },
+    );
   }
 }

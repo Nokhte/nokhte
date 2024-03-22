@@ -16,8 +16,10 @@ abstract class _HomeScreenPhase2CoordinatorBase
     required this.widgets,
     required super.deepLinks,
     required super.captureScreen,
+    required super.tap,
   }) : super(widgets: widgets);
 
+  @override
   @action
   constructor() async {
     widgets.constructor();
@@ -32,6 +34,9 @@ abstract class _HomeScreenPhase2CoordinatorBase
       onShoreToVibrantBlueComplete: onShoreToVibrantBlueComplete,
       onVirginStorageEntry: () {},
       onSubsequentStorageEntry: () {},
+      onAnyToShoreComplete: () {
+        setDisableAllTouchFeedback(false);
+      },
     );
     super.initReactors();
     swipeReactor(
