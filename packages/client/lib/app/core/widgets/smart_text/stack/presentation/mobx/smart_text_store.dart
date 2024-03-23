@@ -58,6 +58,7 @@ abstract class _SmartTextStoreBase extends BaseCustomAnimatedWidgetStore
     isPaused = false;
     setControl(Control.playFromStart);
     setControl(Control.stop);
+    setWidgetVisibility(true);
   }
 
   @action

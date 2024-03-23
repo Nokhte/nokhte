@@ -37,6 +37,11 @@ abstract class _CollaborationLogicCoordinatorBase extends BaseMobxDBStore
     }
   }
 
+  @action
+  resetErrorMessage() {
+    errorMessage = "";
+  }
+
   @observable
   bool nokhteSessionSearchStatusIsListening = false;
 

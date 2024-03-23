@@ -118,9 +118,11 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
 
   @action
   onError(String errorMessage) {
+    nokhteBlur.reset();
     errorSmartText.reset();
-    errorSmartText.setWidgetVisibility(true);
+    secondaryErrorSmartText.reset();
     errorSmartText.setMessagesData(MessagesData.getErrorList(errorMessage));
+    secondaryErrorSmartText.setMessagesData(MessagesData.errorConfirmList);
     errorSmartText.startRotatingText();
     secondaryErrorSmartText.startRotatingText();
     nokhteBlur.init();
@@ -129,15 +131,18 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
 
   @action
   onErrorResolved() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
-    beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
-    nokhteBlur.reverse();
-    errorSmartText.setWidgetVisibility(false);
-    gestureCross.fadeInTheCross();
-    gestureCross.fadeIn();
-    secondaryErrorSmartText.setWidgetVisibility(false);
-    setIsInErrorMode(false);
-    isEnteringNokhteSession = false;
+    if (isInErrorMode) {
+      beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
+      beachWaves.currentStore.callsOnCompleteTwice = true;
+      beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
+      beachWaves.setMovieStatus(MovieStatus.inProgress);
+      nokhteBlur.reverse();
+      errorSmartText.setWidgetVisibility(false);
+      gestureCross.fadeInTheCross();
+      gestureCross.fadeIn();
+      secondaryErrorSmartText.setWidgetVisibility(false);
+      isEnteringNokhteSession = false;
+    }
   }
 
   @observable
@@ -213,17 +218,20 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.resumeOnShore) {
             beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
-            // beachWaves.currentStore.initMovie(NoParams());
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.onShoreToDrySand) {
             onVirginStorageEntry();
           } else if (beachWaves.movieMode == BeachWaveMovieModes.anyToOnShore) {
-            onAnyToShoreComplete();
             beachWaves.setMovieMode(BeachWaveMovieModes.resumeOnShore);
             beachWaves.currentStore.initMovie(ResumeOnShoreParams.initial());
+            onAnyToShoreComplete();
+            setIsInErrorMode(false);
           }
         }
       });
+
+  @observable
+  int onCompleteCount = 0;
 
   @action
   onDeepLinkOpened() {
