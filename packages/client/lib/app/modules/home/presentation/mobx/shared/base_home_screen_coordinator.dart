@@ -54,7 +54,6 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
         widgets.onDisconnected();
       },
     );
-    collaboratorPoolEntryReactor();
     openedDeepLinksReactor();
     collaboratorPoolEntryErrorReactor();
     tapReactor();
@@ -107,28 +106,15 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
         }
       });
 
-  collaboratorPoolEntryReactor() =>
-      reaction((p0) => collaborationLogic.hasEntered, (p0) async {
-        if (p0) {
-          print("so you say we have entered??");
-          // Timer.periodic(
-          //   const Duration(seconds: 1),
-          //   (timer) async {
-          //     if (widgets.beachWaves.movieStatus == MovieStatus.finished &&
-          //         widgets.isEnteringNokhteSession) {
-          //       Modular.to.navigate('/collaboration/pool');
-          //       timer.cancel();
-          //     }
-          //   },
-          // );
-        }
-      });
-
   collaboratorPoolEntryErrorReactor() =>
       reaction((p0) => collaborationLogic.errorMessage, (p0) async {
-        setDisableAllTouchFeedback(true);
-        setIsInErrorMode(true);
-        widgets.onError(p0);
+        if (p0.isNotEmpty) {
+          setDisableAllTouchFeedback(true);
+          setIsInErrorMode(true);
+          widgets.onError(p0);
+          deepLinks.reset();
+          collaborationLogic.resetErrorMessage();
+        }
       });
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) async {
