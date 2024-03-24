@@ -92,9 +92,11 @@ abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
     presence.initReactors(
       onCollaboratorJoined: () {
         setDisableAllTouchFeedback(false);
+        widgets.onCollaboratorJoined();
       },
-      onCollaboratorLeft: () async {
+      onCollaboratorLeft: () {
         setDisableAllTouchFeedback(true);
+        widgets.onCollaboratorLeft();
       },
     );
     tapReactor();

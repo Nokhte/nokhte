@@ -59,6 +59,16 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
   }
 
   @action
+  onCollaboratorLeft() {
+    mirroredText.setWidgetVisibility(false);
+  }
+
+  @action
+  onCollaboratorJoined() {
+    mirroredText.setWidgetVisibility(mirroredText.pastShowWidget);
+  }
+
+  @action
   onTap(Offset tapPosition, {required Function onFlowFinished}) async {
     if (!disableTouchInput) {
       if (cooldownStopwatch.elapsedMilliseconds.isLessThan(950)) {

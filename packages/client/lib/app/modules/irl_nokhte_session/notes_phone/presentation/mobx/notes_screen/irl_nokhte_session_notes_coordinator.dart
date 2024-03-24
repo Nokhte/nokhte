@@ -49,8 +49,14 @@ abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
   initReactors(bool shouldAdjustToFallbackExitProtocol) {
     swipeReactor();
     presence.initReactors(
-      onCollaboratorJoined: () => setDisableAllTouchFeedback(false),
-      onCollaboratorLeft: () => setDisableAllTouchFeedback(true),
+      onCollaboratorJoined: () {
+        setDisableAllTouchFeedback(false);
+        widgets.onCollaboratorJoined();
+      },
+      onCollaboratorLeft: () {
+        setDisableAllTouchFeedback(true);
+        widgets.onCollaboratorLeft();
+      },
     );
     widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),

@@ -75,7 +75,9 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
     Timer(Seconds.get(addDelay ? 2 : 0), () {
       letGoIsTriggered = false;
       setCanHold(true);
-      mirroredText.setWidgetVisibility(true);
+      if (!collaboratorHasLeft) {
+        mirroredText.setWidgetVisibility(true);
+      }
       holdCount++;
     });
   }
@@ -120,6 +122,21 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
           });
         }
       });
+
+  @observable
+  bool collaboratorHasLeft = false;
+
+  @action
+  onCollaboratorLeft() {
+    mirroredText.setWidgetVisibility(false);
+    collaboratorHasLeft = true;
+  }
+
+  @action
+  onCollaboratorJoined() {
+    mirroredText.setWidgetVisibility(true);
+    collaboratorHasLeft = false;
+  }
 
   @observable
   int holdCount = 0;
