@@ -1,9 +1,11 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/collaboration/domain/logic/logic.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
@@ -129,15 +131,34 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
         if (deepLinks.listenForOpenedDeepLinkStore
                 .additionalMetadata["isTheUsersInvitation"] !=
             null) {
-          setDisableAllTouchFeedback(true);
-          final additionalMetadata =
-              deepLinks.listenForOpenedDeepLinkStore.additionalMetadata;
-          await collaborationLogic.enter(EnterCollaboratorPoolParams(
-            collaboratorUID: additionalMetadata["deepLinkUID"],
-            invitationType: InvitationType.nokhteSession,
-          ));
-          deepLinks.reset();
-          widgets.onDeepLinkOpened();
+          if (widgets.beachWaves.movieMode !=
+                  BeachWaveMovieModes.anyToOnShore &&
+              widgets.beachWaves.movieStatus != MovieStatus.inProgress) {
+            if (!widgets.isInErrorMode) {
+              setDisableAllTouchFeedback(true);
+              final additionalMetadata =
+                  deepLinks.listenForOpenedDeepLinkStore.additionalMetadata;
+              await collaborationLogic.enter(EnterCollaboratorPoolParams(
+                collaboratorUID: additionalMetadata["deepLinkUID"],
+                invitationType: InvitationType.nokhteSession,
+              ));
+              deepLinks.reset();
+              widgets.onDeepLinkOpened();
+            } else {
+              setDisableAllTouchFeedback(true);
+              final additionalMetadata =
+                  deepLinks.listenForOpenedDeepLinkStore.additionalMetadata;
+              await collaborationLogic.enter(EnterCollaboratorPoolParams(
+                collaboratorUID: additionalMetadata["deepLinkUID"],
+                invitationType: InvitationType.nokhteSession,
+              ));
+              widgets.errorSmartText.setWidgetVisibility(false);
+              widgets.secondaryErrorSmartText.setWidgetVisibility(false);
+              Timer(Seconds.get(1), () {
+                Modular.to.navigate('/collaboration/pool');
+              });
+            }
+          }
         }
       });
 }

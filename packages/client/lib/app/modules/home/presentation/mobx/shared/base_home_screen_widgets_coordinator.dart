@@ -132,16 +132,17 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   @action
   onErrorResolved() {
     if (isInErrorMode) {
-      beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
-      beachWaves.currentStore.callsOnCompleteTwice = true;
-      beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
-      beachWaves.setMovieStatus(MovieStatus.inProgress);
-      nokhteBlur.reverse();
-      errorSmartText.setWidgetVisibility(false);
-      gestureCross.fadeInTheCross();
-      gestureCross.fadeIn();
-      secondaryErrorSmartText.setWidgetVisibility(false);
-      isEnteringNokhteSession = false;
+      if (beachWaves.movieStatus == MovieStatus.finished) {
+        beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
+        beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
+        beachWaves.setMovieStatus(MovieStatus.inProgress);
+        nokhteBlur.reverse();
+        errorSmartText.setWidgetVisibility(false);
+        gestureCross.fadeInTheCross();
+        gestureCross.fadeIn();
+        secondaryErrorSmartText.setWidgetVisibility(false);
+        isEnteringNokhteSession = false;
+      }
     }
   }
 
