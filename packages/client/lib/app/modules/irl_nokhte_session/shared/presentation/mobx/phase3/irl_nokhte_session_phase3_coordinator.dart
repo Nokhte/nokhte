@@ -36,6 +36,13 @@ abstract class _IrlNokhteSessionPhase3CoordinatorBase
     required this.decidePhoneRoleLogic,
   }) : sessionMetadata = presence.getSessionMetadataStore;
 
+  @observable
+  bool showCollaboratorIncidents = false;
+
+  @action
+  setShowCollaboratorIncidents(bool newVal) =>
+      showCollaboratorIncidents = newVal;
+
   @action
   constructor() async {
     widgets.constructor();
@@ -91,7 +98,7 @@ abstract class _IrlNokhteSessionPhase3CoordinatorBase
       onCollaboratorJoined: () {
         setDisableAllTouchFeedback(false);
       },
-      onCollaboratorLeft: () async {
+      onCollaboratorLeft: () {
         setDisableAllTouchFeedback(true);
       },
     );
@@ -145,10 +152,10 @@ abstract class _IrlNokhteSessionPhase3CoordinatorBase
         (p0) => presence.getSessionMetadataStore.canReturnHome,
         (p0) async {
           if (p0) {
-            await presence.dispose();
-            if (phoneRole == IrlNokhteSessionPhoneRole.talking) {
-              await cleanUpCollaborationArtifacts.nokhteSession(NoParams());
-            }
+            setShowCollaboratorIncidents(false);
+            // await presence.dispose();
+            await presence.completeTheSession();
+            if (phoneRole == IrlNokhteSessionPhoneRole.talking) {}
             Timer(Seconds.get(1), () async {
               await getUserInfo(NoParams());
             });
