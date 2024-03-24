@@ -34,6 +34,18 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
   @observable
   bool letGoIsTriggered = false;
 
+  @observable
+  bool isHolding = false;
+
+  @observable
+  bool isPickingUp = false;
+
+  @action
+  setIsHolding(bool newBool) => isHolding = newBool;
+
+  @action
+  setIsPickingUp(bool newBool) => isPickingUp = newBool;
+
   @action
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
@@ -41,6 +53,7 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
       MirroredTextContentOptions.irlNokhteSessionSpeakingPhone,
     );
     mirroredText.startBothRotatingText();
+    setIsPickingUp(false);
     initReactors();
   }
 
@@ -69,32 +82,36 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
 
   beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished &&
-            beachWaves.movieMode == BeachWaveMovieModes.halfAndHalfToDrySand) {
-          beachWaves.setMovieMode(BeachWaveMovieModes.drySandToVibrantBlueGrad);
-          beachWaves.currentStore.initMovie(NoParams());
-        } else if (p0 == MovieStatus.finished &&
-            beachWaves.movieMode ==
-                BeachWaveMovieModes.drySandToVibrantBlueGrad &&
-            beachWaves.currentStore.control == Control.playFromStart) {
-          borderGlow.initMovie(NoParams());
-        } else if (p0 == MovieStatus.finished &&
-            beachWaves.movieMode ==
-                BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf) {
-          Modular.to.navigate("/irl_nokhte_session/exit");
-        } else if (p0 == MovieStatus.finished &&
-            beachWaves.movieMode ==
-                BeachWaveMovieModes.dynamicPointToHalfAndHalf) {
-          if (holdCount == 0) {
+        if (p0 == MovieStatus.finished) {
+          if (beachWaves.movieMode ==
+              BeachWaveMovieModes.halfAndHalfToDrySand) {
+            beachWaves
+                .setMovieMode(BeachWaveMovieModes.drySandToVibrantBlueGrad);
+            beachWaves.currentStore.initMovie(NoParams());
+          } else if (beachWaves.movieMode ==
+                  BeachWaveMovieModes.drySandToVibrantBlueGrad &&
+              beachWaves.currentStore.control == Control.playFromStart) {
+            borderGlow.initMovie(NoParams());
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf) {
+            if (isHolding) {
+              borderGlow.initMovie(NoParams());
+            } else if (isPickingUp) {
+              Modular.to.navigate("/irl_nokhte_session/exit");
+            }
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.dynamicPointToHalfAndHalf) {
             onLetGoCompleted();
-          } else {
-            onLetGoCompleted(addDelay: true);
           }
         }
       });
 
   borderGlowReactor() => reaction((p0) => borderGlow.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished && borderGlow.isGlowingUp) {
+        if (p0 == MovieStatus.finished &&
+            borderGlow.isGlowingUp &&
+            isHolding &&
+            beachWaves.movieMode ==
+                BeachWaveMovieModes.dynamicPointToHalfAndHalf) {
           speakLessSmileMore.setSpeakLess(true);
           Timer(Seconds.get(2), () {
             if (!letGoIsTriggered) {
@@ -110,8 +127,9 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
   @action
   onHold() {
     if (canHold && !letGoIsTriggered) {
-      beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
-      beachWaves.currentStore.initMovie(NoParams());
+      setIsHolding(true);
+      beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
+      beachWaves.currentStore.reverseMovie(NoParams());
       mirroredText.setWidgetVisibility(false);
       setCanHold(false);
     }
@@ -119,6 +137,7 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
 
   @action
   onExit() {
+    setIsPickingUp(true);
     mirroredText.setWidgetVisibility(false);
     beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
     beachWaves.currentStore.reverseMovie(NoParams());
@@ -127,6 +146,7 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
   @action
   onLetGo() {
     if (!canHold) {
+      setIsHolding(false);
       setCanHold(true);
       letGoIsTriggered = true;
       borderGlow.initGlowDown();
