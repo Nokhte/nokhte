@@ -54,4 +54,16 @@ abstract class _IrlNokhteSessionPhase0WidgetsCoordinatorBase
   onTenSecondLapse() {
     primarySmartText.startRotatingText(isResuming: true);
   }
+
+  @action
+  onCollaboratorLeft() {
+    primarySmartText.setWidgetVisibility(false);
+    secondarySmartText.setWidgetVisibility(false);
+  }
+
+  @action
+  onCollaboratorJoined() {
+    primarySmartText.setWidgetVisibility(primarySmartText.pastShowWidget);
+    secondarySmartText.setWidgetVisibility(secondarySmartText.pastShowWidget);
+  }
 }

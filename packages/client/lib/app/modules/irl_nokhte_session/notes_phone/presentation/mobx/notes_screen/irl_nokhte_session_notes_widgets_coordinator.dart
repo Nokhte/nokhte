@@ -72,4 +72,16 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
       Modular.to.navigate("/irl_nokhte_session/exit");
     });
   }
+
+  @action
+  onCollaboratorLeft() {
+    textEditor.setWidgetVisibility(false);
+    smartText.setWidgetVisibility(false);
+  }
+
+  @action
+  onCollaboratorJoined() {
+    textEditor.setWidgetVisibility(true);
+    smartText.setWidgetVisibility(smartText.pastShowWidget);
+  }
 }

@@ -37,7 +37,7 @@ abstract class _IrlNokhteSessionPhase3CoordinatorBase
   }) : sessionMetadata = presence.getSessionMetadataStore;
 
   @observable
-  bool showCollaboratorIncidents = false;
+  bool showCollaboratorIncidents = true;
 
   @action
   setShowCollaboratorIncidents(bool newVal) =>
@@ -97,9 +97,11 @@ abstract class _IrlNokhteSessionPhase3CoordinatorBase
     presence.initReactors(
       onCollaboratorJoined: () {
         setDisableAllTouchFeedback(false);
+        widgets.onCollaboratorJoined();
       },
       onCollaboratorLeft: () {
         setDisableAllTouchFeedback(true);
+        widgets.onCollaboratorLeft();
       },
     );
     widgets.beachWavesMovieStatusReactor(
@@ -152,10 +154,11 @@ abstract class _IrlNokhteSessionPhase3CoordinatorBase
         (p0) => presence.getSessionMetadataStore.canReturnHome,
         (p0) async {
           if (p0) {
-            setShowCollaboratorIncidents(false);
-            // await presence.dispose();
-            await presence.completeTheSession();
-            if (phoneRole == IrlNokhteSessionPhoneRole.talking) {}
+            showCollaboratorIncidents = false;
+            await presence.dispose();
+            if (phoneRole == IrlNokhteSessionPhoneRole.talking) {
+              await presence.completeTheSession();
+            }
             Timer(Seconds.get(1), () async {
               await getUserInfo(NoParams());
             });

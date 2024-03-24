@@ -91,6 +91,16 @@ abstract class _IrlNokhteSessionNotesInstructionsWidgetsCoordinatorBase
     setDisableTouchInput(false);
   }
 
+  @action
+  onCollaboratorLeft() {
+    mirroredText.setWidgetVisibility(false);
+  }
+
+  @action
+  onCollaboratorJoined() {
+    mirroredText.setWidgetVisibility(mirroredText.pastShowWidget);
+  }
+
   @computed
   bool get hasTappedOnTheRightSide =>
       rightSideUpTextIsVisible && hasTappedOnTheBottomHalf ||

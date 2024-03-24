@@ -13,7 +13,6 @@ class IrlNokhteSessionPresenceCoordinator = _IrlNokhteSessionPresenceCoordinator
 abstract class _IrlNokhteSessionPresenceCoordinatorBase
     extends BasePresenceCoordinator with Store {
   final GetIrlNokhteSessionMetadataStore getSessionMetadataStore;
-  final NokhteBlurStore blur;
   final CollaboratorPresenceIncidentsOverlayStore incidentsOverlayStore;
   final AddContent addContentLogic;
   final CompleteTheSession completeTheSessionLogic;
@@ -27,10 +26,8 @@ abstract class _IrlNokhteSessionPresenceCoordinatorBase
     required this.addContentLogic,
     required this.completeTheSessionLogic,
     required this.updateHasGyroscopeLogic,
-    required this.blur,
   }) : incidentsOverlayStore = CollaboratorPresenceIncidentsOverlayStore(
           sessionMetadataStore: getSessionMetadataStore,
-          blur: blur,
         );
 
   @observable

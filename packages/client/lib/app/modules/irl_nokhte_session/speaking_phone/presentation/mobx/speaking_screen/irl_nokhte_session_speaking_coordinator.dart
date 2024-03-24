@@ -67,12 +67,14 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
     presence.initReactors(
       onCollaboratorJoined: () {
         setDisableAllTouchFeedback(false);
+        widgets.onCollaboratorJoined();
       },
       onCollaboratorLeft: () {
         setDisableAllTouchFeedback(true);
         if (hold.holdCount.isGreaterThan(hold.letGoCount)) {
           widgets.onLetGo();
         }
+        widgets.onCollaboratorLeft();
       },
     );
     if (shouldAdjustToFallbackExitProtocol) {
