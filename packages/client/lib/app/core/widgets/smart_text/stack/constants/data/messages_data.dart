@@ -133,7 +133,7 @@ class MessagesData {
           MirroredTextOrientations orientation) {
     final arr = [
       RotatingTextData(
-        mainMessage: "Hold on This Side When You Are Speaking",
+        mainMessage: "Say: One person can speak at a time",
         pauseHere: true,
         mainMessageFontSize: 22.0,
       ),
@@ -142,7 +142,7 @@ class MessagesData {
         pauseHere: true,
       ),
       RotatingTextData(
-        mainMessage: "Say: One person can speak at a time",
+        mainMessage: "Hold on This Side When You Are Speaking",
         pauseHere: true,
         mainMessageFontSize: 22.0,
       ),

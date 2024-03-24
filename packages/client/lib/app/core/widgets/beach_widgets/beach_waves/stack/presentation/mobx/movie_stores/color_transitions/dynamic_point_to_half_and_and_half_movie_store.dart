@@ -12,7 +12,6 @@ abstract class _DynamicPointToHalfAndHlafMovieStoreBase
     extends BaseBeachWaveMovieStore<List<ColorAndStop>> with Store {
   _DynamicPointToHalfAndHlafMovieStoreBase()
       : super(
-          callsOnCompleteTwice: true,
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(

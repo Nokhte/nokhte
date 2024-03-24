@@ -64,8 +64,11 @@ class IrlNokhteSessionPhase3Screen extends HookWidget {
               size: size,
               store: coordinator.widgets.gestureCross,
             ),
-            CollaboratorPresenceIncidentsOverlay(
-              store: coordinator.presence.incidentsOverlayStore,
+            Opacity(
+              opacity: coordinator.showCollaboratorIncidents ? 1 : 0,
+              child: CollaboratorPresenceIncidentsOverlay(
+                store: coordinator.presence.incidentsOverlayStore,
+              ),
             ),
             WifiDisconnectOverlay(
               store: coordinator.widgets.wifiDisconnectOverlay,
