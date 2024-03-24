@@ -3,7 +3,6 @@ import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity_
 import 'package:nokhte/app/core/modules/presence_modules/irl_nokhte_session_presence/data/contract/irl_nokhte_session_presence_contract_impl.dart';
 import 'package:nokhte/app/core/modules/supabase/supabase_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
-import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte_backend/tables/_real_time_enabled/active_irl_nokhte_sessions/types/types.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
@@ -74,15 +73,11 @@ class IrlNokhteSessionPresenceModule extends Module {
         logic: i<BaseGetSessionMetadata<IrlNokhteSessionMetadata>>(),
       ),
     );
-    i.add<NokhteBlurStore>(
-      () => NokhteBlurStore(),
-    );
     i.add<IrlNokhteSessionPresenceCoordinator>(
       () => IrlNokhteSessionPresenceCoordinator(
         updateHasGyroscopeLogic: Modular.get<UpdateHasGyroscope>(),
         addContentLogic: Modular.get<AddContent>(),
         completeTheSessionLogic: Modular.get<CompleteTheSession>(),
-        blur: Modular.get<NokhteBlurStore>(),
         cancelSessionMetadataStreamLogic: i<CancelSessionMetadataStream>(),
         updateCurrentPhaseLogic: i<UpdateCurrentPhase>(),
         getSessionMetadataStore: i<GetIrlNokhteSessionMetadataStore>(),
