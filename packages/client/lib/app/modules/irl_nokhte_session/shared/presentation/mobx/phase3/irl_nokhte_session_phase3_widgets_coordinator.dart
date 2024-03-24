@@ -85,6 +85,18 @@ abstract class _IrlNokhteSessionPhase3WidgetsCoordinatorBase
   }
 
   @action
+  onCollaboratorLeft() {
+    primarySmartText.setWidgetVisibility(false);
+    secondarySmartText.setWidgetVisibility(false);
+  }
+
+  @action
+  onCollaboratorJoined() {
+    primarySmartText.setWidgetVisibility(primarySmartText.pastShowWidget);
+    secondarySmartText.setWidgetVisibility(secondarySmartText.pastShowWidget);
+  }
+
+  @action
   onNineSecondsLapsed() {
     primarySmartText.setWidgetVisibility(true);
     secondarySmartText.setWidgetVisibility(true);

@@ -43,9 +43,13 @@ abstract class _IrlNokhteSessionNotesInstructionsCoordinatorBase
     tapReactor();
     presence.initReactors(
       onCollaboratorJoined: () {
-        widgets.setDisableTouchInput(false);
+        if (instructionModeIsUnlocked) {
+          widgets.setDisableTouchInput(false);
+        }
+        widgets.onCollaboratorJoined();
       },
       onCollaboratorLeft: () {
+        widgets.onCollaboratorLeft();
         if (instructionModeIsUnlocked) {
           widgets.setDisableTouchInput(true);
         }

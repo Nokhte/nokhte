@@ -38,9 +38,11 @@ abstract class _IrlNokhteSessionSpeakingInstructionsCoordinatorBase
     presence.initReactors(
       onCollaboratorJoined: () {
         widgets.setDisableTouchInput(false);
+        widgets.onCollaboratorJoined();
       },
       onCollaboratorLeft: () {
         widgets.setDisableTouchInput(true);
+        widgets.onCollaboratorLeft();
       },
     );
     collaboratorPhaseReactor();
