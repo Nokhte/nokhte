@@ -25,8 +25,14 @@ abstract class _BaseCustomAnimatedWidgetStoreBase<T> extends Equatable
   @observable
   Control pastControl = Control.stop;
 
+  @computed
+  bool get showWidget => showWidgets.last;
+
+  @computed
+  bool get pastShowWidget => showWidgets[showWidgets.length - 2];
+
   @observable
-  bool showWidget = true;
+  ObservableList showWidgets = ObservableList.of(List.filled(2, true));
 
   @observable
   MovieStatus movieStatus = MovieStatus.idle;
@@ -47,10 +53,10 @@ abstract class _BaseCustomAnimatedWidgetStoreBase<T> extends Equatable
   setHasFadedIn(bool newVal) => hasFadedIn = newVal;
 
   @action
-  toggleWidgetVisibility() => showWidget = !showWidget;
+  toggleWidgetVisibility() => showWidgets.add(!showWidgets.last);
 
   @action
-  setWidgetVisibility(bool newVal) => showWidget = newVal;
+  setWidgetVisibility(bool newVal) => showWidgets.add(newVal);
 
   @action
   setPastControl(Control newControl) => pastControl = newControl;
