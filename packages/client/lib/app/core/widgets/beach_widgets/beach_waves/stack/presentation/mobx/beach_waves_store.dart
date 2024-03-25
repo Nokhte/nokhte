@@ -14,6 +14,8 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
   _BeachWavesStoreBase() {
     movieModeToStoreLookup = {
       BeachWaveMovieModes.anyToOnShore: AnyToOnShoreMovieStore(),
+      BeachWaveMovieModes.anyToVibrantBlueGrad:
+          AnyToVibrantBlueGradMovieStore(),
       BeachWaveMovieModes.blackOut: StaticBlackOutMovieStore(),
       BeachWaveMovieModes.blackOutToDrySand: BlackOutToDrySandMovieStore(),
       BeachWaveMovieModes.drySandToVibrantBlueGrad:
