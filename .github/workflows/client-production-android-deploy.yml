@@ -10,7 +10,7 @@ on:
 jobs:
   deploy:
     name: External Staging Deployment
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: packages/client
@@ -36,12 +36,12 @@ jobs:
         with:
           ruby-version: "3.0"
           bundler-cache: true
+      - run: chmod +x ./scripts/setup_prod_android_build.sh
+      - run: ./scripts/setup_prod_android_build.sh
       - run: flutter pub run build_runner build
+      - run: cd android && bundle install
       - run: |
-          cd android/app/src/main
-          sed -i '' -e 's/android:name="io.branch.sdk.TestMode" android:value="true"/android:name="io.branch.sdk.TestMode" android:value="false"/' AndroidManifest.xml
-          cd ../../..
-          bundle install
+          cd android
           echo "$BASE_64_KEY_PROPERTIES" | base64 -d > key.properties
           echo "$BASE_64_UPLOAD_KEYSTORE" | base64 -d > primala-upload-key.keystore
           fastlane build
