@@ -37,11 +37,11 @@ jobs:
           ruby-version: "3.0"
           bundler-cache: true
       - run: flutter pub run build_runner build
-      - run: cd android && bundle install
       - run: |
           cd android/app/src/main
           sed -i '' -e 's/android:name="io.branch.sdk.TestMode" android:value="true"/android:name="io.branch.sdk.TestMode" android:value="false"/' AndroidManifest.xml
           cd ../../..
+          bundle install
           echo "$BASE_64_KEY_PROPERTIES" | base64 -d > key.properties
           echo "$BASE_64_UPLOAD_KEYSTORE" | base64 -d > primala-upload-key.keystore
           fastlane build
