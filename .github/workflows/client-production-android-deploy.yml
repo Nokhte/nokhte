@@ -10,7 +10,7 @@ on:
 jobs:
   deploy:
     name: External Staging Deployment
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     defaults:
       run:
         working-directory: packages/client
