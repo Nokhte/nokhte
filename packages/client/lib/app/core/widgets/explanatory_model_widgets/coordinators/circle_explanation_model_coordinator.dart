@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -79,7 +81,7 @@ abstract class _CircleExplanationModelCoordinatorBase extends Equatable
   collaboratorCircleReactor() =>
       reaction((p0) => collaboratorCircle.hasFadedIn, (p0) {
         if (p0) {
-          Future.delayed(Seconds.get(2), () {
+          Timer(Seconds.get(2), () {
             toggleAllWidgetVisibilities();
             toggleHasCompletedExplanation();
           });

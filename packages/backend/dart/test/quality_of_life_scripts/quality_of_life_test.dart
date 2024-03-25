@@ -1,14 +1,15 @@
 import 'dart:io';
 
 import 'package:nokhte_backend/constants/constants.dart';
+import 'package:nokhte_backend/deprecated/_real_time_disabled/collective_sessions/queries.dart';
+import 'package:nokhte_backend/deprecated/_real_time_disabled/individual_sessions/queries.dart';
+import 'package:nokhte_backend/deprecated/_real_time_disabled/p2p_perspectives_tracking/queries.dart';
+import 'package:nokhte_backend/deprecated/_real_time_disabled/solo_sharable_documents/queries.dart';
+import 'package:nokhte_backend/deprecated/_real_time_enabled/existing_collaborations/queries.dart';
+import 'package:nokhte_backend/deprecated/_real_time_enabled/existing_collaborations/types/collaborator_info.dart';
+import 'package:nokhte_backend/deprecated/_real_time_enabled/working_collaborative_documents/queries.dart';
 import 'package:nokhte_backend/edge_functions/edge_functions.dart';
-import 'package:nokhte_backend/tables/existing_collaborations.dart';
-import 'package:nokhte_backend/tables/p2p_perspectives_tracking.dart';
-import 'package:nokhte_backend/tables/solo_sharable_documents.dart';
 import 'package:nokhte_backend/storage/perspectives_audio.dart';
-import 'package:nokhte_backend/tables/_real_time_disabled/collective_sessions/queries.dart';
-import 'package:nokhte_backend/tables/_real_time_disabled/individual_sessions/queries.dart';
-import 'package:nokhte_backend/tables/working_collaborative_documents.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 

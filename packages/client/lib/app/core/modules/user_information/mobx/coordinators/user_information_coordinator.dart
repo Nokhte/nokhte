@@ -16,12 +16,14 @@ abstract class _UserInformationCoordinatorBase extends BaseMobxDBStore
   final UpdateHasSentAnInvitation updateHasSentAnInvitationLogic;
   final UpdateWantsToRepeatInvitationFlow
       updateWantsToRepeatInvitationFlowLogic;
+  final UpdateHasEnteredStorage updateHasEnteredStorageLogic;
 
   _UserInformationCoordinatorBase({
     required this.getUserInfoStore,
     required this.updateHasGoneThroughInvitationFlowLogic,
     required this.updateHasSentAnInvitationLogic,
     required this.updateWantsToRepeatInvitationFlowLogic,
+    required this.updateHasEnteredStorageLogic,
   });
 
   @observable
@@ -32,6 +34,9 @@ abstract class _UserInformationCoordinatorBase extends BaseMobxDBStore
 
   @observable
   bool invitationRepeatStatusIsUpdated = false;
+
+  @observable
+  bool storageStatusIsUpdated = false;
 
   @action
   updateHasGoneThroughInvitationFlow(bool newStatus) async {
@@ -57,6 +62,15 @@ abstract class _UserInformationCoordinatorBase extends BaseMobxDBStore
     final res = await updateWantsToRepeatInvitationFlowLogic(newStatus);
     res.fold((failure) => errorUpdater(failure),
         (status) => invitationRepeatStatusIsUpdated = status);
+    state = StoreState.loaded;
+  }
+
+  @action
+  updateHasEnteredStorage(bool newStatus) async {
+    state = StoreState.loading;
+    final res = await updateHasEnteredStorageLogic(newStatus);
+    res.fold((failure) => errorUpdater(failure),
+        (status) => storageStatusIsUpdated = status);
     state = StoreState.loaded;
   }
 

@@ -6,6 +6,7 @@ import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 part 'collaboration_home_screen_widgets_coordinator.g.dart';
@@ -18,7 +19,6 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
   final BeachWavesStore beachWaves;
   final GradientTreeNodeStore gradientTreeNode;
   final SmartTextStore smartText;
-  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final GestureCrossStore gestureCross;
 
   _CollaborationHomeScreenWidgetsCoordinatorBase({
@@ -26,7 +26,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
     required this.gestureCross,
     required this.gradientTreeNode,
     required this.smartText,
-    required this.wifiDisconnectOverlay,
+    required super.wifiDisconnectOverlay,
   });
 
   @observable
@@ -44,7 +44,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
 
   @action
   constructor() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.suspendedAtOceanDive);
+    beachWaves.setMovieMode(BeachWaveMovieModes.staticOceanDive);
     gestureCross.setCollaborationHomeScreen();
     smartText.setMessagesData(MessagesData.firstTimeCollaborationList);
     gradientTreeNode.setWidgetVisibility(false);
@@ -52,7 +52,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
 
   @action
   onResumed() {
-    if (smartText.currentIndex.isLessThanOrEqualTo(1) &&
+    if (smartText.currentIndex.isLessThan(1) &&
         smartText.messagesData.length == 3) {
       smartText.reset();
       smartText.startRotatingText();
@@ -61,7 +61,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
 
   @action
   onInactive() {
-    if (smartText.currentIndex.isLessThanOrEqualTo(1) &&
+    if (smartText.currentIndex.isLessThan(1) &&
         smartText.messagesData.length == 3) {
       smartText.pause();
     }
@@ -90,8 +90,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
 
   @action
   onNokhteSessionLinkOpened() {
-    beachWaves.setMovieMode(
-        BeachWaveMovieModes.suspendedAtOceanDiveToVibrantBlueGradient);
+    beachWaves.setMovieMode(BeachWaveMovieModes.oceanDiveToVibrantBlueGradient);
     beachWaves.currentStore.initMovie(NoParams());
     gestureCross.toggleAll();
     gradientTreeNode.setWidgetVisibility(false);
@@ -104,8 +103,8 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
     smartText.pause();
     smartText.setWidgetVisibility(false);
     gestureCross.initMoveAndRegenerate(CircleOffsets.bottom);
-    beachWaves.setMovieMode(BeachWaveMovieModes.oceanDiveToOnShore);
-    beachWaves.currentStore.initMovie(NoParams());
+    beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
+    beachWaves.currentStore.initMovie(WaterColorsAndStops.oceanDiveWater);
   }
 
   initReactors(Function onFlowCompleted, Function enterCollaboratorPool) {
@@ -148,10 +147,10 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
   beachWavesMovieStatusReactor(Function onNavigationHome) =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          if (beachWaves.movieMode == BeachWaveMovieModes.oceanDiveToOnShore) {
+          if (beachWaves.movieMode == BeachWaveMovieModes.anyToOnShore) {
             onNavigationHome();
           } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.suspendedAtOceanDiveToVibrantBlueGradient) {
+              BeachWaveMovieModes.oceanDiveToVibrantBlueGradient) {
             Modular.to.navigate('/collaboration/pool');
           }
         }

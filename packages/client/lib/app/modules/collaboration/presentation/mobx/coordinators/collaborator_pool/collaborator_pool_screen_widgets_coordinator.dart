@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -16,13 +18,12 @@ abstract class _CollaboratorPoolScreenWidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final GestureCrossStore gestureCross;
   final BeachWavesStore beachWaves;
-  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
   final WaitingTextStore waitingText;
 
   _CollaboratorPoolScreenWidgetsCoordinatorBase({
     required this.gestureCross,
     required this.beachWaves,
-    required this.wifiDisconnectOverlay,
+    required super.wifiDisconnectOverlay,
     required this.waitingText,
   });
 
@@ -37,7 +38,7 @@ abstract class _CollaboratorPoolScreenWidgetsCoordinatorBase
     waitingText.toggleWidgetVisibility();
     beachWaves.currentStore.initMovie(NoParams());
     initReactors();
-    Future.delayed(Seconds.get(0, milli: 100), () {
+    Timer(Seconds.get(0, milli: 100), () {
       waitingText.toggleWidgetVisibility();
     });
   }
@@ -68,9 +69,7 @@ abstract class _CollaboratorPoolScreenWidgetsCoordinatorBase
             beachWaves.currentStore.initMovie(NoParams());
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.timesUpDynamicPointToTheDepths) {
-            Modular.to.navigate(isTransitioningToNokhteSession
-                ? "/nokhte_session/"
-                : "/purpose_session/");
+            Modular.to.navigate("/irl_nokhte_session/");
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.timesUpEndToOceanDive) {
             Modular.to.navigate("/collaboration/");

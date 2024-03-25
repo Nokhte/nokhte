@@ -38,3 +38,7 @@ class DatabaseFailure extends Failure {
 class GenericFailure extends Failure {
   const GenericFailure({required super.message, required super.failureCode});
 }
+
+class UserInputFailure extends Failure {
+  const UserInputFailure({required super.message, required super.failureCode});
+}

@@ -29,9 +29,6 @@ class VoiceCallContractImpl with ResponseToStatus implements VoiceCallContract {
   getChannelId(params) async {
     if (await networkInfo.isConnected) {
       switch (params) {
-        case GetChannelIdParams.forCollaboration:
-          final res = await remoteSource.getCollaboratorInfo();
-          return Right(ChannelIdMapper.fromCollaborationRow(res));
         case GetChannelIdParams.forNokhteSession:
           final res = await remoteSource.getNokhteSessionMeetingId();
           return Right(res);

@@ -17,7 +17,7 @@ void main() {
 
   setUp(() {
     testStore = CollaborationHomeScreenWidgetsCoordinator(
-      beachWaves: MockBeachWavesStore(),
+      beachWaves: BeachWavesStore(),
       gradientTreeNode: MockGradientTreeNodeStore(),
       smartText: MockSmartTextStore(),
       wifiDisconnectOverlay: MockWifiDisconnectOverlayStore(),
@@ -44,8 +44,7 @@ void main() {
 
   test("constructor", () {
     testStore.constructor();
-    verify(testStore.beachWaves
-        .setMovieMode(BeachWaveMovieModes.suspendedAtOceanDive));
+    expect(testStore.beachWaves.movieMode, BeachWaveMovieModes.staticOceanDive);
     verify(testStore.gestureCross.setCollaborationHomeScreen());
     verify(testStore.smartText
         .setMessagesData(MessagesData.firstTimeCollaborationList));
@@ -76,12 +75,6 @@ void main() {
     });
   });
 
-  // test("enterCollaboratorPoolConstructor", () {
-  //   testStore.enterCollaboratorPoolConstructor();
-  //   verify(testStore.gradientTreeNode.setWidgetVisibility(false));
-  //   expect(testStore.shouldEnterCollaboratorPool, true);
-  // });
-
   test("postInvitationFlowConstructor", () {
     fakeAsync((async) async {
       await testStore.postInvitationFlowConstructor();
@@ -91,29 +84,18 @@ void main() {
   });
 
   test("onNokhteSessionLinkOpened", () {
-    when(testStore.beachWaves.currentStore)
-        .thenAnswer((_) => OceanDiveToTimesUpStartMovieStore());
+    testStore.beachWaves.setMovieMode(BeachWaveMovieModes.oceanDiveToTimesUp);
     testStore.onNokhteSessionLinkOpened();
-    verify(testStore.beachWaves.setMovieMode(
-        BeachWaveMovieModes.suspendedAtOceanDiveToVibrantBlueGradient));
+    expect(testStore.beachWaves.movieMode,
+        BeachWaveMovieModes.oceanDiveToVibrantBlueGradient);
     verify(testStore.gestureCross.toggleAll());
   });
 
-  // test("initCollaboratorPoolWidgets", () {
-  //   testStore.initCollaboratorPoolWidgets();
-  //   expect(testStore.shouldEnterCollaboratorPool, true);
-  //   verify(testStore.gradientTreeNode.initMovie(NoParams()));
-  //   verify(testStore.gestureCross.toggleAll());
-  // });
-
   test("onSwipeDown", () {
-    when(testStore.beachWaves.currentStore)
-        .thenAnswer((_) => OceanDiveToTimesUpStartMovieStore());
     testStore.onSwipeDown();
     verify(testStore.smartText.pause());
     verify(testStore.smartText.setWidgetVisibility(false));
     verify(testStore.gestureCross.initMoveAndRegenerate(CircleOffsets.bottom));
-    verify(testStore.beachWaves
-        .setMovieMode(BeachWaveMovieModes.oceanDiveToOnShore));
+    expect(testStore.beachWaves.movieMode, BeachWaveMovieModes.anyToOnShore);
   });
 }

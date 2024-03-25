@@ -67,21 +67,22 @@ void main() {
       });
       test("when online & collaboration exists should return the proper model",
           () async {
-        when(mockRemoteSource.getCollaboratorInfo()).thenAnswer(
-          (realInvocation) async => ExistingCollaboratorsTable.response,
+        when(mockRemoteSource.getNokhteSessionMeetingId()).thenAnswer(
+          (realInvocation) async => '11111111111111111112222222222222222222',
         );
         final res = await contractImpl
-            .getChannelId(GetChannelIdParams.forCollaboration);
+            .getChannelId(GetChannelIdParams.forNokhteSession);
         expect(res, const Right("11111111111111111112222222222222222222"));
       });
 
       test(
           "when online and collaboration doesn't exist should return empty model",
           () async {
-        when(mockRemoteSource.getCollaboratorInfo())
-            .thenAnswer((realInvocation) async => []);
+        when(mockRemoteSource.getNokhteSessionMeetingId()).thenAnswer(
+          (realInvocation) async => '',
+        );
         final res = await contractImpl
-            .getChannelId(GetChannelIdParams.forCollaboration);
+            .getChannelId(GetChannelIdParams.forNokhteSession);
         expect(res, const Right(""));
       });
     });
@@ -92,7 +93,7 @@ void main() {
       });
       test("When offline should return an internet connection error", () async {
         final res = await contractImpl
-            .getChannelId(GetChannelIdParams.forCollaboration);
+            .getChannelId(GetChannelIdParams.forNokhteSession);
         expect(res, Left(FailureConstants.internetConnectionFailure));
       });
     });

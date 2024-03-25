@@ -1,4 +1,4 @@
-import 'package:nokhte_backend/tables/_real_time_enabled/existing_collaborations/types/types.dart';
+import 'package:nokhte_backend/deprecated/_real_time_enabled/existing_collaborations/types/collaborator_info.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class CollaborativeQueries {

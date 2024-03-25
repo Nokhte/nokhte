@@ -1,8 +1,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/deep_links/deep_links_module.dart';
 import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/delete_unconsecrated_collaborations_module.dart';
-import 'package:nokhte/app/core/modules/delete_unconsecrated_collaborations/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts_module.dart';
+import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity_module.dart';
 import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog_module.dart';
@@ -13,6 +13,8 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/collaboration/collaboration_logic_module.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
 import 'package:nokhte/app/modules/home/presentation/presentation.dart';
+import 'package:nokhte/app/modules/storage/domain/domain.dart';
+import 'package:nokhte/app/modules/storage/storage_logic_module.dart';
 import 'home_widgets_module.dart';
 
 class HomeModule extends Module {
@@ -21,11 +23,12 @@ class HomeModule extends Module {
         HomeWidgetsModule(),
         GesturesModule(),
         CollaborationLogicModule(),
-        DeleteUnconsecratedCollaborationsModule(),
+        CleanUpCollaborationArtifactsModule(),
         UserInformationModule(),
         DeepLinksModule(),
         LegacyConnectivityModule(),
         PosthogModule(),
+        StorageLogicModule(),
       ];
   @override
   binds(i) {
@@ -33,8 +36,8 @@ class HomeModule extends Module {
       () => HomeScreenPhase0Coordinator(
         captureScreen: Modular.get<CaptureScreen>(),
         identifyUser: Modular.get<IdentifyUser>(),
-        deleteUnconsecratedCollaborations:
-            Modular.get<DeleteUnconsecratedCollaborationsCoordinator>(),
+        cleanUpCollaborationArtifacts:
+            Modular.get<CleanUpCollaborationArtifactsCoordinator>(),
         getUserInfo: Modular.get<GetUserInfoStore>(),
         collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
         widgets: Modular.get<HomeScreenPhase0WidgetsCoordinator>(),
@@ -42,15 +45,17 @@ class HomeModule extends Module {
     );
     i.add<HomeScreenPhase1Coordinator>(
       () => HomeScreenPhase1Coordinator(
+        tap: TapDetector(),
         collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
-        swipe: Modular.get<SwipeDetector>(),
+        swipe: SwipeDetector(),
         widgets: Modular.get<HomeScreenPhase1WidgetsCoordinator>(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
       ),
     );
     i.add<HomeScreenPhase2Coordinator>(
       () => HomeScreenPhase2Coordinator(
+        tap: TapDetector(),
         captureScreen: Modular.get<CaptureScreen>(),
         collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
         swipe: Modular.get<SwipeDetector>(),
@@ -60,10 +65,38 @@ class HomeModule extends Module {
     );
     i.add<HomeScreenPhase3Coordinator>(
       () => HomeScreenPhase3Coordinator(
+        tap: TapDetector(),
+        getNokhteSessionArtifactsLogic:
+            Modular.get<GetNokhteSessionArtifacts>(),
         collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         swipe: Modular.get<SwipeDetector>(),
         widgets: Modular.get<HomeScreenPhase3WidgetsCoordinator>(),
+        deepLinks: Modular.get<DeepLinksCoordinator>(),
+        userInformation: Modular.get<UserInformationCoordinator>(),
+      ),
+    );
+    i.add<HomeScreenPhase4Coordinator>(
+      () => HomeScreenPhase4Coordinator(
+        getNokhteSessionArtifactsLogic:
+            Modular.get<GetNokhteSessionArtifacts>(),
+        tap: TapDetector(),
+        collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        swipe: Modular.get<SwipeDetector>(),
+        widgets: Modular.get<HomeScreenPhase4WidgetsCoordinator>(),
+        deepLinks: Modular.get<DeepLinksCoordinator>(),
+      ),
+    );
+    i.add<HomeScreenPhase5Coordinator>(
+      () => HomeScreenPhase5Coordinator(
+        tap: TapDetector(),
+        getNokhteSessionArtifactsLogic:
+            Modular.get<GetNokhteSessionArtifacts>(),
+        collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        swipe: Modular.get<SwipeDetector>(),
+        widgets: Modular.get<HomeScreenPhase5WidgetsCoordinator>(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
       ),
     );
@@ -97,6 +130,20 @@ class HomeModule extends Module {
       transition: TransitionType.noTransition,
       child: (context) => HomeScreenPhase3HasDoneSession(
         coordinator: Modular.get<HomeScreenPhase3Coordinator>(),
+      ),
+    );
+    r.child(
+      "/phase4",
+      transition: TransitionType.noTransition,
+      child: (context) => HomeScreenPhase4HasGoneIntoStorage(
+        coordinator: Modular.get<HomeScreenPhase4Coordinator>(),
+      ),
+    );
+    r.child(
+      "/phase5",
+      transition: TransitionType.noTransition,
+      child: (context) => HomeScreenPhase5HasGoneIntoStorageNoInvitationFlow(
+        coordinator: Modular.get<HomeScreenPhase5Coordinator>(),
       ),
     );
   }

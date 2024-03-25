@@ -12,113 +12,114 @@ class ImmersionBackToShore {
         .tween(
           '1st Water Gradient Color',
           ColorTween(
-            begin: WaterColorsAndStops.audioImmersionWater.first.color,
-            end: WaterColorsAndStops.audioImmersionWater.first.color,
+            begin:
+                DeprecatedWaterColorsAndStops.audioImmersionWater.first.color,
+            end: DeprecatedWaterColorsAndStops.audioImmersionWater.first.color,
           ),
         )
         .tween(
           '2nd Water Gradient Color',
           ColorTween(
-            begin: WaterColorsAndStops.audioImmersionWater[1].color,
-            end: WaterColorsAndStops.audioImmersionWater[1].color,
+            begin: DeprecatedWaterColorsAndStops.audioImmersionWater[1].color,
+            end: DeprecatedWaterColorsAndStops.audioImmersionWater[1].color,
           ),
         )
         .tween(
           '3rd Water Gradient Color',
           ColorTween(
-            begin: WaterColorsAndStops.audioImmersionWater[2].color,
-            end: WaterColorsAndStops.audioImmersionWater[2].color,
+            begin: DeprecatedWaterColorsAndStops.audioImmersionWater[2].color,
+            end: DeprecatedWaterColorsAndStops.audioImmersionWater[2].color,
           ),
         )
         .tween(
           '4th Water Gradient Color',
           ColorTween(
-            begin: WaterColorsAndStops.audioImmersionWater[3].color,
-            end: WaterColorsAndStops.audioImmersionWater[3].color,
+            begin: DeprecatedWaterColorsAndStops.audioImmersionWater[3].color,
+            end: DeprecatedWaterColorsAndStops.audioImmersionWater[3].color,
           ),
         )
         .tween(
           '5th Water Gradient Color',
           ColorTween(
-            begin: WaterColorsAndStops.audioImmersionWater[4].color,
-            end: WaterColorsAndStops.audioImmersionWater[4].color,
+            begin: DeprecatedWaterColorsAndStops.audioImmersionWater[4].color,
+            end: DeprecatedWaterColorsAndStops.audioImmersionWater[4].color,
           ),
         )
         .tween(
           '6th Water Gradient Color',
           ColorTween(
-            begin: WaterColorsAndStops.audioImmersionWater[5].color,
-            end: WaterColorsAndStops.audioImmersionWater[5].color,
+            begin: DeprecatedWaterColorsAndStops.audioImmersionWater[5].color,
+            end: DeprecatedWaterColorsAndStops.audioImmersionWater[5].color,
           ),
         )
         .tween(
           '7th Water Gradient Color',
           ColorTween(
-            begin: WaterColorsAndStops.audioImmersionWater[6].color,
-            end: WaterColorsAndStops.audioImmersionWater[6].color,
+            begin: DeprecatedWaterColorsAndStops.audioImmersionWater[6].color,
+            end: DeprecatedWaterColorsAndStops.audioImmersionWater[6].color,
           ),
         )
         .tween(
           '8th Water Gradient Color',
           ColorTween(
-            begin: WaterColorsAndStops.audioImmersionWater[7].color,
-            end: WaterColorsAndStops.audioImmersionWater[7].color,
+            begin: DeprecatedWaterColorsAndStops.audioImmersionWater[7].color,
+            end: DeprecatedWaterColorsAndStops.audioImmersionWater[7].color,
           ),
         )
         .tween(
           '1st Water Gradient Stop',
           Tween<double>(
-            begin: WaterColorsAndStops.audioImmersionWater.first.stop,
-            end: WaterColorsAndStops.audioImmersionWater.first.stop,
+            begin: DeprecatedWaterColorsAndStops.audioImmersionWater.first.stop,
+            end: DeprecatedWaterColorsAndStops.audioImmersionWater.first.stop,
           ),
         )
         .tween(
           '2nd Water Gradient Stop',
           Tween<double>(
-            begin: WaterColorsAndStops.audioImmersionWater[1].stop,
-            end: WaterColorsAndStops.audioImmersionWater[1].stop,
+            begin: DeprecatedWaterColorsAndStops.audioImmersionWater[1].stop,
+            end: DeprecatedWaterColorsAndStops.audioImmersionWater[1].stop,
           ),
         )
         .tween(
           '3rd Water Gradient Stop',
           Tween<double>(
-            begin: WaterColorsAndStops.audioImmersionWater[2].stop,
-            end: WaterColorsAndStops.audioImmersionWater[2].stop,
+            begin: DeprecatedWaterColorsAndStops.audioImmersionWater[2].stop,
+            end: DeprecatedWaterColorsAndStops.audioImmersionWater[2].stop,
           ),
         )
         .tween(
           '4th Water Gradient Stop',
           Tween<double>(
-            begin: WaterColorsAndStops.audioImmersionWater[3].stop,
-            end: WaterColorsAndStops.audioImmersionWater[3].stop,
+            begin: DeprecatedWaterColorsAndStops.audioImmersionWater[3].stop,
+            end: DeprecatedWaterColorsAndStops.audioImmersionWater[3].stop,
           ),
         )
         .tween(
           '5th Water Gradient Stop',
           Tween<double>(
-            begin: WaterColorsAndStops.audioImmersionWater[4].stop,
-            end: WaterColorsAndStops.audioImmersionWater[4].stop,
+            begin: DeprecatedWaterColorsAndStops.audioImmersionWater[4].stop,
+            end: DeprecatedWaterColorsAndStops.audioImmersionWater[4].stop,
           ),
         )
         .tween(
           '6th Water Gradient Stop',
           Tween<double>(
-            begin: WaterColorsAndStops.audioImmersionWater[5].stop,
-            end: WaterColorsAndStops.audioImmersionWater[5].stop,
+            begin: DeprecatedWaterColorsAndStops.audioImmersionWater[5].stop,
+            end: DeprecatedWaterColorsAndStops.audioImmersionWater[5].stop,
           ),
         )
         .tween(
           '7th Water Gradient Stop',
           Tween<double>(
-            begin: WaterColorsAndStops.audioImmersionWater[6].stop,
-            end: WaterColorsAndStops.audioImmersionWater[6].stop,
+            begin: DeprecatedWaterColorsAndStops.audioImmersionWater[6].stop,
+            end: DeprecatedWaterColorsAndStops.audioImmersionWater[6].stop,
           ),
         )
         .tween(
           '8th Water Gradient Stop',
           Tween<double>(
-            begin: WaterColorsAndStops.audioImmersionWater[7].stop,
-            end: WaterColorsAndStops.audioImmersionWater[7].stop,
+            begin: DeprecatedWaterColorsAndStops.audioImmersionWater[7].stop,
+            end: DeprecatedWaterColorsAndStops.audioImmersionWater[7].stop,
           ),
         )
         .tween(

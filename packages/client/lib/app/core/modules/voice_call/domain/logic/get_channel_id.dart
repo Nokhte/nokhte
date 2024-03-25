@@ -13,6 +13,5 @@ class GetChannelId extends AbstractFutureLogic<String, GetChannelIdParams> {
 }
 
 enum GetChannelIdParams {
-  forCollaboration,
   forNokhteSession,
 }

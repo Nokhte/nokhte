@@ -1,0 +1,1 @@
+alter table "public"."user_names" add column "has_entered_storage" boolean not null default false;

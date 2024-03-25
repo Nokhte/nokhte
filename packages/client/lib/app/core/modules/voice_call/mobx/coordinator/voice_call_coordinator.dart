@@ -83,7 +83,7 @@ abstract class _VoiceCallCoordinatorBase extends BaseMobxDBStore with Store {
   @action
   joinCall({
     required bool shouldEnterTheCallMuted,
-    GetChannelIdParams callType = GetChannelIdParams.forCollaboration,
+    required GetChannelIdParams callType,
   }) async {
     incidentsOverlayWidgetStore.constructor();
     await initSdk();

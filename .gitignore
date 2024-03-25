@@ -14,3 +14,4 @@ melos_nokhte.iml
 **/i1_client/**
 **/i2_client/**
 **/.env
+packages/client/upgrade_versions.sh

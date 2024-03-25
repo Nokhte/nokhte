@@ -13,29 +13,35 @@ class UserNamesQueries with UserNamesConstants {
     required String firstName,
     required String lastName,
   }) async =>
-      await supabase.from(TABLE).insert({
-        UID: userUID,
-        FIRST_NAME: firstName,
-        LAST_NAME: lastName,
+      await supabase.from(UserNamesConstants.TABLE).insert({
+        UserNamesConstants.UID: userUID,
+        UserNamesConstants.FIRST_NAME: firstName,
+        UserNamesConstants.LAST_NAME: lastName,
       }).select();
 
-  Future<List> getUserInfo() async =>
-      await supabase.from(TABLE).select().eq(UID, userUID);
+  Future<List> getUserInfo() async => await supabase
+      .from(UserNamesConstants.TABLE)
+      .select()
+      .eq(UserNamesConstants.UID, userUID);
 
-  Future<List> deleteUserInfo() async =>
-      await supabase.from(TABLE).delete().eq(UID, userUID).select();
+  Future<List> deleteUserInfo() async => await supabase
+      .from(UserNamesConstants.TABLE)
+      .delete()
+      .eq(UserNamesConstants.UID, userUID)
+      .select();
 
   Future<List> updateHasSentAnInvitation(bool hasSentAnInvitation) async {
     final getRes = await getUserInfo();
-    if (getRes.first[HAS_SENT_AN_INVITATION] == hasSentAnInvitation) {
+    if (getRes.first[UserNamesConstants.HAS_SENT_AN_INVITATION] ==
+        hasSentAnInvitation) {
       return getRes;
     } else {
       return await supabase
-          .from(TABLE)
+          .from(UserNamesConstants.TABLE)
           .update({
-            HAS_SENT_AN_INVITATION: hasSentAnInvitation,
+            UserNamesConstants.HAS_SENT_AN_INVITATION: hasSentAnInvitation,
           })
-          .eq(UID, userUID)
+          .eq(UserNamesConstants.UID, userUID)
           .select();
     }
   }
@@ -44,16 +50,17 @@ class UserNamesQueries with UserNamesConstants {
     bool hasGoneThroughInvitationFlow,
   ) async {
     final getRes = await getUserInfo();
-    if (getRes.first[HAS_GONE_THROUGH_INVITATION_FLOW] ==
+    if (getRes.first[UserNamesConstants.HAS_GONE_THROUGH_INVITATION_FLOW] ==
         hasGoneThroughInvitationFlow) {
       return getRes;
     } else {
       return await supabase
-          .from(TABLE)
+          .from(UserNamesConstants.TABLE)
           .update({
-            HAS_GONE_THROUGH_INVITATION_FLOW: hasGoneThroughInvitationFlow,
+            UserNamesConstants.HAS_GONE_THROUGH_INVITATION_FLOW:
+                hasGoneThroughInvitationFlow,
           })
-          .eq(UID, userUID)
+          .eq(UserNamesConstants.UID, userUID)
           .select();
     }
   }
@@ -61,20 +68,39 @@ class UserNamesQueries with UserNamesConstants {
   Future<List> updateWantsToRepeatInvitationFlow(
       bool wantsToRepeatInvitationFlow) async {
     final getRes = await getUserInfo();
-    if (getRes.first[WANTS_TO_REPEAT_INVITATION_FLOW] ==
+    if (getRes.first[UserNamesConstants.WANTS_TO_REPEAT_INVITATION_FLOW] ==
         wantsToRepeatInvitationFlow) {
       return getRes;
     } else {
       return await supabase
-          .from(TABLE)
+          .from(UserNamesConstants.TABLE)
           .update({
-            WANTS_TO_REPEAT_INVITATION_FLOW: wantsToRepeatInvitationFlow,
+            UserNamesConstants.WANTS_TO_REPEAT_INVITATION_FLOW:
+                wantsToRepeatInvitationFlow,
           })
-          .eq(UID, userUID)
+          .eq(UserNamesConstants.UID, userUID)
           .select();
     }
   }
 
-  Future<List> getCollaboratorRows() async =>
-      await supabase.from(TABLE).select().neq('uid', userUID);
+  Future<List> updateHasEnteredStorage(bool hasEnteredStorage) async {
+    final getRes = await getUserInfo();
+    if (getRes.first[UserNamesConstants.HAS_ENTERED_STORAGE] ==
+        hasEnteredStorage) {
+      return getRes;
+    } else {
+      return await supabase
+          .from(UserNamesConstants.TABLE)
+          .update({
+            UserNamesConstants.HAS_ENTERED_STORAGE: hasEnteredStorage,
+          })
+          .eq(UserNamesConstants.UID, userUID)
+          .select();
+    }
+  }
+
+  Future<List> getCollaboratorRows() async => await supabase
+      .from(UserNamesConstants.TABLE)
+      .select()
+      .neq('uid', userUID);
 }

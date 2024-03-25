@@ -23,8 +23,8 @@ class GradientTreeNodePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final touchableCanvas = TouchyCanvas(context, canvas);
-    final center = Offset(
-        (size.width.half() + 5) + offset.dx, size.height.half() + offset.dy);
+    final center =
+        Offset((size.width.half()) + offset.dx, size.height.half() + offset.dy);
 
     final circleRect = Rect.fromCircle(center: center, radius: radius);
 

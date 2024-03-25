@@ -16,14 +16,14 @@ class CollaborationContractImpl
       {required this.remoteSource, required this.networkInfo});
 
   @override
-  cancelCollaboratorSearchStream(NoParams params) =>
-      remoteSource.cancelStream();
+  cancelNokhteSessionSearchStream(NoParams params) =>
+      remoteSource.cancelNokhteSessionSearchStream();
 
   @override
   enterTheCollaboratorPool(collaboratorUID) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.enterThePool(collaboratorUID);
-      return Right(fromFunctionResponse(res));
+      return fromFunctionResponse(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
@@ -33,16 +33,7 @@ class CollaborationContractImpl
   exitCollaboratorPool(NoParams params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.exitThePool();
-      return Right(fromFunctionResponse(res));
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
-
-  @override
-  getCollaboratorSearchStatus(NoParams params) async {
-    if (await networkInfo.isConnected) {
-      return Right(remoteSource.getCollaboratorSearchStatus());
+      return fromFunctionResponse(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }

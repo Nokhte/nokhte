@@ -1,0 +1,1 @@
+alter table "public"."active_irl_nokhte_sessions" alter column "is_online" set default '{t,t}'::boolean[];

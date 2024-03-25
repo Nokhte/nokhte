@@ -1,7 +1,6 @@
 import { serve } from "std/server";
 import { supabaseAdmin } from "../constants/supabase.ts";
 import { isANokhteInvitation } from "./is_a_nokhte_invitation.ts";
-import { isAColaborationInvitation } from "./is_a_collaboration_invitation.ts";
 
 serve(async (req) => {
   const { wayfarerUID, queryUID, invitationType } = await req.json();
@@ -18,17 +17,21 @@ serve(async (req) => {
       invitation_type: invitationType,
     })
     .select();
+
+  let returnRes = {
+    status: 200,
+    message: "collaboration successfully forged",
+  };
+  if (mostRecentEntrant.error != null) {
+    returnRes = {
+      status: 400,
+      message: "collaboration uid conflict",
+    };
+  }
   if (invitationType === "NOKHTE_SESSION") {
     isANokhteInvitation(queryUID, mostRecentEntrant);
-  } else {
-    isAColaborationInvitation(queryUID, wayfarerUID, mostRecentEntrant);
   }
-  const returnRes = [
-    {
-      status: 200,
-      message: "collaboration successfully forged",
-    },
-  ];
+  console.log(returnRes);
   return new Response(JSON.stringify(returnRes), {
     headers: { "Content-Type": "application/json" },
   });
