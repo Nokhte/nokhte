@@ -36,7 +36,7 @@ jobs:
         with:
           ruby-version: "3.0"
           bundler-cache: true
-      - run: chmod +x ./scropts/setup_prod_android_build.sh
+      - run: chmod +x ./scripts/setup_prod_android_build.sh
       - run: ./scripts/setup_prod_android_build.sh
       - run: flutter pub run build_runner build
       - run: cd android && bundle install
