@@ -30,8 +30,10 @@ class BorderGlowUpMovie {
           ),
         )
     ..scene(
-      begin: Seconds.get(60),
-      end: Seconds.get(62),
+      // begin: Seconds.get(60),
+      // end: Seconds.get(62),
+      begin: Seconds.get(2),
+      end: Seconds.get(4),
     ).tween(
       'color',
       ColorTween(
@@ -40,8 +42,10 @@ class BorderGlowUpMovie {
       ),
     )
     ..scene(
-      begin: Seconds.get(90),
-      end: Seconds.get(92),
+      // begin: Seconds.get(90),
+      // end: Seconds.get(92),
+      begin: Seconds.get(4),
+      end: Seconds.get(6),
     ).tween(
       'color',
       ColorTween(
@@ -50,8 +54,10 @@ class BorderGlowUpMovie {
       ),
     )
     ..scene(
-      begin: Seconds.get(90),
-      end: Seconds.get(120),
+      begin: Seconds.get(6),
+      end: Seconds.get(12),
+      // begin: Seconds.get(90),
+      // end: Seconds.get(120),
     ).tween(
       'width',
       Tween<double>(

@@ -29,7 +29,6 @@ abstract class _BorderGlowStoreBase
   @override
   initMovie(param) {
     isGlowingUp = true;
-    setMovie(BorderGlowUpMovie.movie);
     setMovieStatus(MovieStatus.inProgress);
     setControl(Control.playFromStart);
   }
@@ -37,6 +36,7 @@ abstract class _BorderGlowStoreBase
   @action
   initGlowDown() {
     isGlowingUp = false;
+    setMovieStatus(MovieStatus.inProgress);
     altControl = Control.playFromStart;
   }
 
