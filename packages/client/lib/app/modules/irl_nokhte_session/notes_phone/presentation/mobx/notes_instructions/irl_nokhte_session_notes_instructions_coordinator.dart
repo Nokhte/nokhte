@@ -97,6 +97,7 @@ abstract class _IrlNokhteSessionNotesInstructionsCoordinatorBase
         (p0) {
           if (sessionMetadata.canMoveIntoSecondInstructionsSet) {
             widgets.onInstructionModeUnlocked();
+            instructionModeIsUnlocked = true;
           }
         },
       );
@@ -105,11 +106,12 @@ abstract class _IrlNokhteSessionNotesInstructionsCoordinatorBase
         (p0) => tap.tapCount,
         (p0) => ifTouchIsNotDisabled(
           () async {
-            widgets.onTap(
-              tap.currentTapPosition,
-              // onFlowFinished: () async => await updateCurrentPhase(),
-              onFlowFinished: () => null,
-            );
+            if (instructionModeIsUnlocked) {
+              widgets.onTap(
+                tap.currentTapPosition,
+                onFlowFinished: () => null,
+              );
+            }
           },
         ),
       );
