@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -18,21 +19,34 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final MirroredTextStore mirroredText;
   final BeachWavesStore beachWaves;
-  final BorderGlowStore borderGlow;
+  final BorderGlowStore firstBorderGlow;
+  final BorderGlowStore secondBorderGlow;
   final TouchRippleStore touchRipple;
   final SpeakLessSmileMoreStore speakLessSmileMore;
 
   _IrlNokhteSessionSpeakingWidgetsCoordinatorBase({
     required this.mirroredText,
     required this.beachWaves,
-    required this.borderGlow,
+    required this.firstBorderGlow,
+    required this.secondBorderGlow,
     required super.wifiDisconnectOverlay,
     required this.touchRipple,
     required this.speakLessSmileMore,
   });
 
+  @action
+  constructor() {
+    beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
+    mirroredText.setMessagesData(
+      MirroredTextContentOptions.irlNokhteSessionSpeakingPhone,
+    );
+    mirroredText.startBothRotatingText();
+    setIsPickingUp(false);
+    initReactors();
+  }
+
   @observable
-  bool letGoIsTriggered = false;
+  bool isLettingGo = false;
 
   @observable
   bool isHolding = false;
@@ -46,85 +60,17 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
   @action
   setIsPickingUp(bool newBool) => isPickingUp = newBool;
 
-  @action
-  constructor() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
-    mirroredText.setMessagesData(
-      MirroredTextContentOptions.irlNokhteSessionSpeakingPhone,
-    );
-    mirroredText.startBothRotatingText();
-    setIsPickingUp(false);
-    initReactors();
-  }
-
-  @action
-  initReactors() {
-    borderGlowReactor();
-    beachWavesMovieStatusReactor();
-  }
-
-  @observable
-  bool canHold = true;
-
-  @action
-  setCanHold(bool newBool) => canHold = newBool;
-
-  @action
-  @action
-  onLetGoCompleted({bool addDelay = false}) {
-    Timer(Seconds.get(addDelay ? 2 : 0), () {
-      letGoIsTriggered = false;
-      setCanHold(true);
-      if (!collaboratorHasLeft) {
-        mirroredText.setWidgetVisibility(true);
-      }
-      holdCount++;
-    });
-  }
-
-  beachWavesMovieStatusReactor() =>
-      reaction((p0) => beachWaves.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished) {
-          if (beachWaves.movieMode ==
-              BeachWaveMovieModes.halfAndHalfToDrySand) {
-            beachWaves
-                .setMovieMode(BeachWaveMovieModes.drySandToVibrantBlueGrad);
-            beachWaves.currentStore.initMovie(NoParams());
-          } else if (beachWaves.movieMode ==
-                  BeachWaveMovieModes.drySandToVibrantBlueGrad &&
-              beachWaves.currentStore.control == Control.playFromStart) {
-            borderGlow.initMovie(NoParams());
-          } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf) {
-            if (isHolding) {
-              borderGlow.initMovie(NoParams());
-            } else if (isPickingUp) {
-              Modular.to.navigate("/irl_nokhte_session/exit");
-            }
-          } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.dynamicPointToHalfAndHalf) {
-            onLetGoCompleted();
-          }
-        }
-      });
-
-  borderGlowReactor() => reaction((p0) => borderGlow.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished &&
-            borderGlow.isGlowingUp &&
-            isHolding &&
-            beachWaves.movieMode ==
-                BeachWaveMovieModes.dynamicPointToHalfAndHalf) {
-          speakLessSmileMore.setSpeakLess(true);
-          Timer(Seconds.get(2), () {
-            if (!letGoIsTriggered) {
-              speakLessSmileMore.setSmileMore(true);
-            }
-          });
-        }
-      });
-
   @observable
   bool collaboratorHasLeft = false;
+
+  @observable
+  int holdCount = 0;
+
+  @observable
+  Stopwatch letGoStopwatch = Stopwatch();
+
+  @observable
+  Stopwatch holdStopwatch = Stopwatch();
 
   @action
   onCollaboratorLeft() {
@@ -138,17 +84,76 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
     collaboratorHasLeft = false;
   }
 
-  @observable
-  int holdCount = 0;
-
   @action
   onHold() {
-    if (canHold && !letGoIsTriggered) {
-      setIsHolding(true);
-      beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
-      beachWaves.currentStore.reverseMovie(NoParams());
-      mirroredText.setWidgetVisibility(false);
-      setCanHold(false);
+    holdCount++;
+    letGoStopwatch.stop();
+    holdStopwatch.reset();
+    holdStopwatch.start();
+    setHoldBeachWaveMovie();
+    setHoldBeachWaveMovie();
+    mirroredText.setWidgetVisibility(false);
+  }
+
+  @action
+  onLetGo() {
+    holdStopwatch.stop();
+    letGoStopwatch.reset();
+    letGoStopwatch.start();
+    initGlowDown();
+    if (holdStopwatch.elapsedMilliseconds.isLessThan(2000)) {
+      beachWaves.currentStore.setControl(Control.playReverse);
+    } else {
+      beachWaves.setMovieMode(BeachWaveMovieModes.dynamicPointToHalfAndHalf);
+      beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
+    }
+    speakLessSmileMore.hideBoth();
+  }
+
+  @action
+  onLetGoCompleted() {
+    isLettingGo = false;
+    // setCanHold(true);
+    if (!collaboratorHasLeft) {
+      mirroredText.setWidgetVisibility(true);
+    }
+  }
+
+  @action
+  setHoldBeachWaveMovie() {
+    DurationAndGradient params = DurationAndGradient.initial();
+    if (letGoStopwatch.elapsedMilliseconds.isLessThan(2000)) {
+      params = DurationAndGradient(
+        gradient: beachWaves.currentColorsAndStops,
+        duration: Duration(
+          milliseconds: 2000 - letGoStopwatch.elapsedMilliseconds,
+        ),
+      );
+    } else {
+      params = DurationAndGradient(
+        gradient: beachWaves.currentColorsAndStops,
+        duration: const Duration(milliseconds: 2000),
+      );
+    }
+    beachWaves.setMovieMode(BeachWaveMovieModes.anyToVibrantBlueGrad);
+    beachWaves.currentStore.initMovie(params);
+  }
+
+  @action
+  initBorderGlow() {
+    if (holdCount.isEven) {
+      firstBorderGlow.initMovie(NoParams());
+    } else {
+      secondBorderGlow.initMovie(NoParams());
+    }
+  }
+
+  @action
+  initGlowDown() {
+    if (holdCount.isEven) {
+      firstBorderGlow.initGlowDown();
+    } else {
+      secondBorderGlow.initGlowDown();
     }
   }
 
@@ -161,15 +166,48 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
   }
 
   @action
-  onLetGo() {
-    if (!canHold) {
-      setIsHolding(false);
-      setCanHold(true);
-      letGoIsTriggered = true;
-      borderGlow.initGlowDown();
-      beachWaves.setMovieMode(BeachWaveMovieModes.dynamicPointToHalfAndHalf);
-      beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
-      speakLessSmileMore.hideBoth();
+  initReactors() {
+    firstBorderGlowReactor();
+    secondBorderGlowReactor();
+    beachWavesMovieStatusReactor();
+  }
+
+  onBorderGlowComplete(MovieStatus p0, BorderGlowStore store) {
+    if (p0 == MovieStatus.finished &&
+        store.isGlowingUp &&
+        isHolding &&
+        beachWaves.movieMode == BeachWaveMovieModes.anyToVibrantBlueGrad) {
+      speakLessSmileMore.setSpeakLess(true);
+      Timer(Seconds.get(2), () {
+        if (isHolding) {
+          speakLessSmileMore.setSmileMore(true);
+        }
+      });
     }
   }
+
+  beachWavesMovieStatusReactor() =>
+      reaction((p0) => beachWaves.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished) {
+          if (beachWaves.movieMode ==
+              BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf) {
+            if (isPickingUp) {
+              Modular.to.navigate("/irl_nokhte_session/exit");
+            } else if (isLettingGo) {
+              onLetGoCompleted();
+            }
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.dynamicPointToHalfAndHalf) {
+            onLetGoCompleted();
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.anyToVibrantBlueGrad) {
+            initBorderGlow();
+          }
+        }
+      });
+
+  firstBorderGlowReactor() => reaction((p0) => firstBorderGlow.movieStatus,
+      (p0) => onBorderGlowComplete(p0, firstBorderGlow));
+  secondBorderGlowReactor() => reaction((p0) => secondBorderGlow.movieStatus,
+      (p0) => onBorderGlowComplete(p0, secondBorderGlow));
 }
