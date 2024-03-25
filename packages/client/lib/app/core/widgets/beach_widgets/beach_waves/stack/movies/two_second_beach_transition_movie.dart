@@ -8,11 +8,11 @@ class TwoSecondBeachTransitionMovie {
   static bool get shouldPaintSand => true;
   static MovieTween getMovie(
           List<ColorAndStop> startingColors, List<ColorAndStop> endingColors,
-          {int seconds = 2}) =>
+          {Duration seconds = const Duration(seconds: 2)}) =>
       MovieTween()
         ..scene(
           begin: Seconds.get(0),
-          end: Seconds.get(seconds),
+          end: seconds,
         )
             .tween(
               BeachWaveAnimationKeys.waterMovement,
