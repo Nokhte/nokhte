@@ -98,11 +98,12 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
       });
 
   holdReactor() => reaction((p0) => hold.holdCount, (p0) {
-        ifTouchIsNotDisabled(() {
+        ifTouchIsNotDisabled(() async {
           if (presence.getSessionMetadataStore.collaboratorIsOnline) {
             setBlockPhoneTiltReactor(true);
             widgets.onHold();
             setDisableAllTouchFeedback(true);
+            await presence.updateCurrentPhase(2);
           }
         });
       });
@@ -110,10 +111,8 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
   letGoReactor() => reaction((p0) => hold.letGoCount, (p0) {
         if (presence.getSessionMetadataStore.collaboratorIsOnline) {
           widgets.onLetGo();
-          Timer(Seconds.get(2), () {
-            setDisableAllTouchFeedback(false);
-            setBlockPhoneTiltReactor(false);
-          });
+          setDisableAllTouchFeedback(false);
+          setBlockPhoneTiltReactor(false);
         }
       });
 
