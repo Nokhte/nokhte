@@ -100,6 +100,7 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
   holdReactor() => reaction((p0) => hold.holdCount, (p0) {
         ifTouchIsNotDisabled(() {
           if (presence.getSessionMetadataStore.collaboratorIsOnline) {
+            setBlockPhoneTiltReactor(true);
             widgets.onHold();
             setDisableAllTouchFeedback(true);
           }
@@ -111,6 +112,7 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
           widgets.onLetGo();
           Timer(Seconds.get(2), () {
             setDisableAllTouchFeedback(false);
+            setBlockPhoneTiltReactor(false);
           });
         }
       });
