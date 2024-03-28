@@ -20,7 +20,6 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
   final MirroredTextStore mirroredText;
   final BeachWavesStore beachWaves;
   final BorderGlowStore firstBorderGlow;
-  final BorderGlowStore secondBorderGlow;
   final TouchRippleStore touchRipple;
   final SpeakLessSmileMoreStore speakLessSmileMore;
 
@@ -28,7 +27,6 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
     required this.mirroredText,
     required this.beachWaves,
     required this.firstBorderGlow,
-    required this.secondBorderGlow,
     required super.wifiDisconnectOverlay,
     required this.touchRipple,
     required this.speakLessSmileMore,
@@ -122,39 +120,23 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
   @action
   setHoldBeachWaveMovie() {
     DurationAndGradient params = DurationAndGradient.initial();
-    if (letGoStopwatch.elapsedMilliseconds.isLessThan(2000)) {
-      params = DurationAndGradient(
-        gradient: beachWaves.currentColorsAndStops,
-        duration: Duration(
-          milliseconds: 2000 - letGoStopwatch.elapsedMilliseconds,
-        ),
-      );
-    } else {
-      params = DurationAndGradient(
-        gradient: beachWaves.currentColorsAndStops,
-        duration: const Duration(milliseconds: 2000),
-      );
-    }
+    params = DurationAndGradient(
+      gradient: beachWaves.currentColorsAndStops,
+      duration: const Duration(seconds: 2),
+    );
+
     beachWaves.setMovieMode(BeachWaveMovieModes.anyToVibrantBlueGrad);
     beachWaves.currentStore.initMovie(params);
   }
 
   @action
   initBorderGlow() {
-    if (holdCount.isEven) {
-      firstBorderGlow.initMovie(NoParams());
-    } else {
-      secondBorderGlow.initMovie(NoParams());
-    }
+    firstBorderGlow.initMovie(NoParams());
   }
 
   @action
   initGlowDown() {
-    if (holdCount.isEven) {
-      firstBorderGlow.initGlowDown();
-    } else {
-      secondBorderGlow.initGlowDown();
-    }
+    firstBorderGlow.initGlowDown();
   }
 
   @action
@@ -168,7 +150,6 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
   @action
   initReactors() {
     firstBorderGlowReactor();
-    secondBorderGlowReactor();
     beachWavesMovieStatusReactor();
   }
 
@@ -208,6 +189,4 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
 
   firstBorderGlowReactor() => reaction((p0) => firstBorderGlow.movieStatus,
       (p0) => onBorderGlowComplete(p0, firstBorderGlow));
-  secondBorderGlowReactor() => reaction((p0) => secondBorderGlow.movieStatus,
-      (p0) => onBorderGlowComplete(p0, secondBorderGlow));
 }

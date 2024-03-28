@@ -23,14 +23,14 @@ class SpeakingPhoneNokhteSessionWidgetsModule extends Module {
       ),
     );
     i.add<IrlNokhteSessionSpeakingWidgetsCoordinator>(
-        () => IrlNokhteSessionSpeakingWidgetsCoordinator(
-              speakLessSmileMore: SpeakLessSmileMoreStore(),
-              touchRipple: TouchRippleStore(),
-              mirroredText: Modular.get<MirroredTextStore>(),
-              wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-              beachWaves: BeachWavesStore(),
-              firstBorderGlow: BorderGlowStore(),
-              secondBorderGlow: BorderGlowStore(),
-            ));
+      () => IrlNokhteSessionSpeakingWidgetsCoordinator(
+        speakLessSmileMore: SpeakLessSmileMoreStore(),
+        touchRipple: TouchRippleStore(),
+        mirroredText: Modular.get<MirroredTextStore>(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        beachWaves: BeachWavesStore(),
+        firstBorderGlow: BorderGlowStore(),
+      ),
+    );
   }
 }
