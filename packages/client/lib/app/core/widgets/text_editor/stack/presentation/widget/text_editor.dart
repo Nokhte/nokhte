@@ -48,11 +48,11 @@ class TextEditor extends HookWidget {
                 selectionColor: Color.fromARGB(255, 7, 190, 172),
               )),
               child: TextField(
-                keyboardType: TextInputType.name,
                 onTapOutside: (event) => store.focusNode.unfocus(),
                 onTap: () => store.handleTap(),
                 controller: store.controller,
                 focusNode: store.focusNode,
+                textInputAction: TextInputAction.go,
                 maxLines: maxLines,
                 readOnly: store.isReadOnly,
                 maxLength: maxLength,
