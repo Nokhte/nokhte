@@ -22,7 +22,6 @@ abstract class _AnyToVibrantBlueGradMovieStoreBase
 
   @override
   initMovie(DurationAndGradient param) {
-    final halfAndHalf = WaterColorsAndStops.halfWaterAndSand;
     movie = TwoSecondBeachTransitionMovie.getMovie(
       param.gradient,
       WaterColorsAndStops.vibrantBlueGrad,
