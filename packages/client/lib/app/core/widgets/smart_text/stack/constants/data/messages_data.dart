@@ -21,7 +21,7 @@ class MessagesData {
         ),
         RotatingTextData(
           initialFadeInDelay: Seconds.get(2),
-          mainMessage: "Tap",
+          mainMessage: "Tap Anywhere",
           unlockGesture: Gestures.tap,
           pauseHere: true,
           onScreenTime: Seconds.get(2),
