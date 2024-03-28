@@ -17,16 +17,26 @@ class FinishedNokhteSessionQueries {
       : userUID = supabase.auth.currentUser?.id ?? '';
 
   Future<List> insert({
-    required List<String> collaboratorUIDs,
-    required List<String> sessionContent,
+    required List collaboratorUIDs,
+    required List sessionContent,
     required String sessionTimestamp,
-  }) async =>
-      await supabase.from(TABLE).insert({
+  }) async {
+    final checkRes = await supabase
+        .from(TABLE)
+        .select()
+        .eq(COLLABORATOR_UIDS, collaboratorUIDs)
+        .eq(CONTENT, sessionContent);
+    if (checkRes.isNotEmpty) {
+      return checkRes;
+    } else {
+      return await supabase.from(TABLE).insert({
         COLLABORATOR_UIDS: collaboratorUIDs,
         CONTENT: sessionContent,
         SESSION_TIMESTAMP: sessionTimestamp,
         ALIASES: List.filled(collaboratorUIDs.length, ""),
       }).select();
+    }
+  }
 
   Future<List> select() async => await supabase.from(TABLE).select();
 
@@ -35,7 +45,8 @@ class FinishedNokhteSessionQueries {
     return await supabase
         .from(TABLE)
         .select()
-        .eq(COLLABORATOR_UIDS, sortedCollaboratorUIDs);
+        .eq(COLLABORATOR_UIDS, sortedCollaboratorUIDs)
+        .order(SESSION_TIMESTAMP);
   }
 
   Future<List> updateAlias({

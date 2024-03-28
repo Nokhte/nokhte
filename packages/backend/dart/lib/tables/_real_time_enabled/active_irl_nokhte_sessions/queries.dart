@@ -4,6 +4,7 @@ import 'constants/constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
+  FinishedNokhteSessionQueries finishedNokhteSessionQueries;
   final SupabaseClient supabase;
   final String userUID;
   int userIndex = -1;
@@ -39,7 +40,9 @@ class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
 
   ActiveIrlNokhteSessionQueries({
     required this.supabase,
-  }) : userUID = supabase.auth.currentUser?.id ?? '';
+  })  : userUID = supabase.auth.currentUser?.id ?? '',
+        finishedNokhteSessionQueries =
+            FinishedNokhteSessionQueries(supabase: supabase);
 
   select() async => await supabase.from(TABLE).select();
 
@@ -107,15 +110,11 @@ class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
     if (userIndex == -1) return [];
     final content = await getContent();
     final sessionTimestamp = await getCreatedAt();
-    await supabase.from(FinishedNokhteSessionQueries.TABLE).insert({
-      FinishedNokhteSessionQueries.COLLABORATOR_UIDS: collaboratorUIDs,
-      FinishedNokhteSessionQueries.CONTENT: content,
-      FinishedNokhteSessionQueries.SESSION_TIMESTAMP: sessionTimestamp,
-      FinishedNokhteSessionQueries.ALIASES: List.filled(
-        collaboratorUIDs.length,
-        "",
-      )
-    }).select();
+    await finishedNokhteSessionQueries.insert(
+      collaboratorUIDs: collaboratorUIDs,
+      sessionContent: content,
+      sessionTimestamp: sessionTimestamp,
+    );
     await delete();
     return [];
   }
