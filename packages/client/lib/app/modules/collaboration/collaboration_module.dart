@@ -28,6 +28,7 @@ class CollaborationModule extends Module {
   void binds(Injector i) {
     i.add<CollaborationHomeScreenCoordinator>(
       () => CollaborationHomeScreenCoordinator(
+        tap: TapDetector(),
         captureScreen: Modular.get<CaptureScreen>(),
         captureShareNokhteSessionInvitation:
             Modular.get<CaptureShareNokhteSessionInvitation>(),
