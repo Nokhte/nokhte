@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:touchable/touchable.dart';
 
 class GradientTreeNodePainter extends CustomPainter {
   final NokhteGradient gradient;
-  final BuildContext context;
-  final Function onTap;
   final Offset offset;
   final double radius;
   final double strokeWidth;
 
   GradientTreeNodePainter({
     required this.gradient,
-    required this.context,
-    required this.onTap,
     required this.offset,
     required this.radius,
     required this.strokeWidth,
@@ -22,7 +17,6 @@ class GradientTreeNodePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final touchableCanvas = TouchyCanvas(context, canvas);
     final center =
         Offset((size.width.half()) + offset.dx, size.height.half() + offset.dy);
 
@@ -41,14 +35,13 @@ class GradientTreeNodePainter extends CustomPainter {
         end: Alignment.bottomCenter,
       ).createShader(circleRect);
 
-    touchableCanvas.drawCircle(
+    canvas.drawCircle(
       center,
       radius,
       gradientPaint,
-      onTapDown: (details) => onTap(),
     );
 
-    touchableCanvas.drawCircle(
+    canvas.drawCircle(
       center,
       radius,
       circleStrokePaint,

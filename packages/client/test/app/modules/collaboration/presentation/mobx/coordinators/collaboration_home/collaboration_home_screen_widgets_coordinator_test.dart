@@ -17,6 +17,8 @@ void main() {
 
   setUp(() {
     testStore = CollaborationHomeScreenWidgetsCoordinator(
+      secondaryErrorSmartText: SmartTextStore(),
+      errorSmartText: SmartTextStore(),
       beachWaves: BeachWavesStore(),
       gradientTreeNode: MockGradientTreeNodeStore(),
       smartText: MockSmartTextStore(),

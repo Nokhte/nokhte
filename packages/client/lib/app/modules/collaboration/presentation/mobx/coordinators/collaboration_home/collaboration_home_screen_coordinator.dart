@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -10,7 +9,6 @@ import 'package:nokhte/app/core/modules/posthog/constants/constants.dart';
 import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/collaboration/domain/domain.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
@@ -26,6 +24,8 @@ abstract class _CollaborationHomeScreenCoordinatorBase
   final CollaborationHomeScreenWidgetsCoordinator widgets;
   final UserInformationCoordinator userInformation;
   final SwipeDetector swipe;
+  final TapDetector tap;
+
   final DeepLinksCoordinator deepLinks;
   final CollaborationLogicCoordinator logic;
   final CaptureShareNokhteSessionInvitation captureShareNokhteSessionInvitation;
@@ -34,6 +34,7 @@ abstract class _CollaborationHomeScreenCoordinatorBase
     required this.widgets,
     required this.deepLinks,
     required this.userInformation,
+    required this.tap,
     required this.swipe,
     required this.logic,
     required this.captureShareNokhteSessionInvitation,
@@ -113,7 +114,6 @@ abstract class _CollaborationHomeScreenCoordinatorBase
     swipeReactor();
     shareInvitationReactor();
     deepLinksReactor();
-    collaboratorPoolEntryReactor();
     gradientTreeNodeTapReactor(onGradientTreeNodeTap);
     widgets.beachWavesMovieStatusReactor(onAnimationComplete);
     widgets.wifiDisconnectOverlay.initReactors(
@@ -127,6 +127,8 @@ abstract class _CollaborationHomeScreenCoordinatorBase
         setDisableAllTouchFeedback(true);
       },
     );
+    collaboratorPoolEntryErrorReactor();
+    tapReactor();
   }
 
   deepLinksReactor() => reaction(
@@ -142,9 +144,15 @@ abstract class _CollaborationHomeScreenCoordinatorBase
       if (deepLinks.listenForOpenedDeepLinkStore
               .additionalMetadata["isTheUsersInvitation"] !=
           null) {
-        widgets.onNokhteSessionLinkOpened();
-        await onEnterCollaboratorPool();
-      } else {}
+        if (!isInErrorMode) {
+          widgets.onNokhteSessionLinkOpened();
+          await onEnterCollaboratorPool();
+          deepLinks.reset();
+        } else {
+          await onEnterCollaboratorPool();
+          widgets.transitionToPoolFromError();
+        }
+      }
     }
   }
 
@@ -183,21 +191,24 @@ abstract class _CollaborationHomeScreenCoordinatorBase
     }
   }
 
-  collaboratorPoolEntryReactor() =>
-      reaction((p0) => logic.hasEntered, (p0) => onCollaboratorPoolEntered(p0));
-
-  onCollaboratorPoolEntered(bool hasEntered) {
-    if (hasEntered) {
-      Timer.periodic(Seconds.get(0, milli: 100), (timer) {
-        if (widgets.beachWaves.movieStatus == MovieStatus.finished &&
-            widgets.beachWaves.movieMode ==
-                BeachWaveMovieModes.oceanDiveToTimesUp) {
-          Modular.to.navigate('/collaboration/pool');
-          timer.cancel();
+  collaboratorPoolEntryErrorReactor() =>
+      reaction((p0) => logic.errorMessage, (p0) {
+        if (p0.isNotEmpty) {
+          setDisableAllTouchFeedback(true);
+          setIsInErrorMode(true);
+          widgets.onError(p0);
+          deepLinks.reset();
+          logic.resetErrorMessage();
         }
       });
-    }
-  }
+
+  tapReactor() => reaction((p0) => tap.tapCount, (p0) {
+        print("tap $p0");
+        if (isInErrorMode) {
+          setIsInErrorMode(false);
+          widgets.onErrorResolved();
+        }
+      });
 
   gradientTreeNodeTapReactor(Function onGradientTreeNodeTap) =>
       reaction((p0) => widgets.gradientTreeNode.tapCount, (p0) {

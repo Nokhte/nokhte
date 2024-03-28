@@ -137,9 +137,9 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
         beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
         beachWaves.setMovieStatus(MovieStatus.inProgress);
         nokhteBlur.reverse();
-        errorSmartText.setWidgetVisibility(false);
         gestureCross.fadeInTheCross();
         gestureCross.fadeIn();
+        errorSmartText.setWidgetVisibility(false);
         secondaryErrorSmartText.setWidgetVisibility(false);
         isEnteringNokhteSession = false;
       }

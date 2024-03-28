@@ -29,6 +29,12 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
   @observable
   bool showSubmitText = false;
 
+  @observable
+  bool canSwipeUp = true;
+
+  @action
+  setCanSwipeUp(bool newVal) => canSwipeUp = newVal;
+
   @action
   setShowSubmitText(bool newVal) => showSubmitText = newVal;
 
@@ -54,14 +60,18 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
 
   @action
   onSwipeUp(Function(String) onSwipeUp) async {
-    if (textEditor.controller.text.isNotEmpty) {
-      await onSwipeUp(textEditor.controller.text);
-      smartText.setWidgetVisibility(false);
-      textEditor.setWidgetVisibility(false);
-      Timer(Seconds.get(1), () {
-        textEditor.controller.clear();
-        textEditor.setWidgetVisibility(true);
-      });
+    if (canSwipeUp) {
+      if (textEditor.controller.text.isNotEmpty) {
+        await onSwipeUp(textEditor.controller.text);
+        setCanSwipeUp(false);
+        smartText.setWidgetVisibility(false);
+        textEditor.setWidgetVisibility(false);
+        Timer(Seconds.get(1), () {
+          textEditor.controller.clear();
+          textEditor.setWidgetVisibility(true);
+          setCanSwipeUp(true);
+        });
+      }
     }
   }
 
