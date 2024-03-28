@@ -187,6 +187,15 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
         }
       });
 
-  firstBorderGlowReactor() => reaction((p0) => firstBorderGlow.movieStatus,
-      (p0) => onBorderGlowComplete(p0, firstBorderGlow));
+  firstBorderGlowReactor() =>
+      reaction((p0) => firstBorderGlow.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished && firstBorderGlow.isGlowingUp) {
+          speakLessSmileMore.setSpeakLess(true);
+          Timer(Seconds.get(2), () {
+            if (firstBorderGlow.isGlowingUp) {
+              speakLessSmileMore.setSmileMore(true);
+            }
+          });
+        }
+      });
 }
