@@ -15,6 +15,12 @@ abstract class _BaseCoordinatorBase extends BaseMobxDBStore with Store {
   });
 
   @observable
+  bool isInErrorMode = false;
+
+  @action
+  setIsInErrorMode(bool p0) => isInErrorMode = p0;
+
+  @observable
   bool disableAllTouchFeedback = false;
 
   @action

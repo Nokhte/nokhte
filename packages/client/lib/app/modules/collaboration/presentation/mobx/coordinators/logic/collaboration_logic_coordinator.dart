@@ -100,7 +100,4 @@ abstract class _CollaborationLogicCoordinatorBase extends BaseMobxDBStore
     result.fold((failure) => errorUpdater(failure),
         (exitStatus) => hasEntered = exitStatus);
   }
-
-  @override
-  List<Object> get props => [];
 }

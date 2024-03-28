@@ -22,6 +22,8 @@ class CollaborationWidgetsModule extends Module {
 
     i.add<CollaborationHomeScreenWidgetsCoordinator>(
       () => CollaborationHomeScreenWidgetsCoordinator(
+        secondaryErrorSmartText: SmartTextStore(),
+        errorSmartText: SmartTextStore(),
         gestureCross: Modular.get<GestureCrossStore>(),
         beachWaves: Modular.get<BeachWavesStore>(),
         gradientTreeNode: Modular.get<GradientTreeNodeStore>(),

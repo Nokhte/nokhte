@@ -34,12 +34,6 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
     required super.captureScreen,
   });
 
-  @observable
-  bool isInErrorMode = false;
-
-  @action
-  setIsInErrorMode(bool p0) => isInErrorMode = p0;
-
   @action
   constructor() {}
 

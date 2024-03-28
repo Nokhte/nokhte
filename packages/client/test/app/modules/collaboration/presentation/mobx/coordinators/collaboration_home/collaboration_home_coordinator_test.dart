@@ -34,6 +34,7 @@ void main() {
 
   setUp(() {
     testStore = CollaborationHomeScreenCoordinator(
+        tap: TapDetector(),
         captureScreen: MockCaptureScreen(),
         captureShareNokhteSessionInvitation:
             MockCaptureShareNokhteSessionInvitation(),

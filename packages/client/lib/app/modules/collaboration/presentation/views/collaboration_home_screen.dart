@@ -15,6 +15,7 @@ class CollaborationHomeScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = useFullScreenSize().height;
     final size = useSquareSize(relativeLength: .20);
     useOnAppLifecycleStateChange(
         (previous, current) => coordinator.onAppLifeCycleStateChange(
@@ -28,42 +29,62 @@ class CollaborationHomeScreen extends HookWidget {
     }, []);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Swipe(
-        store: coordinator.swipe,
-        child: MultiHitStack(
-          children: [
-            FullScreen(
-                child: BeachWaves(
-              store: coordinator.widgets.beachWaves,
-            )),
-            Center(
+      body: Tap(
+        store: coordinator.tap,
+        child: Swipe(
+          store: coordinator.swipe,
+          child: MultiHitStack(
+            children: [
+              FullScreen(
+                  child: BeachWaves(
+                store: coordinator.widgets.beachWaves,
+              )),
+              Center(
                 child: SmartText(
-              store: coordinator.widgets.smartText,
-              bottomPadding: 180,
-              opacityDuration: Seconds.get(1),
-            )),
-            FullScreen(
-              child: GradientTreeNode(
-                store: coordinator.widgets.gradientTreeNode,
-                gradient: TreeNodeGradients.yellow,
-                padding: EdgeInsets.only(top: useFullScreenSize().height * .45),
-              ),
-            ),
-            GestureCross(
-              config: GestureCrossConfiguration(
-                bottom: Right(
-                  NokhteGradientConfig(
-                    gradientType: NokhteGradientTypes.onShore,
-                  ),
+                  store: coordinator.widgets.smartText,
+                  bottomPadding: 180,
+                  opacityDuration: Seconds.get(1),
                 ),
               ),
-              size: size,
-              store: coordinator.widgets.gestureCross,
-            ),
-            WifiDisconnectOverlay(
-              store: coordinator.widgets.wifiDisconnectOverlay,
-            ),
-          ],
+              Center(
+                child: SmartText(
+                  store: coordinator.widgets.errorSmartText,
+                  bottomPadding: 180,
+                  opacityDuration: Seconds.get(1),
+                ),
+              ),
+              Center(
+                child: GradientTreeNode(
+                  store: coordinator.widgets.gradientTreeNode,
+                  gradient: TreeNodeGradients.yellow,
+                  padding: EdgeInsets.only(top: height * .4),
+                  size: size,
+                ),
+              ),
+              Center(
+                child: SmartText(
+                  store: coordinator.widgets.secondaryErrorSmartText,
+                  topPadding: height * .86,
+                  bottomPadding: 0,
+                  opacityDuration: Seconds.get(1),
+                ),
+              ),
+              GestureCross(
+                config: GestureCrossConfiguration(
+                  bottom: Right(
+                    NokhteGradientConfig(
+                      gradientType: NokhteGradientTypes.onShore,
+                    ),
+                  ),
+                ),
+                size: size,
+                store: coordinator.widgets.gestureCross,
+              ),
+              WifiDisconnectOverlay(
+                store: coordinator.widgets.wifiDisconnectOverlay,
+              ),
+            ],
+          ),
         ),
       ),
       // ),
