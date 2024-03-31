@@ -5,7 +5,6 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/collaboration/domain/logic/logic.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
