@@ -3,7 +3,6 @@ import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity_
 import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog_module.dart';
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
-import 'package:nokhte/app/core/widgets/widget_modules/widget_modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/authentication/authentication_widgets_module.dart';
 import 'package:nokhte/app/modules/authentication/domain/domain.dart';
@@ -18,7 +17,6 @@ class AuthenticationModule extends Module {
   @override
   List<Module> get imports => [
         AuthenticationWidgetsModule(),
-        GesturesModule(),
         PosthogModule(),
         LegacyConnectivityModule(),
       ];
@@ -81,8 +79,8 @@ class AuthenticationModule extends Module {
       () => LoginScreenCoordinator(
         captureScreen: Modular.get<CaptureScreen>(),
         getUserInfo: Modular.get<GetUserInfoStore>(),
-        tap: Modular.get<TapDetector>(),
-        swipe: Modular.get<SwipeDetector>(),
+        tap: TapDetector(),
+        swipe: SwipeDetector(),
         addName: Modular.get<AddName>(),
         widgets: Modular.get<LoginScreenWidgetsCoordinator>(),
         signInWithAuthProvider: i<SignInWithAuthProviderStore>(),
