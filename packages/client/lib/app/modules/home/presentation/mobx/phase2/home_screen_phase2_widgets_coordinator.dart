@@ -2,7 +2,7 @@
 import 'dart:async';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/widget_constants.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'home_screen_phase2_widgets_coordinator.g.dart';
@@ -18,7 +18,8 @@ abstract class _HomeScreenPhase2WidgetsCoordinatorBase
     required super.wifiDisconnectOverlay,
     required super.gestureCross,
     required super.primarySmartText,
-    required super.errorSmartText, required super.secondaryErrorSmartText,
+    required super.errorSmartText,
+    required super.secondaryErrorSmartText,
   });
 
   @observable
