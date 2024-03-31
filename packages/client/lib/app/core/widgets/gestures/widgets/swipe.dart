@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/gestures/stack/presentation/mobx/swipe_detector.dart';
+import 'package:nokhte/app/core/widgets/gestures/mobx/swipe_detector.dart';
 
 class Swipe extends StatelessWidget {
   final SwipeDetector store;
