@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:nokhte/app/core/widgets/widget_constants.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 
 // ignore: must_be_immutable
 class RotatingTextData extends Equatable {
