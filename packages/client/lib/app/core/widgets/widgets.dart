@@ -7,6 +7,7 @@ export 'full_screen/full_screen.dart';
 export 'gesture_cross/gesture_cross.dart';
 export 'gestures/gestures.dart';
 export 'gradient_tree_node/gradient_tree_node.dart';
+export 'instructional_nokhtes/instructional_nokhtes.dart';
 export "jost/jost.dart";
 export 'mirrored_text/mirrored_text.dart';
 export 'multi_hit_stack/multi_hit_stack.dart';
