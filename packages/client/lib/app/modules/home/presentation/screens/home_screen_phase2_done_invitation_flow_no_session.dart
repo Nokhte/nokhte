@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/presentation.dart';
 
@@ -15,5 +16,6 @@ class HomeScreenPhase2DoneInvitationFlowNoSession extends BaseHomeScreen {
               ),
             ),
           ),
+          instructionalNokhtes: Container(),
         );
 }

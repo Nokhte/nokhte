@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -20,6 +21,7 @@ abstract class _HomeScreenPhase2WidgetsCoordinatorBase
     required super.primarySmartText,
     required super.errorSmartText,
     required super.secondaryErrorSmartText,
+    required super.touchRipple,
   });
 
   @observable
@@ -34,8 +36,8 @@ abstract class _HomeScreenPhase2WidgetsCoordinatorBase
 
   @override
   @action
-  constructor() {
-    super.constructor();
+  constructor(Offset offset) {
+    super.constructor(offset);
     primarySmartText.setMessagesData(MessagesData.firstTimeHomeList);
     Timer(Seconds.get(3), () {
       if (!hasSwipedUp) {

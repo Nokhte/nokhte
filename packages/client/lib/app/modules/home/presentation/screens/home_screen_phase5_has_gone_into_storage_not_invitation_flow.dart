@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/presentation.dart';
 
@@ -22,5 +23,6 @@ class HomeScreenPhase5HasGoneIntoStorageNoInvitationFlow
               ),
             ),
           ),
+          instructionalNokhtes: Container(),
         );
 }

@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api, overridden_fields, annotate_overrides
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/constants/constants.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
@@ -21,8 +22,8 @@ abstract class _HomeScreenPhase2CoordinatorBase
 
   @override
   @action
-  constructor() async {
-    widgets.constructor();
+  constructor(Offset offset) async {
+    widgets.constructor(offset);
     initReactors();
     await captureScreen(Screens.homePhase2);
   }
@@ -41,7 +42,6 @@ abstract class _HomeScreenPhase2CoordinatorBase
     super.initReactors();
     swipeReactor(
         onSwipeUp: () {
-          setDisableAllTouchFeedback(true);
           widgets.onSwipeUp();
         },
         onSwipeRight: () {});

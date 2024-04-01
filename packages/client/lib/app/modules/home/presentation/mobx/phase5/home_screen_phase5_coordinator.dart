@@ -1,8 +1,12 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides, overridden_fields
+import 'dart:async';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/posthog/constants/constants.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/shared/base_home_screen_coordinator.dart';
 import 'package:nokhte/app/modules/storage/domain/domain.dart';
 import 'home_screen_phase5_widgets_coordinator.dart';
@@ -32,8 +36,8 @@ abstract class _HomeScreenPhase5CoordinatorBase
 
   @override
   @action
-  constructor() async {
-    widgets.constructor();
+  constructor(Offset offset) async {
+    widgets.constructor(offset);
     initReactors();
     await captureScreen(Screens.homePhase5);
     await getNokhteSessionArtifacts();
@@ -44,10 +48,7 @@ abstract class _HomeScreenPhase5CoordinatorBase
     super.initReactors();
     swipeReactor(
       onSwipeUp: widgets.onSwipeUp,
-      onSwipeRight: () {
-        widgets.onSwipeRight();
-        setDisableAllTouchFeedback(true);
-      },
+      onSwipeRight: () => widgets.onSwipeRight(),
     );
     widgets.beachWavesMovieStatusReactor(
       onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
@@ -71,6 +72,11 @@ abstract class _HomeScreenPhase5CoordinatorBase
 
   @action
   onSubsequentStorageEntry() {
-    Modular.to.navigate('/storage/');
+    Timer.periodic(Seconds.get(0, milli: 100), (timer) {
+      if (widgets.touchRipple.movieStatus == MovieStatus.finished) {
+        Modular.to.navigate('/storage/');
+        timer.cancel();
+      }
+    });
   }
 }
