@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -18,6 +19,7 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   final SmartTextStore primarySmartText;
   final SmartTextStore errorSmartText;
   final SmartTextStore secondaryErrorSmartText;
+  final TouchRippleStore touchRipple;
 
   _BaseHomeScreenWidgetsCoordinatorBase({
     required this.nokhteBlur,
@@ -27,16 +29,16 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     required this.primarySmartText,
     required this.errorSmartText,
     required this.secondaryErrorSmartText,
+    required this.touchRipple,
   });
 
   @action
-  constructor() {
+  constructor(Offset center) {
     if (Modular.args.data["resumeOnShoreParams"] != null) {
       params = Modular.args.data["resumeOnShoreParams"];
     }
     beachWaves.setMovieMode(BeachWaveMovieModes.resumeOnShore);
     beachWaves.currentStore.initMovie(Modular.args.data["resumeOnShoreParams"]);
-    gestureCross.fadeIn();
     errorSmartText.setMessagesData(MessagesData.empty);
     secondaryErrorSmartText.setMessagesData(MessagesData.errorConfirmList);
   }
@@ -52,6 +54,33 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
 
   @observable
   bool hasSwipedUp = false;
+
+  @observable
+  double smartTextTopPaddingScalar = 0;
+
+  @observable
+  double smartTextBottomPaddingScalar = .2;
+
+  @observable
+  double smartTextSubMessagePaddingScalar = 110;
+
+  @action
+  setSmartTextTopPaddingScalar(double value) =>
+      smartTextTopPaddingScalar = value;
+
+  @action
+  setSmartTextBottomPaddingScalar(double value) =>
+      smartTextBottomPaddingScalar = value;
+
+  @action
+  setSmartTextSubMessagePaddingScalar(double value) =>
+      smartTextSubMessagePaddingScalar = value;
+
+  // @observable
+  // Offset center = Offset.zero;
+
+  // @action
+  // setCenter(Offset value) => center = value;
 
   @observable
   ResumeOnShoreParams params = ResumeOnShoreParams.initial();
@@ -142,6 +171,13 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
         secondaryErrorSmartText.setWidgetVisibility(false);
         isEnteringNokhteSession = false;
       }
+    }
+  }
+
+  @action
+  onSwipeCoordinatesChanged(Offset offset) {
+    if (beachWaves.movieStatus != MovieStatus.finished) {
+      touchRipple.onSwipe(offset);
     }
   }
 
