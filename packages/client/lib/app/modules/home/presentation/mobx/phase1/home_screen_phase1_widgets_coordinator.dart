@@ -30,6 +30,19 @@ abstract class _HomeScreenPhase1WidgetsCoordinatorBase
     required super.touchRipple,
   });
 
+  @action
+  void setSmartTextPadding({
+    required double topPadding,
+    required double bottomPadding,
+    required double subMessagePadding,
+  }) =>
+      Timer(Seconds.get(1, milli: 500), () {
+        setSmartTextTopPaddingScalar(.1);
+        setSmartTextBottomPaddingScalar(0);
+        setSmartTextSubMessagePaddingScalar(80);
+        setTouchIsDisabled(false);
+      });
+
   @observable
   Offset center = Offset.zero;
 
@@ -61,12 +74,11 @@ abstract class _HomeScreenPhase1WidgetsCoordinatorBase
       virginInstructionalGradientNokhte.initTransformation();
       primarySmartText.startRotatingText(isResuming: true);
       setTouchIsDisabled(true);
-      Timer(Seconds.get(1, milli: 500), () {
-        setSmartTextSubMessagePaddingScalar(110);
-        setSmartTextTopPaddingScalar(0);
-        setSmartTextBottomPaddingScalar(0);
-        setTouchIsDisabled(false);
-      });
+      setSmartTextPadding(
+        subMessagePadding: 110,
+        bottomPadding: 0,
+        topPadding: 0,
+      );
     } else if (primarySmartText.currentIndex.equals(5) && !touchIsDisabled) {
       prepForNavigation(excludeUnBlur: true);
     }
@@ -91,12 +103,11 @@ abstract class _HomeScreenPhase1WidgetsCoordinatorBase
         primarySmartText.startRotatingText(isResuming: true);
         centerInstructionalNokhte.moveToCenter(center);
         touchRipple.onTap(offset);
-        Timer(Seconds.get(1, milli: 500), () {
-          setSmartTextTopPaddingScalar(.1);
-          setSmartTextBottomPaddingScalar(0);
-          setSmartTextSubMessagePaddingScalar(80);
-          setTouchIsDisabled(false);
-        });
+        setSmartTextPadding(
+          subMessagePadding: 80,
+          topPadding: 0.1,
+          bottomPadding: 0,
+        );
       } else if (primarySmartText.currentIndex == 2) {
         setTouchIsDisabled(true);
         primarySmartText.startRotatingText(isResuming: true);
@@ -137,11 +148,11 @@ abstract class _HomeScreenPhase1WidgetsCoordinatorBase
       beachWaves.currentStore.setControl(Control.stop);
       toggleHasInitiatedBlur();
       primarySmartText.startRotatingText(isResuming: true);
-      Timer(Seconds.get(1, milli: 500), () {
-        setSmartTextTopPaddingScalar(0);
-        setSmartTextBottomPaddingScalar(.3);
-        setSmartTextSubMessagePaddingScalar(110);
-      });
+      setSmartTextPadding(
+        subMessagePadding: 110,
+        bottomPadding: 0.3,
+        topPadding: 0,
+      );
     }
   }
 }
