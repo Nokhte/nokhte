@@ -13,13 +13,15 @@ class SmartText extends StatelessWidget {
   final SmartTextStore store;
   final Duration opacityDuration;
   final double topPadding;
-  final double bottomPadding; // added
+  final double bottomPadding;
+  final double subTextPadding;
   const SmartText({
     super.key,
     required this.store,
     this.opacityDuration = Duration.zero,
     this.topPadding = 0.0,
-    this.bottomPadding = 0.0, //added
+    this.bottomPadding = 0.0,
+    this.subTextPadding = 0.0,
   });
 
   @override
@@ -47,23 +49,29 @@ class SmartText extends StatelessWidget {
                       control: store.altControl,
                       duration: store.altMovie.duration,
                       builder: (context, altValue, child) {
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        return Stack(
                           children: [
-                            Text(
-                              store.currentMainText,
-                              textAlign: TextAlign.center,
-                              style: Fonts.jost(
-                                fontSize: store.currentMainTextFontSize,
-                                color: altValue.get('color'),
+                            Center(
+                              child: Text(
+                                store.currentMainText,
+                                textAlign: TextAlign.center,
+                                style: Fonts.jost(
+                                  fontSize: store.currentMainTextFontSize,
+                                  color: altValue.get('color'),
+                                ),
                               ),
                             ),
-                            Text(
-                              store.currentSubText,
-                              textAlign: TextAlign.center,
-                              style: Fonts.jost(
-                                fontSize: store.currentSubTextFontSize,
-                                color: altValue.get('color'),
+                            Center(
+                              child: Padding(
+                                padding: EdgeInsets.only(top: subTextPadding),
+                                child: Text(
+                                  store.currentSubText,
+                                  textAlign: TextAlign.center,
+                                  style: Fonts.jost(
+                                    fontSize: store.currentSubTextFontSize,
+                                    color: altValue.get('color'),
+                                  ),
+                                ),
                               ),
                             ),
                           ],
