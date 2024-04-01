@@ -35,23 +35,39 @@ class MessagesData {
       ];
   static List<RotatingTextData> get firstTimeHomeList => [
         RotatingTextData(
+          mainMessage: "If you're ever confused, Tap on the compass",
           initialFadeInDelay: Seconds.get(1),
-          mainMessage: "If you're ever confused, Tap on the cross",
-          onScreenTime: Seconds.get(2),
           pauseHere: true,
           unlockGesture: Gestures.tap,
         ),
         RotatingTextData(
+          mainMessage: "The compass is a map of the app",
+          subMessage: "Tap anywhere to confirm",
+          pauseHere: true,
           initialFadeInDelay: Seconds.get(1),
-          mainMessage: "Swipe Up to Enter The Collaboration Page.",
-          onScreenTime: Seconds.get(2),
+        ),
+        RotatingTextData(
+          mainMessage: "You are here",
+          subMessage: "Tap anywhere to confirm",
+          initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
         ),
         RotatingTextData(
-          initialFadeInDelay: Seconds.get(0),
-          mainMessage: "",
+          mainMessage: "You move by swiping",
+          subMessage: "Swipe Up",
+          initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
-          onScreenTime: Seconds.get(0),
+        ),
+        RotatingTextData(
+          mainMessage: "That is where you go to start a session",
+          subMessage: "Tap anywhere to confirm",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
         ),
       ];
 
