@@ -30,6 +30,14 @@ class NokhteGradientConfig extends Equatable {
       case NokhteGradientTypes.oceanDive:
         colors = const [Color(0xFF417EA5), Color(0xFF6DE5C8)];
         stops = [.3, 1];
+      case NokhteGradientTypes.invertedShore:
+        colors = const [
+          Color(0xFFFFE6C4),
+          Color(0xFFFFBC78),
+          Color(0xFF42FFD9),
+          Color(0xFF4497C5),
+        ];
+        stops = [0, .33, .4, 1.0];
     }
   }
 
