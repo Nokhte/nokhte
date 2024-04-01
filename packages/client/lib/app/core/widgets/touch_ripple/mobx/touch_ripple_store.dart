@@ -71,4 +71,18 @@ abstract class _TouchRippleStoreBase extends BaseCustomAnimatedWidgetStore
     );
     setControl(Control.playFromStart);
   }
+
+  @action
+  onSwipe(Offset position) {
+    currentPosition = position;
+    setMovieStatus(MovieStatus.inProgress);
+    info.add(
+      TouchRippleAnimationInfo(
+          position: position,
+          movie: WaterWakeMovie.movie,
+          control: Control.play,
+          rippleColor: Colors.white),
+    );
+    setControl(Control.playFromStart);
+  }
 }
