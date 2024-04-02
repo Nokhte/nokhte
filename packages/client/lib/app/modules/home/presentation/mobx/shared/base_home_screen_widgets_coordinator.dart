@@ -1,9 +1,11 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'base_home_screen_widgets_coordinator.g.dart';
@@ -19,6 +21,9 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   final SmartTextStore primarySmartText;
   final SmartTextStore errorSmartText;
   final SmartTextStore secondaryErrorSmartText;
+  final TouchRippleStore touchRipple;
+  final CenterInstructionalNokhteStore centerInstructionalNokhte;
+  final InstructionalGradientNokhteStore instructionalGradientNokhte;
 
   _BaseHomeScreenWidgetsCoordinatorBase({
     required this.nokhteBlur,
@@ -28,19 +33,50 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     required this.primarySmartText,
     required this.errorSmartText,
     required this.secondaryErrorSmartText,
+    required this.touchRipple,
+    required this.centerInstructionalNokhte,
+    required this.instructionalGradientNokhte,
   });
 
   @action
-  constructor() {
+  constructor(Offset centerParam) {
     if (Modular.args.data["resumeOnShoreParams"] != null) {
       params = Modular.args.data["resumeOnShoreParams"];
     }
     beachWaves.setMovieMode(BeachWaveMovieModes.resumeOnShore);
     beachWaves.currentStore.initMovie(Modular.args.data["resumeOnShoreParams"]);
-    gestureCross.fadeIn();
     errorSmartText.setMessagesData(MessagesData.empty);
     secondaryErrorSmartText.setMessagesData(MessagesData.errorConfirmList);
+    center = centerParam;
   }
+
+  @observable
+  bool touchIsDisabled = false;
+
+  @action
+  setTouchIsDisabled(bool value) => touchIsDisabled = value;
+
+  @action
+  void setSmartTextPadding({
+    double? topPadding,
+    double? bottomPadding,
+    double? subMessagePadding,
+  }) =>
+      Timer(Seconds.get(1, milli: 500), () {
+        if (topPadding != null) {
+          setSmartTextTopPaddingScalar(topPadding);
+        }
+        if (bottomPadding != null) {
+          setSmartTextBottomPaddingScalar(bottomPadding);
+        }
+        if (subMessagePadding != null) {
+          setSmartTextSubMessagePaddingScalar(subMessagePadding);
+        }
+        setTouchIsDisabled(false);
+      });
+
+  @observable
+  Offset center = Offset.zero;
 
   @observable
   bool isInErrorMode = false;
@@ -53,6 +89,33 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
 
   @observable
   bool hasSwipedUp = false;
+
+  @observable
+  double smartTextTopPaddingScalar = 0;
+
+  @observable
+  double smartTextBottomPaddingScalar = .2;
+
+  @observable
+  double smartTextSubMessagePaddingScalar = 110;
+
+  @action
+  setSmartTextTopPaddingScalar(double value) =>
+      smartTextTopPaddingScalar = value;
+
+  @action
+  setSmartTextBottomPaddingScalar(double value) =>
+      smartTextBottomPaddingScalar = value;
+
+  @action
+  setSmartTextSubMessagePaddingScalar(double value) =>
+      smartTextSubMessagePaddingScalar = value;
+
+  // @observable
+  // Offset center = Offset.zero;
+
+  // @action
+  // setCenter(Offset value) => center = value;
 
   @observable
   ResumeOnShoreParams params = ResumeOnShoreParams.initial();
@@ -118,31 +181,50 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
 
   @action
   onError(String errorMessage) {
-    nokhteBlur.reset();
     errorSmartText.reset();
     secondaryErrorSmartText.reset();
     errorSmartText.setMessagesData(MessagesData.getErrorList(errorMessage));
     secondaryErrorSmartText.setMessagesData(MessagesData.errorConfirmList);
     errorSmartText.startRotatingText();
+    centerInstructionalNokhte.setWidgetVisibility(false);
+    instructionalGradientNokhte.setWidgetVisibility(false);
     secondaryErrorSmartText.startRotatingText();
-    nokhteBlur.init();
     setIsInErrorMode(true);
   }
 
   @action
-  onErrorResolved() {
+  onErrorResolved(Function onErrorResolved) {
     if (isInErrorMode) {
       if (beachWaves.movieStatus == MovieStatus.finished) {
+        onErrorResolved();
         beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
         beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
         beachWaves.setMovieStatus(MovieStatus.inProgress);
-        nokhteBlur.reverse();
-        gestureCross.fadeInTheCross();
-        gestureCross.fadeIn();
+        gestureCross.cross
+            .setWidgetVisibility(gestureCross.cross.pastShowWidget);
+        gestureCross.centerCrossNokhte
+            .setWidgetVisibility(gestureCross.centerCrossNokhte.pastShowWidget);
+        gestureCross.gradientNokhte
+            .setWidgetVisibility(gestureCross.gradientNokhte.pastShowWidget);
+        gestureCross.strokeCrossNokhte
+            .setWidgetVisibility(gestureCross.strokeCrossNokhte.pastShowWidget);
         errorSmartText.setWidgetVisibility(false);
+        primarySmartText.reset();
+        primarySmartText.setWidgetVisibility(true);
+        primarySmartText.startRotatingText();
         secondaryErrorSmartText.setWidgetVisibility(false);
+        centerInstructionalNokhte.setWidgetVisibility(true);
+        instructionalGradientNokhte
+            .setWidgetVisibility(instructionalGradientNokhte.pastShowWidget);
         isEnteringNokhteSession = false;
       }
+    }
+  }
+
+  @action
+  onSwipeCoordinatesChanged(Offset offset) {
+    if (beachWaves.movieStatus != MovieStatus.finished) {
+      touchRipple.onSwipe(offset);
     }
   }
 
@@ -167,8 +249,8 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   centerCrossNokhteReactor() =>
       reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          gestureCross.gradientNokhte.toggleWidgetVisibility();
-          gestureCross.strokeCrossNokhte.toggleWidgetVisibility();
+          gestureCross.gradientNokhte.setWidgetVisibility(false);
+          gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
         }
       });
 
@@ -242,6 +324,6 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     beachWaves.currentStore.initMovie(
       beachWaves.currentAnimationValues.first,
     );
-    gestureCross.toggleAll();
+    gestureCross.fadeAllOut();
   }
 }

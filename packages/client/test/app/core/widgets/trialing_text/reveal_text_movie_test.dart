@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nokhte/app/core/widgets/trailing_text/stack/movies/reveal_text_movie.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
 void main() {

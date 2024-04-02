@@ -8,7 +8,6 @@ import 'package:nokhte/app/core/modules/posthog/posthog_module.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information_module.dart';
-import 'package:nokhte/app/core/widgets/modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'notes_phone/notes_phone.dart';
 import 'speaking_phone/speaking_phone.dart';
@@ -24,7 +23,6 @@ class IrlNokhteSessionModule extends Module {
         CleanUpCollaborationArtifactsModule(),
         PosthogModule(),
         IrlNokhteSessionPresenceModule(),
-        GesturesModule(),
         GyroscopicModule(),
         UserInformationModule(),
       ];
@@ -38,7 +36,7 @@ class IrlNokhteSessionModule extends Module {
         presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<IrlNokhteSessionPhase0WidgetsCoordinator>(),
-        tap: Modular.get<TapDetector>(),
+        tap: TapDetector(),
       ),
     );
     i.add<IrlNokhteSessionSpeakingInstructionsCoordinator>(
@@ -47,7 +45,7 @@ class IrlNokhteSessionModule extends Module {
         captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<
             IrlNokhteSessionSpeakingInstructionsWidgetsCoordinator>(),
-        tap: Modular.get<TapDetector>(),
+        tap: TapDetector(),
       ),
     );
     i.add<IrlNokhteSessionSpeakingCoordinator>(
@@ -56,8 +54,8 @@ class IrlNokhteSessionModule extends Module {
         captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<IrlNokhteSessionSpeakingWidgetsCoordinator>(),
         presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
-        hold: Modular.get<HoldDetector>(),
-        swipe: Modular.get<SwipeDetector>(),
+        hold: HoldDetector(),
+        swipe: SwipeDetector(),
       ),
     );
     i.add<IrlNokhteSessionNotesInstructionsCoordinator>(
@@ -66,7 +64,7 @@ class IrlNokhteSessionModule extends Module {
         captureScreen: Modular.get<CaptureScreen>(),
         widgets:
             Modular.get<IrlNokhteSessionNotesInstructionsWidgetsCoordinator>(),
-        tap: Modular.get<TapDetector>(),
+        tap: TapDetector(),
       ),
     );
     i.add<IrlNokhteSessionNotesCoordinator>(
@@ -75,7 +73,7 @@ class IrlNokhteSessionModule extends Module {
           captureScreen: Modular.get<CaptureScreen>(),
           widgets: Modular.get<IrlNokhteSessionNotesWidgetsCoordinator>(),
           presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
-          swipe: Modular.get<SwipeDetector>()),
+          swipe: SwipeDetector()),
     );
     i.add<IrlNokhteSessionPhase3Coordinator>(
       () => IrlNokhteSessionPhase3Coordinator(
@@ -83,7 +81,7 @@ class IrlNokhteSessionModule extends Module {
             Modular.get<CleanUpCollaborationArtifactsCoordinator>(),
         decidePhoneRoleLogic: Modular.get<DecidePhoneRole>(),
         getUserInfo: Modular.get<GetUserInfoStore>(),
-        swipe: Modular.get<SwipeDetector>(),
+        swipe: SwipeDetector(),
         widgets: Modular.get<IrlNokhteSessionPhase3WidgetsCoordinator>(),
         presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),

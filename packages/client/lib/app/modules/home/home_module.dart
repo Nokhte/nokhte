@@ -8,7 +8,6 @@ import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog_module.dart';
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information_module.dart';
-import 'package:nokhte/app/core/widgets/modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/collaboration/collaboration_logic_module.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
@@ -21,7 +20,6 @@ class HomeModule extends Module {
   @override
   List<Module> get imports => [
         HomeWidgetsModule(),
-        GesturesModule(),
         CollaborationLogicModule(),
         CleanUpCollaborationArtifactsModule(),
         UserInformationModule(),
@@ -58,7 +56,7 @@ class HomeModule extends Module {
         tap: TapDetector(),
         captureScreen: Modular.get<CaptureScreen>(),
         collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
-        swipe: Modular.get<SwipeDetector>(),
+        swipe: SwipeDetector(),
         widgets: Modular.get<HomeScreenPhase2WidgetsCoordinator>(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
       ),
@@ -70,7 +68,7 @@ class HomeModule extends Module {
             Modular.get<GetNokhteSessionArtifacts>(),
         collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
-        swipe: Modular.get<SwipeDetector>(),
+        swipe: SwipeDetector(),
         widgets: Modular.get<HomeScreenPhase3WidgetsCoordinator>(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
         userInformation: Modular.get<UserInformationCoordinator>(),
@@ -83,7 +81,7 @@ class HomeModule extends Module {
         tap: TapDetector(),
         collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
-        swipe: Modular.get<SwipeDetector>(),
+        swipe: SwipeDetector(),
         widgets: Modular.get<HomeScreenPhase4WidgetsCoordinator>(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
       ),
@@ -95,7 +93,7 @@ class HomeModule extends Module {
             Modular.get<GetNokhteSessionArtifacts>(),
         collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
-        swipe: Modular.get<SwipeDetector>(),
+        swipe: SwipeDetector(),
         widgets: Modular.get<HomeScreenPhase5WidgetsCoordinator>(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
       ),

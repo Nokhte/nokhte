@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides, overridden_fields
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -34,8 +35,8 @@ abstract class _HomeScreenPhase3CoordinatorBase
 
   @override
   @action
-  constructor() async {
-    widgets.constructor();
+  constructor(Offset offset) async {
+    widgets.constructor(offset);
     initReactors();
     await captureScreen(Screens.homePhase3);
     await getNokhteSessionArtifacts();
@@ -50,8 +51,8 @@ abstract class _HomeScreenPhase3CoordinatorBase
         widgets.onSwipeUp();
       },
       onSwipeRight: () async {
-        widgets.onSwipeRight();
         setDisableAllTouchFeedback(true);
+        widgets.onSwipeRight();
         await userInformation.updateHasEnteredStorageLogic(true);
       },
     );

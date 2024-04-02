@@ -6,9 +6,7 @@ import 'presentation/presentation.dart';
 class LegacyVirtualNokhteSessionWidgetsModule extends Module {
   @override
   List<Module> get imports => [
-        BeachWavesModule(),
         WifiDisconnectOverlayModule(),
-        SmartTextModule(),
         GestureCrossModule(),
       ];
 

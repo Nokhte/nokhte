@@ -6,7 +6,6 @@ import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog_module.dart';
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information_module.dart';
-import 'package:nokhte/app/core/widgets/modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/collaboration/collaboration_logic_module.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
@@ -17,7 +16,6 @@ class CollaborationModule extends Module {
   List<Module> get imports => [
         CollaborationWidgetsModule(),
         UserInformationModule(),
-        GesturesModule(),
         DeepLinksModule(),
         LegacyConnectivityModule(),
         CollaborationLogicModule(),
@@ -33,7 +31,7 @@ class CollaborationModule extends Module {
         captureShareNokhteSessionInvitation:
             Modular.get<CaptureShareNokhteSessionInvitation>(),
         logic: Modular.get<CollaborationLogicCoordinator>(),
-        swipe: Modular.get<SwipeDetector>(),
+        swipe: SwipeDetector(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
         widgets: Modular.get<CollaborationHomeScreenWidgetsCoordinator>(),
         userInformation: i<UserInformationCoordinator>(),
