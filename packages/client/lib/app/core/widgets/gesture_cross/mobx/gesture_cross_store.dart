@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
 
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
@@ -31,12 +32,15 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
   incrementTapCount() => tapCount++;
 
   @action
-  fadeIn() {
+  fadeIn({
+    Either<Function, bool> onFadeIn = const Right(false),
+  }) {
     cross.setWidgetVisibility(true);
     centerCrossNokhte.setWidgetVisibility(true);
     Timer(Seconds.get(0, milli: 1), () {
       strokeCrossNokhte.setWidgetVisibility(true);
       gradientNokhte.setWidgetVisibility(true);
+      onFadeIn.fold((l) => l(), (r) => null);
     });
   }
 
@@ -47,7 +51,9 @@ abstract class _GestureCrossStoreBase extends Equatable with Store {
   }
 
   @action
-  fadeInTheCross() {
+  fadeInTheCross({
+    Either<Function, bool> onFadeIn = const Right(false),
+  }) {
     cross.toggleWidgetVisibility();
     centerCrossNokhte.toggleWidgetVisibility();
   }
