@@ -43,10 +43,26 @@ abstract class _CenterInstructionalNokhteStoreBase
   }
 
   @action
-  moveBack() {
+  moveBackFromTop() {
     setMovieStatus(MovieStatus.inProgress);
     setMovie(MoveCenterInstructionalNokhteBackToCrossMovie.getMovie(center));
     setControl(Control.playFromStart);
     movieMode = CenterInstructionalNokhteMovieModes.moveBack;
+  }
+
+  @action
+  moveBackFromCenter() {
+    setMovieStatus(MovieStatus.inProgress);
+    setMovie(CenterInstructionalNokhteTransformationMovie.getMovie(
+      center,
+      reverse: true,
+    ));
+    setControl(Control.playFromStart);
+  }
+
+  @override
+  @action
+  reverseMovie(params) {
+    setControl(Control.playReverseFromEnd);
   }
 }
