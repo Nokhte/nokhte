@@ -36,6 +36,8 @@ class HomeWidgetsModule extends Module {
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         gestureCross: Modular.get<GestureCrossStore>(),
         touchRipple: TouchRippleStore(),
+        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
+        instructionalGradientNokhte: InstructionalGradientNokhteStore(),
       ),
     );
     i.add<HomeScreenPhase2WidgetsCoordinator>(
@@ -48,6 +50,8 @@ class HomeWidgetsModule extends Module {
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         gestureCross: Modular.get<GestureCrossStore>(),
         touchRipple: TouchRippleStore(),
+        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
+        instructionalGradientNokhte: InstructionalGradientNokhteStore(),
       ),
     );
     i.add<HomeScreenPhase3WidgetsCoordinator>(
@@ -60,6 +64,8 @@ class HomeWidgetsModule extends Module {
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         gestureCross: Modular.get<GestureCrossStore>(),
         touchRipple: TouchRippleStore(),
+        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
+        instructionalGradientNokhte: InstructionalGradientNokhteStore(),
       ),
     );
     i.add<HomeScreenPhase4WidgetsCoordinator>(
@@ -72,6 +78,8 @@ class HomeWidgetsModule extends Module {
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         gestureCross: Modular.get<GestureCrossStore>(),
         touchRipple: TouchRippleStore(),
+        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
+        instructionalGradientNokhte: InstructionalGradientNokhteStore(),
       ),
     );
     i.add<HomeScreenPhase5WidgetsCoordinator>(
@@ -84,6 +92,8 @@ class HomeWidgetsModule extends Module {
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         gestureCross: Modular.get<GestureCrossStore>(),
         touchRipple: TouchRippleStore(),
+        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
+        instructionalGradientNokhte: InstructionalGradientNokhteStore(),
       ),
     );
   }
