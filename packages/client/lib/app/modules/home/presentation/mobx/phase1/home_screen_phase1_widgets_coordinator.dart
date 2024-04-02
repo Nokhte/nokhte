@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
@@ -15,10 +16,6 @@ class HomeScreenPhase1WidgetsCoordinator = _HomeScreenPhase1WidgetsCoordinatorBa
 
 abstract class _HomeScreenPhase1WidgetsCoordinatorBase
     extends BaseHomeScreenWidgetsCoordinator with Store {
-  final CenterInstructionalNokhteStore centerInstructionalNokhte =
-      CenterInstructionalNokhteStore();
-  final InstructionalGradientNokhteStore virginInstructionalGradientNokhte =
-      InstructionalGradientNokhteStore();
   _HomeScreenPhase1WidgetsCoordinatorBase({
     required super.nokhteBlur,
     required super.beachWaves,
@@ -28,34 +25,19 @@ abstract class _HomeScreenPhase1WidgetsCoordinatorBase
     required super.errorSmartText,
     required super.secondaryErrorSmartText,
     required super.touchRipple,
+    required super.centerInstructionalNokhte,
+    required super.instructionalGradientNokhte,
   });
-
-  @action
-  void setSmartTextPadding({
-    required double topPadding,
-    required double bottomPadding,
-    required double subMessagePadding,
-  }) =>
-      Timer(Seconds.get(1, milli: 500), () {
-        setSmartTextTopPaddingScalar(.1);
-        setSmartTextBottomPaddingScalar(0);
-        setSmartTextSubMessagePaddingScalar(80);
-        setTouchIsDisabled(false);
-      });
-
-  @observable
-  Offset center = Offset.zero;
 
   @override
   @action
   constructor(Offset centerParam) {
-    center = centerParam;
     super.constructor(centerParam);
     primarySmartText.setMessagesData(MessagesData.firstTimeHomeList);
     primarySmartText.startRotatingText();
     gestureCross.fadeInTheCross();
     gestureCross.centerCrossNokhte.setWidgetVisibility(false);
-    virginInstructionalGradientNokhte.setPosition(center);
+    instructionalGradientNokhte.prepareYellowDiamond(center);
     initReactors();
   }
 
@@ -69,18 +51,21 @@ abstract class _HomeScreenPhase1WidgetsCoordinatorBase
 
   @action
   onSwipeUp() {
-    if (primarySmartText.currentIndex.equals(3)) {
-      centerInstructionalNokhte.moveUp();
-      virginInstructionalGradientNokhte.initTransformation();
-      primarySmartText.startRotatingText(isResuming: true);
-      setTouchIsDisabled(true);
-      setSmartTextPadding(
-        subMessagePadding: 110,
-        bottomPadding: 0,
-        topPadding: 0,
-      );
-    } else if (primarySmartText.currentIndex.equals(5) && !touchIsDisabled) {
-      prepForNavigation(excludeUnBlur: true);
+    print("hi this registered");
+    if (!touchIsDisabled) {
+      if (primarySmartText.currentIndex.equals(3)) {
+        centerInstructionalNokhte.moveUp();
+        instructionalGradientNokhte.initMovie(NoParams());
+        primarySmartText.startRotatingText(isResuming: true);
+        setTouchIsDisabled(true);
+        setSmartTextPadding(
+          subMessagePadding: 110,
+          bottomPadding: 0,
+          topPadding: 0,
+        );
+      } else if (primarySmartText.currentIndex.equals(5)) {
+        prepForNavigation(excludeUnBlur: true);
+      }
     }
   }
 
@@ -89,11 +74,14 @@ abstract class _HomeScreenPhase1WidgetsCoordinatorBase
         (p0) => onGestureCrossTap(),
       );
 
-  @observable
-  bool touchIsDisabled = false;
-
   @action
-  setTouchIsDisabled(bool value) => touchIsDisabled = value;
+  @override
+  onError(String errorMessage) {
+    super.onError(errorMessage);
+    gestureCross.gradientNokhte.setWidgetVisibility(false);
+    gestureCross.centerCrossNokhte.setWidgetVisibility(false);
+    gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
+  }
 
   @action
   onTap(Offset offset) {
@@ -111,14 +99,15 @@ abstract class _HomeScreenPhase1WidgetsCoordinatorBase
       } else if (primarySmartText.currentIndex == 2) {
         setTouchIsDisabled(true);
         primarySmartText.startRotatingText(isResuming: true);
-        virginInstructionalGradientNokhte.setWidgetVisibility(true);
+        instructionalGradientNokhte.setWidgetVisibility(true);
         touchRipple.onTap(offset);
+        setSmartTextPadding();
       } else if (primarySmartText.currentIndex == 4) {
         primarySmartText.startRotatingText(isResuming: true);
         setTouchIsDisabled(true);
         Timer(Seconds.get(1, milli: 500), () {
-          virginInstructionalGradientNokhte.moveBack();
-          centerInstructionalNokhte.moveBack();
+          instructionalGradientNokhte.moveBack();
+          centerInstructionalNokhte.moveBackFromTop();
         });
         beachWaves.currentStore.setControl(Control.mirror);
         nokhteBlur.reverse();
@@ -135,7 +124,7 @@ abstract class _HomeScreenPhase1WidgetsCoordinatorBase
           gestureCross.fadeIn();
           Timer(Seconds.get(1), () {
             centerInstructionalNokhte.setWidgetVisibility(false);
-            virginInstructionalGradientNokhte.setWidgetVisibility(false);
+            instructionalGradientNokhte.setWidgetVisibility(false);
             setTouchIsDisabled(false);
           });
         }
@@ -143,16 +132,12 @@ abstract class _HomeScreenPhase1WidgetsCoordinatorBase
 
   @action
   onGestureCrossTap() {
-    if (!hasInitiatedBlur && !isEnteringNokhteSession) {
+    if (!hasInitiatedBlur && !isEnteringNokhteSession && !isInErrorMode) {
       nokhteBlur.init();
       beachWaves.currentStore.setControl(Control.stop);
       toggleHasInitiatedBlur();
       primarySmartText.startRotatingText(isResuming: true);
-      setSmartTextPadding(
-        subMessagePadding: 110,
-        bottomPadding: 0.3,
-        topPadding: 0,
-      );
+      setSmartTextPadding(subMessagePadding: 110, bottomPadding: .23);
     }
   }
 }
