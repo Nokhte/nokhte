@@ -12,10 +12,19 @@ class HomeScreenPhase2DoneInvitationFlowNoSession extends BaseHomeScreen {
           gestureCrossConfig: GestureCrossConfiguration(
             top: Right(
               NokhteGradientConfig(
-                gradientType: NokhteGradientTypes.oceanDive,
+                gradientType: NokhteGradientTypes.invertedShore,
               ),
             ),
           ),
-          instructionalNokhtes: Container(),
+          instructionalNokhtes: Stack(
+            children: [
+              CenterInstructionalNokhte(
+                store: coordinator.widgets.centerInstructionalNokhte,
+              ),
+              InstructionalGradientNokhte(
+                store: coordinator.widgets.instructionalGradientNokhte,
+              ),
+            ],
+          ),
         );
 }

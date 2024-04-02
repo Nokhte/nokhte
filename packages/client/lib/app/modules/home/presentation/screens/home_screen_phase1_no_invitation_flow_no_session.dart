@@ -23,7 +23,7 @@ class HomeScreenPhase1NoInvitationFlowNoSession extends BaseHomeScreen {
                 store: coordinator.widgets.centerInstructionalNokhte,
               ),
               InstructionalGradientNokhte(
-                store: coordinator.widgets.virginInstructionalGradientNokhte,
+                store: coordinator.widgets.instructionalGradientNokhte,
               ),
             ],
           ),
