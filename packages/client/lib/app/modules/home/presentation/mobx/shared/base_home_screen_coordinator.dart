@@ -52,7 +52,6 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
     );
     openedDeepLinksReactor();
     collaboratorPoolEntryErrorReactor();
-    tapReactor();
   }
 
   @action
@@ -116,13 +115,6 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
           widgets.onError(p0);
           deepLinks.reset();
           collaborationLogic.resetErrorMessage();
-        }
-      });
-
-  tapReactor() => reaction((p0) => tap.tapCount, (p0) async {
-        if (isInErrorMode) {
-          setIsInErrorMode(true);
-          widgets.onErrorResolved();
         }
       });
 

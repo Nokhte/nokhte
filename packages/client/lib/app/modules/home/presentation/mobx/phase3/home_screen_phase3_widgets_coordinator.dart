@@ -19,6 +19,8 @@ abstract class _HomeScreenPhase3WidgetsCoordinatorBase
     required super.errorSmartText,
     required super.secondaryErrorSmartText,
     required super.touchRipple,
+    required super.centerInstructionalNokhte,
+    required super.instructionalGradientNokhte,
   });
 
   @observable
