@@ -71,6 +71,30 @@ class MessagesData {
         ),
       ];
 
+  static List<RotatingTextData> get hasDoneSessionInformationFlow => [
+        RotatingTextData(
+          mainMessage: "Swipe up to start a session",
+          pauseHere: true,
+          initialFadeInDelay: Seconds.get(1),
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "That is where you go to start a session",
+          subMessage: "Tap anywhere to confirm",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+      ];
+
   static List<RotatingTextData> get firstTimeCollaborationList => [
         RotatingTextData(
           initialFadeInDelay: Seconds.get(1),
