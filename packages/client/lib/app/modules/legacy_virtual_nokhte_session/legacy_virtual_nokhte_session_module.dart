@@ -6,7 +6,6 @@ import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/coordinator/voice_call_coordinator.dart';
 import 'package:nokhte/app/core/modules/voice_call/voice_call_module.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
-import 'package:nokhte/app/core/widgets/modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/legacy_virtual_nokhte_session/data/data.dart';
 import 'package:nokhte/app/modules/legacy_virtual_nokhte_session/domain/domain.dart';
@@ -19,7 +18,6 @@ class LegacyNokhteSessionModule extends Module {
   List<Module> get imports => [
         LegacyVirtualNokhteSessionWidgetsModule(),
         LegacyConnectivityModule(),
-        GesturesModule(),
         VoiceCallModule(),
         IrlNokhteSessionPresenceModule(),
         PosthogModule(),

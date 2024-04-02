@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 part 'home_screen_phase4_widgets_coordinator.g.dart';
@@ -16,7 +16,11 @@ abstract class _HomeScreenPhase4WidgetsCoordinatorBase
     required super.wifiDisconnectOverlay,
     required super.gestureCross,
     required super.primarySmartText,
-    required super.errorSmartText, required super.secondaryErrorSmartText,
+    required super.errorSmartText,
+    required super.secondaryErrorSmartText,
+    required super.touchRipple,
+    required super.centerInstructionalNokhte,
+    required super.instructionalGradientNokhte,
   });
 
   @observable
@@ -28,8 +32,8 @@ abstract class _HomeScreenPhase4WidgetsCoordinatorBase
 
   @override
   @action
-  constructor() {
-    super.constructor();
+  constructor(Offset offset) {
+    super.constructor(offset);
     primarySmartText.setMessagesData(MessagesData.empty);
     initReactors();
   }

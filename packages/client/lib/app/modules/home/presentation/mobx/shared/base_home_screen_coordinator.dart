@@ -1,11 +1,11 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/collaboration/domain/logic/logic.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
@@ -35,7 +35,7 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
   });
 
   @action
-  constructor() {}
+  constructor(Offset center) {}
 
   initReactors() {
     deepLinks.listen();
@@ -52,7 +52,6 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
     );
     openedDeepLinksReactor();
     collaboratorPoolEntryErrorReactor();
-    tapReactor();
   }
 
   @action
@@ -70,10 +69,17 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
   }
 
   @action
-  onShoreToOceanDiveComplete() => Modular.to.navigate(
-        '/collaboration/',
-        arguments: deepLinks.listenForOpenedDeepLinkStore.additionalMetadata,
-      );
+  onShoreToOceanDiveComplete() {
+    Timer.periodic(Seconds.get(0, milli: 100), (timer) {
+      if (widgets.touchRipple.movieStatus == MovieStatus.finished) {
+        Modular.to.navigate(
+          '/collaboration/',
+          arguments: deepLinks.listenForOpenedDeepLinkStore.additionalMetadata,
+        );
+        timer.cancel();
+      }
+    });
+  }
 
   @action
   onShoreToVibrantBlueComplete() => Modular.to.navigate(
@@ -88,18 +94,17 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
       reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.up:
-            if (!widgets.isEnteringNokhteSession) {
-              ifTouchIsNotDisabled(() {
-                onSwipeUp();
-              });
-            }
+            onSwipeUp();
           case GestureDirections.right:
-            ifTouchIsNotDisabled(() {
-              onSwipeRight();
-            });
+            onSwipeRight();
           default:
             break;
         }
+      });
+
+  swipeCoordinatesReactor(Function(Offset) onSwipeUpCoordinatesChanged) =>
+      reaction((p0) => swipe.mostRecentCoordinates.last, (p0) {
+        onSwipeUpCoordinatesChanged(p0);
       });
 
   collaboratorPoolEntryErrorReactor() =>
@@ -110,13 +115,6 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
           widgets.onError(p0);
           deepLinks.reset();
           collaborationLogic.resetErrorMessage();
-        }
-      });
-
-  tapReactor() => reaction((p0) => tap.tapCount, (p0) async {
-        if (isInErrorMode) {
-          setIsInErrorMode(true);
-          widgets.onErrorResolved();
         }
       });
 

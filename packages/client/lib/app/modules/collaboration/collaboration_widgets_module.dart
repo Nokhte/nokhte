@@ -6,9 +6,7 @@ import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart'
 class CollaborationWidgetsModule extends Module {
   @override
   List<Module> get imports => [
-        BeachWavesModule(),
         WifiDisconnectOverlayModule(),
-        SmartTextModule(),
         GestureCrossModule(),
       ];
   @override
@@ -25,15 +23,15 @@ class CollaborationWidgetsModule extends Module {
         secondaryErrorSmartText: SmartTextStore(),
         errorSmartText: SmartTextStore(),
         gestureCross: Modular.get<GestureCrossStore>(),
-        beachWaves: Modular.get<BeachWavesStore>(),
+        beachWaves: BeachWavesStore(),
         gradientTreeNode: Modular.get<GradientTreeNodeStore>(),
-        smartText: Modular.get<SmartTextStore>(),
+        smartText: SmartTextStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
       ),
     );
     i.add<CollaboratorPoolScreenWidgetsCoordinator>(
       () => CollaboratorPoolScreenWidgetsCoordinator(
-        beachWaves: Modular.get<BeachWavesStore>(),
+        beachWaves: BeachWavesStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         gestureCross: Modular.get<GestureCrossStore>(),
         waitingText: Modular.get<WaitingTextStore>(),

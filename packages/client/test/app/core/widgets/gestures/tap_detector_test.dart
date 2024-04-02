@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nokhte/app/core/widgets/gestures/stack/presentation/mobx/tap_detector.dart';
+import 'package:nokhte/app/core/widgets/gestures/mobx/tap_detector.dart';
 
 void main() {
   late TapDetector tDetector;

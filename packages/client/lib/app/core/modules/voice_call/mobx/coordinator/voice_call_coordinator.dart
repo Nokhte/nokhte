@@ -5,7 +5,6 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/voice_call/domain/logic/logic.dart';
 import 'package:nokhte/app/core/modules/voice_call/mobx/mobx.dart';
-import 'package:nokhte/app/core/widgets/widgets.dart';
 part 'voice_call_coordinator.g.dart';
 
 class VoiceCallCoordinator = _VoiceCallCoordinatorBase
@@ -17,16 +16,17 @@ abstract class _VoiceCallCoordinatorBase extends BaseMobxDBStore with Store {
   final GetAgoraToken getAgoraTokenLogic;
   final GetChannelId getChannelIdLogic;
   final InitAgoraSdk initAgoraSdkLogic;
-  final VoiceCallIncidentsOverlayStore incidentsOverlayWidgetStore;
+  // final VoiceCallIncidentsOverlayStore incidentsOverlayWidgetStore;
   _VoiceCallCoordinatorBase({
     required this.voiceCallStatusStore,
     required this.voiceCallActionsStore,
     required this.getAgoraTokenLogic,
     required this.getChannelIdLogic,
     required this.initAgoraSdkLogic,
-  }) : incidentsOverlayWidgetStore = VoiceCallIncidentsOverlayStore(
-          voiceCallStatusStore: voiceCallStatusStore,
-        );
+  });
+  //:  incidentsOverlayWidgetStore = VoiceCallIncidentsOverlayStore(
+  //         voiceCallStatusStore: voiceCallStatusStore,
+  //       );
 
   @action
   initReactors({required Function onBothJoinedCall}) {
@@ -85,7 +85,7 @@ abstract class _VoiceCallCoordinatorBase extends BaseMobxDBStore with Store {
     required bool shouldEnterTheCallMuted,
     required GetChannelIdParams callType,
   }) async {
-    incidentsOverlayWidgetStore.constructor();
+    // incidentsOverlayWidgetStore.constructor();
     await initSdk();
     await _getChannelId(callType);
     await _getToken();
@@ -122,7 +122,7 @@ abstract class _VoiceCallCoordinatorBase extends BaseMobxDBStore with Store {
       reaction((p0) => voiceCallStatusStore.hasCollaboratorJoined, (p0) async {
         if (p0 && isInitialJoin) {
           onBothJoinedCall();
-          incidentsOverlayWidgetStore.setShowJoiningCall(false);
+          // incidentsOverlayWidgetStore.setShowJoiningCall(false);
           isInitialJoin = false;
         }
       });

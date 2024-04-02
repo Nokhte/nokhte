@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/extensions/extensions.dart';
-import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -20,6 +19,9 @@ abstract class _HomeScreenPhase5WidgetsCoordinatorBase
     required super.primarySmartText,
     required super.errorSmartText,
     required super.secondaryErrorSmartText,
+    required super.touchRipple,
+    required super.centerInstructionalNokhte,
+    required super.instructionalGradientNokhte,
   });
 
   @observable
@@ -31,8 +33,8 @@ abstract class _HomeScreenPhase5WidgetsCoordinatorBase
 
   @override
   @action
-  constructor() {
-    super.constructor();
+  constructor(Offset offset) {
+    super.constructor(offset);
     primarySmartText.setMessagesData(MessagesData.firstTimeHomeList);
     primarySmartText.startRotatingText();
     initReactors();
@@ -40,9 +42,7 @@ abstract class _HomeScreenPhase5WidgetsCoordinatorBase
 
   @action
   onSwipeUp() {
-    if (primarySmartText.currentIndex.equals(1)) {
-      prepForNavigation();
-    }
+    prepForNavigation();
   }
 
   @action
@@ -52,15 +52,21 @@ abstract class _HomeScreenPhase5WidgetsCoordinatorBase
     gestureCrossTapReactor();
   }
 
+  @observable
+  bool hasSwiped = false;
+
   @action
   onSwipeRight() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToVibrantBlue);
-    beachWaves.currentStore.initMovie(
-      beachWaves.currentAnimationValues.first,
-    );
-    gestureCross.initMoveAndRegenerate(CircleOffsets.right);
-    gestureCross.cross.initOutlineFadeIn();
-    primarySmartText.setWidgetVisibility(false);
+    if (!hasSwiped) {
+      hasSwiped = true;
+      beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToVibrantBlue);
+      beachWaves.currentStore.initMovie(
+        beachWaves.currentAnimationValues.first,
+      );
+      gestureCross.initMoveAndRegenerate(CircleOffsets.right);
+      gestureCross.cross.initOutlineFadeIn();
+      primarySmartText.setWidgetVisibility(false);
+    }
   }
 
   gestureCrossTapReactor() => reaction(
