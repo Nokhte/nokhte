@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -20,6 +22,8 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   final SmartTextStore errorSmartText;
   final SmartTextStore secondaryErrorSmartText;
   final TouchRippleStore touchRipple;
+  final CenterInstructionalNokhteStore centerInstructionalNokhte;
+  final InstructionalGradientNokhteStore instructionalGradientNokhte;
 
   _BaseHomeScreenWidgetsCoordinatorBase({
     required this.nokhteBlur,
@@ -30,10 +34,12 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     required this.errorSmartText,
     required this.secondaryErrorSmartText,
     required this.touchRipple,
+    required this.centerInstructionalNokhte,
+    required this.instructionalGradientNokhte,
   });
 
   @action
-  constructor(Offset center) {
+  constructor(Offset centerParam) {
     if (Modular.args.data["resumeOnShoreParams"] != null) {
       params = Modular.args.data["resumeOnShoreParams"];
     }
@@ -41,7 +47,36 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     beachWaves.currentStore.initMovie(Modular.args.data["resumeOnShoreParams"]);
     errorSmartText.setMessagesData(MessagesData.empty);
     secondaryErrorSmartText.setMessagesData(MessagesData.errorConfirmList);
+    center = centerParam;
   }
+
+  @observable
+  bool touchIsDisabled = false;
+
+  @action
+  setTouchIsDisabled(bool value) => touchIsDisabled = value;
+
+  @action
+  void setSmartTextPadding({
+    double? topPadding,
+    double? bottomPadding,
+    double? subMessagePadding,
+  }) =>
+      Timer(Seconds.get(1, milli: 500), () {
+        if (topPadding != null) {
+          setSmartTextTopPaddingScalar(topPadding);
+        }
+        if (bottomPadding != null) {
+          setSmartTextBottomPaddingScalar(bottomPadding);
+        }
+        if (subMessagePadding != null) {
+          setSmartTextSubMessagePaddingScalar(subMessagePadding);
+        }
+        setTouchIsDisabled(false);
+      });
+
+  @observable
+  Offset center = Offset.zero;
 
   @observable
   bool isInErrorMode = false;
@@ -146,29 +181,41 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
 
   @action
   onError(String errorMessage) {
-    nokhteBlur.reset();
     errorSmartText.reset();
     secondaryErrorSmartText.reset();
     errorSmartText.setMessagesData(MessagesData.getErrorList(errorMessage));
     secondaryErrorSmartText.setMessagesData(MessagesData.errorConfirmList);
     errorSmartText.startRotatingText();
+    centerInstructionalNokhte.setWidgetVisibility(false);
+    instructionalGradientNokhte.setWidgetVisibility(false);
     secondaryErrorSmartText.startRotatingText();
-    nokhteBlur.init();
     setIsInErrorMode(true);
   }
 
   @action
-  onErrorResolved() {
+  onErrorResolved(Function onErrorResolved) {
     if (isInErrorMode) {
       if (beachWaves.movieStatus == MovieStatus.finished) {
+        onErrorResolved();
         beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
         beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
         beachWaves.setMovieStatus(MovieStatus.inProgress);
-        nokhteBlur.reverse();
-        gestureCross.fadeInTheCross();
-        gestureCross.fadeIn();
+        gestureCross.cross
+            .setWidgetVisibility(gestureCross.cross.pastShowWidget);
+        gestureCross.centerCrossNokhte
+            .setWidgetVisibility(gestureCross.centerCrossNokhte.pastShowWidget);
+        gestureCross.gradientNokhte
+            .setWidgetVisibility(gestureCross.gradientNokhte.pastShowWidget);
+        gestureCross.strokeCrossNokhte
+            .setWidgetVisibility(gestureCross.strokeCrossNokhte.pastShowWidget);
         errorSmartText.setWidgetVisibility(false);
+        primarySmartText.reset();
+        primarySmartText.setWidgetVisibility(true);
+        primarySmartText.startRotatingText();
         secondaryErrorSmartText.setWidgetVisibility(false);
+        centerInstructionalNokhte.setWidgetVisibility(true);
+        instructionalGradientNokhte
+            .setWidgetVisibility(instructionalGradientNokhte.pastShowWidget);
         isEnteringNokhteSession = false;
       }
     }
@@ -202,8 +249,8 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   centerCrossNokhteReactor() =>
       reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          gestureCross.gradientNokhte.toggleWidgetVisibility();
-          gestureCross.strokeCrossNokhte.toggleWidgetVisibility();
+          gestureCross.gradientNokhte.setWidgetVisibility(false);
+          gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
         }
       });
 
@@ -277,6 +324,6 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     beachWaves.currentStore.initMovie(
       beachWaves.currentAnimationValues.first,
     );
-    gestureCross.toggleAll();
+    gestureCross.fadeAllOut();
   }
 }
