@@ -95,44 +95,16 @@ class MessagesData {
         ),
       ];
 
-  static List<RotatingTextData> get firstTimeCollaborationList => [
+  static List<RotatingTextData> get sessionSparkerList => [
         RotatingTextData(
-          initialFadeInDelay: Seconds.get(1),
-          mainMessage: "This is the collaboration page.",
-          onScreenTime: Seconds.get(2),
-        ),
-        RotatingTextData(
-          initialFadeInDelay: Seconds.get(1),
-          mainMessage: "To make an invitation tap on the yellow dot.",
-          onScreenTime: Seconds.get(0),
+          mainMessage: "Scan to join",
           pauseHere: true,
         ),
         RotatingTextData(
           initialFadeInDelay: Seconds.get(1),
-          mainMessage: "Swipe Down to go Home.",
-          onScreenTime: Seconds.get(2),
-          pauseHere: true,
-        ),
-      ];
-
-  static List<RotatingTextData> get postInvitationFlowText => [
-        RotatingTextData(
-          initialFadeInDelay: Seconds.get(0),
-          mainMessage: "Tap on the yellow dot to make an invitation.",
+          mainMessage: "",
           onScreenTime: Seconds.get(0),
           pauseHere: true,
-          unlockGesture: Gestures.tap,
-        ),
-      ];
-
-  static List<RotatingTextData> get postInvitationNoInvite => [
-        RotatingTextData(
-          initialFadeInDelay: Seconds.get(0),
-          mainMessage:
-              "Send An Invitation To Open Your Collaborator's Invitation.",
-          onScreenTime: Seconds.get(0),
-          pauseHere: true,
-          unlockGesture: Gestures.tap,
         ),
       ];
 

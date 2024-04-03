@@ -21,7 +21,7 @@ abstract class _DynamicPointToHalfAndHlafMovieStoreBase
 
   @override
   initMovie(List<ColorAndStop> param) {
-    final halfAndHalf = WaterColorsAndStops.halfWaterAndSand;
+    const halfAndHalf = WaterColorsAndStops.halfWaterAndSand;
     movie = TwoSecondBeachTransitionMovie.getMovie(param, halfAndHalf);
     control = Control.playFromStart;
   }

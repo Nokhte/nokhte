@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/constants/constants.dart';
+import 'package:nokhte/app/core/modules/user_information/mobx/coordinators/coordinators.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 part 'home_screen_phase1_coordinator.g.dart';
 
@@ -10,6 +11,7 @@ class HomeScreenPhase1Coordinator = _HomeScreenPhase1CoordinatorBase
 
 abstract class _HomeScreenPhase1CoordinatorBase
     extends BaseHomeScreenCoordinator with Store {
+  final UserInformationCoordinator userInformation;
   final HomeScreenPhase1WidgetsCoordinator widgets;
   _HomeScreenPhase1CoordinatorBase({
     required super.collaborationLogic,
@@ -18,6 +20,7 @@ abstract class _HomeScreenPhase1CoordinatorBase
     required super.deepLinks,
     required super.captureScreen,
     required super.tap,
+    required this.userInformation,
   }) : super(widgets: widgets);
 
   @override
@@ -63,7 +66,9 @@ abstract class _HomeScreenPhase1CoordinatorBase
           });
         }
         ifTouchIsNotDisabled(() {
-          widgets.onTap(p0);
+          widgets.onTap(p0,
+              onFlowCompleted: () async => await userInformation
+                  .updateHasGoneThroughInvitationFlow(true),);
         });
       });
 }

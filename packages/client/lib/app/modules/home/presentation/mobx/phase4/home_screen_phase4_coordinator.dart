@@ -61,6 +61,7 @@ abstract class _HomeScreenPhase4CoordinatorBase
         setDisableAllTouchFeedback(false);
       },
     );
+    swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged);
   }
 
   @action

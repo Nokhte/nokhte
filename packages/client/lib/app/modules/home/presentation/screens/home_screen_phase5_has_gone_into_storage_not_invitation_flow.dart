@@ -14,7 +14,7 @@ class HomeScreenPhase5HasGoneIntoStorageNoInvitationFlow
           gestureCrossConfig: GestureCrossConfiguration(
             top: Right(
               NokhteGradientConfig(
-                gradientType: NokhteGradientTypes.oceanDive,
+                gradientType: NokhteGradientTypes.invertedShore,
               ),
             ),
             right: Right(

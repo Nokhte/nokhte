@@ -13,9 +13,11 @@ export 'types/types.dart';
 
 class BeachWaves extends HookWidget {
   final BeachWavesStore store;
+  final SandTypes sandType;
   const BeachWaves({
     super.key,
     required this.store,
+    this.sandType = SandTypes.home,
   });
 
   @override
@@ -33,6 +35,7 @@ class BeachWaves extends HookWidget {
                 store.setCurrentAnimationValues(currentAnimationValues);
                 return CustomPaint(
                   painter: BeachWavesPainter(
+                    sandType: sandType,
                     waterValue: currentAnimationValues.first,
                     shouldPaintSand: store.shouldPaintSandOnCurrent,
                     colorsList: [

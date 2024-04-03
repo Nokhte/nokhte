@@ -22,7 +22,7 @@ abstract class _TimesUpDynamicPointToTimesUpStartMovieStoreBase
 
   @override
   initMovie(List<ColorAndStop> param) {
-    final timesUpPhase1 = WaterColorsAndStops.timesUpPhase1;
+    const timesUpPhase1 = WaterColorsAndStops.timesUpPhase1;
     movie = TwoSecondBeachTransitionMovie.getMovie(param, timesUpPhase1);
     control = Control.playFromStart;
   }

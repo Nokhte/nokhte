@@ -34,6 +34,7 @@ abstract class _HomeScreenPhase4WidgetsCoordinatorBase
   @action
   constructor(Offset offset) {
     super.constructor(offset);
+    gestureCross.fadeIn();
     primarySmartText.setMessagesData(MessagesData.empty);
     initReactors();
   }

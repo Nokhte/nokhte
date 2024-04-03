@@ -34,6 +34,7 @@ abstract class _HomeScreenPhase3WidgetsCoordinatorBase
   @action
   constructor(Offset offset) {
     super.constructor(offset);
+    gestureCross.fadeIn();
     primarySmartText.setMessagesData(MessagesData.homeListHasDoneASession);
     primarySmartText.startRotatingText();
     initReactors();

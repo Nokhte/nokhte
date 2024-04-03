@@ -1,5 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
@@ -10,27 +10,38 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'collaboration_home_screen_widgets_coordinator.g.dart';
 
+// todo rename this to session sparker
 class CollaborationHomeScreenWidgetsCoordinator = _CollaborationHomeScreenWidgetsCoordinatorBase
     with _$CollaborationHomeScreenWidgetsCoordinator;
 
 abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
-  final BeachWavesStore beachWaves;
-  final GradientTreeNodeStore gradientTreeNode;
+  final BeachWavesStore primaryBeachWaves;
+  final BeachWavesStore secondaryBeachWaves;
   final SmartTextStore smartText;
-  final SmartTextStore secondaryErrorSmartText;
-  final SmartTextStore errorSmartText;
   final GestureCrossStore gestureCross;
+  final TouchRippleStore touchRipple;
 
   _CollaborationHomeScreenWidgetsCoordinatorBase({
-    required this.beachWaves,
+    required this.primaryBeachWaves,
+    required this.touchRipple,
+    required this.secondaryBeachWaves,
     required this.gestureCross,
-    required this.gradientTreeNode,
     required this.smartText,
-    required this.errorSmartText,
-    required this.secondaryErrorSmartText,
     required super.wifiDisconnectOverlay,
   });
+
+  @observable
+  bool showSecondaryBeachWaves = false;
+
+  @action
+  setShowSecondaryBeachWaves(bool value) => showSecondaryBeachWaves = value;
+
+  @observable
+  bool showQrCode = false;
+
+  @action
+  setShowQrCode(bool newVal) => showQrCode = newVal;
 
   @observable
   bool invitationIsSent = false;
@@ -47,48 +58,17 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
 
   @action
   constructor() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.staticOceanDive);
+    primaryBeachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
+    primaryBeachWaves.currentStore.callsOnCompleteTwice = true;
+    primaryBeachWaves.currentStore.initMovie(
+      const AnyToOnShoreParams(
+        startingColors: WaterColorsAndStops.oceanDiveWater,
+        endingColors: WaterColorsAndStops.invertedBeachWater,
+      ),
+    );
+    secondaryBeachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDive);
     gestureCross.setCollaborationHomeScreen();
-    smartText.setMessagesData(MessagesData.firstTimeCollaborationList);
-    gradientTreeNode.setWidgetVisibility(false);
-    errorSmartText.setMessagesData(MessagesData.empty);
-    secondaryErrorSmartText.setMessagesData(MessagesData.errorConfirmList);
-  }
-
-  @observable
-  bool isInErrorMode = false;
-
-  @action
-  setIsInErrorMode(bool value) => isInErrorMode = value;
-
-  @action
-  onError(String errorMessage) {
-    errorSmartText.reset();
-    secondaryErrorSmartText.reset();
-    errorSmartText.setMessagesData(MessagesData.getErrorList(errorMessage));
-    secondaryErrorSmartText.setMessagesData(MessagesData.errorConfirmList);
-    errorSmartText.startRotatingText();
-    secondaryErrorSmartText.startRotatingText();
-    gradientTreeNode.setWidgetVisibility(false);
-    smartText.setWidgetVisibility(false);
-    setIsInErrorMode(true);
-  }
-
-  @action
-  onErrorResolved() {
-    if (isInErrorMode) {
-      if (beachWaves.movieStatus == MovieStatus.finished) {
-        beachWaves.currentStore.setControl(Control.playReverse);
-        beachWaves.setMovieStatus(MovieStatus.inProgress);
-        gradientTreeNode.setWidgetVisibility(true);
-        errorSmartText.setWidgetVisibility(false);
-        secondaryErrorSmartText.setWidgetVisibility(false);
-        smartText.setWidgetVisibility(true);
-        gestureCross.fadeInTheCross();
-        gestureCross.fadeIn();
-        setIsInErrorMode(false);
-      }
-    }
+    smartText.setMessagesData(MessagesData.sessionSparkerList);
   }
 
   @action
@@ -110,68 +90,59 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
 
   @action
   invitationFlowConstructor() {
-    Timer.periodic(Seconds.get(0, milli: 100), (timer) {
-      if (!smartText.isPaused) {
-        smartText.startRotatingText();
-        timer.cancel();
-      }
-    });
+    // Timer.periodic(Seconds.get(0, milli: 100), (timer) {
+    //   if (!smartText.isPaused) {
+    //     smartText.startRotatingText();
+    //     timer.cancel();
+    //   }
+    // });
   }
 
   @action
   postInvitationFlowConstructor() {
-    Timer.periodic(Seconds.get(0, milli: 100), (timer) {
-      if (!smartText.isPaused) {
-        smartText.setCurrentIndex(1);
-        smartText.startRotatingText();
-        timer.cancel();
-      }
-    });
+    // Timer.periodic(Seconds.get(0, milli: 100), (timer) {
+    //   if (!smartText.isPaused) {
+    //     smartText.setCurrentIndex(1);
+    //     smartText.startRotatingText();
+    //     timer.cancel();
+    //   }
+    // });
   }
 
   @action
   onNokhteSessionLinkOpened() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.oceanDiveToVibrantBlueGradient);
-    beachWaves.currentStore.initMovie(NoParams());
+    primaryBeachWaves
+        .setMovieMode(BeachWaveMovieModes.oceanDiveToVibrantBlueGradient);
+    primaryBeachWaves.currentStore.initMovie(NoParams());
     gestureCross.toggleAll();
-    gradientTreeNode.setWidgetVisibility(false);
     smartText.setWidgetVisibility(false);
   }
 
   @action
   onSwipeDown() {
-    gradientTreeNode.setWidgetVisibility(false);
-    smartText.pause();
+    // smartText.pause();
     smartText.setWidgetVisibility(false);
     gestureCross.initMoveAndRegenerate(CircleOffsets.bottom);
-    beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
-    beachWaves.currentStore.initMovie(WaterColorsAndStops.oceanDiveWater);
+    primaryBeachWaves
+        .setMovieMode(BeachWaveMovieModes.invertedOnShoreToInvertedOceanDive);
+    primaryBeachWaves.currentStore
+        .initMovie(primaryBeachWaves.currentAnimationValues.first);
+    setShowQrCode(false);
   }
 
   @action
-  transitionToPoolFromError() {
-    setIsInErrorMode(false);
-    errorSmartText.setWidgetVisibility(false);
-    secondaryErrorSmartText.setWidgetVisibility(false);
-    Timer(Seconds.get(1), () {
-      Modular.to.navigate('/collaboration/pool');
-    });
+  onSwipeCoordinatesChanged(Offset offset) {
+    if (primaryBeachWaves.movieStatus != MovieStatus.finished ||
+        secondaryBeachWaves.movieStatus != MovieStatus.finished) {
+      touchRipple.onSwipe(offset);
+    }
   }
 
-  initReactors(Function onFlowCompleted, Function enterCollaboratorPool) {
-    smartTextReactor(onFlowCompleted);
-
+  initReactors() {
+    primaryBeachWavesMovieStatusReactor();
     invitationSendStatusReactor();
     centerCrossNokhteReactor();
   }
-
-  smartTextReactor(Function onFlowCompleted) =>
-      reaction((p0) => smartText.currentIndex, (p0) {
-        if (p0 == 1) {
-          gradientTreeNode.setWidgetVisibility(true);
-          onFlowCompleted();
-        }
-      });
 
   invitationSendStatusReactor() => reaction((p0) => invitationIsSent, (p0) {
         if (p0) {
@@ -187,21 +158,44 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
         }
       });
 
-  beachWavesMovieStatusReactor(Function onNavigationHome) =>
-      reaction((p0) => beachWaves.movieStatus, (p0) {
+  primaryBeachWavesMovieStatusReactor() =>
+      reaction((p0) => primaryBeachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          if (beachWaves.movieMode == BeachWaveMovieModes.anyToOnShore) {
-            onNavigationHome();
-          } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.oceanDiveToVibrantBlueGradient) {
-            if (beachWaves.currentControl == Control.playReverse) {
-              setIsInErrorMode(false);
-            } else {
-              if (!isInErrorMode) {
-                Modular.to.navigate('/collaboration/pool');
-              }
-            }
+          if (primaryBeachWaves.movieMode == BeachWaveMovieModes.anyToOnShore) {
+            primaryBeachWaves.setMovieMode(BeachWaveMovieModes.invertedOnShore);
+            primaryBeachWaves.currentStore.setControl(Control.playFromStart);
+            setShowQrCode(true);
+            smartText.startRotatingText();
+          } else if (primaryBeachWaves.movieMode ==
+              BeachWaveMovieModes.invertedOnShore) {
+            primaryBeachWaves.currentStore.setControl(Control.mirror);
+          } else if (primaryBeachWaves.movieMode ==
+              BeachWaveMovieModes.invertedOnShoreToInvertedOceanDive) {
+            setShowSecondaryBeachWaves(true);
+            secondaryBeachWaves.currentStore.callsOnCompleteTwice = false;
+            secondaryBeachWaves.currentStore.reverseMovie(0);
+          } else if (primaryBeachWaves.movieMode ==
+              BeachWaveMovieModes.invertedOnShoreToInvertedVibrantBlueGrad) {
+            Modular.to.navigate("/irl_nokhte_session/");
           }
+        }
+      });
+
+  @action
+  initTransition() {
+    primaryBeachWaves.setMovieMode(
+        BeachWaveMovieModes.invertedOnShoreToInvertedVibrantBlueGrad);
+    primaryBeachWaves.currentStore
+        .initMovie(primaryBeachWaves.currentAnimationValues.first);
+    setShowQrCode(false);
+    smartText.setWidgetVisibility(false);
+    gestureCross.fadeAllOut();
+  }
+
+  secondaryBeachWavesMovieStatusReactor(Function onNavigationHome) =>
+      reaction((p0) => secondaryBeachWaves.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished) {
+          onNavigationHome();
         }
       });
 }

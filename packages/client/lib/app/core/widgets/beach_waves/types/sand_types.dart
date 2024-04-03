@@ -1,0 +1,4 @@
+enum SandTypes {
+  home,
+  collaboration,
+}
