@@ -51,7 +51,6 @@ abstract class _HomeScreenPhase1WidgetsCoordinatorBase
 
   @action
   onSwipeUp() {
-    print("hi this registered");
     if (!touchIsDisabled) {
       if (primarySmartText.currentIndex.equals(3)) {
         centerInstructionalNokhte.moveUp();
@@ -84,7 +83,10 @@ abstract class _HomeScreenPhase1WidgetsCoordinatorBase
   }
 
   @action
-  onTap(Offset offset) {
+  onTap(
+    Offset offset, {
+    required Function onFlowCompleted,
+  }) async {
     if (!touchIsDisabled) {
       if (primarySmartText.currentIndex == 1) {
         setTouchIsDisabled(true);
@@ -112,6 +114,7 @@ abstract class _HomeScreenPhase1WidgetsCoordinatorBase
         beachWaves.currentStore.setControl(Control.mirror);
         nokhteBlur.reverse();
         touchRipple.onTap(offset);
+        await onFlowCompleted();
       }
     }
   }
