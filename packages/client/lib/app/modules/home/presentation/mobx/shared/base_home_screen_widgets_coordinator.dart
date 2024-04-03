@@ -198,7 +198,9 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
       if (beachWaves.movieStatus == MovieStatus.finished) {
         onErrorResolved();
         beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
-        beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
+        beachWaves.currentStore.initMovie(
+          AnyToOnShoreParams(startingColors: beachWaves.currentColorsAndStops),
+        );
         beachWaves.setMovieStatus(MovieStatus.inProgress);
         gestureCross.cross
             .setWidgetVisibility(gestureCross.cross.pastShowWidget);
