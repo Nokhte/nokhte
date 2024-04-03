@@ -11,8 +11,8 @@ class CollaborationWidgetsModule extends Module {
       ];
   @override
   void exportedBinds(Injector i) {
-    i.add<CollaborationHomeScreenWidgetsCoordinator>(
-      () => CollaborationHomeScreenWidgetsCoordinator(
+    i.add<NokhteSessionQrJoinWidgetsCoordinator>(
+      () => NokhteSessionQrJoinWidgetsCoordinator(
         touchRipple: TouchRippleStore(),
         gestureCross: Modular.get<GestureCrossStore>(),
         primaryBeachWaves: BeachWavesStore(),

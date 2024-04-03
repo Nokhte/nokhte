@@ -13,14 +13,14 @@ import 'package:nokhte/app/modules/collaboration/domain/domain.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 import 'package:nokhte_backend/edge_functions/edge_functions.dart';
-part 'collaboration_home_screen_coordinator.g.dart';
+part 'nokhte_session_qr_join_coordinator.g.dart';
 
-class CollaborationHomeScreenCoordinator = _CollaborationHomeScreenCoordinatorBase
-    with _$CollaborationHomeScreenCoordinator;
+class NokhteSessionQrJoinCoordinator = _NokhteSessionQrJoinCoordinatorBase
+    with _$NokhteSessionQrJoinCoordinator;
 
-abstract class _CollaborationHomeScreenCoordinatorBase
+abstract class _NokhteSessionQrJoinCoordinatorBase
     extends BaseHomeScreenRouterCoordinator with Store {
-  final CollaborationHomeScreenWidgetsCoordinator widgets;
+  final NokhteSessionQrJoinWidgetsCoordinator widgets;
   final UserInformationCoordinator userInformation;
   final SwipeDetector swipe;
   final TapDetector tap;
@@ -29,7 +29,7 @@ abstract class _CollaborationHomeScreenCoordinatorBase
   final CollaborationLogicCoordinator logic;
   final CaptureShareNokhteSessionInvitation captureShareNokhteSessionInvitation;
 
-  _CollaborationHomeScreenCoordinatorBase({
+  _NokhteSessionQrJoinCoordinatorBase({
     required this.widgets,
     required this.deepLinks,
     required this.userInformation,

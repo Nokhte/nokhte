@@ -8,9 +8,9 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
 
-class CollaborationHomeScreen extends HookWidget {
-  final CollaborationHomeScreenCoordinator coordinator;
-  const CollaborationHomeScreen({
+class NokhteSessionQrJoinScreen extends HookWidget {
+  final NokhteSessionQrJoinCoordinator coordinator;
+  const NokhteSessionQrJoinScreen({
     super.key,
     required this.coordinator,
   });

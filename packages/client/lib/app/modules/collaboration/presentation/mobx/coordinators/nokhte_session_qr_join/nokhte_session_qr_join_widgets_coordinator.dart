@@ -8,13 +8,12 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'collaboration_home_screen_widgets_coordinator.g.dart';
+part 'nokhte_session_qr_join_widgets_coordinator.g.dart';
 
-// todo rename this to session sparker
-class CollaborationHomeScreenWidgetsCoordinator = _CollaborationHomeScreenWidgetsCoordinatorBase
-    with _$CollaborationHomeScreenWidgetsCoordinator;
+class NokhteSessionQrJoinWidgetsCoordinator = _NokhteSessionQrJoinWidgetsCoordinatorBase
+    with _$NokhteSessionQrJoinWidgetsCoordinator;
 
-abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
+abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final BeachWavesStore primaryBeachWaves;
   final BeachWavesStore secondaryBeachWaves;
@@ -22,7 +21,7 @@ abstract class _CollaborationHomeScreenWidgetsCoordinatorBase
   final GestureCrossStore gestureCross;
   final TouchRippleStore touchRipple;
 
-  _CollaborationHomeScreenWidgetsCoordinatorBase({
+  _NokhteSessionQrJoinWidgetsCoordinatorBase({
     required this.primaryBeachWaves,
     required this.touchRipple,
     required this.secondaryBeachWaves,
