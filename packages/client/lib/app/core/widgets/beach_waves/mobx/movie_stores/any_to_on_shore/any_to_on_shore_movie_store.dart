@@ -8,7 +8,7 @@ class AnyToOnShoreMovieStore = _AnyToOnShoreMovieStoreBase
     with _$AnyToOnShoreMovieStore;
 
 abstract class _AnyToOnShoreMovieStoreBase
-    extends BaseBeachWaveMovieStore<List<ColorAndStop>> with Store {
+    extends BaseBeachWaveMovieStore<AnyToOnShoreParams> with Store {
   _AnyToOnShoreMovieStoreBase()
       : super(
           shouldPaintSand: AnyToShoreMovie.shouldPaintSand,
@@ -17,8 +17,9 @@ abstract class _AnyToOnShoreMovieStoreBase
   }
   @override
   @action
-  initMovie(List<ColorAndStop> params) {
-    movie = AnyToShoreMovie.getMovie(params);
+  initMovie(AnyToOnShoreParams params) {
+    movie = AnyToShoreMovie.getMovie(params.startingColors,
+        endingColors: params.endingColors);
     control = Control.playFromStart;
   }
 }
