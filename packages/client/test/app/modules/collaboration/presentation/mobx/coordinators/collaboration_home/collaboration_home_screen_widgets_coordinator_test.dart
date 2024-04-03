@@ -1,12 +1,10 @@
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobx/mobx.dart' hide when;
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/mobx/mobx.dart';
 import '../../../../../shared/shared_mocks.mocks.dart';
-import './collaboration_home_screen_widgets_coordinator_test.mocks.dart';
 
 @GenerateNiceMocks([
   MockSpec<GradientTreeNodeStore>(),
@@ -16,13 +14,12 @@ void main() {
 
   setUp(() {
     testStore = CollaborationHomeScreenWidgetsCoordinator(
-      secondaryErrorSmartText: SmartTextStore(),
-      errorSmartText: SmartTextStore(),
-      beachWaves: BeachWavesStore(),
-      gradientTreeNode: MockGradientTreeNodeStore(),
+      primaryBeachWaves: BeachWavesStore(),
+      secondaryBeachWaves: BeachWavesStore(),
       smartText: MockSmartTextStore(),
       wifiDisconnectOverlay: MockWifiDisconnectOverlayStore(),
       gestureCross: MockGestureCrossStore(),
+      touchRipple: TouchRippleStore(),
     );
   });
 
@@ -45,28 +42,11 @@ void main() {
 
   test("constructor", () {
     testStore.constructor();
-    expect(testStore.beachWaves.movieMode, BeachWaveMovieModes.staticOceanDive);
+    expect(testStore.primaryBeachWaves.movieMode,
+        BeachWaveMovieModes.anyToOnShore);
     verify(testStore.gestureCross.setCollaborationHomeScreen());
-    verify(testStore.smartText
-        .setMessagesData(MessagesData.firstTimeCollaborationList));
-    verify(testStore.gradientTreeNode.setWidgetVisibility(false));
-  });
-
-  group("smartTextDependent", () {
-    setUp(() {
-      when(testStore.smartText.messagesData).thenReturn(
-          ObservableList.of(MessagesData.firstTimeCollaborationList));
-    });
-    test("onResumed", () {
-      testStore.onResumed();
-      verify(testStore.smartText.reset());
-      verify(testStore.smartText.startRotatingText());
-    });
-
-    test("onInactive", () {
-      testStore.onInactive();
-      verify(testStore.smartText.pause());
-    });
+    verify(
+        testStore.smartText.setMessagesData(MessagesData.sessionSparkerList));
   });
 
   test("invitationFlowConstructor", () {
@@ -85,18 +65,11 @@ void main() {
   });
 
   test("onNokhteSessionLinkOpened", () {
-    testStore.beachWaves.setMovieMode(BeachWaveMovieModes.oceanDiveToTimesUp);
+    testStore.primaryBeachWaves
+        .setMovieMode(BeachWaveMovieModes.oceanDiveToTimesUp);
     testStore.onNokhteSessionLinkOpened();
-    expect(testStore.beachWaves.movieMode,
+    expect(testStore.primaryBeachWaves.movieMode,
         BeachWaveMovieModes.oceanDiveToVibrantBlueGradient);
     verify(testStore.gestureCross.toggleAll());
-  });
-
-  test("onSwipeDown", () {
-    testStore.onSwipeDown();
-    verify(testStore.smartText.pause());
-    verify(testStore.smartText.setWidgetVisibility(false));
-    verify(testStore.gestureCross.initMoveAndRegenerate(CircleOffsets.bottom));
-    expect(testStore.beachWaves.movieMode, BeachWaveMovieModes.anyToOnShore);
   });
 }

@@ -57,6 +57,7 @@ abstract class _GetUserInfoStoreBase
       wantsToRepeatInvitationFlow =
           journeyInfoEntity.wantsToRepeatInvitationFlow;
       hasDoneASession = journeyInfoEntity.hasCompletedNoktheSession;
+      userUID = journeyInfoEntity.userUID;
     });
   }
 

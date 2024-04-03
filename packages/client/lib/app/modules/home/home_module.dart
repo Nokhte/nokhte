@@ -43,6 +43,7 @@ class HomeModule extends Module {
     );
     i.add<HomeScreenPhase1Coordinator>(
       () => HomeScreenPhase1Coordinator(
+        userInformation: Modular.get<UserInformationCoordinator>(),
         tap: TapDetector(),
         collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),

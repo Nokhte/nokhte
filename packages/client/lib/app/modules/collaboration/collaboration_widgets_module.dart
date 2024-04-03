@@ -11,20 +11,12 @@ class CollaborationWidgetsModule extends Module {
       ];
   @override
   void exportedBinds(Injector i) {
-    i.add<GradientTreeNodeStore>(
-      () => GradientTreeNodeStore(),
-    );
-    i.add<WaitingTextStore>(
-      () => WaitingTextStore(),
-    );
-
     i.add<CollaborationHomeScreenWidgetsCoordinator>(
       () => CollaborationHomeScreenWidgetsCoordinator(
-        secondaryErrorSmartText: SmartTextStore(),
-        errorSmartText: SmartTextStore(),
+        touchRipple: TouchRippleStore(),
         gestureCross: Modular.get<GestureCrossStore>(),
-        beachWaves: BeachWavesStore(),
-        gradientTreeNode: Modular.get<GradientTreeNodeStore>(),
+        primaryBeachWaves: BeachWavesStore(),
+        secondaryBeachWaves: BeachWavesStore(),
         smartText: SmartTextStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
       ),
@@ -34,7 +26,7 @@ class CollaborationWidgetsModule extends Module {
         beachWaves: BeachWavesStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         gestureCross: Modular.get<GestureCrossStore>(),
-        waitingText: Modular.get<WaitingTextStore>(),
+        waitingText: WaitingTextStore(),
       ),
     );
   }

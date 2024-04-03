@@ -13,7 +13,7 @@ class HomeScreenPhase3HasDoneSession extends BaseHomeScreen {
           gestureCrossConfig: GestureCrossConfiguration(
             top: Right(
               NokhteGradientConfig(
-                gradientType: NokhteGradientTypes.oceanDive,
+                gradientType: NokhteGradientTypes.invertedShore,
               ),
             ),
             right: Right(
