@@ -45,6 +45,7 @@ dependencies:
   path_provider: ^2.1.1
   permission_handler: ^11.0.0
   posthog_flutter: ^4.2.0
+  qr_flutter: ^4.1.0
   record: ^5.0.1
   record_darwin: ^1.0.1-beta.1
   sensors_plus: ^4.0.2
