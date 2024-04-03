@@ -82,7 +82,9 @@ abstract class _CollaborationHomeScreenCoordinatorBase
 
   swipeCoordinatesReactor() =>
       reaction((p0) => swipe.mostRecentCoordinates.last, (p0) {
-        widgets.onSwipeCoordinatesChanged(p0);
+        if (widgets.primaryBeachWaves.movieStatus != MovieStatus.finished) {
+          widgets.onSwipeCoordinatesChanged(p0);
+        }
       });
 
   initReactors() {
