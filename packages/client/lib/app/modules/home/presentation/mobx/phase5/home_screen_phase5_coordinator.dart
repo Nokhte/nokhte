@@ -59,6 +59,7 @@ abstract class _HomeScreenPhase5CoordinatorBase
       },
       onSubsequentStorageEntry: onSubsequentStorageEntry,
     );
+    swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged);
   }
 
   @action
