@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/deep_links/constants/constants.dart';
@@ -55,50 +54,21 @@ abstract class _CollaborationHomeScreenCoordinatorBase
   toggleIsNavigatingAway() => isNavigatingAway = !isNavigatingAway;
 
   @action
-  onResumed() {
-    ifTouchIsNotDisabled(() {
-      widgets.onResumed();
-    });
-  }
-
-  @action
-  onInactive() {
-    ifTouchIsNotDisabled(() {
-      widgets.onInactive();
-    });
-  }
-
-  @action
   constructor() async {
-    deepLinks.listenForOpenedDeepLinkStore(NoParams());
-    setAdditionalRoutingData(Modular.args.data);
     widgets.constructor();
-    widgets.initReactors(
-      onFlowCompleted,
-      onEnterCollaboratorPool,
-    );
+    widgets.initReactors();
     initReactors();
-    await userInformation.getUserInfoStore(NoParams());
-    if (userInformation.getUserInfoStore.hasGoneThroughInvitationFlow) {
-      if (additionalRoutingData.isEmpty) {
-        widgets.postInvitationFlowConstructor();
-      } else {
-        if (additionalRoutingData[CollaborationCodeKeys.hasSentAnInvitation] ==
-            true) {
-          setDisableAllTouchFeedback(true);
-        }
-      }
-    } else {
-      widgets.invitationFlowConstructor();
-    }
     await deepLinks.getDeepLink(DeepLinkTypes.nokhteSession);
+    await userInformation.getUserInfoStore(NoParams());
+    await logic.enter(
+      EnterCollaboratorPoolParams(
+        collaboratorUID: userInformation.getUserInfoStore.userUID,
+        invitationType: InvitationType.nokhteSession,
+      ),
+    );
     await captureScreen(Screens.collaborationHome);
+    logic.listenToNokhteSearch();
   }
-
-  @action
-  onGradientTreeNodeTap() => ifTouchIsNotDisabled(() {
-        deepLinks.share(deepLinks.link);
-      });
 
   @action
   onFlowCompleted() => userInformation.updateHasGoneThroughInvitationFlow(true);
@@ -110,12 +80,15 @@ abstract class _CollaborationHomeScreenCoordinatorBase
         invitationType: InvitationType.nokhteSession,
       ));
 
+  swipeCoordinatesReactor() =>
+      reaction((p0) => swipe.mostRecentCoordinates.last, (p0) {
+        widgets.onSwipeCoordinatesChanged(p0);
+      });
+
   initReactors() {
+    swipeCoordinatesReactor();
     swipeReactor();
-    shareInvitationReactor();
-    deepLinksReactor();
-    gradientTreeNodeTapReactor(onGradientTreeNodeTap);
-    widgets.beachWavesMovieStatusReactor(onAnimationComplete);
+    widgets.secondaryBeachWavesMovieStatusReactor(onAnimationComplete);
     widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
@@ -128,50 +101,16 @@ abstract class _CollaborationHomeScreenCoordinatorBase
       },
     );
     collaboratorPoolEntryErrorReactor();
-    tapReactor();
+    deepLinkAvailabilityReactor();
+    nokhteSearchStatusReactor();
   }
 
-  deepLinksReactor() => reaction(
-      (p0) => deepLinks.listenForOpenedDeepLinkStore.path,
-      (p0) => onDeepLinkOpened(p0));
+  @observable
+  String link = '';
 
-  @action
-  onDeepLinkOpened(String path) async {
-    if (path == '/collaboration/') {
-      setAdditionalRoutingData(
-        deepLinks.listenForOpenedDeepLinkStore.additionalMetadata,
-      );
-      if (deepLinks.listenForOpenedDeepLinkStore
-              .additionalMetadata["isTheUsersInvitation"] !=
-          null) {
-        if (!isInErrorMode) {
-          widgets.onNokhteSessionLinkOpened();
-          await onEnterCollaboratorPool();
-          deepLinks.reset();
-        } else {
-          await onEnterCollaboratorPool();
-          widgets.transitionToPoolFromError();
-        }
-      }
-    }
-  }
-
-  shareInvitationReactor() => reaction(
-      (p0) => deepLinks.isShared, (p0) async => await onInvitationShared(p0));
-
-  @action
-  onInvitationShared(bool isShared) async {
-    if (isShared) {
-      await captureShareNokhteSessionInvitation(NoParams());
-      await getUserInfo(NoParams());
-      if (additionalRoutingData.isNotEmpty) {
-        await onEnterCollaboratorPool();
-      } else {
-        widgets.toggleInvitationIsSent();
-      }
-      userInformation.updateHasSentAnInvitation(true);
-    }
-  }
+  deepLinkAvailabilityReactor() => reaction((p0) => deepLinks.link, (p0) async {
+        link = p0;
+      });
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) => onSwipe(p0));
 
@@ -180,10 +119,12 @@ abstract class _CollaborationHomeScreenCoordinatorBase
     if (!isNavigatingAway) {
       switch (direction) {
         case GestureDirections.down:
-          ifTouchIsNotDisabled(() {
+          ifTouchIsNotDisabled(() async {
             toggleIsNavigatingAway();
             widgets.onSwipeDown();
             setDisableAllTouchFeedback(true);
+            await logic.exit();
+            await logic.dispose();
           });
         default:
           break;
@@ -196,27 +137,16 @@ abstract class _CollaborationHomeScreenCoordinatorBase
         if (p0.isNotEmpty) {
           setDisableAllTouchFeedback(true);
           setIsInErrorMode(true);
-          widgets.onError(p0);
           deepLinks.reset();
           logic.resetErrorMessage();
         }
       });
 
-  tapReactor() => reaction((p0) => tap.tapCount, (p0) {
-        print("tap $p0");
-        if (isInErrorMode) {
-          setIsInErrorMode(false);
-          widgets.onErrorResolved();
+  nokhteSearchStatusReactor() =>
+      reaction((p0) => logic.hasFoundNokhteSession, (p0) async {
+        if (p0) {
+          await logic.dispose();
+          widgets.initTransition();
         }
       });
-
-  gradientTreeNodeTapReactor(Function onGradientTreeNodeTap) =>
-      reaction((p0) => widgets.gradientTreeNode.tapCount, (p0) {
-        ifTouchIsNotDisabled(() async {
-          await onGradientTreeNodeTap();
-        });
-      });
-
-  @override
-  List<Object> get props => [];
 }
