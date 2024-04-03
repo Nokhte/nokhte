@@ -21,13 +21,28 @@ abstract class _OnShoreToOceanDiveMovieStoreBase
   @override
   @action
   initMovie(double startingWaterPosition) {
+    callsOnCompleteTwice = true;
     setMovie(
       OnShoreToAny.getMovie(
         startingWaterMovement: startingWaterPosition,
-        endingColors: WaterColorsAndStops.oceanDiveWater,
+        endingColors: WaterColorsAndStops.invertedOceanDiveWater,
       ),
     );
     setControl(Control.playFromStart);
+    setMovieStatus(MovieStatus.inProgress);
+  }
+
+  @action
+  @override
+  reverseMovie(params) {
+    callsOnCompleteTwice = false;
+    setMovie(
+      OnShoreToAny.getMovie(
+        startingWaterMovement: -10,
+        endingColors: WaterColorsAndStops.oceanDiveWater,
+      ),
+    );
+    setControl(Control.playReverseFromEnd);
     setMovieStatus(MovieStatus.inProgress);
   }
 }
