@@ -1,33 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class BeachWavesPainter extends CustomPainter {
   final double waterValue;
   final List<Color> colorsList;
   final List<double> stopsList;
   final bool shouldPaintSand;
+  final SandTypes sandType;
 
   BeachWavesPainter({
     required this.waterValue,
     required this.colorsList,
     required this.stopsList,
     required this.shouldPaintSand,
+    required this.sandType,
   });
 
   paintSand(Canvas canvas, Size size) {
-    final sandGrandient = Paint()
-      ..shader = const LinearGradient(
-        colors: [
+    final sandGrandient = Paint();
+    List<Color> colors = [];
+    List<double> stops = [];
+    switch (sandType) {
+      case SandTypes.home:
+        colors = const [
           Color(0xFFD2B48C),
           Color(0xFF8B5E3C),
-        ],
-        begin: Alignment.bottomCenter,
-        end: Alignment.topCenter,
-      ).createShader(
-          Rect.fromLTWH(0, size.height * 0.75, size.width, size.height * 0.25));
-
+        ];
+        stops = [0, .3];
+      case SandTypes.collaboration:
+        colors = const [
+          Color(0xFFFFE6C4),
+          Color(0xFFFFBC78),
+        ];
+        stops = [0, .2];
+    }
+    sandGrandient.shader = LinearGradient(
+      colors: colors,
+      stops: stops,
+      begin: Alignment.bottomCenter,
+      end: Alignment.topCenter,
+    ).createShader(Rect.fromLTWH(0, 0, size.width, size.height));
+    // break;
     canvas.drawRect(Offset.zero & size, sandGrandient);
-    //
   }
 
   paintWater(Canvas canvas, Size size) {
