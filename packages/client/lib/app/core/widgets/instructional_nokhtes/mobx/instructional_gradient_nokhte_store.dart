@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:ui';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/instructional_nokhtes/instructional_nokhtes.dart';
@@ -13,7 +12,8 @@ class InstructionalGradientNokhteStore = _InstructionalGradientNokhteStoreBase
     with _$InstructionalGradientNokhteStore;
 
 abstract class _InstructionalGradientNokhteStoreBase
-    extends BaseCustomAnimatedWidgetStore<NoParams> with Store {
+    extends BaseCustomAnimatedWidgetStore<InstructionalGradientMovieParams>
+    with Store {
   _InstructionalGradientNokhteStoreBase() {
     setWidgetVisibility(false);
     setMovie(
@@ -33,31 +33,18 @@ abstract class _InstructionalGradientNokhteStoreBase
     );
   }
 
-  @action
-  prepareInvertedBeachWave(Offset position) {
-    setMovieStatus(MovieStatus.inProgress);
-    center = position;
-    setMovie(InvertedBeachWavesToTopMovie.getMovie(position));
-  }
-
   @override
   @action
   initMovie(params) {
+    setMovie(
+      InstructionalGradientNokhteMovie.getMovie(
+        params.center,
+        position: params.position,
+        colorway: params.colorway,
+        direction: params.direction,
+      ),
+    );
     setMovieStatus(MovieStatus.inProgress);
-    setControl(Control.playFromStart);
-  }
-
-  @override
-  @action
-  reverseMovie(params) {
-    setMovieStatus(MovieStatus.inProgress);
-    setControl(Control.playReverseFromEnd);
-  }
-
-  @action
-  moveBack() {
-    setMovieStatus(MovieStatus.inProgress);
-    setMovie(MoveInvertedBeachWavesToCross.getMovie(center));
     setControl(Control.playFromStart);
   }
 }
