@@ -55,9 +55,14 @@ abstract class _TouchRippleStoreBase extends BaseCustomAnimatedWidgetStore
   onTap(
     Offset position, {
     bool adjustColorBasedOnPosition = false,
+    Color overridedColor = Colors.transparent,
   }) {
     currentPosition = position;
     Color currentColor = Colors.white;
+
+    if (overridedColor != Colors.transparent) {
+      currentColor = overridedColor;
+    }
     if (adjustColorBasedOnPosition) {
       currentColor = adjustColor();
     }
