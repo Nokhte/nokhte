@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class CircleOffsets {
-  static Offset get center => const Offset(35, 35);
+  static const Offset center = Offset(35, 35);
 
-  static Offset get right => const Offset(60, 35);
-  static Offset get left => const Offset(10, 35);
+  static const Offset right = Offset(60, 35);
+  static const Offset left = Offset(10, 35);
 
-  static Offset get top => const Offset(35, 9);
-  static Offset get bottom => const Offset(35, 60);
+  static const Offset top = Offset(35, 9);
+  static const Offset bottom = Offset(35, 60);
 
-  static List<Offset> get directions => [top, bottom, left, right];
+  static const List<Offset> directions = [top, bottom, left, right];
 }
