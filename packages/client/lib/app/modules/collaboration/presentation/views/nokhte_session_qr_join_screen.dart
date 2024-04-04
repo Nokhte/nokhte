@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -18,10 +17,10 @@ class NokhteSessionQrJoinScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final size = useSquareSize(relativeLength: .20);
-    final width = useFullScreenSize().width;
     final height = useFullScreenSize().height;
+    final center = useCenterOffset();
     useEffect(() {
-      coordinator.constructor();
+      coordinator.constructor(center);
       return null;
     }, []);
 
@@ -54,35 +53,28 @@ class NokhteSessionQrJoinScreen extends HookWidget {
                   ),
                 ),
                 FullScreen(
+                  child: NokhteBlur(
+                    store: coordinator.widgets.nokhteBlur,
+                  ),
+                ),
+                FullScreen(
                   child: TouchRipple(
                     store: coordinator.widgets.touchRipple,
                   ),
                 ),
-                AnimatedOpacity(
-                  opacity: useWidgetOpacity(coordinator.widgets.showQrCode),
-                  duration: Seconds.get(1),
-                  child: Padding(
-                    padding: EdgeInsets.only(bottom: height * .10),
-                    child: Center(
-                      child: QrImageView(
-                        data: coordinator.deepLinks.link,
-                        size: width * .5,
-                        dataModuleStyle: const QrDataModuleStyle(
-                          color: Colors.white,
-                          // dataModuleShape: QrDataModuleShape.circle,
-                          dataModuleShape: QrDataModuleShape.square,
-                        ),
-                        eyeStyle: const QrEyeStyle(
-                            color: Colors.white, eyeShape: QrEyeShape.square),
-                      ),
-                    ),
-                  ),
+                NokhteQrCode(
+                  store: coordinator.widgets.qrCode,
                 ),
                 Center(
                   child: SmartText(
                     store: coordinator.widgets.smartText,
-                    topPadding: height * .2,
                     opacityDuration: Seconds.get(1),
+                    topPadding:
+                        height * coordinator.widgets.smartTextTopPaddingScalar,
+                    bottomPadding: height *
+                        coordinator.widgets.smartTextBottomPaddingScalar,
+                    subTextPadding:
+                        coordinator.widgets.smartTextSubMessagePaddingScalar,
                   ),
                 ),
                 GestureCross(
@@ -95,6 +87,12 @@ class NokhteSessionQrJoinScreen extends HookWidget {
                   ),
                   size: size,
                   store: coordinator.widgets.gestureCross,
+                ),
+                CenterInstructionalNokhte(
+                  store: coordinator.widgets.centerInstructionalNokhte,
+                ),
+                InstructionalGradientNokhte(
+                  store: coordinator.widgets.instructionalGradientNokhte,
                 ),
                 WifiDisconnectOverlay(
                   store: coordinator.widgets.wifiDisconnectOverlay,

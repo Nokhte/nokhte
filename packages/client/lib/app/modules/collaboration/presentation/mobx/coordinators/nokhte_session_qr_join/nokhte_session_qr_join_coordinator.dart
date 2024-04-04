@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
+import 'dart:ui';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/deep_links/constants/constants.dart';
@@ -54,8 +55,8 @@ abstract class _NokhteSessionQrJoinCoordinatorBase
   toggleIsNavigatingAway() => isNavigatingAway = !isNavigatingAway;
 
   @action
-  constructor() async {
-    widgets.constructor();
+  constructor(Offset center) async {
+    widgets.constructor(center);
     widgets.initReactors();
     initReactors();
     await deepLinks.getDeepLink(DeepLinkTypes.nokhteSession);
@@ -73,6 +74,12 @@ abstract class _NokhteSessionQrJoinCoordinatorBase
   @action
   onFlowCompleted() => userInformation.updateHasGoneThroughInvitationFlow(true);
 
+  deepLinkReactor() => reaction((p0) => deepLinks.link, (p0) {
+        if (p0.isNotEmpty) {
+          widgets.qrCode.setQrCodeData(p0);
+        }
+      });
+
   @action
   onEnterCollaboratorPool() => logic.enter(EnterCollaboratorPoolParams(
         collaboratorUID: additionalRoutingData["deepLinkUID"] ??
@@ -82,12 +89,13 @@ abstract class _NokhteSessionQrJoinCoordinatorBase
 
   swipeCoordinatesReactor() =>
       reaction((p0) => swipe.mostRecentCoordinates.last, (p0) {
-        if (widgets.primaryBeachWaves.movieStatus != MovieStatus.finished) {
+        ifTouchIsNotDisabled(() {
           widgets.onSwipeCoordinatesChanged(p0);
-        }
+        });
       });
 
   initReactors() {
+    deepLinkReactor();
     swipeCoordinatesReactor();
     swipeReactor();
     widgets.secondaryBeachWavesMovieStatusReactor(onAnimationComplete);
@@ -95,24 +103,15 @@ abstract class _NokhteSessionQrJoinCoordinatorBase
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
-        widgets.onResumed();
       },
       onDisconnected: () {
-        widgets.onInactive();
         setDisableAllTouchFeedback(true);
       },
     );
     collaboratorPoolEntryErrorReactor();
-    deepLinkAvailabilityReactor();
     nokhteSearchStatusReactor();
+    tapReactor();
   }
-
-  @observable
-  String link = '';
-
-  deepLinkAvailabilityReactor() => reaction((p0) => deepLinks.link, (p0) async {
-        link = p0;
-      });
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) => onSwipe(p0));
 
@@ -122,17 +121,24 @@ abstract class _NokhteSessionQrJoinCoordinatorBase
       switch (direction) {
         case GestureDirections.down:
           ifTouchIsNotDisabled(() async {
-            toggleIsNavigatingAway();
-            widgets.onSwipeDown();
-            setDisableAllTouchFeedback(true);
-            await logic.exit();
-            await logic.dispose();
+            widgets.onSwipeDown(() async {
+              toggleIsNavigatingAway();
+              await logic.exit();
+              await logic.dispose();
+              setDisableAllTouchFeedback(true);
+            });
           });
         default:
           break;
       }
     }
   }
+
+  tapReactor() => reaction((p0) => tap.currentTapPosition, (p0) {
+        ifTouchIsNotDisabled(() {
+          widgets.onTap(p0);
+        });
+      });
 
   collaboratorPoolEntryErrorReactor() =>
       reaction((p0) => logic.errorMessage, (p0) {
