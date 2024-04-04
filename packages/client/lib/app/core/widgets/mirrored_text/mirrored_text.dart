@@ -34,7 +34,7 @@ class MirroredText extends HookWidget {
                 Center(
                   child: SmartText(
                     store: store.secondaryUpsideDownText,
-                    topPadding: height * .8,
+                    topPadding: height * .29,
                     bottomPadding: 0,
                     opacityDuration: Seconds.get(1),
                   ),
@@ -52,7 +52,7 @@ class MirroredText extends HookWidget {
           Center(
             child: SmartText(
               store: store.secondaryRightSideUpText,
-              topPadding: height * .86,
+              topPadding: height * .26,
               bottomPadding: 0,
               opacityDuration: Seconds.get(1),
             ),
