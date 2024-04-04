@@ -41,6 +41,7 @@ class IrlNokhteSessionModule extends Module {
     );
     i.add<IrlNokhteSessionSpeakingInstructionsCoordinator>(
       () => IrlNokhteSessionSpeakingInstructionsCoordinator(
+        hold: HoldDetector(),
         presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<

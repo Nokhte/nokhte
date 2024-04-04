@@ -26,28 +26,31 @@ class IrlNokhteSessionSpeakingInstructionsScreen extends HookWidget {
       resizeToAvoidBottomInset: false,
       body: Tap(
         store: coordinator.tap,
-        child: MultiHitStack(
-          children: [
-            FullScreen(
-              child: BeachWaves(
-                store: coordinator.widgets.beachWaves,
+        child: Hold(
+          store: coordinator.hold,
+          child: MultiHitStack(
+            children: [
+              FullScreen(
+                child: BeachWaves(
+                  store: coordinator.widgets.beachWaves,
+                ),
               ),
-            ),
-            MirroredText(
-              store: coordinator.widgets.mirroredText,
-            ),
-            FullScreen(
-              child: TouchRipple(
-                store: coordinator.widgets.touchRipple,
+              MirroredText(
+                store: coordinator.widgets.mirroredText,
               ),
-            ),
-            CollaboratorPresenceIncidentsOverlay(
-              store: coordinator.presence.incidentsOverlayStore,
-            ),
-            WifiDisconnectOverlay(
-              store: coordinator.widgets.wifiDisconnectOverlay,
-            ),
-          ],
+              FullScreen(
+                child: TouchRipple(
+                  store: coordinator.widgets.touchRipple,
+                ),
+              ),
+              CollaboratorPresenceIncidentsOverlay(
+                store: coordinator.presence.incidentsOverlayStore,
+              ),
+              WifiDisconnectOverlay(
+                store: coordinator.widgets.wifiDisconnectOverlay,
+              ),
+            ],
+          ),
         ),
       ),
       // ),

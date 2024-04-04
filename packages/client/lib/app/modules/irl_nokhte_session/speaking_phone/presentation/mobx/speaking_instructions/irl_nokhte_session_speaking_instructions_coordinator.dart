@@ -15,6 +15,7 @@ class IrlNokhteSessionSpeakingInstructionsCoordinator = _IrlNokhteSessionSpeakin
 abstract class _IrlNokhteSessionSpeakingInstructionsCoordinatorBase
     extends BaseCoordinator with Store {
   final TapDetector tap;
+  final HoldDetector hold;
   final IrlNokhteSessionSpeakingInstructionsWidgetsCoordinator widgets;
   final IrlNokhteSessionPresenceCoordinator presence;
   final GetIrlNokhteSessionMetadataStore sessionMetadata;
@@ -24,6 +25,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsCoordinatorBase
     required this.widgets,
     required this.tap,
     required this.presence,
+    required this.hold,
   }) : sessionMetadata = presence.getSessionMetadataStore;
 
   @action
