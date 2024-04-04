@@ -34,6 +34,14 @@ abstract class _BorderGlowStoreBase
   }
 
   @action
+  initWhiteOut() {
+    isGlowingUp = true;
+    setMovie(BorderGlowWhiteOutMovie.movie);
+    setMovieStatus(MovieStatus.inProgress);
+    setControl(Control.playFromStart);
+  }
+
+  @action
   initGlowDown() {
     isGlowingUp = false;
     setMovieStatus(MovieStatus.inProgress);
@@ -48,6 +56,9 @@ abstract class _BorderGlowStoreBase
 
   @observable
   Control altControl = Control.stop;
+
+  @action
+  setAltControl(Control newVal) => altControl = newVal;
 
   @observable
   MovieTween altMovie = BorderGlowDownMovie.getMovie();
