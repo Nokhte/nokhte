@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -71,6 +72,19 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
             MirroredTextOrientations.upsideDown,
           ),
         );
+      case MirroredTextContentOptions.speakLessWriteMore:
+        primaryRightSideUpText
+            .setMessagesData(MessagesData.speakLessWriteMorePrimary);
+        primaryUpsideDownText
+            .setMessagesData(MessagesData.speakLessWriteMorePrimary);
+        secondaryRightSideUpText
+            .setMessagesData(MessagesData.speakLessWriteMoreSecondary);
+        secondaryUpsideDownText
+            .setMessagesData(MessagesData.speakLessWriteMoreSecondary);
+        primaryRightSideUpText.setStaticAltMovie(Colors.black);
+        secondaryRightSideUpText.setStaticAltMovie(Colors.black);
+        primaryUpsideDownText.setStaticAltMovie(Colors.black);
+        secondaryUpsideDownText.setStaticAltMovie(Colors.black);
       default:
         break;
     }
@@ -122,6 +136,11 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
     primaryUpsideDownText.setWidgetVisibility(isVisible);
     secondaryUpsideDownText.setWidgetVisibility(isVisible);
   }
+
+  @computed
+  bool get isReadyToBeDismissed =>
+      primaryRightSideUpText.currentIndex % 2 == 1 &&
+      primaryUpsideDownText.currentIndex % 2 == 1;
 
   @computed
   String get primaryRightSideUpCurrentMessage =>
