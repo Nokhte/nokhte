@@ -20,11 +20,13 @@ abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
   final IrlNokhteSessionPresenceCoordinator presence;
   final GetIrlNokhteSessionMetadataStore sessionMetadata;
   final SwipeDetector swipe;
+  final TapDetector tap;
   final GyroscopicCoordinator gyroscopic;
 
   _IrlNokhteSessionNotesCoordinatorBase({
     required this.widgets,
     required super.captureScreen,
+    required this.tap,
     required this.presence,
     required this.swipe,
     required this.gyroscopic,
@@ -69,6 +71,7 @@ abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
     userPhaseReactor();
     touchFeedbackStatusReactor();
     collaboratorPhaseReactor();
+    tapReactor();
   }
 
   @action
@@ -91,6 +94,12 @@ abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
         } else {
           widgets.textEditor.setIsReadOnly(false);
         }
+      });
+
+  tapReactor() => reaction((p0) => tap.currentTapPosition, (p0) {
+        ifTouchIsNotDisabled(() {
+          widgets.onTap(p0);
+        });
       });
 
   phoneTiltStateReactor() =>
