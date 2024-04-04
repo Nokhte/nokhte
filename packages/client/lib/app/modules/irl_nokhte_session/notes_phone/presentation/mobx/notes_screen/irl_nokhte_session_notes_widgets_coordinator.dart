@@ -59,9 +59,19 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
   }
 
   initReactors() {
+    mirroredTextIndicesReactor();
+  }
+
+  initBorderGlowReactors(
+      {required Function onGlowInitiated, required Function onGlowDown}) {
+    borderGlowMovieStatusReactor(
+      onGlowDown: onGlowDown,
+      onGlowInitiated: onGlowInitiated,
+    );
+    startInactivityCron(onGlowInitiated);
     textEditor.focusNode.addListener(() {
       if (!textEditor.focusNode.hasFocus) {
-        startInactivityCron();
+        startInactivityCron(onGlowDown);
         if (textEditor.controller.text.length != (0)) {
           smartText.setWidgetVisibility(true);
         } else {
@@ -71,24 +81,25 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
         smartText.setWidgetVisibility(false);
       }
     });
-    borderGlowMovieStatusReactor();
-    mirroredTextIndicesReactor();
-    startInactivityCron();
+    //
   }
 
   @observable
   Cron currentCron = Cron();
 
   @action
-  startInactivityCron() {
+  startInactivityCron(Function onGlowInitiated) {
+    print("hi started a new cron!!!");
     currentCron.close();
     currentCron = Cron();
-    currentCron.schedule(Schedule.parse('*/1 * * * *'), () {
-      print("arey ou running when u not supposed to");
+    currentCron.schedule(Schedule.parse('*/1 * * * *'), () async {
       borderGlow.initWhiteOut();
       textEditor.setWidgetVisibility(false);
+      textEditor.setIsReadOnly(true);
+
       canTap = true;
       canSwipeUp = false;
+      await onGlowInitiated();
     });
   }
 
@@ -100,7 +111,10 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
   @observable
   int inactivityCount = 0;
 
-  borderGlowMovieStatusReactor() =>
+  borderGlowMovieStatusReactor({
+    required Function onGlowInitiated,
+    required Function onGlowDown,
+  }) =>
       reaction((p0) => borderGlow.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
           if (borderGlow.isGlowingUp) {
@@ -112,8 +126,11 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
           } else {
             textEditor.setWidgetVisibility(true);
             canTap = false;
+            canSwipeUp = true;
+            textEditor.setIsReadOnly(false);
             inactivityCount++;
-            startInactivityCron();
+            onGlowDown();
+            startInactivityCron(onGlowInitiated);
             borderGlow.setAltControl(Control.stop);
           }
         }
@@ -142,9 +159,9 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
   }
 
   @action
-  onSwipeUp(Function(String) onSwipeUp) async {
+  onSwipeUp(Function(String) onSwipeUp, Function onGlowInitiated) async {
     if (canSwipeUp) {
-      stopInactivityCron();
+      startInactivityCron(onGlowInitiated);
       if (textEditor.controller.text.isNotEmpty) {
         await onSwipeUp(textEditor.controller.text);
         setCanSwipeUp(false);
@@ -176,8 +193,8 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
   }
 
   @action
-  onCollaboratorJoined() {
-    startInactivityCron();
+  onCollaboratorJoined(Function onGlowInitated) {
+    startInactivityCron(onGlowInitated);
     textEditor.setWidgetVisibility(true);
     smartText.setWidgetVisibility(smartText.pastShowWidget);
   }
