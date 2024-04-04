@@ -101,9 +101,20 @@ class MessagesData {
           pauseHere: true,
         ),
         RotatingTextData(
-          initialFadeInDelay: Seconds.get(1),
           mainMessage: "",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          initialFadeInDelay: Seconds.get(1),
+          mainMessage: "That is where you go to get home",
+          subMessage: "Tap anywhere to confirm",
           onScreenTime: Seconds.get(0),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
         ),
       ];
