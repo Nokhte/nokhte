@@ -88,7 +88,6 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
     holdStopwatch.reset();
     holdStopwatch.start();
     setHoldBeachWaveMovie();
-    setHoldBeachWaveMovie();
     mirroredText.setWidgetVisibility(false);
   }
 
@@ -136,6 +135,15 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
   @action
   initGlowDown() {
     borderGlow.initGlowDown();
+  }
+
+  @action
+  adjustSpeakLessSmileMoreRotation(GesturePlacement holdPlacement) {
+    if (holdPlacement == GesturePlacement.topHalf) {
+      speakLessSmileMore.setShouldBeUpsideDown(true);
+    } else {
+      speakLessSmileMore.setShouldBeUpsideDown(false);
+    }
   }
 
   @action

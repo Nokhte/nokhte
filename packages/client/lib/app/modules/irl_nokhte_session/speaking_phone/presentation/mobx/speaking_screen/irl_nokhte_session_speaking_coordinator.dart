@@ -101,6 +101,7 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
         ifTouchIsNotDisabled(() async {
           if (presence.getSessionMetadataStore.collaboratorIsOnline) {
             setBlockPhoneTiltReactor(true);
+            widgets.adjustSpeakLessSmileMoreRotation(hold.placement);
             widgets.onHold();
             setDisableAllTouchFeedback(true);
             await presence.updateCurrentPhase(2);
