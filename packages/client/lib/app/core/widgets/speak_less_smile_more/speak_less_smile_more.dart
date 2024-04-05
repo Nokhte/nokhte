@@ -15,25 +15,28 @@ class SpeakLessSmileMore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          AnimatedOpacity(
-            opacity: useWidgetOpacity(store.showSpeakLess),
-            duration: Seconds.get(1),
-            child: const Center(
-              child: Jost("Speak less,"),
+      return RotatedBox(
+        quarterTurns: store.shouldBeUpsideDown ? 2 : 0,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            AnimatedOpacity(
+              opacity: useWidgetOpacity(store.showSpeakLess),
+              duration: Seconds.get(1),
+              child: const Center(
+                child: Jost("Speak less,"),
+              ),
             ),
-          ),
-          AnimatedOpacity(
-            opacity: useWidgetOpacity(store.showSmileMore),
-            duration: Seconds.get(1),
-            child: const Center(
-              child: Jost(" smile more"),
-            ),
-          )
-        ],
+            AnimatedOpacity(
+              opacity: useWidgetOpacity(store.showSmileMore),
+              duration: Seconds.get(1),
+              child: const Center(
+                child: Jost(" smile more"),
+              ),
+            )
+          ],
+        ),
       );
     });
   }

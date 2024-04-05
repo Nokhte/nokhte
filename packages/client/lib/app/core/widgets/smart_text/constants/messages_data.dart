@@ -95,15 +95,56 @@ class MessagesData {
         ),
       ];
 
+  static List<RotatingTextData> get speakLessWriteMorePrimary => List.generate(
+      100,
+      (index) => index % 2 == 0
+          ? RotatingTextData(
+              mainMessage: "Speak less, write more",
+              pauseHere: true,
+              initialFadeInDelay: Seconds.get(1),
+            )
+          : RotatingTextData(
+              mainMessage: "",
+              initialFadeInDelay: Seconds.get(1),
+              pauseHere: true,
+            ));
+
+  static List<RotatingTextData> get speakLessWriteMoreSecondary =>
+      List.generate(
+          100,
+          (index) => index % 2 == 0
+              ? RotatingTextData(
+                  mainMessage: '',
+                  subMessage: "Tap anywhere to confirm",
+                  pauseHere: true,
+                  initialFadeInDelay: Seconds.get(1),
+                )
+              : RotatingTextData(
+                  mainMessage: "",
+                  initialFadeInDelay: Seconds.get(1),
+                  pauseHere: true,
+                ));
+
   static List<RotatingTextData> get sessionSparkerList => [
         RotatingTextData(
           mainMessage: "Scan to join",
           pauseHere: true,
         ),
         RotatingTextData(
-          initialFadeInDelay: Seconds.get(1),
           mainMessage: "",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          initialFadeInDelay: Seconds.get(1),
+          mainMessage: "That is where you go to get home",
+          subMessage: "Tap anywhere to confirm",
           onScreenTime: Seconds.get(0),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
         ),
       ];
@@ -144,7 +185,7 @@ class MessagesData {
           MirroredTextOrientations orientation) {
     final arr = [
       RotatingTextData(
-        mainMessage: "Say: One person can speak at a time",
+        mainMessage: "The point of this phone is to limit speaking",
         pauseHere: true,
         mainMessageFontSize: 22.0,
       ),
@@ -153,13 +194,23 @@ class MessagesData {
         pauseHere: true,
       ),
       RotatingTextData(
-        mainMessage: "Hold on This Side When You Are Speaking",
+        mainMessage: "Hold on this side",
         pauseHere: true,
         mainMessageFontSize: 22.0,
       ),
       RotatingTextData(
+        mainMessage: "Only you are allowed to speak right now",
+        onScreenTime: Seconds.get(3),
+      ),
+      RotatingTextData(
+        mainMessage: "Let go",
+        onScreenTime: Seconds.get(2),
+        mainMessageFontSize: 22.0,
+      ),
+      RotatingTextData(
         mainMessage: "",
-        pauseHere: true,
+        onScreenTime: Seconds.get(2),
+        mainMessageFontSize: 22.0,
       ),
       RotatingTextData(
         mainMessage: "Continue on the other phone",
@@ -173,7 +224,7 @@ class MessagesData {
       ),
     ];
     if (orientation == MirroredTextOrientations.upsideDown) {
-      arr.removeAt(3);
+      arr.removeAt(5);
     }
     return arr;
   }
@@ -190,7 +241,7 @@ class MessagesData {
               pauseHere: true,
             ),
             RotatingTextData(
-              mainMessage: "Tap to confirm",
+              mainMessage: "",
               pauseHere: true,
               mainMessageFontSize: 19.0,
             ),

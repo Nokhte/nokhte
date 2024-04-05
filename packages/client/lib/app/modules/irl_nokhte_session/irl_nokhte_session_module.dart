@@ -41,6 +41,7 @@ class IrlNokhteSessionModule extends Module {
     );
     i.add<IrlNokhteSessionSpeakingInstructionsCoordinator>(
       () => IrlNokhteSessionSpeakingInstructionsCoordinator(
+        hold: HoldDetector(),
         presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<
@@ -69,6 +70,7 @@ class IrlNokhteSessionModule extends Module {
     );
     i.add<IrlNokhteSessionNotesCoordinator>(
       () => IrlNokhteSessionNotesCoordinator(
+          tap: TapDetector(),
           gyroscopic: Modular.get<GyroscopicCoordinator>(),
           captureScreen: Modular.get<CaptureScreen>(),
           widgets: Modular.get<IrlNokhteSessionNotesWidgetsCoordinator>(),

@@ -1,5 +1,5 @@
 enum CenterInstructionalNokhteMovieModes {
   moveToCenter,
-  moveUp,
+  moveAround,
   moveBack,
 }

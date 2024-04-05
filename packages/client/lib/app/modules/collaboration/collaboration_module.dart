@@ -24,8 +24,8 @@ class CollaborationModule extends Module {
 
   @override
   void binds(Injector i) {
-    i.add<CollaborationHomeScreenCoordinator>(
-      () => CollaborationHomeScreenCoordinator(
+    i.add<NokhteSessionQrJoinCoordinator>(
+      () => NokhteSessionQrJoinCoordinator(
         tap: TapDetector(),
         captureScreen: Modular.get<CaptureScreen>(),
         captureShareNokhteSessionInvitation:
@@ -33,7 +33,7 @@ class CollaborationModule extends Module {
         logic: Modular.get<CollaborationLogicCoordinator>(),
         swipe: SwipeDetector(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
-        widgets: Modular.get<CollaborationHomeScreenWidgetsCoordinator>(),
+        widgets: Modular.get<NokhteSessionQrJoinWidgetsCoordinator>(),
         userInformation: i<UserInformationCoordinator>(),
       ),
     );
@@ -51,8 +51,8 @@ class CollaborationModule extends Module {
     r.child(
       '/',
       transition: TransitionType.noTransition,
-      child: (context) => CollaborationHomeScreen(
-        coordinator: Modular.get<CollaborationHomeScreenCoordinator>(),
+      child: (context) => NokhteSessionQrJoinScreen(
+        coordinator: Modular.get<NokhteSessionQrJoinCoordinator>(),
       ),
     );
     r.child(

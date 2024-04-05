@@ -8,8 +8,8 @@ class StartingCirclePresets {
           colorOrGradient: Left(Colors.white.withOpacity(.25)),
           offset: CircleOffsets.bottom,
         ),
-        CircleInformation(
-          colorOrGradient: const Right(ColorsAndStops(
+        const CircleInformation(
+          colorOrGradient: Right(ColorsAndStops(
             colors: [Colors.white],
             stops: [0],
           )),
@@ -23,8 +23,8 @@ class StartingCirclePresets {
           colorOrGradient: Left(Colors.white.withOpacity(.25)),
           offset: CircleOffsets.right,
         ),
-        CircleInformation(
-          colorOrGradient: const Right(ColorsAndStops(
+        const CircleInformation(
+          colorOrGradient: Right(ColorsAndStops(
             colors: [Color(0xFF4CD7FC), Color(0xFF6AEAB9)],
             stops: [.1, .6],
           )),
