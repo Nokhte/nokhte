@@ -19,6 +19,7 @@ class SpeakingPhoneNokhteSessionWidgetsModule extends Module {
         touchRipple: TouchRippleStore(),
         mirroredText: Modular.get<MirroredTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        borderGlow: BorderGlowStore(),
         beachWaves: BeachWavesStore(),
       ),
     );

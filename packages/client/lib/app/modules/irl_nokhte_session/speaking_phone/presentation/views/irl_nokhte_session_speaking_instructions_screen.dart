@@ -35,6 +35,9 @@ class IrlNokhteSessionSpeakingInstructionsScreen extends HookWidget {
                   store: coordinator.widgets.beachWaves,
                 ),
               ),
+              BorderGlow(
+                store: coordinator.widgets.borderGlow,
+              ),
               MirroredText(
                 store: coordinator.widgets.mirroredText,
               ),

@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'dart:ui';
-
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
@@ -18,11 +17,13 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
   final MirroredTextStore mirroredText;
   final BeachWavesStore beachWaves;
   final TouchRippleStore touchRipple;
+  final BorderGlowStore borderGlow;
   _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase({
     required this.mirroredText,
     required this.beachWaves,
     required super.wifiDisconnectOverlay,
     required this.touchRipple,
+    required this.borderGlow,
   });
 
   @observable
@@ -30,6 +31,24 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
 
   @observable
   bool disableTouchInput = true;
+
+  @observable
+  int holdCount = 0;
+
+  @observable
+  Stopwatch letGoStopwatch = Stopwatch();
+
+  @observable
+  Stopwatch holdStopwatch = Stopwatch();
+
+  @observable
+  bool topHalfIsDone = false;
+
+  @observable
+  bool bottomHalfIsDone = false;
+
+  @observable
+  bool bottomHalfHasStarted = false;
 
   @action
   setDisableTouchInput(bool newValue) => disableTouchInput = newValue;
@@ -54,7 +73,8 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
   @action
   initReactors() {
     beachWavesMovieStatusReactor();
-    rightSideUpTextIndexReactor();
+    upsideDownIndexReactor();
+    rightSideUpIndexReactor();
   }
 
   @action
@@ -64,31 +84,108 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
 
   @action
   onCollaboratorJoined() {
-    mirroredText.setWidgetVisibility(mirroredText.pastShowWidget);
+    mirroredText.setRightsideUpVisibility(
+      mirroredText.primaryRightSideUpText.pastShowWidget,
+    );
+    mirroredText.setUpsideDownVisibility(
+      mirroredText.primaryUpsideDownText.pastShowWidget,
+    );
+  }
+
+  rightSideUpIndexReactor() =>
+      reaction((p0) => mirroredText.primaryRightSideUpText.currentIndex, (p0) {
+        if (p0 == 3) {
+          mirroredText.setRightSideUpColor(Colors.white);
+        } else if (p0 == 4) {
+          bottomHalfIsDone = true;
+        } else if (p0 == 5) {
+          mirroredText.setRightsideUpVisibility(false);
+        } else if (p0 == 7) {
+          Modular.to.navigate("/irl_nokhte_session/speaking");
+        }
+      });
+
+  upsideDownIndexReactor() =>
+      reaction((p0) => mirroredText.primaryUpsideDownText.currentIndex, (p0) {
+        if (p0 == 4) {
+          topHalfIsDone = true;
+          mirroredText.prepForSplitScreen();
+        } else if (p0 == 5) {
+          mirroredText.setRightsideUpVisibility(true);
+        }
+      });
+
+  beachWavesMovieStatusReactor() =>
+      reaction((p0) => beachWaves.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished) {
+          if (beachWaves.movieMode ==
+              BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf) {
+            if (!topHalfIsDone) {
+              mirroredText.startRotatingRightSideUp();
+              cooldownStopwatch.start();
+              disableTouchInput = false;
+            }
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.anyToVibrantBlueGrad) {
+            borderGlow.initMovie(NoParams());
+            if (!bottomHalfIsDone) {
+              mirroredText.setRightSideUpColor(Colors.white);
+            }
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.dynamicPointToHalfAndHalf) {
+            if (!bottomHalfIsDone && !topHalfIsDone) {
+              mirroredText.prepForSplitScreen();
+              mirroredText.setRightsideUpCurrentIndex(1);
+              mirroredText.setRightsideUpVisibility(true);
+            } else if (bottomHalfIsDone && !topHalfIsDone) {
+              mirroredText.setUpsideDownCurrentIndex(1);
+              mirroredText.setUpsideDownVisibility(true);
+              if (!bottomHalfHasStarted) {
+                mirroredText.startRotatingUpsideDown(isResuming: true);
+                bottomHalfHasStarted = true;
+              }
+            } else if (bottomHalfIsDone && topHalfIsDone) {
+              mirroredText.setWidgetVisibility(true);
+            }
+          }
+        }
+      });
+
+  @action
+  onHold() {
+    holdCount++;
+    DurationAndGradient params = DurationAndGradient.initial();
+    params = DurationAndGradient(
+      gradient: beachWaves.currentColorsAndStops,
+      duration: const Duration(seconds: 2),
+    );
+
+    beachWaves.setMovieMode(BeachWaveMovieModes.anyToVibrantBlueGrad);
+    beachWaves.currentStore.initMovie(params);
+    if (!bottomHalfIsDone) {
+      mirroredText.resumeRightsideUp();
+      mirroredText.startRotatingRightSideUp(isResuming: true);
+    } else if (bottomHalfIsDone && !topHalfIsDone) {
+      mirroredText.resumeUpsideDown();
+      mirroredText.startRotatingUpsideDown(isResuming: true);
+    }
   }
 
   @action
-  onTap(Offset tapPosition, {required Function onFlowFinished}) async {
-    if (!disableTouchInput) {
-      if (cooldownStopwatch.elapsedMilliseconds.isLessThan(950)) {
-        return;
-      } else {
-        cooldownStopwatch.reset();
-      }
-      touchRipple.onTap(tapPosition, adjustColorBasedOnPosition: true);
-      if (hasTappedOnTheRightSide && textIsDoneFadingInOrOut) {
-        toggleCurrentActiveOrientation();
-        if (isFirstTap) {
-          mirroredText.startRotatingUpsideDown();
-          mirroredText.startRotatingRightSideUp(isResuming: true);
-        } else if (isStillInMutualInstructionMode) {
-          mirroredText.startBothRotatingText(isResuming: true);
-          if (isLastTap) {
-            await onFlowFinished();
-          }
-        }
-        tapCount++;
-      }
+  onLetGo({
+    required Function onFlowFinished,
+  }) async {
+    borderGlow.initGlowDown();
+    beachWaves.setMovieMode(BeachWaveMovieModes.dynamicPointToHalfAndHalf);
+    beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
+    if (!bottomHalfIsDone) {
+      mirroredText.setWidgetVisibility(false);
+      mirroredText.pauseRightsideUp();
+    } else if (bottomHalfIsDone && !topHalfIsDone) {
+      mirroredText.setUpsideDownVisibility(false);
+      mirroredText.pauseUpsideDown();
+    } else if (bottomHalfIsDone && topHalfIsDone) {
+      await onFlowFinished();
     }
   }
 
@@ -104,24 +201,27 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
     }
   }
 
-  beachWavesMovieStatusReactor() =>
-      reaction((p0) => beachWaves.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished &&
-            beachWaves.movieMode ==
-                BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf) {
-          mirroredText.startRotatingRightSideUp();
-          cooldownStopwatch.start();
-
-          disableTouchInput = false;
+  @action
+  onTap(Offset tapPosition) async {
+    if (!disableTouchInput) {
+      if (cooldownStopwatch.elapsedMilliseconds.isLessThan(950)) {
+        return;
+      } else {
+        cooldownStopwatch.reset();
+      }
+      touchRipple.onTap(tapPosition, adjustColorBasedOnPosition: true);
+      if (hasTappedOnTheRightSide && textIsDoneFadingInOrOut) {
+        toggleCurrentActiveOrientation();
+        if (isFirstTap) {
+          mirroredText.startRotatingUpsideDown();
+          mirroredText.startRotatingRightSideUp(isResuming: true);
+        } else if (isStillInMutualInstructionMode) {
+          mirroredText.startBothRotatingText(isResuming: true);
         }
-      });
-
-  rightSideUpTextIndexReactor() =>
-      reaction((p0) => mirroredText.primaryRightSideUpText.currentIndex, (p0) {
-        if (p0 == 5) {
-          Modular.to.navigate("/irl_nokhte_session/speaking");
-        }
-      });
+        tapCount++;
+      }
+    }
+  }
 
   @computed
   bool get hasTappedOnTheRightSide =>
@@ -145,7 +245,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
       touchRipple.tapPlacement == TapPlacement.topHalf;
 
   @computed
-  bool get isStillInMutualInstructionMode => tapCount.isLessThan(4);
+  bool get isStillInMutualInstructionMode => tapCount.isLessThan(2);
 
   @computed
   bool get isFirstTap => tapCount == 0;
