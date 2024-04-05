@@ -153,21 +153,23 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
 
   @action
   onHold() {
-    holdCount++;
-    DurationAndGradient params = DurationAndGradient.initial();
-    params = DurationAndGradient(
-      gradient: beachWaves.currentColorsAndStops,
-      duration: const Duration(seconds: 2),
-    );
+    if (!isStillInMutualInstructionMode) {
+      holdCount++;
+      DurationAndGradient params = DurationAndGradient.initial();
+      params = DurationAndGradient(
+        gradient: beachWaves.currentColorsAndStops,
+        duration: const Duration(seconds: 2),
+      );
 
-    beachWaves.setMovieMode(BeachWaveMovieModes.anyToVibrantBlueGrad);
-    beachWaves.currentStore.initMovie(params);
-    if (!bottomHalfIsDone) {
-      mirroredText.resumeRightsideUp();
-      mirroredText.startRotatingRightSideUp(isResuming: true);
-    } else if (bottomHalfIsDone && !topHalfIsDone) {
-      mirroredText.resumeUpsideDown();
-      mirroredText.startRotatingUpsideDown(isResuming: true);
+      beachWaves.setMovieMode(BeachWaveMovieModes.anyToVibrantBlueGrad);
+      beachWaves.currentStore.initMovie(params);
+      if (!bottomHalfIsDone) {
+        mirroredText.resumeRightsideUp();
+        mirroredText.startRotatingRightSideUp(isResuming: true);
+      } else if (bottomHalfIsDone && !topHalfIsDone) {
+        mirroredText.resumeUpsideDown();
+        mirroredText.startRotatingUpsideDown(isResuming: true);
+      }
     }
   }
 
@@ -175,17 +177,19 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
   onLetGo({
     required Function onFlowFinished,
   }) async {
-    borderGlow.initGlowDown();
-    beachWaves.setMovieMode(BeachWaveMovieModes.dynamicPointToHalfAndHalf);
-    beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
-    if (!bottomHalfIsDone) {
-      mirroredText.setWidgetVisibility(false);
-      mirroredText.pauseRightsideUp();
-    } else if (bottomHalfIsDone && !topHalfIsDone) {
-      mirroredText.setUpsideDownVisibility(false);
-      mirroredText.pauseUpsideDown();
-    } else if (bottomHalfIsDone && topHalfIsDone) {
-      await onFlowFinished();
+    if (!isStillInMutualInstructionMode) {
+      borderGlow.initGlowDown();
+      beachWaves.setMovieMode(BeachWaveMovieModes.dynamicPointToHalfAndHalf);
+      beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
+      if (!bottomHalfIsDone) {
+        mirroredText.setWidgetVisibility(false);
+        mirroredText.pauseRightsideUp();
+      } else if (bottomHalfIsDone && !topHalfIsDone) {
+        mirroredText.setUpsideDownVisibility(false);
+        mirroredText.pauseUpsideDown();
+      } else if (bottomHalfIsDone && topHalfIsDone) {
+        await onFlowFinished();
+      }
     }
   }
 
@@ -234,7 +238,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
 
   @computed
   bool get hasTappedOnTheBottomHalf =>
-      touchRipple.tapPlacement == TapPlacement.bottomHalf;
+      touchRipple.tapPlacement == GesturePlacement.bottomHalf;
 
   @computed
   bool get upsideDownTextIsVisible =>
@@ -242,7 +246,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
 
   @computed
   bool get hasTappedOnTheTopHalf =>
-      touchRipple.tapPlacement == TapPlacement.topHalf;
+      touchRipple.tapPlacement == GesturePlacement.topHalf;
 
   @computed
   bool get isStillInMutualInstructionMode => tapCount.isLessThan(2);
