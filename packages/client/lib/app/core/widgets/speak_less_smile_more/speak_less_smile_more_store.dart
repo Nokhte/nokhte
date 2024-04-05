@@ -14,6 +14,12 @@ abstract class _SpeakLessSmileMoreStoreBase
   @observable
   bool showSmileMore = false;
 
+  @observable
+  bool shouldBeUpsideDown = false;
+
+  @action
+  setShouldBeUpsideDown(bool newVal) => shouldBeUpsideDown = newVal;
+
   @action
   setSpeakLess(bool newVal) => showSpeakLess = newVal;
 
