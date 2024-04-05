@@ -137,6 +137,76 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
     secondaryUpsideDownText.setWidgetVisibility(isVisible);
   }
 
+  @action
+  setRightSideUpColor(Color color) {
+    primaryRightSideUpText.setStaticAltMovie(color);
+    secondaryRightSideUpText.setStaticAltMovie(color);
+  }
+
+  @action
+  setRightsideUpVisibility(bool isVisible) {
+    primaryRightSideUpText.setWidgetVisibility(isVisible);
+    secondaryRightSideUpText.setWidgetVisibility(isVisible);
+  }
+
+  @action
+  setUpsideDownVisibility(bool isVisible) {
+    primaryUpsideDownText.setWidgetVisibility(isVisible);
+    secondaryUpsideDownText.setWidgetVisibility(isVisible);
+  }
+
+  @action
+  reset() {
+    primaryRightSideUpText.reset();
+    secondaryRightSideUpText.reset();
+    primaryUpsideDownText.reset();
+    secondaryUpsideDownText.reset();
+  }
+
+  @action
+  setCurrentIndex(int newIndex) {
+    primaryRightSideUpText.setCurrentIndex(newIndex);
+    secondaryRightSideUpText.setCurrentIndex(newIndex);
+    primaryUpsideDownText.setCurrentIndex(newIndex);
+    secondaryUpsideDownText.setCurrentIndex(newIndex);
+  }
+
+  @action
+  setRightsideUpCurrentIndex(int newIndex) {
+    primaryRightSideUpText.setCurrentIndex(newIndex);
+    secondaryRightSideUpText.setCurrentIndex(newIndex);
+  }
+
+  @action
+  setUpsideDownCurrentIndex(int newIndex) {
+    primaryUpsideDownText.setCurrentIndex(newIndex);
+    secondaryUpsideDownText.setCurrentIndex(newIndex);
+  }
+
+  @action
+  pauseRightsideUp() {
+    primaryRightSideUpText.pause();
+    secondaryRightSideUpText.pause();
+  }
+
+  @action
+  resumeRightsideUp() {
+    primaryRightSideUpText.resume();
+    secondaryRightSideUpText.resume();
+  }
+
+  @action
+  pauseUpsideDown() {
+    primaryUpsideDownText.pause();
+    secondaryUpsideDownText.pause();
+  }
+
+  @action
+  resumeUpsideDown() {
+    primaryUpsideDownText.resume();
+    secondaryUpsideDownText.resume();
+  }
+
   @computed
   bool get isReadyToBeDismissed =>
       primaryRightSideUpText.currentIndex % 2 == 1 &&
