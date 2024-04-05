@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
+import 'dart:ui';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/deep_links/constants/constants.dart';
@@ -13,14 +14,14 @@ import 'package:nokhte/app/modules/collaboration/domain/domain.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 import 'package:nokhte_backend/edge_functions/edge_functions.dart';
-part 'collaboration_home_screen_coordinator.g.dart';
+part 'nokhte_session_qr_join_coordinator.g.dart';
 
-class CollaborationHomeScreenCoordinator = _CollaborationHomeScreenCoordinatorBase
-    with _$CollaborationHomeScreenCoordinator;
+class NokhteSessionQrJoinCoordinator = _NokhteSessionQrJoinCoordinatorBase
+    with _$NokhteSessionQrJoinCoordinator;
 
-abstract class _CollaborationHomeScreenCoordinatorBase
+abstract class _NokhteSessionQrJoinCoordinatorBase
     extends BaseHomeScreenRouterCoordinator with Store {
-  final CollaborationHomeScreenWidgetsCoordinator widgets;
+  final NokhteSessionQrJoinWidgetsCoordinator widgets;
   final UserInformationCoordinator userInformation;
   final SwipeDetector swipe;
   final TapDetector tap;
@@ -29,7 +30,7 @@ abstract class _CollaborationHomeScreenCoordinatorBase
   final CollaborationLogicCoordinator logic;
   final CaptureShareNokhteSessionInvitation captureShareNokhteSessionInvitation;
 
-  _CollaborationHomeScreenCoordinatorBase({
+  _NokhteSessionQrJoinCoordinatorBase({
     required this.widgets,
     required this.deepLinks,
     required this.userInformation,
@@ -54,8 +55,8 @@ abstract class _CollaborationHomeScreenCoordinatorBase
   toggleIsNavigatingAway() => isNavigatingAway = !isNavigatingAway;
 
   @action
-  constructor() async {
-    widgets.constructor();
+  constructor(Offset center) async {
+    widgets.constructor(center);
     widgets.initReactors();
     initReactors();
     await deepLinks.getDeepLink(DeepLinkTypes.nokhteSession);
@@ -73,6 +74,12 @@ abstract class _CollaborationHomeScreenCoordinatorBase
   @action
   onFlowCompleted() => userInformation.updateHasGoneThroughInvitationFlow(true);
 
+  deepLinkReactor() => reaction((p0) => deepLinks.link, (p0) {
+        if (p0.isNotEmpty) {
+          widgets.qrCode.setQrCodeData(p0);
+        }
+      });
+
   @action
   onEnterCollaboratorPool() => logic.enter(EnterCollaboratorPoolParams(
         collaboratorUID: additionalRoutingData["deepLinkUID"] ??
@@ -82,10 +89,13 @@ abstract class _CollaborationHomeScreenCoordinatorBase
 
   swipeCoordinatesReactor() =>
       reaction((p0) => swipe.mostRecentCoordinates.last, (p0) {
-        widgets.onSwipeCoordinatesChanged(p0);
+        ifTouchIsNotDisabled(() {
+          widgets.onSwipeCoordinatesChanged(p0);
+        });
       });
 
   initReactors() {
+    deepLinkReactor();
     swipeCoordinatesReactor();
     swipeReactor();
     widgets.secondaryBeachWavesMovieStatusReactor(onAnimationComplete);
@@ -93,24 +103,15 @@ abstract class _CollaborationHomeScreenCoordinatorBase
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
-        widgets.onResumed();
       },
       onDisconnected: () {
-        widgets.onInactive();
         setDisableAllTouchFeedback(true);
       },
     );
     collaboratorPoolEntryErrorReactor();
-    deepLinkAvailabilityReactor();
     nokhteSearchStatusReactor();
+    tapReactor();
   }
-
-  @observable
-  String link = '';
-
-  deepLinkAvailabilityReactor() => reaction((p0) => deepLinks.link, (p0) async {
-        link = p0;
-      });
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) => onSwipe(p0));
 
@@ -120,17 +121,24 @@ abstract class _CollaborationHomeScreenCoordinatorBase
       switch (direction) {
         case GestureDirections.down:
           ifTouchIsNotDisabled(() async {
-            toggleIsNavigatingAway();
-            widgets.onSwipeDown();
-            setDisableAllTouchFeedback(true);
-            await logic.exit();
-            await logic.dispose();
+            widgets.onSwipeDown(() async {
+              toggleIsNavigatingAway();
+              await logic.exit();
+              await logic.dispose();
+              setDisableAllTouchFeedback(true);
+            });
           });
         default:
           break;
       }
     }
   }
+
+  tapReactor() => reaction((p0) => tap.currentTapPosition, (p0) {
+        ifTouchIsNotDisabled(() {
+          widgets.onTap(p0);
+        });
+      });
 
   collaboratorPoolEntryErrorReactor() =>
       reaction((p0) => logic.errorMessage, (p0) {

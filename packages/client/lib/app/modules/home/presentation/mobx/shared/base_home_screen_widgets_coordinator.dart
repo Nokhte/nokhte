@@ -1,6 +1,4 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -51,34 +49,6 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   }
 
   @observable
-  bool touchIsDisabled = false;
-
-  @action
-  setTouchIsDisabled(bool value) => touchIsDisabled = value;
-
-  @action
-  void setSmartTextPadding({
-    double? topPadding,
-    double? bottomPadding,
-    double? subMessagePadding,
-  }) =>
-      Timer(Seconds.get(1, milli: 500), () {
-        if (topPadding != null) {
-          setSmartTextTopPaddingScalar(topPadding);
-        }
-        if (bottomPadding != null) {
-          setSmartTextBottomPaddingScalar(bottomPadding);
-        }
-        if (subMessagePadding != null) {
-          setSmartTextSubMessagePaddingScalar(subMessagePadding);
-        }
-        setTouchIsDisabled(false);
-      });
-
-  @observable
-  Offset center = Offset.zero;
-
-  @observable
   bool isInErrorMode = false;
 
   @action
@@ -89,27 +59,6 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
 
   @observable
   bool hasSwipedUp = false;
-
-  @observable
-  double smartTextTopPaddingScalar = 0;
-
-  @observable
-  double smartTextBottomPaddingScalar = .2;
-
-  @observable
-  double smartTextSubMessagePaddingScalar = 110;
-
-  @action
-  setSmartTextTopPaddingScalar(double value) =>
-      smartTextTopPaddingScalar = value;
-
-  @action
-  setSmartTextBottomPaddingScalar(double value) =>
-      smartTextBottomPaddingScalar = value;
-
-  @action
-  setSmartTextSubMessagePaddingScalar(double value) =>
-      smartTextSubMessagePaddingScalar = value;
 
   // @observable
   // Offset center = Offset.zero;

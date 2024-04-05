@@ -23,10 +23,10 @@ abstract class _TouchRippleStoreBase extends BaseCustomAnimatedWidgetStore
   setScreenHeight(double newHeight) => screenHeight = newHeight;
 
   @computed
-  TapPlacement get tapPlacement =>
+  GesturePlacement get tapPlacement =>
       currentPosition.dy.isLessThan(screenHeight.half())
-          ? TapPlacement.topHalf
-          : TapPlacement.bottomHalf;
+          ? GesturePlacement.topHalf
+          : GesturePlacement.bottomHalf;
 
   @observable
   ObservableList<TouchRippleAnimationInfo> info =
@@ -43,9 +43,9 @@ abstract class _TouchRippleStoreBase extends BaseCustomAnimatedWidgetStore
   adjustColor() {
     Color currentColor = Colors.white;
     switch (tapPlacement) {
-      case TapPlacement.topHalf:
+      case GesturePlacement.topHalf:
         currentColor = Colors.white;
-      case TapPlacement.bottomHalf:
+      case GesturePlacement.bottomHalf:
         currentColor = NokhteSessionConstants.blue;
     }
     return currentColor;
@@ -55,9 +55,14 @@ abstract class _TouchRippleStoreBase extends BaseCustomAnimatedWidgetStore
   onTap(
     Offset position, {
     bool adjustColorBasedOnPosition = false,
+    Color overridedColor = Colors.transparent,
   }) {
     currentPosition = position;
     Color currentColor = Colors.white;
+
+    if (overridedColor != Colors.transparent) {
+      currentColor = overridedColor;
+    }
     if (adjustColorBasedOnPosition) {
       currentColor = adjustColor();
     }

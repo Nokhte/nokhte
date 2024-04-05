@@ -11,14 +11,18 @@ class CollaborationWidgetsModule extends Module {
       ];
   @override
   void exportedBinds(Injector i) {
-    i.add<CollaborationHomeScreenWidgetsCoordinator>(
-      () => CollaborationHomeScreenWidgetsCoordinator(
+    i.add<NokhteSessionQrJoinWidgetsCoordinator>(
+      () => NokhteSessionQrJoinWidgetsCoordinator(
+        qrCode: NokhteQrCodeStore(),
+        nokhteBlur: NokhteBlurStore(),
         touchRipple: TouchRippleStore(),
         gestureCross: Modular.get<GestureCrossStore>(),
         primaryBeachWaves: BeachWavesStore(),
         secondaryBeachWaves: BeachWavesStore(),
         smartText: SmartTextStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        instructionalGradientNokhte: InstructionalGradientNokhteStore(),
+        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
       ),
     );
     i.add<CollaboratorPoolScreenWidgetsCoordinator>(

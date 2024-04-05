@@ -111,7 +111,7 @@ abstract class _IrlNokhteSessionNotesInstructionsWidgetsCoordinatorBase
 
   @computed
   bool get hasTappedOnTheBottomHalf =>
-      touchRipple.tapPlacement == TapPlacement.bottomHalf;
+      touchRipple.tapPlacement == GesturePlacement.bottomHalf;
 
   @computed
   bool get upsideDownTextIsVisible =>
@@ -119,7 +119,7 @@ abstract class _IrlNokhteSessionNotesInstructionsWidgetsCoordinatorBase
 
   @computed
   bool get hasTappedOnTheTopHalf =>
-      touchRipple.tapPlacement == TapPlacement.topHalf;
+      touchRipple.tapPlacement == GesturePlacement.topHalf;
 
   @computed
   bool get isStillInMutualInstructionMode => tapCount.isLessThan(4);

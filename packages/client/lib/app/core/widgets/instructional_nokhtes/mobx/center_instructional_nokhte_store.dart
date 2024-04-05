@@ -12,7 +12,7 @@ class CenterInstructionalNokhteStore = _CenterInstructionalNokhteStoreBase
     with _$CenterInstructionalNokhteStore;
 
 abstract class _CenterInstructionalNokhteStoreBase
-    extends BaseCustomAnimatedWidgetStore with Store {
+    extends BaseCustomAnimatedWidgetStore<GradientNokhtePositions> with Store {
   _CenterInstructionalNokhteStoreBase() {
     setMovie(
         CenterInstructionalNokhteTransformationMovie.getMovie(Offset.zero));
@@ -32,37 +32,36 @@ abstract class _CenterInstructionalNokhteStoreBase
     setMovie(
         CenterInstructionalNokhteTransformationMovie.getMovie(centerParam));
     setControl(Control.playFromStart);
+    movieMode = CenterInstructionalNokhteMovieModes.moveToCenter;
   }
 
   @action
-  moveUp() {
+  moveBackToCross({
+    required CenterNokhtePositions startingPosition,
+  }) {
     setMovieStatus(MovieStatus.inProgress);
-    setMovie(MoveCenterInstructionalNokhteUpMovie.getMovie(center));
-    setControl(Control.playFromStart);
-    movieMode = CenterInstructionalNokhteMovieModes.moveUp;
-  }
-
-  @action
-  moveBackFromTop() {
-    setMovieStatus(MovieStatus.inProgress);
-    setMovie(MoveCenterInstructionalNokhteBackToCrossMovie.getMovie(center));
-    setControl(Control.playFromStart);
     movieMode = CenterInstructionalNokhteMovieModes.moveBack;
-  }
-
-  @action
-  moveBackFromCenter() {
-    setMovieStatus(MovieStatus.inProgress);
-    setMovie(CenterInstructionalNokhteTransformationMovie.getMovie(
-      center,
-      reverse: true,
-    ));
+    setMovie(
+      MoveCenterInstructionalNokhteBackToCrossMovie.getMovie(
+        center,
+        startingPosition: startingPosition,
+      ),
+    );
     setControl(Control.playFromStart);
   }
 
-  @override
   @action
-  reverseMovie(params) {
-    setControl(Control.playReverseFromEnd);
+  @override
+  initMovie(param) {
+    movieMode = CenterInstructionalNokhteMovieModes.moveAround;
+    setMovie(
+      MoveCenterInstructionalNokhte.getMovie(
+        center,
+        position: param,
+      ),
+    );
+    setMovieStatus(MovieStatus.inProgress);
+    setControl(Control.playFromStart);
+    //
   }
 }

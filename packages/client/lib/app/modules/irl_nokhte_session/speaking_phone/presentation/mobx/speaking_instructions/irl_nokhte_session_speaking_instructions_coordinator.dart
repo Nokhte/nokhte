@@ -15,6 +15,7 @@ class IrlNokhteSessionSpeakingInstructionsCoordinator = _IrlNokhteSessionSpeakin
 abstract class _IrlNokhteSessionSpeakingInstructionsCoordinatorBase
     extends BaseCoordinator with Store {
   final TapDetector tap;
+  final HoldDetector hold;
   final IrlNokhteSessionSpeakingInstructionsWidgetsCoordinator widgets;
   final IrlNokhteSessionPresenceCoordinator presence;
   final GetIrlNokhteSessionMetadataStore sessionMetadata;
@@ -24,6 +25,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsCoordinatorBase
     required this.widgets,
     required this.tap,
     required this.presence,
+    required this.hold,
   }) : sessionMetadata = presence.getSessionMetadataStore;
 
   @action
@@ -55,6 +57,8 @@ abstract class _IrlNokhteSessionSpeakingInstructionsCoordinatorBase
         widgets.setDisableTouchInput(true);
       },
     );
+    holdReactor();
+    letGoReactor();
   }
 
   @action
@@ -72,15 +76,28 @@ abstract class _IrlNokhteSessionSpeakingInstructionsCoordinatorBase
     }
   }
 
+  holdReactor() => reaction(
+        (p0) => hold.holdCount,
+        (p0) {
+          ifTouchIsNotDisabled(() {
+            widgets.onHold();
+          });
+        },
+      );
+
+  letGoReactor() => reaction((p0) => hold.letGoCount, (p0) {
+        widgets.onLetGo(
+          onFlowFinished: () async => await updateCurrentPhase(),
+        );
+        Timer(Seconds.get(2), () {
+          setDisableAllTouchFeedback(false);
+        });
+      });
+
   tapReactor() => reaction(
         (p0) => tap.tapCount,
         (p0) => ifTouchIsNotDisabled(
-          () async {
-            widgets.onTap(
-              tap.currentTapPosition,
-              onFlowFinished: () async => await updateCurrentPhase(),
-            );
-          },
+          () => widgets.onTap(tap.currentTapPosition),
         ),
       );
 

@@ -18,14 +18,14 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final MirroredTextStore mirroredText;
   final BeachWavesStore beachWaves;
-  final BorderGlowStore firstBorderGlow;
+  final BorderGlowStore borderGlow;
   final TouchRippleStore touchRipple;
   final SpeakLessSmileMoreStore speakLessSmileMore;
 
   _IrlNokhteSessionSpeakingWidgetsCoordinatorBase({
     required this.mirroredText,
     required this.beachWaves,
-    required this.firstBorderGlow,
+    required this.borderGlow,
     required super.wifiDisconnectOverlay,
     required this.touchRipple,
     required this.speakLessSmileMore,
@@ -88,7 +88,6 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
     holdStopwatch.reset();
     holdStopwatch.start();
     setHoldBeachWaveMovie();
-    setHoldBeachWaveMovie();
     mirroredText.setWidgetVisibility(false);
   }
 
@@ -130,12 +129,21 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
 
   @action
   initBorderGlow() {
-    firstBorderGlow.initMovie(NoParams());
+    borderGlow.initMovie(NoParams());
   }
 
   @action
   initGlowDown() {
-    firstBorderGlow.initGlowDown();
+    borderGlow.initGlowDown();
+  }
+
+  @action
+  adjustSpeakLessSmileMoreRotation(GesturePlacement holdPlacement) {
+    if (holdPlacement == GesturePlacement.topHalf) {
+      speakLessSmileMore.setShouldBeUpsideDown(true);
+    } else {
+      speakLessSmileMore.setShouldBeUpsideDown(false);
+    }
   }
 
   @action
@@ -186,12 +194,11 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
         }
       });
 
-  firstBorderGlowReactor() =>
-      reaction((p0) => firstBorderGlow.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished && firstBorderGlow.isGlowingUp) {
+  firstBorderGlowReactor() => reaction((p0) => borderGlow.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished && borderGlow.isGlowingUp) {
           speakLessSmileMore.setSpeakLess(true);
           Timer(Seconds.get(2), () {
-            if (firstBorderGlow.isGlowingUp) {
+            if (borderGlow.isGlowingUp) {
               speakLessSmileMore.setSmileMore(true);
             }
           });

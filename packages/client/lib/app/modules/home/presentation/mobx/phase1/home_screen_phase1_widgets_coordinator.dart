@@ -4,7 +4,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
-import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
@@ -53,8 +52,8 @@ abstract class _HomeScreenPhase1WidgetsCoordinatorBase
   onSwipeUp() {
     if (!touchIsDisabled) {
       if (primarySmartText.currentIndex.equals(3)) {
-        centerInstructionalNokhte.moveUp();
-        instructionalGradientNokhte.initMovie(NoParams());
+        centerInstructionalNokhte.initMovie(GradientNokhtePositions.top);
+        instructionalGradientNokhte.setControl(Control.playFromStart);
         primarySmartText.startRotatingText(isResuming: true);
         setTouchIsDisabled(true);
         setSmartTextPadding(
@@ -108,8 +107,17 @@ abstract class _HomeScreenPhase1WidgetsCoordinatorBase
         primarySmartText.startRotatingText(isResuming: true);
         setTouchIsDisabled(true);
         Timer(Seconds.get(1, milli: 500), () {
-          instructionalGradientNokhte.moveBack();
-          centerInstructionalNokhte.moveBackFromTop();
+          instructionalGradientNokhte.initMovie(
+            InstructionalGradientMovieParams(
+              center: center,
+              colorway: GradientNokhteColorways.invertedBeachWave,
+              direction: InstructionalGradientDirections.shrink,
+              position: GradientNokhtePositions.top,
+            ),
+          );
+          centerInstructionalNokhte.moveBackToCross(
+            startingPosition: CenterNokhtePositions.top,
+          );
         });
         beachWaves.currentStore.setControl(Control.mirror);
         nokhteBlur.reverse();
