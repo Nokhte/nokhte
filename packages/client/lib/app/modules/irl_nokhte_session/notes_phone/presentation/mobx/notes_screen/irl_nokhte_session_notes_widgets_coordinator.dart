@@ -144,7 +144,7 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
 
   onTap(Offset position) {
     if (canTap) {
-      if (touchRipple.tapPlacement == TapPlacement.topHalf) {
+      if (touchRipple.tapPlacement == GesturePlacement.topHalf) {
         if (mirroredText.primaryRightSideUpCurrentMessage.isNotEmpty) {
           mirroredText.startRotatingRightSideUp(isResuming: true);
         }
