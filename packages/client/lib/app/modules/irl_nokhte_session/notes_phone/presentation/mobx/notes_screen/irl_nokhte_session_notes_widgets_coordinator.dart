@@ -89,10 +89,9 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
 
   @action
   startInactivityCron(Function onGlowInitiated) {
-    print("hi started a new cron!!!");
     currentCron.close();
     currentCron = Cron();
-    currentCron.schedule(Schedule.parse('*/1 * * * *'), () async {
+    currentCron.schedule(Schedule.parse('*/3 * * * *'), () async {
       borderGlow.initWhiteOut();
       textEditor.setWidgetVisibility(false);
       textEditor.setIsReadOnly(true);
