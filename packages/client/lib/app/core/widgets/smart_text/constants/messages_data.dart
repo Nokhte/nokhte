@@ -199,18 +199,26 @@ class MessagesData {
         mainMessageFontSize: 22.0,
       ),
       RotatingTextData(
+        mainMessage: "",
+        pauseHere: true,
+      ),
+      RotatingTextData(
         mainMessage: "Only you are allowed to speak right now",
-        onScreenTime: Seconds.get(3),
+        pauseHere: true,
+      ),
+      RotatingTextData(
+        mainMessage: "",
+        pauseHere: true,
       ),
       RotatingTextData(
         mainMessage: "Let go",
-        onScreenTime: Seconds.get(2),
+        pauseHere: true,
         mainMessageFontSize: 22.0,
       ),
       RotatingTextData(
         mainMessage: "",
-        onScreenTime: Seconds.get(2),
         mainMessageFontSize: 22.0,
+        pauseHere: true,
       ),
       RotatingTextData(
         mainMessage: "Continue on the other phone",
@@ -223,9 +231,6 @@ class MessagesData {
         mainMessageFontSize: 22.0,
       ),
     ];
-    if (orientation == MirroredTextOrientations.upsideDown) {
-      arr.removeAt(5);
-    }
     return arr;
   }
 
