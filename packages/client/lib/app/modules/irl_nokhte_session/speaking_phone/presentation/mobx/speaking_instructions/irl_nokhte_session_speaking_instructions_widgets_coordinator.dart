@@ -82,7 +82,6 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
   @observable
   bool canHold = true;
 
-  @action
   setDisableTouchInput(bool newValue) => disableTouchInput = newValue;
 
   @action
@@ -170,15 +169,49 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
   }
 
   @action
+  adjustRightSideToHoldingPadding() {
+    mirroredText.setPadding(
+      primaryRightSideUpTopPadding: 0,
+      primaryRightSideUpBottomPadding: .2,
+    );
+  }
+
+  @action
+  adjustUpsideDownToHoldingPadding() {
+    mirroredText.setPadding(
+      primaryUpsideDownTopPadding: 0,
+      primaryUpsideDownBottomPadding: .25,
+    );
+  }
+
+  @action
+  resetRightSideHoldingPadding() {
+    mirroredText.setPadding(
+      primaryRightSideUpTopPadding: 0.15,
+      primaryRightSideUpBottomPadding: 0,
+    );
+  }
+
+  @action
+  resetUpsideDownHoldingPadding() {
+    mirroredText.setPadding(
+      primaryUpsideDownTopPadding: .12,
+      primaryUpsideDownBottomPadding: 0,
+    );
+  }
+
+  @action
   onEmptyCheckPointMessageReached(int index) {
     if (index == 3 && !bottomHalfIsDone) {
       mirroredText.setRightSideUpColor(Colors.white);
+      adjustRightSideToHoldingPadding();
     }
     Timer(const Duration(milliseconds: 500), () {
       if (!abortTheTextRotation) {
         if (!bottomHalfIsDone) {
           mirroredText.startRotatingRightSideUp(isResuming: true);
         } else if (bottomHalfIsDone && !topHalfIsDone) {
+          adjustUpsideDownToHoldingPadding();
           mirroredText.startRotatingUpsideDown(isResuming: true);
         }
       }
@@ -210,12 +243,6 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
       }
     });
   }
-
-  // @action
-  // onLetGoWindDownCompleted() {
-  //   //
-
-  // }
 
   upsideDownIndexReactor() =>
       reaction((p0) => mirroredText.primaryUpsideDownText.currentIndex, (p0) {
@@ -263,6 +290,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
               Timer.periodic(Seconds.get(0, milli: 550), (timer) {
                 if (mirroredText.primaryRightSideUpText.control ==
                     Control.playFromStart) {
+                  resetRightSideHoldingPadding();
                   mirroredText.setRightsideUpCurrentIndex(1);
                   mirroredText.startRotatingRightSideUp(isResuming: true);
                   mirroredText.setRightsideUpVisibility(true);
@@ -272,6 +300,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
             } else if (bottomHalfIsDone && !topHalfIsDone) {
               canHold = true;
               if (!bottomHalfHasStarted) {
+                resetRightSideHoldingPadding();
                 bottomHalfHasStarted = true;
                 mirroredText.setUpsideDownVisibility(true);
                 mirroredText.startRotatingUpsideDown(isResuming: true);
@@ -279,6 +308,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
                 Timer.periodic(Seconds.get(0, milli: 550), (timer) {
                   if (mirroredText.primaryUpsideDownText.control ==
                       Control.playFromStart) {
+                    resetUpsideDownHoldingPadding();
                     mirroredText.setUpsideDownCurrentIndex(1);
                     mirroredText.startRotatingUpsideDown(isResuming: true);
                     mirroredText.setUpsideDownVisibility(true);
@@ -288,6 +318,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
               }
             } else if (bottomHalfIsDone && topHalfIsDone) {
               if (mirroredText.primaryUpsideDownText.currentIndex == 7) {
+                resetUpsideDownHoldingPadding();
                 mirroredText.prepForSplitScreen();
                 mirroredText.startBothRotatingText(isResuming: true);
               }

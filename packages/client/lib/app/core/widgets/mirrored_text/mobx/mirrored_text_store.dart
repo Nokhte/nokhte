@@ -207,6 +207,68 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
     secondaryUpsideDownText.resume();
   }
 
+  @observable
+  double primaryRightSideUpTopPadding = .15;
+
+  @observable
+  double primaryRightSideUpBottomPadding = 0;
+
+  @observable
+  double secondaryRightSideUpTopPadding = .33;
+
+  @observable
+  double secondaryRightSideUpBottomPadding = 0;
+
+  @observable
+  double primaryUpsideDownTopPadding = .12;
+
+  @observable
+  double primaryUpsideDownBottomPadding = 0;
+
+  @observable
+  double secondaryUpsideDownTopPadding = .30;
+
+  @observable
+  double secondaryUpsideDownBottomPadding = 0;
+
+  @action
+  setPadding({
+    double? primaryRightSideUpTopPadding,
+    double? primaryRightSideUpBottomPadding,
+    double? secondaryRightSideUpTopPadding,
+    double? secondaryRightSideUpBottomPadding,
+    double? primaryUpsideDownTopPadding,
+    double? primaryUpsideDownBottomPadding,
+    double? secondaryUpsideDownTopPadding,
+    double? secondaryUpsideDownBottomPadding,
+  }) {
+    if (primaryRightSideUpTopPadding != null) {
+      this.primaryRightSideUpTopPadding = primaryRightSideUpTopPadding;
+    }
+    if (primaryRightSideUpBottomPadding != null) {
+      this.primaryRightSideUpBottomPadding = primaryRightSideUpBottomPadding;
+    }
+    if (secondaryRightSideUpTopPadding != null) {
+      this.secondaryRightSideUpTopPadding = secondaryRightSideUpTopPadding;
+    }
+    if (secondaryRightSideUpBottomPadding != null) {
+      this.secondaryRightSideUpBottomPadding =
+          secondaryRightSideUpBottomPadding;
+    }
+    if (primaryUpsideDownTopPadding != null) {
+      this.primaryUpsideDownTopPadding = primaryUpsideDownTopPadding;
+    }
+    if (primaryUpsideDownBottomPadding != null) {
+      this.primaryUpsideDownBottomPadding = primaryUpsideDownBottomPadding;
+    }
+    if (secondaryUpsideDownTopPadding != null) {
+      this.secondaryUpsideDownTopPadding = secondaryUpsideDownTopPadding;
+    }
+    if (secondaryUpsideDownBottomPadding != null) {
+      this.secondaryUpsideDownBottomPadding = secondaryUpsideDownBottomPadding;
+    }
+  }
+
   @computed
   bool get isReadyToBeDismissed =>
       primaryRightSideUpText.currentIndex % 2 == 1 &&
