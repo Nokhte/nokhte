@@ -158,6 +158,11 @@ class MessagesData {
 
   static List<RotatingTextData> get irlNokhteSessionPhase0PrimaryList => [
         RotatingTextData(
+          mainMessage: "Put your phone on do not disturb",
+          pauseHere: true,
+          mainMessageFontSize: 24.0,
+        ),
+        RotatingTextData(
           mainMessage: "Put both phones in a position both of you can reach",
           pauseHere: true,
           mainMessageFontSize: 24.0,
