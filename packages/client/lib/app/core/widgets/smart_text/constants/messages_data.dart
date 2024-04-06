@@ -190,6 +190,15 @@ class MessagesData {
           MirroredTextOrientations orientation) {
     final arr = [
       RotatingTextData(
+        mainMessage: "Keep this phone on a flat surface",
+        pauseHere: true,
+        mainMessageFontSize: 22.0,
+      ),
+      RotatingTextData(
+        mainMessage: "",
+        pauseHere: true,
+      ),
+      RotatingTextData(
         mainMessage: "The point of this phone is to limit speaking",
         pauseHere: true,
         mainMessageFontSize: 22.0,
@@ -218,11 +227,9 @@ class MessagesData {
       RotatingTextData(
         mainMessage: "Let go",
         pauseHere: true,
-        mainMessageFontSize: 22.0,
       ),
       RotatingTextData(
         mainMessage: "",
-        mainMessageFontSize: 22.0,
         pauseHere: true,
       ),
       RotatingTextData(
@@ -241,6 +248,15 @@ class MessagesData {
 
   static List<RotatingTextData>
       get irlNokhteSessionSpeakingInstructionsSecondaryPhase0List => [
+            RotatingTextData(
+              mainMessage: "Tap to confirm",
+              pauseHere: true,
+              mainMessageFontSize: 19.0,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
             RotatingTextData(
               mainMessage: "Tap to confirm",
               pauseHere: true,
