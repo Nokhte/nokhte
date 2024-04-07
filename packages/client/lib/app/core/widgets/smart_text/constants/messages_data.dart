@@ -158,6 +158,11 @@ class MessagesData {
 
   static List<RotatingTextData> get irlNokhteSessionPhase0PrimaryList => [
         RotatingTextData(
+          mainMessage: "Put your phone on do not disturb",
+          pauseHere: true,
+          mainMessageFontSize: 24.0,
+        ),
+        RotatingTextData(
           mainMessage: "Put both phones in a position both of you can reach",
           pauseHere: true,
           mainMessageFontSize: 24.0,
@@ -185,6 +190,15 @@ class MessagesData {
           MirroredTextOrientations orientation) {
     final arr = [
       RotatingTextData(
+        mainMessage: "Keep this phone on a flat surface",
+        pauseHere: true,
+        mainMessageFontSize: 22.0,
+      ),
+      RotatingTextData(
+        mainMessage: "",
+        pauseHere: true,
+      ),
+      RotatingTextData(
         mainMessage: "The point of this phone is to limit speaking",
         pauseHere: true,
         mainMessageFontSize: 22.0,
@@ -199,18 +213,24 @@ class MessagesData {
         mainMessageFontSize: 22.0,
       ),
       RotatingTextData(
-        mainMessage: "Only you are allowed to speak right now",
-        onScreenTime: Seconds.get(3),
+        mainMessage: "",
+        pauseHere: true,
       ),
       RotatingTextData(
-        mainMessage: "Let go",
-        onScreenTime: Seconds.get(2),
-        mainMessageFontSize: 22.0,
+        mainMessage: "Only you are allowed to speak right now",
+        pauseHere: true,
       ),
       RotatingTextData(
         mainMessage: "",
-        onScreenTime: Seconds.get(2),
-        mainMessageFontSize: 22.0,
+        pauseHere: true,
+      ),
+      RotatingTextData(
+        mainMessage: "Let go",
+        pauseHere: true,
+      ),
+      RotatingTextData(
+        mainMessage: "",
+        pauseHere: true,
       ),
       RotatingTextData(
         mainMessage: "Continue on the other phone",
@@ -223,14 +243,20 @@ class MessagesData {
         mainMessageFontSize: 22.0,
       ),
     ];
-    if (orientation == MirroredTextOrientations.upsideDown) {
-      arr.removeAt(5);
-    }
     return arr;
   }
 
   static List<RotatingTextData>
       get irlNokhteSessionSpeakingInstructionsSecondaryPhase0List => [
+            RotatingTextData(
+              mainMessage: "Tap to confirm",
+              pauseHere: true,
+              mainMessageFontSize: 19.0,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
             RotatingTextData(
               mainMessage: "Tap to confirm",
               pauseHere: true,

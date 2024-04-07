@@ -17,6 +17,7 @@ export "nokhte_custom_animation_builder/nokhte_custom_animation_builder.dart";
 export 'speak_less_smile_more/speak_less_smile_more.dart';
 export 'smart_text/smart_text.dart';
 export "text_editor/text_editor.dart";
+export './tint/tint.dart';
 export 'touch_ripple/touch_ripple.dart';
 export 'trailing_text/trailing_text.dart';
 export "waiting_text/waiting_text.dart";

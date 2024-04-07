@@ -136,8 +136,10 @@ abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
   tapReactor() => reaction(
         (p0) => tap.tapCount,
         (p0) => ifTouchIsNotDisabled(() async {
-          widgets.onTap(tap.currentTapPosition);
-          await presence.updateCurrentPhase(1);
+          widgets.onTap(
+            tap.currentTapPosition,
+            onFinalTap: () async => await presence.updateCurrentPhase(1),
+          );
         }),
       );
 
