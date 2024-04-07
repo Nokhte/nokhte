@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -20,12 +21,14 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
   final BeachWavesStore beachWaves;
   final TouchRippleStore touchRipple;
   final BorderGlowStore borderGlow;
+  final TintStore tint;
   _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase({
     required this.mirroredText,
     required this.beachWaves,
     required super.wifiDisconnectOverlay,
     required this.touchRipple,
     required this.borderGlow,
+    required this.tint,
   });
 
   @action
@@ -206,6 +209,13 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
       mirroredText.setRightSideUpColor(Colors.white);
       adjustRightSideToHoldingPadding();
     }
+    if (index == 11) {
+      Timer(
+        Seconds.get(1),
+        () => Modular.to.navigate('/irl_nokhte_session/speaking'),
+      );
+      return;
+    }
     Timer(const Duration(milliseconds: 500), () {
       if (!abortTheTextRotation) {
         if (!bottomHalfIsDone) {
@@ -318,6 +328,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
               }
             } else if (bottomHalfIsDone && topHalfIsDone) {
               if (mirroredText.primaryUpsideDownText.currentIndex == 9) {
+                tint.setControl(Control.play);
                 resetUpsideDownHoldingPadding();
                 mirroredText.prepForSplitScreen();
                 mirroredText.startBothRotatingText(isResuming: true);
