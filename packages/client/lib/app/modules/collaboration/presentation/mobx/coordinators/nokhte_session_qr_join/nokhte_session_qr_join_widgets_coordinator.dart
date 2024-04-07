@@ -178,6 +178,7 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
 
   @action
   initTransition() {
+    isEnteringNokhteSession = true;
     primaryBeachWaves.setMovieMode(
         BeachWaveMovieModes.invertedOnShoreToInvertedVibrantBlueGrad);
     primaryBeachWaves.currentStore
@@ -185,6 +186,8 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
     qrCode.setWidgetVisibility(false);
     smartText.setWidgetVisibility(false);
     gestureCross.fadeAllOut();
+    centerInstructionalNokhte.setWidgetVisibility(false);
+    instructionalGradientNokhte.setWidgetVisibility(false);
   }
 
   secondaryBeachWavesMovieStatusReactor(Function onNavigationHome) =>
