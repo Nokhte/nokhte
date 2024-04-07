@@ -275,6 +275,8 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     beachWaves.currentStore.initMovie(
       beachWaves.currentAnimationValues.first,
     );
+    centerInstructionalNokhte.setWidgetVisibility(false);
+    instructionalGradientNokhte.setWidgetVisibility(false);
     gestureCross.fadeAllOut();
   }
 }
