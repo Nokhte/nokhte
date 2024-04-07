@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -7,6 +9,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:simple_animations/simple_animations.dart';
 part 'irl_nokhte_session_speaking_instructions_widgets_coordinator.g.dart';
 
 class IrlNokhteSessionSpeakingInstructionsWidgetsCoordinator = _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
@@ -18,13 +21,32 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
   final BeachWavesStore beachWaves;
   final TouchRippleStore touchRipple;
   final BorderGlowStore borderGlow;
+  final TintStore tint;
   _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase({
     required this.mirroredText,
     required this.beachWaves,
     required super.wifiDisconnectOverlay,
     required this.touchRipple,
     required this.borderGlow,
+    required this.tint,
   });
+
+  @action
+  constructor() {
+    beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
+    beachWaves.currentStore.initMovie(NoParams());
+    mirroredText.setMessagesData(
+      MirroredTextContentOptions.irlNokhteSessionSpeakingInstructions,
+    );
+    initReactors();
+  }
+
+  @action
+  initReactors() {
+    beachWavesMovieStatusReactor();
+    upsideDownIndexReactor();
+    rightSideUpIndexReactor();
+  }
 
   @observable
   Stopwatch cooldownStopwatch = Stopwatch();
@@ -50,9 +72,6 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
   @observable
   bool bottomHalfHasStarted = false;
 
-  @action
-  setDisableTouchInput(bool newValue) => disableTouchInput = newValue;
-
   @observable
   MirroredTextOrientations currentActiveOrientation =
       MirroredTextOrientations.rightSideUp;
@@ -60,22 +79,51 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
   @observable
   int tapCount = 0;
 
+  @observable
+  bool abortTheTextRotation = false;
+
+  @observable
+  bool canHold = true;
+
+  setDisableTouchInput(bool newValue) => disableTouchInput = newValue;
+
   @action
-  constructor() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
-    beachWaves.currentStore.initMovie(NoParams());
-    mirroredText.setMessagesData(
-      MirroredTextContentOptions.irlNokhteSessionSpeakingInstructions,
+  adjustRightSideToHoldingPadding() {
+    mirroredText.setPadding(
+      primaryRightSideUpTopPadding: 0,
+      primaryRightSideUpBottomPadding: .2,
     );
-    initReactors();
   }
 
   @action
-  initReactors() {
-    beachWavesMovieStatusReactor();
-    upsideDownIndexReactor();
-    rightSideUpIndexReactor();
+  adjustUpsideDownToHoldingPadding() {
+    mirroredText.setPadding(
+      primaryUpsideDownTopPadding: 0,
+      primaryUpsideDownBottomPadding: .25,
+    );
   }
+
+  @action
+  resetRightSideHoldingPadding() {
+    mirroredText.setPadding(
+      primaryRightSideUpTopPadding: 0.15,
+      primaryRightSideUpBottomPadding: 0,
+    );
+  }
+
+  @action
+  resetUpsideDownHoldingPadding() {
+    mirroredText.setPadding(
+      primaryUpsideDownTopPadding: .12,
+      primaryUpsideDownBottomPadding: 0,
+    );
+  }
+
+  @action
+  toggleCurrentActiveOrientation() => currentActiveOrientation =
+      currentActiveOrientation == MirroredTextOrientations.rightSideUp
+          ? MirroredTextOrientations.upsideDown
+          : MirroredTextOrientations.rightSideUp;
 
   @action
   onCollaboratorLeft() {
@@ -92,68 +140,11 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
     );
   }
 
-  rightSideUpIndexReactor() =>
-      reaction((p0) => mirroredText.primaryRightSideUpText.currentIndex, (p0) {
-        if (p0 == 3) {
-          mirroredText.setRightSideUpColor(Colors.white);
-        } else if (p0 == 4) {
-          bottomHalfIsDone = true;
-        } else if (p0 == 5) {
-          mirroredText.setRightsideUpVisibility(false);
-        } else if (p0 == 7) {
-          Modular.to.navigate("/irl_nokhte_session/speaking");
-        }
-      });
-
-  upsideDownIndexReactor() =>
-      reaction((p0) => mirroredText.primaryUpsideDownText.currentIndex, (p0) {
-        if (p0 == 4) {
-          topHalfIsDone = true;
-          mirroredText.prepForSplitScreen();
-        } else if (p0 == 5) {
-          mirroredText.setRightsideUpVisibility(true);
-        }
-      });
-
-  beachWavesMovieStatusReactor() =>
-      reaction((p0) => beachWaves.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished) {
-          if (beachWaves.movieMode ==
-              BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf) {
-            if (!topHalfIsDone) {
-              mirroredText.startRotatingRightSideUp();
-              cooldownStopwatch.start();
-              disableTouchInput = false;
-            }
-          } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.anyToVibrantBlueGrad) {
-            borderGlow.initMovie(NoParams());
-            if (!bottomHalfIsDone) {
-              mirroredText.setRightSideUpColor(Colors.white);
-            }
-          } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.dynamicPointToHalfAndHalf) {
-            if (!bottomHalfIsDone && !topHalfIsDone) {
-              mirroredText.prepForSplitScreen();
-              mirroredText.setRightsideUpCurrentIndex(1);
-              mirroredText.setRightsideUpVisibility(true);
-            } else if (bottomHalfIsDone && !topHalfIsDone) {
-              mirroredText.setUpsideDownCurrentIndex(1);
-              mirroredText.setUpsideDownVisibility(true);
-              if (!bottomHalfHasStarted) {
-                mirroredText.startRotatingUpsideDown(isResuming: true);
-                bottomHalfHasStarted = true;
-              }
-            } else if (bottomHalfIsDone && topHalfIsDone) {
-              mirroredText.setWidgetVisibility(true);
-            }
-          }
-        }
-      });
-
   @action
   onHold() {
-    if (!isStillInMutualInstructionMode) {
+    if (!isStillInMutualInstructionMode && canHold) {
+      canHold = false;
+      abortTheTextRotation = false;
       holdCount++;
       DurationAndGradient params = DurationAndGradient.initial();
       params = DurationAndGradient(
@@ -164,10 +155,8 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
       beachWaves.setMovieMode(BeachWaveMovieModes.anyToVibrantBlueGrad);
       beachWaves.currentStore.initMovie(params);
       if (!bottomHalfIsDone) {
-        mirroredText.resumeRightsideUp();
         mirroredText.startRotatingRightSideUp(isResuming: true);
       } else if (bottomHalfIsDone && !topHalfIsDone) {
-        mirroredText.resumeUpsideDown();
         mirroredText.startRotatingUpsideDown(isResuming: true);
       }
     }
@@ -178,30 +167,17 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
     required Function onFlowFinished,
   }) async {
     if (!isStillInMutualInstructionMode) {
+      abortTheTextRotation = true;
       borderGlow.initGlowDown();
       beachWaves.setMovieMode(BeachWaveMovieModes.dynamicPointToHalfAndHalf);
       beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
       if (!bottomHalfIsDone) {
         mirroredText.setWidgetVisibility(false);
-        mirroredText.pauseRightsideUp();
       } else if (bottomHalfIsDone && !topHalfIsDone) {
         mirroredText.setUpsideDownVisibility(false);
-        mirroredText.pauseUpsideDown();
       } else if (bottomHalfIsDone && topHalfIsDone) {
         await onFlowFinished();
       }
-    }
-  }
-
-  @action
-  toggleCurrentActiveOrientation() {
-    switch (currentActiveOrientation) {
-      case MirroredTextOrientations.rightSideUp:
-        currentActiveOrientation = MirroredTextOrientations.upsideDown;
-      case MirroredTextOrientations.upsideDown:
-        currentActiveOrientation = MirroredTextOrientations.rightSideUp;
-      default:
-        break;
     }
   }
 
@@ -227,6 +203,141 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
     }
   }
 
+  @action
+  onEmptyCheckPointMessageReached(int index) {
+    if (index == 5 && !bottomHalfIsDone) {
+      mirroredText.setRightSideUpColor(Colors.white);
+      adjustRightSideToHoldingPadding();
+    }
+    if (index == 11) {
+      Timer(
+        Seconds.get(1),
+        () => Modular.to.navigate('/irl_nokhte_session/speaking'),
+      );
+      return;
+    }
+    Timer(const Duration(milliseconds: 500), () {
+      if (!abortTheTextRotation) {
+        if (!bottomHalfIsDone) {
+          mirroredText.startRotatingRightSideUp(isResuming: true);
+        } else if (bottomHalfIsDone && !topHalfIsDone) {
+          adjustUpsideDownToHoldingPadding();
+          mirroredText.startRotatingUpsideDown(isResuming: true);
+        }
+      }
+    });
+  }
+
+  @action
+  onNextMessageReached(int index) {
+    Duration onScreenTime = Duration.zero;
+    if (index == 6) {
+      onScreenTime = const Duration(seconds: 2, milliseconds: 500);
+    } else if (index == 8) {
+      onScreenTime = const Duration(seconds: 1);
+    }
+    Timer(onScreenTime, () {
+      if (!abortTheTextRotation) {
+        if (!bottomHalfIsDone) {
+          mirroredText.startRotatingRightSideUp(isResuming: true);
+          if (index == 8) {
+            bottomHalfIsDone = true;
+          }
+        } else if (bottomHalfIsDone && !topHalfIsDone) {
+          mirroredText.startRotatingUpsideDown(isResuming: true);
+          if (index == 8) {
+            canHold = false;
+            topHalfIsDone = true;
+          }
+        }
+      }
+    });
+  }
+
+  upsideDownIndexReactor() =>
+      reaction((p0) => mirroredText.primaryUpsideDownText.currentIndex, (p0) {
+        if (p0.isGreaterThan(4)) {
+          if (p0.isOdd) {
+            onEmptyCheckPointMessageReached(p0);
+          } else if (p0.isEven) {
+            onNextMessageReached(p0);
+          }
+        }
+      });
+
+  rightSideUpIndexReactor() =>
+      reaction((p0) => mirroredText.primaryRightSideUpText.currentIndex, (p0) {
+        if (p0.isGreaterThan(4)) {
+          if (p0.isOdd) {
+            onEmptyCheckPointMessageReached(p0);
+          } else if (p0.isEven) {
+            onNextMessageReached(p0);
+          }
+        }
+      });
+
+  beachWavesMovieStatusReactor() =>
+      reaction((p0) => beachWaves.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished) {
+          if (beachWaves.movieMode ==
+              BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf) {
+            if (!topHalfIsDone) {
+              mirroredText.startRotatingRightSideUp();
+              cooldownStopwatch.start();
+              disableTouchInput = false;
+            }
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.anyToVibrantBlueGrad) {
+            borderGlow.initMovie(NoParams());
+            if (!bottomHalfIsDone) {
+              mirroredText.setRightSideUpColor(Colors.white);
+            }
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.dynamicPointToHalfAndHalf) {
+            if (!bottomHalfIsDone) {
+              canHold = true;
+              mirroredText.prepForSplitScreen();
+              Timer.periodic(Seconds.get(0, milli: 550), (timer) {
+                if (mirroredText.primaryRightSideUpText.control ==
+                    Control.playFromStart) {
+                  resetRightSideHoldingPadding();
+                  mirroredText.setRightsideUpCurrentIndex(3);
+                  mirroredText.startRotatingRightSideUp(isResuming: true);
+                  mirroredText.setRightsideUpVisibility(true);
+                  timer.cancel();
+                }
+              });
+            } else if (bottomHalfIsDone && !topHalfIsDone) {
+              canHold = true;
+              if (!bottomHalfHasStarted) {
+                resetRightSideHoldingPadding();
+                bottomHalfHasStarted = true;
+                mirroredText.setUpsideDownVisibility(true);
+                mirroredText.startRotatingUpsideDown(isResuming: true);
+              } else {
+                Timer.periodic(Seconds.get(0, milli: 550), (timer) {
+                  if (mirroredText.primaryUpsideDownText.control ==
+                      Control.playFromStart) {
+                    resetUpsideDownHoldingPadding();
+                    mirroredText.setUpsideDownCurrentIndex(3);
+                    mirroredText.startRotatingUpsideDown(isResuming: true);
+                    mirroredText.setUpsideDownVisibility(true);
+                    timer.cancel();
+                  }
+                });
+              }
+            } else if (bottomHalfIsDone && topHalfIsDone) {
+              if (mirroredText.primaryUpsideDownText.currentIndex == 9) {
+                tint.setControl(Control.play);
+                resetUpsideDownHoldingPadding();
+                mirroredText.prepForSplitScreen();
+                mirroredText.startBothRotatingText(isResuming: true);
+              }
+            }
+          }
+        }
+      });
+
   @computed
   bool get hasTappedOnTheRightSide =>
       rightSideUpTextIsVisible && hasTappedOnTheBottomHalf ||
@@ -249,7 +360,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
       touchRipple.tapPlacement == GesturePlacement.topHalf;
 
   @computed
-  bool get isStillInMutualInstructionMode => tapCount.isLessThan(2);
+  bool get isStillInMutualInstructionMode => tapCount.isLessThan(4);
 
   @computed
   bool get isFirstTap => tapCount == 0;
