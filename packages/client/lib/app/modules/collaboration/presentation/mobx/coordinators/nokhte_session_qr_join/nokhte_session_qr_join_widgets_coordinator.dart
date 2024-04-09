@@ -45,7 +45,7 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
   bool isEnteringNokhteSession = false;
 
   @observable
-  bool hasSwipedUp = false;
+  bool hasSwipedDown = false;
 
   @observable
   bool showSecondaryBeachWaves = false;
@@ -97,24 +97,26 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
         centerInstructionalNokhte.initMovie(GradientNokhtePositions.bottom);
         setSmartTextPadding();
       } else {
-        smartText.setWidgetVisibility(false);
-        instructionalGradientNokhte.setWidgetVisibility(false);
-        centerInstructionalNokhte.setWidgetVisibility(false);
-        gestureCross.fadeIn();
-        gestureCross.initMoveAndRegenerate(CircleOffsets.bottom);
-        primaryBeachWaves.setMovieMode(
-            BeachWaveMovieModes.invertedOnShoreToInvertedOceanDive);
-        primaryBeachWaves.currentStore
-            .initMovie(primaryBeachWaves.currentAnimationValues.first);
-        qrCode.setWidgetVisibility(false);
+        if (!hasSwipedDown) {
+          hasSwipedDown = true;
+          smartText.setWidgetVisibility(false);
+          instructionalGradientNokhte.setWidgetVisibility(false);
+          centerInstructionalNokhte.setWidgetVisibility(false);
+          gestureCross.fadeIn();
+          gestureCross.initMoveAndRegenerate(CircleOffsets.bottom);
+          primaryBeachWaves.setMovieMode(
+              BeachWaveMovieModes.invertedOnShoreToInvertedOceanDive);
+          primaryBeachWaves.currentStore
+              .initMovie(primaryBeachWaves.currentAnimationValues.first);
+          qrCode.setWidgetVisibility(false);
+        }
       }
     }
   }
 
   @action
   onSwipeCoordinatesChanged(Offset offset) {
-    if ((primaryBeachWaves.movieStatus != MovieStatus.finished ||
-            secondaryBeachWaves.movieStatus != MovieStatus.finished) ||
+    if ((primaryBeachWaves.movieStatus != MovieStatus.finished) ||
         smartText.currentIndex == 1) {
       touchRipple.onSwipe(offset);
     }
@@ -138,7 +140,7 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
           // smartText.reset();
           smartText.startRotatingText();
           qrCode.setWidgetVisibility(true);
-          hasSwipedUp = false;
+          hasSwipedDown = false;
           setTouchIsDisabled(false);
         }
       });
@@ -207,7 +209,7 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
     if (canTapOnGestureCross) {
       if (!hasInitiatedBlur) {
         setTouchIsDisabled(true);
-        hasSwipedUp = false;
+        hasSwipedDown = false;
         nokhteBlur.init();
         primaryBeachWaves.currentStore.setControl(Control.stop);
         qrCode.setWidgetVisibility(false);
@@ -227,7 +229,7 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
         smartText.startRotatingText(isResuming: true);
         centerInstructionalNokhte.moveToCenter(center);
       } else if (hasInitiatedBlur) {
-        hasSwipedUp = false;
+        hasSwipedDown = false;
         qrCode.setWidgetVisibility(false);
         centerInstructionalNokhte.moveBackToCross(
           startingPosition: CenterNokhtePositions.center,
@@ -285,6 +287,6 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
   @computed
   bool get canTapOnGestureCross =>
       !isEnteringNokhteSession &&
-      !hasSwipedUp &&
+      !hasSwipedDown &&
       centerInstructionalNokhte.movieStatus != MovieStatus.inProgress;
 }

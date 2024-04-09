@@ -78,7 +78,6 @@ abstract class _HomeScreenPhase2WidgetsCoordinatorBase
         primarySmartText.startRotatingText(isResuming: true);
         setSmartTextPadding(topPadding: 0);
       } else if (primarySmartText.currentIndex.isLessThan(1)) {
-        hasSwipedUp = false;
         gestureCross.centerCrossNokhte.setWidgetVisibility(true);
         gestureCross.gradientNokhte.setWidgetVisibility(true);
         centerInstructionalNokhte.setWidgetVisibility(false);

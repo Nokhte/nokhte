@@ -105,7 +105,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsCoordinatorBase
         (p0) => sessionMetadata.collaboratorPhase,
         (p0) {
           if (sessionMetadata.canMoveIntoSession) {
-            widgets.mirroredText.startBothRotatingText(isResuming: true);
+            widgets.onReadyToTransition();
           }
         },
       );
