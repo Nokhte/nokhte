@@ -16,6 +16,7 @@ class NotesPhoneNokhteSessionWidgetsModule extends Module {
     i.add<IrlNokhteSessionNotesInstructionsWidgetsCoordinator>(
       () => IrlNokhteSessionNotesInstructionsWidgetsCoordinator(
         touchRipple: TouchRippleStore(),
+        tint: TintStore(),
         mirroredText: Modular.get<MirroredTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         beachWaves: BeachWavesStore(),
