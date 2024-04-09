@@ -204,6 +204,12 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
   }
 
   @action
+  onReadyToTransition() {
+    mirroredText.startBothRotatingText(isResuming: true);
+    tint.setControl(Control.playReverse);
+  }
+
+  @action
   onEmptyCheckPointMessageReached(int index) {
     if (index == 5 && !bottomHalfIsDone) {
       mirroredText.setRightSideUpColor(Colors.white);
@@ -220,7 +226,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
       if (!abortTheTextRotation) {
         if (!bottomHalfIsDone) {
           mirroredText.startRotatingRightSideUp(isResuming: true);
-        } else if (bottomHalfIsDone && !topHalfIsDone) {
+        } else if (bottomHalfIsDone && !topHalfIsDone && bottomHalfHasStarted) {
           adjustUpsideDownToHoldingPadding();
           mirroredText.startRotatingUpsideDown(isResuming: true);
         }
@@ -237,7 +243,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
       onScreenTime = const Duration(seconds: 1);
     }
     Timer(onScreenTime, () {
-      if (!abortTheTextRotation) {
+      if (!abortTheTextRotation || index == 8) {
         if (!bottomHalfIsDone) {
           mirroredText.startRotatingRightSideUp(isResuming: true);
           if (index == 8) {
