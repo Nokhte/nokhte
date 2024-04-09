@@ -37,7 +37,8 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
     required this.nokhteBlur,
     required this.qrCode,
   }) {
-    setSmartTextTopPaddingScalar(.38);
+    setSmartTextTopPaddingScalar(.27);
+    setSmartTextBottomPaddingScalar(0);
     setSmartTextSubMessagePaddingScalar(110);
   }
 
@@ -139,7 +140,7 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
                 CenterInstructionalNokhteMovieModes.moveBack) {
           gestureCross.centerCrossNokhte.setWidgetVisibility(true);
           gestureCross.gradientNokhte.setWidgetVisibility(true);
-          setSmartTextTopPaddingScalar(.18);
+          setSmartTextTopPaddingScalar(.27);
           setSmartTextBottomPaddingScalar(0);
           setSmartTextSubMessagePaddingScalar(110);
           // smartText.reset();
