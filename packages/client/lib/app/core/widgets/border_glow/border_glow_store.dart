@@ -34,6 +34,14 @@ abstract class _BorderGlowStoreBase
   }
 
   @action
+  setAtCompleteWhiteOut() {
+    isGlowingUp = true;
+    setMovie(StaticWhiteOutMovie.movie);
+    setControl(Control.playReverseFromEnd);
+    setControl(Control.stop);
+  }
+
+  @action
   initWhiteOut() {
     isGlowingUp = true;
     setMovie(BorderGlowWhiteOutMovie.movie);
