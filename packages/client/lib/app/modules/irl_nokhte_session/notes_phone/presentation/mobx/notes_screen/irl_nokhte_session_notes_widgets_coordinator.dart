@@ -61,6 +61,8 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
     beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
     textEditor.initFadeIn();
     mirroredText.setMessagesData(MirroredTextContentOptions.speakLessWriteMore);
+    mirroredText.startBothRotatingText();
+    mirroredText.setWidgetVisibility(false);
     initReactors();
   }
 
@@ -101,7 +103,6 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
       borderGlow.initWhiteOut();
       textEditor.setWidgetVisibility(false);
       textEditor.setIsReadOnly(true);
-
       canTap = true;
       canSwipeUp = false;
       await onGlowInitiated();
@@ -125,14 +126,17 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
           if (borderGlow.isGlowingUp) {
             canTap = true;
             canSwipeUp = false;
-            mirroredText.startBothRotatingText(
-                isResuming: inactivityCount != 0);
+            // print("did you not run??");
+            mirroredText.setCurrentIndex(1);
+            mirroredText.startBothRotatingText(isResuming: true);
+            mirroredText.setWidgetVisibility(true);
             textEditor.setWidgetVisibility(false);
           } else {
             textEditor.setWidgetVisibility(true);
             canTap = false;
             canSwipeUp = true;
             textEditor.setIsReadOnly(false);
+            mirroredText.setWidgetVisibility(false);
             inactivityCount++;
             onGlowDown();
             startInactivityCron(onGlowInitiated);
@@ -154,13 +158,13 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
     if (canTap) {
       touchRipple.onTap(position, overridedColor: Colors.black);
       if (touchRipple.tapPlacement == GesturePlacement.topHalf &&
-          !rightSideUpHasBeenDismissed) {
-        rightSideUpHasBeenDismissed = true;
-        mirroredText.startRotatingUpsideDown(isResuming: true);
-      } else if (touchRipple.tapPlacement == GesturePlacement.bottomHalf &&
           !upsideDownHasBeenDismissed) {
+        mirroredText.startRotatingUpsideDown(isResuming: true);
         upsideDownHasBeenDismissed = true;
+      } else if (touchRipple.tapPlacement == GesturePlacement.bottomHalf &&
+          !rightSideUpHasBeenDismissed) {
         mirroredText.startRotatingRightSideUp(isResuming: true);
+        rightSideUpHasBeenDismissed = true;
       }
     }
   }

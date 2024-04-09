@@ -58,12 +58,6 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
   int holdCount = 0;
 
   @observable
-  Stopwatch letGoStopwatch = Stopwatch();
-
-  @observable
-  Stopwatch holdStopwatch = Stopwatch();
-
-  @observable
   bool topHalfIsDone = false;
 
   @observable

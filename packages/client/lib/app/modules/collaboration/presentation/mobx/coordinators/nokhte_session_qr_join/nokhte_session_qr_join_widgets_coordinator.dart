@@ -37,7 +37,8 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
     required this.nokhteBlur,
     required this.qrCode,
   }) {
-    setSmartTextTopPaddingScalar(.38);
+    setSmartTextTopPaddingScalar(.27);
+    setSmartTextBottomPaddingScalar(0);
     setSmartTextSubMessagePaddingScalar(110);
   }
 
@@ -58,6 +59,9 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
 
   @observable
   bool invitationIsSent = false;
+
+  @observable
+  bool shouldDisableTouchRipple = false;
 
   @observable
   bool shouldEnterCollaboratorPool = false;
@@ -116,9 +120,11 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
 
   @action
   onSwipeCoordinatesChanged(Offset offset) {
-    if ((primaryBeachWaves.movieStatus != MovieStatus.finished) ||
-        smartText.currentIndex == 1) {
-      touchRipple.onSwipe(offset);
+    if (!shouldDisableTouchRipple) {
+      if ((primaryBeachWaves.movieStatus != MovieStatus.finished) ||
+          smartText.currentIndex == 1) {
+        touchRipple.onSwipe(offset);
+      }
     }
   }
 
@@ -134,7 +140,7 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
                 CenterInstructionalNokhteMovieModes.moveBack) {
           gestureCross.centerCrossNokhte.setWidgetVisibility(true);
           gestureCross.gradientNokhte.setWidgetVisibility(true);
-          setSmartTextTopPaddingScalar(.18);
+          setSmartTextTopPaddingScalar(.27);
           setSmartTextBottomPaddingScalar(0);
           setSmartTextSubMessagePaddingScalar(110);
           // smartText.reset();
@@ -181,6 +187,8 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
   @action
   initTransition() {
     isEnteringNokhteSession = true;
+    shouldDisableTouchRipple = true;
+    hasSwipedDown = true;
     primaryBeachWaves.setMovieMode(
         BeachWaveMovieModes.invertedOnShoreToInvertedVibrantBlueGrad);
     primaryBeachWaves.currentStore
