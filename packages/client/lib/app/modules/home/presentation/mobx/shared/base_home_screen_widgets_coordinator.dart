@@ -110,12 +110,10 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   @action
   prepForNavigation({bool excludeUnBlur = false}) {
     if (!hasSwipedUp) {
-      toggleHasSwipedUp();
-
+      hasSwipedUp = true;
       if (!excludeUnBlur) {
         nokhteBlur.reverse();
       }
-      gestureCross.stopBlinking();
       if (primarySmartText.currentIndex == 0) {
         primarySmartText.toggleWidgetVisibility();
       } else {
@@ -146,6 +144,7 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     if (isInErrorMode) {
       if (beachWaves.movieStatus == MovieStatus.finished) {
         onErrorResolved();
+        hasSwipedUp = false;
         beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
         beachWaves.currentStore.initMovie(
           AnyToOnShoreParams(startingColors: beachWaves.currentColorsAndStops),
@@ -269,8 +268,10 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
 
   @action
   onDeepLinkOpened() {
+    hasSwipedUp = true;
     isEnteringNokhteSession = true;
     primarySmartText.toggleWidgetVisibility();
+    touchIsDisabled = true;
     beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToVibrantBlue);
     beachWaves.currentStore.initMovie(
       beachWaves.currentAnimationValues.first,
