@@ -97,12 +97,12 @@ class MessagesData {
 
   static List<RotatingTextData> get speakLessWriteMorePrimary => [
         RotatingTextData(
-          mainMessage: "1",
+          mainMessage: "",
           initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
         ),
         RotatingTextData(
-          mainMessage: "2",
+          mainMessage: "",
           pauseHere: true,
           initialFadeInDelay: Seconds.get(1),
         ),
@@ -112,7 +112,7 @@ class MessagesData {
           initialFadeInDelay: Seconds.get(1),
         ),
         RotatingTextData(
-          mainMessage: "4",
+          mainMessage: "",
           initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
         ),
