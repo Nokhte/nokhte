@@ -97,16 +97,6 @@ class MessagesData {
 
   static List<RotatingTextData> get speakLessWriteMorePrimary => [
         RotatingTextData(
-          mainMessage: "",
-          initialFadeInDelay: Seconds.get(1),
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-          initialFadeInDelay: Seconds.get(1),
-        ),
-        RotatingTextData(
           mainMessage: "Speak less, write more",
           pauseHere: true,
           initialFadeInDelay: Seconds.get(1),
@@ -119,16 +109,6 @@ class MessagesData {
       ];
 
   static List<RotatingTextData> get speakLessWriteMoreSecondary => [
-        RotatingTextData(
-          mainMessage: "",
-          initialFadeInDelay: Seconds.get(1),
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          initialFadeInDelay: Seconds.get(1),
-          pauseHere: true,
-        ),
         RotatingTextData(
           mainMessage: '',
           subMessage: "Tap anywhere to confirm",

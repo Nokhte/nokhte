@@ -50,9 +50,6 @@ class IrlNokhteSessionNotesScreen extends HookWidget {
                   opacityDuration: Seconds.get(1),
                 ),
               ),
-              MirroredText(
-                store: coordinator.widgets.mirroredText,
-              ),
               Center(
                 child: TextEditor(
                   placeholderText: "Your thoughtful thought",

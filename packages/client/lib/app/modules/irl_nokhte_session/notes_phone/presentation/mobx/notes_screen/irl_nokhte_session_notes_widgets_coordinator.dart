@@ -1,14 +1,11 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:cron/cron.dart';
-import 'package:simple_animations/simple_animations.dart';
 part 'irl_nokhte_session_notes_widgets_coordinator.g.dart';
 
 class IrlNokhteSessionNotesWidgetsCoordinator = _IrlNokhteSessionNotesWidgetsCoordinatorBase
@@ -21,7 +18,6 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
   final TextEditorStore textEditor;
   final SmartTextStore smartText;
   final BorderGlowStore borderGlow;
-  final MirroredTextStore mirroredText;
   _IrlNokhteSessionNotesWidgetsCoordinatorBase({
     required this.beachWaves,
     required super.wifiDisconnectOverlay,
@@ -29,7 +25,6 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
     required this.textEditor,
     required this.smartText,
     required this.borderGlow,
-    required this.mirroredText,
   });
 
   @observable
@@ -60,22 +55,11 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
     smartText.startRotatingText();
     beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
     textEditor.initFadeIn();
-    mirroredText.setMessagesData(MirroredTextContentOptions.speakLessWriteMore);
-    mirroredText.startBothRotatingText();
-    mirroredText.setWidgetVisibility(false);
-    initReactors();
-  }
-
-  initReactors() {
-    mirroredTextIndicesReactor();
   }
 
   initBorderGlowReactors(
       {required Function onGlowInitiated, required Function onGlowDown}) {
-    borderGlowMovieStatusReactor(
-      onGlowDown: onGlowDown,
-      onGlowInitiated: onGlowInitiated,
-    );
+    borderGlowMovieStatusReactor(onGlowInitiated: onGlowInitiated);
     startInactivityCron(onGlowInitiated);
     textEditor.focusNode.addListener(() {
       if (!textEditor.focusNode.hasFocus) {
@@ -119,55 +103,16 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
 
   borderGlowMovieStatusReactor({
     required Function onGlowInitiated,
-    required Function onGlowDown,
   }) =>
       reaction((p0) => borderGlow.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
           if (borderGlow.isGlowingUp) {
             canTap = true;
             canSwipeUp = false;
-            // print("did you not run??");
-            mirroredText.setCurrentIndex(1);
-            mirroredText.startBothRotatingText(isResuming: true);
-            mirroredText.setWidgetVisibility(true);
-            textEditor.setWidgetVisibility(false);
-          } else {
-            textEditor.setWidgetVisibility(true);
-            canTap = false;
-            canSwipeUp = true;
-            textEditor.setIsReadOnly(false);
-            mirroredText.setWidgetVisibility(false);
-            inactivityCount++;
-            onGlowDown();
-            startInactivityCron(onGlowInitiated);
-            borderGlow.setAltControl(Control.stop);
+            Modular.to.navigate('/irl_nokhte_session/notes_inactivity');
           }
         }
       });
-
-  mirroredTextIndicesReactor() =>
-      reaction((p0) => mirroredText.isReadyToBeDismissed, (p0) {
-        if (p0) {
-          borderGlow.initGlowDown();
-          rightSideUpHasBeenDismissed = false;
-          upsideDownHasBeenDismissed = false;
-        }
-      });
-
-  onTap(Offset position) {
-    if (canTap) {
-      touchRipple.onTap(position, overridedColor: Colors.black);
-      if (touchRipple.tapPlacement == GesturePlacement.topHalf &&
-          !upsideDownHasBeenDismissed) {
-        mirroredText.startRotatingUpsideDown(isResuming: true);
-        upsideDownHasBeenDismissed = true;
-      } else if (touchRipple.tapPlacement == GesturePlacement.bottomHalf &&
-          !rightSideUpHasBeenDismissed) {
-        mirroredText.startRotatingRightSideUp(isResuming: true);
-        rightSideUpHasBeenDismissed = true;
-      }
-    }
-  }
 
   @action
   onSwipeUp(Function(String) onSwipeUp, Function onGlowInitiated) async {
