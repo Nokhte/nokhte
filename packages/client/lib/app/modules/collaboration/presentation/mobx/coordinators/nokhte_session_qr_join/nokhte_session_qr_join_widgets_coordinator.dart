@@ -60,6 +60,9 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
   bool invitationIsSent = false;
 
   @observable
+  bool shouldDisableTouchRipple = false;
+
+  @observable
   bool shouldEnterCollaboratorPool = false;
 
   @action
@@ -116,9 +119,11 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
 
   @action
   onSwipeCoordinatesChanged(Offset offset) {
-    if ((primaryBeachWaves.movieStatus != MovieStatus.finished) ||
-        smartText.currentIndex == 1) {
-      touchRipple.onSwipe(offset);
+    if (!shouldDisableTouchRipple) {
+      if ((primaryBeachWaves.movieStatus != MovieStatus.finished) ||
+          smartText.currentIndex == 1) {
+        touchRipple.onSwipe(offset);
+      }
     }
   }
 
@@ -181,6 +186,8 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
   @action
   initTransition() {
     isEnteringNokhteSession = true;
+    shouldDisableTouchRipple = true;
+    hasSwipedDown = true;
     primaryBeachWaves.setMovieMode(
         BeachWaveMovieModes.invertedOnShoreToInvertedVibrantBlueGrad);
     primaryBeachWaves.currentStore
