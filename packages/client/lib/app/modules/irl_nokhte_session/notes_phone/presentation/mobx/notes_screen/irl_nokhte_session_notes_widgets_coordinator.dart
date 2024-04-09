@@ -41,6 +41,12 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
   @observable
   bool canTap = false;
 
+  @observable
+  bool rightSideUpHasBeenDismissed = false;
+
+  @observable
+  bool upsideDownHasBeenDismissed = false;
+
   @action
   setCanSwipeUp(bool newVal) => canSwipeUp = newVal;
 
@@ -139,21 +145,23 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
       reaction((p0) => mirroredText.isReadyToBeDismissed, (p0) {
         if (p0) {
           borderGlow.initGlowDown();
+          rightSideUpHasBeenDismissed = false;
+          upsideDownHasBeenDismissed = false;
         }
       });
 
   onTap(Offset position) {
     if (canTap) {
-      if (touchRipple.tapPlacement == GesturePlacement.topHalf) {
-        if (mirroredText.primaryRightSideUpCurrentMessage.isNotEmpty) {
-          mirroredText.startRotatingRightSideUp(isResuming: true);
-        }
-      } else {
-        if (mirroredText.primaryUpsideDownCurrentMessage.isNotEmpty) {
-          mirroredText.startRotatingUpsideDown(isResuming: true);
-        }
-      }
       touchRipple.onTap(position, overridedColor: Colors.black);
+      if (touchRipple.tapPlacement == GesturePlacement.topHalf &&
+          !rightSideUpHasBeenDismissed) {
+        rightSideUpHasBeenDismissed = true;
+        mirroredText.startRotatingUpsideDown(isResuming: true);
+      } else if (touchRipple.tapPlacement == GesturePlacement.bottomHalf &&
+          !upsideDownHasBeenDismissed) {
+        upsideDownHasBeenDismissed = true;
+        mirroredText.startRotatingRightSideUp(isResuming: true);
+      }
     }
   }
 
