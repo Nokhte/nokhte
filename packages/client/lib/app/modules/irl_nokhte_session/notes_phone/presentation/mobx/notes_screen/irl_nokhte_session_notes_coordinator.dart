@@ -73,7 +73,6 @@ abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
     userPhaseReactor();
     touchFeedbackStatusReactor();
     collaboratorPhaseReactor();
-    tapReactor();
     widgets.initBorderGlowReactors(
       onGlowInitiated: onGlowInitiated,
       onGlowDown: () {
@@ -108,12 +107,6 @@ abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
         } else {
           widgets.textEditor.setIsReadOnly(false);
         }
-      });
-
-  tapReactor() => reaction((p0) => tap.currentTapPosition, (p0) {
-        ifTouchIsNotDisabled(() {
-          widgets.onTap(p0);
-        });
       });
 
   phoneTiltStateReactor() =>

@@ -26,9 +26,17 @@ class NotesPhoneNokhteSessionWidgetsModule extends Module {
       () => IrlNokhteSessionNotesWidgetsCoordinator(
         smartText: SmartTextStore(),
         borderGlow: BorderGlowStore(),
-        mirroredText: Modular.get<MirroredTextStore>(),
         touchRipple: TouchRippleStore(),
         textEditor: TextEditorStore(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        beachWaves: BeachWavesStore(),
+      ),
+    );
+    i.add<IrlNokhteSessionNotesInactivityWidgetsCoordinator>(
+      () => IrlNokhteSessionNotesInactivityWidgetsCoordinator(
+        borderGlow: BorderGlowStore(),
+        mirroredText: Modular.get<MirroredTextStore>(),
+        touchRipple: TouchRippleStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         beachWaves: BeachWavesStore(),
       ),

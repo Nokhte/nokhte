@@ -77,6 +77,15 @@ class IrlNokhteSessionModule extends Module {
           presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
           swipe: SwipeDetector()),
     );
+    i.add<IrlNokhteSessionNotesInactivityCoordinator>(
+      () => IrlNokhteSessionNotesInactivityCoordinator(
+        tap: TapDetector(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        widgets:
+            Modular.get<IrlNokhteSessionNotesInactivityWidgetsCoordinator>(),
+        presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
+      ),
+    );
     i.add<IrlNokhteSessionPhase3Coordinator>(
       () => IrlNokhteSessionPhase3Coordinator(
         cleanUpCollaborationArtifacts:
@@ -121,6 +130,12 @@ class IrlNokhteSessionModule extends Module {
       child: (context) => IrlNokhteSessionNotesInstructionsScreen(
         coordinator:
             Modular.get<IrlNokhteSessionNotesInstructionsCoordinator>(),
+      ),
+    );
+    r.child(
+      '/notes_inactivity',
+      child: (context) => IrlNokhteSessionNotesInactivityScreen(
+        coordinator: Modular.get<IrlNokhteSessionNotesInactivityCoordinator>(),
       ),
     );
     r.child(
