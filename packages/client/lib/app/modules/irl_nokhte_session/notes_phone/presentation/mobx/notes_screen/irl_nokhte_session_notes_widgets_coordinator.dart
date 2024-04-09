@@ -99,7 +99,7 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
   startInactivityCron(Function onGlowInitiated) {
     currentCron.close();
     currentCron = Cron();
-    currentCron.schedule(Schedule.parse('*/1 * * * *'), () async {
+    currentCron.schedule(Schedule.parse('*/3 * * * *'), () async {
       borderGlow.initWhiteOut();
       textEditor.setWidgetVisibility(false);
       textEditor.setIsReadOnly(true);
