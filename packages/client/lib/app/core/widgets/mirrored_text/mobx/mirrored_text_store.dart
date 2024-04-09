@@ -271,8 +271,8 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
 
   @computed
   bool get isReadyToBeDismissed =>
-      primaryRightSideUpText.currentIndex % 2 == 1 &&
-      primaryUpsideDownText.currentIndex % 2 == 1;
+      primaryRightSideUpText.currentIndex == 3 &&
+      primaryUpsideDownText.currentIndex == 3;
 
   @computed
   String get primaryRightSideUpCurrentMessage =>

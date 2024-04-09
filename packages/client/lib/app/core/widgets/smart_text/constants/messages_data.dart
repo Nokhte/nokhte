@@ -95,35 +95,52 @@ class MessagesData {
         ),
       ];
 
-  static List<RotatingTextData> get speakLessWriteMorePrimary => List.generate(
-      100,
-      (index) => index % 2 == 0
-          ? RotatingTextData(
-              mainMessage: "Speak less, write more",
-              pauseHere: true,
-              initialFadeInDelay: Seconds.get(1),
-            )
-          : RotatingTextData(
-              mainMessage: "",
-              initialFadeInDelay: Seconds.get(1),
-              pauseHere: true,
-            ));
+  static List<RotatingTextData> get speakLessWriteMorePrimary => [
+        RotatingTextData(
+          mainMessage: "1",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "2",
+          pauseHere: true,
+          initialFadeInDelay: Seconds.get(1),
+        ),
+        RotatingTextData(
+          mainMessage: "Speak less, write more",
+          pauseHere: true,
+          initialFadeInDelay: Seconds.get(1),
+        ),
+        RotatingTextData(
+          mainMessage: "4",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+      ];
 
-  static List<RotatingTextData> get speakLessWriteMoreSecondary =>
-      List.generate(
-          100,
-          (index) => index % 2 == 0
-              ? RotatingTextData(
-                  mainMessage: '',
-                  subMessage: "Tap anywhere to confirm",
-                  pauseHere: true,
-                  initialFadeInDelay: Seconds.get(1),
-                )
-              : RotatingTextData(
-                  mainMessage: "",
-                  initialFadeInDelay: Seconds.get(1),
-                  pauseHere: true,
-                ));
+  static List<RotatingTextData> get speakLessWriteMoreSecondary => [
+        RotatingTextData(
+          mainMessage: "",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: '',
+          subMessage: "Tap anywhere to confirm",
+          pauseHere: true,
+          initialFadeInDelay: Seconds.get(1),
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        )
+      ];
 
   static List<RotatingTextData> get sessionSparkerList => [
         RotatingTextData(
