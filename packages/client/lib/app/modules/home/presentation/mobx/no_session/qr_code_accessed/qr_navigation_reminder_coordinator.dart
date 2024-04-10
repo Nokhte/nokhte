@@ -26,7 +26,7 @@ abstract class _QrNavigationReminderCoordinatorBase
   constructor(Offset offset) async {
     widgets.constructor(offset);
     initReactors();
-    await captureScreen(Screens.homePhase2);
+    await captureScreen(Screens.qrNavigationReminderHome);
   }
 
   @override

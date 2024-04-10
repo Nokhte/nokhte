@@ -153,7 +153,7 @@ class MessagesData {
         ),
       ];
 
-  static List<RotatingTextData> get irlNokhteSessionPhase0PrimaryList => [
+  static List<RotatingTextData> get irlNokhteSessionGreeterPrimaryList => [
         RotatingTextData(
           mainMessage: "Put your phone on do not disturb",
           pauseHere: true,
@@ -174,7 +174,7 @@ class MessagesData {
         ),
       ];
 
-  static List<RotatingTextData> get irlNokhteSessionPhase0SecondaryList => [
+  static List<RotatingTextData> get irlNokhteSessionGreeterSecondaryList => [
         RotatingTextData(
           mainMessage: "Tap when you have done so",
           pauseHere: true,
@@ -183,65 +183,61 @@ class MessagesData {
       ];
 
   static List<RotatingTextData>
-      getIrlNokhteSessionSpeakingInstructionsPrimaryPhase0List(
-          MirroredTextOrientations orientation) {
-    final arr = [
-      RotatingTextData(
-        mainMessage: "Keep this phone on a flat surface",
-        pauseHere: true,
-        mainMessageFontSize: 22.0,
-      ),
-      RotatingTextData(
-        mainMessage: "",
-        pauseHere: true,
-      ),
-      RotatingTextData(
-        mainMessage: "The point of this phone is to limit speaking",
-        pauseHere: true,
-        mainMessageFontSize: 22.0,
-      ),
-      RotatingTextData(
-        mainMessage: "",
-        pauseHere: true,
-      ),
-      RotatingTextData(
-        mainMessage: "Hold on this side",
-        pauseHere: true,
-        mainMessageFontSize: 22.0,
-      ),
-      RotatingTextData(
-        mainMessage: "",
-        pauseHere: true,
-      ),
-      RotatingTextData(
-        mainMessage: "Only you are allowed to speak right now",
-        pauseHere: true,
-      ),
-      RotatingTextData(
-        mainMessage: "",
-        pauseHere: true,
-      ),
-      RotatingTextData(
-        mainMessage: "Let go",
-        pauseHere: true,
-      ),
-      RotatingTextData(
-        mainMessage: "",
-        pauseHere: true,
-      ),
-      RotatingTextData(
-        mainMessage: "Continue on the other phone",
-        pauseHere: true,
-        mainMessageFontSize: 22.0,
-      ),
-      RotatingTextData(
-        mainMessage: "",
-        pauseHere: true,
-        mainMessageFontSize: 22.0,
-      ),
-    ];
-    return arr;
-  }
+      get irlNokhteSessionSpeakingInstructionsPrimaryList => [
+            RotatingTextData(
+              mainMessage: "Keep this phone on a flat surface",
+              pauseHere: true,
+              mainMessageFontSize: 22.0,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "The point of this phone is to limit speaking",
+              pauseHere: true,
+              mainMessageFontSize: 22.0,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "Hold on this side",
+              pauseHere: true,
+              mainMessageFontSize: 22.0,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "Only you are allowed to speak right now",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "Let go",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "Continue on the other phone",
+              pauseHere: true,
+              mainMessageFontSize: 22.0,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+              mainMessageFontSize: 22.0,
+            ),
+          ];
 
   static List<RotatingTextData>
       get irlNokhteSessionSpeakingInstructionsSecondaryPhase0List => [

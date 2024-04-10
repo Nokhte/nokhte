@@ -29,13 +29,13 @@ class IrlNokhteSessionModule extends Module {
 
   @override
   void binds(i) {
-    i.add<IrlNokhteSessionPhase0Coordinator>(
-      () => IrlNokhteSessionPhase0Coordinator(
+    i.add<IrlNokhteSessionGreeterCoordinator>(
+      () => IrlNokhteSessionGreeterCoordinator(
         decidePhoneRoleLogic: Modular.get<DecidePhoneRole>(),
         gyroscopic: Modular.get<GyroscopicCoordinator>(),
         presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
-        widgets: Modular.get<IrlNokhteSessionPhase0WidgetsCoordinator>(),
+        widgets: Modular.get<IrlNokhteSessionGreeterWidgetsCoordinator>(),
         tap: TapDetector(),
       ),
     );
@@ -86,14 +86,14 @@ class IrlNokhteSessionModule extends Module {
         presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
       ),
     );
-    i.add<IrlNokhteSessionPhase3Coordinator>(
-      () => IrlNokhteSessionPhase3Coordinator(
+    i.add<IrlNokhteSessionExitCoordinator>(
+      () => IrlNokhteSessionExitCoordinator(
         cleanUpCollaborationArtifacts:
             Modular.get<CleanUpCollaborationArtifactsCoordinator>(),
         decidePhoneRoleLogic: Modular.get<DecidePhoneRole>(),
         getUserInfo: Modular.get<GetUserInfoStore>(),
         swipe: SwipeDetector(),
-        widgets: Modular.get<IrlNokhteSessionPhase3WidgetsCoordinator>(),
+        widgets: Modular.get<IrlNokhteSessionExitWidgetsCoordinator>(),
         presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
       ),
@@ -105,8 +105,8 @@ class IrlNokhteSessionModule extends Module {
     r.child(
       transition: TransitionType.noTransition,
       '/',
-      child: (context) => IrlNokhteSessionPhase0Screen(
-        coordinator: Modular.get<IrlNokhteSessionPhase0Coordinator>(),
+      child: (context) => IrlNokhteSessionGreeterScreen(
+        coordinator: Modular.get<IrlNokhteSessionGreeterCoordinator>(),
       ),
     );
     r.child(
@@ -148,8 +148,8 @@ class IrlNokhteSessionModule extends Module {
     r.child(
       transition: TransitionType.noTransition,
       '/exit',
-      child: (context) => IrlNokhteSessionPhase3Screen(
-        coordinator: Modular.get<IrlNokhteSessionPhase3Coordinator>(),
+      child: (context) => IrlNokhteSessionExitScreen(
+        coordinator: Modular.get<IrlNokhteSessionExitCoordinator>(),
       ),
     );
   }

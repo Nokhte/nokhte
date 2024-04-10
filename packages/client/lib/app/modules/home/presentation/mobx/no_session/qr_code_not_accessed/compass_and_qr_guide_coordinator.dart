@@ -28,7 +28,7 @@ abstract class _CompassAndQrGuideCoordinatorBase
   constructor(center) async {
     widgets.constructor(center);
     initReactors();
-    await captureScreen(Screens.homePhase1);
+    await captureScreen(Screens.compassAndQrGuideHome);
   }
 
   @override

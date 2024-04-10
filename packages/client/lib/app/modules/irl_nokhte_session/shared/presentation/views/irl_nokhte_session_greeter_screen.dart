@@ -6,9 +6,9 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/irl_nokhte_session/shared/presentation/presentation.dart';
 
-class IrlNokhteSessionPhase0Screen extends HookWidget {
-  final IrlNokhteSessionPhase0Coordinator coordinator;
-  const IrlNokhteSessionPhase0Screen({
+class IrlNokhteSessionGreeterScreen extends HookWidget {
+  final IrlNokhteSessionGreeterCoordinator coordinator;
+  const IrlNokhteSessionGreeterScreen({
     super.key,
     required this.coordinator,
   });
