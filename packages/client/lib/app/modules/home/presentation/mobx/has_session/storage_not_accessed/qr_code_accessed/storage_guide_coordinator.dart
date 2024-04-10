@@ -38,7 +38,7 @@ abstract class _StorageGuideCoordinatorBase extends BaseHomeScreenCoordinator
   constructor(Offset offset) async {
     widgets.constructor(offset);
     initReactors();
-    await captureScreen(Screens.homePhase3);
+    await captureScreen(Screens.storageGuideHome);
     await getNokhteSessionArtifacts();
   }
 

@@ -13,21 +13,21 @@ import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/irl_nokhte_session/irl_nokhte_session.dart';
-part 'irl_nokhte_session_phase0_coordinator.g.dart';
+part 'irl_nokhte_session_greeter_coordinator.g.dart';
 
-class IrlNokhteSessionPhase0Coordinator = _IrlNokhteSessionPhase0CoordinatorBase
-    with _$IrlNokhteSessionPhase0Coordinator;
+class IrlNokhteSessionGreeterCoordinator = _IrlNokhteSessionGreeterCoordinatorBase
+    with _$IrlNokhteSessionGreeterCoordinator;
 
-abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
+abstract class _IrlNokhteSessionGreeterCoordinatorBase extends BaseCoordinator
     with Store {
   final DecidePhoneRole decidePhoneRoleLogic;
-  final IrlNokhteSessionPhase0WidgetsCoordinator widgets;
+  final IrlNokhteSessionGreeterWidgetsCoordinator widgets;
   final TapDetector tap;
   final IrlNokhteSessionPresenceCoordinator presence;
   final GetIrlNokhteSessionMetadataStore sessionMetadata;
   final GyroscopicCoordinator gyroscopic;
 
-  _IrlNokhteSessionPhase0CoordinatorBase({
+  _IrlNokhteSessionGreeterCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
     required this.decidePhoneRoleLogic,
@@ -55,7 +55,7 @@ abstract class _IrlNokhteSessionPhase0CoordinatorBase extends BaseCoordinator
     widgets.constructor();
     await presence.listen();
     initReactors();
-    await captureScreen(Screens.nokhteSessionPhase0);
+    await captureScreen(Screens.nokhteSessionGreeter);
     await gyroscopic.checkIfDeviceHasGyroscope();
     await decidePhoneRole();
   }

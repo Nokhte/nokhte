@@ -5,19 +5,19 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-part 'irl_nokhte_session_phase0_widgets_coordinator.g.dart';
+part 'irl_nokhte_session_greeter_widgets_coordinator.g.dart';
 
-class IrlNokhteSessionPhase0WidgetsCoordinator = _IrlNokhteSessionPhase0WidgetsCoordinatorBase
-    with _$IrlNokhteSessionPhase0WidgetsCoordinator;
+class IrlNokhteSessionGreeterWidgetsCoordinator = _IrlNokhteSessionGreeterWidgetsCoordinatorBase
+    with _$IrlNokhteSessionGreeterWidgetsCoordinator;
 
-abstract class _IrlNokhteSessionPhase0WidgetsCoordinatorBase
+abstract class _IrlNokhteSessionGreeterWidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final BeachWavesStore beachWaves;
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
   final TouchRippleStore touchRipple;
 
-  _IrlNokhteSessionPhase0WidgetsCoordinatorBase({
+  _IrlNokhteSessionGreeterWidgetsCoordinatorBase({
     required this.beachWaves,
     required super.wifiDisconnectOverlay,
     required this.primarySmartText,
@@ -31,10 +31,10 @@ abstract class _IrlNokhteSessionPhase0WidgetsCoordinatorBase
       BeachWaveMovieModes.vibrantBlueGradientToTimesUp,
     );
     primarySmartText.setMessagesData(
-      MessagesData.irlNokhteSessionPhase0PrimaryList,
+      MessagesData.irlNokhteSessionGreeterPrimaryList,
     );
     secondarySmartText.setMessagesData(
-      MessagesData.irlNokhteSessionPhase0SecondaryList,
+      MessagesData.irlNokhteSessionGreeterSecondaryList,
     );
     primarySmartText.startRotatingText();
     secondarySmartText.startRotatingText();

@@ -38,7 +38,7 @@ abstract class _QrAndStorageAdeptCoordinatorBase
   constructor(Offset offset) async {
     widgets.constructor(offset);
     initReactors();
-    await captureScreen(Screens.homePhase5);
+    await captureScreen(Screens.qrAndStorageAdeptHome);
     await getNokhteSessionArtifacts();
   }
 

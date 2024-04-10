@@ -12,21 +12,21 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
 import 'package:nokhte/app/modules/irl_nokhte_session/irl_nokhte_session.dart';
-part 'irl_nokhte_session_phase3_coordinator.g.dart';
+part 'irl_nokhte_session_exit_coordinator.g.dart';
 
-class IrlNokhteSessionPhase3Coordinator = _IrlNokhteSessionPhase3CoordinatorBase
-    with _$IrlNokhteSessionPhase3Coordinator;
+class IrlNokhteSessionExitCoordinator = _IrlNokhteSessionExitCoordinatorBase
+    with _$IrlNokhteSessionExitCoordinator;
 
-abstract class _IrlNokhteSessionPhase3CoordinatorBase
+abstract class _IrlNokhteSessionExitCoordinatorBase
     extends BaseHomeScreenRouterCoordinator with Store {
-  final IrlNokhteSessionPhase3WidgetsCoordinator widgets;
+  final IrlNokhteSessionExitWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final IrlNokhteSessionPresenceCoordinator presence;
   final GetIrlNokhteSessionMetadataStore sessionMetadata;
   final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
   final DecidePhoneRole decidePhoneRoleLogic;
 
-  _IrlNokhteSessionPhase3CoordinatorBase({
+  _IrlNokhteSessionExitCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
     required this.swipe,
@@ -49,7 +49,7 @@ abstract class _IrlNokhteSessionPhase3CoordinatorBase
     initReactors();
     await decidePhoneRole();
     await presence.updateCurrentPhase(4.0);
-    await captureScreen(Screens.nokhteSessionPhase3);
+    await captureScreen(Screens.nokhteSessionGreeter);
   }
 
   @observable

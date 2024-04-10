@@ -39,7 +39,7 @@ abstract class _HomeScreenRootRouterCoordinatorBase
     widgets.constructor();
     initReactors();
     await identifyUser(NoParams());
-    await captureScreen(Screens.homePhase0);
+    await captureScreen(Screens.homeRootRouter);
     await cleanUpCollaborationArtifacts(NoParams());
     if (isConnected) {
       await decideAndRoute(setParams);

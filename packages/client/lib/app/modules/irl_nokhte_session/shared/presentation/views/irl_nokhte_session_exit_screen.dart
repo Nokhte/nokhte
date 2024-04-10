@@ -7,9 +7,9 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/irl_nokhte_session/shared/presentation/presentation.dart';
 
-class IrlNokhteSessionPhase3Screen extends HookWidget {
-  final IrlNokhteSessionPhase3Coordinator coordinator;
-  const IrlNokhteSessionPhase3Screen({
+class IrlNokhteSessionExitScreen extends HookWidget {
+  final IrlNokhteSessionExitCoordinator coordinator;
+  const IrlNokhteSessionExitScreen({
     super.key,
     required this.coordinator,
   });

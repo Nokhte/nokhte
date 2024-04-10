@@ -9,12 +9,12 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/irl_nokhte_session/irl_nokhte_session.dart';
-part 'irl_nokhte_session_phase3_widgets_coordinator.g.dart';
+part 'irl_nokhte_session_exit_widgets_coordinator.g.dart';
 
-class IrlNokhteSessionPhase3WidgetsCoordinator = _IrlNokhteSessionPhase3WidgetsCoordinatorBase
-    with _$IrlNokhteSessionPhase3WidgetsCoordinator;
+class IrlNokhteSessionExitWidgetsCoordinator = _IrlNokhteSessionExitWidgetsCoordinatorBase
+    with _$IrlNokhteSessionExitWidgetsCoordinator;
 
-abstract class _IrlNokhteSessionPhase3WidgetsCoordinatorBase
+abstract class _IrlNokhteSessionExitWidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final BeachWavesStore beachWaves;
   final SmartTextStore primarySmartText;
@@ -22,7 +22,7 @@ abstract class _IrlNokhteSessionPhase3WidgetsCoordinatorBase
   final SmartTextStore tertiarySmartText;
   final GestureCrossStore gestureCross;
 
-  _IrlNokhteSessionPhase3WidgetsCoordinatorBase({
+  _IrlNokhteSessionExitWidgetsCoordinatorBase({
     required this.beachWaves,
     required super.wifiDisconnectOverlay,
     required this.primarySmartText,

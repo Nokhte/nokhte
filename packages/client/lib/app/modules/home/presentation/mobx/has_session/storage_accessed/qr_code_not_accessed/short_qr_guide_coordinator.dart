@@ -35,7 +35,7 @@ abstract class _ShortQrGuideCoordinatorBase extends BaseHomeScreenCoordinator
   constructor(Offset offset) async {
     widgets.constructor(offset);
     initReactors();
-    await captureScreen(Screens.homePhase4);
+    await captureScreen(Screens.shortQrGuideHome);
     await getNokhteSessionArtifacts();
   }
 

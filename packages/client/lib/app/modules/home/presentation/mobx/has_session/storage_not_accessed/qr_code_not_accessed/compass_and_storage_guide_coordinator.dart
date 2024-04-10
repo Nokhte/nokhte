@@ -38,7 +38,7 @@ abstract class _CompassAndStorageGuideCoordinatorBase
   constructor(Offset offset) async {
     widgets.constructor(offset);
     initReactors();
-    await captureScreen(Screens.homePhase3);
+    await captureScreen(Screens.compassAndStorageGuideHome);
     await getNokhteSessionArtifacts();
   }
 
