@@ -48,6 +48,45 @@ class MessagesData {
           pauseHere: true,
         ),
       ];
+
+  static List<RotatingTextData> get compassAndStorageGuideList => [
+        RotatingTextData(
+          mainMessage: "If you're ever confused, Tap on the compass",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+          unlockGesture: Gestures.tap,
+        ),
+        RotatingTextData(
+          mainMessage: "The compass is a map of the app",
+          subMessage: "Tap anywhere to confirm",
+          pauseHere: true,
+          initialFadeInDelay: Seconds.get(1),
+        ),
+        RotatingTextData(
+          mainMessage: "You are here",
+          subMessage: "Tap anywhere to confirm",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "You move by swiping",
+          subMessage: "Swipe right",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "That is where you go to view session notes",
+          subMessage: "Tap anywhere to confirm",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "Swipe right",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+      ];
+
   static List<RotatingTextData> get firstTimeHomeList => [
         RotatingTextData(
           mainMessage: "If you're ever confused, Tap on the compass",
