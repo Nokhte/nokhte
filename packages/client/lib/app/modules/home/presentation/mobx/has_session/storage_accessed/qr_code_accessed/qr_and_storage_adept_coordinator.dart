@@ -44,7 +44,7 @@ abstract class _QrAndStorageAdeptCoordinatorBase
   initReactors() {
     super.initReactors();
     swipeReactor(
-      onSwipeUp: widgets.onSwipeUp,
+      onSwipeUp: () => widgets.onSwipeUp(),
       onSwipeRight: () => widgets.onSwipeRight(),
     );
     widgets.beachWavesMovieStatusReactor(
@@ -57,7 +57,14 @@ abstract class _QrAndStorageAdeptCoordinatorBase
       onSubsequentStorageEntry: onSubsequentStorageEntry,
     );
     swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged);
+    tapReactor();
   }
+
+  tapReactor() => reaction((p0) => tap.currentTapPosition, (p0) {
+        ifTouchIsNotDisabled(() {
+          widgets.onTap(p0);
+        });
+      });
 
   @action
   getNokhteSessionArtifacts() async {

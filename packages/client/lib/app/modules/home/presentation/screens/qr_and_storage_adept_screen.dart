@@ -22,6 +22,18 @@ class QrAndStorageAdeptScreen extends BaseHomeScreen {
               ),
             ),
           ),
-          instructionalNokhtes: Container(),
+          instructionalNokhtes: Stack(
+            children: [
+              CenterInstructionalNokhte(
+                store: coordinator.widgets.centerInstructionalNokhte,
+              ),
+              InstructionalGradientNokhte(
+                store: coordinator.widgets.primaryInstructionalGradientNokhte,
+              ),
+              InstructionalGradientNokhte(
+                store: coordinator.widgets.secondaryInstructionalGradientNokhte,
+              ),
+            ],
+          ),
         );
 }
