@@ -144,6 +144,7 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
       beachWaves.currentStore.initMovie(
         beachWaves.currentAnimationValues.first,
       );
+      hasTappedOnCross = true;
       gestureCross.initMoveAndRegenerate(CircleOffsets.right);
       gestureCross.cross.initOutlineFadeIn();
       primarySmartText.setWidgetVisibility(false);

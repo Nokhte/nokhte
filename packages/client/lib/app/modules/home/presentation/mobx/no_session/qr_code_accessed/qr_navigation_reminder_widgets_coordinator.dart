@@ -75,6 +75,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
   onSwipeUp() {
     if (centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
       if (hasInitiatedBlur) {
+        hasInitiatedBlur = false;
         centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.top);
         hasSwipedUp = true;
         primarySmartText.startRotatingText(isResuming: true);
