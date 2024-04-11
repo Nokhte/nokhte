@@ -87,6 +87,16 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
         arguments: deepLinks.listenForOpenedDeepLinkStore.additionalMetadata,
       );
 
+  @action
+  onSubsequentStorageEntry() {
+    Timer.periodic(Seconds.get(0, milli: 100), (timer) {
+      if (widgets.touchRipple.movieStatus == MovieStatus.finished) {
+        Modular.to.navigate('/storage/');
+        timer.cancel();
+      }
+    });
+  }
+
   swipeReactor({
     required Function onSwipeUp,
     required Function onSwipeRight,
