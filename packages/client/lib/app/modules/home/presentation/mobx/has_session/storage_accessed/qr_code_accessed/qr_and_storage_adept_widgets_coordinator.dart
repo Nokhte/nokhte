@@ -57,6 +57,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
       } else if (!hasInitiatedBlur && !hasSwipedUp) {
         gestureCross.centerCrossNokhte.setWidgetVisibility(true);
         centerInstructionalNokhte.setWidgetVisibility(false);
+        primarySmartText.setWidgetVisibility(false);
         prepForNavigation(excludeUnBlur: true);
       }
     }
@@ -107,16 +108,6 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
         primarySmartText.setWidgetVisibility(false);
       }
     }
-    // if (!hasSwiped) {
-    //   hasSwiped = true;
-    //   beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToVibrantBlue);
-    //   beachWaves.currentStore.initMovie(
-    //     beachWaves.currentAnimationValues.first,
-    //   );
-    //   gestureCross.initMoveAndRegenerate(CircleOffsets.right);
-    //   gestureCross.cross.initOutlineFadeIn();
-    //   primarySmartText.setWidgetVisibility(false);
-    // }
   }
 
   gestureCrossTapReactor() => reaction(
