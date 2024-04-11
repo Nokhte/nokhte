@@ -1,0 +1,13 @@
+targets:
+  $default:
+    builders:
+      mobx_codegen|mobx_generator:
+        enabled: true
+        generate_for:
+          include:
+            - lib/**/mobx/**/**.dart
+      # auto_route_generator|autoRouteGenerator:
+      #   enabled: true
+      #   generate_for:
+      #     include:
+      #       - lib/services/navigation/magnum_app_router.dart
