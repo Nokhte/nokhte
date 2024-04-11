@@ -80,12 +80,12 @@ abstract class _StorageGuideWidgetsCoordinatorBase
 
   @action
   onInitInstructionMode() {
-    toggleHasInitiatedBlur();
+    hasInitiatedBlur = true;
     nokhteBlur.init();
     beachWaves.currentStore.setControl(Control.stop);
-    toggleHasInitiatedBlur();
     primarySmartText.startRotatingText(isResuming: true);
     Timer(const Duration(seconds: 1, milliseconds: 500), () {
+      secondaryInstructionalGradientNokhte.setWidgetVisibility(true);
       setSmartTextBottomPaddingScalar(0);
       setSmartTextTopPaddingScalar(.13);
     });
@@ -115,8 +115,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
     if (isAllowedToMakeAGesture) {
       if (!hasInitiatedBlur) {
         centerInstructionalNokhte.setWidgetVisibility(false);
-        primaryInstructionalGradientNokhte.setWidgetVisibility(false);
-        secondaryInstructionalGradientNokhte.setWidgetVisibility(false);
+        gestureCross.centerCrossNokhte.setWidgetVisibility(true);
         prepForNavigation(excludeUnBlur: !hasInitiatedBlur);
       }
     }
@@ -131,6 +130,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
         centerInstructionalNokhte.initMovie(centerNokhtePosition);
         secondaryInstructionalGradientNokhte.setControl(Control.playFromStart);
         primaryInstructionalGradientNokhte.setWidgetVisibility(false);
+        primarySmartText.startRotatingText(isResuming: true);
       } else if (!hasInitiatedBlur && !hasSwipedUp && swipeRightIsUnlocked) {
         hasSwipedUp = true;
         beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToVibrantBlue);
@@ -138,6 +138,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
           beachWaves.currentAnimationValues.first,
         );
 
+        gestureCross.centerCrossNokhte.setWidgetVisibility(true);
         centerInstructionalNokhte.setWidgetVisibility(false);
         gestureCross.initMoveAndRegenerate(CircleOffsets.right);
         gestureCross.cross.initOutlineFadeIn();
@@ -149,6 +150,8 @@ abstract class _StorageGuideWidgetsCoordinatorBase
   @action
   onTap(Offset tapPosition) {
     if (canTap) {
+      touchRipple.onTap(tapPosition);
+      hasInitiatedBlur = false;
       canTap = false;
       primarySmartText.startRotatingText(isResuming: true);
       centerInstructionalNokhte.moveBackToCross(
@@ -173,7 +176,6 @@ abstract class _StorageGuideWidgetsCoordinatorBase
         ),
       );
       toggleHasSwipedUp();
-      toggleHasInitiatedBlur();
       nokhteBlur.reverse();
       beachWaves.currentStore.setControl(Control.mirror);
     }
@@ -181,14 +183,11 @@ abstract class _StorageGuideWidgetsCoordinatorBase
 
   centerInstructionalNokhteMovieReactor() =>
       reaction((p0) => centerInstructionalNokhte.movieStatus, (p0) {
-        // todo test this out to make sure it works
         if (p0 == MovieStatus.finished &&
             centerInstructionalNokhte.movieMode ==
                 CenterInstructionalNokhteMovieModes.moveAround) {
-          // if (centerNokhtePosition == InstructionalNokhtePositions.right) {
+          print("are you responsible here??");
           canTap = true;
-          primarySmartText.startRotatingText(isResuming: true);
-          // }
         }
       });
 
