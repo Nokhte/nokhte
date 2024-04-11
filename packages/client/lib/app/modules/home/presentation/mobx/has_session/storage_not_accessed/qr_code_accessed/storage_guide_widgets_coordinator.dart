@@ -189,7 +189,6 @@ abstract class _StorageGuideWidgetsCoordinatorBase
         if (p0 == MovieStatus.finished &&
             centerInstructionalNokhte.movieMode ==
                 CenterInstructionalNokhteMovieModes.moveAround) {
-          print("are you responsible here??");
           canTap = true;
         }
       });
