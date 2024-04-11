@@ -31,7 +31,7 @@ class StorageModule extends Module {
         captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<StorageHomeWidgetsCoordinator>(),
         swipe: SwipeDetector(),
-        getUserInfo: Modular.get<GetUserInfoStore>(),
+        userInfo: Modular.get<UserInformationCoordinator>(),
       ),
     );
     i.add<StorageContentCoordinator>(() => StorageContentCoordinator(
