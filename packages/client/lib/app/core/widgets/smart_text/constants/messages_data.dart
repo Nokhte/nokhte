@@ -27,9 +27,24 @@ class MessagesData {
         ),
       ];
 
-  static List<RotatingTextData> get homeListHasDoneASession => [
+  static List<RotatingTextData> get storageGuideList => [
         RotatingTextData(
-          mainMessage: "Swipe right to see session notes",
+          mainMessage: "Tap on the compass",
+          pauseHere: true,
+          initialFadeInDelay: Seconds.get(1),
+        ),
+        RotatingTextData(
+          mainMessage: "Swipe right",
+          pauseHere: true,
+          initialFadeInDelay: Seconds.get(1),
+        ),
+        RotatingTextData(
+          mainMessage: "That is where you go to view session notes",
+          subMessage: "Tap anywhere to confirm",
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "Swipe right",
           pauseHere: true,
         ),
       ];
