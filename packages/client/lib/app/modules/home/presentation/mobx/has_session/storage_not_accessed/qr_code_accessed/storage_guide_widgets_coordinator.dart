@@ -120,6 +120,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
         centerInstructionalNokhte.setWidgetVisibility(false);
         gestureCross.centerCrossNokhte.setWidgetVisibility(true);
         prepForNavigation(excludeUnBlur: !hasInitiatedBlur);
+        canTapOnGestureCross = false;
       }
     }
   }

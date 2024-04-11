@@ -55,6 +55,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
         primarySmartText.startRotatingText(isResuming: true);
         currentCenterNokhtePosition = InstructionalNokhtePositions.top;
       } else if (!hasInitiatedBlur && !hasSwipedUp) {
+        canTapOnGestureCross = false;
         gestureCross.centerCrossNokhte.setWidgetVisibility(true);
         centerInstructionalNokhte.setWidgetVisibility(false);
         primarySmartText.setWidgetVisibility(false);
@@ -73,6 +74,9 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
       secondaryInstructionalGradientNokhte.setWidgetVisibility(false);
     });
   }
+
+  @observable
+  bool canTapOnGestureCross = true;
 
   @observable
   bool hasSwiped = false;
@@ -96,6 +100,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
         primarySmartText.startRotatingText(isResuming: true);
         currentCenterNokhtePosition = InstructionalNokhtePositions.right;
       } else if (!hasInitiatedBlur && !hasSwipedUp) {
+        canTapOnGestureCross = false;
         hasSwipedUp = true;
         beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToVibrantBlue);
         beachWaves.currentStore.initMovie(
@@ -175,7 +180,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
 
   @action
   onGestureCrossTap() {
-    if (!hasInitiatedBlur && !isEnteringNokhteSession) {
+    if (!hasInitiatedBlur && !isEnteringNokhteSession && canTapOnGestureCross) {
       nokhteBlur.init();
       beachWaves.currentStore.setControl(Control.stop);
       toggleHasInitiatedBlur();

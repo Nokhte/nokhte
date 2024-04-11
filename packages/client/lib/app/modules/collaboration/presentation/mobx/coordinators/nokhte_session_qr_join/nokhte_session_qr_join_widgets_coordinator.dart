@@ -95,6 +95,7 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
   onSwipeDown(Function onLeaving) {
     if (centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
       if (hasInitiatedBlur) {
+        hasInitiatedBlur = false;
         setSmartTextBottomPaddingScalar(.1);
         setSmartTextTopPaddingScalar(0);
         smartText.startRotatingText(isResuming: true);

@@ -35,6 +35,9 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
   toggleGracePeriodHasExpired() =>
       gracePeriodHasExpired = !gracePeriodHasExpired;
 
+  @observable
+  bool hasTappedOnGestureCross = false;
+
   @override
   @action
   constructor(Offset offset) {
@@ -119,30 +122,33 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
       toggleHasInitiatedBlur();
       primarySmartText.startRotatingText(isResuming: true);
       setSmartTextPadding(subMessagePadding: 110, bottomPadding: .23);
+      hasTappedOnGestureCross = true;
     }
   }
 
   @action
   onSwipeRight() {
-    if (isAllowedToMakeAGesture &&
-        !hasSwipedUp &&
-        primarySmartText.currentIndex == 3 &&
-        hasInitiatedBlur) {
-      hasSwipedUp = true;
-      centerInstructionalNokhte.initMovie(
-        InstructionalNokhtePositions.right,
-      );
-      primaryInstructionalGradientNokhte.setControl(Control.playFromStart);
-      primarySmartText.startRotatingText(isResuming: true);
-      setSmartTextPadding(subMessagePadding: 120, topPadding: .15);
-    } else if (!hasSwipedUp && !hasInitiatedBlur) {
-      beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToVibrantBlue);
-      beachWaves.currentStore.initMovie(
-        beachWaves.currentAnimationValues.first,
-      );
-      gestureCross.initMoveAndRegenerate(CircleOffsets.right);
-      gestureCross.cross.initOutlineFadeIn();
-      primarySmartText.setWidgetVisibility(false);
+    if (isAllowedToMakeAGesture) {
+      if (!hasSwipedUp &&
+          primarySmartText.currentIndex == 3 &&
+          hasInitiatedBlur) {
+        hasSwipedUp = true;
+        centerInstructionalNokhte.initMovie(
+          InstructionalNokhtePositions.right,
+        );
+        primaryInstructionalGradientNokhte.setControl(Control.playFromStart);
+        primarySmartText.startRotatingText(isResuming: true);
+        setSmartTextPadding(subMessagePadding: 120, topPadding: .15);
+      } else if (!hasSwipedUp && !hasInitiatedBlur && hasTappedOnGestureCross) {
+        hasSwipedUp = true;
+        beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToVibrantBlue);
+        beachWaves.currentStore.initMovie(
+          beachWaves.currentAnimationValues.first,
+        );
+        gestureCross.initMoveAndRegenerate(CircleOffsets.right);
+        gestureCross.cross.initOutlineFadeIn();
+        primarySmartText.setWidgetVisibility(false);
+      }
     }
   }
 
@@ -157,6 +163,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
             centerInstructionalNokhte.movieMode ==
                 CenterInstructionalNokhteMovieModes.moveBack) {
           gestureCross.fadeIn();
+          hasSwipedUp = false;
           Timer(Seconds.get(1), () {
             centerInstructionalNokhte.setWidgetVisibility(false);
             primaryInstructionalGradientNokhte.setWidgetVisibility(false);
