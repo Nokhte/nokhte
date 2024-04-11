@@ -67,6 +67,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
   initReactors() {
     gestureCrossTapReactor();
     centerInstructionalNokhteReactor();
+    centerCrossNokhteReactor(() {});
     super.initReactors();
   }
 

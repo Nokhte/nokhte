@@ -50,6 +50,7 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
   initReactors() {
     gestureCrossTapReactor();
     centerInstructionalNokhteReactor();
+    centerCrossNokhteReactor(() {});
     super.initReactors();
   }
 
