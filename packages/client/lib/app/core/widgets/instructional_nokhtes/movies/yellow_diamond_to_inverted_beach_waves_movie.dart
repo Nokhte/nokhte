@@ -3,9 +3,18 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-class YellowDiamondToInvertedBeachWavesMovie {
-  static MovieTween getMovie(Offset screenCenter) {
-    final pivotPoint = (-screenCenter.dy) * 1.1;
+class YellowDiamondToDevelopedGradientMovie {
+  static MovieTween getMovie(
+    Offset screenCenter, {
+    required InstructionalNokhtePositions position,
+    required GradientNokhteColorways colorway,
+  }) {
+    final offsets = InstructionalNokhteUtils.getOffsets(
+      screenCenter,
+      position: position,
+      direction: InstructionalGradientDirections.shrink,
+    );
+    final endingGrad = InstructionalNokhteUtils.getGradient(colorway);
     return MovieTween()
       ..scene(
         begin: Seconds.get(0),
@@ -14,14 +23,14 @@ class YellowDiamondToInvertedBeachWavesMovie {
           .tween(
               'dx',
               Tween<double>(
-                begin: CircleOffsets.center.dx,
-                end: CircleOffsets.center.dx,
+                begin: offsets.start.dx,
+                end: offsets.start.dx,
               ))
           .tween(
             'dy',
             Tween<double>(
-              begin: pivotPoint,
-              end: pivotPoint,
+              begin: offsets.start.dy,
+              end: offsets.start.dy,
             ),
             curve: Curves.easeInOutCubicEmphasized,
           )
@@ -29,56 +38,56 @@ class YellowDiamondToInvertedBeachWavesMovie {
             'color1',
             ColorTween(
               begin: const Color(0xFFD8FF18),
-              end: const Color(0xFFFFE6C4),
+              end: endingGrad[0].color,
             ),
           )
           .tween(
             'color2',
             ColorTween(
               begin: const Color(0xFFE0F66E),
-              end: const Color(0xFFFFBC78),
+              end: endingGrad[1].color,
             ),
           )
           .tween(
             'color3',
             ColorTween(
               begin: const Color(0xFFEEEE41),
-              end: const Color(0xFF42FFD9),
+              end: endingGrad[2].color,
             ),
           )
           .tween(
             'color4',
             ColorTween(
               begin: const Color(0xFFFDE30E),
-              end: const Color(0xFF4497C5),
+              end: endingGrad[3].color,
             ),
           )
           .tween(
             'stop1',
             Tween<double>(
               begin: 0.0,
-              end: 0.0,
+              end: endingGrad[0].stop,
             ),
           )
           .tween(
             'stop2',
             Tween<double>(
               begin: 0.52,
-              end: 0.33,
+              end: endingGrad[1].stop,
             ),
           )
           .tween(
             'stop3',
             Tween<double>(
               begin: 0.69,
-              end: 0.4,
+              end: endingGrad[2].stop,
             ),
           )
           .tween(
             'stop4',
             Tween<double>(
               begin: 1.0,
-              end: 1.0,
+              end: endingGrad[3].stop,
             ),
           )
           .tween(

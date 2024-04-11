@@ -4,7 +4,7 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class InstructionalGradientMovieParams extends Equatable {
   final Offset center;
-  final GradientNokhtePositions position;
+  final InstructionalNokhtePositions position;
   final GradientNokhteColorways colorway;
   final InstructionalGradientDirections direction;
 

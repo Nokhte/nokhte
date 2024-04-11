@@ -1,1 +1,5 @@
-enum GradientNokhteColorways { invertedBeachWave, beachWave }
+enum GradientNokhteColorways {
+  invertedBeachWave,
+  beachWave,
+  vibrantBlue,
+}
