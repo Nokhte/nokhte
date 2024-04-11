@@ -21,7 +21,8 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
     required super.secondaryErrorSmartText,
     required super.touchRipple,
     required super.centerInstructionalNokhte,
-    required super.instructionalGradientNokhte,
+    required super.primaryInstructionalGradientNokhte,
+    required super.secondaryInstructionalGradientNokhte,
   });
 
   @observable

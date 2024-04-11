@@ -20,7 +20,8 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
     required super.secondaryErrorSmartText,
     required super.touchRipple,
     required super.centerInstructionalNokhte,
-    required super.instructionalGradientNokhte,
+    required super.primaryInstructionalGradientNokhte,
+    required super.secondaryInstructionalGradientNokhte,
   });
 
   @observable
@@ -35,7 +36,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
   constructor(Offset offset) {
     super.constructor(offset);
     gestureCross.fadeIn();
-    primarySmartText.setMessagesData(MessagesData.homeListHasDoneASession);
+    primarySmartText.setMessagesData(MessagesData.empty);
     primarySmartText.startRotatingText();
     initReactors();
   }

@@ -23,7 +23,7 @@ class CompassAndQrGuideScreen extends BaseHomeScreen {
                 store: coordinator.widgets.centerInstructionalNokhte,
               ),
               InstructionalGradientNokhte(
-                store: coordinator.widgets.instructionalGradientNokhte,
+                store: coordinator.widgets.primaryInstructionalGradientNokhte,
               ),
             ],
           ),
