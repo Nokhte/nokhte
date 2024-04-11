@@ -2,6 +2,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
@@ -17,16 +18,17 @@ abstract class _StorageHomeCoordinatorBase
   final StorageHomeWidgetsCoordinator widgets;
   final GetNokhteSessionArtifacts getNokhteSessionArtifactsLogic;
   final UpdateSessionAlias updateSessionAliasLogic;
+  final UserInformationCoordinator userInfo;
 
   final SwipeDetector swipe;
   _StorageHomeCoordinatorBase({
-    required super.getUserInfo,
     required super.captureScreen,
     required this.getNokhteSessionArtifactsLogic,
     required this.updateSessionAliasLogic,
     required this.widgets,
     required this.swipe,
-  });
+    required this.userInfo,
+  }) : super(getUserInfo: userInfo.getUserInfoStore);
 
   @observable
   ObservableList<NokhteSessionArtifactEntity> nokhteSessionArtifacts =
@@ -47,6 +49,7 @@ abstract class _StorageHomeCoordinatorBase
     initReactors();
     await getUserInfo(NoParams());
     await getNokhteSessionArtifacts();
+    await userInfo.updateHasEnteredStorage(true);
   }
 
   @action
