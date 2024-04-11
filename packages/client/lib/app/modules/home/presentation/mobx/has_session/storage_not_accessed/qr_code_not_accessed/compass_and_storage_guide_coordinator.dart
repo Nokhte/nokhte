@@ -46,26 +46,22 @@ abstract class _CompassAndStorageGuideCoordinatorBase
   initReactors() {
     super.initReactors();
     swipeReactor(
-      onSwipeUp: () {
-        setDisableAllTouchFeedback(true);
-        widgets.onSwipeUp();
-      },
-      onSwipeRight: () async {
-        setDisableAllTouchFeedback(true);
+      onSwipeUp: () {},
+      onSwipeRight: () {
         widgets.onSwipeRight();
-        await userInformation.updateHasEnteredStorageLogic(true);
       },
     );
     widgets.beachWavesMovieStatusReactor(
       onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
       onShoreToVibrantBlueComplete: onShoreToVibrantBlueComplete,
       onVirginStorageEntry: onVirginStorageEntry,
-      onSubsequentStorageEntry: () {},
+      onSubsequentStorageEntry: onSubsequentStorageEntry,
       onAnyToShoreComplete: () {
         setDisableAllTouchFeedback(false);
       },
     );
     swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged);
+    tapReactor();
   }
 
   @action
@@ -76,6 +72,12 @@ abstract class _CompassAndStorageGuideCoordinatorBase
       (artifacts) => nokhteSessionArtifacts = ObservableList.of(artifacts),
     );
   }
+
+  tapReactor() => reaction((p0) => tap.currentTapPosition, (p0) {
+        ifTouchIsNotDisabled(() {
+          widgets.onTap(p0);
+        });
+      });
 
   @action
   onVirginStorageEntry() {

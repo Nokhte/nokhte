@@ -11,17 +11,21 @@ class CompassAndStorageGuideScreen extends BaseHomeScreen {
   }) : super(
           coordinator: coordinator,
           gestureCrossConfig: GestureCrossConfiguration(
-            top: Right(
-              NokhteGradientConfig(
-                gradientType: NokhteGradientTypes.invertedShore,
-              ),
-            ),
             right: Right(
               NokhteGradientConfig(
                 gradientType: NokhteGradientTypes.vibrantBlue,
               ),
             ),
           ),
-          instructionalNokhtes: Container(),
+          instructionalNokhtes: Stack(
+            children: [
+              CenterInstructionalNokhte(
+                store: coordinator.widgets.centerInstructionalNokhte,
+              ),
+              InstructionalGradientNokhte(
+                store: coordinator.widgets.primaryInstructionalGradientNokhte,
+              ),
+            ],
+          ),
         );
 }
