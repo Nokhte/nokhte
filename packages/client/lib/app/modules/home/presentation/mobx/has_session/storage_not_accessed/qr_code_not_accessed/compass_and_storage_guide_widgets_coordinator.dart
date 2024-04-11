@@ -64,7 +64,6 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
 
   @action
   onTap(Offset offset) async {
-    print("curr ind ${primarySmartText.currentIndex}");
     if (!touchIsDisabled) {
       if (primarySmartText.currentIndex == 1) {
         setTouchIsDisabled(true);
@@ -83,7 +82,6 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
         touchRipple.onTap(offset);
         setSmartTextPadding();
       } else if (primarySmartText.currentIndex == 4) {
-        print('are you running//');
         primarySmartText.startRotatingText(isResuming: true);
         hasSwipedUp = false;
         setTouchIsDisabled(true);
