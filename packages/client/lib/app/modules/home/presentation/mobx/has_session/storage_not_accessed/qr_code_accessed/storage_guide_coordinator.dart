@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api, annotate_overrides, overridden_fields
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/posthog/constants/constants.dart';
@@ -78,17 +77,6 @@ abstract class _StorageGuideCoordinatorBase extends BaseHomeScreenCoordinator
     res.fold(
       (failure) => errorUpdater(failure),
       (artifacts) => nokhteSessionArtifacts = ObservableList.of(artifacts),
-    );
-  }
-
-  @action
-  onVirginStorageEntry() {
-    Modular.to.navigate(
-      '/storage/content',
-      arguments: {
-        "content": nokhteSessionArtifacts.first,
-        "isFirstTime": true,
-      },
     );
   }
 }
