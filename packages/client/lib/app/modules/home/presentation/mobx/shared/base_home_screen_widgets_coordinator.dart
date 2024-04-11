@@ -21,7 +21,8 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   final SmartTextStore secondaryErrorSmartText;
   final TouchRippleStore touchRipple;
   final CenterInstructionalNokhteStore centerInstructionalNokhte;
-  final InstructionalGradientNokhteStore instructionalGradientNokhte;
+  final InstructionalGradientNokhteStore primaryInstructionalGradientNokhte;
+  final InstructionalGradientNokhteStore secondaryInstructionalGradientNokhte;
 
   _BaseHomeScreenWidgetsCoordinatorBase({
     required this.nokhteBlur,
@@ -33,7 +34,8 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     required this.secondaryErrorSmartText,
     required this.touchRipple,
     required this.centerInstructionalNokhte,
-    required this.instructionalGradientNokhte,
+    required this.primaryInstructionalGradientNokhte,
+    required this.secondaryInstructionalGradientNokhte,
   });
 
   @action
@@ -134,7 +136,8 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     secondaryErrorSmartText.setMessagesData(MessagesData.errorConfirmList);
     errorSmartText.startRotatingText();
     centerInstructionalNokhte.setWidgetVisibility(false);
-    instructionalGradientNokhte.setWidgetVisibility(false);
+    primaryInstructionalGradientNokhte.setWidgetVisibility(false);
+    secondaryInstructionalGradientNokhte.setWidgetVisibility(false);
     secondaryErrorSmartText.startRotatingText();
     setIsInErrorMode(true);
   }
@@ -164,8 +167,11 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
         primarySmartText.startRotatingText();
         secondaryErrorSmartText.setWidgetVisibility(false);
         centerInstructionalNokhte.setWidgetVisibility(true);
-        instructionalGradientNokhte
-            .setWidgetVisibility(instructionalGradientNokhte.pastShowWidget);
+        primaryInstructionalGradientNokhte.setWidgetVisibility(
+            primaryInstructionalGradientNokhte.pastShowWidget);
+        secondaryInstructionalGradientNokhte.setWidgetVisibility(
+          secondaryInstructionalGradientNokhte.pastShowWidget,
+        );
         isEnteringNokhteSession = false;
       }
     }
@@ -193,14 +199,15 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
 
   initReactors() {
     nokhteBlurReactor();
-    centerCrossNokhteReactor();
+    // centerCrossNokhteReactor();
   }
 
-  centerCrossNokhteReactor() =>
+  centerCrossNokhteReactor(Function onFinished) =>
       reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
           gestureCross.gradientNokhte.setWidgetVisibility(false);
           gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
+          onFinished();
         }
       });
 
@@ -277,7 +284,7 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
       beachWaves.currentAnimationValues.first,
     );
     centerInstructionalNokhte.setWidgetVisibility(false);
-    instructionalGradientNokhte.setWidgetVisibility(false);
+    primaryInstructionalGradientNokhte.setWidgetVisibility(false);
     gestureCross.fadeAllOut();
   }
 }
