@@ -49,6 +49,32 @@ class MessagesData {
         ),
       ];
 
+  static List<RotatingTextData> get shortQrGuide => [
+        RotatingTextData(
+          mainMessage: "Tap on the compass",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+          unlockGesture: Gestures.tap,
+        ),
+        RotatingTextData(
+          mainMessage: "Swipe up",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+          unlockGesture: Gestures.tap,
+        ),
+        RotatingTextData(
+          mainMessage: "That is where you go to start a session",
+          subMessage: "Tap anywhere to confirm",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "Swipe up",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+      ];
+
   static List<RotatingTextData> get compassAndStorageGuideList => [
         RotatingTextData(
           mainMessage: "If you're ever confused, Tap on the compass",
