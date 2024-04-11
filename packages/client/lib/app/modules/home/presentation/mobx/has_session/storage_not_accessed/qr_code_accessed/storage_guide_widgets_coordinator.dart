@@ -105,8 +105,11 @@ abstract class _StorageGuideWidgetsCoordinatorBase
 
   @action
   onGestureCrossTap() {
-    if (isAllowedToMakeAGesture && !swipeRightIsUnlocked) {
+    if (isAllowedToMakeAGesture &&
+        !swipeRightIsUnlocked &&
+        canTapOnGestureCross) {
       onInitInstructionMode();
+      canTapOnGestureCross = false;
     }
   }
 
