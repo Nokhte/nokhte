@@ -44,14 +44,15 @@ abstract class _ShortQrGuideCoordinatorBase extends BaseHomeScreenCoordinator
     super.initReactors();
     swipeReactor(
       onSwipeUp: () {
-        setDisableAllTouchFeedback(true);
+        // setDisableAllTouchFeedback(true);
         widgets.onSwipeUp();
       },
       onSwipeRight: () {
         widgets.onSwipeRight();
-        setDisableAllTouchFeedback(true);
+        // setDisableAllTouchFeedback(true);
       },
     );
+    tapReactor();
     widgets.beachWavesMovieStatusReactor(
       onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
       onShoreToVibrantBlueComplete: onShoreToVibrantBlueComplete,
@@ -63,6 +64,12 @@ abstract class _ShortQrGuideCoordinatorBase extends BaseHomeScreenCoordinator
     );
     swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged);
   }
+
+  tapReactor() => reaction((p0) => tap.currentTapPosition, (p0) {
+        ifTouchIsNotDisabled(() {
+          widgets.onTap(p0);
+        });
+      });
 
   @action
   getNokhteSessionArtifacts() async {

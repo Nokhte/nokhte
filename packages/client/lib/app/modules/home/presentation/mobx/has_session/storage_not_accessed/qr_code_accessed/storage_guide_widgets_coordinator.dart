@@ -80,35 +80,18 @@ abstract class _StorageGuideWidgetsCoordinatorBase
 
   @action
   onInitInstructionMode() {
+    toggleHasInitiatedBlur();
     nokhteBlur.init();
     beachWaves.currentStore.setControl(Control.stop);
     toggleHasInitiatedBlur();
-    if (swipeRightIsUnlocked) {
-      primarySmartText.setWidgetVisibility(true);
-      primarySmartText.setCurrentIndex(1);
-    } else {
-      primarySmartText.startRotatingText(isResuming: true);
-    }
+    primarySmartText.startRotatingText(isResuming: true);
     Timer(const Duration(seconds: 1, milliseconds: 500), () {
       setSmartTextBottomPaddingScalar(0);
       setSmartTextTopPaddingScalar(.13);
-      if (!swipeRightIsUnlocked) {
-        secondaryInstructionalGradientNokhte.setWidgetVisibility(true);
-      }
     });
-    if (swipeRightIsUnlocked) {
-      secondaryInstructionalGradientNokhte.initMovie(
-        InstructionalGradientMovieParams(
-          center: center,
-          position: InstructionalNokhtePositions.right,
-          direction: InstructionalGradientDirections.enlarge,
-          colorway: GradientNokhteColorways.vibrantBlue,
-        ),
-      );
-    }
-    primaryInstructionalGradientNokhte.setWidgetVisibility(true);
     gestureCross.gradientNokhte.setWidgetVisibility(false);
     gestureCross.centerCrossNokhte.setWidgetVisibility(false);
+    primaryInstructionalGradientNokhte.setWidgetVisibility(true);
     primaryInstructionalGradientNokhte.initMovie(
       InstructionalGradientMovieParams(
         center: center,
@@ -121,53 +104,9 @@ abstract class _StorageGuideWidgetsCoordinatorBase
   }
 
   @action
-  onEndInstructionMode() {
-    toggleHasInitiatedBlur();
-    primarySmartText.startRotatingText(isResuming: true);
-    Timer(const Duration(seconds: 1, milliseconds: 500), () {
-      primarySmartText.setWidgetVisibility(false);
-      primarySmartText.setCurrentIndex(0);
-      primarySmartText.reset();
-      primarySmartText.startRotatingText();
-      setSmartTextBottomPaddingScalar(.2);
-      setSmartTextTopPaddingScalar(0);
-      primarySmartText.setWidgetVisibility(true);
-    });
-    if (!swipeRightIsUnlocked) {
-      secondaryInstructionalGradientNokhte.setWidgetVisibility(false);
-    } else {
-      secondaryInstructionalGradientNokhte.initMovie(
-        InstructionalGradientMovieParams(
-          center: center,
-          position: InstructionalNokhtePositions.right,
-          direction: InstructionalGradientDirections.shrink,
-          colorway: GradientNokhteColorways.vibrantBlue,
-        ),
-      );
-    }
-    primaryInstructionalGradientNokhte.initMovie(
-      InstructionalGradientMovieParams(
-        center: center,
-        colorway: GradientNokhteColorways.invertedBeachWave,
-        direction: InstructionalGradientDirections.shrink,
-        position: InstructionalNokhtePositions.top,
-      ),
-    );
-    nokhteBlur.reverse();
-    beachWaves.currentStore.setControl(Control.mirror);
-    centerInstructionalNokhte.moveBackToCross(
-      startingPosition: CenterNokhtePositions.center,
-    );
-  }
-
-  @action
   onGestureCrossTap() {
     if (isAllowedToMakeAGesture && !swipeRightIsUnlocked) {
-      if (!hasInitiatedBlur) {
-        onInitInstructionMode();
-      } else if (hasInitiatedBlur && !hasSwipedUp && !swipeRightIsUnlocked) {
-        // onEndInstructionMode();
-      }
+      onInitInstructionMode();
     }
   }
 
@@ -190,10 +129,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
         hasSwipedUp = true;
         centerNokhtePosition = InstructionalNokhtePositions.right;
         centerInstructionalNokhte.initMovie(centerNokhtePosition);
-        if (!swipeRightIsUnlocked) {
-          secondaryInstructionalGradientNokhte
-              .setControl(Control.playFromStart);
-        }
+        secondaryInstructionalGradientNokhte.setControl(Control.playFromStart);
         primaryInstructionalGradientNokhte.setWidgetVisibility(false);
       } else if (!hasInitiatedBlur && !hasSwipedUp && swipeRightIsUnlocked) {
         hasSwipedUp = true;
