@@ -181,11 +181,14 @@ abstract class _StorageGuideWidgetsCoordinatorBase
 
   centerInstructionalNokhteMovieReactor() =>
       reaction((p0) => centerInstructionalNokhte.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished) {
-          if (centerNokhtePosition == InstructionalNokhtePositions.right) {
-            canTap = true;
-            primarySmartText.startRotatingText(isResuming: true);
-          }
+        // todo test this out to make sure it works
+        if (p0 == MovieStatus.finished &&
+            centerInstructionalNokhte.movieMode ==
+                CenterInstructionalNokhteMovieModes.moveAround) {
+          // if (centerNokhtePosition == InstructionalNokhtePositions.right) {
+          canTap = true;
+          primarySmartText.startRotatingText(isResuming: true);
+          // }
         }
       });
 

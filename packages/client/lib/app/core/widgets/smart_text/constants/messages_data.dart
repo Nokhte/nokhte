@@ -75,6 +75,39 @@ class MessagesData {
         ),
       ];
 
+  static List<RotatingTextData> get qrAndStorageAdept => [
+        RotatingTextData(
+          mainMessage: "",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+          unlockGesture: Gestures.tap,
+        ),
+        RotatingTextData(
+          mainMessage: "That is where you go to start a session",
+          subMessage: "Tap anywhere to confirm",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+          unlockGesture: Gestures.tap,
+        ),
+        RotatingTextData(
+          mainMessage: "That is where you go to view session notes",
+          subMessage: "Tap anywhere to confirm",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+          unlockGesture: Gestures.tap,
+        ),
+      ];
+
   static List<RotatingTextData> get compassAndStorageGuideList => [
         RotatingTextData(
           mainMessage: "If you're ever confused, Tap on the compass",
