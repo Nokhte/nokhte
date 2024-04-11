@@ -47,26 +47,30 @@ abstract class _StorageGuideCoordinatorBase extends BaseHomeScreenCoordinator
     super.initReactors();
     swipeReactor(
       onSwipeUp: () {
-        setDisableAllTouchFeedback(true);
         widgets.onSwipeUp();
       },
       onSwipeRight: () async {
-        setDisableAllTouchFeedback(true);
         widgets.onSwipeRight();
-        await userInformation.updateHasEnteredStorageLogic(true);
       },
     );
     widgets.beachWavesMovieStatusReactor(
       onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
       onShoreToVibrantBlueComplete: onShoreToVibrantBlueComplete,
-      onVirginStorageEntry: onVirginStorageEntry,
-      onSubsequentStorageEntry: () {},
+      onVirginStorageEntry: () {},
+      onSubsequentStorageEntry: onSubsequentStorageEntry,
       onAnyToShoreComplete: () {
         setDisableAllTouchFeedback(false);
       },
     );
     swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged);
+    tapReactor();
   }
+
+  tapReactor() => reaction((p0) => tap.currentTapPosition, (p0) {
+        ifTouchIsNotDisabled(() {
+          widgets.onTap(p0);
+        });
+      });
 
   @action
   getNokhteSessionArtifacts() async {
