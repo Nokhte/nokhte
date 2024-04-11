@@ -20,7 +20,7 @@ abstract class _BaseHomeScreenRouterCoordinatorBase extends BaseCoordinator
   });
 
   @observable
-  ResumeOnShoreParams params = ResumeOnShoreParams.initial();
+  ResumeOnShoreParams params = const ResumeOnShoreParams();
 
   @action
   decideAndRoute(Function setParams) async {
