@@ -8,24 +8,31 @@ class MoveCenterInstructionalNokhteBackToCrossMovie {
     Offset screenCenter, {
     required CenterNokhtePositions startingPosition,
   }) {
-    double startDx = 0;
-    double startDy = 0;
+    StartAndEndOffsets offsets = StartAndEndOffsets.initial();
+    InstructionalNokhtePositions position =
+        InstructionalNokhtePositions.initial;
     switch (startingPosition) {
       case CenterNokhtePositions.top:
-        startDx = CircleOffsets.top.dx;
-        startDy = (-screenCenter.dy) * 1.1;
+        position = InstructionalNokhtePositions.top;
       case CenterNokhtePositions.bottom:
-        startDx = CircleOffsets.bottom.dx;
-        startDy = (-screenCenter.dy) * .4;
-      case CenterNokhtePositions.center:
-        startDx = CircleOffsets.center.dx;
-        startDy = (-screenCenter.dy) * .8;
-      case CenterNokhtePositions.left:
-        startDx = CircleOffsets.center.dx;
-        startDy = CircleOffsets.center.dy;
+        position = InstructionalNokhtePositions.bottom;
       case CenterNokhtePositions.right:
-        startDx = CircleOffsets.center.dx;
-        startDy = CircleOffsets.center.dy;
+        position = InstructionalNokhtePositions.right;
+      case CenterNokhtePositions.left:
+        position = InstructionalNokhtePositions.left;
+      default:
+        break;
+    }
+    offsets = InstructionalNokhteUtils.getOffsets(
+      screenCenter,
+      position: position,
+      direction: InstructionalGradientDirections.shrink,
+    );
+    if (startingPosition == CenterNokhtePositions.center) {
+      offsets = StartAndEndOffsets(
+        start: Offset(CircleOffsets.center.dx, (-screenCenter.dy) * .8),
+        end: Offset(CircleOffsets.center.dx, CircleOffsets.center.dy),
+      );
     }
     return MovieTween()
       ..scene(
@@ -33,15 +40,17 @@ class MoveCenterInstructionalNokhteBackToCrossMovie {
         end: Seconds.get(2),
       )
           .tween(
-              'dx',
-              Tween<double>(
-                begin: startDx,
-                end: CircleOffsets.center.dx,
-              ))
+            'dx',
+            Tween<double>(
+              begin: offsets.start.dx,
+              end: CircleOffsets.center.dx,
+            ),
+            curve: Curves.easeInOutCubicEmphasized,
+          )
           .tween(
             'dy',
             Tween<double>(
-              begin: startDy,
+              begin: offsets.start.dy,
               end: CircleOffsets.center.dy,
             ),
             curve: Curves.easeInOutCubicEmphasized,
