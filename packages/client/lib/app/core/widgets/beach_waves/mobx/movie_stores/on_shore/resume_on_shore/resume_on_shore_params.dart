@@ -5,8 +5,8 @@ class ResumeOnShoreParams extends Equatable {
   final double position;
   final WaterDirection direction;
   const ResumeOnShoreParams({
-    required this.position,
-    required this.direction,
+    this.position = -10,
+    this.direction = WaterDirection.down,
   });
 
   factory ResumeOnShoreParams.initial() => const ResumeOnShoreParams(
