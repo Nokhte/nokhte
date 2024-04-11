@@ -98,7 +98,8 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
         setSmartTextBottomPaddingScalar(.1);
         setSmartTextTopPaddingScalar(0);
         smartText.startRotatingText(isResuming: true);
-        centerInstructionalNokhte.initMovie(GradientNokhtePositions.bottom);
+        centerInstructionalNokhte
+            .initMovie(InstructionalNokhtePositions.bottom);
         setSmartTextPadding();
       } else {
         if (!hasSwipedDown) {
@@ -229,7 +230,7 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
             center: center,
             colorway: GradientNokhteColorways.beachWave,
             direction: InstructionalGradientDirections.enlarge,
-            position: GradientNokhtePositions.bottom,
+            position: InstructionalNokhtePositions.bottom,
           ),
         );
         gestureCross.centerCrossNokhte.setWidgetVisibility(false);
@@ -249,7 +250,7 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
             center: center,
             colorway: GradientNokhteColorways.beachWave,
             direction: InstructionalGradientDirections.shrink,
-            position: GradientNokhtePositions.bottom,
+            position: InstructionalNokhtePositions.bottom,
           ),
         );
         nokhteBlur.reverse();
@@ -283,7 +284,7 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
               center: center,
               colorway: GradientNokhteColorways.beachWave,
               direction: InstructionalGradientDirections.shrink,
-              position: GradientNokhtePositions.bottom,
+              position: InstructionalNokhtePositions.bottom,
             ),
           );
         });
