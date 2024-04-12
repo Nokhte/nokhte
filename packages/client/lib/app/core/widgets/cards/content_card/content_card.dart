@@ -55,6 +55,9 @@ class ContentCard extends HookWidget with ContentCardConstants {
         opacity: useWidgetOpacity(store.showWidget),
         duration: Seconds.get(1),
         child: ListView.separated(
+          physics: store.disableTouchInput
+              ? const NeverScrollableScrollPhysics()
+              : null,
           itemCount: content.length,
           separatorBuilder: (context, index) => Padding(
             padding: EdgeInsets.all(height * .02),

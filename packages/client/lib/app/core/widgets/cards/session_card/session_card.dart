@@ -27,6 +27,9 @@ class SessionCard extends HookWidget {
           opacity: useWidgetOpacity(store.showWidget),
           duration: Seconds.get(1),
           child: ListView.separated(
+            physics: store.disableTouchInput
+                ? const NeverScrollableScrollPhysics()
+                : null,
             itemCount: sessions.length,
             addAutomaticKeepAlives: true,
             separatorBuilder: (context, index) => Padding(
