@@ -24,6 +24,14 @@ class SpeakingPhoneNokhteSessionWidgetsModule extends Module {
         beachWaves: BeachWavesStore(),
       ),
     );
+    i.add<IrlNokhteSessionSpeakingWaitingWidgetsCoordinator>(
+      () => IrlNokhteSessionSpeakingWaitingWidgetsCoordinator(
+        tint: TintStore(),
+        mirroredText: Modular.get<MirroredTextStore>(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        beachWaves: BeachWavesStore(),
+      ),
+    );
     i.add<IrlNokhteSessionSpeakingWidgetsCoordinator>(
       () => IrlNokhteSessionSpeakingWidgetsCoordinator(
         speakLessSmileMore: SpeakLessSmileMoreStore(),

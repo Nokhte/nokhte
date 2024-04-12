@@ -86,6 +86,21 @@ class MessagesData {
         ),
       ];
 
+  static List<RotatingTextData> get irlNokhteSessionSpeakingWaiting => [
+        RotatingTextData(
+          mainMessage: "Continue on the other phone",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+          unlockGesture: Gestures.tap,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+          unlockGesture: Gestures.tap,
+        ),
+      ];
+
   static List<RotatingTextData> get shortQrGuide => [
         RotatingTextData(
           mainMessage: "Tap on the compass",
@@ -390,7 +405,7 @@ class MessagesData {
           ];
 
   static List<RotatingTextData>
-      get irlNokhteSessionSpeakingInstructionsSecondaryPhase0List => [
+      get irlNokhteSessionSpeakingInstructionsSecondaryList => [
             RotatingTextData(
               mainMessage: "Tap to confirm",
               pauseHere: true,
