@@ -49,6 +49,43 @@ class MessagesData {
         ),
       ];
 
+  static List<RotatingTextData> get storageContentSecondaryList => [
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "That is where you go view your sessions",
+          subMessage: "Tap anywhere to confirm",
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
+      ];
+
+  static List<RotatingTextData> get storageHomeSecondaryList => [
+        RotatingTextData(
+          mainMessage: "",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+          unlockGesture: Gestures.tap,
+        ),
+        RotatingTextData(
+          mainMessage: "That is where you go to get home",
+          subMessage: "Tap anywhere to confirm",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+          unlockGesture: Gestures.tap,
+        ),
+      ];
+
   static List<RotatingTextData> get shortQrGuide => [
         RotatingTextData(
           mainMessage: "Tap on the compass",

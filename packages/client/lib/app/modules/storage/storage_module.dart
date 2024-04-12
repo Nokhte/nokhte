@@ -25,6 +25,7 @@ class StorageModule extends Module {
   void binds(i) {
     i.add<StorageHomeCoordinator>(
       () => StorageHomeCoordinator(
+        tap: TapDetector(),
         getNokhteSessionArtifactsLogic:
             Modular.get<GetNokhteSessionArtifacts>(),
         updateSessionAliasLogic: Modular.get<UpdateSessionAlias>(),
@@ -35,6 +36,7 @@ class StorageModule extends Module {
       ),
     );
     i.add<StorageContentCoordinator>(() => StorageContentCoordinator(
+          tap: TapDetector(),
           captureScreen: Modular.get<CaptureScreen>(),
           widgets: Modular.get<StorageContentWidgetsCoordinator>(),
           swipe: SwipeDetector(),
