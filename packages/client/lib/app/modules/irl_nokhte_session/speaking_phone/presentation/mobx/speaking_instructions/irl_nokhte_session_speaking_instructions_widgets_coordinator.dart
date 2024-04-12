@@ -327,12 +327,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
                 });
               }
             } else if (bottomHalfIsDone && topHalfIsDone) {
-              if (mirroredText.primaryUpsideDownText.currentIndex == 9) {
-                tint.setControl(Control.play);
-                resetUpsideDownHoldingPadding();
-                mirroredText.prepForSplitScreen();
-                mirroredText.startBothRotatingText(isResuming: true);
-              }
+              Modular.to.navigate("/irl_nokhte_session/speaking_waiting");
             }
           }
         }

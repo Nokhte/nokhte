@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/core/widgets/mirrored_text/mirrored_text.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/irl_nokhte_session/shared/constants/constants.dart';
 part 'mirrored_text_store.g.dart';
@@ -31,13 +32,11 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
     switch (types) {
       case MirroredTextContentOptions.irlNokhteSessionSpeakingInstructions:
         prepForSplitScreen();
-        setSecondaryMessagesData(MessagesData
-            .irlNokhteSessionSpeakingInstructionsSecondaryPhase0List);
-        primaryRightSideUpText.setMessagesData(
-          MessagesData.irlNokhteSessionGreeterPrimaryList,
+        setSecondaryMessagesData(
+          MessagesData.irlNokhteSessionSpeakingInstructionsSecondaryList,
         );
-        primaryUpsideDownText.setMessagesData(
-          MessagesData.irlNokhteSessionGreeterPrimaryList,
+        setPrimaryMessagesData(
+          MessagesData.irlNokhteSessionSpeakingInstructionsPrimaryList,
         );
       case MirroredTextContentOptions.irlNokhteSessionSpeakingPhone:
         prepForSplitScreen();
@@ -83,6 +82,11 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
         secondaryRightSideUpText.setStaticAltMovie(Colors.black);
         primaryUpsideDownText.setStaticAltMovie(Colors.black);
         secondaryUpsideDownText.setStaticAltMovie(Colors.black);
+      case MirroredTextContentOptions.irlNokhteSessionSpeakingWaiting:
+        setPrimaryMessagesData(MessagesData.irlNokhteSessionSpeakingWaiting);
+        setSecondaryMessagesData(MessagesData.empty);
+        prepForSplitScreen();
+
       default:
         break;
     }

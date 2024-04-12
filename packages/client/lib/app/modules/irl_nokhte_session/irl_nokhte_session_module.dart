@@ -59,6 +59,14 @@ class IrlNokhteSessionModule extends Module {
         swipe: SwipeDetector(),
       ),
     );
+    i.add<IrlNokhteSessionSpeakingWaitingCoordinator>(
+      () => IrlNokhteSessionSpeakingWaitingCoordinator(
+        presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        widgets:
+            Modular.get<IrlNokhteSessionSpeakingWaitingWidgetsCoordinator>(),
+      ),
+    );
     i.add<IrlNokhteSessionNotesInstructionsCoordinator>(
       () => IrlNokhteSessionNotesInstructionsCoordinator(
         presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
@@ -115,6 +123,13 @@ class IrlNokhteSessionModule extends Module {
       child: (context) => IrlNokhteSessionSpeakingInstructionsScreen(
         coordinator:
             Modular.get<IrlNokhteSessionSpeakingInstructionsCoordinator>(),
+      ),
+    );
+    r.child(
+      transition: TransitionType.noTransition,
+      '/speaking_waiting',
+      child: (context) => IrlNokhteSessionSpeakingWaitingScreen(
+        coordinator: Modular.get<IrlNokhteSessionSpeakingWaitingCoordinator>(),
       ),
     );
     r.child(
