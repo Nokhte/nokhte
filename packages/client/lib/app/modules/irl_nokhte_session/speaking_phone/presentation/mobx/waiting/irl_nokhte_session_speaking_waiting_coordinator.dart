@@ -26,6 +26,7 @@ abstract class _IrlNokhteSessionSpeakingWaitingCoordinatorBase
   constructor() async {
     widgets.constructor();
     initReactors();
+    await presence.updateCurrentPhase(2.0);
   }
 
   initReactors() {
