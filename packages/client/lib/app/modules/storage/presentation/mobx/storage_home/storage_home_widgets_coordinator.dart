@@ -101,6 +101,7 @@ abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
       centerInstructionalNokhte.moveBackToCross(
         startingPosition: CenterNokhtePositions.left,
       );
+      sessionCard.setDisableTouchInput(false);
       primaryInstructionalGradientNokhte.initMovie(
         InstructionalGradientMovieParams(
           center: center,
@@ -117,6 +118,7 @@ abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   onGestureCrossTap() {
     if (isAllowedToMakeAGesture) {
       if (!hasInitiatedBlur && canTapOnGestureCross) {
+        sessionCard.setDisableTouchInput(true);
         blur.init();
         hasInitiatedBlur = true;
         gestureCross.centerCrossNokhte.setWidgetVisibility(false);
@@ -132,6 +134,7 @@ abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
           ),
         );
       } else if (hasInitiatedBlur && !hasSwiped) {
+        sessionCard.setDisableTouchInput(false);
         hasInitiatedBlur = false;
         blur.reverse();
         centerInstructionalNokhte.moveBackToCross(
@@ -179,8 +182,9 @@ abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     beachWaves.currentStore.initMovie(NoParams());
     sessionCard.setWidgetVisibility(false);
     primarySmartText.setWidgetVisibility(false);
-    gestureCross.gradientNokhte.toggleWidgetVisibility();
-    gestureCross.strokeCrossNokhte.toggleWidgetVisibility();
+    gestureCross.gradientNokhte.setWidgetVisibility(false);
+    gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
+    primaryInstructionalGradientNokhte.setWidgetVisibility(false);
   }
 
   @action

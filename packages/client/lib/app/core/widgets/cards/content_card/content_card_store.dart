@@ -17,4 +17,12 @@ abstract class _ContentCardStoreBase extends BaseCustomAnimatedWidgetStore
       setWidgetVisibility(true);
     });
   }
+
+  @observable
+  bool disableTouchInput = false;
+
+  @action
+  setDisableTouchInput(bool newVal) {
+    disableTouchInput = newVal;
+  }
 }
