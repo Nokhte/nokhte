@@ -31,13 +31,11 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
     switch (types) {
       case MirroredTextContentOptions.irlNokhteSessionSpeakingInstructions:
         prepForSplitScreen();
-        setSecondaryMessagesData(MessagesData
-            .irlNokhteSessionSpeakingInstructionsSecondaryPhase0List);
-        primaryRightSideUpText.setMessagesData(
-          MessagesData.irlNokhteSessionGreeterPrimaryList,
+        setSecondaryMessagesData(
+          MessagesData.irlNokhteSessionSpeakingInstructionsSecondaryList,
         );
-        primaryUpsideDownText.setMessagesData(
-          MessagesData.irlNokhteSessionGreeterPrimaryList,
+        setPrimaryMessagesData(
+          MessagesData.irlNokhteSessionSpeakingInstructionsPrimaryList,
         );
       case MirroredTextContentOptions.irlNokhteSessionSpeakingPhone:
         prepForSplitScreen();
