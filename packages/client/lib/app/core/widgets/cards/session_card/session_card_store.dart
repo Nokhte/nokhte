@@ -28,6 +28,15 @@ abstract class _SessionCardStoreBase extends BaseCustomAnimatedWidgetStore
   );
 
   @observable
+  bool disableTouchInput = false;
+
+  @action
+  setDisableTouchInput(bool newVal) {
+    isReadOnly = newVal;
+    disableTouchInput = newVal;
+  }
+
+  @observable
   ObservableList<TextEditingController> textEditingControllers =
       ObservableList();
 
@@ -39,7 +48,9 @@ abstract class _SessionCardStoreBase extends BaseCustomAnimatedWidgetStore
 
   @action
   onDoubleTap(int index) {
-    focusNodes[index].requestFocus();
+    if (!disableTouchInput) {
+      focusNodes[index].requestFocus();
+    }
   }
 
   @action
@@ -56,8 +67,10 @@ abstract class _SessionCardStoreBase extends BaseCustomAnimatedWidgetStore
 
   @action
   onTap(int newIndex) {
-    lastTappedIndex = newIndex;
-    focusNodes[newIndex].unfocus();
+    if (!disableTouchInput) {
+      lastTappedIndex = newIndex;
+      focusNodes[newIndex].unfocus();
+    }
   }
 
   @action

@@ -11,15 +11,16 @@ class NokhteBlurStore = _NokhteBlurStoreBase with _$NokhteBlurStore;
 abstract class _NokhteBlurStoreBase extends BaseCustomAnimatedWidgetStore
     with Store {
   _NokhteBlurStoreBase() {
-    setMovie(BlurMovie.movie);
+    setMovie(BlurMovie.getMovie(blurValue: 10.0));
   }
 
   @observable
   bool hasBlurredIn = false;
 
   @action
-  init() {
+  init({double blurValue = 10.0}) {
     hasBlurredIn = true;
+    setMovie(BlurMovie.getMovie(blurValue: blurValue));
     setMovieStatus(MovieStatus.inProgress);
     setControl(Control.playFromStart);
   }

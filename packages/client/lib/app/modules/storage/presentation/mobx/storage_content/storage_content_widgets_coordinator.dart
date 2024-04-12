@@ -72,6 +72,7 @@ abstract class _StorageContentWidgetsCoordinatorBase
         smartText.setWidgetVisibility(false);
         gestureCross.centerCrossNokhte.setWidgetVisibility(true);
         centerInstructionalNokhte.setWidgetVisibility(false);
+
         beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToDrySand);
         beachWaves.currentStore.reverseMovie(NoParams());
         gestureCross.initMoveAndRegenerate(CircleOffsets.left);
@@ -93,6 +94,7 @@ abstract class _StorageContentWidgetsCoordinatorBase
       canTap = false;
       hasSwiped = false;
       hasInitiatedBlur = false;
+      contentCard.setDisableTouchInput(false);
       smartText.startRotatingText(isResuming: true);
       centerInstructionalNokhte.moveBackToCross(
         startingPosition: CenterNokhtePositions.left,
@@ -113,7 +115,8 @@ abstract class _StorageContentWidgetsCoordinatorBase
   onGestureCrossTap() {
     if (isAllowedToMakeAGesture) {
       if (!hasInitiatedBlur && canTapOnGestureCross) {
-        blur.init();
+        contentCard.setDisableTouchInput(true);
+        blur.init(blurValue: 20);
         hasInitiatedBlur = true;
         gestureCross.centerCrossNokhte.setWidgetVisibility(false);
         gestureCross.gradientNokhte.setWidgetVisibility(false);
@@ -128,6 +131,7 @@ abstract class _StorageContentWidgetsCoordinatorBase
           ),
         );
       } else if (hasInitiatedBlur && !hasSwiped) {
+        contentCard.setDisableTouchInput(false);
         hasInitiatedBlur = false;
         blur.reverse();
         centerInstructionalNokhte.moveBackToCross(
@@ -174,17 +178,8 @@ abstract class _StorageContentWidgetsCoordinatorBase
             centerInstructionalNokhte.movieMode ==
                 CenterInstructionalNokhteMovieModes.moveAround) {
           canTap = true;
-          //
         }
       });
-
-  @action
-  onSessionCardTapped() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToDrySand);
-    beachWaves.currentStore.initMovie(NoParams());
-    contentCard.setWidgetVisibility(false);
-    smartText.setWidgetVisibility(false);
-  }
 
   @computed
   bool get isAllowedToMakeAGesture =>
