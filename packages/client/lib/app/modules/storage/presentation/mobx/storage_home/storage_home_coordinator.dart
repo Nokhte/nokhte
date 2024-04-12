@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:ui';
+
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -19,6 +21,7 @@ abstract class _StorageHomeCoordinatorBase
   final GetNokhteSessionArtifacts getNokhteSessionArtifactsLogic;
   final UpdateSessionAlias updateSessionAliasLogic;
   final UserInformationCoordinator userInfo;
+  final TapDetector tap;
 
   final SwipeDetector swipe;
   _StorageHomeCoordinatorBase({
@@ -28,6 +31,7 @@ abstract class _StorageHomeCoordinatorBase
     required this.widgets,
     required this.swipe,
     required this.userInfo,
+    required this.tap,
   }) : super(getUserInfo: userInfo.getUserInfoStore);
 
   @observable
@@ -44,8 +48,8 @@ abstract class _StorageHomeCoordinatorBase
   setCrossShouldUseObserver(bool value) => crossShouldUseObserver = value;
 
   @action
-  constructor() async {
-    widgets.constructor();
+  constructor(Offset offset) async {
+    widgets.constructor(offset);
     initReactors();
     await getUserInfo(NoParams());
     await getNokhteSessionArtifacts();
@@ -71,18 +75,24 @@ abstract class _StorageHomeCoordinatorBase
   }
 
   initReactors() {
+    tapReactor();
     swipeReactor();
     beachWavesMovieStatusReactor();
     sessionCardEditReactor();
     sessionCardTapReactor();
   }
 
+  tapReactor() => reaction((p0) => tap.tapCount, (p0) {
+        ifTouchIsNotDisabled(() {
+          widgets.onTap();
+        });
+      });
+
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.left:
             ifTouchIsNotDisabled(() {
               widgets.onSwipeLeft();
-              setDisableAllTouchFeedback(true);
             });
           default:
             break;
