@@ -17,7 +17,11 @@ abstract class _InstructionalGradientNokhteStoreBase
   _InstructionalGradientNokhteStoreBase() {
     setWidgetVisibility(false);
     setMovie(
-      YellowDiamondToInvertedBeachWavesMovie.getMovie(Offset.zero),
+      YellowDiamondToDevelopedGradientMovie.getMovie(
+        Offset.zero,
+        position: InstructionalNokhtePositions.bottom,
+        colorway: GradientNokhteColorways.beachWave,
+      ),
     );
   }
 
@@ -25,11 +29,19 @@ abstract class _InstructionalGradientNokhteStoreBase
   Offset center = Offset.zero;
 
   @action
-  prepareYellowDiamond(Offset position) {
+  prepareYellowDiamond(
+    Offset center, {
+    required InstructionalNokhtePositions position,
+    required GradientNokhteColorways colorway,
+  }) {
     setMovieStatus(MovieStatus.inProgress);
-    center = position;
+    this.center = center;
     setMovie(
-      YellowDiamondToInvertedBeachWavesMovie.getMovie(position),
+      YellowDiamondToDevelopedGradientMovie.getMovie(
+        this.center,
+        position: position,
+        colorway: colorway,
+      ),
     );
   }
 

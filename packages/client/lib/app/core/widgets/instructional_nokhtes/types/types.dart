@@ -4,3 +4,4 @@ export 'gradient_nokhte_colorways.dart';
 export 'gradient_nokhte_positions.dart';
 export 'instructional_gradient_directions.dart';
 export 'instructional_gradient_movie_params.dart';
+export 'start_and_end_offsets.dart';

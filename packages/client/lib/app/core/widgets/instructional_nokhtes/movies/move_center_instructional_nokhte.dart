@@ -6,24 +6,22 @@ import 'package:simple_animations/simple_animations.dart';
 class MoveCenterInstructionalNokhte {
   static MovieTween getMovie(
     Offset screenCenter, {
-    required GradientNokhtePositions position,
+    required InstructionalNokhtePositions position,
   }) {
-    double dxEnd = -1;
-    double dyEnd = -1;
-
-    final dxStart = CircleOffsets.top.dx;
-    final dyStart = (-screenCenter.dy) * .8;
+    Offset start = Offset.zero;
+    Offset end = Offset.zero;
+    start = Offset(CircleOffsets.center.dx, (-screenCenter.dy) * .8);
     switch (position) {
-      case GradientNokhtePositions.left:
+      case InstructionalNokhtePositions.left:
+        end = Offset((-screenCenter.dy) * .25, (-screenCenter.dy) * .8);
+      case InstructionalNokhtePositions.right:
+        end = Offset((screenCenter.dx) * .9, (-screenCenter.dy) * .8);
+      case InstructionalNokhtePositions.top:
+        end = Offset(CircleOffsets.center.dx, (-screenCenter.dy) * 1.2);
+      case InstructionalNokhtePositions.bottom:
+        end = Offset(CircleOffsets.center.dx, (-screenCenter.dy) * .4);
+      default:
         break;
-      case GradientNokhtePositions.right:
-        break;
-      case GradientNokhtePositions.top:
-        dxEnd = CircleOffsets.top.dx;
-        dyEnd = (-screenCenter.dy) * 1.1;
-      case GradientNokhtePositions.bottom:
-        dxEnd = CircleOffsets.top.dx;
-        dyEnd = (-screenCenter.dy) * .4;
     }
     return MovieTween()
       ..scene(
@@ -31,16 +29,18 @@ class MoveCenterInstructionalNokhte {
         end: Seconds.get(2),
       )
           .tween(
-              'dx',
-              Tween<double>(
-                begin: dxStart,
-                end: dxEnd,
-              ))
+            'dx',
+            Tween<double>(
+              begin: start.dx,
+              end: end.dx,
+            ),
+            curve: Curves.easeInOutCubicEmphasized,
+          )
           .tween(
             'dy',
             Tween<double>(
-              begin: dyStart,
-              end: dyEnd,
+              begin: start.dy,
+              end: end.dy,
             ),
             curve: Curves.easeInOutCubicEmphasized,
           )

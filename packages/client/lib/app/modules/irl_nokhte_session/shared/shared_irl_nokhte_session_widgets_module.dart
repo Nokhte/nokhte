@@ -11,16 +11,16 @@ class SharedIrlNokhteSessionWidgetsModule extends Module {
       ];
   @override
   void exportedBinds(Injector i) {
-    i.add<IrlNokhteSessionPhase0WidgetsCoordinator>(
-      () => IrlNokhteSessionPhase0WidgetsCoordinator(
+    i.add<IrlNokhteSessionGreeterWidgetsCoordinator>(
+      () => IrlNokhteSessionGreeterWidgetsCoordinator(
           touchRipple: TouchRippleStore(),
           primarySmartText: SmartTextStore(),
           secondarySmartText: SmartTextStore(),
           wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
           beachWaves: BeachWavesStore()),
     );
-    i.add<IrlNokhteSessionPhase3WidgetsCoordinator>(
-      () => IrlNokhteSessionPhase3WidgetsCoordinator(
+    i.add<IrlNokhteSessionExitWidgetsCoordinator>(
+      () => IrlNokhteSessionExitWidgetsCoordinator(
         gestureCross: Modular.get<GestureCrossStore>(),
         primarySmartText: SmartTextStore(),
         secondarySmartText: SmartTextStore(),

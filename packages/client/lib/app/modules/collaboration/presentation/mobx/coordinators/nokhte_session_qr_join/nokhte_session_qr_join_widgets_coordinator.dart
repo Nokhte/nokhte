@@ -95,10 +95,12 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
   onSwipeDown(Function onLeaving) {
     if (centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
       if (hasInitiatedBlur) {
+        hasInitiatedBlur = false;
         setSmartTextBottomPaddingScalar(.1);
         setSmartTextTopPaddingScalar(0);
         smartText.startRotatingText(isResuming: true);
-        centerInstructionalNokhte.initMovie(GradientNokhtePositions.bottom);
+        centerInstructionalNokhte
+            .initMovie(InstructionalNokhtePositions.bottom);
         setSmartTextPadding();
       } else {
         if (!hasSwipedDown) {
@@ -229,7 +231,7 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
             center: center,
             colorway: GradientNokhteColorways.beachWave,
             direction: InstructionalGradientDirections.enlarge,
-            position: GradientNokhtePositions.bottom,
+            position: InstructionalNokhtePositions.bottom,
           ),
         );
         gestureCross.centerCrossNokhte.setWidgetVisibility(false);
@@ -249,7 +251,7 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
             center: center,
             colorway: GradientNokhteColorways.beachWave,
             direction: InstructionalGradientDirections.shrink,
-            position: GradientNokhtePositions.bottom,
+            position: InstructionalNokhtePositions.bottom,
           ),
         );
         nokhteBlur.reverse();
@@ -283,7 +285,7 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
               center: center,
               colorway: GradientNokhteColorways.beachWave,
               direction: InstructionalGradientDirections.shrink,
-              position: GradientNokhtePositions.bottom,
+              position: InstructionalNokhtePositions.bottom,
             ),
           );
         });

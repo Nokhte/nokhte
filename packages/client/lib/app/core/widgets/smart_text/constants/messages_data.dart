@@ -27,12 +27,162 @@ class MessagesData {
         ),
       ];
 
-  static List<RotatingTextData> get homeListHasDoneASession => [
+  static List<RotatingTextData> get storageGuideList => [
         RotatingTextData(
-          mainMessage: "Swipe right to see session notes",
+          mainMessage: "Tap on the compass",
+          pauseHere: true,
+          initialFadeInDelay: Seconds.get(1),
+        ),
+        RotatingTextData(
+          mainMessage: "Swipe right",
+          pauseHere: true,
+          initialFadeInDelay: Seconds.get(1),
+        ),
+        RotatingTextData(
+          mainMessage: "That is where you go to view session notes",
+          subMessage: "Tap anywhere to confirm",
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "Swipe right",
           pauseHere: true,
         ),
       ];
+
+  static List<RotatingTextData> get storageContentSecondaryList => [
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "That is where you go view your sessions",
+          subMessage: "Tap anywhere to confirm",
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
+      ];
+
+  static List<RotatingTextData> get storageHomeSecondaryList => [
+        RotatingTextData(
+          mainMessage: "",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+          unlockGesture: Gestures.tap,
+        ),
+        RotatingTextData(
+          mainMessage: "That is where you go to get home",
+          subMessage: "Tap anywhere to confirm",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+          unlockGesture: Gestures.tap,
+        ),
+      ];
+
+  static List<RotatingTextData> get shortQrGuide => [
+        RotatingTextData(
+          mainMessage: "Tap on the compass",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+          unlockGesture: Gestures.tap,
+        ),
+        RotatingTextData(
+          mainMessage: "Swipe up",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+          unlockGesture: Gestures.tap,
+        ),
+        RotatingTextData(
+          mainMessage: "That is where you go to start a session",
+          subMessage: "Tap anywhere to confirm",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "Swipe up",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+      ];
+
+  static List<RotatingTextData> get qrAndStorageAdept => [
+        RotatingTextData(
+          mainMessage: "",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+          unlockGesture: Gestures.tap,
+        ),
+        RotatingTextData(
+          mainMessage: "That is where you go to start a session",
+          subMessage: "Tap anywhere to confirm",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+          unlockGesture: Gestures.tap,
+        ),
+        RotatingTextData(
+          mainMessage: "That is where you go to view session notes",
+          subMessage: "Tap anywhere to confirm",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+          unlockGesture: Gestures.tap,
+        ),
+      ];
+
+  static List<RotatingTextData> get compassAndStorageGuideList => [
+        RotatingTextData(
+          mainMessage: "If you're ever confused, Tap on the compass",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+          unlockGesture: Gestures.tap,
+        ),
+        RotatingTextData(
+          mainMessage: "The compass is a map of the app",
+          subMessage: "Tap anywhere to confirm",
+          pauseHere: true,
+          initialFadeInDelay: Seconds.get(1),
+        ),
+        RotatingTextData(
+          mainMessage: "You are here",
+          subMessage: "Tap anywhere to confirm",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "You move by swiping",
+          subMessage: "Swipe right",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "That is where you go to view session notes",
+          subMessage: "Tap anywhere to confirm",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "Swipe right",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+      ];
+
   static List<RotatingTextData> get firstTimeHomeList => [
         RotatingTextData(
           mainMessage: "If you're ever confused, Tap on the compass",
@@ -153,7 +303,7 @@ class MessagesData {
         ),
       ];
 
-  static List<RotatingTextData> get irlNokhteSessionPhase0PrimaryList => [
+  static List<RotatingTextData> get irlNokhteSessionGreeterPrimaryList => [
         RotatingTextData(
           mainMessage: "Put your phone on do not disturb",
           pauseHere: true,
@@ -174,7 +324,7 @@ class MessagesData {
         ),
       ];
 
-  static List<RotatingTextData> get irlNokhteSessionPhase0SecondaryList => [
+  static List<RotatingTextData> get irlNokhteSessionGreeterSecondaryList => [
         RotatingTextData(
           mainMessage: "Tap when you have done so",
           pauseHere: true,
@@ -183,65 +333,61 @@ class MessagesData {
       ];
 
   static List<RotatingTextData>
-      getIrlNokhteSessionSpeakingInstructionsPrimaryPhase0List(
-          MirroredTextOrientations orientation) {
-    final arr = [
-      RotatingTextData(
-        mainMessage: "Keep this phone on a flat surface",
-        pauseHere: true,
-        mainMessageFontSize: 22.0,
-      ),
-      RotatingTextData(
-        mainMessage: "",
-        pauseHere: true,
-      ),
-      RotatingTextData(
-        mainMessage: "The point of this phone is to limit speaking",
-        pauseHere: true,
-        mainMessageFontSize: 22.0,
-      ),
-      RotatingTextData(
-        mainMessage: "",
-        pauseHere: true,
-      ),
-      RotatingTextData(
-        mainMessage: "Hold on this side",
-        pauseHere: true,
-        mainMessageFontSize: 22.0,
-      ),
-      RotatingTextData(
-        mainMessage: "",
-        pauseHere: true,
-      ),
-      RotatingTextData(
-        mainMessage: "Only you are allowed to speak right now",
-        pauseHere: true,
-      ),
-      RotatingTextData(
-        mainMessage: "",
-        pauseHere: true,
-      ),
-      RotatingTextData(
-        mainMessage: "Let go",
-        pauseHere: true,
-      ),
-      RotatingTextData(
-        mainMessage: "",
-        pauseHere: true,
-      ),
-      RotatingTextData(
-        mainMessage: "Continue on the other phone",
-        pauseHere: true,
-        mainMessageFontSize: 22.0,
-      ),
-      RotatingTextData(
-        mainMessage: "",
-        pauseHere: true,
-        mainMessageFontSize: 22.0,
-      ),
-    ];
-    return arr;
-  }
+      get irlNokhteSessionSpeakingInstructionsPrimaryList => [
+            RotatingTextData(
+              mainMessage: "Keep this phone on a flat surface",
+              pauseHere: true,
+              mainMessageFontSize: 22.0,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "The point of this phone is to limit speaking",
+              pauseHere: true,
+              mainMessageFontSize: 22.0,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "Hold on this side",
+              pauseHere: true,
+              mainMessageFontSize: 22.0,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "Only you are allowed to speak right now",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "Let go",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "Continue on the other phone",
+              pauseHere: true,
+              mainMessageFontSize: 22.0,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+              mainMessageFontSize: 22.0,
+            ),
+          ];
 
   static List<RotatingTextData>
       get irlNokhteSessionSpeakingInstructionsSecondaryPhase0List => [

@@ -17,53 +17,81 @@ class StorageHomeScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final size = useSquareSize(relativeLength: .20);
+    final center = useCenterOffset();
     final height = useFullScreenSize().height;
     useEffect(() {
-      coordinator.constructor();
+      coordinator.constructor(center);
       return null;
     }, []);
     return Observer(builder: (context) {
       return Scaffold(
         resizeToAvoidBottomInset: false,
-        body: Swipe(
-          store: coordinator.swipe,
-          child: MultiHitStack(
-            children: [
-              FullScreen(
-                child: BeachWaves(
-                  store: coordinator.widgets.beachWaves,
-                ),
-              ),
-              Center(
-                  child: SmartText(
-                store: coordinator.widgets.smartText,
-                bottomPadding: height * .75,
-                opacityDuration: Seconds.get(1),
-              )),
-              Padding(
-                padding:
-                    EdgeInsets.only(top: height * .13, bottom: height * .15),
-                child: SessionCard(
-                  store: coordinator.widgets.sessionCard,
-                  sessions: coordinator.nokhteSessionArtifacts,
-                ),
-              ),
-              GestureCross(
-                showGlowAndOutline: true,
-                config: GestureCrossConfiguration(
-                  left: Right(
-                    NokhteGradientConfig(
-                      gradientType: NokhteGradientTypes.onShore,
-                    ),
+        body: Tap(
+          store: coordinator.tap,
+          child: Swipe(
+            store: coordinator.swipe,
+            child: MultiHitStack(
+              children: [
+                FullScreen(
+                  child: BeachWaves(
+                    store: coordinator.widgets.beachWaves,
                   ),
                 ),
-                size: size,
-                store: coordinator.widgets.gestureCross,
-              ),
-              WifiDisconnectOverlay(
-                store: coordinator.widgets.wifiDisconnectOverlay,
-              ),
-            ],
+                Center(
+                  child: SmartText(
+                    store: coordinator.widgets.primarySmartText,
+                    bottomPadding: height * .75,
+                    opacityDuration: Seconds.get(1),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: height * .13, bottom: height * .15),
+                  child: SessionCard(
+                    store: coordinator.widgets.sessionCard,
+                    sessions: coordinator.nokhteSessionArtifacts,
+                  ),
+                ),
+                FullScreen(
+                  child: NokhteBlur(
+                    store: coordinator.widgets.blur,
+                  ),
+                ),
+                Center(
+                  child: SmartText(
+                    store: coordinator.widgets.secondarySmartText,
+                    topPadding:
+                        height * coordinator.widgets.smartTextTopPaddingScalar,
+                    bottomPadding: height *
+                        coordinator.widgets.smartTextBottomPaddingScalar,
+                    subTextPadding:
+                        coordinator.widgets.smartTextSubMessagePaddingScalar,
+                    opacityDuration: Seconds.get(1),
+                  ),
+                ),
+                GestureCross(
+                  showGlowAndOutline: true,
+                  config: GestureCrossConfiguration(
+                    left: Right(
+                      NokhteGradientConfig(
+                        gradientType: NokhteGradientTypes.onShore,
+                      ),
+                    ),
+                  ),
+                  size: size,
+                  store: coordinator.widgets.gestureCross,
+                ),
+                CenterInstructionalNokhte(
+                  store: coordinator.widgets.centerInstructionalNokhte,
+                ),
+                InstructionalGradientNokhte(
+                  store: coordinator.widgets.primaryInstructionalGradientNokhte,
+                ),
+                WifiDisconnectOverlay(
+                  store: coordinator.widgets.wifiDisconnectOverlay,
+                ),
+              ],
+            ),
           ),
         ),
         // ),

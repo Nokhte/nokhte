@@ -2,26 +2,24 @@ import 'screens.dart';
 
 mixin PosthogPageNameConstants {
   // Home Screen Constants
-  static const String homeScreenPhase0RootDecider =
-      '\$home_screen_phase0_root_decider';
-  static const String homeScreenPhase1NoInvitationFlowNoSession =
-      '\$home_screen_phase1_no_invitation_flow_no_session';
-  static const String homeScreenPhase2DoneInvitationFlowNoSession =
-      '\$home_screen_phase2_done_invitation_flow_no_session';
-  static const String homeScreenPhase3HasSession =
-      '\$home_screen_phase3_has_session';
-  static const String homeScreenPhase4 =
-      '\$home_screen_phase4_has_gone_into_storage';
-  static const String homeScreenPhase5 =
-      '\$home_screen_phase5_has_gone_into_storage_not_invitation_flow';
+  static const String homeScreenRootRouter = '\$home_screen_root_router';
+  static const String compassAndQrGuideHomeScreen =
+      '\$compass_and_qr_guide_home_screen';
+  static const String compassAndStorageGuideHomeScreen =
+      '\$compass_and_storage_guide_home_screen';
+  static const String qrAndStorageAdeptHomeScreen =
+      '\$qr_and_storage_adept_home_screen';
+  static const String qrNavigationReminderHomeScreen =
+      '\$qr_navigation_reminder_home_screen';
+  static const String shortQrGuideHomeScreen = '\$short_qr_guide_home_screen';
+  static const String storageGuideHomeScreen = '\$storage_guide_home_screen';
 
   // Collaboration Constants
   static const String collaborationHome = '\$collaboration_home';
   static const String collaboratorPool = '\$collaborator_pool';
 
   // Nokhte Session Constants
-  static const String nokhteSessionPhase0Greeter =
-      '\$nokhte_session_phase0_greeter';
+  static const String nokhteSessionGreeter = '\$nokhte_session_greeter';
   static const String nokhteSessionPhase1Consultation =
       '\$nokhte_session_phase1_consultation';
   static const String nokhteSessionPhase2WaitToExit =
@@ -34,7 +32,7 @@ mixin PosthogPageNameConstants {
       '\$nokhte_session_speaking_instructions';
   static const String nokhteSeessionSpeakingScreen =
       '\$nokhte_seession_speaking_screen';
-  static const String nokhteSessionPhase3 = '\$nokhte_session_phase3';
+  static const String nokhteSessionExit = '\$nokhte_session_exit';
 
   // Other Constants
   static const String loginScreen = '\$login_screen';
@@ -43,24 +41,26 @@ mixin PosthogPageNameConstants {
     switch (screen) {
       case Screens.login:
         return loginScreen;
-      case Screens.homePhase0:
-        return homeScreenPhase0RootDecider;
-      case Screens.homePhase1:
-        return homeScreenPhase1NoInvitationFlowNoSession;
-      case Screens.homePhase2:
-        return homeScreenPhase2DoneInvitationFlowNoSession;
-      case Screens.homePhase3:
-        return homeScreenPhase3HasSession;
-      case Screens.homePhase4:
-        return homeScreenPhase3HasSession;
-      case Screens.homePhase5:
-        return homeScreenPhase5;
+      case Screens.homeRootRouter:
+        return homeScreenRootRouter;
+      case Screens.compassAndQrGuideHome:
+        return compassAndQrGuideHomeScreen;
+      case Screens.compassAndStorageGuideHome:
+        return compassAndStorageGuideHomeScreen;
+      case Screens.qrAndStorageAdeptHome:
+        return qrAndStorageAdeptHomeScreen;
+      case Screens.qrNavigationReminderHome:
+        return qrNavigationReminderHomeScreen;
+      case Screens.shortQrGuideHome:
+        return shortQrGuideHomeScreen;
+      case Screens.storageGuideHome:
+        return storageGuideHomeScreen;
       case Screens.collaborationHome:
         return collaborationHome;
       case Screens.collaboratorPool:
         return collaboratorPool;
-      case Screens.nokhteSessionPhase0:
-        return nokhteSessionPhase0Greeter;
+      case Screens.nokhteSessionGreeter:
+        return nokhteSessionGreeter;
       case Screens.nokhteSessionNotesInstructions:
         return nokhteSessionNotesInstructions;
       case Screens.nokhteSessionNotes:
@@ -69,8 +69,8 @@ mixin PosthogPageNameConstants {
         return nokhteSessionSpeakingInstructions;
       case Screens.nokhteSessionSpeaking:
         return nokhteSeessionSpeakingScreen;
-      case Screens.nokhteSessionPhase3:
-        return nokhteSessionPhase3;
+      case Screens.nokhteSessionExit:
+        return nokhteSessionExit;
     }
   }
 }
