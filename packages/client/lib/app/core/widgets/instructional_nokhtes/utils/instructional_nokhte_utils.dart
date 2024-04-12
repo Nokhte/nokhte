@@ -14,9 +14,9 @@ class InstructionalNokhteUtils {
         switch (direction) {
           case InstructionalGradientDirections.enlarge:
             start = Offset(CircleOffsets.left.dx, CircleOffsets.left.dy);
-            end = Offset((-screenCenter.dy) * .1, (-screenCenter.dy) * .8);
+            end = Offset((-screenCenter.dy) * .25, (-screenCenter.dy) * .8);
           case InstructionalGradientDirections.shrink:
-            start = Offset((-screenCenter.dy) * .1, (-screenCenter.dy) * .8);
+            start = Offset((-screenCenter.dy) * .25, (-screenCenter.dy) * .8);
             end = Offset(CircleOffsets.left.dx, CircleOffsets.left.dy);
         }
       case InstructionalNokhtePositions.right:

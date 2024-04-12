@@ -13,7 +13,7 @@ class MoveCenterInstructionalNokhte {
     start = Offset(CircleOffsets.center.dx, (-screenCenter.dy) * .8);
     switch (position) {
       case InstructionalNokhtePositions.left:
-        end = Offset((-screenCenter.dy) * .1, (-screenCenter.dy) * .8);
+        end = Offset((-screenCenter.dy) * .25, (-screenCenter.dy) * .8);
       case InstructionalNokhtePositions.right:
         end = Offset((screenCenter.dx) * .9, (-screenCenter.dy) * .8);
       case InstructionalNokhtePositions.top:
