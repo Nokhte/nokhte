@@ -70,6 +70,7 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
           smartText.setWidgetVisibility(false);
         }
       } else {
+        stopInactivityCron();
         smartText.setWidgetVisibility(false);
       }
     });
