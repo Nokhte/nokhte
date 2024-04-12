@@ -39,13 +39,12 @@ abstract class _HomeScreenRootRouterCoordinatorBase
   constructor() async {
     widgets.constructor();
     initReactors();
-    Modular.to.navigate("/irl_nokhte_session/");
-    // await identifyUser(NoParams());
-    // await captureScreen(Screens.homeRootRouter);
-    // await cleanUpCollaborationArtifacts(NoParams());
-    // if (isConnected) {
-    //   await decideAndRoute(setParams);
-    // }
+    await identifyUser(NoParams());
+    await captureScreen(Screens.homeRootRouter);
+    await cleanUpCollaborationArtifacts(NoParams());
+    if (isConnected) {
+      await decideAndRoute(setParams);
+    }
   }
 
   @action
