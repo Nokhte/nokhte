@@ -25,7 +25,7 @@ abstract class _LegacyVirtualNokhteSessionPhase0CoordinatorBase
   constructor() async {
     widgets.constructor();
     await captureNokhteSessionStart(NoParams());
-    await captureScreen(Screens.nokhteSessionPhase0);
+    await captureScreen(Screens.nokhteSessionGreeter);
   }
 
   @action

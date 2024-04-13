@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:simple_animations/simple_animations.dart';
 part 'irl_nokhte_session_notes_instructions_widgets_coordinator.g.dart';
 
 class IrlNokhteSessionNotesInstructionsWidgetsCoordinator = _IrlNokhteSessionNotesInstructionsWidgetsCoordinatorBase
@@ -14,12 +14,14 @@ abstract class _IrlNokhteSessionNotesInstructionsWidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final BeachWavesStore beachWaves;
   final MirroredTextStore mirroredText;
+  final TintStore tint;
   final TouchRippleStore touchRipple;
 
   _IrlNokhteSessionNotesInstructionsWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.mirroredText,
     required this.touchRipple,
+    required this.tint,
     required super.wifiDisconnectOverlay,
   });
 
@@ -43,6 +45,7 @@ abstract class _IrlNokhteSessionNotesInstructionsWidgetsCoordinatorBase
   constructor(bool shouldAdjustToFallbackExitProtocol) {
     cooldownStopwatch.start();
     beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
+    tint.setControl(Control.playFromStart);
     mirroredText.setMessagesData(
       MirroredTextContentOptions.irlNokhteSessionNotesInstructions,
       shouldAdjustToFallbackExitProtocol: shouldAdjustToFallbackExitProtocol,
@@ -87,6 +90,7 @@ abstract class _IrlNokhteSessionNotesInstructionsWidgetsCoordinatorBase
 
   @action
   onInstructionModeUnlocked() {
+    tint.setControl(Control.playReverseFromEnd);
     mirroredText.startBothRotatingText(isResuming: true);
     setDisableTouchInput(false);
   }
@@ -112,7 +116,7 @@ abstract class _IrlNokhteSessionNotesInstructionsWidgetsCoordinatorBase
 
   @computed
   bool get hasTappedOnTheBottomHalf =>
-      touchRipple.tapPlacement == TapPlacement.bottomHalf;
+      touchRipple.tapPlacement == GesturePlacement.bottomHalf;
 
   @computed
   bool get upsideDownTextIsVisible =>
@@ -120,7 +124,7 @@ abstract class _IrlNokhteSessionNotesInstructionsWidgetsCoordinatorBase
 
   @computed
   bool get hasTappedOnTheTopHalf =>
-      touchRipple.tapPlacement == TapPlacement.topHalf;
+      touchRipple.tapPlacement == GesturePlacement.topHalf;
 
   @computed
   bool get isStillInMutualInstructionMode => tapCount.isLessThan(4);

@@ -1,9 +1,9 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/widget_constants.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'base_home_screen_widgets_coordinator.g.dart';
@@ -19,6 +19,10 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   final SmartTextStore primarySmartText;
   final SmartTextStore errorSmartText;
   final SmartTextStore secondaryErrorSmartText;
+  final TouchRippleStore touchRipple;
+  final CenterInstructionalNokhteStore centerInstructionalNokhte;
+  final InstructionalGradientNokhteStore primaryInstructionalGradientNokhte;
+  final InstructionalGradientNokhteStore secondaryInstructionalGradientNokhte;
 
   _BaseHomeScreenWidgetsCoordinatorBase({
     required this.nokhteBlur,
@@ -28,18 +32,22 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     required this.primarySmartText,
     required this.errorSmartText,
     required this.secondaryErrorSmartText,
+    required this.touchRipple,
+    required this.centerInstructionalNokhte,
+    required this.primaryInstructionalGradientNokhte,
+    required this.secondaryInstructionalGradientNokhte,
   });
 
   @action
-  constructor() {
+  constructor(Offset centerParam) {
     if (Modular.args.data["resumeOnShoreParams"] != null) {
       params = Modular.args.data["resumeOnShoreParams"];
     }
     beachWaves.setMovieMode(BeachWaveMovieModes.resumeOnShore);
     beachWaves.currentStore.initMovie(Modular.args.data["resumeOnShoreParams"]);
-    gestureCross.fadeIn();
     errorSmartText.setMessagesData(MessagesData.empty);
     secondaryErrorSmartText.setMessagesData(MessagesData.errorConfirmList);
+    center = centerParam;
   }
 
   @observable
@@ -53,6 +61,12 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
 
   @observable
   bool hasSwipedUp = false;
+
+  // @observable
+  // Offset center = Offset.zero;
+
+  // @action
+  // setCenter(Offset value) => center = value;
 
   @observable
   ResumeOnShoreParams params = ResumeOnShoreParams.initial();
@@ -98,12 +112,10 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   @action
   prepForNavigation({bool excludeUnBlur = false}) {
     if (!hasSwipedUp) {
-      toggleHasSwipedUp();
-
+      hasSwipedUp = true;
       if (!excludeUnBlur) {
         nokhteBlur.reverse();
       }
-      gestureCross.stopBlinking();
       if (primarySmartText.currentIndex == 0) {
         primarySmartText.toggleWidgetVisibility();
       } else {
@@ -118,31 +130,57 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
 
   @action
   onError(String errorMessage) {
-    nokhteBlur.reset();
     errorSmartText.reset();
     secondaryErrorSmartText.reset();
     errorSmartText.setMessagesData(MessagesData.getErrorList(errorMessage));
     secondaryErrorSmartText.setMessagesData(MessagesData.errorConfirmList);
     errorSmartText.startRotatingText();
+    centerInstructionalNokhte.setWidgetVisibility(false);
+    primaryInstructionalGradientNokhte.setWidgetVisibility(false);
+    secondaryInstructionalGradientNokhte.setWidgetVisibility(false);
     secondaryErrorSmartText.startRotatingText();
-    nokhteBlur.init();
     setIsInErrorMode(true);
   }
 
   @action
-  onErrorResolved() {
+  onErrorResolved(Function onErrorResolved) {
     if (isInErrorMode) {
       if (beachWaves.movieStatus == MovieStatus.finished) {
+        onErrorResolved();
+        hasSwipedUp = false;
         beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
-        beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
+        beachWaves.currentStore.initMovie(
+          AnyToOnShoreParams(startingColors: beachWaves.currentColorsAndStops),
+        );
         beachWaves.setMovieStatus(MovieStatus.inProgress);
-        nokhteBlur.reverse();
+        gestureCross.cross
+            .setWidgetVisibility(gestureCross.cross.pastShowWidget);
+        gestureCross.centerCrossNokhte
+            .setWidgetVisibility(gestureCross.centerCrossNokhte.pastShowWidget);
+        gestureCross.gradientNokhte
+            .setWidgetVisibility(gestureCross.gradientNokhte.pastShowWidget);
+        gestureCross.strokeCrossNokhte
+            .setWidgetVisibility(gestureCross.strokeCrossNokhte.pastShowWidget);
         errorSmartText.setWidgetVisibility(false);
-        gestureCross.fadeInTheCross();
-        gestureCross.fadeIn();
+        primarySmartText.reset();
+        primarySmartText.setWidgetVisibility(true);
+        primarySmartText.startRotatingText();
         secondaryErrorSmartText.setWidgetVisibility(false);
+        centerInstructionalNokhte.setWidgetVisibility(true);
+        primaryInstructionalGradientNokhte.setWidgetVisibility(
+            primaryInstructionalGradientNokhte.pastShowWidget);
+        secondaryInstructionalGradientNokhte.setWidgetVisibility(
+          secondaryInstructionalGradientNokhte.pastShowWidget,
+        );
         isEnteringNokhteSession = false;
       }
+    }
+  }
+
+  @action
+  onSwipeCoordinatesChanged(Offset offset) {
+    if (beachWaves.movieStatus != MovieStatus.finished) {
+      touchRipple.onSwipe(offset);
     }
   }
 
@@ -161,14 +199,15 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
 
   initReactors() {
     nokhteBlurReactor();
-    centerCrossNokhteReactor();
+    // centerCrossNokhteReactor();
   }
 
-  centerCrossNokhteReactor() =>
+  centerCrossNokhteReactor(Function onFinished) =>
       reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          gestureCross.gradientNokhte.toggleWidgetVisibility();
-          gestureCross.strokeCrossNokhte.toggleWidgetVisibility();
+          gestureCross.gradientNokhte.setWidgetVisibility(false);
+          gestureCross.strokeCrossNokhte.setWidgetVisibility(false);
+          onFinished();
         }
       });
 
@@ -236,12 +275,16 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
 
   @action
   onDeepLinkOpened() {
+    hasSwipedUp = true;
     isEnteringNokhteSession = true;
     primarySmartText.toggleWidgetVisibility();
+    touchIsDisabled = true;
     beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToVibrantBlue);
     beachWaves.currentStore.initMovie(
       beachWaves.currentAnimationValues.first,
     );
-    gestureCross.toggleAll();
+    centerInstructionalNokhte.setWidgetVisibility(false);
+    primaryInstructionalGradientNokhte.setWidgetVisibility(false);
+    gestureCross.fadeAllOut();
   }
 }

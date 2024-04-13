@@ -6,35 +6,31 @@ import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart'
 class CollaborationWidgetsModule extends Module {
   @override
   List<Module> get imports => [
-        BeachWavesModule(),
         WifiDisconnectOverlayModule(),
-        SmartTextModule(),
         GestureCrossModule(),
       ];
   @override
   void exportedBinds(Injector i) {
-    i.add<GradientTreeNodeStore>(
-      () => GradientTreeNodeStore(),
-    );
-    i.add<WaitingTextStore>(
-      () => WaitingTextStore(),
-    );
-
-    i.add<CollaborationHomeScreenWidgetsCoordinator>(
-      () => CollaborationHomeScreenWidgetsCoordinator(
+    i.add<NokhteSessionQrJoinWidgetsCoordinator>(
+      () => NokhteSessionQrJoinWidgetsCoordinator(
+        qrCode: NokhteQrCodeStore(),
+        nokhteBlur: NokhteBlurStore(),
+        touchRipple: TouchRippleStore(),
         gestureCross: Modular.get<GestureCrossStore>(),
-        beachWaves: Modular.get<BeachWavesStore>(),
-        gradientTreeNode: Modular.get<GradientTreeNodeStore>(),
-        smartText: Modular.get<SmartTextStore>(),
+        primaryBeachWaves: BeachWavesStore(),
+        secondaryBeachWaves: BeachWavesStore(),
+        smartText: SmartTextStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        instructionalGradientNokhte: InstructionalGradientNokhteStore(),
+        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
       ),
     );
     i.add<CollaboratorPoolScreenWidgetsCoordinator>(
       () => CollaboratorPoolScreenWidgetsCoordinator(
-        beachWaves: Modular.get<BeachWavesStore>(),
+        beachWaves: BeachWavesStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         gestureCross: Modular.get<GestureCrossStore>(),
-        waitingText: Modular.get<WaitingTextStore>(),
+        waitingText: WaitingTextStore(),
       ),
     );
   }

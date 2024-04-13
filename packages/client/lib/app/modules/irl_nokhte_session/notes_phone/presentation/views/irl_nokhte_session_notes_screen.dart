@@ -26,35 +26,44 @@ class IrlNokhteSessionNotesScreen extends HookWidget {
             ));
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Swipe(
-        store: coordinator.swipe,
-        child: MultiHitStack(
-          children: [
-            FullScreen(
-              child: BeachWaves(
-                store: coordinator.widgets.beachWaves,
+      body: Tap(
+        store: coordinator.tap,
+        child: Swipe(
+          store: coordinator.swipe,
+          child: MultiHitStack(
+            children: [
+              FullScreen(
+                child: BeachWaves(
+                  store: coordinator.widgets.beachWaves,
+                ),
               ),
-            ),
-            Center(
-              child: SmartText(
-                store: coordinator.widgets.smartText,
-                topPadding: useFullScreenSize().height * .8,
-                opacityDuration: Seconds.get(1),
+              BorderGlow(
+                store: coordinator.widgets.borderGlow,
               ),
-            ),
-            Center(
-              child: TextEditor(
-                placeholderText: "Your thoughtful thought",
-                store: coordinator.widgets.textEditor,
+              TouchRipple(
+                store: coordinator.widgets.touchRipple,
               ),
-            ),
-            CollaboratorPresenceIncidentsOverlay(
-              store: coordinator.presence.incidentsOverlayStore,
-            ),
-            WifiDisconnectOverlay(
-              store: coordinator.widgets.wifiDisconnectOverlay,
-            ),
-          ],
+              Center(
+                child: SmartText(
+                  store: coordinator.widgets.smartText,
+                  topPadding: useFullScreenSize().height * .8,
+                  opacityDuration: Seconds.get(1),
+                ),
+              ),
+              Center(
+                child: TextEditor(
+                  placeholderText: "Your thoughtful thought",
+                  store: coordinator.widgets.textEditor,
+                ),
+              ),
+              CollaboratorPresenceIncidentsOverlay(
+                store: coordinator.presence.incidentsOverlayStore,
+              ),
+              WifiDisconnectOverlay(
+                store: coordinator.widgets.wifiDisconnectOverlay,
+              ),
+            ],
+          ),
         ),
       ),
       // ),

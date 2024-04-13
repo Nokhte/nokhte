@@ -4,6 +4,7 @@ import 'constants/constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
+  FinishedNokhteSessionQueries finishedNokhteSessionQueries;
   final SupabaseClient supabase;
   final String userUID;
   int userIndex = -1;
@@ -39,7 +40,9 @@ class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
 
   ActiveIrlNokhteSessionQueries({
     required this.supabase,
-  }) : userUID = supabase.auth.currentUser?.id ?? '';
+  })  : userUID = supabase.auth.currentUser?.id ?? '',
+        finishedNokhteSessionQueries =
+            FinishedNokhteSessionQueries(supabase: supabase);
 
   select() async => await supabase.from(TABLE).select();
 
@@ -60,8 +63,8 @@ class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
   Future<String> getCreatedAt() async => await _getProperty(CREATED_AT);
   Future<int> getMetadataIndex() async => await _getProperty(METADATA_INDEX);
   Future<List> getContent() async => await _getProperty(CONTENT);
-  Future<List> getHaveGyroscopees() async =>
-      await _getProperty(HAVE_GYROSCOPES);
+  Future<List> getHaveGyroscopes() async => await _getProperty(HAVE_GYROSCOPES);
+  Future<String> getSessionUID() async => await _getProperty(SESSION_UID);
 
   Future<List> updateOnlineStatus(
     bool isOnlineParam, {
@@ -107,22 +110,20 @@ class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
     if (userIndex == -1) return [];
     final content = await getContent();
     final sessionTimestamp = await getCreatedAt();
-    await supabase.from(FinishedNokhteSessionQueries.TABLE).insert({
-      FinishedNokhteSessionQueries.COLLABORATOR_UIDS: collaboratorUIDs,
-      FinishedNokhteSessionQueries.CONTENT: content,
-      FinishedNokhteSessionQueries.SESSION_TIMESTAMP: sessionTimestamp,
-      FinishedNokhteSessionQueries.ALIASES: List.filled(
-        collaboratorUIDs.length,
-        "",
-      )
-    }).select();
+    final sessionUID = await getSessionUID();
+    await finishedNokhteSessionQueries.insert(
+      sessionUID: sessionUID,
+      collaboratorUIDs: collaboratorUIDs,
+      sessionContent: content,
+      sessionTimestamp: sessionTimestamp,
+    );
     await delete();
     return [];
   }
 
   Future<List> updateHasGyroscope(bool newStatus) async {
     await computeCollaboratorInformation();
-    final currentHaveGyroscopees = await getHaveGyroscopees();
+    final currentHaveGyroscopees = await getHaveGyroscopes();
     currentHaveGyroscopees[userIndex] = newStatus;
     return await _onCurrentActiveNokhteSession(
       supabase.from(TABLE).update(

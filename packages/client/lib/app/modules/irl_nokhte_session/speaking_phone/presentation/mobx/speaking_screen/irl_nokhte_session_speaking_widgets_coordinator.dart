@@ -3,13 +3,10 @@ import 'dart:async';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
-import 'package:nokhte/app/core/widgets/beach_widgets/shared/shared.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:simple_animations/simple_animations.dart';
 part 'irl_nokhte_session_speaking_widgets_coordinator.g.dart';
 
 class IrlNokhteSessionSpeakingWidgetsCoordinator = _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
@@ -19,16 +16,14 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final MirroredTextStore mirroredText;
   final BeachWavesStore beachWaves;
-  final BorderGlowStore firstBorderGlow;
-  final BorderGlowStore secondBorderGlow;
+  final BorderGlowStore borderGlow;
   final TouchRippleStore touchRipple;
   final SpeakLessSmileMoreStore speakLessSmileMore;
 
   _IrlNokhteSessionSpeakingWidgetsCoordinatorBase({
     required this.mirroredText,
     required this.beachWaves,
-    required this.firstBorderGlow,
-    required this.secondBorderGlow,
+    required this.borderGlow,
     required super.wifiDisconnectOverlay,
     required this.touchRipple,
     required this.speakLessSmileMore,
@@ -66,12 +61,6 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
   @observable
   int holdCount = 0;
 
-  @observable
-  Stopwatch letGoStopwatch = Stopwatch();
-
-  @observable
-  Stopwatch holdStopwatch = Stopwatch();
-
   @action
   onCollaboratorLeft() {
     mirroredText.setWidgetVisibility(false);
@@ -87,26 +76,15 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
   @action
   onHold() {
     holdCount++;
-    letGoStopwatch.stop();
-    holdStopwatch.reset();
-    holdStopwatch.start();
-    setHoldBeachWaveMovie();
     setHoldBeachWaveMovie();
     mirroredText.setWidgetVisibility(false);
   }
 
   @action
   onLetGo() {
-    holdStopwatch.stop();
-    letGoStopwatch.reset();
-    letGoStopwatch.start();
     initGlowDown();
-    if (holdStopwatch.elapsedMilliseconds.isLessThan(2000)) {
-      beachWaves.currentStore.setControl(Control.playReverse);
-    } else {
-      beachWaves.setMovieMode(BeachWaveMovieModes.dynamicPointToHalfAndHalf);
-      beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
-    }
+    beachWaves.setMovieMode(BeachWaveMovieModes.dynamicPointToHalfAndHalf);
+    beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
     speakLessSmileMore.hideBoth();
   }
 
@@ -122,38 +100,31 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
   @action
   setHoldBeachWaveMovie() {
     DurationAndGradient params = DurationAndGradient.initial();
-    if (letGoStopwatch.elapsedMilliseconds.isLessThan(2000)) {
-      params = DurationAndGradient(
-        gradient: beachWaves.currentColorsAndStops,
-        duration: Duration(
-          milliseconds: 2000 - letGoStopwatch.elapsedMilliseconds,
-        ),
-      );
-    } else {
-      params = DurationAndGradient(
-        gradient: beachWaves.currentColorsAndStops,
-        duration: const Duration(milliseconds: 2000),
-      );
-    }
+    params = DurationAndGradient(
+      gradient: beachWaves.currentColorsAndStops,
+      duration: const Duration(seconds: 2),
+    );
+
     beachWaves.setMovieMode(BeachWaveMovieModes.anyToVibrantBlueGrad);
     beachWaves.currentStore.initMovie(params);
   }
 
   @action
   initBorderGlow() {
-    if (holdCount.isEven) {
-      firstBorderGlow.initMovie(NoParams());
-    } else {
-      secondBorderGlow.initMovie(NoParams());
-    }
+    borderGlow.initMovie(NoParams());
   }
 
   @action
   initGlowDown() {
-    if (holdCount.isEven) {
-      firstBorderGlow.initGlowDown();
+    borderGlow.initGlowDown();
+  }
+
+  @action
+  adjustSpeakLessSmileMoreRotation(GesturePlacement holdPlacement) {
+    if (holdPlacement == GesturePlacement.topHalf) {
+      speakLessSmileMore.setShouldBeUpsideDown(true);
     } else {
-      secondBorderGlow.initGlowDown();
+      speakLessSmileMore.setShouldBeUpsideDown(false);
     }
   }
 
@@ -168,7 +139,6 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
   @action
   initReactors() {
     firstBorderGlowReactor();
-    secondBorderGlowReactor();
     beachWavesMovieStatusReactor();
   }
 
@@ -206,8 +176,14 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
         }
       });
 
-  firstBorderGlowReactor() => reaction((p0) => firstBorderGlow.movieStatus,
-      (p0) => onBorderGlowComplete(p0, firstBorderGlow));
-  secondBorderGlowReactor() => reaction((p0) => secondBorderGlow.movieStatus,
-      (p0) => onBorderGlowComplete(p0, secondBorderGlow));
+  firstBorderGlowReactor() => reaction((p0) => borderGlow.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished && borderGlow.isGlowingUp) {
+          speakLessSmileMore.setSpeakLess(true);
+          Timer(Seconds.get(2), () {
+            if (borderGlow.isGlowingUp) {
+              speakLessSmileMore.setSmileMore(true);
+            }
+          });
+        }
+      });
 }

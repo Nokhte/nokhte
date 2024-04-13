@@ -63,9 +63,9 @@ class LegacyVirtualNokhteSessionPhase1Consulatation extends HookWidget {
               WaitingText(
                 store: coordinator.widgets.waitingText,
               ),
-              VoiceCallIncidentsOverlay(
-                store: coordinator.voiceCall.incidentsOverlayWidgetStore,
-              ),
+              // VoiceCallIncidentsOverlay(
+              //   store: coordinator.voiceCall.incidentsOverlayWidgetStore,
+              // ),
               CollaboratorPresenceIncidentsOverlay(
                 store: coordinator.presence.incidentsOverlayStore,
               ),

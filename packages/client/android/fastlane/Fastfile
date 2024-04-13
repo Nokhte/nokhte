@@ -48,7 +48,7 @@ platform :android do
   lane :external_android_beta_build do
     upload_to_play_store(
       json_key_data: ENV["SUPPLY_JSON_KEY_DATA"],
-      track: 'beta',
+      track: 'internal',
       aab: '../build/app/outputs/bundle/release/app-release.aab',
       release_status: 'draft'
     )

@@ -20,7 +20,7 @@ abstract class _BaseHomeScreenRouterCoordinatorBase extends BaseCoordinator
   });
 
   @observable
-  ResumeOnShoreParams params = ResumeOnShoreParams.initial();
+  ResumeOnShoreParams params = const ResumeOnShoreParams();
 
   @action
   decideAndRoute(Function setParams) async {
@@ -32,22 +32,26 @@ abstract class _BaseHomeScreenRouterCoordinatorBase extends BaseCoordinator
   @action
   onAnimationComplete() {
     final args = {"resumeOnShoreParams": params};
-    if (!getUserInfo.hasGoneThroughInvitationFlow &&
-        !getUserInfo.hasDoneASession) {
-      Modular.to.navigate("/home/phase1", arguments: args);
-    } else if (getUserInfo.hasGoneThroughInvitationFlow &&
-        !getUserInfo.hasDoneASession) {
-      Modular.to.navigate("/home/phase2", arguments: args);
-    } else if (getUserInfo.hasDoneASession && !getUserInfo.hasEnteredStorage) {
-      Modular.to.navigate("/home/phase3", arguments: args);
-    } else if (getUserInfo.hasDoneASession &&
-        getUserInfo.hasEnteredStorage &&
-        getUserInfo.hasGoneThroughInvitationFlow) {
-      Modular.to.navigate("/home/phase4", arguments: args);
-    } else if (getUserInfo.hasDoneASession &&
-        getUserInfo.hasEnteredStorage &&
-        !getUserInfo.hasGoneThroughInvitationFlow) {
-      Modular.to.navigate("/home/phase5", arguments: args);
+    if (!getUserInfo.hasDoneASession) {
+      if (!getUserInfo.hasGoneThroughInvitationFlow) {
+        Modular.to.navigate("/home/compass_and_qr_guide", arguments: args);
+      } else {
+        Modular.to.navigate("/home/qr_navigation_reminder", arguments: args);
+      }
+    } else if (getUserInfo.hasDoneASession) {
+      if (!getUserInfo.hasEnteredStorage &&
+          getUserInfo.hasGoneThroughInvitationFlow) {
+        Modular.to.navigate("/home/storage_guide", arguments: args);
+      } else if (!getUserInfo.hasEnteredStorage &&
+          !getUserInfo.hasGoneThroughInvitationFlow) {
+        Modular.to.navigate("/home/compass_and_storage_guide", arguments: args);
+        //
+      } else if (getUserInfo.hasEnteredStorage &&
+          !getUserInfo.hasGoneThroughInvitationFlow) {
+        Modular.to.navigate("/home/short_qr_guide", arguments: args);
+      } else {
+        Modular.to.navigate("/home/qr_and_storage_adept", arguments: args);
+      }
     }
   }
 }

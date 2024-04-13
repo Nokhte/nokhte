@@ -16,21 +16,31 @@ class SpeakingPhoneNokhteSessionWidgetsModule extends Module {
   void exportedBinds(Injector i) {
     i.add<IrlNokhteSessionSpeakingInstructionsWidgetsCoordinator>(
       () => IrlNokhteSessionSpeakingInstructionsWidgetsCoordinator(
+        tint: TintStore(),
         touchRipple: TouchRippleStore(),
+        mirroredText: Modular.get<MirroredTextStore>(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        borderGlow: BorderGlowStore(),
+        beachWaves: BeachWavesStore(),
+      ),
+    );
+    i.add<IrlNokhteSessionSpeakingWaitingWidgetsCoordinator>(
+      () => IrlNokhteSessionSpeakingWaitingWidgetsCoordinator(
+        tint: TintStore(),
         mirroredText: Modular.get<MirroredTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         beachWaves: BeachWavesStore(),
       ),
     );
     i.add<IrlNokhteSessionSpeakingWidgetsCoordinator>(
-        () => IrlNokhteSessionSpeakingWidgetsCoordinator(
-              speakLessSmileMore: SpeakLessSmileMoreStore(),
-              touchRipple: TouchRippleStore(),
-              mirroredText: Modular.get<MirroredTextStore>(),
-              wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-              beachWaves: BeachWavesStore(),
-              firstBorderGlow: BorderGlowStore(),
-              secondBorderGlow: BorderGlowStore(),
-            ));
+      () => IrlNokhteSessionSpeakingWidgetsCoordinator(
+        speakLessSmileMore: SpeakLessSmileMoreStore(),
+        touchRipple: TouchRippleStore(),
+        mirroredText: Modular.get<MirroredTextStore>(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        beachWaves: BeachWavesStore(),
+        borderGlow: BorderGlowStore(),
+      ),
+    );
   }
 }

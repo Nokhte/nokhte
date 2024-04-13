@@ -8,7 +8,6 @@ import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog_module.dart';
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information_module.dart';
-import 'package:nokhte/app/core/widgets/modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/collaboration/collaboration_logic_module.dart';
 import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
@@ -21,7 +20,6 @@ class HomeModule extends Module {
   @override
   List<Module> get imports => [
         HomeWidgetsModule(),
-        GesturesModule(),
         CollaborationLogicModule(),
         CleanUpCollaborationArtifactsModule(),
         UserInformationModule(),
@@ -32,71 +30,85 @@ class HomeModule extends Module {
       ];
   @override
   binds(i) {
-    i.add<HomeScreenPhase0Coordinator>(
-      () => HomeScreenPhase0Coordinator(
+    i.add<HomeScreenRootRouterCoordinator>(
+      () => HomeScreenRootRouterCoordinator(
         captureScreen: Modular.get<CaptureScreen>(),
         identifyUser: Modular.get<IdentifyUser>(),
         cleanUpCollaborationArtifacts:
             Modular.get<CleanUpCollaborationArtifactsCoordinator>(),
         getUserInfo: Modular.get<GetUserInfoStore>(),
         collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
-        widgets: Modular.get<HomeScreenPhase0WidgetsCoordinator>(),
+        widgets: Modular.get<HomeScreenRootRouterWidgetsCoordinator>(),
       ),
     );
-    i.add<HomeScreenPhase1Coordinator>(
-      () => HomeScreenPhase1Coordinator(
+    i.add<CompassAndQrGuideCoordinator>(
+      () => CompassAndQrGuideCoordinator(
+        userInformation: Modular.get<UserInformationCoordinator>(),
         tap: TapDetector(),
         collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         swipe: SwipeDetector(),
-        widgets: Modular.get<HomeScreenPhase1WidgetsCoordinator>(),
+        widgets: Modular.get<CompassAndQrGuideWidgetsCoordinator>(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
       ),
     );
-    i.add<HomeScreenPhase2Coordinator>(
-      () => HomeScreenPhase2Coordinator(
+    i.add<QrNavigationReminderCoordinator>(
+      () => QrNavigationReminderCoordinator(
         tap: TapDetector(),
         captureScreen: Modular.get<CaptureScreen>(),
         collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
-        swipe: Modular.get<SwipeDetector>(),
-        widgets: Modular.get<HomeScreenPhase2WidgetsCoordinator>(),
+        swipe: SwipeDetector(),
+        widgets: Modular.get<QrNavigationReminderWidgetsCoordinator>(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
       ),
     );
-    i.add<HomeScreenPhase3Coordinator>(
-      () => HomeScreenPhase3Coordinator(
+    i.add<StorageGuideCoordinator>(
+      () => StorageGuideCoordinator(
         tap: TapDetector(),
         getNokhteSessionArtifactsLogic:
             Modular.get<GetNokhteSessionArtifacts>(),
         collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
-        swipe: Modular.get<SwipeDetector>(),
-        widgets: Modular.get<HomeScreenPhase3WidgetsCoordinator>(),
+        swipe: SwipeDetector(),
+        widgets: Modular.get<StorageGuideWidgetsCoordinator>(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
         userInformation: Modular.get<UserInformationCoordinator>(),
       ),
     );
-    i.add<HomeScreenPhase4Coordinator>(
-      () => HomeScreenPhase4Coordinator(
+    i.add<CompassAndStorageGuideCoordinator>(
+      () => CompassAndStorageGuideCoordinator(
+        tap: TapDetector(),
+        getNokhteSessionArtifactsLogic:
+            Modular.get<GetNokhteSessionArtifacts>(),
+        collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        swipe: SwipeDetector(),
+        widgets: Modular.get<CompassAndStorageGuideWidgetsCoordinator>(),
+        deepLinks: Modular.get<DeepLinksCoordinator>(),
+        userInformation: Modular.get<UserInformationCoordinator>(),
+      ),
+    );
+    i.add<ShortQrGuideCoordinator>(
+      () => ShortQrGuideCoordinator(
         getNokhteSessionArtifactsLogic:
             Modular.get<GetNokhteSessionArtifacts>(),
         tap: TapDetector(),
         collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
-        swipe: Modular.get<SwipeDetector>(),
-        widgets: Modular.get<HomeScreenPhase4WidgetsCoordinator>(),
+        swipe: SwipeDetector(),
+        widgets: Modular.get<ShortQrGuideWidgetsCoordinator>(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
       ),
     );
-    i.add<HomeScreenPhase5Coordinator>(
-      () => HomeScreenPhase5Coordinator(
+    i.add<QrAndStorageAdeptCoordinator>(
+      () => QrAndStorageAdeptCoordinator(
         tap: TapDetector(),
         getNokhteSessionArtifactsLogic:
             Modular.get<GetNokhteSessionArtifacts>(),
         collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
-        swipe: Modular.get<SwipeDetector>(),
-        widgets: Modular.get<HomeScreenPhase5WidgetsCoordinator>(),
+        swipe: SwipeDetector(),
+        widgets: Modular.get<QrAndStorageAdeptWidgetsCoordinator>(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
       ),
     );
@@ -107,43 +119,50 @@ class HomeModule extends Module {
     r.child(
       "/",
       transition: TransitionType.noTransition,
-      child: (context) => HomeScreenPhase0RootDecider(
-        coordinator: Modular.get<HomeScreenPhase0Coordinator>(),
+      child: (context) => HomeScreenRootRouterScreen(
+        coordinator: Modular.get<HomeScreenRootRouterCoordinator>(),
       ),
     );
     r.child(
-      "/phase1",
+      "/compass_and_qr_guide",
       transition: TransitionType.noTransition,
-      child: (context) => HomeScreenPhase1NoInvitationFlowNoSession(
-        coordinator: Modular.get<HomeScreenPhase1Coordinator>(),
+      child: (context) => CompassAndQrGuideScreen(
+        coordinator: Modular.get<CompassAndQrGuideCoordinator>(),
       ),
     );
     r.child(
-      "/phase2",
+      "/qr_navigation_reminder",
       transition: TransitionType.noTransition,
-      child: (context) => HomeScreenPhase2DoneInvitationFlowNoSession(
-        coordinator: Modular.get<HomeScreenPhase2Coordinator>(),
+      child: (context) => QrNavigationReminderScreen(
+        coordinator: Modular.get<QrNavigationReminderCoordinator>(),
       ),
     );
     r.child(
-      "/phase3",
+      "/compass_and_storage_guide",
       transition: TransitionType.noTransition,
-      child: (context) => HomeScreenPhase3HasDoneSession(
-        coordinator: Modular.get<HomeScreenPhase3Coordinator>(),
+      child: (context) => CompassAndStorageGuideScreen(
+        coordinator: Modular.get<CompassAndStorageGuideCoordinator>(),
       ),
     );
     r.child(
-      "/phase4",
+      "/storage_guide",
       transition: TransitionType.noTransition,
-      child: (context) => HomeScreenPhase4HasGoneIntoStorage(
-        coordinator: Modular.get<HomeScreenPhase4Coordinator>(),
+      child: (context) => StorageGuideScreen(
+        coordinator: Modular.get<StorageGuideCoordinator>(),
       ),
     );
     r.child(
-      "/phase5",
+      "/short_qr_guide",
       transition: TransitionType.noTransition,
-      child: (context) => HomeScreenPhase5HasGoneIntoStorageNoInvitationFlow(
-        coordinator: Modular.get<HomeScreenPhase5Coordinator>(),
+      child: (context) => ShortQrGuideScreen(
+        coordinator: Modular.get<ShortQrGuideCoordinator>(),
+      ),
+    );
+    r.child(
+      "/qr_and_storage_adept",
+      transition: TransitionType.noTransition,
+      child: (context) => QrAndStorageAdeptScreen(
+        coordinator: Modular.get<QrAndStorageAdeptCoordinator>(),
       ),
     );
   }

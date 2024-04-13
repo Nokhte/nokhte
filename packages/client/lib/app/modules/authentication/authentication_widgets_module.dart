@@ -6,30 +6,22 @@ import 'package:nokhte/app/modules/authentication/presentation/presentation.dart
 class AuthenticationWidgetsModule extends Module {
   @override
   List<Module> get imports => [
-        BeachWavesModule(),
         WifiDisconnectOverlayModule(),
-        SmartTextModule(),
         GestureCrossModule(),
       ];
 
   @override
   exportedBinds(i) {
-    i.addSingleton<NokhteStore>(
-      () => NokhteStore(),
-    );
-    i.add<TrailingTextStore>(
-      () => TrailingTextStore(),
-    );
     i.addSingleton<LoginScreenWidgetsCoordinator>(
       () => LoginScreenWidgetsCoordinator(
         gestureCross: Modular.get<GestureCrossStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        nokhte: i<NokhteStore>(),
-        smartTextStore: Modular.get<SmartTextStore>(),
-        layer1BeachWaves: Modular.get<BeachWavesStore>(),
-        layer2BeachWaves: Modular.get<BeachWavesStore>(),
-        bottomTrailingText: i<TrailingTextStore>(),
-        topTrailingText: i<TrailingTextStore>(),
+        nokhte: NokhteStore(),
+        smartTextStore: SmartTextStore(),
+        layer1BeachWaves: BeachWavesStore(),
+        layer2BeachWaves: BeachWavesStore(),
+        bottomTrailingText: TrailingTextStore(),
+        topTrailingText: TrailingTextStore(),
       ),
     );
   }

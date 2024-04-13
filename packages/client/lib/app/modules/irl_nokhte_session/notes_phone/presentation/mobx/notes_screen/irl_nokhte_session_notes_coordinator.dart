@@ -20,11 +20,13 @@ abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
   final IrlNokhteSessionPresenceCoordinator presence;
   final GetIrlNokhteSessionMetadataStore sessionMetadata;
   final SwipeDetector swipe;
+  final TapDetector tap;
   final GyroscopicCoordinator gyroscopic;
 
   _IrlNokhteSessionNotesCoordinatorBase({
     required this.widgets,
     required super.captureScreen,
+    required this.tap,
     required this.presence,
     required this.swipe,
     required this.gyroscopic,
@@ -51,7 +53,9 @@ abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
     presence.initReactors(
       onCollaboratorJoined: () {
         setDisableAllTouchFeedback(false);
-        widgets.onCollaboratorJoined();
+        widgets.onCollaboratorJoined(() {
+          setBlockPhoneTiltReactor(true);
+        });
       },
       onCollaboratorLeft: () {
         setDisableAllTouchFeedback(true);
@@ -69,6 +73,18 @@ abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
     userPhaseReactor();
     touchFeedbackStatusReactor();
     collaboratorPhaseReactor();
+    widgets.initBorderGlowReactors(
+      onGlowInitiated: onGlowInitiated,
+      onGlowDown: () {
+        setBlockPhoneTiltReactor(false);
+      },
+    );
+  }
+
+  @action
+  onGlowInitiated() async {
+    await presence.updateCurrentPhase(2);
+    setBlockPhoneTiltReactor(true);
   }
 
   @action
@@ -136,7 +152,7 @@ abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
         switch (p0) {
           case GestureDirections.up:
             ifTouchIsNotDisabled(() {
-              widgets.onSwipeUp(onSwipeUp);
+              widgets.onSwipeUp(onSwipeUp, onGlowInitiated);
             });
           case GestureDirections.down:
             ifTouchIsNotDisabled(() async {

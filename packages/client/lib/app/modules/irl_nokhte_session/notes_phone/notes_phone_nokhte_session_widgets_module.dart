@@ -16,6 +16,7 @@ class NotesPhoneNokhteSessionWidgetsModule extends Module {
     i.add<IrlNokhteSessionNotesInstructionsWidgetsCoordinator>(
       () => IrlNokhteSessionNotesInstructionsWidgetsCoordinator(
         touchRipple: TouchRippleStore(),
+        tint: TintStore(),
         mirroredText: Modular.get<MirroredTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         beachWaves: BeachWavesStore(),
@@ -24,8 +25,18 @@ class NotesPhoneNokhteSessionWidgetsModule extends Module {
     i.add<IrlNokhteSessionNotesWidgetsCoordinator>(
       () => IrlNokhteSessionNotesWidgetsCoordinator(
         smartText: SmartTextStore(),
+        borderGlow: BorderGlowStore(),
         touchRipple: TouchRippleStore(),
         textEditor: TextEditorStore(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        beachWaves: BeachWavesStore(),
+      ),
+    );
+    i.add<IrlNokhteSessionNotesInactivityWidgetsCoordinator>(
+      () => IrlNokhteSessionNotesInactivityWidgetsCoordinator(
+        borderGlow: BorderGlowStore(),
+        mirroredText: Modular.get<MirroredTextStore>(),
+        touchRipple: TouchRippleStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         beachWaves: BeachWavesStore(),
       ),
