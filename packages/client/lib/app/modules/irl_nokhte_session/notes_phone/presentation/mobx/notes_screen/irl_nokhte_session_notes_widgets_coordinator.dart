@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -26,6 +27,9 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
     required this.smartText,
     required this.borderGlow,
   });
+
+  @observable
+  String lastSubmittedText = '';
 
   @observable
   bool showSubmitText = false;
@@ -74,7 +78,6 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
         smartText.setWidgetVisibility(false);
       }
     });
-    //
   }
 
   @observable
@@ -84,7 +87,10 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
   startInactivityCron(Function onGlowInitiated) {
     currentCron.close();
     currentCron = Cron();
-    currentCron.schedule(Schedule.parse('*/3 * * * *'), () async {
+    currentCron.schedule(
+        Schedule.parse(
+          kDebugMode ? '*/1 * * * *' : '*/9 * * * *',
+        ), () async {
       borderGlow.initWhiteOut();
       textEditor.setWidgetVisibility(false);
       textEditor.setIsReadOnly(true);
@@ -118,8 +124,9 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
   @action
   onSwipeUp(Function(String) onSwipeUp, Function onGlowInitiated) async {
     if (canSwipeUp) {
-      startInactivityCron(onGlowInitiated);
-      if (textEditor.controller.text.isNotEmpty) {
+      if (textEditor.controller.text.isNotEmpty &&
+          textEditor.controller.text != lastSubmittedText) {
+        lastSubmittedText = textEditor.controller.text;
         await onSwipeUp(textEditor.controller.text);
         setCanSwipeUp(false);
         smartText.setWidgetVisibility(false);
