@@ -34,6 +34,7 @@ void main() {
       collaboratorUIDs: sortedUIDs,
       sessionContent: tSessionContent,
       sessionTimestamp: now,
+      sessionUID: tSetup.firstUserUID,
     );
     expect(
         res.first[FinishedNokhteSessionQueries.COLLABORATOR_UIDS], sortedUIDs);
@@ -51,6 +52,7 @@ void main() {
       collaboratorUIDs: user1And3,
       sessionContent: tSessionContent,
       sessionTimestamp: now,
+      sessionUID: tSetup.firstUserUID,
     );
     final res = await user1Queries.selectByCollaborationId(tSetup.thirdUserUID);
     expect(
