@@ -83,7 +83,7 @@ void main() {
 
   test("updateHasGyroscope", () async {
     await user1Queries.updateHasGyroscope(false);
-    final gyroscopesRes = await user1Queries.getHaveGyroscopees();
+    final gyroscopesRes = await user1Queries.getHaveGyroscopes();
     expect(gyroscopesRes, [false, true]);
   });
 
