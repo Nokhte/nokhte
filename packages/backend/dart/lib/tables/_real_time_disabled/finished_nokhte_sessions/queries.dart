@@ -9,6 +9,7 @@ class FinishedNokhteSessionQueries {
   static const CONTENT = 'content';
   static const ALIASES = 'aliases';
   static const ID = 'id';
+  static const SESSION_UID = 'session_uid';
 
   final SupabaseClient supabase;
   final String userUID;
@@ -20,6 +21,7 @@ class FinishedNokhteSessionQueries {
     required List collaboratorUIDs,
     required List sessionContent,
     required String sessionTimestamp,
+    required String sessionUID,
   }) async {
     final checkRes = await supabase
         .from(TABLE)
@@ -34,6 +36,7 @@ class FinishedNokhteSessionQueries {
         CONTENT: sessionContent,
         SESSION_TIMESTAMP: sessionTimestamp,
         ALIASES: List.filled(collaboratorUIDs.length, ""),
+        SESSION_UID: sessionUID
       }).select();
     }
   }

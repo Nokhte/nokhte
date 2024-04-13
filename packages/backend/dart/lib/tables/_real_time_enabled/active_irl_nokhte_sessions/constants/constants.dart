@@ -10,4 +10,5 @@ mixin ActiveIrlNokhteSessionsConstants {
   String CONTENT = 'content';
   String METADATA_INDEX = 'metadata_index';
   String HAVE_GYROSCOPES = 'have_gyroscopes';
+  String SESSION_UID = 'session_uid';
 }

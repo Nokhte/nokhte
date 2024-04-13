@@ -63,8 +63,8 @@ class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
   Future<String> getCreatedAt() async => await _getProperty(CREATED_AT);
   Future<int> getMetadataIndex() async => await _getProperty(METADATA_INDEX);
   Future<List> getContent() async => await _getProperty(CONTENT);
-  Future<List> getHaveGyroscopees() async =>
-      await _getProperty(HAVE_GYROSCOPES);
+  Future<List> getHaveGyroscopes() async => await _getProperty(HAVE_GYROSCOPES);
+  Future<String> getSessionUID() async => await _getProperty(SESSION_UID);
 
   Future<List> updateOnlineStatus(
     bool isOnlineParam, {
@@ -110,7 +110,9 @@ class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
     if (userIndex == -1) return [];
     final content = await getContent();
     final sessionTimestamp = await getCreatedAt();
+    final sessionUID = await getSessionUID();
     await finishedNokhteSessionQueries.insert(
+      sessionUID: sessionUID,
       collaboratorUIDs: collaboratorUIDs,
       sessionContent: content,
       sessionTimestamp: sessionTimestamp,
@@ -121,7 +123,7 @@ class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
 
   Future<List> updateHasGyroscope(bool newStatus) async {
     await computeCollaboratorInformation();
-    final currentHaveGyroscopees = await getHaveGyroscopees();
+    final currentHaveGyroscopees = await getHaveGyroscopes();
     currentHaveGyroscopees[userIndex] = newStatus;
     return await _onCurrentActiveNokhteSession(
       supabase.from(TABLE).update(
