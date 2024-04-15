@@ -350,15 +350,6 @@ class MessagesData {
   static List<RotatingTextData>
       get irlNokhteSessionSpeakingInstructionsPrimaryList => [
             RotatingTextData(
-              mainMessage: "Keep this phone on a flat surface",
-              pauseHere: true,
-              mainMessageFontSize: 22.0,
-            ),
-            RotatingTextData(
-              mainMessage: "",
-              pauseHere: true,
-            ),
-            RotatingTextData(
               mainMessage: "The point of this phone is to limit speaking",
               pauseHere: true,
               mainMessageFontSize: 22.0,
@@ -368,7 +359,17 @@ class MessagesData {
               pauseHere: true,
             ),
             RotatingTextData(
-              mainMessage: "Hold on this side",
+              mainMessage:
+                  "You can only speak when your finger is on the screen",
+              pauseHere: true,
+              mainMessageFontSize: 22.0,
+            ),
+            RotatingTextData(
+              mainMessage: "",
+              pauseHere: true,
+            ),
+            RotatingTextData(
+              mainMessage: "Now, put your finger on the screen",
               pauseHere: true,
               mainMessageFontSize: 22.0,
             ),
