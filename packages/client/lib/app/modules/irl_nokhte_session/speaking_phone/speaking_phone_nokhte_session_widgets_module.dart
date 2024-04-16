@@ -16,7 +16,9 @@ class SpeakingPhoneNokhteSessionWidgetsModule extends Module {
   void exportedBinds(Injector i) {
     i.add<IrlNokhteSessionSpeakingInstructionsWidgetsCoordinator>(
       () => IrlNokhteSessionSpeakingInstructionsWidgetsCoordinator(
+        holdTimerIndicator: HoldTimerIndicatorStore(),
         tint: TintStore(),
+        errorSmartText: SmartTextStore(),
         touchRipple: TouchRippleStore(),
         mirroredText: Modular.get<MirroredTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),

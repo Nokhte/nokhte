@@ -102,7 +102,7 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
           if (presence.getSessionMetadataStore.collaboratorIsOnline) {
             setBlockPhoneTiltReactor(true);
             widgets.adjustSpeakLessSmileMoreRotation(hold.placement);
-            widgets.onHold();
+            widgets.onHold(hold.placement);
             setDisableAllTouchFeedback(true);
             await presence.updateCurrentPhase(2);
           }
