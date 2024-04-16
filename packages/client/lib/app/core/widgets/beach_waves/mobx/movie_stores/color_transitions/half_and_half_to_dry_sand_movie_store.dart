@@ -13,11 +13,11 @@ abstract class _HalfAndHalfToDrySandMovieStoreBase
   _HalfAndHalfToDrySandMovieStoreBase()
       : super(
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
-          callsOnCompleteTwice: true,
+          callsOnCompleteTwice: false,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
       WaterColorsAndStops.halfWaterAndSand,
-      WaterColorsAndStops.drySand,
+      WaterColorsAndStops.condensedDrySand,
     );
   }
 
