@@ -22,6 +22,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
   final TouchRippleStore touchRipple;
   final BorderGlowStore borderGlow;
   final TintStore tint;
+  final HoldTimerIndicatorStore holdTimerIndicator;
   _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase({
     required this.mirroredText,
     required this.beachWaves,
@@ -29,6 +30,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
     required this.touchRipple,
     required this.borderGlow,
     required this.tint,
+    required this.holdTimerIndicator,
   });
 
   @action
@@ -169,6 +171,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
     if (!isStillInMutualInstructionMode) {
       abortTheTextRotation = true;
       borderGlow.initGlowDown();
+      holdTimerIndicator.onLetGo();
       beachWaves.setMovieMode(BeachWaveMovieModes.dynamicPointToHalfAndHalf);
       beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
       if (!bottomHalfIsDone) {
@@ -292,14 +295,16 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
               disableTouchInput = false;
             }
           } else if (beachWaves.movieMode ==
-                  BeachWaveMovieModes.anyToVibrantBlueGrad ||
-              beachWaves.movieMode ==
-                  BeachWaveMovieModes.halfAndHalfToDrySand) {
+              BeachWaveMovieModes.anyToVibrantBlueGrad) {
             borderGlow.initMovie(NoParams());
+            holdTimerIndicator.initMovie(GesturePlacement.topHalf);
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.halfAndHalfToDrySand) {
+            borderGlow.initMovie(NoParams());
+            holdTimerIndicator.initMovie(GesturePlacement.bottomHalf);
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.dynamicPointToHalfAndHalf) {
             if (!bottomHalfIsDone) {
-              canHold = true;
               mirroredText.prepForSplitScreen();
               Timer.periodic(Seconds.get(0, milli: 550), (timer) {
                 if (mirroredText.primaryRightSideUpText.control ==
@@ -308,6 +313,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
                   mirroredText.setRightsideUpCurrentIndex(3);
                   mirroredText.startRotatingRightSideUp(isResuming: true);
                   mirroredText.setRightsideUpVisibility(true);
+                  canHold = true;
                   timer.cancel();
                 }
               });

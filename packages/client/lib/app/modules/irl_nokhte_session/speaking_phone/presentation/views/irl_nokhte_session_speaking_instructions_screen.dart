@@ -41,6 +41,11 @@ class IrlNokhteSessionSpeakingInstructionsScreen extends HookWidget {
               Tint(
                 store: coordinator.widgets.tint,
               ),
+              FullScreen(
+                child: HoldTimerIndicator(
+                  store: coordinator.widgets.holdTimerIndicator,
+                ),
+              ),
               MirroredText(
                 store: coordinator.widgets.mirroredText,
               ),
