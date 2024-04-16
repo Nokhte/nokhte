@@ -135,24 +135,30 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
   }
 
   @action
-  onHold() {
+  onHold(GesturePlacement holdPosition) {
     if (!isStillInMutualInstructionMode && canHold) {
       canHold = false;
       abortTheTextRotation = false;
       holdCount++;
       DurationAndGradient params = DurationAndGradient.initial();
-      params = DurationAndGradient(
-        gradient: beachWaves.currentColorsAndStops,
-        duration: const Duration(seconds: 2),
-      );
-
-      beachWaves.setMovieMode(BeachWaveMovieModes.anyToVibrantBlueGrad);
-      beachWaves.currentStore.initMovie(params);
-      if (!bottomHalfIsDone) {
-        mirroredText.startRotatingRightSideUp(isResuming: true);
-      } else if (bottomHalfIsDone && !topHalfIsDone) {
+      if (holdPosition == GesturePlacement.topHalf &&
+          bottomHalfIsDone &&
+          !topHalfIsDone) {
         mirroredText.startRotatingUpsideDown(isResuming: true);
+        params = DurationAndGradient(
+          gradient: beachWaves.currentColorsAndStops,
+          duration: const Duration(seconds: 2),
+        );
+        beachWaves.setMovieMode(BeachWaveMovieModes.anyToVibrantBlueGrad);
+        beachWaves.currentStore.initMovie(params);
+      } else if (holdPosition == GesturePlacement.bottomHalf &&
+          !bottomHalfIsDone) {
+        beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
+        beachWaves.currentStore.initMovie(NoParams());
+        mirroredText.startRotatingRightSideUp(isResuming: true);
       }
+      if (!bottomHalfIsDone) {
+      } else if (bottomHalfIsDone && !topHalfIsDone) {}
     }
   }
 
@@ -206,7 +212,6 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
   @action
   onEmptyCheckPointMessageReached(int index) {
     if (index == 5 && !bottomHalfIsDone) {
-      mirroredText.setRightSideUpColor(Colors.white);
       adjustRightSideToHoldingPadding();
     }
     if (index == 11) {
@@ -287,11 +292,10 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
               disableTouchInput = false;
             }
           } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.anyToVibrantBlueGrad) {
+                  BeachWaveMovieModes.anyToVibrantBlueGrad ||
+              beachWaves.movieMode ==
+                  BeachWaveMovieModes.halfAndHalfToDrySand) {
             borderGlow.initMovie(NoParams());
-            if (!bottomHalfIsDone) {
-              mirroredText.setRightSideUpColor(Colors.white);
-            }
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.dynamicPointToHalfAndHalf) {
             if (!bottomHalfIsDone) {

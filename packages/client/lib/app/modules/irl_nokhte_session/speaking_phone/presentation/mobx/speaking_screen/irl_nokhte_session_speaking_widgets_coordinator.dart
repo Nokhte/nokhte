@@ -74,9 +74,21 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
   }
 
   @action
-  onHold() {
+  onHold(GesturePlacement holdPosition) {
     holdCount++;
-    setHoldBeachWaveMovie();
+    if (holdPosition == GesturePlacement.topHalf) {
+      DurationAndGradient params = DurationAndGradient.initial();
+      params = DurationAndGradient(
+        gradient: beachWaves.currentColorsAndStops,
+        duration: const Duration(seconds: 2),
+      );
+
+      beachWaves.setMovieMode(BeachWaveMovieModes.anyToVibrantBlueGrad);
+      beachWaves.currentStore.initMovie(params);
+    } else if (holdPosition == GesturePlacement.bottomHalf) {
+      beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
+      beachWaves.currentStore.initMovie(NoParams());
+    }
     mirroredText.setWidgetVisibility(false);
   }
 
@@ -98,16 +110,7 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
   }
 
   @action
-  setHoldBeachWaveMovie() {
-    DurationAndGradient params = DurationAndGradient.initial();
-    params = DurationAndGradient(
-      gradient: beachWaves.currentColorsAndStops,
-      duration: const Duration(seconds: 2),
-    );
-
-    beachWaves.setMovieMode(BeachWaveMovieModes.anyToVibrantBlueGrad);
-    beachWaves.currentStore.initMovie(params);
-  }
+  setHoldBeachWaveMovie() {}
 
   @action
   initBorderGlow() {
@@ -170,7 +173,9 @@ abstract class _IrlNokhteSessionSpeakingWidgetsCoordinatorBase
               BeachWaveMovieModes.dynamicPointToHalfAndHalf) {
             onLetGoCompleted();
           } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.anyToVibrantBlueGrad) {
+                  BeachWaveMovieModes.anyToVibrantBlueGrad ||
+              beachWaves.movieMode ==
+                  BeachWaveMovieModes.halfAndHalfToDrySand) {
             initBorderGlow();
           }
         }

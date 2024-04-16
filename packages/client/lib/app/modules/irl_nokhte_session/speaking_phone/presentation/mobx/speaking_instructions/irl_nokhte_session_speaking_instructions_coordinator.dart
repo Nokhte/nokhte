@@ -80,7 +80,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsCoordinatorBase
         (p0) => hold.holdCount,
         (p0) {
           ifTouchIsNotDisabled(() {
-            widgets.onHold();
+            widgets.onHold(hold.placement);
           });
         },
       );
