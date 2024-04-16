@@ -442,7 +442,7 @@ class MessagesData {
   static List<RotatingTextData>
       get irlNokhteSessionSpeakingPhoneSecondaryPhase0List => [
             RotatingTextData(
-              mainMessage: "Hold to speak",
+              mainMessage: "Touch to talk",
               pauseHere: true,
               mainMessageFontSize: 19.0,
             ),
