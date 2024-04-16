@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/irl_nokhte_session/irl_nokhte_session.dart';
 
@@ -38,13 +39,17 @@ class IrlNokhteSessionSpeakingInstructionsScreen extends HookWidget {
               BorderGlow(
                 store: coordinator.widgets.borderGlow,
               ),
-              Tint(
-                store: coordinator.widgets.tint,
-              ),
               FullScreen(
                 child: HoldTimerIndicator(
                   store: coordinator.widgets.holdTimerIndicator,
                 ),
+              ),
+              Tint(
+                store: coordinator.widgets.tint,
+              ),
+              SmartText(
+                opacityDuration: Seconds.get(1),
+                store: coordinator.widgets.errorSmartText,
               ),
               MirroredText(
                 store: coordinator.widgets.mirroredText,

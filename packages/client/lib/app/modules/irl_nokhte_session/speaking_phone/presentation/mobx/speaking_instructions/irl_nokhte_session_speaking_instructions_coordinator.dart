@@ -1,7 +1,9 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
 import 'package:nokhte/app/core/modules/posthog/constants/constants.dart';
 import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -19,9 +21,11 @@ abstract class _IrlNokhteSessionSpeakingInstructionsCoordinatorBase
   final IrlNokhteSessionSpeakingInstructionsWidgetsCoordinator widgets;
   final IrlNokhteSessionPresenceCoordinator presence;
   final GetIrlNokhteSessionMetadataStore sessionMetadata;
+  final GyroscopicCoordinator gyroscopic;
 
   _IrlNokhteSessionSpeakingInstructionsCoordinatorBase({
     required super.captureScreen,
+    required this.gyroscopic,
     required this.widgets,
     required this.tap,
     required this.presence,
@@ -31,6 +35,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsCoordinatorBase
   @action
   constructor() async {
     widgets.constructor();
+    gyroscopic.listen(NoParams());
     initReactors();
     await captureScreen(Screens.nokhteSessionSpeakingInstructions);
   }
@@ -47,7 +52,6 @@ abstract class _IrlNokhteSessionSpeakingInstructionsCoordinatorBase
         widgets.onCollaboratorLeft();
       },
     );
-    collaboratorPhaseReactor();
     widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
@@ -57,6 +61,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsCoordinatorBase
         widgets.setDisableTouchInput(true);
       },
     );
+    phoneTiltStateReactor();
     holdReactor();
     letGoReactor();
   }
@@ -75,6 +80,15 @@ abstract class _IrlNokhteSessionSpeakingInstructionsCoordinatorBase
       presence.incidentsOverlayStore.onCollaboratorJoined();
     }
   }
+
+  phoneTiltStateReactor() =>
+      reaction((p0) => gyroscopic.holdingState, (p0) async {
+        if (p0 == PhoneHoldingState.isPickedUp) {
+          widgets.onPhonePickup();
+        } else if (p0 == PhoneHoldingState.isDown) {
+          widgets.onPutDown();
+        }
+      });
 
   holdReactor() => reaction(
         (p0) => hold.holdCount,
@@ -101,20 +115,12 @@ abstract class _IrlNokhteSessionSpeakingInstructionsCoordinatorBase
         ),
       );
 
-  collaboratorPhaseReactor() => reaction(
-        (p0) => sessionMetadata.collaboratorPhase,
-        (p0) {
-          if (sessionMetadata.canMoveIntoSession) {
-            widgets.onReadyToTransition();
-          }
-        },
-      );
-
   updateCurrentPhase() async {
     Timer.periodic(Seconds.get(0, milli: 500), (timer) async {
       if (presence.getSessionMetadataStore.userPhase != 2.0) {
         await presence.updateCurrentPhase(2.0);
       } else {
+        await gyroscopic.dispose();
         timer.cancel();
       }
     });

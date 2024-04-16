@@ -1,7 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts_module.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic_module.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog_module.dart';
@@ -42,6 +42,7 @@ class IrlNokhteSessionModule extends Module {
     i.add<IrlNokhteSessionSpeakingInstructionsCoordinator>(
       () => IrlNokhteSessionSpeakingInstructionsCoordinator(
         hold: HoldDetector(),
+        gyroscopic: Modular.get<GyroscopicCoordinator>(),
         presence: Modular.get<IrlNokhteSessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<

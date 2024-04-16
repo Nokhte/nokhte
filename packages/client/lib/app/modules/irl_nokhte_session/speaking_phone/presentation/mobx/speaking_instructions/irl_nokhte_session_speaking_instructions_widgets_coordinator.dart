@@ -18,19 +18,21 @@ class IrlNokhteSessionSpeakingInstructionsWidgetsCoordinator = _IrlNokhteSession
 abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final MirroredTextStore mirroredText;
+  final SmartTextStore errorSmartText;
   final BeachWavesStore beachWaves;
   final TouchRippleStore touchRipple;
   final BorderGlowStore borderGlow;
-  final TintStore tint;
   final HoldTimerIndicatorStore holdTimerIndicator;
+  final TintStore tint;
   _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase({
     required this.mirroredText,
     required this.beachWaves,
     required super.wifiDisconnectOverlay,
     required this.touchRipple,
+    required this.errorSmartText,
     required this.borderGlow,
-    required this.tint,
     required this.holdTimerIndicator,
+    required this.tint,
   });
 
   @action
@@ -40,6 +42,9 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
     mirroredText.setMessagesData(
       MirroredTextContentOptions.irlNokhteSessionSpeakingInstructions,
     );
+    errorSmartText.setWidgetVisibility(false);
+    errorSmartText.setMessagesData(MessagesData.speakingInstructionsErrorList);
+    errorSmartText.startRotatingText();
     initReactors();
   }
 
@@ -51,6 +56,35 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
   }
 
   @observable
+  bool phoneIsPickedUp = false;
+
+  @action
+  onPhonePickup() {
+    phoneIsPickedUp = true;
+    mirroredText.setWidgetVisibility(false);
+    holdTimerIndicator.setWidgetVisibility(false);
+    errorSmartText.setWidgetVisibility(true);
+    tint.setControl(Control.play);
+    canHold = false;
+    disableTouchInput = true;
+    if (holdCount.isGreaterThan(letGoCount)) {
+      onLetGo(onFlowFinished: () {});
+    }
+  }
+
+  @action
+  onPutDown() {
+    phoneIsPickedUp = false;
+    tint.setControl(Control.playReverse);
+    errorSmartText.setWidgetVisibility(false);
+    if (holdCount == 0) {
+      mirroredText.setWidgetVisibility(mirroredText.pastShowWidget);
+    }
+    canHold = true;
+    disableTouchInput = false;
+  }
+
+  @observable
   Stopwatch cooldownStopwatch = Stopwatch();
 
   @observable
@@ -58,6 +92,9 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
 
   @observable
   int holdCount = 0;
+
+  @observable
+  int letGoCount = 0;
 
   @observable
   bool topHalfIsDone = false;
@@ -169,6 +206,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
     required Function onFlowFinished,
   }) async {
     if (!isStillInMutualInstructionMode) {
+      letGoCount++;
       abortTheTextRotation = true;
       borderGlow.initGlowDown();
       holdTimerIndicator.onLetGo();
@@ -204,12 +242,6 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
         tapCount++;
       }
     }
-  }
-
-  @action
-  onReadyToTransition() {
-    mirroredText.startBothRotatingText(isResuming: true);
-    tint.setControl(Control.playReverse);
   }
 
   @action
@@ -296,19 +328,24 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
             }
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.anyToVibrantBlueGrad) {
-            borderGlow.initMovie(NoParams());
-            holdTimerIndicator.initMovie(GesturePlacement.topHalf);
+            if (!phoneIsPickedUp) {
+              borderGlow.initMovie(NoParams());
+              holdTimerIndicator.initMovie(GesturePlacement.topHalf);
+            }
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.halfAndHalfToDrySand) {
-            borderGlow.initMovie(NoParams());
-            holdTimerIndicator.initMovie(GesturePlacement.bottomHalf);
+            if (!phoneIsPickedUp) {
+              borderGlow.initMovie(NoParams());
+              holdTimerIndicator.initMovie(GesturePlacement.bottomHalf);
+            }
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.dynamicPointToHalfAndHalf) {
             if (!bottomHalfIsDone) {
               mirroredText.prepForSplitScreen();
               Timer.periodic(Seconds.get(0, milli: 550), (timer) {
                 if (mirroredText.primaryRightSideUpText.control ==
-                    Control.playFromStart) {
+                        Control.playFromStart &&
+                    !phoneIsPickedUp) {
                   resetRightSideHoldingPadding();
                   mirroredText.setRightsideUpCurrentIndex(3);
                   mirroredText.startRotatingRightSideUp(isResuming: true);
@@ -322,12 +359,15 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
               if (!bottomHalfHasStarted) {
                 resetRightSideHoldingPadding();
                 bottomHalfHasStarted = true;
+                holdCount = 0;
+                letGoCount = 0;
                 mirroredText.setUpsideDownVisibility(true);
                 mirroredText.startRotatingUpsideDown(isResuming: true);
               } else {
                 Timer.periodic(Seconds.get(0, milli: 550), (timer) {
                   if (mirroredText.primaryUpsideDownText.control ==
-                      Control.playFromStart) {
+                          Control.playFromStart &&
+                      !phoneIsPickedUp) {
                     resetUpsideDownHoldingPadding();
                     mirroredText.setUpsideDownCurrentIndex(3);
                     mirroredText.startRotatingUpsideDown(isResuming: true);

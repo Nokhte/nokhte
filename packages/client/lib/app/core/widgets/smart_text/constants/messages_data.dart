@@ -27,6 +27,13 @@ class MessagesData {
         ),
       ];
 
+  static List<RotatingTextData> get speakingInstructionsErrorList => [
+        RotatingTextData(
+          mainMessage: "Set the phone down to continue",
+          pauseHere: true,
+        ),
+      ];
+
   static List<RotatingTextData> get storageGuideList => [
         RotatingTextData(
           mainMessage: "Tap on the compass",
