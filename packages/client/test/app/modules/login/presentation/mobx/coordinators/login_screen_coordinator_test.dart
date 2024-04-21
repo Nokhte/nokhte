@@ -13,7 +13,7 @@ void main() {
   late MockGetLoginStateStore mockAuthStateStore;
   late SwipeDetector mockSwipeDetector;
   late TapDetector mockTapDetector;
-  late LoginScreenCoordinator testStore;
+  late LoginCoordinator testStore;
   late BeachWavesStore mockLayer1BeachWavesStore;
   late BeachWavesStore mockLayer2BeachWavesStore;
   late SmartTextStore smartTextStore;
@@ -46,7 +46,7 @@ void main() {
     mockAuthProviderStore = MockSignInWithAuthProviderStore();
     mockSwipeDetector = SwipeDetector();
     mockTapDetector = TapDetector();
-    testStore = LoginScreenCoordinator(
+    testStore = LoginCoordinator(
       captureScreen: MockCaptureScreen(),
       getUserInfo: MockGetUserInfoStore(),
       addName: mockAddNameToDatabase,

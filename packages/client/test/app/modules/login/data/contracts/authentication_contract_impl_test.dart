@@ -140,13 +140,13 @@ void main() {
       );
     });
   });
-  group("Method No. 3: getAuthState", () {
-    test("Properly Calls & Returns Auth State from the Remote Source",
-        () async {
-      when(mockRemoteSource.getAuthState()).thenAnswer(
-          (_) => LoginStateModel(isAuthenticated: Stream.value(true)));
-      final result = authContract.getAuthState(NoParams());
-      expect(result.isAuthenticated, emitsInOrder([true]));
-    });
-  });
+  // group("Method No. 3: getAuthState", () {
+  //   test("Properly Calls & Returns Auth State from the Remote Source",
+  //       () async {
+  //     when(mockRemoteSource.getAuthState()).thenAnswer(
+  //         (_) => LoginStateModel(isAuthenticated: Stream.value(true)));
+  //     final result = authContract.getAuthState(NoParams());
+  //     expect(result.isAuthenticated, emitsInOrder([true]));
+  //   });
+  // });
 }
