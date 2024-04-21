@@ -9,7 +9,7 @@ class MoveUpAndApparateMovie {
       MovieTween()
         ..scene(
           begin: Seconds.get(0),
-          end: Seconds.get(2),
+          end: Seconds.get(1),
         )
             .tween(
               'nokhteX',
@@ -17,6 +17,7 @@ class MoveUpAndApparateMovie {
                 begin: centerCoordinates.dx,
                 end: centerCoordinates.dx,
               ),
+              curve: Curves.easeInOutCubicEmphasized,
             )
             .tween(
               'nokhteY',
@@ -24,6 +25,7 @@ class MoveUpAndApparateMovie {
                 begin: centerCoordinates.dy,
                 end: centerCoordinates.dy - 140.0,
               ),
+              curve: Curves.easeInOutCubicEmphasized,
             )
             .tween(
               'blueX',
@@ -31,6 +33,7 @@ class MoveUpAndApparateMovie {
                 begin: centerCoordinates.dx,
                 end: centerCoordinates.dx,
               ),
+              curve: Curves.easeInOutCubicEmphasized,
             )
             .tween(
               'blueY',
@@ -38,17 +41,11 @@ class MoveUpAndApparateMovie {
                 begin: centerCoordinates.dy - 140.0,
                 end: centerCoordinates.dy - 140.0,
               ),
-            )
-            .tween(
-              'circleRadii',
-              Tween<double>(
-                begin: 14.0,
-                end: 14.0,
-              ),
+              curve: Curves.easeInOutCubicEmphasized,
             )
         ..scene(
-          begin: Seconds.get(2),
-          end: Seconds.get(3),
+          begin: Seconds.get(1),
+          end: Seconds.get(2),
         ).tween(
           'circleRadii',
           Tween<double>(
@@ -57,5 +54,3 @@ class MoveUpAndApparateMovie {
           ),
         );
 }
-
-// we will also need to add circle radius as well into these so parameterize via pate
