@@ -4,24 +4,22 @@ import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/error/exceptions.dart';
 import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/modules/authentication/data/contracts/authentication_contract_impl.dart';
-import 'package:nokhte/app/modules/authentication/data/models/auth_provider_model.dart';
-import 'package:nokhte/app/modules/authentication/data/models/auth_state_model.dart';
-import 'package:nokhte/app/core/interfaces/auth_providers.dart';
+import 'package:nokhte/app/modules/login/data/data.dart';
+import 'package:nokhte/app/modules/login/types/login_providers.dart';
 import '../../fixtures/authentication_stack_mock_gen.mocks.dart';
 import '../../../_module_helpers/shared_mocks_gen.mocks.dart';
 import 'package:dartz/dartz.dart';
 
 void main() {
-  late AuthenticationContractImpl authContract;
-  late MockMRemoteSource mockRemoteSource;
+  late LoginContractImpl authContract;
+  late MockLoginRemoteSource mockRemoteSource;
   late MockNetworkInfo mockNetworkInfo;
   late AuthProviderModel tAuthProviderModel;
 
   setUp(() {
-    mockRemoteSource = MockMRemoteSource();
+    mockRemoteSource = MockLoginRemoteSource();
     mockNetworkInfo = MockNetworkInfo();
-    authContract = AuthenticationContractImpl(
+    authContract = LoginContractImpl(
       remoteSource: mockRemoteSource,
       networkInfo: mockNetworkInfo,
     );
@@ -146,7 +144,7 @@ void main() {
     test("Properly Calls & Returns Auth State from the Remote Source",
         () async {
       when(mockRemoteSource.getAuthState()).thenAnswer(
-          (_) => AuthStateModel(isAuthenticated: Stream.value(true)));
+          (_) => LoginStateModel(isAuthenticated: Stream.value(true)));
       final result = authContract.getAuthState(NoParams());
       expect(result.isAuthenticated, emitsInOrder([true]));
     });

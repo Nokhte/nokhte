@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:nokhte/app/core/interfaces/auth_providers.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/authentication/presentation/presentation.dart';
+import 'package:nokhte/app/modules/login/presentation/presentation.dart';
+import 'package:nokhte/app/modules/login/types/types.dart';
 import '../../../../../core/mobx/base_coordinator_test.mocks.dart';
 import '../../../../shared/shared_mocks.mocks.dart';
 import '../../../fixtures/authentication_stack_mock_gen.mocks.dart';
@@ -10,7 +10,7 @@ import '../../../fixtures/authentication_stack_mock_gen.mocks.dart';
 void main() {
   late LoginScreenWidgetsCoordinator mockWidgetsStore;
   late MockSignInWithAuthProviderStore mockAuthProviderStore;
-  late MockGetAuthStateStore mockAuthStateStore;
+  late MockGetLoginStateStore mockAuthStateStore;
   late SwipeDetector mockSwipeDetector;
   late TapDetector mockTapDetector;
   late LoginScreenCoordinator testStore;
@@ -42,7 +42,7 @@ void main() {
       bottomTrailingText: bottomTrailingTextStore,
       topTrailingText: topTrailingTextStore,
     );
-    mockAuthStateStore = MockGetAuthStateStore();
+    mockAuthStateStore = MockGetLoginStateStore();
     mockAuthProviderStore = MockSignInWithAuthProviderStore();
     mockSwipeDetector = SwipeDetector();
     mockTapDetector = TapDetector();

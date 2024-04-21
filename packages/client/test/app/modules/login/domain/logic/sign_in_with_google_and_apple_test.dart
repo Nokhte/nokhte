@@ -1,8 +1,8 @@
-import 'package:nokhte/app/modules/authentication/domain/entities/auth_provider_entity.dart';
-import 'package:nokhte/app/modules/authentication/domain/logic/sign_in_with_google.dart';
-import 'package:nokhte/app/modules/authentication/domain/logic/sign_in_with_apple.dart';
+import 'package:nokhte/app/modules/login/domain/entities/auth_provider_entity.dart';
+import 'package:nokhte/app/modules/login/domain/logic/sign_in_with_google.dart';
+import 'package:nokhte/app/modules/login/domain/logic/sign_in_with_apple.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/interfaces/auth_providers.dart';
+import 'package:nokhte/app/modules/login/types/login_providers.dart';
 import 'package:nokhte/app/core/error/failure.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -10,7 +10,7 @@ import 'package:dartz/dartz.dart';
 import '../../fixtures/authentication_stack_mock_gen.mocks.dart';
 
 void main() {
-  late MockMAuthenticationContract mockAuthenticationContract;
+  late MockLoginContract mockAuthenticationContract;
   late SignInWithGoogle googleLogic;
   late SignInWithApple appleLogic;
   late AuthProviderEntity tAuthProviderEntity;
@@ -19,7 +19,7 @@ void main() {
 
   setUp(
     () {
-      mockAuthenticationContract = MockMAuthenticationContract();
+      mockAuthenticationContract = MockLoginContract();
     },
   );
 
