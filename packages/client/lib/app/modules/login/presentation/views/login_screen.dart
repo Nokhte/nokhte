@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/constants/constants.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
+import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/login/presentation/presentation.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class LoginScreen extends HookWidget {
-  final LoginScreenCoordinator coordinator;
+  final LoginCoordinator coordinator;
 
   const LoginScreen({
     super.key,
@@ -19,16 +21,17 @@ class LoginScreen extends HookWidget {
         (previous, current) => coordinator.onAppLifeCycleStateChange(
               current,
               onResumed: () => coordinator.onResumed(),
-              onInactive: () => coordinator.onInactive(),
+              onInactive: () => null,
             ));
     final center = useCenterOffset();
+    final height = useFullScreenSize().height;
     useEffect(() {
       coordinator.constructor(center);
       return null;
     }, []);
     final size = useSquareSize(relativeLength: .20);
 
-    return Builder(builder: (context) {
+    return Observer(builder: (context) {
       return Scaffold(
         resizeToAvoidBottomInset: false,
         body: Tap(
@@ -77,7 +80,14 @@ class LoginScreen extends HookWidget {
                 ),
                 Center(
                   child: SmartText(
+                    opacityDuration: Seconds.get(1),
                     store: coordinator.widgets.smartTextStore,
+                    topPadding:
+                        height * coordinator.widgets.smartTextTopPaddingScalar,
+                    bottomPadding: height *
+                        coordinator.widgets.smartTextBottomPaddingScalar,
+                    subTextPadding:
+                        coordinator.widgets.smartTextSubMessagePaddingScalar,
                   ),
                 ),
                 FullScreen(
