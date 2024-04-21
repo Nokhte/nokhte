@@ -32,18 +32,15 @@ abstract class _NokhteStoreBase extends BaseCustomAnimatedWidgetStore
 
   @action
   reset() {
-    setMovie(
-      SetNokhtePositionMovie.getMovie(Offset.zero, Offset.zero),
-    );
-    if (showWidget) {
-      toggleWidgetVisibility();
-    }
+    setMovieModes(NokhteMovieModes.setPosition);
+    setMovieStatus(MovieStatus.inProgress);
+    setMovie(MoveBackToCenterMovie.getMovie(centerCoordinates));
     setControl(Control.playFromStart);
-    setControl(Control.stop);
   }
 
   @action
   initMoveUpAndApparateMovie() {
+    setMovieModes(NokhteMovieModes.setPosition);
     setMovieModes(NokhteMovieModes.moveUpAndApparate);
     setMovieStatus(MovieStatus.inProgress);
     setMovie(MoveUpAndApparateMovie.getMovie(centerCoordinates));
