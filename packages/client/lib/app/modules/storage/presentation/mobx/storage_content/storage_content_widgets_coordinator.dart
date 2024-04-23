@@ -66,7 +66,7 @@ abstract class _StorageContentWidgetsCoordinatorBase
 
   @action
   onSwipeLeft() {
-    if (isAllowedToMakeAGesture) {
+    if (isAllowedToInteract) {
       if (!hasInitiatedBlur && !hasSwiped) {
         hasSwiped = true;
         smartText.setWidgetVisibility(false);
@@ -83,37 +83,39 @@ abstract class _StorageContentWidgetsCoordinatorBase
         smartText.startRotatingText(isResuming: true);
         hasSwiped = true;
         centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.left);
-        //
       }
     }
   }
 
   @action
   onTap() {
-    if (canTap && isAllowedToMakeAGesture) {
-      canTap = false;
-      hasSwiped = false;
-      hasInitiatedBlur = false;
-      contentCard.setDisableTouchInput(false);
-      smartText.startRotatingText(isResuming: true);
-      centerInstructionalNokhte.moveBackToCross(
-        startingPosition: CenterNokhtePositions.left,
-      );
-      primaryInstructionalGradientNokhte.initMovie(
-        InstructionalGradientMovieParams(
-          center: center,
-          colorway: GradientNokhteColorways.vibrantBlue,
-          direction: InstructionalGradientDirections.shrink,
-          position: InstructionalNokhtePositions.left,
-        ),
-      );
-      blur.reverse();
+    if (isAllowedToInteract && canTap && hasInitiatedBlur) {
+      if (hasSwiped) {
+        hasSwiped = false;
+        hasInitiatedBlur = false;
+        contentCard.setDisableTouchInput(false);
+        smartText.startRotatingText(isResuming: true);
+        centerInstructionalNokhte.moveBackToCross(
+          startingPosition: CenterNokhtePositions.left,
+        );
+        primaryInstructionalGradientNokhte.initMovie(
+          InstructionalGradientMovieParams(
+            center: center,
+            colorway: GradientNokhteColorways.vibrantBlue,
+            direction: InstructionalGradientDirections.shrink,
+            position: InstructionalNokhtePositions.left,
+          ),
+        );
+        blur.reverse();
+      } else if (!hasSwiped) {
+        dismissInstructionalNokhtes();
+      }
     }
   }
 
   @action
   onGestureCrossTap() {
-    if (isAllowedToMakeAGesture) {
+    if (isAllowedToInteract) {
       if (!hasInitiatedBlur && canTapOnGestureCross) {
         contentCard.setDisableTouchInput(true);
         blur.init(blurValue: 20);
@@ -131,22 +133,26 @@ abstract class _StorageContentWidgetsCoordinatorBase
           ),
         );
       } else if (hasInitiatedBlur && !hasSwiped) {
-        contentCard.setDisableTouchInput(false);
-        hasInitiatedBlur = false;
-        blur.reverse();
-        centerInstructionalNokhte.moveBackToCross(
-            startingPosition: CenterNokhtePositions.center);
-        primaryInstructionalGradientNokhte.initMovie(
-          InstructionalGradientMovieParams(
-            center: center,
-            colorway: GradientNokhteColorways.vibrantBlue,
-            direction: InstructionalGradientDirections.shrink,
-            position: InstructionalNokhtePositions.left,
-          ),
-        );
-        //
+        dismissInstructionalNokhtes();
       }
     }
+  }
+
+  @action
+  dismissInstructionalNokhtes() {
+    contentCard.setDisableTouchInput(false);
+    hasInitiatedBlur = false;
+    blur.reverse();
+    centerInstructionalNokhte.moveBackToCross(
+        startingPosition: CenterNokhtePositions.center);
+    primaryInstructionalGradientNokhte.initMovie(
+      InstructionalGradientMovieParams(
+        center: center,
+        colorway: GradientNokhteColorways.vibrantBlue,
+        direction: InstructionalGradientDirections.shrink,
+        position: InstructionalNokhtePositions.left,
+      ),
+    );
   }
 
   gestureCrossTapReactor() => reaction(
@@ -174,14 +180,26 @@ abstract class _StorageContentWidgetsCoordinatorBase
 
   centerInstructionalNokhteReactor() =>
       reaction((p0) => centerInstructionalNokhte.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished &&
-            centerInstructionalNokhte.movieMode ==
-                CenterInstructionalNokhteMovieModes.moveAround) {
-          canTap = true;
+        if (p0 == MovieStatus.finished) {
+          if (centerInstructionalNokhte.movieMode ==
+              CenterInstructionalNokhteMovieModes.moveAround) {
+            canTap = true;
+          } else if (centerInstructionalNokhte.movieMode ==
+              CenterInstructionalNokhteMovieModes.moveToCenter) {
+            canTap = true;
+          }
+          if (centerInstructionalNokhte.movieMode ==
+              CenterInstructionalNokhteMovieModes.moveBack) {
+          } else if (p0 == MovieStatus.inProgress) {
+            if (centerInstructionalNokhte.movieMode ==
+                CenterInstructionalNokhteMovieModes.moveBack) {
+              canTap = false;
+            }
+          }
         }
       });
 
   @computed
-  bool get isAllowedToMakeAGesture =>
+  bool get isAllowedToInteract =>
       centerInstructionalNokhte.movieStatus != MovieStatus.inProgress;
 }

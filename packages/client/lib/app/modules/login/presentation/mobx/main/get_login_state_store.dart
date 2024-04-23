@@ -13,7 +13,7 @@ abstract class _GetLoginStateStoreBase extends Equatable with Store {
 
   _GetLoginStateStoreBase({
     required this.logic,
-  }) : authState = logic(NoParams()).isAuthenticated.asBroadcastStream();
+  }) : authState = logic(NoParams()).asBroadcastStream();
 
   @observable
   Stream<bool> authState;

@@ -76,8 +76,8 @@ class LoginModule extends Module {
         logic: i<GetLoginState>(),
       ),
     );
-    i.add<LoginScreenCoordinator>(
-      () => LoginScreenCoordinator(
+    i.add<LoginCoordinator>(
+      () => LoginCoordinator(
         captureScreen: Modular.get<CaptureScreen>(),
         getUserInfo: Modular.get<GetUserInfoStore>(),
         tap: TapDetector(),
@@ -95,7 +95,7 @@ class LoginModule extends Module {
     r.child(
       '/',
       child: (context) => LoginScreen(
-        coordinator: Modular.get<LoginScreenCoordinator>(),
+        coordinator: Modular.get<LoginCoordinator>(),
       ),
       guards: [
         AuthGuard(

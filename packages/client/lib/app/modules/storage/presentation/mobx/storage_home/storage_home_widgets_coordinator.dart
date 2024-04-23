@@ -68,7 +68,7 @@ abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   onSwipeLeft() {
-    if (isAllowedToMakeAGesture) {
+    if (isAllowedToInteract) {
       if (!hasInitiatedBlur && !hasSwiped) {
         hasSwiped = true;
         primarySmartText.setWidgetVisibility(false);
@@ -93,30 +93,34 @@ abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   onTap() {
-    if (canTap && isAllowedToMakeAGesture) {
-      canTap = false;
-      hasSwiped = false;
-      hasInitiatedBlur = false;
-      secondarySmartText.startRotatingText(isResuming: true);
-      centerInstructionalNokhte.moveBackToCross(
-        startingPosition: CenterNokhtePositions.left,
-      );
-      sessionCard.setDisableTouchInput(false);
-      primaryInstructionalGradientNokhte.initMovie(
-        InstructionalGradientMovieParams(
-          center: center,
-          colorway: GradientNokhteColorways.beachWave,
-          direction: InstructionalGradientDirections.shrink,
-          position: InstructionalNokhtePositions.left,
-        ),
-      );
-      blur.reverse();
+    if (isAllowedToInteract) {
+      if (canTap) {
+        canTap = false;
+        hasSwiped = false;
+        hasInitiatedBlur = false;
+        secondarySmartText.startRotatingText(isResuming: true);
+        centerInstructionalNokhte.moveBackToCross(
+          startingPosition: CenterNokhtePositions.left,
+        );
+        sessionCard.setDisableTouchInput(false);
+        primaryInstructionalGradientNokhte.initMovie(
+          InstructionalGradientMovieParams(
+            center: center,
+            colorway: GradientNokhteColorways.beachWave,
+            direction: InstructionalGradientDirections.shrink,
+            position: InstructionalNokhtePositions.left,
+          ),
+        );
+        blur.reverse();
+      } else if (hasInitiatedBlur && !hasSwiped) {
+        dismissInstructionalNokhte();
+      }
     }
   }
 
   @action
   onGestureCrossTap() {
-    if (isAllowedToMakeAGesture) {
+    if (isAllowedToInteract) {
       if (!hasInitiatedBlur && canTapOnGestureCross) {
         sessionCard.setDisableTouchInput(true);
         blur.init();
@@ -134,22 +138,26 @@ abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
           ),
         );
       } else if (hasInitiatedBlur && !hasSwiped) {
-        sessionCard.setDisableTouchInput(false);
-        hasInitiatedBlur = false;
-        blur.reverse();
-        centerInstructionalNokhte.moveBackToCross(
-            startingPosition: CenterNokhtePositions.center);
-        primaryInstructionalGradientNokhte.initMovie(
-          InstructionalGradientMovieParams(
-            center: center,
-            colorway: GradientNokhteColorways.beachWave,
-            direction: InstructionalGradientDirections.shrink,
-            position: InstructionalNokhtePositions.left,
-          ),
-        );
-        //
+        dismissInstructionalNokhte();
       }
     }
+  }
+
+  @action
+  dismissInstructionalNokhte() {
+    sessionCard.setDisableTouchInput(false);
+    hasInitiatedBlur = false;
+    blur.reverse();
+    centerInstructionalNokhte.moveBackToCross(
+        startingPosition: CenterNokhtePositions.center);
+    primaryInstructionalGradientNokhte.initMovie(
+      InstructionalGradientMovieParams(
+        center: center,
+        colorway: GradientNokhteColorways.beachWave,
+        direction: InstructionalGradientDirections.shrink,
+        position: InstructionalNokhtePositions.left,
+      ),
+    );
   }
 
   centerCrossNokhteReactor() =>
@@ -193,6 +201,6 @@ abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   }
 
   @computed
-  bool get isAllowedToMakeAGesture =>
+  bool get isAllowedToInteract =>
       centerInstructionalNokhte.movieStatus != MovieStatus.inProgress;
 }

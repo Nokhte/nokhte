@@ -16,7 +16,7 @@ import 'dart:convert';
 abstract class LoginRemoteSource {
   Future<AuthProviderModel> signInWithGoogle();
   Future<AuthProviderModel> signInWithApple();
-  LoginStateModel getAuthState();
+  Stream<bool> getAuthState();
   Future<List> addName({String theName = ""});
   Future<List> getUserInfo();
   Future<List> getFinishedNokhteSessions();
@@ -75,9 +75,10 @@ class LoginRemoteSourceImpl implements LoginRemoteSource {
   }
 
   @override
-  getAuthState() {
-    return LoginStateModel.fromSupabase(supabase.auth.onAuthStateChange);
-  }
+  getAuthState() =>
+   supabase.auth.onAuthStateChange
+        .map((e) => e.session!.accessToken.isNotEmpty);
+  
 
   @override
   addName({String theName = ""}) async {

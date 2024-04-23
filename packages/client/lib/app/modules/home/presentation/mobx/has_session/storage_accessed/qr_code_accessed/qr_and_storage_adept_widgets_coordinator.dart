@@ -149,6 +149,8 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
         centerInstructionalNokhte.moveBackToCross(
           startingPosition: CenterNokhtePositions.right,
         );
+        nokhteBlur.reverse();
+        beachWaves.currentStore.setControl(Control.mirror);
       } else if (currentCenterNokhtePosition ==
           InstructionalNokhtePositions.top) {
         primaryInstructionalGradientNokhte.setWidgetVisibility(true);
@@ -172,45 +174,96 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
         centerInstructionalNokhte.moveBackToCross(
           startingPosition: CenterNokhtePositions.top,
         );
+        nokhteBlur.reverse();
+        beachWaves.currentStore.setControl(Control.mirror);
       }
-      nokhteBlur.reverse();
-      beachWaves.currentStore.setControl(Control.mirror);
+    } else if (hasInitiatedBlur && isAllowedToMakeAGesture) {
+      dismissInstructionalNokhte();
     }
   }
 
   @action
   onGestureCrossTap() {
-    if (!hasInitiatedBlur && !isEnteringNokhteSession && canTapOnGestureCross) {
-      nokhteBlur.init();
-      beachWaves.currentStore.setControl(Control.stop);
-      toggleHasInitiatedBlur();
-      gestureCross.centerCrossNokhte.setWidgetVisibility(false);
-      gestureCross.gradientNokhte.setWidgetVisibility(false);
-      centerInstructionalNokhte.moveToCenter(center);
-      primaryInstructionalGradientNokhte.setWidgetVisibility(true);
-      secondaryInstructionalGradientNokhte.setWidgetVisibility(true);
-      primaryInstructionalGradientNokhte.initMovie(
-        InstructionalGradientMovieParams(
-          center: center,
-          colorway: GradientNokhteColorways.invertedBeachWave,
-          direction: InstructionalGradientDirections.enlarge,
-          position: InstructionalNokhtePositions.top,
-        ),
-      );
-      secondaryInstructionalGradientNokhte.initMovie(
-        InstructionalGradientMovieParams(
-          center: center,
-          colorway: GradientNokhteColorways.vibrantBlue,
-          direction: InstructionalGradientDirections.enlarge,
-          position: InstructionalNokhtePositions.right,
-        ),
-      );
+    if (!isEnteringNokhteSession &&
+        canTapOnGestureCross &&
+        isAllowedToMakeAGesture) {
+      if (!hasInitiatedBlur) {
+        nokhteBlur.init();
+        beachWaves.currentStore.setControl(Control.stop);
+        toggleHasInitiatedBlur();
+        gestureCross.centerCrossNokhte.setWidgetVisibility(false);
+        gestureCross.gradientNokhte.setWidgetVisibility(false);
+        centerInstructionalNokhte.moveToCenter(center);
+        primaryInstructionalGradientNokhte.setWidgetVisibility(true);
+        secondaryInstructionalGradientNokhte.setWidgetVisibility(true);
+        primaryInstructionalGradientNokhte.initMovie(
+          InstructionalGradientMovieParams(
+            center: center,
+            colorway: GradientNokhteColorways.invertedBeachWave,
+            direction: InstructionalGradientDirections.enlarge,
+            position: InstructionalNokhtePositions.top,
+          ),
+        );
+        secondaryInstructionalGradientNokhte.initMovie(
+          InstructionalGradientMovieParams(
+            center: center,
+            colorway: GradientNokhteColorways.vibrantBlue,
+            direction: InstructionalGradientDirections.enlarge,
+            position: InstructionalNokhtePositions.right,
+          ),
+        );
+      } else if (hasInitiatedBlur) {
+        dismissInstructionalNokhte();
+      }
     }
+  }
+
+  @action
+  dismissInstructionalNokhte() {
+    hasSwipedUp = false;
+    centerInstructionalNokhte.moveBackToCross(
+      startingPosition: CenterNokhtePositions.center,
+    );
+    primaryInstructionalGradientNokhte.initMovie(
+      InstructionalGradientMovieParams(
+        center: center,
+        colorway: GradientNokhteColorways.invertedBeachWave,
+        direction: InstructionalGradientDirections.shrink,
+        position: InstructionalNokhtePositions.top,
+      ),
+    );
+    primaryInstructionalGradientNokhte.initMovie(
+      InstructionalGradientMovieParams(
+        center: center,
+        colorway: GradientNokhteColorways.invertedBeachWave,
+        direction: InstructionalGradientDirections.shrink,
+        position: InstructionalNokhtePositions.top,
+      ),
+    );
+    secondaryInstructionalGradientNokhte.initMovie(
+      InstructionalGradientMovieParams(
+        center: center,
+        colorway: GradientNokhteColorways.vibrantBlue,
+        direction: InstructionalGradientDirections.shrink,
+        position: InstructionalNokhtePositions.right,
+      ),
+    );
+
+    nokhteBlur.reverse();
+    beachWaves.currentStore.setControl(Control.mirror);
+    hasInitiatedBlur = false;
+    primarySmartText.reset();
+    primarySmartText.startRotatingText();
+    setSmartTextPadding();
   }
 
   @computed
   bool get isAllowedToMakeAGesture =>
       !isEnteringNokhteSession &&
       !isInErrorMode &&
-      centerInstructionalNokhte.movieStatus != MovieStatus.inProgress;
+      centerInstructionalNokhte.movieStatus != MovieStatus.inProgress &&
+      primaryInstructionalGradientNokhte.movieStatus !=
+          MovieStatus.inProgress &&
+      secondaryInstructionalGradientNokhte.movieStatus !=
+          MovieStatus.inProgress;
 }

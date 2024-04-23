@@ -3,18 +3,18 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'login_screen_widgets_coordinator.g.dart';
+part 'login_widgets_coordinator.g.dart';
 
 class LoginScreenWidgetsCoordinator = _LoginScreenWidgetsCoordinatorBase
     with _$LoginScreenWidgetsCoordinator;
 
-abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
-  final WifiDisconnectOverlayStore wifiDisconnectOverlay;
+abstract class _LoginScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
+    with Store {
   final BeachWavesStore layer1BeachWaves;
   final BeachWavesStore layer2BeachWaves;
   final GestureCrossStore gestureCross;
@@ -24,7 +24,6 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
   final TrailingTextStore topTrailingText;
 
   _LoginScreenWidgetsCoordinatorBase({
-    required this.wifiDisconnectOverlay,
     required this.layer1BeachWaves,
     required this.layer2BeachWaves,
     required this.gestureCross,
@@ -32,6 +31,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
     required this.nokhte,
     required this.bottomTrailingText,
     required this.topTrailingText,
+    required super.wifiDisconnectOverlay,
   });
 
   constructor(
@@ -40,9 +40,11 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
     Function onConnected,
     Function onDisconnected,
   ) {
+    nokhte.setCenterCoordinates(center);
     setCenterScreenCoordinates(center);
+
     layer1BeachWaves.setMovieMode(BeachWaveMovieModes.blackOut);
-    layer2BeachWaves.currentStore.toggleWidgetVisibility();
+    layer2BeachWaves.currentStore.setWidgetVisibility(false);
     smartTextStore.setMessagesData(MessagesData.loginList);
     smartTextStore.startRotatingText();
     initReactors(loginBusinessLogic);
@@ -53,6 +55,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
 
   @observable
   Offset centerScreenCoordinates = Offset.zero;
+
   @observable
   bool canSwipeUp = false;
 
@@ -97,30 +100,21 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
 
   @action
   loggedOutOnResumed() {
-    if (bottomTrailingText.showWidget) {
-      bottomTrailingText.reset();
-      topTrailingText.reset();
+    if (!hasNotMadeTheDot && !canSwipeUp) {
+      Timer(Seconds.get(1), () {
+        nokhte.reset();
+        Timer(Seconds.get(2), () {
+          bottomTrailingText.initMovie(NoParams());
+          topTrailingText.initMovie(NoParams());
+        });
+      });
     }
-    smartTextStore.startRotatingText();
-    Timer(Seconds.get(0, milli: 200), () {
-      smartTextStore.startRotatingText();
-    });
   }
 
   @action
   onLongReConnected() {
     smartTextStore.reset();
     smartTextStore.startRotatingText();
-  }
-
-  @action
-  loggedOutOnInactive() {
-    smartTextStore.reset();
-    nokhte.reset();
-    setCanSwipeUp(false);
-    if (!hasNotMadeTheDot) {
-      toggleHasMadeTheDot();
-    }
   }
 
   @action
@@ -133,9 +127,6 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
         currentTapPosition,
         centerScreenCoordinates,
       );
-      if (!nokhte.showWidget) {
-        nokhte.toggleWidgetVisibility();
-      }
     }
   }
 
@@ -149,13 +140,10 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
   }
 
   triggerLoginAnimation() {
-    if (bottomTrailingText.showWidget) {
-      bottomTrailingText.toggleWidgetVisibility();
-      topTrailingText.toggleWidgetVisibility();
-    }
-    if (smartTextStore.showWidget) {
-      smartTextStore.toggleWidgetVisibility();
-    }
+    bottomTrailingText.setWidgetVisibility(false);
+    topTrailingText.setWidgetVisibility(false);
+    smartTextStore.setWidgetVisibility(false);
+    nokhte.setWidgetVisibility(false);
     toggleHasTriggeredLoginAnimation();
     Timer(Seconds.get(0, milli: 500), () {
       layer1BeachWaves.setMovieMode(BeachWaveMovieModes.blackOutToDrySand);
@@ -186,8 +174,8 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends Equatable with Store {
         if (p0 == MovieStatus.finished) {
           if (nokhte.movieMode == NokhteMovieModes.setPosition) {
             if (!bottomTrailingText.showWidget) {
-              bottomTrailingText.toggleWidgetVisibility();
-              topTrailingText.toggleWidgetVisibility();
+              bottomTrailingText.setWidgetVisibility(false);
+              topTrailingText.setWidgetVisibility(false);
             }
             bottomTrailingText.initMovie(NoParams());
             topTrailingText.initMovie(NoParams());

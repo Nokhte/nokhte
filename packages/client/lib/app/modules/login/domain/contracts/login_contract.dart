@@ -11,5 +11,5 @@ abstract class LoginContract extends BaseGetUserInfoContract {
 
   Future<Either<Failure, bool>> addName(NoParams params);
 
-  LoginStateEntity getAuthState(NoParams params);
+  Stream<bool> getAuthState(NoParams params);
 }

@@ -11,13 +11,12 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/login/domain/logic/logic.dart';
 import 'package:nokhte/app/modules/login/presentation/presentation.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
-part 'login_screen_coordinator.g.dart';
+part 'login_coordinator.g.dart';
 
-class LoginScreenCoordinator = _LoginScreenCoordinatorBase
-    with _$LoginScreenCoordinator;
+class LoginCoordinator = _LoginCoordinatorBase with _$LoginCoordinator;
 
-abstract class _LoginScreenCoordinatorBase
-    extends BaseHomeScreenRouterCoordinator with Store {
+abstract class _LoginCoordinatorBase extends BaseHomeScreenRouterCoordinator
+    with Store {
   final LoginScreenWidgetsCoordinator widgets;
   final SignInWithAuthProviderStore signInWithAuthProvider;
   final AddName addName;
@@ -25,7 +24,7 @@ abstract class _LoginScreenCoordinatorBase
   final SwipeDetector swipe;
   final TapDetector tap;
 
-  _LoginScreenCoordinatorBase({
+  _LoginCoordinatorBase({
     required this.signInWithAuthProvider,
     required this.widgets,
     required this.authStateStore,
@@ -63,7 +62,6 @@ abstract class _LoginScreenCoordinatorBase
   initReactors() {
     swipeReactor();
     tapReactor();
-    authStateReactor();
     widgets.wifiDisconnectOverlay.initReactors(onQuickConnected: () {
       setDisableAllTouchFeedback(false);
     }, onLongReConnected: () {
@@ -115,10 +113,8 @@ abstract class _LoginScreenCoordinatorBase
 
   @action
   authStateListener(Stream<bool> authStateStream) =>
-      authStateStream.listen((event) => isLoggedIn = event);
-
-  authStateReactor() => reaction((p0) => isLoggedIn, (p0) async {
-        if (p0) {
+      authStateStream.listen((isLoggedIn) async {
+        if (isLoggedIn) {
           await addName(NoParams());
           await getUserInfo(NoParams());
           widgets.loggedInOnResumed();
@@ -127,20 +123,8 @@ abstract class _LoginScreenCoordinatorBase
 
   @action
   onResumed() {
-    if (disableAllTouchFeedback) {
-      widgets.smartTextStore.pause();
-    } else if (!isLoggedIn) {
-      widgets.loggedOutOnResumed();
-      if (hasAttemptedToLogin) {
-        toggleHasAttemptedToLogin();
-      }
-    }
-  }
-
-  @action
-  onInactive() {
     if (!isLoggedIn) {
-      widgets.loggedOutOnInactive();
+      widgets.loggedOutOnResumed();
     }
   }
 }

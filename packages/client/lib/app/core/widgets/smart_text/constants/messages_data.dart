@@ -7,21 +7,19 @@ class MessagesData {
           initialFadeInDelay: Seconds.get(1),
           mainMessage: "Howdy",
           onScreenTime: Seconds.get(2),
+          mainMessageFontSize: 23.0,
         ),
         RotatingTextData(
-          initialFadeInDelay: Seconds.get(2),
-          mainMessage: "The Point Of The App Is",
-          onScreenTime: Seconds.get(2),
-        ),
-        RotatingTextData(
-          initialFadeInDelay: Seconds.get(2),
-          mainMessage: "To Collectively Uplift Ideas Into Reality",
-          onScreenTime: Seconds.get(2),
-        ),
-        RotatingTextData(
-          initialFadeInDelay: Seconds.get(2),
-          mainMessage: "Tap Anywhere",
+          mainMessage:
+              "The point of the app is to collectively uplift ideas into reality",
+          subMessage: "Tap anywhere to confirm",
+          pauseHere: true,
           unlockGesture: Gestures.tap,
+          mainMessageFontSize: 19.0,
+          subMessageFontSize: 17.0,
+        ),
+        RotatingTextData(
+          mainMessage: "",
           pauseHere: true,
           onScreenTime: Seconds.get(2),
         ),

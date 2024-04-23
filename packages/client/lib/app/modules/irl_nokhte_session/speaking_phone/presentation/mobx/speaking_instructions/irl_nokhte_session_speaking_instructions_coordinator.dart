@@ -101,7 +101,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsCoordinatorBase
 
   letGoReactor() => reaction((p0) => hold.letGoCount, (p0) {
         widgets.onLetGo(
-          onFlowFinished: () async => await updateCurrentPhase(),
+          onFlowFinished: () async => await gyroscopic.dispose(),
         );
         Timer(Seconds.get(2), () {
           setDisableAllTouchFeedback(false);
@@ -114,15 +114,4 @@ abstract class _IrlNokhteSessionSpeakingInstructionsCoordinatorBase
           () => widgets.onTap(tap.currentTapPosition),
         ),
       );
-
-  updateCurrentPhase() async {
-    Timer.periodic(Seconds.get(0, milli: 500), (timer) async {
-      if (presence.getSessionMetadataStore.userPhase != 2.0) {
-        await presence.updateCurrentPhase(2.0);
-      } else {
-        await gyroscopic.dispose();
-        timer.cancel();
-      }
-    });
-  }
 }
