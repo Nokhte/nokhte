@@ -49,11 +49,10 @@ abstract class _StorageContentCoordinatorBase
     swipeReactor();
   }
 
-  tapReactor() => reaction((p0) => tap.currentTapPosition, (p0) {
+  tapReactor() => reaction((p0) => tap.tapCount, (p0) {
         ifTouchIsNotDisabled(() {
           widgets.onTap();
         });
-        //
       });
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {

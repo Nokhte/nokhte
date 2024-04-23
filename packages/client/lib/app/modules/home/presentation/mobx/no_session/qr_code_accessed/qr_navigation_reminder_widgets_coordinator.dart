@@ -117,6 +117,8 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
           primarySmartText.startRotatingText();
         });
         hasInitiatedBlur = false;
+      } else if (hasInitiatedBlur && readyToInteract) {
+        dismissInstructionalNokhte();
       }
     }
   }
@@ -139,8 +141,30 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
       );
 
   @action
+  dismissInstructionalNokhte() {
+    hasSwipedUp = false;
+    centerInstructionalNokhte.moveBackToCross(
+      startingPosition: CenterNokhtePositions.center,
+    );
+    primaryInstructionalGradientNokhte.initMovie(
+      InstructionalGradientMovieParams(
+        center: center,
+        colorway: GradientNokhteColorways.invertedBeachWave,
+        direction: InstructionalGradientDirections.shrink,
+        position: InstructionalNokhtePositions.top,
+      ),
+    );
+    nokhteBlur.reverse();
+    beachWaves.currentStore.setControl(Control.mirror);
+    hasInitiatedBlur = false;
+    primarySmartText.reset();
+    primarySmartText.startRotatingText();
+    setSmartTextPadding();
+  }
+
+  @action
   onGestureCrossTap() {
-    if (canTapOnGestureCross) {
+    if (readyToInteract) {
       if (!hasInitiatedBlur) {
         hasSwipedUp = false;
         nokhteBlur.init();
@@ -160,30 +184,13 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
         centerInstructionalNokhte.moveToCenter(center);
         setSmartTextPadding(bottomPadding: .14);
       } else if (hasInitiatedBlur) {
-        hasSwipedUp = false;
-        centerInstructionalNokhte.moveBackToCross(
-          startingPosition: CenterNokhtePositions.center,
-        );
-        primaryInstructionalGradientNokhte.initMovie(
-          InstructionalGradientMovieParams(
-            center: center,
-            colorway: GradientNokhteColorways.invertedBeachWave,
-            direction: InstructionalGradientDirections.shrink,
-            position: InstructionalNokhtePositions.top,
-          ),
-        );
-        nokhteBlur.reverse();
-        beachWaves.currentStore.setControl(Control.mirror);
-        hasInitiatedBlur = false;
-        primarySmartText.reset();
-        primarySmartText.startRotatingText();
-        setSmartTextPadding();
+        dismissInstructionalNokhte();
       }
     }
   }
 
   @computed
-  bool get canTapOnGestureCross =>
+  bool get readyToInteract =>
       !isEnteringNokhteSession &&
       !hasSwipedUp &&
       !isInErrorMode &&

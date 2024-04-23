@@ -26,7 +26,7 @@ abstract class _IrlNokhteSessionSpeakingWaitingCoordinatorBase
   constructor() async {
     widgets.constructor();
     initReactors();
-    await presence.updateCurrentPhase(2.0);
+    await updateCurrentPhase();
   }
 
   initReactors() {
@@ -56,6 +56,7 @@ abstract class _IrlNokhteSessionSpeakingWaitingCoordinatorBase
   onResumed() async {
     await presence
         .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
+    await presence.updateCurrentPhase(2.0);
     if (sessionMetadata.collaboratorIsOnline) {
       presence.incidentsOverlayStore.onCollaboratorJoined();
     }

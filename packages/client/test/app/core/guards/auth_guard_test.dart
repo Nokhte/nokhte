@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../../modules/authentication/fixtures/supabase_module_auth_fixture.dart';
+import '../../modules/login/fixtures/supabase_module_auth_fixture.dart';
 import 'package:nokhte/app/core/guards/auth_guard.dart';
 import './auth_guard_test.mocks.dart';
 

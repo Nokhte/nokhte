@@ -18,6 +18,7 @@ class SetNokhtePositionMovie {
                 begin: startingPoint.dx,
                 end: centerCoordinates.dx,
               ),
+              curve: Curves.easeInOutCubicEmphasized,
             )
             .tween(
               'nokhteY',
@@ -25,6 +26,7 @@ class SetNokhtePositionMovie {
                 begin: startingPoint.dy,
                 end: centerCoordinates.dy,
               ),
+              curve: Curves.easeInOutCubicEmphasized,
             )
             .tween(
               'blueX',
@@ -32,52 +34,15 @@ class SetNokhtePositionMovie {
                 begin: startingPoint.dx,
                 end: centerCoordinates.dx,
               ),
+              curve: Curves.easeInOutCubicEmphasized,
             )
             .tween(
               'blueY',
               Tween<double>(
                 begin: startingPoint.dy,
-                end: centerCoordinates.dy,
-              ),
-            )
-            .tween(
-              'circleRadii',
-              Tween<double>(
-                begin: 14.0,
-                end: 14.0,
-              ),
-            )
-        ..scene(
-          begin: Seconds.get(2),
-          end: Seconds.get(4),
-        )
-            .tween(
-              'nokhteX',
-              Tween<double>(
-                begin: centerCoordinates.dx,
-                end: centerCoordinates.dx,
-              ),
-            )
-            .tween(
-              'nokhteY',
-              Tween<double>(
-                begin: centerCoordinates.dy,
-                end: centerCoordinates.dy,
-              ),
-            )
-            .tween(
-              'blueX',
-              Tween<double>(
-                begin: centerCoordinates.dx,
-                end: centerCoordinates.dx,
-              ),
-            )
-            .tween(
-              'blueY',
-              Tween<double>(
-                begin: centerCoordinates.dy,
                 end: centerCoordinates.dy - 140.0,
               ),
+              curve: Curves.easeInOutCubicEmphasized,
             )
             .tween(
               'circleRadii',
@@ -85,5 +50,6 @@ class SetNokhtePositionMovie {
                 begin: 14.0,
                 end: 14.0,
               ),
+              curve: Curves.easeInOutCubicEmphasized,
             );
 }

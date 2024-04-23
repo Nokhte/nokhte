@@ -41,7 +41,8 @@ class FinishedNokhteSessionQueries {
     }
   }
 
-  Future<List> select() async => await supabase.from(TABLE).select();
+  Future<List> select() async =>
+      await supabase.from(TABLE).select().order('session_timestamp');
 
   Future<List> selectByCollaborationId(String collaboratorUID) async {
     final sortedCollaboratorUIDs = [userUID, collaboratorUID]..sort();

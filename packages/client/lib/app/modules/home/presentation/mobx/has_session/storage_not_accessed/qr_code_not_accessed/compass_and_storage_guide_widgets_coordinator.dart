@@ -116,7 +116,10 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
 
   @action
   onGestureCrossTap() {
-    if (!hasInitiatedBlur && !isEnteringNokhteSession && !isInErrorMode) {
+    if (!hasInitiatedBlur &&
+        !isEnteringNokhteSession &&
+        !isInErrorMode &&
+        !hasTappedOnGestureCross) {
       nokhteBlur.init();
       beachWaves.currentStore.setControl(Control.stop);
       toggleHasInitiatedBlur();

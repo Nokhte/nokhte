@@ -13,7 +13,7 @@ void main() {
 
   group("initial values", () {
     test("movie", () {
-      expect(testStore.movie.duration, Seconds.get(4));
+      expect(testStore.movie.duration, Seconds.get(2));
     });
 
     test("centerCoordinates", () {
@@ -39,9 +39,9 @@ void main() {
     test("reset", () {
       testStore.toggleWidgetVisibility();
       testStore.reset();
-      expect(testStore.movie.duration, Seconds.get(4));
+      expect(testStore.movie.duration, Seconds.get(02));
       expect(testStore.showWidget, false);
-      expect(testStore.control, Control.stop);
+      expect(testStore.control, Control.playFromStart);
     });
 
     test("initMoveUpAndApparateMovie", () {
