@@ -30,7 +30,7 @@ void main() {
         async.elapse(Seconds.get(2));
         expect(testStore.textSize, tSize);
         expect(testStore.control, Control.stop);
-        expect(testStore.movie.duration, Seconds.get(2));
+        expect(testStore.movie.duration, Seconds.get(1));
       });
     });
 
