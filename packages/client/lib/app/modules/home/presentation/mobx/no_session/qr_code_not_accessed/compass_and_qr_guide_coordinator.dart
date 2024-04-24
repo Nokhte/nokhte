@@ -43,9 +43,8 @@ abstract class _CompassAndQrGuideCoordinatorBase
     swipeCoordinatesReactor(onSwipeUpCordinatesChanged);
     widgets.beachWavesMovieStatusReactor(
         onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
-        onShoreToVibrantBlueComplete: onShoreToVibrantBlueComplete,
-        onVirginStorageEntry: () {},
-        onSubsequentStorageEntry: () {},
+        onShoreToDeepSeaComplete: onShoreToDeepSeaComplete,
+        onStorageEntry: () {},
         onAnyToShoreComplete: () {
           setDisableAllTouchFeedback(false);
         });

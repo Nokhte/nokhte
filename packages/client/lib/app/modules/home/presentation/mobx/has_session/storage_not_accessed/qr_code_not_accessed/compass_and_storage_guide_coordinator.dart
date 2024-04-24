@@ -53,9 +53,8 @@ abstract class _CompassAndStorageGuideCoordinatorBase
     );
     widgets.beachWavesMovieStatusReactor(
       onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
-      onShoreToVibrantBlueComplete: onShoreToVibrantBlueComplete,
-      onVirginStorageEntry: onVirginStorageEntry,
-      onSubsequentStorageEntry: onSubsequentStorageEntry,
+      onShoreToDeepSeaComplete: onShoreToDeepSeaComplete,
+      onStorageEntry: onSubsequentStorageEntry,
       onAnyToShoreComplete: () {
         setDisableAllTouchFeedback(false);
       },

@@ -55,9 +55,8 @@ abstract class _ShortQrGuideCoordinatorBase extends BaseHomeScreenCoordinator
     tapReactor();
     widgets.beachWavesMovieStatusReactor(
       onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
-      onShoreToVibrantBlueComplete: onShoreToVibrantBlueComplete,
-      onVirginStorageEntry: () {},
-      onSubsequentStorageEntry: onSubsequentStorageEntry,
+      onShoreToDeepSeaComplete: onShoreToDeepSeaComplete,
+      onStorageEntry: onSubsequentStorageEntry,
       onAnyToShoreComplete: () {
         setDisableAllTouchFeedback(false);
       },
