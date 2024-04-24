@@ -33,6 +33,7 @@ mixin PosthogPageNameConstants {
   static const String nokhteSeessionSpeakingScreen =
       '\$nokhte_seession_speaking_screen';
   static const String nokhteSessionExit = '\$nokhte_session_exit';
+  static const String nokhteSessionLobby = '\$nokhte_session_lobby';
 
   // Other Constants
   static const String loginScreen = '\$login_screen';
@@ -71,6 +72,8 @@ mixin PosthogPageNameConstants {
         return nokhteSeessionSpeakingScreen;
       case Screens.nokhteSessionExit:
         return nokhteSessionExit;
+      case Screens.nokhteSessionLobby:
+        return nokhteSessionLobby;
     }
   }
 }
