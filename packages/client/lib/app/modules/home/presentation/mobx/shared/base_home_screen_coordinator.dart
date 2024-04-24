@@ -82,8 +82,8 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
   }
 
   @action
-  onShoreToVibrantBlueComplete() => Modular.to.navigate(
-        '/collaboration/pool',
+  onShoreToDeepSeaComplete() => Modular.to.navigate(
+        '/irl_nokhte_session/',
         arguments: deepLinks.listenForOpenedDeepLinkStore.additionalMetadata,
       );
 
