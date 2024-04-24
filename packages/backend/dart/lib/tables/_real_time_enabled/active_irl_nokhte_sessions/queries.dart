@@ -65,6 +65,7 @@ class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
   Future<List> getContent() async => await _getProperty(CONTENT);
   Future<List> getHaveGyroscopes() async => await _getProperty(HAVE_GYROSCOPES);
   Future<String> getSessionUID() async => await _getProperty(SESSION_UID);
+  Future<String> getLeaderUID() async => await _getProperty(LEADER_UID);
 
   Future<List> updateOnlineStatus(
     bool isOnlineParam, {
@@ -78,6 +79,15 @@ class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
     return await _onCurrentActiveNokhteSession(supabase.from(TABLE).update({
       IS_ONLINE: currentOnlineStatus,
     }));
+  }
+
+  Future<List> startTheSession() async {
+    await computeCollaboratorInformation();
+    return await _onCurrentActiveNokhteSession(
+      supabase.from(TABLE).update({
+        HAS_BEGUN: true,
+      }),
+    );
   }
 
   Future<List> updateCurrentPhases(

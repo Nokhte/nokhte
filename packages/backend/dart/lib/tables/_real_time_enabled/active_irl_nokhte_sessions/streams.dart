@@ -45,6 +45,7 @@ class ActiveIrlNokhteSessionsStream extends ActiveIrlNokhteSessionQueries
         final phasesList = event.first[CURRENT_PHASES];
         final haveGyroscopesList = event.first[HAVE_GYROSCOPES];
         yield IrlNokhteSessionMetadata(
+          sessionHasBegun: event.first[HAS_BEGUN],
           userHasGyroscope: haveGyroscopesList[userIndex],
           collaboratorHasGyroscope: haveGyroscopesList[collaboratorIndex],
           userIsOnline: isOnlineList[userIndex],
