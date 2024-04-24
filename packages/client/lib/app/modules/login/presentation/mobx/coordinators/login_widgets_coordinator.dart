@@ -48,6 +48,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     smartTextStore.setMessagesData(MessagesData.loginList);
     smartTextStore.startRotatingText();
     initReactors(loginBusinessLogic);
+    setSmartTextSubMessagePaddingScalar(200);
   }
 
   @observable
