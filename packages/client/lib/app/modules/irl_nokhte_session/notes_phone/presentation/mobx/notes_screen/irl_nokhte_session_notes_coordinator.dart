@@ -5,7 +5,7 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
 import 'package:nokhte/app/core/modules/posthog/constants/screens.dart';
-import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
+import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'irl_nokhte_session_notes_widgets_coordinator.dart';
@@ -17,8 +17,8 @@ class IrlNokhteSessionNotesCoordinator = _IrlNokhteSessionNotesCoordinatorBase
 abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
     with Store {
   final IrlNokhteSessionNotesWidgetsCoordinator widgets;
-  final IrlNokhteSessionPresenceCoordinator presence;
-  final GetIrlNokhteSessionMetadataStore sessionMetadata;
+  final SessionPresenceCoordinator presence;
+  final GetSessionMetadataStore sessionMetadata;
   final SwipeDetector swipe;
   final TapDetector tap;
   final GyroscopicCoordinator gyroscopic;
