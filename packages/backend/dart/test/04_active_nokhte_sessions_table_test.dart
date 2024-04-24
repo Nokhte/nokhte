@@ -112,6 +112,7 @@ void main() {
           userIsOnline: false,
           collaboratorIsOnline: false,
           collaboratorPhase: 1.0,
+          sessionHasBegun: false,
           userPhase: 1.0,
           userHasGyroscope: false,
           collaboratorHasGyroscope: true,
