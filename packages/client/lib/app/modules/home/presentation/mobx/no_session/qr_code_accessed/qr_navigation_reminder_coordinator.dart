@@ -33,9 +33,8 @@ abstract class _QrNavigationReminderCoordinatorBase
   initReactors() {
     widgets.beachWavesMovieStatusReactor(
       onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
-      onShoreToVibrantBlueComplete: onShoreToVibrantBlueComplete,
-      onVirginStorageEntry: () {},
-      onSubsequentStorageEntry: () {},
+      onShoreToDeepSeaComplete: onShoreToDeepSeaComplete,
+      onStorageEntry: () {},
       onAnyToShoreComplete: () {
         setDisableAllTouchFeedback(false);
       },

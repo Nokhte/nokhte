@@ -7,7 +7,7 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/posthog/constants/screens.dart';
-import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
+import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
@@ -21,8 +21,8 @@ abstract class _IrlNokhteSessionExitCoordinatorBase
     extends BaseHomeScreenRouterCoordinator with Store {
   final IrlNokhteSessionExitWidgetsCoordinator widgets;
   final SwipeDetector swipe;
-  final IrlNokhteSessionPresenceCoordinator presence;
-  final GetIrlNokhteSessionMetadataStore sessionMetadata;
+    final SessionPresenceCoordinator presence;
+  final GetSessionMetadataStore sessionMetadata;
   final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
   final DecidePhoneRole decidePhoneRoleLogic;
 

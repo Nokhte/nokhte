@@ -9,7 +9,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/mobx/gyroscopic_coordinator.dart';
 import 'package:nokhte/app/core/modules/posthog/constants/constants.dart';
-import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
+import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/irl_nokhte_session/irl_nokhte_session.dart';
@@ -23,8 +23,8 @@ abstract class _IrlNokhteSessionGreeterCoordinatorBase extends BaseCoordinator
   final DecidePhoneRole decidePhoneRoleLogic;
   final IrlNokhteSessionGreeterWidgetsCoordinator widgets;
   final TapDetector tap;
-  final IrlNokhteSessionPresenceCoordinator presence;
-  final GetIrlNokhteSessionMetadataStore sessionMetadata;
+  final SessionPresenceCoordinator presence;
+  final GetSessionMetadataStore sessionMetadata;
   final GyroscopicCoordinator gyroscopic;
 
   _IrlNokhteSessionGreeterCoordinatorBase({
@@ -53,7 +53,6 @@ abstract class _IrlNokhteSessionGreeterCoordinatorBase extends BaseCoordinator
   @action
   constructor() async {
     widgets.constructor();
-    await presence.listen();
     initReactors();
     await captureScreen(Screens.nokhteSessionGreeter);
     await gyroscopic.checkIfDeviceHasGyroscope();

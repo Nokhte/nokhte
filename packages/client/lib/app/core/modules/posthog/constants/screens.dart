@@ -9,6 +9,7 @@ enum Screens {
   storageGuideHome,
   collaborationHome,
   collaboratorPool,
+  nokhteSessionLobby,
   nokhteSessionGreeter,
   nokhteSessionNotesInstructions,
   nokhteSessionNotes,

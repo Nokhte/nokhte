@@ -5,7 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
 import 'package:nokhte/app/core/modules/posthog/constants/constants.dart';
-import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
+import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'irl_nokhte_session_notes_instructions_widgets_coordinator.dart';
@@ -18,8 +18,8 @@ abstract class _IrlNokhteSessionNotesInstructionsCoordinatorBase
     extends BaseCoordinator with Store {
   final IrlNokhteSessionNotesInstructionsWidgetsCoordinator widgets;
   final TapDetector tap;
-  final IrlNokhteSessionPresenceCoordinator presence;
-  final GetIrlNokhteSessionMetadataStore sessionMetadata;
+  final SessionPresenceCoordinator presence;
+  final GetSessionMetadataStore sessionMetadata;
 
   _IrlNokhteSessionNotesInstructionsCoordinatorBase({
     required super.captureScreen,

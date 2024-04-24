@@ -8,7 +8,7 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
 import 'package:nokhte/app/core/modules/posthog/constants/constants.dart';
-import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
+import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'irl_nokhte_session_speaking_widgets_coordinator.dart';
@@ -22,9 +22,9 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
   final IrlNokhteSessionSpeakingWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final HoldDetector hold;
-  final IrlNokhteSessionPresenceCoordinator presence;
+  final SessionPresenceCoordinator presence;
+  final GetSessionMetadataStore sessionMetadata;
   final GyroscopicCoordinator gyroscopic;
-  final GetIrlNokhteSessionMetadataStore sessionMetadata;
   _IrlNokhteSessionSpeakingCoordinatorBase({
     required super.captureScreen,
     required this.widgets,

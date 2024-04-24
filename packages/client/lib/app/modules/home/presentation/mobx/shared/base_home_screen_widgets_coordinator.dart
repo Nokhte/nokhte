@@ -237,9 +237,8 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
 
   beachWavesMovieStatusReactor({
     required Function onShoreToOceanDiveComplete,
-    required Function onShoreToVibrantBlueComplete,
-    required Function onVirginStorageEntry,
-    required Function onSubsequentStorageEntry,
+    required Function onShoreToDeepSeaComplete,
+    required Function onStorageEntry,
     required Function onAnyToShoreComplete,
   }) =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
@@ -248,24 +247,20 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
             onShoreToOceanDiveComplete();
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.onShoreToVibrantBlue) {
-            if (isEnteringNokhteSession) {
-              if (!isInErrorMode) {
-                onShoreToVibrantBlueComplete();
-              }
-            } else {
-              onSubsequentStorageEntry();
-            }
+            onStorageEntry();
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.resumeOnShore) {
             beachWaves.setMovieMode(BeachWaveMovieModes.onShore);
-          } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.onShoreToDrySand) {
-            onVirginStorageEntry();
           } else if (beachWaves.movieMode == BeachWaveMovieModes.anyToOnShore) {
             beachWaves.setMovieMode(BeachWaveMovieModes.resumeOnShore);
             beachWaves.currentStore.initMovie(ResumeOnShoreParams.initial());
             onAnyToShoreComplete();
             setIsInErrorMode(false);
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.onShoreToDeepSea) {
+            if (!isInErrorMode) {
+              onShoreToDeepSeaComplete();
+            }
           }
         }
       });
@@ -279,7 +274,7 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     isEnteringNokhteSession = true;
     primarySmartText.toggleWidgetVisibility();
     touchIsDisabled = true;
-    beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToVibrantBlue);
+    beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToDeepSea);
     beachWaves.currentStore.initMovie(
       beachWaves.currentAnimationValues.first,
     );
