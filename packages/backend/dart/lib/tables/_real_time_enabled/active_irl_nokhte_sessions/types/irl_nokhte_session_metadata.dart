@@ -7,6 +7,7 @@ class IrlNokhteSessionMetadata extends Equatable {
   final double userPhase;
   final bool collaboratorHasGyroscope;
   final bool userHasGyroscope;
+  final bool sessionHasBegun;
 
   IrlNokhteSessionMetadata({
     required this.userIsOnline,
@@ -15,6 +16,7 @@ class IrlNokhteSessionMetadata extends Equatable {
     required this.userPhase,
     required this.collaboratorHasGyroscope,
     required this.userHasGyroscope,
+    required this.sessionHasBegun,
   });
 
   factory IrlNokhteSessionMetadata.initial({
@@ -26,8 +28,10 @@ class IrlNokhteSessionMetadata extends Equatable {
     bool userIsTalkingParam = false,
     bool collaboratorHasGyroscopeParam = false,
     bool userHasGyroscopeParam = false,
+    bool sessionHasBegunParam = false,
   }) =>
       IrlNokhteSessionMetadata(
+        sessionHasBegun: sessionHasBegunParam,
         userIsOnline: userIsOnlineParam,
         collaboratorIsOnline: collaboratorIsOnlineParam,
         userPhase: userPhaseParam,
@@ -42,6 +46,7 @@ class IrlNokhteSessionMetadata extends Equatable {
         collaboratorIsOnline,
         userPhase,
         collaboratorPhase,
+        sessionHasBegun,
         collaboratorHasGyroscope,
         userHasGyroscope,
       ];

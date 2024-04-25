@@ -5,7 +5,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
 import 'package:nokhte/app/core/modules/posthog/constants/constants.dart';
-import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
+import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'irl_nokhte_session_speaking_instructions_widgets_coordinator.dart';
@@ -19,8 +19,8 @@ abstract class _IrlNokhteSessionSpeakingInstructionsCoordinatorBase
   final TapDetector tap;
   final HoldDetector hold;
   final IrlNokhteSessionSpeakingInstructionsWidgetsCoordinator widgets;
-  final IrlNokhteSessionPresenceCoordinator presence;
-  final GetIrlNokhteSessionMetadataStore sessionMetadata;
+  final SessionPresenceCoordinator presence;
+  final GetSessionMetadataStore sessionMetadata;
   final GyroscopicCoordinator gyroscopic;
 
   _IrlNokhteSessionSpeakingInstructionsCoordinatorBase({

@@ -35,6 +35,28 @@ class WaterColorsAndStops {
     ColorAndStop(Color(0xFF51A18D), 1.00),
   ];
 
+  static const List<ColorAndStop> deepSeaWater = [
+    ColorAndStop(Color(0xFF23E5FF), 0),
+    ColorAndStop(Color(0xFF00C8FF), .15),
+    ColorAndStop(Color(0xFF03B1E8), .25),
+    ColorAndStop(Color(0xFF088DC4), .43),
+    ColorAndStop(Color(0xFF0C6CA3), .62),
+    ColorAndStop(Color(0xFF11467E), .83),
+    ColorAndStop(Color(0xFF0F326E), .91),
+    ColorAndStop(Color(0xFF0D1F5F), 1.00),
+  ];
+
+  static const List<ColorAndStop> invertedDeepSeaWater = [
+    ColorAndStop(Color(0xFF0D1F5F), 0),
+    ColorAndStop(Color(0xFF0F326E), .15),
+    ColorAndStop(Color(0xFF11467E), .25),
+    ColorAndStop(Color(0xFF0C6CA3), .43),
+    ColorAndStop(Color(0xFF088DC4), .62),
+    ColorAndStop(Color(0xFF03B1E8), .83),
+    ColorAndStop(Color(0xFF00C8FF), .91),
+    ColorAndStop(Color(0xFF23E5FF), 1.00),
+  ];
+
   static const List<ColorAndStop> invertedOceanDiveWater = [
     ColorAndStop(Color(0xFF51A18D), 0),
     ColorAndStop(Color(0xFF499384), .1562),

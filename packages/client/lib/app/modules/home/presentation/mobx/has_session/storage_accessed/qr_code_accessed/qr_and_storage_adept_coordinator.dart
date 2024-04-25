@@ -49,12 +49,11 @@ abstract class _QrAndStorageAdeptCoordinatorBase
     );
     widgets.beachWavesMovieStatusReactor(
       onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
-      onShoreToVibrantBlueComplete: onShoreToVibrantBlueComplete,
-      onVirginStorageEntry: () {},
+      onShoreToDeepSeaComplete: onShoreToDeepSeaComplete,
       onAnyToShoreComplete: () {
         setDisableAllTouchFeedback(false);
       },
-      onSubsequentStorageEntry: onSubsequentStorageEntry,
+      onStorageEntry: onSubsequentStorageEntry,
     );
     swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged);
     tapReactor();

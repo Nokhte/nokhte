@@ -7,7 +7,6 @@ class MessagesData {
           initialFadeInDelay: Seconds.get(1),
           mainMessage: "Howdy",
           onScreenTime: Seconds.get(2),
-          mainMessageFontSize: 23.0,
         ),
         RotatingTextData(
           mainMessage:
@@ -15,8 +14,6 @@ class MessagesData {
           subMessage: "Tap anywhere to confirm",
           pauseHere: true,
           unlockGesture: Gestures.tap,
-          mainMessageFontSize: 19.0,
-          subMessageFontSize: 17.0,
         ),
         RotatingTextData(
           mainMessage: "",
@@ -320,6 +317,29 @@ class MessagesData {
         RotatingTextData(
           mainMessage: "",
           onScreenTime: Seconds.get(0),
+        ),
+      ];
+
+  static List<RotatingTextData> get irlNokhteSessionLeaderLobbyList => [
+        RotatingTextData(
+          mainMessage: "Tap to begin",
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
+      ];
+
+  static List<RotatingTextData> get irlNokhteSessionFollowerLobbyList => [
+        RotatingTextData(
+          mainMessage: "Wait for the session to start",
+          mainMessageFontSize: 23.0,
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
         ),
       ];
 

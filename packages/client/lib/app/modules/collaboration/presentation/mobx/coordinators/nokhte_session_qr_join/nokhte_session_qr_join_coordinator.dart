@@ -59,7 +59,7 @@ abstract class _NokhteSessionQrJoinCoordinatorBase
     widgets.constructor(center);
     widgets.initReactors();
     initReactors();
-    await deepLinks.getDeepLink(DeepLinkTypes.nokhteSession);
+    await deepLinks.getDeepLink(DeepLinkTypes.nokhteSessionLeader);
     await userInformation.getUserInfoStore(NoParams());
     await logic.enter(
       EnterCollaboratorPoolParams(

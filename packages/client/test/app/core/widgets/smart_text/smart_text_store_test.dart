@@ -86,7 +86,7 @@ void main() {
       expect(testStore.currentShouldPauseHere, false);
     });
     test("currentMainTextFontSize", () {
-      expect(testStore.currentMainTextFontSize, 23.0);
+      expect(testStore.currentMainTextFontSize, 25.0);
     });
     test("currentSubTextFontSize", () {
       expect(testStore.currentSubTextFontSize, 15.0);

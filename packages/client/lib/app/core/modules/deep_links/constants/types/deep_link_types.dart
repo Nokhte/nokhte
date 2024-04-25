@@ -1,5 +1,6 @@
 enum DeepLinkTypes {
   none,
   collaboratorInvitation,
-  nokhteSession,
+  nokhteSessionLeader,
+  nokhteSessionBearer,
 }

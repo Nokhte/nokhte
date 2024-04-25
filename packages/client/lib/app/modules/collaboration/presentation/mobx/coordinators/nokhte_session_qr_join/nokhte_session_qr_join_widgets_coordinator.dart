@@ -87,7 +87,6 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
         endingColors: WaterColorsAndStops.invertedBeachWater,
       ),
     );
-
     initReactors();
   }
 
@@ -180,8 +179,10 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
             secondaryBeachWaves.currentStore.callsOnCompleteTwice = false;
             secondaryBeachWaves.currentStore.reverseMovie(0);
           } else if (primaryBeachWaves.movieMode ==
-              BeachWaveMovieModes.invertedOnShoreToInvertedVibrantBlueGrad) {
-            Modular.to.navigate("/irl_nokhte_session/");
+              BeachWaveMovieModes.invertedOnShoreToInvertedDeepSea) {
+            Modular.to.navigate("/irl_nokhte_session/", arguments: {
+              "qrCodeData": qrCode.qrCodeData,
+            });
           }
         }
       });
@@ -191,11 +192,10 @@ abstract class _NokhteSessionQrJoinWidgetsCoordinatorBase
     isEnteringNokhteSession = true;
     shouldDisableTouchRipple = true;
     hasSwipedDown = true;
-    primaryBeachWaves.setMovieMode(
-        BeachWaveMovieModes.invertedOnShoreToInvertedVibrantBlueGrad);
+    primaryBeachWaves
+        .setMovieMode(BeachWaveMovieModes.invertedOnShoreToInvertedDeepSea);
     primaryBeachWaves.currentStore
         .initMovie(primaryBeachWaves.currentAnimationValues.first);
-    qrCode.setWidgetVisibility(false);
     smartText.setWidgetVisibility(false);
     gestureCross.fadeAllOut();
     centerInstructionalNokhte.setWidgetVisibility(false);

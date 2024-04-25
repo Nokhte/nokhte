@@ -2,7 +2,7 @@
 import 'dart:async';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
-import 'package:nokhte/app/core/modules/presence_modules/presence_modules.dart';
+import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'irl_nokhte_session_speaking_waiting_widgets_coordinator.dart';
 part 'irl_nokhte_session_speaking_waiting_coordinator.g.dart';
@@ -13,8 +13,8 @@ class IrlNokhteSessionSpeakingWaitingCoordinator = _IrlNokhteSessionSpeakingWait
 abstract class _IrlNokhteSessionSpeakingWaitingCoordinatorBase
     extends BaseCoordinator with Store {
   final IrlNokhteSessionSpeakingWaitingWidgetsCoordinator widgets;
-  final IrlNokhteSessionPresenceCoordinator presence;
-  final GetIrlNokhteSessionMetadataStore sessionMetadata;
+  final SessionPresenceCoordinator presence;
+  final GetSessionMetadataStore sessionMetadata;
 
   _IrlNokhteSessionSpeakingWaitingCoordinatorBase({
     required super.captureScreen,
