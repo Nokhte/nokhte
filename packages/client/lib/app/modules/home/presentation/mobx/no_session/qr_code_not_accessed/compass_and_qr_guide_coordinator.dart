@@ -14,7 +14,7 @@ abstract class _CompassAndQrGuideCoordinatorBase
   final UserInformationCoordinator userInformation;
   final CompassAndQrGuideWidgetsCoordinator widgets;
   _CompassAndQrGuideCoordinatorBase({
-    required super.collaborationLogic,
+    required super.sessionStarters,
     required super.swipe,
     required this.widgets,
     required super.deepLinks,

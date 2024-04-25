@@ -21,5 +21,4 @@ export "text_editor/text_editor.dart";
 export './tint/tint.dart';
 export 'touch_ripple/touch_ripple.dart';
 export 'trailing_text/trailing_text.dart';
-export "waiting_text/waiting_text.dart";
 export 'wifi_disconnect_overlay/wifi_disconnect_overlay.dart';

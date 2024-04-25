@@ -7,8 +7,8 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/collaboration/domain/logic/logic.dart';
-import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
+import 'package:nokhte/app/modules/session_starters/domain/logic/logic.dart';
+import 'package:nokhte/app/modules/session_starters/presentation/presentation.dart';
 import 'package:nokhte_backend/edge_functions/edge_functions.dart';
 
 import 'base_home_screen_widgets_coordinator.dart';
@@ -21,12 +21,12 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
     with Store {
   final BaseHomeScreenWidgetsCoordinator widgets;
   final SwipeDetector swipe;
-  final CollaborationLogicCoordinator collaborationLogic;
+  final SessionStartersLogicCoordinator sessionStarters;
   final DeepLinksCoordinator deepLinks;
   final TapDetector tap;
 
   _BaseHomeScreenCoordinatorBase({
-    required this.collaborationLogic,
+    required this.sessionStarters,
     required this.swipe,
     required this.tap,
     required this.widgets,
@@ -73,7 +73,7 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
     Timer.periodic(Seconds.get(0, milli: 100), (timer) {
       if (widgets.touchRipple.movieStatus == MovieStatus.finished) {
         Modular.to.navigate(
-          '/collaboration/',
+          '/session_starters/',
           arguments: deepLinks.listenForOpenedDeepLinkStore.additionalMetadata,
         );
         timer.cancel();
@@ -118,13 +118,13 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
       });
 
   collaboratorPoolEntryErrorReactor() =>
-      reaction((p0) => collaborationLogic.errorMessage, (p0) async {
+      reaction((p0) => sessionStarters.errorMessage, (p0) async {
         if (p0.isNotEmpty) {
           setDisableAllTouchFeedback(true);
           setIsInErrorMode(true);
           widgets.onError(p0);
           deepLinks.reset();
-          collaborationLogic.resetErrorMessage();
+          sessionStarters.resetErrorMessage();
         }
       });
 
@@ -142,7 +142,7 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
                 setDisableAllTouchFeedback(true);
                 final additionalMetadata =
                     deepLinks.listenForOpenedDeepLinkStore.additionalMetadata;
-                await collaborationLogic.enter(EnterCollaboratorPoolParams(
+                await sessionStarters.enter(EnterCollaboratorPoolParams(
                   collaboratorUID: additionalMetadata["deepLinkUID"],
                   invitationType: InvitationType.nokhteSession,
                 ));
@@ -153,14 +153,14 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
                 setDisableAllTouchFeedback(true);
                 final additionalMetadata =
                     deepLinks.listenForOpenedDeepLinkStore.additionalMetadata;
-                await collaborationLogic.enter(EnterCollaboratorPoolParams(
+                await sessionStarters.enter(EnterCollaboratorPoolParams(
                   collaboratorUID: additionalMetadata["deepLinkUID"],
                   invitationType: InvitationType.nokhteSession,
                 ));
                 widgets.errorSmartText.setWidgetVisibility(false);
                 widgets.secondaryErrorSmartText.setWidgetVisibility(false);
-                Timer(Seconds.get(1), () {
-                  Modular.to.navigate('/collaboration/pool');
+                Timer(Seconds.get(2), () {
+                  Modular.to.navigate('/irl_nokhte_session/', arguments: {});
                 });
               }
             }

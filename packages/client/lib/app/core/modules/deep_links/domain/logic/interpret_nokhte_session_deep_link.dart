@@ -9,7 +9,7 @@ class InterpretNokhteSessionDeepLink
   @override
   call(params) {
     return InterpretedDeepLinkEntity(
-      path: '/collaboration/',
+      path: '/session_starters/',
       additionalMetadata: {
         "isTheUsersInvitation": params.isTheUsersInvitation,
         "deepLinkUID": params.deepLinkUID,

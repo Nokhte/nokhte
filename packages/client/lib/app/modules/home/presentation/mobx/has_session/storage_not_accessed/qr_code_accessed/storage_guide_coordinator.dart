@@ -18,7 +18,7 @@ abstract class _StorageGuideCoordinatorBase extends BaseHomeScreenCoordinator
   final UserInformationCoordinator userInformation;
 
   _StorageGuideCoordinatorBase({
-    required super.collaborationLogic,
+    required super.sessionStarters,
     required super.swipe,
     required super.deepLinks,
     required this.widgets,

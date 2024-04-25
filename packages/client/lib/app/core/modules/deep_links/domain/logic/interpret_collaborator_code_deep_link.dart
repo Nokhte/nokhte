@@ -13,7 +13,7 @@ class InterpretCollaboratorCodeDeepLink
         return const InterpretedDeepLinkEntity();
       } else {
         return InterpretedDeepLinkEntity(
-            path: "/collaboration/",
+            path: "/session_starters/",
             additionalMetadata: {
               "hasSentAnInvitation": params.hasSentAnInvitation,
               "collaboratorUID": params.collaboratorUID,

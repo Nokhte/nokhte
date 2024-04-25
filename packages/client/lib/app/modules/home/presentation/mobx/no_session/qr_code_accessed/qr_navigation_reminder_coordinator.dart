@@ -13,7 +13,7 @@ abstract class _QrNavigationReminderCoordinatorBase
     extends BaseHomeScreenCoordinator with Store {
   final QrNavigationReminderWidgetsCoordinator widgets;
   _QrNavigationReminderCoordinatorBase({
-    required super.collaborationLogic,
+    required super.sessionStarters,
     required super.swipe,
     required this.widgets,
     required super.deepLinks,

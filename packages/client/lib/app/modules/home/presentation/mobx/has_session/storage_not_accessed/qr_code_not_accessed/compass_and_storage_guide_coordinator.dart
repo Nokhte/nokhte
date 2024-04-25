@@ -19,7 +19,7 @@ abstract class _CompassAndStorageGuideCoordinatorBase
   final UserInformationCoordinator userInformation;
 
   _CompassAndStorageGuideCoordinatorBase({
-    required super.collaborationLogic,
+    required super.sessionStarters,
     required super.swipe,
     required super.deepLinks,
     required this.widgets,

@@ -18,7 +18,7 @@ abstract class _QrAndStorageAdeptCoordinatorBase
   final GetNokhteSessionArtifacts getNokhteSessionArtifactsLogic;
 
   _QrAndStorageAdeptCoordinatorBase({
-    required super.collaborationLogic,
+    required super.sessionStarters,
     required super.swipe,
     required super.deepLinks,
     required this.widgets,

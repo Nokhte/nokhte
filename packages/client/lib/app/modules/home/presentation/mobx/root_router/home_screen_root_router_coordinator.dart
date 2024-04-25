@@ -5,7 +5,7 @@ import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/mobx/mo
 import 'package:nokhte/app/core/modules/posthog/constants/screens.dart';
 import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
+import 'package:nokhte/app/modules/session_starters/presentation/presentation.dart';
 import 'package:nokhte/app/modules/home/presentation/presentation.dart';
 part 'home_screen_root_router_coordinator.g.dart';
 
@@ -16,7 +16,7 @@ abstract class _HomeScreenRootRouterCoordinatorBase
     extends BaseHomeScreenRouterCoordinator with Store {
   final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
   final HomeScreenRootRouterWidgetsCoordinator widgets;
-  final CollaborationLogicCoordinator collaborationLogic;
+  final SessionStartersLogicCoordinator sessionStarters;
   final IdentifyUser identifyUser;
 
   @observable
@@ -28,7 +28,7 @@ abstract class _HomeScreenRootRouterCoordinatorBase
   _HomeScreenRootRouterCoordinatorBase({
     required this.cleanUpCollaborationArtifacts,
     required super.getUserInfo,
-    required this.collaborationLogic,
+    required this.sessionStarters,
     required this.widgets,
     required this.identifyUser,
     required super.captureScreen,

@@ -9,8 +9,8 @@ import 'package:nokhte/app/core/modules/posthog/posthog_module.dart';
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information_module.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/collaboration/collaboration_logic_module.dart';
-import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
+import 'package:nokhte/app/modules/session_starters/session_starters_logic.dart';
+import 'package:nokhte/app/modules/session_starters/presentation/presentation.dart';
 import 'package:nokhte/app/modules/home/presentation/presentation.dart';
 import 'package:nokhte/app/modules/storage/domain/domain.dart';
 import 'package:nokhte/app/modules/storage/storage_logic_module.dart';
@@ -20,7 +20,7 @@ class HomeModule extends Module {
   @override
   List<Module> get imports => [
         HomeWidgetsModule(),
-        CollaborationLogicModule(),
+        SessionStartersLogicModule(),
         CleanUpCollaborationArtifactsModule(),
         UserInformationModule(),
         DeepLinksModule(),
@@ -37,7 +37,7 @@ class HomeModule extends Module {
         cleanUpCollaborationArtifacts:
             Modular.get<CleanUpCollaborationArtifactsCoordinator>(),
         getUserInfo: Modular.get<GetUserInfoStore>(),
-        collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
+        sessionStarters: Modular.get<SessionStartersLogicCoordinator>(),
         widgets: Modular.get<HomeScreenRootRouterWidgetsCoordinator>(),
       ),
     );
@@ -45,7 +45,7 @@ class HomeModule extends Module {
       () => CompassAndQrGuideCoordinator(
         userInformation: Modular.get<UserInformationCoordinator>(),
         tap: TapDetector(),
-        collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
+        sessionStarters: Modular.get<SessionStartersLogicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         swipe: SwipeDetector(),
         widgets: Modular.get<CompassAndQrGuideWidgetsCoordinator>(),
@@ -56,7 +56,7 @@ class HomeModule extends Module {
       () => QrNavigationReminderCoordinator(
         tap: TapDetector(),
         captureScreen: Modular.get<CaptureScreen>(),
-        collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
+        sessionStarters: Modular.get<SessionStartersLogicCoordinator>(),
         swipe: SwipeDetector(),
         widgets: Modular.get<QrNavigationReminderWidgetsCoordinator>(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
@@ -67,7 +67,7 @@ class HomeModule extends Module {
         tap: TapDetector(),
         getNokhteSessionArtifactsLogic:
             Modular.get<GetNokhteSessionArtifacts>(),
-        collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
+        sessionStarters: Modular.get<SessionStartersLogicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         swipe: SwipeDetector(),
         widgets: Modular.get<StorageGuideWidgetsCoordinator>(),
@@ -80,7 +80,7 @@ class HomeModule extends Module {
         tap: TapDetector(),
         getNokhteSessionArtifactsLogic:
             Modular.get<GetNokhteSessionArtifacts>(),
-        collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
+        sessionStarters: Modular.get<SessionStartersLogicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         swipe: SwipeDetector(),
         widgets: Modular.get<CompassAndStorageGuideWidgetsCoordinator>(),
@@ -93,7 +93,7 @@ class HomeModule extends Module {
         getNokhteSessionArtifactsLogic:
             Modular.get<GetNokhteSessionArtifacts>(),
         tap: TapDetector(),
-        collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
+        sessionStarters: Modular.get<SessionStartersLogicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         swipe: SwipeDetector(),
         widgets: Modular.get<ShortQrGuideWidgetsCoordinator>(),
@@ -105,7 +105,7 @@ class HomeModule extends Module {
         tap: TapDetector(),
         getNokhteSessionArtifactsLogic:
             Modular.get<GetNokhteSessionArtifacts>(),
-        collaborationLogic: Modular.get<CollaborationLogicCoordinator>(),
+        sessionStarters: Modular.get<SessionStartersLogicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         swipe: SwipeDetector(),
         widgets: Modular.get<QrAndStorageAdeptWidgetsCoordinator>(),
