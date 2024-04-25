@@ -120,6 +120,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
         (p0) => onGestureCrossTap(),
       );
 
+  @action
   onTap(Offset offset) {
     if (canTap) {
       canTap = false;
