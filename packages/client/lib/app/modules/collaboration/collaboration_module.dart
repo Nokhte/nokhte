@@ -55,12 +55,5 @@ class CollaborationModule extends Module {
         coordinator: Modular.get<NokhteSessionQrJoinCoordinator>(),
       ),
     );
-    r.child(
-      '/pool',
-      transition: TransitionType.noTransition,
-      child: (context) => CollaboratorPoolScreen(
-        coordinator: Modular.get<CollaboratorPoolScreenCoordinator>(),
-      ),
-    );
   }
 }
