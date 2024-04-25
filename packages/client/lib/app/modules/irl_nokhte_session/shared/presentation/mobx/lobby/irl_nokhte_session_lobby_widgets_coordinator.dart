@@ -36,7 +36,7 @@ abstract class _IrlNokhteSessionLobbyWidgetsCoordinatorBase
     beachWaves.setMovieMode(
       BeachWaveMovieModes.deepSeaToVibrantBlueGrad,
     );
-    if (Modular.args.data["qrCodeData"] != null) {
+    if (isTheLeader) {
       qrCode.setQrCodeData(Modular.args.data["qrCodeData"]);
       primarySmartText.setMessagesData(
         MessagesData.irlNokhteSessionLeaderLobbyList,
