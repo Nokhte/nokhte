@@ -52,10 +52,9 @@ abstract class _IrlNokhteSessionGroupGreeterCoordinatorBase
 
   @action
   constructor() async {
-    print("group greeter!!!");
     widgets.constructor();
     initReactors();
-    await captureScreen(Screens.nokhteSessionGreeter);
+    await captureScreen(Screens.nokhteSessionGroupGreeter);
     await gyroscopic.checkIfDeviceHasGyroscope();
     await decidePhoneRole();
   }

@@ -52,10 +52,9 @@ abstract class _IrlNokhteSessionDuoGreeterCoordinatorBase
 
   @action
   constructor() async {
-    print("duo greeter!!!");
     widgets.constructor();
     initReactors();
-    await captureScreen(Screens.nokhteSessionGreeter);
+    await captureScreen(Screens.nokhteSessionDuoGreeter);
     await gyroscopic.checkIfDeviceHasGyroscope();
     await decidePhoneRole();
   }

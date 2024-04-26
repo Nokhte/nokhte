@@ -49,7 +49,7 @@ abstract class _IrlNokhteSessionExitCoordinatorBase
     initReactors();
     await decidePhoneRole();
     await presence.updateCurrentPhase(4.0);
-    await captureScreen(Screens.nokhteSessionGreeter);
+    await captureScreen(Screens.nokhteSessionExit);
   }
 
   @observable
