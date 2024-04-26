@@ -4,11 +4,11 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/irl_nokhte_session/shared/presentation/presentation.dart';
+import 'package:nokhte/app/modules/irl_nokhte_session/irl_nokhte_session.dart';
 
-class IrlNokhteSessionGreeterScreen extends HookWidget {
-  final IrlNokhteSessionGreeterCoordinator coordinator;
-  const IrlNokhteSessionGreeterScreen({
+class IrlNokhteSessionDuoGreeterScreen extends HookWidget {
+  final IrlNokhteSessionDuoGreeterCoordinator coordinator;
+  const IrlNokhteSessionDuoGreeterScreen({
     super.key,
     required this.coordinator,
   });

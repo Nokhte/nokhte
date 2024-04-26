@@ -49,7 +49,6 @@ abstract class _IrlNokhteSessionLobbyWidgetsCoordinatorBase
       qrCode.setWidgetVisibility(false);
     }
     constructorHasBeenCalled = true;
-    beachWavesMovieStatusReactor();
   }
 
   @action
@@ -110,12 +109,12 @@ abstract class _IrlNokhteSessionLobbyWidgetsCoordinatorBase
     primarySmartText.setWidgetVisibility(false);
   }
 
-  beachWavesMovieStatusReactor() =>
+  beachWavesMovieStatusReactor(Function onCompleted) =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == beachWaves.movieStatus &&
             beachWaves.movieMode ==
                 BeachWaveMovieModes.deepSeaToVibrantBlueGrad) {
-          Modular.to.navigate("/irl_nokhte_session/greeter");
+          onCompleted();
         }
       });
 

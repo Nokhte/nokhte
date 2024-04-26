@@ -119,4 +119,7 @@ abstract class _GetSessionMetadataStoreBase
   @computed
   bool get canMoveIntoSecondInstructionsSet =>
       evenList.every((e) => e == 2) && oddList.every((e) => e == 1);
+
+  @computed
+  int get numberOfCollaborators => currentPhases.length;
 }

@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/deep_links/constants/constants.dart';
 import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
@@ -65,10 +66,8 @@ abstract class _IrlNokhteSessionLobbyCoordinatorBase extends BaseCoordinator
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
-        // widgets.onResumed();
       },
       onDisconnected: () {
-        // widgets.onInactive();
         setDisableAllTouchFeedback(true);
       },
     );
@@ -86,7 +85,7 @@ abstract class _IrlNokhteSessionLobbyCoordinatorBase extends BaseCoordinator
       tapReactor();
     }
     sessionStartReactor();
-    // rippleCompletionStatusReactor();
+    widgets.beachWavesMovieStatusReactor(enterGreeter);
   }
 
   deepLinkReactor() => reaction(
@@ -110,6 +109,14 @@ abstract class _IrlNokhteSessionLobbyCoordinatorBase extends BaseCoordinator
           widgets.enterSession();
         }
       });
+
+  @action
+  enterGreeter() => Modular.to.navigate(route);
+
+  @computed
+  String get route => sessionMetadata.numberOfCollaborators.isGreaterThan(2)
+      ? '/irl_nokhte_session/group_greeter'
+      : '/irl_nokhte_session/duo_greeter';
 
   @computed
   bool get isTheLeader => Modular.args.data["qrCodeData"] != null;

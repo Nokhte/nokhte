@@ -41,13 +41,23 @@ class IrlNokhteSessionModule extends Module {
         widgets: Modular.get<IrlNokhteSessionLobbyWidgetsCoordinator>(),
       ),
     );
-    i.add<IrlNokhteSessionGreeterCoordinator>(
-      () => IrlNokhteSessionGreeterCoordinator(
+    i.add<IrlNokhteSessionDuoGreeterCoordinator>(
+      () => IrlNokhteSessionDuoGreeterCoordinator(
         decidePhoneRoleLogic: Modular.get<DecidePhoneRole>(),
         gyroscopic: Modular.get<GyroscopicCoordinator>(),
         presence: Modular.get<SessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
-        widgets: Modular.get<IrlNokhteSessionGreeterWidgetsCoordinator>(),
+        widgets: Modular.get<IrlNokhteSessionDuoGreeterWidgetsCoordinator>(),
+        tap: TapDetector(),
+      ),
+    );
+    i.add<IrlNokhteSessionGroupGreeterCoordinator>(
+      () => IrlNokhteSessionGroupGreeterCoordinator(
+        decidePhoneRoleLogic: Modular.get<DecidePhoneRole>(),
+        gyroscopic: Modular.get<GyroscopicCoordinator>(),
+        presence: Modular.get<SessionPresenceCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        widgets: Modular.get<IrlNokhteSessionGroupGreeterWidgetsCoordinator>(),
         tap: TapDetector(),
       ),
     );
@@ -132,9 +142,16 @@ class IrlNokhteSessionModule extends Module {
     );
     r.child(
       transition: TransitionType.noTransition,
-      '/greeter',
-      child: (context) => IrlNokhteSessionGreeterScreen(
-        coordinator: Modular.get<IrlNokhteSessionGreeterCoordinator>(),
+      '/group_greeter',
+      child: (context) => IrlNokhteSessionGroupGreeterScreen(
+        coordinator: Modular.get<IrlNokhteSessionGroupGreeterCoordinator>(),
+      ),
+    );
+    r.child(
+      transition: TransitionType.noTransition,
+      '/duo_greeter',
+      child: (context) => IrlNokhteSessionDuoGreeterScreen(
+        coordinator: Modular.get<IrlNokhteSessionDuoGreeterCoordinator>(),
       ),
     );
     r.child(

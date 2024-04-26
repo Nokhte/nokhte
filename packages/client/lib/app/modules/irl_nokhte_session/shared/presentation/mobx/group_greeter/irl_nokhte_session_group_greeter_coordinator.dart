@@ -13,21 +13,21 @@ import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/irl_nokhte_session/irl_nokhte_session.dart';
-part 'irl_nokhte_session_greeter_coordinator.g.dart';
+part 'irl_nokhte_session_group_greeter_coordinator.g.dart';
 
-class IrlNokhteSessionGreeterCoordinator = _IrlNokhteSessionGreeterCoordinatorBase
-    with _$IrlNokhteSessionGreeterCoordinator;
+class IrlNokhteSessionGroupGreeterCoordinator = _IrlNokhteSessionGroupGreeterCoordinatorBase
+    with _$IrlNokhteSessionGroupGreeterCoordinator;
 
-abstract class _IrlNokhteSessionGreeterCoordinatorBase extends BaseCoordinator
-    with Store {
+abstract class _IrlNokhteSessionGroupGreeterCoordinatorBase
+    extends BaseCoordinator with Store {
   final DecidePhoneRole decidePhoneRoleLogic;
-  final IrlNokhteSessionGreeterWidgetsCoordinator widgets;
+  final IrlNokhteSessionGroupGreeterWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
   final GetSessionMetadataStore sessionMetadata;
   final GyroscopicCoordinator gyroscopic;
 
-  _IrlNokhteSessionGreeterCoordinatorBase({
+  _IrlNokhteSessionGroupGreeterCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
     required this.decidePhoneRoleLogic,
@@ -52,6 +52,7 @@ abstract class _IrlNokhteSessionGreeterCoordinatorBase extends BaseCoordinator
 
   @action
   constructor() async {
+    print("group greeter!!!");
     widgets.constructor();
     initReactors();
     await captureScreen(Screens.nokhteSessionGreeter);

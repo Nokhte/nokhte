@@ -5,19 +5,19 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-part 'irl_nokhte_session_greeter_widgets_coordinator.g.dart';
+part 'irl_nokhte_session_duo_greeter_widgets_coordinator.g.dart';
 
-class IrlNokhteSessionGreeterWidgetsCoordinator = _IrlNokhteSessionGreeterWidgetsCoordinatorBase
-    with _$IrlNokhteSessionGreeterWidgetsCoordinator;
+class IrlNokhteSessionDuoGreeterWidgetsCoordinator = _IrlNokhteSessionDuoGreeterWidgetsCoordinatorBase
+    with _$IrlNokhteSessionDuoGreeterWidgetsCoordinator;
 
-abstract class _IrlNokhteSessionGreeterWidgetsCoordinatorBase
+abstract class _IrlNokhteSessionDuoGreeterWidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final BeachWavesStore beachWaves;
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
   final TouchRippleStore touchRipple;
 
-  _IrlNokhteSessionGreeterWidgetsCoordinatorBase({
+  _IrlNokhteSessionDuoGreeterWidgetsCoordinatorBase({
     required this.beachWaves,
     required super.wifiDisconnectOverlay,
     required this.primarySmartText,

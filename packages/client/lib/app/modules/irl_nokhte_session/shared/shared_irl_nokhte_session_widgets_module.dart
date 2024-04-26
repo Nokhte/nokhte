@@ -19,8 +19,16 @@ class SharedIrlNokhteSessionWidgetsModule extends Module {
           wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
           beachWaves: BeachWavesStore()),
     );
-    i.add<IrlNokhteSessionGreeterWidgetsCoordinator>(
-      () => IrlNokhteSessionGreeterWidgetsCoordinator(
+    i.add<IrlNokhteSessionDuoGreeterWidgetsCoordinator>(
+      () => IrlNokhteSessionDuoGreeterWidgetsCoordinator(
+          touchRipple: TouchRippleStore(),
+          primarySmartText: SmartTextStore(),
+          secondarySmartText: SmartTextStore(),
+          wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+          beachWaves: BeachWavesStore()),
+    );
+    i.add<IrlNokhteSessionGroupGreeterWidgetsCoordinator>(
+      () => IrlNokhteSessionGroupGreeterWidgetsCoordinator(
           touchRipple: TouchRippleStore(),
           primarySmartText: SmartTextStore(),
           secondarySmartText: SmartTextStore(),
