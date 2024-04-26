@@ -57,7 +57,7 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
 
   @action
   constructor() {
-    smartText.setMessagesData(MessagesData.notesSessionPrimaryList);
+    smartText.setMessagesData(SessionLists.notesPrimary);
     smartText.setWidgetVisibility(false);
     smartText.startRotatingText();
     beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
@@ -84,7 +84,9 @@ abstract class _IrlNokhteSessionNotesWidgetsCoordinatorBase
 
   @action
   startInactivityCron(Function onGlowInitiated) {
-    inActivityCron = Timer.periodic(kDebugMode ? const Duration(seconds: 20) : const Duration(minutes: 9), (timer) async {
+    inActivityCron = Timer.periodic(
+        kDebugMode ? const Duration(seconds: 20) : const Duration(minutes: 9),
+        (timer) async {
       if (activityCount.isLessThanOrEqualTo(baseComparisonActivityCount)) {
         borderGlow.initWhiteOut();
         textEditor.setWidgetVisibility(false);

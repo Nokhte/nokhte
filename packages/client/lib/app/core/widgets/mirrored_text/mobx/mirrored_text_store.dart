@@ -31,59 +31,53 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
     switch (types) {
       case MirroredTextContentOptions.irlNokhteSessionSpeakingInstructions:
         prepForSplitScreen();
-        setSecondaryMessagesData(
-          MessagesData.irlNokhteSessionSpeakingInstructionsSecondaryList,
-        );
-        setPrimaryMessagesData(
-          MessagesData.irlNokhteSessionSpeakingInstructionsPrimaryList,
-        );
+        setSecondaryMessagesData(SessionLists.speakingInstructionsSecondary);
+        setPrimaryMessagesData(SessionLists.speakingInstructionsPrimary);
       case MirroredTextContentOptions.irlNokhteSessionSpeakingPhone:
         prepForSplitScreen();
-        setPrimaryMessagesData(MessagesData.empty);
-        setSecondaryMessagesData(
-          MessagesData.irlNokhteSessionSpeakingPhoneSecondaryPhase0List,
-        );
+        setPrimaryMessagesData(SharedLists.empty);
+        setSecondaryMessagesData(SessionLists.speakingSecondary);
       case MirroredTextContentOptions.irlNokhteSessionNotesInstructions:
         primaryRightSideUpText.setMessagesData(
-          MessagesData.getIrlNokhteSessionNotesInstructionsPrimaryPhase0List(
+          SessionLists.getNotesInstructionsPrimary(
             MirroredTextOrientations.rightSideUp,
             shouldAdjustToFallbackExitProtocol:
                 shouldAdjustToFallbackExitProtocol,
           ),
         );
         primaryUpsideDownText.setMessagesData(
-          MessagesData.getIrlNokhteSessionNotesInstructionsPrimaryPhase0List(
+          SessionLists.getNotesInstructionsPrimary(
             MirroredTextOrientations.upsideDown,
             shouldAdjustToFallbackExitProtocol:
                 shouldAdjustToFallbackExitProtocol,
           ),
         );
         secondaryRightSideUpText.setMessagesData(
-          MessagesData.getIrlNokhteSessionNotesInstructionsSecondaryPhase0List(
+          SessionLists.getNotesInstructionsSecondary(
             MirroredTextOrientations.rightSideUp,
           ),
         );
         secondaryUpsideDownText.setMessagesData(
-          MessagesData.getIrlNokhteSessionNotesInstructionsSecondaryPhase0List(
+          SessionLists.getNotesInstructionsSecondary(
             MirroredTextOrientations.upsideDown,
           ),
         );
       case MirroredTextContentOptions.speakLessWriteMore:
         primaryRightSideUpText
-            .setMessagesData(MessagesData.speakLessWriteMorePrimary);
+            .setMessagesData(SessionLists.speakLessWriteMorePrimary);
         primaryUpsideDownText
-            .setMessagesData(MessagesData.speakLessWriteMorePrimary);
+            .setMessagesData(SessionLists.speakLessWriteMorePrimary);
         secondaryRightSideUpText
-            .setMessagesData(MessagesData.speakLessWriteMoreSecondary);
+            .setMessagesData(SessionLists.speakLessWriteMoreSecondary);
         secondaryUpsideDownText
-            .setMessagesData(MessagesData.speakLessWriteMoreSecondary);
+            .setMessagesData(SessionLists.speakLessWriteMoreSecondary);
         primaryRightSideUpText.setStaticAltMovie(Colors.black);
         secondaryRightSideUpText.setStaticAltMovie(Colors.black);
         primaryUpsideDownText.setStaticAltMovie(Colors.black);
         secondaryUpsideDownText.setStaticAltMovie(Colors.black);
       case MirroredTextContentOptions.irlNokhteSessionSpeakingWaiting:
-        setPrimaryMessagesData(MessagesData.irlNokhteSessionSpeakingWaiting);
-        setSecondaryMessagesData(MessagesData.empty);
+        setPrimaryMessagesData(SessionLists.speakingWaiting);
+        setSecondaryMessagesData(SharedLists.empty);
         prepForSplitScreen();
 
       default:

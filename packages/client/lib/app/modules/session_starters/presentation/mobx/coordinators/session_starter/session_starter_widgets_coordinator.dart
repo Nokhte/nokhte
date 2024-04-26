@@ -79,7 +79,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
     qrCode.setWidgetVisibility(false);
     secondaryBeachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDive);
     gestureCross.setCollaborationHomeScreen();
-    smartText.setMessagesData(MessagesData.sessionSparkerList);
+    smartText.setMessagesData(SessionStartersList.list);
     primaryBeachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
     primaryBeachWaves.currentStore.initMovie(
       const AnyToOnShoreParams(

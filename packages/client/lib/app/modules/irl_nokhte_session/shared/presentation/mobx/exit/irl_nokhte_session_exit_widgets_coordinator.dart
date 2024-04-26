@@ -36,15 +36,9 @@ abstract class _IrlNokhteSessionExitWidgetsCoordinatorBase
     beachWaves.setMovieMode(
       BeachWaveMovieModes.vibrantBlueGradientToTimesUp,
     );
-    primarySmartText.setMessagesData(
-      MessagesData.nokhteSessionExitScreenTopText,
-    );
-    secondarySmartText.setMessagesData(
-      MessagesData.nokhteSessionExitScreenBottom,
-    );
-    tertiarySmartText.setMessagesData(
-      MessagesData.nokhteSessionExitWaiting,
-    );
+    primarySmartText.setMessagesData(SessionLists.exitTopText);
+    secondarySmartText.setMessagesData(SessionLists.exitBottomText);
+    tertiarySmartText.setMessagesData(SessionLists.exitWaiting);
     primarySmartText.startRotatingText();
     secondarySmartText.startRotatingText();
   }

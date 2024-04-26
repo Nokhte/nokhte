@@ -36,7 +36,7 @@ abstract class _StorageContentWidgetsCoordinatorBase
   constructor(Offset offset) {
     center = offset;
     contentCard.initFadeIn();
-    smartText.setMessagesData(MessagesData.storageContentSecondaryList);
+    smartText.setMessagesData(StorageLists.contentSecondary);
     smartText.startRotatingText();
     beachWaves.setMovieMode(BeachWaveMovieModes.drySandToVibrantBlueGrad);
     smartText.setStaticAltMovie(NokhteSessionConstants.blue);

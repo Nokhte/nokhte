@@ -43,7 +43,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsWidgetsCoordinatorBase
       MirroredTextContentOptions.irlNokhteSessionSpeakingInstructions,
     );
     errorSmartText.setWidgetVisibility(false);
-    errorSmartText.setMessagesData(MessagesData.speakingInstructionsErrorList);
+    errorSmartText.setMessagesData(SessionLists.speakingInstructionsError);
     errorSmartText.startRotatingText();
     initReactors();
   }

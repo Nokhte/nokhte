@@ -38,13 +38,11 @@ abstract class _IrlNokhteSessionLobbyWidgetsCoordinatorBase
     );
     if (isTheLeader) {
       qrCode.setQrCodeData(Modular.args.data["qrCodeData"]);
-      primarySmartText.setMessagesData(
-        MessagesData.irlNokhteSessionLeaderLobbyList,
-      );
+      primarySmartText.setMessagesData(SessionLists.leaderLobby);
       primarySmartText.startRotatingText();
     } else {
       primarySmartText.setMessagesData(
-        MessagesData.empty,
+        SharedLists.empty,
       );
       qrCode.setWidgetVisibility(false);
     }
@@ -76,9 +74,7 @@ abstract class _IrlNokhteSessionLobbyWidgetsCoordinatorBase
   @action
   onQrCodeReady(String data) {
     if (!isTheLeader) {
-      primarySmartText.setMessagesData(
-        MessagesData.irlNokhteSessionFollowerLobbyList,
-      );
+      primarySmartText.setMessagesData(SessionLists.followerLobby);
       primarySmartText.startRotatingText();
       Timer.periodic(Seconds.get(0, milli: 100), (timer) {
         if (constructorHasBeenCalled) {

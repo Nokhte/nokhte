@@ -32,7 +32,7 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
   @action
   constructor(Offset centerParam) {
     super.constructor(centerParam);
-    primarySmartText.setMessagesData(MessagesData.firstTimeHomeList);
+    primarySmartText.setMessagesData(HomeLists.compassAndQrGuide);
     primarySmartText.startRotatingText();
     gestureCross.fadeInTheCross();
     gestureCross.centerCrossNokhte.setWidgetVisibility(false);
