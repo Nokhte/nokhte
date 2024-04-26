@@ -27,15 +27,9 @@ abstract class _IrlNokhteSessionDuoGreeterWidgetsCoordinatorBase
 
   @action
   constructor() {
-    beachWaves.setMovieMode(
-      BeachWaveMovieModes.vibrantBlueGradientToTimesUp,
-    );
-    primarySmartText.setMessagesData(
-      MessagesData.irlNokhteSessionGreeterPrimaryList,
-    );
-    secondarySmartText.setMessagesData(
-      MessagesData.irlNokhteSessionGreeterSecondaryList,
-    );
+    beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradientToTimesUp);
+    primarySmartText.setMessagesData(SessionLists.duoGreeterPrimary);
+    secondarySmartText.setMessagesData(SessionLists.greeterSecondary);
     primarySmartText.startRotatingText();
     secondarySmartText.startRotatingText();
   }
@@ -58,11 +52,12 @@ abstract class _IrlNokhteSessionDuoGreeterWidgetsCoordinatorBase
     if (isFirstTap) {
       cooldownStopwatch.start();
       primarySmartText.startRotatingText(isResuming: true);
+      secondarySmartText.startRotatingText(isResuming: true);
       isFirstTap = false;
     } else if (!isFirstTap &&
         cooldownStopwatch.elapsedMilliseconds.isGreaterThan(950)) {
       primarySmartText.startRotatingText(isResuming: true);
-      secondarySmartText.setWidgetVisibility(false);
+      secondarySmartText.startRotatingText(isResuming: true);
       cooldownStopwatch.stop();
       await onFinalTap();
     }
