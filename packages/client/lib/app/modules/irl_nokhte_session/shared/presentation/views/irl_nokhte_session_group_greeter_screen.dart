@@ -37,10 +37,13 @@ class IrlNokhteSessionGroupGreeterScreen extends HookWidget {
                 store: coordinator.widgets.beachWaves,
               ),
             ),
+            Tint(
+              store: coordinator.widgets.tint,
+            ),
             Center(
               child: SmartText(
                 store: coordinator.widgets.primarySmartText,
-                bottomPadding: height * .05,
+                bottomPadding: height * .3,
                 opacityDuration: Seconds.get(1),
               ),
             ),
@@ -51,6 +54,9 @@ class IrlNokhteSessionGroupGreeterScreen extends HookWidget {
                 bottomPadding: 0,
                 opacityDuration: Seconds.get(1),
               ),
+            ),
+            SessionSeatingGuide(
+              store: coordinator.widgets.sessionSeatingGuide,
             ),
             FullScreen(
               child: TouchRipple(

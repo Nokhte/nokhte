@@ -29,6 +29,8 @@ class SharedIrlNokhteSessionWidgetsModule extends Module {
     );
     i.add<IrlNokhteSessionGroupGreeterWidgetsCoordinator>(
       () => IrlNokhteSessionGroupGreeterWidgetsCoordinator(
+          tint: TintStore(),
+          sessionSeatingGuide: SessionSeatingGuideStore(),
           touchRipple: TouchRippleStore(),
           primarySmartText: SmartTextStore(),
           secondarySmartText: SmartTextStore(),

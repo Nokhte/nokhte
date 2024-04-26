@@ -1,11 +1,8 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // import 'dart:async';
 import 'dart:async';
-
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/extensions/extensions.dart';
-import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/mobx/gyroscopic_coordinator.dart';
 import 'package:nokhte/app/core/modules/posthog/constants/constants.dart';
@@ -42,21 +39,15 @@ abstract class _IrlNokhteSessionGroupGreeterCoordinatorBase
   @observable
   bool isNavigatingAway = false;
 
-  @observable
-  IrlNokhteSessionPhoneRole phoneRole = IrlNokhteSessionPhoneRole.initial;
-
-  @computed
-  String get pathIntoSession => phoneRole == IrlNokhteSessionPhoneRole.talking
-      ? '/irl_nokhte_session/speaking_instructions'
-      : '/irl_nokhte_session/notes_instructions';
-
   @action
   constructor() async {
-    widgets.constructor();
+    widgets.constructor(
+      numberOfCollaborators: sessionMetadata.numberOfCollaborators,
+      userIndex: sessionMetadata.userIndex,
+    );
     initReactors();
     await captureScreen(Screens.nokhteSessionGroupGreeter);
     await gyroscopic.checkIfDeviceHasGyroscope();
-    await decidePhoneRole();
   }
 
   @action
@@ -81,10 +72,8 @@ abstract class _IrlNokhteSessionGroupGreeterCoordinatorBase
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
-        // widgets.onResumed();
       },
       onDisconnected: () {
-        // widgets.onInactive();
         setDisableAllTouchFeedback(true);
       },
     );
@@ -101,34 +90,16 @@ abstract class _IrlNokhteSessionGroupGreeterCoordinatorBase
     tapReactor();
     rippleCompletionStatusReactor();
     collaboratorPhaseReactor();
-    userPhaseReactor();
-  }
-
-  @action
-  decidePhoneRole() async {
-    final res = await decidePhoneRoleLogic(NoParams());
-    res.fold((failure) => errorUpdater(failure),
-        (assignedRole) => phoneRole = assignedRole);
   }
 
   collaboratorPhaseReactor() =>
       reaction((p0) => sessionMetadata.currentPhases, (p0) {
-        if (sessionMetadata.canMoveIntoInstructions &&
-            widgets.touchRipple.movieStatus != MovieStatus.inProgress &&
-            tap.tapCount.isGreaterThan(0)) {
-          widgets.invisiblizePrimarySmartText();
-          isNavigatingAway = true;
-          Modular.to.navigate(pathIntoSession);
-        }
-      });
-
-  userPhaseReactor() => reaction((p0) => sessionMetadata.userPhase, (p0) {
-        if (sessionMetadata.userPhase == 1.0) {
-          Timer(Seconds.get(10), () {
-            if (!isNavigatingAway) {
-              widgets.onTenSecondLapse();
-            }
-          });
+        if (p0.every((e) => e == 2.0)) {
+          widgets.initTransition(pathIntoSession);
+        } else if (sessionMetadata.everyoneButUserPhases
+                .every((e) => e == 2.0) &&
+            sessionMetadata.userPhase != 2.0) {
+          widgets.setIsTheLastOneToFinish(true);
         }
       });
 
@@ -146,7 +117,6 @@ abstract class _IrlNokhteSessionGroupGreeterCoordinatorBase
       reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&
             presence.getSessionMetadataStore.canMoveIntoInstructions) {
-          isNavigatingAway = true;
           Modular.to.navigate(pathIntoSession);
         }
       });
@@ -157,4 +127,23 @@ abstract class _IrlNokhteSessionGroupGreeterCoordinatorBase
           await presence.updateHasGyroscope(false);
         }
       });
+
+  @computed
+  String get pathIntoSession {
+    if (sessionMetadata.numberOfCollaborators.isOdd) {
+      if (sessionMetadata.userIndex == 0) {
+        return '/irl_nokhte_session/hybrid_instructions';
+      } else if (sessionMetadata.userIndex.isOdd) {
+        return '/irl_nokhte_session/speaking_instructions';
+      } else {
+        return '/irl_nokhte_session/notes_instructions';
+      }
+    } else {
+      if (sessionMetadata.userIndex.isEven) {
+        return '/irl_nokhte_session/speaking_instructions';
+      } else {
+        return '/irl_nokhte_session/notes_instructions';
+      }
+    }
+  }
 }

@@ -117,6 +117,12 @@ abstract class _GetSessionMetadataStoreBase
   List get oddList => splitList(currentPhases)[1];
 
   @computed
+  List get everyoneButUserPhases {
+    currentPhases.removeAt(userIndex);
+    return currentPhases;
+  }
+
+  @computed
   bool get canMoveIntoSecondInstructionsSet =>
       evenList.every((e) => e == 2) && oddList.every((e) => e == 1);
 

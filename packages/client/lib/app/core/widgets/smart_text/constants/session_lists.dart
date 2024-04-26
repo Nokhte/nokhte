@@ -1,3 +1,4 @@
+import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
@@ -69,6 +70,11 @@ class SessionLists {
           pauseHere: true,
         ),
         RotatingTextData(
+          mainMessage: "Wait for the session to start",
+          mainMessageFontSize: 23.0,
+          pauseHere: true,
+        ),
+        RotatingTextData(
           mainMessage: "",
           pauseHere: true,
         ),
@@ -95,13 +101,73 @@ class SessionLists {
         ),
       ];
 
-  static List<RotatingTextData> get duoGreeterSecondary => [
+  static List<RotatingTextData> get greeterSecondary => [
         RotatingTextData(
           mainMessage: "Tap when you have done so",
           pauseHere: true,
           mainMessageFontSize: 20.0,
         ),
       ];
+  static List<RotatingTextData> get groupGreeterSecondary => [
+        RotatingTextData(
+          mainMessage: "Tap when you have done so",
+          pauseHere: true,
+          mainMessageFontSize: 20.0,
+        ),
+        RotatingTextData(
+          mainMessage: "Tap when you have done so",
+          pauseHere: true,
+          mainMessageFontSize: 20.0,
+        ),
+        RotatingTextData(
+          mainMessage: "Tap when you have done so",
+          pauseHere: true,
+          mainMessageFontSize: 20.0,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+          mainMessageFontSize: 20.0,
+        ),
+      ];
+
+  static List<RotatingTextData> getGroupGreeterPrimary({
+    required int numberOfCollaborators,
+    required int userIndex,
+  }) {
+    final adjacentNumbers = AdjacentNumbers.getAdjacentNumbers(
+      numberOfCollaborators,
+      userIndex + 1,
+      includeIndex: false,
+    );
+    return [
+      RotatingTextData(
+        mainMessage: "Put your phone on do not disturb",
+        pauseHere: true,
+        mainMessageFontSize: 24.0,
+      ),
+      RotatingTextData(
+        mainMessage:
+            "Make a circle and sit next to ${adjacentNumbers.first} and ${adjacentNumbers.last}",
+        pauseHere: true,
+        mainMessageFontSize: 24.0,
+      ),
+      RotatingTextData(
+        mainMessage:
+            "Place your phone halfway between you and ${adjacentNumbers.last}",
+        pauseHere: true,
+        mainMessageFontSize: 24.0,
+      ),
+      RotatingTextData(
+        mainMessage: "",
+        pauseHere: true,
+      ),
+      RotatingTextData(
+        mainMessage: "Wait for the others",
+        pauseHere: true,
+      ),
+    ];
+  }
 
   static List<RotatingTextData> get speakingInstructionsPrimary => [
         RotatingTextData(
