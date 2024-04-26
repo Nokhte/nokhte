@@ -9,6 +9,7 @@ import 'shared/shared.dart';
 
 void main() {
   late ActiveIrlNokhteSessionQueries user1Queries;
+  late ActiveIrlNokhteSessionQueries user2Queries;
   late ActiveIrlNokhteSessionsStream user1Stream;
   late FinishedNokhteSessionQueries user1FinishedQueries;
   final tSetup = CommonCollaborativeTestFunctions();
@@ -19,6 +20,8 @@ void main() {
     sortedArr = [tSetup.firstUserUID, tSetup.secondUserUID]..sort();
     user1Queries =
         ActiveIrlNokhteSessionQueries(supabase: tSetup.user1Supabase);
+    user2Queries =
+        ActiveIrlNokhteSessionQueries(supabase: tSetup.user2Supabase);
     user1FinishedQueries =
         FinishedNokhteSessionQueries(supabase: tSetup.user1Supabase);
     user1Stream = ActiveIrlNokhteSessionsStream(supabase: tSetup.user1Supabase);
@@ -75,16 +78,16 @@ void main() {
     await user1Queries.updateOnlineStatus(false);
     final onlineStatus = await user1Queries.getWhoIsOnline();
     expect(onlineStatus, [false, true]);
-    await user1Queries.updateOnlineStatus(false,
-        shouldEditCollaboratorsInfo: true);
+    await user2Queries.updateOnlineStatus(false);
     final onlineStatus2 = await user1Queries.getWhoIsOnline();
     expect(onlineStatus2, [false, false]);
   });
 
   test("updateHasGyroscope", () async {
     await user1Queries.updateHasGyroscope(false);
+    await user2Queries.updateHasGyroscope(false);
     final gyroscopesRes = await user1Queries.getHaveGyroscopes();
-    expect(gyroscopesRes, [false, true]);
+    expect(gyroscopesRes, [false, false]);
   });
 
   test("addContent", () async {
@@ -97,8 +100,7 @@ void main() {
     await user1Queries.updateCurrentPhases(1);
     final currentPhases = await user1Queries.getCurrentPhases();
     expect(currentPhases, [1, 0]);
-    await user1Queries.updateCurrentPhases(1,
-        shouldEditCollaboratorsInfo: true);
+    await user2Queries.updateCurrentPhases(1);
     final currentPhases2 = await user1Queries.getCurrentPhases();
     expect(currentPhases2, [1, 1]);
   });
@@ -109,13 +111,11 @@ void main() {
       stream,
       emits(
         IrlNokhteSessionMetadata(
-          userIsOnline: false,
-          collaboratorIsOnline: false,
-          collaboratorPhase: 1.0,
+          userIndex: sortedArr.indexOf(tSetup.firstUserUID),
+          everyoneHasGyroscopes: false,
+          phases: [1.0, 1.0],
+          everyoneIsOnline: false,
           sessionHasBegun: false,
-          userPhase: 1.0,
-          userHasGyroscope: false,
-          collaboratorHasGyroscope: true,
         ),
       ),
     );
