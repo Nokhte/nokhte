@@ -42,7 +42,6 @@ class SessionPresenceRemoteSourceImpl implements SessionPresenceRemoteSource {
   @override
   updateOnlineStatus(params) async => await queries.updateOnlineStatus(
         params.newStatus,
-        shouldEditCollaboratorsInfo: params.shouldUpdateCollaboratorsIndex,
       );
 
   @override
