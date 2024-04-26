@@ -99,7 +99,7 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
 
   holdReactor() => reaction((p0) => hold.holdCount, (p0) {
         ifTouchIsNotDisabled(() async {
-          if (presence.getSessionMetadataStore.collaboratorIsOnline) {
+          if (presence.getSessionMetadataStore.everyoneIsOnline) {
             setBlockPhoneTiltReactor(true);
             widgets.adjustSpeakLessSmileMoreRotation(hold.placement);
             widgets.onHold(hold.placement);
@@ -110,7 +110,7 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
       });
 
   letGoReactor() => reaction((p0) => hold.letGoCount, (p0) {
-        if (presence.getSessionMetadataStore.collaboratorIsOnline) {
+        if (presence.getSessionMetadataStore.everyoneIsOnline) {
           widgets.onLetGo();
           setBlockPhoneTiltReactor(false);
           Timer(Seconds.get(2), () {
@@ -122,7 +122,8 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
   phoneTiltStateReactor() =>
       reaction((p0) => gyroscopic.holdingState, (p0) async {
         if (!blockPhoneTiltReactor &&
-            sessionMetadata.collaboratorPhase.isGreaterThanOrEqualTo(2)) {
+            sessionMetadata.currentPhases
+                .every((e) => e.isGreaterThanOrEqualTo(2))) {
           if (p0 == PhoneHoldingState.isPickedUp) {
             await presence.updateCurrentPhase(3);
           } else if (p0 == PhoneHoldingState.isDown) {
@@ -132,7 +133,7 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
       });
 
   collaboratorPhaseReactor() => reaction(
-        (p0) => sessionMetadata.collaboratorPhase,
+        (p0) => sessionMetadata.currentPhases,
         (p0) async {
           if (sessionMetadata.canExitTheSession) {
             await gyroscopic.dispose();
@@ -163,7 +164,7 @@ abstract class _IrlNokhteSessionSpeakingCoordinatorBase extends BaseCoordinator
   onResumed() async {
     await presence
         .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (sessionMetadata.collaboratorIsOnline) {
+    if (sessionMetadata.everyoneIsOnline) {
       presence.incidentsOverlayStore.onCollaboratorJoined();
     }
   }

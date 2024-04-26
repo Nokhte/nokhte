@@ -57,13 +57,13 @@ abstract class _IrlNokhteSessionSpeakingWaitingCoordinatorBase
     await presence
         .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
     await presence.updateCurrentPhase(2.0);
-    if (sessionMetadata.collaboratorIsOnline) {
+    if (sessionMetadata.everyoneIsOnline) {
       presence.incidentsOverlayStore.onCollaboratorJoined();
     }
   }
 
   collaboratorPhaseReactor() => reaction(
-        (p0) => sessionMetadata.collaboratorPhase,
+        (p0) => sessionMetadata.currentPhases,
         (p0) {
           if (sessionMetadata.canMoveIntoSession) {
             widgets.onReadyToTransition();

@@ -53,7 +53,7 @@ abstract class _IrlNokhteSessionLobbyCoordinatorBase extends BaseCoordinator
   onResumed() async {
     await presence
         .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (presence.getSessionMetadataStore.collaboratorIsOnline) {
+    if (presence.getSessionMetadataStore.everyoneIsOnline) {
       presence.incidentsOverlayStore.onCollaboratorJoined();
     }
   }

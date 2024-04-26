@@ -95,7 +95,7 @@ abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
   onResumed() async {
     await presence
         .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (sessionMetadata.collaboratorIsOnline) {
+    if (sessionMetadata.everyoneIsOnline) {
       presence.incidentsOverlayStore.onCollaboratorJoined();
     }
   }
@@ -121,7 +121,7 @@ abstract class _IrlNokhteSessionNotesCoordinatorBase extends BaseCoordinator
       });
 
   collaboratorPhaseReactor() => reaction(
-        (p0) => sessionMetadata.collaboratorPhase,
+        (p0) => sessionMetadata.currentPhases,
         (p0) async {
           if (sessionMetadata.canExitTheSession) {
             if (widgets.textEditor.controller.text.isNotEmpty) {

@@ -76,7 +76,7 @@ abstract class _IrlNokhteSessionSpeakingInstructionsCoordinatorBase
   onResumed() async {
     await presence
         .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (sessionMetadata.collaboratorIsOnline) {
+    if (sessionMetadata.everyoneIsOnline) {
       presence.incidentsOverlayStore.onCollaboratorJoined();
     }
   }

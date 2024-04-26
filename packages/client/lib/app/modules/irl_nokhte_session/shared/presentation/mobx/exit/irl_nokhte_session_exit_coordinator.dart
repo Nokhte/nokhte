@@ -21,7 +21,7 @@ abstract class _IrlNokhteSessionExitCoordinatorBase
     extends BaseHomeScreenRouterCoordinator with Store {
   final IrlNokhteSessionExitWidgetsCoordinator widgets;
   final SwipeDetector swipe;
-    final SessionPresenceCoordinator presence;
+  final SessionPresenceCoordinator presence;
   final GetSessionMetadataStore sessionMetadata;
   final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
   final DecidePhoneRole decidePhoneRoleLogic;
@@ -68,7 +68,7 @@ abstract class _IrlNokhteSessionExitCoordinatorBase
   onResumed() async {
     await presence
         .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (presence.getSessionMetadataStore.collaboratorIsOnline) {
+    if (presence.getSessionMetadataStore.everyoneIsOnline) {
       presence.incidentsOverlayStore.onCollaboratorJoined();
     }
   }
@@ -140,9 +140,9 @@ abstract class _IrlNokhteSessionExitCoordinatorBase
       });
 
   collaboratorPhaseReactor() => reaction(
-        (p0) => presence.getSessionMetadataStore.collaboratorPhase,
+        (p0) => presence.getSessionMetadataStore.currentPhases,
         (p0) async {
-          if (p0 == 3.5) {
+          if (p0.contains(3.5)) {
             setIsGoingHome(true);
             await presence.updateCurrentPhase(3.5);
             widgets.onReadyToGoBack(phoneRole);

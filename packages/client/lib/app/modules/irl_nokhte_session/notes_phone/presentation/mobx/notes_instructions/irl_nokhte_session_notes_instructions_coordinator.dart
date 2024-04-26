@@ -87,13 +87,13 @@ abstract class _IrlNokhteSessionNotesInstructionsCoordinatorBase
   onResumed() async {
     await presence
         .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (sessionMetadata.collaboratorIsOnline) {
+    if (sessionMetadata.everyoneIsOnline) {
       presence.incidentsOverlayStore.onCollaboratorJoined();
     }
   }
 
   collaboratorPhaseReactor() => reaction(
-        (p0) => sessionMetadata.collaboratorPhase,
+        (p0) => sessionMetadata.currentPhases,
         (p0) {
           if (sessionMetadata.canMoveIntoSecondInstructionsSet) {
             widgets.onInstructionModeUnlocked();

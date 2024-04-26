@@ -69,7 +69,7 @@ abstract class _IrlNokhteSessionGreeterCoordinatorBase extends BaseCoordinator
   onResumed() async {
     await presence
         .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (presence.getSessionMetadataStore.collaboratorIsOnline) {
+    if (presence.getSessionMetadataStore.everyoneIsOnline) {
       presence.incidentsOverlayStore.onCollaboratorJoined();
     }
   }
@@ -112,7 +112,7 @@ abstract class _IrlNokhteSessionGreeterCoordinatorBase extends BaseCoordinator
   }
 
   collaboratorPhaseReactor() =>
-      reaction((p0) => sessionMetadata.collaboratorPhase, (p0) {
+      reaction((p0) => sessionMetadata.currentPhases, (p0) {
         if (sessionMetadata.canMoveIntoInstructions &&
             widgets.touchRipple.movieStatus != MovieStatus.inProgress &&
             tap.tapCount.isGreaterThan(0)) {
