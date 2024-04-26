@@ -15,6 +15,7 @@ export 'nokhte/nokhte.dart';
 export 'nokhte_blur/nokhte_blur.dart';
 export 'nokhte_qr_code/nokhte_qr_code.dart';
 export "nokhte_custom_animation_builder/nokhte_custom_animation_builder.dart";
+export 'session_seating_guide/session_seating_guide.dart';
 export 'speak_less_smile_more/speak_less_smile_more.dart';
 export 'smart_text/smart_text.dart';
 export "text_editor/text_editor.dart";
