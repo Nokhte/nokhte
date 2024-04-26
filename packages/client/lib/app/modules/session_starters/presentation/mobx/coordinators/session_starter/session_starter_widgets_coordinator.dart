@@ -180,7 +180,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
             secondaryBeachWaves.currentStore.reverseMovie(0);
           } else if (primaryBeachWaves.movieMode ==
               BeachWaveMovieModes.invertedOnShoreToInvertedDeepSea) {
-            Modular.to.navigate("/irl_nokhte_session/", arguments: {
+            Modular.to.navigate("/session/", arguments: {
               "qrCodeData": qrCode.qrCodeData,
             });
           }

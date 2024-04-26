@@ -83,7 +83,7 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
 
   @action
   onShoreToDeepSeaComplete() => Modular.to.navigate(
-        '/irl_nokhte_session/',
+        '/session/',
         arguments: deepLinks.listenForOpenedDeepLinkStore.additionalMetadata,
       );
 
@@ -160,7 +160,7 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
                 widgets.errorSmartText.setWidgetVisibility(false);
                 widgets.secondaryErrorSmartText.setWidgetVisibility(false);
                 Timer(Seconds.get(2), () {
-                  Modular.to.navigate('/irl_nokhte_session/', arguments: {});
+                  Modular.to.navigate('/session/', arguments: {});
                 });
               }
             }
