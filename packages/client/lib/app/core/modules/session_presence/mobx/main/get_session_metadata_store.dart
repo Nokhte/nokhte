@@ -23,28 +23,19 @@ abstract class _GetSessionMetadataStoreBase
   bool collaboratorHasGyroscope = true;
 
   @observable
-  double currentPhase = 0;
-
-  @action
-  setCurrentPhase(double newDouble) => currentPhase = newDouble;
+  int userIndex = -1;
 
   @observable
-  double userPhase = 0;
+  bool everyoneIsOnline = false;
 
   @observable
-  double collaboratorPhase = 0.0;
+  bool everyoneHasGyroscopes = false;
 
   @observable
-  bool userIsOnline = false;
+  ObservableList<double> currentPhases = ObservableList.of([]);
 
   @observable
-  bool userIsTalking = false;
-
-  @observable
-  bool collaboratorIsOnline = false;
-
-  @observable
-  bool collaboratorIsTalking = false;
+  bool someoneElseIsTalking = false;
 
   @observable
   bool sessionHasBegun = false;
@@ -72,12 +63,11 @@ abstract class _GetSessionMetadataStoreBase
       (stream) {
         sessionMetadata = ObservableStream(stream);
         streamSubscription = sessionMetadata.listen((value) {
-          userIsOnline = value.userIsOnline;
-          collaboratorIsOnline = value.collaboratorIsOnline;
-          userPhase = value.userPhase;
-          collaboratorPhase = value.collaboratorPhase;
-          userHasGyroscope = value.userHasGyroscope;
-          collaboratorHasGyroscope = value.collaboratorHasGyroscope;
+          userIndex = value.userIndex;
+          everyoneHasGyroscopes = value.everyoneHasGyroscopes;
+          everyoneIsOnline = value.everyoneIsOnline;
+          final phases = value.phases.map((e) => double.parse(e.toString()));
+          currentPhases = ObservableList.of(phases);
           sessionHasBegun = value.sessionHasBegun;
         });
         state = StoreState.loaded;
@@ -85,23 +75,48 @@ abstract class _GetSessionMetadataStoreBase
     );
   }
 
+  List<List> splitList(List motherList) {
+    List evenList = [];
+    List oddList = [];
+
+    for (int i = 0; i < motherList.length; i++) {
+      if (i.isEven) {
+        evenList.add(motherList[i]);
+      } else {
+        oddList.add(motherList[i]);
+      }
+    }
+
+    return [evenList, oddList];
+  }
+
   @computed
   bool get shouldAdjustToFallbackExitProtocol =>
       !userHasGyroscope || !collaboratorHasGyroscope;
 
   @computed
-  bool get canMoveIntoInstructions => userPhase == 1 && collaboratorPhase == 1;
+  bool get canMoveIntoInstructions =>
+      currentPhases.every((element) => element == 1);
 
   @computed
-  bool get canMoveIntoSession => userPhase == 2 && collaboratorPhase == 2;
+  bool get canMoveIntoSession => currentPhases.every((element) => element == 2);
 
   @computed
-  bool get canExitTheSession => userPhase == 3 && collaboratorPhase == 3;
+  bool get canExitTheSession => currentPhases.every((element) => element == 3);
 
   @computed
-  bool get canReturnHome => userPhase == 5 && collaboratorPhase == 5;
+  bool get canReturnHome => currentPhases.every((element) => element == 3);
+
+  @computed
+  double get userPhase => currentPhases[userIndex];
+
+  @computed
+  List get evenList => splitList(currentPhases)[0];
+
+  @computed
+  List get oddList => splitList(currentPhases)[1];
 
   @computed
   bool get canMoveIntoSecondInstructionsSet =>
-      userPhase == 1 && collaboratorPhase == 2;
+      evenList.every((e) => e == 2) && oddList.every((e) => e == 1);
 }
