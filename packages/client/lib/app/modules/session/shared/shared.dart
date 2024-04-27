@@ -1,37 +1,53 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity_module.dart';
-import 'package:nokhte/app/core/modules/supabase/supabase_module.dart';
-import 'package:nokhte/app/core/network/network_info.dart';
-import 'package:nokhte/app/modules/session/shared/shared.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-export 'presentation/presentation.dart';
-export 'constants/constants.dart';
-export 'data/data.dart';
-export 'domain/domain.dart';
-export 'shared_session_widgets_module.dart';
+import 'package:nokhte/app/core/widgets/modules.dart';
+import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'shared.dart';
 export 'shared.dart';
 export 'types/types.dart';
+export 'presentation/presentation.dart';
 
-class SharedSessionModule extends Module {
+class SharedSessionWidgetsModule extends Module {
   @override
   List<Module> get imports => [
-        LegacyConnectivityModule(),
-        SupabaseModule(),
+        WifiDisconnectOverlayModule(),
+        GestureCrossModule(),
       ];
   @override
   void exportedBinds(Injector i) {
-    i.add<SharedSessionRemoteSourceImpl>(() => SharedSessionRemoteSourceImpl(
-          supabase: Modular.get<SupabaseClient>(),
-        ));
-    i.add<SharedSessionContractImpl>(
-      () => SharedSessionContractImpl(
-        networkInfo: Modular.get<NetworkInfoImpl>(),
-        remoteSource: Modular.get<SharedSessionRemoteSourceImpl>(),
-      ),
+    i.add<SessionLobbyWidgetsCoordinator>(
+      () => SessionLobbyWidgetsCoordinator(
+          touchRipple: TouchRippleStore(),
+          primarySmartText: SmartTextStore(),
+          qrCode: NokhteQrCodeStore(),
+          wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+          beachWaves: BeachWavesStore()),
     );
-    i.add<DecidePhoneRole>(
-      () => DecidePhoneRole(
-        contract: i<SharedSessionContractImpl>(),
+    i.add<SessionDuoGreeterWidgetsCoordinator>(
+      () => SessionDuoGreeterWidgetsCoordinator(
+          touchRipple: TouchRippleStore(),
+          primarySmartText: SmartTextStore(),
+          secondarySmartText: SmartTextStore(),
+          wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+          beachWaves: BeachWavesStore()),
+    );
+    i.add<SessionGroupGreeterWidgetsCoordinator>(
+      () => SessionGroupGreeterWidgetsCoordinator(
+          tint: TintStore(),
+          sessionSeatingGuide: SessionSeatingGuideStore(),
+          touchRipple: TouchRippleStore(),
+          primarySmartText: SmartTextStore(),
+          secondarySmartText: SmartTextStore(),
+          wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+          beachWaves: BeachWavesStore()),
+    );
+    i.add<SessionExitWidgetsCoordinator>(
+      () => SessionExitWidgetsCoordinator(
+        gestureCross: Modular.get<GestureCrossStore>(),
+        primarySmartText: SmartTextStore(),
+        secondarySmartText: SmartTextStore(),
+        tertiarySmartText: SmartTextStore(),
+        beachWaves: BeachWavesStore(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
       ),
     );
   }

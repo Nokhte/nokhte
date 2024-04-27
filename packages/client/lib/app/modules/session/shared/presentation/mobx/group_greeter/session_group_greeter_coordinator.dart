@@ -17,7 +17,6 @@ class SessionGroupGreeterCoordinator = _SessionGroupGreeterCoordinatorBase
 
 abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
     with Store {
-  final DecidePhoneRole decidePhoneRoleLogic;
   final SessionGroupGreeterWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
@@ -27,7 +26,6 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
   _SessionGroupGreeterCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
-    required this.decidePhoneRoleLogic,
     required this.tap,
     required this.presence,
     required this.gyroscopic,

@@ -24,7 +24,6 @@ abstract class _SessionExitCoordinatorBase
   final SessionPresenceCoordinator presence;
   final GetSessionMetadataStore sessionMetadata;
   final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
-  final DecidePhoneRole decidePhoneRoleLogic;
 
   _SessionExitCoordinatorBase({
     required super.captureScreen,
@@ -33,7 +32,6 @@ abstract class _SessionExitCoordinatorBase
     required this.presence,
     required this.cleanUpCollaborationArtifacts,
     required super.getUserInfo,
-    required this.decidePhoneRoleLogic,
   }) : sessionMetadata = presence.getSessionMetadataStore;
 
   @observable
@@ -47,7 +45,6 @@ abstract class _SessionExitCoordinatorBase
   constructor() async {
     widgets.constructor();
     initReactors();
-    await decidePhoneRole();
     await presence.updateCurrentPhase(4.0);
     await captureScreen(Screens.nokhteSessionExit);
   }
@@ -73,16 +70,6 @@ abstract class _SessionExitCoordinatorBase
     }
   }
 
-  @observable
-  SessionPhoneRole phoneRole = SessionPhoneRole.initial;
-
-  @action
-  decidePhoneRole() async {
-    final res = await decidePhoneRoleLogic(NoParams());
-    res.fold((failure) => errorUpdater(failure),
-        (assignedRole) => phoneRole = assignedRole);
-  }
-
   @action
   initReactors() {
     widgets.wifiDisconnectOverlay.initReactors(
@@ -106,7 +93,13 @@ abstract class _SessionExitCoordinatorBase
     );
     widgets.beachWavesMovieStatusReactor(
       onToHomeComplete: onAnimationComplete,
-      onReturnToTalkingComplete: () => Modular.to.navigate('/session/speaking'),
+      onReturnToTalkingComplete: () {
+        if (phoneRole == SessionPhoneRole.talking) {
+          Modular.to.navigate('/session/speaking');
+        } else {
+          Modular.to.navigate('/session/hybrid');
+        }
+      },
     );
     swipeReactor();
     collaboratorPhaseReactor();
@@ -155,7 +148,7 @@ abstract class _SessionExitCoordinatorBase
           if (p0) {
             showCollaboratorIncidents = false;
             await presence.dispose();
-            if (phoneRole == SessionPhoneRole.talking) {
+            if (sessionMetadata.userIndex == 0) {
               await presence.completeTheSession();
             }
             Timer(Seconds.get(1), () async {
@@ -167,7 +160,21 @@ abstract class _SessionExitCoordinatorBase
       );
 
   @computed
-  String get pathIntoSession => phoneRole == SessionPhoneRole.talking
-      ? '/session/speaking'
-      : '/session/notes';
+  SessionPhoneRole get phoneRole {
+    if (sessionMetadata.numberOfCollaborators.isOdd) {
+      if (sessionMetadata.userIndex == 0) {
+        return SessionPhoneRole.hybrid;
+      } else if (sessionMetadata.userIndex.isOdd) {
+        return SessionPhoneRole.talking;
+      } else {
+        return SessionPhoneRole.notes;
+      }
+    } else {
+      if (sessionMetadata.userIndex.isEven) {
+        return SessionPhoneRole.talking;
+      } else {
+        return SessionPhoneRole.notes;
+      }
+    }
+  }
 }

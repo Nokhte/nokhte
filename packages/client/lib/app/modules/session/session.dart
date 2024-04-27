@@ -19,7 +19,6 @@ export 'notes/notes.dart';
 class SessionModule extends Module {
   @override
   List<Module> get imports => [
-        SharedSessionModule(),
         SharedSessionWidgetsModule(),
         NotesSessionWidgetsModule(),
         SpeakingSessionWidgetsModule(),
@@ -44,7 +43,6 @@ class SessionModule extends Module {
     );
     i.add<SessionDuoGreeterCoordinator>(
       () => SessionDuoGreeterCoordinator(
-        decidePhoneRoleLogic: Modular.get<DecidePhoneRole>(),
         gyroscopic: Modular.get<GyroscopicCoordinator>(),
         presence: Modular.get<SessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
@@ -54,7 +52,6 @@ class SessionModule extends Module {
     );
     i.add<SessionGroupGreeterCoordinator>(
       () => SessionGroupGreeterCoordinator(
-        decidePhoneRoleLogic: Modular.get<DecidePhoneRole>(),
         gyroscopic: Modular.get<GyroscopicCoordinator>(),
         presence: Modular.get<SessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
@@ -118,7 +115,6 @@ class SessionModule extends Module {
       () => SessionExitCoordinator(
         cleanUpCollaborationArtifacts:
             Modular.get<CleanUpCollaborationArtifactsCoordinator>(),
-        decidePhoneRoleLogic: Modular.get<DecidePhoneRole>(),
         getUserInfo: Modular.get<GetUserInfoStore>(),
         swipe: SwipeDetector(),
         widgets: Modular.get<SessionExitWidgetsCoordinator>(),

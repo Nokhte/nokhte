@@ -1,11 +1,9 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // import 'dart:async';
 import 'dart:async';
-
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
-import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/mobx/gyroscopic_coordinator.dart';
 import 'package:nokhte/app/core/modules/posthog/constants/constants.dart';
@@ -20,7 +18,6 @@ class SessionDuoGreeterCoordinator = _SessionDuoGreeterCoordinatorBase
 
 abstract class _SessionDuoGreeterCoordinatorBase extends BaseCoordinator
     with Store {
-  final DecidePhoneRole decidePhoneRoleLogic;
   final SessionDuoGreeterWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
@@ -30,7 +27,6 @@ abstract class _SessionDuoGreeterCoordinatorBase extends BaseCoordinator
   _SessionDuoGreeterCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
-    required this.decidePhoneRoleLogic,
     required this.tap,
     required this.presence,
     required this.gyroscopic,
@@ -42,21 +38,12 @@ abstract class _SessionDuoGreeterCoordinatorBase extends BaseCoordinator
   @observable
   bool isNavigatingAway = false;
 
-  @observable
-  SessionPhoneRole phoneRole = SessionPhoneRole.initial;
-
-  @computed
-  String get pathIntoSession => phoneRole == SessionPhoneRole.talking
-      ? '/session/speaking_instructions'
-      : '/session/notes_instructions';
-
   @action
   constructor() async {
     widgets.constructor();
     initReactors();
     await captureScreen(Screens.nokhteSessionDuoGreeter);
     await gyroscopic.checkIfDeviceHasGyroscope();
-    await decidePhoneRole();
   }
 
   @action
@@ -81,10 +68,8 @@ abstract class _SessionDuoGreeterCoordinatorBase extends BaseCoordinator
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
-        // widgets.onResumed();
       },
       onDisconnected: () {
-        // widgets.onInactive();
         setDisableAllTouchFeedback(true);
       },
     );
@@ -102,13 +87,6 @@ abstract class _SessionDuoGreeterCoordinatorBase extends BaseCoordinator
     rippleCompletionStatusReactor();
     collaboratorPhaseReactor();
     userPhaseReactor();
-  }
-
-  @action
-  decidePhoneRole() async {
-    final res = await decidePhoneRoleLogic(NoParams());
-    res.fold((failure) => errorUpdater(failure),
-        (assignedRole) => phoneRole = assignedRole);
   }
 
   collaboratorPhaseReactor() =>
@@ -157,4 +135,9 @@ abstract class _SessionDuoGreeterCoordinatorBase extends BaseCoordinator
           await presence.updateHasGyroscope(false);
         }
       });
+
+  @computed
+  String get pathIntoSession => sessionMetadata.userIndex.isEven
+      ? '/session/speaking_instructions'
+      : '/session/notes_instructions';
 }
