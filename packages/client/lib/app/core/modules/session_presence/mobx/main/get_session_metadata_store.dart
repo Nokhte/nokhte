@@ -95,17 +95,16 @@ abstract class _GetSessionMetadataStoreBase
       !userHasGyroscope || !collaboratorHasGyroscope;
 
   @computed
-  bool get canMoveIntoInstructions =>
-      currentPhases.every((element) => element == 1);
+  bool get canMoveIntoInstructions => currentPhases.every((e) => e == 1);
 
   @computed
-  bool get canMoveIntoSession => currentPhases.every((element) => element == 2);
+  bool get canMoveIntoSession => currentPhases.every((e) => e == 2);
 
   @computed
-  bool get canExitTheSession => currentPhases.every((element) => element == 3);
+  bool get canExitTheSession => currentPhases.every((e) => e == 3);
 
   @computed
-  bool get canReturnHome => currentPhases.every((element) => element == 3);
+  bool get canReturnHome => currentPhases.every((e) => e == 3);
 
   @computed
   double get userPhase => currentPhases[userIndex];
