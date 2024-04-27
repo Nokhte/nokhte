@@ -139,7 +139,7 @@ void main() {
     });
 
     test("onTap", () {
-      smartTextStore.setMessagesData(MessagesData.loginList);
+      smartTextStore.setMessagesData(LoginList.list);
       smartTextStore.currentIndex = 1;
       testStore.onTap(tCoordinates);
       expect(testStore.hasNotMadeTheDot, false);

@@ -33,7 +33,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
   constructor(Offset offset) {
     super.constructor(offset);
     gestureCross.fadeIn();
-    primarySmartText.setMessagesData(MessagesData.storageGuideList);
+    primarySmartText.setMessagesData(HomeLists.storageGuide);
     primarySmartText.startRotatingText();
     gestureCross.centerCrossNokhte.setWidgetVisibility(false);
     secondaryInstructionalGradientNokhte.prepareYellowDiamond(

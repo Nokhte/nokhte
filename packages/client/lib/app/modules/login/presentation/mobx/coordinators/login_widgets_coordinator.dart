@@ -45,7 +45,7 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
     layer1BeachWaves.setMovieMode(BeachWaveMovieModes.blackOut);
     layer2BeachWaves.currentStore.setWidgetVisibility(false);
-    smartTextStore.setMessagesData(MessagesData.loginList);
+    smartTextStore.setMessagesData(LoginList.list);
     smartTextStore.startRotatingText();
     initReactors(loginBusinessLogic);
     setSmartTextSubMessagePaddingScalar(200);

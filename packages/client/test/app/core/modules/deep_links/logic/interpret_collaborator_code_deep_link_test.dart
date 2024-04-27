@@ -36,7 +36,7 @@ void main() {
         expect(
             res,
             const InterpretedDeepLinkEntity(
-              path: "/collaboration/",
+              path: "/session_starters/",
               additionalMetadata: {
                 "hasSentAnInvitation": true,
                 "collaboratorUID": "collaboratorUID",

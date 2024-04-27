@@ -44,7 +44,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
     super.constructor(offset);
     gestureCross.fadeInTheCross();
     gestureCross.centerCrossNokhte.setWidgetVisibility(false);
-    primarySmartText.setMessagesData(MessagesData.compassAndStorageGuideList);
+    primarySmartText.setMessagesData(HomeLists.compassAndStorageGuide);
     primaryInstructionalGradientNokhte.prepareYellowDiamond(
       center,
       position: InstructionalNokhtePositions.right,

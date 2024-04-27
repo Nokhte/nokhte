@@ -36,10 +36,10 @@ abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   constructor(Offset offset) {
     center = offset;
     sessionCard.initFadeIn();
-    primarySmartText.setMessagesData(MessagesData.storageHeader);
+    primarySmartText.setMessagesData(StorageLists.homeHeader);
     setSmartTextBottomPaddingScalar(0);
     setSmartTextTopPaddingScalar(.15);
-    secondarySmartText.setMessagesData(MessagesData.storageHomeSecondaryList);
+    secondarySmartText.setMessagesData(StorageLists.homeSecondary);
     secondarySmartText.startRotatingText();
     primarySmartText.startRotatingText();
     beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);

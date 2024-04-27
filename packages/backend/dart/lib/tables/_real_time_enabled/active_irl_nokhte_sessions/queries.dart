@@ -8,11 +8,6 @@ class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
   final SupabaseClient supabase;
   final String userUID;
   int userIndex = -1;
-  int collaboratorIndex = -1;
-  String collaboratorUID = '';
-  String timestamp = '';
-  String collaboratorOneUID = '';
-  String collaboratorTwoUID = '';
   List collaboratorUIDs = [];
 
   computeCollaboratorInformation() async {
@@ -21,18 +16,10 @@ class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
       if (res.isNotEmpty) {
         final row = res.first;
         collaboratorUIDs = row[COLLABORATOR_UIDS];
-        if (row[COLLABORATOR_UIDS][0] == userUID) {
-          userIndex = 0;
-          collaboratorOneUID = userUID;
-          collaboratorTwoUID = row[COLLABORATOR_UIDS][1];
-          collaboratorIndex = 1;
-          collaboratorUID = row[COLLABORATOR_UIDS][1];
-        } else {
-          collaboratorTwoUID = userUID;
-          collaboratorOneUID = row[COLLABORATOR_UIDS][0];
-          userIndex = 1;
-          collaboratorIndex = 0;
-          collaboratorUID = row[COLLABORATOR_UIDS][0];
+        for (int i = 0; i < collaboratorUIDs.length; i++) {
+          if (collaboratorUIDs[i] == userUID) {
+            userIndex = i;
+          }
         }
       }
     }
@@ -67,15 +54,10 @@ class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
   Future<String> getSessionUID() async => await _getProperty(SESSION_UID);
   Future<String> getLeaderUID() async => await _getProperty(LEADER_UID);
 
-  Future<List> updateOnlineStatus(
-    bool isOnlineParam, {
-    bool shouldEditCollaboratorsInfo = false,
-  }) async {
+  Future<List> updateOnlineStatus(bool isOnlineParam) async {
     await computeCollaboratorInformation();
     final currentOnlineStatus = await getWhoIsOnline();
-    final indexToEdit =
-        shouldEditCollaboratorsInfo ? collaboratorIndex : userIndex;
-    currentOnlineStatus[indexToEdit] = isOnlineParam;
+    currentOnlineStatus[userIndex] = isOnlineParam;
     return await _onCurrentActiveNokhteSession(supabase.from(TABLE).update({
       IS_ONLINE: currentOnlineStatus,
     }));
@@ -90,15 +72,11 @@ class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
     );
   }
 
-  Future<List> updateCurrentPhases(
-    double newPhase, {
-    bool shouldEditCollaboratorsInfo = false,
-  }) async {
+  Future<List> updateCurrentPhases(double newPhase) async {
     await computeCollaboratorInformation();
     await supabase.rpc('update_nokhte_session_phase', params: {
       'incoming_uids': collaboratorUIDs,
-      'index_to_edit':
-          shouldEditCollaboratorsInfo ? collaboratorIndex : userIndex,
+      'index_to_edit': userIndex,
       'new_value': newPhase,
     });
     return [];

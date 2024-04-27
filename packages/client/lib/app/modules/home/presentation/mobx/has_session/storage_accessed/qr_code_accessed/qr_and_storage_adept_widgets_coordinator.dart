@@ -38,7 +38,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
   constructor(Offset offset) {
     super.constructor(offset);
     gestureCross.fadeIn();
-    primarySmartText.setMessagesData(MessagesData.qrAndStorageAdept);
+    primarySmartText.setMessagesData(HomeLists.qrAndStorageAdept);
     primarySmartText.startRotatingText();
     initReactors();
   }
@@ -120,6 +120,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
         (p0) => onGestureCrossTap(),
       );
 
+  @action
   onTap(Offset offset) {
     if (canTap) {
       canTap = false;

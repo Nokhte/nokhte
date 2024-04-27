@@ -10,6 +10,19 @@ class ActiveIrlNokhteSessionsStream extends ActiveIrlNokhteSessionQueries
 
   ActiveIrlNokhteSessionsStream({required super.supabase});
 
+  List<T> createLoopingList<T>(List<T> originalList, int startIndex) {
+    List<T> loopingList = [];
+    int length = originalList.length;
+    startIndex = startIndex % length;
+    for (int i = startIndex; i < length; i++) {
+      loopingList.add(originalList[i]);
+    }
+    for (int i = 0; i < startIndex; i++) {
+      loopingList.add(originalList[i]);
+    }
+    return loopingList;
+  }
+
   cancelGetActiveNokhteSessionCreationStatus() {
     getActiveNokhteSessionCreationListingingStatus = false;
     return getActiveNokhteSessionCreationListingingStatus;
@@ -41,18 +54,22 @@ class ActiveIrlNokhteSessionsStream extends ActiveIrlNokhteSessionQueries
         yield IrlNokhteSessionMetadata.initial();
       } else {
         await computeCollaboratorInformation();
-        final isOnlineList = event.first[IS_ONLINE];
-        final phasesList = event.first[CURRENT_PHASES];
-        final haveGyroscopesList = event.first[HAVE_GYROSCOPES];
+        final leaderIndex =
+            event.first[COLLABORATOR_UIDS].indexOf(event.first[LEADER_UID]);
+        final orderedCollaboratorUIDs =
+            createLoopingList(event.first[COLLABORATOR_UIDS], leaderIndex);
+        final orderedPhases = createLoopingList(
+          event.first[CURRENT_PHASES],
+          leaderIndex,
+        );
+        final userIndex = orderedCollaboratorUIDs.indexOf(userUID);
         yield IrlNokhteSessionMetadata(
+          userIndex: userIndex,
           sessionHasBegun: event.first[HAS_BEGUN],
-          userHasGyroscope: haveGyroscopesList[userIndex],
-          collaboratorHasGyroscope: haveGyroscopesList[collaboratorIndex],
-          userIsOnline: isOnlineList[userIndex],
-          collaboratorIsOnline: isOnlineList[collaboratorIndex],
-          userPhase: double.parse(phasesList[userIndex].toString()),
-          collaboratorPhase:
-              double.parse(phasesList[collaboratorIndex].toString()),
+          everyoneHasGyroscopes:
+              event.first[HAVE_GYROSCOPES].every((e) => e == true),
+          everyoneIsOnline: event.first[IS_ONLINE].every((e) => e == true),
+          phases: orderedPhases,
         );
       }
     }
