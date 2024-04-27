@@ -29,7 +29,7 @@ abstract class _SessionDuoGreeterWidgetsCoordinatorBase
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradientToTimesUp);
     primarySmartText.setMessagesData(SessionLists.duoGreeterPrimary);
-    secondarySmartText.setMessagesData(SessionLists.greeterSecondary);
+    secondarySmartText.setMessagesData(SessionLists.duoGreeterSecondary);
     primarySmartText.startRotatingText();
     secondarySmartText.startRotatingText();
   }

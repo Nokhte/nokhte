@@ -101,7 +101,12 @@ class SessionLists {
         ),
       ];
 
-  static List<RotatingTextData> get greeterSecondary => [
+  static List<RotatingTextData> get duoGreeterSecondary => [
+        RotatingTextData(
+          mainMessage: "Tap when you have done so",
+          pauseHere: true,
+          mainMessageFontSize: 20.0,
+        ),
         RotatingTextData(
           mainMessage: "Tap when you have done so",
           pauseHere: true,
