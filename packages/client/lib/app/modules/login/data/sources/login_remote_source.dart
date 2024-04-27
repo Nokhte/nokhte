@@ -1,9 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:nokhte/app/core/modules/user_information/data/data.dart';
-import 'package:nokhte/app/modules/login/data/models/models.dart';
-import 'package:nokhte/app/modules/login/types/login_providers.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information.dart';
+import 'package:nokhte/app/modules/login/login.dart' hide SignInWithApple;
 import 'package:nokhte_backend/tables/finished_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/user_names.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -75,10 +74,8 @@ class LoginRemoteSourceImpl implements LoginRemoteSource {
   }
 
   @override
-  getAuthState() =>
-   supabase.auth.onAuthStateChange
-        .map((e) => e.session!.accessToken.isNotEmpty);
-  
+  getAuthState() => supabase.auth.onAuthStateChange
+      .map((e) => e.session!.accessToken.isNotEmpty);
 
   @override
   addName({String theName = ""}) async {

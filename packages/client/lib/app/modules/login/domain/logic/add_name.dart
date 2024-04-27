@@ -1,5 +1,5 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/modules/login/domain/contracts/login_contract.dart';
+import 'package:nokhte/app/modules/login/login.dart';
 
 class AddName extends AbstractFutureLogic<bool, NoParams> {
   final LoginContract contract;

@@ -38,6 +38,9 @@ class SessionHybridInstructionsScreen extends HookWidget {
                   store: coordinator.widgets.beachWaves,
                 ),
               ),
+              HalfScreenTint(
+                store: coordinator.widgets.halfScreenTint,
+              ),
               BorderGlow(
                 store: coordinator.widgets.borderGlow,
               ),

@@ -1,5 +1,4 @@
-import 'package:nokhte/app/modules/login/domain/domain.dart';
-import 'package:nokhte/app/modules/login/types/types.dart';
+import 'package:nokhte/app/modules/login/login.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthProviderModel extends AuthProviderEntity {

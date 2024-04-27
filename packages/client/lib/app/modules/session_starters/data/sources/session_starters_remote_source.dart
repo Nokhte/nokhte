@@ -1,4 +1,4 @@
-import 'package:nokhte/app/modules/session_starters/domain/logic/enter_collaborator_pool.dart';
+import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:nokhte_backend/edge_functions/edge_functions.dart';
 import 'package:nokhte_backend/tables/irl_active_nokhte_sessions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';

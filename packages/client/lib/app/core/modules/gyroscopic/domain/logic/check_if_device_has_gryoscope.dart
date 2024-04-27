@@ -1,5 +1,5 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/domain/domain.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
 
 class CheckIfDeviceHasGyroscope
     implements AbstractNoFailureAsyncLogic<bool, NoParams> {

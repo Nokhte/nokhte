@@ -23,10 +23,12 @@ abstract class _SessionHybridInstructionsWidgetsCoordinatorBase
   final TouchRippleStore touchRipple;
   final BorderGlowStore borderGlow;
   final HoldTimerIndicatorStore holdTimerIndicator;
+  final HalfScreenTintStore halfScreenTint;
   final TintStore tint;
   _SessionHybridInstructionsWidgetsCoordinatorBase({
     required this.mirroredText,
     required this.beachWaves,
+    required this.halfScreenTint,
     required super.wifiDisconnectOverlay,
     required this.touchRipple,
     required this.errorSmartText,
@@ -322,6 +324,7 @@ abstract class _SessionHybridInstructionsWidgetsCoordinatorBase
           if (beachWaves.movieMode ==
               BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf) {
             if (!topHalfIsDone) {
+              halfScreenTint.setControl(Control.play);
               mirroredText.startRotatingRightSideUp();
               cooldownStopwatch.start();
               disableTouchInput = false;

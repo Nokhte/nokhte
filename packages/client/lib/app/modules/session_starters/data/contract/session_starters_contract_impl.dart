@@ -2,8 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/constants/constants.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mixins/response_to_status.dart';
-import 'package:nokhte/app/modules/session_starters/domain/domain.dart';
-import 'package:nokhte/app/modules/session_starters/data/data.dart';
+import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 
 class SessionStartersContractImpl

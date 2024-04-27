@@ -5,7 +5,7 @@ import 'package:nokhte/app/core/constants/constants.dart';
 import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/modules/session_starters/domain/domain.dart';
+import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 part 'session_starters_logic_coordinator.g.dart';
 
 class SessionStartersLogicCoordinator = _SessionStartersLogicCoordinatorBase

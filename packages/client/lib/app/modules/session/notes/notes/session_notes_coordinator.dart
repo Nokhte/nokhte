@@ -2,9 +2,8 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
-import 'package:nokhte/app/core/modules/posthog/constants/screens.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';

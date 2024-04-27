@@ -1,4 +1,4 @@
-import 'package:nokhte/app/core/modules/posthog/constants/constants.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

@@ -45,6 +45,7 @@ class SessionWidgetsModule extends Module {
     );
     i.add<SessionHybridInstructionsWidgetsCoordinator>(
       () => SessionHybridInstructionsWidgetsCoordinator(
+        halfScreenTint: HalfScreenTintStore(),
         holdTimerIndicator: HoldTimerIndicatorStore(),
         tint: TintStore(),
         errorSmartText: SmartTextStore(),

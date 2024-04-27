@@ -1,15 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts_module.dart';
-import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/deep_links/deep_links_module.dart';
-import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
+import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
-import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog_module.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
-import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/user_information/user_information_module.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session_widgets_module.dart';
 import 'session.dart';
@@ -58,6 +53,16 @@ class SessionModule extends Module {
         presence: Modular.get<SessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<SessionGroupGreeterWidgetsCoordinator>(),
+        tap: TapDetector(),
+      ),
+    );
+    i.add<SessionHybridInstructionsCoordinator>(
+      () => SessionHybridInstructionsCoordinator(
+        hold: HoldDetector(),
+        gyroscopic: Modular.get<GyroscopicCoordinator>(),
+        presence: Modular.get<SessionPresenceCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        widgets: Modular.get<SessionHybridInstructionsWidgetsCoordinator>(),
         tap: TapDetector(),
       ),
     );
@@ -166,10 +171,8 @@ class SessionModule extends Module {
     r.child(
       transition: TransitionType.noTransition,
       '/hybrid_instructions',
-      child: (context) => const Scaffold(
-        body: Center(
-          child: Text("HYBRID INSTRUCTIONS"),
-        ),
+      child: (context) => SessionHybridInstructionsScreen(
+        coordinator: Modular.get<SessionHybridInstructionsCoordinator>(),
       ),
     );
     r.child(

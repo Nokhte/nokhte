@@ -1,5 +1,5 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/deep_links/domain/domain.dart';
+import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
 
 class ListenForOpenedDeepLink
     implements AbstractNoFailureStreamLogic<Map, NoParams> {
