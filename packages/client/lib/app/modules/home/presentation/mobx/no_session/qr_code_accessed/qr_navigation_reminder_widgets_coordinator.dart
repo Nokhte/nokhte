@@ -43,8 +43,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
   @action
   constructor(Offset offset) {
     super.constructor(offset);
-    primarySmartText
-        .setMessagesData(MessagesData.hasDoneSessionInformationFlow);
+    primarySmartText.setMessagesData(HomeLists.qrNavigationReminder);
     primarySmartText.startRotatingText();
     gestureCross.fadeIn(onFadeIn: Left(() {
       primaryInstructionalGradientNokhte.initMovie(

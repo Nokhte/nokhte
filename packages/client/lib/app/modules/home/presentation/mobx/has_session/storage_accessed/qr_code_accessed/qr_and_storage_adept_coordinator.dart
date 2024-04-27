@@ -18,7 +18,7 @@ abstract class _QrAndStorageAdeptCoordinatorBase
   final GetNokhteSessionArtifacts getNokhteSessionArtifactsLogic;
 
   _QrAndStorageAdeptCoordinatorBase({
-    required super.collaborationLogic,
+    required super.sessionStarters,
     required super.swipe,
     required super.deepLinks,
     required this.widgets,
@@ -60,6 +60,11 @@ abstract class _QrAndStorageAdeptCoordinatorBase
   }
 
   tapReactor() => reaction((p0) => tap.currentTapPosition, (p0) {
+        if (isInErrorMode) {
+          widgets.onErrorResolved(() {
+            setIsInErrorMode(true);
+          });
+        }
         ifTouchIsNotDisabled(() {
           widgets.onTap(p0);
         });

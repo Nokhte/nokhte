@@ -28,7 +28,7 @@ abstract class _CollaboratorPresenceIncidentsOverlayStoreBase
   }
 
   collaboratorPresenceReactor(Function onJoined, Function onLeft) =>
-      reaction((p0) => sessionMetadataStore.collaboratorIsOnline, (p0) {
+      reaction((p0) => sessionMetadataStore.everyoneIsOnline, (p0) {
         if (p0) {
           onCollaboratorJoined();
           onJoined();

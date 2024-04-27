@@ -45,8 +45,8 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
     }
     beachWaves.setMovieMode(BeachWaveMovieModes.resumeOnShore);
     beachWaves.currentStore.initMovie(Modular.args.data["resumeOnShoreParams"]);
-    errorSmartText.setMessagesData(MessagesData.empty);
-    secondaryErrorSmartText.setMessagesData(MessagesData.errorConfirmList);
+    errorSmartText.setMessagesData(SharedLists.empty);
+    secondaryErrorSmartText.setMessagesData(SharedLists.errorConfirmList);
     center = centerParam;
   }
 
@@ -132,8 +132,8 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   onError(String errorMessage) {
     errorSmartText.reset();
     secondaryErrorSmartText.reset();
-    errorSmartText.setMessagesData(MessagesData.getErrorList(errorMessage));
-    secondaryErrorSmartText.setMessagesData(MessagesData.errorConfirmList);
+    errorSmartText.setMessagesData(SharedLists.getErrorList(errorMessage));
+    secondaryErrorSmartText.setMessagesData(SharedLists.errorConfirmList);
     errorSmartText.startRotatingText();
     centerInstructionalNokhte.setWidgetVisibility(false);
     primaryInstructionalGradientNokhte.setWidgetVisibility(false);

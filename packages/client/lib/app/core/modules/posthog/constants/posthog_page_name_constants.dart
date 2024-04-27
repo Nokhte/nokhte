@@ -19,7 +19,9 @@ mixin PosthogPageNameConstants {
   static const String collaboratorPool = '\$collaborator_pool';
 
   // Nokhte Session Constants
-  static const String nokhteSessionGreeter = '\$nokhte_session_greeter';
+  static const String nokhteSessionDuoGreeter = '\$nokhte_session_duo_greeter';
+  static const String nokhteSessionGroupGreeter =
+      '\$nokhte_sessio_group_greeter';
   static const String nokhteSessionPhase1Consultation =
       '\$nokhte_session_phase1_consultation';
   static const String nokhteSessionPhase2WaitToExit =
@@ -60,8 +62,10 @@ mixin PosthogPageNameConstants {
         return collaborationHome;
       case Screens.collaboratorPool:
         return collaboratorPool;
-      case Screens.nokhteSessionGreeter:
-        return nokhteSessionGreeter;
+      case Screens.nokhteSessionDuoGreeter:
+        return nokhteSessionDuoGreeter;
+      case Screens.nokhteSessionGroupGreeter:
+        return nokhteSessionGroupGreeter;
       case Screens.nokhteSessionNotesInstructions:
         return nokhteSessionNotesInstructions;
       case Screens.nokhteSessionNotes:

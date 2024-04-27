@@ -24,13 +24,13 @@ void main() {
       expect(testStore.control, Control.stop);
     });
     test("setMessagesData", () {
-      testStore.setMessagesData(MessagesData.loginList);
+      testStore.setMessagesData(LoginList.list);
       expect(testStore.messagesData[0].mainMessage, "Howdy");
     });
 
     group("startRotatingText", () {
       setUp(() {
-        testStore.setMessagesData(MessagesData.loginList);
+        testStore.setMessagesData(LoginList.list);
       });
       test("is not resuming", () {
         fakeAsync((async) {
@@ -50,7 +50,7 @@ void main() {
 
     group("onOpacityTransitionComplete", () {
       setUp(() {
-        testStore.setMessagesData(MessagesData.loginList);
+        testStore.setMessagesData(LoginList.list);
       });
       test("widget is visible at index 0", () {
         fakeAsync((async) {
@@ -74,7 +74,7 @@ void main() {
 
   group("computed", () {
     setUp(() {
-      testStore.setMessagesData(MessagesData.loginList);
+      testStore.setMessagesData(LoginList.list);
     });
     test("currentSubText", () {
       expect(testStore.currentSubText, "");

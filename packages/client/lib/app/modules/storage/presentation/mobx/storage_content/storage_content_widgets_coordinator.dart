@@ -6,7 +6,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/movie_status.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/irl_nokhte_session/shared/constants/constants.dart';
+import 'package:nokhte/app/modules/session/shared/constants/constants.dart';
 part 'storage_content_widgets_coordinator.g.dart';
 
 class StorageContentWidgetsCoordinator = _StorageContentWidgetsCoordinatorBase
@@ -36,7 +36,7 @@ abstract class _StorageContentWidgetsCoordinatorBase
   constructor(Offset offset) {
     center = offset;
     contentCard.initFadeIn();
-    smartText.setMessagesData(MessagesData.storageContentSecondaryList);
+    smartText.setMessagesData(StorageLists.contentSecondary);
     smartText.startRotatingText();
     beachWaves.setMovieMode(BeachWaveMovieModes.drySandToVibrantBlueGrad);
     smartText.setStaticAltMovie(NokhteSessionConstants.blue);

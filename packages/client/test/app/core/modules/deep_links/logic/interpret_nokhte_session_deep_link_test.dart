@@ -17,7 +17,7 @@ void main() {
       final result = logic.call(params);
 
       // Assert
-      expect(result.path, '/collaboration/');
+      expect(result.path, '/session_starters/');
       expect(result.additionalMetadata, {
         'isTheUsersInvitation': false,
         "deepLinkUID": "exampleDeepLinkUID",

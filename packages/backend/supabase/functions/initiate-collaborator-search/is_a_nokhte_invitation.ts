@@ -39,6 +39,7 @@ async function isANokhteInvitation(queryUID: string, mostRecentEntrant: any) {
         await supabaseAdmin.from("active_irl_nokhte_sessions").insert({
           collaboration_uids:
             checkForExistingSessionsRes.data?.[0]["collaborator_uids"],
+          leader_uid: queryUID,
         });
       }
       await supabaseAdmin
@@ -60,6 +61,7 @@ async function isANokhteInvitation(queryUID: string, mostRecentEntrant: any) {
       const currentCollaboratorUIDs =
         existingNokhteSessionRes.data?.[0]["collaborator_uids"];
       currentCollaboratorUIDs.push(userUID);
+      currentCollaboratorUIDs.sort();
       const currentIsOnlineArr =
         existingNokhteSessionRes.data?.[0]["is_online"];
       currentIsOnlineArr.push(true);
@@ -77,8 +79,8 @@ async function isANokhteInvitation(queryUID: string, mostRecentEntrant: any) {
           current_phases: currentPhasesArr,
           have_gyroscopes: currentHaveGyroscopesRes,
         })
-        .eq("leader_uid", queryUID);
-
+        .eq("leader_uid", queryUID)
+        .eq("has_begun", false);
       await supabaseAdmin
         .from("p2p_collaborator_pool")
         .delete()

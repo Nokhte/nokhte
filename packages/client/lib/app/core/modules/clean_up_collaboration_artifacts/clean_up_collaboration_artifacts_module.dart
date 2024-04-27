@@ -2,15 +2,15 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/data/data.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/domain/domain.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
-import 'package:nokhte/app/modules/collaboration/collaboration_logic_module.dart';
-import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
+import 'package:nokhte/app/modules/session_starters/session_starters_logic.dart';
+import 'package:nokhte/app/modules/session_starters/presentation/presentation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'mobx/mobx.dart';
 
 class CleanUpCollaborationArtifactsModule extends Module {
   @override
   List<Module> get imports => [
-        CollaborationLogicModule(),
+        SessionStartersLogicModule(),
       ];
   @override
   void exportedBinds(i) {
@@ -33,7 +33,7 @@ class CleanUpCollaborationArtifactsModule extends Module {
     );
     i.add<CleanUpCollaborationArtifactsCoordinator>(
       () => CleanUpCollaborationArtifactsCoordinator(
-        collaborationLogicCoordinator: i<CollaborationLogicCoordinator>(),
+        sessionStarters: i<SessionStartersLogicCoordinator>(),
         cleanUpNokhteSession: Modular.get<CleanUpNokhteSession>(),
       ),
     );

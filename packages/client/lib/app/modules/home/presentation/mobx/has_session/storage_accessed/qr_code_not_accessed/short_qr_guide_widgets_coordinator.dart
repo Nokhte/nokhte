@@ -44,7 +44,7 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
     super.constructor(offset);
     touchIsDisabled = true;
     gestureCross.fadeIn();
-    primarySmartText.setMessagesData(MessagesData.shortQrGuide);
+    primarySmartText.setMessagesData(HomeLists.shortQrGuide);
     primarySmartText.startRotatingText();
     primaryInstructionalGradientNokhte.setWidgetVisibility(false);
     primaryInstructionalGradientNokhte.prepareYellowDiamond(
