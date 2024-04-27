@@ -1,3 +1,3 @@
-export 'mobx/mobx.dart';
-export 'views/views.dart';
-export 'speaking_session_widgets_module.dart';
+export 'speaking/speaking.dart';
+export 'speaking_instructions/speaking_instructions.dart';
+export 'speaking_waiting/speaking_waiting.dart';

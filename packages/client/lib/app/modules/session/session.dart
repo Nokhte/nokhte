@@ -11,17 +11,19 @@ import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information_module.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session/session_widgets_module.dart';
 import 'session.dart';
 export 'shared/shared.dart';
+export 'constants/constants.dart';
+export 'types/types.dart';
 export 'speaking/speaking.dart';
 export 'notes/notes.dart';
+export 'hybrid/hybrid.dart';
 
 class SessionModule extends Module {
   @override
   List<Module> get imports => [
-        SharedSessionWidgetsModule(),
-        NotesSessionWidgetsModule(),
-        SpeakingSessionWidgetsModule(),
+        SessionWidgetsModule(),
         CleanUpCollaborationArtifactsModule(),
         PosthogModule(),
         SessionPresenceModule(),
