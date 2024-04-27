@@ -2,8 +2,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/widgets/modules.dart';
 import 'package:nokhte/app/core/widgets/widget_modules/mirrored_text_module.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-
-import 'presentation/presentation.dart';
+import 'speaking.dart';
 
 class SpeakingSessionWidgetsModule extends Module {
   @override
