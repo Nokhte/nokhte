@@ -90,15 +90,21 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
     tapReactor();
     rippleCompletionStatusReactor();
     collaboratorPhaseReactor();
+    widgets.primarySmartTextIndexReactor(
+      initTransition: () {
+        Modular.to.navigate(pathIntoSession);
+      },
+      onComplete: () async => await updateCurrentPhase(),
+    );
   }
 
   collaboratorPhaseReactor() =>
       reaction((p0) => sessionMetadata.currentPhases, (p0) {
-        if (p0.every((e) => e == 2.0)) {
+        if (p0.every((e) => e == 1.0)) {
           widgets.initTransition(pathIntoSession);
         } else if (sessionMetadata.everyoneButUserPhases
-                .every((e) => e == 2.0) &&
-            sessionMetadata.userPhase != 2.0) {
+                .every((e) => e == 1.0) &&
+            sessionMetadata.userPhase != 1.0) {
           widgets.setIsTheLastOneToFinish(true);
         }
       });
@@ -127,6 +133,16 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
           await presence.updateHasGyroscope(false);
         }
       });
+
+  updateCurrentPhase() async {
+    Timer.periodic(Seconds.get(0, milli: 500), (timer) async {
+      if (presence.getSessionMetadataStore.userPhase != 1.0) {
+        await presence.updateCurrentPhase(1.0);
+      } else {
+        timer.cancel();
+      }
+    });
+  }
 
   @computed
   String get pathIntoSession {

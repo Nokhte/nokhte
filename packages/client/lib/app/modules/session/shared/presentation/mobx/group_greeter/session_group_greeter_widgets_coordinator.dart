@@ -38,7 +38,6 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
     required int numberOfCollaborators,
     required int userIndex,
   }) {
-    // initReactors();
     sessionSeatingGuide.setWidgetVisibility(false);
     beachWaves.setMovieMode(
       BeachWaveMovieModes.vibrantBlueGradientToTimesUp,
@@ -59,11 +58,6 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
     primarySmartText.startRotatingText();
     secondarySmartText.startRotatingText();
   }
-
-  // @action
-  // initReactors() {
-  //   primarySmartTextIndexReactor();
-  // }
 
   @observable
   int tapCount = 0;
@@ -97,6 +91,7 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
       tapCount++;
     } else if (cooldownStopwatch.elapsedMilliseconds.isGreaterThan(950)) {
       if (tapCount == 1) {
+        cooldownStopwatch.reset();
         touchRipple.onTap(tapPosition);
         sessionSeatingGuide.setWidgetVisibility(false);
         primarySmartText.startRotatingText(isResuming: true);
@@ -140,9 +135,14 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
     });
   }
 
-  primarySmartTextIndexReactor(Function initTransition) =>
-      reaction((p0) => primarySmartText.currentIndex, (p0) {
+  primarySmartTextIndexReactor({
+    required Function initTransition,
+    required Function onComplete,
+  }) =>
+      reaction((p0) => primarySmartText.currentIndex, (p0) async {
+        // print("hey index reactor??? $p0 $isTheLastOneToFinish");
         if (p0 == 3) {
+          await onComplete();
           if (isTheLastOneToFinish) {
             initTransition();
           } else {

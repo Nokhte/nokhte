@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts_module.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/mobx/mobx.dart';
@@ -162,6 +163,15 @@ class SessionModule extends Module {
       '/speaking_waiting',
       child: (context) => SessionSpeakingWaitingScreen(
         coordinator: Modular.get<SessionSpeakingWaitingCoordinator>(),
+      ),
+    );
+    r.child(
+      transition: TransitionType.noTransition,
+      '/hybrid_instructions',
+      child: (context) => const Scaffold(
+        body: Center(
+          child: Text("HYBRID INSTRUCTIONS"),
+        ),
       ),
     );
     r.child(
