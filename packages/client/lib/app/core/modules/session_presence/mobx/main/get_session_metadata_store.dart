@@ -117,8 +117,9 @@ abstract class _GetSessionMetadataStoreBase
 
   @computed
   List get everyoneButUserPhases {
-    currentPhases.removeAt(userIndex);
-    return currentPhases;
+    final phases = currentPhases.map((e) => e).toList();
+    phases.removeAt(userIndex);
+    return phases;
   }
 
   @computed
