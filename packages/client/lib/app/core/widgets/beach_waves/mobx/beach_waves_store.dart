@@ -62,6 +62,8 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
           TimesUpEndToTimesUpStartMovieStore(),
       BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf:
           VibrantBlueGradToHalfAndHalfMovieStore(),
+      BeachWaveMovieModes.vibrantBlueGradToInvertedHalfAndHalf:
+          VibrantBlueGradToInvertedHalfAndHalfMovieStore(),
       BeachWaveMovieModes.vibrantBlueGradientToTimesUp:
           VibrantBlueGradientToTimesUpMovieStore(),
       BeachWaveMovieModes.vibrantBlueGradToDrySand:

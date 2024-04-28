@@ -33,6 +33,7 @@ enum BeachWaveMovieModes {
   timesUpEndToTimesUpStart,
   vibrantBlueGradientToTimesUp,
   vibrantBlueGradToHalfAndHalf,
+  vibrantBlueGradToInvertedHalfAndHalf,
   vibrantBlueGradToDrySand,
   waterFromTopToOnShorePt1,
   waterFromTopToOnShorePt2,
