@@ -20,33 +20,40 @@ class HalfScreenTint extends HookWidget {
     final halfHeight = size.height.half();
     final halfWidth = size.width;
     return Observer(
-      builder: (context) {
-        return CustomAnimationBuilder(
-          tween: store.movie,
-          duration: store.movie.duration,
-          control: store.control,
-          builder: (context, value, child) {
-            return Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.black.withOpacity(
-                      value.get('opacity1'),
+      builder: (context) => CustomAnimationBuilder(
+        tween: store.movie,
+        duration: store.movie.duration,
+        control: store.control,
+        builder: (context, value, child) => Transform.flip(
+          flipY: store.shouldCoverBottom ? true : false,
+          child: FullScreen(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.black.withOpacity(
+                          value.get('opacity1'),
+                        ),
+                        Colors.black.withOpacity(
+                          value.get('opacity2'),
+                        ),
+                      ],
                     ),
-                    Colors.black.withOpacity(
-                      value.get('opacity2'),
-                    ),
-                  ],
+                  ),
+                  height: halfHeight,
+                  width: halfWidth,
                 ),
-              ),
-              height: halfHeight,
-              width: halfWidth,
-            );
-          },
-        );
-      },
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -11,4 +11,10 @@ abstract class _HalfScreenTintStoreBase extends BaseCustomAnimatedWidgetStore
   _HalfScreenTintStoreBase() {
     setMovie(HalfScreenTintMovie.movie);
   }
+
+  @observable
+  bool shouldCoverBottom = true;
+
+  @action
+  setShouldCoverBottom(bool newVal) => shouldCoverBottom = newVal;
 }
