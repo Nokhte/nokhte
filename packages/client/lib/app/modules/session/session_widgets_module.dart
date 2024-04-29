@@ -43,8 +43,8 @@ class SessionWidgetsModule extends Module {
         beachWaves: BeachWavesStore(),
       ),
     );
-    i.add<SessionHybridInstructionsWidgetsCoordinator>(
-      () => SessionHybridInstructionsWidgetsCoordinator(
+    i.add<SessionHybridSpeakingInstructionsWidgetsCoordinator>(
+      () => SessionHybridSpeakingInstructionsWidgetsCoordinator(
         halfScreenTint: HalfScreenTintStore(),
         holdTimerIndicator: HoldTimerIndicatorStore(),
         tint: TintStore(),
@@ -65,6 +65,24 @@ class SessionWidgetsModule extends Module {
         mirroredText: Modular.get<MirroredTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         borderGlow: BorderGlowStore(),
+        beachWaves: BeachWavesStore(),
+      ),
+    );
+    i.add<SessionHybridWaitingWidgetsCoordinator>(
+      () => SessionHybridWaitingWidgetsCoordinator(
+        tint: TintStore(),
+        mirroredText: Modular.get<MirroredTextStore>(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        beachWaves: BeachWavesStore(),
+      ),
+    );
+    i.add<SessionHybridNotesInstructionsWidgetsCoordinator>(
+      () => SessionHybridNotesInstructionsWidgetsCoordinator(
+        halfScreenTint: HalfScreenTintStore(),
+        touchRipple: TouchRippleStore(),
+        tint: TintStore(),
+        mirroredText: Modular.get<MirroredTextStore>(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         beachWaves: BeachWavesStore(),
       ),
     );

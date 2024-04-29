@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
 import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
@@ -56,13 +57,23 @@ class SessionModule extends Module {
         tap: TapDetector(),
       ),
     );
-    i.add<SessionHybridInstructionsCoordinator>(
-      () => SessionHybridInstructionsCoordinator(
+    i.add<SessionHybridSpeakingInstructionsCoordinator>(
+      () => SessionHybridSpeakingInstructionsCoordinator(
         hold: HoldDetector(),
         gyroscopic: Modular.get<GyroscopicCoordinator>(),
         presence: Modular.get<SessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
-        widgets: Modular.get<SessionHybridInstructionsWidgetsCoordinator>(),
+        widgets:
+            Modular.get<SessionHybridSpeakingInstructionsWidgetsCoordinator>(),
+        tap: TapDetector(),
+      ),
+    );
+    i.add<SessionHybridNotesInstructionsCoordinator>(
+      () => SessionHybridNotesInstructionsCoordinator(
+        presence: Modular.get<SessionPresenceCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        widgets:
+            Modular.get<SessionHybridNotesInstructionsWidgetsCoordinator>(),
         tap: TapDetector(),
       ),
     );
@@ -84,6 +95,13 @@ class SessionModule extends Module {
         presence: Modular.get<SessionPresenceCoordinator>(),
         hold: HoldDetector(),
         swipe: SwipeDetector(),
+      ),
+    );
+    i.add<SessionHybridWaitingCoordinator>(
+      () => SessionHybridWaitingCoordinator(
+        presence: Modular.get<SessionPresenceCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        widgets: Modular.get<SessionHybridWaitingWidgetsCoordinator>(),
       ),
     );
     i.add<SessionSpeakingWaitingCoordinator>(
@@ -170,10 +188,33 @@ class SessionModule extends Module {
     );
     r.child(
       transition: TransitionType.noTransition,
-      '/hybrid_instructions',
-      child: (context) => SessionHybridInstructionsScreen(
-        coordinator: Modular.get<SessionHybridInstructionsCoordinator>(),
+      '/hybrid_speaking_instructions',
+      child: (context) => SessionHybridSpeakingInstructionsScreen(
+        coordinator:
+            Modular.get<SessionHybridSpeakingInstructionsCoordinator>(),
       ),
+    );
+    r.child(
+      transition: TransitionType.noTransition,
+      '/hybrid_waiting',
+      child: (context) => SessionHybridWaitingScreen(
+        coordinator: Modular.get<SessionHybridWaitingCoordinator>(),
+      ),
+    );
+    r.child(
+      transition: TransitionType.noTransition,
+      '/hybrid_notes_instructions',
+      child: (context) => SessionHybridNotesInstructionsScreen(
+        coordinator: Modular.get<SessionHybridNotesInstructionsCoordinator>(),
+      ),
+    );
+    r.child(
+      transition: TransitionType.noTransition,
+      '/hybrid',
+      child: (context) => const Scaffold(
+          body: Center(
+        child: Text("HYBRID!!!"),
+      )),
     );
     r.child(
       transition: TransitionType.noTransition,

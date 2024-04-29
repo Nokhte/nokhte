@@ -1,21 +1,20 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session/constants/constants.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'session_hybrid_instructions_widgets_coordinator.g.dart';
+part 'session_hybrid_speaking_instructions_widgets_coordinator.g.dart';
 
-class SessionHybridInstructionsWidgetsCoordinator = _SessionHybridInstructionsWidgetsCoordinatorBase
-    with _$SessionHybridInstructionsWidgetsCoordinator;
+class SessionHybridSpeakingInstructionsWidgetsCoordinator = _SessionHybridSpeakingInstructionsWidgetsCoordinatorBase
+    with _$SessionHybridSpeakingInstructionsWidgetsCoordinator;
 
-abstract class _SessionHybridInstructionsWidgetsCoordinatorBase
+abstract class _SessionHybridSpeakingInstructionsWidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final MirroredTextStore mirroredText;
   final SmartTextStore errorSmartText;
@@ -25,7 +24,7 @@ abstract class _SessionHybridInstructionsWidgetsCoordinatorBase
   final HoldTimerIndicatorStore holdTimerIndicator;
   final HalfScreenTintStore halfScreenTint;
   final TintStore tint;
-  _SessionHybridInstructionsWidgetsCoordinatorBase({
+  _SessionHybridSpeakingInstructionsWidgetsCoordinatorBase({
     required this.mirroredText,
     required this.beachWaves,
     required this.halfScreenTint,
@@ -39,10 +38,12 @@ abstract class _SessionHybridInstructionsWidgetsCoordinatorBase
 
   @action
   constructor() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
+    resetUpsideDownHoldingPadding();
+    beachWaves
+        .setMovieMode(BeachWaveMovieModes.vibrantBlueGradToInvertedHalfAndHalf);
     beachWaves.currentStore.initMovie(NoParams());
     mirroredText.setMessagesData(
-      MirroredTextContentOptions.irlNokhteSessionSpeakingInstructions,
+      MirroredTextContent.sessionSpeakingHybridInstructions,
     );
     errorSmartText.setWidgetVisibility(false);
     errorSmartText.setMessagesData(SessionLists.speakingInstructionsError);
@@ -52,9 +53,8 @@ abstract class _SessionHybridInstructionsWidgetsCoordinatorBase
 
   @action
   initReactors() {
-    beachWavesMovieStatusReactor();
+    // beachWavesMovieStatusReactor();
     upsideDownIndexReactor();
-    rightSideUpIndexReactor();
   }
 
   @observable
@@ -99,17 +99,11 @@ abstract class _SessionHybridInstructionsWidgetsCoordinatorBase
   int letGoCount = 0;
 
   @observable
-  bool topHalfIsDone = false;
-
-  @observable
-  bool bottomHalfIsDone = false;
-
-  @observable
-  bool bottomHalfHasStarted = false;
+  bool speakingInstructionsComplete = false;
 
   @observable
   MirroredTextOrientations currentActiveOrientation =
-      MirroredTextOrientations.rightSideUp;
+      MirroredTextOrientations.upsideDown;
 
   @observable
   int tapCount = 0;
@@ -149,7 +143,7 @@ abstract class _SessionHybridInstructionsWidgetsCoordinatorBase
   @action
   resetUpsideDownHoldingPadding() {
     mirroredText.setPadding(
-      primaryUpsideDownTopPadding: .12,
+      primaryUpsideDownTopPadding: .15,
       primaryUpsideDownBottomPadding: 0,
     );
   }
@@ -181,25 +175,15 @@ abstract class _SessionHybridInstructionsWidgetsCoordinatorBase
       canHold = false;
       abortTheTextRotation = false;
       holdCount++;
-      DurationAndGradient params = DurationAndGradient.initial();
       if (holdPosition == GesturePlacement.topHalf &&
-          bottomHalfIsDone &&
-          !topHalfIsDone) {
+          !speakingInstructionsComplete) {
         mirroredText.startRotatingUpsideDown(isResuming: true);
-        params = DurationAndGradient(
-          gradient: beachWaves.currentColorsAndStops,
-          duration: const Duration(seconds: 2),
-        );
-        beachWaves.setMovieMode(BeachWaveMovieModes.anyToVibrantBlueGrad);
-        beachWaves.currentStore.initMovie(params);
-      } else if (holdPosition == GesturePlacement.bottomHalf &&
-          !bottomHalfIsDone) {
-        beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
+        beachWaves
+            .setMovieMode(BeachWaveMovieModes.invertedHalfAndHalfToDrySand);
         beachWaves.currentStore.initMovie(NoParams());
-        mirroredText.startRotatingRightSideUp(isResuming: true);
+        halfScreenTint.setControl(Control.playReverse);
+        mirroredText.setRightsideUpVisibility(false);
       }
-      if (!bottomHalfIsDone) {
-      } else if (bottomHalfIsDone && !topHalfIsDone) {}
     }
   }
 
@@ -212,15 +196,10 @@ abstract class _SessionHybridInstructionsWidgetsCoordinatorBase
       abortTheTextRotation = true;
       borderGlow.initGlowDown();
       holdTimerIndicator.onLetGo();
-      beachWaves.setMovieMode(BeachWaveMovieModes.dynamicPointToHalfAndHalf);
+      beachWaves
+          .setMovieMode(BeachWaveMovieModes.dynamicPointToInvertedHalfAndHalf);
       beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
-      if (!bottomHalfIsDone) {
-        mirroredText.setWidgetVisibility(false);
-      } else if (bottomHalfIsDone && !topHalfIsDone) {
-        mirroredText.setUpsideDownVisibility(false);
-      } else if (bottomHalfIsDone && topHalfIsDone) {
-        await onFlowFinished();
-      }
+      mirroredText.setUpsideDownVisibility(false);
     }
   }
 
@@ -232,15 +211,12 @@ abstract class _SessionHybridInstructionsWidgetsCoordinatorBase
       } else {
         cooldownStopwatch.reset();
       }
-      touchRipple.onTap(tapPosition, adjustColorBasedOnPosition: true);
-      if (hasTappedOnTheRightSide && textIsDoneFadingInOrOut) {
-        toggleCurrentActiveOrientation();
-        if (isFirstTap) {
-          mirroredText.startRotatingUpsideDown();
-          mirroredText.startRotatingRightSideUp(isResuming: true);
-        } else if (isStillInMutualInstructionMode) {
-          mirroredText.startBothRotatingText(isResuming: true);
-        }
+      touchRipple.onTap(
+        tapPosition,
+        overridedColor: NokhteSessionConstants.blue,
+      );
+      if (hasTappedOnTheRightSide && textIsDoneFadingInOrOut && tapCount < 2) {
+        mirroredText.startRotatingUpsideDown(isResuming: true);
         tapCount++;
       }
     }
@@ -248,24 +224,14 @@ abstract class _SessionHybridInstructionsWidgetsCoordinatorBase
 
   @action
   onEmptyCheckPointMessageReached(int index) {
-    if (index == 5 && !bottomHalfIsDone) {
-      adjustRightSideToHoldingPadding();
-    }
-    if (index == 11) {
-      Timer(
-        Seconds.get(1),
-        () => Modular.to.navigate('/session/speaking'),
-      );
-      return;
+    if (index == 3) {
+      adjustUpsideDownToHoldingPadding();
     }
     Timer(const Duration(milliseconds: 500), () {
-      if (!abortTheTextRotation) {
-        if (!bottomHalfIsDone) {
-          mirroredText.startRotatingRightSideUp(isResuming: true);
-        } else if (bottomHalfIsDone && !topHalfIsDone && bottomHalfHasStarted) {
-          adjustUpsideDownToHoldingPadding();
-          mirroredText.startRotatingUpsideDown(isResuming: true);
-        }
+      //
+      if (!abortTheTextRotation && !speakingInstructionsComplete) {
+        mirroredText.startRotatingUpsideDown(isResuming: true);
+        //
       }
     });
   }
@@ -273,114 +239,61 @@ abstract class _SessionHybridInstructionsWidgetsCoordinatorBase
   @action
   onNextMessageReached(int index) {
     Duration onScreenTime = Duration.zero;
-    if (index == 6) {
-      onScreenTime = const Duration(seconds: 2, milliseconds: 500);
-    } else if (index == 8) {
-      onScreenTime = const Duration(seconds: 1);
+    if (index == 4) {
+      onScreenTime = Seconds.get(2);
     }
     Timer(onScreenTime, () {
-      if (!abortTheTextRotation || index == 8) {
-        if (!bottomHalfIsDone) {
-          mirroredText.startRotatingRightSideUp(isResuming: true);
-          if (index == 8) {
-            bottomHalfIsDone = true;
-          }
-        } else if (bottomHalfIsDone && !topHalfIsDone) {
-          mirroredText.startRotatingUpsideDown(isResuming: true);
-          if (index == 8) {
-            canHold = false;
-            topHalfIsDone = true;
-          }
-        }
+      if (index == 4) {
+        mirroredText.startRotatingUpsideDown(isResuming: true);
+      } else if (index == 6) {
+        speakingInstructionsComplete = true;
       }
     });
   }
 
   upsideDownIndexReactor() =>
       reaction((p0) => mirroredText.primaryUpsideDownText.currentIndex, (p0) {
-        if (p0.isGreaterThan(4)) {
+        if (p0.isGreaterThan(2)) {
           if (p0.isOdd) {
             onEmptyCheckPointMessageReached(p0);
-          } else if (p0.isEven) {
+          } else {
             onNextMessageReached(p0);
           }
         }
       });
 
-  rightSideUpIndexReactor() =>
-      reaction((p0) => mirroredText.primaryRightSideUpText.currentIndex, (p0) {
-        if (p0.isGreaterThan(4)) {
-          if (p0.isOdd) {
-            onEmptyCheckPointMessageReached(p0);
-          } else if (p0.isEven) {
-            onNextMessageReached(p0);
-          }
-        }
-      });
-
-  beachWavesMovieStatusReactor() =>
-      reaction((p0) => beachWaves.movieStatus, (p0) {
+  beachWavesMovieStatusReactor(Function onFlowCompleted) =>
+      reaction((p0) => beachWaves.movieStatus, (p0) async {
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode ==
-              BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf) {
-            if (!topHalfIsDone) {
-              halfScreenTint.setControl(Control.play);
-              mirroredText.startRotatingRightSideUp();
-              cooldownStopwatch.start();
-              disableTouchInput = false;
-            }
+              BeachWaveMovieModes.vibrantBlueGradToInvertedHalfAndHalf) {
+            halfScreenTint.setControl(Control.play);
+            mirroredText.startBothRotatingText();
+            cooldownStopwatch.start();
+            disableTouchInput = false;
           } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.anyToVibrantBlueGrad) {
-            if (!phoneIsPickedUp) {
-              borderGlow.initMovie(NoParams());
-              holdTimerIndicator.initMovie(GesturePlacement.topHalf);
-            }
+              BeachWaveMovieModes.invertedHalfAndHalfToDrySand) {
+            borderGlow.initMovie(NoParams());
+            holdTimerIndicator.initMovie(GesturePlacement.bottomHalf);
           } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.halfAndHalfToDrySand) {
-            if (!phoneIsPickedUp) {
-              borderGlow.initMovie(NoParams());
-              holdTimerIndicator.initMovie(GesturePlacement.bottomHalf);
-            }
-          } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.dynamicPointToHalfAndHalf) {
-            if (!bottomHalfIsDone) {
-              mirroredText.prepForSplitScreen();
+              BeachWaveMovieModes.dynamicPointToInvertedHalfAndHalf) {
+            if (!speakingInstructionsComplete) {
               Timer.periodic(Seconds.get(0, milli: 550), (timer) {
-                if (mirroredText.primaryRightSideUpText.control ==
+                if (mirroredText.primaryUpsideDownText.control ==
                         Control.playFromStart &&
                     !phoneIsPickedUp) {
-                  resetRightSideHoldingPadding();
-                  mirroredText.setRightsideUpCurrentIndex(3);
-                  mirroredText.startRotatingRightSideUp(isResuming: true);
-                  mirroredText.setRightsideUpVisibility(true);
                   canHold = true;
+                  mirroredText.setUpsideDownCurrentIndex(2);
+                  mirroredText.setWidgetVisibility(true);
+                  halfScreenTint.setControl(Control.play);
+                  mirroredText.setPadding(
+                    primaryUpsideDownTopPadding: .5,
+                  );
                   timer.cancel();
                 }
               });
-            } else if (bottomHalfIsDone && !topHalfIsDone) {
-              canHold = true;
-              if (!bottomHalfHasStarted) {
-                resetRightSideHoldingPadding();
-                bottomHalfHasStarted = true;
-                holdCount = 0;
-                letGoCount = 0;
-                mirroredText.setUpsideDownVisibility(true);
-                mirroredText.startRotatingUpsideDown(isResuming: true);
-              } else {
-                Timer.periodic(Seconds.get(0, milli: 550), (timer) {
-                  if (mirroredText.primaryUpsideDownText.control ==
-                          Control.playFromStart &&
-                      !phoneIsPickedUp) {
-                    resetUpsideDownHoldingPadding();
-                    mirroredText.setUpsideDownCurrentIndex(3);
-                    mirroredText.startRotatingUpsideDown(isResuming: true);
-                    mirroredText.setUpsideDownVisibility(true);
-                    timer.cancel();
-                  }
-                });
-              }
-            } else if (bottomHalfIsDone && topHalfIsDone) {
-              Modular.to.navigate("/session/speaking_waiting");
+            } else {
+              await onFlowCompleted();
             }
           }
         }
@@ -408,7 +321,7 @@ abstract class _SessionHybridInstructionsWidgetsCoordinatorBase
       touchRipple.tapPlacement == GesturePlacement.topHalf;
 
   @computed
-  bool get isStillInMutualInstructionMode => tapCount.isLessThan(4);
+  bool get isStillInMutualInstructionMode => tapCount.isLessThan(2);
 
   @computed
   bool get isFirstTap => tapCount == 0;
@@ -418,5 +331,5 @@ abstract class _SessionHybridInstructionsWidgetsCoordinatorBase
 
   @computed
   bool get textIsDoneFadingInOrOut =>
-      mirroredText.textIsDoneAnimating || isFirstTap;
+      mirroredText.upsideDownIsDoneAnimating || isFirstTap;
 }

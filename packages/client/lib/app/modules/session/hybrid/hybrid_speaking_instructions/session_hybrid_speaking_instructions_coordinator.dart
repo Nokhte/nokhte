@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
@@ -8,22 +9,22 @@ import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'session_hybrid_instructions_widgets_coordinator.dart';
-part 'session_hybrid_instructions_coordinator.g.dart';
+import 'session_hybrid_speaking_instructions_widgets_coordinator.dart';
+part 'session_hybrid_speaking_instructions_coordinator.g.dart';
 
-class SessionHybridInstructionsCoordinator = _SessionHybridInstructionsCoordinatorBase
-    with _$SessionHybridInstructionsCoordinator;
+class SessionHybridSpeakingInstructionsCoordinator = _SessionHybridSpeakingInstructionsCoordinatorBase
+    with _$SessionHybridSpeakingInstructionsCoordinator;
 
-abstract class _SessionHybridInstructionsCoordinatorBase extends BaseCoordinator
-    with Store {
+abstract class _SessionHybridSpeakingInstructionsCoordinatorBase
+    extends BaseCoordinator with Store {
   final TapDetector tap;
   final HoldDetector hold;
-  final SessionHybridInstructionsWidgetsCoordinator widgets;
+  final SessionHybridSpeakingInstructionsWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final GetSessionMetadataStore sessionMetadata;
   final GyroscopicCoordinator gyroscopic;
 
-  _SessionHybridInstructionsCoordinatorBase({
+  _SessionHybridSpeakingInstructionsCoordinatorBase({
     required super.captureScreen,
     required this.gyroscopic,
     required this.widgets,
@@ -64,6 +65,7 @@ abstract class _SessionHybridInstructionsCoordinatorBase extends BaseCoordinator
     phoneTiltStateReactor();
     holdReactor();
     letGoReactor();
+    widgets.beachWavesMovieStatusReactor(onFlowFinished);
   }
 
   @action
@@ -78,6 +80,15 @@ abstract class _SessionHybridInstructionsCoordinatorBase extends BaseCoordinator
         .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
     if (sessionMetadata.everyoneIsOnline) {
       presence.incidentsOverlayStore.onCollaboratorJoined();
+    }
+  }
+
+  @action
+  onFlowFinished() async {
+    if (sessionMetadata.canMoveIntoSecondInstructionsSet) {
+      Modular.to.navigate("/session/hybrid_notes_instructions");
+    } else {
+      Modular.to.navigate("/session/hybrid_waiting");
     }
   }
 
@@ -110,8 +121,7 @@ abstract class _SessionHybridInstructionsCoordinatorBase extends BaseCoordinator
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
-        (p0) => ifTouchIsNotDisabled(
-          () => widgets.onTap(tap.currentTapPosition),
-        ),
+        (p0) =>
+            ifTouchIsNotDisabled(() => widgets.onTap(tap.currentTapPosition)),
       );
 }
