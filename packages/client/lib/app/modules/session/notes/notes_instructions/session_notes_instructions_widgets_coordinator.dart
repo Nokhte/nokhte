@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
@@ -47,7 +49,7 @@ abstract class _SessionNotesInstructionsWidgetsCoordinatorBase
     beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
     tint.setControl(Control.playFromStart);
     mirroredText.setMessagesData(
-      MirroredTextContentOptions.irlNokhteSessionNotesInstructions,
+      MirroredTextContent.sessionNotesInstructions,
       shouldAdjustToFallbackExitProtocol: shouldAdjustToFallbackExitProtocol,
     );
     mirroredText.startBothRotatingText();

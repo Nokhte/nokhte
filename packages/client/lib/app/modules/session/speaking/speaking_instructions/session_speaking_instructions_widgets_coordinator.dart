@@ -40,7 +40,7 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
     beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
     beachWaves.currentStore.initMovie(NoParams());
     mirroredText.setMessagesData(
-      MirroredTextContentOptions.irlNokhteSessionSpeakingInstructions,
+      MirroredTextContent.sessionSpeakingInstructions,
     );
     errorSmartText.setWidgetVisibility(false);
     errorSmartText.setMessagesData(SessionLists.speakingInstructionsError);

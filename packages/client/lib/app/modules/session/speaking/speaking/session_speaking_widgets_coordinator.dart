@@ -32,9 +32,7 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
   @action
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
-    mirroredText.setMessagesData(
-      MirroredTextContentOptions.irlNokhteSessionSpeakingPhone,
-    );
+    mirroredText.setMessagesData(MirroredTextContent.sessionSpeaking);
     mirroredText.startBothRotatingText();
     setIsPickingUp(false);
     initReactors();

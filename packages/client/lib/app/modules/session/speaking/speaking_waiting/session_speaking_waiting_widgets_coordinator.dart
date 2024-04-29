@@ -27,7 +27,7 @@ abstract class _SessionSpeakingWaitingWidgetsCoordinatorBase
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
     mirroredText.setMessagesData(
-      MirroredTextContentOptions.irlNokhteSessionSpeakingWaiting,
+      MirroredTextContent.sessionSpeakingWaiting,
     );
     tint.setControl(Control.playFromStart);
     mirroredText.startBothRotatingText();
