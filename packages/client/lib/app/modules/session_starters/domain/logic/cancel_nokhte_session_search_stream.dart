@@ -1,5 +1,5 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/modules/session_starters/domain/domain.dart';
+import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 
 class CancelNokhteSessionSearchStream
     extends AbstractSyncNoFailureLogic<bool, NoParams> {

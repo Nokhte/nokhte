@@ -1,5 +1,5 @@
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
-import 'package:nokhte/app/core/modules/deep_links/constants/types/types.dart';
+import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
 import 'package:nokhte_backend/tables/irl_active_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/user_names.dart';
 import 'package:share_plus/share_plus.dart';

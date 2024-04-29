@@ -3,7 +3,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/modules/login/domain/domain.dart';
+import 'package:nokhte/app/modules/login/login.dart';
 part 'get_login_state_store.g.dart';
 
 class GetLoginStateStore = _GetLoginStateStoreBase with _$GetLoginStateStore;

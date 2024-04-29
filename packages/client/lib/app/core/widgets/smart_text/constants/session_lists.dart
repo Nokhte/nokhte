@@ -230,6 +230,108 @@ class SessionLists {
         ),
       ];
 
+  static List<RotatingTextData> get hybridSpeakingInstructionsPrimary => [
+        RotatingTextData(
+          mainMessage: "The point of this side is to limit speaking",
+          pauseHere: true,
+          mainMessageFontSize: 22.0,
+        ),
+        RotatingTextData(
+          mainMessage: "You can only speak when your finger is on the screen",
+          pauseHere: true,
+          mainMessageFontSize: 22.0,
+        ),
+        RotatingTextData(
+          mainMessage: "Now, put your finger on the screen",
+          pauseHere: true,
+          mainMessageFontSize: 22.0,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "Only you are allowed to speak right now",
+          mainMessageFontSize: 22.0,
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "Let go",
+          mainMessageFontSize: 22.0,
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
+      ];
+
+  static List<RotatingTextData> get hybridSpeakingInstructionsSecondary => [
+        RotatingTextData(
+          mainMessage: "Tap to confirm",
+          pauseHere: true,
+          mainMessageFontSize: 19.0,
+        ),
+        RotatingTextData(
+          mainMessage: "Tap to confirm",
+          pauseHere: true,
+          mainMessageFontSize: 19.0,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+          mainMessageFontSize: 19.0,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          mainMessageFontSize: 19.0,
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          mainMessageFontSize: 19.0,
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
+      ];
+
+  static List<RotatingTextData> get lookAtTheOtherPhone => [
+        RotatingTextData(
+          mainMessage: "Look at the other phone",
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
+      ];
+
+  static List<RotatingTextData> get waitForTheOthers => [
+        RotatingTextData(
+          mainMessage: "Wait for the others",
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
+      ];
+
   static List<RotatingTextData> get speakingInstructionsSecondary => [
         RotatingTextData(
           mainMessage: "Tap to confirm",
@@ -272,6 +374,46 @@ class SessionLists {
         ),
       ];
   //
+
+  static List<RotatingTextData> getHybridNotesInstructionsPrimary({
+    bool shouldAdjustToFallbackExitProtocol = false,
+  }) {
+    final arr = [
+      RotatingTextData(
+        mainMessage: "This phone will be used for notes",
+        pauseHere: true,
+        mainMessageFontSize: 22.0,
+      ),
+      RotatingTextData(
+        mainMessage:
+            "To complete the session ${shouldAdjustToFallbackExitProtocol ? "swipe down on all the phones" : "pick up all the phones"}",
+        pauseHere: true,
+        mainMessageFontSize: 22.0,
+      ),
+      RotatingTextData(
+        mainMessage: "",
+        pauseHere: true,
+      ),
+    ];
+    return arr;
+  }
+
+  static List<RotatingTextData> get hybridNotesInstructionsSecondary => [
+        RotatingTextData(
+          mainMessage: "Tap to confirm",
+          pauseHere: true,
+          mainMessageFontSize: 19.0,
+        ),
+        RotatingTextData(
+          mainMessage: "Tap to confirm",
+          pauseHere: true,
+          mainMessageFontSize: 19.0,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
+      ];
 
   static List<RotatingTextData> getNotesInstructionsPrimary(
     MirroredTextOrientations orientation, {

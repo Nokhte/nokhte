@@ -3,14 +3,12 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/modules/login/types/login_providers.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/posthog/constants/constants.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/login/domain/logic/logic.dart';
-import 'package:nokhte/app/modules/login/presentation/presentation.dart';
-import 'package:nokhte/app/modules/home/presentation/mobx/mobx.dart';
+import 'package:nokhte/app/modules/login/login.dart';
+import 'package:nokhte/app/modules/home/home.dart';
 part 'login_coordinator.g.dart';
 
 class LoginCoordinator = _LoginCoordinatorBase with _$LoginCoordinator;

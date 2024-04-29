@@ -1,6 +1,4 @@
-import 'package:nokhte/app/modules/login/data/models/auth_provider_model.dart';
-import 'package:nokhte/app/modules/login/domain/entities/auth_provider_entity.dart';
-import 'package:nokhte/app/modules/login/types/login_providers.dart';
+import 'package:nokhte/app/modules/login/login.dart';
 import '../../fixtures/supabase_auth_fixture.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';

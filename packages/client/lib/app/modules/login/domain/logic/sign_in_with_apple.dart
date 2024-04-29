@@ -1,7 +1,7 @@
 import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:dartz/dartz.dart';
-import 'package:nokhte/app/modules/login/domain/domain.dart';
+import 'package:nokhte/app/modules/login/login.dart';
 
 class SignInWithApple
     extends AbstractFutureLogic<AuthProviderEntity, NoParams> {

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:nokhte/app/modules/login/types/types.dart';
+import 'package:nokhte/app/modules/login/login.dart';
 
 class AuthProviderEntity extends Equatable {
   final AuthProvider authProvider;

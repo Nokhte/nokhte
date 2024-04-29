@@ -2,8 +2,8 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/domain/domain.dart';
-import 'package:nokhte/app/modules/session_starters/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
+import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 part 'clean_up_collaboration_artifacts_coordinator.g.dart';
 
 class CleanUpCollaborationArtifactsCoordinator = _CleanUpCollaborationArtifactsCoordinatorBase

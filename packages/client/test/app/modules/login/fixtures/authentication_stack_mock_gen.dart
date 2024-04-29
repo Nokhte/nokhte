@@ -1,8 +1,6 @@
 // ignore_for_file: must_be_immutable
 import 'package:mockito/annotations.dart';
-import 'package:nokhte/app/modules/login/data/sources/login_remote_source.dart';
-import 'package:nokhte/app/modules/login/domain/domain.dart';
-import 'package:nokhte/app/modules/login/presentation/presentation.dart';
+import 'package:nokhte/app/modules/login/login.dart';
 
 @GenerateMocks([
   LoginRemoteSourceImpl,

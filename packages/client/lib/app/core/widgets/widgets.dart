@@ -7,6 +7,7 @@ export 'full_screen/full_screen.dart';
 export 'gesture_cross/gesture_cross.dart';
 export 'gestures/gestures.dart';
 export 'instructional_nokhtes/instructional_nokhtes.dart';
+export 'half_screen_tint/half_screen_tint.dart';
 export 'hold_timer_indicator/hold_timer_indicator.dart';
 export "jost/jost.dart";
 export 'mirrored_text/mirrored_text.dart';

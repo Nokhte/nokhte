@@ -5,7 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/session_starters/presentation/presentation.dart';
+import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 
 class SessionStarterScreen extends HookWidget {
   final SessionStarterCoordinator coordinator;

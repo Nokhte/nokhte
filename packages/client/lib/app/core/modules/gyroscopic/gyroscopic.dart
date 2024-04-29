@@ -1,7 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/data/data.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/domain/domain.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/mobx/mobx.dart';
+import 'gyroscopic.dart';
 export 'data/data.dart';
 export 'domain/domain.dart';
 export 'mobx/mobx.dart';

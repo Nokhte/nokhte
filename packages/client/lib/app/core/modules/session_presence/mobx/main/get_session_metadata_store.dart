@@ -113,6 +113,13 @@ abstract class _GetSessionMetadataStoreBase
   List get evenList => splitList(currentPhases)[0];
 
   @computed
+  List get evenListMinusHybridPhone {
+    final list = splitList(currentPhases)[0];
+    list.removeAt(0);
+    return list;
+  }
+
+  @computed
   List get oddList => splitList(currentPhases)[1];
 
   @computed
@@ -123,8 +130,14 @@ abstract class _GetSessionMetadataStoreBase
   }
 
   @computed
-  bool get canMoveIntoSecondInstructionsSet =>
-      evenList.every((e) => e == 2) && oddList.every((e) => e == 1);
+  bool get canMoveIntoSecondInstructionsSet {
+    if (numberOfCollaborators.isOdd) {
+      return evenListMinusHybridPhone.every((e) => e == 2) &&
+          oddList.every((e) => e == 1);
+    } else {
+      return evenList.every((e) => e == 2) && oddList.every((e) => e == 1);
+    }
+  }
 
   @computed
   int get numberOfCollaborators => currentPhases.length;

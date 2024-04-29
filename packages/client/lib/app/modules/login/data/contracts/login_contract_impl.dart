@@ -3,10 +3,9 @@ import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/error/failure.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mixins/response_to_status.dart';
-import 'package:nokhte/app/core/modules/user_information/data/data.dart';
-import 'package:nokhte/app/modules/login/domain/domain.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information.dart';
+import 'package:nokhte/app/modules/login/login.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
-import 'package:nokhte/app/modules/login/data/sources/login_remote_source.dart';
 
 typedef _AppleOrGoogleChooser = Future<dynamic> Function();
 

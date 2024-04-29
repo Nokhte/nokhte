@@ -4,7 +4,7 @@ import 'package:nokhte/app/core/constants/constants.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/login/presentation/presentation.dart';
+import 'package:nokhte/app/modules/login/login.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class LoginScreen extends HookWidget {

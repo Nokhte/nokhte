@@ -1,4 +1,4 @@
-import 'package:nokhte/app/modules/storage/domain/logic/logic.dart';
+import 'package:nokhte/app/modules/storage/storage.dart';
 import 'package:nokhte_backend/tables/finished_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/user_names.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';

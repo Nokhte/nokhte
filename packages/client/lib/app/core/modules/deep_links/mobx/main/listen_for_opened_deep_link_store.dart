@@ -2,9 +2,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/deep_links/constants/constants.dart';
-import 'package:nokhte/app/core/modules/deep_links/domain/domain.dart';
-import 'package:nokhte/app/core/modules/user_information/mobx/coordinators/user_information_coordinator.dart';
+import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 part 'listen_for_opened_deep_link_store.g.dart';
 
 class ListenForOpenedDeepLinkStore = _ListenForOpenedDeepLinkStoreBase

@@ -5,7 +5,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/connectivity/logic/get_on_connectivity_changed.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 part 'get_on_connectivity_changed_store.g.dart';
 
 class GetOnConnectivityChangedStore = _GetOnConnectivityChangedStoreBase

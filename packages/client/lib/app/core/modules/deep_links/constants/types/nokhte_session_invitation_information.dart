@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
-import 'package:nokhte/app/core/modules/deep_links/constants/constants.dart';
+import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
 
 class NokhteSessionInvitationInformation extends Equatable {
   final String senderUID;
