@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
@@ -84,9 +83,7 @@ abstract class _SessionNotesWidgetsCoordinatorBase
 
   @action
   startInactivityCron(Function onGlowInitiated) {
-    inActivityCron = Timer.periodic(
-        kDebugMode ? const Duration(seconds: 20) : const Duration(minutes: 9),
-        (timer) async {
+    inActivityCron = Timer.periodic(const Duration(minutes: 9), (timer) async {
       if (activityCount.isLessThanOrEqualTo(baseComparisonActivityCount)) {
         borderGlow.initWhiteOut();
         textEditor.setWidgetVisibility(false);
