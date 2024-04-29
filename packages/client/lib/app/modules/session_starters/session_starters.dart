@@ -1,11 +1,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:nokhte/app/core/modules/deep_links/deep_links_module.dart';
-import 'package:nokhte/app/core/modules/deep_links/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity_module.dart';
-import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog_module.dart';
-import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/user_information/user_information_module.dart';
+import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
+import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'session_starters.dart';
 export 'data/data.dart';

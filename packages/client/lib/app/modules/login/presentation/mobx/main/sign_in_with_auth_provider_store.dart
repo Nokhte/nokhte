@@ -2,10 +2,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/error/failure.dart';
-import 'package:nokhte/app/modules/login/types/login_providers.dart';
+import 'package:nokhte/app/modules/login/login.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/modules/login/domain/domain.dart';
 part 'sign_in_with_auth_provider_store.g.dart';
 
 class SignInWithAuthProviderStore = _SignInWithAuthProviderStoreBase

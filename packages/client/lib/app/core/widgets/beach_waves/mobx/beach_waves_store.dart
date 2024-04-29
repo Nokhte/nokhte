@@ -30,10 +30,14 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
           InvertedOnShoreToInvertedOceanDiveMovieStore(),
       BeachWaveMovieModes.invertedOnShoreToInvertedVibrantBlueGrad:
           InvertedOnShoreToInvertedVibrantBlueGradMovieStore(),
+      BeachWaveMovieModes.invertedHalfAndHalfToDrySand:
+          InvertedHalfAndHalfToDrySandMovieStore(),
       BeachWaveMovieModes.depthsToTimesUpStart:
           DepthsToTimesUpStartMovieStore(),
       BeachWaveMovieModes.dynamicPointToHalfAndHalf:
           DynamicPointToHalfAndHalfMovieStore(),
+      BeachWaveMovieModes.dynamicPointToInvertedHalfAndHalf:
+          DynamicPointToInvertedHalfAndHalfMovieStore(),
       BeachWaveMovieModes.none: BaseBeachWaveMovieStore(),
       BeachWaveMovieModes.oceanDiveToTimesUp:
           OceanDiveToTimesUpStartMovieStore(),
@@ -62,6 +66,8 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
           TimesUpEndToTimesUpStartMovieStore(),
       BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf:
           VibrantBlueGradToHalfAndHalfMovieStore(),
+      BeachWaveMovieModes.vibrantBlueGradToInvertedHalfAndHalf:
+          VibrantBlueGradToInvertedHalfAndHalfMovieStore(),
       BeachWaveMovieModes.vibrantBlueGradientToTimesUp:
           VibrantBlueGradientToTimesUpMovieStore(),
       BeachWaveMovieModes.vibrantBlueGradToDrySand:

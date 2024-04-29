@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/modules/session_starters/domain/domain.dart';
+import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:nokhte_backend/edge_functions/edge_functions.dart';
 
 class EnterCollaboratorPool

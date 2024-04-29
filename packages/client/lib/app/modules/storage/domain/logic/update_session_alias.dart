@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/modules/storage/domain/domain.dart';
+import 'package:nokhte/app/modules/storage/storage.dart';
 
 class UpdateSessionAlias
     implements AbstractFutureLogic<bool, UpdateSessionAliasParams> {

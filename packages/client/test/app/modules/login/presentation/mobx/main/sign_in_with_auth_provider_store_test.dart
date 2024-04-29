@@ -1,10 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/error/failure.dart';
-import 'package:nokhte/app/modules/login/types/login_providers.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/modules/login/domain/entities/auth_provider_entity.dart';
-import 'package:nokhte/app/modules/login/presentation/mobx/main/sign_in_with_auth_provider_store.dart';
+import 'package:nokhte/app/modules/login/login.dart';
 import 'package:dartz/dartz.dart';
 import '../../../fixtures/authentication_stack_mock_gen.mocks.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';

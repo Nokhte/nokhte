@@ -1,5 +1,5 @@
 import 'package:mockito/annotations.dart';
-import 'package:nokhte/app/core/modules/connectivity/mobx/get_on_connectivity_changed_store.dart';
+import 'package:nokhte/app/core/modules/connectivity/connectivity.dart';
 
 @GenerateMocks([
   GetOnConnectivityChangedStore,

@@ -1,6 +1,5 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/domain/domain.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
 
 class GetTiltStream
     implements AbstractNoFailureStreamLogic<PhoneHoldingState, NoParams> {

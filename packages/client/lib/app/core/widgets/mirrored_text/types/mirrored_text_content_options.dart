@@ -1,8 +1,11 @@
-enum MirroredTextContentOptions {
-  irlNokhteSessionSpeakingInstructions,
-  irlNokhteSessionSpeakingWaiting,
-  irlNokhteSessionSpeakingPhone,
-  irlNokhteSessionNotesInstructions,
-  irlNokhteSessionNotesPhone,
+enum MirroredTextContent {
+  sessionSpeakingInstructions,
+  sessionSpeakingWaiting,
+  sessionSpeaking,
+  sessionNotesInstructions,
+  sessionSpeakingHybridInstructions,
+  sessionHybridWaiting,
+  sessionNotesHybridInstructions,
+  sessionNotes,
   speakLessWriteMore,
 }

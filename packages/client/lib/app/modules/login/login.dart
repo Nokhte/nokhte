@@ -1,8 +1,7 @@
 import 'package:nokhte/app/core/guards/auth_guard.dart';
-import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity_module.dart';
-import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog_module.dart';
-import 'package:nokhte/app/core/modules/user_information/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_modular/flutter_modular.dart';

@@ -1,5 +1,5 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/user_information/domain/domain.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 
 class UpdateWantsToRepeatInvitationFlow
     implements AbstractFutureLogic<bool, bool> {

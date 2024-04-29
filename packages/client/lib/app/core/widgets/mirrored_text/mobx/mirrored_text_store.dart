@@ -4,7 +4,7 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/session/shared/constants/constants.dart';
+import 'package:nokhte/app/modules/session/constants/constants.dart';
 part 'mirrored_text_store.g.dart';
 
 class MirroredTextStore = _MirroredTextStoreBase with _$MirroredTextStore;
@@ -25,19 +25,19 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
 
   @action
   setMessagesData(
-    MirroredTextContentOptions types, {
+    MirroredTextContent types, {
     bool shouldAdjustToFallbackExitProtocol = false,
   }) {
     switch (types) {
-      case MirroredTextContentOptions.irlNokhteSessionSpeakingInstructions:
+      case MirroredTextContent.sessionSpeakingInstructions:
         prepForSplitScreen();
         setSecondaryMessagesData(SessionLists.speakingInstructionsSecondary);
         setPrimaryMessagesData(SessionLists.speakingInstructionsPrimary);
-      case MirroredTextContentOptions.irlNokhteSessionSpeakingPhone:
+      case MirroredTextContent.sessionSpeaking:
         prepForSplitScreen();
         setPrimaryMessagesData(SharedLists.empty);
         setSecondaryMessagesData(SessionLists.speakingSecondary);
-      case MirroredTextContentOptions.irlNokhteSessionNotesInstructions:
+      case MirroredTextContent.sessionNotesInstructions:
         primaryRightSideUpText.setMessagesData(
           SessionLists.getNotesInstructionsPrimary(
             MirroredTextOrientations.rightSideUp,
@@ -62,7 +62,7 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
             MirroredTextOrientations.upsideDown,
           ),
         );
-      case MirroredTextContentOptions.speakLessWriteMore:
+      case MirroredTextContent.speakLessWriteMore:
         primaryRightSideUpText
             .setMessagesData(SessionLists.speakLessWriteMorePrimary);
         primaryUpsideDownText
@@ -75,20 +75,59 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
         secondaryRightSideUpText.setStaticAltMovie(Colors.black);
         primaryUpsideDownText.setStaticAltMovie(Colors.black);
         secondaryUpsideDownText.setStaticAltMovie(Colors.black);
-      case MirroredTextContentOptions.irlNokhteSessionSpeakingWaiting:
+      case MirroredTextContent.sessionSpeakingWaiting:
         setPrimaryMessagesData(SessionLists.speakingWaiting);
         setSecondaryMessagesData(SharedLists.empty);
         prepForSplitScreen();
-
+      case MirroredTextContent.sessionSpeakingHybridInstructions:
+        primaryRightSideUpText.setMessagesData(
+          SessionLists.lookAtTheOtherPhone,
+        );
+        secondaryRightSideUpText.setMessagesData(SharedLists.empty);
+        primaryUpsideDownText.setMessagesData(
+          SessionLists.hybridSpeakingInstructionsPrimary,
+        );
+        secondaryUpsideDownText.setMessagesData(
+          SessionLists.hybridSpeakingInstructionsSecondary,
+        );
+        prepForSplitScreen(isInverted: true);
+      case MirroredTextContent.sessionHybridWaiting:
+        primaryRightSideUpText.setMessagesData(SessionLists.waitForTheOthers);
+        secondaryRightSideUpText.setMessagesData(SharedLists.empty);
+        primaryUpsideDownText.setMessagesData(SessionLists.waitForTheOthers);
+        secondaryUpsideDownText.setMessagesData(SharedLists.empty);
+        prepForSplitScreen(isInverted: true);
+      case MirroredTextContent.sessionNotesHybridInstructions:
+        prepForSplitScreen(isInverted: true);
+        primaryRightSideUpText.setMessagesData(
+          SessionLists.getHybridNotesInstructionsPrimary(
+            shouldAdjustToFallbackExitProtocol:
+                shouldAdjustToFallbackExitProtocol,
+          ),
+        );
+        secondaryRightSideUpText.setMessagesData(
+          SessionLists.hybridNotesInstructionsSecondary,
+        );
+        primaryUpsideDownText.setMessagesData(
+          SessionLists.lookAtTheOtherPhone,
+        );
+        secondaryUpsideDownText.setMessagesData(SharedLists.empty);
       default:
         break;
     }
   }
 
   @action
-  prepForSplitScreen() {
-    primaryRightSideUpText.setStaticAltMovie(NokhteSessionConstants.blue);
-    secondaryRightSideUpText.setStaticAltMovie(NokhteSessionConstants.blue);
+  prepForSplitScreen({
+    bool isInverted = false,
+  }) {
+    if (isInverted) {
+      primaryUpsideDownText.setStaticAltMovie(NokhteSessionConstants.blue);
+      secondaryUpsideDownText.setStaticAltMovie(NokhteSessionConstants.blue);
+    } else {
+      primaryRightSideUpText.setStaticAltMovie(NokhteSessionConstants.blue);
+      secondaryRightSideUpText.setStaticAltMovie(NokhteSessionConstants.blue);
+    }
   }
 
   @action
@@ -290,4 +329,11 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
           eitherOneIsFadedInAndOtherIsFadedOut) &&
       (primaryUpsideDownText.movieStatus != MovieStatus.inProgress &&
           eitherOneIsFadedInAndOtherIsFadedOut);
+
+  @computed
+  bool get upsideDownIsDoneAnimating =>
+      primaryRightSideUpText.movieStatus != MovieStatus.inProgress;
+  @computed
+  bool get rightSideUpIsDoneAnimating =>
+      primaryRightSideUpText.movieStatus != MovieStatus.inProgress;
 }

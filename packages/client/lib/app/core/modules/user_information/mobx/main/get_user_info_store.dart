@@ -3,8 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/user_information/domain/domain.dart';
-import 'package:nokhte/app/core/modules/user_information/shared/shared.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 part 'get_user_info_store.g.dart';
 
 class GetUserInfoStore = _GetUserInfoStoreBase with _$GetUserInfoStore;

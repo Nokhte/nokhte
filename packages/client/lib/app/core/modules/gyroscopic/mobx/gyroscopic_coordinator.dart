@@ -4,8 +4,7 @@ import 'dart:async';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/domain/domain.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
 part 'gyroscopic_coordinator.g.dart';
 
 class GyroscopicCoordinator = _GyroscopicCoordinatorBase

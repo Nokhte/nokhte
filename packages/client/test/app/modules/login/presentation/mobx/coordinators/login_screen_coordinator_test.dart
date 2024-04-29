@@ -1,8 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/login/presentation/presentation.dart';
-import 'package:nokhte/app/modules/login/types/types.dart';
+import 'package:nokhte/app/modules/login/login.dart';
 import '../../../../../core/mobx/base_coordinator_test.mocks.dart';
 import '../../../../shared/shared_mocks.mocks.dart';
 import '../../../fixtures/authentication_stack_mock_gen.mocks.dart';
