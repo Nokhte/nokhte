@@ -108,7 +108,7 @@ abstract class _SessionNotesInstructionsCoordinatorBase extends BaseCoordinator
             if (instructionModeIsUnlocked) {
               widgets.onTap(
                 tap.currentTapPosition,
-                onFlowFinished: () => null,
+                onFlowFinished: () async => await updateCurrentPhase(),
               );
             }
           },
