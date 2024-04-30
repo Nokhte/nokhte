@@ -85,7 +85,7 @@ abstract class _SessionNotesWidgetsCoordinatorBase
   @action
   startInactivityCron(Function onGlowInitiated) {
     inActivityCron = Timer.periodic(
-        kDebugMode ? const Duration(seconds: 10) : const Duration(minutes: 9),
+        kDebugMode ? const Duration(minutes: 1) : const Duration(minutes: 9),
         (timer) async {
       if (activityCount.isLessThanOrEqualTo(baseComparisonActivityCount)) {
         borderGlow.initWhiteOut();
