@@ -8,4 +8,5 @@ enum MirroredTextContent {
   sessionNotesHybridInstructions,
   sessionNotes,
   speakLessWriteMore,
+  lookAtTheOtherPhone
 }

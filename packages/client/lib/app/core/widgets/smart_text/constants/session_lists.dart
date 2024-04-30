@@ -421,11 +421,6 @@ class SessionLists {
   }) {
     final arr = [
       RotatingTextData(
-        mainMessage: "Look at the other phone",
-        pauseHere: true,
-        mainMessageFontSize: 22.0,
-      ),
-      RotatingTextData(
         mainMessage: "",
         pauseHere: true,
       ),
@@ -450,7 +445,7 @@ class SessionLists {
       ),
     ];
     if (orientation == MirroredTextOrientations.rightSideUp) {
-      arr.removeAt(1);
+      arr.removeAt(0);
     }
     return arr;
   }
@@ -458,10 +453,6 @@ class SessionLists {
   static List<RotatingTextData> getNotesInstructionsSecondary(
       MirroredTextOrientations orientation) {
     final arr = [
-      RotatingTextData(
-        mainMessage: "",
-        pauseHere: true,
-      ),
       RotatingTextData(
         mainMessage: "",
         pauseHere: true,
@@ -486,7 +477,7 @@ class SessionLists {
       ),
     ];
     if (orientation == MirroredTextOrientations.rightSideUp) {
-      arr.removeAt(1);
+      arr.removeAt(0);
     }
     return arr;
   }
