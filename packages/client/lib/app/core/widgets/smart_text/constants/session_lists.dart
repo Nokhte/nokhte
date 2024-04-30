@@ -37,6 +37,19 @@ class SessionLists {
           pauseHere: true,
         ),
       ];
+  static List<RotatingTextData> get speakLessWriteMore => [
+        RotatingTextData(
+          mainMessage: "Speak less, write more",
+          subMessage: "Tap anywhere to confirm",
+          pauseHere: true,
+          initialFadeInDelay: Seconds.get(1),
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
+      ];
 
   static List<RotatingTextData> get speakLessWriteMoreSecondary => [
         RotatingTextData(
@@ -366,14 +379,20 @@ class SessionLists {
         ),
       ];
 
-  static List<RotatingTextData> get speakingSecondary => [
+  static List<RotatingTextData> get touchToTalk => [
         RotatingTextData(
           mainMessage: "Touch to talk",
           pauseHere: true,
           mainMessageFontSize: 19.0,
         ),
       ];
-  //
+  static List<RotatingTextData> get tapToTakeANote => [
+        RotatingTextData(
+          mainMessage: "Tap to take a note",
+          pauseHere: true,
+          mainMessageFontSize: 19.0,
+        ),
+      ];
 
   static List<RotatingTextData> getHybridNotesInstructionsPrimary({
     bool shouldAdjustToFallbackExitProtocol = false,
