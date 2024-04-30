@@ -148,7 +148,7 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
       if (sessionMetadata.userIndex == 0) {
         return '/session/hybrid_speaking_instructions';
       } else if (sessionMetadata.userIndex.isOdd) {
-        return '/session/notes_instructions';
+        return '/session/notes_waiting';
       } else {
         return '/session/speaking_instructions';
       }
@@ -156,7 +156,7 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
       if (sessionMetadata.userIndex.isEven) {
         return '/session/speaking_instructions';
       } else {
-        return '/session/notes_instructions';
+        return '/session/notes_waiting';
       }
     }
   }
