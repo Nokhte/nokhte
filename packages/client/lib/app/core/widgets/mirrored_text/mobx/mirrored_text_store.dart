@@ -112,6 +112,13 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
           SessionLists.lookAtTheOtherPhone,
         );
         secondaryUpsideDownText.setMessagesData(SharedLists.empty);
+      case MirroredTextContent.lookAtTheOtherPhone:
+        primaryRightSideUpText.setMessagesData(
+          SessionLists.lookAtTheOtherPhone,
+        );
+        secondaryRightSideUpText.setMessagesData(SharedLists.empty);
+        primaryUpsideDownText.setMessagesData(SessionLists.lookAtTheOtherPhone);
+        secondaryUpsideDownText.setMessagesData(SharedLists.empty);
       default:
         break;
     }
@@ -175,6 +182,14 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
   setRightSideUpColor(Color color) {
     primaryRightSideUpText.setStaticAltMovie(color);
     secondaryRightSideUpText.setStaticAltMovie(color);
+  }
+
+  @action
+  setColor(Color color) {
+    primaryRightSideUpText.setStaticAltMovie(color);
+    secondaryRightSideUpText.setStaticAltMovie(color);
+    primaryUpsideDownText.setStaticAltMovie(color);
+    secondaryUpsideDownText.setStaticAltMovie(color);
   }
 
   @action

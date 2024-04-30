@@ -37,12 +37,16 @@ abstract class _SessionExitCoordinatorBase
   @observable
   bool showCollaboratorIncidents = true;
 
+  @observable
+  bool phaseHasBeenSet = false;
+
   @action
   setShowCollaboratorIncidents(bool newVal) =>
       showCollaboratorIncidents = newVal;
 
   @action
   constructor() async {
+    phaseHasBeenSet = false;
     widgets.constructor();
     initReactors();
     await presence.updateCurrentPhase(4.0);
@@ -123,7 +127,10 @@ abstract class _SessionExitCoordinatorBase
             });
           case GestureDirections.down:
             ifTouchIsNotDisabled(() async {
-              await presence.updateCurrentPhase(3.5);
+              if (!phaseHasBeenSet) {
+                await presence.updateCurrentPhase(3.5);
+                phaseHasBeenSet = true;
+              }
               setDisableAllTouchFeedback(true);
             });
           default:
@@ -131,16 +138,21 @@ abstract class _SessionExitCoordinatorBase
         }
       });
 
-  collaboratorPhaseReactor() => reaction(
-        (p0) => presence.getSessionMetadataStore.currentPhases,
-        (p0) async {
-          if (p0.contains(3.5)) {
-            setIsGoingHome(true);
+  collaboratorPhaseReactor() {
+    reaction(
+      (p0) => presence.getSessionMetadataStore.currentPhases,
+      (p0) async {
+        if (p0.contains(3.5)) {
+          setIsGoingHome(true);
+          if (!phaseHasBeenSet) {
             await presence.updateCurrentPhase(3.5);
-            widgets.onReadyToGoBack(phoneRole);
+            phaseHasBeenSet = true;
           }
-        },
-      );
+          widgets.onReadyToGoBack(phoneRole);
+        }
+      },
+    );
+  }
 
   canReturnHomeReactor() => reaction(
         (p0) => presence.getSessionMetadataStore.canReturnHome,

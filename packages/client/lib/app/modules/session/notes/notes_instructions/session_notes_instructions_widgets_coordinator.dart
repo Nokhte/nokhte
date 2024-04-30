@@ -31,7 +31,7 @@ abstract class _SessionNotesInstructionsWidgetsCoordinatorBase
   Stopwatch cooldownStopwatch = Stopwatch();
 
   @observable
-  bool disableTouchInput = true;
+  bool disableTouchInput = false;
 
   @action
   setDisableTouchInput(bool newValue) => disableTouchInput = newValue;
@@ -47,13 +47,12 @@ abstract class _SessionNotesInstructionsWidgetsCoordinatorBase
   constructor(bool shouldAdjustToFallbackExitProtocol) {
     cooldownStopwatch.start();
     beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
-    tint.setControl(Control.playFromStart);
     mirroredText.setMessagesData(
       MirroredTextContent.sessionNotesInstructions,
       shouldAdjustToFallbackExitProtocol: shouldAdjustToFallbackExitProtocol,
     );
     mirroredText.startBothRotatingText();
-    setDisableTouchInput(true);
+    setDisableTouchInput(false);
   }
 
   @action
