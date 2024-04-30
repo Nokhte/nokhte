@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
@@ -104,7 +105,8 @@ abstract class _GetSessionMetadataStoreBase
   bool get canExitTheSession => currentPhases.every((e) => e == 3);
 
   @computed
-  bool get canReturnHome => currentPhases.every((e) => e == 3);
+  bool get canReturnHome =>
+      currentPhases.every((e) => e.isGreaterThanOrEqualTo(5));
 
   @computed
   double get userPhase => currentPhases[userIndex];
