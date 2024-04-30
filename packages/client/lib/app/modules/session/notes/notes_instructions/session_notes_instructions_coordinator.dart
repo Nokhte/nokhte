@@ -27,9 +27,6 @@ abstract class _SessionNotesInstructionsCoordinatorBase extends BaseCoordinator
     required this.presence,
   }) : sessionMetadata = presence.getSessionMetadataStore;
 
-  @observable
-  bool instructionModeIsUnlocked = false;
-
   @action
   constructor() async {
     widgets.constructor(sessionMetadata.shouldAdjustToFallbackExitProtocol);
@@ -42,28 +39,21 @@ abstract class _SessionNotesInstructionsCoordinatorBase extends BaseCoordinator
     tapReactor();
     presence.initReactors(
       onCollaboratorJoined: () {
-        if (instructionModeIsUnlocked) {
-          widgets.setDisableTouchInput(false);
-        }
+        widgets.setDisableTouchInput(false);
         widgets.onCollaboratorJoined();
       },
       onCollaboratorLeft: () {
         widgets.onCollaboratorLeft();
-        if (instructionModeIsUnlocked) {
-          widgets.setDisableTouchInput(true);
-        }
+        widgets.setDisableTouchInput(true);
       },
     );
-    collaboratorPhaseReactor();
     widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => widgets.setDisableTouchInput(false),
       onLongReConnected: () {
         widgets.setDisableTouchInput(false);
       },
       onDisconnected: () {
-        if (instructionModeIsUnlocked) {
-          widgets.setDisableTouchInput(true);
-        }
+        widgets.setDisableTouchInput(true);
       },
     );
     rippleCompletionStatusReactor();
@@ -72,7 +62,11 @@ abstract class _SessionNotesInstructionsCoordinatorBase extends BaseCoordinator
   rippleCompletionStatusReactor() =>
       reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
         if (p0 == MovieStatus.finished && widgets.hasCompletedInstructions) {
-          Modular.to.navigate('/session/notes');
+          if (sessionMetadata.canMoveIntoSession) {
+            Modular.to.navigate('/session/notes');
+          } else {
+            Modular.to.navigate('/session/notes_waiting');
+          }
         }
       });
 
@@ -91,26 +85,14 @@ abstract class _SessionNotesInstructionsCoordinatorBase extends BaseCoordinator
     }
   }
 
-  collaboratorPhaseReactor() => reaction(
-        (p0) => sessionMetadata.currentPhases,
-        (p0) {
-          if (sessionMetadata.canMoveIntoSecondInstructionsSet) {
-            widgets.onInstructionModeUnlocked();
-            instructionModeIsUnlocked = true;
-          }
-        },
-      );
-
   tapReactor() => reaction(
         (p0) => tap.tapCount,
         (p0) => ifTouchIsNotDisabled(
           () async {
-            if (instructionModeIsUnlocked) {
-              widgets.onTap(
-                tap.currentTapPosition,
-                onFlowFinished: () async => await updateCurrentPhase(),
-              );
-            }
+            widgets.onTap(
+              tap.currentTapPosition,
+              onFlowFinished: () async => await updateCurrentPhase(),
+            );
           },
         ),
       );
