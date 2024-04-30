@@ -76,6 +76,14 @@ class SessionWidgetsModule extends Module {
         beachWaves: BeachWavesStore(),
       ),
     );
+    i.add<SessionNotesWaitingWidgetsCoordinator>(
+      () => SessionNotesWaitingWidgetsCoordinator(
+        tint: TintStore(),
+        mirroredText: Modular.get<MirroredTextStore>(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        beachWaves: BeachWavesStore(),
+      ),
+    );
     i.add<SessionHybridNotesInstructionsWidgetsCoordinator>(
       () => SessionHybridNotesInstructionsWidgetsCoordinator(
         halfScreenTint: HalfScreenTintStore(),

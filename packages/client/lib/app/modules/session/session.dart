@@ -97,6 +97,13 @@ class SessionModule extends Module {
         swipe: SwipeDetector(),
       ),
     );
+    i.add<SessionNotesWaitingCoordinator>(
+      () => SessionNotesWaitingCoordinator(
+        presence: Modular.get<SessionPresenceCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        widgets: Modular.get<SessionNotesWaitingWidgetsCoordinator>(),
+      ),
+    );
     i.add<SessionHybridWaitingCoordinator>(
       () => SessionHybridWaitingCoordinator(
         presence: Modular.get<SessionPresenceCoordinator>(),
@@ -206,6 +213,13 @@ class SessionModule extends Module {
       '/hybrid_notes_instructions',
       child: (context) => SessionHybridNotesInstructionsScreen(
         coordinator: Modular.get<SessionHybridNotesInstructionsCoordinator>(),
+      ),
+    );
+    r.child(
+      transition: TransitionType.noTransition,
+      '/notes_waiting',
+      child: (context) => SessionNotesWaitingScreen(
+        coordinator: Modular.get<SessionNotesWaitingCoordinator>(),
       ),
     );
     r.child(
