@@ -252,7 +252,7 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
     if (index == 11) {
       Timer(
         Seconds.get(1),
-        () => Modular.to.navigate('/session/speaking'),
+        () => Modular.to.navigate('/session/speaking/'),
       );
       return;
     }
@@ -377,7 +377,7 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
                 });
               }
             } else if (bottomHalfIsDone && topHalfIsDone) {
-              Modular.to.navigate("/session/speaking_waiting");
+              Modular.to.navigate("/session/speaking/waiting");
             }
           }
         }

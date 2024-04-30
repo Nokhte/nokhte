@@ -63,9 +63,9 @@ abstract class _SessionNotesInstructionsCoordinatorBase extends BaseCoordinator
       reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
         if (p0 == MovieStatus.finished && widgets.hasCompletedInstructions) {
           if (sessionMetadata.canMoveIntoSession) {
-            Modular.to.navigate('/session/notes');
+            Modular.to.navigate('/session/notes/');
           } else {
-            Modular.to.navigate('/session/notes_waiting');
+            Modular.to.navigate('/session/notes/waiting');
           }
         }
       });

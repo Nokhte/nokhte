@@ -5,6 +5,7 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session/constants/constants.dart';
 part 'session_notes_inactivity_widgets_coordinator.g.dart';
 
 class SessionNotesInactivityWidgetsCoordinator = _SessionNotesInactivityWidgetsCoordinatorBase
@@ -58,9 +59,7 @@ abstract class _SessionNotesInactivityWidgetsCoordinatorBase
       reaction((p0) => borderGlow.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
           if (!borderGlow.isGlowingUp) {
-            Modular.to.navigate("/session/notes");
-          } else {
-            //
+            Modular.to.navigate("/session/notes/");
           }
         }
       });
@@ -77,7 +76,10 @@ abstract class _SessionNotesInactivityWidgetsCoordinatorBase
 
   onTap(Offset position) {
     if (!blockTouchRipple) {
-      touchRipple.onTap(position, overridedColor: Colors.black);
+      touchRipple.onTap(
+        position,
+        overridedColor: NokhteSessionConstants.blue,
+      );
       if (touchRipple.tapPlacement == GesturePlacement.topHalf &&
           !upsideDownHasBeenDismissed) {
         mirroredText.startRotatingUpsideDown(isResuming: true);

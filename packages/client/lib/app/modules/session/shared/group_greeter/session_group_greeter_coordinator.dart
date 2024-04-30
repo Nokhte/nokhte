@@ -146,17 +146,17 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
   String get pathIntoSession {
     if (sessionMetadata.numberOfCollaborators.isOdd) {
       if (sessionMetadata.userIndex == 0) {
-        return '/session/hybrid_speaking_instructions';
+        return '/session/hybrid/speaking_instructions';
       } else if (sessionMetadata.userIndex.isOdd) {
-        return '/session/notes_waiting';
+        return '/session/notes/waiting';
       } else {
-        return '/session/speaking_instructions';
+        return '/session/speaking/instructions';
       }
     } else {
       if (sessionMetadata.userIndex.isEven) {
-        return '/session/speaking_instructions';
+        return '/session/speaking/instructions';
       } else {
-        return '/session/notes_waiting';
+        return '/session/notes/waiting';
       }
     }
   }

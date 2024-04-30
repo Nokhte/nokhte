@@ -163,7 +163,7 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
           if (beachWaves.movieMode ==
               BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf) {
             if (isPickingUp) {
-              Modular.to.navigate("/session/exit");
+              Modular.to.navigate("/session/shared/exit");
             } else if (isLettingGo) {
               onLetGoCompleted();
             }

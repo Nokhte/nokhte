@@ -49,7 +49,7 @@ abstract class _SessionNotesInactivityCoordinatorBase extends BaseCoordinator
     tapReactor();
     widgets.initBorderGlowReactors(
       onGlowDown: () {
-        Modular.to.navigate("/session/notes");
+        Modular.to.navigate("/session/notes/");
       },
     );
   }
