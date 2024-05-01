@@ -33,6 +33,12 @@ abstract class _GetSessionMetadataStoreBase
   bool everyoneHasGyroscopes = false;
 
   @observable
+  bool userIsSpeaking = false;
+
+  @observable
+  bool userCanSpeak = false;
+
+  @observable
   ObservableList<double> currentPhases = ObservableList.of([]);
 
   @observable
@@ -70,6 +76,8 @@ abstract class _GetSessionMetadataStoreBase
           final phases = value.phases.map((e) => double.parse(e.toString()));
           currentPhases = ObservableList.of(phases);
           sessionHasBegun = value.sessionHasBegun;
+          userIsSpeaking = value.userIsSpeaking;
+          userCanSpeak = value.userCanSpeak;
         });
         state = StoreState.loaded;
       },

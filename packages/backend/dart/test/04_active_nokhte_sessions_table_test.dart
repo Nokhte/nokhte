@@ -37,6 +37,7 @@ void main() {
   test("select", () async {
     await tSetup.supabaseAdmin.from("active_irl_nokhte_sessions").insert({
       "collaborator_uids": sortedArr,
+      "leader_uid": sortedArr.first,
     });
     final res = await user1Queries.select();
     expect(res, isNotEmpty);
@@ -95,6 +96,14 @@ void main() {
     final res = await user1Queries.getContent();
     expect(res, ["test"]);
   });
+  test("updateSpeakerSpotlight", () async {
+    await user1Queries.updateSpeakerSpotlight(addUserToSpotight: true);
+    final res1 = await user1Queries.getSpeakerSpotlight();
+    expect(res1, isNotNull);
+    await user1Queries.updateSpeakerSpotlight(addUserToSpotight: false);
+    final res2 = await user1Queries.getSpeakerSpotlight();
+    expect(res2, isNull);
+  });
 
   test("updateCurrentPhases", () async {
     await user1Queries.updateCurrentPhases(1);
@@ -111,6 +120,8 @@ void main() {
       stream,
       emits(
         IrlNokhteSessionMetadata(
+          userCanSpeak: true,
+          userIsSpeaking: false,
           userIndex: sortedArr.indexOf(tSetup.firstUserUID),
           everyoneHasGyroscopes: false,
           phases: [1.0, 1.0],

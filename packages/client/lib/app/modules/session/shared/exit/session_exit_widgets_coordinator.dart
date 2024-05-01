@@ -72,8 +72,12 @@ abstract class _SessionExitWidgetsCoordinatorBase extends BaseWidgetsCoordinator
       beachWaves.currentStore.initMovie(NoParams());
     } else if (phoneRole == SessionPhoneRole.notes) {
       Timer(Seconds.get(1), () {
-        Modular.to.navigate('/session/notes');
+        Modular.to.navigate('/session/notes/');
       });
+    } else if (phoneRole == SessionPhoneRole.hybrid) {
+      beachWaves.setMovieMode(
+          BeachWaveMovieModes.vibrantBlueGradToInvertedHalfAndHalf);
+      beachWaves.currentStore.initMovie(NoParams());
     }
   }
 
@@ -99,15 +103,22 @@ abstract class _SessionExitWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   beachWavesMovieStatusReactor({
     required Function onToHomeComplete,
     required Function onReturnToTalkingComplete,
+    required Function onReturnToHybridComplete,
   }) =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished &&
-            beachWaves.movieMode == BeachWaveMovieModes.onShoreToVibrantBlue) {
-          onToHomeComplete();
-        } else if (p0 == MovieStatus.finished &&
-            beachWaves.movieMode ==
-                BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf) {
-          onReturnToTalkingComplete();
+        if (p0 == MovieStatus.finished) {
+          if (p0 == MovieStatus.finished &&
+              beachWaves.movieMode ==
+                  BeachWaveMovieModes.onShoreToVibrantBlue) {
+            onToHomeComplete();
+          } else if (p0 == MovieStatus.finished &&
+              beachWaves.movieMode ==
+                  BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf) {
+            onReturnToTalkingComplete();
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.vibrantBlueGradToInvertedHalfAndHalf) {
+            onReturnToHybridComplete();
+          }
         }
       });
 }

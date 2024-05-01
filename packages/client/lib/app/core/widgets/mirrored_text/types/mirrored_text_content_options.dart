@@ -5,6 +5,7 @@ enum MirroredTextContent {
   sessionNotesInstructions,
   sessionSpeakingHybridInstructions,
   sessionHybridWaiting,
+  hybrid,
   sessionNotesHybridInstructions,
   sessionNotes,
   speakLessWriteMore,

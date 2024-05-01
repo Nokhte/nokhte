@@ -10,25 +10,27 @@ import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'session_speaking_widgets_coordinator.dart';
-part 'session_speaking_coordinator.g.dart';
+import 'session_hybrid_widgets_coordinator.dart';
+part 'session_hybrid_coordinator.g.dart';
 
-class SessionSpeakingCoordinator = _SessionSpeakingCoordinatorBase
-    with _$SessionSpeakingCoordinator;
+class SessionHybridCoordinator = _SessionHybridCoordinatorBase
+    with _$SessionHybridCoordinator;
 
-abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
+abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
     with Store {
-  final SessionSpeakingWidgetsCoordinator widgets;
+  final SessionHybridWidgetsCoordinator widgets;
+  final TapDetector tap;
   final SwipeDetector swipe;
   final HoldDetector hold;
   final SessionPresenceCoordinator presence;
   final GetSessionMetadataStore sessionMetadata;
   final GyroscopicCoordinator gyroscopic;
-  _SessionSpeakingCoordinatorBase({
+  _SessionHybridCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
     required this.swipe,
     required this.hold,
+    required this.tap,
     required this.gyroscopic,
     required this.presence,
   }) : sessionMetadata = presence.getSessionMetadataStore;
@@ -56,10 +58,10 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
       },
-      onDisconnected: () async {
+      onDisconnected: () {
         setDisableAllTouchFeedback(true);
-        if (sessionMetadata.userIsSpeaking) {
-          await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
+        if (hold.holdCount.isGreaterThan(hold.letGoCount)) {
+          widgets.onLetGo();
         }
       },
     );
@@ -68,10 +70,10 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
         setDisableAllTouchFeedback(false);
         widgets.onCollaboratorJoined();
       },
-      onCollaboratorLeft: () async {
+      onCollaboratorLeft: () {
         setDisableAllTouchFeedback(true);
-        if (sessionMetadata.userIsSpeaking) {
-          await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
+        if (hold.holdCount.isGreaterThan(hold.letGoCount)) {
+          widgets.onLetGo();
         }
         widgets.onCollaboratorLeft();
       },
@@ -83,20 +85,10 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
     }
     userPhaseReactor();
     collaboratorPhaseReactor();
+    tapReactor();
     userIsSpeakingReactor();
     userCanSpeakReactor();
   }
-
-  swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
-        switch (p0) {
-          case GestureDirections.down:
-            ifTouchIsNotDisabled(() async {
-              await presence.updateCurrentPhase(3);
-            });
-          default:
-            break;
-        }
-      });
 
   userIsSpeakingReactor() =>
       reaction((p0) => sessionMetadata.userIsSpeaking, (p0) async {
@@ -117,17 +109,44 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
             setDisableAllTouchFeedback(false);
           });
         } else if (p0 && !blockPhoneTiltReactor) {
-          widgets.tint.reverseMovie(NoParams());
+          widgets.othersAreTalkingTint.reverseMovie(NoParams());
         } else if (!p0 && !blockPhoneTiltReactor) {
-          widgets.tint.initMovie(NoParams());
+          widgets.othersAreTalkingTint.initMovie(NoParams());
         }
       });
+
+  swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
+        switch (p0) {
+          case GestureDirections.down:
+            ifTouchIsNotDisabled(() async {
+              await presence.updateCurrentPhase(3);
+            });
+          default:
+            break;
+        }
+      });
+
+  tapReactor() => reaction(
+        (p0) => tap.tapCount,
+        (p0) => ifTouchIsNotDisabled(
+          () async {
+            widgets.onTap(tap.currentTapPosition, onTap: () async {
+              await presence.updateCurrentPhase(2);
+            });
+          },
+        ),
+      );
 
   holdReactor() => reaction((p0) => hold.holdCount, (p0) {
         ifTouchIsNotDisabled(() async {
           if (presence.getSessionMetadataStore.everyoneIsOnline) {
             await presence
                 .updateWhoIsTalking(UpdateWhoIsTalkingParams.setUserAsTalker);
+            // setBlockPhoneTiltReactor(true);
+            // widgets.adjustSpeakLessSmileMoreRotation(hold.placement);
+            // widgets.onHold(hold.placement);
+            // setDisableAllTouchFeedback(true);
+            // await presence.updateCurrentPhase(2);
           }
         });
       });
@@ -135,6 +154,11 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
   letGoReactor() => reaction((p0) => hold.letGoCount, (p0) async {
         if (presence.getSessionMetadataStore.everyoneIsOnline) {
           await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
+          // widgets.onLetGo();
+          // setBlockPhoneTiltReactor(false);
+          // Timer(Seconds.get(2), () {
+          //   setDisableAllTouchFeedback(false);
+          // });
         }
       });
 
@@ -177,9 +201,6 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
   onInactive() async {
     await presence
         .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
-    if (sessionMetadata.userIsSpeaking) {
-      await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
-    }
   }
 
   @action

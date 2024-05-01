@@ -67,9 +67,9 @@ abstract class _SessionHybridWaitingWidgetsCoordinatorBase
             Seconds.get(1),
             () {
               if (shouldMoveIntoSession) {
-                Modular.to.navigate('/session/hybrid');
+                Modular.to.navigate('/session/hybrid/');
               } else {
-                Modular.to.navigate('/session/hybrid_notes_instructions');
+                Modular.to.navigate('/session/hybrid/notes_instructions');
               }
             },
           );

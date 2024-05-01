@@ -19,11 +19,13 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
   final BorderGlowStore borderGlow;
   final TouchRippleStore touchRipple;
   final SpeakLessSmileMoreStore speakLessSmileMore;
+  final TintStore tint;
 
   _SessionSpeakingWidgetsCoordinatorBase({
     required this.mirroredText,
     required this.beachWaves,
     required this.borderGlow,
+    required this.tint,
     required super.wifiDisconnectOverlay,
     required this.touchRipple,
     required this.speakLessSmileMore,
@@ -163,7 +165,7 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
           if (beachWaves.movieMode ==
               BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf) {
             if (isPickingUp) {
-              Modular.to.navigate("/session/exit");
+              Modular.to.navigate("/session/shared/exit");
             } else if (isLettingGo) {
               onLetGoCompleted();
             }

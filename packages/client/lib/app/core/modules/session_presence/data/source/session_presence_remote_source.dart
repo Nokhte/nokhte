@@ -28,13 +28,16 @@ class SessionPresenceRemoteSourceImpl implements SessionPresenceRemoteSource {
   cancelSessionMetadataStream() => stream.cancelGetSessionMetadataStream();
 
   @override
-  clearTheCurrentTalker() async => throw UnimplementedError();
+  clearTheCurrentTalker() async =>
+      await queries.updateSpeakerSpotlight(addUserToSpotight: false);
 
   @override
   getSessionMetadata() => stream.getPresenceMetadata();
 
   @override
-  setUserAsCurrentTalker() async => throw UnimplementedError();
+  setUserAsCurrentTalker() async => await queries.updateSpeakerSpotlight(
+        addUserToSpotight: true,
+      );
 
   @override
   updateCurrentPhase(params) async => await queries.updateCurrentPhases(params);

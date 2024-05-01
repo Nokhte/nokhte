@@ -36,7 +36,7 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
       case MirroredTextContent.sessionSpeaking:
         prepForSplitScreen();
         setPrimaryMessagesData(SharedLists.empty);
-        setSecondaryMessagesData(SessionLists.speakingSecondary);
+        setSecondaryMessagesData(SessionLists.touchToTalk);
       case MirroredTextContent.sessionNotesInstructions:
         primaryRightSideUpText.setMessagesData(
           SessionLists.getNotesInstructionsPrimary(
@@ -71,10 +71,10 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
             .setMessagesData(SessionLists.speakLessWriteMoreSecondary);
         secondaryUpsideDownText
             .setMessagesData(SessionLists.speakLessWriteMoreSecondary);
-        primaryRightSideUpText.setStaticAltMovie(Colors.black);
-        secondaryRightSideUpText.setStaticAltMovie(Colors.black);
-        primaryUpsideDownText.setStaticAltMovie(Colors.black);
-        secondaryUpsideDownText.setStaticAltMovie(Colors.black);
+        primaryRightSideUpText.setStaticAltMovie(NokhteSessionConstants.blue);
+        secondaryRightSideUpText.setStaticAltMovie(NokhteSessionConstants.blue);
+        primaryUpsideDownText.setStaticAltMovie(NokhteSessionConstants.blue);
+        secondaryUpsideDownText.setStaticAltMovie(NokhteSessionConstants.blue);
       case MirroredTextContent.sessionSpeakingWaiting:
         setPrimaryMessagesData(SessionLists.speakingWaiting);
         setSecondaryMessagesData(SharedLists.empty);
@@ -119,6 +119,11 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
         secondaryRightSideUpText.setMessagesData(SharedLists.empty);
         primaryUpsideDownText.setMessagesData(SessionLists.lookAtTheOtherPhone);
         secondaryUpsideDownText.setMessagesData(SharedLists.empty);
+      case MirroredTextContent.hybrid:
+        setPrimaryMessagesData(SharedLists.empty);
+        secondaryRightSideUpText.setMessagesData(SessionLists.tapToTakeANote);
+        secondaryUpsideDownText.setMessagesData(SessionLists.touchToTalk);
+        prepForSplitScreen(isInverted: true);
       default:
         break;
     }

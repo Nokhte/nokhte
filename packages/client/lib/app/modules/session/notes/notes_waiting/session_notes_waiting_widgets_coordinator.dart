@@ -76,9 +76,9 @@ abstract class _SessionNotesWaitingWidgetsCoordinatorBase
             Seconds.get(1),
             () {
               if (shouldMoveIntoSession) {
-                Modular.to.navigate('/session/notes');
+                Modular.to.navigate('/session/notes/');
               } else {
-                Modular.to.navigate('/session/notes_instructions');
+                Modular.to.navigate('/session/notes/instructions');
               }
             },
           );

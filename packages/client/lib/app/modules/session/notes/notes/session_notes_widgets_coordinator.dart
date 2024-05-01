@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
@@ -83,7 +84,9 @@ abstract class _SessionNotesWidgetsCoordinatorBase
 
   @action
   startInactivityCron(Function onGlowInitiated) {
-    inActivityCron = Timer.periodic(const Duration(minutes: 9), (timer) async {
+    inActivityCron = Timer.periodic(
+        kDebugMode ? const Duration(minutes: 1) : const Duration(minutes: 9),
+        (timer) async {
       if (activityCount.isLessThanOrEqualTo(baseComparisonActivityCount)) {
         borderGlow.initWhiteOut();
         textEditor.setWidgetVisibility(false);
@@ -108,7 +111,7 @@ abstract class _SessionNotesWidgetsCoordinatorBase
         if (p0 == MovieStatus.finished) {
           if (borderGlow.isGlowingUp) {
             canSwipeUp = false;
-            Modular.to.navigate('/session/notes_inactivity');
+            Modular.to.navigate('/session/notes/inactivity');
           }
         }
       });
@@ -137,7 +140,7 @@ abstract class _SessionNotesWidgetsCoordinatorBase
   onExit() {
     textEditor.setWidgetVisibility(false);
     Timer(Seconds.get(1), () {
-      Modular.to.navigate("/session/exit");
+      Modular.to.navigate("/session/shared/exit");
     });
   }
 
