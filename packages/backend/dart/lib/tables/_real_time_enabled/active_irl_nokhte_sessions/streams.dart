@@ -64,6 +64,8 @@ class ActiveIrlNokhteSessionsStream extends ActiveIrlNokhteSessionQueries
         );
         final userIndex = orderedCollaboratorUIDs.indexOf(userUID);
         yield IrlNokhteSessionMetadata(
+          userCanSpeak: event.first[SPEAKER_SPOTLIGHT] == null,
+          userIsSpeaking: event.first[SPEAKER_SPOTLIGHT] == userUID,
           userIndex: userIndex,
           sessionHasBegun: event.first[HAS_BEGUN],
           everyoneHasGyroscopes:

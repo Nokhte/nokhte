@@ -86,7 +86,34 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
     userPhaseReactor();
     collaboratorPhaseReactor();
     tapReactor();
+    userIsSpeakingReactor();
+    userCanSpeakReactor();
   }
+
+  userIsSpeakingReactor() =>
+      reaction((p0) => sessionMetadata.userIsSpeaking, (p0) async {
+        if (p0) {
+          setBlockPhoneTiltReactor(true);
+          widgets.adjustSpeakLessSmileMoreRotation(hold.placement);
+          widgets.onHold(hold.placement);
+          setDisableAllTouchFeedback(true);
+          await presence.updateCurrentPhase(2);
+        }
+      });
+
+  userCanSpeakReactor() => reaction((p0) => sessionMetadata.userCanSpeak, (p0) {
+        if (p0 && blockPhoneTiltReactor) {
+          widgets.onLetGo();
+          setBlockPhoneTiltReactor(false);
+          Timer(Seconds.get(2), () {
+            setDisableAllTouchFeedback(false);
+          });
+        } else if (p0 && !blockPhoneTiltReactor) {
+          widgets.othersAreTalkingTint.reverseMovie(NoParams());
+        } else if (!p0 && !blockPhoneTiltReactor) {
+          widgets.othersAreTalkingTint.initMovie(NoParams());
+        }
+      });
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
@@ -113,22 +140,25 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
   holdReactor() => reaction((p0) => hold.holdCount, (p0) {
         ifTouchIsNotDisabled(() async {
           if (presence.getSessionMetadataStore.everyoneIsOnline) {
-            setBlockPhoneTiltReactor(true);
-            widgets.adjustSpeakLessSmileMoreRotation(hold.placement);
-            widgets.onHold(hold.placement);
-            setDisableAllTouchFeedback(true);
-            await presence.updateCurrentPhase(2);
+            await presence
+                .updateWhoIsTalking(UpdateWhoIsTalkingParams.setUserAsTalker);
+            // setBlockPhoneTiltReactor(true);
+            // widgets.adjustSpeakLessSmileMoreRotation(hold.placement);
+            // widgets.onHold(hold.placement);
+            // setDisableAllTouchFeedback(true);
+            // await presence.updateCurrentPhase(2);
           }
         });
       });
 
-  letGoReactor() => reaction((p0) => hold.letGoCount, (p0) {
+  letGoReactor() => reaction((p0) => hold.letGoCount, (p0) async {
         if (presence.getSessionMetadataStore.everyoneIsOnline) {
-          widgets.onLetGo();
-          setBlockPhoneTiltReactor(false);
-          Timer(Seconds.get(2), () {
-            setDisableAllTouchFeedback(false);
-          });
+          await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
+          // widgets.onLetGo();
+          // setBlockPhoneTiltReactor(false);
+          // Timer(Seconds.get(2), () {
+          //   setDisableAllTouchFeedback(false);
+          // });
         }
       });
 

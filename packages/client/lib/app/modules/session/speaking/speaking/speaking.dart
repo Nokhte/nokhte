@@ -38,6 +38,9 @@ class SessionSpeakingScreen extends HookWidget {
                   store: coordinator.widgets.beachWaves,
                 ),
               ),
+              Tint(
+                store: coordinator.widgets.tint,
+              ),
               BorderGlow(
                 store: coordinator.widgets.borderGlow,
               ),

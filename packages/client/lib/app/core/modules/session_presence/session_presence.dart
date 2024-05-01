@@ -77,6 +77,7 @@ class SessionPresenceModule extends Module {
     );
     i.add<SessionPresenceCoordinator>(
       () => SessionPresenceCoordinator(
+        updateWhoIsTalkingLogic: Modular.get<UpdateWhoIsTalking>(),
         updateHasGyroscopeLogic: Modular.get<UpdateHasGyroscope>(),
         addContentLogic: Modular.get<AddContent>(),
         completeTheSessionLogic: Modular.get<CompleteTheSession>(),

@@ -43,7 +43,10 @@ class SessionHybridScreen extends HookWidget {
                   ),
                 ),
                 HalfScreenTint(
-                  store: coordinator.widgets.halfScreenTint,
+                  store: coordinator.widgets.speakLessWriteMoreTint,
+                ),
+                HalfScreenTint(
+                  store: coordinator.widgets.othersAreTalkingTint,
                 ),
                 BorderGlow(
                   store: coordinator.widgets.borderGlow,

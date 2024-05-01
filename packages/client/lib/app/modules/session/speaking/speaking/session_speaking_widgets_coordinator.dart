@@ -19,11 +19,13 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
   final BorderGlowStore borderGlow;
   final TouchRippleStore touchRipple;
   final SpeakLessSmileMoreStore speakLessSmileMore;
+  final TintStore tint;
 
   _SessionSpeakingWidgetsCoordinatorBase({
     required this.mirroredText,
     required this.beachWaves,
     required this.borderGlow,
+    required this.tint,
     required super.wifiDisconnectOverlay,
     required this.touchRipple,
     required this.speakLessSmileMore,

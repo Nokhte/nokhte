@@ -21,12 +21,14 @@ abstract class _SessionHybridWidgetsCoordinatorBase
   final BorderGlowStore borderGlow;
   final TouchRippleStore touchRipple;
   final SpeakLessSmileMoreStore speakLessSmileMore;
-  final HalfScreenTintStore halfScreenTint;
+  final HalfScreenTintStore speakLessWriteMoreTint;
+  final HalfScreenTintStore othersAreTalkingTint;
   final SmartTextStore smartText;
 
   _SessionHybridWidgetsCoordinatorBase({
+    required this.othersAreTalkingTint,
     required this.mirroredText,
-    required this.halfScreenTint,
+    required this.speakLessWriteMoreTint,
     required this.smartText,
     required this.beachWaves,
     required this.borderGlow,
@@ -37,6 +39,7 @@ abstract class _SessionHybridWidgetsCoordinatorBase
 
   @action
   constructor() {
+    othersAreTalkingTint.setShouldCoverBottom(false);
     beachWaves.setMovieMode(BeachWaveMovieModes.invertedHalfAndHalfToDrySand);
     mirroredText.setMessagesData(MirroredTextContent.hybrid);
     smartText.setMessagesData(SessionLists.speakLessWriteMore);
@@ -47,7 +50,7 @@ abstract class _SessionHybridWidgetsCoordinatorBase
     setIsPickingUp(false);
     isGoingToNotes = false;
     initReactors();
-    halfScreenTint.setTintColor(Colors.white);
+    speakLessWriteMoreTint.setTintColor(Colors.white);
     Timer(const Duration(minutes: 9), () {
       if (tapCount == 0) {
         initSpeakLessWriteMore();
@@ -106,7 +109,7 @@ abstract class _SessionHybridWidgetsCoordinatorBase
   @action
   initSpeakLessWriteMore() {
     smartText.setWidgetVisibility(true);
-    halfScreenTint.setControl(Control.playFromStart);
+    speakLessWriteMoreTint.setControl(Control.playFromStart);
     mirroredText.setRightsideUpVisibility(false);
     setSpeakLessWriteMoreVisiblity(true);
   }
@@ -114,7 +117,7 @@ abstract class _SessionHybridWidgetsCoordinatorBase
   @action
   reverseSpeakLessWriteMore() {
     smartText.setWidgetVisibility(false);
-    halfScreenTint.setControl(Control.playReverse);
+    speakLessWriteMoreTint.setControl(Control.playReverse);
     if (!isHolding) {
       mirroredText.setRightsideUpVisibility(true);
     }
@@ -199,6 +202,9 @@ abstract class _SessionHybridWidgetsCoordinatorBase
     }
     if (!collaboratorHasLeft) {
       mirroredText.setUpsideDownVisibility(true);
+    }
+    if (!speakLessWriteMoreIsVisible) {
+      mirroredText.setRightsideUpVisibility(true);
     }
   }
 

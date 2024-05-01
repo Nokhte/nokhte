@@ -20,9 +20,11 @@ abstract class _SessionPresenceCoordinatorBase extends BaseMobxDBStore
   final CompleteTheSession completeTheSessionLogic;
   final UpdateHasGyroscope updateHasGyroscopeLogic;
   final StartTheSession startTheSessionLogic;
+  final UpdateWhoIsTalking updateWhoIsTalkingLogic;
 
   _SessionPresenceCoordinatorBase({
     required this.cancelSessionMetadataStreamLogic,
+    required this.updateWhoIsTalkingLogic,
     required this.updateCurrentPhaseLogic,
     required this.updateOnlineStatusLogic,
     required this.getSessionMetadataStore,
@@ -57,6 +59,9 @@ abstract class _SessionPresenceCoordinatorBase extends BaseMobxDBStore
 
   @observable
   bool sessionStartStatusIsUpdated = false;
+
+  @observable
+  bool speakerSpotlightIsUpdated = false;
 
   @action
   initReactors({
@@ -108,6 +113,17 @@ abstract class _SessionPresenceCoordinatorBase extends BaseMobxDBStore
           gyroscopeAvailabilityIsUpdated = gyroscopeUpdateStatus,
     );
   }
+
+  @action
+  updateWhoIsTalking(UpdateWhoIsTalkingParams params) async {
+    final res = await updateWhoIsTalkingLogic(params);
+    res.fold(
+      (failure) => errorUpdater(failure),
+      (gyroscopeUpdateStatus) =>
+          speakerSpotlightIsUpdated = gyroscopeUpdateStatus,
+    );
+  }
+  //build this into the stream as well when you get back
 
   @action
   updateOnlineStatus(UpdatePresencePropertyParams params) async {

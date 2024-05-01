@@ -81,6 +81,7 @@ class SessionWidgetsModule extends Module {
     );
     i.add<SessionSpeakingWidgetsCoordinator>(
       () => SessionSpeakingWidgetsCoordinator(
+        tint: TintStore(),
         speakLessSmileMore: SpeakLessSmileMoreStore(),
         touchRipple: TouchRippleStore(),
         mirroredText: Modular.get<MirroredTextStore>(),
@@ -126,7 +127,8 @@ class SessionWidgetsModule extends Module {
     i.add<SessionHybridWidgetsCoordinator>(
       () => SessionHybridWidgetsCoordinator(
         smartText: SmartTextStore(),
-        halfScreenTint: HalfScreenTintStore(),
+        speakLessWriteMoreTint: HalfScreenTintStore(),
+        othersAreTalkingTint: HalfScreenTintStore(),
         speakLessSmileMore: SpeakLessSmileMoreStore(),
         touchRipple: TouchRippleStore(),
         mirroredText: Modular.get<MirroredTextStore>(),
