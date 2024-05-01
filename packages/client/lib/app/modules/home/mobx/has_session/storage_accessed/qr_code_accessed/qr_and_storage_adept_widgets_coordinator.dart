@@ -122,7 +122,8 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
 
   @action
   onTap(Offset offset) {
-    if (canTap) {
+    if (canTap &&
+        centerInstructionalNokhte.movieStatus == MovieStatus.finished) {
       canTap = false;
       touchRipple.onTap(offset);
       hasInitiatedBlur = false;
