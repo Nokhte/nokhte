@@ -45,7 +45,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
 
   @action
   onSwipeUp() {
-    if (isAllowedToMakeAGesture) {
+    if (!isDisconnected && isAllowedToMakeAGesture) {
       if (hasInitiatedBlur && !hasSwipedUp) {
         hasSwipedUp = true;
         canTap = true;
@@ -90,7 +90,7 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
 
   @action
   onSwipeRight() {
-    if (isAllowedToMakeAGesture) {
+    if (!isDisconnected && isAllowedToMakeAGesture) {
       if (hasInitiatedBlur && !hasSwipedUp) {
         hasSwipedUp = true;
         canTap = true;
@@ -122,7 +122,8 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
 
   @action
   onTap(Offset offset) {
-    if (canTap &&
+    if (!isDisconnected &&
+        canTap &&
         centerInstructionalNokhte.movieStatus == MovieStatus.finished) {
       canTap = false;
       touchRipple.onTap(offset);
@@ -186,7 +187,8 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
 
   @action
   onGestureCrossTap() {
-    if (!isEnteringNokhteSession &&
+    if (!isDisconnected &&
+        !isEnteringNokhteSession &&
         canTapOnGestureCross &&
         isAllowedToMakeAGesture) {
       if (!hasInitiatedBlur) {

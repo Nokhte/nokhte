@@ -100,9 +100,11 @@ abstract class _SessionStarterCoordinatorBase
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
+        widgets.setIsDisconnected(false);
       },
       onDisconnected: () {
         setDisableAllTouchFeedback(true);
+        widgets.setIsDisconnected(true);
       },
     );
     collaboratorPoolEntryErrorReactor();

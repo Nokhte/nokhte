@@ -45,7 +45,6 @@ abstract class _BaseHomeScreenRouterCoordinatorBase extends BaseCoordinator
       } else if (!getUserInfo.hasEnteredStorage &&
           !getUserInfo.hasGoneThroughInvitationFlow) {
         Modular.to.navigate("/home/compass_and_storage_guide", arguments: args);
-        //
       } else if (getUserInfo.hasEnteredStorage &&
           !getUserInfo.hasGoneThroughInvitationFlow) {
         Modular.to.navigate("/home/short_qr_guide", arguments: args);
