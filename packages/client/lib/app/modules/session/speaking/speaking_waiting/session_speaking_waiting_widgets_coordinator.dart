@@ -59,7 +59,7 @@ abstract class _SessionSpeakingWaitingWidgetsCoordinatorBase
         if (p0 == 1) {
           Timer(
             Seconds.get(1),
-            () => Modular.to.navigate('/session/speaking'),
+            () => Modular.to.navigate('/session/speaking/'),
           );
         }
       });

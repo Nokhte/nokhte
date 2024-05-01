@@ -37,10 +37,10 @@ class HalfScreenTint extends HookWidget {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Colors.black.withOpacity(
+                        store.tintcolor.withOpacity(
                           value.get('opacity1'),
                         ),
-                        Colors.black.withOpacity(
+                        store.tintcolor.withOpacity(
                           value.get('opacity2'),
                         ),
                       ],

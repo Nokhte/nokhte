@@ -96,15 +96,15 @@ abstract class _SessionExitCoordinatorBase
       },
     );
     widgets.beachWavesMovieStatusReactor(
-      onToHomeComplete: onAnimationComplete,
-      onReturnToTalkingComplete: () {
-        if (phoneRole == SessionPhoneRole.speaking) {
-          Modular.to.navigate('/session/speaking');
-        } else {
-          Modular.to.navigate('/session/hybrid');
-        }
-      },
-    );
+        onToHomeComplete: onAnimationComplete,
+        onReturnToTalkingComplete: () {
+          if (phoneRole == SessionPhoneRole.speaking) {
+            Modular.to.navigate('/session/speaking/');
+          }
+        },
+        onReturnToHybridComplete: () {
+          Modular.to.navigate('/session/hybrid/');
+        });
     swipeReactor();
     collaboratorPhaseReactor();
     canReturnHomeReactor();

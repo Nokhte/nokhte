@@ -43,19 +43,22 @@ class SessionWidgetsModule extends Module {
         beachWaves: BeachWavesStore(),
       ),
     );
-    i.add<SessionHybridSpeakingInstructionsWidgetsCoordinator>(
-      () => SessionHybridSpeakingInstructionsWidgetsCoordinator(
-        halfScreenTint: HalfScreenTintStore(),
-        holdTimerIndicator: HoldTimerIndicatorStore(),
-        tint: TintStore(),
-        errorSmartText: SmartTextStore(),
-        touchRipple: TouchRippleStore(),
-        mirroredText: Modular.get<MirroredTextStore>(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        borderGlow: BorderGlowStore(),
+    i.add<SessionExitWidgetsCoordinator>(
+      () => SessionExitWidgetsCoordinator(
+        gestureCross: Modular.get<GestureCrossStore>(),
+        primarySmartText: SmartTextStore(),
+        secondarySmartText: SmartTextStore(),
+        tertiarySmartText: SmartTextStore(),
         beachWaves: BeachWavesStore(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
       ),
     );
+    injectHybrid(i);
+    injectSpeaking(i);
+    injectNotes(i);
+  }
+
+  injectSpeaking(i) {
     i.add<SessionSpeakingInstructionsWidgetsCoordinator>(
       () => SessionSpeakingInstructionsWidgetsCoordinator(
         holdTimerIndicator: HoldTimerIndicatorStore(),
@@ -65,32 +68,6 @@ class SessionWidgetsModule extends Module {
         mirroredText: Modular.get<MirroredTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         borderGlow: BorderGlowStore(),
-        beachWaves: BeachWavesStore(),
-      ),
-    );
-    i.add<SessionHybridWaitingWidgetsCoordinator>(
-      () => SessionHybridWaitingWidgetsCoordinator(
-        tint: TintStore(),
-        mirroredText: Modular.get<MirroredTextStore>(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        beachWaves: BeachWavesStore(),
-      ),
-    );
-    i.add<SessionNotesWaitingWidgetsCoordinator>(
-      () => SessionNotesWaitingWidgetsCoordinator(
-        tint: TintStore(),
-        mirroredText: Modular.get<MirroredTextStore>(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        beachWaves: BeachWavesStore(),
-      ),
-    );
-    i.add<SessionHybridNotesInstructionsWidgetsCoordinator>(
-      () => SessionHybridNotesInstructionsWidgetsCoordinator(
-        halfScreenTint: HalfScreenTintStore(),
-        touchRipple: TouchRippleStore(),
-        tint: TintStore(),
-        mirroredText: Modular.get<MirroredTextStore>(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         beachWaves: BeachWavesStore(),
       ),
     );
@@ -104,12 +81,82 @@ class SessionWidgetsModule extends Module {
     );
     i.add<SessionSpeakingWidgetsCoordinator>(
       () => SessionSpeakingWidgetsCoordinator(
+        tint: TintStore(),
         speakLessSmileMore: SpeakLessSmileMoreStore(),
         touchRipple: TouchRippleStore(),
         mirroredText: Modular.get<MirroredTextStore>(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
         beachWaves: BeachWavesStore(),
         borderGlow: BorderGlowStore(),
+      ),
+    );
+  }
+
+  injectHybrid(i) {
+    i.add<SessionHybridWaitingWidgetsCoordinator>(
+      () => SessionHybridWaitingWidgetsCoordinator(
+        tint: TintStore(),
+        mirroredText: Modular.get<MirroredTextStore>(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        beachWaves: BeachWavesStore(),
+      ),
+    );
+    i.add<SessionHybridSpeakingInstructionsWidgetsCoordinator>(
+      () => SessionHybridSpeakingInstructionsWidgetsCoordinator(
+        halfScreenTint: HalfScreenTintStore(),
+        holdTimerIndicator: HoldTimerIndicatorStore(),
+        tint: TintStore(),
+        errorSmartText: SmartTextStore(),
+        touchRipple: TouchRippleStore(),
+        mirroredText: Modular.get<MirroredTextStore>(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        borderGlow: BorderGlowStore(),
+        beachWaves: BeachWavesStore(),
+      ),
+    );
+    i.add<SessionHybridNotesInstructionsWidgetsCoordinator>(
+      () => SessionHybridNotesInstructionsWidgetsCoordinator(
+        halfScreenTint: HalfScreenTintStore(),
+        touchRipple: TouchRippleStore(),
+        tint: TintStore(),
+        mirroredText: Modular.get<MirroredTextStore>(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        beachWaves: BeachWavesStore(),
+      ),
+    );
+    i.add<SessionHybridWidgetsCoordinator>(
+      () => SessionHybridWidgetsCoordinator(
+        smartText: SmartTextStore(),
+        speakLessWriteMoreTint: HalfScreenTintStore(),
+        othersAreTalkingTint: HalfScreenTintStore(),
+        speakLessSmileMore: SpeakLessSmileMoreStore(),
+        touchRipple: TouchRippleStore(),
+        mirroredText: Modular.get<MirroredTextStore>(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        beachWaves: BeachWavesStore(),
+        borderGlow: BorderGlowStore(),
+      ),
+    );
+    i.add<SessionHybridNotesWidgetsCoordinator>(
+      () => SessionHybridNotesWidgetsCoordinator(
+        smartText: SmartTextStore(),
+        borderGlow: BorderGlowStore(),
+        touchRipple: TouchRippleStore(),
+        textEditor: TextEditorStore(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        beachWaves: BeachWavesStore(),
+      ),
+    );
+    //
+  }
+
+  injectNotes(i) {
+    i.add<SessionNotesWaitingWidgetsCoordinator>(
+      () => SessionNotesWaitingWidgetsCoordinator(
+        tint: TintStore(),
+        mirroredText: Modular.get<MirroredTextStore>(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        beachWaves: BeachWavesStore(),
       ),
     );
     i.add<SessionNotesInstructionsWidgetsCoordinator>(
@@ -140,15 +187,6 @@ class SessionWidgetsModule extends Module {
         beachWaves: BeachWavesStore(),
       ),
     );
-    i.add<SessionExitWidgetsCoordinator>(
-      () => SessionExitWidgetsCoordinator(
-        gestureCross: Modular.get<GestureCrossStore>(),
-        primarySmartText: SmartTextStore(),
-        secondarySmartText: SmartTextStore(),
-        tertiarySmartText: SmartTextStore(),
-        beachWaves: BeachWavesStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-      ),
-    );
+    //
   }
 }

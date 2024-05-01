@@ -138,6 +138,6 @@ abstract class _SessionDuoGreeterCoordinatorBase extends BaseCoordinator
 
   @computed
   String get pathIntoSession => sessionMetadata.userIndex.isEven
-      ? '/session/speaking_instructions'
-      : '/session/notes_waiting';
+      ? '/session/speaking/instructions'
+      : '/session/notes/waiting';
 }

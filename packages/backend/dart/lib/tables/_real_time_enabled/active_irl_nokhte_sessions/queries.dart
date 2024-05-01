@@ -93,6 +93,34 @@ class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
     );
   }
 
+  Future<List> updateSpeakerSpotlight({
+    required bool addUserToSpotight,
+  }) async {
+    await computeCollaboratorInformation();
+    final currentSpotlightSpeaker = await getSpeakerSpotlight();
+    if (addUserToSpotight) {
+      if (currentSpotlightSpeaker == null) {
+        return await _onCurrentActiveNokhteSession(
+          supabase.from(TABLE).update({
+            SPEAKER_SPOTLIGHT: userUID,
+          }),
+        );
+      } else {
+        return [];
+      }
+    } else {
+      if (currentSpotlightSpeaker == userUID) {
+        return await _onCurrentActiveNokhteSession(
+          supabase.from(TABLE).update({
+            SPEAKER_SPOTLIGHT: null,
+          }),
+        );
+      } else {
+        return [];
+      }
+    }
+  }
+
   Future<List> completeTheSession() async {
     await computeCollaboratorInformation();
     if (userIndex == -1) return [];

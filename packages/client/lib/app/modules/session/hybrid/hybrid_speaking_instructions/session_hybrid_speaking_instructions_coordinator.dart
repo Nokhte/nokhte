@@ -86,9 +86,9 @@ abstract class _SessionHybridSpeakingInstructionsCoordinatorBase
   @action
   onFlowFinished() async {
     if (sessionMetadata.canMoveIntoSecondInstructionsSet) {
-      Modular.to.navigate("/session/hybrid_notes_instructions");
+      Modular.to.navigate("/session/hybrid/notes_instructions");
     } else {
-      Modular.to.navigate("/session/hybrid_waiting");
+      Modular.to.navigate("/session/hybrid/waiting");
     }
   }
 

@@ -1,13 +1,16 @@
-export 'session_speaking_coordinator.dart';
-export 'session_speaking_widgets_coordinator.dart';
+export 'session_hybrid_notes_coordinator.dart';
+export 'session_hybrid_notes_widgets_coordinator.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:nokhte/app/core/hooks/hooks.dart';
+import 'package:nokhte/app/core/types/seconds.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'session_speaking_coordinator.dart';
+import 'session_hybrid_notes_coordinator.dart';
 
-class SessionSpeakingScreen extends HookWidget {
-  final SessionSpeakingCoordinator coordinator;
-  const SessionSpeakingScreen({
+class SessionHybridNotesScreen extends HookWidget {
+  final SessionHybridNotesCoordinator coordinator;
+  const SessionHybridNotesScreen({
     super.key,
     required this.coordinator,
   });
@@ -16,7 +19,6 @@ class SessionSpeakingScreen extends HookWidget {
   Widget build(BuildContext context) {
     useEffect(() {
       coordinator.constructor();
-
       return null;
     }, []);
     useOnAppLifecycleStateChange(
@@ -27,10 +29,10 @@ class SessionSpeakingScreen extends HookWidget {
             ));
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Swipe(
-        store: coordinator.swipe,
-        child: Hold(
-          store: coordinator.hold,
+      body: Tap(
+        store: coordinator.tap,
+        child: Swipe(
+          store: coordinator.swipe,
           child: MultiHitStack(
             children: [
               FullScreen(
@@ -38,21 +40,23 @@ class SessionSpeakingScreen extends HookWidget {
                   store: coordinator.widgets.beachWaves,
                 ),
               ),
-              Tint(
-                store: coordinator.widgets.tint,
-              ),
               BorderGlow(
                 store: coordinator.widgets.borderGlow,
               ),
-              MirroredText(
-                store: coordinator.widgets.mirroredText,
+              TouchRipple(
+                store: coordinator.widgets.touchRipple,
               ),
-              SpeakLessSmileMore(
-                store: coordinator.widgets.speakLessSmileMore,
+              Center(
+                child: SmartText(
+                  store: coordinator.widgets.smartText,
+                  topPadding: useFullScreenSize().height * .8,
+                  opacityDuration: Seconds.get(1),
+                ),
               ),
-              FullScreen(
-                child: TouchRipple(
-                  store: coordinator.widgets.touchRipple,
+              Center(
+                child: TextEditor(
+                  placeholderText: "Your thoughtful thought",
+                  store: coordinator.widgets.textEditor,
                 ),
               ),
               CollaboratorPresenceIncidentsOverlay(

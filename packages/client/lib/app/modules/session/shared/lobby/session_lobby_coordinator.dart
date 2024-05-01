@@ -113,8 +113,8 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
 
   @computed
   String get route => sessionMetadata.numberOfCollaborators.isGreaterThan(2)
-      ? '/session/group_greeter'
-      : '/session/duo_greeter';
+      ? '/session/shared/group_greeter'
+      : '/session/shared/duo_greeter';
 
   @computed
   bool get isTheLeader => Modular.args.data["qrCodeData"] != null;
