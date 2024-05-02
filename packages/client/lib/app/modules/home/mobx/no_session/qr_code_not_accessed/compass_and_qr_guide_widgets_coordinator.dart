@@ -55,7 +55,7 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
 
   @action
   onSwipeUp() {
-    if (!touchIsDisabled) {
+    if (!isDisconnected && !touchIsDisabled) {
       if (primarySmartText.currentIndex.equals(3)) {
         centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.top);
         primaryInstructionalGradientNokhte.setControl(Control.playFromStart);
@@ -91,7 +91,7 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
     Offset offset, {
     required Function onFlowCompleted,
   }) async {
-    if (!touchIsDisabled) {
+    if (!isDisconnected && !touchIsDisabled) {
       if (primarySmartText.currentIndex == 1) {
         setTouchIsDisabled(true);
         primarySmartText.startRotatingText(isResuming: true);
@@ -148,7 +148,10 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
 
   @action
   onGestureCrossTap() {
-    if (!hasInitiatedBlur && !isEnteringNokhteSession && !isInErrorMode) {
+    if (!isDisconnected &&
+        !hasInitiatedBlur &&
+        !isEnteringNokhteSession &&
+        !isInErrorMode) {
       nokhteBlur.init();
       beachWaves.currentStore.setControl(Control.stop);
       toggleHasInitiatedBlur();

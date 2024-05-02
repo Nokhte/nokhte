@@ -105,7 +105,8 @@ abstract class _StorageGuideWidgetsCoordinatorBase
 
   @action
   onGestureCrossTap() {
-    if (isAllowedToMakeAGesture &&
+    if (!isDisconnected &&
+        isAllowedToMakeAGesture &&
         !swipeRightIsUnlocked &&
         canTapOnGestureCross) {
       onInitInstructionMode();
@@ -115,7 +116,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
 
   @action
   onSwipeUp() {
-    if (isAllowedToMakeAGesture) {
+    if (!isDisconnected && isAllowedToMakeAGesture) {
       if (!hasInitiatedBlur) {
         centerInstructionalNokhte.setWidgetVisibility(false);
         gestureCross.centerCrossNokhte.setWidgetVisibility(true);
@@ -127,7 +128,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
 
   @action
   onSwipeRight() {
-    if (isAllowedToMakeAGesture) {
+    if (!isDisconnected && isAllowedToMakeAGesture) {
       if (hasInitiatedBlur && !hasSwipedUp) {
         hasSwipedUp = true;
         centerNokhtePosition = InstructionalNokhtePositions.right;
@@ -153,7 +154,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
 
   @action
   onTap(Offset tapPosition) {
-    if (canTap) {
+    if (!isDisconnected && canTap) {
       touchRipple.onTap(tapPosition);
       hasInitiatedBlur = false;
       canTap = false;

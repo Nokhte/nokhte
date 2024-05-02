@@ -58,7 +58,7 @@ abstract class _CompassAndQrGuideCoordinatorBase
     }
   }
 
-  tapReactor() => reaction((p0) => tap.currentTapPosition, (p0) {
+  tapReactor() => reaction((p0) => tap.tapCount, (p0) {
         if (isInErrorMode) {
           widgets.onErrorResolved(() {
             setIsInErrorMode(true);
@@ -66,7 +66,7 @@ abstract class _CompassAndQrGuideCoordinatorBase
         }
         ifTouchIsNotDisabled(() {
           widgets.onTap(
-            p0,
+            tap.currentTapPosition,
             onFlowCompleted: () async =>
                 await userInformation.updateHasGoneThroughInvitationFlow(true),
           );

@@ -72,7 +72,8 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
 
   @action
   onSwipeUp() {
-    if (centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
+    if (!isDisconnected &&
+        centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
       if (hasInitiatedBlur) {
         hasInitiatedBlur = false;
         centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.top);
@@ -92,7 +93,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
 
   @action
   onTap(Offset offset) {
-    if (!touchIsDisabled) {
+    if (!isDisconnected && !touchIsDisabled) {
       if (primarySmartText.currentIndex == 2) {
         primarySmartText.startRotatingText(isResuming: true);
         touchRipple.onTap(offset);
@@ -163,7 +164,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
 
   @action
   onGestureCrossTap() {
-    if (readyToInteract) {
+    if (!isDisconnected && readyToInteract) {
       if (!hasInitiatedBlur) {
         hasSwipedUp = false;
         nokhteBlur.init();

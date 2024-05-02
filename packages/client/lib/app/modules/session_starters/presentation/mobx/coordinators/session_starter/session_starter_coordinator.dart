@@ -100,9 +100,11 @@ abstract class _SessionStarterCoordinatorBase
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
+        widgets.setIsDisconnected(false);
       },
       onDisconnected: () {
         setDisableAllTouchFeedback(true);
+        widgets.setIsDisconnected(true);
       },
     );
     collaboratorPoolEntryErrorReactor();
@@ -131,9 +133,9 @@ abstract class _SessionStarterCoordinatorBase
     }
   }
 
-  tapReactor() => reaction((p0) => tap.currentTapPosition, (p0) {
+  tapReactor() => reaction((p0) => tap.tapCount, (p0) {
         ifTouchIsNotDisabled(() {
-          widgets.onTap(p0);
+          widgets.onTap(tap.currentTapPosition);
         });
       });
 
