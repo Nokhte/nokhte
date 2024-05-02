@@ -241,7 +241,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
 
   @action
   onGestureCrossTap() {
-    if (readyToInteract) {
+    if (!isDisconnected && readyToInteract) {
       if (!hasInitiatedBlur) {
         setTouchIsDisabled(true);
         hasSwipedDown = false;

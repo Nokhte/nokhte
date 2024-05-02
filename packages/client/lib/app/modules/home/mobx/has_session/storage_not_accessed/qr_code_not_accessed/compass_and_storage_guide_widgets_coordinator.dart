@@ -67,7 +67,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
 
   @action
   onTap(Offset offset) async {
-    if (!touchIsDisabled) {
+    if (!isDisconnected &&!touchIsDisabled) {
       if (primarySmartText.currentIndex == 1) {
         setTouchIsDisabled(true);
         primarySmartText.startRotatingText(isResuming: true);
@@ -116,7 +116,8 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
 
   @action
   onGestureCrossTap() {
-    if (!hasInitiatedBlur &&
+    if (!isDisconnected &&
+        !hasInitiatedBlur &&
         !isEnteringNokhteSession &&
         !isInErrorMode &&
         !hasTappedOnGestureCross) {
@@ -131,7 +132,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
 
   @action
   onSwipeRight() {
-    if (isAllowedToMakeAGesture) {
+    if (!isDisconnected &&isAllowedToMakeAGesture) {
       if (!hasSwipedUp &&
           primarySmartText.currentIndex == 3 &&
           hasInitiatedBlur) {

@@ -58,14 +58,14 @@ abstract class _QrAndStorageAdeptCoordinatorBase
     tapReactor();
   }
 
-  tapReactor() => reaction((p0) => tap.currentTapPosition, (p0) {
+  tapReactor() => reaction((p0) => tap.tapCount, (p0) {
         if (isInErrorMode) {
           widgets.onErrorResolved(() {
             setIsInErrorMode(true);
           });
         }
         ifTouchIsNotDisabled(() {
-          widgets.onTap(p0);
+          widgets.onTap(tap.currentTapPosition);
         });
       });
 

@@ -77,10 +77,12 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   @action
   onConnected() {
     onResumed();
+    setIsDisconnected(false);
   }
 
   @action
   onDisconnected() {
+    setIsDisconnected(true);
     onInactive();
     if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToVibrantBlue) {
       isEnteringNokhteSession = false;

@@ -69,7 +69,7 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
 
   @action
   onSwipeUp() {
-    if (isAllowedToMakeAGesture) {
+    if (!isDisconnected && isAllowedToMakeAGesture) {
       if (hasInitiatedBlur && !hasSwipedUp) {
         hasSwipedUp = true;
         centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.top);
@@ -90,7 +90,7 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
 
   @action
   onTap(Offset offset) {
-    if (isAllowedToMakeAGesture) {
+    if (!isDisconnected && isAllowedToMakeAGesture) {
       if (!touchIsDisabled) {
         touchRipple.onTap(offset);
         hasInitiatedBlur = false;
@@ -139,7 +139,8 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
 
   @action
   onSwipeRight() {
-    if (!hasInitiatedBlur) {
+    if (!isDisconnected && !hasInitiatedBlur && !hasSwipedUp) {
+      hasSwipedUp = true;
       beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToVibrantBlue);
       beachWaves.currentStore.initMovie(
         beachWaves.currentAnimationValues.first,
@@ -180,7 +181,10 @@ abstract class _ShortQrGuideWidgetsCoordinatorBase
 
   @action
   onGestureCrossTap() {
-    if (isAllowedToMakeAGesture && !hasInitiatedBlur && !hasTappedOnCross) {
+    if (!isDisconnected &&
+        isAllowedToMakeAGesture &&
+        !hasInitiatedBlur &&
+        !hasTappedOnCross) {
       onInitInstructionMode();
       hasTappedOnCross = true;
     }
