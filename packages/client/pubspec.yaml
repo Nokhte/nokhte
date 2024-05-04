@@ -26,6 +26,7 @@ dependencies:
   google_fonts: ^5.1.0
   gradient_borders: ^1.0.0
   http: ^1.1.0
+  in_app_purchase: ^3.2.0
   intl: ^0.18.1
   mobx: ^2.2.1
   nokhte_backend:
