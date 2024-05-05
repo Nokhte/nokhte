@@ -1,7 +1,10 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/widgets/modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'mobx/mobx.dart';
+
+import 'has_session/has_session.dart';
+import 'no_session/no_session.dart';
+import 'root_router/root_router.dart';
 
 class HomeWidgetsModule extends Module {
   @override
