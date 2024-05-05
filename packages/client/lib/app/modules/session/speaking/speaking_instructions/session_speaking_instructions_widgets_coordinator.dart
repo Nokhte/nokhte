@@ -210,7 +210,7 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
       abortTheTextRotation = true;
       borderGlow.initGlowDown();
       holdTimerIndicator.onLetGo();
-      beachWaves.setMovieMode(BeachWaveMovieModes.dynamicPointToHalfAndHalf);
+      beachWaves.setMovieMode(BeachWaveMovieModes.anyToHalfAndHalf);
       beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
       if (!bottomHalfIsDone) {
         mirroredText.setWidgetVisibility(false);
@@ -339,7 +339,7 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
               holdTimerIndicator.initMovie(GesturePlacement.bottomHalf);
             }
           } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.dynamicPointToHalfAndHalf) {
+              BeachWaveMovieModes.anyToHalfAndHalf) {
             if (!bottomHalfIsDone) {
               mirroredText.prepForSplitScreen();
               Timer.periodic(Seconds.get(0, milli: 550), (timer) {

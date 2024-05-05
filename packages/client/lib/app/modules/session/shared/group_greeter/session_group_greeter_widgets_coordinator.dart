@@ -40,7 +40,7 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
   }) {
     sessionSeatingGuide.setWidgetVisibility(false);
     beachWaves.setMovieMode(
-      BeachWaveMovieModes.vibrantBlueGradientToTimesUp,
+      BeachWaveMovieModes.vibrantBlueGradToDrySand,
     );
     primarySmartText.setMessagesData(
       SessionLists.getGroupGreeterPrimary(

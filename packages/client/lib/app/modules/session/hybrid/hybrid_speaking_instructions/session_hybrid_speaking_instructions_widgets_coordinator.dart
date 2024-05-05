@@ -196,8 +196,7 @@ abstract class _SessionHybridSpeakingInstructionsWidgetsCoordinatorBase
       abortTheTextRotation = true;
       borderGlow.initGlowDown();
       holdTimerIndicator.onLetGo();
-      beachWaves
-          .setMovieMode(BeachWaveMovieModes.dynamicPointToInvertedHalfAndHalf);
+      beachWaves.setMovieMode(BeachWaveMovieModes.anyToInvertedHalfAndHalf);
       beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
       mirroredText.setUpsideDownVisibility(false);
     }
@@ -276,7 +275,7 @@ abstract class _SessionHybridSpeakingInstructionsWidgetsCoordinatorBase
             borderGlow.initMovie(NoParams());
             holdTimerIndicator.initMovie(GesturePlacement.bottomHalf);
           } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.dynamicPointToInvertedHalfAndHalf) {
+              BeachWaveMovieModes.anyToInvertedHalfAndHalf) {
             if (!speakingInstructionsComplete) {
               Timer.periodic(Seconds.get(0, milli: 550), (timer) {
                 if (mirroredText.primaryUpsideDownText.control ==

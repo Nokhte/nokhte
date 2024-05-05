@@ -34,7 +34,7 @@ abstract class _SessionExitWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   @action
   constructor() {
     beachWaves.setMovieMode(
-      BeachWaveMovieModes.vibrantBlueGradientToTimesUp,
+      BeachWaveMovieModes.vibrantBlueGradToDrySand,
     );
     primarySmartText.setMessagesData(SessionLists.exitTopText);
     secondarySmartText.setMessagesData(SessionLists.exitBottomText);

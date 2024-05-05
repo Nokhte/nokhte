@@ -2,16 +2,15 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'times_up_dynamic_point_to_times_up_start_movie_store.g.dart';
+part 'any_to_inverted_half_and_and_half_movie_store.g.dart';
 
-class TimesUpDynamicPointToTimesUpStartMovieStore = _TimesUpDynamicPointToTimesUpStartMovieStoreBase
-    with _$TimesUpDynamicPointToTimesUpStartMovieStore;
+class AnyToInvertedHalfAndHalfMovieStore = _AnyToInvertedHalfAndHalfMovieStoreBase
+    with _$AnyToInvertedHalfAndHalfMovieStore;
 
-abstract class _TimesUpDynamicPointToTimesUpStartMovieStoreBase
+abstract class _AnyToInvertedHalfAndHalfMovieStoreBase
     extends BaseBeachWaveMovieStore<List<ColorAndStop>> with Store {
-  _TimesUpDynamicPointToTimesUpStartMovieStoreBase()
+  _AnyToInvertedHalfAndHalfMovieStoreBase()
       : super(
-          callsOnCompleteTwice: true,
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
@@ -22,8 +21,8 @@ abstract class _TimesUpDynamicPointToTimesUpStartMovieStoreBase
 
   @override
   initMovie(List<ColorAndStop> param) {
-    const timesUpPhase1 = WaterColorsAndStops.timesUpPhase1;
-    movie = TwoSecondBeachTransitionMovie.getMovie(param, timesUpPhase1);
+    const halfAndHalf = WaterColorsAndStops.invertedHalfWaterAndSand;
+    movie = TwoSecondBeachTransitionMovie.getMovie(param, halfAndHalf);
     control = Control.playFromStart;
   }
 }

@@ -186,8 +186,7 @@ abstract class _SessionHybridWidgetsCoordinatorBase
   @action
   onLetGo() {
     initGlowDown();
-    beachWaves
-        .setMovieMode(BeachWaveMovieModes.dynamicPointToInvertedHalfAndHalf);
+    beachWaves.setMovieMode(BeachWaveMovieModes.anyToInvertedHalfAndHalf);
     beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
     speakLessSmileMore.hideBoth();
   }
@@ -281,7 +280,7 @@ abstract class _SessionHybridWidgetsCoordinatorBase
               Modular.to.navigate("/session/hybrid/notes");
             }
           } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.dynamicPointToInvertedHalfAndHalf) {
+              BeachWaveMovieModes.anyToInvertedHalfAndHalf) {
             onLetGoCompleted();
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.invertedHalfAndHalfToDrySand) {

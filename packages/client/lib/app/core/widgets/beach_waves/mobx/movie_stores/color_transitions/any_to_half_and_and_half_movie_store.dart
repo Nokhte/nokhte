@@ -2,14 +2,14 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'dynamic_point_to_inverted_half_and_and_half_movie_store.g.dart';
+part 'any_to_half_and_and_half_movie_store.g.dart';
 
-class DynamicPointToInvertedHalfAndHalfMovieStore = _DynamicPointToInvertedHalfAndHalfMovieStoreBase
-    with _$DynamicPointToInvertedHalfAndHalfMovieStore;
+class AnyToHalfAndHalfMovieStore = _AnyToHalfAndHlafMovieStoreBase
+    with _$AnyToHalfAndHalfMovieStore;
 
-abstract class _DynamicPointToInvertedHalfAndHalfMovieStoreBase
+abstract class _AnyToHalfAndHlafMovieStoreBase
     extends BaseBeachWaveMovieStore<List<ColorAndStop>> with Store {
-  _DynamicPointToInvertedHalfAndHalfMovieStoreBase()
+  _AnyToHalfAndHlafMovieStoreBase()
       : super(
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
         ) {
@@ -21,7 +21,7 @@ abstract class _DynamicPointToInvertedHalfAndHalfMovieStoreBase
 
   @override
   initMovie(List<ColorAndStop> param) {
-    const halfAndHalf = WaterColorsAndStops.invertedHalfWaterAndSand;
+    const halfAndHalf = WaterColorsAndStops.halfWaterAndSand;
     movie = TwoSecondBeachTransitionMovie.getMovie(param, halfAndHalf);
     control = Control.playFromStart;
   }

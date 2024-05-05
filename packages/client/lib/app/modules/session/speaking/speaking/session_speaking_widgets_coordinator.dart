@@ -95,7 +95,7 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
   @action
   onLetGo() {
     initGlowDown();
-    beachWaves.setMovieMode(BeachWaveMovieModes.dynamicPointToHalfAndHalf);
+    beachWaves.setMovieMode(BeachWaveMovieModes.anyToHalfAndHalf);
     beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
     speakLessSmileMore.hideBoth();
   }
@@ -170,7 +170,7 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
               onLetGoCompleted();
             }
           } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.dynamicPointToHalfAndHalf) {
+              BeachWaveMovieModes.anyToHalfAndHalf) {
             onLetGoCompleted();
           } else if (beachWaves.movieMode ==
                   BeachWaveMovieModes.anyToVibrantBlueGrad ||
