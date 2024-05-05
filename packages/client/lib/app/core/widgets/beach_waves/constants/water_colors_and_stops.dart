@@ -254,6 +254,16 @@ class WaterColorsAndStops {
     ColorAndStop(Color(0xFFFFFFE3), 0.0),
     ColorAndStop(Color(0xFFF5DC91), 1.00)
   ];
+  static const List<ColorAndStop> bottomHeavyDrySand = [
+    ColorAndStop(Color(0xFFFFFFE3), 0.0),
+    ColorAndStop(Color(0xFFF5DC91), 1.00),
+    ColorAndStop(Color(0xFFF5DC91), 1.00),
+    ColorAndStop(Color(0xFFF5DC91), 1.00),
+    ColorAndStop(Color(0xFFF5DC91), 1.00),
+    ColorAndStop(Color(0xFFF5DC91), 1.00),
+    ColorAndStop(Color(0xFFF5DC91), 1.00),
+    ColorAndStop(Color(0xFFF5DC91), 1.00),
+  ];
 
   static const List<ColorAndStop> drySandToVibrantBlueGradForBothPhase9 = [
     ColorAndStop(Color(0xFF6aEAB9), 0.0),
