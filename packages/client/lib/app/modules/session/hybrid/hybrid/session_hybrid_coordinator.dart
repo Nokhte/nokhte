@@ -142,11 +142,6 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
           if (presence.getSessionMetadataStore.everyoneIsOnline) {
             await presence
                 .updateWhoIsTalking(UpdateWhoIsTalkingParams.setUserAsTalker);
-            // setBlockPhoneTiltReactor(true);
-            // widgets.adjustSpeakLessSmileMoreRotation(hold.placement);
-            // widgets.onHold(hold.placement);
-            // setDisableAllTouchFeedback(true);
-            // await presence.updateCurrentPhase(2);
           }
         });
       });
@@ -154,11 +149,6 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
   letGoReactor() => reaction((p0) => hold.letGoCount, (p0) async {
         if (presence.getSessionMetadataStore.everyoneIsOnline) {
           await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
-          // widgets.onLetGo();
-          // setBlockPhoneTiltReactor(false);
-          // Timer(Seconds.get(2), () {
-          //   setDisableAllTouchFeedback(false);
-          // });
         }
       });
 
