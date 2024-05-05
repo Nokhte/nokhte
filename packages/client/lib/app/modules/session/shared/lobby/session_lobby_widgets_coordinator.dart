@@ -34,7 +34,7 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
   @action
   constructor() {
     beachWaves.setMovieMode(
-      BeachWaveMovieModes.deepSeaToVibrantBlueGrad,
+      BeachWaveMovieModes.deepSeaToSky,
     );
     if (isTheLeader) {
       qrCode.setQrCodeData(Modular.args.data["qrCodeData"]);
@@ -108,8 +108,7 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
   beachWavesMovieStatusReactor(Function onCompleted) =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == beachWaves.movieStatus &&
-            beachWaves.movieMode ==
-                BeachWaveMovieModes.deepSeaToVibrantBlueGrad) {
+            beachWaves.movieMode == BeachWaveMovieModes.deepSeaToSky) {
           onCompleted();
         }
       });

@@ -83,7 +83,7 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
         duration: const Duration(seconds: 2),
       );
 
-      beachWaves.setMovieMode(BeachWaveMovieModes.anyToVibrantBlueGrad);
+      beachWaves.setMovieMode(BeachWaveMovieModes.anyToSky);
       beachWaves.currentStore.initMovie(params);
     } else if (holdPosition == GesturePlacement.bottomHalf) {
       beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
@@ -135,7 +135,7 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
   onExit() {
     setIsPickingUp(true);
     mirroredText.setWidgetVisibility(false);
-    beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
+    beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
     beachWaves.currentStore.reverseMovie(NoParams());
   }
 
@@ -149,7 +149,7 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
     if (p0 == MovieStatus.finished &&
         store.isGlowingUp &&
         isHolding &&
-        beachWaves.movieMode == BeachWaveMovieModes.anyToVibrantBlueGrad) {
+        beachWaves.movieMode == BeachWaveMovieModes.anyToSky) {
       speakLessSmileMore.setSpeakLess(true);
       Timer(Seconds.get(2), () {
         if (isHolding) {
@@ -162,8 +162,7 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
   beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          if (beachWaves.movieMode ==
-              BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf) {
+          if (beachWaves.movieMode == BeachWaveMovieModes.skyToHalfAndHalf) {
             if (isPickingUp) {
               Modular.to.navigate("/session/shared/exit");
             } else if (isLettingGo) {
@@ -172,8 +171,7 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.anyToHalfAndHalf) {
             onLetGoCompleted();
-          } else if (beachWaves.movieMode ==
-                  BeachWaveMovieModes.anyToVibrantBlueGrad ||
+          } else if (beachWaves.movieMode == BeachWaveMovieModes.anyToSky ||
               beachWaves.movieMode ==
                   BeachWaveMovieModes.halfAndHalfToDrySand) {
             initBorderGlow();

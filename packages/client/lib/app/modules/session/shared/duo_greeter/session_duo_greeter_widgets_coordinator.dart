@@ -27,7 +27,7 @@ abstract class _SessionDuoGreeterWidgetsCoordinatorBase
 
   @action
   constructor() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToDrySand);
+    beachWaves.setMovieMode(BeachWaveMovieModes.skyToDrySand);
     primarySmartText.setMessagesData(SessionLists.duoGreeterPrimary);
     secondarySmartText.setMessagesData(SessionLists.duoGreeterSecondary);
     primarySmartText.startRotatingText();

@@ -105,8 +105,7 @@ abstract class _StorageHomeCoordinatorBase
           widgets.dispose();
           onAnimationComplete();
         } else if (p0 == MovieStatus.finished &&
-            widgets.beachWaves.movieMode ==
-                BeachWaveMovieModes.vibrantBlueGradToDrySand) {
+            widgets.beachWaves.movieMode == BeachWaveMovieModes.skyToDrySand) {
           widgets.dispose();
           Modular.to.navigate("/storage/content", arguments: {
             "content":

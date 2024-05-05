@@ -3,14 +3,14 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'on_shore_to_vibrant_blue_movie_store.g.dart';
+part 'on_shore_to_sky_movie_store.g.dart';
 
-class OnShoreToVibrantBlueMovieStore = _OnShoreToVibrantBlueMovieStoreBase
-    with _$OnShoreToVibrantBlueMovieStore;
+class OnShoreToSkyMovieStore = _OnShoreToSkyMovieStoreBase
+    with _$OnShoreToSkyMovieStore;
 
-abstract class _OnShoreToVibrantBlueMovieStoreBase
+abstract class _OnShoreToSkyMovieStoreBase
     extends BaseBeachWaveMovieStore<double> with Store {
-  _OnShoreToVibrantBlueMovieStoreBase()
+  _OnShoreToSkyMovieStoreBase()
       : super(
           callsOnCompleteTwice: true,
           shouldPaintSand: OnShoreToAny.shouldPaintSand,
@@ -24,7 +24,7 @@ abstract class _OnShoreToVibrantBlueMovieStoreBase
     callsOnCompleteTwice = true;
     setMovie(OnShoreToAny.getMovie(
       startingWaterMovement: startingWaterPosition,
-      endingColors: WaterColorsAndStops.vibrantBlueGrad,
+      endingColors: WaterColorsAndStops.sky,
     ));
     setControl(Control.playFromStart);
     setMovieStatus(MovieStatus.inProgress);
@@ -37,7 +37,7 @@ abstract class _OnShoreToVibrantBlueMovieStoreBase
     setMovie(
       OnShoreToAny.getMovie(
         startingWaterMovement: -10.0,
-        endingColors: WaterColorsAndStops.vibrantBlueGrad,
+        endingColors: WaterColorsAndStops.sky,
       ),
     );
     setControl(Control.playReverseFromEnd);

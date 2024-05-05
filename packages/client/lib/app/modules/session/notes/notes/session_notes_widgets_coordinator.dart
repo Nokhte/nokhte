@@ -60,7 +60,7 @@ abstract class _SessionNotesWidgetsCoordinatorBase
     smartText.setMessagesData(SessionLists.notesPrimary);
     smartText.setWidgetVisibility(false);
     smartText.startRotatingText();
-    beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
+    beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
     textEditor.initFadeIn();
   }
 

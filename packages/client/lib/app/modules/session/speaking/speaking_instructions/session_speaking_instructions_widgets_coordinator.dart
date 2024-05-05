@@ -37,7 +37,7 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
 
   @action
   constructor() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
+    beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
     beachWaves.currentStore.initMovie(NoParams());
     mirroredText.setMessagesData(
       MirroredTextContent.sessionSpeakingInstructions,
@@ -188,7 +188,7 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
           gradient: beachWaves.currentColorsAndStops,
           duration: const Duration(seconds: 2),
         );
-        beachWaves.setMovieMode(BeachWaveMovieModes.anyToVibrantBlueGrad);
+        beachWaves.setMovieMode(BeachWaveMovieModes.anyToSky);
         beachWaves.currentStore.initMovie(params);
       } else if (holdPosition == GesturePlacement.bottomHalf &&
           !bottomHalfIsDone) {
@@ -319,15 +319,13 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
   beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          if (beachWaves.movieMode ==
-              BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf) {
+          if (beachWaves.movieMode == BeachWaveMovieModes.skyToHalfAndHalf) {
             if (!topHalfIsDone) {
               mirroredText.startRotatingRightSideUp();
               cooldownStopwatch.start();
               disableTouchInput = false;
             }
-          } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.anyToVibrantBlueGrad) {
+          } else if (beachWaves.movieMode == BeachWaveMovieModes.anyToSky) {
             if (!phoneIsPickedUp) {
               borderGlow.initMovie(NoParams());
               holdTimerIndicator.initMovie(GesturePlacement.topHalf);

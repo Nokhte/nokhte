@@ -3,14 +3,14 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'inverted_on_shore_to_inverted_vibrant_blue_grad_movie_store.g.dart';
+part 'inverted_on_shore_to_inverted_sky_movie_store.g.dart';
 
-class InvertedOnShoreToInvertedVibrantBlueGradMovieStore = _InvertedOnShoreToOceanInvertedVibrantBlueGradStoreBase
-    with _$InvertedOnShoreToInvertedVibrantBlueGradMovieStore;
+class InvertedOnShoreToInvertedSkyMovieStore = _InvertedOnShoreToOceanInvertedSkyStoreBase
+    with _$InvertedOnShoreToInvertedSkyMovieStore;
 
-abstract class _InvertedOnShoreToOceanInvertedVibrantBlueGradStoreBase
+abstract class _InvertedOnShoreToOceanInvertedSkyStoreBase
     extends BaseBeachWaveMovieStore<double> with Store {
-  _InvertedOnShoreToOceanInvertedVibrantBlueGradStoreBase()
+  _InvertedOnShoreToOceanInvertedSkyStoreBase()
       : super(
           callsOnCompleteTwice: true,
           shouldPaintSand: OnShoreToAny.shouldPaintSand,
@@ -25,7 +25,7 @@ abstract class _InvertedOnShoreToOceanInvertedVibrantBlueGradStoreBase
       OnShoreToAny.getMovie(
         startingColors: WaterColorsAndStops.invertedBeachWater,
         startingWaterMovement: startingWaterPosition,
-        endingColors: WaterColorsAndStops.invertedVibrantBlueGrad,
+        endingColors: WaterColorsAndStops.invertedSky,
       ),
     );
     setControl(Control.playFromStart);

@@ -84,7 +84,7 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   onDisconnected() {
     setIsDisconnected(true);
     onInactive();
-    if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToVibrantBlue) {
+    if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToSky) {
       isEnteringNokhteSession = false;
       beachWaves.currentStore.setControl(Control.playReverse);
     }
@@ -225,7 +225,7 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
         beachWaves.currentStore.setControl(Control.playFromStart);
         beachWaves.setMovieStatus(MovieStatus.inProgress);
       }
-      if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToVibrantBlue) {
+      if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToSky) {
         isEnteringNokhteSession = true;
         beachWaves.currentStore.setControl(Control.playFromStart);
       }
@@ -247,8 +247,7 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToOceanDive) {
             onShoreToOceanDiveComplete();
-          } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.onShoreToVibrantBlue) {
+          } else if (beachWaves.movieMode == BeachWaveMovieModes.onShoreToSky) {
             onStorageEntry();
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.resumeOnShore) {

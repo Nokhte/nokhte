@@ -39,8 +39,7 @@ abstract class _SessionHybridSpeakingInstructionsWidgetsCoordinatorBase
   @action
   constructor() {
     resetUpsideDownHoldingPadding();
-    beachWaves
-        .setMovieMode(BeachWaveMovieModes.vibrantBlueGradToInvertedHalfAndHalf);
+    beachWaves.setMovieMode(BeachWaveMovieModes.skyToInvertedHalfAndHalf);
     beachWaves.currentStore.initMovie(NoParams());
     mirroredText.setMessagesData(
       MirroredTextContent.sessionSpeakingHybridInstructions,
@@ -265,7 +264,7 @@ abstract class _SessionHybridSpeakingInstructionsWidgetsCoordinatorBase
       reaction((p0) => beachWaves.movieStatus, (p0) async {
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode ==
-              BeachWaveMovieModes.vibrantBlueGradToInvertedHalfAndHalf) {
+              BeachWaveMovieModes.skyToInvertedHalfAndHalf) {
             halfScreenTint.setControl(Control.play);
             mirroredText.startBothRotatingText();
             cooldownStopwatch.start();

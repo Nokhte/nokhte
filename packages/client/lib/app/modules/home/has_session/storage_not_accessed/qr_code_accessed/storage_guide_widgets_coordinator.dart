@@ -138,7 +138,7 @@ abstract class _StorageGuideWidgetsCoordinatorBase
         primarySmartText.startRotatingText(isResuming: true);
       } else if (!hasInitiatedBlur && !hasSwipedUp && swipeRightIsUnlocked) {
         hasSwipedUp = true;
-        beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToVibrantBlue);
+        beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToSky);
         beachWaves.currentStore.initMovie(
           beachWaves.currentAnimationValues.first,
         );

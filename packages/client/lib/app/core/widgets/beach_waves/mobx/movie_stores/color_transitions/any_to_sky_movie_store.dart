@@ -2,14 +2,13 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'any_to_vibrant_blue_grad_movie_store.g.dart';
+part 'any_to_sky_movie_store.g.dart';
 
-class AnyToVibrantBlueGradMovieStore = _AnyToVibrantBlueGradMovieStoreBase
-    with _$AnyToVibrantBlueGradMovieStore;
+class AnyToSkyMovieStore = _AnyToSkyMovieStoreBase with _$AnyToSkyMovieStore;
 
-abstract class _AnyToVibrantBlueGradMovieStoreBase
+abstract class _AnyToSkyMovieStoreBase
     extends BaseBeachWaveMovieStore<DurationAndGradient> with Store {
-  _AnyToVibrantBlueGradMovieStoreBase()
+  _AnyToSkyMovieStoreBase()
       : super(
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
         ) {
@@ -23,7 +22,7 @@ abstract class _AnyToVibrantBlueGradMovieStoreBase
   initMovie(DurationAndGradient param) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
       param.gradient,
-      WaterColorsAndStops.vibrantBlueGrad,
+      WaterColorsAndStops.sky,
       seconds: param.duration,
     );
     control = Control.playFromStart;

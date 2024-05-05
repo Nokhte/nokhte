@@ -34,7 +34,7 @@ abstract class _SessionExitWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   @action
   constructor() {
     beachWaves.setMovieMode(
-      BeachWaveMovieModes.vibrantBlueGradToDrySand,
+      BeachWaveMovieModes.skyToDrySand,
     );
     primarySmartText.setMessagesData(SessionLists.exitTopText);
     secondarySmartText.setMessagesData(SessionLists.exitBottomText);
@@ -45,7 +45,7 @@ abstract class _SessionExitWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   onReadyToGoHome() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToVibrantBlue);
+    beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToSky);
     beachWaves.currentStore.reverseMovie(NoParams());
     tertiarySmartText.setWidgetVisibility(false);
     gestureCross.fadeInTheCross();
@@ -68,15 +68,14 @@ abstract class _SessionExitWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     secondarySmartText.setWidgetVisibility(false);
     tertiarySmartText.setWidgetVisibility(false);
     if (phoneRole == SessionPhoneRole.speaking) {
-      beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
+      beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
       beachWaves.currentStore.initMovie(NoParams());
     } else if (phoneRole == SessionPhoneRole.notes) {
       Timer(Seconds.get(1), () {
         Modular.to.navigate('/session/notes/');
       });
     } else if (phoneRole == SessionPhoneRole.hybrid) {
-      beachWaves.setMovieMode(
-          BeachWaveMovieModes.vibrantBlueGradToInvertedHalfAndHalf);
+      beachWaves.setMovieMode(BeachWaveMovieModes.skyToInvertedHalfAndHalf);
       beachWaves.currentStore.initMovie(NoParams());
     }
   }
@@ -108,15 +107,13 @@ abstract class _SessionExitWidgetsCoordinatorBase extends BaseWidgetsCoordinator
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
           if (p0 == MovieStatus.finished &&
-              beachWaves.movieMode ==
-                  BeachWaveMovieModes.onShoreToVibrantBlue) {
+              beachWaves.movieMode == BeachWaveMovieModes.onShoreToSky) {
             onToHomeComplete();
           } else if (p0 == MovieStatus.finished &&
-              beachWaves.movieMode ==
-                  BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf) {
+              beachWaves.movieMode == BeachWaveMovieModes.skyToHalfAndHalf) {
             onReturnToTalkingComplete();
           } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.vibrantBlueGradToInvertedHalfAndHalf) {
+              BeachWaveMovieModes.skyToInvertedHalfAndHalf) {
             onReturnToHybridComplete();
           }
         }

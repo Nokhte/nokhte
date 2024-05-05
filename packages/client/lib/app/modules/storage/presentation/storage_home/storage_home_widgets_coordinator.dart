@@ -42,7 +42,7 @@ abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     secondarySmartText.setMessagesData(StorageLists.homeSecondary);
     secondarySmartText.startRotatingText();
     primarySmartText.startRotatingText();
-    beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
+    beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
     gestureCross.fadeIn();
     gestureCross.cross.initStaticGlow();
     initReactors();
@@ -76,7 +76,7 @@ abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
         centerInstructionalNokhte.setWidgetVisibility(false);
         beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
         beachWaves.currentStore.initMovie(const AnyToOnShoreParams(
-          startingColors: WaterColorsAndStops.vibrantBlueGrad,
+          startingColors: WaterColorsAndStops.sky,
         ));
         gestureCross.cross.initOutlineFadeOut();
         gestureCross.initMoveAndRegenerate(CircleOffsets.left);
@@ -186,7 +186,7 @@ abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
 
   @action
   onSessionCardTapped() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToDrySand);
+    beachWaves.setMovieMode(BeachWaveMovieModes.skyToDrySand);
     beachWaves.currentStore.initMovie(NoParams());
     sessionCard.setWidgetVisibility(false);
     primarySmartText.setWidgetVisibility(false);

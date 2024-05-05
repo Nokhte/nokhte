@@ -3,20 +3,20 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'deep_sea_to_vibrant_blue_grad_movie_store.g.dart';
+part 'sky_to_half_and_half_movie_store.g.dart';
 
-class DeepSeaToVibrantBlueGradMovieStore = _DeepSeaToVibrantBlueGradMovieStoreBase
-    with _$DeepSeaToVibrantBlueGradMovieStore;
+class SkyToHalfAndHalfMovieStore = _SkyToHalfAndHalfMovieStoreBase
+    with _$SkyToHalfAndHalfMovieStore;
 
-abstract class _DeepSeaToVibrantBlueGradMovieStoreBase
+abstract class _SkyToHalfAndHalfMovieStoreBase
     extends BaseBeachWaveMovieStore<NoParams> with Store {
-  _DeepSeaToVibrantBlueGradMovieStoreBase()
+  _SkyToHalfAndHalfMovieStoreBase()
       : super(
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
-      WaterColorsAndStops.deepSeaWater,
-      WaterColorsAndStops.vibrantBlueGrad,
+      WaterColorsAndStops.sky,
+      WaterColorsAndStops.halfWaterAndSand,
     );
   }
 
@@ -24,5 +24,11 @@ abstract class _DeepSeaToVibrantBlueGradMovieStoreBase
   @action
   initMovie(NoParams params) {
     control = Control.playFromStart;
+  }
+
+  @override
+  @action
+  reverseMovie(params) {
+    control = Control.playReverseFromEnd;
   }
 }

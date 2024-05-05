@@ -3,20 +3,20 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'vibrant_blue_grad_to_half_and_half_movie_store.g.dart';
+part 'sky_to_dry_sand_movie_store.g.dart';
 
-class VibrantBlueGradToHalfAndHalfMovieStore = _VibrantBlueGradToHalfAndHalfMovieStoreBase
-    with _$VibrantBlueGradToHalfAndHalfMovieStore;
+class SkyToDrySandMovieStore = _SkyToDrySandMovieStoreBase
+    with _$SkyToDrySandMovieStore;
 
-abstract class _VibrantBlueGradToHalfAndHalfMovieStoreBase
+abstract class _SkyToDrySandMovieStoreBase
     extends BaseBeachWaveMovieStore<NoParams> with Store {
-  _VibrantBlueGradToHalfAndHalfMovieStoreBase()
+  _SkyToDrySandMovieStoreBase()
       : super(
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
-      WaterColorsAndStops.vibrantBlueGrad,
-      WaterColorsAndStops.halfWaterAndSand,
+      WaterColorsAndStops.sky,
+      WaterColorsAndStops.drySand,
     );
   }
 

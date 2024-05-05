@@ -38,7 +38,7 @@ abstract class _StorageContentWidgetsCoordinatorBase
     contentCard.initFadeIn();
     smartText.setMessagesData(StorageLists.contentSecondary);
     smartText.startRotatingText();
-    beachWaves.setMovieMode(BeachWaveMovieModes.drySandToVibrantBlueGrad);
+    beachWaves.setMovieMode(BeachWaveMovieModes.drySandToSky);
     smartText.setStaticAltMovie(NokhteSessionConstants.blue);
     gestureCross.fadeIn();
     gestureCross.cross.initStaticGlow();
@@ -73,7 +73,7 @@ abstract class _StorageContentWidgetsCoordinatorBase
         gestureCross.centerCrossNokhte.setWidgetVisibility(true);
         centerInstructionalNokhte.setWidgetVisibility(false);
 
-        beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToDrySand);
+        beachWaves.setMovieMode(BeachWaveMovieModes.skyToDrySand);
         beachWaves.currentStore.reverseMovie(NoParams());
         gestureCross.initMoveAndRegenerate(CircleOffsets.left);
         contentCard.setWidgetVisibility(false);

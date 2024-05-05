@@ -46,7 +46,7 @@ abstract class _SessionNotesInstructionsWidgetsCoordinatorBase
   @action
   constructor(bool shouldAdjustToFallbackExitProtocol) {
     cooldownStopwatch.start();
-    beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
+    beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
     mirroredText.setMessagesData(
       MirroredTextContent.sessionNotesInstructions,
       shouldAdjustToFallbackExitProtocol: shouldAdjustToFallbackExitProtocol,

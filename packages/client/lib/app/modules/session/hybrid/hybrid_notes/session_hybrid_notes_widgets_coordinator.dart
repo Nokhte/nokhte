@@ -50,7 +50,7 @@ abstract class _SessionHybridNotesWidgetsCoordinatorBase
     smartText.setMessagesData(SessionLists.notesPrimary);
     smartText.setWidgetVisibility(false);
     smartText.startRotatingText();
-    beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
+    beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
     textEditor.initFadeIn();
     textEditor.focusNode.addListener(() {
       inactivityCount++;
@@ -78,7 +78,7 @@ abstract class _SessionHybridNotesWidgetsCoordinatorBase
     smartText.setWidgetVisibility(false);
     textEditor.setWidgetVisibility(false);
     beachWaves.setMovieMode(
-      BeachWaveMovieModes.vibrantBlueGradToInvertedHalfAndHalf,
+      BeachWaveMovieModes.skyToInvertedHalfAndHalf,
     );
     beachWaves.currentStore.initMovie(NoParams());
 
@@ -113,7 +113,7 @@ abstract class _SessionHybridNotesWidgetsCoordinatorBase
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&
             beachWaves.movieMode ==
-                BeachWaveMovieModes.vibrantBlueGradToInvertedHalfAndHalf) {
+                BeachWaveMovieModes.skyToInvertedHalfAndHalf) {
           Modular.to.navigate('/session/hybrid/');
         }
       });

@@ -36,7 +36,7 @@ abstract class _SessionNotesInactivityWidgetsCoordinatorBase
 
   @action
   constructor() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
+    beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
     mirroredText.setMessagesData(MirroredTextContent.speakLessWriteMore);
     mirroredText.startBothRotatingText();
     borderGlow.setAtCompleteWhiteOut();

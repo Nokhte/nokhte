@@ -67,7 +67,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
 
   @action
   onTap(Offset offset) async {
-    if (!isDisconnected &&!touchIsDisabled) {
+    if (!isDisconnected && !touchIsDisabled) {
       if (primarySmartText.currentIndex == 1) {
         setTouchIsDisabled(true);
         primarySmartText.startRotatingText(isResuming: true);
@@ -132,7 +132,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
 
   @action
   onSwipeRight() {
-    if (!isDisconnected &&isAllowedToMakeAGesture) {
+    if (!isDisconnected && isAllowedToMakeAGesture) {
       if (!hasSwipedUp &&
           primarySmartText.currentIndex == 3 &&
           hasInitiatedBlur) {
@@ -145,7 +145,7 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
         setSmartTextPadding(subMessagePadding: 120, topPadding: .15);
       } else if (!hasSwipedUp && !hasInitiatedBlur && hasTappedOnGestureCross) {
         hasSwipedUp = true;
-        beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToVibrantBlue);
+        beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToSky);
         beachWaves.currentStore.initMovie(
           beachWaves.currentAnimationValues.first,
         );

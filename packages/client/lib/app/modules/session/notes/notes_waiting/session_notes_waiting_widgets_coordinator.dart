@@ -33,7 +33,7 @@ abstract class _SessionNotesWaitingWidgetsCoordinatorBase
 
   @action
   constructor(double userPhase) {
-    beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToDrySand);
+    beachWaves.setMovieMode(BeachWaveMovieModes.skyToDrySand);
     if (userPhase.isGreaterThanOrEqualTo(2)) {
       mirroredText.setMessagesData(
         MirroredTextContent.sessionHybridWaiting,
