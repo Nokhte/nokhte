@@ -13,6 +13,7 @@ export "jost/jost.dart";
 export 'mirrored_text/mirrored_text.dart';
 export 'multi_hit_stack/multi_hit_stack.dart';
 export 'nokhte/nokhte.dart';
+export 'nokhte_gradient_text/nokhte_gradient_text.dart';
 export 'nokhte_blur/nokhte_blur.dart';
 export 'nokhte_qr_code/nokhte_qr_code.dart';
 export "nokhte_custom_animation_builder/nokhte_custom_animation_builder.dart";

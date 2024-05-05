@@ -41,7 +41,7 @@ class WaterColorsAndStops {
     ColorAndStop(Color(0xFF64F188), 0.19),
     ColorAndStop(Color(0xFF64FD74), 0.35),
     ColorAndStop(Color(0xFF5DEF6D), 0.51),
-    ColorAndStop(Color(0xFFFFE167), 0.65),
+    ColorAndStop(Color(0xFF55E167), 0.65),
     ColorAndStop(Color(0xFF47DB7A), 0.83),
     ColorAndStop(Color(0xFF3CD489), 1.00),
   ];
