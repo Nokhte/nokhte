@@ -35,6 +35,17 @@ class WaterColorsAndStops {
     ColorAndStop(Color(0xFF51A18D), 1.00),
   ];
 
+  static const List<ColorAndStop> lime = [
+    ColorAndStop(Color(0xFF63E39E), 0.0),
+    ColorAndStop(Color(0xFF64EA93), 0.09),
+    ColorAndStop(Color(0xFF64F188), 0.19),
+    ColorAndStop(Color(0xFF64FD74), 0.35),
+    ColorAndStop(Color(0xFF5DEF6D), 0.51),
+    ColorAndStop(Color(0xFFFFE167), 0.65),
+    ColorAndStop(Color(0xFF47DB7A), 0.83),
+    ColorAndStop(Color(0xFF3CD489), 1.00),
+  ];
+
   static const List<ColorAndStop> deepSeaWater = [
     ColorAndStop(Color(0xFF23E5FF), 0),
     ColorAndStop(Color(0xFF00C8FF), .15),
@@ -79,7 +90,7 @@ class WaterColorsAndStops {
     ColorAndStop(Color(0xFF6AEAB9), 1.00),
   ];
 
-  static const List<ColorAndStop> vibrantBlueGrad = [
+  static const List<ColorAndStop> sky = [
     ColorAndStop(Color(0xFF44D3FE), 0),
     ColorAndStop(Color(0xFF44D3FE), .3),
     ColorAndStop(Color(0xFF6BE9BB), 1.0),
@@ -90,7 +101,7 @@ class WaterColorsAndStops {
     ColorAndStop(Color(0xFF6BE9BB), 1.0),
   ];
 
-  static const List<ColorAndStop> invertedVibrantBlueGrad = [
+  static const List<ColorAndStop> invertedSky = [
     ColorAndStop(Color(0xFF6BE9BB), 0),
     ColorAndStop(Color(0xFF6BE9BB), 0),
     ColorAndStop(Color(0xFF6BE9BB), 0),
