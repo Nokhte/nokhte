@@ -2,10 +2,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/widgets/modules.dart';
 import 'package:nokhte/app/core/widgets/widget_modules/mirrored_text_module.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'monetize/monetize.dart';
 import 'session.dart';
 
 class SessionWidgetsModule extends Module {
-  @override
   @override
   List<Module> get imports => [
         MirroredTextModule(),
@@ -56,6 +56,7 @@ class SessionWidgetsModule extends Module {
     injectHybrid(i);
     injectSpeaking(i);
     injectNotes(i);
+    injectMonetization(i);
   }
 
   injectSpeaking(i) {
@@ -188,5 +189,28 @@ class SessionWidgetsModule extends Module {
       ),
     );
     //
+  }
+
+  injectMonetization(i) {
+    i.add<WaitingPatronWidgetsCoordinator>(
+      () => WaitingPatronWidgetsCoordinator(
+        gestureCross: Modular.get<GestureCrossStore>(),
+        beachWaves: BeachWavesStore(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        nokhteGradientText: NokhteGradientTextStore(),
+        tint: TintStore(),
+      ),
+    );
+    i.add<SessionPaywallWidgetsCoordinator>(
+      () => SessionPaywallWidgetsCoordinator(
+        gestureCross: Modular.get<GestureCrossStore>(),
+        beachWaves: BeachWavesStore(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        touchRipple: TouchRippleStore(),
+        primarySmartText: SmartTextStore(),
+        secondarySmartText: SmartTextStore(),
+        tertiarySmartText: SmartTextStore(),
+      ),
+    );
   }
 }
