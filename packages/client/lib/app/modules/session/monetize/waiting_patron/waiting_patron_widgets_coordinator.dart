@@ -30,7 +30,7 @@ abstract class _WaitingPatronWidgetsCoordinatorBase
 
   @action
   constructor() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.limeToSky);
+    beachWaves.setMovieMode(BeachWaveMovieModes.borealisToSky);
     tint.setControl(Control.play);
     setSmartTextBottomPaddingScalar(.15);
     nokhteGradientText.setWidgetVisibility(false);
@@ -40,7 +40,6 @@ abstract class _WaitingPatronWidgetsCoordinatorBase
   }
 
   onSessionUnlocked() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.limeToSky);
     beachWaves.currentStore.initMovie(NoParams());
     tint.reverseMovie(NoParams());
     nokhteGradientText.setWidgetVisibility(false);
@@ -52,7 +51,7 @@ abstract class _WaitingPatronWidgetsCoordinatorBase
     beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
     beachWaves.currentStore.initMovie(
       const AnyToOnShoreParams(
-        startingColors: WaterColorsAndStops.lime,
+        startingColors: WaterColorsAndStops.borealis,
       ),
     );
   }
@@ -64,7 +63,8 @@ abstract class _WaitingPatronWidgetsCoordinatorBase
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode == BeachWaveMovieModes.anyToOnShore) {
             onReturnHome();
-          } else if (beachWaves.movieMode == BeachWaveMovieModes.limeToSky) {
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.borealisToSky) {
             Modular.to.navigate(NokhteSessionConstants.groupGreeter);
           }
         }

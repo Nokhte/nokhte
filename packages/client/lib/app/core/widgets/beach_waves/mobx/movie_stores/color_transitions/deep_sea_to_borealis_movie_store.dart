@@ -3,20 +3,20 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'deep_sea_to_lime_movie_store.g.dart';
+part 'deep_sea_to_borealis_movie_store.g.dart';
 
-class DeepSeaToLimeMovieStore = _DeepSeaToLimeMovieStoreBase
-    with _$DeepSeaToLimeMovieStore;
+class DeepSeaToBorealisMovieStore = _DeepSeaToBorealisMovieStoreBase
+    with _$DeepSeaToBorealisMovieStore;
 
-abstract class _DeepSeaToLimeMovieStoreBase
+abstract class _DeepSeaToBorealisMovieStoreBase
     extends BaseBeachWaveMovieStore<NoParams> with Store {
-  _DeepSeaToLimeMovieStoreBase()
+  _DeepSeaToBorealisMovieStoreBase()
       : super(
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
       WaterColorsAndStops.deepSeaWater,
-      WaterColorsAndStops.lime,
+      WaterColorsAndStops.borealis,
     );
   }
 

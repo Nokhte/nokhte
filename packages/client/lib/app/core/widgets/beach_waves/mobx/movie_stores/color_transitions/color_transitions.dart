@@ -10,5 +10,5 @@ export 'sky_to_dry_sand_movie_store.dart';
 export 'sky_to_inverted_half_and_half_movie_store.dart';
 export 'ocean_dive_to_sky_movie_store.dart';
 export 'sky_to_half_and_half_movie_store.dart';
-export 'deep_sea_to_lime_movie_store.dart';
-export 'lime_to_sky_movie_store.dart';
+export 'deep_sea_to_borealis_movie_store.dart';
+export 'borealis_to_sky_movie_store.dart';

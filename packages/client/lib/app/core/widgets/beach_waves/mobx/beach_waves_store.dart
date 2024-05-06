@@ -17,10 +17,11 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
       BeachWaveMovieModes.anyToHalfAndHalf: AnyToHalfAndHalfMovieStore(),
       BeachWaveMovieModes.anyToInvertedHalfAndHalf:
           AnyToInvertedHalfAndHalfMovieStore(),
+      BeachWaveMovieModes.borealisToSky: BorealisToSkyMovieStore(),
       BeachWaveMovieModes.blackOut: StaticBlackOutMovieStore(),
       BeachWaveMovieModes.blackOutToDrySand: BlackOutToDrySandMovieStore(),
+      BeachWaveMovieModes.deepSeaToBorealis: DeepSeaToBorealisMovieStore(),
       BeachWaveMovieModes.deepSeaToSky: DeepSeaToSkyMovieStore(),
-      BeachWaveMovieModes.deepSeaToLime: DeepSeaToLimeMovieStore(),
       BeachWaveMovieModes.drySandToSky: DrySandToSkyMovieStore(),
       BeachWaveMovieModes.halfAndHalfToDrySand:
           HalfAndHalfToDrySandMovieStore(),
@@ -33,7 +34,6 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
           InvertedOnShoreToInvertedSkyMovieStore(),
       BeachWaveMovieModes.invertedHalfAndHalfToDrySand:
           InvertedHalfAndHalfToDrySandMovieStore(),
-      BeachWaveMovieModes.limeToSky: LimeToSkyMovieStore(),
       BeachWaveMovieModes.none: BaseBeachWaveMovieStore(),
       BeachWaveMovieModes.oceanDiveToSky: OceanDiveToSkyMovieStore(),
       BeachWaveMovieModes.onShore: OnShoreMovieStore(),

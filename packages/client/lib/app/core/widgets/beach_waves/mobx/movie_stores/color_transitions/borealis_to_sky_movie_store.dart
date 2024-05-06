@@ -3,18 +3,19 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'lime_to_sky_movie_store.g.dart';
+part 'borealis_to_sky_movie_store.g.dart';
 
-class LimeToSkyMovieStore = _LimeToSkyMovieStoreBase with _$LimeToSkyMovieStore;
+class BorealisToSkyMovieStore = _BorealisToSkyMovieStoreBase
+    with _$BorealisToSkyMovieStore;
 
-abstract class _LimeToSkyMovieStoreBase
+abstract class _BorealisToSkyMovieStoreBase
     extends BaseBeachWaveMovieStore<NoParams> with Store {
-  _LimeToSkyMovieStoreBase()
+  _BorealisToSkyMovieStoreBase()
       : super(
           shouldPaintSand: TwoSecondBeachTransitionMovie.shouldPaintSand,
         ) {
     movie = TwoSecondBeachTransitionMovie.getMovie(
-      WaterColorsAndStops.lime,
+      WaterColorsAndStops.borealis,
       WaterColorsAndStops.sky,
     );
   }

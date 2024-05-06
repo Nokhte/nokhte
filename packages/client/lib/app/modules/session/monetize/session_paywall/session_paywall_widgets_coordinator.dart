@@ -50,7 +50,7 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
   @action
   constructor() {
     cooldownStopwatch.start();
-    beachWaves.setMovieMode(BeachWaveMovieModes.limeToSky);
+    beachWaves.setMovieMode(BeachWaveMovieModes.borealisToSky);
     primarySmartText.setMessagesData(SessionLists.paywallPrimaryList);
     secondarySmartText.setMessagesData(SessionLists.swipeUpToPay);
     tertiarySmartText.setMessagesData(SessionLists.swipeDownToExit);
@@ -96,8 +96,11 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
 
   onPaymentFailure() {
     hasSwiped = false;
-    primarySmartText.setCurrentIndex(2);
-    primarySmartText.setWidgetVisibility(true);
+    primarySmartText.setWidgetVisibility(false);
+    Timer(Seconds.get(0, milli: 500), () {
+      primarySmartText.setCurrentIndex(2);
+      primarySmartText.setWidgetVisibility(true);
+    });
     secondarySmartText.setWidgetVisibility(true);
     tertiarySmartText.setWidgetVisibility(true);
   }
@@ -115,7 +118,7 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
       beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
       beachWaves.currentStore.initMovie(
         const AnyToOnShoreParams(
-          startingColors: WaterColorsAndStops.lime,
+          startingColors: WaterColorsAndStops.borealis,
         ),
       );
     }
@@ -128,7 +131,8 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode == BeachWaveMovieModes.anyToOnShore) {
             onReturnHome();
-          } else if (beachWaves.movieMode == BeachWaveMovieModes.limeToSky) {
+          } else if (beachWaves.movieMode ==
+              BeachWaveMovieModes.borealisToSky) {
             Modular.to.navigate(NokhteSessionConstants.groupGreeter);
           }
         }

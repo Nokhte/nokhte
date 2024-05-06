@@ -35,15 +35,15 @@ class WaterColorsAndStops {
     ColorAndStop(Color(0xFF51A18D), 1.00),
   ];
 
-  static const List<ColorAndStop> lime = [
-    ColorAndStop(Color(0xFF63E39E), 0.0),
-    ColorAndStop(Color(0xFF64EA93), 0.09),
-    ColorAndStop(Color(0xFF64F188), 0.19),
-    ColorAndStop(Color(0xFF64FD74), 0.35),
-    ColorAndStop(Color(0xFF5DEF6D), 0.51),
-    ColorAndStop(Color(0xFF55E167), 0.65),
-    ColorAndStop(Color(0xFF47DB7A), 0.83),
-    ColorAndStop(Color(0xFF3CD489), 1.00),
+  static const List<ColorAndStop> borealis = [
+    ColorAndStop(Color(0xFF18D9AA), 0.0),
+    ColorAndStop(Color(0xFF3AD4C7), 0.14),
+    ColorAndStop(Color(0xFF59D0E0), 0.26),
+    ColorAndStop(Color(0xFF42CBF1), 0.4),
+    ColorAndStop(Color(0xFF30C7FF), 0.51),
+    ColorAndStop(Color(0xFF28BAFD), 0.65),
+    ColorAndStop(Color(0xFF21ADFC), 0.79),
+    ColorAndStop(Color(0xFF25ADB9), 1.00),
   ];
 
   static const List<ColorAndStop> deepSeaWater = [
