@@ -23,10 +23,10 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_mobx: ^2.2.0
   flutter_modular: ^6.3.2
+  glassfy_flutter: ^1.6.2
   google_fonts: ^5.1.0
   gradient_borders: ^1.0.0
   http: ^1.1.0
-  in_app_purchase: ^3.2.0
   intl: ^0.18.1
   mobx: ^2.2.1
   nokhte_backend:
