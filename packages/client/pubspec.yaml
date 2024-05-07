@@ -33,7 +33,7 @@ dependencies:
     path: ../backend/dart
   path_drawing: ^1.0.1
   permission_handler: ^11.0.0
-  posthog_flutter: ^4.2.0
+  posthog_flutter: ^4.4.1
   qr_flutter: ^4.1.0
   sensors_plus: ^4.0.2
   share_plus: ^7.2.1
