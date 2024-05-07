@@ -117,6 +117,7 @@ void main() {
       stream,
       emits(
         NokhteSessionMetadata(
+          isAPremiumSession: false,
           userCanSpeak: true,
           userIsSpeaking: false,
           userIndex: sortedArr.indexOf(tSetup.firstUserUID),

@@ -64,6 +64,7 @@ class ActiveNokhteSessionsStream extends ActiveNokhteSessionQueries
         );
         final userIndex = orderedCollaboratorUIDs.indexOf(userUID);
         yield NokhteSessionMetadata(
+          isAPremiumSession: event.first[COLLABORATOR_UIDS].length < 3,
           userCanSpeak: event.first[SPEAKER_SPOTLIGHT] == null,
           userIsSpeaking: event.first[SPEAKER_SPOTLIGHT] == userUID,
           userIndex: userIndex,

@@ -45,6 +45,9 @@ abstract class _GetSessionMetadataStoreBase
   bool someoneElseIsTalking = false;
 
   @observable
+  bool isAPremiumSession = false;
+
+  @observable
   bool sessionHasBegun = false;
 
   @observable
@@ -70,6 +73,7 @@ abstract class _GetSessionMetadataStoreBase
       (stream) {
         sessionMetadata = ObservableStream(stream);
         streamSubscription = sessionMetadata.listen((value) {
+          isAPremiumSession = value.isAPremiumSession;
           userIndex = value.userIndex;
           everyoneHasGyroscopes = value.everyoneHasGyroscopes;
           everyoneIsOnline = value.everyoneIsOnline;
