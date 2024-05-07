@@ -17,7 +17,7 @@ class CleanUpCollaborationArtifactsContractImpl
   @override
   cleanUpNokhteSession(NoParams params) async {
     if (await networkInfo.isConnected) {
-      final res = await remoteSource.deleteIrlActiveNokhteSession();
+      final res = await remoteSource.deleteActiveNokhteSession();
       return Right(fromSupabase(res));
     } else {
       return Left(FailureConstants.internetConnectionFailure);

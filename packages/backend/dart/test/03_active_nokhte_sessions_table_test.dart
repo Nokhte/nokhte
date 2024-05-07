@@ -2,15 +2,14 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte_backend/tables/_real_time_disabled/finished_nokhte_sessions/queries.dart';
-import 'package:nokhte_backend/tables/_real_time_enabled/active_irl_nokhte_sessions/types/types.dart';
-import 'package:nokhte_backend/tables/irl_active_nokhte_sessions.dart';
+import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
 
 import 'shared/shared.dart';
 
 void main() {
-  late ActiveIrlNokhteSessionQueries user1Queries;
-  late ActiveIrlNokhteSessionQueries user2Queries;
-  late ActiveIrlNokhteSessionsStream user1Stream;
+  late ActiveNokhteSessionQueries user1Queries;
+  late ActiveNokhteSessionQueries user2Queries;
+  late ActiveNokhteSessionsStream user1Stream;
   late FinishedNokhteSessionQueries user1FinishedQueries;
   final tSetup = CommonCollaborativeTestFunctions();
   List sortedArr = [];
@@ -18,13 +17,11 @@ void main() {
   setUpAll(() async {
     await tSetup.setUp(shouldMakeCollaboration: false);
     sortedArr = [tSetup.firstUserUID, tSetup.secondUserUID]..sort();
-    user1Queries =
-        ActiveIrlNokhteSessionQueries(supabase: tSetup.user1Supabase);
-    user2Queries =
-        ActiveIrlNokhteSessionQueries(supabase: tSetup.user2Supabase);
+    user1Queries = ActiveNokhteSessionQueries(supabase: tSetup.user1Supabase);
+    user2Queries = ActiveNokhteSessionQueries(supabase: tSetup.user2Supabase);
     user1FinishedQueries =
         FinishedNokhteSessionQueries(supabase: tSetup.user1Supabase);
-    user1Stream = ActiveIrlNokhteSessionsStream(supabase: tSetup.user1Supabase);
+    user1Stream = ActiveNokhteSessionsStream(supabase: tSetup.user1Supabase);
   });
 
   tearDownAll(() async {
@@ -35,7 +32,7 @@ void main() {
   });
 
   test("select", () async {
-    await tSetup.supabaseAdmin.from("active_irl_nokhte_sessions").insert({
+    await tSetup.supabaseAdmin.from("active_nokhte_sessions").insert({
       "collaborator_uids": sortedArr,
       "leader_uid": sortedArr.first,
     });
@@ -119,7 +116,7 @@ void main() {
     expect(
       stream,
       emits(
-        IrlNokhteSessionMetadata(
+        NokhteSessionMetadata(
           userCanSpeak: true,
           userIsSpeaking: false,
           userIndex: sortedArr.indexOf(tSetup.firstUserUID),

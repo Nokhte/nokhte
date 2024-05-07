@@ -5,14 +5,14 @@ import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
-import 'package:nokhte_backend/tables/_real_time_enabled/active_irl_nokhte_sessions/types/types.dart';
+import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
 part 'get_session_metadata_store.g.dart';
 
 class GetSessionMetadataStore = _GetSessionMetadataStoreBase
     with _$GetSessionMetadataStore;
 
 abstract class _GetSessionMetadataStoreBase
-    extends BaseMobxDBStore<NoParams, Stream<IrlNokhteSessionMetadata>>
+    extends BaseMobxDBStore<NoParams, Stream<NokhteSessionMetadata>>
     with Store {
   final GetSessionMetadata logic;
   _GetSessionMetadataStoreBase({required this.logic});
@@ -48,7 +48,7 @@ abstract class _GetSessionMetadataStoreBase
   bool sessionHasBegun = false;
 
   @observable
-  ObservableStream<IrlNokhteSessionMetadata> sessionMetadata =
+  ObservableStream<NokhteSessionMetadata> sessionMetadata =
       ObservableStream(const Stream.empty());
 
   StreamSubscription streamSubscription =

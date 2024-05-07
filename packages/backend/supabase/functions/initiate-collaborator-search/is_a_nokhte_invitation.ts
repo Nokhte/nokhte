@@ -16,7 +16,7 @@ async function isANokhteInvitation(queryUID: string, mostRecentEntrant: any) {
   if (isNotEmptyOrNull(wayfarerQueryRes?.data)) {
     const matchedUID = wayfarerQueryRes.data?.[0]?.["wayfarer_uid"];
     const checkRes = await supabaseAdmin
-      .from("active_irl_nokhte_sessions")
+      .from("active_nokhte_sessions")
       .select()
       .eq("leader_uid", leaderUID);
 
@@ -31,12 +31,12 @@ async function isANokhteInvitation(queryUID: string, mostRecentEntrant: any) {
         await updateAuthorizedViewers(matchedUID, userUID);
         const uids = [matchedUID, userUID];
         uids.sort();
-        await supabaseAdmin.from("active_irl_nokhte_sessions").insert({
+        await supabaseAdmin.from("active_nokhte_sessions").insert({
           collaborator_uids: uids,
           leader_uid: queryUID,
         });
       } else {
-        await supabaseAdmin.from("active_irl_nokhte_sessions").insert({
+        await supabaseAdmin.from("active_nokhte_sessions").insert({
           collaboration_uids:
             checkForExistingSessionsRes.data?.[0]["collaborator_uids"],
           leader_uid: queryUID,
@@ -53,7 +53,7 @@ async function isANokhteInvitation(queryUID: string, mostRecentEntrant: any) {
     }
   } else {
     const existingNokhteSessionRes = await supabaseAdmin
-      .from("active_irl_nokhte_sessions")
+      .from("active_nokhte_sessions")
       .select()
       .eq("leader_uid", queryUID)
       .eq("has_begun", false);
@@ -72,7 +72,7 @@ async function isANokhteInvitation(queryUID: string, mostRecentEntrant: any) {
         existingNokhteSessionRes.data?.[0]["have_gyroscopes"];
       currentHaveGyroscopesRes.push(true);
       await supabaseAdmin
-        .from("active_irl_nokhte_sessions")
+        .from("active_nokhte_sessions")
         .update({
           collaborator_uids: currentCollaboratorUIDs,
           is_online: currentIsOnlineArr,

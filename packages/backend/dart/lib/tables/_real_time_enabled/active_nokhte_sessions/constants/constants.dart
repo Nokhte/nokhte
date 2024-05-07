@@ -1,7 +1,7 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
-mixin ActiveIrlNokhteSessionsConstants {
-  String TABLE = "active_irl_nokhte_sessions";
+mixin ActiveNokhteSessionsConstants {
+  String TABLE = "active_nokhte_sessions";
   String COLLABORATOR_UIDS = 'collaborator_uids';
   String SPEAKER_SPOTLIGHT = 'speaker_spotlight';
   String CURRENT_PHASES = 'current_phases';

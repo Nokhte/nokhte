@@ -1,6 +1,5 @@
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
-import 'package:nokhte_backend/tables/_real_time_enabled/active_irl_nokhte_sessions/types/types.dart';
-import 'package:nokhte_backend/tables/irl_active_nokhte_sessions.dart';
+import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class SessionPresenceRemoteSource {
@@ -8,7 +7,7 @@ abstract class SessionPresenceRemoteSource {
   Future<List> setUserAsCurrentTalker();
   Future<void> clearTheCurrentTalker();
   Future<List> updateCurrentPhase(double params);
-  Stream<IrlNokhteSessionMetadata> getSessionMetadata();
+  Stream<NokhteSessionMetadata> getSessionMetadata();
   bool cancelSessionMetadataStream();
   Future<List> addContent(String content);
   Future<List> completeTheSession();
@@ -18,11 +17,11 @@ abstract class SessionPresenceRemoteSource {
 
 class SessionPresenceRemoteSourceImpl implements SessionPresenceRemoteSource {
   final SupabaseClient supabase;
-  final ActiveIrlNokhteSessionQueries queries;
-  final ActiveIrlNokhteSessionsStream stream;
+  final ActiveNokhteSessionQueries queries;
+  final ActiveNokhteSessionsStream stream;
   SessionPresenceRemoteSourceImpl({required this.supabase})
-      : queries = ActiveIrlNokhteSessionQueries(supabase: supabase),
-        stream = ActiveIrlNokhteSessionsStream(supabase: supabase);
+      : queries = ActiveNokhteSessionQueries(supabase: supabase),
+        stream = ActiveNokhteSessionsStream(supabase: supabase);
 
   @override
   cancelSessionMetadataStream() => stream.cancelGetSessionMetadataStream();

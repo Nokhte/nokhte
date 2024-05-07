@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class IrlNokhteSessionMetadata extends Equatable {
+class NokhteSessionMetadata extends Equatable {
   final bool everyoneIsOnline;
   final bool everyoneHasGyroscopes;
   final List phases;
@@ -9,7 +9,7 @@ class IrlNokhteSessionMetadata extends Equatable {
   final bool userIsSpeaking;
   final int userIndex;
 
-  IrlNokhteSessionMetadata({
+  NokhteSessionMetadata({
     required this.everyoneIsOnline,
     required this.phases,
     required this.everyoneHasGyroscopes,
@@ -19,7 +19,7 @@ class IrlNokhteSessionMetadata extends Equatable {
     required this.userIndex,
   });
 
-  factory IrlNokhteSessionMetadata.initial() => IrlNokhteSessionMetadata(
+  factory NokhteSessionMetadata.initial() => NokhteSessionMetadata(
         sessionHasBegun: false,
         everyoneHasGyroscopes: false,
         userCanSpeak: false,

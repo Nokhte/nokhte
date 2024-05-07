@@ -1,6 +1,6 @@
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:nokhte_backend/edge_functions/edge_functions.dart';
-import 'package:nokhte_backend/tables/irl_active_nokhte_sessions.dart';
+import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class SessionStartersRemoteSource {
@@ -18,7 +18,7 @@ class SessionStartersRemoteSourceImpl implements SessionStartersRemoteSource {
   final String currentUserUID;
   final InitiateCollaboratorSearch initiateCollaboratorSearch;
   final EndCollaboratorSearch endCollaboratorSearch;
-  final ActiveIrlNokhteSessionsStream activeNokhteSessionsStream;
+  final ActiveNokhteSessionsStream activeNokhteSessionsStream;
 
   SessionStartersRemoteSourceImpl({
     required this.supabase,
@@ -26,7 +26,7 @@ class SessionStartersRemoteSourceImpl implements SessionStartersRemoteSource {
             InitiateCollaboratorSearch(supabase: supabase),
         endCollaboratorSearch = EndCollaboratorSearch(supabase: supabase),
         activeNokhteSessionsStream =
-            ActiveIrlNokhteSessionsStream(supabase: supabase),
+            ActiveNokhteSessionsStream(supabase: supabase),
         currentUserUID = supabase.auth.currentUser?.id ?? '';
 
   @override

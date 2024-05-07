@@ -1,9 +1,9 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
-import 'package:nokhte_backend/tables/_real_time_enabled/active_irl_nokhte_sessions/types/types.dart';
+import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
 
 class GetSessionMetadata
-    implements AbstractFutureLogic<Stream<IrlNokhteSessionMetadata>, NoParams> {
+    implements AbstractFutureLogic<Stream<NokhteSessionMetadata>, NoParams> {
   final SessionPresenceContract contract;
 
   GetSessionMetadata({required this.contract});

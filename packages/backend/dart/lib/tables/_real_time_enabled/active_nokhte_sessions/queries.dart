@@ -3,7 +3,7 @@ import 'package:nokhte_backend/tables/finished_nokhte_sessions.dart';
 import 'constants/constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
+class ActiveNokhteSessionQueries with ActiveNokhteSessionsConstants {
   FinishedNokhteSessionQueries finishedNokhteSessionQueries;
   final SupabaseClient supabase;
   final String userUID;
@@ -25,7 +25,7 @@ class ActiveIrlNokhteSessionQueries with ActiveIrlNokhteSessionsConstants {
     }
   }
 
-  ActiveIrlNokhteSessionQueries({
+  ActiveNokhteSessionQueries({
     required this.supabase,
   })  : userUID = supabase.auth.currentUser?.id ?? '',
         finishedNokhteSessionQueries =

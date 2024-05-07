@@ -3,12 +3,12 @@ import 'constants/constants.dart';
 import 'types/types.dart';
 import 'queries.dart';
 
-class ActiveIrlNokhteSessionsStream extends ActiveIrlNokhteSessionQueries
-    with ActiveIrlNokhteSessionsConstants {
+class ActiveNokhteSessionsStream extends ActiveNokhteSessionQueries
+    with ActiveNokhteSessionsConstants {
   bool getActiveNokhteSessionCreationListingingStatus = false;
   bool sessionMetadataListeningStatus = false;
 
-  ActiveIrlNokhteSessionsStream({required super.supabase});
+  ActiveNokhteSessionsStream({required super.supabase});
 
   List<T> createLoopingList<T>(List<T> originalList, int startIndex) {
     List<T> loopingList = [];
@@ -47,11 +47,11 @@ class ActiveIrlNokhteSessionsStream extends ActiveIrlNokhteSessionQueries
     return sessionMetadataListeningStatus;
   }
 
-  Stream<IrlNokhteSessionMetadata> getPresenceMetadata() async* {
+  Stream<NokhteSessionMetadata> getPresenceMetadata() async* {
     sessionMetadataListeningStatus = true;
     await for (var event in supabase.from(TABLE).stream(primaryKey: ['id'])) {
       if (event.isEmpty) {
-        yield IrlNokhteSessionMetadata.initial();
+        yield NokhteSessionMetadata.initial();
       } else {
         await computeCollaboratorInformation();
         final leaderIndex =
@@ -63,7 +63,7 @@ class ActiveIrlNokhteSessionsStream extends ActiveIrlNokhteSessionQueries
           leaderIndex,
         );
         final userIndex = orderedCollaboratorUIDs.indexOf(userUID);
-        yield IrlNokhteSessionMetadata(
+        yield NokhteSessionMetadata(
           userCanSpeak: event.first[SPEAKER_SPOTLIGHT] == null,
           userIsSpeaking: event.first[SPEAKER_SPOTLIGHT] == userUID,
           userIndex: userIndex,
