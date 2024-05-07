@@ -1,13 +1,13 @@
 // ignore_for_file: file_names
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte_backend/edge_functions/edge_functions.dart';
-import 'package:nokhte_backend/tables/_real_time_disabled/user_names/queries.dart';
-import 'package:nokhte_backend/tables/irl_active_nokhte_sessions.dart';
+import 'package:nokhte_backend/tables/_real_time_disabled/user_information/queries.dart';
+import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
 import 'shared/shared.dart';
 
 void main() {
-  late UserNamesQueries user1UserNamesQueries;
-  late ActiveIrlNokhteSessionsStream user1ActiveNokhteSessionsStreams;
+  late UserInformationQueries user1UserNamesQueries;
+  late ActiveNokhteSessionsStream user1ActiveNokhteSessionsStreams;
   late InitiateCollaboratorSearch user1StartEdgeFunctions;
   late EndCollaboratorSearch user1EndEdgeFunctions;
   late EndCollaboratorSearch user3EndEdgeFunctions;
@@ -18,9 +18,10 @@ void main() {
     await tSetup.setUp();
     user1StartEdgeFunctions =
         InitiateCollaboratorSearch(supabase: tSetup.user1Supabase);
-    user1UserNamesQueries = UserNamesQueries(supabase: tSetup.user1Supabase);
+    user1UserNamesQueries =
+        UserInformationQueries(supabase: tSetup.user1Supabase);
     user1ActiveNokhteSessionsStreams =
-        ActiveIrlNokhteSessionsStream(supabase: tSetup.user1Supabase);
+        ActiveNokhteSessionsStream(supabase: tSetup.user1Supabase);
     user1EndEdgeFunctions =
         EndCollaboratorSearch(supabase: tSetup.user1Supabase);
     user3EdgeFunctions =

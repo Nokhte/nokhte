@@ -9,14 +9,14 @@ async function isAColaborationInvitation(
   mostRecentEntrant: any
 ) {
   const wayfarerQueryRes = await supabaseAdmin
-    .from("p2p_collaborator_pool")
+    .from("collaborator_pool")
     .select()
     .eq("wayfarer_uid", queryUID);
   if (isNotEmptyOrNull(wayfarerQueryRes?.data)) {
     const whoGetsTheQuestion = randomNumber();
     const matchedUID = wayfarerQueryRes.data?.[0]?.["wayfarer_uid"];
     await supabaseAdmin
-      .from("p2p_collaborator_pool")
+      .from("collaborator_pool")
       .update({
         matched_uid: matchedUID,
       })
@@ -35,11 +35,11 @@ async function isAColaborationInvitation(
         who_gets_the_question: whoGetsTheQuestion % 2 === 0 ? 1 : 2,
       });
       await supabaseAdmin
-        .from("p2p_collaborator_pool")
+        .from("collaborator_pool")
         .delete()
         .eq("wayfarer_uid", wayfarerUID);
       await supabaseAdmin
-        .from("p2p_collaborator_pool")
+        .from("collaborator_pool")
         .delete()
         .eq("wayfarer_uid", matchedUID);
     }

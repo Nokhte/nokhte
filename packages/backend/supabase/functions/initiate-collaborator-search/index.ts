@@ -5,12 +5,12 @@ import { isANokhteInvitation } from "./is_a_nokhte_invitation.ts";
 serve(async (req) => {
   const { wayfarerUID, queryUID, invitationType } = await req.json();
   await supabaseAdmin
-    .from("p2p_collaborator_pool")
+    .from("collaborator_pool")
     .delete()
     .eq("wayfarer_uid", wayfarerUID);
 
   const mostRecentEntrant = await supabaseAdmin
-    .from("p2p_collaborator_pool")
+    .from("collaborator_pool")
     .insert({
       wayfarer_uid: wayfarerUID,
       query_uid: queryUID,

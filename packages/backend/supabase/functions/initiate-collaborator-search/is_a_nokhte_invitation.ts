@@ -7,7 +7,7 @@ async function isANokhteInvitation(queryUID: string, mostRecentEntrant: any) {
   const userUID = mostRecentEntrant.data?.[0]["wayfarer_uid"];
   const leaderUID = mostRecentEntrant.data?.[0]["query_uid"];
   const wayfarerQueryRes = await supabaseAdmin
-    .from("p2p_collaborator_pool")
+    .from("collaborator_pool")
     .select()
     .eq("query_uid", queryUID)
     .neq("wayfarer_uid", userUID)
@@ -43,11 +43,11 @@ async function isANokhteInvitation(queryUID: string, mostRecentEntrant: any) {
         });
       }
       await supabaseAdmin
-        .from("p2p_collaborator_pool")
+        .from("collaborator_pool")
         .delete()
         .eq("wayfarer_uid", userUID);
       await supabaseAdmin
-        .from("p2p_collaborator_pool")
+        .from("collaborator_pool")
         .delete()
         .eq("wayfarer_uid", matchedUID);
     }
@@ -82,7 +82,7 @@ async function isANokhteInvitation(queryUID: string, mostRecentEntrant: any) {
         .eq("leader_uid", queryUID)
         .eq("has_begun", false);
       await supabaseAdmin
-        .from("p2p_collaborator_pool")
+        .from("collaborator_pool")
         .delete()
         .eq("wayfarer_uid", userUID);
     }

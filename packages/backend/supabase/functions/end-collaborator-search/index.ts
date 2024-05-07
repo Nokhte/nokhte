@@ -8,7 +8,7 @@ serve(async (req) => {
     message: "successfully removed from pool",
   };
   const res = await supabaseAdmin
-    .from("p2p_collaborator_pool")
+    .from("collaborator_pool")
     .delete()
     .eq("wayfarer_uid", overstayingWayfarer);
   if (res.error != null) {
