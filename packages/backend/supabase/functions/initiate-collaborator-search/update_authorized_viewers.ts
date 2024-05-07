@@ -2,7 +2,7 @@ import { supabaseAdmin } from "../constants/supabase.ts";
 
 async function updateAuthorizedViewers(matchedUID: string, userUID: string) {
   const userAuthorizedViewersRes: Array<string> = (
-    await supabaseAdmin.from("user_names").select().eq("uid", userUID)
+    await supabaseAdmin.from("user_information").select().eq("uid", userUID)
   ).data?.[0]["authorized_viewers"];
 
   if (userAuthorizedViewersRes.includes(matchedUID)) {
@@ -10,14 +10,14 @@ async function updateAuthorizedViewers(matchedUID: string, userUID: string) {
   } else {
     userAuthorizedViewersRes.push(matchedUID);
     await supabaseAdmin
-      .from("user_names")
+      .from("user_information")
       .update({
         authorized_viewers: userAuthorizedViewersRes,
       })
       .eq("uid", userUID);
   }
   const collaboratorRowRes: Array<string> = (
-    await supabaseAdmin.from("user_names").select().eq("uid", matchedUID)
+    await supabaseAdmin.from("user_information").select().eq("uid", matchedUID)
   ).data?.[0]["authorized_viewers"];
 
   if (collaboratorRowRes.includes(userUID)) {
@@ -25,7 +25,7 @@ async function updateAuthorizedViewers(matchedUID: string, userUID: string) {
   } else {
     collaboratorRowRes.push(userUID);
     await supabaseAdmin
-      .from("user_names")
+      .from("user_information")
       .update({
         authorized_viewers: collaboratorRowRes,
       })

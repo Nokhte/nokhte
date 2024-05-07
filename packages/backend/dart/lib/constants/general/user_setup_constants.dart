@@ -36,7 +36,7 @@ class UserSetupConstants {
   }) async {
     final userUIDs = await getUIDs();
     for (var userUID in userUIDs) {
-      await supabaseAdmin.from('user_names').delete().eq(
+      await supabaseAdmin.from('user_information').delete().eq(
             'uid',
             userUID,
           );
@@ -48,7 +48,7 @@ class UserSetupConstants {
     final userUIDs = await getUIDs();
     for (var i = 0; i < userUIDs.length; i++) {
       await SignIn.callbackList(supabase: supabase)[i]();
-      await supabase.from('user_names').insert(
+      await supabase.from('user_information').insert(
         {
           "uid": userUIDs[i],
           "first_name": UserDataConstants.usersData[i]['firstName'],

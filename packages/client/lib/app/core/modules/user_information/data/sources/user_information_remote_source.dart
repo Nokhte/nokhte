@@ -1,5 +1,5 @@
 import 'package:nokhte_backend/tables/finished_nokhte_sessions.dart';
-import 'package:nokhte_backend/tables/user_names.dart';
+import 'package:nokhte_backend/tables/user_information.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class UserInformationRemoteSource {
@@ -15,11 +15,11 @@ abstract class UserInformationRemoteSource {
 
 class UserInformationRemoteSourceImpl implements UserInformationRemoteSource {
   final SupabaseClient supabase;
-  final UserNamesQueries userNamesQueries;
+  final UserInformationQueries userNamesQueries;
   final FinishedNokhteSessionQueries finishedNokhteSessionQueries;
 
   UserInformationRemoteSourceImpl({required this.supabase})
-      : userNamesQueries = UserNamesQueries(supabase: supabase),
+      : userNamesQueries = UserInformationQueries(supabase: supabase),
         finishedNokhteSessionQueries =
             FinishedNokhteSessionQueries(supabase: supabase);
 

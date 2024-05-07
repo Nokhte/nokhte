@@ -54,7 +54,7 @@ void main() {
 
   Future returnNonNPCUID() async {
     final realPersonUIDQuery = await supabaseAdmin
-        .from('user_names')
+        .from('user_information')
         .select()
         .filter('first_name', 'neq', 'tester');
     return realPersonUIDQuery.first["uid"];

@@ -4,7 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/modules/login/login.dart' hide SignInWithApple;
 import 'package:nokhte_backend/tables/finished_nokhte_sessions.dart';
-import 'package:nokhte_backend/tables/user_names.dart';
+import 'package:nokhte_backend/tables/user_information.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:nokhte/app/core/utilities/misc_algos.dart';
@@ -64,7 +64,7 @@ class LoginRemoteSourceImpl implements LoginRemoteSource {
       idToken: idToken,
       nonce: rawNonce,
     );
-    final queries = UserNamesQueries(supabase: supabase);
+    final queries = UserInformationQueries(supabase: supabase);
 
     await queries.insertUserInfo(firstName: firstName, lastName: lastName);
     return AuthProviderModel.fromSupabase(
@@ -79,7 +79,7 @@ class LoginRemoteSourceImpl implements LoginRemoteSource {
 
   @override
   addName({String theName = ""}) async {
-    final queries = UserNamesQueries(supabase: supabase);
+    final queries = UserInformationQueries(supabase: supabase);
     final List nameCheck = await queries.getUserInfo();
     List insertRes;
     String fullName;
@@ -105,7 +105,7 @@ class LoginRemoteSourceImpl implements LoginRemoteSource {
 
   @override
   Future<List> getUserInfo() async {
-    final queries = UserNamesQueries(supabase: supabase);
+    final queries = UserInformationQueries(supabase: supabase);
     return await queries.getUserInfo();
   }
 

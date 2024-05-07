@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nokhte_backend/tables/user_names.dart';
+import 'package:nokhte_backend/tables/user_information.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:nokhte_backend/constants/constants.dart';
 
@@ -12,8 +12,8 @@ void main() {
   late SupabaseClient supabaseAdmin;
   late SupabaseClient supabase;
   late String? firstUserUID;
-  late UserNamesQueries user1UserNameQueries;
-  late UserNamesQueries adminUserNameQueries;
+  late UserInformationQueries user1UserNameQueries;
+  late UserInformationQueries adminUserNameQueries;
 
   setUpAll(() async {
     supabase = SupabaseClientConfigConstants.supabase;
@@ -22,8 +22,8 @@ void main() {
     final userIdResults = await UserSetupConstants.getUIDs();
     firstUserUID = userIdResults.first;
     await SignIn.user1(supabase: supabase);
-    user1UserNameQueries = UserNamesQueries(supabase: supabase);
-    adminUserNameQueries = UserNamesQueries(supabase: supabaseAdmin);
+    user1UserNameQueries = UserInformationQueries(supabase: supabase);
+    adminUserNameQueries = UserInformationQueries(supabase: supabaseAdmin);
     adminUserNameQueries.userUID = firstUserUID ?? '';
   });
 
@@ -56,8 +56,8 @@ void main() {
     );
     final res = await user1UserNameQueries.updateHasSentAnInvitation(true);
     final dupRes = await user1UserNameQueries.updateHasSentAnInvitation(true);
-    expect(res.first[UserNamesConstants.HAS_SENT_AN_INVITATION], true);
-    expect(dupRes.first[UserNamesConstants.HAS_SENT_AN_INVITATION], true);
+    expect(res.first["has_sent_an_invitation"], true);
+    expect(dupRes.first["has_sent_an_invitation"], true);
   });
 
   test(
@@ -71,10 +71,8 @@ void main() {
         await user1UserNameQueries.updateHasGoneThroughInvitationFlow(true);
     final dupRes =
         await user1UserNameQueries.updateHasGoneThroughInvitationFlow(true);
-    expect(
-        res.first[UserNamesConstants.HAS_GONE_THROUGH_INVITATION_FLOW], true);
-    expect(dupRes.first[UserNamesConstants.HAS_GONE_THROUGH_INVITATION_FLOW],
-        true);
+    expect(res.first["has_gone_through_invitation_flow"], true);
+    expect(dupRes.first["has_gone_through_invitation_flow"], true);
   });
 
   test("should be able to update their `wants_to_repeat_invitation_flow` field",
@@ -87,16 +85,15 @@ void main() {
         await user1UserNameQueries.updateWantsToRepeatInvitationFlow(true);
     final dupRes =
         await user1UserNameQueries.updateWantsToRepeatInvitationFlow(true);
-    expect(res.first[UserNamesConstants.WANTS_TO_REPEAT_INVITATION_FLOW], true);
-    expect(
-        dupRes.first[UserNamesConstants.WANTS_TO_REPEAT_INVITATION_FLOW], true);
+    expect(res.first["wants_to_repeat_invitation_flow"], true);
+    expect(dupRes.first["wants_to_repeat_invitation_flow"], true);
   });
 
   test("updateHasEnteredStorage", () async {
     final res = await user1UserNameQueries.updateHasEnteredStorage(true);
     final dupRes = await user1UserNameQueries.updateHasEnteredStorage(true);
-    expect(res.first[UserNamesConstants.HAS_ENTERED_STORAGE], true);
-    expect(dupRes.first[UserNamesConstants.HAS_ENTERED_STORAGE], true);
+    expect(res.first["has_entered_storage"], true);
+    expect(dupRes.first["has_entered_storage"], true);
   });
 
   test("❌ shouldn't be able to insert another row if they already have one",
