@@ -9,11 +9,6 @@ class UserMetadataQueries with UserMetadataConstants {
     required this.supabase,
   }) : userUID = supabase.auth.currentUser?.id ?? '';
 
-  Future<List> insertDefaultMetadata() async =>
-      await supabase.from(TABLE).insert({
-        UID: userUID,
-      }).select();
-
   Future<List> getUserMetadata() async =>
       await supabase.from(TABLE).select().eq(UID, userUID);
 }
