@@ -8,11 +8,11 @@ import 'package:share_plus/share_plus.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 mixin ResponseToStatus {
-  bool fromSupabase(List response) {
+  Either<Failure, bool> fromSupabase(List response) {
     if (response.isEmpty) {
-      return false;
+      return const Right(false);
     } else {
-      return true;
+      return const Right(true);
     }
   }
 
