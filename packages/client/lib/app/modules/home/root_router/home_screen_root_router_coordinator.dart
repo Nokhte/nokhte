@@ -3,6 +3,7 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
+import 'package:nokhte/app/core/modules/user_metadata/user_metadata.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:nokhte/app/modules/home/home.dart';
@@ -17,6 +18,7 @@ abstract class _HomeScreenRootRouterCoordinatorBase
   final HomeScreenRootRouterWidgetsCoordinator widgets;
   final SessionStartersLogicCoordinator sessionStarters;
   final IdentifyUser identifyUser;
+  final UserMetadataCoordinator userMetadata;
 
   @observable
   bool isConnected = true;
@@ -26,6 +28,7 @@ abstract class _HomeScreenRootRouterCoordinatorBase
 
   _HomeScreenRootRouterCoordinatorBase({
     required this.cleanUpCollaborationArtifacts,
+    required this.userMetadata,
     required super.getUserInfo,
     required this.sessionStarters,
     required this.widgets,
@@ -40,6 +43,7 @@ abstract class _HomeScreenRootRouterCoordinatorBase
     await identifyUser(NoParams());
     await captureScreen(Screens.homeRootRouter);
     await cleanUpCollaborationArtifacts(NoParams());
+    await userMetadata.addMetadata(NoParams());
     if (isConnected) {
       await decideAndRoute(setParams);
     }
