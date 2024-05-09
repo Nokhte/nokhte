@@ -243,6 +243,10 @@ using ((auth.uid() = wayfarer_uid));
 
 CREATE TABLE "public"."active_nokhte_sessions" AS SELECT * FROM "public"."active_irl_nokhte_sessions";
 
+
+alter
+  publication supabase_realtime add table public.active_nokhte_sessions;
+
 drop policy "DELETE: they can delete their row" on "public"."active_irl_nokhte_sessions";
 
 drop policy "SELECT: They can read their row" on "public"."active_irl_nokhte_sessions";
@@ -403,9 +407,6 @@ create table "public"."user_metadata" (
     "has_used_trial" boolean not null default false
 );
 
-INSERT INTO "public"."user_metadata" (uid) SELECT uid FROM "public"."user_information";
-
-
 alter table "public"."active_nokhte_sessions" alter column "collaborator_uids" set not null;
 
 alter table "public"."active_nokhte_sessions" alter column "content" set default '{}'::text[];
@@ -446,19 +447,26 @@ CREATE UNIQUE INDEX user_metadata_pkey ON public.user_metadata USING btree (uid)
 
 alter table "public"."user_metadata" add constraint "user_metadata_pkey" PRIMARY KEY using index "user_metadata_pkey";
 
-create policy "CREATE: Users Who Don't Have a Row Already Can Add Theirs"
-on "public"."user_metadata"
-as permissive
-for insert
-to authenticated
-with check ((NOT (EXISTS ( SELECT 1
-   FROM user_metadata usernames_1
-  WHERE (auth.uid() = usernames_1.uid)))));
-
-
 create policy "READ: Their Own Row"
 on "public"."user_metadata"
 as permissive
 for select
 to authenticated
 using ((uid = auth.uid()));
+
+alter table "public"."user_metadata" add column "is_subscribed" boolean not null default false;
+
+drop policy "UPDATE: They can only update their row" on "public"."active_nokhte_sessions";
+
+alter table "public"."user_metadata" add column "subscriber_id" text not null default ''::text;
+
+create policy "UPDATE: They can only update their row"
+on "public"."active_nokhte_sessions"
+as permissive
+for update
+to authenticated
+using (true)
+with check ((((array_length(collaborator_uids, 1) <= 3) AND (auth.uid() = ANY (collaborator_uids))) OR ((array_length(collaborator_uids, 1) > 3) AND (auth.uid() = ANY (collaborator_uids)) AND (EXISTS ( SELECT 1
+   FROM user_metadata user_metadata_1
+  WHERE ((auth.uid() = user_metadata_1.uid) AND ((user_metadata_1.is_subscribed = true) OR (user_metadata_1.has_used_trial = false))))))));
+
