@@ -68,4 +68,14 @@ class LoginContractImpl with ResponseToStatus implements LoginContract {
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
+
+  @override
+  addMetadata(params) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.addMetadata();
+      return fromFunctionResponse(res);
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
 }

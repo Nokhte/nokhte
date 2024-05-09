@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
+import 'package:nokhte/app/core/modules/user_metadata/user_metadata.dart';
 import 'package:nokhte/app/modules/login/login.dart' hide SignInWithApple;
 import 'package:nokhte_backend/tables/finished_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/user_information.dart';
@@ -17,6 +18,7 @@ abstract class LoginRemoteSource {
   Future<AuthProviderModel> signInWithApple();
   Stream<bool> getAuthState();
   Future<List> addName({String theName = ""});
+  Future<FunctionResponse> addMetadata();
   Future<List> getUserInfo();
   Future<List> getFinishedNokhteSessions();
 }
@@ -24,6 +26,7 @@ abstract class LoginRemoteSource {
 class LoginRemoteSourceImpl implements LoginRemoteSource {
   final SupabaseClient supabase;
   late UserInformationRemoteSourceImpl userInfoRemoteSource;
+  late UserMetadataRemoteSourceImpl userMetadataRemoteSourceImpl;
 
   LoginRemoteSourceImpl({required this.supabase});
 
@@ -104,14 +107,22 @@ class LoginRemoteSourceImpl implements LoginRemoteSource {
   }
 
   @override
-  Future<List> getUserInfo() async {
+  getUserInfo() async {
     final queries = UserInformationQueries(supabase: supabase);
     return await queries.getUserInfo();
   }
 
   @override
-  Future<List> getFinishedNokhteSessions() async {
+  getFinishedNokhteSessions() async {
     final queries = FinishedNokhteSessionQueries(supabase: supabase);
     return await queries.select();
+  }
+
+  @override
+  addMetadata() async {
+    userMetadataRemoteSourceImpl = UserMetadataRemoteSourceImpl(
+      supabase: supabase,
+    );
+    return await userMetadataRemoteSourceImpl.addUserMetadata();
   }
 }

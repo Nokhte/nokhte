@@ -7,6 +7,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/login/domain/logic/add_metadata.dart';
 import 'package:nokhte/app/modules/login/login.dart';
 import 'package:nokhte/app/modules/home/home.dart';
 part 'login_coordinator.g.dart';
@@ -18,6 +19,7 @@ abstract class _LoginCoordinatorBase extends BaseHomeScreenRouterCoordinator
   final LoginScreenWidgetsCoordinator widgets;
   final SignInWithAuthProviderStore signInWithAuthProvider;
   final AddName addName;
+  final AddMetadata addMetadata;
   final GetLoginStateStore authStateStore;
   final SwipeDetector swipe;
   final TapDetector tap;
@@ -25,6 +27,7 @@ abstract class _LoginCoordinatorBase extends BaseHomeScreenRouterCoordinator
   _LoginCoordinatorBase({
     required this.signInWithAuthProvider,
     required this.widgets,
+    required this.addMetadata,
     required this.authStateStore,
     required this.addName,
     required super.getUserInfo,
@@ -113,9 +116,10 @@ abstract class _LoginCoordinatorBase extends BaseHomeScreenRouterCoordinator
   authStateListener(Stream<bool> authStateStream) =>
       authStateStream.listen((isLoggedIn) async {
         if (isLoggedIn) {
-          await addName(NoParams());
-          await getUserInfo(NoParams());
           widgets.loggedInOnResumed();
+          await addName(NoParams());
+          await addMetadata(NoParams());
+          await getUserInfo(NoParams());
         }
       });
 
