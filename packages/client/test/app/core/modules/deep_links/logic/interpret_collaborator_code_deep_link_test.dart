@@ -16,7 +16,6 @@ void main() {
           userUID: 'userUID',
           hasGoneThroughInvitationFlow: true,
           hasSentAnInvitation: true,
-          wantsToRepeatInvitationFlow: true,
           hasCompletedNoktheSession: false,
           hasEnteredStorage: false,
         ));
@@ -29,7 +28,6 @@ void main() {
           userUID: 'userUID',
           hasGoneThroughInvitationFlow: true,
           hasSentAnInvitation: true,
-          wantsToRepeatInvitationFlow: true,
           hasCompletedNoktheSession: false,
           hasEnteredStorage: false,
         ));
@@ -51,7 +49,6 @@ void main() {
           userUID: 'userUID',
           hasGoneThroughInvitationFlow: false,
           hasSentAnInvitation: false,
-          wantsToRepeatInvitationFlow: false,
           hasCompletedNoktheSession: false,
           hasEnteredStorage: false));
       expect(

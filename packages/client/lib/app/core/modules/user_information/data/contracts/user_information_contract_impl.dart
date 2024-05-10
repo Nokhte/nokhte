@@ -56,18 +56,6 @@ class UserInformationContractImpl
   }
 
   @override
-  updateWantsToRepeatInvitationFlow(
-      bool wantsToRepeatInvitationFlowParam) async {
-    if (await networkInfo.isConnected) {
-      final res = await remoteSource
-          .updateWantsToRepeatInvitationFlow(wantsToRepeatInvitationFlowParam);
-      return fromSupabase(res);
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
-
-  @override
   updateHasEnteredStorage(newEntryStatus) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.updateHasEnteredStorage(newEntryStatus);

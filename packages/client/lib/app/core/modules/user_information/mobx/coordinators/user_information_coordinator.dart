@@ -13,15 +13,12 @@ abstract class _UserInformationCoordinatorBase extends BaseMobxDBStore
   final UpdateHasGoneThroughInvitationFlow
       updateHasGoneThroughInvitationFlowLogic;
   final UpdateHasSentAnInvitation updateHasSentAnInvitationLogic;
-  final UpdateWantsToRepeatInvitationFlow
-      updateWantsToRepeatInvitationFlowLogic;
   final UpdateHasEnteredStorage updateHasEnteredStorageLogic;
 
   _UserInformationCoordinatorBase({
     required this.getUserInfoStore,
     required this.updateHasGoneThroughInvitationFlowLogic,
     required this.updateHasSentAnInvitationLogic,
-    required this.updateWantsToRepeatInvitationFlowLogic,
     required this.updateHasEnteredStorageLogic,
   });
 
@@ -52,15 +49,6 @@ abstract class _UserInformationCoordinatorBase extends BaseMobxDBStore
     final res = await updateHasSentAnInvitationLogic(newStatus);
     res.fold((failure) => errorUpdater(failure),
         (status) => invitationSendStatusIsUpdated = status);
-    state = StoreState.loaded;
-  }
-
-  @action
-  updateWantsToRepeatInvitationFlow(bool newStatus) async {
-    state = StoreState.loading;
-    final res = await updateWantsToRepeatInvitationFlowLogic(newStatus);
-    res.fold((failure) => errorUpdater(failure),
-        (status) => invitationRepeatStatusIsUpdated = status);
     state = StoreState.loaded;
   }
 
