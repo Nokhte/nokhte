@@ -493,3 +493,5 @@ GRANT EXECUTE ON FUNCTION public.update_nokhte_session_phase TO service_role;
 REVOKE EXECUTE ON FUNCTION public.update_nokhte_session_phase FROM authenticated, anon;
 
 drop policy "Enable insert for authenticated users" on "public"."finished_nokhte_sessions";
+
+alter table "public"."user_information" drop column "wants_to_repeat_invitation_flow";
