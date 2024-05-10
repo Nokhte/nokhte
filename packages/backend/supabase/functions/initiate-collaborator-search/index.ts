@@ -31,7 +31,6 @@ serve(async (req) => {
   if (invitationType === "NOKHTE_SESSION") {
     isANokhteInvitation(queryUID, mostRecentEntrant);
   }
-  console.log(returnRes);
   return new Response(JSON.stringify(returnRes), {
     headers: { "Content-Type": "application/json" },
   });
