@@ -18,7 +18,7 @@ void main() {
 
   setUpAll(() async {
     await tSetup.setUp(shouldMakeCollaboration: false);
-    sortedArr = [tSetup.firstUserUID, tSetup.secondUserUID]..sort();
+    sortedArr = [tSetup.firstUserUID, tSetup.secondUserUID];
     user1Queries = ActiveNokhteSessionQueries(supabase: tSetup.user1Supabase);
     user1MetadataQueries = UserMetadataQueries(supabase: tSetup.user1Supabase);
     user2Queries = ActiveNokhteSessionQueries(supabase: tSetup.user2Supabase);
@@ -120,7 +120,7 @@ void main() {
           isAPremiumSession: false,
           userCanSpeak: true,
           userIsSpeaking: false,
-          userIndex: sortedArr.indexOf(tSetup.firstUserUID),
+          userIndex: 0,
           everyoneHasGyroscopes: false,
           phases: [1.0, 1.0],
           everyoneIsOnline: false,

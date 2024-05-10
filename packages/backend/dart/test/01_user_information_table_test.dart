@@ -43,7 +43,6 @@ void main() {
       firstName: UserDataConstants.user1FirstName,
       lastName: UserDataConstants.user1LastName,
     );
-    print("username res is $userNamesRes");
     expect(userNamesRes.first['first_name'], UserDataConstants.user1FirstName);
     expect(userNamesRes.first["last_name"], UserDataConstants.user1LastName);
     expect(userNamesRes.first["uid"], firstUserUID);

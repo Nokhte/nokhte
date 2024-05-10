@@ -31,33 +31,30 @@ void main() {
   });
 
   tearDownAll(() async {
-    await tSetup.tearDownAll();
-    await tSetup.supabaseAdmin.from('active_nokhte_sessions').delete().eq(
-          "collaborator_uids",
-          [tSetup.thirdUserUID, tSetup.firstUserUID]..sort(),
-        );
+    final sortedUIDs = [tSetup.firstUserUID, tSetup.thirdUserUID];
+    sortedUIDs.sort();
+    await tSetup.supabaseAdmin
+        .from('active_nokhte_sessions')
+        .delete()
+        .eq("collaborator_uids", sortedUIDs);
     await user1EndEdgeFunctions.invoke();
     await user3EndEdgeFunctions.invoke();
   });
 
-  group("nokhte invitations", () {
-    setUp(() async {
-      await user1StartEdgeFunctions.invoke(
-          tSetup.firstUserUID, InvitationType.nokhteSession);
-      await user3EdgeFunctions.invoke(
-          tSetup.firstUserUID, InvitationType.nokhteSession);
-    });
-    test("user should be able to make a nokhte session", () async {
-      final firstStream = user1ActiveNokhteSessionsStreams
-          .getActiveNokhteSessionCreationStatus();
-      expect(firstStream, emits(true));
-      final collaboratorRowRes =
-          await user1UserNamesQueries.getCollaboratorRows();
-      final userAuthorizedViewers = (await user1UserNamesQueries.getUserInfo())
-          .first['authorized_viewers'];
-      expect(collaboratorRowRes, isNotEmpty);
-      expect(userAuthorizedViewers, isNotEmpty);
-    });
+  test("user should be able to make a nokhte session", () async {
+    await user1StartEdgeFunctions.invoke(
+        tSetup.firstUserUID, InvitationType.nokhteSession);
+    await user3EdgeFunctions.invoke(
+        tSetup.firstUserUID, InvitationType.nokhteSession);
+    final firstStream =
+        user1ActiveNokhteSessionsStreams.getActiveNokhteSessionCreationStatus();
+    expect(firstStream, emits(true));
+    final collaboratorRowRes =
+        await user1UserNamesQueries.getCollaboratorRows();
+    final userAuthorizedViewers =
+        (await user1UserNamesQueries.getUserInfo()).first['authorized_viewers'];
+    expect(collaboratorRowRes, isNotEmpty);
+    expect(userAuthorizedViewers, isNotEmpty);
   });
   group("_getInvitationType", () {
     test(
