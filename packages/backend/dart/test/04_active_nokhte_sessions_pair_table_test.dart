@@ -3,6 +3,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte_backend/tables/_real_time_disabled/finished_nokhte_sessions/queries.dart';
 import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
+import 'package:nokhte_backend/tables/user_metadata.dart';
 
 import 'shared/shared.dart';
 
@@ -10,6 +11,7 @@ void main() {
   late ActiveNokhteSessionQueries user1Queries;
   late ActiveNokhteSessionQueries user2Queries;
   late ActiveNokhteSessionsStream user1Stream;
+  late UserMetadataQueries user1MetadataQueries;
   late FinishedNokhteSessionQueries user1FinishedQueries;
   final tSetup = CommonCollaborativeTestFunctions();
   List sortedArr = [];
@@ -18,6 +20,7 @@ void main() {
     await tSetup.setUp(shouldMakeCollaboration: false);
     sortedArr = [tSetup.firstUserUID, tSetup.secondUserUID]..sort();
     user1Queries = ActiveNokhteSessionQueries(supabase: tSetup.user1Supabase);
+    user1MetadataQueries = UserMetadataQueries(supabase: tSetup.user1Supabase);
     user2Queries = ActiveNokhteSessionQueries(supabase: tSetup.user2Supabase);
     user1FinishedQueries =
         FinishedNokhteSessionQueries(supabase: tSetup.user1Supabase);
@@ -38,16 +41,6 @@ void main() {
     });
     final res = await user1Queries.select();
     expect(res, isNotEmpty);
-  });
-
-  test("GetCollaboratorOne", () async {
-    final res = await user1Queries.getCollaboratorOne();
-    expect(res, sortedArr[0]);
-  });
-
-  test("getCollaboratorTwo", () async {
-    final res = await user1Queries.getCollaboratorTwo();
-    expect(res, sortedArr[1]);
   });
 
   test("getWhoIsOnline", () async {
@@ -72,6 +65,12 @@ void main() {
     expect(parsed, isA<DateTime>());
   });
 
+  test("startTheSession", () async {
+    await user1Queries.startTheSession();
+    final res = await user1Queries.getHasBegun();
+    expect(res, true);
+  });
+
   test("updateOnlineStatus", () async {
     await user1Queries.updateOnlineStatus(false);
     final onlineStatus = await user1Queries.getWhoIsOnline();
@@ -93,11 +92,12 @@ void main() {
     final res = await user1Queries.getContent();
     expect(res, ["test"]);
   });
+
   test("updateSpeakerSpotlight", () async {
-    await user1Queries.updateSpeakerSpotlight(addUserToSpotight: true);
+    await user1Queries.updateSpeakerSpotlight(addUserToSpotlight: true);
     final res1 = await user1Queries.getSpeakerSpotlight();
     expect(res1, isNotNull);
-    await user1Queries.updateSpeakerSpotlight(addUserToSpotight: false);
+    await user1Queries.updateSpeakerSpotlight(addUserToSpotlight: false);
     final res2 = await user1Queries.getSpeakerSpotlight();
     expect(res2, isNull);
   });
@@ -124,7 +124,7 @@ void main() {
           everyoneHasGyroscopes: false,
           phases: [1.0, 1.0],
           everyoneIsOnline: false,
-          sessionHasBegun: false,
+          sessionHasBegun: true,
         ),
       ),
     );
@@ -137,5 +137,9 @@ void main() {
     expect(res.first["content"], ["test"]);
     expect(res.first["collaborator_uids"], sortedArr);
     expect(res.first["session_timestamp"], sessionTimestamp);
+    expect(res.first["aliases"], ["", ""]);
+    final userMetadataRes = await user1MetadataQueries.getUserMetadata();
+    expect(userMetadataRes.first['is_subscribed'], false);
+    expect(userMetadataRes.first['has_used_trial'], false);
   });
 }

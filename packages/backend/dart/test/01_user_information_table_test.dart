@@ -12,8 +12,8 @@ void main() {
   late SupabaseClient supabaseAdmin;
   late SupabaseClient supabase;
   late String? firstUserUID;
-  late UserInformationQueries user1UserNameQueries;
-  late UserInformationQueries adminUserNameQueries;
+  late UserInformationQueries user1UserInfoQueries;
+  late UserInformationQueries adminUserInfoQueries;
 
   setUpAll(() async {
     supabase = SupabaseClientConfigConstants.supabase;
@@ -22,89 +22,50 @@ void main() {
     final userIdResults = await UserSetupConstants.getUIDs();
     firstUserUID = userIdResults.first;
     await SignIn.user1(supabase: supabase);
-    user1UserNameQueries = UserInformationQueries(supabase: supabase);
-    adminUserNameQueries = UserInformationQueries(supabase: supabaseAdmin);
-    adminUserNameQueries.userUID = firstUserUID ?? '';
+    user1UserInfoQueries = UserInformationQueries(supabase: supabase);
+    adminUserInfoQueries = UserInformationQueries(supabase: supabaseAdmin);
+    adminUserInfoQueries.userUID = firstUserUID ?? '';
   });
 
-  tearDown(() async {
-    await adminUserNameQueries.deleteUserInfo();
-  });
+  tearDown(() async {});
 
   tearDownAll(() async {
+    await adminUserInfoQueries.deleteUserInfo();
     await UserSetupConstants.setUpUserNamesTableForSubsequentTests(
-      supabase: supabase,
+      supabase: supabaseAdmin,
     );
   });
 
   test(
       "✅ should be able to CREATE & READ a row in the table if their uid isn't present already",
       () async {
-    final userNamesRes = await user1UserNameQueries.insertUserInfo(
+    final userNamesRes = await user1UserInfoQueries.insertUserInfo(
       firstName: UserDataConstants.user1FirstName,
       lastName: UserDataConstants.user1LastName,
     );
+    print("username res is $userNamesRes");
     expect(userNamesRes.first['first_name'], UserDataConstants.user1FirstName);
     expect(userNamesRes.first["last_name"], UserDataConstants.user1LastName);
     expect(userNamesRes.first["uid"], firstUserUID);
   });
-
-  test("should be able to update their `has_sent_invitation` field", () async {
-    await user1UserNameQueries.insertUserInfo(
-      firstName: UserDataConstants.user1FirstName,
-      lastName: UserDataConstants.user1LastName,
-    );
-    final res = await user1UserNameQueries.updateHasSentAnInvitation(true);
-    final dupRes = await user1UserNameQueries.updateHasSentAnInvitation(true);
-    expect(res.first["has_sent_an_invitation"], true);
-    expect(dupRes.first["has_sent_an_invitation"], true);
-  });
-
-  test(
-      "should be able to update their `has_gone_through_invitation_flow` field",
-      () async {
-    await user1UserNameQueries.insertUserInfo(
-      firstName: UserDataConstants.user1FirstName,
-      lastName: UserDataConstants.user1LastName,
-    );
-    final res =
-        await user1UserNameQueries.updateHasGoneThroughInvitationFlow(true);
-    final dupRes =
-        await user1UserNameQueries.updateHasGoneThroughInvitationFlow(true);
-    expect(res.first["has_gone_through_invitation_flow"], true);
-    expect(dupRes.first["has_gone_through_invitation_flow"], true);
-  });
-
-  test("should be able to update their `wants_to_repeat_invitation_flow` field",
-      () async {
-    await user1UserNameQueries.insertUserInfo(
-      firstName: UserDataConstants.user1FirstName,
-      lastName: UserDataConstants.user1LastName,
-    );
-    final res =
-        await user1UserNameQueries.updateWantsToRepeatInvitationFlow(true);
-    final dupRes =
-        await user1UserNameQueries.updateWantsToRepeatInvitationFlow(true);
-    expect(res.first["wants_to_repeat_invitation_flow"], true);
-    expect(dupRes.first["wants_to_repeat_invitation_flow"], true);
-  });
-
   test("updateHasEnteredStorage", () async {
-    final res = await user1UserNameQueries.updateHasEnteredStorage(true);
-    final dupRes = await user1UserNameQueries.updateHasEnteredStorage(true);
+    final res = await user1UserInfoQueries.updateHasEnteredStorage(true);
+    final dupRes = await user1UserInfoQueries.updateHasEnteredStorage(true);
     expect(res.first["has_entered_storage"], true);
     expect(dupRes.first["has_entered_storage"], true);
   });
 
+  test("should be able to update their `has_sent_invitation` field", () async {
+    final res = await user1UserInfoQueries.updateHasSentAnInvitation(true);
+    final dupRes = await user1UserInfoQueries.updateHasSentAnInvitation(true);
+    expect(res.first["has_sent_an_invitation"], true);
+    expect(dupRes.first["has_sent_an_invitation"], true);
+  });
+
   test("❌ shouldn't be able to insert another row if they already have one",
       () async {
-    await user1UserNameQueries.insertUserInfo(
-      firstName: UserDataConstants.user1FirstName,
-      lastName: UserDataConstants.user1LastName,
-    );
-
     try {
-      await user1UserNameQueries.insertUserInfo(
+      await user1UserInfoQueries.insertUserInfo(
         firstName: UserDataConstants.user1FirstName,
         lastName: UserDataConstants.user1LastName,
       );
@@ -114,7 +75,7 @@ void main() {
   });
   test("❌ SHOULDN'T be able to enter a UID that isn't theirs", () async {
     try {
-      await user1UserNameQueries.insertUserInfo(
+      await user1UserInfoQueries.insertUserInfo(
         firstName: UserDataConstants.user1FirstName,
         lastName: UserDataConstants.user1LastName,
       );
