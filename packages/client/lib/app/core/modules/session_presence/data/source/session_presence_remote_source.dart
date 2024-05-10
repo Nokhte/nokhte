@@ -3,16 +3,17 @@ import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class SessionPresenceRemoteSource {
-  Future<List> updateOnlineStatus(UpdatePresencePropertyParams params);
-  Future<List> setUserAsCurrentTalker();
-  Future<void> clearTheCurrentTalker();
-  Future<List> updateCurrentPhase(double params);
+  Future<FunctionResponse> updateOnlineStatus(
+      UpdatePresencePropertyParams params);
+  Future<FunctionResponse> setUserAsCurrentTalker();
+  Future<FunctionResponse> clearTheCurrentTalker();
+  Future<FunctionResponse> updateCurrentPhase(double params);
   Stream<NokhteSessionMetadata> getSessionMetadata();
   bool cancelSessionMetadataStream();
-  Future<List> addContent(String content);
-  Future<List> completeTheSession();
-  Future<List> updateHasGyroscope(bool hasGyroscope);
-  Future<List> startTheSession();
+  Future<FunctionResponse> addContent(String content);
+  Future<FunctionResponse> completeTheSession();
+  Future<FunctionResponse> updateHasGyroscope(bool hasGyroscope);
+  Future<FunctionResponse> startTheSession();
 }
 
 class SessionPresenceRemoteSourceImpl implements SessionPresenceRemoteSource {
@@ -28,14 +29,14 @@ class SessionPresenceRemoteSourceImpl implements SessionPresenceRemoteSource {
 
   @override
   clearTheCurrentTalker() async =>
-      await queries.updateSpeakerSpotlight(addUserToSpotight: false);
+      await queries.updateSpeakerSpotlight(addUserToSpotlight: false);
 
   @override
   getSessionMetadata() => stream.getPresenceMetadata();
 
   @override
   setUserAsCurrentTalker() async => await queries.updateSpeakerSpotlight(
-        addUserToSpotight: true,
+        addUserToSpotlight: true,
       );
 
   @override
@@ -57,5 +58,5 @@ class SessionPresenceRemoteSourceImpl implements SessionPresenceRemoteSource {
       await queries.updateHasGyroscope(hasGyroscope);
 
   @override
-  Future<List> startTheSession() async => await queries.startTheSession();
+  startTheSession() async => await queries.startTheSession();
 }

@@ -2,7 +2,7 @@ import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class CleanUpCollaborationArtifactsRemoteSource {
-  Future<List> deleteActiveNokhteSession();
+  Future<FunctionResponse> deleteActiveNokhteSession();
 }
 
 class CleanUpCollaborationArtifactsRemoteSourceImpl
@@ -15,6 +15,6 @@ class CleanUpCollaborationArtifactsRemoteSourceImpl
             ActiveNokhteSessionQueries(supabase: supabase);
 
   @override
-  Future<List> deleteActiveNokhteSession() async =>
+  deleteActiveNokhteSession() async =>
       await irlActiveNokhteSessionQueries.completeTheSession();
 }

@@ -22,7 +22,7 @@ class SessionPresenceContractImpl
   Future<Either<Failure, bool>> addContent(String params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.addContent(params);
-      return fromSupabase(res);
+      return fromFunctionResponse(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
@@ -32,7 +32,7 @@ class SessionPresenceContractImpl
   Future<Either<Failure, bool>> completeTheSession(NoParams params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.completeTheSession();
-      return fromSupabase(res);
+      return fromFunctionResponse(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
@@ -42,7 +42,7 @@ class SessionPresenceContractImpl
   updateHasGyroscope(params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.updateHasGyroscope(params);
-      return fromSupabase(res);
+      return fromFunctionResponse(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
@@ -62,7 +62,7 @@ class SessionPresenceContractImpl
   updateCurrentPhase(params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.updateCurrentPhase(params);
-      return fromSupabase(res);
+      return fromFunctionResponse(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
@@ -72,7 +72,7 @@ class SessionPresenceContractImpl
   updateOnlineStatus(params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.updateOnlineStatus(params);
-      return fromSupabase(res);
+      return fromFunctionResponse(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
@@ -84,7 +84,7 @@ class SessionPresenceContractImpl
       switch (params) {
         case UpdateWhoIsTalkingParams.setUserAsTalker:
           final res = await remoteSource.setUserAsCurrentTalker();
-          return fromSupabase(res);
+          return fromFunctionResponse(res);
         case UpdateWhoIsTalkingParams.clearOut:
           await remoteSource.clearTheCurrentTalker();
           return const Right(true);
@@ -102,7 +102,7 @@ class SessionPresenceContractImpl
   startTheSession(params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.startTheSession();
-      return fromSupabase(res);
+      return fromFunctionResponse(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
