@@ -8,6 +8,5 @@ mixin UserInformationConstants {
   String UID = 'uid';
   String HAS_SENT_AN_INVITATION = 'has_sent_an_invitation';
   String HAS_GONE_THROUGH_INVITATION_FLOW = 'has_gone_through_invitation_flow';
-  String WANTS_TO_REPEAT_INVITATION_FLOW = 'wants_to_repeat_invitation_flow';
   String HAS_ENTERED_STORAGE = 'has_entered_storage';
 }
