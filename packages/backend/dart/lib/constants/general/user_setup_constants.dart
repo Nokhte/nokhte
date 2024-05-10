@@ -1,6 +1,5 @@
 import 'package:nokhte_backend/constants/general/user_data_constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'sign_in.dart';
 import 'supabase_client_constants.dart';
 
 class UserSetupConstants {
@@ -8,7 +7,7 @@ class UserSetupConstants {
     final supabase = SupabaseClientConfigConstants.supabase;
     final List<String> userUIDs = [];
     try {
-      for (var i = 0; i < 3; i++) {
+      for (var i = 0; i < 4; i++) {
         final email = 'test${i + 1}@example.com';
         await supabase.auth.signUp(
           email: email,
@@ -18,7 +17,7 @@ class UserSetupConstants {
         await supabase.auth.signOut();
       }
     } catch (e) {
-      for (var i = 0; i < 3; i++) {
+      for (var i = 0; i < 4; i++) {
         final email = 'test${i + 1}@example.com';
         await supabase.auth.signInWithPassword(
           email: email,
@@ -47,7 +46,6 @@ class UserSetupConstants {
       {required SupabaseClient supabase}) async {
     final userUIDs = await getUIDs();
     for (var i = 0; i < userUIDs.length; i++) {
-      await SignIn.callbackList(supabase: supabase)[i]();
       await supabase.from('user_information').insert(
         {
           "uid": userUIDs[i],
@@ -55,6 +53,11 @@ class UserSetupConstants {
           "last_name": UserDataConstants.usersData[i]['lastName'],
         },
       );
+      await supabase.from('user_metadata').insert({
+        "uid": userUIDs[i],
+        "subscriber_id":
+            "${UserDataConstants.usersData[i]['firstName']} ${UserDataConstants.usersData[i]['lastName']}",
+      });
     }
   }
 }
