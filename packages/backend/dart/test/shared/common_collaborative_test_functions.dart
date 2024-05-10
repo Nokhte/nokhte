@@ -7,10 +7,12 @@ class CommonCollaborativeTestFunctions {
   late SupabaseClient user1Supabase;
   late SupabaseClient user2Supabase;
   late SupabaseClient user3Supabase;
+  late SupabaseClient user4Supabase;
   late SupabaseClient supabaseAdmin;
   late String firstUserUID;
   late String secondUserUID;
   late String thirdUserUID;
+  late String fourthUserUID;
   late ExistingCollaborationsQueries existingCollaborationsQueries;
   late P2PPerspectivesTrackingQueries user1PerspectivesQueries;
   late P2PPerspectivesTrackingQueries adminPerspectivesQueries;
@@ -21,6 +23,7 @@ class CommonCollaborativeTestFunctions {
     user1Supabase = SupabaseClientConfigConstants.supabase;
     user2Supabase = SupabaseClientConfigConstants.supabase;
     user3Supabase = SupabaseClientConfigConstants.supabase;
+    user4Supabase = SupabaseClientConfigConstants.supabase;
     supabaseAdmin = SupabaseClientConfigConstants.supabaseAdmin;
   }
 
@@ -31,11 +34,13 @@ class CommonCollaborativeTestFunctions {
     await SignIn.user1(supabase: user1Supabase);
     await SignIn.user2(supabase: user2Supabase);
     await SignIn.user3(supabase: user3Supabase);
+    await SignIn.user4(supabase: user4Supabase);
 
     final userIdResults = await UserSetupConstants.getUIDs();
     firstUserUID = userIdResults.first;
     secondUserUID = userIdResults[1];
     thirdUserUID = userIdResults[2];
+    fourthUserUID = userIdResults[3];
 
     existingCollaborationsQueries =
         ExistingCollaborationsQueries(supabase: supabaseAdmin);
