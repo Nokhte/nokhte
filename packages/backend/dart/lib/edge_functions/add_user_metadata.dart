@@ -24,7 +24,7 @@ class AddUserMetadata extends UserMetadataQueries {
       );
     } else {
       return FunctionResponse(
-        status: 201,
+        status: 200,
         data: 'metadata already exists',
       );
     }
