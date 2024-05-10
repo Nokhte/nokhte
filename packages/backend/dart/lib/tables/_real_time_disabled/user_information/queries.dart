@@ -58,23 +58,6 @@ class UserInformationQueries with UserInformationConstants {
     }
   }
 
-  Future<List> updateWantsToRepeatInvitationFlow(
-      bool wantsToRepeatInvitationFlow) async {
-    final getRes = await getUserInfo();
-    if (getRes.first[WANTS_TO_REPEAT_INVITATION_FLOW] ==
-        wantsToRepeatInvitationFlow) {
-      return getRes;
-    } else {
-      return await supabase
-          .from(TABLE)
-          .update({
-            WANTS_TO_REPEAT_INVITATION_FLOW: wantsToRepeatInvitationFlow,
-          })
-          .eq(UID, userUID)
-          .select();
-    }
-  }
-
   Future<List> updateHasEnteredStorage(bool hasEnteredStorage) async {
     final getRes = await getUserInfo();
     if (getRes.first[HAS_ENTERED_STORAGE] == hasEnteredStorage) {
