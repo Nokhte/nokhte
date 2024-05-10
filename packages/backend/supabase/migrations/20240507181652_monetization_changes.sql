@@ -484,3 +484,12 @@ AS $function$BEGIN
     update public.active_nokhte_sessions SET current_phases[index_to_edit+1] = new_value WHERE collaborator_uids = incoming_uids;
 END;$function$
 ;
+
+
+drop policy "UPDATE: They can only update their row" on "public"."active_nokhte_sessions";
+
+GRANT EXECUTE ON FUNCTION public.update_nokhte_session_phase TO service_role;
+
+REVOKE EXECUTE ON FUNCTION public.update_nokhte_session_phase FROM authenticated, anon;
+
+drop policy "Enable insert for authenticated users" on "public"."finished_nokhte_sessions";
