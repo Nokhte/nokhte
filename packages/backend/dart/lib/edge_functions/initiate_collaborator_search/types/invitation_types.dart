@@ -1,4 +1,0 @@
-enum InvitationType {
-  nokhteSession,
-  collaborationSession,
-}
