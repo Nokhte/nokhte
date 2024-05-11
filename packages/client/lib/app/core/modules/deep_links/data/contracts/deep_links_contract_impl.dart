@@ -27,14 +27,4 @@ class DeepLinksContractImpl with ResponseToStatus implements DeepLinksContract {
       return Left(FailureConstants.internetConnectionFailure);
     }
   }
-
-  @override
-  sendDeepLink(String params) async {
-    if (await networkInfo.isConnected) {
-      final res = await remoteSource.sendDeepLink(params);
-      return Right(fromShareResult(res));
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
 }

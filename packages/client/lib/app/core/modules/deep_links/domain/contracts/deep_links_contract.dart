@@ -10,7 +10,4 @@ abstract class DeepLinksContract {
   Future<Either<Failure, String>> getDeepLinkURL(
     DeepLinkTypes params,
   );
-  Future<Either<Failure, bool>> sendDeepLink(
-    String params,
-  );
 }

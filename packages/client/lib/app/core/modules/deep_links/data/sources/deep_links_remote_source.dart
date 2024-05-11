@@ -2,13 +2,11 @@ import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
 import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/user_information.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class DeepLinksRemoteSource {
   Stream<Map> listenForOpenedDeepLink();
   Future<BranchResponse> getDeepLinkURL(DeepLinkTypes params);
-  Future<ShareResult> sendDeepLink(String invitationURL);
 }
 
 class DeepLinksRemoteSourceImpl implements DeepLinksRemoteSource {
@@ -78,10 +76,4 @@ class DeepLinksRemoteSourceImpl implements DeepLinksRemoteSource {
       senderUID: sessionLeaderUID,
     ).getBranchLinkProperties();
   }
-
-  @override
-  Future<ShareResult> sendDeepLink(
-    String invitationURL,
-  ) async =>
-      await Share.shareWithResult(invitationURL);
 }
