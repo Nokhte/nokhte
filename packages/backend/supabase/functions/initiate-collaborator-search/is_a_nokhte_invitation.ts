@@ -1,7 +1,6 @@
 // deno-lint-ignore-file no-explicit-any
 import { supabaseAdmin } from "../constants/supabase.ts";
 import { isEmptyOrNull, isNotEmptyOrNull } from "../utils/array_utils.ts";
-import { updateAuthorizedViewers } from "./update_authorized_viewers.ts";
 
 async function isANokhteInvitation(queryUID: string, mostRecentEntrant: any) {
   const userUID = mostRecentEntrant.data?.[0]["wayfarer_uid"];
@@ -12,7 +11,6 @@ async function isANokhteInvitation(queryUID: string, mostRecentEntrant: any) {
     .eq("query_uid", queryUID)
     .neq("wayfarer_uid", userUID)
     .eq("invitation_type", "NOKHTE_SESSION");
-
   if (isNotEmptyOrNull(wayfarerQueryRes?.data)) {
     const matchedUID = wayfarerQueryRes.data?.[0]?.["wayfarer_uid"];
     const checkRes = await supabaseAdmin
@@ -21,27 +19,13 @@ async function isANokhteInvitation(queryUID: string, mostRecentEntrant: any) {
       .eq("leader_uid", leaderUID);
 
     if (isEmptyOrNull(checkRes?.data)) {
-      const checkForExistingSessionsRes = await supabaseAdmin
-        .from("finished_nokhte_sessions")
-        .select()
-        .or(
-          `collaboration_id.eq.${userUID}_${matchedUID},collaboration_id.eq.${matchedUID}_${userUID}`
-        );
-      if (isEmptyOrNull(checkForExistingSessionsRes?.data)) {
-        await updateAuthorizedViewers(matchedUID, userUID);
-        const uids = [matchedUID, userUID];
-        uids.sort();
-        await supabaseAdmin.from("active_nokhte_sessions").insert({
-          collaborator_uids: uids,
-          leader_uid: queryUID,
-        });
-      } else {
-        await supabaseAdmin.from("active_nokhte_sessions").insert({
-          collaboration_uids:
-            checkForExistingSessionsRes.data?.[0]["collaborator_uids"],
-          leader_uid: queryUID,
-        });
-      }
+      const uids = [matchedUID, userUID];
+      uids.sort();
+      await supabaseAdmin.from("active_nokhte_sessions").insert({
+        collaborator_uids: uids,
+        leader_uid: queryUID,
+      });
+
       await supabaseAdmin
         .from("collaborator_pool")
         .delete()
@@ -71,6 +55,23 @@ async function isANokhteInvitation(queryUID: string, mostRecentEntrant: any) {
       const currentHaveGyroscopesRes =
         existingNokhteSessionRes.data?.[0]["have_gyroscopes"];
       currentHaveGyroscopesRes.push(true);
+      let isAValidSession = true;
+      if (currentCollaboratorUIDs.length > 3) {
+        for (let i = 0; i < currentCollaboratorUIDs.length; i++) {
+          const userMetadataRes = (
+            await supabaseAdmin
+              .from("user_metadata")
+              .select()
+              .eq("uid", currentCollaboratorUIDs[i])
+          )?.data;
+          if (
+            userMetadataRes?.[0]?.["has_used_trial"] === true &&
+            userMetadataRes?.[0]?.["is_subscribed"] === false
+          ) {
+            isAValidSession = false;
+          }
+        }
+      }
       await supabaseAdmin
         .from("active_nokhte_sessions")
         .update({
@@ -78,6 +79,7 @@ async function isANokhteInvitation(queryUID: string, mostRecentEntrant: any) {
           is_online: currentIsOnlineArr,
           current_phases: currentPhasesArr,
           have_gyroscopes: currentHaveGyroscopesRes,
+          is_a_valid_session: isAValidSession,
         })
         .eq("leader_uid", queryUID)
         .eq("has_begun", false);

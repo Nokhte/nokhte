@@ -1,5 +1,5 @@
 import { supabaseAdmin } from "../constants/supabase.ts";
-import { isEmptyOrNull } from "../utils/array_utils.ts";
+import { isEmptyOrNull, onlyUnique } from "../utils/array_utils.ts";
 import { serve } from "std/server";
 
 serve(async (req) => {
@@ -49,6 +49,22 @@ serve(async (req) => {
           .from("user_metadata")
           .update({
             has_used_trial: true,
+          })
+          .eq("uid", collaboratorUIDsArr[i]);
+
+        const userAuthorizedViewers = (
+          await supabaseAdmin
+            .from("user_information")
+            .select()
+            .eq("uid", collaboratorUIDsArr[i])
+        )?.data?.[0]?.["authorized_viewers"];
+        userAuthorizedViewers.concat(collaboratorUIDsArr);
+        const uniqueViewers = userAuthorizedViewers.filter(onlyUnique);
+        uniqueViewers.sort();
+        await supabaseAdmin
+          .from("user_information")
+          .update({
+            authorized_viewers: uniqueViewers,
           })
           .eq("uid", collaboratorUIDsArr[i]);
       }
