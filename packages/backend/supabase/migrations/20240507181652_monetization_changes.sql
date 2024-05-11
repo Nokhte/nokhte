@@ -495,3 +495,71 @@ REVOKE EXECUTE ON FUNCTION public.update_nokhte_session_phase FROM authenticated
 drop policy "Enable insert for authenticated users" on "public"."finished_nokhte_sessions";
 
 alter table "public"."user_information" drop column "wants_to_repeat_invitation_flow";
+
+alter table "public"."active_nokhte_sessions" add column "is_a_valid_session" boolean not null default true;
+
+drop policy "DELETE: They can delete their own row" on "public"."collaborator_pool";
+
+revoke delete on table "public"."collaborator_pool" from "anon";
+
+revoke insert on table "public"."collaborator_pool" from "anon";
+
+revoke references on table "public"."collaborator_pool" from "anon";
+
+revoke select on table "public"."collaborator_pool" from "anon";
+
+revoke trigger on table "public"."collaborator_pool" from "anon";
+
+revoke truncate on table "public"."collaborator_pool" from "anon";
+
+revoke update on table "public"."collaborator_pool" from "anon";
+
+revoke delete on table "public"."collaborator_pool" from "authenticated";
+
+revoke insert on table "public"."collaborator_pool" from "authenticated";
+
+revoke references on table "public"."collaborator_pool" from "authenticated";
+
+revoke select on table "public"."collaborator_pool" from "authenticated";
+
+revoke trigger on table "public"."collaborator_pool" from "authenticated";
+
+revoke truncate on table "public"."collaborator_pool" from "authenticated";
+
+revoke update on table "public"."collaborator_pool" from "authenticated";
+
+revoke delete on table "public"."collaborator_pool" from "service_role";
+
+revoke insert on table "public"."collaborator_pool" from "service_role";
+
+revoke references on table "public"."collaborator_pool" from "service_role";
+
+revoke select on table "public"."collaborator_pool" from "service_role";
+
+revoke trigger on table "public"."collaborator_pool" from "service_role";
+
+revoke truncate on table "public"."collaborator_pool" from "service_role";
+
+revoke update on table "public"."collaborator_pool" from "service_role";
+
+alter table "public"."collaborator_pool" drop constraint "collaborator_pool_matched_uid_fkey";
+
+alter table "public"."collaborator_pool" drop constraint "collaborator_pool_query_uid_fkey";
+
+alter table "public"."collaborator_pool" drop constraint "collaborator_pool_wayfarer_uid_fkey";
+
+alter table "public"."collaborator_pool" drop constraint "p2p_collaborator_pool_wayfarer_uid_key";
+
+alter table "public"."collaborator_pool" drop constraint "p2p_collaborator_pool_pkey";
+
+drop index if exists "public"."p2p_collaborator_pool_pkey";
+
+drop index if exists "public"."p2p_collaborator_pool_wayfarer_uid_key";
+
+drop table "public"."collaborator_pool";
+
+alter table "public"."active_nokhte_sessions" alter column "current_phases" set default '{0}'::real[];
+
+alter table "public"."active_nokhte_sessions" alter column "have_gyroscopes" set default '{t}'::boolean[];
+
+alter table "public"."active_nokhte_sessions" alter column "is_online" set default '{t}'::boolean[];
