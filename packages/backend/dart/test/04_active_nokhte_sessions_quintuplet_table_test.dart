@@ -27,7 +27,7 @@ void main() {
       tSetup.secondUserUID,
       tSetup.thirdUserUID,
       tSetup.fourthUserUID
-    ];
+    ]..sort();
     user1Queries = ActiveNokhteSessionQueries(supabase: tSetup.user1Supabase);
     user1FinishedQueries =
         FinishedNokhteSessionQueries(supabase: tSetup.user1Supabase);
@@ -49,14 +49,14 @@ void main() {
     }
   }
 
-  createSession() async =>
-      await tSetup.supabaseAdmin.from("active_nokhte_sessions").insert({
-        "collaborator_uids": sortedArr,
-        "leader_uid": sortedArr.first,
-        "have_gyroscopes": [true, true, true, true],
-        "is_online": [true, true, true, true],
-        "current_phases": [0, 0, 0, 0]
-      });
+  createSession() async {
+    await user1Queries.initializeSession();
+    Future.delayed(Duration(seconds: 1), () async {
+      await user2Queries.joinSession(tSetup.firstUserUID);
+      await user3Queries.joinSession(tSetup.firstUserUID);
+      await user4Queries.joinSession(tSetup.firstUserUID);
+    });
+  }
 
   deleteSession() async {
     await tSetup.supabaseAdmin
@@ -70,19 +70,49 @@ void main() {
   }
 
   shouldProperlyUpdateAllValues() {
+    test("initiateSession", () async {
+      await user1Queries.initializeSession();
+      final res = await user1Queries.select();
+      expect(res[0]["leader_uid"], tSetup.firstUserUID);
+    });
+
+    test("joinSession", () async {
+      await user2Queries.joinSession(tSetup.firstUserUID);
+      await user3Queries.joinSession(tSetup.firstUserUID);
+      await user4Queries.joinSession(tSetup.firstUserUID);
+      final res = await user2Queries.select();
+      expect(res[0]["collaborator_uids"], sortedArr);
+      expect(res[0]["leader_uid"], tSetup.firstUserUID);
+    });
+    test("getIsAValidSession", () async {
+      final res = await user1Queries.getIsAValidSession();
+      expect(res, true);
+    });
     test("updateOnlineStatus", () async {
       await user1Queries.updateOnlineStatus(false);
       final onlineStatus = await user1Queries.getWhoIsOnline();
-      expect(onlineStatus, [false, true, true, true]);
+      expect(onlineStatus[sortedArr.indexOf(tSetup.firstUserUID)], false);
+      expect(onlineStatus[sortedArr.indexOf(tSetup.secondUserUID)], true);
+      expect(onlineStatus[sortedArr.indexOf(tSetup.thirdUserUID)], true);
+      expect(onlineStatus[sortedArr.indexOf(tSetup.fourthUserUID)], true);
       await user2Queries.updateOnlineStatus(false);
       final onlineStatus2 = await user1Queries.getWhoIsOnline();
-      expect(onlineStatus2, [false, false, true, true]);
+      expect(onlineStatus2[sortedArr.indexOf(tSetup.firstUserUID)], false);
+      expect(onlineStatus2[sortedArr.indexOf(tSetup.secondUserUID)], false);
+      expect(onlineStatus2[sortedArr.indexOf(tSetup.thirdUserUID)], true);
+      expect(onlineStatus2[sortedArr.indexOf(tSetup.fourthUserUID)], true);
       await user3Queries.updateOnlineStatus(false);
       final onlineStatus3 = await user1Queries.getWhoIsOnline();
-      expect(onlineStatus3, [false, false, false, true]);
+      expect(onlineStatus3[sortedArr.indexOf(tSetup.firstUserUID)], false);
+      expect(onlineStatus3[sortedArr.indexOf(tSetup.secondUserUID)], false);
+      expect(onlineStatus3[sortedArr.indexOf(tSetup.thirdUserUID)], false);
+      expect(onlineStatus3[sortedArr.indexOf(tSetup.fourthUserUID)], true);
       await user4Queries.updateOnlineStatus(false);
       final onlineStatus4 = await user1Queries.getWhoIsOnline();
-      expect(onlineStatus4, [false, false, false, false]);
+      expect(onlineStatus4[sortedArr.indexOf(tSetup.firstUserUID)], false);
+      expect(onlineStatus4[sortedArr.indexOf(tSetup.secondUserUID)], false);
+      expect(onlineStatus4[sortedArr.indexOf(tSetup.thirdUserUID)], false);
+      expect(onlineStatus4[sortedArr.indexOf(tSetup.fourthUserUID)], false);
     });
 
     test("updateHasGyroscope", () async {
@@ -112,16 +142,28 @@ void main() {
     test("updateCurrentPhases", () async {
       await user1Queries.updateCurrentPhases(1);
       final currentPhases = await user1Queries.getCurrentPhases();
-      expect(currentPhases, [1, 0, 0, 0]);
+      expect(currentPhases[sortedArr.indexOf(tSetup.firstUserUID)], 1);
+      expect(currentPhases[sortedArr.indexOf(tSetup.secondUserUID)], 0);
+      expect(currentPhases[sortedArr.indexOf(tSetup.thirdUserUID)], 0);
+      expect(currentPhases[sortedArr.indexOf(tSetup.fourthUserUID)], 0);
       await user2Queries.updateCurrentPhases(1);
       final currentPhases2 = await user1Queries.getCurrentPhases();
-      expect(currentPhases2, [1, 1, 0, 0]);
+      expect(currentPhases2[sortedArr.indexOf(tSetup.firstUserUID)], 1);
+      expect(currentPhases2[sortedArr.indexOf(tSetup.secondUserUID)], 1);
+      expect(currentPhases2[sortedArr.indexOf(tSetup.thirdUserUID)], 0);
+      expect(currentPhases2[sortedArr.indexOf(tSetup.fourthUserUID)], 0);
       await user3Queries.updateCurrentPhases(1);
       final currentPhases3 = await user1Queries.getCurrentPhases();
-      expect(currentPhases3, [1, 1, 1, 0]);
+      expect(currentPhases3[sortedArr.indexOf(tSetup.firstUserUID)], 1);
+      expect(currentPhases3[sortedArr.indexOf(tSetup.secondUserUID)], 1);
+      expect(currentPhases3[sortedArr.indexOf(tSetup.thirdUserUID)], 1);
+      expect(currentPhases3[sortedArr.indexOf(tSetup.fourthUserUID)], 0);
       await user4Queries.updateCurrentPhases(1);
       final currentPhases4 = await user1Queries.getCurrentPhases();
-      expect(currentPhases4, [1, 1, 1, 1]);
+      expect(currentPhases4[sortedArr.indexOf(tSetup.firstUserUID)], 1);
+      expect(currentPhases4[sortedArr.indexOf(tSetup.secondUserUID)], 1);
+      expect(currentPhases4[sortedArr.indexOf(tSetup.thirdUserUID)], 1);
+      expect(currentPhases4[sortedArr.indexOf(tSetup.fourthUserUID)], 1);
     });
 
     test('completeTheSession', () async {
@@ -155,8 +197,6 @@ void main() {
     });
 
     shouldProperlyUpdateAllValues();
-
-    tearDownAll(() async => await deleteSession());
   });
 
   group("[SUBBED, TRIAL, TRIAL, TRIAL] => ✅", () {
@@ -170,14 +210,10 @@ void main() {
     });
 
     shouldProperlyUpdateAllValues();
-
-    // tearDownAll(() async => await deleteSession());
   });
   group("[SUBBED, NOT SUBBED + USED TRIAL, TRIAL, TRIAL] => ❌", () {
     setUpAll(() async {
-      await deleteSession();
       await resetAllSubscriptionAndTrialStatus();
-      await createSession();
       await tSetup.supabaseAdmin.from("user_metadata").update({
         "is_subscribed": true,
       }).eq("uid", sortedArr.first);
@@ -187,6 +223,26 @@ void main() {
     });
 
     tearDownAll(() async => await deleteSession());
+
+    test("initiateSession", () async {
+      await user1Queries.initializeSession();
+      final res = await user1Queries.select();
+      expect(res[0]["leader_uid"], tSetup.firstUserUID);
+    });
+
+    test("joinSession", () async {
+      await user2Queries.joinSession(tSetup.firstUserUID);
+      await user3Queries.joinSession(tSetup.firstUserUID);
+      await user4Queries.joinSession(tSetup.firstUserUID);
+      final res = await user2Queries.select();
+      expect(res[0]["collaborator_uids"], sortedArr);
+      expect(res[0]["leader_uid"], tSetup.firstUserUID);
+    });
+
+    test("getIsAValidSession", () async {
+      final res = await user1Queries.getIsAValidSession();
+      expect(res, false);
+    });
 
     test("updateOnlineStatus", () async {
       await user1Queries.updateOnlineStatus(false);
@@ -242,6 +298,7 @@ void main() {
       expect(currentPhases4, [0, 0, 0, 0]);
     });
   });
+
   group("[SUBBED, SUBBED, SUBBED , TRIAL] => ✅", () {
     setUpAll(() async {
       await resetAllSubscriptionAndTrialStatus();
@@ -258,8 +315,6 @@ void main() {
     });
 
     shouldProperlyUpdateAllValues();
-
-    // tearDownAll(() async => await deleteSession());
   });
   group("[SUBBED, SUBBED, SUBBED , SUBBED] => ✅", () {
     setUpAll(() async {
@@ -281,7 +336,5 @@ void main() {
     });
 
     shouldProperlyUpdateAllValues();
-
-    // tearDownAll(() async => await deleteSession());
   });
 }
