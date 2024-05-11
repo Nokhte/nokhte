@@ -11,11 +11,11 @@ class ActiveNokhteSessionEdgeFunctions with ActiveNokhteSessionsConstants {
       : userUID = supabase.auth.currentUser?.id ?? '';
 
   computeCollaboratorInformation() async {
-    if (userIndex == -1) {
-      final row = (await supabase.from(TABLE).select()).first;
+    if (userIndex == -1 || collaboratorUIDs.length < 2) {
+      final row = (await supabase.from(TABLE).select());
       if (row.isNotEmpty) {
-        collaboratorUIDs = row[COLLABORATOR_UIDS];
-        formattedCollaboratorUIDs = row[COLLABORATOR_UIDS]
+        collaboratorUIDs = row.first[COLLABORATOR_UIDS];
+        formattedCollaboratorUIDs = row.first[COLLABORATOR_UIDS]
             .toString()
             .replaceAll('[', '{')
             .replaceAll(']', '}');
@@ -34,6 +34,31 @@ class ActiveNokhteSessionEdgeFunctions with ActiveNokhteSessionsConstants {
       },
     );
   }
+
+  Future<FunctionResponse> initializeSession() async =>
+      await supabase.functions.invoke(
+        'nokhte-session-initialize',
+        body: {
+          "userUID": userUID,
+        },
+      );
+
+  Future<FunctionResponse> joinSession(String leaderUID) async =>
+      await supabase.functions.invoke(
+        'nokhte-session-join',
+        body: {
+          "userUID": userUID,
+          "leaderUID": leaderUID,
+        },
+      );
+
+  Future<FunctionResponse> nukeSession() async =>
+      await supabase.functions.invoke(
+        'nokhte-session-nuke',
+        body: {
+          "userUID": userUID,
+        },
+      );
 
   Future<FunctionResponse> updateOnlineStatus(bool isOnline) async {
     await computeCollaboratorInformation();
