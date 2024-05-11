@@ -9,6 +9,7 @@ class NokhteSessionMetadata extends Equatable {
   final bool userIsSpeaking;
   final int userIndex;
   final bool isAPremiumSession;
+  final bool isAValidSession;
 
   NokhteSessionMetadata({
     required this.everyoneIsOnline,
@@ -19,6 +20,7 @@ class NokhteSessionMetadata extends Equatable {
     required this.sessionHasBegun,
     required this.userIndex,
     required this.isAPremiumSession,
+    required this.isAValidSession,
   });
 
   factory NokhteSessionMetadata.initial() => NokhteSessionMetadata(
@@ -28,6 +30,7 @@ class NokhteSessionMetadata extends Equatable {
         userCanSpeak: false,
         userIsSpeaking: false,
         everyoneIsOnline: false,
+        isAValidSession: false,
         phases: List.filled(9, -1),
         userIndex: 0,
       );
@@ -35,12 +38,13 @@ class NokhteSessionMetadata extends Equatable {
   @override
   List<Object> get props => [
         everyoneIsOnline,
-        isAPremiumSession,
         everyoneHasGyroscopes,
         phases,
+        sessionHasBegun,
         userCanSpeak,
         userIsSpeaking,
-        sessionHasBegun,
         userIndex,
+        isAPremiumSession,
+        isAValidSession,
       ];
 }
