@@ -15,18 +15,6 @@ class InitiateCollaboratorSearch {
       await supabase.functions.invoke("initiate-collaborator-search", body: {
         'wayfarerUID': currentUserUID,
         'queryUID': queryUID,
-        'invitationType': getInvitationType(invitationTypeParam),
+        'invitationType': 'NOKHTE_SESSION',
       });
-  String getInvitationType(
-    InvitationType invitationTypeParam,
-  ) {
-    String invitationType = '';
-    switch (invitationTypeParam) {
-      case InvitationType.nokhteSession:
-        invitationType = 'NOKHTE_SESSION';
-      case InvitationType.collaborationSession:
-        invitationType = 'COLLABORATION_SESSION';
-    }
-    return invitationType;
-  }
 }
