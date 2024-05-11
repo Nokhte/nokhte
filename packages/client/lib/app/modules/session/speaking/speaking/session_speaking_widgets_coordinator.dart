@@ -164,7 +164,7 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode == BeachWaveMovieModes.skyToHalfAndHalf) {
             if (isPickingUp) {
-              Modular.to.navigate("/session/shared/exit");
+              Modular.to.navigate("/session/core/exit");
             } else if (isLettingGo) {
               onLetGoCompleted();
             }

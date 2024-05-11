@@ -6,14 +6,13 @@ import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'shared.dart';
-export 'shared.dart';
+import 'core.dart';
 export 'duo_greeter/duo_greeter.dart';
 export 'exit/exit.dart';
 export 'group_greeter/group_greeter.dart';
 export 'lobby/lobby.dart';
 
-class SessionSharedModule extends Module {
+class SessionCoreModule extends Module {
   @override
   List<Module> get imports => [
         CleanUpCollaborationArtifactsModule(),
@@ -70,7 +69,7 @@ class SessionSharedModule extends Module {
   routes(r) {
     r.child(
       transition: TransitionType.noTransition,
-      '/',
+      '/lobby',
       child: (context) => SessionLobbyScreen(
         coordinator: Modular.get<SessionLobbyCoordinator>(),
       ),

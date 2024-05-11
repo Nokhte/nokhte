@@ -10,7 +10,7 @@ class AddUserMetadata extends UserMetadataQueries {
     if (subscriberId.isEmpty) {
       return FunctionResponse(
         status: 400,
-        data: 'no subscriber id provided',
+        data: {"status": 400, "message": "subscriberId cannot be empty"},
       );
     }
     final checkRes = await getUserMetadata();
@@ -25,7 +25,7 @@ class AddUserMetadata extends UserMetadataQueries {
     } else {
       return FunctionResponse(
         status: 200,
-        data: 'metadata already exists',
+        data: {"status": 200, "message": 'metadata already exists'},
       );
     }
   }

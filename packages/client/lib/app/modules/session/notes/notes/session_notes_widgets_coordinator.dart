@@ -140,7 +140,7 @@ abstract class _SessionNotesWidgetsCoordinatorBase
   onExit() {
     textEditor.setWidgetVisibility(false);
     Timer(Seconds.get(1), () {
-      Modular.to.navigate("/session/shared/exit");
+      Modular.to.navigate("/session/core/exit");
     });
   }
 

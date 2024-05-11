@@ -274,7 +274,7 @@ abstract class _SessionHybridWidgetsCoordinatorBase
           if (beachWaves.movieMode ==
               BeachWaveMovieModes.skyToInvertedHalfAndHalf) {
             if (isPickingUp) {
-              Modular.to.navigate("/session/shared/exit");
+              Modular.to.navigate("/session/core/exit");
             } else if (isGoingToNotes) {
               Modular.to.navigate("/session/hybrid/notes");
             }

@@ -7,5 +7,5 @@ mixin NokhteSessionConstants {
     Color(0xFF39FF18),
   ];
 
-  static const groupGreeter = '/session/shared/group_greeter';
+  static const groupGreeter = '/session/core/group_greeter';
 }

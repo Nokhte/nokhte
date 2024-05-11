@@ -119,13 +119,13 @@ class ActiveNokhteSessionEdgeFunctions with ActiveNokhteSessionsConstants {
   Future<FunctionResponse> completeTheSession() async {
     final res = await supabase.from('active_nokhte_sessions').select();
     if (res.isEmpty) {
-      return FunctionResponse(status: 200, data: "nothing to see here");
+      return FunctionResponse(
+          status: 200, data: {"status": 200, "message": "nothing to see here"});
     } else {
       return await supabase.functions
           .invoke('nokhte-session-complete-the-session', body: {
         'collaboratorUIDs': formattedCollaboratorUIDs,
       });
     }
-    //
   }
 }
