@@ -10,7 +10,7 @@ class ActiveNokhteSessionsStream extends ActiveNokhteSessionQueries
 
   ActiveNokhteSessionsStream({required super.supabase});
 
-  List<T> createLoopingList<T>(List<T> originalList, int startIndex) {
+  static List<T> createLoopingList<T>(List<T> originalList, int startIndex) {
     List<T> loopingList = [];
     int length = originalList.length;
     startIndex = startIndex % length;
@@ -23,19 +23,23 @@ class ActiveNokhteSessionsStream extends ActiveNokhteSessionQueries
     return loopingList;
   }
 
-  cancelGetActiveNokhteSessionCreationStatus() {
+  cancelSessionActivationStream() {
     getActiveNokhteSessionCreationListingingStatus = false;
     return getActiveNokhteSessionCreationListingingStatus;
   }
 
-  Stream<bool> getActiveNokhteSessionCreationStatus() async* {
+  Stream<bool> listenToSessionActivationStatus() async* {
     getActiveNokhteSessionCreationListingingStatus = true;
     await for (var event in supabase.from(TABLE).stream(primaryKey: ['id'])) {
       if (!getActiveNokhteSessionCreationListingingStatus) {
         break;
       }
       if (event.isNotEmpty) {
-        yield true;
+        if (event.first[COLLABORATOR_UIDS].length > 1) {
+          yield true;
+        } else {
+          yield false;
+        }
       } else {
         yield false;
       }
@@ -47,7 +51,7 @@ class ActiveNokhteSessionsStream extends ActiveNokhteSessionQueries
     return sessionMetadataListeningStatus;
   }
 
-  Stream<NokhteSessionMetadata> getPresenceMetadata() async* {
+  Stream<NokhteSessionMetadata> listenToPresenceMetadata() async* {
     sessionMetadataListeningStatus = true;
     await for (var event in supabase.from(TABLE).stream(primaryKey: ['id'])) {
       if (event.isEmpty) {
@@ -64,6 +68,7 @@ class ActiveNokhteSessionsStream extends ActiveNokhteSessionQueries
         );
         final userIndex = orderedCollaboratorUIDs.indexOf(userUID);
         yield NokhteSessionMetadata(
+          isAValidSession: event.first[IS_A_VALID_SESSION],
           isAPremiumSession: event.first[COLLABORATOR_UIDS].length > 3,
           userCanSpeak: event.first[SPEAKER_SPOTLIGHT] == null,
           userIsSpeaking: event.first[SPEAKER_SPOTLIGHT] == userUID,
