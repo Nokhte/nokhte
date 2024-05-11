@@ -8,7 +8,6 @@ import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
-import 'package:nokhte_backend/edge_functions/edge_functions.dart';
 
 import 'base_home_screen_widgets_coordinator.dart';
 part 'base_home_screen_coordinator.g.dart';
@@ -141,10 +140,7 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
                 setDisableAllTouchFeedback(true);
                 final additionalMetadata =
                     deepLinks.listenForOpenedDeepLinkStore.additionalMetadata;
-                await sessionStarters.enter(EnterCollaboratorPoolParams(
-                  collaboratorUID: additionalMetadata["deepLinkUID"],
-                  invitationType: InvitationType.nokhteSession,
-                ));
+                await sessionStarters.join(additionalMetadata["deepLinkUID"]);
                 deepLinks.reset();
                 widgets.onDeepLinkOpened();
               } else {
@@ -152,10 +148,7 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
                 setDisableAllTouchFeedback(true);
                 final additionalMetadata =
                     deepLinks.listenForOpenedDeepLinkStore.additionalMetadata;
-                await sessionStarters.enter(EnterCollaboratorPoolParams(
-                  collaboratorUID: additionalMetadata["deepLinkUID"],
-                  invitationType: InvitationType.nokhteSession,
-                ));
+                await sessionStarters.join(additionalMetadata["deepLinkUID"]);
                 widgets.errorSmartText.setWidgetVisibility(false);
                 widgets.secondaryErrorSmartText.setWidgetVisibility(false);
                 Timer(Seconds.get(2), () {
