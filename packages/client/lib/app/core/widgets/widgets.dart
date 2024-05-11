@@ -2,7 +2,6 @@ export "border_glow/border_glow.dart";
 export 'beach_waves/beach_waves.dart';
 export 'cards/cards.dart';
 export "collaborator_presence_incidents_overlay/collaborator_presence_incidents_overlay.dart";
-export 'explanatory_model_widgets/explanatory_model_widgets.dart';
 export 'full_screen/full_screen.dart';
 export 'gesture_cross/gesture_cross.dart';
 export 'gestures/gestures.dart';
