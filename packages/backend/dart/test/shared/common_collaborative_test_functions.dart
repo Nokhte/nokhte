@@ -12,8 +12,6 @@ class CommonCollaborativeTestFunctions {
   late String thirdUserUID;
   late String fourthUserUID;
 
-  final tPerspectives = ['pERSPECTIVE1', 'peRSPECTIVE2', 'perSPECTIVE 3'];
-
   CommonCollaborativeTestFunctions() {
     user1Supabase = SupabaseClientConfigConstants.supabase;
     user2Supabase = SupabaseClientConfigConstants.supabase;
