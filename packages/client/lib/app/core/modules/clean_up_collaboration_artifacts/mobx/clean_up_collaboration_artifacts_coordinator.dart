@@ -23,7 +23,7 @@ abstract class _CleanUpCollaborationArtifactsCoordinatorBase
   @action
   Future<void> call(NoParams params) async {
     state = StoreState.loading;
-    await sessionStarters.exit();
+    await sessionStarters.nuke();
     await cleanUpNokhteSession(NoParams());
     state = StoreState.loaded;
   }
