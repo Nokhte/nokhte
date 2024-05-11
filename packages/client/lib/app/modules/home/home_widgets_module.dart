@@ -10,7 +10,6 @@ class HomeWidgetsModule extends Module {
   @override
   List<Module> get imports => [
         WifiDisconnectOverlayModule(),
-        CircleExplanationModule(),
         GestureCrossModule(),
       ];
 
