@@ -22,7 +22,7 @@ abstract class _SessionExitCoordinatorBase
   final SessionExitWidgetsCoordinator widgets;
   final SwipeDetector swipe;
   final SessionPresenceCoordinator presence;
-  final GetSessionMetadataStore sessionMetadata;
+  final ListenToSessionMetadataStore sessionMetadata;
   final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
 
   _SessionExitCoordinatorBase({
@@ -32,7 +32,7 @@ abstract class _SessionExitCoordinatorBase
     required this.presence,
     required this.cleanUpCollaborationArtifacts,
     required super.getUserInfo,
-  }) : sessionMetadata = presence.getSessionMetadataStore;
+  }) : sessionMetadata = presence.listenToSessionMetadataStore;
 
   @observable
   bool showCollaboratorIncidents = true;
@@ -69,7 +69,7 @@ abstract class _SessionExitCoordinatorBase
   onResumed() async {
     await presence
         .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (presence.getSessionMetadataStore.everyoneIsOnline) {
+    if (sessionMetadata.everyoneIsOnline) {
       presence.incidentsOverlayStore.onCollaboratorJoined();
     }
   }
@@ -140,7 +140,7 @@ abstract class _SessionExitCoordinatorBase
 
   collaboratorPhaseReactor() {
     reaction(
-      (p0) => presence.getSessionMetadataStore.currentPhases,
+      (p0) => sessionMetadata.currentPhases,
       (p0) async {
         if (p0.contains(3.5)) {
           setIsGoingHome(true);
@@ -155,7 +155,7 @@ abstract class _SessionExitCoordinatorBase
   }
 
   canReturnHomeReactor() => reaction(
-        (p0) => presence.getSessionMetadataStore.canReturnHome,
+        (p0) => sessionMetadata.canReturnHome,
         (p0) async {
           if (p0) {
             showCollaboratorIncidents = false;

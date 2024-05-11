@@ -1,48 +1,45 @@
-import 'package:nokhte/app/modules/session_starters/session_starters.dart';
-import 'package:nokhte_backend/edge_functions/edge_functions.dart';
 import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class SessionStartersRemoteSource {
-  Future<FunctionResponse> enterThePool(EnterCollaboratorPoolParams params);
+  Future<FunctionResponse> initializeSession();
 
-  Future<FunctionResponse> exitThePool();
+  Future<FunctionResponse> nukeSession();
 
-  Stream<bool> getNokhteSessionSearchStatus();
+  Future<FunctionResponse> joinSession(String leaderUID);
 
-  bool cancelNokhteSessionSearchStream();
+  Stream<bool> listenToSessionActivationStatus();
+
+  bool cancelSessionActivationStream();
 }
 
 class SessionStartersRemoteSourceImpl implements SessionStartersRemoteSource {
   final SupabaseClient supabase;
   final String currentUserUID;
-  final InitiateCollaboratorSearch initiateCollaboratorSearch;
-  final EndCollaboratorSearch endCollaboratorSearch;
-  final ActiveNokhteSessionsStream activeNokhteSessionsStream;
+  final ActiveNokhteSessionsStream stream;
+  final ActiveNokhteSessionQueries queries;
 
   SessionStartersRemoteSourceImpl({
     required this.supabase,
-  })  : initiateCollaboratorSearch =
-            InitiateCollaboratorSearch(supabase: supabase),
-        endCollaboratorSearch = EndCollaboratorSearch(supabase: supabase),
-        activeNokhteSessionsStream =
-            ActiveNokhteSessionsStream(supabase: supabase),
+  })  : stream = ActiveNokhteSessionsStream(supabase: supabase),
+        queries = ActiveNokhteSessionQueries(supabase: supabase),
         currentUserUID = supabase.auth.currentUser?.id ?? '';
 
   @override
-  enterThePool(params) async => await initiateCollaboratorSearch.invoke(
-      params.collaboratorUID, params.invitationType);
+  bool cancelSessionActivationStream() =>
+      stream.cancelSessionActivationStream();
 
   @override
-  Future<FunctionResponse> exitThePool() async =>
-      await endCollaboratorSearch.invoke();
-
-  @override
-  bool cancelNokhteSessionSearchStream() =>
-      activeNokhteSessionsStream.cancelGetActiveNokhteSessionCreationStatus();
-
-  @override
-  Stream<bool> getNokhteSessionSearchStatus() {
-    return activeNokhteSessionsStream.getActiveNokhteSessionCreationStatus();
+  Stream<bool> listenToSessionActivationStatus() {
+    return stream.listenToSessionActivationStatus();
   }
+
+  @override
+  initializeSession() async => await queries.initializeSession();
+
+  @override
+  joinSession(String leaderUID) async => await queries.joinSession(leaderUID);
+
+  @override
+  nukeSession() async => await queries.nukeSession();
 }

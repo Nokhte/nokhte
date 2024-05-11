@@ -8,7 +8,7 @@ abstract class SessionPresenceRemoteSource {
   Future<FunctionResponse> setUserAsCurrentTalker();
   Future<FunctionResponse> clearTheCurrentTalker();
   Future<FunctionResponse> updateCurrentPhase(double params);
-  Stream<NokhteSessionMetadata> getSessionMetadata();
+  Stream<NokhteSessionMetadata> listenToSessionMetadata();
   bool cancelSessionMetadataStream();
   Future<FunctionResponse> addContent(String content);
   Future<FunctionResponse> completeTheSession();
@@ -32,7 +32,7 @@ class SessionPresenceRemoteSourceImpl implements SessionPresenceRemoteSource {
       await queries.updateSpeakerSpotlight(addUserToSpotlight: false);
 
   @override
-  getSessionMetadata() => stream.getPresenceMetadata();
+  listenToSessionMetadata() => stream.listenToPresenceMetadata();
 
   @override
   setUserAsCurrentTalker() async => await queries.updateSpeakerSpotlight(

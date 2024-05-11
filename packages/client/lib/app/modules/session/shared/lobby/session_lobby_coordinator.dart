@@ -19,7 +19,7 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
   final SessionLobbyWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
-  final GetSessionMetadataStore sessionMetadata;
+  final ListenToSessionMetadataStore sessionMetadata;
   final DeepLinksCoordinator deepLinks;
 
   _SessionLobbyCoordinatorBase({
@@ -28,7 +28,7 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
     required this.deepLinks,
     required this.tap,
     required this.presence,
-  }) : sessionMetadata = presence.getSessionMetadataStore;
+  }) : sessionMetadata = presence.listenToSessionMetadataStore;
 
   @observable
   bool isNavigatingAway = false;
@@ -52,7 +52,7 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
   onResumed() async {
     await presence
         .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (presence.getSessionMetadataStore.everyoneIsOnline) {
+    if (sessionMetadata.everyoneIsOnline) {
       presence.incidentsOverlayStore.onCollaboratorJoined();
     }
   }

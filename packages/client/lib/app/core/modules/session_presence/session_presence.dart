@@ -30,8 +30,8 @@ class SessionPresenceModule extends Module {
     i.add<StartTheSession>(() => StartTheSession(
           contract: i<SessionPresenceContractImpl>(),
         ));
-    i.add<GetSessionMetadata>(
-      () => GetSessionMetadata(
+    i.add<ListenToSessionMetadata>(
+      () => ListenToSessionMetadata(
         contract: i<SessionPresenceContractImpl>(),
       ),
     );
@@ -70,9 +70,9 @@ class SessionPresenceModule extends Module {
         contract: i<SessionPresenceContractImpl>(),
       ),
     );
-    i.addSingleton<GetSessionMetadataStore>(
-      () => GetSessionMetadataStore(
-        logic: i<GetSessionMetadata>(),
+    i.addSingleton<ListenToSessionMetadataStore>(
+      () => ListenToSessionMetadataStore(
+        logic: i<ListenToSessionMetadata>(),
       ),
     );
     i.add<SessionPresenceCoordinator>(
@@ -83,7 +83,7 @@ class SessionPresenceModule extends Module {
         completeTheSessionLogic: Modular.get<CompleteTheSession>(),
         cancelSessionMetadataStreamLogic: i<CancelSessionMetadataStream>(),
         updateCurrentPhaseLogic: i<UpdateCurrentPhase>(),
-        getSessionMetadataStore: i<GetSessionMetadataStore>(),
+        listenToSessionMetadataStore: i<ListenToSessionMetadataStore>(),
         updateOnlineStatusLogic: i<UpdateOnlineStatus>(),
         startTheSessionLogic: i<StartTheSession>(),
       ),

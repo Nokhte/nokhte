@@ -21,7 +21,7 @@ abstract class _SessionDuoGreeterCoordinatorBase extends BaseCoordinator
   final SessionDuoGreeterWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
-  final GetSessionMetadataStore sessionMetadata;
+  final ListenToSessionMetadataStore sessionMetadata;
   final GyroscopicCoordinator gyroscopic;
 
   _SessionDuoGreeterCoordinatorBase({
@@ -30,7 +30,7 @@ abstract class _SessionDuoGreeterCoordinatorBase extends BaseCoordinator
     required this.tap,
     required this.presence,
     required this.gyroscopic,
-  }) : sessionMetadata = presence.getSessionMetadataStore;
+  }) : sessionMetadata = presence.listenToSessionMetadataStore;
 
   @observable
   Stopwatch stopwatch = Stopwatch();
@@ -56,7 +56,7 @@ abstract class _SessionDuoGreeterCoordinatorBase extends BaseCoordinator
   onResumed() async {
     await presence
         .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (presence.getSessionMetadataStore.everyoneIsOnline) {
+    if (sessionMetadata.everyoneIsOnline) {
       presence.incidentsOverlayStore.onCollaboratorJoined();
     }
   }
@@ -123,7 +123,7 @@ abstract class _SessionDuoGreeterCoordinatorBase extends BaseCoordinator
   rippleCompletionStatusReactor() =>
       reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&
-            presence.getSessionMetadataStore.canMoveIntoInstructions) {
+            sessionMetadata.canMoveIntoInstructions) {
           isNavigatingAway = true;
           Modular.to.navigate(pathIntoSession);
         }

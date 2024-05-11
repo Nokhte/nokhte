@@ -21,7 +21,7 @@ abstract class _SessionHybridSpeakingInstructionsCoordinatorBase
   final HoldDetector hold;
   final SessionHybridSpeakingInstructionsWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
-  final GetSessionMetadataStore sessionMetadata;
+  final ListenToSessionMetadataStore sessionMetadata;
   final GyroscopicCoordinator gyroscopic;
 
   _SessionHybridSpeakingInstructionsCoordinatorBase({
@@ -31,7 +31,7 @@ abstract class _SessionHybridSpeakingInstructionsCoordinatorBase
     required this.tap,
     required this.presence,
     required this.hold,
-  }) : sessionMetadata = presence.getSessionMetadataStore;
+  }) : sessionMetadata = presence.listenToSessionMetadataStore;
 
   @action
   constructor() async {

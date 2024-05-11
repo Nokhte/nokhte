@@ -49,9 +49,9 @@ class SessionPresenceContractImpl
   }
 
   @override
-  getSessionMetadata(NoParams params) async {
+  listenToSessionMetadata(NoParams params) async {
     if (await networkInfo.isConnected) {
-      final res = remoteSource.getSessionMetadata();
+      final res = remoteSource.listenToSessionMetadata();
       return Right(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);

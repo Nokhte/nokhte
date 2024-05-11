@@ -18,14 +18,14 @@ abstract class _SessionNotesInstructionsCoordinatorBase extends BaseCoordinator
   final SessionNotesInstructionsWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
-  final GetSessionMetadataStore sessionMetadata;
+  final ListenToSessionMetadataStore sessionMetadata;
 
   _SessionNotesInstructionsCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
     required this.tap,
     required this.presence,
-  }) : sessionMetadata = presence.getSessionMetadataStore;
+  }) : sessionMetadata = presence.listenToSessionMetadataStore;
 
   @action
   constructor() async {
@@ -98,7 +98,7 @@ abstract class _SessionNotesInstructionsCoordinatorBase extends BaseCoordinator
       );
   updateCurrentPhase() async {
     Timer.periodic(Seconds.get(0, milli: 500), (timer) async {
-      if (presence.getSessionMetadataStore.userPhase != 2.0) {
+      if (presence.listenToSessionMetadataStore.userPhase != 2.0) {
         await presence.updateCurrentPhase(2.0);
       } else {
         timer.cancel();

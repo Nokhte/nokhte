@@ -14,7 +14,7 @@ abstract class _SessionNotesInactivityCoordinatorBase extends BaseCoordinator
     with Store {
   final SessionNotesInactivityWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
-  final GetSessionMetadataStore sessionMetadata;
+  final ListenToSessionMetadataStore sessionMetadata;
   final TapDetector tap;
 
   _SessionNotesInactivityCoordinatorBase({
@@ -22,7 +22,7 @@ abstract class _SessionNotesInactivityCoordinatorBase extends BaseCoordinator
     required super.captureScreen,
     required this.tap,
     required this.presence,
-  }) : sessionMetadata = presence.getSessionMetadataStore;
+  }) : sessionMetadata = presence.listenToSessionMetadataStore;
 
   @action
   constructor() async {

@@ -18,14 +18,14 @@ abstract class _SessionHybridNotesInstructionsCoordinatorBase
   final SessionHybridNotesInstructionsWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
-  final GetSessionMetadataStore sessionMetadata;
+  final ListenToSessionMetadataStore sessionMetadata;
 
   _SessionHybridNotesInstructionsCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
     required this.tap,
     required this.presence,
-  }) : sessionMetadata = presence.getSessionMetadataStore;
+  }) : sessionMetadata = presence.listenToSessionMetadataStore;
 
   @observable
   bool instructionModeIsUnlocked = false;
@@ -103,7 +103,7 @@ abstract class _SessionHybridNotesInstructionsCoordinatorBase
       );
   updateCurrentPhase() async {
     Timer.periodic(Seconds.get(0, milli: 500), (timer) async {
-      if (presence.getSessionMetadataStore.userPhase != 2.0) {
+      if (sessionMetadata.userPhase != 2.0) {
         await presence.updateCurrentPhase(2.0);
       } else {
         Timer(Seconds.get(2), () {

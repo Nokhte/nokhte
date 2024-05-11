@@ -16,7 +16,7 @@ class SessionNotesCoordinator = _SessionNotesCoordinatorBase
 abstract class _SessionNotesCoordinatorBase extends BaseCoordinator with Store {
   final SessionNotesWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
-  final GetSessionMetadataStore sessionMetadata;
+  final ListenToSessionMetadataStore sessionMetadata;
   final SwipeDetector swipe;
   final TapDetector tap;
   final GyroscopicCoordinator gyroscopic;
@@ -28,7 +28,7 @@ abstract class _SessionNotesCoordinatorBase extends BaseCoordinator with Store {
     required this.presence,
     required this.swipe,
     required this.gyroscopic,
-  }) : sessionMetadata = presence.getSessionMetadataStore;
+  }) : sessionMetadata = presence.listenToSessionMetadataStore;
 
   @action
   constructor() async {

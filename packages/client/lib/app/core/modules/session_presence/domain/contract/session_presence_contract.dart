@@ -14,7 +14,7 @@ abstract class SessionPresenceContract {
   Future<Either<Failure, bool>> updateWhoIsTalking(
       UpdateWhoIsTalkingParams params);
   Future<Either<Failure, bool>> updateCurrentPhase(double params);
-  Future<Either<Failure, Stream<NokhteSessionMetadata>>> getSessionMetadata(
-      NoParams params);
+  Future<Either<Failure, Stream<NokhteSessionMetadata>>>
+      listenToSessionMetadata(NoParams params);
   bool cancelSessionMetadataStream(NoParams params);
 }

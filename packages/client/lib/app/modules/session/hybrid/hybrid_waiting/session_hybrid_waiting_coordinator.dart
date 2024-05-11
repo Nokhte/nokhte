@@ -13,13 +13,13 @@ abstract class _SessionHybridWaitingCoordinatorBase extends BaseCoordinator
     with Store {
   final SessionHybridWaitingWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
-  final GetSessionMetadataStore sessionMetadata;
+  final ListenToSessionMetadataStore sessionMetadata;
 
   _SessionHybridWaitingCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
     required this.presence,
-  }) : sessionMetadata = presence.getSessionMetadataStore;
+  }) : sessionMetadata = presence.listenToSessionMetadataStore;
 
   @observable
   double userPhaseAtStart = 0.0;

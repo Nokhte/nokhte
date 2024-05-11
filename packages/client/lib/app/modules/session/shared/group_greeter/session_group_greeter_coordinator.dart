@@ -20,7 +20,7 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
   final SessionGroupGreeterWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
-  final GetSessionMetadataStore sessionMetadata;
+  final ListenToSessionMetadataStore sessionMetadata;
   final GyroscopicCoordinator gyroscopic;
 
   _SessionGroupGreeterCoordinatorBase({
@@ -29,7 +29,7 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
     required this.tap,
     required this.presence,
     required this.gyroscopic,
-  }) : sessionMetadata = presence.getSessionMetadataStore;
+  }) : sessionMetadata = presence.listenToSessionMetadataStore;
 
   @observable
   Stopwatch stopwatch = Stopwatch();
@@ -58,7 +58,7 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
   onResumed() async {
     await presence
         .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (presence.getSessionMetadataStore.everyoneIsOnline) {
+    if (sessionMetadata.everyoneIsOnline) {
       presence.incidentsOverlayStore.onCollaboratorJoined();
     }
   }
@@ -120,7 +120,7 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
   rippleCompletionStatusReactor() =>
       reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&
-            presence.getSessionMetadataStore.canMoveIntoInstructions) {
+            sessionMetadata.canMoveIntoInstructions) {
           Modular.to.navigate(pathIntoSession);
         }
       });
@@ -134,7 +134,7 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
 
   updateCurrentPhase() async {
     Timer.periodic(Seconds.get(0, milli: 500), (timer) async {
-      if (presence.getSessionMetadataStore.userPhase != 1.0) {
+      if (sessionMetadata.userPhase != 1.0) {
         await presence.updateCurrentPhase(1.0);
       } else {
         timer.cancel();

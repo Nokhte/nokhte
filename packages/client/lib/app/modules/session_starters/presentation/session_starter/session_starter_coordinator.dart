@@ -10,7 +10,6 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:nokhte/app/modules/home/home.dart';
-import 'package:nokhte_backend/edge_functions/edge_functions.dart';
 part 'session_starter_coordinator.g.dart';
 
 class SessionStarterCoordinator = _SessionStarterCoordinatorBase
@@ -58,14 +57,9 @@ abstract class _SessionStarterCoordinatorBase
     initReactors();
     await deepLinks.getDeepLink(DeepLinkTypes.nokhteSessionLeader);
     await userInformation.getUserInfoStore(NoParams());
-    await logic.enter(
-      EnterCollaboratorPoolParams(
-        collaboratorUID: userInformation.getUserInfoStore.userUID,
-        invitationType: InvitationType.nokhteSession,
-      ),
-    );
+    await logic.initialize();
     await captureScreen(Screens.collaborationHome);
-    logic.listenToNokhteSearch();
+    logic.listenToSessionActivation();
   }
 
   @action
@@ -76,13 +70,6 @@ abstract class _SessionStarterCoordinatorBase
           widgets.qrCode.setQrCodeData(p0);
         }
       });
-
-  @action
-  onEnterCollaboratorPool() => logic.enter(EnterCollaboratorPoolParams(
-        collaboratorUID: additionalRoutingData["deepLinkUID"] ??
-            additionalRoutingData[CollaborationCodeKeys.collaboratorUID],
-        invitationType: InvitationType.nokhteSession,
-      ));
 
   swipeCoordinatesReactor() =>
       reaction((p0) => swipe.mostRecentCoordinates.last, (p0) {
@@ -122,7 +109,7 @@ abstract class _SessionStarterCoordinatorBase
           ifTouchIsNotDisabled(() async {
             widgets.onSwipeDown(() async {
               toggleIsNavigatingAway();
-              await logic.exit();
+              await logic.nuke();
               await logic.dispose();
               setDisableAllTouchFeedback(true);
             });

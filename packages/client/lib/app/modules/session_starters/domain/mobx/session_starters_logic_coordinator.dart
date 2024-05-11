@@ -13,16 +13,18 @@ class SessionStartersLogicCoordinator = _SessionStartersLogicCoordinatorBase
 
 abstract class _SessionStartersLogicCoordinatorBase extends BaseMobxDBStore
     with Store {
-  final CancelNokhteSessionSearchStream cancelNokhteSessionSearchStreamLogic;
-  final EnterCollaboratorPool enterCollaboratorPoolLogic;
-  final ExitCollaboratorPool exitCollaboratorPoolLogic;
-  final GetNokhteSessionSearchStatus getNokhteSessionSearchStatusLogic;
+  final CancelSessionActivationStream cancelStreamLogic;
+  final InitializeSession initializeSessionLogic;
+  final JoinSession joinSessionLogic;
+  final NukeSession nukeSessionLogic;
+  final ListenToSessionActivationStatus listenToSessionActivationLogic;
 
   _SessionStartersLogicCoordinatorBase({
-    required this.cancelNokhteSessionSearchStreamLogic,
-    required this.enterCollaboratorPoolLogic,
-    required this.exitCollaboratorPoolLogic,
-    required this.getNokhteSessionSearchStatusLogic,
+    required this.cancelStreamLogic,
+    required this.initializeSessionLogic,
+    required this.joinSessionLogic,
+    required this.nukeSessionLogic,
+    required this.listenToSessionActivationLogic,
   });
 
   @override
@@ -46,7 +48,13 @@ abstract class _SessionStartersLogicCoordinatorBase extends BaseMobxDBStore
   bool nokhteSessionSearchStatusIsListening = false;
 
   @observable
-  bool hasEntered = false;
+  bool hasJoined = false;
+
+  @observable
+  bool hasNuked = false;
+
+  @observable
+  bool hasInitialized = false;
 
   @observable
   ObservableStream<bool> collaboratorSearchStatus =
@@ -69,16 +77,15 @@ abstract class _SessionStartersLogicCoordinatorBase extends BaseMobxDBStore
 
   @action
   dispose() async {
-    nokhteSessionSearchStatusIsListening =
-        cancelNokhteSessionSearchStreamLogic(NoParams());
+    nokhteSessionSearchStatusIsListening = cancelStreamLogic(NoParams());
     await collaboratorSearchStatus.close();
     await searchSubscription.cancel();
   }
 
   @action
-  listenToNokhteSearch() async {
+  listenToSessionActivation() async {
     nokhteSessionSearchStatusIsListening = true;
-    final result = await getNokhteSessionSearchStatusLogic(NoParams());
+    final result = await listenToSessionActivationLogic(NoParams());
     result.fold((failure) => errorUpdater(failure), (stream) {
       nokhteSearchStatus = ObservableStream(stream);
       nokhteSubscription = nokhteSearchStatus.listen((value) {
@@ -88,16 +95,23 @@ abstract class _SessionStartersLogicCoordinatorBase extends BaseMobxDBStore
   }
 
   @action
-  enter(EnterCollaboratorPoolParams collaboratorUID) async {
-    final result = await enterCollaboratorPoolLogic(collaboratorUID);
+  initialize() async {
+    final result = await initializeSessionLogic(NoParams());
     result.fold((failure) => errorUpdater(failure),
-        (entryStatus) => hasEntered = entryStatus);
+        (entryStatus) => hasJoined = entryStatus);
   }
 
   @action
-  exit() async {
-    final result = await exitCollaboratorPoolLogic(NoParams());
+  join(String collaboratorUID) async {
+    final result = await joinSessionLogic(collaboratorUID);
     result.fold((failure) => errorUpdater(failure),
-        (exitStatus) => hasEntered = exitStatus);
+        (entryStatus) => hasJoined = entryStatus);
+  }
+
+  @action
+  nuke() async {
+    final result = await nukeSessionLogic(NoParams());
+    result.fold((failure) => errorUpdater(failure),
+        (nukeStatus) => hasNuked = nukeStatus);
   }
 }

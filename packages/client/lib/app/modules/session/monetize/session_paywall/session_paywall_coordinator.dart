@@ -18,7 +18,7 @@ abstract class _SessionPaywallCoordinatorBase
   final TapDetector tap;
   final SessionPaywallWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
-  final GetSessionMetadataStore sessionMetadata;
+  final ListenToSessionMetadataStore sessionMetadata;
   final SwipeDetector swipe;
 
   _SessionPaywallCoordinatorBase({
@@ -28,7 +28,7 @@ abstract class _SessionPaywallCoordinatorBase
     required this.presence,
     required this.swipe,
     required super.getUserInfo,
-  }) : sessionMetadata = presence.getSessionMetadataStore;
+  }) : sessionMetadata = presence.listenToSessionMetadataStore;
 
   @action
   constructor() async {

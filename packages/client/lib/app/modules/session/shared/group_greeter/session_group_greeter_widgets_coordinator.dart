@@ -140,7 +140,6 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
     required Function onComplete,
   }) =>
       reaction((p0) => primarySmartText.currentIndex, (p0) async {
-        // print("hey index reactor??? $p0 $isTheLastOneToFinish");
         if (p0 == 3) {
           await onComplete();
           if (isTheLastOneToFinish) {
