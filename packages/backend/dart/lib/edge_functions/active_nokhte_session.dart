@@ -117,6 +117,7 @@ class ActiveNokhteSessionEdgeFunctions with ActiveNokhteSessionsConstants {
   }
 
   Future<FunctionResponse> completeTheSession() async {
+    await computeCollaboratorInformation();
     final res = await supabase.from('active_nokhte_sessions').select();
     if (res.isEmpty) {
       return FunctionResponse(
