@@ -1,11 +1,53 @@
 import 'package:flutter/material.dart';
 
-mixin NokhteSessionConstants {
+mixin SessionConstants {
   static const blue = Color(0xFF00E0FF);
   static const limeTextGrad = [
     Color(0xFFA1FFAA),
     Color(0xFF39FF18),
   ];
+  static const root = '/';
+  static const relativeLobby = '/lobby';
+  static const relativeDuoGreeter = '/duo_greeter';
+  static const relativeGroupGreeter = '/group_greeter';
+  static const relativeTrialGreeter = '/trial_greeter';
+  static const relativeExit = '/exit';
 
-  static const groupGreeter = '/session/core/group_greeter';
+  static const relativeSpeakingInstructions = '/speaking_instructions';
+  static const relativeNotesInstructions = '/notes_instructions';
+  static const relativeWaiting = '/waiting';
+  static const relativeNotes = '/notes';
+
+  static const relativeInstructions = '/instructions';
+
+  static const relativeInactivity = '/inactivity';
+
+  static const lobby = '/session/core$relativeLobby';
+  static const duoGreeter = '/session/core$relativeDuoGreeter';
+  static const groupGreeter = '/session/core$relativeGroupGreeter';
+  static const trialGreeter = '/session/core$relativeTrialGreeter';
+  static const exit = '/session/core$relativeExit';
+
+  static const relativePaywall = '/paywall';
+  static const relativeWaitingPatron = '/waiting_patron';
+
+  static const hybrid = '/session/hybrid$root';
+  static const hybridSpeakingInstructions =
+      '/session/hybrid$relativeSpeakingInstructions';
+  static const hybridWaiting = '/session/hybrid$relativeWaiting';
+  static const hybridNotesInstructions =
+      '/session/hybrid$relativeNotesInstructions';
+  static const hybridNotes = '/session/hybrid$relativeNotes';
+
+  static const paywall = '/session/monetize$relativePaywall';
+  static const waitingPatron = '/session/monetize$relativeWaitingPatron';
+
+  static const notesWaiting = '/session/notes$relativeWaiting';
+  static const notesInstructions = '/session/notes$relativeInstructions';
+  static const notesInactivity = '/session/notes$relativeInactivity';
+  static const notes = '/session/notes$root';
+
+  static const speaking = '/session/speaking$root';
+  static const speakingInstructions = '/session/speaking$relativeInstructions';
+  static const speakingWaiting = '/session/speaking$relativeWaiting';
 }

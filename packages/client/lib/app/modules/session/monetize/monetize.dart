@@ -8,6 +8,7 @@ import 'package:nokhte/app/core/widgets/modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/monetize/session_paywall/session_paywall.dart';
 import 'package:nokhte/app/modules/session/monetize/waiting_patron/waiting_patron.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 
 class SessionMonetizeModule extends Module {
   @override
@@ -45,15 +46,15 @@ class SessionMonetizeModule extends Module {
   @override
   void routes(r) {
     r.child(
+      SessionConstants.relativePaywall,
       transition: TransitionType.noTransition,
-      '/paywall',
       child: (context) => SessionPaywallScreen(
         coordinator: Modular.get<SessionPaywallCoordinator>(),
       ),
     );
     r.child(
+      SessionConstants.relativeWaitingPatron,
       transition: TransitionType.noTransition,
-      '/waiting_patron',
       child: (context) => WaitingPatronScreen(
         coordinator: Modular.get<WaitingPatronCoordinator>(),
       ),

@@ -9,7 +9,7 @@ import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'session_hybrid_speaking_instructions_widgets_coordinator.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 part 'session_hybrid_speaking_instructions_coordinator.g.dart';
 
 class SessionHybridSpeakingInstructionsCoordinator = _SessionHybridSpeakingInstructionsCoordinatorBase
@@ -86,9 +86,9 @@ abstract class _SessionHybridSpeakingInstructionsCoordinatorBase
   @action
   onFlowFinished() async {
     if (sessionMetadata.canMoveIntoSecondInstructionsSet) {
-      Modular.to.navigate("/session/hybrid/notes_instructions");
+      Modular.to.navigate(SessionConstants.hybridNotesInstructions);
     } else {
-      Modular.to.navigate("/session/hybrid/waiting");
+      Modular.to.navigate(SessionConstants.hybridWaiting);
     }
   }
 

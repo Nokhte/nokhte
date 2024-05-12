@@ -6,6 +6,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 part 'session_hybrid_notes_widgets_coordinator.g.dart';
 
 class SessionHybridNotesWidgetsCoordinator = _SessionHybridNotesWidgetsCoordinatorBase
@@ -114,7 +115,7 @@ abstract class _SessionHybridNotesWidgetsCoordinatorBase
         if (p0 == MovieStatus.finished &&
             beachWaves.movieMode ==
                 BeachWaveMovieModes.skyToInvertedHalfAndHalf) {
-          Modular.to.navigate('/session/hybrid/');
+          Modular.to.navigate(SessionConstants.hybrid);
         }
       });
 }

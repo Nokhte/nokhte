@@ -65,7 +65,7 @@ abstract class _WaitingPatronWidgetsCoordinatorBase
             onReturnHome();
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.borealisToSky) {
-            Modular.to.navigate(NokhteSessionConstants.groupGreeter);
+            Modular.to.navigate(SessionConstants.groupGreeter);
           }
         }
       });

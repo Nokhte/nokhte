@@ -7,7 +7,7 @@ import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'session_notes_instructions_widgets_coordinator.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 part 'session_notes_instructions_coordinator.g.dart';
 
 class SessionNotesInstructionsCoordinator = _SessionNotesInstructionsCoordinatorBase
@@ -63,9 +63,9 @@ abstract class _SessionNotesInstructionsCoordinatorBase extends BaseCoordinator
       reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
         if (p0 == MovieStatus.finished && widgets.hasCompletedInstructions) {
           if (sessionMetadata.canMoveIntoSession) {
-            Modular.to.navigate('/session/notes/');
+            Modular.to.navigate(SessionConstants.notes);
           } else {
-            Modular.to.navigate('/session/notes/waiting');
+            Modular.to.navigate(SessionConstants.notesWaiting);
           }
         }
       });

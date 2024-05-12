@@ -4,7 +4,7 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'session_notes_inactivity_widgets_coordinator.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 part 'session_notes_inactivity_coordinator.g.dart';
 
 class SessionNotesInactivityCoordinator = _SessionNotesInactivityCoordinatorBase
@@ -49,7 +49,7 @@ abstract class _SessionNotesInactivityCoordinatorBase extends BaseCoordinator
     tapReactor();
     widgets.initBorderGlowReactors(
       onGlowDown: () {
-        Modular.to.navigate("/session/notes/");
+        Modular.to.navigate(SessionConstants.notes);
       },
     );
   }

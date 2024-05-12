@@ -72,7 +72,7 @@ abstract class _SessionExitWidgetsCoordinatorBase extends BaseWidgetsCoordinator
       beachWaves.currentStore.initMovie(NoParams());
     } else if (phoneRole == SessionPhoneRole.notes) {
       Timer(Seconds.get(1), () {
-        Modular.to.navigate('/session/notes/');
+        Modular.to.navigate(SessionConstants.notes);
       });
     } else if (phoneRole == SessionPhoneRole.hybrid) {
       beachWaves.setMovieMode(BeachWaveMovieModes.skyToInvertedHalfAndHalf);

@@ -99,11 +99,11 @@ abstract class _SessionExitCoordinatorBase
         onToHomeComplete: onAnimationComplete,
         onReturnToTalkingComplete: () {
           if (phoneRole == SessionPhoneRole.speaking) {
-            Modular.to.navigate('/session/speaking/');
+            Modular.to.navigate(SessionConstants.speaking);
           }
         },
         onReturnToHybridComplete: () {
-          Modular.to.navigate('/session/hybrid/');
+          Modular.to.navigate(SessionConstants.hybrid);
         });
     swipeReactor();
     collaboratorPhaseReactor();
@@ -160,9 +160,7 @@ abstract class _SessionExitCoordinatorBase
           if (p0) {
             showCollaboratorIncidents = false;
             await presence.dispose();
-            if (sessionMetadata.userIndex == 0) {
-              await presence.completeTheSession();
-            }
+            await presence.completeTheSession();
             Timer(Seconds.get(1), () async {
               await getUserInfo(NoParams());
             });

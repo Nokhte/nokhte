@@ -99,18 +99,21 @@ abstract class _SessionLobbyWidgetsCoordinatorBase
   }
 
   @action
-  enterSession() {
-    beachWaves.currentStore.initMovie(NoParams());
+  enterSession(bool isAValidSession) {
+    if (isAValidSession) {
+      beachWaves.setMovieMode(BeachWaveMovieModes.deepSeaToSky);
+      beachWaves.currentStore.initMovie(NoParams());
+    } else {
+      beachWaves.setMovieMode(BeachWaveMovieModes.deepSeaToBorealis);
+      beachWaves.currentStore.initMovie(NoParams());
+    }
     qrCode.setWidgetVisibility(false);
     primarySmartText.setWidgetVisibility(false);
   }
 
   beachWavesMovieStatusReactor(Function onCompleted) =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
-        if (p0 == beachWaves.movieStatus &&
-            beachWaves.movieMode == BeachWaveMovieModes.deepSeaToSky) {
-          onCompleted();
-        }
+        if (p0 == beachWaves.movieStatus) onCompleted();
       });
 
   @computed

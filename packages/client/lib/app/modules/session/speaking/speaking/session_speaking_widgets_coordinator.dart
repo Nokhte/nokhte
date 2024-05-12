@@ -7,6 +7,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 part 'session_speaking_widgets_coordinator.g.dart';
 
 class SessionSpeakingWidgetsCoordinator = _SessionSpeakingWidgetsCoordinatorBase
@@ -164,7 +165,7 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode == BeachWaveMovieModes.skyToHalfAndHalf) {
             if (isPickingUp) {
-              Modular.to.navigate("/session/core/exit");
+              Modular.to.navigate(SessionConstants.exit);
             } else if (isLettingGo) {
               onLetGoCompleted();
             }

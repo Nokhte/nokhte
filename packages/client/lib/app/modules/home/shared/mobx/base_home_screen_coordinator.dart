@@ -7,6 +7,7 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session/constants/constants.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 
 import 'base_home_screen_widgets_coordinator.dart';
@@ -81,7 +82,7 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
 
   @action
   onShoreToDeepSeaComplete() => Modular.to.navigate(
-        '/session/core/lobby',
+        SessionConstants.lobby,
         arguments: deepLinks.listenForOpenedDeepLinkStore.additionalMetadata,
       );
 
@@ -152,7 +153,7 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
                 widgets.errorSmartText.setWidgetVisibility(false);
                 widgets.secondaryErrorSmartText.setWidgetVisibility(false);
                 Timer(Seconds.get(2), () {
-                  Modular.to.navigate('/session/core/lobby', arguments: {});
+                  Modular.to.navigate(SessionConstants.lobby, arguments: {});
                 });
               }
             }

@@ -133,7 +133,7 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
             onReturnHome();
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.borealisToSky) {
-            Modular.to.navigate(NokhteSessionConstants.groupGreeter);
+            Modular.to.navigate(SessionConstants.groupGreeter);
           }
         }
       });

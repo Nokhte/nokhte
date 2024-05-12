@@ -8,6 +8,7 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
+import 'package:nokhte/app/core/modules/user_metadata/user_metadata.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
 part 'session_lobby_coordinator.g.dart';
@@ -20,6 +21,7 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
   final ListenToSessionMetadataStore sessionMetadata;
+  final UserMetadataCoordinator userMetadata;
   final DeepLinksCoordinator deepLinks;
 
   _SessionLobbyCoordinatorBase({
@@ -28,6 +30,7 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
     required this.deepLinks,
     required this.tap,
     required this.presence,
+    required this.userMetadata,
   }) : sessionMetadata = presence.listenToSessionMetadataStore;
 
   @observable
@@ -39,6 +42,7 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
     initReactors();
     await presence.listen();
     await deepLinks.getDeepLink(DeepLinkTypes.nokhteSessionBearer);
+    await userMetadata.getMetadata();
     await captureScreen(Screens.nokhteSessionLobby);
   }
 
@@ -104,7 +108,7 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
   sessionStartReactor() =>
       reaction((p0) => sessionMetadata.sessionHasBegun, (p0) {
         if (p0) {
-          widgets.enterSession();
+          widgets.enterSession(sessionMetadata.isAValidSession);
         }
       });
 
@@ -112,9 +116,45 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
   enterGreeter() => Modular.to.navigate(route);
 
   @computed
-  String get route => sessionMetadata.numberOfCollaborators.isGreaterThan(2)
-      ? '/session/core/group_greeter'
-      : '/session/core/duo_greeter';
+  String get route {
+    if (groupIsLargerThanTwo) {
+      if (isAPremiumSession) {
+        if (sessionMetadata.isAValidSession) {
+          return premiumSessionPath;
+        } else {
+          return monetizationSessionPath;
+        }
+      } else {
+        return SessionConstants.groupGreeter;
+      }
+    } else {
+      return SessionConstants.duoGreeter;
+    }
+  }
+
+  @computed
+  String get monetizationSessionPath => userMetadata.isSubscribed
+      ? SessionConstants.waitingPatron
+      : SessionConstants.paywall;
+
+  @computed
+  String get premiumSessionPath {
+    return isConsumingTrialSession
+        ? SessionConstants.trialGreeter
+        : SessionConstants.groupGreeter;
+  }
+
+  @computed
+  bool get groupIsLargerThanTwo =>
+      sessionMetadata.numberOfCollaborators.isGreaterThan(2);
+
+  @computed
+  bool get isConsumingTrialSession =>
+      !userMetadata.hasUsedTrial && !userMetadata.isSubscribed;
+
+  @computed
+  bool get isAPremiumSession =>
+      sessionMetadata.numberOfCollaborators.isGreaterThanOrEqualTo(4);
 
   @computed
   bool get isTheLeader => Modular.args.data["qrCodeData"] != null;

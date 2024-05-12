@@ -211,7 +211,7 @@ abstract class _SessionHybridSpeakingInstructionsWidgetsCoordinatorBase
       }
       touchRipple.onTap(
         tapPosition,
-        overridedColor: NokhteSessionConstants.blue,
+        overridedColor: SessionConstants.blue,
       );
       if (hasTappedOnTheRightSide && textIsDoneFadingInOrOut && tapCount < 2) {
         mirroredText.startRotatingUpsideDown(isResuming: true);

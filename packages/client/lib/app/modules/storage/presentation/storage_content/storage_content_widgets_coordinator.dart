@@ -39,7 +39,7 @@ abstract class _StorageContentWidgetsCoordinatorBase
     smartText.setMessagesData(StorageLists.contentSecondary);
     smartText.startRotatingText();
     beachWaves.setMovieMode(BeachWaveMovieModes.drySandToSky);
-    smartText.setStaticAltMovie(NokhteSessionConstants.blue);
+    smartText.setStaticAltMovie(SessionConstants.blue);
     gestureCross.fadeIn();
     gestureCross.cross.initStaticGlow();
     initReactors();

@@ -47,7 +47,7 @@ class WaitingPatronScreen extends HookWidget {
               NokhteGradientText(
                 store: coordinator.widgets.nokhteGradientText,
                 content: 'Wait for the others',
-                gradient: NokhteSessionConstants.limeTextGrad,
+                gradient: SessionConstants.limeTextGrad,
                 padding: EdgeInsets.only(
                   bottom: height * .1,
                 ),
