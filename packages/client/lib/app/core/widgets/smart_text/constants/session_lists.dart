@@ -93,6 +93,22 @@ class SessionLists {
     ),
   ];
 
+  static List<RotatingTextData> trialGreeterPrimary = [
+    RotatingTextData(
+      mainMessage: "This is your only Trial Group Session",
+      pauseHere: true,
+      mainMessageFontSize: 24.0,
+    ),
+  ];
+
+  static List<RotatingTextData> trialGreeterSecondary = [
+    RotatingTextData(
+      mainMessage: "Tap to confirm",
+      pauseHere: true,
+      mainMessageFontSize: 20.0,
+    ),
+  ];
+
   static List<RotatingTextData> duoGreeterPrimary = [
     RotatingTextData(
       mainMessage: "Put your phone on do not disturb",

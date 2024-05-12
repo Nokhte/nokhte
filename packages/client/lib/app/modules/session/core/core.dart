@@ -5,12 +5,15 @@ import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
+import 'package:nokhte/app/core/modules/user_metadata/user_metadata.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session/constants/constants.dart';
 import 'core.dart';
 export 'duo_greeter/duo_greeter.dart';
 export 'exit/exit.dart';
 export 'group_greeter/group_greeter.dart';
 export 'lobby/lobby.dart';
+export 'trial_greeter/trial_greeter.dart';
 
 class SessionCoreModule extends Module {
   @override
@@ -18,6 +21,7 @@ class SessionCoreModule extends Module {
         CleanUpCollaborationArtifactsModule(),
         PosthogModule(),
         SessionPresenceModule(),
+        UserMetadataModule(),
         GyroscopicModule(),
         UserInformationModule(),
         DeepLinksModule(),
@@ -27,6 +31,7 @@ class SessionCoreModule extends Module {
   void exportedBinds(i) {
     i.add<SessionLobbyCoordinator>(
       () => SessionLobbyCoordinator(
+        userMetadata: Modular.get<UserMetadataCoordinator>(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
         presence: Modular.get<SessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
@@ -40,6 +45,14 @@ class SessionCoreModule extends Module {
         presence: Modular.get<SessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<SessionDuoGreeterWidgetsCoordinator>(),
+        tap: TapDetector(),
+      ),
+    );
+    i.add<SessionTrialGreeterCoordinator>(
+      () => SessionTrialGreeterCoordinator(
+        presence: Modular.get<SessionPresenceCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        widgets: Modular.get<SessionTrialGreeterWidgetsCoordinator>(),
         tap: TapDetector(),
       ),
     );
@@ -68,29 +81,36 @@ class SessionCoreModule extends Module {
   @override
   routes(r) {
     r.child(
+      SessionConstants.relativeLobby,
       transition: TransitionType.noTransition,
-      '/lobby',
       child: (context) => SessionLobbyScreen(
         coordinator: Modular.get<SessionLobbyCoordinator>(),
       ),
     );
     r.child(
+      SessionConstants.relativeGroupGreeter,
       transition: TransitionType.noTransition,
-      '/group_greeter',
       child: (context) => SessionGroupGreeterScreen(
         coordinator: Modular.get<SessionGroupGreeterCoordinator>(),
       ),
     );
     r.child(
+      SessionConstants.relativeTrialGreeter,
       transition: TransitionType.noTransition,
-      '/duo_greeter',
+      child: (context) => SessionTrialGreeterScreen(
+        coordinator: Modular.get<SessionTrialGreeterCoordinator>(),
+      ),
+    );
+    r.child(
+      SessionConstants.relativeDuoGreeter,
+      transition: TransitionType.noTransition,
       child: (context) => SessionDuoGreeterScreen(
         coordinator: Modular.get<SessionDuoGreeterCoordinator>(),
       ),
     );
     r.child(
+      SessionConstants.relativeExit,
       transition: TransitionType.noTransition,
-      '/exit',
       child: (context) => SessionExitScreen(
         coordinator: Modular.get<SessionExitCoordinator>(),
       ),

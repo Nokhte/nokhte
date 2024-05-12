@@ -32,6 +32,15 @@ class SessionWidgetsModule extends Module {
         beachWaves: BeachWavesStore(),
       ),
     );
+    i.add<SessionTrialGreeterWidgetsCoordinator>(
+      () => SessionTrialGreeterWidgetsCoordinator(
+        touchRipple: TouchRippleStore(),
+        primarySmartText: SmartTextStore(),
+        secondarySmartText: SmartTextStore(),
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        beachWaves: BeachWavesStore(),
+      ),
+    );
     i.add<SessionGroupGreeterWidgetsCoordinator>(
       () => SessionGroupGreeterWidgetsCoordinator(
         tint: TintStore(),
