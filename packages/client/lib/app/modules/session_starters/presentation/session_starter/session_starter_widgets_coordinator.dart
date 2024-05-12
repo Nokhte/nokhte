@@ -91,7 +91,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   }
 
   @action
-  onSwipeDown(Function onLeaving) {
+  onSwipeDown(Function onLeaving) async {
     if (centerInstructionalNokhte.movieStatus != MovieStatus.inProgress) {
       if (hasInitiatedBlur) {
         hasInitiatedBlur = false;
@@ -114,6 +114,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
           primaryBeachWaves.currentStore
               .initMovie(primaryBeachWaves.currentAnimationValues.first);
           qrCode.setWidgetVisibility(false);
+          await onLeaving();
         }
       }
     }
