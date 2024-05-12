@@ -77,6 +77,7 @@ abstract class _SessionStartersLogicCoordinatorBase extends BaseMobxDBStore
 
   @action
   dispose() async {
+    await nuke();
     nokhteSessionSearchStatusIsListening = cancelStreamLogic(NoParams());
     await collaboratorSearchStatus.close();
     await searchSubscription.cancel();
