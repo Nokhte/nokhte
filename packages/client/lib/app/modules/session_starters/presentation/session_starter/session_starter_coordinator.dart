@@ -94,7 +94,6 @@ abstract class _SessionStarterCoordinatorBase
         widgets.setIsDisconnected(true);
       },
     );
-    collaboratorPoolEntryErrorReactor();
     nokhteSearchStatusReactor();
     tapReactor();
   }
@@ -109,9 +108,7 @@ abstract class _SessionStarterCoordinatorBase
           ifTouchIsNotDisabled(() async {
             widgets.onSwipeDown(() async {
               toggleIsNavigatingAway();
-              await logic.nuke();
               await logic.dispose();
-              setDisableAllTouchFeedback(true);
             });
           });
         default:
@@ -126,19 +123,10 @@ abstract class _SessionStarterCoordinatorBase
         });
       });
 
-  collaboratorPoolEntryErrorReactor() =>
-      reaction((p0) => logic.errorMessage, (p0) {
-        if (p0.isNotEmpty) {
-          setDisableAllTouchFeedback(true);
-          setIsInErrorMode(true);
-          deepLinks.reset();
-          logic.resetErrorMessage();
-        }
-      });
-
   nokhteSearchStatusReactor() =>
       reaction((p0) => logic.hasFoundNokhteSession, (p0) async {
         if (p0) {
+          setDisableAllTouchFeedback(true);
           await logic.dispose();
           widgets.initTransition();
         }
