@@ -50,7 +50,7 @@ class SessionStartersContractImpl
   }
 
   @override
-  nukeSession(collaboratorUID) async {
+  nukeSession(param) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.nukeSession();
       return fromFunctionResponse(res);
