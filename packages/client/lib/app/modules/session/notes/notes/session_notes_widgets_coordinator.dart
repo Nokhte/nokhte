@@ -1,12 +1,11 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session/constants/constants.dart';
 part 'session_notes_widgets_coordinator.g.dart';
 
 class SessionNotesWidgetsCoordinator = _SessionNotesWidgetsCoordinatorBase
@@ -18,14 +17,12 @@ abstract class _SessionNotesWidgetsCoordinatorBase
   final TouchRippleStore touchRipple;
   final TextEditorStore textEditor;
   final SmartTextStore smartText;
-  final BorderGlowStore borderGlow;
   _SessionNotesWidgetsCoordinatorBase({
     required this.beachWaves,
     required super.wifiDisconnectOverlay,
     required this.touchRipple,
     required this.textEditor,
     required this.smartText,
-    required this.borderGlow,
   });
 
   @observable
@@ -66,8 +63,6 @@ abstract class _SessionNotesWidgetsCoordinatorBase
 
   initBorderGlowReactors(
       {required Function onGlowInitiated, required Function onGlowDown}) {
-    borderGlowMovieStatusReactor(onGlowInitiated: onGlowInitiated);
-    startInactivityCron(onGlowInitiated);
     textEditor.focusNode.addListener(() {
       inactivityCount++;
       if (!textEditor.focusNode.hasFocus) {
@@ -81,40 +76,6 @@ abstract class _SessionNotesWidgetsCoordinatorBase
       }
     });
   }
-
-  @action
-  startInactivityCron(Function onGlowInitiated) {
-    inActivityCron = Timer.periodic(
-        kDebugMode ? const Duration(minutes: 1) : const Duration(minutes: 9),
-        (timer) async {
-      if (activityCount.isLessThanOrEqualTo(baseComparisonActivityCount)) {
-        borderGlow.initWhiteOut();
-        textEditor.setWidgetVisibility(false);
-        textEditor.setIsReadOnly(true);
-        canSwipeUp = false;
-        await onGlowInitiated();
-      }
-      activityCount = 0;
-      baseComparisonActivityCount = 0;
-    });
-  }
-
-  @action
-  stopInactivityCron() {
-    inActivityCron.cancel();
-  }
-
-  borderGlowMovieStatusReactor({
-    required Function onGlowInitiated,
-  }) =>
-      reaction((p0) => borderGlow.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished) {
-          if (borderGlow.isGlowingUp) {
-            canSwipeUp = false;
-            Modular.to.navigate('/session/notes/inactivity');
-          }
-        }
-      });
 
   @action
   onSwipeUp(Function(String) onSwipeUp, Function onGlowInitiated) async {
@@ -140,7 +101,7 @@ abstract class _SessionNotesWidgetsCoordinatorBase
   onExit() {
     textEditor.setWidgetVisibility(false);
     Timer(Seconds.get(1), () {
-      Modular.to.navigate("/session/core/exit");
+      Modular.to.navigate(SessionConstants.exit);
     });
   }
 

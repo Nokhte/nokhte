@@ -181,7 +181,6 @@ class SessionWidgetsModule extends Module {
     i.add<SessionNotesWidgetsCoordinator>(
       () => SessionNotesWidgetsCoordinator(
         smartText: SmartTextStore(),
-        borderGlow: BorderGlowStore(),
         touchRipple: TouchRippleStore(),
         textEditor: TextEditorStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
