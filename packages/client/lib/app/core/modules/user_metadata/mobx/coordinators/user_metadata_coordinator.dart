@@ -10,19 +10,42 @@ class UserMetadataCoordinator = _UserMetadataCoordinatorBase
 
 abstract class _UserMetadataCoordinatorBase
     extends BaseMobxDBStore<NoParams, bool> with Store {
-  final AddMetadata addMetadataLogic;
+  final AddUserMetadata addUserMetadataLogic;
+  final GetUserMetadata getUserMetadataLogic;
 
   _UserMetadataCoordinatorBase({
-    required this.addMetadataLogic,
+    required this.addUserMetadataLogic,
+    required this.getUserMetadataLogic,
   });
 
   @observable
   bool hasAddedMetadata = false;
 
+  @observable
+  bool isSubscribed = false;
+
+  @observable
+  bool hasUsedTrial = false;
+
+  @action
+  getMetadata() async {
+    final res = await getUserMetadataLogic(NoParams());
+    res.fold((failure) {
+      errorMessage = mapFailureToMessage(failure);
+      state = StoreState.initial;
+    }, (metadataEntity) {
+      hasUsedTrial = metadataEntity.hasUsedTrial;
+      print("hasUsedTrial is $hasUsedTrial");
+      isSubscribed = metadataEntity.isSubscribed;
+      print("isSubscribed is $isSubscribed");
+    });
+    state = StoreState.loaded;
+  }
+
   @action
   Future<void> addMetadata(NoParams param) async {
     state = StoreState.loading;
-    final res = await addMetadataLogic(NoParams());
+    final res = await addUserMetadataLogic(NoParams());
     res.fold((failure) {
       errorMessage = mapFailureToMessage(failure);
       state = StoreState.initial;
