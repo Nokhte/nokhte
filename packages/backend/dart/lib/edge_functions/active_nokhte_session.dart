@@ -37,9 +37,10 @@ class ActiveNokhteSessionEdgeFunctions with ActiveNokhteSessionsConstants {
 
   Future<FunctionResponse> initializeSession() async =>
       await supabase.functions.invoke(
-        'nokhte-session-initialize',
+        'nokhte-session-initialize-or-nuke',
         body: {
           "userUID": userUID,
+          "shouldInitialize": true,
         },
       );
 
@@ -54,20 +55,22 @@ class ActiveNokhteSessionEdgeFunctions with ActiveNokhteSessionsConstants {
 
   Future<FunctionResponse> nukeSession() async =>
       await supabase.functions.invoke(
-        'nokhte-session-nuke',
+        'nokhte-session-initialize-or-nuke',
         body: {
           "userUID": userUID,
+          "shouldInitialize": false,
         },
       );
 
   Future<FunctionResponse> updateOnlineStatus(bool isOnline) async {
     await computeCollaboratorInformation();
     return await supabase.functions.invoke(
-      'nokhte-session-update-online-status',
+      'nokhte-session-update-has-gyroscope-or-online-status',
       body: {
-        'newOnlineStatus': isOnline,
+        'newStatus': isOnline,
         'collaboratorUIDs': formattedCollaboratorUIDs,
-        'userIndex': userIndex
+        'userIndex': userIndex,
+        'shouldUpdateOnlineStatus': true,
       },
     );
   }
@@ -75,11 +78,12 @@ class ActiveNokhteSessionEdgeFunctions with ActiveNokhteSessionsConstants {
   Future<FunctionResponse> updateHasGyroscope(bool hasGryoscope) async {
     await computeCollaboratorInformation();
     return await supabase.functions.invoke(
-      'nokhte-session-update-has-gyroscope',
+      'nokhte-session-update-has-gyroscope-or-online-status',
       body: {
-        'newGyroscopeStatus': hasGryoscope,
+        'newStatus': hasGryoscope,
         'collaboratorUIDs': formattedCollaboratorUIDs,
-        'userIndex': userIndex
+        'userIndex': userIndex,
+        'shouldUpdateOnlineStatus': false,
       },
     );
   }

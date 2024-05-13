@@ -60,10 +60,6 @@ serve(async (req) => {
             .select()
             .eq("uid", collaboratorUIDsArr[i])
         )?.data?.[0]?.["authorized_viewers"];
-        console.log(
-          "What about the session collaborators",
-          collaboratorUIDsArr
-        );
         const userAuthorizedViewers =
           userAuthorizedViewersRes.concat(collaboratorUIDsArr);
         const viewersMinusUserUID = userAuthorizedViewers.filter(

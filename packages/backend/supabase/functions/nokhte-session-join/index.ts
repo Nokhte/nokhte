@@ -32,7 +32,6 @@ serve(async (req) => {
       currentHaveGyroscopesRes.push(true);
       let isAValidSession = true;
       if (currentCollaboratorUIDs.length > 3) {
-        console.log("is it creater than 3", currentCollaboratorUIDs.length);
         for (let i = 0; i < currentCollaboratorUIDs.length; i++) {
           const userMetadataRes = (
             await supabaseAdmin
@@ -40,14 +39,6 @@ serve(async (req) => {
               .select()
               .eq("uid", currentCollaboratorUIDs[i])
           )?.data?.[0];
-          console.log(
-            "QUESTION: userUID is",
-            currentCollaboratorUIDs[i],
-            " hasUsedTrial:",
-            userMetadataRes?.["has_used_trial"],
-            "isSubscribed: ",
-            userMetadataRes?.["is_subscribed"]
-          );
           if (
             userMetadataRes?.["has_used_trial"] === true &&
             userMetadataRes?.["is_subscribed"] === false
@@ -56,8 +47,6 @@ serve(async (req) => {
           }
         }
       }
-      console.log("are you saying that isAValidSession is", isAValidSession);
-
       const { error } = await supabaseAdmin
         .from("active_nokhte_sessions")
         .update({
