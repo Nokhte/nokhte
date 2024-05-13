@@ -1,3 +1,4 @@
+// deno-lint-ignore-file
 import { serve } from "std/server";
 import { importJWK, jwtVerify } from "jose";
 import { supabaseAdmin } from "../constants/supabase.ts";
@@ -15,15 +16,13 @@ serve(async (req) => {
   };
   try {
     const { payload } = await jwtVerify(jws, pubKey);
-    const { type, subscriberid } = payload;
-    const valuesToReactTo = [5001, 5002, 5003, 5004, 5009, 5010, 5011];
-    const isSubscribedValues = [5001, 5002, 5003, 5011];
-    if (valuesToReactTo.includes(type as number)) {
-      await supabaseAdmin
-        .from("user_metadata")
-        .update({ is_subscribed: isSubscribedValues.includes(type as number) })
-        .eq("subscriber_id", subscriberid);
-    }
+    const { event }: any = payload;
+    const { subscriberid } = event;
+    const isSubscriptionActive = event["is_subscription_active"];
+    await supabaseAdmin
+      .from("user_metadata")
+      .update({ is_subscribed: isSubscriptionActive })
+      .eq("subscriber_id", subscriberid);
   } catch (e) {
     returnRes = {
       status: 400,
