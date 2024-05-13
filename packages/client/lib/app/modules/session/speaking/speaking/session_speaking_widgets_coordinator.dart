@@ -7,6 +7,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 part 'session_speaking_widgets_coordinator.g.dart';
 
 class SessionSpeakingWidgetsCoordinator = _SessionSpeakingWidgetsCoordinatorBase
@@ -83,7 +84,7 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
         duration: const Duration(seconds: 2),
       );
 
-      beachWaves.setMovieMode(BeachWaveMovieModes.anyToVibrantBlueGrad);
+      beachWaves.setMovieMode(BeachWaveMovieModes.anyToSky);
       beachWaves.currentStore.initMovie(params);
     } else if (holdPosition == GesturePlacement.bottomHalf) {
       beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
@@ -95,7 +96,7 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
   @action
   onLetGo() {
     initGlowDown();
-    beachWaves.setMovieMode(BeachWaveMovieModes.dynamicPointToHalfAndHalf);
+    beachWaves.setMovieMode(BeachWaveMovieModes.anyToHalfAndHalf);
     beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
     speakLessSmileMore.hideBoth();
   }
@@ -135,7 +136,7 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
   onExit() {
     setIsPickingUp(true);
     mirroredText.setWidgetVisibility(false);
-    beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
+    beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
     beachWaves.currentStore.reverseMovie(NoParams());
   }
 
@@ -149,7 +150,7 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
     if (p0 == MovieStatus.finished &&
         store.isGlowingUp &&
         isHolding &&
-        beachWaves.movieMode == BeachWaveMovieModes.anyToVibrantBlueGrad) {
+        beachWaves.movieMode == BeachWaveMovieModes.anyToSky) {
       speakLessSmileMore.setSpeakLess(true);
       Timer(Seconds.get(2), () {
         if (isHolding) {
@@ -162,18 +163,16 @@ abstract class _SessionSpeakingWidgetsCoordinatorBase
   beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          if (beachWaves.movieMode ==
-              BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf) {
+          if (beachWaves.movieMode == BeachWaveMovieModes.skyToHalfAndHalf) {
             if (isPickingUp) {
-              Modular.to.navigate("/session/shared/exit");
+              Modular.to.navigate(SessionConstants.exit);
             } else if (isLettingGo) {
               onLetGoCompleted();
             }
           } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.dynamicPointToHalfAndHalf) {
+              BeachWaveMovieModes.anyToHalfAndHalf) {
             onLetGoCompleted();
-          } else if (beachWaves.movieMode ==
-                  BeachWaveMovieModes.anyToVibrantBlueGrad ||
+          } else if (beachWaves.movieMode == BeachWaveMovieModes.anyToSky ||
               beachWaves.movieMode ==
                   BeachWaveMovieModes.halfAndHalfToDrySand) {
             initBorderGlow();

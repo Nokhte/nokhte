@@ -23,7 +23,7 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
   final SwipeDetector swipe;
   final HoldDetector hold;
   final SessionPresenceCoordinator presence;
-  final GetSessionMetadataStore sessionMetadata;
+  final ListenToSessionMetadataStore sessionMetadata;
   final GyroscopicCoordinator gyroscopic;
   _SessionHybridCoordinatorBase({
     required super.captureScreen,
@@ -33,7 +33,7 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
     required this.tap,
     required this.gyroscopic,
     required this.presence,
-  }) : sessionMetadata = presence.getSessionMetadataStore;
+  }) : sessionMetadata = presence.listenToSessionMetadataStore;
 
   @action
   constructor() async {
@@ -139,26 +139,16 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
 
   holdReactor() => reaction((p0) => hold.holdCount, (p0) {
         ifTouchIsNotDisabled(() async {
-          if (presence.getSessionMetadataStore.everyoneIsOnline) {
+          if (sessionMetadata.everyoneIsOnline) {
             await presence
                 .updateWhoIsTalking(UpdateWhoIsTalkingParams.setUserAsTalker);
-            // setBlockPhoneTiltReactor(true);
-            // widgets.adjustSpeakLessSmileMoreRotation(hold.placement);
-            // widgets.onHold(hold.placement);
-            // setDisableAllTouchFeedback(true);
-            // await presence.updateCurrentPhase(2);
           }
         });
       });
 
   letGoReactor() => reaction((p0) => hold.letGoCount, (p0) async {
-        if (presence.getSessionMetadataStore.everyoneIsOnline) {
+        if (sessionMetadata.everyoneIsOnline) {
           await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
-          // widgets.onLetGo();
-          // setBlockPhoneTiltReactor(false);
-          // Timer(Seconds.get(2), () {
-          //   setDisableAllTouchFeedback(false);
-          // });
         }
       });
 

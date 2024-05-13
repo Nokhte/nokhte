@@ -1,42 +1,42 @@
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
-import 'package:nokhte_backend/tables/_real_time_enabled/active_irl_nokhte_sessions/types/types.dart';
-import 'package:nokhte_backend/tables/irl_active_nokhte_sessions.dart';
+import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class SessionPresenceRemoteSource {
-  Future<List> updateOnlineStatus(UpdatePresencePropertyParams params);
-  Future<List> setUserAsCurrentTalker();
-  Future<void> clearTheCurrentTalker();
-  Future<List> updateCurrentPhase(double params);
-  Stream<IrlNokhteSessionMetadata> getSessionMetadata();
+  Future<FunctionResponse> updateOnlineStatus(
+      UpdatePresencePropertyParams params);
+  Future<FunctionResponse> setUserAsCurrentTalker();
+  Future<FunctionResponse> clearTheCurrentTalker();
+  Future<FunctionResponse> updateCurrentPhase(double params);
+  Stream<NokhteSessionMetadata> listenToSessionMetadata();
   bool cancelSessionMetadataStream();
-  Future<List> addContent(String content);
-  Future<List> completeTheSession();
-  Future<List> updateHasGyroscope(bool hasGyroscope);
-  Future<List> startTheSession();
+  Future<FunctionResponse> addContent(String content);
+  Future<FunctionResponse> completeTheSession();
+  Future<FunctionResponse> updateHasGyroscope(bool hasGyroscope);
+  Future<FunctionResponse> startTheSession();
 }
 
 class SessionPresenceRemoteSourceImpl implements SessionPresenceRemoteSource {
   final SupabaseClient supabase;
-  final ActiveIrlNokhteSessionQueries queries;
-  final ActiveIrlNokhteSessionsStream stream;
+  final ActiveNokhteSessionQueries queries;
+  final ActiveNokhteSessionsStream stream;
   SessionPresenceRemoteSourceImpl({required this.supabase})
-      : queries = ActiveIrlNokhteSessionQueries(supabase: supabase),
-        stream = ActiveIrlNokhteSessionsStream(supabase: supabase);
+      : queries = ActiveNokhteSessionQueries(supabase: supabase),
+        stream = ActiveNokhteSessionsStream(supabase: supabase);
 
   @override
   cancelSessionMetadataStream() => stream.cancelGetSessionMetadataStream();
 
   @override
   clearTheCurrentTalker() async =>
-      await queries.updateSpeakerSpotlight(addUserToSpotight: false);
+      await queries.updateSpeakerSpotlight(addUserToSpotlight: false);
 
   @override
-  getSessionMetadata() => stream.getPresenceMetadata();
+  listenToSessionMetadata() => stream.listenToPresenceMetadata();
 
   @override
   setUserAsCurrentTalker() async => await queries.updateSpeakerSpotlight(
-        addUserToSpotight: true,
+        addUserToSpotlight: true,
       );
 
   @override
@@ -58,5 +58,5 @@ class SessionPresenceRemoteSourceImpl implements SessionPresenceRemoteSource {
       await queries.updateHasGyroscope(hasGyroscope);
 
   @override
-  Future<List> startTheSession() async => await queries.startTheSession();
+  startTheSession() async => await queries.startTheSession();
 }

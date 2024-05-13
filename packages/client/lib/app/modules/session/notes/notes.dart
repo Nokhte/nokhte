@@ -3,7 +3,7 @@ import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'notes.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 export 'notes/notes.dart';
 export 'notes_inactivity/notes_inactivity.dart';
 export 'notes_instructions/notes_instructions.dart';
@@ -56,30 +56,30 @@ class SessionNotesModule extends Module {
   @override
   routes(r) {
     r.child(
+      SessionConstants.root,
       transition: TransitionType.noTransition,
-      '/waiting',
+      child: (context) => SessionNotesScreen(
+        coordinator: Modular.get<SessionNotesCoordinator>(),
+      ),
+    );
+    r.child(
+      SessionConstants.relativeWaiting,
+      transition: TransitionType.noTransition,
       child: (context) => SessionNotesWaitingScreen(
         coordinator: Modular.get<SessionNotesWaitingCoordinator>(),
       ),
     );
     r.child(
+      SessionConstants.relativeInstructions,
       transition: TransitionType.noTransition,
-      '/instructions',
       child: (context) => SessionNotesInstructionsScreen(
         coordinator: Modular.get<SessionNotesInstructionsCoordinator>(),
       ),
     );
     r.child(
-      '/inactivity',
+      SessionConstants.relativeInactivity,
       child: (context) => SessionNotesInactivityScreen(
         coordinator: Modular.get<SessionNotesInactivityCoordinator>(),
-      ),
-    );
-    r.child(
-      transition: TransitionType.noTransition,
-      '/',
-      child: (context) => SessionNotesScreen(
-        coordinator: Modular.get<SessionNotesCoordinator>(),
       ),
     );
   }

@@ -50,11 +50,6 @@ void main() {
         expect(res?.movie.duration, Seconds.get(2));
       });
 
-      test("oceanDiveToTimesUp key", () {
-        final res = testStore
-            .movieModeToStoreLookup[BeachWaveMovieModes.oceanDiveToTimesUp];
-        expect(res?.movie.duration, Seconds.get(2));
-      });
       test("onShore key", () {
         final onShoreRes =
             testStore.movieModeToStoreLookup[BeachWaveMovieModes.onShore];
@@ -75,26 +70,6 @@ void main() {
             testStore.movieModeToStoreLookup[BeachWaveMovieModes.none];
         expect(noneRes?.movie.duration, Seconds.get(0));
       });
-      test("timesUp key", () {
-        final res =
-            testStore.movieModeToStoreLookup[BeachWaveMovieModes.timesUp];
-        expect(res?.movie.duration, Seconds.get(45));
-      });
-      test("timesUpDynamicPointToTheDepths key", () {
-        final res = testStore.movieModeToStoreLookup[
-            BeachWaveMovieModes.timesUpDynamicPointToTheDepths];
-        expect(res?.movie.duration, Seconds.get(2));
-      });
-      test("timesUpEndToTheDepths key", () {
-        final res = testStore
-            .movieModeToStoreLookup[BeachWaveMovieModes.timesUpEndToTheDepths];
-        expect(res?.movie.duration, Seconds.get(2));
-      });
-      test("timesUpEndToOceanDive key", () {
-        final res = testStore
-            .movieModeToStoreLookup[BeachWaveMovieModes.timesUpEndToOceanDive];
-        expect(res?.movie.duration, Seconds.get(2));
-      });
       test("suspendedAtOceanDive key", () {
         final res = testStore
             .movieModeToStoreLookup[BeachWaveMovieModes.staticOceanDive];
@@ -105,12 +80,6 @@ void main() {
             testStore.movieModeToStoreLookup[BeachWaveMovieModes.staticDepths];
         expect(res?.movie.duration, Seconds.get(1));
       });
-
-      // test("waterFromTopToOnShore key", () {
-      //   final res = testStore
-      //       .movieModeToStoreLookup[BeachWaveMovieModes.waterFromTopToOnShore];
-      //   expect(res?.movie.duration, Seconds.get(1));
-      // });
     });
 
     group("computed values", () {

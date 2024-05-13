@@ -22,7 +22,7 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
   final SwipeDetector swipe;
   final HoldDetector hold;
   final SessionPresenceCoordinator presence;
-  final GetSessionMetadataStore sessionMetadata;
+  final ListenToSessionMetadataStore sessionMetadata;
   final GyroscopicCoordinator gyroscopic;
   _SessionSpeakingCoordinatorBase({
     required super.captureScreen,
@@ -31,7 +31,7 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
     required this.hold,
     required this.gyroscopic,
     required this.presence,
-  }) : sessionMetadata = presence.getSessionMetadataStore;
+  }) : sessionMetadata = presence.listenToSessionMetadataStore;
 
   @action
   constructor() async {
@@ -125,7 +125,7 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
 
   holdReactor() => reaction((p0) => hold.holdCount, (p0) {
         ifTouchIsNotDisabled(() async {
-          if (presence.getSessionMetadataStore.everyoneIsOnline) {
+          if (sessionMetadata.everyoneIsOnline) {
             await presence
                 .updateWhoIsTalking(UpdateWhoIsTalkingParams.setUserAsTalker);
           }
@@ -133,7 +133,7 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
       });
 
   letGoReactor() => reaction((p0) => hold.letGoCount, (p0) async {
-        if (presence.getSessionMetadataStore.everyoneIsOnline) {
+        if (sessionMetadata.everyoneIsOnline) {
           await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
         }
       });

@@ -36,11 +36,6 @@ class UserInformationModule extends Module {
         contract: i<UserInformationContractImpl>(),
       ),
     );
-    i.add<UpdateWantsToRepeatInvitationFlow>(
-      () => UpdateWantsToRepeatInvitationFlow(
-        contract: i<UserInformationContractImpl>(),
-      ),
-    );
     i.add<UpdateHasEnteredStorage>(
       () => UpdateHasEnteredStorage(
         contract: i<UserInformationContractImpl>(),
@@ -58,8 +53,6 @@ class UserInformationModule extends Module {
         updateHasGoneThroughInvitationFlowLogic:
             i<UpdateHasGoneThroughInvitationFlow>(),
         updateHasSentAnInvitationLogic: i<UpdateHasSentAnInvitation>(),
-        updateWantsToRepeatInvitationFlowLogic:
-            i<UpdateWantsToRepeatInvitationFlow>(),
         updateHasEnteredStorageLogic: i<UpdateHasEnteredStorage>(),
       ),
     );

@@ -4,12 +4,16 @@ import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_u
 import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
+import 'package:nokhte/app/core/modules/user_metadata/user_metadata.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:nokhte/app/modules/storage/storage.dart';
 import 'home.dart';
-export 'mobx/mobx.dart';
-export 'screens/screens.dart';
+export 'has_session/has_session.dart';
+export 'no_session/no_session.dart';
+export 'root_router/root_router.dart';
+export 'shared/mobx/mobx.dart';
+export 'shared/shared.dart';
 import 'home_widgets_module.dart';
 
 class HomeModule extends Module {
@@ -23,11 +27,13 @@ class HomeModule extends Module {
         LegacyConnectivityModule(),
         PosthogModule(),
         StorageLogicModule(),
+        UserMetadataModule()
       ];
   @override
   binds(i) {
     i.add<HomeScreenRootRouterCoordinator>(
       () => HomeScreenRootRouterCoordinator(
+        userMetadata: Modular.get<UserMetadataCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         identifyUser: Modular.get<IdentifyUser>(),
         cleanUpCollaborationArtifacts:

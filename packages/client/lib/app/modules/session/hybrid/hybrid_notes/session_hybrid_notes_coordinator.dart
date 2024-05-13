@@ -17,7 +17,7 @@ abstract class _SessionHybridNotesCoordinatorBase extends BaseCoordinator
     with Store {
   final SessionHybridNotesWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
-  final GetSessionMetadataStore sessionMetadata;
+  final ListenToSessionMetadataStore sessionMetadata;
   final SwipeDetector swipe;
   final TapDetector tap;
   final GyroscopicCoordinator gyroscopic;
@@ -29,7 +29,7 @@ abstract class _SessionHybridNotesCoordinatorBase extends BaseCoordinator
     required this.presence,
     required this.swipe,
     required this.gyroscopic,
-  }) : sessionMetadata = presence.getSessionMetadataStore;
+  }) : sessionMetadata = presence.listenToSessionMetadataStore;
 
   @action
   constructor() async {

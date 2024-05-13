@@ -40,9 +40,6 @@ class SessionNotesScreen extends HookWidget {
                   store: coordinator.widgets.beachWaves,
                 ),
               ),
-              BorderGlow(
-                store: coordinator.widgets.borderGlow,
-              ),
               TouchRipple(
                 store: coordinator.widgets.touchRipple,
               ),

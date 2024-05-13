@@ -17,9 +17,6 @@ abstract class _GetUserInfoStoreBase
   bool hasSentAnInvitation = false;
 
   @observable
-  bool wantsToRepeatInvitationFlow = false;
-
-  @observable
   bool hasDoneASession = false;
 
   @observable
@@ -53,8 +50,6 @@ abstract class _GetUserInfoStoreBase
           journeyInfoEntity.hasGoneThroughInvitationFlow;
       hasEnteredStorage = journeyInfoEntity.hasEnteredStorage;
       hasSentAnInvitation = journeyInfoEntity.hasSentAnInvitation;
-      wantsToRepeatInvitationFlow =
-          journeyInfoEntity.wantsToRepeatInvitationFlow;
       hasDoneASession = journeyInfoEntity.hasCompletedNoktheSession;
       userUID = journeyInfoEntity.userUID;
     });

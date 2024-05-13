@@ -72,37 +72,37 @@ class SessionHybridModule extends Module {
   @override
   routes(r) {
     r.child(
+      SessionConstants.root,
       transition: TransitionType.noTransition,
-      '/',
       child: (context) => SessionHybridScreen(
         coordinator: Modular.get<SessionHybridCoordinator>(),
       ),
     );
     r.child(
+      SessionConstants.relativeSpeakingInstructions,
       transition: TransitionType.noTransition,
-      '/speaking_instructions',
       child: (context) => SessionHybridSpeakingInstructionsScreen(
         coordinator:
             Modular.get<SessionHybridSpeakingInstructionsCoordinator>(),
       ),
     );
     r.child(
+      SessionConstants.relativeWaiting,
       transition: TransitionType.noTransition,
-      '/waiting',
       child: (context) => SessionHybridWaitingScreen(
         coordinator: Modular.get<SessionHybridWaitingCoordinator>(),
       ),
     );
     r.child(
+      SessionConstants.relativeNotesInstructions,
       transition: TransitionType.noTransition,
-      '/notes_instructions',
       child: (context) => SessionHybridNotesInstructionsScreen(
         coordinator: Modular.get<SessionHybridNotesInstructionsCoordinator>(),
       ),
     );
     r.child(
+      SessionConstants.relativeNotes,
       transition: TransitionType.noTransition,
-      '/notes',
       child: (context) => SessionHybridNotesScreen(
         coordinator: Modular.get<SessionHybridNotesCoordinator>(),
       ),

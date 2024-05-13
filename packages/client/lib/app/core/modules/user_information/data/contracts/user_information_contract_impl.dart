@@ -38,7 +38,7 @@ class UserInformationContractImpl
     if (await networkInfo.isConnected) {
       final res = await remoteSource.updateHasGoneThroughInvitationFlow(
           hasGoneThroughInvitationFlowParam);
-      return Right(fromSupabase(res));
+      return fromSupabase(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
@@ -49,19 +49,7 @@ class UserInformationContractImpl
     if (await networkInfo.isConnected) {
       final res = await remoteSource
           .updateHasSentAnInvitation(hasSentAnInvitationParam);
-      return Right(fromSupabase(res));
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
-
-  @override
-  updateWantsToRepeatInvitationFlow(
-      bool wantsToRepeatInvitationFlowParam) async {
-    if (await networkInfo.isConnected) {
-      final res = await remoteSource
-          .updateWantsToRepeatInvitationFlow(wantsToRepeatInvitationFlowParam);
-      return Right(fromSupabase(res));
+      return fromSupabase(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
@@ -71,7 +59,7 @@ class UserInformationContractImpl
   updateHasEnteredStorage(newEntryStatus) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.updateHasEnteredStorage(newEntryStatus);
-      return Right(fromSupabase(res));
+      return fromSupabase(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }

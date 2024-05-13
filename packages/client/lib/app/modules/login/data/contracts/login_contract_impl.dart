@@ -47,7 +47,7 @@ class LoginContractImpl with ResponseToStatus implements LoginContract {
   addName(NoParams params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.addName();
-      return Right(fromSupabase(res));
+      return fromSupabase(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
@@ -64,6 +64,16 @@ class LoginContractImpl with ResponseToStatus implements LoginContract {
           finishedNokhteSessionsRes: nokhteSessionsRes,
         ),
       );
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
+
+  @override
+  addMetadata(params) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.addMetadata();
+      return fromFunctionResponse(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }

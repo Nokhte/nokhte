@@ -7,7 +7,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/session/constants/constants.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'session_hybrid_widgets_coordinator.g.dart';
 
@@ -43,7 +43,7 @@ abstract class _SessionHybridWidgetsCoordinatorBase
     beachWaves.setMovieMode(BeachWaveMovieModes.invertedHalfAndHalfToDrySand);
     mirroredText.setMessagesData(MirroredTextContent.hybrid);
     smartText.setMessagesData(SessionLists.speakLessWriteMore);
-    smartText.setStaticAltMovie(NokhteSessionConstants.blue);
+    smartText.setStaticAltMovie(SessionConstants.blue);
     smartText.startRotatingText();
     smartText.setWidgetVisibility(false);
     mirroredText.startBothRotatingText();
@@ -186,8 +186,7 @@ abstract class _SessionHybridWidgetsCoordinatorBase
   @action
   onLetGo() {
     initGlowDown();
-    beachWaves
-        .setMovieMode(BeachWaveMovieModes.dynamicPointToInvertedHalfAndHalf);
+    beachWaves.setMovieMode(BeachWaveMovieModes.anyToInvertedHalfAndHalf);
     beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
     speakLessSmileMore.hideBoth();
   }
@@ -213,7 +212,7 @@ abstract class _SessionHybridWidgetsCoordinatorBase
     isGoingToNotes = true;
     mirroredText.setWidgetVisibility(false);
     beachWaves.setMovieMode(
-      BeachWaveMovieModes.vibrantBlueGradToInvertedHalfAndHalf,
+      BeachWaveMovieModes.skyToInvertedHalfAndHalf,
     );
     beachWaves.currentStore.reverseMovie(NoParams());
     //
@@ -242,8 +241,7 @@ abstract class _SessionHybridWidgetsCoordinatorBase
   onExit() {
     setIsPickingUp(true);
     mirroredText.setWidgetVisibility(false);
-    beachWaves
-        .setMovieMode(BeachWaveMovieModes.vibrantBlueGradToInvertedHalfAndHalf);
+    beachWaves.setMovieMode(BeachWaveMovieModes.skyToInvertedHalfAndHalf);
     beachWaves.currentStore.reverseMovie(NoParams());
     if (speakLessWriteMoreIsVisible) {
       reverseSpeakLessWriteMore();
@@ -260,7 +258,7 @@ abstract class _SessionHybridWidgetsCoordinatorBase
     if (p0 == MovieStatus.finished &&
         store.isGlowingUp &&
         isHolding &&
-        beachWaves.movieMode == BeachWaveMovieModes.anyToVibrantBlueGrad) {
+        beachWaves.movieMode == BeachWaveMovieModes.anyToSky) {
       speakLessSmileMore.setSpeakLess(true);
       Timer(Seconds.get(2), () {
         if (isHolding) {
@@ -274,14 +272,14 @@ abstract class _SessionHybridWidgetsCoordinatorBase
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode ==
-              BeachWaveMovieModes.vibrantBlueGradToInvertedHalfAndHalf) {
+              BeachWaveMovieModes.skyToInvertedHalfAndHalf) {
             if (isPickingUp) {
-              Modular.to.navigate("/session/shared/exit");
+              Modular.to.navigate(SessionConstants.exit);
             } else if (isGoingToNotes) {
-              Modular.to.navigate("/session/hybrid/notes");
+              Modular.to.navigate(SessionConstants.hybridNotes);
             }
           } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.dynamicPointToInvertedHalfAndHalf) {
+              BeachWaveMovieModes.anyToInvertedHalfAndHalf) {
             onLetGoCompleted();
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.invertedHalfAndHalfToDrySand) {
