@@ -6,8 +6,6 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
   MockSpec<WifiDisconnectOverlayStore>(),
   MockSpec<BeachWavesStore>(),
   MockSpec<GestureCrossStore>(),
-  MockSpec<TimeAlignmentModelCoordinator>(),
-  MockSpec<CircleExplanationModelCoordinator>(),
   MockSpec<SmartTextStore>(),
   MockSpec<GetUserInfoStore>(),
   MockSpec<TrailingTextStore>(),

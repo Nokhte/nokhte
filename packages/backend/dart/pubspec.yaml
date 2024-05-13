@@ -7,16 +7,12 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
-  dotenv: ^4.1.0
   equatable: ^2.0.5
   flutter:
     sdk: flutter
-  http: ^1.1.0
-  intl: ^0.18.1
   supabase_flutter: ^1.10.9
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   lints: ^3.0.0
-  mockito: ^5.4.0

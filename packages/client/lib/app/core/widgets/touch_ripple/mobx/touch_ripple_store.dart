@@ -46,7 +46,7 @@ abstract class _TouchRippleStoreBase extends BaseCustomAnimatedWidgetStore
       case GesturePlacement.topHalf:
         currentColor = Colors.white;
       case GesturePlacement.bottomHalf:
-        currentColor = NokhteSessionConstants.blue;
+        currentColor = SessionConstants.blue;
     }
     return currentColor;
   }

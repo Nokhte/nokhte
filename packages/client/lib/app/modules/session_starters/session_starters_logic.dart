@@ -26,36 +26,40 @@ class SessionStartersLogicModule extends Module {
         networkInfo: Modular.get<NetworkInfoImpl>(),
       ),
     );
+    i.add<CancelSessionActivationStream>(
+      () => CancelSessionActivationStream(
+        contract: Modular.get<SessionStartersContractImpl>(),
+      ),
+    );
+    i.add<InitializeSession>(
+      () => InitializeSession(
+        contract: Modular.get<SessionStartersContractImpl>(),
+      ),
+    );
+    i.add<JoinSession>(
+      () => JoinSession(
+        contract: Modular.get<SessionStartersContractImpl>(),
+      ),
+    );
+    i.add<ListenToSessionActivationStatus>(
+      () => ListenToSessionActivationStatus(
+        contract: Modular.get<SessionStartersContractImpl>(),
+      ),
+    );
+    i.add<NukeSession>(
+      () => NukeSession(
+        contract: Modular.get<SessionStartersContractImpl>(),
+      ),
+    );
 
-    i.add<CancelNokhteSessionSearchStream>(
-      () => CancelNokhteSessionSearchStream(
-        contract: i<SessionStartersContractImpl>(),
-      ),
-    );
-    i.add<GetNokhteSessionSearchStatus>(
-      () => GetNokhteSessionSearchStatus(
-        contract: i<SessionStartersContractImpl>(),
-      ),
-    );
-    i.add<EnterCollaboratorPool>(
-      () => EnterCollaboratorPool(
-        contract: i<SessionStartersContractImpl>(),
-      ),
-    );
-    i.add<ExitCollaboratorPool>(
-      () => ExitCollaboratorPool(
-        contract: i<SessionStartersContractImpl>(),
-      ),
-    );
     i.add<SessionStartersLogicCoordinator>(
-      () => SessionStartersLogicCoordinator(
-        getNokhteSessionSearchStatusLogic:
-            Modular.get<GetNokhteSessionSearchStatus>(),
-        cancelNokhteSessionSearchStreamLogic:
-            i<CancelNokhteSessionSearchStream>(),
-        enterCollaboratorPoolLogic: i<EnterCollaboratorPool>(),
-        exitCollaboratorPoolLogic: i<ExitCollaboratorPool>(),
-      ),
-    );
+        () => SessionStartersLogicCoordinator(
+              cancelStreamLogic: Modular.get<CancelSessionActivationStream>(),
+              initializeSessionLogic: Modular.get<InitializeSession>(),
+              joinSessionLogic: Modular.get<JoinSession>(),
+              listenToSessionActivationLogic:
+                  Modular.get<ListenToSessionActivationStatus>(),
+              nukeSessionLogic: Modular.get<NukeSession>(),
+            ));
   }
 }

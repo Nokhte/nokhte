@@ -71,10 +71,10 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
             .setMessagesData(SessionLists.speakLessWriteMoreSecondary);
         secondaryUpsideDownText
             .setMessagesData(SessionLists.speakLessWriteMoreSecondary);
-        primaryRightSideUpText.setStaticAltMovie(NokhteSessionConstants.blue);
-        secondaryRightSideUpText.setStaticAltMovie(NokhteSessionConstants.blue);
-        primaryUpsideDownText.setStaticAltMovie(NokhteSessionConstants.blue);
-        secondaryUpsideDownText.setStaticAltMovie(NokhteSessionConstants.blue);
+        primaryRightSideUpText.setStaticAltMovie(SessionConstants.blue);
+        secondaryRightSideUpText.setStaticAltMovie(SessionConstants.blue);
+        primaryUpsideDownText.setStaticAltMovie(SessionConstants.blue);
+        secondaryUpsideDownText.setStaticAltMovie(SessionConstants.blue);
       case MirroredTextContent.sessionSpeakingWaiting:
         setPrimaryMessagesData(SessionLists.speakingWaiting);
         setSecondaryMessagesData(SharedLists.empty);
@@ -134,11 +134,11 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
     bool isInverted = false,
   }) {
     if (isInverted) {
-      primaryUpsideDownText.setStaticAltMovie(NokhteSessionConstants.blue);
-      secondaryUpsideDownText.setStaticAltMovie(NokhteSessionConstants.blue);
+      primaryUpsideDownText.setStaticAltMovie(SessionConstants.blue);
+      secondaryUpsideDownText.setStaticAltMovie(SessionConstants.blue);
     } else {
-      primaryRightSideUpText.setStaticAltMovie(NokhteSessionConstants.blue);
-      secondaryRightSideUpText.setStaticAltMovie(NokhteSessionConstants.blue);
+      primaryRightSideUpText.setStaticAltMovie(SessionConstants.blue);
+      secondaryRightSideUpText.setStaticAltMovie(SessionConstants.blue);
     }
   }
 

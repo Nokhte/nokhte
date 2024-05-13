@@ -13,14 +13,16 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
   _BeachWavesStoreBase() {
     movieModeToStoreLookup = {
       BeachWaveMovieModes.anyToOnShore: AnyToOnShoreMovieStore(),
-      BeachWaveMovieModes.anyToVibrantBlueGrad:
-          AnyToVibrantBlueGradMovieStore(),
+      BeachWaveMovieModes.anyToSky: AnyToSkyMovieStore(),
+      BeachWaveMovieModes.anyToHalfAndHalf: AnyToHalfAndHalfMovieStore(),
+      BeachWaveMovieModes.anyToInvertedHalfAndHalf:
+          AnyToInvertedHalfAndHalfMovieStore(),
+      BeachWaveMovieModes.borealisToSky: BorealisToSkyMovieStore(),
       BeachWaveMovieModes.blackOut: StaticBlackOutMovieStore(),
       BeachWaveMovieModes.blackOutToDrySand: BlackOutToDrySandMovieStore(),
-      BeachWaveMovieModes.deepSeaToVibrantBlueGrad:
-          DeepSeaToVibrantBlueGradMovieStore(),
-      BeachWaveMovieModes.drySandToVibrantBlueGrad:
-          DrySandToVibrantBlueGradMovieStore(),
+      BeachWaveMovieModes.deepSeaToBorealis: DeepSeaToBorealisMovieStore(),
+      BeachWaveMovieModes.deepSeaToSky: DeepSeaToSkyMovieStore(),
+      BeachWaveMovieModes.drySandToSky: DrySandToSkyMovieStore(),
       BeachWaveMovieModes.halfAndHalfToDrySand:
           HalfAndHalfToDrySandMovieStore(),
       BeachWaveMovieModes.invertedOnShore: InvertedOnShoreMovieStore(),
@@ -28,50 +30,25 @@ abstract class _BeachWavesStoreBase extends Equatable with Store {
           InvertedOnShoreToInvertedDeepSeaMovieStore(),
       BeachWaveMovieModes.invertedOnShoreToInvertedOceanDive:
           InvertedOnShoreToInvertedOceanDiveMovieStore(),
-      BeachWaveMovieModes.invertedOnShoreToInvertedVibrantBlueGrad:
-          InvertedOnShoreToInvertedVibrantBlueGradMovieStore(),
+      BeachWaveMovieModes.invertedOnShoreToInvertedSky:
+          InvertedOnShoreToInvertedSkyMovieStore(),
       BeachWaveMovieModes.invertedHalfAndHalfToDrySand:
           InvertedHalfAndHalfToDrySandMovieStore(),
-      BeachWaveMovieModes.depthsToTimesUpStart:
-          DepthsToTimesUpStartMovieStore(),
-      BeachWaveMovieModes.dynamicPointToHalfAndHalf:
-          DynamicPointToHalfAndHalfMovieStore(),
-      BeachWaveMovieModes.dynamicPointToInvertedHalfAndHalf:
-          DynamicPointToInvertedHalfAndHalfMovieStore(),
       BeachWaveMovieModes.none: BaseBeachWaveMovieStore(),
-      BeachWaveMovieModes.oceanDiveToTimesUp:
-          OceanDiveToTimesUpStartMovieStore(),
-      BeachWaveMovieModes.oceanDiveToVibrantBlueGradient:
-          OceanDiveToVibrantBlueGradientMovieStore(),
+      BeachWaveMovieModes.oceanDiveToSky: OceanDiveToSkyMovieStore(),
       BeachWaveMovieModes.onShore: OnShoreMovieStore(),
       BeachWaveMovieModes.onShoreToDeepSea: OnShoreToDeepSeaMovieStore(),
       BeachWaveMovieModes.onShoreToDrySand: OnShoreToDrySandMovieStore(),
       BeachWaveMovieModes.onShoreToOceanDive: OnShoreToOceanDiveMovieStore(),
-      BeachWaveMovieModes.onShoreToVibrantBlue:
-          OnShoreToVibrantBlueMovieStore(),
+      BeachWaveMovieModes.onShoreToSky: OnShoreToSkyMovieStore(),
       BeachWaveMovieModes.resumeOnShore: ResumeOnShoreMovieStore(),
       BeachWaveMovieModes.staticHalfAndHalf: StaticHalfAndHalfMovieStore(),
       BeachWaveMovieModes.staticDepths: StaticDepthsMovieStore(),
       BeachWaveMovieModes.staticOceanDive: StaticOceanDiveStore(),
-      BeachWaveMovieModes.timesUp: TimesUpMovieStore(),
-      BeachWaveMovieModes.timesUpDynamicPointToTheDepths:
-          TimesUpDynamicPointToTheDepthsMovieStore(),
-      BeachWaveMovieModes.timesUpDynamicPointToTimesUpStart:
-          TimesUpDynamicPointToTimesUpStartMovieStore(),
-      BeachWaveMovieModes.timesUpEndToOceanDive:
-          TimesUpEndToOceanDiveMovieStore(),
-      BeachWaveMovieModes.timesUpEndToTheDepths:
-          TimesUpEndToOceanDiveMovieStore(),
-      BeachWaveMovieModes.timesUpEndToTimesUpStart:
-          TimesUpEndToTimesUpStartMovieStore(),
-      BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf:
-          VibrantBlueGradToHalfAndHalfMovieStore(),
-      BeachWaveMovieModes.vibrantBlueGradToInvertedHalfAndHalf:
-          VibrantBlueGradToInvertedHalfAndHalfMovieStore(),
-      BeachWaveMovieModes.vibrantBlueGradientToTimesUp:
-          VibrantBlueGradientToTimesUpMovieStore(),
-      BeachWaveMovieModes.vibrantBlueGradToDrySand:
-          VibrantBlueGradToDrySandMovieStore(),
+      BeachWaveMovieModes.skyToHalfAndHalf: SkyToHalfAndHalfMovieStore(),
+      BeachWaveMovieModes.skyToInvertedHalfAndHalf:
+          SkyToInvertedHalfAndHalfMovieStore(),
+      BeachWaveMovieModes.skyToDrySand: SkyToDrySandMovieStore(),
       BeachWaveMovieModes.waterFromTopToOnShorePt1:
           WaterFromTopToOnShoreMoviePart1Store(),
       BeachWaveMovieModes.waterFromTopToOnShorePt2:

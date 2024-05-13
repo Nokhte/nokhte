@@ -8,55 +8,45 @@ import 'shared/shared.dart';
 void main() {
   late FinishedNokhteSessionQueries user1Queries;
   final tSetup = CommonCollaborativeTestFunctions();
-  late List<String> sortedUIDs;
   final tSessionContent = ["test1", 'test2', 'test3'];
   final now = DateTime.now().toIso8601String();
+  late List<String> sortedUIDs = [];
 
   setUpAll(() async {
     await tSetup.setUp(shouldMakeCollaboration: false);
+    sortedUIDs = [tSetup.firstUserUID, tSetup.secondUserUID];
+    sortedUIDs.sort();
     user1Queries = FinishedNokhteSessionQueries(supabase: tSetup.user1Supabase);
   });
 
   tearDownAll(() async {
-    await tSetup.supabaseAdmin.from('finished_nokhte_sessions').delete().eq(
-          FinishedNokhteSessionQueries.COLLABORATOR_UIDS,
-          [tSetup.firstUserUID, tSetup.secondUserUID]..sort(),
-        );
-    await tSetup.supabaseAdmin.from('finished_nokhte_sessions').delete().eq(
-          FinishedNokhteSessionQueries.COLLABORATOR_UIDS,
-          [tSetup.firstUserUID, tSetup.thirdUserUID]..sort(),
-        );
-  });
-
-  test("insert", () async {
-    sortedUIDs = [tSetup.firstUserUID, tSetup.secondUserUID]..sort();
-    final res = await user1Queries.insert(
-      collaboratorUIDs: sortedUIDs,
-      sessionContent: tSessionContent,
-      sessionTimestamp: now,
-      sessionUID: tSetup.firstUserUID,
-    );
-    expect(
-        res.first[FinishedNokhteSessionQueries.COLLABORATOR_UIDS], sortedUIDs);
-    expect(res.first[FinishedNokhteSessionQueries.CONTENT], tSessionContent);
+    await tSetup.supabaseAdmin
+        .from('finished_nokhte_sessions')
+        .delete()
+        .eq(FinishedNokhteSessionQueries.COLLABORATOR_UIDS, sortedUIDs);
+    await tSetup.supabaseAdmin
+        .from('finished_nokhte_sessions')
+        .delete()
+        .eq(FinishedNokhteSessionQueries.COLLABORATOR_UIDS, sortedUIDs);
   });
 
   test("select", () async {
+    await tSetup.supabaseAdmin.from("finished_nokhte_sessions").insert({
+      "collaborator_uids": sortedUIDs,
+      "content": tSessionContent,
+      "session_timestamp": now,
+      "session_uid": tSetup.firstUserUID,
+      "aliases": ['', '']
+    });
     final res = await user1Queries.select();
     expect(res, isNotEmpty);
   });
 
   test("selectByCollaborationId", () async {
-    final user1And3 = [tSetup.firstUserUID, tSetup.thirdUserUID]..sort();
-    await user1Queries.insert(
-      collaboratorUIDs: user1And3,
-      sessionContent: tSessionContent,
-      sessionTimestamp: now,
-      sessionUID: tSetup.firstUserUID,
-    );
-    final res = await user1Queries.selectByCollaborationId(tSetup.thirdUserUID);
+    final res =
+        await user1Queries.selectByCollaborationId(tSetup.secondUserUID);
     expect(
-        res.first[FinishedNokhteSessionQueries.COLLABORATOR_UIDS], user1And3);
+        res.first[FinishedNokhteSessionQueries.COLLABORATOR_UIDS], sortedUIDs);
   });
 
   test("updateAlias", () async {

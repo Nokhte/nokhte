@@ -36,7 +36,7 @@ abstract class _SessionNotesInactivityWidgetsCoordinatorBase
 
   @action
   constructor() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
+    beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
     mirroredText.setMessagesData(MirroredTextContent.speakLessWriteMore);
     mirroredText.startBothRotatingText();
     borderGlow.setAtCompleteWhiteOut();
@@ -59,7 +59,7 @@ abstract class _SessionNotesInactivityWidgetsCoordinatorBase
       reaction((p0) => borderGlow.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
           if (!borderGlow.isGlowingUp) {
-            Modular.to.navigate("/session/notes/");
+            Modular.to.navigate(SessionConstants.notes);
           }
         }
       });
@@ -78,7 +78,7 @@ abstract class _SessionNotesInactivityWidgetsCoordinatorBase
     if (!blockTouchRipple) {
       touchRipple.onTap(
         position,
-        overridedColor: NokhteSessionConstants.blue,
+        overridedColor: SessionConstants.blue,
       );
       if (touchRipple.tapPlacement == GesturePlacement.topHalf &&
           !upsideDownHasBeenDismissed) {

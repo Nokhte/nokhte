@@ -71,7 +71,6 @@ abstract class _SessionHybridNotesInstructionsWidgetsCoordinatorBase
       if (hasTappedOnTheBottomHalf &&
           textIsDoneFadingInOrOut &&
           tapCount.isLessThan(3)) {
-        // toggleCurrentActiveOrientation();
         if (isStillInMutualInstructionMode) {
           tapCount++;
           mirroredText.startRotatingRightSideUp(isResuming: true);

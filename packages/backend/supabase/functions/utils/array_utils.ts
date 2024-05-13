@@ -1,7 +1,11 @@
-export function isNotEmptyOrNull(arr: Array<any> | null): boolean {
+export function isNotEmptyOrNull<T>(arr: Array<T> | null): boolean {
   return arr === null ? false : arr.length !== 0;
 }
 
-export function isEmptyOrNull(arr: Array<any> | null): boolean {
+export function isEmptyOrNull<T>(arr: Array<T> | null): boolean {
   return arr === null ? true : arr.length === 0;
+}
+
+export function onlyUnique<T>(value: T, index: number, array: Array<T>) {
+  return array.indexOf(value) === index;
 }

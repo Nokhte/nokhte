@@ -1,26 +1,23 @@
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
-import 'package:nokhte_backend/tables/irl_active_nokhte_sessions.dart';
-import 'package:nokhte_backend/tables/user_names.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
+import 'package:nokhte_backend/tables/user_information.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class DeepLinksRemoteSource {
   Stream<Map> listenForOpenedDeepLink();
   Future<BranchResponse> getDeepLinkURL(DeepLinkTypes params);
-  Future<ShareResult> sendDeepLink(String invitationURL);
 }
 
 class DeepLinksRemoteSourceImpl implements DeepLinksRemoteSource {
   final SupabaseClient supabase;
-  final UserNamesQueries userNames;
-  final ActiveIrlNokhteSessionQueries activeIrlNokhteSessionQueries;
+  final UserInformationQueries userNames;
+  final ActiveNokhteSessionQueries activeNokhteSession;
 
   DeepLinksRemoteSourceImpl({
     required this.supabase,
-  })  : userNames = UserNamesQueries(supabase: supabase),
-        activeIrlNokhteSessionQueries =
-            ActiveIrlNokhteSessionQueries(supabase: supabase);
+  })  : userNames = UserInformationQueries(supabase: supabase),
+        activeNokhteSession = ActiveNokhteSessionQueries(supabase: supabase);
 
   @override
   Stream<Map> listenForOpenedDeepLink() {
@@ -59,8 +56,7 @@ class DeepLinksRemoteSourceImpl implements DeepLinksRemoteSource {
   Future<BranchUniversalObjectAndLinkProperties>
       _assembleCollaboratorInvitation() async {
     final uid = supabase.auth.currentUser?.id ?? '';
-    final firstName =
-        (await userNames.getUserInfo()).first[UserNamesConstants.FIRST_NAME];
+    final firstName = (await userNames.getUserInfo()).first['first_name'];
     return CollaboratorInvitationInformation(
       firstName: firstName,
       uid: uid,
@@ -75,15 +71,9 @@ class DeepLinksRemoteSourceImpl implements DeepLinksRemoteSource {
 
   Future<BranchUniversalObjectAndLinkProperties>
       _assembleNokhteSessionBearerInvitation() async {
-    final sessionLeaderUID = await activeIrlNokhteSessionQueries.getLeaderUID();
+    final sessionLeaderUID = await activeNokhteSession.getLeaderUID();
     return NokhteSessionInvitationInformation(
       senderUID: sessionLeaderUID,
     ).getBranchLinkProperties();
   }
-
-  @override
-  Future<ShareResult> sendDeepLink(
-    String invitationURL,
-  ) async =>
-      await Share.shareWithResult(invitationURL);
 }

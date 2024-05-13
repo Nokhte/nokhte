@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
+import 'package:glassfy_flutter/glassfy_flutter.dart';
 import 'package:nokhte/app/app_module.dart';
 import 'package:nokhte/app/app_widget.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -10,8 +11,13 @@ import 'package:flutter/foundation.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
+  final glassfyAPIKey = dotenv.env['GLASSFY_API_KEY'] ?? '';
+  if (glassfyAPIKey.isNotEmpty) {
+    await Glassfy.initialize(glassfyAPIKey);
+  }
 
   bool shouldUseTestKey = false;
+
   if (dotenv.env["PROD_SUPABASE_URL"]!.contains('oczkzhgjpgeyqrgtqjag') ||
       kDebugMode) {
     shouldUseTestKey = true;

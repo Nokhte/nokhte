@@ -39,8 +39,7 @@ abstract class _SessionHybridSpeakingInstructionsWidgetsCoordinatorBase
   @action
   constructor() {
     resetUpsideDownHoldingPadding();
-    beachWaves
-        .setMovieMode(BeachWaveMovieModes.vibrantBlueGradToInvertedHalfAndHalf);
+    beachWaves.setMovieMode(BeachWaveMovieModes.skyToInvertedHalfAndHalf);
     beachWaves.currentStore.initMovie(NoParams());
     mirroredText.setMessagesData(
       MirroredTextContent.sessionSpeakingHybridInstructions,
@@ -196,8 +195,7 @@ abstract class _SessionHybridSpeakingInstructionsWidgetsCoordinatorBase
       abortTheTextRotation = true;
       borderGlow.initGlowDown();
       holdTimerIndicator.onLetGo();
-      beachWaves
-          .setMovieMode(BeachWaveMovieModes.dynamicPointToInvertedHalfAndHalf);
+      beachWaves.setMovieMode(BeachWaveMovieModes.anyToInvertedHalfAndHalf);
       beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
       mirroredText.setUpsideDownVisibility(false);
     }
@@ -213,7 +211,7 @@ abstract class _SessionHybridSpeakingInstructionsWidgetsCoordinatorBase
       }
       touchRipple.onTap(
         tapPosition,
-        overridedColor: NokhteSessionConstants.blue,
+        overridedColor: SessionConstants.blue,
       );
       if (hasTappedOnTheRightSide && textIsDoneFadingInOrOut && tapCount < 2) {
         mirroredText.startRotatingUpsideDown(isResuming: true);
@@ -266,7 +264,7 @@ abstract class _SessionHybridSpeakingInstructionsWidgetsCoordinatorBase
       reaction((p0) => beachWaves.movieStatus, (p0) async {
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode ==
-              BeachWaveMovieModes.vibrantBlueGradToInvertedHalfAndHalf) {
+              BeachWaveMovieModes.skyToInvertedHalfAndHalf) {
             halfScreenTint.setControl(Control.play);
             mirroredText.startBothRotatingText();
             cooldownStopwatch.start();
@@ -276,7 +274,7 @@ abstract class _SessionHybridSpeakingInstructionsWidgetsCoordinatorBase
             borderGlow.initMovie(NoParams());
             holdTimerIndicator.initMovie(GesturePlacement.bottomHalf);
           } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.dynamicPointToInvertedHalfAndHalf) {
+              BeachWaveMovieModes.anyToInvertedHalfAndHalf) {
             if (!speakingInstructionsComplete) {
               Timer.periodic(Seconds.get(0, milli: 550), (timer) {
                 if (mirroredText.primaryUpsideDownText.control ==

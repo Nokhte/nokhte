@@ -3,151 +3,167 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 
 class SessionLists {
-  static List<RotatingTextData> get speakingInstructionsError => [
-        RotatingTextData(
-          mainMessage: "Set the phone down to continue",
-          pauseHere: true,
-        ),
-      ];
+  static List<RotatingTextData> speakingInstructionsError = [
+    RotatingTextData(
+      mainMessage: "Set the phone down to continue",
+      pauseHere: true,
+    ),
+  ];
 
-  static List<RotatingTextData> get speakingWaiting => [
-        RotatingTextData(
-          mainMessage: "Continue on the other phone",
-          initialFadeInDelay: Seconds.get(1),
-          pauseHere: true,
-          unlockGesture: Gestures.tap,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          initialFadeInDelay: Seconds.get(1),
-          pauseHere: true,
-          unlockGesture: Gestures.tap,
-        ),
-      ];
+  static List<RotatingTextData> speakingWaiting = [
+    RotatingTextData(
+      mainMessage: "Continue on the other phone",
+      initialFadeInDelay: Seconds.get(1),
+      pauseHere: true,
+      unlockGesture: Gestures.tap,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      initialFadeInDelay: Seconds.get(1),
+      pauseHere: true,
+      unlockGesture: Gestures.tap,
+    ),
+  ];
 
-  static List<RotatingTextData> get speakLessWriteMorePrimary => [
-        RotatingTextData(
-          mainMessage: "Speak less, write more",
-          pauseHere: true,
-          initialFadeInDelay: Seconds.get(1),
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          initialFadeInDelay: Seconds.get(1),
-          pauseHere: true,
-        ),
-      ];
-  static List<RotatingTextData> get speakLessWriteMore => [
-        RotatingTextData(
-          mainMessage: "Speak less, write more",
-          subMessage: "Tap anywhere to confirm",
-          pauseHere: true,
-          initialFadeInDelay: Seconds.get(1),
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          initialFadeInDelay: Seconds.get(1),
-          pauseHere: true,
-        ),
-      ];
+  static List<RotatingTextData> speakLessWriteMorePrimary = [
+    RotatingTextData(
+      mainMessage: "Speak less, write more",
+      pauseHere: true,
+      initialFadeInDelay: Seconds.get(1),
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      initialFadeInDelay: Seconds.get(1),
+      pauseHere: true,
+    ),
+  ];
+  static List<RotatingTextData> speakLessWriteMore = [
+    RotatingTextData(
+      mainMessage: "Speak less, write more",
+      subMessage: "Tap anywhere to confirm",
+      pauseHere: true,
+      initialFadeInDelay: Seconds.get(1),
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      initialFadeInDelay: Seconds.get(1),
+      pauseHere: true,
+    ),
+  ];
 
-  static List<RotatingTextData> get speakLessWriteMoreSecondary => [
-        RotatingTextData(
-          mainMessage: '',
-          subMessage: "Tap anywhere to confirm",
-          pauseHere: true,
-          initialFadeInDelay: Seconds.get(1),
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          initialFadeInDelay: Seconds.get(1),
-          pauseHere: true,
-        )
-      ];
+  static List<RotatingTextData> speakLessWriteMoreSecondary = [
+    RotatingTextData(
+      mainMessage: '',
+      subMessage: "Tap anywhere to confirm",
+      pauseHere: true,
+      initialFadeInDelay: Seconds.get(1),
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      initialFadeInDelay: Seconds.get(1),
+      pauseHere: true,
+    )
+  ];
 
-  static List<RotatingTextData> get leaderLobby => [
-        RotatingTextData(
-          mainMessage: "Tap to begin",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-      ];
+  static List<RotatingTextData> leaderLobby = [
+    RotatingTextData(
+      mainMessage: "Tap to begin",
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+    ),
+  ];
 
-  static List<RotatingTextData> get followerLobby => [
-        RotatingTextData(
-          mainMessage: "Wait for the session to start",
-          mainMessageFontSize: 23.0,
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "Wait for the session to start",
-          mainMessageFontSize: 23.0,
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-      ];
+  static List<RotatingTextData> followerLobby = [
+    RotatingTextData(
+      mainMessage: "Wait for the session to start",
+      mainMessageFontSize: 23.0,
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "Wait for the session to start",
+      mainMessageFontSize: 23.0,
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+    ),
+  ];
 
-  static List<RotatingTextData> get duoGreeterPrimary => [
-        RotatingTextData(
-          mainMessage: "Put your phone on do not disturb",
-          pauseHere: true,
-          mainMessageFontSize: 24.0,
-        ),
-        RotatingTextData(
-          mainMessage: "Put both phones in a position both of you can reach",
-          pauseHere: true,
-          mainMessageFontSize: 24.0,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "Tap on the other phone to continue",
-          pauseHere: true,
-        ),
-      ];
+  static List<RotatingTextData> trialGreeterPrimary = [
+    RotatingTextData(
+      mainMessage: "This is your only Trial Group Session",
+      pauseHere: true,
+      mainMessageFontSize: 24.0,
+    ),
+  ];
 
-  static List<RotatingTextData> get duoGreeterSecondary => [
-        RotatingTextData(
-          mainMessage: "Tap when you have done so",
-          pauseHere: true,
-          mainMessageFontSize: 20.0,
-        ),
-        RotatingTextData(
-          mainMessage: "Tap when you have done so",
-          pauseHere: true,
-          mainMessageFontSize: 20.0,
-        ),
-      ];
-  static List<RotatingTextData> get groupGreeterSecondary => [
-        RotatingTextData(
-          mainMessage: "Tap when you have done so",
-          pauseHere: true,
-          mainMessageFontSize: 20.0,
-        ),
-        RotatingTextData(
-          mainMessage: "Tap when you have done so",
-          pauseHere: true,
-          mainMessageFontSize: 20.0,
-        ),
-        RotatingTextData(
-          mainMessage: "Tap when you have done so",
-          pauseHere: true,
-          mainMessageFontSize: 20.0,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-          mainMessageFontSize: 20.0,
-        ),
-      ];
+  static List<RotatingTextData> trialGreeterSecondary = [
+    RotatingTextData(
+      mainMessage: "Tap to confirm",
+      pauseHere: true,
+      mainMessageFontSize: 20.0,
+    ),
+  ];
+
+  static List<RotatingTextData> duoGreeterPrimary = [
+    RotatingTextData(
+      mainMessage: "Put your phone on do not disturb",
+      pauseHere: true,
+      mainMessageFontSize: 24.0,
+    ),
+    RotatingTextData(
+      mainMessage: "Put both phones in a position both of you can reach",
+      pauseHere: true,
+      mainMessageFontSize: 24.0,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "Tap on the other phone to continue",
+      pauseHere: true,
+    ),
+  ];
+
+  static List<RotatingTextData> duoGreeterSecondary = [
+    RotatingTextData(
+      mainMessage: "Tap when you have done so",
+      pauseHere: true,
+      mainMessageFontSize: 20.0,
+    ),
+    RotatingTextData(
+      mainMessage: "Tap when you have done so",
+      pauseHere: true,
+      mainMessageFontSize: 20.0,
+    ),
+  ];
+  static List<RotatingTextData> groupGreeterSecondary = [
+    RotatingTextData(
+      mainMessage: "Tap when you have done so",
+      pauseHere: true,
+      mainMessageFontSize: 20.0,
+    ),
+    RotatingTextData(
+      mainMessage: "Tap when you have done so",
+      pauseHere: true,
+      mainMessageFontSize: 20.0,
+    ),
+    RotatingTextData(
+      mainMessage: "Tap when you have done so",
+      pauseHere: true,
+      mainMessageFontSize: 20.0,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+      mainMessageFontSize: 20.0,
+    ),
+  ];
 
   static List<RotatingTextData> getGroupGreeterPrimary({
     required int numberOfCollaborators,
@@ -187,212 +203,212 @@ class SessionLists {
     ];
   }
 
-  static List<RotatingTextData> get speakingInstructionsPrimary => [
-        RotatingTextData(
-          mainMessage: "The point of this phone is to limit speaking",
-          pauseHere: true,
-          mainMessageFontSize: 22.0,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "You can only speak when your finger is on the screen",
-          pauseHere: true,
-          mainMessageFontSize: 22.0,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "Now, put your finger on the screen",
-          pauseHere: true,
-          mainMessageFontSize: 22.0,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "Only you are allowed to speak right now",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "Let go",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "Continue on the other phone",
-          pauseHere: true,
-          mainMessageFontSize: 22.0,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-          mainMessageFontSize: 22.0,
-        ),
-      ];
+  static List<RotatingTextData> speakingInstructionsPrimary = [
+    RotatingTextData(
+      mainMessage: "The point of this phone is to limit speaking",
+      pauseHere: true,
+      mainMessageFontSize: 22.0,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "You can only speak when your finger is on the screen",
+      pauseHere: true,
+      mainMessageFontSize: 22.0,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "Now, put your finger on the screen",
+      pauseHere: true,
+      mainMessageFontSize: 22.0,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "Only you are allowed to speak right now",
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "Let go",
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "Continue on the other phone",
+      pauseHere: true,
+      mainMessageFontSize: 22.0,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+      mainMessageFontSize: 22.0,
+    ),
+  ];
 
-  static List<RotatingTextData> get hybridSpeakingInstructionsPrimary => [
-        RotatingTextData(
-          mainMessage: "The point of this side is to limit speaking",
-          pauseHere: true,
-          mainMessageFontSize: 22.0,
-        ),
-        RotatingTextData(
-          mainMessage: "You can only speak when your finger is on the screen",
-          pauseHere: true,
-          mainMessageFontSize: 22.0,
-        ),
-        RotatingTextData(
-          mainMessage: "Now, put your finger on the screen",
-          pauseHere: true,
-          mainMessageFontSize: 22.0,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "Only you are allowed to speak right now",
-          mainMessageFontSize: 22.0,
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "Let go",
-          mainMessageFontSize: 22.0,
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-      ];
+  static List<RotatingTextData> hybridSpeakingInstructionsPrimary = [
+    RotatingTextData(
+      mainMessage: "The point of this side is to limit speaking",
+      pauseHere: true,
+      mainMessageFontSize: 22.0,
+    ),
+    RotatingTextData(
+      mainMessage: "You can only speak when your finger is on the screen",
+      pauseHere: true,
+      mainMessageFontSize: 22.0,
+    ),
+    RotatingTextData(
+      mainMessage: "Now, put your finger on the screen",
+      pauseHere: true,
+      mainMessageFontSize: 22.0,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "Only you are allowed to speak right now",
+      mainMessageFontSize: 22.0,
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "Let go",
+      mainMessageFontSize: 22.0,
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+    ),
+  ];
 
-  static List<RotatingTextData> get hybridSpeakingInstructionsSecondary => [
-        RotatingTextData(
-          mainMessage: "Tap to confirm",
-          pauseHere: true,
-          mainMessageFontSize: 19.0,
-        ),
-        RotatingTextData(
-          mainMessage: "Tap to confirm",
-          pauseHere: true,
-          mainMessageFontSize: 19.0,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-          mainMessageFontSize: 19.0,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          mainMessageFontSize: 19.0,
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          mainMessageFontSize: 19.0,
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-      ];
+  static List<RotatingTextData> hybridSpeakingInstructionsSecondary = [
+    RotatingTextData(
+      mainMessage: "Tap to confirm",
+      pauseHere: true,
+      mainMessageFontSize: 19.0,
+    ),
+    RotatingTextData(
+      mainMessage: "Tap to confirm",
+      pauseHere: true,
+      mainMessageFontSize: 19.0,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+      mainMessageFontSize: 19.0,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      mainMessageFontSize: 19.0,
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      mainMessageFontSize: 19.0,
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+    ),
+  ];
 
-  static List<RotatingTextData> get lookAtTheOtherPhone => [
-        RotatingTextData(
-          mainMessage: "Look at the other phone",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-      ];
+  static List<RotatingTextData> lookAtTheOtherPhone = [
+    RotatingTextData(
+      mainMessage: "Look at the other phone",
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+    ),
+  ];
 
-  static List<RotatingTextData> get waitForTheOthers => [
-        RotatingTextData(
-          mainMessage: "Wait for the others",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-      ];
+  static List<RotatingTextData> waitForTheOthers = [
+    RotatingTextData(
+      mainMessage: "Wait for the others",
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+    ),
+  ];
 
-  static List<RotatingTextData> get speakingInstructionsSecondary => [
-        RotatingTextData(
-          mainMessage: "Tap to confirm",
-          pauseHere: true,
-          mainMessageFontSize: 19.0,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "Tap to confirm",
-          pauseHere: true,
-          mainMessageFontSize: 19.0,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-          mainMessageFontSize: 19.0,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-      ];
+  static List<RotatingTextData> speakingInstructionsSecondary = [
+    RotatingTextData(
+      mainMessage: "Tap to confirm",
+      pauseHere: true,
+      mainMessageFontSize: 19.0,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "Tap to confirm",
+      pauseHere: true,
+      mainMessageFontSize: 19.0,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+      mainMessageFontSize: 19.0,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+    ),
+  ];
 
-  static List<RotatingTextData> get touchToTalk => [
-        RotatingTextData(
-          mainMessage: "Touch to talk",
-          pauseHere: true,
-          mainMessageFontSize: 19.0,
-        ),
-      ];
-  static List<RotatingTextData> get tapToTakeANote => [
-        RotatingTextData(
-          mainMessage: "Tap to take a note",
-          pauseHere: true,
-          mainMessageFontSize: 19.0,
-        ),
-      ];
+  static List<RotatingTextData> touchToTalk = [
+    RotatingTextData(
+      mainMessage: "Touch to talk",
+      pauseHere: true,
+      mainMessageFontSize: 19.0,
+    ),
+  ];
+  static List<RotatingTextData> tapToTakeANote = [
+    RotatingTextData(
+      mainMessage: "Tap to take a note",
+      pauseHere: true,
+      mainMessageFontSize: 19.0,
+    ),
+  ];
 
   static List<RotatingTextData> getHybridNotesInstructionsPrimary({
     bool shouldAdjustToFallbackExitProtocol = false,
@@ -417,22 +433,22 @@ class SessionLists {
     return arr;
   }
 
-  static List<RotatingTextData> get hybridNotesInstructionsSecondary => [
-        RotatingTextData(
-          mainMessage: "Tap to confirm",
-          pauseHere: true,
-          mainMessageFontSize: 19.0,
-        ),
-        RotatingTextData(
-          mainMessage: "Tap to confirm",
-          pauseHere: true,
-          mainMessageFontSize: 19.0,
-        ),
-        RotatingTextData(
-          mainMessage: "",
-          pauseHere: true,
-        ),
-      ];
+  static List<RotatingTextData> hybridNotesInstructionsSecondary = [
+    RotatingTextData(
+      mainMessage: "Tap to confirm",
+      pauseHere: true,
+      mainMessageFontSize: 19.0,
+    ),
+    RotatingTextData(
+      mainMessage: "Tap to confirm",
+      pauseHere: true,
+      mainMessageFontSize: 19.0,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+    ),
+  ];
 
   static List<RotatingTextData> getNotesInstructionsPrimary(
     MirroredTextOrientations orientation, {
@@ -501,33 +517,68 @@ class SessionLists {
     return arr;
   }
 
-  static List<RotatingTextData> get notesPrimary => [
-        RotatingTextData(
-          mainMessage: "Swipe up to submit",
-          pauseHere: true,
-          mainMessageFontSize: 22.0,
-        ),
-      ];
+  static List<RotatingTextData> paywallPrimaryList = [
+    RotatingTextData(
+      mainMessage: "Sessions with more than 3 people require everyone to pay",
+      subMessage: "Tap to confirm",
+      subMessageFontSize: 18.0,
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "Groups with more than 3 people require more commitment",
+      subMessage: "Tap to confirm",
+      subMessageFontSize: 18.0,
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "\$4.99/month",
+      pauseHere: true,
+    ),
+    RotatingTextData(
+      mainMessage: "",
+      pauseHere: true,
+    ),
+  ];
+  static List<RotatingTextData> swipeUpToPay = [
+    RotatingTextData(
+      mainMessage: "Swipe up to pay",
+      pauseHere: true,
+    ),
+  ];
+  static List<RotatingTextData> swipeDownToExit = [
+    RotatingTextData(
+      mainMessage: "Swipe down to exit",
+      pauseHere: true,
+    ),
+  ];
 
-  static List<RotatingTextData> get exitTopText => [
-        RotatingTextData(
-          mainMessage: "Swipe up to Exit",
-          pauseHere: true,
-          mainMessageFontSize: 22.0,
-        ),
-      ];
-  static List<RotatingTextData> get exitBottomText => [
-        RotatingTextData(
-          mainMessage: "Swipe down to continue",
-          pauseHere: true,
-          mainMessageFontSize: 22.0,
-        ),
-      ];
+  static List<RotatingTextData> notesPrimary = [
+    RotatingTextData(
+      mainMessage: "Swipe up to submit",
+      pauseHere: true,
+      mainMessageFontSize: 22.0,
+    ),
+  ];
 
-  static List<RotatingTextData> get exitWaiting => [
-        RotatingTextData(
-          mainMessage: "Waiting",
-          pauseHere: true,
-        ),
-      ];
+  static List<RotatingTextData> exitTopText = [
+    RotatingTextData(
+      mainMessage: "Swipe up to Exit",
+      pauseHere: true,
+      mainMessageFontSize: 22.0,
+    ),
+  ];
+  static List<RotatingTextData> exitBottomText = [
+    RotatingTextData(
+      mainMessage: "Swipe down to continue",
+      pauseHere: true,
+      mainMessageFontSize: 22.0,
+    ),
+  ];
+
+  static List<RotatingTextData> exitWaiting = [
+    RotatingTextData(
+      mainMessage: "Waiting",
+      pauseHere: true,
+    ),
+  ];
 }

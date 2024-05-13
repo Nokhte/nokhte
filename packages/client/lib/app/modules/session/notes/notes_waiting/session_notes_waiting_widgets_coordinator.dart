@@ -7,6 +7,7 @@ import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'session_notes_waiting_widgets_coordinator.g.dart';
 
@@ -33,7 +34,7 @@ abstract class _SessionNotesWaitingWidgetsCoordinatorBase
 
   @action
   constructor(double userPhase) {
-    beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToDrySand);
+    beachWaves.setMovieMode(BeachWaveMovieModes.skyToDrySand);
     if (userPhase.isGreaterThanOrEqualTo(2)) {
       mirroredText.setMessagesData(
         MirroredTextContent.sessionHybridWaiting,
@@ -76,9 +77,9 @@ abstract class _SessionNotesWaitingWidgetsCoordinatorBase
             Seconds.get(1),
             () {
               if (shouldMoveIntoSession) {
-                Modular.to.navigate('/session/notes/');
+                Modular.to.navigate(SessionConstants.notes);
               } else {
-                Modular.to.navigate('/session/notes/instructions');
+                Modular.to.navigate(SessionConstants.notesInstructions);
               }
             },
           );

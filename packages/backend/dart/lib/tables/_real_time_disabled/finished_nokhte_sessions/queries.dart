@@ -17,30 +17,6 @@ class FinishedNokhteSessionQueries {
   FinishedNokhteSessionQueries({required this.supabase})
       : userUID = supabase.auth.currentUser?.id ?? '';
 
-  Future<List> insert({
-    required List collaboratorUIDs,
-    required List sessionContent,
-    required String sessionTimestamp,
-    required String sessionUID,
-  }) async {
-    final checkRes = await supabase
-        .from(TABLE)
-        .select()
-        .eq(COLLABORATOR_UIDS, collaboratorUIDs)
-        .eq(CONTENT, sessionContent);
-    if (checkRes.isNotEmpty) {
-      return checkRes;
-    } else {
-      return await supabase.from(TABLE).insert({
-        COLLABORATOR_UIDS: collaboratorUIDs,
-        CONTENT: sessionContent,
-        SESSION_TIMESTAMP: sessionTimestamp,
-        ALIASES: List.filled(collaboratorUIDs.length, ""),
-        SESSION_UID: sessionUID
-      }).select();
-    }
-  }
-
   Future<List> select() async =>
       await supabase.from(TABLE).select().order('session_timestamp');
 

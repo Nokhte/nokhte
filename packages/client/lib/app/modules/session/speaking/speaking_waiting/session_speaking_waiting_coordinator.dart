@@ -14,13 +14,13 @@ abstract class _SessionSpeakingWaitingCoordinatorBase extends BaseCoordinator
     with Store {
   final SessionSpeakingWaitingWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
-  final GetSessionMetadataStore sessionMetadata;
+  final ListenToSessionMetadataStore sessionMetadata;
 
   _SessionSpeakingWaitingCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
     required this.presence,
-  }) : sessionMetadata = presence.getSessionMetadataStore;
+  }) : sessionMetadata = presence.listenToSessionMetadataStore;
 
   @action
   constructor() async {
@@ -73,7 +73,7 @@ abstract class _SessionSpeakingWaitingCoordinatorBase extends BaseCoordinator
 
   updateCurrentPhase() async {
     Timer.periodic(Seconds.get(0, milli: 500), (timer) async {
-      if (presence.getSessionMetadataStore.userPhase != 2.0) {
+      if (sessionMetadata.userPhase != 2.0) {
         await presence.updateCurrentPhase(2.0);
       } else {
         timer.cancel();

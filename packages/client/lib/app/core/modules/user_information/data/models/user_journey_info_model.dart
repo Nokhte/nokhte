@@ -4,7 +4,6 @@ class UserJourneyInfoModel extends UserJourneyInfoEntity {
   const UserJourneyInfoModel({
     required super.hasGoneThroughInvitationFlow,
     required super.hasSentAnInvitation,
-    required super.wantsToRepeatInvitationFlow,
     required super.userUID,
     required super.hasCompletedNoktheSession,
     required super.hasEnteredStorage,
@@ -18,7 +17,6 @@ class UserJourneyInfoModel extends UserJourneyInfoEntity {
       return const UserJourneyInfoModel(
           hasGoneThroughInvitationFlow: false,
           hasSentAnInvitation: false,
-          wantsToRepeatInvitationFlow: false,
           hasEnteredStorage: false,
           userUID: "",
           hasCompletedNoktheSession: false);
@@ -28,8 +26,6 @@ class UserJourneyInfoModel extends UserJourneyInfoEntity {
         hasGoneThroughInvitationFlow:
             userNamesRes.first['has_gone_through_invitation_flow'],
         hasSentAnInvitation: userNamesRes.first['has_sent_an_invitation'],
-        wantsToRepeatInvitationFlow:
-            userNamesRes.first['wants_to_repeat_invitation_flow'],
         hasCompletedNoktheSession:
             hasCompletedNokhteSession(finishedNokhteSessionsRes),
         hasEnteredStorage: userNamesRes.first['has_entered_storage'],

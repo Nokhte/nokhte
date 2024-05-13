@@ -9,6 +9,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'session_speaking_instructions_widgets_coordinator.g.dart';
 
@@ -37,7 +38,7 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
 
   @action
   constructor() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
+    beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
     beachWaves.currentStore.initMovie(NoParams());
     mirroredText.setMessagesData(
       MirroredTextContent.sessionSpeakingInstructions,
@@ -188,7 +189,7 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
           gradient: beachWaves.currentColorsAndStops,
           duration: const Duration(seconds: 2),
         );
-        beachWaves.setMovieMode(BeachWaveMovieModes.anyToVibrantBlueGrad);
+        beachWaves.setMovieMode(BeachWaveMovieModes.anyToSky);
         beachWaves.currentStore.initMovie(params);
       } else if (holdPosition == GesturePlacement.bottomHalf &&
           !bottomHalfIsDone) {
@@ -210,7 +211,7 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
       abortTheTextRotation = true;
       borderGlow.initGlowDown();
       holdTimerIndicator.onLetGo();
-      beachWaves.setMovieMode(BeachWaveMovieModes.dynamicPointToHalfAndHalf);
+      beachWaves.setMovieMode(BeachWaveMovieModes.anyToHalfAndHalf);
       beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
       if (!bottomHalfIsDone) {
         mirroredText.setWidgetVisibility(false);
@@ -252,7 +253,7 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
     if (index == 11) {
       Timer(
         Seconds.get(1),
-        () => Modular.to.navigate('/session/speaking/'),
+        () => Modular.to.navigate(SessionConstants.speaking),
       );
       return;
     }
@@ -319,15 +320,13 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
   beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          if (beachWaves.movieMode ==
-              BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf) {
+          if (beachWaves.movieMode == BeachWaveMovieModes.skyToHalfAndHalf) {
             if (!topHalfIsDone) {
               mirroredText.startRotatingRightSideUp();
               cooldownStopwatch.start();
               disableTouchInput = false;
             }
-          } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.anyToVibrantBlueGrad) {
+          } else if (beachWaves.movieMode == BeachWaveMovieModes.anyToSky) {
             if (!phoneIsPickedUp) {
               borderGlow.initMovie(NoParams());
               holdTimerIndicator.initMovie(GesturePlacement.topHalf);
@@ -339,7 +338,7 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
               holdTimerIndicator.initMovie(GesturePlacement.bottomHalf);
             }
           } else if (beachWaves.movieMode ==
-              BeachWaveMovieModes.dynamicPointToHalfAndHalf) {
+              BeachWaveMovieModes.anyToHalfAndHalf) {
             if (!bottomHalfIsDone) {
               mirroredText.prepForSplitScreen();
               Timer.periodic(Seconds.get(0, milli: 550), (timer) {
@@ -377,7 +376,7 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
                 });
               }
             } else if (bottomHalfIsDone && topHalfIsDone) {
-              Modular.to.navigate("/session/speaking/waiting");
+              Modular.to.navigate(SessionConstants.speakingWaiting);
             }
           }
         }

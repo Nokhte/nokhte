@@ -5,6 +5,7 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'session_hybrid_waiting_widgets_coordinator.g.dart';
 
@@ -67,9 +68,9 @@ abstract class _SessionHybridWaitingWidgetsCoordinatorBase
             Seconds.get(1),
             () {
               if (shouldMoveIntoSession) {
-                Modular.to.navigate('/session/hybrid/');
+                Modular.to.navigate(SessionConstants.hybrid);
               } else {
-                Modular.to.navigate('/session/hybrid/notes_instructions');
+                Modular.to.navigate(SessionConstants.hybridNotesInstructions);
               }
             },
           );

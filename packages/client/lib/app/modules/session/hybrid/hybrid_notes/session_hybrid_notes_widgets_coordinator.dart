@@ -6,6 +6,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 part 'session_hybrid_notes_widgets_coordinator.g.dart';
 
 class SessionHybridNotesWidgetsCoordinator = _SessionHybridNotesWidgetsCoordinatorBase
@@ -50,7 +51,7 @@ abstract class _SessionHybridNotesWidgetsCoordinatorBase
     smartText.setMessagesData(SessionLists.notesPrimary);
     smartText.setWidgetVisibility(false);
     smartText.startRotatingText();
-    beachWaves.setMovieMode(BeachWaveMovieModes.vibrantBlueGradToHalfAndHalf);
+    beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
     textEditor.initFadeIn();
     textEditor.focusNode.addListener(() {
       inactivityCount++;
@@ -78,7 +79,7 @@ abstract class _SessionHybridNotesWidgetsCoordinatorBase
     smartText.setWidgetVisibility(false);
     textEditor.setWidgetVisibility(false);
     beachWaves.setMovieMode(
-      BeachWaveMovieModes.vibrantBlueGradToInvertedHalfAndHalf,
+      BeachWaveMovieModes.skyToInvertedHalfAndHalf,
     );
     beachWaves.currentStore.initMovie(NoParams());
 
@@ -113,8 +114,8 @@ abstract class _SessionHybridNotesWidgetsCoordinatorBase
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&
             beachWaves.movieMode ==
-                BeachWaveMovieModes.vibrantBlueGradToInvertedHalfAndHalf) {
-          Modular.to.navigate('/session/hybrid/');
+                BeachWaveMovieModes.skyToInvertedHalfAndHalf) {
+          Modular.to.navigate(SessionConstants.hybrid);
         }
       });
 }

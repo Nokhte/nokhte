@@ -11,17 +11,28 @@ class SessionStartersContractImpl
   final SessionStartersRemoteSource remoteSource;
   final NetworkInfo networkInfo;
 
-  SessionStartersContractImpl(
-      {required this.remoteSource, required this.networkInfo});
+  SessionStartersContractImpl({
+    required this.remoteSource,
+    required this.networkInfo,
+  });
 
   @override
-  cancelNokhteSessionSearchStream(NoParams params) =>
-      remoteSource.cancelNokhteSessionSearchStream();
+  cancelSessionActivationStream(NoParams params) async =>
+      remoteSource.cancelSessionActivationStream();
 
   @override
-  enterTheCollaboratorPool(collaboratorUID) async {
+  listenToSessionActivationStatus(NoParams params) async {
     if (await networkInfo.isConnected) {
-      final res = await remoteSource.enterThePool(collaboratorUID);
+      return Right(remoteSource.listenToSessionActivationStatus());
+    } else {
+      return Left(FailureConstants.internetConnectionFailure);
+    }
+  }
+
+  @override
+  initializeSession(NoParams param) async {
+    if (await networkInfo.isConnected) {
+      final res = await remoteSource.initializeSession();
       return fromFunctionResponse(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
@@ -29,9 +40,9 @@ class SessionStartersContractImpl
   }
 
   @override
-  exitCollaboratorPool(NoParams params) async {
+  joinSession(String leaderUID) async {
     if (await networkInfo.isConnected) {
-      final res = await remoteSource.exitThePool();
+      final res = await remoteSource.joinSession(leaderUID);
       return fromFunctionResponse(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
@@ -39,11 +50,13 @@ class SessionStartersContractImpl
   }
 
   @override
-  getNokhteSessionSearchStatus(params) async {
+  nukeSession(param) async {
     if (await networkInfo.isConnected) {
-      return Right(remoteSource.getNokhteSessionSearchStatus());
+      final res = await remoteSource.nukeSession();
+      return fromFunctionResponse(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
+    //
   }
 }

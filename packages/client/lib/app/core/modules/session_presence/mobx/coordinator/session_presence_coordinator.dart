@@ -14,7 +14,7 @@ abstract class _SessionPresenceCoordinatorBase extends BaseMobxDBStore
   final UpdateOnlineStatus updateOnlineStatusLogic;
   final UpdateCurrentPhase updateCurrentPhaseLogic;
   final CancelSessionMetadataStream cancelSessionMetadataStreamLogic;
-  final GetSessionMetadataStore getSessionMetadataStore;
+  final ListenToSessionMetadataStore listenToSessionMetadataStore;
   final CollaboratorPresenceIncidentsOverlayStore incidentsOverlayStore;
   final AddContent addContentLogic;
   final CompleteTheSession completeTheSessionLogic;
@@ -27,13 +27,13 @@ abstract class _SessionPresenceCoordinatorBase extends BaseMobxDBStore
     required this.updateWhoIsTalkingLogic,
     required this.updateCurrentPhaseLogic,
     required this.updateOnlineStatusLogic,
-    required this.getSessionMetadataStore,
+    required this.listenToSessionMetadataStore,
     required this.addContentLogic,
     required this.startTheSessionLogic,
     required this.completeTheSessionLogic,
     required this.updateHasGyroscopeLogic,
   }) : incidentsOverlayStore = CollaboratorPresenceIncidentsOverlayStore(
-          sessionMetadataStore: getSessionMetadataStore,
+          sessionMetadataStore: listenToSessionMetadataStore,
         );
 
   @observable
@@ -76,14 +76,14 @@ abstract class _SessionPresenceCoordinatorBase extends BaseMobxDBStore
   dispose() async {
     state = StoreState.loading;
     final res = cancelSessionMetadataStreamLogic(NoParams());
-    await getSessionMetadataStore.dispose();
+    await listenToSessionMetadataStore.dispose();
     isListening = res;
   }
 
   @action
   listen() {
     state = StoreState.loading;
-    getSessionMetadataStore.get(NoParams());
+    listenToSessionMetadataStore.get(NoParams());
   }
 
   @action

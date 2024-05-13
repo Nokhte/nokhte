@@ -1,6 +1,6 @@
 import 'package:nokhte/app/modules/storage/storage.dart';
 import 'package:nokhte_backend/tables/finished_nokhte_sessions.dart';
-import 'package:nokhte_backend/tables/user_names.dart';
+import 'package:nokhte_backend/tables/user_information.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class StorageRemoteSource {
@@ -13,11 +13,11 @@ abstract class StorageRemoteSource {
 class StorageRemoteSourceImpl implements StorageRemoteSource {
   final SupabaseClient supabase;
   final FinishedNokhteSessionQueries finishedNokhteSessionQueries;
-  final UserNamesQueries userNamesQueries;
+  final UserInformationQueries userNamesQueries;
   StorageRemoteSourceImpl({required this.supabase})
       : finishedNokhteSessionQueries =
             FinishedNokhteSessionQueries(supabase: supabase),
-        userNamesQueries = UserNamesQueries(supabase: supabase);
+        userNamesQueries = UserInformationQueries(supabase: supabase);
 
   @override
   getNokhteSessionArtifacts() async =>

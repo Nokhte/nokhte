@@ -1,6 +1,5 @@
 import 'package:nokhte/app/modules/storage/storage.dart';
 import 'package:nokhte_backend/tables/finished_nokhte_sessions.dart';
-import 'package:nokhte_backend/tables/user_names.dart';
 import 'package:intl/intl.dart';
 
 class NokhteSessionArtifactModel extends NokhteSessionArtifactEntity {
@@ -25,7 +24,7 @@ class NokhteSessionArtifactModel extends NokhteSessionArtifactEntity {
     for (var nokhteSession in nokhteSessionRes) {
       for (var collaboratorRow in collaboratorRowsRes) {
         if (nokhteSession[FinishedNokhteSessionQueries.COLLABORATOR_UIDS]
-                .contains(collaboratorRow[UserNamesConstants.UID]) &&
+                .contains(collaboratorRow["uid"]) &&
             nokhteSession[FinishedNokhteSessionQueries.CONTENT].isNotEmpty) {
           String title = '';
           final userIndex =
@@ -36,8 +35,7 @@ class NokhteSessionArtifactModel extends NokhteSessionArtifactEntity {
                   : 1;
           if (nokhteSession[FinishedNokhteSessionQueries.ALIASES][userIndex]
               .isEmpty) {
-            title =
-                'Session with ${collaboratorRow[UserNamesConstants.FIRST_NAME]}';
+            title = 'Session with ${collaboratorRow["first_name"]}';
           } else {
             title =
                 nokhteSession[FinishedNokhteSessionQueries.ALIASES][userIndex];

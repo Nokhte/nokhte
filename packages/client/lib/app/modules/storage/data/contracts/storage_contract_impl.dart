@@ -36,7 +36,7 @@ class StorageContractImpl with ResponseToStatus implements StorageContract {
   updateSessionAlias(UpdateSessionAliasParams params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.updateSessionAlias(params);
-      return Right(fromSupabase(res));
+      return fromSupabase(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
