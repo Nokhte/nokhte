@@ -517,28 +517,34 @@ class SessionLists {
     return arr;
   }
 
-  static List<RotatingTextData> paywallPrimaryList = [
-    RotatingTextData(
-      mainMessage: "Sessions with more than 3 people require everyone to pay",
-      subMessage: "Tap to confirm",
-      subMessageFontSize: 18.0,
-      pauseHere: true,
-    ),
-    RotatingTextData(
-      mainMessage: "Groups with more than 3 people require more commitment",
-      subMessage: "Tap to confirm",
-      subMessageFontSize: 18.0,
-      pauseHere: true,
-    ),
-    RotatingTextData(
-      mainMessage: "\$4.99/month",
-      pauseHere: true,
-    ),
-    RotatingTextData(
-      mainMessage: "",
-      pauseHere: true,
-    ),
-  ];
+  static List<RotatingTextData> paywallPrimaryList({
+    required num price,
+    required String period,
+    required String currencyCode,
+  }) =>
+      [
+        RotatingTextData(
+          mainMessage:
+              "Sessions with more than 3 people require everyone to pay",
+          subMessage: "Tap to confirm",
+          subMessageFontSize: 18.0,
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "Groups with more than 3 people require more commitment",
+          subMessage: "Tap to confirm",
+          subMessageFontSize: 18.0,
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "$currencyCode $price / Month",
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          pauseHere: true,
+        ),
+      ];
   static List<RotatingTextData> swipeUpToPay = [
     RotatingTextData(
       mainMessage: "Swipe up to pay",

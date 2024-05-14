@@ -11,6 +11,7 @@ class FailureConstants {
   static String get genericFailureMsg => "Unexpected Error, Try Again.";
   static String get invalidDeepLinkMsg =>
       "Invalid invitation, try another invitation";
+  static String get cancelledPurchaseFailureMsg => "Cancelled Purchase";
 
   static NetworkConnectionFailure get internetConnectionFailure =>
       const NetworkConnectionFailure(
@@ -31,5 +32,9 @@ class FailureConstants {
   static UserInputFailure get invalidDeepLinkFailure => UserInputFailure(
         message: invalidDeepLinkMsg,
         failureCode: "INVALID_DEEP_LINK",
+      );
+  static UserInputFailure get cancelledPurchaseFailure => UserInputFailure(
+        message: cancelledPurchaseFailureMsg,
+        failureCode: "CANCELLED_PURCHASE",
       );
 }

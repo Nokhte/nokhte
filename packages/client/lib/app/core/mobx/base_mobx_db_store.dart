@@ -18,6 +18,9 @@ abstract class _BaseMobxDBStoreBase<Params, T> extends Equatable with Store {
   @observable
   String errorMessage = "";
 
+  @action
+  setErrorMessage(String msg) => errorMessage = msg;
+
   String mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
       case NetworkConnectionFailure:

@@ -6,6 +6,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/in_app_purchase/in_app_purchase.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/constants/constants.dart';
@@ -42,6 +43,9 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
   bool disableTouchInput = false;
 
   @observable
+  bool productInfoIsReceived = false;
+
+  @observable
   Stopwatch cooldownStopwatch = Stopwatch();
 
   @action
@@ -51,32 +55,46 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
   constructor() {
     cooldownStopwatch.start();
     beachWaves.setMovieMode(BeachWaveMovieModes.borealisToSky);
-    primarySmartText.setMessagesData(SessionLists.paywallPrimaryList);
+    primarySmartText.setMessagesData(SharedLists.empty);
     secondarySmartText.setMessagesData(SessionLists.swipeUpToPay);
     tertiarySmartText.setMessagesData(SessionLists.swipeDownToExit);
-    primarySmartText.startRotatingText();
     setSmartTextBottomPaddingScalar(.15);
   }
 
+  @action
+  onProductInfoReceived(SkuProductEntity product) {
+    primarySmartText.setMessagesData(
+      SessionLists.paywallPrimaryList(
+        currencyCode: product.currencyCode,
+        price: product.price,
+        period: product.period,
+      ),
+    );
+    primarySmartText.startRotatingText();
+    productInfoIsReceived = true;
+  }
+
   onTap(Offset tapPosition) {
-    if (!disableTouchInput) {
-      if (cooldownStopwatch.elapsedMilliseconds.isLessThan(950) &&
-          tapCount != 0) {
-        return;
-      } else {
-        cooldownStopwatch.reset();
-      }
-      if (tapCount.isLessThan(2)) {
-        primarySmartText.startRotatingText(isResuming: true);
-        touchRipple.onTap(tapPosition);
-        tapCount++;
-        if (tapCount == 2) {
-          Timer(Seconds.get(0, milli: 500), () {
-            setSmartTextBottomPaddingScalar(0);
-          });
-          secondarySmartText.startRotatingText();
-          tertiarySmartText.startRotatingText();
-          //
+    if (productInfoIsReceived) {
+      if (!disableTouchInput) {
+        if (cooldownStopwatch.elapsedMilliseconds.isLessThan(950) &&
+            tapCount != 0) {
+          return;
+        } else {
+          cooldownStopwatch.reset();
+        }
+        if (tapCount.isLessThan(2)) {
+          primarySmartText.startRotatingText(isResuming: true);
+          touchRipple.onTap(tapPosition);
+          tapCount++;
+          if (tapCount == 2) {
+            Timer(Seconds.get(0, milli: 500), () {
+              setSmartTextBottomPaddingScalar(0);
+            });
+            secondarySmartText.startRotatingText();
+            tertiarySmartText.startRotatingText();
+            //
+          }
         }
       }
     }

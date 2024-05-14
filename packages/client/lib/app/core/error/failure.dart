@@ -31,6 +31,11 @@ class NetworkConnectionFailure extends Failure {
       {required super.message, required super.failureCode});
 }
 
+class CancelledPurchaseFailure extends Failure {
+  const CancelledPurchaseFailure(
+      {required super.message, required super.failureCode});
+}
+
 class DatabaseFailure extends Failure {
   const DatabaseFailure({required super.message, required super.failureCode});
 }
