@@ -2,6 +2,7 @@
 import { serve } from "std/server";
 import { importJWK, jwtVerify } from "jose";
 import { supabaseAdmin } from "../constants/supabase.ts";
+import { checkIfIsAValidSession } from "../utils/is-a-valid-session.ts";
 
 serve(async (req) => {
   const glassfyPubKey = await fetch(
@@ -19,10 +20,22 @@ serve(async (req) => {
     const { event }: any = payload;
     const { subscriberid } = event;
     const isSubscriptionActive = event["is_subscription_active"];
-    await supabaseAdmin
+    const { data } = await supabaseAdmin
       .from("user_metadata")
       .update({ is_subscribed: isSubscriptionActive })
-      .eq("subscriber_id", subscriberid);
+      .eq("subscriber_id", subscriberid)
+      .select();
+    const userUID = data?.[0]?.["uid"];
+    if (isSubscriptionActive) {
+      const isAValidSession = await checkIfIsAValidSession(userUID);
+      const { data } = await supabaseAdmin
+        .from("active_nokhte_sessions")
+        .update({
+          is_a_valid_session: isAValidSession,
+        })
+        .contains("collaborator_uids", `{${userUID}}`)
+        .select();
+    }
   } catch (e) {
     returnRes = {
       status: 400,
