@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:glassfy_flutter/glassfy_flutter.dart';
@@ -11,10 +13,7 @@ import 'package:flutter/foundation.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
-  final glassfyAPIKey = dotenv.env['GLASSFY_API_KEY'] ?? '';
-  if (glassfyAPIKey.isNotEmpty) {
-    await Glassfy.initialize(glassfyAPIKey);
-  }
+  String glassfyAPIKey = dotenv.env['GLASSFY_PROD_API_KEY'] ?? '';
 
   bool shouldUseTestKey = false;
 
@@ -22,6 +21,12 @@ void main() async {
       kDebugMode) {
     shouldUseTestKey = true;
   }
+
+  if (Platform.isIOS && dotenv.env["APP_ID"] == 'com.nokhte.staging') {
+    glassfyAPIKey = dotenv.env['GLASSFY_STAGING_API_KEY'] ?? '';
+  }
+
+  await Glassfy.initialize(glassfyAPIKey);
 
   await FlutterBranchSdk.init(
     useTestKey: shouldUseTestKey,
