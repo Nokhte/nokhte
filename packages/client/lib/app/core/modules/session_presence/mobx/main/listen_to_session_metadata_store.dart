@@ -42,9 +42,6 @@ abstract class _ListenToSessionMetadataStoreBase
   ObservableList<double> currentPhases = ObservableList.of([]);
 
   @observable
-  bool someoneElseIsTalking = false;
-
-  @observable
   bool isAPremiumSession = false;
 
   @observable
