@@ -31,7 +31,6 @@ serve(async (req) => {
       const currentHaveGyroscopesRes =
         existingNokhteSessionRes?.["have_gyroscopes"];
       currentHaveGyroscopesRes.push(true);
-      const isAValidSession = await checkIfIsAValidSession(userUID);
       const { error } = await supabaseAdmin
         .from("active_nokhte_sessions")
         .update({
@@ -39,6 +38,13 @@ serve(async (req) => {
           is_online: currentIsOnlineArr,
           current_phases: currentPhasesArr,
           have_gyroscopes: currentHaveGyroscopesRes,
+        })
+        .eq("leader_uid", leaderUID)
+        .eq("has_begun", false);
+      const isAValidSession = await checkIfIsAValidSession(userUID);
+      await supabaseAdmin
+        .from("active_nokhte_sessions")
+        .update({
           is_a_valid_session: isAValidSession,
         })
         .eq("leader_uid", leaderUID)
