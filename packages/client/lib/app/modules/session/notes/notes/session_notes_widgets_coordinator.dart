@@ -47,6 +47,15 @@ abstract class _SessionNotesWidgetsCoordinatorBase
     smartText.startRotatingText();
     beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
     textEditor.initFadeIn();
+    textEditor.focusNode.addListener(() {
+      if (!textEditor.focusNode.hasFocus) {
+        if (textEditor.controller.text.length != (0)) {
+          smartText.setWidgetVisibility(true);
+        }
+      } else {
+        smartText.setWidgetVisibility(false);
+      }
+    });
   }
 
   @action
