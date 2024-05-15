@@ -38,7 +38,7 @@ abstract class _SessionPaywallCoordinatorBase
   constructor() async {
     widgets.constructor();
     initReactors();
-    await iap.getSubscriptionInfo();
+    // await iap.getSubscriptionInfo();
     await captureScreen(Screens.nokhteSessionSpeakingInstructions);
     await getUserInfo(NoParams());
   }
@@ -120,8 +120,8 @@ abstract class _SessionPaywallCoordinatorBase
             widgets.onSwipeUp();
             await iap.buySubscription();
           case GestureDirections.down:
-            await presence.completeTheSession();
-          // widgets.onSwipeDown();
+            // await presence.completeTheSession();
+            widgets.onSwipeDown();
           default:
             break;
         }

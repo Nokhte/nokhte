@@ -524,20 +524,27 @@ class SessionLists {
   }) =>
       [
         RotatingTextData(
-          mainMessage:
-              "Sessions with more than 3 people require everyone to pay",
+          mainMessage: "Pairs are free",
           subMessage: "Tap to confirm",
           subMessageFontSize: 18.0,
           pauseHere: true,
         ),
         RotatingTextData(
-          mainMessage: "Groups with more than 3 people require more commitment",
+          mainMessage: "Trios are also free",
           subMessage: "Tap to confirm",
           subMessageFontSize: 18.0,
           pauseHere: true,
         ),
         RotatingTextData(
-          mainMessage: "$currencyCode $price / Month",
+          mainMessage: "Groups larger than 4 require everyone to pay",
+          subMessage: "Tap to confirm",
+          subMessageFontSize: 18.0,
+          pauseHere: true,
+        ),
+        RotatingTextData(
+          mainMessage: "",
+          subMessage: "",
+          subMessageFontSize: 18.0,
           pauseHere: true,
         ),
         RotatingTextData(
@@ -551,9 +558,10 @@ class SessionLists {
       pauseHere: true,
     ),
   ];
-  static List<RotatingTextData> swipeDownToExit = [
+  static List<RotatingTextData> swipeToDecide = [
     RotatingTextData(
-      mainMessage: "Swipe down to exit",
+      mainMessage: "Swipe to decide",
+      mainMessageFontSize: 18.0,
       pauseHere: true,
     ),
   ];

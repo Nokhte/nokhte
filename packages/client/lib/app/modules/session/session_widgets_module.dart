@@ -211,6 +211,7 @@ class SessionWidgetsModule extends Module {
     );
     i.add<SessionPaywallWidgetsCoordinator>(
       () => SessionPaywallWidgetsCoordinator(
+        multiplyingNokhte: MultiplyingNokhteStore(),
         gestureCross: Modular.get<GestureCrossStore>(),
         beachWaves: BeachWavesStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
