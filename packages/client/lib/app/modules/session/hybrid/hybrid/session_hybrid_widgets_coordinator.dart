@@ -35,7 +35,7 @@ abstract class _SessionHybridWidgetsCoordinatorBase
   });
 
   @action
-  constructor() {
+  constructor(bool userCanSpeak) {
     othersAreTalkingTint.setShouldCoverBottom(false);
     beachWaves.setMovieMode(BeachWaveMovieModes.invertedHalfAndHalfToDrySand);
     mirroredText.setMessagesData(MirroredTextContent.hybrid);
@@ -44,6 +44,9 @@ abstract class _SessionHybridWidgetsCoordinatorBase
     smartText.startRotatingText();
     smartText.setWidgetVisibility(false);
     mirroredText.startBothRotatingText();
+    if (!userCanSpeak) {
+      othersAreTalkingTint.initMovie(NoParams());
+    }
     setIsPickingUp(false);
     isGoingToNotes = false;
     initReactors();
@@ -169,6 +172,7 @@ abstract class _SessionHybridWidgetsCoordinatorBase
       BeachWaveMovieModes.skyToInvertedHalfAndHalf,
     );
     beachWaves.currentStore.reverseMovie(NoParams());
+    othersAreTalkingTint.reverseMovie(NoParams());
     //
   }
 
