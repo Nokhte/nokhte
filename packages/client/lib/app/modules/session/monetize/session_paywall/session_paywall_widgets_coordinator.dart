@@ -195,7 +195,6 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
     if (tapCount == 3 &&
         !hasSwiped &&
         multiplyingNokhte.movieStatus == MovieStatus.finished) {
-      print("up being called");
       hasSwiped = true;
       tertiarySmartText.setWidgetVisibility(false);
       multiplyingNokhte.initMovie(
