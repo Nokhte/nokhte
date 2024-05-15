@@ -8,7 +8,6 @@ import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
-import 'package:simple_animations/simple_animations.dart';
 part 'session_hybrid_widgets_coordinator.g.dart';
 
 class SessionHybridWidgetsCoordinator = _SessionHybridWidgetsCoordinatorBase
@@ -21,14 +20,12 @@ abstract class _SessionHybridWidgetsCoordinatorBase
   final BorderGlowStore borderGlow;
   final TouchRippleStore touchRipple;
   final SpeakLessSmileMoreStore speakLessSmileMore;
-  final HalfScreenTintStore speakLessWriteMoreTint;
   final HalfScreenTintStore othersAreTalkingTint;
   final SmartTextStore smartText;
 
   _SessionHybridWidgetsCoordinatorBase({
     required this.othersAreTalkingTint,
     required this.mirroredText,
-    required this.speakLessWriteMoreTint,
     required this.smartText,
     required this.beachWaves,
     required this.borderGlow,
@@ -50,12 +47,6 @@ abstract class _SessionHybridWidgetsCoordinatorBase
     setIsPickingUp(false);
     isGoingToNotes = false;
     initReactors();
-    speakLessWriteMoreTint.setTintColor(Colors.white);
-    Timer(const Duration(minutes: 9), () {
-      if (tapCount == 0) {
-        initSpeakLessWriteMore();
-      }
-    });
   }
 
   @observable
@@ -107,42 +98,15 @@ abstract class _SessionHybridWidgetsCoordinatorBase
   int tapCount = 0;
 
   @action
-  initSpeakLessWriteMore() {
-    smartText.setWidgetVisibility(true);
-    speakLessWriteMoreTint.setControl(Control.playFromStart);
-    mirroredText.setRightsideUpVisibility(false);
-    setSpeakLessWriteMoreVisiblity(true);
-  }
-
-  @action
-  reverseSpeakLessWriteMore() {
-    smartText.setWidgetVisibility(false);
-    speakLessWriteMoreTint.setControl(Control.playReverse);
-    if (!isHolding) {
-      mirroredText.setRightsideUpVisibility(true);
-    }
-    if (collaboratorHasLeft) {
-      mirroredText.setRightsideUpVisibility(false);
-    }
-    setSpeakLessWriteMoreVisiblity(false);
-  }
-
-  @action
   onCollaboratorLeft() {
     mirroredText.setWidgetVisibility(false);
     collaboratorHasLeft = true;
-    if (speakLessWriteMoreIsVisible) {
-      reverseSpeakLessWriteMore();
-    }
   }
 
   @action
   onCollaboratorJoined() {
     mirroredText.setWidgetVisibility(true);
     collaboratorHasLeft = false;
-    if (pastSpeakLessWriteMoreVisiblity) {
-      initSpeakLessWriteMore();
-    }
   }
 
   @action
@@ -156,9 +120,6 @@ abstract class _SessionHybridWidgetsCoordinatorBase
       );
       beachWaves.currentStore.initMovie(NoParams());
       mirroredText.setWidgetVisibility(false);
-      if (speakLessWriteMoreIsVisible) {
-        reverseSpeakLessWriteMore();
-      }
     }
   }
 
@@ -176,10 +137,6 @@ abstract class _SessionHybridWidgetsCoordinatorBase
           initFullScreenNotes();
         }
       }
-    } else {
-      if (hasTappedOnTheBottomHalf) {
-        reverseSpeakLessWriteMore();
-      }
     }
   }
 
@@ -196,9 +153,6 @@ abstract class _SessionHybridWidgetsCoordinatorBase
     canHold = true;
     isHolding = false;
     isLettingGo = false;
-    if (pastSpeakLessWriteMoreVisiblity) {
-      initSpeakLessWriteMore();
-    }
     if (!collaboratorHasLeft) {
       mirroredText.setUpsideDownVisibility(true);
     }
@@ -243,9 +197,6 @@ abstract class _SessionHybridWidgetsCoordinatorBase
     mirroredText.setWidgetVisibility(false);
     beachWaves.setMovieMode(BeachWaveMovieModes.skyToInvertedHalfAndHalf);
     beachWaves.currentStore.reverseMovie(NoParams());
-    if (speakLessWriteMoreIsVisible) {
-      reverseSpeakLessWriteMore();
-    }
   }
 
   @action

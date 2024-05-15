@@ -137,7 +137,6 @@ class SessionWidgetsModule extends Module {
     i.add<SessionHybridWidgetsCoordinator>(
       () => SessionHybridWidgetsCoordinator(
         smartText: SmartTextStore(),
-        speakLessWriteMoreTint: HalfScreenTintStore(),
         othersAreTalkingTint: HalfScreenTintStore(),
         speakLessSmileMore: SpeakLessSmileMoreStore(),
         touchRipple: TouchRippleStore(),
@@ -187,16 +186,6 @@ class SessionWidgetsModule extends Module {
         beachWaves: BeachWavesStore(),
       ),
     );
-    i.add<SessionNotesInactivityWidgetsCoordinator>(
-      () => SessionNotesInactivityWidgetsCoordinator(
-        borderGlow: BorderGlowStore(),
-        mirroredText: Modular.get<MirroredTextStore>(),
-        touchRipple: TouchRippleStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        beachWaves: BeachWavesStore(),
-      ),
-    );
-    //
   }
 
   injectMonetization(i) {

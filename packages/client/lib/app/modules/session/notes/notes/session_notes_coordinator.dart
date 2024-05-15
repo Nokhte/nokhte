@@ -71,12 +71,6 @@ abstract class _SessionNotesCoordinatorBase extends BaseCoordinator with Store {
     userPhaseReactor();
     touchFeedbackStatusReactor();
     collaboratorPhaseReactor();
-    widgets.initBorderGlowReactors(
-      onGlowInitiated: onGlowInitiated,
-      onGlowDown: () {
-        setBlockPhoneTiltReactor(false);
-      },
-    );
   }
 
   @action

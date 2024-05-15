@@ -5,7 +5,6 @@ import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
 export 'notes/notes.dart';
-export 'notes_inactivity/notes_inactivity.dart';
 export 'notes_instructions/notes_instructions.dart';
 export 'notes_waiting/notes_waiting.dart';
 
@@ -35,14 +34,6 @@ class SessionNotesModule extends Module {
           widgets: Modular.get<SessionNotesWidgetsCoordinator>(),
           presence: Modular.get<SessionPresenceCoordinator>(),
           swipe: SwipeDetector()),
-    );
-    i.add<SessionNotesInactivityCoordinator>(
-      () => SessionNotesInactivityCoordinator(
-        tap: TapDetector(),
-        captureScreen: Modular.get<CaptureScreen>(),
-        widgets: Modular.get<SessionNotesInactivityWidgetsCoordinator>(),
-        presence: Modular.get<SessionPresenceCoordinator>(),
-      ),
     );
     i.add<SessionNotesWaitingCoordinator>(
       () => SessionNotesWaitingCoordinator(
@@ -74,12 +65,6 @@ class SessionNotesModule extends Module {
       transition: TransitionType.noTransition,
       child: (context) => SessionNotesInstructionsScreen(
         coordinator: Modular.get<SessionNotesInstructionsCoordinator>(),
-      ),
-    );
-    r.child(
-      SessionConstants.relativeInactivity,
-      child: (context) => SessionNotesInactivityScreen(
-        coordinator: Modular.get<SessionNotesInactivityCoordinator>(),
       ),
     );
   }
