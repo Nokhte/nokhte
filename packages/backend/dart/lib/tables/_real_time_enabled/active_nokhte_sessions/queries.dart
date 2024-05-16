@@ -30,6 +30,86 @@ class ActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
   Future<String> getLeaderUID() async => await _getProperty(LEADER_UID);
   Future<bool> getHasBegun() async => await _getProperty(HAS_BEGUN);
 
+  Future<List> updateOnlineStatus(bool isOnlineParam) async {
+    await computeCollaboratorInformation();
+    final currentOnlineStatus = await getWhoIsOnline();
+    currentOnlineStatus[userIndex] = isOnlineParam;
+    return await _onCurrentActiveNokhteSession(supabase.from(TABLE).update({
+      IS_ONLINE: currentOnlineStatus,
+    }));
+  }
+
+  Future<List> startTheSession() async {
+    await computeCollaboratorInformation();
+    return await _onCurrentActiveNokhteSession(
+      supabase.from(TABLE).update({
+        HAS_BEGUN: true,
+      }),
+    );
+  }
+
+  Future<List> updateCurrentPhases(double newPhase) async {
+    await computeCollaboratorInformation();
+    await supabase.rpc('update_nokhte_session_phase', params: {
+      'incoming_uids': collaboratorUIDs,
+      'index_to_edit': userIndex,
+      'new_value': newPhase,
+    });
+    return [];
+  }
+
+  addContent(String content) async {
+    await computeCollaboratorInformation();
+    final currentContent = await getContent();
+    currentContent.add(content);
+    return await _onCurrentActiveNokhteSession(
+      supabase.from(TABLE).update({
+        CONTENT: currentContent,
+      }),
+    );
+  }
+
+  Future<List> updateSpeakerSpotlight({
+    required bool addUserToSpotlight,
+  }) async {
+    await computeCollaboratorInformation();
+    final currentSpotlightSpeaker = await getSpeakerSpotlight();
+    if (addUserToSpotlight) {
+      if (currentSpotlightSpeaker == null) {
+        return await _onCurrentActiveNokhteSession(
+          supabase.from(TABLE).update({
+            SPEAKER_SPOTLIGHT: userUID,
+          }),
+        );
+      } else {
+        return [];
+      }
+    } else {
+      if (currentSpotlightSpeaker == userUID) {
+        return await _onCurrentActiveNokhteSession(
+          supabase.from(TABLE).update({
+            SPEAKER_SPOTLIGHT: null,
+          }),
+        );
+      } else {
+        return [];
+      }
+    }
+  }
+
+  Future<List> updateHasGyroscope(bool newStatus) async {
+    await computeCollaboratorInformation();
+    final currentHaveGyroscopees = await getHaveGyroscopes();
+    currentHaveGyroscopees[userIndex] = newStatus;
+    return await _onCurrentActiveNokhteSession(
+      supabase.from(TABLE).update(
+        {
+          HAVE_GYROSCOPES: currentHaveGyroscopees,
+        },
+      ),
+    );
+  }
+
   _onCurrentActiveNokhteSession(PostgrestFilterBuilder query) async {
     await computeCollaboratorInformation();
     if (userIndex != -1) {

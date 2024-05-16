@@ -24,17 +24,6 @@ class ActiveNokhteSessionEdgeFunctions with ActiveNokhteSessionsConstants {
     }
   }
 
-  Future<FunctionResponse> addContent(String newContent) async {
-    await computeCollaboratorInformation();
-    return await supabase.functions.invoke(
-      'nokhte-session-add-content',
-      body: {
-        'newContent': newContent,
-        'collaboratorUIDs': formattedCollaboratorUIDs,
-      },
-    );
-  }
-
   Future<FunctionResponse> initializeSession() async =>
       await supabase.functions.invoke(
         'nokhte-session-initialize-or-nuke',
@@ -61,64 +50,6 @@ class ActiveNokhteSessionEdgeFunctions with ActiveNokhteSessionsConstants {
           "shouldInitialize": false,
         },
       );
-
-  Future<FunctionResponse> updateOnlineStatus(bool isOnline) async {
-    await computeCollaboratorInformation();
-    return await supabase.functions.invoke(
-      'nokhte-session-update-has-gyroscope-or-online-status',
-      body: {
-        'newStatus': isOnline,
-        'collaboratorUIDs': formattedCollaboratorUIDs,
-        'userIndex': userIndex,
-        'shouldUpdateOnlineStatus': true,
-      },
-    );
-  }
-
-  Future<FunctionResponse> updateHasGyroscope(bool hasGryoscope) async {
-    await computeCollaboratorInformation();
-    return await supabase.functions.invoke(
-      'nokhte-session-update-has-gyroscope-or-online-status',
-      body: {
-        'newStatus': hasGryoscope,
-        'collaboratorUIDs': formattedCollaboratorUIDs,
-        'userIndex': userIndex,
-        'shouldUpdateOnlineStatus': false,
-      },
-    );
-  }
-
-  Future<FunctionResponse> updateSpeakerSpotlight({
-    required bool addUserToSpotlight,
-  }) async {
-    await computeCollaboratorInformation();
-    return await supabase.functions.invoke(
-      'nokhte-session-update-speaker-spotlight',
-      body: {
-        'addUserToSpotlight': addUserToSpotlight,
-        'collaboratorUIDs': formattedCollaboratorUIDs,
-        'userUID': userUID
-      },
-    );
-  }
-
-  Future<FunctionResponse> updateCurrentPhases(double newPhase) async {
-    await computeCollaboratorInformation();
-    return await supabase.functions
-        .invoke('nokhte-session-update-current-phase', body: {
-      'newPhase': newPhase,
-      'collaboratorUIDs': formattedCollaboratorUIDs,
-      'userIndex': userIndex,
-    });
-  }
-
-  Future<FunctionResponse> startTheSession() async {
-    await computeCollaboratorInformation();
-    return await supabase.functions
-        .invoke('nokhte-session-start-the-session', body: {
-      'collaboratorUIDs': formattedCollaboratorUIDs,
-    });
-  }
 
   Future<FunctionResponse> completeTheSession() async {
     await computeCollaboratorInformation();
