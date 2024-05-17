@@ -3,16 +3,15 @@ import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class SessionPresenceRemoteSource {
-  Future<FunctionResponse> updateOnlineStatus(
-      UpdatePresencePropertyParams params);
-  Future<FunctionResponse> setUserAsCurrentTalker();
-  Future<FunctionResponse> clearTheCurrentTalker();
-  Future<FunctionResponse> updateCurrentPhase(double params);
+  Future<List> updateOnlineStatus(UpdatePresencePropertyParams params);
+  Future<List> setUserAsCurrentTalker();
+  Future<List> clearTheCurrentTalker();
+  Future<List> updateCurrentPhase(double params);
   Stream<NokhteSessionMetadata> listenToSessionMetadata();
   bool cancelSessionMetadataStream();
   Future<FunctionResponse> addContent(String content);
   Future<FunctionResponse> completeTheSession();
-  Future<FunctionResponse> updateHasGyroscope(bool hasGyroscope);
+  Future<List> updateHasGyroscope(bool hasGyroscope);
   Future<FunctionResponse> startTheSession();
 }
 

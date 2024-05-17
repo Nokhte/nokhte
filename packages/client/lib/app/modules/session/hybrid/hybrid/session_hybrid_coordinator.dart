@@ -37,7 +37,7 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
 
   @action
   constructor() async {
-    widgets.constructor();
+    widgets.constructor(sessionMetadata.userCanSpeak);
     initReactors(sessionMetadata.shouldAdjustToFallbackExitProtocol);
     gyroscopic.listen(NoParams());
     setBlockPhoneTiltReactor(false);

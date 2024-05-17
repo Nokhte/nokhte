@@ -35,9 +35,7 @@ abstract class _UserMetadataCoordinatorBase
       state = StoreState.initial;
     }, (metadataEntity) {
       hasUsedTrial = metadataEntity.hasUsedTrial;
-      print("hasUsedTrial is $hasUsedTrial");
       isSubscribed = metadataEntity.isSubscribed;
-      print("isSubscribed is $isSubscribed");
     });
     state = StoreState.loaded;
   }

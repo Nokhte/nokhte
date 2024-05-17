@@ -34,18 +34,6 @@ abstract class _SessionNotesWidgetsCoordinatorBase
   @observable
   bool canSwipeUp = true;
 
-  @observable
-  int activityCount = 0;
-
-  @observable
-  int baseComparisonActivityCount = 0;
-
-  @observable
-  Timer inActivityCron = Timer(Duration.zero, () {});
-
-  @observable
-  int inactivityCount = 0;
-
   @action
   setCanSwipeUp(bool newVal) => canSwipeUp = newVal;
 
@@ -59,17 +47,10 @@ abstract class _SessionNotesWidgetsCoordinatorBase
     smartText.startRotatingText();
     beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
     textEditor.initFadeIn();
-  }
-
-  initBorderGlowReactors(
-      {required Function onGlowInitiated, required Function onGlowDown}) {
     textEditor.focusNode.addListener(() {
-      inactivityCount++;
       if (!textEditor.focusNode.hasFocus) {
         if (textEditor.controller.text.length != (0)) {
           smartText.setWidgetVisibility(true);
-        } else {
-          smartText.setWidgetVisibility(false);
         }
       } else {
         smartText.setWidgetVisibility(false);
@@ -80,7 +61,6 @@ abstract class _SessionNotesWidgetsCoordinatorBase
   @action
   onSwipeUp(Function(String) onSwipeUp, Function onGlowInitiated) async {
     if (canSwipeUp) {
-      inactivityCount++;
       if (textEditor.controller.text.isNotEmpty &&
           textEditor.controller.text != lastSubmittedText) {
         lastSubmittedText = textEditor.controller.text;

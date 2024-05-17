@@ -2,12 +2,12 @@ import { serve } from "std/server";
 import { supabaseAdmin } from "../constants/supabase.ts";
 
 serve(async (req) => {
-  const { userUID, shouldInitialize } = await req.json();
+  const { userUID, shouldInitialize, shouldStart } = await req.json();
   let returnRes = {
     status: 200,
     message: shouldInitialize ? "successful initialization" : "successful nuke",
   };
-  if (shouldInitialize) {
+  if (shouldInitialize && !shouldStart) {
     const { error } = await supabaseAdmin
       .from("active_nokhte_sessions")
       .insert({
@@ -19,6 +19,20 @@ serve(async (req) => {
       returnRes = {
         status: 400,
         message: "initialization failed",
+      };
+    }
+  } else if (shouldStart) {
+    const { error } = await supabaseAdmin
+      .from("active_nokhte_sessions")
+      .update({
+        has_begun: true,
+      })
+      .eq("leader_uid", userUID)
+      .select();
+    if (error != null) {
+      returnRes = {
+        status: 400,
+        message: "Session start failed",
       };
     }
   } else {

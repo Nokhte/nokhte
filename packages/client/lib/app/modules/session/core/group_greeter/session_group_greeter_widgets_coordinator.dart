@@ -93,7 +93,6 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
       if (tapCount == 1) {
         cooldownStopwatch.reset();
         touchRipple.onTap(tapPosition);
-        sessionSeatingGuide.setWidgetVisibility(false);
         primarySmartText.startRotatingText(isResuming: true);
         secondarySmartText.startRotatingText(isResuming: true);
         tapCount++;
@@ -102,6 +101,7 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
         primarySmartText.startRotatingText(isResuming: true);
         secondarySmartText.startRotatingText(isResuming: true);
         cooldownStopwatch.stop();
+        sessionSeatingGuide.setWidgetVisibility(false);
         tapCount++;
         await onFinalTap();
       }
