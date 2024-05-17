@@ -39,15 +39,6 @@ class ActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
     }));
   }
 
-  Future<List> startTheSession() async {
-    await computeCollaboratorInformation();
-    return await _onCurrentActiveNokhteSession(
-      supabase.from(TABLE).update({
-        HAS_BEGUN: true,
-      }),
-    );
-  }
-
   Future<List> updateCurrentPhases(double newPhase) async {
     await computeCollaboratorInformation();
     await supabase.rpc('update_nokhte_session_phase', params: {

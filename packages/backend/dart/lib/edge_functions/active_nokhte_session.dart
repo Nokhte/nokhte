@@ -24,12 +24,23 @@ class ActiveNokhteSessionEdgeFunctions with ActiveNokhteSessionsConstants {
     }
   }
 
+  Future<FunctionResponse> startTheSession() async =>
+      await supabase.functions.invoke(
+        'nokhte-session-init-or-nuke-or-start',
+        body: {
+          "userUID": userUID,
+          "shouldInitialize": false,
+          "shouldStart": true,
+        },
+      );
+
   Future<FunctionResponse> initializeSession() async =>
       await supabase.functions.invoke(
-        'nokhte-session-initialize-or-nuke',
+        'nokhte-session-init-or-nuke-or-start',
         body: {
           "userUID": userUID,
           "shouldInitialize": true,
+          "shouldStart": false,
         },
       );
 
@@ -44,10 +55,11 @@ class ActiveNokhteSessionEdgeFunctions with ActiveNokhteSessionsConstants {
 
   Future<FunctionResponse> nukeSession() async =>
       await supabase.functions.invoke(
-        'nokhte-session-initialize-or-nuke',
+        'nokhte-session-init-or-nuke-or-start',
         body: {
           "userUID": userUID,
           "shouldInitialize": false,
+          "shouldStart": false,
         },
       );
 
