@@ -21,7 +21,7 @@ class ShowSingleNokhte {
           'rad2',
           Tween<double>(
             begin: 0,
-            end: 29,
+            end: 0.0,
           ),
           curve: Curves.easeInOutCubicEmphasized,
         )

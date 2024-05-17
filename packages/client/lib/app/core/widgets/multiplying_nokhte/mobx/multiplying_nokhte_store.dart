@@ -13,7 +13,7 @@ abstract class _MultiplyingNokhteStoreBase
     extends BaseCustomAnimatedWidgetStore<MultiplyingNokhteMovieParams>
     with Store {
   _MultiplyingNokhteStoreBase() {
-    setMovie(SingleNokhteToPairMovie.getMovie());
+    setMovie(ShowSingleNokhte.getMovie());
   }
 
   @observable
