@@ -102,7 +102,7 @@ class SessionPresenceContractImpl
   startTheSession(params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.startTheSession();
-      return fromSupabase(res);
+      return fromFunctionResponse(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }

@@ -12,7 +12,7 @@ abstract class SessionPresenceRemoteSource {
   Future<FunctionResponse> addContent(String content);
   Future<FunctionResponse> completeTheSession();
   Future<List> updateHasGyroscope(bool hasGyroscope);
-  Future<List> startTheSession();
+  Future<FunctionResponse> startTheSession();
 }
 
 class SessionPresenceRemoteSourceImpl implements SessionPresenceRemoteSource {
