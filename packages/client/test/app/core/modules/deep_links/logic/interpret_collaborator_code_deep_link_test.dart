@@ -14,9 +14,8 @@ void main() {
         final res = tLogic(const InterpretCollaboratorCodeDeepLinkParams(
           collaboratorUID: "userUID",
           userUID: 'userUID',
-          hasGoneThroughInvitationFlow: true,
-          hasSentAnInvitation: true,
-          hasCompletedNoktheSession: false,
+          hasAccessedQrCode: true,
+          hasCompletedASession: false,
           hasEnteredStorage: false,
         ));
         expect(res, const InterpretedDeepLinkEntity());
@@ -26,9 +25,8 @@ void main() {
         final res = tLogic(const InterpretCollaboratorCodeDeepLinkParams(
           collaboratorUID: "collaboratorUID",
           userUID: 'userUID',
-          hasGoneThroughInvitationFlow: true,
-          hasSentAnInvitation: true,
-          hasCompletedNoktheSession: false,
+          hasAccessedQrCode: true,
+          hasCompletedASession: false,
           hasEnteredStorage: false,
         ));
         expect(
@@ -47,9 +45,8 @@ void main() {
       final res = tLogic(const InterpretCollaboratorCodeDeepLinkParams(
           collaboratorUID: "collaboratorUID",
           userUID: 'userUID',
-          hasGoneThroughInvitationFlow: false,
-          hasSentAnInvitation: false,
-          hasCompletedNoktheSession: false,
+          hasAccessedQrCode: false,
+          hasCompletedASession: false,
           hasEnteredStorage: false));
       expect(
           res,

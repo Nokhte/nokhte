@@ -7,25 +7,11 @@ class InterpretCollaboratorCodeDeepLink
         AbstractSyncNoFailureLogic<InterpretedDeepLinkEntity,
             InterpretCollaboratorCodeDeepLinkParams> {
   @override
-  call(params) {
-    if (params.hasGoneThroughInvitationFlow) {
-      if (params.userUID == params.collaboratorUID) {
-        return const InterpretedDeepLinkEntity();
-      } else {
-        return InterpretedDeepLinkEntity(
-            path: "/session_starters/",
-            additionalMetadata: {
-              "hasSentAnInvitation": params.hasSentAnInvitation,
-              "collaboratorUID": params.collaboratorUID,
-            });
-      }
-    } else {
-      return InterpretedDeepLinkEntity(additionalMetadata: {
-        "hasSentAnInvitation": params.hasSentAnInvitation,
-        "collaboratorUID": params.collaboratorUID,
-      });
-    }
-  }
+  call(params) => InterpretedDeepLinkEntity(
+          path: "/session_starters/",
+          additionalMetadata: {
+            "collaboratorUID": params.collaboratorUID,
+          });
 }
 
 class InterpretCollaboratorCodeDeepLinkParams extends UserJourneyInfoEntity {
@@ -34,10 +20,9 @@ class InterpretCollaboratorCodeDeepLinkParams extends UserJourneyInfoEntity {
   const InterpretCollaboratorCodeDeepLinkParams({
     required super.hasEnteredStorage,
     required this.collaboratorUID,
-    required super.hasGoneThroughInvitationFlow,
-    required super.hasSentAnInvitation,
+    required super.hasAccessedQrCode,
     required super.userUID,
-    required super.hasCompletedNoktheSession,
+    required super.hasCompletedASession,
   });
 
   factory InterpretCollaboratorCodeDeepLinkParams.fromUserJourneyInfo(
@@ -47,10 +32,8 @@ class InterpretCollaboratorCodeDeepLinkParams extends UserJourneyInfoEntity {
       InterpretCollaboratorCodeDeepLinkParams(
         hasEnteredStorage: false,
         collaboratorUID: collaboratorUID,
-        hasGoneThroughInvitationFlow:
-            journeyEntity.hasGoneThroughInvitationFlow,
-        hasSentAnInvitation: journeyEntity.hasSentAnInvitation,
+        hasAccessedQrCode: journeyEntity.hasAccessedQrCode,
         userUID: journeyEntity.userUID,
-        hasCompletedNoktheSession: journeyEntity.hasCompletedNoktheSession,
+        hasCompletedASession: journeyEntity.hasCompletedASession,
       );
 }

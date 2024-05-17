@@ -2,10 +2,9 @@ import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 
 class UserJourneyInfoModel extends UserJourneyInfoEntity {
   const UserJourneyInfoModel({
-    required super.hasGoneThroughInvitationFlow,
-    required super.hasSentAnInvitation,
+    required super.hasAccessedQrCode,
     required super.userUID,
-    required super.hasCompletedNoktheSession,
+    required super.hasCompletedASession,
     required super.hasEnteredStorage,
   });
 
@@ -15,18 +14,16 @@ class UserJourneyInfoModel extends UserJourneyInfoEntity {
   }) {
     if (userNamesRes.isEmpty) {
       return const UserJourneyInfoModel(
-          hasGoneThroughInvitationFlow: false,
-          hasSentAnInvitation: false,
-          hasEnteredStorage: false,
-          userUID: "",
-          hasCompletedNoktheSession: false);
+        hasAccessedQrCode: false,
+        hasCompletedASession: false,
+        hasEnteredStorage: false,
+        userUID: "",
+      );
     } else {
       return UserJourneyInfoModel(
         userUID: userNamesRes.first['uid'],
-        hasGoneThroughInvitationFlow:
-            userNamesRes.first['has_gone_through_invitation_flow'],
-        hasSentAnInvitation: userNamesRes.first['has_sent_an_invitation'],
-        hasCompletedNoktheSession:
+        hasAccessedQrCode: userNamesRes.first['has_accessed_qr_code'],
+        hasCompletedASession:
             hasCompletedNokhteSession(finishedNokhteSessionsRes),
         hasEnteredStorage: userNamesRes.first['has_entered_storage'],
       );

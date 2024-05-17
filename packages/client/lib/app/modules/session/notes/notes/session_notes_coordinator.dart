@@ -51,9 +51,7 @@ abstract class _SessionNotesCoordinatorBase extends BaseCoordinator with Store {
     presence.initReactors(
       onCollaboratorJoined: () {
         setDisableAllTouchFeedback(false);
-        widgets.onCollaboratorJoined(() {
-          setBlockPhoneTiltReactor(true);
-        });
+        widgets.onCollaboratorJoined();
       },
       onCollaboratorLeft: () {
         setDisableAllTouchFeedback(true);
@@ -144,7 +142,7 @@ abstract class _SessionNotesCoordinatorBase extends BaseCoordinator with Store {
         switch (p0) {
           case GestureDirections.up:
             ifTouchIsNotDisabled(() {
-              widgets.onSwipeUp(onSwipeUp, onGlowInitiated);
+              widgets.onSwipeUp(onSwipeUp);
             });
           case GestureDirections.down:
             ifTouchIsNotDisabled(() async {
