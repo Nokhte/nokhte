@@ -49,7 +49,7 @@ class ActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
     return [];
   }
 
-  addContent(String content) async {
+  Future<List> addContent(String content) async {
     await computeCollaboratorInformation();
     final currentContent = await getContent();
     currentContent.add(content);

@@ -22,7 +22,7 @@ class SessionPresenceContractImpl
   Future<Either<Failure, bool>> addContent(String params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.addContent(params);
-      return fromFunctionResponse(res);
+      return fromSupabase(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
