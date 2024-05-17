@@ -73,9 +73,6 @@ class SessionPaywallScreen extends HookWidget {
                   size: size,
                   config: GestureCrossConfiguration(),
                 ),
-                CollaboratorPresenceIncidentsOverlay(
-                  store: coordinator.presence.incidentsOverlayStore,
-                ),
                 WifiDisconnectOverlay(
                   store: coordinator.widgets.wifiDisconnectOverlay,
                 ),

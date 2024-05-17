@@ -123,7 +123,6 @@ abstract class _SessionPresenceCoordinatorBase extends BaseMobxDBStore
           speakerSpotlightIsUpdated = gyroscopeUpdateStatus,
     );
   }
-  //build this into the stream as well when you get back
 
   @action
   updateOnlineStatus(UpdatePresencePropertyParams params) async {

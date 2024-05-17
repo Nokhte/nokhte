@@ -1,5 +1,8 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
+import 'dart:io';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -9,6 +12,7 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
+import 'package:nokhte/app/modules/session/constants/constants.dart';
 import 'session_paywall_widgets_coordinator.dart';
 part 'session_paywall_coordinator.g.dart';
 
@@ -38,7 +42,26 @@ abstract class _SessionPaywallCoordinatorBase
   constructor() async {
     widgets.constructor();
     initReactors();
-    // await iap.getSubscriptionInfo();
+    try {
+      await iap.getSubscriptionInfo();
+    } catch (e) {
+      widgets.primarySmartText.setMessagesData(
+        SessionLists.paywallPrimaryList(
+          currencyCode: NumberFormat.simpleCurrency(
+                  name: 'USD', locale: Platform.localeName)
+              .currencySymbol,
+          price: 4.99,
+          period: "Month",
+        ),
+      );
+      widgets.primarySmartText.startRotatingText();
+      widgets.productInfoIsReceived = true;
+      widgets.multiplyingNokhte.initMovie(
+        const MultiplyingNokhteMovieParams(
+          movieMode: MultiplyingNokhteMovieModes.showSingleNokhte,
+        ),
+      );
+    }
     await captureScreen(Screens.nokhteSessionSpeakingInstructions);
     await getUserInfo(NoParams());
   }
@@ -86,16 +109,13 @@ abstract class _SessionPaywallCoordinatorBase
 
   validSessionReactor() =>
       reaction((p0) => sessionMetadata.isAValidSession, (p0) {
-        // init transition back to session
+        Modular.to.navigate(SessionConstants.waitingPatron);
       });
 
   purchaseSuccessReactor() =>
       reaction((p0) => iap.hasPurchasedSubscription, (p0) {
         if (p0) {
-          // you want conditional logic, if it's a valid session
-          // initiate the transition to back to the session
-          // if there are others, then initiate an intermediate screen
-          // you can either route to waiting patron or do something else
+          Modular.to.navigate(SessionConstants.waitingPatron);
         }
       });
 
@@ -120,7 +140,7 @@ abstract class _SessionPaywallCoordinatorBase
             widgets.onSwipeUp();
             await iap.buySubscription();
           case GestureDirections.down:
-            // await presence.completeTheSession();
+            await presence.completeTheSession();
             widgets.onSwipeDown();
           default:
             break;

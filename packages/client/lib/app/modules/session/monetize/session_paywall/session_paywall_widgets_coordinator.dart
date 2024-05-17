@@ -63,38 +63,28 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
     secondarySmartText.setMessagesData(SessionLists.swipeUpToPay);
     tertiarySmartText.setMessagesData(SessionLists.swipeToDecide);
     setSmartTextBottomPaddingScalar(.1);
-
-    primarySmartText.setMessagesData(
-      SessionLists.paywallPrimaryList(
-        currencyCode: NumberFormat.simpleCurrency(
-                name: 'USD', locale: Platform.localeName)
-            .currencySymbol,
-        price: 4.99,
-        period: "Month",
-      ),
-    );
-    primarySmartText.startRotatingText();
-    productInfoIsReceived = true;
-    multiplyingNokhte.initMovie(
-      const MultiplyingNokhteMovieParams(
-        movieMode: MultiplyingNokhteMovieModes.showSingleNokhte,
-      ),
-    );
     multiplyNokhteReactor();
-    // onProductInfoReceived(product)
   }
 
   @action
   onProductInfoReceived(SkuProductEntity product) {
     primarySmartText.setMessagesData(
       SessionLists.paywallPrimaryList(
-        currencyCode: product.currencyCode,
+        currencyCode: NumberFormat.simpleCurrency(
+                name: product.currencyCode, locale: Platform.localeName)
+            .currencySymbol,
         price: product.price,
         period: product.period,
       ),
     );
     primarySmartText.startRotatingText();
     productInfoIsReceived = true;
+    productInfoIsReceived = true;
+    multiplyingNokhte.initMovie(
+      const MultiplyingNokhteMovieParams(
+        movieMode: MultiplyingNokhteMovieModes.showSingleNokhte,
+      ),
+    );
   }
 
   onTap(Offset tapPosition) {
@@ -203,9 +193,6 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
         ),
       );
     }
-    Timer(Seconds.get(4), () {
-      onPaymentFailure();
-    });
   }
 
   onPaymentFailure() {
