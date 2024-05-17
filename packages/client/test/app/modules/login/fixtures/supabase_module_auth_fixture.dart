@@ -155,7 +155,7 @@ class SuccessfulGoogleSignIn extends Fake implements GoTrueClient {
   }
 
   Future<bool> signInWithOAuth(
-    OAuthProvider provider, {
+    Provider provider, {
     String? redirectTo,
     String? scopes,
     LaunchMode authScreenLaunchMode = LaunchMode.externalApplication,
@@ -188,7 +188,7 @@ class FailedGoogleSignIn extends Fake implements GoTrueClient {
   }
 
   Future<bool> signInWithOAuth(
-    OAuthProvider provider, {
+    Provider provider, {
     String? redirectTo,
     String? scopes,
     LaunchMode authScreenLaunchMode = LaunchMode.externalApplication,

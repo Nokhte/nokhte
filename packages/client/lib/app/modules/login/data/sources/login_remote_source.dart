@@ -38,7 +38,7 @@ class LoginRemoteSourceImpl implements LoginRemoteSource {
       bundleID = dotenv.env["ANDROID_APP_ID"] ?? '';
     }
     final res = await supabase.auth.signInWithOAuth(
-      OAuthProvider.google,
+      Provider.google,
       authScreenLaunchMode: LaunchMode.externalApplication,
       scopes: 'email profile openid',
       redirectTo: kIsWeb ? null : '$bundleID://login-callback',
@@ -64,7 +64,7 @@ class LoginRemoteSourceImpl implements LoginRemoteSource {
     final idToken = credential.identityToken ?? '';
 
     final authRes = await supabase.auth.signInWithIdToken(
-      provider: OAuthProvider.apple,
+      provider: Provider.apple,
       idToken: idToken,
       nonce: rawNonce,
     );
