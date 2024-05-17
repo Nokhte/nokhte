@@ -1,12 +1,18 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
+import 'dart:io';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/modules/in_app_purchase/in_app_purchase.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
+import 'package:nokhte/app/modules/session/constants/constants.dart';
 import 'session_paywall_widgets_coordinator.dart';
 part 'session_paywall_coordinator.g.dart';
 
@@ -20,6 +26,7 @@ abstract class _SessionPaywallCoordinatorBase
   final SessionPresenceCoordinator presence;
   final ListenToSessionMetadataStore sessionMetadata;
   final SwipeDetector swipe;
+  final InAppPurchaseCoordinator iap;
 
   _SessionPaywallCoordinatorBase({
     required super.captureScreen,
@@ -27,6 +34,7 @@ abstract class _SessionPaywallCoordinatorBase
     required this.tap,
     required this.presence,
     required this.swipe,
+    required this.iap,
     required super.getUserInfo,
   }) : sessionMetadata = presence.listenToSessionMetadataStore;
 
@@ -34,6 +42,26 @@ abstract class _SessionPaywallCoordinatorBase
   constructor() async {
     widgets.constructor();
     initReactors();
+    try {
+      await iap.getSubscriptionInfo();
+    } catch (e) {
+      widgets.primarySmartText.setMessagesData(
+        SessionLists.paywallPrimaryList(
+          currencyCode: NumberFormat.simpleCurrency(
+                  name: 'USD', locale: Platform.localeName)
+              .currencySymbol,
+          price: 4.99,
+          period: "Month",
+        ),
+      );
+      widgets.primarySmartText.startRotatingText();
+      widgets.productInfoIsReceived = true;
+      widgets.multiplyingNokhte.initMovie(
+        const MultiplyingNokhteMovieParams(
+          movieMode: MultiplyingNokhteMovieModes.showSingleNokhte,
+        ),
+      );
+    }
     await captureScreen(Screens.nokhteSessionSpeakingInstructions);
     await getUserInfo(NoParams());
   }
@@ -54,14 +82,48 @@ abstract class _SessionPaywallCoordinatorBase
     widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
-        // widgets.setDisableTouchInput(false);
+        widgets.setDisableTouchInput(false);
       },
       onDisconnected: () {
-        // widgets.setDisableTouchInput(true);
+        widgets.setDisableTouchInput(true);
       },
     );
     widgets.beachWaveMovieStatusReactor(onReturnHome: onAnimationComplete);
+    subscriptionInfoReactor();
+    purchaseSuccessReactor();
+    purchaseErrorReactor();
+    phaseReactor();
+    validSessionReactor();
   }
+
+  subscriptionInfoReactor() => reaction((p0) => iap.skuProductEntity, (p0) {
+        widgets.onProductInfoReceived(p0);
+      });
+
+  purchaseErrorReactor() => reaction((p0) => iap.errorMessage, (p0) {
+        if (p0 == FailureConstants.cancelledPurchaseFailureMsg) {
+          widgets.onPaymentFailure();
+          iap.setErrorMessage('');
+        }
+      });
+
+  validSessionReactor() =>
+      reaction((p0) => sessionMetadata.isAValidSession, (p0) {
+        Modular.to.navigate(SessionConstants.waitingPatron);
+      });
+
+  purchaseSuccessReactor() =>
+      reaction((p0) => iap.hasPurchasedSubscription, (p0) {
+        if (p0) {
+          Modular.to.navigate(SessionConstants.waitingPatron);
+        }
+      });
+
+  phaseReactor() => reaction((p0) => sessionMetadata.currentPhases, (p0) {
+        if (p0.contains(-1)) {
+          widgets.onSwipeDown();
+        }
+      });
 
   tapReactor() => reaction(
         (p0) => tap.tapCount,
@@ -72,14 +134,13 @@ abstract class _SessionPaywallCoordinatorBase
         ),
       );
 
-  swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
+  swipeReactor() => reaction((p0) => swipe.directionsType, (p0) async {
         switch (p0) {
           case GestureDirections.up:
             widgets.onSwipeUp();
-            Timer(Seconds.get(2), () {
-              widgets.onPaymentFailure();
-            });
+            await iap.buySubscription();
           case GestureDirections.down:
+            await presence.completeTheSession();
             widgets.onSwipeDown();
           default:
             break;
@@ -88,16 +149,16 @@ abstract class _SessionPaywallCoordinatorBase
 
   @action
   onInactive() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
+    // await presence
+    //     .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
   }
 
   @action
   onResumed() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (sessionMetadata.everyoneIsOnline) {
-      presence.incidentsOverlayStore.onCollaboratorJoined();
-    }
+    //   await presence
+    //       .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
+    //   if (sessionMetadata.everyoneIsOnline) {
+    //     presence.incidentsOverlayStore.onCollaboratorJoined();
+    //   }
   }
 }

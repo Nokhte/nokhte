@@ -48,13 +48,16 @@ abstract class _SessionCardStoreBase extends BaseCustomAnimatedWidgetStore
 
   @action
   onDoubleTap(int index) {
-    if (!disableTouchInput) {
-      focusNodes[index].requestFocus();
-    }
+    // if (!disableTouchInput) {
+    //   focusNodes[index].requestFocus();
+    //   setDisableTouchInput(true);
+    // }
   }
 
   @action
-  onEditingComplete() => setIsReadOnly(true);
+  onEditingComplete() {
+    // setIsReadOnly(true);
+  }
 
   @observable
   int lastEditedId = -1;
@@ -75,6 +78,7 @@ abstract class _SessionCardStoreBase extends BaseCustomAnimatedWidgetStore
 
   @action
   onEdit(int id, String title, int index) {
+    // setDisableTouchInput(false);
     lastEditedId = id;
     lastEditedTitle = title;
     focusNodes[index].unfocus();

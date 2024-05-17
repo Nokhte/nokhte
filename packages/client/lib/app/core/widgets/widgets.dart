@@ -10,6 +10,7 @@ export 'half_screen_tint/half_screen_tint.dart';
 export 'hold_timer_indicator/hold_timer_indicator.dart';
 export "jost/jost.dart";
 export 'mirrored_text/mirrored_text.dart';
+export 'multiplying_nokhte/multiplying_nokhte.dart';
 export 'multi_hit_stack/multi_hit_stack.dart';
 export 'nokhte/nokhte.dart';
 export 'nokhte_gradient_text/nokhte_gradient_text.dart';

@@ -39,6 +39,7 @@ class LoginRemoteSourceImpl implements LoginRemoteSource {
     }
     final res = await supabase.auth.signInWithOAuth(
       Provider.google,
+      authScreenLaunchMode: LaunchMode.externalApplication,
       scopes: 'email profile openid',
       redirectTo: kIsWeb ? null : '$bundleID://login-callback',
     );
@@ -78,7 +79,7 @@ class LoginRemoteSourceImpl implements LoginRemoteSource {
 
   @override
   getAuthState() => supabase.auth.onAuthStateChange
-      .map((e) => e.session!.accessToken.isNotEmpty);
+      .map((e) => e.session?.accessToken.isNotEmpty ?? false);
 
   @override
   addName({String theName = ""}) async {

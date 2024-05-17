@@ -32,6 +32,9 @@ abstract class _WaitingPatronCoordinatorBase
   @action
   constructor() async {
     widgets.constructor();
+    if (sessionMetadata.isAValidSession) {
+      widgets.onSessionUnlocked();
+    }
     initReactors();
     await captureScreen(Screens.nokhteSessionSpeakingInstructions);
     await getUserInfo(NoParams());
@@ -58,20 +61,28 @@ abstract class _WaitingPatronCoordinatorBase
       },
     );
     widgets.beachWaveMovieStatusReactor(onReturnHome: onAnimationComplete);
+    validSessionReactor();
   }
+
+  validSessionReactor() =>
+      reaction((p0) => sessionMetadata.isAValidSession, (p0) {
+        if (p0) {
+          widgets.onSessionUnlocked();
+        }
+      });
 
   @action
   onInactive() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
+    // await presence
+    //     .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
   }
 
   @action
   onResumed() async {
-    await presence
-        .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    if (sessionMetadata.everyoneIsOnline) {
-      presence.incidentsOverlayStore.onCollaboratorJoined();
-    }
+    // await presence
+    //     .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
+    // if (sessionMetadata.everyoneIsOnline) {
+    //   presence.incidentsOverlayStore.onCollaboratorJoined();
+    // }
   }
 }

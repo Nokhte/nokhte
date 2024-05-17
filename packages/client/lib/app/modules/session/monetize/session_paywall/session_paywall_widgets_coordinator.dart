@@ -1,11 +1,14 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/in_app_purchase/in_app_purchase.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/constants/constants.dart';
@@ -22,6 +25,7 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
   final BeachWavesStore beachWaves;
   final TouchRippleStore touchRipple;
   final GestureCrossStore gestureCross;
+  final MultiplyingNokhteStore multiplyingNokhte;
   _SessionPaywallWidgetsCoordinatorBase({
     required this.beachWaves,
     required super.wifiDisconnectOverlay,
@@ -30,6 +34,7 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
     required this.secondarySmartText,
     required this.gestureCross,
     required this.tertiarySmartText,
+    required this.multiplyingNokhte,
   });
 
   @observable
@@ -42,6 +47,9 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
   bool disableTouchInput = false;
 
   @observable
+  bool productInfoIsReceived = false;
+
+  @observable
   Stopwatch cooldownStopwatch = Stopwatch();
 
   @action
@@ -51,77 +59,176 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
   constructor() {
     cooldownStopwatch.start();
     beachWaves.setMovieMode(BeachWaveMovieModes.borealisToSky);
-    primarySmartText.setMessagesData(SessionLists.paywallPrimaryList);
+    primarySmartText.setMessagesData(SharedLists.empty);
     secondarySmartText.setMessagesData(SessionLists.swipeUpToPay);
-    tertiarySmartText.setMessagesData(SessionLists.swipeDownToExit);
+    tertiarySmartText.setMessagesData(SessionLists.swipeToDecide);
+    setSmartTextBottomPaddingScalar(.1);
+    multiplyNokhteReactor();
+  }
+
+  @action
+  onProductInfoReceived(SkuProductEntity product) {
+    primarySmartText.setMessagesData(
+      SessionLists.paywallPrimaryList(
+        currencyCode: NumberFormat.simpleCurrency(
+                name: product.currencyCode, locale: Platform.localeName)
+            .currencySymbol,
+        price: product.price,
+        period: product.period,
+      ),
+    );
     primarySmartText.startRotatingText();
-    setSmartTextBottomPaddingScalar(.15);
+    productInfoIsReceived = true;
+    productInfoIsReceived = true;
+    multiplyingNokhte.initMovie(
+      const MultiplyingNokhteMovieParams(
+        movieMode: MultiplyingNokhteMovieModes.showSingleNokhte,
+      ),
+    );
   }
 
   onTap(Offset tapPosition) {
     if (!disableTouchInput) {
-      if (cooldownStopwatch.elapsedMilliseconds.isLessThan(950) &&
-          tapCount != 0) {
-        return;
-      } else {
-        cooldownStopwatch.reset();
-      }
-      if (tapCount.isLessThan(2)) {
-        primarySmartText.startRotatingText(isResuming: true);
-        touchRipple.onTap(tapPosition);
-        tapCount++;
-        if (tapCount == 2) {
-          Timer(Seconds.get(0, milli: 500), () {
-            setSmartTextBottomPaddingScalar(0);
-          });
-          secondarySmartText.startRotatingText();
-          tertiarySmartText.startRotatingText();
-          //
+      if (multiplyingNokhte.movieStatus == MovieStatus.finished) {
+        if (tapCount.isLessThan(3)) {
+          if (tapCount == 0) {
+            multiplyingNokhte.initMovie(
+              const MultiplyingNokhteMovieParams(
+                movieMode: MultiplyingNokhteMovieModes.singleToPair,
+                reverse: true,
+              ),
+            );
+          } else if (tapCount == 1) {
+            multiplyingNokhte.initMovie(
+              const MultiplyingNokhteMovieParams(
+                movieMode: MultiplyingNokhteMovieModes.singleToTrio,
+                reverse: true,
+              ),
+            );
+            // single to quintuple
+          } else if (tapCount == 2) {
+            multiplyingNokhte.initMovie(
+              const MultiplyingNokhteMovieParams(
+                movieMode: MultiplyingNokhteMovieModes.singleToQuintuplet,
+                reverse: true,
+              ),
+            );
+            // single to crossroad
+          }
+          primarySmartText.startRotatingText(isResuming: true);
+          touchRipple.onTap(tapPosition);
+          tapCount++;
+          // if (tapCount == 2) {
+          //   Timer(Seconds.get(0, milli: 500), () {
+          //     setSmartTextBottomPaddingScalar(0);
+          //   });
+          //   secondarySmartText.startRotatingText();
+          //   tertiarySmartText.startRotatingText();
+          //   //
+          // }
         }
       }
     }
   }
 
+  multiplyNokhteReactor() =>
+      reaction((p0) => multiplyingNokhte.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished) {
+          if (multiplyingNokhte.movieMode ==
+              MultiplyingNokhteMovieModes.showSingleNokhte) {
+            multiplyingNokhte.initMovie(
+              const MultiplyingNokhteMovieParams(
+                movieMode: MultiplyingNokhteMovieModes.singleToPair,
+              ),
+            );
+          } else if (multiplyingNokhte.movieMode ==
+                  MultiplyingNokhteMovieModes.singleToPair &&
+              tapCount == 1) {
+            multiplyingNokhte.initMovie(
+              const MultiplyingNokhteMovieParams(
+                movieMode: MultiplyingNokhteMovieModes.singleToTrio,
+              ),
+            );
+          } else if (multiplyingNokhte.movieMode ==
+                  MultiplyingNokhteMovieModes.singleToTrio &&
+              tapCount == 2) {
+            multiplyingNokhte.initMovie(
+              const MultiplyingNokhteMovieParams(
+                movieMode: MultiplyingNokhteMovieModes.singleToQuintuplet,
+              ),
+            );
+          } else if (multiplyingNokhte.movieMode ==
+                  MultiplyingNokhteMovieModes.singleToQuintuplet &&
+              tapCount == 3) {
+            multiplyingNokhte.initMovie(
+              const MultiplyingNokhteMovieParams(
+                movieMode: MultiplyingNokhteMovieModes.singleToCrossroad,
+              ),
+            );
+            multiplyingNokhte.setSymbols(["", "\$", "X", ""]);
+            tertiarySmartText.startRotatingText();
+          } else if (multiplyingNokhte.movieMode ==
+              MultiplyingNokhteMovieModes.chooseCancel) {
+            gestureCross.fadeInTheCross();
+            tertiarySmartText.setWidgetVisibility(false);
+            beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
+            beachWaves.currentStore.initMovie(
+              const AnyToOnShoreParams(
+                startingColors: WaterColorsAndStops.borealis,
+              ),
+            );
+          }
+        }
+      });
+
   onSwipeUp() {
-    if (cooldownStopwatch.elapsedMilliseconds.isLessThan(950)) {
-      return;
-    }
-    if (tapCount == 2 && !hasSwiped) {
+    if (tapCount == 3 &&
+        !hasSwiped &&
+        multiplyingNokhte.movieStatus == MovieStatus.finished) {
       hasSwiped = true;
-      primarySmartText.startRotatingText(isResuming: true);
-      secondarySmartText.setWidgetVisibility(false);
       tertiarySmartText.setWidgetVisibility(false);
+      multiplyingNokhte.initMovie(
+        const MultiplyingNokhteMovieParams(
+          movieMode: MultiplyingNokhteMovieModes.chooseMonetization,
+        ),
+      );
     }
   }
 
   onPaymentFailure() {
-    hasSwiped = false;
-    primarySmartText.setWidgetVisibility(false);
-    Timer(Seconds.get(0, milli: 500), () {
-      primarySmartText.setCurrentIndex(2);
-      primarySmartText.setWidgetVisibility(true);
+    Timer.periodic(Seconds.get(0, milli: 100), (timer) {
+      if (multiplyingNokhte.movieStatus == MovieStatus.finished && hasSwiped) {
+        multiplyingNokhte.initMovie(
+          const MultiplyingNokhteMovieParams(
+            movieMode: MultiplyingNokhteMovieModes.chooseMonetization,
+            reverse: true,
+          ),
+        );
+        Timer(Seconds.get(2), () {
+          hasSwiped = false;
+        });
+        tertiarySmartText.setWidgetVisibility(true);
+        timer.cancel();
+      }
     });
-    secondarySmartText.setWidgetVisibility(true);
-    tertiarySmartText.setWidgetVisibility(true);
   }
 
   onSwipeDown() {
-    if (cooldownStopwatch.elapsedMilliseconds.isLessThan(950)) {
-      return;
-    }
-    if (tapCount == 2 && !hasSwiped) {
-      hasSwiped = true;
-      gestureCross.fadeInTheCross();
-      primarySmartText.startRotatingText(isResuming: true);
-      secondarySmartText.setWidgetVisibility(false);
-      tertiarySmartText.setWidgetVisibility(false);
-      beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
-      beachWaves.currentStore.initMovie(
-        const AnyToOnShoreParams(
-          startingColors: WaterColorsAndStops.borealis,
+    if (tapCount == 3 &&
+        multiplyingNokhte.movieStatus == MovieStatus.finished &&
+        !hasSwiped) {
+      // Timer.periodic(Seconds.get(0, milli: 200), (timer) {
+      multiplyingNokhte.initMovie(
+        const MultiplyingNokhteMovieParams(
+          movieMode: MultiplyingNokhteMovieModes.chooseCancel,
         ),
       );
+      hasSwiped = true;
+      // timer.cancel();
+      // });
     }
+    // primarySmartText.startRotatingText(isResuming: true);
+    // secondarySmartText.setWidgetVisibility(false);
   }
 
   beachWaveMovieStatusReactor({

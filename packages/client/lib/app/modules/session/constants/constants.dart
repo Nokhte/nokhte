@@ -20,8 +20,6 @@ mixin SessionConstants {
 
   static const relativeInstructions = '/instructions';
 
-  static const relativeInactivity = '/inactivity';
-
   static const lobby = '/session/core$relativeLobby';
   static const duoGreeter = '/session/core$relativeDuoGreeter';
   static const groupGreeter = '/session/core$relativeGroupGreeter';
@@ -44,7 +42,6 @@ mixin SessionConstants {
 
   static const notesWaiting = '/session/notes$relativeWaiting';
   static const notesInstructions = '/session/notes$relativeInstructions';
-  static const notesInactivity = '/session/notes$relativeInactivity';
   static const notes = '/session/notes$root';
 
   static const speaking = '/session/speaking$root';

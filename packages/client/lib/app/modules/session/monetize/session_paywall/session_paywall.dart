@@ -43,12 +43,15 @@ class SessionPaywallScreen extends HookWidget {
                     store: coordinator.widgets.beachWaves,
                   ),
                 ),
+                MultiplyingNokhte(
+                  store: coordinator.widgets.multiplyingNokhte,
+                ),
                 SmartText(
                   opacityDuration: Seconds.get(1),
                   store: coordinator.widgets.primarySmartText,
                   bottomPadding:
                       height * coordinator.widgets.smartTextBottomPaddingScalar,
-                  subTextPadding: height * .34,
+                  subTextPadding: height * .2,
                 ),
                 SmartText(
                   opacityDuration: Seconds.get(1),
@@ -69,9 +72,6 @@ class SessionPaywallScreen extends HookWidget {
                   store: coordinator.widgets.gestureCross,
                   size: size,
                   config: GestureCrossConfiguration(),
-                ),
-                CollaboratorPresenceIncidentsOverlay(
-                  store: coordinator.presence.incidentsOverlayStore,
                 ),
                 WifiDisconnectOverlay(
                   store: coordinator.widgets.wifiDisconnectOverlay,
