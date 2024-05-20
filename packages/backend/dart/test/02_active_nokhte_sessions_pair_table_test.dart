@@ -77,9 +77,9 @@ void main() {
     expect(res, null);
   });
 
-  test("getIsAValidSession", () async {
-    final res = await user1Queries.getIsAValidSession();
-    expect(res, true);
+  test("getHasPremiumAccess", () async {
+    final res = await user1Queries.getHasPremiumAccess();
+    expect(res, [false, false]);
   });
 
   test("getCurrentPhases", () async {

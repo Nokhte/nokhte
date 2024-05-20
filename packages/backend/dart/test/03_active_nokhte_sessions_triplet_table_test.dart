@@ -50,9 +50,9 @@ void main() {
     expect(res[0]["leader_uid"], tSetup.firstUserUID);
   });
 
-  test("getIsAValidSession", () async {
-    final res = await user1Queries.getIsAValidSession();
-    expect(res, true);
+  test("getHasPremiumAccess", () async {
+    final res = await user1Queries.getHasPremiumAccess();
+    expect(res, [false, false]);
   });
 
   test("updateOnlineStatus", () async {
