@@ -26,13 +26,8 @@ class UserInformationModule extends Module {
         contract: i<UserInformationContractImpl>(),
       ),
     );
-    i.add<UpdateHasGoneThroughInvitationFlow>(
-      () => UpdateHasGoneThroughInvitationFlow(
-        contract: i<UserInformationContractImpl>(),
-      ),
-    );
-    i.add<UpdateHasSentAnInvitation>(
-      () => UpdateHasSentAnInvitation(
+    i.add<UpdateHasAccessedQrCode>(
+      () => UpdateHasAccessedQrCode(
         contract: i<UserInformationContractImpl>(),
       ),
     );
@@ -50,9 +45,7 @@ class UserInformationModule extends Module {
     i.add<UserInformationCoordinator>(
       () => UserInformationCoordinator(
         getUserInfoStore: i<GetUserInfoStore>(),
-        updateHasGoneThroughInvitationFlowLogic:
-            i<UpdateHasGoneThroughInvitationFlow>(),
-        updateHasSentAnInvitationLogic: i<UpdateHasSentAnInvitation>(),
+        updateHasAccessedQrCodeLogic: i<UpdateHasAccessedQrCode>(),
         updateHasEnteredStorageLogic: i<UpdateHasEnteredStorage>(),
       ),
     );

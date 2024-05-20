@@ -3,9 +3,7 @@ import 'package:nokhte_backend/tables/user_information.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class UserInformationRemoteSource {
-  Future<List> updateHasSentAnInvitation(bool hasSentAnInvitationParam);
-  Future<List> updateHasGoneThroughInvitationFlow(
-      bool hasGoneThroughInvitationFlowParam);
+  Future<List> updateHasAccessedQrCode(bool hasGoneThroughInvitationFlowParam);
   Future<List> getUserInfo();
   Future<List> getFinishedNokhteSessions();
   Future<List> updateHasEnteredStorage(bool newEntryStatus);
@@ -22,15 +20,10 @@ class UserInformationRemoteSourceImpl implements UserInformationRemoteSource {
             FinishedNokhteSessionQueries(supabase: supabase);
 
   @override
-  Future<List> updateHasGoneThroughInvitationFlow(
+  Future<List> updateHasAccessedQrCode(
           bool hasGoneThroughInvitationFlowParam) async =>
-      await userNamesQueries.updateHasGoneThroughInvitationFlow(
-          hasGoneThroughInvitationFlowParam);
-
-  @override
-  Future<List> updateHasSentAnInvitation(bool hasSentAnInvitationParam) async =>
       await userNamesQueries
-          .updateHasSentAnInvitation(hasSentAnInvitationParam);
+          .updateHasAccessedQrCode(hasGoneThroughInvitationFlowParam);
 
   @override
   Future<List> getUserInfo() async => await userNamesQueries.getUserInfo();

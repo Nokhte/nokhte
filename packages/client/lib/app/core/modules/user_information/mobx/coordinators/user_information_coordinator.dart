@@ -10,15 +10,12 @@ class UserInformationCoordinator = _UserInformationCoordinatorBase
 abstract class _UserInformationCoordinatorBase extends BaseMobxDBStore
     with Store {
   final GetUserInfoStore getUserInfoStore;
-  final UpdateHasGoneThroughInvitationFlow
-      updateHasGoneThroughInvitationFlowLogic;
-  final UpdateHasSentAnInvitation updateHasSentAnInvitationLogic;
+  final UpdateHasAccessedQrCode updateHasAccessedQrCodeLogic;
   final UpdateHasEnteredStorage updateHasEnteredStorageLogic;
 
   _UserInformationCoordinatorBase({
     required this.getUserInfoStore,
-    required this.updateHasGoneThroughInvitationFlowLogic,
-    required this.updateHasSentAnInvitationLogic,
+    required this.updateHasAccessedQrCodeLogic,
     required this.updateHasEnteredStorageLogic,
   });
 
@@ -35,20 +32,11 @@ abstract class _UserInformationCoordinatorBase extends BaseMobxDBStore
   bool storageStatusIsUpdated = false;
 
   @action
-  updateHasGoneThroughInvitationFlow(bool newStatus) async {
+  updateHasAccessedQrCode(bool newStatus) async {
     state = StoreState.loading;
-    final res = await updateHasGoneThroughInvitationFlowLogic(newStatus);
+    final res = await updateHasAccessedQrCodeLogic(newStatus);
     res.fold((failure) => errorUpdater(failure),
         (status) => invitationFlowCompletionStatusIsUpdated = status);
-    state = StoreState.loaded;
-  }
-
-  @action
-  updateHasSentAnInvitation(bool newStatus) async {
-    state = StoreState.loading;
-    final res = await updateHasSentAnInvitationLogic(newStatus);
-    res.fold((failure) => errorUpdater(failure),
-        (status) => invitationSendStatusIsUpdated = status);
     state = StoreState.loaded;
   }
 
