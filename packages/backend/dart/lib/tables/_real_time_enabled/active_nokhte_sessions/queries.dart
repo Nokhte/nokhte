@@ -22,7 +22,7 @@ class ActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
   Future<List> getCurrentPhases() async => await _getProperty(CURRENT_PHASES);
   Future<String> getCreatedAt() async => await _getProperty(CREATED_AT);
   Future<int> getMetadataIndex() async => await _getProperty(METADATA_INDEX);
-  Future<bool> getHasPremiumAccess() async =>
+  Future<List> getHasPremiumAccess() async =>
       await _getProperty(HAS_PREMIUM_ACCESS);
   Future<List> getContent() async => await _getProperty(CONTENT);
   Future<List> getHaveGyroscopes() async => await _getProperty(HAVE_GYROSCOPES);

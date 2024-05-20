@@ -8,7 +8,7 @@ class ActiveMonetizationSessionQueries with ActiveMonetizationSessionConstants {
     required this.supabase,
   }) : userUID = supabase.auth.currentUser?.id ?? '';
 
-  Future<List> _select() async => await supabase.from(TABLE).select();
+  Future<List> select() async => await supabase.from(TABLE).select();
 
   Future<List> startSession() async {
     final res = (await supabase.from("active_nokhte_sessions").select());
@@ -34,7 +34,7 @@ class ActiveMonetizationSessionQueries with ActiveMonetizationSessionConstants {
   }
 
   Future<List> updateHasFinishedExplanation() async {
-    final res = await _select();
+    final res = await select();
     if (res.isNotEmpty) {
       final hasFinishedExplanations = res.first[HAVE_FINISHED_EXPLANATIONS];
       final userIndex = res.first[COLLABORATOR_UIDS].indexOf(userUID);
