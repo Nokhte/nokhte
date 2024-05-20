@@ -13,5 +13,5 @@ mixin ActiveNokhteSessionsConstants {
   String SESSION_UID = 'session_uid';
   String LEADER_UID = 'leader_uid';
   String HAS_BEGUN = 'has_begun';
-  String IS_A_VALID_SESSION = 'is_a_valid_session';
+  String HAS_PREMIUM_ACCESS = 'has_premium_access';
 }
