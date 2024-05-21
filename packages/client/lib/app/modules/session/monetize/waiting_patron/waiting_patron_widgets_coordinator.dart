@@ -28,6 +28,9 @@ abstract class _WaitingPatronWidgetsCoordinatorBase
     required this.gestureCross,
   });
 
+  @observable
+  bool isNavigatingAway = false;
+
   @action
   constructor() {
     beachWaves.setMovieMode(BeachWaveMovieModes.borealisToSky);
@@ -35,19 +38,24 @@ abstract class _WaitingPatronWidgetsCoordinatorBase
     setSmartTextBottomPaddingScalar(.15);
     nokhteGradientText.setWidgetVisibility(false);
     Timer(Seconds.get(1), () {
-      nokhteGradientText.setWidgetVisibility(true);
+      if (!isNavigatingAway) {
+        nokhteGradientText.setWidgetVisibility(true);
+      }
     });
   }
 
   onSessionUnlocked() {
+    isNavigatingAway = true;
     beachWaves.currentStore.initMovie(NoParams());
     tint.reverseMovie(NoParams());
     nokhteGradientText.setWidgetVisibility(false);
   }
 
-  onSessionExit() {
+  @action
+  onExit() {
     gestureCross.fadeInTheCross();
     tint.reverseMovie(NoParams());
+    nokhteGradientText.setWidgetVisibility(false);
     beachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
     beachWaves.currentStore.initMovie(
       const AnyToOnShoreParams(
