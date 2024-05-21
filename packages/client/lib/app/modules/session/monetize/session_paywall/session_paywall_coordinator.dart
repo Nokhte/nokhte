@@ -128,16 +128,24 @@ abstract class _SessionPaywallCoordinatorBase
         ),
       );
 
+  @observable
+  bool hasSwipedDown = false;
+
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) async {
-        switch (p0) {
-          case GestureDirections.up:
-            widgets.onSwipeUp(
-              () async => await iap.buySubscription(),
-            );
-          case GestureDirections.down:
-            await cleanUpCollaborationArtifacts(NoParams());
-          default:
-            break;
+        if (activeMonetizationSession.everyoneHasFinishedExplanation) {
+          switch (p0) {
+            case GestureDirections.up:
+              widgets.onSwipeUp(
+                () async => await iap.buySubscription(),
+              );
+            case GestureDirections.down:
+              if (!hasSwipedDown) {
+                await cleanUpCollaborationArtifacts(NoParams());
+                hasSwipedDown = true;
+              }
+            default:
+              break;
+          }
         }
       });
 
