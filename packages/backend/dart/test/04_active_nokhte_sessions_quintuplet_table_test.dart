@@ -84,10 +84,6 @@ void main() {
       expect(res[0]["collaborator_uids"], sortedArr);
       expect(res[0]["leader_uid"], tSetup.firstUserUID);
     });
-    test("getIsAValidSession", () async {
-      final res = await user1Queries.getIsAValidSession();
-      expect(res, true);
-    });
     test("updateOnlineStatus", () async {
       await user1Queries.updateOnlineStatus(false);
       final onlineStatus = await user1Queries.getWhoIsOnline();
@@ -237,11 +233,6 @@ void main() {
       final res = await user2Queries.select();
       expect(res[0]["collaborator_uids"], sortedArr);
       expect(res[0]["leader_uid"], tSetup.firstUserUID);
-    });
-
-    test("getIsAValidSession", () async {
-      final res = await user1Queries.getIsAValidSession();
-      expect(res, false);
     });
 
     test("updateOnlineStatus", () async {

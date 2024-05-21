@@ -41,28 +41,22 @@ abstract class _WaitingPatronCoordinatorBase
   }
 
   initReactors() {
-    presence.initReactors(
-      onCollaboratorJoined: () {
-        // widgets.setDisableTouchInput(false);
-        // widgets.onCollaboratorJoined();
-      },
-      onCollaboratorLeft: () {
-        // widgets.setDisableTouchInput(true);
-        // widgets.onCollaboratorLeft();
-      },
-    );
     widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
-      onLongReConnected: () {
-        // widgets.setDisableTouchInput(false);
-      },
-      onDisconnected: () {
-        // widgets.setDisableTouchInput(true);
-      },
+      onLongReConnected: () {},
+      onDisconnected: () {},
     );
     widgets.beachWaveMovieStatusReactor(onReturnHome: onAnimationComplete);
     validSessionReactor();
+    phaseReactor();
   }
+
+  phaseReactor() => reaction((p0) => sessionMetadata.currentPhases, (p0) async {
+        if (p0.contains(-1)) {
+          await sessionMetadata.dispose();
+          widgets.onExit();
+        }
+      });
 
   validSessionReactor() =>
       reaction((p0) => sessionMetadata.isAValidSession, (p0) {
@@ -72,17 +66,8 @@ abstract class _WaitingPatronCoordinatorBase
       });
 
   @action
-  onInactive() async {
-    // await presence
-    //     .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
-  }
+  onInactive() async {}
 
   @action
-  onResumed() async {
-    // await presence
-    //     .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    // if (sessionMetadata.everyoneIsOnline) {
-    //   presence.incidentsOverlayStore.onCollaboratorJoined();
-    // }
-  }
+  onResumed() async {}
 }

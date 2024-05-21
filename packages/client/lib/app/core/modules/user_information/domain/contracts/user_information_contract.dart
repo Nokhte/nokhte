@@ -5,7 +5,7 @@ import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 abstract class UserInformationContract extends BaseGetUserInfoContract {
   Future<Either<Failure, bool>> updateHasSentAnInvitation(
       bool hasSentAnInvitationParam);
-  Future<Either<Failure, bool>> updateHasGoneThroughInvitationFlow(
+  Future<Either<Failure, bool>> updateHasAccessedQrCode(
       bool hasGoneThroughInvitationFlowParam);
   Future<Either<Failure, bool>> updateHasEnteredStorage(bool newEntryStatus);
 }

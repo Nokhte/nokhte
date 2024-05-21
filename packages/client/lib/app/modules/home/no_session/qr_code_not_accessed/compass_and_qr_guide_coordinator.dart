@@ -68,7 +68,7 @@ abstract class _CompassAndQrGuideCoordinatorBase
           widgets.onTap(
             tap.currentTapPosition,
             onFlowCompleted: () async =>
-                await userInformation.updateHasGoneThroughInvitationFlow(true),
+                await userInformation.updateHasAccessedQrCode(true),
           );
         });
       });

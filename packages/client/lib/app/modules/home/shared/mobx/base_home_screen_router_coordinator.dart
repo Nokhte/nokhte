@@ -33,20 +33,19 @@ abstract class _BaseHomeScreenRouterCoordinatorBase extends BaseCoordinator
   onAnimationComplete() {
     final args = {"resumeOnShoreParams": params};
     if (!getUserInfo.hasDoneASession) {
-      if (!getUserInfo.hasGoneThroughInvitationFlow) {
+      if (!getUserInfo.hasAccessedQrCode) {
         Modular.to.navigate("/home/compass_and_qr_guide", arguments: args);
       } else {
         Modular.to.navigate("/home/qr_navigation_reminder", arguments: args);
       }
     } else if (getUserInfo.hasDoneASession) {
-      if (!getUserInfo.hasEnteredStorage &&
-          getUserInfo.hasGoneThroughInvitationFlow) {
+      if (!getUserInfo.hasEnteredStorage && getUserInfo.hasAccessedQrCode) {
         Modular.to.navigate("/home/storage_guide", arguments: args);
       } else if (!getUserInfo.hasEnteredStorage &&
-          !getUserInfo.hasGoneThroughInvitationFlow) {
+          !getUserInfo.hasAccessedQrCode) {
         Modular.to.navigate("/home/compass_and_storage_guide", arguments: args);
       } else if (getUserInfo.hasEnteredStorage &&
-          !getUserInfo.hasGoneThroughInvitationFlow) {
+          !getUserInfo.hasAccessedQrCode) {
         Modular.to.navigate("/home/short_qr_guide", arguments: args);
       } else {
         Modular.to.navigate("/home/qr_and_storage_adept", arguments: args);

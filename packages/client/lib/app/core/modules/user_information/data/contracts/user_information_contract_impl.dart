@@ -33,11 +33,9 @@ class UserInformationContractImpl
   }
 
   @override
-  updateHasGoneThroughInvitationFlow(
-      bool hasGoneThroughInvitationFlowParam) async {
+  updateHasAccessedQrCode(param) async {
     if (await networkInfo.isConnected) {
-      final res = await remoteSource.updateHasGoneThroughInvitationFlow(
-          hasGoneThroughInvitationFlowParam);
+      final res = await remoteSource.updateHasAccessedQrCode(param);
       return fromSupabase(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
@@ -47,8 +45,8 @@ class UserInformationContractImpl
   @override
   updateHasSentAnInvitation(bool hasSentAnInvitationParam) async {
     if (await networkInfo.isConnected) {
-      final res = await remoteSource
-          .updateHasSentAnInvitation(hasSentAnInvitationParam);
+      final res =
+          await remoteSource.updateHasAccessedQrCode(hasSentAnInvitationParam);
       return fromSupabase(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);

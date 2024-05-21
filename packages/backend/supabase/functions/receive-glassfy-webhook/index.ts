@@ -2,7 +2,6 @@
 import { serve } from "std/server";
 import { importJWK, jwtVerify } from "jose";
 import { supabaseAdmin } from "../constants/supabase.ts";
-import { checkIfIsAValidSession } from "../utils/is-a-valid-session.ts";
 
 serve(async (req) => {
   const glassfyPubKey = await fetch(
@@ -27,11 +26,19 @@ serve(async (req) => {
       .select();
     const userUID = data?.[0]?.["uid"];
     if (isSubscriptionActive) {
-      const isAValidSession = await checkIfIsAValidSession(userUID);
-      const { data } = await supabaseAdmin
+      const res = (
+        await supabaseAdmin
+          .from("active_nokhte_sessions")
+          .select()
+          .contains("collaborator_uids", `{${userUID}}`)
+      )?.data?.[0];
+      const currentHasPremiumAccess = res?.["has_premium_access"];
+      const userIndex = res?.["collaborator_uids"].indexOf(userUID);
+      currentHasPremiumAccess[userIndex] = true;
+      await supabaseAdmin
         .from("active_nokhte_sessions")
         .update({
-          is_a_valid_session: isAValidSession,
+          has_premium_access: currentHasPremiumAccess,
         })
         .contains("collaborator_uids", `{${userUID}}`)
         .select();

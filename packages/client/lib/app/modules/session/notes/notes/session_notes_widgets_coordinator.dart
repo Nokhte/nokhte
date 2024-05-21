@@ -59,7 +59,7 @@ abstract class _SessionNotesWidgetsCoordinatorBase
   }
 
   @action
-  onSwipeUp(Function(String) onSwipeUp, Function onGlowInitiated) async {
+  onSwipeUp(Function(String) onSwipeUp) async {
     if (canSwipeUp) {
       if (textEditor.controller.text.isNotEmpty &&
           textEditor.controller.text != lastSubmittedText) {
@@ -92,7 +92,7 @@ abstract class _SessionNotesWidgetsCoordinatorBase
   }
 
   @action
-  onCollaboratorJoined(Function onGlowInitated) {
+  onCollaboratorJoined() {
     textEditor.setWidgetVisibility(true);
     smartText.setWidgetVisibility(smartText.pastShowWidget);
   }

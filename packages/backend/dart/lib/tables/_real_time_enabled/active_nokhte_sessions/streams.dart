@@ -1,5 +1,5 @@
 // ignore_for_file: constant_identifier_names
-import 'constants/constants.dart';
+import 'constants.dart';
 import 'types/types.dart';
 import 'queries.dart';
 
@@ -68,7 +68,8 @@ class ActiveNokhteSessionsStream extends ActiveNokhteSessionQueries
         );
         final userIndex = orderedCollaboratorUIDs.indexOf(userUID);
         yield NokhteSessionMetadata(
-          isAValidSession: event.first[IS_A_VALID_SESSION],
+          isAValidSession: event.first[HAS_PREMIUM_ACCESS].length < 4 ||
+              event.first[HAS_PREMIUM_ACCESS].every((e) => e == true),
           isAPremiumSession: event.first[COLLABORATOR_UIDS].length > 3,
           userCanSpeak: event.first[SPEAKER_SPOTLIGHT] == null,
           userIsSpeaking: event.first[SPEAKER_SPOTLIGHT] == userUID,

@@ -1,7 +1,5 @@
 export 'session_lobby_coordinator.dart';
 export 'session_lobby_widgets_coordinator.dart';
-
-// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';

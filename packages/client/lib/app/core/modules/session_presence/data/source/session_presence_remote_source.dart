@@ -9,7 +9,7 @@ abstract class SessionPresenceRemoteSource {
   Future<List> updateCurrentPhase(double params);
   Stream<NokhteSessionMetadata> listenToSessionMetadata();
   bool cancelSessionMetadataStream();
-  Future<FunctionResponse> addContent(String content);
+  Future<List> addContent(String content);
   Future<FunctionResponse> completeTheSession();
   Future<List> updateHasGyroscope(bool hasGyroscope);
   Future<FunctionResponse> startTheSession();

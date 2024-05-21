@@ -10,7 +10,7 @@ on:
 jobs:
   deploy:
     name: External Staging Deployment
-    runs-on: ubuntu-latest
+    runs-on: macos-13
     defaults:
       run:
         working-directory: packages/client
@@ -23,17 +23,19 @@ jobs:
       - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.13.9"
+          flutter-version: "3.19.3"
           channel: "stable"
       - uses: bluefireteam/melos-action@v3
       - run: |
             echo "PROD_SUPABASE_URL='$STAGING_SUPABASE_URL'" >> .env
             echo "PROD_SUPABASE_ANON_KEY='$STAGING_SUPABASE_ANON_KEY'" >> .env
+            echo "GLASSFY_STAGING_API_KEY='$GLASSFY_STAGING_API_KEY'" >> .env
             echo "GLASSFY_PROD_API_KEY='$GLASSFY_PROD_API_KEY'" >> .env
         env:
           APP_ID: ${{ secrets.PROD_APP_ID }}
           STAGING_SUPABASE_URL: ${{ secrets.STAGING_SUPABASE_URL }}
           STAGING_SUPABASE_ANON_KEY: ${{ secrets.STAGING_SUPABASE_ANON_KEY }}
+          GLASSFY_STAGING_API_KEY: ${{ secrets.GLASSFY_STAGING_API_KEY }}
           GLASSFY_PROD_API_KEY: ${{ secrets.GLASSFY_PROD_API_KEY }}
       - uses: ruby/setup-ruby@v1
         with:

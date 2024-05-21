@@ -40,18 +40,17 @@ class UserInformationQueries with UserInformationConstants {
     }
   }
 
-  Future<List> updateHasGoneThroughInvitationFlow(
+  Future<List> updateHasAccessedQrCode(
     bool hasGoneThroughInvitationFlow,
   ) async {
     final getRes = await getUserInfo();
-    if (getRes.first[HAS_GONE_THROUGH_INVITATION_FLOW] ==
-        hasGoneThroughInvitationFlow) {
+    if (getRes.first[HAS_ACCESSED_QR_CODE] == hasGoneThroughInvitationFlow) {
       return getRes;
     } else {
       return await supabase
           .from(TABLE)
           .update({
-            HAS_GONE_THROUGH_INVITATION_FLOW: hasGoneThroughInvitationFlow,
+            HAS_ACCESSED_QR_CODE: hasGoneThroughInvitationFlow,
           })
           .eq(UID, userUID)
           .select();

@@ -11,7 +11,7 @@ class GetUserInfoStore = _GetUserInfoStoreBase with _$GetUserInfoStore;
 abstract class _GetUserInfoStoreBase
     extends BaseMobxDBStore<NoParams, UserJourneyInfoEntity> with Store {
   @observable
-  bool hasGoneThroughInvitationFlow = false;
+  bool hasAccessedQrCode = false;
 
   @observable
   bool hasSentAnInvitation = false;
@@ -46,11 +46,9 @@ abstract class _GetUserInfoStoreBase
       state = StoreState.initial;
     }, (journeyInfoEntity) {
       entity = journeyInfoEntity;
-      hasGoneThroughInvitationFlow =
-          journeyInfoEntity.hasGoneThroughInvitationFlow;
+      hasAccessedQrCode = journeyInfoEntity.hasAccessedQrCode;
       hasEnteredStorage = journeyInfoEntity.hasEnteredStorage;
-      hasSentAnInvitation = journeyInfoEntity.hasSentAnInvitation;
-      hasDoneASession = journeyInfoEntity.hasCompletedNoktheSession;
+      hasDoneASession = journeyInfoEntity.hasCompletedASession;
       userUID = journeyInfoEntity.userUID;
     });
   }

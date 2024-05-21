@@ -1,7 +1,6 @@
 import { serve } from "std/server";
 import { supabaseAdmin } from "../constants/supabase.ts";
 import { isNotEmptyOrNull } from "../utils/array_utils.ts";
-import { checkIfIsAValidSession } from "../utils/is-a-valid-session.ts";
 
 serve(async (req) => {
   const { userUID, leaderUID } = await req.json();
@@ -31,6 +30,18 @@ serve(async (req) => {
       const currentHaveGyroscopesRes =
         existingNokhteSessionRes?.["have_gyroscopes"];
       currentHaveGyroscopesRes.push(true);
+      const currentHasPremiumAccess = [];
+      for (let i = 0; i < currentCollaboratorUIDs.length; i++) {
+        const metadataRes = (
+          await supabaseAdmin
+            .from("user_metadata")
+            .select()
+            .eq("uid", currentCollaboratorUIDs[i])
+        )?.data?.[0];
+        const userPremiumAccess =
+          metadataRes?.["is_subscribed"] || !metadataRes?.["has_used_trial"];
+        currentHasPremiumAccess.push(userPremiumAccess);
+      }
       const { error } = await supabaseAdmin
         .from("active_nokhte_sessions")
         .update({
@@ -38,14 +49,7 @@ serve(async (req) => {
           is_online: currentIsOnlineArr,
           current_phases: currentPhasesArr,
           have_gyroscopes: currentHaveGyroscopesRes,
-        })
-        .eq("leader_uid", leaderUID)
-        .eq("has_begun", false);
-      const isAValidSession = await checkIfIsAValidSession(userUID);
-      await supabaseAdmin
-        .from("active_nokhte_sessions")
-        .update({
-          is_a_valid_session: isAValidSession,
+          has_premium_access: currentHasPremiumAccess,
         })
         .eq("leader_uid", leaderUID)
         .eq("has_begun", false);
