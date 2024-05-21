@@ -2,6 +2,7 @@ export 'session_paywall/session_paywall.dart';
 export 'waiting_patron/waiting_patron.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/modules/active_monetization_session/active_monetization_session.dart';
+import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
 import 'package:nokhte/app/core/modules/in_app_purchase/in_app_purchase.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
@@ -21,12 +22,15 @@ class SessionMonetizeModule extends Module {
         UserInformationModule(),
         InAppPurchaseModule(),
         ActiveMonetizationSessionModule(),
+        CleanUpCollaborationArtifactsModule(),
       ];
 
   @override
   void binds(i) {
     i.add<SessionPaywallCoordinator>(
       () => SessionPaywallCoordinator(
+        cleanUpCollaborationArtifacts:
+            Modular.get<CleanUpCollaborationArtifactsCoordinator>(),
         activeMonetizationSession:
             Modular.get<ActiveMonetizationSessionCoordinator>(),
         iap: Modular.get<InAppPurchaseCoordinator>(),
