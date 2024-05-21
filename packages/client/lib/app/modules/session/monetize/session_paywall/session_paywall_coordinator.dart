@@ -5,6 +5,7 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/active_monetization_session/active_monetization_session.dart';
+import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
 import 'package:nokhte/app/core/modules/in_app_purchase/in_app_purchase.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -27,8 +28,10 @@ abstract class _SessionPaywallCoordinatorBase
   final SwipeDetector swipe;
   final InAppPurchaseCoordinator iap;
   final ActiveMonetizationSessionCoordinator activeMonetizationSession;
+  final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
 
   _SessionPaywallCoordinatorBase({
+    required this.cleanUpCollaborationArtifacts,
     required super.captureScreen,
     required this.widgets,
     required this.tap,
@@ -132,8 +135,7 @@ abstract class _SessionPaywallCoordinatorBase
               () async => await iap.buySubscription(),
             );
           case GestureDirections.down:
-            await presence.completeTheSession();
-            await activeMonetizationSession.delete();
+            await cleanUpCollaborationArtifacts(NoParams());
           default:
             break;
         }

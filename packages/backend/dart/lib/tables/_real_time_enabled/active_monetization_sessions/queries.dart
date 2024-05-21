@@ -15,18 +15,9 @@ class ActiveMonetizationSessionQueries with ActiveMonetizationSessionConstants {
     if (res.isNotEmpty) {
       final collaboratorUIDs = res[0][COLLABORATOR_UIDS];
       final hasPremiumAccess = res[0]["has_premium_access"];
-      final monetizationSessionMembers = [];
-      for (int i = 0; i < hasPremiumAccess.length; i++) {
-        if (!hasPremiumAccess[i]) {
-          monetizationSessionMembers.add(collaboratorUIDs[i]);
-        }
-      }
       return await supabase.from(TABLE).insert({
-        COLLABORATOR_UIDS: monetizationSessionMembers,
-        HAVE_FINISHED_EXPLANATIONS: List.filled(
-          monetizationSessionMembers.length,
-          false,
-        )
+        COLLABORATOR_UIDS: collaboratorUIDs,
+        HAVE_FINISHED_EXPLANATIONS: hasPremiumAccess,
       }).select();
     } else {
       return [];
