@@ -33,18 +33,15 @@ serve(async (req) => {
           .contains("collaborator_uids", `{${userUID}}`)
       )?.data?.[0];
       const currentHasPremiumAccess = res?.["has_premium_access"];
-      console.log("current before", currentHasPremiumAccess);
       const userIndex = res?.["collaborator_uids"].indexOf(userUID);
       currentHasPremiumAccess[userIndex] = true;
-      console.log("current after", currentHasPremiumAccess);
-      const { data } = await supabaseAdmin
+      await supabaseAdmin
         .from("active_nokhte_sessions")
         .update({
           has_premium_access: currentHasPremiumAccess,
         })
         .contains("collaborator_uids", `{${userUID}}`)
         .select();
-      console.log("how did you do updating", data);
     }
   } catch (e) {
     returnRes = {

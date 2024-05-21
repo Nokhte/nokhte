@@ -12,7 +12,7 @@ serve(async (req) => {
       await supabaseAdmin.from("user_metadata").select().eq("uid", userUID)
     )?.data?.[0];
     const hasPremiumAccess =
-      metadataRes?.["is_subscribed"] || metadataRes?.["has_used_trial"];
+      metadataRes?.["is_subscribed"] || !metadataRes?.["has_used_trial"];
     const { error } = await supabaseAdmin
       .from("active_nokhte_sessions")
       .insert({

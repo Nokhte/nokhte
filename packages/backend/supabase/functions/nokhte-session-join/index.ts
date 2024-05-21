@@ -30,14 +30,18 @@ serve(async (req) => {
       const currentHaveGyroscopesRes =
         existingNokhteSessionRes?.["have_gyroscopes"];
       currentHaveGyroscopesRes.push(true);
-      const metadataRes = (
-        await supabaseAdmin.from("user_metadata").select().eq("uid", userUID)
-      )?.data?.[0];
-      const userPremiumAccess =
-        metadataRes?.["is_subscribed"] || metadataRes?.["has_used_trial"];
-      const currentHasPremiumAccess =
-        existingNokhteSessionRes?.["has_premium_access"];
-      currentHasPremiumAccess.push(userPremiumAccess);
+      const currentHasPremiumAccess = [];
+      for (let i = 0; i < currentCollaboratorUIDs.length; i++) {
+        const metadataRes = (
+          await supabaseAdmin
+            .from("user_metadata")
+            .select()
+            .eq("uid", currentCollaboratorUIDs[i])
+        )?.data?.[0];
+        const userPremiumAccess =
+          metadataRes?.["is_subscribed"] || !metadataRes?.["has_used_trial"];
+        currentHasPremiumAccess.push(userPremiumAccess);
+      }
       const { error } = await supabaseAdmin
         .from("active_nokhte_sessions")
         .update({
