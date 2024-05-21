@@ -40,8 +40,12 @@ abstract class _ActiveMonetizationSessionCoordinatorBase extends BaseMobxDBStore
   @action
   dispose() async {
     disposeLogic(NoParams());
-    await deleteActiveMonetizationSessionLogic(NoParams());
     await stream.close();
+  }
+
+  @action
+  delete() async {
+    await deleteActiveMonetizationSessionLogic(NoParams());
   }
 
   @action
