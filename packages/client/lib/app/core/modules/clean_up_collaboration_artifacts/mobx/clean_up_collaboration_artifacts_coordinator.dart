@@ -27,7 +27,7 @@ abstract class _CleanUpCollaborationArtifactsCoordinatorBase
   Future<void> call(NoParams params) async {
     state = StoreState.loading;
     await sessionStarters.nuke();
-    await activeMonetizationSession.dispose();
+    await activeMonetizationSession.delete();
     await cleanUpNokhteSession(NoParams());
     state = StoreState.loaded;
   }
