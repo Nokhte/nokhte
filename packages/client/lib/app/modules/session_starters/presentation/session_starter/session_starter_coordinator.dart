@@ -62,9 +62,6 @@ abstract class _SessionStarterCoordinatorBase
     logic.listenToSessionActivation();
   }
 
-  @action
-  onFlowCompleted() => userInformation.updateHasGoneThroughInvitationFlow(true);
-
   deepLinkReactor() => reaction((p0) => deepLinks.link, (p0) {
         if (p0.isNotEmpty) {
           widgets.qrCode.setQrCodeData(p0);

@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:nokhte/app/core/modules/active_monetization_session/active_monetization_session.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -11,6 +12,7 @@ class CleanUpCollaborationArtifactsModule extends Module {
   @override
   List<Module> get imports => [
         SessionStartersLogicModule(),
+        ActiveMonetizationSessionModule(),
       ];
   @override
   void exportedBinds(i) {
@@ -33,6 +35,8 @@ class CleanUpCollaborationArtifactsModule extends Module {
     );
     i.add<CleanUpCollaborationArtifactsCoordinator>(
       () => CleanUpCollaborationArtifactsCoordinator(
+        activeMonetizationSession:
+            Modular.get<ActiveMonetizationSessionCoordinator>(),
         sessionStarters: i<SessionStartersLogicCoordinator>(),
         cleanUpNokhteSession: Modular.get<CleanUpNokhteSession>(),
       ),

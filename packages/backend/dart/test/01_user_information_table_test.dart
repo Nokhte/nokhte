@@ -54,13 +54,6 @@ void main() {
     expect(dupRes.first["has_entered_storage"], true);
   });
 
-  test("should be able to update their `has_sent_invitation` field", () async {
-    final res = await user1UserInfoQueries.updateHasSentAnInvitation(true);
-    final dupRes = await user1UserInfoQueries.updateHasSentAnInvitation(true);
-    expect(res.first["has_sent_an_invitation"], true);
-    expect(dupRes.first["has_sent_an_invitation"], true);
-  });
-
   test("❌ shouldn't be able to insert another row if they already have one",
       () async {
     try {

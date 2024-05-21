@@ -1,11 +1,10 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-import 'dart:io';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
+import 'package:nokhte/app/core/modules/active_monetization_session/active_monetization_session.dart';
 import 'package:nokhte/app/core/modules/in_app_purchase/in_app_purchase.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/types/types.dart';
@@ -27,6 +26,7 @@ abstract class _SessionPaywallCoordinatorBase
   final ListenToSessionMetadataStore sessionMetadata;
   final SwipeDetector swipe;
   final InAppPurchaseCoordinator iap;
+  final ActiveMonetizationSessionCoordinator activeMonetizationSession;
 
   _SessionPaywallCoordinatorBase({
     required super.captureScreen,
@@ -35,6 +35,7 @@ abstract class _SessionPaywallCoordinatorBase
     required this.presence,
     required this.swipe,
     required this.iap,
+    required this.activeMonetizationSession,
     required super.getUserInfo,
   }) : sessionMetadata = presence.listenToSessionMetadataStore;
 
@@ -42,26 +43,8 @@ abstract class _SessionPaywallCoordinatorBase
   constructor() async {
     widgets.constructor();
     initReactors();
-    try {
-      await iap.getSubscriptionInfo();
-    } catch (e) {
-      widgets.primarySmartText.setMessagesData(
-        SessionLists.paywallPrimaryList(
-          currencyCode: NumberFormat.simpleCurrency(
-                  name: 'USD', locale: Platform.localeName)
-              .currencySymbol,
-          price: 4.99,
-          period: "Month",
-        ),
-      );
-      widgets.primarySmartText.startRotatingText();
-      widgets.productInfoIsReceived = true;
-      widgets.multiplyingNokhte.initMovie(
-        const MultiplyingNokhteMovieParams(
-          movieMode: MultiplyingNokhteMovieModes.showSingleNokhte,
-        ),
-      );
-    }
+    await iap.getSubscriptionInfo();
+    await activeMonetizationSession.listenToExplanationCompletionStatus();
     await captureScreen(Screens.nokhteSessionSpeakingInstructions);
     await getUserInfo(NoParams());
   }
@@ -70,14 +53,8 @@ abstract class _SessionPaywallCoordinatorBase
     tapReactor();
     swipeReactor();
     presence.initReactors(
-      onCollaboratorJoined: () {
-        // widgets.setDisableTouchInput(false);
-        // widgets.onCollaboratorJoined();
-      },
-      onCollaboratorLeft: () {
-        // widgets.setDisableTouchInput(true);
-        // widgets.onCollaboratorLeft();
-      },
+      onCollaboratorJoined: () {},
+      onCollaboratorLeft: () {},
     );
     widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
@@ -94,7 +71,14 @@ abstract class _SessionPaywallCoordinatorBase
     purchaseErrorReactor();
     phaseReactor();
     validSessionReactor();
+    everyoneHasFinishedExplanationReactor();
   }
+
+  everyoneHasFinishedExplanationReactor() =>
+      reaction((p0) => activeMonetizationSession.everyoneHasFinishedExplanation,
+          (p0) {
+        if (p0) widgets.setCanSwipe(true);
+      });
 
   subscriptionInfoReactor() => reaction((p0) => iap.skuProductEntity, (p0) {
         widgets.onProductInfoReceived(p0);
@@ -113,15 +97,17 @@ abstract class _SessionPaywallCoordinatorBase
       });
 
   purchaseSuccessReactor() =>
-      reaction((p0) => iap.hasPurchasedSubscription, (p0) {
+      reaction((p0) => iap.hasPurchasedSubscription, (p0) async {
         if (p0) {
+          await activeMonetizationSession.dispose();
           Modular.to.navigate(SessionConstants.waitingPatron);
         }
       });
 
-  phaseReactor() => reaction((p0) => sessionMetadata.currentPhases, (p0) {
-        if (p0.contains(-1)) {
-          widgets.onSwipeDown();
+  phaseReactor() => reaction((p0) => sessionMetadata.currentPhases, (p0) async {
+        if (p0.contains(-1.0)) {
+          widgets.onExit();
+          await activeMonetizationSession.dispose();
         }
       });
 
@@ -129,7 +115,12 @@ abstract class _SessionPaywallCoordinatorBase
         (p0) => tap.tapCount,
         (p0) => ifTouchIsNotDisabled(
           () {
-            widgets.onTap(tap.currentTapPosition);
+            widgets.onTap(
+              tap.currentTapPosition,
+              onFinalTap: () async {
+                await activeMonetizationSession.updateHasFinishedExplanation();
+              },
+            );
           },
         ),
       );
@@ -137,28 +128,20 @@ abstract class _SessionPaywallCoordinatorBase
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) async {
         switch (p0) {
           case GestureDirections.up:
-            widgets.onSwipeUp();
-            await iap.buySubscription();
+            widgets.onSwipeUp(
+              () async => await iap.buySubscription(),
+            );
           case GestureDirections.down:
             await presence.completeTheSession();
-            widgets.onSwipeDown();
+            await activeMonetizationSession.delete();
           default:
             break;
         }
       });
 
   @action
-  onInactive() async {
-    // await presence
-    //     .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
-  }
+  onInactive() async {}
 
   @action
-  onResumed() async {
-    //   await presence
-    //       .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    //   if (sessionMetadata.everyoneIsOnline) {
-    //     presence.incidentsOverlayStore.onCollaboratorJoined();
-    //   }
-  }
+  onResumed() async {}
 }

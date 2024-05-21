@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 import 'package:nokhte_backend/edge_functions/active_nokhte_session.dart';
-import 'constants/constants.dart';
+import 'constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
@@ -22,8 +22,8 @@ class ActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
   Future<List> getCurrentPhases() async => await _getProperty(CURRENT_PHASES);
   Future<String> getCreatedAt() async => await _getProperty(CREATED_AT);
   Future<int> getMetadataIndex() async => await _getProperty(METADATA_INDEX);
-  Future<bool> getIsAValidSession() async =>
-      await _getProperty(IS_A_VALID_SESSION);
+  Future<List> getHasPremiumAccess() async =>
+      await _getProperty(HAS_PREMIUM_ACCESS);
   Future<List> getContent() async => await _getProperty(CONTENT);
   Future<List> getHaveGyroscopes() async => await _getProperty(HAVE_GYROSCOPES);
   Future<String> getSessionUID() async => await _getProperty(SESSION_UID);

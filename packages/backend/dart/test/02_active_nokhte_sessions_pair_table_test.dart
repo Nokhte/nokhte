@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte_backend/tables/_real_time_disabled/finished_nokhte_sessions/queries.dart';
 import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/user_metadata.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'shared/shared.dart';
 
@@ -67,6 +68,20 @@ void main() {
     expect(res, isNotEmpty);
   });
 
+  test("should not be able to update has_premium_access", () async {
+    try {
+      final res = await tSetup.user1Supabase
+          .from("active_nokhte_sessions")
+          .update({
+            "has_premium_access": [true, true, true, true]
+          })
+          .contains("collaborator_uids", '{${tSetup.firstUserUID}}')
+          .select();
+    } catch (e) {
+      expect(e, isA<PostgrestException>());
+    }
+  });
+
   test("getWhoIsOnline", () async {
     final res = await user1Queries.getWhoIsOnline();
     expect(res, [true, true]);
@@ -77,9 +92,9 @@ void main() {
     expect(res, null);
   });
 
-  test("getIsAValidSession", () async {
-    final res = await user1Queries.getIsAValidSession();
-    expect(res, true);
+  test("getHasPremiumAccess", () async {
+    final res = await user1Queries.getHasPremiumAccess();
+    expect(res, [false, false]);
   });
 
   test("getCurrentPhases", () async {

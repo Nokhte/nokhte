@@ -41,7 +41,7 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
   int tapCount = 0;
 
   @observable
-  bool hasSwiped = false;
+  bool canSwipe = false;
 
   @observable
   bool disableTouchInput = false;
@@ -51,6 +51,9 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
 
   @observable
   Stopwatch cooldownStopwatch = Stopwatch();
+
+  @observable
+  bool isExiting = false;
 
   @action
   setDisableTouchInput(bool newValue) => disableTouchInput = newValue;
@@ -64,7 +67,11 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
     tertiarySmartText.setMessagesData(SessionLists.swipeToDecide);
     setSmartTextBottomPaddingScalar(.1);
     multiplyNokhteReactor();
+    setCanSwipe(false);
   }
+
+  @action
+  setCanSwipe(bool newVal) => canSwipe = newVal;
 
   @action
   onProductInfoReceived(SkuProductEntity product) {
@@ -87,7 +94,10 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
     );
   }
 
-  onTap(Offset tapPosition) {
+  onTap(
+    Offset tapPosition, {
+    required Function onFinalTap,
+  }) async {
     if (!disableTouchInput) {
       if (multiplyingNokhte.movieStatus == MovieStatus.finished) {
         if (tapCount.isLessThan(3)) {
@@ -105,7 +115,6 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
                 reverse: true,
               ),
             );
-            // single to quintuple
           } else if (tapCount == 2) {
             multiplyingNokhte.initMovie(
               const MultiplyingNokhteMovieParams(
@@ -113,19 +122,11 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
                 reverse: true,
               ),
             );
-            // single to crossroad
+            await onFinalTap();
           }
           primarySmartText.startRotatingText(isResuming: true);
           touchRipple.onTap(tapPosition);
           tapCount++;
-          // if (tapCount == 2) {
-          //   Timer(Seconds.get(0, milli: 500), () {
-          //     setSmartTextBottomPaddingScalar(0);
-          //   });
-          //   secondarySmartText.startRotatingText();
-          //   tertiarySmartText.startRotatingText();
-          //   //
-          // }
         }
       }
     }
@@ -181,23 +182,41 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
         }
       });
 
-  onSwipeUp() {
+  @action
+  onSwipeUp(Function onSwipeUp) async {
     if (tapCount == 3 &&
-        !hasSwiped &&
+        canSwipe &&
         multiplyingNokhte.movieStatus == MovieStatus.finished) {
-      hasSwiped = true;
+      canSwipe = false;
       tertiarySmartText.setWidgetVisibility(false);
       multiplyingNokhte.initMovie(
         const MultiplyingNokhteMovieParams(
           movieMode: MultiplyingNokhteMovieModes.chooseMonetization,
         ),
       );
+      await onSwipeUp();
+    }
+  }
+
+  @action
+  onSwipeDown(Function onSwipeDown) async {
+    if (tapCount == 3 &&
+        multiplyingNokhte.movieStatus == MovieStatus.finished &&
+        canSwipe) {
+      await onSwipeDown();
+      isExiting = true;
+      multiplyingNokhte.initMovie(
+        const MultiplyingNokhteMovieParams(
+          movieMode: MultiplyingNokhteMovieModes.chooseCancel,
+        ),
+      );
+      canSwipe = false;
     }
   }
 
   onPaymentFailure() {
     Timer.periodic(Seconds.get(0, milli: 100), (timer) {
-      if (multiplyingNokhte.movieStatus == MovieStatus.finished && hasSwiped) {
+      if (multiplyingNokhte.movieStatus == MovieStatus.finished && !canSwipe) {
         multiplyingNokhte.initMovie(
           const MultiplyingNokhteMovieParams(
             movieMode: MultiplyingNokhteMovieModes.chooseMonetization,
@@ -205,7 +224,7 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
           ),
         );
         Timer(Seconds.get(2), () {
-          hasSwiped = false;
+          canSwipe = true;
         });
         tertiarySmartText.setWidgetVisibility(true);
         timer.cancel();
@@ -213,22 +232,16 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
     });
   }
 
-  onSwipeDown() {
-    if (tapCount == 3 &&
-        multiplyingNokhte.movieStatus == MovieStatus.finished &&
-        !hasSwiped) {
-      // Timer.periodic(Seconds.get(0, milli: 200), (timer) {
+  @action
+  onExit() {
+    if (!isExiting) {
       multiplyingNokhte.initMovie(
         const MultiplyingNokhteMovieParams(
           movieMode: MultiplyingNokhteMovieModes.chooseCancel,
         ),
       );
-      hasSwiped = true;
-      // timer.cancel();
-      // });
+      canSwipe = false;
     }
-    // primarySmartText.startRotatingText(isResuming: true);
-    // secondarySmartText.setWidgetVisibility(false);
   }
 
   beachWaveMovieStatusReactor({

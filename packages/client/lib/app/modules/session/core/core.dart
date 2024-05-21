@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:nokhte/app/core/modules/active_monetization_session/active_monetization_session.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
 import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
@@ -25,12 +26,15 @@ class SessionCoreModule extends Module {
         GyroscopicModule(),
         UserInformationModule(),
         DeepLinksModule(),
+        ActiveMonetizationSessionModule(),
       ];
 
   @override
   void exportedBinds(i) {
     i.add<SessionLobbyCoordinator>(
       () => SessionLobbyCoordinator(
+        activeMonetizationSession:
+            Modular.get<ActiveMonetizationSessionCoordinator>(),
         userMetadata: Modular.get<UserMetadataCoordinator>(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
         presence: Modular.get<SessionPresenceCoordinator>(),

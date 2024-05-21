@@ -1,10 +1,10 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// import 'dart:async';
 import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
+import 'package:nokhte/app/core/modules/active_monetization_session/active_monetization_session.dart';
 import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
@@ -23,6 +23,7 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
   final ListenToSessionMetadataStore sessionMetadata;
   final UserMetadataCoordinator userMetadata;
   final DeepLinksCoordinator deepLinks;
+  final ActiveMonetizationSessionCoordinator activeMonetizationSession;
 
   _SessionLobbyCoordinatorBase({
     required super.captureScreen,
@@ -31,6 +32,7 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
     required this.tap,
     required this.presence,
     required this.userMetadata,
+    required this.activeMonetizationSession,
   }) : sessionMetadata = presence.listenToSessionMetadataStore;
 
   @observable
@@ -100,7 +102,12 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
         (p0) => ifTouchIsNotDisabled(() async {
           widgets.onTap(
             tap.currentTapPosition,
-            onTap: () async => await presence.startTheSession(),
+            onTap: () async {
+              await presence.startTheSession();
+              if (isTheLeader && !sessionMetadata.isAValidSession) {
+                await activeMonetizationSession.startMonetizationSession();
+              }
+            },
           );
         }),
       );
@@ -135,7 +142,11 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
   @computed
   String get monetizationSessionPath => userMetadata.isSubscribed
       ? SessionConstants.waitingPatron
-      : SessionConstants.paywall;
+      : isNotSubscribedPath;
+
+  String get isNotSubscribedPath => userMetadata.hasUsedTrial
+      ? SessionConstants.paywall
+      : SessionConstants.waitingPatron;
 
   @computed
   String get premiumSessionPath {

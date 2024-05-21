@@ -8,11 +8,17 @@ serve(async (req) => {
     message: shouldInitialize ? "successful initialization" : "successful nuke",
   };
   if (shouldInitialize && !shouldStart) {
+    const metadataRes = (
+      await supabaseAdmin.from("user_metadata").select().eq("uid", userUID)
+    )?.data?.[0];
+    const hasPremiumAccess =
+      metadataRes?.["is_subscribed"] || !metadataRes?.["has_used_trial"];
     const { error } = await supabaseAdmin
       .from("active_nokhte_sessions")
       .insert({
         leader_uid: userUID,
         collaborator_uids: [userUID],
+        has_premium_access: [hasPremiumAccess],
       })
       .select();
     if (error != null) {
