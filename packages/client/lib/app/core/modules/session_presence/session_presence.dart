@@ -27,9 +27,11 @@ class SessionPresenceModule extends Module {
         networkInfo: Modular.get<NetworkInfoImpl>(),
       ),
     );
-    i.add<StartTheSession>(() => StartTheSession(
-          contract: i<SessionPresenceContractImpl>(),
-        ));
+    i.add<StartTheSession>(
+      () => StartTheSession(
+        contract: i<SessionPresenceContractImpl>(),
+      ),
+    );
     i.add<ListenToSessionMetadata>(
       () => ListenToSessionMetadata(
         contract: i<SessionPresenceContractImpl>(),
