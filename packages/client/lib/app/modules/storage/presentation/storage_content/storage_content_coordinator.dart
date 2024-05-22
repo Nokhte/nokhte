@@ -40,6 +40,7 @@ abstract class _StorageContentCoordinatorBase
     }
     widgets.constructor(center);
     await getUserInfo(NoParams());
+    await captureScreen(StorageConstants.content);
     initReactors();
   }
 

@@ -8,6 +8,7 @@ import 'storage.dart';
 export 'data/data.dart';
 export 'domain/domain.dart';
 export 'presentation/presentation.dart';
+export 'constants/constants.dart';
 export 'storage_logic_module.dart';
 export 'storage_widgets_module.dart';
 
@@ -47,14 +48,14 @@ class StorageModule extends Module {
   @override
   void routes(r) {
     r.child(
-      '/',
+      StorageConstants.relativeRoot,
       transition: TransitionType.noTransition,
       child: (context) => StorageHomeScreen(
         coordinator: Modular.get<StorageHomeCoordinator>(),
       ),
     );
     r.child(
-      '/content',
+      StorageConstants.relativeContent,
       transition: TransitionType.noTransition,
       child: (context) => StorageContentScreen(
         coordinator: Modular.get<StorageContentCoordinator>(),

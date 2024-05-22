@@ -1,12 +1,10 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// import 'dart:async';
 import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -42,7 +40,7 @@ abstract class _SessionDuoGreeterCoordinatorBase extends BaseCoordinator
   constructor() async {
     widgets.constructor();
     initReactors();
-    await captureScreen(Screens.nokhteSessionDuoGreeter);
+    await captureScreen(SessionConstants.duoGreeter);
     await gyroscopic.checkIfDeviceHasGyroscope();
   }
 

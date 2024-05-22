@@ -6,7 +6,6 @@ import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/active_monetization_session/active_monetization_session.dart';
 import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/modules/user_metadata/user_metadata.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -45,7 +44,7 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
     await presence.listen();
     await deepLinks.getDeepLink(DeepLinkTypes.nokhteSessionBearer);
     await userMetadata.getMetadata();
-    await captureScreen(Screens.nokhteSessionLobby);
+    await captureScreen(SessionConstants.lobby);
   }
 
   @action

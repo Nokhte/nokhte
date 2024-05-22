@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -31,7 +30,7 @@ abstract class _SessionNotesInstructionsCoordinatorBase extends BaseCoordinator
   constructor() async {
     widgets.constructor(sessionMetadata.shouldAdjustToFallbackExitProtocol);
     initReactors();
-    await captureScreen(Screens.nokhteSessionNotesInstructions);
+    await captureScreen(SessionConstants.notesInstructions);
   }
 
   @action

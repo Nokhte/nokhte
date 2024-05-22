@@ -4,11 +4,10 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'session_speaking_instructions_widgets_coordinator.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 part 'session_speaking_instructions_coordinator.g.dart';
 
 class SessionSpeakingInstructionsCoordinator = _SessionSpeakingInstructionsCoordinatorBase
@@ -37,7 +36,7 @@ abstract class _SessionSpeakingInstructionsCoordinatorBase
     widgets.constructor();
     gyroscopic.listen(NoParams());
     initReactors();
-    await captureScreen(Screens.nokhteSessionSpeakingInstructions);
+    await captureScreen(SessionConstants.speakingInstructions);
   }
 
   initReactors() {

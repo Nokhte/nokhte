@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/modules/storage/storage.dart';
 import 'package:nokhte/app/modules/home/home.dart';
 part 'qr_and_storage_adept_coordinator.g.dart';
@@ -35,7 +34,7 @@ abstract class _QrAndStorageAdeptCoordinatorBase
   constructor(Offset offset) async {
     widgets.constructor(offset);
     initReactors();
-    await captureScreen(Screens.qrAndStorageAdeptHome);
+    await captureScreen(HomeConstants.qrAndStorageAdept);
     await getNokhteSessionArtifacts();
   }
 

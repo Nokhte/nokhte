@@ -8,6 +8,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'login.dart';
+export 'constants/constants.dart';
 export 'data/data.dart';
 export 'domain/domain.dart';
 export 'presentation/presentation.dart';
@@ -83,6 +84,7 @@ class LoginModule extends Module {
     );
     i.add<LoginCoordinator>(
       () => LoginCoordinator(
+        identifyUser: Modular.get<IdentifyUser>(),
         addMetadata: Modular.get<AddMetadata>(),
         captureScreen: Modular.get<CaptureScreen>(),
         getUserInfo: Modular.get<GetUserInfoStore>(),
@@ -99,7 +101,7 @@ class LoginModule extends Module {
   @override
   routes(r) {
     r.child(
-      '/',
+      LoginConstants.relativeRoot,
       child: (context) => LoginScreen(
         coordinator: Modular.get<LoginCoordinator>(),
       ),

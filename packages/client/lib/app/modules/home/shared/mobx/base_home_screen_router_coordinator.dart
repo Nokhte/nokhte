@@ -5,6 +5,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/home/home.dart';
 part 'base_home_screen_router_coordinator.g.dart';
 
 class BaseHomeScreenRouterCoordinator = _BaseHomeScreenRouterCoordinatorBase
@@ -34,21 +35,23 @@ abstract class _BaseHomeScreenRouterCoordinatorBase extends BaseCoordinator
     final args = {"resumeOnShoreParams": params};
     if (!getUserInfo.hasDoneASession) {
       if (!getUserInfo.hasAccessedQrCode) {
-        Modular.to.navigate("/home/compass_and_qr_guide", arguments: args);
+        Modular.to.navigate(HomeConstants.compassAndQrGuide, arguments: args);
       } else {
-        Modular.to.navigate("/home/qr_navigation_reminder", arguments: args);
+        Modular.to
+            .navigate(HomeConstants.qrNavigationReminder, arguments: args);
       }
     } else if (getUserInfo.hasDoneASession) {
       if (!getUserInfo.hasEnteredStorage && getUserInfo.hasAccessedQrCode) {
-        Modular.to.navigate("/home/storage_guide", arguments: args);
+        Modular.to.navigate(HomeConstants.storageGuide, arguments: args);
       } else if (!getUserInfo.hasEnteredStorage &&
           !getUserInfo.hasAccessedQrCode) {
-        Modular.to.navigate("/home/compass_and_storage_guide", arguments: args);
+        Modular.to
+            .navigate(HomeConstants.compassAndStorageGuide, arguments: args);
       } else if (getUserInfo.hasEnteredStorage &&
           !getUserInfo.hasAccessedQrCode) {
-        Modular.to.navigate("/home/short_qr_guide", arguments: args);
+        Modular.to.navigate(HomeConstants.shortQrGuide, arguments: args);
       } else {
-        Modular.to.navigate("/home/qr_and_storage_adept", arguments: args);
+        Modular.to.navigate(HomeConstants.qrAndStorageAdept, arguments: args);
       }
     }
   }

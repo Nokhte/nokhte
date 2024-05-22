@@ -53,6 +53,7 @@ abstract class _StorageHomeCoordinatorBase
     await getUserInfo(NoParams());
     await getNokhteSessionArtifacts();
     await userInfo.updateHasEnteredStorage(true);
+    await captureScreen(StorageConstants.root);
   }
 
   @action

@@ -58,7 +58,7 @@ abstract class _SessionStarterCoordinatorBase
     await deepLinks.getDeepLink(DeepLinkTypes.nokhteSessionLeader);
     await userInformation.getUserInfoStore(NoParams());
     await logic.initialize();
-    await captureScreen(Screens.collaborationHome);
+    await captureScreen(SessionStarterConstants.root);
     logic.listenToSessionActivation();
   }
 

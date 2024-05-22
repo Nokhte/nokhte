@@ -9,6 +9,7 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:nokhte/app/modules/storage/storage.dart';
 import 'home.dart';
+export 'constants/constants.dart';
 export 'has_session/has_session.dart';
 export 'no_session/no_session.dart';
 export 'root_router/root_router.dart';
@@ -35,7 +36,6 @@ class HomeModule extends Module {
       () => HomeScreenRootRouterCoordinator(
         userMetadata: Modular.get<UserMetadataCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
-        identifyUser: Modular.get<IdentifyUser>(),
         cleanUpCollaborationArtifacts:
             Modular.get<CleanUpCollaborationArtifactsCoordinator>(),
         getUserInfo: Modular.get<GetUserInfoStore>(),
@@ -119,49 +119,49 @@ class HomeModule extends Module {
   @override
   routes(r) {
     r.child(
-      "/",
+      HomeConstants.relativeRoot,
       transition: TransitionType.noTransition,
       child: (context) => HomeScreenRootRouterScreen(
         coordinator: Modular.get<HomeScreenRootRouterCoordinator>(),
       ),
     );
     r.child(
-      "/compass_and_qr_guide",
+      HomeConstants.relativeCompassAndQrGuide,
       transition: TransitionType.noTransition,
       child: (context) => CompassAndQrGuideScreen(
         coordinator: Modular.get<CompassAndQrGuideCoordinator>(),
       ),
     );
     r.child(
-      "/qr_navigation_reminder",
+      HomeConstants.relativeQrNavigationReminder,
       transition: TransitionType.noTransition,
       child: (context) => QrNavigationReminderScreen(
         coordinator: Modular.get<QrNavigationReminderCoordinator>(),
       ),
     );
     r.child(
-      "/compass_and_storage_guide",
+      HomeConstants.relativeCompassAndStorageGuide,
       transition: TransitionType.noTransition,
       child: (context) => CompassAndStorageGuideScreen(
         coordinator: Modular.get<CompassAndStorageGuideCoordinator>(),
       ),
     );
     r.child(
-      "/storage_guide",
+      HomeConstants.relativeStorageGuide,
       transition: TransitionType.noTransition,
       child: (context) => StorageGuideScreen(
         coordinator: Modular.get<StorageGuideCoordinator>(),
       ),
     );
     r.child(
-      "/short_qr_guide",
+      HomeConstants.relativeShortQrGuide,
       transition: TransitionType.noTransition,
       child: (context) => ShortQrGuideScreen(
         coordinator: Modular.get<ShortQrGuideCoordinator>(),
       ),
     );
     r.child(
-      "/qr_and_storage_adept",
+      HomeConstants.relativeQrAndStorageAdept,
       transition: TransitionType.noTransition,
       child: (context) => QrAndStorageAdeptScreen(
         coordinator: Modular.get<QrAndStorageAdeptCoordinator>(),

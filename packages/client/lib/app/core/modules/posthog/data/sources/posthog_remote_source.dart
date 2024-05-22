@@ -7,16 +7,13 @@ abstract class PosthogRemoteSource {
   Future<void> captureNokhteSessionStart();
   Future<void> captureNokhteSessionEnd();
   Future<void> captureShareNokhteSessionInvitation();
-  Future<void> captureScreen(Screens screen);
+  Future<void> captureScreen(String screenRoute);
 }
 
 class PosthogRemoteSourceImpl
-    with PosthogEventConstants, PosthogPageNameConstants
+    with PosthogEventConstants
     implements PosthogRemoteSource {
-  final SupabaseClient supabase;
-  final Posthog posthog;
-
-  PosthogRemoteSourceImpl({required this.supabase}) : posthog = Posthog();
+  final Posthog posthog = Posthog();
 
   @override
   Future<void> captureNokhteSessionEnd() async {
@@ -39,11 +36,12 @@ class PosthogRemoteSourceImpl
 
   @override
   Future<void> identifyUser() async {
+    final supabase = Supabase.instance.client;
     await posthog.identify(userId: supabase.auth.currentUser!.id);
   }
 
   @override
-  Future<void> captureScreen(Screens screen) async {
-    await posthog.capture(eventName: getScreenName(screen));
+  Future<void> captureScreen(String screenRoute) async {
+    await posthog.capture(eventName: "${screenRoute}_screen");
   }
 }

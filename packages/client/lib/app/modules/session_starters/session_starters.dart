@@ -6,6 +6,7 @@ import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/widgets/modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'session_starters.dart';
+export 'constants/constants.dart';
 export 'data/data.dart';
 export 'domain/domain.dart';
 export 'presentation/presentation.dart';

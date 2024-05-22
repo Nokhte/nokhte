@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api, overridden_fields, annotate_overrides
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/modules/home/home.dart';
 part 'compass_and_qr_guide_coordinator.g.dart';
@@ -28,7 +27,7 @@ abstract class _CompassAndQrGuideCoordinatorBase
   constructor(center) async {
     widgets.constructor(center);
     initReactors();
-    await captureScreen(Screens.compassAndQrGuideHome);
+    await captureScreen(HomeConstants.compassAndQrGuide);
   }
 
   @override
