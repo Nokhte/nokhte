@@ -70,7 +70,7 @@ void main() {
 
   test("should not be able to update has_premium_access", () async {
     try {
-      final res = await tSetup.user1Supabase
+      await tSetup.user1Supabase
           .from("active_nokhte_sessions")
           .update({
             "has_premium_access": [true, true, true, true]
