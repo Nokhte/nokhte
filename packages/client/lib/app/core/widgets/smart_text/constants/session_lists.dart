@@ -247,16 +247,6 @@ class SessionLists {
       mainMessage: "",
       pauseHere: true,
     ),
-    RotatingTextData(
-      mainMessage: "Continue on the other phone",
-      pauseHere: true,
-      mainMessageFontSize: 22.0,
-    ),
-    RotatingTextData(
-      mainMessage: "",
-      pauseHere: true,
-      mainMessageFontSize: 22.0,
-    ),
   ];
 
   static List<RotatingTextData> hybridSpeakingInstructionsPrimary = [

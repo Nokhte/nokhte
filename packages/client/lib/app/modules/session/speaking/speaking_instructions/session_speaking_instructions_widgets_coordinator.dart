@@ -216,8 +216,10 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
       if (!bottomHalfIsDone) {
         mirroredText.setWidgetVisibility(false);
       } else if (bottomHalfIsDone && !topHalfIsDone) {
+        mirroredText.startBothRotatingText(isResuming: true);
         mirroredText.setUpsideDownVisibility(false);
       } else if (bottomHalfIsDone && topHalfIsDone) {
+        mirroredText.startRotatingUpsideDown(isResuming: true);
         await onFlowFinished();
       }
     }
@@ -280,15 +282,17 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
     Timer(onScreenTime, () {
       if (!abortTheTextRotation || index == 8) {
         if (!bottomHalfIsDone) {
-          mirroredText.startRotatingRightSideUp(isResuming: true);
           if (index == 8) {
             bottomHalfIsDone = true;
+          } else {
+            mirroredText.startRotatingRightSideUp(isResuming: true);
           }
         } else if (bottomHalfIsDone && !topHalfIsDone) {
-          mirroredText.startRotatingUpsideDown(isResuming: true);
           if (index == 8) {
             canHold = false;
             topHalfIsDone = true;
+          } else {
+            mirroredText.startRotatingUpsideDown(isResuming: true);
           }
         }
       }
@@ -361,7 +365,6 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
                 holdCount = 0;
                 letGoCount = 0;
                 mirroredText.setUpsideDownVisibility(true);
-                mirroredText.startRotatingUpsideDown(isResuming: true);
               } else {
                 Timer.periodic(Seconds.get(0, milli: 550), (timer) {
                   if (mirroredText.primaryUpsideDownText.control ==
