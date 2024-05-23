@@ -10,6 +10,7 @@ import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:nokhte/app/modules/storage/storage.dart';
 import 'home.dart';
 export 'constants/constants.dart';
+export './needs_update/needs_update.dart';
 export 'has_session/has_session.dart';
 export 'no_session/no_session.dart';
 export 'root_router/root_router.dart';
@@ -114,6 +115,12 @@ class HomeModule extends Module {
         deepLinks: Modular.get<DeepLinksCoordinator>(),
       ),
     );
+    i.add<NeedsUpdateCoordinator>(
+      () => NeedsUpdateCoordinator(
+        captureScreen: Modular.get<CaptureScreen>(),
+        widgets: Modular.get<NeedsUpdateWidgetsCoordinator>(),
+      ),
+    );
   }
 
   @override
@@ -165,6 +172,13 @@ class HomeModule extends Module {
       transition: TransitionType.noTransition,
       child: (context) => QrAndStorageAdeptScreen(
         coordinator: Modular.get<QrAndStorageAdeptCoordinator>(),
+      ),
+    );
+    r.child(
+      HomeConstants.relativeNeedsToUpdate,
+      transition: TransitionType.noTransition,
+      child: (context) => NeedsUpdateScreen(
+        coordinator: Modular.get<NeedsUpdateCoordinator>(),
       ),
     );
   }

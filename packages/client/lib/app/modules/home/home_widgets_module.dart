@@ -1,10 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/widgets/modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-
-import 'has_session/has_session.dart';
-import 'no_session/no_session.dart';
-import 'root_router/root_router.dart';
+import 'package:nokhte/app/modules/home/home.dart';
 
 class HomeWidgetsModule extends Module {
   @override
@@ -116,6 +113,15 @@ class HomeWidgetsModule extends Module {
         primaryInstructionalGradientNokhte: InstructionalGradientNokhteStore(),
         secondaryInstructionalGradientNokhte:
             InstructionalGradientNokhteStore(),
+      ),
+    );
+    i.add<NeedsUpdateWidgetsCoordinator>(
+      () => NeedsUpdateWidgetsCoordinator(
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        tint: TintStore(),
+        beachWaves: BeachWavesStore(),
+        gestureCross: Modular.get<GestureCrossStore>(),
+        gradientText: NokhteGradientTextStore(),
       ),
     );
   }
