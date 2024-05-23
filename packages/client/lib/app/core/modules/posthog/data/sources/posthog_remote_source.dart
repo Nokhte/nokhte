@@ -42,6 +42,6 @@ class PosthogRemoteSourceImpl
 
   @override
   Future<void> captureScreen(String screenRoute) async {
-    await posthog.capture(eventName: "${screenRoute}_screen");
+    await posthog.capture(eventName: "\$${screenRoute.substring(1)}_screen");
   }
 }
