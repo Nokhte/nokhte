@@ -24,6 +24,7 @@ serve(async (req) => {
     const sessionTimestamp = sessionRes?.data?.[0]["created_at"];
     const sessionUID = sessionRes?.data?.[0]["session_uid"];
     const collaboratorUIDsArr = sessionRes?.data?.[0]["collaborator_uids"];
+    const currentPhases = sessionRes?.data?.[0]["current_phases"];
 
     const duplicateCheckRes = (
       await supabaseAdmin
@@ -45,7 +46,10 @@ serve(async (req) => {
         .select();
 
       for (let i = 0; i < collaboratorUIDsArr.length; i++) {
-        if (collaboratorUIDsArr.length > 3) {
+        if (
+          collaboratorUIDsArr.length > 3 &&
+          currentPhases.every((e: any) => e >= 2)
+        ) {
           await supabaseAdmin
             .from("user_metadata")
             .update({
