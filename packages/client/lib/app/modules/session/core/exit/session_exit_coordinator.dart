@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -21,11 +22,13 @@ abstract class _SessionExitCoordinatorBase
   final SessionPresenceCoordinator presence;
   final ListenToSessionMetadataStore sessionMetadata;
   final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
+  final CaptureNokhteSessionEnd captureEnd;
 
   _SessionExitCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
     required this.swipe,
+    required this.captureEnd,
     required this.presence,
     required this.cleanUpCollaborationArtifacts,
     required super.getUserInfo,
@@ -158,6 +161,7 @@ abstract class _SessionExitCoordinatorBase
             showCollaboratorIncidents = false;
             await presence.dispose();
             await presence.completeTheSession();
+            await captureEnd(NoParams());
             Timer(Seconds.get(1), () async {
               await getUserInfo(NoParams());
             });

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
+import 'package:nokhte/app/modules/session/constants/constants.dart';
 import 'session_notes_waiting_widgets_coordinator.dart';
 part 'session_notes_waiting_coordinator.g.dart';
 
@@ -29,6 +30,7 @@ abstract class _SessionNotesWaitingCoordinatorBase extends BaseCoordinator
     userPhaseAtStart = sessionMetadata.userPhase;
     widgets.constructor(userPhaseAtStart);
     initReactors();
+    await captureScreen(SessionConstants.notesWaiting);
   }
 
   initReactors() {

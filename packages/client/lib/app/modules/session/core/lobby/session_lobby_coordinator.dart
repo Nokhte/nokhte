@@ -6,6 +6,7 @@ import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/active_monetization_session/active_monetization_session.dart';
 import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/modules/user_metadata/user_metadata.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -23,11 +24,13 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
   final UserMetadataCoordinator userMetadata;
   final DeepLinksCoordinator deepLinks;
   final ActiveMonetizationSessionCoordinator activeMonetizationSession;
+  final CaptureNokhteSessionStart captureStart;
 
   _SessionLobbyCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
     required this.deepLinks,
+    required this.captureStart,
     required this.tap,
     required this.presence,
     required this.userMetadata,
@@ -103,6 +106,7 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
             tap.currentTapPosition,
             onTap: () async {
               await presence.startTheSession();
+              await captureStart(sessionMetadata.numberOfCollaborators);
               if (isTheLeader && !sessionMetadata.isAValidSession) {
                 await activeMonetizationSession.startMonetizationSession();
               }

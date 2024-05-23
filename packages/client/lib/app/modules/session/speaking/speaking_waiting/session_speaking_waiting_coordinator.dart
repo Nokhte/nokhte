@@ -4,6 +4,7 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
+import 'package:nokhte/app/modules/session/constants/constants.dart';
 import 'session_speaking_waiting_widgets_coordinator.dart';
 part 'session_speaking_waiting_coordinator.g.dart';
 
@@ -27,6 +28,7 @@ abstract class _SessionSpeakingWaitingCoordinatorBase extends BaseCoordinator
     widgets.constructor();
     initReactors();
     await updateCurrentPhase();
+    await captureScreen(SessionConstants.speakingWaiting);
   }
 
   initReactors() {

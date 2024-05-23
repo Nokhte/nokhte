@@ -33,6 +33,7 @@ class SessionCoreModule extends Module {
   void exportedBinds(i) {
     i.add<SessionLobbyCoordinator>(
       () => SessionLobbyCoordinator(
+        captureStart: Modular.get<CaptureNokhteSessionStart>(),
         activeMonetizationSession:
             Modular.get<ActiveMonetizationSessionCoordinator>(),
         userMetadata: Modular.get<UserMetadataCoordinator>(),
@@ -71,6 +72,7 @@ class SessionCoreModule extends Module {
     );
     i.add<SessionExitCoordinator>(
       () => SessionExitCoordinator(
+        captureEnd: Modular.get<CaptureNokhteSessionEnd>(),
         cleanUpCollaborationArtifacts:
             Modular.get<CleanUpCollaborationArtifactsCoordinator>(),
         getUserInfo: Modular.get<GetUserInfoStore>(),
