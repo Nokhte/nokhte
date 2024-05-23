@@ -23,6 +23,9 @@ abstract class _GetUserInfoStoreBase
   bool hasEnteredStorage = false;
 
   @observable
+  bool isOnMostRecentVersion = true;
+
+  @observable
   String userUID = "";
 
   @observable
@@ -46,6 +49,7 @@ abstract class _GetUserInfoStoreBase
       state = StoreState.initial;
     }, (journeyInfoEntity) {
       entity = journeyInfoEntity;
+      isOnMostRecentVersion = journeyInfoEntity.isOnMostRecentVersion;
       hasAccessedQrCode = journeyInfoEntity.hasAccessedQrCode;
       hasEnteredStorage = journeyInfoEntity.hasEnteredStorage;
       hasDoneASession = journeyInfoEntity.hasCompletedASession;

@@ -6,14 +6,17 @@ class UserJourneyInfoModel extends UserJourneyInfoEntity {
     required super.userUID,
     required super.hasCompletedASession,
     required super.hasEnteredStorage,
+    required super.isOnMostRecentVersion,
   });
 
   factory UserJourneyInfoModel.fromSupabase({
     required List userNamesRes,
     required List finishedNokhteSessionsRes,
+    required bool isUpToDate,
   }) {
     if (userNamesRes.isEmpty) {
       return const UserJourneyInfoModel(
+        isOnMostRecentVersion: true,
         hasAccessedQrCode: false,
         hasCompletedASession: false,
         hasEnteredStorage: false,
@@ -21,6 +24,7 @@ class UserJourneyInfoModel extends UserJourneyInfoEntity {
       );
     } else {
       return UserJourneyInfoModel(
+        isOnMostRecentVersion: isUpToDate,
         userUID: userNamesRes.first['uid'],
         hasAccessedQrCode: userNamesRes.first['has_accessed_qr_code'],
         hasCompletedASession:

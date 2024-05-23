@@ -21,8 +21,11 @@ class UserInformationContractImpl
     if (await networkInfo.isConnected) {
       final userInfoRes = await remoteSource.getUserInfo();
       final nokhteSessionsRes = await remoteSource.getFinishedNokhteSessions();
+      final appVersionRes = await remoteSource.versionIsUpToDate();
+
       return Right(
         UserJourneyInfoModel.fromSupabase(
+          isUpToDate: appVersionRes,
           userNamesRes: userInfoRes,
           finishedNokhteSessionsRes: nokhteSessionsRes,
         ),

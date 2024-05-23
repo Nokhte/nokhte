@@ -33,26 +33,30 @@ abstract class _BaseHomeScreenRouterCoordinatorBase extends BaseCoordinator
   @action
   onAnimationComplete() {
     final args = {"resumeOnShoreParams": params};
-    if (!getUserInfo.hasDoneASession) {
-      if (!getUserInfo.hasAccessedQrCode) {
-        Modular.to.navigate(HomeConstants.compassAndQrGuide, arguments: args);
-      } else {
-        Modular.to
-            .navigate(HomeConstants.qrNavigationReminder, arguments: args);
+    if (getUserInfo.isOnMostRecentVersion) {
+      if (!getUserInfo.hasDoneASession) {
+        if (!getUserInfo.hasAccessedQrCode) {
+          Modular.to.navigate(HomeConstants.compassAndQrGuide, arguments: args);
+        } else {
+          Modular.to
+              .navigate(HomeConstants.qrNavigationReminder, arguments: args);
+        }
+      } else if (getUserInfo.hasDoneASession) {
+        if (!getUserInfo.hasEnteredStorage && getUserInfo.hasAccessedQrCode) {
+          Modular.to.navigate(HomeConstants.storageGuide, arguments: args);
+        } else if (!getUserInfo.hasEnteredStorage &&
+            !getUserInfo.hasAccessedQrCode) {
+          Modular.to
+              .navigate(HomeConstants.compassAndStorageGuide, arguments: args);
+        } else if (getUserInfo.hasEnteredStorage &&
+            !getUserInfo.hasAccessedQrCode) {
+          Modular.to.navigate(HomeConstants.shortQrGuide, arguments: args);
+        } else {
+          Modular.to.navigate(HomeConstants.qrAndStorageAdept, arguments: args);
+        }
       }
-    } else if (getUserInfo.hasDoneASession) {
-      if (!getUserInfo.hasEnteredStorage && getUserInfo.hasAccessedQrCode) {
-        Modular.to.navigate(HomeConstants.storageGuide, arguments: args);
-      } else if (!getUserInfo.hasEnteredStorage &&
-          !getUserInfo.hasAccessedQrCode) {
-        Modular.to
-            .navigate(HomeConstants.compassAndStorageGuide, arguments: args);
-      } else if (getUserInfo.hasEnteredStorage &&
-          !getUserInfo.hasAccessedQrCode) {
-        Modular.to.navigate(HomeConstants.shortQrGuide, arguments: args);
-      } else {
-        Modular.to.navigate(HomeConstants.qrAndStorageAdept, arguments: args);
-      }
+    } else {
+      Modular.to.navigate(HomeConstants.needsToUpdate, arguments: args);
     }
   }
 }
