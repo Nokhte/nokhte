@@ -37,7 +37,6 @@ abstract class _HomeScreenRootRouterCoordinatorBase
   constructor() async {
     widgets.constructor();
     initReactors();
-    await captureScreen(HomeConstants.root);
     await cleanUpCollaborationArtifacts(NoParams());
     await userMetadata.addMetadata(NoParams());
     if (isConnected) {
