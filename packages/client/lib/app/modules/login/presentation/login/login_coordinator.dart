@@ -59,7 +59,7 @@ abstract class _LoginCoordinatorBase extends BaseHomeScreenRouterCoordinator
     if (kDebugMode) {
       authProvider = AuthProvider.google;
     }
-    await captureScreen(LoginConstants.relativeRoot);
+    await captureScreen(LoginConstants.root);
   }
 
   initReactors() {
