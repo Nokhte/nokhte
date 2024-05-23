@@ -50,7 +50,7 @@ class SessionSpeakingModule extends Module {
   @override
   routes(r) {
     r.child(
-      SessionConstants.root,
+      SessionConstants.relativeRoot,
       transition: TransitionType.noTransition,
       child: (context) => SessionSpeakingScreen(
         coordinator: Modular.get<SessionSpeakingCoordinator>(),

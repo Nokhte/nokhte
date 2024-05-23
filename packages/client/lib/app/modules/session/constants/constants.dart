@@ -6,7 +6,7 @@ mixin SessionConstants {
     Color(0xFFA1FFAA),
     Color(0xFF39FF18),
   ];
-  static const root = '/';
+  static const relativeRoot = '/';
   static const relativeLobby = '/lobby';
   static const relativeDuoGreeter = '/duo_greeter';
   static const relativeGroupGreeter = '/group_greeter';
@@ -20,16 +20,16 @@ mixin SessionConstants {
 
   static const relativeInstructions = '/instructions';
 
+  static const relativePaywall = '/paywall';
+  static const relativeWaitingPatron = '/waiting_patron';
+
   static const lobby = '/session/core$relativeLobby';
   static const duoGreeter = '/session/core$relativeDuoGreeter';
   static const groupGreeter = '/session/core$relativeGroupGreeter';
   static const trialGreeter = '/session/core$relativeTrialGreeter';
   static const exit = '/session/core$relativeExit';
 
-  static const relativePaywall = '/paywall';
-  static const relativeWaitingPatron = '/waiting_patron';
-
-  static const hybrid = '/session/hybrid$root';
+  static const hybrid = '/session/hybrid$relativeRoot';
   static const hybridSpeakingInstructions =
       '/session/hybrid$relativeSpeakingInstructions';
   static const hybridWaiting = '/session/hybrid$relativeWaiting';
@@ -42,9 +42,9 @@ mixin SessionConstants {
 
   static const notesWaiting = '/session/notes$relativeWaiting';
   static const notesInstructions = '/session/notes$relativeInstructions';
-  static const notes = '/session/notes$root';
+  static const notes = '/session/notes$relativeRoot';
 
-  static const speaking = '/session/speaking$root';
+  static const speaking = '/session/speaking$relativeRoot';
   static const speakingInstructions = '/session/speaking$relativeInstructions';
   static const speakingWaiting = '/session/speaking$relativeWaiting';
 }
