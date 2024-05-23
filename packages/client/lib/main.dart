@@ -13,6 +13,9 @@ import 'package:flutter/foundation.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
+
+  Modular.setInitialRoute('/login/');
+
   String glassfyAPIKey = dotenv.env['GLASSFY_PROD_API_KEY'] ?? '';
 
   bool shouldUseTestKey = false;
