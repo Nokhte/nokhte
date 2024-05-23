@@ -44,8 +44,6 @@ class SessionStartersModule extends Module {
       () => SessionStarterCoordinator(
         tap: TapDetector(),
         captureScreen: Modular.get<CaptureScreen>(),
-        captureShareNokhteSessionInvitation:
-            Modular.get<CaptureShareNokhteSessionInvitation>(),
         logic: Modular.get<SessionStartersLogicCoordinator>(),
         swipe: SwipeDetector(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
