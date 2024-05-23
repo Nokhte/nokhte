@@ -33,11 +33,6 @@ class PosthogModule extends Module {
         contract: Modular.get<PosthogContractImpl>(),
       ),
     );
-    i.add<CaptureShareNokhteSessionInvitation>(
-      () => CaptureShareNokhteSessionInvitation(
-        contract: Modular.get<PosthogContractImpl>(),
-      ),
-    );
     i.add<IdentifyUser>(
       () => IdentifyUser(
         contract: Modular.get<PosthogContractImpl>(),
