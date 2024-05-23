@@ -2,7 +2,7 @@ name: nokhte
 description: A new Flutter project.
 publish_to: "none"
 
-version: 1.60.0+117687759
+version: 1.61.0+117859245
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -28,6 +28,7 @@ dependencies:
   mobx: ^2.2.1
   nokhte_backend:
     path: ../backend/dart
+  package_info_plus: ^8.0.0
   path_drawing: ^1.0.1
   permission_handler: ^11.0.0
   posthog_flutter: ^4.4.1
