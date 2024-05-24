@@ -10,3 +10,5 @@ BEGIN
     RETURN ARRAY['1.60.0', '1.61.0'];
 END;
 $$ LANGUAGE plpgsql;
+
+alter table "public"."user_metadata" add column "is_whitelisted" boolean not null default false;
