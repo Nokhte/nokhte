@@ -5,7 +5,7 @@ import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
-import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
+import 'package:nokhte_backend/tables/rt_active_nokhte_sessions.dart';
 part 'listen_to_session_metadata_store.g.dart';
 
 class ListenToSessionMetadataStore = _ListenToSessionMetadataStoreBase

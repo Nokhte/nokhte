@@ -1,6 +1,6 @@
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
-import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
+import 'package:nokhte_backend/tables/st_active_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/user_information.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -12,12 +12,12 @@ abstract class DeepLinksRemoteSource {
 class DeepLinksRemoteSourceImpl implements DeepLinksRemoteSource {
   final SupabaseClient supabase;
   final UserInformationQueries userNames;
-  final ActiveNokhteSessionQueries activeNokhteSession;
+  final STActiveNokhteSessionQueries activeNokhteSession;
 
   DeepLinksRemoteSourceImpl({
     required this.supabase,
   })  : userNames = UserInformationQueries(supabase: supabase),
-        activeNokhteSession = ActiveNokhteSessionQueries(supabase: supabase);
+        activeNokhteSession = STActiveNokhteSessionQueries(supabase: supabase);
 
   @override
   Stream<Map> listenForOpenedDeepLink() {
