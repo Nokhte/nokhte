@@ -364,6 +364,8 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
                 bottomHalfHasStarted = true;
                 holdCount = 0;
                 letGoCount = 0;
+                mirroredText.setUpsideDownCurrentIndex(3);
+                mirroredText.startBothRotatingText(isResuming: true);
                 mirroredText.setUpsideDownVisibility(true);
               } else {
                 Timer.periodic(Seconds.get(0, milli: 550), (timer) {
