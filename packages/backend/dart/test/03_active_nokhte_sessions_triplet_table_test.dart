@@ -1,14 +1,18 @@
 // ignore_for_file: file_names
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
+import 'package:nokhte_backend/tables/rt_active_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/finished_nokhte_sessions.dart';
+import 'package:nokhte_backend/tables/st_active_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/user_metadata.dart';
 import 'shared/shared.dart';
 
 void main() {
-  late ActiveNokhteSessionQueries user1Queries;
-  late ActiveNokhteSessionQueries user2Queries;
-  late ActiveNokhteSessionQueries user3Queries;
+  late RTActiveNokhteSessionQueries user1RTQueries;
+  late RTActiveNokhteSessionQueries user2RTQueries;
+  late RTActiveNokhteSessionQueries user3RTQueries;
+  late STActiveNokhteSessionQueries user1STQueries;
+  late STActiveNokhteSessionQueries user2STQueries;
+  late STActiveNokhteSessionQueries user3STQueries;
   late FinishedNokhteSessionQueries user1FinishedQueries;
   late UserMetadataQueries user1MetadataQueries;
   final tSetup = CommonCollaborativeTestFunctions();
@@ -22,12 +26,21 @@ void main() {
       tSetup.thirdUserUID
     ];
     sortedArr.sort();
-    user1Queries = ActiveNokhteSessionQueries(supabase: tSetup.user1Supabase);
+    user1RTQueries =
+        RTActiveNokhteSessionQueries(supabase: tSetup.user1Supabase);
+    user2RTQueries =
+        RTActiveNokhteSessionQueries(supabase: tSetup.user2Supabase);
+    user3RTQueries =
+        RTActiveNokhteSessionQueries(supabase: tSetup.user3Supabase);
+    user1STQueries =
+        STActiveNokhteSessionQueries(supabase: tSetup.user1Supabase);
+    user2STQueries =
+        STActiveNokhteSessionQueries(supabase: tSetup.user2Supabase);
+    user3STQueries =
+        STActiveNokhteSessionQueries(supabase: tSetup.user3Supabase);
     user1FinishedQueries =
         FinishedNokhteSessionQueries(supabase: tSetup.user1Supabase);
     user1MetadataQueries = UserMetadataQueries(supabase: tSetup.user1Supabase);
-    user2Queries = ActiveNokhteSessionQueries(supabase: tSetup.user2Supabase);
-    user3Queries = ActiveNokhteSessionQueries(supabase: tSetup.user3Supabase);
     for (var userUID in sortedArr) {
       await tSetup.supabaseAdmin.from("user_metadata").update({
         "is_subscribed": false,
@@ -37,77 +50,77 @@ void main() {
   });
 
   test("initiateSession", () async {
-    await user1Queries.initializeSession();
-    final res = await user1Queries.select();
+    await user1STQueries.initializeSession();
+    final res = await user1STQueries.select();
     expect(res[0]["leader_uid"], tSetup.firstUserUID);
   });
 
   test("joinSession", () async {
-    await user2Queries.joinSession(tSetup.firstUserUID);
-    await user3Queries.joinSession(tSetup.firstUserUID);
-    final res = await user2Queries.select();
+    await user2STQueries.joinSession(tSetup.firstUserUID);
+    await user3STQueries.joinSession(tSetup.firstUserUID);
+    final res = await user2STQueries.select();
     expect(res[0]["collaborator_uids"], sortedArr);
     expect(res[0]["leader_uid"], tSetup.firstUserUID);
   });
 
   test("getHasPremiumAccess", () async {
-    final res = await user1Queries.getHasPremiumAccess();
+    final res = await user1STQueries.getHasPremiumAccess();
     expect(res, [false, false]);
   });
 
   test("updateOnlineStatus", () async {
-    await user1Queries.updateOnlineStatus(false);
-    final onlineStatus = await user1Queries.getWhoIsOnline();
+    await user1RTQueries.updateOnlineStatus(false);
+    final onlineStatus = await user1RTQueries.getWhoIsOnline();
     expect(onlineStatus[sortedArr.indexOf(tSetup.firstUserUID)], false);
-    await user2Queries.updateOnlineStatus(false);
-    final onlineStatus2 = await user1Queries.getWhoIsOnline();
+    await user2RTQueries.updateOnlineStatus(false);
+    final onlineStatus2 = await user1RTQueries.getWhoIsOnline();
     expect(onlineStatus2[sortedArr.indexOf(tSetup.secondUserUID)], false);
-    await user3Queries.updateOnlineStatus(false);
-    final onlineStatus3 = await user1Queries.getWhoIsOnline();
+    await user3RTQueries.updateOnlineStatus(false);
+    final onlineStatus3 = await user1RTQueries.getWhoIsOnline();
     expect(onlineStatus3, [false, false, false]);
   });
 
   test("updateHasGyroscope", () async {
-    await user1Queries.updateHasGyroscope(false);
-    await user2Queries.updateHasGyroscope(false);
-    await user3Queries.updateHasGyroscope(false);
-    final gyroscopesRes = await user1Queries.getHaveGyroscopes();
+    await user1STQueries.updateHasGyroscope(false);
+    await user2STQueries.updateHasGyroscope(false);
+    await user3STQueries.updateHasGyroscope(false);
+    final gyroscopesRes = await user1STQueries.getHaveGyroscopes();
     expect(gyroscopesRes, [false, false, false]);
   });
 
   test("addContent", () async {
-    await user1Queries.addContent('test');
-    final res = await user1Queries.getContent();
+    await user1STQueries.addContent('test');
+    final res = await user1STQueries.getContent();
     expect(res, ["test"]);
   });
 
   test("updateSpeakerSpotlight", () async {
-    await user1Queries.updateSpeakerSpotlight(addUserToSpotlight: true);
-    final res1 = await user1Queries.getSpeakerSpotlight();
+    await user1RTQueries.updateSpeakerSpotlight(addUserToSpotlight: true);
+    final res1 = await user1RTQueries.getSpeakerSpotlight();
     expect(res1, isNotNull);
-    await user1Queries.updateSpeakerSpotlight(addUserToSpotlight: false);
-    final res2 = await user1Queries.getSpeakerSpotlight();
+    await user1RTQueries.updateSpeakerSpotlight(addUserToSpotlight: false);
+    final res2 = await user1RTQueries.getSpeakerSpotlight();
     expect(res2, isNull);
   });
 
   test("updateCurrentPhases", () async {
-    await user1Queries.updateCurrentPhases(1);
-    final currentPhases = await user1Queries.getCurrentPhases();
+    await user1RTQueries.updateCurrentPhases(1);
+    final currentPhases = await user1RTQueries.getCurrentPhases();
     expect(currentPhases[sortedArr.indexOf(tSetup.firstUserUID)], 1);
-    await user2Queries.updateCurrentPhases(1);
-    final currentPhases2 = await user1Queries.getCurrentPhases();
+    await user2RTQueries.updateCurrentPhases(1);
+    final currentPhases2 = await user1RTQueries.getCurrentPhases();
     expect(currentPhases2[sortedArr.indexOf(tSetup.firstUserUID)], 1);
     expect(currentPhases2[sortedArr.indexOf(tSetup.secondUserUID)], 1);
-    await user3Queries.updateCurrentPhases(1);
-    final currentPhases3 = await user1Queries.getCurrentPhases();
+    await user3RTQueries.updateCurrentPhases(1);
+    final currentPhases3 = await user1RTQueries.getCurrentPhases();
     expect(currentPhases3[sortedArr.indexOf(tSetup.firstUserUID)], 1);
     expect(currentPhases3[sortedArr.indexOf(tSetup.secondUserUID)], 1);
     expect(currentPhases3[sortedArr.indexOf(tSetup.thirdUserUID)], 1);
   });
 
   test("completeSession", () async {
-    final sessionTimestamp = await user1Queries.getCreatedAt();
-    await user1Queries.completeTheSession();
+    final sessionTimestamp = await user1STQueries.getCreatedAt();
+    await user1STQueries.completeTheSession();
     final res = await user1FinishedQueries.select();
     expect(res.first["content"], ["test"]);
     expect(res.first["collaborator_uids"], sortedArr);
