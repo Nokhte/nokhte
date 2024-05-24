@@ -9,7 +9,7 @@ class STActiveNokhteSessionQueries extends ActiveNokhteSessionEdgeFunctions
     required super.supabase,
   });
 
-  select() async => await supabase.from(TABLE).select();
+  Future<List> select() async => await supabase.from(TABLE).select();
 
   delete() async =>
       await _onCurrentActiveNokhteSession(supabase.from(TABLE).delete());
