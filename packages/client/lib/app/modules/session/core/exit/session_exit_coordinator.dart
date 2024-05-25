@@ -107,7 +107,6 @@ abstract class _SessionExitCoordinatorBase
         });
     swipeReactor();
     collaboratorPhaseReactor();
-    canReturnHomeReactor();
   }
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
@@ -138,6 +137,23 @@ abstract class _SessionExitCoordinatorBase
         }
       });
 
+  @action
+  onReturnHome() async {
+    if (showCollaboratorIncidents) {
+      showCollaboratorIncidents = false;
+      await presence.dispose();
+      sessionMetadata;
+      if (sessionMetadata.currentPhases.every((e) => e == 5.0)) {
+        await presence.completeTheSession();
+        await captureEnd(NoParams());
+      }
+      Timer(Seconds.get(1), () async {
+        await getUserInfo(NoParams());
+      });
+      widgets.onReadyToGoHome();
+    }
+  }
+
   collaboratorPhaseReactor() {
     reaction(
       (p0) => sessionMetadata.currentPhases,
@@ -149,26 +165,12 @@ abstract class _SessionExitCoordinatorBase
             phaseHasBeenSet = true;
           }
           widgets.onReadyToGoBack(phoneRole);
+        } else if (p0.every((e) => e == 5.0)) {
+          await onReturnHome();
         }
       },
     );
   }
-
-  canReturnHomeReactor() => reaction(
-        (p0) => sessionMetadata.canReturnHome,
-        (p0) async {
-          if (p0) {
-            showCollaboratorIncidents = false;
-            await presence.dispose();
-            await presence.completeTheSession();
-            await captureEnd(NoParams());
-            Timer(Seconds.get(1), () async {
-              await getUserInfo(NoParams());
-            });
-            widgets.onReadyToGoHome();
-          }
-        },
-      );
 
   @computed
   SessionPhoneRole get phoneRole {
