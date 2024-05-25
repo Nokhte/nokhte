@@ -1,7 +1,8 @@
 import { serve } from "std/server";
 import { supabaseAdmin } from "../constants/supabase.ts";
-import { isNotEmptyOrNull } from "../utils/array_utils.ts";
+import { isNotEmptyOrNull } from "../utils/array-utils.ts";
 import { isWhiteListed } from "../utils/is-whitelisted.ts";
+import { checkIfHasDoneASession } from "../utils/check-if-has-done-a-session.ts";
 
 serve(async (req) => {
   const { userUID, leaderUID } = await req.json();
@@ -43,6 +44,7 @@ serve(async (req) => {
         // needs a separate one
         currentPhasesArr.push(0);
 
+        const currentShouldSkipInstructions = [];
         for (let i = 0; i < currentCollaboratorUIDs.length; i++) {
           const metadataRes = (
             await supabaseAdmin
@@ -50,6 +52,10 @@ serve(async (req) => {
               .select()
               .eq("uid", currentCollaboratorUIDs[i])
           )?.data?.[0];
+          const hasDoneASessionBefore = await checkIfHasDoneASession(
+            currentCollaboratorUIDs[i]
+          );
+          currentShouldSkipInstructions.push(hasDoneASessionBefore);
           const leaderIsWhitelisted = await isWhiteListed(leaderUID);
           const userPremiumAccess =
             metadataRes?.["is_subscribed"] ||
@@ -63,6 +69,7 @@ serve(async (req) => {
             collaborator_uids: currentCollaboratorUIDs,
             have_gyroscopes: currentHaveGyroscopesRes,
             has_premium_access: currentHasPremiumAccess,
+            should_skip_instructions: currentShouldSkipInstructions,
           })
           .eq("leader_uid", leaderUID);
 

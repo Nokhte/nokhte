@@ -4,7 +4,7 @@ import {
   isEmptyOrNull,
   isNotEmptyOrNull,
   onlyUnique,
-} from "../utils/array_utils.ts";
+} from "../utils/array-utils.ts";
 import { serve } from "std/server";
 import { isWhiteListed } from "../utils/is-whitelisted.ts";
 
