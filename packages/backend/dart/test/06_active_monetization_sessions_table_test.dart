@@ -18,13 +18,13 @@ void main() {
 
   tearDownAll(() async {
     await tSetup.supabaseAdmin
-        .from('active_nokhte_sessions')
+        .from('st_active_nokhte_sessions')
         .delete()
         .contains("collaborator_uids", "{${tSetup.firstUserUID}}");
   });
 
   test("startSession", () async {
-    await tSetup.supabaseAdmin.from("active_nokhte_sessions").insert({
+    await tSetup.supabaseAdmin.from("st_active_nokhte_sessions").insert({
       "collaborator_uids": sortedUIDs,
       "leader_uid": tSetup.firstUserUID,
       "has_premium_access": [false, false],
