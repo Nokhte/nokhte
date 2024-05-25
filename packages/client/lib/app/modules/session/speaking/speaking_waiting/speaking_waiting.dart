@@ -36,6 +36,9 @@ class SessionSpeakingWaitingScreen extends HookWidget {
           Tint(
             store: coordinator.widgets.tint,
           ),
+          BorderGlow(
+            store: BorderGlowStore(),
+          ),
           MirroredText(
             store: coordinator.widgets.mirroredText,
           ),
