@@ -103,7 +103,7 @@ void main() {
 
   test("getHasPremiumAccess", () async {
     final res = await user1STQueries.getHasPremiumAccess();
-    expect(res, [false, false]);
+    expect(res, [true, true]);
   });
 
   test("getCurrentPhases", () async {
@@ -178,7 +178,7 @@ void main() {
           isAPremiumSession: false,
           userCanSpeak: true,
           userIsSpeaking: false,
-          userIndex: 0,
+          userIndex: sortedArr.indexOf(tSetup.secondUserUID),
           everyoneHasGyroscopes: false,
           phases: [1, 1],
           everyoneIsOnline: false,

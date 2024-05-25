@@ -16,6 +16,11 @@ serve(async (req) => {
     .select()
     .contains("collaborator_uids", `{${userUID}}`);
 
+  const rtSessionRes = await supabaseAdmin
+    .from("rt_active_nokhte_sessions")
+    .select()
+    .eq("session_uid", stSessionRes?.data?.[0]["session_uid"]);
+
   await supabaseAdmin
     .from("rt_active_nokhte_sessions")
     .delete()
@@ -37,7 +42,7 @@ serve(async (req) => {
     const sessionTimestamp = stSessionRes?.data?.[0]["created_at"];
     const sessionUID = stSessionRes?.data?.[0]["session_uid"];
     const collaboratorUIDsArr = stSessionRes?.data?.[0]["collaborator_uids"];
-    const currentPhases = stSessionRes?.data?.[0]["current_phases"];
+    const currentPhases = rtSessionRes?.data?.[0]["current_phases"];
 
     const duplicateCheckRes = (
       await supabaseAdmin

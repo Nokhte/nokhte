@@ -65,7 +65,7 @@ void main() {
 
   test("getHasPremiumAccess", () async {
     final res = await user1STQueries.getHasPremiumAccess();
-    expect(res, [false, false]);
+    expect(res, [true, true, true]);
   });
 
   test("updateOnlineStatus", () async {

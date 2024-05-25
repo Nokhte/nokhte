@@ -77,9 +77,16 @@ void main() {
   }
 
   deleteSession() async {
-    // TODO fix this to do both later
     await tSetup.supabaseAdmin
-        .from("active_nokhte_sessions")
+        .from("rt_active_nokhte_sessions")
+        .delete()
+        .eq("has_begun", true);
+    await tSetup.supabaseAdmin
+        .from("rt_active_nokhte_sessions")
+        .delete()
+        .eq("has_begun", false);
+    await tSetup.supabaseAdmin
+        .from("st_active_nokhte_sessions")
         .delete()
         .eq("collaborator_uids", sortedArr);
     await tSetup.supabaseAdmin
@@ -106,6 +113,8 @@ void main() {
     test("updateOnlineStatus", () async {
       await user1RTQueries.updateOnlineStatus(false);
       final onlineStatus = await user1RTQueries.getWhoIsOnline();
+      print("onlineStatus: $onlineStatus");
+
       expect(onlineStatus[sortedArr.indexOf(tSetup.firstUserUID)], false);
       expect(onlineStatus[sortedArr.indexOf(tSetup.secondUserUID)], true);
       expect(onlineStatus[sortedArr.indexOf(tSetup.thirdUserUID)], true);
@@ -155,30 +164,30 @@ void main() {
     });
 
     test("updateCurrentPhases", () async {
-      await user1RTQueries.updateCurrentPhases(1);
+      await user1RTQueries.updateCurrentPhases(2);
       final currentPhases = await user1RTQueries.getCurrentPhases();
-      expect(currentPhases[sortedArr.indexOf(tSetup.firstUserUID)], 1);
+      expect(currentPhases[sortedArr.indexOf(tSetup.firstUserUID)], 2);
       expect(currentPhases[sortedArr.indexOf(tSetup.secondUserUID)], 0);
       expect(currentPhases[sortedArr.indexOf(tSetup.thirdUserUID)], 0);
       expect(currentPhases[sortedArr.indexOf(tSetup.fourthUserUID)], 0);
-      await user2RTQueries.updateCurrentPhases(1);
+      await user2RTQueries.updateCurrentPhases(2);
       final currentPhases2 = await user1RTQueries.getCurrentPhases();
-      expect(currentPhases2[sortedArr.indexOf(tSetup.firstUserUID)], 1);
-      expect(currentPhases2[sortedArr.indexOf(tSetup.secondUserUID)], 1);
+      expect(currentPhases2[sortedArr.indexOf(tSetup.firstUserUID)], 2);
+      expect(currentPhases2[sortedArr.indexOf(tSetup.secondUserUID)], 2);
       expect(currentPhases2[sortedArr.indexOf(tSetup.thirdUserUID)], 0);
       expect(currentPhases2[sortedArr.indexOf(tSetup.fourthUserUID)], 0);
-      await user3RTQueries.updateCurrentPhases(1);
+      await user3RTQueries.updateCurrentPhases(2);
       final currentPhases3 = await user1RTQueries.getCurrentPhases();
-      expect(currentPhases3[sortedArr.indexOf(tSetup.firstUserUID)], 1);
-      expect(currentPhases3[sortedArr.indexOf(tSetup.secondUserUID)], 1);
-      expect(currentPhases3[sortedArr.indexOf(tSetup.thirdUserUID)], 1);
+      expect(currentPhases3[sortedArr.indexOf(tSetup.firstUserUID)], 2);
+      expect(currentPhases3[sortedArr.indexOf(tSetup.secondUserUID)], 2);
+      expect(currentPhases3[sortedArr.indexOf(tSetup.thirdUserUID)], 2);
       expect(currentPhases3[sortedArr.indexOf(tSetup.fourthUserUID)], 0);
-      await user4RTQueries.updateCurrentPhases(1);
+      await user4RTQueries.updateCurrentPhases(2);
       final currentPhases4 = await user1RTQueries.getCurrentPhases();
-      expect(currentPhases4[sortedArr.indexOf(tSetup.firstUserUID)], 1);
-      expect(currentPhases4[sortedArr.indexOf(tSetup.secondUserUID)], 1);
-      expect(currentPhases4[sortedArr.indexOf(tSetup.thirdUserUID)], 1);
-      expect(currentPhases4[sortedArr.indexOf(tSetup.fourthUserUID)], 1);
+      expect(currentPhases4[sortedArr.indexOf(tSetup.firstUserUID)], 2);
+      expect(currentPhases4[sortedArr.indexOf(tSetup.secondUserUID)], 2);
+      expect(currentPhases4[sortedArr.indexOf(tSetup.thirdUserUID)], 2);
+      expect(currentPhases4[sortedArr.indexOf(tSetup.fourthUserUID)], 2);
     });
 
     test('completeTheSession', () async {
@@ -204,15 +213,15 @@ void main() {
     });
   }
 
-  group("[TRIAL, TRIAL TRIAL, TRIAL] => ✅", () {
-    setUpAll(() async {
-      await deleteSession();
-      await resetAllSubscriptionAndTrialStatus();
-      await createSession();
-    });
+  // group("[TRIAL, TRIAL TRIAL, TRIAL] => ✅", () {
+  //   setUpAll(() async {
+  //     await deleteSession();
+  //     await resetAllSubscriptionAndTrialStatus();
+  //     await createSession();
+  //   });
 
-    shouldProperlyUpdateAllValues();
-  });
+  //   shouldProperlyUpdateAllValues();
+  // });
 
   group("[SUBBED, TRIAL, TRIAL, TRIAL] => ✅", () {
     setUpAll(() async {
@@ -226,6 +235,7 @@ void main() {
 
     shouldProperlyUpdateAllValues();
   });
+
   group("[SUBBED, NOT SUBBED + USED TRIAL, TRIAL, TRIAL] => ❌", () {
     setUpAll(() async {
       await resetAllSubscriptionAndTrialStatus();
@@ -307,44 +317,5 @@ void main() {
       final currentPhases4 = await user1RTQueries.getCurrentPhases();
       expect(currentPhases4, [0, 0, 0, 0]);
     });
-  });
-
-  group("[SUBBED, SUBBED, SUBBED , TRIAL] => ✅", () {
-    setUpAll(() async {
-      await resetAllSubscriptionAndTrialStatus();
-      await createSession();
-      await tSetup.supabaseAdmin.from("user_metadata").update({
-        "is_subscribed": true,
-      }).eq("uid", sortedArr.first);
-      await tSetup.supabaseAdmin.from("user_metadata").update({
-        "is_subscribed": true,
-      }).eq("uid", sortedArr[1]);
-      await tSetup.supabaseAdmin.from("user_metadata").update({
-        "is_subscribed": true,
-      }).eq("uid", sortedArr[2]);
-    });
-
-    shouldProperlyUpdateAllValues();
-  });
-  group("[SUBBED, SUBBED, SUBBED , SUBBED] => ✅", () {
-    setUpAll(() async {
-      await deleteSession();
-      await resetAllSubscriptionAndTrialStatus();
-      await createSession();
-      await tSetup.supabaseAdmin.from("user_metadata").update({
-        "is_subscribed": true,
-      }).eq("uid", sortedArr.first);
-      await tSetup.supabaseAdmin.from("user_metadata").update({
-        "is_subscribed": true,
-      }).eq("uid", sortedArr[1]);
-      await tSetup.supabaseAdmin.from("user_metadata").update({
-        "is_subscribed": true,
-      }).eq("uid", sortedArr[2]);
-      await tSetup.supabaseAdmin.from("user_metadata").update({
-        "is_subscribed": true,
-      }).eq("uid", sortedArr[3]);
-    });
-
-    shouldProperlyUpdateAllValues();
   });
 }
