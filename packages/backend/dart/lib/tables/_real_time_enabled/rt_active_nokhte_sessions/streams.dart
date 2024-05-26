@@ -3,12 +3,20 @@ import 'constants.dart';
 import 'types/types.dart';
 import 'queries.dart';
 
-class ActiveNokhteSessionsStream extends ActiveNokhteSessionQueries
-    with ActiveNokhteSessionsConstants {
+class RTActiveNokhteSessionsStream extends RTActiveNokhteSessionQueries
+    with RTActiveNokhteSessionsConstants {
   bool getActiveNokhteSessionCreationListingingStatus = false;
   bool sessionMetadataListeningStatus = false;
+  int lastTrackedNumOfCollaborators = -1;
+  int leaderIndex = -1;
+  List orderedCollaboratorUIDs = [];
+  List orderedPhases = [];
+  bool isAValidSession = false;
+  bool isAPremiumSession = false;
+  bool everyoneHasGyroscopes = false;
+  List shouldSkipInstructions = [];
 
-  ActiveNokhteSessionsStream({required super.supabase});
+  RTActiveNokhteSessionsStream({required super.supabase});
 
   static List<T> createLoopingList<T>(List<T> originalList, int startIndex) {
     List<T> loopingList = [];
@@ -35,7 +43,7 @@ class ActiveNokhteSessionsStream extends ActiveNokhteSessionQueries
         break;
       }
       if (event.isNotEmpty) {
-        if (event.first[COLLABORATOR_UIDS].length > 1) {
+        if (event.first[CURRENT_PHASES].length > 1) {
           yield true;
         } else {
           yield false;
@@ -53,32 +61,44 @@ class ActiveNokhteSessionsStream extends ActiveNokhteSessionQueries
 
   Stream<NokhteSessionMetadata> listenToPresenceMetadata() async* {
     sessionMetadataListeningStatus = true;
-    await for (var event in supabase.from(TABLE).stream(primaryKey: ['id'])) {
+    await for (var event in supabase
+        .from("rt_active_nokhte_sessions")
+        .stream(primaryKey: ['id'])) {
       if (event.isEmpty) {
         yield NokhteSessionMetadata.initial();
       } else {
         await computeCollaboratorInformation();
-        final leaderIndex =
-            event.first[COLLABORATOR_UIDS].indexOf(event.first[LEADER_UID]);
-        final orderedCollaboratorUIDs =
-            createLoopingList(event.first[COLLABORATOR_UIDS], leaderIndex);
-        final orderedPhases = createLoopingList(
+        if (lastTrackedNumOfCollaborators !=
+            event.first[CURRENT_PHASES].length) {
+          lastTrackedNumOfCollaborators = event.first[CURRENT_PHASES].length;
+          final res = await supabase.from('st_active_nokhte_sessions').select();
+          leaderIndex =
+              res.first[COLLABORATOR_UIDS].indexOf(res.first[LEADER_UID]);
+          orderedCollaboratorUIDs =
+              createLoopingList(res.first[COLLABORATOR_UIDS], leaderIndex);
+          userIndex = orderedCollaboratorUIDs.indexOf(userUID);
+          isAValidSession = res.first[HAS_PREMIUM_ACCESS].length < 4 ||
+              res.first[HAS_PREMIUM_ACCESS].every((e) => e == true);
+          isAPremiumSession = res.first[COLLABORATOR_UIDS].length > 3;
+          everyoneHasGyroscopes =
+              res.first[HAVE_GYROSCOPES].every((e) => e == true);
+          shouldSkipInstructions = createLoopingList(
+              res.first[SHOULD_SKIP_INSTRUCTIONS], leaderIndex);
+        }
+        orderedPhases = createLoopingList(
           event.first[CURRENT_PHASES],
           leaderIndex,
         );
-        final userIndex = orderedCollaboratorUIDs.indexOf(userUID);
         yield NokhteSessionMetadata(
-          isAValidSession: event.first[HAS_PREMIUM_ACCESS].length < 4 ||
-              event.first[HAS_PREMIUM_ACCESS].every((e) => e == true),
-          isAPremiumSession: event.first[COLLABORATOR_UIDS].length > 3,
+          shouldSkipInstructions: shouldSkipInstructions,
+          isAValidSession: isAValidSession,
+          everyoneHasGyroscopes: everyoneHasGyroscopes,
+          userIndex: userIndex,
+          phases: orderedPhases,
           userCanSpeak: event.first[SPEAKER_SPOTLIGHT] == null,
           userIsSpeaking: event.first[SPEAKER_SPOTLIGHT] == userUID,
-          userIndex: userIndex,
           sessionHasBegun: event.first[HAS_BEGUN],
-          everyoneHasGyroscopes:
-              event.first[HAVE_GYROSCOPES].every((e) => e == true),
           everyoneIsOnline: event.first[IS_ONLINE].every((e) => e == true),
-          phases: orderedPhases,
         );
       }
     }

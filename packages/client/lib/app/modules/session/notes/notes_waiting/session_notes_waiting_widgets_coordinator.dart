@@ -47,7 +47,6 @@ abstract class _SessionNotesWaitingWidgetsCoordinatorBase
     mirroredText.setColor(Colors.white);
     tint.setControl(Control.playFromStart);
     mirroredText.startBothRotatingText();
-    rightSideUpIndexReactor();
   }
 
   onCollaboratorLeft() {
@@ -56,7 +55,7 @@ abstract class _SessionNotesWaitingWidgetsCoordinatorBase
 
   @action
   onCollaboratorJoined() {
-    mirroredText.setRightsideUpVisibility(
+    mirroredText.setRightSideUpVisibility(
       mirroredText.primaryRightSideUpText.pastShowWidget,
     );
     mirroredText.setUpsideDownVisibility(
@@ -70,7 +69,7 @@ abstract class _SessionNotesWaitingWidgetsCoordinatorBase
     tint.setControl(Control.playReverse);
   }
 
-  rightSideUpIndexReactor() =>
+  rightSideUpIndexReactor(Function navigateToNotesInstructions) =>
       reaction((p0) => mirroredText.primaryRightSideUpText.currentIndex, (p0) {
         if (p0 == 1) {
           Timer(
@@ -79,7 +78,7 @@ abstract class _SessionNotesWaitingWidgetsCoordinatorBase
               if (shouldMoveIntoSession) {
                 Modular.to.navigate(SessionConstants.notes);
               } else {
-                Modular.to.navigate(SessionConstants.notesInstructions);
+                navigateToNotesInstructions();
               }
             },
           );

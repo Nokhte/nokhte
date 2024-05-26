@@ -1,25 +1,24 @@
-import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class ActiveNokhteSessionEdgeFunctions with ActiveNokhteSessionsConstants {
+import '../tables/_real_time_disabled/st_active_nokhte_sessions/constants.dart';
+
+class ActiveNokhteSessionEdgeFunctions with STActiveNokhteSessionsConstants {
   final SupabaseClient supabase;
   final String userUID;
-  int userIndex = -1;
-  String formattedCollaboratorUIDs = '';
-  List collaboratorUIDs = [];
   ActiveNokhteSessionEdgeFunctions({required this.supabase})
       : userUID = supabase.auth.currentUser?.id ?? '';
+  String sessionUID = '';
+  int userIndex = -1;
 
   computeCollaboratorInformation() async {
-    if (userIndex == -1 || collaboratorUIDs.length < 2) {
-      final row = (await supabase.from(TABLE).select());
-      if (row.isNotEmpty) {
-        collaboratorUIDs = row.first[COLLABORATOR_UIDS];
-        formattedCollaboratorUIDs = row.first[COLLABORATOR_UIDS]
-            .toString()
-            .replaceAll('[', '{')
-            .replaceAll(']', '}');
-        userIndex = collaboratorUIDs.indexOf(userUID);
+    if (sessionUID.isEmpty) {
+      final sessionRes = await supabase
+          .from("st_active_nokhte_sessions")
+          .select()
+          .contains('collaborator_uids', '{$userUID}');
+      if (sessionRes.isNotEmpty) {
+        sessionUID = sessionRes.first[SESSION_UID];
+        userIndex = sessionRes.first[COLLABORATOR_UIDS].indexOf(userUID);
       }
     }
   }
@@ -65,14 +64,15 @@ class ActiveNokhteSessionEdgeFunctions with ActiveNokhteSessionsConstants {
 
   Future<FunctionResponse> completeTheSession() async {
     await computeCollaboratorInformation();
-    final res = await supabase.from('active_nokhte_sessions').select();
-    if (res.isEmpty) {
+    final rtRes = await supabase.from('rt_active_nokhte_sessions').select();
+    final stRes = await supabase.from('st_active_nokhte_sessions').select();
+    if (stRes.isEmpty && rtRes.isEmpty) {
       return FunctionResponse(
           status: 200, data: {"status": 200, "message": "nothing to see here"});
     } else {
       return await supabase.functions
           .invoke('nokhte-session-complete-the-session', body: {
-        'collaboratorUIDs': formattedCollaboratorUIDs,
+        'userUID': userUID,
       });
     }
   }

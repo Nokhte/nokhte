@@ -1,8 +1,10 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
+import 'package:nokhte/app/modules/session/constants/constants.dart';
 import 'session_notes_waiting_widgets_coordinator.dart';
 part 'session_notes_waiting_coordinator.g.dart';
 
@@ -29,6 +31,7 @@ abstract class _SessionNotesWaitingCoordinatorBase extends BaseCoordinator
     userPhaseAtStart = sessionMetadata.userPhase;
     widgets.constructor(userPhaseAtStart);
     initReactors();
+    await captureScreen(SessionConstants.notesWaiting);
   }
 
   initReactors() {
@@ -46,7 +49,11 @@ abstract class _SessionNotesWaitingCoordinatorBase extends BaseCoordinator
       onLongReConnected: () {},
       onDisconnected: () {},
     );
+    widgets.rightSideUpIndexReactor(navigateToNotesInstructions);
   }
+
+  @action
+  navigateToNotesInstructions() => Modular.to.navigate(route);
 
   @action
   onInactive() async {
@@ -78,4 +85,14 @@ abstract class _SessionNotesWaitingCoordinatorBase extends BaseCoordinator
           }
         },
       );
+
+  @computed
+  String get route {
+    if (!sessionMetadata.neighborShouldSkipInstructions &&
+        !sessionMetadata.userShouldSkipInstructions) {
+      return SessionConstants.notesFullInstructions;
+    } else {
+      return SessionConstants.notesHalfInstructions;
+    }
+  }
 }

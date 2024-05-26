@@ -9,6 +9,7 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/constants/constants.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
+import 'package:nokhte/app/modules/storage/constants/constants.dart';
 
 import 'base_home_screen_widgets_coordinator.dart';
 part 'base_home_screen_coordinator.g.dart';
@@ -72,7 +73,7 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
     Timer.periodic(Seconds.get(0, milli: 100), (timer) {
       if (widgets.touchRipple.movieStatus == MovieStatus.finished) {
         Modular.to.navigate(
-          '/session_starters/',
+          SessionStarterConstants.root,
           arguments: deepLinks.listenForOpenedDeepLinkStore.additionalMetadata,
         );
         timer.cancel();
@@ -90,7 +91,7 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
   onSubsequentStorageEntry() {
     Timer.periodic(Seconds.get(0, milli: 100), (timer) {
       if (widgets.touchRipple.movieStatus == MovieStatus.finished) {
-        Modular.to.navigate('/storage/');
+        Modular.to.navigate(StorageConstants.root);
         timer.cancel();
       }
     });

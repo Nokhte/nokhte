@@ -1,5 +1,3 @@
-import 'package:nokhte/app/core/modules/supabase/supabase.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'posthog.dart';
@@ -9,15 +7,10 @@ export 'domain/domain.dart';
 
 class PosthogModule extends Module {
   @override
-  List<Module> get imports => [
-        SupabaseModule(),
-      ];
   @override
   exportedBinds(i) {
     i.add<PosthogRemoteSourceImpl>(
-      () => PosthogRemoteSourceImpl(
-        supabase: Modular.get<SupabaseClient>(),
-      ),
+      () => PosthogRemoteSourceImpl(),
     );
     i.add<PosthogContractImpl>(
       () => PosthogContractImpl(
@@ -37,11 +30,6 @@ class PosthogModule extends Module {
     );
     i.add<CaptureNokhteSessionStart>(
       () => CaptureNokhteSessionStart(
-        contract: Modular.get<PosthogContractImpl>(),
-      ),
-    );
-    i.add<CaptureShareNokhteSessionInvitation>(
-      () => CaptureShareNokhteSessionInvitation(
         contract: Modular.get<PosthogContractImpl>(),
       ),
     );

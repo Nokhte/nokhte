@@ -6,10 +6,10 @@ import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session/constants/constants.dart';
 import 'session_speaking_widgets_coordinator.dart';
 part 'session_speaking_coordinator.g.dart';
 
@@ -39,7 +39,7 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
     initReactors(sessionMetadata.shouldAdjustToFallbackExitProtocol);
     gyroscopic.listen(NoParams());
     setBlockPhoneTiltReactor(false);
-    await captureScreen(Screens.nokhteSessionSpeaking);
+    await captureScreen(SessionConstants.speaking);
   }
 
   @observable

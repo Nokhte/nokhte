@@ -1,5 +1,6 @@
 import 'package:nokhte_backend/tables/finished_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/user_information.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class UserInformationRemoteSource {
@@ -7,6 +8,7 @@ abstract class UserInformationRemoteSource {
   Future<List> getUserInfo();
   Future<List> getFinishedNokhteSessions();
   Future<List> updateHasEnteredStorage(bool newEntryStatus);
+  Future<bool> versionIsUpToDate();
 }
 
 class UserInformationRemoteSourceImpl implements UserInformationRemoteSource {
@@ -20,19 +22,25 @@ class UserInformationRemoteSourceImpl implements UserInformationRemoteSource {
             FinishedNokhteSessionQueries(supabase: supabase);
 
   @override
-  Future<List> updateHasAccessedQrCode(
-          bool hasGoneThroughInvitationFlowParam) async =>
+  updateHasAccessedQrCode(bool hasGoneThroughInvitationFlowParam) async =>
       await userNamesQueries
           .updateHasAccessedQrCode(hasGoneThroughInvitationFlowParam);
 
   @override
-  Future<List> getUserInfo() async => await userNamesQueries.getUserInfo();
+  getUserInfo() async => await userNamesQueries.getUserInfo();
 
   @override
   getFinishedNokhteSessions() async =>
       await finishedNokhteSessionQueries.select();
 
   @override
-  Future<List> updateHasEnteredStorage(bool newEntryStatus) async =>
+  updateHasEnteredStorage(bool newEntryStatus) async =>
       await userNamesQueries.updateHasEnteredStorage(newEntryStatus);
+
+  @override
+  versionIsUpToDate() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String version = packageInfo.version;
+    return (await supabase.rpc('get_valid_app_versions')).contains(version);
+  }
 }

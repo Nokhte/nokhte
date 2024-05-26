@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/modules/home/home.dart';
 part 'qr_navigation_reminder_coordinator.g.dart';
 
@@ -26,7 +25,7 @@ abstract class _QrNavigationReminderCoordinatorBase
   constructor(Offset offset) async {
     widgets.constructor(offset);
     initReactors();
-    await captureScreen(Screens.qrNavigationReminderHome);
+    await captureScreen(HomeConstants.qrNavigationReminder);
   }
 
   @override

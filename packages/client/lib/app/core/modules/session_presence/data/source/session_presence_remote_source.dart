@@ -1,5 +1,6 @@
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
-import 'package:nokhte_backend/tables/active_nokhte_sessions.dart';
+import 'package:nokhte_backend/tables/rt_active_nokhte_sessions.dart';
+import 'package:nokhte_backend/tables/st_active_nokhte_sessions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class SessionPresenceRemoteSource {
@@ -17,45 +18,48 @@ abstract class SessionPresenceRemoteSource {
 
 class SessionPresenceRemoteSourceImpl implements SessionPresenceRemoteSource {
   final SupabaseClient supabase;
-  final ActiveNokhteSessionQueries queries;
-  final ActiveNokhteSessionsStream stream;
+  final RTActiveNokhteSessionQueries rtQueries;
+  final STActiveNokhteSessionQueries stQueries;
+  final RTActiveNokhteSessionsStream stream;
   SessionPresenceRemoteSourceImpl({required this.supabase})
-      : queries = ActiveNokhteSessionQueries(supabase: supabase),
-        stream = ActiveNokhteSessionsStream(supabase: supabase);
+      : rtQueries = RTActiveNokhteSessionQueries(supabase: supabase),
+        stQueries = STActiveNokhteSessionQueries(supabase: supabase),
+        stream = RTActiveNokhteSessionsStream(supabase: supabase);
 
   @override
   cancelSessionMetadataStream() => stream.cancelGetSessionMetadataStream();
 
   @override
   clearTheCurrentTalker() async =>
-      await queries.updateSpeakerSpotlight(addUserToSpotlight: false);
+      await rtQueries.updateSpeakerSpotlight(addUserToSpotlight: false);
 
   @override
   listenToSessionMetadata() => stream.listenToPresenceMetadata();
 
   @override
-  setUserAsCurrentTalker() async => await queries.updateSpeakerSpotlight(
+  setUserAsCurrentTalker() async => await rtQueries.updateSpeakerSpotlight(
         addUserToSpotlight: true,
       );
 
   @override
-  updateCurrentPhase(params) async => await queries.updateCurrentPhases(params);
+  updateCurrentPhase(params) async =>
+      await rtQueries.updateCurrentPhases(params);
 
   @override
-  updateOnlineStatus(params) async => await queries.updateOnlineStatus(
+  updateOnlineStatus(params) async => await rtQueries.updateOnlineStatus(
         params.newStatus,
       );
 
   @override
-  completeTheSession() async => await queries.completeTheSession();
+  completeTheSession() async => await rtQueries.completeTheSession();
 
   @override
-  addContent(content) async => await queries.addContent(content);
+  addContent(content) async => await stQueries.addContent(content);
 
   @override
   updateHasGyroscope(hasGyroscope) async =>
-      await queries.updateHasGyroscope(hasGyroscope);
+      await stQueries.updateHasGyroscope(hasGyroscope);
 
   @override
-  startTheSession() async => await queries.startTheSession();
+  startTheSession() async => await rtQueries.startTheSession();
 }

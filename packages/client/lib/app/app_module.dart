@@ -14,7 +14,7 @@ class AppModule extends Module {
 
   @override
   void routes(r) {
-    r.module('/', module: LoginModule());
+    r.module('/login', module: LoginModule());
     r.module('/home/', module: HomeModule());
     r.module('/session_starters/', module: SessionStartersModule());
     r.module('/session/', module: SessionModule());

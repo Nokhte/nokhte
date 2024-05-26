@@ -1,13 +1,13 @@
-export 'session_notes_instructions_coordinator.dart';
-export 'session_notes_instructions_widgets_coordinator.dart';
+export 'half_session_notes_instructions_coordinator.dart';
+export 'half_session_notes_instructions_widgets_coordinator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'session_notes_instructions_coordinator.dart';
+import 'half_session_notes_instructions_coordinator.dart';
 
-class SessionNotesInstructionsScreen extends HookWidget {
-  final SessionNotesInstructionsCoordinator coordinator;
-  const SessionNotesInstructionsScreen({
+class HalfSessionNotesInstructionsScreen extends HookWidget {
+  final HalfSessionNotesInstructionsCoordinator coordinator;
+  const HalfSessionNotesInstructionsScreen({
     super.key,
     required this.coordinator,
   });
@@ -35,6 +35,10 @@ class SessionNotesInstructionsScreen extends HookWidget {
                 store: coordinator.widgets.beachWaves,
               ),
             ),
+            HalfScreenTint(
+              store: coordinator.widgets.halfScreenTint,
+            ),
+            BorderGlow(store: BorderGlowStore()),
             Tint(
               store: coordinator.widgets.tint,
             ),

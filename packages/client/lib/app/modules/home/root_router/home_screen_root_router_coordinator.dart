@@ -2,7 +2,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_metadata/user_metadata.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
@@ -17,7 +16,6 @@ abstract class _HomeScreenRootRouterCoordinatorBase
   final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
   final HomeScreenRootRouterWidgetsCoordinator widgets;
   final SessionStartersLogicCoordinator sessionStarters;
-  final IdentifyUser identifyUser;
   final UserMetadataCoordinator userMetadata;
 
   @observable
@@ -32,7 +30,6 @@ abstract class _HomeScreenRootRouterCoordinatorBase
     required super.getUserInfo,
     required this.sessionStarters,
     required this.widgets,
-    required this.identifyUser,
     required super.captureScreen,
   });
 
@@ -40,8 +37,6 @@ abstract class _HomeScreenRootRouterCoordinatorBase
   constructor() async {
     widgets.constructor();
     initReactors();
-    await identifyUser(NoParams());
-    await captureScreen(Screens.homeRootRouter);
     await cleanUpCollaborationArtifacts(NoParams());
     await userMetadata.addMetadata(NoParams());
     if (isConnected) {

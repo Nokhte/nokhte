@@ -1,25 +1,24 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'session_notes_instructions_widgets_coordinator.g.dart';
+part 'full_session_notes_instructions_widgets_coordinator.g.dart';
 
-class SessionNotesInstructionsWidgetsCoordinator = _SessionNotesInstructionsWidgetsCoordinatorBase
-    with _$SessionNotesInstructionsWidgetsCoordinator;
+class FullSessionNotesInstructionsWidgetsCoordinator = _FullSessionNotesInstructionsWidgetsCoordinatorBase
+    with _$FullSessionNotesInstructionsWidgetsCoordinator;
 
-abstract class _SessionNotesInstructionsWidgetsCoordinatorBase
+abstract class _FullSessionNotesInstructionsWidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final BeachWavesStore beachWaves;
   final MirroredTextStore mirroredText;
   final TintStore tint;
   final TouchRippleStore touchRipple;
 
-  _SessionNotesInstructionsWidgetsCoordinatorBase({
+  _FullSessionNotesInstructionsWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.mirroredText,
     required this.touchRipple,
@@ -48,7 +47,7 @@ abstract class _SessionNotesInstructionsWidgetsCoordinatorBase
     cooldownStopwatch.start();
     beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
     mirroredText.setMessagesData(
-      MirroredTextContent.sessionNotesInstructions,
+      MirroredTextContent.sessionNotesFullInstructions,
       shouldAdjustToFallbackExitProtocol: shouldAdjustToFallbackExitProtocol,
     );
     mirroredText.startBothRotatingText();

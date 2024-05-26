@@ -52,7 +52,6 @@ abstract class _SessionHybridSpeakingInstructionsWidgetsCoordinatorBase
 
   @action
   initReactors() {
-    // beachWavesMovieStatusReactor();
     upsideDownIndexReactor();
   }
 
@@ -160,7 +159,7 @@ abstract class _SessionHybridSpeakingInstructionsWidgetsCoordinatorBase
 
   @action
   onCollaboratorJoined() {
-    mirroredText.setRightsideUpVisibility(
+    mirroredText.setRightSideUpVisibility(
       mirroredText.primaryRightSideUpText.pastShowWidget,
     );
     mirroredText.setUpsideDownVisibility(
@@ -181,7 +180,7 @@ abstract class _SessionHybridSpeakingInstructionsWidgetsCoordinatorBase
             .setMovieMode(BeachWaveMovieModes.invertedHalfAndHalfToDrySand);
         beachWaves.currentStore.initMovie(NoParams());
         halfScreenTint.setControl(Control.playReverse);
-        mirroredText.setRightsideUpVisibility(false);
+        mirroredText.setRightSideUpVisibility(false);
       }
     }
   }

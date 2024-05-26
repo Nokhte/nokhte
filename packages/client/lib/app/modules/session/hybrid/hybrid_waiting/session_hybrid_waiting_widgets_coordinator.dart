@@ -47,7 +47,7 @@ abstract class _SessionHybridWaitingWidgetsCoordinatorBase
 
   @action
   onCollaboratorJoined() {
-    mirroredText.setRightsideUpVisibility(
+    mirroredText.setRightSideUpVisibility(
       mirroredText.primaryRightSideUpText.pastShowWidget,
     );
     mirroredText.setUpsideDownVisibility(
