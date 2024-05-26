@@ -46,6 +46,7 @@ void main() {
     mockSwipeDetector = SwipeDetector();
     mockTapDetector = TapDetector();
     testStore = LoginCoordinator(
+      identifyUser: MockIdentifyUser(),
       addMetadata: MockAddMetadata(),
       captureScreen: MockCaptureScreen(),
       getUserInfo: MockGetUserInfoStore(),

@@ -4,7 +4,6 @@ import 'dart:ui';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -21,10 +20,8 @@ abstract class _SessionStarterCoordinatorBase
   final UserInformationCoordinator userInformation;
   final SwipeDetector swipe;
   final TapDetector tap;
-
   final DeepLinksCoordinator deepLinks;
   final SessionStartersLogicCoordinator logic;
-  final CaptureShareNokhteSessionInvitation captureShareNokhteSessionInvitation;
 
   _SessionStarterCoordinatorBase({
     required this.widgets,
@@ -33,7 +30,6 @@ abstract class _SessionStarterCoordinatorBase
     required this.tap,
     required this.swipe,
     required this.logic,
-    required this.captureShareNokhteSessionInvitation,
     required super.captureScreen,
   }) : super(getUserInfo: userInformation.getUserInfoStore);
 
@@ -58,7 +54,7 @@ abstract class _SessionStarterCoordinatorBase
     await deepLinks.getDeepLink(DeepLinkTypes.nokhteSessionLeader);
     await userInformation.getUserInfoStore(NoParams());
     await logic.initialize();
-    await captureScreen(Screens.collaborationHome);
+    await captureScreen(SessionStarterConstants.root);
     logic.listenToSessionActivation();
   }
 

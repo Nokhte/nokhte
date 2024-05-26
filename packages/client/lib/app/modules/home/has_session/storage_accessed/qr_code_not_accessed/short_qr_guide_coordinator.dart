@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/modules/home/home.dart';
 import 'package:nokhte/app/modules/storage/storage.dart';
 part 'short_qr_guide_coordinator.g.dart';
@@ -35,7 +34,7 @@ abstract class _ShortQrGuideCoordinatorBase extends BaseHomeScreenCoordinator
   constructor(Offset offset) async {
     widgets.constructor(offset);
     initReactors();
-    await captureScreen(Screens.shortQrGuideHome);
+    await captureScreen(HomeConstants.shortQrGuide);
     await getNokhteSessionArtifacts();
   }
 
@@ -86,6 +85,6 @@ abstract class _ShortQrGuideCoordinatorBase extends BaseHomeScreenCoordinator
 
   @action
   onSubsequentStorageEntry() {
-    Modular.to.navigate('/storage/');
+    Modular.to.navigate(StorageConstants.root);
   }
 }

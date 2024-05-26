@@ -7,7 +7,6 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/active_monetization_session/active_monetization_session.dart';
 import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
 import 'package:nokhte/app/core/modules/in_app_purchase/in_app_purchase.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/home/home.dart';
@@ -48,7 +47,7 @@ abstract class _SessionPaywallCoordinatorBase
     initReactors();
     await iap.getSubscriptionInfo();
     await activeMonetizationSession.listenToExplanationCompletionStatus();
-    await captureScreen(Screens.nokhteSessionSpeakingInstructions);
+    await captureScreen(SessionConstants.paywall);
     await getUserInfo(NoParams());
   }
 
@@ -128,16 +127,24 @@ abstract class _SessionPaywallCoordinatorBase
         ),
       );
 
+  @observable
+  bool hasSwipedDown = false;
+
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) async {
-        switch (p0) {
-          case GestureDirections.up:
-            widgets.onSwipeUp(
-              () async => await iap.buySubscription(),
-            );
-          case GestureDirections.down:
-            await cleanUpCollaborationArtifacts(NoParams());
-          default:
-            break;
+        if (activeMonetizationSession.everyoneHasFinishedExplanation) {
+          switch (p0) {
+            case GestureDirections.up:
+              widgets.onSwipeUp(
+                () async => await iap.buySubscription(),
+              );
+            case GestureDirections.down:
+              if (!hasSwipedDown) {
+                await cleanUpCollaborationArtifacts(NoParams());
+                hasSwipedDown = true;
+              }
+            default:
+              break;
+          }
         }
       });
 

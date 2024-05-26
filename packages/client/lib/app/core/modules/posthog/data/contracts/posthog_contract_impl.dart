@@ -22,17 +22,7 @@ class PosthogContractImpl implements PosthogContract {
   @override
   captureNokhteSessionStart(params) async {
     if (await networkInfo.isConnected) {
-      await remoteSource.captureNokhteSessionStart();
-      return const Right(null);
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
-
-  @override
-  captureShareNokhteSessionInvitation(params) async {
-    if (await networkInfo.isConnected) {
-      await remoteSource.captureShareNokhteSessionInvitation();
+      await remoteSource.captureNokhteSessionStart(params);
       return const Right(null);
     } else {
       return Left(FailureConstants.internetConnectionFailure);

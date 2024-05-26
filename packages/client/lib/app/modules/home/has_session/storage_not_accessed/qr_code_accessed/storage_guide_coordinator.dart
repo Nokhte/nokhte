@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/modules/home/home.dart';
 import 'package:nokhte/app/modules/storage/storage.dart';
@@ -37,7 +36,7 @@ abstract class _StorageGuideCoordinatorBase extends BaseHomeScreenCoordinator
   constructor(Offset offset) async {
     widgets.constructor(offset);
     initReactors();
-    await captureScreen(Screens.storageGuideHome);
+    await captureScreen(HomeConstants.storageGuide);
     await getNokhteSessionArtifacts();
   }
 

@@ -1,15 +1,14 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session/constants/constants.dart';
 import 'session_hybrid_widgets_coordinator.dart';
 part 'session_hybrid_coordinator.g.dart';
 
@@ -41,7 +40,7 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
     initReactors(sessionMetadata.shouldAdjustToFallbackExitProtocol);
     gyroscopic.listen(NoParams());
     setBlockPhoneTiltReactor(false);
-    await captureScreen(Screens.nokhteSessionSpeaking);
+    await captureScreen(SessionConstants.hybrid);
   }
 
   @observable

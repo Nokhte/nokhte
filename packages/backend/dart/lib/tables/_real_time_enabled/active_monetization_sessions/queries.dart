@@ -1,17 +1,21 @@
 import 'package:nokhte_backend/tables/active_monetization_sessions.dart';
+import 'package:nokhte_backend/tables/st_active_nokhte_sessions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ActiveMonetizationSessionQueries with ActiveMonetizationSessionConstants {
   final SupabaseClient supabase;
   final String userUID;
+  final STActiveNokhteSessionQueries stActiveNokhteSessionQueries;
   ActiveMonetizationSessionQueries({
     required this.supabase,
-  }) : userUID = supabase.auth.currentUser?.id ?? '';
+  })  : stActiveNokhteSessionQueries =
+            STActiveNokhteSessionQueries(supabase: supabase),
+        userUID = supabase.auth.currentUser?.id ?? '';
 
   Future<List> select() async => await supabase.from(TABLE).select();
 
   Future<List> startSession() async {
-    final res = (await supabase.from("active_nokhte_sessions").select());
+    final res = await stActiveNokhteSessionQueries.select();
     if (res.isNotEmpty) {
       final collaboratorUIDs = res[0][COLLABORATOR_UIDS];
       final hasPremiumAccess = res[0]["has_premium_access"];

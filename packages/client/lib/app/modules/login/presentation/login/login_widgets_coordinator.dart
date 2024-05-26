@@ -220,7 +220,6 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
           layer2BeachWaves.currentStore.initMovie(NoParams());
         } else if (hasFinishedWaterFromTopPart2(p0)) {
           onPt2Finished();
-          // Modular.to.navigate('/home/');
         }
       });
 

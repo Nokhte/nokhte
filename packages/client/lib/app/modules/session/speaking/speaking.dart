@@ -5,7 +5,8 @@ import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
 export 'speaking/speaking.dart';
-export 'speaking_instructions/speaking_instructions.dart';
+export 'full_speaking_instructions/full_speaking_instructions.dart';
+export 'half_speaking_instructions/half_speaking_instructions.dart';
 export 'speaking_waiting/speaking_waiting.dart';
 
 class SessionSpeakingModule extends Module {
@@ -25,13 +26,25 @@ class SessionSpeakingModule extends Module {
       ),
     );
 
-    i.add<SessionSpeakingInstructionsCoordinator>(
-      () => SessionSpeakingInstructionsCoordinator(
+    i.add<HalfSessionSpeakingInstructionsCoordinator>(
+      () => HalfSessionSpeakingInstructionsCoordinator(
         hold: HoldDetector(),
         gyroscopic: Modular.get<GyroscopicCoordinator>(),
         presence: Modular.get<SessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
-        widgets: Modular.get<SessionSpeakingInstructionsWidgetsCoordinator>(),
+        widgets:
+            Modular.get<HalfSessionSpeakingInstructionsWidgetsCoordinator>(),
+        tap: TapDetector(),
+      ),
+    );
+    i.add<FullSessionSpeakingInstructionsCoordinator>(
+      () => FullSessionSpeakingInstructionsCoordinator(
+        hold: HoldDetector(),
+        gyroscopic: Modular.get<GyroscopicCoordinator>(),
+        presence: Modular.get<SessionPresenceCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        widgets:
+            Modular.get<FullSessionSpeakingInstructionsWidgetsCoordinator>(),
         tap: TapDetector(),
       ),
     );
@@ -50,17 +63,24 @@ class SessionSpeakingModule extends Module {
   @override
   routes(r) {
     r.child(
-      SessionConstants.root,
+      SessionConstants.relativeRoot,
       transition: TransitionType.noTransition,
       child: (context) => SessionSpeakingScreen(
         coordinator: Modular.get<SessionSpeakingCoordinator>(),
       ),
     );
     r.child(
-      SessionConstants.relativeInstructions,
+      SessionConstants.relativeHalfInstructions,
       transition: TransitionType.noTransition,
-      child: (context) => SessionSpeakingInstructionsScreen(
-        coordinator: Modular.get<SessionSpeakingInstructionsCoordinator>(),
+      child: (context) => HalfSessionSpeakingInstructionsScreen(
+        coordinator: Modular.get<HalfSessionSpeakingInstructionsCoordinator>(),
+      ),
+    );
+    r.child(
+      SessionConstants.relativeFullInstructions,
+      transition: TransitionType.noTransition,
+      child: (context) => FullSessionSpeakingInstructionsScreen(
+        coordinator: Modular.get<FullSessionSpeakingInstructionsCoordinator>(),
       ),
     );
     r.child(

@@ -29,7 +29,7 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
     bool shouldAdjustToFallbackExitProtocol = false,
   }) {
     switch (types) {
-      case MirroredTextContent.sessionSpeakingInstructions:
+      case MirroredTextContent.sessionSpeakingFullInstructions:
         prepForSplitScreen();
         setSecondaryMessagesData(SessionLists.speakingInstructionsSecondary);
         setPrimaryMessagesData(SessionLists.speakingInstructionsPrimary);
@@ -37,7 +37,7 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
         prepForSplitScreen();
         setPrimaryMessagesData(SharedLists.empty);
         setSecondaryMessagesData(SessionLists.touchToTalk);
-      case MirroredTextContent.sessionNotesInstructions:
+      case MirroredTextContent.sessionNotesFullInstructions:
         primaryRightSideUpText.setMessagesData(
           SessionLists.getNotesInstructionsPrimary(
             MirroredTextOrientations.rightSideUp,
@@ -85,10 +85,12 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
         );
         secondaryRightSideUpText.setMessagesData(SharedLists.empty);
         primaryUpsideDownText.setMessagesData(
-          SessionLists.hybridSpeakingInstructionsPrimary,
+          SessionLists.speakingHalfInstructionsPrimary(
+            isHybrid: true,
+          ),
         );
         secondaryUpsideDownText.setMessagesData(
-          SessionLists.hybridSpeakingInstructionsSecondary,
+          SessionLists.speakingHalfInstructionsSecondary,
         );
         prepForSplitScreen(isInverted: true);
       case MirroredTextContent.sessionHybridWaiting:
@@ -100,13 +102,14 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
       case MirroredTextContent.sessionNotesHybridInstructions:
         prepForSplitScreen(isInverted: true);
         primaryRightSideUpText.setMessagesData(
-          SessionLists.getHybridNotesInstructionsPrimary(
+          SessionLists.getNotesHalfInstructionsPrimary(
             shouldAdjustToFallbackExitProtocol:
                 shouldAdjustToFallbackExitProtocol,
+            isHybrid: true,
           ),
         );
         secondaryRightSideUpText.setMessagesData(
-          SessionLists.hybridNotesInstructionsSecondary,
+          SessionLists.notesHalfInstructionsSecondary,
         );
         primaryUpsideDownText.setMessagesData(
           SessionLists.lookAtTheOtherPhone,
@@ -124,8 +127,41 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
         secondaryRightSideUpText.setMessagesData(SessionLists.tapToTakeANote);
         secondaryUpsideDownText.setMessagesData(SessionLists.touchToTalk);
         prepForSplitScreen(isInverted: true);
-      default:
-        break;
+      case MirroredTextContent.sessionSpeakingTopHalfInstructions:
+        primaryRightSideUpText
+            .setMessagesData(SessionLists.youHaveAlreadyDoneThis);
+        secondaryRightSideUpText.setMessagesData(SharedLists.empty);
+        primaryUpsideDownText.setMessagesData(
+          SessionLists.speakingHalfInstructionsPrimary(
+            isHybrid: false,
+          ),
+        );
+        secondaryUpsideDownText.setMessagesData(
+          SessionLists.speakingHalfInstructionsSecondary,
+        );
+        prepForSplitScreen();
+      case MirroredTextContent.sessionSpeakingBottomHalfInstructions:
+        primaryRightSideUpText.setMessagesData(
+          SessionLists.speakingHalfInstructionsPrimary(
+            isHybrid: false,
+          ),
+        );
+        secondaryRightSideUpText.setMessagesData(
+          SessionLists.speakingHalfInstructionsSecondary,
+        );
+        primaryUpsideDownText
+            .setMessagesData(SessionLists.youHaveAlreadyDoneThis);
+        secondaryUpsideDownText.setMessagesData(SharedLists.empty);
+        prepForSplitScreen();
+      case MirroredTextContent.sessionNotesHalfInstructions:
+        setPrimaryMessagesData(
+          SessionLists.getNotesHalfInstructionsPrimary(
+            shouldAdjustToFallbackExitProtocol:
+                shouldAdjustToFallbackExitProtocol,
+            isHybrid: true,
+          ),
+        );
+        setSecondaryMessagesData(SessionLists.notesHalfInstructionsSecondary);
     }
   }
 
@@ -198,7 +234,7 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
   }
 
   @action
-  setRightsideUpVisibility(bool isVisible) {
+  setRightSideUpVisibility(bool isVisible) {
     primaryRightSideUpText.setWidgetVisibility(isVisible);
     secondaryRightSideUpText.setWidgetVisibility(isVisible);
   }

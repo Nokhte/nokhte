@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:glassfy_flutter/glassfy_flutter.dart';
@@ -13,6 +12,9 @@ import 'package:flutter/foundation.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
+
+  Modular.setInitialRoute('/login/');
+
   String glassfyAPIKey = dotenv.env['GLASSFY_PROD_API_KEY'] ?? '';
 
   bool shouldUseTestKey = false;

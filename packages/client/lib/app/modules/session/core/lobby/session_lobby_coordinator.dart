@@ -24,11 +24,13 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
   final UserMetadataCoordinator userMetadata;
   final DeepLinksCoordinator deepLinks;
   final ActiveMonetizationSessionCoordinator activeMonetizationSession;
+  final CaptureNokhteSessionStart captureStart;
 
   _SessionLobbyCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
     required this.deepLinks,
+    required this.captureStart,
     required this.tap,
     required this.presence,
     required this.userMetadata,
@@ -45,7 +47,7 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
     await presence.listen();
     await deepLinks.getDeepLink(DeepLinkTypes.nokhteSessionBearer);
     await userMetadata.getMetadata();
-    await captureScreen(Screens.nokhteSessionLobby);
+    await captureScreen(SessionConstants.lobby);
   }
 
   @action
@@ -104,6 +106,7 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
             tap.currentTapPosition,
             onTap: () async {
               await presence.startTheSession();
+              await captureStart(sessionMetadata.numberOfCollaborators);
               if (isTheLeader && !sessionMetadata.isAValidSession) {
                 await activeMonetizationSession.startMonetizationSession();
               }

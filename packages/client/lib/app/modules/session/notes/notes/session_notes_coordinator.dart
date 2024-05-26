@@ -3,11 +3,10 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'session_notes_widgets_coordinator.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 part 'session_notes_coordinator.g.dart';
 
 class SessionNotesCoordinator = _SessionNotesCoordinatorBase
@@ -37,7 +36,7 @@ abstract class _SessionNotesCoordinatorBase extends BaseCoordinator with Store {
     gyroscopic.listen(NoParams());
     setBlockPhoneTiltReactor(false);
     await presence.updateCurrentPhase(2.0);
-    await captureScreen(Screens.nokhteSessionNotes);
+    await captureScreen(SessionConstants.notes);
   }
 
   @observable

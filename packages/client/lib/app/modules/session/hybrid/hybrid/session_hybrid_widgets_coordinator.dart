@@ -160,7 +160,7 @@ abstract class _SessionHybridWidgetsCoordinatorBase
       mirroredText.setUpsideDownVisibility(true);
     }
     if (!speakLessWriteMoreIsVisible) {
-      mirroredText.setRightsideUpVisibility(true);
+      mirroredText.setRightSideUpVisibility(true);
     }
   }
 

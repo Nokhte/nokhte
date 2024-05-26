@@ -1,5 +1,8 @@
 import { serve } from "std/server";
 import { supabaseAdmin } from "../constants/supabase.ts";
+import { getSessionUID } from "../utils/get-session-uid.ts";
+import { isNotEmptyOrNull } from "../utils/array-utils.ts";
+import { checkIfHasDoneASession } from "../utils/check-if-has-done-a-session.ts";
 
 serve(async (req) => {
   const { userUID, shouldInitialize, shouldStart } = await req.json();
@@ -13,14 +16,22 @@ serve(async (req) => {
     )?.data?.[0];
     const hasPremiumAccess =
       metadataRes?.["is_subscribed"] || !metadataRes?.["has_used_trial"];
-    const { error } = await supabaseAdmin
-      .from("active_nokhte_sessions")
+    const hasDoneASessionBefore = await checkIfHasDoneASession(userUID);
+    const { data } = await supabaseAdmin
+      .from("st_active_nokhte_sessions")
       .insert({
         leader_uid: userUID,
         collaborator_uids: [userUID],
         has_premium_access: [hasPremiumAccess],
+        should_skip_instructions: [hasDoneASessionBefore],
       })
       .select();
+    const sessionUID = data?.[0]?.["session_uid"];
+    const { error } = await supabaseAdmin
+      .from("rt_active_nokhte_sessions")
+      .insert({
+        session_uid: sessionUID,
+      });
     if (error != null) {
       returnRes = {
         status: 400,
@@ -28,12 +39,13 @@ serve(async (req) => {
       };
     }
   } else if (shouldStart) {
+    const sessionUID = await getSessionUID(userUID);
     const { error } = await supabaseAdmin
-      .from("active_nokhte_sessions")
+      .from("rt_active_nokhte_sessions")
       .update({
         has_begun: true,
       })
-      .eq("leader_uid", userUID)
+      .eq("session_uid", sessionUID)
       .select();
     if (error != null) {
       returnRes = {
@@ -42,18 +54,32 @@ serve(async (req) => {
       };
     }
   } else {
-    const { error } = await supabaseAdmin
-      .from("active_nokhte_sessions")
-      .delete()
-      .eq("leader_uid", userUID)
-      .eq("collaborator_uids", `{${userUID}}`)
-      .select();
-
-    if (error != null) {
-      returnRes = {
-        status: 400,
-        message: "nuke failed",
-      };
+    const sessionRes = (
+      await supabaseAdmin
+        .from("st_active_nokhte_sessions")
+        .select()
+        .eq("leader_uid", userUID)
+    )?.data;
+    if (isNotEmptyOrNull(sessionRes)) {
+      const sessionShouldBeNuked =
+        sessionRes?.[0]["collaborator_uids"].length === 1;
+      if (sessionShouldBeNuked) {
+        const sessionUID = await getSessionUID(userUID);
+        const { error } = await supabaseAdmin
+          .from("rt_active_nokhte_sessions")
+          .delete()
+          .eq("session_uid", sessionUID);
+        await supabaseAdmin
+          .from("st_active_nokhte_sessions")
+          .delete()
+          .eq("leader_uid", userUID);
+        if (error != null) {
+          returnRes = {
+            status: 400,
+            message: "nuke failed",
+          };
+        }
+      }
     }
   }
 

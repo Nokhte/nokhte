@@ -58,8 +58,10 @@ class LoginContractImpl with ResponseToStatus implements LoginContract {
     if (await networkInfo.isConnected) {
       final userNamesRes = await remoteSource.getUserInfo();
       final nokhteSessionsRes = await remoteSource.getFinishedNokhteSessions();
+      final versionRes = await remoteSource.versionIsUpToDate();
       return Right(
         UserJourneyInfoModel.fromSupabase(
+          isUpToDate: versionRes,
           userNamesRes: userNamesRes,
           finishedNokhteSessionsRes: nokhteSessionsRes,
         ),

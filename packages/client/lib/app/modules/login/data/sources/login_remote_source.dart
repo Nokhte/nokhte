@@ -6,6 +6,7 @@ import 'package:nokhte/app/core/modules/user_metadata/user_metadata.dart';
 import 'package:nokhte/app/modules/login/login.dart' hide SignInWithApple;
 import 'package:nokhte_backend/tables/finished_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/user_information.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:nokhte/app/core/utilities/misc_algos.dart';
@@ -21,6 +22,7 @@ abstract class LoginRemoteSource {
   Future<FunctionResponse> addMetadata();
   Future<List> getUserInfo();
   Future<List> getFinishedNokhteSessions();
+  Future<bool> versionIsUpToDate();
 }
 
 class LoginRemoteSourceImpl implements LoginRemoteSource {
@@ -125,5 +127,12 @@ class LoginRemoteSourceImpl implements LoginRemoteSource {
       supabase: supabase,
     );
     return await userMetadataRemoteSourceImpl.addUserMetadata();
+  }
+
+  @override
+  versionIsUpToDate() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String version = packageInfo.version;
+    return (await supabase.rpc('get_valid_app_versions')).contains(version);
   }
 }

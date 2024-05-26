@@ -23,6 +23,7 @@ abstract class _LoginCoordinatorBase extends BaseHomeScreenRouterCoordinator
   final GetLoginStateStore authStateStore;
   final SwipeDetector swipe;
   final TapDetector tap;
+  final IdentifyUser identifyUser;
 
   _LoginCoordinatorBase({
     required this.signInWithAuthProvider,
@@ -31,6 +32,7 @@ abstract class _LoginCoordinatorBase extends BaseHomeScreenRouterCoordinator
     required this.authStateStore,
     required this.addName,
     required super.getUserInfo,
+    required this.identifyUser,
     required this.tap,
     required this.swipe,
     required super.captureScreen,
@@ -57,7 +59,7 @@ abstract class _LoginCoordinatorBase extends BaseHomeScreenRouterCoordinator
     if (kDebugMode) {
       authProvider = AuthProvider.google;
     }
-    await captureScreen(Screens.login);
+    await captureScreen(LoginConstants.root);
   }
 
   initReactors() {
@@ -120,6 +122,7 @@ abstract class _LoginCoordinatorBase extends BaseHomeScreenRouterCoordinator
           await addName(NoParams());
           await addMetadata(NoParams());
           await getUserInfo(NoParams());
+          await identifyUser(NoParams());
         }
       });
 

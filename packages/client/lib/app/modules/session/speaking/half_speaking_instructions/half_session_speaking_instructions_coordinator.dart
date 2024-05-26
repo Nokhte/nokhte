@@ -4,26 +4,25 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
-import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'session_speaking_instructions_widgets_coordinator.dart';
-part 'session_speaking_instructions_coordinator.g.dart';
+import 'package:nokhte/app/modules/session/session.dart';
+part 'half_session_speaking_instructions_coordinator.g.dart';
 
-class SessionSpeakingInstructionsCoordinator = _SessionSpeakingInstructionsCoordinatorBase
-    with _$SessionSpeakingInstructionsCoordinator;
+class HalfSessionSpeakingInstructionsCoordinator = _HalfSessionSpeakingInstructionsCoordinatorBase
+    with _$HalfSessionSpeakingInstructionsCoordinator;
 
-abstract class _SessionSpeakingInstructionsCoordinatorBase
+abstract class _HalfSessionSpeakingInstructionsCoordinatorBase
     extends BaseCoordinator with Store {
   final TapDetector tap;
   final HoldDetector hold;
-  final SessionSpeakingInstructionsWidgetsCoordinator widgets;
+  final HalfSessionSpeakingInstructionsWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final ListenToSessionMetadataStore sessionMetadata;
   final GyroscopicCoordinator gyroscopic;
 
-  _SessionSpeakingInstructionsCoordinatorBase({
+  _HalfSessionSpeakingInstructionsCoordinatorBase({
     required super.captureScreen,
     required this.gyroscopic,
     required this.widgets,
@@ -34,10 +33,12 @@ abstract class _SessionSpeakingInstructionsCoordinatorBase
 
   @action
   constructor() async {
-    widgets.constructor();
+    widgets.constructor(
+      instructionsOnTop: sessionMetadata.userShouldSkipInstructions,
+    );
     gyroscopic.listen(NoParams());
     initReactors();
-    await captureScreen(Screens.nokhteSessionSpeakingInstructions);
+    await captureScreen(SessionConstants.speakingHalfInstructions);
   }
 
   initReactors() {

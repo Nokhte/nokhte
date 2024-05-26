@@ -13,11 +13,9 @@ abstract class _ListenForOpenedDeepLinkStoreBase extends Equatable with Store {
   final ListenForOpenedDeepLink logic;
   final InterpretNokhteSessionDeepLink interpretNokhteSessionDeepLink;
   final UserInformationCoordinator userInformation;
-  final InterpretCollaboratorCodeDeepLink interpretCollaboratorCode;
 
   _ListenForOpenedDeepLinkStoreBase({
     required this.logic,
-    required this.interpretCollaboratorCode,
     required this.userInformation,
     required this.interpretNokhteSessionDeepLink,
   });
@@ -50,16 +48,7 @@ abstract class _ListenForOpenedDeepLinkStoreBase extends Equatable with Store {
         final String linkType = splitLink.first;
         final getUserInfo = userInformation.getUserInfoStore;
         await getUserInfo(NoParams());
-        if (linkType == DeepLinkPrefixes.collaboratorCode) {
-          final res = interpretCollaboratorCode(
-            InterpretCollaboratorCodeDeepLinkParams.fromUserJourneyInfo(
-              getUserInfo.entity,
-              splitLink[1],
-            ),
-          );
-          path = res.path;
-          additionalMetadata = ObservableMap.of(res.additionalMetadata);
-        } else if (linkType == DeepLinkPrefixes.nokhteCode) {
+        if (linkType == DeepLinkPrefixes.nokhteCode) {
           final res = interpretNokhteSessionDeepLink(
             InterpretNokhteSessionDeepLinkParams(
               deepLinkUID: splitLink[1],

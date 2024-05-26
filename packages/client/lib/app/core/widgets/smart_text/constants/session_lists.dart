@@ -247,49 +247,11 @@ class SessionLists {
       mainMessage: "",
       pauseHere: true,
     ),
-    RotatingTextData(
-      mainMessage: "Continue on the other phone",
-      pauseHere: true,
-      mainMessageFontSize: 22.0,
-    ),
-    RotatingTextData(
-      mainMessage: "",
-      pauseHere: true,
-      mainMessageFontSize: 22.0,
-    ),
   ];
 
-  static List<RotatingTextData> hybridSpeakingInstructionsPrimary = [
+  static List<RotatingTextData> youHaveAlreadyDoneThis = [
     RotatingTextData(
-      mainMessage: "The point of this side is to limit speaking",
-      pauseHere: true,
-      mainMessageFontSize: 22.0,
-    ),
-    RotatingTextData(
-      mainMessage: "You can only speak when your finger is on the screen",
-      pauseHere: true,
-      mainMessageFontSize: 22.0,
-    ),
-    RotatingTextData(
-      mainMessage: "Now, put your finger on the screen",
-      pauseHere: true,
-      mainMessageFontSize: 22.0,
-    ),
-    RotatingTextData(
-      mainMessage: "",
-      pauseHere: true,
-    ),
-    RotatingTextData(
-      mainMessage: "Only you are allowed to speak right now",
-      mainMessageFontSize: 22.0,
-      pauseHere: true,
-    ),
-    RotatingTextData(
-      mainMessage: "",
-      pauseHere: true,
-    ),
-    RotatingTextData(
-      mainMessage: "Let go",
+      mainMessage: "You have already done this",
       mainMessageFontSize: 22.0,
       pauseHere: true,
     ),
@@ -299,7 +261,52 @@ class SessionLists {
     ),
   ];
 
-  static List<RotatingTextData> hybridSpeakingInstructionsSecondary = [
+  static List<RotatingTextData> speakingHalfInstructionsPrimary({
+    required bool isHybrid,
+  }) {
+    String phoneOrSide = isHybrid ? "side" : "phone";
+    return [
+      RotatingTextData(
+        mainMessage: "The point of this $phoneOrSide is to limit speaking",
+        pauseHere: true,
+        mainMessageFontSize: 22.0,
+      ),
+      RotatingTextData(
+        mainMessage: "You can only speak when your finger is on the screen",
+        pauseHere: true,
+        mainMessageFontSize: 22.0,
+      ),
+      RotatingTextData(
+        mainMessage: "Now, put your finger on the screen",
+        pauseHere: true,
+        mainMessageFontSize: 22.0,
+      ),
+      RotatingTextData(
+        mainMessage: "",
+        pauseHere: true,
+      ),
+      RotatingTextData(
+        mainMessage: "Only you are allowed to speak right now",
+        mainMessageFontSize: 22.0,
+        pauseHere: true,
+      ),
+      RotatingTextData(
+        mainMessage: "",
+        pauseHere: true,
+      ),
+      RotatingTextData(
+        mainMessage: "Let go",
+        mainMessageFontSize: 22.0,
+        pauseHere: true,
+      ),
+      RotatingTextData(
+        mainMessage: "",
+        pauseHere: true,
+      ),
+    ];
+  }
+
+  static List<RotatingTextData> speakingHalfInstructionsSecondary = [
     RotatingTextData(
       mainMessage: "Tap to confirm",
       pauseHere: true,
@@ -410,12 +417,14 @@ class SessionLists {
     ),
   ];
 
-  static List<RotatingTextData> getHybridNotesInstructionsPrimary({
+  static List<RotatingTextData> getNotesHalfInstructionsPrimary({
     bool shouldAdjustToFallbackExitProtocol = false,
+    required bool isHybrid,
   }) {
+    String phoneOrSide = isHybrid ? "side" : "phone";
     final arr = [
       RotatingTextData(
-        mainMessage: "This phone will be used for notes",
+        mainMessage: "This $phoneOrSide will be used for notes",
         pauseHere: true,
         mainMessageFontSize: 22.0,
       ),
@@ -433,7 +442,7 @@ class SessionLists {
     return arr;
   }
 
-  static List<RotatingTextData> hybridNotesInstructionsSecondary = [
+  static List<RotatingTextData> notesHalfInstructionsSecondary = [
     RotatingTextData(
       mainMessage: "Tap to confirm",
       pauseHere: true,

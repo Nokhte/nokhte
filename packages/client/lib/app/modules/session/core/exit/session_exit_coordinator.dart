@@ -1,7 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// import 'dart:async';
 import 'dart:async';
-
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -24,11 +22,13 @@ abstract class _SessionExitCoordinatorBase
   final SessionPresenceCoordinator presence;
   final ListenToSessionMetadataStore sessionMetadata;
   final CleanUpCollaborationArtifactsCoordinator cleanUpCollaborationArtifacts;
+  final CaptureNokhteSessionEnd captureEnd;
 
   _SessionExitCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
     required this.swipe,
+    required this.captureEnd,
     required this.presence,
     required this.cleanUpCollaborationArtifacts,
     required super.getUserInfo,
@@ -50,7 +50,7 @@ abstract class _SessionExitCoordinatorBase
     widgets.constructor();
     initReactors();
     await presence.updateCurrentPhase(4.0);
-    await captureScreen(Screens.nokhteSessionExit);
+    await captureScreen(SessionConstants.exit);
   }
 
   @observable
@@ -107,7 +107,6 @@ abstract class _SessionExitCoordinatorBase
         });
     swipeReactor();
     collaboratorPhaseReactor();
-    canReturnHomeReactor();
   }
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
@@ -138,6 +137,23 @@ abstract class _SessionExitCoordinatorBase
         }
       });
 
+  @action
+  onReturnHome() async {
+    if (showCollaboratorIncidents) {
+      showCollaboratorIncidents = false;
+      await presence.dispose();
+      sessionMetadata;
+      if (sessionMetadata.currentPhases.every((e) => e == 5.0)) {
+        await presence.completeTheSession();
+        await captureEnd(NoParams());
+      }
+      Timer(Seconds.get(1), () async {
+        await getUserInfo(NoParams());
+      });
+      widgets.onReadyToGoHome();
+    }
+  }
+
   collaboratorPhaseReactor() {
     reaction(
       (p0) => sessionMetadata.currentPhases,
@@ -149,25 +165,12 @@ abstract class _SessionExitCoordinatorBase
             phaseHasBeenSet = true;
           }
           widgets.onReadyToGoBack(phoneRole);
+        } else if (p0.every((e) => e == 5.0)) {
+          await onReturnHome();
         }
       },
     );
   }
-
-  canReturnHomeReactor() => reaction(
-        (p0) => sessionMetadata.canReturnHome,
-        (p0) async {
-          if (p0) {
-            showCollaboratorIncidents = false;
-            await presence.dispose();
-            await presence.completeTheSession();
-            Timer(Seconds.get(1), () async {
-              await getUserInfo(NoParams());
-            });
-            widgets.onReadyToGoHome();
-          }
-        },
-      );
 
   @computed
   SessionPhoneRole get phoneRole {

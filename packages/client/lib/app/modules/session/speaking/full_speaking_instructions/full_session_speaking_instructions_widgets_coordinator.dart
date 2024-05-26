@@ -11,12 +11,12 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'session_speaking_instructions_widgets_coordinator.g.dart';
+part 'full_session_speaking_instructions_widgets_coordinator.g.dart';
 
-class SessionSpeakingInstructionsWidgetsCoordinator = _SessionSpeakingInstructionsWidgetsCoordinatorBase
-    with _$SessionSpeakingInstructionsWidgetsCoordinator;
+class FullSessionSpeakingInstructionsWidgetsCoordinator = _FullSessionSpeakingInstructionsWidgetsCoordinatorBase
+    with _$FullSessionSpeakingInstructionsWidgetsCoordinator;
 
-abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
+abstract class _FullSessionSpeakingInstructionsWidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final MirroredTextStore mirroredText;
   final SmartTextStore errorSmartText;
@@ -25,7 +25,7 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
   final BorderGlowStore borderGlow;
   final HoldTimerIndicatorStore holdTimerIndicator;
   final TintStore tint;
-  _SessionSpeakingInstructionsWidgetsCoordinatorBase({
+  _FullSessionSpeakingInstructionsWidgetsCoordinatorBase({
     required this.mirroredText,
     required this.beachWaves,
     required super.wifiDisconnectOverlay,
@@ -41,7 +41,7 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
     beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
     beachWaves.currentStore.initMovie(NoParams());
     mirroredText.setMessagesData(
-      MirroredTextContent.sessionSpeakingInstructions,
+      MirroredTextContent.sessionSpeakingFullInstructions,
     );
     errorSmartText.setWidgetVisibility(false);
     errorSmartText.setMessagesData(SessionLists.speakingInstructionsError);
@@ -166,7 +166,7 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
 
   @action
   onCollaboratorJoined() {
-    mirroredText.setRightsideUpVisibility(
+    mirroredText.setRightSideUpVisibility(
       mirroredText.primaryRightSideUpText.pastShowWidget,
     );
     mirroredText.setUpsideDownVisibility(
@@ -216,8 +216,10 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
       if (!bottomHalfIsDone) {
         mirroredText.setWidgetVisibility(false);
       } else if (bottomHalfIsDone && !topHalfIsDone) {
+        mirroredText.startBothRotatingText(isResuming: true);
         mirroredText.setUpsideDownVisibility(false);
       } else if (bottomHalfIsDone && topHalfIsDone) {
+        mirroredText.startRotatingUpsideDown(isResuming: true);
         await onFlowFinished();
       }
     }
@@ -280,15 +282,17 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
     Timer(onScreenTime, () {
       if (!abortTheTextRotation || index == 8) {
         if (!bottomHalfIsDone) {
-          mirroredText.startRotatingRightSideUp(isResuming: true);
           if (index == 8) {
             bottomHalfIsDone = true;
+          } else {
+            mirroredText.startRotatingRightSideUp(isResuming: true);
           }
         } else if (bottomHalfIsDone && !topHalfIsDone) {
-          mirroredText.startRotatingUpsideDown(isResuming: true);
           if (index == 8) {
             canHold = false;
             topHalfIsDone = true;
+          } else {
+            mirroredText.startRotatingUpsideDown(isResuming: true);
           }
         }
       }
@@ -348,7 +352,7 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
                   resetRightSideHoldingPadding();
                   mirroredText.setRightsideUpCurrentIndex(3);
                   mirroredText.startRotatingRightSideUp(isResuming: true);
-                  mirroredText.setRightsideUpVisibility(true);
+                  mirroredText.setRightSideUpVisibility(true);
                   canHold = true;
                   timer.cancel();
                 }
@@ -360,8 +364,9 @@ abstract class _SessionSpeakingInstructionsWidgetsCoordinatorBase
                 bottomHalfHasStarted = true;
                 holdCount = 0;
                 letGoCount = 0;
+                mirroredText.setUpsideDownCurrentIndex(3);
+                mirroredText.startBothRotatingText(isResuming: true);
                 mirroredText.setUpsideDownVisibility(true);
-                mirroredText.startRotatingUpsideDown(isResuming: true);
               } else {
                 Timer.periodic(Seconds.get(0, milli: 550), (timer) {
                   if (mirroredText.primaryUpsideDownText.control ==
