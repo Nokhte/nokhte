@@ -5,7 +5,8 @@ import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
 export 'notes/notes.dart';
-export 'notes_instructions/notes_instructions.dart';
+export 'half_notes_instructions/half_notes_instructions.dart';
+export 'full_notes_instructions/full_notes_instructions.dart';
 export 'notes_waiting/notes_waiting.dart';
 
 class SessionNotesModule extends Module {
@@ -18,11 +19,19 @@ class SessionNotesModule extends Module {
 
   @override
   void exportedBinds(i) {
-    i.add<SessionNotesInstructionsCoordinator>(
-      () => SessionNotesInstructionsCoordinator(
+    i.add<FullSessionNotesInstructionsCoordinator>(
+      () => FullSessionNotesInstructionsCoordinator(
         presence: Modular.get<SessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
-        widgets: Modular.get<SessionNotesInstructionsWidgetsCoordinator>(),
+        widgets: Modular.get<FullSessionNotesInstructionsWidgetsCoordinator>(),
+        tap: TapDetector(),
+      ),
+    );
+    i.add<HalfSessionNotesInstructionsCoordinator>(
+      () => HalfSessionNotesInstructionsCoordinator(
+        presence: Modular.get<SessionPresenceCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        widgets: Modular.get<HalfSessionNotesInstructionsWidgetsCoordinator>(),
         tap: TapDetector(),
       ),
     );
@@ -61,10 +70,17 @@ class SessionNotesModule extends Module {
       ),
     );
     r.child(
-      SessionConstants.relativeInstructions,
+      SessionConstants.relativeFullInstructions,
       transition: TransitionType.noTransition,
-      child: (context) => SessionNotesInstructionsScreen(
-        coordinator: Modular.get<SessionNotesInstructionsCoordinator>(),
+      child: (context) => FullSessionNotesInstructionsScreen(
+        coordinator: Modular.get<FullSessionNotesInstructionsCoordinator>(),
+      ),
+    );
+    r.child(
+      SessionConstants.relativeHalfInstructions,
+      transition: TransitionType.noTransition,
+      child: (context) => HalfSessionNotesInstructionsScreen(
+        coordinator: Modular.get<HalfSessionNotesInstructionsCoordinator>(),
       ),
     );
   }
