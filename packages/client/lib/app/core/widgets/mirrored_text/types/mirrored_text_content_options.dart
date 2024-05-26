@@ -1,13 +1,15 @@
 enum MirroredTextContent {
-  sessionSpeakingInstructions,
+  sessionSpeakingFullInstructions,
+  sessionSpeakingTopHalfInstructions,
+  sessionSpeakingBottomHalfInstructions,
   sessionSpeakingWaiting,
   sessionSpeaking,
-  sessionNotesInstructions,
+  sessionNotesFullInstructions,
+  sessionNotesHalfInstructions,
   sessionSpeakingHybridInstructions,
   sessionHybridWaiting,
   hybrid,
   sessionNotesHybridInstructions,
-  sessionNotes,
   speakLessWriteMore,
   lookAtTheOtherPhone
 }
