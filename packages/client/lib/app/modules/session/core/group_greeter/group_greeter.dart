@@ -40,6 +40,9 @@ class SessionGroupGreeterScreen extends HookWidget {
                 store: coordinator.widgets.beachWaves,
               ),
             ),
+            BorderGlow(
+              store: BorderGlowStore(),
+            ),
             Tint(
               store: coordinator.widgets.tint,
             ),

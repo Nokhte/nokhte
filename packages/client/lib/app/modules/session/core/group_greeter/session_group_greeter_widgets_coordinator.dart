@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mixins/mixin.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'session_group_greeter_widgets_coordinator.g.dart';
 
@@ -57,6 +59,7 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
     secondarySmartText.setMessagesData(SessionLists.groupGreeterSecondary);
     primarySmartText.startRotatingText();
     secondarySmartText.startRotatingText();
+    beachWavesMovieStatusReactor();
   }
 
   @observable
@@ -109,6 +112,18 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
   }
 
   @action
+  initTransitionToSpeaking() {
+    beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
+    beachWaves.currentStore.initMovie(NoParams());
+  }
+
+  @action
+  initTransitionToHybrid() {
+    beachWaves.setMovieMode(BeachWaveMovieModes.skyToInvertedHalfAndHalf);
+    beachWaves.currentStore.initMovie(NoParams());
+  }
+
+  @action
   onCollaboratorLeft() {
     primarySmartText.setWidgetVisibility(false);
     secondarySmartText.setWidgetVisibility(false);
@@ -131,7 +146,13 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
       primarySmartText.setWidgetVisibility(false);
     }
     Timer(Seconds.get(2), () {
-      Modular.to.navigate(route);
+      if (route == SessionConstants.speaking) {
+        initTransitionToSpeaking();
+      } else if (route == SessionConstants.hybrid) {
+        initTransitionToHybrid();
+      } else {
+        Modular.to.navigate(route);
+      }
     });
   }
 
@@ -150,6 +171,17 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
             });
             tint.setControl(Control.play);
             hasTriggeredTint = true;
+          }
+        }
+      });
+
+  beachWavesMovieStatusReactor() =>
+      reaction((p0) => beachWaves.movieStatus, (p0) {
+        if (p0 == MovieStatus.finished) {
+          if (beachWaves.movieMode == BeachWaveMovieModes.skyToHalfAndHalf) {
+            Modular.to.navigate(SessionConstants.speaking);
+          } else {
+            Modular.to.navigate(SessionConstants.hybrid);
           }
         }
       });

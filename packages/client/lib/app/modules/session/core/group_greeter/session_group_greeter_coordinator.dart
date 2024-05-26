@@ -89,7 +89,15 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
     collaboratorPhaseReactor();
     widgets.primarySmartTextIndexReactor(
       initTransition: () {
-        Modular.to.navigate(pathIntoSession);
+        if (pathIntoSession == SessionConstants.speaking) {
+          widgets.initTransitionToSpeaking();
+          isNavigatingAway = true;
+        } else if (pathIntoSession == SessionConstants.hybrid) {
+          widgets.initTransitionToHybrid();
+          isNavigatingAway = true;
+        } else {
+          Modular.to.navigate(pathIntoSession);
+        }
       },
       onComplete: () async => await updateCurrentPhase(),
     );
@@ -119,7 +127,9 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
   rippleCompletionStatusReactor() =>
       reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&
-            sessionMetadata.canMoveIntoInstructions) {
+            sessionMetadata.canMoveIntoInstructions &&
+            pathIntoSession != SessionConstants.speaking &&
+            pathIntoSession != SessionConstants.hybrid) {
           Modular.to.navigate(pathIntoSession);
         }
       });
@@ -145,17 +155,52 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
   String get pathIntoSession {
     if (sessionMetadata.numberOfCollaborators.isOdd) {
       if (sessionMetadata.userIndex == 0) {
-        return SessionConstants.hybridSpeakingInstructions;
+        return hybridPath;
       } else if (sessionMetadata.userIndex.isOdd) {
-        return SessionConstants.notesWaiting;
+        return notesPath;
       } else {
-        return SessionConstants.speakingInstructions;
+        return speakingPath;
       }
     } else {
       if (sessionMetadata.userIndex.isEven) {
-        return SessionConstants.speakingInstructions;
+        return speakingPath;
       } else {
-        return SessionConstants.notesWaiting;
+        return notesPath;
+      }
+    }
+  }
+
+  String get speakingPath {
+    if (sessionMetadata.everyoneShouldSkipInstructions) {
+      return SessionConstants.speaking;
+    } else {
+      if (!sessionMetadata.neighborShouldSkipInstructions &&
+          !sessionMetadata.userShouldSkipInstructions) {
+        return SessionConstants.speakingFullInstructions;
+      } else {
+        return SessionConstants.speakingHalfInstructions;
+      }
+    }
+  }
+
+  @computed
+  String get notesPath {
+    if (sessionMetadata.everyoneShouldSkipInstructions) {
+      return SessionConstants.notes;
+    } else {
+      return SessionConstants.notesWaiting;
+    }
+  }
+
+  @computed
+  String get hybridPath {
+    if (sessionMetadata.everyoneShouldSkipInstructions) {
+      return SessionConstants.hybrid;
+    } else {
+      if (!sessionMetadata.neighborShouldSkipInstructions) {
+        return SessionConstants.hybridSpeakingInstructions;
+      } else {
+        return SessionConstants.hybridWaiting;
       }
     }
   }
