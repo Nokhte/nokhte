@@ -85,7 +85,11 @@ abstract class _SessionHybridSpeakingInstructionsCoordinatorBase
   @action
   onFlowFinished() async {
     if (sessionMetadata.canMoveIntoSecondInstructionsSet) {
-      Modular.to.navigate(SessionConstants.hybridNotesInstructions);
+      if (sessionMetadata.userShouldSkipInstructions) {
+        Modular.to.navigate(SessionConstants.hybrid);
+      } else {
+        Modular.to.navigate(SessionConstants.hybridNotesInstructions);
+      }
     } else {
       Modular.to.navigate(SessionConstants.hybridWaiting);
     }
