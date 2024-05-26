@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
@@ -48,7 +49,11 @@ abstract class _SessionNotesWaitingCoordinatorBase extends BaseCoordinator
       onLongReConnected: () {},
       onDisconnected: () {},
     );
+    widgets.rightSideUpIndexReactor(navigateToNotesInstructions);
   }
+
+  @action
+  navigateToNotesInstructions() => Modular.to.navigate(route);
 
   @action
   onInactive() async {
@@ -80,4 +85,14 @@ abstract class _SessionNotesWaitingCoordinatorBase extends BaseCoordinator
           }
         },
       );
+
+  @computed
+  String get route {
+    if (!sessionMetadata.neighborShouldSkipInstructions &&
+        !sessionMetadata.userShouldSkipInstructions) {
+      return SessionConstants.notesFullInstructions;
+    } else {
+      return SessionConstants.notesHalfInstructions;
+    }
+  }
 }
