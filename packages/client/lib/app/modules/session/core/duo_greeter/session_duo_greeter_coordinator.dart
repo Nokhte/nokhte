@@ -122,8 +122,13 @@ abstract class _SessionDuoGreeterCoordinatorBase extends BaseCoordinator
       reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&
             sessionMetadata.canMoveIntoInstructions) {
-          isNavigatingAway = true;
-          Modular.to.navigate(pathIntoSession);
+          if (pathIntoSession == SessionConstants.speaking) {
+            widgets.initTransitionToSpeaking();
+            isNavigatingAway = true;
+          } else {
+            isNavigatingAway = true;
+            Modular.to.navigate(pathIntoSession);
+          }
         }
       });
 
@@ -135,7 +140,28 @@ abstract class _SessionDuoGreeterCoordinatorBase extends BaseCoordinator
       });
 
   @computed
-  String get pathIntoSession => sessionMetadata.userIndex.isEven
-      ? SessionConstants.speakingInstructions
-      : SessionConstants.notesWaiting;
+  String get pathIntoSession =>
+      sessionMetadata.userIndex.isEven ? speakingPath : notesPath;
+
+  @computed
+  String get speakingPath {
+    if (sessionMetadata.everyoneShouldSkipInstructions) {
+      return SessionConstants.speaking;
+    } else {
+      if (!sessionMetadata.neighborShouldSkipInstructions) {
+        return SessionConstants.speakingFullInstructions;
+      } else {
+        return SessionConstants.speakingHalfInstructions;
+      }
+    }
+  }
+
+  @computed
+  String get notesPath {
+    if (sessionMetadata.everyoneShouldSkipInstructions) {
+      return SessionConstants.notes;
+    } else {
+      return SessionConstants.notesWaiting;
+    }
+  }
 }
