@@ -28,6 +28,7 @@ void main() {
       "collaborator_uids": sortedUIDs,
       "leader_uid": tSetup.firstUserUID,
       "has_premium_access": [false, false],
+      "should_skip_instructions": [false, false],
     });
 
     final res = await user1Queries.startSession();

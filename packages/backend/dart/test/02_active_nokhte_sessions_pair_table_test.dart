@@ -178,7 +178,7 @@ void main() {
           shouldSkipInstructions: [false, false],
           userCanSpeak: true,
           userIsSpeaking: false,
-          userIndex: sortedArr.indexOf(tSetup.secondUserUID),
+          userIndex: sortedArr.indexOf(tSetup.firstUserUID),
           everyoneHasGyroscopes: false,
           phases: [1, 1],
           everyoneIsOnline: false,
