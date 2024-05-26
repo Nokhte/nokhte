@@ -175,7 +175,7 @@ void main() {
       emits(
         NokhteSessionMetadata(
           isAValidSession: true,
-          isAPremiumSession: false,
+          shouldSkipInstructions: [false, false],
           userCanSpeak: true,
           userIsSpeaking: false,
           userIndex: sortedArr.indexOf(tSetup.secondUserUID),
