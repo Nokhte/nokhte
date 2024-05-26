@@ -8,21 +8,21 @@ import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
-part 'session_speaking_instructions_coordinator.g.dart';
+part 'full_session_speaking_instructions_coordinator.g.dart';
 
-class SessionSpeakingInstructionsCoordinator = _SessionSpeakingInstructionsCoordinatorBase
-    with _$SessionSpeakingInstructionsCoordinator;
+class FullSessionSpeakingInstructionsCoordinator = _FullSessionSpeakingInstructionsCoordinatorBase
+    with _$FullSessionSpeakingInstructionsCoordinator;
 
-abstract class _SessionSpeakingInstructionsCoordinatorBase
+abstract class _FullSessionSpeakingInstructionsCoordinatorBase
     extends BaseCoordinator with Store {
   final TapDetector tap;
   final HoldDetector hold;
-  final SessionSpeakingInstructionsWidgetsCoordinator widgets;
+  final FullSessionSpeakingInstructionsWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final ListenToSessionMetadataStore sessionMetadata;
   final GyroscopicCoordinator gyroscopic;
 
-  _SessionSpeakingInstructionsCoordinatorBase({
+  _FullSessionSpeakingInstructionsCoordinatorBase({
     required super.captureScreen,
     required this.gyroscopic,
     required this.widgets,
@@ -36,7 +36,7 @@ abstract class _SessionSpeakingInstructionsCoordinatorBase
     widgets.constructor();
     gyroscopic.listen(NoParams());
     initReactors();
-    await captureScreen(SessionConstants.speakingInstructions);
+    await captureScreen(SessionConstants.speakingFullInstructions);
   }
 
   initReactors() {
