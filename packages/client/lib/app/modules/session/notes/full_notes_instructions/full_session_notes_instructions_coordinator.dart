@@ -7,19 +7,19 @@ import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
-part 'session_notes_instructions_coordinator.g.dart';
+part 'full_session_notes_instructions_coordinator.g.dart';
 
-class SessionNotesInstructionsCoordinator = _SessionNotesInstructionsCoordinatorBase
-    with _$SessionNotesInstructionsCoordinator;
+class FullSessionNotesInstructionsCoordinator = _FullSessionNotesInstructionsCoordinatorBase
+    with _$FullSessionNotesInstructionsCoordinator;
 
-abstract class _SessionNotesInstructionsCoordinatorBase extends BaseCoordinator
-    with Store {
-  final SessionNotesInstructionsWidgetsCoordinator widgets;
+abstract class _FullSessionNotesInstructionsCoordinatorBase
+    extends BaseCoordinator with Store {
+  final FullSessionNotesInstructionsWidgetsCoordinator widgets;
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
   final ListenToSessionMetadataStore sessionMetadata;
 
-  _SessionNotesInstructionsCoordinatorBase({
+  _FullSessionNotesInstructionsCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
     required this.tap,
@@ -30,7 +30,7 @@ abstract class _SessionNotesInstructionsCoordinatorBase extends BaseCoordinator
   constructor() async {
     widgets.constructor(sessionMetadata.shouldAdjustToFallbackExitProtocol);
     initReactors();
-    await captureScreen(SessionConstants.notesInstructions);
+    await captureScreen(SessionConstants.notesFullInstructions);
   }
 
   @action
