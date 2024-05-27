@@ -97,8 +97,6 @@ abstract class _ListenToSessionMetadataStoreBase
               userIndex == value.shouldSkipInstructions.length - 1
                   ? value.shouldSkipInstructions.first
                   : value.shouldSkipInstructions[userIndex + 1];
-          print(
-              "should skip instructions: ${value.shouldSkipInstructions} userIndex: $userIndex neighborShouldSkipInstructions: $neighborShouldSkipInstructions");
           everyoneShouldSkipInstructions =
               value.shouldSkipInstructions.every((e) => e == true);
         });
