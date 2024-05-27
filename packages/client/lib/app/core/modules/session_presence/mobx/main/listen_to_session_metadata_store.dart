@@ -48,6 +48,9 @@ abstract class _ListenToSessionMetadataStoreBase
   bool sessionHasBegun = false;
 
   @observable
+  bool leaderIsWhitelisted = false;
+
+  @observable
   bool isAValidSession = false;
 
   @observable
@@ -82,6 +85,7 @@ abstract class _ListenToSessionMetadataStoreBase
       (stream) {
         sessionMetadata = ObservableStream(stream);
         streamSubscription = sessionMetadata.listen((value) {
+          leaderIsWhitelisted = value.isWhitelisted;
           isAPremiumSession = value.phases.length > 3;
           userIndex = value.userIndex;
           everyoneHasGyroscopes = value.everyoneHasGyroscopes;

@@ -1,0 +1,1 @@
+alter table "public"."st_active_nokhte_sessions" add column "leader_is_whitelisted" boolean not null;

@@ -174,6 +174,7 @@ void main() {
       stream,
       emits(
         NokhteSessionMetadata(
+          isWhitelisted: false,
           isAValidSession: true,
           shouldSkipInstructions: [false, false],
           userCanSpeak: true,
