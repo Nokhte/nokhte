@@ -16,6 +16,7 @@ serve(async (req) => {
     )?.data?.[0];
     const hasPremiumAccess =
       metadataRes?.["is_subscribed"] || !metadataRes?.["has_used_trial"];
+    const isWhiteListed = await metadataRes?.["is_whitelisted"];
     const hasDoneASessionBefore = await checkIfHasDoneASession(userUID);
     const { data } = await supabaseAdmin
       .from("st_active_nokhte_sessions")
@@ -24,6 +25,7 @@ serve(async (req) => {
         collaborator_uids: [userUID],
         has_premium_access: [hasPremiumAccess],
         should_skip_instructions: [hasDoneASessionBefore],
+        is_whitelisted: isWhiteListed,
       })
       .select();
     const sessionUID = data?.[0]?.["session_uid"];

@@ -74,6 +74,12 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
   @observable
   bool hasTriggeredTint = false;
 
+  @observable
+  bool isGoingToHybridWaiting = false;
+
+  @action
+  setIsGoingToHybridWaiting(bool val) => isGoingToHybridWaiting = val;
+
   @action
   setIsTheLastOneToFinish(bool val) => isTheLastOneToFinish = val;
 
@@ -181,7 +187,11 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
           if (beachWaves.movieMode == BeachWaveMovieModes.skyToHalfAndHalf) {
             Modular.to.navigate(SessionConstants.speaking);
           } else {
-            Modular.to.navigate(SessionConstants.hybrid);
+            if (isGoingToHybridWaiting) {
+              Modular.to.navigate(SessionConstants.hybridWaiting);
+            } else {
+              Modular.to.navigate(SessionConstants.hybrid);
+            }
           }
         }
       });

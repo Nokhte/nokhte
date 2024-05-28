@@ -15,6 +15,7 @@ class RTActiveNokhteSessionsStream extends RTActiveNokhteSessionQueries
   bool isAPremiumSession = false;
   bool everyoneHasGyroscopes = false;
   List shouldSkipInstructions = [];
+  bool isWhitelisted = false;
 
   RTActiveNokhteSessionsStream({required super.supabase});
 
@@ -80,6 +81,8 @@ class RTActiveNokhteSessionsStream extends RTActiveNokhteSessionQueries
           isAValidSession = res.first[HAS_PREMIUM_ACCESS].length < 4 ||
               res.first[HAS_PREMIUM_ACCESS].every((e) => e == true);
           isAPremiumSession = res.first[COLLABORATOR_UIDS].length > 3;
+          isWhitelisted = res.first[IS_WHITELISTED];
+
           everyoneHasGyroscopes =
               res.first[HAVE_GYROSCOPES].every((e) => e == true);
           shouldSkipInstructions = createLoopingList(
@@ -90,6 +93,7 @@ class RTActiveNokhteSessionsStream extends RTActiveNokhteSessionQueries
           leaderIndex,
         );
         yield NokhteSessionMetadata(
+          isWhitelisted: isWhitelisted,
           shouldSkipInstructions: shouldSkipInstructions,
           isAValidSession: isAValidSession,
           everyoneHasGyroscopes: everyoneHasGyroscopes,

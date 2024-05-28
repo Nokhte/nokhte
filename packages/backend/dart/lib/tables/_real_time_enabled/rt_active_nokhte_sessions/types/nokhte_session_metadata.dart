@@ -10,12 +10,14 @@ class NokhteSessionMetadata extends Equatable {
   final bool userIsSpeaking;
   final bool isAValidSession;
   final List shouldSkipInstructions;
+  final bool isWhitelisted;
 
   NokhteSessionMetadata({
     required this.everyoneIsOnline,
     required this.phases,
     required this.everyoneHasGyroscopes,
     required this.userCanSpeak,
+    required this.isWhitelisted,
     required this.userIsSpeaking,
     required this.sessionHasBegun,
     required this.userIndex,
@@ -27,6 +29,7 @@ class NokhteSessionMetadata extends Equatable {
         sessionHasBegun: false,
         everyoneHasGyroscopes: false,
         userCanSpeak: false,
+        isWhitelisted: false,
         userIsSpeaking: false,
         everyoneIsOnline: false,
         isAValidSession: false,
@@ -39,6 +42,7 @@ class NokhteSessionMetadata extends Equatable {
   List<Object> get props => [
         everyoneIsOnline,
         everyoneHasGyroscopes,
+        isWhitelisted,
         phases,
         sessionHasBegun,
         userCanSpeak,

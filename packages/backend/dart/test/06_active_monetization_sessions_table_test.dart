@@ -26,6 +26,7 @@ void main() {
   test("startSession", () async {
     await tSetup.supabaseAdmin.from("st_active_nokhte_sessions").insert({
       "collaborator_uids": sortedUIDs,
+      "is_whitelisted": false,
       "leader_uid": tSetup.firstUserUID,
       "has_premium_access": [false, false],
       "should_skip_instructions": [false, false],
