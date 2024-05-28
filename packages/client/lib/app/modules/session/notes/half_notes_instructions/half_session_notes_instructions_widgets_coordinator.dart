@@ -53,15 +53,16 @@ abstract class HalflSessionNotesInstructionsWidgetsCoordinatorBase
     cooldownStopwatch.start();
     beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
     mirroredText.setMessagesData(
-      MirroredTextContent.sessionNotesHalfInstructions,
+      instructionsOnTop
+          ? MirroredTextContent.sessionNotesTopHalfInstructions
+          : MirroredTextContent.sessionNotesBottomHalfInstructions,
       shouldAdjustToFallbackExitProtocol: shouldAdjustToFallbackExitProtocol,
     );
-    if (instructionsOnTop) {
-      mirroredText.startRotatingUpsideDown();
-    } else {
+
+    if (!instructionsOnTop) {
       halfScreenTint.setShouldCoverBottom(false);
-      mirroredText.startRotatingRightSideUp();
     }
+    mirroredText.startBothRotatingText();
     halfScreenTint.initMovie(NoParams());
     setDisableTouchInput(false);
   }
@@ -84,6 +85,11 @@ abstract class HalflSessionNotesInstructionsWidgetsCoordinatorBase
           }
           if (isLastTap) {
             halfScreenTint.reverseMovie(NoParams());
+            if (instructionsOnTop) {
+              mirroredText.setRightSideUpVisibility(false);
+            } else {
+              mirroredText.setUpsideDownVisibility(false);
+            }
             await onFlowFinished();
           }
         }

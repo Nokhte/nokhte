@@ -153,15 +153,32 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
             .setMessagesData(SessionLists.youHaveAlreadyDoneThis);
         secondaryUpsideDownText.setMessagesData(SharedLists.empty);
         prepForSplitScreen();
-      case MirroredTextContent.sessionNotesHalfInstructions:
-        setPrimaryMessagesData(
+      case MirroredTextContent.sessionNotesTopHalfInstructions:
+        primaryRightSideUpText
+            .setMessagesData(SessionLists.youHaveAlreadyDoneThis);
+        secondaryRightSideUpText.setMessagesData(SharedLists.empty);
+        primaryUpsideDownText.setMessagesData(
           SessionLists.getNotesHalfInstructionsPrimary(
             shouldAdjustToFallbackExitProtocol:
                 shouldAdjustToFallbackExitProtocol,
             isHybrid: true,
           ),
         );
-        setSecondaryMessagesData(SessionLists.notesHalfInstructionsSecondary);
+        secondaryUpsideDownText
+            .setMessagesData(SessionLists.notesHalfInstructionsSecondary);
+      case MirroredTextContent.sessionNotesBottomHalfInstructions:
+        primaryRightSideUpText.setMessagesData(
+          SessionLists.getNotesHalfInstructionsPrimary(
+            shouldAdjustToFallbackExitProtocol:
+                shouldAdjustToFallbackExitProtocol,
+            isHybrid: true,
+          ),
+        );
+        secondaryRightSideUpText
+            .setMessagesData(SessionLists.notesHalfInstructionsSecondary);
+        primaryUpsideDownText
+            .setMessagesData(SessionLists.youHaveAlreadyDoneThis);
+        secondaryUpsideDownText.setMessagesData(SharedLists.empty);
     }
   }
 

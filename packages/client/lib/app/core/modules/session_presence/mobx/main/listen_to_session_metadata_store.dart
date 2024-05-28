@@ -48,6 +48,9 @@ abstract class _ListenToSessionMetadataStoreBase
   bool sessionHasBegun = false;
 
   @observable
+  bool leaderIsWhitelisted = false;
+
+  @observable
   bool isAValidSession = false;
 
   @observable
@@ -82,6 +85,7 @@ abstract class _ListenToSessionMetadataStoreBase
       (stream) {
         sessionMetadata = ObservableStream(stream);
         streamSubscription = sessionMetadata.listen((value) {
+          leaderIsWhitelisted = value.isWhitelisted;
           isAPremiumSession = value.phases.length > 3;
           userIndex = value.userIndex;
           everyoneHasGyroscopes = value.everyoneHasGyroscopes;
@@ -97,8 +101,6 @@ abstract class _ListenToSessionMetadataStoreBase
               userIndex == value.shouldSkipInstructions.length - 1
                   ? value.shouldSkipInstructions.first
                   : value.shouldSkipInstructions[userIndex + 1];
-          print(
-              "should skip instructions: ${value.shouldSkipInstructions} userIndex: $userIndex neighborShouldSkipInstructions: $neighborShouldSkipInstructions");
           everyoneShouldSkipInstructions =
               value.shouldSkipInstructions.every((e) => e == true);
         });

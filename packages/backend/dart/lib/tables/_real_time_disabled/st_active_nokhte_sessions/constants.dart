@@ -4,6 +4,7 @@ mixin STActiveNokhteSessionsConstants {
   String TABLE = "st_active_nokhte_sessions";
   String COLLABORATOR_UIDS = 'collaborator_uids';
   String CREATED_AT = 'created_at';
+  String IS_WHITELISTED = 'is_whitelisted';
   String CONTENT = 'content';
   String HAVE_GYROSCOPES = 'have_gyroscopes';
   String SESSION_UID = 'session_uid';

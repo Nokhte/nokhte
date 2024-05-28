@@ -92,7 +92,11 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
         if (pathIntoSession == SessionConstants.speaking) {
           widgets.initTransitionToSpeaking();
           isNavigatingAway = true;
-        } else if (pathIntoSession == SessionConstants.hybrid) {
+        } else if (pathIntoSession == SessionConstants.hybrid ||
+            pathIntoSession == SessionConstants.hybridWaiting) {
+          if (pathIntoSession == SessionConstants.hybridWaiting) {
+            widgets.setIsGoingToHybridWaiting(true);
+          }
           widgets.initTransitionToHybrid();
           isNavigatingAway = true;
         } else {
@@ -129,7 +133,8 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
         if (p0 == MovieStatus.finished &&
             sessionMetadata.canMoveIntoInstructions &&
             pathIntoSession != SessionConstants.speaking &&
-            pathIntoSession != SessionConstants.hybrid) {
+            pathIntoSession != SessionConstants.hybrid &&
+            pathIntoSession != SessionConstants.hybridWaiting) {
           Modular.to.navigate(pathIntoSession);
         }
       });

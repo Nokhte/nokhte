@@ -143,7 +143,8 @@ abstract class _SessionExitCoordinatorBase
       showCollaboratorIncidents = false;
       await presence.dispose();
       sessionMetadata;
-      if (sessionMetadata.currentPhases.every((e) => e == 5.0)) {
+      if (sessionMetadata.currentPhases.every((e) => e == 5.0) &&
+          sessionMetadata.userIndex == 0) {
         await presence.completeTheSession();
         await captureEnd(NoParams());
       }
@@ -166,6 +167,8 @@ abstract class _SessionExitCoordinatorBase
           }
           widgets.onReadyToGoBack(phoneRole);
         } else if (p0.every((e) => e == 5.0)) {
+          await onReturnHome();
+        } else if (p0.contains(-1.0)) {
           await onReturnHome();
         }
       },

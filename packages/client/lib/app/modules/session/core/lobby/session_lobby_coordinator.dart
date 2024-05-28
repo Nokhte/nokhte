@@ -164,7 +164,9 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
 
   @computed
   bool get isConsumingTrialSession =>
-      !userMetadata.hasUsedTrial && !userMetadata.isSubscribed;
+      !userMetadata.hasUsedTrial &&
+      !userMetadata.isSubscribed &&
+      !sessionMetadata.leaderIsWhitelisted;
 
   @computed
   bool get isAPremiumSession =>
