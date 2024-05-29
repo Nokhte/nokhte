@@ -11,7 +11,7 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/constants/constants.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'half_session_speaking_instructions_widgets_coordinator.g.dart';
+part 'session_half_speaking_instructions_widgets_coordinator.g.dart';
 
 class HalfSessionSpeakingInstructionsWidgetsCoordinator = _HalfSessionSpeakingInstructionsWidgetsCoordinatorBase
     with _$HalfSessionSpeakingInstructionsWidgetsCoordinator;

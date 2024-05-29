@@ -8,7 +8,7 @@ import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
-part 'half_session_speaking_instructions_coordinator.g.dart';
+part 'session_half_speaking_instructions_coordinator.g.dart';
 
 class HalfSessionSpeakingInstructionsCoordinator = _HalfSessionSpeakingInstructionsCoordinatorBase
     with _$HalfSessionSpeakingInstructionsCoordinator;

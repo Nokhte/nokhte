@@ -7,7 +7,7 @@ import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'half_session_notes_instructions_widgets_coordinator.g.dart';
+part 'session_half_notes_instructions_widgets_coordinator.g.dart';
 
 class HalfSessionNotesInstructionsWidgetsCoordinator = HalflSessionNotesInstructionsWidgetsCoordinatorBase
     with _$HalfSessionNotesInstructionsWidgetsCoordinator;
