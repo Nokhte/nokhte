@@ -121,7 +121,7 @@ abstract class _StorageHomeCoordinatorBase
         (p0) async {
           await updateSessionAlias(
             UpdateSessionAliasParams(
-              id: widgets.sessionCard.lastEditedId,
+              sessionUID: widgets.sessionCard.lastEditedId,
               newAlias: p0,
             ),
           );

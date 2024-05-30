@@ -50,9 +50,10 @@ void main() {
   });
 
   test("updateAlias", () async {
-    final id =
-        (await user1Queries.select()).first[FinishedNokhteSessionQueries.ID];
-    final res = await user1Queries.updateAlias(newAlias: 'test', id: id);
+    final id = (await user1Queries.select())
+        .first[FinishedNokhteSessionQueries.SESSION_UID];
+    final res =
+        await user1Queries.updateAlias(newAlias: 'test', sessionUID: id);
     expect(
       res.first[FinishedNokhteSessionQueries.ALIASES].contains('test'),
       true,

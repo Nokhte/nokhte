@@ -60,7 +60,7 @@ abstract class _SessionCardStoreBase extends BaseCustomAnimatedWidgetStore
   }
 
   @observable
-  int lastEditedId = -1;
+  String lastEditedId = '';
 
   @observable
   String lastEditedTitle = '';
@@ -77,9 +77,9 @@ abstract class _SessionCardStoreBase extends BaseCustomAnimatedWidgetStore
   }
 
   @action
-  onEdit(int id, String title, int index) {
+  onEdit(String sessionUID, String title, int index) {
     // setDisableTouchInput(false);
-    lastEditedId = id;
+    lastEditedId = sessionUID;
     lastEditedTitle = title;
     focusNodes[index].unfocus();
   }
