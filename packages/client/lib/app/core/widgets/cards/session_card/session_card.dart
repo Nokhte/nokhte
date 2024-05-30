@@ -74,7 +74,7 @@ class SessionCard extends HookWidget {
                                 controller: store.textEditingControllers[index],
                                 readOnly: store.isReadOnly,
                                 onFieldSubmitted: (value) => store.onEdit(
-                                    sessions[index].id, value, index),
+                                    sessions[index].sessionUID, value, index),
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.jost(
                                   color: Colors.white,

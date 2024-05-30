@@ -3,24 +3,27 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'full_session_notes_instructions_widgets_coordinator.g.dart';
+part 'session_half_notes_instructions_widgets_coordinator.g.dart';
 
-class FullSessionNotesInstructionsWidgetsCoordinator = _FullSessionNotesInstructionsWidgetsCoordinatorBase
-    with _$FullSessionNotesInstructionsWidgetsCoordinator;
+class HalfSessionNotesInstructionsWidgetsCoordinator = HalflSessionNotesInstructionsWidgetsCoordinatorBase
+    with _$HalfSessionNotesInstructionsWidgetsCoordinator;
 
-abstract class _FullSessionNotesInstructionsWidgetsCoordinatorBase
+abstract class HalflSessionNotesInstructionsWidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final BeachWavesStore beachWaves;
   final MirroredTextStore mirroredText;
   final TintStore tint;
   final TouchRippleStore touchRipple;
+  final HalfScreenTintStore halfScreenTint;
 
-  _FullSessionNotesInstructionsWidgetsCoordinatorBase({
+  HalflSessionNotesInstructionsWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.mirroredText,
+    required this.halfScreenTint,
     required this.touchRipple,
     required this.tint,
     required super.wifiDisconnectOverlay,
@@ -36,34 +39,32 @@ abstract class _FullSessionNotesInstructionsWidgetsCoordinatorBase
   setDisableTouchInput(bool newValue) => disableTouchInput = newValue;
 
   @observable
-  MirroredTextOrientations currentActiveOrientation =
-      MirroredTextOrientations.rightSideUp;
-
-  @observable
   int tapCount = 0;
 
+  @observable
+  bool instructionsOnTop = true;
+
   @action
-  constructor(bool shouldAdjustToFallbackExitProtocol) {
+  constructor({
+    required bool shouldAdjustToFallbackExitProtocol,
+    required bool instructionsOnTop,
+  }) {
+    this.instructionsOnTop = instructionsOnTop;
     cooldownStopwatch.start();
     beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
     mirroredText.setMessagesData(
-      MirroredTextContent.sessionNotesFullInstructions,
+      instructionsOnTop
+          ? MirroredTextContent.sessionNotesTopHalfInstructions
+          : MirroredTextContent.sessionNotesBottomHalfInstructions,
       shouldAdjustToFallbackExitProtocol: shouldAdjustToFallbackExitProtocol,
     );
-    mirroredText.startBothRotatingText();
-    setDisableTouchInput(false);
-  }
 
-  @action
-  toggleCurrentActiveOrientation() {
-    switch (currentActiveOrientation) {
-      case MirroredTextOrientations.rightSideUp:
-        currentActiveOrientation = MirroredTextOrientations.upsideDown;
-      case MirroredTextOrientations.upsideDown:
-        currentActiveOrientation = MirroredTextOrientations.rightSideUp;
-      default:
-        break;
+    if (!instructionsOnTop) {
+      halfScreenTint.setShouldCoverBottom(false);
     }
+    mirroredText.startBothRotatingText();
+    halfScreenTint.initMovie(NoParams());
+    setDisableTouchInput(false);
   }
 
   @action
@@ -75,11 +76,20 @@ abstract class _FullSessionNotesInstructionsWidgetsCoordinatorBase
         cooldownStopwatch.reset();
       }
       touchRipple.onTap(tapPosition);
-      if (hasTappedOnTheRightSide && textIsDoneFadingInOrOut) {
-        toggleCurrentActiveOrientation();
+      if (hasTappedOnTheRightSide) {
         if (isStillInMutualInstructionMode) {
-          mirroredText.startBothRotatingText(isResuming: true);
+          if (instructionsOnTop) {
+            mirroredText.startRotatingUpsideDown(isResuming: true);
+          } else {
+            mirroredText.startRotatingRightSideUp(isResuming: true);
+          }
           if (isLastTap) {
+            halfScreenTint.reverseMovie(NoParams());
+            if (instructionsOnTop) {
+              mirroredText.setRightSideUpVisibility(false);
+            } else {
+              mirroredText.setUpsideDownVisibility(false);
+            }
             await onFlowFinished();
           }
         }
@@ -106,6 +116,11 @@ abstract class _FullSessionNotesInstructionsWidgetsCoordinatorBase
   }
 
   @computed
+  MirroredTextOrientations get currentActiveOrientation => instructionsOnTop
+      ? MirroredTextOrientations.upsideDown
+      : MirroredTextOrientations.rightSideUp;
+
+  @computed
   bool get hasTappedOnTheRightSide =>
       rightSideUpTextIsVisible && hasTappedOnTheBottomHalf ||
       upsideDownTextIsVisible && hasTappedOnTheTopHalf;
@@ -127,16 +142,16 @@ abstract class _FullSessionNotesInstructionsWidgetsCoordinatorBase
       touchRipple.tapPlacement == GesturePlacement.topHalf;
 
   @computed
-  bool get isStillInMutualInstructionMode => tapCount.isLessThan(4);
+  bool get isStillInMutualInstructionMode => tapCount.isLessThan(2);
 
   @computed
   bool get isFirstTap => tapCount == 0;
 
   @computed
-  bool get isLastTap => tapCount == 3;
+  bool get isLastTap => tapCount == 1;
 
   @computed
-  bool get hasCompletedInstructions => tapCount == 4;
+  bool get hasCompletedInstructions => tapCount == 2;
 
   @computed
   bool get textIsDoneFadingInOrOut =>

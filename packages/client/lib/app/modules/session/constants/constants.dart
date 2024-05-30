@@ -21,6 +21,7 @@ mixin SessionConstants {
   static const relativeInstructions = '/instructions';
   static const relativeFullInstructions = '/full_instructions';
   static const relativeHalfInstructions = '/half_instructions';
+  static const relativeSpeaking = '/speaking';
 
   static const relativePaywall = '/paywall';
   static const relativeWaitingPatron = '/waiting_patron';
@@ -31,7 +32,9 @@ mixin SessionConstants {
   static const trialGreeter = '/session/core$relativeTrialGreeter';
   static const exit = '/session/core$relativeExit';
 
-  static const hybrid = '/session/hybrid$relativeRoot';
+  static const hybridRouter = '/session/hybrid$relativeRoot';
+  static const relativeHybrid = '/hybrid';
+  static const hybrid = '/session/hybrid$relativeHybrid';
   static const hybridSpeakingInstructions =
       '/session/hybrid$relativeSpeakingInstructions';
   static const hybridWaiting = '/session/hybrid$relativeWaiting';
@@ -49,7 +52,8 @@ mixin SessionConstants {
       '/session/notes$relativeHalfInstructions';
   static const notes = '/session/notes$relativeRoot';
 
-  static const speaking = '/session/speaking$relativeRoot';
+  static const speakingRouter = '/session/speaking$relativeRoot';
+  static const speaking = '/session/speaking$relativeSpeaking';
   static const speakingFullInstructions =
       '/session/speaking$relativeFullInstructions';
   static const speakingHalfInstructions =
