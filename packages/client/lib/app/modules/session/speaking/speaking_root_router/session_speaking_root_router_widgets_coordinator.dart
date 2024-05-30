@@ -28,7 +28,6 @@ abstract class _SessionSpeakingRootRouterWidgetsCoordinatorBase
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
           onComplete();
-          // Modular.to.navigate(route);
         }
       });
 }

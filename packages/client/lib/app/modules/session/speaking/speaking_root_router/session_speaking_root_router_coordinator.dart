@@ -39,7 +39,7 @@ abstract class _SessionSpeakingRootRouterCoordinatorBase extends BaseCoordinator
         return SessionConstants.speakingFullInstructions;
       } else if (sessionMetadata.userShouldSkipInstructions &&
           sessionMetadata.neighborShouldSkipInstructions) {
-        return SessionConstants.speakingWaiting; // requires special care
+        return SessionConstants.speakingWaiting;
       } else {
         return SessionConstants.speakingHalfInstructions;
       }
