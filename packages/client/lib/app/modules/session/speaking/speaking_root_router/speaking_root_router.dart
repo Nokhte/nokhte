@@ -4,7 +4,7 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 
 export 'session_speaking_root_router_coordinator.dart';
 export 'session_speaking_root_router_widgets_coordinator.dart';
-import 'root_router.dart';
+import 'speaking_root_router.dart';
 
 class SessionSpeakingRootRouterScreen extends HookWidget {
   final SessionSpeakingRootRouterCoordinator coordinator;

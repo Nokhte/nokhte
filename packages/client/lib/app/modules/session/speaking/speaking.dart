@@ -8,7 +8,7 @@ export 'speaking/speaking.dart';
 export 'full_speaking_instructions/full_speaking_instructions.dart';
 export 'half_speaking_instructions/half_speaking_instructions.dart';
 export 'speaking_waiting/speaking_waiting.dart';
-export 'root_router/root_router.dart';
+export 'speaking_root_router/speaking_root_router.dart';
 
 class SessionSpeakingModule extends Module {
   @override
