@@ -122,6 +122,12 @@ class SessionWidgetsModule extends Module {
   }
 
   injectHybrid(i) {
+    i.add<SessionHybridRootRouterWidgetsCoordinator>(
+      () => SessionHybridRootRouterWidgetsCoordinator(
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        beachWaves: BeachWavesStore(),
+      ),
+    );
     i.add<SessionHybridWaitingWidgetsCoordinator>(
       () => SessionHybridWaitingWidgetsCoordinator(
         tint: TintStore(),
