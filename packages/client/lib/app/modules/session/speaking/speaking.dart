@@ -8,6 +8,7 @@ export 'speaking/speaking.dart';
 export 'full_speaking_instructions/full_speaking_instructions.dart';
 export 'half_speaking_instructions/half_speaking_instructions.dart';
 export 'speaking_waiting/speaking_waiting.dart';
+export 'root_router/root_router.dart';
 
 class SessionSpeakingModule extends Module {
   @override
@@ -18,6 +19,13 @@ class SessionSpeakingModule extends Module {
       ];
   @override
   void exportedBinds(Injector i) {
+    i.add<SessionSpeakingRootRouterCoordinator>(
+      () => SessionSpeakingRootRouterCoordinator(
+        presence: Modular.get<SessionPresenceCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        widgets: Modular.get<SessionSpeakingRootRouterWidgetsCoordinator>(),
+      ),
+    );
     i.add<SessionSpeakingWaitingCoordinator>(
       () => SessionSpeakingWaitingCoordinator(
         presence: Modular.get<SessionPresenceCoordinator>(),
@@ -64,6 +72,13 @@ class SessionSpeakingModule extends Module {
   routes(r) {
     r.child(
       SessionConstants.relativeRoot,
+      transition: TransitionType.noTransition,
+      child: (context) => SessionSpeakingRootRouterScreen(
+        coordinator: Modular.get<SessionSpeakingRootRouterCoordinator>(),
+      ),
+    );
+    r.child(
+      SessionConstants.relativeSpeaking,
       transition: TransitionType.noTransition,
       child: (context) => SessionSpeakingScreen(
         coordinator: Modular.get<SessionSpeakingCoordinator>(),

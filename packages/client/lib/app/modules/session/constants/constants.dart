@@ -21,6 +21,7 @@ mixin SessionConstants {
   static const relativeInstructions = '/instructions';
   static const relativeFullInstructions = '/full_instructions';
   static const relativeHalfInstructions = '/half_instructions';
+  static const relativeSpeaking = '/speaking';
 
   static const relativePaywall = '/paywall';
   static const relativeWaitingPatron = '/waiting_patron';
@@ -49,7 +50,8 @@ mixin SessionConstants {
       '/session/notes$relativeHalfInstructions';
   static const notes = '/session/notes$relativeRoot';
 
-  static const speaking = '/session/speaking$relativeRoot';
+  static const speakingRouter = '/session/speaking$relativeRoot';
+  static const speaking = '/session/speaking$relativeSpeaking';
   static const speakingFullInstructions =
       '/session/speaking$relativeFullInstructions';
   static const speakingHalfInstructions =

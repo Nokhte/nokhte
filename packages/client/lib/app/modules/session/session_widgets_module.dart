@@ -69,6 +69,12 @@ class SessionWidgetsModule extends Module {
   }
 
   injectSpeaking(i) {
+    i.add<SessionSpeakingRootRouterWidgetsCoordinator>(
+      () => SessionSpeakingRootRouterWidgetsCoordinator(
+        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        beachWaves: BeachWavesStore(),
+      ),
+    );
     i.add<HalfSessionSpeakingInstructionsWidgetsCoordinator>(
       () => HalfSessionSpeakingInstructionsWidgetsCoordinator(
         halfScreenTint: HalfScreenTintStore(),
@@ -191,8 +197,8 @@ class SessionWidgetsModule extends Module {
         beachWaves: BeachWavesStore(),
       ),
     );
-    i.add<FullSessionNotesInstructionsWidgetsCoordinator>(
-      () => FullSessionNotesInstructionsWidgetsCoordinator(
+    i.add<SessionFullNotesInstructionsWidgetsCoordinator>(
+      () => SessionFullNotesInstructionsWidgetsCoordinator(
         touchRipple: TouchRippleStore(),
         tint: TintStore(),
         mirroredText: Modular.get<MirroredTextStore>(),
