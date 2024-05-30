@@ -164,26 +164,13 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
       } else if (sessionMetadata.userIndex.isOdd) {
         return notesPath;
       } else {
-        return speakingPath;
+        return SessionConstants.speakingRouter;
       }
     } else {
       if (sessionMetadata.userIndex.isEven) {
-        return speakingPath;
+        return SessionConstants.speakingRouter;
       } else {
         return notesPath;
-      }
-    }
-  }
-
-  String get speakingPath {
-    if (sessionMetadata.everyoneShouldSkipInstructions) {
-      return SessionConstants.speaking;
-    } else {
-      if (!sessionMetadata.neighborShouldSkipInstructions &&
-          !sessionMetadata.userShouldSkipInstructions) {
-        return SessionConstants.speakingFullInstructions;
-      } else {
-        return SessionConstants.speakingHalfInstructions;
       }
     }
   }
