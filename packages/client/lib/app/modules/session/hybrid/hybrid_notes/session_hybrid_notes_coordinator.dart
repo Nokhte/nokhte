@@ -70,12 +70,6 @@ abstract class _SessionHybridNotesCoordinatorBase extends BaseCoordinator
   }
 
   @action
-  onGlowInitiated() async {
-    await presence.updateCurrentPhase(2);
-    setBlockPhoneTiltReactor(true);
-  }
-
-  @action
   onInactive() async => await presence
       .updateOnlineStatus(UpdatePresencePropertyParams.userNegative());
 
