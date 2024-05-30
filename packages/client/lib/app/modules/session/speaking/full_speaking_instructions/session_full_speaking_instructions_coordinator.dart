@@ -1,39 +1,44 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
-part 'full_session_notes_instructions_coordinator.g.dart';
+part 'session_full_speaking_instructions_coordinator.g.dart';
 
-class FullSessionNotesInstructionsCoordinator = _FullSessionNotesInstructionsCoordinatorBase
-    with _$FullSessionNotesInstructionsCoordinator;
+class FullSessionSpeakingInstructionsCoordinator = _FullSessionSpeakingInstructionsCoordinatorBase
+    with _$FullSessionSpeakingInstructionsCoordinator;
 
-abstract class _FullSessionNotesInstructionsCoordinatorBase
+abstract class _FullSessionSpeakingInstructionsCoordinatorBase
     extends BaseCoordinator with Store {
-  final FullSessionNotesInstructionsWidgetsCoordinator widgets;
   final TapDetector tap;
+  final HoldDetector hold;
+  final FullSessionSpeakingInstructionsWidgetsCoordinator widgets;
   final SessionPresenceCoordinator presence;
   final ListenToSessionMetadataStore sessionMetadata;
+  final GyroscopicCoordinator gyroscopic;
 
-  _FullSessionNotesInstructionsCoordinatorBase({
+  _FullSessionSpeakingInstructionsCoordinatorBase({
     required super.captureScreen,
+    required this.gyroscopic,
     required this.widgets,
     required this.tap,
     required this.presence,
+    required this.hold,
   }) : sessionMetadata = presence.listenToSessionMetadataStore;
 
   @action
   constructor() async {
-    widgets.constructor(sessionMetadata.shouldAdjustToFallbackExitProtocol);
+    widgets.constructor();
+    gyroscopic.listen(NoParams());
     initReactors();
-    await captureScreen(SessionConstants.notesFullInstructions);
+    await captureScreen(SessionConstants.speakingFullInstructions);
   }
 
-  @action
   initReactors() {
     tapReactor();
     presence.initReactors(
@@ -42,12 +47,12 @@ abstract class _FullSessionNotesInstructionsCoordinatorBase
         widgets.onCollaboratorJoined();
       },
       onCollaboratorLeft: () {
-        widgets.onCollaboratorLeft();
         widgets.setDisableTouchInput(true);
+        widgets.onCollaboratorLeft();
       },
     );
     widgets.wifiDisconnectOverlay.initReactors(
-      onQuickConnected: () => widgets.setDisableTouchInput(false),
+      onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         widgets.setDisableTouchInput(false);
       },
@@ -55,19 +60,10 @@ abstract class _FullSessionNotesInstructionsCoordinatorBase
         widgets.setDisableTouchInput(true);
       },
     );
-    rippleCompletionStatusReactor();
+    phoneTiltStateReactor();
+    holdReactor();
+    letGoReactor();
   }
-
-  rippleCompletionStatusReactor() =>
-      reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished && widgets.hasCompletedInstructions) {
-          if (sessionMetadata.canMoveIntoSession) {
-            Modular.to.navigate(SessionConstants.notes);
-          } else {
-            Modular.to.navigate(SessionConstants.notesWaiting);
-          }
-        }
-      });
 
   @action
   onInactive() async {
@@ -84,24 +80,37 @@ abstract class _FullSessionNotesInstructionsCoordinatorBase
     }
   }
 
+  phoneTiltStateReactor() =>
+      reaction((p0) => gyroscopic.holdingState, (p0) async {
+        if (p0 == PhoneHoldingState.isPickedUp) {
+          widgets.onPhonePickup();
+        } else if (p0 == PhoneHoldingState.isDown) {
+          widgets.onPutDown();
+        }
+      });
+
+  holdReactor() => reaction(
+        (p0) => hold.holdCount,
+        (p0) {
+          ifTouchIsNotDisabled(() {
+            widgets.onHold(hold.placement);
+          });
+        },
+      );
+
+  letGoReactor() => reaction((p0) => hold.letGoCount, (p0) {
+        widgets.onLetGo(
+          onFlowFinished: () async => await gyroscopic.dispose(),
+        );
+        Timer(Seconds.get(2), () {
+          setDisableAllTouchFeedback(false);
+        });
+      });
+
   tapReactor() => reaction(
         (p0) => tap.tapCount,
         (p0) => ifTouchIsNotDisabled(
-          () async {
-            widgets.onTap(
-              tap.currentTapPosition,
-              onFlowFinished: () async => await updateCurrentPhase(),
-            );
-          },
+          () => widgets.onTap(tap.currentTapPosition),
         ),
       );
-  updateCurrentPhase() async {
-    Timer.periodic(Seconds.get(0, milli: 500), (timer) async {
-      if (presence.listenToSessionMetadataStore.userPhase != 2.0) {
-        await presence.updateCurrentPhase(2.0);
-      } else {
-        timer.cancel();
-      }
-    });
-  }
 }

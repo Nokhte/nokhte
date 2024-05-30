@@ -6,19 +6,19 @@ import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'full_session_notes_instructions_widgets_coordinator.g.dart';
+part 'session_full_notes_instructions_widgets_coordinator.g.dart';
 
-class FullSessionNotesInstructionsWidgetsCoordinator = _FullSessionNotesInstructionsWidgetsCoordinatorBase
-    with _$FullSessionNotesInstructionsWidgetsCoordinator;
+class SessionFullNotesInstructionsWidgetsCoordinator = _SessionFullNotesInstructionsWidgetsCoordinatorBase
+    with _$SessionFullNotesInstructionsWidgetsCoordinator;
 
-abstract class _FullSessionNotesInstructionsWidgetsCoordinatorBase
+abstract class _SessionFullNotesInstructionsWidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
   final BeachWavesStore beachWaves;
   final MirroredTextStore mirroredText;
   final TintStore tint;
   final TouchRippleStore touchRipple;
 
-  _FullSessionNotesInstructionsWidgetsCoordinatorBase({
+  _SessionFullNotesInstructionsWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.mirroredText,
     required this.touchRipple,

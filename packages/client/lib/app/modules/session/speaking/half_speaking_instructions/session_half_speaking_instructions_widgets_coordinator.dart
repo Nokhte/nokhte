@@ -76,8 +76,7 @@ abstract class _HalfSessionSpeakingInstructionsWidgetsCoordinatorBase
     if (!instructionsOnTop) {
       halfScreenTint.setShouldCoverBottom(false);
     }
-    beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
-    beachWaves.currentStore.initMovie(NoParams());
+    beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
     mirroredText.setMessagesData(
       instructionsOnTop
           ? MirroredTextContent.sessionSpeakingTopHalfInstructions
@@ -87,6 +86,10 @@ abstract class _HalfSessionSpeakingInstructionsWidgetsCoordinatorBase
     errorSmartText.setMessagesData(SessionLists.speakingInstructionsError);
     errorSmartText.startRotatingText();
     initReactors();
+    mirroredText.startBothRotatingText();
+    halfScreenTint.initMovie(NoParams());
+    cooldownStopwatch.start();
+    disableTouchInput = false;
   }
 
   initReactors() {
@@ -100,21 +103,10 @@ abstract class _HalfSessionSpeakingInstructionsWidgetsCoordinatorBase
   beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) async {
         if (p0 == MovieStatus.finished) {
-          if (beachWaves.movieMode == BeachWaveMovieModes.skyToHalfAndHalf) {
-            mirroredText.startBothRotatingText();
-            // if (instructionsOnTop) {
-            //   mirroredText.startRotatingUpsideDown();
-            // } else {
-            //   mirroredText.startRotatingRightSideUp();
-            // }
-            halfScreenTint.initMovie(NoParams());
-            cooldownStopwatch.start();
-            disableTouchInput = false;
-          } else if (beachWaves.movieMode ==
+          if (beachWaves.movieMode ==
               BeachWaveMovieModes.halfAndHalfToDrySand) {
             borderGlow.initMovie(NoParams());
             holdTimerIndicator.initMovie(GesturePlacement.bottomHalf);
-            //
           } else if (beachWaves.movieMode == BeachWaveMovieModes.anyToSky) {
             if (!phoneIsPickedUp) {
               borderGlow.initMovie(NoParams());
