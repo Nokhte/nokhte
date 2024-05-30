@@ -11,7 +11,7 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/session.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'full_session_speaking_instructions_widgets_coordinator.g.dart';
+part 'session_full_speaking_instructions_widgets_coordinator.g.dart';
 
 class FullSessionSpeakingInstructionsWidgetsCoordinator = _FullSessionSpeakingInstructionsWidgetsCoordinatorBase
     with _$FullSessionSpeakingInstructionsWidgetsCoordinator;
@@ -38,14 +38,16 @@ abstract class _FullSessionSpeakingInstructionsWidgetsCoordinatorBase
 
   @action
   constructor() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
-    beachWaves.currentStore.initMovie(NoParams());
+    beachWaves.setMovieMode(BeachWaveMovieModes.halfAndHalfToDrySand);
     mirroredText.setMessagesData(
       MirroredTextContent.sessionSpeakingFullInstructions,
     );
     errorSmartText.setWidgetVisibility(false);
     errorSmartText.setMessagesData(SessionLists.speakingInstructionsError);
     errorSmartText.startRotatingText();
+    mirroredText.startRotatingRightSideUp();
+    cooldownStopwatch.start();
+    disableTouchInput = false;
     initReactors();
   }
 
@@ -324,13 +326,7 @@ abstract class _FullSessionSpeakingInstructionsWidgetsCoordinatorBase
   beachWavesMovieStatusReactor() =>
       reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          if (beachWaves.movieMode == BeachWaveMovieModes.skyToHalfAndHalf) {
-            if (!topHalfIsDone) {
-              mirroredText.startRotatingRightSideUp();
-              cooldownStopwatch.start();
-              disableTouchInput = false;
-            }
-          } else if (beachWaves.movieMode == BeachWaveMovieModes.anyToSky) {
+          if (beachWaves.movieMode == BeachWaveMovieModes.anyToSky) {
             if (!phoneIsPickedUp) {
               borderGlow.initMovie(NoParams());
               holdTimerIndicator.initMovie(GesturePlacement.topHalf);

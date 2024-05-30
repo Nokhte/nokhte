@@ -7,9 +7,10 @@ import 'package:nokhte/app/modules/session/session.dart';
 
 export 'hybrid/hybrid.dart';
 export 'hybrid_notes/hybrid_notes.dart';
+export 'hybrid_notes_instructions/hybrid_notes_instructions.dart';
+export 'hybrid_root_router/hybrid_root_router.dart';
 export 'hybrid_speaking_instructions/hybrid_speaking_instructions.dart';
 export 'hybrid_waiting/hybrid_waiting.dart';
-export 'hybrid_notes_instructions/hybrid_notes_instructions.dart';
 
 class SessionHybridModule extends Module {
   @override
@@ -67,12 +68,26 @@ class SessionHybridModule extends Module {
           presence: Modular.get<SessionPresenceCoordinator>(),
           swipe: SwipeDetector()),
     );
+    i.add<SessionHybridRootRouterCoordinator>(
+      () => SessionHybridRootRouterCoordinator(
+        presence: Modular.get<SessionPresenceCoordinator>(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        widgets: Modular.get<SessionHybridRootRouterWidgetsCoordinator>(),
+      ),
+    );
   }
 
   @override
   routes(r) {
     r.child(
       SessionConstants.relativeRoot,
+      transition: TransitionType.noTransition,
+      child: (context) => SessionHybridRootRouterScreen(
+        coordinator: Modular.get<SessionHybridRootRouterCoordinator>(),
+      ),
+    );
+    r.child(
+      SessionConstants.relativeHybrid,
       transition: TransitionType.noTransition,
       child: (context) => SessionHybridScreen(
         coordinator: Modular.get<SessionHybridCoordinator>(),

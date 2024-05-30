@@ -30,7 +30,7 @@ class StorageRemoteSourceImpl implements StorageRemoteSource {
   updateSessionAlias(UpdateSessionAliasParams params) async =>
       await finishedNokhteSessionQueries.updateAlias(
         newAlias: params.newAlias,
-        id: params.id,
+        sessionUID: params.sessionUID,
       );
   @override
   String getUserUID() => supabase.auth.currentUser?.id ?? '';

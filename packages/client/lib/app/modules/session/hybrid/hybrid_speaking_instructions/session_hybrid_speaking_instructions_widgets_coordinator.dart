@@ -39,8 +39,7 @@ abstract class _SessionHybridSpeakingInstructionsWidgetsCoordinatorBase
   @action
   constructor() {
     resetUpsideDownHoldingPadding();
-    beachWaves.setMovieMode(BeachWaveMovieModes.skyToInvertedHalfAndHalf);
-    beachWaves.currentStore.initMovie(NoParams());
+    beachWaves.setMovieMode(BeachWaveMovieModes.invertedHalfAndHalfToDrySand);
     mirroredText.setMessagesData(
       MirroredTextContent.sessionSpeakingHybridInstructions,
     );

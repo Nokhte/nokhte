@@ -1,14 +1,10 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 // import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
-import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/session/session.dart';
 part 'session_duo_greeter_widgets_coordinator.g.dart';
 
 class SessionDuoGreeterWidgetsCoordinator = _SessionDuoGreeterWidgetsCoordinatorBase
@@ -36,11 +32,10 @@ abstract class _SessionDuoGreeterWidgetsCoordinatorBase
     secondarySmartText.setMessagesData(SessionLists.duoGreeterSecondary);
     primarySmartText.startRotatingText();
     secondarySmartText.startRotatingText();
-    beachWavesMovieStatusReactor();
   }
 
   @action
-  invisiblizePrimarySmartText() => primarySmartText.setWidgetVisibility(false);
+  hidePrimarySmartText() => primarySmartText.setWidgetVisibility(false);
 
   @observable
   bool isFirstTap = true;
@@ -53,25 +48,21 @@ abstract class _SessionDuoGreeterWidgetsCoordinatorBase
     Offset tapPosition, {
     required Function onFinalTap,
   }) async {
-    touchRipple.onTap(tapPosition);
     if (isFirstTap) {
+      touchRipple.onTap(tapPosition);
       cooldownStopwatch.start();
       primarySmartText.startRotatingText(isResuming: true);
       secondarySmartText.startRotatingText(isResuming: true);
       isFirstTap = false;
     } else if (!isFirstTap &&
         cooldownStopwatch.elapsedMilliseconds.isGreaterThan(950)) {
+      touchRipple.onTap(tapPosition);
       primarySmartText.startRotatingText(isResuming: true);
       secondarySmartText.startRotatingText(isResuming: true);
+      cooldownStopwatch.reset();
       cooldownStopwatch.stop();
       await onFinalTap();
     }
-  }
-
-  @action
-  initTransitionToSpeaking() {
-    beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
-    beachWaves.currentStore.initMovie(NoParams());
   }
 
   @action
@@ -90,11 +81,4 @@ abstract class _SessionDuoGreeterWidgetsCoordinatorBase
     primarySmartText.setWidgetVisibility(primarySmartText.pastShowWidget);
     secondarySmartText.setWidgetVisibility(secondarySmartText.pastShowWidget);
   }
-
-  beachWavesMovieStatusReactor() =>
-      reaction((p0) => beachWaves.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished) {
-          Modular.to.navigate(SessionConstants.speaking);
-        }
-      });
 }

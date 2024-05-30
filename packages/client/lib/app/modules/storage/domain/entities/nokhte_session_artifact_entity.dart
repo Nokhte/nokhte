@@ -3,12 +3,12 @@ import 'package:equatable/equatable.dart';
 class NokhteSessionArtifactEntity extends Equatable {
   final String title;
   final String date;
-  final int id;
+  final String sessionUID;
   final List content;
   const NokhteSessionArtifactEntity({
     required this.title,
     required this.content,
-    required this.id,
+    required this.sessionUID,
     required this.date,
   });
 
@@ -16,10 +16,10 @@ class NokhteSessionArtifactEntity extends Equatable {
       const NokhteSessionArtifactEntity(
         title: '',
         content: [],
-        id: 0,
+        sessionUID: '',
         date: '',
       );
 
   @override
-  List<Object?> get props => [title, content, id];
+  List<Object?> get props => [title, content, sessionUID];
 }
