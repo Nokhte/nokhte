@@ -32,7 +32,9 @@ mixin SessionConstants {
   static const trialGreeter = '/session/core$relativeTrialGreeter';
   static const exit = '/session/core$relativeExit';
 
-  static const hybrid = '/session/hybrid$relativeRoot';
+  static const hybridRouter = '/session/hybrid$relativeRoot';
+  static const relativeHybrid = '/hybrid';
+  static const hybrid = '/session/hybrid$relativeHybrid';
   static const hybridSpeakingInstructions =
       '/session/hybrid$relativeSpeakingInstructions';
   static const hybridWaiting = '/session/hybrid$relativeWaiting';
