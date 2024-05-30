@@ -19,11 +19,11 @@ class SessionNotesModule extends Module {
 
   @override
   void exportedBinds(i) {
-    i.add<FullSessionNotesInstructionsCoordinator>(
-      () => FullSessionNotesInstructionsCoordinator(
+    i.add<SessionFullNotesInstructionsCoordinator>(
+      () => SessionFullNotesInstructionsCoordinator(
         presence: Modular.get<SessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
-        widgets: Modular.get<FullSessionNotesInstructionsWidgetsCoordinator>(),
+        widgets: Modular.get<SessionFullNotesInstructionsWidgetsCoordinator>(),
         tap: TapDetector(),
       ),
     );
@@ -72,8 +72,8 @@ class SessionNotesModule extends Module {
     r.child(
       SessionConstants.relativeFullInstructions,
       transition: TransitionType.noTransition,
-      child: (context) => FullSessionNotesInstructionsScreen(
-        coordinator: Modular.get<FullSessionNotesInstructionsCoordinator>(),
+      child: (context) => SessionFullNotesInstructionsScreen(
+        coordinator: Modular.get<SessionFullNotesInstructionsCoordinator>(),
       ),
     );
     r.child(
