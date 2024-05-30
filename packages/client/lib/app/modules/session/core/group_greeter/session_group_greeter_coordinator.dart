@@ -88,21 +88,7 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
     rippleCompletionStatusReactor();
     collaboratorPhaseReactor();
     widgets.primarySmartTextIndexReactor(
-      initTransition: () {
-        if (pathIntoSession == SessionConstants.speaking) {
-          widgets.initTransitionToSpeaking();
-          isNavigatingAway = true;
-        } else if (pathIntoSession == SessionConstants.hybrid ||
-            pathIntoSession == SessionConstants.hybridWaiting) {
-          if (pathIntoSession == SessionConstants.hybridWaiting) {
-            widgets.setIsGoingToHybridWaiting(true);
-          }
-          widgets.initTransitionToHybrid();
-          isNavigatingAway = true;
-        } else {
-          Modular.to.navigate(pathIntoSession);
-        }
-      },
+      initTransition: () => Modular.to.navigate(pathIntoSession),
       onComplete: () async => await updateCurrentPhase(),
     );
   }
@@ -131,10 +117,7 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
   rippleCompletionStatusReactor() =>
       reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&
-            sessionMetadata.canMoveIntoInstructions &&
-            pathIntoSession != SessionConstants.speaking &&
-            pathIntoSession != SessionConstants.hybrid &&
-            pathIntoSession != SessionConstants.hybridWaiting) {
+            sessionMetadata.canMoveIntoInstructions) {
           Modular.to.navigate(pathIntoSession);
         }
       });
@@ -160,7 +143,7 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
   String get pathIntoSession {
     if (sessionMetadata.numberOfCollaborators.isOdd) {
       if (sessionMetadata.userIndex == 0) {
-        return hybridPath;
+        return SessionConstants.hybridRouter;
       } else if (sessionMetadata.userIndex.isOdd) {
         return notesPath;
       } else {
@@ -181,19 +164,6 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
       return SessionConstants.notes;
     } else {
       return SessionConstants.notesWaiting;
-    }
-  }
-
-  @computed
-  String get hybridPath {
-    if (sessionMetadata.everyoneShouldSkipInstructions) {
-      return SessionConstants.hybrid;
-    } else {
-      if (!sessionMetadata.neighborShouldSkipInstructions) {
-        return SessionConstants.hybridSpeakingInstructions;
-      } else {
-        return SessionConstants.hybridWaiting;
-      }
     }
   }
 }
