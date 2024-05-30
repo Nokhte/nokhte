@@ -32,9 +32,6 @@ class SessionSpeakingRootRouterScreen extends HookWidget {
             BorderGlow(
               store: BorderGlowStore(),
             ),
-            CollaboratorPresenceIncidentsOverlay(
-              store: coordinator.presence.incidentsOverlayStore,
-            ),
             WifiDisconnectOverlay(
               store: coordinator.widgets.wifiDisconnectOverlay,
             ),
