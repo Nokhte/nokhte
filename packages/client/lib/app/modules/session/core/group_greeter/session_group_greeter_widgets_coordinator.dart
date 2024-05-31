@@ -142,15 +142,12 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
   }
 
   primarySmartTextIndexReactor({
-    required Function initTransition,
     required Function onComplete,
   }) =>
       reaction((p0) => primarySmartText.currentIndex, (p0) async {
         if (p0 == 3) {
           await onComplete();
-          if (isTheLastOneToFinish) {
-            initTransition();
-          } else {
+          if (!isTheLastOneToFinish) {
             Timer(Seconds.get(0, milli: 500), () {
               primarySmartText.startRotatingText(isResuming: true);
             });

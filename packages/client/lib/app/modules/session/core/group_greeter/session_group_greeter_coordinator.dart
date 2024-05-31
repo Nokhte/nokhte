@@ -88,7 +88,6 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
     rippleCompletionStatusReactor();
     collaboratorPhaseReactor();
     widgets.primarySmartTextIndexReactor(
-      initTransition: () => Modular.to.navigate(pathIntoSession),
       onComplete: () async => await updateCurrentPhase(),
     );
   }
