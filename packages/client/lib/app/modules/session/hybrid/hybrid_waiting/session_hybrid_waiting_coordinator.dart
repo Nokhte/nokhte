@@ -29,9 +29,6 @@ abstract class _SessionHybridWaitingCoordinatorBase extends BaseCoordinator
     widgets.constructor();
     initReactors();
     userPhaseAtStart = sessionMetadata.userPhase;
-    if (sessionMetadata.userShouldSkipInstructions && userPhaseAtStart == 1.0) {
-      await presence.updateCurrentPhase(2.0);
-    }
   }
 
   initReactors() {
@@ -70,13 +67,13 @@ abstract class _SessionHybridWaitingCoordinatorBase extends BaseCoordinator
         (p0) => sessionMetadata.currentPhases,
         (p0) {
           if (userPhaseAtStart == 1.0) {
-            if (sessionMetadata.canMoveIntoSecondInstructionsSet &&
-                !sessionMetadata.userShouldSkipInstructions) {
-              widgets.onReadyToTransition();
-            } else if (sessionMetadata.userShouldSkipInstructions &&
-                sessionMetadata.canMoveIntoSession) {
-              widgets.setShouldMoveIntoSession(true);
-              widgets.onReadyToTransition();
+            if (sessionMetadata.canMoveIntoSecondInstructionsSet) {
+              if (!sessionMetadata.userShouldSkipInstructions) {
+                widgets.onReadyToTransition();
+              } else {
+                widgets.setShouldMoveIntoSession(true);
+                widgets.onReadyToTransition();
+              }
             }
           } else if (userPhaseAtStart == 2.0) {
             if (sessionMetadata.canMoveIntoSession) {

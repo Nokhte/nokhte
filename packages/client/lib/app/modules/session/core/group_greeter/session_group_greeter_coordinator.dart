@@ -116,7 +116,8 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
   rippleCompletionStatusReactor() =>
       reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&
-            sessionMetadata.canMoveIntoInstructions) {
+            sessionMetadata.canMoveIntoInstructions &&
+            !widgets.isTheLastOneToFinish) {
           Modular.to.navigate(pathIntoSession);
         }
       });
