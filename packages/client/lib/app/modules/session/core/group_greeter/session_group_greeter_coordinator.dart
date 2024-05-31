@@ -88,7 +88,6 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
     rippleCompletionStatusReactor();
     collaboratorPhaseReactor();
     widgets.primarySmartTextIndexReactor(
-      initTransition: () => Modular.to.navigate(pathIntoSession),
       onComplete: () async => await updateCurrentPhase(),
     );
   }
@@ -117,7 +116,9 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
   rippleCompletionStatusReactor() =>
       reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&
-            sessionMetadata.canMoveIntoInstructions) {
+            sessionMetadata.canMoveIntoInstructions &&
+            widgets.isTheLastOneToFinish &&
+            !widgets.hasTriggeredTint) {
           Modular.to.navigate(pathIntoSession);
         }
       });

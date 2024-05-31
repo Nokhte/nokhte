@@ -69,13 +69,10 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
   bool isTheLastOneToFinish = false;
 
   @observable
-  bool hasTriggeredTint = false;
+  bool hasStartedNavigation = false;
 
   @observable
-  bool isGoingToHybridWaiting = false;
-
-  @action
-  setIsGoingToHybridWaiting(bool val) => isGoingToHybridWaiting = val;
+  bool hasTriggeredTint = false;
 
   @action
   setIsTheLastOneToFinish(bool val) => isTheLastOneToFinish = val;
@@ -132,25 +129,26 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
 
   @action
   initTransition(String route) {
-    if (hasTriggeredTint) {
-      tint.setControl(Control.playReverse);
-      primarySmartText.setWidgetVisibility(false);
-    }
-    Timer(Seconds.get(2), () {
-      Modular.to.navigate(route);
+    Timer.periodic(Seconds.get(0, milli: 500), (timer) {
+      if (hasTriggeredTint) {
+        hasStartedNavigation = false;
+        tint.setControl(Control.playReverse);
+        primarySmartText.setWidgetVisibility(false);
+        Timer(Seconds.get(2), () {
+          Modular.to.navigate(route);
+        });
+        timer.cancel();
+      }
     });
   }
 
   primarySmartTextIndexReactor({
-    required Function initTransition,
     required Function onComplete,
   }) =>
       reaction((p0) => primarySmartText.currentIndex, (p0) async {
         if (p0 == 3) {
           await onComplete();
-          if (isTheLastOneToFinish) {
-            initTransition();
-          } else {
+          if (!isTheLastOneToFinish) {
             Timer(Seconds.get(0, milli: 500), () {
               primarySmartText.startRotatingText(isResuming: true);
             });
