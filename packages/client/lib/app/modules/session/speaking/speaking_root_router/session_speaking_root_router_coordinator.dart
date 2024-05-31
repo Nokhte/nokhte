@@ -35,7 +35,8 @@ abstract class _SessionSpeakingRootRouterCoordinatorBase extends BaseCoordinator
     if (sessionMetadata.everyoneShouldSkipInstructions) {
       return SessionConstants.speaking;
     } else {
-      if (!sessionMetadata.neighborShouldSkipInstructions) {
+      if (!sessionMetadata.neighborShouldSkipInstructions &&
+          !sessionMetadata.userShouldSkipInstructions) {
         return SessionConstants.speakingFullInstructions;
       } else if (sessionMetadata.userShouldSkipInstructions &&
           sessionMetadata.neighborShouldSkipInstructions) {

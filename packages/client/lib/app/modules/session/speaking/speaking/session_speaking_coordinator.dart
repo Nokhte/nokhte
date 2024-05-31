@@ -36,6 +36,7 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
   @action
   constructor() async {
     widgets.constructor();
+    await presence.updateCurrentPhase(2.0);
     initReactors(sessionMetadata.shouldAdjustToFallbackExitProtocol);
     gyroscopic.listen(NoParams());
     setBlockPhoneTiltReactor(false);

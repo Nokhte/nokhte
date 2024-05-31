@@ -49,11 +49,15 @@ abstract class _SessionNotesWaitingCoordinatorBase extends BaseCoordinator
       onLongReConnected: () {},
       onDisconnected: () {},
     );
-    widgets.rightSideUpIndexReactor(navigateToNotesInstructions);
+    widgets.rightSideUpIndexReactor(navigate);
   }
 
   @action
-  navigateToNotesInstructions() => Modular.to.navigate(route);
+  navigate() {
+    if (route.isNotEmpty) {
+      Modular.to.navigate(route);
+    }
+  }
 
   @action
   onInactive() async {
@@ -70,17 +74,30 @@ abstract class _SessionNotesWaitingCoordinatorBase extends BaseCoordinator
     }
   }
 
+  updateIfNecessary() async {
+    if (sessionMetadata.userShouldSkipInstructions &&
+        sessionMetadata.neighborShouldSkipInstructions) {
+      await presence.updateCurrentPhase(2.0);
+    }
+  }
+
   collaboratorPhaseReactor() => reaction(
         (p0) => sessionMetadata.currentPhases,
-        (p0) {
-          if (sessionMetadata.userPhase == 1.0) {
-            if (sessionMetadata.canMoveIntoSecondInstructionsSet) {
+        (p0) async {
+          await updateIfNecessary();
+          if (userPhaseAtStart == 1.0) {
+            if (sessionMetadata.canMoveIntoSecondInstructionsSet &&
+                !(sessionMetadata.userShouldSkipInstructions &&
+                    sessionMetadata.neighborShouldSkipInstructions)) {
+              widgets.onReadyToTransition();
+            } else if (sessionMetadata.canMoveIntoSession) {
+              widgets.setShouldMoveIntoSession(true);
               widgets.onReadyToTransition();
             }
-          } else if (sessionMetadata.userPhase == 2.0) {
+          } else if (userPhaseAtStart == 2.0) {
             if (sessionMetadata.canMoveIntoSession) {
-              widgets.onReadyToTransition();
               widgets.setShouldMoveIntoSession(true);
+              widgets.onReadyToTransition();
             }
           }
         },

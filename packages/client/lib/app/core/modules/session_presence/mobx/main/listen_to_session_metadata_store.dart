@@ -129,7 +129,7 @@ abstract class _ListenToSessionMetadataStoreBase
       !userHasGyroscope || !collaboratorHasGyroscope;
 
   @computed
-  bool get canMoveIntoInstructions => currentPhases.every((e) => e >= 1);
+  bool get canMoveIntoInstructions => currentPhases.every((e) => e == 1);
 
   @computed
   bool get canMoveIntoSession => currentPhases.every((e) => e == 2);
