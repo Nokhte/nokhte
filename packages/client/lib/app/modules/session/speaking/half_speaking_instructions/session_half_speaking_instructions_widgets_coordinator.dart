@@ -93,9 +93,9 @@ abstract class _HalfSessionSpeakingInstructionsWidgetsCoordinatorBase
   }
 
   initReactors() {
-    beachWavesMovieStatusReactor();
-    rightSideUpIndexReactor();
-    upsideDownIndexReactor();
+    disposers.add(beachWavesMovieStatusReactor());
+    disposers.add(rightSideUpIndexReactor());
+    disposers.add(upsideDownIndexReactor());
   }
 
   setDisableTouchInput(bool newValue) => disableTouchInput = newValue;

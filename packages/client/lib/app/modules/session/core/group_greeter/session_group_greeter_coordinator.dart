@@ -64,8 +64,8 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
 
   @action
   initReactors() {
-    deviceGyroscopeStatusReactor();
-    widgets.wifiDisconnectOverlay.initReactors(
+    disposers.add(deviceGyroscopeStatusReactor());
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
@@ -73,8 +73,8 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
       onDisconnected: () {
         setDisableAllTouchFeedback(true);
       },
-    );
-    presence.initReactors(
+    ));
+    disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
         setDisableAllTouchFeedback(false);
         widgets.onCollaboratorJoined();
@@ -83,13 +83,13 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
         setDisableAllTouchFeedback(true);
         widgets.onCollaboratorLeft();
       },
-    );
-    tapReactor();
-    rippleCompletionStatusReactor();
-    collaboratorPhaseReactor();
-    widgets.primarySmartTextIndexReactor(
+    ));
+    disposers.add(tapReactor());
+    disposers.add(rippleCompletionStatusReactor());
+    disposers.add(collaboratorPhaseReactor());
+    disposers.add(widgets.primarySmartTextIndexReactor(
       onComplete: () async => await updateCurrentPhase(),
-    );
+    ));
   }
 
   collaboratorPhaseReactor() =>

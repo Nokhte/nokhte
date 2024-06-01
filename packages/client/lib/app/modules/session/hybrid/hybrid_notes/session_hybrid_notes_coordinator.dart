@@ -48,8 +48,8 @@ abstract class _SessionHybridNotesCoordinatorBase extends BaseCoordinator
   setBlockPhoneTiltReactor(bool newValue) => blockPhoneTiltReactor = newValue;
 
   initReactors(bool shouldAdjustToFallbackExitProtocol) {
-    swipeReactor();
-    presence.initReactors(
+    disposers.add(swipeReactor());
+    disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
         setDisableAllTouchFeedback(false);
         widgets.onCollaboratorJoined(() {
@@ -60,13 +60,13 @@ abstract class _SessionHybridNotesCoordinatorBase extends BaseCoordinator
         setDisableAllTouchFeedback(true);
         widgets.onCollaboratorLeft();
       },
-    );
-    widgets.wifiDisconnectOverlay.initReactors(
+    ));
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () => setDisableAllTouchFeedback(false),
       onDisconnected: () => setDisableAllTouchFeedback(true),
-    );
-    touchFeedbackStatusReactor();
+    ));
+    disposers.add(touchFeedbackStatusReactor());
   }
 
   @action

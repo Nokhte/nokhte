@@ -41,8 +41,8 @@ abstract class _SessionHybridSpeakingInstructionsCoordinatorBase
   }
 
   initReactors() {
-    tapReactor();
-    presence.initReactors(
+    disposers.add(tapReactor());
+    disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
         widgets.setDisableTouchInput(false);
         widgets.onCollaboratorJoined();
@@ -51,8 +51,8 @@ abstract class _SessionHybridSpeakingInstructionsCoordinatorBase
         widgets.setDisableTouchInput(true);
         widgets.onCollaboratorLeft();
       },
-    );
-    widgets.wifiDisconnectOverlay.initReactors(
+    ));
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         widgets.setDisableTouchInput(false);
@@ -60,11 +60,11 @@ abstract class _SessionHybridSpeakingInstructionsCoordinatorBase
       onDisconnected: () {
         widgets.setDisableTouchInput(true);
       },
-    );
-    phoneTiltStateReactor();
-    holdReactor();
-    letGoReactor();
-    widgets.beachWavesMovieStatusReactor(onFlowFinished);
+    ));
+    disposers.add(phoneTiltStateReactor());
+    disposers.add(holdReactor());
+    disposers.add(letGoReactor());
+    disposers.add(widgets.beachWavesMovieStatusReactor(onFlowFinished));
   }
 
   @action
@@ -127,4 +127,10 @@ abstract class _SessionHybridSpeakingInstructionsCoordinatorBase
         (p0) =>
             ifTouchIsNotDisabled(() => widgets.onTap(tap.currentTapPosition)),
       );
+
+  @override
+  deconstructor() {
+    widgets.deconstructor();
+    super.deconstructor();
+  }
 }

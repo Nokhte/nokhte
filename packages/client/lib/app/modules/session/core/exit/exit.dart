@@ -21,7 +21,7 @@ class SessionExitScreen extends HookWidget {
     final size = useSquareSize(relativeLength: .20);
     useEffect(() {
       coordinator.constructor();
-      return null;
+      return () => coordinator.deconstructor();
     }, []);
     useOnAppLifecycleStateChange(
         (previous, current) => coordinator.onAppLifeCycleStateChange(

@@ -66,7 +66,7 @@ abstract class _SessionPaywallWidgetsCoordinatorBase
     secondarySmartText.setMessagesData(SessionLists.swipeUpToPay);
     tertiarySmartText.setMessagesData(SessionLists.swipeToDecide);
     setSmartTextBottomPaddingScalar(.1);
-    multiplyNokhteReactor();
+    disposers.add(multiplyNokhteReactor());
     setCanSwipe(false);
   }
 

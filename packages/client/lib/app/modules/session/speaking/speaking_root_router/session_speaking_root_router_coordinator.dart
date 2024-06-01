@@ -24,7 +24,7 @@ abstract class _SessionSpeakingRootRouterCoordinatorBase extends BaseCoordinator
   @action
   constructor() async {
     widgets.constructor();
-    widgets.beachWavesMovieStatusReactor(onComplete);
+    disposers.add(widgets.beachWavesMovieStatusReactor(onComplete));
   }
 
   @action

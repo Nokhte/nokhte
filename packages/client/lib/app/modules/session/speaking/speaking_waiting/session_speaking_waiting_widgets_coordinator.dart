@@ -32,7 +32,7 @@ abstract class _SessionSpeakingWaitingWidgetsCoordinatorBase
     );
     tint.setControl(Control.playFromStart);
     mirroredText.startBothRotatingText();
-    rightSideUpIndexReactor();
+    disposers.add(rightSideUpIndexReactor());
   }
 
   onCollaboratorLeft() {

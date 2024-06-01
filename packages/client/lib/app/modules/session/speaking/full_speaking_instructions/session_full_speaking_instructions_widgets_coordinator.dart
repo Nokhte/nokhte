@@ -53,9 +53,9 @@ abstract class _FullSessionSpeakingInstructionsWidgetsCoordinatorBase
 
   @action
   initReactors() {
-    beachWavesMovieStatusReactor();
-    upsideDownIndexReactor();
-    rightSideUpIndexReactor();
+    disposers.add(beachWavesMovieStatusReactor());
+    disposers.add(upsideDownIndexReactor());
+    disposers.add(rightSideUpIndexReactor());
   }
 
   @observable

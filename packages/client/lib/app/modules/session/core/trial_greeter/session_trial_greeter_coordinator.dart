@@ -52,7 +52,7 @@ abstract class _SessionTrialGreeterCoordinatorBase extends BaseCoordinator
 
   @action
   initReactors() {
-    widgets.wifiDisconnectOverlay.initReactors(
+  disposers.addAll(  widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
@@ -60,8 +60,8 @@ abstract class _SessionTrialGreeterCoordinatorBase extends BaseCoordinator
       onDisconnected: () {
         setDisableAllTouchFeedback(true);
       },
-    );
-    presence.initReactors(
+    ));
+   disposers.add( presence.initReactors(
       onCollaboratorJoined: () {
         setDisableAllTouchFeedback(false);
         widgets.onCollaboratorJoined();
@@ -70,9 +70,9 @@ abstract class _SessionTrialGreeterCoordinatorBase extends BaseCoordinator
         setDisableAllTouchFeedback(true);
         widgets.onCollaboratorLeft();
       },
-    );
-    tapReactor();
-    rippleCompletionStatusReactor();
+    ));
+    disposers.add(tapReactor());
+    disposers.add(rippleCompletionStatusReactor());
   }
 
   tapReactor() => reaction(

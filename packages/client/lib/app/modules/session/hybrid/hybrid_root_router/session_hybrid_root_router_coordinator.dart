@@ -23,7 +23,7 @@ abstract class _SessionHybridRootRouterCoordinatorBase extends BaseCoordinator
   @action
   constructor() {
     widgets.constructor();
-    widgets.beachWavesMovieStatusReactor(onComplete);
+    disposers.add(widgets.beachWavesMovieStatusReactor(onComplete));
   }
 
   @action

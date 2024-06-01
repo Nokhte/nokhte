@@ -19,7 +19,7 @@ class SessionTrialGreeterScreen extends HookWidget {
     final height = useFullScreenSize().height;
     useEffect(() {
       coordinator.constructor();
-      return null;
+      return () => coordinator.deconstructor();
     }, []);
     useOnAppLifecycleStateChange(
         (previous, current) => coordinator.onAppLifeCycleStateChange(

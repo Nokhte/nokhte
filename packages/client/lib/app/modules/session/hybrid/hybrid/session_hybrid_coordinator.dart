@@ -50,9 +50,9 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
   setBlockPhoneTiltReactor(bool newValue) => blockPhoneTiltReactor = newValue;
 
   initReactors(bool shouldAdjustToFallbackExitProtocol) {
-    holdReactor();
-    letGoReactor();
-    widgets.wifiDisconnectOverlay.initReactors(
+    disposers.add(holdReactor());
+    disposers.add(letGoReactor());
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
@@ -63,8 +63,8 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
           widgets.onLetGo();
         }
       },
-    );
-    presence.initReactors(
+    ));
+    disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
         setDisableAllTouchFeedback(false);
         widgets.onCollaboratorJoined();
@@ -76,17 +76,17 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
         }
         widgets.onCollaboratorLeft();
       },
-    );
+    ));
     if (shouldAdjustToFallbackExitProtocol) {
-      swipeReactor();
+      disposers.add(swipeReactor());
     } else {
-      phoneTiltStateReactor();
+      disposers.add(phoneTiltStateReactor());
     }
-    userPhaseReactor();
-    collaboratorPhaseReactor();
-    tapReactor();
-    userIsSpeakingReactor();
-    userCanSpeakReactor();
+    disposers.add(userPhaseReactor());
+    disposers.add(collaboratorPhaseReactor());
+    disposers.add(tapReactor());
+    disposers.add(userIsSpeakingReactor());
+    disposers.add(userCanSpeakReactor());
   }
 
   userIsSpeakingReactor() =>
@@ -199,5 +199,11 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
     if (sessionMetadata.everyoneIsOnline) {
       presence.incidentsOverlayStore.onCollaboratorJoined();
     }
+  }
+
+  @override
+  deconstructor() {
+    widgets.deconstructor();
+    super.deconstructor();
   }
 }

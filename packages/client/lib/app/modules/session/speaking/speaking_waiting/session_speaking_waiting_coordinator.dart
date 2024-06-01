@@ -32,20 +32,20 @@ abstract class _SessionSpeakingWaitingCoordinatorBase extends BaseCoordinator
   }
 
   initReactors() {
-    presence.initReactors(
+    disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
         widgets.onCollaboratorJoined();
       },
       onCollaboratorLeft: () {
         widgets.onCollaboratorLeft();
       },
-    );
-    collaboratorPhaseReactor();
-    widgets.wifiDisconnectOverlay.initReactors(
+    ));
+    disposers.add(collaboratorPhaseReactor());
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () {},
       onLongReConnected: () {},
       onDisconnected: () {},
-    );
+    ));
   }
 
   @action
@@ -81,5 +81,11 @@ abstract class _SessionSpeakingWaitingCoordinatorBase extends BaseCoordinator
         timer.cancel();
       }
     });
+  }
+
+  @override
+  deconstructor() {
+    widgets.deconstructor();
+    super.deconstructor();
   }
 }

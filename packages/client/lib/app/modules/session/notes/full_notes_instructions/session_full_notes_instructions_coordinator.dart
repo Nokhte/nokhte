@@ -35,8 +35,8 @@ abstract class _SessionFullNotesInstructionsCoordinatorBase
 
   @action
   initReactors() {
-    tapReactor();
-    presence.initReactors(
+    disposers.add(tapReactor());
+    disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
         widgets.setDisableTouchInput(false);
         widgets.onCollaboratorJoined();
@@ -45,8 +45,8 @@ abstract class _SessionFullNotesInstructionsCoordinatorBase
         widgets.onCollaboratorLeft();
         widgets.setDisableTouchInput(true);
       },
-    );
-    widgets.wifiDisconnectOverlay.initReactors(
+    ));
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => widgets.setDisableTouchInput(false),
       onLongReConnected: () {
         widgets.setDisableTouchInput(false);
@@ -54,8 +54,8 @@ abstract class _SessionFullNotesInstructionsCoordinatorBase
       onDisconnected: () {
         widgets.setDisableTouchInput(true);
       },
-    );
-    rippleCompletionStatusReactor();
+    ));
+    disposers.add(rippleCompletionStatusReactor());
   }
 
   rippleCompletionStatusReactor() =>

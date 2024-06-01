@@ -67,8 +67,8 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
 
   @action
   initReactors() {
-    deepLinkReactor();
-    widgets.wifiDisconnectOverlay.initReactors(
+    disposers.add(deepLinkReactor());
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
@@ -76,8 +76,8 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
       onDisconnected: () {
         setDisableAllTouchFeedback(true);
       },
-    );
-    presence.initReactors(
+    ));
+    disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
         setDisableAllTouchFeedback(false);
         widgets.onCollaboratorJoined();
@@ -86,12 +86,12 @@ abstract class _SessionLobbyCoordinatorBase extends BaseCoordinator with Store {
         setDisableAllTouchFeedback(true);
         widgets.onCollaboratorLeft();
       },
-    );
+    ));
     if (isTheLeader) {
       tapReactor();
     }
-    sessionStartReactor();
-    widgets.beachWavesMovieStatusReactor(enterGreeter);
+    disposers.add(sessionStartReactor());
+    disposers.add(widgets.beachWavesMovieStatusReactor(enterGreeter));
   }
 
   deepLinkReactor() => reaction(

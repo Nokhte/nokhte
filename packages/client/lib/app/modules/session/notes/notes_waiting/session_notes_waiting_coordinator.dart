@@ -35,21 +35,21 @@ abstract class _SessionNotesWaitingCoordinatorBase extends BaseCoordinator
   }
 
   initReactors() {
-    presence.initReactors(
+    disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
         widgets.onCollaboratorJoined();
       },
       onCollaboratorLeft: () {
         widgets.onCollaboratorLeft();
       },
-    );
-    collaboratorPhaseReactor();
-    widgets.wifiDisconnectOverlay.initReactors(
+    ));
+    disposers.add(collaboratorPhaseReactor());
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () {},
       onLongReConnected: () {},
       onDisconnected: () {},
-    );
-    widgets.rightSideUpIndexReactor(navigate);
+    ));
+    disposers.add(widgets.rightSideUpIndexReactor(navigate));
   }
 
   @action

@@ -40,8 +40,8 @@ abstract class _FullSessionSpeakingInstructionsCoordinatorBase
   }
 
   initReactors() {
-    tapReactor();
-    presence.initReactors(
+    disposers.add(tapReactor());
+    disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
         widgets.setDisableTouchInput(false);
         widgets.onCollaboratorJoined();
@@ -50,8 +50,8 @@ abstract class _FullSessionSpeakingInstructionsCoordinatorBase
         widgets.setDisableTouchInput(true);
         widgets.onCollaboratorLeft();
       },
-    );
-    widgets.wifiDisconnectOverlay.initReactors(
+    ));
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         widgets.setDisableTouchInput(false);
@@ -59,10 +59,10 @@ abstract class _FullSessionSpeakingInstructionsCoordinatorBase
       onDisconnected: () {
         widgets.setDisableTouchInput(true);
       },
-    );
-    phoneTiltStateReactor();
-    holdReactor();
-    letGoReactor();
+    ));
+    disposers.add(phoneTiltStateReactor());
+    disposers.add(holdReactor());
+    disposers.add(letGoReactor());
   }
 
   @action
@@ -113,4 +113,10 @@ abstract class _FullSessionSpeakingInstructionsCoordinatorBase
           () => widgets.onTap(tap.currentTapPosition),
         ),
       );
+
+  @override
+  deconstructor() {
+    super.deconstructor();
+    widgets.deconstructor();
+  }
 }

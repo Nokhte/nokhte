@@ -51,7 +51,7 @@ abstract class _SessionHybridSpeakingInstructionsWidgetsCoordinatorBase
 
   @action
   initReactors() {
-    upsideDownIndexReactor();
+    disposers.add(upsideDownIndexReactor());
   }
 
   @observable
