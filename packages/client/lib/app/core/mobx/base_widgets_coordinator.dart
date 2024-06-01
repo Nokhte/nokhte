@@ -18,6 +18,8 @@ abstract class _BaseWidgetsCoordinatorBase extends Equatable with Store {
     required this.wifiDisconnectOverlay,
   });
 
+  List<ReactionDisposer> disposers = [];
+
   @observable
   Offset center = Offset.zero;
 
@@ -72,6 +74,12 @@ abstract class _BaseWidgetsCoordinatorBase extends Equatable with Store {
         }
         setTouchIsDisabled(false);
       });
+
+  deconstructor() {
+    for (var disposer in disposers) {
+      disposer.call();
+    }
+  }
 
   @override
   List<Object> get props => [];
