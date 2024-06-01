@@ -131,8 +131,8 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   }
 
   initReactors() {
-    primaryBeachWavesMovieStatusReactor();
-    centerInstructionalNokhteReactor();
+    disposers.add(primaryBeachWavesMovieStatusReactor());
+    disposers.add(centerInstructionalNokhteReactor());
   }
 
   centerInstructionalNokhteReactor() =>
