@@ -39,7 +39,7 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
 
   initReactors() {
     deepLinks.listen();
-    widgets.wifiDisconnectOverlay.initReactors(
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         widgets.onLongReconnected();
@@ -49,9 +49,9 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
         setDisableAllTouchFeedback(true);
         widgets.onDisconnected();
       },
-    );
-    openedDeepLinksReactor();
-    collaboratorPoolEntryErrorReactor();
+    ));
+    disposers.add(openedDeepLinksReactor());
+    disposers.add(collaboratorPoolEntryErrorReactor());
   }
 
   @action
@@ -161,4 +161,11 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
           });
         }
       });
+
+  @override
+  deconstructor() {
+    deepLinks.dispose();
+    widgets.deconstructor();
+    super.deconstructor();
+  }
 }

@@ -55,14 +55,12 @@ abstract class _CompassAndStorageGuideWidgetsCoordinatorBase
   }
 
   @action
-  @override
   initReactors() {
-    super.initReactors();
-    gestureCrossTapReactor();
-    centerInstructionalNokhteReactor();
-    centerCrossNokhteReactor(() {
+    disposers.add(gestureCrossTapReactor());
+    disposers.add(centerInstructionalNokhteReactor());
+    disposers.add(centerCrossNokhteReactor(() {
       primaryInstructionalGradientNokhte.setWidgetVisibility(false);
-    });
+    }));
   }
 
   @action

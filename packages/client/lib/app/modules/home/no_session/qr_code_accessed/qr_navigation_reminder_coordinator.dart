@@ -30,22 +30,22 @@ abstract class _QrNavigationReminderCoordinatorBase
 
   @override
   initReactors() {
-    widgets.beachWavesMovieStatusReactor(
+    disposers.add(widgets.beachWavesMovieStatusReactor(
       onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
       onShoreToDeepSeaComplete: onShoreToDeepSeaComplete,
       onStorageEntry: () {},
       onAnyToShoreComplete: () {
         setDisableAllTouchFeedback(false);
       },
-    );
+    ));
     super.initReactors();
-    swipeReactor(
+    disposers.add(swipeReactor(
         onSwipeUp: () {
           widgets.onSwipeUp();
         },
-        onSwipeRight: () {});
-    tapReactor();
-    swipeCoordinatesReactor(onSwipeUpCordinatesChanged);
+        onSwipeRight: () {}));
+    disposers.add(tapReactor());
+    disposers.add(swipeCoordinatesReactor(onSwipeUpCordinatesChanged));
   }
 
   onSwipeUpCordinatesChanged(Offset offset) {

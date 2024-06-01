@@ -45,15 +45,13 @@ abstract class _StorageGuideWidgetsCoordinatorBase
   }
 
   @action
-  @override
   initReactors() {
-    super.initReactors();
-    gestureCrossTapReactor();
-    centerInstructionalNokhteMovieReactor();
-    centerCrossNokhteReactor(() {
+    disposers.add(gestureCrossTapReactor());
+    disposers.add(centerInstructionalNokhteMovieReactor());
+    disposers.add(centerCrossNokhteReactor(() {
       primaryInstructionalGradientNokhte.setWidgetVisibility(false);
       secondaryInstructionalGradientNokhte.setWidgetVisibility(false);
-    });
+    }));
   }
 
   @observable

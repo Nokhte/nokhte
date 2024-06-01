@@ -37,7 +37,7 @@ abstract class _NeedsUpdateWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     gestureCross.fadeInTheCross();
     beachWaves.setMovieMode(BeachWaveMovieModes.resumeOnShore);
     beachWaves.currentStore.initMovie(Modular.args.data["resumeOnShoreParams"]);
-    beachWavesMovieStatusReactor();
+    disposers.add(beachWavesMovieStatusReactor());
     tint.initMovie(NoParams());
     gradientText.setWidgetVisibility(false);
     Timer(Seconds.get(1), () {

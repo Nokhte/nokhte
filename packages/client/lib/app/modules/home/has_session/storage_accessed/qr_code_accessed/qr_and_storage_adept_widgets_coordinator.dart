@@ -65,14 +65,12 @@ abstract class _QrAndStorageAdeptWidgetsCoordinatorBase
   }
 
   @action
-  @override
   initReactors() {
-    super.initReactors();
-    gestureCrossTapReactor();
-    centerCrossNokhteReactor(() {
+    disposers.add(gestureCrossTapReactor());
+    disposers.add(centerCrossNokhteReactor(() {
       primaryInstructionalGradientNokhte.setWidgetVisibility(false);
       secondaryInstructionalGradientNokhte.setWidgetVisibility(false);
-    });
+    }));
   }
 
   @observable

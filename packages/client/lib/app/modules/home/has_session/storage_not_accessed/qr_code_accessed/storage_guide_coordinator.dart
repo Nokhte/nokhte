@@ -43,24 +43,24 @@ abstract class _StorageGuideCoordinatorBase extends BaseHomeScreenCoordinator
   @override
   initReactors() {
     super.initReactors();
-    swipeReactor(
+    disposers.add(swipeReactor(
       onSwipeUp: () {
         widgets.onSwipeUp();
       },
       onSwipeRight: () async {
         widgets.onSwipeRight();
       },
-    );
-    widgets.beachWavesMovieStatusReactor(
+    ));
+    disposers.add(widgets.beachWavesMovieStatusReactor(
       onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
       onShoreToDeepSeaComplete: onShoreToDeepSeaComplete,
       onStorageEntry: onSubsequentStorageEntry,
       onAnyToShoreComplete: () {
         setDisableAllTouchFeedback(false);
       },
-    );
-    swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged);
-    tapReactor();
+    ));
+    disposers.add(swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged));
+    disposers.add(tapReactor());
   }
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {
