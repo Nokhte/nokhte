@@ -45,8 +45,8 @@ abstract class _StorageContentCoordinatorBase
   }
 
   initReactors() {
-    tapReactor();
-    swipeReactor();
+    disposers.add(tapReactor());
+    disposers.add(swipeReactor());
   }
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {
@@ -65,4 +65,10 @@ abstract class _StorageContentCoordinatorBase
             break;
         }
       });
+
+  @override
+  deconstructor() {
+    widgets.deconstructor();
+    super.deconstructor();
+  }
 }

@@ -24,7 +24,7 @@ class StorageContentScreen extends HookWidget {
     final height = useFullScreenSize().height;
     useEffect(() {
       coordinator.constructor(center);
-      return null;
+      return () => coordinator.deconstructor();
     }, []);
     return Observer(builder: (context) {
       return Scaffold(
