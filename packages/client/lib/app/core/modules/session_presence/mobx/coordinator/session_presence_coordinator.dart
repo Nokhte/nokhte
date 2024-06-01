@@ -64,13 +64,12 @@ abstract class _SessionPresenceCoordinatorBase extends BaseMobxDBStore
   bool speakerSpotlightIsUpdated = false;
 
   @action
-  initReactors({
+  ReactionDisposer initReactors({
     required Function onCollaboratorJoined,
     required Function onCollaboratorLeft,
-  }) {
-    incidentsOverlayStore.collaboratorPresenceReactor(
-        onCollaboratorJoined, onCollaboratorLeft);
-  }
+  }) =>
+      incidentsOverlayStore.collaboratorPresenceReactor(
+          onCollaboratorJoined, onCollaboratorLeft);
 
   @action
   dispose() async {
