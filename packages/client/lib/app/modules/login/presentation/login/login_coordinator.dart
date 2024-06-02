@@ -63,17 +63,19 @@ abstract class _LoginCoordinatorBase extends BaseHomeScreenRouterCoordinator
   }
 
   initReactors() {
-    swipeReactor();
-    tapReactor();
-    widgets.wifiDisconnectOverlay.initReactors(onQuickConnected: () {
+    disposers.add(swipeReactor());
+    disposers.add(tapReactor());
+
+    disposers.addAll(
+        widgets.wifiDisconnectOverlay.initReactors(onQuickConnected: () {
       setDisableAllTouchFeedback(false);
     }, onLongReConnected: () {
       widgets.onLongReConnected();
       setDisableAllTouchFeedback(false);
     }, onDisconnected: () {
       setDisableAllTouchFeedback(true);
-    });
-    widgets.layer2BeachWavesReactor(onAnimationComplete);
+    }));
+    disposers.add(widgets.layer2BeachWavesReactor(onAnimationComplete));
   }
 
   @action
@@ -95,7 +97,8 @@ abstract class _LoginCoordinatorBase extends BaseHomeScreenRouterCoordinator
     await signInWithAuthProvider.routeAuthProviderRequest(authProvider);
   }
 
-  swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
+  ReactionDisposer swipeReactor() =>
+      reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.up:
             ifTouchIsNotDisabled(() {
@@ -131,5 +134,11 @@ abstract class _LoginCoordinatorBase extends BaseHomeScreenRouterCoordinator
     if (!isLoggedIn) {
       widgets.loggedOutOnResumed();
     }
+  }
+
+  @override
+  deconstructor() {
+    widgets.deconstructor();
+    super.deconstructor();
   }
 }

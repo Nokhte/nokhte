@@ -46,8 +46,8 @@ abstract class _SessionNotesCoordinatorBase extends BaseCoordinator with Store {
   setBlockPhoneTiltReactor(bool newValue) => blockPhoneTiltReactor = newValue;
 
   initReactors(bool shouldAdjustToFallbackExitProtocol) {
-    swipeReactor();
-    presence.initReactors(
+    disposers.add(swipeReactor());
+    disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
         setDisableAllTouchFeedback(false);
         widgets.onCollaboratorJoined();
@@ -56,18 +56,18 @@ abstract class _SessionNotesCoordinatorBase extends BaseCoordinator with Store {
         setDisableAllTouchFeedback(true);
         widgets.onCollaboratorLeft();
       },
-    );
-    widgets.wifiDisconnectOverlay.initReactors(
+    ));
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () => setDisableAllTouchFeedback(false),
       onDisconnected: () => setDisableAllTouchFeedback(true),
-    );
+    ));
     if (!shouldAdjustToFallbackExitProtocol) {
-      phoneTiltStateReactor();
+      disposers.add(phoneTiltStateReactor());
     }
-    userPhaseReactor();
-    touchFeedbackStatusReactor();
-    collaboratorPhaseReactor();
+    disposers.add(userPhaseReactor());
+    disposers.add(touchFeedbackStatusReactor());
+    disposers.add(collaboratorPhaseReactor());
   }
 
   @action

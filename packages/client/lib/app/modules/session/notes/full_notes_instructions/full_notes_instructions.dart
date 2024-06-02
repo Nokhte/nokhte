@@ -16,7 +16,7 @@ class SessionFullNotesInstructionsScreen extends HookWidget {
   Widget build(BuildContext context) {
     useEffect(() {
       coordinator.constructor();
-      return null;
+      return () => coordinator.deconstructor();
     }, []);
     useOnAppLifecycleStateChange(
         (previous, current) => coordinator.onAppLifeCycleStateChange(

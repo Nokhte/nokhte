@@ -52,13 +52,13 @@ abstract class _SessionPaywallCoordinatorBase
   }
 
   initReactors() {
-    tapReactor();
-    swipeReactor();
-    presence.initReactors(
+    disposers.add(tapReactor());
+    disposers.add(swipeReactor());
+    disposers.add(presence.initReactors(
       onCollaboratorJoined: () {},
       onCollaboratorLeft: () {},
-    );
-    widgets.wifiDisconnectOverlay.initReactors(
+    ));
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         widgets.setDisableTouchInput(false);
@@ -66,14 +66,15 @@ abstract class _SessionPaywallCoordinatorBase
       onDisconnected: () {
         widgets.setDisableTouchInput(true);
       },
-    );
-    widgets.beachWaveMovieStatusReactor(onReturnHome: onAnimationComplete);
-    subscriptionInfoReactor();
-    purchaseSuccessReactor();
-    purchaseErrorReactor();
-    phaseReactor();
-    validSessionReactor();
-    everyoneHasFinishedExplanationReactor();
+    ));
+    disposers.add(
+        widgets.beachWaveMovieStatusReactor(onReturnHome: onAnimationComplete));
+    disposers.add(subscriptionInfoReactor());
+    disposers.add(purchaseSuccessReactor());
+    disposers.add(purchaseErrorReactor());
+    disposers.add(phaseReactor());
+    disposers.add(validSessionReactor());
+    disposers.add(everyoneHasFinishedExplanationReactor());
   }
 
   everyoneHasFinishedExplanationReactor() =>
@@ -153,4 +154,10 @@ abstract class _SessionPaywallCoordinatorBase
 
   @action
   onResumed() async {}
+
+  @override
+  deconstructor() {
+    super.deconstructor();
+    widgets.deconstructor();
+  }
 }

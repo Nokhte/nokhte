@@ -18,4 +18,11 @@ abstract class _NeedsUpdateCoordinatorBase extends BaseCoordinator with Store {
   constructor() {
     widgets.constructor();
   }
+
+  @override
+  @action
+  deconstructor() {
+    widgets.deconstructor();
+    super.deconstructor();
+  }
 }

@@ -41,14 +41,15 @@ abstract class _WaitingPatronCoordinatorBase
   }
 
   initReactors() {
-    widgets.wifiDisconnectOverlay.initReactors(
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {},
       onDisconnected: () {},
-    );
-    widgets.beachWaveMovieStatusReactor(onReturnHome: onAnimationComplete);
-    validSessionReactor();
-    phaseReactor();
+    ));
+    disposers.add(
+        widgets.beachWaveMovieStatusReactor(onReturnHome: onAnimationComplete));
+    disposers.add(validSessionReactor());
+    disposers.add(phaseReactor());
   }
 
   phaseReactor() => reaction((p0) => sessionMetadata.currentPhases, (p0) async {

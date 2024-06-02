@@ -41,7 +41,7 @@ abstract class _ShortQrGuideCoordinatorBase extends BaseHomeScreenCoordinator
   @override
   initReactors() {
     super.initReactors();
-    swipeReactor(
+    disposers.add(swipeReactor(
       onSwipeUp: () {
         // setDisableAllTouchFeedback(true);
         widgets.onSwipeUp();
@@ -50,17 +50,17 @@ abstract class _ShortQrGuideCoordinatorBase extends BaseHomeScreenCoordinator
         widgets.onSwipeRight();
         // setDisableAllTouchFeedback(true);
       },
-    );
-    tapReactor();
-    widgets.beachWavesMovieStatusReactor(
+    ));
+    disposers.add(tapReactor());
+    disposers.add(widgets.beachWavesMovieStatusReactor(
       onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
       onShoreToDeepSeaComplete: onShoreToDeepSeaComplete,
       onStorageEntry: onSubsequentStorageEntry,
       onAnyToShoreComplete: () {
         setDisableAllTouchFeedback(false);
       },
-    );
-    swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged);
+    ));
+    disposers.add(swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged));
   }
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {

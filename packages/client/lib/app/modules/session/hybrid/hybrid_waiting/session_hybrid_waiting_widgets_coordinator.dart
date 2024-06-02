@@ -38,7 +38,7 @@ abstract class _SessionHybridWaitingWidgetsCoordinatorBase
     );
     tint.setControl(Control.playFromStart);
     mirroredText.startBothRotatingText();
-    rightSideUpIndexReactor();
+    disposers.add(rightSideUpIndexReactor());
   }
 
   onCollaboratorLeft() {

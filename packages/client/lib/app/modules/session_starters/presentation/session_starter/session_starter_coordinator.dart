@@ -72,11 +72,12 @@ abstract class _SessionStarterCoordinatorBase
       });
 
   initReactors() {
-    deepLinkReactor();
-    swipeCoordinatesReactor();
-    swipeReactor();
-    widgets.secondaryBeachWavesMovieStatusReactor(onAnimationComplete);
-    widgets.wifiDisconnectOverlay.initReactors(
+    disposers.add(deepLinkReactor());
+    disposers.add(swipeCoordinatesReactor());
+    disposers.add(swipeReactor());
+    disposers.add(
+        widgets.secondaryBeachWavesMovieStatusReactor(onAnimationComplete));
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
@@ -86,9 +87,9 @@ abstract class _SessionStarterCoordinatorBase
         setDisableAllTouchFeedback(true);
         widgets.setIsDisconnected(true);
       },
-    );
-    nokhteSearchStatusReactor();
-    tapReactor();
+    ));
+    disposers.add(nokhteSearchStatusReactor());
+    disposers.add(tapReactor());
   }
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) => onSwipe(p0));
@@ -124,4 +125,11 @@ abstract class _SessionStarterCoordinatorBase
           widgets.initTransition();
         }
       });
+
+  @override
+  deconstructor() {
+    logic.dispose();
+    widgets.deconstructor();
+    super.deconstructor();
+  }
 }

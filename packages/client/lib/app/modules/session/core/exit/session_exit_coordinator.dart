@@ -76,7 +76,7 @@ abstract class _SessionExitCoordinatorBase
 
   @action
   initReactors() {
-    widgets.wifiDisconnectOverlay.initReactors(
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         setDisableAllTouchFeedback(false);
@@ -84,8 +84,8 @@ abstract class _SessionExitCoordinatorBase
       onDisconnected: () {
         setDisableAllTouchFeedback(true);
       },
-    );
-    presence.initReactors(
+    ));
+    disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
         setDisableAllTouchFeedback(false);
         widgets.onCollaboratorJoined();
@@ -94,8 +94,8 @@ abstract class _SessionExitCoordinatorBase
         setDisableAllTouchFeedback(true);
         widgets.onCollaboratorLeft();
       },
-    );
-    widgets.beachWavesMovieStatusReactor(
+    ));
+    disposers.add(widgets.beachWavesMovieStatusReactor(
         onToHomeComplete: onAnimationComplete,
         onReturnToTalkingComplete: () {
           if (phoneRole == SessionPhoneRole.speaking) {
@@ -104,9 +104,9 @@ abstract class _SessionExitCoordinatorBase
         },
         onReturnToHybridComplete: () {
           Modular.to.navigate(SessionConstants.hybrid);
-        });
-    swipeReactor();
-    collaboratorPhaseReactor();
+        }));
+    disposers.add(swipeReactor());
+    disposers.add(collaboratorPhaseReactor());
   }
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
@@ -155,25 +155,23 @@ abstract class _SessionExitCoordinatorBase
     }
   }
 
-  collaboratorPhaseReactor() {
-    reaction(
-      (p0) => sessionMetadata.currentPhases,
-      (p0) async {
-        if (p0.contains(3.5)) {
-          setIsGoingHome(true);
-          if (!phaseHasBeenSet) {
-            await presence.updateCurrentPhase(3.5);
-            phaseHasBeenSet = true;
+  collaboratorPhaseReactor() => reaction(
+        (p0) => sessionMetadata.currentPhases,
+        (p0) async {
+          if (p0.contains(3.5)) {
+            setIsGoingHome(true);
+            if (!phaseHasBeenSet) {
+              await presence.updateCurrentPhase(3.5);
+              phaseHasBeenSet = true;
+            }
+            widgets.onReadyToGoBack(phoneRole);
+          } else if (p0.every((e) => e == 5.0)) {
+            await onReturnHome();
+          } else if (p0.contains(-1.0)) {
+            await onReturnHome();
           }
-          widgets.onReadyToGoBack(phoneRole);
-        } else if (p0.every((e) => e == 5.0)) {
-          await onReturnHome();
-        } else if (p0.contains(-1.0)) {
-          await onReturnHome();
-        }
-      },
-    );
-  }
+        },
+      );
 
   @computed
   SessionPhoneRole get phoneRole {
@@ -192,5 +190,11 @@ abstract class _SessionExitCoordinatorBase
         return SessionPhoneRole.notes;
       }
     }
+  }
+
+  @override
+  deconstructor() {
+    widgets.deconstructor();
+    super.deconstructor();
   }
 }

@@ -45,12 +45,10 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
   }
 
   @action
-  @override
   initReactors() {
-    gestureCrossTapReactor();
-    centerInstructionalNokhteReactor();
-    centerCrossNokhteReactor(() {});
-    super.initReactors();
+    disposers.add(gestureCrossTapReactor());
+    disposers.add(centerInstructionalNokhteReactor());
+    disposers.add(centerCrossNokhteReactor(() {}));
   }
 
   @action

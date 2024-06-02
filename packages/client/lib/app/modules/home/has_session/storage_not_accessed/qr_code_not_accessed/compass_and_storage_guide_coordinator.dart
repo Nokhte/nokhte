@@ -44,22 +44,22 @@ abstract class _CompassAndStorageGuideCoordinatorBase
   @override
   initReactors() {
     super.initReactors();
-    swipeReactor(
+    disposers.add(swipeReactor(
       onSwipeUp: () {},
       onSwipeRight: () {
         widgets.onSwipeRight();
       },
-    );
-    widgets.beachWavesMovieStatusReactor(
+    ));
+    disposers.add(widgets.beachWavesMovieStatusReactor(
       onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
       onShoreToDeepSeaComplete: onShoreToDeepSeaComplete,
       onStorageEntry: onSubsequentStorageEntry,
       onAnyToShoreComplete: () {
         setDisableAllTouchFeedback(false);
       },
-    );
-    swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged);
-    tapReactor();
+    ));
+    disposers.add(swipeCoordinatesReactor(widgets.onSwipeCoordinatesChanged));
+    disposers.add(tapReactor());
   }
 
   @action
