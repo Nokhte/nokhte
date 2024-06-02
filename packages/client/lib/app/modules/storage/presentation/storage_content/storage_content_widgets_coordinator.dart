@@ -46,10 +46,10 @@ abstract class _StorageContentWidgetsCoordinatorBase
   }
 
   initReactors() {
-    centerCrossNokhteReactor();
-    beachWavesReactor();
-    gestureCrossTapReactor();
-    centerInstructionalNokhteReactor();
+    disposers.add(centerCrossNokhteReactor());
+    disposers.add(beachWavesReactor());
+    disposers.add(gestureCrossTapReactor());
+    disposers.add(centerInstructionalNokhteReactor());
   }
 
   @observable

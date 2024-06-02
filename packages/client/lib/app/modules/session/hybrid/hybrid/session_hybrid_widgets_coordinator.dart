@@ -205,8 +205,8 @@ abstract class _SessionHybridWidgetsCoordinatorBase
 
   @action
   initReactors() {
-    firstBorderGlowReactor();
-    beachWavesMovieStatusReactor();
+    disposers.add(borderGlowReactor());
+    disposers.add(beachWavesMovieStatusReactor());
   }
 
   onBorderGlowComplete(MovieStatus p0, BorderGlowStore store) {
@@ -243,7 +243,7 @@ abstract class _SessionHybridWidgetsCoordinatorBase
         }
       });
 
-  firstBorderGlowReactor() => reaction((p0) => borderGlow.movieStatus, (p0) {
+  borderGlowReactor() => reaction((p0) => borderGlow.movieStatus, (p0) {
         if (p0 == MovieStatus.finished && borderGlow.isGlowingUp) {
           speakLessSmileMore.setSpeakLess(true);
           Timer(Seconds.get(2), () {

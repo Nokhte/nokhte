@@ -70,7 +70,7 @@ abstract class _SessionHybridNotesWidgetsCoordinatorBase
         navigateAway();
       }
     });
-    beachWavesMovieStatusReactor();
+    disposers.add(beachWavesMovieStatusReactor());
     setCanSwipeUp(true);
   }
 

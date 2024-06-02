@@ -62,6 +62,10 @@ abstract class _ListenForOpenedDeepLinkStoreBase extends Equatable with Store {
     });
   }
 
+  dispose() async {
+    await deepLinkSream.close();
+  }
+
   @override
   List<Object?> get props => [];
 }

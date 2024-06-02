@@ -165,9 +165,9 @@ abstract class _LoginScreenWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   }
 
   initReactors(Function loginBusinessLogic) {
-    nokhteReactor(loginBusinessLogic);
-    trailingTextReactor();
-    layer1BeachWavesReactor();
+    disposers.add(nokhteReactor(loginBusinessLogic));
+    disposers.add(trailingTextReactor());
+    disposers.add(layer1BeachWavesReactor());
   }
 
   nokhteReactor(Function loginBusinessLogic) =>

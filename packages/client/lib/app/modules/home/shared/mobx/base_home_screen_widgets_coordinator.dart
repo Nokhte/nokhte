@@ -62,12 +62,6 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   @observable
   bool hasSwipedUp = false;
 
-  // @observable
-  // Offset center = Offset.zero;
-
-  // @action
-  // setCenter(Offset value) => center = value;
-
   @observable
   ResumeOnShoreParams params = ResumeOnShoreParams.initial();
 
@@ -199,11 +193,6 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
   @action
   toggleHasInitiatedBlur() => hasInitiatedBlur = !hasInitiatedBlur;
 
-  initReactors() {
-    nokhteBlurReactor();
-    // centerCrossNokhteReactor();
-  }
-
   centerCrossNokhteReactor(Function onFinished) =>
       reaction((p0) => gestureCross.centerCrossNokhte.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
@@ -231,11 +220,6 @@ abstract class _BaseHomeScreenWidgetsCoordinatorBase
       }
     }
   }
-
-  nokhteBlurReactor() => reaction((p0) => nokhteBlur.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished &&
-            nokhteBlur.pastControl == Control.playReverseFromEnd) {}
-      });
 
   beachWavesMovieStatusReactor({
     required Function onShoreToOceanDiveComplete,

@@ -30,7 +30,7 @@ class LoginScreen extends HookWidget {
     final height = useFullScreenSize().height;
     useEffect(() {
       coordinator.constructor(center);
-      return null;
+      return () => coordinator.deconstructor();
     }, []);
     final size = useSquareSize(relativeLength: .20);
 

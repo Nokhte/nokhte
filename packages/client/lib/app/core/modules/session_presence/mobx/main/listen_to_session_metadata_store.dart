@@ -129,7 +129,7 @@ abstract class _ListenToSessionMetadataStoreBase
       !userHasGyroscope || !collaboratorHasGyroscope;
 
   @computed
-  bool get canMoveIntoInstructions => currentPhases.every((e) => e == 1);
+  bool get canMoveIntoInstructions => currentPhases.every((e) => e >= 1);
 
   @computed
   bool get canMoveIntoSession => currentPhases.every((e) => e == 2);
@@ -165,12 +165,16 @@ abstract class _ListenToSessionMetadataStoreBase
   }
 
   @computed
+  bool get hybridCanMoveIntoSecondInstructionsSet =>
+      evenListMinusHybridPhone.every((e) => e == 2) &&
+      oddList.every((e) => e >= 1);
+
+  @computed
   bool get canMoveIntoSecondInstructionsSet {
     if (numberOfCollaborators.isOdd) {
-      return evenListMinusHybridPhone.every((e) => e == 2) &&
-          oddList.every((e) => e == 1);
+      return evenList.every((e) => e == 2) && oddList.every((e) => e >= 1);
     } else {
-      return evenList.every((e) => e == 2) && oddList.every((e) => e == 1);
+      return evenList.every((e) => e == 2) && oddList.every((e) => e >= 1);
     }
   }
 

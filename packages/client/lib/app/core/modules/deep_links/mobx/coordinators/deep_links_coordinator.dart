@@ -33,4 +33,6 @@ abstract class _DeepLinksCoordinatorBase extends BaseMobxDBStore with Store {
 
   @action
   listen() => listenForOpenedDeepLinkStore(NoParams());
+
+  dispose() async => await listenForOpenedDeepLinkStore.dispose();
 }

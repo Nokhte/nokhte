@@ -33,16 +33,18 @@ abstract class _WifiDisconnectOverlayStoreBase
   setMovieMode(WifiDisconnectMovieModes newMovieModes) =>
       movieMode = newMovieModes;
 
-  initReactors({
+  List<ReactionDisposer> initReactors({
     required Function onQuickConnected,
     required Function onLongReConnected,
     required Function onDisconnected,
   }) {
-    connectionReactor(
+    List<ReactionDisposer> temp = [];
+    temp.add(connectionReactor(
       onQuickConnected: onQuickConnected,
       onDisconnected: onDisconnected,
-    );
-    onCompletedReactor(onLongReConnected);
+    ));
+    temp.add(onCompletedReactor(onLongReConnected));
+    return temp;
   }
 
   connectionReactor({

@@ -49,9 +49,9 @@ abstract class _StorageHomeWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   }
 
   initReactors() {
-    centerCrossNokhteReactor();
-    gestureCrossTapReactor();
-    centerInstructionalNokhteReactor();
+    disposers.add(centerCrossNokhteReactor());
+    disposers.add(gestureCrossTapReactor());
+    disposers.add(centerInstructionalNokhteReactor());
   }
 
   @observable

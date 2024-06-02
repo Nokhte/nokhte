@@ -18,7 +18,7 @@ class SessionHybridScreen extends HookWidget {
     useEffect(() {
       coordinator.constructor();
 
-      return null;
+      return () => coordinator.deconstructor();
     }, []);
     final height = useFullScreenSize().height;
     useOnAppLifecycleStateChange(

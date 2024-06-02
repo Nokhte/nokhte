@@ -46,12 +46,16 @@ abstract class _SessionHybridSpeakingInstructionsWidgetsCoordinatorBase
     errorSmartText.setWidgetVisibility(false);
     errorSmartText.setMessagesData(SessionLists.speakingInstructionsError);
     errorSmartText.startRotatingText();
+    halfScreenTint.setControl(Control.play);
+    mirroredText.startBothRotatingText();
+    cooldownStopwatch.start();
+    disableTouchInput = false;
     initReactors();
   }
 
   @action
   initReactors() {
-    upsideDownIndexReactor();
+    disposers.add(upsideDownIndexReactor());
   }
 
   @observable
@@ -197,6 +201,9 @@ abstract class _SessionHybridSpeakingInstructionsWidgetsCoordinatorBase
       beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
       mirroredText.setUpsideDownVisibility(false);
     }
+    if (speakingInstructionsComplete) {
+      await onFlowFinished();
+    }
   }
 
   @action
@@ -262,12 +269,6 @@ abstract class _SessionHybridSpeakingInstructionsWidgetsCoordinatorBase
       reaction((p0) => beachWaves.movieStatus, (p0) async {
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode ==
-              BeachWaveMovieModes.skyToInvertedHalfAndHalf) {
-            halfScreenTint.setControl(Control.play);
-            mirroredText.startBothRotatingText();
-            cooldownStopwatch.start();
-            disableTouchInput = false;
-          } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.invertedHalfAndHalfToDrySand) {
             borderGlow.initMovie(NoParams());
             holdTimerIndicator.initMovie(GesturePlacement.bottomHalf);

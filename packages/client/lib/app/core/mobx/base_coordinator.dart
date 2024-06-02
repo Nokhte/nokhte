@@ -14,6 +14,8 @@ abstract class _BaseCoordinatorBase extends BaseMobxDBStore with Store {
     required this.captureScreen,
   });
 
+  List<ReactionDisposer> disposers = [];
+
   @observable
   bool isInErrorMode = false;
 
@@ -51,6 +53,12 @@ abstract class _BaseCoordinatorBase extends BaseMobxDBStore with Store {
         onDetached?.call();
       default:
         break;
+    }
+  }
+
+      deconstructor() {
+    for (var disposer in disposers) {
+      disposer.call();
     }
   }
 

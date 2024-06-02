@@ -18,7 +18,7 @@ class SessionHybridRootRouterScreen extends HookWidget {
   Widget build(BuildContext context) {
     useEffect(() {
       coordinator.constructor();
-      return null;
+      return () => coordinator.deconstructor();
     }, []);
     return Scaffold(
         resizeToAvoidBottomInset: false,

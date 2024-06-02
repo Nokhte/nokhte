@@ -33,21 +33,21 @@ abstract class _CompassAndQrGuideCoordinatorBase
   @override
   initReactors() {
     super.initReactors();
-    swipeReactor(
+    disposers.add(swipeReactor(
       onSwipeUp: () {
         widgets.onSwipeUp();
       },
       onSwipeRight: () {},
-    );
-    swipeCoordinatesReactor(onSwipeUpCordinatesChanged);
-    widgets.beachWavesMovieStatusReactor(
+    ));
+    disposers.add(swipeCoordinatesReactor(onSwipeUpCordinatesChanged));
+    disposers.add(widgets.beachWavesMovieStatusReactor(
         onShoreToOceanDiveComplete: onShoreToOceanDiveComplete,
         onShoreToDeepSeaComplete: onShoreToDeepSeaComplete,
         onStorageEntry: () {},
         onAnyToShoreComplete: () {
           setDisableAllTouchFeedback(false);
-        });
-    tapReactor();
+        }));
+    disposers.add(tapReactor());
   }
 
   onSwipeUpCordinatesChanged(Offset offset) {

@@ -41,8 +41,8 @@ abstract class _SessionHybridSpeakingInstructionsCoordinatorBase
   }
 
   initReactors() {
-    tapReactor();
-    presence.initReactors(
+    disposers.add(tapReactor());
+    disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
         widgets.setDisableTouchInput(false);
         widgets.onCollaboratorJoined();
@@ -51,8 +51,8 @@ abstract class _SessionHybridSpeakingInstructionsCoordinatorBase
         widgets.setDisableTouchInput(true);
         widgets.onCollaboratorLeft();
       },
-    );
-    widgets.wifiDisconnectOverlay.initReactors(
+    ));
+    disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
         widgets.setDisableTouchInput(false);
@@ -60,11 +60,11 @@ abstract class _SessionHybridSpeakingInstructionsCoordinatorBase
       onDisconnected: () {
         widgets.setDisableTouchInput(true);
       },
-    );
-    phoneTiltStateReactor();
-    holdReactor();
-    letGoReactor();
-    widgets.beachWavesMovieStatusReactor(onFlowFinished);
+    ));
+    disposers.add(phoneTiltStateReactor());
+    disposers.add(holdReactor());
+    disposers.add(letGoReactor());
+    disposers.add(widgets.beachWavesMovieStatusReactor(onFlowFinished));
   }
 
   @action
@@ -84,12 +84,9 @@ abstract class _SessionHybridSpeakingInstructionsCoordinatorBase
 
   @action
   onFlowFinished() async {
-    if (sessionMetadata.canMoveIntoSecondInstructionsSet) {
-      if (sessionMetadata.userShouldSkipInstructions) {
-        Modular.to.navigate(SessionConstants.hybrid);
-      } else {
-        Modular.to.navigate(SessionConstants.hybridNotesInstructions);
-      }
+    if (sessionMetadata.canMoveIntoSecondInstructionsSet &&
+        !sessionMetadata.userShouldSkipInstructions) {
+      Modular.to.navigate(SessionConstants.hybridNotesInstructions);
     } else {
       Modular.to.navigate(SessionConstants.hybridWaiting);
     }
@@ -115,7 +112,12 @@ abstract class _SessionHybridSpeakingInstructionsCoordinatorBase
 
   letGoReactor() => reaction((p0) => hold.letGoCount, (p0) {
         widgets.onLetGo(
-          onFlowFinished: () async => await gyroscopic.dispose(),
+          onFlowFinished: () async {
+            if (sessionMetadata.userShouldSkipInstructions) {
+              await presence.updateCurrentPhase(2.0);
+            }
+            return await gyroscopic.dispose();
+          },
         );
         Timer(Seconds.get(2), () {
           setDisableAllTouchFeedback(false);
@@ -127,4 +129,10 @@ abstract class _SessionHybridSpeakingInstructionsCoordinatorBase
         (p0) =>
             ifTouchIsNotDisabled(() => widgets.onTap(tap.currentTapPosition)),
       );
+
+  @override
+  deconstructor() {
+    widgets.deconstructor();
+    super.deconstructor();
+  }
 }

@@ -25,7 +25,7 @@ class BaseHomeScreen extends HookWidget {
     final center = useCenterOffset();
     useEffect(() {
       coordinator.constructor(center);
-      return null;
+      return () => coordinator.deconstructor();
     }, []);
     return Observer(builder: (context) {
       return Scaffold(

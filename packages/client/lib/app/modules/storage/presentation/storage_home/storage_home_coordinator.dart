@@ -75,11 +75,11 @@ abstract class _StorageHomeCoordinatorBase
   }
 
   initReactors() {
-    tapReactor();
-    swipeReactor();
-    beachWavesMovieStatusReactor();
-    sessionCardEditReactor();
-    sessionCardTapReactor();
+    disposers.add(tapReactor());
+    disposers.add(swipeReactor());
+    disposers.add(beachWavesMovieStatusReactor());
+    disposers.add(sessionCardEditReactor());
+    disposers.add(sessionCardTapReactor());
   }
 
   tapReactor() => reaction((p0) => tap.tapCount, (p0) {
@@ -135,4 +135,10 @@ abstract class _StorageHomeCoordinatorBase
           setDisableAllTouchFeedback(true);
         });
       });
+
+  @override
+  deconstructor() {
+    widgets.deconstructor();
+    super.deconstructor();
+  }
 }

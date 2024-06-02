@@ -23,11 +23,13 @@ abstract class _SessionHybridRootRouterCoordinatorBase extends BaseCoordinator
   @action
   constructor() {
     widgets.constructor();
-    widgets.beachWavesMovieStatusReactor(onComplete);
+    disposers.add(widgets.beachWavesMovieStatusReactor(onComplete));
   }
 
   @action
-  onComplete() => Modular.to.navigate(hybridPath);
+  onComplete() {
+    Modular.to.navigate(hybridPath);
+  }
 
   @computed
   String get hybridPath {
