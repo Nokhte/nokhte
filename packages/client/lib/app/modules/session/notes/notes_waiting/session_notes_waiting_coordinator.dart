@@ -31,6 +31,7 @@ abstract class _SessionNotesWaitingCoordinatorBase extends BaseCoordinator
     userPhaseAtStart = sessionMetadata.userPhase;
     widgets.constructor(userPhaseAtStart);
     initReactors();
+    await updateIfNecessary();
     await captureScreen(SessionConstants.notesWaiting);
   }
 
@@ -71,8 +72,9 @@ abstract class _SessionNotesWaitingCoordinatorBase extends BaseCoordinator
   }
 
   updateIfNecessary() async {
-    if (sessionMetadata.evenList.every((e) => e == 2.0)) {
+    if (bothShouldSkip) {
       await presence.updateCurrentPhase(2.0);
+      userPhaseAtStart = 2.0;
     }
   }
 
@@ -80,12 +82,11 @@ abstract class _SessionNotesWaitingCoordinatorBase extends BaseCoordinator
         (p0) => sessionMetadata.currentPhases,
         (p0) async {
           if (userPhaseAtStart == 1.0) {
-            await updateIfNecessary();
-            if (sessionMetadata.canMoveIntoSecondInstructionsSet) {
-              if (shouldGoIntoNotes) {
-                widgets.onReadyToTransition();
-              }
-            } else if (sessionMetadata.canMoveIntoSession) {
+            if (sessionMetadata.canMoveIntoSecondInstructionsSet ||
+                sessionMetadata.hybridCanMoveIntoSecondInstructionsSet) {
+              widgets.onReadyToTransition();
+            } else if (sessionMetadata.canMoveIntoSession &&
+                !shouldGoIntoNotes) {
               widgets.setShouldMoveIntoSession(true);
               widgets.onReadyToTransition();
             }
@@ -99,7 +100,14 @@ abstract class _SessionNotesWaitingCoordinatorBase extends BaseCoordinator
       );
 
   @computed
-  bool get shouldGoIntoNotes => !sessionMetadata.userShouldSkipInstructions;
+  bool get shouldGoIntoNotes =>
+      !sessionMetadata.userShouldSkipInstructions ||
+      !sessionMetadata.neighborShouldSkipInstructions;
+
+  @computed
+  bool get bothShouldSkip =>
+      sessionMetadata.userShouldSkipInstructions &&
+      sessionMetadata.neighborShouldSkipInstructions;
 
   @computed
   String get route {

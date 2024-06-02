@@ -28,10 +28,10 @@ abstract class _SessionSpeakingWaitingCoordinatorBase extends BaseCoordinator
     widgets.constructor();
     initReactors();
     await captureScreen(SessionConstants.speakingWaiting);
-    if (!(sessionMetadata.currentPhases.length.isOdd &&
-        sessionMetadata.currentPhases.first == 2.0)) {
-      await updateCurrentPhase();
-    }
+    // if (!(sessionMetadata.currentPhases.length.isOdd &&
+    //     sessionMetadata.currentPhases.first == 2.0)) {
+    await updateCurrentPhase();
+    // }
   }
 
   initReactors() {
@@ -49,6 +49,12 @@ abstract class _SessionSpeakingWaitingCoordinatorBase extends BaseCoordinator
       onLongReConnected: () {},
       onDisconnected: () {},
     ));
+  }
+
+  updateIfNecessary() async {
+    if (bothShouldSkip) {
+      await presence.updateCurrentPhase(2.0);
+    }
   }
 
   @action
@@ -88,6 +94,11 @@ abstract class _SessionSpeakingWaitingCoordinatorBase extends BaseCoordinator
       }
     });
   }
+
+  @computed
+  bool get bothShouldSkip =>
+      sessionMetadata.userShouldSkipInstructions &&
+      sessionMetadata.neighborShouldSkipInstructions;
 
   @override
   deconstructor() {

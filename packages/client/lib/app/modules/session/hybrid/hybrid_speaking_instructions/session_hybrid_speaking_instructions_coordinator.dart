@@ -84,12 +84,9 @@ abstract class _SessionHybridSpeakingInstructionsCoordinatorBase
 
   @action
   onFlowFinished() async {
-    if (sessionMetadata.canMoveIntoSecondInstructionsSet) {
-      if (sessionMetadata.userShouldSkipInstructions) {
-        Modular.to.navigate(SessionConstants.hybrid);
-      } else {
-        Modular.to.navigate(SessionConstants.hybridNotesInstructions);
-      }
+    if (sessionMetadata.canMoveIntoSecondInstructionsSet &&
+        !sessionMetadata.userShouldSkipInstructions) {
+      Modular.to.navigate(SessionConstants.hybridNotesInstructions);
     } else {
       Modular.to.navigate(SessionConstants.hybridWaiting);
     }
@@ -115,7 +112,12 @@ abstract class _SessionHybridSpeakingInstructionsCoordinatorBase
 
   letGoReactor() => reaction((p0) => hold.letGoCount, (p0) {
         widgets.onLetGo(
-          onFlowFinished: () async => await gyroscopic.dispose(),
+          onFlowFinished: () async {
+            if (sessionMetadata.userShouldSkipInstructions) {
+              await presence.updateCurrentPhase(2.0);
+            }
+            return await gyroscopic.dispose();
+          },
         );
         Timer(Seconds.get(2), () {
           setDisableAllTouchFeedback(false);

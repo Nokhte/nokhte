@@ -94,10 +94,10 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
 
   collaboratorPhaseReactor() =>
       reaction((p0) => sessionMetadata.currentPhases, (p0) {
-        if (p0.every((e) => e == 1.0)) {
+        if (p0.every((e) => e >= 1.0)) {
           widgets.initTransition(pathIntoSession);
         } else if (sessionMetadata.everyoneButUserPhases
-                .every((e) => e == 1.0) &&
+                .every((e) => e >= 1.0) &&
             sessionMetadata.userPhase != 1.0) {
           widgets.setIsTheLastOneToFinish(true);
         }
@@ -117,7 +117,6 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
       reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
         if (p0 == MovieStatus.finished &&
             sessionMetadata.canMoveIntoInstructions &&
-            widgets.isTheLastOneToFinish &&
             !widgets.hasTriggeredTint) {
           Modular.to.navigate(pathIntoSession);
         }

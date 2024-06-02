@@ -70,7 +70,7 @@ abstract class _SessionHybridNotesInstructionsCoordinatorBase
   rippleCompletionStatusReactor() =>
       reaction((p0) => widgets.touchRipple.movieStatus, (p0) {
         if (p0 == MovieStatus.finished && widgets.hasCompletedInstructions) {
-          Modular.to.navigate(SessionConstants.notes);
+          // Modular.to.navigate(SessionConstants.notes);
         }
       });
 
@@ -105,13 +105,16 @@ abstract class _SessionHybridNotesInstructionsCoordinatorBase
       if (sessionMetadata.userPhase != 2.0) {
         await presence.updateCurrentPhase(2.0);
       } else {
-        Timer(Seconds.get(2), () {
-          if (sessionMetadata.canMoveIntoSession) {
-            Modular.to.navigate(SessionConstants.hybrid);
-          } else {
-            Modular.to.navigate(SessionConstants.hybridWaiting);
-          }
-        });
+        Timer(
+          Seconds.get(2),
+          () {
+            if (sessionMetadata.canMoveIntoSession) {
+              Modular.to.navigate(SessionConstants.hybrid);
+            } else {
+              Modular.to.navigate(SessionConstants.hybridWaiting);
+            }
+          },
+        );
         timer.cancel();
       }
     });

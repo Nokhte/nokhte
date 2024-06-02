@@ -348,6 +348,9 @@ abstract class _HalfSessionSpeakingInstructionsWidgetsCoordinatorBase
       beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
       mirroredText.setWidgetVisibility(false);
     }
+    if (speakingInstructionsComplete) {
+      await onFlowFinished();
+    }
   }
 
   @computed

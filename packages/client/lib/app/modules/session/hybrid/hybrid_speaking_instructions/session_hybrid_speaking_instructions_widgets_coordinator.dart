@@ -201,6 +201,9 @@ abstract class _SessionHybridSpeakingInstructionsWidgetsCoordinatorBase
       beachWaves.currentStore.initMovie(beachWaves.currentColorsAndStops);
       mirroredText.setUpsideDownVisibility(false);
     }
+    if (speakingInstructionsComplete) {
+      await onFlowFinished();
+    }
   }
 
   @action

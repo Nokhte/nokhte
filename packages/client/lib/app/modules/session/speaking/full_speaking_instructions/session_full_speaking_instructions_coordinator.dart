@@ -100,7 +100,10 @@ abstract class _FullSessionSpeakingInstructionsCoordinatorBase
 
   letGoReactor() => reaction((p0) => hold.letGoCount, (p0) {
         widgets.onLetGo(
-          onFlowFinished: () async => await gyroscopic.dispose(),
+          onFlowFinished: () async {
+            await presence.updateCurrentPhase(2.0);
+            await gyroscopic.dispose();
+          },
         );
         Timer(Seconds.get(2), () {
           setDisableAllTouchFeedback(false);

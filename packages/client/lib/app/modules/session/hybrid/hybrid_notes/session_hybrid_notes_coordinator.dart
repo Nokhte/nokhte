@@ -104,4 +104,10 @@ abstract class _SessionHybridNotesCoordinatorBase extends BaseCoordinator
 
   @action
   onSwipeUp(String param) async => await presence.addContent(param);
+
+  @override
+  deconstructor() {
+    widgets.deconstructor();
+    super.deconstructor();
+  }
 }

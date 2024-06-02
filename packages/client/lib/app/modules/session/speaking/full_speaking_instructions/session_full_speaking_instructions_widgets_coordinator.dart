@@ -254,13 +254,6 @@ abstract class _FullSessionSpeakingInstructionsWidgetsCoordinatorBase
     if (index == 5 && !bottomHalfIsDone) {
       adjustRightSideToHoldingPadding();
     }
-    if (index == 11) {
-      Timer(
-        Seconds.get(1),
-        () => Modular.to.navigate(SessionConstants.speaking),
-      );
-      return;
-    }
     Timer(const Duration(milliseconds: 500), () {
       if (!abortTheTextRotation) {
         if (!bottomHalfIsDone) {
@@ -324,7 +317,7 @@ abstract class _FullSessionSpeakingInstructionsWidgetsCoordinatorBase
       });
 
   beachWavesMovieStatusReactor() =>
-      reaction((p0) => beachWaves.movieStatus, (p0) {
+      reaction((p0) => beachWaves.movieStatus, (p0) async {
         if (p0 == MovieStatus.finished) {
           if (beachWaves.movieMode == BeachWaveMovieModes.anyToSky) {
             if (!phoneIsPickedUp) {

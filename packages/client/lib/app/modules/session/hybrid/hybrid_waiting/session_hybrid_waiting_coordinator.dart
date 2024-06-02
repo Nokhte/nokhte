@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/base_coordinator.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
+import 'package:nokhte/app/core/types/seconds.dart';
+import 'package:nokhte/app/modules/session/session.dart';
 import 'session_hybrid_waiting_widgets_coordinator.dart';
 part 'session_hybrid_waiting_coordinator.g.dart';
 
@@ -29,7 +31,7 @@ abstract class _SessionHybridWaitingCoordinatorBase extends BaseCoordinator
     widgets.constructor();
     initReactors();
     userPhaseAtStart = sessionMetadata.userPhase;
-    await updateCurrentPhaseIfNecessary();
+    await updateIfNecessary();
   }
 
   initReactors() {
@@ -49,9 +51,22 @@ abstract class _SessionHybridWaitingCoordinatorBase extends BaseCoordinator
     ));
   }
 
-  updateCurrentPhaseIfNecessary() async {
-    if (userHasDoneSpeakingAndShouldSkipNotes) {
+  updateIfNecessary() async {
+    if (bothShouldSkip) {
       await presence.updateCurrentPhase(2.0);
+    }
+    if (sessionMetadata.canMoveIntoSession) {
+      Timer(Seconds.get(2), () {
+        widgets.onReadyToTransition();
+        widgets.setShouldMoveIntoSession(true);
+      });
+    } else if (userPhaseAtStart == 1.0 &&
+        sessionMetadata.hybridCanMoveIntoSecondInstructionsSet &&
+        !sessionMetadata.userShouldSkipInstructions) {
+      Timer(Seconds.get(2), () {
+        widgets.onReadyToTransition();
+      });
+      // Modular.to.navigate(SessionConstants.hybridNotesInstructions);
     }
   }
 
@@ -73,34 +88,31 @@ abstract class _SessionHybridWaitingCoordinatorBase extends BaseCoordinator
   collaboratorPhaseReactor() => reaction(
         (p0) => sessionMetadata.currentPhases,
         (p0) {
-          if (hasComeSpeakingInstructionsOrRootRouter) {
-            if (sessionMetadata.canMoveIntoSecondInstructionsSet) {
-              if (shouldGoIntoNotes ||
-                  sessionMetadata.evenListMinusHybridPhone
-                      .every((e) => e == 2.0)) {
-                widgets.onReadyToTransition();
-              }
-            } else if (sessionMetadata.canMoveIntoSession) {
-              widgets.setShouldMoveIntoSession(true);
-              widgets.onReadyToTransition();
-            }
-          } else if (hasComeFromNotes) {
-            if (sessionMetadata.canMoveIntoSession) {
-              widgets.onReadyToTransition();
-              widgets.setShouldMoveIntoSession(true);
-            }
+          if (sessionMetadata.userPhase == 1.0 &&
+              sessionMetadata.hybridCanMoveIntoSecondInstructionsSet) {
+            widgets.onReadyToTransition();
+          } else if (sessionMetadata.userPhase == 2.0 &&
+              sessionMetadata.canMoveIntoSession) {
+            widgets.onReadyToTransition();
+            widgets.setShouldMoveIntoSession(true);
           }
         },
       );
 
   @computed
-  bool get shouldGoIntoNotes => !sessionMetadata.neighborShouldSkipInstructions;
+  bool get bothShouldSkip =>
+      sessionMetadata.userShouldSkipInstructions &&
+      sessionMetadata.neighborShouldSkipInstructions;
+
+  @computed
+  bool get shouldGoIntoNotesInstructions =>
+      !sessionMetadata.neighborShouldSkipInstructions;
 
   @computed
   bool get hasComeSpeakingInstructionsOrRootRouter => userPhaseAtStart == 1.0;
 
   @computed
-  bool get hasComeFromNotes => userPhaseAtStart == 2.0;
+  bool get hasCompletedInstructions => userPhaseAtStart == 2.0;
 
   @computed
   bool get userHasDoneSpeakingAndShouldSkipNotes =>
