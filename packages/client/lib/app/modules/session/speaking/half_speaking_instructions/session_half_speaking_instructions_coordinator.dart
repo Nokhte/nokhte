@@ -116,10 +116,9 @@ abstract class _HalfSessionSpeakingInstructionsCoordinatorBase
         ),
       );
 
-
-      @override 
-      deconstructor() {
-        super.deconstructor();
-        widgets.deconstructor();
-      }
+  @override
+  deconstructor() {
+    super.deconstructor();
+    widgets.deconstructor();
+  }
 }

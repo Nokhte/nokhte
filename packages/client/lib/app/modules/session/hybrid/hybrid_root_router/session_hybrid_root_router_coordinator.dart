@@ -27,7 +27,9 @@ abstract class _SessionHybridRootRouterCoordinatorBase extends BaseCoordinator
   }
 
   @action
-  onComplete() => Modular.to.navigate(hybridPath);
+  onComplete() {
+    Modular.to.navigate(hybridPath);
+  }
 
   @computed
   String get hybridPath {

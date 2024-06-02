@@ -40,6 +40,7 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
     initReactors(sessionMetadata.shouldAdjustToFallbackExitProtocol);
     gyroscopic.listen(NoParams());
     setBlockPhoneTiltReactor(false);
+    await presence.updateCurrentPhase(2.0);
     await captureScreen(SessionConstants.hybrid);
   }
 

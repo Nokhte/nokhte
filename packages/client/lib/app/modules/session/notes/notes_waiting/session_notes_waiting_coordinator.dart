@@ -53,11 +53,7 @@ abstract class _SessionNotesWaitingCoordinatorBase extends BaseCoordinator
   }
 
   @action
-  navigate() {
-    if (route.isNotEmpty) {
-      Modular.to.navigate(route);
-    }
-  }
+  navigate() => Modular.to.navigate(route);
 
   @action
   onInactive() async {
@@ -75,8 +71,7 @@ abstract class _SessionNotesWaitingCoordinatorBase extends BaseCoordinator
   }
 
   updateIfNecessary() async {
-    if (sessionMetadata.userShouldSkipInstructions &&
-        sessionMetadata.neighborShouldSkipInstructions) {
+    if (sessionMetadata.evenList.every((e) => e == 2.0)) {
       await presence.updateCurrentPhase(2.0);
     }
   }
@@ -84,12 +79,12 @@ abstract class _SessionNotesWaitingCoordinatorBase extends BaseCoordinator
   collaboratorPhaseReactor() => reaction(
         (p0) => sessionMetadata.currentPhases,
         (p0) async {
-          await updateIfNecessary();
           if (userPhaseAtStart == 1.0) {
-            if (sessionMetadata.canMoveIntoSecondInstructionsSet &&
-                !(sessionMetadata.userShouldSkipInstructions &&
-                    sessionMetadata.neighborShouldSkipInstructions)) {
-              widgets.onReadyToTransition();
+            await updateIfNecessary();
+            if (sessionMetadata.canMoveIntoSecondInstructionsSet) {
+              if (shouldGoIntoNotes) {
+                widgets.onReadyToTransition();
+              }
             } else if (sessionMetadata.canMoveIntoSession) {
               widgets.setShouldMoveIntoSession(true);
               widgets.onReadyToTransition();
@@ -102,6 +97,9 @@ abstract class _SessionNotesWaitingCoordinatorBase extends BaseCoordinator
           }
         },
       );
+
+  @computed
+  bool get shouldGoIntoNotes => !sessionMetadata.userShouldSkipInstructions;
 
   @computed
   String get route {

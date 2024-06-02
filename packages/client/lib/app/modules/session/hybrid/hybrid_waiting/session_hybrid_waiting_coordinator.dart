@@ -29,6 +29,7 @@ abstract class _SessionHybridWaitingCoordinatorBase extends BaseCoordinator
     widgets.constructor();
     initReactors();
     userPhaseAtStart = sessionMetadata.userPhase;
+    await updateCurrentPhaseIfNecessary();
   }
 
   initReactors() {
@@ -46,6 +47,12 @@ abstract class _SessionHybridWaitingCoordinatorBase extends BaseCoordinator
       onLongReConnected: () {},
       onDisconnected: () {},
     ));
+  }
+
+  updateCurrentPhaseIfNecessary() async {
+    if (userHasDoneSpeakingAndShouldSkipNotes) {
+      await presence.updateCurrentPhase(2.0);
+    }
   }
 
   @action
@@ -66,16 +73,18 @@ abstract class _SessionHybridWaitingCoordinatorBase extends BaseCoordinator
   collaboratorPhaseReactor() => reaction(
         (p0) => sessionMetadata.currentPhases,
         (p0) {
-          if (userPhaseAtStart == 1.0) {
+          if (hasComeSpeakingInstructionsOrRootRouter) {
             if (sessionMetadata.canMoveIntoSecondInstructionsSet) {
-              if (!sessionMetadata.userShouldSkipInstructions) {
-                widgets.onReadyToTransition();
-              } else {
-                widgets.setShouldMoveIntoSession(true);
+              if (shouldGoIntoNotes ||
+                  sessionMetadata.evenListMinusHybridPhone
+                      .every((e) => e == 2.0)) {
                 widgets.onReadyToTransition();
               }
+            } else if (sessionMetadata.canMoveIntoSession) {
+              widgets.setShouldMoveIntoSession(true);
+              widgets.onReadyToTransition();
             }
-          } else if (userPhaseAtStart == 2.0) {
+          } else if (hasComeFromNotes) {
             if (sessionMetadata.canMoveIntoSession) {
               widgets.onReadyToTransition();
               widgets.setShouldMoveIntoSession(true);
@@ -83,6 +92,21 @@ abstract class _SessionHybridWaitingCoordinatorBase extends BaseCoordinator
           }
         },
       );
+
+  @computed
+  bool get shouldGoIntoNotes => !sessionMetadata.neighborShouldSkipInstructions;
+
+  @computed
+  bool get hasComeSpeakingInstructionsOrRootRouter => userPhaseAtStart == 1.0;
+
+  @computed
+  bool get hasComeFromNotes => userPhaseAtStart == 2.0;
+
+  @computed
+  bool get userHasDoneSpeakingAndShouldSkipNotes =>
+      userPhaseAtStart == 1.0 &&
+      (sessionMetadata.userShouldSkipInstructions &&
+          !sessionMetadata.neighborShouldSkipInstructions);
 
   @override
   deconstructor() {

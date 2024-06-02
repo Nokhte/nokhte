@@ -27,8 +27,11 @@ abstract class _SessionSpeakingWaitingCoordinatorBase extends BaseCoordinator
   constructor() async {
     widgets.constructor();
     initReactors();
-    await updateCurrentPhase();
     await captureScreen(SessionConstants.speakingWaiting);
+    if (!(sessionMetadata.currentPhases.length.isOdd &&
+        sessionMetadata.currentPhases.first == 2.0)) {
+      await updateCurrentPhase();
+    }
   }
 
   initReactors() {
@@ -58,7 +61,7 @@ abstract class _SessionSpeakingWaitingCoordinatorBase extends BaseCoordinator
   onResumed() async {
     await presence
         .updateOnlineStatus(UpdatePresencePropertyParams.userAffirmative());
-    await presence.updateCurrentPhase(2.0);
+    // await presence.updateCurrentPhase(2.0);
     if (sessionMetadata.everyoneIsOnline) {
       presence.incidentsOverlayStore.onCollaboratorJoined();
     }
@@ -69,6 +72,9 @@ abstract class _SessionSpeakingWaitingCoordinatorBase extends BaseCoordinator
         (p0) {
           if (sessionMetadata.canMoveIntoSession) {
             widgets.onReadyToTransition();
+          } else if (sessionMetadata.currentPhases.length.isOdd &&
+              sessionMetadata.currentPhases.first == 2.0) {
+            updateCurrentPhase();
           }
         },
       );
