@@ -18,7 +18,7 @@ class SmartTextColorChangeMovie {
         'color',
         ColorTween(
           begin: Colors.white,
-          end: WaterColorsAndStops.vibrantBlueGrad.first.color,
+          end: WaterColorsAndStops.sky.first.color,
         ),
       );
   }

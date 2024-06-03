@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
-import 'package:nokhte/app/core/modules/posthog/data/data.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 
@@ -23,17 +22,7 @@ class PosthogContractImpl implements PosthogContract {
   @override
   captureNokhteSessionStart(params) async {
     if (await networkInfo.isConnected) {
-      await remoteSource.captureNokhteSessionStart();
-      return const Right(null);
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
-
-  @override
-  captureShareNokhteSessionInvitation(params) async {
-    if (await networkInfo.isConnected) {
-      await remoteSource.captureShareNokhteSessionInvitation();
+      await remoteSource.captureNokhteSessionStart(params);
       return const Right(null);
     } else {
       return Left(FailureConstants.internetConnectionFailure);

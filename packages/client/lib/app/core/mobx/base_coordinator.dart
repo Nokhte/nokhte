@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 part 'base_coordinator.g.dart';
 
 class BaseCoordinator = _BaseCoordinatorBase with _$BaseCoordinator;
@@ -13,6 +13,8 @@ abstract class _BaseCoordinatorBase extends BaseMobxDBStore with Store {
   _BaseCoordinatorBase({
     required this.captureScreen,
   });
+
+  List<ReactionDisposer> disposers = [];
 
   @observable
   bool isInErrorMode = false;
@@ -51,6 +53,12 @@ abstract class _BaseCoordinatorBase extends BaseMobxDBStore with Store {
         onDetached?.call();
       default:
         break;
+    }
+  }
+
+      deconstructor() {
+    for (var disposer in disposers) {
+      disposer.call();
     }
   }
 

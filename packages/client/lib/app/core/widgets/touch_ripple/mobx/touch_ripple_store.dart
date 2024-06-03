@@ -5,7 +5,7 @@ import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/irl_nokhte_session/shared/constants/constants.dart';
+import 'package:nokhte/app/modules/session/constants/constants.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'touch_ripple_store.g.dart';
 
@@ -46,7 +46,7 @@ abstract class _TouchRippleStoreBase extends BaseCustomAnimatedWidgetStore
       case GesturePlacement.topHalf:
         currentColor = Colors.white;
       case GesturePlacement.bottomHalf:
-        currentColor = NokhteSessionConstants.blue;
+        currentColor = SessionConstants.blue;
     }
     return currentColor;
   }

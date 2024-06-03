@@ -2,9 +2,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/deep_links/constants/constants.dart';
-import 'package:nokhte/app/core/modules/deep_links/domain/domain.dart';
-import 'package:nokhte/app/core/modules/user_information/mobx/coordinators/user_information_coordinator.dart';
+import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 part 'listen_for_opened_deep_link_store.g.dart';
 
 class ListenForOpenedDeepLinkStore = _ListenForOpenedDeepLinkStoreBase
@@ -14,11 +13,9 @@ abstract class _ListenForOpenedDeepLinkStoreBase extends Equatable with Store {
   final ListenForOpenedDeepLink logic;
   final InterpretNokhteSessionDeepLink interpretNokhteSessionDeepLink;
   final UserInformationCoordinator userInformation;
-  final InterpretCollaboratorCodeDeepLink interpretCollaboratorCode;
 
   _ListenForOpenedDeepLinkStoreBase({
     required this.logic,
-    required this.interpretCollaboratorCode,
     required this.userInformation,
     required this.interpretNokhteSessionDeepLink,
   });
@@ -51,16 +48,7 @@ abstract class _ListenForOpenedDeepLinkStoreBase extends Equatable with Store {
         final String linkType = splitLink.first;
         final getUserInfo = userInformation.getUserInfoStore;
         await getUserInfo(NoParams());
-        if (linkType == DeepLinkPrefixes.collaboratorCode) {
-          final res = interpretCollaboratorCode(
-            InterpretCollaboratorCodeDeepLinkParams.fromUserJourneyInfo(
-              getUserInfo.entity,
-              splitLink[1],
-            ),
-          );
-          path = res.path;
-          additionalMetadata = ObservableMap.of(res.additionalMetadata);
-        } else if (linkType == DeepLinkPrefixes.nokhteCode) {
+        if (linkType == DeepLinkPrefixes.nokhteCode) {
           final res = interpretNokhteSessionDeepLink(
             InterpretNokhteSessionDeepLinkParams(
               deepLinkUID: splitLink[1],
@@ -72,6 +60,10 @@ abstract class _ListenForOpenedDeepLinkStoreBase extends Equatable with Store {
         }
       }
     });
+  }
+
+  dispose() async {
+    await deepLinkSream.close();
   }
 
   @override

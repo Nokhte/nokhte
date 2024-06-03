@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:nokhte/app/core/hooks/hooks.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'package:nokhte/app/modules/storage/domain/domain.dart';
+import 'package:nokhte/app/modules/storage/storage.dart';
 export 'session_card_store.dart';
 export 'session_card.dart';
 
@@ -74,7 +74,7 @@ class SessionCard extends HookWidget {
                                 controller: store.textEditingControllers[index],
                                 readOnly: store.isReadOnly,
                                 onFieldSubmitted: (value) => store.onEdit(
-                                    sessions[index].id, value, index),
+                                    sessions[index].sessionUID, value, index),
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.jost(
                                   color: Colors.white,

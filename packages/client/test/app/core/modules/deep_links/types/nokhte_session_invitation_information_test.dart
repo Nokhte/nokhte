@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nokhte/app/core/modules/deep_links/constants/constants.dart';
+import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
 
 void main() {
   group('NokhteSessionInvitationInformation', () {

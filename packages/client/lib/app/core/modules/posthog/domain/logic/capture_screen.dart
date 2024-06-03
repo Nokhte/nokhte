@@ -1,8 +1,7 @@
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/posthog/constants/constants.dart';
-import 'package:nokhte/app/core/modules/posthog/domain/domain.dart';
+import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 
-class CaptureScreen implements AbstractFutureLogic<void, Screens> {
+class CaptureScreen implements AbstractFutureLogic<void, String> {
   final PosthogContract contract;
 
   CaptureScreen({required this.contract});

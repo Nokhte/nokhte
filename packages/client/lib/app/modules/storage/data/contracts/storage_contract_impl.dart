@@ -2,8 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/constants/constants.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mixins/mixin.dart';
-import 'package:nokhte/app/modules/storage/domain/domain.dart';
-import 'package:nokhte/app/modules/storage/data/data.dart';
+import 'package:nokhte/app/modules/storage/storage.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 
 class StorageContractImpl with ResponseToStatus implements StorageContract {
@@ -37,7 +36,7 @@ class StorageContractImpl with ResponseToStatus implements StorageContract {
   updateSessionAlias(UpdateSessionAliasParams params) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.updateSessionAlias(params);
-      return Right(fromSupabase(res));
+      return fromSupabase(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }

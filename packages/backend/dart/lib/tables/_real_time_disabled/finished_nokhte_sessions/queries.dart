@@ -8,7 +8,6 @@ class FinishedNokhteSessionQueries {
   static const SESSION_TIMESTAMP = 'session_timestamp';
   static const CONTENT = 'content';
   static const ALIASES = 'aliases';
-  static const ID = 'id';
   static const SESSION_UID = 'session_uid';
 
   final SupabaseClient supabase;
@@ -17,31 +16,8 @@ class FinishedNokhteSessionQueries {
   FinishedNokhteSessionQueries({required this.supabase})
       : userUID = supabase.auth.currentUser?.id ?? '';
 
-  Future<List> insert({
-    required List collaboratorUIDs,
-    required List sessionContent,
-    required String sessionTimestamp,
-    required String sessionUID,
-  }) async {
-    final checkRes = await supabase
-        .from(TABLE)
-        .select()
-        .eq(COLLABORATOR_UIDS, collaboratorUIDs)
-        .eq(CONTENT, sessionContent);
-    if (checkRes.isNotEmpty) {
-      return checkRes;
-    } else {
-      return await supabase.from(TABLE).insert({
-        COLLABORATOR_UIDS: collaboratorUIDs,
-        CONTENT: sessionContent,
-        SESSION_TIMESTAMP: sessionTimestamp,
-        ALIASES: List.filled(collaboratorUIDs.length, ""),
-        SESSION_UID: sessionUID
-      }).select();
-    }
-  }
-
-  Future<List> select() async => await supabase.from(TABLE).select();
+  Future<List> select() async =>
+      await supabase.from(TABLE).select().order('session_timestamp');
 
   Future<List> selectByCollaborationId(String collaboratorUID) async {
     final sortedCollaboratorUIDs = [userUID, collaboratorUID]..sort();
@@ -54,9 +30,10 @@ class FinishedNokhteSessionQueries {
 
   Future<List> updateAlias({
     required String newAlias,
-    required int id,
+    required String sessionUID,
   }) async {
-    final sessionRes = await supabase.from(TABLE).select().eq(ID, id);
+    final sessionRes =
+        await supabase.from(TABLE).select().eq(SESSION_UID, sessionUID);
     final aliases = sessionRes.first[ALIASES];
     final userIndex =
         sessionRes.first[COLLABORATOR_UIDS].first == userUID ? 0 : 1;
@@ -64,7 +41,7 @@ class FinishedNokhteSessionQueries {
     return await supabase
         .from(TABLE)
         .update({ALIASES: aliases})
-        .eq(ID, id)
+        .eq(SESSION_UID, sessionUID)
         .select();
   }
 }

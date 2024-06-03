@@ -3,8 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/user_information/domain/domain.dart';
-import 'package:nokhte/app/core/modules/user_information/shared/shared.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 part 'get_user_info_store.g.dart';
 
 class GetUserInfoStore = _GetUserInfoStoreBase with _$GetUserInfoStore;
@@ -12,19 +11,19 @@ class GetUserInfoStore = _GetUserInfoStoreBase with _$GetUserInfoStore;
 abstract class _GetUserInfoStoreBase
     extends BaseMobxDBStore<NoParams, UserJourneyInfoEntity> with Store {
   @observable
-  bool hasGoneThroughInvitationFlow = false;
+  bool hasAccessedQrCode = false;
 
   @observable
   bool hasSentAnInvitation = false;
-
-  @observable
-  bool wantsToRepeatInvitationFlow = false;
 
   @observable
   bool hasDoneASession = false;
 
   @observable
   bool hasEnteredStorage = false;
+
+  @observable
+  bool isOnMostRecentVersion = true;
 
   @observable
   String userUID = "";
@@ -50,13 +49,10 @@ abstract class _GetUserInfoStoreBase
       state = StoreState.initial;
     }, (journeyInfoEntity) {
       entity = journeyInfoEntity;
-      hasGoneThroughInvitationFlow =
-          journeyInfoEntity.hasGoneThroughInvitationFlow;
+      isOnMostRecentVersion = journeyInfoEntity.isOnMostRecentVersion;
+      hasAccessedQrCode = journeyInfoEntity.hasAccessedQrCode;
       hasEnteredStorage = journeyInfoEntity.hasEnteredStorage;
-      hasSentAnInvitation = journeyInfoEntity.hasSentAnInvitation;
-      wantsToRepeatInvitationFlow =
-          journeyInfoEntity.wantsToRepeatInvitationFlow;
-      hasDoneASession = journeyInfoEntity.hasCompletedNoktheSession;
+      hasDoneASession = journeyInfoEntity.hasCompletedASession;
       userUID = journeyInfoEntity.userUID;
     });
   }

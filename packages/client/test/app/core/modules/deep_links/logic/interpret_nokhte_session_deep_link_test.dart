@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nokhte/app/core/modules/deep_links/domain/domain.dart';
+import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
 
 void main() {
   group('InterpretNokhteSessionDeepLink', () {
@@ -17,7 +17,7 @@ void main() {
       final result = logic.call(params);
 
       // Assert
-      expect(result.path, '/collaboration/');
+      expect(result.path, '/session_starters/');
       expect(result.additionalMetadata, {
         'isTheUsersInvitation': false,
         "deepLinkUID": "exampleDeepLinkUID",

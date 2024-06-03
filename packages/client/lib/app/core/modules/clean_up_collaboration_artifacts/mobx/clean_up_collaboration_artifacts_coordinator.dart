@@ -2,8 +2,9 @@
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/domain/domain.dart';
-import 'package:nokhte/app/modules/collaboration/presentation/presentation.dart';
+import 'package:nokhte/app/core/modules/active_monetization_session/active_monetization_session.dart';
+import 'package:nokhte/app/core/modules/clean_up_collaboration_artifacts/clean_up_collaboration_artifacts.dart';
+import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 part 'clean_up_collaboration_artifacts_coordinator.g.dart';
 
 class CleanUpCollaborationArtifactsCoordinator = _CleanUpCollaborationArtifactsCoordinatorBase
@@ -11,26 +12,22 @@ class CleanUpCollaborationArtifactsCoordinator = _CleanUpCollaborationArtifactsC
 
 abstract class _CleanUpCollaborationArtifactsCoordinatorBase
     extends BaseMobxDBStore<NoParams, bool> with Store {
-  final CollaborationLogicCoordinator collaborationLogicCoordinator;
+  final SessionStartersLogicCoordinator sessionStarters;
   final CleanUpNokhteSession cleanUpNokhteSession;
+  final ActiveMonetizationSessionCoordinator activeMonetizationSession;
 
   _CleanUpCollaborationArtifactsCoordinatorBase({
-    required this.collaborationLogicCoordinator,
+    required this.sessionStarters,
     required this.cleanUpNokhteSession,
+    required this.activeMonetizationSession,
   });
 
   @override
   @action
   Future<void> call(NoParams params) async {
     state = StoreState.loading;
-    await collaborationLogicCoordinator.exit();
-    await cleanUpNokhteSession(NoParams());
-    state = StoreState.loaded;
-  }
-
-  @action
-  Future<void> nokhteSession(NoParams params) async {
-    state = StoreState.loading;
+    await sessionStarters.nuke();
+    await activeMonetizationSession.delete();
     await cleanUpNokhteSession(NoParams());
     state = StoreState.loaded;
   }

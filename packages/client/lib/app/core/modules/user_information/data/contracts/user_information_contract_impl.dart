@@ -2,8 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:nokhte/app/core/constants/failure_constants.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mixins/response_to_status.dart';
-import 'package:nokhte/app/core/modules/user_information/data/data.dart';
-import 'package:nokhte/app/core/modules/user_information/domain/domain.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/network/network_info.dart';
 
 class UserInformationContractImpl
@@ -22,8 +21,11 @@ class UserInformationContractImpl
     if (await networkInfo.isConnected) {
       final userInfoRes = await remoteSource.getUserInfo();
       final nokhteSessionsRes = await remoteSource.getFinishedNokhteSessions();
+      final appVersionRes = await remoteSource.versionIsUpToDate();
+
       return Right(
         UserJourneyInfoModel.fromSupabase(
+          isUpToDate: appVersionRes,
           userNamesRes: userInfoRes,
           finishedNokhteSessionsRes: nokhteSessionsRes,
         ),
@@ -34,12 +36,10 @@ class UserInformationContractImpl
   }
 
   @override
-  updateHasGoneThroughInvitationFlow(
-      bool hasGoneThroughInvitationFlowParam) async {
+  updateHasAccessedQrCode(param) async {
     if (await networkInfo.isConnected) {
-      final res = await remoteSource.updateHasGoneThroughInvitationFlow(
-          hasGoneThroughInvitationFlowParam);
-      return Right(fromSupabase(res));
+      final res = await remoteSource.updateHasAccessedQrCode(param);
+      return fromSupabase(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
@@ -48,21 +48,9 @@ class UserInformationContractImpl
   @override
   updateHasSentAnInvitation(bool hasSentAnInvitationParam) async {
     if (await networkInfo.isConnected) {
-      final res = await remoteSource
-          .updateHasSentAnInvitation(hasSentAnInvitationParam);
-      return Right(fromSupabase(res));
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
-
-  @override
-  updateWantsToRepeatInvitationFlow(
-      bool wantsToRepeatInvitationFlowParam) async {
-    if (await networkInfo.isConnected) {
-      final res = await remoteSource
-          .updateWantsToRepeatInvitationFlow(wantsToRepeatInvitationFlowParam);
-      return Right(fromSupabase(res));
+      final res =
+          await remoteSource.updateHasAccessedQrCode(hasSentAnInvitationParam);
+      return fromSupabase(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }
@@ -72,7 +60,7 @@ class UserInformationContractImpl
   updateHasEnteredStorage(newEntryStatus) async {
     if (await networkInfo.isConnected) {
       final res = await remoteSource.updateHasEnteredStorage(newEntryStatus);
-      return Right(fromSupabase(res));
+      return fromSupabase(res);
     } else {
       return Left(FailureConstants.internetConnectionFailure);
     }

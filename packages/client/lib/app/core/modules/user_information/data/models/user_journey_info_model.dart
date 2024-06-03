@@ -1,36 +1,33 @@
-import 'package:nokhte/app/core/modules/user_information/domain/domain.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 
 class UserJourneyInfoModel extends UserJourneyInfoEntity {
   const UserJourneyInfoModel({
-    required super.hasGoneThroughInvitationFlow,
-    required super.hasSentAnInvitation,
-    required super.wantsToRepeatInvitationFlow,
+    required super.hasAccessedQrCode,
     required super.userUID,
-    required super.hasCompletedNoktheSession,
+    required super.hasCompletedASession,
     required super.hasEnteredStorage,
+    required super.isOnMostRecentVersion,
   });
 
   factory UserJourneyInfoModel.fromSupabase({
     required List userNamesRes,
     required List finishedNokhteSessionsRes,
+    required bool isUpToDate,
   }) {
     if (userNamesRes.isEmpty) {
       return const UserJourneyInfoModel(
-          hasGoneThroughInvitationFlow: false,
-          hasSentAnInvitation: false,
-          wantsToRepeatInvitationFlow: false,
-          hasEnteredStorage: false,
-          userUID: "",
-          hasCompletedNoktheSession: false);
+        isOnMostRecentVersion: true,
+        hasAccessedQrCode: false,
+        hasCompletedASession: false,
+        hasEnteredStorage: false,
+        userUID: "",
+      );
     } else {
       return UserJourneyInfoModel(
+        isOnMostRecentVersion: isUpToDate,
         userUID: userNamesRes.first['uid'],
-        hasGoneThroughInvitationFlow:
-            userNamesRes.first['has_gone_through_invitation_flow'],
-        hasSentAnInvitation: userNamesRes.first['has_sent_an_invitation'],
-        wantsToRepeatInvitationFlow:
-            userNamesRes.first['wants_to_repeat_invitation_flow'],
-        hasCompletedNoktheSession:
+        hasAccessedQrCode: userNamesRes.first['has_accessed_qr_code'],
+        hasCompletedASession:
             hasCompletedNokhteSession(finishedNokhteSessionsRes),
         hasEnteredStorage: userNamesRes.first['has_entered_storage'],
       );

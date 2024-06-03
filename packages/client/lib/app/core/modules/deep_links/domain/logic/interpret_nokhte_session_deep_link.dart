@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/deep_links/domain/domain.dart';
+import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
 
 class InterpretNokhteSessionDeepLink
     implements
@@ -9,7 +9,7 @@ class InterpretNokhteSessionDeepLink
   @override
   call(params) {
     return InterpretedDeepLinkEntity(
-      path: '/collaboration/',
+      path: '/session_starters/',
       additionalMetadata: {
         "isTheUsersInvitation": params.isTheUsersInvitation,
         "deepLinkUID": params.deepLinkUID,

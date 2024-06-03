@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/modules/storage/domain/domain.dart';
+import 'package:nokhte/app/modules/storage/storage.dart';
 
 class UpdateSessionAlias
     implements AbstractFutureLogic<bool, UpdateSessionAliasParams> {
@@ -14,13 +14,13 @@ class UpdateSessionAlias
 }
 
 class UpdateSessionAliasParams extends Equatable {
-  final int id;
+  final String sessionUID;
   final String newAlias;
   const UpdateSessionAliasParams({
-    required this.id,
+    required this.sessionUID,
     required this.newAlias,
   });
 
   @override
-  List<Object> get props => [id, newAlias];
+  List<Object> get props => [sessionUID, newAlias];
 }

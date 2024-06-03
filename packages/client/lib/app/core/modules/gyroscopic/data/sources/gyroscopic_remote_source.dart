@@ -1,8 +1,7 @@
 import 'dart:io';
 
 import 'package:nokhte/app/core/extensions/extensions.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/types/types.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/data/data.dart';
+import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
 import 'package:android_package_manager/android_package_manager.dart';
 
 abstract class GyroscopicRemoteSource {
