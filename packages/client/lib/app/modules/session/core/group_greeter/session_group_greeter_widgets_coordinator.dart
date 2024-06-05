@@ -22,11 +22,13 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
   final TouchRippleStore touchRipple;
   final SessionSeatingGuideStore sessionSeatingGuide;
   final TintStore tint;
+  final SessionPhonePlacementGuideStore sessionPhonePlacementGuide;
 
   _SessionGroupGreeterWidgetsCoordinatorBase({
     required this.beachWaves,
     required super.wifiDisconnectOverlay,
     required this.primarySmartText,
+    required this.sessionPhonePlacementGuide,
     required this.secondarySmartText,
     required this.touchRipple,
     required this.sessionSeatingGuide,
@@ -38,6 +40,7 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
     required int numberOfCollaborators,
     required int userIndex,
   }) {
+    sessionPhonePlacementGuide.setWidgetVisibility(false);
     sessionSeatingGuide.setWidgetVisibility(false);
     beachWaves.setMovieMode(
       BeachWaveMovieModes.skyToDrySand,
@@ -46,6 +49,14 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
       SessionLists.getGroupGreeterPrimary(
         numberOfCollaborators: numberOfCollaborators,
         userIndex: userIndex,
+      ),
+    );
+    setSmartTextBottomPaddingScalar(.3);
+    setSmartTextTopPaddingScalar(0);
+    sessionPhonePlacementGuide.setValues(
+      AdjacentNumbers.getAdjacentNumbers(
+        numberOfCollaborators,
+        userIndex + 1,
       ),
     );
     sessionSeatingGuide.setValues(
@@ -96,15 +107,23 @@ abstract class _SessionGroupGreeterWidgetsCoordinatorBase
       if (tapCount == 1) {
         cooldownStopwatch.reset();
         touchRipple.onTap(tapPosition);
+        Timer(Seconds.get(0, milli: 500), () {
+          setSmartTextBottomPaddingScalar(0.1);
+        });
         primarySmartText.startRotatingText(isResuming: true);
         secondarySmartText.startRotatingText(isResuming: true);
+        sessionSeatingGuide.setWidgetVisibility(false);
+        sessionPhonePlacementGuide.setWidgetVisibility(true);
         tapCount++;
       } else if (tapCount == 2) {
+        Timer(Seconds.get(0, milli: 500), () {
+          setSmartTextBottomPaddingScalar(.3);
+        });
+        sessionPhonePlacementGuide.setWidgetVisibility(false);
         touchRipple.onTap(tapPosition);
         primarySmartText.startRotatingText(isResuming: true);
         secondarySmartText.startRotatingText(isResuming: true);
         cooldownStopwatch.stop();
-        sessionSeatingGuide.setWidgetVisibility(false);
         tapCount++;
         await onFinalTap();
       }

@@ -43,6 +43,7 @@ class SessionWidgetsModule extends Module {
     );
     i.add<SessionGroupGreeterWidgetsCoordinator>(
       () => SessionGroupGreeterWidgetsCoordinator(
+        sessionPhonePlacementGuide: SessionPhonePlacementGuideStore(),
         tint: TintStore(),
         sessionSeatingGuide: SessionSeatingGuideStore(),
         touchRipple: TouchRippleStore(),
