@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 import 'package:flutter_test/flutter_test.dart';
+import 'package:nokhte_backend/tables/_real_time_disabled/company_presets/preset_types.dart';
+import 'package:nokhte_backend/tables/_real_time_disabled/company_presets/queries.dart';
 import 'package:nokhte_backend/tables/active_monetization_sessions.dart';
 
 import 'shared/shared.dart';
@@ -7,6 +9,7 @@ import 'shared/shared.dart';
 void main() {
   late ActiveMonetizationSessionQueries user1Queries;
   final tSetup = CommonCollaborativeTestFunctions();
+  late CompanyPresetsQueries presetQueries;
   late List<String> sortedUIDs = [];
 
   setUpAll(() async {
@@ -14,6 +17,7 @@ void main() {
     sortedUIDs = [tSetup.firstUserUID, tSetup.secondUserUID];
     user1Queries =
         ActiveMonetizationSessionQueries(supabase: tSetup.user1Supabase);
+    presetQueries = CompanyPresetsQueries(supabase: tSetup.user1Supabase);
   });
 
   tearDownAll(() async {
@@ -24,12 +28,15 @@ void main() {
   });
 
   test("startSession", () async {
+    final consultativeUID =
+        await presetQueries.getUnifiedUID(PresetTypes.consultative);
     await tSetup.supabaseAdmin.from("st_active_nokhte_sessions").insert({
       "collaborator_uids": sortedUIDs,
       "is_whitelisted": false,
       "leader_uid": tSetup.firstUserUID,
       "has_premium_access": [false, false],
       "should_skip_instructions": [false, false],
+      "preset_uid": consultativeUID,
     });
 
     final res = await user1Queries.startSession();
