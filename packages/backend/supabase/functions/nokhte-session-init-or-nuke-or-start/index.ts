@@ -5,7 +5,8 @@ import { isNotEmptyOrNull } from "../utils/array-utils.ts";
 import { checkIfHasDoneASession } from "../utils/check-if-has-done-a-session.ts";
 
 serve(async (req) => {
-  const { userUID, shouldInitialize, shouldStart } = await req.json();
+  const { userUID, shouldInitialize, shouldStart, presetUID } =
+    await req.json();
   let returnRes = {
     status: 200,
     message: shouldInitialize ? "successful initialization" : "successful nuke",
@@ -25,6 +26,7 @@ serve(async (req) => {
         collaborator_uids: [userUID],
         has_premium_access: [hasPremiumAccess],
         should_skip_instructions: [hasDoneASessionBefore],
+        preset_uid: presetUID,
         is_whitelisted: isWhiteListed,
       })
       .select();
