@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 
 class NokhteSessionMetadata extends Equatable {
   final bool everyoneIsOnline;
-  final bool everyoneHasGyroscopes;
   final List phases;
   final bool sessionHasBegun;
   final int userIndex;
@@ -15,7 +14,6 @@ class NokhteSessionMetadata extends Equatable {
   NokhteSessionMetadata({
     required this.everyoneIsOnline,
     required this.phases,
-    required this.everyoneHasGyroscopes,
     required this.userCanSpeak,
     required this.isWhitelisted,
     required this.userIsSpeaking,
@@ -27,7 +25,6 @@ class NokhteSessionMetadata extends Equatable {
 
   factory NokhteSessionMetadata.initial() => NokhteSessionMetadata(
         sessionHasBegun: false,
-        everyoneHasGyroscopes: false,
         userCanSpeak: false,
         isWhitelisted: false,
         userIsSpeaking: false,
@@ -41,7 +38,6 @@ class NokhteSessionMetadata extends Equatable {
   @override
   List<Object> get props => [
         everyoneIsOnline,
-        everyoneHasGyroscopes,
         isWhitelisted,
         phases,
         sessionHasBegun,
