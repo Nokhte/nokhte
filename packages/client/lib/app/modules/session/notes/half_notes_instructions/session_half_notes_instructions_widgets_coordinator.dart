@@ -46,7 +46,6 @@ abstract class HalflSessionNotesInstructionsWidgetsCoordinatorBase
 
   @action
   constructor({
-    required bool shouldAdjustToFallbackExitProtocol,
     required bool instructionsOnTop,
   }) {
     this.instructionsOnTop = instructionsOnTop;
@@ -56,7 +55,6 @@ abstract class HalflSessionNotesInstructionsWidgetsCoordinatorBase
       instructionsOnTop
           ? MirroredTextContent.sessionNotesTopHalfInstructions
           : MirroredTextContent.sessionNotesBottomHalfInstructions,
-      shouldAdjustToFallbackExitProtocol: shouldAdjustToFallbackExitProtocol,
     );
 
     if (!instructionsOnTop) {

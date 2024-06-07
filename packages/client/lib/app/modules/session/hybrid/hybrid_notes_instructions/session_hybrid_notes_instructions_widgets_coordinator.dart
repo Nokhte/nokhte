@@ -45,13 +45,12 @@ abstract class _SessionHybridNotesInstructionsWidgetsCoordinatorBase
   int tapCount = 0;
 
   @action
-  constructor(bool shouldAdjustToFallbackExitProtocol) {
+  constructor() {
     cooldownStopwatch.start();
     beachWaves.setMovieMode(BeachWaveMovieModes.invertedHalfAndHalfToDrySand);
     mirroredText.prepForSplitScreen(isInverted: true);
     mirroredText.setMessagesData(
       MirroredTextContent.sessionNotesHybridInstructions,
-      shouldAdjustToFallbackExitProtocol: shouldAdjustToFallbackExitProtocol,
     );
     mirroredText.startBothRotatingText();
     halfScreenTint.setShouldCoverBottom(false);

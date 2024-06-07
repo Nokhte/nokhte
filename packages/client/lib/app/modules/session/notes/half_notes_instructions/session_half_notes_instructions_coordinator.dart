@@ -29,8 +29,6 @@ abstract class HalflSessionNotesInstructionsCoordinatorBase
   @action
   constructor() async {
     widgets.constructor(
-      shouldAdjustToFallbackExitProtocol:
-          sessionMetadata.shouldAdjustToFallbackExitProtocol,
       instructionsOnTop: sessionMetadata.userShouldSkipInstructions,
     );
     initReactors();

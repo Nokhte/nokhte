@@ -43,12 +43,11 @@ abstract class _SessionFullNotesInstructionsWidgetsCoordinatorBase
   int tapCount = 0;
 
   @action
-  constructor(bool shouldAdjustToFallbackExitProtocol) {
+  constructor() {
     cooldownStopwatch.start();
     beachWaves.setMovieMode(BeachWaveMovieModes.skyToHalfAndHalf);
     mirroredText.setMessagesData(
       MirroredTextContent.sessionNotesFullInstructions,
-      shouldAdjustToFallbackExitProtocol: shouldAdjustToFallbackExitProtocol,
     );
     mirroredText.startBothRotatingText();
     setDisableTouchInput(false);

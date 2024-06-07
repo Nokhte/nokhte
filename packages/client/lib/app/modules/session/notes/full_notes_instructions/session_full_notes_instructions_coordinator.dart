@@ -28,7 +28,7 @@ abstract class _SessionFullNotesInstructionsCoordinatorBase
 
   @action
   constructor() async {
-    widgets.constructor(sessionMetadata.shouldAdjustToFallbackExitProtocol);
+    widgets.constructor();
     initReactors();
     await captureScreen(SessionConstants.notesFullInstructions);
   }

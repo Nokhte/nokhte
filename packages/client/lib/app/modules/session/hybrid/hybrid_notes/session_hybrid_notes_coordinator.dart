@@ -34,7 +34,7 @@ abstract class _SessionHybridNotesCoordinatorBase extends BaseCoordinator
   @action
   constructor() async {
     widgets.constructor();
-    initReactors(sessionMetadata.shouldAdjustToFallbackExitProtocol);
+    initReactors();
     gyroscopic.listen(NoParams());
     setBlockPhoneTiltReactor(false);
     await presence.updateCurrentPhase(2.0);
@@ -47,7 +47,7 @@ abstract class _SessionHybridNotesCoordinatorBase extends BaseCoordinator
   @action
   setBlockPhoneTiltReactor(bool newValue) => blockPhoneTiltReactor = newValue;
 
-  initReactors(bool shouldAdjustToFallbackExitProtocol) {
+  initReactors() {
     disposers.add(swipeReactor());
     disposers.add(presence.initReactors(
       onCollaboratorJoined: () {

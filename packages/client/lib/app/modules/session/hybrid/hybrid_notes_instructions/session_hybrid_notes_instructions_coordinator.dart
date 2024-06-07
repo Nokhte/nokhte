@@ -31,7 +31,7 @@ abstract class _SessionHybridNotesInstructionsCoordinatorBase
 
   @action
   constructor() async {
-    widgets.constructor(sessionMetadata.shouldAdjustToFallbackExitProtocol);
+    widgets.constructor();
     initReactors();
     await captureScreen(SessionConstants.hybridNotesInstructions);
   }
