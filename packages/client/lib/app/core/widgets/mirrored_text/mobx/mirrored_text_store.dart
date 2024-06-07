@@ -24,10 +24,7 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
   });
 
   @action
-  setMessagesData(
-    MirroredTextContent types, {
-    bool shouldAdjustToFallbackExitProtocol = false,
-  }) {
+  setMessagesData(MirroredTextContent types) {
     switch (types) {
       case MirroredTextContent.sessionSpeakingFullInstructions:
         prepForSplitScreen();
@@ -40,17 +37,11 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
       case MirroredTextContent.sessionNotesFullInstructions:
         primaryRightSideUpText.setMessagesData(
           SessionLists.getNotesInstructionsPrimary(
-            MirroredTextOrientations.rightSideUp,
-            shouldAdjustToFallbackExitProtocol:
-                shouldAdjustToFallbackExitProtocol,
-          ),
+              MirroredTextOrientations.rightSideUp),
         );
         primaryUpsideDownText.setMessagesData(
           SessionLists.getNotesInstructionsPrimary(
-            MirroredTextOrientations.upsideDown,
-            shouldAdjustToFallbackExitProtocol:
-                shouldAdjustToFallbackExitProtocol,
-          ),
+              MirroredTextOrientations.upsideDown),
         );
         secondaryRightSideUpText.setMessagesData(
           SessionLists.getNotesInstructionsSecondary(
@@ -102,11 +93,7 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
       case MirroredTextContent.sessionNotesHybridInstructions:
         prepForSplitScreen(isInverted: true);
         primaryRightSideUpText.setMessagesData(
-          SessionLists.getNotesHalfInstructionsPrimary(
-            shouldAdjustToFallbackExitProtocol:
-                shouldAdjustToFallbackExitProtocol,
-            isHybrid: true,
-          ),
+          SessionLists.getNotesHalfInstructionsPrimary(isHybrid: true),
         );
         secondaryRightSideUpText.setMessagesData(
           SessionLists.notesHalfInstructionsSecondary,
@@ -158,19 +145,13 @@ abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
             .setMessagesData(SessionLists.youHaveAlreadyDoneThis);
         secondaryRightSideUpText.setMessagesData(SharedLists.empty);
         primaryUpsideDownText.setMessagesData(
-          SessionLists.getNotesHalfInstructionsPrimary(
-            shouldAdjustToFallbackExitProtocol:
-                shouldAdjustToFallbackExitProtocol,
-            isHybrid: true,
-          ),
+          SessionLists.getNotesHalfInstructionsPrimary(isHybrid: true),
         );
         secondaryUpsideDownText
             .setMessagesData(SessionLists.notesHalfInstructionsSecondary);
       case MirroredTextContent.sessionNotesBottomHalfInstructions:
         primaryRightSideUpText.setMessagesData(
           SessionLists.getNotesHalfInstructionsPrimary(
-            shouldAdjustToFallbackExitProtocol:
-                shouldAdjustToFallbackExitProtocol,
             isHybrid: true,
           ),
         );
