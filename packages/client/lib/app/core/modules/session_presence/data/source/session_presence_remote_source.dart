@@ -12,7 +12,6 @@ abstract class SessionPresenceRemoteSource {
   bool cancelSessionMetadataStream();
   Future<List> addContent(String content);
   Future<FunctionResponse> completeTheSession();
-  Future<List> updateHasGyroscope(bool hasGyroscope);
   Future<FunctionResponse> startTheSession();
 }
 
@@ -55,10 +54,6 @@ class SessionPresenceRemoteSourceImpl implements SessionPresenceRemoteSource {
 
   @override
   addContent(content) async => await stQueries.addContent(content);
-
-  @override
-  updateHasGyroscope(hasGyroscope) async =>
-      await stQueries.updateHasGyroscope(hasGyroscope);
 
   @override
   startTheSession() async => await rtQueries.startTheSession();

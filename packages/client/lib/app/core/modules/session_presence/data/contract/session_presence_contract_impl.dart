@@ -39,16 +39,6 @@ class SessionPresenceContractImpl
   }
 
   @override
-  updateHasGyroscope(params) async {
-    if (await networkInfo.isConnected) {
-      final res = await remoteSource.updateHasGyroscope(params);
-      return fromSupabase(res);
-    } else {
-      return Left(FailureConstants.internetConnectionFailure);
-    }
-  }
-
-  @override
   listenToSessionMetadata(NoParams params) async {
     if (await networkInfo.isConnected) {
       final res = remoteSource.listenToSessionMetadata();

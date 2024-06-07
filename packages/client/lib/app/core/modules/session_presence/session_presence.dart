@@ -15,7 +15,7 @@ class SessionPresenceModule extends Module {
         LegacyConnectivityModule(),
       ];
   @override
-  void exportedBinds(Injector i) {
+  void exportedBinds(i) {
     i.add<SessionPresenceRemoteSourceImpl>(
       () => SessionPresenceRemoteSourceImpl(
         supabase: Modular.get<SupabaseClient>(),
@@ -67,11 +67,6 @@ class SessionPresenceModule extends Module {
         contract: i<SessionPresenceContractImpl>(),
       ),
     );
-    i.add<UpdateHasGyroscope>(
-      () => UpdateHasGyroscope(
-        contract: i<SessionPresenceContractImpl>(),
-      ),
-    );
     i.addSingleton<ListenToSessionMetadataStore>(
       () => ListenToSessionMetadataStore(
         logic: i<ListenToSessionMetadata>(),
@@ -80,7 +75,6 @@ class SessionPresenceModule extends Module {
     i.add<SessionPresenceCoordinator>(
       () => SessionPresenceCoordinator(
         updateWhoIsTalkingLogic: Modular.get<UpdateWhoIsTalking>(),
-        updateHasGyroscopeLogic: Modular.get<UpdateHasGyroscope>(),
         addContentLogic: Modular.get<AddContent>(),
         completeTheSessionLogic: Modular.get<CompleteTheSession>(),
         cancelSessionMetadataStreamLogic: i<CancelSessionMetadataStream>(),

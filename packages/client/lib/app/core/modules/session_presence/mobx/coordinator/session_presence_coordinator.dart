@@ -18,7 +18,6 @@ abstract class _SessionPresenceCoordinatorBase extends BaseMobxDBStore
   final CollaboratorPresenceIncidentsOverlayStore incidentsOverlayStore;
   final AddContent addContentLogic;
   final CompleteTheSession completeTheSessionLogic;
-  final UpdateHasGyroscope updateHasGyroscopeLogic;
   final StartTheSession startTheSessionLogic;
   final UpdateWhoIsTalking updateWhoIsTalkingLogic;
 
@@ -31,7 +30,6 @@ abstract class _SessionPresenceCoordinatorBase extends BaseMobxDBStore
     required this.addContentLogic,
     required this.startTheSessionLogic,
     required this.completeTheSessionLogic,
-    required this.updateHasGyroscopeLogic,
   }) : incidentsOverlayStore = CollaboratorPresenceIncidentsOverlayStore(
           sessionMetadataStore: listenToSessionMetadataStore,
         );
@@ -100,16 +98,6 @@ abstract class _SessionPresenceCoordinatorBase extends BaseMobxDBStore
     res.fold(
       (failure) => errorUpdater(failure),
       (sessionUpdateStatus) => sessionIsFinished = sessionUpdateStatus,
-    );
-  }
-
-  @action
-  updateHasGyroscope(bool param) async {
-    final res = await updateHasGyroscopeLogic(param);
-    res.fold(
-      (failure) => errorUpdater(failure),
-      (gyroscopeUpdateStatus) =>
-          gyroscopeAvailabilityIsUpdated = gyroscopeUpdateStatus,
     );
   }
 
