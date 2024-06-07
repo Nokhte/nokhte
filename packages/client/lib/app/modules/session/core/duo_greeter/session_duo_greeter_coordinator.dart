@@ -4,7 +4,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -20,14 +19,12 @@ abstract class _SessionDuoGreeterCoordinatorBase extends BaseCoordinator
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
   final ListenToSessionMetadataStore sessionMetadata;
-  final GyroscopicCoordinator gyroscopic;
 
   _SessionDuoGreeterCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
     required this.tap,
     required this.presence,
-    required this.gyroscopic,
   }) : sessionMetadata = presence.listenToSessionMetadataStore;
 
   @observable
@@ -41,7 +38,6 @@ abstract class _SessionDuoGreeterCoordinatorBase extends BaseCoordinator
     widgets.constructor();
     initReactors();
     await captureScreen(SessionConstants.duoGreeter);
-    await gyroscopic.checkIfDeviceHasGyroscope();
   }
 
   @action
@@ -61,7 +57,6 @@ abstract class _SessionDuoGreeterCoordinatorBase extends BaseCoordinator
 
   @action
   initReactors() {
-    disposers.add(deviceGyroscopeStatusReactor());
     disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
@@ -126,13 +121,6 @@ abstract class _SessionDuoGreeterCoordinatorBase extends BaseCoordinator
             sessionMetadata.canMoveIntoInstructions) {
           isNavigatingAway = true;
           Modular.to.navigate(pathIntoSession);
-        }
-      });
-
-  deviceGyroscopeStatusReactor() =>
-      reaction((p0) => gyroscopic.deviceHasGyroscope, (p0) async {
-        if (!p0) {
-          await presence.updateHasGyroscope(false);
         }
       });
 

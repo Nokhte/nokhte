@@ -64,7 +64,6 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
 
   @action
   initReactors() {
-    disposers.add(deviceGyroscopeStatusReactor());
     disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {
@@ -119,13 +118,6 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
             sessionMetadata.canMoveIntoInstructions &&
             !widgets.hasTriggeredTint) {
           Modular.to.navigate(pathIntoSession);
-        }
-      });
-
-  deviceGyroscopeStatusReactor() =>
-      reaction((p0) => gyroscopic.deviceHasGyroscope, (p0) async {
-        if (!p0) {
-          await presence.updateHasGyroscope(false);
         }
       });
 
