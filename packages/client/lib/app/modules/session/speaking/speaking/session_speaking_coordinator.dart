@@ -1,8 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 import 'dart:async';
-
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
@@ -37,7 +35,7 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
   constructor() async {
     widgets.constructor();
     await presence.updateCurrentPhase(2.0);
-    initReactors(sessionMetadata.shouldAdjustToFallbackExitProtocol);
+    initReactors();
     gyroscopic.listen(NoParams());
     setBlockPhoneTiltReactor(false);
     await captureScreen(SessionConstants.speaking);
@@ -49,7 +47,7 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
   @action
   setBlockPhoneTiltReactor(bool newValue) => blockPhoneTiltReactor = newValue;
 
-  initReactors(bool shouldAdjustToFallbackExitProtocol) {
+  initReactors() {
     disposers.add(holdReactor());
     disposers.add(letGoReactor());
     disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
@@ -77,11 +75,7 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
         widgets.onCollaboratorLeft();
       },
     ));
-    if (shouldAdjustToFallbackExitProtocol) {
-      disposers.add(swipeReactor());
-    } else {
-      disposers.add(phoneTiltStateReactor());
-    }
+    disposers.add(swipeReactor());
     disposers.add(userPhaseReactor());
     disposers.add(collaboratorPhaseReactor());
     disposers.add(userIsSpeakingReactor());
@@ -136,19 +130,6 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
   letGoReactor() => reaction((p0) => hold.letGoCount, (p0) async {
         if (sessionMetadata.everyoneIsOnline) {
           await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
-        }
-      });
-
-  phoneTiltStateReactor() =>
-      reaction((p0) => gyroscopic.holdingState, (p0) async {
-        if (!blockPhoneTiltReactor &&
-            sessionMetadata.currentPhases
-                .every((e) => e.isGreaterThanOrEqualTo(2))) {
-          if (p0 == PhoneHoldingState.isPickedUp) {
-            await presence.updateCurrentPhase(3);
-          } else if (p0 == PhoneHoldingState.isDown) {
-            await presence.updateCurrentPhase(2);
-          }
         }
       });
 
