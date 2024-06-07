@@ -135,13 +135,6 @@ void main() {
     expect(onlineStatus2[sortedArr.indexOf(tSetup.secondUserUID)], false);
   });
 
-  test("updateHasGyroscope", () async {
-    await user1STQueries.updateHasGyroscope(false);
-    await user2STQueries.updateHasGyroscope(false);
-    final gyroscopesRes = await user1STQueries.getHaveGyroscopes();
-    expect(gyroscopesRes, [false, false]);
-  });
-
   test("addContent", () async {
     await user1STQueries.addContent('test');
     final res = await user1STQueries.getContent();
@@ -180,7 +173,6 @@ void main() {
           userCanSpeak: true,
           userIsSpeaking: false,
           userIndex: sortedArr.indexOf(tSetup.firstUserUID),
-          everyoneHasGyroscopes: false,
           phases: [1, 1],
           everyoneIsOnline: false,
           sessionHasBegun: true,

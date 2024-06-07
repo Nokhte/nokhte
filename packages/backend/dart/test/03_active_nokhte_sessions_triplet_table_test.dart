@@ -80,13 +80,6 @@ void main() {
     expect(onlineStatus3, [false, false, false]);
   });
 
-  test("updateHasGyroscope", () async {
-    await user1STQueries.updateHasGyroscope(false);
-    await user2STQueries.updateHasGyroscope(false);
-    await user3STQueries.updateHasGyroscope(false);
-    final gyroscopesRes = await user1STQueries.getHaveGyroscopes();
-    expect(gyroscopesRes, [false, false, false]);
-  });
 
   test("addContent", () async {
     await user1STQueries.addContent('test');
