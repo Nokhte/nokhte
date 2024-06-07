@@ -18,19 +18,10 @@ abstract class _ListenToSessionMetadataStoreBase
   _ListenToSessionMetadataStoreBase({required this.logic});
 
   @observable
-  bool userHasGyroscope = true;
-
-  @observable
-  bool collaboratorHasGyroscope = true;
-
-  @observable
   int userIndex = -1;
 
   @observable
   bool everyoneIsOnline = false;
-
-  @observable
-  bool everyoneHasGyroscopes = false;
 
   @observable
   bool userIsSpeaking = false;
@@ -88,7 +79,6 @@ abstract class _ListenToSessionMetadataStoreBase
           leaderIsWhitelisted = value.isWhitelisted;
           isAPremiumSession = value.phases.length > 3;
           userIndex = value.userIndex;
-          everyoneHasGyroscopes = value.everyoneHasGyroscopes;
           isAValidSession = value.isAValidSession;
           everyoneIsOnline = value.everyoneIsOnline;
           final phases = value.phases.map((e) => double.parse(e.toString()));
@@ -123,10 +113,6 @@ abstract class _ListenToSessionMetadataStoreBase
 
     return [evenList, oddList];
   }
-
-  @computed
-  bool get shouldAdjustToFallbackExitProtocol =>
-      !userHasGyroscope || !collaboratorHasGyroscope;
 
   @computed
   bool get canMoveIntoInstructions => currentPhases.every((e) => e >= 1);
