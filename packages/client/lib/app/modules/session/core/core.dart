@@ -46,7 +46,6 @@ class SessionCoreModule extends Module {
     );
     i.add<SessionDuoGreeterCoordinator>(
       () => SessionDuoGreeterCoordinator(
-        gyroscopic: Modular.get<GyroscopicCoordinator>(),
         presence: Modular.get<SessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<SessionDuoGreeterWidgetsCoordinator>(),
