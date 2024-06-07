@@ -32,7 +32,7 @@ abstract class _SessionNotesCoordinatorBase extends BaseCoordinator with Store {
   @action
   constructor() async {
     widgets.constructor();
-    initReactors(sessionMetadata.shouldAdjustToFallbackExitProtocol);
+    initReactors();
     gyroscopic.listen(NoParams());
     setBlockPhoneTiltReactor(false);
     await presence.updateCurrentPhase(2.0);
@@ -45,7 +45,7 @@ abstract class _SessionNotesCoordinatorBase extends BaseCoordinator with Store {
   @action
   setBlockPhoneTiltReactor(bool newValue) => blockPhoneTiltReactor = newValue;
 
-  initReactors(bool shouldAdjustToFallbackExitProtocol) {
+  initReactors() {
     disposers.add(swipeReactor());
     disposers.add(presence.initReactors(
       onCollaboratorJoined: () {
@@ -62,9 +62,6 @@ abstract class _SessionNotesCoordinatorBase extends BaseCoordinator with Store {
       onLongReConnected: () => setDisableAllTouchFeedback(false),
       onDisconnected: () => setDisableAllTouchFeedback(true),
     ));
-    if (!shouldAdjustToFallbackExitProtocol) {
-      disposers.add(phoneTiltStateReactor());
-    }
     disposers.add(userPhaseReactor());
     disposers.add(touchFeedbackStatusReactor());
     disposers.add(collaboratorPhaseReactor());
@@ -145,9 +142,7 @@ abstract class _SessionNotesCoordinatorBase extends BaseCoordinator with Store {
             });
           case GestureDirections.down:
             ifTouchIsNotDisabled(() async {
-              if (sessionMetadata.shouldAdjustToFallbackExitProtocol) {
-                await presence.updateCurrentPhase(3);
-              }
+              await presence.updateCurrentPhase(3);
             });
           default:
             break;
