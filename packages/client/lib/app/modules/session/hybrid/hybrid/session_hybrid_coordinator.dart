@@ -37,7 +37,7 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
   @action
   constructor() async {
     widgets.constructor(sessionMetadata.userCanSpeak);
-    initReactors(sessionMetadata.shouldAdjustToFallbackExitProtocol);
+    initReactors();
     gyroscopic.listen(NoParams());
     setBlockPhoneTiltReactor(false);
     await presence.updateCurrentPhase(2.0);
@@ -50,7 +50,7 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
   @action
   setBlockPhoneTiltReactor(bool newValue) => blockPhoneTiltReactor = newValue;
 
-  initReactors(bool shouldAdjustToFallbackExitProtocol) {
+  initReactors() {
     disposers.add(holdReactor());
     disposers.add(letGoReactor());
     disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
@@ -78,11 +78,7 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
         widgets.onCollaboratorLeft();
       },
     ));
-    if (shouldAdjustToFallbackExitProtocol) {
-      disposers.add(swipeReactor());
-    } else {
-      disposers.add(phoneTiltStateReactor());
-    }
+    disposers.add(swipeReactor());
     disposers.add(userPhaseReactor());
     disposers.add(collaboratorPhaseReactor());
     disposers.add(tapReactor());
@@ -149,19 +145,6 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
   letGoReactor() => reaction((p0) => hold.letGoCount, (p0) async {
         if (sessionMetadata.everyoneIsOnline) {
           await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
-        }
-      });
-
-  phoneTiltStateReactor() =>
-      reaction((p0) => gyroscopic.holdingState, (p0) async {
-        if (!blockPhoneTiltReactor &&
-            sessionMetadata.currentPhases
-                .every((e) => e.isGreaterThanOrEqualTo(2))) {
-          if (p0 == PhoneHoldingState.isPickedUp) {
-            await presence.updateCurrentPhase(3);
-          } else if (p0 == PhoneHoldingState.isDown) {
-            await presence.updateCurrentPhase(2);
-          }
         }
       });
 
