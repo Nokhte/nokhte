@@ -32,16 +32,12 @@ serve(async (req) => {
       if (!currentCollaboratorUIDs.includes(userUID)) {
         currentCollaboratorUIDs.push(userUID);
         currentCollaboratorUIDs.sort();
-        const currentHaveGyroscopesRes =
-          stExistingNokhteSessionRes?.["have_gyroscopes"];
-        currentHaveGyroscopesRes.push(true);
         const currentHasPremiumAccess = [];
 
-        // needs separate one
         const currentIsOnlineArr = rtExistingNokhteSessionRes?.["is_online"];
         currentIsOnlineArr.push(true);
+
         const currentPhasesArr = rtExistingNokhteSessionRes?.["current_phases"];
-        // needs a separate one
         currentPhasesArr.push(0);
 
         const currentShouldSkipInstructions = [];
@@ -61,13 +57,13 @@ serve(async (req) => {
             metadataRes?.["is_subscribed"] ||
             !metadataRes?.["has_used_trial"] ||
             leaderIsWhitelisted;
+          console.log(userPremiumAccess, "USER!!!!!");
           currentHasPremiumAccess.push(userPremiumAccess);
         }
         const { error } = await supabaseAdmin
           .from("st_active_nokhte_sessions")
           .update({
             collaborator_uids: currentCollaboratorUIDs,
-            have_gyroscopes: currentHaveGyroscopesRes,
             has_premium_access: currentHasPremiumAccess,
             should_skip_instructions: currentShouldSkipInstructions,
           })
