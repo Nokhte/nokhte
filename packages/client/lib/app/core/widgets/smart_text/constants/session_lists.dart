@@ -418,7 +418,6 @@ class SessionLists {
   ];
 
   static List<RotatingTextData> getNotesHalfInstructionsPrimary({
-    bool shouldAdjustToFallbackExitProtocol = false,
     required bool isHybrid,
   }) {
     String phoneOrSide = isHybrid ? "side" : "phone";
@@ -429,8 +428,7 @@ class SessionLists {
         mainMessageFontSize: 22.0,
       ),
       RotatingTextData(
-        mainMessage:
-            "To complete the session ${shouldAdjustToFallbackExitProtocol ? "swipe down on all the phones" : "pick up all the phones"}",
+        mainMessage: "To complete the session swipe down on all the phones",
         pauseHere: true,
         mainMessageFontSize: 22.0,
       ),
@@ -460,9 +458,7 @@ class SessionLists {
   ];
 
   static List<RotatingTextData> getNotesInstructionsPrimary(
-    MirroredTextOrientations orientation, {
-    bool shouldAdjustToFallbackExitProtocol = false,
-  }) {
+      MirroredTextOrientations orientation) {
     final arr = [
       RotatingTextData(
         mainMessage: "",
@@ -478,8 +474,7 @@ class SessionLists {
         pauseHere: true,
       ),
       RotatingTextData(
-        mainMessage:
-            "To complete the session ${shouldAdjustToFallbackExitProtocol ? "swipe down on both phones" : "pick up both phones"}",
+        mainMessage: "To complete the session swipe down on both phones",
         pauseHere: true,
         mainMessageFontSize: 22.0,
       ),
