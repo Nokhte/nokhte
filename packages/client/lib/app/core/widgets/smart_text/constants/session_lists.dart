@@ -578,16 +578,16 @@ class SessionLists {
     ),
   ];
 
-  static List<RotatingTextData> exitTopText = [
+  static List<RotatingTextData> waitingToLeave = [
     RotatingTextData(
-      mainMessage: "Swipe up to Exit",
+      mainMessage: "Waiting to leave",
       pauseHere: true,
       mainMessageFontSize: 22.0,
     ),
   ];
   static List<RotatingTextData> exitBottomText = [
     RotatingTextData(
-      mainMessage: "Swipe down to continue",
+      mainMessage: "Swipe down to cancel",
       pauseHere: true,
       mainMessageFontSize: 22.0,
     ),

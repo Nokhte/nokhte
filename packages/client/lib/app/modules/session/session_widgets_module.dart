@@ -55,6 +55,8 @@ class SessionWidgetsModule extends Module {
     );
     i.add<SessionExitWidgetsCoordinator>(
       () => SessionExitWidgetsCoordinator(
+        sessionExitStatusIndicator: SessionExitStatusIndicatorStore(),
+        tint: TintStore(),
         gestureCross: Modular.get<GestureCrossStore>(),
         primarySmartText: SmartTextStore(),
         secondarySmartText: SmartTextStore(),

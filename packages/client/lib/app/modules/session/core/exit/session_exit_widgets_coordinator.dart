@@ -1,7 +1,5 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
-// import 'dart:async';
 import 'dart:async';
-
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
@@ -17,34 +15,53 @@ class SessionExitWidgetsCoordinator = _SessionExitWidgetsCoordinatorBase
 abstract class _SessionExitWidgetsCoordinatorBase extends BaseWidgetsCoordinator
     with Store {
   final BeachWavesStore beachWaves;
+  final SessionExitStatusIndicatorStore sessionExitStatusIndicator;
   final SmartTextStore primarySmartText;
   final SmartTextStore secondarySmartText;
   final SmartTextStore tertiarySmartText;
   final GestureCrossStore gestureCross;
+  final TintStore tint;
 
   _SessionExitWidgetsCoordinatorBase({
     required this.beachWaves,
+    required this.sessionExitStatusIndicator,
     required super.wifiDisconnectOverlay,
     required this.primarySmartText,
     required this.secondarySmartText,
     required this.tertiarySmartText,
     required this.gestureCross,
+    required this.tint,
   });
 
   @action
   constructor() {
-    beachWaves.setMovieMode(
-      BeachWaveMovieModes.skyToDrySand,
-    );
-    primarySmartText.setMessagesData(SessionLists.exitTopText);
+    tint.initMovie(NoParams());
+    primarySmartText.setMessagesData(SessionLists.waitingToLeave);
     secondarySmartText.setMessagesData(SessionLists.exitBottomText);
     tertiarySmartText.setMessagesData(SessionLists.exitWaiting);
     primarySmartText.startRotatingText();
     secondarySmartText.startRotatingText();
+    beachWaves.setMovieMode(
+      BeachWaveMovieModes.skyToDrySand,
+    );
   }
 
   @action
-  onReadyToGoHome() {
+  initStartingMovie({
+    required int totalNumberOfCollaborators,
+    required int totalAffirmative,
+  }) {
+    sessionExitStatusIndicator.initStartingMovie(
+      numberOfAffirmative: totalAffirmative,
+      total: totalNumberOfCollaborators,
+    );
+  }
+
+  @action
+  initHomeTransition() {
+    primarySmartText.setWidgetVisibility(false);
+    secondarySmartText.setWidgetVisibility(false);
+    tint.reverseMovie(NoParams());
     beachWaves.setMovieMode(BeachWaveMovieModes.onShoreToSky);
     beachWaves.currentStore.reverseMovie(NoParams());
     tertiarySmartText.setWidgetVisibility(false);
@@ -87,17 +104,44 @@ abstract class _SessionExitWidgetsCoordinatorBase extends BaseWidgetsCoordinator
   }
 
   @action
+  onNumOfAffirmativeChanged({
+    required int totalNumberOfCollaborators,
+    required int totalAffirmative,
+  }) {
+    Timer.periodic(Seconds.get(0, milli: 500), (timer) async {
+      if (sessionExitStatusIndicator.movieStatus != MovieStatus.inProgress) {
+        if (totalAffirmative == totalNumberOfCollaborators) {
+          sessionExitStatusIndicator.initComplete();
+          timer.cancel();
+        } else {
+          sessionExitStatusIndicator.initAdjust(totalAffirmative);
+          timer.cancel();
+        }
+      }
+    });
+  }
+
+  @action
   onCollaboratorJoined() {
     primarySmartText.setWidgetVisibility(primarySmartText.pastShowWidget);
     secondarySmartText.setWidgetVisibility(secondarySmartText.pastShowWidget);
   }
 
-  @action
-  onNineSecondsLapsed() {
-    primarySmartText.setWidgetVisibility(true);
-    secondarySmartText.setWidgetVisibility(true);
-    tertiarySmartText.setWidgetVisibility(false);
-  }
+  sessionExitStatusCompletionReactor({
+    required Function onInitialized,
+    required Function onReadyToGoHome,
+  }) =>
+      reaction((p0) => sessionExitStatusIndicator.movieStatus, (p0) async {
+        if (p0 == MovieStatus.finished) {
+          if (sessionExitStatusIndicator.movieMode ==
+              ExitStatusMovieModes.show) {
+            onInitialized();
+          } else if (sessionExitStatusIndicator.movieMode ==
+              ExitStatusMovieModes.complete) {
+            await onReadyToGoHome();
+          }
+        }
+      });
 
   beachWavesMovieStatusReactor({
     required Function onToHomeComplete,

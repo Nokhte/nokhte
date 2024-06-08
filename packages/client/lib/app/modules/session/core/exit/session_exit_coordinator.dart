@@ -59,6 +59,12 @@ abstract class _SessionExitCoordinatorBase
   @action
   setIsGoingHome(bool newVal) => isGoingHome = newVal;
 
+  @observable
+  bool blockUserPhaseReactor = false;
+
+  @action
+  setBlockUserPhaseReactor(bool newVal) => blockUserPhaseReactor = newVal;
+
   @action
   onInactive() async {
     await presence
@@ -106,30 +112,20 @@ abstract class _SessionExitCoordinatorBase
           Modular.to.navigate(SessionConstants.hybrid);
         }));
     disposers.add(swipeReactor());
-    disposers.add(collaboratorPhaseReactor());
+    disposers.add(userPhaseReactor());
+    disposers.add(
+      widgets.sessionExitStatusCompletionReactor(
+        onInitialized: () => disposers.add(numberOfAffirmativeReactor()),
+        onReadyToGoHome: () async => await onReturnHome(),
+      ),
+    );
   }
 
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
-          case GestureDirections.up:
-            ifTouchIsNotDisabled(() async {
-              await presence.updateCurrentPhase(5.0);
-              widgets.onSwipeUp();
-              setDisableAllTouchFeedback(true);
-              Timer(Seconds.get(9), () async {
-                if (!isGoingHome) {
-                  await presence.updateCurrentPhase(4);
-                  widgets.onNineSecondsLapsed();
-                  setDisableAllTouchFeedback(false);
-                }
-              });
-            });
           case GestureDirections.down:
             ifTouchIsNotDisabled(() async {
-              if (!phaseHasBeenSet) {
-                await presence.updateCurrentPhase(3.5);
-                phaseHasBeenSet = true;
-              }
+              widgets.onReadyToGoBack(phoneRole);
               setDisableAllTouchFeedback(true);
             });
           default:
@@ -139,39 +135,53 @@ abstract class _SessionExitCoordinatorBase
 
   @action
   onReturnHome() async {
-    if (showCollaboratorIncidents) {
-      showCollaboratorIncidents = false;
-      await presence.dispose();
-      sessionMetadata;
-      if (sessionMetadata.currentPhases.every((e) => e == 5.0) &&
-          sessionMetadata.userIndex == 0) {
-        await presence.completeTheSession();
-        await captureEnd(NoParams());
-      }
-      Timer(Seconds.get(1), () async {
-        await getUserInfo(NoParams());
-      });
-      widgets.onReadyToGoHome();
+    showCollaboratorIncidents = false;
+    presence.dispose();
+    if (sessionMetadata.userIndex == 0) {
+      await presence.completeTheSession();
+      await captureEnd(NoParams());
     }
+    Timer(Seconds.get(1), () async {
+      await getUserInfo(NoParams());
+    });
+    widgets.initHomeTransition();
   }
 
-  collaboratorPhaseReactor() => reaction(
-        (p0) => sessionMetadata.currentPhases,
-        (p0) async {
-          if (p0.contains(3.5)) {
-            setIsGoingHome(true);
-            if (!phaseHasBeenSet) {
-              await presence.updateCurrentPhase(3.5);
-              phaseHasBeenSet = true;
-            }
-            widgets.onReadyToGoBack(phoneRole);
-          } else if (p0.every((e) => e == 5.0)) {
-            await onReturnHome();
-          } else if (p0.contains(-1.0)) {
-            await onReturnHome();
+  numberOfAffirmativeReactor() =>
+      reaction((p0) => sessionMetadata.numberOfAffirmative, (p0) {
+        if (!blockUserPhaseReactor) {
+          if (p0 == sessionMetadata.numberOfCollaborators) {
+            setBlockUserPhaseReactor(true);
+            setShowCollaboratorIncidents(false);
           }
-        },
-      );
+          print("did you not want this to be callec???");
+          widgets.onNumOfAffirmativeChanged(
+            totalNumberOfCollaborators: sessionMetadata.numberOfCollaborators,
+            totalAffirmative: p0,
+          );
+        }
+      });
+
+  userPhaseReactor() => reaction((p0) => sessionMetadata.userPhase, (p0) async {
+        if (p0 == 4.0) {
+          if (sessionMetadata.numberOfAffirmative ==
+              sessionMetadata.numberOfCollaborators) {
+            await onReturnHome();
+          } else {
+            widgets.initStartingMovie(
+              totalAffirmative: sessionMetadata.numberOfAffirmative,
+              totalNumberOfCollaborators: sessionMetadata.numberOfCollaborators,
+            );
+          }
+        } else if (p0 == -1.0) {
+          setShowCollaboratorIncidents(false);
+          widgets.onNumOfAffirmativeChanged(
+            totalNumberOfCollaborators: sessionMetadata.numberOfAffirmative,
+            totalAffirmative: sessionMetadata.numberOfAffirmative,
+          );
+          //
+        }
+      });
 
   @computed
   SessionPhoneRole get phoneRole {
