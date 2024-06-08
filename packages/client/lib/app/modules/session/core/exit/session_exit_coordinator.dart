@@ -154,7 +154,6 @@ abstract class _SessionExitCoordinatorBase
             setBlockUserPhaseReactor(true);
             setShowCollaboratorIncidents(false);
           }
-          print("did you not want this to be callec???");
           widgets.onNumOfAffirmativeChanged(
             totalNumberOfCollaborators: sessionMetadata.numberOfCollaborators,
             totalAffirmative: p0,
