@@ -22,17 +22,32 @@ abstract class _SessionExitStatusIndicatorStoreBase
   }
 
   @observable
-  int numberOfAffirmative = 1;
+  ExitStatusMovieModes movieMode = ExitStatusMovieModes.none;
+
+  @action
+  setMovieMode(ExitStatusMovieModes value) => movieMode = value;
+
+  @observable
+  int numberOfAffirmative = 0;
 
   @action
   setNumberOfAffirmative(int value) => numberOfAffirmative = value;
 
   @observable
-  int total = 5;
+  int total = 0;
 
   @action
-  initStartingMovie(int numberOfAffirmative) {
+  setTotal(int value) => total = value;
+
+  @action
+  initStartingMovie({
+    required int numberOfAffirmative,
+    required int total,
+  }) {
+    setMovieMode(ExitStatusMovieModes.show);
+    setMovieStatus(MovieStatus.inProgress);
     setNumberOfAffirmative(numberOfAffirmative);
+    setTotal(total);
     setMovie(
       ShowSessionExitStatusIndicatorMovie.getMovie(
         startingPercent: percent,
@@ -43,6 +58,8 @@ abstract class _SessionExitStatusIndicatorStoreBase
 
   @action
   initAdjust(int newNumberOfAffirmative) {
+    setMovieMode(ExitStatusMovieModes.adjust);
+    setMovieStatus(MovieStatus.inProgress);
     final newPercent = (newNumberOfAffirmative / total) * 100;
     Timer(Seconds.get(0, milli: 500), () {
       setNumberOfAffirmative(newNumberOfAffirmative);
@@ -57,7 +74,9 @@ abstract class _SessionExitStatusIndicatorStoreBase
   }
 
   @action
-  complete() {
+  initComplete() {
+    setMovieMode(ExitStatusMovieModes.complete);
+    setMovieStatus(MovieStatus.inProgress);
     setMovie(
       CompleteSessionExitStatusIndicatorMovie.getMovie(
         startingPercent: percent,

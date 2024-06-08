@@ -7,6 +7,7 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'canvas/session_exit_status_indicator_painter.dart';
 export 'movies/movies.dart';
+export 'types/types.dart';
 export 'mobx/session_exit_status_indicator_store.dart';
 
 class SessionExitStatusIndicator extends HookWidget {
@@ -28,6 +29,7 @@ class SessionExitStatusIndicator extends HookWidget {
                 control: store.control,
                 tween: store.movie,
                 duration: store.movie.duration,
+                onCompleted: () => store.onCompleted(),
                 builder: ((context, value, child) => FullScreen(
                         child: Stack(
                       alignment: Alignment.center,
