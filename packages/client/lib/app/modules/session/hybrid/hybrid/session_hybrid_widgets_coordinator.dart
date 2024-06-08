@@ -127,14 +127,10 @@ abstract class _SessionHybridWidgetsCoordinatorBase
   }
 
   @action
-  onTap(
-    Offset tapPosition, {
-    required Function onTap,
-  }) async {
+  onTap(Offset tapPosition) async {
     touchRipple.onTap(tapPosition, overridedColor: Colors.white);
     if (!speakLessWriteMoreIsVisible) {
       if (!isHolding && canHold) {
-        await onTap();
         tapCount++;
         if (hasTappedOnTheBottomHalf) {
           initFullScreenNotes();
