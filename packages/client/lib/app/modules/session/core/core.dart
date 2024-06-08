@@ -62,7 +62,6 @@ class SessionCoreModule extends Module {
     );
     i.add<SessionGroupGreeterCoordinator>(
       () => SessionGroupGreeterCoordinator(
-        gyroscopic: Modular.get<GyroscopicCoordinator>(),
         presence: Modular.get<SessionPresenceCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<SessionGroupGreeterWidgetsCoordinator>(),

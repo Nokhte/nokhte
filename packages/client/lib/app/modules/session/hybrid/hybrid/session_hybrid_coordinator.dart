@@ -4,7 +4,6 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/extensions/extensions.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -23,14 +22,12 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
   final HoldDetector hold;
   final SessionPresenceCoordinator presence;
   final ListenToSessionMetadataStore sessionMetadata;
-  final GyroscopicCoordinator gyroscopic;
   _SessionHybridCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
     required this.swipe,
     required this.hold,
     required this.tap,
-    required this.gyroscopic,
     required this.presence,
   }) : sessionMetadata = presence.listenToSessionMetadataStore;
 
@@ -38,17 +35,15 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
   constructor() async {
     widgets.constructor(sessionMetadata.userCanSpeak);
     initReactors();
-    gyroscopic.listen(NoParams());
-    setBlockPhoneTiltReactor(false);
     await presence.updateCurrentPhase(2.0);
     await captureScreen(SessionConstants.hybrid);
   }
 
   @observable
-  bool blockPhoneTiltReactor = false;
+  bool userIsSpeaking = false;
 
   @action
-  setBlockPhoneTiltReactor(bool newValue) => blockPhoneTiltReactor = newValue;
+  setUserIsSpeaking(bool newValue) => userIsSpeaking = newValue;
 
   initReactors() {
     disposers.add(holdReactor());
@@ -79,8 +74,6 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
       },
     ));
     disposers.add(swipeReactor());
-    disposers.add(userPhaseReactor());
-    disposers.add(collaboratorPhaseReactor());
     disposers.add(tapReactor());
     disposers.add(userIsSpeakingReactor());
     disposers.add(userCanSpeakReactor());
@@ -89,7 +82,7 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
   userIsSpeakingReactor() =>
       reaction((p0) => sessionMetadata.userIsSpeaking, (p0) async {
         if (p0) {
-          setBlockPhoneTiltReactor(true);
+          setUserIsSpeaking(true);
           widgets.adjustSpeakLessSmileMoreRotation(hold.placement);
           widgets.onHold(hold.placement);
           setDisableAllTouchFeedback(true);
@@ -98,15 +91,15 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
       });
 
   userCanSpeakReactor() => reaction((p0) => sessionMetadata.userCanSpeak, (p0) {
-        if (p0 && blockPhoneTiltReactor) {
+        if (p0 && userIsSpeaking) {
           widgets.onLetGo();
-          setBlockPhoneTiltReactor(false);
+          setUserIsSpeaking(false);
           Timer(Seconds.get(2), () {
             setDisableAllTouchFeedback(false);
           });
-        } else if (p0 && !blockPhoneTiltReactor) {
+        } else if (p0 && !userIsSpeaking) {
           widgets.othersAreTalkingTint.reverseMovie(NoParams());
-        } else if (!p0 && !blockPhoneTiltReactor) {
+        } else if (!p0 && !userIsSpeaking) {
           widgets.othersAreTalkingTint.initMovie(NoParams());
         }
       });
@@ -114,8 +107,8 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.down:
-            ifTouchIsNotDisabled(() async {
-              await presence.updateCurrentPhase(3);
+            ifTouchIsNotDisabled(() {
+              widgets.onExit();
             });
           default:
             break;
@@ -126,9 +119,7 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
         (p0) => tap.tapCount,
         (p0) => ifTouchIsNotDisabled(
           () async {
-            widgets.onTap(tap.currentTapPosition, onTap: () async {
-              await presence.updateCurrentPhase(2);
-            });
+            widgets.onTap(tap.currentTapPosition);
           },
         ),
       );
@@ -147,28 +138,6 @@ abstract class _SessionHybridCoordinatorBase extends BaseCoordinator
           await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
         }
       });
-
-  collaboratorPhaseReactor() => reaction(
-        (p0) => sessionMetadata.currentPhases,
-        (p0) async {
-          if (sessionMetadata.canExitTheSession) {
-            await gyroscopic.dispose();
-            widgets.onExit();
-            setBlockPhoneTiltReactor(true);
-          }
-        },
-      );
-
-  userPhaseReactor() => reaction(
-        (p0) => sessionMetadata.userPhase,
-        (p0) async {
-          if (sessionMetadata.canExitTheSession) {
-            await gyroscopic.dispose();
-            widgets.onExit();
-            setBlockPhoneTiltReactor(true);
-          }
-        },
-      );
 
   @action
   onInactive() async {

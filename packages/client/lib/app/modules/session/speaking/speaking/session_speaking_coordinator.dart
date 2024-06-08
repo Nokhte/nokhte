@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -21,13 +20,11 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
   final HoldDetector hold;
   final SessionPresenceCoordinator presence;
   final ListenToSessionMetadataStore sessionMetadata;
-  final GyroscopicCoordinator gyroscopic;
   _SessionSpeakingCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
     required this.swipe,
     required this.hold,
-    required this.gyroscopic,
     required this.presence,
   }) : sessionMetadata = presence.listenToSessionMetadataStore;
 
@@ -36,16 +33,8 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
     widgets.constructor();
     await presence.updateCurrentPhase(2.0);
     initReactors();
-    gyroscopic.listen(NoParams());
-    setBlockPhoneTiltReactor(false);
     await captureScreen(SessionConstants.speaking);
   }
-
-  @observable
-  bool blockPhoneTiltReactor = false;
-
-  @action
-  setBlockPhoneTiltReactor(bool newValue) => blockPhoneTiltReactor = newValue;
 
   initReactors() {
     disposers.add(holdReactor());
@@ -76,17 +65,21 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
       },
     ));
     disposers.add(swipeReactor());
-    disposers.add(userPhaseReactor());
-    disposers.add(collaboratorPhaseReactor());
     disposers.add(userIsSpeakingReactor());
     disposers.add(userCanSpeakReactor());
   }
 
+  @observable
+  bool userIsTalking = false;
+
+  @action
+  setUserIsTalking(bool newValue) => userIsTalking = newValue;
+
   swipeReactor() => reaction((p0) => swipe.directionsType, (p0) {
         switch (p0) {
           case GestureDirections.down:
-            ifTouchIsNotDisabled(() async {
-              await presence.updateCurrentPhase(3);
+            ifTouchIsNotDisabled(() {
+              widgets.onExit();
             });
           default:
             break;
@@ -96,7 +89,7 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
   userIsSpeakingReactor() =>
       reaction((p0) => sessionMetadata.userIsSpeaking, (p0) async {
         if (p0) {
-          setBlockPhoneTiltReactor(true);
+          setUserIsTalking(true);
           widgets.adjustSpeakLessSmileMoreRotation(hold.placement);
           widgets.onHold(hold.placement);
           setDisableAllTouchFeedback(true);
@@ -105,15 +98,15 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
       });
 
   userCanSpeakReactor() => reaction((p0) => sessionMetadata.userCanSpeak, (p0) {
-        if (p0 && blockPhoneTiltReactor) {
+        if (p0 && userIsTalking) {
           widgets.onLetGo();
-          setBlockPhoneTiltReactor(false);
+          setUserIsTalking(false);
           Timer(Seconds.get(2), () {
             setDisableAllTouchFeedback(false);
           });
-        } else if (p0 && !blockPhoneTiltReactor) {
+        } else if (p0 && !userIsTalking) {
           widgets.tint.reverseMovie(NoParams());
-        } else if (!p0 && !blockPhoneTiltReactor) {
+        } else if (!p0 && !userIsTalking) {
           widgets.tint.initMovie(NoParams());
         }
       });
@@ -132,28 +125,6 @@ abstract class _SessionSpeakingCoordinatorBase extends BaseCoordinator
           await presence.updateWhoIsTalking(UpdateWhoIsTalkingParams.clearOut);
         }
       });
-
-  collaboratorPhaseReactor() => reaction(
-        (p0) => sessionMetadata.currentPhases,
-        (p0) async {
-          if (sessionMetadata.canExitTheSession) {
-            await gyroscopic.dispose();
-            widgets.onExit();
-            setBlockPhoneTiltReactor(true);
-          }
-        },
-      );
-
-  userPhaseReactor() => reaction(
-        (p0) => sessionMetadata.userPhase,
-        (p0) async {
-          if (sessionMetadata.canExitTheSession) {
-            await gyroscopic.dispose();
-            widgets.onExit();
-            setBlockPhoneTiltReactor(true);
-          }
-        },
-      );
 
   @action
   onInactive() async {

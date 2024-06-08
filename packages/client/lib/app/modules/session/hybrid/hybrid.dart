@@ -24,7 +24,6 @@ class SessionHybridModule extends Module {
     i.add<SessionHybridCoordinator>(
       () => SessionHybridCoordinator(
         tap: TapDetector(),
-        gyroscopic: Modular.get<GyroscopicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<SessionHybridWidgetsCoordinator>(),
         presence: Modular.get<SessionPresenceCoordinator>(),
@@ -62,7 +61,6 @@ class SessionHybridModule extends Module {
     i.add<SessionHybridNotesCoordinator>(
       () => SessionHybridNotesCoordinator(
           tap: TapDetector(),
-          gyroscopic: Modular.get<GyroscopicCoordinator>(),
           captureScreen: Modular.get<CaptureScreen>(),
           widgets: Modular.get<SessionHybridNotesWidgetsCoordinator>(),
           presence: Modular.get<SessionPresenceCoordinator>(),

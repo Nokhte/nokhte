@@ -58,7 +58,6 @@ class SessionSpeakingModule extends Module {
     );
     i.add<SessionSpeakingCoordinator>(
       () => SessionSpeakingCoordinator(
-        gyroscopic: Modular.get<GyroscopicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
         widgets: Modular.get<SessionSpeakingWidgetsCoordinator>(),
         presence: Modular.get<SessionPresenceCoordinator>(),

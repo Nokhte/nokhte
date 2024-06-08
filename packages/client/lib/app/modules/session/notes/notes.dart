@@ -38,7 +38,6 @@ class SessionNotesModule extends Module {
     i.add<SessionNotesCoordinator>(
       () => SessionNotesCoordinator(
           tap: TapDetector(),
-          gyroscopic: Modular.get<GyroscopicCoordinator>(),
           captureScreen: Modular.get<CaptureScreen>(),
           widgets: Modular.get<SessionNotesWidgetsCoordinator>(),
           presence: Modular.get<SessionPresenceCoordinator>(),

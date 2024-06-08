@@ -4,7 +4,6 @@ import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
-import 'package:nokhte/app/core/modules/gyroscopic/gyroscopic.dart';
 import 'package:nokhte/app/core/modules/session_presence/session_presence.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
@@ -20,14 +19,12 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
   final TapDetector tap;
   final SessionPresenceCoordinator presence;
   final ListenToSessionMetadataStore sessionMetadata;
-  final GyroscopicCoordinator gyroscopic;
 
   _SessionGroupGreeterCoordinatorBase({
     required super.captureScreen,
     required this.widgets,
     required this.tap,
     required this.presence,
-    required this.gyroscopic,
   }) : sessionMetadata = presence.listenToSessionMetadataStore;
 
   @observable
@@ -44,7 +41,6 @@ abstract class _SessionGroupGreeterCoordinatorBase extends BaseCoordinator
     );
     initReactors();
     await captureScreen(SessionConstants.groupGreeter);
-    await gyroscopic.checkIfDeviceHasGyroscope();
   }
 
   @action
