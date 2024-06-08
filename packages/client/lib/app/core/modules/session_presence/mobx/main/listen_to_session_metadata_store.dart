@@ -134,6 +134,17 @@ abstract class _ListenToSessionMetadataStoreBase
   List get evenList => splitList(currentPhases)[0];
 
   @computed
+  int get numberOfAffirmative {
+    int count = 0;
+    for (double value in currentPhases) {
+      if (value == 4.0) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  @computed
   List get evenListMinusHybridPhone {
     final list = splitList(currentPhases)[0];
     list.removeAt(0);
