@@ -30,9 +30,8 @@ class HomeWidgetsModule extends Module {
         gestureCross: Modular.get<GestureCrossStore>(),
         touchRipple: TouchRippleStore(),
         centerInstructionalNokhte: CenterInstructionalNokhteStore(),
-        primaryInstructionalGradientNokhte: InstructionalGradientNokhteStore(),
-        secondaryInstructionalGradientNokhte:
-            InstructionalGradientNokhteStore(),
+        sessionStarterInstructionalNokhte: InstructionalGradientNokhteStore(),
+        storageInstructionalNokhte: InstructionalGradientNokhteStore(),
       ),
     );
     i.add<QrNavigationReminderWidgetsCoordinator>(
@@ -46,9 +45,8 @@ class HomeWidgetsModule extends Module {
         gestureCross: Modular.get<GestureCrossStore>(),
         touchRipple: TouchRippleStore(),
         centerInstructionalNokhte: CenterInstructionalNokhteStore(),
-        primaryInstructionalGradientNokhte: InstructionalGradientNokhteStore(),
-        secondaryInstructionalGradientNokhte:
-            InstructionalGradientNokhteStore(),
+        sessionStarterInstructionalNokhte: InstructionalGradientNokhteStore(),
+        storageInstructionalNokhte: InstructionalGradientNokhteStore(),
       ),
     );
     i.add<StorageGuideWidgetsCoordinator>(
@@ -62,9 +60,8 @@ class HomeWidgetsModule extends Module {
         gestureCross: Modular.get<GestureCrossStore>(),
         touchRipple: TouchRippleStore(),
         centerInstructionalNokhte: CenterInstructionalNokhteStore(),
-        primaryInstructionalGradientNokhte: InstructionalGradientNokhteStore(),
-        secondaryInstructionalGradientNokhte:
-            InstructionalGradientNokhteStore(),
+        sessionStarterInstructionalNokhte: InstructionalGradientNokhteStore(),
+        storageInstructionalNokhte: InstructionalGradientNokhteStore(),
       ),
     );
     i.add<CompassAndStorageGuideWidgetsCoordinator>(
@@ -78,9 +75,8 @@ class HomeWidgetsModule extends Module {
         gestureCross: Modular.get<GestureCrossStore>(),
         touchRipple: TouchRippleStore(),
         centerInstructionalNokhte: CenterInstructionalNokhteStore(),
-        primaryInstructionalGradientNokhte: InstructionalGradientNokhteStore(),
-        secondaryInstructionalGradientNokhte:
-            InstructionalGradientNokhteStore(),
+        sessionStarterInstructionalNokhte: InstructionalGradientNokhteStore(),
+        storageInstructionalNokhte: InstructionalGradientNokhteStore(),
       ),
     );
     i.add<ShortQrGuideWidgetsCoordinator>(
@@ -94,9 +90,8 @@ class HomeWidgetsModule extends Module {
         gestureCross: Modular.get<GestureCrossStore>(),
         touchRipple: TouchRippleStore(),
         centerInstructionalNokhte: CenterInstructionalNokhteStore(),
-        primaryInstructionalGradientNokhte: InstructionalGradientNokhteStore(),
-        secondaryInstructionalGradientNokhte:
-            InstructionalGradientNokhteStore(),
+        sessionStarterInstructionalNokhte: InstructionalGradientNokhteStore(),
+        storageInstructionalNokhte: InstructionalGradientNokhteStore(),
       ),
     );
     i.add<QrAndStorageAdeptWidgetsCoordinator>(
@@ -110,9 +105,8 @@ class HomeWidgetsModule extends Module {
         gestureCross: Modular.get<GestureCrossStore>(),
         touchRipple: TouchRippleStore(),
         centerInstructionalNokhte: CenterInstructionalNokhteStore(),
-        primaryInstructionalGradientNokhte: InstructionalGradientNokhteStore(),
-        secondaryInstructionalGradientNokhte:
-            InstructionalGradientNokhteStore(),
+        sessionStarterInstructionalNokhte: InstructionalGradientNokhteStore(),
+        storageInstructionalNokhte: InstructionalGradientNokhteStore(),
       ),
     );
     i.add<NeedsUpdateWidgetsCoordinator>(

@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/modules/home/home.dart';
 import 'package:nokhte/app/modules/storage/storage.dart';
 part 'storage_guide_coordinator.g.dart';
@@ -14,7 +13,6 @@ abstract class _StorageGuideCoordinatorBase extends BaseHomeScreenCoordinator
     with Store {
   final StorageGuideWidgetsCoordinator widgets;
   final GetNokhteSessionArtifacts getNokhteSessionArtifactsLogic;
-  final UserInformationCoordinator userInformation;
 
   _StorageGuideCoordinatorBase({
     required super.sessionStarters,
@@ -22,9 +20,9 @@ abstract class _StorageGuideCoordinatorBase extends BaseHomeScreenCoordinator
     required super.deepLinks,
     required this.widgets,
     required this.getNokhteSessionArtifactsLogic,
-    required this.userInformation,
     required super.captureScreen,
     required super.tap,
+    required super.userInformation,
   }) : super(widgets: widgets);
 
   @observable
@@ -38,6 +36,7 @@ abstract class _StorageGuideCoordinatorBase extends BaseHomeScreenCoordinator
     initReactors();
     await captureScreen(HomeConstants.storageGuide);
     await getNokhteSessionArtifacts();
+    await super.constructor(offset);
   }
 
   @override

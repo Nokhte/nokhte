@@ -24,8 +24,8 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
     required super.secondaryErrorSmartText,
     required super.touchRipple,
     required super.centerInstructionalNokhte,
-    required super.primaryInstructionalGradientNokhte,
-    required super.secondaryInstructionalGradientNokhte,
+    required super.sessionStarterInstructionalNokhte,
+    required super.storageInstructionalNokhte,
   });
 
   @override
@@ -36,7 +36,7 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
     primarySmartText.startRotatingText();
     gestureCross.fadeInTheCross();
     gestureCross.centerCrossNokhte.setWidgetVisibility(false);
-    primaryInstructionalGradientNokhte.prepareYellowDiamond(
+    sessionStarterInstructionalNokhte.prepareYellowDiamond(
       center,
       position: InstructionalNokhtePositions.top,
       colorway: GradientNokhteColorways.invertedBeachWave,
@@ -56,7 +56,7 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
     if (!isDisconnected && !touchIsDisabled) {
       if (primarySmartText.currentIndex.equals(3)) {
         centerInstructionalNokhte.initMovie(InstructionalNokhtePositions.top);
-        primaryInstructionalGradientNokhte.setControl(Control.playFromStart);
+        sessionStarterInstructionalNokhte.setControl(Control.playFromStart);
         primarySmartText.startRotatingText(isResuming: true);
         setTouchIsDisabled(true);
         setSmartTextPadding(
@@ -103,14 +103,14 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
       } else if (primarySmartText.currentIndex == 2) {
         setTouchIsDisabled(true);
         primarySmartText.startRotatingText(isResuming: true);
-        primaryInstructionalGradientNokhte.setWidgetVisibility(true);
+        sessionStarterInstructionalNokhte.setWidgetVisibility(true);
         touchRipple.onTap(offset);
         setSmartTextPadding();
       } else if (primarySmartText.currentIndex == 4) {
         primarySmartText.startRotatingText(isResuming: true);
         setTouchIsDisabled(true);
         Timer(Seconds.get(1, milli: 500), () {
-          primaryInstructionalGradientNokhte.initMovie(
+          sessionStarterInstructionalNokhte.initMovie(
             InstructionalGradientMovieParams(
               center: center,
               colorway: GradientNokhteColorways.invertedBeachWave,
@@ -138,7 +138,7 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
           gestureCross.fadeIn();
           Timer(Seconds.get(1), () {
             centerInstructionalNokhte.setWidgetVisibility(false);
-            primaryInstructionalGradientNokhte.setWidgetVisibility(false);
+            sessionStarterInstructionalNokhte.setWidgetVisibility(false);
             setTouchIsDisabled(false);
           });
         }

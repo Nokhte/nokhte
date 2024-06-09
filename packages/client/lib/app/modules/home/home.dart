@@ -57,6 +57,7 @@ class HomeModule extends Module {
     );
     i.add<QrNavigationReminderCoordinator>(
       () => QrNavigationReminderCoordinator(
+        userInformation: Modular.get<UserInformationCoordinator>(),
         tap: TapDetector(),
         captureScreen: Modular.get<CaptureScreen>(),
         sessionStarters: Modular.get<SessionStartersLogicCoordinator>(),
@@ -93,6 +94,7 @@ class HomeModule extends Module {
     );
     i.add<ShortQrGuideCoordinator>(
       () => ShortQrGuideCoordinator(
+        userInformation: Modular.get<UserInformationCoordinator>(),
         getNokhteSessionArtifactsLogic:
             Modular.get<GetNokhteSessionArtifacts>(),
         tap: TapDetector(),
@@ -105,6 +107,7 @@ class HomeModule extends Module {
     );
     i.add<QrAndStorageAdeptCoordinator>(
       () => QrAndStorageAdeptCoordinator(
+        userInformation: Modular.get<UserInformationCoordinator>(),
         tap: TapDetector(),
         getNokhteSessionArtifactsLogic:
             Modular.get<GetNokhteSessionArtifacts>(),

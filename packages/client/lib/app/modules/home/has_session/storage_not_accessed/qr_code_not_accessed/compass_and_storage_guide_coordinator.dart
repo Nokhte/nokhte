@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/modules/home/home.dart';
 import 'package:nokhte/app/modules/storage/storage.dart';
 part 'compass_and_storage_guide_coordinator.g.dart';
@@ -15,7 +14,6 @@ abstract class _CompassAndStorageGuideCoordinatorBase
     extends BaseHomeScreenCoordinator with Store {
   final CompassAndStorageGuideWidgetsCoordinator widgets;
   final GetNokhteSessionArtifacts getNokhteSessionArtifactsLogic;
-  final UserInformationCoordinator userInformation;
 
   _CompassAndStorageGuideCoordinatorBase({
     required super.sessionStarters,
@@ -23,9 +21,9 @@ abstract class _CompassAndStorageGuideCoordinatorBase
     required super.deepLinks,
     required this.widgets,
     required this.getNokhteSessionArtifactsLogic,
-    required this.userInformation,
     required super.captureScreen,
     required super.tap,
+    required super.userInformation,
   }) : super(widgets: widgets);
 
   @observable
@@ -39,6 +37,7 @@ abstract class _CompassAndStorageGuideCoordinatorBase
     initReactors();
     await captureScreen(HomeConstants.compassAndStorageGuide);
     await getNokhteSessionArtifacts();
+    await super.constructor(offset);
   }
 
   @override

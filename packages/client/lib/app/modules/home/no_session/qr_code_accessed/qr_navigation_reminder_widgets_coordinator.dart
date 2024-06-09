@@ -25,8 +25,8 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
     required super.secondaryErrorSmartText,
     required super.touchRipple,
     required super.centerInstructionalNokhte,
-    required super.primaryInstructionalGradientNokhte,
-    required super.secondaryInstructionalGradientNokhte,
+    required super.sessionStarterInstructionalNokhte,
+    required super.storageInstructionalNokhte,
   });
 
   @observable
@@ -46,7 +46,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
     primarySmartText.setMessagesData(HomeLists.qrNavigationReminder);
     primarySmartText.startRotatingText();
     gestureCross.fadeIn(onFadeIn: Left(() {
-      primaryInstructionalGradientNokhte.initMovie(
+      sessionStarterInstructionalNokhte.initMovie(
         InstructionalGradientMovieParams(
           center: center,
           colorway: GradientNokhteColorways.invertedBeachWave,
@@ -54,9 +54,9 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
           position: InstructionalNokhtePositions.top,
         ),
       );
-      primaryInstructionalGradientNokhte.setControl(Control.stop);
+      sessionStarterInstructionalNokhte.setControl(Control.stop);
       centerInstructionalNokhte.setWidgetVisibility(true);
-      primaryInstructionalGradientNokhte.setWidgetVisibility(true);
+      sessionStarterInstructionalNokhte.setWidgetVisibility(true);
     }));
     initReactors();
   }
@@ -82,7 +82,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
         gestureCross.centerCrossNokhte.setWidgetVisibility(true);
         gestureCross.gradientNokhte.setWidgetVisibility(true);
         centerInstructionalNokhte.setWidgetVisibility(false);
-        primaryInstructionalGradientNokhte.setWidgetVisibility(false);
+        sessionStarterInstructionalNokhte.setWidgetVisibility(false);
         prepForNavigation(excludeUnBlur: true);
       }
     }
@@ -103,7 +103,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
           centerInstructionalNokhte.moveBackToCross(
             startingPosition: CenterNokhtePositions.top,
           );
-          primaryInstructionalGradientNokhte.initMovie(
+          sessionStarterInstructionalNokhte.initMovie(
             InstructionalGradientMovieParams(
               center: center,
               colorway: GradientNokhteColorways.invertedBeachWave,
@@ -144,7 +144,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
     centerInstructionalNokhte.moveBackToCross(
       startingPosition: CenterNokhtePositions.center,
     );
-    primaryInstructionalGradientNokhte.initMovie(
+    sessionStarterInstructionalNokhte.initMovie(
       InstructionalGradientMovieParams(
         center: center,
         colorway: GradientNokhteColorways.invertedBeachWave,
@@ -168,7 +168,7 @@ abstract class _QrNavigationReminderWidgetsCoordinatorBase
         nokhteBlur.init();
         beachWaves.currentStore.setControl(Control.stop);
         hasInitiatedBlur = true;
-        primaryInstructionalGradientNokhte.initMovie(
+        sessionStarterInstructionalNokhte.initMovie(
           InstructionalGradientMovieParams(
             center: center,
             colorway: GradientNokhteColorways.invertedBeachWave,

@@ -3,14 +3,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
+import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session/constants/constants.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:nokhte/app/modules/storage/constants/constants.dart';
-
 import 'base_home_screen_widgets_coordinator.dart';
 part 'base_home_screen_coordinator.g.dart';
 
@@ -24,9 +25,11 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
   final SessionStartersLogicCoordinator sessionStarters;
   final DeepLinksCoordinator deepLinks;
   final TapDetector tap;
+  final UserInformationCoordinator userInformation;
 
   _BaseHomeScreenCoordinatorBase({
     required this.sessionStarters,
+    required this.userInformation,
     required this.swipe,
     required this.tap,
     required this.widgets,
@@ -35,7 +38,9 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
   });
 
   @action
-  constructor(Offset center) {}
+  constructor(Offset center) async {
+    await userInformation.getUserInfoStore(NoParams());
+  }
 
   initReactors() {
     deepLinks.listen();
@@ -72,10 +77,12 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
   onShoreToOceanDiveComplete() {
     Timer.periodic(Seconds.get(0, milli: 100), (timer) {
       if (widgets.touchRipple.movieStatus == MovieStatus.finished) {
-        Modular.to.navigate(
-          SessionStarterConstants.root,
-          arguments: deepLinks.listenForOpenedDeepLinkStore.additionalMetadata,
-        );
+        if (userInformation.getUserInfoStore.hasAccessedQrCode) {
+          Modular.to.navigate(SessionStarterConstants.sessionStarter);
+        } else {
+          Modular.to
+              .navigate(SessionStarterConstants.sessionStarterInstructions);
+        }
         timer.cancel();
       }
     });
