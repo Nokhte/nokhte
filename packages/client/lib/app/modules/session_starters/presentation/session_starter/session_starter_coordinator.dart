@@ -34,13 +34,6 @@ abstract class _SessionStarterCoordinatorBase
   }) : super(getUserInfo: userInformation.getUserInfoStore);
 
   @observable
-  ObservableMap additionalRoutingData = ObservableMap.of({});
-
-  @action
-  setAdditionalRoutingData(Map? newMap) =>
-      additionalRoutingData = ObservableMap.of(newMap ?? {});
-
-  @observable
   bool isNavigatingAway = false;
 
   @action
@@ -54,7 +47,7 @@ abstract class _SessionStarterCoordinatorBase
     await deepLinks.getDeepLink(DeepLinkTypes.nokhteSessionLeader);
     await userInformation.getUserInfoStore(NoParams());
     await logic.initialize();
-    await captureScreen(SessionStarterConstants.root);
+    await captureScreen(SessionStarterConstants.sessionStarter);
     logic.listenToSessionActivation();
   }
 
