@@ -76,7 +76,7 @@ class StorageHomeScreen extends HookWidget {
                   config: GestureCrossConfiguration(
                     left: Right(
                       NokhteGradientConfig(
-                        gradientType: NokhteGradientTypes.onShore,
+                        gradientType: NokhteGradientTypes.home,
                       ),
                     ),
                   ),

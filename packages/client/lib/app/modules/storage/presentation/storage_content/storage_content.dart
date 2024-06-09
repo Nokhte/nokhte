@@ -70,7 +70,7 @@ class StorageContentScreen extends HookWidget {
                   config: GestureCrossConfiguration(
                     left: Right(
                       NokhteGradientConfig(
-                        gradientType: NokhteGradientTypes.vibrantBlue,
+                        gradientType: NokhteGradientTypes.home,
                       ),
                     ),
                   ),

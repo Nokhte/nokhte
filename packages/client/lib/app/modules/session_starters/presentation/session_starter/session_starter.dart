@@ -83,7 +83,7 @@ class SessionStarterScreen extends HookWidget {
                   config: GestureCrossConfiguration(
                     bottom: Right(
                       NokhteGradientConfig(
-                        gradientType: NokhteGradientTypes.onShore,
+                        gradientType: NokhteGradientTypes.home,
                       ),
                     ),
                   ),
