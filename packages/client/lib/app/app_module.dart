@@ -14,10 +14,10 @@ class AppModule extends Module {
 
   @override
   void routes(r) {
-    r.module('/login', module: LoginModule());
-    r.module('/home/', module: HomeModule());
-    r.module('/session_starters/', module: SessionStartersModule());
-    r.module('/session/', module: SessionModule());
-    r.module('/storage', module: StorageModule());
+    r.module(LoginConstants.module, module: LoginModule());
+    r.module(HomeConstants.module, module: HomeModule());
+    r.module(SessionStarterConstants.module, module: SessionStartersModule());
+    r.module(SessionConstants.module, module: SessionModule());
+    r.module(StorageConstants.module, module: StorageModule());
   }
 }

@@ -6,6 +6,9 @@ mixin SessionConstants {
     Color(0xFFA1FFAA),
     Color(0xFF39FF18),
   ];
+
+  static const module = '/session/';
+
   static const relativeRoot = '/';
   static const relativeLobby = '/lobby';
   static const relativeDuoGreeter = '/duo_greeter';
@@ -26,37 +29,35 @@ mixin SessionConstants {
   static const relativePaywall = '/paywall';
   static const relativeWaitingPatron = '/waiting_patron';
 
-  static const lobby = '/session/core$relativeLobby';
-  static const duoGreeter = '/session/core$relativeDuoGreeter';
-  static const groupGreeter = '/session/core$relativeGroupGreeter';
-  static const trialGreeter = '/session/core$relativeTrialGreeter';
-  static const exit = '/session/core$relativeExit';
+  static const lobby = '$module/core$relativeLobby';
+  static const duoGreeter = '$module/core$relativeDuoGreeter';
+  static const groupGreeter = '$module/core$relativeGroupGreeter';
+  static const trialGreeter = '$module/core$relativeTrialGreeter';
+  static const exit = '$module/core$relativeExit';
 
-  static const hybridRouter = '/session/hybrid$relativeRoot';
+  static const hybridRouter = '$module/hybrid$relativeRoot';
   static const relativeHybrid = '/hybrid';
-  static const hybrid = '/session/hybrid$relativeHybrid';
+  static const hybrid = '$module/hybrid$relativeHybrid';
   static const hybridSpeakingInstructions =
-      '/session/hybrid$relativeSpeakingInstructions';
-  static const hybridWaiting = '/session/hybrid$relativeWaiting';
+      '$module/hybrid$relativeSpeakingInstructions';
+  static const hybridWaiting = '$module/hybrid$relativeWaiting';
   static const hybridNotesInstructions =
-      '/session/hybrid$relativeNotesInstructions';
-  static const hybridNotes = '/session/hybrid$relativeNotes';
+      '$module/hybrid$relativeNotesInstructions';
+  static const hybridNotes = '$module/hybrid$relativeNotes';
 
-  static const paywall = '/session/monetize$relativePaywall';
-  static const waitingPatron = '/session/monetize$relativeWaitingPatron';
+  static const paywall = '$module/monetize$relativePaywall';
+  static const waitingPatron = '$module/monetize$relativeWaitingPatron';
 
-  static const notesWaiting = '/session/notes$relativeWaiting';
-  static const notesFullInstructions =
-      '/session/notes$relativeFullInstructions';
-  static const notesHalfInstructions =
-      '/session/notes$relativeHalfInstructions';
-  static const notes = '/session/notes$relativeRoot';
+  static const notesWaiting = '$module/notes$relativeWaiting';
+  static const notesFullInstructions = '$module/notes$relativeFullInstructions';
+  static const notesHalfInstructions = '$module/notes$relativeHalfInstructions';
+  static const notes = '$module/notes$relativeRoot';
 
-  static const speakingRouter = '/session/speaking$relativeRoot';
-  static const speaking = '/session/speaking$relativeSpeaking';
+  static const speakingRouter = '$module/speaking$relativeRoot';
+  static const speaking = '$module/speaking$relativeSpeaking';
   static const speakingFullInstructions =
-      '/session/speaking$relativeFullInstructions';
+      '$module/speaking$relativeFullInstructions';
   static const speakingHalfInstructions =
-      '/session/speaking$relativeHalfInstructions';
-  static const speakingWaiting = '/session/speaking$relativeWaiting';
+      '$module/speaking$relativeHalfInstructions';
+  static const speakingWaiting = '$module/speaking$relativeWaiting';
 }
