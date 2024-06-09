@@ -233,3 +233,6 @@ alter table "public"."st_active_nokhte_sessions" drop column "have_gyroscopes";
 INSERT INTO public.unified_presets (uid, is_company_preset, company_preset_id)
 SELECT uid, TRUE, uid
 FROM public.company_presets;
+
+UPDATE public.user_information
+SET has_accessed_qr_code = false;
