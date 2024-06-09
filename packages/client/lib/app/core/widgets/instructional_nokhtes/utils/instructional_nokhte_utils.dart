@@ -79,6 +79,13 @@ class InstructionalNokhteUtils {
           ColorAndStop(Color(0xFF6BE9BB), 1),
           ColorAndStop(Color(0xFF6BE9BB), 1),
         ];
+      case GradientNokhteColorways.deeperBlue:
+        temp = const [
+          ColorAndStop(Color(0xFF40F3F3), 0),
+          ColorAndStop(Color(0xFF40F3F3), 0),
+          ColorAndStop(Color(0xFF4072F3), 1),
+          ColorAndStop(Color(0xFF4072F3), 1),
+        ];
     }
     return temp;
   }
