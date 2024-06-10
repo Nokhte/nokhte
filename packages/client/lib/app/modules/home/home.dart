@@ -24,7 +24,6 @@ class HomeModule extends Module {
         HomeWidgetsModule(),
         SessionStartersLogicModule(),
         CleanUpCollaborationArtifactsModule(),
-        UserInformationModule(),
         DeepLinksModule(),
         LegacyConnectivityModule(),
         PosthogModule(),
@@ -46,7 +45,6 @@ class HomeModule extends Module {
     );
     i.add<CompassAndQrGuideCoordinator>(
       () => CompassAndQrGuideCoordinator(
-        userInformation: Modular.get<UserInformationCoordinator>(),
         tap: TapDetector(),
         sessionStarters: Modular.get<SessionStartersLogicCoordinator>(),
         captureScreen: Modular.get<CaptureScreen>(),
@@ -57,7 +55,6 @@ class HomeModule extends Module {
     );
     i.add<QrNavigationReminderCoordinator>(
       () => QrNavigationReminderCoordinator(
-        userInformation: Modular.get<UserInformationCoordinator>(),
         tap: TapDetector(),
         captureScreen: Modular.get<CaptureScreen>(),
         sessionStarters: Modular.get<SessionStartersLogicCoordinator>(),
@@ -76,7 +73,6 @@ class HomeModule extends Module {
         swipe: SwipeDetector(),
         widgets: Modular.get<StorageGuideWidgetsCoordinator>(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
-        userInformation: Modular.get<UserInformationCoordinator>(),
       ),
     );
     i.add<CompassAndStorageGuideCoordinator>(
@@ -89,12 +85,10 @@ class HomeModule extends Module {
         swipe: SwipeDetector(),
         widgets: Modular.get<CompassAndStorageGuideWidgetsCoordinator>(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
-        userInformation: Modular.get<UserInformationCoordinator>(),
       ),
     );
     i.add<ShortQrGuideCoordinator>(
       () => ShortQrGuideCoordinator(
-        userInformation: Modular.get<UserInformationCoordinator>(),
         getNokhteSessionArtifactsLogic:
             Modular.get<GetNokhteSessionArtifacts>(),
         tap: TapDetector(),
@@ -107,7 +101,6 @@ class HomeModule extends Module {
     );
     i.add<QrAndStorageAdeptCoordinator>(
       () => QrAndStorageAdeptCoordinator(
-        userInformation: Modular.get<UserInformationCoordinator>(),
         tap: TapDetector(),
         getNokhteSessionArtifactsLogic:
             Modular.get<GetNokhteSessionArtifacts>(),
