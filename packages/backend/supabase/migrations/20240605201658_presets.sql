@@ -8,35 +8,42 @@ alter table "public"."st_active_nokhte_sessions" drop constraint "st_active_nokh
 
 drop index if exists "public"."st_active_nokhte_sessions_duplicate_pkey";
 
+create type "public"."session_presets_tags" as enum ('strict_seating', 'flexible_seating', 'hold_to_speak', 'tap_to_speak', 'notes_during', 'notes_after');
+
 create table "public"."company_presets" (
     "uid" uuid not null default gen_random_uuid(),
     "name" text not null,
-    "even_configuration" session_phone_types[],
-    "odd_configuration" session_phone_types[]
+    "even_configuration" session_phone_types[] not null,
+    "odd_configuration" session_phone_types[] not null,
+    "tags" session_presets_tags[] not null
 );
 
 
 alter table "public"."company_presets" enable row level security;
 
-  INSERT INTO public.company_presets (uid, name, even_configuration, odd_configuration)
+
+  INSERT INTO public.company_presets (uid, name, even_configuration, odd_configuration, tags)
 VALUES 
   (
     gen_random_uuid(), 
     'Socratic' ,       
     '{speaking}',
-    '{speaking}'
+    '{speaking}',
+    '{hold_to_speak, strict_seating, notes_after}'
   ),
   (
     gen_random_uuid(),
     'Consultative' ,
     '{speaking, notes}',
-    '{group_hybrid, speaking, notes}'
+    '{group_hybrid, speaking, notes}',
+    '{hold_to_speak, strict_seating, notes_during}'
   ),
   (
     gen_random_uuid(), 
     'Collaborative' ,
     '{solo_hybrid}',
-    '{solo_hybrid}'
+    '{solo_hybrid}',
+    '{tap_to_speak, flexible_seating, notes_during}'
   );
 
 
