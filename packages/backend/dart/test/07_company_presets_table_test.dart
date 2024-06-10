@@ -17,10 +17,12 @@ void main() {
 
   test("select: PresetTypes.consultative", () async {
     final res = await user1Queries.select(type: PresetTypes.consultative);
-    expect(res.first[CompanyPresetsQueries.TALKING_RATIO], 1);
-    expect(res.first[CompanyPresetsQueries.GROUP_HYBRID_RATIO], .5);
-    expect(res.first[CompanyPresetsQueries.SOLO_HYBRID_RATIO], 0);
-    expect(res.first[CompanyPresetsQueries.NOTES_RATIO], 1);
+    expect(res.first[CompanyPresetsQueries.EVEN_CONFIGURATION],
+        ['speaking', 'notes']);
+    expect(res.first[CompanyPresetsQueries.ODD_CONFIGURATION],
+        ['group_hybrid', 'speaking', 'notes']);
+    expect(res.first[CompanyPresetsQueries.TAGS],
+        ['hold_to_speak', 'strict_seating', 'notes_during']);
     expect(
       res.first[CompanyPresetsQueries.NAME],
       CompanyPresetsQueries.mapTypeToPresetType(PresetTypes.consultative),
@@ -35,10 +37,11 @@ void main() {
 
   test("select: PresetTypes.collaborative", () async {
     final res = await user1Queries.select(type: PresetTypes.collaborative);
-    expect(res.first[CompanyPresetsQueries.TALKING_RATIO], 0);
-    expect(res.first[CompanyPresetsQueries.GROUP_HYBRID_RATIO], 0);
-    expect(res.first[CompanyPresetsQueries.SOLO_HYBRID_RATIO], 1);
-    expect(res.first[CompanyPresetsQueries.NOTES_RATIO], 0);
+    expect(
+        res.first[CompanyPresetsQueries.EVEN_CONFIGURATION], ['solo_hybrid']);
+    expect(res.first[CompanyPresetsQueries.ODD_CONFIGURATION], ['solo_hybrid']);
+    expect(res.first[CompanyPresetsQueries.TAGS],
+        ['tap_to_speak', 'flexible_seating', 'notes_during']);
     expect(
       res.first[CompanyPresetsQueries.NAME],
       CompanyPresetsQueries.mapTypeToPresetType(PresetTypes.collaborative),
@@ -53,10 +56,10 @@ void main() {
 
   test("select: PresetTypes.socratic", () async {
     final res = await user1Queries.select(type: PresetTypes.socratic);
-    expect(res.first[CompanyPresetsQueries.TALKING_RATIO], 1);
-    expect(res.first[CompanyPresetsQueries.GROUP_HYBRID_RATIO], 0);
-    expect(res.first[CompanyPresetsQueries.SOLO_HYBRID_RATIO], 0);
-    expect(res.first[CompanyPresetsQueries.NOTES_RATIO], 0);
+    expect(res.first[CompanyPresetsQueries.EVEN_CONFIGURATION], ['speaking']);
+    expect(res.first[CompanyPresetsQueries.ODD_CONFIGURATION], ['speaking']);
+    expect(res.first[CompanyPresetsQueries.TAGS],
+        ['hold_to_speak', 'strict_seating', 'notes_after']);
     expect(
       res.first[CompanyPresetsQueries.NAME],
       CompanyPresetsQueries.mapTypeToPresetType(PresetTypes.socratic),

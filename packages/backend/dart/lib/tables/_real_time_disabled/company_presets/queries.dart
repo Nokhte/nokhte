@@ -6,10 +6,9 @@ import 'preset_types.dart';
 class CompanyPresetsQueries {
   static const TABLE = 'company_presets';
   static const UID = 'uid';
-  static const TALKING_RATIO = 'talking_ratio';
-  static const NOTES_RATIO = 'notes_ratio';
-  static const GROUP_HYBRID_RATIO = 'group_hybrid_ratio';
-  static const SOLO_HYBRID_RATIO = 'solo_hybrid_ratio';
+  static const EVEN_CONFIGURATION = 'even_configuration';
+  static const ODD_CONFIGURATION = 'odd_configuration';
+  static const TAGS = 'tags';
   static const NAME = 'name';
   static const UNIFIED_PRESETS = 'unified_presets';
 
@@ -24,11 +23,11 @@ class CompanyPresetsQueries {
   }) async {
     final name = mapTypeToPresetType(type);
     if (name.isEmpty) {
-      return await supabase.from(TABLE).select('*, unified_presets(*)');
+      return await supabase.from(TABLE).select('*, $UNIFIED_PRESETS(*)');
     } else {
       return await supabase
           .from(TABLE)
-          .select('*, unified_presets(uid)')
+          .select('*, $UNIFIED_PRESETS($UID)')
           .eq(NAME, name);
     }
   }
