@@ -28,7 +28,6 @@ class SessionPaywallScreen extends HookWidget {
               onResumed: () => coordinator.onResumed(),
               onInactive: () => coordinator.onInactive(),
             ));
-    final size = useSquareSize(relativeLength: .20);
     return Observer(builder: (context) {
       return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -70,7 +69,6 @@ class SessionPaywallScreen extends HookWidget {
                 ),
                 GestureCross(
                   store: coordinator.widgets.gestureCross,
-                  size: size,
                   config: GestureCrossConfiguration(),
                 ),
                 WifiDisconnectOverlay(

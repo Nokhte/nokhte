@@ -19,7 +19,6 @@ class StorageContentScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = useSquareSize(relativeLength: .20);
     final center = useCenterOffset();
     final height = useFullScreenSize().height;
     useEffect(() {
@@ -74,7 +73,6 @@ class StorageContentScreen extends HookWidget {
                       ),
                     ),
                   ),
-                  size: size,
                   store: coordinator.widgets.gestureCross,
                 ),
                 CenterInstructionalNokhte(

@@ -18,7 +18,6 @@ class SessionExitScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final height = useFullScreenSize().height;
-    final size = useSquareSize(relativeLength: .20);
     useEffect(() {
       coordinator.constructor();
       return () => coordinator.deconstructor();
@@ -46,7 +45,6 @@ class SessionExitScreen extends HookWidget {
               ),
               GestureCross(
                 config: GestureCrossConfiguration(),
-                size: size,
                 store: coordinator.widgets.gestureCross,
               ),
               SessionExitStatusIndicator(

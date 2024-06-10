@@ -18,7 +18,6 @@ abstract class _QrNavigationReminderCoordinatorBase
     required super.deepLinks,
     required super.captureScreen,
     required super.tap,
-    required super.userInformation,
   }) : super(widgets: widgets);
 
   @override
@@ -27,7 +26,6 @@ abstract class _QrNavigationReminderCoordinatorBase
     widgets.constructor(offset);
     initReactors();
     await captureScreen(HomeConstants.qrNavigationReminder);
-    await super.constructor(offset);
   }
 
   @override

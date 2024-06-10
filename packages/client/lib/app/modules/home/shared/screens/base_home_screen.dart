@@ -20,7 +20,6 @@ class BaseHomeScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = useSquareSize(relativeLength: .20);
     final height = useFullScreenSize().height;
     final center = useCenterOffset();
     useEffect(() {
@@ -84,7 +83,6 @@ class BaseHomeScreen extends HookWidget {
                 GestureCross(
                   showGlowAndOutline: true,
                   config: gestureCrossConfig,
-                  size: size,
                   store: coordinator.widgets.gestureCross,
                 ),
                 instructionalNokhtes,
