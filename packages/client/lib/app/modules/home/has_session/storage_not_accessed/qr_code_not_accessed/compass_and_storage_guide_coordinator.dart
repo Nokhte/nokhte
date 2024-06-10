@@ -23,7 +23,6 @@ abstract class _CompassAndStorageGuideCoordinatorBase
     required this.getNokhteSessionArtifactsLogic,
     required super.captureScreen,
     required super.tap,
-    required super.userInformation,
   }) : super(widgets: widgets);
 
   @observable
@@ -37,7 +36,6 @@ abstract class _CompassAndStorageGuideCoordinatorBase
     initReactors();
     await captureScreen(HomeConstants.compassAndStorageGuide);
     await getNokhteSessionArtifacts();
-    await super.constructor(offset);
   }
 
   @override

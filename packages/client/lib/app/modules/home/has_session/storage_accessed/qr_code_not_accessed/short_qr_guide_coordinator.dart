@@ -23,7 +23,6 @@ abstract class _ShortQrGuideCoordinatorBase extends BaseHomeScreenCoordinator
     required this.getNokhteSessionArtifactsLogic,
     required super.captureScreen,
     required super.tap,
-    required super.userInformation,
   }) : super(widgets: widgets);
 
   @observable
@@ -37,7 +36,6 @@ abstract class _ShortQrGuideCoordinatorBase extends BaseHomeScreenCoordinator
     initReactors();
     await captureScreen(HomeConstants.shortQrGuide);
     await getNokhteSessionArtifacts();
-    await super.constructor(offset);
   }
 
   @override

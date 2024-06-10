@@ -22,7 +22,6 @@ abstract class _StorageGuideCoordinatorBase extends BaseHomeScreenCoordinator
     required this.getNokhteSessionArtifactsLogic,
     required super.captureScreen,
     required super.tap,
-    required super.userInformation,
   }) : super(widgets: widgets);
 
   @observable
@@ -36,7 +35,6 @@ abstract class _StorageGuideCoordinatorBase extends BaseHomeScreenCoordinator
     initReactors();
     await captureScreen(HomeConstants.storageGuide);
     await getNokhteSessionArtifacts();
-    await super.constructor(offset);
   }
 
   @override

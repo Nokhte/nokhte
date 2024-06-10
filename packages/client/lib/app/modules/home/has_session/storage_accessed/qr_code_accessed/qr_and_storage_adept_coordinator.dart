@@ -23,7 +23,6 @@ abstract class _QrAndStorageAdeptCoordinatorBase
     required this.getNokhteSessionArtifactsLogic,
     required super.captureScreen,
     required super.tap,
-    required super.userInformation,
   }) : super(widgets: widgets);
 
   @observable
@@ -37,7 +36,6 @@ abstract class _QrAndStorageAdeptCoordinatorBase
     initReactors();
     await captureScreen(HomeConstants.qrAndStorageAdept);
     await getNokhteSessionArtifacts();
-    await super.constructor(offset);
   }
 
   @override

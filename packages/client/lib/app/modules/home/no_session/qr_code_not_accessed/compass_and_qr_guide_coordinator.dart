@@ -17,7 +17,6 @@ abstract class _CompassAndQrGuideCoordinatorBase
     required super.deepLinks,
     required super.captureScreen,
     required super.tap,
-    required super.userInformation,
   }) : super(widgets: widgets);
 
   @override
@@ -26,7 +25,6 @@ abstract class _CompassAndQrGuideCoordinatorBase
     widgets.constructor(center);
     initReactors();
     await captureScreen(HomeConstants.compassAndQrGuide);
-    await super.constructor(center);
   }
 
   @override
@@ -63,11 +61,7 @@ abstract class _CompassAndQrGuideCoordinatorBase
           });
         }
         ifTouchIsNotDisabled(() {
-          widgets.onTap(
-            tap.currentTapPosition,
-            onFlowCompleted: () async =>
-                await userInformation.updateHasAccessedQrCode(true),
-          );
+          widgets.onTap(tap.currentTapPosition);
         });
       });
 }
