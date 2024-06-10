@@ -2,33 +2,29 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/interfaces/logic.dart';
-import 'package:nokhte/app/core/modules/user_information/user_information.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
-import 'package:nokhte/app/modules/home/home.dart';
 part 'session_starter_instructions_coordinator.g.dart';
 
 class SessionStarterInstructionsCoordinator = _SessionStarterInstructionsCoordinatorBase
     with _$SessionStarterInstructionsCoordinator;
 
 abstract class _SessionStarterInstructionsCoordinatorBase
-    extends BaseHomeScreenRouterCoordinator with Store {
+    extends BaseCoordinator with Store {
   final SessionStarterInstructionsWidgetsCoordinator widgets;
-  final UserInformationCoordinator userInformation;
   final SwipeDetector swipe;
   final TapDetector tap;
   final SessionStartersLogicCoordinator logic;
 
   _SessionStarterInstructionsCoordinatorBase({
     required this.widgets,
-    required this.userInformation,
     required this.tap,
     required this.swipe,
     required this.logic,
     required super.captureScreen,
-  }) : super(getUserInfo: userInformation.getUserInfoStore);
+  });
 
   @observable
   ObservableMap additionalRoutingData = ObservableMap.of({});
@@ -48,7 +44,6 @@ abstract class _SessionStarterInstructionsCoordinatorBase
     widgets.constructor(center);
     widgets.initReactors();
     initReactors();
-    await userInformation.getUserInfoStore(NoParams());
     await captureScreen(SessionStarterConstants.sessionStarterInstructions);
   }
 
@@ -62,8 +57,6 @@ abstract class _SessionStarterInstructionsCoordinatorBase
   initReactors() {
     disposers.add(swipeCoordinatesReactor());
     disposers.add(swipeReactor());
-    disposers.add(
-        widgets.secondaryBeachWavesMovieStatusReactor(onAnimationComplete));
     disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {

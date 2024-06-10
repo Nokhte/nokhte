@@ -7,6 +7,7 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'session_starter_widgets_coordinator.g.dart';
 
@@ -15,8 +16,7 @@ class SessionStarterWidgetsCoordinator = _SessionStarterWidgetsCoordinatorBase
 
 abstract class _SessionStarterWidgetsCoordinatorBase
     extends BaseWidgetsCoordinator with Store {
-  final BeachWavesStore primaryBeachWaves;
-  final BeachWavesStore secondaryBeachWaves;
+  final BeachWavesStore beachWaves;
   final SmartTextStore smartText;
   final GestureCrossStore gestureCross;
   final TouchRippleStore touchRipple;
@@ -26,9 +26,8 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   final NokhteQrCodeStore qrCode;
 
   _SessionStarterWidgetsCoordinatorBase({
-    required this.primaryBeachWaves,
+    required this.beachWaves,
     required this.touchRipple,
-    required this.secondaryBeachWaves,
     required this.gestureCross,
     required this.smartText,
     required super.wifiDisconnectOverlay,
@@ -77,17 +76,20 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   constructor(Offset centerParam) {
     center = centerParam;
     qrCode.setWidgetVisibility(false);
-    secondaryBeachWaves.setMovieMode(BeachWaveMovieModes.onShoreToOceanDive);
     gestureCross.setCollaborationHomeScreen();
     smartText.setMessagesData(SessionStartersList.hasDoneInstructions);
-    primaryBeachWaves.setMovieMode(BeachWaveMovieModes.anyToOnShore);
-    primaryBeachWaves.currentStore.initMovie(
-      const AnyToOnShoreParams(
-        startingColors: WaterColorsAndStops.oceanDiveWater,
-        endingColors: WaterColorsAndStops.invertedBeachWater,
-      ),
-    );
+    beachWaves.setMovieMode(BeachWaveMovieModes.invertedOnShore);
+    beachWaves.currentStore.setControl(Control.playFromStart);
+    smartText.startRotatingText();
+    disposers.add(centerCrossNokhteReactor());
+    disposers.add(gestureCrossTapReactor());
     initReactors();
+  }
+
+  @action
+  onQrCodeReceived(String qrCodeData) {
+    qrCode.setQrCodeData(qrCodeData);
+    qrCode.setWidgetVisibility(true);
   }
 
   @action
@@ -109,10 +111,10 @@ abstract class _SessionStarterWidgetsCoordinatorBase
           centerInstructionalNokhte.setWidgetVisibility(false);
           gestureCross.fadeIn();
           gestureCross.initMoveAndRegenerate(CircleOffsets.bottom);
-          primaryBeachWaves.setMovieMode(
+          beachWaves.setMovieMode(
               BeachWaveMovieModes.invertedOnShoreToInvertedOceanDive);
-          primaryBeachWaves.currentStore
-              .initMovie(primaryBeachWaves.currentAnimationValues.first);
+          beachWaves.currentStore
+              .initMovie(beachWaves.currentAnimationValues.first);
           qrCode.setWidgetVisibility(false);
           await onLeaving();
         }
@@ -123,7 +125,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   @action
   onSwipeCoordinatesChanged(Offset offset) {
     if (!shouldDisableTouchRipple) {
-      if ((primaryBeachWaves.movieStatus != MovieStatus.finished) ||
+      if ((beachWaves.movieStatus != MovieStatus.finished) ||
           smartText.currentIndex == 1) {
         touchRipple.onSwipe(offset);
       }
@@ -131,7 +133,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
   }
 
   initReactors() {
-    disposers.add(primaryBeachWavesMovieStatusReactor());
+    disposers.add(beachWavesMovieStatusReactor());
     disposers.add(centerInstructionalNokhteReactor());
   }
 
@@ -145,7 +147,6 @@ abstract class _SessionStarterWidgetsCoordinatorBase
           setSmartTextTopPaddingScalar(.27);
           setSmartTextBottomPaddingScalar(0);
           setSmartTextSubMessagePaddingScalar(110);
-          // smartText.reset();
           smartText.startRotatingText();
           qrCode.setWidgetVisibility(true);
           hasSwipedDown = false;
@@ -161,25 +162,23 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         }
       });
 
-  primaryBeachWavesMovieStatusReactor() =>
-      reaction((p0) => primaryBeachWaves.movieStatus, (p0) {
+  beachWavesMovieStatusReactor() =>
+      reaction((p0) => beachWaves.movieStatus, (p0) {
         if (p0 == MovieStatus.finished) {
-          if (primaryBeachWaves.movieMode == BeachWaveMovieModes.anyToOnShore) {
-            primaryBeachWaves.setMovieMode(BeachWaveMovieModes.invertedOnShore);
-            primaryBeachWaves.currentStore.setControl(Control.playFromStart);
+          if (beachWaves.movieMode == BeachWaveMovieModes.anyToOnShore) {
+            beachWaves.setMovieMode(BeachWaveMovieModes.invertedOnShore);
+            beachWaves.currentStore.setControl(Control.playFromStart);
             qrCode.setWidgetVisibility(true);
             smartText.startRotatingText();
-            centerCrossNokhteReactor();
-            gestureCrossTapReactor();
-          } else if (primaryBeachWaves.movieMode ==
+            disposers.add(centerCrossNokhteReactor());
+            disposers.add(gestureCrossTapReactor());
+          } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.invertedOnShore) {
-            primaryBeachWaves.currentStore.setControl(Control.mirror);
-          } else if (primaryBeachWaves.movieMode ==
+            beachWaves.currentStore.setControl(Control.mirror);
+          } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.invertedOnShoreToInvertedOceanDive) {
-            setShowSecondaryBeachWaves(true);
-            secondaryBeachWaves.currentStore.callsOnCompleteTwice = false;
-            secondaryBeachWaves.currentStore.reverseMovie(0);
-          } else if (primaryBeachWaves.movieMode ==
+            Modular.to.navigate(SessionStarterConstants.sessionStarterExit);
+          } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.invertedOnShoreToInvertedDeepSea) {
             Modular.to.navigate("/session/core/lobby", arguments: {
               "qrCodeData": qrCode.qrCodeData,
@@ -193,22 +192,14 @@ abstract class _SessionStarterWidgetsCoordinatorBase
     isEnteringNokhteSession = true;
     shouldDisableTouchRipple = true;
     hasSwipedDown = true;
-    primaryBeachWaves
+    beachWaves
         .setMovieMode(BeachWaveMovieModes.invertedOnShoreToInvertedDeepSea);
-    primaryBeachWaves.currentStore
-        .initMovie(primaryBeachWaves.currentAnimationValues.first);
+    beachWaves.currentStore.initMovie(beachWaves.currentAnimationValues.first);
     smartText.setWidgetVisibility(false);
     gestureCross.fadeAllOut();
     centerInstructionalNokhte.setWidgetVisibility(false);
     instructionalGradientNokhte.setWidgetVisibility(false);
   }
-
-  secondaryBeachWavesMovieStatusReactor(Function onNavigationHome) =>
-      reaction((p0) => secondaryBeachWaves.movieStatus, (p0) {
-        if (p0 == MovieStatus.finished) {
-          onNavigationHome();
-        }
-      });
 
   gestureCrossTapReactor() => reaction(
         (p0) => gestureCross.tapCount,
@@ -233,7 +224,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
       ),
     );
     nokhteBlur.reverse();
-    primaryBeachWaves.currentStore.setControl(Control.mirror);
+    beachWaves.currentStore.setControl(Control.mirror);
     hasInitiatedBlur = false;
     smartText.reset();
     smartText.startRotatingText();
@@ -247,7 +238,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         setTouchIsDisabled(true);
         hasSwipedDown = false;
         nokhteBlur.init();
-        primaryBeachWaves.currentStore.setControl(Control.stop);
+        beachWaves.currentStore.setControl(Control.stop);
         qrCode.setWidgetVisibility(false);
 
         hasInitiatedBlur = true;
@@ -277,7 +268,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         touchRipple.onTap(offset);
         nokhteBlur.reverse();
         setTouchIsDisabled(true);
-        primaryBeachWaves.currentStore.setControl(Control.mirror);
+        beachWaves.currentStore.setControl(Control.mirror);
         hasInitiatedBlur = false;
         smartText.startRotatingText(isResuming: true);
 
@@ -315,7 +306,7 @@ abstract class _SessionStarterWidgetsCoordinatorBase
         ),
       );
       nokhteBlur.reverse();
-      primaryBeachWaves.currentStore.setControl(Control.mirror);
+      beachWaves.currentStore.setControl(Control.mirror);
       hasInitiatedBlur = false;
       smartText.reset();
       smartText.startRotatingText();

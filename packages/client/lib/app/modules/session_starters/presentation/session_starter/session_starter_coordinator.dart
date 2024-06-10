@@ -2,22 +2,19 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:mobx/mobx.dart';
-import 'package:nokhte/app/core/interfaces/logic.dart';
 import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
-import 'package:nokhte/app/core/modules/user_information/user_information.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
-import 'package:nokhte/app/modules/home/home.dart';
+import 'package:nokhte/app/core/mobx/mobx.dart';
 part 'session_starter_coordinator.g.dart';
 
 class SessionStarterCoordinator = _SessionStarterCoordinatorBase
     with _$SessionStarterCoordinator;
 
-abstract class _SessionStarterCoordinatorBase
-    extends BaseHomeScreenRouterCoordinator with Store {
+abstract class _SessionStarterCoordinatorBase extends BaseCoordinator
+    with Store {
   final SessionStarterWidgetsCoordinator widgets;
-  final UserInformationCoordinator userInformation;
   final SwipeDetector swipe;
   final TapDetector tap;
   final DeepLinksCoordinator deepLinks;
@@ -26,12 +23,11 @@ abstract class _SessionStarterCoordinatorBase
   _SessionStarterCoordinatorBase({
     required this.widgets,
     required this.deepLinks,
-    required this.userInformation,
     required this.tap,
     required this.swipe,
     required this.logic,
     required super.captureScreen,
-  }) : super(getUserInfo: userInformation.getUserInfoStore);
+  });
 
   @observable
   bool isNavigatingAway = false;
@@ -45,7 +41,6 @@ abstract class _SessionStarterCoordinatorBase
     widgets.initReactors();
     initReactors();
     await deepLinks.getDeepLink(DeepLinkTypes.nokhteSessionLeader);
-    await userInformation.getUserInfoStore(NoParams());
     await logic.initialize();
     await captureScreen(SessionStarterConstants.sessionStarter);
     logic.listenToSessionActivation();
@@ -53,7 +48,7 @@ abstract class _SessionStarterCoordinatorBase
 
   deepLinkReactor() => reaction((p0) => deepLinks.link, (p0) {
         if (p0.isNotEmpty) {
-          widgets.qrCode.setQrCodeData(p0);
+          widgets.onQrCodeReceived(p0);
         }
       });
 
@@ -68,8 +63,6 @@ abstract class _SessionStarterCoordinatorBase
     disposers.add(deepLinkReactor());
     disposers.add(swipeCoordinatesReactor());
     disposers.add(swipeReactor());
-    disposers.add(
-        widgets.secondaryBeachWavesMovieStatusReactor(onAnimationComplete));
     disposers.addAll(widgets.wifiDisconnectOverlay.initReactors(
       onQuickConnected: () => setDisableAllTouchFeedback(false),
       onLongReConnected: () {

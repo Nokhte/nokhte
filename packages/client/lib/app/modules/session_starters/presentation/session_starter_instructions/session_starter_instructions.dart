@@ -18,7 +18,6 @@ class SessionStarterInstructionsScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = useSquareSize(relativeLength: .20);
     final height = useFullScreenSize().height;
     final center = useCenterOffset();
     useEffect(() {
@@ -40,17 +39,7 @@ class SessionStarterInstructionsScreen extends HookWidget {
                   child: FullScreen(
                     child: BeachWaves(
                       sandType: SandTypes.collaboration,
-                      store: coordinator.widgets.primaryBeachWaves,
-                    ),
-                  ),
-                ),
-                Opacity(
-                  opacity: useWidgetOpacity(
-                      coordinator.widgets.showSecondaryBeachWaves),
-                  child: FullScreen(
-                    child: BeachWaves(
-                      sandType: SandTypes.home,
-                      store: coordinator.widgets.secondaryBeachWaves,
+                      store: coordinator.widgets.beachWaves,
                     ),
                   ),
                 ),
@@ -77,19 +66,14 @@ class SessionStarterInstructionsScreen extends HookWidget {
                   ),
                 ),
                 GestureCross(
+                  showGlowAndOutline: true,
                   config: GestureCrossConfiguration(
                     bottom: Right(
                       NokhteGradientConfig(
                         gradientType: NokhteGradientTypes.home,
                       ),
                     ),
-                    // left: Right(
-                    //   NokhteGradientConfig(
-                    //     gradientType: NokhteGradientTypes.presets,
-                    //   ),
-                    // ),
                   ),
-                  size: size,
                   store: coordinator.widgets.gestureCross,
                 ),
                 CenterInstructionalNokhte(
