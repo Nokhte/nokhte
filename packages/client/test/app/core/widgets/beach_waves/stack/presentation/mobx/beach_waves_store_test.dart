@@ -75,11 +75,6 @@ void main() {
             .movieModeToStoreLookup[BeachWaveMovieModes.staticOceanDive];
         expect(res?.movie.duration, Seconds.get(1));
       });
-      test("suspendedAtTheDepths key", () {
-        final res =
-            testStore.movieModeToStoreLookup[BeachWaveMovieModes.staticDepths];
-        expect(res?.movie.duration, Seconds.get(1));
-      });
     });
 
     group("computed values", () {
