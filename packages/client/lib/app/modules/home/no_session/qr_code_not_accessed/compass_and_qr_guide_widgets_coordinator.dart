@@ -85,10 +85,7 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
   }
 
   @action
-  onTap(
-    Offset offset, {
-    required Function onFlowCompleted,
-  }) async {
+  onTap(Offset offset) async {
     if (!isDisconnected && !touchIsDisabled) {
       if (primarySmartText.currentIndex == 1) {
         setTouchIsDisabled(true);
@@ -125,7 +122,6 @@ abstract class _CompassAndQrGuideWidgetsCoordinatorBase
         beachWaves.currentStore.setControl(Control.mirror);
         nokhteBlur.reverse();
         touchRipple.onTap(offset);
-        await onFlowCompleted();
       }
     }
   }
