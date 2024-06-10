@@ -71,12 +71,7 @@ abstract class _BaseHomeScreenCoordinatorBase extends BaseCoordinator
   onShoreToOceanDiveComplete() {
     Timer.periodic(Seconds.get(0, milli: 100), (timer) {
       if (widgets.touchRipple.movieStatus == MovieStatus.finished) {
-        if (userInformation.getUserInfoStore.hasAccessedQrCode) {
-          Modular.to.navigate(SessionStarterConstants.sessionStarter);
-        } else {
-          Modular.to
-              .navigate(SessionStarterConstants.sessionStarterInstructions);
-        }
+        Modular.to.navigate(SessionStarterConstants.sessionStarterEntry);
         timer.cancel();
       }
     });
