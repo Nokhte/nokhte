@@ -10,6 +10,7 @@ export 'constants/constants.dart';
 export 'data/data.dart';
 export 'domain/domain.dart';
 export 'presentation/presentation.dart';
+export 'session_starters_widgets.dart';
 export 'session_starters_logic.dart';
 
 class SessionStartersModule extends Module {
@@ -22,22 +23,30 @@ class SessionStartersModule extends Module {
         PosthogModule(),
         WifiDisconnectOverlayModule(),
         GestureCrossModule(),
+        SessionStartersWidgetsModule(),
       ];
 
   @override
-  void binds(Injector i) {
-    i.add<SessionStarterWidgetsCoordinator>(
-      () => SessionStarterWidgetsCoordinator(
-        qrCode: NokhteQrCodeStore(),
-        nokhteBlur: NokhteBlurStore(),
-        touchRipple: TouchRippleStore(),
-        gestureCross: Modular.get<GestureCrossStore>(),
-        primaryBeachWaves: BeachWavesStore(),
-        secondaryBeachWaves: BeachWavesStore(),
-        smartText: SmartTextStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        instructionalGradientNokhte: InstructionalGradientNokhteStore(),
-        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
+  void binds(i) {
+    i.add<PresetsCoordinator>(
+      () => PresetsCoordinator(
+        captureScreen: Modular.get<CaptureScreen>(),
+        widgets: Modular.get<PresetsWidgetsCoordinator>(),
+      ),
+    );
+    i.add<PresetsInstructionsCoordinator>(
+      () => PresetsInstructionsCoordinator(
+        captureScreen: Modular.get<CaptureScreen>(),
+        widgets: Modular.get<PresetsInstructionsWidgetsCoordinator>(),
+      ),
+    );
+    i.add<SessionStarterInstructionsCoordinator>(
+      () => SessionStarterInstructionsCoordinator(
+        tap: TapDetector(),
+        captureScreen: Modular.get<CaptureScreen>(),
+        logic: Modular.get<SessionStartersLogicCoordinator>(),
+        swipe: SwipeDetector(),
+        widgets: Modular.get<SessionStarterInstructionsWidgetsCoordinator>(),
       ),
     );
     i.add<SessionStarterCoordinator>(
@@ -48,18 +57,66 @@ class SessionStartersModule extends Module {
         swipe: SwipeDetector(),
         deepLinks: Modular.get<DeepLinksCoordinator>(),
         widgets: Modular.get<SessionStarterWidgetsCoordinator>(),
-        userInformation: i<UserInformationCoordinator>(),
+      ),
+    );
+    i.add<SessionStarterEntryCoordinator>(
+      () => SessionStarterEntryCoordinator(
+        captureScreen: Modular.get<CaptureScreen>(),
+        widgets: Modular.get<SessionStarterEntryWidgetsCoordinator>(),
+        getUserInfo: Modular.get<GetUserInfoStore>(),
+      ),
+    );
+    i.add<SessionStarterExitCoordinator>(
+      () => SessionStarterExitCoordinator(
+        captureScreen: Modular.get<CaptureScreen>(),
+        widgets: Modular.get<SessionStarterExitWidgetsCoordinator>(),
+        getUserInfo: Modular.get<GetUserInfoStore>(),
       ),
     );
   }
 
   @override
-  void routes(RouteManager r) {
+  void routes(r) {
     r.child(
-      '/',
+      SessionStarterConstants.relativeSessionStarterEntry,
+      transition: TransitionType.noTransition,
+      child: (context) => SessionStarterEntryScreen(
+        coordinator: Modular.get<SessionStarterEntryCoordinator>(),
+      ),
+    );
+    r.child(
+      SessionStarterConstants.relativeSessionStarterExit,
+      transition: TransitionType.noTransition,
+      child: (context) => SessionStarterExitScreen(
+        coordinator: Modular.get<SessionStarterExitCoordinator>(),
+      ),
+    );
+    r.child(
+      SessionStarterConstants.relativeSessionStarter,
       transition: TransitionType.noTransition,
       child: (context) => SessionStarterScreen(
         coordinator: Modular.get<SessionStarterCoordinator>(),
+      ),
+    );
+    r.child(
+      SessionStarterConstants.relativeSessionStarterInstructions,
+      transition: TransitionType.noTransition,
+      child: (context) => SessionStarterInstructionsScreen(
+        coordinator: Modular.get<SessionStarterInstructionsCoordinator>(),
+      ),
+    );
+    r.child(
+      SessionStarterConstants.relativePresets,
+      transition: TransitionType.noTransition,
+      child: (context) => PresetsScreen(
+        coordinator: Modular.get<PresetsCoordinator>(),
+      ),
+    );
+    r.child(
+      SessionStarterConstants.relativePresetsInstructions,
+      transition: TransitionType.noTransition,
+      child: (context) => PresetsInstructionsScreen(
+        coordinator: Modular.get<PresetsInstructionsCoordinator>(),
       ),
     );
   }
