@@ -2,6 +2,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nokhte_backend/tables/_real_time_disabled/finished_nokhte_sessions/queries.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 import 'package:nokhte_backend/tables/rt_active_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/st_active_nokhte_sessions.dart';
 import 'package:nokhte_backend/tables/user_metadata.dart';
@@ -167,6 +168,12 @@ void main() {
       stream,
       emits(
         NokhteSessionMetadata(
+          leaderUID: tSetup.firstUserUID,
+          tags: [
+            SessionTags.holdToSpeak,
+            SessionTags.strictSeating,
+            SessionTags.notesDuring,
+          ],
           isWhitelisted: false,
           isAValidSession: true,
           shouldSkipInstructions: [false, false],

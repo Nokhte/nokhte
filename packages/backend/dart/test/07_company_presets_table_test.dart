@@ -15,14 +15,21 @@ void main() {
     user1Queries = CompanyPresetsQueries(supabase: tSetup.user1Supabase);
   });
 
+  const consultativeTags = ['hold_to_speak', 'strict_seating', 'notes_during'];
+  const collaborativeTags = [
+    'tap_to_speak',
+    'flexible_seating',
+    'notes_during'
+  ];
+  const socraticTags = ['hold_to_speak', 'strict_seating', 'notes_after'];
+
   test("select: PresetTypes.consultative", () async {
     final res = await user1Queries.select(type: PresetTypes.consultative);
     expect(res.first[CompanyPresetsQueries.EVEN_CONFIGURATION],
         ['speaking', 'notes']);
     expect(res.first[CompanyPresetsQueries.ODD_CONFIGURATION],
         ['group_hybrid', 'speaking', 'notes']);
-    expect(res.first[CompanyPresetsQueries.TAGS],
-        ['hold_to_speak', 'strict_seating', 'notes_during']);
+    expect(res.first[CompanyPresetsQueries.TAGS], consultativeTags);
     expect(
       res.first[CompanyPresetsQueries.NAME],
       CompanyPresetsQueries.mapTypeToPresetType(PresetTypes.consultative),
@@ -40,8 +47,7 @@ void main() {
     expect(
         res.first[CompanyPresetsQueries.EVEN_CONFIGURATION], ['solo_hybrid']);
     expect(res.first[CompanyPresetsQueries.ODD_CONFIGURATION], ['solo_hybrid']);
-    expect(res.first[CompanyPresetsQueries.TAGS],
-        ['tap_to_speak', 'flexible_seating', 'notes_during']);
+    expect(res.first[CompanyPresetsQueries.TAGS], collaborativeTags);
     expect(
       res.first[CompanyPresetsQueries.NAME],
       CompanyPresetsQueries.mapTypeToPresetType(PresetTypes.collaborative),
@@ -58,8 +64,7 @@ void main() {
     final res = await user1Queries.select(type: PresetTypes.socratic);
     expect(res.first[CompanyPresetsQueries.EVEN_CONFIGURATION], ['speaking']);
     expect(res.first[CompanyPresetsQueries.ODD_CONFIGURATION], ['speaking']);
-    expect(res.first[CompanyPresetsQueries.TAGS],
-        ['hold_to_speak', 'strict_seating', 'notes_after']);
+    expect(res.first[CompanyPresetsQueries.TAGS], socraticTags);
     expect(
       res.first[CompanyPresetsQueries.NAME],
       CompanyPresetsQueries.mapTypeToPresetType(PresetTypes.socratic),
@@ -70,5 +75,23 @@ void main() {
   test("getUnifiedUID: PresetTypes.socratic", () async {
     final res = await user1Queries.getUnifiedUID(PresetTypes.socratic);
     expect(res, isNotEmpty);
+  });
+
+  test("getTagsFromUnifiedUID: PresetTypes.socratic", () async {
+    final uid = await user1Queries.getUnifiedUID(PresetTypes.socratic);
+    final res = await user1Queries.getTagsFromUnifiedUID(uid);
+    expect(res, socraticTags);
+  });
+
+  test("getTagsFromUnifiedUID: PresetTypes.consultative", () async {
+    final uid = await user1Queries.getUnifiedUID(PresetTypes.consultative);
+    final res = await user1Queries.getTagsFromUnifiedUID(uid);
+    expect(res, consultativeTags);
+  });
+
+  test("getTagsFromUnifiedUID: PresetTypes.collaborative", () async {
+    final uid = await user1Queries.getUnifiedUID(PresetTypes.collaborative);
+    final res = await user1Queries.getTagsFromUnifiedUID(uid);
+    expect(res, collaborativeTags);
   });
 }

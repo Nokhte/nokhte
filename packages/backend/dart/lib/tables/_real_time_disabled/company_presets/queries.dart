@@ -2,6 +2,7 @@
 
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'preset_types.dart';
+import 'session_tags.dart';
 
 class CompanyPresetsQueries {
   static const TABLE = 'company_presets';
@@ -38,6 +39,39 @@ class CompanyPresetsQueries {
       return res.first[UNIFIED_PRESETS].first[UID];
     } else {
       return '';
+    }
+  }
+
+  Future<List<SessionTags>> getTagsFromUnifiedUID(String unifiedUID) async {
+    final res = await supabase
+        .from(UNIFIED_PRESETS)
+        .select('*, $TABLE($TAGS)')
+        .eq(UID, unifiedUID);
+    if (res.isNotEmpty) {
+      return mapTagsToEnum(res.first[TABLE][TAGS]);
+    } else {
+      return [];
+    }
+  }
+
+  static List<SessionTags> mapTagsToEnum(List tags) =>
+      tags.map((e) => mapTagToEnum(e)).toList();
+
+  static SessionTags mapTagToEnum(String tag) {
+    if (tag == 'strict_seating') {
+      return SessionTags.strictSeating;
+    } else if (tag == 'flexible_seating') {
+      return SessionTags.flexibleSeating;
+    } else if (tag == 'tap_to_speak') {
+      return SessionTags.tapToSpeak;
+    } else if (tag == 'hold_to_speak') {
+      return SessionTags.holdToSpeak;
+    } else if (tag == 'notes_during') {
+      return SessionTags.notesDuring;
+    } else if (tag == 'notes_after') {
+      return SessionTags.notesAfter;
+    } else {
+      return SessionTags.none;
     }
   }
 

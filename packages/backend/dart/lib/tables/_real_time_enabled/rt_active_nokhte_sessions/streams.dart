@@ -2,6 +2,7 @@
 import 'constants.dart';
 import 'types/types.dart';
 import 'queries.dart';
+import 'package:nokhte_backend/tables/company_presets.dart';
 
 class RTActiveNokhteSessionsStream extends RTActiveNokhteSessionQueries
     with RTActiveNokhteSessionsConstants {
@@ -16,8 +17,12 @@ class RTActiveNokhteSessionsStream extends RTActiveNokhteSessionQueries
   bool everyoneHasGyroscopes = false;
   List shouldSkipInstructions = [];
   bool isWhitelisted = false;
+  String leaderUID = '';
+  List<SessionTags> tags = [];
 
-  RTActiveNokhteSessionsStream({required super.supabase});
+  final CompanyPresetsQueries presetsQueries;
+  RTActiveNokhteSessionsStream({required super.supabase})
+      : presetsQueries = CompanyPresetsQueries(supabase: supabase);
 
   static List<T> createLoopingList<T>(List<T> originalList, int startIndex) {
     List<T> loopingList = [];
@@ -73,6 +78,11 @@ class RTActiveNokhteSessionsStream extends RTActiveNokhteSessionQueries
             event.first[CURRENT_PHASES].length) {
           lastTrackedNumOfCollaborators = event.first[CURRENT_PHASES].length;
           final res = await supabase.from('st_active_nokhte_sessions').select();
+          final unifiedPresetUID = res.first[PRESET_UID];
+          if (tags.isEmpty) {
+            tags = await presetsQueries.getTagsFromUnifiedUID(unifiedPresetUID);
+          }
+          leaderUID = res.first[LEADER_UID];
           leaderIndex =
               res.first[COLLABORATOR_UIDS].indexOf(res.first[LEADER_UID]);
           orderedCollaboratorUIDs =
@@ -90,6 +100,8 @@ class RTActiveNokhteSessionsStream extends RTActiveNokhteSessionQueries
           leaderIndex,
         );
         yield NokhteSessionMetadata(
+          leaderUID: leaderUID,
+          tags: tags,
           isWhitelisted: isWhitelisted,
           shouldSkipInstructions: shouldSkipInstructions,
           isAValidSession: isAValidSession,

@@ -8,6 +8,7 @@ mixin STActiveNokhteSessionsConstants {
   String CONTENT = 'content';
   String SESSION_UID = 'session_uid';
   String LEADER_UID = 'leader_uid';
+  String PRESET_UID = 'preset_uid';
   String HAS_PREMIUM_ACCESS = 'has_premium_access';
   String SHOULD_SKIP_INSTRUCTIONS = 'should_skip_instructions';
 }
