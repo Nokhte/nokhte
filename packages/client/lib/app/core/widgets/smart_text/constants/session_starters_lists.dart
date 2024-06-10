@@ -47,5 +47,10 @@ class SessionStartersList {
           initialFadeInDelay: Seconds.get(1),
           pauseHere: true,
         ),
+        RotatingTextData(
+          mainMessage: "",
+          initialFadeInDelay: Seconds.get(1),
+          pauseHere: true,
+        ),
       ];
 }
