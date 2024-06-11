@@ -7,6 +7,7 @@ import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
+import 'package:nokhte/app/modules/presets/presets.dart';
 import 'package:nokhte/app/modules/session_starters/session_starters.dart';
 import 'package:simple_animations/simple_animations.dart';
 part 'session_starter_instructions_widgets_coordinator.g.dart';
@@ -236,7 +237,7 @@ abstract class _SessionStarterInstructionsWidgetsCoordinatorBase
             Modular.to.navigate(SessionStarterConstants.sessionStarterExit);
           } else if (beachWaves.movieMode ==
               BeachWaveMovieModes.invertedOnShoreToInvertedDeeperBlue) {
-            Modular.to.navigate(SessionStarterConstants.presetsInstructions);
+            Modular.to.navigate(PresetsConstants.presetsInstructions);
           }
         }
       });

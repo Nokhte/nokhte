@@ -1,14 +1,13 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nokhte/app/core/widgets/modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
-import 'session_starters.dart';
-export 'constants/constants.dart';
+
+import 'presets.dart';
 export 'data/data.dart';
 export 'domain/domain.dart';
 export 'presentation/presentation.dart';
-export 'session_starters_logic.dart';
 
-class SessionStartersWidgetsModule extends Module {
+class PresetsWidgetsModule extends Module {
   @override
   List<Module> get imports => [
         WifiDisconnectOverlayModule(),
@@ -17,22 +16,8 @@ class SessionStartersWidgetsModule extends Module {
 
   @override
   void binds(Injector i) {
-    i.add<SessionStarterInstructionsWidgetsCoordinator>(
-      () => SessionStarterInstructionsWidgetsCoordinator(
-        homeInstructionalNokhte: InstructionalGradientNokhteStore(),
-        presetsInstructionalNokhte: InstructionalGradientNokhteStore(),
-        nokhteBlur: NokhteBlurStore(),
-        touchRipple: TouchRippleStore(),
-        gestureCross: Modular.get<GestureCrossStore>(),
-        beachWaves: BeachWavesStore(),
-        smartText: SmartTextStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
-      ),
-    );
-    i.add<SessionStarterWidgetsCoordinator>(
-      () => SessionStarterWidgetsCoordinator(
-        qrCode: NokhteQrCodeStore(),
+    i.add<PresetsWidgetsCoordinator>(
+      () => PresetsWidgetsCoordinator(
         nokhteBlur: NokhteBlurStore(),
         touchRipple: TouchRippleStore(),
         gestureCross: Modular.get<GestureCrossStore>(),
@@ -43,18 +28,16 @@ class SessionStartersWidgetsModule extends Module {
         centerInstructionalNokhte: CenterInstructionalNokhteStore(),
       ),
     );
-    i.add<SessionStarterEntryWidgetsCoordinator>(
-      () => SessionStarterEntryWidgetsCoordinator(
+    i.add<PresetsInstructionsWidgetsCoordinator>(
+      () => PresetsInstructionsWidgetsCoordinator(
+        nokhteBlur: NokhteBlurStore(),
+        touchRipple: TouchRippleStore(),
         gestureCross: Modular.get<GestureCrossStore>(),
         beachWaves: BeachWavesStore(),
+        smartText: SmartTextStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-      ),
-    );
-    i.add<SessionStarterExitWidgetsCoordinator>(
-      () => SessionStarterExitWidgetsCoordinator(
-        gestureCross: Modular.get<GestureCrossStore>(),
-        beachWaves: BeachWavesStore(),
-        wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
+        instructionalGradientNokhte: InstructionalGradientNokhteStore(),
+        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
       ),
     );
   }

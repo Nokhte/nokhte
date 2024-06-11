@@ -5,12 +5,11 @@ import 'modules/login/login.dart';
 import 'modules/session/session.dart';
 import 'modules/session_starters/session_starters.dart';
 import 'modules/storage/storage.dart';
+import 'modules/presets/presets.dart';
 
 class AppModule extends Module {
   @override
-  List<Module> get imports => [
-        SupabaseModule(),
-      ];
+  List<Module> get imports => [SupabaseModule()];
 
   @override
   void routes(r) {
@@ -19,5 +18,6 @@ class AppModule extends Module {
     r.module(SessionStarterConstants.module, module: SessionStartersModule());
     r.module(SessionConstants.module, module: SessionModule());
     r.module(StorageConstants.module, module: StorageModule());
+    r.module(PresetsConstants.module, module: PresetsModule());
   }
 }

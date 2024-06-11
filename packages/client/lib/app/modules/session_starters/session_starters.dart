@@ -3,7 +3,6 @@ import 'package:nokhte/app/core/modules/deep_links/deep_links.dart';
 import 'package:nokhte/app/core/modules/legacy_connectivity/legacy_connectivity.dart';
 import 'package:nokhte/app/core/modules/posthog/posthog.dart';
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
-import 'package:nokhte/app/core/widgets/modules.dart';
 import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'session_starters.dart';
 export 'constants/constants.dart';
@@ -21,8 +20,6 @@ class SessionStartersModule extends Module {
         LegacyConnectivityModule(),
         SessionStartersLogicModule(),
         PosthogModule(),
-        WifiDisconnectOverlayModule(),
-        GestureCrossModule(),
         SessionStartersWidgetsModule(),
       ];
 
@@ -103,20 +100,6 @@ class SessionStartersModule extends Module {
       transition: TransitionType.noTransition,
       child: (context) => SessionStarterInstructionsScreen(
         coordinator: Modular.get<SessionStarterInstructionsCoordinator>(),
-      ),
-    );
-    r.child(
-      SessionStarterConstants.relativePresets,
-      transition: TransitionType.noTransition,
-      child: (context) => PresetsScreen(
-        coordinator: Modular.get<PresetsCoordinator>(),
-      ),
-    );
-    r.child(
-      SessionStarterConstants.relativePresetsInstructions,
-      transition: TransitionType.noTransition,
-      child: (context) => PresetsInstructionsScreen(
-        coordinator: Modular.get<PresetsInstructionsCoordinator>(),
       ),
     );
   }
