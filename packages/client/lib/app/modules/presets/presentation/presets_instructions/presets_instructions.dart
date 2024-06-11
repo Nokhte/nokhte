@@ -44,11 +44,6 @@ class PresetsInstructionsScreen extends HookWidget {
                 store: coordinator.widgets.nokhteBlur,
               ),
             ),
-            FullScreen(
-              child: TouchRipple(
-                store: coordinator.widgets.touchRipple,
-              ),
-            ),
             Center(
               child: SmartText(
                 store: coordinator.widgets.smartText,
@@ -61,6 +56,9 @@ class PresetsInstructionsScreen extends HookWidget {
                     coordinator.widgets.smartTextSubMessagePaddingScalar,
               ),
             ),
+            PresetsCards(
+              store: coordinator.widgets.presetsCards,
+            ),
             GestureCross(
               showGlowAndOutline: true,
               config: GestureCrossConfiguration(
@@ -71,12 +69,6 @@ class PresetsInstructionsScreen extends HookWidget {
                 ),
               ),
               store: coordinator.widgets.gestureCross,
-            ),
-            CenterInstructionalNokhte(
-              store: coordinator.widgets.centerInstructionalNokhte,
-            ),
-            InstructionalGradientNokhte(
-              store: coordinator.widgets.instructionalGradientNokhte,
             ),
             WifiDisconnectOverlay(
               store: coordinator.widgets.wifiDisconnectOverlay,

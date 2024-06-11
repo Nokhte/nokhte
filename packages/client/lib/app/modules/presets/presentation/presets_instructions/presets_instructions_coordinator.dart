@@ -12,10 +12,12 @@ class PresetsInstructionsCoordinator = _PresetsInstructionsCoordinatorBase
 abstract class _PresetsInstructionsCoordinatorBase extends BaseCoordinator
     with Store {
   final PresetsInstructionsWidgetsCoordinator widgets;
+  final PresetsLogicCoordinator logic;
 
   _PresetsInstructionsCoordinatorBase({
     required this.widgets,
     required super.captureScreen,
+    required this.logic,
   });
 
   @action
@@ -23,6 +25,7 @@ abstract class _PresetsInstructionsCoordinatorBase extends BaseCoordinator
     widgets.constructor(center);
     widgets.initReactors();
     initReactors();
+    await logic.getCompanyPresets();
     await captureScreen(PresetsConstants.presetsInstructions);
   }
 
@@ -38,7 +41,16 @@ abstract class _PresetsInstructionsCoordinatorBase extends BaseCoordinator
         widgets.setIsDisconnected(true);
       },
     ));
+    disposers.add(companyPresetsReactor());
   }
+
+  companyPresetsReactor() => reaction((p0) => logic.names, (p0) {
+        widgets.onCompanyPresetsReceived(
+          unifiedUIDs: logic.unifiedUIDs,
+          names: logic.names,
+          tags: logic.tags,
+        );
+      });
 
   @override
   deconstructor() {

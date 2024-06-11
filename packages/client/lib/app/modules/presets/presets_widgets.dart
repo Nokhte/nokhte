@@ -30,14 +30,12 @@ class PresetsWidgetsModule extends Module {
     );
     i.add<PresetsInstructionsWidgetsCoordinator>(
       () => PresetsInstructionsWidgetsCoordinator(
+        presetsCards: PresetsCardsStore(),
         nokhteBlur: NokhteBlurStore(),
-        touchRipple: TouchRippleStore(),
         gestureCross: Modular.get<GestureCrossStore>(),
         beachWaves: BeachWavesStore(),
         smartText: SmartTextStore(),
         wifiDisconnectOverlay: Modular.get<WifiDisconnectOverlayStore>(),
-        instructionalGradientNokhte: InstructionalGradientNokhteStore(),
-        centerInstructionalNokhte: CenterInstructionalNokhteStore(),
       ),
     );
   }
