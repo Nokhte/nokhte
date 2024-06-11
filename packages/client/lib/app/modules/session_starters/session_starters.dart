@@ -25,18 +25,6 @@ class SessionStartersModule extends Module {
 
   @override
   void binds(i) {
-    i.add<PresetsCoordinator>(
-      () => PresetsCoordinator(
-        captureScreen: Modular.get<CaptureScreen>(),
-        widgets: Modular.get<PresetsWidgetsCoordinator>(),
-      ),
-    );
-    i.add<PresetsInstructionsCoordinator>(
-      () => PresetsInstructionsCoordinator(
-        captureScreen: Modular.get<CaptureScreen>(),
-        widgets: Modular.get<PresetsInstructionsWidgetsCoordinator>(),
-      ),
-    );
     i.add<SessionStarterInstructionsCoordinator>(
       () => SessionStarterInstructionsCoordinator(
         tap: TapDetector(),
