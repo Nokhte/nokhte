@@ -78,9 +78,9 @@ class CompanyPresetsQueries {
   static mapTypeToPresetType(PresetTypes type) {
     switch (type) {
       case PresetTypes.consultative:
-        return 'Consultative';
+        return 'Consultation';
       case PresetTypes.collaborative:
-        return 'Collaborative';
+        return 'Collaboration';
       case PresetTypes.socratic:
         return 'Socratic';
       case PresetTypes.none:
