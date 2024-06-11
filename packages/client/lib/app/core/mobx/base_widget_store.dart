@@ -3,14 +3,12 @@ import 'package:mobx/mobx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nokhte/app/core/types/types.dart';
 import 'package:simple_animations/simple_animations.dart';
-part 'base_custom_animated_widget_store.g.dart';
+part 'base_widget_store.g.dart';
 
-class BaseCustomAnimatedWidgetStore<T> = _BaseCustomAnimatedWidgetStoreBase<T>
-    with _$BaseCustomAnimatedWidgetStore<T>;
+class BaseWidgetStore<T> = _BaseWidgetStoreBase<T> with _$BaseWidgetStore<T>;
 
-abstract class _BaseCustomAnimatedWidgetStoreBase<T> extends Equatable
-    with Store {
-  _BaseCustomAnimatedWidgetStoreBase({
+abstract class _BaseWidgetStoreBase<T> extends Equatable with Store {
+  _BaseWidgetStoreBase({
     this.callsOnCompleteTwice = false,
   });
 

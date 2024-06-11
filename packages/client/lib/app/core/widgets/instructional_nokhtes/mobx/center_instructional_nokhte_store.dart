@@ -12,8 +12,7 @@ class CenterInstructionalNokhteStore = _CenterInstructionalNokhteStoreBase
     with _$CenterInstructionalNokhteStore;
 
 abstract class _CenterInstructionalNokhteStoreBase
-    extends BaseCustomAnimatedWidgetStore<InstructionalNokhtePositions>
-    with Store {
+    extends BaseWidgetStore<InstructionalNokhtePositions> with Store {
   _CenterInstructionalNokhteStoreBase() {
     setMovie(
         CenterInstructionalNokhteTransformationMovie.getMovie(Offset.zero));

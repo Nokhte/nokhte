@@ -8,7 +8,7 @@ class CollaboratorPresenceIncidentsOverlayStore = _CollaboratorPresenceIncidents
     with _$CollaboratorPresenceIncidentsOverlayStore;
 
 abstract class _CollaboratorPresenceIncidentsOverlayStoreBase
-    extends BaseCustomAnimatedWidgetStore with Store {
+    extends BaseWidgetStore with Store {
   final ListenToSessionMetadataStore sessionMetadataStore;
 
   _CollaboratorPresenceIncidentsOverlayStoreBase({

@@ -6,8 +6,8 @@ part 'gradient_cross_nokhte_store.g.dart';
 class GradientCrossNokhteStore = _GradientCrossNokhteStoreBase
     with _$GradientCrossNokhteStore;
 
-abstract class _GradientCrossNokhteStoreBase
-    extends BaseCustomAnimatedWidgetStore with Store {
+abstract class _GradientCrossNokhteStoreBase extends BaseWidgetStore
+    with Store {
   _GradientCrossNokhteStoreBase() {
     toggleWidgetVisibility();
   }

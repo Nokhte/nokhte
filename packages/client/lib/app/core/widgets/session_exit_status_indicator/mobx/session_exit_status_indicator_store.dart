@@ -12,7 +12,7 @@ class SessionExitStatusIndicatorStore = _SessionExitStatusIndicatorStoreBase
     with _$SessionExitStatusIndicatorStore;
 
 abstract class _SessionExitStatusIndicatorStoreBase
-    extends BaseCustomAnimatedWidgetStore with Store {
+    extends BaseWidgetStore with Store {
   _SessionExitStatusIndicatorStoreBase() {
     setMovie(
       ShowSessionExitStatusIndicatorMovie.getMovie(

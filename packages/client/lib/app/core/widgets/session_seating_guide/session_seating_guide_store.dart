@@ -7,7 +7,7 @@ class SessionSeatingGuideStore = _SessionSeatingGuideStoreBase
     with _$SessionSeatingGuideStore;
 
 abstract class _SessionSeatingGuideStoreBase
-    extends BaseCustomAnimatedWidgetStore with Store {
+    extends BaseWidgetStore with Store {
   @observable
   ObservableList<int> values = ObservableList.of(List.filled(3, 3));
 

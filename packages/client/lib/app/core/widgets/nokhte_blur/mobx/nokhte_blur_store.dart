@@ -8,8 +8,7 @@ part 'nokhte_blur_store.g.dart';
 
 class NokhteBlurStore = _NokhteBlurStoreBase with _$NokhteBlurStore;
 
-abstract class _NokhteBlurStoreBase extends BaseCustomAnimatedWidgetStore
-    with Store {
+abstract class _NokhteBlurStoreBase extends BaseWidgetStore with Store {
   _NokhteBlurStoreBase() {
     setMovie(BlurMovie.getMovie(blurValue: 10.0));
   }

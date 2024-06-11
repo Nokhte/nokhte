@@ -9,7 +9,7 @@ part 'mirrored_text_store.g.dart';
 
 class MirroredTextStore = _MirroredTextStoreBase with _$MirroredTextStore;
 
-abstract class _MirroredTextStoreBase extends BaseCustomAnimatedWidgetStore
+abstract class _MirroredTextStoreBase extends BaseWidgetStore
     with Store {
   final SmartTextStore primaryRightSideUpText;
   final SmartTextStore secondaryRightSideUpText;

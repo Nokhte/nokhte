@@ -11,7 +11,7 @@ part 'trailing_text_store.g.dart';
 class TrailingTextStore = _TrailingTextStoreBase with _$TrailingTextStore;
 
 abstract class _TrailingTextStoreBase
-    extends BaseCustomAnimatedWidgetStore<NoParams> with Store {
+    extends BaseWidgetStore<NoParams> with Store {
   @observable
   Size textSize = Size.zero;
 

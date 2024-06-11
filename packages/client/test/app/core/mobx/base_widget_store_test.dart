@@ -5,9 +5,9 @@ import 'package:nokhte/app/core/widgets/widgets.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 void main() {
-  late BaseCustomAnimatedWidgetStore testStore;
+  late BaseWidgetStore testStore;
 
-  setUp(() => testStore = BaseAnimatedSchedulingWidgetStore());
+  setUp(() => testStore = BaseWidgetStore());
 
   group("initial values", () {
     test("movie", () {

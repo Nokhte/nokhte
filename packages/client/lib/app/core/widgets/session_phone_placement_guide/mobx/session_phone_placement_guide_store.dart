@@ -8,8 +8,8 @@ part 'session_phone_placement_guide_store.g.dart';
 class SessionPhonePlacementGuideStore = _SessionPhonePlacementGuideStoreBase
     with _$SessionPhonePlacementGuideStore;
 
-abstract class _SessionPhonePlacementGuideStoreBase
-    extends BaseCustomAnimatedWidgetStore with Store {
+abstract class _SessionPhonePlacementGuideStoreBase extends BaseWidgetStore
+    with Store {
   _SessionPhonePlacementGuideStoreBase() {
     setMovie(PhonePlacementArrowsMovie.movie);
     setControl(Control.loop);
