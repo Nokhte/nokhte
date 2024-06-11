@@ -1,7 +1,9 @@
 import 'package:nokhte/app/core/modules/user_information/user_information.dart';
+import 'package:nokhte_backend/tables/user_information.dart';
 
-class UserJourneyInfoModel extends UserJourneyInfoEntity {
-  const UserJourneyInfoModel({
+class UserJourneyInfoModel extends UserJourneyInfoEntity
+    with UserInformationConstants {
+  UserJourneyInfoModel({
     required super.hasAccessedQrCode,
     required super.userUID,
     required super.hasCompletedASession,
@@ -15,7 +17,7 @@ class UserJourneyInfoModel extends UserJourneyInfoEntity {
     required bool isUpToDate,
   }) {
     if (userNamesRes.isEmpty) {
-      return const UserJourneyInfoModel(
+      return UserJourneyInfoModel(
         isOnMostRecentVersion: true,
         hasAccessedQrCode: false,
         hasCompletedASession: false,
@@ -25,11 +27,14 @@ class UserJourneyInfoModel extends UserJourneyInfoEntity {
     } else {
       return UserJourneyInfoModel(
         isOnMostRecentVersion: isUpToDate,
-        userUID: userNamesRes.first['uid'],
-        hasAccessedQrCode: userNamesRes.first['has_accessed_qr_code'],
+        userUID: userNamesRes.first[UserInformationConstants.S_UID],
+        hasAccessedQrCode:
+            userNamesRes.first[UserInformationConstants.S_PREFERRED_PRESET] !=
+                null,
         hasCompletedASession:
             hasCompletedNokhteSession(finishedNokhteSessionsRes),
-        hasEnteredStorage: userNamesRes.first['has_entered_storage'],
+        hasEnteredStorage:
+            userNamesRes.first[UserInformationConstants.S_HAS_ENTERED_STORAGE],
       );
     }
   }

@@ -10,12 +10,12 @@ class UserInformationCoordinator = _UserInformationCoordinatorBase
 abstract class _UserInformationCoordinatorBase extends BaseMobxDBStore
     with Store {
   final GetUserInfoStore getUserInfoStore;
-  final UpdateHasAccessedQrCode updateHasAccessedQrCodeLogic;
+  final UpdatePreferredPreset updatePreferredPresetLogic;
   final UpdateHasEnteredStorage updateHasEnteredStorageLogic;
 
   _UserInformationCoordinatorBase({
     required this.getUserInfoStore,
-    required this.updateHasAccessedQrCodeLogic,
+    required this.updatePreferredPresetLogic,
     required this.updateHasEnteredStorageLogic,
   });
 
@@ -32,9 +32,9 @@ abstract class _UserInformationCoordinatorBase extends BaseMobxDBStore
   bool storageStatusIsUpdated = false;
 
   @action
-  updateHasAccessedQrCode(bool newStatus) async {
+  updatePreferredPreset(String presetUID) async {
     state = StoreState.loading;
-    final res = await updateHasAccessedQrCodeLogic(newStatus);
+    final res = await updatePreferredPresetLogic(presetUID);
     res.fold((failure) => errorUpdater(failure),
         (status) => invitationFlowCompletionStatusIsUpdated = status);
     state = StoreState.loaded;

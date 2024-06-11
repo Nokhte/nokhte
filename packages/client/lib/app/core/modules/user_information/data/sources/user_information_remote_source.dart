@@ -4,7 +4,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class UserInformationRemoteSource {
-  Future<List> updateHasAccessedQrCode(bool hasGoneThroughInvitationFlowParam);
+  Future<List> updatePreferredPreset(String presetUID);
   Future<List> getUserInfo();
   Future<List> getFinishedNokhteSessions();
   Future<List> updateHasEnteredStorage(bool newEntryStatus);
@@ -22,9 +22,8 @@ class UserInformationRemoteSourceImpl implements UserInformationRemoteSource {
             FinishedNokhteSessionQueries(supabase: supabase);
 
   @override
-  updateHasAccessedQrCode(bool hasGoneThroughInvitationFlowParam) async =>
-      await userNamesQueries
-          .updateHasAccessedQrCode(hasGoneThroughInvitationFlowParam);
+  updatePreferredPreset(String presetUID) async =>
+      await userNamesQueries.updatePreferredPreset(presetUID);
 
   @override
   getUserInfo() async => await userNamesQueries.getUserInfo();

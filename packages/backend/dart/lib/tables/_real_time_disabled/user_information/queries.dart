@@ -25,36 +25,14 @@ class UserInformationQueries with UserInformationConstants {
   Future<List> deleteUserInfo() async =>
       await supabase.from(TABLE).delete().eq(UID, userUID).select();
 
-  Future<List> updateHasSentAnInvitation(bool hasSentAnInvitation) async {
-    final getRes = await getUserInfo();
-    if (getRes.first[HAS_SENT_AN_INVITATION] == hasSentAnInvitation) {
-      return getRes;
-    } else {
-      return await supabase
-          .from(TABLE)
-          .update({
-            HAS_SENT_AN_INVITATION: hasSentAnInvitation,
-          })
-          .eq(UID, userUID)
-          .select();
-    }
-  }
-
-  Future<List> updateHasAccessedQrCode(
-    bool hasGoneThroughInvitationFlow,
+  Future<List> updatePreferredPreset(
+    String presetUID,
   ) async {
-    final getRes = await getUserInfo();
-    if (getRes.first[HAS_ACCESSED_QR_CODE] == hasGoneThroughInvitationFlow) {
-      return getRes;
-    } else {
-      return await supabase
-          .from(TABLE)
-          .update({
-            HAS_ACCESSED_QR_CODE: hasGoneThroughInvitationFlow,
-          })
-          .eq(UID, userUID)
-          .select();
-    }
+    return await supabase
+        .from(TABLE)
+        .update({PREFERRED_PRESET: presetUID})
+        .eq(UID, userUID)
+        .select();
   }
 
   Future<List> updateHasEnteredStorage(bool hasEnteredStorage) async {

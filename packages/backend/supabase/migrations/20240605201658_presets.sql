@@ -241,5 +241,10 @@ INSERT INTO public.unified_presets (uid, is_company_preset, company_preset_id)
 SELECT uid, TRUE, uid
 FROM public.company_presets;
 
-UPDATE public.user_information
-SET has_accessed_qr_code = false;
+alter table "public"."user_information" drop column "has_accessed_qr_code";
+
+alter table "public"."user_information" add column "preferred_preset" uuid;
+
+alter table "public"."user_information" add constraint "user_information_preferred_preset_fkey" FOREIGN KEY (preferred_preset) REFERENCES unified_presets(uid) ON UPDATE CASCADE ON DELETE SET NULL not valid;
+
+alter table "public"."user_information" validate constraint "user_information_preferred_preset_fkey";
