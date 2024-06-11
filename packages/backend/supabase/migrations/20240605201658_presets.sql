@@ -25,27 +25,27 @@ alter table "public"."company_presets" enable row level security;
   INSERT INTO public.company_presets (uid, name, even_configuration, odd_configuration, tags)
 VALUES 
   (
+    gen_random_uuid(),
+    'Consultation' ,
+    '{speaking, notes}',
+    '{group_hybrid, speaking, notes}',
+    '{hold_to_speak, strict_seating, notes_during}'
+  ),
+
+  (
+    gen_random_uuid(), 
+    'Collaboration' ,
+    '{solo_hybrid}',
+    '{solo_hybrid}',
+    '{tap_to_speak, flexible_seating, notes_during}'
+  ),
+  (
     gen_random_uuid(), 
     'Socratic' ,       
     '{speaking}',
     '{speaking}',
     '{hold_to_speak, strict_seating, notes_after}'
-  ),
-  (
-    gen_random_uuid(),
-    'Consultative' ,
-    '{speaking, notes}',
-    '{group_hybrid, speaking, notes}',
-    '{hold_to_speak, strict_seating, notes_during}'
-  ),
-  (
-    gen_random_uuid(), 
-    'Collaborative' ,
-    '{solo_hybrid}',
-    '{solo_hybrid}',
-    '{tap_to_speak, flexible_seating, notes_during}'
   );
-
 
 create table "public"."unified_presets" (
     "uid" uuid not null,
