@@ -3,7 +3,7 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class FlexibleSeatingMovie {
-  static MovieTween get movie => MovieTween()
+  static MovieTween get active => MovieTween()
     ..scene(
       begin: Seconds.get(0),
       end: Seconds.get(0, milli: 500),
@@ -64,4 +64,30 @@ class FlexibleSeatingMovie {
         end: .25,
       ),
     );
+  static MovieTween get static => MovieTween()
+    ..scene(
+      begin: Seconds.get(0),
+      end: Seconds.get(1),
+    )
+        .tween(
+          'o1',
+          Tween<double>(
+            begin: 1,
+            end: 1,
+          ),
+        )
+        .tween(
+          'o2',
+          Tween<double>(
+            begin: 1,
+            end: 1,
+          ),
+        )
+        .tween(
+          'o3',
+          Tween<double>(
+            begin: 1,
+            end: 1,
+          ),
+        );
 }

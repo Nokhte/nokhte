@@ -4,8 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 class TalkingIconsPainter extends CustomPainter {
   final Color color;
   final bool showTheH;
+  final double sizeScalar;
 
-  TalkingIconsPainter({required this.color, required this.showTheH});
+  TalkingIconsPainter({
+    required this.color,
+    required this.showTheH,
+    required this.sizeScalar,
+  });
 
   @override
   void paint(canvas, size) {
@@ -14,22 +19,27 @@ class TalkingIconsPainter extends CustomPainter {
       (size.height / 2),
     );
 
+    final scalar = size.height;
+    final strokeWidth = scalar * .03;
+
     final circleGlow = Paint()
-      ..strokeWidth = 5.0
+      ..strokeWidth = scalar * .1
       ..color = color
       ..style = PaintingStyle.stroke
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 10);
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, scalar * .2);
 
-    canvas.drawCircle(center, 33, circleGlow);
+    final circleRad = scalar * .45;
+
+    canvas.drawCircle(center, circleRad, circleGlow);
 
     final Paint circlePaint = Paint()
       ..color = Colors.white
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 3;
-    canvas.drawCircle(center, 30, circlePaint);
+      ..strokeWidth = strokeWidth;
+    canvas.drawCircle(center, circleRad, circlePaint);
     final textStyle = GoogleFonts.jost(
       color: Colors.white,
-      fontSize: size.height * .04,
+      fontSize: scalar * .6,
     );
 
     final textSpan = TextSpan(

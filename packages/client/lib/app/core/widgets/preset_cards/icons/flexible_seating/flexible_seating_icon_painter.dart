@@ -1,25 +1,39 @@
 import 'package:flutter/material.dart';
 
 class FlexibleSeatingIconPainter extends CustomPainter {
+  final double containerSize;
   final double o1, o2, o3;
 
   FlexibleSeatingIconPainter({
     required this.o1,
     required this.o2,
     required this.o3,
+    required this.containerSize,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(
       size.width / 2,
-      (size.height / 2) + 50,
+      (size.height / 2),
     );
+
+    final scalar = size.height;
+    final circleRad = scalar * .45;
+
     final Paint circlePaint = Paint()
       ..color = Colors.white
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 3;
-    canvas.drawCircle(center, 30, circlePaint);
+      ..strokeWidth = scalar * .03;
+    canvas.drawCircle(center, circleRad, circlePaint);
+
+    final lineScalar = scalar * .014;
+
+    final dx = scalar * .48;
+    final dy = scalar * .48;
+
+    canvas.scale(lineScalar, lineScalar);
+    canvas.translate(dx, dy);
 
     final a1p1 = Offset(center.dx + 4, center.dy - 5);
     final a1p2 = Offset(center.dx + 10, center.dy);

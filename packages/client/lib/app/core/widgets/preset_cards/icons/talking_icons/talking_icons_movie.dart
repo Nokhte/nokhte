@@ -3,7 +3,7 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class TalkingIconsMovie {
-  static MovieTween get movie => MovieTween()
+  static MovieTween get active => MovieTween()
     ..scene(
       begin: Seconds.get(0),
       end: Seconds.get(1),
@@ -41,6 +41,17 @@ class TalkingIconsMovie {
       'color',
       ColorTween(
         begin: const Color(0xFFCB3B44),
+        end: Colors.transparent,
+      ),
+    );
+  static MovieTween get static => MovieTween()
+    ..scene(
+      begin: Seconds.get(0),
+      end: Seconds.get(1),
+    ).tween(
+      'color',
+      ColorTween(
+        begin: Colors.transparent,
         end: Colors.transparent,
       ),
     );

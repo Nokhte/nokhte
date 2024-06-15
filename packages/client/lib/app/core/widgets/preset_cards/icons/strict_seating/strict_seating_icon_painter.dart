@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class StrictSeatingIconPainter extends CustomPainter {
+  final double containerSize;
   final Offset top, right, bottom, left;
 
   StrictSeatingIconPainter({
@@ -8,24 +9,34 @@ class StrictSeatingIconPainter extends CustomPainter {
     required this.right,
     required this.bottom,
     required this.left,
+    required this.containerSize,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(
       size.width / 2,
-      (size.height / 2) + 50,
+      (size.height / 2),
     );
+
+    final scalar = size.height;
+
+    final circleRad = scalar * .45;
+
+    final lineScalar = scalar * .012;
+
+    final subCircleRad = scalar * .06;
+
     final Paint paint = Paint()
       ..color = Colors.white
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 3;
-    canvas.drawCircle(center, 30, paint);
+      ..strokeWidth = scalar * .03;
+    canvas.drawCircle(center, circleRad, paint);
 
-    final t = Offset(top.dx * .8, top.dy * .8);
-    final r = Offset(right.dx * .8, right.dy * .8);
-    final b = Offset(bottom.dx * .8, bottom.dy * .8);
-    final l = Offset(left.dx * .8, left.dy * .8);
+    final t = Offset(top.dx * lineScalar, top.dy * lineScalar);
+    final r = Offset(right.dx * lineScalar, right.dy * lineScalar);
+    final b = Offset(bottom.dx * lineScalar, bottom.dy * lineScalar);
+    final l = Offset(left.dx * lineScalar, left.dy * lineScalar);
 
     final Offset baseTop = Offset(center.dx + t.dx, center.dy + t.dy);
     final Offset baseRight = Offset(center.dx + r.dx, center.dy + r.dy);
@@ -33,10 +44,10 @@ class StrictSeatingIconPainter extends CustomPainter {
     final Offset baseLeft = Offset(center.dx + l.dx, center.dy + l.dy);
 
     final Paint other = Paint()..color = Colors.white;
-    canvas.drawCircle(baseTop, 3, other);
-    canvas.drawCircle(baseRight, 3, other);
-    canvas.drawCircle(baseBottom, 3, other);
-    canvas.drawCircle(baseLeft, 3, other);
+    canvas.drawCircle(baseTop, subCircleRad, other);
+    canvas.drawCircle(baseRight, subCircleRad, other);
+    canvas.drawCircle(baseBottom, subCircleRad, other);
+    canvas.drawCircle(baseLeft, subCircleRad, other);
 
     final Paint paint1 = Paint()
       ..color = Colors.white

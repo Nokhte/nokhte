@@ -3,7 +3,7 @@ import 'package:nokhte/app/core/types/types.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class StrictSeatingMovie {
-  static MovieTween get movie => MovieTween()
+  static MovieTween get active => MovieTween()
     ..scene(
       begin: Seconds.get(0),
       end: Seconds.get(1),
@@ -480,4 +480,75 @@ class StrictSeatingMovie {
           ),
           curve: Curves.easeInOutCubicEmphasized,
         );
+
+  static MovieTween get static => MovieTween()
+    ..scene(
+      begin: Seconds.get(0),
+      end: Seconds.get(1),
+    )
+        .tween(
+          'top.dx',
+          Tween<double>(
+            begin: 0,
+            end: 0,
+          ),
+          curve: Curves.easeInOutCubicEmphasized,
+        )
+        .tween(
+          'top.dy',
+          Tween<double>(
+            begin: -24,
+            end: -24,
+          ),
+          curve: Curves.easeInOutCubicEmphasized,
+        )
+        .tween(
+          'right.dx',
+          Tween<double>(
+            begin: 24,
+            end: 24,
+          ),
+          curve: Curves.easeInOutCubicEmphasized,
+        )
+        .tween(
+          'right.dy',
+          Tween<double>(
+            begin: 0,
+            end: 0,
+          ),
+          curve: Curves.easeInOutCubicEmphasized,
+        )
+        .tween(
+          'bottom.dx',
+          Tween<double>(
+            begin: 0,
+            end: 0,
+          ),
+          curve: Curves.easeInOutCubicEmphasized,
+        )
+        .tween(
+          'bottom.dy',
+          Tween<double>(
+            begin: 24,
+            end: 24,
+          ),
+          curve: Curves.easeInOutCubicEmphasized,
+        )
+        .tween(
+          'left.dx',
+          Tween<double>(
+            begin: -24,
+            end: -24,
+          ),
+          curve: Curves.easeInOutCubicEmphasized,
+        )
+        .tween(
+          'left.dy',
+          Tween<double>(
+            begin: 0,
+            end: 0,
+          ),
+          curve: Curves.easeInOutCubicEmphasized,
+        );
+//
 }
