@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nokhte/app/core/mobx/mobx.dart';
@@ -14,19 +16,19 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
   final BeachWavesStore beachWaves;
   final SmartTextStore smartText;
   final GestureCrossStore gestureCross;
-  final PresetsCardsStore presetsCards;
+  final CondensedPresetsCardsStore condensedPresetsCards;
   final NokhteBlurStore nokhteBlur;
 
   _PresetsInstructionsWidgetsCoordinatorBase({
     required this.beachWaves,
     required this.gestureCross,
     required this.smartText,
-    required this.presetsCards,
+    required this.condensedPresetsCards,
     required super.wifiDisconnectOverlay,
     required this.nokhteBlur,
   }) {
-    setSmartTextTopPaddingScalar(.27);
-    setSmartTextBottomPaddingScalar(0);
+    setSmartTextTopPaddingScalar(0);
+    setSmartTextBottomPaddingScalar(.1);
     setSmartTextSubMessagePaddingScalar(110);
   }
 
@@ -36,7 +38,7 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
     beachWaves.setMovieMode(BeachWaveMovieModes.staticInvertedDeeperBlue);
     gestureCross.fadeIn();
     gestureCross.cross.initStaticGlow();
-    smartText.setMessagesData(SharedLists.empty);
+    smartText.setMessagesData(PresetsLists.presetsInstructions);
     initReactors();
   }
 
@@ -45,11 +47,14 @@ abstract class _PresetsInstructionsWidgetsCoordinatorBase
     required ObservableList tags,
     required ObservableList names,
   }) {
-    presetsCards.setPresets(
+    condensedPresetsCards.setPresets(
       unifiedUIDs: unifiedUIDs,
       tags: tags,
       names: names,
     );
+    Timer(Seconds.get(1), () {
+      smartText.startRotatingText();
+    });
   }
 
   initReactors() {

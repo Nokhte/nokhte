@@ -56,8 +56,8 @@ class PresetsInstructionsScreen extends HookWidget {
                     coordinator.widgets.smartTextSubMessagePaddingScalar,
               ),
             ),
-            PresetsCards(
-              store: coordinator.widgets.presetsCards,
+            CondensedPresetsCards(
+              store: coordinator.widgets.condensedPresetsCards,
             ),
             GestureCross(
               showGlowAndOutline: true,
