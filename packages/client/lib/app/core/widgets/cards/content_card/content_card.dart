@@ -69,7 +69,6 @@ class ContentCard extends HookWidget with ContentCardConstants {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  // border: Border.all(width: 2, color: Colors.white)),
                   border: GradientBoxBorder(
                     gradient: blueGrad,
                     width: 2,
