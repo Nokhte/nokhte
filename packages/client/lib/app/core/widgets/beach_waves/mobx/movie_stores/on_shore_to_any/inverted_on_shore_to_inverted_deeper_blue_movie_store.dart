@@ -31,4 +31,19 @@ abstract class _InvertedOnShoreToOceanInvertedDeeperBlueStoreBase
     setControl(Control.playFromStart);
     setMovieStatus(MovieStatus.inProgress);
   }
+
+  @override
+  @action
+  reverseMovie(double startingWaterPosition) {
+    callsOnCompleteTwice = false;
+    setMovie(
+      OnShoreToAny.getMovie(
+        startingColors: WaterColorsAndStops.invertedBeachWater,
+        startingWaterMovement: startingWaterPosition,
+        endingColors: WaterColorsAndStops.invertedDeeperBlue,
+      ),
+    );
+    setControl(Control.playReverseFromEnd);
+    setMovieStatus(MovieStatus.inProgress);
+  }
 }
